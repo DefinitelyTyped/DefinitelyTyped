@@ -3,7 +3,7 @@ import Ooura = require("ooura");
 // real fft
 const inputR = new Float64Array([1, 2, 3, 4, 1, 2, 3, 4]);
 
-const oouraReal = new Ooura(inputR.length, {type: "real", radix: 4}); // $ExpectType Ooura
+const oouraReal = new Ooura(inputR.length, { type: "real", radix: 4 }); // $ExpectType Ooura
 
 const outputR = oouraReal.scalarArrayFactory(); // $ExpectType Float64Array
 const backReR = oouraReal.vectorArrayFactory(); // $ExpectType Float64Array
@@ -15,7 +15,7 @@ oouraReal.ifft(outputR.buffer, backReR.buffer, backImR.buffer); // $ExpectType v
 // complex fft
 const inputReC = new Float64Array([1, 2, 3, 4]);
 const inputImC = new Float64Array([2, 3, 4, 5]);
-const oouraComplex = new Ooura(inputReC.length * 2, {type: "complex", radix: 4}); // $ExpectType Ooura
+const oouraComplex = new Ooura(inputReC.length * 2, { type: "complex", radix: 4 }); // $ExpectType Ooura
 
 const outputReC = oouraComplex.vectorArrayFactory(); // $ExpectType Float64Array
 const outputImC = oouraComplex.vectorArrayFactory(); // $ExpectType Float64Array
@@ -27,7 +27,7 @@ oouraComplex.ifft(outputReC.buffer, outputImC.buffer, backReC.buffer, backImC.bu
 
 // in-place fft
 const nfft = 32;
-const oo = new Ooura(nfft, {type: "complex", radix: 4}); // $ExpectType Ooura
+const oo = new Ooura(nfft, { type: "complex", radix: 4 }); // $ExpectType Ooura
 const data = Float64Array.from(Array(nfft), (e, i) => i + 1);
 oo.fftInPlace(data.buffer); // $ExpectType void
 oo.ifftInPlace(data.buffer); // $ExpectType void
@@ -39,13 +39,13 @@ const oouraDefault = new Ooura(inputR.length); // $ExpectType Ooura
 // @ts-expect-error
 const oouraInvalid1 = new Ooura();
 // @ts-expect-error
-const oouraInvalid2 = new Ooura(8, {radix: 4});
+const oouraInvalid2 = new Ooura(8, { radix: 4 });
 // @ts-expect-error
-const oouraInvalid3 = new Ooura(8, {type: "real"});
+const oouraInvalid3 = new Ooura(8, { type: "real" });
 // @ts-expect-error
-const oouraInvalid4 = new Ooura(8, {type: "real", radix: "4"});
+const oouraInvalid4 = new Ooura(8, { type: "real", radix: "4" });
 // @ts-expect-error
-const oouraInvalid5 = new Ooura(8, {type: "invalid", radix: 4});
+const oouraInvalid5 = new Ooura(8, { type: "invalid", radix: 4 });
 
 // invalid FFT call
 // @ts-expect-error

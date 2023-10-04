@@ -1,15 +1,15 @@
-import * as Readmore from 'readmore-js';
+import * as Readmore from "readmore-js";
 
 const options: Readmore.Options = {
     speed: 100,
     collapsedHeight: 200,
     heightMargin: 16,
-    moreLink: '<a href="#">Read more</a>',
-    lessLink: () => '<a href="#">Close</a>',
+    moreLink: "<a href=\"#\">Read more</a>",
+    lessLink: () => "<a href=\"#\">Close</a>",
     embedCSS: true,
-    blockCSS: 'display: block; width: 100%;',
+    blockCSS: "display: block; width: 100%;",
     startOpen: false,
-    sourceOrder: 'after',
+    sourceOrder: "after",
     beforeToggle: (trigger: Element, element: Element, expanded: boolean) => {
         console.log(trigger, element, element);
     },
@@ -18,11 +18,11 @@ const options: Readmore.Options = {
     },
     blockProcessed: (element: Element, collapsable: boolean) => {
         console.log(element, element);
-    }
+    },
 };
 
-new Readmore('.selector', options);
+new Readmore(".selector", options);
 
-const outer = new Readmore('.outer');
-outer.toggle('.inner');
+const outer = new Readmore(".outer");
+outer.toggle(".inner");
 outer.destroy();

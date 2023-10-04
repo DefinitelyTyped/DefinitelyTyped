@@ -20,9 +20,8 @@
  *   "version": "1.0.0-beta"
  * }
  * ```
- *
  */
-import * as mojangminecraftserveradmin from 'mojang-minecraft-server-admin';
+import * as mojangminecraftserveradmin from "mojang-minecraft-server-admin";
 export enum HttpRequestMethod {
     /**
      * Represents the method for an HTTP PUT request. GET requests
@@ -92,11 +91,11 @@ export class HttpHeader {
     /**
      * Key of the HTTP header.
      */
-    'key': string;
+    "key": string;
     /**
      * Value of the HTTP header.
      */
-    'value': mojangminecraftserveradmin.SecretString | string;
+    "value": mojangminecraftserveradmin.SecretString | string;
     constructor(key: string, value: mojangminecraftserveradmin.SecretString | string);
 }
 /**
@@ -106,25 +105,25 @@ export class HttpRequest {
     /**
      * Content of the body of the HTTP request.
      */
-    'body': string;
+    "body": string;
     /**
      * A collection of HTTP headers to add to the outbound request.
      */
-    'headers': HttpHeader[];
+    "headers": HttpHeader[];
     /**
      * HTTP method (e.g., GET or PUT or PATCH) to use for making
      * the request.
      */
-    'method': HttpRequestMethod;
+    "method": HttpRequestMethod;
     /**
      * Amount of time, in seconds, before the request times out and
      * is abandoned.
      */
-    'timeout': number;
+    "timeout": number;
     /**
      * The HTTP resource to access.
      */
-    'uri': string;
+    "uri": string;
     /**
      * @remarks
      * Adds an additional header to the overall list of headers
@@ -151,23 +150,23 @@ export class HttpResponse {
     /**
      * Body content of the HTTP response.
      */
-    readonly 'body': string;
+    readonly "body": string;
     /**
      * A collection of HTTP response headers returned from the
      * request.
      */
-    readonly 'headers': HttpHeader[];
+    readonly "headers": HttpHeader[];
     /**
      * Information that was used to formulate the HTTP response
      * that this object represents.
      */
-    readonly 'request': HttpRequest;
+    readonly "request": HttpRequest;
     /**
      * HTTP response code for the request. For example, 404
      * represents resource not found, and 500 represents an
      * internal server error.
      */
-    readonly 'status': number;
+    readonly "status": number;
     protected constructor();
 }
 export const http: HttpClient;

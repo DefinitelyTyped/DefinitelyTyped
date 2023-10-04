@@ -1,6 +1,6 @@
-import { describe, it, run, test, before, beforeEach, after, afterEach, skip, todo, only } from 'node:test';
-import { dot, spec, tap, TestEvent } from 'node:test/reporters';
-import { Transform, TransformOptions, TransformCallback } from 'node:stream';
+import { Transform, TransformCallback, TransformOptions } from "node:stream";
+import { after, afterEach, before, beforeEach, describe, it, only, run, skip, test, todo, mock, Mock } from "node:test";
+import { dot, spec, tap, junit, TestEvent } from "node:test/reporters";
 
 // run without options
 // $ExpectType TestsStream
@@ -16,33 +16,50 @@ run({
 // $ExpectType TestsStream
 run({
     concurrency: 1,
-    files: ['test-file-name.js'],
+    files: ["test-file-name.js"],
     signal: new AbortController().signal,
     timeout: 100,
     inspectPort: () => 8081,
-    testNamePatterns: ['executed'],
+    testNamePatterns: ["executed"],
+    only: true,
+    setup: (root) => {},
+    watch: true,
+    shard: {
+        index: 1,
+        total: 3,
+    },
 });
 
 // TestsStream should be a NodeJS.ReadableStream
 run().pipe(process.stdout);
 
-test('foo', t => {
+test("foo", t => {
     // $ExpectType TestContext
     t;
 });
 
-test('blank options', {});
+test("foo", (t) => {
+    // $ExpectType Promise<void>
+    t.test();
+});
 
-test('options with values', {
+test("foo", async (t) => {
+    // $ExpectType void
+    await t.test();
+});
+
+test("blank options", {});
+
+test("options with values", {
     concurrency: 1,
     only: true,
     signal: new AbortController().signal,
-    skip: 'reason for skip',
+    skip: "reason for skip",
     timeout: Infinity,
-    todo: 'reason for todo',
+    todo: "reason for todo",
 });
 
-test('options with booleans', {
+test("options with booleans", {
     skip: true,
     todo: false,
 });
@@ -60,21 +77,21 @@ test((t, cb) => {
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
-    cb({ x: 'anything' });
+    cb({ x: "anything" });
 });
 
 // Test the context's methods
 test(undefined, undefined, t => {
     // $ExpectType void
-    t.diagnostic('tap diagnostic');
+    t.diagnostic("tap diagnostic");
     // $ExpectType void
     t.runOnly(true);
     // $ExpectType void
-    t.skip('skip reason');
+    t.skip("skip reason");
     // $ExpectType void
     t.skip();
     // $ExpectType void
-    t.todo('todo reason');
+    t.todo("todo reason");
     // $ExpectType void
     t.todo();
     // $ExpectType void
@@ -91,7 +108,7 @@ test(undefined, undefined, t => {
 test(t => {
     // $ExpectType TestContext
     t;
-    const sub = t.test('sub', {}, t => {
+    const sub = t.test("sub", {}, t => {
         // $ExpectType TestContext
         t;
     });
@@ -106,55 +123,75 @@ test.after(() => {});
 test.afterEach(() => {});
 test.before(() => {});
 test.beforeEach(() => {});
-test.describe('describe', () => {});
-test.it('it', () => {});
+test.describe("describe", () => {});
+test.it("it", () => {});
 // $ExpectType MockTracker
 test.mock;
 // $ExpectType typeof test
 test.test;
-test.test.test('chained self ref', (t) => {
+test.test.test("chained self ref", (t) => {
     // $ExpectType typeof test
     t.test;
 });
-test.skip('skip', () => {});
-test.todo('todo', () => {});
-test.only('only', () => {});
+test.skip("skip", () => {});
+test.todo("todo", () => {});
+test.only("only", () => {});
 
-describe('foo', () => {
-    it('it', () => {});
+describe("foo", () => {
+    it("it", () => {});
 });
 
-describe('blank options', {});
-it('blank options', {});
+describe("foo", () => {
+    const d = describe();
+    // $ExpectType Promise<void>
+    d;
+});
 
-describe('options with values', {
+describe("foo", async () => {
+    const d = describe();
+    // $ExpectType Promise<void>
+    d;
+    // $ExpectType void
+    await d;
+});
+
+{
+    const ret = describe();
+    // $ExpectType Promise<void>
+    ret;
+}
+
+describe("blank options", {});
+it("blank options", {});
+
+describe("options with values", {
     concurrency: 1,
     only: true,
     signal: new AbortController().signal,
-    skip: 'reason for skip',
+    skip: "reason for skip",
     timeout: Infinity,
-    todo: 'reason for todo',
+    todo: "reason for todo",
 });
 
-it('options with values', {
+it("options with values", {
     concurrency: 1,
     only: true,
     signal: new AbortController().signal,
-    skip: 'reason for skip',
+    skip: "reason for skip",
     timeout: Infinity,
-    todo: 'reason for todo',
+    todo: "reason for todo",
 });
 
-describe('options with booleans', {
+describe("options with booleans", {
     skip: true,
     todo: false,
 });
-it('options with booleans', {
+it("options with booleans", {
     skip: true,
     todo: false,
 });
 
-skip('skip shorthand', {
+skip("skip shorthand", {
     concurrency: 1,
     skip: true,
     signal: new AbortController().signal,
@@ -166,28 +203,28 @@ skip((t, cb) => {
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
-    cb({ x: 'anything' });
+    cb({ x: "anything" });
 });
-test.skip('skip shorthand', {
+test.skip("skip shorthand", {
     concurrency: 1,
     skip: true,
     signal: new AbortController().signal,
     timeout: Infinity,
 });
-describe.skip('skip shorthand', {
+describe.skip("skip shorthand", {
     concurrency: 1,
     skip: true,
     signal: new AbortController().signal,
     timeout: Infinity,
 });
-it.skip('skip shorthand', {
+it.skip("skip shorthand", {
     concurrency: 1,
     skip: true,
     signal: new AbortController().signal,
     timeout: Infinity,
 });
 
-todo('todo shorthand', {
+todo("todo shorthand", {
     concurrency: 1,
     todo: true,
     signal: new AbortController().signal,
@@ -199,28 +236,28 @@ todo((t, cb) => {
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
-    cb({ x: 'anything' });
+    cb({ x: "anything" });
 });
-test.todo('todo shorthand', {
+test.todo("todo shorthand", {
     concurrency: 1,
     todo: true,
     signal: new AbortController().signal,
     timeout: Infinity,
 });
-describe.todo('todo shorthand', {
+describe.todo("todo shorthand", {
     concurrency: 1,
     todo: true,
     signal: new AbortController().signal,
     timeout: Infinity,
 });
-it.todo('todo shorthand', {
+it.todo("todo shorthand", {
     concurrency: 1,
     todo: true,
     signal: new AbortController().signal,
     timeout: Infinity,
 });
 
-only('todo shorthand', {
+only("todo shorthand", {
     concurrency: 1,
     only: true,
     signal: new AbortController().signal,
@@ -232,33 +269,33 @@ only((t, cb) => {
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
-    cb({ x: 'anything' });
+    cb({ x: "anything" });
 });
-test.only('only shorthand', {
+test.only("only shorthand", {
     concurrency: 1,
     only: true,
     signal: new AbortController().signal,
     timeout: Infinity,
 });
-describe.only('only shorthand', {
+describe.only("only shorthand", {
     concurrency: 1,
     only: true,
     signal: new AbortController().signal,
     timeout: Infinity,
 });
-it.only('only shorthand', {
+it.only("only shorthand", {
     concurrency: 1,
     only: true,
     signal: new AbortController().signal,
     timeout: Infinity,
 });
 
-// Test callback mode
-describe(cb => {
-    // $ExpectType (result?: any) => void
-    cb;
-    // $ExpectType void
-    cb({ x: 'anything' });
+// Test with suite context
+describe(s => {
+    // $ExpectType SuiteContext
+    s;
+    // $ExpectType string
+    s.name;
 });
 
 // Test callback mode
@@ -268,7 +305,7 @@ it((t, cb) => {
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
-    cb({ x: 'anything' });
+    cb({ x: "anything" });
 });
 
 // @ts-expect-error
@@ -284,35 +321,37 @@ beforeEach(() => {});
 after(() => {});
 beforeEach(() => {});
 // - with callback
-before(cb => {
+before((s, cb) => {
+    // $ExpectType SuiteContext
+    s;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
-    cb({ x: 'anything' });
+    cb({ x: "anything" });
 });
-beforeEach(cb => {
+beforeEach((s, cb) => {
+    // $ExpectType SuiteContext
+    s;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
-    cb({ x: 'anything' });
+    cb({ x: "anything" });
 });
-after(cb => {
+after((s, cb) => {
+    // $ExpectType SuiteContext
+    s;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
-    cb({ x: 'anything' });
+    cb({ x: "anything" });
 });
-afterEach(cb => {
+afterEach((s, cb) => {
+    // $ExpectType SuiteContext
+    s;
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
-    cb({ x: 'anything' });
-});
-beforeEach(cb => {
-    // $ExpectType (result?: any) => void
-    cb;
-    // $ExpectType void
-    cb({ x: 'anything' });
+    cb({ x: "anything" });
 });
 // - with options
 before(() => {}, { signal: new AbortController().signal, timeout: Infinity });
@@ -320,17 +359,17 @@ beforeEach(() => {}, { signal: new AbortController().signal, timeout: Infinity }
 after(() => {}, { signal: new AbortController().signal, timeout: Infinity });
 beforeEach(() => {}, { signal: new AbortController().signal, timeout: Infinity });
 
-test('mocks a counting function', (t) => {
+test("mocks a counting function", (t) => {
     let cnt = 0;
 
     function addOne() {
-      cnt++;
-      return cnt;
+        cnt++;
+        return cnt;
     }
 
     function addTwo() {
-      cnt += 2;
-      return cnt;
+        cnt += 2;
+        return cnt;
     }
 
     const fn = t.mock.fn(addOne, addTwo, { times: 2 });
@@ -338,7 +377,7 @@ test('mocks a counting function', (t) => {
     fn();
 });
 
-test('spies on an object method', (t) => {
+test("spies on an object method", (t) => {
     const number = {
         value: 5,
         subtract(a: number) {
@@ -346,7 +385,7 @@ test('spies on an object method', (t) => {
         },
     };
 
-    const subtract = t.mock.method(number, 'subtract');
+    const subtract = t.mock.method(number, "subtract");
 
     number.subtract(3);
 
@@ -361,10 +400,10 @@ test('spies on an object method', (t) => {
     call.target;
 
     // @ts-expect-error
-    t.mock.method(obj, 'value');
+    t.mock.method(obj, "value");
 });
 
-test('mocks an object method', (t) => {
+test("mocks an object method", (t) => {
     const obj = {
         prop: 5,
         method(a: number, b: number) {
@@ -373,10 +412,10 @@ test('mocks an object method', (t) => {
     };
 
     function mockMethod(this: typeof obj, a: number) {
-      return a + this.prop;
+        return a + this.prop;
     }
 
-    const mocked = t.mock.method(obj, 'method', mockMethod);
+    const mocked = t.mock.method(obj, "method", mockMethod);
     obj.method(1, 3);
     const call = mocked.mock.calls[0];
 
@@ -390,10 +429,10 @@ test('mocks an object method', (t) => {
     call.target;
 
     // @ts-expect-error
-    t.mock.method(obj, 'prop', mockMethod);
+    t.mock.method(obj, "prop", mockMethod);
 });
 
-test('a no-op spy function is created by default', (t) => {
+test("a no-op spy function is created by default", (t) => {
     const fn = t.mock.fn();
     fn(3, 4);
 
@@ -404,10 +443,10 @@ test('a no-op spy function is created by default', (t) => {
     call.result;
 });
 
-test('spies on a constructor', (t) => {
+test("spies on a constructor", (t) => {
     class ParentClazz {
         constructor(public c: number) {
-          this.c = c;
+            this.c = c;
         }
     }
 
@@ -444,7 +483,7 @@ test('spies on a constructor', (t) => {
     call.target;
 });
 
-test('spies on a getter', (t) => {
+test("spies on a getter", (t) => {
     const obj = {
         prop: 5,
         get method() {
@@ -453,7 +492,7 @@ test('spies on a getter', (t) => {
     };
 
     {
-        const getter = t.mock.method(obj, 'method', { getter: true });
+        const getter = t.mock.method(obj, "method", { getter: true });
         console.log(obj.method);
         const call = getter.mock.calls[0];
 
@@ -467,7 +506,7 @@ test('spies on a getter', (t) => {
         call.this;
     }
     {
-        const getter = t.mock.getter(obj, 'method');
+        const getter = t.mock.getter(obj, "method");
         console.log(obj.method);
         const call = getter.mock.calls[0];
 
@@ -482,7 +521,7 @@ test('spies on a getter', (t) => {
     }
 });
 
-test('mocks a getter', (t) => {
+test("mocks a getter", (t) => {
     const obj = {
         prop: 5,
         get method() {
@@ -491,11 +530,11 @@ test('mocks a getter', (t) => {
     };
 
     function mockMethod(this: typeof obj) {
-      return this.prop - 1;
+        return this.prop - 1;
     }
 
     {
-        const getter = t.mock.method(obj, 'method', mockMethod, { getter: true });
+        const getter = t.mock.method(obj, "method", mockMethod, { getter: true });
         console.log(obj.method);
         const call = getter.mock.calls[0];
 
@@ -509,7 +548,7 @@ test('mocks a getter', (t) => {
         call.this;
     }
     {
-        const getter = t.mock.getter(obj, 'method', mockMethod);
+        const getter = t.mock.getter(obj, "method", mockMethod);
         console.log(obj.method);
         const call = getter.mock.calls[0];
 
@@ -524,7 +563,7 @@ test('mocks a getter', (t) => {
     }
 });
 
-test('spies on a setter', (t) => {
+test("spies on a setter", (t) => {
     const obj = {
         prop: 100,
         set method(val: number) {
@@ -533,7 +572,7 @@ test('spies on a setter', (t) => {
     };
 
     {
-        const setter = t.mock.method(obj, 'method', { setter: true });
+        const setter = t.mock.method(obj, "method", { setter: true });
         obj.method = 77;
         const call = setter.mock.calls[0];
 
@@ -547,7 +586,7 @@ test('spies on a setter', (t) => {
         call.this;
     }
     {
-        const setter = t.mock.setter(obj, 'method');
+        const setter = t.mock.setter(obj, "method");
         obj.method = 77;
         const call = setter.mock.calls[0];
 
@@ -562,7 +601,7 @@ test('spies on a setter', (t) => {
     }
 });
 
-test('mocks a setter', (t) => {
+test("mocks a setter", (t) => {
     const obj = {
         prop: 100,
         set method(val: number) {
@@ -571,11 +610,11 @@ test('mocks a setter', (t) => {
     };
 
     function mockMethod(this: typeof obj, value: number) {
-      this.prop = -value;
+        this.prop = -value;
     }
 
     {
-        const setter = t.mock.method(obj, 'method', mockMethod, { setter: true });
+        const setter = t.mock.method(obj, "method", mockMethod, { setter: true });
         obj.method = 77;
         const call = setter.mock.calls[0];
 
@@ -589,7 +628,7 @@ test('mocks a setter', (t) => {
         call.this;
     }
     {
-        const setter = t.mock.setter(obj, 'method', mockMethod);
+        const setter = t.mock.setter(obj, "method", mockMethod);
         obj.method = 77;
         const call = setter.mock.calls[0];
 
@@ -607,19 +646,23 @@ test('mocks a setter', (t) => {
 // @ts-expect-error
 dot();
 // $ExpectType AsyncGenerator<"\n" | "." | "X", void, unknown>
-dot('' as any);
+dot("" as any);
 // @ts-expect-error
 tap();
 // $ExpectType AsyncGenerator<string, void, unknown>
-tap('' as any);
+tap("" as any);
 // $ExpectType Spec
 new spec();
+// @ts-expect-error
+junit();
+// $ExpectType AsyncGenerator<string, void, unknown>
+junit("" as any);
 
-describe('Mock Timers Test Suite', () => {
+describe("Mock Timers Test Suite", () => {
     it((t) => {
-        t.mock.timers.enable(['setTimeout']);
+        t.mock.timers.enable(["setTimeout"]);
         // @ts-expect-error
-        t.mock.timers.enable(['DOES_NOT_EXIST']);
+        t.mock.timers.enable(["DOES_NOT_EXIST"]);
         t.mock.timers.enable();
         t.mock.timers.reset();
         t.mock.timers.tick(1000);
@@ -632,41 +675,60 @@ class TestReporter extends Transform {
     }
     _transform(event: TestEvent, _encoding: BufferEncoding, callback: TransformCallback): void {
         switch (event.type) {
-            case 'test:diagnostic':
-                callback(null, `${event.data.message}/${event.data.nesting}/${event.data.file}`);
+            case "test:diagnostic": {
+                const { file, column, line, message, nesting } = event.data
+                callback(null, `${message}/${nesting}/${file}/${column}/${line}`);
                 break;
-            case 'test:fail':
+            }
+            case "test:fail": {
+                const { file, column, line, details, name, nesting, testNumber, skip, todo } = event.data
                 callback(
                     null,
-                    `${event.data.name}/${event.data.details.duration_ms}/
-                    ${event.data.details.error}/${event.data.nesting}/${event.data.testNumber}/${event.data.todo}/${event.data.skip}/${event.data.file}`,
+                    `${name}/${details.duration_ms}/${details.type}/
+                    ${details.error}/${nesting}/${testNumber}/${todo}/${skip}/${file}/${column}/${line}`,
                 );
                 break;
-            case 'test:pass':
+            }
+            case "test:pass": {
+                const { file, column, line, details, name, nesting, testNumber, skip, todo } = event.data
                 callback(
                     null,
-                    `${event.data.name}/${event.data.details.duration_ms}/${event.data.nesting}/${event.data.testNumber}/${event.data.todo}/${event.data.skip}/${event.data.file}`,
+                    `${name}/${details.duration_ms}/${details.type}/
+                    ${nesting}/${testNumber}/${todo}/${skip}/${file}/${column}/${line}`,
                 );
                 break;
-            case 'test:plan':
-                callback(null, `${event.data.count}/${event.data.nesting}/${event.data.file}`);
+            }
+            case "test:plan": {
+                const { file, column, line, count, nesting } = event.data
+                callback(null, `${count}/${nesting}/${file}/${column}/${line}`);
                 break;
-            case 'test:start':
-                callback(null, `${event.data.name}/${event.data.nesting}/${event.data.file}`);
+            }
+            case "test:start": {
+                const { file, column, line, name, nesting } = event.data
+                callback(null, `${name}/${nesting}/${file}/${column}/${line}`);
                 break;
-            case 'test:stderr':
-                callback(null, `${event.data.message}/${event.data.file}`);
+            }
+            case "test:stderr": {
+                const { file, column, line, message } = event.data
+                callback(null, `${message}/${file}/${column}/${line}`);
                 break;
-            case 'test:stdout':
-                callback(null, `${event.data.message}/${event.data.file}`);
+            }
+            case "test:stdout": {
+                const { file, column, line, message } = event.data
+                callback(null, `${message}/${file}/${column}/${line}`);
                 break;
-            case 'test:enqueue':
-                callback(null, `${event.data.name}/${event.data.nesting}/${event.data.file}`);
+            }
+            case "test:enqueue": {
+                const { file, column, line, name, nesting } = event.data
+                callback(null, `${name}/${nesting}/${file}/${column}/${line}`);
                 break;
-            case 'test:dequeue':
-                callback(null, `${event.data.name}/${event.data.nesting}/${event.data.file}`);
+            }
+            case "test:dequeue": {
+                const { file, column, line, name, nesting } = event.data
+                callback(null, `${name}/${nesting}/${file}/${column}/${line}`);
                 break;
-            case 'test:watch:drained':
+            }
+            case "test:watch:drained":
                 // event doesn't have any data
                 callback(null);
                 break;
@@ -675,3 +737,4 @@ class TestReporter extends Transform {
         }
     }
 }
+const createdMock: Mock<() => undefined> = mock.fn(() => undefined)

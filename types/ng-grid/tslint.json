@@ -9,14 +9,7 @@
         "no-empty-interface": false,
         "no-internal-module": false,
         "no-object-literal-type-assertion": false,
-        "no-padding": false,
         "no-unnecessary-class": false,
-        "no-var-keyword": false,
-        "object-literal-key-quotes": false,
-        "one-line": false,
-        "semicolon": false,
-        "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "no-var-keyword": false
     }
 }

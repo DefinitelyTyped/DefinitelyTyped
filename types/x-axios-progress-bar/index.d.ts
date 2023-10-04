@@ -3,11 +3,11 @@
 // Definitions by: Claas Augner <https://github.com/caugner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { AxiosRequestConfig, AxiosInstance } from "axios";
+import { AxiosInstance, AxiosRequestConfig } from "axios";
 
-export  function loadProgressBar(
+export function loadProgressBar(
     config?: AxiosRequestConfig,
-    instance?: AxiosInstance
+    instance?: AxiosInstance,
 ): void;
 
 declare module "axios" {

@@ -1,4 +1,4 @@
-import koaResponseTime = require('koa-response-time');
+import koaResponseTime = require("koa-response-time");
 
 koaResponseTime();
 koaResponseTime({});

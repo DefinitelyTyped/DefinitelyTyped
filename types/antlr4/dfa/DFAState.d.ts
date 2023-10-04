@@ -1,7 +1,7 @@
-import ATNConfigSet from '../atn/ATNConfigSet';
-import LexerActionExecutor from '../atn/LexerActionExecutor';
-import HashSet from '../misc/HashSet';
-import PredPrediction from './PredPrediction';
+import ATNConfigSet from "../atn/ATNConfigSet";
+import LexerActionExecutor from "../atn/LexerActionExecutor";
+import HashSet from "../misc/HashSet";
+import PredPrediction from "./PredPrediction";
 
 /**
  * A DFA state represents a set of possible ATN configurations.

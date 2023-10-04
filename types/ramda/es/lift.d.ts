@@ -1,2 +1,2 @@
-import { lift } from '../index';
+import { lift } from "../index.js";
 export default lift;

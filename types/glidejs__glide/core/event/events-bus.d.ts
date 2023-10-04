@@ -1,12 +1,12 @@
-import { AutoplayEventsBus } from '../../components/autoplay';
-import { BuildEventsBus } from '../../components/build';
-import { MoveEventsBus } from '../../components/move';
-import { ResizeEventsBus } from '../../components/resize';
-import { RunEventsBus } from '../../components/run';
-import { SwipeEventsBus } from '../../components/swipe';
-import { TranslateEventsBus } from '../../components/translate';
+import { AutoplayEventsBus } from "../../components/autoplay";
+import { BuildEventsBus } from "../../components/build";
+import { MoveEventsBus } from "../../components/move";
+import { ResizeEventsBus } from "../../components/resize";
+import { RunEventsBus } from "../../components/run";
+import { SwipeEventsBus } from "../../components/swipe";
+import { TranslateEventsBus } from "../../components/translate";
 
-type DefaultEvents = 'mount.before' | 'mount.after' | 'update' | 'destroy' | 'play' | 'pause';
+type DefaultEvents = "mount.before" | "mount.after" | "update" | "destroy" | "play" | "pause";
 
 interface DefaultEventsBus {
     readonly events: Record<string, unknown[]>;
@@ -20,13 +20,14 @@ interface DefaultEventsBus {
     emit(event: string | string[], context?: any): void;
 }
 
-type EventsBus = AutoplayEventsBus &
-    BuildEventsBus &
-    MoveEventsBus &
-    ResizeEventsBus &
-    RunEventsBus &
-    SwipeEventsBus &
-    TranslateEventsBus &
-    DefaultEventsBus;
+type EventsBus =
+    & AutoplayEventsBus
+    & BuildEventsBus
+    & MoveEventsBus
+    & ResizeEventsBus
+    & RunEventsBus
+    & SwipeEventsBus
+    & TranslateEventsBus
+    & DefaultEventsBus;
 
 export default EventsBus;

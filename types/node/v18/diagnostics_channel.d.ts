@@ -22,7 +22,7 @@
  * @experimental
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/diagnostics_channel.js)
  */
-declare module 'diagnostics_channel' {
+declare module "diagnostics_channel" {
     /**
      * Check if there are active subscribers to the named channel. This is helpful if
      * the message you want to send might be expensive to prepare.
@@ -187,6 +187,6 @@ declare module 'diagnostics_channel' {
         unsubscribe(onMessage: ChannelListener): void;
     }
 }
-declare module 'node:diagnostics_channel' {
-    export * from 'diagnostics_channel';
+declare module "node:diagnostics_channel" {
+    export * from "diagnostics_channel";
 }

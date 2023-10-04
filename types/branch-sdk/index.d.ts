@@ -25,7 +25,7 @@ export interface SessionData {
     referring_identity?: string | undefined;
     has_app: boolean;
     identity: string;
-    '~referring_link'?: string | undefined;
+    "~referring_link"?: string | undefined;
 }
 
 export interface IdentityCallbackData {
@@ -230,7 +230,7 @@ export interface DeepLinkData {
         /**
          * Keywords for which this content should be discovered by. Just assign an array of strings with the keywords you'd like to use
          */
-        '~keyword'?: string[] | undefined;
+        "~keyword"?: string[] | undefined;
         /**
          * This is the unique identifier for content that will help Branch dedupe across many instances of the same thing.
          * Suitable options: a website with pathing, or a database with identifiers for entities
@@ -401,14 +401,14 @@ export interface AutoAppIndexData {
 }
 
 export enum JourneyEvent {
-    willShowJourney = 'willShowJourney',
-    didShowJourney = 'didShowJourney',
-    willNotShowJourney = 'willNotShowJourney',
-    didClickJourneyCTA = 'didClickJourneyCTA',
-    didClickJourneyClose = 'didClickJourneyClose',
-    willCloseJourney = 'willCloseJourney',
-    didCloseJourney = 'didCloseJourney',
-    didCallJourneyClose = 'didCallJourneyClose',
+    willShowJourney = "willShowJourney",
+    didShowJourney = "didShowJourney",
+    willNotShowJourney = "willNotShowJourney",
+    didClickJourneyCTA = "didClickJourneyCTA",
+    didClickJourneyClose = "didClickJourneyClose",
+    willCloseJourney = "willCloseJourney",
+    didCloseJourney = "didCloseJourney",
+    didCallJourneyClose = "didCallJourneyClose",
 }
 /**
  * `Branch.init` must be called prior to calling any other Branch functions.
@@ -583,7 +583,6 @@ export function deepview(
  *
  * If `branch.deepview()` has not been called, an error will arise with a reminder to call
  * `branch.deepview()` first.
- *
  */
 export function deepviewCta(): void;
 
@@ -679,7 +678,7 @@ export function autoAppIndex(data: AutoAppIndexData, callback?: (err: BranchErro
  * @param [callback] Returns an error if unsuccessful
  */
 export function trackCommerceEvent(
-    event: 'purchase',
+    event: "purchase",
     commerce_data: {},
     metadata?: {},
     callback?: (err: BranchError) => void,

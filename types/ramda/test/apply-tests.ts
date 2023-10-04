@@ -1,6 +1,6 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     const nums = [1, 2, 3, -99, 42, 6, 7];
 
     // $ExpectType (args: number[]) => number
@@ -15,5 +15,5 @@ import * as R from 'ramda';
     const applyRepeat = R.apply(repeat);
 
     // $ExpectType string[]
-    applyRepeat(['a', 2]); // => ['a', 'a', 'a']
-};
+    applyRepeat(["a", 2]); // => ['a', 'a', 'a']
+});

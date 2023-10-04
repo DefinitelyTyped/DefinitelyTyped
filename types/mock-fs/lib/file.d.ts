@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import Item = require('./item');
+import Item = require("./item");
 
 export = File;
 

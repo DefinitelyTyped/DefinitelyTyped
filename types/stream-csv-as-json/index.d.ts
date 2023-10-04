@@ -3,9 +3,9 @@
 // Definitions by: Eugene Lazutkin <https://github.com/uhop>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as AsObjects from './AsObjects';
-import * as Parser from './Parser';
-import * as Stringer from './Stringer';
+import * as AsObjects from "./AsObjects";
+import * as Parser from "./Parser";
+import * as Stringer from "./Stringer";
 
 export = make;
 

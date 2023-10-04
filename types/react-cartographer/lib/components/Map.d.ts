@@ -36,7 +36,7 @@ export interface MapProps {
     providerKey: string;
 
     /** Default: yahoo */
-    provider: 'yahoo' | 'google' | 'bing';
+    provider: "yahoo" | "google" | "bing";
 
     /** Default: map */
     mapId: string;

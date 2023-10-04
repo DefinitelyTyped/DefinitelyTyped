@@ -1,6 +1,6 @@
-import mediaParser from 'postcss-media-query-parser';
+import mediaParser from "postcss-media-query-parser";
 
-const mediaQueryString = '(max-width: 100px), not print';
+const mediaQueryString = "(max-width: 100px), not print";
 const result = mediaParser(mediaQueryString);
 
 // $ExpectType "media-query-list"
@@ -24,7 +24,7 @@ if (result.nodes) {
     }
 }
 
-result.walk('', child => {
+result.walk("", child => {
     child.parent.type;
 });
 result.walk(child => {

@@ -5,15 +5,15 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from 'node:events';
-import { ChildProcessWithoutNullStreams } from 'node:child_process';
+import { ChildProcessWithoutNullStreams } from "node:child_process";
+import { EventEmitter } from "node:events";
 
 export type ResultEntry = number | string | ResultList | ResultDict;
 export type Result = Record<string, ResultEntry>;
 
 export interface ResultList {
     head: ResultEntry;
-    tail: ResultList | '[]';
+    tail: ResultList | "[]";
 }
 
 export interface ResultDict {
@@ -29,10 +29,10 @@ declare class Deferred<T = unknown> {
 export type { Deferred };
 
 export type QueryStateString =
-    | (typeof QueryState)['FRESH']
-    | (typeof QueryState)['OPEN']
-    | (typeof QueryState)['WAITING']
-    | (typeof QueryState)['CLOSED'];
+    | (typeof QueryState)["FRESH"]
+    | (typeof QueryState)["OPEN"]
+    | (typeof QueryState)["WAITING"]
+    | (typeof QueryState)["CLOSED"];
 
 declare class QueryState {
     state: QueryStateString;
@@ -48,10 +48,10 @@ declare class QueryState {
 
     setState(state: QueryStateString): void;
 
-    static readonly FRESH: 'fresh';
-    static readonly OPEN: 'open';
-    static readonly WAITING: 'waiting';
-    static readonly CLOSED: 'closed';
+    static readonly FRESH: "fresh";
+    static readonly OPEN: "open";
+    static readonly WAITING: "waiting";
+    static readonly CLOSED: "closed";
 }
 export type { QueryState };
 
@@ -74,10 +74,10 @@ declare class Query {
 export type { Query };
 
 export type EngineStateString =
-    | (typeof EngineState)['ACCEPTING']
-    | (typeof EngineState)['QUERY']
-    | (typeof EngineState)['WAITING']
-    | (typeof EngineState)['CLOSED'];
+    | (typeof EngineState)["ACCEPTING"]
+    | (typeof EngineState)["QUERY"]
+    | (typeof EngineState)["WAITING"]
+    | (typeof EngineState)["CLOSED"];
 
 declare class EngineState extends EventEmitter {
     state: EngineStateString;
@@ -93,10 +93,10 @@ declare class EngineState extends EventEmitter {
 
     setState(state: EngineStateString): void;
 
-    static readonly ACCEPTING: 'accepting';
-    static readonly QUERY: 'query';
-    static readonly WAITING: 'waiting';
-    static readonly CLOSED: 'closed';
+    static readonly ACCEPTING: "accepting";
+    static readonly QUERY: "query";
+    static readonly WAITING: "waiting";
+    static readonly CLOSED: "closed";
 }
 export type { EngineState };
 

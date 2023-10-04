@@ -1,10 +1,10 @@
 var recaptchaOptions: RecaptchaOptions = {
-    theme : 'custom',
-    custom_theme_widget: 'recaptcha_widget'
- };
+    theme: "custom",
+    custom_theme_widget: "recaptcha_widget",
+};
 
 var recaptchaOptions: RecaptchaOptions = {
-    custom_translations: { instructions_visual: "This is my text:" }
+    custom_translations: { instructions_visual: "This is my text:" },
 };
 
 var recaptchaOptions: RecaptchaOptions = {
@@ -19,27 +19,21 @@ var recaptchaOptions: RecaptchaOptions = {
         help_btn: "Aiuto",
         incorrect_try_again: "Scorretto. Riprova.",
     },
-    lang: 'it',
-    theme: 'red'
+    lang: "it",
+    theme: "red",
 };
 
 var recaptchaOptions: RecaptchaOptions = {
-   theme : 'white',
-   tabindex : 2
+    theme: "white",
+    tabindex: 2,
 };
 
-Recaptcha.create("public_key_a",
-    "element_id_a",
-    {
-        theme: "red",
-        callback: Recaptcha.focus_response_field
-    }
-);
+Recaptcha.create("public_key_a", "element_id_a", {
+    theme: "red",
+    callback: Recaptcha.focus_response_field,
+});
 
-Recaptcha.create("public_key_b",
-    "element_id_b",
-    recaptchaOptions
-);
+Recaptcha.create("public_key_b", "element_id_b", recaptchaOptions);
 
 Recaptcha.switch_type("audio");
 Recaptcha.get_challenge();

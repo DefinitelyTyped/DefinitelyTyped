@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { VerifyOptions, VerifyCallback, Secret, SignCallback, SignOptions } from "jsonwebtoken";
+import { Secret, SignCallback, SignOptions, VerifyCallback, VerifyOptions } from "jsonwebtoken";
 
 export interface SCAuthEngine {
     verifyToken(signedToken: string, key: string | Buffer, options?: VerifyOptions, callback?: VerifyCallback): void;

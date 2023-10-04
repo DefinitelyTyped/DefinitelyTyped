@@ -3,7 +3,7 @@
 // Definitions by: Remco Haszing <https://github.com/remcohaszing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Element, Root } from 'hast';
+import { Element, Root } from "hast";
 
 /**
  * This simple utility transforms the following deprecated styling attributes on `<td>`, `<th>`, and `<tr>` elements to equivalent inline styles:

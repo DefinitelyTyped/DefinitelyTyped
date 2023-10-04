@@ -15,6 +15,6 @@ declare module '../../index' {
          *   @param [isMainCanvas] whether we're using it as
          *   main canvas
          */
-        constructor(elt: string, pInst?: p5, isMainCanvas?: boolean);
+        constructor(elt: HTMLElement, pInst?: p5, isMainCanvas?: boolean);
     }
 }

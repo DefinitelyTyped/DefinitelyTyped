@@ -9,28 +9,28 @@ namespace Module {
     declare const updater: standardVersion.Options.Updater;
 
     const files: Array<string | standardVersion.Options.VersionFile> = [
-        'SINGLE_VERSION.txt',
+        "SINGLE_VERSION.txt",
         {
-            filename: 'MY_VERSION_TRACKER.txt',
+            filename: "MY_VERSION_TRACKER.txt",
             // The `plain-text` updater assumes the file contents represents the version.
-            type: 'plain-text',
+            type: "plain-text",
         },
         {
-            filename: 'a/deep/package/dot/json/file/package.json',
+            filename: "a/deep/package/dot/json/file/package.json",
             // The `json` updater assumes the version is available under a `version` key in the provided JSON document.
-            type: 'json',
+            type: "json",
         },
         {
-            filename: 'VERSION_TRACKER.json',
+            filename: "VERSION_TRACKER.json",
             //  See "Custom `updater`s" for more details.
-            updater: 'standard-version-updater.js',
+            updater: "standard-version-updater.js",
         },
         {
-            filename: 'VERSION_REQUIRED.json',
-            updater: require('./path/to/custom-version-updater'),
+            filename: "VERSION_REQUIRED.json",
+            updater: require("./path/to/custom-version-updater"),
         },
         {
-            filename: 'VERSION_UPDATER.json',
+            filename: "VERSION_UPDATER.json",
             updater,
         },
     ];
@@ -55,7 +55,7 @@ namespace Module {
         packageFiles: [
             // @ts-expect-error
             {
-                type: 'json',
+                type: "json",
             },
         ],
     });
@@ -64,7 +64,7 @@ namespace Module {
     standardVersion({
         packageFiles: [
             {
-                filename: 'package.json',
+                filename: "package.json",
                 // @ts-expect-error
                 type: null,
             },
@@ -75,7 +75,7 @@ namespace Module {
     standardVersion({
         packageFiles: [
             {
-                filename: 'package.json',
+                filename: "package.json",
                 // @ts-expect-error
                 updater: {},
             },

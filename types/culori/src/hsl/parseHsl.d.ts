@@ -1,3 +1,3 @@
-import { Hsl } from './types';
+import { Hsl } from "./types";
 
 export default function parseHsl(color: string): Hsl;

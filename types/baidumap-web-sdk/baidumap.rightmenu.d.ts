@@ -46,8 +46,8 @@ declare namespace BMap {
         removeItem(item: MenuItem): void;
         addSeparator(): void;
         removeSeparator(index: number): void;
-        onopen: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
-        onclose: (event: { type: string, target: any, point: Point, pixel: Pixel }) => void;
+        onopen: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
+        onclose: (event: { type: string; target: any; point: Point; pixel: Pixel }) => void;
     }
 }
 declare const BMAP_CONTEXT_MENU_ICON_ZOOMIN: string;

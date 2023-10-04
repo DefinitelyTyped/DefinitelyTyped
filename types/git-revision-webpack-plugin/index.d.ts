@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { Compiler, WebpackPluginInstance } from 'webpack';
+import { Compiler, WebpackPluginInstance } from "webpack";
 
 declare namespace GitRevisionPlugin {
     interface Options {

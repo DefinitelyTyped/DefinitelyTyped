@@ -8,7 +8,7 @@ declare namespace wiiu {
         VALID = 0,
         X_INVALID = 1,
         Y_INVALID = 2,
-        INVALID = 3
+        INVALID = 3,
     }
     const enum Button {
         MINUS = 0x00000004,
@@ -36,7 +36,7 @@ declare namespace wiiu {
         L_STICK_DOWN = 0x08000000,
         L_STICK_UP = 0x10000000,
         L_STICK_RIGHT = 0x20000000,
-        L_STICK_LEFT = 0x40000000
+        L_STICK_LEFT = 0x40000000,
     }
 
     interface WiiuGamePad {
@@ -83,7 +83,7 @@ declare namespace wiiu {
         UNSUPPORTED_FORMAT = 202,
         DIMENSIONS_TOO_LARGE = 203,
         FILE_SIZE_TOO_LARGE = 204,
-        TOO_MANY_PIXELS_PROGRESSIVE_JPEG = 205
+        TOO_MANY_PIXELS_PROGRESSIVE_JPEG = 205,
     }
 
     interface ImageView {
@@ -106,7 +106,15 @@ interface Window {
     wiiu: typeof wiiu;
     addEventListener(type: "wiiu_imageview_start", listener: (ev: CustomEvent) => any, useCapture?: boolean): void;
     addEventListener(type: "wiiu_imageview_end", listener: (ev: CustomEvent) => any, useCapture?: boolean): void;
-    addEventListener(type: "wiiu_imageview_change_viewmode", listener: (ev: CustomEvent) => any, useCapture?: boolean): void;
-    addEventListener(type: "wiiu_imageview_change_content", listener: (ev: CustomEvent) => any, useCapture?: boolean): void;
+    addEventListener(
+        type: "wiiu_imageview_change_viewmode",
+        listener: (ev: CustomEvent) => any,
+        useCapture?: boolean,
+    ): void;
+    addEventListener(
+        type: "wiiu_imageview_change_content",
+        listener: (ev: CustomEvent) => any,
+        useCapture?: boolean,
+    ): void;
     addEventListener(type: "wiiu_imageview_error", listener: (ev: CustomEvent) => any, useCapture?: boolean): void;
 }

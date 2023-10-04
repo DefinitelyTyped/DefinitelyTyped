@@ -1,17 +1,17 @@
 import "jquery";
 import {
     Config,
-    ImageIconOptions,
-    SvgIconOptions,
-    Identifiable,
-    SvgIconSetOptions,
-    SvgCumulativeIconSetOptions,
+    CssIconSet,
     CssIconSetOptions,
-    ImageIcon,
     DynamicUrlDeclaration,
-    SvgIconSet,
+    Identifiable,
+    ImageIcon,
+    ImageIconOptions,
     SvgCumulativeIconSet,
-    CssIconSet
+    SvgCumulativeIconSetOptions,
+    SvgIconOptions,
+    SvgIconSet,
+    SvgIconSetOptions,
 } from "webicon";
 
 /**
@@ -21,7 +21,7 @@ export class WebiconTests {
     getUrlObject<TUriParam = undefined>(): DynamicUrlDeclaration<TUriParam> {
         const result: DynamicUrlDeclaration<TUriParam> = {
             url: "",
-            params: {}
+            params: {},
         };
 
         return result;
@@ -34,7 +34,7 @@ export class WebiconTests {
                 arg;
                 return "";
             },
-            params: {}
+            params: {},
         };
         return result;
     }
@@ -46,9 +46,9 @@ export class WebiconTests {
                 arg;
                 return {
                     url: "",
-                    params: {}
+                    params: {},
                 };
-            }
+            },
         };
 
         return result;
@@ -82,14 +82,14 @@ export class WebiconTests {
         };
 
         const icon: ImageIcon = {
-            iconIdParser: IDParser
+            iconIdParser: IDParser,
         };
 
         const set: SvgIconSet = {
             cumulative: false,
             iconIdParser: IDParser,
             iconSize: 1,
-            viewBox: ""
+            viewBox: "",
         };
 
         const cumulativeSet: SvgCumulativeIconSet = {
@@ -97,11 +97,11 @@ export class WebiconTests {
             iconIdParser: IDParser,
             iconSize: 1,
             viewBox: "",
-            waitDuration: 1
+            waitDuration: 1,
         };
 
         const cssIconSet: CssIconSet = {
-            iconIdParser: IDParser
+            iconIdParser: IDParser,
         };
 
         const iconOptions: SvgIconOptions = {
@@ -113,7 +113,7 @@ export class WebiconTests {
             size: 1,
             url: "",
             uri: "",
-            viewBox: ""
+            viewBox: "",
         };
 
         const idIconOptions: Identifiable & SvgIconOptions = {
@@ -126,7 +126,7 @@ export class WebiconTests {
             size: 1,
             url: "",
             uri: "",
-            viewBox: ""
+            viewBox: "",
         };
 
         const setOptions: SvgIconSetOptions = {
@@ -139,7 +139,7 @@ export class WebiconTests {
             svgIconSize: 1,
             uri: "",
             url: "",
-            viewBox: ""
+            viewBox: "",
         };
 
         const cumulativeSetOptions: SvgCumulativeIconSetOptions = {
@@ -151,7 +151,7 @@ export class WebiconTests {
             uri: "",
             url: "",
             viewBox: "",
-            waitDuration: 0
+            waitDuration: 0,
         };
 
         const idSetOptions: Identifiable & SvgIconSetOptions = {
@@ -165,14 +165,14 @@ export class WebiconTests {
             svgIconSize: 1,
             uri: "",
             url: "",
-            viewBox: ""
+            viewBox: "",
         };
 
         const cssIconSetOptions: CssIconSetOptions = {
             class: "",
             className: "",
             cssClass: "",
-            iconIdParser: IDParser
+            iconIdParser: IDParser,
         };
 
         const idCssIconOptions: Identifiable & CssIconSetOptions = {
@@ -180,7 +180,7 @@ export class WebiconTests {
             class: "",
             className: "",
             cssClass: "",
-            iconIdParser: IDParser
+            iconIdParser: IDParser,
         };
 
         /**
@@ -245,14 +245,17 @@ export class WebiconTests {
                     (loader) => {
                         // $ExpectType IconPreloader
                         loader;
-                    });
+                    },
+                );
 
                 config.ready(
                     (injector) => {
                         // $ExpectType Injector
                         injector;
-                    });
-            });
+                    },
+                );
+            },
+        );
 
         /**
          * Declaring urls
@@ -261,7 +264,8 @@ export class WebiconTests {
         setOptions.url =
             setOptions.uri =
             iconOptions.url =
-            iconOptions.uri = "";
+            iconOptions.uri =
+                "";
 
         /**
          * Using an object
@@ -269,7 +273,8 @@ export class WebiconTests {
         setOptions.url =
             setOptions.uri =
             iconOptions.url =
-            iconOptions.uri = this.getUrlObject();
+            iconOptions.uri =
+                this.getUrlObject();
 
         /**
          * Using a function
@@ -278,7 +283,8 @@ export class WebiconTests {
         setOptions.url =
             setOptions.uri =
             iconOptions.url =
-            iconOptions.uri = this.getStringUrlCallback();
+            iconOptions.uri =
+                this.getStringUrlCallback();
 
         /**
          * Returning an object
@@ -286,7 +292,8 @@ export class WebiconTests {
         setOptions.url =
             setOptions.uri =
             iconOptions.url =
-            iconOptions.uri = this.getObjectUrlCallback();
+            iconOptions.uri =
+                this.getObjectUrlCallback();
 
         /**
          * Declaring class-resolvers
@@ -294,39 +301,44 @@ export class WebiconTests {
          */
         cssIconSetOptions.className =
             cssIconSetOptions.cssClass =
-            cssIconSetOptions.class = "";
+            cssIconSetOptions.class =
+                "";
 
         /**
          * Using a function
          */
         cssIconSetOptions.className =
             cssIconSetOptions.cssClass =
-            cssIconSetOptions.class = ClassResolver;
+            cssIconSetOptions.class =
+                ClassResolver;
 
         /**
          * Setting icons
          * Simple
          */
         config.icons =
-            config.icon = {
-                clock: ""
-            };
+            config.icon =
+                {
+                    clock: "",
+                };
 
         /**
          * Complex
          */
         config.icons =
-            config.icon = {
-                clock: iconOptions
-            };
+            config.icon =
+                {
+                    clock: iconOptions,
+                };
 
         /**
          * Array
          */
         config.icons =
-            config.icon = [
-                idIconOptions
-            ];
+            config.icon =
+                [
+                    idIconOptions,
+                ];
 
         /**
          * Setting svg-sets
@@ -335,9 +347,10 @@ export class WebiconTests {
         config.svgSets =
             config.svgSet =
             config.iconSets =
-            config.iconSet = {
-                clock: ""
-            };
+            config.iconSet =
+                {
+                    clock: "",
+                };
 
         /**
          * Complex
@@ -345,10 +358,11 @@ export class WebiconTests {
         config.svgSets =
             config.svgSet =
             config.iconSets =
-            config.iconSet = {
-                clock: setOptions,
-                alt: cumulativeSetOptions
-            };
+            config.iconSet =
+                {
+                    clock: setOptions,
+                    alt: cumulativeSetOptions,
+                };
 
         /**
          * Array
@@ -356,9 +370,10 @@ export class WebiconTests {
         config.svgSets =
             config.svgSet =
             config.iconSets =
-            config.iconSet = [
-                idSetOptions
-            ];
+            config.iconSet =
+                [
+                    idSetOptions,
+                ];
 
         /**
          * Setting css-class icons
@@ -367,9 +382,10 @@ export class WebiconTests {
         config.fonts =
             config.font =
             config.sprites =
-            config.sprite = {
-                clock: ""
-            };
+            config.sprite =
+                {
+                    clock: "",
+                };
 
         /**
          * Complex
@@ -377,9 +393,10 @@ export class WebiconTests {
         config.fonts =
             config.font =
             config.sprites =
-            config.sprite = {
-                clock: cssIconSetOptions
-            };
+            config.sprite =
+                {
+                    clock: cssIconSetOptions,
+                };
 
         /**
          * Array
@@ -387,39 +404,43 @@ export class WebiconTests {
         config.fonts =
             config.font =
             config.sprites =
-            config.sprite = [
-                idCssIconOptions
-            ];
+            config.sprite =
+                [
+                    idCssIconOptions,
+                ];
 
         /**
          * Setting aliases
          * Simple
          */
         config.alias =
-            config.sourceAlias = {
-                alt: "clock"
-            };
+            config.sourceAlias =
+                {
+                    alt: "clock",
+                };
 
         /**
          * Complex
          */
         config.alias =
-            config.sourceAlias = {
-                id: {
-                    alias: ""
-                }
-            };
+            config.sourceAlias =
+                {
+                    id: {
+                        alias: "",
+                    },
+                };
 
         /**
          * Array
          */
         config.alias =
-            config.sourceAlias = [
-                {
-                    id: "id",
-                    alias: ""
-                }
-            ];
+            config.sourceAlias =
+                [
+                    {
+                        id: "id",
+                        alias: "",
+                    },
+                ];
 
         /**
          * Setting a default icon-set url
@@ -427,29 +448,33 @@ export class WebiconTests {
          */
         config.defaultIconSetUrl =
             config.defaultSvgSetUrl =
-            config.defaultSvgIconSetUrl = "";
+            config.defaultSvgIconSetUrl =
+                "";
 
         /**
          * Complex
          */
         config.defaultIconSetUrl =
             config.defaultSvgSetUrl =
-            config.defaultSvgIconSetUrl = setOptions;
+            config.defaultSvgIconSetUrl =
+                setOptions;
 
         /**
          * Setting a default icon-set
          * Simple
          */
         config.defaultSource =
-            config.default = "";
+            config.default =
+                "";
 
         /**
          * Complex
          */
         config.defaultSource =
-            config.default = {
-                id: ""
-            };
+            config.default =
+                {
+                    id: "",
+                };
 
         /**
          * Setting a default icon-size for vector-icons
@@ -463,7 +488,7 @@ export class WebiconTests {
         config.defaultSvgIconSize = {
             iconSize: 1,
             size: 1,
-            svgIconSize: 1
+            svgIconSize: 1,
         };
 
         $().webicons(config);

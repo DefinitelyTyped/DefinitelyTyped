@@ -1,4 +1,4 @@
-import { Backends } from '../';
+import { Backends } from "../";
 
 /**
  * Most commonly used set of Backends.

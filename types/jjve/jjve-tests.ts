@@ -1,14 +1,14 @@
-import jjv = require('jjv');
-import jjve = require('jjve');
+import jjv = require("jjv");
+import jjve = require("jjve");
 
 var env: jjv.Env = jjv();
 var je: jjve.Env = jjve(env);
 
 var schema = {
-    type: 'object',
+    type: "object",
     properties: {
         ok: {
-            type: 'boolean',
+            type: "boolean",
         },
     },
 };
@@ -24,8 +24,10 @@ if (result) {
 
 errors.forEach(error =>
     console.log(
-        'code: %s, message: %s, data: %s, path: %s',
+        "code: %s, message: %s, data: %s, path: %s",
         error.code,
         error.message,
         error.data,
-        error.path));
+        error.path,
+    )
+);

@@ -8,7 +8,7 @@
  * @experimental
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/async_hooks.js)
  */
-declare module 'async_hooks' {
+declare module "async_hooks" {
     /**
      * ```js
      * import { executionAsyncId } from 'async_hooks';
@@ -273,7 +273,7 @@ declare module 'async_hooks' {
         static bind<Func extends (this: ThisArg, ...args: any[]) => any, ThisArg>(
             fn: Func,
             type?: string,
-            thisArg?: ThisArg
+            thisArg?: ThisArg,
         ): Func & {
             asyncResource: AsyncResource;
         };
@@ -286,7 +286,7 @@ declare module 'async_hooks' {
          * @param fn The function to bind to the current `AsyncResource`.
          */
         bind<Func extends (...args: any[]) => any>(
-            fn: Func
+            fn: Func,
         ): Func & {
             asyncResource: AsyncResource;
         };
@@ -300,7 +300,11 @@ declare module 'async_hooks' {
          * @param thisArg The receiver to be used for the function call.
          * @param args Optional arguments to pass to the function.
          */
-        runInAsyncScope<This, Result>(fn: (this: This, ...args: any[]) => Result, thisArg?: This, ...args: any[]): Result;
+        runInAsyncScope<This, Result>(
+            fn: (this: This, ...args: any[]) => Result,
+            thisArg?: This,
+            ...args: any[]
+        ): Result;
         /**
          * Call all `destroy` hooks. This should only ever be called once. An error will
          * be thrown if it is called more than once. This **must** be manually called. If
@@ -314,7 +318,6 @@ declare module 'async_hooks' {
          */
         asyncId(): number;
         /**
-         *
          * @return The same `triggerAsyncId` that is passed to the `AsyncResource` constructor.
          */
         triggerAsyncId(): number;
@@ -419,6 +422,7 @@ declare module 'async_hooks' {
          * ```
          * @since v13.10.0, v12.17.0
          */
+        run<R>(store: T, callback: () => R): R;
         run<R, TArgs extends any[]>(store: T, callback: (...args: TArgs) => R, ...args: TArgs): R;
         /**
          * Runs a function synchronously outside of a context and returns its
@@ -492,6 +496,6 @@ declare module 'async_hooks' {
         enterWith(store: T): void;
     }
 }
-declare module 'node:async_hooks' {
-    export * from 'async_hooks';
+declare module "node:async_hooks" {
+    export * from "async_hooks";
 }

@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import * as fs from 'fs';
+import * as fs from "fs";
 
 declare namespace ncp {
     interface File {

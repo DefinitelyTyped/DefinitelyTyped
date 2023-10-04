@@ -1,6 +1,6 @@
 declare namespace bricks {
     interface BrickError {
-        type: 'non_critical' | 'critical';
+        type: "non_critical" | "critical";
         cause: string;
         message: string;
     }
@@ -9,7 +9,7 @@ declare namespace bricks {
         onSubmit: (
             formData: CardFormData | PaymentFormData,
             additionalData?: AdditionalCardFormData | AdditionalPaymentFormData,
-        ) => BrickType extends 'wallet' ? Promise<string> : Promise<void>;
+        ) => BrickType extends "wallet" ? Promise<string> : Promise<void>;
     }
 
     interface BinChange {
@@ -34,7 +34,7 @@ declare namespace bricks {
         complement?: string;
     }
 
-    type EntityType = 'individual' | 'association';
+    type EntityType = "individual" | "association";
 
     interface Payer {
         email?: string;
@@ -52,13 +52,13 @@ declare namespace bricks {
     }
 
     enum PaymentOption {
-        CREDIT_CARD_FORM = 'creditCardForm',
-        DEBIT_CARD_FORM = 'debitCardForm',
-        SAVED_CARD_FORM = 'savedCardForm',
-        TICKET_FORM = 'ticketForm',
-        BANK_TRANSFER_FORM = 'bankTransferForm',
-        MERCADO_PAGO_FORM = 'walletForm',
-        ONBOARDING_CREDITS_FORM = 'creditForm',
+        CREDIT_CARD_FORM = "creditCardForm",
+        DEBIT_CARD_FORM = "debitCardForm",
+        SAVED_CARD_FORM = "savedCardForm",
+        TICKET_FORM = "ticketForm",
+        BANK_TRANSFER_FORM = "bankTransferForm",
+        MERCADO_PAGO_FORM = "walletForm",
+        ONBOARDING_CREDITS_FORM = "creditForm",
     }
 
     interface PaymentOptions {
@@ -76,21 +76,21 @@ declare namespace bricks {
     }
 
     enum WalletButtonBackground {
-        MERCADO_PAGO_COLOR = 'default',
-        BLACK = 'black',
-        BLUE = 'blue',
-        WHITE = 'white',
+        MERCADO_PAGO_COLOR = "default",
+        BLACK = "black",
+        BLUE = "blue",
+        WHITE = "white",
     }
 
     enum WalletButtonValuePropColor {
-        WHITE = 'white',
-        GREY = 'grey',
+        WHITE = "white",
+        GREY = "grey",
     }
 
     enum WalletButtonRedirectMode {
-        MODAL = 'modal',
-        SELF = 'self',
-        BLANK = 'blank',
+        MODAL = "modal",
+        SELF = "self",
+        BLANK = "blank",
     }
 
     interface BrickVisualCustomization {
@@ -139,15 +139,15 @@ declare namespace bricks {
     }
 
     interface WalletButtonTextCustomization {
-        action: 'pay' | 'buy';
+        action: "pay" | "buy";
         valueProp:
-            | 'practicality'
-            | 'convenience'
-            | 'convenience_all'
-            | 'security_details'
-            | 'security_safety'
-            | 'convenience_credits'
-            | 'smart_option';
+            | "practicality"
+            | "convenience"
+            | "convenience_all"
+            | "security_details"
+            | "security_safety"
+            | "convenience_credits"
+            | "smart_option";
     }
 
     interface StatusBrickBackUrls {
@@ -180,19 +180,16 @@ declare namespace bricks {
 
     interface BrickSettings<BrickType> {
         // For a more detailed view of each Brick`s supported settings, please check the documentation at: https://github.com/mercadopago/sdk-js/blob/main/API/bricks/index.md
-        callbacks: BrickType extends 'wallet'
-            ? WalletBrickCallbacks<BrickType>
-            : BrickType extends 'cardPayment'
-            ? CardPaymentBrickCallbacks<BrickType>
-            : BrickType extends 'payment'
-            ? PaymentBrickCallbacks<BrickType>
+        callbacks: BrickType extends "wallet" ? WalletBrickCallbacks<BrickType>
+            : BrickType extends "cardPayment" ? CardPaymentBrickCallbacks<BrickType>
+            : BrickType extends "payment" ? PaymentBrickCallbacks<BrickType>
             : BrickCallbacks;
         initialization?: BrickInitialization;
         customization?: BrickCustomization;
     }
 
     interface BricksStyle {
-        theme?: 'default' | 'dark' | 'flat' | 'bootstrap';
+        theme?: "default" | "dark" | "flat" | "bootstrap";
         customVariables?: CustomVariables;
     }
 
@@ -257,19 +254,19 @@ declare namespace bricks {
     }
 
     enum PaymentType {
-        CREDIT_CARD = 'credit_card',
-        DEBIT_CARD = 'debit_card',
-        ICKET = 'ticket',
-        BANK_TRANSFER = 'bank_transfer',
-        WALLET_PURCHASE = 'wallet_purchase',
-        ONBOARDING_CREDITS = 'onboarding_credits',
-        ATM = 'atm',
-        ATM_ONLINE = 'atm_online',
-        NONE = '',
+        CREDIT_CARD = "credit_card",
+        DEBIT_CARD = "debit_card",
+        ICKET = "ticket",
+        BANK_TRANSFER = "bank_transfer",
+        WALLET_PURCHASE = "wallet_purchase",
+        ONBOARDING_CREDITS = "onboarding_credits",
+        ATM = "atm",
+        ATM_ONLINE = "atm_online",
+        NONE = "",
     }
 
     interface SavedCardPayer {
-        type: 'customer';
+        type: "customer";
         id: string;
     }
 
@@ -324,6 +321,10 @@ declare namespace bricks {
 
     type AdditionalPaymentFormData = AdditionalCardFormData | AdditionalSavedCardFormData | AdditionalTicketFormData;
 
+    interface UpdateValues {
+        amount: number;
+    }
+
     interface PaymentFormData {
         paymentType: PaymentType;
         selectedPaymentMethod: PaymentType;
@@ -331,13 +332,29 @@ declare namespace bricks {
         additionalData?: AdditionalSavedCardFormData | AdditionalCardFormData | AdditionalTicketFormData | null;
     }
 
-    interface BrickController {
+    interface CardPaymentController {
         unmount: () => void;
-        getFormData: () => Promise<CardFormData | PaymentFormData>;
-        getAdditionalData: () => Promise<AdditionalCardFormData | AdditionalPaymentFormData>;
+        getFormData: () => Promise<CardFormData>;
+        getAdditionalData: () => Promise<AdditionalCardFormData>;
+        update: (updateValues: UpdateValues) => boolean;
     }
 
-    type BrickTypes = 'cardPayment' | 'payment' | 'statusScreen' | 'wallet';
+    interface PaymentController {
+        unmount: () => void;
+        getFormData: () => Promise<PaymentFormData>;
+        getAdditionalData: () => Promise<AdditionalPaymentFormData>;
+        update: (updateValues: UpdateValues) => boolean;
+    }
+
+    interface StatusScreenController {
+        unmount: () => void;
+    }
+
+    interface WalletController {
+        unmount: () => void;
+    }
+
+    type BrickTypes = "cardPayment" | "payment" | "statusScreen" | "wallet";
 
     interface Bricks {
         isInitialized(): boolean;
@@ -345,6 +362,11 @@ declare namespace bricks {
             brick: BrickType,
             containerId: string,
             settings: BrickSettings<BrickType>,
-        ): Promise<BrickController>;
+        ): Promise<
+            BrickType extends "cardPayment" ? CardPaymentController
+                : BrickType extends "payment" ? PaymentController
+                : BrickType extends "statusScreen" ? StatusScreenController
+                : WalletController
+        >;
     }
 }

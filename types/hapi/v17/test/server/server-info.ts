@@ -7,4 +7,4 @@ const server = new Server({
 server.start();
 
 console.log(server.info);
-console.log('Server started at: ' + server.info.uri);
+console.log("Server started at: " + server.info.uri);

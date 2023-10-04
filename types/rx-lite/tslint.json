@@ -4,10 +4,8 @@
         "array-type": false,
         "ban-types": false,
         "interface-name": false,
-        "max-line-length": false,
         "no-empty-interface": false,
         "no-mergeable-namespace": false,
-        "no-single-declare-module": false,
         "unified-signatures": false
     }
 }

@@ -1,4 +1,4 @@
-// For Library Version: 1.116.0
+// For Library Version: 1.118.0
 
 declare module "sap/uxap/library" {
   /**
@@ -943,7 +943,10 @@ declare module "sap/uxap/BlockBase" {
     view?: View;
   }
 
-  export type BlockBase$ViewInitEvent = Event<BlockBase$ViewInitEventParameters>;
+  export type BlockBase$ViewInitEvent = Event<
+    BlockBase$ViewInitEventParameters,
+    BlockBase
+  >;
 }
 
 declare module "sap/uxap/BreadCrumbs" {
@@ -3498,7 +3501,10 @@ declare module "sap/uxap/ObjectPageHeader" {
     domRef?: string;
   }
 
-  export type ObjectPageHeader$MarkChangesPressEvent = Event<ObjectPageHeader$MarkChangesPressEventParameters>;
+  export type ObjectPageHeader$MarkChangesPressEvent = Event<
+    ObjectPageHeader$MarkChangesPressEventParameters,
+    ObjectPageHeader
+  >;
 
   export interface ObjectPageHeader$MarkLockedPressEventParameters {
     /**
@@ -3507,7 +3513,10 @@ declare module "sap/uxap/ObjectPageHeader" {
     domRef?: string;
   }
 
-  export type ObjectPageHeader$MarkLockedPressEvent = Event<ObjectPageHeader$MarkLockedPressEventParameters>;
+  export type ObjectPageHeader$MarkLockedPressEvent = Event<
+    ObjectPageHeader$MarkLockedPressEventParameters,
+    ObjectPageHeader
+  >;
 
   export interface ObjectPageHeader$TitleSelectorPressEventParameters {
     /**
@@ -3516,7 +3525,10 @@ declare module "sap/uxap/ObjectPageHeader" {
     domRef?: string;
   }
 
-  export type ObjectPageHeader$TitleSelectorPressEvent = Event<ObjectPageHeader$TitleSelectorPressEventParameters>;
+  export type ObjectPageHeader$TitleSelectorPressEvent = Event<
+    ObjectPageHeader$TitleSelectorPressEventParameters,
+    ObjectPageHeader
+  >;
 }
 
 declare module "sap/uxap/ObjectPageHeaderActionButton" {
@@ -4400,6 +4412,59 @@ declare module "sap/uxap/ObjectPageLayout" {
       oSection: ObjectPageSection
     ): this;
     /**
+     * @since 1.118
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:beforeNavigate beforeNavigate} event of this
+     * `sap.uxap.ObjectPageLayout`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.uxap.ObjectPageLayout` itself.
+     *
+     * The event is fired before the selected section is changed using the navigation. This event can be aborted
+     * by the application with preventDefault(), which means that there will be no navigation.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachBeforeNavigate(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: ObjectPageLayout$BeforeNavigateEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageLayout` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @since 1.118
+     *
+     * Attaches event handler `fnFunction` to the {@link #event:beforeNavigate beforeNavigate} event of this
+     * `sap.uxap.ObjectPageLayout`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.uxap.ObjectPageLayout` itself.
+     *
+     * The event is fired before the selected section is changed using the navigation. This event can be aborted
+     * by the application with preventDefault(), which means that there will be no navigation.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachBeforeNavigate(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: ObjectPageLayout$BeforeNavigateEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.uxap.ObjectPageLayout` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:editHeaderButtonPress editHeaderButtonPress }
      * event of this `sap.uxap.ObjectPageLayout`.
      *
@@ -4736,6 +4801,26 @@ declare module "sap/uxap/ObjectPageLayout" {
      */
     destroySections(): this;
     /**
+     * @since 1.118
+     *
+     * Detaches event handler `fnFunction` from the {@link #event:beforeNavigate beforeNavigate} event of this
+     * `sap.uxap.ObjectPageLayout`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachBeforeNavigate(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: ObjectPageLayout$BeforeNavigateEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
      * Detaches event handler `fnFunction` from the {@link #event:editHeaderButtonPress editHeaderButtonPress }
      * event of this `sap.uxap.ObjectPageLayout`.
      *
@@ -4854,6 +4939,23 @@ declare module "sap/uxap/ObjectPageLayout" {
        */
       oListener?: object
     ): this;
+    /**
+     * @since 1.118
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * Fires event {@link #event:beforeNavigate beforeNavigate} to attached listeners.
+     *
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
+     */
+    fireBeforeNavigate(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: ObjectPageLayout$BeforeNavigateEventParameters
+    ): boolean;
     /**
      * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
@@ -5110,7 +5212,7 @@ declare module "sap/uxap/ObjectPageLayout" {
      */
     getPreserveHeaderStateOnScroll(): boolean;
     /**
-     * Returns the `sap.ui.core.ScrollEnablement` delegate which is used with this control.
+     * Returns the `sap.ui.core.delegate.ScrollEnablement` delegate which is used with this control.
      *
      * @returns The scroll delegate instance
      */
@@ -6247,6 +6349,14 @@ declare module "sap/uxap/ObjectPageLayout" {
     editHeaderButtonPress?: (oEvent: Event) => void;
 
     /**
+     * @since 1.118
+     *
+     * The event is fired before the selected section is changed using the navigation. This event can be aborted
+     * by the application with preventDefault(), which means that there will be no navigation.
+     */
+    beforeNavigate?: (oEvent: ObjectPageLayout$BeforeNavigateEvent) => void;
+
+    /**
      * @since 1.40
      *
      * The event is fired when the selected section is changed using the navigation.
@@ -6263,9 +6373,29 @@ declare module "sap/uxap/ObjectPageLayout" {
     ) => void;
   }
 
+  export interface ObjectPageLayout$BeforeNavigateEventParameters {
+    /**
+     * The selected section object.
+     */
+    section?: ObjectPageSection;
+
+    /**
+     * The selected subsection object.
+     */
+    subSection?: ObjectPageSubSection;
+  }
+
+  export type ObjectPageLayout$BeforeNavigateEvent = Event<
+    ObjectPageLayout$BeforeNavigateEventParameters,
+    ObjectPageLayout
+  >;
+
   export interface ObjectPageLayout$EditHeaderButtonPressEventParameters {}
 
-  export type ObjectPageLayout$EditHeaderButtonPressEvent = Event<ObjectPageLayout$EditHeaderButtonPressEventParameters>;
+  export type ObjectPageLayout$EditHeaderButtonPressEvent = Event<
+    ObjectPageLayout$EditHeaderButtonPressEventParameters,
+    ObjectPageLayout
+  >;
 
   export interface ObjectPageLayout$HeaderContentPinnedStateChangeEventParameters {
     /**
@@ -6274,7 +6404,10 @@ declare module "sap/uxap/ObjectPageLayout" {
     pinned?: boolean;
   }
 
-  export type ObjectPageLayout$HeaderContentPinnedStateChangeEvent = Event<ObjectPageLayout$HeaderContentPinnedStateChangeEventParameters>;
+  export type ObjectPageLayout$HeaderContentPinnedStateChangeEvent = Event<
+    ObjectPageLayout$HeaderContentPinnedStateChangeEventParameters,
+    ObjectPageLayout
+  >;
 
   export interface ObjectPageLayout$NavigateEventParameters {
     /**
@@ -6288,7 +6421,10 @@ declare module "sap/uxap/ObjectPageLayout" {
     subSection?: ObjectPageSubSection;
   }
 
-  export type ObjectPageLayout$NavigateEvent = Event<ObjectPageLayout$NavigateEventParameters>;
+  export type ObjectPageLayout$NavigateEvent = Event<
+    ObjectPageLayout$NavigateEventParameters,
+    ObjectPageLayout
+  >;
 
   export interface ObjectPageLayout$SectionChangeEventParameters {
     /**
@@ -6302,7 +6438,10 @@ declare module "sap/uxap/ObjectPageLayout" {
     subSection?: ObjectPageSubSection;
   }
 
-  export type ObjectPageLayout$SectionChangeEvent = Event<ObjectPageLayout$SectionChangeEventParameters>;
+  export type ObjectPageLayout$SectionChangeEvent = Event<
+    ObjectPageLayout$SectionChangeEventParameters,
+    ObjectPageLayout
+  >;
 
   export interface ObjectPageLayout$SubSectionVisibilityChangeEventParameters {
     /**
@@ -6311,7 +6450,10 @@ declare module "sap/uxap/ObjectPageLayout" {
     visibleSubSections?: object;
   }
 
-  export type ObjectPageLayout$SubSectionVisibilityChangeEvent = Event<ObjectPageLayout$SubSectionVisibilityChangeEventParameters>;
+  export type ObjectPageLayout$SubSectionVisibilityChangeEvent = Event<
+    ObjectPageLayout$SubSectionVisibilityChangeEventParameters,
+    ObjectPageLayout
+  >;
 
   export interface ObjectPageLayout$ToggleAnchorBarEventParameters {
     /**
@@ -6321,7 +6463,10 @@ declare module "sap/uxap/ObjectPageLayout" {
     fixed?: boolean;
   }
 
-  export type ObjectPageLayout$ToggleAnchorBarEvent = Event<ObjectPageLayout$ToggleAnchorBarEventParameters>;
+  export type ObjectPageLayout$ToggleAnchorBarEvent = Event<
+    ObjectPageLayout$ToggleAnchorBarEventParameters,
+    ObjectPageLayout
+  >;
 }
 
 declare module "sap/uxap/ObjectPageLazyLoader" {

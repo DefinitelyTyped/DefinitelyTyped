@@ -1,7 +1,7 @@
-import { Class } from './Class';
-import { Control } from './Control';
-import { Panel } from './Panel';
-import { Section } from './Section';
+import { Class } from "./Class";
+import { Control } from "./Control";
+import { Panel } from "./Panel";
+import { Section } from "./Section";
 
 export interface HighlightButton_Options {
     delay?: number | undefined;

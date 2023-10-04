@@ -5,9 +5,8 @@ export type SortOrder =
     /**
      * Indicates ascending sorting.
      */
-    "asc" |
-
+    | "asc"
     /**
      * Indicates descending sorting.
      */
-    "desc";
+    | "desc";

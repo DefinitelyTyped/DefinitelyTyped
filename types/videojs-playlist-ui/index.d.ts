@@ -3,11 +3,12 @@
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import videojs from 'video.js';
+// eslint-disable-next-line @definitelytyped/no-import-default-of-export-equals
+import videojs from "video.js";
 
 export as namespace videojsPlaylistUi;
 
-declare module 'video.js' {
+declare module "video.js" {
     interface VideoJsPlayer {
         playlistUi: typeof videojsPlaylistUi;
     }
@@ -27,7 +28,7 @@ declare namespace videojsPlaylistUi {
 }
 
 declare const videojsPlaylistUi: {
-    VERSION: '4.0.0';
+    VERSION: "4.0.0";
     (this: videojs.Player, options?: videojsPlaylistUi.Options): void;
 };
 export = videojsPlaylistUi;

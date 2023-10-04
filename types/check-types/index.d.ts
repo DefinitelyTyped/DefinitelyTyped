@@ -11,45 +11,47 @@ type MaybeFunction = <T>(val: T) => boolean | T;
 
 type CheckTypePredicates = Pick<
     CheckType,
-    | 'equal'
-    | 'undefined'
-    | 'null'
-    | 'assigned'
-    | 'primitive'
-    | 'zero'
-    | 'infinity'
-    | 'number'
-    | 'integer'
-    | 'even'
-    | 'odd'
-    | 'greater'
-    | 'less'
-    | 'between'
-    | 'greaterOrEqual'
-    | 'lessOrEqual'
-    | 'inRange'
-    | 'positive'
-    | 'negative'
-    | 'string'
-    | 'emptyString'
-    | 'nonEmptyString'
-    | 'contains'
-    | 'match'
-    | 'boolean'
-    | 'object'
-    | 'emptyObject'
-    | 'nonEmptyObject'
-    | 'instanceStrict'
-    | 'instance'
-    | 'like'
-    | 'array'
-    | 'emptyArray'
-    | 'nonEmptyArray'
-    | 'arrayLike'
-    | 'iterable'
-    | 'date'
-    | 'function'
-    | 'hasLength'
+    | "equal"
+    | "undefined"
+    | "null"
+    | "assigned"
+    | "primitive"
+    | "zero"
+    | "infinity"
+    | "number"
+    | "integer"
+    | "even"
+    | "odd"
+    | "greater"
+    | "less"
+    | "between"
+    | "greaterOrEqual"
+    | "lessOrEqual"
+    | "inRange"
+    | "positive"
+    | "negative"
+    | "string"
+    | "emptyString"
+    | "nonEmptyString"
+    | "contains"
+    | "match"
+    | "boolean"
+    | "object"
+    | "emptyObject"
+    | "nonEmptyObject"
+    | "instanceStrict"
+    | "instance"
+    | "like"
+    | "array"
+    | "emptyArray"
+    | "nonEmptyArray"
+    | "arrayLike"
+    | "iterable"
+    | "date"
+    | "function"
+    | "hasLength"
+    | "containsKey"
+    | "in"
 >;
 
 interface ArrayFunction {
@@ -79,12 +81,11 @@ interface ObjectFunction {
 type AssertExtended<T extends any[], R> = (...args: [...T, string?]) => R;
 
 type ExtendWithAssert<T> = {
-    [K in keyof T]: T[K] extends (...a: infer U) => infer R
-        ? AssertExtended<U, R> & ExtendWithAssert<T[K]>
+    [K in keyof T]: T[K] extends (...a: infer U) => infer R ? AssertExtended<U, R> & ExtendWithAssert<T[K]>
         : ExtendWithAssert<T[K]>;
 };
 interface AssertFunction {
-    <T>(possibleFalsy: T, message?: string, errorType?: { new (...args: any[]): any }): T;
+    <T>(possibleFalsy: T, message?: string, errorType?: { new(...args: any[]): any }): T;
 }
 
 interface CheckType {
@@ -96,6 +97,7 @@ interface CheckType {
     assigned(a: any): boolean;
     primitive(a: any): a is number | string | boolean | null | undefined | symbol;
     hasLength(a: any, length: number): boolean;
+    containsKey(a: any, key: any): boolean;
 
     /* String predicates */
 
@@ -158,6 +160,7 @@ interface CheckType {
     arrayLike: ArrayLikeFunction;
     iterable: IterableFunction;
     includes(a: any[], value: any): boolean;
+    in(value: any, a: any[] | object | string): boolean;
 
     /* Date predicates */
 
@@ -170,7 +173,7 @@ interface CheckType {
     /* Modifiers (some of them in their respected sections) */
     not: CheckTypePredicates & NegationFunction;
     maybe: CheckTypePredicates & MaybeFunction;
-    assert: ExtendWithAssert<CheckTypePredicates> & ExtendWithAssert<Pick<CheckType, 'not' | 'maybe'>> & AssertFunction;
+    assert: ExtendWithAssert<CheckTypePredicates> & ExtendWithAssert<Pick<CheckType, "not" | "maybe">> & AssertFunction;
 
     /* Batch operations */
 

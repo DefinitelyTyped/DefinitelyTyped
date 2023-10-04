@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 declare namespace places {
     function version(): string;
@@ -38,7 +38,7 @@ declare namespace places {
 }
 
 declare function places(
-    options: places.PlacesOptions
+    options: places.PlacesOptions,
 ): EventEmitter;
 
 export = places;

@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export default function RecoilizeDebugger(
-  nodes: any,
-  root: HTMLElement | null
+    nodes: any,
+    root: HTMLElement | null,
 ): null;

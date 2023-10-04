@@ -1,4 +1,4 @@
-import { TernaryFunction } from '../internal/types';
+import { TernaryFunction } from "../internal/types";
 
 /**
  * liftA3 :: Applicative m => (a -> b -> c -> d) -> m a -> m b -> m c -> m d

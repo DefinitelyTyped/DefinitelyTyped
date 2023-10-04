@@ -5,8 +5,6 @@
 
 /// <reference types="node" />
 
-
-
 declare namespace paths {
     interface Paths extends NodeJS.ReadWriteStream {
         paths: string[];

@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import { Agent } from 'http';
-import { Agent as HttpsAgent } from 'https';
+import { Agent } from "http";
+import { Agent as HttpsAgent } from "https";
 
 export function httpOverHttp(options?: HttpOptions): Agent;
 export function httpsOverHttp(options?: HttpsOverHttpOptions): Agent;

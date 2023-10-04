@@ -5,7 +5,7 @@
 
 /// <reference types="express" />
 
-import express = require('express');
+import express = require("express");
 
 /**
  * @summary Middleware.
@@ -170,7 +170,7 @@ declare namespace ExpressBrute {
     export const FailMark: FailCallback;
 }
 
-declare module 'express-serve-static-core' {
+declare module "express-serve-static-core" {
     export interface Request {
         brute?: {
             reset?: ((callback?: () => void) => void) | undefined;

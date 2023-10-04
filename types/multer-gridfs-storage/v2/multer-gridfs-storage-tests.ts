@@ -1,14 +1,14 @@
-import MulterGridfsStorage = require('multer-gridfs-storage');
+import MulterGridfsStorage = require("multer-gridfs-storage");
 import { Db, MongoClient } from "mongodb";
 
 // Exported interfaces
 const conf: MulterGridfsStorage.FileConfig = {
-    filename: 'name',
-    bucketName: 'plants'
+    filename: "name",
+    bucketName: "plants",
 };
 
 // Connection promise
-const dbPromise = MongoClient.connect('mongodb://yourhost:27017').then((client) => client.db('database'));
+const dbPromise = MongoClient.connect("mongodb://yourhost:27017").then((client) => client.db("database"));
 
 declare const db: Db;
 
@@ -17,20 +17,20 @@ const opt1: MulterGridfsStorage.DbStorageOptions = {
     file: (req, file) => {
         return new Promise((resolve) => {
             resolve({
-                filename: file.originalname
+                filename: file.originalname,
             });
         });
-    }
+    },
 };
 
 const opt2: MulterGridfsStorage.UrlStorageOptions = {
-    url: 'mongodb://yourhost:27017/database',
+    url: "mongodb://yourhost:27017/database",
     connectionOpts: {},
     file: (req, file) => {
         return {
-            metadata: file.mimetype
+            metadata: file.mimetype,
         };
-    }
+    },
 };
 
 // All options
@@ -40,18 +40,18 @@ const urlFileStorage = new MulterGridfsStorage(opt2);
 
 // Other properties are optional
 const promiseStorage = new MulterGridfsStorage({
-    db: dbPromise
+    db: dbPromise,
 });
 
 const dbStorage = new MulterGridfsStorage({
-    db
+    db,
 });
 
 const urlStorage = new MulterGridfsStorage({
-    url: 'mongodb://yourhost:27017/database'
+    url: "mongodb://yourhost:27017/database",
 });
 
 // Extends event emitter
-promiseStorage.on('connection', () => {});
-urlStorage.addListener('conection', () => {});
-dbStorage.removeAllListeners('conection');
+promiseStorage.on("connection", () => {});
+urlStorage.addListener("conection", () => {});
+dbStorage.removeAllListeners("conection");

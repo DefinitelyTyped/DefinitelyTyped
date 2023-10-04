@@ -1,4 +1,4 @@
-// Type definitions for jest-image-snapshot 6.1
+// Type definitions for jest-image-snapshot 6.2
 // Project: https://github.com/americanexpress/jest-image-snapshot#readme
 // Definitions by: Janeene Beeforth <https://github.com/dawnmist>
 //                 erbridge <https://github.com/erbridge>
@@ -9,8 +9,8 @@
 
 /// <reference types="jest" />
 
-import { PixelmatchOptions } from 'pixelmatch';
-import { Options as SSIMOptions } from 'ssim.js';
+import { PixelmatchOptions } from "pixelmatch";
+import { Options as SSIMOptions } from "ssim.js";
 
 export interface MatchImageSnapshotOptions {
     /**
@@ -27,7 +27,7 @@ export interface MatchImageSnapshotOptions {
      * `pixelmatch` does a pixel by pixel comparison, whereas `ssim` does a structural similarity comparison.
      * @default 'pixelmatch'
      */
-    comparisonMethod?: 'pixelmatch' | 'ssim' | undefined;
+    comparisonMethod?: "pixelmatch" | "ssim" | undefined;
     /**
      * Custom snapshots directory.
      * Absolute path of a directory to keep the snapshot in.
@@ -48,24 +48,29 @@ export interface MatchImageSnapshotOptions {
      */
     customReceivedDir?: string | undefined;
     /**
+     * A custom postfix which is added to the snapshot name of the received image
+     * @default '-received'
+     */
+    customReceivedPostfix?: string | undefined;
+    /**
      * A custom name to give this snapshot. If not provided, one is computed automatically. When a function is provided
      * it is called with an object containing testPath, currentTestName, counter and defaultIdentifier as its first
      * argument. The function must return an identifier to use for the snapshot.
      */
     customSnapshotIdentifier?:
         | ((parameters: {
-              testPath: string;
-              currentTestName: string;
-              counter: number;
-              defaultIdentifier: string;
-          }) => string)
+            testPath: string;
+            currentTestName: string;
+            counter: number;
+            defaultIdentifier: string;
+        }) => string)
         | string
         | undefined;
     /**
      * Changes diff image layout direction.
      * @default 'horizontal'
      */
-    diffDirection?: 'horizontal' | 'vertical' | undefined;
+    diffDirection?: "horizontal" | "vertical" | undefined;
     /**
      * Either only include the difference between the baseline and the received image in the diff image, or include
      * the 3 images (following the direction set by `diffDirection`).
@@ -100,7 +105,7 @@ export interface MatchImageSnapshotOptions {
      * Sets the type of threshold that would trigger a failure.
      * @default 'pixel'.
      */
-    failureThresholdType?: 'pixel' | 'percent' | undefined;
+    failureThresholdType?: "pixel" | "percent" | undefined;
     /**
      * Updates a snapshot even if it passed the threshold against the existing one.
      * @default false.

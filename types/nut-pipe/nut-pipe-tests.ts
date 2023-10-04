@@ -1,5 +1,13 @@
 import { APIGatewayProxyEventV2, APIGatewayProxyStructuredResultV2, Context } from "aws-lambda";
-import { AsyncLambdaHandler, AsyncHandler, buildPipeline, AsyncBasicMiddleware, AsyncBasicMiddlewareWithServices, AsyncLambdaMiddleware, AsyncBasicHandler } from "nut-pipe";
+import {
+    AsyncBasicHandler,
+    AsyncBasicMiddleware,
+    AsyncBasicMiddlewareWithServices,
+    AsyncHandler,
+    AsyncLambdaHandler,
+    AsyncLambdaMiddleware,
+    buildPipeline,
+} from "nut-pipe";
 
 const test1 = async () => {
     const basicMiddleware1: AsyncBasicMiddleware = (context: any, next: AsyncBasicHandler) => {
@@ -18,7 +26,12 @@ const test1 = async () => {
         return `Hello ${context.firstName} ${context.lastName}`;
     };
 
-    const pipelineInvoker: AsyncHandler = buildPipeline([basicMiddleware1, basicMiddleware2, basicMiddleware3, basicMiddleware4]);
+    const pipelineInvoker: AsyncHandler = buildPipeline([
+        basicMiddleware1,
+        basicMiddleware2,
+        basicMiddleware3,
+        basicMiddleware4,
+    ]);
 
     const person = { firstName: "kenan", lastName: "hancer" };
 
@@ -46,39 +59,44 @@ const test2 = async () => {
         greetingService: {
             sayHello: (firstName: string, lastName: string) => {
                 return `Hello ${firstName} ${lastName}`;
-            }
-        }
+            },
+        },
     };
 
-    const pipelineInvoker: AsyncHandler = buildPipeline([basicMiddleware1, basicMiddleware2, basicMiddleware3, basicMiddleware4], services);
+    const pipelineInvoker: AsyncHandler = buildPipeline([
+        basicMiddleware1,
+        basicMiddleware2,
+        basicMiddleware3,
+        basicMiddleware4,
+    ], services);
 
     const person = { firstName: "kenan", lastName: "hancer" };
 
     const response: string = await pipelineInvoker(person);
 };
 
-const createAPIGatewayProxyEventV2 = (body = ''): APIGatewayProxyEventV2 => ({
-    version: '2.0',
-    routeKey: '$default_route',
-    rawPath: '/my/path',
-    rawQueryString: '',
+const createAPIGatewayProxyEventV2 = (body = ""): APIGatewayProxyEventV2 => ({
+    version: "2.0",
+    routeKey: "$default_route",
+    rawPath: "/my/path",
+    rawQueryString: "",
     headers: {},
     requestContext: {
-        accountId: '1111111111',
-        apiId: 'api-id',
-        domainName: 'id.execute-api.eu-west-1.amazonaws.com',
-        domainPrefix: 'id',
+        accountId: "1111111111",
+        apiId: "api-id",
+        domainName: "id.execute-api.eu-west-1.amazonaws.com",
+        domainPrefix: "id",
         http: {
-            method: 'POST',
-            path: '/my/path',
-            protocol: 'HTTP/1.1',
-            sourceIp: 'IP',
-            userAgent: 'agent',
+            method: "POST",
+            path: "/my/path",
+            protocol: "HTTP/1.1",
+            sourceIp: "IP",
+            userAgent: "agent",
         },
-        requestId: 'id',
-        routeKey: '$default_route',
-        stage: '$default',
-        time: '22/Jun/2021:13:21:04 +0000',
+        requestId: "id",
+        routeKey: "$default_route",
+        stage: "$default",
+        time: "22/Jun/2021:13:21:04 +0000",
         timeEpoch: 1181148333220,
     },
     body,
@@ -87,17 +105,17 @@ const createAPIGatewayProxyEventV2 = (body = ''): APIGatewayProxyEventV2 => ({
 
 const createContext = (): Context => ({
     callbackWaitsForEmptyEventLoop: true,
-    functionName: 'abcabc',
-    functionVersion: 'abcabab',
-    invokedFunctionArn: 'abcabc',
-    memoryLimitInMB: 'abcabc',
-    awsRequestId: 'abcabc',
-    logGroupName: 'abcabc',
-    logStreamName: 'abcabc',
+    functionName: "abcabc",
+    functionVersion: "abcabab",
+    invokedFunctionArn: "abcabc",
+    memoryLimitInMB: "abcabc",
+    awsRequestId: "abcabc",
+    logGroupName: "abcabc",
+    logStreamName: "abcabc",
     getRemainingTimeInMillis: () => 0,
-    done: (error?: Error, result?: any) => { },
-    fail: (error: Error | string) => { },
-    succeed: (messageOrObject: any) => { },
+    done: (error?: Error, result?: any) => {},
+    fail: (error: Error | string) => {},
+    succeed: (messageOrObject: any) => {},
 });
 
 const test3 = async () => {
@@ -132,7 +150,7 @@ const test3 = async () => {
 
     const lambdaFunc: AsyncHandler = buildPipeline([middleware1, middleware2, middleware3, middleware4]);
 
-    const person: Person = { firstName: 'kenan', lastName: 'hancer' };
+    const person: Person = { firstName: "kenan", lastName: "hancer" };
 
     const body: string = JSON.stringify(person);
 

@@ -13,7 +13,6 @@ interface Plugins {
 
 declare namespace InsomniaPlugin {
     export interface Insomnia {
-
         /**
          * Prevent the screen of the mobile device from falling asleep.
          */

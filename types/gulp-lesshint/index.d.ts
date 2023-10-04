@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { Transform } from 'stream';
+import { Transform } from "stream";
 
 declare namespace gulpLesshint {
     interface Options {
@@ -32,7 +32,7 @@ declare namespace gulpLesshint {
 
     interface Plugin {
         (options?: Options): {
-            on(event: 'data', listener: (file: LessHintFile) => void): Transform;
+            on(event: "data", listener: (file: LessHintFile) => void): Transform;
         } & Transform;
         reporter(reporter?: string): Transform;
         failOnError(): Transform;

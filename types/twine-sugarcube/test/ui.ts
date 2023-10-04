@@ -1,8 +1,8 @@
-//#region  Dialog
+// #region  Dialog
 
 const dialogOptions: TwineSugarCube.DialogOptions = {
     top: 123,
-    opacity: 30
+    opacity: 30,
 };
 
 Dialog.addClickHandler("#some-element", dialogOptions, () => {
@@ -38,29 +38,29 @@ Dialog.wiki("Blah //blah// ''blah''.");
 Dialog.wiki(Story.get("PC Sheet").processText());
 Dialog.wiki(Story.get("PC Sheet").processText());
 
-//#endregion
+// #endregion
 
-//#region  Fullscreen
+// #region  Fullscreen
 Fullscreen.element; // $ExpectType HTMLElement
 Fullscreen.exit().then(() => {});
 b = Fullscreen.isEnabled();
 b = Fullscreen.isFullscreen();
 Fullscreen.toggle().then(() => {});
-Fullscreen.toggle({navigationUI: "auto"});
-Fullscreen.toggle({navigationUI: "hide"});
-Fullscreen.toggle({navigationUI: "show"});
+Fullscreen.toggle({ navigationUI: "auto" });
+Fullscreen.toggle({ navigationUI: "hide" });
+Fullscreen.toggle({ navigationUI: "show" });
 // @ts-expect-error
-Fullscreen.toggle({navigationUI: "ayto"});
+Fullscreen.toggle({ navigationUI: "ayto" });
 
 Fullscreen.request(undefined, e);
-//#endregion
+// #endregion
 
-//#region LoadScreen
+// #region LoadScreen
 n = LoadScreen.lock();
 LoadScreen.unlock(n); // $ExpectType void
-//#endregion
+// #endregion
 
-//#region UI
+// #region UI
 UI.alert("You smell of elderberries!");
 UI.alert("You smell of elderberries!", {}, () => {});
 
@@ -77,9 +77,9 @@ UI.settings(dialogOptions, () => {}); // $ExpectType void
 
 UI.share(); // $ExpectType void
 UI.share(dialogOptions, () => {}); // $ExpectType void
-//#endregion
+// #endregion
 
-//#region  UIBar
+// #region  UIBar
 UIBar.destroy(); // $ExpectType void
 UIBar.hide(); // $ExpectType UIBarAPI
 UIBar.show(); // $ExpectType UIBarAPI
@@ -90,6 +90,6 @@ UIBar.unstow(b); // $ExpectType UIBarAPI
 UIBar.update(); // $ExpectType void
 b = UIBar.isHidden();
 b = UIBar.isStowed();
-//#endregion
+// #endregion
 
 export {};

@@ -2,6 +2,7 @@
 // Project: https://github.com/node-formidable/formidable
 // Definitions by: Wim Looman <https://github.com/Nemo157>
 //                 Martin Badin <https://github.com/martin-badin>
+//                 devLana <https://github.com/devLana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -185,6 +186,13 @@ declare namespace formidable {
         multiples?: boolean | undefined;
 
         /**
+         * If true, makes direct folder uploads possible.
+         *
+         * @default false
+         */
+        createDirsFromUploads?: boolean | undefined;
+
+        /**
          * Use it to control newFilename. Must return a string. Will be joined with
          * options.uploadDir.
          *
@@ -197,12 +205,12 @@ declare namespace formidable {
         filter?: (part: Part) => boolean;
     }
 
-    interface Fields {
-        [field: string]: string | string[];
-    }
-    interface Files {
-        [file: string]: File | File[];
-    }
+    type Fields<T extends string = string> = {
+        readonly [Prop in T]?: string[];
+    };
+    type Files<U extends string = string> = {
+        readonly [Prop in U]?: File[];
+    };
 
     interface Part extends Stream {
         name: string | null;
@@ -213,7 +221,9 @@ declare namespace formidable {
     /**
      * @link https://github.com/node-formidable/formidable#file
      */
-    interface FileJSON extends Pick<File, "size" | "filepath" | "originalFilename" | "mimetype" | "hash" | "newFilename"> {
+    interface FileJSON
+        extends Pick<File, "size" | "filepath" | "originalFilename" | "mimetype" | "hash" | "newFilename">
+    {
         length: number;
         mimetype: string | null;
         mtime: Date | null;

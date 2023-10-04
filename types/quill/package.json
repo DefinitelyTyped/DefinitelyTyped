@@ -2,6 +2,6 @@
     "private": true,
     "dependencies": {
         "parchment": "^1.1.2",
-        "quill-delta": "^4.0.1"
+        "quill-delta": "^5.1.0"
     }
 }

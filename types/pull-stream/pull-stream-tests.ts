@@ -1,4 +1,4 @@
-import pull = require('pull-stream');
+import pull = require("pull-stream");
 
 /********
  * pull *
@@ -115,16 +115,16 @@ nothing = pull(pull.error(new Error()), sink);
 // infinite
 nothing = pull(pull.infinite(), numberSink);
 nothing = pull(
-    pull.infinite(() => 'value'),
+    pull.infinite(() => "value"),
     sink,
 );
 
 // keys
-nothing = pull(pull.keys({ hello: 'world' }), sink);
+nothing = pull(pull.keys({ hello: "world" }), sink);
 nothing = pull(pull.keys([]), sink);
 
 // once
-nothing = pull(pull.once('value'), sink);
+nothing = pull(pull.once("value"), sink);
 nothing = pull(pull.once(1), numberSink);
 nothing = pull(
     pull.once(1, err => {
@@ -134,7 +134,7 @@ nothing = pull(
 );
 
 // values
-nothing = pull(pull.values(['hello', 'world']), sink);
+nothing = pull(pull.values(["hello", "world"]), sink);
 nothing = pull(pull.values([1, 2]), numberSink);
 nothing = pull(
     pull.values([1, 2], err => {
@@ -159,20 +159,20 @@ nothing = pull(
 // filterNot
 nothing = pull(
     source,
-    pull.filterNot(data => data === 'hello'),
+    pull.filterNot(data => data === "hello"),
     sink,
 );
 
 // filter
 nothing = pull(
     source,
-    pull.filter(data => data === 'hello'),
+    pull.filter(data => data === "hello"),
     sink,
 );
 nothing = pull(
     source,
-    pull.filter((data): data is 'hello' => data === 'hello'),
-    sink as pull.Sink<'hello'>,
+    pull.filter((data): data is "hello" => data === "hello"),
+    sink as pull.Sink<"hello">,
 );
 
 // flatten
@@ -189,7 +189,7 @@ nothing = pull(source, pull.map(Number), numberSink);
 // nonUnique
 nothing = pull(source, pull.nonUnique(), sink);
 nothing = pull(source, pull.nonUnique(Number), sink);
-nothing = pull(source, pull.nonUnique('length'), sink);
+nothing = pull(source, pull.nonUnique("length"), sink);
 
 // take
 nothing = pull(source, pull.take(1), sink);
@@ -218,7 +218,7 @@ nothing = pull(
 // unique
 nothing = pull(source, pull.unique(), sink);
 nothing = pull(source, pull.unique(Number), sink);
-nothing = pull(source, pull.unique('length'), sink);
+nothing = pull(source, pull.unique("length"), sink);
 
 /*********
  * sinks *
@@ -267,7 +267,7 @@ nothing = pull(
 );
 nothing = pull(
     source,
-    pull.find('length', err => {
+    pull.find("length", err => {
         if (err instanceof Error) err.stack;
     }),
 );

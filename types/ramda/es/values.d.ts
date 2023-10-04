@@ -1,2 +1,2 @@
-import { values } from '../index';
+import { values } from "../index.js";
 export default values;

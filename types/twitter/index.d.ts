@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import request = require('request');
-import { EventEmitter } from 'events';
+import request = require("request");
+import { EventEmitter } from "events";
 
 export = Twitter;
 
@@ -27,12 +27,12 @@ declare class Twitter {
     post(path: string, params?: Twitter.RequestParams): Promise<Twitter.ResponseData>;
 
     stream(
-        method: 'user' | 'site' | string,
+        method: "user" | "site" | string,
         params: { [key: string]: any },
-        callback: (stream: EventEmitter) => void
+        callback: (stream: EventEmitter) => void,
     ): void;
-    stream(method: 'user' | 'site' | string, callback: (stream: EventEmitter) => void): void;
-    stream(method: 'user' | 'site' | string, params?: { [key: string]: any }): EventEmitter;
+    stream(method: "user" | "site" | string, callback: (stream: EventEmitter) => void): void;
+    stream(method: "user" | "site" | string, params?: { [key: string]: any }): EventEmitter;
 }
 
 declare namespace Twitter {

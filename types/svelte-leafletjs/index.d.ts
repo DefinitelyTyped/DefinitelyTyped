@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.2
 
-import type { SvelteComponentTyped } from 'svelte';
-import * as L from 'leaflet';
+import * as L from "leaflet";
+import type { SvelteComponentTyped } from "svelte";
 
 export interface MapEvents {
     click: L.LeafletMouseEvent;

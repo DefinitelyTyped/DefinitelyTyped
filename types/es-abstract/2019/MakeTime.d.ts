@@ -1,2 +1,2 @@
-import MakeTime = require('../2018/MakeTime');
+import MakeTime = require("../2018/MakeTime");
 export = MakeTime;

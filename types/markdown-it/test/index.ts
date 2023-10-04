@@ -1,9 +1,9 @@
-import LinkifyIt = require('linkify-it');
-import MarkdownIt = require('markdown-it/lib');
-import ParserBlock = require('markdown-it/lib/parser_block');
-import ParserCore = require('markdown-it/lib/parser_core');
-import ParserInline = require('markdown-it/lib/parser_inline');
-import Renderer = require('markdown-it/lib/renderer');
+import LinkifyIt = require("linkify-it");
+import MarkdownIt = require("markdown-it/lib");
+import ParserBlock = require("markdown-it/lib/parser_block");
+import ParserCore = require("markdown-it/lib/parser_core");
+import ParserInline = require("markdown-it/lib/parser_inline");
+import Renderer = require("markdown-it/lib/renderer");
 
 {
     const md = new MarkdownIt();
@@ -16,10 +16,10 @@ import Renderer = require('markdown-it/lib/renderer');
         html: true,
         xhtmlOut: true,
         breaks: false,
-        langPrefix: 'language-',
+        langPrefix: "language-",
         linkify: false,
         typographer: false,
-        quotes: '\u201c\u201d\u2018\u2019' /* “”‘’ */,
+        quotes: "\u201c\u201d\u2018\u2019", /* “”‘’ */
         highlight: null,
     };
 
@@ -28,10 +28,10 @@ import Renderer = require('markdown-it/lib/renderer');
         html: false,
         xhtmlOut: false,
         breaks: false,
-        langPrefix: 'language-',
+        langPrefix: "language-",
         linkify: false,
         typographer: false,
-        quotes: '\u201c\u201d\u2018\u2019' /* “”‘’ */,
+        quotes: "\u201c\u201d\u2018\u2019", /* “”‘’ */
         highlight: null,
     };
 
@@ -40,10 +40,10 @@ import Renderer = require('markdown-it/lib/renderer');
         html: false,
         xhtmlOut: false,
         breaks: false,
-        langPrefix: 'language-',
+        langPrefix: "language-",
         linkify: false,
         typographer: false,
-        quotes: '\u201c\u201d\u2018\u2019' /* “”‘’ */,
+        quotes: "\u201c\u201d\u2018\u2019", /* “”‘’ */
         highlight: null,
     };
 
@@ -52,10 +52,10 @@ import Renderer = require('markdown-it/lib/renderer');
         html: false,
         xhtmlOut: false,
         breaks: false,
-        langPrefix: 'language-',
+        langPrefix: "language-",
         linkify: false,
         typographer: false,
-        quotes: '\u201c\u201d\u2018\u2019' /* “”‘’ */,
+        quotes: "\u201c\u201d\u2018\u2019", /* “”‘’ */
         highlight: (str, lang, attrs) => "",
     };
 }
@@ -81,21 +81,21 @@ import Renderer = require('markdown-it/lib/renderer');
 
 {
     const md = MarkdownIt()
-        .configure('default')
-        .configure('zero')
-        .configure('commonmark');
+        .configure("default")
+        .configure("zero")
+        .configure("commonmark");
 }
 
 {
     const md = MarkdownIt()
-        .enable(['sub', 'sup'])
-        .enable(['sub', 'sup'], true)
-        .disable(['sub', 'sup'])
-        .disable(['sub', 'sup'], true)
-        .enable('smartquotes')
-        .enable('smartquotes', true)
-        .disable('smartquotes')
-        .disable('smartquotes', true);
+        .enable(["sub", "sup"])
+        .enable(["sub", "sup"], true)
+        .disable(["sub", "sup"])
+        .disable(["sub", "sup"], true)
+        .enable("smartquotes")
+        .enable("smartquotes", true)
+        .disable("smartquotes")
+        .disable("smartquotes", true);
 }
 
 {
@@ -110,40 +110,40 @@ import Renderer = require('markdown-it/lib/renderer');
 
     const md = MarkdownIt()
         .use(plugin)
-        .use(plugin, 'foobar')
+        .use(plugin, "foobar")
         .use(plugin1, false)
-        .use(plugin2, 'foobar', 123)
+        .use(plugin2, "foobar", 123)
         .use(plugin3, {})
         .use(plugin4)
         .use(plugin4, { foo: true, bar: 123 })
         .use(plugin5)
-        .use(plugin5, true, 'foobar', 123);
+        .use(plugin5, true, "foobar", 123);
 }
 
 {
     const md = new MarkdownIt();
-    const flag: boolean = md.validateLink('https://github.com/');
-    const link: string = md.normalizeLink('https://github.com/');
-    const text: string = md.normalizeLinkText('http://host/');
+    const flag: boolean = md.validateLink("https://github.com/");
+    const link: string = md.normalizeLink("https://github.com/");
+    const text: string = md.normalizeLinkText("http://host/");
 }
 
 {
     const md = new MarkdownIt();
 
     let result: string;
-    result = md.render('# Foobar');
-    result = md.render('# Foobar', {});
+    result = md.render("# Foobar");
+    result = md.render("# Foobar", {});
 
-    const tokens = md.parse('# Foobar', {});
+    const tokens = md.parse("# Foobar", {});
     result = md.renderer.render(tokens, md.options, {});
 }
 {
     const md = new MarkdownIt();
 
     let result: string;
-    result = md.renderInline('__foobar__');
-    result = md.renderInline('__foobar__', {});
+    result = md.renderInline("__foobar__");
+    result = md.renderInline("__foobar__", {});
 
-    const tokens = md.parseInline('__foobar__', {});
+    const tokens = md.parseInline("__foobar__", {});
     result = md.renderer.renderInline(tokens, md.options, {});
 }

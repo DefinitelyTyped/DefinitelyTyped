@@ -1,0 +1,12 @@
+{
+    "type": "module",
+    "private": true,
+    "exports": {
+        ".": {
+            "types": {
+                "import": "./index.d.ts",
+                "require": "./index.d.cts"
+            }
+        }
+    }
+}

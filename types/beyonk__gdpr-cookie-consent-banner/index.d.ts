@@ -9,7 +9,7 @@ interface Choice {
     value: boolean;
 }
 
-type Category = 'necessary' | 'tracking' | 'analytics' | 'marketing';
+type Category = "necessary" | "tracking" | "analytics" | "marketing";
 
 interface Options {
     cookieName?: string;
@@ -34,14 +34,17 @@ interface GdprConsentInterface {
 
 declare const GdprConsent: GdprConsentInterface;
 
-declare module '@beyonk/gdpr-cookie-consent-banner' {
-    const attachBanner: GdprConsentInterface['attachBanner'];
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@beyonk/gdpr-cookie-consent-banner" {
+    const attachBanner: GdprConsentInterface["attachBanner"];
     export default attachBanner;
 }
 
-declare module '@beyonk/gdpr-cookie-consent-banner/dist/esm/bundle.js' {
-    const attachBanner: GdprConsentInterface['attachBanner'];
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@beyonk/gdpr-cookie-consent-banner/dist/esm/bundle.js" {
+    const attachBanner: GdprConsentInterface["attachBanner"];
     export default attachBanner;
 }
 
-declare module '@beyonk/gdpr-cookie-consent-banner/dist/style.css' {}
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@beyonk/gdpr-cookie-consent-banner/dist/style.css" {}

@@ -4,5 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-export { default as CSVLink } from "./components/Link";
 export { default as CSVDownload } from "./components/Download";
+export { default as CSVLink } from "./components/Link";

@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import * as stream from 'stream';
+import * as stream from "stream";
 
 export function decode(buf: Buffer): Buffer[];
 

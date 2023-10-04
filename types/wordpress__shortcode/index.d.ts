@@ -18,11 +18,11 @@ export interface ShortcodeMatch {
 export type Shortcode = {
     attrs: ShortcodeAttrs;
     tag: string;
-} & ({ type: 'closed'; content: string } | { type: 'self-closing' | 'single' });
+} & ({ type: "closed"; content: string } | { type: "self-closing" | "single" });
 
 export interface ShortcodeOptions {
     tag: string;
-    type?: 'closed' | 'self-closing' | 'single' | undefined;
+    type?: "closed" | "self-closing" | "single" | undefined;
     attrs?: Partial<ShortcodeAttrs> | string | undefined;
     content?: string | undefined;
 }
@@ -131,7 +131,7 @@ export default class shortcode {
     attrs: ShortcodeAttrs;
     content?: string | undefined;
     tag?: string | undefined;
-    type?: 'closed' | 'self-closing' | 'single' | undefined;
+    type?: "closed" | "self-closing" | "single" | undefined;
 
     constructor(options?: Partial<ShortcodeOptions>);
 

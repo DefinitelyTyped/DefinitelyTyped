@@ -5,7 +5,6 @@
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/swiz.d.ts
 
-
 export declare class Cidr {
     constructor(x: string, y?: string);
     isInCIDR(x: any): boolean;
@@ -15,7 +14,11 @@ export declare class Valve {
     constructor(schema: IValveSchema, baton?: any);
     setSchema(schema: IValveSchema): Valve;
     addFinalValidator(func: (obj: any, callback: (err: Error, cleaned: any) => void) => void): Valve;
-    addChainValidator(name: string, description: string, func: (value: any, callback: (err: Error, cleaned: any) => void) => void): void;
+    addChainValidator(
+        name: string,
+        description: string,
+        func: (value: any, callback: (err: Error, cleaned: any) => void) => void,
+    ): void;
     check(obj: any, options: ICheckOptions, callback: (err: any, cleaned: any) => void): void;
     check(obj: any, callback: (err: any, cleaned: any) => void): void;
     checkUpdate(existing: any, obj: any, callback: (err: any, cleaned: any) => void): void;
@@ -30,7 +33,7 @@ export interface IValveSchema {
     [index: string]: IValveSchemaMember;
 }
 
-export interface IValveSchemaMember { }
+export interface IValveSchemaMember {}
 
 export interface IValveSchemaMemberArray extends IValveSchemaMember {
     [index: string]: IValveSchemaMember;
@@ -116,8 +119,18 @@ export declare class Swiz {
     serializeJson(obj: any): string;
     serializeXml(obj: any): string;
     deserializeXml(xml: string): any;
-    serialize(mode: SERIALIZATION, version: number, obj: ISerializable, callback: (err: any, result: string) => void): void;
-    serializeForPagination(mode: SERIALIZATION, array: any[], metadata: any, callback: (err: any, result: string) => void): void;
+    serialize(
+        mode: SERIALIZATION,
+        version: number,
+        obj: ISerializable,
+        callback: (err: any, result: string) => void,
+    ): void;
+    serializeForPagination(
+        mode: SERIALIZATION,
+        array: any[],
+        metadata: any,
+        callback: (err: any, result: string) => void,
+    ): void;
     deserialize(mode: SERIALIZATION, version: number, raw: string, callback: (err: any, result: any) => void): void;
     getFieldDefinition(stype: string, name: string): struct.IField;
 }
@@ -140,7 +153,7 @@ interface IValidator {
 
 export declare function stripSerializerTypes(obj: any): any;
 
-export declare module struct {
+export declare namespace struct {
     export function Obj(name: string, options?: IObjOptions): IObj;
     export function Field(name: string, options?: IFieldOptions): IField;
     export function coerce(value: any, coerceTo: string): any;
@@ -190,5 +203,5 @@ export declare module struct {
 
 export declare enum SERIALIZATION {
     SERIALIZATION_JSON,
-    SERIALIZATION_XML
+    SERIALIZATION_XML,
 }

@@ -8,24 +8,24 @@ const options: ServerOptions = {
 const serverRoutes: ServerRoute[] = [
     // Detailed notation
     {
-        path: '/test1',
-        method: 'GET',
+        path: "/test1",
+        method: "GET",
         handler(request, h) {
-            const response = h.response('success');
-            response.type('text/plain');
-            response.header('X-Custom', 'some-value');
+            const response = h.response("success");
+            response.type("text/plain");
+            response.header("X-Custom", "some-value");
             return response;
-        }
+        },
     },
     // Chained notation
     {
-        path: '/test2',
-        method: 'GET',
+        path: "/test2",
+        method: "GET",
         handler(request, h) {
-            return h.response('success')
-            .type('text/plain')
-            .header('X-Custom', 'some-value');
-        }
+            return h.response("success")
+                .type("text/plain")
+                .header("X-Custom", "some-value");
+        },
     },
 ];
 
@@ -33,4 +33,4 @@ const server = new Server(options);
 server.route(serverRoutes);
 
 server.start();
-console.log('Server started at: ' + server.info.uri);
+console.log("Server started at: " + server.info.uri);

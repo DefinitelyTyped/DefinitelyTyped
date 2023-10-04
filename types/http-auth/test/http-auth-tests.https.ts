@@ -1,16 +1,16 @@
-import * as https from 'https';
-import * as fs from 'fs';
-import * as auth from 'http-auth';
+import * as fs from "fs";
+import * as auth from "http-auth";
+import * as https from "https";
 
 const basic = auth.basic({
-    realm: 'Simon Area.',
-    file: __dirname + '/../data/users.htpasswd', // gevorg:gpass, Sarah:testpass
+    realm: "Simon Area.",
+    file: __dirname + "/../data/users.htpasswd", // gevorg:gpass, Sarah:testpass
 });
 
 // HTTPS server options.
 const options = {
-    key: fs.readFileSync(__dirname + '/../data/server.key'),
-    cert: fs.readFileSync(__dirname + '/../data/server.crt'),
+    key: fs.readFileSync(__dirname + "/../data/server.key"),
+    cert: fs.readFileSync(__dirname + "/../data/server.crt"),
 };
 
 // Starting server.
@@ -23,5 +23,5 @@ https
     )
     .listen(1337, () => {
         // Log URL.
-        console.log('Server running at https://127.0.0.1:1337/');
+        console.log("Server running at https://127.0.0.1:1337/");
     });

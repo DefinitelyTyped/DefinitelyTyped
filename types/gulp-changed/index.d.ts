@@ -39,7 +39,7 @@ interface IOptions {
      * @default changed.compareLastModifiedTime
      */
     hasChanged?: IComparator | undefined;
-    
+
     /**
      * Function to transform the path to the destination file. Should return the absolute path to the (renamed) destination file.
      */

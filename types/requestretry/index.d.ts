@@ -9,8 +9,8 @@
 
 /// <reference types="node" />
 
-import request = require('request');
-import http = require('http');
+import request = require("request");
+import http = require("http");
 
 declare namespace requestretry {
     type RetryStrategy = (err: Error, response: http.IncomingMessage, body: any) => boolean;
@@ -22,9 +22,9 @@ declare namespace requestretry {
     }
     interface RetryRequestAPI extends request.RequestAPI<RequestPromise, RequestRetryOptions, request.RequiredUriUrl> {
         RetryStrategies: {
-            'HttpError': RetryStrategy;
-            'HTTPOrNetworkError': RetryStrategy;
-            'NetworkError': RetryStrategy;
+            "HttpError": RetryStrategy;
+            "HTTPOrNetworkError": RetryStrategy;
+            "NetworkError": RetryStrategy;
         };
     }
 

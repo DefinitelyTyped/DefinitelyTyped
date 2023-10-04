@@ -3,7 +3,7 @@
 // Definitions by: Steven Bassett <https://github.com/bassettsj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { PluginCreator } from 'postcss';
+import { PluginCreator } from "postcss";
 
 declare namespace PostcssPxToRem {
     interface Options {

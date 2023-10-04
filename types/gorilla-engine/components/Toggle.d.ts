@@ -1,5 +1,5 @@
 declare namespace GorillaEngine.UI {
-    interface ToggleProps extends Common, Bounds {
+    interface ToggleProps extends Common, Bounds, Font, Clickable, Background, Highlight, MIDILearn, Margin {
         text: string;
         onColor: string;
         offColor: string;

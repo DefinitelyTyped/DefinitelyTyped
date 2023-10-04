@@ -1,4 +1,4 @@
-import { Calendar } from 'calendar';
+import { Calendar } from "calendar";
 
 const cal = new Calendar();
 cal.monthText(2019, 11);
@@ -21,7 +21,7 @@ cal.monthDates(
     date => date.getTime(),
     week => {
         week; // $ExpectType number[]
-        return week.join('</td><td>');
+        return week.join("</td><td>");
     },
 );
 
@@ -29,10 +29,10 @@ cal.monthDates(
 cal.monthDates(
     year,
     month,
-    date => (date.getMonth() === month ? date.getDate().toString() : '&nbsp;'),
+    date => (date.getMonth() === month ? date.getDate().toString() : "&nbsp;"),
     week => {
         week; // $ExpectType string[]
-        return week.join('</td><td>');
+        return week.join("</td><td>");
     },
 );
 

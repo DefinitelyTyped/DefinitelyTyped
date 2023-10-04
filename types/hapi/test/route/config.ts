@@ -6,33 +6,33 @@ const options: ServerOptions = {
 
 // different methods
 const routeConfig: ServerRoute = {
-  path: '/signin',
-  method: 'PUT',
-  vhost: 'site.coms',
+    path: "/signin",
+    method: "PUT",
+    vhost: "site.coms",
 };
 const routeConfigTest1: ServerRoute = {
-  path: '/signin',
-  method: '*'
+    path: "/signin",
+    method: "*",
 };
 const routeConfigTest2: ServerRoute = {
-  path: '/signin',
-  method: ['OPTIONS', '*']
+    path: "/signin",
+    method: ["OPTIONS", "*"],
 };
 
 // different handlers
 const routeConfigTest3: ServerRoute = {
-  path: '/signin',
-  method: 'PUT',
-  handler(request, h) {
-    return 'ok';
-  }
+    path: "/signin",
+    method: "PUT",
+    handler(request, h) {
+        return "ok";
+    },
 };
 const routeConfigTest4: ServerRoute = {
-  path: '/signin',
-  method: 'PUT',
-  handler(request, h) {
-    return 'ok';
-  }
+    path: "/signin",
+    method: "PUT",
+    handler(request, h) {
+        return "ok";
+    },
 };
 
 const server = new Server(options);
@@ -42,11 +42,11 @@ server.route(routeConfig);
 const user: RouteOptions = {
     cache: { expiresIn: 5000 },
     handler(request, h) {
-        return { name: 'John' };
-    }
+        return { name: "John" };
+    },
 };
 
-server.route({method: 'GET', path: '/user', options: user });
+server.route({ method: "GET", path: "/user", options: user });
 
 server.start();
-console.log('Server started at: ' + server.info.uri);
+console.log("Server started at: " + server.info.uri);

@@ -33,7 +33,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): Layout;
+            new(config?: ConfigOptions): Layout;
             prototype: Prototype;
             static: Static;
             super: Element.Constructor;

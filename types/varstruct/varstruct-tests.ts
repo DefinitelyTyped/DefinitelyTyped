@@ -1,5 +1,5 @@
-import vstruct = require('varstruct');
-import * as VarIntProtobuf from 'varint';
+import vstruct = require("varstruct");
+import * as VarIntProtobuf from "varint";
 
 // test type exports
 type Codec<T> = vstruct.Codec<T>;
@@ -8,16 +8,20 @@ type ObjectDescriptorTuple<T, T2> = vstruct.ObjectDescriptorTuple<T, T2>;
 type ObjectDescriptorMap<T, T2> = vstruct.ObjectDescriptorMap<T, T2>;
 
 // $ExpectType Codec<{ x: number; y: number; z: number; }>
-let Vector = vstruct<{ x: number; y: number; z: number }>([
-    { name: 'x', type: vstruct.DoubleBE },
-    { name: 'y', type: vstruct.DoubleBE },
-    { name: 'z', type: vstruct.DoubleBE },
-] as const);
-Vector = vstruct([
-    ['x', vstruct.DoubleBE],
-    ['y', vstruct.DoubleBE],
-    ['z', vstruct.DoubleBE],
-] as const);
+let Vector = vstruct<{ x: number; y: number; z: number }>(
+    [
+        { name: "x", type: vstruct.DoubleBE },
+        { name: "y", type: vstruct.DoubleBE },
+        { name: "z", type: vstruct.DoubleBE },
+    ] as const,
+);
+Vector = vstruct(
+    [
+        ["x", vstruct.DoubleBE],
+        ["y", vstruct.DoubleBE],
+        ["z", vstruct.DoubleBE],
+    ] as const,
+);
 
 Vector.encode({ x: 93.1, y: 87.3, z: 10.39 }); // $ExpectType Buffer
 Vector.encode({ x: 93.1, y: 87.3, z: 10.39 }, Buffer.alloc(100)); // $ExpectType Buffer
@@ -64,7 +68,7 @@ seq.encode([1, undefined]);
 // @ts-expect-error
 seq.encode([Buffer.alloc(10), 1]);
 // @ts-expect-error
-seq.encode([1, 'foo']);
+seq.encode([1, "foo"]);
 
 vstruct.Buffer(1); // $ExpectType Codec<Buffer>
 vstruct.VarBuffer(vstruct.Int8); // $ExpectType Codec<Buffer>
@@ -72,27 +76,27 @@ vstruct.VarBuffer(vstruct.Int8); // $ExpectType Codec<Buffer>
 vstruct.VarMap(vstruct.Int16LE, vstruct.String(1), vstruct.Buffer(1)); // $ExpectType Codec<Record<string, Buffer>>
 
 vstruct.String(1); // $ExpectType Codec<string>
-vstruct.String(1, 'utf8'); // $ExpectType Codec<string>
+vstruct.String(1, "utf8"); // $ExpectType Codec<string>
 vstruct.VarString(vstruct.Int8); // $ExpectType Codec<string>
-vstruct.VarString(vstruct.Int8, 'utf8'); // $ExpectType Codec<string>
+vstruct.VarString(vstruct.Int8, "utf8"); // $ExpectType Codec<string>
 
 // $ExpectType Codec<string>
 vstruct.Bound(vstruct.String(1), value => {
     value; // $ExpectType string
-    if (typeof value !== 'string') {
+    if (typeof value !== "string") {
         throw new Error();
     }
 });
 vstruct.Value(vstruct.UInt8, 1); // $ExpectType Codec<number | undefined>
 
 const c: vstruct.Codec<{ foo: string; bar: { baz: number } }> = vstruct([
-    { name: 'foo', type: vstruct.String(10) },
-    { name: 'bar', type: vstruct([['baz', vstruct.Byte]]) },
+    { name: "foo", type: vstruct.String(10) },
+    { name: "bar", type: vstruct([["baz", vstruct.Byte]]) },
 ]);
 // $ExpectType Codec<{ foo: string; bar: { baz: number; }; }>
 vstruct<{ foo: string; bar: { baz: number } }>([
-    { name: 'foo', type: vstruct.String(10) },
-    { name: 'bar', type: vstruct([['baz', vstruct.Byte] as const]) },
+    { name: "foo", type: vstruct.String(10) },
+    { name: "bar", type: vstruct([["baz", vstruct.Byte] as const]) },
 ]);
 
 const SHA256 = vstruct.Buffer(32);
@@ -105,8 +109,8 @@ interface Message {
 }
 
 const Message = vstruct<Message>([
-    { name: 'previous', type: SHA256 },
-    { name: 'author', type: SHA256 },
-    { name: 'message', type: vstruct.VarBuffer(VarIntProtobuf) },
-    { name: 'attachments', type: vstruct.VarArray(vstruct.Byte, SHA256) },
+    { name: "previous", type: SHA256 },
+    { name: "author", type: SHA256 },
+    { name: "message", type: vstruct.VarBuffer(VarIntProtobuf) },
+    { name: "attachments", type: vstruct.VarArray(vstruct.Byte, SHA256) },
 ]);

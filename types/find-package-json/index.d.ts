@@ -7,7 +7,7 @@
 
 /// <reference types="node"/>
 
-import _PackageJSON from './package-json';
+import _PackageJSON from "./package-json";
 
 export = find;
 

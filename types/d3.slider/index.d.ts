@@ -30,6 +30,6 @@ declare module "d3" {
         snap(val: boolean): Slider;
         scale(): any;
         scale(val: any): Slider;
-        on(evt: ("slide" | "slideend"), callback: (evt: any, val: any) => void): Slider;
+        on(evt: "slide" | "slideend", callback: (evt: any, val: any) => void): Slider;
     }
 }

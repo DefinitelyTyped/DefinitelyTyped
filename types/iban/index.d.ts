@@ -13,7 +13,7 @@ interface IBANStatic {
     /**
      * An object containing all the known IBAN specifications
      */
-    countries: Record<IBAN.Specification['countryCode'], IBAN.Specification>;
+    countries: Record<IBAN.Specification["countryCode"], IBAN.Specification>;
 
     /**
      * @summary Returns the IBAN in a electronic format.

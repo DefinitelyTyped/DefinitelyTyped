@@ -6,14 +6,14 @@
 
 export as namespace ReduxLogger;
 
-import * as Redux from 'redux';
+import * as Redux from "redux";
 
 export const logger: Redux.Middleware;
 
 export type LoggerPredicate = (
     getState: () => any,
     action: any,
-    logEntry?: LogEntryObject
+    logEntry?: LogEntryObject,
 ) => boolean;
 
 export type StateToString = (state: any) => string;

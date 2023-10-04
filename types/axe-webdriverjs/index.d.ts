@@ -77,7 +77,7 @@ export interface AxeBuilder {
      * @param callback   Function to execute when analysis completes.
      */
     analyze(
-        callback?: AnalyzeCallback | DeprecatedAnalyzeCallback
+        callback?: AnalyzeCallback | DeprecatedAnalyzeCallback,
     ): Promise<AxeAnalysis>;
 }
 
@@ -91,5 +91,5 @@ export interface BuilderOptions {
 
 export const AxeBuilder: {
     (driver: WebDriver, source?: string, builderOptions?: BuilderOptions): AxeBuilder;
-    new (driver: WebDriver, source?: string, builderOptions?: BuilderOptions): AxeBuilder;
+    new(driver: WebDriver, source?: string, builderOptions?: BuilderOptions): AxeBuilder;
 };

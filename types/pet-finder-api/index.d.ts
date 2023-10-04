@@ -13,7 +13,12 @@ declare namespace petFinder {
         findShelter(location: string, options: any, callback: (error: any, shelters: Shelter[]) => void): void;
         getShelter(shelterId: string, options: any, callback: (error: any, shelter: Shelter) => void): void;
         getPetsInShelter(shelterId: string, options: any, callback: (error: any, pets: Pet[]) => void): void;
-        getSheltersWithBreeds(animal: string, breed: string, options: any, callback: (error: any, shelters: Shelter[]) => void): void;
+        getSheltersWithBreeds(
+            animal: string,
+            breed: string,
+            options: any,
+            callback: (error: any, shelters: Shelter[]) => void,
+        ): void;
     }
 
     interface Pet {

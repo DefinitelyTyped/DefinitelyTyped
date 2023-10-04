@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Request, Response } from 'express';
-import { SinonStub, SinonSpy } from 'sinon';
+import { Request, Response } from "express";
+import { SinonSpy, SinonStub } from "sinon";
 
 declare namespace mockReqRes {
     interface Dictionary<T> {
@@ -50,7 +50,7 @@ declare namespace mockReqRes {
         mockRequest(options?: RequestPayload): RequestOutput;
 
         mockResponse(options?: ResponsePayload): ResponseOutput;
-      }
+    }
 }
 
 declare function mockReqRes(): mockReqRes.Mock;

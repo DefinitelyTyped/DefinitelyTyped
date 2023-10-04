@@ -19,10 +19,12 @@ declare namespace OO.ui {
         }
 
         interface ConfigOptions
-            extends Widget.ConfigOptions,
+            extends
+                Widget.ConfigOptions,
                 mixin.TabIndexedElement.ConfigOptions,
                 mixin.TitledElement.ConfigOptions,
-                mixin.AccessKeyedElement.ConfigOptions {
+                mixin.AccessKeyedElement.ConfigOptions
+        {
             /** The value of the input’s HTML `name` attribute. */
             name?: string;
             /** The value of the input. */
@@ -41,18 +43,22 @@ declare namespace OO.ui {
         interface Static extends Widget.Static, mixin.TitledElement.Static, mixin.AccessKeyedElement.Static {}
 
         interface Props
-            extends Widget.Props,
+            extends
+                Widget.Props,
                 mixin.TabIndexedElement.Props,
                 mixin.TitledElement.Props,
-                mixin.AccessKeyedElement.Props {
+                mixin.AccessKeyedElement.Props
+        {
             $input: JQuery;
         }
 
         interface Prototype
-            extends Widget.Prototype,
+            extends
+                Widget.Prototype,
                 mixin.TabIndexedElement.Prototype,
                 mixin.TitledElement.Prototype,
-                mixin.AccessKeyedElement.Prototype {
+                mixin.AccessKeyedElement.Prototype
+        {
             /**
              * Get the value of the input.
              *
@@ -66,7 +72,7 @@ declare namespace OO.ui {
              * @param dir Text directionality: 'ltr', 'rtl' or 'auto'
              * @return The widget, for chaining
              */
-            setDir(dir: Direction | 'auto'): this;
+            setDir(dir: Direction | "auto"): this;
 
             /**
              * Set the value of the input.
@@ -123,19 +129,19 @@ declare namespace OO.ui {
 
             connect<T extends Partial<Record<keyof EventMap, any>>, C>(
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
             ): this;
 
             disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
             ): this;
             // #endregion
         }
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): InputWidget;
+            new(config?: ConfigOptions): InputWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

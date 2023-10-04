@@ -6,7 +6,7 @@
 
 /// <reference types="node"/>
 
-import { ExecSyncOptions } from 'child_process';
+import { ExecSyncOptions } from "child_process";
 
 declare namespace exec {
     export interface ShellJsOptions {

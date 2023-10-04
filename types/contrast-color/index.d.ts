@@ -50,7 +50,7 @@ interface ContrastColorConfig {
      * @default {}
      */
     customNamedColors?: {
-        [colorName: string]: Color,
+        [colorName: string]: Color;
     };
 }
 

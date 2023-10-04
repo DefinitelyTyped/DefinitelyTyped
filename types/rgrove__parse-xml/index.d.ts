@@ -8,8 +8,8 @@ declare function parseXml(name: string, options?: parseXml.ParseOptions): parseX
 
 declare namespace parseXml {
     interface NodeBase {
-      parent?: NodeBase | undefined;
-      type: string;
+        parent?: NodeBase | undefined;
+        type: string;
     }
 
     interface Document extends NodeBase {

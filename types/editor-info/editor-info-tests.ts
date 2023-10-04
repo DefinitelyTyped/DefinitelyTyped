@@ -1,23 +1,23 @@
-import * as editorInfo from 'editor-info';
+import * as editorInfo from "editor-info";
 
 type EditorType = typeof editorInfo;
 
 const vscodeInfo: EditorType = {
-    name: 'Visual Studio Code',
+    name: "Visual Studio Code",
     isEditor: true,
     VSCODE: true,
     ATOM: false,
 };
 
 const atomInfo: EditorType = {
-    name: 'Atom',
+    name: "Atom",
     isEditor: true,
     VSCODE: false,
     ATOM: true,
 };
 
 const noEditorInfo: EditorType = {
-    name: '',
+    name: "",
     isEditor: false,
     VSCODE: false,
     ATOM: false,
@@ -25,7 +25,7 @@ const noEditorInfo: EditorType = {
 
 const unknownEditor: EditorType = {
     // @ts-expect-error
-    name: 'Something else',
+    name: "Something else",
     isEditor: true,
     VSCODE: false,
     ATOM: false,
@@ -33,7 +33,7 @@ const unknownEditor: EditorType = {
 
 // @ts-expect-error
 const blankEditor: EditorType = {
-    name: '',
+    name: "",
     isEditor: true,
     VSCODE: false,
     ATOM: false,
@@ -41,7 +41,7 @@ const blankEditor: EditorType = {
 
 // @ts-expect-error
 const bothEditors: EditorType = {
-    name: 'Visual Studio Code',
+    name: "Visual Studio Code",
     isEditor: true,
     VSCODE: true,
     ATOM: true,
@@ -49,7 +49,7 @@ const bothEditors: EditorType = {
 
 // @ts-expect-error
 const VSCODETrueAndIsEditorFalse: EditorType = {
-    name: '',
+    name: "",
     isEditor: false,
     VSCODE: true,
     ATOM: false,
@@ -57,7 +57,7 @@ const VSCODETrueAndIsEditorFalse: EditorType = {
 
 // @ts-expect-error
 const ATOMTrueAndIsEditorFalse: EditorType = {
-    name: '',
+    name: "",
     isEditor: false,
     VSCODE: false,
     ATOM: true,

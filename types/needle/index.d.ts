@@ -8,8 +8,8 @@
 
 /// <reference types="node" />
 
-import * as http from 'http';
-import * as https from 'https';
+import * as http from "http";
+import * as https from "https";
 
 declare namespace core {
     interface NeedleResponse extends http.IncomingMessage {
@@ -29,9 +29,9 @@ declare namespace core {
 
     type NeedleOptions = RequestOptions & ResponseOptions & RedirectOptions & https.RequestOptions;
 
-    type NeedleReadonlyHttpVerbs = 'get' | 'head';
+    type NeedleReadonlyHttpVerbs = "get" | "head";
 
-    type NeedleReadWriteHttpVerbs = 'delete' | 'patch' | 'post' | 'put';
+    type NeedleReadWriteHttpVerbs = "delete" | "patch" | "post" | "put";
 
     type NeedleHttpVerbs = NeedleReadonlyHttpVerbs | NeedleReadWriteHttpVerbs;
 
@@ -44,7 +44,7 @@ declare namespace core {
         /**
          * Alias for open_timeout
          */
-        timeout?: RequestOptions['open_timeout'] | undefined;
+        timeout?: RequestOptions["open_timeout"] | undefined;
 
         /**
          * Returns error if no response headers are received in X milisecs,
@@ -64,7 +64,7 @@ declare namespace core {
         /**
          * Alias for follow_max
          */
-        follow?: RequestOptions['follow_max'] | undefined;
+        follow?: RequestOptions["follow_max"] | undefined;
 
         /**
          * Enables multipart/form-data encoding. Defaults to false.
@@ -174,7 +174,7 @@ declare namespace core {
         /**
          * Alias for decode_response
          */
-        decode?: ResponseOptions['decode_response'] | undefined;
+        decode?: ResponseOptions["decode_response"] | undefined;
 
         /**
          * Whether to parse XML or JSON response bodies automagically.
@@ -182,11 +182,11 @@ declare namespace core {
          * You can also set this to 'xml' or 'json' in which case Needle
          * will only parse the response if the content type matches.
          */
-        parse_response?: boolean | 'json' | 'xml' | undefined;
+        parse_response?: boolean | "json" | "xml" | undefined;
         /**
          * Alias for parse_response
          */
-        parse?: ResponseOptions['parse_response'] | undefined;
+        parse?: ResponseOptions["parse_response"] | undefined;
 
         /**
          * Whether to parse response’s Set-Cookie header.
@@ -258,7 +258,11 @@ declare namespace core {
  * Since needle 2.0
  * @param method Designates an HTTP verb for the request.
  */
-declare function needle(method: core.NeedleReadonlyHttpVerbs, url: string, options?: core.NeedleOptions): Promise<core.NeedleResponse>;
+declare function needle(
+    method: core.NeedleReadonlyHttpVerbs,
+    url: string,
+    options?: core.NeedleOptions,
+): Promise<core.NeedleResponse>;
 /**
  * Calling needle() directly returns a Promise.
  *
@@ -266,7 +270,12 @@ declare function needle(method: core.NeedleReadonlyHttpVerbs, url: string, optio
  * @param method Designates an HTTP verb for the request.
  * @param data May be null when issuing an HTTP DELETE request, but you need to explicity pass it.
  */
-declare function needle(method: core.NeedleHttpVerbs, url: string, data: core.BodyData, options?: core.NeedleOptions): Promise<core.NeedleResponse>;
+declare function needle(
+    method: core.NeedleHttpVerbs,
+    url: string,
+    data: core.BodyData,
+    options?: core.NeedleOptions,
+): Promise<core.NeedleResponse>;
 
 declare namespace needle {
     export type BodyData = core.BodyData;
@@ -306,7 +315,12 @@ declare namespace needle {
     /**
      * Issues an HTTP POST request.
      */
-    export function post(url: string, data: BodyData, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
+    export function post(
+        url: string,
+        data: BodyData,
+        options?: NeedleOptions,
+        callback?: NeedleCallback,
+    ): ReadableStream;
 
     /**
      * Issues an HTTP PUT request.
@@ -315,7 +329,12 @@ declare namespace needle {
     /**
      * Issues an HTTP PUT request.
      */
-    export function put(url: string, data: BodyData, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
+    export function put(
+        url: string,
+        data: BodyData,
+        options?: NeedleOptions,
+        callback?: NeedleCallback,
+    ): ReadableStream;
 
     /**
      * Same behaviour as PUT.
@@ -324,7 +343,12 @@ declare namespace needle {
     /**
      * Same behaviour as PUT.
      */
-    export function patch(url: string, data: BodyData, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
+    export function patch(
+        url: string,
+        data: BodyData,
+        options?: NeedleOptions,
+        callback?: NeedleCallback,
+    ): ReadableStream;
 
     /**
      * Issues an HTTP DELETE request.
@@ -333,7 +357,12 @@ declare namespace needle {
     /**
      * Issues an HTTP DELETE request.
      */
-    function deleteFunc(url: string, data: BodyData, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
+    function deleteFunc(
+        url: string,
+        data: BodyData,
+        options?: NeedleOptions,
+        callback?: NeedleCallback,
+    ): ReadableStream;
     // See https://github.com/Microsoft/TypeScript/issues/1784#issuecomment-258720219
     export { deleteFunc as delete };
 
@@ -344,7 +373,12 @@ declare namespace needle {
      * unless you pass a json: true option.
      * @param method Designates an HTTP verb for the request.
      */
-    export function request(method: NeedleHttpVerbs, url: string, data: BodyData, callback?: NeedleCallback): ReadableStream;
+    export function request(
+        method: NeedleHttpVerbs,
+        url: string,
+        data: BodyData,
+        callback?: NeedleCallback,
+    ): ReadableStream;
     /**
      * Generic request.
      * This not only allows for flexibility, but also lets you perform a GET request with data,
@@ -352,7 +386,13 @@ declare namespace needle {
      * unless you pass a json: true option.
      * @param method Designates an HTTP verb for the request.
      */
-    export function request(method: NeedleHttpVerbs, url: string, data: BodyData, options?: NeedleOptions, callback?: NeedleCallback): ReadableStream;
+    export function request(
+        method: NeedleHttpVerbs,
+        url: string,
+        data: BodyData,
+        options?: NeedleOptions,
+        callback?: NeedleCallback,
+    ): ReadableStream;
 }
 
 export = needle;

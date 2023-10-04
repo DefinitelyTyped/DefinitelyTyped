@@ -5,7 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as React from "react";
-import { Location } from 'redux-first-router';
+import { Location } from "redux-first-router";
 
 export type To = string | string[] | object;
 

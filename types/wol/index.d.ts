@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-export as namespace wol
+export as namespace wol;
 
 export type WakeCallback = (error: Error | null, result?: boolean) => void;
 

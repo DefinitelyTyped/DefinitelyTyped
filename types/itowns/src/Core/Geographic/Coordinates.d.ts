@@ -1,10 +1,7 @@
 import * as THREE from "three";
 
 declare class Coordinates {
-    constructor(crs: string,
-                v0?: number | THREE.Vector3 | Coordinates | number[],
-                v1?: number,
-                v2?: number);
+    constructor(crs: string, v0?: number | THREE.Vector3 | Coordinates | number[], v1?: number, v2?: number);
 
     readonly isCoordinates: boolean;
 

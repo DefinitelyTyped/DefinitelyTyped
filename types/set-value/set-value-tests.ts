@@ -24,7 +24,7 @@ import set = require("set-value");
     const key4 = Symbol("key-4");
 
     set(data, "a.b.c", true);
-    set(data, '"a.b".c', true, { split });
+    set(data, "\"a.b\".c", true, { split });
     set(data, "foo-bar", true);
     set(data, ["one", "two"], true);
     set(data, ["one", key1], true);

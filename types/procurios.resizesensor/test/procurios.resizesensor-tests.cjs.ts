@@ -1,6 +1,6 @@
-import resizeSensor = require('procurios.resizesensor');
+import resizeSensor = require("procurios.resizesensor");
 
-const element = document.createElement('div');
+const element = document.createElement("div");
 
 // $ExpectType ResizeSensor
 const sensor = resizeSensor.create(element, dimensions => {

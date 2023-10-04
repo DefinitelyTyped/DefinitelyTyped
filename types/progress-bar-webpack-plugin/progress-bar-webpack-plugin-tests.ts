@@ -1,5 +1,5 @@
-import ProgressBarPlugin = require('progress-bar-webpack-plugin');
-import webpack = require('webpack');
+import ProgressBarPlugin = require("progress-bar-webpack-plugin");
+import webpack = require("webpack");
 
 const configuration: webpack.Configuration = {
     plugins: [
@@ -8,11 +8,11 @@ const configuration: webpack.Configuration = {
             format: `  build [:bar] ... (:elapsed seconds)`,
             clear: false,
             callback: () => {
-                console.log('done');
+                console.log("done");
             },
-            complete: '=',
+            complete: "=",
             curr: 2,
-            incomplete: ' ',
+            incomplete: " ",
             width: 20,
             customSummary: summary => {
                 console.log(summary);

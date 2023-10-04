@@ -785,7 +785,6 @@ export function crypto_stream(ciphertext: Buffer, nonce: Buffer, key: Buffer): v
  *
  * Encryption defaults to XSalsa20, use `crypto_stream_chacha20_xor` if you want
  * to encrypt/decrypt with ChaCha20 instead.
- *
  */
 export function crypto_stream_xor(ciphertext: Buffer, message: Buffer, nonce: Buffer, key: Buffer): void;
 
@@ -811,7 +810,6 @@ export function crypto_stream_chacha20_xor(ciphertext: Buffer, message: Buffer, 
 export function crypto_stream_xor_instance(nonce: Buffer, key: Buffer): CryptoStreamChacha20XorWrap;
 
 /**
- *
  * A streaming instance to the `crypto_stream_xor` api. Pass a nonce and key in the constructor.
  */
 export function crypto_stream_chacha20_xor_instance(nonce: Buffer, key: Buffer): CryptoStreamChacha20XorWrap;
@@ -835,7 +833,6 @@ export function crypto_auth(output: Buffer, input: Buffer, key: Buffer): void;
  * * `key` should be a buffer of lenght `crypto_auth_KEYBYTES`.
  *
  * Returns `true` if the token could be verified. Otherwise `false`.
- *
  */
 export function crypto_auth_verify(output: Buffer, input: Buffer, key: Buffer): boolean;
 

@@ -1,3 +1,3 @@
-import { grok } from 'imsi-grok';
+import { grok } from "imsi-grok";
 
-grok('');  // $ExpectType IMSIBreakdown | null
+grok(""); // $ExpectType IMSIBreakdown | null

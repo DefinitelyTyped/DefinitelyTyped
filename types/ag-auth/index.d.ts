@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
-import { VerifyOptions, Secret, SignOptions, Jwt } from 'jsonwebtoken';
+import { Jwt, Secret, SignOptions, VerifyOptions } from "jsonwebtoken";
 
 declare class AuthEngine {
     verifyToken(signedToken: string | null, key: Secret, options?: VerifyOptions): Promise<Jwt>;

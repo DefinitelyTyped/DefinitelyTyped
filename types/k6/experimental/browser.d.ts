@@ -13,16 +13,11 @@ export type EvaluationArgument = object;
 
 export type PageFunction<Arg, R> = string | ((arg: Unboxed<Arg>) => R);
 
-export type Unboxed<Arg> = Arg extends [infer A0, infer A1]
-    ? [Unboxed<A0>, Unboxed<A1>]
-    : Arg extends [infer A0, infer A1, infer A2]
-    ? [Unboxed<A0>, Unboxed<A1>, Unboxed<A2>]
-    : Arg extends [infer A0, infer A1, infer A2, infer A3]
-    ? [Unboxed<A0>, Unboxed<A1>, Unboxed<A2>, Unboxed<A3>]
-    : Arg extends Array<infer T>
-    ? Array<Unboxed<T>>
-    : Arg extends object
-    ? { [Key in keyof Arg]: Unboxed<Arg[Key]> }
+export type Unboxed<Arg> = Arg extends [infer A0, infer A1] ? [Unboxed<A0>, Unboxed<A1>]
+    : Arg extends [infer A0, infer A1, infer A2] ? [Unboxed<A0>, Unboxed<A1>, Unboxed<A2>]
+    : Arg extends [infer A0, infer A1, infer A2, infer A3] ? [Unboxed<A0>, Unboxed<A1>, Unboxed<A2>, Unboxed<A3>]
+    : Arg extends Array<infer T> ? Array<Unboxed<T>>
+    : Arg extends object ? { [Key in keyof Arg]: Unboxed<Arg[Key]> }
     : Arg;
 
 export interface SelectOptionsObject {
@@ -43,24 +38,24 @@ export interface SelectOptionsObject {
 }
 
 export type ResourceType =
-    | 'document'
-    | 'stylesheet'
-    | 'image'
-    | 'media'
-    | 'font'
-    | 'script'
-    | 'texttrack'
-    | 'xhr'
-    | 'fetch'
-    | 'eventsource'
-    | 'websocket'
-    | 'manifest'
-    | 'other';
-export type MouseButton = 'left' | 'right' | 'middle';
-export type KeyboardModifier = 'Alt' | 'Control' | 'Meta' | 'Shift';
-export type ElementState = 'attached' | 'detached' | 'visible' | 'hidden';
-export type InputElementState = ElementState | 'enabled' | 'disabled' | 'editable';
-export type LifecycleEvent = 'load' | 'domcontentloaded' | 'networkidle';
+    | "document"
+    | "stylesheet"
+    | "image"
+    | "media"
+    | "font"
+    | "script"
+    | "texttrack"
+    | "xhr"
+    | "fetch"
+    | "eventsource"
+    | "websocket"
+    | "manifest"
+    | "other";
+export type MouseButton = "left" | "right" | "middle";
+export type KeyboardModifier = "Alt" | "Control" | "Meta" | "Shift";
+export type ElementState = "attached" | "detached" | "visible" | "hidden";
+export type InputElementState = ElementState | "enabled" | "disabled" | "editable";
+export type LifecycleEvent = "load" | "domcontentloaded" | "networkidle";
 
 export interface TimeoutOptions {
     /**
@@ -125,14 +120,16 @@ export interface KeyboardModifierOptions {
     modifiers?: KeyboardModifier[];
 }
 
-export type KeyboardPressOptions = {
-    /**
-     * If set to `true` and a navigation occurs from performing this action, it
-     * will not wait for it to complete. Defaults to `false`.
-     */
-    noWaitAfter?: boolean;
-} & EventSequenceOptions &
-    TimeoutOptions;
+export type KeyboardPressOptions =
+    & {
+        /**
+         * If set to `true` and a navigation occurs from performing this action, it
+         * will not wait for it to complete. Defaults to `false`.
+         */
+        noWaitAfter?: boolean;
+    }
+    & EventSequenceOptions
+    & TimeoutOptions;
 
 export type MouseMoveOptions = ElementClickOptions & KeyboardModifierOptions;
 
@@ -152,7 +149,7 @@ export type MouseMultiClickOptions = MouseClickOptions & {
     clickCount?: number;
 };
 
- export interface MouseDownUpOptions {
+export interface MouseDownUpOptions {
     /**
      * The mouse button to use during the action.
      * Defaults to `left`.
@@ -309,7 +306,7 @@ export interface Rect {
     height: number;
 }
 
-export type ImageFormat = 'jpeg' | 'png';
+export type ImageFormat = "jpeg" | "png";
 
 export interface ScreenshotOptions {
     /**
@@ -343,14 +340,14 @@ export interface ScreenshotOptions {
  * - `mutation` - use a mutation observer
  * - `interval` - use a polling interval
  */
-export type PollingMethod = 'raf' | 'mutation' | 'interval';
+export type PollingMethod = "raf" | "mutation" | "interval";
 
 export interface PollingOptions {
     /**
      * Polling method to use.
      * @default 'raf'
      */
-    polling?: 'raf' | 'mutation' | 'interval';
+    polling?: "raf" | "mutation" | "interval";
 
     /**
      * Polling interval in milliseconds if `polling` is set to `interval`.
@@ -370,13 +367,22 @@ export interface ElementStateFilter {
  * BrowserPermissions defines all the possible permissions that can be granted
  * to the browser application.
  */
-export type BrowserPermissions = 'geolocation' | 'midi' | 'midi-sysex' |
-                                  'notifications' | 'camera' |
-                                  'microphone' | 'background-sync' |
-                                  'ambient-light-sensor' | 'accelerometer' |
-                                  'gyroscope' | 'magnetometer' |
-                                  'accessibility-events' | 'clipboard-read' |
-                                  'clipboard-write' | 'payment-handler';
+export type BrowserPermissions =
+    | "geolocation"
+    | "midi"
+    | "midi-sysex"
+    | "notifications"
+    | "camera"
+    | "microphone"
+    | "background-sync"
+    | "ambient-light-sensor"
+    | "accelerometer"
+    | "gyroscope"
+    | "magnetometer"
+    | "accessibility-events"
+    | "clipboard-read"
+    | "clipboard-write"
+    | "payment-handler";
 
 export interface NewBrowserContextOptions {
     /**
@@ -390,7 +396,7 @@ export interface NewBrowserContextOptions {
      * are `'light'`, `'dark'`, and `'no-preference'`. Default to
      * `'light'`.
      */
-    colorScheme?: 'light' | 'dark' | 'no-preference';
+    colorScheme?: "light" | "dark" | "no-preference";
 
     /**
      * Sets the resolution ratio in physical pixels to the resolution in
@@ -480,7 +486,7 @@ export interface NewBrowserContextOptions {
      * 'prefers-reduced-motion' media feature. Defaults to
      * `'no-preference'`.
      */
-    reducedMotion?: 'reduce' | 'no-preference';
+    reducedMotion?: "reduce" | "no-preference";
 
     /**
      * Sets a window screen size for all pages in the context. It can
@@ -530,10 +536,15 @@ export interface NewBrowserContextOptions {
 }
 
 /**
- * The `Browser` class is the entry point for all your tests, it interacts
- * with the actual web browser via Chrome DevTools Protocol (CDP).
+ * The `browser` named export is the entry point for all your tests,
+ * it interacts with the actual web browser via Chrome DevTools Protocol (CDP).
  */
-export class Browser {
+export const browser: Browser;
+
+/**
+ * `Browser` represents the main web browser instance.
+ */
+export interface Browser {
     /**
      * Returns the current `BrowserContext`. There is a 1-to-1 mapping between
      * `Browser` and `BrowserContext`. If no `BrowserContext` has been
@@ -585,7 +596,7 @@ export class Browser {
  * `BrowserContext` provides a way to operate multiple independent sessions, with
  * separate pages, cache, and cookies.
  */
-export class BrowserContext {
+export interface BrowserContext {
     /**
      * Returns the `Browser` instance that this `BrowserContext` belongs to.
      */
@@ -594,37 +605,39 @@ export class BrowserContext {
     /**
      * Adds cookies into the `BrowserContext`.
      */
-    addCookies(cookies: Array<{
-        name: string,
+    addCookies(
+        cookies: Array<{
+            name: string;
 
-        value: string,
+            value: string;
 
-        /**
-         * either url or domain / path are required.
-         */
-        url?: string,
+            /**
+             * either url or domain / path are required.
+             */
+            url?: string;
 
-        /**
-         * either url or domain / path are required.
-         */
-        domain?: string,
+            /**
+             * either url or domain / path are required.
+             */
+            domain?: string;
 
-        /**
-         * either url or domain / path are required.
-         */
-        path?: string,
+            /**
+             * either url or domain / path are required.
+             */
+            path?: string;
 
-        /**
-         * Unix time in seconds.
-         */
-        expires?: number,
+            /**
+             * Unix time in seconds.
+             */
+            expires?: number;
 
-        httpOnly?: boolean,
+            httpOnly?: boolean;
 
-        secure?: boolean,
+            secure?: boolean;
 
-        sameSite?: 'Strict' | 'Lax' | 'None',
-    }>): void;
+            sameSite?: "Strict" | "Lax" | "None";
+        }>,
+    ): void;
 
     /**
      * Clear the `BrowserContext`'s cookies.
@@ -653,7 +666,7 @@ export class BrowserContext {
             /**
              * The origin to grant permissions to, e.g. 'https://test.k6.com'.
              */
-            origin: string,
+            origin: string;
         },
     ): void;
 
@@ -733,7 +746,6 @@ export class BrowserContext {
          * always wait for 'close' or 'page' events.
          */
         event: string,
-
         /**
          * The `Page` or null event data will be passed to it and it must
          * return true to continue.
@@ -749,13 +761,13 @@ export class BrowserContext {
              * If null is passed to predicate, this signals that the page is
              * closing.
              */
-            predicate: (page: Page | null) => boolean,
+            predicate: (page: Page | null) => boolean;
 
             /**
              * Maximum time to wait in milliseconds. Pass 0 to disable timeout.
              * Defaults to 30000 milliseconds.
              */
-            timeout?: number,
+            timeout?: number;
         },
     ): Page | null;
 }
@@ -763,7 +775,7 @@ export class BrowserContext {
 /**
  * ElementHandle represents an in-page DOM element.
  */
-export class ElementHandle extends JSHandle {
+export interface ElementHandle extends JSHandle {
     /**
      * Finds an element matching the specified selector in the `ElementHandle`'s subtree.
      * @param selector A selector to query element for.
@@ -959,7 +971,7 @@ export class ElementHandle extends JSHandle {
 /**
  * Frame represents the frame within a page. A page is made up of hierarchy of frames.
  */
-export class Frame {
+export interface Frame {
     /**
      * Finds an element matching the specified selector within the `Frame`.
      * @param selector A selector to query element for.
@@ -1306,7 +1318,7 @@ export class Frame {
 /**
  * JSHandle represents an in-page JavaScript object.
  */
-export class JSHandle<T = any> {
+export interface JSHandle<T = any> {
     /**
      * Returns either `null` or the object handle itself, if the object handle is
      * an instance of `ElementHandle`.
@@ -1326,7 +1338,7 @@ export class JSHandle<T = any> {
      * @param args The arguments to pass to the page function.
      * @returns The return value of `pageFunction`.
      */
-    evaluate<R, Arg>(pageFunction: PageFunction<R, Arg>, ...args: any): any;
+    evaluate<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): R;
 
     /**
      * Evaluates the page function and returns a `JSHandle`.
@@ -1336,7 +1348,7 @@ export class JSHandle<T = any> {
      * @param args The arguments to pass to the page function.
      * @returns A JSHandle of the return value of `pageFunction`.
      */
-    evaluateHandle<R, Arg>(pageFunction: PageFunction<R, Arg>, ...args: any): JSHandle<R>;
+    evaluateHandle<R, Arg>(pageFunction: PageFunction<Arg, R>, arg?: Arg): JSHandle<R>;
 
     /**
      * Fethes a map with own property names of of the `JSHandle` with their values as
@@ -1355,7 +1367,7 @@ export class JSHandle<T = any> {
 /**
  * Keyboard provides an API for managing a virtual keyboard.
  */
-export class Keyboard {
+export interface Keyboard {
     /**
      * Sends a key down message to a session target.
      * A superset of the key values can be found [here](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values).
@@ -1406,7 +1418,7 @@ export class Keyboard {
  * - Makes it easier to work with dynamic web pages and SPAs built with Svelte,
  * React, Vue, etc.
  */
-export class Locator {
+export interface Locator {
     /**
      * Mouse click on the chosen element.
      * @param options Options to use.
@@ -1580,7 +1592,7 @@ export class Locator {
 /**
  * Mouse provides an API for managing a virtual mouse.
  */
-export class Mouse {
+export interface Mouse {
     /**
      * Shortcut for `mouse.move(x, y)`, `mouse.down()`, `mouse.up()`.
      * @param x The x position.
@@ -1623,7 +1635,7 @@ export class Mouse {
  * Page provides methods to interact with a single tab in a running web browser
  * instance. One instance of the browser can have many page instances.
  */
-export class Page {
+export interface Page {
     /**
      * Activates the browser tab so that it comes into focus and actions can be
      * performed against it.
@@ -1903,19 +1915,19 @@ export class Page {
          * Emulates `'prefers-colors-scheme'` media feature, supported values are
          * `'light'`, `'dark'`, and `'no-preference'`.
          */
-        colorScheme?: 'light' | 'dark' | 'no-preference';
+        colorScheme?: "light" | "dark" | "no-preference";
 
         /**
          * Changes the CSS media type of the page. The only allowed values are
          * `'screen'`, and `'print'`.
          */
-        media?: 'screen' | 'print';
+        media?: "screen" | "print";
 
         /**
          * Emulates `'prefers-reduced-motion'` media feature, supported values are
          * `'reduce'`, `'no-preference'`.
          */
-        reducedMotion?: 'reduce' | 'no-preference';
+        reducedMotion?: "reduce" | "no-preference";
     }): void;
 
     /**
@@ -1931,7 +1943,7 @@ export class Page {
      * @param type
      */
     emulateVisionDeficiency(
-        type: 'none' | 'blurredVision' | 'deuteranopia' | 'protanopia' | 'tritanopia' | 'achromatopsia',
+        type: "none" | "blurredVision" | "deuteranopia" | "protanopia" | "tritanopia" | "achromatopsia",
     ): void;
 
     /**
@@ -2530,7 +2542,6 @@ export class Page {
          * page.setDefaultTimeout(timeout) methods.
          *
          * Setting the value to `0` will disable the timeout.
-         *
          */
         timeout?: number;
 
@@ -2546,7 +2557,7 @@ export class Page {
          * this method for testing especially with chatty websites where the event
          * may never fire, rely on web assertions to assess readiness instead.
          */
-        waitUntil?: 'load' | 'domcontentloaded' | 'networkidle';
+        waitUntil?: "load" | "domcontentloaded" | "networkidle";
     }): null | Response;
 
     /**
@@ -2655,7 +2666,6 @@ export class Page {
              * page.setDefaultTimeout(timeout) methods.
              *
              * Setting the value to `0` will disable the timeout.
-             *
              */
             timeout?: number;
 
@@ -2671,7 +2681,7 @@ export class Page {
              * this method for testing especially with chatty websites where the event
              * may never fire, rely on web assertions to assess readiness instead.
              */
-            waitUntil?: 'load' | 'domcontentloaded' | 'networkidle';
+            waitUntil?: "load" | "domcontentloaded" | "networkidle";
         },
     ): void;
 
@@ -2965,7 +2975,7 @@ export class Page {
              * treated as an interval in milliseconds at which the function would be
              * executed. Defaults to `raf`.
              */
-            polling?: number | 'raf';
+            polling?: number | "raf";
 
             /**
              * Maximum time in milliseconds. Defaults to `30` seconds. Default is
@@ -2995,7 +3005,7 @@ export class Page {
      * @param options
      */
     waitForLoadState(
-        state?: 'load' | 'domcontentloaded' | 'networkidle',
+        state?: "load" | "domcontentloaded" | "networkidle",
         options?: {
             /**
              * Maximum operation time in milliseconds. Defaults to `30` seconds. The
@@ -3006,7 +3016,6 @@ export class Page {
              * page.setDefaultTimeout(timeout) methods.
              *
              * Setting the value to `0` will disable the timeout.
-             *
              */
             timeout?: number;
         },
@@ -3028,7 +3037,6 @@ export class Page {
          * page.setDefaultTimeout(timeout) methods.
          *
          * Setting the value to `0` will disable the timeout.
-         *
          */
         timeout?: number;
 
@@ -3044,7 +3052,7 @@ export class Page {
          * this method for testing especially with chatty websites where the event
          * may never fire, rely on web assertions to assess readiness instead.
          */
-        waitUntil?: 'load' | 'domcontentloaded' | 'networkidle';
+        waitUntil?: "load" | "domcontentloaded" | "networkidle";
     }): Promise<null | Response>;
 
     /**
@@ -3068,7 +3076,7 @@ export class Page {
              * - `'hidden'` - wait for element to be either detached from DOM, or have
              * an empty bounding box or `visibility:hidden`.
              */
-            state?: 'attached' | 'detached' | 'visible' | 'hidden';
+            state?: "attached" | "detached" | "visible" | "hidden";
 
             /**
              * When `true`, the call requires selector to resolve to a single element.
@@ -3125,9 +3133,9 @@ export class Page {
 }
 
 /**
- * Request class represents requests which are sent by a page.
+ * Request represents requests which are sent by a page.
  */
-export class Request {
+export interface Request {
     /**
      * An object with HTTP headers associated with the request. All header names are
      * lower-case.
@@ -3223,9 +3231,9 @@ export class Request {
 }
 
 /**
- * Response class represents responses which are received by page.
+ * Response represents responses which are received by page.
  */
-export class Response {
+export interface Response {
     /**
      * An object with HTTP headers associated with the response. All header names are
      * lower-case.
@@ -3339,7 +3347,7 @@ export class Response {
  * operates in main-frame CSS pixels relative to the top-left corner of the
  * viewport.
  */
-export class Touchscreen {
+export interface Touchscreen {
     /**
      * Taps on the specified position (`x`,`y`), which internally dispatches a `touchstart` and `touchend` event.
      * @param x The x position.
@@ -3349,9 +3357,9 @@ export class Touchscreen {
 }
 
 /**
- * The Worker class represents a [WebWorker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
+ * The Worker represents a [WebWorker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
  */
-export class Worker {
+export interface Worker {
     /**
      * Get the URL of the web worker.
      * @return The URL of the web worker.

@@ -15,12 +15,12 @@ declare namespace NRP {
         on(
             channel: string,
             handler: (data: string, channel: string) => void,
-            callback?: () => void
+            callback?: () => void,
         ): () => void;
         subscribe(
             channel: string,
             handler: (data: string, channel: string) => void,
-            callback?: () => void
+            callback?: () => void,
         ): () => void;
         emit(channel: string, message: string): void;
         publish(channel: string, message: string): void;

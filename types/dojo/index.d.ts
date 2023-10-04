@@ -3127,7 +3127,7 @@ declare namespace dojo {
          */
         watch(property: string, callback:{(property?:string, oldValue?:any, newValue?: any):void}) :{unwatch():void};
     }
-    module _base {
+    namespace _base {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/declare.html
          *
@@ -11703,7 +11703,7 @@ declare namespace dojo {
 
     }
 
-    module _firebug {
+    namespace _firebug {
         namespace firebug {
         }
 

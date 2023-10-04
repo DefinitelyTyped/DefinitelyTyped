@@ -7,9 +7,9 @@
 /// <reference types="jquery" />
 
 export type Options = Partial<{
-    preSlug: ((source: string) => string);
-    postSlug: ((source: string) => string);
-    slugFunc: ((input: string, options: Options) => string);
+    preSlug: (source: string) => string;
+    postSlug: (source: string) => string;
+    slugFunc: (input: string, options: Options) => string;
     separator: string;
     lang: string | boolean;
     symbols: boolean;

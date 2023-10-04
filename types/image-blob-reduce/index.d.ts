@@ -3,7 +3,7 @@
 // Definitions by: Matthias Fischer <https://github.com/dotnetautor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import type { Pica, PicaStatic } from 'pica';
+import type { Pica, PicaStatic } from "pica";
 
 interface InternalProperties {
     image: HTMLImageElement;
@@ -15,7 +15,7 @@ interface InternalProperties {
     out_blob?: Blob;
 }
 
-type MethodNames = '_blob_to_image' | '_calculate_size' | '_transform' | '_create_blob' | '_cleanup';
+type MethodNames = "_blob_to_image" | "_calculate_size" | "_transform" | "_create_blob" | "_cleanup";
 
 declare namespace imageBlobReduce {
     interface ImageBlobReduce {
@@ -46,7 +46,7 @@ declare namespace imageBlobReduce {
     }
 
     interface ImageBlobReduceStatic {
-        new (options?: Options): ImageBlobReduce;
+        new(options?: Options): ImageBlobReduce;
         (options?: Options): ImageBlobReduce;
         pica: PicaStatic;
     }

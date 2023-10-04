@@ -1,44 +1,45 @@
 import {
-    performance,
-    monitorEventLoopDelay,
-    PerformanceObserverCallback,
-    PerformanceObserver,
-    PerformanceEntry,
-    EntryType,
     constants,
+    createHistogram,
+    EntryType,
     EventLoopUtilization,
     IntervalHistogram,
-    RecordableHistogram,
-    createHistogram,
+    monitorEventLoopDelay,
     NodeGCPerformanceDetail,
-} from 'node:perf_hooks';
+    performance as NodePerf,
+    PerformanceEntry,
+    PerformanceObserver,
+    PerformanceObserverCallback,
+    RecordableHistogram,
+} from "node:perf_hooks";
 
-performance.mark('start');
+// Test module import once, the rest use global
+NodePerf.mark("start");
 (() => {})();
-performance.mark('end');
+performance.mark("end");
 
-performance.mark('test', {
-    detail: 'something',
+performance.mark("test", {
+    detail: "something",
     startTime: 123,
 });
 
-performance.measure('test', {
-    detail: 'something',
+performance.measure("test", {
+    detail: "something",
     duration: 123,
-    start: 'startMark',
-    end: 'endMark',
+    start: "startMark",
+    end: "endMark",
 });
 
-performance.measure('test', {
-    detail: 'something',
+performance.measure("test", {
+    detail: "something",
     duration: 123,
     start: 123,
     end: 456,
 });
 
-performance.measure('name', 'startMark', 'endMark');
-performance.measure('name', 'startMark');
-performance.measure('name');
+performance.measure("name", "startMark", "endMark");
+performance.measure("name", "startMark");
+performance.measure("name");
 
 const timeOrigin: number = performance.timeOrigin;
 
@@ -61,11 +62,11 @@ const performanceObserverCallback: PerformanceObserverCallback = (list, obs) => 
 };
 const obs = new PerformanceObserver(performanceObserverCallback);
 obs.observe({
-    entryTypes: ['gc'],
+    entryTypes: ["gc"],
     buffered: true,
 });
 obs.observe({
-    type: 'gc',
+    type: "gc",
     buffered: true,
 });
 
@@ -85,9 +86,13 @@ const mean: number = monitor.mean;
 const stddev: number = monitor.stddev;
 const exceeds: number = monitor.exceeds;
 
-const eventLoopUtilization1: EventLoopUtilization = performance.eventLoopUtilization();
-const eventLoopUtilization2: EventLoopUtilization = performance.eventLoopUtilization(eventLoopUtilization1);
-const eventLoopUtilization3: EventLoopUtilization = performance.eventLoopUtilization(eventLoopUtilization2, eventLoopUtilization1);
+// eventLoopUtilization isn't available in DOM environment, so use the import rather than the global
+const eventLoopUtilization1: EventLoopUtilization = NodePerf.eventLoopUtilization();
+const eventLoopUtilization2: EventLoopUtilization = NodePerf.eventLoopUtilization(eventLoopUtilization1);
+const eventLoopUtilization3: EventLoopUtilization = NodePerf.eventLoopUtilization(
+    eventLoopUtilization2,
+    eventLoopUtilization1,
+);
 
 let histogram: RecordableHistogram = createHistogram({
     figures: 123,
@@ -106,9 +111,9 @@ performance.clearMarks("test");
 performance.clearMeasures();
 performance.clearMeasures("test");
 
-performance.getEntries(); // $ExpectType PerformanceEntry[]
+performance.getEntries()[0]; // $ExpectType PerformanceEntry
 
-performance.getEntriesByName("test"); // $ExpectType PerformanceEntry[]
-performance.getEntriesByName("test", "mark"); // $ExpectType PerformanceEntry[]
+performance.getEntriesByName("test")[0]; // $ExpectType PerformanceEntry
+performance.getEntriesByName("test", "mark")[0]; // $ExpectType PerformanceEntry
 
-performance.getEntriesByType("mark"); // $ExpectType PerformanceEntry[]
+performance.getEntriesByType("mark")[0]; // $ExpectType PerformanceEntry

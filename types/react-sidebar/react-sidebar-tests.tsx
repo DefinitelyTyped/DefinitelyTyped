@@ -1,10 +1,15 @@
-import * as React from 'react';
-import Sidebar, { SidebarStyles } from 'react-sidebar';
+import * as React from "react";
+import Sidebar, { SidebarStyles } from "react-sidebar";
 
-const sidebar = <ul><li>Item 1</li><li>Item 2</li></ul>;
+const sidebar = (
+    <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+    </ul>
+);
 
 const sidebarStyle: SidebarStyles = {
-    content: { width: "300px" }
+    content: { width: "300px" },
 };
 
 const sidebar1 = (
@@ -14,7 +19,7 @@ const sidebar1 = (
         open={true}
         sidebar={sidebar}
         styles={sidebarStyle}
-        onSetOpen={(open: boolean) => { }}
+        onSetOpen={(open: boolean) => {}}
         rootId="test-root-id"
         sidebarId="test-sidebar-id"
         contentId="test-content-id"
@@ -32,7 +37,7 @@ const sidebar2 = (
         open={true}
         sidebar={sidebar}
         styles={sidebarStyle}
-        onSetOpen={(open: boolean) => { }}
+        onSetOpen={(open: boolean) => {}}
     >
         <h1>Content</h1>
     </Sidebar>

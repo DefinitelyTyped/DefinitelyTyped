@@ -1,9 +1,9 @@
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
-import fs = require('graceful-fs');
-import Watcher = require('./Watcher');
-import Watchpack = require('.');
+import { EventEmitter } from "events";
+import fs = require("graceful-fs");
+import Watcher = require("./Watcher");
+import Watchpack = require(".");
 
 declare class DirectoryWatcher extends EventEmitter {
     options: Watchpack.WatcherOptions;

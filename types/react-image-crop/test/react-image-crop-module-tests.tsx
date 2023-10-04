@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as ReactCrop from 'react-image-crop';
+import * as React from "react";
+import * as ReactCrop from "react-image-crop";
 
 interface TestState {
     crop?: ReactCrop.Crop | undefined;
@@ -26,7 +26,7 @@ class SimpleTest extends React.Component<{}, TestState> {
             crop,
             percentCrop,
         });
-    }
+    };
 
     render() {
         return <ReactCrop src="imageSrc" onChange={this.onChange} crop={this.state.crop} />;
@@ -42,7 +42,7 @@ class AspectRatioTest extends React.Component<{}, TestState> {
             crop,
             percentCrop,
         });
-    }
+    };
 
     onImageLoaded = (image: HTMLImageElement) => {
         this.setState({
@@ -52,13 +52,13 @@ class AspectRatioTest extends React.Component<{}, TestState> {
                     y: 0,
                     aspect: 16 / 9,
                     width: 50,
-                    unit: 'px',
+                    unit: "px",
                 },
                 image.width,
-                image.height
+                image.height,
             ),
         });
-    }
+    };
 
     render() {
         return (
@@ -76,7 +76,7 @@ class AspectRatioTest extends React.Component<{}, TestState> {
 class RenderComponentTest extends React.Component {
     render() {
         const videoComponent = (
-            <video autoPlay loop style={{ display: 'block', maxWidth: '100%' }}>
+            <video autoPlay loop style={{ display: "block", maxWidth: "100%" }}>
                 <source src="sample.mp4" type="video/mp4" />
             </video>
         );
@@ -100,7 +100,7 @@ class CompleteTest extends React.Component<{}, TestState> {
             crop,
             percentCrop,
         });
-    }
+    };
 
     onImageLoaded = (image: HTMLImageElement) => {
         this.setState({
@@ -110,17 +110,17 @@ class CompleteTest extends React.Component<{}, TestState> {
                     y: 0,
                     aspect: 16 / 9,
                     width: 20,
-                    unit: 'px',
+                    unit: "px",
                 },
                 image.width,
-                image.height
+                image.height,
             ),
         });
-    }
+    };
 
     onImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
-        console.warn('Error loading image');
-    }
+        console.warn("Error loading image");
+    };
 
     render() {
         return (
@@ -135,10 +135,10 @@ class CompleteTest extends React.Component<{}, TestState> {
                 maxHeight={90}
                 keepSelection={true}
                 disabled={false}
-                style={{ border: '1px solid black', position: 'relative' }}
-                onComplete={() => console.log('Crop complete')}
-                onDragStart={() => console.log('Drag start')}
-                onDragEnd={() => console.log('Drag end')}
+                style={{ border: "1px solid black", position: "relative" }}
+                onComplete={() => console.log("Crop complete")}
+                onDragStart={() => console.log("Drag start")}
+                onDragEnd={() => console.log("Drag end")}
                 crossorigin="anonymous"
                 onImageError={this.onImageError}
                 className="my-cropper"

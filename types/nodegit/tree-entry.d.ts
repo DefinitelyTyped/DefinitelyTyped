@@ -1,7 +1,7 @@
-import { Tree } from './tree';
-import { Oid } from './oid';
-import { Blob } from './blob';
-import { Repository } from './repository';
+import { Blob } from "./blob";
+import { Oid } from "./oid";
+import { Repository } from "./repository";
+import { Tree } from "./tree";
 
 export namespace TreeEntry {
     const enum FILEMODE {
@@ -17,7 +17,6 @@ export namespace TreeEntry {
 export class TreeEntry {
     filemode(): TreeEntry.FILEMODE;
     filemodeRaw(): TreeEntry.FILEMODE;
-    free(): void;
     getBlob(): Promise<Blob>;
     getTree(): Promise<Tree>;
     id(): Oid;

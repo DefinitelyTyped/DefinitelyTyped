@@ -6,7 +6,7 @@
 
 import { RequestHandler, Response } from "express";
 
-declare module 'express-serve-static-core' {
+declare module "express-serve-static-core" {
     interface Response {
         setLink(link: string, rel: string): void;
     }

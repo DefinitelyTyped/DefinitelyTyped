@@ -1,42 +1,42 @@
-import * as React from 'react';
+import * as React from "react";
 import {
     DebugEngine,
-    styled,
+    DevProvider,
+    Provider,
     StandardEngine,
+    styled,
+    useStyletron,
     withStyle,
     withStyleDeep,
     withTransform,
     withWrapper,
-    Provider,
-    useStyletron,
-    DevProvider,
-} from 'styletron-react';
+} from "styletron-react";
 
 // styled()
 // --------------------------
 
 // Static Styles
-const BasicStyled = styled('div', { color: 'red' });
+const BasicStyled = styled("div", { color: "red" });
 
 // Dynamic Styles
 interface DynamicStyledProps {
     $fraction: number;
 }
 
-const DynamicStyled = styled('div', (props: DynamicStyledProps) => {
-    return { color: props.$fraction < 0.5 ? 'red' : 'green' };
+const DynamicStyled = styled("div", (props: DynamicStyledProps) => {
+    return { color: props.$fraction < 0.5 ? "red" : "green" };
 });
 
 <DynamicStyled $fraction={Math.random()} />;
 
 const Button = () => <button>Do something</button>;
 
-const StyledButton = styled(Button, { color: 'blue' });
+const StyledButton = styled(Button, { color: "blue" });
 
 <StyledButton />;
 
 const DynamicStyledButton = styled(Button, (props: DynamicStyledProps) => {
-    return { color: props.$fraction < 0.5 ? 'red' : 'green' };
+    return { color: props.$fraction < 0.5 ? "red" : "green" };
 });
 
 <DynamicStyledButton $fraction={Math.random()} />;
@@ -45,12 +45,12 @@ const ComplexButton = ({ isDisabled }: { isDisabled: boolean }) => (
     <button disabled={isDisabled}>Disabled button</button>
 );
 
-const StyledComplexButton = styled(ComplexButton, { color: 'blue' });
+const StyledComplexButton = styled(ComplexButton, { color: "blue" });
 
 <StyledComplexButton isDisabled />;
 
 const DynamicStyledComplexButton = styled(ComplexButton, (props: DynamicStyledProps) => {
-    return { color: props.$fraction < 0.5 ? 'red' : 'green' };
+    return { color: props.$fraction < 0.5 ? "red" : "green" };
 });
 
 <DynamicStyledComplexButton $fraction={Math.random()} isDisabled />;
@@ -59,9 +59,9 @@ const DynamicStyledComplexButton = styled(ComplexButton, (props: DynamicStyledPr
 <BasicStyled $as="button" />;
 
 // Allows $style prop
-<BasicStyled $style={{ color: 'blue' }} />;
+<BasicStyled $style={{ color: "blue" }} />;
 
-const $styleFn = (props: DynamicStyledProps) => ({ color: props.$fraction < 0.2 ? 'red' : 'green' });
+const $styleFn = (props: DynamicStyledProps) => ({ color: props.$fraction < 0.2 ? "red" : "green" });
 
 <DynamicStyled $style={$styleFn} $fraction={Math.random()} />;
 
@@ -69,7 +69,7 @@ const $styleFn = (props: DynamicStyledProps) => ({ color: props.$fraction < 0.2 
 // --------------------------
 
 // Static Styles
-const WithStyledSimple = withStyle(BasicStyled, { color: 'blue' });
+const WithStyledSimple = withStyle(BasicStyled, { color: "blue" });
 
 <WithStyledSimple />;
 
@@ -79,7 +79,7 @@ interface WithStyledDynamicProps {
 }
 
 const WithStyledDynamic = withStyle(BasicStyled, (props: WithStyledDynamicProps) => ({
-    letterSpacing: props.$crushed ? '-5px' : '0',
+    letterSpacing: props.$crushed ? "-5px" : "0",
 }));
 
 <WithStyledDynamic $crushed />;
@@ -88,7 +88,7 @@ const WithStyledDynamic = withStyle(BasicStyled, (props: WithStyledDynamicProps)
 // --------------------------
 
 // Static Styles
-const WithStyledDeepSimple = withStyleDeep(BasicStyled, { color: 'blue' });
+const WithStyledDeepSimple = withStyleDeep(BasicStyled, { color: "blue" });
 
 <WithStyledDeepSimple />;
 
@@ -98,7 +98,7 @@ interface WithStyledDeepDynamicProps {
 }
 
 const WithStyledDeepDynamic = withStyleDeep(BasicStyled, (props: WithStyledDeepDynamicProps) => ({
-    letterSpacing: props.$crushed ? '-5px' : '0',
+    letterSpacing: props.$crushed ? "-5px" : "0",
 }));
 
 <WithStyledDeepDynamic $crushed />;
@@ -111,7 +111,7 @@ interface WithTransformTestProps {
 }
 
 const WithTransformTest = withTransform(BasicStyled, (style, props: WithTransformTestProps) => {
-    const display = style.display === 'none' ? 'none' : props.$inline ? 'inline-flex' : 'flex';
+    const display = style.display === "none" ? "none" : props.$inline ? "inline-flex" : "flex";
     return { ...styled, display };
 });
 
@@ -120,25 +120,26 @@ const WithTransformTest = withTransform(BasicStyled, (style, props: WithTransfor
 // withWrapper()
 // --------------------------
 
-const PrettyButton = styled('button', { background: 'green' });
+const PrettyButton = styled("button", { background: "green" });
 
 const { Consumer } = React.createContext(true);
 
-const WithWrapped = withWrapper(PrettyButton, Styled => props => (
-    <Consumer>{value => <Styled {...props} disabled={value} />}</Consumer>
-));
+const WithWrapped = withWrapper(
+    PrettyButton,
+    Styled => props => <Consumer>{value => <Styled {...props} disabled={value} />}</Consumer>,
+);
 
 <WithWrapped />;
 
 // Style composition still works as normal;
-const StyledWithWrapper = withStyle(WithWrapped, { background: 'red' });
+const StyledWithWrapper = withStyle(WithWrapped, { background: "red" });
 
 <StyledWithWrapper />;
 
 // <Provider />
 // --------------------------
 
-const engineNoop = (arg: any) => (arg ? '' : '');
+const engineNoop = (arg: any) => (arg ? "" : "");
 
 const engine: StandardEngine = {
     renderStyle: engineNoop,
@@ -172,4 +173,4 @@ const DevApp = () => (
 
 const [css] = useStyletron();
 
-<div className={css({ backgroundColor: 'pink' })} />;
+<div className={css({ backgroundColor: "pink" })} />;

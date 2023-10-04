@@ -1,11 +1,11 @@
-import * as React from 'react';
+import * as React from "react";
 import ReactInfiniteCalendar, {
     Calendar,
     withDateSelection,
     withKeyboardSupport,
     withMultipleDates,
     withRange,
-} from 'react-infinite-calendar';
+} from "react-infinite-calendar";
 
 const test: React.FC = () => (
     <ReactInfiniteCalendar
@@ -21,7 +21,7 @@ const test: React.FC = () => (
         display="years"
         displayOptions={{
             hideYearsOnSelect: true,
-            layout: 'portrait',
+            layout: "portrait",
             overscanMonthCount: 2,
             shouldHeaderAnimate: true,
             showHeader: true,
@@ -36,29 +36,29 @@ const test: React.FC = () => (
                 distanceInWords: () => {},
                 format: () => {},
             },
-            blank: 'Select a date...',
-            headerFormat: 'ddd, MMM Do',
+            blank: "Select a date...",
+            headerFormat: "ddd, MMM Do",
             todayLabel: {
-                long: 'Today',
+                long: "Today",
             },
-            weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
             weekStartsOn: 0,
         }}
         theme={{
-            accentColor: '#448AFF',
+            accentColor: "#448AFF",
             floatingNav: {
-                background: 'rgba(56, 87, 138, 0.94)',
-                chevron: '#FFA726',
-                color: '#FFF',
+                background: "rgba(56, 87, 138, 0.94)",
+                chevron: "#FFA726",
+                color: "#FFF",
             },
-            headerColor: '#448AFF',
-            selectionColor: '#559FFF',
+            headerColor: "#448AFF",
+            selectionColor: "#559FFF",
             textColor: {
-                active: '#FFF',
-                default: '#333',
+                active: "#FFF",
+                default: "#333",
             },
-            todayColor: '#FFA726',
-            weekdayColor: '#559FFF',
+            todayColor: "#FFA726",
+            weekdayColor: "#559FFF",
         }}
         className="className"
         onSelect={() => {}}
@@ -92,7 +92,7 @@ const testWithDateSelectionArray: React.FC = () => (
         display="years"
         displayOptions={{
             hideYearsOnSelect: true,
-            layout: 'portrait',
+            layout: "portrait",
             overscanMonthCount: 2,
             shouldHeaderAnimate: true,
             showHeader: true,
@@ -107,29 +107,29 @@ const testWithDateSelectionArray: React.FC = () => (
                 distanceInWords: () => {},
                 format: () => {},
             },
-            blank: 'Select a date...',
-            headerFormat: 'ddd, MMM Do',
+            blank: "Select a date...",
+            headerFormat: "ddd, MMM Do",
             todayLabel: {
-                long: 'Today',
+                long: "Today",
             },
-            weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
             weekStartsOn: 0,
         }}
         theme={{
-            accentColor: '#448AFF',
+            accentColor: "#448AFF",
             floatingNav: {
-                background: 'rgba(56, 87, 138, 0.94)',
-                chevron: '#FFA726',
-                color: '#FFF',
+                background: "rgba(56, 87, 138, 0.94)",
+                chevron: "#FFA726",
+                color: "#FFF",
             },
-            headerColor: '#448AFF',
-            selectionColor: '#559FFF',
+            headerColor: "#448AFF",
+            selectionColor: "#559FFF",
             textColor: {
-                active: '#FFF',
-                default: '#333',
+                active: "#FFF",
+                default: "#333",
             },
-            todayColor: '#FFA726',
-            weekdayColor: '#559FFF',
+            todayColor: "#FFA726",
+            weekdayColor: "#559FFF",
         }}
         className="className"
         onSelect={() => {}}

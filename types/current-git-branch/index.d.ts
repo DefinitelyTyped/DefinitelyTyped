@@ -14,6 +14,8 @@ declare namespace CurrentGitBranch {
     }
 }
 
-declare function CurrentGitBranch(args?: CurrentGitBranch.CurrentGitBranchOptions): CurrentGitBranch.CurrentGitBranchResult;
+declare function CurrentGitBranch(
+    args?: CurrentGitBranch.CurrentGitBranchOptions,
+): CurrentGitBranch.CurrentGitBranchResult;
 
 export = CurrentGitBranch;

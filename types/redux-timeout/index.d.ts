@@ -3,7 +3,7 @@
 // Definitions by: Xavier Balloy <https://github.com/xballoy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { AnyAction, Middleware } from 'redux';
+import { AnyAction, Middleware } from "redux";
 
 /**
  * Add a timeout
