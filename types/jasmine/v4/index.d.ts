@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 5.1
+// Type definitions for Jasmine 4.6
 // Project: http://jasmine.github.io
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
 //                 Theodore Brown <https://github.com/theodorejb>
@@ -14,7 +14,6 @@
 //                 Dominik Ehrenberg <https://github.com/djungowski>
 //                 Chives <https://github.com/chivesrs>
 //                 kirjs <https://github.com/kirjs>
-//                 Dmitry Semigradsky <https://github.com/Semigradsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // For ddescribe / iit use : https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/karma-jasmine/karma-jasmine.d.ts
@@ -201,52 +200,6 @@ declare function spyOnProperty<T, K extends keyof T = keyof T>(
     property: K,
     accessType: "set",
 ): jasmine.Spy<(this: T, value: T[K]) => void>;
-
-interface ThrowUnlessFailure {
-    /**
-     * The name of the matcher that was executed for this expectation.
-     */
-    matcherName: string;
-    /**
-     * The failure message for the expectation.
-     */
-    message: string;
-    /**
-     * Whether the expectation passed or failed.
-     */
-    passed: boolean;
-    /**
-     * If the expectation failed, what was the expected value.
-     */
-    expected: any;
-    /**
-     * If the expectation failed, what actual value was produced.
-     */
-    actual: any;
-}
-/**
- * Create an expectation for a spec and throw an error if it fails.
- * @checkReturnValue see https://tsetse.info/check-return-value
- * @param spy
- */
-declare function throwUnless<T extends jasmine.Func>(spy: T | jasmine.Spy<T>): jasmine.FunctionMatchers<T>;
-/**
- * Create an expectation for a spec and throw an error if it fails.
- * @checkReturnValue see https://tsetse.info/check-return-value
- * @param actual Actual computed value to test expectations against.
- */
-declare function throwUnless<T>(actual: ArrayLike<T>): jasmine.ArrayLikeMatchers<T>;
-/**
- * Create an expectation for a spec and throw an error if it fails.
- * @checkReturnValue see https://tsetse.info/check-return-value
- * @param actual Actual computed value to test expectations against.
- */
-declare function throwUnless<T>(actual: T): jasmine.Matchers<T>;
-/**
- * Create an asynchronous expectation for a spec and throw an error if it fails.
- * @param actual Actual computed value to test expectations against.
- */
-declare function throwUnlessAsync<T, U>(actual: T | PromiseLike<T>): jasmine.AsyncMatchers<T, U>;
 
 /**
  * Installs spies on all writable and configurable properties of an object.
@@ -565,6 +518,8 @@ declare namespace jasmine {
         clearReporters(): void;
         configuration(): Configuration;
         configure(configuration: Configuration): void;
+        execute(runnablesToRun: Suite[] | null | undefined, onComplete: Func): void;
+        /** @async */
         execute(runnablesToRun?: Suite[]): PromiseLike<JasmineDoneInfo>;
         provideFallbackReporter(reporter: CustomReporter): void;
         /**
