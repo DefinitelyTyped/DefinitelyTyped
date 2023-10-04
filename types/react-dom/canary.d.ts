@@ -145,6 +145,6 @@ declare module "./client" {
     }
 
     interface HydrationOptions {
-        experimental_formState?: ReactFormState | null;
+        formState?: ReactFormState | null;
     }
 }
