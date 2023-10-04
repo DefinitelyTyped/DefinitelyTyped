@@ -1443,7 +1443,6 @@ describe("jasmine.objectContaining", () => {
     describe("stringContaining", () => {
         it("passes", () => {
             expect("foot").toEqual(jasmine.stringContaining("foo"));
-            expect("foot").toEqual(jasmine.stringContaining(/foo/));
         });
     });
 
