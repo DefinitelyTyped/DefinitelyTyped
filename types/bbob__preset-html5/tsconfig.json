@@ -14,7 +14,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@bbob/*": ["bbob__*"]
+        }
     },
     "files": [
         "index.d.ts",
