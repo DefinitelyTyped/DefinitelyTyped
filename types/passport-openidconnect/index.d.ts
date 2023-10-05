@@ -66,8 +66,22 @@ declare namespace OpenIDConnectStrategy {
         nonce?: string | undefined;
     }
 
+    /**
+     * Callback function to pass into {@link SessionStore.store | SessionStore.store()}
+     *
+     * @param err - Error object if the store function encounters any error, null otherwise.
+     * @param handle - Generated uuid string that identifies an unique auth session across multiple requests to OIDC provider
+     *
+     */
     type SessionStoreCallback = (err: Error | null, handle?: string) => void;
 
+    /**
+     * Callback function to pass into {@link SessionStore.verify | SessionStore.verify()}
+     *
+     * @param err - Error object if the store function encounters any error, null otherwise.
+     * @param ctx - Passes a valid {@link SessionContext} object or false
+     * @param state - Stored app state
+     */
     type SessionVerifyCallback = (err: Error | null, ctx?: false | SessionStoreContext, state?: any) => void;
 
     /**
@@ -170,7 +184,15 @@ declare namespace OpenIDConnectStrategy {
         skipUserProfile?: boolean | undefined;
     }
 
-    type VerifyCallback = (err?: Error | null, user?: Express.User, info?: any) => void;
+    /**
+     * Callback for {@link VerifyFunction} to invoke to either return a valid user object, false or error.
+     * @see https://www.passportjs.org/concepts/authentication/strategies/
+     *
+     * @param err - Either an {@link Error} object or string message. Null when no error.
+     * @param user - User object defined by the application or false if authentication fails at app.
+     * @param info - Optional argument with additional user information.
+     */
+    type VerifyCallback = (err?: Error | string | null, user?: any, info?: any) => void;
 
     type Profile = passportProfile;
 
