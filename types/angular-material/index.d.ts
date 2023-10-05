@@ -9,12 +9,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
 declare var _: string;
 export = _;
 
-declare module 'angular' {
+declare module "angular" {
     namespace material {
         interface IAriaProvider {
             disableWarnings(): void;
@@ -70,8 +70,8 @@ declare module 'angular' {
             controllerAs(controllerAs?: string): T;
             parent(parent?: string | Element | JQuery): T; // default: root node
             ariaLabel(ariaLabel: string): T;
-            openFrom(from: string | Element | Event | { top: number, left: number }): T;
-            closeTo(to: string | Element | { top: number, left: number }): T;
+            openFrom(from: string | Element | Event | { top: number; left: number }): T;
+            closeTo(to: string | Element | { top: number; left: number }): T;
             multiple(multiple: boolean): T;
         }
 
@@ -145,7 +145,10 @@ declare module 'angular' {
         }
 
         interface IDialogProvider {
-            addPreset(presetName: string, presetOptions: { methods?: ReadonlyArray<string> | undefined, options: () => IDialogOptions }): IDialogProvider;
+            addPreset(
+                presetName: string,
+                presetOptions: { methods?: ReadonlyArray<string> | undefined; options: () => IDialogOptions },
+            ): IDialogProvider;
         }
 
         type IIcon = (id: string) => IPromise<Element>; // id is a unique ID or URL
@@ -246,9 +249,9 @@ declare module 'angular' {
 
         interface IThemeHues {
             default?: string | undefined;
-            'hue-1'?: string | undefined;
-            'hue-2'?: string | undefined;
-            'hue-3'?: string | undefined;
+            "hue-1"?: string | undefined;
+            "hue-2"?: string | undefined;
+            "hue-3"?: string | undefined;
         }
 
         interface IThemePalette {
@@ -356,22 +359,22 @@ declare module 'angular' {
         interface IColorPalette {
             red: IPalette;
             pink: IPalette;
-            'deep-purple': IPalette;
+            "deep-purple": IPalette;
             indigo: IPalette;
             blue: IPalette;
-            'light-blue': IPalette;
+            "light-blue": IPalette;
             cyan: IPalette;
             teal: IPalette;
             green: IPalette;
-            'light-green': IPalette;
+            "light-green": IPalette;
             lime: IPalette;
             yellow: IPalette;
             amber: IPalette;
             orange: IPalette;
-            'deep-orange': IPalette;
+            "deep-orange": IPalette;
             brown: IPalette;
             grey: IPalette;
-            'blue-grey': IPalette;
+            "blue-grey": IPalette;
         }
 
         interface IConfiguredColorPalette extends IColorPalette {
@@ -457,10 +460,10 @@ declare module 'angular' {
         }
 
         interface IPanelAnimation {
-            openFrom(from: string | Element | Event | { top: number, left: number }): IPanelAnimation;
-            closeTo(to: string | Element | { top: number, left: number }): IPanelAnimation;
-            withAnimation(cssClass: string | { open: string, close: string }): IPanelAnimation;
-            duration(duration: number | { open: number, close: number }): IPanelAnimation;
+            openFrom(from: string | Element | Event | { top: number; left: number }): IPanelAnimation;
+            closeTo(to: string | Element | { top: number; left: number }): IPanelAnimation;
+            withAnimation(cssClass: string | { open: string; close: string }): IPanelAnimation;
+            duration(duration: number | { open: number; close: number }): IPanelAnimation;
         }
 
         interface IPanelService {
@@ -469,36 +472,36 @@ declare module 'angular' {
             newPanelPosition(): IPanelPosition;
             newPanelAnimation(): IPanelAnimation;
             xPosition: {
-                CENTER: string,
-                ALIGN_START: string,
-                ALIGN_END: string,
-                OFFSET_START: string,
-                OFFSET_END: string,
+                CENTER: string;
+                ALIGN_START: string;
+                ALIGN_END: string;
+                OFFSET_START: string;
+                OFFSET_END: string;
             };
             yPosition: {
-                CENTER: string,
-                ALIGN_TOPS: string,
-                ALIGN_BOTTOMS: string,
-                ABOVE: string,
-                BELOW: string,
+                CENTER: string;
+                ALIGN_TOPS: string;
+                ALIGN_BOTTOMS: string;
+                ABOVE: string;
+                BELOW: string;
             };
             animation: {
-                SLIDE: string,
-                SCALE: string,
-                FADE: string,
+                SLIDE: string;
+                SCALE: string;
+                FADE: string;
             };
             interceptorTypes: {
-                CLOSE: string,
+                CLOSE: string;
             };
             closeReasons: {
-                CLICK_OUTSIDE: string,
-                ESCAPE: string,
+                CLICK_OUTSIDE: string;
+                ESCAPE: string;
             };
             absPosition: {
-                TOP: string,
-                RIGHT: string,
-                BOTTOM: string,
-                LEFT: string,
+                TOP: string;
+                RIGHT: string;
+                BOTTOM: string;
+                LEFT: string;
             };
         }
 
@@ -520,7 +523,7 @@ declare module 'angular' {
         type IStickyService = (scope: IScope, element: JQuery, elementClone?: JQuery) => void;
 
         interface IInteractionService {
-            getLastInteractionType(): string|null;
+            getLastInteractionType(): string | null;
             isUserInvoked(checkDelay?: number): boolean;
         }
 

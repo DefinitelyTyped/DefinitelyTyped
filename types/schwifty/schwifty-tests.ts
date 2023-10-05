@@ -14,10 +14,10 @@ import DogModel from "./test/dog";
                 client: "sqlite3",
                 useNullAsDefault: true,
                 connection: {
-                    filename: ":memory:"
-                }
-            }
-        }
+                    filename: ":memory:",
+                },
+            },
+        },
     });
 
     Schwifty.assertCompatible(DogModel, DogModel);

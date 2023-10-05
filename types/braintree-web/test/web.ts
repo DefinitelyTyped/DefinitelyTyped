@@ -129,6 +129,10 @@ braintree.client.create(
                 fields: {
                     number: {
                         container: document.createElement("div"),
+                        supportedCardBrands: {
+                            visa: false,
+                            "diners-club": false
+                        }
                     },
                     cvv: {
                         container: "#cvv",

@@ -38,7 +38,7 @@ export enum ERROR_CODES {
     PROD_RECEIPT = 21008,
 
     /** This receipt could not be authorized. Treat this the same as if a purchase was never made. */
-    COULD_NOT_AUTHORIZE = 21010
+    COULD_NOT_AUTHORIZE = 21010,
 }
 
 export interface ConfigOptions {

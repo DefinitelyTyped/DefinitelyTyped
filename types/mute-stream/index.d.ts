@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { Duplex } from 'stream';
+import { Duplex } from "stream";
 
 declare namespace MuteStream {
     interface Options {

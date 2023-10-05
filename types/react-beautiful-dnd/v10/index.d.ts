@@ -10,14 +10,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
+import * as React from "react";
 
 export type Id = string;
 export type DraggableId = Id;
 export type DroppableId = Id;
 export type TypeId = Id;
-export type ZIndex = React.CSSProperties['zIndex'];
-export type DropReason = 'DROP' | 'CANCEL';
+export type ZIndex = React.CSSProperties["zIndex"];
+export type DropReason = "DROP" | "CANCEL";
 export type Announce = (message: string) => void;
 
 export interface DraggableLocation {
@@ -25,7 +25,7 @@ export interface DraggableLocation {
     index: number;
 }
 
-export type MovementMode = 'FLUID' | 'SNAP';
+export type MovementMode = "FLUID" | "SNAP";
 
 /**
  * Responders
@@ -94,7 +94,7 @@ export interface DragDropContextProps {
     onDragEnd(result: DropResult, provided: ResponderProvided): void;
 }
 
-export class DragDropContext extends React.Component<DragDropContextProps> { }
+export class DragDropContext extends React.Component<DragDropContextProps> {}
 
 /**
  *  Droppable
@@ -102,7 +102,7 @@ export class DragDropContext extends React.Component<DragDropContextProps> { }
 
 export interface DroppableProvidedProps {
     // used for shared global styles
-    'data-react-beautiful-dnd-droppable': string;
+    "data-react-beautiful-dnd-droppable": string;
 }
 export interface DroppableProvided {
     innerRef(element: HTMLElement | null): any;
@@ -122,11 +122,11 @@ export interface DroppableProps {
     ignoreContainerClipping?: boolean | undefined;
     isDropDisabled?: boolean | undefined;
     isCombineEnabled?: boolean | undefined;
-    direction?: 'vertical' | 'horizontal' | undefined;
+    direction?: "vertical" | "horizontal" | undefined;
     children(provided: DroppableProvided, snapshot: DroppableStateSnapshot): React.ReactElement<HTMLElement>;
 }
 
-export class Droppable extends React.Component<DroppableProps> { }
+export class Droppable extends React.Component<DroppableProps> {}
 
 /**
  *  Draggable
@@ -134,20 +134,20 @@ export class Droppable extends React.Component<DroppableProps> { }
 
 export interface NotDraggingStyle {
     transform?: string | undefined;
-    transition?: 'none' | undefined;
+    transition?: "none" | undefined;
 }
 
 export interface DraggingStyle {
-    pointerEvents: 'none';
-    position: 'fixed';
+    pointerEvents: "none";
+    position: "fixed";
     width: number;
     height: number;
-    boxSizing: 'border-box';
+    boxSizing: "border-box";
     top: number;
     left: number;
     margin: 0;
     transform?: string | undefined;
-    transition: 'none';
+    transition: "none";
     zIndex: ZIndex;
 }
 
@@ -155,7 +155,7 @@ export interface DraggableProvidedDraggableProps {
     // inline style
     style?: DraggingStyle | NotDraggingStyle | undefined;
     // used for shared global styles
-    'data-react-beautiful-dnd-draggable': string;
+    "data-react-beautiful-dnd-draggable": string;
 }
 
 export interface DraggableProvidedDragHandleProps {
@@ -163,10 +163,10 @@ export interface DraggableProvidedDragHandleProps {
     onKeyDown: React.KeyboardEventHandler<any>;
     onTouchStart: React.TouchEventHandler<any>;
     onTouchMove: React.TouchEventHandler<any>;
-    'data-react-beautiful-dnd-drag-handle': string;
-    'aria-roledescription': string;
+    "data-react-beautiful-dnd-drag-handle": string;
+    "aria-roledescription": string;
     tabIndex: number;
-    'aria-grabbed': boolean;
+    "aria-grabbed": boolean;
     draggable: boolean;
     onDragStart: React.DragEventHandler<any>;
 }
@@ -216,4 +216,4 @@ export interface DraggableProps {
     shouldRespectForceTouch?: boolean | undefined;
 }
 
-export class Draggable extends React.Component<DraggableProps> { }
+export class Draggable extends React.Component<DraggableProps> {}

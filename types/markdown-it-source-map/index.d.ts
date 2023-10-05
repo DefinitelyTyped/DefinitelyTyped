@@ -3,7 +3,7 @@
 // Definitions by: Felix Wotschofsky <https://github.com/wotschofsky>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import MarkdownIt = require('markdown-it');
+import MarkdownIt = require("markdown-it");
 
 declare const markdownItSourceMap: MarkdownIt.PluginSimple;
 export default markdownItSourceMap;

@@ -7,11 +7,11 @@
 export type CSSValue = string | number;
 
 export interface Keyframe {
-  [property: string]: CSSValue;
+    [property: string]: CSSValue;
 }
 
 export interface Animation {
-  [keyframe: string]: Keyframe;
+    [keyframe: string]: Keyframe;
 }
 
 export function merge(primary: Animation, secondary: Animation): Animation;

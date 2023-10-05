@@ -113,12 +113,12 @@ export interface Options {
     /**
      * Type of lens
      */
-    lensShape?: 'square' | 'round' | undefined;
+    lensShape?: "square" | "round" | undefined;
 
     /**
      * Type of zoom
      */
-    zoomType?: 'lens' | 'window' | 'inner' | undefined;
+    zoomType?: "lens" | "window" | "inner" | undefined;
     containLensZoom?: boolean | undefined;
 
     /**
@@ -155,7 +155,7 @@ export interface Options {
     /**
      * Type of cursor
      */
-    cursor?: 'default' | 'cursor' | 'crosshair' | undefined;
+    cursor?: "default" | "cursor" | "crosshair" | undefined;
     container?: string | undefined;
 
     /**
@@ -167,7 +167,7 @@ export interface Options {
      * In pixels the dimensions you want to constrain on
      */
     constrainSize?: number | false | undefined;
-    constrainType?: 'width' | 'height' | undefined;
+    constrainType?: "width" | "height" | undefined;
     debug?: boolean | undefined;
     easingAmount?: number | undefined;
     enabled?: boolean | undefined;
@@ -186,7 +186,7 @@ export interface Options {
      */
     scrollZoomIncrement?: number | undefined;
     touchEnabled?: boolean | undefined;
-    zoomActivation?: 'click' | 'hover' | undefined;
+    zoomActivation?: "click" | "hover" | undefined;
 
     /**
      * Zoom container parent selector

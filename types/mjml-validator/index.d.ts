@@ -3,7 +3,7 @@
 // Definitions by: Emily M Klassen <https://github.com/forivall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Component, MJMLJsonObject, MJMLParseError } from 'mjml-core';
+import { Component, MJMLJsonObject, MJMLParseError } from "mjml-core";
 
 export interface MJMLDependenciesObject {
     [tagName: string]: Array<string | RegExp>;
@@ -14,7 +14,7 @@ export interface MJMLType {
     getErrorMessage(): string | undefined;
     getValue(): string;
 }
-export type MJMLTypeChecker = new (value: string) => MJMLType;
+export type MJMLTypeChecker = new(value: string) => MJMLType;
 
 export type MJMLInitializeType = (spec: string) => MJMLTypeChecker;
 

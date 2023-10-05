@@ -21,7 +21,6 @@ interface Options {
      */
     minify?: boolean | undefined;
     /**
-     *
      * Pre-render HTML as part of the build
      */
     ssr?: boolean | undefined;
@@ -56,7 +55,6 @@ interface Options {
     temp?: string | undefined;
     /**
      * path to HTML template
-     *
      */
     template?: string | undefined;
 
@@ -115,12 +113,10 @@ declare class IdyllInstance extends EventEmitter {
      */
     getOptions(): Options;
     /**
-     *
      * if indexIdyllMarkup is provided, compiles it
      *
      * Otherwise, compiles and optionally watches
      * the idyll file at IOptions.inputFile
-     *
      */
     build(indexIdyllMarkup?: string | null): this;
 }

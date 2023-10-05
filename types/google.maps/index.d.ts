@@ -1741,6 +1741,10 @@ declare namespace google.maps {
      * country.
      */
     POSTAL_CODE = 'POSTAL_CODE',
+    /**
+     * Indicates a school district.
+     */
+    SCHOOL_DISTRICT = 'SCHOOL_DISTRICT',
   }
   /**
    * Options for the rendering of the fullscreen control.
@@ -4911,8 +4915,10 @@ declare namespace google.maps {
    * An interface representing a feature with a place ID which includes features
    * of type {@link google.maps.FeatureType.ADMINISTRATIVE_AREA_LEVEL_1}, {@link
    * google.maps.FeatureType.ADMINISTRATIVE_AREA_LEVEL_2}, {@link
-   * google.maps.FeatureType.COUNTRY}, {@link google.maps.FeatureType.LOCALITY},
-   * and {@link google.maps.FeatureType.POSTAL_CODE}.
+   * google.maps.FeatureType.COUNTRY}, {@link
+   * google.maps.FeatureType.LOCALITY}, {@link
+   * google.maps.FeatureType.POSTAL_CODE}, and {@link
+   * google.maps.FeatureType.SCHOOL_DISTRICT}.
    */
   export interface PlaceFeature extends google.maps.Feature {
     /**
@@ -9163,6 +9169,13 @@ declare namespace google.maps.journeySharing {
     constructor(options:
                     google.maps.journeySharing.JourneySharingMapViewOptions);
     /**
+     * Adds a location provider to the map view. If the location provider is
+     * already added, no action is performed.
+     * @param locationProvider the location provider to add.
+     */
+    addLocationProvider(locationProvider:
+                            google.maps.journeySharing.LocationProvider): void;
+    /**
      * Configures options for an anticipated route polyline. Invoked whenever a
      * new anticipated route polyline is rendered. <br><br>If specifying a
      * function, the function can and should modify the input&#39;s
@@ -9229,8 +9242,20 @@ declare namespace google.maps.journeySharing {
     /**
      * This Field is read-only. A source of tracked locations to be shown in the
      * tracking map view.
+     * @deprecated Use {@link
+     *     google.maps.journeySharing.JourneySharingMapView.locationProviders}
+     *     instead.
      */
-    locationProvider: google.maps.journeySharing.LocationProvider;
+    locationProvider: google.maps.journeySharing.LocationProvider|null;
+    /**
+     * This field is read-only. Sources of tracked locations to be shown in the
+     * tracking map view. To add or remove location providers, use the {@link
+     * google.maps.journeySharing.JourneySharingMapView.addLocationProvider}
+     * and {@link
+     * google.maps.journeySharing.JourneySharingMapView.removeLocationProvider}
+     * methods.
+     */
+    locationProviders: google.maps.journeySharing.LocationProvider[]|null;
     /**
      * This Field is read-only. The map object contained in the map view.
      */
@@ -9290,6 +9315,13 @@ declare namespace google.maps.journeySharing {
     pingMarkerSetup: google.maps.journeySharing.MarkerSetupOptions|
         ((a: google.maps.journeySharing.DefaultMarkerSetupOptions) =>
              google.maps.journeySharing.MarkerSetupOptions);
+    /**
+     * Removes a location provider from the map view. If the location provider
+     * is not already added to the map view, no action is performed.
+     * @param locationProvider the location provider to remove.
+     */
+    removeLocationProvider(
+        locationProvider: google.maps.journeySharing.LocationProvider): void;
     /**
      * Configures options for a successful task location marker. Invoked
      * whenever a new successful task marker is rendered. <br><br>If specifying
@@ -9516,9 +9548,17 @@ declare namespace google.maps.journeySharing {
     element: Element;
     /**
      * A source of tracked locations to be shown in the tracking map view.
-     * Required.
+     * Optional.
+     * @deprecated Use {@link
+     *     google.maps.journeySharing.JourneySharingMapViewOptions.locationProviders}
+     *     instead.
      */
-    locationProvider: google.maps.journeySharing.LocationProvider;
+    locationProvider: google.maps.journeySharing.LocationProvider|null;
+    /**
+     * Sources of tracked locations to be shown in the tracking map view.
+     * Optional.
+     */
+    locationProviders: google.maps.journeySharing.LocationProvider[]|null;
     /**
      * Map options passed into the google.maps.Map constructor.
      */

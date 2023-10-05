@@ -36,7 +36,7 @@ declare namespace database {
      * http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types
      * http://hg.nginx.org/nginx/raw-file/default/conf/mime.types
      */
-    type MimeSource = 'iana' | 'apache' | 'nginx';
+    type MimeSource = "iana" | "apache" | "nginx";
 }
 
 declare const database: database.MimeDatabase;

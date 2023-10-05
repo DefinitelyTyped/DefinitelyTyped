@@ -48,7 +48,7 @@ declare namespace ReplaceStream {
 declare function ReplaceStream(
     search: RegExp | string,
     replace: ReplaceStream.ReplaceFunction | string,
-    options?: ReplaceStream.Options
+    options?: ReplaceStream.Options,
 ): any;
 
 export = ReplaceStream;

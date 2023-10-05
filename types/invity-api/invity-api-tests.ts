@@ -3,10 +3,10 @@ import {
     ExchangeTrade,
     P2pQuote,
     P2pTradeRequest,
-    SavingsTradeKYCStatusSuccessfulResponse,
-    SellFiatTrade,
     SavingsTrade,
     SavingsTradeItem,
+    SavingsTradeKYCStatusSuccessfulResponse,
+    SellFiatTrade,
 } from 'invity-api';
 
 const bt: BuyTrade = {
@@ -17,6 +17,12 @@ const et: ExchangeTrade = {};
 
 const sft: SellFiatTrade = {
     paymentMethodName: 'Test',
+    destinationPaymentExtraIdDescription: {
+        description: '',
+        name: '',
+        required: true,
+        type: 'number',
+    },
 };
 
 const svt: SavingsTrade = { exchange: '', reauthorizationUrl: '' };

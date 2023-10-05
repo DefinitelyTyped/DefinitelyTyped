@@ -1,5 +1,5 @@
-import { AWSError } from '../error';
-import S3 = require('../../clients/s3');
+import { AWSError } from "../error";
+import S3 = require("../../clients/s3");
 export class ManagedUpload {
     /**
      * Creates a managed upload object with a set of configuration options.
@@ -23,7 +23,7 @@ export class ManagedUpload {
      * @param {string} event - httpUploadProgress: triggered when the uploader has uploaded more data.
      * @param {function} listener - Callback to run when the uploader has uploaded more data.
      */
-    on(event: 'httpUploadProgress', listener: (progress: ManagedUpload.Progress) => void): any;
+    on(event: "httpUploadProgress", listener: (progress: ManagedUpload.Progress) => void): any;
     /**
      * Default value: 10000
      */

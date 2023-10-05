@@ -11,7 +11,7 @@ import * as StreamManager from "./stream-manager";
 export interface PublishParams {
     topic: string;
     payload: Buffer | Blob | string | ArrayLike<any>;
-    queueFullPolicy?: 'AllOrError' | 'BestEffort' | undefined;
+    queueFullPolicy?: "AllOrError" | "BestEffort" | undefined;
 }
 
 export interface IotCallbackData {

@@ -1,4 +1,4 @@
-import { ComponentType, FocusEventHandler, MouseEventHandler } from 'react';
+import { ComponentType, FocusEventHandler, MouseEventHandler } from "react";
 
 declare namespace FormTokenField {
     interface Props {
@@ -74,27 +74,27 @@ declare namespace FormTokenField {
     type Value =
         | string
         | {
-              /**
-               * The value of the token.
-               */
-              value: string;
-              /**
-               * Applies styles to token.
-               */
-              status?: 'error' | 'validating' | 'success' | undefined;
-              /**
-               * Adds a title to the token.
-               */
-              title?: string | undefined;
-              /**
-               * Function to call when onMouseEnter event triggered on token.
-               */
-              onMouseEnter?: MouseEventHandler<HTMLSpanElement> | undefined;
-              /**
-               * Function to call when onMouseLeave is triggered on token.
-               */
-              onMouseLeave?: MouseEventHandler<HTMLSpanElement> | undefined;
-          };
+            /**
+             * The value of the token.
+             */
+            value: string;
+            /**
+             * Applies styles to token.
+             */
+            status?: "error" | "validating" | "success" | undefined;
+            /**
+             * Adds a title to the token.
+             */
+            title?: string | undefined;
+            /**
+             * Function to call when onMouseEnter event triggered on token.
+             */
+            onMouseEnter?: MouseEventHandler<HTMLSpanElement> | undefined;
+            /**
+             * Function to call when onMouseLeave is triggered on token.
+             */
+            onMouseLeave?: MouseEventHandler<HTMLSpanElement> | undefined;
+        };
 }
 declare const FormTokenField: ComponentType<FormTokenField.Props>;
 

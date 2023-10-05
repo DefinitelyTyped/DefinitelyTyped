@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace SAT {
-
     /**
      * This is a simple 2D vector/point class,Vector has two parameters {x},{y}.
      */
@@ -63,7 +62,6 @@ declare namespace SAT {
         translate(x: number, y: number): Polygon;
         getAABB(): Polygon;
         getCentroid(): Vector;
-
     }
     export class Box {
         constructor(pos?: Vector, width?: number, height?: number);
@@ -138,7 +136,6 @@ declare namespace SAT {
      * @return {boolean}           return {true} if there is a collision. {false} otherwise.
      */
     export function testPolygonPolygon(a: Polygon, b: Polygon, response?: Response): boolean;
-
 }
 
 declare module "sat" {

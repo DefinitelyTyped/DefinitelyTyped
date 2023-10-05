@@ -13,6 +13,6 @@ declare namespace CardMedia {
 }
 
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-declare function CardMedia<T extends keyof JSX.IntrinsicElements = 'div'>(props: CardMedia.Props<T>): JSX.Element;
+declare function CardMedia<T extends keyof JSX.IntrinsicElements = "div">(props: CardMedia.Props<T>): JSX.Element;
 
 export default CardMedia;

@@ -34,17 +34,17 @@ interface PatternOptions {
 }
 
 declare const VMasker: {
-    (el: Element|NodeListOf<Element>): {
+    (el: Element | NodeListOf<Element>): {
         maskMoney: (options?: MoneyOptions) => void;
         maskNumber: () => void;
         maskAlphaNum: () => void;
         maskPattern: (pattern: string) => void;
         unMask: () => void;
-    }
-    toMoney: (value: string|number, options?: MoneyOptions) => string;
-    toPattern: (value: string|number, options?: string|PatternOptions) => string;
-    toNumber: (value: string|number) => string;
-    toAlphaNumeric: (value: string|number) => string;
+    };
+    toMoney: (value: string | number, options?: MoneyOptions) => string;
+    toPattern: (value: string | number, options?: string | PatternOptions) => string;
+    toNumber: (value: string | number) => string;
+    toAlphaNumeric: (value: string | number) => string;
 };
 
 export = VMasker;

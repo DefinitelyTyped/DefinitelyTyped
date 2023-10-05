@@ -18,10 +18,10 @@ export {};
 type LatLngPoint = [number, number];
 type XYPoint = [number, number];
 type BoundingBox = [number, number, number, number];
-type Projection = 'WGS84' | '900913';
+type Projection = "WGS84" | "900913";
 
 declare class SphericalMercator {
-    constructor(options?: { size?: number | undefined, antimeridian?: boolean | undefined })
+    constructor(options?: { size?: number | undefined; antimeridian?: boolean | undefined });
     px(ll: LatLngPoint, zoom: number): XYPoint;
     ll(px: XYPoint, zoom: number): LatLngPoint;
     bbox(x: number, y: number, zoom: number, tms_style?: boolean, srs?: Projection): BoundingBox;

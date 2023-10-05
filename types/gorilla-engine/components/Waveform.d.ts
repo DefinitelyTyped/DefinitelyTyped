@@ -34,7 +34,7 @@ declare namespace GorillaEngine.UI {
         canResize: boolean;
     }
 
-    interface WaveformProps extends Common, Bounds, Background, Font, Clickable {
+    interface WaveformProps extends Common, Bounds, Background, Font, Clickable, Margin {
         waveformColor: string;
         gradientCenterColor: string;
         gradientEndColor: string;
@@ -47,6 +47,7 @@ declare namespace GorillaEngine.UI {
         fitHeight: boolean;
         paintCenterLine: boolean;
         value: number;
+        drawUsingLegacy: boolean;
         dragzone: Partial<WaveformDragZone>;
         markers: Partial<WaveformMarker>;
     }

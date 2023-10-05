@@ -1,4 +1,4 @@
-import { parseArgs } from '@pkgjs/parseargs';
+import { parseArgs } from "@pkgjs/parseargs";
 
 {
     // util.parseArgs: happy path
@@ -6,8 +6,8 @@ import { parseArgs } from '@pkgjs/parseargs';
     const config = {
         allowPositionals: true,
         options: {
-            foo: { type: 'string' },
-            bar: { type: 'boolean', multiple: true },
+            foo: { type: "string" },
+            bar: { type: "boolean", multiple: true },
         },
     } as const;
 
@@ -20,8 +20,8 @@ import { parseArgs } from '@pkgjs/parseargs';
     // tslint:disable-next-line:no-object-literal-type-assertion
     const config = {
         options: {
-            foo: { type: 'string' },
-            bar: { type: 'boolean', multiple: true },
+            foo: { type: "string" },
+            bar: { type: "boolean", multiple: true },
         },
     } as const;
 
@@ -36,8 +36,8 @@ import { parseArgs } from '@pkgjs/parseargs';
         tokens: true,
         allowPositionals: true,
         options: {
-            foo: { type: 'string' },
-            bar: { type: 'boolean' },
+            foo: { type: "string" },
+            bar: { type: "boolean" },
         },
     } as const;
 
@@ -60,7 +60,7 @@ import { parseArgs } from '@pkgjs/parseargs';
     const result = parseArgs({
         strict: false,
         options: {
-            x: { type: 'string', multiple: true },
+            x: { type: "string", multiple: true },
         },
     });
     // $ExpectType (string | boolean)[] | undefined

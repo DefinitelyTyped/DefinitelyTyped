@@ -25,13 +25,13 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/dgram.js)
  */
-declare module 'dgram' {
-    import { AddressInfo } from 'node:net';
-    import * as dns from 'node:dns';
-    import { EventEmitter, Abortable } from 'node:events';
+declare module "dgram" {
+    import { AddressInfo } from "node:net";
+    import * as dns from "node:dns";
+    import { Abortable, EventEmitter } from "node:events";
     interface RemoteInfo {
         address: string;
-        family: 'IPv4' | 'IPv6';
+        family: "IPv4" | "IPv6";
         port: number;
         size: number;
     }
@@ -41,7 +41,7 @@ declare module 'dgram' {
         exclusive?: boolean | undefined;
         fd?: number | undefined;
     }
-    type SocketType = 'udp4' | 'udp6';
+    type SocketType = "udp4" | "udp6";
     interface SocketOptions extends Abortable {
         type: SocketType;
         reuseAddr?: boolean | undefined;
@@ -51,7 +51,13 @@ declare module 'dgram' {
         ipv6Only?: boolean | undefined;
         recvBufferSize?: number | undefined;
         sendBufferSize?: number | undefined;
-        lookup?: ((hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void) | undefined;
+        lookup?:
+            | ((
+                hostname: string,
+                options: dns.LookupOneOptions,
+                callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void,
+            ) => void)
+            | undefined;
     }
     /**
      * Creates a `dgram.Socket` object. Once the socket is created, calling `socket.bind()` will instruct the socket to begin listening for datagram
@@ -335,12 +341,42 @@ declare module 'dgram' {
          * @param address Destination host name or IP address.
          * @param callback Called when the message has been sent.
          */
-        send(msg: string | Uint8Array | ReadonlyArray<any>, port?: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: string | Uint8Array | ReadonlyArray<any>, port?: number, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: string | Uint8Array | ReadonlyArray<any>, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: string | Uint8Array, offset: number, length: number, port?: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: string | Uint8Array, offset: number, length: number, port?: number, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: string | Uint8Array, offset: number, length: number, callback?: (error: Error | null, bytes: number) => void): void;
+        send(
+            msg: string | Uint8Array | ReadonlyArray<any>,
+            port?: number,
+            address?: string,
+            callback?: (error: Error | null, bytes: number) => void,
+        ): void;
+        send(
+            msg: string | Uint8Array | ReadonlyArray<any>,
+            port?: number,
+            callback?: (error: Error | null, bytes: number) => void,
+        ): void;
+        send(
+            msg: string | Uint8Array | ReadonlyArray<any>,
+            callback?: (error: Error | null, bytes: number) => void,
+        ): void;
+        send(
+            msg: string | Uint8Array,
+            offset: number,
+            length: number,
+            port?: number,
+            address?: string,
+            callback?: (error: Error | null, bytes: number) => void,
+        ): void;
+        send(
+            msg: string | Uint8Array,
+            offset: number,
+            length: number,
+            port?: number,
+            callback?: (error: Error | null, bytes: number) => void,
+        ): void;
+        send(
+            msg: string | Uint8Array,
+            offset: number,
+            length: number,
+            callback?: (error: Error | null, bytes: number) => void,
+        ): void;
         /**
          * Sets or clears the `SO_BROADCAST` socket option. When set to `true`, UDP
          * packets may be sent to a local interface's broadcast address.
@@ -503,43 +539,48 @@ declare module 'dgram' {
          * 5. message
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: 'close', listener: () => void): this;
-        addListener(event: 'connect', listener: () => void): this;
-        addListener(event: 'error', listener: (err: Error) => void): this;
-        addListener(event: 'listening', listener: () => void): this;
-        addListener(event: 'message', listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "connect", listener: () => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "listening", listener: () => void): this;
+        addListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: 'close'): boolean;
-        emit(event: 'connect'): boolean;
-        emit(event: 'error', err: Error): boolean;
-        emit(event: 'listening'): boolean;
-        emit(event: 'message', msg: Buffer, rinfo: RemoteInfo): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "connect"): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "listening"): boolean;
+        emit(event: "message", msg: Buffer, rinfo: RemoteInfo): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: 'close', listener: () => void): this;
-        on(event: 'connect', listener: () => void): this;
-        on(event: 'error', listener: (err: Error) => void): this;
-        on(event: 'listening', listener: () => void): this;
-        on(event: 'message', listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        on(event: "close", listener: () => void): this;
+        on(event: "connect", listener: () => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(event: "listening", listener: () => void): this;
+        on(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: 'close', listener: () => void): this;
-        once(event: 'connect', listener: () => void): this;
-        once(event: 'error', listener: (err: Error) => void): this;
-        once(event: 'listening', listener: () => void): this;
-        once(event: 'message', listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "connect", listener: () => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(event: "listening", listener: () => void): this;
+        once(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: 'close', listener: () => void): this;
-        prependListener(event: 'connect', listener: () => void): this;
-        prependListener(event: 'error', listener: (err: Error) => void): this;
-        prependListener(event: 'listening', listener: () => void): this;
-        prependListener(event: 'message', listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "connect", listener: () => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "listening", listener: () => void): this;
+        prependListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'close', listener: () => void): this;
-        prependOnceListener(event: 'connect', listener: () => void): this;
-        prependOnceListener(event: 'error', listener: (err: Error) => void): this;
-        prependOnceListener(event: 'listening', listener: () => void): this;
-        prependOnceListener(event: 'message', listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "connect", listener: () => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "listening", listener: () => void): this;
+        prependOnceListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
+        /**
+         * Calls `socket.close()` and returns a promise that fulfills when the socket has closed.
+         * @since v18.18.0
+         */
+        [Symbol.asyncDispose](): Promise<void>;
     }
 }
-declare module 'node:dgram' {
-    export * from 'dgram';
+declare module "node:dgram" {
+    export * from "dgram";
 }

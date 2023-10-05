@@ -1,7 +1,7 @@
-import * as dom from '@wordpress/dom';
+import * as dom from "@wordpress/dom";
 
 // $ExpectType HTMLDivElement
-const element = document.createElement('div');
+const element = document.createElement("div");
 
 const node = element.previousSibling!;
 
@@ -68,10 +68,10 @@ dom.remove(node);
 dom.replace(node, node);
 
 // $ExpectType HTMLParagraphElement
-dom.replaceTag(node, 'p');
+dom.replaceTag(node, "p");
 
 // $ExpectType HTMLSpanElement
-dom.replaceTag(node, 'span');
+dom.replaceTag(node, "span");
 
 // $ExpectType void
 dom.unwrap(node);

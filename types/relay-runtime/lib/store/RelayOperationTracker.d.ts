@@ -1,4 +1,4 @@
-import { RequestDescriptor } from './RelayStoreTypes';
+import { RequestDescriptor } from "./RelayStoreTypes";
 
 export class RelayOperationTracker {
     /**

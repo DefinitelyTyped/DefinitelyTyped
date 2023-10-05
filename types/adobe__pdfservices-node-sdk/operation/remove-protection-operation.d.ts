@@ -1,4 +1,4 @@
-import { ExecutionContext, FileRef, PdfFormat } from '../pdfservices-sdk';
+import { ExecutionContext, FileRef, PdfFormat } from "../pdfservices-sdk";
 
 /**
  * An operation that allows to remove password security from a PDF document.
@@ -22,12 +22,10 @@ import { ExecutionContext, FileRef, PdfFormat } from '../pdfservices-sdk';
  *      .catch(err => console.log(err));
  * </code>
  * </pre>
- *
  */
 export class RemoveProtectionOperation {
     /**
      * Constructs a {@link RemoveProtectionOperation} instance.
-     *
      */
     static createNew(): RemoveProtectionOperation;
     static get SupportedSourceFormat(): PdfFormat;

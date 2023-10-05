@@ -1,5 +1,6 @@
-// tslint:disable:no-single-declare-module js installs to root of node_modules
-declare module 'SyntheticsScreenshot' {
+// js installs to root of node_modules
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
+declare module "SyntheticsScreenshot" {
     function _exports(dir?: string): SyntheticsScreenshot;
     export = _exports;
     /**
@@ -30,6 +31,6 @@ declare module 'SyntheticsScreenshot' {
          */
         getScreenshotResult(stepName: any): ScreenshotResult[];
     }
-    import * as ScreenshotResult_1 from 'SyntheticsReport';
+    import * as ScreenshotResult_1 from "SyntheticsReport";
     import ScreenshotResult = ScreenshotResult_1.ScreenshotResult;
 }

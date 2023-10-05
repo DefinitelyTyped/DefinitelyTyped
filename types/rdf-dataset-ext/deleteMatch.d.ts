@@ -5,6 +5,9 @@ import { BaseQuad, DatasetCore, Term } from "rdf-js";
  *
  * `.match` of dataset is used to find the matches and .delete to delete all matches. Returns the given dataset.
  */
-declare function deleteMatch<D extends DatasetCore<BaseQuad> = DatasetCore>(dataset: D, ...arg: Parameters<DatasetCore['match']>): D;
+declare function deleteMatch<D extends DatasetCore<BaseQuad> = DatasetCore>(
+    dataset: D,
+    ...arg: Parameters<DatasetCore["match"]>
+): D;
 
 export = deleteMatch;

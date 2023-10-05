@@ -18,13 +18,13 @@ declare namespace parse {
     }
 
     interface ConjunctionInfo {
-        conjunction: 'and' | 'or';
+        conjunction: "and" | "or";
         left: LicenseInfo | ConjunctionInfo;
         right: LicenseInfo | ConjunctionInfo;
     }
 
     interface Token {
-        type: 'OPERATOR' | 'LICENSE' | 'DOCUMENTREF' | 'LICENSEREF' | 'EXCEPTION';
+        type: "OPERATOR" | "LICENSE" | "DOCUMENTREF" | "LICENSEREF" | "EXCEPTION";
         string: string;
     }
 }

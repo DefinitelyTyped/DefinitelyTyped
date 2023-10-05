@@ -2,7 +2,7 @@ function dummyNumbers(a: number): void {}
 
 const AC = new AudioContext();
 
-const result = Meyda.extract('rms', []);
+const result = Meyda.extract("rms", []);
 if (result) {
     if (result.zcr) {
         dummyNumbers(result.zcr);
@@ -21,6 +21,6 @@ analyzer.start();
 analyzer.stop();
 analyzer.get();
 
-analyzer.start('rms');
+analyzer.start("rms");
 analyzer.stop();
-analyzer.get(['rms']);
+analyzer.get(["rms"]);

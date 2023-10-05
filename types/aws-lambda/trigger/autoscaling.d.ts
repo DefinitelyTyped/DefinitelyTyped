@@ -1,11 +1,11 @@
-import { Handler, Callback } from '../handler';
+import { Callback, Handler } from "../handler";
 
 export type AutoScalingScaleInHandler = Handler<AutoScalingScaleInEvent, AutoScalingScaleInResult>;
 export type AutoScalingScaleInCallback = Callback<AutoScalingScaleInResult>;
 
-export type AutoScalingInstanceMarketOption = 'spot' | 'on-demand';
+export type AutoScalingInstanceMarketOption = "spot" | "on-demand";
 
-export type AutoScalingScaleInCause = 'SCALE_IN' | 'INSTANCE_REFRESH' | 'MAX_INSTANCE_LIFETIME' | 'REBALANCE';
+export type AutoScalingScaleInCause = "SCALE_IN" | "INSTANCE_REFRESH" | "MAX_INSTANCE_LIFETIME" | "REBALANCE";
 
 export interface AutoScalingTerminationRequest {
     AvailabilityZone: string;

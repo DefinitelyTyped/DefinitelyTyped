@@ -6,7 +6,7 @@
  * are not intended as functional tests.
  */
 
-import * as d3Format from 'd3-format';
+import * as d3Format from "d3-format";
 
 // ----------------------------------------------------------------------
 // Preparatory Steps
@@ -40,33 +40,33 @@ let localeObj: d3Format.FormatLocaleObject;
 // Test Format and FormatPrefix
 // ----------------------------------------------------------------------
 
-formatFn = d3Format.format('.0%');
+formatFn = d3Format.format(".0%");
 
-formatFn = d3Format.formatPrefix(',.0', 1e-6);
+formatFn = d3Format.formatPrefix(",.0", 1e-6);
 
-d3Format.format('.0%')(10);
-d3Format.format('.0%')(numeric);
+d3Format.format(".0%")(10);
+d3Format.format(".0%")(numeric);
 
-d3Format.formatPrefix(',.0', 1e-6)(10);
-d3Format.formatPrefix(',.0', 1e-6)(numeric);
+d3Format.formatPrefix(",.0", 1e-6)(10);
+d3Format.formatPrefix(",.0", 1e-6)(numeric);
 
 // ----------------------------------------------------------------------
 // Test Format Specifier
 // ----------------------------------------------------------------------
 
-specifier = d3Format.formatSpecifier('.0%');
+specifier = d3Format.formatSpecifier(".0%");
 specifier = new d3Format.FormatSpecifier({});
 
 const fill: string = specifier.fill;
-const align: '>' | '<' | '^' | '=' = specifier.align;
-const sign: '-' | '+' | '(' | ' ' = specifier.sign;
-const symbol: '$' | '#' | '' = specifier.symbol;
+const align: ">" | "<" | "^" | "=" = specifier.align;
+const sign: "-" | "+" | "(" | " " = specifier.sign;
+const symbol: "$" | "#" | "" = specifier.symbol;
 const zero: boolean = specifier.zero;
 const width: number | undefined = specifier.width;
 const comma: boolean = specifier.comma;
 const precision: number | undefined = specifier.precision;
 const trim: boolean = specifier.trim;
-const type: 'e' | 'f' | 'g' | 'r' | 's' | '%' | 'p' | 'b' | 'o' | 'd' | 'x' | 'X' | 'c' | '' | 'n' = specifier.type;
+const type: "e" | "f" | "g" | "r" | "s" | "%" | "p" | "b" | "o" | "d" | "x" | "X" | "c" | "" | "n" = specifier.type;
 
 const formatString: string = specifier.toString();
 
@@ -85,10 +85,10 @@ num = d3Format.precisionRound(0.0005, 3000);
 // ----------------------------------------------------------------------
 
 localeDef = {
-    decimal: ',',
-    thousands: '.',
+    decimal: ",",
+    thousands: ".",
     grouping: [3],
-    currency: ['EUR', '']
+    currency: ["EUR", ""],
 };
 
 localeDef = {
@@ -96,7 +96,7 @@ localeDef = {
     thousands: "\u066c",
     grouping: [3],
     currency: ["", ""],
-    numerals : ["\u0660", "\u0661", "\u0662", "\u0663", "\u0664", "\u0665", "\u0666", "\u0667", "\u0668", "\u0669"]
+    numerals: ["\u0660", "\u0661", "\u0662", "\u0663", "\u0664", "\u0665", "\u0666", "\u0667", "\u0668", "\u0669"],
 };
 
 localeDef = {
@@ -104,7 +104,7 @@ localeDef = {
     thousands: "\u066c",
     grouping: [3],
     currency: ["", ""],
-    percent : "\u202f%",
+    percent: "\u202f%",
     minus: "-",
     nan: "NaN",
 };
@@ -120,5 +120,5 @@ localeObj = d3Format.formatLocale(localeDef);
 
 localeObj = d3Format.formatDefaultLocale(localeDef);
 
-const formatFactory: (specifier: string) => ((n: number) => string) = localeObj.format;
-const formatPrefixFactory: (specifier: string, value: number) => ((n: number) => string) = localeObj.formatPrefix;
+const formatFactory: (specifier: string) => (n: number) => string = localeObj.format;
+const formatPrefixFactory: (specifier: string, value: number) => (n: number) => string = localeObj.formatPrefix;

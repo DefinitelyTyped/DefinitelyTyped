@@ -10,7 +10,7 @@ export default class ScrollSpy extends React.Component<Props> {
     getElements: React.RefCallback<HTMLElement> = ref => {
         if (!ref) return;
         this.nav = ref;
-    }
+    };
     render() {
         return (
             <NodeResolver innerRef={this.getElements}>

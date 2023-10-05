@@ -1,4 +1,4 @@
-import { Field } from './Field';
+import { Field } from "./Field";
 
 export default function(action: object): Action;
 
@@ -27,4 +27,4 @@ export interface Action {
     getFieldsByType(fieldType: string | RegExp): Field[];
 }
 
-export { Field, FieldType } from './Field';
+export { Field, FieldType } from "./Field";

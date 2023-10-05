@@ -4,7 +4,7 @@
 
 // See https://github.com/facebook/react/blob/main/packages/react-dom/client.js to see how the exports are declared,
 
-import React = require('react');
+import React = require("react");
 export interface HydrationOptions {
     /**
      * Prefix for `useId`.

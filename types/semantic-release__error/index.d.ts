@@ -47,7 +47,7 @@
  * throw new InheritedError("An error happened", "ECODE", "Here is some suggestions to solve this error.");
  */
 declare class SemanticReleaseError extends Error {
-    name: 'SemanticReleaseError';
+    name: "SemanticReleaseError";
 
     code: string | undefined;
 

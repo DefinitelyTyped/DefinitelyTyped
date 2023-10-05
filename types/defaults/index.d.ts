@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "defaults" {
-  function defaults(options: any, defaultOptions: any): any;
+    function defaults(options: any, defaultOptions: any): any;
 
-  export = defaults;
+    export = defaults;
 }

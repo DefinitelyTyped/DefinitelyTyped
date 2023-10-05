@@ -1,4 +1,4 @@
-import generate = require('project-name-generator');
+import generate = require("project-name-generator");
 // $ExpectType string
 generate().dashed; // 'uptight-guitar'
 // $ExpectType string

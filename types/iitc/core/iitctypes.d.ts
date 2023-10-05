@@ -1,6 +1,6 @@
-import * as L from 'leaflet';
+import * as L from "leaflet";
 import "../leafletExtentions";
-import * as jQuery from 'jquery';
+import * as jQuery from "jquery";
 
 export type PortalGUID = string;
 export type LinkGUID = string;
@@ -28,7 +28,7 @@ export namespace IITC {
     }
 
     interface PortalData extends PortalDataCore {
-        artifactBrief: { fragment: any, target: any } | null;
+        artifactBrief: { fragment: any; target: any } | null;
         health: number;
         image: string; // url
         level: number;
@@ -53,16 +53,18 @@ export namespace IITC {
         rarity: ModRarity;
         stats: { [k: string /*ModStats*/]: string };
     }
-    type ModStats = "REMOVAL_STICKNESS" | /* all */
-        /* Shield */ "MIGRATION" |
-        /* Turret */ "ATTACK_FREQUENCY" | "HIT_BONUS" |
-        /* Forceamp */ "FORCE_AMPLIFIER" |
-        /* ito- */ "XM_SPIN" |
-        /* Multihack */ "BURNOUT_INSULATION" |
-        /* Heat sink */ "HACK_SPEED" |
-        /* Linkamp */ "LINK_RANGE_MULTIPLIER" |
-        /* sbul */ "LINK_DEFENSE_BOOST" |
-        string; /* dummy for future stuff */
+    type ModStats =
+        | "REMOVAL_STICKNESS"
+        | /* all */ /* Shield */ "MIGRATION"
+        | /* Turret */ "ATTACK_FREQUENCY"
+        | "HIT_BONUS"
+        | /* Forceamp */ "FORCE_AMPLIFIER"
+        | /* ito- */ "XM_SPIN"
+        | /* Multihack */ "BURNOUT_INSULATION"
+        | /* Heat sink */ "HACK_SPEED"
+        | /* Linkamp */ "LINK_RANGE_MULTIPLIER"
+        | /* sbul */ "LINK_DEFENSE_BOOST"
+        | string; /* dummy for future stuff */
     type ModRarity = "COMMON" | "RARE" | "VERY_RARE";
 
     type ModType = "RES_SHIELD" | "MULTIHACK" | "FORCE_AMP" | "HEATSINK" | "TURRET" | "LINK_AMPLIFIER";

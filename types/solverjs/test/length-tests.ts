@@ -1,4 +1,4 @@
-import solverjs = require('solverjs');
+import solverjs = require("solverjs");
 
 solverjs.kmToMe(1);
 solverjs.kmToCm(1);

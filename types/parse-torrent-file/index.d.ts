@@ -12,22 +12,22 @@ declare namespace ParseTorrentFile {
     function encode(parsed: Instance): Buffer;
 
     interface TorrentInfo {
-        'name.utf-8'?: string | undefined;
+        "name.utf-8"?: string | undefined;
         name?: string | undefined;
         files?: File[] | undefined;
-        'piece length'?: number | undefined;
+        "piece length"?: number | undefined;
         pieces?: number | undefined;
         private?: boolean | undefined;
     }
 
     interface Torrent {
         info?: TorrentInfo | undefined;
-        'creation date'?: number | undefined;
-        'created by'?: string | undefined;
+        "creation date"?: number | undefined;
+        "created by"?: string | undefined;
         comment?: Buffer | undefined;
-        'announce-list'?: string[][] | undefined;
+        "announce-list"?: string[][] | undefined;
         announce?: string | undefined;
-        'url-list'?: Buffer | undefined;
+        "url-list"?: Buffer | undefined;
     }
 
     interface ParsedFile {

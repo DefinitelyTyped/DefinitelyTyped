@@ -33,8 +33,8 @@ export interface HeapChangeDetails {
     what: string;
     size_bytes: number;
     size: string;
-    '+': number;
-    '-': number;
+    "+": number;
+    "-": number;
 }
 
 export interface HeapChange {
@@ -51,7 +51,7 @@ export interface HeapDiffResult {
     change: HeapChange;
 }
 
-export function on(event: 'stats', callback: (stats: GcStats) => void): void;
+export function on(event: "stats", callback: (stats: GcStats) => void): void;
 
 export class HeapDiff {
     end(): HeapDiffResult;

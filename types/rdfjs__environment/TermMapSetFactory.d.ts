@@ -1,5 +1,5 @@
-import { TermMapFactory } from '@rdfjs/term-map/Factory.js';
-import { TermSetFactory } from '@rdfjs/term-set/Factory.js';
+import { TermMapFactory } from "@rdfjs/term-map/Factory.js";
+import { TermSetFactory } from "@rdfjs/term-set/Factory.js";
 
 export interface Factory extends TermSetFactory, TermMapFactory {
 }

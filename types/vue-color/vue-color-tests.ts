@@ -1,28 +1,19 @@
-import Vue from 'vue';
-import {
-    Material,
-    Compact,
-    Swatches,
-    Slider,
-    Sketch,
-    Twitter,
-    Chrome,
-    Photoshop
-} from 'vue-color';
+import Vue from "vue";
+import { Chrome, Compact, Material, Photoshop, Sketch, Slider, Swatches, Twitter } from "vue-color";
 
-const colors = '#194d33';
+const colors = "#194d33";
 
 new Vue({
-    el: '#app',
+    el: "#app",
     components: {
-        'material-picker': Material,
-        'compact-picker': Compact,
-        'swatches-picker': Swatches,
-        'slider-picker': Slider,
-        'sketch-picker': Sketch,
-        'chrome-picker': Chrome,
-        'photoshop-picker': Photoshop,
-        'twitter-picker': Twitter
+        "material-picker": Material,
+        "compact-picker": Compact,
+        "swatches-picker": Swatches,
+        "slider-picker": Slider,
+        "sketch-picker": Sketch,
+        "chrome-picker": Chrome,
+        "photoshop-picker": Photoshop,
+        "twitter-picker": Twitter,
     },
     template: `
         <material-picker v-model="colors"></material-picker>
@@ -35,5 +26,5 @@ new Vue({
     `,
     data() {
         return { colors };
-    }
+    },
 });

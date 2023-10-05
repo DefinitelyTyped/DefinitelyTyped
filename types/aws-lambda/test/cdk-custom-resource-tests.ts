@@ -3,11 +3,11 @@ import {
     CdkCustomResourceIsCompleteHandler,
     CdkCustomResourceIsCompleteResponse,
     CdkCustomResourceResponse,
-} from 'aws-lambda';
+} from "aws-lambda";
 
 const onEventHandler: CdkCustomResourceHandler = async (event, context) => {
     switch (event.RequestType) {
-        case 'Create':
+        case "Create":
             str = event.LogicalResourceId;
             str = event.RequestId;
             anyObj = event.ResourceProperties;
@@ -23,11 +23,11 @@ const onEventHandler: CdkCustomResourceHandler = async (event, context) => {
             // @ts-expect-error
             str = event.PhysicalResourceId;
             break;
-        case 'Update':
+        case "Update":
             anyObj = event.OldResourceProperties;
             str = event.PhysicalResourceId;
             break;
-        case 'Delete':
+        case "Delete":
             str = event.PhysicalResourceId;
             break;
     }
@@ -53,7 +53,7 @@ const onEventHandler: CdkCustomResourceHandler = async (event, context) => {
 
 const onIsCompleteHandler: CdkCustomResourceIsCompleteHandler = async (event, context) => {
     switch (event.RequestType) {
-        case 'Create':
+        case "Create":
             str = event.LogicalResourceId;
             str = event.RequestId;
             anyObj = event.ResourceProperties;
@@ -64,11 +64,11 @@ const onIsCompleteHandler: CdkCustomResourceIsCompleteHandler = async (event, co
             str = event.ServiceToken;
             str = event.StackId;
             break;
-        case 'Update':
+        case "Update":
             anyObj = event.OldResourceProperties;
             str = event.PhysicalResourceId;
             break;
-        case 'Delete':
+        case "Delete":
             str = event.PhysicalResourceId;
             break;
     }

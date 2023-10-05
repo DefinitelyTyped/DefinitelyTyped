@@ -1,8 +1,8 @@
-import MarkdownIt = require('..');
-import Token = require('../token');
+import MarkdownIt = require("..");
+import Token = require("../token");
 
 declare namespace StateBlock {
-    type ParentType = 'blockquote' | 'list' | 'root' | 'paragraph' | 'reference';
+    type ParentType = "blockquote" | "list" | "root" | "paragraph" | "reference";
 }
 
 declare class StateBlock {

@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { OutgoingHttpHeaders, RequestOptions } from 'http';
+import { OutgoingHttpHeaders, RequestOptions } from "http";
 
 export interface Request extends RequestOptions {
     /** Defaults to {@link RequestSigner.createHost}() if possible. */

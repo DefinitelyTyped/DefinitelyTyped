@@ -9,13 +9,12 @@
 declare var Mailcheck: MailcheckModule.Static;
 
 declare namespace MailcheckModule {
-
     export interface IDistanceFunction {
         (s1: string, s2: string): number;
     }
 
     export interface ISuggestFunction {
-        (email: string, domains?: string[], topLevelDomains?: string[], distanceFunction?: IDistanceFunction):void;
+        (email: string, domains?: string[], topLevelDomains?: string[], distanceFunction?: IDistanceFunction): void;
     }
 
     export interface IJQuerySuggested {
@@ -61,7 +60,6 @@ declare namespace MailcheckModule {
         secondLevelDomains?: string[] | undefined;
         topLevelDomains?: string[] | undefined;
         distanceFunction?: IDistanceFunction | undefined;
-
     }
     export interface Static {
         defaultDomains: string[];
@@ -69,22 +67,26 @@ declare namespace MailcheckModule {
         defaultTopLevelDomains: string[];
         domainThreshold: number;
         topLevelThreshold: number;
-        run(opts: IAsynchronousOptions):void;
-        run(opts: ISynchronousOptions):ISuggestion | undefined;
+        run(opts: IAsynchronousOptions): void;
+        run(opts: ISynchronousOptions): ISuggestion | undefined;
         suggest: ISuggestFunction;
         encodeEmail(email: string): string;
         splitEmail(email: string): ISplitEmail;
         sift3Distance(s1: string, s2: string): number;
-        findClosestDomain(domain: string, domains: string[], distanceFunction?: IDistanceFunction, threshold?: number): boolean|string;
+        findClosestDomain(
+            domain: string,
+            domains: string[],
+            distanceFunction?: IDistanceFunction,
+            threshold?: number,
+        ): boolean | string;
     }
-
 }
 
 interface JQuery {
-    mailcheck(opts: MailcheckModule.IAsynchronousOptions):void;
-    mailcheck(opts: MailcheckModule.ISynchronousOptions):MailcheckModule.ISuggestion | void;
+    mailcheck(opts: MailcheckModule.IAsynchronousOptions): void;
+    mailcheck(opts: MailcheckModule.ISynchronousOptions): MailcheckModule.ISuggestion | void;
 }
 
-declare module 'mailcheck' {
+declare module "mailcheck" {
     export = Mailcheck;
 }

@@ -5,7 +5,7 @@
 // TypeScript Version: 2.8
 
 import * as moment from "moment";
-import * as React from 'react';
+import * as React from "react";
 
 interface DrawerProps {
     className?: string | undefined;
@@ -19,7 +19,7 @@ interface DrawerProps {
     sidebar?: React.ReactNode | undefined;
     onOpenChange?: ((open: boolean, overlay?: { overlayClicked: boolean }) => void) | undefined;
     open?: boolean | undefined;
-    position?: 'left' | 'right' | 'top' | 'bottom' | undefined;
+    position?: "left" | "right" | "top" | "bottom" | undefined;
     docked?: boolean | undefined;
     transitions?: boolean | undefined;
     touch?: boolean | undefined;

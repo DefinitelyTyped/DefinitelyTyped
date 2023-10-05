@@ -17,7 +17,7 @@ declare namespace IWshRuntimeLibrary {
         YesNoCancel,
         YesNo,
         RetryCancel,
-        CancelTryagainContinue
+        CancelTryagainContinue,
     }
 
     const enum EventType {
@@ -26,7 +26,7 @@ declare namespace IWshRuntimeLibrary {
         Error = 1,
         Information = 3,
         Success = 0,
-        Warning = 2
+        Warning = 2,
     }
 
     const enum IconType {
@@ -92,7 +92,7 @@ declare namespace IWshRuntimeLibrary {
     }
 
     class TextStreamWriter extends TextStreamBase {
-        private 'IWshRuntimeLibrary.TextStreamWriter_typekey': TextStreamWriter;
+        private "IWshRuntimeLibrary.TextStreamWriter_typekey": TextStreamWriter;
         private constructor();
 
         /**
@@ -112,7 +112,7 @@ declare namespace IWshRuntimeLibrary {
     }
 
     class TextStreamReader extends TextStreamBase {
-        private 'IWshRuntimeLibrary.TextStreamReader_typekey': TextStreamReader;
+        private "IWshRuntimeLibrary.TextStreamReader_typekey": TextStreamReader;
         private constructor();
 
         /**
@@ -178,7 +178,7 @@ declare namespace IWshRuntimeLibrary {
 
     /** WSHExec object */
     class WshExec {
-        private 'IWshRuntimeLibrary.WshExec_typekey': WshExec;
+        private "IWshRuntimeLibrary.WshExec_typekey": WshExec;
         private constructor();
         readonly ExitCode: number;
         readonly ProcessID: number;
@@ -191,7 +191,7 @@ declare namespace IWshRuntimeLibrary {
 
     /** Network Object */
     class WshNetwork {
-        private 'IWshRuntimeLibrary.WshNetwork_typekey': WshNetwork;
+        private "IWshRuntimeLibrary.WshNetwork_typekey": WshNetwork;
         private constructor();
 
         /**
@@ -202,7 +202,13 @@ declare namespace IWshRuntimeLibrary {
          *
          * If you are mapping a remote printer using the profile of someone other than current user, you can specify _UserName_ and _Password_.
          */
-        AddPrinterConnection(LocalName: string, RemoteName: string, UpdateProfile?: boolean, UserName?: string, Password?: string): void;
+        AddPrinterConnection(
+            LocalName: string,
+            RemoteName: string,
+            UpdateProfile?: boolean,
+            UserName?: string,
+            Password?: string,
+        ): void;
 
         /**
          * @param string Path to printer connection
@@ -224,7 +230,13 @@ declare namespace IWshRuntimeLibrary {
          *
          * If you are mapping a network drive using the profile of someone other than current user, you can specify _UserName_ and _Password_.
          */
-        MapNetworkDrive(LocalName: string, RemoteName: string, UpdateProfile?: boolean, UserName?: string, Password?: string): void;
+        MapNetworkDrive(
+            LocalName: string,
+            RemoteName: string,
+            UpdateProfile?: boolean,
+            UserName?: string,
+            Password?: string,
+        ): void;
         readonly Organization: string;
 
         /**
@@ -256,7 +268,7 @@ declare namespace IWshRuntimeLibrary {
 
     /** Shell Object */
     class WshShell {
-        private 'IWshRuntimeLibrary.WshShell_typekey': WshShell;
+        private "IWshRuntimeLibrary.WshShell_typekey": WshShell;
         private constructor();
 
         /**
@@ -296,13 +308,18 @@ declare namespace IWshRuntimeLibrary {
          *
          * will return an empty string, unless there is an environment variable named `System`
          */
-        Environment: WshEnvironment & ((Type: 'System' | 'User' | 'Process' | 'Volatile') => WshEnvironment);
+        Environment: WshEnvironment & ((Type: "System" | "User" | "Process" | "Volatile") => WshEnvironment);
         Exec(Command: string): WshExec;
         ExpandEnvironmentStrings(Src: string): string;
 
         /** @param string [Target=''] Name of the computer system where the event should be logged; default is the local computer system */
         LogEvent(Type: EventType, Message: string, Target?: string): boolean;
-        Popup(Text: string, SecondsToWait?: number, Title?: string, Type?: ButtonType | IconType | PopupType): PopupSelection;
+        Popup(
+            Text: string,
+            SecondsToWait?: number,
+            Title?: string,
+            Type?: ButtonType | IconType | PopupType,
+        ): PopupSelection;
         RegDelete(Name: string): void;
 
         /**
@@ -327,7 +344,7 @@ declare namespace IWshRuntimeLibrary {
          * `REG_DWORD | REG_BINARY` will be converted to `integer`
          * @param Type
          */
-        RegWrite(Name: string, Value: any, Type?: 'REG_SZ' | 'REG_DWORD' | 'REG_BINARY' | 'REG_EXPAND_SZ'): void;
+        RegWrite(Name: string, Value: any, Type?: "REG_SZ" | "REG_DWORD" | "REG_BINARY" | "REG_EXPAND_SZ"): void;
 
         /**
          * Runs a program in a new process.
@@ -364,7 +381,7 @@ declare namespace IWshRuntimeLibrary {
 
     /** Shortcut Object */
     class WshShortcut {
-        private 'IWshRuntimeLibrary.WshShortcut_typekey': WshShortcut;
+        private "IWshRuntimeLibrary.WshShortcut_typekey": WshShortcut;
         private constructor();
         Arguments: string;
         Description: string;
@@ -390,7 +407,7 @@ declare namespace IWshRuntimeLibrary {
 
     /** URLShortcut Object */
     class WshURLShortcut {
-        private 'IWshRuntimeLibrary.WshURLShortcut_typekey': WshURLShortcut;
+        private "IWshRuntimeLibrary.WshURLShortcut_typekey": WshURLShortcut;
         private constructor();
         readonly FullName: string;
         Load(PathLink: string): void;
@@ -400,7 +417,7 @@ declare namespace IWshRuntimeLibrary {
 }
 declare namespace WSHControllerLibrary {
     class WSHController {
-        private 'WSHControllerLibrary.WSHController_typekey': WSHController;
+        private "WSHControllerLibrary.WSHController_typekey": WSHController;
         private constructor();
         CreateScript(Command: string, Server?: any): any;
     }
@@ -408,7 +425,7 @@ declare namespace WSHControllerLibrary {
 
 declare namespace ScriptSigner {
     class Signer {
-        private 'ScriptSigner.Signer_typekey': Signer;
+        private "ScriptSigner.Signer_typekey": Signer;
         private constructor();
 
         /** @param Store [Store='my'] */
@@ -426,12 +443,12 @@ declare namespace ScriptSigner {
 }
 
 interface ActiveXObjectNameMap {
-    'WSHController': WSHControllerLibrary.WSHController;
-    'Scripting.Signer': ScriptSigner.Signer;
-    'WScript.Network': IWshRuntimeLibrary.WshNetwork;
-    'WScript.Shell': IWshRuntimeLibrary.WshShell;
+    "WSHController": WSHControllerLibrary.WSHController;
+    "Scripting.Signer": ScriptSigner.Signer;
+    "WScript.Network": IWshRuntimeLibrary.WshNetwork;
+    "WScript.Shell": IWshRuntimeLibrary.WshShell;
 }
 
 interface ActiveXObject {
-    set(obj: IWshRuntimeLibrary.WshEnvironment, propertyName: 'Item', parameterTypes: [string], newValue: string): void;
+    set(obj: IWshRuntimeLibrary.WshEnvironment, propertyName: "Item", parameterTypes: [string], newValue: string): void;
 }

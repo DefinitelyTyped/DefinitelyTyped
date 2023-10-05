@@ -2,7 +2,10 @@ import { MouseEventHandler } from "react";
 import { Data, Headers } from "../lib/core";
 
 export type SyncClickHandler = (event: MouseEventHandler<HTMLAnchorElement>) => boolean | void;
-export type AsyncClickHandler = (event: MouseEventHandler<HTMLAnchorElement>, done: (proceed?: boolean) => void) => void;
+export type AsyncClickHandler = (
+    event: MouseEventHandler<HTMLAnchorElement>,
+    done: (proceed?: boolean) => void,
+) => void;
 
 export interface CommonPropTypes {
     data: string | Data | (() => string | Data);
