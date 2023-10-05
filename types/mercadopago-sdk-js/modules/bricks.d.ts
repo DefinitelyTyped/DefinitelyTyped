@@ -375,18 +375,18 @@ declare namespace bricks {
         unit_price: number;
         quantity: number;
         title: string;
-        description: string;
-        picture_url: string;
+        description?: string;
+        picture_url?: string;
     }
 
     interface AdditionalInfoShipments {
         receiver_address: {
             zip_code: string;
-            state_name: string;
-            city_name: string;
+            state_name?: string;
+            city_name?: string;
             street_name: string;
             street_number: string;
-            apartment: string;
+            apartment?: string;
         };
     }
 
