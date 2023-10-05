@@ -50,14 +50,11 @@ npm install --save-dev @types/node
 
 Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软件包。
 
-<details>
-<summary>当前，已测试 4.1 及更高版本……</summary>
-
-你如果使用 TypeScript 2.0 至 4.0 版本，那么仍可以尝试安装 `@types` 软件包——因为其中大多数都没有使用 TypeScript 的新功能，然而，我们无法保证它们可以正常工作。
-支持周期如下所示：
-
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
 <img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
+
+<details>
+<summary>Older versions of TypeScript</summary>
 
 `@types` 软件包在标签种列出了其明确支持的 TypeScript 版本，因此你常常可以取得大于 2 年支持周期的软件包旧版本。
 例如，若运行 `npm dist-tags @types/react`，你将看到 TypeScript 2.5 可使用 react@16.0 的类型定义，而 TypeScript 2.6 和 2.7 则可使用 react@16.4：

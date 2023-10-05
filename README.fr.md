@@ -52,15 +52,11 @@ Si vous ne trouvez toujours pas les typages, recherchez simplement les fichiers 
 
 Definitely Typed ne teste que les paquets sur des versions de TypeScript datant de moins de 2 ans.
 
-<details>
-<summary>Actuellement, les versions 4.1 et supérieures sont testées...</summary>
-
-Si vous utilisez TypeScript 2.0 à 4.0, vous pouvez toujours essayer d'installer les paquets `@types` &mdash ; la majorité des paquets n'utilisent pas les nouvelles fonctionnalités fantaisistes de TypeScript.
-Mais rien ne garantit qu'ils fonctionneront.
-Voici le support de version:
-
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
 <img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
+
+<details>
+<summary>Anciennes versions de TypeScript</summary>
 
 Les paquets `@types` ont des étiquettes pour les versions de TypeScript qu'ils supportent explicitement, de sorte que vous pouvez généralement obtenir des versions plus anciennes de paquets qui précèdent la fenêtre de 2 ans.
 Par exemple, si vous lancez `npm dist-tags @types/react`, vous verrez que TypeScript 2.5 peut utiliser les types pour react@16.0, alors que TypeScript 2.6 et 2.7 peuvent utiliser les types pour react@16.4 :
