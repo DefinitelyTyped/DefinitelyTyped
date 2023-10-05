@@ -39,12 +39,75 @@ brickBuilder.isInitialized();
     const controller = await brickBuilder.create("payment", "containerPayment", {
         initialization: {
             amount: 100,
+            items: {
+                totalItemsAmount: 100,
+                itemsList: [
+                    {
+                        units: 2,
+                        value: 50,
+                        name: 'White t-shirt',
+                    },
+                ],
+            },
+            billing: {
+                taxIdentificationNumber: '999',
+                billingAddress: {
+                    streetName: 'street one',
+                    streetNumber: '111',
+                    zipCode: '1234567890',
+                },
+            },
+            shipping: {
+                shippingMode: 'express',
+                receiverAddress: {
+                    streetName: 'street one',
+                    streetNumber: '111',
+                    zipCode: '1234567890',
+                },
+            },
+            discounts: {
+                totalDiscountsAmount: 10,
+                discountsList: [
+                    {
+                        name: 'WELCOME_10',
+                        value: 10,
+                    },
+                ],
+            },
+        },
+        customization: {
+            paymentMethods: {
+                atm: 'all',
+                bankTransfer: 'all',
+                creditCard: 'all',
+                debitCard: 'all',
+                ticket: 'all',
+                mercadoPago: 'all',
+            },
+            enableReviewStep: true,
         },
         callbacks: {
-            onSubmit: (formData: any, additionalData: any) => {
+            onSubmit(formData, additionalData) {
                 return new Promise(() => {
-                    console.log(formData, additionalData);
+                    console.log(formData);
+                    if (additionalData && 'cardholderName' in additionalData) {
+                        console.log(additionalData.cardholderName);
+                        console.log(additionalData.bin);
+                        console.log(additionalData.lastFourDigits);
+                    }
                 });
+            },
+            onClickEditBillingData: () => {
+                console.log('edit billing clicked');
+            },
+            onClickEditShippingData: () => {
+                console.log('edit shipping clicked');
+            },
+            onRenderNextStep: currentStep => {
+                console.log('next step rendered', currentStep);
+            },
+            onRenderPreviousStep: currentStep => {
+                console.log('previous step rendered', currentStep);
             },
         },
     });
