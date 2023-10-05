@@ -10,6 +10,9 @@ on:
   # Manually, when TypeScript is released
   # https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow
   workflow_dispatch:
+  schedule:
+    # Weekly at 16:00 UTC on Monday 
+    - cron: '0 16 * * 1'
 permissions:
   contents: read
 
@@ -21,10 +24,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      
       - uses: actions/setup-node@v3
         #with:
         #  cache: npm
+      
       - run: npm install
+      
       - name: Fetch TypeScript versions and release dates from npm
         run: |
           npm view --json typescript time |
@@ -38,14 +44,13 @@ jobs:
               | unique_by(.key)
               | from_entries
             ' > docs/support-window.json
+      
       - name: Make SVG diagram
         run: node --experimental-json-modules scripts/support-window > docs/support-window.svg
-      - run: git add docs/support-window.json docs/support-window.svg
-      - run: git config user.name .github/workflows/support-window.yml
-      - run: git config user.email bot@typescriptlang.org
-      - run: |
-          git diff --quiet --cached ||
-          git commit \
-            --message "[README] 🤖 Update support window diagram" \
-            --message "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
-      - run: git push
+
+      - uses: stefanzweifel/git-auto-commit-action@v4.16.0
+        with:
+          commit_author: "TypeScript Bot <typescriptbot@microsoft.com>"
+          commit_message: "🤖 Update support window"
+          commit_user_email: "typescriptbot@microsoft.com"
+          commit_user_name: "TypeScript Bot"
