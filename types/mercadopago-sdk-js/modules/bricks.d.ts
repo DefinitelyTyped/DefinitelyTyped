@@ -7,8 +7,8 @@ declare namespace bricks {
 
     interface Submit<BrickType> {
         onSubmit: (
-            formData: CardFormData | PaymentFormData,
-            additionalData?: AdditionalCardFormData | AdditionalPaymentFormData,
+            formData: FormData<BrickType>,
+            additionalData?: AdditionalData<BrickType>,
         ) => BrickType extends "wallet" ? Promise<string> : Promise<void>;
     }
 
@@ -20,17 +20,31 @@ declare namespace bricks {
         onError?: (error: BrickError) => void;
     }
 
+    interface ReviewStepsCallbacks {
+        onClickEditShippingData?: () => void;
+        onClickEditBillingData?: () => void;
+        onRenderNextStep?: (currentStep: string) => void;
+        onRenderPreviousStep?: (currentStep: string) => void;
+    }
+
     interface WalletBrickCallbacks<BrickType> extends BrickCallbacks, Submit<BrickType> {}
     interface CardPaymentBrickCallbacks<BrickType> extends BrickCallbacks, Submit<BrickType>, BinChange {}
-    interface PaymentBrickCallbacks<BrickType> extends BrickCallbacks, Submit<BrickType>, BinChange {}
+    interface PaymentBrickCallbacks<BrickType>
+        extends BrickCallbacks,
+            Submit<BrickType>,
+            BinChange,
+            ReviewStepsCallbacks {}
 
-    interface PayerAddress {
-        zipCode?: string;
+    interface DefaultAddress {
+        streetName: string;
+        streetNumber: string;
+        zipCode: string;
+        neighborhood?: string;
         federalUnit?: string;
         city?: string;
-        streetName?: string;
-        streetNumber?: string;
-        neighborhood?: string;
+    }
+
+    interface PayerAddress extends Partial<DefaultAddress> {
         complement?: string;
     }
 
@@ -161,6 +175,8 @@ declare namespace bricks {
         checkout?: Checkout;
         texts?: WalletButtonTextCustomization;
         backUrls?: StatusBrickBackUrls;
+        enableReviewStep?: boolean;
+        reviewCardsOrder?: string[];
     }
 
     interface StatusBrickAdditionalData {
@@ -176,6 +192,49 @@ declare namespace bricks {
         externalReference?: string;
         redirectMode?: WalletButtonRedirectMode;
         additionalData?: StatusBrickAdditionalData;
+        items?: Items;
+        shipping?: Shipping;
+        billing?: Billing;
+        discounts?: Discounts;
+    }
+
+    interface Items {
+        totalItemsAmount: number;
+        itemsList: Item[];
+    }
+
+    interface Item {
+        units: number;
+        value: number;
+        name: string;
+        description?: string;
+        imageURL?: string;
+    }
+
+    interface Shipping {
+        costs?: number;
+        shippingMode: string;
+        description?: string;
+        receiverAddress: DefaultAddress;
+    }
+
+    interface Billing {
+        firstName?: string;
+        lastName?: string;
+        taxRegime?: string;
+        taxIdentificationNumber: string;
+        billingAddress?: DefaultAddress;
+        identification?: PayerIdentification;
+    }
+
+    interface Discounts {
+        totalDiscountsAmount: number;
+        discountsList: Discount[];
+    }
+
+    interface Discount {
+        name: string;
+        value: number;
     }
 
     interface BrickSettings<BrickType> {
@@ -228,6 +287,7 @@ declare namespace bricks {
         secondaryColor?: string;
         warningColor?: string;
         fontSizeExtraExtraLarge?: string;
+        secondaryColorListItem?: string;
     }
 
     interface PayerIdentification {
@@ -270,6 +330,18 @@ declare namespace bricks {
         id: string;
     }
 
+    type FormData<BrickType> = BrickType extends 'cardPayment'
+        ? CardFormData
+        : BrickType extends 'payment'
+        ? PaymentFormData
+        : null;
+
+    type AdditionalData<BrickType> = BrickType extends 'cardPayment'
+        ? AdditionalCardFormData
+        : BrickType extends 'payment'
+        ? AdditionalPaymentFormData
+        : null;
+
     interface CardFormData {
         token: string;
         issuer_id: string | null;
@@ -279,6 +351,7 @@ declare namespace bricks {
         processing_mode?: string;
         installments: number;
         payer: PayerAPI;
+        additional_info?: AdditionalInfo;
     }
 
     interface SavedCardFormData {
@@ -290,6 +363,31 @@ declare namespace bricks {
         processing_mode?: string;
         installments: number;
         payer: SavedCardPayer;
+        additional_info?: AdditionalInfo;
+    }
+
+    interface AdditionalInfo {
+        items: AdditionalInfoItems[];
+        shipments: AdditionalInfoShipments;
+    }
+
+    interface AdditionalInfoItems {
+        unit_price: number;
+        quantity: number;
+        title: string;
+        description?: string;
+        picture_url?: string;
+    }
+
+    interface AdditionalInfoShipments {
+        receiver_address: {
+            zip_code: string;
+            state_name?: string;
+            city_name?: string;
+            street_name: string;
+            street_number: string;
+            apartment?: string;
+        };
     }
 
     interface Metadata {
@@ -307,43 +405,52 @@ declare namespace bricks {
         payer: PayerAPI;
         metadata?: Metadata;
         transaction_details?: TransactionDetails;
+        additional_info?: AdditionalInfo;
     }
 
     interface AdditionalSavedCardFormData {
         bin: string;
+        lastFourDigits: string;
     }
 
-    interface AdditionalCardFormData {
-        bin: string;
+    interface AdditionalCardFormData extends AdditionalSavedCardFormData {
+        cardholderName?: string;
     }
 
-    type AdditionalTicketFormData = Record<string, unknown>;
+    type AdditionalPaymentFormData = AdditionalCardFormData | AdditionalSavedCardFormData;
 
-    type AdditionalPaymentFormData = AdditionalCardFormData | AdditionalSavedCardFormData | AdditionalTicketFormData;
-
-    interface UpdateValues {
+    interface CardPaymentUpdatableValues {
         amount: number;
+    }
+
+    interface PaymentUpdatableValues {
+        amount?: number;
+        items?: Items;
+        shipping?: Shipping;
+        billing?: Billing;
+        discounts?: Discounts;
     }
 
     interface PaymentFormData {
         paymentType: PaymentType;
         selectedPaymentMethod: PaymentType;
         formData?: CardFormData | SavedCardFormData | TicketFormData | null;
-        additionalData?: AdditionalSavedCardFormData | AdditionalCardFormData | AdditionalTicketFormData | null;
+        additionalData?: AdditionalSavedCardFormData | AdditionalCardFormData | null;
     }
 
     interface CardPaymentController {
         unmount: () => void;
         getFormData: () => Promise<CardFormData>;
         getAdditionalData: () => Promise<AdditionalCardFormData>;
-        update: (updateValues: UpdateValues) => boolean;
+        update: (updateValues: CardPaymentUpdatableValues) => boolean;
     }
 
     interface PaymentController {
         unmount: () => void;
         getFormData: () => Promise<PaymentFormData>;
         getAdditionalData: () => Promise<AdditionalPaymentFormData>;
-        update: (updateValues: UpdateValues) => boolean;
+        update: (updateValues: PaymentUpdatableValues) => boolean;
+        nextStep: () => Promise<string>;
     }
 
     interface StatusScreenController {
@@ -363,9 +470,12 @@ declare namespace bricks {
             containerId: string,
             settings: BrickSettings<BrickType>,
         ): Promise<
-            BrickType extends "cardPayment" ? CardPaymentController
-                : BrickType extends "payment" ? PaymentController
-                : BrickType extends "statusScreen" ? StatusScreenController
+            BrickType extends 'cardPayment'
+                ? CardPaymentController
+                : BrickType extends 'payment'
+                ? PaymentController
+                : BrickType extends 'statusScreen'
+                ? StatusScreenController
                 : WalletController
         >;
     }
