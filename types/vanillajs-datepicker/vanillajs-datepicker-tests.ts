@@ -15,7 +15,12 @@ end.setAttribute("type", "text");
 container.appendChild(start);
 container.appendChild(end);
 
-const dateRangePicker = new DateRangePicker(container);
+const dateRangePicker = new DateRangePicker(container, {
+    allowOneSidedRange: false,
+    autohide: false,
+    orientation: "middle center",
+    todayHighlight: true,
+});
 
 const datePickerWithCustomOptions = new Datepicker(container, {
     autohide: false,
