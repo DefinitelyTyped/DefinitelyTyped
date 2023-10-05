@@ -1,4 +1,4 @@
-// Type definitions for check-types 7.3
+// Type definitions for check-types 11.2
 // Project: https://gitlab.com/philbooth/check-types.js
 // Definitions by: idchlife <https://github.com/idchlife>
 //                 shov <https://github.com/shov>
@@ -97,14 +97,12 @@ interface CheckType {
     assigned(a: any): boolean;
     primitive(a: any): a is number | string | boolean | null | undefined | symbol;
     hasLength(a: any, length: number): boolean;
-    containsKey(a: any, key: any): boolean;
 
     /* String predicates */
 
     string(a: any): a is string;
     emptyString(a: any): boolean;
     nonEmptyString(a: any): boolean;
-    contains(a: string, substring: string): boolean;
     match(a: string, b: RegExp): boolean;
 
     /* Number predicates */
@@ -160,7 +158,6 @@ interface CheckType {
     arrayLike: ArrayLikeFunction;
     iterable: IterableFunction;
     includes(a: any[], value: any): boolean;
-    in(value: any, a: any[] | object | string): boolean;
 
     /* Date predicates */
 
@@ -194,6 +191,23 @@ interface CheckType {
     all(arr: boolean[] | { [k: string]: boolean }): boolean;
 
     any(arr: boolean[] | { [k: string]: boolean }): boolean;
+
+    /* Searching keys and values */
+    in(substring: string, a: string): boolean;
+    in(value: any, a: object): boolean;
+    in<T = any>(value: T, a: T[] | Set<T> | Map<any, T> | Iterable<T>): boolean;
+
+    contains(a: string, substring: string): boolean;
+    contains(a: object, value: any): boolean;
+    contains<T = any>(a: T[] | Set<T> | Map<any, T> | Iterable<T>, value: T): boolean;
+
+    keyIn(key: number | string, a: string | any[]): boolean;
+    keyIn(key: number | string | symbol, a: object): boolean;
+    keyIn<K = any>(key: K, a: Map<K, any>): boolean;
+
+    containsKey(a: string | any[], key: number | string): boolean;
+    containsKey(a: object, key: number | string | symbol): boolean;
+    containsKey<K = any>(a: Map<K, any>, key: K): boolean;
 }
 
 declare const check: CheckType;
