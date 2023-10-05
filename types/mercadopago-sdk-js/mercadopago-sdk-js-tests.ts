@@ -46,15 +46,15 @@ brickBuilder.isInitialized();
                         units: 2,
                         value: 50,
                         name: 'White t-shirt',
-                    }
-                ]
+                    },
+                ],
             },
             billing: {
                 taxIdentificationNumber: '999',
                 billingAddress: {
                     streetName: 'street one',
                     streetNumber: '111',
-                    zipCode: '1234567890'
+                    zipCode: '1234567890',
                 },
             },
             shipping: {
@@ -62,7 +62,7 @@ brickBuilder.isInitialized();
                 receiverAddress: {
                     streetName: 'street one',
                     streetNumber: '111',
-                    zipCode: '1234567890'
+                    zipCode: '1234567890',
                 },
             },
             discounts: {
@@ -72,8 +72,8 @@ brickBuilder.isInitialized();
                         name: 'WELCOME_10',
                         value: 10,
                     },
-                ]
-            }
+                ],
+            },
         },
         customization: {
             paymentMethods: {
@@ -91,22 +91,22 @@ brickBuilder.isInitialized();
                 return new Promise(() => {
                     console.log(formData);
                     if (additionalData && 'cardholderName' in additionalData) {
-                        console.log(additionalData.cardholderName)
-                        console.log(additionalData.bin)
-                        console.log(additionalData.lastFourDigits)
+                        console.log(additionalData.cardholderName);
+                        console.log(additionalData.bin);
+                        console.log(additionalData.lastFourDigits);
                     }
                 });
             },
             onClickEditBillingData: () => {
-                console.log('edit billing clicked')
+                console.log('edit billing clicked');
             },
             onClickEditShippingData: () => {
-                console.log('edit shipping clicked')
+                console.log('edit shipping clicked');
             },
-            onRenderNextStep: (currentStep) => {
+            onRenderNextStep: currentStep => {
                 console.log('previous step rendered', currentStep);
             },
-            onRenderPreviousStep: (currentStep) => {
+            onRenderPreviousStep: currentStep => {
                 console.log('previous step rendered', currentStep);
             },
         },
