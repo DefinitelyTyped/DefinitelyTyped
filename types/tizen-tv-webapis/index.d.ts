@@ -743,10 +743,10 @@ export interface AVPlayPlaybackCallback {
      * @since 2.3
      */
     onsubtitlechange?(
-        duration: number,
+        duration: string,
         subtitles: string,
-        type: number,
-        attributes: AVPlaySubtitleAttribute,
+        type: string,
+        attributes: AVPlaySubtitleAttribute[],
     ): void;
 }
 
