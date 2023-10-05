@@ -11,7 +11,6 @@ declare namespace GorillaEngine.UI {
         snapsToMousePosition: boolean;
         minRotation: number;
         maxRotation: number;
-        direction: 'horizontal' | 'vertical';
     }
 
     interface Knob extends KnobProps {}

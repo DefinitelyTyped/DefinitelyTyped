@@ -120,6 +120,12 @@ declare namespace GorillaEngine {
          */
         getModuleAtPath(path: string): string | boolean;
         /**
+         * Method used to set a module in an instrument in a given path
+         * @param path The path to the module that should be retrieved.
+         * @param module The serialised module to set as a string
+         */
+        setModuleAtPath(path: string, module: string): boolean;
+        /**
          * Method used to determine if a value from the Gorilla Engine is a module.
          *
          * @param path The path to the value that should be determined.
@@ -338,8 +344,8 @@ declare namespace GorillaEngine {
     function initialiseSpliceRTO(pluginName?: string): any;
     function disposeInstrument(instrument: Instrument): void;
     function setActiveInstrument(instrument: Instrument): void;
-    function setSessionSaveCallback(callback: any, instance: any): void;
-    function setSessionLoadCallback(callback: any, instance: any): void;
+    function setSessionSaveCallback(callback: (state: string) => string, instance: any): void;
+    function setSessionLoadCallback(callback: (state: string) => string, instance: any): void;
     function setParametersDirty(dirty: boolean): void;
     function areParametersDirty(): boolean;
     function shouldWaitForReadySignal(): void;
