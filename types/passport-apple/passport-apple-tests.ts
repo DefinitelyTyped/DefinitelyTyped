@@ -1,9 +1,9 @@
 import { Request } from "express";
 import AppleStrategy, {
+    Strategy,
     AppleAuthorizationParams,
     AuthenticateOptions,
     AuthenticateOptionsWithRequest,
-    DecodedIdToken,
     Profile,
     VerifyCallback,
     VerifyFunction,
@@ -17,6 +17,7 @@ const authenticateOptions: AuthenticateOptions = {
     keyID: "",
     privateKeyString: "",
     privateKeyLocation: "",
+    passReqToCallback: false,
 };
 
 const authenticateOptionsWithRequest: AuthenticateOptionsWithRequest = {
@@ -26,15 +27,12 @@ const authenticateOptionsWithRequest: AuthenticateOptionsWithRequest = {
     keyID: "",
     privateKeyString: "",
     privateKeyLocation: "",
-    passReqToCallback: true,
 };
-
-const decodedIdToken: DecodedIdToken = { sub: "1" };
 
 const verifyFunction: VerifyFunction = (
     accessToken: string,
     refreshToken: string,
-    decodedIdToken: DecodedIdToken,
+    idToken: string,
     profile: Profile,
     verifyCallback: VerifyCallback,
 ) => {
@@ -45,7 +43,7 @@ const VerifyFunctionWithRequest: VerifyFunctionWithRequest = (
     req: Request,
     accessToken: string,
     refreshToken: string,
-    decodedIdToken: DecodedIdToken,
+    idToken: string,
     profile: Profile,
     verifyCallback: VerifyCallback,
 ) => {
@@ -59,20 +57,20 @@ const appleStrategy = new AppleStrategy({
     keyID: "",
     privateKeyString: "",
     privateKeyLocation: "",
-}, (accessToken, refreshToken, decodedIdToken, profile, cb) => {
-    cb(null, decodedIdToken);
+    passReqToCallback: false,
+}, (accessToken, refreshToken, idToken, profile, cb) => {
+    cb(null, {});
 });
 
-const appleStrategyWithRequest = new AppleStrategy({
+const appleStrategyWithRequest = new Strategy({
     clientID: "",
     teamID: "",
     callbackURL: "",
     keyID: "",
     privateKeyString: "",
     privateKeyLocation: "",
-    passReqToCallback: true,
-}, (req, accessToken, refreshToken, decodedIdToken, profile, cb) => {
-    cb(null, decodedIdToken);
+}, (req, accessToken, refreshToken, idToken, profile, cb) => {
+    cb(null, {});
 });
 
 const AppleAuthorizationParams: AppleAuthorizationParams = appleStrategy.authorizationParams({});
