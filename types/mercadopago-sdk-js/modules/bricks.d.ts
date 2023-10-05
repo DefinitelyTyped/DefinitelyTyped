@@ -39,13 +39,10 @@ declare namespace bricks {
         streetName: string;
         streetNumber: string;
         zipCode: string;
+        complement?: string;
         neighborhood?: string;
         federalUnit?: string;
         city?: string;
-    }
-
-    interface PayerAddress extends Partial<DefaultAddress> {
-        complement?: string;
     }
 
     type EntityType = "individual" | "association";
@@ -55,7 +52,7 @@ declare namespace bricks {
         identification?: PayerIdentification;
         customerId?: string;
         cardsIds?: string[];
-        address?: PayerAddress;
+        address?: Partial<DefaultAddress>;
         firstName?: string;
         lastName?: string;
         entityType?: EntityType;

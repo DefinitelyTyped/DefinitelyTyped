@@ -63,6 +63,7 @@ brickBuilder.isInitialized();
                     streetName: 'street one',
                     streetNumber: '111',
                     zipCode: '1234567890',
+                    complement: 'apartment 1'
                 },
             },
             discounts: {
@@ -74,6 +75,15 @@ brickBuilder.isInitialized();
                     },
                 ],
             },
+            payer: {
+                email: 'test@test.com',
+                address: {
+                    streetName: 'street one',
+                    streetNumber: '111',
+                    zipCode: '1234567890',
+                    complement: 'apartment 1'
+                }
+            }
         },
         customization: {
             paymentMethods: {
@@ -111,7 +121,18 @@ brickBuilder.isInitialized();
             },
         },
     });
-    controller.update({ amount: 100 });
+    controller.update({
+        amount: 100,
+        shipping: {
+            shippingMode: 'super express',
+            receiverAddress: {
+                streetName: 'street two',
+                streetNumber: '222',
+                zipCode: '1122334455',
+                complement: 'apartment 3'
+            }
+        }
+    });
 })();
 
 brickBuilder.create("statusScreen", "containerStatusScreen", {
