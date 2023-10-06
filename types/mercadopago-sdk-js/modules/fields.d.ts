@@ -7,23 +7,28 @@ declare namespace fields {
     }
 
     interface DateYearFieldsOptions extends BaseFieldsOptions {
-        mode?: "short" | "full";
+        mode?: 'short' | 'full';
     }
 
     interface CardNumberOptions extends BaseFieldsOptions {
         enableLuhnValidation?: boolean;
     }
 
-    type FieldsOptions<T> = T extends "cardNumber" ? CardNumberOptions
-        : T extends "securityCode" ? BaseFieldsOptions
-        : T extends "expirationMonth" ? BaseFieldsOptions
-        : T extends "expirationYear" ? DateYearFieldsOptions
-        : T extends "expirationDate" ? DateYearFieldsOptions
+    type FieldsOptions<T> = T extends 'cardNumber'
+        ? CardNumberOptions
+        : T extends 'securityCode'
+        ? BaseFieldsOptions
+        : T extends 'expirationMonth'
+        ? BaseFieldsOptions
+        : T extends 'expirationYear'
+        ? DateYearFieldsOptions
+        : T extends 'expirationDate'
+        ? DateYearFieldsOptions
         : never;
 
-    type FieldEvent = "blur" | "focus" | "change" | "ready" | "validityChange" | "error" | "binChange" | "paste";
+    type FieldEvent = 'blur' | 'focus' | 'change' | 'ready' | 'validityChange' | 'error' | 'binChange' | 'paste';
 
-    type FieldName = "securityCode" | "cardNumber" | "expirationDate" | "expirationMonth" | "expirationYear";
+    type FieldName = 'securityCode' | 'cardNumber' | 'expirationDate' | 'expirationMonth' | 'expirationYear';
 
     interface FieldsUpdatableProperties {
         style?: shared.FieldStyle;
@@ -31,9 +36,9 @@ declare namespace fields {
         settings?: shared.SecurityCode | shared.CardNumber;
     }
 
-    type InvalidType = "invalid_type";
-    type InvalidLength = "invalid_length";
-    type InvalidValue = "invalid_value";
+    type InvalidType = 'invalid_type';
+    type InvalidLength = 'invalid_length';
+    type InvalidValue = 'invalid_value';
 
     type CardNumberCause = InvalidType | InvalidLength;
     type SecurityCodeCause = CardNumberCause;
@@ -55,11 +60,16 @@ declare namespace fields {
 
     interface ErrorMessage<FieldName> {
         message: string;
-        cause: FieldName extends "cardNumber" ? CardNumberCause
-            : FieldName extends "securityCode" ? SecurityCodeCause
-            : FieldName extends "expirationMonth" ? ExpirationDateCause
-            : FieldName extends "expirationYear" ? ExpirationYearCause
-            : FieldName extends "expirationDate" ? ExpirationDateCause
+        cause: FieldName extends 'cardNumber'
+            ? CardNumberCause
+            : FieldName extends 'securityCode'
+            ? SecurityCodeCause
+            : FieldName extends 'expirationMonth'
+            ? ExpirationDateCause
+            : FieldName extends 'expirationYear'
+            ? ExpirationYearCause
+            : FieldName extends 'expirationDate'
+            ? ExpirationDateCause
             : never;
     }
 
@@ -67,13 +77,20 @@ declare namespace fields {
         errorMessages: ErrorMessage<FieldName[]>;
     }
 
-    type CallbackArgs<FieldEvent, FieldName> = FieldEvent extends "blur" ? DefaultArg
-        : FieldEvent extends "focus" ? DefaultArg
-        : FieldEvent extends "ready" ? DefaultArg
-        : FieldEvent extends "change" ? DefaultArg
-        : FieldEvent extends "validityChange" ? ValidityChangeArg<FieldName>
-        : FieldEvent extends "error" ? ErrorArg
-        : FieldEvent extends "binChange" ? BinChangeArg
+    type CallbackArgs<FieldEvent, FieldName> = FieldEvent extends 'blur'
+        ? DefaultArg
+        : FieldEvent extends 'focus'
+        ? DefaultArg
+        : FieldEvent extends 'ready'
+        ? DefaultArg
+        : FieldEvent extends 'change'
+        ? DefaultArg
+        : FieldEvent extends 'validityChange'
+        ? ValidityChangeArg<FieldName>
+        : FieldEvent extends 'error'
+        ? ErrorArg
+        : FieldEvent extends 'binChange'
+        ? BinChangeArg
         : DefaultArg;
 
     interface Field {
@@ -94,11 +111,11 @@ declare namespace fields {
 
     type OptionsToken =
         | {
-            group: string;
-            productId?: string;
-            fingerprint?: unknown;
-            requireEsc?: boolean;
-        }
+              group: string;
+              productId?: string;
+              fingerprint?: unknown;
+              requireEsc?: boolean;
+          }
         | string
         | undefined;
 
