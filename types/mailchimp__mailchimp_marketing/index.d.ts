@@ -2529,3 +2529,26 @@ export namespace campaigns {
         opts?: GetCampaignContentOptions,
     ): Promise<CampaignContentSuccessResponse | ErrorResponse>;
 }
+
+/**
+ * Customer Journeys API
+ */
+export namespace customerJourneys {
+    interface TriggerCustomerJourneyBody {
+        email_address: string;
+    }
+
+    /**
+     * Customer Journeys API trigger for a contact
+     * @param journey_id The unique ID for the journey.
+     * @param step_id The unique ID for the step.
+     * @param body
+     * @param body.email_address The list member's email address.
+     * @return A {@link https://www.promisejs.org/|Promise}
+     */
+    function trigger(
+        journey_id: number, 
+        step_id: number,
+        body: TriggerCustomerJourneyBody
+    ): Promise<null | ErrorResponse>;
+}

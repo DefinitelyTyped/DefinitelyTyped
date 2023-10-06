@@ -135,6 +135,10 @@ const getContentOpts: mailchimp.campaigns.GetCampaignContentOptions = {
     excludeFields: ["test", "test"],
 };
 
+const triggerCustomerJourneyBody: mailchimp.customerJourneys.TriggerCustomerJourneyBody = {
+    email_address: "test@email.com"
+};
+
 // Promise<MembersSuccessResponse | ErrorResponse>
 mailchimp.lists.batchListMembers("test", batchListMembersBody, batchListMembersOpts);
 
@@ -178,3 +182,6 @@ mailchimp.campaigns.list(listCampaignsOpts);
 
 // Promise<CampaignContentSuccessResponse | ErrorResponse>
 mailchimp.campaigns.getContent("test", getContentOpts);
+
+// Promise<null | ErrorResponse>
+mailchimp.customerJourneys.trigger(123, 123, triggerCustomerJourneyBody);
