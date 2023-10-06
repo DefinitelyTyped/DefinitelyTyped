@@ -11,10 +11,10 @@ tvinfo.getVersion(); // $ExpectType string
 widgetdata.getVersion(); // $ExpectType string
 
 avplay.setListener({
-  onsubtitlechange: (duration, subtitles, type, attributes) => {
-      duration // $ExpectType string
-      subtitles // $ExpectType string
-      type // $ExpectType string
-      attributes // $ExpectType AVPlaySubtitleAttribute[]
-  }
-})
+    onsubtitlechange: (duration, subtitles, type, attributes) => {
+        duration; // $ExpectType string
+        subtitles; // $ExpectType string
+        type; // $ExpectType string
+        attributes; // $ExpectType AVPlaySubtitleAttribute[]
+    },
+});
