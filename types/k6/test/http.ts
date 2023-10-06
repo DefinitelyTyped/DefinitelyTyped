@@ -154,6 +154,25 @@ responseNone = post(address, null, { responseType: "none" });
 // @ts-expect-error
 post(address, {}, {}, 5);
 
+const responseJson = responseDefault.json();
+// @ts-expect-error
+responseJson.name;
+
+const extendedPost = <TJSONType, RT extends ResponseType | undefined = undefined>(
+    ...args: Parameters<typeof post<RT>>
+  ) => {
+    const response = post<RT>(...args);
+  
+    return {
+      ...response,
+      json: (...jsonArgs: Parameters<typeof response.json>) => response.json(...jsonArgs) as TJSONType
+    };
+  };
+
+const responseDefault2 = extendedPost<{ name: string }>(address);
+const responseJson2 = responseDefault2.json();
+responseJson2.name;
+
 // put
 // @ts-expect-error
 put();
