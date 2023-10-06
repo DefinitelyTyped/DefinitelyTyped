@@ -133,11 +133,11 @@ async function test() {
     });
 
     new events.EventEmitterAsyncResource({
-        name: 'test'
+        name: "test",
     });
 
-    emitter.asyncId // $ExpectType number
-    emitter.asyncResource // $ExpectType EventEmitterReferencingAsyncResource
-    emitter.triggerAsyncId // $ExpectType number
+    emitter.asyncId; // $ExpectType number
+    emitter.asyncResource; // $ExpectType EventEmitterReferencingAsyncResource
+    emitter.triggerAsyncId; // $ExpectType number
     emitter.emitDestroy();
 }

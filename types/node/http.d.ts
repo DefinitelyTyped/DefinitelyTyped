@@ -115,32 +115,32 @@ declare module "http" {
     type OutgoingHttpHeader = number | string | string[];
     interface OutgoingHttpHeaders extends NodeJS.Dict<OutgoingHttpHeader> {
         accept?: string | string[] | undefined;
-        'accept-charset'?: string | string[] | undefined;
-        'accept-encoding'?: string | string[] | undefined;
-        'accept-language'?: string | string[] | undefined;
-        'accept-ranges'?: string | undefined;
-        'access-control-allow-credentials'?: string | undefined;
-        'access-control-allow-headers'?: string | undefined;
-        'access-control-allow-methods'?: string | undefined;
-        'access-control-allow-origin'?: string | undefined;
-        'access-control-expose-headers'?: string | undefined;
-        'access-control-max-age'?: string | undefined;
-        'access-control-request-headers'?: string | undefined;
-        'access-control-request-method'?: string | undefined;
+        "accept-charset"?: string | string[] | undefined;
+        "accept-encoding"?: string | string[] | undefined;
+        "accept-language"?: string | string[] | undefined;
+        "accept-ranges"?: string | undefined;
+        "access-control-allow-credentials"?: string | undefined;
+        "access-control-allow-headers"?: string | undefined;
+        "access-control-allow-methods"?: string | undefined;
+        "access-control-allow-origin"?: string | undefined;
+        "access-control-expose-headers"?: string | undefined;
+        "access-control-max-age"?: string | undefined;
+        "access-control-request-headers"?: string | undefined;
+        "access-control-request-method"?: string | undefined;
         age?: string | undefined;
         allow?: string | undefined;
         authorization?: string | undefined;
-        'cache-control'?: string | undefined;
-        'cdn-cache-control'?: string | undefined;
+        "cache-control"?: string | undefined;
+        "cdn-cache-control"?: string | undefined;
         connection?: string | string[] | undefined;
-        'content-disposition'?: string | undefined;
-        'content-encoding'?: string | undefined;
-        'content-language'?: string | undefined;
-        'content-length'?: string | number | undefined;
-        'content-location'?: string | undefined;
-        'content-range'?: string | undefined;
-        'content-security-policy'?: string | undefined;
-        'content-security-policy-report-only'?: string | undefined;
+        "content-disposition"?: string | undefined;
+        "content-encoding"?: string | undefined;
+        "content-language"?: string | undefined;
+        "content-length"?: string | number | undefined;
+        "content-location"?: string | undefined;
+        "content-range"?: string | undefined;
+        "content-security-policy"?: string | undefined;
+        "content-security-policy-report-only"?: string | undefined;
         cookie?: string | string[] | undefined;
         dav?: string | string[] | undefined;
         dnt?: string | undefined;
@@ -151,48 +151,48 @@ declare module "http" {
         forwarded?: string | undefined;
         from?: string | undefined;
         host?: string | undefined;
-        'if-match'?: string | undefined;
-        'if-modified-since'?: string | undefined;
-        'if-none-match'?: string | undefined;
-        'if-range'?: string | undefined;
-        'if-unmodified-since'?: string | undefined;
-        'last-modified'?: string | undefined;
+        "if-match"?: string | undefined;
+        "if-modified-since"?: string | undefined;
+        "if-none-match"?: string | undefined;
+        "if-range"?: string | undefined;
+        "if-unmodified-since"?: string | undefined;
+        "last-modified"?: string | undefined;
         link?: string | string[] | undefined;
         location?: string | undefined;
-        'max-forwards'?: string | undefined;
+        "max-forwards"?: string | undefined;
         origin?: string | undefined;
         prgama?: string | string[] | undefined;
-        'proxy-authenticate'?: string | string[] | undefined;
-        'proxy-authorization'?: string | undefined;
-        'public-key-pins'?: string | undefined;
-        'public-key-pins-report-only'?: string | undefined;
+        "proxy-authenticate"?: string | string[] | undefined;
+        "proxy-authorization"?: string | undefined;
+        "public-key-pins"?: string | undefined;
+        "public-key-pins-report-only"?: string | undefined;
         range?: string | undefined;
         referer?: string | undefined;
-        'referrer-policy'?: string | undefined;
+        "referrer-policy"?: string | undefined;
         refresh?: string | undefined;
-        'retry-after'?: string | undefined;
-        'sec-websocket-accept'?: string | undefined;
-        'sec-websocket-extensions'?: string | string[] | undefined;
-        'sec-websocket-key'?: string | undefined;
-        'sec-websocket-protocol'?: string | string[] | undefined;
-        'sec-websocket-version'?: string | undefined;
+        "retry-after"?: string | undefined;
+        "sec-websocket-accept"?: string | undefined;
+        "sec-websocket-extensions"?: string | string[] | undefined;
+        "sec-websocket-key"?: string | undefined;
+        "sec-websocket-protocol"?: string | string[] | undefined;
+        "sec-websocket-version"?: string | undefined;
         server?: string | undefined;
-        'set-cookie'?: string | string[] | undefined;
-        'strict-transport-security'?: string | undefined;
+        "set-cookie"?: string | string[] | undefined;
+        "strict-transport-security"?: string | undefined;
         te?: string | undefined;
         trailer?: string | undefined;
-        'transfer-encoding'?: string | undefined;
-        'user-agent'?: string | undefined;
+        "transfer-encoding"?: string | undefined;
+        "user-agent"?: string | undefined;
         upgrade?: string | undefined;
-        'upgrade-insecure-requests'?: string | undefined;
+        "upgrade-insecure-requests"?: string | undefined;
         vary?: string | undefined;
         via?: string | string[] | undefined;
         warning?: string | undefined;
-        'www-authenticate'?: string | string[] | undefined;
-        'x-content-type-options'?: string | undefined;
-        'x-dns-prefetch-control'?: string | undefined;
-        'x-frame-options'?: string | undefined;
-        'x-xss-protection'?: string | undefined;
+        "www-authenticate"?: string | string[] | undefined;
+        "x-content-type-options"?: string | undefined;
+        "x-dns-prefetch-control"?: string | undefined;
+        "x-frame-options"?: string | undefined;
+        "x-xss-protection"?: string | undefined;
     }
     interface ClientRequestArgs {
         _defaultAgent?: Agent | undefined;
@@ -423,21 +423,21 @@ declare module "http" {
          */
         closeIdleConnections(): void;
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: 'close', listener: () => void): this;
-        addListener(event: 'connection', listener: (socket: Socket) => void): this;
-        addListener(event: 'error', listener: (err: Error) => void): this;
-        addListener(event: 'listening', listener: () => void): this;
-        addListener(event: 'checkContinue', listener: RequestListener<Request, Response>): this;
-        addListener(event: 'checkExpectation', listener: RequestListener<Request, Response>): this;
-        addListener(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "connection", listener: (socket: Socket) => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "listening", listener: () => void): this;
+        addListener(event: "checkContinue", listener: RequestListener<Request, Response>): this;
+        addListener(event: "checkExpectation", listener: RequestListener<Request, Response>): this;
+        addListener(event: "clientError", listener: (err: Error, socket: stream.Duplex) => void): this;
         addListener(
-            event: 'connect',
+            event: "connect",
             listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
-        addListener(event: 'dropRequest', listener: (req: InstanceType<Request>, socket: stream.Duplex) => void): this;
-        addListener(event: 'request', listener: RequestListener<Request, Response>): this;
+        addListener(event: "dropRequest", listener: (req: InstanceType<Request>, socket: stream.Duplex) => void): this;
+        addListener(event: "request", listener: RequestListener<Request, Response>): this;
         addListener(
-            event: 'upgrade',
+            event: "upgrade",
             listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
         emit(event: string, ...args: any[]): boolean;
@@ -477,63 +477,63 @@ declare module "http" {
         on(event: "request", listener: RequestListener<Request, Response>): this;
         on(event: "upgrade", listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: 'close', listener: () => void): this;
-        once(event: 'connection', listener: (socket: Socket) => void): this;
-        once(event: 'error', listener: (err: Error) => void): this;
-        once(event: 'listening', listener: () => void): this;
-        once(event: 'checkContinue', listener: RequestListener<Request, Response>): this;
-        once(event: 'checkExpectation', listener: RequestListener<Request, Response>): this;
-        once(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "connection", listener: (socket: Socket) => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(event: "listening", listener: () => void): this;
+        once(event: "checkContinue", listener: RequestListener<Request, Response>): this;
+        once(event: "checkExpectation", listener: RequestListener<Request, Response>): this;
+        once(event: "clientError", listener: (err: Error, socket: stream.Duplex) => void): this;
         once(
-            event: 'connect',
+            event: "connect",
             listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
-        once(event: 'dropRequest', listener: (req: InstanceType<Request>, socket: stream.Duplex) => void): this;
-        once(event: 'request', listener: RequestListener<Request, Response>): this;
+        once(event: "dropRequest", listener: (req: InstanceType<Request>, socket: stream.Duplex) => void): this;
+        once(event: "request", listener: RequestListener<Request, Response>): this;
         once(
-            event: 'upgrade',
+            event: "upgrade",
             listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: 'close', listener: () => void): this;
-        prependListener(event: 'connection', listener: (socket: Socket) => void): this;
-        prependListener(event: 'error', listener: (err: Error) => void): this;
-        prependListener(event: 'listening', listener: () => void): this;
-        prependListener(event: 'checkContinue', listener: RequestListener<Request, Response>): this;
-        prependListener(event: 'checkExpectation', listener: RequestListener<Request, Response>): this;
-        prependListener(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "connection", listener: (socket: Socket) => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "listening", listener: () => void): this;
+        prependListener(event: "checkContinue", listener: RequestListener<Request, Response>): this;
+        prependListener(event: "checkExpectation", listener: RequestListener<Request, Response>): this;
+        prependListener(event: "clientError", listener: (err: Error, socket: stream.Duplex) => void): this;
         prependListener(
-            event: 'connect',
+            event: "connect",
             listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
         prependListener(
-            event: 'dropRequest',
+            event: "dropRequest",
             listener: (req: InstanceType<Request>, socket: stream.Duplex) => void,
         ): this;
-        prependListener(event: 'request', listener: RequestListener<Request, Response>): this;
+        prependListener(event: "request", listener: RequestListener<Request, Response>): this;
         prependListener(
-            event: 'upgrade',
+            event: "upgrade",
             listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'close', listener: () => void): this;
-        prependOnceListener(event: 'connection', listener: (socket: Socket) => void): this;
-        prependOnceListener(event: 'error', listener: (err: Error) => void): this;
-        prependOnceListener(event: 'listening', listener: () => void): this;
-        prependOnceListener(event: 'checkContinue', listener: RequestListener<Request, Response>): this;
-        prependOnceListener(event: 'checkExpectation', listener: RequestListener<Request, Response>): this;
-        prependOnceListener(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "connection", listener: (socket: Socket) => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "listening", listener: () => void): this;
+        prependOnceListener(event: "checkContinue", listener: RequestListener<Request, Response>): this;
+        prependOnceListener(event: "checkExpectation", listener: RequestListener<Request, Response>): this;
+        prependOnceListener(event: "clientError", listener: (err: Error, socket: stream.Duplex) => void): this;
         prependOnceListener(
-            event: 'connect',
+            event: "connect",
             listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
         prependOnceListener(
-            event: 'dropRequest',
+            event: "dropRequest",
             listener: (req: InstanceType<Request>, socket: stream.Duplex) => void,
         ): this;
-        prependOnceListener(event: 'request', listener: RequestListener<Request, Response>): this;
+        prependOnceListener(event: "request", listener: RequestListener<Request, Response>): this;
         prependOnceListener(
-            event: 'upgrade',
+            event: "upgrade",
             listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
     }
@@ -1015,26 +1015,26 @@ declare module "http" {
         /**
          * @deprecated
          */
-        addListener(event: 'abort', listener: () => void): this;
+        addListener(event: "abort", listener: () => void): this;
         addListener(
-            event: 'connect',
+            event: "connect",
             listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
         ): this;
-        addListener(event: 'continue', listener: () => void): this;
-        addListener(event: 'information', listener: (info: InformationEvent) => void): this;
-        addListener(event: 'response', listener: (response: IncomingMessage) => void): this;
-        addListener(event: 'socket', listener: (socket: Socket) => void): this;
-        addListener(event: 'timeout', listener: () => void): this;
+        addListener(event: "continue", listener: () => void): this;
+        addListener(event: "information", listener: (info: InformationEvent) => void): this;
+        addListener(event: "response", listener: (response: IncomingMessage) => void): this;
+        addListener(event: "socket", listener: (socket: Socket) => void): this;
+        addListener(event: "timeout", listener: () => void): this;
         addListener(
-            event: 'upgrade',
+            event: "upgrade",
             listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
         ): this;
-        addListener(event: 'close', listener: () => void): this;
-        addListener(event: 'drain', listener: () => void): this;
-        addListener(event: 'error', listener: (err: Error) => void): this;
-        addListener(event: 'finish', listener: () => void): this;
-        addListener(event: 'pipe', listener: (src: stream.Readable) => void): this;
-        addListener(event: 'unpipe', listener: (src: stream.Readable) => void): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "drain", listener: () => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "finish", listener: () => void): this;
+        addListener(event: "pipe", listener: (src: stream.Readable) => void): this;
+        addListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
         /**
          * @deprecated
@@ -1075,50 +1075,50 @@ declare module "http" {
         /**
          * @deprecated
          */
-        prependListener(event: 'abort', listener: () => void): this;
+        prependListener(event: "abort", listener: () => void): this;
         prependListener(
-            event: 'connect',
+            event: "connect",
             listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
         ): this;
-        prependListener(event: 'continue', listener: () => void): this;
-        prependListener(event: 'information', listener: (info: InformationEvent) => void): this;
-        prependListener(event: 'response', listener: (response: IncomingMessage) => void): this;
-        prependListener(event: 'socket', listener: (socket: Socket) => void): this;
-        prependListener(event: 'timeout', listener: () => void): this;
+        prependListener(event: "continue", listener: () => void): this;
+        prependListener(event: "information", listener: (info: InformationEvent) => void): this;
+        prependListener(event: "response", listener: (response: IncomingMessage) => void): this;
+        prependListener(event: "socket", listener: (socket: Socket) => void): this;
+        prependListener(event: "timeout", listener: () => void): this;
         prependListener(
-            event: 'upgrade',
+            event: "upgrade",
             listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
         ): this;
-        prependListener(event: 'close', listener: () => void): this;
-        prependListener(event: 'drain', listener: () => void): this;
-        prependListener(event: 'error', listener: (err: Error) => void): this;
-        prependListener(event: 'finish', listener: () => void): this;
-        prependListener(event: 'pipe', listener: (src: stream.Readable) => void): this;
-        prependListener(event: 'unpipe', listener: (src: stream.Readable) => void): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "drain", listener: () => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "finish", listener: () => void): this;
+        prependListener(event: "pipe", listener: (src: stream.Readable) => void): this;
+        prependListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
         /**
          * @deprecated
          */
-        prependOnceListener(event: 'abort', listener: () => void): this;
+        prependOnceListener(event: "abort", listener: () => void): this;
         prependOnceListener(
-            event: 'connect',
+            event: "connect",
             listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
         ): this;
-        prependOnceListener(event: 'continue', listener: () => void): this;
-        prependOnceListener(event: 'information', listener: (info: InformationEvent) => void): this;
-        prependOnceListener(event: 'response', listener: (response: IncomingMessage) => void): this;
-        prependOnceListener(event: 'socket', listener: (socket: Socket) => void): this;
-        prependOnceListener(event: 'timeout', listener: () => void): this;
+        prependOnceListener(event: "continue", listener: () => void): this;
+        prependOnceListener(event: "information", listener: (info: InformationEvent) => void): this;
+        prependOnceListener(event: "response", listener: (response: IncomingMessage) => void): this;
+        prependOnceListener(event: "socket", listener: (socket: Socket) => void): this;
+        prependOnceListener(event: "timeout", listener: () => void): this;
         prependOnceListener(
-            event: 'upgrade',
+            event: "upgrade",
             listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void,
         ): this;
-        prependOnceListener(event: 'close', listener: () => void): this;
-        prependOnceListener(event: 'drain', listener: () => void): this;
-        prependOnceListener(event: 'error', listener: (err: Error) => void): this;
-        prependOnceListener(event: 'finish', listener: () => void): this;
-        prependOnceListener(event: 'pipe', listener: (src: stream.Readable) => void): this;
-        prependOnceListener(event: 'unpipe', listener: (src: stream.Readable) => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "drain", listener: () => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "finish", listener: () => void): this;
+        prependOnceListener(event: "pipe", listener: (src: stream.Readable) => void): this;
+        prependOnceListener(event: "unpipe", listener: (src: stream.Readable) => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
     /**

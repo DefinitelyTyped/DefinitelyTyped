@@ -13,11 +13,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-
 // Capitalization is intentional: this makes it much easier to re-export RSVP on
 // the Ember namespace.
 import Rsvp from "rsvp";
-
 
 import { Registry as ControllerRegistry } from "@ember/controller";
 import * as EmberStringNs from "@ember/string";

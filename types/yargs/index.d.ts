@@ -189,7 +189,11 @@ declare namespace yargs {
             deprecated?: boolean | string,
         ): Argv<T>;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        command<U = any>(command: string | ReadonlyArray<string>, description: string, module: CommandModule<T, U>): Argv<T>;
+        command<U = any>(
+            command: string | ReadonlyArray<string>,
+            description: string,
+            module: CommandModule<T, U>,
+        ): Argv<T>;
         command<U = T>(
             command: string | ReadonlyArray<string>,
             showInHelp: false,
@@ -205,7 +209,11 @@ declare namespace yargs {
             handler?: (args: ArgumentsCamelCase<InferredOptionTypes<O>>) => void | Promise<void>,
         ): Argv<T>;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        command<U = any>(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, U>): Argv<T>;
+        command<U = any>(
+            command: string | ReadonlyArray<string>,
+            showInHelp: false,
+            module: CommandModule<T, U>,
+        ): Argv<T>;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         command<U = any>(module: CommandModule<T, U>): Argv<T>;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics

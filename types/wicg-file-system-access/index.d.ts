@@ -30,9 +30,9 @@ declare global {
         new(): FileSystemHandle;
     };
     type FileSystemHandleUnion = FileSystemFileHandle | FileSystemDirectoryHandle;
-    
-    type FileExtension = `.${string}`
-    type MIMEType = `${string}/${string}`
+
+    type FileExtension = `.${string}`;
+    type MIMEType = `${string}/${string}`;
 
     interface FilePickerAcceptType {
         /**
@@ -45,7 +45,7 @@ declare global {
     /**
      * https://wicg.github.io/file-system-access/#enumdef-wellknowndirectory
      */
-    type WellKnownDirectory = "desktop" | "documents" | "downloads" | "music" | "pictures" | "videos"
+    type WellKnownDirectory = "desktop" | "documents" | "downloads" | "music" | "pictures" | "videos";
 
     interface FilePickerOptions {
         types?: FilePickerAcceptType[] | undefined;
@@ -68,7 +68,7 @@ declare global {
         suggestedName?: string | undefined;
     }
 
-    type FileSystemPermissionMode = "read" | "readwrite"
+    type FileSystemPermissionMode = "read" | "readwrite";
 
     interface DirectoryPickerOptions {
         id?: string | undefined;

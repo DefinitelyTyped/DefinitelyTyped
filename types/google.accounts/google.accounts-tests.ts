@@ -210,7 +210,7 @@ google.accounts.id.initialize({
     itp_support: true,
     hd: "*",
     login_hint: "user@domain.net",
-    use_fedcm_for_prompt: true
+    use_fedcm_for_prompt: true,
 });
 
 google.accounts.id.prompt();

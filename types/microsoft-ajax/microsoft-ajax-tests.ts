@@ -780,7 +780,7 @@ function CreatingCustomNonVisualClientComponentsTests() {
     // Since this script is not loaded by System.Web.Handlers.ScriptResourceHandler
     // invoke Sys.Application.notifyScriptLoaded to notify ScriptManager
     // that this is the end of the script.
-    if (typeof (Sys) !== "undefined") Sys.Application.notifyScriptLoaded();
+    if (typeof Sys !== "undefined") Sys.Application.notifyScriptLoaded();
 }
 
 // Interface implementations without knowledge of the new methods should still be possible

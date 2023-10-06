@@ -1,4 +1,4 @@
-import { Path } from './state';
+import { Path } from "./state";
 
 export interface ChoiceRuleComparison {
     Variable: string;
@@ -75,7 +75,7 @@ export type ChoiceRule = ChoiceRuleSimple | ChoiceRuleNot | ChoiceRuleAnd | Choi
  * @see https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-choice-state.html
  */
 export interface Choice {
-    Type: 'Choice';
+    Type: "Choice";
     Choices: ChoiceRule[];
     Comment?: string;
     InputPath?: Path | null;

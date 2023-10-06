@@ -86,7 +86,7 @@ declare namespace DNS {
     }
 
     interface UdpDnsServerOptions {
-        type: 'udp4' | 'udp6';
+        type: "udp4" | "udp6";
     }
 
     type DnsHandler = (

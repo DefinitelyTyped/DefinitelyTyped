@@ -12782,15 +12782,11 @@ $( "input" )
 ```
      */
     val():
-        | (TElement extends HTMLSelectElement & {type: "select-one"}
-              ? string
-              : TElement extends HTMLSelectElement & {type: "select-multiple"}
-              ? string[]
-              : TElement extends HTMLSelectElement
-              ? string | string[]
-              : TElement extends {value: string | number}
-              ? TElement["value"]
-              : string | number | string[])
+        | (TElement extends HTMLSelectElement & { type: "select-one" } ? string
+            : TElement extends HTMLSelectElement & { type: "select-multiple" } ? string[]
+            : TElement extends HTMLSelectElement ? string | string[]
+            : TElement extends { value: string | number } ? TElement["value"]
+            : string | number | string[])
         | undefined;
     /**
      * Set the CSS width of each element in the set of matched elements.

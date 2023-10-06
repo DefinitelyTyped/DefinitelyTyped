@@ -8,7 +8,7 @@ const testService = nssm(svcName, options);
 
 const propertyName = "Start";
 
-const console: { log: (...message: any[]) => void } = { log: (...args) => void (args) };
+const console: { log: (...message: any[]) => void } = { log: (...args) => void args };
 
 testService.set("start", "manual")
     .then((stdout) => {

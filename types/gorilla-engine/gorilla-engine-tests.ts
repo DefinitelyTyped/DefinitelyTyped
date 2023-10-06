@@ -4,5 +4,4 @@ const combo = new GorillaEngine.UI.ComboBox({ id: "myCombo", x: 0 });
 
 const toggle = new GorillaEngine.UI.Toggle({ id: "myToggle" });
 
-const pad = new GorillaEngine.UI.XYPad({ id: 'myXYPad' });
-
+const pad = new GorillaEngine.UI.XYPad({ id: "myXYPad" });

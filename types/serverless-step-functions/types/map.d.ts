@@ -1,5 +1,5 @@
-import { Catch, Retry } from './errors';
-import { Concurrency, EndOrNext, JsonObject, Path, Percentage, ReferencePath, State } from './state';
+import { Catch, Retry } from "./errors";
+import { Concurrency, EndOrNext, JsonObject, Path, Percentage, ReferencePath, State } from "./state";
 
 /**
  * The Map State (identified by "Type": "Map") causes the interpreter to process all the elements of an array, potentially in parallel, with the processing of each element independent of the others.
@@ -13,13 +13,13 @@ export type Map = InlineMap | DistributedMap;
  * @see https://docs.aws.amazon.com/step-functions/latest/dg/concepts-asl-use-map-state-inline.html#map-state-inline-additional-fields
  */
 export type InlineMap = {
-    Type: 'Map';
+    Type: "Map";
     Comment?: string;
     InputPath?: Path | null;
     OutputPath?: Path | null;
     ItemProcessor: {
         ProcessorConfig: {
-            Mode: 'INLINE';
+            Mode: "INLINE";
         };
         StartAt: string;
         States: {
@@ -48,14 +48,14 @@ export type InlineMap = {
  * @see https://docs.aws.amazon.com/step-functions/latest/dg/concepts-asl-use-map-state-distributed.html#map-state-distributed-additional-fields
  */
 export type DistributedMap = {
-    Type: 'Map';
+    Type: "Map";
     Comment?: string;
     InputPath?: Path | null;
     OutputPath?: Path | null;
     ItemProcessor: {
         ProcessorConfig: {
-            Mode: 'DISTRIBUTED';
-            ExecutionType: 'STANDARD' | 'EXPRESS';
+            Mode: "DISTRIBUTED";
+            ExecutionType: "STANDARD" | "EXPRESS";
         };
         StartAt: string;
         States: {

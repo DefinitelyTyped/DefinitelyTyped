@@ -44,22 +44,22 @@ export interface FflonkProof {
         W2: NumericString[];
     };
     evaluations: {
-        ql: NumericString,
-        qr: NumericString,
-        qm: NumericString,
-        qo: NumericString,
-        qc: NumericString,
-        s1: NumericString,
-        s2: NumericString,
-        s3: NumericString,
-        a: NumericString,
-        b: NumericString,
-        c: NumericString,
-        z: NumericString,
-        zw: NumericString,
-        t1w: NumericString,
-        t2w: NumericString,
-        inv: NumericString,
+        ql: NumericString;
+        qr: NumericString;
+        qm: NumericString;
+        qo: NumericString;
+        qc: NumericString;
+        s1: NumericString;
+        s2: NumericString;
+        s3: NumericString;
+        a: NumericString;
+        b: NumericString;
+        c: NumericString;
+        z: NumericString;
+        zw: NumericString;
+        t1w: NumericString;
+        t2w: NumericString;
+        inv: NumericString;
     };
     protocol: string;
     curve: string;

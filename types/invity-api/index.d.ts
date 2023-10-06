@@ -18,11 +18,11 @@ export interface BankAccount {
 export interface FormResponse {
     form?:
         | {
-              formMethod: 'GET' | 'POST' | 'IFRAME';
-              formAction: string;
-              formTarget?: '_blank' | '_self' | undefined;
-              fields: StringMap;
-          }
+            formMethod: "GET" | "POST" | "IFRAME";
+            formAction: string;
+            formTarget?: "_blank" | "_self" | undefined;
+            fields: StringMap;
+        }
         | undefined;
     error?: string | undefined;
 }
@@ -30,43 +30,43 @@ export interface FormResponse {
 // buy types
 
 export type BuyTradeFinalStatus =
-    | 'SUCCESS' // receive tx was created, waiting for receive tx to be mined
-    | 'ERROR' // the transaction was blocked, the customer will be contacted by email
-    | 'BLOCKED'; // something went wrong during or after confirmTrade
+    | "SUCCESS" // receive tx was created, waiting for receive tx to be mined
+    | "ERROR" // the transaction was blocked, the customer will be contacted by email
+    | "BLOCKED"; // something went wrong during or after confirmTrade
 
 export type BuyTradeStatus =
-    | 'LOGIN_REQUEST' // request to login to the partner's site
-    | 'REQUESTING' // sending request to the partner
-    | 'SUBMITTED' // request was submitted to the partner
-    | 'APPROVAL_PENDING' // pending approval
-    | 'WAITING_FOR_USER' // requiring user's action
+    | "LOGIN_REQUEST" // request to login to the partner's site
+    | "REQUESTING" // sending request to the partner
+    | "SUBMITTED" // request was submitted to the partner
+    | "APPROVAL_PENDING" // pending approval
+    | "WAITING_FOR_USER" // requiring user's action
     | BuyTradeFinalStatus;
 
 export type BuyCryptoPaymentMethod =
-    | 'bancontact'
-    | 'eps'
-    | 'bankTransfer'
-    | 'creditCard'
-    | 'giropay'
-    | 'iDeal'
-    | 'sofort'
-    | 'bpay'
-    | 'auspost'
-    | 'poli'
-    | 'dcinterac'
-    | 'applePay'
-    | 'paynow'
-    | 'fps'
-    | 'promptpay'
-    | 'instapay'
-    | 'upi'
-    | 'gojekid'
-    | 'viettelpay'
-    | 'duitnow'
-    | 'payid'
-    | 'toss';
+    | "bancontact"
+    | "eps"
+    | "bankTransfer"
+    | "creditCard"
+    | "giropay"
+    | "iDeal"
+    | "sofort"
+    | "bpay"
+    | "auspost"
+    | "poli"
+    | "dcinterac"
+    | "applePay"
+    | "paynow"
+    | "fps"
+    | "promptpay"
+    | "instapay"
+    | "upi"
+    | "gojekid"
+    | "viettelpay"
+    | "duitnow"
+    | "payid"
+    | "toss";
 
-export type BuyTradeTag = 'renewed' | 'alternativeCurrency' | 'bestRate' | 'favorite' | 'wantCrypto' | 'widget';
+export type BuyTradeTag = "renewed" | "alternativeCurrency" | "bestRate" | "favorite" | "wantCrypto" | "widget";
 
 export interface BuyProviderInfo {
     name: string; // simplex
@@ -156,7 +156,7 @@ export interface BuyTradeRequest {
 export interface BuyTradeResponse {
     trade: BuyTrade;
     tradeForm?: BuyTradeFormResponse | undefined;
-    requestTradeErrorType?: 'QUOTE_TIMEOUT' | 'UNKNOWN' | undefined;
+    requestTradeErrorType?: "QUOTE_TIMEOUT" | "UNKNOWN" | undefined;
     newQuote?: BuyTrade | undefined;
 }
 
@@ -170,30 +170,30 @@ export interface WatchBuyTradeResponse {
 // exchange types
 
 export type ExchangeTradeFinalStatus =
-    | 'SUCCESS' // receive tx was created, waiting for receive tx to be mined
-    | 'ERROR' // something went wrong during or after confirmTrade
-    | 'KYC'; // Trade is subject to KYC/AML
+    | "SUCCESS" // receive tx was created, waiting for receive tx to be mined
+    | "ERROR" // something went wrong during or after confirmTrade
+    | "KYC"; // Trade is subject to KYC/AML
 
 export type ExchangeTradeStatus =
-    | 'LOADING' // fetching address from exchange
-    | 'CONFIRM' // waiting for user confirmation on TREZOR
-    | 'SENDING' // send tx was created, waiting for send tx to be sent
-    | 'CONFIRMING' // send tx was sent, waiting for tx to be mined (not used for Trezor Wallet)
-    | 'CONVERTING' // send tx was mined, money is on exchange, receive tx not yet created
-    | 'APPROVAL_REQ' // it is necessary to perform APPROVAL transaction for DEX
-    | 'APPROVAL_PENDING' // waiting for DEX approval tx to be confirmed
+    | "LOADING" // fetching address from exchange
+    | "CONFIRM" // waiting for user confirmation on TREZOR
+    | "SENDING" // send tx was created, waiting for send tx to be sent
+    | "CONFIRMING" // send tx was sent, waiting for tx to be mined (not used for Trezor Wallet)
+    | "CONVERTING" // send tx was mined, money is on exchange, receive tx not yet created
+    | "APPROVAL_REQ" // it is necessary to perform APPROVAL transaction for DEX
+    | "APPROVAL_PENDING" // waiting for DEX approval tx to be confirmed
     | ExchangeTradeFinalStatus;
 
 export type ExchangeFee =
     | number // actual fee amount in 'receive' currency
-    | 'INCLUDED' // exchange won't tell, but receiveAmount and rate already include it
-    | 'UNKNOWN'; // exchange won't tell, receiveAmount and rate don't include it
+    | "INCLUDED" // exchange won't tell, but receiveAmount and rate already include it
+    | "UNKNOWN"; // exchange won't tell, receiveAmount and rate don't include it
 
 export type ExchangeMaximum =
     | number // actual maximum amount in 'send' currency
-    | 'NONE'; // exchange does not have a maximum trade size
+    | "NONE"; // exchange does not have a maximum trade size
 
-export type ExchangeTradeTag = 'renewed' | 'bestRate' | 'favorite' | 'kyc' | 'widget';
+export type ExchangeTradeTag = "renewed" | "bestRate" | "favorite" | "kyc" | "widget";
 
 export interface ExchangeProviderInfo {
     name: string; // changenow
@@ -225,10 +225,10 @@ export interface ExchangeCoinInfo {
 export type ExchangeCoinListResponse = ExchangeCoinInfo[];
 
 export type DexApprovalType =
-    | 'MINIMAL' // MINIMAL (default) is the lowest necessary to swap sendStringAmount
-    | 'INFINITE' // approves infinite amount
-    | 'ZERO' // resets approval
-    | 'PRESET'; // PRESET takes value from approvalStringAmount
+    | "MINIMAL" // MINIMAL (default) is the lowest necessary to swap sendStringAmount
+    | "INFINITE" // approves infinite amount
+    | "ZERO" // resets approval
+    | "PRESET"; // PRESET takes value from approvalStringAmount
 
 export interface ExchangeTrade {
     send?: string | undefined; // BTC
@@ -273,19 +273,19 @@ export interface ExchangeTrade {
     swapSlippage?: string | undefined; // swap slippage in percent, for example "1.5"
     dexTx?:
         | {
-              // tx data for approval or swap transaction
-              from: string;
-              to: string;
-              data: string;
-              value: string;
-          }
+            // tx data for approval or swap transaction
+            from: string;
+            to: string;
+            data: string;
+            value: string;
+        }
         | undefined;
     // locally used fields
-    offerType?: 'bestRate' | 'favorite' | undefined;
+    offerType?: "bestRate" | "favorite" | undefined;
 }
 
 export interface ExtendedExchangeTrade extends ExchangeTrade {
-    requestTradeErrorType?: 'QUOTE_TIMEOUT' | 'UNKNOWN' | undefined;
+    requestTradeErrorType?: "QUOTE_TIMEOUT" | "UNKNOWN" | undefined;
     newQuote?: ExchangeTrade | undefined; // A renewed quote, in case of a timeout
 }
 
@@ -293,14 +293,14 @@ export interface CoinExtraField {
     name: string;
     description: string;
     required: boolean;
-    type: 'number' | 'text' | 'hex';
+    type: "number" | "text" | "hex";
 }
 
 export interface ExchangeTradeQuoteRequest {
     send: string; // BTC
     receive: string; // LTC
     sendStringAmount?: string | undefined; // "0.01"
-    dex?: 'enable' | 'exclusively' | undefined; // 'enable' means add dex offers, 'exclusively' means only dex offers
+    dex?: "enable" | "exclusively" | undefined; // 'enable' means add dex offers, 'exclusively' means only dex offers
 }
 
 export type ExchangeTradeQuoteResponse = ExchangeTrade[];
@@ -327,7 +327,7 @@ export interface CountryInfo {
     fiatCurrency?: string | undefined; // optional field, fiat currency based on country
 }
 
-export type TicketTopic = 'Invity.io' | 'Buy crypto' | 'Exchange crypto' | 'Invest in crypto';
+export type TicketTopic = "Invity.io" | "Buy crypto" | "Exchange crypto" | "Invest in crypto";
 
 export interface SupportTicket {
     name: string;
@@ -346,24 +346,24 @@ export interface SupportTicketResponse {
 // sell/voucher types
 
 export type SellTradeFinalStatus =
-    | 'SUCCESS' // receive tx was created, waiting for receive tx to be mined
-    | 'ERROR' // the transaction was blocked, the customer will be contacted by email
-    | 'BLOCKED' // something went wrong during or after confirmTrade
-    | 'CANCELLED' // user cancelled the transaction
-    | 'REFUNDED'; // transaction has been refunded
+    | "SUCCESS" // receive tx was created, waiting for receive tx to be mined
+    | "ERROR" // the transaction was blocked, the customer will be contacted by email
+    | "BLOCKED" // something went wrong during or after confirmTrade
+    | "CANCELLED" // user cancelled the transaction
+    | "REFUNDED"; // transaction has been refunded
 
 export type SellTradeStatus =
-    | 'REQUESTING' // sending request to the partner
-    | 'LOGIN_REQUEST' // request to login to the partner's site
-    | 'SITE_ACTION_REQUEST' // request to transfer to the partner's site
-    | 'SUBMITTED' // request was submitted to the partner
-    | 'SEND_CRYPTO' // request to send crypto
-    | 'PENDING' // pending exchange to fiat
+    | "REQUESTING" // sending request to the partner
+    | "LOGIN_REQUEST" // request to login to the partner's site
+    | "SITE_ACTION_REQUEST" // request to transfer to the partner's site
+    | "SUBMITTED" // request was submitted to the partner
+    | "SEND_CRYPTO" // request to send crypto
+    | "PENDING" // pending exchange to fiat
     | SellTradeFinalStatus;
 
-export type SellProviderType = 'Fiat' | 'Voucher';
+export type SellProviderType = "Fiat" | "Voucher";
 
-export type SellFiatFlowType = 'BANK_ACCOUNT' | 'PAYMENT_GATE' | 'N/A';
+export type SellFiatFlowType = "BANK_ACCOUNT" | "PAYMENT_GATE" | "N/A";
 
 export interface SellProviderInfo {
     name: string; // simplex
@@ -389,9 +389,9 @@ export interface SellListResponse {
     providers: SellProviderInfo[];
 }
 
-export type SellCryptoPaymentMethod = 'bankTransfer' | 'creditCard';
+export type SellCryptoPaymentMethod = "bankTransfer" | "creditCard";
 
-export type SellTradeTag = 'renewed' | 'alternativeCurrency' | 'bestRate' | 'favorite' | 'wantFiat' | 'widget';
+export type SellTradeTag = "renewed" | "alternativeCurrency" | "bestRate" | "favorite" | "wantFiat" | "widget";
 
 export interface SellFiatTradeQuoteRequest {
     amountInCrypto: boolean; // true for cryptoAmount, false for fiatAmount
@@ -488,7 +488,7 @@ export interface SellFiatTradeRequest {
 export interface SellFiatTradeResponse {
     trade: SellFiatTrade;
     tradeForm?: SellFiatTradeFormResponse | undefined;
-    requestTradeErrorType?: 'QUOTE_TIMEOUT' | 'UNKNOWN' | undefined;
+    requestTradeErrorType?: "QUOTE_TIMEOUT" | "UNKNOWN" | undefined;
     newQuote?: SellFiatTrade | undefined;
 }
 
@@ -503,7 +503,7 @@ export type SpendTrade = SellVoucherTrade;
 
 // savings types
 
-export type SavingsPaymentMethod = 'bankTransfer' | 'ach';
+export type SavingsPaymentMethod = "bankTransfer" | "ach";
 
 export interface InitSavingsTradeRequest {
     returnUrl: string;
@@ -581,7 +581,7 @@ export type SavingsStepPhoneVerification = SavingsStepEnabled & {
      * - ClientApp - we are verify the user's phone number
      * - External - we provide the phone number to partner to be verified by the partner or externally
      */
-    phoneVerificationType: 'ClientApp' | 'External';
+    phoneVerificationType: "ClientApp" | "External";
 };
 
 export type SavingsStepAfterSuccessfulPhoneVerification = SavingsStepEnabled;
@@ -592,7 +592,7 @@ export type SavingsStepKYC = SavingsStepEnabled & {
      * - ClientApp - we are handover the KYC documents to partner right from the user
      * - External - upload is managed fully by our partner
      */
-    documentUploadType: 'ClientApp' | 'External';
+    documentUploadType: "ClientApp" | "External";
     isWaitingForKYCResult: boolean;
 };
 
@@ -690,40 +690,40 @@ export interface SavingsListResponse {
 
 export type SavingsSetupStatus =
     /** Show select options what kind of documents the will be KYC'ed. */
-    | 'KYC'
+    | "KYC"
     /** More like questionnaire - can't fail. */
-    | 'AML'
+    | "AML"
     /** User needs to verify crypto wallet. */
-    | 'WalletVerification'
+    | "WalletVerification"
     /** User needs to submit bank account. */
-    | 'SubmitBankAccount'
+    | "SubmitBankAccount"
     /** User setups savings plan parameters (frequency, amount, etc.). */
-    | 'SetSavingsParameters'
+    | "SetSavingsParameters"
     /** Partner has generated payment info parameters. */
-    | 'ConfirmPaymentInfo';
+    | "ConfirmPaymentInfo";
 
-export type SavingsStatus = SavingsSetupStatus | 'Cancelled' | 'Active';
+export type SavingsStatus = SavingsSetupStatus | "Cancelled" | "Active";
 export type SavingsKYCStatus =
     /** KYC process didn't start yet. */
-    | 'Open'
+    | "Open"
     /** KYC process is in progress. Might take some time to resolve. */
-    | 'InProgress'
+    | "InProgress"
     /** KYC process is completed. User may continue (some providers allow to continue). */
-    | 'Completed'
+    | "Completed"
     /** KYC process passed successfully. */
-    | 'Verified'
+    | "Verified"
     /** KYC docs are invalid or anything could be wrong. Expecting reason from our partner to handover to the user. */
-    | 'Failed'
+    | "Failed"
     /** KYC status check ended up in error state. */
-    | 'Error';
+    | "Error";
 
 export type SavingsAMLStatus =
     /** AML process didn't start yet. */
-    | 'Open'
+    | "Open"
     /** AML process passed successfully. */
-    | 'Verified';
+    | "Verified";
 
-export type PaymentFrequency = 'Daily' | 'Weekly' | 'Biweekly' | 'Monthly' | 'Quarterly';
+export type PaymentFrequency = "Daily" | "Weekly" | "Biweekly" | "Monthly" | "Quarterly";
 
 export interface SavingsTradePlannedPayment {
     /** Our id. */
@@ -752,20 +752,20 @@ export interface SavingsTradeUserRegistration {
 }
 
 export type SavingsTradeUserKYCStartDocumentType =
-    | 'Passport'
-    | 'IdentityCard'
-    | 'DrivingLicence'
-    | 'Selfie'
-    | 'ResidencePermit'
-    | 'WalletVerification';
+    | "Passport"
+    | "IdentityCard"
+    | "DrivingLicence"
+    | "Selfie"
+    | "ResidencePermit"
+    | "WalletVerification";
 
 export type SavingsTradeUserKYCStartDocumentImageSide =
-    | 'Front'
-    | 'Back'
-    | 'Selfie'
-    | 'SecondSelfie'
-    | 'ProofOfResidency'
-    | 'WalletVerification';
+    | "Front"
+    | "Back"
+    | "Selfie"
+    | "SecondSelfie"
+    | "ProofOfResidency"
+    | "WalletVerification";
 
 export interface SavingsTradeUserKYCStartDocumentImage {
     documentSide: SavingsTradeUserKYCStartDocumentImageSide;
@@ -847,14 +847,14 @@ export interface SavingsTradeRequest {
 
 export interface SavingsTradeErrorResponse extends SavingsErrorResponse {
     code?:
-        | 'AppIDRequired'
-        | 'ExchangeNotFound'
-        | 'SavingsTradeCountryRequired'
-        | 'SavingsTransactionNotFound'
-        | 'SavingsTransactionExists'
-        | 'GetUserInfoFailed'
-        | 'FlowStepDisabled'
-        | 'UnknownStatus';
+        | "AppIDRequired"
+        | "ExchangeNotFound"
+        | "SavingsTradeCountryRequired"
+        | "SavingsTransactionNotFound"
+        | "SavingsTransactionExists"
+        | "GetUserInfoFailed"
+        | "FlowStepDisabled"
+        | "UnknownStatus";
 }
 
 export interface SavingsTradeResponse extends SavingsTradeErrorResponse {
@@ -869,7 +869,7 @@ export interface SavingsTradesResponse extends SavingsTradeErrorResponse {
 }
 
 export interface SavingsKYCInfoSuccessResponse {
-    status: 'Success';
+    status: "Success";
     documentTypes: SavingsTradeUserKYCStartDocumentType[];
 }
 
@@ -884,7 +884,7 @@ export interface SavingsTradeAMLAnswersRequest {
 }
 
 export interface SavingsAMLAnswersSuccessResponse {
-    status: 'Success';
+    status: "Success";
 }
 
 export type SavingsAMLAnswersResponse = SavingsAMLAnswersSuccessResponse | SavingsErrorResponse;
@@ -895,24 +895,25 @@ export interface SavingsTradeKYCStatusSuccessfulResponse {
 
 export interface SavingsTradeKYCStatusErrorResponse extends SavingsErrorResponse {
     code?:
-        | 'GetIdentityInfoFailed'
-        | 'SavingsTransactionNotFound'
-        | 'ExchangeNotFound'
-        | 'GetUserInfoFailed'
-        | 'UserNotFoundInPartnerSystem';
+        | "GetIdentityInfoFailed"
+        | "SavingsTransactionNotFound"
+        | "ExchangeNotFound"
+        | "GetUserInfoFailed"
+        | "UserNotFoundInPartnerSystem";
 }
 
-export type SavingsTradeKYCStatusResponse = SavingsTradeKYCStatusSuccessfulResponse &
-    SavingsTradeKYCStatusErrorResponse;
+export type SavingsTradeKYCStatusResponse =
+    & SavingsTradeKYCStatusSuccessfulResponse
+    & SavingsTradeKYCStatusErrorResponse;
 
 export type SavingsTradeItemStatus =
-    | 'Cancelled'
-    | 'Pending'
-    | 'InProgress'
-    | 'Blocked'
-    | 'Completed'
-    | 'Refunded'
-    | 'Error';
+    | "Cancelled"
+    | "Pending"
+    | "InProgress"
+    | "Blocked"
+    | "Completed"
+    | "Refunded"
+    | "Error";
 
 export interface SavingsTradeItem {
     id: string;
@@ -931,10 +932,10 @@ export interface SavingsTradeItem {
 
 export interface WatchSavingTradeItemErrorResponse extends SavingsErrorResponse {
     code?:
-        | 'SavingsTradeIdRequired'
-        | 'SavingsTradeItemIdRequired'
-        | 'SavingsTradeItemNotFound'
-        | 'SavingsTransactionNotFound';
+        | "SavingsTradeIdRequired"
+        | "SavingsTradeItemIdRequired"
+        | "SavingsTradeItemNotFound"
+        | "SavingsTransactionNotFound";
 }
 
 export interface WatchSavingTradeItemResponse extends WatchSavingTradeItemErrorResponse {
@@ -942,11 +943,11 @@ export interface WatchSavingTradeItemResponse extends WatchSavingTradeItemErrorR
 }
 
 export interface PartnerInitErrorResponse extends SavingsErrorResponse {
-    code?: 'ReturnUrlRequired' | 'ExchangeNotFound' | 'PartnerInitFailed' | 'MissingRequestBody' | undefined;
+    code?: "ReturnUrlRequired" | "ExchangeNotFound" | "PartnerInitFailed" | "MissingRequestBody" | undefined;
 }
 export interface PartnerInitSuccessResponse {
     form?: {
-        formMethod: 'GET';
+        formMethod: "GET";
         formAction: string;
         fields: Record<string, string>;
     };
@@ -956,9 +957,9 @@ export interface PartnerInitSuccessResponse {
 export type PartnerInitResponse = PartnerInitSuccessResponse & PartnerInitErrorResponse;
 
 export interface SubmitPhoneNumberResponse extends SavingsErrorResponse {
-    code?: 'ExchangeNotFound' | 'InternalError' | 'SavingsTransactionNotFound' | undefined;
+    code?: "ExchangeNotFound" | "InternalError" | "SavingsTransactionNotFound" | undefined;
     form?: {
-        formMethod: 'GET';
+        formMethod: "GET";
         formAction: string;
         fields: Record<string, string>;
     };
@@ -970,7 +971,7 @@ export type Id = string; // L3kP36m33Ep9Xq4L or 3513
 export type Coin = string; // BTC
 export type Currency = string; // CZK, USD, etc.
 export type CountryCode = string; // CZ, US, etc.
-export type OnlineStatus = 'ONLINE' | 'RECENTLY_ONLINE' | 'OFFLINE';
+export type OnlineStatus = "ONLINE" | "RECENTLY_ONLINE" | "OFFLINE";
 
 export interface P2pListResponse {
     country: string;

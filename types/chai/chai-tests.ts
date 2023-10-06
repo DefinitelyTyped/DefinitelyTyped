@@ -91,7 +91,7 @@ function _NaN() {
     expect(NaN).to.be.NaN;
     expect(12).to.be.not.NaN;
     expect("NaN").to.be.not.NaN;
-    (NaN).should.be.NaN;
+    NaN.should.be.NaN;
     (12).should.be.not.NaN;
     ("NaN").should.be.not.NaN;
 }

@@ -135,7 +135,7 @@ async function test() {
     let disposable: Disposable | undefined;
     try {
         const signal = new AbortSignal();
-        signal.addEventListener('abort', (e) => e.stopImmediatePropagation());
+        signal.addEventListener("abort", (e) => e.stopImmediatePropagation());
         disposable = events.addAbortListener(signal, (e) => {
             console.log(e);
         });
@@ -152,11 +152,11 @@ async function test() {
     });
 
     new events.EventEmitterAsyncResource({
-        name: 'test'
+        name: "test",
     });
 
-    emitter.asyncId // $ExpectType number
-    emitter.asyncResource // $ExpectType EventEmitterReferencingAsyncResource
-    emitter.triggerAsyncId // $ExpectType number
+    emitter.asyncId; // $ExpectType number
+    emitter.asyncResource; // $ExpectType EventEmitterReferencingAsyncResource
+    emitter.triggerAsyncId; // $ExpectType number
     emitter.emitDestroy();
 }

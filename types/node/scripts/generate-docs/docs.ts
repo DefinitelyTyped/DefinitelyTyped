@@ -1,7 +1,7 @@
-import { writeFileSync } from "fs";
-import { basename, join, dirname } from "path";
 import * as cp from "child_process";
+import { writeFileSync } from "fs";
 import * as fs from "fs";
+import { basename, dirname, join } from "path";
 import {
     CompilerOptions,
     createCompilerHost,

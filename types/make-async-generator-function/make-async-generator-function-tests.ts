@@ -1,4 +1,4 @@
-import makeAsyncGeneratorFunction = require('make-async-generator-function');
+import makeAsyncGeneratorFunction = require("make-async-generator-function");
 
 makeAsyncGeneratorFunction; // $ExpectType () => readonly AsyncGeneratorFunction<unknown, any, unknown>[]
 

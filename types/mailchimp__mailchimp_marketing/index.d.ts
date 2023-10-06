@@ -2547,8 +2547,8 @@ export namespace customerJourneys {
      * @return A {@link https://www.promisejs.org/|Promise}
      */
     function trigger(
-        journey_id: number, 
+        journey_id: number,
         step_id: number,
-        body: TriggerCustomerJourneyBody
+        body: TriggerCustomerJourneyBody,
     ): Promise<null | ErrorResponse>;
 }

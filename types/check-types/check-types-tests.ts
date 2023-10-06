@@ -127,7 +127,6 @@ check.containsKey({ 1: "value" }, 1);
 check.containsKey(new Map([["key", "value"]]), "key");
 check.containsKey("string", "string".length - 1);
 
-
 check.keyIn(1, ["a", "b", "c"]);
 check.keyIn("key", { key: "value" });
 check.keyIn(Symbol.for("key"), { [Symbol.for("key")]: "value" });
@@ -137,13 +136,13 @@ check.keyIn("string".length - 1, "string");
 
 const iterableObject: Iterable<string> = new class implements Iterable<string> {
     *[Symbol.iterator]() {
-        yield "something"
-        yield "value"
-        yield "another value"
+        yield "something";
+        yield "value";
+        yield "another value";
     }
     // values function is required for check-types
     values(this: Iterable<string>): Iterator<string> {
-        return this[Symbol.iterator]()
+        return this[Symbol.iterator]();
     }
 }();
 
@@ -160,4 +159,3 @@ check.contains("string", "str");
 check.contains<number>(new Map([["key", 42]]), 42);
 check.contains<string>(new Set(["value"]), "value");
 check.contains<string>(iterableObject, "value");
-

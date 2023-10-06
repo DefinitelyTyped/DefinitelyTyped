@@ -3,7 +3,7 @@
 // Definitions by: yutak23 <https://github.com/yutak23>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as express from 'express';
+import * as express from "express";
 
 export = expressLegacyExpires;
 

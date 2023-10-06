@@ -8,7 +8,7 @@ class DemoConsumer extends MessageConsumer {
 
     validate(message: any) {
         super.validate(message);
-        if (!(message)) {
+        if (!message) {
             this.logger.log("error", "message is missing cId", message);
             throw new Error("Missing message");
         }

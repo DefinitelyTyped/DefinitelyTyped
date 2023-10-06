@@ -1,7 +1,7 @@
-import { parse } from 'comment-json';
-import fs from 'fs';
-import sh from 'shelljs';
-import * as path from 'path';
+import { parse } from "comment-json";
+import fs from "fs";
+import * as path from "path";
+import sh from "shelljs";
 
 /**
  * @param {string} filePath
@@ -43,16 +43,16 @@ for (const tslintRuleName of tslintRuleNames) {
     );
 }
 
-console.log('Done clearing comment directives.');
+console.log("Done clearing comment directives.");
 
-const typeNames = fs.readdirSync('types');
+const typeNames = fs.readdirSync("types");
 for (const typeName of typeNames) {
-    const typeDirectory = path.join('types', typeName);
+    const typeDirectory = path.join("types", typeName);
     try {
         typeNames.push(...fs.readdirSync(typeDirectory).map(childDirectory => path.join(typeName, childDirectory)));
     } catch {}
 
-    const tslintFilePath = path.join(typeDirectory, 'tslint.json');
+    const tslintFilePath = path.join(typeDirectory, "tslint.json");
 
     /** @type {Partial<{ extends: string; rules?: { [s:string]: boolean }}>} */
     const tslintData = parseAndReadFileContents(tslintFilePath);
