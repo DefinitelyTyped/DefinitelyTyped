@@ -452,7 +452,7 @@ Alors ils sont faux, et nous ne l'avons pas encore remarqué. Vous pouvez nous a
 
 #### Puis-je modifier/renforcer les paramètres de formatage des modules ?
 
-Non. Nous avons déjà essayé de rendre le formatage du code de DT cohérent, mais nous sommes arrivés à une impasse en raison de la forte activité sur le repo. Nous incluons les paramètres de formatage via [`.editorconfig`](.editorconfig) et [`.prettierrc.json`](.prettierrc.json). Ceux-ci sont exclusivement destinés à l'outillage de votre éditeur, leurs paramètres n'entrent pas en conflit et nous ne prévoyons pas de les modifier. Nous ne prévoyons pas non plus d'imposer un style spécifique dans le repo. Nous voulons garder les barrières aux contributions basses.
+Non. Nous avons déjà essayé de rendre le formatage du code de DT cohérent, mais nous sommes arrivés à une impasse en raison de la forte activité sur le repo. Nous incluons les paramètres de formatage via [`.editorconfig`](.editorconfig). Ceux-ci sont exclusivement destinés à l'outillage de votre éditeur, leurs paramètres n'entrent pas en conflit et nous ne prévoyons pas de les modifier. Nous ne prévoyons pas non plus d'imposer un style spécifique dans le repo. Nous voulons garder les barrières aux contributions basses.
 
 #### Puis-je demander une définition ?
 

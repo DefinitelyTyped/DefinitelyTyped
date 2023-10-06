@@ -6,7 +6,7 @@ import * as fs from "fs";
 import { STATUS_CODES } from "http";
 import { get } from "https";
 import * as path from "path";
-import * as prettier from "prettier";
+import * as cp from "child_process";
 
 const GROUP_WITH_DEFAULTS = [
     "array",
@@ -111,10 +111,34 @@ import { ${flattenModules.map(val => `${val} as ${val}1`).join(",")}} from 'loda
     writeFileSync(path.join("..", "tsconfig.json"), tsconfig(tsFiles));
 }
 
-function formatFile(contents) {
-    return prettier.format(contents, {
-        parser: "typescript",
-    });
+function findDprint() {
+    let p = __dirname;
+    while (true) {
+        const dprintPath = path.join(p, "node_modules", "dprint", "bin.js");
+        if (fs.existsSync(dprintPath)) {
+            return dprintPath;
+        }
+        const parent = path.dirname(p);
+        if (parent === p) {
+            break;
+        }
+        p = parent;
+    }
+    throw new Error("Could not find dprint");
+}
+
+function formatFile(contents: string) {
+    const dprintPath = findDprint();
+    return cp.execFileSync(
+        process.execPath,
+        [dprintPath, "fmt", "--stdin", "ts"],
+        {
+            stdio: ["pipe", "pipe", "inherit"],
+            encoding: "utf-8",
+            input: contents,
+            maxBuffer: 100 * 1024 * 1024, // 100 MB "ought to be enough for anyone"; https://github.com/nodejs/node/issues/9829
+        },
+    );
 }
 
 function writeFileSync(filePath: string, contents) {
