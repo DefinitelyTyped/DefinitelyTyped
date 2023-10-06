@@ -1,6 +1,7 @@
 import { writeFileSync } from "fs";
-import { basename, join } from "path";
-import { format } from "prettier";
+import { basename, join, dirname } from "path";
+import * as cp from "child_process";
+import * as fs from "fs";
 import {
     CompilerOptions,
     createCompilerHost,
@@ -76,6 +77,36 @@ const ignoreFiles = new Set([
     "constants.d.ts", // not documented
 ]);
 
+function findDprint() {
+    let p = __dirname;
+    while (true) {
+        const dprintPath = join(p, "node_modules", "dprint", "bin.js");
+        if (fs.existsSync(dprintPath)) {
+            return dprintPath;
+        }
+        const parent = dirname(p);
+        if (parent === p) {
+            break;
+        }
+        p = parent;
+    }
+    throw new Error("Could not find dprint");
+}
+
+function format(contents: string) {
+    const dprintPath = findDprint();
+    return cp.execFileSync(
+        process.execPath,
+        [dprintPath, "fmt", "--stdin", "ts"],
+        {
+            stdio: ["pipe", "pipe", "inherit"],
+            encoding: "utf-8",
+            input: contents,
+            maxBuffer: 100 * 1024 * 1024, // 100 MB "ought to be enough for anyone"; https://github.com/nodejs/node/issues/9829
+        },
+    );
+}
+
 async function main() {
     const docs = await loadDocs();
 
@@ -108,12 +139,7 @@ async function main() {
         const transformRes = transform(f, transformers);
         writeFileSync(
             fileName,
-            format(printer.printBundle(factory.createBundle(transformRes.transformed as SourceFile[])), {
-                printWidth: 200,
-                parser: "typescript",
-                tabWidth: 4,
-                singleQuote: true,
-            }),
+            format(printer.printBundle(factory.createBundle(transformRes.transformed as SourceFile[]))),
         );
     }
 }

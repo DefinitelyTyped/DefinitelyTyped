@@ -1,6 +1,5 @@
 import { parse } from 'comment-json';
 import fs from 'fs';
-import { format } from 'prettier';
 import sh from 'shelljs';
 import * as path from 'path';
 
@@ -19,8 +18,6 @@ const parseAndReadFileContents = filePath => {
     }
 };
 
-const prettierConfig = parseAndReadFileContents('.prettierrc.json');
-
 /**
  * @param {string} filePath
  * @param {unknown} contents
@@ -28,10 +25,7 @@ const prettierConfig = parseAndReadFileContents('.prettierrc.json');
 const writeFileFormatted = (filePath, contents) => {
     fs.writeFileSync(
         filePath,
-        format(JSON.stringify(contents, null, 4), {
-            ...prettierConfig,
-            filepath: filePath,
-        }),
+        JSON.stringify(contents, null, 4),
     );
 };
 
