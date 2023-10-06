@@ -742,8 +742,8 @@ var toggle2 = new photonui.ToggleButton({
     buttonColor: "red",
     callbacks: {
         "value-changed": function(widget: any, value: any) {
-            widget.text = "Value: " + ((value) ? "on" : "off");
-            widget.buttonColor = (value) ? "green" : "red";
+            widget.text = "Value: " + (value ? "on" : "off");
+            widget.buttonColor = value ? "green" : "red";
         },
     },
 });

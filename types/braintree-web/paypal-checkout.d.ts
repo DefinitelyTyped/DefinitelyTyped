@@ -48,7 +48,7 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
      * @default 'authorize'
      */
     intent?: "authorize" | "capture" | "sale" | "tokenize" | undefined;
-    
+
     // tslint:disable:no-redundant-jsdoc
     /**
      * If a currency is passed in createPayment, it must match the currency passed here.
@@ -67,7 +67,7 @@ export interface PayPalCheckoutLoadPayPalSDKOptions {
      * By default, the Braintree SDK will only load the PayPal smart buttons component. If you would
      * like to load just the messages component, pass messages. If you would like to load both, pass
      * buttons,messages
-     * 
+     *
      * @default 'buttons'
      */
     components?: "buttons" | "messages" | "buttons,messages" | undefined;

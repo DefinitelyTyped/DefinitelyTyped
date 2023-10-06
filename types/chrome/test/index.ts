@@ -2042,11 +2042,11 @@ function testFileSystemProvider() {
             if (options.mimeType) {
                 entryMetadata.mimeType = "text/plain";
             }
-            if(options.thumbnail) {
+            if (options.thumbnail) {
                 entryMetadata.thumbnail = "DaTa:ImAgE/pNg;base64";
             }
-            if(options.cloudIdentifier) {
-                entryMetadata.cloudIdentifier = {providerName: 'provider-name', id: 'id'};
+            if (options.cloudIdentifier) {
+                entryMetadata.cloudIdentifier = { providerName: "provider-name", id: "id" };
             }
         },
     );

@@ -131,8 +131,8 @@ braintree.client.create(
                         container: document.createElement("div"),
                         supportedCardBrands: {
                             visa: false,
-                            "diners-club": false
-                        }
+                            "diners-club": false,
+                        },
                     },
                     cvv: {
                         container: "#cvv",

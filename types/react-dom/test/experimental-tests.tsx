@@ -46,7 +46,7 @@ function formTest() {
             return state + 1;
         }
 
-        const [state, dispatch] = useFormState(action, 1, '/permalink');
+        const [state, dispatch] = useFormState(action, 1, "/permalink");
         return (
             <form action={dispatch}>
                 <span>Count: {state}</span>
@@ -56,15 +56,15 @@ function formTest() {
     }
 
     function Page4() {
-        async function action(state: number, type: 'increment' | 'decrement') {
-            return state + (type === 'increment' ? 1 : -1);
+        async function action(state: number, type: "increment" | "decrement") {
+            return state + (type === "increment" ? 1 : -1);
         }
 
-        const [state, dispatch] = useFormState(action, 1, '/permalink');
+        const [state, dispatch] = useFormState(action, 1, "/permalink");
         return (
             <button
                 onClick={() => {
-                    dispatch('decrement');
+                    dispatch("decrement");
                 }}
             >
                 count: {state}
@@ -72,6 +72,6 @@ function formTest() {
         );
     }
 
-    const formState = [1, '', '', 0] as unknown as ReactDOMClient.ReactFormState;
+    const formState = [1, "", "", 0] as unknown as ReactDOMClient.ReactFormState;
     ReactDOMClient.hydrateRoot(document.body, <Page1 />, { experimental_formState: formState });
 }

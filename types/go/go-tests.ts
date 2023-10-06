@@ -63,7 +63,7 @@ class CustomTreeLayout extends go.TreeLayout {
     commitLinks(): void {
         super.commitLinks();
         this.network.edges.each(e => {
-            e.link.path.strokeWidth = (<CustomTreeEdge> (e)).anotherProp;
+            e.link.path.strokeWidth = (<CustomTreeEdge> e).anotherProp;
         });
     }
 }

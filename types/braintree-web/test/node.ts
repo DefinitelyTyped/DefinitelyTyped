@@ -95,7 +95,7 @@ braintree.client.create(
                         supportedCardBrands: {
                             discover: false,
                             "diners-club": false,
-                        }
+                        },
                     },
                     cvv: {
                         selector: "#cvv",

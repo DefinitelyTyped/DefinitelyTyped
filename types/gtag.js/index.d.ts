@@ -44,43 +44,43 @@ declare namespace Gtag {
     }
 
     type EventNames =
-        | 'add_payment_info'
-        | 'add_shipping_info'
-        | 'add_to_cart'
-        | 'add_to_wishlist'
-        | 'begin_checkout'
-        | 'checkout_progress'
-        | 'earn_virtual_currency'
-        | 'exception'
-        | 'generate_lead'
-        | 'join_group'
-        | 'level_end'
-        | 'level_start'
-        | 'level_up'
-        | 'login'
-        | 'page_view'
-        | 'post_score'
-        | 'purchase'
-        | 'refund'
-        | 'remove_from_cart'
-        | 'screen_view'
-        | 'search'
-        | 'select_content'
-        | 'select_item'
-        | 'select_promotion'
-        | 'set_checkout_option'
-        | 'share'
-        | 'sign_up'
-        | 'spend_virtual_currency'
-        | 'tutorial_begin'
-        | 'tutorial_complete'
-        | 'unlock_achievement'
-        | 'timing_complete'
-        | 'view_cart'
-        | 'view_item'
-        | 'view_item_list'
-        | 'view_promotion'
-        | 'view_search_results';
+        | "add_payment_info"
+        | "add_shipping_info"
+        | "add_to_cart"
+        | "add_to_wishlist"
+        | "begin_checkout"
+        | "checkout_progress"
+        | "earn_virtual_currency"
+        | "exception"
+        | "generate_lead"
+        | "join_group"
+        | "level_end"
+        | "level_start"
+        | "level_up"
+        | "login"
+        | "page_view"
+        | "post_score"
+        | "purchase"
+        | "refund"
+        | "remove_from_cart"
+        | "screen_view"
+        | "search"
+        | "select_content"
+        | "select_item"
+        | "select_promotion"
+        | "set_checkout_option"
+        | "share"
+        | "sign_up"
+        | "spend_virtual_currency"
+        | "tutorial_begin"
+        | "tutorial_complete"
+        | "unlock_achievement"
+        | "timing_complete"
+        | "view_cart"
+        | "view_item"
+        | "view_item_list"
+        | "view_promotion"
+        | "view_search_results";
 
     interface EventParams {
         checkout_option?: string | undefined;
@@ -150,9 +150,9 @@ declare namespace Gtag {
         promotion_name?: string | undefined;
     }
 
-    type FieldNames = 'client_id' | 'session_id' | 'gclid';
+    type FieldNames = "client_id" | "session_id" | "gclid";
 
-    type ConsentArg = 'default' | 'update';
+    type ConsentArg = "default" | "update";
 
     /**
      * Reference:
@@ -160,11 +160,11 @@ declare namespace Gtag {
      * @see {@link https://developers.google.com/tag-platform/devguides/consent consent}
      */
     interface ConsentParams {
-        ad_storage?: 'granted' | 'denied' | undefined;
-        analytics_storage?: 'granted' | 'denied' | undefined;
-        functionality_storage?: 'granted' | 'denied' | undefined;
-        personalization_storage?: 'granted' | 'denied' | undefined;
-        security_storage?: 'granted' | 'denied' | undefined;
+        ad_storage?: "granted" | "denied" | undefined;
+        analytics_storage?: "granted" | "denied" | undefined;
+        functionality_storage?: "granted" | "denied" | undefined;
+        personalization_storage?: "granted" | "denied" | undefined;
+        security_storage?: "granted" | "denied" | undefined;
         wait_for_update?: number | undefined;
         region?: string[] | undefined;
     }

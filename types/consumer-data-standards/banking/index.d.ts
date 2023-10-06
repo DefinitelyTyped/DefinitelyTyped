@@ -3246,7 +3246,7 @@ export interface BankingScheduledPaymentV2 {
                  */
                 type: "EMAIL" | "CONTACT_NAME" | "TELEPHONE";
                 [k: string]: unknown;
-            },
+            };
             domestic?: {
                 account?: {
                     /**
@@ -3910,7 +3910,7 @@ export interface BankingScheduledPaymentSetV2 {
              */
             type: "EMAIL" | "CONTACT_NAME" | "TELEPHONE";
             [k: string]: unknown;
-        },
+        };
         domestic?: {
             account?: {
                 /**

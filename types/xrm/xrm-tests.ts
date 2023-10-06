@@ -614,6 +614,5 @@ const multiSelectOptionSetControl = Xrm.Page.getControl<Xrm.Controls.MultiSelect
 // $ExpectType MultiSelectOptionSetAttribute
 multiSelectOptionSetControl.getAttribute();
 
-
-//Demonstrates getWebResourceUrl
+// Demonstrates getWebResourceUrl
 const webResourceUrl = Xrm.Utility.getGlobalContext().getWebResourceUrl("sample_webResource1.js");

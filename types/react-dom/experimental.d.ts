@@ -65,7 +65,7 @@ declare module "." {
     ): [state: State, dispatch: (payload: Payload) => void];
 }
 
-declare module './client' {
+declare module "./client" {
     interface ReactFormState {
         [REACT_FORM_STATE_SIGIL]: never;
     }

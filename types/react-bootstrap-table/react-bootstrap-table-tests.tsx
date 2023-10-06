@@ -1247,7 +1247,7 @@ class ExpandRowExample extends React.Component<{}, { expanding: number[] }> {
         }
     };
 
-    onSelectAll = (isSelected: boolean) => (isSelected) ? products.map(row => row.id) : [];
+    onSelectAll = (isSelected: boolean) => isSelected ? products.map(row => row.id) : [];
 
     onSelect = (row: Product, isSelected: boolean, e: React.MouseEvent<any>, rowIndex: number) => {
         const rowStr = `id: "${row.id}", name: ${row.name}, price: ${row.price}`;
@@ -1277,7 +1277,7 @@ class ExpandRowExample extends React.Component<{}, { expanding: number[] }> {
     );
 
     selectedRowClass = (row: Product, isSelect: boolean) =>
-        (isSelect)
+        isSelect
             ? ((row.id >= 3) ? "bigger-than-three-select-row" : "less-than-three-select-row")
             : "";
 
@@ -1300,7 +1300,7 @@ class ExpandRowExample extends React.Component<{}, { expanding: number[] }> {
         const selectRow: SelectRow<Product> = {
             mode: "checkbox",
             bgColor: (row: Product, isSelect: boolean) =>
-                (isSelect)
+                isSelect
                     ? ((row.id < 2) ? "blue" : ((row.id < 4) ? "red" : "yellow"))
                     : null,
             clickToSelect: true, // click to select, default is false

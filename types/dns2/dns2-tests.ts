@@ -61,7 +61,7 @@ server.on("request", (request, response, rinfo) => {
 server.listen({ udp: 5333 });
 
 const serverByType = DNS.createServer({
-    udp: { type: 'udp4' },
+    udp: { type: "udp4" },
     handle: (request, send, rinfo) => {
         const response = Packet.createResponseFromRequest(request);
         const [question] = request.questions;
@@ -111,7 +111,7 @@ const tcpServer = DNS.createTCPServer((request, send, rinfo) => {
 
 tcpServer.listen(5454, "127.0.0.1");
 
-const udpServerByType = new DNS.UDPServer({type: 'udp4'})
+const udpServerByType = new DNS.UDPServer({ type: "udp4" });
 udpServerByType.on("request", (request, send, rinfo) => {
     const response = Packet.createResponseFromRequest(request);
     send(response);

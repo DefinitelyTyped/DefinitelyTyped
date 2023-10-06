@@ -1,7 +1,7 @@
-import { Handler } from '../handler';
-import { PolicyDocument } from './api-gateway-authorizer';
+import { Handler } from "../handler";
+import { PolicyDocument } from "./api-gateway-authorizer";
 
-export type IoTProtocolType = 'http' | 'mqtt' | 'tls';
+export type IoTProtocolType = "http" | "mqtt" | "tls";
 
 export type IoTCustomAuthorizerHandler = Handler<IoTCustomAuthorizerEvent, IoTCustomAuthorizerResult>;
 
@@ -40,8 +40,8 @@ export interface IoTCustomAuthorizerEvent {
  * https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html#Condition
  */
 export interface IoTCustomAuthorizerResult {
-    isAuthenticated: boolean; //A Boolean that determines whether client can connect.
-    principalId: string; //A string that identifies the connection in logs.
+    isAuthenticated: boolean; // A Boolean that determines whether client can connect.
+    principalId: string; // A string that identifies the connection in logs.
     disconnectAfterInSeconds: number;
     refreshAfterInSeconds: number;
     policyDocuments: PolicyDocument[];

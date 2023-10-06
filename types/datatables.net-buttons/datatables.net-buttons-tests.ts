@@ -99,7 +99,7 @@ const config_3: DataTables.ButtonsSettings = {
             },
             // Function which customize the CSV (input : csv is the object that you can preprocesss)
             customize(csv) {
-                if (typeof (csv) !== "string") {
+                if (typeof csv !== "string") {
                     return;
                 }
                 // Split the csv to get the rows

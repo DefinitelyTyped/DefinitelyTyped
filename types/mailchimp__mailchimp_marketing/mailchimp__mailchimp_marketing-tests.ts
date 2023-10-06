@@ -136,7 +136,7 @@ const getContentOpts: mailchimp.campaigns.GetCampaignContentOptions = {
 };
 
 const triggerCustomerJourneyBody: mailchimp.customerJourneys.TriggerCustomerJourneyBody = {
-    email_address: "test@email.com"
+    email_address: "test@email.com",
 };
 
 // Promise<MembersSuccessResponse | ErrorResponse>

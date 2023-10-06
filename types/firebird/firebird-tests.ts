@@ -39,9 +39,9 @@ con.startNewTransaction((err: Error | null, tx: fb.Transaction) => {});
 
 /* DataType */
 const column: fb.DataType = <any> {};
-if (typeof (column) === "number") {
+if (typeof column === "number") {
     column * 10;
-} else if (typeof (column) === "string") {
+} else if (typeof column === "string") {
     column.substring(0, 1);
 } else if (column instanceof Date) {
     column.toISOString();

@@ -1681,7 +1681,7 @@ declare namespace Sinon {
         define(
             obj: object,
             key: PropertyKey,
-            value: unknown
+            value: unknown,
         ): void;
     }
 

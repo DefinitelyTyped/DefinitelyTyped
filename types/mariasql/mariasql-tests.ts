@@ -167,16 +167,16 @@ c.query("SELECT \"first query\"; SELECT \"second query\"; SELECT \"third query\"
             res.abort();
         }
         res.on("row", function(row) {
-            console.log("Query #" + (qcnt) + " row: " + inspect(row));
+            console.log("Query #" + qcnt + " row: " + inspect(row));
         })
             .on("error", function(err) {
-                console.log("Query #" + (qcnt) + " error: " + inspect(err));
+                console.log("Query #" + qcnt + " error: " + inspect(err));
             })
             .on("abort", function() {
-                console.log("Query #" + (qcnt) + " was aborted");
+                console.log("Query #" + qcnt + " was aborted");
             })
             .on("end", function(info) {
-                console.log("Query #" + (qcnt) + " finished successfully");
+                console.log("Query #" + qcnt + " finished successfully");
             });
     })
     .on("end", function() {

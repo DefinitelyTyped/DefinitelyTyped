@@ -64,7 +64,7 @@ function dtConfig(updatedRules) {
     const dtConfigPath = normalizePath(
         path.join(
             resolvedDtslint.slice(0, resolvedDtslint.lastIndexOf("dtslint")),
-            "dtslint/dt.json"
+            "dtslint/dt.json",
         ),
     );
     const config = Config.findConfiguration(dtConfigPath).results;
@@ -93,6 +93,6 @@ function updateAll(dtPath, config) {
 }
 
 main().catch((error) => {
-    console.error(`Error in update-config: ${error}`)
+    console.error(`Error in update-config: ${error}`);
     process.exitCode = 1;
 });

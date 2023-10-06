@@ -1,4 +1,4 @@
-import StepFunctions = require('serverless-step-functions');
+import StepFunctions = require("serverless-step-functions");
 
 const stepFunctions: StepFunctions = {
     stateMachines: {
@@ -6,51 +6,51 @@ const stepFunctions: StepFunctions = {
             events: [
                 {
                     http: {
-                        path: 'gofunction',
-                        method: 'GET',
+                        path: "gofunction",
+                        method: "GET",
                     },
                 },
                 {
                     schedule: {
-                        rate: 'rate(10 minutes)',
+                        rate: "rate(10 minutes)",
                         enabled: true,
                         input: {
-                            key1: 'value1',
-                            key2: 'value2',
+                            key1: "value1",
+                            key2: "value2",
                             stageParams: {
-                                stage: 'dev',
+                                stage: "dev",
                             },
                         },
                     },
                 },
             ],
-            name: 'myStateMachine',
+            name: "myStateMachine",
             definition: {
-                Comment: 'A Hello World example of the Amazon States Language using an AWS Lambda Function',
-                StartAt: 'HelloWorld1',
+                Comment: "A Hello World example of the Amazon States Language using an AWS Lambda Function",
+                StartAt: "HelloWorld1",
                 States: {
                     HelloWorld1: {
-                        Type: 'Task',
+                        Type: "Task",
                         Resource: {
-                            'Fn::GetAtt': ['hello', 'Arn'],
+                            "Fn::GetAtt": ["hello", "Arn"],
                         },
                         End: true,
                     },
                 },
             },
-            dependsOn: ['CustomIamRole'],
+            dependsOn: ["CustomIamRole"],
             tags: {
-                Team: 'Atlantis',
+                Team: "Atlantis",
             },
         },
         hellostepfunc2: {
             definition: {
-                StartAt: 'HelloWorld2',
+                StartAt: "HelloWorld2",
                 States: {
                     HelloWorld2: {
-                        Type: 'Task',
+                        Type: "Task",
                         Resource: {
-                            'Fn::GetAtt': ['hello', 'Arn'],
+                            "Fn::GetAtt": ["hello", "Arn"],
                         },
                         End: true,
                     },
@@ -60,28 +60,28 @@ const stepFunctions: StepFunctions = {
         ddbtablestepfunc: {
             definition: {
                 Comment:
-                    'Demonstrates how to reference a DynamoDB Table Name exported from an external CloudFormation Stack',
-                StartAt: 'ImportDDBTableName',
+                    "Demonstrates how to reference a DynamoDB Table Name exported from an external CloudFormation Stack",
+                StartAt: "ImportDDBTableName",
                 States: {
                     ImportDDBTableName: {
-                        Type: 'Task',
-                        Resource: 'arn:aws:states:::dynamodb:updateItem',
+                        Type: "Task",
+                        Resource: "arn:aws:states:::dynamodb:updateItem",
                         Parameters: {
                             TableName: {
-                                'Fn::ImportValue': 'MyExternalStack:ToDoTable:Name',
+                                "Fn::ImportValue": "MyExternalStack:ToDoTable:Name",
                             },
                             Key: {
                                 id: {
-                                    'S.$': '$.todoId',
+                                    "S.$": "$.todoId",
                                 },
                             },
-                            UpdateExpression: 'SET #status = :updatedStatus',
+                            UpdateExpression: "SET #status = :updatedStatus",
                             ExpressionAttributeNames: {
-                                '#status': 'status',
+                                "#status": "status",
                             },
                             ExpressionAttributeValues: {
-                                ':updatedStatus': {
-                                    S: 'DONE',
+                                ":updatedStatus": {
+                                    S: "DONE",
                                 },
                             },
                         },
@@ -89,9 +89,9 @@ const stepFunctions: StepFunctions = {
                     },
                 },
             },
-            dependsOn: ['DynamoDBTable', 'KinesisStream', 'CustomIamRole'],
+            dependsOn: ["DynamoDBTable", "KinesisStream", "CustomIamRole"],
             tags: {
-                Team: 'Atlantis',
+                Team: "Atlantis",
             },
         },
     },

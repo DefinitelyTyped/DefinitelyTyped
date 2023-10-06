@@ -1,11 +1,11 @@
-import { Choice } from './choice';
-import { Fail } from './fail';
-import { Map } from './map';
-import { Parallel } from './parallel';
-import { Pass } from './pass';
-import { Succeed } from './succeed';
-import { Task } from './task';
-import { Wait } from './wait';
+import { Choice } from "./choice";
+import { Fail } from "./fail";
+import { Map } from "./map";
+import { Parallel } from "./parallel";
+import { Pass } from "./pass";
+import { Succeed } from "./succeed";
+import { Task } from "./task";
+import { Wait } from "./wait";
 
 export type JsonPrimitive = string | number | boolean | null;
 export interface JsonObject {
@@ -20,7 +20,7 @@ export type JsonValue = JsonPrimitive | JsonObject | JsonArray;
  * @see https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-intrinsic-functions.html
  */
 export type IntrinsicFunction = string;
-export type Resource = string | { 'Fn::GetAtt': [string, 'Arn'] } | { 'Fn::Join': [string, Resource[]] };
+export type Resource = string | { "Fn::GetAtt": [string, "Arn"] } | { "Fn::Join": [string, Resource[]] };
 
 /**
  * A Path is a string, beginning with "$", used to identify components with a JSON text. The syntax is that of JsonPath.
@@ -49,10 +49,10 @@ export type State = Task | Wait | Pass | Map | Choice | Parallel | Succeed | Fai
 
 export type EndOrNext =
     | {
-          Next: string;
-          End?: never;
-      }
+        Next: string;
+        End?: never;
+    }
     | {
-          Next?: never;
-          End: boolean;
-      };
+        Next?: never;
+        End: boolean;
+    };

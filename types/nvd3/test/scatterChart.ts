@@ -5,7 +5,7 @@ namespace nvd3_test_scatterChart {
         size = Math.sqrt(size);
         return "M" + (-size / 2) + "," + (-size / 2)
             + "l" + size + "," + size
-            + "m0," + -(size)
+            + "m0," + -size
             + "l" + (-size) + "," + size;
     });
 

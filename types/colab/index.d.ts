@@ -109,7 +109,6 @@ declare global {
                  */
                 function registerTarget(targetName: string, callback: (comm: Comm) => void): void;
             }
-
         }
 
         namespace output {
@@ -218,4 +217,3 @@ declare global {
 
 // tells TypeScript that this is a module, which enables `declare global`
 export {};
-

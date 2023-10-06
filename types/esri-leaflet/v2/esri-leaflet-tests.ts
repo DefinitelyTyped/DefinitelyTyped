@@ -221,7 +221,7 @@ dynamicMapLayer = new L.esri.DynamicMapLayer({
 
 dynamicMapLayer.bindPopup((err, featureCollection, response) => {
     const count = featureCollection.features.length;
-    return (count) ? count + " features" : false;
+    return count ? count + " features" : false;
 });
 
 dynamicMapLayer.metadata((error, metadata) => {});

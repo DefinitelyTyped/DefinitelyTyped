@@ -1,4 +1,4 @@
-import makeGeneratorFunction = require('make-generator-function');
+import makeGeneratorFunction = require("make-generator-function");
 
 makeGeneratorFunction; // $ExpectType () => readonly GeneratorFunction<unknown, any, unknown>[]
 

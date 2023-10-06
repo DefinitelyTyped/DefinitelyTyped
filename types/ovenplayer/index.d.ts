@@ -363,7 +363,7 @@ interface OvenPlayerEvents {
         error?: Error | string;
         message: string;
         reason: string;
-    }
+    };
 }
 
 interface OvenPlayerInstance {

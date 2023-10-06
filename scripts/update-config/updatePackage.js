@@ -80,7 +80,8 @@ function installDependencies(pkgPath) {
             {
                 encoding: "utf8",
                 cwd: pkgPath,
-            });
+            },
+        );
     }
 }
 
@@ -117,7 +118,7 @@ function disableRules(allFailures) {
         Object.entries(ruleToFailures).map(([rule, failures]) => [
             rule,
             (rule === "npm-naming" ? npmNamingDisabler : defaultDisabler)(failures),
-        ])
+        ]),
     );
 }
 

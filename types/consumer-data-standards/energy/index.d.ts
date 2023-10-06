@@ -8400,14 +8400,14 @@ export interface MetaPaginated {
 
 export interface RequestAccountIdList {
     data: {
-      /**
-       * Array of specific accountIds to obtain data for
-       */
-      accountIds: string[];
-      [k: string]: unknown;
+        /**
+         * Array of specific accountIds to obtain data for
+         */
+        accountIds: string[];
+        [k: string]: unknown;
     };
     meta?: {
-      [k: string]: unknown;
+        [k: string]: unknown;
     };
     [k: string]: unknown;
 }
@@ -8415,14 +8415,14 @@ export interface RequestAccountIdList {
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 export interface RequestServicePointIdList {
     data: {
-      /**
-       * Array of specific servicePointIds to obtain data for
-       */
-      servicePointIds: string[];
-      [k: string]: unknown;
+        /**
+         * Array of specific servicePointIds to obtain data for
+         */
+        servicePointIds: string[];
+        [k: string]: unknown;
     };
     meta?: {
-      [k: string]: unknown;
+        [k: string]: unknown;
     };
     [k: string]: unknown;
 }

@@ -3,7 +3,9 @@
 // Definitions by: Jordan Harband <https://github.com/ljharb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type GeneratorFunction<T = unknown, TReturn = any, TNext = unknown> = (...args: unknown[]) => Generator<T, TReturn, TNext>;
+type GeneratorFunction<T = unknown, TReturn = any, TNext = unknown> = (
+    ...args: unknown[]
+) => Generator<T, TReturn, TNext>;
 
 declare function makeGeneratorFunction(): readonly GeneratorFunction[];
 

@@ -14,7 +14,7 @@ ffmpeg({
     stdin: () => {},
     print: () => {},
     printErr: () => {},
-    onExit: (c: number) => (c),
+    onExit: (c: number) => c,
 });
 
 ffmpeg({

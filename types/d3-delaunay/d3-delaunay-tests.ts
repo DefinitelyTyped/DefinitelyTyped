@@ -59,7 +59,7 @@ for (let i = 0, l = triangles.length; i < l; i++) {
 }
 const findClosest = defaultDelaunayFromArray.find(0.5, 0.5);
 for (const neighbor of defaultDelaunayFromArray.neighbors(0)) {
-    typeof (neighbor);
+    typeof neighbor;
 }
 const render: string = defaultDelaunayFromArray.render();
 const renderHull: string = defaultDelaunayFromArray.renderHull();

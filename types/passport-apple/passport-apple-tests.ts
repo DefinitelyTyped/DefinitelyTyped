@@ -1,10 +1,10 @@
 import { Request } from "express";
 import AppleStrategy, {
-    Strategy,
     AppleAuthorizationParams,
     AuthenticateOptions,
     AuthenticateOptionsWithRequest,
     Profile,
+    Strategy,
     VerifyCallback,
     VerifyFunction,
     VerifyFunctionWithRequest,

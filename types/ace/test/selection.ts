@@ -388,7 +388,7 @@ const aceSelectionTests = {
     "test (keyboard navigation) when curLine is not EOL and targetLine is all whitespace new column should be current column":
         function() {
             var session = new AceAjax.EditSession(
-"function (a) {\n\
+                "function (a) {\n\
   \n\
 }",
             );
@@ -403,7 +403,7 @@ const aceSelectionTests = {
     "test (keyboard navigation) when curLine is EOL and targetLine is shorter dan current column, new column should be targetLine's EOL":
         function() {
             var session = new AceAjax.EditSession(
-"function (a) {\n\
+                "function (a) {\n\
   \n\
 }",
             );

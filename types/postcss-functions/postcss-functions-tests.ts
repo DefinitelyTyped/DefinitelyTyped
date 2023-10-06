@@ -1,5 +1,5 @@
-import postcss from 'postcss';
-import postcssFunctions from 'postcss-functions';
+import postcss from "postcss";
+import postcssFunctions from "postcss-functions";
 
 postcss([postcssFunctions]);
 postcss([postcssFunctions()]);
@@ -11,13 +11,13 @@ postcss([
 postcss([
     postcssFunctions({
         someFunction(a: number) {
-            return 'foo';
+            return "foo";
         },
     }),
 ]);
 postcss([
     postcssFunctions({
         // @ts-expect-error Not a function
-        foo: 'bar',
+        foo: "bar",
     }),
 ]);

@@ -1,7 +1,7 @@
-import { writeFileSync, readFileSync, readdirSync, existsSync } from 'node:fs';
-import { flatMap, mapDefined } from "@definitelytyped/utils";
 import hp from "@definitelytyped/header-parser";
+import { flatMap, mapDefined } from "@definitelytyped/utils";
 import { Octokit } from "@octokit/core";
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 
 /**
  * @param {string} indexPath
@@ -17,14 +17,22 @@ function bust(indexPath, header, ghosts) {
         let newContent = indexContent;
         if (header.contributors.length === 1) {
             const prevContent = newContent;
-            newContent = newContent.replace(/^\/\/ Definitions by:.*$/mi, "// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>");
+            newContent = newContent.replace(
+                /^\/\/ Definitions by:.*$/mi,
+                "// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>",
+            );
             if (prevContent === newContent) throw new Error("Patch failed.");
         } else {
             const newOwnerList = header.contributors.filter(c => !isGhost(c));
             if (newOwnerList.length === header.contributors.length) throw new Error("Didn't remove anyone??");
-            let newDefinitionsBy = `// Definitions by: ${newOwnerList[0].name} <https://github.com/${newOwnerList[0].githubUsername}>\n`;
+            let newDefinitionsBy = `// Definitions by: ${newOwnerList[0].name} <https://github.com/${
+                newOwnerList[0].githubUsername
+            }>\n`;
             for (let i = 1; i < newOwnerList.length; i++) {
-                newDefinitionsBy = newDefinitionsBy + `//                 ${newOwnerList[i].name} <https://github.com/${newOwnerList[i].githubUsername}>\n`;
+                newDefinitionsBy = newDefinitionsBy
+                    + `//                 ${newOwnerList[i].name} <https://github.com/${
+                        newOwnerList[i].githubUsername
+                    }>\n`;
             }
             const patchStart = newContent.indexOf("// Definitions by:");
             const patchEnd = newContent.indexOf("// Definitions:");
@@ -45,7 +53,7 @@ function bust(indexPath, header, ghosts) {
  * @param {(subpath: URL) => void} fn
  */
 function recurse(dir, fn) {
-    const entryPoints = readdirSync(dir, { withFileTypes: true })
+    const entryPoints = readdirSync(dir, { withFileTypes: true });
     for (const subdir of entryPoints) {
         if (subdir.isDirectory() && subdir.name !== "node_modules") {
             const subpath = new URL(`${subdir.name}/`, dir);
@@ -142,7 +150,9 @@ process.on("unhandledRejection", err => {
     }
 
     const headers = getAllHeaders();
-    const users = new Set(flatMap(Object.values(headers), h => mapDefined(h.contributors, c => c.githubUsername?.toLowerCase())));
+    const users = new Set(
+        flatMap(Object.values(headers), h => mapDefined(h.contributors, c => c.githubUsername?.toLowerCase())),
+    );
     const ghosts = await fetchGhosts(users);
     if (!ghosts.size) {
         console.log("No ghosts found");

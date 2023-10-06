@@ -2592,8 +2592,8 @@ jasmine.MAX_PRETTY_PRINT_DEPTH = 40;
     throwUnless(1).toEqual(2);
 
     try {
-        const promise = Promise.resolve('a');
-        await throwUnlessAsync(promise).toBeResolvedTo('b');
+        const promise = Promise.resolve("a");
+        await throwUnlessAsync(promise).toBeResolvedTo("b");
     } catch (err) {
         (err as ThrowUnlessFailure).matcherName; // $ExpectType string
     }

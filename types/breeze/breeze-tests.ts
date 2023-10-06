@@ -763,7 +763,7 @@ function test_validator() {
     var numericRangeValidator = function(context: NumericRange) {
         var valFn = function(v: any, ctx: NumericRangeValidatorFunctionContext) {
             if (v == null) return true;
-            if (typeof (v) !== "number") return false;
+            if (typeof v !== "number") return false;
             if (ctx.min != null && v < ctx.min) return false;
             if (ctx.max != null && v > ctx.max) return false;
             return true;

@@ -114,7 +114,6 @@ declare module "events" {
 
         [EventEmitter.captureRejectionSymbol]?(error: Error, event: string, ...args: any[]): void;
 
-
         /**
          * Creates a `Promise` that is fulfilled when the `EventEmitter` emits the given
          * event or that is rejected if the `EventEmitter` emits `'error'` while waiting.
@@ -468,7 +467,6 @@ declare module "events" {
     global {
         namespace NodeJS {
             interface EventEmitter {
-
                 [EventEmitter.captureRejectionSymbol]?(error: Error, event: string, ...args: any[]): void;
                 /**
                  * Alias for `emitter.on(eventName, listener)`.

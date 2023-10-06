@@ -42,7 +42,7 @@ declare namespace conventionalRecommendedBump {
     }
 
     namespace Recommendation {
-        type ReleaseType = 'major' | 'minor' | 'patch';
+        type ReleaseType = "major" | "minor" | "patch";
     }
 
     /**
