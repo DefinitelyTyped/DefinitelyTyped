@@ -1,18 +1,18 @@
 // initiate MP library
-const mpInstance = new MercadoPago("pk", {});
+const mpInstance = new MercadoPago('pk', {});
 
 mpInstance.getIdentificationTypes();
-mpInstance.getInstallments({ amount: "100", bin: "123456" });
-mpInstance.getIssuers({ bin: "123456" });
-mpInstance.getPaymentMethods({ bin: "123456" });
+mpInstance.getInstallments({ amount: '100', bin: '123456' });
+mpInstance.getIssuers({ bin: '123456' });
+mpInstance.getPaymentMethods({ bin: '123456' });
 mpInstance.createCardToken({
-    cardholderName: "APRO",
-    identificationType: "<BUYER_IDENTIFICATION_TYPE>",
-    identificationNumber: "<BUYER_IDENTIFICATION_NUMBER>",
-    cardExpirationMonth: "<CARD_EXPIRATION_MONTH>",
-    cardExpirationYear: "<CARD_EXPIRATION_MONTH>",
-    cardNumber: "<CARD_NUMBER>",
-    securityCode: "<SECURITY_CODE>",
+    cardholderName: 'APRO',
+    identificationType: '<BUYER_IDENTIFICATION_TYPE>',
+    identificationNumber: '<BUYER_IDENTIFICATION_NUMBER>',
+    cardExpirationMonth: '<CARD_EXPIRATION_MONTH>',
+    cardExpirationYear: '<CARD_EXPIRATION_MONTH>',
+    cardNumber: '<CARD_NUMBER>',
+    securityCode: '<SECURITY_CODE>',
 });
 
 const brickBuilder = mpInstance.bricks({});
@@ -20,7 +20,7 @@ const brickBuilder = mpInstance.bricks({});
 brickBuilder.isInitialized();
 
 (async () => {
-    const controller = await brickBuilder.create("cardPayment", "containerCardPayment", {
+    const controller = await brickBuilder.create('cardPayment', 'containerCardPayment', {
         initialization: {
             amount: 100,
         },
@@ -36,7 +36,7 @@ brickBuilder.isInitialized();
 })();
 
 (async () => {
-    const controller = await brickBuilder.create("payment", "containerPayment", {
+    const controller = await brickBuilder.create('payment', 'containerPayment', {
         initialization: {
             amount: 100,
             items: {
@@ -63,6 +63,7 @@ brickBuilder.isInitialized();
                     streetName: 'street one',
                     streetNumber: '111',
                     zipCode: '1234567890',
+                    complement: 'apartment 1',
                 },
             },
             discounts: {
@@ -73,6 +74,15 @@ brickBuilder.isInitialized();
                         value: 10,
                     },
                 ],
+            },
+            payer: {
+                email: 'test@test.com',
+                address: {
+                    streetName: 'street one',
+                    streetNumber: '111',
+                    zipCode: '1234567890',
+                    complement: 'apartment 1',
+                },
             },
         },
         customization: {
@@ -111,24 +121,35 @@ brickBuilder.isInitialized();
             },
         },
     });
-    controller.update({ amount: 100 });
+    controller.update({
+        amount: 100,
+        shipping: {
+            shippingMode: 'super express',
+            receiverAddress: {
+                streetName: 'street two',
+                streetNumber: '222',
+                zipCode: '1122334455',
+                complement: 'apartment 3',
+            },
+        },
+    });
 })();
 
-brickBuilder.create("statusScreen", "containerStatusScreen", {
+brickBuilder.create('statusScreen', 'containerStatusScreen', {
     initialization: {
         paymentId: 123456789,
     },
     callbacks: {},
 });
 
-brickBuilder.create("wallet", "containerWallet", {
+brickBuilder.create('wallet', 'containerWallet', {
     initialization: {
         paymentId: 123456789,
     },
     customization: {
         texts: {
-            action: "pay",
-            valueProp: "smart_option",
+            action: 'pay',
+            valueProp: 'smart_option',
         },
     },
     callbacks: {
@@ -140,9 +161,9 @@ brickBuilder.create("wallet", "containerWallet", {
     },
 });
 
-const fieldInstance = mpInstance.fields.create("cardNumber", {});
-fieldInstance.mount("containerId");
+const fieldInstance = mpInstance.fields.create('cardNumber', {});
+fieldInstance.mount('containerId');
 fieldInstance.update({});
-fieldInstance.on("validityChange", (args: any) => {});
+fieldInstance.on('validityChange', (args: any) => {});
 mpInstance.fields.createCardToken({}, undefined);
 fieldInstance.unmount();
