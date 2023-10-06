@@ -6,23 +6,23 @@
 
 declare var gtag: Gtag.Gtag;
 declare namespace Gtag {
-    interface Gtag {
-        (command: "config", targetId: string, config?: ControlParams | EventParams | ConfigParams | CustomParams): void;
-        (command: "set", targetId: string, config: CustomParams | boolean | string): void;
-        (command: "set", config: CustomParams): void;
-        (command: "js", config: Date): void;
-        (
-            command: "event",
-            eventName: EventNames | (string & {}),
-            eventParams?: ControlParams | EventParams | CustomParams,
-        ): void;
-        (
-            command: "get",
+    interface GtagCommands {
+        config: [targetId: string, config?: ControlParams | EventParams | ConfigParams | CustomParams];
+        // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+        set: [targetId: string, config: CustomParams | boolean | string] | [config: CustomParams];
+        // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+        js: [config: Date];
+        event: [eventName: EventNames | (string & {}), eventParams?: ControlParams | EventParams | CustomParams];
+        get: [
             targetId: string,
             fieldName: FieldNames | string,
             callback?: (field: string | CustomParams | undefined) => any,
-        ): void;
-        (command: "consent", consentArg: ConsentArg | string, consentParams: ConsentParams): void;
+        ];
+        consent: [consentArg: ConsentArg | (string & {}), consentParams: ConsentParams];
+    }
+
+    interface Gtag {
+        <Command extends keyof GtagCommands>(command: Command, ...args: GtagCommands[Command]): void;
     }
 
     interface ConfigParams {
@@ -44,43 +44,43 @@ declare namespace Gtag {
     }
 
     type EventNames =
-        | "add_payment_info"
-        | "add_shipping_info"
-        | "add_to_cart"
-        | "add_to_wishlist"
-        | "begin_checkout"
-        | "checkout_progress"
-        | "earn_virtual_currency"
-        | "exception"
-        | "generate_lead"
-        | "join_group"
-        | "level_end"
-        | "level_start"
-        | "level_up"
-        | "login"
-        | "page_view"
-        | "post_score"
-        | "purchase"
-        | "refund"
-        | "remove_from_cart"
-        | "screen_view"
-        | "search"
-        | "select_content"
-        | "select_item"
-        | "select_promotion"
-        | "set_checkout_option"
-        | "share"
-        | "sign_up"
-        | "spend_virtual_currency"
-        | "tutorial_begin"
-        | "tutorial_complete"
-        | "unlock_achievement"
-        | "timing_complete"
-        | "view_cart"
-        | "view_item"
-        | "view_item_list"
-        | "view_promotion"
-        | "view_search_results";
+        | 'add_payment_info'
+        | 'add_shipping_info'
+        | 'add_to_cart'
+        | 'add_to_wishlist'
+        | 'begin_checkout'
+        | 'checkout_progress'
+        | 'earn_virtual_currency'
+        | 'exception'
+        | 'generate_lead'
+        | 'join_group'
+        | 'level_end'
+        | 'level_start'
+        | 'level_up'
+        | 'login'
+        | 'page_view'
+        | 'post_score'
+        | 'purchase'
+        | 'refund'
+        | 'remove_from_cart'
+        | 'screen_view'
+        | 'search'
+        | 'select_content'
+        | 'select_item'
+        | 'select_promotion'
+        | 'set_checkout_option'
+        | 'share'
+        | 'sign_up'
+        | 'spend_virtual_currency'
+        | 'tutorial_begin'
+        | 'tutorial_complete'
+        | 'unlock_achievement'
+        | 'timing_complete'
+        | 'view_cart'
+        | 'view_item'
+        | 'view_item_list'
+        | 'view_promotion'
+        | 'view_search_results';
 
     interface EventParams {
         checkout_option?: string | undefined;
@@ -150,9 +150,9 @@ declare namespace Gtag {
         promotion_name?: string | undefined;
     }
 
-    type FieldNames = "client_id" | "session_id" | "gclid";
+    type FieldNames = 'client_id' | 'session_id' | 'gclid';
 
-    type ConsentArg = "default" | "update";
+    type ConsentArg = 'default' | 'update';
 
     /**
      * Reference:
@@ -160,11 +160,11 @@ declare namespace Gtag {
      * @see {@link https://developers.google.com/tag-platform/devguides/consent consent}
      */
     interface ConsentParams {
-        ad_storage?: "granted" | "denied" | undefined;
-        analytics_storage?: "granted" | "denied" | undefined;
-        functionality_storage?: "granted" | "denied" | undefined;
-        personalization_storage?: "granted" | "denied" | undefined;
-        security_storage?: "granted" | "denied" | undefined;
+        ad_storage?: 'granted' | 'denied' | undefined;
+        analytics_storage?: 'granted' | 'denied' | undefined;
+        functionality_storage?: 'granted' | 'denied' | undefined;
+        personalization_storage?: 'granted' | 'denied' | undefined;
+        security_storage?: 'granted' | 'denied' | undefined;
         wait_for_update?: number | undefined;
         region?: string[] | undefined;
     }
