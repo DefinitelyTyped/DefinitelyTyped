@@ -10,11 +10,11 @@ new AMap.Riding({});
 const riding = new AMap.Riding({
     map,
     policy: AMap.RidingPolicy.FASTEST,
-    panel: 'panel',
+    panel: "panel",
     hideMarkers: false,
     isOutline: true,
-    outlineColor: 'color',
-    autoFitView: true
+    outlineColor: "color",
+    autoFitView: true,
 });
 
 // $ExpectType void
@@ -23,8 +23,8 @@ riding.search(lnglat, lnglat);
 riding.search(lnglatTuple, lnglatTuple);
 // $ExpectType void
 riding.search(lnglat, lnglat, (status, result) => {
-    const statusTemp: 'complete' | 'error' | 'no_data' = status;
-    if (typeof result !== 'string') {
+    const statusTemp: "complete" | "error" | "no_data" = status;
+    if (typeof result !== "string") {
         // $ExpectType SearchResultBase
         result;
         // $ExpectType number
@@ -38,7 +38,7 @@ riding.search(lnglat, lnglat, (status, result) => {
             end.location;
             // $ExpectType string
             end.name;
-            const type: 'start' | 'end' = end.type;
+            const type: "start" | "end" = end.type;
         }
         // $ExpectType string
         result.info;
@@ -84,10 +84,10 @@ riding.search(lnglat, lnglat, (status, result) => {
     }
 });
 
-riding.search([{ keyword: 'origin' }, { keyword: 'destination' }]);
-riding.search([{ keyword: 'origin' }, { keyword: 'destination' }], (status, result) => {
-    const statusTemp: 'complete' | 'error' | 'no_data' = status;
-    if (typeof result !== 'string') {
+riding.search([{ keyword: "origin" }, { keyword: "destination" }]);
+riding.search([{ keyword: "origin" }, { keyword: "destination" }], (status, result) => {
+    const statusTemp: "complete" | "error" | "no_data" = status;
+    if (typeof result !== "string") {
         // $ExpectType SearchResultExt
         result;
         // $ExpectType number
@@ -117,14 +117,14 @@ riding.search([{ keyword: 'origin' }, { keyword: 'destination' }], (status, resu
 // $ExpectType void
 riding.clear();
 
-riding.on('error', (event: AMap.Riding.EventMap['error']) => {
+riding.on("error", (event: AMap.Riding.EventMap["error"]) => {
     // $ExpectType "error"
     event.type;
     // $ExpectType string
     event.info;
 });
 
-riding.on('complete', (event: AMap.Riding.EventMap['complete']) => {
+riding.on("complete", (event: AMap.Riding.EventMap["complete"]) => {
     // $ExpectType number
     event.count;
     // $ExpectType LngLat
@@ -138,7 +138,7 @@ riding.on('complete', (event: AMap.Riding.EventMap['complete']) => {
     // $ExpectType "complete"
     event.type;
 
-    if ('destinationName' in event) {
+    if ("destinationName" in event) {
         // $ExpectType string
         event.destinationName;
         // $ExpectType PoiExt

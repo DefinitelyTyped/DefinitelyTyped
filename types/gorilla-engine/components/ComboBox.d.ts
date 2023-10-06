@@ -12,13 +12,13 @@ declare namespace GorillaEngine.UI {
         itemSelectedBackgroundColor: string;
         itemHighlightedTextColor: string;
         itemHighlightedBackgroundColor: string;
-        checkmarkFloat: 'left' | 'right';
+        checkmarkFloat: "left" | "right";
         cornerRadius: number;
         padding: ComboBoxPadding | number;
         checkmarkPadding: ComboBoxPadding;
     }
 
-    interface ComboBoxProps extends Common, Bounds, Background, Clickable, Font {
+    interface ComboBoxProps extends Common, Bounds, Background, Clickable, Font, Highlight {
         value: number;
         /**
          * List of options

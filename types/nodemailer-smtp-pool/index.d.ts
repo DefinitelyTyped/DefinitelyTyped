@@ -9,7 +9,6 @@ import tls = require("tls");
 import nodemailer = require("nodemailer");
 
 declare namespace smtpPool {
-
     export interface AuthOptions {
         user?: string | undefined;
         pass?: string | undefined;
@@ -79,7 +78,6 @@ declare namespace smtpPool {
         maxMessages?: number | undefined;
     }
 }
-
 
 declare function smtpPool(options: smtpPool.SmtpPoolOptions): nodemailer.Transport;
 export = smtpPool;

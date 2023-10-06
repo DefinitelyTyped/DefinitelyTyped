@@ -1,4 +1,4 @@
-import * as File from 'vinyl';
+import * as File from "vinyl";
 
 declare namespace Conflicter {
     /**

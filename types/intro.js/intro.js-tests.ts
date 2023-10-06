@@ -1,12 +1,12 @@
-import introJs = require('intro.js');
+import introJs = require("intro.js");
 
 const intro = introJs();
 const introWithElement = introJs(document.body);
-const introWithQuerySelector = introJs('body');
+const introWithQuerySelector = introJs("body");
 
-intro.setOption('doneLabel', 'Next page');
-intro.setOption('overlayOpacity', 50);
-intro.setOption('showProgress', true);
+intro.setOption("doneLabel", "Next page");
+intro.setOption("overlayOpacity", 50);
+intro.setOption("showProgress", true);
 intro.setOptions({
     hidePrev: true,
     hideNext: false,
@@ -15,51 +15,51 @@ intro.setOptions({
     hintAnimation: false,
     steps: [
         {
-            intro: 'Hello world!',
+            intro: "Hello world!",
         },
         {
-            element: document.querySelector('#step1') as HTMLElement,
-            intro: 'This is a tooltip.',
+            element: document.querySelector("#step1") as HTMLElement,
+            intro: "This is a tooltip.",
         },
         {
-            element: document.querySelectorAll('#step2')[0] as HTMLElement,
+            element: document.querySelectorAll("#step2")[0] as HTMLElement,
             intro: "Ok, wasn't that fun?",
-            position: 'right',
+            position: "right",
         },
         {
-            element: '#step3',
-            intro: 'More features, more fun.',
-            position: 'left',
+            element: "#step3",
+            intro: "More features, more fun.",
+            position: "left",
         },
         {
-            element: '#step4',
-            intro: 'Another step.',
-            position: 'bottom',
-            tooltipClass: 'step4Class',
-            highlightClass: '',
+            element: "#step4",
+            intro: "Another step.",
+            position: "bottom",
+            tooltipClass: "step4Class",
+            highlightClass: "",
         },
         {
-            element: '#step4',
-            intro: 'Another step.',
-            position: 'bottom',
-            scrollTo: 'tooltip',
+            element: "#step4",
+            intro: "Another step.",
+            position: "bottom",
+            scrollTo: "tooltip",
         },
         {
-            element: '#step5',
-            intro: 'Get it, use it.',
+            element: "#step5",
+            intro: "Get it, use it.",
             disableInteraction: true,
         },
     ],
     hints: [
         {
-            element: '#step1',
-            hint: 'This is a hint',
-            hintPosition: 'middle-right',
+            element: "#step1",
+            hint: "This is a hint",
+            hintPosition: "middle-right",
         },
         {
-            element: document.querySelectorAll('#step2')[0] as HTMLElement,
-            hint: 'This is another hint',
-            hintPosition: 'top-left',
+            element: document.querySelectorAll("#step2")[0] as HTMLElement,
+            hint: "This is another hint",
+            hintPosition: "top-left",
         },
     ],
 });
@@ -79,31 +79,31 @@ intro
         return true;
     })
     .onbeforeexit(() => {
-        alert('Before Exit');
+        alert("Before Exit");
     })
     .onbeforechange(function(element) {
-        element.getAttribute('class');
+        element.getAttribute("class");
     })
     .onafterchange(function(element) {
-        element.getAttribute('class');
+        element.getAttribute("class");
     })
     .onchange(function(element) {
-        element.getAttribute('class');
+        element.getAttribute("class");
     })
     .oncomplete(function() {
-        alert('Done');
+        alert("Done");
     })
     .onexit(function() {
-        alert('Exiting');
+        alert("Exiting");
     })
     .onhintsadded(function() {
-        alert('Hints added');
+        alert("Hints added");
     })
     .onhintclick(function(hintElement, item, stepId) {
-        hintElement.getAttribute('class');
+        hintElement.getAttribute("class");
     })
     .onhintclose(function(stepId) {
-        alert('Hint close for Step ID ' + stepId);
+        alert("Hint close for Step ID " + stepId);
     })
     .addHints()
     .showHint(1)

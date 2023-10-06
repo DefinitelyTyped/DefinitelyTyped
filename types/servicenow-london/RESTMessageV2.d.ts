@@ -195,7 +195,7 @@ declare namespace sn_ws {
         saveResponseBodyAsAttachment(
             tableName: string,
             recordSysId: string,
-            fileName: string
+            fileName: string,
         ): void;
 
         /**
@@ -223,7 +223,7 @@ declare namespace sn_ws {
             tableName: string,
             recordSysId: string,
             fileName: string,
-            encryptContext: string
+            encryptContext: string,
         ): void;
 
         /**
@@ -390,7 +390,7 @@ declare namespace sn_ws {
          * var rm = new sn_ws.RESTMessageV2();
          * rm.setLogLevel('all');
          */
-        setLogLevel(level: 'basic' | 'elevated' | 'all'): void;
+        setLogLevel(level: "basic" | "elevated" | "all"): void;
 
         /**
          * Configure the REST message to communicate through a MID Server.
@@ -572,12 +572,12 @@ declare namespace sn_ws {
     }
 
     type RestHTTPMethods =
-        | 'get'
-        | 'post'
-        | 'delete'
-        | 'patch'
-        | 'put'
-        | 'head'
-        | 'delete'
-        | 'options';
+        | "get"
+        | "post"
+        | "delete"
+        | "patch"
+        | "put"
+        | "head"
+        | "delete"
+        | "options";
 }

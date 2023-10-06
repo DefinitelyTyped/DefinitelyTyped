@@ -4,11 +4,9 @@
         "adjacent-overload-signatures": false,
         "array-type": false,
         "no-duplicate-variable": false,
-        "no-single-declare-module": false,
         "no-var-keyword": false,
         "npm-naming": false,
         "prefer-template": false,
-        "strict-export-declare-modifiers": false,
         "triple-equals": false
     }
 }

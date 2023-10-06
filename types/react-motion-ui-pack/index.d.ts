@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
-import * as motion from 'react-motion';
+import * as React from "react";
+import * as motion from "react-motion";
 
 declare namespace Transition {
     interface TransitionProps {

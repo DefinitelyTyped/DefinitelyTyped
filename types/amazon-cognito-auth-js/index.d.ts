@@ -153,7 +153,7 @@ export interface CognitoConstants {
     HOSTNAMEREGEX: RegExp;
     QUERYPARAMETERREGEX1: RegExp;
     QUERYPARAMETERREGEX2: RegExp;
-    HEADER: { 'Content-Type': string };
+    HEADER: { "Content-Type": string };
 }
 
 export class CognitoIdToken {

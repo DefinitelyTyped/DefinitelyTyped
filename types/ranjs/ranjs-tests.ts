@@ -1,4 +1,4 @@
-import { core, dist, la, mc, test, ts } from 'ranjs';
+import { core, dist, la, mc, test, ts } from "ranjs";
 
 type Eq<T, U> = T extends U ? (U extends T ? true : false) : false;
 
@@ -11,7 +11,7 @@ let xs: number[];
 let xss: number[][];
 
 core.seed(0xfffff);
-core.seed('hello');
+core.seed("hello");
 x = core.int(100);
 x = core.int(-100, 100);
 xs = core.int(-100, 100, 100);
@@ -20,26 +20,26 @@ x = core.float(-100, 100);
 xs = core.float(-100, 100, 100);
 u = core.choice();
 x = core.choice([1, 2, 3]);
-s = core.choice(['1', '2', '3']);
+s = core.choice(["1", "2", "3"]);
 xs = core.choice([1, 2, 3], 3);
 u = core.char();
-s = core.char('hello');
-ss = core.char('hello', 10);
+s = core.char("hello");
+ss = core.char("hello", 10);
 x = core.coin(0, 1);
-s = core.coin('y', 'n');
+s = core.coin("y", "n");
 x = core.coin(0, 1, 0.5 + 1e-7);
 xs = core.coin(0, 1, 0.5, 100);
 xs = core.shuffle([1, 2, 3]);
-ss = core.shuffle(['1', '2', '3']);
+ss = core.shuffle(["1", "2", "3"]);
 
 let normal = new dist.Normal();
-b = normal.type() === 'continuous';
+b = normal.type() === "continuous";
 b = normal.support().length === 0;
 normal = normal.seed(0xfffff); // though Distribution.seed mutates itself
 const distState = normal.save();
 normal = new dist.Normal().load(distState);
 // new dist.Exponential().load(distState); // type error!
-const canMisuse: Eq<typeof distState, dist.State<'Exponential'>> = false;
+const canMisuse: Eq<typeof distState, dist.State<"Exponential">> = false;
 x = normal.sample();
 xs = normal.sample(100);
 x = normal.pdf(x);

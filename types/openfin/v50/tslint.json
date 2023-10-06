@@ -7,7 +7,6 @@
         "no-const-enum": false,
         "no-redundant-jsdoc-2": false,
         "no-var-keyword": false,
-        "strict-export-declare-modifiers": false,
         "void-return": false
     }
 }

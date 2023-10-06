@@ -1585,6 +1585,10 @@
             "libraryName": "execall",
             "asOfVersion": "2.0.0"
         },
+        "exif-reader": {
+            "libraryName": "exif-reader",
+            "asOfVersion": "2.0.0"
+        },
         "exit-hook": {
             "libraryName": "exit-hook",
             "asOfVersion": "2.2.0"
@@ -2020,6 +2024,10 @@
         "google-cloud__storage": {
             "libraryName": "@google-cloud/storage",
             "asOfVersion": "2.3.0"
+        },
+        "google-cloud__tasks": {
+            "libraryName": "@google-cloud/tasks",
+            "asOfVersion": "1.7.0"
         },
         "google-cloud__text-to-speech": {
             "libraryName": "@google-cloud/text-to-speech",
@@ -3149,6 +3157,10 @@
             "libraryName": "markdownlint",
             "asOfVersion": "0.18.0"
         },
+        "marked": {
+            "libraryName": "marked",
+            "asOfVersion": "6.0.0"
+        },
         "match-sorter": {
             "libraryName": "match-sorter",
             "asOfVersion": "6.0.0"
@@ -3276,6 +3288,10 @@
         "matrix-appservice-bridge": {
             "libraryName": "matrix-appservice-bridge",
             "asOfVersion": "2.0.0"
+        },
+        "matrix-js-sdk": {
+            "libraryName": "matrix-js-sdk",
+            "asOfVersion": "11.1.0"
         },
         "matteodisabatino__gc_info": {
             "libraryName": "@matteodisabatino/gc_info",

@@ -1,2 +1,2 @@
-import IteratorValue = require('../2018/IteratorValue');
+import IteratorValue = require("../2018/IteratorValue");
 export = IteratorValue;

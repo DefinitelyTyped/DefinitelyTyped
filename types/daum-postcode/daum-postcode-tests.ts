@@ -1,28 +1,28 @@
-const div = document.createElement('div');
+const div = document.createElement("div");
 
-new daum.Postcode({}).embed(div, { autoClose: true, q: '강남역' });
+new daum.Postcode({}).embed(div, { autoClose: true, q: "강남역" });
 new daum.Postcode({}).open({
     autoClose: true,
     left: 0,
     top: 0,
-    popupKey: '_blank',
-    popupTitle: 'Daum Postcode Service',
-    q: '강남역',
+    popupKey: "_blank",
+    popupTitle: "Daum Postcode Service",
+    q: "강남역",
 });
 new window.daum.Postcode({}).embed(div);
 new window.daum.Postcode({}).embed();
 new window.daum.Postcode({}).open();
 
 const theme = {
-    bgColor: '#ECECEC',
-    contentBgColor: '#FFFFFF',
-    emphTextColor: '#008BD3',
-    outlineColor: '#008BD3',
-    pageBgColor: '#FAFAFA',
-    postcodeTextColor: '#FA4256',
-    queryTextColor: '#222222',
-    searchBgColor: '#FFFFFF',
-    textColor: '#333333',
+    bgColor: "#ECECEC",
+    contentBgColor: "#FFFFFF",
+    emphTextColor: "#008BD3",
+    outlineColor: "#008BD3",
+    pageBgColor: "#FAFAFA",
+    postcodeTextColor: "#FA4256",
+    queryTextColor: "#222222",
+    searchBgColor: "#FFFFFF",
+    textColor: "#333333",
 };
 
 new daum.Postcode({

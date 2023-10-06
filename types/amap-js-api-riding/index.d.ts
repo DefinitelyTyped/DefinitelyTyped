@@ -11,12 +11,12 @@ declare namespace AMap {
     enum RidingPolicy {
         DEFAULT = 0, // 推荐路线及最快路线综合
         RECOMMENDED = 1, // 推荐路线
-        FASTEST = 2 // 最快路线
+        FASTEST = 2, // 最快路线
     }
     namespace Riding {
         interface EventMap {
-            complete: Event<'complete', SearchResult>;
-            error: Event<'error', { info: string; }>;
+            complete: Event<"complete", SearchResult>;
+            error: Event<"error", { info: string }>;
         }
         interface Options {
             /**
@@ -148,7 +148,7 @@ declare namespace AMap {
             /**
              * 类型
              */
-            type: 'start' | 'end';
+            type: "start" | "end";
         }
         interface SearchResultBase extends SearchResultCommon {
             /**
@@ -179,7 +179,7 @@ declare namespace AMap {
             destinationName: string;
         }
         type SearchResult = SearchResultBase | SearchResultExt;
-        type SearchStatus = 'complete' | 'error' | 'no_data';
+        type SearchStatus = "complete" | "error" | "no_data";
     }
 
     class Riding extends EventEmitter {
@@ -193,7 +193,7 @@ declare namespace AMap {
         search(
             origin: LocationValue,
             destination: LocationValue,
-            callback?: (status: Riding.SearchStatus, result: Riding.SearchResultBase | string) => void
+            callback?: (status: Riding.SearchStatus, result: Riding.SearchResultBase | string) => void,
         ): void;
         /**
          * 根据起点终点名称查询路径规划
@@ -202,7 +202,7 @@ declare namespace AMap {
          */
         search(
             point: Riding.SearchPoint[],
-            callback?: (status: Riding.SearchStatus, result: Riding.SearchResultExt | string) => void
+            callback?: (status: Riding.SearchStatus, result: Riding.SearchResultExt | string) => void,
         ): void;
         /**
          * 清除搜索的结果

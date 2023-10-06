@@ -46,7 +46,11 @@ export class Statement {
     all(...params: any[]): this;
 
     each(callback?: (err: Error | null, row: any) => void, complete?: (err: Error | null, count: number) => void): this;
-    each(params: any, callback?: (this: RunResult, err: Error | null, row: any) => void, complete?: (err: Error | null, count: number) => void): this;
+    each(
+        params: any,
+        callback?: (this: RunResult, err: Error | null, row: any) => void,
+        complete?: (err: Error | null, count: number) => void,
+    ): this;
     each(...params: any[]): this;
 }
 
@@ -68,8 +72,17 @@ export class Database extends events.EventEmitter {
     all(sql: string, params: any, callback?: (this: Statement, err: Error | null, rows: any[]) => void): this;
     all(sql: string, ...params: any[]): this;
 
-    each(sql: string, callback?: (this: Statement, err: Error | null, row: any) => void, complete?: (err: Error | null, count: number) => void): this;
-    each(sql: string, params: any, callback?: (this: Statement, err: Error | null, row: any) => void, complete?: (err: Error | null, count: number) => void): this;
+    each(
+        sql: string,
+        callback?: (this: Statement, err: Error | null, row: any) => void,
+        complete?: (err: Error | null, count: number) => void,
+    ): this;
+    each(
+        sql: string,
+        params: any,
+        callback?: (this: Statement, err: Error | null, row: any) => void,
+        complete?: (err: Error | null, count: number) => void,
+    ): this;
     each(sql: string, ...params: any[]): this;
 
     exec(sql: string, callback?: (this: Statement, err: Error | null) => void): this;

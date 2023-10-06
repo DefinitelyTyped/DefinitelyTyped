@@ -6,13 +6,13 @@
     // This is a JScript example
     // The service manager is always the starting point
     // If there is no office running then an office is started up
-    const serviceManager = new ActiveXObject('com.sun.star.ServiceManager');
+    const serviceManager = new ActiveXObject("com.sun.star.ServiceManager");
 
     // Create the CoreReflection service that is later used to create structs
     const coreReflection = serviceManager.createInstance("com.sun.star.reflection.CoreReflection");
 
     // Create the Desktop
-    const desktop = serviceManager.defaultContext.getByName('/singleton/com.sun.star.frame.theDesktop');
+    const desktop = serviceManager.defaultContext.getByName("/singleton/com.sun.star.frame.theDesktop");
 
     // Open a new empty writer document
     const args: any[] = [];
@@ -62,7 +62,7 @@
 
     table.getCellByName("A3").setValue(21.5);
     table.getCellByName("B3").setValue(615.3);
-    table.getCellByName("C3").setValue(- 315.7);
+    table.getCellByName("C3").setValue(-315.7);
     table.getCellByName("D3").setFormula("sum ");
 
     table.getCellByName("A4").setValue(121.5);
@@ -128,7 +128,9 @@
     }
 
     function createStruct<K extends keyof LibreOffice.StructNameMap>(strTypeName: K): LibreOffice.StructNameMap[K] {
-        const classSize = coreReflection.forName(strTypeName) as com.sun.star.reflection.XIdlClass<LibreOffice.StructNameMap[K]>;
+        const classSize = coreReflection.forName(strTypeName) as com.sun.star.reflection.XIdlClass<
+            LibreOffice.StructNameMap[K]
+        >;
         const aStruct: [LibreOffice.StructNameMap[K]] = [] as any;
         classSize.createObject(aStruct);
         return aStruct[0];
@@ -136,16 +138,16 @@
 })();
 
 (() => {
-   // This shows some specific features of the Automation bridge
+    // This shows some specific features of the Automation bridge
 
-    const serviceManager = new ActiveXObject('com.sun.star.ServiceManager');
+    const serviceManager = new ActiveXObject("com.sun.star.ServiceManager");
 
     // singleton access
-    const desktop = serviceManager.defaultContext.getByName('/singleton/com.sun.star.frame.theDesktop');
+    const desktop = serviceManager.defaultContext.getByName("/singleton/com.sun.star.frame.theDesktop");
 
     // defaultContext property implements XNameAccess
     // sequence is returned as a safearray
-    const elementNames = new VBArray(serviceManager.defaultContext.getElementNames()).toArray().join('\n');
+    const elementNames = new VBArray(serviceManager.defaultContext.getElementNames()).toArray().join("\n");
     WScript.Echo(elementNames);
 
     // get/set methods exposed as properties -- getText => Text, getViewData/setViewData => ViewData
@@ -159,15 +161,17 @@
 (() => {
     // Forces use of tuple type for out parameters
     // Instantiating via reflection
-    const serviceManager = new ActiveXObject('com.sun.star.ServiceManager');
-    const coreReflection = serviceManager.defaultContext.getByName('/singleton/com.sun.star.reflection.theCoreReflection');
-    const classInfo = coreReflection.forName('com.sun.star.accessibility.Accessible');
+    const serviceManager = new ActiveXObject("com.sun.star.ServiceManager");
+    const coreReflection = serviceManager.defaultContext.getByName(
+        "/singleton/com.sun.star.reflection.theCoreReflection",
+    );
+    const classInfo = coreReflection.forName("com.sun.star.accessibility.Accessible");
     const accessible: [com.sun.star.accessibility.XAccessible] = [] as any;
     classInfo.createObject(accessible);
     accessible[0].acquire();
 
     // Get a struct via Bridge_GetStruct
-    const size = serviceManager.Bridge_GetStruct('com.sun.star.awt.Size');
+    const size = serviceManager.Bridge_GetStruct("com.sun.star.awt.Size");
     size.Height = 110;
     size.Width = 120;
 })();

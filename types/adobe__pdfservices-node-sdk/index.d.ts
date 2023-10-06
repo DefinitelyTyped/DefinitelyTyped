@@ -4,5 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Library is Generated from the jsdoc in the npm package.
 
-import * as PDFServicesSDK from './pdfservices-sdk';
+import * as PDFServicesSDK from "./pdfservices-sdk";
 export = PDFServicesSDK;

@@ -5,9 +5,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
-import _Vue, { PluginObject } from 'vue';
+import _Vue, { PluginObject } from "vue";
 
-declare module 'vue/types/vue' {
+declare module "vue/types/vue" {
     interface Vue {
         $ls: WebStorage;
     }
@@ -18,9 +18,9 @@ declare module 'vue/types/vue' {
 }
 
 export enum Types {
-    Session = 'session',
-    Local = 'local',
-    Memory = 'memory',
+    Session = "session",
+    Local = "local",
+    Memory = "memory",
 }
 
 export interface Options {

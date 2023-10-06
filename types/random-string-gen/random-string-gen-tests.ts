@@ -4,26 +4,26 @@ randomString();
 
 randomString(7);
 
-randomString('abc');
+randomString("abc");
 
 randomString({
     length: 16,
-    type: 'alphabetic',
+    type: "alphabetic",
     charset: "github",
-    capitalization: 'uppercase'
+    capitalization: "uppercase",
 });
 
 randomString({
     length: 12,
-    type: 'alphabetic'
+    type: "alphabetic",
 });
 
 randomString({
-    charset: 'abc'
+    charset: "abc",
 });
 
 randomString({
     length: 16,
-    charset: 'javascript',
-    capitalization: 'uppercase'
+    charset: "javascript",
+    capitalization: "uppercase",
 });

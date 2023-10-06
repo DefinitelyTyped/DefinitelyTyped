@@ -1,6 +1,6 @@
-import { Client, Channel, Bridge } from 'ari-client';
-import { EventEmitter } from 'events';
-import config from 'config';
+import { Bridge, Channel, Client } from "ari-client";
+import config from "config";
+import { EventEmitter } from "events";
 
 // TypeScript version of https://github.com/nimbleape/dana-tsg-ari-bridge/blob/master/lib/Bridge.js
 
@@ -15,10 +15,10 @@ export default class TsgBridge extends EventEmitter {
 
     async create() {
         this.bridge = this.ariClient.Bridge();
-        await this.bridge.create({ type: 'video_sfu,mixing' });
-        this.bridge.on('ChannelLeftBridge', event => {
+        await this.bridge.create({ type: "video_sfu,mixing" });
+        this.bridge.on("ChannelLeftBridge", event => {
             if (event.bridge.channels.length === 0) {
-                this.emit('empty');
+                this.emit("empty");
             }
         });
         return this.bridge;
@@ -32,40 +32,40 @@ export default class TsgBridge extends EventEmitter {
         await this.bridge.addChannel({ channel: channel.id });
 
         // check if we actually want to snoop
-        if (config.get('rtpServer.host')) {
+        if (config.get("rtpServer.host")) {
             // create the bridge that'll link the snooping channel & externalMedia channels
             const snoopBridge = this.ariClient.Bridge();
             const externalMediaChannel = this.ariClient.Channel();
             let externalMediaUdpSourcePort: number;
-            const callerName = channel.caller.name || 'Unknown';
-            const app: string = config.get('ari.appName');
-            const format: string = config.get('rtpServer.format');
+            const callerName = channel.caller.name || "Unknown";
+            const app: string = config.get("ari.appName");
+            const format: string = config.get("rtpServer.format");
 
-            await snoopBridge.create({ type: 'mixing', name: `${channel.id}-snooping-bridge` });
+            await snoopBridge.create({ type: "mixing", name: `${channel.id}-snooping-bridge` });
 
             const snoopOptions = {
                 app,
-                appArgs: 'snooping',
+                appArgs: "snooping",
                 channelId: channel.id,
-                snoopId: channel.id + '_snoop',
-                spy: 'in',
+                snoopId: channel.id + "_snoop",
+                spy: "in",
             };
 
             // create the external Media channel
             const snoopChannelRes = await this.ariClient.channels.snoopChannelWithId(snoopOptions);
 
             snoopBridge.addChannel({ channel: snoopChannelRes.id });
-            snoopChannelRes.on('StasisEnd', () => {
+            snoopChannelRes.on("StasisEnd", () => {
                 externalMediaChannel.hangup();
             });
 
-            externalMediaChannel.on('StasisStart', (event, channel) => {
+            externalMediaChannel.on("StasisStart", (event, channel) => {
                 snoopBridge.addChannel({ channel: channel.id });
             });
 
-            externalMediaChannel.on('StasisEnd', () => {
+            externalMediaChannel.on("StasisEnd", () => {
                 snoopBridge.destroy();
-                this.emit('streamEnded', {
+                this.emit("streamEnded", {
                     roomName: channel.dialplan.exten,
                     port: externalMediaUdpSourcePort,
                     callerName,
@@ -75,7 +75,7 @@ export default class TsgBridge extends EventEmitter {
 
             const externalMediaOptions = {
                 app,
-                external_host: `${config.get('rtpServer.host')}:${config.get('rtpServer.port')}`,
+                external_host: `${config.get("rtpServer.host")}:${config.get("rtpServer.port")}`,
                 format,
             };
 
@@ -86,7 +86,7 @@ export default class TsgBridge extends EventEmitter {
                 ? externalMediaRes.channelvars.UNICASTRTP_LOCAL_PORT
                 : undefined;
 
-            this.emit('newStream', {
+            this.emit("newStream", {
                 roomName: channel.dialplan.exten,
                 port: externalMediaUdpSourcePort,
                 callerName,

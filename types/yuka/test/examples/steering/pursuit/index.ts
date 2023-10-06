@@ -13,11 +13,11 @@ function init() {
     // game setup
 
     evader.maxSpeed = 3;
-    evader.setRenderComponent({matrix: new YUKA.Matrix4()}, sync);
+    evader.setRenderComponent({ matrix: new YUKA.Matrix4() }, sync);
 
     pursuer.maxSpeed = 3;
     pursuer.position.z = -5;
-    pursuer.setRenderComponent({matrix: new YUKA.Matrix4()}, sync);
+    pursuer.setRenderComponent({ matrix: new YUKA.Matrix4() }, sync);
 
     const pursuitBehavior = new YUKA.PursuitBehavior(evader, 2);
     pursuer.steering.add(pursuitBehavior);
@@ -41,6 +41,6 @@ function animate() {
     entityManager.update(deltaTime);
 }
 
-function sync(entity: YUKA.GameEntity, renderComponent: {matrix: YUKA.Matrix4}) {
+function sync(entity: YUKA.GameEntity, renderComponent: { matrix: YUKA.Matrix4 }) {
     renderComponent.matrix.copy(entity.worldMatrix);
 }

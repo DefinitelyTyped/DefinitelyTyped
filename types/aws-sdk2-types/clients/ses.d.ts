@@ -1,10 +1,10 @@
-import { ConfigBase as Config } from '../lib/config-base';
-import { AWSError } from '../lib/error';
-import { Request } from '../lib/request';
-import { Response } from '../lib/response';
-import { Service } from '../lib/service';
-import { WaiterConfiguration } from '../lib/service';
-import { ServiceConfigurationOptions } from '../lib/service';
+import { ConfigBase as Config } from "../lib/config-base";
+import { AWSError } from "../lib/error";
+import { Request } from "../lib/request";
+import { Response } from "../lib/response";
+import { Service } from "../lib/service";
+import { WaiterConfiguration } from "../lib/service";
+import { ServiceConfigurationOptions } from "../lib/service";
 interface Blob {}
 declare class SES extends Service {
     /**
@@ -895,7 +895,7 @@ declare class SES extends Service {
      * Waits for the identityExists state by periodically calling the underlying SES.getIdentityVerificationAttributesoperation every 3 seconds (at most 20 times).
      */
     waitFor(
-        state: 'identityExists',
+        state: "identityExists",
         params: SES.Types.GetIdentityVerificationAttributesRequest & { $waiter?: WaiterConfiguration },
         callback?: (err: AWSError, data: SES.Types.GetIdentityVerificationAttributesResponse) => void,
     ): Request<SES.Types.GetIdentityVerificationAttributesResponse, AWSError>;
@@ -903,7 +903,7 @@ declare class SES extends Service {
      * Waits for the identityExists state by periodically calling the underlying SES.getIdentityVerificationAttributesoperation every 3 seconds (at most 20 times).
      */
     waitFor(
-        state: 'identityExists',
+        state: "identityExists",
         callback?: (err: AWSError, data: SES.Types.GetIdentityVerificationAttributesResponse) => void,
     ): Request<SES.Types.GetIdentityVerificationAttributesResponse, AWSError>;
 }
@@ -922,7 +922,7 @@ declare namespace SES {
     export type AddressList = Address[];
     export type AmazonResourceName = string;
     export type ArrivalDate = Date;
-    export type BehaviorOnMXFailure = 'UseDefaultValue' | 'RejectMessage' | string;
+    export type BehaviorOnMXFailure = "UseDefaultValue" | "RejectMessage" | string;
     export interface Body {
         /**
          * The content of the message, in text format. Use this for text-based email clients, or clients on high-latency networks (such as mobile devices).
@@ -959,12 +959,12 @@ declare namespace SES {
     export type BounceSmtpReplyCode = string;
     export type BounceStatusCode = string;
     export type BounceType =
-        | 'DoesNotExist'
-        | 'MessageTooLarge'
-        | 'ExceededQuota'
-        | 'ContentRejected'
-        | 'Undefined'
-        | 'TemporaryFailure'
+        | "DoesNotExist"
+        | "MessageTooLarge"
+        | "ExceededQuota"
+        | "ContentRejected"
+        | "Undefined"
+        | "TemporaryFailure"
         | string;
     export interface BouncedRecipientInfo {
         /**
@@ -1013,20 +1013,20 @@ declare namespace SES {
     }
     export type BulkEmailDestinationStatusList = BulkEmailDestinationStatus[];
     export type BulkEmailStatus =
-        | 'Success'
-        | 'MessageRejected'
-        | 'MailFromDomainNotVerified'
-        | 'ConfigurationSetDoesNotExist'
-        | 'TemplateDoesNotExist'
-        | 'AccountSuspended'
-        | 'AccountThrottled'
-        | 'AccountDailyQuotaExceeded'
-        | 'InvalidSendingPoolName'
-        | 'AccountSendingPaused'
-        | 'ConfigurationSetSendingPaused'
-        | 'InvalidParameterValue'
-        | 'TransientFailure'
-        | 'Failed'
+        | "Success"
+        | "MessageRejected"
+        | "MailFromDomainNotVerified"
+        | "ConfigurationSetDoesNotExist"
+        | "TemplateDoesNotExist"
+        | "AccountSuspended"
+        | "AccountThrottled"
+        | "AccountDailyQuotaExceeded"
+        | "InvalidSendingPoolName"
+        | "AccountSendingPaused"
+        | "ConfigurationSetSendingPaused"
+        | "InvalidParameterValue"
+        | "TransientFailure"
+        | "Failed"
         | string;
     export type Charset = string;
     export type Cidr = string;
@@ -1070,10 +1070,10 @@ declare namespace SES {
         Name: ConfigurationSetName;
     }
     export type ConfigurationSetAttribute =
-        | 'eventDestinations'
-        | 'trackingOptions'
-        | 'deliveryOptions'
-        | 'reputationOptions'
+        | "eventDestinations"
+        | "trackingOptions"
+        | "deliveryOptions"
+        | "reputationOptions"
         | string;
     export type ConfigurationSetAttributeList = ConfigurationSetAttribute[];
     export type ConfigurationSetName = string;
@@ -1184,7 +1184,7 @@ declare namespace SES {
     }
     export interface CreateTemplateResponse {
     }
-    export type CustomMailFromStatus = 'Pending' | 'Success' | 'Failed' | 'TemporaryFailure' | string;
+    export type CustomMailFromStatus = "Pending" | "Success" | "Failed" | "TemporaryFailure" | string;
     export type CustomRedirectDomain = string;
     export interface CustomVerificationEmailTemplate {
         /**
@@ -1401,10 +1401,10 @@ declare namespace SES {
     }
     export type DiagnosticCode = string;
     export type DimensionName = string;
-    export type DimensionValueSource = 'messageTag' | 'emailHeader' | 'linkTag' | string;
+    export type DimensionValueSource = "messageTag" | "emailHeader" | "linkTag" | string;
     export type DkimAttributes = { [key: string]: IdentityDkimAttributes };
     export type Domain = string;
-    export type DsnAction = 'failed' | 'delayed' | 'delivered' | 'relayed' | 'expanded' | string;
+    export type DsnAction = "failed" | "delayed" | "delivered" | "relayed" | "expanded" | string;
     export type DsnStatus = string;
     export type Enabled = boolean;
     export type Error = string;
@@ -1437,14 +1437,14 @@ declare namespace SES {
     export type EventDestinationName = string;
     export type EventDestinations = EventDestination[];
     export type EventType =
-        | 'send'
-        | 'reject'
-        | 'bounce'
-        | 'complaint'
-        | 'delivery'
-        | 'open'
-        | 'click'
-        | 'renderingFailure'
+        | "send"
+        | "reject"
+        | "bounce"
+        | "complaint"
+        | "delivery"
+        | "open"
+        | "click"
+        | "renderingFailure"
         | string;
     export type EventTypes = EventType[];
     export type Explanation = string;
@@ -1657,7 +1657,7 @@ declare namespace SES {
          */
         HeadersInDeliveryNotificationsEnabled?: Enabled;
     }
-    export type IdentityType = 'EmailAddress' | 'Domain' | string;
+    export type IdentityType = "EmailAddress" | "Domain" | string;
     export interface IdentityVerificationAttributes {
         /**
          * The verification status of the identity: "Pending", "Success", "Failed", or "TemporaryFailure".
@@ -1668,7 +1668,7 @@ declare namespace SES {
          */
         VerificationToken?: VerificationToken;
     }
-    export type InvocationType = 'Event' | 'RequestResponse' | string;
+    export type InvocationType = "Event" | "RequestResponse" | string;
     export interface KinesisFirehoseDestination {
         /**
          * The ARN of the IAM role under which Amazon SES publishes email sending events to the Amazon Kinesis Firehose stream.
@@ -1869,7 +1869,7 @@ declare namespace SES {
     export type NextToken = string;
     export type NotificationAttributes = { [key: string]: IdentityNotificationAttributes };
     export type NotificationTopic = string;
-    export type NotificationType = 'Bounce' | 'Complaint' | 'Delivery' | string;
+    export type NotificationType = "Bounce" | "Complaint" | "Delivery" | string;
     export type Policy = string;
     export type PolicyMap = { [key: string]: Policy };
     export type PolicyName = string;
@@ -1952,7 +1952,7 @@ declare namespace SES {
     }
     export type ReceiptFilterList = ReceiptFilter[];
     export type ReceiptFilterName = string;
-    export type ReceiptFilterPolicy = 'Block' | 'Allow' | string;
+    export type ReceiptFilterPolicy = "Block" | "Allow" | string;
     export interface ReceiptIpFilter {
         /**
          * Indicates whether to block or allow incoming mail from the specified IP addresses.
@@ -2095,7 +2095,7 @@ declare namespace SES {
          */
         Encoding?: SNSActionEncoding;
     }
-    export type SNSActionEncoding = 'UTF-8' | 'Base64' | string;
+    export type SNSActionEncoding = "UTF-8" | "Base64" | string;
     export interface SNSDestination {
         /**
          * The ARN of the Amazon SNS topic that email sending events will be published to. An example of an Amazon SNS topic ARN is arn:aws:sns:us-west-2:123456789012:MyTopic. For more information about Amazon SNS topics, see the Amazon SNS Developer Guide.
@@ -2472,7 +2472,7 @@ declare namespace SES {
          */
         TopicArn?: AmazonResourceName;
     }
-    export type StopScope = 'RuleSet' | string;
+    export type StopScope = "RuleSet" | string;
     export type Subject = string;
     export type SubjectPart = string;
     export type SuccessRedirectionURL = string;
@@ -2526,7 +2526,7 @@ declare namespace SES {
     }
     export type TextPart = string;
     export type Timestamp = Date;
-    export type TlsPolicy = 'Require' | 'Optional' | string;
+    export type TlsPolicy = "Require" | "Optional" | string;
     export interface TrackingOptions {
         /**
          * The custom subdomain that will be used to redirect email recipients to the Amazon SES event tracking domain.
@@ -2624,7 +2624,7 @@ declare namespace SES {
     export interface UpdateTemplateResponse {
     }
     export type VerificationAttributes = { [key: string]: IdentityVerificationAttributes };
-    export type VerificationStatus = 'Pending' | 'Success' | 'Failed' | 'TemporaryFailure' | 'NotStarted' | string;
+    export type VerificationStatus = "Pending" | "Success" | "Failed" | "TemporaryFailure" | "NotStarted" | string;
     export type VerificationToken = string;
     export type VerificationTokenList = VerificationToken[];
     export interface VerifyDomainDkimRequest {
@@ -2678,7 +2678,7 @@ declare namespace SES {
     /**
      * A string in YYYY-MM-DD format that represents the latest possible API version that can be used in this service. Specify 'latest' to use the latest possible version.
      */
-    export type apiVersion = '2010-12-01' | 'latest' | string;
+    export type apiVersion = "2010-12-01" | "latest" | string;
     export interface ClientApiVersions {
         /**
          * A string in YYYY-MM-DD format that represents the latest possible API version that can be used in this service. Specify 'latest' to use the latest possible version.

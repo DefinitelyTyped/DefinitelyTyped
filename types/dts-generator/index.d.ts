@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.4
 
-import ts = require('typescript');
-import Bluebird = require('bluebird');
+import ts = require("typescript");
+import Bluebird = require("bluebird");
 
 export = dtsGenerator;
 

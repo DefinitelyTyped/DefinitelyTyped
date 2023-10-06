@@ -1,2 +1,2 @@
-import SymbolDescriptiveString = require('../2015/SymbolDescriptiveString');
+import SymbolDescriptiveString = require("../2015/SymbolDescriptiveString");
 export = SymbolDescriptiveString;

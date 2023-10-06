@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
-import { MongoClientOptions } from 'mongodb';
+import { MongoClientOptions } from "mongodb";
 
 /**
  * Setup and tear down test fixtures with MongoDB.

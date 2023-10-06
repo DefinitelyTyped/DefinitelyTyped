@@ -82,7 +82,7 @@ export namespace dygraphs {
          * set per-series.
          * @default none
          */
-        axis?: 'y1' | 'y2' | '' | undefined;
+        axis?: "y1" | "y2" | "" | undefined;
 
         /**
          * A per-series color definition. Used in conjunction with, and overrides, the colors option.
@@ -197,12 +197,13 @@ export namespace dygraphs {
          */
         axisLabelFormatter?:
             | ((
-                  v: number | Date,
-                  granularity: number,
-                  opts: (name: string) => any,
-                  dygraph: Readonly<Dygraph>,
-              ) => string)
-            | null | undefined;
+                v: number | Date,
+                granularity: number,
+                opts: (name: string) => any,
+                dygraph: Readonly<Dygraph>,
+            ) => string)
+            | null
+            | undefined;
 
         /**
          * Width (in pixels) of the containing divs for x- and y-axis labels. For the y-axis, this
@@ -331,14 +332,15 @@ export namespace dygraphs {
          */
         valueFormatter?:
             | ((
-                  v: number,
-                  opts: (name: string) => any,
-                  seriesName: string,
-                  dygraph: Readonly<Dygraph>,
-                  row: number,
-                  col: number,
-              ) => string)
-            | null | undefined;
+                v: number,
+                opts: (name: string) => any,
+                seriesName: string,
+                dygraph: Readonly<Dygraph>,
+                row: number,
+                col: number,
+            ) => string)
+            | null
+            | undefined;
 
         /**
          * Explicitly set the vertical range of the graph to [low, high]. This may be set on a
@@ -581,16 +583,17 @@ export namespace dygraphs {
          */
         drawHighlightPointCallback?:
             | ((
-                  this: Readonly<Dygraph>,
-                  dygraph: Readonly<Dygraph>,
-                  seriesName: string,
-                  canvasContext: CanvasRenderingContext2D,
-                  cx: number,
-                  cy: number,
-                  color: string,
-                  pointSize: number,
-              ) => void)
-            | null | undefined;
+                this: Readonly<Dygraph>,
+                dygraph: Readonly<Dygraph>,
+                seriesName: string,
+                canvasContext: CanvasRenderingContext2D,
+                cx: number,
+                cy: number,
+                color: string,
+                pointSize: number,
+            ) => void)
+            | null
+            | undefined;
 
         /**
          * Draw a custom item when drawPoints is enabled. Default is a small dot matching the series
@@ -600,16 +603,17 @@ export namespace dygraphs {
          */
         drawPointCallback?:
             | ((
-                  this: Readonly<Dygraph>,
-                  dygraph: Readonly<Dygraph>,
-                  seriesName: string,
-                  canvasContext: CanvasRenderingContext2D,
-                  cx: number,
-                  cy: number,
-                  color: string,
-                  pointSize: number,
-              ) => void)
-            | null | undefined;
+                this: Readonly<Dygraph>,
+                dygraph: Readonly<Dygraph>,
+                seriesName: string,
+                canvasContext: CanvasRenderingContext2D,
+                cx: number,
+                cy: number,
+                color: string,
+                pointSize: number,
+            ) => void)
+            | null
+            | undefined;
 
         /**
          * Does the data contain standard deviations? Setting this to true alters the input format.
@@ -652,7 +656,8 @@ export namespace dygraphs {
          */
         highlightCallback?:
             | ((event: MouseEvent, xval: number, points: ReadonlyArray<Point>, row: number, seriesName: string) => void)
-            | null | undefined;
+            | null
+            | undefined;
 
         /**
          * Fade the background while highlighting series. 1=fully visible background (disable
@@ -729,7 +734,7 @@ export namespace dygraphs {
          * follows highlighted points. If set to 'never' then it will not appear at all.
          * @default onmouseover
          */
-        legend?: 'always' | 'follow' | 'onmouseover' | 'never' | null | undefined;
+        legend?: "always" | "follow" | "onmouseover" | "never" | null | undefined;
 
         /**
          * Set this to supply a custom formatter for the legend. See this comment and the
@@ -840,7 +845,7 @@ export namespace dygraphs {
          * leftmost and rightmost value), and "none" (treat NaN as zero everywhere).
          * @default all
          */
-        stackedGraphNaNFill?: 'all' | 'inside' | 'none' | null | undefined;
+        stackedGraphNaNFill?: "all" | "inside" | "none" | null | undefined;
 
         /**
          * Text to display above the chart. You can supply any HTML for this value, not just text. If
@@ -864,7 +869,8 @@ export namespace dygraphs {
          */
         underlayCallback?:
             | ((context: CanvasRenderingContext2D, area: Readonly<Area>, dygraph: Readonly<Dygraph>) => void)
-            | null | undefined;
+            | null
+            | undefined;
 
         /**
          * When set, this callback gets called every time the user stops highlighting any point by
@@ -978,7 +984,10 @@ export namespace dygraphs {
          * be called for intermediate frames).
          * @default null
          */
-        zoomCallback?: ((minDate: number, maxDate: number, yRanges: ReadonlyArray<[number, number]>) => void) | null | undefined;
+        zoomCallback?:
+            | ((minDate: number, maxDate: number, yRanges: ReadonlyArray<[number, number]>) => void)
+            | null
+            | undefined;
 
         /**
          * Set this option to log timing information. The value of the option will be logged along
@@ -1146,7 +1155,7 @@ export namespace dygraphs {
         div?: HTMLDivElement | undefined;
     }
 
-    type Axis = 'x' | 'y' | 'y2';
+    type Axis = "x" | "y" | "y2";
 }
 
 export default class Dygraph {
@@ -1169,7 +1178,7 @@ export default class Dygraph {
      * resets the zoom status for the chart.
      * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#isZoomed}
      */
-    isZoomed(axis?: 'x' | 'y'): boolean;
+    isZoomed(axis?: "x" | "y"): boolean;
 
     /**
      * Returns information about the Dygraph object, including its containing ID.
@@ -1477,7 +1486,6 @@ export default class Dygraph {
      * There's a huge variety of options that can be passed to this method. For a
      * full list, see http://dygraphs.com/options.html.
      * {@link https://dygraphs.com/jsdoc/symbols/Dygraph.html#updateOptions}
-     *
      *
      * @param input_attrs The new properties and values
      * @param block_redraw Usually the chart is redrawn after every

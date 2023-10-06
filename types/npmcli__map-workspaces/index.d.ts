@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.3
 
-import { PackageJson } from '@npmcli/package-json';
-import { PackageLock } from '@npmcli/arborist';
-import { IOptions as GlobOptions } from 'glob';
+import { PackageLock } from "@npmcli/arborist";
+import { PackageJson } from "@npmcli/package-json";
+import { IOptions as GlobOptions } from "glob";
 
 export = mapWorkspaces;
 

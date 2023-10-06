@@ -3,7 +3,7 @@
 // Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { FC } from 'react';
+import { FC } from "react";
 
 export interface AnimatedProgressProps {
     /* Integer - From 0 to 100 (Default - 0).

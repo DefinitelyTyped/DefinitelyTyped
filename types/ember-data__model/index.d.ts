@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import DS from 'ember-data';
+import DS from "ember-data";
 export default DS.Model;
 
 export import attr = DS.attr;

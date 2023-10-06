@@ -1,4 +1,4 @@
-import { ComponentType, HTMLProps } from 'react';
+import { ComponentType, HTMLProps } from "react";
 
 declare namespace FlexBlock {
     interface Props extends HTMLProps<HTMLDivElement> {}

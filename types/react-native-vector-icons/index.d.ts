@@ -8,9 +8,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
-import { Icon } from './Icon';
-import { TextProps } from 'react-native';
+import * as React from "react";
+import { TextProps } from "react-native";
+import { Icon } from "./Icon";
 
 /**
  * Returns your own custom font based on the glyphMap where the key is the icon name
@@ -18,12 +18,11 @@ import { TextProps } from 'react-native';
  * of the font NOT the filename. Open the font in Font Book.app or similar to learn the name.
  * Optionally pass the third fontFile argument for android support, it should be a path
  * to the font file in you asset folder.
- *
  */
 export function createIconSet(
-  glyphMap: {},
-  fontFamily: string,
-  fontFile?: string
+    glyphMap: {},
+    fontFamily: string,
+    fontFile?: string,
 ): typeof Icon;
 
 /**

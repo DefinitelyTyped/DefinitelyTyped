@@ -12,5 +12,5 @@ export function mapPlainTextIndex(
     value: string,
     markup: string,
     indexInPlainText: number,
-    inMarkupCorrection: 'START' | 'END' | 'NULL',
+    inMarkupCorrection: "START" | "END" | "NULL",
 ): number;

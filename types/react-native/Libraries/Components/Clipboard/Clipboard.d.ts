@@ -1,6 +1,6 @@
 export interface ClipboardStatic {
-  getString(): Promise<string>;
-  setString(content: string): void;
+    getString(): Promise<string>;
+    setString(content: string): void;
 }
 
 /**

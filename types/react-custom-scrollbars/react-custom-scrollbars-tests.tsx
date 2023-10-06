@@ -1,10 +1,10 @@
-import * as React from "react"
-import { render } from 'react-dom';
-import Scrollbars from "react-custom-scrollbars"
+import * as React from "react";
+import Scrollbars from "react-custom-scrollbars";
+import { render } from "react-dom";
 
 render(
     <Scrollbars style={{ width: 500 }}>
         <div>Test</div>
     </Scrollbars>,
-    document.getElementById("main")
-)
+    document.getElementById("main"),
+);

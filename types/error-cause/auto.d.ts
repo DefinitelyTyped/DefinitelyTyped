@@ -3,5 +3,5 @@ interface Error {
 }
 
 interface ErrorConstructor {
-    new (reason: string, options?: { cause?: unknown }): Error;
+    new(reason: string, options?: { cause?: unknown }): Error;
 }

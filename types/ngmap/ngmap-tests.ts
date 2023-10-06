@@ -12,15 +12,20 @@ class NgMapTestController implements ng.IController {
     }
 }
 
-var app = angular.module('angularLocalStorageTests', ['ngMap']);
+var app = angular.module("angularLocalStorageTests", ["ngMap"]);
 
 app.config(function(NgMapProvider: angular.map.INgMapProvider) {
-   NgMapProvider.setDefaultOptions({
-         marker: {
-               optimized: false
-        }
-       });
- });
+    NgMapProvider.setDefaultOptions({
+        marker: {
+            optimized: false,
+        },
+    });
+});
 
-app.controller('testCtrl', ['$scope', '$window', 'ngMap',
-    ($scope: ng.IScope, $window: ng.IWindowService, NgMap: angular.map.INgMap) => new NgMapTestController($scope, $window, NgMap)]);
+app.controller("testCtrl", [
+    "$scope",
+    "$window",
+    "ngMap",
+    ($scope: ng.IScope, $window: ng.IWindowService, NgMap: angular.map.INgMap) =>
+        new NgMapTestController($scope, $window, NgMap),
+]);

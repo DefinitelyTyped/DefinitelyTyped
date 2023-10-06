@@ -1,15 +1,15 @@
-import * as plugins from '@wordpress/plugins';
+import * as plugins from "@wordpress/plugins";
 
-plugins.registerPlugin('my-plugin', {
-    icon: 'welcome-learn-more',
+plugins.registerPlugin("my-plugin", {
+    icon: "welcome-learn-more",
     render: () => <h1>Hello World</h1>,
 });
 
 plugins.getPlugins();
 
-plugins.getPlugin('my-plugin');
+plugins.getPlugin("my-plugin");
 
-plugins.unregisterPlugin('my-plugin');
+plugins.unregisterPlugin("my-plugin");
 
 interface OwnProps {
     foobar: number;

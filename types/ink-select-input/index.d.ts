@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component } from 'react';
+import { Component } from "react";
 
 export interface ItemOfSelectInput {
     label: string;
@@ -23,6 +23,6 @@ export interface SelectInputProps<T extends ItemOfSelectInput = ItemOfSelectInpu
     onSelect?: ((item: T) => void) | undefined;
 }
 
-declare class SelectInput extends Component<SelectInputProps> { }
+declare class SelectInput extends Component<SelectInputProps> {}
 
 export default SelectInput;

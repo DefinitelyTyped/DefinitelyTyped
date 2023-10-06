@@ -6,8 +6,7 @@
 /// <reference types="node" />
 
 /** Loads in any gulp plugins and attaches them to an object, freeing you up from having to manually require each gulp plugin. */
-declare module 'gulp-load-plugins' {
-
+declare module "gulp-load-plugins" {
     interface IOptions {
         /** the glob(s) to search for, default ['gulp-*', 'gulp.*'] */
         pattern?: string[] | undefined;
@@ -26,7 +25,7 @@ declare module 'gulp-load-plugins' {
     }
 
     interface IPluginNameMappings {
-        [npmPackageName: string]: string
+        [npmPackageName: string]: string;
     }
 
     /** Loads in any gulp plugins and attaches them to an object, freeing you up from having to manually require each gulp plugin. */

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import { Plugin } from 'rollup';
+import { Plugin } from "rollup";
 
 declare namespace addGitMsg {
     interface AddGitMsgPluginOptions {

@@ -1,15 +1,15 @@
 declare namespace bricks {
     interface BrickError {
-        type: 'non_critical' | 'critical';
+        type: "non_critical" | "critical";
         cause: string;
         message: string;
     }
 
     interface Submit<BrickType> {
         onSubmit: (
-            formData: CardFormData | PaymentFormData,
-            additionalData?: AdditionalCardFormData | AdditionalPaymentFormData,
-        ) => BrickType extends 'wallet' ? Promise<string> : Promise<void>;
+            formData: FormData<BrickType>,
+            additionalData?: AdditionalData<BrickType>,
+        ) => BrickType extends "wallet" ? Promise<string> : Promise<void>;
     }
 
     interface BinChange {
@@ -20,21 +20,35 @@ declare namespace bricks {
         onError?: (error: BrickError) => void;
     }
 
+    interface ReviewStepsCallbacks {
+        onClickEditShippingData?: () => void;
+        onClickEditBillingData?: () => void;
+        onRenderNextStep?: (currentStep: string) => void;
+        onRenderPreviousStep?: (currentStep: string) => void;
+    }
+
     interface WalletBrickCallbacks<BrickType> extends BrickCallbacks, Submit<BrickType> {}
     interface CardPaymentBrickCallbacks<BrickType> extends BrickCallbacks, Submit<BrickType>, BinChange {}
-    interface PaymentBrickCallbacks<BrickType> extends BrickCallbacks, Submit<BrickType>, BinChange {}
+    interface PaymentBrickCallbacks<BrickType>
+        extends BrickCallbacks,
+            Submit<BrickType>,
+            BinChange,
+            ReviewStepsCallbacks {}
 
-    interface PayerAddress {
-        zipCode?: string;
+    interface DefaultAddress {
+        streetName: string;
+        streetNumber: string;
+        zipCode: string;
+        neighborhood?: string;
         federalUnit?: string;
         city?: string;
-        streetName?: string;
-        streetNumber?: string;
-        neighborhood?: string;
+    }
+
+    interface PayerAddress extends Partial<DefaultAddress> {
         complement?: string;
     }
 
-    type EntityType = 'individual' | 'association';
+    type EntityType = "individual" | "association";
 
     interface Payer {
         email?: string;
@@ -52,13 +66,13 @@ declare namespace bricks {
     }
 
     enum PaymentOption {
-        CREDIT_CARD_FORM = 'creditCardForm',
-        DEBIT_CARD_FORM = 'debitCardForm',
-        SAVED_CARD_FORM = 'savedCardForm',
-        TICKET_FORM = 'ticketForm',
-        BANK_TRANSFER_FORM = 'bankTransferForm',
-        MERCADO_PAGO_FORM = 'walletForm',
-        ONBOARDING_CREDITS_FORM = 'creditForm',
+        CREDIT_CARD_FORM = "creditCardForm",
+        DEBIT_CARD_FORM = "debitCardForm",
+        SAVED_CARD_FORM = "savedCardForm",
+        TICKET_FORM = "ticketForm",
+        BANK_TRANSFER_FORM = "bankTransferForm",
+        MERCADO_PAGO_FORM = "walletForm",
+        ONBOARDING_CREDITS_FORM = "creditForm",
     }
 
     interface PaymentOptions {
@@ -76,21 +90,21 @@ declare namespace bricks {
     }
 
     enum WalletButtonBackground {
-        MERCADO_PAGO_COLOR = 'default',
-        BLACK = 'black',
-        BLUE = 'blue',
-        WHITE = 'white',
+        MERCADO_PAGO_COLOR = "default",
+        BLACK = "black",
+        BLUE = "blue",
+        WHITE = "white",
     }
 
     enum WalletButtonValuePropColor {
-        WHITE = 'white',
-        GREY = 'grey',
+        WHITE = "white",
+        GREY = "grey",
     }
 
     enum WalletButtonRedirectMode {
-        MODAL = 'modal',
-        SELF = 'self',
-        BLANK = 'blank',
+        MODAL = "modal",
+        SELF = "self",
+        BLANK = "blank",
     }
 
     interface BrickVisualCustomization {
@@ -139,15 +153,15 @@ declare namespace bricks {
     }
 
     interface WalletButtonTextCustomization {
-        action: 'pay' | 'buy';
+        action: "pay" | "buy";
         valueProp:
-            | 'practicality'
-            | 'convenience'
-            | 'convenience_all'
-            | 'security_details'
-            | 'security_safety'
-            | 'convenience_credits'
-            | 'smart_option';
+            | "practicality"
+            | "convenience"
+            | "convenience_all"
+            | "security_details"
+            | "security_safety"
+            | "convenience_credits"
+            | "smart_option";
     }
 
     interface StatusBrickBackUrls {
@@ -161,6 +175,8 @@ declare namespace bricks {
         checkout?: Checkout;
         texts?: WalletButtonTextCustomization;
         backUrls?: StatusBrickBackUrls;
+        enableReviewStep?: boolean;
+        reviewCardsOrder?: string[];
     }
 
     interface StatusBrickAdditionalData {
@@ -176,23 +192,63 @@ declare namespace bricks {
         externalReference?: string;
         redirectMode?: WalletButtonRedirectMode;
         additionalData?: StatusBrickAdditionalData;
+        items?: Items;
+        shipping?: Shipping;
+        billing?: Billing;
+        discounts?: Discounts;
+    }
+
+    interface Items {
+        totalItemsAmount: number;
+        itemsList: Item[];
+    }
+
+    interface Item {
+        units: number;
+        value: number;
+        name: string;
+        description?: string;
+        imageURL?: string;
+    }
+
+    interface Shipping {
+        costs?: number;
+        shippingMode: string;
+        description?: string;
+        receiverAddress: DefaultAddress;
+    }
+
+    interface Billing {
+        firstName?: string;
+        lastName?: string;
+        taxRegime?: string;
+        taxIdentificationNumber: string;
+        billingAddress?: DefaultAddress;
+        identification?: PayerIdentification;
+    }
+
+    interface Discounts {
+        totalDiscountsAmount: number;
+        discountsList: Discount[];
+    }
+
+    interface Discount {
+        name: string;
+        value: number;
     }
 
     interface BrickSettings<BrickType> {
         // For a more detailed view of each Brick`s supported settings, please check the documentation at: https://github.com/mercadopago/sdk-js/blob/main/API/bricks/index.md
-        callbacks: BrickType extends 'wallet'
-            ? WalletBrickCallbacks<BrickType>
-            : BrickType extends 'cardPayment'
-            ? CardPaymentBrickCallbacks<BrickType>
-            : BrickType extends 'payment'
-            ? PaymentBrickCallbacks<BrickType>
+        callbacks: BrickType extends "wallet" ? WalletBrickCallbacks<BrickType>
+            : BrickType extends "cardPayment" ? CardPaymentBrickCallbacks<BrickType>
+            : BrickType extends "payment" ? PaymentBrickCallbacks<BrickType>
             : BrickCallbacks;
         initialization?: BrickInitialization;
         customization?: BrickCustomization;
     }
 
     interface BricksStyle {
-        theme?: 'default' | 'dark' | 'flat' | 'bootstrap';
+        theme?: "default" | "dark" | "flat" | "bootstrap";
         customVariables?: CustomVariables;
     }
 
@@ -231,6 +287,7 @@ declare namespace bricks {
         secondaryColor?: string;
         warningColor?: string;
         fontSizeExtraExtraLarge?: string;
+        secondaryColorListItem?: string;
     }
 
     interface PayerIdentification {
@@ -257,21 +314,33 @@ declare namespace bricks {
     }
 
     enum PaymentType {
-        CREDIT_CARD = 'credit_card',
-        DEBIT_CARD = 'debit_card',
-        ICKET = 'ticket',
-        BANK_TRANSFER = 'bank_transfer',
-        WALLET_PURCHASE = 'wallet_purchase',
-        ONBOARDING_CREDITS = 'onboarding_credits',
-        ATM = 'atm',
-        ATM_ONLINE = 'atm_online',
-        NONE = '',
+        CREDIT_CARD = "credit_card",
+        DEBIT_CARD = "debit_card",
+        ICKET = "ticket",
+        BANK_TRANSFER = "bank_transfer",
+        WALLET_PURCHASE = "wallet_purchase",
+        ONBOARDING_CREDITS = "onboarding_credits",
+        ATM = "atm",
+        ATM_ONLINE = "atm_online",
+        NONE = "",
     }
 
     interface SavedCardPayer {
-        type: 'customer';
+        type: "customer";
         id: string;
     }
+
+    type FormData<BrickType> = BrickType extends 'cardPayment'
+        ? CardFormData
+        : BrickType extends 'payment'
+        ? PaymentFormData
+        : null;
+
+    type AdditionalData<BrickType> = BrickType extends 'cardPayment'
+        ? AdditionalCardFormData
+        : BrickType extends 'payment'
+        ? AdditionalPaymentFormData
+        : null;
 
     interface CardFormData {
         token: string;
@@ -282,6 +351,7 @@ declare namespace bricks {
         processing_mode?: string;
         installments: number;
         payer: PayerAPI;
+        additional_info?: AdditionalInfo;
     }
 
     interface SavedCardFormData {
@@ -293,6 +363,31 @@ declare namespace bricks {
         processing_mode?: string;
         installments: number;
         payer: SavedCardPayer;
+        additional_info?: AdditionalInfo;
+    }
+
+    interface AdditionalInfo {
+        items: AdditionalInfoItems[];
+        shipments: AdditionalInfoShipments;
+    }
+
+    interface AdditionalInfoItems {
+        unit_price: number;
+        quantity: number;
+        title: string;
+        description?: string;
+        picture_url?: string;
+    }
+
+    interface AdditionalInfoShipments {
+        receiver_address: {
+            zip_code: string;
+            state_name?: string;
+            city_name?: string;
+            street_name: string;
+            street_number: string;
+            apartment?: string;
+        };
     }
 
     interface Metadata {
@@ -310,43 +405,52 @@ declare namespace bricks {
         payer: PayerAPI;
         metadata?: Metadata;
         transaction_details?: TransactionDetails;
+        additional_info?: AdditionalInfo;
     }
 
     interface AdditionalSavedCardFormData {
         bin: string;
+        lastFourDigits: string;
     }
 
-    interface AdditionalCardFormData {
-        bin: string;
+    interface AdditionalCardFormData extends AdditionalSavedCardFormData {
+        cardholderName?: string;
     }
 
-    type AdditionalTicketFormData = Record<string, unknown>;
+    type AdditionalPaymentFormData = AdditionalCardFormData | AdditionalSavedCardFormData;
 
-    type AdditionalPaymentFormData = AdditionalCardFormData | AdditionalSavedCardFormData | AdditionalTicketFormData;
-
-    interface UpdateValues {
+    interface CardPaymentUpdatableValues {
         amount: number;
+    }
+
+    interface PaymentUpdatableValues {
+        amount?: number;
+        items?: Items;
+        shipping?: Shipping;
+        billing?: Billing;
+        discounts?: Discounts;
     }
 
     interface PaymentFormData {
         paymentType: PaymentType;
         selectedPaymentMethod: PaymentType;
         formData?: CardFormData | SavedCardFormData | TicketFormData | null;
-        additionalData?: AdditionalSavedCardFormData | AdditionalCardFormData | AdditionalTicketFormData | null;
+        additionalData?: AdditionalSavedCardFormData | AdditionalCardFormData | null;
     }
 
     interface CardPaymentController {
         unmount: () => void;
         getFormData: () => Promise<CardFormData>;
         getAdditionalData: () => Promise<AdditionalCardFormData>;
-        update: (updateValues: UpdateValues) => boolean;
+        update: (updateValues: CardPaymentUpdatableValues) => boolean;
     }
 
     interface PaymentController {
         unmount: () => void;
         getFormData: () => Promise<PaymentFormData>;
         getAdditionalData: () => Promise<AdditionalPaymentFormData>;
-        update: (updateValues: UpdateValues) => boolean;
+        update: (updateValues: PaymentUpdatableValues) => boolean;
+        nextStep: () => Promise<string>;
     }
 
     interface StatusScreenController {
@@ -357,7 +461,7 @@ declare namespace bricks {
         unmount: () => void;
     }
 
-    type BrickTypes = 'cardPayment' | 'payment' | 'statusScreen' | 'wallet';
+    type BrickTypes = "cardPayment" | "payment" | "statusScreen" | "wallet";
 
     interface Bricks {
         isInitialized(): boolean;
@@ -367,12 +471,12 @@ declare namespace bricks {
             settings: BrickSettings<BrickType>,
         ): Promise<
             BrickType extends 'cardPayment'
-            ? CardPaymentController
-            : BrickType extends 'payment'
-            ? PaymentController
-            : BrickType extends 'statusScreen'
-            ? StatusScreenController
-            : WalletController
+                ? CardPaymentController
+                : BrickType extends 'payment'
+                ? PaymentController
+                : BrickType extends 'statusScreen'
+                ? StatusScreenController
+                : WalletController
         >;
     }
 }

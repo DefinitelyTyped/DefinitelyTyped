@@ -1431,7 +1431,6 @@ describe("jasmine.objectContaining", () => {
     describe("stringContaining", () => {
         it("passes", () => {
             expect("foot").toEqual(jasmine.stringContaining("foo"));
-            expect("foot").toEqual(jasmine.stringContaining(/foo/));
         });
     });
 
@@ -2588,3 +2587,14 @@ describe("Debug logging", function() {
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
 jasmine.MAX_PRETTY_PRINT_DEPTH = 40;
+
+(async () => {
+    throwUnless(1).toEqual(2);
+
+    try {
+        const promise = Promise.resolve('a');
+        await throwUnlessAsync(promise).toBeResolvedTo('b');
+    } catch (err) {
+        (err as ThrowUnlessFailure).matcherName; // $ExpectType string
+    }
+})();

@@ -1,4 +1,4 @@
-import { AWSError } from './error';
+import { AWSError } from "./error";
 
 /**
  * Represents AWS token object, which contains {token}, and optional

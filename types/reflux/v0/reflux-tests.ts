@@ -3,11 +3,11 @@ import Reflux = require("reflux");
 const syncActions = Reflux.createActions([
     "statusUpdate",
     "statusEdited",
-    "statusAdded"
+    "statusAdded",
 ]);
 
 const asyncActions = Reflux.createActions({
-    fireBall: {asyncResult: true}
+    fireBall: { asyncResult: true },
 });
 
 asyncActions.fireBall.listen(function() {
@@ -24,15 +24,15 @@ const statusStore = Reflux.createStore({
     },
     // Callback
     onFireBall(flag: boolean) {
-        const status = flag ? 'ONLINE' : 'OFFLINE';
+        const status = flag ? "ONLINE" : "OFFLINE";
 
         // Pass on to listeners
         this.trigger(status);
-    }
+    },
 });
 
 Reflux.createAction({
-    children: ["progressed", "completed", "failed"]
+    children: ["progressed", "completed", "failed"],
 });
 
 const action = Reflux.createAction();
@@ -48,9 +48,9 @@ const Store = Reflux.createStore({
     },
     onMagicMissile() {
         // bzzzzapp!
-    }
+    },
 });
 
 const ReactComponent = {
-    mixins: [Reflux.ListenerMixin]
+    mixins: [Reflux.ListenerMixin],
 };

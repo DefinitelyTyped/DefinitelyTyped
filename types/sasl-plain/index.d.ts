@@ -3,18 +3,18 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Mechanism } from 'saslmechanisms';
+import { Mechanism } from "saslmechanisms";
 
 export = PlainMechanism;
 
 declare class PlainMechanism implements Mechanism {
     static Mechanism: typeof PlainMechanism;
     static prototype: {
-        name: 'PLAIN';
+        name: "PLAIN";
         clientFirst: true;
     };
 
-    name: 'PLAIN';
+    name: "PLAIN";
     clientFirst: true;
 
     response(cred: PlainMechanism.Credentials): string;

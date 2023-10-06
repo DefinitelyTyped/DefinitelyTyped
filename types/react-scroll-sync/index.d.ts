@@ -3,7 +3,7 @@
 // Definitions by: Corné Dorrestijn <https://github.com/cornedor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface ScrollSyncProps {
     children?: React.ReactNode;

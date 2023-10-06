@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import { Buffer } from 'buffer';
+import { Buffer } from "buffer";
 
 export interface Options {
     mtime: Date;

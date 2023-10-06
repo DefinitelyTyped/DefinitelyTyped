@@ -6,7 +6,7 @@
  * are not intended as functional tests.
  */
 
-import * as d3Voronoi from 'd3-voronoi';
+import * as d3Voronoi from "d3-voronoi";
 
 // ---------------------------------------------------------------------
 // Preparatory Steps
@@ -30,7 +30,7 @@ const testData: VoronoiTestDatum[] = [
     { x: 10, y: 20 },
     { x: 20, y: 20 },
     { x: 50, y: 40 },
-    { x: 30, y: 15 }
+    { x: 30, y: 15 },
 ];
 let testDatum: VoronoiTestDatum;
 
@@ -68,7 +68,7 @@ point = [10, 10];
 // @ts-expect-error
 point = [10]; // fails, second element for y-coordinate missing
 // @ts-expect-error
-point = ['a', 'b']; // fails, wrong element type
+point = ["a", "b"]; // fails, wrong element type
 
 // VoronoiPointPair ---------------------------------------------------
 
@@ -88,7 +88,7 @@ pointPair = [[10, 10], [50]]; // fails, one element is not of type [number, numb
 // @ts-expect-error
 pointPair = [[10], [50, 50]]; // fails, one element is not of type [number, number]
 // @ts-expect-error
-pointPair = [['a', 10], [50, 50]]; // fails, one element is not of type [number, number]
+pointPair = [["a", 10], [50, 50]]; // fails, one element is not of type [number, number]
 
 // VoronoiPolygon -------------------------------------------------------
 

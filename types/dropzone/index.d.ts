@@ -80,12 +80,12 @@ declare namespace Dropzone {
         maxThumbnailFilesize?: number | undefined;
         thumbnailWidth?: number | undefined;
         thumbnailHeight?: number | undefined;
-        thumbnailMethod?: 'contain' | 'crop' | undefined;
+        thumbnailMethod?: "contain" | "crop" | undefined;
         resizeWidth?: number | undefined;
         resizeHeight?: number | undefined;
         resizeMimeType?: string | undefined;
         resizeQuality?: number | undefined;
-        resizeMethod?: 'contain' | 'crop' | undefined;
+        resizeMethod?: "contain" | "crop" | undefined;
         filesizeBase?: number | undefined;
         maxFiles?: number | undefined;
         params?: {} | undefined;
@@ -250,7 +250,7 @@ declare class Dropzone {
         mockFile: Dropzone.DropzoneMockFile,
         imageUrl: string,
         callback?: () => void,
-        crossOrigin?: 'anonymous' | 'use-credentials',
+        crossOrigin?: "anonymous" | "use-credentials",
         resizeThumbnail?: boolean,
     ): any;
 
@@ -303,105 +303,105 @@ declare class Dropzone {
 
     emit(eventName: string, ...args: any[]): Dropzone;
 
-    on(eventName: 'drop', callback: (e: DragEvent) => any): Dropzone;
-    on(eventName: 'dragstart', callback: (e: DragEvent) => any): Dropzone;
-    on(eventName: 'dragend', callback: (e: DragEvent) => any): Dropzone;
-    on(eventName: 'dragenter', callback: (e: DragEvent) => any): Dropzone;
-    on(eventName: 'dragover', callback: (e: DragEvent) => any): Dropzone;
-    on(eventName: 'dragleave', callback: (e: DragEvent) => any): Dropzone;
-    on(eventName: 'paste', callback: (e: DragEvent) => any): Dropzone;
+    on(eventName: "drop", callback: (e: DragEvent) => any): Dropzone;
+    on(eventName: "dragstart", callback: (e: DragEvent) => any): Dropzone;
+    on(eventName: "dragend", callback: (e: DragEvent) => any): Dropzone;
+    on(eventName: "dragenter", callback: (e: DragEvent) => any): Dropzone;
+    on(eventName: "dragover", callback: (e: DragEvent) => any): Dropzone;
+    on(eventName: "dragleave", callback: (e: DragEvent) => any): Dropzone;
+    on(eventName: "paste", callback: (e: DragEvent) => any): Dropzone;
 
-    on(eventName: 'reset'): Dropzone;
+    on(eventName: "reset"): Dropzone;
 
-    on(eventName: 'addedfile', callback: (file: Dropzone.DropzoneFile) => any): Dropzone;
-    on(eventName: 'addedfiles', callback: (files: Dropzone.DropzoneFile[]) => any): Dropzone;
-    on(eventName: 'removedfile', callback: (file: Dropzone.DropzoneFile) => any): Dropzone;
-    on(eventName: 'thumbnail', callback: (file: Dropzone.DropzoneFile, dataUrl: string) => any): Dropzone;
+    on(eventName: "addedfile", callback: (file: Dropzone.DropzoneFile) => any): Dropzone;
+    on(eventName: "addedfiles", callback: (files: Dropzone.DropzoneFile[]) => any): Dropzone;
+    on(eventName: "removedfile", callback: (file: Dropzone.DropzoneFile) => any): Dropzone;
+    on(eventName: "thumbnail", callback: (file: Dropzone.DropzoneFile, dataUrl: string) => any): Dropzone;
 
-    on(eventName: 'error', callback: (file: Dropzone.DropzoneFile, message: string | Error) => any): Dropzone;
+    on(eventName: "error", callback: (file: Dropzone.DropzoneFile, message: string | Error) => any): Dropzone;
     on(
-        eventName: 'errormultiple',
+        eventName: "errormultiple",
         callback: (files: Dropzone.DropzoneFile[], message: string | Error) => any,
     ): Dropzone;
 
-    on(eventName: 'processing', callback: (file: Dropzone.DropzoneFile) => any): Dropzone;
-    on(eventName: 'processingmultiple', callback: (files: Dropzone.DropzoneFile[]) => any): Dropzone;
+    on(eventName: "processing", callback: (file: Dropzone.DropzoneFile) => any): Dropzone;
+    on(eventName: "processingmultiple", callback: (files: Dropzone.DropzoneFile[]) => any): Dropzone;
 
     on(
-        eventName: 'uploadprogress',
+        eventName: "uploadprogress",
         callback: (file: Dropzone.DropzoneFile, progress: number, bytesSent: number) => any,
     ): Dropzone;
     on(
-        eventName: 'totaluploadprogress',
+        eventName: "totaluploadprogress",
         callback: (totalProgress: number, totalBytes: number, totalBytesSent: number) => any,
     ): Dropzone;
 
     on(
-        eventName: 'sending',
+        eventName: "sending",
         callback: (file: Dropzone.DropzoneFile, xhr: XMLHttpRequest, formData: FormData) => any,
     ): Dropzone;
     on(
-        eventName: 'sendingmultiple',
+        eventName: "sendingmultiple",
         callback: (files: Dropzone.DropzoneFile[], xhr: XMLHttpRequest, formData: FormData) => any,
     ): Dropzone;
 
-    on(eventName: 'success', callback: (file: Dropzone.DropzoneFile, response: Object | string) => any): Dropzone;
-    on(eventName: 'successmultiple', callback: (files: Dropzone.DropzoneFile[]) => any): Dropzone;
+    on(eventName: "success", callback: (file: Dropzone.DropzoneFile, response: Object | string) => any): Dropzone;
+    on(eventName: "successmultiple", callback: (files: Dropzone.DropzoneFile[]) => any): Dropzone;
 
-    on(eventName: 'canceled', callback: (file: Dropzone.DropzoneFile) => any): Dropzone;
-    on(eventName: 'canceledmultiple', callback: (file: Dropzone.DropzoneFile[]) => any): Dropzone;
+    on(eventName: "canceled", callback: (file: Dropzone.DropzoneFile) => any): Dropzone;
+    on(eventName: "canceledmultiple", callback: (file: Dropzone.DropzoneFile[]) => any): Dropzone;
 
-    on(eventName: 'complete', callback: (file: Dropzone.DropzoneFile) => any): Dropzone;
-    on(eventName: 'completemultiple', callback: (file: Dropzone.DropzoneFile[]) => any): Dropzone;
+    on(eventName: "complete", callback: (file: Dropzone.DropzoneFile) => any): Dropzone;
+    on(eventName: "completemultiple", callback: (file: Dropzone.DropzoneFile[]) => any): Dropzone;
 
-    on(eventName: 'maxfilesexceeded', callback: (file: Dropzone.DropzoneFile) => any): Dropzone;
-    on(eventName: 'maxfilesreached', callback: (files: Dropzone.DropzoneFile[]) => any): Dropzone;
-    on(eventName: 'queuecomplete'): Dropzone;
+    on(eventName: "maxfilesexceeded", callback: (file: Dropzone.DropzoneFile) => any): Dropzone;
+    on(eventName: "maxfilesreached", callback: (files: Dropzone.DropzoneFile[]) => any): Dropzone;
+    on(eventName: "queuecomplete"): Dropzone;
 
-    emit(eventName: 'drop', e: DragEvent): Dropzone;
-    emit(eventName: 'dragstart', e: DragEvent): Dropzone;
-    emit(eventName: 'dragend', e: DragEvent): Dropzone;
-    emit(eventName: 'dragenter', e: DragEvent): Dropzone;
-    emit(eventName: 'dragover', e: DragEvent): Dropzone;
-    emit(eventName: 'dragleave', e: DragEvent): Dropzone;
-    emit(eventName: 'paste', e: DragEvent): Dropzone;
+    emit(eventName: "drop", e: DragEvent): Dropzone;
+    emit(eventName: "dragstart", e: DragEvent): Dropzone;
+    emit(eventName: "dragend", e: DragEvent): Dropzone;
+    emit(eventName: "dragenter", e: DragEvent): Dropzone;
+    emit(eventName: "dragover", e: DragEvent): Dropzone;
+    emit(eventName: "dragleave", e: DragEvent): Dropzone;
+    emit(eventName: "paste", e: DragEvent): Dropzone;
 
-    emit(eventName: 'reset'): Dropzone;
+    emit(eventName: "reset"): Dropzone;
 
-    emit(eventName: 'addedfile', file: Dropzone.DropzoneFile): Dropzone;
-    emit(eventName: 'addedfiles', files: Dropzone.DropzoneFile[]): Dropzone;
-    emit(eventName: 'removedfile', file: Dropzone.DropzoneFile): Dropzone;
-    emit(eventName: 'thumbnail', file: Dropzone.DropzoneFile, dataUrl: string): Dropzone;
+    emit(eventName: "addedfile", file: Dropzone.DropzoneFile): Dropzone;
+    emit(eventName: "addedfiles", files: Dropzone.DropzoneFile[]): Dropzone;
+    emit(eventName: "removedfile", file: Dropzone.DropzoneFile): Dropzone;
+    emit(eventName: "thumbnail", file: Dropzone.DropzoneFile, dataUrl: string): Dropzone;
 
-    emit(eventName: 'error', file: Dropzone.DropzoneFile, message: string | Error): Dropzone;
-    emit(eventName: 'errormultiple', files: Dropzone.DropzoneFile[], message: string | Error): Dropzone;
+    emit(eventName: "error", file: Dropzone.DropzoneFile, message: string | Error): Dropzone;
+    emit(eventName: "errormultiple", files: Dropzone.DropzoneFile[], message: string | Error): Dropzone;
 
-    emit(eventName: 'processing', file: Dropzone.DropzoneFile): Dropzone;
-    emit(eventName: 'processingmultiple', files: Dropzone.DropzoneFile[]): Dropzone;
+    emit(eventName: "processing", file: Dropzone.DropzoneFile): Dropzone;
+    emit(eventName: "processingmultiple", files: Dropzone.DropzoneFile[]): Dropzone;
 
-    emit(eventName: 'uploadprogress', file: Dropzone.DropzoneFile, progress: number, bytesSent: number): Dropzone;
-    emit(eventName: 'totaluploadprogress', totalProgress: number, totalBytes: number, totalBytesSent: number): Dropzone;
+    emit(eventName: "uploadprogress", file: Dropzone.DropzoneFile, progress: number, bytesSent: number): Dropzone;
+    emit(eventName: "totaluploadprogress", totalProgress: number, totalBytes: number, totalBytesSent: number): Dropzone;
 
-    emit(eventName: 'sending', file: Dropzone.DropzoneFile, xhr: XMLHttpRequest, formData: FormData): Dropzone;
+    emit(eventName: "sending", file: Dropzone.DropzoneFile, xhr: XMLHttpRequest, formData: FormData): Dropzone;
     emit(
-        eventName: 'sendingmultiple',
+        eventName: "sendingmultiple",
         files: Dropzone.DropzoneFile[],
         xhr: XMLHttpRequest,
         formData: FormData,
     ): Dropzone;
 
-    emit(eventName: 'success', file: Dropzone.DropzoneFile, response: object | string): Dropzone;
-    emit(eventName: 'successmultiple', files: Dropzone.DropzoneFile[]): Dropzone;
+    emit(eventName: "success", file: Dropzone.DropzoneFile, response: object | string): Dropzone;
+    emit(eventName: "successmultiple", files: Dropzone.DropzoneFile[]): Dropzone;
 
-    emit(eventName: 'canceled', file: Dropzone.DropzoneFile): Dropzone;
-    emit(eventName: 'canceledmultiple', file: Dropzone.DropzoneFile[]): Dropzone;
+    emit(eventName: "canceled", file: Dropzone.DropzoneFile): Dropzone;
+    emit(eventName: "canceledmultiple", file: Dropzone.DropzoneFile[]): Dropzone;
 
-    emit(eventName: 'complete', file: Dropzone.DropzoneFile): Dropzone;
-    emit(eventName: 'completemultiple', file: Dropzone.DropzoneFile[]): Dropzone;
+    emit(eventName: "complete", file: Dropzone.DropzoneFile): Dropzone;
+    emit(eventName: "completemultiple", file: Dropzone.DropzoneFile[]): Dropzone;
 
-    emit(eventName: 'maxfilesexceeded', file: Dropzone.DropzoneFile): Dropzone;
-    emit(eventName: 'maxfilesreached', files: Dropzone.DropzoneFile[]): Dropzone;
-    emit(eventName: 'queuecomplete'): Dropzone;
+    emit(eventName: "maxfilesexceeded", file: Dropzone.DropzoneFile): Dropzone;
+    emit(eventName: "maxfilesreached", files: Dropzone.DropzoneFile[]): Dropzone;
+    emit(eventName: "queuecomplete"): Dropzone;
 }
 
 declare global {

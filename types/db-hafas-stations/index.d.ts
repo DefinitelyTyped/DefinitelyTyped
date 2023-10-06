@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import { Readable } from 'stream';
+import { Readable } from "stream";
 
 export = stations;
 
@@ -77,24 +77,24 @@ declare namespace stations {
     function full(): ReadableStations<StationFull>;
 
     interface ReadableStations<TStation extends Station> extends Readable {
-        addListener(event: 'data', listener: (station: TStation) => void): this;
+        addListener(event: "data", listener: (station: TStation) => void): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        emit(event: 'data', station: TStation): boolean;
+        emit(event: "data", station: TStation): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
-        on(event: 'data', listener: (station: TStation) => void): this;
+        on(event: "data", listener: (station: TStation) => void): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
-        once(event: 'data', listener: (station: TStation) => void): this;
+        once(event: "data", listener: (station: TStation) => void): this;
         once(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependListener(event: 'data', listener: (station: TStation) => void): this;
+        prependListener(event: "data", listener: (station: TStation) => void): this;
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'data', listener: (station: TStation) => void): this;
+        prependOnceListener(event: "data", listener: (station: TStation) => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        removeListener(event: 'data', listener: (station: TStation) => void): this;
+        removeListener(event: "data", listener: (station: TStation) => void): this;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
     interface Station {
-        type: 'station';
+        type: "station";
         id: string;
         name: string;
         weight: number;
@@ -107,7 +107,7 @@ declare namespace stations {
     }
 
     interface Location {
-        type: 'location';
+        type: "location";
         id: string;
         latitude: number;
         longitude: number;

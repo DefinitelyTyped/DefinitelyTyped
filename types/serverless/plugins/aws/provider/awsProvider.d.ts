@@ -1,4 +1,4 @@
-import Serverless = require('../../../index');
+import Serverless = require("../../../index");
 
 declare namespace Aws {
     /*
@@ -9,11 +9,11 @@ declare namespace Aws {
         useDotenv?: boolean | undefined;
         frameworkVersion?: string | undefined;
         enableLocalInstallationFallback?: boolean | undefined;
-        variablesResolutionMode?: '20210219' | '20210326' | undefined;
-        unresolvedVariablesNotificationMode?: 'warn' | 'error' | undefined;
-        deprecationNotificationMode?: 'warn' | 'warn:summary' | 'error' | undefined;
+        variablesResolutionMode?: "20210219" | "20210326" | undefined;
+        unresolvedVariablesNotificationMode?: "warn" | "error" | undefined;
+        deprecationNotificationMode?: "warn" | "warn:summary" | "error" | undefined;
         disabledDeprecations?: string[] | undefined;
-        configValidationMode?: 'warn' | 'error' | 'off' | undefined;
+        configValidationMode?: "warn" | "error" | "off" | undefined;
         provider: Provider;
         package?: Package | undefined;
         functions?: Functions | undefined;
@@ -33,7 +33,7 @@ declare namespace Aws {
     }
 
     interface Provider {
-        name: 'aws';
+        name: "aws";
         runtime?: string | undefined;
         stage?: string | undefined;
         region?: string | undefined;
@@ -62,9 +62,9 @@ declare namespace Aws {
         cfnRole?: string | undefined;
         iam?: IamSettings | undefined;
         versionFunctions?: boolean | undefined;
-        architecture?: 'x86_64' | 'arm64' | undefined;
+        architecture?: "x86_64" | "arm64" | undefined;
         environment?: Environment | string | undefined;
-        endpointType?: 'regional' | 'edge' | 'private' | undefined;
+        endpointType?: "regional" | "edge" | "private" | undefined;
         apiKeys?: Array<ApiKey | string> | undefined;
         apiGateway?: ApiGateway | undefined;
         alb?: Alb | undefined;
@@ -130,7 +130,7 @@ declare namespace Aws {
             [key: string]: string;
         } | undefined;
         websocketApiId?: any;
-        apiKeySourceType?: 'HEADER' | 'AUTHORIZER' | 'header' | 'authorizer' | undefined;
+        apiKeySourceType?: "HEADER" | "AUTHORIZER" | "header" | "authorizer" | undefined;
         minimumCompressionSize?: number | string | undefined;
         description?: string | undefined;
         binaryMediaTypes?: string[] | undefined;
@@ -150,7 +150,7 @@ declare namespace Aws {
     }
 
     interface CognitoAuthorizer {
-        type: 'cognito';
+        type: "cognito";
         userPoolArn: string;
         userPoolClientId: string;
         userPoolDomain: string;
@@ -165,7 +165,7 @@ declare namespace Aws {
     }
 
     interface OidcAuthorizer {
-        type: 'oidc';
+        type: "oidc";
         authorizationEndpoint: string;
         clientId: string;
         clientSecret?: string | undefined;
@@ -233,7 +233,7 @@ declare namespace Aws {
     }
 
     interface IamRoleStatement {
-        Effect: 'Allow' | 'Deny';
+        Effect: "Allow" | "Deny";
         Sid?: string | undefined;
         Condition?: {
             [key: string]: any;
@@ -245,7 +245,7 @@ declare namespace Aws {
     }
 
     interface ResourcePolicy {
-        Effect: 'Allow' | 'Deny';
+        Effect: "Allow" | "Deny";
         Principal?: string | string[] | { [key: string]: any } | undefined;
         Action?: string | string[] | { [key: string]: any } | undefined;
         Resource?: string | string[] | { [key: string]: any } | undefined;
@@ -276,21 +276,21 @@ declare namespace Aws {
 
     interface Tracing {
         apiGateway: boolean;
-        lambda?: 'Active' | 'PassThrough' | boolean | undefined;
+        lambda?: "Active" | "PassThrough" | boolean | undefined;
     }
 
     interface RestApiLogs {
         accessLogging?: boolean | undefined;
         format?: string | undefined;
         executionLogging?: boolean | undefined;
-        level?: 'INFO' | 'ERROR' | undefined;
+        level?: "INFO" | "ERROR" | undefined;
         fullExecutionData?: boolean | undefined;
         role?: string | undefined;
         roleManagedExternally?: boolean | undefined;
     }
 
     interface WebsocketLogs {
-        level?: 'INFO' | 'ERROR' | undefined;
+        level?: "INFO" | "ERROR" | undefined;
     }
 
     interface HttpApiLogs {
@@ -356,7 +356,7 @@ declare namespace Aws {
         async?: boolean | undefined;
         authorizer?: HttpAuthorizer | string | undefined;
         request?: HttpRequestValidation | undefined;
-        integration?: 'lambda' | 'mock' | undefined;
+        integration?: "lambda" | "mock" | undefined;
     }
 
     interface NamedHttpApiEventAuthorizer {
@@ -447,7 +447,7 @@ declare namespace Aws {
          * minimum: 0, maximum: 300
          */
         maximumBatchingWindow?: number | undefined;
-        functionResponseType?: 'ReportBatchItemFailures' | undefined;
+        functionResponseType?: "ReportBatchItemFailures" | undefined;
         enabled?: boolean | undefined;
         filterPatterns?: FilterPattern[] | undefined;
     }
@@ -469,15 +469,15 @@ declare namespace Aws {
     }
 
     type NumericFilter =
-        | ['=', number]
-        | ['<', number]
-        | ['<=', number]
-        | ['>', number]
-        | ['>=', number]
-        | ['>', number, '<', number]
-        | ['>=', number, '<', number]
-        | ['>', number, '<=', number]
-        | ['>=', number, '<=', number];
+        | ["=", number]
+        | ["<", number]
+        | ["<=", number]
+        | [">", number]
+        | [">=", number]
+        | [">", number, "<", number]
+        | [">=", number, "<", number]
+        | [">", number, "<=", number]
+        | [">=", number, "<=", number];
 
     type Filter =
         /* Null */
@@ -487,7 +487,7 @@ declare namespace Aws {
         /* String equality */
         | string
         /* Not */
-        | { 'anything-but': Filter[] }
+        | { "anything-but": Filter[] }
         /* Numeric */
         | { numeric: NumericFilter }
         /* Exists */
@@ -504,9 +504,9 @@ declare namespace Aws {
         batchSize?: number | string | undefined;
         startingPosition?: number | string | undefined;
         enabled?: boolean | undefined;
-        type?: 'dynamodb' | 'kinesis' | undefined;
+        type?: "dynamodb" | "kinesis" | undefined;
         filterPatterns?: FilterPattern[] | undefined;
-        functionResponseType?: 'ReportBatchItemFailures' | undefined;
+        functionResponseType?: "ReportBatchItemFailures" | undefined;
     }
 
     interface Msk {
@@ -514,7 +514,7 @@ declare namespace Aws {
         topic: string;
         batchSize?: number | undefined;
         enabled?: boolean | undefined;
-        startingPosition?: 'LATEST' | 'TRIM_HORIZON' | undefined;
+        startingPosition?: "LATEST" | "TRIM_HORIZON" | undefined;
     }
 
     interface KafkaAccessConfiguration {
@@ -533,7 +533,7 @@ declare namespace Aws {
         topic: string;
         batchSize?: number | undefined;
         maximumBatchingWindow?: number | undefined;
-        startingPosition?: 'LATEST' | 'TRIM_HORIZON';
+        startingPosition?: "LATEST" | "TRIM_HORIZON";
         enabled?: boolean | undefined;
         consumerGroupId?: string;
     }
@@ -562,7 +562,7 @@ declare namespace Aws {
 
     interface CloudwatchEventType {
         source: string[];
-        'detail-type': string[];
+        "detail-type": string[];
         detail: Detail;
     }
 
@@ -617,7 +617,7 @@ declare namespace Aws {
 
     interface PatternInput {
         source: string[];
-        'detail-type': string[];
+        "detail-type": string[];
         detail: Detail;
     }
 
@@ -684,7 +684,7 @@ declare namespace Aws {
     }
 
     interface FunctionUrlConfig {
-        authorizer?: 'aws_iam' | undefined;
+        authorizer?: "aws_iam" | undefined;
         cors?: boolean | FunctionUrlConfigCors | undefined;
     }
 
@@ -707,7 +707,7 @@ declare namespace Aws {
         vpc?: string | Vpc | undefined;
         package?: Package | undefined;
         layers?: Array<string | Record<string, string>> | undefined;
-        tracing?: 'Active' | 'PassThrough' | boolean | undefined;
+        tracing?: "Active" | "PassThrough" | boolean | undefined;
         condition?: string | undefined;
         dependsOn?: string[] | undefined;
         fileSystemConfig?: FileSystemConfig | undefined;

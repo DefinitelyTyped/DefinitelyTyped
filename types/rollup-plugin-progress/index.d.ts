@@ -5,7 +5,7 @@
 // TypeScript Version: 2.3
 
 /// <reference types="node" />
-import { Plugin } from 'rollup';
+import { Plugin } from "rollup";
 
 export interface PluginProgressOptions {
     clearLine?: boolean | undefined;

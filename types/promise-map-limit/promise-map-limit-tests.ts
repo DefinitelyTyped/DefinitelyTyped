@@ -1,6 +1,6 @@
-import mapPromiseLimit = require('promise-map-limit');
+import mapPromiseLimit = require("promise-map-limit");
 
-const promisedStrings = mapPromiseLimit(['foo', 'bar'], 2, s => s);
+const promisedStrings = mapPromiseLimit(["foo", "bar"], 2, s => s);
 promisedStrings; // $ExpectType Promise<string[]>
 
 const promisedBooleans = mapPromiseLimit([true, false], 2, b => b);
@@ -14,7 +14,9 @@ const promiseOfPromisedNumbers = mapPromiseLimit(
 promiseOfPromisedNumbers; // $ExpectType Promise<number[]>
 
 const promiseNumber = (value: Record<string, number>): Promise<number> =>
-    new Promise((resolve, reject) => { resolve(value.foo); });
+    new Promise((resolve, reject) => {
+        resolve(value.foo);
+    });
 
 (async () => {
     const asyncNumbers = await mapPromiseLimit(

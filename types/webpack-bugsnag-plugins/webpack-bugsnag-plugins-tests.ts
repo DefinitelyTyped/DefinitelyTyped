@@ -1,7 +1,4 @@
-import {
-    BugsnagSourceMapUploaderPlugin,
-    BugsnagBuildReporterPlugin
-} from "webpack-bugsnag-plugins";
+import { BugsnagBuildReporterPlugin, BugsnagSourceMapUploaderPlugin } from "webpack-bugsnag-plugins";
 
 /**
  * Missing or invalid options
@@ -21,7 +18,7 @@ new BugsnagBuildReporterPlugin({});
 
 // @ts-expect-error
 new BugsnagBuildReporterPlugin({
-    apiKey: "123456789"
+    apiKey: "123456789",
 });
 
 /**
@@ -30,13 +27,13 @@ new BugsnagBuildReporterPlugin({
 
 // $ExpectType BugsnagSourceMapUploaderPlugin
 new BugsnagSourceMapUploaderPlugin({
-    apiKey: "123456789"
+    apiKey: "123456789",
 });
 
 // $ExpectType BugsnagBuildReporterPlugin
 new BugsnagBuildReporterPlugin({
     apiKey: "123456789",
-    appVersion: "1.2.3"
+    appVersion: "1.2.3",
 });
 
 // $ExpectType BugsnagBuildReporterPlugin
@@ -44,8 +41,8 @@ new BugsnagBuildReporterPlugin({
     apiKey: "123456789",
     appVersion: "1.2.3",
     metadata: {
-        foo: "bar"
-    }
+        foo: "bar",
+    },
 });
 
 /**
@@ -59,7 +56,7 @@ new BugsnagSourceMapUploaderPlugin({
     appVersion: "1.2.3",
     overwrite: true,
     endpoint: "https://upload.bugsnag.com",
-    ignoredBundleExtensions: [".css"]
+    ignoredBundleExtensions: [".css"],
 });
 
 // $ExpectType BugsnagBuildReporterPlugin
@@ -71,13 +68,13 @@ new BugsnagBuildReporterPlugin(
         sourceControl: {
             provider: "github",
             repository: "https://github.com/bugsnag/webpack-bugsnag-plugins",
-            revision: "123456789"
+            revision: "123456789",
         },
         builderName: "whoami",
         autoAssignRelease: false,
         metadata: {
-            foo: "bar"
-        }
+            foo: "bar",
+        },
     },
     {
         logLevel: "debug",
@@ -85,9 +82,9 @@ new BugsnagBuildReporterPlugin(
             debug: () => null,
             info: () => null,
             warn: () => null,
-            error: () => null
+            error: () => null,
         },
         path: process.cwd(),
-        endpoint: "https://build.bugsnag.com"
-    }
+        endpoint: "https://build.bugsnag.com",
+    },
 );

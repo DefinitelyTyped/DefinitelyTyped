@@ -7,7 +7,6 @@
         "no-empty-interface": false,
         "no-internal-module": false,
         "no-var-keyword": false,
-        "prefer-const": false,
-        "strict-export-declare-modifiers": false
+        "prefer-const": false
     }
 }

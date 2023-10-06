@@ -1,4 +1,4 @@
-import WellKnownMimeType from './WellKnownMimeType';
+import WellKnownMimeType from "./WellKnownMimeType";
 
 export class CompositeMetadata implements Iterable<Entry> {
     constructor(buffer: Buffer);
@@ -16,7 +16,7 @@ export class CompositeMetadata implements Iterable<Entry> {
 export function encodeCompositeMetadata(
     metadata:
         | Map<string | WellKnownMimeType | number, (Buffer | (() => Buffer))>
-        | Array<[string | WellKnownMimeType | number, (Buffer | (() => Buffer))]>
+        | Array<[string | WellKnownMimeType | number, (Buffer | (() => Buffer))]>,
 ): Buffer;
 
 /**
@@ -48,7 +48,7 @@ export function encodeAndAddCustomMetadata(compositeMetaData: Buffer, customMime
 export function encodeAndAddWellKnownMetadata(
     compositeMetaData: Buffer,
     knownMimeType: WellKnownMimeType | number,
-    metadata: Buffer
+    metadata: Buffer,
 ): Buffer;
 
 /**

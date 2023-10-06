@@ -9,7 +9,7 @@
 
 declare namespace rosie {
     interface IFactoryStatic {
-        new <T = any>(): IFactory<T>;
+        new<T = any>(): IFactory<T>;
         /**
          * Defines a factory by name and constructor function. Call #attr and #option
          * on the result to define the properties of this factory.
@@ -20,7 +20,7 @@ declare namespace rosie {
          */
         define<T = any>(
             name: string,
-            constructor?: ((...opts: any[]) => any) | (new <T>(...opts: any[]) => any),
+            constructor?: ((...opts: any[]) => any) | (new<T>(...opts: any[]) => any),
         ): IFactory<T>;
 
         /**

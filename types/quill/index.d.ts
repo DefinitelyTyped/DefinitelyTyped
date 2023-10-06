@@ -11,7 +11,7 @@
 // TypeScript Version: 2.9
 
 import { Blot } from "parchment/dist/src/blot/abstract/blot";
-import Delta = require("quill-delta");
+import Delta from "quill-delta";
 
 /**
  * A stricter type definition would be:

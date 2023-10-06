@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component } from 'ink';
+import { Component } from "ink";
 
 interface TextInputProps {
     focus?: boolean | undefined;
@@ -14,6 +14,6 @@ interface TextInputProps {
     value?: string | undefined;
 }
 
-declare class TextInput extends Component<TextInputProps> { }
+declare class TextInput extends Component<TextInputProps> {}
 
 export = TextInput;

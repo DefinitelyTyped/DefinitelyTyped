@@ -1,12 +1,12 @@
-import marvCallbacks = require('marv/api/callback');
-import marvPromises = require('marv/api/promise');
-import driver = require('marv-pg-driver');
-import pg = require('pg');
+import marvCallbacks = require("marv/api/callback");
+import marvPromises = require("marv/api/promise");
+import driver = require("marv-pg-driver");
+import pg = require("pg");
 
-const directory = './migrations';
+const directory = "./migrations";
 
 const connection = {
-    host: 'postgres.example.com',
+    host: "postgres.example.com",
 };
 
 async function migrateCallbacks() {
@@ -22,6 +22,6 @@ async function migratePromises() {
     const migrations = await marvPromises.scan(directory);
     await marvPromises.migrate(
         migrations,
-        driver({ connection, logger: console, pg, table: 'myMigrations', quiet: true }),
+        driver({ connection, logger: console, pg, table: "myMigrations", quiet: true }),
     );
 }

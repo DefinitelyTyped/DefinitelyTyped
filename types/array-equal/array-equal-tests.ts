@@ -1,4 +1,4 @@
-import equal = require('array-equal');
+import equal = require("array-equal");
 
 // @ts-expect-error
 equal();

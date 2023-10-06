@@ -7,7 +7,7 @@
 // TypeScript Version: 3.7
 
 /// <reference types="node" />
-import { Compiler } from 'webpack';
+import { Compiler } from "webpack";
 
 /**
  * A secure webpack plugin that supports dotenv and other environment variables

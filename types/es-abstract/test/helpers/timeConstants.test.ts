@@ -1,4 +1,4 @@
-import timeConstants = require('es-abstract/helpers/timeConstants');
+import timeConstants = require("es-abstract/helpers/timeConstants");
 
 timeConstants.HoursPerDay; // $ExpectType 24
 timeConstants.MinutesPerHour; // $ExpectType 60

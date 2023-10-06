@@ -1,6 +1,6 @@
-import { BlockInstance } from '@wordpress/blocks';
+import { BlockInstance } from "@wordpress/blocks";
 
-import { EditorBlockListSettings, EditorSettings } from '../';
+import { EditorBlockListSettings, EditorSettings } from "../";
 
 /**
  * Signals that the block selection is cleared.
@@ -36,7 +36,7 @@ export function insertBlock(
     block: BlockInstance,
     index?: number,
     rootClientId?: string,
-    updateSelection?: boolean
+    updateSelection?: boolean,
 ): void;
 
 /**
@@ -53,7 +53,7 @@ export function insertBlocks(
     blocks: BlockInstance[],
     index?: number,
     rootClientId?: string,
-    updateSelection?: boolean
+    updateSelection?: boolean,
 ): IterableIterator<void>;
 
 /**
@@ -86,7 +86,7 @@ export function moveBlockToPosition(
     clientId: string | undefined,
     fromRootClientId: string | undefined,
     toRootClientId: string | undefined,
-    index: number
+    index: number,
 ): IterableIterator<void>;
 
 export function moveBlocksDown(clientIds: string | string[], rootClientId: string): void;
@@ -145,7 +145,7 @@ export function replaceBlock(clientId: string | string[], block: BlockInstance |
 export function replaceBlocks(
     clientIds: string | string[],
     blocks: BlockInstance | BlockInstance[],
-    indexToSelect?: number
+    indexToSelect?: number,
 ): IterableIterator<void>;
 
 /**

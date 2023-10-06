@@ -7,17 +7,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import {
-    CSSProperties,
-    ComponentType,
-    FunctionComponent,
-    ImgHTMLAttributes,
-    ReactElement,
-    ReactNode,
-} from 'react';
+import { ComponentType, CSSProperties, FunctionComponent, ImgHTMLAttributes, ReactElement, ReactNode } from "react";
 
-export type DelayMethod = 'debounce' | 'throttle';
-export type Effect = 'blur' | 'black-and-white' | 'opacity';
+export type DelayMethod = "debounce" | "throttle";
+export type Effect = "blur" | "black-and-white" | "opacity";
 
 export interface ScrollPosition {
     x: number;
@@ -47,7 +40,9 @@ export interface CommonProps {
     scrollPosition?: ScrollPosition | undefined;
 }
 
-export interface LazyLoadImageProps extends CommonProps, Omit<ImgHTMLAttributes<HTMLImageElement>, 'placeholder' | 'onLoad'>  {
+export interface LazyLoadImageProps
+    extends CommonProps, Omit<ImgHTMLAttributes<HTMLImageElement>, "placeholder" | "onLoad">
+{
     /** Name of the effect to use. Requires importing CSS, see README.md. */
     effect?: Effect | undefined;
     /** Image src to display while the image is not visible or loaded. */
@@ -66,7 +61,7 @@ export interface LazyComponentProps {
 
 export function trackWindowScroll<P extends LazyComponentProps>(
     BaseComponent: ComponentType<P>,
-): ComponentType<Omit<P, 'scrollPosition'>>;
+): ComponentType<Omit<P, "scrollPosition">>;
 
 export interface LazyLoadComponentProps extends CommonProps {
     children: ReactNode;

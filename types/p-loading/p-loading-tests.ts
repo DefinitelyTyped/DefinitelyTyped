@@ -1,21 +1,21 @@
-$('#test').ploading({action: 'show'});
+$("#test").ploading({ action: "show" });
 
-$('#test').ploading({action: 'hide'});
+$("#test").ploading({ action: "hide" });
 
-$('#test').ploading({action: 'destroy'});
+$("#test").ploading({ action: "destroy" });
 
-$('#test').ploading({action: 'hide', useAddOns: ['addOnName']});
+$("#test").ploading({ action: "hide", useAddOns: ["addOnName"] });
 
 $.fn.ploading.defaults = {
     // ploading static settings
-    useAddOns: ['addOnName']
+    useAddOns: ["addOnName"],
 };
 
 $.fn.ploading.defaults = {
-    spinnerClass: 'your-spinner-class'
+    spinnerClass: "your-spinner-class",
 };
 
 $.fn.ploading.defaults = {
-    spinnerHTML: '<i></i>',
-    spinnerClass: 'fa fa-spinner fa-spin p-loading-fontawesome'
+    spinnerHTML: "<i></i>",
+    spinnerClass: "fa fa-spinner fa-spin p-loading-fontawesome",
 };
