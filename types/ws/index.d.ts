@@ -29,7 +29,7 @@ import { ZlibOptions } from "zlib";
 
 // can not get all overload of BufferConstructor['from'], need to copy all it's first arguments here
 // https://github.com/microsoft/TypeScript/issues/32164
-type BufferLike =
+export type BufferLike =
     | string
     | Buffer
     | DataView
