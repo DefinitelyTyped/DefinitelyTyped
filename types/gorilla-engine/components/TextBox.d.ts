@@ -1,5 +1,5 @@
 declare namespace GorillaEngine.UI {
-    interface TextBoxProps extends Font, Clickable, Bounds, Background {
+    interface TextBoxProps extends Font, Clickable, Bounds, Background, Margin, Keyable {
         text: string;
         palceholder: string;
         unit: string;
@@ -14,6 +14,11 @@ declare namespace GorillaEngine.UI {
         acceptedDataType: "integer" | "int" | "float" | "string";
         minValue: number;
         maxValue: number;
+        highlightStart: number;
+        highlightEnd: number;
+        keyDownAction: string;
+        textChangedAction: string;
+        focusLostUpdate: boolean;
     }
 
     interface TextBox extends TextBoxProps {

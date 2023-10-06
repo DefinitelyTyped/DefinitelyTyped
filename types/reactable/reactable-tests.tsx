@@ -7,29 +7,29 @@ interface Person {
     age: number;
 }
 
-type PersonTable = new () => Reactable.Table<Person>;
+type PersonTable = new() => Reactable.Table<Person>;
 const PersonTable = Reactable.Table as PersonTable;
 
-type PersonTableHeader = new () => Reactable.Thead;
+type PersonTableHeader = new() => Reactable.Thead;
 const PersonTableHeader = Reactable.Thead as PersonTableHeader;
 
-type PersonTableTh = new () => Reactable.Th;
+type PersonTableTh = new() => Reactable.Th;
 const PersonTableTh = Reactable.Th as PersonTableTh;
 
-type PersonRow = new () => Reactable.Tr<Person>;
+type PersonRow = new() => Reactable.Tr<Person>;
 const PersonRow = Reactable.Tr as PersonRow;
 
-type PersonTableTd = new () => Reactable.Td;
+type PersonTableTd = new() => Reactable.Td;
 const PersonTableTd = Reactable.Td as PersonTableTd;
 
-type PersonTableTfoot = new () => Reactable.Tfoot;
+type PersonTableTfoot = new() => Reactable.Tfoot;
 const PersonTableTfoot = Reactable.Tfoot as PersonTableTfoot;
 
 const data = [
     {
         name: "Christoph Spielmann",
-        age: 36
-    }
+        age: 36,
+    },
 ];
 
 export class TestComponent extends React.Component {
@@ -47,25 +47,27 @@ export class FullblownReactableTestComponent extends React.Component {
             columns.push(
                 <PersonTableTh column={colName} key={colName}>
                     <strong className="name-header">{colName}</strong>
-                </PersonTableTh>
+                </PersonTableTh>,
             );
         }
         const rows: JSX.Element[] = [];
         for (const d of data) {
             const tds: JSX.Element[] = [];
-            displayedColumns.forEach(col => tds.push(
-                <PersonTableTd column={col}>
-                    <p>d[col]</p>
-                </PersonTableTd>
-            ));
+            displayedColumns.forEach(col =>
+                tds.push(
+                    <PersonTableTd column={col}>
+                        <p>d[col]</p>
+                    </PersonTableTd>,
+                )
+            );
             rows.push(
                 <PersonRow>
                     {tds}
-                </PersonRow>
+                </PersonRow>,
             );
         }
         return (
-            <PersonTable defaultSort={{ column: "name", direction: 'asc' }}>
+            <PersonTable defaultSort={{ column: "name", direction: "asc" }}>
                 <PersonTableHeader>
                     {columns}
                 </PersonTableHeader>

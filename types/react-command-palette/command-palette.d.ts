@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 export interface Command {
     id: number;
@@ -127,7 +127,7 @@ export interface Props {
      *
      * @default 'modal'
      */
-    display?: 'modal' | 'inline';
+    display?: "modal" | "inline";
 
     /**
      * header a string or a React.ComponentType which provides a helpful description for

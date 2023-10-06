@@ -3,7 +3,7 @@
 // Definitions by: Ben Grynhaus <https://github.com/bengry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import multiavatar from './esm';
+import multiavatar from "./esm";
 
 export as namespace multiavatar;
 

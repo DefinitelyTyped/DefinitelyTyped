@@ -14,6 +14,7 @@ export type Dialect =
     | "es7"
     | 7
     | "es6"
+    | "default"
     | "next";
 
 export interface Keywords {
@@ -36,5 +37,5 @@ export const KEYWORDS: Keywords;
 export function check(
     word: string,
     dialect?: Dialect,
-    strict?: boolean
+    strict?: boolean,
 ): boolean;

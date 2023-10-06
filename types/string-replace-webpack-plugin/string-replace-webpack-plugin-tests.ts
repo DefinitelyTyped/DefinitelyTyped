@@ -1,6 +1,6 @@
-import StringReplacePlugin = require('string-replace-webpack-plugin');
+import StringReplacePlugin = require("string-replace-webpack-plugin");
 
-StringReplacePlugin.replace('babel-loader', {
+StringReplacePlugin.replace("babel-loader", {
     replacements: [
         {
             // Taken from:
@@ -8,10 +8,10 @@ StringReplacePlugin.replace('babel-loader', {
             pattern: /([^\d]*)(\d*)([^\w]*)/,
             replacement: (match, p1, p2, p3, offset, string) => {
                 // p1 is nondigits, p2 digits, and p3 non-alphanumerics
-                return [p1, p2, p3].join(' - ');
-            }
-        }
-    ]
+                return [p1, p2, p3].join(" - ");
+            },
+        },
+    ],
 });
 
 new StringReplacePlugin();

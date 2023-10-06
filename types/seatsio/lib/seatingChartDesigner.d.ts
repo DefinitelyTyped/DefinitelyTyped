@@ -15,9 +15,9 @@ declare namespace Seatsio {
         chartKey: string;
         language?: string | undefined;
         features?: {
-            enabled: string[],
-            disabled: string[],
-            readOnly: string[]
+            enabled: string[];
+            disabled: string[];
+            readOnly: string[];
         } | undefined;
         openDraftDrawing?: boolean | undefined;
         openLatestDrawing?: boolean | undefined;

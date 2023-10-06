@@ -82,6 +82,28 @@ declare var AbortSignal: typeof globalThis extends { onmessage: any; AbortSignal
     };
 // #endregion borrowed
 
+// #region Disposable
+interface SymbolConstructor {
+    /**
+     * A method that is used to release resources held by an object. Called by the semantics of the `using` statement.
+     */
+    readonly dispose: unique symbol;
+
+    /**
+     * A method that is used to asynchronously release resources held by an object. Called by the semantics of the `await using` statement.
+     */
+    readonly asyncDispose: unique symbol;
+}
+
+interface Disposable {
+    [Symbol.dispose](): void;
+}
+
+interface AsyncDisposable {
+    [Symbol.asyncDispose](): PromiseLike<void>;
+}
+// #endregion Disposable
+
 // #region ArrayLike.at()
 interface RelativeIndexable<T> {
     /**
@@ -93,6 +115,7 @@ interface RelativeIndexable<T> {
 }
 interface String extends RelativeIndexable<string> {}
 interface Array<T> extends RelativeIndexable<T> {}
+interface ReadonlyArray<T> extends RelativeIndexable<T> {}
 interface Int8Array extends RelativeIndexable<number> {}
 interface Uint8Array extends RelativeIndexable<number> {}
 interface Uint8ClampedArray extends RelativeIndexable<number> {}
@@ -157,7 +180,7 @@ declare namespace NodeJS {
         /**
          * Name of the script [if this function was defined in a script]
          */
-        getFileName(): string | null;
+        getFileName(): string | undefined;
 
         /**
          * Current line number [if this function was defined in a script]

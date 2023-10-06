@@ -1,4 +1,4 @@
-import { ReactElement, ReactInstance } from 'react';
+import { ReactElement, ReactInstance } from "react";
 
 export interface ShallowRenderer {
     /**

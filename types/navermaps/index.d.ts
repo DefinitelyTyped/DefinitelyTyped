@@ -1,4 +1,4 @@
-// Type definitions for non-npm package NAVER Maps JavaScript API 3.6
+// Type definitions for non-npm package NAVER Maps JavaScript API 3.7
 // Project: https://navermaps.github.io/maps.js.ncp/
 // Definitions by: Ckboyjiy <https://github.com/ckboyjiy>
 //                 DongKyuuuu <https://github.com/DongKyuuuu>
@@ -8,7 +8,7 @@
 //                 kkokko Jeong <https://github.com/kkokkojeong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// NAVER Maps JavaScript API Version: 3.6
+// NAVER Maps JavaScript API Version: 3.7
 
 /// <reference types="geojson" />
 
@@ -543,7 +543,7 @@ declare namespace naver.maps {
 
     interface DOMEventListener {
         eventName: string;
-        listener: () => any;
+        listener: (event: any) => any;
         target: HTMLElement;
     }
 
@@ -660,8 +660,8 @@ declare namespace naver.maps {
         unbind(key: string): void;
         unbindAll(): void;
         setValues(properties: { [key: string]: any }): void;
-        addListener(eventName: string, listener: () => any): MapEventListener;
-        addListenerOnce(eventName: string, listener: () => any): MapEventListener;
+        addListener(eventName: string, listener: (event: any) => any): MapEventListener;
+        addListenerOnce(eventName: string, listener: (event: any) => any): MapEventListener;
         hasListener(eventName: string): boolean;
         removeListener(listeners: MapEventListener | MapEventListener[]): void;
         clearListeners(eventName: string): void;

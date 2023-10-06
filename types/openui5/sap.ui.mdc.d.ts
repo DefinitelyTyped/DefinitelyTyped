@@ -1,4 +1,148 @@
-// For Library Version: 1.118.0
+// For Library Version: 1.119.0
+
+declare module "sap/ui/mdc/AggregationBaseDelegate" {
+  import Control from "sap/ui/mdc/Control";
+
+  import Control1 from "sap/ui/core/Control";
+
+  /**
+   * @since 1.82.0
+   *
+   * Base delegate implementation for {@link sap.ui.mdc.Control MDC Controls}. This delegate serves as base
+   * implementation for aggregation-based controls, such as:
+   *
+   *
+   * 	 - `sap.ui.mdc.Chart`
+   * 	 - `sap.ui.mdc.Table`
+   * 	 - `sap.ui.mdc.FilterBar`
+   *
+   * The `AggregationBaseDelegate` provides an interface for aggregation based functionality by providing
+   * an array of PropertyInfo objects, which can be used during runtime for personalization through the according
+   * `addItem` and `removeItem` hooks. Additional hooks for cleanup and validation mechanisms can be implemented
+   * through this delegate.
+   */
+  interface AggregationBaseDelegate {
+    /**
+     * Creates an instance of the implementing MDC Control's default aggregation.
+     *
+     * **Note:** The `addItem` hook can be used during the processing of an SAPUI5 flexibility change. Consequently
+     * the parameter `mPropertyBag` is only passed during preprocessing. In runtime scenarios (such as opening
+     * a personalization dialog), this method might be called without the parameter `mPropertyBag`.
+     *
+     * @returns Promise that resolves with an instance of the implementing {@link sap.ui.mdc.Control Control }
+     * default aggregation. **Note:** This method always requires a return value once it has been called. If
+     * an item for a given property `sPropertyName` has already been created, it is required to either return
+     * the existing instance or create a new instance.
+     */
+    addItem(
+      /**
+       * Instance of an `sap.ui.mdc.Control`
+       */
+      oControl: Control,
+      /**
+       * The name of the property info object/JSON
+       */
+      sPropertyName: string,
+      /**
+       * Instance of property bag from SAPUI5 flexibility change API
+       */
+      mPropertyBag?: Object
+    ): Promise<any>;
+    /**
+     * A validator to evaluate the state of an MDC control.
+     */
+    determineValidationState(
+      /**
+       * Instance of a MDC control
+       */
+      oControl: Control,
+      /**
+       * Object Describing the validation result
+       */
+      mValidation?: Record<string, any>
+    ): void;
+    /**
+     * Retrieves the relevant metadata for a given payload and returns the property info array.
+     *
+     * @returns Once resolved, an array of property info objects is returned
+     */
+    fetchProperties(
+      /**
+       * Instance of an `sap.ui.mdc.Control`
+       */
+      oControl: Control
+    ): Promise<object[]>;
+    /**
+     * Hook that will be executed when changes are done applying to controls during the XML flexibility change
+     * appliance process.
+     */
+    onAfterXMLChangeProcessing(
+      /**
+       * Instance of an MDC control
+       */
+      oControl: Record<string, Control>,
+      /**
+       * Property bag from SAPUI5 flexibility
+       */
+      mPropertyBag: Object
+    ): void;
+    /**
+     * Triggers any necessary follow-up steps that need to be taken after the removal of created items via `removeItem`.
+     * The returned Boolean value inside the `Promise` can be used to prevent the default follow-up behavior
+     * of the SAPUI5 flexibility handling.
+     *
+     * **Note:** The `removeItem` hook can be used during the processing of an SAPUI5 flexibility change. Consequently
+     * the parameter `mPropertyBag` is only passed during preprocessing. In runtime scenarios (such as opening
+     * a personalization dialog), this method might be called without the parameter `mPropertyBag`.
+     *
+     * @returns Promise that resolves with `true`, `false` to allow/prevent default behavior of the change
+     */
+    removeItem(
+      /**
+       * Instance of an `sap.ui.mdc.Control`
+       */
+      oControl: Control,
+      /**
+       * The control instance that was removed
+       */
+      oItem: Control1,
+      /**
+       * Instance of property bag from SAPUI5 flexibility
+       */
+      mPropertyBag?: Object
+    ): Promise<any>;
+    /**
+     * A validator to evaluate the theoretical control state.
+     *
+     * @returns An object that must contain at least the `validation` attribute {@link sap.ui.core.MessageType MessageType}.
+     * If `warning` or `error` state types have been provided, the `message` is shown in addition.
+     */
+    validateState(
+      /**
+       * Instance of an `sap.ui.mdc.Control`
+       */
+      oControl: Control,
+      /**
+       * The theoretical external state representation of an MDC control. The representation of this format is
+       * similar as processed by {@link sap.ui.mdc.p13n.StateUtil StateUtil}
+       */
+      oState: Object
+    ): Object;
+    /**
+     * Visualizes the validation state of an MDC control.
+     *
+     * @returns mValidation Describes the validation result.
+     */
+    visualizeValidationState(
+      /**
+       * Instance of a MDC control
+       */
+      oControl: Record<string, Control>
+    ): Record<string, any>;
+  }
+  const AggregationBaseDelegate: AggregationBaseDelegate;
+  export default AggregationBaseDelegate;
+}
 
 declare module "sap/ui/mdc/BaseDelegate" {
   import Control from "sap/ui/mdc/Control";
@@ -1042,10 +1186,10 @@ declare module "sap/ui/mdc/LinkDelegate" {
     /**
      * Calculates and returns the type of link that is displayed.
      *
-     * @returns Once resolved, an object containing an initial {@link sap.ui.mdc.link.LinkType} and an optional
-     * `Promise` are returned. The optional `Promise` also returns a {@link sap.ui.mdc.link.LinkType} object.
-     * Once the optional `Promise` has been resolved, the returned {@link sap.ui.mdc.link.LinkType} overwrites
-     * the `initialType`.
+     * @returns Once resolved, a {@link sap.ui.mdc.link.LinkTypeWrapper} containing an initial {@link sap.ui.mdc.link.LinkType }
+     * and an optional `Promise` are returned. The optional `Promise` also returns a {@link sap.ui.mdc.link.LinkType }
+     * object. Once the optional `Promise` has been resolved, the returned {@link sap.ui.mdc.link.LinkType }
+     * overwrites the `initialType`.
      */
     fetchLinkType(
       /**
@@ -1515,14 +1659,14 @@ declare module "sap/ui/mdc/util/TypeMap" {
      *
      * **Note:** The module of the data type needs to be loaded before.
      *
-     * @returns creates returns a dataType class
+     * @returns returns a dataType class
      */
     getDataTypeClass(
       /**
        * Class path as string where each name is separated by '.'
        */
       sDataType: string
-    ): SimpleType;
+    ): (p1: SimpleType) => void;
     /**
      * Returns the data type class name for a given name or alias.
      *
@@ -5355,18 +5499,19 @@ declare module "sap/ui/mdc/condition/Operator" {
         /**
          * Array of type to be used. The length of the array defines the number of values that need to be entered
          * with the operator.
-         *  If set to {@link sap.ui.mdc.enums.OperatorValueType.Self OperatorValueType.Self} the `Type` of the `Field`
-         * or `FilterField` using the `Operator` is used.
+         *  If set to {@link sap.ui.mdc.enums.OperatorValueType.Self OperatorValueType.Self}, the `Type` of the
+         * `Field` or `FilterField` using the `Operator` is used.
          *  If set to {@link sap.ui.mdc.enums.OperatorValueType.SelfNoParse OperatorValueType.SelfNoParse} same
          * as {@link sap.ui.mdc.enums.OperatorValueType.Self OperatorValueType.Self}, except that the input value
          * parsing will not be called.
-         *  If set to {@link sap.ui.mdc.enums.OperatorValueType.Static OperatorValueType.Static} a simple string
+         *  If set to {@link sap.ui.mdc.enums.OperatorValueType.Static OperatorValueType.Static}, a simple string
          * type is used to display static text.
-         *  If set to a name of a data type an instance of this data type will be used.
-         *  If set to an object with structure {@link sap.ui.mdc.condition.ValueType} an instance of the corresponding
-         * data type will be used. The type given via `name` must be loaded by the application.
-         *  If set to `null` the corresponding value is interpreted as description that holds no required data.
-         * To display this value the additional `Type` of the `Field` or `FilterField` using the `Operator` is used.
+         *  If set to a name of a data type, an instance of this data type is used.
+         *  If set to an object with structure {@link sap.ui.mdc.condition.ValueType}, an instance of the corresponding
+         * data type is used. The type given via `name` must be loaded by the application.
+         *  If set to `null`, the corresponding value is interpreted as a description that holds no required data.
+         * To display this value, the additional `Type` of the `Field` or `FilterField` using the `Operator` is
+         * used.
          */
         valueTypes: string[] | object[];
         /**
@@ -6921,7 +7066,7 @@ declare module "sap/ui/mdc/field/ConditionsType" {
          */
         valueType?: Type;
         /**
-         * Type of the additionalValue (description) of the condition (used for formatting, parsing and validating)
+         * Type of the `additionalValue` (description) of the condition (used for formatting, parsing, and validating)
          */
         additionalValueType?: Type;
         /**
@@ -6956,15 +7101,15 @@ declare module "sap/ui/mdc/field/ConditionsType" {
          */
         originalDateType?: Type;
         /**
-         * additional type used on other part of a field. (For example, for unit fields.)
+         * Additional type used for another part of a field (for example, for unit fields)
          */
         additionalType?: Type;
         /**
-         * additional types used for parts of a `CompositeType` (if valueType is a `CompositeType`)
+         * Additional types used for each part of a `CompositeType` (if `valueType` is a `CompositeType`)
          */
         compositeTypes?: Type[];
         /**
-         * additional types used for parts of a `CompositeType` (if additionalValueType is a `CompositeType`)
+         * Additional types used for each part of a `CompositeType` (if `additionalValueType` is a `CompositeType`)
          */
         additionalCompositeTypes?: Type[];
         /**
@@ -7006,11 +7151,11 @@ declare module "sap/ui/mdc/field/ConditionsType" {
          */
         control?: Control;
         /**
-         * If set, the conditions will not be formatted (MultiInput value-property case)
+         * If set, the conditions will not be formatted (MultiInput `value` property case)
          */
         noFormatting?: boolean;
         /**
-         * If noFormatting is set, this value is used as output (To keep typed value during value help selection)
+         * If `noFormatting` is set, this value is used as output to keep the typed value during value help selection
          */
         keepValue?: string;
       },
@@ -7145,7 +7290,7 @@ declare module "sap/ui/mdc/field/ConditionType" {
          */
         valueType?: Type;
         /**
-         * Type of the additionalValue (description) of the condition (used for formatting, parsing and validating)
+         * Type of the `additionalValue` (description) of the condition (used for formatting, parsing, and validating)
          */
         additionalValueType?: Type;
         /**
@@ -7180,15 +7325,15 @@ declare module "sap/ui/mdc/field/ConditionType" {
          */
         originalDateType?: Type;
         /**
-         * additional type used on other part of a field. (For example, for unit fields.)
+         * Additional type used for another part of a field (for example, for unit fields)
          */
         additionalType?: Type;
         /**
-         * additional types used for parts of a `CompositeType`
+         * Additional types used for each part of a `CompositeType` (if `valueType` is a `CompositeType`)
          */
         compositeTypes?: Type[];
         /**
-         * additional types used for parts of a `CompositeType` (if additionalValueType is a `CompositeType`)
+         * Additional types used for each part of a `CompositeType` (if `additionalValueType` is a `CompositeType`)
          */
         additionalCompositeTypes?: Type[];
         /**
@@ -7229,6 +7374,14 @@ declare module "sap/ui/mdc/field/ConditionType" {
          * Instance of the calling control
          */
         control?: Control;
+        /**
+         * If set, the conditions will not be formatted (MultiInput `value` property case)
+         */
+        noFormatting?: boolean;
+        /**
+         * If `noFormatting` is set, this value is used as output to keep the typed value during value help selection
+         */
+        keepValue?: string;
       },
       /**
        * Value constraints
@@ -7356,7 +7509,7 @@ declare module "sap/ui/mdc/field/DynamicDateRangeConditionsType" {
          */
         valueType?: Type;
         /**
-         * Type of the additionalValue (description) of the condition (used for formatting, parsing and validating)
+         * Type of the `additionalValue` (description) of the condition (used for formatting, parsing, and validating)
          */
         additionalValueType?: Type;
         /**
@@ -7391,15 +7544,15 @@ declare module "sap/ui/mdc/field/DynamicDateRangeConditionsType" {
          */
         originalDateType?: Type;
         /**
-         * additional type used on other part of a field. (For example, for unit fields.)
+         * Additional type used for another part of a field (for example, for unit fields)
          */
         additionalType?: Type;
         /**
-         * additional types used for parts of a `CompositeType` (if valueType is a `CompositeType`)
+         * Additional types used for each part of a `CompositeType` (if `valueType` is a `CompositeType`)
          */
         compositeTypes?: Type[];
         /**
-         * additional types used for parts of a `CompositeType` (if additionalValueType is a `CompositeType`)
+         * Additional types used for each part of a `CompositeType` (if `additionalValueType` is a `CompositeType`)
          */
         additionalCompositeTypes?: Type[];
         /**
@@ -7441,11 +7594,11 @@ declare module "sap/ui/mdc/field/DynamicDateRangeConditionsType" {
          */
         control?: Control;
         /**
-         * If set, the conditions will not be formatted (MultiInput value-property case)
+         * If set, the conditions will not be formatted (MultiInput `value` property case)
          */
         noFormatting?: boolean;
         /**
-         * If noFormatting is set, this value is used as output (To keep typed value during value help selection)
+         * If `noFormatting` is set, this value is used as output to keep the typed value during value help selection
          */
         keepValue?: string;
       },
@@ -7969,12 +8122,12 @@ declare module "sap/ui/mdc/field/FieldBase" {
      *
      * Returns the configuration for the additional data type.
      *
-     * In {@link sap.ui.mdc.Field Field} case it is determined from the binding of the `additionalValue` In
-     * {@link sap.ui.mdc.MultiValueField MultiValueField} case it is determined from the binding of `description`
-     * of an item In {@link sap.ui.mdc.FilterField FilterField} case it is provided via `additionalDataType`
-     * property.
+     * For a {@link sap.ui.mdc.Field Field}, the data type is determined from the binding of the `additionalValue`.
+     * For a {@link sap.ui.mdc.MultiValueField MultiValueField}, the data type is determined from the binding
+     * of the `description` of an item. For a {@link sap.ui.mdc.FilterField FilterField}, the data type is provided
+     * via the `additionalDataType` property.
      *
-     * @returns return a type instance ot a configuration object
+     * @returns Type instance of a configuration object
      */
     getAdditionalDataTypeConfiguration(): Type | object;
     /**
@@ -11145,178 +11298,6 @@ declare module "sap/ui/mdc/filterbar/vh/FilterBar" {
   }
 }
 
-declare module "sap/ui/mdc/FilterBarDelegate" {
-  import FilterBar from "sap/ui/mdc/FilterBar";
-
-  import FilterField from "sap/ui/mdc/FilterField";
-
-  import FilterBarValidationStatus from "sap/ui/mdc/enums/FilterBarValidationStatus";
-
-  import { filterbar } from "sap/ui/mdc/library";
-
-  /**
-   * @since 1.61.0
-   *
-   * Base Delegate for {@link sap.ui.mdc.FilterBar FilterBar}. Extend this object in your project to use all
-   * functionalities of the {@link sap.ui.mdc.FilterBar FilterBar}. This class provides method calls, which
-   * are called by the `FilterBar` at specific operations and allows to overwrite an internal behaviour..
-   */
-  export default class FilterBarDelegate {
-    constructor();
-
-    /**
-     * This method is called during the appliance of the add condition change. The intention is to update the
-     * {@link sap.ui.mdc.FilterBarBase#setPropertyInfo propertyInfo} property.
-     *
-     * @returns `Promise` that is resolved once the propertyInfo property has been updated
-     */
-    static addCondition(
-      /**
-       * Instance of the filter bar
-       */
-      oFilterBar: FilterBar,
-      /**
-       * The name of a property
-       */
-      sPropertyName: string,
-      /**
-       * Instance of a property bag from the SAPUI5 flexibility change API
-       */
-      mPropertyBag: Object
-    ): Promise<any>;
-    /**
-     * Creates an instance of a filter field control. **Note:** The `addItem` hook can be used during the processing
-     * of an SAPUI5 flexibility change. Consequently the parameter `mPropertyBag` is only passed during preprocessing.
-     * In runtime scenarios (such as opening a personalization dialog), this method might be called without
-     * the parameter `mPropertyBag`.
-     *
-     * @returns `Promise` that resolves with an instance of the implementing {@link sap.ui.mdc.FilterField Control}.
-     * **Note:** This method always requires a return value once it has been called. If an item for a given
-     * property `sPropertyName` has already been created, it must to either return the existing instance or
-     * create a new instance.
-     */
-    static addItem(
-      /**
-       * Instance of the filter bar
-       */
-      oFilterBar: FilterBar,
-      /**
-       * The name of the property info object/JSON
-       */
-      sPropertyName: string,
-      /**
-       * Instance of property bag from SAPUI5 flexibility change API
-       */
-      mPropertyBag?: Object
-    ): Promise<FilterField>;
-    /**
-     * This method is called when the Clear button is pressed.
-     *
-     * @returns `Promise` that is resolved once the action has been completed
-     */
-    static clearFilters(
-      /**
-       * Instance of the filter bar
-       */
-      oFilterBar: FilterBar
-    ): Promise<any>;
-    /**
-     * A validator to evaluate the filter bar state.
-     *
-     * @returns The inner filter bar state
-     */
-    static determineValidationState(
-      /**
-       * Instance of the filter bar
-       */
-      oFilterBar: FilterBar,
-      /**
-       * Object describing the validation result. This object is only provided when called from the {@link sap.ui.mdc.FilterBar FilterBar}
-       */
-      mValidation?: {
-        /**
-         * Status of the validation {@link sap.ui.mdc.enums.FilterBarValidationStatus}
-         */
-        status?: string;
-      }
-    ): FilterBarValidationStatus;
-    /**
-     * Retrieves the relevant metadata for a given payload and returns the property info array.
-     *
-     * @returns Once resolved, an array of property info objects is returned
-     */
-    static fetchProperties(
-      /**
-       * Instance of the filter bar
-       */
-      oFilterBar: FilterBar
-    ): Promise<filterbar.PropertyInfo[]>;
-    /**
-     * propertyInfo This method is called during the appliance of the remove condition change. The intention
-     * is to update the {@link sap.ui.mdc.FilterBarBase#setPropertyInfo propertyInfo} property.
-     *
-     * @returns `Promise` that is resolved once the propertyInfo property has been updated
-     */
-    static removeCondition(
-      /**
-       * Instance of the filter bar
-       */
-      oFilterBar: FilterBar,
-      /**
-       * The name of a property
-       */
-      sPropertyName: string,
-      /**
-       * Instance of a property bag from the SAPUI5 flexibility change API
-       */
-      mPropertyBag: Object
-    ): Promise<any>;
-    /**
-     * Triggers any necessary follow-up steps that need to be taken after the removal of created items via `removeItem`.
-     * The returned Boolean value inside the `Promise` can be used to prevent the default follow-up behavior
-     * of the SAPUI5 flexibility handling.
-     *
-     * **Note:**The `removeItem` hook can be used during the processing of an SAPUI5 flexibility change. Consequently
-     * the parameter `mPropertyBag` is only passed during preprocessing. In runtime scenarios (such as opening
-     * a personalization dialog), this method can be called without the parameter `mPropertyBag`.
-     *
-     * @returns `Promise` that resolved with `true`, `false` to allow/prevent default behavior of the change
-     */
-    static removeItem(
-      /**
-       * Instance of the filter bar
-       */
-      oFilterBar: FilterBar,
-      /**
-       * The filter field instance that was removed
-       */
-      oFilterField: FilterField,
-      /**
-       * Instance of property bag from SAPUI5 flexibility
-       */
-      mPropertyBag?: Object
-    ): Promise<boolean>;
-    /**
-     * Visualizes the filter bar validation state.
-     */
-    static visualizeValidationState(
-      /**
-       * Instance of the filter bar
-       */
-      oFilterBar: FilterBar,
-      /**
-       * Describes the validation result. This object is only provided when called from the {@link sap.ui.mdc.FilterBar FilterBar}
-       */
-      mValidation: {
-        /**
-         * Status of the validation as returned via {@link sap.ui.mdc.filterbar.FilterBarBase#checkValidationState checkValidationState}
-         */
-        status: FilterBarValidationStatus;
-      }
-    ): void;
-  }
-}
-
 declare module "sap/ui/mdc/FilterField" {
   import {
     default as FieldBase,
@@ -11543,10 +11524,10 @@ declare module "sap/ui/mdc/FilterField" {
      *
      * Gets current value of property {@link #getAdditionalDataType additionalDataType}.
      *
-     * The type of data for the description part of a equal-condition This type is used to parse, format, and
-     * validate the value.
+     * The type of data for the description part of an "equal to" condition. This type is used to parse, format,
+     * and validate the value.
      *
-     * Here a data type instance can be provided or an object containing `name`, `formatOptions` and `constraints`.
+     * Here a data type instance can be provided or an object containing `name`, `formatOptions`, and `constraints`.
      *
      * @returns Value of property `additionalDataType`
      */
@@ -11621,10 +11602,10 @@ declare module "sap/ui/mdc/FilterField" {
      *
      * Sets a new value for property {@link #getAdditionalDataType additionalDataType}.
      *
-     * The type of data for the description part of a equal-condition This type is used to parse, format, and
-     * validate the value.
+     * The type of data for the description part of an "equal to" condition. This type is used to parse, format,
+     * and validate the value.
      *
-     * Here a data type instance can be provided or an object containing `name`, `formatOptions` and `constraints`.
+     * Here a data type instance can be provided or an object containing `name`, `formatOptions`, and `constraints`.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -11730,10 +11711,10 @@ declare module "sap/ui/mdc/FilterField" {
     /**
      * @since 1.118.0
      *
-     * The type of data for the description part of a equal-condition This type is used to parse, format, and
-     * validate the value.
+     * The type of data for the description part of an "equal to" condition. This type is used to parse, format,
+     * and validate the value.
      *
-     * Here a data type instance can be provided or an object containing `name`, `formatOptions` and `constraints`.
+     * Here a data type instance can be provided or an object containing `name`, `formatOptions`, and `constraints`.
      */
     additionalDataType?: object | PropertyBindingInfo | `{${string}}`;
 
@@ -12951,6 +12932,8 @@ declare module "sap/ui/mdc/Table" {
 
   import Column from "sap/ui/mdc/table/Column";
 
+  import CellSelector from "sap/m/plugins/CellSelector";
+
   import { IContextMenu, ID, TitleLevel, CSSSize } from "sap/ui/core/library";
 
   import CopyProvider from "sap/m/plugins/CopyProvider";
@@ -13326,6 +13309,14 @@ declare module "sap/ui/mdc/Table" {
      */
     destroyActions(): this;
     /**
+     * @since 1.119
+     *
+     * Destroys the cellSelector in the aggregation {@link #getCellSelector cellSelector}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyCellSelector(): this;
+    /**
      * Destroys all the columns in the aggregation {@link #getColumns columns}.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -13616,6 +13607,18 @@ declare module "sap/ui/mdc/Table" {
      * @returns Value of property `busyIndicatorDelay`
      */
     getBusyIndicatorDelay(): int;
+    /**
+     * @since 1.119
+     *
+     * Gets content of aggregation {@link #getCellSelector cellSelector}.
+     *
+     * Defines an aggregation for the `CellSelector` plugin that provides cell selection capabilities to the
+     * table.
+     *
+     * **Note:** The `CellSelector` is currently only available in combination with the `GridTableType`. Please
+     * refer to {@link sap.m.plugins.CellSelector} see the addiditional restrictions.
+     */
+    getCellSelector(): CellSelector;
     /**
      * Gets content of aggregation {@link #getColumns columns}.
      *
@@ -14203,6 +14206,19 @@ declare module "sap/ui/mdc/Table" {
        * New value for property `busyIndicatorDelay`
        */
       iBusyIndicatorDelay?: int
+    ): this;
+    /**
+     * @since 1.119
+     *
+     * Sets the aggregated {@link #getCellSelector cellSelector}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setCellSelector(
+      /**
+       * The cellSelector to set
+       */
+      oCellSelector: CellSelector
     ): this;
     /**
      * @since 1.118
@@ -15127,6 +15143,17 @@ declare module "sap/ui/mdc/Table" {
     contextMenu?: IContextMenu;
 
     /**
+     * @since 1.119
+     *
+     * Defines an aggregation for the `CellSelector` plugin that provides cell selection capabilities to the
+     * table.
+     *
+     * **Note:** The `CellSelector` is currently only available in combination with the `GridTableType`. Please
+     * refer to {@link sap.m.plugins.CellSelector} see the addiditional restrictions.
+     */
+    cellSelector?: CellSelector;
+
+    /**
      * Control or object that enables the table to do filtering, such as {@link sap.ui.mdc.FilterBar}. See also
      * {@link sap.ui.mdc.IFilter}.
      *
@@ -15891,6 +15918,750 @@ declare module "sap/ui/mdc/table/ColumnSettings" {
   }
 
   export interface $ColumnSettingsSettings extends $ElementSettings {}
+}
+
+declare module "sap/ui/mdc/table/DragDropConfig" {
+  import {
+    default as DragDropBase,
+    $DragDropBaseSettings,
+  } from "sap/ui/core/dnd/DragDropBase";
+
+  import { dnd } from "sap/ui/core/library";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import Context from "sap/ui/model/Context";
+
+  import UI5Element from "sap/ui/core/Element";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
+
+  /**
+   * @since 1.119
+   *
+   * Provides the configuration for the drag-and-drop operations of the rows of the table.
+   */
+  export default class DragDropConfig extends DragDropBase {
+    /**
+     * Constructor for a new DragDropConfig.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new DragDropConfig
+       */
+      mSettings?: $DragDropConfigSettings
+    );
+    /**
+     * Constructor for a new DragDropConfig.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new DragDropConfig, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new DragDropConfig
+       */
+      mSettings?: $DragDropConfigSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.mdc.table.DragDropConfig with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.dnd.DragDropBase.extend}.
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, DragDropConfig>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.mdc.table.DragDropConfig.
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:dragEnd dragEnd} event of this `sap.ui.mdc.table.DragDropConfig`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.table.DragDropConfig` itself.
+     *
+     * This event is fired when the row drag operation is ended, if the `draggable` property is set to true.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDragEnd(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: DragDropConfig$DragEndEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.DragDropConfig` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:dragEnd dragEnd} event of this `sap.ui.mdc.table.DragDropConfig`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.table.DragDropConfig` itself.
+     *
+     * This event is fired when the row drag operation is ended, if the `draggable` property is set to true.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDragEnd(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: DragDropConfig$DragEndEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.DragDropConfig` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:dragEnter dragEnter} event of this `sap.ui.mdc.table.DragDropConfig`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.table.DragDropConfig` itself.
+     *
+     * This event is fired when a dragged element enters a table row, if the `droppable` property is set to
+     * true.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDragEnter(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: DragDropConfig$DragEnterEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.DragDropConfig` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:dragEnter dragEnter} event of this `sap.ui.mdc.table.DragDropConfig`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.table.DragDropConfig` itself.
+     *
+     * This event is fired when a dragged element enters a table row, if the `droppable` property is set to
+     * true.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDragEnter(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: DragDropConfig$DragEnterEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.DragDropConfig` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:dragOver dragOver} event of this `sap.ui.mdc.table.DragDropConfig`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.table.DragDropConfig` itself.
+     *
+     * This event is fired when an element is being dragged over a table row, if the `droppable` property is
+     * set to true.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDragOver(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: DragDropConfig$DragOverEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.DragDropConfig` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:dragOver dragOver} event of this `sap.ui.mdc.table.DragDropConfig`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.table.DragDropConfig` itself.
+     *
+     * This event is fired when an element is being dragged over a table row, if the `droppable` property is
+     * set to true.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDragOver(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: DragDropConfig$DragOverEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.DragDropConfig` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:dragStart dragStart} event of this `sap.ui.mdc.table.DragDropConfig`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.table.DragDropConfig` itself.
+     *
+     * This event is fired when the user starts dragging a table row, if the `draggable` property is set to
+     * true.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDragStart(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: DragDropConfig$DragStartEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.DragDropConfig` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:dragStart dragStart} event of this `sap.ui.mdc.table.DragDropConfig`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.table.DragDropConfig` itself.
+     *
+     * This event is fired when the user starts dragging a table row, if the `draggable` property is set to
+     * true.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDragStart(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: DragDropConfig$DragStartEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.DragDropConfig` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:drop drop} event of this `sap.ui.mdc.table.DragDropConfig`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.table.DragDropConfig` itself.
+     *
+     * This event is fired when an element is dropped on a table row, if the `droppable` property is set to
+     * true.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDrop(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: DragDropConfig$DropEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.DragDropConfig` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:drop drop} event of this `sap.ui.mdc.table.DragDropConfig`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.table.DragDropConfig` itself.
+     *
+     * This event is fired when an element is dropped on a table row, if the `droppable` property is set to
+     * true.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDrop(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: DragDropConfig$DropEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.DragDropConfig` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:dragEnd dragEnd} event of this `sap.ui.mdc.table.DragDropConfig`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachDragEnd(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: DragDropConfig$DragEndEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:dragEnter dragEnter} event of this `sap.ui.mdc.table.DragDropConfig`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachDragEnter(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: DragDropConfig$DragEnterEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:dragOver dragOver} event of this `sap.ui.mdc.table.DragDropConfig`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachDragOver(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: DragDropConfig$DragOverEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:dragStart dragStart} event of this `sap.ui.mdc.table.DragDropConfig`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachDragStart(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: DragDropConfig$DragStartEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:drop drop} event of this `sap.ui.mdc.table.DragDropConfig`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachDrop(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: DragDropConfig$DropEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * Fires event {@link #event:dragEnd dragEnd} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireDragEnd(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: DragDropConfig$DragEndEventParameters
+    ): this;
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * Fires event {@link #event:dragEnter dragEnter} to attached listeners.
+     *
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
+     */
+    fireDragEnter(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: DragDropConfig$DragEnterEventParameters
+    ): boolean;
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * Fires event {@link #event:dragOver dragOver} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireDragOver(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: DragDropConfig$DragOverEventParameters
+    ): this;
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * Fires event {@link #event:dragStart dragStart} to attached listeners.
+     *
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @returns Whether or not to prevent the default action
+     */
+    fireDragStart(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: DragDropConfig$DragStartEventParameters
+    ): boolean;
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * Fires event {@link #event:drop drop} to attached listeners.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireDrop(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: DragDropConfig$DropEventParameters
+    ): this;
+    /**
+     * Gets current value of property {@link #getDraggable draggable}.
+     *
+     * Determines whether the rows of the table are draggable.
+     *
+     * **Note:** Setting this property to `true` may expose the rows of the table in other `DropInfo` event
+     * parameters. In this case, only the binding context of the row is allowed to be used. Internal controls
+     * and their types are subject to change without notice.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `draggable`
+     */
+    getDraggable(): boolean;
+    /**
+     * Gets current value of property {@link #getDropEffect dropEffect}.
+     *
+     * Defines the visual drop effect.
+     *
+     * Default value is `"Move"`.
+     *
+     * @returns Value of property `dropEffect`
+     */
+    getDropEffect(): dnd.DropEffect | keyof typeof dnd.DropEffect;
+    /**
+     * Gets current value of property {@link #getDroppable droppable}.
+     *
+     * Determines whether the rows of the table are droppable.
+     *
+     * Default value is `false`.
+     *
+     * @returns Value of property `droppable`
+     */
+    getDroppable(): boolean;
+    /**
+     * Gets current value of property {@link #getDropPosition dropPosition}.
+     *
+     * Defines the position for the drop action, visualized by a rectangle.
+     *
+     * Default value is `"On"`.
+     *
+     * @returns Value of property `dropPosition`
+     */
+    getDropPosition(): dnd.DropPosition | keyof typeof dnd.DropPosition;
+    /**
+     * Sets a new value for property {@link #getDraggable draggable}.
+     *
+     * Determines whether the rows of the table are draggable.
+     *
+     * **Note:** Setting this property to `true` may expose the rows of the table in other `DropInfo` event
+     * parameters. In this case, only the binding context of the row is allowed to be used. Internal controls
+     * and their types are subject to change without notice.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDraggable(
+      /**
+       * New value for property `draggable`
+       */
+      bDraggable?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getDropEffect dropEffect}.
+     *
+     * Defines the visual drop effect.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"Move"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDropEffect(
+      /**
+       * New value for property `dropEffect`
+       */
+      sDropEffect?: dnd.DropEffect | keyof typeof dnd.DropEffect
+    ): this;
+    /**
+     * Sets a new value for property {@link #getDroppable droppable}.
+     *
+     * Determines whether the rows of the table are droppable.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDroppable(
+      /**
+       * New value for property `droppable`
+       */
+      bDroppable?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getDropPosition dropPosition}.
+     *
+     * Defines the position for the drop action, visualized by a rectangle.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"On"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDropPosition(
+      /**
+       * New value for property `dropPosition`
+       */
+      sDropPosition?: dnd.DropPosition | keyof typeof dnd.DropPosition
+    ): this;
+  }
+
+  export type DragSource = Context | UI5Element;
+
+  export interface $DragDropConfigSettings extends $DragDropBaseSettings {
+    /**
+     * Determines whether the rows of the table are draggable.
+     *
+     * **Note:** Setting this property to `true` may expose the rows of the table in other `DropInfo` event
+     * parameters. In this case, only the binding context of the row is allowed to be used. Internal controls
+     * and their types are subject to change without notice.
+     */
+    draggable?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Determines whether the rows of the table are droppable.
+     */
+    droppable?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the visual drop effect.
+     */
+    dropEffect?:
+      | (dnd.DropEffect | keyof typeof dnd.DropEffect)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Defines the position for the drop action, visualized by a rectangle.
+     */
+    dropPosition?:
+      | (dnd.DropPosition | keyof typeof dnd.DropPosition)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * This event is fired when the user starts dragging a table row, if the `draggable` property is set to
+     * true.
+     */
+    dragStart?: (oEvent: DragDropConfig$DragStartEvent) => void;
+
+    /**
+     * This event is fired when the row drag operation is ended, if the `draggable` property is set to true.
+     */
+    dragEnd?: (oEvent: DragDropConfig$DragEndEvent) => void;
+
+    /**
+     * This event is fired when a dragged element enters a table row, if the `droppable` property is set to
+     * true.
+     */
+    dragEnter?: (oEvent: DragDropConfig$DragEnterEvent) => void;
+
+    /**
+     * This event is fired when an element is being dragged over a table row, if the `droppable` property is
+     * set to true.
+     */
+    dragOver?: (oEvent: DragDropConfig$DragOverEvent) => void;
+
+    /**
+     * This event is fired when an element is dropped on a table row, if the `droppable` property is set to
+     * true.
+     */
+    drop?: (oEvent: DragDropConfig$DropEvent) => void;
+  }
+
+  export interface DragDropConfig$DragEndEventParameters {
+    /**
+     * The binding context of the dragged row
+     */
+    bindingContext?: Context;
+  }
+
+  export type DragDropConfig$DragEndEvent = Event<
+    DragDropConfig$DragEndEventParameters,
+    DragDropConfig
+  >;
+
+  export interface DragDropConfig$DragEnterEventParameters {
+    /**
+     * The binding context of the row on which the dragged element will be dropped
+     */
+    bindingContext?: Context;
+
+    /**
+     * The binding context of the dragged row or the dragged control itself
+     */
+    dragSource?: DragSource;
+  }
+
+  export type DragDropConfig$DragEnterEvent = Event<
+    DragDropConfig$DragEnterEventParameters,
+    DragDropConfig
+  >;
+
+  export interface DragDropConfig$DragOverEventParameters {
+    /**
+     * The binding context of the row on which the dragged element will be dropped
+     */
+    bindingContext?: Context;
+
+    /**
+     * The binding context of the dragged row or the dragged control itself
+     */
+    dragSource?: DragSource;
+
+    /**
+     * The calculated position of the drop action relative to the row being dropped
+     */
+    dropPosition?:
+      | dnd.RelativeDropPosition
+      | keyof typeof dnd.RelativeDropPosition;
+  }
+
+  export type DragDropConfig$DragOverEvent = Event<
+    DragDropConfig$DragOverEventParameters,
+    DragDropConfig
+  >;
+
+  export interface DragDropConfig$DragStartEventParameters {
+    /**
+     * The binding context of the dragged row
+     */
+    bindingContext?: Context;
+  }
+
+  export type DragDropConfig$DragStartEvent = Event<
+    DragDropConfig$DragStartEventParameters,
+    DragDropConfig
+  >;
+
+  export interface DragDropConfig$DropEventParameters {
+    /**
+     * The binding context of the row on which the dragged element is dropped
+     */
+    bindingContext?: Context;
+
+    /**
+     * The binding context of the dragged row or the dragged control itself
+     */
+    dragSource?: DragSource;
+
+    /**
+     * The calculated position of the drop action relative to the dropped row
+     */
+    dropPosition?:
+      | dnd.RelativeDropPosition
+      | keyof typeof dnd.RelativeDropPosition;
+  }
+
+  export type DragDropConfig$DropEvent = Event<
+    DragDropConfig$DropEventParameters,
+    DragDropConfig
+  >;
 }
 
 declare module "sap/ui/mdc/table/GridTableType" {
@@ -18452,11 +19223,11 @@ declare module "sap/ui/mdc/ValueHelp" {
      */
     value: any;
     /**
-     * Value parsed by type of key to fit the data type of the key
+     * Value parsed by type of key to match the data type of the key
      */
     parsedValue?: any;
     /**
-     * Value parsed by type of description to fit the data type of the description
+     * Value parsed by type of description to match the data type of the description
      */
     parsedDescription?: any;
     /**
@@ -23016,8 +23787,6 @@ declare namespace sap {
 
     "sap/ui/mdc/p13n/StateUtil": undefined;
 
-    "sap/ui/mdc/p13n/UIManager": undefined;
-
     "sap/ui/mdc/Table": undefined;
 
     "sap/ui/mdc/table/Column": undefined;
@@ -23025,6 +23794,8 @@ declare namespace sap {
     "sap/ui/mdc/table/ColumnSettings": undefined;
 
     "sap/ui/mdc/table/CreationRow": undefined;
+
+    "sap/ui/mdc/table/DragDropConfig": undefined;
 
     "sap/ui/mdc/table/GridTableType": undefined;
 

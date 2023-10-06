@@ -27,30 +27,36 @@ declare namespace _default {
     function getTransformCameraLookingAtTarget(
         view: View,
         camera: THREE.Camera,
-        target?: THREE.Vector3): CameraTransformOptions;
+        target?: THREE.Vector3,
+    ): CameraTransformOptions;
 
     function transformCameraToLookAtTarget(
         view: View,
         camera: THREE.Camera,
-        params?: CameraTransformOptions): Promise<CameraTransformOptions>;
+        params?: CameraTransformOptions,
+    ): Promise<CameraTransformOptions>;
 
     function getCameraTransformOptionsFromExtent(
         view: View,
         camera: THREE.Camera,
-        extent: Extent): CameraTransformOptions;
+        extent: Extent,
+    ): CameraTransformOptions;
 
     function animateCameraToLookAtTarget(
         view: View,
         camera: THREE.Camera,
-        params?: CameraTransformOptions): Promise<CameraTransformOptions>;
+        params?: CameraTransformOptions,
+    ): Promise<CameraTransformOptions>;
 
     function sequenceAnimationsToLookAtTarget(
         view: View,
         camera: THREE.Camera,
-        params?: CameraTransformOptions[]): Promise<CameraTransformOptions>;
+        params?: CameraTransformOptions[],
+    ): Promise<CameraTransformOptions>;
 
     function getDiffParams(
         first: CameraTransformOptions,
-        second: CameraTransformOptions): CameraTransformOptions;
+        second: CameraTransformOptions,
+    ): CameraTransformOptions;
 }
 export default _default;

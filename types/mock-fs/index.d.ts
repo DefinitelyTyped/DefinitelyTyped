@@ -6,10 +6,10 @@
 //                 Chris Shaw <https://github.com/cshawaus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import FileSystem = require('./lib/filesystem');
-import File = require('./lib/file');
-import Directory = require('./lib/directory');
-import SymbolicLink = require('./lib/symlink');
+import FileSystem = require("./lib/filesystem");
+import File = require("./lib/file");
+import Directory = require("./lib/directory");
+import SymbolicLink = require("./lib/symlink");
 
 export = mock;
 

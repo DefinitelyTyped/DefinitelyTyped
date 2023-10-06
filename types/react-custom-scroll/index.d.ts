@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import { ComponentClass, ReactNode } from 'react';
+import { ComponentClass, ReactNode } from "react";
 
 /**
  * Props for a CustomScroll component.

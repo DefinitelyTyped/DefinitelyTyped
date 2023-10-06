@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import { max, min } from "d3-array";
 import { axisLeft, axisTop } from "d3-axis";
 import { scaleBand, scaleTime } from "d3-scale";
@@ -6,7 +7,9 @@ import { utcYear } from "d3-time";
 import { utcFormat } from "d3-time-format";
 import { JSDOM } from "jsdom";
 import serialize from "w3c-xmlserializer";
-import data from "../docs/support-window.json" assert { type: "json" };
+
+const dataPath = new URL('../docs/support-window.json', import.meta.url);
+const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
 
 const width = 640;
 const height = 250;

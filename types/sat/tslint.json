@@ -4,7 +4,6 @@
         "member-access": false,
         "new-parens": false,
         "no-redundant-jsdoc-2": false,
-        "no-single-declare-module": false,
         "prefer-const": false,
         "prefer-template": false
     }

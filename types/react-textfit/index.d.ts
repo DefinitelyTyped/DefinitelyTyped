@@ -3,10 +3,10 @@
 // Definitions by: yongtheskill <https://github.com/yongtheskill>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface TextfitProps extends React.HTMLAttributes<HTMLDivElement> {
-    mode?: 'single' | 'multi';
+    mode?: "single" | "multi";
     forceSingleModeWidth?: boolean;
     min?: number;
     max?: number;

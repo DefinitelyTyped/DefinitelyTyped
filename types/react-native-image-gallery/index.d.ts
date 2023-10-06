@@ -3,8 +3,8 @@
 // Definitions by: Shirsh Zibbu <https://github.com/zhirzh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { PureComponent, ReactNode } from 'react';
-import { FlatListProps as _FlatListProps, ImageProps, StyleProp, ViewProps, ViewStyle } from 'react-native';
+import { PureComponent, ReactNode } from "react";
+import { FlatListProps as _FlatListProps, ImageProps, StyleProp, ViewProps, ViewStyle } from "react-native";
 
 export interface ImageDimensions {
     width: number;
@@ -24,9 +24,9 @@ export interface RemoteImage {
 export type Image = LocalImage | RemoteImage;
 
 export enum ScrollState {
-    IDLE = 'idle',
-    DRAGGING = 'dragging',
-    SETTLING = 'settling',
+    IDLE = "idle",
+    DRAGGING = "dragging",
+    SETTLING = "settling",
 }
 
 export interface ScrollEvent {
@@ -60,15 +60,15 @@ export interface GestureState {
 
 export type FlatListProps = Omit<
     _FlatListProps<Image>,
-    | 'style'
-    | 'ref'
-    | 'keyExtractor'
-    | 'scrollEnabled'
-    | 'horizontal'
-    | 'data'
-    | 'renderItem'
-    | 'onLayout'
-    | 'contentOffset'
+    | "style"
+    | "ref"
+    | "keyExtractor"
+    | "scrollEnabled"
+    | "horizontal"
+    | "data"
+    | "renderItem"
+    | "onLayout"
+    | "contentOffset"
 >;
 
 export interface Props extends ViewProps {

@@ -92,6 +92,10 @@ braintree.client.create(
                 fields: {
                     number: {
                         selector: "#card-number",
+                        supportedCardBrands: {
+                            discover: false,
+                            "diners-club": false,
+                        }
                     },
                     cvv: {
                         selector: "#cvv",

@@ -1,7 +1,7 @@
-import * as ical from 'ical';
+import * as ical from "ical";
 
-const calendar: ical.FullCalendar = ical.parseFile('cal.ics');
-const event: ical.CalendarComponent = calendar['uid'];
+const calendar: ical.FullCalendar = ical.parseFile("cal.ics");
+const event: ical.CalendarComponent = calendar["uid"];
 
 // $ExpectType CalendarComponentType
 event.type;

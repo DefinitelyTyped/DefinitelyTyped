@@ -1,7 +1,14 @@
-import { search, radixSort, suffixArray, longestCommonPrefix, longestCommonSubstring, StringIndexMap } from 'string-algorithms';
+import {
+    longestCommonPrefix,
+    longestCommonSubstring,
+    radixSort,
+    search,
+    StringIndexMap,
+    suffixArray,
+} from "string-algorithms";
 
 // $ExpectType number[]
-search('', '');
+search("", "");
 
 // $ExpectType number[][]
 radixSort([[1]]);
@@ -17,16 +24,16 @@ suffixArray([1, 2, 3]);
 // $ExpectType number[]
 suffixArray([1, 2, 3], -1);
 // $ExpectType number[]
-suffixArray('');
+suffixArray("");
 
 // $ExpectType number[]
-longestCommonPrefix([''], [0]);
+longestCommonPrefix([""], [0]);
 
 // $ExpectType string[]
-longestCommonSubstring(['']);
+longestCommonSubstring([""]);
 // $ExpectType string[]
-longestCommonSubstring([''], 'linear');
+longestCommonSubstring([""], "linear");
 // @ts-expect-error
-longestCommonSubstring([''], new StringIndexMap(1));
+longestCommonSubstring([""], new StringIndexMap(1));
 // $ExpectType string[]
-longestCommonSubstring([''], new (class extends StringIndexMap {})(1));
+longestCommonSubstring([""], new (class extends StringIndexMap {})(1));

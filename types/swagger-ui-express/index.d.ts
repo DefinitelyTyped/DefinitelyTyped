@@ -5,8 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { RequestHandler } from 'express';
-import { ServeStaticOptions } from 'serve-static';
+import { RequestHandler } from "express";
+import { ServeStaticOptions } from "serve-static";
 
 export interface JsonObject {
     [key: string]: any;

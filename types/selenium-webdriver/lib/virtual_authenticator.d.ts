@@ -2,18 +2,18 @@
  * Protocol for virtual authenticators
  */
 export enum Protocol {
-    CTAP2 = 'ctap2',
-    U2F = 'ctap1/u2f',
+    CTAP2 = "ctap2",
+    U2F = "ctap1/u2f",
 }
 
 /**
  * AuthenticatorTransport values
  */
 export enum Transport {
-    BLE = 'ble',
-    USB = 'usb',
-    NFC = 'nfc',
-    INTERNAL = 'internal',
+    BLE = "ble",
+    USB = "usb",
+    NFC = "nfc",
+    INTERNAL = "internal",
 }
 
 /**

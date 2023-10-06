@@ -1,4 +1,4 @@
-import tz, { minimalTimezoneSet } from 'compact-timezone-list';
+import tz, { minimalTimezoneSet } from "compact-timezone-list";
 
 // $ExpectType void[]
 minimalTimezoneSet.map(({ label, offset, tzCode }) => {

@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.1
 
-import { DecoratorFunction, StoryFn } from '@storybook/addons';
-import { StoryFnReactReturnType } from '@storybook/react/dist/ts3.9/client/preview/types';
-import { ReactNode } from 'react';
+import { DecoratorFunction, StoryFn } from "@storybook/addons";
+import { StoryFnReactReturnType } from "@storybook/react/dist/ts3.9/client/preview/types";
+import { ReactNode } from "react";
 
 // Shared Types
 export type RenderFunction = StoryFn<StoryFnReactReturnType>;
@@ -37,23 +37,23 @@ export function configureReadme(config: ConfigureReadmeConfig): void;
 // WithReadme Types
 export function withReadme(readme: Readme): DecoratorPattern;
 export function withReadme(
-  readme: Readme,
-  story: RenderFunction
+    readme: Readme,
+    story: RenderFunction,
 ): RenderFunction;
 
 // WithDocs Types
 export interface CustomComponents {
-  PreviewComponent?: ((props: { children: JSX.Element }) => JSX.Element) | undefined;
-  FooterComponent?: ((props: { children: JSX.Element }) => JSX.Element) | undefined;
+    PreviewComponent?: ((props: { children: JSX.Element }) => JSX.Element) | undefined;
+    FooterComponent?: ((props: { children: JSX.Element }) => JSX.Element) | undefined;
 }
 
 export function withDocs(
-  custom: CustomComponents
+    custom: CustomComponents,
 ): (readme: Readme) => HOCPattern;
 export function withDocs(readme: Readme, story: RenderFunction): RenderFunction;
 export function withDocs(readme: Readme): DecoratorPattern;
 export namespace withDocs {
-  function addFooterDocs(footerDoc: string): void;
+    function addFooterDocs(footerDoc: string): void;
 }
 
 // Doc Types

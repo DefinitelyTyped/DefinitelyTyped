@@ -6,11 +6,11 @@
 export function getSunrise(
     latitude: number,
     longitude: number,
-    date?: Date
+    date?: Date,
 ): Date;
 
 export function getSunset(
     latitude: number,
     longitude: number,
-    date?: Date
+    date?: Date,
 ): Date;

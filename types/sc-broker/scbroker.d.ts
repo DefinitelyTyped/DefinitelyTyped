@@ -1,7 +1,7 @@
-import { EventEmitter } from 'events';
-import { FlexiMap, KeyChain } from 'fleximap';
-import { ExpiryManager } from 'expirymanager';
-import { ComSocket } from 'ncom';
+import { EventEmitter } from "events";
+import { ExpiryManager } from "expirymanager";
+import { FlexiMap, KeyChain } from "fleximap";
+import { ComSocket } from "ncom";
 
 interface Subscriptions {
     [socketId: number]: {
@@ -10,10 +10,10 @@ interface Subscriptions {
 }
 
 declare class SCBroker extends EventEmitter {
-    readonly type: 'broker';
+    readonly type: "broker";
 
-    readonly MIDDLEWARE_SUBSCRIBE: 'subscribe';
-    readonly MIDDLEWARE_PUBLISH_IN: 'publishIn';
+    readonly MIDDLEWARE_SUBSCRIBE: "subscribe";
+    readonly MIDDLEWARE_PUBLISH_IN: "publishIn";
 
     id: number;
     debugPort: number;
@@ -28,19 +28,25 @@ declare class SCBroker extends EventEmitter {
 
     on(event: "subscribe" | "unsubscribe", listener: (channel: string) => void): this;
     on(event: "publish", listener: (channel: string, data: any) => void): this;
-    on(event: "masterMessage", listener: (data: any, respond: (err: Error | null, responseData: any) => void) => void): this;
-    on(event: "message", listener: (message: any, respond: (err: Error | null, responseData: any) => void) => void): this;
+    on(
+        event: "masterMessage",
+        listener: (data: any, respond: (err: Error | null, responseData: any) => void) => void,
+    ): this;
+    on(
+        event: "message",
+        listener: (message: any, respond: (err: Error | null, responseData: any) => void) => void,
+    ): this;
     on(event: "warning", listener: (err: Error) => void): this;
 
     publish(channel: string, message: any): void;
     run(): void;
     exec(query: SCBroker.QueryFunction, baseKey?: KeyChain): any;
 
-    addMiddleware(type: 'subscribe', middleware: SCBroker.SubscribeMiddleware): void;
-    addMiddleware(type: 'publish', middleware: SCBroker.PublishMiddleware): void;
+    addMiddleware(type: "subscribe", middleware: SCBroker.SubscribeMiddleware): void;
+    addMiddleware(type: "publish", middleware: SCBroker.PublishMiddleware): void;
 
-    removeMiddleware(type: 'subscribe', middleware: SCBroker.SubscribeMiddleware): void;
-    removeMiddleware(type: 'publish', middleware: SCBroker.PublishMiddleware): void;
+    removeMiddleware(type: "subscribe", middleware: SCBroker.SubscribeMiddleware): void;
+    removeMiddleware(type: "publish", middleware: SCBroker.PublishMiddleware): void;
 
     sendToMaster(data: any, callback?: (err: Error | null, responseData: any) => void): void;
 }

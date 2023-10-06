@@ -1,4 +1,4 @@
-import sjcl = require("sjcl"); 
+import sjcl = require("sjcl");
 
 let b: boolean;
 let n: number;

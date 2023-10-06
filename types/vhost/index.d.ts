@@ -4,7 +4,7 @@
 //                 Cambo <https://github.com/indentedspace>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import express = require('express');
+import express = require("express");
 
 declare namespace vhost {
     interface Request extends express.Request {

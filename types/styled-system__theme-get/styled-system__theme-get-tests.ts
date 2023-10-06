@@ -1,17 +1,17 @@
-import { themeGet } from '@styled-system/theme-get';
+import { themeGet } from "@styled-system/theme-get";
 
 const theme = {
     colors: {
-        primary: 'tomato',
-        secondary: 'cyan',
+        primary: "tomato",
+        secondary: "cyan",
     },
 };
 
 // return a funtion
-themeGet('');
+themeGet("");
 
 // return a any
-themeGet('')({});
+themeGet("")({});
 
 // return a any
-themeGet('colors.primary')({ theme });
+themeGet("colors.primary")({ theme });

@@ -1,7 +1,7 @@
-import MarkdownIt = require('.');
-import Ruler = require('./ruler');
-import Token = require('./token');
-import StateInline = require('./rules_inline/state_inline');
+import MarkdownIt = require(".");
+import Ruler = require("./ruler");
+import Token = require("./token");
+import StateInline = require("./rules_inline/state_inline");
 
 declare namespace ParserInline {
     type RuleInline = (state: StateInline, silent: boolean) => boolean;

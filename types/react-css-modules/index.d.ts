@@ -6,7 +6,7 @@
 
 interface TypeOptions {
     allowMultiple?: boolean | undefined;
-    handleNotFoundStyleName?: 'throw' | 'log' | 'ignore' | undefined;
+    handleNotFoundStyleName?: "throw" | "log" | "ignore" | undefined;
 }
 
 type StylesObject = any;
@@ -29,7 +29,7 @@ declare let CSSModules: CSSModules;
 
 export = CSSModules;
 
-declare module 'react' {
+declare module "react" {
     interface Attributes {
         styleName?: string | undefined;
     }

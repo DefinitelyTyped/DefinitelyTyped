@@ -3,7 +3,7 @@
 // Definitions by: Mohammad Kermani <https://github.com/mkermani144>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Plugin } from 'rollup';
+import { Plugin } from "rollup";
 
 interface RollupPluginNativesOptions {
     copyTo?: string;

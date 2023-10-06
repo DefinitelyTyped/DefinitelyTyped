@@ -1,5 +1,5 @@
-import { TurboModule, TurboModuleRegistry } from 'react-native';
-'use strict';
+import { TurboModule, TurboModuleRegistry } from "react-native";
+"use strict";
 
 export interface SomeConstants {
     x: string;
@@ -8,8 +8,8 @@ export interface SomeConstants {
 }
 
 export interface SampleSpec extends TurboModule {
-    getConstants(): SomeConstants
+    getConstants(): SomeConstants;
     doSomething(): void;
 }
 
-export default TurboModuleRegistry.getEnforcing<SampleSpec>('Sample');
+export default TurboModuleRegistry.getEnforcing<SampleSpec>("Sample");

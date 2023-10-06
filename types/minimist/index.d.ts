@@ -74,7 +74,7 @@ declare namespace minimist {
          * When true, populate argv._ with everything before the -- and argv['--'] with everything after the --.
          * Note that with -- set, parsing for arguments still stops after the `--`.
          */
-        '--'?: boolean | undefined;
+        "--"?: boolean | undefined;
     }
 
     interface ParsedArgs {
@@ -83,7 +83,7 @@ declare namespace minimist {
         /**
          * If opts['--'] is true, populated with everything after the --
          */
-        '--'?: string[] | undefined;
+        "--"?: string[] | undefined;
 
         /**
          * Contains all the arguments that didn't have an option associated with them

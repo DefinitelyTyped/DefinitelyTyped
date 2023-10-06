@@ -5,8 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ReactElement } from "react";
 import { DomElement } from "htmlparser2";
+import { ReactElement } from "react";
 
 export interface Transform {
     (node: DomElement, index: number, transform?: Transform): ReactElement | void | null;

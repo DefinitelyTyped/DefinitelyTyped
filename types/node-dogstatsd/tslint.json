@@ -3,7 +3,6 @@
     "rules": {
         "member-access": false,
         "no-inferrable-types": false,
-        "no-single-declare-module": false,
         "prefer-const": false
     }
 }

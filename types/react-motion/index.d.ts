@@ -5,8 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component, ReactElement } from 'react';
-
+import { Component, ReactElement } from "react";
 
 // your typical style object given in props. Maps to a number or a spring config
 export type Style = { [key: string]: number | OpaqueConfig };
@@ -32,12 +31,11 @@ interface SpringHelperConfig {
      */
     damping?: number | undefined;
     /**
-        * Specifies both the rounding of the interpolated value and the speed (internal).
-         * @default 0.01
-        */
+     * Specifies both the rounding of the interpolated value and the speed (internal).
+     * @default 0.01
+     */
     precision?: number | undefined;
 }
-
 
 export interface OpaqueConfig {
     val: number;
@@ -71,7 +69,7 @@ interface MotionProps {
     onRest?: (() => void) | undefined;
 }
 
-export declare class Motion extends Component<MotionProps> { }
+export declare class Motion extends Component<MotionProps> {}
 
 // === TransitionMotion ===
 interface TransitionStyle {
@@ -129,8 +127,7 @@ interface TransitionProps {
      */
     didLeave?: ((styleThatLeft: TransitionStyle) => void) | undefined;
 }
-export class TransitionMotion extends Component<TransitionProps> { }
-
+export class TransitionMotion extends Component<TransitionProps> {}
 
 interface StaggeredMotionProps {
     children: (interpolatedStyles: any) => React.ReactElement;
@@ -144,12 +141,11 @@ interface StaggeredMotionProps {
      */
     styles: (previousInterpolatedStyles?: Array<PlainStyle>) => Array<Style>;
 }
-export declare class StaggeredMotion extends Component<StaggeredMotionProps> { }
-
+export declare class StaggeredMotion extends Component<StaggeredMotionProps> {}
 
 /**
-* Used in conjunction with the components below. Specifies the how to animate to the destination value, e.g. spring(10, {stiffness: 120, damping: 17}) means "animate to value 10, with a spring of stiffness 120 and damping 17".
-*/
+ * Used in conjunction with the components below. Specifies the how to animate to the destination value, e.g. spring(10, {stiffness: 120, damping: 17}) means "animate to value 10, with a spring of stiffness 120 and damping 17".
+ */
 export declare function spring(val: number, config?: SpringHelperConfig): OpaqueConfig;
 
 export declare class Presets {

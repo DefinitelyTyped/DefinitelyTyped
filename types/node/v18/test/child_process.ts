@@ -421,6 +421,7 @@ async function testPromisify() {
     _boolean = cp.kill();
     _boolean = cp.kill(9);
     _boolean = cp.kill("SIGTERM");
+    cp[Symbol.dispose]();
 
     _maybeNumber = cp.exitCode;
     _maybeSignal = cp.signalCode;

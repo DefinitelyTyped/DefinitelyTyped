@@ -3,14 +3,13 @@
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="l2o.d.ts"/>
+/// <reference path="l2o.d.ts"/>
 
 declare namespace Ix {
-
     export interface Observer<T> {
-        onNext? (value: T): void;
-        onError? (error: Error): void;
-        onCompleted? (): void;
+        onNext?(value: T): void;
+        onError?(error: Error): void;
+        onCompleted?(): void;
     }
 
     export interface Enumerable<T> {
@@ -40,7 +39,10 @@ declare namespace Ix {
 
         distinctBy<TKey>(keySelector: (item: T) => TKey, comparer?: EqualityComparer<TKey, TKey>): Enumerable<T>;
 
-        distinctUntilChanged<TKey>(keySelector: (item: T) => TKey, comparer?: EqualityComparer<TKey, TKey>): Enumerable<T>;
+        distinctUntilChanged<TKey>(
+            keySelector: (item: T) => TKey,
+            comparer?: EqualityComparer<TKey, TKey>,
+        ): Enumerable<T>;
         distinctUntilChanged(): Enumerable<T>;
         // if need to set comparer without keySelector
         distinctUntilChanged(_: boolean, comparer: EqualityComparer<T, T>): Enumerable<T>;
@@ -49,7 +51,10 @@ declare namespace Ix {
 
         startWith(...values: T[]): Enumerable<T>;
 
-        scan<TAccumulate>(seed: TAccumulate, accumulate: (acc: TAccumulate, item: T) => TAccumulate): Enumerable<TAccumulate>;
+        scan<TAccumulate>(
+            seed: TAccumulate,
+            accumulate: (acc: TAccumulate, item: T) => TAccumulate,
+        ): Enumerable<TAccumulate>;
         scan(accumulate: (acc: T, item: T) => T): Enumerable<T>;
 
         takeLast(count: number): Enumerable<T>;
@@ -63,7 +68,7 @@ declare namespace Ix {
         catchException(second: Enumerable<T>, ...other: Enumerable<T>[]): Enumerable<T>;
 
         // todo: Enumerable<Enumerable<T>>.catch(): Enumerable<T>
-        //catch<TInner, T extends Enumerable<TInner>>(): Enumerable<TInner>;
+        // catch<TInner, T extends Enumerable<TInner>>(): Enumerable<TInner>;
 
         finally(finallyAction: () => void): Enumerable<T>;
         finallyDo(finallyAction: () => void): Enumerable<T>;
@@ -83,11 +88,13 @@ declare namespace Ix {
             initialState: TState,
             condition: Predicate<TState>,
             iterate: (state: TState) => TState,
-            resultSelector: (state: TState) => TResult): Enumerable<TResult>;
+            resultSelector: (state: TState) => TResult,
+        ): Enumerable<TResult>;
 
         using<TResource extends Disposable, T>(
             resourceFactory: () => TResource,
-            enumerableFactory: (resource: TResource) => Enumerable<T>): Enumerable<T>;
+            enumerableFactory: (resource: TResource) => Enumerable<T>,
+        ): Enumerable<T>;
 
         catch<T>(...sources: Enumerable<T>[]): Enumerable<T>;
         catchException<T>(...sources: Enumerable<T>[]): Enumerable<T>;
@@ -102,10 +109,26 @@ declare namespace Ix {
 
         doWhile<T>(source: Enumerable<T>, condition: EnumerablePredicate<Enumerable<T>>): Enumerable<T>;
 
-        case<T>(selector: () => number, sources: { [key: number]: Enumerable<T>; }, defaultSource?: Enumerable<T>): Enumerable<T>;
-        case<T>(selector: () => string, sources: { [key: string]: Enumerable<T>; }, defaultSource?: Enumerable<T>): Enumerable<T>;
-        switchCase<T>(selector: () => number, sources: { [key: number]: Enumerable<T>; }, defaultSource?: Enumerable<T>): Enumerable<T>;
-        switchCase<T>(selector: () => string, sources: { [key: string]: Enumerable<T>; }, defaultSource?: Enumerable<T>): Enumerable<T>;
+        case<T>(
+            selector: () => number,
+            sources: { [key: number]: Enumerable<T> },
+            defaultSource?: Enumerable<T>,
+        ): Enumerable<T>;
+        case<T>(
+            selector: () => string,
+            sources: { [key: string]: Enumerable<T> },
+            defaultSource?: Enumerable<T>,
+        ): Enumerable<T>;
+        switchCase<T>(
+            selector: () => number,
+            sources: { [key: number]: Enumerable<T> },
+            defaultSource?: Enumerable<T>,
+        ): Enumerable<T>;
+        switchCase<T>(
+            selector: () => string,
+            sources: { [key: string]: Enumerable<T> },
+            defaultSource?: Enumerable<T>,
+        ): Enumerable<T>;
 
         for<T, TResult>(source: Enumerable<T>, resultSelector: EnumerableFunc<T, TResult>): Enumerable<TResult>;
         forIn<T, TResult>(source: Enumerable<T>, resultSelector: EnumerableFunc<T, TResult>): Enumerable<TResult>;
