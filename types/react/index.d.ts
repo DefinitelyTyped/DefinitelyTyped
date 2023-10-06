@@ -40,10 +40,8 @@ import * as CSS from "csstype";
 import * as PropTypes from "prop-types";
 import { Interaction as SchedulerInteraction } from "scheduler/tracing";
 
-type Primitive = null | undefined | string | number | boolean | symbol | bigint;
-type LiteralUnion<LiteralType, BaseType extends Primitive = string> =
-  | LiteralType
-  | (BaseType & Record<never, never>);
+// @see https://github.com/microsoft/TypeScript/issues/29729#issuecomment-567871939
+type LiteralUnion<LiteralType> = LiteralType | (string & {})
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
 type NativeCompositionEvent = CompositionEvent;
