@@ -562,10 +562,13 @@ export interface Request<
     secure: boolean;
 
     /**
-     * Return the remote address.
+     * Return the remote address, or when
+     * "trust proxy" is `true` return
+     * the upstream addr.
      *
-     * If "trust proxy" is provided and none of the upstream addresses
-     * meet the conditions, then `undefined` will be returned.
+     *
+     * Value may be undefined if the `req.socket` is destroyed
+     * (for example, if the client disconnected).
      */
     ip: string | undefined;
 
