@@ -120,10 +120,44 @@ check.nonEmptyObject(Symbol(""));
 check.nonEmptyObject(0);
 check.nonEmptyObject([]);
 
-check.assert.containsKey({ key: "value" }, "key");
-check.assert.containsKey([], "key");
-check.assert.containsKey(new Map(), { k: "l" });
+check.containsKey(["a", "b", "c"], 1);
+check.containsKey({ key: "value" }, "key");
+check.containsKey({ [Symbol.for("key")]: "value" }, Symbol.for("key"));
+check.containsKey({ 1: "value" }, 1);
+check.containsKey(new Map([["key", "value"]]), "key");
+check.containsKey("string", "string".length - 1);
 
-check.assert.in("value", ["value"]);
-check.assert.in("value", { key: "value" });
-check.assert.in("string", "string");
+
+check.keyIn(1, ["a", "b", "c"]);
+check.keyIn("key", { key: "value" });
+check.keyIn(Symbol.for("key"), { [Symbol.for("key")]: "value" });
+check.keyIn(1, { 1: "value" });
+check.keyIn<number>(0, new Map([[0, "value"]]));
+check.keyIn("string".length - 1, "string");
+
+const iterableObject: Iterable<string> = new class implements Iterable<string> {
+    *[Symbol.iterator]() {
+        yield "something"
+        yield "value"
+        yield "another value"
+    }
+    // values function is required for check-types
+    values(this: Iterable<string>): Iterator<string> {
+        return this[Symbol.iterator]()
+    }
+}();
+
+check.in("value", ["value"]);
+check.in("value", { key: "value" });
+check.in("string", "str");
+check.in("value", new Map([["key", "value"]]));
+check.in("value", new Set(["value"]));
+check.in("value", iterableObject);
+
+check.contains(["value"], "value");
+check.contains({ key: "value" }, "value");
+check.contains("string", "str");
+check.contains<number>(new Map([["key", 42]]), 42);
+check.contains<string>(new Set(["value"]), "value");
+check.contains<string>(iterableObject, "value");
+
