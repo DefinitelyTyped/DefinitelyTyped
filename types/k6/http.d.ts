@@ -788,7 +788,7 @@ export interface ExpectedStatusesObject {
 /**
  * Returned value from http.url method.
  */
-interface HttpURL {
+export interface HttpURL {
     __brand: "http-url";
 }
 
