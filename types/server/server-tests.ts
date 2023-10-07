@@ -76,8 +76,10 @@ server(
 server(
     {
         engine: {
-            md(filePath, locals, cb) { cb(null, "<h1>html</h1>") },
-        }
+            md(filePath, locals, cb) {
+                cb(null, "<h1>html</h1>");
+            },
+        },
     },
     get("/", ctx => "Hello, World!"),
 );
