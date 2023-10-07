@@ -4797,7 +4797,7 @@
         },
         "react-map-gl": {
             "libraryName": "react-map-gl",
-            "asOfVersion": "6.1.0"
+            "asOfVersion": "6.1.4"
         },
         "react-mathquill": {
             "libraryName": "react-mathquill",
