@@ -36,7 +36,6 @@
     "./types/i18n*",
     "./types/inquirer*",
     "./types/react-blessed",
-    "./types/react-clipboardjs-copy",
     "./types/react-map-gl",
     "./types/react-native-awesome-card-io",
     "./types/react-syntax-highlighter",
