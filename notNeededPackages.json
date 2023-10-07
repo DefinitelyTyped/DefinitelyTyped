@@ -4643,6 +4643,10 @@
             "libraryName": "react-circular-progressbar",
             "asOfVersion": "1.1.0"
         },
+        "react-clipboardjs-copy": {
+            "libraryName": "react-clipboardjs-copy",
+            "asOfVersion": "2.0.0"
+        },
         "react-clock": {
             "libraryName": "react-clock",
             "asOfVersion": "4.1.0"
