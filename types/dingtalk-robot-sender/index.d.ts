@@ -13,6 +13,7 @@ interface WebHookOptions {
 interface BaseUrlOptions {
     baseUrl: string;
     accessToken: string;
+    secret?: string;
     httpclient?: any;
 }
 
