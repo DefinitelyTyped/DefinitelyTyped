@@ -300,6 +300,7 @@ export const DataSecurity: CarbonPictogramType;
 export const DataSet: CarbonPictogramType;
 export const DataStorage: CarbonPictogramType;
 export const DataTransfer: CarbonPictogramType;
+export const Db2: CarbonPictogramType;
 export const DecisionVelocity: CarbonPictogramType;
 export const DeepLearning: CarbonPictogramType;
 export const Delete: CarbonPictogramType;
