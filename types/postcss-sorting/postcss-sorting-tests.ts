@@ -14,17 +14,17 @@ postcss([
             "declarations",
             "dollar-variables",
             "rules",
-            { type: "at-rule" } as const,
-            { type: "rule" } as const,
-            { type: "at-rule", hasBlock: true, name: "foo" } as const,
-            { type: "rule", selector: /foo/ } as const,
-            { type: "rule", selector: "foo" } as const,
-        ] as const,
+            { type: "at-rule" },
+            { type: "rule" },
+            { type: "at-rule", hasBlock: true, name: "foo" },
+            { type: "rule", selector: /foo/ },
+            { type: "rule", selector: "foo" },
+        ],
     }),
 ]);
 
 postcss([sorting({ "properties-order": "alphabetical" })]);
-postcss([sorting({ "properties-order": ["a", "b", "c"] as const })]);
+postcss([sorting({ "properties-order": ["a", "b", "c"] })]);
 
 postcss([sorting({ "unspecified-properties-position": "top" })]);
 postcss([sorting({ "unspecified-properties-position": "bottom" })]);
