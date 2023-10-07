@@ -42,12 +42,15 @@ export interface CsurfOptions {
     sessionKey?: string | undefined;
 }
 
+export {}  // This prevents EngineArgs being automatically exported
+type EngineArgs = Parameters<express.Application['engine']>
+
 export interface Options {
     port?: number | undefined;
     secret?: string | undefined;
     public?: string | undefined;
     views?: string | undefined;
-    engine?: string | undefined;
+    engine?: string | undefined | Record<EngineArgs[0], EngineArgs[1]>;
     env?: string | undefined;
     favicon?: string | undefined;
     parser?: {
