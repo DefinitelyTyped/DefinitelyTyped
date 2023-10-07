@@ -38,10 +38,8 @@
     "./types/react-blessed",
     "./types/react-clipboardjs-copy",
     "./types/react-map-gl",
-    "./types/react-native-awesome-card-io",
     "./types/react-syntax-highlighter",
-    "./types/righto",
-    "./types/react-native-awesome-card-io"
+    "./types/righto"
   ],
   // NOTE: if extending this list, also update settings.template.json.
   "plugins": [
