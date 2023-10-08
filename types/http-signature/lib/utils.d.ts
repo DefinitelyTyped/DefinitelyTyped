@@ -3,7 +3,7 @@ export const PK_ALGOS: Record<"rsa" | "dsa" | "ecdsa", boolean>;
 export const HEADER: Record<string, string>;
 
 export class HttpSignatureError extends Error {
-    constructor(message: any, caller: Function);
+    constructor(message: any, caller: (...args: any) => any);
 }
 
 export class InvalidAlgorithmError extends Error {}
