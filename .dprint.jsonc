@@ -36,10 +36,8 @@
     "./types/i18n*",
     "./types/inquirer*",
     "./types/react-blessed",
-    "./types/react-clipboardjs-copy",
     "./types/react-map-gl",
-    "./types/react-syntax-highlighter",
-    "./types/righto"
+    "./types/react-syntax-highlighter"
   ],
   // NOTE: if extending this list, also update settings.template.json.
   "plugins": [
