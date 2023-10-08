@@ -4,7 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
 
-import { Question, PromptFunction } from "inquirer";
+import { PromptFunction, Question } from "inquirer";
 
-declare function askName(name: string | Question, inquirer: { prompt: PromptFunction }): Promise<{ [key: string]: string }>;
+declare function askName(
+    name: string | Question,
+    inquirer: { prompt: PromptFunction },
+): Promise<{ [key: string]: string }>;
 export = askName;

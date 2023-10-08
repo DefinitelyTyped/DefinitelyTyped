@@ -8,13 +8,16 @@ askName("moduleName", inquirer);
 askName(
     {
         name: "moduleName",
-        message: "What's the name of your module?"
+        message: "What's the name of your module?",
     },
-    inquirer);
+    inquirer,
+);
 
 askName(
-    "", {
-    prompt<T extends inquirer.Answers>(questions: inquirer.QuestionCollection<T>): Promise<T> {
-        return null as any;
-    }
-});
+    "",
+    {
+        prompt<T extends inquirer.Answers>(questions: inquirer.QuestionCollection<T>): Promise<T> {
+            return null as any;
+        },
+    },
+);

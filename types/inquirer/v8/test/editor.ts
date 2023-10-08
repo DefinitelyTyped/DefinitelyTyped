@@ -1,16 +1,16 @@
-import inquirer = require('inquirer');
+import inquirer = require("inquirer");
 
 /**
  * Editor prompt example
  */
 const questions: inquirer.QuestionCollection = [
     {
-        type: 'editor',
-        name: 'bio',
-        message: 'Please write a short bio of at least 3 lines.',
+        type: "editor",
+        name: "bio",
+        message: "Please write a short bio of at least 3 lines.",
         validate(text) {
-            if (text.split('\n').length < 3) {
-                return 'Must be at least 3 lines.';
+            if (text.split("\n").length < 3) {
+                return "Must be at least 3 lines.";
             }
             return true;
         },
@@ -18,5 +18,5 @@ const questions: inquirer.QuestionCollection = [
 ];
 
 inquirer.prompt(questions).then(answers => {
-    console.log(JSON.stringify(answers, null, '  '));
+    console.log(JSON.stringify(answers, null, "  "));
 });

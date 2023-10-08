@@ -1,7 +1,7 @@
-import { Interface as ReadLineInterface } from 'readline';
-import inquirer = require('../..');
-import Paginator = require('../utils/paginator');
-import Prompt = require('./base');
+import { Interface as ReadLineInterface } from "readline";
+import inquirer = require("../..");
+import Paginator = require("../utils/paginator");
+import Prompt = require("./base");
 
 /**
  * The question-options for the {@link CheckboxPrompt `CheckboxPrompt<TQuestion>`}.

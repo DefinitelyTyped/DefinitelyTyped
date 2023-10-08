@@ -36,7 +36,6 @@
     "./types/i18next-ko",
     "./types/i18next-node-fs-backend",
     "./types/i18next-sprintf-postprocessor",
-    "./types/inquirer*",
     "./types/react-blessed",
     "./types/react-map-gl"
   ],

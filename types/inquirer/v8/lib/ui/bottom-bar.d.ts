@@ -1,3 +1,3 @@
-import { ui } from '../..';
+import { ui } from "../..";
 
 export = ui.BottomBar;

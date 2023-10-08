@@ -1,5 +1,5 @@
-import AutocompletePrompt from "inquirer-autocomplete-prompt";
 import inquirer, { Answers } from "inquirer";
+import AutocompletePrompt from "inquirer-autocomplete-prompt";
 
 inquirer.registerPrompt("autocomplete", AutocompletePrompt);
 

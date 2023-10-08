@@ -1,4 +1,4 @@
-import inquirer from 'inquirer';
+import inquirer from "inquirer";
 
 /**
  * Expand list examples
@@ -6,34 +6,34 @@ import inquirer from 'inquirer';
 inquirer
     .prompt([
         {
-            type: 'expand',
-            message: 'Conflict on `file.js`: ',
-            name: 'overwrite',
+            type: "expand",
+            message: "Conflict on `file.js`: ",
+            name: "overwrite",
             choices: [
                 {
-                    key: 'y',
-                    name: 'Overwrite',
-                    value: 'overwrite',
+                    key: "y",
+                    name: "Overwrite",
+                    value: "overwrite",
                 },
                 {
-                    key: 'a',
-                    name: 'Overwrite this one and all next',
-                    value: 'overwrite_all',
+                    key: "a",
+                    name: "Overwrite this one and all next",
+                    value: "overwrite_all",
                 },
                 {
-                    key: 'd',
-                    name: 'Show diff',
-                    value: 'diff',
+                    key: "d",
+                    name: "Show diff",
+                    value: "diff",
                 },
                 new inquirer.Separator(),
                 {
-                    key: 'x',
-                    name: 'Abort',
-                    value: 'abort',
+                    key: "x",
+                    name: "Abort",
+                    value: "abort",
                 },
             ],
         },
     ])
     .then(answers => {
-        console.log(JSON.stringify(answers, null, '  '));
+        console.log(JSON.stringify(answers, null, "  "));
     });
