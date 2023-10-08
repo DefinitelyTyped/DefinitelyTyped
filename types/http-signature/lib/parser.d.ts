@@ -30,11 +30,11 @@ export interface ParseResponse {
  * Note that this API will fully validate the Authorization header, and throw
  * on any error. It will not however check the signature, or the keyId format
  * as those are specific to your environment. You can use the options object
-  to pass in extra constraints
+ * to pass in extra constraints
  *
  * @param request The ClientRequest
- * @parm options Optional options
- * 
+ * @param options Optional options
+ *
  * @throws {TypeError} Nn invalid input
  * @throws {InvalidHeaderError} On an invalid Authorization header error
  * @throws {InvalidParamsError} If the params in the scheme are invalid
