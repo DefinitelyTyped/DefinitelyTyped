@@ -560,6 +560,13 @@ declare module "node-forge" {
              * @return the attribute.
              */
             getAttribute(opts: string | GetAttributeOpts): Attribute | null;
+
+            /**
+             * Sets attributes of this certificate request.
+             *
+             * @param attrs the array of subject attributes to use.
+             */
+            setAttributes(attr: CertificateField[]): Attribute | null;
         }
 
         /**
