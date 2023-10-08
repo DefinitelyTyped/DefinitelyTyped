@@ -105,3 +105,6 @@ export interface SignOptions {
  * @throws {MissingHeaderError} If a header to be signed was specified but was not present
  */
 export function signRequest(request: ClientRequest, options: SignOptions): boolean;
+
+// To avoid exporting _RequestSigner (not actually exposed by the library)
+export {};
