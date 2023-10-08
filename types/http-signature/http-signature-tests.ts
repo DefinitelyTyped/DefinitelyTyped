@@ -33,7 +33,7 @@ httpSignature.sign(request, {
 
 // @ts-expect-error No options passed
 httpSignature.createSigner();
-// $ExpectType RequestSigner
+// $ExpectType _RequestSigner
 httpSignature.createSigner({
     keyId: "foo",
     key: "bar",
