@@ -36,8 +36,7 @@
     "./types/i18n*",
     "./types/inquirer*",
     "./types/react-blessed",
-    "./types/react-map-gl",
-    "./types/react-syntax-highlighter"
+    "./types/react-map-gl"
   ],
   // NOTE: if extending this list, also update settings.template.json.
   "plugins": [
