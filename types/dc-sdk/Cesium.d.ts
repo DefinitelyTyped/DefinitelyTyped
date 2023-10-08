@@ -596,8 +596,8 @@ export enum WebGLConstants {
 export namespace ArcGISTiledElevationTerrainProvider {
     /**
      * Initialization options for the ArcGISTiledElevationTerrainProvider constructor
-     * @property [token] - The authorization token to use to connect to the service.
-     * @property [ellipsoid] - The ellipsoid.  If the tilingScheme is specified,
+     * [token] - The authorization token to use to connect to the service.
+     * [ellipsoid] - The ellipsoid.  If the tilingScheme is specified,
      *                    this parameter is ignored and the tiling scheme's ellipsoid is used instead.
      *                    If neither parameter is specified, the WGS84 ellipsoid is used.
      */
@@ -2804,11 +2804,11 @@ export class CatmullRomSpline {
 export namespace CesiumTerrainProvider {
     /**
      * Initialization options for the CesiumTerrainProvider constructor
-     * @property [requestVertexNormals = false] - Flag that indicates if the client should request additional lighting information from the server, in the form of per vertex normals if available.
-     * @property [requestWaterMask = false] - Flag that indicates if the client should request per tile water masks from the server, if available.
-     * @property [requestMetadata = true] - Flag that indicates if the client should request per tile metadata from the server, if available.
-     * @property [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
-     * @property [credit] - A credit for the data source, which is displayed on the canvas.
+     * [requestVertexNormals = false] - Flag that indicates if the client should request additional lighting information from the server, in the form of per vertex normals if available.
+     * [requestWaterMask = false] - Flag that indicates if the client should request per tile water masks from the server, if available.
+     * [requestMetadata = true] - Flag that indicates if the client should request per tile metadata from the server, if available.
+     * [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
+     * [credit] - A credit for the data source, which is displayed on the canvas.
      */
     type ConstructorOptions = {
         requestVertexNormals?: boolean;
@@ -6568,8 +6568,8 @@ export enum GeocodeType {
 
 export namespace GeocoderService {
     /**
-     * @property displayName - The display name for a location
-     * @property destination - The bounding box for a location
+     * displayName - The display name for a location
+     * destination - The bounding box for a location
      */
     type Result = {
         displayName: string;
@@ -7460,8 +7460,8 @@ export class GoogleEarthEnterpriseTerrainData {
 export namespace GoogleEarthEnterpriseTerrainProvider {
     /**
      * Initialization options for GoogleEarthEnterpriseTerrainProvider constructor
-     * @property [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
-     * @property [credit] - A credit for the data source, which is displayed on the canvas.
+     * [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
+     * [credit] - A credit for the data source, which is displayed on the canvas.
      */
     type ConstructorOptions = {
         ellipsoid?: Ellipsoid;
@@ -14614,15 +14614,15 @@ export enum RequestType {
 export namespace Resource {
     /**
      * Initialization options for the Resource constructor
-     * @property url - The url of the resource.
-     * @property [queryParameters] - An object containing query parameters that will be sent when retrieving the resource.
-     * @property [templateValues] - Key/Value pairs that are used to replace template values (eg. {x}).
-     * @property [headers = {}] - Additional HTTP headers that will be sent.
-     * @property [proxy] - A proxy to be used when loading the resource.
-     * @property [retryCallback] - The Function to call when a request for this resource fails. If it returns true, the request will be retried.
-     * @property [retryAttempts = 0] - The number of times the retryCallback should be called before giving up.
-     * @property [request] - A Request object that will be used. Intended for internal use only.
-     * @property [parseUrl = true] - If true, parse the url for query parameters; otherwise store the url without change
+     * url - The url of the resource.
+     * [queryParameters] - An object containing query parameters that will be sent when retrieving the resource.
+     * [templateValues] - Key/Value pairs that are used to replace template values (eg. {x}).
+     * [headers = {}] - Additional HTTP headers that will be sent.
+     * [proxy] - A proxy to be used when loading the resource.
+     * [retryCallback] - The Function to call when a request for this resource fails. If it returns true, the request will be retried.
+     * [retryAttempts = 0] - The number of times the retryCallback should be called before giving up.
+     * [request] - A Request object that will be used. Intended for internal use only.
+     * [parseUrl = true] - If true, parse the url for query parameters; otherwise store the url without change
      */
     type ConstructorOptions = {
         url: string;
@@ -17351,8 +17351,8 @@ export namespace TrustedServers {
 export namespace VRTheWorldTerrainProvider {
     /**
      * Initialization options for the VRTheWorldTerrainProvider constructor
-     * @property [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
-     * @property [credit] - A credit for the data source, which is displayed on the canvas.
+     * [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
+     * [credit] - A credit for the data source, which is displayed on the canvas.
      */
     type ConstructorOptions = {
         ellipsoid?: Ellipsoid;
@@ -18446,26 +18446,26 @@ export function writeTextToCanvas(text: string, options?: {
 export namespace BillboardGraphics {
     /**
      * Initialization options for the BillboardGraphics constructor
-     * @property [show = true] - A boolean Property specifying the visibility of the billboard.
-     * @property [image] - A Property specifying the Image, URI, or Canvas to use for the billboard.
-     * @property [scale = 1.0] - A numeric Property specifying the scale to apply to the image size.
-     * @property [pixelOffset = Cartesian2.ZERO] - A {@link Cartesian2} Property specifying the pixel offset.
-     * @property [eyeOffset = Cartesian3.ZERO] - A {@link Cartesian3} Property specifying the eye offset.
-     * @property [horizontalOrigin = HorizontalOrigin.CENTER] - A Property specifying the {@link HorizontalOrigin}.
-     * @property [verticalOrigin = VerticalOrigin.CENTER] - A Property specifying the {@link VerticalOrigin}.
-     * @property [heightReference = HeightReference.NONE] - A Property specifying what the height is relative to.
-     * @property [color = Color.WHITE] - A Property specifying the tint {@link Color} of the image.
-     * @property [rotation = 0] - A numeric Property specifying the rotation about the alignedAxis.
-     * @property [alignedAxis = Cartesian3.ZERO] - A {@link Cartesian3} Property specifying the unit vector axis of rotation.
-     * @property [sizeInMeters] - A boolean Property specifying whether this billboard's size should be measured in meters.
-     * @property [width] - A numeric Property specifying the width of the billboard in pixels, overriding the native size.
-     * @property [height] - A numeric Property specifying the height of the billboard in pixels, overriding the native size.
-     * @property [scaleByDistance] - A {@link NearFarScalar} Property used to scale the point based on distance from the camera.
-     * @property [translucencyByDistance] - A {@link NearFarScalar} Property used to set translucency based on distance from the camera.
-     * @property [pixelOffsetScaleByDistance] - A {@link NearFarScalar} Property used to set pixelOffset based on distance from the camera.
-     * @property [imageSubRegion] - A Property specifying a {@link BoundingRectangle} that defines a sub-region of the image to use for the billboard, rather than the entire image, measured in pixels from the bottom-left.
-     * @property [distanceDisplayCondition] - A Property specifying at what distance from the camera that this billboard will be displayed.
-     * @property [disableDepthTestDistance] - A Property specifying the distance from the camera at which to disable the depth test to.
+     * [show = true] - A boolean Property specifying the visibility of the billboard.
+     * [image] - A Property specifying the Image, URI, or Canvas to use for the billboard.
+     * [scale = 1.0] - A numeric Property specifying the scale to apply to the image size.
+     * [pixelOffset = Cartesian2.ZERO] - A {@link Cartesian2} Property specifying the pixel offset.
+     * [eyeOffset = Cartesian3.ZERO] - A {@link Cartesian3} Property specifying the eye offset.
+     * [horizontalOrigin = HorizontalOrigin.CENTER] - A Property specifying the {@link HorizontalOrigin}.
+     * [verticalOrigin = VerticalOrigin.CENTER] - A Property specifying the {@link VerticalOrigin}.
+     * [heightReference = HeightReference.NONE] - A Property specifying what the height is relative to.
+     * [color = Color.WHITE] - A Property specifying the tint {@link Color} of the image.
+     * [rotation = 0] - A numeric Property specifying the rotation about the alignedAxis.
+     * [alignedAxis = Cartesian3.ZERO] - A {@link Cartesian3} Property specifying the unit vector axis of rotation.
+     * [sizeInMeters] - A boolean Property specifying whether this billboard's size should be measured in meters.
+     * [width] - A numeric Property specifying the width of the billboard in pixels, overriding the native size.
+     * [height] - A numeric Property specifying the height of the billboard in pixels, overriding the native size.
+     * [scaleByDistance] - A {@link NearFarScalar} Property used to scale the point based on distance from the camera.
+     * [translucencyByDistance] - A {@link NearFarScalar} Property used to set translucency based on distance from the camera.
+     * [pixelOffsetScaleByDistance] - A {@link NearFarScalar} Property used to set pixelOffset based on distance from the camera.
+     * [imageSubRegion] - A Property specifying a {@link BoundingRectangle} that defines a sub-region of the image to use for the billboard, rather than the entire image, measured in pixels from the bottom-left.
+     * [distanceDisplayCondition] - A Property specifying at what distance from the camera that this billboard will be displayed.
+     * [disableDepthTestDistance] - A Property specifying the distance from the camera at which to disable the depth test to.
      */
     type ConstructorOptions = {
         show?: Property | boolean;
@@ -18718,16 +18718,16 @@ export class BoxGeometryUpdater {
 export namespace BoxGraphics {
     /**
      * Initialization options for the BoxGraphics constructor
-     * @property [show = true] - A boolean Property specifying the visibility of the box.
-     * @property [dimensions] - A {@link Cartesian3} Property specifying the length, width, and height of the box.
-     * @property [heightReference = HeightReference.NONE] - A Property specifying what the height from the entity position is relative to.
-     * @property [fill = true] - A boolean Property specifying whether the box is filled with the provided material.
-     * @property [material = Color.WHITE] - A Property specifying the material used to fill the box.
-     * @property [outline = false] - A boolean Property specifying whether the box is outlined.
-     * @property [outlineColor = Color.BLACK] - A Property specifying the {@link Color} of the outline.
-     * @property [outlineWidth = 1.0] - A numeric Property specifying the width of the outline.
-     * @property [shadows = ShadowMode.DISABLED] - An enum Property specifying whether the box casts or receives shadows from light sources.
-     * @property [distanceDisplayCondition] - A Property specifying at what distance from the camera that this box will be displayed.
+     * [show = true] - A boolean Property specifying the visibility of the box.
+     * [dimensions] - A {@link Cartesian3} Property specifying the length, width, and height of the box.
+     * [heightReference = HeightReference.NONE] - A Property specifying what the height from the entity position is relative to.
+     * [fill = true] - A boolean Property specifying whether the box is filled with the provided material.
+     * [material = Color.WHITE] - A Property specifying the material used to fill the box.
+     * [outline = false] - A boolean Property specifying whether the box is outlined.
+     * [outlineColor = Color.BLACK] - A Property specifying the {@link Color} of the outline.
+     * [outlineWidth = 1.0] - A numeric Property specifying the width of the outline.
+     * [shadows = ShadowMode.DISABLED] - An enum Property specifying whether the box casts or receives shadows from light sources.
+     * [distanceDisplayCondition] - A Property specifying at what distance from the camera that this box will be displayed.
      */
     type ConstructorOptions = {
         show?: Property | boolean;
@@ -18861,9 +18861,9 @@ export namespace CallbackProperty {
 export namespace Cesium3DTilesetGraphics {
     /**
      * Initialization options for the Cesium3DTilesetGraphics constructor
-     * @property [show = true] - A boolean Property specifying the visibility of the tileset.
-     * @property [uri] - A string or Resource Property specifying the URI of the tileset.
-     * @property [maximumScreenSpaceError] - A number or Property specifying the maximum screen space error used to drive level of detail refinement.
+     * [show = true] - A boolean Property specifying the visibility of the tileset.
+     * [uri] - A string or Resource Property specifying the URI of the tileset.
+     * [maximumScreenSpaceError] - A number or Property specifying the maximum screen space error used to drive level of detail refinement.
      */
     type ConstructorOptions = {
         show?: Property | boolean;
@@ -19444,24 +19444,24 @@ export class CorridorGeometryUpdater {
 export namespace CorridorGraphics {
     /**
      * Initialization options for the CorridorGraphics constructor
-     * @property [show = true] - A boolean Property specifying the visibility of the corridor.
-     * @property [positions] - A Property specifying the array of {@link Cartesian3} positions that define the centerline of the corridor.
-     * @property [width] - A numeric Property specifying the distance between the edges of the corridor.
-     * @property [height = 0] - A numeric Property specifying the altitude of the corridor relative to the ellipsoid surface.
-     * @property [heightReference = HeightReference.NONE] - A Property specifying what the height is relative to.
-     * @property [extrudedHeight] - A numeric Property specifying the altitude of the corridor's extruded face relative to the ellipsoid surface.
-     * @property [extrudedHeightReference = HeightReference.NONE] - A Property specifying what the extrudedHeight is relative to.
-     * @property [cornerType = CornerType.ROUNDED] - A {@link CornerType} Property specifying the style of the corners.
-     * @property [granularity = Cesium.Math.RADIANS_PER_DEGREE] - A numeric Property specifying the distance between each latitude and longitude.
-     * @property [fill = true] - A boolean Property specifying whether the corridor is filled with the provided material.
-     * @property [material = Color.WHITE] - A Property specifying the material used to fill the corridor.
-     * @property [outline = false] - A boolean Property specifying whether the corridor is outlined.
-     * @property [outlineColor = Color.BLACK] - A Property specifying the {@link Color} of the outline.
-     * @property [outlineWidth = 1.0] - A numeric Property specifying the width of the outline.
-     * @property [shadows = ShadowMode.DISABLED] - An enum Property specifying whether the corridor casts or receives shadows from light sources.
-     * @property [distanceDisplayCondition] - A Property specifying at what distance from the camera that this corridor will be displayed.
-     * @property [classificationType = ClassificationType.BOTH] - An enum Property specifying whether this corridor will classify terrain, 3D Tiles, or both when on the ground.
-     * @property [zIndex] - A Property specifying the zIndex of the corridor, used for ordering.  Only has an effect if height and extrudedHeight are undefined, and if the corridor is static.
+     * [show = true] - A boolean Property specifying the visibility of the corridor.
+     * [positions] - A Property specifying the array of {@link Cartesian3} positions that define the centerline of the corridor.
+     * [width] - A numeric Property specifying the distance between the edges of the corridor.
+     * [height = 0] - A numeric Property specifying the altitude of the corridor relative to the ellipsoid surface.
+     * [heightReference = HeightReference.NONE] - A Property specifying what the height is relative to.
+     * [extrudedHeight] - A numeric Property specifying the altitude of the corridor's extruded face relative to the ellipsoid surface.
+     * [extrudedHeightReference = HeightReference.NONE] - A Property specifying what the extrudedHeight is relative to.
+     * [cornerType = CornerType.ROUNDED] - A {@link CornerType} Property specifying the style of the corners.
+     * [granularity = Cesium.Math.RADIANS_PER_DEGREE] - A numeric Property specifying the distance between each latitude and longitude.
+     * [fill = true] - A boolean Property specifying whether the corridor is filled with the provided material.
+     * [material = Color.WHITE] - A Property specifying the material used to fill the corridor.
+     * [outline = false] - A boolean Property specifying whether the corridor is outlined.
+     * [outlineColor = Color.BLACK] - A Property specifying the {@link Color} of the outline.
+     * [outlineWidth = 1.0] - A numeric Property specifying the width of the outline.
+     * [shadows = ShadowMode.DISABLED] - An enum Property specifying whether the corridor casts or receives shadows from light sources.
+     * [distanceDisplayCondition] - A Property specifying at what distance from the camera that this corridor will be displayed.
+     * [classificationType = ClassificationType.BOTH] - An enum Property specifying whether this corridor will classify terrain, 3D Tiles, or both when on the ground.
+     * [zIndex] - A Property specifying the zIndex of the corridor, used for ordering.  Only has an effect if height and extrudedHeight are undefined, and if the corridor is static.
      */
     type ConstructorOptions = {
         show?: Property | boolean;
@@ -19678,20 +19678,20 @@ export class CylinderGeometryUpdater {
 export namespace CylinderGraphics {
     /**
      * Initialization options for the CylinderGraphics constructor
-     * @property [show = true] - A boolean Property specifying the visibility of the cylinder.
-     * @property [length] - A numeric Property specifying the length of the cylinder.
-     * @property [topRadius] - A numeric Property specifying the radius of the top of the cylinder.
-     * @property [bottomRadius] - A numeric Property specifying the radius of the bottom of the cylinder.
-     * @property [heightReference = HeightReference.NONE] - A Property specifying what the height from the entity position is relative to.
-     * @property [fill = true] - A boolean Property specifying whether the cylinder is filled with the provided material.
-     * @property [material = Color.WHITE] - A Property specifying the material used to fill the cylinder.
-     * @property [outline = false] - A boolean Property specifying whether the cylinder is outlined.
-     * @property [outlineColor = Color.BLACK] - A Property specifying the {@link Color} of the outline.
-     * @property [outlineWidth = 1.0] - A numeric Property specifying the width of the outline.
-     * @property [numberOfVerticalLines = 16] - A numeric Property specifying the number of vertical lines to draw along the perimeter for the outline.
-     * @property [slices = 128] - The number of edges around the perimeter of the cylinder.
-     * @property [shadows = ShadowMode.DISABLED] - An enum Property specifying whether the cylinder casts or receives shadows from light sources.
-     * @property [distanceDisplayCondition] - A Property specifying at what distance from the camera that this cylinder will be displayed.
+     * [show = true] - A boolean Property specifying the visibility of the cylinder.
+     * [length] - A numeric Property specifying the length of the cylinder.
+     * [topRadius] - A numeric Property specifying the radius of the top of the cylinder.
+     * [bottomRadius] - A numeric Property specifying the radius of the bottom of the cylinder.
+     * [heightReference = HeightReference.NONE] - A Property specifying what the height from the entity position is relative to.
+     * [fill = true] - A boolean Property specifying whether the cylinder is filled with the provided material.
+     * [material = Color.WHITE] - A Property specifying the material used to fill the cylinder.
+     * [outline = false] - A boolean Property specifying whether the cylinder is outlined.
+     * [outlineColor = Color.BLACK] - A Property specifying the {@link Color} of the outline.
+     * [outlineWidth = 1.0] - A numeric Property specifying the width of the outline.
+     * [numberOfVerticalLines = 16] - A numeric Property specifying the number of vertical lines to draw along the perimeter for the outline.
+     * [slices = 128] - The number of edges around the perimeter of the cylinder.
+     * [shadows = ShadowMode.DISABLED] - An enum Property specifying whether the cylinder casts or receives shadows from light sources.
+     * [distanceDisplayCondition] - A Property specifying at what distance from the camera that this cylinder will be displayed.
      */
     type ConstructorOptions = {
         show?: Property | boolean;
@@ -19799,8 +19799,8 @@ export class CylinderGraphics {
 export namespace CzmlDataSource {
     /**
      * Initialization options for the <code>load</code> method.
-     * @property [sourceUri] - Overrides the url to use for resolving relative links.
-     * @property [credit] - A credit for the data source, which is displayed on the canvas.
+     * [sourceUri] - Overrides the url to use for resolving relative links.
+     * [credit] - A credit for the data source, which is displayed on the canvas.
      */
     type LoadOptions = {
         sourceUri?: Resource | string;
@@ -20262,26 +20262,26 @@ export class EllipseGeometryUpdater {
 export namespace EllipseGraphics {
     /**
      * Initialization options for the EllipseGraphics constructor
-     * @property [show = true] - A boolean Property specifying the visibility of the ellipse.
-     * @property [semiMajorAxis] - The numeric Property specifying the semi-major axis.
-     * @property [semiMinorAxis] - The numeric Property specifying the semi-minor axis.
-     * @property [height = 0] - A numeric Property specifying the altitude of the ellipse relative to the ellipsoid surface.
-     * @property [heightReference = HeightReference.NONE] - A Property specifying what the height is relative to.
-     * @property [extrudedHeight] - A numeric Property specifying the altitude of the ellipse's extruded face relative to the ellipsoid surface.
-     * @property [extrudedHeightReference = HeightReference.NONE] - A Property specifying what the extrudedHeight is relative to.
-     * @property [rotation = 0.0] - A numeric property specifying the rotation of the ellipse counter-clockwise from north.
-     * @property [stRotation = 0.0] - A numeric property specifying the rotation of the ellipse texture counter-clockwise from north.
-     * @property [granularity = Cesium.Math.RADIANS_PER_DEGREE] - A numeric Property specifying the angular distance between points on the ellipse.
-     * @property [fill = true] - A boolean Property specifying whether the ellipse is filled with the provided material.
-     * @property [material = Color.WHITE] - A Property specifying the material used to fill the ellipse.
-     * @property [outline = false] - A boolean Property specifying whether the ellipse is outlined.
-     * @property [outlineColor = Color.BLACK] - A Property specifying the {@link Color} of the outline.
-     * @property [outlineWidth = 1.0] - A numeric Property specifying the width of the outline.
-     * @property [numberOfVerticalLines = 16] - A numeric Property specifying the number of vertical lines to draw along the perimeter for the outline.
-     * @property [shadows = ShadowMode.DISABLED] - An enum Property specifying whether the ellipse casts or receives shadows from light sources.
-     * @property [distanceDisplayCondition] - A Property specifying at what distance from the camera that this ellipse will be displayed.
-     * @property [classificationType = ClassificationType.BOTH] - An enum Property specifying whether this ellipse will classify terrain, 3D Tiles, or both when on the ground.
-     * @property [zIndex = 0] - A property specifying the zIndex of the Ellipse.  Used for ordering ground geometry.  Only has an effect if the ellipse is constant and neither height or exturdedHeight are specified.
+     * [show = true] - A boolean Property specifying the visibility of the ellipse.
+     * [semiMajorAxis] - The numeric Property specifying the semi-major axis.
+     * [semiMinorAxis] - The numeric Property specifying the semi-minor axis.
+     * [height = 0] - A numeric Property specifying the altitude of the ellipse relative to the ellipsoid surface.
+     * [heightReference = HeightReference.NONE] - A Property specifying what the height is relative to.
+     * [extrudedHeight] - A numeric Property specifying the altitude of the ellipse's extruded face relative to the ellipsoid surface.
+     * [extrudedHeightReference = HeightReference.NONE] - A Property specifying what the extrudedHeight is relative to.
+     * [rotation = 0.0] - A numeric property specifying the rotation of the ellipse counter-clockwise from north.
+     * [stRotation = 0.0] - A numeric property specifying the rotation of the ellipse texture counter-clockwise from north.
+     * [granularity = Cesium.Math.RADIANS_PER_DEGREE] - A numeric Property specifying the angular distance between points on the ellipse.
+     * [fill = true] - A boolean Property specifying whether the ellipse is filled with the provided material.
+     * [material = Color.WHITE] - A Property specifying the material used to fill the ellipse.
+     * [outline = false] - A boolean Property specifying whether the ellipse is outlined.
+     * [outlineColor = Color.BLACK] - A Property specifying the {@link Color} of the outline.
+     * [outlineWidth = 1.0] - A numeric Property specifying the width of the outline.
+     * [numberOfVerticalLines = 16] - A numeric Property specifying the number of vertical lines to draw along the perimeter for the outline.
+     * [shadows = ShadowMode.DISABLED] - An enum Property specifying whether the ellipse casts or receives shadows from light sources.
+     * [distanceDisplayCondition] - A Property specifying at what distance from the camera that this ellipse will be displayed.
+     * [classificationType = ClassificationType.BOTH] - An enum Property specifying whether this ellipse will classify terrain, 3D Tiles, or both when on the ground.
+     * [zIndex = 0] - A property specifying the zIndex of the Ellipse.  Used for ordering ground geometry.  Only has an effect if the ellipse is constant and neither height or exturdedHeight are specified.
      */
     type ConstructorOptions = {
         show?: Property | boolean;
@@ -20448,24 +20448,24 @@ export class EllipsoidGeometryUpdater {
 export namespace EllipsoidGraphics {
     /**
      * Initialization options for the EllipsoidGraphics constructor
-     * @property [show = true] - A boolean Property specifying the visibility of the ellipsoid.
-     * @property [radii] - A {@link Cartesian3} Property specifying the radii of the ellipsoid.
-     * @property [innerRadii] - A {@link Cartesian3} Property specifying the inner radii of the ellipsoid.
-     * @property [minimumClock = 0.0] - A Property specifying the minimum clock angle of the ellipsoid.
-     * @property [maximumClock = 2*PI] - A Property specifying the maximum clock angle of the ellipsoid.
-     * @property [minimumCone = 0.0] - A Property specifying the minimum cone angle of the ellipsoid.
-     * @property [maximumCone = PI] - A Property specifying the maximum cone angle of the ellipsoid.
-     * @property [heightReference = HeightReference.NONE] - A Property specifying what the height from the entity position is relative to.
-     * @property [fill = true] - A boolean Property specifying whether the ellipsoid is filled with the provided material.
-     * @property [material = Color.WHITE] - A Property specifying the material used to fill the ellipsoid.
-     * @property [outline = false] - A boolean Property specifying whether the ellipsoid is outlined.
-     * @property [outlineColor = Color.BLACK] - A Property specifying the {@link Color} of the outline.
-     * @property [outlineWidth = 1.0] - A numeric Property specifying the width of the outline.
-     * @property [stackPartitions = 64] - A Property specifying the number of stacks.
-     * @property [slicePartitions = 64] - A Property specifying the number of radial slices.
-     * @property [subdivisions = 128] - A Property specifying the number of samples per outline ring, determining the granularity of the curvature.
-     * @property [shadows = ShadowMode.DISABLED] - An enum Property specifying whether the ellipsoid casts or receives shadows from light sources.
-     * @property [distanceDisplayCondition] - A Property specifying at what distance from the camera that this ellipsoid will be displayed.
+     * [show = true] - A boolean Property specifying the visibility of the ellipsoid.
+     * [radii] - A {@link Cartesian3} Property specifying the radii of the ellipsoid.
+     * [innerRadii] - A {@link Cartesian3} Property specifying the inner radii of the ellipsoid.
+     * [minimumClock = 0.0] - A Property specifying the minimum clock angle of the ellipsoid.
+     * [maximumClock = 2*PI] - A Property specifying the maximum clock angle of the ellipsoid.
+     * [minimumCone = 0.0] - A Property specifying the minimum cone angle of the ellipsoid.
+     * [maximumCone = PI] - A Property specifying the maximum cone angle of the ellipsoid.
+     * [heightReference = HeightReference.NONE] - A Property specifying what the height from the entity position is relative to.
+     * [fill = true] - A boolean Property specifying whether the ellipsoid is filled with the provided material.
+     * [material = Color.WHITE] - A Property specifying the material used to fill the ellipsoid.
+     * [outline = false] - A boolean Property specifying whether the ellipsoid is outlined.
+     * [outlineColor = Color.BLACK] - A Property specifying the {@link Color} of the outline.
+     * [outlineWidth = 1.0] - A numeric Property specifying the width of the outline.
+     * [stackPartitions = 64] - A Property specifying the number of stacks.
+     * [slicePartitions = 64] - A Property specifying the number of radial slices.
+     * [subdivisions = 128] - A Property specifying the number of samples per outline ring, determining the granularity of the curvature.
+     * [shadows = ShadowMode.DISABLED] - An enum Property specifying whether the ellipsoid casts or receives shadows from light sources.
+     * [distanceDisplayCondition] - A Property specifying at what distance from the camera that this ellipsoid will be displayed.
      */
     type ConstructorOptions = {
         show?: Property | boolean;
@@ -20592,33 +20592,33 @@ export class EllipsoidGraphics {
 export namespace Entity {
     /**
      * Initialization options for the Entity constructor
-     * @property [id] - A unique identifier for this object. If none is provided, a GUID is generated.
-     * @property [name] - A human readable name to display to users. It does not have to be unique.
-     * @property [availability] - The availability, if any, associated with this object.
-     * @property [show] - A boolean value indicating if the entity and its children are displayed.
-     * @property [description] - A string Property specifying an HTML description for this entity.
-     * @property [position] - A Property specifying the entity position.
-     * @property [orientation] - A Property specifying the entity orientation.
-     * @property [viewFrom] - A suggested initial offset for viewing this object.
-     * @property [parent] - A parent entity to associate with this entity.
-     * @property [billboard] - A billboard to associate with this entity.
-     * @property [box] - A box to associate with this entity.
-     * @property [corridor] - A corridor to associate with this entity.
-     * @property [cylinder] - A cylinder to associate with this entity.
-     * @property [ellipse] - A ellipse to associate with this entity.
-     * @property [ellipsoid] - A ellipsoid to associate with this entity.
-     * @property [label] - A options.label to associate with this entity.
-     * @property [model] - A model to associate with this entity.
-     * @property [tileset] - A 3D Tiles tileset to associate with this entity.
-     * @property [path] - A path to associate with this entity.
-     * @property [plane] - A plane to associate with this entity.
-     * @property [point] - A point to associate with this entity.
-     * @property [polygon] - A polygon to associate with this entity.
-     * @property [polyline] - A polyline to associate with this entity.
-     * @property [properties] - Arbitrary properties to associate with this entity.
-     * @property [polylineVolume] - A polylineVolume to associate with this entity.
-     * @property [rectangle] - A rectangle to associate with this entity.
-     * @property [wall] - A wall to associate with this entity.
+     * [id] - A unique identifier for this object. If none is provided, a GUID is generated.
+     * [name] - A human readable name to display to users. It does not have to be unique.
+     * [availability] - The availability, if any, associated with this object.
+     * [show] - A boolean value indicating if the entity and its children are displayed.
+     * [description] - A string Property specifying an HTML description for this entity.
+     * [position] - A Property specifying the entity position.
+     * [orientation] - A Property specifying the entity orientation.
+     * [viewFrom] - A suggested initial offset for viewing this object.
+     * [parent] - A parent entity to associate with this entity.
+     * [billboard] - A billboard to associate with this entity.
+     * [box] - A box to associate with this entity.
+     * [corridor] - A corridor to associate with this entity.
+     * [cylinder] - A cylinder to associate with this entity.
+     * [ellipse] - A ellipse to associate with this entity.
+     * [ellipsoid] - A ellipsoid to associate with this entity.
+     * [label] - A options.label to associate with this entity.
+     * [model] - A model to associate with this entity.
+     * [tileset] - A 3D Tiles tileset to associate with this entity.
+     * [path] - A path to associate with this entity.
+     * [plane] - A plane to associate with this entity.
+     * [point] - A point to associate with this entity.
+     * [polygon] - A polygon to associate with this entity.
+     * [polyline] - A polyline to associate with this entity.
+     * [properties] - Arbitrary properties to associate with this entity.
+     * [polylineVolume] - A polylineVolume to associate with this entity.
+     * [rectangle] - A rectangle to associate with this entity.
+     * [wall] - A wall to associate with this entity.
      */
     type ConstructorOptions = {
         id?: string;
@@ -21076,16 +21076,16 @@ export class EntityView {
 export namespace GeoJsonDataSource {
     /**
      * Initialization options for the <code>load</code> method.
-     * @property [sourceUri] - Overrides the url to use for resolving relative links.
-     * @property [describe = GeoJsonDataSource.defaultDescribeProperty] - A function which returns a Property object (or just a string).
-     * @property [markerSize = GeoJsonDataSource.markerSize] - The default size of the map pin created for each point, in pixels.
-     * @property [markerSymbol = GeoJsonDataSource.markerSymbol] - The default symbol of the map pin created for each point.
-     * @property [markerColor = GeoJsonDataSource.markerColor] - The default color of the map pin created for each point.
-     * @property [stroke = GeoJsonDataSource.stroke] - The default color of polylines and polygon outlines.
-     * @property [strokeWidth = GeoJsonDataSource.strokeWidth] - The default width of polylines and polygon outlines.
-     * @property [fill = GeoJsonDataSource.fill] - The default color for polygon interiors.
-     * @property [clampToGround = GeoJsonDataSource.clampToGround] - true if we want the geometry features (polygons or linestrings) clamped to the ground.
-     * @property [credit] - A credit for the data source, which is displayed on the canvas.
+     * [sourceUri] - Overrides the url to use for resolving relative links.
+     * [describe = GeoJsonDataSource.defaultDescribeProperty] - A function which returns a Property object (or just a string).
+     * [markerSize = GeoJsonDataSource.markerSize] - The default size of the map pin created for each point, in pixels.
+     * [markerSymbol = GeoJsonDataSource.markerSymbol] - The default symbol of the map pin created for each point.
+     * [markerColor = GeoJsonDataSource.markerColor] - The default color of the map pin created for each point.
+     * [stroke = GeoJsonDataSource.stroke] - The default color of polylines and polygon outlines.
+     * [strokeWidth = GeoJsonDataSource.strokeWidth] - The default width of polylines and polygon outlines.
+     * [fill = GeoJsonDataSource.fill] - The default color for polygon interiors.
+     * [clampToGround = GeoJsonDataSource.clampToGround] - true if we want the geometry features (polygons or linestrings) clamped to the ground.
+     * [credit] - A credit for the data source, which is displayed on the canvas.
      */
     type LoadOptions = {
         sourceUri?: string;
@@ -21674,10 +21674,10 @@ export class KmlCamera {
 export namespace KmlDataSource {
     /**
      * Initialization options for the `load` method.
-     * @property [sourceUri] - Overrides the url to use for resolving relative links and other KML network features.
-     * @property [clampToGround = false] - true if we want the geometry features (Polygons, LineStrings and LinearRings) clamped to the ground.
-     * @property [ellipsoid = Ellipsoid.WGS84] - The global ellipsoid used for geographical calculations.
-     * @property [screenOverlayContainer] - A container for ScreenOverlay images.
+     * [sourceUri] - Overrides the url to use for resolving relative links and other KML network features.
+     * [clampToGround = false] - true if we want the geometry features (Polygons, LineStrings and LinearRings) clamped to the ground.
+     * [ellipsoid = Ellipsoid.WGS84] - The global ellipsoid used for geographical calculations.
+     * [screenOverlayContainer] - A container for ScreenOverlay images.
      */
     type LoadOptions = {
         sourceUri?: string;
@@ -21687,13 +21687,13 @@ export namespace KmlDataSource {
     };
     /**
      * Options for constructing a new KmlDataSource, or calling the static `load` method.
-     * @property [camera] - The camera that is used for viewRefreshModes and sending camera properties to network links.
-     * @property [canvas] - The canvas that is used for sending viewer properties to network links.
-     * @property [credit] - A credit for the data source, which is displayed on the canvas.
-     * @property [sourceUri] - Overrides the url to use for resolving relative links and other KML network features.
-     * @property [clampToGround = false] - true if we want the geometry features (Polygons, LineStrings and LinearRings) clamped to the ground.
-     * @property [ellipsoid = Ellipsoid.WGS84] - The global ellipsoid used for geographical calculations.
-     * @property [screenOverlayContainer] - A container for ScreenOverlay images.
+     * [camera] - The camera that is used for viewRefreshModes and sending camera properties to network links.
+     * [canvas] - The canvas that is used for sending viewer properties to network links.
+     * [credit] - A credit for the data source, which is displayed on the canvas.
+     * [sourceUri] - Overrides the url to use for resolving relative links and other KML network features.
+     * [clampToGround = false] - true if we want the geometry features (Polygons, LineStrings and LinearRings) clamped to the ground.
+     * [ellipsoid = Ellipsoid.WGS84] - The global ellipsoid used for geographical calculations.
+     * [screenOverlayContainer] - A container for ScreenOverlay images.
      */
     type ConstructorOptions = {
         camera?: Camera;
@@ -21860,9 +21860,9 @@ export class KmlFeatureData {
 
 export namespace KmlFeatureData {
     /**
-     * @property name - Gets the name.
-     * @property uri - Gets the URI.
-     * @property age - Gets the email.
+     * name - Gets the name.
+     * uri - Gets the URI.
+     * age - Gets the email.
      */
     type Author = {
         name: string;
@@ -21870,12 +21870,12 @@ export namespace KmlFeatureData {
         age: number;
     };
     /**
-     * @property href - Gets the href.
-     * @property hreflang - Gets the language of the linked resource.
-     * @property rel - Gets the link relation.
-     * @property type - Gets the link type.
-     * @property title - Gets the link title.
-     * @property length - Gets the link length.
+     * href - Gets the href.
+     * hreflang - Gets the language of the linked resource.
+     * rel - Gets the link relation.
+     * type - Gets the link type.
+     * title - Gets the link title.
+     * length - Gets the link length.
      */
     type Link = {
         href: string;
@@ -22032,27 +22032,27 @@ export namespace KmlTourWait {
 export namespace LabelGraphics {
     /**
      * Initialization options for the LabelGraphics constructor
-     * @property [show = true] - A boolean Property specifying the visibility of the label.
-     * @property [text] - A Property specifying the text. Explicit newlines '\n' are supported.
-     * @property [font = '30px sans-serif'] - A Property specifying the CSS font.
-     * @property [style = LabelStyle.FILL] - A Property specifying the {@link LabelStyle}.
-     * @property [scale = 1.0] - A numeric Property specifying the scale to apply to the text.
-     * @property [showBackground = false] - A boolean Property specifying the visibility of the background behind the label.
-     * @property [backgroundColor = new Color(0.165, 0.165, 0.165, 0.8)] - A Property specifying the background {@link Color}.
-     * @property [backgroundPadding = new Cartesian2(7, 5)] - A {@link Cartesian2} Property specifying the horizontal and vertical background padding in pixels.
-     * @property [pixelOffset = Cartesian2.ZERO] - A {@link Cartesian2} Property specifying the pixel offset.
-     * @property [eyeOffset = Cartesian3.ZERO] - A {@link Cartesian3} Property specifying the eye offset.
-     * @property [horizontalOrigin = HorizontalOrigin.CENTER] - A Property specifying the {@link HorizontalOrigin}.
-     * @property [verticalOrigin = VerticalOrigin.CENTER] - A Property specifying the {@link VerticalOrigin}.
-     * @property [heightReference = HeightReference.NONE] - A Property specifying what the height is relative to.
-     * @property [fillColor = Color.WHITE] - A Property specifying the fill {@link Color}.
-     * @property [outlineColor = Color.BLACK] - A Property specifying the outline {@link Color}.
-     * @property [outlineWidth = 1.0] - A numeric Property specifying the outline width.
-     * @property [translucencyByDistance] - A {@link NearFarScalar} Property used to set translucency based on distance from the camera.
-     * @property [pixelOffsetScaleByDistance] - A {@link NearFarScalar} Property used to set pixelOffset based on distance from the camera.
-     * @property [scaleByDistance] - A {@link NearFarScalar} Property used to set scale based on distance from the camera.
-     * @property [distanceDisplayCondition] - A Property specifying at what distance from the camera that this label will be displayed.
-     * @property [disableDepthTestDistance] - A Property specifying the distance from the camera at which to disable the depth test to.
+     * [show = true] - A boolean Property specifying the visibility of the label.
+     * [text] - A Property specifying the text. Explicit newlines '\n' are supported.
+     * [font = '30px sans-serif'] - A Property specifying the CSS font.
+     * [style = LabelStyle.FILL] - A Property specifying the {@link LabelStyle}.
+     * [scale = 1.0] - A numeric Property specifying the scale to apply to the text.
+     * [showBackground = false] - A boolean Property specifying the visibility of the background behind the label.
+     * [backgroundColor = new Color(0.165, 0.165, 0.165, 0.8)] - A Property specifying the background {@link Color}.
+     * [backgroundPadding = new Cartesian2(7, 5)] - A {@link Cartesian2} Property specifying the horizontal and vertical background padding in pixels.
+     * [pixelOffset = Cartesian2.ZERO] - A {@link Cartesian2} Property specifying the pixel offset.
+     * [eyeOffset = Cartesian3.ZERO] - A {@link Cartesian3} Property specifying the eye offset.
+     * [horizontalOrigin = HorizontalOrigin.CENTER] - A Property specifying the {@link HorizontalOrigin}.
+     * [verticalOrigin = VerticalOrigin.CENTER] - A Property specifying the {@link VerticalOrigin}.
+     * [heightReference = HeightReference.NONE] - A Property specifying what the height is relative to.
+     * [fillColor = Color.WHITE] - A Property specifying the fill {@link Color}.
+     * [outlineColor = Color.BLACK] - A Property specifying the outline {@link Color}.
+     * [outlineWidth = 1.0] - A numeric Property specifying the outline width.
+     * [translucencyByDistance] - A {@link NearFarScalar} Property used to set translucency based on distance from the camera.
+     * [pixelOffsetScaleByDistance] - A {@link NearFarScalar} Property used to set pixelOffset based on distance from the camera.
+     * [scaleByDistance] - A {@link NearFarScalar} Property used to set scale based on distance from the camera.
+     * [distanceDisplayCondition] - A Property specifying at what distance from the camera that this label will be displayed.
+     * [disableDepthTestDistance] - A Property specifying the distance from the camera at which to disable the depth test to.
      */
     type ConstructorOptions = {
         show?: Property | boolean;
@@ -22314,28 +22314,28 @@ export class MaterialProperty {
 export namespace ModelGraphics {
     /**
      * Initialization options for the ModelGraphics constructor
-     * @property [show = true] - A boolean Property specifying the visibility of the model.
-     * @property [uri] - A string or Resource Property specifying the URI of the glTF asset.
-     * @property [scale = 1.0] - A numeric Property specifying a uniform linear scale.
-     * @property [minimumPixelSize = 0.0] - A numeric Property specifying the approximate minimum pixel size of the model regardless of zoom.
-     * @property [maximumScale] - The maximum scale size of a model. An upper limit for minimumPixelSize.
-     * @property [incrementallyLoadTextures = true] - Determine if textures may continue to stream in after the model is loaded.
-     * @property [runAnimations = true] - A boolean Property specifying if glTF animations specified in the model should be started.
-     * @property [clampAnimations = true] - A boolean Property specifying if glTF animations should hold the last pose for time durations with no keyframes.
-     * @property [shadows = ShadowMode.ENABLED] - An enum Property specifying whether the model casts or receives shadows from light sources.
-     * @property [heightReference = HeightReference.NONE] - A Property specifying what the height is relative to.
-     * @property [silhouetteColor = Color.RED] - A Property specifying the {@link Color} of the silhouette.
-     * @property [silhouetteSize = 0.0] - A numeric Property specifying the size of the silhouette in pixels.
-     * @property [color = Color.WHITE] - A Property specifying the {@link Color} that blends with the model's rendered color.
-     * @property [colorBlendMode = ColorBlendMode.HIGHLIGHT] - An enum Property specifying how the color blends with the model.
-     * @property [colorBlendAmount = 0.5] - A numeric Property specifying the color strength when the <code>colorBlendMode</code> is <code>MIX</code>. A value of 0.0 results in the model's rendered color while a value of 1.0 results in a solid color, with any value in-between resulting in a mix of the two.
-     * @property [imageBasedLightingFactor = new Cartesian2(1.0, 1.0)] - A property specifying the contribution from diffuse and specular image-based lighting.
-     * @property [lightColor] - A property specifying the light color when shading the model. When <code>undefined</code> the scene's light color is used instead.
-     * @property [distanceDisplayCondition] - A Property specifying at what distance from the camera that this model will be displayed.
-     * @property [nodeTransformations] - An object, where keys are names of nodes, and values are {@link TranslationRotationScale} Properties describing the transformation to apply to that node. The transformation is applied after the node's existing transformation as specified in the glTF, and does not replace the node's existing transformation.
-     * @property [articulations] - An object, where keys are composed of an articulation name, a single space, and a stage name, and the values are numeric properties.
-     * @property [clippingPlanes] - A property specifying the {@link ClippingPlaneCollection} used to selectively disable rendering the model.
-     * @property [customShader] - A property specifying the {@link CustomShader} to apply to this model.
+     * [show = true] - A boolean Property specifying the visibility of the model.
+     * [uri] - A string or Resource Property specifying the URI of the glTF asset.
+     * [scale = 1.0] - A numeric Property specifying a uniform linear scale.
+     * [minimumPixelSize = 0.0] - A numeric Property specifying the approximate minimum pixel size of the model regardless of zoom.
+     * [maximumScale] - The maximum scale size of a model. An upper limit for minimumPixelSize.
+     * [incrementallyLoadTextures = true] - Determine if textures may continue to stream in after the model is loaded.
+     * [runAnimations = true] - A boolean Property specifying if glTF animations specified in the model should be started.
+     * [clampAnimations = true] - A boolean Property specifying if glTF animations should hold the last pose for time durations with no keyframes.
+     * [shadows = ShadowMode.ENABLED] - An enum Property specifying whether the model casts or receives shadows from light sources.
+     * [heightReference = HeightReference.NONE] - A Property specifying what the height is relative to.
+     * [silhouetteColor = Color.RED] - A Property specifying the {@link Color} of the silhouette.
+     * [silhouetteSize = 0.0] - A numeric Property specifying the size of the silhouette in pixels.
+     * [color = Color.WHITE] - A Property specifying the {@link Color} that blends with the model's rendered color.
+     * [colorBlendMode = ColorBlendMode.HIGHLIGHT] - An enum Property specifying how the color blends with the model.
+     * [colorBlendAmount = 0.5] - A numeric Property specifying the color strength when the <code>colorBlendMode</code> is <code>MIX</code>. A value of 0.0 results in the model's rendered color while a value of 1.0 results in a solid color, with any value in-between resulting in a mix of the two.
+     * [imageBasedLightingFactor = new Cartesian2(1.0, 1.0)] - A property specifying the contribution from diffuse and specular image-based lighting.
+     * [lightColor] - A property specifying the light color when shading the model. When <code>undefined</code> the scene's light color is used instead.
+     * [distanceDisplayCondition] - A Property specifying at what distance from the camera that this model will be displayed.
+     * [nodeTransformations] - An object, where keys are names of nodes, and values are {@link TranslationRotationScale} Properties describing the transformation to apply to that node. The transformation is applied after the node's existing transformation as specified in the glTF, and does not replace the node's existing transformation.
+     * [articulations] - An object, where keys are composed of an articulation name, a single space, and a stage name, and the values are numeric properties.
+     * [clippingPlanes] - A property specifying the {@link ClippingPlaneCollection} used to selectively disable rendering the model.
+     * [customShader] - A property specifying the {@link CustomShader} to apply to this model.
      */
     type ConstructorOptions = {
         show?: Property | boolean;
@@ -22578,13 +22578,13 @@ export class NodeTransformationProperty {
 export namespace PathGraphics {
     /**
      * Initialization options for the PathGraphics constructor
-     * @property [show = true] - A boolean Property specifying the visibility of the path.
-     * @property [leadTime] - A Property specifying the number of seconds in front the object to show.
-     * @property [trailTime] - A Property specifying the number of seconds behind of the object to show.
-     * @property [width = 1.0] - A numeric Property specifying the width in pixels.
-     * @property [resolution = 60] - A numeric Property specifying the maximum number of seconds to step when sampling the position.
-     * @property [material = Color.WHITE] - A Property specifying the material used to draw the path.
-     * @property [distanceDisplayCondition] - A Property specifying at what distance from the camera that this path will be displayed.
+     * [show = true] - A boolean Property specifying the visibility of the path.
+     * [leadTime] - A Property specifying the number of seconds in front the object to show.
+     * [trailTime] - A Property specifying the number of seconds behind of the object to show.
+     * [width = 1.0] - A numeric Property specifying the width in pixels.
+     * [resolution = 60] - A numeric Property specifying the maximum number of seconds to step when sampling the position.
+     * [material = Color.WHITE] - A Property specifying the material used to draw the path.
+     * [distanceDisplayCondition] - A Property specifying at what distance from the camera that this path will be displayed.
      */
     type ConstructorOptions = {
         show?: Property | boolean;
@@ -22699,16 +22699,16 @@ export class PlaneGeometryUpdater {
 export namespace PlaneGraphics {
     /**
      * Initialization options for the PlaneGraphics constructor
-     * @property [show = true] - A boolean Property specifying the visibility of the plane.
-     * @property [plane] - A {@link Plane} Property specifying the normal and distance for the plane.
-     * @property [dimensions] - A {@link Cartesian2} Property specifying the width and height of the plane.
-     * @property [fill = true] - A boolean Property specifying whether the plane is filled with the provided material.
-     * @property [material = Color.WHITE] - A Property specifying the material used to fill the plane.
-     * @property [outline = false] - A boolean Property specifying whether the plane is outlined.
-     * @property [outlineColor = Color.BLACK] - A Property specifying the {@link Color} of the outline.
-     * @property [outlineWidth = 1.0] - A numeric Property specifying the width of the outline.
-     * @property [shadows = ShadowMode.DISABLED] - An enum Property specifying whether the plane casts or receives shadows from light sources.
-     * @property [distanceDisplayCondition] - A Property specifying at what distance from the camera that this plane will be displayed.
+     * [show = true] - A boolean Property specifying the visibility of the plane.
+     * [plane] - A {@link Plane} Property specifying the normal and distance for the plane.
+     * [dimensions] - A {@link Cartesian2} Property specifying the width and height of the plane.
+     * [fill = true] - A boolean Property specifying whether the plane is filled with the provided material.
+     * [material = Color.WHITE] - A Property specifying the material used to fill the plane.
+     * [outline = false] - A boolean Property specifying whether the plane is outlined.
+     * [outlineColor = Color.BLACK] - A Property specifying the {@link Color} of the outline.
+     * [outlineWidth = 1.0] - A numeric Property specifying the width of the outline.
+     * [shadows = ShadowMode.DISABLED] - An enum Property specifying whether the plane casts or receives shadows from light sources.
+     * [distanceDisplayCondition] - A Property specifying at what distance from the camera that this plane will be displayed.
      */
     type ConstructorOptions = {
         show?: Property | boolean;
@@ -22795,16 +22795,16 @@ export class PlaneGraphics {
 export namespace PointGraphics {
     /**
      * Initialization options for the PointGraphics constructor
-     * @property [show = true] - A boolean Property specifying the visibility of the point.
-     * @property [pixelSize = 1] - A numeric Property specifying the size in pixels.
-     * @property [heightReference = HeightReference.NONE] - A Property specifying what the height is relative to.
-     * @property [color = Color.WHITE] - A Property specifying the {@link Color} of the point.
-     * @property [outlineColor = Color.BLACK] - A Property specifying the {@link Color} of the outline.
-     * @property [outlineWidth = 0] - A numeric Property specifying the the outline width in pixels.
-     * @property [scaleByDistance] - A {@link NearFarScalar} Property used to scale the point based on distance.
-     * @property [translucencyByDistance] - A {@link NearFarScalar} Property used to set translucency based on distance from the camera.
-     * @property [distanceDisplayCondition] - A Property specifying at what distance from the camera that this point will be displayed.
-     * @property [disableDepthTestDistance] - A Property specifying the distance from the camera at which to disable the depth test to.
+     * [show = true] - A boolean Property specifying the visibility of the point.
+     * [pixelSize = 1] - A numeric Property specifying the size in pixels.
+     * [heightReference = HeightReference.NONE] - A Property specifying what the height is relative to.
+     * [color = Color.WHITE] - A Property specifying the {@link Color} of the point.
+     * [outlineColor = Color.BLACK] - A Property specifying the {@link Color} of the outline.
+     * [outlineWidth = 0] - A numeric Property specifying the the outline width in pixels.
+     * [scaleByDistance] - A {@link NearFarScalar} Property used to scale the point based on distance.
+     * [translucencyByDistance] - A {@link NearFarScalar} Property used to set translucency based on distance from the camera.
+     * [distanceDisplayCondition] - A Property specifying at what distance from the camera that this point will be displayed.
+     * [disableDepthTestDistance] - A Property specifying the distance from the camera at which to disable the depth test to.
      */
     type ConstructorOptions = {
         show?: Property | boolean;
@@ -22940,28 +22940,28 @@ export class PolygonGeometryUpdater {
 export namespace PolygonGraphics {
     /**
      * Initialization options for the PolygonGraphics constructor
-     * @property [show = true] - A boolean Property specifying the visibility of the polygon.
-     * @property [hierarchy] - A Property specifying the {@link PolygonHierarchy}.
-     * @property [height = 0] - A numeric Property specifying the altitude of the polygon relative to the ellipsoid surface.
-     * @property [heightReference = HeightReference.NONE] - A Property specifying what the height is relative to.
-     * @property [extrudedHeight] - A numeric Property specifying the altitude of the polygon's extruded face relative to the ellipsoid surface.
-     * @property [extrudedHeightReference = HeightReference.NONE] - A Property specifying what the extrudedHeight is relative to.
-     * @property [stRotation = 0.0] - A numeric property specifying the rotation of the polygon texture counter-clockwise from north. Only has an effect if textureCoordinates is not defined.
-     * @property [granularity = Cesium.Math.RADIANS_PER_DEGREE] - A numeric Property specifying the angular distance between each latitude and longitude point.
-     * @property [fill = true] - A boolean Property specifying whether the polygon is filled with the provided material.
-     * @property [material = Color.WHITE] - A Property specifying the material used to fill the polygon.
-     * @property [outline = false] - A boolean Property specifying whether the polygon is outlined.
-     * @property [outlineColor = Color.BLACK] - A Property specifying the {@link Color} of the outline.
-     * @property [outlineWidth = 1.0] - A numeric Property specifying the width of the outline.
-     * @property [perPositionHeight = false] - A boolean specifying whether or not the height of each position is used.
-     * @property [closeTop = true] - When false, leaves off the top of an extruded polygon open.
-     * @property [closeBottom = true] - When false, leaves off the bottom of an extruded polygon open.
-     * @property [arcType = ArcType.GEODESIC] - The type of line the polygon edges must follow.
-     * @property [shadows = ShadowMode.DISABLED] - An enum Property specifying whether the polygon casts or receives shadows from light sources.
-     * @property [distanceDisplayCondition] - A Property specifying at what distance from the camera that this polygon will be displayed.
-     * @property [classificationType = ClassificationType.BOTH] - An enum Property specifying whether this polygon will classify terrain, 3D Tiles, or both when on the ground.
-     * @property [zIndex = 0] - A property specifying the zIndex used for ordering ground geometry.  Only has an effect if the polygon is constant and neither height or extrudedHeight are specified.
-     * @property [textureCoordinates] - A Property specifying texture coordinates as a {@link PolygonHierarchy} of {@link Cartesian2} points. Has no effect for ground primitives.
+     * [show = true] - A boolean Property specifying the visibility of the polygon.
+     * [hierarchy] - A Property specifying the {@link PolygonHierarchy}.
+     * [height = 0] - A numeric Property specifying the altitude of the polygon relative to the ellipsoid surface.
+     * [heightReference = HeightReference.NONE] - A Property specifying what the height is relative to.
+     * [extrudedHeight] - A numeric Property specifying the altitude of the polygon's extruded face relative to the ellipsoid surface.
+     * [extrudedHeightReference = HeightReference.NONE] - A Property specifying what the extrudedHeight is relative to.
+     * [stRotation = 0.0] - A numeric property specifying the rotation of the polygon texture counter-clockwise from north. Only has an effect if textureCoordinates is not defined.
+     * [granularity = Cesium.Math.RADIANS_PER_DEGREE] - A numeric Property specifying the angular distance between each latitude and longitude point.
+     * [fill = true] - A boolean Property specifying whether the polygon is filled with the provided material.
+     * [material = Color.WHITE] - A Property specifying the material used to fill the polygon.
+     * [outline = false] - A boolean Property specifying whether the polygon is outlined.
+     * [outlineColor = Color.BLACK] - A Property specifying the {@link Color} of the outline.
+     * [outlineWidth = 1.0] - A numeric Property specifying the width of the outline.
+     * [perPositionHeight = false] - A boolean specifying whether or not the height of each position is used.
+     * [closeTop = true] - When false, leaves off the top of an extruded polygon open.
+     * [closeBottom = true] - When false, leaves off the bottom of an extruded polygon open.
+     * [arcType = ArcType.GEODESIC] - The type of line the polygon edges must follow.
+     * [shadows = ShadowMode.DISABLED] - An enum Property specifying whether the polygon casts or receives shadows from light sources.
+     * [distanceDisplayCondition] - A Property specifying at what distance from the camera that this polygon will be displayed.
+     * [classificationType = ClassificationType.BOTH] - An enum Property specifying whether this polygon will classify terrain, 3D Tiles, or both when on the ground.
+     * [zIndex = 0] - A property specifying the zIndex used for ordering ground geometry.  Only has an effect if the polygon is constant and neither height or extrudedHeight are specified.
+     * [textureCoordinates] - A Property specifying texture coordinates as a {@link PolygonHierarchy} of {@link Cartesian2} points. Has no effect for ground primitives.
      */
     type ConstructorOptions = {
         show?: Property | boolean;
@@ -23400,18 +23400,18 @@ export class PolylineGlowMaterialProperty {
 export namespace PolylineGraphics {
     /**
      * Initialization options for the PolylineGraphics constructor
-     * @property [show = true] - A boolean Property specifying the visibility of the polyline.
-     * @property [positions] - A Property specifying the array of {@link Cartesian3} positions that define the line strip.
-     * @property [width = 1.0] - A numeric Property specifying the width in pixels.
-     * @property [granularity = Cesium.Math.RADIANS_PER_DEGREE] - A numeric Property specifying the angular distance between each latitude and longitude if arcType is not ArcType.NONE.
-     * @property [material = Color.WHITE] - A Property specifying the material used to draw the polyline.
-     * @property [depthFailMaterial] - A property specifying the material used to draw the polyline when it is below the terrain.
-     * @property [arcType = ArcType.GEODESIC] - The type of line the polyline segments must follow.
-     * @property [clampToGround = false] - A boolean Property specifying whether the Polyline should be clamped to the ground.
-     * @property [shadows = ShadowMode.DISABLED] - An enum Property specifying whether the polyline casts or receives shadows from light sources.
-     * @property [distanceDisplayCondition] - A Property specifying at what distance from the camera that this polyline will be displayed.
-     * @property [classificationType = ClassificationType.BOTH] - An enum Property specifying whether this polyline will classify terrain, 3D Tiles, or both when on the ground.
-     * @property [zIndex = 0] - A Property specifying the zIndex used for ordering ground geometry. Only has an effect if `clampToGround` is true and polylines on terrain is supported.
+     * [show = true] - A boolean Property specifying the visibility of the polyline.
+     * [positions] - A Property specifying the array of {@link Cartesian3} positions that define the line strip.
+     * [width = 1.0] - A numeric Property specifying the width in pixels.
+     * [granularity = Cesium.Math.RADIANS_PER_DEGREE] - A numeric Property specifying the angular distance between each latitude and longitude if arcType is not ArcType.NONE.
+     * [material = Color.WHITE] - A Property specifying the material used to draw the polyline.
+     * [depthFailMaterial] - A property specifying the material used to draw the polyline when it is below the terrain.
+     * [arcType = ArcType.GEODESIC] - The type of line the polyline segments must follow.
+     * [clampToGround = false] - A boolean Property specifying whether the Polyline should be clamped to the ground.
+     * [shadows = ShadowMode.DISABLED] - An enum Property specifying whether the polyline casts or receives shadows from light sources.
+     * [distanceDisplayCondition] - A Property specifying at what distance from the camera that this polyline will be displayed.
+     * [classificationType = ClassificationType.BOTH] - An enum Property specifying whether this polyline will classify terrain, 3D Tiles, or both when on the ground.
+     * [zIndex = 0] - A Property specifying the zIndex used for ordering ground geometry. Only has an effect if `clampToGround` is true and polylines on terrain is supported.
      */
     type ConstructorOptions = {
         show?: Property | boolean;
@@ -23621,18 +23621,18 @@ export class PolylineVolumeGeometryUpdater {
 export namespace PolylineVolumeGraphics {
     /**
      * Initialization options for the PolylineVolumeGraphics constructor
-     * @property [show = true] - A boolean Property specifying the visibility of the volume.
-     * @property [positions] - A Property specifying the array of {@link Cartesian3} positions which define the line strip.
-     * @property [shape] - A Property specifying the array of {@link Cartesian2} positions which define the shape to be extruded.
-     * @property [cornerType = CornerType.ROUNDED] - A {@link CornerType} Property specifying the style of the corners.
-     * @property [granularity = Cesium.Math.RADIANS_PER_DEGREE] - A numeric Property specifying the angular distance between each latitude and longitude point.
-     * @property [fill = true] - A boolean Property specifying whether the volume is filled with the provided material.
-     * @property [material = Color.WHITE] - A Property specifying the material used to fill the volume.
-     * @property [outline = false] - A boolean Property specifying whether the volume is outlined.
-     * @property [outlineColor = Color.BLACK] - A Property specifying the {@link Color} of the outline.
-     * @property [outlineWidth = 1.0] - A numeric Property specifying the width of the outline.
-     * @property [shadows = ShadowMode.DISABLED] - An enum Property specifying whether the volume casts or receives shadows from light sources.
-     * @property [distanceDisplayCondition] - A Property specifying at what distance from the camera that this volume will be displayed.
+     * [show = true] - A boolean Property specifying the visibility of the volume.
+     * [positions] - A Property specifying the array of {@link Cartesian3} positions which define the line strip.
+     * [shape] - A Property specifying the array of {@link Cartesian2} positions which define the shape to be extruded.
+     * [cornerType = CornerType.ROUNDED] - A {@link CornerType} Property specifying the style of the corners.
+     * [granularity = Cesium.Math.RADIANS_PER_DEGREE] - A numeric Property specifying the angular distance between each latitude and longitude point.
+     * [fill = true] - A boolean Property specifying whether the volume is filled with the provided material.
+     * [material = Color.WHITE] - A Property specifying the material used to fill the volume.
+     * [outline = false] - A boolean Property specifying whether the volume is outlined.
+     * [outlineColor = Color.BLACK] - A Property specifying the {@link Color} of the outline.
+     * [outlineWidth = 1.0] - A numeric Property specifying the width of the outline.
+     * [shadows = ShadowMode.DISABLED] - An enum Property specifying whether the volume casts or receives shadows from light sources.
+     * [distanceDisplayCondition] - A Property specifying at what distance from the camera that this volume will be displayed.
      */
     type ConstructorOptions = {
         show?: Property | boolean;
@@ -23989,24 +23989,24 @@ export class RectangleGeometryUpdater {
 export namespace RectangleGraphics {
     /**
      * Initialization options for the RectangleGraphics constructor
-     * @property [show = true] - A boolean Property specifying the visibility of the rectangle.
-     * @property [coordinates] - The Property specifying the {@link Rectangle}.
-     * @property [height = 0] - A numeric Property specifying the altitude of the rectangle relative to the ellipsoid surface.
-     * @property [heightReference = HeightReference.NONE] - A Property specifying what the height is relative to.
-     * @property [extrudedHeight] - A numeric Property specifying the altitude of the rectangle's extruded face relative to the ellipsoid surface.
-     * @property [extrudedHeightReference = HeightReference.NONE] - A Property specifying what the extrudedHeight is relative to.
-     * @property [rotation = 0.0] - A numeric property specifying the rotation of the rectangle clockwise from north.
-     * @property [stRotation = 0.0] - A numeric property specifying the rotation of the rectangle texture counter-clockwise from north.
-     * @property [granularity = Cesium.Math.RADIANS_PER_DEGREE] - A numeric Property specifying the angular distance between points on the rectangle.
-     * @property [fill = true] - A boolean Property specifying whether the rectangle is filled with the provided material.
-     * @property [material = Color.WHITE] - A Property specifying the material used to fill the rectangle.
-     * @property [outline = false] - A boolean Property specifying whether the rectangle is outlined.
-     * @property [outlineColor = Color.BLACK] - A Property specifying the {@link Color} of the outline.
-     * @property [outlineWidth = 1.0] - A numeric Property specifying the width of the outline.
-     * @property [shadows = ShadowMode.DISABLED] - An enum Property specifying whether the rectangle casts or receives shadows from light sources.
-     * @property [distanceDisplayCondition] - A Property specifying at what distance from the camera that this rectangle will be displayed.
-     * @property [classificationType = ClassificationType.BOTH] - An enum Property specifying whether this rectangle will classify terrain, 3D Tiles, or both when on the ground.
-     * @property [zIndex = 0] - A Property specifying the zIndex used for ordering ground geometry.  Only has an effect if the rectangle is constant and neither height or extrudedHeight are specified.
+     * [show = true] - A boolean Property specifying the visibility of the rectangle.
+     * [coordinates] - The Property specifying the {@link Rectangle}.
+     * [height = 0] - A numeric Property specifying the altitude of the rectangle relative to the ellipsoid surface.
+     * [heightReference = HeightReference.NONE] - A Property specifying what the height is relative to.
+     * [extrudedHeight] - A numeric Property specifying the altitude of the rectangle's extruded face relative to the ellipsoid surface.
+     * [extrudedHeightReference = HeightReference.NONE] - A Property specifying what the extrudedHeight is relative to.
+     * [rotation = 0.0] - A numeric property specifying the rotation of the rectangle clockwise from north.
+     * [stRotation = 0.0] - A numeric property specifying the rotation of the rectangle texture counter-clockwise from north.
+     * [granularity = Cesium.Math.RADIANS_PER_DEGREE] - A numeric Property specifying the angular distance between points on the rectangle.
+     * [fill = true] - A boolean Property specifying whether the rectangle is filled with the provided material.
+     * [material = Color.WHITE] - A Property specifying the material used to fill the rectangle.
+     * [outline = false] - A boolean Property specifying whether the rectangle is outlined.
+     * [outlineColor = Color.BLACK] - A Property specifying the {@link Color} of the outline.
+     * [outlineWidth = 1.0] - A numeric Property specifying the width of the outline.
+     * [shadows = ShadowMode.DISABLED] - An enum Property specifying whether the rectangle casts or receives shadows from light sources.
+     * [distanceDisplayCondition] - A Property specifying at what distance from the camera that this rectangle will be displayed.
+     * [classificationType = ClassificationType.BOTH] - An enum Property specifying whether this rectangle will classify terrain, 3D Tiles, or both when on the ground.
+     * [zIndex = 0] - A Property specifying the zIndex used for ordering ground geometry.  Only has an effect if the rectangle is constant and neither height or extrudedHeight are specified.
      */
     type ConstructorOptions = {
         show?: Property | boolean;
@@ -24924,18 +24924,18 @@ export class WallGeometryUpdater {
 export namespace WallGraphics {
     /**
      * Initialization options for the WallGraphics constructor
-     * @property [show = true] - A boolean Property specifying the visibility of the wall.
-     * @property [positions] - A Property specifying the array of {@link Cartesian3} positions which define the top of the wall.
-     * @property [minimumHeights] - A Property specifying an array of heights to be used for the bottom of the wall instead of the globe surface.
-     * @property [maximumHeights] - A Property specifying an array of heights to be used for the top of the wall instead of the height of each position.
-     * @property [granularity = Cesium.Math.RADIANS_PER_DEGREE] - A numeric Property specifying the angular distance between each latitude and longitude point.
-     * @property [fill = true] - A boolean Property specifying whether the wall is filled with the provided material.
-     * @property [material = Color.WHITE] - A Property specifying the material used to fill the wall.
-     * @property [outline = false] - A boolean Property specifying whether the wall is outlined.
-     * @property [outlineColor = Color.BLACK] - A Property specifying the {@link Color} of the outline.
-     * @property [outlineWidth = 1.0] - A numeric Property specifying the width of the outline.
-     * @property [shadows = ShadowMode.DISABLED] - An enum Property specifying whether the wall casts or receives shadows from light sources.
-     * @property [distanceDisplayCondition] - A Property specifying at what distance from the camera that this wall will be displayed.
+     * [show = true] - A boolean Property specifying the visibility of the wall.
+     * [positions] - A Property specifying the array of {@link Cartesian3} positions which define the top of the wall.
+     * [minimumHeights] - A Property specifying an array of heights to be used for the bottom of the wall instead of the globe surface.
+     * [maximumHeights] - A Property specifying an array of heights to be used for the top of the wall instead of the height of each position.
+     * [granularity = Cesium.Math.RADIANS_PER_DEGREE] - A numeric Property specifying the angular distance between each latitude and longitude point.
+     * [fill = true] - A boolean Property specifying whether the wall is filled with the provided material.
+     * [material = Color.WHITE] - A Property specifying the material used to fill the wall.
+     * [outline = false] - A boolean Property specifying whether the wall is outlined.
+     * [outlineColor = Color.BLACK] - A Property specifying the {@link Color} of the outline.
+     * [outlineWidth = 1.0] - A numeric Property specifying the width of the outline.
+     * [shadows = ShadowMode.DISABLED] - An enum Property specifying whether the wall casts or receives shadows from light sources.
+     * [distanceDisplayCondition] - A Property specifying at what distance from the camera that this wall will be displayed.
      */
     type ConstructorOptions = {
         show?: Property | boolean;
@@ -25033,8 +25033,8 @@ export class WallGraphics {
 }
 
 /**
- * @property kml - The generated KML.
- * @property externalFiles - An object dictionary of external files
+ * kml - The generated KML.
+ * externalFiles - An object dictionary of external files
  */
 export type exportKmlResultKml = {
     kml: string;
@@ -25044,7 +25044,7 @@ export type exportKmlResultKml = {
 };
 
 /**
- * @property kmz - The generated kmz file.
+ * kmz - The generated kmz file.
  */
 export type exportKmlResultKmz = {
     kmz: Blob;
@@ -25110,10 +25110,10 @@ export type exportKmlModelCallback = (model: ModelGraphics, time: JulianDate, ex
  * Setting this to false will improve performance, but hurt visual quality,
  * especially for horizon views.
  * </p>
- * @property [requestWebgl1 = false] - If true and the browser supports it, use a WebGL 1 rendering context
- * @property [allowTextureFilterAnisotropic = true] - If true, use anisotropic filtering during texture sampling
- * @property [webgl] - WebGL options to be passed on to canvas.getContext
- * @property [getWebGLStub] - A function to create a WebGL stub for testing
+ * [requestWebgl1 = false] - If true and the browser supports it, use a WebGL 1 rendering context
+ * [allowTextureFilterAnisotropic = true] - If true, use anisotropic filtering during texture sampling
+ * [webgl] - WebGL options to be passed on to canvas.getContext
+ * [getWebGLStub] - A function to create a WebGL stub for testing
  */
 export type ContextOptions = {
     requestWebgl1?: boolean;
@@ -25302,7 +25302,7 @@ export enum ArcGisBaseMapType {
 export namespace ArcGisMapServerImageryProvider {
     /**
      * Initialization options for the ArcGisMapServerImageryProvider constructor
-     * @property [tileDiscardPolicy] - The policy that determines if a tile
+     * [tileDiscardPolicy] - The policy that determines if a tile
      *        is invalid and should be discarded.  If this value is not specified, a default
      *        {@link DiscardMissingTileImagePolicy} is used for tiled map servers, and a
      *        {@link NeverTileDiscardPolicy} is used for non-tiled map servers.  In the former case,
@@ -25313,25 +25313,25 @@ export namespace ArcGisMapServerImageryProvider {
      *        these defaults should be correct tile discarding for a standard ArcGIS Server.  To ensure
      *        that no tiles are discarded, construct and pass a {@link NeverTileDiscardPolicy} for this
      *        parameter.
-     * @property [usePreCachedTilesIfAvailable = true] - If true, the server's pre-cached
+     * [usePreCachedTilesIfAvailable = true] - If true, the server's pre-cached
      *        tiles are used if they are available. Exporting Tiles is only supported with deprecated APIs.
-     * @property [layers] - A comma-separated list of the layers to show, or undefined if all layers should be shown.
-     * @property [enablePickFeatures = true] - If true, {@link ArcGisMapServerImageryProvider#pickFeatures} will invoke
+     * [layers] - A comma-separated list of the layers to show, or undefined if all layers should be shown.
+     * [enablePickFeatures = true] - If true, {@link ArcGisMapServerImageryProvider#pickFeatures} will invoke
      *        the Identify service on the MapServer and return the features included in the response.  If false,
      *        {@link ArcGisMapServerImageryProvider#pickFeatures} will immediately return undefined (indicating no pickable features)
      *        without communicating with the server.  Set this property to false if you don't want this provider's features to
      *        be pickable. Can be overridden by setting the {@link ArcGisMapServerImageryProvider#enablePickFeatures} property on the object.
-     * @property [rectangle = Rectangle.MAX_VALUE] - The rectangle of the layer.  This parameter is ignored when accessing
+     * [rectangle = Rectangle.MAX_VALUE] - The rectangle of the layer.  This parameter is ignored when accessing
      *                    a tiled layer.
-     * @property [tilingScheme = new GeographicTilingScheme()] - The tiling scheme to use to divide the world into tiles.
+     * [tilingScheme = new GeographicTilingScheme()] - The tiling scheme to use to divide the world into tiles.
      *                       This parameter is ignored when accessing a tiled server.
-     * @property [ellipsoid] - The ellipsoid.  If the tilingScheme is specified and used,
+     * [ellipsoid] - The ellipsoid.  If the tilingScheme is specified and used,
      *                    this parameter is ignored and the tiling scheme's ellipsoid is used instead. If neither
      *                    parameter is specified, the WGS84 ellipsoid is used.
-     * @property [credit] - A credit for the data source, which is displayed on the canvas.  This parameter is ignored when accessing a tiled server.
-     * @property [tileWidth = 256] - The width of each tile in pixels.  This parameter is ignored when accessing a tiled server.
-     * @property [tileHeight = 256] - The height of each tile in pixels.  This parameter is ignored when accessing a tiled server.
-     * @property [maximumLevel] - The maximum tile level to request, or undefined if there is no maximum.  This parameter is ignored when accessing
+     * [credit] - A credit for the data source, which is displayed on the canvas.  This parameter is ignored when accessing a tiled server.
+     * [tileWidth = 256] - The width of each tile in pixels.  This parameter is ignored when accessing a tiled server.
+     * [tileHeight = 256] - The height of each tile in pixels.  This parameter is ignored when accessing a tiled server.
+     * [maximumLevel] - The maximum tile level to request, or undefined if there is no maximum.  This parameter is ignored when accessing
      *                                        a tiled server.
      */
     type ConstructorOptions = {
@@ -26110,16 +26110,16 @@ export class BillboardCollection {
 export namespace BingMapsImageryProvider {
     /**
      * Initialization options for the BingMapsImageryProvider constructor
-     * @property [key] - The Bing Maps key for your application, which can be
+     * [key] - The Bing Maps key for your application, which can be
      *        created at {@link https://www.bingmapsportal.com/}.
-     * @property [tileProtocol] - The protocol to use when loading tiles, e.g. 'http' or 'https'.
+     * [tileProtocol] - The protocol to use when loading tiles, e.g. 'http' or 'https'.
      *        By default, tiles are loaded using the same protocol as the page.
-     * @property [mapStyle = BingMapsStyle.AERIAL] - The type of Bing Maps imagery to load.
-     * @property [culture = ''] - The culture to use when requesting Bing Maps imagery. Not
+     * [mapStyle = BingMapsStyle.AERIAL] - The type of Bing Maps imagery to load.
+     * [culture = ''] - The culture to use when requesting Bing Maps imagery. Not
      *        all cultures are supported. See {@link http://msdn.microsoft.com/en-us/library/hh441729.aspx}
      *        for information on the supported cultures.
-     * @property [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
-     * @property [tileDiscardPolicy] - The policy that determines if a tile
+     * [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
+     * [tileDiscardPolicy] - The policy that determines if a tile
      *        is invalid and should be discarded.  By default, a {@link DiscardEmptyTileImagePolicy}
      *        will be used, with the expectation that the Bing Maps server will send a zero-length response for missing tiles.
      *        To ensure that no tiles are discarded, construct and pass a {@link NeverTileDiscardPolicy} for this parameter.
@@ -26485,8 +26485,8 @@ export class BoxEmitter {
 
 /**
  * An orientation given by a pair of unit vectors
- * @property direction - The unit "direction" vector
- * @property up - The unit "up" vector
+ * direction - The unit "direction" vector
+ * up - The unit "up" vector
  */
 export type DirectionUp = {
     direction: Cartesian3;
@@ -26495,9 +26495,9 @@ export type DirectionUp = {
 
 /**
  * An orientation given by numeric heading, pitch, and roll
- * @property [heading = 0.0] - The heading in radians
- * @property [pitch = -Math.PI_OVER_TWO] - The pitch in radians
- * @property [roll = 0.0] - The roll in radians
+ * [heading = 0.0] - The heading in radians
+ * [pitch = -Math.PI_OVER_TWO] - The pitch in radians
+ * [roll = 0.0] - The roll in radians
  */
 export type HeadingPitchRollValues = {
     heading?: number;
@@ -28625,65 +28625,65 @@ export class Cesium3DTilesVoxelProvider extends VoxelProvider {
 export namespace Cesium3DTileset {
     /**
      * Initialization options for the Cesium3DTileset constructor
-     * @property [show = true] - Determines if the tileset will be shown.
-     * @property [modelMatrix = Matrix4.IDENTITY] - A 4x4 transformation matrix that transforms the tileset's root tile.
-     * @property [modelUpAxis = Axis.Y] - Which axis is considered up when loading models for tile contents.
-     * @property [modelForwardAxis = Axis.X] - Which axis is considered forward when loading models for tile contents.
-     * @property [shadows = ShadowMode.ENABLED] - Determines whether the tileset casts or receives shadows from light sources.
-     * @property [maximumScreenSpaceError = 16] - The maximum screen space error used to drive level of detail refinement.
-     * @property [cacheBytes = 536870912] - The size (in bytes) to which the tile cache will be trimmed, if the cache contains tiles not needed for the current view.
-     * @property [maximumCacheOverflowBytes = 536870912] - The maximum additional memory (in bytes) to allow for cache headroom, if more than {@link Cesium3DTileset#cacheBytes} are needed for the current view.
-     * @property [cullWithChildrenBounds = true] - Optimization option. Whether to cull tiles using the union of their children bounding volumes.
-     * @property [cullRequestsWhileMoving = true] - Optimization option. Don't request tiles that will likely be unused when they come back because of the camera's movement. This optimization only applies to stationary tilesets.
-     * @property [cullRequestsWhileMovingMultiplier = 60.0] - Optimization option. Multiplier used in culling requests while moving. Larger is more aggressive culling, smaller less aggressive culling.
-     * @property [preloadWhenHidden = false] - Preload tiles when <code>tileset.show</code> is <code>false</code>. Loads tiles as if the tileset is visible but does not render them.
-     * @property [preloadFlightDestinations = true] - Optimization option. Preload tiles at the camera's flight destination while the camera is in flight.
-     * @property [preferLeaves = false] - Optimization option. Prefer loading of leaves first.
-     * @property [dynamicScreenSpaceError = false] - Optimization option. Reduce the screen space error for tiles that are further away from the camera.
-     * @property [dynamicScreenSpaceErrorDensity = 0.00278] - Density used to adjust the dynamic screen space error, similar to fog density.
-     * @property [dynamicScreenSpaceErrorFactor = 4.0] - A factor used to increase the computed dynamic screen space error.
-     * @property [dynamicScreenSpaceErrorHeightFalloff = 0.25] - A ratio of the tileset's height at which the density starts to falloff.
-     * @property [progressiveResolutionHeightFraction = 0.3] - Optimization option. If between (0.0, 0.5], tiles at or above the screen space error for the reduced screen resolution of <code>progressiveResolutionHeightFraction*screenHeight</code> will be prioritized first. This can help get a quick layer of tiles down while full resolution tiles continue to load.
-     * @property [foveatedScreenSpaceError = true] - Optimization option. Prioritize loading tiles in the center of the screen by temporarily raising the screen space error for tiles around the edge of the screen. Screen space error returns to normal once all the tiles in the center of the screen as determined by the {@link Cesium3DTileset#foveatedConeSize} are loaded.
-     * @property [foveatedConeSize = 0.1] - Optimization option. Used when {@link Cesium3DTileset#foveatedScreenSpaceError} is true to control the cone size that determines which tiles are deferred. Tiles that are inside this cone are loaded immediately. Tiles outside the cone are potentially deferred based on how far outside the cone they are and their screen space error. This is controlled by {@link Cesium3DTileset#foveatedInterpolationCallback} and {@link Cesium3DTileset#foveatedMinimumScreenSpaceErrorRelaxation}. Setting this to 0.0 means the cone will be the line formed by the camera position and its view direction. Setting this to 1.0 means the cone encompasses the entire field of view of the camera, disabling the effect.
-     * @property [foveatedMinimumScreenSpaceErrorRelaxation = 0.0] - Optimization option. Used when {@link Cesium3DTileset#foveatedScreenSpaceError} is true to control the starting screen space error relaxation for tiles outside the foveated cone. The screen space error will be raised starting with tileset value up to {@link Cesium3DTileset#maximumScreenSpaceError} based on the provided {@link Cesium3DTileset#foveatedInterpolationCallback}.
-     * @property [foveatedInterpolationCallback = Math.lerp] - Optimization option. Used when {@link Cesium3DTileset#foveatedScreenSpaceError} is true to control how much to raise the screen space error for tiles outside the foveated cone, interpolating between {@link Cesium3DTileset#foveatedMinimumScreenSpaceErrorRelaxation} and {@link Cesium3DTileset#maximumScreenSpaceError}
-     * @property [foveatedTimeDelay = 0.2] - Optimization option. Used when {@link Cesium3DTileset#foveatedScreenSpaceError} is true to control how long in seconds to wait after the camera stops moving before deferred tiles start loading in. This time delay prevents requesting tiles around the edges of the screen when the camera is moving. Setting this to 0.0 will immediately request all tiles in any given view.
-     * @property [skipLevelOfDetail = false] - Optimization option. Determines if level of detail skipping should be applied during the traversal.
-     * @property [baseScreenSpaceError = 1024] - When <code>skipLevelOfDetail</code> is <code>true</code>, the screen space error that must be reached before skipping levels of detail.
-     * @property [skipScreenSpaceErrorFactor = 16] - When <code>skipLevelOfDetail</code> is <code>true</code>, a multiplier defining the minimum screen space error to skip. Used in conjunction with <code>skipLevels</code> to determine which tiles to load.
-     * @property [skipLevels = 1] - When <code>skipLevelOfDetail</code> is <code>true</code>, a constant defining the minimum number of levels to skip when loading tiles. When it is 0, no levels are skipped. Used in conjunction with <code>skipScreenSpaceErrorFactor</code> to determine which tiles to load.
-     * @property [immediatelyLoadDesiredLevelOfDetail = false] - When <code>skipLevelOfDetail</code> is <code>true</code>, only tiles that meet the maximum screen space error will ever be downloaded. Skipping factors are ignored and just the desired tiles are loaded.
-     * @property [loadSiblings = false] - When <code>skipLevelOfDetail</code> is <code>true</code>, determines whether siblings of visible tiles are always downloaded during traversal.
-     * @property [clippingPlanes] - The {@link ClippingPlaneCollection} used to selectively disable rendering the tileset.
-     * @property [classificationType] - Determines whether terrain, 3D Tiles or both will be classified by this tileset. See {@link Cesium3DTileset#classificationType} for details about restrictions and limitations.
-     * @property [ellipsoid = Ellipsoid.WGS84] - The ellipsoid determining the size and shape of the globe.
-     * @property [pointCloudShading] - Options for constructing a {@link PointCloudShading} object to control point attenuation based on geometric error and lighting.
-     * @property [lightColor] - The light color when shading models. When <code>undefined</code> the scene's light color is used instead.
-     * @property [imageBasedLighting] - The properties for managing image-based lighting for this tileset.
-     * @property [backFaceCulling = true] - Whether to cull back-facing geometry. When true, back face culling is determined by the glTF material's doubleSided property; when false, back face culling is disabled.
-     * @property [enableShowOutline = true] - Whether to enable outlines for models using the {@link https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Vendor/CESIUM_primitive_outline|CESIUM_primitive_outline} extension. This can be set to false to avoid the additional processing of geometry at load time. When false, the showOutlines and outlineColor options are ignored.
-     * @property [showOutline = true] - Whether to display the outline for models using the {@link https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Vendor/CESIUM_primitive_outline|CESIUM_primitive_outline} extension. When true, outlines are displayed. When false, outlines are not displayed.
-     * @property [outlineColor = Color.BLACK] - The color to use when rendering outlines.
-     * @property [vectorClassificationOnly = false] - Indicates that only the tileset's vector tiles should be used for classification.
-     * @property [vectorKeepDecodedPositions = false] - Whether vector tiles should keep decoded positions in memory. This is used with {@link Cesium3DTileFeature.getPolylinePositions}.
-     * @property [featureIdLabel = "featureId_0"] - Label of the feature ID set to use for picking and styling. For EXT_mesh_features, this is the feature ID's label property, or "featureId_N" (where N is the index in the featureIds array) when not specified. EXT_feature_metadata did not have a label field, so such feature ID sets are always labeled "featureId_N" where N is the index in the list of all feature Ids, where feature ID attributes are listed before feature ID textures. If featureIdLabel is an integer N, it is converted to the string "featureId_N" automatically. If both per-primitive and per-instance feature IDs are present, the instance feature IDs take priority.
-     * @property [instanceFeatureIdLabel = "instanceFeatureId_0"] - Label of the instance feature ID set used for picking and styling. If instanceFeatureIdLabel is set to an integer N, it is converted to the string "instanceFeatureId_N" automatically. If both per-primitive and per-instance feature IDs are present, the instance feature IDs take priority.
-     * @property [showCreditsOnScreen = false] - Whether to display the credits of this tileset on screen.
-     * @property [splitDirection = SplitDirection.NONE] - The {@link SplitDirection} split to apply to this tileset.
-     * @property [projectTo2D = false] - Whether to accurately project the tileset to 2D. If this is true, the tileset will be projected accurately to 2D, but it will use more memory to do so. If this is false, the tileset will use less memory and will still render in 2D / CV mode, but its projected positions may be inaccurate. This cannot be set after the tileset has loaded.
-     * @property [debugHeatmapTilePropertyName] - The tile variable to colorize as a heatmap. All rendered tiles will be colorized relative to each other's specified variable value.
-     * @property [debugFreezeFrame = false] - For debugging only. Determines if only the tiles from last frame should be used for rendering.
-     * @property [debugColorizeTiles = false] - For debugging only. When true, assigns a random color to each tile.
-     * @property [enableDebugWireframe] - For debugging only. This must be true for debugWireframe to work in WebGL1. This cannot be set after the tileset has loaded.
-     * @property [debugWireframe = false] - For debugging only. When true, render's each tile's content as a wireframe.
-     * @property [debugShowBoundingVolume = false] - For debugging only. When true, renders the bounding volume for each tile.
-     * @property [debugShowContentBoundingVolume = false] - For debugging only. When true, renders the bounding volume for each tile's content.
-     * @property [debugShowViewerRequestVolume = false] - For debugging only. When true, renders the viewer request volume for each tile.
-     * @property [debugShowGeometricError = false] - For debugging only. When true, draws labels to indicate the geometric error of each tile.
-     * @property [debugShowRenderingStatistics = false] - For debugging only. When true, draws labels to indicate the number of commands, points, triangles and features for each tile.
-     * @property [debugShowMemoryUsage = false] - For debugging only. When true, draws labels to indicate the texture and geometry memory in megabytes used by each tile.
-     * @property [debugShowUrl = false] - For debugging only. When true, draws labels to indicate the url of each tile.
+     * [show = true] - Determines if the tileset will be shown.
+     * [modelMatrix = Matrix4.IDENTITY] - A 4x4 transformation matrix that transforms the tileset's root tile.
+     * [modelUpAxis = Axis.Y] - Which axis is considered up when loading models for tile contents.
+     * [modelForwardAxis = Axis.X] - Which axis is considered forward when loading models for tile contents.
+     * [shadows = ShadowMode.ENABLED] - Determines whether the tileset casts or receives shadows from light sources.
+     * [maximumScreenSpaceError = 16] - The maximum screen space error used to drive level of detail refinement.
+     * [cacheBytes = 536870912] - The size (in bytes) to which the tile cache will be trimmed, if the cache contains tiles not needed for the current view.
+     * [maximumCacheOverflowBytes = 536870912] - The maximum additional memory (in bytes) to allow for cache headroom, if more than {@link Cesium3DTileset#cacheBytes} are needed for the current view.
+     * [cullWithChildrenBounds = true] - Optimization option. Whether to cull tiles using the union of their children bounding volumes.
+     * [cullRequestsWhileMoving = true] - Optimization option. Don't request tiles that will likely be unused when they come back because of the camera's movement. This optimization only applies to stationary tilesets.
+     * [cullRequestsWhileMovingMultiplier = 60.0] - Optimization option. Multiplier used in culling requests while moving. Larger is more aggressive culling, smaller less aggressive culling.
+     * [preloadWhenHidden = false] - Preload tiles when <code>tileset.show</code> is <code>false</code>. Loads tiles as if the tileset is visible but does not render them.
+     * [preloadFlightDestinations = true] - Optimization option. Preload tiles at the camera's flight destination while the camera is in flight.
+     * [preferLeaves = false] - Optimization option. Prefer loading of leaves first.
+     * [dynamicScreenSpaceError = false] - Optimization option. Reduce the screen space error for tiles that are further away from the camera.
+     * [dynamicScreenSpaceErrorDensity = 0.00278] - Density used to adjust the dynamic screen space error, similar to fog density.
+     * [dynamicScreenSpaceErrorFactor = 4.0] - A factor used to increase the computed dynamic screen space error.
+     * [dynamicScreenSpaceErrorHeightFalloff = 0.25] - A ratio of the tileset's height at which the density starts to falloff.
+     * [progressiveResolutionHeightFraction = 0.3] - Optimization option. If between (0.0, 0.5], tiles at or above the screen space error for the reduced screen resolution of <code>progressiveResolutionHeightFraction*screenHeight</code> will be prioritized first. This can help get a quick layer of tiles down while full resolution tiles continue to load.
+     * [foveatedScreenSpaceError = true] - Optimization option. Prioritize loading tiles in the center of the screen by temporarily raising the screen space error for tiles around the edge of the screen. Screen space error returns to normal once all the tiles in the center of the screen as determined by the {@link Cesium3DTileset#foveatedConeSize} are loaded.
+     * [foveatedConeSize = 0.1] - Optimization option. Used when {@link Cesium3DTileset#foveatedScreenSpaceError} is true to control the cone size that determines which tiles are deferred. Tiles that are inside this cone are loaded immediately. Tiles outside the cone are potentially deferred based on how far outside the cone they are and their screen space error. This is controlled by {@link Cesium3DTileset#foveatedInterpolationCallback} and {@link Cesium3DTileset#foveatedMinimumScreenSpaceErrorRelaxation}. Setting this to 0.0 means the cone will be the line formed by the camera position and its view direction. Setting this to 1.0 means the cone encompasses the entire field of view of the camera, disabling the effect.
+     * [foveatedMinimumScreenSpaceErrorRelaxation = 0.0] - Optimization option. Used when {@link Cesium3DTileset#foveatedScreenSpaceError} is true to control the starting screen space error relaxation for tiles outside the foveated cone. The screen space error will be raised starting with tileset value up to {@link Cesium3DTileset#maximumScreenSpaceError} based on the provided {@link Cesium3DTileset#foveatedInterpolationCallback}.
+     * [foveatedInterpolationCallback = Math.lerp] - Optimization option. Used when {@link Cesium3DTileset#foveatedScreenSpaceError} is true to control how much to raise the screen space error for tiles outside the foveated cone, interpolating between {@link Cesium3DTileset#foveatedMinimumScreenSpaceErrorRelaxation} and {@link Cesium3DTileset#maximumScreenSpaceError}
+     * [foveatedTimeDelay = 0.2] - Optimization option. Used when {@link Cesium3DTileset#foveatedScreenSpaceError} is true to control how long in seconds to wait after the camera stops moving before deferred tiles start loading in. This time delay prevents requesting tiles around the edges of the screen when the camera is moving. Setting this to 0.0 will immediately request all tiles in any given view.
+     * [skipLevelOfDetail = false] - Optimization option. Determines if level of detail skipping should be applied during the traversal.
+     * [baseScreenSpaceError = 1024] - When <code>skipLevelOfDetail</code> is <code>true</code>, the screen space error that must be reached before skipping levels of detail.
+     * [skipScreenSpaceErrorFactor = 16] - When <code>skipLevelOfDetail</code> is <code>true</code>, a multiplier defining the minimum screen space error to skip. Used in conjunction with <code>skipLevels</code> to determine which tiles to load.
+     * [skipLevels = 1] - When <code>skipLevelOfDetail</code> is <code>true</code>, a constant defining the minimum number of levels to skip when loading tiles. When it is 0, no levels are skipped. Used in conjunction with <code>skipScreenSpaceErrorFactor</code> to determine which tiles to load.
+     * [immediatelyLoadDesiredLevelOfDetail = false] - When <code>skipLevelOfDetail</code> is <code>true</code>, only tiles that meet the maximum screen space error will ever be downloaded. Skipping factors are ignored and just the desired tiles are loaded.
+     * [loadSiblings = false] - When <code>skipLevelOfDetail</code> is <code>true</code>, determines whether siblings of visible tiles are always downloaded during traversal.
+     * [clippingPlanes] - The {@link ClippingPlaneCollection} used to selectively disable rendering the tileset.
+     * [classificationType] - Determines whether terrain, 3D Tiles or both will be classified by this tileset. See {@link Cesium3DTileset#classificationType} for details about restrictions and limitations.
+     * [ellipsoid = Ellipsoid.WGS84] - The ellipsoid determining the size and shape of the globe.
+     * [pointCloudShading] - Options for constructing a {@link PointCloudShading} object to control point attenuation based on geometric error and lighting.
+     * [lightColor] - The light color when shading models. When <code>undefined</code> the scene's light color is used instead.
+     * [imageBasedLighting] - The properties for managing image-based lighting for this tileset.
+     * [backFaceCulling = true] - Whether to cull back-facing geometry. When true, back face culling is determined by the glTF material's doubleSided property; when false, back face culling is disabled.
+     * [enableShowOutline = true] - Whether to enable outlines for models using the {@link https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Vendor/CESIUM_primitive_outline|CESIUM_primitive_outline} extension. This can be set to false to avoid the additional processing of geometry at load time. When false, the showOutlines and outlineColor options are ignored.
+     * [showOutline = true] - Whether to display the outline for models using the {@link https://github.com/KhronosGroup/glTF/tree/master/extensions/2.0/Vendor/CESIUM_primitive_outline|CESIUM_primitive_outline} extension. When true, outlines are displayed. When false, outlines are not displayed.
+     * [outlineColor = Color.BLACK] - The color to use when rendering outlines.
+     * [vectorClassificationOnly = false] - Indicates that only the tileset's vector tiles should be used for classification.
+     * [vectorKeepDecodedPositions = false] - Whether vector tiles should keep decoded positions in memory. This is used with {@link Cesium3DTileFeature.getPolylinePositions}.
+     * [featureIdLabel = "featureId_0"] - Label of the feature ID set to use for picking and styling. For EXT_mesh_features, this is the feature ID's label property, or "featureId_N" (where N is the index in the featureIds array) when not specified. EXT_feature_metadata did not have a label field, so such feature ID sets are always labeled "featureId_N" where N is the index in the list of all feature Ids, where feature ID attributes are listed before feature ID textures. If featureIdLabel is an integer N, it is converted to the string "featureId_N" automatically. If both per-primitive and per-instance feature IDs are present, the instance feature IDs take priority.
+     * [instanceFeatureIdLabel = "instanceFeatureId_0"] - Label of the instance feature ID set used for picking and styling. If instanceFeatureIdLabel is set to an integer N, it is converted to the string "instanceFeatureId_N" automatically. If both per-primitive and per-instance feature IDs are present, the instance feature IDs take priority.
+     * [showCreditsOnScreen = false] - Whether to display the credits of this tileset on screen.
+     * [splitDirection = SplitDirection.NONE] - The {@link SplitDirection} split to apply to this tileset.
+     * [projectTo2D = false] - Whether to accurately project the tileset to 2D. If this is true, the tileset will be projected accurately to 2D, but it will use more memory to do so. If this is false, the tileset will use less memory and will still render in 2D / CV mode, but its projected positions may be inaccurate. This cannot be set after the tileset has loaded.
+     * [debugHeatmapTilePropertyName] - The tile variable to colorize as a heatmap. All rendered tiles will be colorized relative to each other's specified variable value.
+     * [debugFreezeFrame = false] - For debugging only. Determines if only the tiles from last frame should be used for rendering.
+     * [debugColorizeTiles = false] - For debugging only. When true, assigns a random color to each tile.
+     * [enableDebugWireframe] - For debugging only. This must be true for debugWireframe to work in WebGL1. This cannot be set after the tileset has loaded.
+     * [debugWireframe = false] - For debugging only. When true, render's each tile's content as a wireframe.
+     * [debugShowBoundingVolume = false] - For debugging only. When true, renders the bounding volume for each tile.
+     * [debugShowContentBoundingVolume = false] - For debugging only. When true, renders the bounding volume for each tile's content.
+     * [debugShowViewerRequestVolume = false] - For debugging only. When true, renders the viewer request volume for each tile.
+     * [debugShowGeometricError = false] - For debugging only. When true, draws labels to indicate the geometric error of each tile.
+     * [debugShowRenderingStatistics = false] - For debugging only. When true, draws labels to indicate the number of commands, points, triangles and features for each tile.
+     * [debugShowMemoryUsage = false] - For debugging only. When true, draws labels to indicate the texture and geometry memory in megabytes used by each tile.
+     * [debugShowUrl = false] - For debugging only. When true, draws labels to indicate the url of each tile.
      */
     type ConstructorOptions = {
         show?: boolean;
@@ -31544,11 +31544,11 @@ export function removeExtension(gltf: any, extension: string): any;
 export namespace GoogleEarthEnterpriseImageryProvider {
     /**
      * Initialization options for the GoogleEarthEnterpriseImageryProvider constructor
-     * @property [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
-     * @property [tileDiscardPolicy] - The policy that determines if a tile
+     * [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
+     * [tileDiscardPolicy] - The policy that determines if a tile
      *        is invalid and should be discarded. If this value is not specified, a default
      *        is to discard tiles that fail to download.
-     * @property [credit] - A credit for the data source, which is displayed on the canvas.
+     * [credit] - A credit for the data source, which is displayed on the canvas.
      */
     type ConstructorOptions = {
         ellipsoid?: Ellipsoid;
@@ -31673,7 +31673,7 @@ export class GoogleEarthEnterpriseImageryProvider {
 export namespace GoogleEarthEnterpriseMapsProvider {
     /**
      * Initialization options for the GoogleEarthEnterpriseMapsProvider constructor
-     * @property channel - The channel (id) to be used when requesting data from the server.
+     * channel - The channel (id) to be used when requesting data from the server.
      *        The channel number can be found by looking at the json file located at:
      *        earth.localdomain/default_map/query?request=Json&vars=geeServerDefs The /default_map path may
      *        differ depending on your Google Earth Enterprise server configuration. Look for the "id" that
@@ -31691,13 +31691,13 @@ export namespace GoogleEarthEnterpriseMapsProvider {
      *            }
      *          ]
      *        }
-     * @property [path = "/default_map"] - The path of the Google Earth server hosting the imagery.
-     * @property [maximumLevel] - The maximum level-of-detail supported by the Google Earth
+     * [path = "/default_map"] - The path of the Google Earth server hosting the imagery.
+     * [maximumLevel] - The maximum level-of-detail supported by the Google Earth
      *        Enterprise server, or undefined if there is no limit.
-     * @property [tileDiscardPolicy] - The policy that determines if a tile
+     * [tileDiscardPolicy] - The policy that determines if a tile
      *        is invalid and should be discarded. To ensure that no tiles are discarded, construct and pass
      *        a {@link NeverTileDiscardPolicy} for this parameter.
-     * @property [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
+     * [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
      */
     type ConstructorOptions = {
         channel: number;
@@ -31852,18 +31852,18 @@ export class GoogleEarthEnterpriseMapsProvider {
 export namespace GridImageryProvider {
     /**
      * Initialization options for the GridImageryProvider constructor
-     * @property [tilingScheme = new GeographicTilingScheme()] - The tiling scheme for which to draw tiles.
-     * @property [ellipsoid] - The ellipsoid.  If the tilingScheme is specified,
+     * [tilingScheme = new GeographicTilingScheme()] - The tiling scheme for which to draw tiles.
+     * [ellipsoid] - The ellipsoid.  If the tilingScheme is specified,
      *                    this parameter is ignored and the tiling scheme's ellipsoid is used instead. If neither
      *                    parameter is specified, the WGS84 ellipsoid is used.
-     * @property [cells = 8] - The number of grids cells.
-     * @property [color = Color(1.0, 1.0, 1.0, 0.4)] - The color to draw grid lines.
-     * @property [glowColor = Color(0.0, 1.0, 0.0, 0.05)] - The color to draw glow for grid lines.
-     * @property [glowWidth = 6] - The width of lines used for rendering the line glow effect.
-     * @property [backgroundColor = Color(0.0, 0.5, 0.0, 0.2)] - Background fill color.
-     * @property [tileWidth = 256] - The width of the tile for level-of-detail selection purposes.
-     * @property [tileHeight = 256] - The height of the tile for level-of-detail selection purposes.
-     * @property [canvasSize = 256] - The size of the canvas used for rendering.
+     * [cells = 8] - The number of grids cells.
+     * [color = Color(1.0, 1.0, 1.0, 0.4)] - The color to draw grid lines.
+     * [glowColor = Color(0.0, 1.0, 0.0, 0.05)] - The color to draw glow for grid lines.
+     * [glowWidth = 6] - The width of lines used for rendering the line glow effect.
+     * [backgroundColor = Color(0.0, 0.5, 0.0, 0.2)] - Background fill color.
+     * [tileWidth = 256] - The width of the tile for level-of-detail selection purposes.
+     * [tileHeight = 256] - The height of the tile for level-of-detail selection purposes.
+     * [canvasSize = 256] - The size of the canvas used for rendering.
      */
     type ConstructorOptions = {
         tilingScheme?: TilingScheme;
@@ -32436,11 +32436,11 @@ export enum HorizontalOrigin {
 export namespace I3SDataProvider {
     /**
      * Initialization options for the I3SDataProvider constructor
-     * @property [name] - The name of the I3S dataset.
-     * @property [show = true] - Determines if the dataset will be shown.
-     * @property [geoidTiledTerrainProvider] - Tiled elevation provider describing an Earth Gravitational Model. If defined, geometry will be shifted based on the offsets given by this provider. Required to position I3S data sets with gravity-related height at the correct location.
-     * @property [traceFetches = false] - Debug option. When true, log a message whenever an I3S tile is fetched.
-     * @property [cesium3dTilesetOptions] - Object containing options to pass to an internally created {@link Cesium3DTileset}. See {@link Cesium3DTileset} for list of valid properties. All options can be used with the exception of <code>url</code> and <code>show</code> which are overridden by values from I3SDataProvider.
+     * [name] - The name of the I3S dataset.
+     * [show = true] - Determines if the dataset will be shown.
+     * [geoidTiledTerrainProvider] - Tiled elevation provider describing an Earth Gravitational Model. If defined, geometry will be shifted based on the offsets given by this provider. Required to position I3S data sets with gravity-related height at the correct location.
+     * [traceFetches = false] - Debug option. When true, log a message whenever an I3S tile is fetched.
+     * [cesium3dTilesetOptions] - Object containing options to pass to an internally created {@link Cesium3DTileset}. See {@link Cesium3DTileset} for list of valid properties. All options can be used with the exception of <code>url</code> and <code>show</code> which are overridden by values from I3SDataProvider.
      */
     type ConstructorOptions = {
         name?: string;
@@ -32817,27 +32817,27 @@ export namespace ImageryLayer {
     type ReadyEventCallback = (this: ImageryLayer, provider: ImageryProvider) => void;
     /**
      * Initialization options for the ImageryLayer constructor.
-     * @property [rectangle = imageryProvider.rectangle] - The rectangle of the layer.  This rectangle
+     * [rectangle = imageryProvider.rectangle] - The rectangle of the layer.  This rectangle
      *        can limit the visible portion of the imagery provider.
-     * @property [alpha = 1.0] - The alpha blending value of this layer, from 0.0 to 1.0.
+     * [alpha = 1.0] - The alpha blending value of this layer, from 0.0 to 1.0.
      *                          This can either be a simple number or a function with the signature
      *                          <code>function(frameState, layer, x, y, level)</code>.  The function is passed the
      *                          current frame state, this layer, and the x, y, and level coordinates of the
      *                          imagery tile for which the alpha is required, and it is expected to return
      *                          the alpha value to use for the tile.
-     * @property [nightAlpha = 1.0] - The alpha blending value of this layer on the night side of the globe, from 0.0 to 1.0.
+     * [nightAlpha = 1.0] - The alpha blending value of this layer on the night side of the globe, from 0.0 to 1.0.
      *                          This can either be a simple number or a function with the signature
      *                          <code>function(frameState, layer, x, y, level)</code>.  The function is passed the
      *                          current frame state, this layer, and the x, y, and level coordinates of the
      *                          imagery tile for which the alpha is required, and it is expected to return
      *                          the alpha value to use for the tile. This only takes effect when <code>enableLighting</code> is <code>true</code>.
-     * @property [dayAlpha = 1.0] - The alpha blending value of this layer on the day side of the globe, from 0.0 to 1.0.
+     * [dayAlpha = 1.0] - The alpha blending value of this layer on the day side of the globe, from 0.0 to 1.0.
      *                          This can either be a simple number or a function with the signature
      *                          <code>function(frameState, layer, x, y, level)</code>.  The function is passed the
      *                          current frame state, this layer, and the x, y, and level coordinates of the
      *                          imagery tile for which the alpha is required, and it is expected to return
      *                          the alpha value to use for the tile. This only takes effect when <code>enableLighting</code> is <code>true</code>.
-     * @property [brightness = 1.0] - The brightness of this layer.  1.0 uses the unmodified imagery
+     * [brightness = 1.0] - The brightness of this layer.  1.0 uses the unmodified imagery
      *                          color.  Less than 1.0 makes the imagery darker while greater than 1.0 makes it brighter.
      *                          This can either be a simple number or a function with the signature
      *                          <code>function(frameState, layer, x, y, level)</code>.  The function is passed the
@@ -32845,7 +32845,7 @@ export namespace ImageryLayer {
      *                          imagery tile for which the brightness is required, and it is expected to return
      *                          the brightness value to use for the tile.  The function is executed for every
      *                          frame and for every tile, so it must be fast.
-     * @property [contrast = 1.0] - The contrast of this layer.  1.0 uses the unmodified imagery color.
+     * [contrast = 1.0] - The contrast of this layer.  1.0 uses the unmodified imagery color.
      *                          Less than 1.0 reduces the contrast while greater than 1.0 increases it.
      *                          This can either be a simple number or a function with the signature
      *                          <code>function(frameState, layer, x, y, level)</code>.  The function is passed the
@@ -32853,14 +32853,14 @@ export namespace ImageryLayer {
      *                          imagery tile for which the contrast is required, and it is expected to return
      *                          the contrast value to use for the tile.  The function is executed for every
      *                          frame and for every tile, so it must be fast.
-     * @property [hue = 0.0] - The hue of this layer.  0.0 uses the unmodified imagery color.
+     * [hue = 0.0] - The hue of this layer.  0.0 uses the unmodified imagery color.
      *                          This can either be a simple number or a function with the signature
      *                          <code>function(frameState, layer, x, y, level)</code>.  The function is passed the
      *                          current frame state, this layer, and the x, y, and level coordinates
      *                          of the imagery tile for which the hue is required, and it is expected to return
      *                          the contrast value to use for the tile.  The function is executed for every
      *                          frame and for every tile, so it must be fast.
-     * @property [saturation = 1.0] - The saturation of this layer.  1.0 uses the unmodified imagery color.
+     * [saturation = 1.0] - The saturation of this layer.  1.0 uses the unmodified imagery color.
      *                          Less than 1.0 reduces the saturation while greater than 1.0 increases it.
      *                          This can either be a simple number or a function with the signature
      *                          <code>function(frameState, layer, x, y, level)</code>.  The function is passed the
@@ -32868,34 +32868,34 @@ export namespace ImageryLayer {
      *                          of the imagery tile for which the saturation is required, and it is expected to return
      *                          the contrast value to use for the tile.  The function is executed for every
      *                          frame and for every tile, so it must be fast.
-     * @property [gamma = 1.0] - The gamma correction to apply to this layer.  1.0 uses the unmodified imagery color.
+     * [gamma = 1.0] - The gamma correction to apply to this layer.  1.0 uses the unmodified imagery color.
      *                          This can either be a simple number or a function with the signature
      *                          <code>function(frameState, layer, x, y, level)</code>.  The function is passed the
      *                          current frame state, this layer, and the x, y, and level coordinates of the
      *                          imagery tile for which the gamma is required, and it is expected to return
      *                          the gamma value to use for the tile.  The function is executed for every
      *                          frame and for every tile, so it must be fast.
-     * @property [splitDirection = SplitDirection.NONE] - The {@link SplitDirection} split to apply to this layer.
-     * @property [minificationFilter = TextureMinificationFilter.LINEAR] - The
+     * [splitDirection = SplitDirection.NONE] - The {@link SplitDirection} split to apply to this layer.
+     * [minificationFilter = TextureMinificationFilter.LINEAR] - The
      *                                    texture minification filter to apply to this layer. Possible values
      *                                    are <code>TextureMinificationFilter.LINEAR</code> and
      *                                    <code>TextureMinificationFilter.NEAREST</code>.
-     * @property [magnificationFilter = TextureMagnificationFilter.LINEAR] - The
+     * [magnificationFilter = TextureMagnificationFilter.LINEAR] - The
      *                                     texture minification filter to apply to this layer. Possible values
      *                                     are <code>TextureMagnificationFilter.LINEAR</code> and
      *                                     <code>TextureMagnificationFilter.NEAREST</code>.
-     * @property [show = true] - True if the layer is shown; otherwise, false.
-     * @property [maximumAnisotropy = maximum supported] - The maximum anisotropy level to use
+     * [show = true] - True if the layer is shown; otherwise, false.
+     * [maximumAnisotropy = maximum supported] - The maximum anisotropy level to use
      *        for texture filtering.  If this parameter is not specified, the maximum anisotropy supported
      *        by the WebGL stack will be used.  Larger values make the imagery look better in horizon
      *        views.
-     * @property [minimumTerrainLevel] - The minimum terrain level-of-detail at which to show this imagery layer,
+     * [minimumTerrainLevel] - The minimum terrain level-of-detail at which to show this imagery layer,
      *                 or undefined to show it at all levels.  Level zero is the least-detailed level.
-     * @property [maximumTerrainLevel] - The maximum terrain level-of-detail at which to show this imagery layer,
+     * [maximumTerrainLevel] - The maximum terrain level-of-detail at which to show this imagery layer,
      *                 or undefined to show it at all levels.  Level zero is the least-detailed level.
-     * @property [cutoutRectangle] - Cartographic rectangle for cutting out a portion of this ImageryLayer.
-     * @property [colorToAlpha] - Color to be used as alpha.
-     * @property [colorToAlphaThreshold = 0.004] - Threshold for color-to-alpha.
+     * [cutoutRectangle] - Cartographic rectangle for cutting out a portion of this ImageryLayer.
+     * [colorToAlpha] - Color to be used as alpha.
+     * [colorToAlphaThreshold = 0.004] - Threshold for color-to-alpha.
      */
     type ConstructorOptions = {
         rectangle?: Rectangle;
@@ -32920,7 +32920,7 @@ export namespace ImageryLayer {
     };
     /**
      * Initialization options for ImageryLayer.fromWorldImagery
-     * @property [options.style = IonWorldImageryStyle] - The style of base imagery, only AERIAL, AERIAL_WITH_LABELS, and ROAD are currently supported.
+     * [options.style = IonWorldImageryStyle] - The style of base imagery, only AERIAL, AERIAL_WITH_LABELS, and ROAD are currently supported.
      */
     type WorldImageryConstructorOptions = ImageryLayer.ConstructorOptions;
 }
@@ -33523,8 +33523,8 @@ export class ImageryProvider {
 export namespace IonImageryProvider {
     /**
      * Initialization options for the TileMapServiceImageryProvider constructor
-     * @property [accessToken = Ion.defaultAccessToken] - The access token to use.
-     * @property [server = Ion.defaultServer] - The resource to the Cesium ion API server.
+     * [accessToken = Ion.defaultAccessToken] - The access token to use.
+     * [server = Ion.defaultServer] - The resource to the Cesium ion API server.
      */
     type ConstructorOptions = {
         accessToken?: string;
@@ -34167,17 +34167,17 @@ export enum MapMode2D {
 export namespace MapboxImageryProvider {
     /**
      * Initialization options for the MapboxImageryProvider constructor
-     * @property [url = 'https://api.mapbox.com/v4/'] - The Mapbox server url.
-     * @property mapId - The Mapbox Map ID.
-     * @property accessToken - The public access token for the imagery.
-     * @property [format = 'png'] - The format of the image request.
-     * @property [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
-     * @property [minimumLevel = 0] - The minimum level-of-detail supported by the imagery provider.  Take care when specifying
+     * [url = 'https://api.mapbox.com/v4/'] - The Mapbox server url.
+     * mapId - The Mapbox Map ID.
+     * accessToken - The public access token for the imagery.
+     * [format = 'png'] - The format of the image request.
+     * [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
+     * [minimumLevel = 0] - The minimum level-of-detail supported by the imagery provider.  Take care when specifying
      *                 this that the number of tiles at the minimum level is small, such as four or less.  A larger number is likely
      *                 to result in rendering problems.
-     * @property [maximumLevel] - The maximum level-of-detail supported by the imagery provider, or undefined if there is no limit.
-     * @property [rectangle = Rectangle.MAX_VALUE] - The rectangle, in radians, covered by the image.
-     * @property [credit] - A credit for the data source, which is displayed on the canvas.
+     * [maximumLevel] - The maximum level-of-detail supported by the imagery provider, or undefined if there is no limit.
+     * [rectangle = Rectangle.MAX_VALUE] - The rectangle, in radians, covered by the image.
+     * [credit] - A credit for the data source, which is displayed on the canvas.
      */
     type ConstructorOptions = {
         url?: string;
@@ -34302,19 +34302,19 @@ export class MapboxImageryProvider {
 export namespace MapboxStyleImageryProvider {
     /**
      * Initialization options for the MapboxStyleImageryProvider constructor
-     * @property [url = 'https://api.mapbox.com/styles/v1/'] - The Mapbox server url.
-     * @property [username = 'mapbox'] - The username of the map account.
-     * @property styleId - The Mapbox Style ID.
-     * @property accessToken - The public access token for the imagery.
-     * @property [tilesize = 512] - The size of the image tiles.
-     * @property [scaleFactor] - Determines if tiles are rendered at a @2x scale factor.
-     * @property [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
-     * @property [minimumLevel = 0] - The minimum level-of-detail supported by the imagery provider.  Take care when specifying
+     * [url = 'https://api.mapbox.com/styles/v1/'] - The Mapbox server url.
+     * [username = 'mapbox'] - The username of the map account.
+     * styleId - The Mapbox Style ID.
+     * accessToken - The public access token for the imagery.
+     * [tilesize = 512] - The size of the image tiles.
+     * [scaleFactor] - Determines if tiles are rendered at a @2x scale factor.
+     * [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
+     * [minimumLevel = 0] - The minimum level-of-detail supported by the imagery provider.  Take care when specifying
      *                 this that the number of tiles at the minimum level is small, such as four or less.  A larger number is likely
      *                 to result in rendering problems.
-     * @property [maximumLevel] - The maximum level-of-detail supported by the imagery provider, or undefined if there is no limit.
-     * @property [rectangle = Rectangle.MAX_VALUE] - The rectangle, in radians, covered by the image.
-     * @property [credit] - A credit for the data source, which is displayed on the canvas.
+     * [maximumLevel] - The maximum level-of-detail supported by the imagery provider, or undefined if there is no limit.
+     * [rectangle = Rectangle.MAX_VALUE] - The rectangle, in radians, covered by the image.
+     * [credit] - A credit for the data source, which is displayed on the canvas.
      */
     type ConstructorOptions = {
         url?: Resource | string;
@@ -35421,8 +35421,8 @@ export enum MetadataType {
 
 /**
  * An object describing a uniform, its type, and an initial value
- * @property type - The Glsl type of the uniform.
- * @property value - The initial value of the uniform
+ * type - The Glsl type of the uniform.
+ * value - The initial value of the uniform
  */
 export type UniformSpecifier = {
     type: UniformType;
@@ -36834,14 +36834,14 @@ export class NeverTileDiscardPolicy {
 export namespace OpenStreetMapImageryProvider {
     /**
      * Initialization options for the OpenStreetMapImageryProvider constructor
-     * @property [url = 'https://tile.openstreetmap.org'] - The OpenStreetMap server url.
-     * @property [fileExtension = 'png'] - The file extension for images on the server.
-     * @property [retinaTiles = false] - When true, request tiles at the 2x resolution for retina displays.
-     * @property [rectangle = Rectangle.MAX_VALUE] - The rectangle of the layer.
-     * @property [minimumLevel = 0] - The minimum level-of-detail supported by the imagery provider.
-     * @property [maximumLevel] - The maximum level-of-detail supported by the imagery provider, or undefined if there is no limit.
-     * @property [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
-     * @property [credit = 'MapQuest, Open Street Map and contributors, CC-BY-SA'] - A credit for the data source, which is displayed on the canvas.
+     * [url = 'https://tile.openstreetmap.org'] - The OpenStreetMap server url.
+     * [fileExtension = 'png'] - The file extension for images on the server.
+     * [retinaTiles = false] - When true, request tiles at the 2x resolution for retina displays.
+     * [rectangle = Rectangle.MAX_VALUE] - The rectangle of the layer.
+     * [minimumLevel = 0] - The minimum level-of-detail supported by the imagery provider.
+     * [maximumLevel] - The maximum level-of-detail supported by the imagery provider, or undefined if there is no limit.
+     * [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
+     * [credit = 'MapQuest, Open Street Map and contributors, CC-BY-SA'] - A credit for the data source, which is displayed on the canvas.
      */
     type ConstructorOptions = {
         url?: string;
@@ -40105,12 +40105,12 @@ export enum ShadowMode {
 export namespace SingleTileImageryProvider {
     /**
      * Initialization options for the SingleTileImageryProvider constructor
-     * @property url - The url for the tile.
-     * @property [tileWidth] - The width of the tile, in pixels.
-     * @property [tileHeight] - The height of the tile, in pixels.
-     * @property [rectangle = Rectangle.MAX_VALUE] - The rectangle, in radians, covered by the image.
-     * @property [credit] - A credit for the data source, which is displayed on the canvas.
-     * @property [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
+     * url - The url for the tile.
+     * [tileWidth] - The width of the tile, in pixels.
+     * [tileHeight] - The height of the tile, in pixels.
+     * [rectangle = Rectangle.MAX_VALUE] - The rectangle, in radians, covered by the image.
+     * [credit] - A credit for the data source, which is displayed on the canvas.
+     * [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
      */
     type ConstructorOptions = {
         url: Resource | string;
@@ -40122,9 +40122,9 @@ export namespace SingleTileImageryProvider {
     };
     /**
      * Initialization options for the SingleTileImageryProvider constructor when using SingleTileImageryProvider.fromUrl
-     * @property [rectangle = Rectangle.MAX_VALUE] - The rectangle, in radians, covered by the image.
-     * @property [credit] - A credit for the data source, which is displayed on the canvas.
-     * @property [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
+     * [rectangle = Rectangle.MAX_VALUE] - The rectangle, in radians, covered by the image.
+     * [credit] - A credit for the data source, which is displayed on the canvas.
+     * [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
      */
     type fromUrlOptions = {
         rectangle?: Rectangle;
@@ -40697,13 +40697,13 @@ export class Terrain {
 export namespace TileCoordinatesImageryProvider {
     /**
      * Initialization options for the TileCoordinatesImageryProvider constructor
-     * @property [tilingScheme = new GeographicTilingScheme()] - The tiling scheme for which to draw tiles.
-     * @property [ellipsoid] - The ellipsoid.  If the tilingScheme is specified,
+     * [tilingScheme = new GeographicTilingScheme()] - The tiling scheme for which to draw tiles.
+     * [ellipsoid] - The ellipsoid.  If the tilingScheme is specified,
      *                    this parameter is ignored and the tiling scheme's ellipsoid is used instead. If neither
      *                    parameter is specified, the WGS84 ellipsoid is used.
-     * @property [color = Color.YELLOW] - The color to draw the tile box and label.
-     * @property [tileWidth = 256] - The width of the tile for level-of-detail selection purposes.
-     * @property [tileHeight = 256] - The height of the tile for level-of-detail selection purposes.
+     * [color = Color.YELLOW] - The color to draw the tile box and label.
+     * [tileWidth = 256] - The width of the tile for level-of-detail selection purposes.
+     * [tileHeight = 256] - The height of the tile for level-of-detail selection purposes.
      */
     type ConstructorOptions = {
         tilingScheme?: TilingScheme;
@@ -40827,23 +40827,23 @@ export class TileDiscardPolicy {
 export namespace TileMapServiceImageryProvider {
     /**
      * Initialization options for the TileMapServiceImageryProvider constructor
-     * @property [fileExtension = 'png'] - The file extension for images on the server.
-     * @property [credit = ''] - A credit for the data source, which is displayed on the canvas.
-     * @property [minimumLevel = 0] - The minimum level-of-detail supported by the imagery provider.  Take care when specifying
+     * [fileExtension = 'png'] - The file extension for images on the server.
+     * [credit = ''] - A credit for the data source, which is displayed on the canvas.
+     * [minimumLevel = 0] - The minimum level-of-detail supported by the imagery provider.  Take care when specifying
      *                 this that the number of tiles at the minimum level is small, such as four or less.  A larger number is likely
      *                 to result in rendering problems.
-     * @property [maximumLevel] - The maximum level-of-detail supported by the imagery provider, or undefined if there is no limit.
-     * @property [rectangle = Rectangle.MAX_VALUE] - The rectangle, in radians, covered by the image.
-     * @property [tilingScheme] - The tiling scheme specifying how the ellipsoidal
+     * [maximumLevel] - The maximum level-of-detail supported by the imagery provider, or undefined if there is no limit.
+     * [rectangle = Rectangle.MAX_VALUE] - The rectangle, in radians, covered by the image.
+     * [tilingScheme] - The tiling scheme specifying how the ellipsoidal
      * surface is broken into tiles.  If this parameter is not provided, a {@link WebMercatorTilingScheme}
      * is used.
-     * @property [ellipsoid] - The ellipsoid.  If the tilingScheme is specified,
+     * [ellipsoid] - The ellipsoid.  If the tilingScheme is specified,
      *                    this parameter is ignored and the tiling scheme's ellipsoid is used instead. If neither
      *                    parameter is specified, the WGS84 ellipsoid is used.
-     * @property [tileWidth = 256] - Pixel width of image tiles.
-     * @property [tileHeight = 256] - Pixel height of image tiles.
-     * @property [flipXY] - Older versions of gdal2tiles.py flipped X and Y values in tilemapresource.xml.
-     * @property [tileDiscardPolicy] - A policy for discarding tile images according to some criteria
+     * [tileWidth = 256] - Pixel width of image tiles.
+     * [tileHeight = 256] - Pixel height of image tiles.
+     * [flipXY] - Older versions of gdal2tiles.py flipped X and Y values in tilemapresource.xml.
+     * [tileDiscardPolicy] - A policy for discarding tile images according to some criteria
      * Specifying this option will do the same, allowing for loading of these incorrect tilesets.
      */
     type ConstructorOptions = {
@@ -41105,7 +41105,7 @@ export class TimeDynamicPointCloud {
 export namespace UrlTemplateImageryProvider {
     /**
      * Initialization options for the UrlTemplateImageryProvider constructor
-     * @property url - The URL template to use to request tiles.  It has the following keywords:
+     * url - The URL template to use to request tiles.  It has the following keywords:
      * <ul>
      *     <li><code>{z}</code>: The level of the tile in the tiling scheme.  Level zero is the root of the quadtree pyramid.</li>
      *     <li><code>{x}</code>: The tile X coordinate in the tiling scheme, where 0 is the Westernmost tile.</li>
@@ -41125,7 +41125,7 @@ export namespace UrlTemplateImageryProvider {
      *     <li><code>{width}</code>: The width of each tile in pixels.</li>
      *     <li><code>{height}</code>: The height of each tile in pixels.</li>
      * </ul>
-     * @property [pickFeaturesUrl] - The URL template to use to pick features.  If this property is not specified,
+     * [pickFeaturesUrl] - The URL template to use to pick features.  If this property is not specified,
      *                 {@link UrlTemplateImageryProvider#pickFeatures} will immediately returned undefined, indicating no
      *                 features picked.  The URL template supports all of the keywords supported by the <code>url</code>
      *                 parameter, plus the following:
@@ -41140,7 +41140,7 @@ export namespace UrlTemplateImageryProvider {
      *     <li><code>{latitudeProjected}</code>: The latitude of the picked position in the projected coordinates of the tiling scheme.</li>
      *     <li><code>{format}</code>: The format in which to get feature information, as specified in the {@link GetFeatureInfoFormat}.</li>
      * </ul>
-     * @property [urlSchemeZeroPadding] - Gets the URL scheme zero padding for each tile coordinate. The format is '000' where
+     * [urlSchemeZeroPadding] - Gets the URL scheme zero padding for each tile coordinate. The format is '000' where
      * each coordinate will be padded on the left with zeros to match the width of the passed string of zeros. e.g. Setting:
      * urlSchemeZeroPadding : { '{x}' : '0000'}
      * will cause an 'x' value of 12 to return the string '0012' for {x} in the generated URL.
@@ -41153,40 +41153,40 @@ export namespace UrlTemplateImageryProvider {
      *  <li> <code>{reverseY}</code>: The zero padding for the tile reverseY coordinate in the tiling scheme.</li>
      *  <li> <code>{reverseZ}</code>: The zero padding for the reverseZ coordinate of the tile in the tiling scheme.</li>
      * </ul>
-     * @property [subdomains = 'abc'] - The subdomains to use for the <code>{s}</code> placeholder in the URL template.
+     * [subdomains = 'abc'] - The subdomains to use for the <code>{s}</code> placeholder in the URL template.
      *                          If this parameter is a single string, each character in the string is a subdomain.  If it is
      *                          an array, each element in the array is a subdomain.
-     * @property [credit = ''] - A credit for the data source, which is displayed on the canvas.
-     * @property [minimumLevel = 0] - The minimum level-of-detail supported by the imagery provider.  Take care when specifying
+     * [credit = ''] - A credit for the data source, which is displayed on the canvas.
+     * [minimumLevel = 0] - The minimum level-of-detail supported by the imagery provider.  Take care when specifying
      *                 this that the number of tiles at the minimum level is small, such as four or less.  A larger number is likely
      *                 to result in rendering problems.
-     * @property [maximumLevel] - The maximum level-of-detail supported by the imagery provider, or undefined if there is no limit.
-     * @property [rectangle = Rectangle.MAX_VALUE] - The rectangle, in radians, covered by the image.
-     * @property [tilingScheme = WebMercatorTilingScheme] - The tiling scheme specifying how the ellipsoidal
+     * [maximumLevel] - The maximum level-of-detail supported by the imagery provider, or undefined if there is no limit.
+     * [rectangle = Rectangle.MAX_VALUE] - The rectangle, in radians, covered by the image.
+     * [tilingScheme = WebMercatorTilingScheme] - The tiling scheme specifying how the ellipsoidal
      * surface is broken into tiles.  If this parameter is not provided, a {@link WebMercatorTilingScheme}
      * is used.
-     * @property [ellipsoid] - The ellipsoid.  If the tilingScheme is specified,
+     * [ellipsoid] - The ellipsoid.  If the tilingScheme is specified,
      *                    this parameter is ignored and the tiling scheme's ellipsoid is used instead. If neither
      *                    parameter is specified, the WGS84 ellipsoid is used.
-     * @property [tileWidth = 256] - Pixel width of image tiles.
-     * @property [tileHeight = 256] - Pixel height of image tiles.
-     * @property [hasAlphaChannel = true] - true if the images provided by this imagery provider
+     * [tileWidth = 256] - Pixel width of image tiles.
+     * [tileHeight = 256] - Pixel height of image tiles.
+     * [hasAlphaChannel = true] - true if the images provided by this imagery provider
      *                  include an alpha channel; otherwise, false.  If this property is false, an alpha channel, if
      *                  present, will be ignored.  If this property is true, any images without an alpha channel will
      *                  be treated as if their alpha is 1.0 everywhere.  When this property is false, memory usage
      *                  and texture upload time are potentially reduced.
-     * @property [getFeatureInfoFormats] - The formats in which to get feature information at a
+     * [getFeatureInfoFormats] - The formats in which to get feature information at a
      *                                 specific location when {@link UrlTemplateImageryProvider#pickFeatures} is invoked.  If this
      *                                 parameter is not specified, feature picking is disabled.
-     * @property [enablePickFeatures = true] - If true, {@link UrlTemplateImageryProvider#pickFeatures} will
+     * [enablePickFeatures = true] - If true, {@link UrlTemplateImageryProvider#pickFeatures} will
      *        request the <code>pickFeaturesUrl</code> and attempt to interpret the features included in the response.  If false,
      *        {@link UrlTemplateImageryProvider#pickFeatures} will immediately return undefined (indicating no pickable
      *        features) without communicating with the server.  Set this property to false if you know your data
      *        source does not support picking features or if you don't want this provider's features to be pickable. Note
      *        that this can be dynamically overridden by modifying the {@link UriTemplateImageryProvider#enablePickFeatures}
      *        property.
-     * @property [tileDiscardPolicy] - A policy for discarding tile images according to some criteria
-     * @property [customTags] - Allow to replace custom keywords in the URL template. The object must have strings as keys and functions as values.
+     * [tileDiscardPolicy] - A policy for discarding tile images according to some criteria
+     * [customTags] - Allow to replace custom keywords in the URL template. The object must have strings as keys and functions as values.
      */
     type ConstructorOptions = {
         url: Resource | string;
@@ -41770,39 +41770,39 @@ export const excludesReverseAxis: number[];
 export namespace WebMapServiceImageryProvider {
     /**
      * Initialization options for the WebMapServiceImageryProvider constructor
-     * @property url - The URL of the WMS service. The URL supports the same keywords as the {@link UrlTemplateImageryProvider}.
-     * @property layers - The layers to include, separated by commas.
-     * @property [parameters = WebMapServiceImageryProvider.DefaultParameters] - Additional parameters to pass to the WMS server in the GetMap URL.
-     * @property [getFeatureInfoParameters = WebMapServiceImageryProvider.GetFeatureInfoDefaultParameters] - Additional parameters to pass to the WMS server in the GetFeatureInfo URL.
-     * @property [enablePickFeatures = true] - If true, {@link WebMapServiceImageryProvider#pickFeatures} will invoke
+     * url - The URL of the WMS service. The URL supports the same keywords as the {@link UrlTemplateImageryProvider}.
+     * layers - The layers to include, separated by commas.
+     * [parameters = WebMapServiceImageryProvider.DefaultParameters] - Additional parameters to pass to the WMS server in the GetMap URL.
+     * [getFeatureInfoParameters = WebMapServiceImageryProvider.GetFeatureInfoDefaultParameters] - Additional parameters to pass to the WMS server in the GetFeatureInfo URL.
+     * [enablePickFeatures = true] - If true, {@link WebMapServiceImageryProvider#pickFeatures} will invoke
      *        the GetFeatureInfo operation on the WMS server and return the features included in the response.  If false,
      *        {@link WebMapServiceImageryProvider#pickFeatures} will immediately return undefined (indicating no pickable features)
      *        without communicating with the server.  Set this property to false if you know your WMS server does not support
      *        GetFeatureInfo or if you don't want this provider's features to be pickable. Note that this can be dynamically
      *        overridden by modifying the WebMapServiceImageryProvider#enablePickFeatures property.
-     * @property [getFeatureInfoFormats = WebMapServiceImageryProvider.DefaultGetFeatureInfoFormats] - The formats
+     * [getFeatureInfoFormats = WebMapServiceImageryProvider.DefaultGetFeatureInfoFormats] - The formats
      *        in which to try WMS GetFeatureInfo requests.
-     * @property [rectangle = Rectangle.MAX_VALUE] - The rectangle of the layer.
-     * @property [tilingScheme = new GeographicTilingScheme()] - The tiling scheme to use to divide the world into tiles.
-     * @property [ellipsoid] - The ellipsoid.  If the tilingScheme is specified,
+     * [rectangle = Rectangle.MAX_VALUE] - The rectangle of the layer.
+     * [tilingScheme = new GeographicTilingScheme()] - The tiling scheme to use to divide the world into tiles.
+     * [ellipsoid] - The ellipsoid.  If the tilingScheme is specified,
      *        this parameter is ignored and the tiling scheme's ellipsoid is used instead. If neither
      *        parameter is specified, the WGS84 ellipsoid is used.
-     * @property [tileWidth = 256] - The width of each tile in pixels.
-     * @property [tileHeight = 256] - The height of each tile in pixels.
-     * @property [minimumLevel = 0] - The minimum level-of-detail supported by the imagery provider.  Take care when
+     * [tileWidth = 256] - The width of each tile in pixels.
+     * [tileHeight = 256] - The height of each tile in pixels.
+     * [minimumLevel = 0] - The minimum level-of-detail supported by the imagery provider.  Take care when
      *        specifying this that the number of tiles at the minimum level is small, such as four or less.  A larger number is
      *        likely to result in rendering problems.
-     * @property [maximumLevel] - The maximum level-of-detail supported by the imagery provider, or undefined if there is no limit.
+     * [maximumLevel] - The maximum level-of-detail supported by the imagery provider, or undefined if there is no limit.
      *        If not specified, there is no limit.
-     * @property [crs] - CRS specification, for use with WMS specification >= 1.3.0.
-     * @property [srs] - SRS specification, for use with WMS specification 1.1.0 or 1.1.1
-     * @property [credit] - A credit for the data source, which is displayed on the canvas.
-     * @property [subdomains = 'abc'] - The subdomains to use for the <code>{s}</code> placeholder in the URL template.
+     * [crs] - CRS specification, for use with WMS specification >= 1.3.0.
+     * [srs] - SRS specification, for use with WMS specification 1.1.0 or 1.1.1
+     * [credit] - A credit for the data source, which is displayed on the canvas.
+     * [subdomains = 'abc'] - The subdomains to use for the <code>{s}</code> placeholder in the URL template.
      *                          If this parameter is a single string, each character in the string is a subdomain.  If it is
      *                          an array, each element in the array is a subdomain.
-     * @property [clock] - A Clock instance that is used when determining the value for the time dimension. Required when `times` is specified.
-     * @property [times] - TimeIntervalCollection with its data property being an object containing time dynamic dimension and their values.
-     * @property [getFeatureInfoUrl] - The getFeatureInfo URL of the WMS service. If the property is not defined then we use the property value of url.
+     * [clock] - A Clock instance that is used when determining the value for the time dimension. Required when `times` is specified.
+     * [times] - TimeIntervalCollection with its data property being an object containing time dynamic dimension and their values.
+     * [getFeatureInfoUrl] - The getFeatureInfo URL of the WMS service. If the property is not defined then we use the property value of url.
      */
     type ConstructorOptions = {
         url: Resource | string;
@@ -41977,24 +41977,24 @@ export class WebMapServiceImageryProvider {
 export namespace WebMapTileServiceImageryProvider {
     /**
      * Initialization options for the WebMapTileServiceImageryProvider constructor
-     * @property url - The base URL for the WMTS GetTile operation (for KVP-encoded requests) or the tile-URL template (for RESTful requests). The tile-URL template should contain the following variables: &#123;style&#125;, &#123;TileMatrixSet&#125;, &#123;TileMatrix&#125;, &#123;TileRow&#125;, &#123;TileCol&#125;. The first two are optional if actual values are hardcoded or not required by the server. The &#123;s&#125; keyword may be used to specify subdomains.
-     * @property [format = 'image/jpeg'] - The MIME type for images to retrieve from the server.
-     * @property layer - The layer name for WMTS requests.
-     * @property style - The style name for WMTS requests.
-     * @property tileMatrixSetID - The identifier of the TileMatrixSet to use for WMTS requests.
-     * @property [tileMatrixLabels] - A list of identifiers in the TileMatrix to use for WMTS requests, one per TileMatrix level.
-     * @property [clock] - A Clock instance that is used when determining the value for the time dimension. Required when `times` is specified.
-     * @property [times] - TimeIntervalCollection with its <code>data</code> property being an object containing time dynamic dimension and their values.
-     * @property [dimensions] - A object containing static dimensions and their values.
-     * @property [tileWidth = 256] - The tile width in pixels.
-     * @property [tileHeight = 256] - The tile height in pixels.
-     * @property [tilingScheme] - The tiling scheme corresponding to the organization of the tiles in the TileMatrixSet.
-     * @property [rectangle = Rectangle.MAX_VALUE] - The rectangle covered by the layer.
-     * @property [minimumLevel = 0] - The minimum level-of-detail supported by the imagery provider.
-     * @property [maximumLevel] - The maximum level-of-detail supported by the imagery provider, or undefined if there is no limit.
-     * @property [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
-     * @property [credit] - A credit for the data source, which is displayed on the canvas.
-     * @property [subdomains = 'abc'] - The subdomains to use for the <code>{s}</code> placeholder in the URL template.
+     * url - The base URL for the WMTS GetTile operation (for KVP-encoded requests) or the tile-URL template (for RESTful requests). The tile-URL template should contain the following variables: &#123;style&#125;, &#123;TileMatrixSet&#125;, &#123;TileMatrix&#125;, &#123;TileRow&#125;, &#123;TileCol&#125;. The first two are optional if actual values are hardcoded or not required by the server. The &#123;s&#125; keyword may be used to specify subdomains.
+     * [format = 'image/jpeg'] - The MIME type for images to retrieve from the server.
+     * layer - The layer name for WMTS requests.
+     * style - The style name for WMTS requests.
+     * tileMatrixSetID - The identifier of the TileMatrixSet to use for WMTS requests.
+     * [tileMatrixLabels] - A list of identifiers in the TileMatrix to use for WMTS requests, one per TileMatrix level.
+     * [clock] - A Clock instance that is used when determining the value for the time dimension. Required when `times` is specified.
+     * [times] - TimeIntervalCollection with its <code>data</code> property being an object containing time dynamic dimension and their values.
+     * [dimensions] - A object containing static dimensions and their values.
+     * [tileWidth = 256] - The tile width in pixels.
+     * [tileHeight = 256] - The tile height in pixels.
+     * [tilingScheme] - The tiling scheme corresponding to the organization of the tiles in the TileMatrixSet.
+     * [rectangle = Rectangle.MAX_VALUE] - The rectangle covered by the layer.
+     * [minimumLevel = 0] - The minimum level-of-detail supported by the imagery provider.
+     * [maximumLevel] - The maximum level-of-detail supported by the imagery provider, or undefined if there is no limit.
+     * [ellipsoid] - The ellipsoid.  If not specified, the WGS84 ellipsoid is used.
+     * [credit] - A credit for the data source, which is displayed on the canvas.
+     * [subdomains = 'abc'] - The subdomains to use for the <code>{s}</code> placeholder in the URL template.
      *                          If this parameter is a single string, each character in the string is a subdomain.  If it is
      *                          an array, each element in the array is a subdomain.
      */
@@ -42181,8 +42181,8 @@ export class WebMapTileServiceImageryProvider {
 }
 
 /**
- * @property height - The height.
- * @property color - The color at this height.
+ * height - The height.
+ * color - The color at this height.
  */
 export type createElevationBandMaterialEntry = {
     height: number;
@@ -42190,9 +42190,9 @@ export type createElevationBandMaterialEntry = {
 };
 
 /**
- * @property entries - A list of elevation entries. They will automatically be sorted from lowest to highest. If there is only one entry and <code>extendsDownards</code> and <code>extendUpwards</code> are both <code>false</code>, they will both be set to <code>true</code>.
- * @property [extendDownwards = false] - If <code>true</code>, the band's minimum elevation color will extend infinitely downwards.
- * @property [extendUpwards = false] - If <code>true</code>, the band's maximum elevation color will extend infinitely upwards.
+ * entries - A list of elevation entries. They will automatically be sorted from lowest to highest. If there is only one entry and <code>extendsDownards</code> and <code>extendUpwards</code> are both <code>false</code>, they will both be set to <code>true</code>.
+ * [extendDownwards = false] - If <code>true</code>, the band's minimum elevation color will extend infinitely downwards.
+ * [extendUpwards = false] - If <code>true</code>, the band's maximum elevation color will extend infinitely upwards.
  */
 export type createElevationBandMaterialBand = {
     entries: createElevationBandMaterialEntry[];
@@ -44519,54 +44519,54 @@ export class VRButtonViewModel {
 export namespace Viewer {
     /**
      * Initialization options for the Viewer constructor
-     * @property [animation = true] - If set to false, the Animation widget will not be created.
-     * @property [baseLayerPicker = true] - If set to false, the BaseLayerPicker widget will not be created.
-     * @property [fullscreenButton = true] - If set to false, the FullscreenButton widget will not be created.
-     * @property [vrButton = false] - If set to true, the VRButton widget will be created.
-     * @property [geocoder = true] - If set to false, the Geocoder widget will not be created.
-     * @property [homeButton = true] - If set to false, the HomeButton widget will not be created.
-     * @property [infoBox = true] - If set to false, the InfoBox widget will not be created.
-     * @property [sceneModePicker = true] - If set to false, the SceneModePicker widget will not be created.
-     * @property [selectionIndicator = true] - If set to false, the SelectionIndicator widget will not be created.
-     * @property [timeline = true] - If set to false, the Timeline widget will not be created.
-     * @property [navigationHelpButton = true] - If set to false, the navigation help button will not be created.
-     * @property [navigationInstructionsInitiallyVisible = true] - True if the navigation instructions should initially be visible, or false if the should not be shown until the user explicitly clicks the button.
-     * @property [scene3DOnly = false] - When <code>true</code>, each geometry instance will only be rendered in 3D to save GPU memory.
-     * @property [shouldAnimate = false] - <code>true</code> if the clock should attempt to advance simulation time by default, <code>false</code> otherwise.  This option takes precedence over setting {@link Viewer#clockViewModel}.
-     * @property [clockViewModel = new ClockViewModel(clock)] - The clock view model to use to control current time.
-     * @property [selectedImageryProviderViewModel] - The view model for the current base imagery layer, if not supplied the first available base layer is used.  This value is only valid if `baseLayerPicker` is set to true.
-     * @property [imageryProviderViewModels = createDefaultImageryProviderViewModels()] - The array of ProviderViewModels to be selectable from the BaseLayerPicker.  This value is only valid if `baseLayerPicker` is set to true.
-     * @property [selectedTerrainProviderViewModel] - The view model for the current base terrain layer, if not supplied the first available base layer is used.  This value is only valid if `baseLayerPicker` is set to true.
-     * @property [terrainProviderViewModels = createDefaultTerrainProviderViewModels()] - The array of ProviderViewModels to be selectable from the BaseLayerPicker.  This value is only valid if `baseLayerPicker` is set to true.
-     * @property [baseLayer = ImageryLayer.fromWorldImagery()] - The bottommost imagery layer applied to the globe. If set to <code>false</code>, no imagery provider will be added. This value is only valid if `baseLayerPicker` is set to false.
-     * @property [terrainProvider = new EllipsoidTerrainProvider()] - The terrain provider to use
-     * @property [terrain] - A terrain object which handles asynchronous terrain provider. Can only specify if options.terrainProvider is undefined.
-     * @property [skyBox] - The skybox used to render the stars.  When <code>undefined</code>, the default stars are used. If set to <code>false</code>, no skyBox, Sun, or Moon will be added.
-     * @property [skyAtmosphere] - Blue sky, and the glow around the Earth's limb.  Set to <code>false</code> to turn it off.
-     * @property [fullscreenElement = document.body] - The element or id to be placed into fullscreen mode when the full screen button is pressed.
-     * @property [useDefaultRenderLoop = true] - True if this widget should control the render loop, false otherwise.
-     * @property [targetFrameRate] - The target frame rate when using the default render loop.
-     * @property [showRenderLoopErrors = true] - If true, this widget will automatically display an HTML panel to the user containing the error, if a render loop error occurs.
-     * @property [useBrowserRecommendedResolution = true] - If true, render at the browser's recommended resolution and ignore <code>window.devicePixelRatio</code>.
-     * @property [automaticallyTrackDataSourceClocks = true] - If true, this widget will automatically track the clock settings of newly added DataSources, updating if the DataSource's clock changes.  Set this to false if you want to configure the clock independently.
-     * @property [contextOptions] - Context and WebGL creation properties passed to {@link Scene}.
-     * @property [sceneMode = SceneMode.SCENE3D] - The initial scene mode.
-     * @property [mapProjection = new GeographicProjection()] - The map projection to use in 2D and Columbus View modes.
-     * @property [globe = new Globe(mapProjection.ellipsoid)] - The globe to use in the scene.  If set to <code>false</code>, no globe will be added and the sky atmosphere will be hidden by default.
-     * @property [orderIndependentTranslucency = true] - If true and the configuration supports it, use order independent translucency.
-     * @property [creditContainer] - The DOM element or ID that will contain the {@link CreditDisplay}.  If not specified, the credits are added to the bottom of the widget itself.
-     * @property [creditViewport] - The DOM element or ID that will contain the credit pop up created by the {@link CreditDisplay}.  If not specified, it will appear over the widget itself.
-     * @property [dataSources = new DataSourceCollection()] - The collection of data sources visualized by the widget.  If this parameter is provided,
+     * [animation = true] - If set to false, the Animation widget will not be created.
+     * [baseLayerPicker = true] - If set to false, the BaseLayerPicker widget will not be created.
+     * [fullscreenButton = true] - If set to false, the FullscreenButton widget will not be created.
+     * [vrButton = false] - If set to true, the VRButton widget will be created.
+     * [geocoder = true] - If set to false, the Geocoder widget will not be created.
+     * [homeButton = true] - If set to false, the HomeButton widget will not be created.
+     * [infoBox = true] - If set to false, the InfoBox widget will not be created.
+     * [sceneModePicker = true] - If set to false, the SceneModePicker widget will not be created.
+     * [selectionIndicator = true] - If set to false, the SelectionIndicator widget will not be created.
+     * [timeline = true] - If set to false, the Timeline widget will not be created.
+     * [navigationHelpButton = true] - If set to false, the navigation help button will not be created.
+     * [navigationInstructionsInitiallyVisible = true] - True if the navigation instructions should initially be visible, or false if the should not be shown until the user explicitly clicks the button.
+     * [scene3DOnly = false] - When <code>true</code>, each geometry instance will only be rendered in 3D to save GPU memory.
+     * [shouldAnimate = false] - <code>true</code> if the clock should attempt to advance simulation time by default, <code>false</code> otherwise.  This option takes precedence over setting {@link Viewer#clockViewModel}.
+     * [clockViewModel = new ClockViewModel(clock)] - The clock view model to use to control current time.
+     * [selectedImageryProviderViewModel] - The view model for the current base imagery layer, if not supplied the first available base layer is used.  This value is only valid if `baseLayerPicker` is set to true.
+     * [imageryProviderViewModels = createDefaultImageryProviderViewModels()] - The array of ProviderViewModels to be selectable from the BaseLayerPicker.  This value is only valid if `baseLayerPicker` is set to true.
+     * [selectedTerrainProviderViewModel] - The view model for the current base terrain layer, if not supplied the first available base layer is used.  This value is only valid if `baseLayerPicker` is set to true.
+     * [terrainProviderViewModels = createDefaultTerrainProviderViewModels()] - The array of ProviderViewModels to be selectable from the BaseLayerPicker.  This value is only valid if `baseLayerPicker` is set to true.
+     * [baseLayer = ImageryLayer.fromWorldImagery()] - The bottommost imagery layer applied to the globe. If set to <code>false</code>, no imagery provider will be added. This value is only valid if `baseLayerPicker` is set to false.
+     * [terrainProvider = new EllipsoidTerrainProvider()] - The terrain provider to use
+     * [terrain] - A terrain object which handles asynchronous terrain provider. Can only specify if options.terrainProvider is undefined.
+     * [skyBox] - The skybox used to render the stars.  When <code>undefined</code>, the default stars are used. If set to <code>false</code>, no skyBox, Sun, or Moon will be added.
+     * [skyAtmosphere] - Blue sky, and the glow around the Earth's limb.  Set to <code>false</code> to turn it off.
+     * [fullscreenElement = document.body] - The element or id to be placed into fullscreen mode when the full screen button is pressed.
+     * [useDefaultRenderLoop = true] - True if this widget should control the render loop, false otherwise.
+     * [targetFrameRate] - The target frame rate when using the default render loop.
+     * [showRenderLoopErrors = true] - If true, this widget will automatically display an HTML panel to the user containing the error, if a render loop error occurs.
+     * [useBrowserRecommendedResolution = true] - If true, render at the browser's recommended resolution and ignore <code>window.devicePixelRatio</code>.
+     * [automaticallyTrackDataSourceClocks = true] - If true, this widget will automatically track the clock settings of newly added DataSources, updating if the DataSource's clock changes.  Set this to false if you want to configure the clock independently.
+     * [contextOptions] - Context and WebGL creation properties passed to {@link Scene}.
+     * [sceneMode = SceneMode.SCENE3D] - The initial scene mode.
+     * [mapProjection = new GeographicProjection()] - The map projection to use in 2D and Columbus View modes.
+     * [globe = new Globe(mapProjection.ellipsoid)] - The globe to use in the scene.  If set to <code>false</code>, no globe will be added and the sky atmosphere will be hidden by default.
+     * [orderIndependentTranslucency = true] - If true and the configuration supports it, use order independent translucency.
+     * [creditContainer] - The DOM element or ID that will contain the {@link CreditDisplay}.  If not specified, the credits are added to the bottom of the widget itself.
+     * [creditViewport] - The DOM element or ID that will contain the credit pop up created by the {@link CreditDisplay}.  If not specified, it will appear over the widget itself.
+     * [dataSources = new DataSourceCollection()] - The collection of data sources visualized by the widget.  If this parameter is provided,
      *                               the instance is assumed to be owned by the caller and will not be destroyed when the viewer is destroyed.
-     * @property [shadows = false] - Determines if shadows are cast by light sources.
-     * @property [terrainShadows = ShadowMode.RECEIVE_ONLY] - Determines if the terrain casts or receives shadows from light sources.
-     * @property [mapMode2D = MapMode2D.INFINITE_SCROLL] - Determines if the 2D map is rotatable or can be scrolled infinitely in the horizontal direction.
-     * @property [projectionPicker = false] - If set to true, the ProjectionPicker widget will be created.
-     * @property [blurActiveElementOnCanvasFocus = true] - If true, the active element will blur when the viewer's canvas is clicked. Setting this to false is useful for cases when the canvas is clicked only for retrieving position or an entity data without actually meaning to set the canvas to be the active element.
-     * @property [requestRenderMode = false] - If true, rendering a frame will only occur when needed as determined by changes within the scene. Enabling reduces the CPU/GPU usage of your application and uses less battery on mobile, but requires using {@link Scene#requestRender} to render a new frame explicitly in this mode. This will be necessary in many cases after making changes to the scene in other parts of the API. See {@link https://cesium.com/blog/2018/01/24/cesium-scene-rendering-performance/|Improving Performance with Explicit Rendering}.
-     * @property [maximumRenderTimeChange = 0.0] - If requestRenderMode is true, this value defines the maximum change in simulation time allowed before a render is requested. See {@link https://cesium.com/blog/2018/01/24/cesium-scene-rendering-performance/|Improving Performance with Explicit Rendering}.
-     * @property [depthPlaneEllipsoidOffset = 0.0] - Adjust the DepthPlane to address rendering artefacts below ellipsoid zero elevation.
-     * @property [msaaSamples = 1] - If provided, this value controls the rate of multisample antialiasing. Typical multisampling rates are 2, 4, and sometimes 8 samples per pixel. Higher sampling rates of MSAA may impact performance in exchange for improved visual quality. This value only applies to WebGL2 contexts that support multisample render targets.
+     * [shadows = false] - Determines if shadows are cast by light sources.
+     * [terrainShadows = ShadowMode.RECEIVE_ONLY] - Determines if the terrain casts or receives shadows from light sources.
+     * [mapMode2D = MapMode2D.INFINITE_SCROLL] - Determines if the 2D map is rotatable or can be scrolled infinitely in the horizontal direction.
+     * [projectionPicker = false] - If set to true, the ProjectionPicker widget will be created.
+     * [blurActiveElementOnCanvasFocus = true] - If true, the active element will blur when the viewer's canvas is clicked. Setting this to false is useful for cases when the canvas is clicked only for retrieving position or an entity data without actually meaning to set the canvas to be the active element.
+     * [requestRenderMode = false] - If true, rendering a frame will only occur when needed as determined by changes within the scene. Enabling reduces the CPU/GPU usage of your application and uses less battery on mobile, but requires using {@link Scene#requestRender} to render a new frame explicitly in this mode. This will be necessary in many cases after making changes to the scene in other parts of the API. See {@link https://cesium.com/blog/2018/01/24/cesium-scene-rendering-performance/|Improving Performance with Explicit Rendering}.
+     * [maximumRenderTimeChange = 0.0] - If requestRenderMode is true, this value defines the maximum change in simulation time allowed before a render is requested. See {@link https://cesium.com/blog/2018/01/24/cesium-scene-rendering-performance/|Improving Performance with Explicit Rendering}.
+     * [depthPlaneEllipsoidOffset = 0.0] - Adjust the DepthPlane to address rendering artefacts below ellipsoid zero elevation.
+     * [msaaSamples = 1] - If provided, this value controls the rate of multisample antialiasing. Typical multisampling rates are 2, 4, and sometimes 8 samples per pixel. Higher sampling rates of MSAA may impact performance in exchange for improved visual quality. This value only applies to WebGL2 contexts that support multisample render targets.
      */
     type ConstructorOptions = {
         animation?: boolean;
