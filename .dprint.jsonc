@@ -34,7 +34,7 @@
 
     // These files will be formatted soon, but are failing in CI for now.
     "./types/i18n*",
-    "./types/inquirer*",
+    "./types/inquirer",
     "./types/react-blessed",
     "./types/react-map-gl",
     "./types/react-syntax-highlighter"
