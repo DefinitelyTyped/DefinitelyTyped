@@ -1,7 +1,6 @@
 {
     "files": [
         "index.d.ts",
-        "Cesium.d.ts",
         "dc-sdk-tests.ts"
     ],
     "compilerOptions": {
