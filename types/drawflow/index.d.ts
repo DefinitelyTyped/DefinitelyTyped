@@ -155,7 +155,7 @@ export default class Drawflow {
         data: any,
         html: string,
         typenode: boolean | string,
-    ): number;
+    ): number | string;
 
     /**
      *  Increment zoom +0.1
