@@ -1,0 +1,26 @@
+{
+    "files": [
+        "index.d.ts",
+        "Cesium.d.ts",
+        "dc-sdk-tests.ts"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+         "paths": {},
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}
