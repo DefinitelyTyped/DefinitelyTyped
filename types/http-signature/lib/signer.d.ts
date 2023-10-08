@@ -1,5 +1,5 @@
-import { Transform } from "node:stream";
 import { ClientRequest } from "node:http";
+import { Transform } from "node:stream";
 
 export interface Signature {
     keyId: string;
@@ -10,16 +10,16 @@ export interface Signature {
 
 export type RequestSignerOptions =
     | {
-          keyId: string;
-          key: string | Buffer;
-          /** Required for HMAC */
-          algorithm?: string | undefined;
-          /** Not required for HMAC */
-          keyPassphrase?: string | undefined;
-      }
+        keyId: string;
+        key: string | Buffer;
+        /** Required for HMAC */
+        algorithm?: string | undefined;
+        /** Not required for HMAC */
+        keyPassphrase?: string | undefined;
+    }
     | {
-          sign(data: string, callback: (error: any, sig?: Signature) => void): void;
-      };
+        sign(data: string, callback: (error: any, sig?: Signature) => void): void;
+    };
 
 /** @see {@link createSigner} */
 declare class _RequestSigner {
