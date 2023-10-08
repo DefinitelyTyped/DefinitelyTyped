@@ -1,3 +1,4 @@
+import { Transform } from "node:stream";
 import { ClientRequest } from "node:http";
 
 export interface Signature {
@@ -20,10 +21,30 @@ export type RequestSignerOptions =
           sign(data: string, callback: (error: any, sig?: Signature) => void): void;
       };
 
+/** @see {@link createSigner} */
 declare class _RequestSigner {
+    rs_alg: [string, string, string];
+    rs_signFunc?: ((error: any, sig?: Signature) => void) | undefined;
+    rs_keyId?: string | undefined;
+    rs_signer?: Transform | undefined;
+    rs_headers: string[];
+    rs_lines: string[];
+
     constructor(options: RequestSignerOptions);
+
+    /** Adds a header to be signed alongside its value */
+    writeHeader(header: string, value: string): string;
+    writeDataHeader(): string;
+    /**
+     * Add the request target to be signed
+     * @param method HTTP mehod (i.e. `"get"`, `"post"`, `"put"`)
+     */
+    writeTarget(method: string, path: string): void;
+    /** Calculate the value for the Authorization header on this request asynchronously */
+    sign(callback: (error: any, authorization: string) => void): void;
 }
 
+/** @see {@link createSigner} */
 export type RequestSigner = _RequestSigner;
 
 /** Identifies whether a given object is a request signer or not */
@@ -31,7 +52,7 @@ export function isSigner(obj: any): obj is RequestSigner;
 
 /**
  * Creates a request signer, used to asynchronously build a signature
- * for a request (does not have to be an http.ClientRequest)
+ * for a request (does not have to be a {@link ClientRequest})
  * @param options Options for the constructor
  * @see {@link RequestSigner}
  */
