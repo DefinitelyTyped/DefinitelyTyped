@@ -33,7 +33,9 @@
     "./types/vscode",
 
     // These files will be formatted soon, but are failing in CI for now.
-    "./types/i18n*",
+    "./types/i18next-ko",
+    "./types/i18next-node-fs-backend",
+    "./types/i18next-sprintf-postprocessor",
     "./types/inquirer*",
     "./types/react-blessed",
     "./types/react-map-gl"

@@ -4,7 +4,7 @@
 //                 Jeroen "Favna" Claassens <https://github.com/favna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { BackendModule, InitOptions, Services, ReadCallback } from 'i18next';
+import { BackendModule, InitOptions, ReadCallback, Services } from "i18next";
 
 export namespace i18next {
     interface InitOptions {
@@ -25,9 +25,17 @@ export namespace i18nextFsBackend {
 }
 
 export default class Backend implements BackendModule<i18nextFsBackend.i18nextFsBackendOptions> {
-    type: 'backend';
-    constructor(services: Services, backendOptions: i18nextFsBackend.i18nextFsBackendOptions, i18nextOptions: InitOptions);
-    init(services: Services, backendOptions: i18nextFsBackend.i18nextFsBackendOptions, i18nextOptions: InitOptions): void;
+    type: "backend";
+    constructor(
+        services: Services,
+        backendOptions: i18nextFsBackend.i18nextFsBackendOptions,
+        i18nextOptions: InitOptions,
+    );
+    init(
+        services: Services,
+        backendOptions: i18nextFsBackend.i18nextFsBackendOptions,
+        i18nextOptions: InitOptions,
+    ): void;
     read(language: string, namespace: string, callback: ReadCallback): void;
     create(languages: string[], namespace: string, key: string, fallbackValue: string): void;
 
@@ -35,5 +43,5 @@ export default class Backend implements BackendModule<i18nextFsBackend.i18nextFs
     writeFile(lng: string, namespace: string): void;
     queue(lng: string, namespace: string, key: string, fallbackValue: string, callback: unknown): void;
 
-    static type: 'backend';
+    static type: "backend";
 }
