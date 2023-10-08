@@ -3,6 +3,9 @@
 // Definitions by: Caven Chen  <https://github.com/cavencj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+
+/// <reference path="./Cesium.d.ts" />
+
 import { ImageryLayer,
     Scene ,
     Viewer as CesiumViewer,
