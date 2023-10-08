@@ -7,6 +7,11 @@
         "no-var-keyword": false,
         "prefer-const": false,
         "prefer-template": false,
-        "unified-signatures": false
+        "unified-signatures": false,
+        "no-internal-module": false,
+        "no-unnecessary-qualifier": false,
+        "no-unnecessary-class":false,
+        "interface-over-type-literal":false
+
     }
 }
