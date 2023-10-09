@@ -1,5 +1,5 @@
-import * as MapboxGL from 'mapbox-gl';
-import * as React from 'react';
+import * as MapboxGL from "mapbox-gl";
+import * as React from "react";
 
 import {
     CanvasOverlay,
@@ -13,23 +13,23 @@ import {
     LinearInterpolator,
     Marker,
     Popup,
-    SVGOverlay,
-    SVGRedrawOptions,
     ScaleControl,
     Source,
     StaticMap,
+    SVGOverlay,
+    SVGRedrawOptions,
     ViewportProps,
-} from 'react-map-gl';
+} from "react-map-gl";
 
-import { FeatureCollection } from 'geojson';
+import { FeatureCollection } from "geojson";
 
 interface State {
     viewport: ViewportProps;
 }
 
 const geojson: FeatureCollection = {
-    type: 'FeatureCollection',
-    features: [{ type: 'Feature', properties: {}, geometry: { type: 'Point', coordinates: [-122.4, 37.8] } }],
+    type: "FeatureCollection",
+    features: [{ type: "Feature", properties: {}, geometry: { type: "Point", coordinates: [-122.4, 37.8] } }],
 };
 
 class MyMap extends React.Component<{}, State> {
@@ -72,11 +72,11 @@ class MyMap extends React.Component<{}, State> {
                         event.preventDefault();
                     }}
                 >
-                    <FullscreenControl className="test-class" container={document.querySelector('body')} />
+                    <FullscreenControl className="test-class" container={document.querySelector("body")} />
                     <GeolocateControl
                         auto={false}
                         className="test-class"
-                        style={{ marginTop: '8px' }}
+                        style={{ marginTop: "8px" }}
                         onGeolocate={options => {
                             console.log(options.enableHighAccuracy);
                         }}
@@ -114,7 +114,7 @@ class MyMap extends React.Component<{}, State> {
                             const xy: number[] = unproject(project([20, 20]));
                         }}
                         style={{
-                            border: '2px solid black',
+                            border: "2px solid black",
                         }}
                         captureScroll={true}
                         captureDrag={true}
@@ -126,10 +126,10 @@ class MyMap extends React.Component<{}, State> {
                         <Layer
                             type="point"
                             paint={{
-                                'circle-radius': 10,
-                                'circle-color': '#007cbf',
+                                "circle-radius": 10,
+                                "circle-color": "#007cbf",
                             }}
-                        ></Layer>
+                        />
                     </Source>
                     <Source
                         id="raster-tiles-source"
@@ -145,7 +145,7 @@ class MyMap extends React.Component<{}, State> {
                             paint={{}}
                             minzoom={0}
                             maxzoom={22}
-                        ></Layer>
+                        />
                     </Source>
                     <Marker
                         latitude={0}
@@ -191,8 +191,8 @@ class MyMap extends React.Component<{}, State> {
                         this.setState(prevState => ({
                             viewport: {
                                 ...prevState.viewport,
-                                width: '100vw',
-                                height: '100vh',
+                                width: "100vw",
+                                height: "100vh",
                             },
                         }));
                     }}
@@ -209,12 +209,12 @@ class MyMap extends React.Component<{}, State> {
         }
         this.map = el;
         this.mapboxMap = el.getMap();
-    }
+    };
 
     private readonly setRefStatic = (el: StaticMap | null) => {
         if (el === null) {
             return;
         }
         this.mapboxMap = el.getMap();
-    }
+    };
 }
