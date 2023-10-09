@@ -26,7 +26,7 @@ interface SMS {
      *
      * @param to The recipients' phone number.  e.g +2547********. Note it can either be a string or an array
      * @param from Your registered short code or alphanumeric, e.g. AFRICASTKNG.
-     * @message The message to be sent.
+     * @param message The message to be sent.
      */
     send: (options: SMSOptions) => Promise<SMSMessageData>,
     /**
