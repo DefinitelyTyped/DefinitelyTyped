@@ -27,7 +27,7 @@ if (button) {
                     protocolCode: 0x01,
                 }],
                 exclusionFilters: [{
-                    serialNumber: "12345678"
+                    serialNumber: "12345678",
                 }],
             });
         } catch (e) {
