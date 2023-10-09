@@ -4,23 +4,23 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface SMSMessageData {
-    Message: string,
+    Message: string;
     Recipients: {
-        "statusCode": number,
-        "number": string,
-        "status": "fulfilled" | "failed",
-        "cost": string,
-        "messageId": string
-    }
-}
-
-interface SMSOptions {
-    to:string | string[],
-    from:string,
-    message:string,
-}
-
-interface SMS {
+      "statusCode": number;
+      "number": string;
+      "status": "fulfilled" | "failed";
+      "cost": string;
+      "messageId": string;
+    };
+  }
+  
+  interface SMSOptions {
+    to: string | string[];
+    from: string;
+    message: string;
+  }
+  
+  interface SMS {
     /**
      * This is used to send SMSs to your clients/recipients.
      *
@@ -28,7 +28,7 @@ interface SMS {
      * @param from Your registered short code or alphanumeric, e.g. AFRICASTKNG.
      * @param message The message to be sent.
      */
-    send: (options: SMSOptions) => Promise<SMSMessageData>,
+    send: (options: SMSOptions) => Promise<SMSMessageData>;
     /**
      * This is used to send SMSs to your clients/recipients.
      *
@@ -36,38 +36,38 @@ interface SMS {
      * @param from Your registered short code or alphanumeric, e.g. AFRICASTKNG.
      * @param message The message to be sent.
      */
-    sendBulk: (options: SMSOptions) => Promise<SMSMessageData>,
-    createSubscription: (options:{
-                shortCode: string,
-                keyword: string,
-                phoneNumber: string,
-                checkoutToken: string
+    sendBulk: (options: SMSOptions) => Promise<SMSMessageData>;
+    createSubscription: (options: {
+      shortCode: string;
+      keyword: string;
+      phoneNumber: string;
+      checkoutToken: string;
     }) => Promise<{
-        "description": "Success" | "Failed",
-        "token": string
-    }>
-
-}
-
-interface TOKEN {
+      "description": "Success" | "Failed";
+      "token": string;
+    }>;
+  }
+  
+  interface TOKEN {
     generateAuthToken: () => Promise<{
-        "description": "Success" | "Failed",
-        "token": string
-    }>
-    createCheckoutToken: (phoneNumber:string)=> Promise<{
-    description: "Success" | "Failed",
-    token: string
-}>
-}
-
-interface AfricasTalking{
-    SMS: SMS
-    TOKEN: TOKEN
-}
-
-
-
-export = africastalking;
-
-// default export
-declare function africastalking(options:{username: string,apiKey:string}): AfricasTalking
+      "description": "Success" | "Failed";
+      "token": string;
+    }>;
+    createCheckoutToken: (phoneNumber: string) => Promise<{
+      description: "Success" | "Failed";
+      token: string;
+    }>;
+  }
+  
+  interface AfricasTalking {
+    SMS: SMS;
+    TOKEN: TOKEN;
+  }
+  
+  export = africastalking;
+  
+  // default export
+  declare function africastalking(
+    options: { username: string; apiKey: string },
+  ): AfricasTalking;
+  
