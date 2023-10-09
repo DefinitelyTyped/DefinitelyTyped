@@ -1,11 +1,18 @@
-import { connect } from "net";
-import { Client, Connection, CustomTypesConfig, DatabaseError, Pool, QueryArrayConfig, types } from "pg";
-import TypeOverrides = require("pg/lib/type-overrides");
-import { NoticeMessage } from "pg-protocol/dist/messages";
+import { connect } from 'net';
+import { types, Client, CustomTypesConfig, QueryArrayConfig, Pool, DatabaseError, Connection, defaults } from 'pg';
+import TypeOverrides = require('pg/lib/type-overrides');
+import { NoticeMessage } from 'pg-protocol/dist/messages';
 
 // https://github.com/brianc/node-pg-types
 // tslint:disable-next-line no-unnecessary-callback-wrapper
 types.setTypeParser(20, val => Number(val));
+
+const poolSize: number | undefined = defaults.poolSize;
+const poolIdleTimeout: number | undefined = defaults.poolIdleTimeout;
+const reapIntervalMillis: number | undefined = defaults.reapIntervalMillis;
+const binary: boolean | undefined = defaults.binary;
+const parseInt8: boolean | undefined = defaults.parseInt8;
+const parseInputDatesAsUTC: boolean | undefined = defaults.parseInputDatesAsUTC;
 
 const client = new Client({
     host: "my.database-server.com",
