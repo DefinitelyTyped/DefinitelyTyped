@@ -87,3 +87,9 @@ new Vue({
     </vue-select>
 `,
 });
+
+const props: VueSelectProps = {
+    components: {
+        Deselect: undefined,
+    },
+};
