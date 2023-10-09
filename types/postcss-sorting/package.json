@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@types/history": "^4.7.11"
+        "postcss": "^8.4.20"
     }
 }
