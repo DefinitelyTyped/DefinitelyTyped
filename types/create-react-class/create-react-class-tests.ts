@@ -27,7 +27,7 @@ const ClassicComponent: React.ClassicComponentClass<Props> = createReactClass<Pr
         const msg: string = err.message;
         const name: string = err.name;
         const stack: string | undefined = err.stack;
-        const componentStack: string = errorInfo.componentStack;
+        const componentStack: string | null | undefined = errorInfo.componentStack;
     },
     componentDidMount() {},
     componentDidUpdate(props, state) {
