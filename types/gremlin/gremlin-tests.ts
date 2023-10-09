@@ -1,4 +1,4 @@
-import { driver, process, structure } from 'gremlin';
+import { driver, process, structure } from "gremlin";
 
 const {
     RemoteConnection,
@@ -31,6 +31,7 @@ const {
     direction,
     graphSONVersion,
     gryoVersion,
+    merge,
     operator,
     order,
     pick,
@@ -48,14 +49,14 @@ const { GraphSONReader, GraphSONWriter } = structure.io;
 import Statics = process.Statics;
 
 function constructorTests() {
-    const remoteConnection = new RemoteConnection('test');
+    const remoteConnection = new RemoteConnection("test");
     const remoteStrategy = new RemoteStrategy(remoteConnection);
     const remoteTraversal = new RemoteTraversal();
-    const driverRemoteConnection = new DriverRemoteConnection('test');
-    const client = new Client('test');
+    const driverRemoteConnection = new DriverRemoteConnection("test");
+    const client = new Client("test");
     const resultSet = new ResultSet([1, 2, 3]);
     const authenticator = new Authenticator();
-    const plainTextSaslAuthenticator = new PlainTextSaslAuthenticator('gremlin', 'test');
+    const plainTextSaslAuthenticator = new PlainTextSaslAuthenticator("gremlin", "test");
 
     remoteConnection.open();
     remoteConnection.submit(new Bytecode());
@@ -64,7 +65,7 @@ function constructorTests() {
     remoteStrategy.apply(remoteTraversal);
 
     const eventHandler = (logline: string) => {};
-    driverRemoteConnection.addListener('log', eventHandler);
+    driverRemoteConnection.addListener("log", eventHandler);
     driverRemoteConnection.open();
     driverRemoteConnection.isOpen;
     driverRemoteConnection.isSessionBound;
@@ -73,26 +74,28 @@ function constructorTests() {
     driverRemoteConnection.commit();
     driverRemoteConnection.rollback();
     driverRemoteConnection.close();
-    driverRemoteConnection.removeListener('log', eventHandler);
+    driverRemoteConnection.removeListener("log", eventHandler);
 
+    client.addListener("log", eventHandler);
     client.open();
     client.isOpen;
     client.submit(new Bytecode());
     client.stream(new Bytecode());
     client.close();
+    client.removeListener("log", eventHandler);
 
     resultSet.toArray();
     resultSet.first();
 
-    authenticator.evaluateChallenge('test');
-    plainTextSaslAuthenticator.evaluateChallenge('test');
+    authenticator.evaluateChallenge("test");
+    plainTextSaslAuthenticator.evaluateChallenge("test");
 }
 
 function processTests() {
     const bytecode = new Bytecode();
-    const enumValue = new EnumValue('Int', 'Test');
+    const enumValue = new EnumValue("Int", "Test");
     const p = new P(operator.addAll, 1);
-    const textP = new TextP('operator', 'test');
+    const textP = new TextP("operator", "test");
     const traversalStrategies = new TraversalStrategies();
     const traversal = new Traversal(null, traversalStrategies, bytecode);
     const traversalSideEffects = new TraversalSideEffects();
@@ -102,10 +105,11 @@ function processTests() {
     const graphTraversalSource = new GraphTraversalSource(null, traversalStrategies, bytecode);
     const transaction = new Transaction(graphTraversalSource);
     const translator = new Translator(graphTraversalSource);
+    const translatorWithString = new Translator("g");
     const anonymousTraversalSource = new AnonymousTraversalSource();
 
-    bytecode.addSource('test');
-    bytecode.addStep('test');
+    bytecode.addSource("test");
+    bytecode.addStep("test");
     bytecode.toString();
 
     enumValue.toString();
@@ -171,7 +175,10 @@ function processTests() {
 
     translator.getTraversalSource();
     translator.of(graphTraversalSource);
+    translator.of("g");
     translator.translate(bytecode);
+    translator.translate(graphTraversal);
+    translator.convert({});
 
     transaction.begin();
     transaction.close();
@@ -180,95 +187,97 @@ function processTests() {
     transaction.isOpen;
 
     anonymousTraversalSource.withGraph(new Graph());
-    anonymousTraversalSource.withRemote(new RemoteConnection('test'));
+    anonymousTraversalSource.withRemote(new RemoteConnection("test"));
 }
 
 function structureTests() {
-    const element = new Element(1, 'test');
+    const element = new Element(1, "test");
     const graphSonReader = new GraphSONReader();
     const graphSonWriter = new GraphSONWriter();
-    const vertexProperty = new VertexProperty(1, 'test', 'test');
-    const vertex = new Vertex(1, 'test', [vertexProperty]);
-    const edge = new Edge(1, vertex, 'test', vertex);
+    const vertexProperty = new VertexProperty(1, "test", "test");
+    const vertex = new Vertex(1, "test", [vertexProperty]);
+    const edge = new Edge(1, vertex, "test", vertex);
     const graph = new Graph();
-    const path = new Path(['test'], [{}]);
-    const property = new Property('test', 1);
-    const long = new Long('11111111111');
+    const path = new Path(["test"], [{}]);
+    const property = new Property("test", 1);
+    const long = new Long("11111111111");
 
-    element.equals(new Element(2, 'test'));
+    element.equals(new Element(2, "test"));
 
     graphSonReader.read({});
 
     graphSonWriter.adaptObject({});
     graphSonWriter.write({});
 
-    edge.equals(new Edge(2, vertex, 'test', vertex));
+    edge.equals(new Edge(2, vertex, "test", vertex));
     edge.toString();
 
     graph.toString();
     graph.traversal();
 
-    path.equals(new Path(['test'], []));
+    path.equals(new Path(["test"], []));
     path.toString();
 
-    property.equals(new Property('test', 1));
+    property.equals(new Property("test", 1));
     property.toString();
 
-    vertex.equals(new Vertex(2, 'test'));
+    vertex.equals(new Vertex(2, "test"));
     vertex.toString();
 
-    vertexProperty.equals(new VertexProperty(2, 'test', 1));
+    vertexProperty.equals(new VertexProperty(2, "test", 1));
     vertexProperty.toString();
 }
 
 function functionTests() {
     const traversal = AnonymousTraversalSource.traversal();
-    const long = toLong('11111111111');
+    const long = toLong("11111111111");
 }
 
 function predefinedEnumTests() {
-    barrier.normSack.toString() === 'normSack';
-    cardinality.list.toString() === 'list';
-    cardinality.set.toString() === 'set';
-    cardinality.single.toString() === 'single';
-    column.keys.toString() === 'keys';
-    column.values.toString() === 'values';
-    direction.both.toString() === 'BOTH';
-    direction.in.toString() === 'IN';
-    direction.out.toString() === 'OUT';
-    graphSONVersion['v1_0'].toString() === 'V1_0';
-    graphSONVersion['v2_0'].toString() === 'V2_0';
-    graphSONVersion['v3_0'].toString() === 'V3_0';
-    gryoVersion['v1_0'].toString() === 'V1_0';
-    gryoVersion['v3_0'].toString() === 'V3_0';
-    operator.addAll.toString() === 'addAll';
-    operator.and.toString() === 'and';
-    operator.assign.toString() === 'assign';
-    operator.div.toString() === 'div';
-    operator.max.toString() === 'max';
-    operator.min.toString() === 'min';
-    operator.minus.toString() === 'minus';
-    operator.mult.toString() === 'mult';
-    operator.or.toString() === 'or';
-    operator.sum.toString() === 'sum';
-    operator.sumLong.toString() === 'sumLong';
-    order.asc.toString() === 'asc';
-    order.decr.toString() === 'decr';
-    order.desc.toString() === 'desc';
-    order.incr.toString() === 'incr';
-    order.shuffle.toString() === 'shuffle';
-    pick.any.toString() === 'any';
-    pick.none.toString() === 'none';
-    pop.all.toString() === 'all';
-    pop.first.toString() === 'first';
-    pop.last.toString() === 'last';
-    pop.mixed.toString() === 'mixed';
-    scope.global.toString() === 'global';
-    scope.local.toString() === 'local';
-    t.id.toString() === 'id';
-    t.key.toString() === 'key';
-    t.label.toString() === 'label';
-    t.value.toString() === 'value';
+    barrier.normSack.toString() === "normSack";
+    cardinality.list.toString() === "list";
+    cardinality.set.toString() === "set";
+    cardinality.single.toString() === "single";
+    column.keys.toString() === "keys";
+    column.values.toString() === "values";
+    direction.both.toString() === "BOTH";
+    direction.in.toString() === "IN";
+    direction.out.toString() === "OUT";
+    graphSONVersion["v1_0"].toString() === "V1_0";
+    graphSONVersion["v2_0"].toString() === "V2_0";
+    graphSONVersion["v3_0"].toString() === "V3_0";
+    gryoVersion["v1_0"].toString() === "V1_0";
+    gryoVersion["v3_0"].toString() === "V3_0";
+    merge.inV.toString() === "inV";
+    merge.outV.toString() === "outV";
+    merge.onCreate.toString() === "onCreate";
+    merge.onMatch.toString() === "onMatch";
+    operator.addAll.toString() === "addAll";
+    operator.and.toString() === "and";
+    operator.assign.toString() === "assign";
+    operator.div.toString() === "div";
+    operator.max.toString() === "max";
+    operator.min.toString() === "min";
+    operator.minus.toString() === "minus";
+    operator.mult.toString() === "mult";
+    operator.or.toString() === "or";
+    operator.sum.toString() === "sum";
+    operator.sumLong.toString() === "sumLong";
+    order.asc.toString() === "asc";
+    order.desc.toString() === "desc";
+    order.shuffle.toString() === "shuffle";
+    pick.any.toString() === "any";
+    pick.none.toString() === "none";
+    pop.all.toString() === "all";
+    pop.first.toString() === "first";
+    pop.last.toString() === "last";
+    pop.mixed.toString() === "mixed";
+    scope.global.toString() === "global";
+    scope.local.toString() === "local";
+    t.id.toString() === "id";
+    t.key.toString() === "key";
+    t.label.toString() === "label";
+    t.value.toString() === "value";
 }
 
 function dslTests() {
@@ -295,7 +304,7 @@ function dslTests() {
         }
 
         aged(age: number): TestDSLTraversal {
-            return this.has('person', 'age', age);
+            return this.has("person", "age", age);
         }
 
         hasNotLabel(...args: string[]): TestDSLTraversal {
@@ -305,7 +314,7 @@ function dslTests() {
 
     class TestDSLTraversalSource extends GraphTraversalSource<TestDSLTraversal> {
         person(name: string): TestDSLTraversal {
-            return this.V().has('person', 'name', name);
+            return this.V().has("person", "name", name);
         }
     }
 
@@ -313,12 +322,12 @@ function dslTests() {
 
     __ = TestDSLTraversal.statics;
 
-    const connection = new DriverRemoteConnection('test');
+    const connection = new DriverRemoteConnection("test");
     const g = traversal(TestDSLTraversalSource).withRemote(connection);
 
-    g.person('test').aged(33);
-    g.person('test').where(__.hasNotLabel('test')).aged(33);
-    g.V().where(__.hasNotLabel('test'));
+    g.person("test").aged(33);
+    g.person("test").where(__.hasNotLabel("test")).aged(33);
+    g.V().where(__.hasNotLabel("test"));
     g.V().aged(33);
     g.tx().begin();
 }

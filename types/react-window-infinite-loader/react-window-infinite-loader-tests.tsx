@@ -1,6 +1,6 @@
-import * as React from 'react';
-import InfiniteLoader from 'react-window-infinite-loader';
-import { FixedSizeList } from 'react-window';
+import * as React from "react";
+import { FixedSizeList } from "react-window";
+import InfiniteLoader from "react-window-infinite-loader";
 
 const LOADING = 1;
 const LOADED = 2;
@@ -17,7 +17,7 @@ const loadMoreItems = (startIndex: number, stopIndex: number) => {
                 itemStatusMap[index] = LOADED;
             }
             resolve();
-        }, 2500),
+        }, 2500)
     );
 };
 
@@ -27,7 +27,7 @@ class Row extends React.PureComponent<{ index: number; style: React.CSSPropertie
 
         return (
             <div className="ListItem" style={style}>
-                {`${itemStatusMap[index] === LOADED ? `Row ${index}` : 'Loading...'}`}
+                {`${itemStatusMap[index] === LOADED ? `Row ${index}` : "Loading..."}`}
             </div>
         );
     }

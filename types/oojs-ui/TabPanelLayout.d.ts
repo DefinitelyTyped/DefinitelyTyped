@@ -141,12 +141,12 @@ declare namespace OO.ui {
 
             connect<T extends Partial<Record<keyof EventMap, any>>, C>(
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
             ): this;
 
             disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
             ): this;
             // #endregion
         }
@@ -156,7 +156,7 @@ declare namespace OO.ui {
              * @param name Unique symbolic name of tab panel
              * @param config Configuration options
              */
-            new (name: string, config?: ConfigOptions): TabPanelLayout;
+            new(name: string, config?: ConfigOptions): TabPanelLayout;
             prototype: Prototype;
             static: Static;
             super: PanelLayout.Constructor;

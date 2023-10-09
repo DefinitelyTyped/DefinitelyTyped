@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import { Component, DirectiveFunction, PluginObject } from 'vue';
+import { Component, DirectiveFunction, PluginObject } from "vue";
 
 declare namespace VueTheMaskPlugin {
     interface VueStatic {

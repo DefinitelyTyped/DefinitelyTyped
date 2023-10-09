@@ -1,9 +1,5 @@
-import { Document } from "./Document";
 import * as Constants from "./Constants";
-/**
- * @ignore
- */
-export declare function PSGuide(id: number, docId: number): Guide;
+import { Document } from "./Document";
 /**
  * Represents a single guide in the document.
  * @minVersion 23.0
@@ -41,7 +37,7 @@ export declare class Guide {
     get direction(): Constants.Direction;
     set direction(direction: Constants.Direction);
     /**
-     * Position of the guide measured from the ruler origin in pixels. The value can be a decimal number.
+     * Position of the guide measured from the ruler origin in pixels. The value can be a decimal.
      *
      * Note: the user can move the ruler origin which will affect the position value of the guides.
      *
@@ -52,13 +48,12 @@ export declare class Guide {
      */
     get coordinate(): number;
     /**
-     * Position of the guide measured from the ruler origin in pixels. The value can be a decimal number.
+     * Position of the guide measured from the ruler origin in pixels. The value can be a decimal.
      *
      * Note: the user can move the ruler origin which will affect the position value of the guides.
      *
      * ***Fixes in Photoshop 24.0:***
      * - *Sets correct value when resolution is not 72 PPI*
-     *
      */
     set coordinate(coordinate: number);
     /**

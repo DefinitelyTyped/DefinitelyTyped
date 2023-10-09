@@ -1,7 +1,7 @@
-import { Interface as ReadLineInterface } from 'readline';
-import inquirer, { Answers, CheckboxQuestionOptions } from '../../index.js';
-import Paginator from '../utils/paginator.js';
-import Prompt from './base.js';
+import { Interface as ReadLineInterface } from "readline";
+import inquirer, { Answers, CheckboxQuestionOptions } from "../../index.js";
+import Paginator from "../utils/paginator.js";
+import Prompt from "./base.js";
 
 /**
  * The question-options for the {@link CheckboxPrompt `CheckboxPrompt<TQuestion>`}.

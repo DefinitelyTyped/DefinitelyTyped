@@ -9,7 +9,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ReactElement, ElementType } from 'react';
+import { ElementType, ReactElement } from "react";
 export {};
 
 // extracted from:
@@ -23,7 +23,7 @@ export interface ReactTestRendererJSON {
 }
 export type ReactTestRendererNode = ReactTestRendererJSON | string;
 export interface ReactTestRendererTree extends ReactTestRendererJSON {
-    nodeType: 'component' | 'host';
+    nodeType: "component" | "host";
     instance: any;
     rendered: null | ReactTestRendererTree | ReactTestRendererTree[];
 }

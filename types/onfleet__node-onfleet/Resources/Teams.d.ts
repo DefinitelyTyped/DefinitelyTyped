@@ -1,4 +1,4 @@
-import { Location } from './Destinations';
+import { Location } from "./Destinations";
 
 declare class Team {
     autoDispatch(id: string, obj?: Team.AutoDispatchTeamProps): Promise<Team.AutoDispatchTeamResult>;
@@ -23,10 +23,10 @@ declare namespace Team {
     }
 
     /**
-     * @prop managers - An array of managing administrator IDs.
-     * @prop name - A unique name for the team.
-     * @prop workers - An array of worker IDs.
-     * @prop hub - Optional. The ID of the team's hub.
+     * managers - An array of managing administrator IDs.
+     * name - A unique name for the team.
+     * workers - An array of worker IDs.
+     * hub - Optional. The ID of the team's hub.
      */
     interface CreateTeamProps {
         managers: string[];
@@ -107,7 +107,7 @@ declare namespace Team {
         /**
          * Vehicle types to ignore in the query. Valid vehicle types are CAR, MOTORCYCLE, BICYCLE, TRUCK
          */
-        restrictedVehicleTypes?: 'BICYCLE' | 'CAR' | 'MOTORCYCLE' | 'TRUCK' | undefined;
+        restrictedVehicleTypes?: "BICYCLE" | "CAR" | "MOTORCYCLE" | "TRUCK" | undefined;
         /**
          * The expected time a worker will take at the pickupLocation, dropoffLocation,
          * or both (as applicable)
@@ -128,7 +128,7 @@ declare namespace Team {
 
     interface GetWorkerEtaResult {
         workerId: string;
-        vehicle: 'BICYCLE' | 'CAR' | 'MOTORCYCLE' | 'TRUCK';
+        vehicle: "BICYCLE" | "CAR" | "MOTORCYCLE" | "TRUCK";
         steps: NavigationStep[];
     }
 }

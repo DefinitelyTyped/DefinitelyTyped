@@ -5,11 +5,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import * as superagent from 'superagent';
+import * as superagent from "superagent";
 
 export = supertest;
 
-declare function supertest(app: any): supertest.SuperTest<supertest.Test>;
+declare function supertest(app: any, options?: supertest.Options): supertest.SuperTest<supertest.Test>;
 declare namespace supertest {
     interface Response extends superagent.Response {}
 
@@ -31,7 +31,11 @@ declare namespace supertest {
         end(callback?: CallbackHandler): this;
     }
 
-    interface AgentOptions {
+    interface Options {
+        http2?: boolean;
+    }
+
+    interface AgentOptions extends Options {
         ca?: any;
     }
     function agent(app?: any, options?: AgentOptions): SuperAgentTest;
@@ -40,27 +44,28 @@ declare namespace supertest {
     interface SuperTestWithHost<T extends superagent.SuperAgentRequest> extends SuperTest<T> {
         host(host: string): this;
     }
-    type SuperAgentTest = SuperTestWithHost<Test> &
-        Pick<
+    type SuperAgentTest =
+        & SuperTestWithHost<Test>
+        & Pick<
             Request,
-            | 'use'
-            | 'on'
-            | 'set'
-            | 'query'
-            | 'type'
-            | 'accept'
-            | 'auth'
-            | 'withCredentials'
-            | 'retry'
-            | 'ok'
-            | 'redirects'
-            | 'timeout'
-            | 'buffer'
-            | 'serialize'
-            | 'parse'
-            | 'ca'
-            | 'key'
-            | 'pfx'
-            | 'cert'
+            | "use"
+            | "on"
+            | "set"
+            | "query"
+            | "type"
+            | "accept"
+            | "auth"
+            | "withCredentials"
+            | "retry"
+            | "ok"
+            | "redirects"
+            | "timeout"
+            | "buffer"
+            | "serialize"
+            | "parse"
+            | "ca"
+            | "key"
+            | "pfx"
+            | "cert"
         >;
 }

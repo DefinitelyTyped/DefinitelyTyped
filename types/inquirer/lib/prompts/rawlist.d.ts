@@ -1,7 +1,7 @@
-import { Interface as ReadlineInterface } from 'readline';
-import inquirer, { Answers, RawListQuestionOptions } from '../../index.js';
-import Paginator from '../utils/paginator.js';
-import Prompt from './base.js';
+import { Interface as ReadlineInterface } from "readline";
+import inquirer, { Answers, RawListQuestionOptions } from "../../index.js";
+import Paginator from "../utils/paginator.js";
+import Prompt from "./base.js";
 
 /**
  * The question for the {@link RawListPrompt `RawListPrompt<TQuestion>`}.
@@ -89,7 +89,7 @@ declare class RawListPrompt<TQuestion extends Question = Question> extends Promp
      * @param type
      * A value indicating whether the up or the down-arrow is being pressed.
      */
-    protected onArrowKey(type: 'up' | 'down'): void;
+    protected onArrowKey(type: "up" | "down"): void;
 
     /**
      * Handles the `success`-event of the prompt.

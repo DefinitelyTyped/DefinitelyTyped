@@ -14,8 +14,6 @@
             }
         ],
         "only-arrow-functions": false,
-        "prefer-template": false,
-        "space-before-function-paren": false,
-        "strict-export-declare-modifiers": false
+        "prefer-template": false
     }
 }

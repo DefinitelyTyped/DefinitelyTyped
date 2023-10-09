@@ -86,19 +86,19 @@ export function currentUser(): User | null;
 /**
  * Registers callbacks to corresponding events on the widget.
  */
-export function on(event: 'init', cb: (user: User | null) => void): void;
-export function on(event: 'login', cb: (user: User) => void): void;
-export function on(event: 'logout' | 'open' | 'close', cb: () => void): void;
-export function on(event: 'error', cb: (err: Error) => void): void;
+export function on(event: "init", cb: (user: User | null) => void): void;
+export function on(event: "login", cb: (user: User) => void): void;
+export function on(event: "logout" | "open" | "close", cb: () => void): void;
+export function on(event: "error", cb: (err: Error) => void): void;
 
 /**
  * Unregisters callbacks to corresponding events on the widget.
  * Set the callback argument to remove only the specified one.
  */
-export function off(event: 'init', cb?: (user: User | null) => void): void;
-export function off(event: 'login', cb?: (user: User) => void): void;
-export function off(event: 'logout' | 'open' | 'close', cb?: () => void): void;
-export function off(event: 'error', cb?: (err: Error) => void): void;
+export function off(event: "init", cb?: (user: User | null) => void): void;
+export function off(event: "login", cb?: (user: User) => void): void;
+export function off(event: "logout" | "open" | "close", cb?: () => void): void;
+export function off(event: "error", cb?: (err: Error) => void): void;
 
 /**
  * Logs out the current user. Returns a Promise<void> when a user is

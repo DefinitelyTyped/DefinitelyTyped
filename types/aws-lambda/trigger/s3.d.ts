@@ -29,8 +29,8 @@ export interface S3EventRecord {
         sourceIPAddress: string;
     };
     responseElements: {
-        'x-amz-request-id': string;
-        'x-amz-id-2': string;
+        "x-amz-request-id": string;
+        "x-amz-id-2": string;
     };
     s3: {
         s3SchemaVersion: string;

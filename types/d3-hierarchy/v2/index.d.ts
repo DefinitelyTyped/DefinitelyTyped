@@ -142,7 +142,6 @@ export interface HierarchyNode<Datum> {
      *
      * @param func The specified function is passed the current descendant, the zero-based traversal index, and this node.
      * @param that If that is specified, it is the this context of the callback.
-     *
      */
     eachAfter<T = undefined>(func: (this: T, node: this, index: number, thisNode: this) => void, that?: T): this;
 
@@ -172,7 +171,10 @@ export interface HierarchyNode<Datum> {
  * and must return an iterable of data representing the children, if any.
  * If children is not specified, it defaults to: `(d) => d.children`.
  */
-export function hierarchy<Datum>(data: Datum, children?: (d: Datum) => (Iterable<Datum> | null | undefined)): HierarchyNode<Datum>;
+export function hierarchy<Datum>(
+    data: Datum,
+    children?: (d: Datum) => Iterable<Datum> | null | undefined,
+): HierarchyNode<Datum>;
 
 // -----------------------------------------------------------------------
 // Stratify
@@ -191,7 +193,7 @@ export interface StratifyOperator<Datum> {
     /**
      * Returns the current id accessor, which defaults to: `(d) => d.id`.
      */
-    id(): (d: Datum, i: number, data: Datum[]) => (string | null | '' | undefined);
+    id(): (d: Datum, i: number, data: Datum[]) => string | null | "" | undefined;
     /**
      * Sets the id accessor to the given function.
      * The id accessor is invoked for each element in the input data passed to the stratify operator.
@@ -200,12 +202,12 @@ export interface StratifyOperator<Datum> {
      *
      * @param id The id accessor.
      */
-    id(id: (d: Datum, i: number, data: Datum[]) => (string | null | '' | undefined)): this;
+    id(id: (d: Datum, i: number, data: Datum[]) => string | null | "" | undefined): this;
 
     /**
      * Returns the current parent id accessor, which defaults to: `(d) => d.parentId`.
      */
-    parentId(): (d: Datum, i: number, data: Datum[]) => (string | null | '' | undefined);
+    parentId(): (d: Datum, i: number, data: Datum[]) => string | null | "" | undefined;
     /**
      * Sets the parent id accessor to the given function.
      * The parent id accessor is invoked for each element in the input data passed to the stratify operator.
@@ -215,7 +217,7 @@ export interface StratifyOperator<Datum> {
      *
      * @param parentId The parent id accessor.
      */
-    parentId(parentId: (d: Datum, i: number, data: Datum[]) => (string | null | '' | undefined)): this;
+    parentId(parentId: (d: Datum, i: number, data: Datum[]) => string | null | "" | undefined): this;
 }
 
 /**
@@ -600,7 +602,13 @@ export function treemap<Datum>(): TreemapLayout<Datum>;
  * Recursively partitions the specified nodes into an approximately-balanced binary tree,
  * choosing horizontal partitioning for wide rectangles and vertical partitioning for tall rectangles.
  */
-export function treemapBinary(node: HierarchyRectangularNode<any>, x0: number, y0: number, x1: number, y1: number): void;
+export function treemapBinary(
+    node: HierarchyRectangularNode<any>,
+    x0: number,
+    y0: number,
+    x1: number,
+    y1: number,
+): void;
 
 /**
  * Divides the rectangular area specified by x0, y0, x1, y1 horizontally according the value of each of the specified node’s children.
@@ -621,7 +629,13 @@ export function treemapSlice(node: HierarchyRectangularNode<any>, x0: number, y0
 /**
  * If the specified node has odd depth, delegates to treemapSlice; otherwise delegates to treemapDice.
  */
-export function treemapSliceDice(node: HierarchyRectangularNode<any>, x0: number, y0: number, x1: number, y1: number): void;
+export function treemapSliceDice(
+    node: HierarchyRectangularNode<any>,
+    x0: number,
+    y0: number,
+    x1: number,
+    y1: number,
+): void;
 
 // TODO: Test Factory code
 export interface RatioSquarifyTilingFactory {

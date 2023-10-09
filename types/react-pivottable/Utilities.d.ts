@@ -1,7 +1,7 @@
-import { TableInput } from './input';
+import { TableInput } from "./input";
 
 type TSorterFn = Parameters<typeof Array.prototype.sort>[0];
-type TQuerySort = 'key_a_to_z' | 'key_z_to_a' | 'value_a_to_z' | 'value_z_to_a';
+type TQuerySort = "key_a_to_z" | "key_z_to_a" | "value_a_to_z" | "value_z_to_a";
 
 declare function aggregators(tpl: unknown): object;
 declare function naturalSort(a: any, b: any): number;
@@ -39,7 +39,7 @@ interface Pivot {
      */
     aggregators?: {
         [K: string]: (
-            data: Pivot['data'],
+            data: Pivot["data"],
             rowKey: string,
             colKey: string,
         ) => {
@@ -89,7 +89,7 @@ interface Pivot {
     colOrder?: TQuerySort;
 
     /**
-     * @Link original PivotTable.js documentation)
+     * @see original PivotTable.js documentation
      */
     derivedAttributes?: { [k: string]: (p: string) => string };
 }
@@ -103,16 +103,16 @@ declare class PivotData implements Pivot {
 // properly typing all of them is time expensive.
 
 export {
-    agregatorTemplates,
     aggregators,
+    agregatorTemplates,
     derivers,
+    getSort,
     locales,
     naturalSort,
     numberFormat,
-    getSort,
-    sortAs,
-    PivotData,
-    TSorterFn,
-    TQuerySort,
     Pivot,
+    PivotData,
+    sortAs,
+    TQuerySort,
+    TSorterFn,
 };

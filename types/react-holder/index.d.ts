@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-///<reference types="react"/>
+/// <reference types="react"/>
 
 import * as React from "react";
 
@@ -16,7 +16,7 @@ interface ReactHolderProp extends React.HTMLAttributes<ReactHolder> {
     // config args
     theme?: string | undefined;
     random?: boolean | undefined;
-    bg?: string | undefined
+    bg?: string | undefined;
     fg?: string | undefined;
     text?: string | undefined;
     size?: number | undefined;
@@ -27,6 +27,5 @@ interface ReactHolderProp extends React.HTMLAttributes<ReactHolder> {
 }
 
 declare class ReactHolder extends React.Component<ReactHolderProp> {
-
 }
 export default ReactHolder;

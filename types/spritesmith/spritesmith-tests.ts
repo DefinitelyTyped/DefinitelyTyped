@@ -1,10 +1,12 @@
-import { SpritesmithResult } from 'spritesmith';
-import Spritesmith = require('spritesmith');
+import { SpritesmithResult } from "spritesmith";
+import Spritesmith = require("spritesmith");
+import { Transform } from "stream";
 
 // Generate our spritesheet
-const sprites = ['fork.png', 'github.png', 'twitter.png'];
+const sprites = ["fork.png", "github.png", "twitter.png"];
 // $ExpectType void
 Spritesmith.run({ src: sprites }, function handleResult(err, result) {
+    // $ExpectType Buffer
     result.image; // Buffer representation of image
     result.coordinates; // Object mapping filename to {x, y, width, height} of image
     result.properties; // Object with metadata about spritesheet {width, height}
@@ -18,8 +20,8 @@ spritesmith.createImages(sprites, function handleImages(err, images) {
     images[0].height; // Height of image
 
     // Create our result
-    // $ExpectType SpritesmithResult
-    const result: SpritesmithResult = spritesmith.processImages(images);
+    const result: SpritesmithResult<Transform> = spritesmith.processImages(images);
+    // $ExpectType Transform
     result.image; // Readable stream outputting image
     result.coordinates; // Object mapping filename to {x, y, width, height} of image
     result.properties; // Object with metadata about spritesheet {width, height}

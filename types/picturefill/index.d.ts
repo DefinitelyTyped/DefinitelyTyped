@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Picturefill {
-  type ElementNullable = Element | null;
+    type ElementNullable = Element | null;
 
-  interface EvaluateArg {
-    reevaluate?: boolean | undefined;
-    elements: NodeList | ElementNullable[];
-  }
+    interface EvaluateArg {
+        reevaluate?: boolean | undefined;
+        elements: NodeList | ElementNullable[];
+    }
 }
 
 declare function picturefill(arg?: Picturefill.EvaluateArg): void;

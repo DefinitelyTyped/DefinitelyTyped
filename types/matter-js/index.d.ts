@@ -1,4 +1,4 @@
-// Type definitions for Matter.js - 0.18
+// Type definitions for Matter.js - 0.19
 // Project: https://github.com/liabru/matter-js
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>
 //                 David Asmuth <https://github.com/piranha771>
@@ -24,8 +24,6 @@ declare namespace Matter {
 
     /**
      * The `Matter.Axes` module contains methods for creating and manipulating sets of axes.
-     *
-     * @class Axes
      */
     export class Axes {
         /**
@@ -60,8 +58,6 @@ declare namespace Matter {
      * with commonly used body configurations (such as rectangles, circles and other polygons).
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
-     * @class Bodies
      */
     export class Bodies {
         /**
@@ -170,8 +166,6 @@ declare namespace Matter {
         /**
          * A `Number` specifying the angle of the body, in radians.
          *
-         * @property angle
-         * @type {number | undefined}
          * @default 0
          */
         angle?: number | undefined;
@@ -179,8 +173,6 @@ declare namespace Matter {
          * A `Number` that _measures_ the current angular speed of the body after the last `Body.update`. It is read-only and always positive (it's the magnitude of `body.angularVelocity`).
          *
          * @readOnly
-         * @property angularSpeed
-         * @type {number | undefined}
          * @default 0
          */
         angularSpeed?: number | undefined;
@@ -189,16 +181,12 @@ declare namespace Matter {
          * If you need to modify a body's angular velocity directly, you should apply a torque or simply change the body's `angle` (as the engine uses position-Verlet integration).
          *
          * @readOnly
-         * @property angularVelocity
-         * @type {number | undefined}
          * @default 0
          */
         angularVelocity?: number | undefined;
         /**
          * A `Number` that _measures_ the area of the body's convex hull, calculated at creation by `Body.create`.
          *
-         * @property area
-         * @type {string | undefined}
          * @default
          */
         area?: number | undefined;
@@ -206,17 +194,11 @@ declare namespace Matter {
          * An array of unique axis vectors (edge normals) used for collision detection.
          * These are automatically calculated from the given convex hull (`vertices` array) in `Body.create`.
          * They are constantly updated by `Body.update` during the simulation.
-         *
-         * @property axes
-         * @type {Vector[] | undefined}
          */
         axes?: Array<Vector> | undefined;
         /**
          * A `Bounds` object that defines the AABB region for the body.
          * It is automatically calculated from the given convex hull (`vertices` array) in `Body.create` and constantly updated by `Body.update` during simulation.
-         *
-         * @property bounds
-         * @type {Bounds | undefined}
          */
         bounds?: Bounds | undefined;
         /**
@@ -224,16 +206,12 @@ declare namespace Matter {
          * If you pass the density via `Body.create` the `mass` property is automatically calculated for you based on the size (area) of the object.
          * This is generally preferable to simply setting mass and allows for more intuitive definition of materials (e.g. rock has a higher density than wood).
          *
-         * @property density
-         * @type {number | undefined}
          * @default 0.001
          */
         density?: number | undefined;
         /**
          * A `Vector` that specifies the force to apply in the current step. It is zeroed after every `Body.update`. See also `Body.applyForce`.
          *
-         * @property force
-         * @type {Vector | undefined}
          * @default { x: 0, y: 0 }
          */
         force?: Vector | undefined;
@@ -249,8 +227,6 @@ declare namespace Matter {
          *
          *     Math.min(bodyA.friction, bodyB.friction)
          *
-         * @property friction
-         * @type {number | undefined}
          * @default 0.1
          */
         friction?: number | undefined;
@@ -260,48 +236,32 @@ declare namespace Matter {
          * The higher the value, the faster a body slows when moving through space.
          * The effects of the value are non-linear.
          *
-         * @property frictionAir
-         * @type {number | undefined}
          * @default 0.01
          */
         frictionAir?: number | undefined;
         /**
          * An integer `Number` uniquely identifying number generated in `Body.create` by `Common.nextId`.
-         *
-         * @property id
-         * @type {number | undefined}
          */
         id?: number | undefined;
         /**
          * A `Number` that defines the moment of inertia (i.e. second moment of area) of the body.
          * It is automatically calculated from the given convex hull (`vertices` array) and density in `Body.create`.
          * If you modify this value, you must also modify the `body.inverseInertia` property (`1 / inertia`).
-         *
-         * @property inertia
-         * @type {number | undefined}
          */
         inertia?: number | undefined;
         /**
          * A `Number` that defines the inverse moment of inertia of the body (`1 / inertia`).
          * If you modify this value, you must also modify the `body.inertia` property.
-         *
-         * @property inverseInertia
-         * @type {number | undefined}
          */
         inverseInertia?: number | undefined;
         /**
          * A `Number` that defines the inverse mass of the body (`1 / mass`).
          * If you modify this value, you must also modify the `body.mass` property.
-         *
-         * @property inverseMass
-         * @type {number | undefined}
          */
         inverseMass?: number | undefined;
         /**
          * A flag that indicates whether a body is a sensor. Sensor triggers collision events, but doesn't react with colliding body physically.
          *
-         * @property isSensor
-         * @type {boolean | undefined}
          * @default false
          */
         isSensor?: boolean | undefined;
@@ -309,8 +269,6 @@ declare namespace Matter {
          * A flag that indicates whether the body is considered sleeping. A sleeping body acts similar to a static body, except it is only temporary and can be awoken.
          * If you need to set a body as sleeping, you should use `Sleeping.set` as this requires more than just setting this flag.
          *
-         * @property isSleeping
-         * @type {boolean | undefined}
          * @default false
          */
         isSleeping?: boolean | undefined;
@@ -318,16 +276,12 @@ declare namespace Matter {
          * A flag that indicates whether a body is considered static. A static body can never change position or angle and is completely fixed.
          * If you need to set a body as static after its creation, you should use `Body.setStatic` as this requires more than just setting this flag.
          *
-         * @property isStatic
-         * @type {boolean | undefined}
          * @default false
          */
         isStatic?: boolean | undefined;
         /**
          * An arbitrary `String` name to help the user identify and manage bodies.
          *
-         * @property label
-         * @type {string | undefined}
          * @default "Body"
          */
 
@@ -335,9 +289,6 @@ declare namespace Matter {
         /**
          * A `Number` that defines the mass of the body, although it may be more appropriate to specify the `density` property instead.
          * If you modify this value, you must also modify the `body.inverseMass` property (`1 / mass`).
-         *
-         * @property mass
-         * @type {number | undefined}
          */
         mass?: number | undefined;
         /**
@@ -345,31 +296,21 @@ declare namespace Matter {
          * It is used and updated by the `Matter.Sleeping` module during simulation to decide if a body has come to rest.
          *
          * @readOnly
-         * @property motion
-         * @type {number | undefined}
          * @default 0
          */
         motion?: number | undefined;
         /**
          * An object reserved for storing plugin-specific properties.
-         *
-         * @property plugin
-         * @type {{}}
          */
         plugin?: any;
         /**
          * A `Vector` that specifies the current world-space position of the body.
          *
-         * @property position
-         * @type {Vector | undefined}
          * @default { x: 0, y: 0 }
          */
         position?: Vector | undefined;
         /**
          * An `Object` that defines the rendering properties to be consumed by the module `Matter.Render`.
-         *
-         * @property render
-         * @type {IBodyRenderOptions | undefined}
          */
         render?: IBodyRenderOptions | undefined;
         /**
@@ -380,16 +321,12 @@ declare namespace Matter {
          *
          *     Math.max(bodyA.restitution, bodyB.restitution)
          *
-         * @property restitution
-         * @type {number | undefined}
          * @default 0
          */
         restitution?: number | undefined;
         /**
          * A `Number` that defines the number of updates in which this body must have near-zero velocity before it is set as sleeping by the `Matter.Sleeping` module (if sleeping is enabled by the engine).
          *
-         * @property sleepThreshold
-         * @type {number | undefined}
          * @default 60
          */
         sleepThreshold?: number | undefined;
@@ -398,8 +335,6 @@ declare namespace Matter {
          * Avoid changing this value unless you understand the purpose of `slop` in physics engines.
          * The default should generally suffice, although very large bodies may require larger values for stable stacking.
          *
-         * @property slop
-         * @type {number | undefined}
          * @default 0.05
          */
         slop?: number | undefined;
@@ -407,32 +342,24 @@ declare namespace Matter {
          * A `Number` that _measures_ the current speed of the body after the last `Body.update`. It is read-only and always positive (it's the magnitude of `body.velocity`).
          *
          * @readOnly
-         * @property speed
-         * @type {number | undefined}
          * @default 0
          */
         speed?: number | undefined;
         /**
          * A `Number` that allows per-body time scaling, e.g. a force-field where bodies inside are in slow-motion, while others are at full speed.
          *
-         * @property timeScale
-         * @type {number | undefined}
          * @default 1
          */
         timeScale?: number | undefined;
         /**
          * A `Number` that specifies the torque (turning force) to apply in the current step. It is zeroed after every `Body.update`.
          *
-         * @property torque
-         * @type {number | undefined}
          * @default 0
          */
         torque?: number | undefined;
         /**
          * A `String` denoting the type of object.
          *
-         * @property type
-         * @type {string | undefined}
          * @default "body"
          */
         type?: string | undefined;
@@ -441,8 +368,6 @@ declare namespace Matter {
          * If you need to modify a body's velocity directly, you should either apply a force or simply change the body's `position` (as the engine uses position-Verlet integration).
          *
          * @readOnly
-         * @property velocity
-         * @type vector
          * @default { x: 0, y: 0 }
          */
         velocity?: Vector | undefined;
@@ -457,9 +382,6 @@ declare namespace Matter {
          *
          * Other properties such as `inertia` and `bounds` are automatically calculated from the passed vertices (unless provided via `options`).
          * Concave hulls are not currently supported. The module `Matter.Vertices` contains useful methods for working with vertices.
-         *
-         * @property vertices
-         * @type {Vector[] | undefined}
          */
         vertices?: Array<Vector> | undefined;
         /**
@@ -469,18 +391,12 @@ declare namespace Matter {
          * Parts are allowed to overlap, have gaps or holes or even form concave bodies.
          * Parts themselves should never be added to a `World`, only the parent body should be.
          * Use `Body.setParts` when setting parts to ensure correct updates of all properties.
-         *
-         * @property parts
-         * @type {Body[] | undefined}
          */
         parts?: Array<Body> | undefined;
         /**
          * A self reference if the body is _not_ a part of another body.
          * Otherwise this is a reference to the body that this is a part of.
          * See `body.parts`.
-         *
-         * @property parent
-         * @type {Body | undefined}
          */
         parent?: Body | undefined;
         /**
@@ -489,8 +405,6 @@ declare namespace Matter {
          * The higher the value (e.g. `10`), the more force it will take to initially get the body moving when nearly stationary.
          * This value is multiplied with the `friction` property to make it easier to change `friction` and maintain an appropriate amount of static friction.
          *
-         * @property frictionStatic
-         * @type {number | undefined}
          * @default 0.5
          */
         frictionStatic?: number | undefined;
@@ -515,9 +429,6 @@ declare namespace Matter {
          * Using the category/mask rules, two bodies `A` and `B` collide if each includes the other's
          * category in its mask, i.e. `(categoryA & maskB) !== 0` and `(categoryB & maskA) !== 0`
          * are both true.
-         *
-         * @property collisionFilter
-         * @type {ICollisionFilter | undefined}
          */
         collisionFilter?: ICollisionFilter | undefined;
     }
@@ -526,17 +437,12 @@ declare namespace Matter {
         /**
          * A flag that indicates if the body should be rendered.
          *
-         * @property render.visible
-         * @type {boolean | undefined}
          * @default true
          */
         visible?: boolean | undefined;
 
         /**
          * An `Object` that defines the sprite properties to use when rendering, if any.
-         *
-         * @property render.sprite
-         * @type {IBodyRenderOptionsSprite | undefined}
          */
         sprite?: IBodyRenderOptionsSprite | undefined;
 
@@ -567,17 +473,12 @@ declare namespace Matter {
     export interface IBodyRenderOptionsSprite {
         /**
          * An `String` that defines the path to the image to use as the sprite texture, if any.
-         *
-         * @property render.sprite.texture
-         * @type {string}
          */
         texture: string;
 
         /**
          * A `Number` that defines the scaling in the x-axis for the sprite, if any.
          *
-         * @property render.sprite.xScale
-         * @type {number}
          * @default 1
          */
         xScale: number;
@@ -585,22 +486,18 @@ declare namespace Matter {
         /**
          * A `Number` that defines the scaling in the y-axis for the sprite, if any.
          *
-         * @property render.sprite.yScale
-         * @type {number}
          * @default 1
          */
         yScale: number;
     }
 
     /**
-    * The `Matter.Body` module contains methods for creating and manipulating body models.
-    * A `Matter.Body` is a rigid body that can be simulated by a `Matter.Engine`.
-    * Factories for commonly used body configurations (such as rectangles, circles and other polygons) can be found in the module `Matter.Bodies`.
-    *
-    * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-
-    * @class Body
-    */
+     * The `Matter.Body` module contains methods for creating and manipulating body models.
+     * A `Matter.Body` is a rigid body that can be simulated by a `Matter.Engine`.
+     * Factories for commonly used body configurations (such as rectangles, circles and other polygons) can be found in the module `Matter.Bodies`.
+     *
+     * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
+     */
     export class Body {
         /**
          * Applies a force to a body from a given world-space position, including resulting torque.
@@ -732,12 +629,64 @@ declare namespace Matter {
          */
         static setVelocity(body: Body, velocity: Vector): void;
         /**
+         * Gets the current linear velocity of the body.
+         * @method getVelocity
+         * @param {body} body
+         * @return {vector} velocity
+         */
+        static getVelocity(body: Body): Vector;
+        /**
          * Sets the angular velocity of the body instantly. Position, angle, force etc. are unchanged. See also `Body.applyForce`.
          * @method setAngularVelocity
          * @param {Body} body
          * @param {number} velocity
          */
         static setAngularVelocity(body: Body, velocity: number): void;
+        /**
+         * Gets the current rotational velocity of the body.
+         * @method getAngularVelocity
+         * @param {body} body
+         * @return {number} angular velocity
+         */
+        static getAngularVelocity(body: Body): number;
+        /**
+         * Sets the current rotational speed of the body.
+         * Direction is maintained. Affects body angular velocity.
+         * @method setAngularSpeed
+         * @param {body} body
+         * @param {number} speed
+         */
+        static setAngularSpeed(body: Body, speed: number): void;
+        /**
+         * Gets the current rotational speed of the body.
+         * Equivalent to the magnitude of its angular velocity.
+         * @method getAngularSpeed
+         * @param {body} body
+         * @return {number} angular speed
+         */
+        static getAngularSpeed(body: Body): number;
+        /**
+         * Updates properties `body.velocity`, `body.speed`, `body.angularVelocity` and `body.angularSpeed` which are normalised in relation to `Body._baseDelta`.
+         * @method updateVelocities
+         * @param {body} body
+         */
+        static updateVelocities(body: Body): void;
+        /**
+         * Gets the current linear speed of the body.
+         * Equivalent to the magnitude of its velocity.
+         * @method getSpeed
+         * @param {body} body
+         * @return {number} speed
+         */
+        static getSpeed(body: Body): number;
+        /**
+         * Sets the current linear speed of the body.
+         * Direction is maintained. Affects body velocity.
+         * @method setSpeed
+         * @param {body} body
+         * @param {number} speed
+         */
+        static setSpeed(body: Body, speed: number): void;
 
         /**
          * Sets the body as static, including isStatic flag and setting mass and inertia to Infinity.
@@ -778,8 +727,6 @@ declare namespace Matter {
         /**
          * A `Number` specifying the angle of the body, in radians.
          *
-         * @property angle
-         * @type {number}
          * @default 0
          */
         angle: number;
@@ -787,8 +734,6 @@ declare namespace Matter {
          * A `Number` that _measures_ the current angular speed of the body after the last `Body.update`. It is read-only and always positive (it's the magnitude of `body.angularVelocity`).
          *
          * @readOnly
-         * @property angularSpeed
-         * @type {number}
          * @default 0
          */
         readonly angularSpeed: number;
@@ -797,16 +742,12 @@ declare namespace Matter {
          * If you need to modify a body's angular velocity directly, you should apply a torque or simply change the body's `angle` (as the engine uses position-Verlet integration).
          *
          * @readOnly
-         * @property angularVelocity
-         * @type {number}
          * @default 0
          */
         readonly angularVelocity: number;
         /**
          * A `Number` that _measures_ the area of the body's convex hull, calculated at creation by `Body.create`.
          *
-         * @property area
-         * @type {number}
          * @default
          */
         area: number;
@@ -814,25 +755,17 @@ declare namespace Matter {
          * An array of unique axis vectors (edge normals) used for collision detection.
          * These are automatically calculated from the given convex hull (`vertices` array) in `Body.create`.
          * They are constantly updated by `Body.update` during the simulation.
-         *
-         * @property axes
-         * @type {Vector[]}
          */
         axes: Array<Vector>;
         /**
          * A `Bounds` object that defines the AABB region for the body.
          * It is automatically calculated from the given convex hull (`vertices` array) in `Body.create` and constantly updated by `Body.update` during simulation.
-         *
-         * @property bounds
-         * @type {Bounds}
          */
         bounds: Bounds;
         /**
          * A `Number` that is set to the radius of the object if the body was constructed using `Bodies.circle`.
          * May have a value of `null` if the body is no longer a circle (i.e. was scaled with a scaleX != scaleY).
          *
-         * @property circleRadius
-         * @type {number  | undefined}
          * @default 0
          */
         circleRadius?: number | undefined;
@@ -841,16 +774,12 @@ declare namespace Matter {
          * If you pass the density via `Body.create` the `mass` property is automatically calculated for you based on the size (area) of the object.
          * This is generally preferable to simply setting mass and allows for more intuitive definition of materials (e.g. rock has a higher density than wood).
          *
-         * @property density
-         * @type {number}
          * @default 0.001
          */
         density: number;
         /**
          * A `Vector` that specifies the force to apply in the current step. It is zeroed after every `Body.update`. See also `Body.applyForce`.
          *
-         * @property force
-         * @type {Vector}
          * @default { x: 0, y: 0 }
          */
         force: Vector;
@@ -866,8 +795,6 @@ declare namespace Matter {
          *
          *     Math.min(bodyA.friction, bodyB.friction)
          *
-         * @property friction
-         * @type {number}
          * @default 0.1
          */
         friction: number;
@@ -877,49 +804,33 @@ declare namespace Matter {
          * The higher the value, the faster a body slows when moving through space.
          * The effects of the value are non-linear.
          *
-         * @property frictionAir
-         * @type {number}
          * @default 0.01
          */
         frictionAir: number;
         /**
          * An integer `Number` uniquely identifying number generated in `Body.create` by `Common.nextId`.
-         *
-         * @property id
-         * @type {number}
          */
         id: number;
         /**
          * A `Number` that defines the moment of inertia (i.e. second moment of area) of the body.
          * It is automatically calculated from the given convex hull (`vertices` array) and density in `Body.create`.
          * If you modify this value, you must also modify the `body.inverseInertia` property (`1 / inertia`).
-         *
-         * @property inertia
-         * @type {number}
          */
         inertia: number;
         /**
          * A `Number` that defines the inverse moment of inertia of the body (`1 / inertia`).
          * If you modify this value, you must also modify the `body.inertia` property.
-         *
-         * @property inverseInertia
-         * @type {number}
          */
         inverseInertia: number;
         /**
          * A `Number` that defines the inverse mass of the body (`1 / mass`).
          * If you modify this value, you must also modify the `body.mass` property.
-         *
-         * @property inverseMass
-         * @type {number}
          */
         inverseMass: number;
         /**
          * A flag that indicates whether the body is considered sleeping. A sleeping body acts similar to a static body, except it is only temporary and can be awoken.
          * If you need to set a body as sleeping, you should use `Sleeping.set` as this requires more than just setting this flag.
          *
-         * @property isSleeping
-         * @type {boolean}
          * @default false
          */
         isSleeping: boolean;
@@ -927,24 +838,18 @@ declare namespace Matter {
          * A flag that indicates whether a body is considered static. A static body can never change position or angle and is completely fixed.
          * If you need to set a body as static after its creation, you should use `Body.setStatic` as this requires more than just setting this flag.
          *
-         * @property isStatic
-         * @type {boolean}
          * @default false
          */
         isStatic: boolean;
         /**
          * A flag that indicates whether a body is a sensor. Sensor triggers collision events, but doesn't react with colliding body physically.
          *
-         * @property isSensor
-         * @type {boolean}
          * @default false
          */
         isSensor: boolean;
         /**
          * An arbitrary `String` name to help the user identify and manage bodies.
          *
-         * @property label
-         * @type {string}
          * @default "Body"
          */
 
@@ -952,9 +857,6 @@ declare namespace Matter {
         /**
          * A `Number` that defines the mass of the body, although it may be more appropriate to specify the `density` property instead.
          * If you modify this value, you must also modify the `body.inverseMass` property (`1 / mass`).
-         *
-         * @property mass
-         * @type {number}
          */
         mass: number;
         /**
@@ -962,24 +864,17 @@ declare namespace Matter {
          * It is used and updated by the `Matter.Sleeping` module during simulation to decide if a body has come to rest.
          *
          * @readOnly
-         * @property motion
-         * @type {number}
          * @default 0
          */
         readonly motion: number;
         /**
          * A `Vector` that specifies the current world-space position of the body.
          *
-         * @property position
-         * @type {Vector}
          * @default { x: 0, y: 0 }
          */
         position: Vector;
         /**
          * An `Object` that defines the rendering properties to be consumed by the module `Matter.Render`.
-         *
-         * @property render
-         * @type {any}
          */
         render: IBodyRenderOptions;
         /**
@@ -990,16 +885,12 @@ declare namespace Matter {
          *
          *     Math.max(bodyA.restitution, bodyB.restitution)
          *
-         * @property restitution
-         * @type {number}
          * @default 0
          */
         restitution: number;
         /**
          * A `Number` that defines the number of updates in which this body must have near-zero velocity before it is set as sleeping by the `Matter.Sleeping` module (if sleeping is enabled by the engine).
          *
-         * @property sleepThreshold
-         * @type {number}
          * @default 60
          */
         sleepThreshold: number;
@@ -1008,8 +899,6 @@ declare namespace Matter {
          * Avoid changing this value unless you understand the purpose of `slop` in physics engines.
          * The default should generally suffice, although very large bodies may require larger values for stable stacking.
          *
-         * @property slop
-         * @type {number}
          * @default 0.05
          */
         slop: number;
@@ -1017,32 +906,24 @@ declare namespace Matter {
          * A `Number` that _measures_ the current speed of the body after the last `Body.update`. It is read-only and always positive (it's the magnitude of `body.velocity`).
          *
          * @readOnly
-         * @property speed
-         * @type {number}
          * @default 0
          */
         readonly speed: number;
         /**
          * A `Number` that allows per-body time scaling, e.g. a force-field where bodies inside are in slow-motion, while others are at full speed.
          *
-         * @property timeScale
-         * @type {number}
          * @default 1
          */
         timeScale: number;
         /**
          * A `Number` that specifies the torque (turning force) to apply in the current step. It is zeroed after every `Body.update`.
          *
-         * @property torque
-         * @type {number}
          * @default 0
          */
         torque: number;
         /**
          * A `String` denoting the type of object.
          *
-         * @property type
-         * @type {string}
          * @default "body"
          */
         type: string;
@@ -1051,8 +932,6 @@ declare namespace Matter {
          * If you need to modify a body's velocity directly, you should either apply a force or simply change the body's `position` (as the engine uses position-Verlet integration).
          *
          * @readOnly
-         * @property velocity
-         * @type {Vector}
          * @default { x: 0, y: 0 }
          */
         readonly velocity: Vector;
@@ -1067,9 +946,6 @@ declare namespace Matter {
          *
          * Other properties such as `inertia` and `bounds` are automatically calculated from the passed vertices (unless provided via `options`).
          * Concave hulls are not currently supported. The module `Matter.Vertices` contains useful methods for working with vertices.
-         *
-         * @property vertices
-         * @type {Vector[]}
          */
         vertices: Array<Vector>;
         /**
@@ -1079,24 +955,16 @@ declare namespace Matter {
          * Parts are allowed to overlap, have gaps or holes or even form concave bodies.
          * Parts themselves should never be added to a `World`, only the parent body should be.
          * Use `Body.setParts` when setting parts to ensure correct updates of all properties.
-         *
-         * @property parts
-         * @type {Body[]}
          */
         parts: Array<Body>;
         /**
          * A self reference if the body is _not_ a part of another body.
          * Otherwise this is a reference to the body that this is a part of.
          * See `body.parts`.
-         *
-         * @property parent
-         * @type {Body}
          */
         parent: Body;
         /**
          * An object reserved for storing plugin-specific properties.
-         *
-         * @property plugin
          */
         plugin: any;
         /**
@@ -1105,8 +973,6 @@ declare namespace Matter {
          * The higher the value (e.g. `10`), the more force it will take to initially get the body moving when nearly stationary.
          * This value is multiplied with the `friction` property to make it easier to change `friction` and maintain an appropriate amount of static friction.
          *
-         * @property frictionStatic
-         * @type {number}
          * @default 0.5
          */
         frictionStatic: number;
@@ -1131,17 +997,12 @@ declare namespace Matter {
          * Using the category/mask rules, two bodies `A` and `B` collide if each includes the other's
          * category in its mask, i.e. `(categoryA & maskB) !== 0` and `(categoryB & maskA) !== 0`
          * are both true.
-         *
-         * @property collisionFilter
-         * @type {ICollisionFilter}
          */
         collisionFilter: ICollisionFilter;
     }
 
     /**
      * The `Matter.Bounds` module contains methods for creating and manipulating axis-aligned bounding boxes (AABB).
-     *
-     * @class Bounds
      */
     export class Bounds {
         min: Vector;
@@ -1200,8 +1061,6 @@ declare namespace Matter {
          * To add or remove bodies you should use `Composite.add` and `Composite.remove` methods rather than directly modifying this property.
          * If you wish to recursively find all descendants, you should use the `Composite.allBodies` method.
          *
-         * @property bodies
-         * @type body[]
          * @default []
          */
         bodies?: Array<Body> | undefined;
@@ -1211,8 +1070,6 @@ declare namespace Matter {
          * To add or remove composites you should use `Composite.add` and `Composite.remove` methods rather than directly modifying this property.
          * If you wish to recursively find all descendants, you should use the `Composite.allComposites` method.
          *
-         * @property composites
-         * @type composite[]
          * @default []
          */
         composites?: Array<Composite> | undefined;
@@ -1222,17 +1079,12 @@ declare namespace Matter {
          * To add or remove constraints you should use `Composite.add` and `Composite.remove` methods rather than directly modifying this property.
          * If you wish to recursively find all descendants, you should use the `Composite.allConstraints` method.
          *
-         * @property constraints
-         * @type constraint[]
          * @default []
          */
         constraints?: Array<Constraint> | undefined;
 
         /**
          * An integer `Number` uniquely identifying number generated in `Composite.create` by `Common.nextId`.
-         *
-         * @property id
-         * @type {number}
          */
         id?: number | undefined;
 
@@ -1241,8 +1093,6 @@ declare namespace Matter {
          * Most `Matter.Composite` methods will automatically set this flag to `true` to inform the engine of changes to be handled.
          * If you need to change it manually, you should use the `Composite.setModified` method.
          *
-         * @property isModified
-         * @type {boolean}
          * @default false
          */
         isModified?: boolean | undefined;
@@ -1250,8 +1100,6 @@ declare namespace Matter {
         /**
          * An arbitrary `String` name to help the user identify and manage composites.
          *
-         * @property label
-         * @type {string}
          * @default "Composite"
          */
         label?: string | undefined;
@@ -1259,8 +1107,6 @@ declare namespace Matter {
         /**
          * The `Composite` that is the parent of this composite. It is automatically managed by the `Matter.Composite` methods.
          *
-         * @property parent
-         * @type composite
          * @default null
          */
         parent?: Composite | undefined;
@@ -1268,8 +1114,6 @@ declare namespace Matter {
         /**
          * A `String` denoting the type of object.
          *
-         * @property type
-         * @type {string}
          * @default "composite"
          */
         type?: String | undefined;
@@ -1282,8 +1126,6 @@ declare namespace Matter {
      * Note that the `Matter.World` object is also a type of `Matter.Composite` and as such all composite methods here can also operate on a `Matter.World`.
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
-     * @class Composite
      */
     export class Composite {
         /**
@@ -1385,11 +1227,20 @@ declare namespace Matter {
          * Triggers `beforeRemove` and `afterRemove` events on the `composite`.
          * @method remove
          * @param {Composite} composite
-         * @param {any} object
+         * @param {Body | Composite | Constraint | MouseConstraint | Array<Body | Composite | Constraint | MouseConstraint>} object
          * @param {boolean} [deep=false]
          * @returns {Composite} The original composite with the objects removed
          */
-        static remove(composite: Composite, object: Body | Composite | Constraint, deep?: boolean): Composite;
+        static remove(
+            composite: Composite,
+            object:
+                | Body
+                | Composite
+                | Constraint
+                | MouseConstraint
+                | Array<Body | Composite | Constraint | MouseConstraint>,
+            deep?: boolean,
+        ): Composite;
 
         /**
          * Translates all children in the composite by a given vector relative to their current positions,
@@ -1422,17 +1273,12 @@ declare namespace Matter {
 
         /**
          * An integer `Number` uniquely identifying number generated in `Composite.create` by `Common.nextId`.
-         *
-         * @property id
-         * @type {number}
          */
         id: number;
 
         /**
          * A `String` denoting the type of object.
          *
-         * @property type
-         * @type {string}
          * @default "composite"
          * @readOnly
          */
@@ -1441,8 +1287,6 @@ declare namespace Matter {
         /**
          * An arbitrary `String` name to help the user identify and manage composites.
          *
-         * @property label
-         * @type {string}
          * @default "Composite"
          */
         label: string;
@@ -1451,8 +1295,6 @@ declare namespace Matter {
          * A flag that specifies whether the composite has been modified during the current step.
          * This is automatically managed when bodies, constraints or composites are added or removed.
          *
-         * @property isModified
-         * @type {boolean}
          * @default false
          */
         isModified: boolean;
@@ -1460,8 +1302,6 @@ declare namespace Matter {
         /**
          * The `Composite` that is the parent of this composite. It is automatically managed by the `Matter.Composite` methods.
          *
-         * @property parent
-         * @type {Composite|null}
          * @default null
          */
         parent: Composite | null;
@@ -1471,8 +1311,6 @@ declare namespace Matter {
          * To add or remove bodies you should use `Composite.add` and `Composite.remove` methods rather than directly modifying this property.
          * If you wish to recursively find all descendants, you should use the `Composite.allBodies` method.
          *
-         * @property bodies
-         * @type {Body[]}
          * @default []
          */
         bodies: Array<Body>;
@@ -1482,8 +1320,6 @@ declare namespace Matter {
          * To add or remove constraints you should use `Composite.add` and `Composite.remove` methods rather than directly modifying this property.
          * If you wish to recursively find all descendants, you should use the `Composite.allConstraints` method.
          *
-         * @property constraints
-         * @type {Constraint[]}
          * @default []
          */
         constraints: Array<Constraint>;
@@ -1493,17 +1329,12 @@ declare namespace Matter {
          * To add or remove composites you should use `Composite.add` and `Composite.remove` methods rather than directly modifying this property.
          * If you wish to recursively find all descendants, you should use the `Composite.allComposites` method.
          *
-         * @property composites
-         * @type {Composite[]}
          * @default []
          */
         composites: Array<Composite>;
 
         /**
          * An object reserved for storing plugin-specific properties.
-         *
-         * @property plugin
-         * @type {Plugin}
          */
         plugin: Plugin;
     }
@@ -1513,8 +1344,6 @@ declare namespace Matter {
      * with commonly used configurations (such as stacks and chains).
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
-     * @class Composites
      */
     export class Composites {
         /**
@@ -1656,8 +1485,6 @@ declare namespace Matter {
         /**
          * The first possible `Body` that this constraint is attached to.
          *
-         * @property bodyA
-         * @type body
          * @default null
          */
         bodyA?: Body | undefined;
@@ -1665,25 +1492,18 @@ declare namespace Matter {
         /**
          * The second possible `Body` that this constraint is attached to.
          *
-         * @property bodyB
-         * @type body
          * @default null
          */
         bodyB?: Body | undefined;
 
         /**
          * An integer `Number` uniquely identifying number generated in `Composite.create` by `Common.nextId`.
-         *
-         * @property id
-         * @type {number}
          */
         id?: number | undefined;
 
         /**
          * An arbitrary `String` name to help the user identify and manage bodies.
          *
-         * @property label
-         * @type {string}
          * @default "Constraint"
          */
         label?: string | undefined;
@@ -1691,17 +1511,12 @@ declare namespace Matter {
         /**
          * A `Number` that specifies the target resting length of the constraint.
          * It is calculated automatically in `Constraint.create` from initial positions of the `constraint.bodyA` and `constraint.bodyB`.
-         *
-         * @property length
-         * @type {number}
          */
         length?: number | undefined;
 
         /**
          * A `Vector` that specifies the offset of the constraint from center of the `constraint.bodyA` if defined, otherwise a world-space position.
          *
-         * @property pointA
-         * @type vector
          * @default { x: 0, y: 0 }
          */
         pointA?: Vector | undefined;
@@ -1709,17 +1524,12 @@ declare namespace Matter {
         /**
          * A `Vector` that specifies the offset of the constraint from center of the `constraint.bodyA` if defined, otherwise a world-space position.
          *
-         * @property pointB
-         * @type vector
          * @default { x: 0, y: 0 }
          */
         pointB?: Vector | undefined;
 
         /**
          * An `Object` that defines the rendering properties to be consumed by the module `Matter.Render`.
-         *
-         * @property render
-         * @type {any}
          */
         render?: IConstraintRenderDefinition | undefined;
 
@@ -1728,8 +1538,6 @@ declare namespace Matter {
          * A value of `1` means the constraint should be very stiff.
          * A value of `0.2` means the constraint acts like a soft spring.
          *
-         * @property stiffness
-         * @type {number}
          * @default 1
          */
         stiffness?: number | undefined;
@@ -1741,8 +1549,6 @@ declare namespace Matter {
          * A value of `0.1` means the constraint will apply heavy damping, resulting in little to no oscillation.
          * A value of `0` means the constraint will apply no damping.
          *
-         * @property damping
-         * @type {number}
          * @default 0
          */
         damping?: number | undefined;
@@ -1750,8 +1556,6 @@ declare namespace Matter {
         /**
          * A `String` denoting the type of object.
          *
-         * @property type
-         * @type {string}
          * @default "constraint"
          */
         type?: string | undefined;
@@ -1762,8 +1566,6 @@ declare namespace Matter {
          * A `Number` that defines the line width to use when rendering the constraint outline.
          * A value of `0` means no outline will be rendered.
          *
-         * @property render.lineWidth
-         * @type {number}
          * @default 2
          */
         lineWidth?: number | undefined;
@@ -1772,8 +1574,6 @@ declare namespace Matter {
          * A `String` that defines the stroke style to use when rendering the constraint outline.
          * It is the same as when using a canvas, so it accepts CSS style property values.
          *
-         * @property render.strokeStyle
-         * @type {string}
          * @default a random colour
          */
         strokeStyle?: string | undefined;
@@ -1781,8 +1581,6 @@ declare namespace Matter {
         /**
          * A flag that indicates if the constraint should be rendered.
          *
-         * @property render.visible
-         * @type {boolean}
          * @default true
          */
         visible?: boolean | undefined;
@@ -1790,8 +1588,6 @@ declare namespace Matter {
         /**
          * A `Boolean` that defines if the constraint's anchor points should be rendered.
          *
-         * @property render.anchors
-         * @type {boolean}
          * @default true
          */
         anchors?: boolean | undefined;
@@ -1801,11 +1597,9 @@ declare namespace Matter {
          * 'line', 'pin', 'spring'. An appropriate render type will be automatically
          * chosen unless one is given in options.
          *
-         * @property render.type
-         * @type {string}
          * @default 'line'
          */
-        type?: 'line' | 'pin' | 'spring' | undefined;
+        type?: "line" | "pin" | "spring" | undefined;
     }
 
     /**
@@ -1814,8 +1608,6 @@ declare namespace Matter {
      * The stiffness of constraints can be modified to create springs or elastic.
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
-     * @class Constraint
      */
     export class Constraint {
         /**
@@ -1847,34 +1639,25 @@ declare namespace Matter {
         /**
          * The first possible `Body` that this constraint is attached to.
          *
-         * @property bodyA
-         * @type body
          * @default null
          */
-        bodyA: Body;
+        bodyA: Body | null;
 
         /**
          * The second possible `Body` that this constraint is attached to.
          *
-         * @property bodyB
-         * @type body
          * @default null
          */
-        bodyB: Body;
+        bodyB: Body | null;
 
         /**
          * An integer `Number` uniquely identifying number generated in `Composite.create` by `Common.nextId`.
-         *
-         * @property id
-         * @type {number}
          */
         id: number;
 
         /**
          * An arbitrary `String` name to help the user identify and manage bodies.
          *
-         * @property label
-         * @type {string}
          * @default "Constraint"
          */
         label: string;
@@ -1882,17 +1665,12 @@ declare namespace Matter {
         /**
          * A `Number` that specifies the target resting length of the constraint.
          * It is calculated automatically in `Constraint.create` from initial positions of the `constraint.bodyA` and `constraint.bodyB`.
-         *
-         * @property length
-         * @type {number}
          */
         length: number;
 
         /**
          * A `Vector` that specifies the offset of the constraint from center of the `constraint.bodyA` if defined, otherwise a world-space position.
          *
-         * @property pointA
-         * @type vector
          * @default { x: 0, y: 0 }
          */
         pointA: Vector;
@@ -1900,17 +1678,12 @@ declare namespace Matter {
         /**
          * A `Vector` that specifies the offset of the constraint from center of the `constraint.bodyA` if defined, otherwise a world-space position.
          *
-         * @property pointB
-         * @type vector
          * @default { x: 0, y: 0 }
          */
         pointB: Vector;
 
         /**
          * An `Object` that defines the rendering properties to be consumed by the module `Matter.Render`.
-         *
-         * @property render
-         * @type {any}
          */
         render: IConstraintRenderDefinition;
 
@@ -1919,8 +1692,6 @@ declare namespace Matter {
          * A value of `1` means the constraint should be very stiff.
          * A value of `0.2` means the constraint acts like a soft spring.
          *
-         * @property stiffness
-         * @type {number}
          * @default 1
          */
         stiffness: number;
@@ -1932,8 +1703,6 @@ declare namespace Matter {
          * A value of `0.1` means the constraint will apply heavy damping, resulting in little to no oscillation.
          * A value of `0` means the constraint will apply no damping.
          *
-         * @property damping
-         * @type {number}
          * @default 0
          */
         damping: number;
@@ -1941,8 +1710,6 @@ declare namespace Matter {
         /**
          * A `String` denoting the type of object.
          *
-         * @property type
-         * @type {string}
          * @default "constraint"
          */
         type: string;
@@ -1953,8 +1720,6 @@ declare namespace Matter {
          * An integer `Number` that specifies the number of position iterations to perform each update.
          * The higher the value, the higher quality the simulation will be at the expense of performance.
          *
-         * @property positionIterations
-         * @type {number | undefined}
          * @default 6
          */
         positionIterations?: number;
@@ -1962,8 +1727,6 @@ declare namespace Matter {
          * An integer `Number` that specifies the number of velocity iterations to perform each update.
          * The higher the value, the higher quality the simulation will be at the expense of performance.
          *
-         * @property velocityIterations
-         * @type {number | undefined}
          * @default 4
          */
         velocityIterations?: number;
@@ -1972,8 +1735,6 @@ declare namespace Matter {
          * The higher the value, the higher quality the simulation will be at the expense of performance.
          * The default value of `2` is usually very adequate.
          *
-         * @property constraintIterations
-         * @type {number | undefined}
          * @default 2
          */
         constraintIterations?: number;
@@ -1982,25 +1743,18 @@ declare namespace Matter {
          * A flag that specifies whether the engine should allow sleeping via the `Matter.Sleeping` module.
          * Sleeping can improve stability and performance, but often at the expense of accuracy.
          *
-         * @property enableSleeping
-         * @type {boolean | undefined}
          * @default false
          */
         enableSleeping?: boolean;
 
         /**
          * An `Object` containing properties regarding the timing systems of the engine.
-         *
-         * @property timing
-         * @type {IEngineTimingOptions | undefined}
          */
         timing?: IEngineTimingOptions;
 
         /**
          * A `Matter.Detector` instance.
          *
-         * @property detector
-         * @type {Detector | undefined}
          * @default {Matter.Detector} instance
          */
         detector?: Detector;
@@ -2009,8 +1763,6 @@ declare namespace Matter {
          * A `Matter.Grid` instance.
          *
          * @deprecated replaced by `engine.detector`
-         * @property grid
-         * @type {Grid | undefined}
          * @default a Matter.Grid instance
          */
         grid?: Grid;
@@ -2018,25 +1770,17 @@ declare namespace Matter {
         /**
          * A `World` composite object that will contain all simulated bodies and constraints.
          *
-         * @property world
-         * @type world
          * @default {Matter.World} instance
          */
         world?: World;
 
         /**
          * An object reserved for storing plugin-specific properties.
-         *
-         * @property plugin
-         * @type {{}}
          */
         plugin?: {};
 
         /**
          * The gravity to apply on all bodies in `engine.world`.
-         *
-         * @property gravity
-         * @type {Partial<Gravity> | undefined}
          */
         gravity?: Partial<Gravity>;
     }
@@ -2048,8 +1792,6 @@ declare namespace Matter {
          * A value of `0.1` gives a slow-motion effect.
          * A value of `1.2` gives a speed-up effect.
          *
-         * @property timing.timeScale
-         * @type {number}
          * @default 1
          */
         timeScale: number;
@@ -2058,8 +1800,6 @@ declare namespace Matter {
          * A `Number` that specifies the current simulation-time in milliseconds starting from `0`.
          * It is incremented on every `Engine.update` by the given `delta` argument.
          *
-         * @property timing.timestamp
-         * @type {number}
          * @default 0
          */
         timestamp: number;
@@ -2070,8 +1810,6 @@ declare namespace Matter {
          *
          * This value will also include the total execution time of all event handlers directly or indirectly triggered by the engine update.
          *
-         * @property timing.lastElapsed
-         * @type {number}
          * @default 0
          */
         lastElapsed: number;
@@ -2079,8 +1817,6 @@ declare namespace Matter {
         /**
          * A `Number` that represents the `delta` value used in the last engine update.
          *
-         * @property timing.lastDelta
-         * @type {number}
          * @default 0
          */
         lastDelta: number;
@@ -2092,8 +1828,6 @@ declare namespace Matter {
      * See `Matter.Runner` for an optional game loop utility.
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
-     * @class Engine
      */
     export class Engine {
         /**
@@ -2150,8 +1884,6 @@ declare namespace Matter {
          * Replaced by and now alias for `engine.grid`.
          *
          * @deprecated use `engine.grid`
-         * @property broadphase
-         * @type grid
          * @default a Matter.Grid instance
          */
         broadphase: Grid;
@@ -2160,8 +1892,6 @@ declare namespace Matter {
          * The higher the value, the higher quality the simulation will be at the expense of performance.
          * The default value of `2` is usually very adequate.
          *
-         * @property constraintIterations
-         * @type {number}
          * @default 2
          */
         constraintIterations: number;
@@ -2175,17 +1905,12 @@ declare namespace Matter {
          * A flag that specifies whether the engine should allow sleeping via the `Matter.Sleeping` module.
          * Sleeping can improve stability and performance, but often at the expense of accuracy.
          *
-         * @property enableSleeping
-         * @type {boolean}
          * @default false
          */
         enableSleeping: boolean;
 
         /**
          * The gravity to apply on all bodies in `engine.world`.
-         *
-         * @property gravity
-         * @type {Gravity}
          */
         gravity: Gravity;
 
@@ -2198,8 +1923,6 @@ declare namespace Matter {
          * An integer `Number` that specifies the number of position iterations to perform each update.
          * The higher the value, the higher quality the simulation will be at the expense of performance.
          *
-         * @property positionIterations
-         * @type {number}
          * @default 6
          */
         positionIterations: number;
@@ -2211,25 +1934,18 @@ declare namespace Matter {
          * A minimal custom renderer object must define at least three functions: `create`, `clear` and `world` (see `Matter.Render`).
          * It is also possible to instead pass the _module_ reference via `options.render.controller` and `Engine.create` will instantiate one for you.
          *
-         * @property render
-         * @type render
          * @default a Matter.Render instance
          */
         render: Render;
 
         /**
          * An `Object` containing properties regarding the timing systems of the engine.
-         *
-         * @property timing
-         * @type {IEngineTimingOptions}
          */
         timing: IEngineTimingOptions;
 
         /**
          * A `Matter.Detector` instance.
          *
-         * @property detector
-         * @type {Detector}
          * @default {Matter.Detector} instance
          */
         detector: Detector;
@@ -2238,8 +1954,6 @@ declare namespace Matter {
          * A `Matter.Grid` instance.
          *
          * @deprecated replaced by `engine.detector`
-         * @property grid
-         * @type grid
          * @default a Matter.Grid instance
          */
         grid: Grid;
@@ -2248,8 +1962,6 @@ declare namespace Matter {
          * An integer `Number` that specifies the number of velocity iterations to perform each update.
          * The higher the value, the higher quality the simulation will be at the expense of performance.
          *
-         * @property velocityIterations
-         * @type {number}
          * @default 4
          */
         velocityIterations: number;
@@ -2257,14 +1969,12 @@ declare namespace Matter {
         /**
          * A `World` composite object that will contain all simulated bodies and constraints.
          *
-         * @property world
-         * @type world
          * @default a Matter.World instance
          */
         world: World;
     }
 
-    export interface IGridDefinition { }
+    export interface IGridDefinition {}
 
     /**
      * This module has now been replaced by `Matter.Detector`.
@@ -2274,7 +1984,6 @@ declare namespace Matter {
      *
      * The `Matter.Grid` module contains methods for creating and manipulating collision broadphase grid structures.
      *
-     * @class Grid
      * @deprecated
      */
     export class Grid {
@@ -2309,16 +2018,12 @@ declare namespace Matter {
         /**
          * The width of a single grid bucket.
          * @deprecated replaced by Matter.Detector
-         * @property type
-         * @type {number}
          */
         bucketWidth: number;
 
         /**
          * The height of a single grid bucket.
          * @deprecated replaced by Matter.Detector
-         * @property type
-         * @type {number}
          */
         bucketHeight: number;
     }
@@ -2326,9 +2031,6 @@ declare namespace Matter {
     export interface IMouseConstraintDefinition {
         /**
          * The `Constraint` object that is used to move the body during interaction.
-         *
-         * @property constraint
-         * @type {IConstraintDefinition}
          */
         constraint?: IConstraintDefinition | undefined;
 
@@ -2336,17 +2038,12 @@ declare namespace Matter {
          * An `Object` that specifies the collision filter properties.
          * The collision filter allows the user to define which types of body this mouse constraint can interact with.
          * See `body.collisionFilter` for more information.
-         *
-         * @property collisionFilter
-         * @type {any}
          */
         collisionFilter?: ICollisionFilter | undefined;
 
         /**
          * The `Body` that is currently being moved by the user, or `null` if no body.
          *
-         * @property body
-         * @type body
          * @default null
          */
         body?: Body | undefined;
@@ -2354,8 +2051,6 @@ declare namespace Matter {
         /**
          * The `Mouse` instance in use. If not supplied in `MouseConstraint.create`, one will be created.
          *
-         * @property mouse
-         * @type mouse
          * @default mouse
          */
         mouse?: Mouse | undefined;
@@ -2363,8 +2058,6 @@ declare namespace Matter {
         /**
          * A `String` denoting the type of object.
          *
-         * @property type
-         * @type {string}
          * @default "constraint"
          */
 
@@ -2376,8 +2069,6 @@ declare namespace Matter {
      * Mouse constraints are used for allowing user interaction, providing the ability to move bodies via the mouse or touch.
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
-     * @class MouseConstraint
      */
     export class MouseConstraint {
         /**
@@ -2393,9 +2084,6 @@ declare namespace Matter {
 
         /**
          * The `Constraint` object that is used to move the body during interaction.
-         *
-         * @property constraint
-         * @type constraint
          */
         constraint: Constraint;
 
@@ -2403,17 +2091,12 @@ declare namespace Matter {
          * An `Object` that specifies the collision filter properties.
          * The collision filter allows the user to define which types of body this mouse constraint can interact with.
          * See `body.collisionFilter` for more information.
-         *
-         * @property collisionFilter
-         * @type {any}
          */
         collisionFilter: ICollisionFilter;
 
         /**
          * The `Body` that is currently being moved by the user, or `null` if no body.
          *
-         * @property body
-         * @type body
          * @default null
          */
         body: Body;
@@ -2421,8 +2104,6 @@ declare namespace Matter {
         /**
          * The `Mouse` instance in use. If not supplied in `MouseConstraint.create`, one will be created.
          *
-         * @property mouse
-         * @type mouse
          * @default mouse
          */
         mouse: Mouse;
@@ -2430,8 +2111,6 @@ declare namespace Matter {
         /**
          * A `String` denoting the type of object.
          *
-         * @property type
-         * @type {string}
          * @default "constraint"
          */
 
@@ -2440,8 +2119,6 @@ declare namespace Matter {
 
     /**
      * The `Matter.Pairs` module contains methods for creating and manipulating collision pair sets.
-     *
-     * @class Pairs
      */
     export class Pairs {
         /**
@@ -2478,8 +2155,6 @@ declare namespace Matter {
 
     /**
      * The `Matter.Contact` module contains methods for creating and manipulating collision contacts.
-     *
-     * @class Contact
      */
     export class Contact {
         /**
@@ -2497,8 +2172,6 @@ declare namespace Matter {
 
     /**
      * The `Matter.Pair` module contains methods for creating and manipulating collision pairs.
-     *
-     * @class Pair
      */
     export class Pair {
         /**
@@ -2566,8 +2239,6 @@ declare namespace Matter {
      * The `Matter.Query` module contains methods for performing collision queries.
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
-     * @class Query
      */
     export class Query {
         /**
@@ -2613,23 +2284,15 @@ declare namespace Matter {
     export interface IRenderDefinition {
         /**
          * A back-reference to the `Matter.Render` module.
-         *
-         * @property controller
-         * @type render
          */
         controller?: any;
         /**
          * A reference to the `Matter.Engine` instance to be used.
-         *
-         * @property engine
-         * @type engine
          */
         engine: Engine;
         /**
          * A reference to the element where the canvas is to be inserted (if `render.canvas` has not been specified)
          *
-         * @property element
-         * @type HTMLElement
          * @default null
          * @deprecated
          */
@@ -2637,17 +2300,12 @@ declare namespace Matter {
         /**
          * The canvas element to render to. If not specified, one will be created if `render.element` has been specified.
          *
-         * @property canvas
-         * @type HTMLCanvasElement
          * @default null
          */
         canvas?: HTMLCanvasElement | undefined;
 
         /**
          * The configuration options of the renderer.
-         *
-         * @property options
-         * @type {}
          */
         options?: IRendererOptions | undefined;
 
@@ -2656,25 +2314,16 @@ declare namespace Matter {
          * Rendering will be automatically transformed and scaled to fit within the canvas size (`render.options.width` and `render.options.height`).
          * This allows for creating views that can pan or zoom around the scene.
          * You must also set `render.options.hasBounds` to `true` to enable bounded rendering.
-         *
-         * @property bounds
-         * @type bounds
          */
         bounds?: Bounds | undefined;
 
         /**
          * The 2d rendering context from the `render.canvas` element.
-         *
-         * @property context
-         * @type CanvasRenderingContext2D
          */
         context?: CanvasRenderingContext2D | undefined;
 
         /**
          * The sprite texture cache.
-         *
-         * @property textures
-         * @type {}
          */
         textures?: any;
     }
@@ -2683,8 +2332,6 @@ declare namespace Matter {
         /**
          * The target width in pixels of the `render.canvas` to be created.
          *
-         * @property options.width
-         * @type {number}
          * @default 800
          */
         width?: number | undefined;
@@ -2692,8 +2339,6 @@ declare namespace Matter {
         /**
          * The target height in pixels of the `render.canvas` to be created.
          *
-         * @property options.height
-         * @type {number}
          * @default 600
          */
         height?: number | undefined;
@@ -2701,50 +2346,45 @@ declare namespace Matter {
         /**
          * A flag that specifies if `render.bounds` should be used when rendering.
          *
-         * @property options.hasBounds
-         * @type {boolean}
          * @default false
          */
         hasBounds?: boolean | undefined;
 
         /**
          * Render wireframes only
-         * @type {boolean}
          * @default true
          */
         wireframes?: boolean | undefined;
 
         /**
          * Sets scene background
-         * @type {string}
+         *
          * default undefined
          */
         background?: string | undefined;
 
         /**
          * Sets wireframe background if `render.options.wireframes` is enabled
-         * @type {string}
+         *
          * default undefined
          */
         wireframeBackground?: string | undefined;
 
         /**
          * Sets opacity of sleeping body if `render.options.showSleeping` is enabled
-         * @type {boolean}
+         *
          * default true
          */
         showSleeping?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body vertex numbers debug overlay.
-         * @type {boolean}
          * @default false
          */
         showVertexNumbers?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body velocity debug overlay.
-         * @type {boolean}
          * @default false
          */
         showVelocity?: boolean | undefined;
@@ -2757,21 +2397,18 @@ declare namespace Matter {
          * - constraints total
          * - composites total
          * - collision pairs total
-         * @type {boolean}
          * @default false
          */
         showStats?: boolean | undefined;
 
         /**
          * A flag to enable or disable the collision resolver separations debug overlay.
-         * @type {boolean}
          * @default false
          */
         showSeparations?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body positions debug overlay.
-         * @type {boolean}
          * @default false
          */
         showPositions?: boolean | undefined;
@@ -2786,28 +2423,24 @@ declare namespace Matter {
          * - average effective play speed (e.g. '1.00x' is 'real-time')
          * Each value is recorded over a fixed sample of past frames (60 frames).
          * A chart shown below each value indicates the variance from the average over the sample. The more stable or fixed the value is the flatter the chart will appear.
-         * @type {boolean}
          * @default false
          */
         showPerformance?: boolean | undefined;
 
         /**
          * A flag to enable or disable the mouse position debug overlay.
-         * @type {boolean}
          * @default false
          */
         showMousePosition?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body internal edges debug overlay.
-         * @type {boolean}
          * @default false
          */
         showInternalEdges?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body and part ids debug overlay.
-         * @type {boolean}
          * @default false
          */
         showIds?: boolean | undefined;
@@ -2817,21 +2450,18 @@ declare namespace Matter {
          * This includes and has priority over the values of:
          * - render.options.showStats
          * - render.options.showPerformance
-         * @type {boolean}
          * @default false
          */
         showDebug?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body convex hulls debug overlay.
-         * @type {boolean}
          * @default false
          */
         showConvexHulls?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body collisions debug overlay.
-         * @type {boolean}
          * @default false
          */
         showCollisions?: boolean | undefined;
@@ -2839,35 +2469,30 @@ declare namespace Matter {
         /**
          * A flag to enable or disable the collision broadphase debug overlay.
          * @deprecated no longer implemented
-         * @type {boolean}
          * @default false
          */
         showBroadphase?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body bounds debug overlay.
-         * @type {boolean}
          * @default false
          */
         showBounds?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body axes debug overlay.
-         * @type {boolean}
          * @default false
          */
         showAxes?: boolean | undefined;
 
         /**
          * A flag to enable or disable the body angle debug overlay.
-         * @type {boolean}
          * @default false
          */
         showAngleIndicator?: boolean | undefined;
 
         /**
          * The pixel ratio to use when rendering.
-         * @type {number}
          * @default 1
          */
         pixelRatio?: number | undefined;
@@ -2876,31 +2501,29 @@ declare namespace Matter {
     interface IRenderLookAtObject {
         bounds?: Bounds | undefined;
         position?:
-        | {
-            x: number;
-            y: number;
-        }
-        | undefined;
+            | {
+                x: number;
+                y: number;
+            }
+            | undefined;
         min?:
-        | {
-            x: number;
-            y: number;
-        }
-        | undefined;
+            | {
+                x: number;
+                y: number;
+            }
+            | undefined;
         max?:
-        | {
-            x: number;
-            y: number;
-        }
-        | undefined;
+            | {
+                x: number;
+                y: number;
+            }
+            | undefined;
     }
 
     /**
      * The `Matter.Render` module is a simple HTML5 canvas based renderer for visualising instances of `Matter.Engine`.
      * It is intended for development and debugging purposes, but may also be suitable for simple games.
      * It includes a number of drawing options including wireframe, vector with support for sprites and viewports.
-     *
-     * @class Render
      */
     export class Render {
         /**
@@ -2956,33 +2579,23 @@ declare namespace Matter {
 
         /**
          * A back-reference to the `Matter.Render` module.
-         *
-         * @property controller
-         * @type render
          */
         controller: any;
         /**
          * A reference to the element where the canvas is to be inserted (if `render.canvas` has not been specified)
          *
-         * @property element
-         * @type HTMLElement
          * @default null
          */
         element: HTMLElement;
         /**
          * The canvas element to render to. If not specified, one will be created if `render.element` has been specified.
          *
-         * @property canvas
-         * @type HTMLCanvasElement
          * @default null
          */
         canvas: HTMLCanvasElement;
 
         /**
          * The configuration options of the renderer.
-         *
-         * @property options
-         * @type {}
          */
         options: IRendererOptions;
 
@@ -2991,33 +2604,22 @@ declare namespace Matter {
          * Rendering will be automatically transformed and scaled to fit within the canvas size (`render.options.width` and `render.options.height`).
          * This allows for creating views that can pan or zoom around the scene.
          * You must also set `render.options.hasBounds` to `true` to enable bounded rendering.
-         *
-         * @property bounds
-         * @type bounds
          */
         bounds: Bounds;
 
         /**
          * The 2d rendering context from the `render.canvas` element.
-         *
-         * @property context
-         * @type CanvasRenderingContext2D
          */
         context: CanvasRenderingContext2D;
 
         /**
          * The sprite texture cache.
-         *
-         * @property textures
-         * @type {}
          */
         textures: any;
 
         /**
          * The mouse to render if render.options.showMousePosition is enabled.
          *
-         * @property textures
-         * @type Mouse
          * @default null
          */
         mouse: Mouse;
@@ -3025,8 +2627,6 @@ declare namespace Matter {
 
     /**
      * The `Matter.Resolver` module contains methods for resolving collision pairs.
-     *
-     * @class Resolver
      */
     export class Resolver {
         /**
@@ -3073,8 +2673,6 @@ declare namespace Matter {
          * If timing is fixed, then the apparent simulation speed will change depending on the frame rate (but behaviour will be deterministic).
          * If the timing is variable, then the apparent simulation speed will be constant (approximately, but at the cost of determininism).
          *
-         * @property isFixed
-         * @type {boolean}
          * @default false
          */
         isFixed?: boolean | undefined;
@@ -3084,16 +2682,12 @@ declare namespace Matter {
          * If `engine.timing.isFixed` is set to `true`, then `delta` is fixed.
          * If it is `false`, then `delta` can dynamically change to maintain the correct apparent simulation speed.
          *
-         * @property delta
-         * @type {number}
          * @default 1000 / 60
          */
         delta?: number | undefined;
 
         /**
          * A flag that specifies whether the runner is running or not.
-         * @property enabled
-         * @type {boolean}
          * @default true
          */
         enabled?: boolean | undefined;
@@ -3108,8 +2702,6 @@ declare namespace Matter {
      * Note that the method `Engine.run` is an alias for `Runner.run`.
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
-     * @class Runner
      */
     export class Runner {
         /**
@@ -3159,8 +2751,6 @@ declare namespace Matter {
         /**
          * A flag that specifies whether the runner is running or not.
          *
-         * @property enabled
-         * @type {boolean}
          * @default true
          */
         enabled: boolean;
@@ -3170,8 +2760,6 @@ declare namespace Matter {
          * If timing is fixed, then the apparent simulation speed will change depending on the frame rate (but behaviour will be deterministic).
          * If the timing is variable, then the apparent simulation speed will be constant (approximately, but at the cost of determininism).
          *
-         * @property isFixed
-         * @type {boolean}
          * @default false
          */
         isFixed: boolean;
@@ -3181,8 +2769,6 @@ declare namespace Matter {
          * If `engine.timing.isFixed` is set to `true`, then `delta` is fixed.
          * If it is `false`, then `delta` can dynamically change to maintain the correct apparent simulation speed.
          *
-         * @property delta
-         * @type {number}
          * @default 1000 / 60
          */
         delta: number;
@@ -3190,8 +2776,6 @@ declare namespace Matter {
 
     /**
      * The `Matter.Sleeping` module contains methods to manage the sleeping state of bodies.
-     *
-     * @class Sleeping
      */
     export class Sleeping {
         static set(body: Body, isSleeping: boolean): void;
@@ -3201,8 +2785,6 @@ declare namespace Matter {
      * The `Matter.Svg` module contains methods for converting SVG images into an array of vector points.
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
-     * @class Svg
      */
     export class Svg {
         /**
@@ -3224,8 +2806,6 @@ declare namespace Matter {
      * A `Matter.Vector` object is of the form `{ x: 0, y: 0 }`.
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
-     * @class Vector
      */
     export class Vector {
         x: number;
@@ -3391,8 +2971,6 @@ declare namespace Matter {
      * A `Matter.Body` maintains a set of vertices to represent the shape of the object (its convex hull).
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
-     * @class Vertices
      */
     export class Vertices {
         /**
@@ -3551,8 +3129,6 @@ declare namespace Matter {
         /**
          * The gravity x component.
          *
-         * @property x
-         * @type {number}
          * @default 0
          */
         x: number;
@@ -3560,8 +3136,6 @@ declare namespace Matter {
         /**
          * The gravity y component.
          *
-         * @property y
-         * @type {number}
          * @default 1
          */
         y: number;
@@ -3569,8 +3143,6 @@ declare namespace Matter {
         /**
          * The gravity scale factor.
          *
-         * @property scale
-         * @type {number}
          * @default 0.001
          */
         scale: number;
@@ -3584,9 +3156,6 @@ declare namespace Matter {
      * There are also a few methods here that alias those in `Matter.Composite` for easier readability.
      *
      * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
-     *
-     * @class World
-     * @extends Composite
      */
     export class World extends Composite {
         /**
@@ -3644,7 +3213,6 @@ declare namespace Matter {
          * Creates a new world composite. The options parameter is an object that specifies any properties you wish to override the defaults.
          * See the properties section below for detailed information on what you can pass via the `options` object.
          * @method create
-         * @constructor
          * @param {} options
          * @returns {world} A new world
          */
@@ -3944,7 +3512,6 @@ declare namespace Matter {
          * Used to require external libraries outside of the bundle.
          * It first looks for the `globalName` on the environment's global namespace.
          * If the global is not found, it will fall back to using the standard `require` using the `moduleName`.
-         * @private
          * @method _requireGlobal
          * @param {string} globalName The global module name
          * @param {string} moduleName The fallback CommonJS module name
@@ -4020,7 +3587,7 @@ declare namespace Matter {
     }
 
     export interface IMouseEvent<T> extends IEvent<T> {
-        name: 'mousedown' | 'mousemove' | 'mouseup';
+        name: "mousedown" | "mousemove" | "mouseup";
     }
 
     export class Events {
@@ -4028,22 +3595,22 @@ declare namespace Matter {
          * Fired when a body starts sleeping (where `this` is the body).
          *
          * @event sleepStart
-         * @this {Body} The body that has started sleeping
+         * The body that has started sleeping
          * @param {} event An event object
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Body, name: 'sleepStart', callback: (e: IEvent<Body>) => void): void;
+        static on(obj: Body, name: "sleepStart", callback: (e: IEvent<Body>) => void): void;
         /**
          * Fired when a body ends sleeping (where `this` is the body).
          *
          * @event sleepEnd
-         * @this {Body} The body that has ended sleeping
+         * The body that has ended sleeping
          * @param {} event An event object
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Body, name: 'sleepEnd', callback: (e: IEvent<Body>) => void): void;
+        static on(obj: Body, name: "sleepEnd", callback: (e: IEvent<Body>) => void): void;
 
         /**
          * Fired when a call to `Composite.add` is made, before objects have been added.
@@ -4054,7 +3621,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'beforeAdd', callback: (e: IEventComposite<Composite>) => void): void;
+        static on(obj: Engine, name: "beforeAdd", callback: (e: IEventComposite<Composite>) => void): void;
 
         /**
          * Fired when a call to `Composite.add` is made, after objects have been added.
@@ -4065,7 +3632,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'afterAdd', callback: (e: IEventComposite<Composite>) => void): void;
+        static on(obj: Engine, name: "afterAdd", callback: (e: IEventComposite<Composite>) => void): void;
 
         /**
          * Fired when a call to `Composite.remove` is made, before objects have been removed.
@@ -4076,7 +3643,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'beforeRemove', callback: (e: IEventComposite<Composite>) => void): void;
+        static on(obj: Engine, name: "beforeRemove", callback: (e: IEventComposite<Composite>) => void): void;
 
         /**
          * Fired when a call to `Composite.remove` is made, after objects have been removed.
@@ -4087,7 +3654,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'afterRemove', callback: (e: IEventComposite<Composite>) => void): void;
+        static on(obj: Engine, name: "afterRemove", callback: (e: IEventComposite<Composite>) => void): void;
 
         /**
          * Fired after engine update and all collision events
@@ -4098,7 +3665,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'afterUpdate', callback: (e: IEventTimestamped<Engine>) => void): void;
+        static on(obj: Engine, name: "afterUpdate", callback: (e: IEventTimestamped<Engine>) => void): void;
 
         /**
          * Fired before rendering
@@ -4109,7 +3676,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'beforeRender', callback: (e: IEventTimestamped<Render>) => void): void;
+        static on(obj: Engine, name: "beforeRender", callback: (e: IEventTimestamped<Render>) => void): void;
         /**
          * Fired after rendering
          *
@@ -4119,7 +3686,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'afterRender', callback: (e: IEventTimestamped<Render>) => void): void;
+        static on(obj: Engine, name: "afterRender", callback: (e: IEventTimestamped<Render>) => void): void;
 
         /**
          * Fired just before an update
@@ -4130,7 +3697,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'beforeUpdate', callback: (e: IEventTimestamped<Engine>) => void): void;
+        static on(obj: Engine, name: "beforeUpdate", callback: (e: IEventTimestamped<Engine>) => void): void;
 
         /**
          * Fired after engine update, provides a list of all pairs that are colliding in the current tick (if any)
@@ -4142,7 +3709,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'collisionActive', callback: (e: IEventCollision<Engine>) => void): void;
+        static on(obj: Engine, name: "collisionActive", callback: (e: IEventCollision<Engine>) => void): void;
 
         /**
          * Fired after engine update, provides a list of all pairs that have ended collision in the current tick (if any)
@@ -4154,7 +3721,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'collisionEnd', callback: (e: IEventCollision<Engine>) => void): void;
+        static on(obj: Engine, name: "collisionEnd", callback: (e: IEventCollision<Engine>) => void): void;
 
         /**
          * Fired after engine update, provides a list of all pairs that have started to collide in the current tick (if any)
@@ -4166,7 +3733,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'collisionStart', callback: (e: IEventCollision<Engine>) => void): void;
+        static on(obj: Engine, name: "collisionStart", callback: (e: IEventCollision<Engine>) => void): void;
 
         /**
          * Fired at the start of a tick, before any updates to the engine or timing
@@ -4177,7 +3744,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'beforeTick', callback: (e: IEventTimestamped<Runner>) => void): void;
+        static on(obj: Engine, name: "beforeTick", callback: (e: IEventTimestamped<Runner>) => void): void;
 
         /**
          * Fired after engine timing updated, but just before update
@@ -4188,7 +3755,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'tick', callback: (e: IEventTimestamped<Runner>) => void): void;
+        static on(obj: Engine, name: "tick", callback: (e: IEventTimestamped<Runner>) => void): void;
 
         /**
          * Fired at the end of a tick, after engine update and after rendering
@@ -4199,7 +3766,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'afterTick', callback: (e: IEventTimestamped<Runner>) => void): void;
+        static on(obj: Engine, name: "afterTick", callback: (e: IEventTimestamped<Runner>) => void): void;
 
         /**
          * Fired before rendering
@@ -4210,7 +3777,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'beforeRender', callback: (e: IEventTimestamped<Runner>) => void): void;
+        static on(obj: Engine, name: "beforeRender", callback: (e: IEventTimestamped<Runner>) => void): void;
 
         /**
          * Fired after rendering
@@ -4221,7 +3788,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: 'afterRender', callback: (e: IEventTimestamped<Runner>) => void): void;
+        static on(obj: Engine, name: "afterRender", callback: (e: IEventTimestamped<Runner>) => void): void;
 
         /**
          * Fired when the mouse is down (or a touch has started) during the last step
@@ -4229,7 +3796,7 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: 'mousedown', callback: (e: IMouseEvent<MouseConstraint>) => void): void;
+        static on(obj: MouseConstraint, name: "mousedown", callback: (e: IMouseEvent<MouseConstraint>) => void): void;
 
         /**
          * Fired when the mouse has moved (or a touch moves) during the last step
@@ -4237,7 +3804,7 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: 'mousemove', callback: (e: IMouseEvent<MouseConstraint>) => void): void;
+        static on(obj: MouseConstraint, name: "mousemove", callback: (e: IMouseEvent<MouseConstraint>) => void): void;
 
         /**
          * Fired when the mouse is up (or a touch has ended) during the last step
@@ -4245,7 +3812,7 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: 'mouseup', callback: (e: IMouseEvent<MouseConstraint>) => void): void;
+        static on(obj: MouseConstraint, name: "mouseup", callback: (e: IMouseEvent<MouseConstraint>) => void): void;
 
         static on(obj: any, name: string, callback: (e: any) => void): void;
 
@@ -4322,7 +3889,7 @@ declare namespace Matter {
          * @param {} module The module.
          * @returns {boolean} `true` if `plugin.for` is applicable to `module`, otherwise `false`.
          */
-        static isFor(plugin: Plugin, module: { name?: string | undefined;[_: string]: any }): boolean;
+        static isFor(plugin: Plugin, module: { name?: string | undefined; [_: string]: any }): boolean;
 
         /**
          * Installs the plugins by calling `plugin.install` on each plugin specified in `plugins` if passed, otherwise `module.uses`.
@@ -4341,7 +3908,7 @@ declare namespace Matter {
          * @param [plugins=module.uses] {} The plugins to install on module (optional, defaults to `module.uses`).
          */
         static use(
-            module: { uses?: (Plugin | string)[] | undefined;[_: string]: any },
+            module: { uses?: (Plugin | string)[] | undefined; [_: string]: any },
             plugins: (Plugin | string)[],
         ): void;
 
@@ -4433,8 +4000,6 @@ declare namespace Matter {
         /**
          * A reference to the pair using this collision record, if there is one.
          *
-         * @property pair
-         * @type {Pair|null}
          * @default null
          */
         pair: Pair | null;
@@ -4442,41 +4007,27 @@ declare namespace Matter {
         /**
          * A flag that indicates if the bodies were colliding when the collision was last updated.
          *
-         * @property collided
-         * @type {boolean}
          * @default false
          */
         collided: boolean;
 
         /**
          * The first body part represented by the collision (see also `collision.parentA`).
-         *
-         * @property bodyA
-         * @type {Body}
          */
         bodyA: Body;
 
         /**
          * The second body part represented by the collision (see also `collision.parentB`).
-         *
-         * @property bodyB
-         * @type {Body}
          */
         bodyB: Body;
 
         /**
          * The first body represented by the collision (i.e. `collision.bodyA.parent`).
-         *
-         * @property parentA
-         * @type {Body}
          */
         parentA: Body;
 
         /**
          * The second body represented by the collision (i.e. `collision.bodyB.parent`).
-         *
-         * @property parentB
-         * @type {Body}
          */
         parentB: Body;
 
@@ -4484,8 +4035,6 @@ declare namespace Matter {
          * A `Number` that represents the minimum separating distance between the bodies along the collision normal.
          *
          * @readOnly
-         * @property depth
-         * @type {number}
          * @default 0
          */
         readonly depth: number;
@@ -4493,8 +4042,6 @@ declare namespace Matter {
         /**
          * A normalised `Vector` that represents the direction between the bodies that provides the minimum separating distance.
          *
-         * @property normal
-         * @type {Vector}
          * @default { x: 0, y: 0 }
          */
         normal: Vector;
@@ -4502,8 +4049,6 @@ declare namespace Matter {
         /**
          * A normalised `Vector` that is the tangent direction to the collision normal.
          *
-         * @property tangent
-         * @type {Vector}
          * @default { x: 0, y: 0 }
          */
         tangent: Vector;
@@ -4511,8 +4056,6 @@ declare namespace Matter {
         /**
          * A `Vector` that represents the direction and depth of the collision.
          *
-         * @property penetration
-         * @type {Vector}
          * @default { x: 0, y: 0 }
          */
         penetration: Vector;
@@ -4521,8 +4064,6 @@ declare namespace Matter {
          * An array of body vertices that represent the support points in the collision.
          * These are the deepest vertices (along the collision normal) of each body that are contained by the other body's vertices.
          *
-         * @property supports
-         * @type {Vector[]}
          * @default []
          */
         supports: Array<Vector>;
@@ -4533,16 +4074,12 @@ declare namespace Matter {
          * The array of `Matter.Body` between which the detector finds collisions.
          *
          * _Note:_ The order of bodies in this array _is not fixed_ and will be continually managed by the detector.
-         * @property bodies
-         * @type {Body[] | undefined}
          * @default []
          */
         bodies?: Array<Body>;
 
         /**
          * Optional. A `Matter.Pairs` object from which previous collision objects may be reused. Intended for internal `Matter.Engine` usage.
-         * @property pairs
-         * @type {Pairs | null | undefined}
          * @default null
          */
         pairs?: Pairs | null;
@@ -4601,16 +4138,12 @@ declare namespace Matter {
          * The array of `Matter.Body` between which the detector finds collisions.
          *
          * _Note:_ The order of bodies in this array _is not fixed_ and will be continually managed by the detector.
-         * @property bodies
-         * @type {Body[]}
          * @default []
          */
         bodies: Array<Body>;
 
         /**
          * Optional. A `Matter.Pairs` object from which previous collision objects may be reused. Intended for internal `Matter.Engine` usage.
-         * @property pairs
-         * @type {Pairs | null}
          * @default null
          */
         pairs: Pairs | null;
@@ -4624,7 +4157,6 @@ declare namespace Matter {
      *
      * The `Matter.SAT` module contains methods for detecting collisions using the Separating Axis Theorem.
      *
-     * @class SAT
      * @deprecated
      */
     export class SAT {

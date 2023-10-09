@@ -1,6 +1,12 @@
-import { Camera, EventDispatcher, MOUSE, Vector3 } from '../../../src/Three';
+import { Camera, EventDispatcher, MOUSE, Vector3 } from '../../../src/Three.js';
 
-export class TrackballControls extends EventDispatcher {
+export interface TrackballControlsEventMap {
+    change: {};
+    start: {};
+    end: {};
+}
+
+export class TrackballControls extends EventDispatcher<TrackballControlsEventMap> {
     constructor(object: Camera, domElement?: HTMLElement);
 
     object: Camera;
@@ -20,6 +26,8 @@ export class TrackballControls extends EventDispatcher {
     dynamicDampingFactor: number;
     minDistance: number;
     maxDistance: number;
+    minZoom: number;
+    maxZoom: number;
     keys: string[];
     mouseButtons: { LEFT: MOUSE; MIDDLE: MOUSE; RIGHT: MOUSE };
 

@@ -1,6 +1,6 @@
 import { Component, CSSProperties } from "react";
-import { CustomPickerProps, ColorState } from "../../..";
 import { Classes } from "reactcss";
+import { ColorState, CustomPickerProps } from "../../..";
 
 export interface BlockPickerStylesProps {
     card: CSSProperties;
@@ -20,4 +20,4 @@ export interface BlockPickerProps extends CustomPickerProps {
     className?: string | undefined;
 }
 
-export default class BlockPicker extends Component<BlockPickerProps> { }
+export default class BlockPicker extends Component<BlockPickerProps> {}

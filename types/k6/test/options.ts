@@ -1,25 +1,27 @@
-import { Options, Scenario } from 'k6/options';
+import { Options, Scenario } from "k6/options";
 
 const options: Options = {
     vus: 10,
-    duration: '10s'
+    duration: "10s",
 };
 
 const moreOptions: Options = {
     vus: 10,
-    duration: '10s',
-    blockHostnames: ["*.k6.io" , "www.example.com"],
+    duration: "10s",
+    blockHostnames: ["*.k6.io", "www.example.com"],
     dns: {
-        ttl: '6s',
-        select: 'first',
-        policy: 'preferIPv4'
-    }
+        ttl: "6s",
+        select: "first",
+        policy: "preferIPv4",
+    },
 };
 
-const scenarios: Scenario[] = [{
-            executor: "shared-iterations",
-            iterations: 100
-}];
+const scenarios: Scenario[] = [
+    {
+        executor: "shared-iterations",
+        iterations: 100,
+    },
+];
 
 const scenarioExample: Options = {
     executionSegment: "0:1",
@@ -27,37 +29,37 @@ const scenarioExample: Options = {
     scenarios: {
         myScenario1: {
             executor: "shared-iterations",
-            iterations: 100
+            iterations: 100,
         },
         myScenario2: {
             executor: "per-vu-iterations",
-            iterations: 100
+            iterations: 100,
         },
         myScenario3: {
             executor: "constant-vus",
             vus: 100,
-            duration: "10s"
+            duration: "10s",
         },
         myScenario4: {
             executor: "ramping-vus",
-            stages: [{duration: "10s", target: 10}]
+            stages: [{ duration: "10s", target: 10 }],
         },
         myScenario5: {
             executor: "constant-arrival-rate",
             rate: 2,
             duration: "10s",
-            preAllocatedVUs: 20
+            preAllocatedVUs: 20,
         },
         myScenario6: {
             executor: "ramping-arrival-rate",
-            stages: [{duration: "10s", target: 10}],
-            preAllocatedVUs: 20
+            stages: [{ duration: "10s", target: 10 }],
+            preAllocatedVUs: 20,
         },
         myScenario7: {
             executor: "externally-controlled",
-            duration: "10s"
-        }
-    }
+            duration: "10s",
+        },
+    },
 };
 
 const tlsOptions1: Options = {
@@ -82,7 +84,8 @@ const tlsOptions2: Options = {
 };
 
 const tlsOptions3: Options = {
-    tlsAuth: [ // @ts-expect-error
+    tlsAuth: [
+        // @ts-expect-error
         {
             domains: ["example.com"],
             cert: open("mycert.pem"),
@@ -98,3 +101,28 @@ const tlsOptions4: Options = {
         },
     ],
 };
+
+const browserScenarios: Scenario[] = [
+    {
+        executor: "shared-iterations",
+        iterations: 100,
+        options: {
+            browser: {
+                type: "chromium",
+            },
+        },
+    },
+];
+
+const browserScenariosBad: Scenario[] = [
+    {
+        executor: "shared-iterations",
+        iterations: 100,
+        options: {
+            // @ts-expect-error
+            somethingElse: {
+                type: "chromium",
+            },
+        },
+    },
+];

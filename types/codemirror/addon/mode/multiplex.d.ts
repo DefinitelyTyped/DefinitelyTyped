@@ -1,4 +1,4 @@
-import * as CodeMirror from '../../';
+import * as CodeMirror from "../../";
 
 export interface MultiplexedInnerMode {
     open: string;
@@ -9,7 +9,7 @@ export interface MultiplexedInnerMode {
     innerStyle?: string | undefined;
 }
 
-declare module '../../' {
+declare module "../../" {
     /**
      * Mode combinator that can be used to easily 'multiplex' between several modes.
      * When given as first argument a mode object, and as other arguments any number of

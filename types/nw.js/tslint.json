@@ -2,12 +2,9 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "comment-format": false,
         "jsdoc-format": false,
-        "max-line-length": false,
         "no-duplicate-variable": false,
         "no-internal-module": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-var-keyword": false,
         "no-void-expression": false,
@@ -17,10 +14,6 @@
         "prefer-const": false,
         "prefer-for-of": false,
         "prefer-template": false,
-        "semicolon": false,
-        "space-before-function-paren": false,
-        "space-within-parens": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
 }

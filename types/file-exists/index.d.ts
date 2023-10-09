@@ -10,7 +10,7 @@ export = fileExists;
 type FilePathType = string | Buffer | URL;
 
 interface FalsyRoot {
-    root?: '';
+    root?: "";
     [otherKey: string]: any;
 }
 

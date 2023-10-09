@@ -1,6 +1,7 @@
 {
     "rules": {
-        "prefer-declare-function": "off",
-        "no-single-element-tuple-type": "off"
+        "@definitelytyped/prefer-declare-function": "off",
+        "@definitelytyped/no-single-element-tuple-type": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off"
     }
 }

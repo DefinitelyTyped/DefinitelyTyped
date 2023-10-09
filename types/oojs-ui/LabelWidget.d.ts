@@ -38,9 +38,8 @@ declare namespace OO.ui {
         interface EventMap extends Widget.EventMap, mixin.LabelElement.EventMap {}
 
         interface ConfigOptions
-            extends Widget.ConfigOptions,
-                mixin.LabelElement.ConfigOptions,
-                mixin.TitledElement.ConfigOptions {
+            extends Widget.ConfigOptions, mixin.LabelElement.ConfigOptions, mixin.TitledElement.ConfigOptions
+        {
             /**
              * {@link OO.ui.InputWidget Input widget} that uses the label.
              * Clicking the label will focus the specified input field.
@@ -92,19 +91,19 @@ declare namespace OO.ui {
 
             connect<T extends Partial<Record<keyof EventMap, any>>, C>(
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
             ): this;
 
             disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
             ): this;
             // #endregion
         }
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): LabelWidget;
+            new(config?: ConfigOptions): LabelWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

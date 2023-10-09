@@ -1,4 +1,4 @@
-// Type definitions for github-label-sync 2.0
+// Type definitions for github-label-sync 2.3
 // Project: https://github.com/Financial-Times/github-label-sync
 // Definitions by: Federico Grandi <https://github.com/EndBug>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,20 +11,21 @@ export interface BasicLabel {
 
 export interface LabelInfo extends BasicLabel {
     aliases?: string[] | undefined;
+    delete?: boolean | undefined;
 }
 
 export interface OptionsBase {
     allowAddedLabels?: boolean | undefined;
     dryRun?: boolean | undefined;
     format?: {
-        diff?: ((str: string) => string) | undefined
-        success?: ((str: string) => string) | undefined
-        warning?: ((str: string) => string) | undefined
+        diff?: ((str: string) => string) | undefined;
+        success?: ((str: string) => string) | undefined;
+        warning?: ((str: string) => string) | undefined;
     } | undefined;
     labels: LabelInfo[];
     log?: {
-        info?: ((str: string) => void) | undefined
-        warn?: ((str: string) => void) | undefined
+        info?: ((str: string) => void) | undefined;
+        warn?: ((str: string) => void) | undefined;
     } | undefined;
 }
 

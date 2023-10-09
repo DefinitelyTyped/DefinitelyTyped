@@ -1,5 +1,5 @@
-import Helper from '@ember/component/helper';
-import UserAgentService from '../services/user-agent';
+import Helper from "@ember/component/helper";
+import UserAgentService from "../services/user-agent";
 
 export default class UserAgentHelper extends Helper {
     userAgent: UserAgentService;

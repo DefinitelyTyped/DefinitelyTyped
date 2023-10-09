@@ -1,117 +1,116 @@
-import { isNightwatchAPI } from './utils';
+import { isNightwatchAPI } from "./utils";
 
 // Expect test for language chains
 
-it('actions.press', () => {
+it("actions.press", () => {
     browser.perform(() => {
         return browser.actions().press();
     });
 });
 
-it('actions.release', () => {
+it("actions.release", () => {
     browser.perform(() => {
         return browser.actions().release();
     });
 });
 
-it('actions.mouse', () => {
+it("actions.mouse", () => {
     browser.perform(() => {
         return browser.actions().mouse();
     });
 });
 
-it('actions.keyboard', () => {
+it("actions.keyboard", () => {
     browser.perform(() => {
         return browser.actions().keyboard();
     });
 });
 
-it('actions.move', () => {
+it("actions.move", () => {
     browser.perform(() => {
-        return browser.actions().move({x: 100, y: 200});
+        return browser.actions().move({ x: 100, y: 200 });
     });
 });
 
-it('actions.clear', () => {
+it("actions.clear", () => {
     browser.perform(() => {
         return browser.actions().clear();
     });
 });
 
-it('actions.pause', () => {
+it("actions.pause", () => {
     browser.perform(() => {
         return browser.actions().pause();
     });
 });
 
-it('actions.dragAndDrop', () => {
+it("actions.dragAndDrop", () => {
     browser.perform(async () => {
-        const sampleElement = element('.element-class');
+        const sampleElement = element(".element-class");
         const webElement = await sampleElement.getWebElement();
-        browser.actions().dragAndDrop(webElement, {x: 12, y: 234});
+        browser.actions().dragAndDrop(webElement, { x: 12, y: 234 });
 
         const webElement2 = sampleElement.findElement();
         isNightwatchAPI(webElement2);
         // @ts-expect-error
-        browser.actions().dragAndDrop(webElement2, {x: 12, y: 234});
-        browser.actions().dragAndDrop(await webElement2, {x: 12, y: 234});
+        browser.actions().dragAndDrop(webElement2, { x: 12, y: 234 });
+        browser.actions().dragAndDrop(await webElement2, { x: 12, y: 234 });
 
-        const webElement3 = await sampleElement.findElement('something');
-        // @ts-expect-error
-        return browser.actions().dragAndDrop(webElement3, {x: 12, y: 234});
+        const webElement3 = await sampleElement.findElement("something");
+        return browser.actions().dragAndDrop(webElement3, { x: 12, y: 234 });
     });
 });
 
-it('actions.doubleClick', () => {
+it("actions.doubleClick", () => {
     browser.perform(() => {
         return browser.actions().doubleClick();
     });
 });
 
-it('actions.contextClick', () => {
+it("actions.contextClick", () => {
     browser.perform(() => {
         return browser.actions().contextClick();
     });
 });
 
-it('actions.keyDown', () => {
+it("actions.keyDown", () => {
     browser.perform(() => {
-        return browser.actions().keyDown('CONTROL');
+        return browser.actions().keyDown("CONTROL");
     });
 });
 
-it('actions.keyUp', () => {
+it("actions.keyUp", () => {
     browser.perform(() => {
-        return browser.actions().keyUp('CONTROL');
+        return browser.actions().keyUp("CONTROL");
     });
 });
 
-it('actions.sendKeys', () => {
+it("actions.sendKeys", () => {
     browser.perform(() => {
         return browser.actions().sendKeys();
     });
 });
 
-it('actions.perform', () => {
+it("actions.perform", () => {
     browser.perform(() => {
         browser.actions().sendKeys().perform();
     });
 });
 
-it('actions.options.async.bridge', () => {
+it("actions.options.async.bridge", () => {
     browser.perform(() => {
-        return browser.actions({async: true, bridge: true}).sendKeys();
+        return browser.actions({ async: true, bridge: true }).sendKeys();
     });
 });
 
-it('actions.options.async', () => {
+it("actions.options.async", () => {
     browser.perform(() => {
-        return browser.actions({async: true}).sendKeys();
+        return browser.actions({ async: true }).sendKeys();
     });
 });
 
-it('actions.options.bridge', () => {
+it("actions.options.bridge", () => {
     browser.perform(() => {
-        return browser.actions({bridge: true}).sendKeys();
+        return browser.actions({ bridge: true }).sendKeys();
     });
 });

@@ -9,8 +9,6 @@
                 "mode": "code"
             }
         ],
-        "prefer-const": false,
-        "semicolon": false,
-        "strict-export-declare-modifiers": false
+        "prefer-const": false
     }
 }

@@ -1,4 +1,4 @@
-import { PrefixMap, PrefixMapInit } from './PrefixMap';
+import { PrefixMap, PrefixMapInit } from "./PrefixMap.js";
 
 export interface PrefixMapFactory {
     prefixMap(prefixes?: PrefixMapInit): PrefixMap;
@@ -6,7 +6,7 @@ export interface PrefixMapFactory {
 
 interface PrefixMapFactoryCtor {
     new(): PrefixMapFactory;
-    exports: ['prefixMap'];
+    exports: ["prefixMap"];
 }
 
 declare const factory: PrefixMapFactoryCtor;

@@ -1,6 +1,6 @@
-import { prefix } from 'inline-style-prefixer';
+import { prefix } from "inline-style-prefixer";
 
 const prefixed = prefix({
-    fontSize: '16',
-    flexDirection: 'column'
+    fontSize: "16",
+    flexDirection: "column",
 });

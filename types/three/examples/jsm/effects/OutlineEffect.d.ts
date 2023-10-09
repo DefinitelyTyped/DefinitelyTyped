@@ -1,4 +1,12 @@
-import { Camera, Scene, Vector2, Vector4, WebGLRenderer, WebGLRenderTarget, WebGLShadowMap } from '../../../src/Three';
+import {
+    Camera,
+    Scene,
+    Vector2,
+    Vector4,
+    WebGLRenderer,
+    WebGLRenderTarget,
+    WebGLShadowMap,
+} from '../../../src/Three.js';
 
 export interface OutlineEffectParameters {
     defaultThickness?: number | undefined;

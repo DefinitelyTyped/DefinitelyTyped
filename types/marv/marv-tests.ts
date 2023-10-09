@@ -1,9 +1,9 @@
-import * as marv from 'marv';
-import marvCallbacks = require('marv/api/callback');
-import marvPromises = require('marv/api/promise');
-import path = require('path');
+import * as marv from "marv";
+import marvCallbacks = require("marv/api/callback");
+import marvPromises = require("marv/api/promise");
+import path = require("path");
 
-const directory = path.resolve('migrations');
+const directory = path.resolve("migrations");
 
 const driver: marv.Driver = {
     connect: () => {},

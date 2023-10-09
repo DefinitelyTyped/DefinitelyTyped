@@ -529,21 +529,21 @@ declare namespace p2 {
         fixedY?: boolean | undefined;
     }
 
-    export type SleepyEvent = Body['sleepyEvent'];
-    export type SleepEvent = Body['sleepEvent'];
-    export type WakeUpEvent = Body['wakeUpEvent'];
+    export type SleepyEvent = Body["sleepyEvent"];
+    export type SleepEvent = Body["sleepEvent"];
+    export type WakeUpEvent = Body["wakeUpEvent"];
 
     export class Body extends EventEmitter {
         sleepyEvent: {
-            type: 'sleepy';
+            type: "sleepy";
         };
 
         sleepEvent: {
-            type: 'sleep';
+            type: "sleep";
         };
 
         wakeUpEvent: {
-            type: 'wakeup';
+            type: "wakeup";
         };
 
         static DYNAMIC: 1;
@@ -1076,38 +1076,38 @@ declare namespace p2 {
         islandSplit?: boolean | undefined;
     }
 
-    export type PostStepEvent = World['postStepEvent'];
-    export type AddBodyEvent = World['addBodyEvent'];
-    export type RemoveBodyEvent = World['removeBodyEvent'];
-    export type AddSpringEvent = World['addSpringEvent'];
-    export type ImpactEvent = World['impactEvent'];
-    export type PostBroadphaseEvent = World['postBroadphaseEvent'];
-    export type BeginContactEvent = World['beginContactEvent'];
-    export type EndContactEvent = World['endContactEvent'];
-    export type PreSolveEvent = World['preSolveEvent'];
+    export type PostStepEvent = World["postStepEvent"];
+    export type AddBodyEvent = World["addBodyEvent"];
+    export type RemoveBodyEvent = World["removeBodyEvent"];
+    export type AddSpringEvent = World["addSpringEvent"];
+    export type ImpactEvent = World["impactEvent"];
+    export type PostBroadphaseEvent = World["postBroadphaseEvent"];
+    export type BeginContactEvent = World["beginContactEvent"];
+    export type EndContactEvent = World["endContactEvent"];
+    export type PreSolveEvent = World["preSolveEvent"];
 
     export class World extends EventEmitter {
         postStepEvent: {
-            type: 'postStep';
+            type: "postStep";
         };
 
         addBodyEvent: {
-            type: 'addBody';
+            type: "addBody";
             body: Body;
         };
 
         removeBodyEvent: {
-            type: 'removeBody';
+            type: "removeBody";
             body: Body;
         };
 
         addSpringEvent: {
-            type: 'addSpring';
+            type: "addSpring";
             spring: Spring;
         };
 
         impactEvent: {
-            type: 'impact';
+            type: "impact";
             bodyA: Body;
             bodyB: Body;
             shapeA: Shape;
@@ -1116,12 +1116,12 @@ declare namespace p2 {
         };
 
         postBroadphaseEvent: {
-            type: 'postBroadphase';
+            type: "postBroadphase";
             pairs: Body[];
         };
 
         beginContactEvent: {
-            type: 'beginContact';
+            type: "beginContact";
             shapeA: Shape;
             shapeB: Shape;
             bodyA: Body;
@@ -1130,7 +1130,7 @@ declare namespace p2 {
         };
 
         endContactEvent: {
-            type: 'endContact';
+            type: "endContact";
             shapeA: Shape;
             shapeB: Shape;
             bodyA: Body;
@@ -1138,7 +1138,7 @@ declare namespace p2 {
         };
 
         preSolveEvent: {
-            type: 'preSolve';
+            type: "preSolve";
             contactEquations: ContactEquation[];
             frictionEquations: FrictionEquation[];
         };
@@ -1147,7 +1147,7 @@ declare namespace p2 {
         static BODY_SLEEPING: 2;
         static ISLAND_SLEEPING: 4;
 
-        //static integrateBody(body: Body, dy: number): void;
+        // static integrateBody(body: Body, dy: number): void;
 
         constructor(options?: WorldOptions);
 

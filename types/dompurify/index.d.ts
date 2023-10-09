@@ -10,15 +10,25 @@
 // Minimum TypeScript Version: 4.5
 /// <reference types="trusted-types"/>
 
-import { DOMWindow } from 'jsdom';
-
 export as namespace DOMPurify;
 export = DOMPurify;
 
 declare const DOMPurify: createDOMPurifyI;
 
+type WindowLike = Pick<
+    typeof globalThis,
+    | "NodeFilter"
+    | "Node"
+    | "Element"
+    | "HTMLTemplateElement"
+    | "DocumentFragment"
+    | "HTMLFormElement"
+    | "DOMParser"
+    | "NamedNodeMap"
+>;
+
 interface createDOMPurifyI extends DOMPurify.DOMPurifyI {
-    (window?: Window | DOMWindow): DOMPurify.DOMPurifyI;
+    (window?: Window | WindowLike): DOMPurify.DOMPurifyI;
 }
 
 declare namespace DOMPurify {
@@ -34,11 +44,11 @@ declare namespace DOMPurify {
         sanitize(source: string | Node, config: Config): string | HTMLElement | DocumentFragment;
 
         addHook(
-            hook: 'uponSanitizeElement',
+            hook: "uponSanitizeElement",
             cb: (currentNode: Element, data: SanitizeElementHookEvent, config: Config) => void,
         ): void;
         addHook(
-            hook: 'uponSanitizeAttribute',
+            hook: "uponSanitizeAttribute",
             cb: (currentNode: Element, data: SanitizeAttributeHookEvent, config: Config) => void,
         ): void;
         addHook(hook: HookName, cb: (currentNode: Element, data: HookEvent, config: Config) => void): void;
@@ -96,11 +106,11 @@ declare namespace DOMPurify {
         USE_PROFILES?:
             | false
             | {
-                  mathMl?: boolean | undefined;
-                  svg?: boolean | undefined;
-                  svgFilters?: boolean | undefined;
-                  html?: boolean | undefined;
-              }
+                mathMl?: boolean | undefined;
+                svg?: boolean | undefined;
+                svgFilters?: boolean | undefined;
+                html?: boolean | undefined;
+            }
             | undefined;
         WHOLE_DOCUMENT?: boolean | undefined;
         CUSTOM_ELEMENT_HANDLING?: {
@@ -111,15 +121,15 @@ declare namespace DOMPurify {
     }
 
     type HookName =
-        | 'beforeSanitizeElements'
-        | 'uponSanitizeElement'
-        | 'afterSanitizeElements'
-        | 'beforeSanitizeAttributes'
-        | 'uponSanitizeAttribute'
-        | 'afterSanitizeAttributes'
-        | 'beforeSanitizeShadowDOM'
-        | 'uponSanitizeShadowNode'
-        | 'afterSanitizeShadowDOM';
+        | "beforeSanitizeElements"
+        | "uponSanitizeElement"
+        | "afterSanitizeElements"
+        | "beforeSanitizeAttributes"
+        | "uponSanitizeAttribute"
+        | "afterSanitizeAttributes"
+        | "beforeSanitizeShadowDOM"
+        | "uponSanitizeShadowNode"
+        | "afterSanitizeShadowDOM";
 
     type HookEvent = SanitizeElementHookEvent | SanitizeAttributeHookEvent | null;
 

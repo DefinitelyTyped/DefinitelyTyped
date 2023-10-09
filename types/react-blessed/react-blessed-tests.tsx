@@ -99,7 +99,7 @@ class Progress extends React.Component<any, any> {
 
     constructor(props: any) {
         super(props);
-        const interval: NodeJS.Timer = setInterval(() => {
+        const interval = setInterval(() => {
             const { progress } = this.state;
             if (this.state.progress >= 100) {
                 clearInterval(interval);
@@ -175,7 +175,8 @@ const Box = () => <box style={{ fg: "blue" }} />;
 const BlessedBox = () => <blessed-box style={{ fg: "blue" }} />;
 const FF: React.FC<ReactBlessed.BlessedIntrinsicElements["box"]> = props => <box {...props} />;
 
-// @ts-expect-error
+// Undesired. Should error but we can only augment intrinsic elements.
+// Should not typecheck once `@types/react` moves DOM intrinsics to `react-dom`.
 const Div = () => <div />;
 
 /**

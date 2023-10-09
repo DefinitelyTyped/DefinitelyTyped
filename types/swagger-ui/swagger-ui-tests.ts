@@ -10,7 +10,7 @@ SwaggerUI({
 
     layout: "Idontknow",
     pluginsOptions: {
-        pluginLoadType: 'legacy',
+        pluginLoadType: "legacy",
     },
     plugins: [
         () => {

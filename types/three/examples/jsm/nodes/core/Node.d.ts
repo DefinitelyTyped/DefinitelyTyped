@@ -1,6 +1,6 @@
-import { AnyJson, NodeTypeOption, NodeUpdateTypeOption } from './constants';
-import NodeBuilder from './NodeBuilder';
-import NodeFrame from './NodeFrame';
+import { AnyJson, NodeTypeOption, NodeUpdateTypeOption } from './constants.js';
+import NodeBuilder from './NodeBuilder.js';
+import NodeFrame from './NodeFrame.js';
 
 export default abstract class Node {
     uuid: string;

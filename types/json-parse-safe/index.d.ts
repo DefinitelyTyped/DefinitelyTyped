@@ -5,13 +5,16 @@
 // Minimum TypeScript Version: 4.1
 
 interface OutputSuccess {
-  value: any;
+    value: any;
 }
 
 interface OutputError {
-  error: Error;
+    error: Error;
 }
 
-declare function jsonParseSafe(text: string, reviver?: (this: any, key: string, value: any) => any): OutputSuccess | OutputError;
+declare function jsonParseSafe(
+    text: string,
+    reviver?: (this: any, key: string, value: any) => any,
+): OutputSuccess | OutputError;
 
 export = jsonParseSafe;

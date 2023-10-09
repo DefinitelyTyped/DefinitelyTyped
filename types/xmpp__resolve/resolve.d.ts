@@ -1,5 +1,5 @@
-import * as dnsResolver from './lib/dns';
-import * as httpResolver from './lib/http';
+import * as dnsResolver from "./lib/dns";
+import * as httpResolver from "./lib/http";
 
 export = resolve;
 

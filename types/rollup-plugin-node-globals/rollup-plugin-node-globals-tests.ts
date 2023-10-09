@@ -1,4 +1,4 @@
-import globals from 'rollup-plugin-node-globals';
+import globals from "rollup-plugin-node-globals";
 
 // No options (default)
 (() => {
@@ -15,7 +15,7 @@ import globals from 'rollup-plugin-node-globals';
         buffer: false,
         dirname: false,
         filename: false,
-        baseDir: '/',
+        baseDir: "/",
     });
 })();
 
@@ -23,14 +23,14 @@ import globals from 'rollup-plugin-node-globals';
 (() => {
     // $ExpectType Plugin
     globals({
-        include: '*.js',
-        exclude: '*.js',
+        include: "*.js",
+        exclude: "*.js",
     });
 
     // $ExpectType Plugin
     globals({
         include: /.js$/,
-        exclude: ['foo.js', 'bar.js'],
+        exclude: ["foo.js", "bar.js"],
     });
 })();
 

@@ -43,9 +43,9 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/buffer.js)
  */
-declare module 'buffer' {
-    import { BinaryLike } from 'node:crypto';
-    import { ReadableStream as WebReadableStream } from 'node:stream/web';
+declare module "buffer" {
+    import { BinaryLike } from "node:crypto";
+    import { ReadableStream as WebReadableStream } from "node:stream/web";
     export const INSPECT_MAX_BYTES: number;
     export const kMaxLength: number;
     export const kStringMaxLength: number;
@@ -53,7 +53,7 @@ declare module 'buffer' {
         MAX_LENGTH: number;
         MAX_STRING_LENGTH: number;
     };
-    export type TranscodeEncoding = 'ascii' | 'utf8' | 'utf16le' | 'ucs2' | 'latin1' | 'binary';
+    export type TranscodeEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "latin1" | "binary";
     /**
      * Re-encodes the given `Buffer` or `Uint8Array` instance from one character
      * encoding to another. Returns a new `Buffer` instance.
@@ -84,7 +84,7 @@ declare module 'buffer' {
     export function transcode(source: Uint8Array, fromEnc: TranscodeEncoding, toEnc: TranscodeEncoding): Buffer;
     export const SlowBuffer: {
         /** @deprecated since v6.0.0, use `Buffer.allocUnsafeSlow()` */
-        new (size: number): Buffer;
+        new(size: number): Buffer;
         prototype: Buffer;
     };
     /**
@@ -167,13 +167,27 @@ declare module 'buffer' {
     export import atob = globalThis.atob;
     export import btoa = globalThis.btoa;
     global {
+        namespace NodeJS {
+            export { BufferEncoding };
+        }
         // Buffer class
-        type BufferEncoding = 'ascii' | 'utf8' | 'utf-8' | 'utf16le' | 'ucs2' | 'ucs-2' | 'base64' | 'base64url' | 'latin1' | 'binary' | 'hex';
+        type BufferEncoding =
+            | "ascii"
+            | "utf8"
+            | "utf-8"
+            | "utf16le"
+            | "ucs2"
+            | "ucs-2"
+            | "base64"
+            | "base64url"
+            | "latin1"
+            | "binary"
+            | "hex";
         type WithImplicitCoercion<T> =
             | T
             | {
-                  valueOf(): T;
-              };
+                valueOf(): T;
+            };
         /**
          * Raw data is stored in instances of the Buffer class.
          * A Buffer is similar to an array of integers but corresponds to a raw memory allocation outside the V8 heap.  A Buffer cannot be resized.
@@ -187,44 +201,43 @@ declare module 'buffer' {
              * @param encoding encoding to use, optional.  Default is 'utf8'
              * @deprecated since v10.0.0 - Use `Buffer.from(string[, encoding])` instead.
              */
-            new (str: string, encoding?: BufferEncoding): Buffer;
+            new(str: string, encoding?: BufferEncoding): Buffer;
             /**
              * Allocates a new buffer of {size} octets.
              *
              * @param size count of octets to allocate.
              * @deprecated since v10.0.0 - Use `Buffer.alloc()` instead (also see `Buffer.allocUnsafe()`).
              */
-            new (size: number): Buffer;
+            new(size: number): Buffer;
             /**
              * Allocates a new buffer containing the given {array} of octets.
              *
              * @param array The octets to store.
              * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
              */
-            new (array: Uint8Array): Buffer;
+            new(array: Uint8Array): Buffer;
             /**
              * Produces a Buffer backed by the same allocated memory as
              * the given {ArrayBuffer}/{SharedArrayBuffer}.
              *
-             *
              * @param arrayBuffer The ArrayBuffer with which to share memory.
              * @deprecated since v10.0.0 - Use `Buffer.from(arrayBuffer[, byteOffset[, length]])` instead.
              */
-            new (arrayBuffer: ArrayBuffer | SharedArrayBuffer): Buffer;
+            new(arrayBuffer: ArrayBuffer | SharedArrayBuffer): Buffer;
             /**
              * Allocates a new buffer containing the given {array} of octets.
              *
              * @param array The octets to store.
              * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
              */
-            new (array: ReadonlyArray<any>): Buffer;
+            new(array: ReadonlyArray<any>): Buffer;
             /**
              * Copies the passed {buffer} data onto a new {Buffer} instance.
              *
              * @param buffer The buffer to copy.
              * @deprecated since v10.0.0 - Use `Buffer.from(buffer)` instead.
              */
-            new (buffer: Buffer): Buffer;
+            new(buffer: Buffer): Buffer;
             /**
              * Allocates a new `Buffer` using an `array` of bytes in the range `0` – `255`.
              * Array entries outside that range will be truncated to fit into it.
@@ -242,7 +255,11 @@ declare module 'buffer' {
              * `Buffer.from(array)` and `Buffer.from(string)` may also use the internal`Buffer` pool like `Buffer.allocUnsafe()` does.
              * @since v5.10.0
              */
-            from(arrayBuffer: WithImplicitCoercion<ArrayBuffer | SharedArrayBuffer>, byteOffset?: number, length?: number): Buffer;
+            from(
+                arrayBuffer: WithImplicitCoercion<ArrayBuffer | SharedArrayBuffer>,
+                byteOffset?: number,
+                length?: number,
+            ): Buffer;
             /**
              * Creates a new Buffer using the passed {data}
              * @param data data to create a new Buffer
@@ -258,9 +275,9 @@ declare module 'buffer' {
                 str:
                     | WithImplicitCoercion<string>
                     | {
-                          [Symbol.toPrimitive](hint: 'string'): string;
-                      },
-                encoding?: BufferEncoding
+                        [Symbol.toPrimitive](hint: "string"): string;
+                    },
+                encoding?: BufferEncoding,
             ): Buffer;
             /**
              * Creates a new Buffer using the passed {data}
@@ -334,7 +351,10 @@ declare module 'buffer' {
              * @param [encoding='utf8'] If `string` is a string, this is its encoding.
              * @return The number of bytes contained within `string`.
              */
-            byteLength(string: string | NodeJS.ArrayBufferView | ArrayBuffer | SharedArrayBuffer, encoding?: BufferEncoding): number;
+            byteLength(
+                string: string | NodeJS.ArrayBufferView | ArrayBuffer | SharedArrayBuffer,
+                encoding?: BufferEncoding,
+            ): number;
             /**
              * Returns a new `Buffer` which is the result of concatenating all the `Buffer`instances in the `list` together.
              *
@@ -439,7 +459,7 @@ declare module 'buffer' {
              * @param [fill=0] A value to pre-fill the new `Buffer` with.
              * @param [encoding='utf8'] If `fill` is a string, this is its encoding.
              */
-            alloc(size: number, fill?: string | Buffer | number, encoding?: BufferEncoding): Buffer;
+            alloc(size: number, fill?: string | Uint8Array | number, encoding?: BufferEncoding): Buffer;
             /**
              * Allocates a new `Buffer` of `size` bytes. If `size` is larger than {@link constants.MAX_LENGTH} or smaller than 0, `ERR_INVALID_ARG_VALUE` is thrown.
              *
@@ -629,7 +649,7 @@ declare module 'buffer' {
              * @since v0.9.2
              */
             toJSON(): {
-                type: 'Buffer';
+                type: "Buffer";
                 data: number[];
             };
             /**
@@ -705,7 +725,13 @@ declare module 'buffer' {
              * @param [sourceStart=0] The offset within `buf` at which to begin comparison.
              * @param [sourceEnd=buf.length] The offset within `buf` at which to end comparison (not inclusive).
              */
-            compare(target: Uint8Array, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
+            compare(
+                target: Uint8Array,
+                targetStart?: number,
+                targetEnd?: number,
+                sourceStart?: number,
+                sourceEnd?: number,
+            ): number;
             /**
              * Copies data from a region of `buf` to a region in `target`, even if the `target`memory region overlaps with `buf`.
              *
@@ -2206,7 +2232,7 @@ declare module 'buffer' {
          * **For code running using Node.js APIs, converting between base64-encoded strings**
          * **and binary data should be performed using `Buffer.from(str, 'base64')` and`buf.toString('base64')`.**
          * @since v15.13.0
-         * @deprecated Use `Buffer.from(data, 'base64')` instead.
+         * @legacy Use `Buffer.from(data, 'base64')` instead.
          * @param data The Base64-encoded input string.
          */
         function atob(data: string): string;
@@ -2222,12 +2248,12 @@ declare module 'buffer' {
          * **For code running using Node.js APIs, converting between base64-encoded strings**
          * **and binary data should be performed using `Buffer.from(str, 'base64')` and`buf.toString('base64')`.**
          * @since v15.13.0
-         * @deprecated Use `buf.toString('base64')` instead.
+         * @legacy Use `buf.toString('base64')` instead.
          * @param data An ASCII (Latin1) string.
          */
         function btoa(data: string): string;
     }
 }
-declare module 'node:buffer' {
-    export * from 'buffer';
+declare module "node:buffer" {
+    export * from "buffer";
 }

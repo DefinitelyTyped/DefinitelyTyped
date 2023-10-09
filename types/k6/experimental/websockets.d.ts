@@ -1,4 +1,4 @@
-import { CookieJar } from '../http';
+import { CookieJar } from "../http";
 
 /**
  * This module provides an experimental implementation of the WebSocket API
@@ -176,11 +176,11 @@ export enum ReadyState {
  * BinaryType describes the possible types of binary data that can be
  * transmitted over a Websocket connection.
  */
-export enum BinaryType  {
+export enum BinaryType {
     /**
      * Binary data is returned in ArrayBuffer form. k6 supports only this type.
      */
-    ArrayBuffer = 'ArrayBuffer'
+    ArrayBuffer = "ArrayBuffer",
 }
 
 /**
@@ -191,32 +191,32 @@ export enum EventName {
     /**
      * Event fired when the connection is opened and ready to communicate.
      */
-    Open = 'open',
+    Open = "open",
 
     /**
      * Event fired when the connection has been closed.
      */
-    Close = 'close',
+    Close = "close",
 
     /**
      * Event fired when a connection has been closed due to an error.
      */
-    Error = 'error',
+    Error = "error",
 
     /**
      * Event fired when a message has been received from the server.
      */
-    Message = 'message',
+    Message = "message",
 
     /**
      * Event fired when a ping message has been received from the server.
      */
-    Ping = 'ping',
+    Ping = "ping",
 
     /**
      * Event fired when a pong message has been received from the server.
      */
-    Pong = 'pong',
+    Pong = "pong",
 }
 
 /**
@@ -296,10 +296,10 @@ export interface ErrorEvent {
 /**
  * CompressionAlgorithm describes the possible compression algorithms.
  */
-export enum CompressionAlgorithm  {
+export enum CompressionAlgorithm {
     /**
      * Deflate compression algorithm.
      * k6 supports only this compression algorithm.
      */
-    Deflate = 'deflate'
+    Deflate = "deflate",
 }

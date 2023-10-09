@@ -21,7 +21,7 @@ declare namespace Readmore {
         embedCSS?: boolean | undefined; // insert required CSS dynamically, set this to false if you include the necessary CSS in a stylesheet
         blockCSS?: string | undefined; // sets the styling of the blocks, ignored if embedCSS is false
         startOpen?: boolean | undefined;
-        sourceOrder?: 'after' | 'before' | undefined;
+        sourceOrder?: "after" | "before" | undefined;
         beforeToggle?: ((trigger: Element, element: Element, expanded: boolean) => void) | undefined; // called once per block during initilization after Readmore.js has processed the block
         afterToggle?: ((trigger: Element, element: Element, expanded: boolean) => void) | undefined; // called after a more or less link is clicked, but before the block is collapsed or expanded
         blockProcessed?: ((element: Element, collapsable: boolean) => void) | undefined; // called after the block is collapsed or expanded

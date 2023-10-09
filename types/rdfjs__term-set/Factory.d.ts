@@ -1,8 +1,8 @@
-import TermSet from '.';
-import { Term } from '@rdfjs/types';
+import { Term } from "@rdfjs/types";
+import TermSet from "./index.js";
 
 export class TermSetFactory {
-    static exports: ['termSet'];
+    static exports: ["termSet"];
     termSet<T extends Term = Term>(terms?: T[] | null): TermSet<T>;
 }
 

@@ -6,8 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
-export type ImgProps = React.ReactComponentElement<'img'>;
+import * as React from "react";
+export type ImgProps = React.ReactComponentElement<"img">;
 
 export interface DotsProps {
     number?: number | undefined;
@@ -48,7 +48,7 @@ export interface CarouselPluginTypes {
 }
 
 export interface CarouselBreakpoints {
-    [breakpointNumber: number]: Pick<CarouselProps, Exclude<keyof CarouselProps, 'breakpoints'>>;
+    [breakpointNumber: number]: Pick<CarouselProps, Exclude<keyof CarouselProps, "breakpoints">>;
 }
 
 export interface CarouselProps {

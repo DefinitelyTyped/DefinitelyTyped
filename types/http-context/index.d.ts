@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import accepts = require('accepts');
-import http = require('http');
+import accepts = require("accepts");
+import http = require("http");
 
 export = HttpContext;
 
@@ -26,7 +26,7 @@ declare namespace HttpContext {
         href: string;
         method: string;
         path: string;
-        query: {[param: string]: string | string[]};
+        query: { [param: string]: string | string[] };
         querystring: string;
         search: string;
         host: string;

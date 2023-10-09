@@ -1,4 +1,4 @@
-import { WebElement } from '../';
+import { WebElement } from "../";
 
 export class Select {
     /**
@@ -54,7 +54,7 @@ export class Select {
      * @param {String|Number} text       text of option element to get selected
      *
      */
-    selectByVisibleText(text: string|number): Promise<void>;
+    selectByVisibleText(text: string | number): Promise<void>;
 
     /**
      * @return {!Promise<!Array<!WebElement>>} All options belonging to this select tag
@@ -87,14 +87,12 @@ export class Select {
     deselectAll(): Promise<void>;
 
     /**
-     *
      * @param {string|Number}text text of option to deselect
      * @returns {Promise<void>}
      */
-    deselectByVisibleText(text: string|number): Promise<void>;
+    deselectByVisibleText(text: string | number): Promise<void>;
 
     /**
-     *
      * @param {Number} index       index of option element to deselect
      * Deselect the option at the given index.
      * This is done by examining the "index"
@@ -104,7 +102,6 @@ export class Select {
     deselectByIndex(index: number): Promise<void>;
 
     /**
-     *
      * @param {String} value value of an option to deselect
      * @returns {Promise<void>}
      */

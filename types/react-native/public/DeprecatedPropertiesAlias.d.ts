@@ -1,52 +1,47 @@
 import {
-  TextProps,
-  TextPropsIOS,
-  TextPropsAndroid,
-  AccessibilityProps,
-  AccessibilityPropsIOS,
-  AccessibilityPropsAndroid,
-  TextInputProps,
-  TextInputIOSProps,
-  TextInputAndroidProps,
-  ViewProps,
-  ViewPropsIOS,
-  ViewPropsAndroid,
-  ScrollViewProps,
-  ScrollViewPropsIOS,
-  ScrollViewPropsAndroid,
-  InputAccessoryViewProps,
-  ActivityIndicatorProps,
-  ActivityIndicatorIOSProps,
-  DatePickerIOSProps,
-  DrawerLayoutAndroidProps,
-  ProgressBarAndroidProps,
-  ProgressViewIOSProps,
-  RefreshControlProps,
-  RefreshControlPropsIOS,
-  RefreshControlPropsAndroid,
-  SliderProps,
-  SliderPropsIOS,
-  SliderPropsAndroid,
-  ImageSourcePropType,
-  ImageProps,
-  ImagePropsIOS,
-  ImagePropsAndroid,
-  ImageBackgroundProps,
-  FlatListProps,
-  VirtualizedListProps,
-  SectionListProps,
-  ModalProps,
-  TouchableWithoutFeedbackProps,
-  TouchableHighlightProps,
-  TouchableOpacityProps,
-  TouchableNativeFeedbackProps,
-  ButtonProps,
-  StatusBarProps,
-  StatusBarPropsIOS,
-  StatusBarPropsAndroid,
-  SwitchProps,
-  SwitchPropsIOS,
-} from 'react-native';
+    AccessibilityProps,
+    AccessibilityPropsAndroid,
+    AccessibilityPropsIOS,
+    ActivityIndicatorIOSProps,
+    ActivityIndicatorProps,
+    ButtonProps,
+    DrawerLayoutAndroidProps,
+    FlatListProps,
+    ImageBackgroundProps,
+    ImageProps,
+    ImagePropsAndroid,
+    ImagePropsIOS,
+    ImageSourcePropType,
+    InputAccessoryViewProps,
+    ModalProps,
+    ProgressBarAndroidProps,
+    RefreshControlProps,
+    RefreshControlPropsAndroid,
+    RefreshControlPropsIOS,
+    ScrollViewProps,
+    ScrollViewPropsAndroid,
+    ScrollViewPropsIOS,
+    SectionListProps,
+    StatusBarProps,
+    StatusBarPropsAndroid,
+    StatusBarPropsIOS,
+    SwitchProps,
+    SwitchPropsIOS,
+    TextInputAndroidProps,
+    TextInputIOSProps,
+    TextInputProps,
+    TextProps,
+    TextPropsAndroid,
+    TextPropsIOS,
+    TouchableHighlightProps,
+    TouchableNativeFeedbackProps,
+    TouchableOpacityProps,
+    TouchableWithoutFeedbackProps,
+    ViewProps,
+    ViewPropsAndroid,
+    ViewPropsIOS,
+    VirtualizedListProps,
+} from "react-native";
 
 /*
  * Previously, props interfaces where named *Properties
@@ -108,17 +103,11 @@ export type ActivityIndicatorProperties = ActivityIndicatorProps;
 /** @deprecated Use ActivityIndicatorIOSProps */
 export type ActivityIndicatorIOSProperties = ActivityIndicatorIOSProps;
 
-/** @deprecated Use DatePickerIOSProps */
-export type DatePickerIOSProperties = DatePickerIOSProps;
-
 /** @deprecated Use DrawerLayoutAndroidProps */
 export type DrawerLayoutAndroidProperties = DrawerLayoutAndroidProps;
 
 /** @deprecated Use ProgressBarAndroidProps */
 export type ProgressBarAndroidProperties = ProgressBarAndroidProps;
-
-/** @deprecated Use ProgressViewIOSProps */
-export type ProgressViewIOSProperties = ProgressViewIOSProps;
 
 /** @deprecated Use RefreshControlProps */
 export type RefreshControlProperties = RefreshControlProps;
@@ -128,15 +117,6 @@ export type RefreshControlPropertiesIOS = RefreshControlPropsIOS;
 
 /** @deprecated Use RefreshControlPropsAndroid */
 export type RefreshControlPropertiesAndroid = RefreshControlPropsAndroid;
-
-/** @deprecated Use SliderProps */
-export type SliderProperties = SliderProps;
-
-/** @deprecated Use SliderPropsIOS */
-export type SliderPropertiesIOS = SliderPropsIOS;
-
-/** @deprecated Use SliderPropsAndroid */
-export type SliderPropertiesAndroid = SliderPropsAndroid;
 
 /** @deprecated Use ImageSourcePropType */
 export type ImagePropertiesSourceOptions = ImageSourcePropType;

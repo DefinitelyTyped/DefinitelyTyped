@@ -27,8 +27,8 @@ avsInstance.requestMic();
 
 avsInstance.startRecording();
 
-avsInstance.stopRecording().then((dataView: any) => { });
+avsInstance.stopRecording().then((dataView: any) => {});
 
 const dataView = new DataView(new ArrayBuffer(1));
 
-avsInstance.sendAudio(dataView).then(({ xhr, response }: any) => { });
+avsInstance.sendAudio(dataView).then(({ xhr, response }: any) => {});

@@ -1,5 +1,5 @@
-import TempNode from '../core/TempNode';
-import { Node } from '../Nodes';
+import TempNode from '../core/TempNode.js';
+import { Node } from '../Nodes.js';
 
 export type ColorAdjustmentMethod =
     | typeof ColorAdjustmentNode.SATURATION

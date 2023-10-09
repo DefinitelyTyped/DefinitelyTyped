@@ -18,13 +18,13 @@ export interface ParseResult {
     domain: string;
     excerpt: string | null;
     word_count: number;
-    direction: 'ltr' | 'rtl';
+    direction: "ltr" | "rtl";
     total_pages: number;
     rendered_pages: number;
 }
 
 export interface ParseOptions {
-    contentType?: 'html' | 'markdown' | 'text' | undefined;
+    contentType?: "html" | "markdown" | "text" | undefined;
     headers?: object | undefined;
     html?: string | Buffer | undefined;
 }

@@ -2,11 +2,11 @@
 // Project: https://github.com/emberjs/data
 // Definitions by: James C. Davis <https://github.com/jamescdavis>
 //                 Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
+//                 Krystan HuffMenne <https://github.com/gitKrystan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import DS from 'ember-data';
+import DS from "ember-data";
 export default DS.Model;
 
 export import attr = DS.attr;

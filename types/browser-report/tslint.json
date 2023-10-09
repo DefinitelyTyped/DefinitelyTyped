@@ -2,11 +2,8 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "no-trailing-whitespace": false,
         "no-var-keyword": false,
         "prefer-const": false,
-        "prefer-template": false,
-        "semicolon": false,
-        "typedef-whitespace": false
+        "prefer-template": false
     }
 }

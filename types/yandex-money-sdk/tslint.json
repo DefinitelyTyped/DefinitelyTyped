@@ -2,10 +2,7 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "no-single-declare-module": false,
         "no-var-keyword": false,
-        "prefer-const": false,
-        "semicolon": false,
-        "strict-export-declare-modifiers": false
+        "prefer-const": false
     }
 }

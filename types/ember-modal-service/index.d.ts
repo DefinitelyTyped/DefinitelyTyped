@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import './services/modal';
-import './components/modal';
-import './models/modal';
+import "./services/modal";
+import "./components/modal";
+import "./models/modal";
 
 export {};

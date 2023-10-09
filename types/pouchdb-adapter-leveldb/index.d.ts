@@ -9,18 +9,19 @@
 declare namespace PouchDB {
     namespace LevelDbAdapter {
         interface LevelDbAdapterConfiguration extends Configuration.LocalDatabaseConfiguration {
-            adapter: 'leveldb';
+            adapter: "leveldb";
         }
     }
 
     interface Static {
-        new<Content extends {}>(name: string | null,
-                                options: LevelDbAdapter.LevelDbAdapterConfiguration
-                               ): Database<Content>;
+        new<Content extends {}>(
+            name: string | null,
+            options: LevelDbAdapter.LevelDbAdapterConfiguration,
+        ): Database<Content>;
     }
 }
 
-declare module 'pouchdb-adapter-leveldb' {
+declare module "pouchdb-adapter-leveldb" {
     const plugin: PouchDB.Plugin;
     export = plugin;
 }

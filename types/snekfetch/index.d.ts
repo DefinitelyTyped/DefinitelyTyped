@@ -7,8 +7,8 @@
 
 /// <reference types="node" />
 
-import { ClientRequest, Agent } from 'http';
-import { Readable } from 'stream';
+import { Agent, ClientRequest } from "http";
+import { Readable } from "stream";
 
 declare namespace Snekfetch {
     interface SnekfetchOptions {
@@ -30,39 +30,40 @@ declare namespace Snekfetch {
         statusText: string;
     }
 
-    type methods = 'ACL'
-        | 'BIND'
-        | 'CHECKOUT'
-        | 'CONNECT'
-        | 'COPY'
-        | 'DELETE'
-        | 'GET'
-        | 'HEAD'
-        | 'LINK'
-        | 'LOCK'
-        | 'MERGE'
-        | 'MKACTIVITY'
-        | 'MKCALENDAR'
-        | 'MKCOL'
-        | 'MOVE'
-        | 'NOTIFY'
-        | 'OPTIONS'
-        | 'PATCH'
-        | 'POST'
-        | 'PROPFIND'
-        | 'PROPPATCH'
-        | 'PURGE'
-        | 'PUT'
-        | 'REBIND'
-        | 'REPORT'
-        | 'SEARCH'
-        | 'SOURCE'
-        | 'SUBSCRIBE'
-        | 'TRACE'
-        | 'UNBIND'
-        | 'UNLINK'
-        | 'UNLOCK'
-        | 'UNSUBSCRIBE';
+    type methods =
+        | "ACL"
+        | "BIND"
+        | "CHECKOUT"
+        | "CONNECT"
+        | "COPY"
+        | "DELETE"
+        | "GET"
+        | "HEAD"
+        | "LINK"
+        | "LOCK"
+        | "MERGE"
+        | "MKACTIVITY"
+        | "MKCALENDAR"
+        | "MKCOL"
+        | "MOVE"
+        | "NOTIFY"
+        | "OPTIONS"
+        | "PATCH"
+        | "POST"
+        | "PROPFIND"
+        | "PROPPATCH"
+        | "PURGE"
+        | "PUT"
+        | "REBIND"
+        | "REPORT"
+        | "SEARCH"
+        | "SOURCE"
+        | "SUBSCRIBE"
+        | "TRACE"
+        | "UNBIND"
+        | "UNLINK"
+        | "UNLOCK"
+        | "UNSUBSCRIBE";
 }
 
 declare class Snekfetch extends Readable {

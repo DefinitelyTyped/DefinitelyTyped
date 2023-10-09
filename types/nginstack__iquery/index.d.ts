@@ -1,4 +1,4 @@
-// Type definitions for @nginstack/iquery 70.0
+// Type definitions for @nginstack/iquery 71.0
 // Project: https://dev.azure.com/nginstack/nginstack
 // Definitions by: Renato Ribeiro <https://github.com/Henato>
 //                 Paulo Moreno <https://github.com/paulocmoreno>

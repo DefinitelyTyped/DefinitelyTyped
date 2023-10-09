@@ -1,5 +1,5 @@
-import { IWebElementId, Locator, Serializable, WebDriver, WebElement, WebElementPromise } from '..';
-import { Command } from './command';
+import { IWebElementId, Locator, Serializable, WebDriver, WebElement, WebElementPromise } from "..";
+import { Command } from "./command";
 
 /**
  * Represents a ShadowRoot of a {@link WebElement}. Provides functions to
@@ -35,7 +35,6 @@ export class ShadowRoot implements Serializable<IWebElementId> {
      * @return {!Promise<T>} A promise that will be resolved with the result.
      * @template T
      * @see WebDriver#schedule
-     * @private
      */
     execute_<T>(command: Command): Promise<T>;
 
@@ -95,7 +94,6 @@ export class ShadowRoot implements Serializable<IWebElementId> {
  * scheduled without directly on this instance before the underlying
  * ShadowRoot has been fulfilled.
  *
- * @implements { IThenable<!ShadowRoot>}
  * @final
  */
 export interface ShadowRootPromise extends Promise<ShadowRoot> {}

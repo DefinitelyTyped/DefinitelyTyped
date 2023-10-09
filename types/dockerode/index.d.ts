@@ -15,9 +15,9 @@
 
 /// <reference types="node" />
 
-import * as stream from 'stream';
-import * as events from 'events';
-import * as DockerModem from 'docker-modem';
+import * as DockerModem from "docker-modem";
+import * as events from "events";
+import * as stream from "stream";
 
 declare namespace Dockerode {
     class Container {
@@ -48,9 +48,9 @@ declare namespace Dockerode {
         export(callback: Callback<NodeJS.ReadableStream>): void;
         export(options?: {}): Promise<NodeJS.ReadableStream>;
 
-        start(options: {}, callback: Callback<any>): void;
+        start(options: ContainerStartOptions, callback: Callback<any>): void;
         start(callback: Callback<any>): void;
-        start(options?: {}): Promise<any>;
+        start(options?: ContainerStartOptions): Promise<any>;
 
         pause(options: {}, callback: Callback<any>): void;
         pause(callback: Callback<any>): void;
@@ -67,9 +67,9 @@ declare namespace Dockerode {
         commit(callback: Callback<any>): void;
         commit(options?: {}): Promise<any>;
 
-        stop(options: {}, callback: Callback<any>): void;
+        stop(options: ContainerStopOptions, callback: Callback<any>): void;
         stop(callback: Callback<any>): void;
-        stop(options?: {}): Promise<any>;
+        stop(options?: ContainerStopOptions): Promise<any>;
 
         restart(options: {}, callback: Callback<any>): void;
         restart(callback: Callback<any>): void;
@@ -118,14 +118,14 @@ declare namespace Dockerode {
         logs(options?: ContainerLogsOptions & { follow?: false }): Promise<Buffer>;
         logs(options?: ContainerLogsOptions & { follow: true }): Promise<NodeJS.ReadableStream>;
 
-        stats(options: { stream?: false; 'one-shot'?: boolean }, callback: Callback<ContainerStats>): void;
+        stats(options: { stream?: false; "one-shot"?: boolean }, callback: Callback<ContainerStats>): void;
         stats(options: { stream: true }, callback: Callback<NodeJS.ReadableStream>): void;
         stats(callback: Callback<ContainerStats>): void;
-        stats(options?: { stream?: false; 'one-shot'?: boolean }): Promise<ContainerStats>;
+        stats(options?: { stream?: false; "one-shot"?: boolean }): Promise<ContainerStats>;
         stats(options?: { stream: true }): Promise<NodeJS.ReadableStream>;
 
-        attach(options: {}, callback: Callback<NodeJS.ReadWriteStream>): void;
-        attach(options: {}): Promise<NodeJS.ReadWriteStream>;
+        attach(options: ContainerAttachOptions, callback: Callback<NodeJS.ReadWriteStream>): void;
+        attach(options: ContainerAttachOptions): Promise<NodeJS.ReadWriteStream>;
     }
 
     class Image {
@@ -487,9 +487,9 @@ declare namespace Dockerode {
         // Field is sometimes present, and sometimes null
         UsageData?:
             | {
-                  Size: number;
-                  RefCount: number;
-              }
+                Size: number;
+                RefCount: number;
+            }
             | null
             | undefined;
     }
@@ -500,15 +500,15 @@ declare namespace Dockerode {
         Mountpoint: string;
         Status?: { [key: string]: string } | undefined;
         Labels: { [key: string]: string };
-        Scope: 'local' | 'global';
+        Scope: "local" | "global";
         // Field is always present, but sometimes is null
         Options: { [key: string]: string } | null;
         // Field is sometimes present, and sometimes null
         UsageData?:
             | {
-                  Size: number;
-                  RefCount: number;
-              }
+                Size: number;
+                RefCount: number;
+            }
             | null
             | undefined;
     }
@@ -532,15 +532,15 @@ declare namespace Dockerode {
             FinishedAt: string;
             Health?:
                 | {
-                      Status: string;
-                      FailingStreak: number;
-                      Log: Array<{
-                          Start: string;
-                          End: string;
-                          ExitCode: number;
-                          Output: string;
-                      }>;
-                  }
+                    Status: string;
+                    FailingStreak: number;
+                    Log: Array<{
+                        Start: string;
+                        End: string;
+                        ExitCode: number;
+                        Output: string;
+                    }>;
+                }
                 | undefined;
         };
         Image: string;
@@ -634,14 +634,14 @@ declare namespace Dockerode {
             };
             Node?:
                 | {
-                      ID: string;
-                      IP: string;
-                      Addr: string;
-                      Name: string;
-                      Cpus: number;
-                      Memory: number;
-                      Labels: any;
-                  }
+                    ID: string;
+                    IP: string;
+                    Addr: string;
+                    Name: string;
+                    Cpus: number;
+                    Memory: number;
+                    Labels: any;
+                }
                 | undefined;
         };
     }
@@ -774,9 +774,9 @@ declare namespace Dockerode {
         ContainerIDFile?: string | undefined;
         LogConfig?:
             | {
-                  Type: string;
-                  Config: any;
-              }
+                Type: string;
+                Config: any;
+            }
             | undefined;
         NetworkMode?: string | undefined;
         PortBindings?: any;
@@ -836,7 +836,7 @@ declare namespace Dockerode {
         OomKillDisable?: boolean | undefined;
         Init?: boolean | undefined;
         PidsLimit?: number | undefined;
-        Ulimits?: any;
+        Ulimits?: Ulimit[] | undefined;
         CpuCount?: number | undefined;
         CpuPercent?: number | undefined;
         CpuRealtimePeriod?: number | undefined;
@@ -985,15 +985,15 @@ declare namespace Dockerode {
     }
 
     type LoggingDriverType =
-        | 'json-file'
-        | 'syslog'
-        | 'journald'
-        | 'gelf'
-        | 'fluentd'
-        | 'awslogs'
-        | 'splunk'
-        | 'etwlogs'
-        | 'none';
+        | "json-file"
+        | "syslog"
+        | "journald"
+        | "gelf"
+        | "fluentd"
+        | "awslogs"
+        | "splunk"
+        | "etwlogs"
+        | "none";
 
     interface LogConfig {
         Type: LoggingDriverType;
@@ -1090,11 +1090,11 @@ declare namespace Dockerode {
         abortSignal?: AbortSignal;
     }
 
-    type MountType = 'bind' | 'volume' | 'tmpfs';
+    type MountType = "bind" | "volume" | "tmpfs";
 
-    type MountConsistency = 'default' | 'consistent' | 'cached' | 'delegated';
+    type MountConsistency = "default" | "consistent" | "cached" | "delegated";
 
-    type MountPropagation = 'private' | 'rprivate' | 'shared' | 'rshared' | 'slave' | 'rslave';
+    type MountPropagation = "private" | "rprivate" | "shared" | "rshared" | "slave" | "rslave";
 
     interface MountSettings {
         Target: string;
@@ -1104,24 +1104,24 @@ declare namespace Dockerode {
         Consistency?: MountConsistency | undefined;
         BindOptions?:
             | {
-                  Propagation: MountPropagation;
-              }
+                Propagation: MountPropagation;
+            }
             | undefined;
         VolumeOptions?:
             | {
-                  NoCopy: boolean;
-                  Labels: { [label: string]: string };
-                  DriverConfig: {
-                      Name: string;
-                      Options: { [option: string]: string };
-                  };
-              }
+                NoCopy: boolean;
+                Labels: { [label: string]: string };
+                DriverConfig: {
+                    Name: string;
+                    Options: { [option: string]: string };
+                };
+            }
             | undefined;
         TmpfsOptions?:
             | {
-                  SizeBytes: number;
-                  Mode: number;
-              }
+                SizeBytes: number;
+                Mode: number;
+            }
             | undefined;
     }
 
@@ -1129,6 +1129,7 @@ declare namespace Dockerode {
 
     interface ContainerCreateOptions {
         name?: string | undefined;
+        platform?: string | undefined;
         Hostname?: string | undefined;
         Domainname?: string | undefined;
         User?: string | undefined;
@@ -1154,10 +1155,14 @@ declare namespace Dockerode {
         HostConfig?: HostConfig | undefined;
         NetworkingConfig?:
             | {
-                  EndpointsConfig?: EndpointsConfig | undefined;
-              }
+                EndpointsConfig?: EndpointsConfig | undefined;
+            }
             | undefined;
         abortSignal?: AbortSignal;
+    }
+
+    interface ContainerStartOptions {
+        detachKeys?: string;
     }
 
     interface ContainerRemoveOptions {
@@ -1180,7 +1185,7 @@ declare namespace Dockerode {
         ca?: string | string[] | Buffer | Buffer[] | undefined;
         cert?: string | string[] | Buffer | Buffer[] | undefined;
         key?: string | string[] | Buffer | Buffer[] | KeyObject[] | undefined;
-        protocol?: 'https' | 'http' | 'ssh' | undefined;
+        protocol?: "https" | "http" | "ssh" | undefined;
         timeout?: number | undefined;
         version?: string | undefined;
         sshAuthAgent?: string | undefined;
@@ -1193,34 +1198,34 @@ declare namespace Dockerode {
         filters?:
             | string
             | {
-                  config?: string | undefined;
-                  container?: string[] | undefined;
-                  daemon?: string[] | undefined;
-                  event?: string[] | undefined;
-                  image?: string[] | undefined;
-                  label?: string[] | undefined;
-                  network?: string[] | undefined;
-                  node?: string[] | undefined;
-                  plugin?: string[] | undefined;
-                  scope?: Array<'local' | 'swarm'> | undefined;
-                  secret?: string[] | undefined;
-                  service?: string[] | undefined;
-                  type?:
-                      | Array<
-                            | 'container'
-                            | 'image'
-                            | 'volume'
-                            | 'network'
-                            | 'daemon'
-                            | 'plugin'
-                            | 'service'
-                            | 'node'
-                            | 'secret'
-                            | 'config'
-                        >
-                      | undefined;
-                  volume?: string[] | undefined;
-              }
+                config?: string | undefined;
+                container?: string[] | undefined;
+                daemon?: string[] | undefined;
+                event?: string[] | undefined;
+                image?: string[] | undefined;
+                label?: string[] | undefined;
+                network?: string[] | undefined;
+                node?: string[] | undefined;
+                plugin?: string[] | undefined;
+                scope?: Array<"local" | "swarm"> | undefined;
+                secret?: string[] | undefined;
+                service?: string[] | undefined;
+                type?:
+                    | Array<
+                        | "container"
+                        | "image"
+                        | "volume"
+                        | "network"
+                        | "daemon"
+                        | "plugin"
+                        | "service"
+                        | "node"
+                        | "secret"
+                        | "config"
+                    >
+                    | undefined;
+                volume?: string[] | undefined;
+            }
             | undefined;
         abortSignal?: AbortSignal;
     }
@@ -1276,9 +1281,9 @@ declare namespace Dockerode {
         MaxReplicas?: number | undefined;
         Platforms?:
             | Array<{
-                  Architecture: string;
-                  OS: string;
-              }>
+                Architecture: string;
+                OS: string;
+            }>
             | undefined;
     }
 
@@ -1291,19 +1296,19 @@ declare namespace Dockerode {
     interface Privileges {
         CredentialSpec?:
             | {
-                  Config?: string | undefined;
-                  File?: string | undefined;
-                  Registry?: string | undefined;
-              }
+                Config?: string | undefined;
+                File?: string | undefined;
+                Registry?: string | undefined;
+            }
             | undefined;
         SELinuxContext?:
             | {
-                  Disable?: boolean | undefined;
-                  User?: string | undefined;
-                  Role?: string | undefined;
-                  Type?: string | undefined;
-                  Level?: string | undefined;
-              }
+                Disable?: boolean | undefined;
+                User?: string | undefined;
+                Role?: string | undefined;
+                Type?: string | undefined;
+                Level?: string | undefined;
+            }
             | undefined;
     }
 
@@ -1321,14 +1326,27 @@ declare namespace Dockerode {
         Options?: string[] | undefined;
     }
 
+    interface ConfigReference {
+        File?:
+            | {
+                Name?: string | undefined;
+                UID?: string | undefined;
+                GID?: string | undefined;
+                Mode: number | undefined;
+            }
+            | undefined;
+        ConfigID?: string | undefined;
+        ConfigName?: string | undefined;
+    }
+
     interface SecretReference {
         File?:
             | {
-                  Name?: string | undefined;
-                  UID?: string | undefined;
-                  GID?: string | undefined;
-                  Mode?: number | undefined;
-              }
+                Name?: string | undefined;
+                UID?: string | undefined;
+                GID?: string | undefined;
+                Mode?: number | undefined;
+            }
             | undefined;
         SecretID?: string | undefined;
         SecretName?: string | undefined;
@@ -1361,6 +1379,7 @@ declare namespace Dockerode {
         HealthCheck?: HealthConfig | undefined;
         Hosts?: string[] | undefined;
         DNSConfig?: DNSConfig | undefined;
+        Configs?: ConfigReference[] | undefined;
         Secrets?: SecretReference[] | undefined;
         Isolation?: string | undefined;
         Sysctls?: { [key: string]: string } | undefined;
@@ -1374,10 +1393,10 @@ declare namespace Dockerode {
         Remote?: string | undefined;
         Privileges?:
             | {
-                  Name?: string | undefined;
-                  Description?: string | undefined;
-                  Value?: string[] | undefined;
-              }
+                Name?: string | undefined;
+                Description?: string | undefined;
+                Value?: string[] | undefined;
+            }
             | undefined;
         Disabled?: boolean | undefined;
         Env?: string[] | undefined;
@@ -1390,9 +1409,9 @@ declare namespace Dockerode {
         Networks?: NetworkAttachmentConfig[] | undefined;
         LogDriver?:
             | {
-                  Name?: string | undefined;
-                  Options?: { [key: string]: string } | undefined;
-              }
+                Name?: string | undefined;
+                Options?: { [key: string]: string } | undefined;
+            }
             | undefined;
         ForceUpdate?: number | undefined;
         Runtime?: string | undefined;
@@ -1403,12 +1422,12 @@ declare namespace Dockerode {
     }
 
     interface PluginTaskSpec extends TaskSpecBase {
-        Runtime: 'plugin';
+        Runtime: "plugin";
         PluginSpec: PluginSpec;
     }
 
     interface NetworkAttachmentTaskSpec extends TaskSpecBase {
-        Runtime: 'attachment';
+        Runtime: "attachment";
         NetworkAttachmentSpec: {
             ContainerID: string;
         };
@@ -1421,9 +1440,9 @@ declare namespace Dockerode {
         Global?: {} | undefined;
         ReplicatedJob?:
             | {
-                  MaxConcurrent?: number | undefined;
-                  TotalCompletions?: number | undefined;
-              }
+                MaxConcurrent?: number | undefined;
+                TotalCompletions?: number | undefined;
+            }
             | undefined;
         GlobalJob?: {} | undefined;
     }
@@ -1439,10 +1458,10 @@ declare namespace Dockerode {
 
     interface PortConfig {
         Name?: string | undefined;
-        Protocol?: 'tcp' | 'udp' | 'sctp' | undefined;
+        Protocol?: "tcp" | "udp" | "sctp" | undefined;
         TargetPort?: number | undefined;
         PublishedPort?: number | undefined;
-        PublishMode?: 'ingress' | 'host' | undefined;
+        PublishMode?: "ingress" | "host" | undefined;
     }
 
     interface EndpointSpec {
@@ -1478,11 +1497,11 @@ declare namespace Dockerode {
     interface ServiceListOptions {
         filters?:
             | {
-                  id?: string[] | undefined;
-                  label?: string[] | undefined;
-                  mode?: Array<'replicated' | 'global'> | undefined;
-                  name?: string[] | undefined;
-              }
+                id?: string[] | undefined;
+                label?: string[] | undefined;
+                mode?: Array<"replicated" | "global"> | undefined;
+                name?: string[] | undefined;
+            }
             | string
             | undefined;
         status?: boolean | undefined;
@@ -1500,12 +1519,12 @@ declare namespace Dockerode {
     }
 
     type UpdateState =
-        | 'updating'
-        | 'paused'
-        | 'completed'
-        | 'rollback_started'
-        | 'rollback_paused'
-        | 'rollback_completed';
+        | "updating"
+        | "paused"
+        | "completed"
+        | "rollback_started"
+        | "rollback_paused"
+        | "rollback_completed";
 
     interface UpdateStatus {
         State?: UpdateState | undefined;
@@ -1551,7 +1570,7 @@ declare namespace Dockerode {
         HeartbeatPeriod?: Duration | undefined;
     }
 
-    type ExternalCAProtocol = 'cfssl' | string;
+    type ExternalCAProtocol = "cfssl" | string;
 
     interface ExternalCA {
         Protocol: ExternalCAProtocol;
@@ -1744,8 +1763,8 @@ declare namespace Dockerode {
     interface ImageDistributionPlatformInfo {
         architecture: string;
         os: string;
-        'os.version': string;
-        'os.features': string[];
+        "os.version": string;
+        "os.features": string[];
         variant: string;
     }
 
@@ -1791,7 +1810,7 @@ declare namespace Dockerode {
 
     interface ContainerWaitOptions {
         /** Since v1.30 */
-        condition?: 'not-running' | 'next-exit' | 'removed' | undefined;
+        condition?: "not-running" | "next-exit" | "removed" | undefined;
         abortSignal?: AbortSignal;
     }
 
@@ -1804,6 +1823,24 @@ declare namespace Dockerode {
         details?: boolean | undefined;
         tail?: number | undefined;
         timestamps?: boolean | undefined;
+        abortSignal?: AbortSignal;
+    }
+
+    interface ContainerAttachOptions {
+        detachKeys?: string | undefined;
+        hijack?: boolean | undefined;
+        logs?: boolean | undefined;
+        stream?: boolean | undefined;
+        stdin?: boolean | undefined;
+        stdout?: boolean | undefined;
+        stderr?: boolean | undefined;
+        abortSignal?: AbortSignal;
+    }
+
+    interface ContainerStopOptions {
+        signal?: string;
+        /** Number of seconds to wait before killing the container */
+        t?: number;
         abortSignal?: AbortSignal;
     }
 
@@ -2018,15 +2055,15 @@ declare class Dockerode {
         image: string,
         cmd: string[],
         outputStream: NodeJS.WritableStream | NodeJS.WritableStream[],
-        createOptions: {},
-        startOptions: {},
+        createOptions: Dockerode.ContainerCreateOptions,
+        startOptions: Dockerode.ContainerStartOptions,
         callback: Callback<any>,
     ): events.EventEmitter;
     run(
         image: string,
         cmd: string[],
         outputStream: NodeJS.WritableStream | NodeJS.WritableStream[],
-        startOptions: {},
+        createOptions: Dockerode.ContainerCreateOptions,
         callback: Callback<any>,
     ): events.EventEmitter;
     run(
@@ -2039,15 +2076,8 @@ declare class Dockerode {
         image: string,
         cmd: string[],
         outputStream: NodeJS.WritableStream | NodeJS.WritableStream[],
-        createOptions: {},
-        callback: Callback<any>,
-    ): events.EventEmitter;
-    run(
-        image: string,
-        cmd: string[],
-        outputStream: NodeJS.WritableStream | NodeJS.WritableStream[],
-        createOptions?: {},
-        startOptions?: {},
+        createOptions?: Dockerode.ContainerCreateOptions,
+        startOptions?: Dockerode.ContainerStartOptions,
     ): Promise<any>;
 
     swarmInit(options: {}, callback: Callback<any>): void;

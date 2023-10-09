@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import Bluebird = require('bluebird');
-import XRayCrawler = require('x-ray-crawler');
+import Bluebird = require("bluebird");
+import XRayCrawler = require("x-ray-crawler");
 
 export = XRay;
 
@@ -16,16 +16,16 @@ declare function XRay(options?: XRay.Options): XRay.Instance;
 declare namespace XRay {
     type Filter = (value: any, ...args: string[]) => any;
     interface Options {
-        filters: {[key: string]: Filter};
+        filters: { [key: string]: Filter };
     }
     type Callback = (err: Error, data: any) => void;
 
     // circularly references itself
     // https://stackoverflow.com/a/41826582
     type ScalarSelector =
-        string |
-        InstanceInvocation |
-        {[key: string]: Selector};
+        | string
+        | InstanceInvocation
+        | { [key: string]: Selector };
     interface SelectorArray extends Array<ScalarSelector | SelectorArray> {
         [index: number]: ScalarSelector | SelectorArray;
     }
@@ -36,19 +36,19 @@ declare namespace XRay {
     interface Instance extends XRayCrawler.Instance {
         (
             source: string,
-            selector: Selector
+            selector: Selector,
         ): InstanceInvocation;
         (
             source: string,
             context: string,
-            selector: Selector
+            selector: Selector,
         ): InstanceInvocation;
         (
             context: string,
-            selector: Selector
+            selector: Selector,
         ): InstanceInvocation;
         (
-            selector: Selector
+            selector: Selector,
         ): InstanceInvocation;
     }
 

@@ -1,6 +1,8 @@
 {
     "private": true,
+    "type": "module",
     "dependencies": {
-      "rdf-js": "^4.0.2"
+      "rdf-js": "^4.0.2",
+      "rdfxml-streaming-parser": ">=2"
     }
   }

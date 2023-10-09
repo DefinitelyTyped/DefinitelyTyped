@@ -1,6 +1,6 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Editor } from 'react-draft-wysiwyg';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { Editor } from "react-draft-wysiwyg";
 
 const RenderWithTestId = () => (
     <div>
@@ -8,4 +8,4 @@ const RenderWithTestId = () => (
     </div>
 );
 
-ReactDOM.render(<RenderWithTestId />, document.getElementById('target'));
+ReactDOM.render(<RenderWithTestId />, document.getElementById("target"));

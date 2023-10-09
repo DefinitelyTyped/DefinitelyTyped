@@ -13,9 +13,7 @@
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "marked": [ "marked/v3" ]
-        },
+        "target": "es6",
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

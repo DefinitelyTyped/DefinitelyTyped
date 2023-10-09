@@ -5,20 +5,20 @@ declare namespace GorillaEngine.UI {
         right: number;
         bottom: number;
     }
-    interface ComboBoxPopupStyles {
+    interface ComboBoxPopupStyles extends Font {
         backgroundColor: string;
         itemTextColor: string;
         itemSelectedTextColor: string;
         itemSelectedBackgroundColor: string;
         itemHighlightedTextColor: string;
         itemHighlightedBackgroundColor: string;
-        checkmarkFloat: 'left' | 'right';
+        checkmarkFloat: "left" | "right";
         cornerRadius: number;
         padding: ComboBoxPadding | number;
         checkmarkPadding: ComboBoxPadding;
     }
 
-    interface ComboBoxProps extends Common, Bounds, Background, Clickable, Font {
+    interface ComboBoxProps extends Common, Bounds, Background, Clickable, Font, Highlight {
         value: number;
         /**
          * List of options

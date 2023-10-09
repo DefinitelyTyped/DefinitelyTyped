@@ -1,7 +1,6 @@
 // Type definitions for wellknown 0.5
 // Project: https://github.com/mapbox/wellknown#readme
-// Definitions by: Davide Scalzo <https://github.com/davodesign84>
-//                 Yair Tawil <https://github.com/yairtawil>
+// Definitions by: Yair Tawil <https://github.com/yairtawil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type GeoJSONPosition = [number, number] | [number, number, number];
@@ -39,7 +38,7 @@ export type GeoJSONGeometry =
 export type GeoJSONGeometryOrNull = GeoJSONGeometry | null;
 
 export interface GeoJSONFeature {
-    type: 'Feature';
+    type: "Feature";
     geometry: GeoJSONGeometry;
 }
 

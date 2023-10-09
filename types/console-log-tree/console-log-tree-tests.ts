@@ -1,27 +1,27 @@
-import logTree = require('console-log-tree');
+import logTree = require("console-log-tree");
 
 // $ExpectType string
 const treeString = logTree.parse([{
-  name: 'Planets',
-  children: [{
-    name: 'Earth',
+    name: "Planets",
     children: [{
-      name: 'Moon'
-    }]
-  }, {
-    name: 'Venus'
-  }]
+        name: "Earth",
+        children: [{
+            name: "Moon",
+        }],
+    }, {
+        name: "Venus",
+    }],
 }, {
-  name: 'Empty Tree'
+    name: "Empty Tree",
 }]);
 
 // $ExpectType void
 logTree.log({
-  name: 'My Tree'
+    name: "My Tree",
 });
 
 // @ts-expect-error
 logTree.log({});
 
 // @ts-expect-error
-logTree({ name: 'Hello' });
+logTree({ name: "Hello" });

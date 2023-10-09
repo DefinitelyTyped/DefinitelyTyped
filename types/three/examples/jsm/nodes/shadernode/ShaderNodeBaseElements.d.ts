@@ -1,5 +1,5 @@
-import TextureNode from '../accessors/TextureNode';
-import Node from '../core/Node';
+import TextureNode from '../accessors/TextureNode.js';
+import Node from '../core/Node.js';
 
 // shader node utils
 import {
@@ -15,10 +15,10 @@ import {
     NodeOrType,
     ProxiedObject,
     ProxiedTuple,
-} from './ShaderNode';
-import { Material, Texture } from '../../../../src/Three';
-import { NodeTypeOption, NodeUserData, NodeValueOption } from '../core/constants';
-import { NodeBuilderContext } from '../core/NodeBuilder';
+} from './ShaderNode.js';
+import { Material, Texture } from '../../../../src/Three.js';
+import { NodeTypeOption, NodeUserData, NodeValueOption } from '../core/constants.js';
+import { NodeBuilderContext } from '../core/NodeBuilder.js';
 import {
     BitangentNode,
     BufferNode,
@@ -34,7 +34,6 @@ import {
     FunctionCallNode,
     FunctionNode,
     FunctionNodeArguments,
-    InstanceIndexNode,
     MaterialNode,
     MaterialReferenceNode,
     MathNode,
@@ -50,10 +49,10 @@ import {
     UserDataNode,
     UVNode,
     VarNode,
-    VaryNode,
-} from '../Nodes';
-import StorageBufferNode from '../accessors/StorageBufferNode';
-import NodeCache from '../core/NodeCache';
+    VaryingNode,
+} from '../Nodes.js';
+import StorageBufferNode from '../accessors/StorageBufferNode.js';
+import NodeCache from '../core/NodeCache.js';
 
 // shader node base
 
@@ -118,19 +117,18 @@ export type Fn<P extends FunctionNodeArguments> = P extends readonly [...unknown
 export function func<P extends FunctionNodeArguments>(
     code: string,
     includes?: CodeNodeInclude[],
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): { call: (...params: Fn<P>) => Swizzable };
 
 export function fn<P extends FunctionNodeArguments>(
     code: string,
     includes?: CodeNodeInclude[],
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): (...params: Fn<P>) => Swizzable;
 
-export const instanceIndex: Swizzable<InstanceIndexNode>;
 export function label(node: NodeRepresentation, name?: string): Swizzable<VarNode>;
 export function temp(node: NodeRepresentation, name?: string): Swizzable<VarNode>;
-export function vary(node: NodeRepresentation, name?: string): Swizzable<VaryNode>;
+export function vary(node: NodeRepresentation, name?: string): Swizzable<VaryingNode>;
 
 // accesors
 

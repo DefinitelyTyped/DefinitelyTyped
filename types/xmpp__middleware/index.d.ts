@@ -3,11 +3,11 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as koaCompose from 'koa-compose';
-import Connection = require('@xmpp/connection');
-import { Element } from '@xmpp/xml';
-import IncomingCtx = require('./lib/IncomingContext');
-import OutgoingCtx = require('./lib/OutgoingContext');
+import * as koaCompose from "koa-compose";
+import Connection = require("@xmpp/connection");
+import { Element } from "@xmpp/xml";
+import IncomingCtx = require("./lib/IncomingContext");
+import OutgoingCtx = require("./lib/OutgoingContext");
 
 export = middleware;
 

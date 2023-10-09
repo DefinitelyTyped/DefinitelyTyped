@@ -1,15 +1,15 @@
 import {
-    useVirtual,
-    useVirtualModel,
-    useSubscription,
     EVT_FROM,
+    mapVisibleRange,
+    Subscription,
     useComponentSubscription,
     useOnce,
-    Subscription,
-    mapVisibleRange,
-} from '@af-utils/react-virtual-headless';
+    useSubscription,
+    useVirtual,
+    useVirtualModel,
+} from "@af-utils/react-virtual-headless";
 
-import * as React from 'react';
+import * as React from "react";
 
 // $ExpectType Model
 useVirtualModel();
@@ -37,19 +37,19 @@ useVirtual({
 // I feel that that is enough to show that the two functions are equivalent.  The following tests will just use `useVirtualModel`.
 
 // @ts-expect-error
-useVirtual({ itemCount: 'asdf' });
+useVirtual({ itemCount: "asdf" });
 
 // @ts-expect-error
-useVirtual({ getEstimatedItemSize: () => 'abc' });
+useVirtual({ getEstimatedItemSize: () => "abc" });
 
 // @ts-expect-error
-useVirtual({ estimatedWidgetSize: 'abc' });
+useVirtual({ estimatedWidgetSize: "abc" });
 
 // @ts-expect-error
-useVirtual({ overscanCount: 'abc' });
+useVirtual({ overscanCount: "abc" });
 
 // @ts-expect-error
-useVirtual({ horizontal: 'abc' });
+useVirtual({ horizontal: "abc" });
 
 // $ExpectType void
 useSubscription(useVirtual(), [EVT_FROM], () => {});
@@ -89,14 +89,19 @@ useOnce(() => null);
 // @ts-expect-error
 useOnce(() => {});
 
-// $ExpectType ReactElement<any, any> | null
-Subscription({ model: useVirtual(), children: <>Abc</> });
+<Subscription model={useVirtual()}>Abc</Subscription>;
 
-// $ExpectType ReactElement<any, any> | null
-Subscription({ model: useVirtual(), events: [EVT_FROM], children: <>Abc</> });
+<Subscription model={useVirtual()} events={[EVT_FROM]}>
+    Abc
+</Subscription>;
 
-// @ts-expect-error
-Subscription({ model: useVirtual(), events: EVT_FROM, children: <>Abc</> });
+<Subscription
+    model={useVirtual()}
+    // @ts-expect-error
+    events={EVT_FROM}
+>
+    Abc
+</Subscription>;
 
 // @ts-expect-error
 Subscription({ model: useVirtual(), children: { abc: 1 } });
@@ -108,7 +113,7 @@ mapVisibleRange(useVirtual(), (index: number) => {});
 mapVisibleRange(useVirtual(), (index: number, offset?: number) => {}, true);
 
 // @ts-expect-error
-mapVisibleRange(useVirtual(), (index: number, offset?: number) => {}, 'abc');
+mapVisibleRange(useVirtual(), (index: number, offset?: number) => {}, "abc");
 
 // @ts-expect-error
 mapVisibleRange(useVirtual(), (index: number, offset: number) => {});

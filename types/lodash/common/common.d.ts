@@ -1,5 +1,5 @@
 import _ = require("../index");
-// tslint:disable-next-line:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 type GlobalPartial<T> = Partial<T>;
 declare module "../index" {
     type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
@@ -210,7 +210,7 @@ declare module "../index" {
     interface PrimitiveChain<T> extends LoDashExplicitWrapper<T> {
     }
     type NotVoid = unknown;
-    type IterateeShorthand<T> = keyof T | [keyof T, any] | PartialShallow<T>;
+    type IterateeShorthand<T> = PropertyName | [PropertyName, any] | PartialShallow<T>;
     type ArrayIterator<T, TResult> = (value: T, index: number, collection: T[]) => TResult;
     type ListIterator<T, TResult> = (value: T, index: number, collection: List<T>) => TResult;
     type ListIteratee<T> = ListIterator<T, NotVoid> | IterateeShorthand<T>;

@@ -1,9 +1,9 @@
-import { Select } from 'selenium-webdriver/lib/select';
-import { Builder, WebDriver, WebElement } from 'selenium-webdriver';
+import { Builder, WebDriver, WebElement } from "selenium-webdriver";
+import { Select } from "selenium-webdriver/lib/select";
 
 function TestSelect() {
     let driver: WebDriver = new Builder().build();
-    let element: WebElement = new WebElement(driver, 'elementId');
+    let element: WebElement = new WebElement(driver, "elementId");
 
     let select: Select = new Select(element);
     select.selectByIndex(1);

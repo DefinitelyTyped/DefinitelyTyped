@@ -1,7 +1,9 @@
 {
     "rules": {
-        "no-const-enum": "off",
-        "prefer-declare-function": "off",
-        "no-single-element-tuple-type": "off"
+        "jsdoc/check-tag-names": "off",
+        "@definitelytyped/no-const-enum": "off",
+        "@definitelytyped/prefer-declare-function": "off",
+        "@definitelytyped/no-single-element-tuple-type": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off"
     }
 }

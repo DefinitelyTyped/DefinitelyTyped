@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace RecordRTC {
-    type State = 'inactive' | 'recording' | 'stopped' | 'paused' | 'destroyed';
+    type State = "inactive" | "recording" | "stopped" | "paused" | "destroyed";
 
     interface Disk {
         audio?: Blob | undefined;
@@ -13,7 +13,7 @@ declare namespace RecordRTC {
         gif?: Blob | undefined;
     }
 
-    type MediaStreamKind = 'videoinput' | 'audioinput' | 'audiooutput';
+    type MediaStreamKind = "videoinput" | "audioinput" | "audiooutput";
 
     /* tslint:disable:no-unnecessary-class */
     class MediaStreamRecorder {
@@ -229,22 +229,22 @@ declare namespace RecordRTC {
         | RecordRTCPromisesHandler;
 
     interface Options {
-        type?: 'video' | 'audio' | 'canvas' | 'gif' | undefined;
+        type?: "video" | "audio" | "canvas" | "gif" | undefined;
 
         recorderType?: Recorder | undefined;
 
         mimeType?:
-            | 'audio/webm'
-            | 'audio/webm;codecs=pcm'
-            | 'video/mp4'
-            | 'video/webm'
-            | 'video/webm;codecs=vp9'
-            | 'video/webm;codecs=vp8'
-            | 'video/webm;codecs=h264'
-            | 'video/x-matroska;codecs=avc1'
-            | 'video/mpeg'
-            | 'audio/wav'
-            | 'audio/ogg'
+            | "audio/webm"
+            | "audio/webm;codecs=pcm"
+            | "video/mp4"
+            | "video/webm"
+            | "video/webm;codecs=vp9"
+            | "video/webm;codecs=vp8"
+            | "video/webm;codecs=h264"
+            | "video/x-matroska;codecs=avc1"
+            | "video/mpeg"
+            | "audio/wav"
+            | "audio/ogg"
             | undefined;
 
         disableLogs?: boolean | undefined;
@@ -304,7 +304,7 @@ declare namespace RecordRTC {
         elementClass?: string | undefined;
     }
 
-    type DiskStorageType = 'audioBlob' | 'videoBlob' | 'gifBlob';
+    type DiskStorageType = "audioBlob" | "videoBlob" | "gifBlob";
 }
 
 declare class RecordRTC {
@@ -357,7 +357,7 @@ declare class RecordRTC {
     writeToDisk(options: RecordRTC.Disk): void;
 
     /** get recorded blob from indexded-db storage */
-    getFromDisk(type: 'all' | keyof RecordRTC.Disk, cb: (dataURL: string, type: keyof RecordRTC.Disk) => void): void;
+    getFromDisk(type: "all" | keyof RecordRTC.Disk, cb: (dataURL: string, type: keyof RecordRTC.Disk) => void): void;
 
     getTracks: (stream: MediaStream, kind: RecordRTC.MediaStreamKind) => MediaStreamTrack[];
 

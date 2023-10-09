@@ -46,7 +46,6 @@ interface AuthorizeOptions {
      * An opaque value used by the client to maintain state between this request and the response. The Login with Amazon authorization service will include this value when redirecting the user back
      * to the client. It is also used to prevent cross-site request forgery.
      * For more information see [Cross-site Request Forgery](https://developer.amazon.com/docs/login-with-amazon/cross-site-request-forgery.html).
-     *
      */
     state?: string | undefined;
     scope_data?: AuthorizeScopeData | undefined;
@@ -55,11 +54,10 @@ interface AuthorizeOptions {
 type AuthorizeScopeData = {
     [scope in AuthorizationScopeOptions]?: {
         essential: boolean;
-    }
+    };
 };
 
 /**
- *
  * Accepted values for `scope` member of `authorize` options.
  */
 type AuthorizationScopeOptions = "profile" | "profile:user_id" | "postal_code";
@@ -210,15 +208,15 @@ declare namespace amazon {
     namespace Login {
         function authorize(
             options: AccessTokenAuthorizeOptions,
-            next?: string | NextCallback<AccessTokenRequest>
+            next?: string | NextCallback<AccessTokenRequest>,
         ): AccessTokenRequest;
         function authorize(
             options: CodeAuthorizeOptions,
-            next?: string | NextCallback<CodeRequest>
+            next?: string | NextCallback<CodeRequest>,
         ): CodeRequest;
         function authorize(
             options: AuthorizeOptions,
-            next?: string | NextCallback<AuthorizeRequest>
+            next?: string | NextCallback<AuthorizeRequest>,
         ): AuthorizeRequest;
 
         /**
@@ -229,7 +227,7 @@ declare namespace amazon {
          */
         function retrieveProfile(
             accessToken: string,
-            callback?: RetrieveProfileCallback
+            callback?: RetrieveProfileCallback,
         ): void;
         /**
          * Retrieves the customer profile and passes it to a callback function.
@@ -298,7 +296,7 @@ declare namespace amazon {
         enum Region {
             NorthAmerica,
             Europe,
-            AsiaPacific
+            AsiaPacific,
         }
     }
 }

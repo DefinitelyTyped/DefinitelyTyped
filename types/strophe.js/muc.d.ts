@@ -7,9 +7,7 @@ declare module "strophe.js" {
         }
 
         namespace MUC {
-
             interface Plugin {
-
                 /**
                  * Initialize the MUC plugin. Sets the correct connection object and
                  * extends the namesace.
@@ -38,9 +36,8 @@ declare module "strophe.js" {
                     roster_cb: (occupants: OccupantMap, room: XmppRoom) => boolean,
                     password?: string,
                     history_attrs?: any,
-                    extended_presence?: Element
+                    extended_presence?: Element,
                 ): void;
-
 
                 /**
                  * Leave a multi-user chat room
@@ -55,14 +52,13 @@ declare module "strophe.js" {
                     room: string,
                     nick: string,
                     handler_cb?: (stanza: Element) => boolean,
-                    exit_msg?: string
+                    exit_msg?: string,
                 ): string;
-
 
                 /**
                  * Send a message to a room.
                  *
-                 * @param) room - The multi-user chat room name.
+                 * @param room - The multi-user chat room name.
                  * @param nick - The nick name used in the chat room.
                  * @param message - The plaintext message to send to the room.
                  * @param html_message - The message to send to the room with html markup.
@@ -74,9 +70,8 @@ declare module "strophe.js" {
                     nick: string,
                     message: string,
                     html_message: string,
-                    type: "groupchat" | "chat"
+                    type: "groupchat" | "chat",
                 ): string;
-
 
                 /**
                  * Convenience Function to send a Message to all Occupants
@@ -91,9 +86,8 @@ declare module "strophe.js" {
                     room: string,
                     message: string,
                     html_message?: string,
-                    msgid?: string
+                    msgid?: string,
                 ): string;
-
 
                 /**
                  * Send a mediated invitation.
@@ -106,9 +100,8 @@ declare module "strophe.js" {
                 invite(
                     room: string,
                     receiver: string,
-                    reason?: string
+                    reason?: string,
                 ): string;
-
 
                 /**
                  * Send a mediated multiple invitation.
@@ -121,9 +114,8 @@ declare module "strophe.js" {
                 multipleInvites(
                     room: string,
                     receivers: string[],
-                    reason?: string
+                    reason?: string,
                 ): string;
-
 
                 /**
                  * Send a direct invitation.
@@ -138,9 +130,8 @@ declare module "strophe.js" {
                     room: string,
                     receiver: string,
                     reason?: string,
-                    password?: string
+                    password?: string,
                 ): string;
-
 
                 /**
                  * Queries a room for a list of occupants
@@ -153,9 +144,8 @@ declare module "strophe.js" {
                 queryOccupants(
                     room: string,
                     success_cb?: (stanza: Element) => any,
-                    error_cb?: (error: any) => any
+                    error_cb?: (error: any) => any,
                 ): string;
-
 
                 /**
                  * Start a room configuration.
@@ -168,9 +158,8 @@ declare module "strophe.js" {
                 configure(
                     room: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 /**
                  * Cancel the room configuration
@@ -179,7 +168,6 @@ declare module "strophe.js" {
                  * @return id - the unique id used to cancel the configuration.
                  */
                 cancelConfigure(room: string): string;
-
 
                 /**
                  * Save a room configuration.
@@ -194,9 +182,8 @@ declare module "strophe.js" {
                     room: string,
                     config: any,
                     success_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 /**
                  * Create an instance room.
@@ -209,9 +196,8 @@ declare module "strophe.js" {
                 createInstantRoom(
                     room: string,
                     success_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 /**
                  * Create a configured room.
@@ -226,9 +212,8 @@ declare module "strophe.js" {
                     room: string,
                     config: any,
                     success_cb: (stanza: Element) => any,
-                    error_cb: (stanza: Element) => any
+                    error_cb: (stanza: Element) => any,
                 ): string;
-
 
                 /**
                  * Set the topic of the chat room.
@@ -237,7 +222,6 @@ declare module "strophe.js" {
                  * @param topic - Topic message.
                  */
                 setTopic(room: string, topic: string): void;
-
 
                 /**
                  * Changes the role of a member of a MUC room.
@@ -258,9 +242,8 @@ declare module "strophe.js" {
                     role: string,
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 /**
                  * Kick a user.
@@ -277,9 +260,8 @@ declare module "strophe.js" {
                     nick: string,
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 /**
                  * Voice a user.
@@ -296,9 +278,8 @@ declare module "strophe.js" {
                     nick: string,
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 /**
                  * Mute a user.
@@ -315,9 +296,8 @@ declare module "strophe.js" {
                     nick: string,
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 /**
                  * Op a user.
@@ -334,9 +314,8 @@ declare module "strophe.js" {
                     nick: string,
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 /**
                  * De-Op a user.
@@ -353,9 +332,8 @@ declare module "strophe.js" {
                     nick: string,
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 /**
                  * Changes the affiliation of a member of a MUC room.
@@ -376,9 +354,8 @@ declare module "strophe.js" {
                     affiliation: string,
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 /**
                  * Ban a user.
@@ -395,9 +372,8 @@ declare module "strophe.js" {
                     jid: string,
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 /**
                  * Member a user.
@@ -414,9 +390,8 @@ declare module "strophe.js" {
                     jid: string,
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 /**
                  * Revoke a user.
@@ -433,9 +408,8 @@ declare module "strophe.js" {
                     jid: string,
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 /**
                  * Owner a user.
@@ -452,9 +426,8 @@ declare module "strophe.js" {
                     jid: string,
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 /**
                  * Admin a user.
@@ -471,9 +444,8 @@ declare module "strophe.js" {
                     jid: string,
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 /**
                  * Change the current users nick name.
@@ -495,7 +467,7 @@ declare module "strophe.js" {
                     room: string,
                     user: string,
                     show: string,
-                    status: string
+                    status: string,
                 ): void;
 
                 /**
@@ -509,9 +481,8 @@ declare module "strophe.js" {
                 registrationRequest(
                     room: string,
                     handle_cb: (stanza: Element) => any,
-                    error_cb: (stanza: Element) => any
+                    error_cb: (stanza: Element) => any,
                 ): void;
-
 
                 /**
                  * Submits registration form.
@@ -525,7 +496,7 @@ declare module "strophe.js" {
                     room: string,
                     fields: any,
                     handle_cb: (stanza: Element) => any,
-                    error_cb: (stanza: Element) => any
+                    error_cb: (stanza: Element) => any,
                 ): void;
 
                 /**
@@ -538,162 +509,135 @@ declare module "strophe.js" {
                 listRooms(
                     server: string,
                     handle_cb: (stanza: Element) => any,
-                    error_cb: (error: any) => any
+                    error_cb: (error: any) => any,
                 ): void;
             }
 
             interface XmppRoom {
-
                 join(
                     msg_handler_cb: (stanza: Element) => any,
                     pres_handler_cb: (stanza: Element) => any,
-                    roster_cb: (stanza: Element) => any
+                    roster_cb: (stanza: Element) => any,
                 ): void;
-
 
                 leave(
                     handler_cb?: (stanza: Element) => any,
-                    exit_msg?: string
+                    exit_msg?: string,
                 ): void;
-
 
                 message(
                     message: string,
                     html_message: string,
-                    type: "groupchat" | "chat"
+                    type: "groupchat" | "chat",
                 ): string;
-
 
                 groupchat(message: string, html_message?: string): string;
 
-
                 invite(receiver: string, reason?: string): string;
-
 
                 multipleInvites(receivers: string[], reason?: string): string;
 
-
                 directInvite(receiver: string, reason?: string): string;
-
 
                 configure(handler_cb: (stanza: Element) => any): string;
 
-
                 cancelConfigure(): string;
-
 
                 saveConfiguration(config: any): string;
 
-
                 queryOccupants(success_cb: (stanza: Element) => any, error_cb: (stanza: Element) => any): void;
 
-
                 setTopic(topic: string): string;
-
 
                 modifyRole(
                     nick: string,
                     role: string,
                     reason?: string,
                     success_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 kick(
                     nick: string,
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 voice(
                     nick: string,
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 mute(
                     nick: string,
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 op(
                     nick: string,
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 deop(
                     nick: string,
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 modifyAffiliation(
                     jid: string,
                     affiliation: string,
                     reason?: string,
                     success_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 ban(
                     jid: string,
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 member(
                     jid: string,
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 revoke(
                     jid: string,
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 owner(
                     jid: string,
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 admin(
                     jid: string,
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 changeNick(nick: string): string;
 
-
                 setStatus(show: string, status: string): string;
-
 
                 /**
                  * Adds a handler to the MUC room.
@@ -704,9 +648,8 @@ declare module "strophe.js" {
                  */
                 addHandler(
                     handler_type: "presence" | "message" | "roster",
-                    handler: (stanza: Element) => any
+                    handler: (stanza: Element) => any,
                 ): number;
-
 
                 /**
                  * Removes a handler from the MUC room.
@@ -717,14 +660,11 @@ declare module "strophe.js" {
                  * @param id - the id of the handler
                  */
                 removeHandler(id: number): void;
-
             }
-
 
             interface RoomConfig {
                 parse(info?: Element): any;
             }
-
 
             interface OccupantInfo {
                 nick?: string | undefined;
@@ -735,91 +675,79 @@ declare module "strophe.js" {
                 show?: string | undefined;
             }
 
-
             interface Occupant extends OccupantInfo {
-
                 modifyRole(
                     role: string,
                     reason?: string,
                     success_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 kick(
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 voice(
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
 
                 mute(
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 op(
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 deop(
                     reason?: string,
                     handler_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 modifyAffiliation(
                     affiliation: string,
                     reason?: string,
                     success_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 ban(
                     reason?: string,
                     success_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 member(
                     reason?: string,
                     success_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 revoke(
                     reason?: string,
                     success_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 owner(
                     reason?: string,
                     success_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
-
 
                 admin(
                     reason?: string,
                     success_cb?: (stanza: Element) => any,
-                    error_cb?: (stanza: Element) => any
+                    error_cb?: (stanza: Element) => any,
                 ): string;
 
                 update(data: OccupantInfo): void;
@@ -828,7 +756,6 @@ declare module "strophe.js" {
             interface OccupantMap {
                 [jid: string]: Occupant;
             }
-
         }
     }
 }

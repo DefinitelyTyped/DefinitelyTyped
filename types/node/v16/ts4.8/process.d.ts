@@ -1,6 +1,6 @@
-declare module 'process' {
-    import * as tty from 'node:tty';
-    import { Worker } from 'node:worker_threads';
+declare module "process" {
+    import * as tty from "node:tty";
+    import { Worker } from "node:worker_threads";
     global {
         var process: NodeJS.Process;
         namespace NodeJS {
@@ -48,47 +48,58 @@ declare module 'process' {
                 modules: string;
                 openssl: string;
             }
-            type Platform = 'aix' | 'android' | 'darwin' | 'freebsd' | 'haiku' | 'linux' | 'openbsd' | 'sunos' | 'win32' | 'cygwin' | 'netbsd';
+            type Platform =
+                | "aix"
+                | "android"
+                | "darwin"
+                | "freebsd"
+                | "haiku"
+                | "linux"
+                | "openbsd"
+                | "sunos"
+                | "win32"
+                | "cygwin"
+                | "netbsd";
             type Signals =
-                | 'SIGABRT'
-                | 'SIGALRM'
-                | 'SIGBUS'
-                | 'SIGCHLD'
-                | 'SIGCONT'
-                | 'SIGFPE'
-                | 'SIGHUP'
-                | 'SIGILL'
-                | 'SIGINT'
-                | 'SIGIO'
-                | 'SIGIOT'
-                | 'SIGKILL'
-                | 'SIGPIPE'
-                | 'SIGPOLL'
-                | 'SIGPROF'
-                | 'SIGPWR'
-                | 'SIGQUIT'
-                | 'SIGSEGV'
-                | 'SIGSTKFLT'
-                | 'SIGSTOP'
-                | 'SIGSYS'
-                | 'SIGTERM'
-                | 'SIGTRAP'
-                | 'SIGTSTP'
-                | 'SIGTTIN'
-                | 'SIGTTOU'
-                | 'SIGUNUSED'
-                | 'SIGURG'
-                | 'SIGUSR1'
-                | 'SIGUSR2'
-                | 'SIGVTALRM'
-                | 'SIGWINCH'
-                | 'SIGXCPU'
-                | 'SIGXFSZ'
-                | 'SIGBREAK'
-                | 'SIGLOST'
-                | 'SIGINFO';
-            type UncaughtExceptionOrigin = 'uncaughtException' | 'unhandledRejection';
-            type MultipleResolveType = 'resolve' | 'reject';
+                | "SIGABRT"
+                | "SIGALRM"
+                | "SIGBUS"
+                | "SIGCHLD"
+                | "SIGCONT"
+                | "SIGFPE"
+                | "SIGHUP"
+                | "SIGILL"
+                | "SIGINT"
+                | "SIGIO"
+                | "SIGIOT"
+                | "SIGKILL"
+                | "SIGPIPE"
+                | "SIGPOLL"
+                | "SIGPROF"
+                | "SIGPWR"
+                | "SIGQUIT"
+                | "SIGSEGV"
+                | "SIGSTKFLT"
+                | "SIGSTOP"
+                | "SIGSYS"
+                | "SIGTERM"
+                | "SIGTRAP"
+                | "SIGTSTP"
+                | "SIGTTIN"
+                | "SIGTTOU"
+                | "SIGUNUSED"
+                | "SIGURG"
+                | "SIGUSR1"
+                | "SIGUSR2"
+                | "SIGVTALRM"
+                | "SIGWINCH"
+                | "SIGXCPU"
+                | "SIGXFSZ"
+                | "SIGBREAK"
+                | "SIGLOST"
+                | "SIGINFO";
+            type UncaughtExceptionOrigin = "uncaughtException" | "unhandledRejection";
+            type MultipleResolveType = "resolve" | "reject";
             type BeforeExitListener = (code: number) => void;
             type DisconnectListener = () => void;
             type ExitListener = (code: number) => void;
@@ -102,7 +113,11 @@ declare module 'process' {
             type WarningListener = (warning: Error) => void;
             type MessageListener = (message: unknown, sendHandle: unknown) => void;
             type SignalsListener = (signal: Signals) => void;
-            type MultipleResolveListener = (type: MultipleResolveType, promise: Promise<unknown>, value: unknown) => void;
+            type MultipleResolveListener = (
+                type: MultipleResolveType,
+                promise: Promise<unknown>,
+                value: unknown,
+            ) => void;
             type WorkerListener = (worker: Worker) => void;
             interface Socket extends ReadWriteStream {
                 isTTY?: true | undefined;
@@ -1262,7 +1277,7 @@ declare module 'process' {
                  * If Node.js is spawned with an IPC channel, the `process.send()` method can be
                  * used to send messages to the parent process. Messages will be received as a `'message'` event on the parent's `ChildProcess` object.
                  *
-                 * If Node.js was not spawned with an IPC channel, `process.send` will be`undefined`.
+                 * If Node.js was not spawned with an IPC channel, `process.send` will be `undefined`.
                  *
                  * The message goes through serialization and parsing. The resulting message might
                  * not be the same as what is originally sent.
@@ -1275,7 +1290,7 @@ declare module 'process' {
                     options?: {
                         swallowErrors?: boolean | undefined;
                     },
-                    callback?: (error: Error | null) => void
+                    callback?: (error: Error | null) => void,
                 ): boolean;
                 /**
                  * If the Node.js process is spawned with an IPC channel (see the `Child Process` and `Cluster` documentation), the `process.disconnect()` method will close the
@@ -1384,98 +1399,103 @@ declare module 'process' {
                  */
                 traceDeprecation: boolean;
                 /* EventEmitter */
-                addListener(event: 'beforeExit', listener: BeforeExitListener): this;
-                addListener(event: 'disconnect', listener: DisconnectListener): this;
-                addListener(event: 'exit', listener: ExitListener): this;
-                addListener(event: 'rejectionHandled', listener: RejectionHandledListener): this;
-                addListener(event: 'uncaughtException', listener: UncaughtExceptionListener): this;
-                addListener(event: 'uncaughtExceptionMonitor', listener: UncaughtExceptionListener): this;
-                addListener(event: 'unhandledRejection', listener: UnhandledRejectionListener): this;
-                addListener(event: 'warning', listener: WarningListener): this;
-                addListener(event: 'message', listener: MessageListener): this;
+                addListener(event: "beforeExit", listener: BeforeExitListener): this;
+                addListener(event: "disconnect", listener: DisconnectListener): this;
+                addListener(event: "exit", listener: ExitListener): this;
+                addListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
+                addListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+                addListener(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
+                addListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
+                addListener(event: "warning", listener: WarningListener): this;
+                addListener(event: "message", listener: MessageListener): this;
                 addListener(event: Signals, listener: SignalsListener): this;
-                addListener(event: 'multipleResolves', listener: MultipleResolveListener): this;
-                addListener(event: 'worker', listener: WorkerListener): this;
-                emit(event: 'beforeExit', code: number): boolean;
-                emit(event: 'disconnect'): boolean;
-                emit(event: 'exit', code: number): boolean;
-                emit(event: 'rejectionHandled', promise: Promise<unknown>): boolean;
-                emit(event: 'uncaughtException', error: Error): boolean;
-                emit(event: 'uncaughtExceptionMonitor', error: Error): boolean;
-                emit(event: 'unhandledRejection', reason: unknown, promise: Promise<unknown>): boolean;
-                emit(event: 'warning', warning: Error): boolean;
-                emit(event: 'message', message: unknown, sendHandle: unknown): this;
+                addListener(event: "multipleResolves", listener: MultipleResolveListener): this;
+                addListener(event: "worker", listener: WorkerListener): this;
+                emit(event: "beforeExit", code: number): boolean;
+                emit(event: "disconnect"): boolean;
+                emit(event: "exit", code: number): boolean;
+                emit(event: "rejectionHandled", promise: Promise<unknown>): boolean;
+                emit(event: "uncaughtException", error: Error): boolean;
+                emit(event: "uncaughtExceptionMonitor", error: Error): boolean;
+                emit(event: "unhandledRejection", reason: unknown, promise: Promise<unknown>): boolean;
+                emit(event: "warning", warning: Error): boolean;
+                emit(event: "message", message: unknown, sendHandle: unknown): this;
                 emit(event: Signals, signal: Signals): boolean;
-                emit(event: 'multipleResolves', type: MultipleResolveType, promise: Promise<unknown>, value: unknown): this;
-                emit(event: 'worker', listener: WorkerListener): this;
-                on(event: 'beforeExit', listener: BeforeExitListener): this;
-                on(event: 'disconnect', listener: DisconnectListener): this;
-                on(event: 'exit', listener: ExitListener): this;
-                on(event: 'rejectionHandled', listener: RejectionHandledListener): this;
-                on(event: 'uncaughtException', listener: UncaughtExceptionListener): this;
-                on(event: 'uncaughtExceptionMonitor', listener: UncaughtExceptionListener): this;
-                on(event: 'unhandledRejection', listener: UnhandledRejectionListener): this;
-                on(event: 'warning', listener: WarningListener): this;
-                on(event: 'message', listener: MessageListener): this;
+                emit(
+                    event: "multipleResolves",
+                    type: MultipleResolveType,
+                    promise: Promise<unknown>,
+                    value: unknown,
+                ): this;
+                emit(event: "worker", listener: WorkerListener): this;
+                on(event: "beforeExit", listener: BeforeExitListener): this;
+                on(event: "disconnect", listener: DisconnectListener): this;
+                on(event: "exit", listener: ExitListener): this;
+                on(event: "rejectionHandled", listener: RejectionHandledListener): this;
+                on(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+                on(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
+                on(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
+                on(event: "warning", listener: WarningListener): this;
+                on(event: "message", listener: MessageListener): this;
                 on(event: Signals, listener: SignalsListener): this;
-                on(event: 'multipleResolves', listener: MultipleResolveListener): this;
-                on(event: 'worker', listener: WorkerListener): this;
+                on(event: "multipleResolves", listener: MultipleResolveListener): this;
+                on(event: "worker", listener: WorkerListener): this;
                 on(event: string | symbol, listener: (...args: any[]) => void): this;
-                once(event: 'beforeExit', listener: BeforeExitListener): this;
-                once(event: 'disconnect', listener: DisconnectListener): this;
-                once(event: 'exit', listener: ExitListener): this;
-                once(event: 'rejectionHandled', listener: RejectionHandledListener): this;
-                once(event: 'uncaughtException', listener: UncaughtExceptionListener): this;
-                once(event: 'uncaughtExceptionMonitor', listener: UncaughtExceptionListener): this;
-                once(event: 'unhandledRejection', listener: UnhandledRejectionListener): this;
-                once(event: 'warning', listener: WarningListener): this;
-                once(event: 'message', listener: MessageListener): this;
+                once(event: "beforeExit", listener: BeforeExitListener): this;
+                once(event: "disconnect", listener: DisconnectListener): this;
+                once(event: "exit", listener: ExitListener): this;
+                once(event: "rejectionHandled", listener: RejectionHandledListener): this;
+                once(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+                once(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
+                once(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
+                once(event: "warning", listener: WarningListener): this;
+                once(event: "message", listener: MessageListener): this;
                 once(event: Signals, listener: SignalsListener): this;
-                once(event: 'multipleResolves', listener: MultipleResolveListener): this;
-                once(event: 'worker', listener: WorkerListener): this;
+                once(event: "multipleResolves", listener: MultipleResolveListener): this;
+                once(event: "worker", listener: WorkerListener): this;
                 once(event: string | symbol, listener: (...args: any[]) => void): this;
-                prependListener(event: 'beforeExit', listener: BeforeExitListener): this;
-                prependListener(event: 'disconnect', listener: DisconnectListener): this;
-                prependListener(event: 'exit', listener: ExitListener): this;
-                prependListener(event: 'rejectionHandled', listener: RejectionHandledListener): this;
-                prependListener(event: 'uncaughtException', listener: UncaughtExceptionListener): this;
-                prependListener(event: 'uncaughtExceptionMonitor', listener: UncaughtExceptionListener): this;
-                prependListener(event: 'unhandledRejection', listener: UnhandledRejectionListener): this;
-                prependListener(event: 'warning', listener: WarningListener): this;
-                prependListener(event: 'message', listener: MessageListener): this;
+                prependListener(event: "beforeExit", listener: BeforeExitListener): this;
+                prependListener(event: "disconnect", listener: DisconnectListener): this;
+                prependListener(event: "exit", listener: ExitListener): this;
+                prependListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
+                prependListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+                prependListener(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
+                prependListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
+                prependListener(event: "warning", listener: WarningListener): this;
+                prependListener(event: "message", listener: MessageListener): this;
                 prependListener(event: Signals, listener: SignalsListener): this;
-                prependListener(event: 'multipleResolves', listener: MultipleResolveListener): this;
-                prependListener(event: 'worker', listener: WorkerListener): this;
-                prependOnceListener(event: 'beforeExit', listener: BeforeExitListener): this;
-                prependOnceListener(event: 'disconnect', listener: DisconnectListener): this;
-                prependOnceListener(event: 'exit', listener: ExitListener): this;
-                prependOnceListener(event: 'rejectionHandled', listener: RejectionHandledListener): this;
-                prependOnceListener(event: 'uncaughtException', listener: UncaughtExceptionListener): this;
-                prependOnceListener(event: 'uncaughtExceptionMonitor', listener: UncaughtExceptionListener): this;
-                prependOnceListener(event: 'unhandledRejection', listener: UnhandledRejectionListener): this;
-                prependOnceListener(event: 'warning', listener: WarningListener): this;
-                prependOnceListener(event: 'message', listener: MessageListener): this;
+                prependListener(event: "multipleResolves", listener: MultipleResolveListener): this;
+                prependListener(event: "worker", listener: WorkerListener): this;
+                prependOnceListener(event: "beforeExit", listener: BeforeExitListener): this;
+                prependOnceListener(event: "disconnect", listener: DisconnectListener): this;
+                prependOnceListener(event: "exit", listener: ExitListener): this;
+                prependOnceListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
+                prependOnceListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+                prependOnceListener(event: "uncaughtExceptionMonitor", listener: UncaughtExceptionListener): this;
+                prependOnceListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
+                prependOnceListener(event: "warning", listener: WarningListener): this;
+                prependOnceListener(event: "message", listener: MessageListener): this;
                 prependOnceListener(event: Signals, listener: SignalsListener): this;
-                prependOnceListener(event: 'multipleResolves', listener: MultipleResolveListener): this;
-                prependOnceListener(event: 'worker', listener: WorkerListener): this;
-                listeners(event: 'beforeExit'): BeforeExitListener[];
-                listeners(event: 'disconnect'): DisconnectListener[];
-                listeners(event: 'exit'): ExitListener[];
-                listeners(event: 'rejectionHandled'): RejectionHandledListener[];
-                listeners(event: 'uncaughtException'): UncaughtExceptionListener[];
-                listeners(event: 'uncaughtExceptionMonitor'): UncaughtExceptionListener[];
-                listeners(event: 'unhandledRejection'): UnhandledRejectionListener[];
-                listeners(event: 'warning'): WarningListener[];
-                listeners(event: 'message'): MessageListener[];
+                prependOnceListener(event: "multipleResolves", listener: MultipleResolveListener): this;
+                prependOnceListener(event: "worker", listener: WorkerListener): this;
+                listeners(event: "beforeExit"): BeforeExitListener[];
+                listeners(event: "disconnect"): DisconnectListener[];
+                listeners(event: "exit"): ExitListener[];
+                listeners(event: "rejectionHandled"): RejectionHandledListener[];
+                listeners(event: "uncaughtException"): UncaughtExceptionListener[];
+                listeners(event: "uncaughtExceptionMonitor"): UncaughtExceptionListener[];
+                listeners(event: "unhandledRejection"): UnhandledRejectionListener[];
+                listeners(event: "warning"): WarningListener[];
+                listeners(event: "message"): MessageListener[];
                 listeners(event: Signals): SignalsListener[];
-                listeners(event: 'multipleResolves'): MultipleResolveListener[];
-                listeners(event: 'worker'): WorkerListener[];
+                listeners(event: "multipleResolves"): MultipleResolveListener[];
+                listeners(event: "worker"): WorkerListener[];
             }
         }
     }
     export = process;
 }
-declare module 'node:process' {
-    import process = require('process');
+declare module "node:process" {
+    import process = require("process");
     export = process;
 }

@@ -9,14 +9,13 @@
 
 /// <reference types="angular" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare const moduleName: 'ui.bootstrap';
+declare const moduleName: "ui.bootstrap";
 export = moduleName;
 
-declare module 'angular' {
+declare module "angular" {
     export namespace ui.bootstrap {
-
         interface IAccordionConfig {
             /**
              * Controls whether expanding an item will cause the other items to close.
@@ -28,12 +27,12 @@ declare module 'angular' {
 
         interface IButtonConfig {
             /**
-             * @default: 'active'
+             * @default 'active'
              */
             activeClass?: string | undefined;
 
             /**
-             * @default: 'Click'
+             * @default 'Click'
              */
             toggleEvent?: string | undefined;
         }
@@ -199,7 +198,7 @@ declare module 'angular' {
              * @default null
              */
             dateDisabled?: DatepickerCallback<boolean> | undefined;
-            
+
             /**
              * Defines an optional expression to add classes based on passing an object with date and current mode properties.
              *
@@ -209,7 +208,6 @@ declare module 'angular' {
         }
 
         interface IDatepickerPopupConfig extends IDatepickerConfig {
-
             /**
              * A list of alternate formats acceptable for manual entry.
              *
@@ -243,7 +241,7 @@ declare module 'angular' {
              */
             html5Types?: {
                 date?: string | undefined;
-                'datetime-local'?: string | undefined;
+                "datetime-local"?: string | undefined;
                 month?: string | undefined;
             } | undefined;
 
@@ -306,12 +304,12 @@ declare module 'angular' {
 
         interface IDropdownConfig {
             /**
-             * @default: 'uib-dropdown-open'
+             * @default 'uib-dropdown-open'
              */
             appendToOpenClass?: string | undefined;
 
             /**
-             * @default: 'open'
+             * @default 'open'
              */
             openClass?: string | undefined;
         }
@@ -371,7 +369,7 @@ declare module 'angular' {
         /**
          * @deprecated use IModalInstanceService instead.
          */
-        interface IModalServiceInstance extends IModalInstanceService { }
+        interface IModalServiceInstance extends IModalInstanceService {}
 
         interface IModalScope extends angular.IScope {
             /**
@@ -510,16 +508,12 @@ declare module 'angular' {
             /**
              * Sets the `aria-describedby` property on the modal.
              * The string should be an id (without the leading '#') pointing to the element that describes your modal.
-             * @type {string}
-             * @memberOf IModalSettings
              */
             ariaDescribedBy?: string | undefined;
 
             /**
              * Sets the `aria-labelledby` property on the modal.
              * The string should be an id (without the leading '#') pointing to the element that labels your modal.
-             * @type {string}
-             * @memberOf IModalSettings
              */
             ariaLabelledBy?: string | undefined;
         }
@@ -556,7 +550,6 @@ declare module 'angular' {
             value: any;
         }
 
-
         interface IPaginationConfig {
             /**
              * Total number of items in all pages.
@@ -573,7 +566,7 @@ declare module 'angular' {
             /**
              * Limit number for pagination size.
              *
-             * @default: null
+             * @default null
              */
             maxSize?: number | undefined;
 
@@ -685,7 +678,6 @@ declare module 'angular' {
             nextText?: string | undefined;
         }
 
-
         interface IPositionCoordinates {
             width?: number | undefined;
             height?: number | undefined;
@@ -705,54 +697,51 @@ declare module 'angular' {
             offset(element: JQuery): IPositionCoordinates;
         }
 
-
         interface IProgressConfig {
             /**
              * Whether bars use transitions to achieve the width change.
              *
-             * @default: true
+             * @default true
              */
             animate?: boolean | undefined;
 
             /**
              * A number that specifies the total value of bars that is required.
              *
-             * @default: 100
+             * @default 100
              */
             max?: number | undefined;
         }
-
 
         interface IRatingConfig {
             /**
              * Changes the number of icons.
              *
-             * @default: 5
+             * @default 5
              */
             max?: number | undefined;
 
             /**
              * A variable used in the template to specify the state for selected icons.
              *
-             * @default: null
+             * @default null
              */
             stateOn?: string | undefined;
 
             /**
              * A variable used in the template to specify the state for unselected icons.
              *
-             * @default: null
+             * @default null
              */
             stateOff?: string | undefined;
 
             /**
              * An array of strings defining titles for all icons.
              *
-             * @default: ["one", "two", "three", "four", "five"]
+             * @default ["one", "two", "three", "four", "five"]
              */
             titles?: Array<string> | undefined;
         }
-
 
         interface ITimepickerConfig {
             /**
@@ -833,7 +822,6 @@ declare module 'angular' {
             templateUrl?: string | undefined;
         }
 
-
         interface ITooltipOptions {
             /**
              * Where to place it? Defaults to 'top', but also accepts 'right', 'bottom', or 'left'.
@@ -897,7 +885,6 @@ declare module 'angular' {
             setTriggers(triggers: Object): void;
         }
 
-
         /**
          * WARNING: $transition is now deprecated. Use $animate from ngAnimate instead.
          */
@@ -924,7 +911,11 @@ declare module 'angular' {
              *
              * @return A promise that is resolved when the transition finishes.
              */
-            (element: angular.IAugmentedJQuery, trigger: any, options?: ITransitionServiceOptions): angular.IPromise<angular.IAugmentedJQuery>;
+            (
+                element: angular.IAugmentedJQuery,
+                trigger: any,
+                options?: ITransitionServiceOptions,
+            ): angular.IPromise<angular.IAugmentedJQuery>;
         }
 
         interface ITransitionServiceOptions {

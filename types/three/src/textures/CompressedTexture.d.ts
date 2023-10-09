@@ -1,13 +1,13 @@
-import { Texture } from './Texture';
+import { Texture } from './Texture.js';
 import {
     Mapping,
     Wrapping,
     CompressedPixelFormat,
     TextureDataType,
-    TextureEncoding,
     MagnificationTextureFilter,
     MinificationTextureFilter,
-} from '../constants';
+    ColorSpace,
+} from '../constants.js';
 
 /**
  * Creates a texture based on data in compressed form, for example from a {@link https://en.wikipedia.org/wiki/DirectDraw_Surface | DDS} file.
@@ -30,6 +30,7 @@ export class CompressedTexture extends Texture {
      * @param magFilter See {@link Texture.magFilter | .magFilter}. Default {@link THREE.LinearFilter}
      * @param minFilter  See {@link Texture.minFilter | .minFilter}. Default {@link THREE.LinearMipmapLinearFilter}
      * @param anisotropy See {@link Texture.anisotropy | .anisotropy}. Default {@link THREE.Texture.DEFAULT_ANISOTROPY}
+     * @param colorSpace See {@link Texture.colorSpace .colorSpace}. Default {@link NoColorSpace}
      */
     constructor(
         mipmaps: ImageData[],
@@ -43,7 +44,7 @@ export class CompressedTexture extends Texture {
         magFilter?: MagnificationTextureFilter,
         minFilter?: MinificationTextureFilter,
         anisotropy?: number,
-        encoding?: TextureEncoding,
+        colorSpace?: ColorSpace,
     );
 
     /**

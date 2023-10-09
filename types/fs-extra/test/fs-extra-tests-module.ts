@@ -1,4 +1,4 @@
-import * as fs from 'fs-extra/esm.mjs';
+import * as fs from "fs-extra/esm.mjs";
 
 // test type exports
 type Types =
@@ -16,12 +16,12 @@ type Types =
     | fs.JsonWriteOptions
     | fs.JsonOutputOptions;
 
-const src = '';
-const dest = '';
-const file = '';
-const dir = '';
-const path = '';
-const data = '';
+const src = "";
+const dest = "";
+const file = "";
+const dir = "";
+const path = "";
+const data = "";
 const object = {};
 
 fs.move(src, dest); // $ExpectType Promise<void>
@@ -129,11 +129,11 @@ fs.createLinkSync(path, path); // $ExpectType void
 fs.ensureLinkSync(path, path); // $ExpectType void
 
 fs.createSymlink(path, path); // $ExpectType Promise<void>
-fs.createSymlink(path, path, 'dir'); // $ExpectType Promise<void>
-fs.createSymlink(path, path, 'file'); // $ExpectType Promise<void>
+fs.createSymlink(path, path, "dir"); // $ExpectType Promise<void>
+fs.createSymlink(path, path, "file"); // $ExpectType Promise<void>
 fs.ensureSymlink(path, path); // $ExpectType Promise<void>
-fs.ensureSymlink(path, path, 'dir'); // $ExpectType Promise<void>
-fs.ensureSymlink(path, path, 'file'); // $ExpectType Promise<void>
+fs.ensureSymlink(path, path, "dir"); // $ExpectType Promise<void>
+fs.ensureSymlink(path, path, "file"); // $ExpectType Promise<void>
 // $ExpectType void
 fs.createSymlink(path, path, err => {
     err; // $ExpectType ErrnoException | null
@@ -143,11 +143,11 @@ fs.ensureSymlink(path, path, err => {
     err; // $ExpectType ErrnoException | null
 });
 // $ExpectType void
-fs.createSymlink(path, path, 'junction', err => {
+fs.createSymlink(path, path, "junction", err => {
     err; // $ExpectType ErrnoException | null
 });
 // $ExpectType void
-fs.ensureSymlink(path, path, 'junction', err => {
+fs.ensureSymlink(path, path, "junction", err => {
     err; // $ExpectType ErrnoException | null
 });
 fs.createSymlinkSync(path, path); // $ExpectType void
@@ -210,38 +210,38 @@ fs.ensureDirSync(dir, 0o777); // $ExpectType void
 fs.ensureDirSync(dir, { mode: 0o700 }); // $ExpectType void
 
 fs.outputFile(file, data); // $ExpectType Promise<void>
-fs.outputFile(file, data, 'utf-8'); // $ExpectType Promise<void>
-fs.outputFile(file, data, { encoding: 'utf-8' }); // $ExpectType Promise<void>
+fs.outputFile(file, data, "utf-8"); // $ExpectType Promise<void>
+fs.outputFile(file, data, { encoding: "utf-8" }); // $ExpectType Promise<void>
 // @ts-expect-error
-fs.outputFile(file, data, { encoding: 'foo' });
+fs.outputFile(file, data, { encoding: "foo" });
 // $ExpectType void
 fs.outputFile(file, data, err => {
     err; // $ExpectType ErrnoException | null
 });
 // $ExpectType void
-fs.outputFile(file, data, 'utf-8', err => {
+fs.outputFile(file, data, "utf-8", err => {
     err; // $ExpectType ErrnoException | null
 });
 // @ts-expect-error
-fs.outputFile(file, data, 'foo', errorCallback);
+fs.outputFile(file, data, "foo", errorCallback);
 // $ExpectType void
-fs.outputFile(file, data, { encoding: 'utf-8' }, err => {
+fs.outputFile(file, data, { encoding: "utf-8" }, err => {
     err; // $ExpectType ErrnoException | null
 });
 // @ts-expect-error
-fs.outputFile(file, data, { encoding: 'foo' }, errorCallback);
+fs.outputFile(file, data, { encoding: "foo" }, errorCallback);
 fs.outputFileSync(file, data); // $ExpectType void
-fs.outputFileSync(file, data, 'utf-8'); // $ExpectType void
+fs.outputFileSync(file, data, "utf-8"); // $ExpectType void
 // @ts-expect-error
-fs.outputFileSync(file, data, 'foo');
-fs.outputFileSync(file, data, { encoding: 'utf-8' }); // $ExpectType void
+fs.outputFileSync(file, data, "foo");
+fs.outputFileSync(file, data, { encoding: "utf-8" }); // $ExpectType void
 // @ts-expect-error
-fs.outputFileSync(file, data, { encoding: 'foo' });
+fs.outputFileSync(file, data, { encoding: "foo" });
 
 fs.outputJson(file, data); // $ExpectType Promise<void>
 fs.outputJson(file, data, { spaces: 2 }); // $ExpectType Promise<void>
-fs.outputJson(file, data, { encoding: 'utf-8', spaces: 2 }); // $ExpectType Promise<void>
-fs.outputJson(file, data, 'utf-8'); // $ExpectType Promise<void>
+fs.outputJson(file, data, { encoding: "utf-8", spaces: 2 }); // $ExpectType Promise<void>
+fs.outputJson(file, data, "utf-8"); // $ExpectType Promise<void>
 // $ExpectType void
 fs.outputJson(
     file,
@@ -258,7 +258,7 @@ fs.outputJson(
     file,
     data,
     {
-        encoding: 'utf-8',
+        encoding: "utf-8",
         spaces: 2,
     },
     err => {
@@ -266,14 +266,14 @@ fs.outputJson(
     },
 );
 // $ExpectType void
-fs.outputJson(file, data, 'utf-8', err => {
+fs.outputJson(file, data, "utf-8", err => {
     err; // $ExpectType ErrnoException | null
 });
 
 fs.outputJSON(file, data); // $ExpectType Promise<void>
 fs.outputJSON(file, data, { spaces: 2 }); // $ExpectType Promise<void>
-fs.outputJSON(file, data, { encoding: 'utf-8', spaces: 2 }); // $ExpectType Promise<void>
-fs.outputJSON(file, data, 'utf-8'); // $ExpectType Promise<void>
+fs.outputJSON(file, data, { encoding: "utf-8", spaces: 2 }); // $ExpectType Promise<void>
+fs.outputJSON(file, data, "utf-8"); // $ExpectType Promise<void>
 // $ExpectType void
 fs.outputJSON(
     file,
@@ -290,7 +290,7 @@ fs.outputJSON(
     file,
     data,
     {
-        encoding: 'utf-8',
+        encoding: "utf-8",
         spaces: 2,
     },
     err => {
@@ -304,13 +304,13 @@ fs.outputJSON(file, data, err => {
 
 fs.outputJsonSync(file, data); // $ExpectType void
 fs.outputJSONSync(file, data); // $ExpectType void
-fs.outputJsonSync(file, data, 'utf-8'); // $ExpectType void
-fs.outputJSONSync(file, data, 'utf-8'); // $ExpectType void
-fs.outputJsonSync(file, data, { encoding: 'utf-8' }); // $ExpectType void
-fs.outputJSONSync(file, data, { encoding: 'utf-8' }); // $ExpectType void
+fs.outputJsonSync(file, data, "utf-8"); // $ExpectType void
+fs.outputJSONSync(file, data, "utf-8"); // $ExpectType void
+fs.outputJsonSync(file, data, { encoding: "utf-8" }); // $ExpectType void
+fs.outputJSONSync(file, data, { encoding: "utf-8" }); // $ExpectType void
 
 fs.readJson(file); // $ExpectType Promise<any>
-fs.readJson(file, 'utf-8'); // $ExpectType Promise<any>
+fs.readJson(file, "utf-8"); // $ExpectType Promise<any>
 // $ExpectType Promise<any>
 fs.readJson(file, {
     reviver(key, value) {
@@ -318,9 +318,9 @@ fs.readJson(file, {
         value; // $ExpectType any
     },
 });
-fs.readJson(file, { encoding: 'utf-8' }); // $ExpectType Promise<any>
+fs.readJson(file, { encoding: "utf-8" }); // $ExpectType Promise<any>
 fs.readJSON(file); // $ExpectType Promise<any>
-fs.readJSON(file, 'utf-8'); // $ExpectType Promise<any>
+fs.readJSON(file, "utf-8"); // $ExpectType Promise<any>
 // $ExpectType Promise<any>
 fs.readJSON(file, {
     reviver(key, value) {
@@ -328,7 +328,7 @@ fs.readJSON(file, {
         value; // $ExpectType any
     },
 });
-fs.readJSON(file, { encoding: 'utf-8' }); // $ExpectType Promise<any>
+fs.readJSON(file, { encoding: "utf-8" }); // $ExpectType Promise<any>
 // $ExpectType void
 fs.readJson(file, (error, jsonObject) => {
     error; // $ExpectType ErrnoException | null
@@ -349,12 +349,12 @@ fs.readJson(
     },
 );
 // $ExpectType void
-fs.readJson(file, 'utf-8', (error, jsonObject) => {
+fs.readJson(file, "utf-8", (error, jsonObject) => {
     error; // $ExpectType ErrnoException | null
     jsonObject; // $ExpectType any
 });
 // $ExpectType void
-fs.readJson(file, { encoding: 'utf-8' }, (error, jsonObject) => {
+fs.readJson(file, { encoding: "utf-8" }, (error, jsonObject) => {
     error; // $ExpectType ErrnoException | null
     jsonObject; // $ExpectType any
 });
@@ -378,12 +378,12 @@ fs.readJSON(
     },
 );
 // $ExpectType void
-fs.readJSON(file, 'utf-8', (error, jsonObject) => {
+fs.readJSON(file, "utf-8", (error, jsonObject) => {
     error; // $ExpectType ErrnoException | null
     jsonObject; // $ExpectType any
 });
 // $ExpectType void
-fs.readJSON(file, { encoding: 'utf-8' }, (error, jsonObject) => {
+fs.readJSON(file, { encoding: "utf-8" }, (error, jsonObject) => {
     error; // $ExpectType ErrnoException | null
     jsonObject; // $ExpectType any
 });
@@ -402,10 +402,10 @@ fs.readJSONSync(file, {
         value; // $ExpectType any
     },
 });
-fs.readJsonSync(file, 'utf-8'); // $ExpectType any
-fs.readJSONSync(file, 'utf-8'); // $ExpectType any
-fs.readJsonSync(file, { encoding: 'utf-8' }); // $ExpectType any
-fs.readJSONSync(file, { encoding: 'utf-8' }); // $ExpectType any
+fs.readJsonSync(file, "utf-8"); // $ExpectType any
+fs.readJSONSync(file, "utf-8"); // $ExpectType any
+fs.readJsonSync(file, { encoding: "utf-8" }); // $ExpectType any
+fs.readJSONSync(file, { encoding: "utf-8" }); // $ExpectType any
 
 fs.writeJson(file, object); // $ExpectType Promise<void>
 fs.writeJSON(file, object); // $ExpectType Promise<void>
@@ -428,11 +428,11 @@ fs.writeJson(
     },
 );
 // $ExpectType void
-fs.writeJson(file, object, 'utf-8', error => {
+fs.writeJson(file, object, "utf-8", error => {
     error; // $ExpectType ErrnoException | null
 });
 // $ExpectType void
-fs.writeJson(file, object, { encoding: 'utf-8' }, error => {
+fs.writeJson(file, object, { encoding: "utf-8" }, error => {
     error; // $ExpectType ErrnoException | null
 });
 // $ExpectType void
@@ -454,11 +454,11 @@ fs.writeJSON(
     },
 );
 // $ExpectType void
-fs.writeJSON(file, object, 'utf-8', error => {
+fs.writeJSON(file, object, "utf-8", error => {
     error; // $ExpectType ErrnoException | null
 });
 // $ExpectType void
-fs.writeJSON(file, object, { encoding: 'utf-8' }, error => {
+fs.writeJSON(file, object, { encoding: "utf-8" }, error => {
     error; // $ExpectType ErrnoException | null
 });
 // $ExpectType Promise<void>
@@ -468,8 +468,8 @@ fs.writeJson(file, object, {
         value; // $ExpectType any
     },
 });
-fs.writeJson(file, object, 'utf-8'); // $ExpectType Promise<void>
-fs.writeJson(file, object, { encoding: 'utf-8' }); // $ExpectType Promise<void>
+fs.writeJson(file, object, "utf-8"); // $ExpectType Promise<void>
+fs.writeJson(file, object, { encoding: "utf-8" }); // $ExpectType Promise<void>
 // $ExpectType Promise<void>
 fs.writeJSON(file, object, {
     replacer(key, value) {
@@ -477,8 +477,8 @@ fs.writeJSON(file, object, {
         value; // $ExpectType any
     },
 });
-fs.writeJSON(file, object, 'utf-8'); // $ExpectType Promise<void>
-fs.writeJSON(file, object, { encoding: 'utf-8' }); // $ExpectType Promise<void>
+fs.writeJSON(file, object, "utf-8"); // $ExpectType Promise<void>
+fs.writeJSON(file, object, { encoding: "utf-8" }); // $ExpectType Promise<void>
 
 // $ExpectType void
 fs.writeJsonSync(file, object, {
@@ -487,8 +487,8 @@ fs.writeJsonSync(file, object, {
         value; // $ExpectType any
     },
 });
-fs.writeJsonSync(file, object, 'utf-8'); // $ExpectType void
-fs.writeJsonSync(file, object, { encoding: 'utf-8' }); // $ExpectType void
+fs.writeJsonSync(file, object, "utf-8"); // $ExpectType void
+fs.writeJsonSync(file, object, { encoding: "utf-8" }); // $ExpectType void
 // $ExpectType void
 fs.writeJSONSync(file, object, {
     replacer(key, value) {
@@ -496,15 +496,15 @@ fs.writeJSONSync(file, object, {
         value; // $ExpectType any
     },
 });
-fs.writeJSONSync(file, object, 'utf-8'); // $ExpectType void
-fs.writeJSONSync(file, object, { encoding: 'utf-8' }); // $ExpectType void
+fs.writeJSONSync(file, object, "utf-8"); // $ExpectType void
+fs.writeJSONSync(file, object, { encoding: "utf-8" }); // $ExpectType void
 
 // $ExpectType void
 fs.remove(dir, error => {
     error; // $ExpectType ErrnoException | null
 });
 fs.remove(dir); // $ExpectType Promise<void>
-['file/to/remove'].map(file => fs.remove(file));
+["file/to/remove"].map(file => fs.remove(file));
 fs.removeSync(dir); // $ExpectType void
 
 fs.emptyDir(path); // $ExpectType Promise<void>

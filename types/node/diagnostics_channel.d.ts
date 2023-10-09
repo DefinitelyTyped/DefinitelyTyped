@@ -1,11 +1,11 @@
 /**
- * The `diagnostics_channel` module provides an API to create named channels
+ * The `node:diagnostics_channel` module provides an API to create named channels
  * to report arbitrary message data for diagnostics purposes.
  *
  * It can be accessed using:
  *
  * ```js
- * import diagnostics_channel from 'diagnostics_channel';
+ * import diagnostics_channel from 'node:diagnostics_channel';
  * ```
  *
  * It is intended that a module writer wanting to report diagnostics messages
@@ -19,10 +19,10 @@
  * channels are used along with the shape of the message data. Channel names
  * should generally include the module name to avoid collisions with data from
  * other modules.
- * @experimental
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/diagnostics_channel.js)
+ * @since v15.1.0, v14.17.0
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/diagnostics_channel.js)
  */
-declare module 'diagnostics_channel' {
+declare module "diagnostics_channel" {
     /**
      * Check if there are active subscribers to the named channel. This is helpful if
      * the message you want to send might be expensive to prepare.
@@ -31,7 +31,7 @@ declare module 'diagnostics_channel' {
      * performance-sensitive code.
      *
      * ```js
-     * import diagnostics_channel from 'diagnostics_channel';
+     * import diagnostics_channel from 'node:diagnostics_channel';
      *
      * if (diagnostics_channel.hasSubscribers('my-channel')) {
      *   // There are subscribers, prepare and publish message
@@ -43,12 +43,12 @@ declare module 'diagnostics_channel' {
      */
     function hasSubscribers(name: string | symbol): boolean;
     /**
-     * This is the primary entry-point for anyone wanting to interact with a named
+     * This is the primary entry-point for anyone wanting to publish to a named
      * channel. It produces a channel object which is optimized to reduce overhead at
      * publish time as much as possible.
      *
      * ```js
-     * import diagnostics_channel from 'diagnostics_channel';
+     * import diagnostics_channel from 'node:diagnostics_channel';
      *
      * const channel = diagnostics_channel.channel('my-channel');
      * ```
@@ -59,47 +59,45 @@ declare module 'diagnostics_channel' {
     function channel(name: string | symbol): Channel;
     type ChannelListener = (message: unknown, name: string | symbol) => void;
     /**
-     * Register a message handler to subscribe to this channel. This message handler will be run synchronously
-     * whenever a message is published to the channel. Any errors thrown in the message handler will
-     * trigger an 'uncaughtException'.
+     * Register a message handler to subscribe to this channel. This message handler
+     * will be run synchronously whenever a message is published to the channel. Any
+     * errors thrown in the message handler will trigger an `'uncaughtException'`.
      *
      * ```js
-     * import diagnostics_channel from 'diagnostics_channel';
+     * import diagnostics_channel from 'node:diagnostics_channel';
      *
      * diagnostics_channel.subscribe('my-channel', (message, name) => {
      *   // Received data
      * });
      * ```
-     *
      * @since v18.7.0, v16.17.0
      * @param name The channel name
      * @param onMessage The handler to receive channel messages
      */
     function subscribe(name: string | symbol, onMessage: ChannelListener): void;
     /**
-     * Remove a message handler previously registered to this channel with diagnostics_channel.subscribe(name, onMessage).
+     * Remove a message handler previously registered to this channel with {@link subscribe}.
      *
      * ```js
-     * import diagnostics_channel from 'diagnostics_channel';
+     * import diagnostics_channel from 'node:diagnostics_channel';
      *
      * function onMessage(message, name) {
-     *  // Received data
+     *   // Received data
      * }
      *
      * diagnostics_channel.subscribe('my-channel', onMessage);
      *
      * diagnostics_channel.unsubscribe('my-channel', onMessage);
      * ```
-     *
      * @since v18.7.0, v16.17.0
      * @param name The channel name
      * @param onMessage The previous subscribed handler to remove
-     * @returns `true` if the handler was found, `false` otherwise
+     * @return `true` if the handler was found, `false` otherwise.
      */
     function unsubscribe(name: string | symbol, onMessage: ChannelListener): boolean;
     /**
      * The class `Channel` represents an individual named channel within the data
-     * pipeline. It is use to track subscribers and to publish messages when there
+     * pipeline. It is used to track subscribers and to publish messages when there
      * are subscribers present. It exists as a separate object to avoid channel
      * lookups at publish time, enabling very fast publish speeds and allowing
      * for heavy use while incurring very minimal cost. Channels are created with {@link channel}, constructing a channel directly
@@ -116,7 +114,7 @@ declare module 'diagnostics_channel' {
          * performance-sensitive code.
          *
          * ```js
-         * import diagnostics_channel from 'diagnostics_channel';
+         * import diagnostics_channel from 'node:diagnostics_channel';
          *
          * const channel = diagnostics_channel.channel('my-channel');
          *
@@ -129,17 +127,16 @@ declare module 'diagnostics_channel' {
         readonly hasSubscribers: boolean;
         private constructor(name: string | symbol);
         /**
-         * Publish a message to any subscribers to the channel. This will
-         * trigger message handlers synchronously so they will execute within
-         * the same context.
+         * Publish a message to any subscribers to the channel. This will trigger
+         * message handlers synchronously so they will execute within the same context.
          *
          * ```js
-         * import diagnostics_channel from 'diagnostics_channel';
+         * import diagnostics_channel from 'node:diagnostics_channel';
          *
          * const channel = diagnostics_channel.channel('my-channel');
          *
          * channel.publish({
-         *   some: 'message'
+         *   some: 'message',
          * });
          * ```
          * @since v15.1.0, v14.17.0
@@ -152,7 +149,7 @@ declare module 'diagnostics_channel' {
          * errors thrown in the message handler will trigger an `'uncaughtException'`.
          *
          * ```js
-         * import diagnostics_channel from 'diagnostics_channel';
+         * import diagnostics_channel from 'node:diagnostics_channel';
          *
          * const channel = diagnostics_channel.channel('my-channel');
          *
@@ -161,6 +158,7 @@ declare module 'diagnostics_channel' {
          * });
          * ```
          * @since v15.1.0, v14.17.0
+         * @deprecated Since v18.7.0,v16.17.0 - Use {@link subscribe(name, onMessage)}
          * @param onMessage The handler to receive channel messages
          */
         subscribe(onMessage: ChannelListener): void;
@@ -168,7 +166,7 @@ declare module 'diagnostics_channel' {
          * Remove a message handler previously registered to this channel with `channel.subscribe(onMessage)`.
          *
          * ```js
-         * import diagnostics_channel from 'diagnostics_channel';
+         * import diagnostics_channel from 'node:diagnostics_channel';
          *
          * const channel = diagnostics_channel.channel('my-channel');
          *
@@ -181,12 +179,13 @@ declare module 'diagnostics_channel' {
          * channel.unsubscribe(onMessage);
          * ```
          * @since v15.1.0, v14.17.0
+         * @deprecated Since v18.7.0,v16.17.0 - Use {@link unsubscribe(name, onMessage)}
          * @param onMessage The previous subscribed handler to remove
          * @return `true` if the handler was found, `false` otherwise.
          */
         unsubscribe(onMessage: ChannelListener): void;
     }
 }
-declare module 'node:diagnostics_channel' {
-    export * from 'diagnostics_channel';
+declare module "node:diagnostics_channel" {
+    export * from "diagnostics_channel";
 }

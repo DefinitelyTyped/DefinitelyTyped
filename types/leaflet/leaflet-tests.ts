@@ -1,17 +1,21 @@
-import * as L from 'leaflet';
-import * as geojson_types from 'geojson';
+import * as geojson_types from "geojson";
+import * as L from "leaflet";
 
 const version = L.version;
 
 const latLngLiteral: L.LatLngLiteral = { lat: 12, lng: 13 };
+const latLngAltLiteral: L.LatLngLiteral = { lat: 12, lng: 13, alt: 100 };
 const latLngTuple: L.LatLngTuple = [12, 13];
+const latLngAltTuple: L.LatLngTuple = [12, 13, 100];
 
 let latLng: L.LatLng;
 latLng = L.latLng(12, 13);
 latLng = L.latLng(12, 13, 0);
 latLng = L.latLng(latLngLiteral);
+latLng = L.latLng(latLngAltLiteral);
 latLng = L.latLng({ lat: 12, lng: 13, alt: 0 });
 latLng = L.latLng(latLngTuple);
+latLng = L.latLng(latLngAltTuple);
 latLng = L.latLng([12, 13, 0]);
 
 latLng = new L.LatLng(12, 13);
@@ -135,18 +139,18 @@ mapOptions = {
     wheelPxPerZoomLevel: 25,
     tap: false,
     tapTolerance: 10,
-    bounceAtZoomLimits: false
+    bounceAtZoomLimits: false,
 };
 
 mapOptions.doubleClickZoom = true;
-mapOptions.doubleClickZoom = 'center';
+mapOptions.doubleClickZoom = "center";
 
 mapOptions.center = latLng;
 mapOptions.center = latLngLiteral;
 mapOptions.center = latLngTuple;
 
 mapOptions.layers = [];
-mapOptions.layers = [L.tileLayer('')]; // add layers of other types
+mapOptions.layers = [L.tileLayer("")]; // add layers of other types
 
 mapOptions.maxBounds = latLngBounds;
 mapOptions.maxBounds = [];
@@ -155,14 +159,14 @@ mapOptions.maxBounds = latLngBoundsLiteral;
 // mapOptions.renderer = ?
 
 mapOptions.scrollWheelZoom = true;
-mapOptions.scrollWheelZoom = 'center';
+mapOptions.scrollWheelZoom = "center";
 
 mapOptions.touchZoom = false;
-mapOptions.touchZoom = 'center';
+mapOptions.touchZoom = "center";
 
 let layer: L.Layer;
 
-const htmlElement = document.getElementById('foo');
+const htmlElement = document.getElementById("foo");
 
 layer.addInteractiveTarget(htmlElement);
 layer.removeInteractiveTarget(htmlElement);
@@ -171,8 +175,8 @@ layer.options;
 
 let layerOptions: L.LayerOptions;
 layerOptions = {
-    attribution: 'anon',
-    pane: 'overlay',
+    attribution: "anon",
+    pane: "overlay",
 };
 
 const popupOptions: L.PopupOptions = {};
@@ -184,7 +188,7 @@ zoomPanOptions = {
     animate: false,
     duration: 0.5,
     easeLinearity: 0.6,
-    noMoveStart: true
+    noMoveStart: true,
 };
 
 let invalidateSizeOptions: L.InvalidateSizeOptions = {};
@@ -203,19 +207,19 @@ const panOptions: L.PanOptions = {};
 
 const fitBoundsOptions: L.FitBoundsOptions = {};
 
-let map = L.map('foo');
-map = L.map('foo', mapOptions);
+let map = L.map("foo");
+map = L.map("foo", mapOptions);
 map = L.map(htmlElement);
 map = L.map(htmlElement, mapOptions);
 
-map = new L.Map('foo', mapOptions);
+map = new L.Map("foo", mapOptions);
 map = new L.Map(htmlElement);
 map = new L.Map(htmlElement, mapOptions);
 
 let doesItHaveLayer: boolean;
-doesItHaveLayer = map.hasLayer(L.tileLayer(''));
+doesItHaveLayer = map.hasLayer(L.tileLayer(""));
 
-map.on('zoomanim', e => {
+map.on("zoomanim", e => {
     e; // $ExpectType ZoomAnimEvent
 });
 
@@ -224,31 +228,37 @@ map.once({
     locationfound: (_e: L.LocationEvent) => {},
 });
 
-map.off('moveend');
-map.off('resize', e => {
+map.off("moveend");
+map.off("resize", e => {
     e; // $ExpectType ResizeEvent
 });
-map.off('baselayerchange', e => {
+map.off("baselayerchange", e => {
     e; // $ExpectType LayersControlEvent
 }, {});
 
-map.removeEventListener('loading');
-map.removeEventListener('dblclick', e => {
+map.removeEventListener("loading");
+map.removeEventListener("dblclick", e => {
     e; // $ExpectType LeafletMouseEvent
 });
-map.removeEventListener('locationerror', e => {
+map.removeEventListener("locationerror", e => {
     e; // $ExpectType ErrorEvent
 }, {});
 
 map.panInside(latLng, { padding: [50, 50], paddingBottomRight: point, paddingTopLeft: [100, 100] });
-map.panInside(latLng, { padding: [50, 50], paddingBottomRight: point, paddingTopLeft: [100, 100], animate: true, duration: 0.5 });
+map.panInside(latLng, {
+    padding: [50, 50],
+    paddingBottomRight: point,
+    paddingTopLeft: [100, 100],
+    animate: true,
+    duration: 0.5,
+});
 
 // map.getRenderer
 
 let html: HTMLElement;
-html = map.createPane('foo');
-html = map.createPane('foo', htmlElement);
-html = map.getPane('foo');
+html = map.createPane("foo");
+html = map.createPane("foo", htmlElement);
+html = map.getPane("foo");
 html = map.getPane(htmlElement);
 html = map.getContainer();
 
@@ -260,7 +270,7 @@ html = panes.shadowPane;
 html = panes.markerPane;
 html = panes.tooltipPane;
 html = panes.popupPane;
-html = panes['foo'];
+html = panes["foo"];
 
 let coordinates: L.LatLng;
 coordinates = map.getCenter();
@@ -305,8 +315,8 @@ attributionControl = map.attributionControl;
 
 let gridLayerOptions: L.GridLayerOptions;
 gridLayerOptions = {
-    attribution: 'anon',
-    pane: 'overlay',
+    attribution: "anon",
+    pane: "overlay",
     tileSize: 256,
     opacity: 1,
     updateWhenIdle: true,
@@ -319,18 +329,18 @@ gridLayerOptions = {
     maxNativeZoom: 3,
     minNativeZoom: 10,
     noWrap: false,
-    className: 'none',
+    className: "none",
     keepBuffer: 2,
 };
 
 let tileLayerOptions: L.TileLayerOptions = {};
 tileLayerOptions = {
-    id: 'mapbox.streets',
-    accessToken: 'your.mapbox.access.token',
+    id: "mapbox.streets",
+    accessToken: "your.mapbox.access.token",
     minZoom: 0,
     maxZoom: 18,
     maxNativeZoom: 2,
-    errorTileUrl: '',
+    errorTileUrl: "",
     zoomOffset: 0,
     tms: true,
     zoomReverse: true,
@@ -340,16 +350,16 @@ tileLayerOptions = {
     updateWhenIdle: true,
     updateWhenZooming: true,
     updateInterval: 500,
-    attribution: '',
+    attribution: "",
     zIndex: 1,
     noWrap: true,
-    pane: '',
-    className: '',
+    pane: "",
+    className: "",
     keepBuffer: 1,
 };
 
-tileLayerOptions.subdomains = 'a';
-tileLayerOptions.subdomains = ['a', 'b'];
+tileLayerOptions.subdomains = "a";
+tileLayerOptions.subdomains = ["a", "b"];
 
 tileLayerOptions.tileSize = 256;
 tileLayerOptions.tileSize = point;
@@ -359,40 +369,51 @@ tileLayerOptions.bounds = latLngBounds;
 tileLayerOptions.bounds = latLngBoundsLiteral;
 
 let tileLayer: L.TileLayer;
-tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
-tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', tileLayerOptions);
+tileLayer = L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png");
+tileLayer = L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", tileLayerOptions);
 
-tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
-tileLayer = new L.TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', tileLayerOptions);
+tileLayer = new L.TileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png");
+tileLayer = new L.TileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", tileLayerOptions);
 
 // imageOverlay
 let imageOverlayOptions: L.ImageOverlayOptions;
 imageOverlayOptions = {
     opacity: 100,
-    alt: 'alt',
+    alt: "alt",
     interactive: true,
-    attribution: 'attribution',
-    errorOverlayUrl: 'http://www.test.com/error.png',
+    attribution: "attribution",
+    errorOverlayUrl: "http://www.test.com/error.png",
     zIndex: 1,
     crossOrigin: true,
-    className: 'className',
+    className: "className",
     bubblingMouseEvents: false,
-    pane: 'pane'
+    pane: "pane",
 };
 
 let imageOverlayBounds = latLngBounds;
 let imageOverlay: L.ImageOverlay;
-imageOverlay = L.imageOverlay('https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png', imageOverlayBounds);
-imageOverlay = L.imageOverlay('https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png', imageOverlayBounds, imageOverlayOptions);
-imageOverlay = L.imageOverlay('https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png', imageOverlayBounds, {
-    opacity: 100,
-    alt: 'alt',
-    className: 'className',
-});
+imageOverlay = L.imageOverlay(
+    "https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png",
+    imageOverlayBounds,
+);
+imageOverlay = L.imageOverlay(
+    "https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png",
+    imageOverlayBounds,
+    imageOverlayOptions,
+);
+imageOverlay = L.imageOverlay(
+    "https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png",
+    imageOverlayBounds,
+    {
+        opacity: 100,
+        alt: "alt",
+        className: "className",
+    },
+);
 imageOverlay.setOpacity(100);
 imageOverlay.bringToFront();
 imageOverlay.bringToBack();
-imageOverlay.setUrl('https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png');
+imageOverlay.setUrl("https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png");
 imageOverlay.setBounds(imageOverlayBounds);
 imageOverlay.setZIndex(1);
 imageOverlayBounds = imageOverlay.getBounds();
@@ -404,17 +425,18 @@ imageOverlay = imageOverlay.setStyle({ opacity: 90 });
 let svgOverlayOptions: L.ImageOverlayOptions;
 svgOverlayOptions = {
     interactive: true,
-    opacity: 100
+    opacity: 100,
 };
 
 let svgOverlayBounds = latLngBounds;
-const svgSvgElement: SVGSVGElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-const svgString = '<svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="60" r="50"/></svg>';
+const svgSvgElement: SVGSVGElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+const svgString =
+    "<svg viewBox=\"0 0 120 120\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"60\" cy=\"60\" r=\"50\"/></svg>";
 
 let svgOverlay: L.SVGOverlay;
 svgOverlay = L.svgOverlay(svgString, svgOverlayBounds);
 svgOverlay = L.svgOverlay(svgSvgElement, svgOverlayBounds, {
-    interactive: false
+    interactive: false,
 });
 svgOverlay.setOpacity(100);
 svgOverlay.bringToFront();
@@ -433,23 +455,23 @@ videoOverlayOptions = {
     opacity: 100,
     autoplay: true,
     loop: false,
-    muted: true
+    muted: true,
 };
 
 let videoOverlayBounds = latLngBounds;
-const videoOverlayUrls = ['https://www.mapbox.com/bites/00188/patricia_nasa.webm'];
-const videoElement = document.createElement('video');
+const videoOverlayUrls = ["https://www.mapbox.com/bites/00188/patricia_nasa.webm"];
+const videoElement = document.createElement("video");
 
 let videoOverlay: L.VideoOverlay;
-videoOverlay = L.videoOverlay('https://www.mapbox.com/bites/00188/patricia_nasa.webm', videoOverlayBounds);
+videoOverlay = L.videoOverlay("https://www.mapbox.com/bites/00188/patricia_nasa.webm", videoOverlayBounds);
 videoOverlay = L.videoOverlay(videoOverlayUrls, videoOverlayBounds, videoOverlayOptions);
 videoOverlay = L.videoOverlay(videoElement, videoOverlayBounds, {
-    autoplay: true
+    autoplay: true,
 });
 videoOverlay.setOpacity(100);
 videoOverlay.bringToFront();
 videoOverlay.bringToBack();
-videoOverlay.setUrl('https://www.mapbox.com/bites/00188/patricia_nasa.webm');
+videoOverlay.setUrl("https://www.mapbox.com/bites/00188/patricia_nasa.webm");
 videoOverlay.setBounds(imageOverlayBounds);
 videoOverlay.setZIndex(1);
 videoOverlayBounds = videoOverlay.getBounds();
@@ -457,16 +479,16 @@ html = videoOverlay.getElement();
 point = videoOverlay.getCenter();
 videoOverlay = videoOverlay.setStyle(videoOverlayOptions);
 
-const eventHandler = () => { };
+const eventHandler = () => {};
 const leafletMouseEvent: L.LeafletMouseEvent = {} as L.LeafletMouseEvent;
 const leafletKeyboardEvent: L.LeafletKeyboardEvent = {} as L.LeafletKeyboardEvent;
 const leafletEvent: L.LeafletEvent = {} as L.LeafletEvent;
 const domEvent: Event = {} as Event;
 L.DomEvent
-    .on(htmlElement, 'click', eventHandler)
-    .addListener(htmlElement, 'click', eventHandler)
-    .off(htmlElement, 'click', eventHandler)
-    .removeListener(htmlElement, 'click', eventHandler)
+    .on(htmlElement, "click", eventHandler)
+    .addListener(htmlElement, "click", eventHandler)
+    .off(htmlElement, "click", eventHandler)
+    .removeListener(htmlElement, "click", eventHandler)
     .on(htmlElement, { click: eventHandler })
     .addListener(htmlElement, { click: eventHandler })
     .off(htmlElement, { click: eventHandler }, eventHandler)
@@ -498,12 +520,12 @@ map = map
         layer = currentLayer;
     }, {})
     .openPopup(L.popup())
-    .openPopup('Hello World', latLng)
-    .openPopup('Hello World', latLng, popupOptions)
-    .openPopup('Hello World', latLngLiteral)
-    .openPopup('Hello World', latLngLiteral, popupOptions)
-    .openPopup('Hello World', latLngTuple)
-    .openPopup('Hello World', latLngTuple, popupOptions)
+    .openPopup("Hello World", latLng)
+    .openPopup("Hello World", latLng, popupOptions)
+    .openPopup("Hello World", latLngLiteral)
+    .openPopup("Hello World", latLngLiteral, popupOptions)
+    .openPopup("Hello World", latLngTuple)
+    .openPopup("Hello World", latLngTuple, popupOptions)
     .openPopup(htmlElement, latLng)
     .openPopup(htmlElement, latLng, popupOptions)
     .openPopup(htmlElement, latLngLiteral)
@@ -513,12 +535,12 @@ map = map
     .closePopup()
     .closePopup(L.popup())
     .openTooltip(L.tooltip())
-    .openTooltip('Hello Word', latLng)
-    .openTooltip('Hello World', latLng, tooltipOptions)
-    .openTooltip('Hello World', latLngLiteral)
-    .openTooltip('Hello World', latLngLiteral, tooltipOptions)
-    .openTooltip('Hello World', latLngTuple)
-    .openTooltip('Hello World', latLngTuple, tooltipOptions)
+    .openTooltip("Hello Word", latLng)
+    .openTooltip("Hello World", latLng, tooltipOptions)
+    .openTooltip("Hello World", latLngLiteral)
+    .openTooltip("Hello World", latLngLiteral, tooltipOptions)
+    .openTooltip("Hello World", latLngTuple)
+    .openTooltip("Hello World", latLngTuple, tooltipOptions)
     .openTooltip(htmlElement, latLng)
     .openTooltip(htmlElement, latLng, tooltipOptions)
     .openTooltip(htmlElement, latLngLiteral)
@@ -586,19 +608,19 @@ map = map
     .flyToBounds(latLngBounds, fitBoundsOptions)
     .flyToBounds(latLngBoundsLiteral)
     .flyToBounds(latLngBoundsLiteral, fitBoundsOptions)
-    .addHandler('Hello World', L.Handler)
+    .addHandler("Hello World", L.Handler)
     .remove()
     .whenReady(() => {})
     .whenReady(() => {}, {});
 
-const elementToDrag = document.createElement('div');
+const elementToDrag = document.createElement("div");
 const draggable = new L.Draggable(elementToDrag);
 draggable.enable();
 draggable.disable();
-draggable.on('drag', () => {});
-let listens: boolean = draggable.listens('drag');
-draggable.off('drag', () => {});
-listens = draggable.listens('drag');
+draggable.on("drag", () => {});
+let listens: boolean = draggable.listens("drag");
+draggable.off("drag", () => {});
+listens = draggable.listens("drag");
 
 let twoCoords: [number, number] = [1, 2];
 latLng = L.GeoJSON.coordsToLatLng(twoCoords);
@@ -638,8 +660,8 @@ class MyMarker extends L.Marker {
         const speed = 1000;
 
         if (L.DomUtil.TRANSITION) {
-            if (this.getElement()) { this.getElement().style.setProperty(L.DomUtil.TRANSITION, `all ${speed}ms linear`); }
-            if (this._shadow) { this._shadow.style.setProperty(L.DomUtil.TRANSITION, `all ${speed}ms linear`); }
+            if (this.getElement()) this.getElement().style.setProperty(L.DomUtil.TRANSITION, `all ${speed}ms linear`);
+            if (this._shadow) this._shadow.style.setProperty(L.DomUtil.TRANSITION, `all ${speed}ms linear`);
         }
     }
 }
@@ -652,7 +674,7 @@ class MyLayer extends L.Layer {
 
 class MyIcon extends L.Icon {
     constructor() {
-        super({ iconUrl: 'icon.png' });
+        super({ iconUrl: "icon.png" });
     }
 }
 
@@ -662,11 +684,11 @@ class MyDivIcon extends L.DivIcon {
     }
 }
 
-const divIconHtmlAsString = L.divIcon({ html: '' });
+const divIconHtmlAsString = L.divIcon({ html: "" });
 const divIconHtmlAsElement = L.divIcon({ html: htmlElement });
 const divIconHtmlAsFalse = L.divIcon({ html: false });
 let defaultIcon = new L.Icon.Default();
-defaultIcon = new L.Icon.Default({ imagePath: 'apath' });
+defaultIcon = new L.Icon.Default({ imagePath: "apath" });
 
 L.Class.callInitHooks();
 
@@ -678,33 +700,33 @@ const myOtherControl = new myOtherControlClass();
 L.Control.include({});
 L.Control.mergeOptions({});
 L.Control.addInitHook(() => {});
-L.Control.addInitHook('method1', 'hello', 1);
+L.Control.addInitHook("method1", "hello", 1);
 
 export class MyNewControl extends L.Control {
     constructor() {
         super({
-            position: 'topleft'
+            position: "topleft",
         });
     }
 }
 
 L.marker([1, 2], {
     icon: L.icon({
-        iconUrl: 'my-icon.png'
+        iconUrl: "my-icon.png",
     }),
     autoPan: true,
     autoPanPadding: [10, 20],
     autoPanSpeed: 5,
-}).bindPopup('<p>Hi</p>');
+}).bindPopup("<p>Hi</p>");
 
 L.marker([1, 2], {
     icon: L.divIcon({
-        className: 'my-icon-class'
-    })
+        className: "my-icon-class",
+    }),
 }).setIcon(L.icon({
-    iconUrl: 'my-icon.png'
+    iconUrl: "my-icon.png",
 })).setIcon(L.divIcon({
-    className: 'my-div-icon'
+    className: "my-div-icon",
 }));
 
 let polygon: L.Polygon;
@@ -719,7 +741,7 @@ const simplePolygonLatLngs2: L.LatLng[] = polygon.getLatLngs() as L.LatLng[];
 // complex polygon (polygon with holes)
 const complexPolygonLatLngs: L.LatLngExpression[][] = [
     [[37, -109.05], [41, -109.03], [41, -102.05], [37, -102.04]], // outer ring
-    [[37.29, -108.58], [40.71, -108.58], [40.71, -102.50], [37.29, -102.50]] // hole
+    [[37.29, -108.58], [40.71, -108.58], [40.71, -102.50], [37.29, -102.50]], // hole
 ];
 polygon = L.polygon(complexPolygonLatLngs);
 polygon = new L.Polygon(complexPolygonLatLngs);
@@ -730,11 +752,11 @@ const complexPolygonLatLngs2: L.LatLng[][] = polygon.getLatLngs() as L.LatLng[][
 const multiPolygonLatLngs: L.LatLngExpression[][][] = [
     [ // first polygon
         [[37, -109.05], [41, -109.03], [41, -102.05], [37, -102.04]], // outer ring
-        [[37.29, -108.58], [40.71, -108.58], [40.71, -102.50], [37.29, -102.50]] // hole
+        [[37.29, -108.58], [40.71, -108.58], [40.71, -102.50], [37.29, -102.50]], // hole
     ],
     [ // second polygon
-        [[41, -111.03], [45, -111.04], [45, -104.05], [41, -104.05]]
-    ]
+        [[41, -111.03], [45, -111.04], [45, -104.05], [41, -104.05]],
+    ],
 ];
 polygon = L.polygon(multiPolygonLatLngs);
 polygon = new L.Polygon(multiPolygonLatLngs);
@@ -744,7 +766,7 @@ const multiPolygonLatLngs2: L.LatLng[][][] = polygon.getLatLngs() as L.LatLng[][
 let polyline: L.Polyline;
 
 // simple polyline
-const simplePolylineLatLngs: L.LatLngExpression[] = [[45.51, -122.68], [37.77, -122.43], [34.04, -118.2]];
+const simplePolylineLatLngs: L.LatLngExpression[] = [[45.51, -122.68, 100], [37.77, -122.43], [34.04, -118.2, 200]]; // mix in some altitudes
 polyline = L.polyline(simplePolylineLatLngs);
 polyline = new L.Polyline(simplePolylineLatLngs);
 polyline.setLatLngs(simplePolylineLatLngs);
@@ -754,7 +776,7 @@ const simplePolylineLatLngs2: L.LatLng[] = polyline.getLatLngs() as L.LatLng[];
 // multi polyline
 const multiPolylineLatLngs: L.LatLngExpression[][] = [
     [[45.51, -122.68], [37.77, -122.43], [34.04, -118.2]],
-    [[40.78, -73.91], [41.83, -87.62], [32.76, -96.72]]
+    [[40.78, -73.91], [41.83, -87.62], [32.76, -96.72]],
 ];
 polyline = L.polyline(multiPolylineLatLngs);
 polyline = new L.Polyline(multiPolylineLatLngs);
@@ -768,29 +790,35 @@ const obj1 = {
 };
 
 const obj2 = {
-    prop2: '2',
+    prop2: "2",
 };
 
 const obj3 = {
-    prop3: 'three',
+    prop3: "three",
 };
 
 const obj4 = {
-    prop4: 'cuatro',
+    prop4: "cuatro",
 };
 
 const obj5 = {
-    prop5: 'cinque',
+    prop5: "cinque",
 };
 
 const extended0: typeof obj1 = L.Util.extend(obj1);
 const extended1: typeof obj1 & typeof obj2 = L.Util.extend(obj1, obj2);
 const extended2: typeof obj1 & typeof obj2 & typeof obj3 = L.Util.extend(obj1, obj2, obj3);
 const extended3: typeof obj1 & typeof obj2 & typeof obj3 & typeof obj4 = L.Util.extend(obj1, obj2, obj3, obj4);
-const extended4: typeof obj1 & typeof obj2 & typeof obj3 & typeof obj4 & typeof obj5 = L.Util.extend(obj1, obj2, obj3, obj4, obj5);
+const extended4: typeof obj1 & typeof obj2 & typeof obj3 & typeof obj4 & typeof obj5 = L.Util.extend(
+    obj1,
+    obj2,
+    obj3,
+    obj4,
+    obj5,
+);
 
 L.Util.create({});
-L.Util.create(null, { foo: { writable: true, value: 'bar' } });
+L.Util.create(null, { foo: { writable: true, value: "bar" } });
 
 L.Util.bind(() => {}, {});
 const fnWithArguments = (done: L.DoneCallback, tile: HTMLElement): void => {};
@@ -802,13 +830,13 @@ L.Util.wrapNum(123, [], true);
 L.Util.falseFn();
 L.Util.formatNum(123);
 L.Util.formatNum(123, 1);
-L.Util.trim('word   ');
-L.Util.splitWords('word word');
+L.Util.trim("word   ");
+L.Util.splitWords("word word");
 L.Util.setOptions({}, {});
 L.Util.getParamString({});
-L.Util.getParamString({}, '');
-L.Util.getParamString({}, '', true);
-L.Util.template('template', {});
+L.Util.getParamString({}, "");
+L.Util.getParamString({}, "", true);
+L.Util.template("template", {});
 L.Util.isArray({});
 L.Util.indexOf([], {});
 L.Util.requestAnimFrame(() => {});
@@ -821,7 +849,13 @@ const extendedRoot0: typeof obj1 = L.extend(obj1);
 const extendedRoot1: typeof obj1 & typeof obj2 = L.extend(obj1, obj2);
 const extendedRoot2: typeof obj1 & typeof obj2 & typeof obj3 = L.extend(obj1, obj2, obj3);
 const extendedRoot3: typeof obj1 & typeof obj2 & typeof obj3 & typeof obj4 = L.extend(obj1, obj2, obj3, obj4);
-const extendedRoot4: typeof obj1 & typeof obj2 & typeof obj3 & typeof obj4 & typeof obj5 = L.extend(obj1, obj2, obj3, obj4, obj5);
+const extendedRoot4: typeof obj1 & typeof obj2 & typeof obj3 & typeof obj4 & typeof obj5 = L.extend(
+    obj1,
+    obj2,
+    obj3,
+    obj4,
+    obj5,
+);
 
 L.bind(fnWithArguments, {}, {} as L.DoneCallback, {} as HTMLElement);
 L.stamp({});
@@ -835,50 +869,50 @@ interface MyProperties {
 
 (L.marker([1, 2], {
     icon: L.icon({
-        iconUrl: 'my-icon.png'
-    })
+        iconUrl: "my-icon.png",
+    }),
 }) as L.Marker<MyProperties>).feature.properties.testProperty = "test";
 
 let lg = L.layerGroup();
 lg = L.layerGroup([new L.Layer(), new L.Layer()]);
 lg = L.layerGroup([new L.Layer(), new L.Layer()], {
-    pane: 'overlayPane',
-    attribution: 'test'
+    pane: "overlayPane",
+    attribution: "test",
 });
 
 lg = new L.LayerGroup();
 lg = new L.LayerGroup([new L.Layer(), new L.Layer()]);
 lg = new L.LayerGroup([new L.Layer(), new L.Layer()], {
-    pane: 'overlayPane',
-    attribution: 'test'
+    pane: "overlayPane",
+    attribution: "test",
 });
 
 // adapted from GridLayer documentation
 const CanvasLayer = L.GridLayer.extend({
     createTile(coords: L.Coords, done: L.DoneCallback) {
-        const tile = L.DomUtil.create('canvas', 'leaflet-tile');
+        const tile = L.DomUtil.create("canvas", "leaflet-tile");
         const size = this.getTileSize();
         tile.width = size.x;
         tile.height = size.y;
         return tile;
-    }
+    },
 });
 
 // adapted from GridLayer documentation
 const AsyncCanvasLayer = L.GridLayer.extend({
     createTile(coords: L.Coords, done: L.DoneCallback) {
-        const tile = L.DomUtil.create('canvas', 'leaflet-tile');
+        const tile = L.DomUtil.create("canvas", "leaflet-tile");
         const size = this.getTileSize();
         tile.width = size.x;
         tile.height = size.y;
         setTimeout(() => done(undefined, tile), 1000);
         return tile;
-    }
+    },
 });
 
 export class ExtendedTileLayer extends L.TileLayer {
     createTile(coords: L.Coords, done: L.DoneCallback) {
-        const newCoords: L.Coords = (new L.Point(coords.x, coords.y) as L.Coords);
+        const newCoords: L.Coords = new L.Point(coords.x, coords.y) as L.Coords;
         newCoords.z = coords.z;
         this._wrapCoords(coords);
         return super.createTile(newCoords, done);
@@ -886,10 +920,10 @@ export class ExtendedTileLayer extends L.TileLayer {
 
     overrideCreateTile(coords: L.Coords, done: L.DoneCallback) {
         // adapted from TileLayer's implementation
-        const tile = document.createElement('img');
+        const tile = document.createElement("img");
 
-        L.DomEvent.on(tile, 'load', L.Util.bind(this._tileOnLoad, this, done, tile));
-        L.DomEvent.on(tile, 'error', L.Util.bind(this._tileOnError, this, done, tile));
+        L.DomEvent.on(tile, "load", L.Util.bind(this._tileOnLoad, this, done, tile));
+        L.DomEvent.on(tile, "error", L.Util.bind(this._tileOnError, this, done, tile));
 
         return tile;
     }
@@ -919,14 +953,14 @@ const polygonGeoJson = L.geoJSON<any, geojson_types.Polygon>(null, {
     onEachFeature(polygonFeature, layer) {
         // $ExpectType Polygon
         polygonFeature.geometry;
-    }
+    },
 });
 
 const pointGeoJson = L.geoJSON<any, geojson_types.Point>(null, {
     onEachFeature(polygonFeature, layer) {
         // $ExpectType Point
         polygonFeature.geometry;
-    }
+    },
 });
 
 // $ExpectType Polygon
@@ -942,6 +976,6 @@ L.GeoJSON.geometryToLayer(
             // $ExpectType MultiPolygon
             multiPolygon.geometry;
             return true;
-        }
-    }
+        },
+    },
 );

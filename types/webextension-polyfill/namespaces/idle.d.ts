@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.idle
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>browser.idle</code> API to detect when the machine's idle state changes.
  * Permissions: "idle"

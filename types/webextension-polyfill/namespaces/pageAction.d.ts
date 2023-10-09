@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.pageAction
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>browser.pageAction</code> API to put icons inside the address bar. Page actions represent actions that can
  * be taken on the current page, but that aren't applicable to all pages.
@@ -11,8 +14,8 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
-import { Tabs } from "./tabs";
 import { Events } from "./events";
+import { Tabs } from "./tabs";
 
 export namespace PageAction {
     /**

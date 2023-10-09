@@ -1,7 +1,7 @@
-import * as stream from 'readable-stream';
-import { GraphPointer } from 'clownface';
-import { LoaderRegistry } from 'rdf-loaders-registry';
-import { Logger } from 'winston';
+import { GraphPointer } from "clownface";
+import { LoaderRegistry } from "rdf-loaders-registry";
+import * as stream from "readable-stream";
+import { Logger } from "winston";
 
 // tslint:disable-next-line:no-empty-interface
 export interface Variables {}
@@ -9,9 +9,9 @@ export interface Variables {}
 type Keys = keyof Variables extends never ? string : keyof Variables;
 
 interface TypedMap extends Map<Keys, any> {
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     get<K extends keyof Variables>(key: K): Variables[typeof key];
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     set<K extends keyof Variables>(key: K, value: Variables[typeof key] | undefined): this;
 }
 
@@ -20,6 +20,7 @@ export type VariableMap = keyof Variables extends never ? Map<string, any> : Typ
 export interface Context {
     logger: Logger;
     variables: VariableMap;
+    basePath: string;
 }
 
 export default class StreamObject {

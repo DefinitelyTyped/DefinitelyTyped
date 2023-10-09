@@ -1,4 +1,4 @@
-import { Classifier, Cocabulary as Vocabulary, Model, default as ClassifierButDefault } from "ml-classify-text";
+import { Classifier, Cocabulary as Vocabulary, default as ClassifierButDefault, Model } from "ml-classify-text";
 
 // default test
 ClassifierButDefault; // $ExpectType typeof Classifier

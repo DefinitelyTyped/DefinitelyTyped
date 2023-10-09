@@ -1,16 +1,15 @@
-import Symbols from './symbols';
-import { logging, ProxyConfig } from '../';
+import { logging, ProxyConfig } from "../";
+import Symbols from "./symbols";
 
 /**
  * Recognized browser names.
- * @enum {string}
  */
 export interface IBrowser {
-    CHROME: 'chrome';
-    EDGE: 'MicrosoftEdge';
-    FIREFOX: 'firefox';
-    INTERNET_EXPLORER: 'internet explorer';
-    SAFARI: 'safari';
+    CHROME: "chrome";
+    EDGE: "MicrosoftEdge";
+    FIREFOX: "firefox";
+    INTERNET_EXPLORER: "internet explorer";
+    SAFARI: "safari";
 }
 
 /**
@@ -22,7 +21,6 @@ export const Browser: IBrowser;
  * Common platform names. These platforms are not explicitly defined by the
  * WebDriver spec, however, their use is encouraged for interoperability.
  *
- * @enum {string}
  * @see <https://w3c.github.io/webdriver/webdriver-spec.html>
  */
 export interface IPlatform {
@@ -37,8 +35,6 @@ export const Platform: IPlatform;
  * Strategies for waiting for [document readiness] after a navigation event.
  *
  * [document readiness]: https://html.spec.whatwg.org/#current-document-readiness
- *
- * @enum {string}
  */
 export interface IPageLoadStrategy {
     /**
@@ -66,8 +62,6 @@ export const PageLoadStrategy: IPageLoadStrategy;
  * The possible default actions a WebDriver session can take to respond to
  * unhandled user prompts (`window.alert()`, `window.confirm()`, and
  * `window.prompt()`).
- *
- * @enum {string}
  */
 export interface IUserPromptHandler {
     /** All prompts should be silently accepted. */
@@ -92,7 +86,6 @@ export const UserPromptHandler: IUserPromptHandler;
 
 /**
  * Common webdriver capability keys.
- * @enum {string}
  */
 export interface ICapability {
     /**

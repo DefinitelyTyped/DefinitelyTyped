@@ -9,9 +9,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Strategy as PassportStrategy } from 'passport-strategy';
-import * as express from 'express';
-import { VerifyOptions } from 'jsonwebtoken';
+import * as express from "express";
+import { VerifyOptions } from "jsonwebtoken";
+import { Strategy as PassportStrategy } from "passport-strategy";
 
 export declare class Strategy extends PassportStrategy {
     constructor(opt: StrategyOptions, verify: VerifyCallback);
@@ -24,7 +24,7 @@ export interface StrategyOptions {
     secretOrKeyProvider?: SecretOrKeyProvider | undefined;
     jwtFromRequest: JwtFromRequestFunction;
     issuer?: string | string[] | undefined;
-    audience?: string | undefined;
+    audience?: string | string[] | undefined;
     algorithms?: string[] | undefined;
     ignoreExpiration?: boolean | undefined;
     passReqToCallback?: boolean | undefined;

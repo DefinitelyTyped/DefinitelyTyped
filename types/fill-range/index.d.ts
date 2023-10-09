@@ -13,25 +13,28 @@ declare namespace fill {
     }
 }
 
-type FilledArray<ValueType, TransformValueType> = ValueType extends TransformValueType ? ValueType[] : TransformValueType[];
+type FilledArray<ValueType, TransformValueType> = ValueType extends TransformValueType ? ValueType[]
+    : TransformValueType[];
 
 declare function fill<
     ValueType = string | number,
-    TransformValueType = unknown
+    TransformValueType = unknown,
 >(
     start: ValueType,
     end?: ValueType | null,
     step?: number,
-    options?: fill.Options<ValueType, TransformValueType>
+    options?: fill.Options<ValueType, TransformValueType>,
 ): FilledArray<ValueType, TransformValueType>;
 
 declare function fill<
     ValueType = string | number,
-    TransformValueType = unknown
+    TransformValueType = unknown,
 >(
     start: ValueType,
     end?: ValueType | null,
-    transformOrOptions?: fill.Options<ValueType, TransformValueType>['transform'] | fill.Options<ValueType, TransformValueType>
+    transformOrOptions?:
+        | fill.Options<ValueType, TransformValueType>["transform"]
+        | fill.Options<ValueType, TransformValueType>,
 ): FilledArray<ValueType, TransformValueType>;
 
 export = fill;

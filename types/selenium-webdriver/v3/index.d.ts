@@ -9,12 +9,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as chrome from './chrome';
-import * as edge from './edge';
-import * as firefox from './firefox';
-import * as ie from './ie';
-import * as opera from './opera';
-import * as safari from './safari';
+import * as chrome from "./chrome";
+import * as edge from "./edge";
+import * as firefox from "./firefox";
+import * as ie from "./ie";
+import * as opera from "./opera";
+import * as safari from "./safari";
 
 export namespace error {
     class IError extends Error {
@@ -245,7 +245,6 @@ export namespace error {
 export namespace logging {
     /**
      * A hash describing log preferences.
-     * @typedef {Object.<logging.Type, logging.LevelName>}
      */
     class Preferences {
         setLevel(type: string, level: Level | string | number): void;
@@ -267,7 +266,6 @@ export namespace logging {
 
     /**
      * Common log types.
-     * @enum {string}
      */
     const Type: IType;
 
@@ -296,47 +294,47 @@ export namespace logging {
 
         /**
          * Indicates no log messages should be recorded.
-         * @const
+         * @constant
          */
         static OFF: Level;
         /**
          * Log messages with a level of `1000` or higher.
-         * @const
+         * @constant
          */
         static SEVERE: Level;
         /**
          * Log messages with a level of `900` or higher.
-         * @const
+         * @constant
          */
         static WARNING: Level;
         /**
          * Log messages with a level of `800` or higher.
-         * @const
+         * @constant
          */
         static INFO: Level;
         /**
          * Log messages with a level of `700` or higher.
-         * @const
+         * @constant
          */
         static DEBUG: Level;
         /**
          * Log messages with a level of `500` or higher.
-         * @const
+         * @constant
          */
         static FINE: Level;
         /**
          * Log messages with a level of `400` or higher.
-         * @const
+         * @constant
          */
         static FINER: Level;
         /**
          * Log messages with a level of `300` or higher.
-         * @const
+         * @constant
          */
         static FINEST: Level;
         /**
          * Indicates all log messages should be recorded.
-         * @const
+         * @constant
          */
         static ALL: Level;
     }
@@ -369,20 +367,15 @@ export namespace logging {
          *     milliseconds since 0:00:00, January 1, 1970 UTC. If omitted, the
          *     current time will be used.
          * @param {string=} opt_type The log type, if known.
-         * @constructor
          */
         constructor(level: Level | string | number, message: string, opt_timestamp?: number, opt_type?: string | IType);
 
-        /** @type {!logging.Level} */
         level: Level;
 
-        /** @type {string} */
         message: string;
 
-        /** @type {number} */
         timestamp: number;
 
-        /** @type {string} */
         type: string;
 
         /**
@@ -415,13 +408,9 @@ export namespace logging {
          */
         constructor(name: string, opt_level?: Level);
 
-        /** @private {string} */
         name_: string;
-        /** @private {Level} */
         level_: Level;
-        /** @private {Logger} */
         parent_: Logger;
-        /** @private {Set<function(!Entry)>} */
         handlers_: any;
 
         /** @return {string} the name of this logger. */
@@ -549,7 +538,6 @@ export namespace logging {
          * @param {string} name the logger's name.
          * @param {!Logger} parent the logger's parent.
          * @return {!Logger} the new logger.
-         * @private
          */
         createLogger_(name: string, parent: Logger): Logger;
     }
@@ -981,7 +969,6 @@ export namespace promise {
      * fulfilled or rejected state, at which point the promise is considered
      * resolved.
      *
-     * @implements {promise.Thenable<T>}
      * @template T
      * @see http://promises-aplus.github.io/promises-spec/
      */
@@ -1071,17 +1058,14 @@ export namespace promise {
      * <p>If this Deferred is rejected and there are no listeners registered before
      * the next turn of the event loop, the rejection will be passed to the
      * {@link promise.ControlFlow} as an unhandled failure.
-     *
      */
     class Deferred<T> {
         // region Constructors
 
         /**
-         *
          * @param {promise.ControlFlow=} opt_flow The control flow
          *     this instance was created under. This should only be provided during
          *     unit tests.
-         * @constructor
          */
         constructor(opt_flow?: ControlFlow);
 
@@ -1099,7 +1083,6 @@ export namespace promise {
         /**
          * The consumer promise for this instance. Provides protected access to the
          * callback registering functions.
-         * @type {!promise.Promise}
          */
         promise: Promise<T>;
 
@@ -1185,18 +1168,14 @@ export namespace promise {
      * UNCAUGHT_EXCEPTION} event. If there are no listeners registered with the
      * flow, the error will be rethrown to the global error handler.
      *
-     * @extends {EventEmitter}
      * @final
      */
     class ControlFlow extends EventEmitter {
-        /**
-         * @constructor
-         */
+        /** */
         constructor();
 
         /**
          * Events that may be emitted by an {@link promise.ControlFlow}.
-         * @enum {string}
          */
         static EventType: IEventType;
 
@@ -1301,21 +1280,17 @@ export class Condition<T> {
      *     sentence 'Waiting [...]'
      * @param {function(!WebDriver): OUT} fn The condition function to
      *     evaluate on each iteration of the wait loop.
-     * @constructor
      */
     constructor(message: string, fn: (webdriver: WebDriver) => any);
 
     /** @return {string} A description of this condition. */
     description(): string;
 
-    /** @type {function(!WebDriver): OUT} */
     fn(webdriver: WebDriver): any;
 }
 
 /**
  * Defines a condition that will result in a {@link WebElement}.
- *
- * @extends {Condition<!(WebElement|IThenable<!WebElement>)>}
  */
 export class WebElementCondition extends Condition<WebElement> {
     // add an unused private member so the compiler treats this
@@ -1553,8 +1528,6 @@ export interface IButton {
  * Representations of pressable keys that aren't text.  These are stored in
  * the Unicode PUA (Private Use Area) code points, 0xE000-0xF8FF.  Refer to
  * http://www.google.com.au/search?&q=unicode+pua&btnG=Search
- *
- * @enum {string}
  */
 export const Button: IButton;
 
@@ -1642,8 +1615,6 @@ export interface IKey {
  * Representations of pressable keys that aren't text.  These are stored in
  * the Unicode PUA (Private Use Area) code points, 0xE000-0xF8FF.  Refer to
  * http://www.google.com.au/search?&q=unicode+pua&btnG=Search
- *
- * @enum {string}
  */
 export const Key: IKey;
 
@@ -1660,14 +1631,12 @@ export const Key: IKey;
  *         dragAndDrop(element3, element4).
  *         keyUp(Key.SHIFT).
  *         perform();
- *
  */
 export class ActionSequence {
     // region Constructors
 
     /**
      * @param {!WebDriver} driver The driver instance to use.
-     * @constructor
      */
     constructor(driver: WebDriver);
 
@@ -2033,7 +2002,6 @@ export class Alert {
  *       return alert.dismiss();
  *     });
  *
- * @implements {promise.Thenable.<!Alert>}
  * @final
  */
 export interface AlertPromise extends promise.IThenable<Alert> {}
@@ -2049,7 +2017,6 @@ export class AlertPromise extends Alert {
 
 /**
  * Recognized browser names.
- * @enum {string}
  */
 export interface IBrowser {
     ANDROID: string;
@@ -2122,9 +2089,7 @@ export interface ProxyConfig {
 export class Builder {
     // region Constructors
 
-    /**
-     * @constructor
-     */
+    /** */
     constructor();
 
     // endregion
@@ -2512,17 +2477,6 @@ export class By {
  * Care should be taken when using JavaScript minifiers (such as the
  * Closure compiler), as locator hashes will always be parsed using
  * the un-obfuscated properties listed.
- *
- * @typedef {(
- *     {className: string}|
- *     {css: string}|
- *     {id: string}|
- *     {js: string}|
- *     {linkText: string}|
- *     {name: string}|
- *     {partialLinkText: string}|
- *     {tagName: string}|
- *     {xpath: string})}
  */
 export type ByHash =
     | { className: string }
@@ -2539,7 +2493,6 @@ export type Locator = By | Function | ByHash;
 
 /**
  * Common webdriver capability keys.
- * @enum {string}
  */
 export interface ICapability {
     /**
@@ -2637,7 +2590,6 @@ export class Capabilities {
     /**
      * @param {(Capabilities|Object)=} opt_other Another set of
      *     capabilities to merge into this instance.
-     * @constructor
      */
     constructor(opt_other?: Capabilities | Object);
 
@@ -2920,14 +2872,12 @@ export const CommandName: ICommandName;
 /**
  * Describes a command to be executed by the WebDriverJS framework.
  * @param {!CommandName} name The name of this command.
- * @constructor
  */
 export class Command {
     // region Constructors
 
     /**
      * @param {!CommandName} name The name of this command.
-     * @constructor
      */
     constructor(name: string);
 
@@ -3009,9 +2959,7 @@ export class Listener {
 export class EventEmitter {
     // region Constructors
 
-    /**
-     * @constructor
-     */
+    /** */
     constructor();
 
     // endregion
@@ -3041,7 +2989,6 @@ export class EventEmitter {
      * @param {boolean=} opt_oneshot Whether the listener should b (e removed after
      *    the first event is fired.
      * @return {!EventEmitter} A self reference.
-     * @private
      */
     addListener(type: string, fn: Function, opt_scope?: any, opt_oneshot?: boolean): EventEmitter;
 
@@ -3180,8 +3127,6 @@ export interface IWebDriverOptionsCookie {
      *
      * The expiry is always returned in seconds since epoch when
      * {@linkplain Options#getCookies() retrieving cookies} from the browser.
-     *
-     * @type {(!Date|number|undefined)}
      */
     expiry?: number | Date | undefined;
 }
@@ -3192,8 +3137,6 @@ export interface IWebDriverCookie extends IWebDriverOptionsCookie {
      *
      * The expiry is always returned in seconds since epoch when
      * {@linkplain Options#getCookies() retrieving cookies} from the browser.
-     *
-     * @type {(!number|undefined)}
      */
     expiry?: number | undefined;
 }
@@ -3206,7 +3149,6 @@ export class Options {
 
     /**
      * @param {!WebDriver} driver The parent driver.
-     * @constructor
      */
     constructor(driver: WebDriver);
 
@@ -3292,7 +3234,6 @@ export class Timeouts {
 
     /**
      * @param {!WebDriver} driver The parent driver.
-     * @constructor
      */
     constructor(driver: WebDriver);
 
@@ -3354,7 +3295,6 @@ export class Window {
 
     /**
      * @param {!WebDriver} driver The parent driver.
-     * @constructor
      */
     constructor(driver: WebDriver);
 
@@ -3416,7 +3356,6 @@ export class Logs {
 
     /**
      * @param {!WebDriver} driver The parent driver.
-     * @constructor
      */
     constructor(driver: WebDriver);
 
@@ -3458,7 +3397,6 @@ export class TargetLocator {
 
     /**
      * @param {!WebDriver} driver The parent driver.
-     * @constructor
      */
     constructor(driver: WebDriver);
 
@@ -3545,7 +3483,6 @@ export class TargetLocator {
  * [Selenium Server](http://docs.seleniumhq.org/download/).
  */
 export class FileDetector {
-    /** @constructor */
     constructor();
 
     /**
@@ -3569,9 +3506,9 @@ export class FileDetector {
 export type CreateSessionCapabilities =
     | Capabilities
     | {
-          desired?: Capabilities | undefined;
-          required?: Capabilities | undefined;
-      };
+        desired?: Capabilities | undefined;
+        required?: Capabilities | undefined;
+    };
 
 /**
  * Creates a new WebDriver client, which provides control over a browser.
@@ -3590,7 +3527,6 @@ export type CreateSessionCapabilities =
  *   driver.call(function() {
  *     alert('message is abc? ' + (message.join('') == 'abc'));
  *   });
- *
  */
 export class WebDriver {
     // region Constructors
@@ -4154,8 +4090,6 @@ export class WebDriver {
  * If the driver instance fails to resolve (e.g. the session cannot be created),
  * every issued command will fail.
  *
- * @extends {webdriver.IWebDriver}
- * @extends {promise.IThenable<!webdriver.IWebDriver>}
  * @interface
  */
 export interface ThenableWebDriver extends WebDriver, promise.IThenable<WebDriver> {}
@@ -4441,7 +4375,6 @@ export interface IWebElementFinders {
  * Defines an object that can be asynchronously serialized to its WebDriver
  * wire representation.
  *
- * @constructor
  * @template T
  */
 export interface Serializable<T> {
@@ -4477,8 +4410,6 @@ export interface Serializable<T> {
  *     }, function(error) {
  *       alert('The element was not found, as expected');
  *     });
- *
- * @extends {Serializable.<WebElement.Id>}
  */
 export class WebElement implements Serializable<IWebElementId> {
     /**
@@ -4797,9 +4728,6 @@ export class WebElement implements Serializable<IWebElementId> {
  *     element.
  * @param {!promise.Promise.<!WebElement>} el A promise
  *     that will resolve to the promised element.
- * @constructor
- * @extends {WebElement}
- * @implements {promise.Thenable.<!WebElement>}
  * @final
  */
 export interface WebElementPromise extends promise.IThenable<WebElement> {}
@@ -4823,7 +4751,6 @@ export class Session {
      * @param {string} id The session ID.
      * @param {!(Object|Capabilities)} capabilities The session
      *     capabilities.
-     * @constructor
      */
     constructor(id: string, capabilities: Capabilities | Object);
 

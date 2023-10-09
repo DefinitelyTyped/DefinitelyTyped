@@ -4,8 +4,8 @@
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import Display from './lib/display';
-import { Keyboard, Mouse } from './lib/input/devices';
+import Display from "./lib/display";
+import { Keyboard, Mouse } from "./lib/input/devices";
 
 export default class RFB {
     constructor(defaults?: NvRFBDefaults);
@@ -33,8 +33,15 @@ export default class RFB {
     set_viewportDrag(viewportDrag: boolean): void;
     get_onUpdateState(): (rfb: this, state: NvConnectionState, oldstate: NvConnectionState) => void;
     set_onUpdateState(handler: (rfb: this, state: NvConnectionState, oldstate: NvConnectionState) => void): void;
-    get_onNotification(): (rfb: this, msg: string, level: 'normal' | 'warn' | 'error', options?: { [key: string]: any }) => void;
-    set_onNotification(handler: (rfb: this, msg: string, level: 'normal' | 'warn' | 'error', options?: { [key: string]: any }) => void): void;
+    get_onNotification(): (
+        rfb: this,
+        msg: string,
+        level: "normal" | "warn" | "error",
+        options?: { [key: string]: any },
+    ) => void;
+    set_onNotification(
+        handler: (rfb: this, msg: string, level: "normal" | "warn" | "error", options?: { [key: string]: any }) => void,
+    ): void;
     get_onDisconnected(): (rfb: this, reason?: string) => void;
     set_onDisconnected(handler: (rfb: this, reason?: string) => void): void;
     get_onPasswordRequired(): (rfb: this, msg?: string) => void;
@@ -82,7 +89,7 @@ export interface NvRFBDefaults {
     repeaterID?: string | undefined;
     viewportDrag?: boolean | undefined;
     onUpdateState?(rfb: RFB, state: NvConnectionState, oldstate: NvConnectionState): void;
-    onNotification?(rfb: RFB, msg: string, level: 'normal' | 'warn' | 'error', options?: {[key: string]: any}): void;
+    onNotification?(rfb: RFB, msg: string, level: "normal" | "warn" | "error", options?: { [key: string]: any }): void;
     onDisconnected?(rfb: RFB, reason?: string): void;
     onPasswordRequired?(rfb: RFB, msg?: string): void;
     onClipboard?(rfb: RFB, text: string): void;
@@ -103,7 +110,7 @@ export interface NvFBU {
     encodingName: string;
 }
 
-export type NvConnectionState = 'connecting' | 'connected' | 'disconnecting' | 'disconnected';
+export type NvConnectionState = "connecting" | "connected" | "disconnecting" | "disconnected";
 
 export const enum NvXvpOperation {
     shutdown = 2,

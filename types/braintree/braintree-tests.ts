@@ -1,33 +1,33 @@
-import braintree = require('braintree');
+import braintree = require("braintree");
 import {
-    BraintreeGateway,
     Address,
     AddressCreateRequest,
+    AndroidPayCard,
+    ApplePayCard,
+    BraintreeGateway,
     CreditCard,
     Customer,
-    PayPalAccount,
-    ApplePayCard,
-    AndroidPayCard,
-    VisaCheckoutCard,
-    SamsungPayCard,
+    Environment,
     MasterpassCard,
+    MerchantAccountCreateRequest,
     PaymentMethod,
     PaymentMethodNonce,
-    Transaction,
-    WebhookNotificationKind,
-    MerchantAccountCreateRequest,
-    Environment,
+    PayPalAccount,
     Plan,
-} from 'braintree';
+    SamsungPayCard,
+    Transaction,
+    VisaCheckoutCard,
+    WebhookNotificationKind,
+} from "braintree";
 
 /**
  * Custom Gateway
  */
 const customGateway: BraintreeGateway = new braintree.BraintreeGateway({
-    environment: new Environment('', '', '', false, '', ''),
-    merchantId: 'abc123',
-    publicKey: 'def456',
-    privateKey: 'xyz789',
+    environment: new Environment("", "", "", false, "", ""),
+    merchantId: "abc123",
+    publicKey: "def456",
+    privateKey: "xyz789",
 });
 
 /**
@@ -35,8 +35,8 @@ const customGateway: BraintreeGateway = new braintree.BraintreeGateway({
  */
 (async () => {
     const addressRequest: AddressCreateRequest = {
-        customerId: '123456',
-        streetAddress: '222 Oak Street',
+        customerId: "123456",
+        streetAddress: "222 Oak Street",
     };
     const response = await customGateway.address.create(addressRequest).catch(console.error);
     if (!response) return;
@@ -50,9 +50,9 @@ const customGateway: BraintreeGateway = new braintree.BraintreeGateway({
  */
 const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     environment: braintree.Environment.Sandbox,
-    merchantId: 'abc123',
-    publicKey: 'def456',
-    privateKey: 'xyz789',
+    merchantId: "abc123",
+    publicKey: "def456",
+    privateKey: "xyz789",
 });
 
 /**
@@ -60,8 +60,8 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
  */
 (async () => {
     const addressRequest: AddressCreateRequest = {
-        customerId: '123456',
-        streetAddress: '222 Oak Street',
+        customerId: "123456",
+        streetAddress: "222 Oak Street",
     };
     const response = await gateway.address.create(addressRequest).catch(console.error);
     if (!response) return;
@@ -72,10 +72,10 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
 
 (async () => {
     const creditCardRequest = {
-        cardholderName: 'Johnny Dogood',
-        cvv: '123',
+        cardholderName: "Johnny Dogood",
+        cvv: "123",
     };
-    const response = await gateway.creditCard.update('abcdef', creditCardRequest).catch(console.error);
+    const response = await gateway.creditCard.update("abcdef", creditCardRequest).catch(console.error);
     if (!response) return;
     const { bin, maskedNumber, last4, createdAt }: CreditCard = response.creditCard;
     // Assert type string
@@ -83,7 +83,7 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
 })();
 
 (async () => {
-    const response = await gateway.customer.find('abcdef').catch(console.error);
+    const response = await gateway.customer.find("abcdef").catch(console.error);
     if (!response) return;
     const { id, paymentMethods, createdAt }: Customer = response;
     // Assert type string
@@ -92,36 +92,44 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
 
 (async () => {
     const paymentMethodRequest = {
-        customerId: '123456',
-        paymentMethodNonce: 'i-am-a-nonce',
+        customerId: "123456",
+        paymentMethodNonce: "i-am-a-nonce",
     };
     const response = await gateway.paymentMethod.create(paymentMethodRequest).catch(console.error);
     if (!response) return;
     const { token }: PaymentMethod = response.paymentMethod;
-    const applePayCard = <ApplePayCard>response.paymentMethod;
-    const paypalAccount = <PayPalAccount>response.paymentMethod;
-    const androidPayCard = <AndroidPayCard>response.paymentMethod;
-    const creditCard = <CreditCard>response.paymentMethod;
-    const venmoAccount = <braintree.VenmoAccount>response.paymentMethod;
-    const visaCheckoutCard = <VisaCheckoutCard>response.paymentMethod;
-    const samsungPayCard = <SamsungPayCard>response.paymentMethod;
-    const masterpassCard = <MasterpassCard>response.paymentMethod;
+    const applePayCard = <ApplePayCard> response.paymentMethod;
+    const paypalAccount = <PayPalAccount> response.paymentMethod;
+    const androidPayCard = <AndroidPayCard> response.paymentMethod;
+    const creditCard = <CreditCard> response.paymentMethod;
+    const venmoAccount = <braintree.VenmoAccount> response.paymentMethod;
+    const visaCheckoutCard = <VisaCheckoutCard> response.paymentMethod;
+    const samsungPayCard = <SamsungPayCard> response.paymentMethod;
+    const masterpassCard = <MasterpassCard> response.paymentMethod;
 })();
 
 (async () => {
-    const response = await gateway.paymentMethodNonce.create('token').catch(console.error);
+    const response = await gateway.paymentMethodNonce.create("token").catch(console.error);
     if (!response) return;
     const nonce: PaymentMethodNonce = response.paymentMethodNonce;
 })();
 
 (async () => {
     const transactionRequest: braintree.TransactionRequest = {
-        amount: '128.00',
+        amount: "128.00",
     };
     const response = await gateway.transaction.sale(transactionRequest).catch(console.error);
     if (!response) return;
-    const { amount, billing, escrowStatus, gatewayRejectionReason, type, status, id }: Transaction =
-        response.transaction;
+    const {
+        additionalProcessorResponse,
+        amount,
+        billing,
+        escrowStatus,
+        gatewayRejectionReason,
+        type,
+        status,
+        id,
+    }: Transaction = response.transaction;
 
     // Assert overlap between transaction type and static field
     type === Transaction.Type.Credit;
@@ -161,16 +169,16 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
     escrowStatus === Transaction.EscrowStatus.Refunded;
 
     // Assert overlap between source and static field
-    'Api' === Transaction.Source.Api;
-    'Recurring' === Transaction.Source.Recurring;
-    'ControlPanel' === Transaction.Source.ControlPanel;
+    "Api" === Transaction.Source.Api;
+    "Recurring" === Transaction.Source.Recurring;
+    "ControlPanel" === Transaction.Source.ControlPanel;
 
     // Assert overlap between created using and static field
-    'token' === Transaction.CreatedUsing.Token;
-    'full_information' === Transaction.CreatedUsing.FullInformation;
+    "token" === Transaction.CreatedUsing.Token;
+    "full_information" === Transaction.CreatedUsing.FullInformation;
 
     gateway.transaction.search(search => {
-        search.id().is('foo');
+        search.id().is("foo");
         search.type().in([Transaction.Type.Sale, Transaction.Type.Credit]);
         search.type().in(Transaction.Type.All());
         search.createdUsing().is(Transaction.CreatedUsing.Token);
@@ -179,35 +187,35 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
         search.source().in([Transaction.Source.Api, Transaction.Source.ControlPanel]);
 
         // Credit card
-        search.creditCardCardholderName().is('Patrick Smith');
-        search.creditCardExpirationDate().is('05/2012');
-        search.creditCardNumber().endsWith('1111');
+        search.creditCardCardholderName().is("Patrick Smith");
+        search.creditCardExpirationDate().is("05/2012");
+        search.creditCardNumber().endsWith("1111");
 
         // customer details
-        search.customerCompany().is('Braintree');
-        search.customerEmail().is('jen@example.com');
-        search.customerEmail().endsWith('example.com');
-        search.customerPhone().is('312.555.1234');
-        search.customerFax().is('614.555.5678');
-        search.customerWebsite().is('www.example.com');
+        search.customerCompany().is("Braintree");
+        search.customerEmail().is("jen@example.com");
+        search.customerEmail().endsWith("example.com");
+        search.customerPhone().is("312.555.1234");
+        search.customerFax().is("614.555.5678");
+        search.customerWebsite().is("www.example.com");
 
         // billing address
-        search.billingFirstName().is('Paul');
-        search.billingLastName().is('Smith');
-        search.billingCompany().is('Braintree');
-        search.billingStreetAddress().is('123 Main St');
-        search.billingExtendedAddress().is('Suite 123');
-        search.billingLocality().is('Chicago');
-        search.billingRegion().is('Illinois');
-        search.billingPostalCode().is('12345');
-        search.billingCountryName().is('United States of America');
+        search.billingFirstName().is("Paul");
+        search.billingLastName().is("Smith");
+        search.billingCompany().is("Braintree");
+        search.billingStreetAddress().is("123 Main St");
+        search.billingExtendedAddress().is("Suite 123");
+        search.billingLocality().is("Chicago");
+        search.billingRegion().is("Illinois");
+        search.billingPostalCode().is("12345");
+        search.billingCountryName().is("United States of America");
 
-        search.orderId().is('myorder');
-        search.processorAuthorizationCode().is('123456');
-        search.paymentMethodToken().is('theToken');
+        search.orderId().is("myorder");
+        search.processorAuthorizationCode().is("123456");
+        search.paymentMethodToken().is("theToken");
 
-        search.creditCardCustomerLocation().is('US');
-        search.creditCardCustomerLocation().in(['US', 'International']);
+        search.creditCardCustomerLocation().is("US");
+        search.creditCardCustomerLocation().in(["US", "International"]);
 
         search.creditcardCardType().in(CreditCard.CardType.All());
         search.creditcardCardType().is(CreditCard.CardType.AmEx);
@@ -220,7 +228,7 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
         search.processorDeclinedAt().between(new Date(), new Date());
         search.disputeDate().min(new Date());
         search.voidedAt().max(new Date());
-        search.amount().between('100.00', '200.00');
+        search.amount().between("100.00", "200.00");
 
         search.refund().is(false);
         search.refund().is(true);
@@ -228,11 +236,11 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
 
     // Cannot assign to var
     await gateway.transaction
-        .cloneTransaction(id, { amount: '100.00', options: { submitForSettlement: true } })
+        .cloneTransaction(id, { amount: "100.00", options: { submitForSettlement: true } })
         .catch(console.error);
 
     const transactions: Transaction[] = [];
-    gateway.transaction.search(() => true).on('data', transactions.push);
+    gateway.transaction.search(() => true).on("data", transactions.push);
 })();
 
 // Plan Gateway
@@ -245,8 +253,8 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
 (async () => {
     // $ExpectType ValidatedResponse<Subscription>
     const result = await gateway.subscription.create({
-        paymentMethodToken: 'token',
-        planId: 'planId',
+        paymentMethodToken: "token",
+        planId: "planId",
     });
 
     const { subscription } = result;
@@ -266,8 +274,8 @@ const gateway: BraintreeGateway = new braintree.BraintreeGateway({
 braintree.Subscription.Status.All;
 
 (async () => {
-    const kind: WebhookNotificationKind = 'subscription_canceled';
-    const subscriptionId = '123456';
+    const kind: WebhookNotificationKind = "subscription_canceled";
+    const subscriptionId = "123456";
 
     const sampleResponse = await gateway.webhookTesting.sampleNotification(kind, subscriptionId).catch(console.error);
     if (!sampleResponse) return;
@@ -284,8 +292,8 @@ braintree.Subscription.Status.All;
 })();
 
 (async () => {
-    const kind: WebhookNotificationKind = 'payment_method_revoked_by_customer';
-    const subscriptionId = '123456';
+    const kind: WebhookNotificationKind = "payment_method_revoked_by_customer";
+    const subscriptionId = "123456";
 
     const sampleResponse = await gateway.webhookTesting.sampleNotification(kind, subscriptionId).catch(console.error);
     if (!sampleResponse) return;
@@ -303,8 +311,8 @@ braintree.Subscription.Status.All;
 })();
 
 (async () => {
-    const kind: WebhookNotificationKind = 'account_updater_daily_report';
-    const subscriptionId = '123456';
+    const kind: WebhookNotificationKind = "account_updater_daily_report";
+    const subscriptionId = "123456";
 
     const sampleResponse = await gateway.webhookTesting.sampleNotification(kind, subscriptionId).catch(console.error);
     if (!sampleResponse) return;
@@ -326,31 +334,31 @@ braintree.Subscription.Status.All;
  */
 const gateway2: BraintreeGateway = new braintree.BraintreeGateway({
     environment: braintree.Environment.Sandbox,
-    merchantId: 'abc123',
-    publicKey: 'def456',
-    privateKey: 'xyz789',
+    merchantId: "abc123",
+    publicKey: "def456",
+    privateKey: "xyz789",
 });
 
 (async () => {
     const merchantAccount: MerchantAccountCreateRequest = {
         individual: {
             address: {
-                locality: 'New York',
-                postalCode: '10001',
-                region: 'New York',
-                streetAddress: '222 Oak Street',
+                locality: "New York",
+                postalCode: "10001",
+                region: "New York",
+                streetAddress: "222 Oak Street",
             },
-            dateOfBirth: '20200214',
-            email: 'merchant@example.com',
-            firstName: 'Jane',
-            lastName: 'Doe',
+            dateOfBirth: "20200214",
+            email: "merchant@example.com",
+            firstName: "Jane",
+            lastName: "Doe",
         },
         funding: {
             destination: braintree.MerchantAccount.FundingDestination.Bank, // <-- Test example present in https://developers.braintreepayments.com/guides/braintree-marketplace/onboarding/node
-            accountNumber: '123456789',
-            routingNumber: '021000021',
+            accountNumber: "123456789",
+            routingNumber: "021000021",
         },
-        masterMerchantAccountId: 'master_merchant',
+        masterMerchantAccountId: "master_merchant",
         tosAccepted: true,
     };
     const response = await gateway2.merchantAccount.create(merchantAccount);
@@ -362,10 +370,10 @@ const gateway2: BraintreeGateway = new braintree.BraintreeGateway({
  * Disbursement webhook kind
  */
 (async () => {
-    const notification = await gateway.webhookTesting.sampleNotification('disbursement', 'disbursementId');
+    const notification = await gateway.webhookTesting.sampleNotification("disbursement", "disbursementId");
     const result = await gateway.webhookNotification.parse(notification.bt_signature, notification.bt_payload);
 
-    if (result.kind === 'disbursement') {
+    if (result.kind === "disbursement") {
         const id = result.disbursement.id;
         const amount = result.disbursement.amount;
         const disbursementDate = result.disbursement.disbursementDate;

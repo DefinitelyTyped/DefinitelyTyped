@@ -3,7 +3,7 @@
 // Definitions by: Rajas Paranjpe <https://github.com/ChocolateLoverRaj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { IOptions } from 'minimatch';
+import { IOptions } from "minimatch";
 
 declare function minimatchAll(path: string, patterns: string[], opts?: IOptions): boolean;
 

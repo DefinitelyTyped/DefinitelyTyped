@@ -10,7 +10,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { IncomingMessage } from 'http';
+import { IncomingMessage } from "http";
 
 declare global {
     namespace Express {
@@ -90,7 +90,7 @@ declare global {
     }
 }
 
-import express = require('express');
+import express = require("express");
 
 declare namespace passport {
     type DoneCallback = (err: any, user?: Express.User | false | null) => void;
@@ -622,15 +622,15 @@ declare namespace passport {
         /**
          * Create a new `Authenticator` object.
          */
-        Authenticator: { new (): Authenticator };
+        Authenticator: { new(): Authenticator };
         /**
          * Create a new `Authenticator` object.
          */
-        Passport: PassportStatic['Authenticator'];
+        Passport: PassportStatic["Authenticator"];
         /**
          * Creates an instance of `Strategy`.
          */
-        Strategy: { new (): Strategy & StrategyCreatedStatic };
+        Strategy: { new(): Strategy & StrategyCreatedStatic };
         strategies: {
             /**
              *  Create a new `SessionStrategy` object.
@@ -666,8 +666,8 @@ declare namespace passport {
              *          Default `'passport'`.
              */
             SessionStrategy: {
-                new (deserializeUser: DeserializeUserFunction): SessionStrategy;
-                new (options: SessionStrategyOptions, deserializeUser: DeserializeUserFunction): SessionStrategy;
+                new(deserializeUser: DeserializeUserFunction): SessionStrategy;
+                new(options: SessionStrategyOptions, deserializeUser: DeserializeUserFunction): SessionStrategy;
             };
         };
     }
@@ -687,7 +687,7 @@ declare namespace passport {
         /**
          * The name of the strategy, set to `'session'`.
          */
-        readonly name: 'session';
+        readonly name: "session";
         /**
          * Authenticate request based on current session data.
          *
@@ -718,7 +718,7 @@ declare namespace passport {
          * @example
          * passport.authenticate('session');
          */
-        authenticate(req: IncomingMessage, options?: Pick<AuthenticateOptions, 'pauseStream'>): void;
+        authenticate(req: IncomingMessage, options?: Pick<AuthenticateOptions, "pauseStream">): void;
     }
 
     interface StrategyCreatedStatic {
@@ -776,21 +776,21 @@ declare namespace passport {
         username?: string | undefined;
         name?:
             | {
-                  familyName: string;
-                  givenName: string;
-                  middleName?: string | undefined;
-              }
+                familyName: string;
+                givenName: string;
+                middleName?: string | undefined;
+            }
             | undefined;
         emails?:
             | Array<{
-                  value: string;
-                  type?: string | undefined;
-              }>
+                value: string;
+                type?: string | undefined;
+            }>
             | undefined;
         photos?:
             | Array<{
-                  value: string;
-              }>
+                value: string;
+            }>
             | undefined;
     }
 

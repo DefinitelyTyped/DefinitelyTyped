@@ -20,9 +20,9 @@ interface ErrorConstructor {
  ------------------------------------------------*/
 
 // For backwards compability
-interface NodeRequire extends NodeJS.Require { }
-interface RequireResolve extends NodeJS.RequireResolve { }
-interface NodeModule extends NodeJS.Module { }
+interface NodeRequire extends NodeJS.Require {}
+interface RequireResolve extends NodeJS.RequireResolve {}
+interface NodeModule extends NodeJS.Module {}
 
 declare var process: NodeJS.Process;
 declare var console: Console;
@@ -41,7 +41,7 @@ declare var exports: any;
  */
 declare var gc: undefined | (() => void);
 
-//#region borrowed
+// #region borrowed
 // from https://github.com/microsoft/TypeScript/blob/38da7c600c83e7b31193a62495239a0fe478cb67/lib/lib.webworker.d.ts#L633 until moved to separate lib
 /** A controller object that allows you to abort one or more DOM requests as and when desired. */
 interface AbortController {
@@ -62,21 +62,49 @@ interface AbortSignal extends EventTarget {
      * Returns true if this AbortSignal's AbortController has signaled to abort, and false otherwise.
      */
     readonly aborted: boolean;
+    readonly reason: any;
+    onabort: null | ((this: AbortSignal, event: Event) => any);
+    throwIfAborted(): void;
 }
 
-declare var AbortController: {
-    prototype: AbortController;
-    new(): AbortController;
-};
+declare var AbortController: typeof globalThis extends { onmessage: any; AbortController: infer T } ? T
+    : {
+        prototype: AbortController;
+        new(): AbortController;
+    };
 
-declare var AbortSignal: {
-    prototype: AbortSignal;
-    new(): AbortSignal;
-    // TODO: Add abort() static
-};
-//#endregion borrowed
+declare var AbortSignal: typeof globalThis extends { onmessage: any; AbortSignal: infer T } ? T
+    : {
+        prototype: AbortSignal;
+        new(): AbortSignal;
+        abort(reason?: any): AbortSignal;
+        timeout(milliseconds: number): AbortSignal;
+    };
+// #endregion borrowed
 
-//#region ArrayLike.at()
+// #region Disposable
+interface SymbolConstructor {
+    /**
+     * A method that is used to release resources held by an object. Called by the semantics of the `using` statement.
+     */
+    readonly dispose: unique symbol;
+
+    /**
+     * A method that is used to asynchronously release resources held by an object. Called by the semantics of the `await using` statement.
+     */
+    readonly asyncDispose: unique symbol;
+}
+
+interface Disposable {
+    [Symbol.dispose](): void;
+}
+
+interface AsyncDisposable {
+    [Symbol.asyncDispose](): PromiseLike<void>;
+}
+// #endregion Disposable
+
+// #region ArrayLike.at()
 interface RelativeIndexable<T> {
     /**
      * Takes an integer value and returns the item at that index,
@@ -87,6 +115,7 @@ interface RelativeIndexable<T> {
 }
 interface String extends RelativeIndexable<string> {}
 interface Array<T> extends RelativeIndexable<T> {}
+interface ReadonlyArray<T> extends RelativeIndexable<T> {}
 interface Int8Array extends RelativeIndexable<number> {}
 interface Uint8Array extends RelativeIndexable<number> {}
 interface Uint8ClampedArray extends RelativeIndexable<number> {}
@@ -98,7 +127,7 @@ interface Float32Array extends RelativeIndexable<number> {}
 interface Float64Array extends RelativeIndexable<number> {}
 interface BigInt64Array extends RelativeIndexable<bigint> {}
 interface BigUint64Array extends RelativeIndexable<bigint> {}
-//#endregion ArrayLike.at() end
+// #endregion ArrayLike.at() end
 
 /**
  * @since v17.0.0
@@ -107,7 +136,7 @@ interface BigUint64Array extends RelativeIndexable<bigint> {}
  */
 declare function structuredClone<T>(
     value: T,
-    transfer?: { transfer: ReadonlyArray<import('worker_threads').TransferListItem> },
+    transfer?: { transfer: ReadonlyArray<import("worker_threads").TransferListItem> },
 ): T;
 
 /*----------------------------------------------*
@@ -151,7 +180,7 @@ declare namespace NodeJS {
         /**
          * Name of the script [if this function was defined in a script]
          */
-        getFileName(): string | null;
+        getFileName(): string | undefined;
 
         /**
          * Current line number [if this function was defined in a script]
@@ -204,7 +233,7 @@ declare namespace NodeJS {
         pause(): this;
         resume(): this;
         isPaused(): boolean;
-        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean | undefined; }): T;
+        pipe<T extends WritableStream>(destination: T, options?: { end?: boolean | undefined }): T;
         unpipe(destination?: WritableStream): this;
         unshift(chunk: string | Uint8Array, encoding?: BufferEncoding): void;
         wrap(oldStream: ReadableStream): this;
@@ -220,7 +249,7 @@ declare namespace NodeJS {
         end(str: string, encoding?: BufferEncoding, cb?: () => void): this;
     }
 
-    interface ReadWriteStream extends ReadableStream, WritableStream { }
+    interface ReadWriteStream extends ReadableStream, WritableStream {}
 
     interface RefCounted {
         ref(): this;
@@ -253,14 +282,14 @@ declare namespace NodeJS {
     }
 
     interface RequireResolve {
-        (id: string, options?: { paths?: string[] | undefined; }): string;
+        (id: string, options?: { paths?: string[] | undefined }): string;
         paths(request: string): string[] | null;
     }
 
     interface RequireExtensions extends Dict<(m: Module, filename: string) => any> {
-        '.js': (m: Module, filename: string) => any;
-        '.json': (m: Module, filename: string) => any;
-        '.node': (m: Module, filename: string) => any;
+        ".js": (m: Module, filename: string) => any;
+        ".json": (m: Module, filename: string) => any;
+        ".node": (m: Module, filename: string) => any;
     }
     interface Module {
         /**

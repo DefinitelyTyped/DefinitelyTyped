@@ -8,12 +8,12 @@
  * server ports.
  *
  * ```js
- * import cluster from 'cluster';
- * import http from 'http';
- * import { cpus } from 'os';
- * import process from 'process';
+ * import cluster from 'node:cluster';
+ * import http from 'node:http';
+ * import { availableParallelism } from 'node:os';
+ * import process from 'node:process';
  *
- * const numCPUs = cpus().length;
+ * const numCPUs = availableParallelism();
  *
  * if (cluster.isPrimary) {
  *   console.log(`Primary ${process.pid} is running`);
@@ -50,12 +50,13 @@
  * ```
  *
  * On Windows, it is not yet possible to set up a named pipe server in a worker.
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/cluster.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/cluster.js)
  */
-declare module 'cluster' {
-    import * as child from 'node:child_process';
-    import EventEmitter = require('node:events');
-    import * as net from 'node:net';
+declare module "cluster" {
+    import * as child from "node:child_process";
+    import EventEmitter = require("node:events");
+    import * as net from "node:net";
+    type SerializationType = "json" | "advanced";
     export interface ClusterSettings {
         execArgv?: string[] | undefined; // default: process.execArgv
         exec?: string | undefined;
@@ -65,11 +66,14 @@ declare module 'cluster' {
         uid?: number | undefined;
         gid?: number | undefined;
         inspectPort?: number | (() => number) | undefined;
+        serialization?: SerializationType | undefined;
+        cwd?: string | undefined;
+        windowsHide?: boolean | undefined;
     }
     export interface Address {
         address: string;
         port: number;
-        addressType: number | 'udp4' | 'udp6'; // 4, 6, -1, "udp4", "udp6"
+        addressType: number | "udp4" | "udp6"; // 4, 6, -1, "udp4", "udp6"
     }
     /**
      * A `Worker` object contains all public information and method about a worker.
@@ -121,8 +125,17 @@ declare module 'cluster' {
          * @param options The `options` argument, if present, is an object used to parameterize the sending of certain types of handles. `options` supports the following properties:
          */
         send(message: child.Serializable, callback?: (error: Error | null) => void): boolean;
-        send(message: child.Serializable, sendHandle: child.SendHandle, callback?: (error: Error | null) => void): boolean;
-        send(message: child.Serializable, sendHandle: child.SendHandle, options?: child.MessageOptions, callback?: (error: Error | null) => void): boolean;
+        send(
+            message: child.Serializable,
+            sendHandle: child.SendHandle,
+            callback?: (error: Error | null) => void,
+        ): boolean;
+        send(
+            message: child.Serializable,
+            sendHandle: child.SendHandle,
+            options?: child.MessageOptions,
+            callback?: (error: Error | null) => void,
+        ): boolean;
         /**
          * This function will kill the worker. In the primary worker, it does this by
          * disconnecting the `worker.process`, and once disconnected, killing with`signal`. In the worker, it does it by killing the process with `signal`.
@@ -183,7 +196,7 @@ declare module 'cluster' {
          *   });
          *
          * } else if (cluster.isWorker) {
-         *   const net = require('net');
+         *   const net = require('node:net');
          *   const server = net.createServer((socket) => {
          *     // Connections never end
          *   });
@@ -213,12 +226,12 @@ declare module 'cluster' {
          * because of exiting or being signaled). Otherwise, it returns `false`.
          *
          * ```js
-         * import cluster from 'cluster';
-         * import http from 'http';
-         * import { cpus } from 'os';
-         * import process from 'process';
+         * import cluster from 'node:cluster';
+         * import http from 'node:http';
+         * import { availableParallelism } from 'node:os';
+         * import process from 'node:process';
          *
-         * const numCPUs = cpus().length;
+         * const numCPUs = availableParallelism();
          *
          * if (cluster.isPrimary) {
          *   console.log(`Primary ${process.pid} is running`);
@@ -279,47 +292,47 @@ declare module 'cluster' {
          *   6. online
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: 'disconnect', listener: () => void): this;
-        addListener(event: 'error', listener: (error: Error) => void): this;
-        addListener(event: 'exit', listener: (code: number, signal: string) => void): this;
-        addListener(event: 'listening', listener: (address: Address) => void): this;
-        addListener(event: 'message', listener: (message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
-        addListener(event: 'online', listener: () => void): this;
+        addListener(event: "disconnect", listener: () => void): this;
+        addListener(event: "error", listener: (error: Error) => void): this;
+        addListener(event: "exit", listener: (code: number, signal: string) => void): this;
+        addListener(event: "listening", listener: (address: Address) => void): this;
+        addListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
+        addListener(event: "online", listener: () => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: 'disconnect'): boolean;
-        emit(event: 'error', error: Error): boolean;
-        emit(event: 'exit', code: number, signal: string): boolean;
-        emit(event: 'listening', address: Address): boolean;
-        emit(event: 'message', message: any, handle: net.Socket | net.Server): boolean;
-        emit(event: 'online'): boolean;
+        emit(event: "disconnect"): boolean;
+        emit(event: "error", error: Error): boolean;
+        emit(event: "exit", code: number, signal: string): boolean;
+        emit(event: "listening", address: Address): boolean;
+        emit(event: "message", message: any, handle: net.Socket | net.Server): boolean;
+        emit(event: "online"): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: 'disconnect', listener: () => void): this;
-        on(event: 'error', listener: (error: Error) => void): this;
-        on(event: 'exit', listener: (code: number, signal: string) => void): this;
-        on(event: 'listening', listener: (address: Address) => void): this;
-        on(event: 'message', listener: (message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
-        on(event: 'online', listener: () => void): this;
+        on(event: "disconnect", listener: () => void): this;
+        on(event: "error", listener: (error: Error) => void): this;
+        on(event: "exit", listener: (code: number, signal: string) => void): this;
+        on(event: "listening", listener: (address: Address) => void): this;
+        on(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
+        on(event: "online", listener: () => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: 'disconnect', listener: () => void): this;
-        once(event: 'error', listener: (error: Error) => void): this;
-        once(event: 'exit', listener: (code: number, signal: string) => void): this;
-        once(event: 'listening', listener: (address: Address) => void): this;
-        once(event: 'message', listener: (message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
-        once(event: 'online', listener: () => void): this;
+        once(event: "disconnect", listener: () => void): this;
+        once(event: "error", listener: (error: Error) => void): this;
+        once(event: "exit", listener: (code: number, signal: string) => void): this;
+        once(event: "listening", listener: (address: Address) => void): this;
+        once(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
+        once(event: "online", listener: () => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: 'disconnect', listener: () => void): this;
-        prependListener(event: 'error', listener: (error: Error) => void): this;
-        prependListener(event: 'exit', listener: (code: number, signal: string) => void): this;
-        prependListener(event: 'listening', listener: (address: Address) => void): this;
-        prependListener(event: 'message', listener: (message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
-        prependListener(event: 'online', listener: () => void): this;
+        prependListener(event: "disconnect", listener: () => void): this;
+        prependListener(event: "error", listener: (error: Error) => void): this;
+        prependListener(event: "exit", listener: (code: number, signal: string) => void): this;
+        prependListener(event: "listening", listener: (address: Address) => void): this;
+        prependListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
+        prependListener(event: "online", listener: () => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'disconnect', listener: () => void): this;
-        prependOnceListener(event: 'error', listener: (error: Error) => void): this;
-        prependOnceListener(event: 'exit', listener: (code: number, signal: string) => void): this;
-        prependOnceListener(event: 'listening', listener: (address: Address) => void): this;
-        prependOnceListener(event: 'message', listener: (message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
-        prependOnceListener(event: 'online', listener: () => void): this;
+        prependOnceListener(event: "disconnect", listener: () => void): this;
+        prependOnceListener(event: "error", listener: (error: Error) => void): this;
+        prependOnceListener(event: "exit", listener: (code: number, signal: string) => void): this;
+        prependOnceListener(event: "listening", listener: (address: Address) => void): this;
+        prependOnceListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
+        prependOnceListener(event: "online", listener: () => void): this;
     }
     export interface Cluster extends EventEmitter {
         disconnect(callback?: () => void): void;
@@ -351,60 +364,69 @@ declare module 'cluster' {
          *   7. setup
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: 'disconnect', listener: (worker: Worker) => void): this;
-        addListener(event: 'exit', listener: (worker: Worker, code: number, signal: string) => void): this;
-        addListener(event: 'fork', listener: (worker: Worker) => void): this;
-        addListener(event: 'listening', listener: (worker: Worker, address: Address) => void): this;
-        addListener(event: 'message', listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
-        addListener(event: 'online', listener: (worker: Worker) => void): this;
-        addListener(event: 'setup', listener: (settings: ClusterSettings) => void): this;
+        addListener(event: "disconnect", listener: (worker: Worker) => void): this;
+        addListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
+        addListener(event: "fork", listener: (worker: Worker) => void): this;
+        addListener(event: "listening", listener: (worker: Worker, address: Address) => void): this;
+        addListener(
+            event: "message",
+            listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void,
+        ): this; // the handle is a net.Socket or net.Server object, or undefined.
+        addListener(event: "online", listener: (worker: Worker) => void): this;
+        addListener(event: "setup", listener: (settings: ClusterSettings) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: 'disconnect', worker: Worker): boolean;
-        emit(event: 'exit', worker: Worker, code: number, signal: string): boolean;
-        emit(event: 'fork', worker: Worker): boolean;
-        emit(event: 'listening', worker: Worker, address: Address): boolean;
-        emit(event: 'message', worker: Worker, message: any, handle: net.Socket | net.Server): boolean;
-        emit(event: 'online', worker: Worker): boolean;
-        emit(event: 'setup', settings: ClusterSettings): boolean;
+        emit(event: "disconnect", worker: Worker): boolean;
+        emit(event: "exit", worker: Worker, code: number, signal: string): boolean;
+        emit(event: "fork", worker: Worker): boolean;
+        emit(event: "listening", worker: Worker, address: Address): boolean;
+        emit(event: "message", worker: Worker, message: any, handle: net.Socket | net.Server): boolean;
+        emit(event: "online", worker: Worker): boolean;
+        emit(event: "setup", settings: ClusterSettings): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: 'disconnect', listener: (worker: Worker) => void): this;
-        on(event: 'exit', listener: (worker: Worker, code: number, signal: string) => void): this;
-        on(event: 'fork', listener: (worker: Worker) => void): this;
-        on(event: 'listening', listener: (worker: Worker, address: Address) => void): this;
-        on(event: 'message', listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
-        on(event: 'online', listener: (worker: Worker) => void): this;
-        on(event: 'setup', listener: (settings: ClusterSettings) => void): this;
+        on(event: "disconnect", listener: (worker: Worker) => void): this;
+        on(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
+        on(event: "fork", listener: (worker: Worker) => void): this;
+        on(event: "listening", listener: (worker: Worker, address: Address) => void): this;
+        on(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
+        on(event: "online", listener: (worker: Worker) => void): this;
+        on(event: "setup", listener: (settings: ClusterSettings) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: 'disconnect', listener: (worker: Worker) => void): this;
-        once(event: 'exit', listener: (worker: Worker, code: number, signal: string) => void): this;
-        once(event: 'fork', listener: (worker: Worker) => void): this;
-        once(event: 'listening', listener: (worker: Worker, address: Address) => void): this;
-        once(event: 'message', listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
-        once(event: 'online', listener: (worker: Worker) => void): this;
-        once(event: 'setup', listener: (settings: ClusterSettings) => void): this;
+        once(event: "disconnect", listener: (worker: Worker) => void): this;
+        once(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
+        once(event: "fork", listener: (worker: Worker) => void): this;
+        once(event: "listening", listener: (worker: Worker, address: Address) => void): this;
+        once(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this; // the handle is a net.Socket or net.Server object, or undefined.
+        once(event: "online", listener: (worker: Worker) => void): this;
+        once(event: "setup", listener: (settings: ClusterSettings) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: 'disconnect', listener: (worker: Worker) => void): this;
-        prependListener(event: 'exit', listener: (worker: Worker, code: number, signal: string) => void): this;
-        prependListener(event: 'fork', listener: (worker: Worker) => void): this;
-        prependListener(event: 'listening', listener: (worker: Worker, address: Address) => void): this;
+        prependListener(event: "disconnect", listener: (worker: Worker) => void): this;
+        prependListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
+        prependListener(event: "fork", listener: (worker: Worker) => void): this;
+        prependListener(event: "listening", listener: (worker: Worker, address: Address) => void): this;
         // the handle is a net.Socket or net.Server object, or undefined.
-        prependListener(event: 'message', listener: (worker: Worker, message: any, handle?: net.Socket | net.Server) => void): this;
-        prependListener(event: 'online', listener: (worker: Worker) => void): this;
-        prependListener(event: 'setup', listener: (settings: ClusterSettings) => void): this;
+        prependListener(
+            event: "message",
+            listener: (worker: Worker, message: any, handle?: net.Socket | net.Server) => void,
+        ): this;
+        prependListener(event: "online", listener: (worker: Worker) => void): this;
+        prependListener(event: "setup", listener: (settings: ClusterSettings) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'disconnect', listener: (worker: Worker) => void): this;
-        prependOnceListener(event: 'exit', listener: (worker: Worker, code: number, signal: string) => void): this;
-        prependOnceListener(event: 'fork', listener: (worker: Worker) => void): this;
-        prependOnceListener(event: 'listening', listener: (worker: Worker, address: Address) => void): this;
+        prependOnceListener(event: "disconnect", listener: (worker: Worker) => void): this;
+        prependOnceListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
+        prependOnceListener(event: "fork", listener: (worker: Worker) => void): this;
+        prependOnceListener(event: "listening", listener: (worker: Worker, address: Address) => void): this;
         // the handle is a net.Socket or net.Server object, or undefined.
-        prependOnceListener(event: 'message', listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;
-        prependOnceListener(event: 'online', listener: (worker: Worker) => void): this;
-        prependOnceListener(event: 'setup', listener: (settings: ClusterSettings) => void): this;
+        prependOnceListener(
+            event: "message",
+            listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void,
+        ): this;
+        prependOnceListener(event: "online", listener: (worker: Worker) => void): this;
+        prependOnceListener(event: "setup", listener: (settings: ClusterSettings) => void): this;
     }
     const cluster: Cluster;
     export default cluster;
 }
-declare module 'node:cluster' {
-    export * from 'cluster';
-    export { default as default } from 'cluster';
+declare module "node:cluster" {
+    export * from "cluster";
+    export { default as default } from "cluster";
 }

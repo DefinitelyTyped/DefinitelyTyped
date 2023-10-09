@@ -38,7 +38,7 @@ declare function htmlToPdfmake(
          * and it will automatically load your images in your PDF using the {images} option of PDFMake.
          * Using this option will change the output of html-to-pdfmake that will return an object with {content, images}
          */
-        imagesByReferences: boolean;
+        imagesByReference: boolean;
         /**
          * You can overwrite the default sizes for the old HTML4 tag <font> by using fontSizes. It must be an array with 7 values
          */

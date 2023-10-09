@@ -1,2 +1,2 @@
-import { takeWhile } from '../index';
+import { takeWhile } from "../index.js";
 export default takeWhile;

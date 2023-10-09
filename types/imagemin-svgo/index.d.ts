@@ -4,8 +4,8 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Plugin } from 'imagemin';
-import { OptimizeOptions as SvgoOptions } from 'svgo';
+import { Plugin } from "imagemin";
+import { OptimizeOptions as SvgoOptions } from "svgo";
 
 /**
  * SVGO imagemin plugin

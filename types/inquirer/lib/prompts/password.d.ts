@@ -1,6 +1,6 @@
-import { Interface as ReadlineInterface } from 'readline';
-import inquirer, { Answers, PasswordQuestionOptions } from '../../index.js';
-import Prompt from './base.js';
+import { Interface as ReadlineInterface } from "readline";
+import inquirer, { Answers, PasswordQuestionOptions } from "../../index.js";
+import Prompt from "./base.js";
 
 /**
  * The question for the {@link PasswordPrompt `PasswordPrompt<TQuestion>`}.

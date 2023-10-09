@@ -5,8 +5,8 @@
 // TypeScript Version: 2.8
 
 import { Component } from "react";
-import { Action } from "redux";
 import { Attributes, Notification } from "react-notification-system";
+import { Action } from "redux";
 
 export as namespace Notifications;
 

@@ -202,7 +202,7 @@
 declare module "dns" {
     
 
-    module dns {
+    namespace dns {
         
         
         

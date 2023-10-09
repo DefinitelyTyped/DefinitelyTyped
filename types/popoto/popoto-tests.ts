@@ -1,7 +1,7 @@
-import Popoto = require('popoto');
+import Popoto = require("popoto");
 
 // $ExpectType void
-Popoto.start('Node');
+Popoto.start("Node");
 
 // $ExpectType void
 Popoto.update();

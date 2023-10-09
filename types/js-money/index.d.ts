@@ -3,14 +3,14 @@
 // Definitions by: Kanat Kubash <https://github.com/kanatkubash>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Currency } from './lib/currency';
+import { Currency } from "./lib/currency";
 
 interface MoneyObjectOut {
     amount: number;
     currency: string;
 }
 
-type Rounders = 'round' | 'floor' | 'ceil';
+type Rounders = "round" | "floor" | "ceil";
 
 type RoundFunction = (num: number) => number;
 
@@ -39,7 +39,7 @@ declare class Money {
     toJSON(): MoneyObjectOut;
     getAmount(): number;
     getCurrency(): string;
-    //#region Currencies
+    // #region Currencies
     static USD: Currency;
     static CAD: Currency;
     static EUR: Currency;
@@ -160,7 +160,7 @@ declare class Money {
     static YER: Currency;
     static ZAR: Currency;
     static ZMK: Currency;
-    //#endregion
+    // #endregion
 }
 
 export = Money;

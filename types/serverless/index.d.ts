@@ -12,11 +12,11 @@
 //                 Bruno Bodian <https://github.com/bacarybruno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import Service = require('./classes/Service');
-import PluginManager = require('./classes/PluginManager');
-import Utils = require('./classes/Utils');
-import YamlParser = require('./classes/YamlParser');
-import AwsProvider = require('./plugins/aws/provider/awsProvider');
+import Service = require("./classes/Service");
+import PluginManager = require("./classes/PluginManager");
+import Utils = require("./classes/Utils");
+import YamlParser = require("./classes/YamlParser");
+import AwsProvider = require("./plugins/aws/provider/awsProvider");
 
 declare namespace Serverless {
     interface Options {
@@ -31,6 +31,7 @@ declare namespace Serverless {
 
     interface Config {
         servicePath: string;
+        serviceDir: string;
     }
 
     interface FunctionDefinition {
@@ -100,7 +101,9 @@ declare class Serverless {
     pluginManager: PluginManager;
 
     config: Serverless.Config;
+    configurationFilename: string;
     serverlessDirPath: string;
+    serviceDir: string;
 
     service: Service;
     version: string;

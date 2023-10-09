@@ -1,8 +1,8 @@
+import * as Constants from "./Constants";
 import { Layer } from "./Layer";
 import { CharacterStyle } from "./text/CharacterStyle";
 import { ParagraphStyle } from "./text/ParagraphStyle";
 import { WarpStyle } from "./text/WarpStyle";
-import * as Constants from "./Constants";
 /**
  * The Class that groups all Type related properties of a Text Layer in Photoshop.
  *
@@ -94,7 +94,7 @@ export declare class TextItem {
     });
     /**
      * The text orientation.
-     * @default Direction.HORIZONTAL
+     * @default HORIZONTAL
      * @minVersion 24.1
      */
     get orientation(): Constants.Orientation;

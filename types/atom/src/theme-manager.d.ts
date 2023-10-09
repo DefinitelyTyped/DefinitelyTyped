@@ -1,4 +1,4 @@
-import { Disposable, Package } from '../index';
+import { Disposable, Package } from "../index";
 
 /** Handles loading and activating available themes. */
 export interface ThemeManager {

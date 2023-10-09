@@ -1,7 +1,7 @@
-import * as Plotly from 'plotly.js';
-import { Config, Datum, Layout, PlotData, newPlot, Template } from 'plotly.js';
+import * as Plotly from "plotly.js";
+import { Config, Datum, Layout, newPlot, PlotData, Template } from "plotly.js";
 
-const graphDiv = '#test';
+const graphDiv = "#test";
 
 //////////////////////////////////////////////////////////////////////
 // Plotly.newPlot
@@ -11,42 +11,42 @@ const graphDiv = '#test';
 (() => {
     const testrows = [
         {
-            country: 'Afghanistan',
+            country: "Afghanistan",
             year: 2002,
             pop: 8425333,
-            continent: 'Asia',
+            continent: "Asia",
             lifeExp: 28.801,
             gdpPercap: 779.4453145,
         },
         {
-            country: 'Argentina',
+            country: "Argentina",
             year: 2002,
             pop: 38331121,
-            continent: 'Americas',
+            continent: "Americas",
             lifeExp: 74.34,
             gdpPercap: 8797.640716,
         },
         {
-            country: 'Australia',
+            country: "Australia",
             year: 2002,
             pop: 13177000,
-            continent: 'Oceania',
+            continent: "Oceania",
             lifeExp: 71.93,
             gdpPercap: 16788.62948,
         },
         {
-            country: 'Austria',
+            country: "Austria",
             year: 2002,
             pop: 7914969,
-            continent: 'Europe',
+            continent: "Europe",
             lifeExp: 76.04,
             gdpPercap: 27042.01868,
         },
         {
-            country: 'Austria',
+            country: "Austria",
             year: 2001,
             pop: 7914969,
-            continent: 'Europe',
+            continent: "Europe",
             lifeExp: 76.04,
             gdpPercap: 27042.01868,
         },
@@ -61,82 +61,82 @@ const graphDiv = '#test';
     }
 
     const trace1 = {
-        mode: 'markers',
-        x: unpack(testrows, 'lifeExp'),
-        y: unpack(testrows, 'gdpPercap'),
-        text: unpack(testrows, 'continent'),
+        mode: "markers",
+        x: unpack(testrows, "lifeExp"),
+        y: unpack(testrows, "gdpPercap"),
+        text: unpack(testrows, "continent"),
         marker: {
-            size: unpack(testrows, 'pop'),
-            sizemode: 'area',
+            size: unpack(testrows, "pop"),
+            sizemode: "area",
             sizeref: 200000,
             pattern: {
-                shape: '/',
+                shape: "/",
             },
         },
-        type: 'scatter',
+        type: "scatter",
         transforms: [
             {
-                type: 'filter',
-                target: unpack(testrows, 'year'),
-                operation: '=',
-                value: '2002',
+                type: "filter",
+                target: unpack(testrows, "year"),
+                operation: "=",
+                value: "2002",
             },
             {
-                type: 'groupby',
+                type: "groupby",
                 nameformat: `%{group}`,
-                groups: unpack(testrows, 'continent'),
+                groups: unpack(testrows, "continent"),
                 styles: [
-                    { target: 'Asia', value: { marker: { color: 'red' } } },
-                    { target: 'Europe', value: { marker: { color: 'blue' } } },
-                    { target: 'Americas', value: { marker: { color: 'orange' } } },
-                    { target: 'Africa', value: { marker: { color: 'green' } } },
-                    { target: 'Oceania', value: { marker: { color: 'purple' } } },
+                    { target: "Asia", value: { marker: { color: "red" } } },
+                    { target: "Europe", value: { marker: { color: "blue" } } },
+                    { target: "Americas", value: { marker: { color: "orange" } } },
+                    { target: "Africa", value: { marker: { color: "green" } } },
+                    { target: "Oceania", value: { marker: { color: "purple" } } },
                 ],
             },
             {
-                type: 'aggregate',
-                groups: unpack(testrows, 'continent'),
+                type: "aggregate",
+                groups: unpack(testrows, "continent"),
                 aggregations: [
-                    { target: 'x', func: 'avg' },
-                    { target: 'y', func: 'avg' },
-                    { target: 'marker.size', func: 'sum' },
+                    { target: "x", func: "avg" },
+                    { target: "y", func: "avg" },
+                    { target: "marker.size", func: "sum" },
                 ],
             },
         ],
         width: 2,
     } as PlotData;
     const trace2 = {
-        yaxis: 'y2',
-        x: unpack(testrows, 'lifeExp'),
-        name: 'x density',
-        marker: { color: 'rgb(102,0,0)' },
-        type: 'histogram',
+        yaxis: "y2",
+        x: unpack(testrows, "lifeExp"),
+        name: "x density",
+        marker: { color: "rgb(102,0,0)" },
+        type: "histogram",
         width: [2],
-        xhoverformat: ',.0f',
-        yhoverformat: ',.',
-        zhoverformat: ',.',
+        xhoverformat: ",.0f",
+        yhoverformat: ",.",
+        zhoverformat: ",.",
     } as PlotData;
     const trace3 = {
-        xaxis: 'x2',
-        y: unpack(testrows, 'gdpPercap'),
-        name: 'y density',
-        marker: { color: 'rgb(102,0,0)' },
-        type: 'histogram',
-        xhoverformat: ',.0f',
-        yhoverformat: ',.',
-        zhoverformat: ',.',
+        xaxis: "x2",
+        y: unpack(testrows, "gdpPercap"),
+        name: "y density",
+        marker: { color: "rgb(102,0,0)" },
+        type: "histogram",
+        xhoverformat: ",.0f",
+        yhoverformat: ",.",
+        zhoverformat: ",.",
     } as PlotData;
     const data = [trace1, trace2, trace3];
     const layout = {
-        title: 'Gapminder',
+        title: "Gapminder",
         xaxis: {
-            title: 'Life Expectancy',
+            title: "Life Expectancy",
             domain: [0, 0.85],
             showgrid: false,
             zeroline: false,
         },
         yaxis: {
-            title: 'GDP per Cap',
+            title: "GDP per Cap",
             showline: false,
             domain: [0, 0.85],
             showgrid: false,
@@ -162,18 +162,18 @@ const graphDiv = '#test';
         {
             x: [1999, 2000, 2001, 2002],
             y: [10, 9, 8, 7],
-            type: 'scatter',
+            type: "scatter",
         } as PlotData,
     ];
-    const layout2 = { title: 'Revenue' };
+    const layout2 = { title: "Revenue" };
     Plotly.newPlot(graphDiv, data2, layout2);
 })();
 (() => {
     const data: Array<Partial<PlotData>> = [
         {
-            type: 'bar',
-            labels: ['Eve', 'Cain', 'Seth', 'Enos', 'Noam', 'Abel', 'Awan', 'Enoch', 'Azura'],
-            parents: ['', 'Eve', 'Eve', 'Seth', 'Seth', 'Eve', 'Eve', 'Awan', 'Eve'],
+            type: "bar",
+            labels: ["Eve", "Cain", "Seth", "Enos", "Noam", "Abel", "Awan", "Enoch", "Azura"],
+            parents: ["", "Eve", "Eve", "Seth", "Seth", "Eve", "Eve", "Awan", "Eve"],
             values: [65, 14, 12, 10, 2, 6, 6, 4, 4],
             marker: { line: { width: 2 } },
             offset: -0.25,
@@ -183,8 +183,8 @@ const graphDiv = '#test';
     const layout = {
         margin: { l: 0, r: 0, b: 0, t: 0 },
     };
-    Plotly.newPlot('myDiv', data, layout, {
-        plotlyServerURL: 'https://chart-studio.plotly.com/',
+    Plotly.newPlot("myDiv", data, layout, {
+        plotlyServerURL: "https://chart-studio.plotly.com/",
         showSendToCloud: true,
         showEditInChartStudio: true,
     });
@@ -193,9 +193,9 @@ const graphDiv = '#test';
 (() => {
     const data: Array<Partial<PlotData>> = [
         {
-            x: ['2005-01', '2005-02', '2005-03', '2005-04', '2005-05', '2005-06', '2005-07'],
+            x: ["2005-01", "2005-02", "2005-03", "2005-04", "2005-05", "2005-06", "2005-07"],
             y: [-20, 10, -5, 0, 5, -10, 20],
-            type: 'scatter',
+            type: "scatter",
         },
     ];
     const layout: Partial<Layout> = {
@@ -203,35 +203,35 @@ const graphDiv = '#test';
             tickformatstops: [
                 {
                     dtickrange: [null, 1000],
-                    value: '%H:%M:%S.%L ms',
+                    value: "%H:%M:%S.%L ms",
                 },
                 {
                     dtickrange: [1000, 60000],
-                    value: '%H:%M:%S s',
+                    value: "%H:%M:%S s",
                 },
                 {
                     dtickrange: [60000, 3600000],
-                    value: '%H:%M m',
+                    value: "%H:%M m",
                 },
                 {
                     dtickrange: [3600000, 86400000],
-                    value: '%H:%M h',
+                    value: "%H:%M h",
                 },
                 {
                     dtickrange: [86400000, 604800000],
-                    value: '%e. %b d',
+                    value: "%e. %b d",
                 },
                 {
-                    dtickrange: [604800000, 'M1'],
-                    value: '%e. %b w',
+                    dtickrange: [604800000, "M1"],
+                    value: "%e. %b w",
                 },
                 {
-                    dtickrange: ['M1', 'M12'],
+                    dtickrange: ["M1", "M12"],
                     value: "%b '%y M",
                 },
                 {
-                    dtickrange: ['M12', null],
-                    value: '%Y Y',
+                    dtickrange: ["M12", null],
+                    value: "%Y Y",
                 },
             ],
         },
@@ -244,116 +244,118 @@ const graphDiv = '#test';
     // https://plotly.com/javascript/layout-template/
     const data: Array<Partial<PlotData>> = [
         {
-            type: 'bar',
-            name: 'bar',
-            text: ['2', '3', '1', '4'],
-            x: ['Jan', 'Feb', 'Mar', 'Apr'],
+            type: "bar",
+            name: "bar",
+            text: ["2", "3", "1", "4"],
+            x: ["Jan", "Feb", "Mar", "Apr"],
             y: [2, 3, 1, 4],
             cliponaxis: false,
         },
         {
-            type: 'scatter',
-            name: 'scatter',
+            type: "scatter",
+            name: "scatter",
             x: [1, 2, 3, 4],
             y: [2, 4, 1, 5],
         },
     ];
     const template: Template = {
         data: {
-            bar: [{ marker: { color: '#3183BD', opacity: 0.7 }, textposition: 'auto' }],
-            scatter: [{
-                mode: 'lines+markers',
-                line: { color: 'red', width: 3 },
-                marker: { color: 'red', size: 8, symbol: 'circle-open' },
-            }],
+            bar: [{ marker: { color: "#3183BD", opacity: 0.7 }, textposition: "auto" }],
+            scatter: [
+                {
+                    mode: "lines+markers",
+                    line: { color: "red", width: 3 },
+                    marker: { color: "red", size: 8, symbol: "circle-open" },
+                },
+            ],
         },
-        layout: { barmode: 'stack', showlegend: false, xaxis: { tickangle: -45 } },
+        layout: { barmode: "stack", showlegend: false, xaxis: { tickangle: -45 } },
     };
 
     // Test the modebar with practical types.
     // https://plotly.com/javascript/reference/layout/#layout-modebar
     const modebar = {
-        color: '#ff0000',
-        bgcolor: 'rgba(0,0,0,0)',
-        activecolor: '#00ff00',
-        orientation: 'h' as 'h' | 'v',
+        color: "#ff0000",
+        bgcolor: "rgba(0,0,0,0)",
+        activecolor: "#00ff00",
+        orientation: "h" as "h" | "v",
     };
 
     // Test the legend with practical types.
     // https://plotly.com/javascript/reference/layout/#layout-legend
     const legend: Partial<Plotly.Legend> = {
-        bgcolor: '#ffffff',
-        bordercolor: '#444444',
+        bgcolor: "#ffffff",
+        bordercolor: "#444444",
         borderwidth: 1,
         font: { size: 15 },
-        groupclick: 'togglegroup',
+        groupclick: "togglegroup",
         grouptitlefont: { size: 15 },
-        itemclick: 'toggleothers',
-        itemdoubleclick: 'toggle',
-        itemsizing: 'constant',
+        itemclick: "toggleothers",
+        itemdoubleclick: "toggle",
+        itemsizing: "constant",
         itemwidth: 50,
-        orientation: 'h',
-        title: { font: { size: 15 }, side: 'top', text: 'Legend Title' },
+        orientation: "h",
+        title: { font: { size: 15 }, side: "top", text: "Legend Title" },
         tracegroupgap: 15,
-        traceorder: 'reversed+grouped',
-        valign: 'bottom',
+        traceorder: "reversed+grouped",
+        valign: "bottom",
         x: 1,
-        xanchor: 'left',
+        xanchor: "left",
         y: 1,
-        yanchor: 'top',
+        yanchor: "top",
     };
 
-    const layout: Partial<Layout> = { showlegend: true, title: 'January 2013 Sales Report', template, modebar, legend };
+    const layout: Partial<Layout> = { showlegend: true, title: "January 2013 Sales Report", template, modebar, legend };
     const config: Partial<Config> = {
         modeBarButtons: [
             [
                 {
-                    name: 'save',
-                    title: 'Download plot data',
+                    name: "save",
+                    title: "Download plot data",
                     icon: {
                         width: 857.1,
                         height: 1000,
                         path:
-                            'm214-7h429v214h-429v-214z m500 0h72v500q0 8-6 21t-11 20l-157 156q-5 6-19 12t-22 5v-232q0-22-15-38t-38-16h-322q-22 0-37 16t-16 38v232h-72v-714h72v232q0 22 16 38t37 ' +
-                            '16h465q22 0 38-16t15-38v-232z m-214 518v178q0 8-5 13t-13 5h-107q-7 0-13-5t-5-13v-178q0-8 5-13t13-5h107q7 0 13 5t5 13z m357-18v-518q0-22-15-38t-38-16h-750q-23 0-38 ' +
-                            '16t-16 38v750q0 22 16 38t38 16h517q23 0 50-12t42-26l156-157q16-15 27-42t11-49z',
+                            "m214-7h429v214h-429v-214z m500 0h72v500q0 8-6 21t-11 20l-157 156q-5 6-19 12t-22 5v-232q0-22-15-38t-38-16h-322q-22 0-37 16t-16 38v232h-72v-714h72v232q0 22 16 38t37 "
+                            + "16h465q22 0 38-16t15-38v-232z m-214 518v178q0 8-5 13t-13 5h-107q-7 0-13-5t-5-13v-178q0-8 5-13t13-5h107q7 0 13 5t5 13z m357-18v-518q0-22-15-38t-38-16h-750q-23 0-38 "
+                            + "16t-16 38v750q0 22 16 38t38 16h517q23 0 50-12t42-26l156-157q16-15 27-42t11-49z",
                         ascent: 850,
-                        transform: 'matrix(1 0 0 -1 0 850)',
+                        transform: "matrix(1 0 0 -1 0 850)",
                     },
-                    click: (gd, ev) => console.log('Download data'),
+                    click: (gd, ev) => console.log("Download data"),
                 },
-                'pan2d',
-                'zoom2d',
+                "pan2d",
+                "zoom2d",
             ],
-            ['toImage'],
+            ["toImage"],
         ],
         // mix strings from ModeBarDefaultButtons and custom button added as ModeBarButton interface
         modeBarButtonsToAdd: [
-            'togglespikelines',
-            'togglehover',
-            'hovercompare',
-            'hoverclosest',
-            'v1hovermode',
+            "togglespikelines",
+            "togglehover",
+            "hovercompare",
+            "hoverclosest",
+            "v1hovermode",
             {
-                name: 'save',
-                title: 'Download plot data',
+                name: "save",
+                title: "Download plot data",
                 icon: {
                     width: 857.1,
                     height: 1000,
                     path:
-                        'm214-7h429v214h-429v-214z m500 0h72v500q0 8-6 21t-11 20l-157 156q-5 6-19 12t-22 5v-232q0-22-15-38t-38-16h-322q-22 0-37 16t-16 38v232h-72v-714h72v232q0 22 16 38t37 ' +
-                        '16h465q22 0 38-16t15-38v-232z m-214 518v178q0 8-5 13t-13 5h-107q-7 0-13-5t-5-13v-178q0-8 5-13t13-5h107q7 0 13 5t5 13z m357-18v-518q0-22-15-38t-38-16h-750q-23 0-38 ' +
-                        '16t-16 38v750q0 22 16 38t38 16h517q23 0 50-12t42-26l156-157q16-15 27-42t11-49z',
+                        "m214-7h429v214h-429v-214z m500 0h72v500q0 8-6 21t-11 20l-157 156q-5 6-19 12t-22 5v-232q0-22-15-38t-38-16h-322q-22 0-37 16t-16 38v232h-72v-714h72v232q0 22 16 38t37 "
+                        + "16h465q22 0 38-16t15-38v-232z m-214 518v178q0 8-5 13t-13 5h-107q-7 0-13-5t-5-13v-178q0-8 5-13t13-5h107q7 0 13 5t5 13z m357-18v-518q0-22-15-38t-38-16h-750q-23 0-38 "
+                        + "16t-16 38v750q0 22 16 38t38 16h517q23 0 50-12t42-26l156-157q16-15 27-42t11-49z",
                     ascent: 850,
-                    transform: 'matrix(1 0 0 -1 0 850)',
+                    transform: "matrix(1 0 0 -1 0 850)",
                 },
-                click: (gd, ev) => console.log('Download data'),
-            }
+                click: (gd, ev) => console.log("Download data"),
+            },
         ],
-        setBackground: 'transparent',
+        setBackground: "transparent",
         watermark: false,
     };
-    Plotly.newPlot('myDiv', data, layout, config);
+    Plotly.newPlot("myDiv", data, layout, config);
 })();
 (() => {
     // should create a polar scatterplot with a rotation and direction
@@ -364,20 +366,20 @@ const graphDiv = '#test';
         {
             r,
             theta,
-            type: 'scatterpolar',
-            name: 'group A',
+            type: "scatterpolar",
+            name: "group A",
         },
     ];
     const layout: Partial<Plotly.PolarLayout> = {
         angularaxis: {
             rotation: 90,
-            direction: 'clockwise',
+            direction: "clockwise",
         },
         radialaxis: {
             range: [0, 100],
         },
     };
-    Plotly.newPlot('myDiv', data, layout);
+    Plotly.newPlot("myDiv", data, layout);
 })();
 (() => {
     // should create a boxplot with boxmode 'group'
@@ -385,50 +387,50 @@ const graphDiv = '#test';
     const x: string[] = [];
     for (let i = 0; i < 50; i++) {
         y.push(Math.random());
-        x.push('category 1');
+        x.push("category 1");
         y.push(Math.random() + 1);
-        x.push('category 2');
+        x.push("category 2");
     }
     const data: Array<Partial<Plotly.BoxPlotData>> = [
         {
             y,
             x,
-            type: 'box',
-            name: 'group A',
+            type: "box",
+            name: "group A",
         },
         {
             y: y.map(e => e + 1),
             x,
-            type: 'box',
-            name: 'group B',
+            type: "box",
+            name: "group B",
         },
     ];
     const layout: Partial<Layout> = {
-        title: 'Grouped Box Plot',
-        boxmode: 'overlay',
+        title: "Grouped Box Plot",
+        boxmode: "overlay",
     };
 
-    Plotly.newPlot('myDiv', data, layout);
+    Plotly.newPlot("myDiv", data, layout);
 })();
 (() => {
     // Test slider APIs
     const data: Array<Partial<PlotData>> = [
         {
             colorbar: {
-                title: 'Test',
+                title: "Test",
             },
-            locationmode: 'ISO-3',
-            locations: ['USA', 'NLD'],
+            locationmode: "ISO-3",
+            locations: ["USA", "NLD"],
             reversescale: true,
-            type: 'choropleth',
+            type: "choropleth",
             z: [1, 2],
         },
     ];
     const layout: Partial<Layout> = {
         showlegend: true,
-        title: 'World Map',
+        title: "World Map",
         geo: {
-            projection: { type: 'Mercator' },
+            projection: { type: "Mercator" },
             showcoastlines: true,
             showframe: true,
         },
@@ -440,18 +442,18 @@ const graphDiv = '#test';
                 len: 0.8,
                 currentvalue: {
                     visible: true,
-                    prefix: 'Date:',
-                    xanchor: 'right',
-                    font: { size: 20, color: '#666' },
+                    prefix: "Date:",
+                    xanchor: "right",
+                    font: { size: 20, color: "#666" },
                 },
                 steps: [
                     {
-                        method: 'animate',
-                        label: '2019-02-04',
+                        method: "animate",
+                        label: "2019-02-04",
                         args: [
-                            ['2019-02-04'],
+                            ["2019-02-04"],
                             {
-                                mode: 'immediate',
+                                mode: "immediate",
                                 transition: {
                                     duration: 300,
                                 },
@@ -466,7 +468,7 @@ const graphDiv = '#test';
             },
         ],
     };
-    Plotly.newPlot('myDiv', data, layout);
+    Plotly.newPlot("myDiv", data, layout);
 })();
 //////////////////////////////////////////////////////////////////////
 
@@ -476,7 +478,7 @@ const graphDiv = '#test';
 (() => {
     const update = {
         opacity: 0.4,
-        'marker.color': 'red',
+        "marker.color": "red",
     };
     Plotly.restyle(graphDiv, update, 0);
 })();
@@ -485,14 +487,14 @@ const graphDiv = '#test';
 (() => {
     const update = {
         opacity: 0.4,
-        'marker.color': 'red',
+        "marker.color": "red",
     };
     Plotly.restyle(graphDiv, update);
 })();
 // restyle the first trace's marker color 'red' and the second's 'green'
 (() => {
     const update = {
-        'marker.color': ['red', 'green'],
+        "marker.color": ["red", "green"],
     };
     Plotly.restyle(graphDiv, update, [0, 1]);
 })();
@@ -500,7 +502,7 @@ const graphDiv = '#test';
 // alternate between red and green for all traces (note omission of traces)
 (() => {
     const update = {
-        'marker.color': ['red', 'green'],
+        "marker.color": ["red", "green"],
     };
     Plotly.restyle(graphDiv, update);
 })();
@@ -509,7 +511,7 @@ const graphDiv = '#test';
 (() => {
     const update = {
         opacity: 0.4,
-        'marker.color': 'red',
+        "marker.color": "red",
     };
     Plotly.restyle(graphDiv, update, [1, 2]);
 })();
@@ -518,7 +520,7 @@ const graphDiv = '#test';
 // have different colors
 (() => {
     const update = {
-        'marker.color': [['red', 'green']],
+        "marker.color": [["red", "green"]],
     };
     Plotly.restyle(graphDiv, update, [0]);
 })();
@@ -545,7 +547,7 @@ const graphDiv = '#test';
 // replace the entire marker object with the one provided
 (() => {
     const update = {
-        marker: { color: 'red' },
+        marker: { color: "red" },
     };
     Plotly.restyle(graphDiv, update, [0]);
 })();
@@ -555,7 +557,7 @@ const graphDiv = '#test';
     Plotly.restyle(
         graphDiv,
         {
-            'line.color': ['red', null, undefined],
+            "line.color": ["red", null, undefined],
         },
         [0, 1, 2],
     );
@@ -567,19 +569,19 @@ const graphDiv = '#test';
 // update only values within nested objects
 (() => {
     const update = {
-        title: 'some new title', // updates the title
-        'xaxis.range': [0, 5], // updates the xaxis range
-        'yaxis.range[1]': 15, // updates the end of the yaxis range
+        title: "some new title", // updates the title
+        "xaxis.range": [0, 5], // updates the xaxis range
+        "yaxis.range[1]": 15, // updates the end of the yaxis range
     } as Layout;
     Plotly.relayout(graphDiv, update);
 })();
 
 (() => {
     const data_update = {
-        marker: { color: 'red' },
+        marker: { color: "red" },
     };
     const layout_update = {
-        title: 'some new title', // updates the title
+        title: "some new title", // updates the title
     };
     Plotly.update(graphDiv, data_update, layout_update);
 })();
@@ -587,7 +589,7 @@ const graphDiv = '#test';
 (() => {
     const update = {
         title: {
-            text: 'some new title',
+            text: "some new title",
             font: {
                 size: 1.2,
             },
@@ -596,8 +598,8 @@ const graphDiv = '#test';
                 t: 20,
             },
         }, // updates the title
-        'xaxis.range': [0, 5], // updates the xaxis range
-        'yaxis.range[1]': 15, // updates the end of the yaxis range
+        "xaxis.range": [0, 5], // updates the xaxis range
+        "yaxis.range[1]": 15, // updates the end of the yaxis range
     } as Layout;
     Plotly.relayout(graphDiv, update);
 })();
@@ -607,10 +609,10 @@ const graphDiv = '#test';
 // Plotly.update
 (() => {
     const data_update = {
-        marker: { color: 'red' },
+        marker: { color: "red" },
     };
     const layout_update = {
-        title: 'some new title', // updates the title
+        title: "some new title", // updates the title
     };
     Plotly.update(graphDiv, data_update, layout_update);
 })();
@@ -700,7 +702,7 @@ function rand() {
 (() => {
     // Plotly.toImage will turn the plot in the given div into a data URL string
     // toImage takes the div as the first argument and an object specifying image properties as the other
-    Plotly.toImage(graphDiv, { format: 'png', width: 800, height: 600 }).then(dataUrl => {
+    Plotly.toImage(graphDiv, { format: "png", width: 800, height: 600 }).then(dataUrl => {
         // use the dataUrl
     });
 })();
@@ -710,7 +712,7 @@ function rand() {
 // Plotly.downloadImage
 (() => {
     // downloadImage will accept the div as the first argument and an object specifying image properties as the other
-    Plotly.downloadImage(graphDiv, { format: 'png', width: 800, height: 600, filename: 'newplot' });
+    Plotly.downloadImage(graphDiv, { format: "png", width: 800, height: 600, filename: "newplot" });
 })();
 //////////////////////////////////////////////////////////////////////
 
@@ -719,9 +721,9 @@ function rand() {
 (() => {
     const n = 100;
     const frames = [
-        { name: 'sine', data: [{ x: new Array<number>(100), y: new Array<number>(n) }] },
-        { name: 'cosine', data: [{ x: new Array<number>(100), y: new Array<number>(n) }] },
-        { name: 'circle', data: [{ x: new Array<number>(100), y: new Array<number>(n) }] },
+        { name: "sine", data: [{ x: new Array<number>(100), y: new Array<number>(n) }] },
+        { name: "cosine", data: [{ x: new Array<number>(100), y: new Array<number>(n) }] },
+        { name: "circle", data: [{ x: new Array<number>(100), y: new Array<number>(n) }] },
     ];
 
     for (let i = 0; i < n; i++) {
@@ -752,10 +754,10 @@ function rand() {
         {
             x: [1999, 2000, 2001, 2002],
             y: [10, 9, 8, 7],
-            type: 'scatter',
+            type: "scatter",
         },
     ]);
-    myPlot.on('plotly_click', data => {
+    myPlot.on("plotly_click", data => {
         let pn = 0;
         let tn = 0;
         let colors = [] as string[];
@@ -764,13 +766,13 @@ function rand() {
             tn = pt.curveNumber;
             colors = pt.data.marker.color as string[];
         }
-        colors[pn] = '#C54C82';
+        colors[pn] = "#C54C82";
 
         const update = { marker: { color: colors, size: 16 } };
-        Plotly.restyle('myDiv', update, [tn]);
+        Plotly.restyle("myDiv", update, [tn]);
     });
 
-    myPlot.on('plotly_hover', data => {
+    myPlot.on("plotly_hover", data => {
         let pn = 0;
         let tn = 0;
         let colors = [] as string[];
@@ -779,13 +781,13 @@ function rand() {
             tn = pt.curveNumber;
             colors = pt.data.marker.color as string[];
         }
-        colors[pn] = '#C54C82';
+        colors[pn] = "#C54C82";
 
         const update = { marker: { color: colors, size: 16 } };
-        Plotly.restyle('myDiv', update, [tn]);
+        Plotly.restyle("myDiv", update, [tn]);
     });
 
-    myPlot.on('plotly_unhover', data => {
+    myPlot.on("plotly_unhover", data => {
         let pn = 0;
         let tn = 0;
         let colors = [] as string[];
@@ -794,18 +796,18 @@ function rand() {
             tn = pt.curveNumber;
             colors = pt.data.marker.color as string[];
         }
-        colors[pn] = '#00000';
+        colors[pn] = "#00000";
 
         const update = { marker: { color: colors, size: 16 } };
-        Plotly.restyle('myDiv', update, [tn]);
+        Plotly.restyle("myDiv", update, [tn]);
     });
 
-    myPlot.on('plotly_selected', data => {
+    myPlot.on("plotly_selected", data => {
         const x = [] as Datum[];
         const y = [] as Datum[];
         const N = 1000;
-        const color1 = '#7b3294';
-        const color1Light = '#c2a5cf';
+        const color1 = "#7b3294";
+        const color1Light = "#c2a5cf";
 
         const colors = [] as string[];
         for (let i = 0; i < N; i++) colors.push(color1Light);
@@ -827,107 +829,111 @@ function rand() {
         Plotly.restyle(
             myPlot,
             {
-                'marker.color': [colors],
+                "marker.color": [colors],
             },
             [0],
         );
     });
 
-    myPlot.on('plotly_relayout', eventdata => {
-        eventdata['xaxis.autorange']; // $ExpectType boolean | undefined
-        eventdata['xaxis.autorange']; // $ExpectType boolean | undefined
-        eventdata['xaxis.range[0]']; // $ExpectType number | undefined
-        eventdata['xaxis.range[1]']; // $ExpectType number | undefined
-        eventdata['yaxis.range[0]']; // $ExpectType number | undefined
-        eventdata['yaxis.range[1]']; // $ExpectType number | undefined
+    myPlot.on("plotly_relayout", eventdata => {
+        eventdata["xaxis.autorange"]; // $ExpectType boolean | undefined
+        eventdata["xaxis.autorange"]; // $ExpectType boolean | undefined
+        eventdata["xaxis.range[0]"]; // $ExpectType number | undefined
+        eventdata["xaxis.range[1]"]; // $ExpectType number | undefined
+        eventdata["yaxis.range[0]"]; // $ExpectType number | undefined
+        eventdata["yaxis.range[1]"]; // $ExpectType number | undefined
     });
 
-    myPlot.on('plotly_relayouting', eventdata => {
-        eventdata['xaxis.autorange']; // $ExpectType boolean | undefined
-        eventdata['xaxis.autorange']; // $ExpectType boolean | undefined
-        eventdata['xaxis.range[0]']; // $ExpectType number | undefined
-        eventdata['xaxis.range[1]']; // $ExpectType number | undefined
-        eventdata['yaxis.range[0]']; // $ExpectType number | undefined
-        eventdata['yaxis.range[1]']; // $ExpectType number | undefined
+    myPlot.on("plotly_relayouting", eventdata => {
+        eventdata["xaxis.autorange"]; // $ExpectType boolean | undefined
+        eventdata["xaxis.autorange"]; // $ExpectType boolean | undefined
+        eventdata["xaxis.range[0]"]; // $ExpectType number | undefined
+        eventdata["xaxis.range[1]"]; // $ExpectType number | undefined
+        eventdata["yaxis.range[0]"]; // $ExpectType number | undefined
+        eventdata["yaxis.range[1]"]; // $ExpectType number | undefined
     });
 
-    myPlot.on('plotly_restyle', data => {
-        console.log('restyling');
+    myPlot.on("plotly_restyle", data => {
+        console.log("restyling");
     });
 
-    myPlot.on('plotly_doubleclick', () => {
-        const orgColors = ['#00000', '#00000', '#00000', '#00000', '#00000', '#00000'];
+    myPlot.on("plotly_doubleclick", () => {
+        const orgColors = ["#00000", "#00000", "#00000", "#00000", "#00000", "#00000"];
         const update = { marker: { color: orgColors, size: 16 } };
-        Plotly.restyle('myDiv', update);
+        Plotly.restyle("myDiv", update);
     });
 
-    myPlot.on('plotly_beforeplot', event => {
-        console.log('plotting');
+    myPlot.on("plotly_beforeplot", event => {
+        console.log("plotting");
         const okToPlot = true;
         return okToPlot;
     });
 
-    myPlot.on('plotly_afterplot', () => {
-        console.log('done plotting');
+    myPlot.on("plotly_afterplot", () => {
+        console.log("done plotting");
     });
 
-    myPlot.on('plotly_animatingframe', event => {
+    myPlot.on("plotly_animatingframe", event => {
         console.log(`animating ${event.frame.name} with ${event.animation.transition.easing}`);
     });
 
-    myPlot.on('plotly_legendclick', event => {
-        console.log('clicked on legend');
+    myPlot.on("plotly_legendclick", event => {
+        console.log("clicked on legend");
         const clickVal = true;
         return clickVal;
     });
 
-    myPlot.on('plotly_legenddoubleclick', event => {
-        console.log('dbl clicked on legend');
+    myPlot.on("plotly_legenddoubleclick", event => {
+        console.log("dbl clicked on legend");
         const dblClickVal = true;
         return dblClickVal;
     });
 
-    myPlot.on('plotly_sliderchange', event => {
+    myPlot.on("plotly_sliderchange", event => {
         console.log(`Slider at [${event.slider.x},${event.slider.y} with ${event.step.method}`);
     });
 
-    myPlot.on('plotly_sliderstart', event => {
+    myPlot.on("plotly_sliderstart", event => {
         console.log(`Slider at [${event.slider.x},${event.slider.y}`);
     });
 
-    myPlot.on('plotly_sliderend', event => {
+    myPlot.on("plotly_sliderend", event => {
         console.log(`Slider at [${event.slider.x},${event.slider.y} with ${event.step.method}`);
     });
 
-    myPlot.on('plotly_beforeexport', () => {
-        console.log('starting export');
+    myPlot.on("plotly_beforeexport", () => {
+        console.log("starting export");
     });
 
-    myPlot.on('plotly_afterexport', () => {
-        console.log('done exporting');
+    myPlot.on("plotly_afterexport", () => {
+        console.log("done exporting");
     });
 
-    myPlot.on('plotly_animated', () => {
-        console.log('done animation');
+    myPlot.on("plotly_animated", () => {
+        console.log("done animation");
     });
 
-    myPlot.on('plotly_animationinterrupted', () => {
-        console.log('animation interrupted');
+    myPlot.on("plotly_animationinterrupted", () => {
+        console.log("animation interrupted");
     });
 
-    myPlot.on('plotly_framework', () => {
-        console.log('framework');
+    myPlot.on("plotly_framework", () => {
+        console.log("framework");
     });
 
-    myPlot.on('plotly_transitioning', () => {
-        console.log('starting transition');
+    myPlot.on("plotly_transitioning", () => {
+        console.log("starting transition");
     });
 
-    myPlot.on('plotly_transitioninterrupted', () => {
-        console.log('transition interrupted');
+    myPlot.on("plotly_transitioninterrupted", () => {
+        console.log("transition interrupted");
     });
 
-    myPlot.removeAllListeners('plotly_restyle');
+    myPlot.removeAllListeners("plotly_restyle");
+
+    myPlot.data; // $ExpectType Data[]
+
+    myPlot.layout; // $ExpectType Layout
 })();
 //////////////////////////////////////////////////////////////////////
 
@@ -936,15 +942,15 @@ function rand() {
 (async () => {
     const sunburst = await newPlot(graphDiv, [
         {
-            type: 'sunburst',
-            ids: ['root', 'child1', 'child2'],
-            branchvalues: 'total',
-            level: 'child1',
-            parents: ['', 'root', 'root'],
+            type: "sunburst",
+            ids: ["root", "child1", "child2"],
+            branchvalues: "total",
+            level: "child1",
+            parents: ["", "root", "root"],
         },
     ]);
 
-    sunburst.on('plotly_sunburstclick', event => {
+    sunburst.on("plotly_sunburstclick", event => {
         console.log(`Clicked button ${event.event.button} to navigate to ${event.nextLevel}`);
 
         const point = event.points[0];
@@ -966,18 +972,18 @@ function rand() {
 (async () => {
     const scatter = await newPlot(graphDiv, [
         {
-            type: 'scatter',
-            name: 'scatter',
+            type: "scatter",
+            name: "scatter",
             x: [1, 2, 3, 4],
             y: [2, 4, 1, 5],
-            texttemplate: 'x: %{x}<br>y: %{y}',
+            texttemplate: "x: %{x}<br>y: %{y}",
         },
         {
-            type: 'scatter',
-            name: 'scatter',
+            type: "scatter",
+            name: "scatter",
             x: [1, 2, 3, 4],
             y: [2, 4, 1, 5],
-            texttemplate: ['x: %{x}', 'y: %{y}'],
+            texttemplate: ["x: %{x}", "y: %{y}"],
         },
     ]);
 })();
@@ -990,9 +996,9 @@ function rand() {
     const z: number[][] = [];
     for (let ydx = 0; ydx < Steps; ydx++) {
         const _z = new Array<number>(Steps);
-        const y = -Span + ydx * 2 * Span / Steps;
+        const y = -Span + (ydx * 2 * Span) / Steps;
         for (let xdx = 0; xdx < Steps; xdx++) {
-            const x = -Span + xdx * 2 * Span / Steps;
+            const x = -Span + (xdx * 2 * Span) / Steps;
             _z[xdx] = Math.sqrt(x * x + y * y);
         }
         z.push(_z);
@@ -1001,12 +1007,12 @@ function rand() {
     const data: Array<Partial<Plotly.PlotData>> = [
         {
             z,
-            type: 'contour',
+            type: "contour",
             contours: {
-                coloring: 'lines',
+                coloring: "lines",
                 labelfont: {
-                    color: 'black',
-                    family: 'monospace'
+                    color: "black",
+                    family: "monospace",
                 },
                 showlabels: true,
             },
@@ -1017,46 +1023,48 @@ function rand() {
     const layout: Partial<Plotly.Layout> = {
         autosize: true,
     };
-    Plotly.newPlot('myDiv', data, layout);
+    Plotly.newPlot("myDiv", data, layout);
 })();
 
 (() => {
     // Test creation of plotly updatemenu
     const button1: Partial<Plotly.UpdateMenuButton> = {
-        args: ['visible', [true, false]],
-        label: 'Trace 1',
-        method: 'restyle'
+        args: ["visible", [true, false]],
+        label: "Trace 1",
+        method: "restyle",
     };
 
     const button2: Partial<Plotly.UpdateMenuButton> = {
-        args: ['visible', [true, false]],
-        label: 'Trace 1',
-        method: 'restyle'
+        args: ["visible", [true, false]],
+        label: "Trace 1",
+        method: "restyle",
     };
 
     const layout: Partial<Plotly.Layout> = {
-        updatemenus: [{
-            buttons: [button1, button2],
-            direction: 'down',
-            pad: { r: 10, t: 10 },
-            showactive: true,
-            type: 'dropdown',
-            x: 0.1,
-            xanchor: 'left',
-            y: 1.1,
-            yanchor: 'top'
-        }],
+        updatemenus: [
+            {
+                buttons: [button1, button2],
+                direction: "down",
+                pad: { r: 10, t: 10 },
+                showactive: true,
+                type: "dropdown",
+                x: 0.1,
+                xanchor: "left",
+                y: 1.1,
+                yanchor: "top",
+            },
+        ],
     };
 
     const data: Array<Partial<PlotData>> = [
         {
-            x: ['2005-01', '2005-02', '2005-03', '2005-04', '2005-05', '2005-06', '2005-07'],
+            x: ["2005-01", "2005-02", "2005-03", "2005-04", "2005-05", "2005-06", "2005-07"],
             y: [-20, 10, -5, 0, 5, -10, 20],
-            type: 'scatter',
+            type: "scatter",
         },
     ];
 
-    newPlot('myDiv', data, layout);
+    newPlot("myDiv", data, layout);
 })();
 
 //////////////////////////////////////////////////////////////////////
@@ -1072,21 +1080,21 @@ function rand() {
     const data: Array<Partial<PlotData>> = [
         {
             type: "scattermapbox",
-            text: ['A', 'B', 'C'],
+            text: ["A", "B", "C"],
             lon: [0, 1, 2],
             lat: [0, 1, 2],
-            marker: { color: "fuchsia", size: 4 }
-        }
+            marker: { color: "fuchsia", size: 4 },
+        },
     ];
 
     const layout: Partial<Layout> = {
         dragmode: "zoom",
         mapbox: { style: "open-street-map", center: { lat: 0, lon: -0 }, zoom: 3 },
-        margin: { r: 0, t: 0, b: 0, l: 0 }
+        margin: { r: 0, t: 0, b: 0, l: 0 },
     };
 
     const config: Partial<Config> = {
-        modeBarButtonsToRemove: ['resetViewMapbox', 'zoomInMapbox', 'zoomOutMapbox']
+        modeBarButtonsToRemove: ["resetViewMapbox", "zoomInMapbox", "zoomOutMapbox"],
     };
 
     Plotly.newPlot("myDiv", data, layout);

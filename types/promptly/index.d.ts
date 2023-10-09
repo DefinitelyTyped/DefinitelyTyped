@@ -4,9 +4,9 @@
 //                 Alex Ilyaev <https://github.com/alexilyaev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="node"/>
+/// <reference types="node"/>
 
-import stream = require('stream');
+import stream = require("stream");
 
 interface Callback {
     (err: Error, value: string): void;

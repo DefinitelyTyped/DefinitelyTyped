@@ -1,13 +1,13 @@
+import * as Constants from "./Constants";
 import { Document } from "./Document";
 import { SolidColor } from "./objects/SolidColor";
-import * as Constants from "./Constants";
 /**
  * Represents a channel in a Photoshop document.
  * You can access instances of channels using one of these methods:
  *
  * ```javascript
- * // An array of composite channels in the document
- * const compositeChannels = app.activeDocument.compositeChannels
+ * // An array of component channels in the document
+ * const componentChannels = app.activeDocument.componentChannels
  *
  * // An array of active (selected) channels in the document
  * const activeChannels = app.activeDocument.activeChannels
@@ -54,7 +54,11 @@ export declare abstract class Channel {
      */
     duplicate(targetDocument?: Document): Promise<void>;
     /**
-     * The color of the channel.
+     * The name of the channel. For component channels this name can be localized.
+     *
+     * ***Fixes in Photoshop 24.6***
+     * - *For component channel it is no longer converted into lowercase and is same as in UI*
+     * - *For component channel it will throw an error if channel no longer exist in document*
      * @minVersion 23.0
      */
     abstract get name(): string;

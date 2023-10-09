@@ -5,7 +5,9 @@ interface LinePayGetPrimeResult extends BaseResult {
 }
 
 interface LinePay {
-    getPrime(callback: (
-        result: LinePayGetPrimeResult
-    ) => void): void;
+    getPrime(
+        callback: (
+            result: LinePayGetPrimeResult,
+        ) => void,
+    ): void;
 }

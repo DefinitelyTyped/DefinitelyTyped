@@ -28,7 +28,7 @@ interface ShareMenuReactView {
     dismissExtension(error?: string): void;
     openApp(): void;
     continueInApp(extraData?: object): void;
-    data(): Promise<{mimeType: string, data: string}>;
+    data(): Promise<{ mimeType: string; data: string }>;
 }
 
 export const ShareMenuReactView: ShareMenuReactView;

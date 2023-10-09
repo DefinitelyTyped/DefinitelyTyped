@@ -1,3 +1,3 @@
-import { DateRangePickerInput } from '../../index';
+import { DateRangePickerInput } from "../../index";
 
 export default DateRangePickerInput;

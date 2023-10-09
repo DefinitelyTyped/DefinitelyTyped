@@ -2,14 +2,14 @@ import * as YUKA from "yuka";
 
 let navMesh: YUKA.NavMesh;
 
-const vehicleMesh = {matrix: new YUKA.Matrix4()};
+const vehicleMesh = { matrix: new YUKA.Matrix4() };
 const entityManager = new YUKA.EntityManager();
 const time = new YUKA.Time();
 const vehicle = new YUKA.Vehicle();
 
 // load navigation mesh
 const loader = new YUKA.NavMeshLoader();
-loader.load('navmesh.gltf').then((navigationMesh) => {
+loader.load("navmesh.gltf").then((navigationMesh) => {
     // visualize convex regions
     navMesh = navigationMesh;
     // game setup
@@ -46,6 +46,6 @@ function animate() {
     entityManager.update(delta);
 }
 
-function sync(entity: YUKA.GameEntity, renderComponent: {matrix: YUKA.Matrix4}) {
+function sync(entity: YUKA.GameEntity, renderComponent: { matrix: YUKA.Matrix4 }) {
     renderComponent.matrix.copy(entity.worldMatrix);
 }

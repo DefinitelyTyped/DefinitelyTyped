@@ -6,8 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import { IncomingMessage } from 'http';
-import http = require('http');
+import { IncomingMessage } from "http";
+import http = require("http");
 
 /**
  * Parses set-cookie headers into objects
@@ -72,7 +72,7 @@ declare namespace parse {
         expires?: Date | undefined;
         /**
          * relative max age of the cookie in seconds from when the client receives it (integer or undefined)
-         * Note: when using with express's res.cookie() method, multiply maxAge by 1000 to convert to miliseconds
+         * Note: when using with express's res.cookie() method, multiply maxAge by 1000 to convert to milliseconds
          */
         maxAge?: number | undefined;
         /**

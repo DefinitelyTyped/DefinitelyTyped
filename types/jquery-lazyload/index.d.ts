@@ -22,5 +22,5 @@ declare namespace JQueryLazyLoad {
 }
 interface JQuery {
     lazyload(options?: JQueryLazyLoad.Options): JQuery;
-    on(event: 'load', callback: ((options?: JQueryLazyLoad.Options) => void)): JQuery;
+    on(event: "load", callback: (options?: JQueryLazyLoad.Options) => void): JQuery;
 }

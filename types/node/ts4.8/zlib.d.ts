@@ -1,11 +1,11 @@
 /**
- * The `zlib` module provides compression functionality implemented using Gzip,
- * Deflate/Inflate, and Brotli.
+ * The `node:zlib` module provides compression functionality implemented using
+ * Gzip, Deflate/Inflate, and Brotli.
  *
  * To access it:
  *
  * ```js
- * const zlib = require('zlib');
+ * const zlib = require('node:zlib');
  * ```
  *
  * Compression and decompression are built around the Node.js `Streams API`.
@@ -15,12 +15,12 @@
  * stream:
  *
  * ```js
- * const { createGzip } = require('zlib');
- * const { pipeline } = require('stream');
+ * const { createGzip } = require('node:zlib');
+ * const { pipeline } = require('node:stream');
  * const {
  *   createReadStream,
- *   createWriteStream
- * } = require('fs');
+ *   createWriteStream,
+ * } = require('node:fs');
  *
  * const gzip = createGzip();
  * const source = createReadStream('input.txt');
@@ -35,7 +35,7 @@
  *
  * // Or, Promisified
  *
- * const { promisify } = require('util');
+ * const { promisify } = require('node:util');
  * const pipe = promisify(pipeline);
  *
  * async function do_gzip(input, output) {
@@ -55,7 +55,7 @@
  * It is also possible to compress or decompress data in a single step:
  *
  * ```js
- * const { deflate, unzip } = require('zlib');
+ * const { deflate, unzip } = require('node:zlib');
  *
  * const input = '.................................';
  * deflate(input, (err, buffer) => {
@@ -77,7 +77,7 @@
  *
  * // Or, Promisified
  *
- * const { promisify } = require('util');
+ * const { promisify } = require('node:util');
  * const do_unzip = promisify(unzip);
  *
  * do_unzip(buffer)
@@ -88,10 +88,10 @@
  *   });
  * ```
  * @since v0.5.8
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/zlib.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/zlib.js)
  */
-declare module 'zlib' {
-    import * as stream from 'node:stream';
+declare module "zlib" {
+    import * as stream from "node:stream";
     interface ZlibOptions {
         /**
          * @default constants.Z_NO_FLUSH
@@ -128,11 +128,11 @@ declare module 'zlib' {
         chunkSize?: number | undefined;
         params?:
             | {
-                  /**
-                   * Each key is a `constants.BROTLI_*` constant.
-                   */
-                  [key: number]: boolean | number;
-              }
+                /**
+                 * Each key is a `constants.BROTLI_*` constant.
+                 */
+                [key: number]: boolean | number;
+            }
             | undefined;
         maxOutputLength?: number | undefined;
     }
@@ -512,6 +512,6 @@ declare module 'zlib' {
     /** @deprecated */
     const Z_DEFLATED: number;
 }
-declare module 'node:zlib' {
-    export * from 'zlib';
+declare module "node:zlib" {
+    export * from "zlib";
 }

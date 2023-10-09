@@ -1,5 +1,5 @@
 /// <reference lib="DOM" />
-import NanoScheduler = require('nanoscheduler');
+import NanoScheduler = require("nanoscheduler");
 
 const scheduler = NanoScheduler(); // $ExpectTYpe NanoScheduler
 scheduler.push(() => {

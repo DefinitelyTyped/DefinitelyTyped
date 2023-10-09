@@ -1,12 +1,7 @@
-// Type definitions for meteorjs for node-mysql-wrapper which helps in development
-// Project: https://github.com/nodets/node-mysql-wrapper
-// Definitions by: Makis Maropoulos <https://github.com/kataras>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Mongo {
     var Collection: CollectionStatic;
     interface CollectionStatic {
-        new <T>(name: string, options?: {
+        new<T>(name: string, options?: {
             connection?: Object | undefined;
             idGeneration?: string | undefined;
             transform?: Function | undefined;
@@ -43,8 +38,8 @@ declare namespace Mongo {
             transform?: Function | undefined;
         }): T;
         insert(doc: T, callback?: Function): string;
-        rawCollection():any;
-        rawDatabase():any;
+        rawCollection(): any;
+        rawDatabase(): any;
         remove(selector: any, callback?: Function): void;
         update(selector: any, modifier: any, options?: {
             multi?: boolean | undefined;
@@ -52,13 +47,13 @@ declare namespace Mongo {
         }, callback?: Function): number;
         upsert(selector: any, modifier: any, options?: {
             multi?: boolean | undefined;
-        }, callback?: Function): { numberAffected?: number | undefined; insertedId?: string | undefined; };
+        }, callback?: Function): { numberAffected?: number | undefined; insertedId?: string | undefined };
         _ensureIndex(indexName: string, options?: { [key: string]: any }): void;
     }
 
     var Cursor: CursorStatic;
     interface CursorStatic {
-        new <T>(): Cursor<T>;
+        new<T>(): Cursor<T>;
     }
     interface Cursor<T> {
         count(): number;
@@ -71,11 +66,10 @@ declare namespace Mongo {
 
     var ObjectID: ObjectIDStatic;
     interface ObjectIDStatic {
-        new (hexString: string): ObjectID;
+        new(hexString: string): ObjectID;
     }
     interface ObjectID {
     }
-
 }
 
 declare namespace Meteor {

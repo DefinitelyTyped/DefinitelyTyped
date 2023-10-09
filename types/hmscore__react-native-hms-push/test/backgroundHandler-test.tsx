@@ -14,22 +14,22 @@
     limitations under the License.
 */
 
-import { HmsPushMessaging, RNRemoteMessage, HmsLocalNotification, HmsPushEvent } from '@hmscore/react-native-hms-push';
+import { HmsLocalNotification, HmsPushEvent, HmsPushMessaging, RNRemoteMessage } from "@hmscore/react-native-hms-push";
 
 HmsPushEvent.onNotificationOpenedApp(result => {
-    console.log('onNotificationOpenedApp', result);
+    console.log("onNotificationOpenedApp", result);
 });
 
 HmsPushMessaging.setBackgroundMessageHandler(dataMessage => {
     HmsLocalNotification.localNotification({
-        [HmsLocalNotification.Attr.title]: '[Headless] DataMessage Received',
+        [HmsLocalNotification.Attr.title]: "[Headless] DataMessage Received",
         [HmsLocalNotification.Attr.message]: new RNRemoteMessage(dataMessage).getDataOfMap(), // $ExpectType string
     })
         .then(result => {
-            console.log('[Headless] DataMessage Received', result);
+            console.log("[Headless] DataMessage Received", result);
         })
         .catch(err => {
-            console.log('[LocalNotification Default] Error/Exception: ' + JSON.stringify(err));
+            console.log("[LocalNotification Default] Error/Exception: " + JSON.stringify(err));
         });
 
     return Promise.resolve();

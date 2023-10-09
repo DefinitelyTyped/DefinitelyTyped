@@ -5,8 +5,8 @@
 
 export = preq;
 
-import request = require('request');
-import BlueBird = require('bluebird');
+import request = require("request");
+import BlueBird = require("bluebird");
 
 declare function preq(url: string, options?: preq.Options): BlueBird<request.Response>;
 declare function preq(options: preq.Options & preq.UrlOptions): BlueBird<request.Response>;

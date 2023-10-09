@@ -1,6 +1,6 @@
-import { NamedNode } from '@rdfjs/types';
-import { shacl } from 'barnard59-validate-shacl';
-import { ValidationError } from 'barnard59-validate-shacl/lib/errors';
+import { NamedNode } from "@rdfjs/types";
+import { shacl } from "barnard59-validate-shacl";
+import { ValidationError } from "barnard59-validate-shacl/lib/errors";
 import { Duplex, Readable } from "stream";
 
 const shape: Readable = <any> {};
@@ -20,7 +20,7 @@ async function test() {
         shape,
         maxErrors: 0,
         onViolation({ context, data, report }): boolean {
-            const arg = context.variables.get('arg');
+            const arg = context.variables.get("arg");
 
             if (data.size === 0) {
                 return false;
@@ -31,7 +31,7 @@ async function test() {
             }
 
             return false;
-        }
+        },
     });
 }
 

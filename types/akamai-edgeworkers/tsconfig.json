@@ -24,6 +24,7 @@
         "test/create-response-tests.ts",
         "test/crypto.ts",
         "test/encoding.ts",
+        "test/html-rewriter.ts",
         "test/http-request-tests.ts",
         "test/log-tests.ts",
         "test/set_variable.ts",

@@ -1,2 +1,2 @@
-import { pickBy } from '../index';
+import { pickBy } from "../index.js";
 export default pickBy;

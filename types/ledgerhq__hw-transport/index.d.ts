@@ -40,7 +40,7 @@ declare class Transport<TDescriptor extends Descriptor = string> {
 export type Device = any;
 export type Descriptor = string; // ?
 export interface DescriptorEvent<Descriptor> {
-    type: 'add' | 'remove';
+    type: "add" | "remove";
     descriptor: Descriptor;
     device?: Device | undefined;
 }

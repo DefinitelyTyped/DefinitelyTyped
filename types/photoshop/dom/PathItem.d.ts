@@ -1,12 +1,8 @@
+import { SubPathItems } from "./collections/SubPathItems";
+import * as Constants from "./Constants";
 import { Document } from "./Document";
 import { Layer } from "./Layer";
-import * as Constants from "./Constants";
-import { SubPathItems } from "./collections/SubPathItems";
 import { SolidColor } from "./objects/SolidColor";
-/**
- * @ignore
- */
-export declare function PSPathItem(id: number, docId: number): PathItem;
 /**
  * A path or drawing object, such as the outline of a shape or a straight or curved line,
  * which contains sub paths defining its geometry.
@@ -87,7 +83,15 @@ export declare class PathItem {
      * If `wholePath` is true, all subpaths are used when doing the fill.
      * @minVersion 23.3
      */
-    fillPath(fillColor?: SolidColor, mode?: Constants.ColorBlendMode, opacity?: number, preserveTransparency?: boolean, feather?: number, wholePath?: boolean, antiAlias?: boolean): Promise<void>;
+    fillPath(
+        fillColor?: SolidColor,
+        mode?: Constants.ColorBlendMode,
+        opacity?: number,
+        preserveTransparency?: boolean,
+        feather?: number,
+        wholePath?: boolean,
+        antiAlias?: boolean,
+    ): Promise<void>;
     /**
      * Makes this the clipping path for this document.
      *

@@ -16,7 +16,7 @@ declare namespace Feflow {
          * Feflow context params
          */
         args: {
-            _: Array<number | string>
+            _: Array<number | string>;
         };
         /**
          * Feflow configuration file in the current directory

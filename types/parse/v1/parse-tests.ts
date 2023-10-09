@@ -268,10 +268,10 @@ function test_user_acl_roles() {
     }
 
     Parse.User.become("session-token-here").then(
-        function (user) {
+        function(user) {
             // The current user is now set to user.
         },
-        function (error) {
+        function(error) {
             // The token could not be validated.
         },
     );
@@ -282,12 +282,12 @@ function test_user_acl_roles() {
     game.save().then((game: Game) => {});
     game.save(null, { useMasterKey: true });
     game.save({ score: "10" }, { useMasterKey: true }).then(
-        function (game) {
+        function(game) {
             // Update game then revert it to the last saved state.
             game.set("score", "20");
             game.revert();
         },
-        function (error) {
+        function(error) {
             // The save failed
         },
     );
@@ -306,10 +306,10 @@ function test_user_acl_roles() {
     game.setACL(groupACL);
 
     Parse.User.requestPasswordReset("email@example.com").then(
-        function (data) {
+        function(data) {
             // The current user is now set to user.
         },
-        function (error) {
+        function(error) {
             // The token could not be validated.
         },
     );
@@ -320,7 +320,7 @@ function test_user_acl_roles() {
     role.getRoles().add(role);
     role.save();
 
-    Parse.User.logOut().then(function (data) {
+    Parse.User.logOut().then(function(data) {
         // logged out
     });
 }
@@ -490,10 +490,10 @@ function test_push() {
             },
         },
         {
-            success: function () {
+            success: function() {
                 // Push was successful
             },
-            error: function (error: any) {
+            error: function(error: any) {
                 // Handle error
             },
         },
@@ -509,10 +509,10 @@ function test_promise() {
     let resolved = Parse.Promise.as(true);
     let rejected = Parse.Promise.error("an error object");
     Parse.Promise.when([resolved, rejected]).then(
-        function () {
+        function() {
             // success
         },
-        function () {
+        function() {
             // failed
         },
     );

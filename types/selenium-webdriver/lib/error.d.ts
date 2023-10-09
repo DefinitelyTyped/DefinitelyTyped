@@ -3,7 +3,6 @@
  * TODO: remove this when all code paths have been switched to the new error
  * types.
  * @deprecated
- * @enum {number}
  */
 export const ErrorCode: {
     SUCCESS: 0;

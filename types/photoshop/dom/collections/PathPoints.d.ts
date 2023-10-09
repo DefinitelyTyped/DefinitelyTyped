@@ -2,9 +2,8 @@ import { PathPoint } from "../PathPoint";
 import { SubPathItem } from "../SubPathItem";
 /**
  * A collection of [[PathPoint]] objects that define a subpath, kept in the [[SubPathItem.pathPoints]] property.
- *
  */
-export declare class PathPoints {
+export declare class PathPoints extends Array<PathPoint> {
     /**
      * @ignore
      */

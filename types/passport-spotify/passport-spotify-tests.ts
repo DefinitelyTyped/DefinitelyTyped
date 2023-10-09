@@ -1,4 +1,4 @@
-import { Request } from 'express';
+import { Request } from "express";
 import {
     Profile,
     Strategy,
@@ -7,12 +7,12 @@ import {
     VerifyCallback,
     VerifyFunction,
     VerifyFunctionWithRequest,
-} from 'passport-spotify';
+} from "passport-spotify";
 
 const strategyOptions: StrategyOptions = {
-    clientID: 'clientID',
-    clientSecret: 'clientSecret',
-    callbackURL: 'callbackURL',
+    clientID: "clientID",
+    clientSecret: "clientSecret",
+    callbackURL: "callbackURL",
 };
 
 const verifyFunction: VerifyFunction = (
@@ -26,7 +26,7 @@ const verifyFunction: VerifyFunction = (
         profile,
         accessToken,
         refreshToken,
-        expires_in
+        expires_in,
     };
 
     done(null, user);
@@ -35,9 +35,9 @@ const verifyFunction: VerifyFunction = (
 const strategy = new Strategy(strategyOptions, verifyFunction);
 
 const strategyOptionsWithRequest: StrategyOptionsWithRequest = {
-    clientID: 'clientID',
-    clientSecret: 'clientSecret',
-    callbackURL: 'callbackURL',
+    clientID: "clientID",
+    clientSecret: "clientSecret",
+    callbackURL: "callbackURL",
     passReqToCallback: true,
 };
 
@@ -53,7 +53,7 @@ const verifyFunctionWithRequest: VerifyFunctionWithRequest = (
         profile,
         accessToken,
         refreshToken,
-        expires_in
+        expires_in,
     };
 
     done(null, user);

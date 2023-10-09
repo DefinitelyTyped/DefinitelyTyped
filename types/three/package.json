@@ -1,5 +1,6 @@
 {
     "private": true,
+    "type": "module",
     "exports": {
         ".": {
             "import": "./build/three.module.js",
@@ -12,7 +13,7 @@
         "./nodes": "./examples/jsm/nodes/Nodes.js"
     },
     "dependencies": {
-        "fflate": "~0.6.9",
-        "lil-gui": "~0.17.0"
+        "fflate": "~0.6.10",
+        "meshoptimizer": "~0.18.1"
     }
 }

@@ -1,4 +1,4 @@
-import VoilabPdfTable = require('..');
+import VoilabPdfTable = require("..");
 
 export = VoilabPdfTablePluginFitColumn;
 
@@ -11,7 +11,7 @@ declare namespace VoilabPdfTablePluginFitColumn {
 
 interface VoilabPdfTablePluginFitColumn<T = any> {
     // tslint:disable-next-line:no-misused-new
-    new <T>(
+    new<T>(
         conf: VoilabPdfTablePluginFitColumn.VoilabPdfTablePluginFitColumnConf<T>,
     ): VoilabPdfTable.VoilabPdfTablePlugin<T>;
 }

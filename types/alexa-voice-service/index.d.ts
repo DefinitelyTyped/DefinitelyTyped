@@ -8,7 +8,15 @@ export = AVS;
 
 declare namespace AVS {
     enum EventTypes {
-        RECORD_STOP, RECORD_START, ERROR, TOKEN_INVALID, LOG, LOGIN, LOGOUT, TOKEN_SET, REFRESH_TOKEN_SET
+        RECORD_STOP,
+        RECORD_START,
+        ERROR,
+        TOKEN_INVALID,
+        LOG,
+        LOGIN,
+        LOGOUT,
+        TOKEN_SET,
+        REFRESH_TOKEN_SET,
     }
 
     interface AVSParams {
@@ -30,7 +38,14 @@ declare namespace AVS {
 
     namespace Player {
         enum EventTypes {
-            LOG, ERROR, PLAY, REPLAY, PAUSE, STOP, ENQUEUE, DEQUE
+            LOG,
+            ERROR,
+            PLAY,
+            REPLAY,
+            PAUSE,
+            STOP,
+            ENQUEUE,
+            DEQUE,
         }
     }
 }
@@ -45,16 +60,17 @@ declare class AVS {
     startRecording(): Promise<void>;
     stopRecording(): Promise<DataView | undefined>;
     sendAudio(dataView: DataView): Promise<{
-        xhr: any, response: {
-            httpVersion: string,
-            statusCode: string,
-            statusMessage: string,
-            method: string,
-            url: string,
-            headers: string,
-            body: string,
-            boundary: string,
-            multipart: string
-        }
+        xhr: any;
+        response: {
+            httpVersion: string;
+            statusCode: string;
+            statusMessage: string;
+            method: string;
+            url: string;
+            headers: string;
+            body: string;
+            boundary: string;
+            multipart: string;
+        };
     }>;
 }

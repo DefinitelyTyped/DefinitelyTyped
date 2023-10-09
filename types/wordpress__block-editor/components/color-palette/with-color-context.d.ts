@@ -1,7 +1,7 @@
-/* eslint-disable no-unnecessary-generics */
-import { ComponentType } from 'react';
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
+import { ComponentType } from "react";
 
-import { EditorColor } from '../../';
+import { EditorColor } from "../../";
 
 declare namespace withColorContext {
     interface Props {
@@ -15,11 +15,11 @@ declare namespace withColorContext {
 declare function withColorContext<
     ProvidedProps extends Partial<withColorContext.Props>,
     OwnProps extends any = any,
-    T extends ComponentType<ProvidedProps & OwnProps> = ComponentType<ProvidedProps & OwnProps>
->(component: T):
-    T extends ComponentType<infer U> ? ComponentType<
-        Omit<U, 'colors' | 'disableCustomColors' | 'hasColorsToChoose'> &
-        Omit<ProvidedProps, 'hasColorsToChoose'>> :
-    never;
+    T extends ComponentType<ProvidedProps & OwnProps> = ComponentType<ProvidedProps & OwnProps>,
+>(component: T): T extends ComponentType<infer U> ? ComponentType<
+        & Omit<U, "colors" | "disableCustomColors" | "hasColorsToChoose">
+        & Omit<ProvidedProps, "hasColorsToChoose">
+    >
+    : never;
 
 export default withColorContext;

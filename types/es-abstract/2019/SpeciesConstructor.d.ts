@@ -1,2 +1,2 @@
-import SpeciesConstructor = require('../2018/SpeciesConstructor');
+import SpeciesConstructor = require("../2018/SpeciesConstructor");
 export = SpeciesConstructor;

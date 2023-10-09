@@ -33,6 +33,6 @@ export class Polygon {
 export namespace Polygon {
     const __cache: Polygon;
 }
-import { Vector } from './Vector';
-import { Rectangle } from './Rectangle';
-import { Circle } from './Circle';
+import { Circle } from "./Circle";
+import { Rectangle } from "./Rectangle";
+import { Vector } from "./Vector";

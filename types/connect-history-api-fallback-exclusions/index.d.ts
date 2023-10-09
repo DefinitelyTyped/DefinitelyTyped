@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import { Url } from 'url';
+import { Url } from "url";
 
 import * as core from "express-serve-static-core";
 

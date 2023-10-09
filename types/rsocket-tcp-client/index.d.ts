@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { RSocketTcpClient, RSocketTcpConnection } from './RSocketTcpClient';
+import { RSocketTcpClient, RSocketTcpConnection } from "./RSocketTcpClient";
 export default RSocketTcpClient;
 export { RSocketTcpConnection };

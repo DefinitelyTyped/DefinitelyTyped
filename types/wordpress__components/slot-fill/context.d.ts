@@ -1,5 +1,5 @@
-import { Component } from '@wordpress/element';
-import { ComponentType, Consumer as ContextConsumer, ReactNode } from 'react';
+import { Component } from "@wordpress/element";
+import { ComponentType, Consumer as ContextConsumer, ReactNode } from "react";
 
 export interface SlotFillContext {
     registerSlot(name: string, instance: Component): void;

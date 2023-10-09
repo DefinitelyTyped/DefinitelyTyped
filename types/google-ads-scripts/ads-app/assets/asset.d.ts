@@ -48,11 +48,13 @@ declare namespace GoogleAdsScripts {
          *        .get();
          */
         interface AssetSelector
-            extends Base.Selector<AssetIterator>,
+            extends
+                Base.Selector<AssetIterator>,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
 
         /**
          * Builds new image assets.

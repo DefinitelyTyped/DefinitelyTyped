@@ -1,5 +1,5 @@
-import { Action } from 'redux';
-import { SessionState } from './reducer';
+import { Action } from "redux";
+import { SessionState } from "./reducer";
 
 export const initialState: SessionState;
 export default immutableReducer;

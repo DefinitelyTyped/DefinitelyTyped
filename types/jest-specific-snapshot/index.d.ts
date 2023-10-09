@@ -24,4 +24,8 @@ export function addSerializer(serializer: any): void;
 /**
  * This is used to create a customized version of toMatchSpecificSnapshot.
  */
-export function toMatchSpecificSnapshot(data: any, snapshotFile: string, testName: string): () => { message(): string; pass: boolean; };
+export function toMatchSpecificSnapshot(
+    data: any,
+    snapshotFile: string,
+    testName: string,
+): () => { message(): string; pass: boolean };

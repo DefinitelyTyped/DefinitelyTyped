@@ -1,15 +1,15 @@
-import * as ServiceWorkerWebpackPlugin from 'serviceworker-webpack-plugin';
-import runtime from 'serviceworker-webpack-plugin/lib/runtime';
+import * as ServiceWorkerWebpackPlugin from "serviceworker-webpack-plugin";
+import runtime from "serviceworker-webpack-plugin/lib/runtime";
 
 new ServiceWorkerWebpackPlugin({
-    entry: 'foo',
+    entry: "foo",
 });
 
 new ServiceWorkerWebpackPlugin({
-    entry: 'foo',
-    filename: 'bar',
-    excludes: ['**'],
-    includes: ['**'],
+    entry: "foo",
+    filename: "bar",
+    excludes: ["**"],
+    includes: ["**"],
     async template(options) {
         console.log(options.assets);
     },
@@ -20,10 +20,10 @@ new ServiceWorkerWebpackPlugin({
 });
 
 new ServiceWorkerWebpackPlugin({
-    entry: 'foo',
-    filename: 'bar',
-    excludes: ['**'],
-    includes: ['**'],
+    entry: "foo",
+    filename: "bar",
+    excludes: ["**"],
+    includes: ["**"],
     async template(options) {
         console.log(options.assets);
     },
@@ -34,7 +34,7 @@ new ServiceWorkerWebpackPlugin({
 });
 
 new ServiceWorkerWebpackPlugin<number>({
-    entry: 'foo',
+    entry: "foo",
     async template(options) {
         console.log(options * options);
     },

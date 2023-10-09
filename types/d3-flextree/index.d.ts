@@ -70,7 +70,7 @@ export interface FlextreeOptions<Datum> {
      * as an argument. This is used only in the creation of a hierarchy,
      * prior to computing the layout, by the `layout.hierarchy` method.
      */
-    children: (data: HierarchyNode<Datum>) => Array<FlextreeNode<Datum>> | undefined;
+    children: (data: Datum) => Datum[] | undefined;
     /**
      * A way to calculate the size of a node.
      * It can be specified as:
@@ -96,8 +96,8 @@ export interface FlextreeOptions<Datum> {
 
 // Helper type to remove the need to explicitly declare get / set methods
 export type FlextreeOptionsGetSet<Datum, TSelf> =
-    & { [Property in keyof FlextreeOptions<Datum>]: () => FlextreeOptions<Datum>[Property]; }
-    & { [Property in keyof FlextreeOptions<Datum>]: (value: FlextreeOptions<Datum>[Property]) => TSelf; };
+    & { [Property in keyof FlextreeOptions<Datum>]: () => FlextreeOptions<Datum>[Property] }
+    & { [Property in keyof FlextreeOptions<Datum>]: (value: FlextreeOptions<Datum>[Property]) => TSelf };
 
 export interface FlextreeLayout<Datum> extends FlextreeOptionsGetSet<Datum, FlextreeLayout<Datum>> {
     /**
@@ -114,7 +114,7 @@ export interface FlextreeLayout<Datum> extends FlextreeOptionsGetSet<Datum, Flex
      * function, and produces a tree of instances of a class derived from
      * `d3.hierarchy`.
      */
-    hierarchy(treeData: Datum, children?: (d: Datum) => (Iterable<Datum> | null | undefined)): FlextreeNode<Datum>;
+    hierarchy(treeData: Datum, children?: (d: Datum) => Iterable<Datum> | null | undefined): FlextreeNode<Datum>;
     dump(tree: HierarchyNode<Datum>): string;
 }
 
