@@ -14,7 +14,13 @@ declare namespace streamsearch {
      * @param end The index in data where the non-matching data ends (exclusive).
      * @param isSafeData Indicates if it is safe to store a reference to data (e.g. as-is or via data.slice()) or not, as in some cases data may point to a Buffer whose contents change over time.
      */
-    type MatchCallback = (isMatch: boolean, data: Buffer | undefined, start: number, end: number, isSafeData?: boolean) => void;
+    type MatchCallback = (
+        isMatch: boolean,
+        data: Buffer | undefined,
+        start: number,
+        end: number,
+        isSafeData?: boolean,
+    ) => void;
 
     class SBMH {
         /**
@@ -22,7 +28,7 @@ declare namespace streamsearch {
          * @default Infinity
          */
         maxMatches: number;
-        
+
         /**
          * The current match count.
          * @default 0
@@ -56,4 +62,4 @@ declare namespace streamsearch {
     }
 }
 
-export = streamsearch.SBMH
+export = streamsearch.SBMH;
