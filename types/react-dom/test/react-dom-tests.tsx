@@ -99,6 +99,9 @@ describe("React dom test utils", () => {
         const node = ReactDOM.findDOMNode(dom) as HTMLInputElement;
 
         node.value = "giraffe";
+        // @ts-expect-error
+        node.autocomplete = "password";
+        node.autocomplete = "username webauthn";
         ReactTestUtils.Simulate.change(node);
         ReactTestUtils.Simulate.keyDown(node, { key: "Enter", keyCode: 13, which: 13 });
     });

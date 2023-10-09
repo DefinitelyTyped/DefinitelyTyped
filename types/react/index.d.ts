@@ -2068,7 +2068,7 @@ declare namespace React {
         alt?: string | undefined;
         as?: string | undefined;
         async?: boolean | undefined;
-        autoComplete?: string | undefined;
+        autoComplete?: HTMLInputElement['autocomplete'];
         autoPlay?: boolean | undefined;
         capture?: boolean | "user" | "environment" | undefined;
         cellPadding?: number | string | undefined;
@@ -2294,7 +2294,7 @@ declare namespace React {
             | DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS[
                 keyof DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS
             ];
-        autoComplete?: string | undefined;
+        autoComplete?: HTMLFormElement['autocomplete'];
         encType?: string | undefined;
         method?: string | undefined;
         name?: string | undefined;
@@ -2376,7 +2376,7 @@ declare namespace React {
     interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
         accept?: string | undefined;
         alt?: string | undefined;
-        autoComplete?: string | undefined;
+        autoComplete?: HTMLInputElement['autocomplete'];
         capture?: boolean | "user" | "environment" | undefined; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
         checked?: boolean | undefined;
         disabled?: boolean | undefined;
@@ -2555,7 +2555,7 @@ declare namespace React {
     }
 
     interface SelectHTMLAttributes<T> extends HTMLAttributes<T> {
-        autoComplete?: string | undefined;
+        autoComplete?: HTMLSelectElement['autocomplete'];
         disabled?: boolean | undefined;
         form?: string | undefined;
         multiple?: boolean | undefined;
@@ -2595,7 +2595,7 @@ declare namespace React {
     }
 
     interface TextareaHTMLAttributes<T> extends HTMLAttributes<T> {
-        autoComplete?: string | undefined;
+        autoComplete?: HTMLTextAreaElement['autocomplete'];
         cols?: number | undefined;
         dirName?: string | undefined;
         disabled?: boolean | undefined;
