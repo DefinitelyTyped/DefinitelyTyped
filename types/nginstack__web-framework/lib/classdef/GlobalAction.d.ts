@@ -23,4 +23,4 @@ declare class GlobalAction {
     getParameters(): any;
     clone(): GlobalAction;
 }
-import LegacyEvent = require('@nginstack/engine/lib/event/LegacyEvent.js');
+import LegacyEvent = require("@nginstack/engine/lib/event/LegacyEvent.js");

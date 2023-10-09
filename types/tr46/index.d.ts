@@ -50,4 +50,4 @@ export interface ToASCIIOptions extends Options {
     processingOption?: ProcessingOption | undefined;
 }
 
-export type ProcessingOption = 'nontransitional' | 'transitional';
+export type ProcessingOption = "nontransitional" | "transitional";

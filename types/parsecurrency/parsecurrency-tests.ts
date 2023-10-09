@@ -1,9 +1,9 @@
-import parsecurrency = require('parsecurrency');
+import parsecurrency = require("parsecurrency");
 
-const parseResult = parsecurrency('$100'); // $ExpectType ParsedCurrency | null
+const parseResult = parsecurrency("$100"); // $ExpectType ParsedCurrency | null
 
 if (parseResult === null) {
-    throw new Error('Unexpected null');
+    throw new Error("Unexpected null");
 }
 
 const {
@@ -14,7 +14,7 @@ const {
     currency,
     symbol,
     decimalSeparator,
-    groupSeparator
+    groupSeparator,
 } = parseResult;
 
-parsecurrency('$ USD 100'); // $ExpectType ParsedCurrency | null
+parsecurrency("$ USD 100"); // $ExpectType ParsedCurrency | null

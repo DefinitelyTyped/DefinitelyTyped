@@ -1,6 +1,5 @@
-import { ColorRepresentation } from '../utils';
-import { Color } from './../math/Color';
-import { FogBase } from './Fog';
+import { Color, ColorRepresentation } from './../math/Color.js';
+import { FogBase } from './Fog.js';
 
 /**
  * This class contains the parameters that define exponential squared fog, which gives a clear view near the camera and a faster than exponentially densening fog farther from the camera.

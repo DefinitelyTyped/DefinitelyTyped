@@ -1,4 +1,4 @@
-import ArrayFrom = require('array.from');
+import ArrayFrom = require("array.from");
 
 /**
  * The `expectType` function from https://www.npmjs.com/package/tsd,

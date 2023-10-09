@@ -1,4 +1,4 @@
-// Type definitions for react-is 17.0
+// Type definitions for react-is 18.2
 // Project: https://reactjs.org/
 // Definitions by: Avi Vahl <https://github.com/AviVahl>
 //                 Christian Chown <https://github.com/christianchown>
@@ -12,12 +12,7 @@
 
 export as namespace ReactIs;
 
-import {
-  LazyExoticComponent,
-  MemoExoticComponent,
-  ReactElement,
-  ElementType
-} from "react";
+import { ElementType, LazyExoticComponent, MemoExoticComponent, ReactElement } from "react";
 
 export function typeOf(value: any): symbol | undefined;
 export function isValidElementType(value: any): value is ElementType;

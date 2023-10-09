@@ -8,9 +8,9 @@
 /// <reference types="gulp" />
 /// <reference types="orchestrator" />
 
-import Orchestrator = require('orchestrator');
-import gulp = require('gulp');
-type HelpOption = string|boolean;
+import Orchestrator = require("orchestrator");
+import gulp = require("gulp");
+type HelpOption = string | boolean;
 
 declare namespace gulpHelp {
     interface TaskMethod {
@@ -111,7 +111,6 @@ declare namespace gulpHelp {
          */
         options?: { [key: string]: string } | undefined;
     }
-
 }
 
 declare function gulpHelp(gulp: gulp.Gulp, options?: gulpHelp.GulpHelpOptions): gulpHelp.GulpHelp;

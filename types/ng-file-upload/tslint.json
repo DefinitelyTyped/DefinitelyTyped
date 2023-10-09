@@ -4,15 +4,11 @@
         "array-type": false,
         "ban-types": false,
         "interface-name": false,
-        "no-padding": false,
         "no-redundant-jsdoc-2": false,
         "no-reference-import": false,
-        "no-trailing-whitespace": false,
         "no-unnecessary-qualifier": false,
         "one-variable-per-declaration": false,
         "prefer-const": false,
-        "prefer-template": false,
-        "semicolon": false,
-        "strict-export-declare-modifiers": false
+        "prefer-template": false
     }
 }

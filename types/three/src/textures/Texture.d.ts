@@ -1,7 +1,7 @@
-import { Vector2 } from './../math/Vector2';
-import { Matrix3 } from './../math/Matrix3';
-import { Source } from './Source';
-import { EventDispatcher } from './../core/EventDispatcher';
+import { Vector2 } from '../math/Vector2.js';
+import { Matrix3 } from '../math/Matrix3.js';
+import { Source } from './Source.js';
+import { EventDispatcher } from '../core/EventDispatcher.js';
 import {
     Mapping,
     Wrapping,
@@ -13,7 +13,8 @@ import {
     MinificationTextureFilter,
     AnyPixelFormat,
     AnyMapping,
-} from '../constants';
+    ColorSpace,
+} from '../constants.js';
 
 /** Shim for OffscreenCanvas. */
 // tslint:disable-next-line:no-empty-interface
@@ -37,7 +38,7 @@ export interface OffscreenCanvas extends EventTarget {}
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/Texture | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/Textures/Texture.js | Source}
  */
-export class Texture extends EventDispatcher {
+export class Texture extends EventDispatcher<{ dispose: {} }> {
     /**
      * This creates a new {@link THREE.Texture | Texture} object.
      * @param image See {@link Texture.image | .image}. Default {@link THREE.Texture.DEFAULT_IMAGE}
@@ -49,7 +50,7 @@ export class Texture extends EventDispatcher {
      * @param format See {@link Texture.format | .format}. Default {@link THREE.RGBAFormat}
      * @param type See {@link Texture.type | .type}. Default {@link THREE.UnsignedByteType}
      * @param anisotropy See {@link Texture.anisotropy | .anisotropy}. Default {@link THREE.Texture.DEFAULT_ANISOTROPY}
-     * @param encoding See {@link Texture.encoding | .encoding}. Default {@link THREE.LinearEncoding}
+     * @param colorSpace See {@link Texture.colorSpace | .colorSpace}. Default {@link THREE.NoColorSpace}
      */
     constructor(
         image?: TexImageSource | OffscreenCanvas,
@@ -61,7 +62,23 @@ export class Texture extends EventDispatcher {
         format?: PixelFormat,
         type?: TextureDataType,
         anisotropy?: number,
-        encoding?: TextureEncoding,
+        colorSpace?: ColorSpace,
+    );
+
+    /**
+     * @deprecated
+     */
+    constructor(
+        image: TexImageSource | OffscreenCanvas,
+        mapping: Mapping,
+        wrapS: Wrapping,
+        wrapT: Wrapping,
+        magFilter: MagnificationTextureFilter,
+        minFilter: MinificationTextureFilter,
+        format: PixelFormat,
+        type: TextureDataType,
+        anisotropy: number,
+        encoding: TextureEncoding,
     );
 
     /**
@@ -122,6 +139,12 @@ export class Texture extends EventDispatcher {
      * @defaultValue _value of_ {@link THREE.Texture.DEFAULT_MAPPING}
      */
     mapping: AnyMapping;
+
+    /**
+     * Lets you select the uv attribute to map the texture to. `0` for `uv`, `1` for `uv1`, `2` for `uv2` and `3` for
+     * `uv3`.
+     */
+    channel: number;
 
     /**
      * This defines how the {@link Texture} is wrapped *horizontally* and corresponds to **U** in UV mapping.
@@ -232,26 +255,6 @@ export class Texture extends EventDispatcher {
     /**
      * How much a single repetition of the texture is offset from the beginning, in each direction **U** and **V**.
      * @remarks Typical range is `0.0` to `1.0`.
-     * @remarks
-     * The below texture types share the `first` uv channel in the engine.
-     * The offset (and repeat) setting is evaluated according to the following priorities and then shared by those textures:
-     *  - color map
-     *  - specular map
-     *  - displacement map
-     *  - normal map
-     *  - bump map
-     *  - roughness map
-     *  - metalness map
-     *  - alpha map
-     *  - emissive map
-     *  - clearcoat map
-     *  - clearcoat normal map
-     *  - clearcoat roughnessMap map
-     * @remarks
-     * The below {@link Texture} types share the `second` uv channel in the engine.
-     * The offset (and repeat) setting is evaluated according to the following priorities and then shared by those textures:
-     *  - ao map
-     *  - light map
      * @defaultValue `new THREE.Vector2(0, 0)`
      */
     offset: Vector2;
@@ -261,8 +264,6 @@ export class Texture extends EventDispatcher {
      * @remarks
      * If repeat is set greater than `1` in either direction, the corresponding *Wrap* parameter should
      * also be set to {@link THREE.RepeatWrapping} or {@link THREE.MirroredRepeatWrapping} to achieve the desired tiling effect.
-     * @remarks
-     * Setting different repeat values for textures is restricted in the same way like {@link .offset | .offset}.
      * @see {@link wrapS}
      * @see {@link wrapT}
      * @defaultValue `new THREE.Vector2( 1, 1 )`
@@ -332,8 +333,20 @@ export class Texture extends EventDispatcher {
      * @see {@link https://threejs.org/docs/index.html#api/en/constants/Textures | Texture Constants}
      * @see {@link THREE.TextureDataType}
      * @defaultValue {@link THREE.LinearEncoding}
+     * @deprecated Use {@link Texture.colorSpace .colorSpace} in three.js r152+.
      */
     encoding: TextureEncoding;
+
+    /**
+     * The {@link Textures | {@link Texture} constants} page for details of other color spaces.
+     * @remarks
+     * Textures containing color data should be annotated with {@link SRGBColorSpace THREE.SRGBColorSpace} or
+     * {@link LinearSRGBColorSpace THREE.LinearSRGBColorSpace}.
+     * @see {@link https://threejs.org/docs/index.html#api/en/constants/Textures | Texture Constants}
+     * @see {@link THREE.TextureDataType}
+     * @defaultValue {@link THREE.NoColorSpace}
+     */
+    colorSpace: ColorSpace;
 
     /**
      * Indicates whether a texture belongs to a render target or not

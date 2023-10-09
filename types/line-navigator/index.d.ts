@@ -32,9 +32,20 @@ declare namespace LineNavigator {
         index: string;
     }
 
-    type ReadLinesCallback = (err: any, index: number, lines: string[] | undefined, isEof: boolean | undefined, progress: number | undefined) => void;
+    type ReadLinesCallback = (
+        err: any,
+        index: number,
+        lines: string[] | undefined,
+        isEof: boolean | undefined,
+        progress: number | undefined,
+    ) => void;
     type FindCallback = (err: any, index: number | undefined, match: FindMatch | undefined) => void;
-    type FindAllCallback = (err: any, index: number, limitHit: boolean | undefined, results: FindAllResult[] | undefined) => void;
+    type FindAllCallback = (
+        err: any,
+        index: number,
+        limitHit: boolean | undefined,
+        results: FindAllResult[] | undefined,
+    ) => void;
 }
 
 declare class LineNavigator {

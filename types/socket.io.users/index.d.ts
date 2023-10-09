@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 import { Application } from "express";
 import { SessionOptions } from "express-session";
 import SocketIO = require("socket.io");
@@ -47,7 +47,6 @@ declare class User {
     emit(...args: any[]): void;
     to(room: string): SocketIO.Socket;
 }
-
 
 declare class Users extends EventEmitter {
     namespace: string;

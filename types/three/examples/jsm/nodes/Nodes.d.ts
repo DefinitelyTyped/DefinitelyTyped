@@ -1,245 +1,149 @@
+// constants
+export * from './core/constants.js';
+
 // core
-import ArrayUniformNode from './core/ArrayUniformNode';
-import AttributeNode from './core/AttributeNode';
-import BypassNode from './core/BypassNode';
-import CacheNode from './core/CacheNode';
-import CodeNode, { CodeNodeInclude } from './core/CodeNode';
-import ConstNode from './core/ConstNode';
-import ContextNode from './core/ContextNode';
-import ExpressionNode from './core/ExpressionNode';
-import FunctionCallNode from './core/FunctionCallNode';
-import FunctionNode, { FunctionNodeArguments } from './core/FunctionNode';
-import InstanceIndexNode from './core/InstanceIndexNode';
-import Node from './core/Node';
-import NodeAttribute from './core/NodeAttribute';
-import NodeBuilder from './core/NodeBuilder';
-import NodeCache from './core/NodeCache';
-import NodeCode from './core/NodeCode';
-import NodeFrame from './core/NodeFrame';
-import NodeFunctionInput from './core/NodeFunctionInput';
-import NodeKeywords from './core/NodeKeywords';
-import NodeUniform from './core/NodeUniform';
-import NodeVar from './core/NodeVar';
-import NodeVarying from './core/NodeVarying';
-import PropertyNode from './core/PropertyNode';
-import StackNode from './core/StackNode';
-import TempNode from './core/TempNode';
-import UniformNode from './core/UniformNode';
-import VarNode from './core/VarNode';
-import VaryNode from './core/VaryNode';
+export { default as ArrayUniformNode } from './core/ArrayUniformNode.js';
+export { default as AttributeNode } from './core/AttributeNode.js';
+export { default as BypassNode } from './core/BypassNode.js';
+export { default as CacheNode } from './core/CacheNode.js';
+export { default as ConstNode } from './core/ConstNode.js';
+export { default as ContextNode } from './core/ContextNode.js';
+export { default as Node } from './core/Node.js';
+export { default as NodeAttribute } from './core/NodeAttribute.js';
+export { default as NodeBuilder } from './core/NodeBuilder.js';
+export { default as NodeCache } from './core/NodeCache.js';
+export { default as NodeCode } from './core/NodeCode.js';
+export { default as NodeFrame } from './core/NodeFrame.js';
+export { default as NodeFunctionInput } from './core/NodeFunctionInput.js';
+export { default as NodeKeywords } from './core/NodeKeywords.js';
+export { default as NodeUniform } from './core/NodeUniform.js';
+export { default as NodeVar } from './core/NodeVar.js';
+export { default as NodeVarying } from './core/NodeVarying.js';
+export { default as PropertyNode } from './core/PropertyNode.js';
+export { default as StackNode } from './core/StackNode.js';
+export { default as TempNode } from './core/TempNode.js';
+export { default as UniformNode } from './core/UniformNode.js';
+export { default as VarNode } from './core/VarNode.js';
+export { default as VaryingNode } from './core/VaryingNode.js';
 
-// accessors
-import BitangentNode, { BitangentNodeScope } from './accessors/BitangentNode';
-import BufferNode from './accessors/BufferNode';
-import CameraNode, { CameraNodeScope } from './accessors/CameraNode';
-import CubeTextureNode from './accessors/CubeTextureNode';
-import InstanceNode from './accessors/InstanceNode';
-import MaterialNode, { MaterialNodeScope } from './accessors/MaterialNode';
-import MaterialReferenceNode from './accessors/MaterialReferenceNode';
-import ModelNode from './accessors/ModelNode';
-import ModelViewProjectionNode from './accessors/ModelViewProjectionNode';
-import NormalNode, { NormalNodeScope } from './accessors/NormalNode';
-import Object3DNode, { Object3DNodeScope } from './accessors/Object3DNode';
-import PointUVNode from './accessors/PointUVNode';
-import PositionNode, { PositionNodeScope } from './accessors/PositionNode';
-import ReferenceNode from './accessors/ReferenceNode';
-import ReflectVectorNode from './accessors/ReflectVectorNode';
-import SkinningNode from './accessors/SkinningNode';
-import TangentNode, { TangentNodeScope } from './accessors/TangentNode';
-import TextureNode from './accessors/TextureNode';
-import UVNode from './accessors/UVNode';
-import UserDataNode from './accessors/UserDataNode';
-
-// geometry
-import RangeNode, { RangeModeBound } from './geometry/RangeNode';
-
-// gpgpu
-import ComputeNode from './gpgpu/ComputeNode';
-
-// display
-import BlendModeNode, { BlendMode } from './display/BlendModeNode';
-import ColorAdjustmentNode, { ColorAdjustmentMethod } from './display/ColorAdjustmentNode';
-import ColorSpaceNode, { ColorSpaceNodeMethod } from './display/ColorSpaceNode';
-import FrontFacingNode from './display/FrontFacingNode';
-import NormalMapNode from './display/NormalMapNode';
-import PosterizeNode from './display/PosterizeNode';
-import ToneMappingNode from './display/ToneMappingNode';
-import ViewportNode from './display/ViewportNode';
+import * as NodeUtils from './core/NodeUtils.js';
+export { NodeUtils };
 
 // math
-import MathNode, { MathNodeMethod1, MathNodeMethod2, MathNodeMethod3, MathNodeMethod } from './math/MathNode';
-import OperatorNode, { OperatorNodeOp } from './math/OperatorNode';
-import CondNode from './math/CondNode';
-
-// lighting
-import PunctualLightNode from './lighting/PunctualLightNode';
-import LightsNode from './lighting/LightsNode';
-import LightingNode from './lighting/LightingNode';
-import LightingContextNode, { LightingModelNode } from './lighting/LightingContextNode';
-import HemisphereLightNode from './lighting/HemisphereLightNode';
-import EnvironmentNode from './lighting/EnvironmentNode';
-import AONode from './lighting/AONode';
-import AnalyticLightNode from './lighting/AnalyticLightNode';
-
-// utils
-
-import ArrayElementNode from './utils/ArrayElementNode';
-import ConvertNode from './utils/ConvertNode';
-import EquirectUVNode from './utils/EquirectUVNode';
-import JoinNode from './utils/JoinNode';
-import MatcapUVNode from './utils/MatcapUVNode';
-import MaxMipLevelNode from './utils/MaxMipLevelNode';
-import OscNode, { OscNodeMethod } from './utils/OscNode';
-import RemapNode from './utils/RemapNode';
-import RotateUVNode from './utils/RotateUVNode';
-import SpecularMIPLevelNode from './utils/SpecularMIPLevelNode';
-import SplitNode from './utils/SplitNode';
-import SpriteSheetUVNode from './utils/SpriteSheetUVNode';
-import TimerNode, { TimerNodeScope } from './utils/TimerNode';
-import TriplanarTexturesNode from './utils/TriplanarTexturesNode';
-
-// loaders
-import NodeLoader from './loaders/NodeLoader';
-import NodeObjectLoader from './loaders/NodeObjectLoader';
-import NodeMaterialLoader from './loaders/NodeMaterialLoader';
-
-// procedural
-import CheckerNode from './procedural/CheckerNode';
-// fog
-import FogNode from './fog/FogNode';
-import FogRangeNode from './fog/FogRangeNode';
-import FogExp2Node from './fog/FogExp2Node';
-
-// core
-export * from './core/constants';
-
-// materials
-export * from './materials/Materials';
-
-// shader node
-export * from './shadernode/ShaderNodeElements';
-
 export {
-    // core
-    ArrayUniformNode,
-    AttributeNode,
-    BypassNode,
-    CacheNode,
-    CodeNode,
-    CodeNodeInclude,
-    ContextNode,
-    ConstNode,
-    ExpressionNode,
-    FunctionCallNode,
-    FunctionNode,
-    FunctionNodeArguments,
-    InstanceIndexNode,
-    Node,
-    NodeAttribute,
-    NodeBuilder,
-    NodeCache,
-    NodeCode,
-    NodeFrame,
-    NodeFunctionInput,
-    NodeKeywords,
-    NodeUniform,
-    NodeVar,
-    NodeVarying,
-    PropertyNode,
-    StackNode,
-    TempNode,
-    UniformNode,
-    VarNode,
-    VaryNode,
-    // geometry
-    RangeNode,
-    RangeModeBound,
-    // gpgpu
-    ComputeNode,
-    // accessors
-    BitangentNode,
-    BitangentNodeScope,
-    BufferNode,
-    CameraNode,
-    CameraNodeScope,
-    CubeTextureNode,
-    InstanceNode,
-    MaterialNode,
-    MaterialNodeScope,
-    MaterialReferenceNode,
-    ModelNode,
-    ModelViewProjectionNode,
-    NormalNode,
-    NormalNodeScope,
-    Object3DNode,
-    Object3DNodeScope as OObject3DNodeScope,
-    PointUVNode,
-    PositionNode,
-    PositionNodeScope,
-    ReferenceNode,
-    ReflectVectorNode,
-    SkinningNode,
-    TangentNode,
-    TangentNodeScope,
-    TextureNode,
-    UVNode,
-    UserDataNode,
-    // display
-    BlendModeNode,
-    BlendMode,
-    ColorAdjustmentNode,
-    ColorAdjustmentMethod,
-    ColorSpaceNode,
-    ColorSpaceNodeMethod,
-    FrontFacingNode,
-    NormalMapNode,
-    PosterizeNode,
-    ToneMappingNode,
-    ViewportNode,
-    // math
-    MathNode,
+    default as MathNode,
     MathNodeMethod1,
     MathNodeMethod2,
     MathNodeMethod3,
     MathNodeMethod,
-    OperatorNode,
-    OperatorNodeOp,
-    CondNode,
-    // lighting
-    PunctualLightNode,
-    LightsNode,
-    LightingNode,
-    LightingContextNode,
-    LightingModelNode,
-    HemisphereLightNode,
-    EnvironmentNode,
-    AONode,
-    AnalyticLightNode,
-    // utils
-    ArrayElementNode,
-    ConvertNode,
-    EquirectUVNode,
-    JoinNode,
-    MatcapUVNode,
-    MaxMipLevelNode,
-    OscNode,
-    OscNodeMethod,
-    RemapNode,
-    RotateUVNode,
-    SpecularMIPLevelNode,
-    SplitNode,
-    SpriteSheetUVNode,
-    TimerNode,
-    TimerNodeScope,
-    TriplanarTexturesNode,
-    // procedural
-    CheckerNode,
-    // fog
-    FogNode,
-    FogRangeNode,
-    FogExp2Node,
-    // loaders
-    NodeLoader,
-    NodeObjectLoader,
-    NodeMaterialLoader,
-};
+} from './math/MathNode.js';
+export { default as OperatorNode, OperatorNodeOp } from './math/OperatorNode.js';
+export { default as CondNode } from './math/CondNode.js';
+
+// utils
+export { default as ArrayElementNode } from './utils/ArrayElementNode.js';
+export { default as ConvertNode } from './utils/ConvertNode.js';
+export { default as EquirectUVNode } from './utils/EquirectUVNode.js';
+export { default as JoinNode } from './utils/JoinNode.js';
+export { default as MatcapUVNode } from './utils/MatcapUVNode.js';
+export { default as MaxMipLevelNode } from './utils/MaxMipLevelNode.js';
+export { default as OscNode, OscNodeMethod } from './utils/OscNode.js';
+export { default as RemapNode } from './utils/RemapNode.js';
+export { default as RotateUVNode } from './utils/RotateUVNode.js';
+export { default as SpecularMIPLevelNode } from './utils/SpecularMIPLevelNode.js';
+export { default as SplitNode } from './utils/SplitNode.js';
+export { default as SpriteSheetUVNode } from './utils/SpriteSheetUVNode.js';
+export { default as TimerNode, TimerNodeScope } from './utils/TimerNode.js';
+export { default as TriplanarTexturesNode } from './utils/TriplanarTexturesNode.js';
+
+// shader node
+export * from './shadernode/ShaderNodeElements.js';
+
+// accessors
+export { default as BitangentNode, BitangentNodeScope } from './accessors/BitangentNode.js';
+export { default as BufferNode } from './accessors/BufferNode.js';
+export { default as CameraNode, CameraNodeScope } from './accessors/CameraNode.js';
+export { default as CubeTextureNode } from './accessors/CubeTextureNode.js';
+export { default as InstanceNode } from './accessors/InstanceNode.js';
+export { default as MaterialNode, MaterialNodeScope } from './accessors/MaterialNode.js';
+export { default as MaterialReferenceNode } from './accessors/MaterialReferenceNode.js';
+export { default as ModelNode } from './accessors/ModelNode.js';
+export { default as ModelViewProjectionNode } from './accessors/ModelViewProjectionNode.js';
+export { default as NormalNode, NormalNodeScope } from './accessors/NormalNode.js';
+export { default as Object3DNode, Object3DNodeScope as OObject3DNodeScope } from './accessors/Object3DNode.js';
+export { default as PointUVNode } from './accessors/PointUVNode.js';
+export { default as PositionNode, PositionNodeScope } from './accessors/PositionNode.js';
+export { default as ReferenceNode } from './accessors/ReferenceNode.js';
+export { default as ReflectVectorNode } from './accessors/ReflectVectorNode.js';
+export { default as SkinningNode } from './accessors/SkinningNode.js';
+export { default as TangentNode, TangentNodeScope } from './accessors/TangentNode.js';
+export { default as TextureNode } from './accessors/TextureNode.js';
+export { default as UVNode } from './accessors/UVNode.js';
+export { default as UserDataNode } from './accessors/UserDataNode.js';
+
+// display
+export { default as BlendModeNode, BlendMode } from './display/BlendModeNode.js';
+export { default as ColorAdjustmentNode, ColorAdjustmentMethod } from './display/ColorAdjustmentNode.js';
+export { default as ColorSpaceNode, ColorSpaceNodeMethod } from './display/ColorSpaceNode.js';
+export { default as FrontFacingNode } from './display/FrontFacingNode.js';
+export { default as NormalMapNode } from './display/NormalMapNode.js';
+export { default as PosterizeNode } from './display/PosterizeNode.js';
+export { default as ToneMappingNode } from './display/ToneMappingNode.js';
+export { default as ViewportNode } from './display/ViewportNode.js';
+
+// code
+export { default as ExpressionNode } from './code/ExpressionNode.js';
+export { default as CodeNode, CodeNodeInclude } from './code/CodeNode.js';
+export { default as FunctionCallNode } from './code/FunctionCallNode.js';
+export { default as FunctionNode, FunctionNodeArguments } from './code/FunctionNode.js';
+
+// fog
+export { default as FogNode } from './fog/FogNode.js';
+export { default as FogRangeNode } from './fog/FogRangeNode.js';
+export { default as FogExp2Node } from './fog/FogExp2Node.js';
+
+// geometry
+export { default as RangeNode, RangeModeBound } from './geometry/RangeNode.js';
+
+// gpgpu
+export { default as ComputeNode } from './gpgpu/ComputeNode.js';
+
+// lighting
+export { default as PointLightNode } from './lighting/PointLightNode.js';
+export { default as SpotLightNode } from './lighting/SpotLightNode.js';
+export { default as LightsNode } from './lighting/LightsNode.js';
+export { default as LightingNode } from './lighting/LightingNode.js';
+export { default as LightingContextNode, LightingModelNode } from './lighting/LightingContextNode.js';
+export { default as HemisphereLightNode } from './lighting/HemisphereLightNode.js';
+export { default as EnvironmentNode } from './lighting/EnvironmentNode.js';
+export { default as AONode } from './lighting/AONode.js';
+export { default as AnalyticLightNode } from './lighting/AnalyticLightNode.js';
+
+// procedural
+export { default as CheckerNode } from './procedural/CheckerNode.js';
+
+// loaders
+export { default as NodeLoader } from './loaders/NodeLoader.js';
+export { default as NodeObjectLoader } from './loaders/NodeObjectLoader.js';
+export { default as NodeMaterialLoader } from './loaders/NodeMaterialLoader.js';
+
+// materials
+export * from './materials/Materials.js';
+
+// materialX
+export * from './materialx/MaterialXNodes.js';
+
+// functions
+export { default as BRDF_GGX } from './functions/BSDF/BRDF_GGX.js';
+export { default as BRDF_Lambert } from './functions/BSDF/BRDF_Lambert.js';
+export { default as D_GGX } from './functions/BSDF/D_GGX.js';
+export { default as DFGApprox } from './functions/BSDF/DFGApprox.js';
+export { default as F_Schlick } from './functions/BSDF/F_Schlick.js';
+export { default as V_GGX_SmithCorrelated } from './functions/BSDF/V_GGX_SmithCorrelated.js';
+
+export { getDistanceAttenuation } from './lighting/LightUtils.js';
+
+export { default as getGeometryRoughness } from './functions/material/getGeometryRoughness.js';
+export { default as getRoughness } from './functions/material/getRoughness.js';
+
+export { default as physicalLightingModel } from './functions/PhysicalLightingModel.js';

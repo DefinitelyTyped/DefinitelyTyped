@@ -2,7 +2,7 @@ import { Handler } from "../handler";
 
 export type CodePipelineCloudWatchPipelineHandler = Handler<CodePipelineCloudWatchPipelineEvent, void>;
 
-export type CodePipelineState = 'STARTED' | 'SUCCEEDED' | 'RESUMED' | 'FAILED' | 'CANCELED' | 'SUPERSEDED';
+export type CodePipelineState = "STARTED" | "SUCCEEDED" | "RESUMED" | "FAILED" | "CANCELED" | "SUPERSEDED";
 
 /**
  * CodePipeline CloudWatch Events
@@ -17,8 +17,8 @@ export type CodePipelineState = 'STARTED' | 'SUCCEEDED' | 'RESUMED' | 'FAILED' |
 export interface CodePipelineCloudWatchPipelineEvent {
     version: string;
     id: string;
-    'detail-type': 'CodePipeline Pipeline Execution State Change';
-    source: 'aws.codepipeline';
+    "detail-type": "CodePipeline Pipeline Execution State Change";
+    source: "aws.codepipeline";
     account: string;
     time: string;
     region: string;
@@ -27,6 +27,6 @@ export interface CodePipelineCloudWatchPipelineEvent {
         pipeline: string;
         version: number;
         state: CodePipelineState;
-        'execution-id': string;
+        "execution-id": string;
     };
 }

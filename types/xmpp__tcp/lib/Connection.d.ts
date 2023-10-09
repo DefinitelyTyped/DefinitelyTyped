@@ -1,4 +1,4 @@
-import Connection = require('@xmpp/connection-tcp');
+import Connection = require("@xmpp/connection-tcp");
 
 export = ConnectionTCP;
 

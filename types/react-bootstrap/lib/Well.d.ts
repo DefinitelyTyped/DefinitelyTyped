@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Sizes } from 'react-bootstrap';
+import * as React from "react";
+import { Sizes } from "react-bootstrap";
 
 declare namespace Well {
     export interface WellProps extends React.HTMLProps<Well> {
@@ -8,5 +8,5 @@ declare namespace Well {
         bsClass?: string | undefined;
     }
 }
-declare class Well extends React.Component<Well.WellProps> { }
+declare class Well extends React.Component<Well.WellProps> {}
 export = Well;

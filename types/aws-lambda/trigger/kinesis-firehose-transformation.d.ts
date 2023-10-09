@@ -32,7 +32,7 @@ export interface FirehoseRecordMetadata {
     subsequenceNumber: string;
 }
 
-export type FirehoseRecordTransformationStatus = 'Ok' | 'Dropped' | 'ProcessingFailed';
+export type FirehoseRecordTransformationStatus = "Ok" | "Dropped" | "ProcessingFailed";
 
 export interface FirehoseTransformationMetadata {
     partitionKeys: { [name: string]: string };
@@ -42,7 +42,7 @@ export interface FirehoseTransformationResultRecord {
     recordId: string;
     result: FirehoseRecordTransformationStatus;
     /** Encode in Base64 */
-    data: string;
+    data?: string;
     metadata?: FirehoseTransformationMetadata;
 }
 

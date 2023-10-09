@@ -1,7 +1,7 @@
-import previewEmail = require('preview-email');
-import { Options } from 'preview-email';
-import nodemailer = require('nodemailer');
-import { Options as NodeMailerOptions } from 'nodemailer/lib/mailer';
+import previewEmail = require("preview-email");
+import { Options } from "preview-email";
+import nodemailer = require("nodemailer");
+import { Options as NodeMailerOptions } from "nodemailer/lib/mailer";
 
 // tests for `README Driven Development`
 const transport = nodemailer.createTransport({
@@ -9,12 +9,12 @@ const transport = nodemailer.createTransport({
 });
 
 const message: NodeMailerOptions = {
-    from: 'niftylettuce+from@gmail.com',
-    to: 'niftylettuce+to@gmail.com',
-    subject: 'Hello world',
-    html: '<p>Hello world</p>',
-    text: 'Hello world',
-    attachments: [{ filename: 'hello-world.txt', content: 'Hello world' }],
+    from: "niftylettuce+from@gmail.com",
+    to: "niftylettuce+to@gmail.com",
+    subject: "Hello world",
+    html: "<p>Hello world</p>",
+    text: "Hello world",
+    attachments: [{ filename: "hello-world.txt", content: "Hello world" }],
 };
 
 // note that `attachments` will not be parsed unless you use
@@ -27,12 +27,14 @@ transport.sendMail(message).then(console.log).catch(console.error);
 // tests
 
 const options: Options = {
-    dir: './dir',
-    id: 'some-id',
+    dir: "./dir",
+    id: "some-id",
     open: true,
-    template: './dir/template.pug',
+    template: "./dir/template.pug",
     urlTransform: path => `./dir/${path}`,
     openSimulator: true,
+    simpleParser: {},
+    returnHtml: true,
 };
 
 // async/await

@@ -4,14 +4,7 @@
         "array-type": false,
         "arrow-return-shorthand": false,
         "ban-types": false,
-        "comment-format": false,
-        "no-padding": false,
-        "no-single-declare-module": false,
-        "no-trailing-whitespace": false,
         "no-var-keyword": false,
-        "prefer-const": false,
-        "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "prefer-const": false
     }
 }

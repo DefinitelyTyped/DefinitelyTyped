@@ -69,12 +69,10 @@ export interface SmtpServerOptions {
 /**
  * <p>Constructs a SMTP server</p>
  *
- * @constructor
  * @namespace SMTP Server module
  * @param {Object} [options] Options object
  */
 export class SMTPServer extends events.EventEmitter {
-
     constructor(options?: SmtpServerOptions);
 
     /**
@@ -92,15 +90,11 @@ export class SMTPServer extends events.EventEmitter {
      * @param {Function} callback The callback function to run when the server is closed
      */
     public end(callback: () => void): void;
-
-
 }
 
 export class SimpleServer extends events.EventEmitter {
-
     constructor(callback?: (connection: SimpleServerConnection) => void);
     constructor(options?: SmtpServerOptions, callback?: (connection: SimpleServerConnection) => void);
-
 
     public server: SMTPServer;
 
@@ -112,7 +106,6 @@ export class SimpleServer extends events.EventEmitter {
      * @param {Function} callback The callback function to run when the server is listening
      */
     public listen(port: number, host: string, callback?: (error: Error) => void): void;
-
 }
 
 /**
@@ -147,6 +140,8 @@ export interface SimpleServerConnection extends NodeJS.ReadableStream {
     reject(reason?: string): void;
 }
 
-
 export function createSimpleServer(callback?: (connection: SimpleServerConnection) => void): SimpleServer;
-export function createSimpleServer(options?: SmtpServerOptions, callback?: (connection: SimpleServerConnection) => void): SimpleServer;
+export function createSimpleServer(
+    options?: SmtpServerOptions,
+    callback?: (connection: SimpleServerConnection) => void,
+): SimpleServer;

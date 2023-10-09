@@ -15,15 +15,17 @@ NativeKeyboard.showMessenger({
  */
 NativeKeyboard.showMessengerKeyboard(
     () => {},
-    () => {});
+    () => {},
+);
 
 /**
  * Hide Messenger
  */
 NativeKeyboard.hideMessenger(
-    { animated: true},
+    { animated: true },
     () => {},
-    () => {});
+    () => {},
+);
 
 NativeKeyboard.hideMessenger();
 
@@ -32,12 +34,14 @@ NativeKeyboard.hideMessenger();
  */
 NativeKeyboard.hideMessengerKeyboard(
     () => {},
-    () => {});
+    () => {},
+);
 
 /**
  * Update Messenger Keyboard
  */
 NativeKeyboard.updateMessenger(
-    {text: 'FooBar'},
+    { text: "FooBar" },
     () => {},
-    () => {});
+    () => {},
+);

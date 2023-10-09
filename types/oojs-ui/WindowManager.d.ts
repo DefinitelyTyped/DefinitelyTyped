@@ -51,11 +51,11 @@ declare namespace OO.ui {
 
     namespace WindowManager {
         interface WindowOpeningState {
-            state: 'setup' | 'ready';
+            state: "setup" | "ready";
         }
 
         interface WindowClosingState {
-            state: 'hold' | 'teardown';
+            state: "hold" | "teardown";
         }
 
         interface WindowOpeningData {
@@ -307,7 +307,6 @@ declare namespace OO.ui {
              *     // Open window by explicitly given name
              *     windowManager.openWindow( 'myMessageDialog' );
              *
-             *
              * @param windows An array of window objects specified
              *  by reference, symbolic name, or explicitly defined symbolic names.
              * @throws {Error} An error is thrown if a window is added by symbolic name, but has neither an
@@ -393,19 +392,19 @@ declare namespace OO.ui {
 
             connect<T extends Partial<Record<keyof EventMap, any>>, C>(
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
             ): this;
 
             disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
             ): this;
             // #endregion
         }
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): WindowManager;
+            new(config?: ConfigOptions): WindowManager;
             prototype: Prototype;
             static: Static;
             super: Element.Constructor;

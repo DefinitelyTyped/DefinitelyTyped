@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.7
 
-import { RequestHandler } from 'express';
+import { RequestHandler } from "express";
 
 declare enum ROLES {
-    SYS_ADMIN = 'sys-admin',
-    USER = 'user',
+    SYS_ADMIN = "sys-admin",
+    USER = "user",
 }
 
 declare class Auth<T> {
@@ -36,4 +36,4 @@ interface KConnect {
 
 declare function init<T>(config?: T): KConnect & T;
 
-export { init, Auth, ROLES };
+export { Auth, init, ROLES };

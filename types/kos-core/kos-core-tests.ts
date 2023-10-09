@@ -1,4 +1,4 @@
-import KOS from 'kos-core';
+import KOS from "kos-core";
 
 type IReactComponent<P = any, S = any> = React.ComponentClass<P, S>;
 declare let RC: IReactComponent;

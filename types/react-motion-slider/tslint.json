@@ -1,8 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "member-access": false,
-        "no-single-declare-module": false,
-        "strict-export-declare-modifiers": false
+        "member-access": false
     }
 }

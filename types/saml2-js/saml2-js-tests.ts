@@ -1,17 +1,17 @@
-import * as fs from 'fs';
-import express = require('express');
-import * as saml2 from 'saml2-js';
+import * as fs from "fs";
+import express = require("express");
+import * as saml2 from "saml2-js";
 
 // Example
 {
     const sp_options = {
-        entity_id: 'https://sp.example.com/metadata.xml',
-        private_key: fs.readFileSync('key-file.pem').toString(),
-        certificate: fs.readFileSync('cert-file.crt').toString(),
-        assert_endpoint: 'https://sp.example.com/assert',
+        entity_id: "https://sp.example.com/metadata.xml",
+        private_key: fs.readFileSync("key-file.pem").toString(),
+        certificate: fs.readFileSync("cert-file.crt").toString(),
+        assert_endpoint: "https://sp.example.com/assert",
         force_authn: true,
-        auth_context: { comparison: 'exact', class_refs: ['urn:oasis:names:tc:SAML:1.0:am:password'] },
-        nameid_format: 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
+        auth_context: { comparison: "exact", class_refs: ["urn:oasis:names:tc:SAML:1.0:am:password"] },
+        nameid_format: "urn:oasis:names:tc:SAML:2.0:nameid-format:transient",
         sign_get_request: false,
         allow_unencrypted_assertion: true,
     };
@@ -25,9 +25,9 @@ import * as saml2 from 'saml2-js';
 
     // Initialize options object
     const idp_options = {
-        sso_login_url: 'https://idp.example.com/login',
-        sso_logout_url: 'https://idp.example.com/logout',
-        certificates: [fs.readFileSync('cert-file1.crt').toString(), fs.readFileSync('cert-file2.crt').toString()],
+        sso_login_url: "https://idp.example.com/login",
+        sso_logout_url: "https://idp.example.com/logout",
+        certificates: [fs.readFileSync("cert-file1.crt").toString(), fs.readFileSync("cert-file2.crt").toString()],
         force_authn: true,
         sign_get_request: false,
         allow_unencrypted_assertion: false,
@@ -47,31 +47,31 @@ import * as saml2 from 'saml2-js';
 
     // Create service provider
     const sp_options = {
-        entity_id: 'https://sp.example.com/metadata.xml',
-        private_key: fs.readFileSync('key-file.pem').toString(),
-        certificate: fs.readFileSync('cert-file.crt').toString(),
-        assert_endpoint: 'https://sp.example.com/assert',
+        entity_id: "https://sp.example.com/metadata.xml",
+        private_key: fs.readFileSync("key-file.pem").toString(),
+        certificate: fs.readFileSync("cert-file.crt").toString(),
+        assert_endpoint: "https://sp.example.com/assert",
     };
     const sp = new saml2.ServiceProvider(sp_options);
 
     // Create identity provider
     const idp_options = {
-        sso_login_url: 'https://idp.example.com/login',
-        sso_logout_url: 'https://idp.example.com/logout',
-        certificates: [fs.readFileSync('cert-file1.crt').toString(), fs.readFileSync('cert-file2.crt').toString()],
+        sso_login_url: "https://idp.example.com/login",
+        sso_logout_url: "https://idp.example.com/logout",
+        certificates: [fs.readFileSync("cert-file1.crt").toString(), fs.readFileSync("cert-file2.crt").toString()],
     };
     const idp = new saml2.IdentityProvider(idp_options);
 
     // ------ Define express endpoints ------
 
     // Endpoint to retrieve metadata
-    app.get('/metadata.xml', function(req, res) {
-        res.type('application/xml');
+    app.get("/metadata.xml", function(req, res) {
+        res.type("application/xml");
         res.send(sp.create_metadata());
     });
 
     // Starting point for login
-    app.get('/login', function(req, res) {
+    app.get("/login", function(req, res) {
         sp.create_login_request_url(idp, {}, function(err, login_url, request_id) {
             if (err != null) return res.send(500);
             res.redirect(login_url);
@@ -79,7 +79,7 @@ import * as saml2 from 'saml2-js';
     });
 
     // Assert endpoint for when login completes
-    app.post('/assert', function(req, res) {
+    app.post("/assert", function(req, res) {
         const options = {
             request_body: req.body,
             notbefore_skew: 5,
@@ -100,9 +100,9 @@ import * as saml2 from 'saml2-js';
     });
 
     // Starting point for logout
-    app.get('/logout', function(req, res) {
-        let name_id = '';
-        let session_index = '';
+    app.get("/logout", function(req, res) {
+        let name_id = "";
+        let session_index = "";
         const options = {
             name_id: name_id,
             session_index: session_index,

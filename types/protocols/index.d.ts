@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { URL } from 'url';
+import { URL } from "url";
 
 /**
  * @param input The input url.

@@ -7,9 +7,7 @@
 /// <reference types="gapi" />
 
 declare namespace gapi.client.language {
-
     export interface detections {
-
         /**
          * Detect the language of text.
          */
@@ -26,8 +24,6 @@ declare namespace gapi.client.language {
     }
 
     export interface languages {
-
-
         /**
          * List the source/target languages supported by the API
          */
@@ -40,12 +36,10 @@ declare namespace gapi.client.language {
              * Selector specifying which fields to include in a partial response.
              */
             fields?: string | undefined;
-        }): HttpRequest<GoogleApiTranslateLanguageListResponse>
-
+        }): HttpRequest<GoogleApiTranslateLanguageListResponse>;
     }
 
     export interface translations {
-
         /**
          * Returns text translations from one language to another.
          */
@@ -79,40 +73,32 @@ declare namespace gapi.client.language {
              */
             prettyprint?: string | undefined;
         }): HttpRequest<GoogleApiTranslateTranslationListResponse>;
-
     }
 }
 
-
 interface GoogleApiTranslateTranslationListResponse {
-
     data: {
         translations: {
             translatedText: string;
             detectedSourceLanguage: string;
         }[];
-    }
-
+    };
 }
 
 interface GoogleApiTranslateLanguageListResponse {
-
     data: {
         languages: {
             language: string;
             name: string;
         }[];
-    }
-
+    };
 }
 
 interface GoogleApiTranslateDetectionListResponse {
-
     data: {
         detections: {
             language: string;
             confidence: number;
         }[][];
-    }
-
+    };
 }

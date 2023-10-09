@@ -72,7 +72,14 @@ export function floor(out: number[], a: number[]): number[];
 /**
  * Perform some operation over an array of numbers.
  */
-export function forEach(a: number[], stride: number, offset: number, count: number, fn: (a: number[], b: number[], arg: object) => number[], arg: object): number[];
+export function forEach(
+    a: number[],
+    stride: number,
+    offset: number,
+    count: number,
+    fn: (a: number[], b: number[], arg: object) => number[],
+    arg: object,
+): number[];
 
 /**
  * Creates a new number initialized with the given values.

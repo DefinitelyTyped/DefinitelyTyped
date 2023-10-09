@@ -12,7 +12,7 @@
 
  ---------------------------------- */
 
-import { EventEmitter2 } from 'eventemitter2';
+import { EventEmitter2 } from "eventemitter2";
 
 export = ROSLIB;
 export as namespace ROSLIB;
@@ -40,7 +40,6 @@ declare namespace ROSLIB {
          *  * &#60;topicName&#62; - A message came from rosbridge with the given topic name.
          *  * &#60;serviceID&#62; - A service response came from rosbridge with the given ID.
          *
-         * @constructor
          * @param {Object} options
          * @param {string} [options.url] - The WebSocket URL for rosbridge or the node server URL to connect using socket.io (if socket.io exists in the page). Can be specified later with `connect`.
          * @param {boolean} [options.groovyCompatibility=true] - Don't use interfaces that changed after the last groovy release or rosbridge_suite and related tools.
@@ -50,19 +49,19 @@ declare namespace ROSLIB {
         constructor(options: {
             url?: string | undefined;
             groovyCompatibility?: boolean | undefined;
-            transportLibrary?: 'websocket' | 'workersocket' | 'socket.io' | RTCPeerConnection | undefined;
+            transportLibrary?: "websocket" | "workersocket" | "socket.io" | RTCPeerConnection | undefined;
             transportOptions?: RTCDataChannelInit | undefined;
         });
 
         readonly isConnected: boolean;
 
-        readonly transportLibrary: 'websocket' | 'workersocket' | 'socket.io' | RTCPeerConnection;
+        readonly transportLibrary: "websocket" | "workersocket" | "socket.io" | RTCPeerConnection;
 
         readonly transportOptions: RTCDataChannelInit | {};
 
         on(eventName: string, callback: (event: any) => void): this;
 
-        on(eventName: 'connection' | 'close' | 'error', callback: (event: Event) => void): this;
+        on(eventName: "connection" | "close" | "error", callback: (event: Event) => void): this;
 
         /**
          * Connect to the specified WebSocket.
@@ -102,7 +101,7 @@ declare namespace ROSLIB {
          *
          * @param {any} messageEncoded - The encoded message to be sent.
          */
-         sendEncodedMessage(messageEncoded: any): void;
+        sendEncodedMessage(messageEncoded: any): void;
 
         /**
          * Send the message over the WebSocket, but queue the message up if not yet
@@ -195,7 +194,7 @@ declare namespace ROSLIB {
          * @param {function} [failedCallback] - The callback function when the service call failed with params:
          * @param {string} failedCallback.error - The error message reported by ROS.
          */
-         getServiceRequestDetails(
+        getServiceRequestDetails(
             type: string,
             callback: (result: { typedefs: string[] }) => void,
             failedCallback?: (error: string) => void,
@@ -242,7 +241,11 @@ declare namespace ROSLIB {
          */
         // Note: Use type overloading instead to provide better readability of the available function signatures of getNodeDetails
         // tslint:disable-next-line:unified-signatures
-        getNodeDetails(node: string, callback: (subscriptions: string[], publications: string[], services: string[]) => void, failedCallback?: (error: string) => void): void;
+        getNodeDetails(
+            node: string,
+            callback: (subscriptions: string[], publications: string[], services: string[]) => void,
+            failedCallback?: (error: string) => void,
+        ): void;
 
         /**
          * Retrieve a list of subscribed topics, publishing topics and services of a specific node.
@@ -258,9 +261,13 @@ declare namespace ROSLIB {
          * @param {function} [failedCallback] - The callback function when the service call failed with params:
          * @param {string} failedCallback.error - The error message reported by ROS.
          */
-        // Note: Use type overloading instead to provide better readability of the available function signatures of getNodeDetails
-        // tslint:disable-next-line:unified-signatures
-        getNodeDetails(node: string, callback: (result: { subscribing: string[], publishing: string[], services: string[] }) => void, failedCallback?: (error: string) => void): void;
+        getNodeDetails(
+            node: string,
+            // Note: Use type overloading instead to provide better readability of the available function signatures of getNodeDetails
+            // tslint:disable-next-line:unified-signatures
+            callback: (result: { subscribing: string[]; publishing: string[]; services: string[] }) => void,
+            failedCallback?: (error: string) => void,
+        ): void;
 
         /**
          * Retrieve a list of parameter names from the ROS Parameter Server.
@@ -292,7 +299,11 @@ declare namespace ROSLIB {
          * @param {function} [failedCallback] - The callback function when the service call failed with params:
          * @param {string} failedCallback.error - The error message reported by ROS.
          */
-        getServiceType(service: string, callback: (type: string) => void, failedCallback?: (error: string) => void): void;
+        getServiceType(
+            service: string,
+            callback: (type: string) => void,
+            failedCallback?: (error: string) => void,
+        ): void;
 
         /**
          * Retrieve the details of a ROS message.
@@ -328,7 +339,7 @@ declare namespace ROSLIB {
          * @param {string} failedCallback.error - The error message reported by ROS.
          */
         getTopicsAndRawTypes(
-            callback: (result: {topics: string[], types: string[], typedefs_full_text: string[]}) => void,
+            callback: (result: { topics: string[]; types: string[]; typedefs_full_text: string[] }) => void,
             failedCallback?: (error: string) => void,
         ): void;
     }
@@ -337,7 +348,6 @@ declare namespace ROSLIB {
         /**
          * Message objects are used for publishing and subscribing to and from topics.
          *
-         * @constructor
          * @param {any} values - An object matching the fields defined in the .msg definition file.
          */
         constructor(values: any);
@@ -347,7 +357,6 @@ declare namespace ROSLIB {
         /**
          * A ROS parameter.
          *
-         * @constructor
          * @param {Object} options
          * @param {Ros} options.ros - The ROSLIB.Ros connection handle.
          * @param {string} options.name - The param name, like max_vel_x.
@@ -382,7 +391,6 @@ declare namespace ROSLIB {
         /**
          * A ROS service client.
          *
-         * @constructor
          * @param {Object} options
          * @param {Ros} options.ros - The ROSLIB.Ros connection handle.
          * @param {string} options.name - The service name, like '/add_two_ints'.
@@ -434,7 +442,6 @@ declare namespace ROSLIB {
         /**
          * A ServiceRequest is passed into the service call.
          *
-         * @constructor
          * @param {any} values - Object matching the fields defined in the .srv definition file.
          */
         constructor(values: any);
@@ -444,7 +451,6 @@ declare namespace ROSLIB {
         /**
          * A ServiceResponse is returned from the service call.
          *
-         * @constructor
          * @param {any} values - Object matching the fields defined in the .srv definition file.
          */
         constructor(values: any);
@@ -458,7 +464,6 @@ declare namespace ROSLIB {
          *  * 'warning' - If there are any warning during the Topic creation.
          *  * 'message' - The message data from rosbridge.
          *
-         * @constructor
          * @param {Object} options
          * @param {Ros} options.ros - The ROSLIB.Ros connection handle.
          * @param {string} options.name - The topic name, like '/cmd_vel'.
@@ -529,7 +534,6 @@ declare namespace ROSLIB {
         /**
          * A TF Client that listens to TFs from tf2_web_republisher.
          *
-         * @constructor
          * @param {Object} options
          * @param {Ros} options.ros - The ROSLIB.Ros connection handle.
          * @param {string} [options.fixedFrame=base_link] - The fixed frame.
@@ -603,7 +607,6 @@ declare namespace ROSLIB {
         /**
          * A Transform in 3-space. Values are copied into this object.
          *
-         * @constructor
          * @param {Object} options
          * @param {Vector3Like} options.translation - The ROSLIB.Vector3 describing the translation.
          * @param {QuaternionLike} options.rotation - The ROSLIB.Quaternion describing the rotation.
@@ -628,7 +631,6 @@ declare namespace ROSLIB {
         /**
          * A 3D vector.
          *
-         * @constructor
          * @param {Object} options
          * @param {number} [options.x=0] - The x value.
          * @param {number} [options.y=0] - The y value.
@@ -680,7 +682,6 @@ declare namespace ROSLIB {
         /**
          * A Quaternion.
          *
-         * @constructor
          * @param {Object} options
          * @param {number} [options.x=0] - The x value.
          * @param {number} [options.y=0] - The y value.
@@ -746,7 +747,6 @@ declare namespace ROSLIB {
         /**
          * A Pose in 3D space. Values are copied into this object.
          *
-         * @constructor
          * @param {Object} options
          * @param {Vector3Like} options.position - The ROSLIB.Vector3 describing the position.
          * @param {QuaternionLike} options.orientation - The ROSLIB.Quaternion describing the orientation.
@@ -797,7 +797,6 @@ declare namespace ROSLIB {
          *  * 'feedback' - The feedback messages received from the action server.
          *  * 'result' - The result returned from the action server.
          *
-         * @constructor
          * @param {Object} options
          * @param {Ros} options.ros - The ROSLIB.Ros connection handle.
          * @param {string} options.serverName - The action server name, like '/fibonacci'.
@@ -807,7 +806,17 @@ declare namespace ROSLIB {
          * @param {boolean} [options.omitStatus] - The flag to indicate whether to omit the status channel or not.
          * @param {boolean} [options.omitResult] - The flag to indicate whether to omit the result channel or not.
          */
-        constructor(options: { ros: Ros; serverName: string; actionName: string; timeout?: number; omitFeedback?: boolean; omitStatus?: boolean; omitResult?: boolean });
+        constructor(
+            options: {
+                ros: Ros;
+                serverName: string;
+                actionName: string;
+                timeout?: number;
+                omitFeedback?: boolean;
+                omitStatus?: boolean;
+                omitResult?: boolean;
+            },
+        );
 
         /**
          * Cancel all goals associated with this ActionClient.
@@ -829,7 +838,6 @@ declare namespace ROSLIB {
          *  * 'feedback' - The feedback messages received from the action server.
          *  * 'result' - The result returned from the action server.
          *
-         * @constructor
          * @param {Object} options
          * @param {Ros} options.ros - The ROSLIB.Ros connection handle.
          * @param {string} options.serverName - The action server name, like '/fibonacci'.
@@ -845,7 +853,6 @@ declare namespace ROSLIB {
          * Emits the following events:
          *  * 'timeout' - If a timeout occurred while sending a goal.
          *
-         * @constructor
          * @param {Object} options
          * @param {ActionClient} options.actionClient - The ROSLIB.ActionClient to use with this goal.
          * @param {any} options.goalMessage - The JSON object containing the goal for the action server.
@@ -858,7 +865,7 @@ declare namespace ROSLIB {
          * @param {string} eventName - Name of event ('timeout', 'status', 'feedback', 'result').
          * @param {function} callback - Callback function executed on connected event.
          */
-        on(eventName: 'timeout' | 'status' | 'feedback' | 'result', callback: (event: any) => void): void;
+        on(eventName: "timeout" | "status" | "feedback" | "result", callback: (event: any) => void): void;
 
         /**
          * Send the goal to the action server.
@@ -881,7 +888,6 @@ declare namespace ROSLIB {
          *  * 'goal' - Goal sent by action client.
          *  * 'cancel' - Action client has canceled the request.
          *
-         * @constructor
          * @param {Object} options
          * @param {Ros} options.ros - The ROSLIB.Ros connection handle.
          * @param {string} options.serverName - The action server name, like '/fibonacci'.
@@ -924,7 +930,6 @@ declare namespace ROSLIB {
         /**
          * A Color element in a URDF.
          *
-         * @constructor
          * @param {Object} options
          * @param {Node} options.xml - The XML element to parse.
          */
@@ -939,7 +944,6 @@ declare namespace ROSLIB {
         /**
          * A Material element in a URDF.
          *
-         * @constructor
          * @param {Object} options
          * @param {Node} options.xml - The XML element to parse.
          */
@@ -961,7 +965,6 @@ declare namespace ROSLIB {
         /**
          * A Joint element in a URDF.
          *
-         * @constructor
          * @param {Object} options
          * @param {Node} options.xml - The XML element to parse.
          */
@@ -982,7 +985,6 @@ declare namespace ROSLIB {
         /**
          * A Sphere element in a URDF.
          *
-         * @constructor
          * @param {Object} options
          * @param {Node} options.xml - The XML element to parse.
          */
@@ -996,7 +998,6 @@ declare namespace ROSLIB {
         /**
          * A Box element in a URDF.
          *
-         * @constructor
          * @param {Object} options
          * @param {Node} options.xml - The XML element to parse.
          */
@@ -1011,7 +1012,6 @@ declare namespace ROSLIB {
         /**
          * A Cylinder element in a URDF.
          *
-         * @constructor
          * @param {Object} options
          * @param {Node} options.xml - The XML element to parse.
          */
@@ -1026,7 +1026,6 @@ declare namespace ROSLIB {
         /**
          * A Box element in a URDF.
          *
-         * @constructor
          * @param {Object} options
          * @param {Node} options.xml - The XML element to parse.
          */
@@ -1041,7 +1040,6 @@ declare namespace ROSLIB {
         /**
          * A Visual element in a URDF.
          *
-         * @constructor
          * @param {Object} options
          * @param {Node} options.xml - The XML element to parse.
          */
@@ -1055,7 +1053,6 @@ declare namespace ROSLIB {
         /**
          * A Link element in a URDF.
          *
-         * @constructor
          * @param {Object} options
          * @param {Node} options.xml - The XML element to parse.
          */
@@ -1070,7 +1067,6 @@ declare namespace ROSLIB {
         /**
          * A URDF Model can be used to parse a given URDF into the appropriate elements.
          *
-         * @constructor
          * @param {Object} options
          * @param {Node} options.xml - The XML element to parse.
          * @param {string} options.string - The XML element to parse as a string.

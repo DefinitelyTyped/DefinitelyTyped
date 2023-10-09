@@ -23,7 +23,7 @@ declare namespace DataTables {
          * FixedColumns has three different algorithms that it can use: 'none', 'semiauto', 'auto'
          * @see {@link https://datatables.net/reference/option/fixedColumns.heightMatch}
          */
-        heightMatch?: 'none' | 'semiauto' | 'auto' | undefined;
+        heightMatch?: "none" | "semiauto" | "auto" | undefined;
 
         /**
          * @description The number of columns on the left hand side of the table to fix in place.

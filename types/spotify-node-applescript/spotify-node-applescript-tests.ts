@@ -3,19 +3,19 @@
 // Definitions by: Mattia Panzeri <https://github.com/panz3r>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as spotify from 'spotify-node-applescript';
+import * as spotify from "spotify-node-applescript";
 
 /**
  * Play a track with Spotify URI.
  */
-spotify.playTrack('spotify:track:3AhXZa8sUQht0UEdBJgpGc', () => {
+spotify.playTrack("spotify:track:3AhXZa8sUQht0UEdBJgpGc", () => {
     // track is playing
 });
 
 /**
  * Play a track in a context (for example an album).
  */
-spotify.playTrackInContext('spotify:track:0R8P9KfGJCDULmlEoBagcO', 'spotify:album:6ZG5lRT77aJ3btmArcykra', () => {
+spotify.playTrackInContext("spotify:track:0R8P9KfGJCDULmlEoBagcO", "spotify:album:6ZG5lRT77aJ3btmArcykra", () => {
     // Track is playing in context of an album
 });
 

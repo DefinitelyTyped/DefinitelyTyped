@@ -111,7 +111,15 @@ interface WebGL2ComputeRenderingContext extends WebGL2RenderingContext {
     readonly VERTEX_ATTRIB_ARRAY_BARRIER_BIT: number; // 1
     readonly WRITE_ONLY: number; // 35001
 
-    bindImageTexture(unit: number, texture: WebGLTexture | null, level: number, layered: boolean, layer: number, access: number, format: number): void;
+    bindImageTexture(
+        unit: number,
+        texture: WebGLTexture | null,
+        level: number,
+        layered: boolean,
+        layer: number,
+        access: number,
+        format: number,
+    ): void;
 
     dispatchCompute(num_groups_x: number, num_groups_y: number, num_groups_z: number): void;
     dispatchComputeIndirect(offset: number): void;
@@ -187,7 +195,7 @@ interface WebGL2ComputeRenderingContext extends WebGL2RenderingContext {
 
 declare var WebGL2ComputeRenderingContext: {
     prototype: WebGL2ComputeRenderingContext;
-    new (): WebGL2ComputeRenderingContext;
+    new(): WebGL2ComputeRenderingContext;
 
     // WebGL constants
     readonly ACTIVE_ATTRIBUTES: number; // 35721

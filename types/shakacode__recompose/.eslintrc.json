@@ -1,7 +1,8 @@
 {
     "rules": {
-        "no-unnecessary-generics": "off",
-        "no-declare-current-package": "off",
-        "no-self-import": "off"
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/no-self-import": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off"
     }
 }

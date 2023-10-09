@@ -1,16 +1,16 @@
 /**
- * The `url` module provides utilities for URL resolution and parsing. It can be
- * accessed using:
+ * The `node:url` module provides utilities for URL resolution and parsing. It can
+ * be accessed using:
  *
  * ```js
- * import url from 'url';
+ * import url from 'node:url';
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/url.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/url.js)
  */
-declare module 'url' {
-    import { Blob as NodeBlob } from 'node:buffer';
-    import { ClientRequestArgs } from 'node:http';
-    import { ParsedUrlQuery, ParsedUrlQueryInput } from 'node:querystring';
+declare module "url" {
+    import { Blob as NodeBlob } from "node:buffer";
+    import { ClientRequestArgs } from "node:http";
+    import { ParsedUrlQuery, ParsedUrlQueryInput } from "node:querystring";
     // Input to `url.format`
     interface UrlObject {
         auth?: string | null | undefined;
@@ -54,17 +54,11 @@ declare module 'url' {
      *
      * A `URIError` is thrown if the `auth` property is present but cannot be decoded.
      *
-     * Use of the legacy `url.parse()` method is discouraged. Users should
-     * use the WHATWG `URL` API. Because the `url.parse()` method uses a
-     * lenient, non-standard algorithm for parsing URL strings, security
-     * issues can be introduced. Specifically, issues with [host name spoofing](https://hackerone.com/reports/678487) and
-     * incorrect handling of usernames and passwords have been identified.
-     *
-     * Deprecation of this API has been shelved for now primarily due to the the
-     * inability of the [WHATWG API to parse relative URLs](https://github.com/nodejs/node/issues/12682#issuecomment-1154492373).
-     * [Discussions are ongoing](https://github.com/whatwg/url/issues/531) for the  best way to resolve this.
-     *
+     * `url.parse()` uses a lenient, non-standard algorithm for parsing URL
+     * strings. It is prone to security issues such as [host name spoofing](https://hackerone.com/reports/678487) and incorrect handling of usernames and passwords. Do not use with untrusted
+     * input. CVEs are not issued for `url.parse()` vulnerabilities. Use the `WHATWG URL` API instead.
      * @since v0.1.25
+     * @deprecated Use the WHATWG URL API instead.
      * @param urlString The URL string to parse.
      * @param [parseQueryString=false] If `true`, the `query` property will always be set to an object returned by the {@link querystring} module's `parse()` method. If `false`, the `query` property
      * on the returned URL object will be an unparsed, undecoded string.
@@ -72,22 +66,26 @@ declare module 'url' {
      * result would be `{host: 'foo', pathname: '/bar'}` rather than `{pathname: '//foo/bar'}`.
      */
     function parse(urlString: string): UrlWithStringQuery;
-    function parse(urlString: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;
+    function parse(
+        urlString: string,
+        parseQueryString: false | undefined,
+        slashesDenoteHost?: boolean,
+    ): UrlWithStringQuery;
     function parse(urlString: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
     function parse(urlString: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;
     /**
      * The `url.format()` method returns a formatted URL string derived from`urlObject`.
      *
      * ```js
-     * const url = require('url');
+     * const url = require('node:url');
      * url.format({
      *   protocol: 'https',
      *   hostname: 'example.com',
      *   pathname: '/some/path',
      *   query: {
      *     page: 1,
-     *     format: 'json'
-     *   }
+     *     format: 'json',
+     *   },
      * });
      *
      * // => 'https://example.com/some/path?page=1&#x26;format=json'
@@ -135,7 +133,7 @@ declare module 'url' {
      * string, an `Error` is thrown.
      * * `result` is returned.
      * @since v0.1.25
-     * @deprecated Legacy: Use the WHATWG URL API instead.
+     * @legacy Use the WHATWG URL API instead.
      * @param urlObject A URL object (as returned by `url.parse()` or constructed otherwise). If a string, it is converted to an object by passing it to `url.parse()`.
      */
     function format(urlObject: URL, options?: URLFormatOptions): string;
@@ -199,7 +197,7 @@ declare module 'url' {
      * string, an `Error` is thrown.
      * * `result` is returned.
      * @since v0.1.25
-     * @deprecated Legacy: Use the WHATWG URL API instead.
+     * @legacy Use the WHATWG URL API instead.
      * @param urlObject A URL object (as returned by `url.parse()` or constructed otherwise). If a string, it is converted to an object by passing it to `url.parse()`.
      */
     function format(urlObject: UrlObject | string): string;
@@ -208,7 +206,7 @@ declare module 'url' {
      * manner similar to that of a web browser resolving an anchor tag.
      *
      * ```js
-     * const url = require('url');
+     * const url = require('node:url');
      * url.resolve('/one/two/three', 'four');         // '/one/two/four'
      * url.resolve('http://example.com/', '/one');    // 'http://example.com/one'
      * url.resolve('http://example.com/one', '/two'); // 'http://example.com/two'
@@ -232,7 +230,7 @@ declare module 'url' {
      * resolve('http://example.com/one', '/two'); // 'http://example.com/two'
      * ```
      * @since v0.1.25
-     * @deprecated Legacy: Use the WHATWG URL API instead.
+     * @legacy Use the WHATWG URL API instead.
      * @param from The base URL to use if `to` is a relative URL.
      * @param to The target URL to resolve.
      */
@@ -243,10 +241,8 @@ declare module 'url' {
      *
      * It performs the inverse operation to {@link domainToUnicode}.
      *
-     * This feature is only available if the `node` executable was compiled with `ICU` enabled. If not, the domain names are passed through unchanged.
-     *
      * ```js
-     * import url from 'url';
+     * import url from 'node:url';
      *
      * console.log(url.domainToASCII('español.com'));
      * // Prints xn--espaol-zwa.com
@@ -264,10 +260,8 @@ declare module 'url' {
      *
      * It performs the inverse operation to {@link domainToASCII}.
      *
-     * This feature is only available if the `node` executable was compiled with `ICU` enabled. If not, the domain names are passed through unchanged.
-     *
      * ```js
-     * import url from 'url';
+     * import url from 'node:url';
      *
      * console.log(url.domainToUnicode('xn--espaol-zwa.com'));
      * // Prints español.com
@@ -284,7 +278,7 @@ declare module 'url' {
      * well as ensuring a cross-platform valid absolute path string.
      *
      * ```js
-     * import { fileURLToPath } from 'url';
+     * import { fileURLToPath } from 'node:url';
      *
      * const __filename = fileURLToPath(import.meta.url);
      *
@@ -310,7 +304,7 @@ declare module 'url' {
      * control characters are correctly encoded when converting into a File URL.
      *
      * ```js
-     * import { pathToFileURL } from 'url';
+     * import { pathToFileURL } from 'node:url';
      *
      * new URL('/foo#1', 'file:');           // Incorrect: file:///foo#1
      * pathToFileURL('/foo#1');              // Correct:   file:///foo%231 (POSIX)
@@ -328,7 +322,7 @@ declare module 'url' {
      * expected by the `http.request()` and `https.request()` APIs.
      *
      * ```js
-     * import { urlToHttpOptions } from 'url';
+     * import { urlToHttpOptions } from 'node:url';
      * const myURL = new URL('https://a:b@測試?abc#foo');
      *
      * console.log(urlToHttpOptions(myURL));
@@ -376,7 +370,7 @@ declare module 'url' {
          * const {
          *   Blob,
          *   resolveObjectURL,
-         * } = require('buffer');
+         * } = require('node:buffer');
          *
          * const blob = new Blob(['hello']);
          * const id = URL.createObjectURL(blob);
@@ -398,12 +392,26 @@ declare module 'url' {
         static createObjectURL(blob: NodeBlob): string;
         /**
          * Removes the stored `Blob` identified by the given ID. Attempting to revoke a
-         * ID that isn’t registered will silently fail.
+         * ID that isn't registered will silently fail.
          * @since v16.7.0
          * @experimental
          * @param id A `'blob:nodedata:...` URL string returned by a prior call to `URL.createObjectURL()`.
          */
         static revokeObjectURL(objectUrl: string): void;
+        /**
+         * Checks if an `input` relative to the `base` can be parsed to a `URL`.
+         *
+         * ```js
+         * const isValid = URL.canParse('/foo', 'https://example.org/'); // true
+         *
+         * const isNotValid = URL.canParse('/foo'); // false
+         * ```
+         * @since v19.9.0
+         * @param input The absolute or relative input URL to parse. If `input` is relative, then `base` is required. If `input` is absolute, the `base` is ignored. If `input` is not a string, it is
+         * `converted to a string` first.
+         * @param base The base URL to resolve against if the `input` is not absolute. If `base` is not a string, it is `converted to a string` first.
+         */
+        static canParse(input: string, base?: string): boolean;
         constructor(input: string, base?: string | URL);
         /**
          * Gets and sets the fragment portion of the URL.
@@ -449,7 +457,7 @@ declare module 'url' {
          * // Prints example.org
          *
          * // Setting the hostname does not change the port
-         * myURL.hostname = 'example.com:82';
+         * myURL.hostname = 'example.com';
          * console.log(myURL.href);
          * // Prints https://example.com:81/foo
          *
@@ -512,7 +520,7 @@ declare module 'url' {
          *
          * myURL.password = '123';
          * console.log(myURL.href);
-         * // Prints https://abc:123@example.com
+         * // Prints https://abc:123@example.com/
          * ```
          *
          * Invalid URL characters included in the value assigned to the `password` property
@@ -656,14 +664,14 @@ declare module 'url' {
          * character, while `URLSearchParams` will always encode it:
          *
          * ```js
-         * const myUrl = new URL('https://example.org/abc?foo=~bar');
+         * const myURL = new URL('https://example.org/abc?foo=~bar');
          *
-         * console.log(myUrl.search);  // prints ?foo=~bar
+         * console.log(myURL.search);  // prints ?foo=~bar
          *
          * // Modify the URL via searchParams...
-         * myUrl.searchParams.sort();
+         * myURL.searchParams.sort();
          *
-         * console.log(myUrl.search);  // prints ?foo=%7Ebar
+         * console.log(myURL.search);  // prints ?foo=%7Ebar
          * ```
          */
         readonly searchParams: URLSearchParams;
@@ -752,15 +760,25 @@ declare module 'url' {
      * @since v7.5.0, v6.13.0
      */
     class URLSearchParams implements Iterable<[string, string]> {
-        constructor(init?: URLSearchParams | string | Record<string, string | ReadonlyArray<string>> | Iterable<[string, string]> | ReadonlyArray<[string, string]>);
+        constructor(
+            init?:
+                | URLSearchParams
+                | string
+                | Record<string, string | ReadonlyArray<string>>
+                | Iterable<[string, string]>
+                | ReadonlyArray<[string, string]>,
+        );
         /**
          * Append a new name-value pair to the query string.
          */
         append(name: string, value: string): void;
         /**
-         * Remove all name-value pairs whose name is `name`.
+         * If `value` is provided, removes all name-value pairs
+         * where name is `name` and value is `value`..
+         *
+         * If `value` is not provided, removes all name-value pairs whose name is `name`.
          */
-        delete(name: string): void;
+        delete(name: string, value?: string): void;
         /**
          * Returns an ES6 `Iterator` over each of the name-value pairs in the query.
          * Each item of the iterator is a JavaScript `Array`. The first item of the `Array`is the `name`, the second item of the `Array` is the `value`.
@@ -783,7 +801,10 @@ declare module 'url' {
          * @param fn Invoked for each name-value pair in the query
          * @param thisArg To be used as `this` value for when `fn` is called
          */
-        forEach<TThis = this>(callback: (this: TThis, value: string, name: string, searchParams: URLSearchParams) => void, thisArg?: TThis): void;
+        forEach<TThis = this>(
+            callback: (this: TThis, value: string, name: string, searchParams: URLSearchParams) => void,
+            thisArg?: TThis,
+        ): void;
         /**
          * Returns the value of the first name-value pair whose name is `name`. If there
          * are no such pairs, `null` is returned.
@@ -796,9 +817,15 @@ declare module 'url' {
          */
         getAll(name: string): string[];
         /**
-         * Returns `true` if there is at least one name-value pair whose name is `name`.
+         * Checks if the `URLSearchParams` object contains key-value pair(s) based on`name` and an optional `value` argument.
+         *
+         * If `value` is provided, returns `true` when name-value pair with
+         * same `name` and `value` exists.
+         *
+         * If `value` is not provided, returns `true` if there is at least one name-value
+         * pair whose name is `name`.
          */
-        has(name: string): boolean;
+        has(name: string, value?: string): boolean;
         /**
          * Returns an ES6 `Iterator` over the names of each name-value pair.
          *
@@ -834,6 +861,11 @@ declare module 'url' {
          */
         set(name: string, value: string): void;
         /**
+         * The total number of parameter entries.
+         * @since v19.8.0
+         */
+        readonly size: number;
+        /**
          * Sort all existing name-value pairs in-place by their names. Sorting is done
          * with a [stable sorting algorithm](https://en.wikipedia.org/wiki/Sorting_algorithm#Stability), so relative order between name-value pairs
          * with the same name is preserved.
@@ -860,7 +892,7 @@ declare module 'url' {
         values(): IterableIterator<string>;
         [Symbol.iterator](): IterableIterator<[string, string]>;
     }
-    import { URL as _URL, URLSearchParams as _URLSearchParams } from 'url';
+    import { URL as _URL, URLSearchParams as _URLSearchParams } from "url";
     global {
         interface URLSearchParams extends _URLSearchParams {}
         interface URL extends _URL {}
@@ -876,8 +908,7 @@ declare module 'url' {
         var URL: typeof globalThis extends {
             onmessage: any;
             URL: infer T;
-        }
-            ? T
+        } ? T
             : typeof _URL;
         /**
          * `URLSearchParams` class is a global reference for `require('url').URLSearchParams`
@@ -887,11 +918,10 @@ declare module 'url' {
         var URLSearchParams: typeof globalThis extends {
             onmessage: any;
             URLSearchParams: infer T;
-        }
-            ? T
+        } ? T
             : typeof _URLSearchParams;
     }
 }
-declare module 'node:url' {
-    export * from 'url';
+declare module "node:url" {
+    export * from "url";
 }

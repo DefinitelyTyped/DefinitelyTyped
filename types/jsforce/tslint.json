@@ -6,11 +6,6 @@
         "ban-types": false,
         "eofline": false,
         "no-empty-interface": false,
-        "no-unnecessary-class": false,
-        "semicolon": false,
-        "space-within-parens": false,
-        "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "no-unnecessary-class": false
     }
 }

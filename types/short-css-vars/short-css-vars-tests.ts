@@ -1,5 +1,5 @@
-import { Options } from 'short-css-vars';
-import ShortCssVars = require('short-css-vars');
+import { Options } from "short-css-vars";
+import ShortCssVars = require("short-css-vars");
 
 const input = `:root {
     --custom-var-one: red;
@@ -17,7 +17,7 @@ const ctors = [
 const optionsTests: Options[] = [
     { ignore: /^.+-one/ },
     { ignore: name => name.length <= 4 },
-    { formatter: name => name.split('').reverse().join('') },
+    { formatter: name => name.split("").reverse().join("") },
 ];
 const [options] = optionsTests;
 

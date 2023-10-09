@@ -1,6 +1,6 @@
-import { appid, Callback, CallbackError, contextid, gid, UserComment } from '../index';
-import CEconItem = require('../classes/CEconItem');
-import SteamID = require('steamid');
+import { appid, Callback, CallbackError, contextid, gid, UserComment } from "../index";
+import CEconItem = require("../classes/CEconItem");
+import SteamID = require("steamid");
 
 export = CSteamUser;
 
@@ -17,11 +17,11 @@ declare class CSteamUser {
     /** The user's current profile name (can be changed). */
     name: string;
     /** The user's current online state. One of `in-game`, `online`, or `offline`. */
-    onlineState: 'in-game' | 'online' | 'offline';
+    onlineState: "in-game" | "online" | "offline";
     /** A message describing the user's current online state. Displayed on the profile below their status. */
     stateMessage: string;
     /** One of `public`, `friendsonly`, `private`. May also be a legacy value like `friendsfriendsonly`, these should be treated as private. */
-    privacyState: 'public' | 'friendsonly' | 'private' | string;
+    privacyState: "public" | "friendsonly" | "private" | string;
     /** The user's visibility state relative to you, as an integer. `1` if visible, `0` if private. If privateState is a legacy value, this will be 1 although it should in effect be 0. */
     visibilityState: 0 | 1;
     /** The hash of the user's avatar. */
@@ -29,7 +29,7 @@ declare class CSteamUser {
     /** `true` if the user has one or more VAC bans on record, `false` otherwise. */
     vacBanned: boolean;
     /** One of `None`, `Probation`, or `Banned`. */
-    tradeBanState: 'None' | 'Probation' | 'Banned';
+    tradeBanState: "None" | "Probation" | "Banned";
     /** `true` if the user's account is limited, `false` otherwise. */
     isLimitedAccount: boolean;
     /** The user's custom vanity URL. */
@@ -53,7 +53,7 @@ declare class CSteamUser {
      * @param size Optional. One of small (default), medium, full.
      * @param protocol Optional. One of http:// (default), https://, // (protocol aware).
      */
-    getAvatarURL(size?: string, protocol?: 'http://' | 'https://' | string): void;
+    getAvatarURL(size?: string, protocol?: "http://" | "https://" | string): void;
 
     /**
      * Adds the user as a friend.
@@ -112,18 +112,21 @@ declare class CSteamUser {
      * @param options Optional. An object containing zero or more of these properties.
      * @param callback Called when the request completes.
      */
-    getComments(options: Array<{
-        /** The offset of the first comment you want to retrieve (default 0). */
-        start: number,
-        /** How many comments you want to retrieve. */
-        count: number
-    }>, callback: (
-        err: CallbackError,
-        /** An array containing objects representing the comments. */
-        comments: UserComment[],
-        /** The total number of comments on this profile. */
-        totalCount: number,
-    ) => any): void;
+    getComments(
+        options: Array<{
+            /** The offset of the first comment you want to retrieve (default 0). */
+            start: number;
+            /** How many comments you want to retrieve. */
+            count: number;
+        }>,
+        callback: (
+            err: CallbackError,
+            /** An array containing objects representing the comments. */
+            comments: UserComment[],
+            /** The total number of comments on this profile. */
+            totalCount: number,
+        ) => any,
+    ): void;
 
     /**
      * Attempts to invite the user to a Steam group. Fails if you're not friends with them.
@@ -138,22 +141,26 @@ declare class CSteamUser {
      *
      * @param callback Required. Called when requested data is available.
      */
-    getAliases(callback: (
-        err: CallbackError,
-        /** A string containing the user's profile background URL. `null` if they have no custom background. */
-        backgroundUrl: string | null,
-    ) => any): void;
+    getAliases(
+        callback: (
+            err: CallbackError,
+            /** A string containing the user's profile background URL. `null` if they have no custom background. */
+            backgroundUrl: string | null,
+        ) => any,
+    ): void;
 
     /**
      * Gets info about what inventories are available to a user. Calling this for your own logged-in account will reset the number of new items you have to 0.
      *
      * @param callback Required. Called when the requested data is available.
      */
-    getInventoryContexts(callback: (
-        err: CallbackError,
-        /** An object whose keys are AppIDs and values are objects containing app and context data. */
-        apps: any,
-    ) => any): void;
+    getInventoryContexts(
+        callback: (
+            err: CallbackError,
+            /** An object whose keys are AppIDs and values are objects containing app and context data. */
+            apps: any,
+        ) => any,
+    ): void;
 
     /**
      * Get the contents of a user's inventory context.
@@ -163,13 +170,18 @@ declare class CSteamUser {
      * @param tradableOnly - true to get only tradable items and currencies
      * @param callback Required. Called when requested data is available.
      */
-    getInventory(appID: appid, contextID: contextid, tradableOnly: boolean, callback: (
-        err: CallbackError,
-        /** An array containing `CEconItem` objects for the user's inventory items. */
-        inventory: CEconItem[],
-        /** An array containing `CEconItem` objects for the user's currency items (only used by Spiral Knights to the extent of my knowledge). */
-        currency: CEconItem[],
-    ) => any): void;
+    getInventory(
+        appID: appid,
+        contextID: contextid,
+        tradableOnly: boolean,
+        callback: (
+            err: CallbackError,
+            /** An array containing `CEconItem` objects for the user's inventory items. */
+            inventory: CEconItem[],
+            /** An array containing `CEconItem` objects for the user's currency items (only used by Spiral Knights to the extent of my knowledge). */
+            currency: CEconItem[],
+        ) => any,
+    ): void;
 
     /**
      * Get the contents of a user's inventory context.
@@ -179,25 +191,33 @@ declare class CSteamUser {
      * @param [language] The language of item descriptions to return. Omit for default (which may either be English or your account's chosen language)
      * @param callback
      */
-    getInventoryContents(appID: appid, contextID: contextid, tradableOnly: boolean, language: string, callback: (
-        err: CallbackError,
-        /** An array containing `CEconItem` objects for the user's inventory items. */
-        inventory: CEconItem[],
-        /** An array containing `CEconItem` objects for the user's currency items (only used by Spiral Knights to the extent of my knowledge). */
-        currency: CEconItem[],
-        /** A number containing the total number of items in this contextid. */
-        totalItems: number,
-    ) => any): void;
+    getInventoryContents(
+        appID: appid,
+        contextID: contextid,
+        tradableOnly: boolean,
+        language: string,
+        callback: (
+            err: CallbackError,
+            /** An array containing `CEconItem` objects for the user's inventory items. */
+            inventory: CEconItem[],
+            /** An array containing `CEconItem` objects for the user's currency items (only used by Spiral Knights to the extent of my knowledge). */
+            currency: CEconItem[],
+            /** A number containing the total number of items in this contextid. */
+            totalItems: number,
+        ) => any,
+    ): void;
 
     /**
      * Get the background URL of user's profile.
      * @param callback Required. Called when requested data is available.
      */
-    getProfileBackground(callback: () => {
-        err: CallbackError,
-        /** A string containing the user's profile background URL. `null` if they have no custom background. */
-        backgroundUrl: string | null
-    }): void;
+    getProfileBackground(
+        callback: () => {
+            err: CallbackError;
+            /** A string containing the user's profile background URL. `null` if they have no custom background. */
+            backgroundUrl: string | null;
+        },
+    ): void;
 
     /**
      * Upload an image to Steam and send it to the target user over chat.
@@ -205,12 +225,16 @@ declare class CSteamUser {
      * @param options Optional. An object with zero or more of these properties.
      * @param callback Required. Called when the request completes
      */
-    sendImage(imageContentsBuffer: Buffer, options: {
-        /** `true` to mark this as a spoiler (default `false`). */
-        spoiler: boolean
-    }, callback: (
-        err: CallbackError,
-        /** The URL to the uploaded image. */
-        imageUrl: string,
-    ) => any): void;
+    sendImage(
+        imageContentsBuffer: Buffer,
+        options: {
+            /** `true` to mark this as a spoiler (default `false`). */
+            spoiler: boolean;
+        },
+        callback: (
+            err: CallbackError,
+            /** The URL to the uploaded image. */
+            imageUrl: string,
+        ) => any,
+    ): void;
 }

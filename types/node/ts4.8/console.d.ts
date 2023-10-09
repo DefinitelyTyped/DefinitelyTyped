@@ -1,11 +1,11 @@
 /**
- * The `console` module provides a simple debugging console that is similar to the
- * JavaScript console mechanism provided by web browsers.
+ * The `node:console` module provides a simple debugging console that is similar to
+ * the JavaScript console mechanism provided by web browsers.
  *
  * The module exports two specific components:
  *
- * * A `Console` class with methods such as `console.log()`, `console.error()` and`console.warn()` that can be used to write to any Node.js stream.
- * * A global `console` instance configured to write to `process.stdout` and `process.stderr`. The global `console` can be used without calling`require('console')`.
+ * * A `Console` class with methods such as `console.log()`, `console.error()`, and`console.warn()` that can be used to write to any Node.js stream.
+ * * A global `console` instance configured to write to `process.stdout` and `process.stderr`. The global `console` can be used without calling`require('node:console')`.
  *
  * _**Warning**_: The global console object's methods are neither consistently
  * synchronous like the browser APIs they resemble, nor are they consistently
@@ -53,14 +53,14 @@
  * myConsole.warn(`Danger ${name}! Danger!`);
  * // Prints: Danger Will Robinson! Danger!, to err
  * ```
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/console.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/console.js)
  */
-declare module 'console' {
-    import console = require('node:console');
+declare module "console" {
+    import console = require("node:console");
     export = console;
 }
-declare module 'node:console' {
-    import { InspectOptions } from 'node:util';
+declare module "node:console" {
+    import { InspectOptions } from "node:util";
     global {
         // This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build
         interface Console {
@@ -123,7 +123,7 @@ declare module 'node:console' {
              * >
              * ```
              * @since v8.3.0
-             * @param label The display label for the counter.
+             * @param [label='default'] The display label for the counter.
              */
             count(label?: string): void;
             /**
@@ -141,7 +141,7 @@ declare module 'node:console' {
              * >
              * ```
              * @since v8.3.0
-             * @param label The display label for the counter.
+             * @param [label='default'] The display label for the counter.
              */
             countReset(label?: string): void;
             /**
@@ -221,7 +221,7 @@ declare module 'node:console' {
             log(message?: any, ...optionalParams: any[]): void;
             /**
              * Try to construct a table with the columns of the properties of `tabularData`(or use `properties`) and rows of `tabularData` and log it. Falls back to just
-             * logging the argument if it can’t be parsed as tabular.
+             * logging the argument if it can't be parsed as tabular.
              *
              * ```js
              * // These can't be parsed as tabular data
@@ -257,6 +257,7 @@ declare module 'node:console' {
              * suitable time units to `stdout`. For example, if the elapsed
              * time is 3869ms, `console.timeEnd()` displays "3.869s".
              * @since v0.1.104
+             * @param [label='default']
              */
             time(label?: string): void;
             /**
@@ -264,12 +265,13 @@ declare module 'node:console' {
              * prints the result to `stdout`:
              *
              * ```js
-             * console.time('100-elements');
-             * for (let i = 0; i < 100; i++) {}
-             * console.timeEnd('100-elements');
-             * // prints 100-elements: 225.438ms
+             * console.time('bunch-of-stuff');
+             * // Do a bunch of stuff.
+             * console.timeEnd('bunch-of-stuff');
+             * // Prints: bunch-of-stuff: 225.438ms
              * ```
              * @since v0.1.104
+             * @param [label='default']
              */
             timeEnd(label?: string): void;
             /**
@@ -285,6 +287,7 @@ declare module 'node:console' {
              * console.timeEnd('process');
              * ```
              * @since v10.7.0
+             * @param [label='default']
              */
             timeLog(label?: string, ...data: any[]): void;
             /**
@@ -392,7 +395,7 @@ declare module 'node:console' {
                 stdout: NodeJS.WritableStream;
                 stderr?: NodeJS.WritableStream | undefined;
                 ignoreErrors?: boolean | undefined;
-                colorMode?: boolean | 'auto' | undefined;
+                colorMode?: boolean | "auto" | undefined;
                 inspectOptions?: InspectOptions | undefined;
                 /**
                  * Set group indentation
@@ -402,8 +405,8 @@ declare module 'node:console' {
             }
             interface ConsoleConstructor {
                 prototype: Console;
-                new (stdout: NodeJS.WritableStream, stderr?: NodeJS.WritableStream, ignoreErrors?: boolean): Console;
-                new (options: ConsoleConstructorOptions): Console;
+                new(stdout: NodeJS.WritableStream, stderr?: NodeJS.WritableStream, ignoreErrors?: boolean): Console;
+                new(options: ConsoleConstructorOptions): Console;
             }
         }
         var console: Console;

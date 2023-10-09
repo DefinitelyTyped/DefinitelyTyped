@@ -9,13 +9,13 @@ pendo.initialize({
         id: "PUT_VISITOR_ID_HERE",
         name: "Neo",
         email: "neo@thematrix.io",
-        role: "godlike"
+        role: "godlike",
     },
     account: {
         id: "PUT_ACCOUNT_ID_HERE",
         name: "CorpSchmorp",
-        tags: ["t-1", "t-2"]
-    }
+        tags: ["t-1", "t-2"],
+    },
 });
 
 pendo.initialize({
@@ -23,16 +23,17 @@ pendo.initialize({
         id: "PUT_VISITOR_ID_HERE",
         name: "Neo",
         email: "neo@thematrix.io",
-        role: "godlike"
+        role: "godlike",
     },
     account: {
         id: "PUT_ACCOUNT_ID_HERE",
-        name: "CorpSchmorp"
+        name: "CorpSchmorp",
     },
     parentAccount: {
-        id: 'PUT_PARENT_ACCOUNT_ID_HERE',
-        name: "CorpSchmorp"
-    }
+        id: "PUT_PARENT_ACCOUNT_ID_HERE",
+        name: "CorpSchmorp",
+    },
+    disableCookies: true,
 });
 
 pendo.initialize({
@@ -40,13 +41,13 @@ pendo.initialize({
         id: "PUT_VISITOR_ID_HERE",
         name: "Neo",
         email: "neo@thematrix.io",
-        role: "godlike"
+        role: "godlike",
     },
     account: {
         id: "PUT_ACCOUNT_ID_HERE",
-        name: "CorpSchmorp"
+        name: "CorpSchmorp",
     },
-    cookieDomain: ".example.com"
+    cookieDomain: ".example.com",
 });
 
 pendo.setGuidesDisabled(true);
@@ -57,7 +58,7 @@ pendo.startGuides();
 
 pendo.identify(
     "PUT_VISITOR_ID_HERE",
-    "PUT_ACCOUNT_ID_HERE"
+    "PUT_ACCOUNT_ID_HERE",
 );
 
 pendo.identify({
@@ -72,18 +73,18 @@ pendo.identify({
         id: "PUT_ACCOUNT_ID_HERE",
         name: "CorpSchmorp",
         nullField: null,
-    }
+    },
 });
 
 pendo.updateOptions({
     visitor: {
-        id: 'foo'
+        id: "foo",
     },
     account: {
-        id: 'bar',
-        TypeOfBusiness: 'brokers',
-        dollarPerStop: 'true'
-    }
+        id: "bar",
+        TypeOfBusiness: "brokers",
+        dollarPerStop: "true",
+    },
 });
 
 pendo.debugging.getEventCache();
@@ -100,27 +101,27 @@ pendo.events
     });
 
 pendo.initialize({
-    apiKey: 'YOUR_API_KEY',
+    apiKey: "YOUR_API_KEY",
     visitor: { id: "" },
     account: { id: "" },
     events: {
         ready() {
             // Do something when pendo is initialized
-        }
-    }
+        },
+    },
 });
 
 pendo.initialize({
-    apiKey: 'YOUR_API_KEY',
+    apiKey: "YOUR_API_KEY",
     visitor: { id: "" },
     account: { id: "" },
-    sanitizeUrl: (url) => url.replace('sensitiveData', '')
+    sanitizeUrl: (url) => url.replace("sensitiveData", ""),
 });
 
 pendo.track("User Registered", {
     userId: "user.id",
     plan: "user.plan",
-    accountType: "Facebook"
+    accountType: "Facebook",
 });
 
 try {
@@ -128,11 +129,11 @@ try {
 } catch (error) {
     pendo.track("JIRA-12345--error-tripped", {
         message: error.message,
-        stack: error.stack
+        stack: error.stack,
     });
 }
 
-pendo.dom("").closest('._pendo-guide-next_');
+pendo.dom("").closest("._pendo-guide-next_");
 
 pendo.onGuideAdvanced();
 pendo.onGuideAdvanced({ steps: 2 });

@@ -1,9 +1,9 @@
-import imagemin from 'imagemin';
-import imageminJpegtran = require('imagemin-jpegtran');
+import imagemin from "imagemin";
+import imageminJpegtran = require("imagemin-jpegtran");
 
-imagemin(['*.jpg'], {
+imagemin(["*.jpg"], {
     plugins: [
         imageminJpegtran(),
-        imageminJpegtran({ progressive: true })
-    ]
+        imageminJpegtran({ progressive: true }),
+    ],
 });

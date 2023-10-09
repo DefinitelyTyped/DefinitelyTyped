@@ -19,7 +19,7 @@ interface Pager {
      * Create a new pager.
      * @param pageSize defaults to 1024.
      */
-    new (pageSize?: number): Pager.PagerInstance;
+    new(pageSize?: number): Pager.PagerInstance;
 }
 
 declare namespace Pager {

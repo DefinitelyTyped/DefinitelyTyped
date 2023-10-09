@@ -5,4 +5,4 @@
 
 /// <reference types="node" />
 
-export { createDiffieHellman, getDiffieHellman, DiffieHellman } from 'crypto';
+export { createDiffieHellman, DiffieHellman, getDiffieHellman } from "crypto";

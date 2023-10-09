@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.webNavigation
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the <code>browser.webNavigation</code> API to receive notifications about the status of navigation requests
  * in-flight.
@@ -169,6 +172,16 @@ export namespace WebNavigation {
         frameId: number;
 
         /**
+         * Cause of the navigation.
+         */
+        transitionType: TransitionType;
+
+        /**
+         * A list of transition qualifiers.
+         */
+        transitionQualifiers: TransitionQualifier[];
+
+        /**
          * The time when the navigation was committed, in milliseconds since the epoch.
          */
         timeStamp: number;
@@ -281,6 +294,16 @@ export namespace WebNavigation {
         frameId: number;
 
         /**
+         * Cause of the navigation.
+         */
+        transitionType: TransitionType;
+
+        /**
+         * A list of transition qualifiers.
+         */
+        transitionQualifiers: TransitionQualifier[];
+
+        /**
          * The time when the navigation was committed, in milliseconds since the epoch.
          */
         timeStamp: number;
@@ -316,6 +339,16 @@ export namespace WebNavigation {
          * Frame IDs are unique within a tab.
          */
         frameId: number;
+
+        /**
+         * Cause of the navigation.
+         */
+        transitionType: TransitionType;
+
+        /**
+         * A list of transition qualifiers.
+         */
+        transitionQualifiers: TransitionQualifier[];
 
         /**
          * The time when the navigation was committed, in milliseconds since the epoch.
@@ -400,7 +433,8 @@ export namespace WebNavigation {
      * Fired when a new window, or a new tab in an existing window, is created to host a navigation.
      */
     interface onCreatedNavigationTargetEvent
-        extends Events.Event<(details: OnCreatedNavigationTargetDetailsType) => void> {
+        extends Events.Event<(details: OnCreatedNavigationTargetDetailsType) => void>
+    {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -415,7 +449,8 @@ export namespace WebNavigation {
      * Fired when the reference fragment of a frame was updated. All future events for that frame will use the updated URL.
      */
     interface onReferenceFragmentUpdatedEvent
-        extends Events.Event<(details: OnReferenceFragmentUpdatedDetailsType) => void> {
+        extends Events.Event<(details: OnReferenceFragmentUpdatedDetailsType) => void>
+    {
         /**
          * Registers an event listener <em>callback</em> to an event.
          *
@@ -425,7 +460,7 @@ export namespace WebNavigation {
          */
         addListener(
             callback: (details: OnReferenceFragmentUpdatedDetailsType) => void,
-            filters?: EventUrlFilters
+            filters?: EventUrlFilters,
         ): void;
     }
 

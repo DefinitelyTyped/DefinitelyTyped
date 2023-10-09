@@ -1,6 +1,6 @@
-import TextureNode from './TextureNode';
-import { Node } from '../Nodes';
-import { CubeTexture } from '../../../../src/Three';
+import TextureNode from './TextureNode.js';
+import { Node } from '../Nodes.js';
+import { CubeTexture } from '../../../../src/Three.js';
 
 export default class CubeTextureNode extends TextureNode {
     isCubeTextureNode: boolean;

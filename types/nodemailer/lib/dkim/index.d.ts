@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import { PassThrough, Readable } from 'stream';
+import { PassThrough, Readable } from "stream";
 
 declare namespace DKIM {
     interface OptionalOptions {

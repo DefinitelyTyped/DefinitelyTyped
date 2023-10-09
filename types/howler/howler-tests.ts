@@ -1,26 +1,28 @@
-import { Howl, Howler } from 'howler';
+import "./test/globals";
+
+import { Howl, Howler } from "howler";
 
 // Set global volume
 Howler.volume(0.8);
 
 const sound1 = new Howl({
-    src: ['sound.mp3'],
+    src: ["sound.mp3"],
 });
 
 sound1.play();
 
 const sound2 = new Howl({
-    src: ['sound.webm', 'sound.mp3', 'sound.wav'],
+    src: ["sound.webm", "sound.mp3", "sound.wav"],
     autoplay: true,
     loop: true,
     volume: 0.5,
-    onend: function () {
-        console.log('Finished!');
+    onend: function() {
+        console.log("Finished!");
     },
 });
 
 const sound3 = new Howl({
-    src: ['sounds.webm', 'sounds.mp3'],
+    src: ["sounds.webm", "sounds.mp3"],
     sprite: {
         blast: [0, 1000],
         laser: [2000, 3000],
@@ -29,24 +31,24 @@ const sound3 = new Howl({
 });
 
 // Shoot the laser!
-sound3.play('laser');
+sound3.play("laser");
 
 const sound4 = new Howl({
-    src: ['sound.webm', 'sound.mp3'],
+    src: ["sound.webm", "sound.mp3"],
 });
 
 // Clear listener after first call.
-sound4.once('load', function () {
+sound4.once("load", function() {
     sound4.play();
 });
 
 // Fires when the sound finishes playing.
-sound4.on('end', function () {
-    console.log('Finished!');
+sound4.on("end", function() {
+    console.log("Finished!");
 });
 
 const sound5 = new Howl({
-    src: ['sound.webm', 'sound.mp3'],
+    src: ["sound.webm", "sound.mp3"],
 });
 
 // Play returns a unique Sound ID that can be passed
@@ -67,4 +69,4 @@ sound5.seek(id1);
 sound5.seek(id1, 5);
 
 // $ExpectType Howl
-sound5.off('play', 2);
+sound5.off("play", 2);

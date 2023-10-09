@@ -1,5 +1,5 @@
-import postcss from 'postcss';
-import postcssMixins = require('postcss-mixins');
+import postcss from "postcss";
+import postcssMixins = require("postcss-mixins");
 
 // Using with postcss with and without config
 postcss([postcssMixins]);
@@ -23,7 +23,7 @@ postcssMixins({
         mixinFn2(_mixin, color) {
             return {
                 top: 10,
-                '&:hover': { color },
+                "&:hover": { color },
             };
         },
 
@@ -35,15 +35,15 @@ postcssMixins({
         // Mixin object
         mixinObj: {
             top: 10,
-            '&:hover': { color: 'red' },
+            "&:hover": { color: "red" },
         },
     },
 });
 
-postcssMixins({ mixinsDir: './mixins' });
-postcssMixins({ mixinsDir: ['./mixins'] });
+postcssMixins({ mixinsDir: "./mixins" });
+postcssMixins({ mixinsDir: ["./mixins"] });
 
-postcssMixins({ mixinsFiles: './mixins/!(*.spec.js)' });
-postcssMixins({ mixinsFiles: ['./mixins/!(*.spec.js)'] });
+postcssMixins({ mixinsFiles: "./mixins/!(*.spec.js)" });
+postcssMixins({ mixinsFiles: ["./mixins/!(*.spec.js)"] });
 
 postcssMixins({ silent: true });

@@ -1,32 +1,25 @@
-import * as React from 'react';
+import enUS from "date-fns/locale/en-US";
+import * as React from "react";
 import DatePicker, {
     CalendarContainer,
-    registerLocale,
-    setDefaultLocale,
-    getDefaultLocale,
-    ReactDatePickerProps,
     ReactDatePickerCustomHeaderProps,
-} from 'react-datepicker';
-import enUS from 'date-fns/locale/en-US';
-import { format } from 'date-fns';
-import { Modifier } from 'react-popper';
+    ReactDatePickerProps,
+    registerLocale,
+} from "react-datepicker";
+import { Modifier } from "react-popper";
 
-registerLocale('en-GB', { options: { weekStartsOn: 1 } });
-setDefaultLocale('en-GB');
-const defaultLocale = getDefaultLocale();
+registerLocale("en-GB", { options: { weekStartsOn: 1 } });
 
-const topLogger: Modifier<'topLogger'> = {
-    name: 'topLogger',
+const topLogger: Modifier<"topLogger"> = {
+    name: "topLogger",
     enabled: true,
-    phase: 'main',
+    phase: "main",
     fn({ state }) {
-        if (state.placement === 'top') {
-            console.log('Popper is on the top');
+        if (state.placement === "top") {
+            console.log("Popper is on the top");
         }
     },
 };
-
-const DATE_FNS_FORMAT = 'EEEEE';
 
 <DatePicker
     adjustDateOnChange
@@ -52,28 +45,28 @@ const DATE_FNS_FORMAT = 'EEEEE';
     customTimeInput={<input />}
     dateFormat=""
     dateFormatCalendar=""
-    dayClassName={date => ''}
-    weekDayClassName={date => ''}
-    monthClassName={date => ''}
-    timeClassName={date => ''}
+    dayClassName={date => ""}
+    weekDayClassName={date => ""}
+    monthClassName={date => ""}
+    timeClassName={date => ""}
     disabledDayAriaLabelPrefix=""
     disabled
     disabledKeyboardNavigation
     dropdownMode="scroll"
     endDate={new Date()}
     excludeDates={[new Date()]}
-    excludeDateIntervals={[{start: new Date(), end: new Date()}]}
+    excludeDateIntervals={[{ start: new Date(), end: new Date() }]}
     excludeTimes={[new Date()]}
     filterDate={date => true}
     filterTime={date => true}
     fixedHeight
     forceShowMonthNavigation
-    formatWeekDay={(day, locale) => format(day, DATE_FNS_FORMAT, { locale })}
+    formatWeekDay={(day) => day[0]}
     formatWeekNumber={date => 0}
     highlightDates={[{ someClassName: [new Date()] }]}
     id=""
     includeDates={[new Date()]}
-    includeDateIntervals={[{start: new Date(), end: new Date()}]}
+    includeDateIntervals={[{ start: new Date(), end: new Date() }]}
     includeTimes={[new Date()]}
     injectTimes={[new Date()]}
     inline
@@ -114,15 +107,15 @@ const DATE_FNS_FORMAT = 'EEEEE';
     popperContainer={props => <div />}
     popperModifiers={[
         {
-            name: 'offset',
+            name: "offset",
             options: {
                 offset: [5, 10],
             },
         },
         {
-            name: 'preventOverflow',
+            name: "preventOverflow",
             options: {
-                rootBoundary: 'viewport',
+                rootBoundary: "viewport",
                 tether: false,
                 altAxis: true,
             },
@@ -158,6 +151,7 @@ const DATE_FNS_FORMAT = 'EEEEE';
         nextYearButtonDisabled,
     }) => <div />}
     renderDayContents={(dayOfMonth, date) => <div />}
+    renderMonthContent={(monthIndex, shortMonth, longMonth) => <div />}
     required
     scrollableMonthYearDropdown
     scrollableYearDropdown
@@ -189,6 +183,7 @@ const DATE_FNS_FORMAT = 'EEEEE';
     timeInputLabel=""
     timeIntervals={1}
     title=""
+    showIcon
     todayButton={<div />}
     useShortMonthInDropdown
     useWeekdaysShort
@@ -222,7 +217,7 @@ function handleRef(ref: DatePicker | null) {
     }
 }
 
-<CalendarContainer arrowProps={{ someProp: 'someValue' }} className="" showPopperArrow>
+<CalendarContainer arrowProps={{ someProp: "someValue" }} className="" showPopperArrow>
     <div />
     <span />
 </CalendarContainer>;
@@ -233,10 +228,10 @@ const props: ReactDatePickerProps = {
     onChange: () => {},
 };
 
-<DatePicker<'topLogger'>
+<DatePicker<"topLogger">
     onChange={() => {}}
-    popperModifiers={[{ name: 'arrow', options: { padding: 5 } }, topLogger]}
-    ref={(instance: DatePicker<'topLogger'> | null) => {}}
+    popperModifiers={[{ name: "arrow", options: { padding: 5 } }, topLogger]}
+    ref={(instance: DatePicker<"topLogger"> | null) => {}}
 />;
 
 const DatePickerCustomHeader = ({

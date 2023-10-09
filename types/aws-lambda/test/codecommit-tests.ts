@@ -1,4 +1,4 @@
-import { CodeCommitTriggerEvent } from 'aws-lambda';
+import { CodeCommitTriggerEvent } from "aws-lambda";
 
 const event: CodeCommitTriggerEvent = {
     Records: [
@@ -9,9 +9,9 @@ const event: CodeCommitTriggerEvent = {
                     {
                         commit: "819d7a8d21117320a459afdc89720b1e5f378dba",
                         created: true,
-                        ref: "refs/tags/test-tag"
-                    }
-                ]
+                        ref: "refs/tags/test-tag",
+                    },
+                ],
             },
             customData: "",
             eventId: "921a2dad-07e5-4ec3-be8a-e5e6333639a4",
@@ -24,7 +24,7 @@ const event: CodeCommitTriggerEvent = {
             eventTriggerConfigId: "baa59553-44f2-4939-9f57-f1b1b2f6d031",
             eventTriggerName: "my-trigger",
             eventVersion: "1.0",
-            userIdentityARN: "arn:aws:iam::123456789012:user/john@doe.com"
-        }
-    ]
+            userIdentityARN: "arn:aws:iam::123456789012:user/john@doe.com",
+        },
+    ],
 };

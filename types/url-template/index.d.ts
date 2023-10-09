@@ -8,8 +8,7 @@ declare var urlTemplate: UrlTemplate.TemplateParser;
 export = urlTemplate;
 export as namespace urltemplate;
 
-declare namespace UrlTemplate
-{
+declare namespace UrlTemplate {
     interface TemplateParser {
         parse(template: string): Template;
     }
@@ -18,5 +17,3 @@ declare namespace UrlTemplate
         expand(parameters: any): string;
     }
 }
-
-

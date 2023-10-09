@@ -1,7 +1,7 @@
 import * as tmi from "tmi.js";
 
 const options: tmi.Options = {
-    channels: ['#channel1', '#channel2'],
+    channels: ["#channel1", "#channel2"],
     connection: {
         maxReconnectAttempts: 2,
         maxReconnectInterval: 10,
@@ -10,84 +10,100 @@ const options: tmi.Options = {
         reconnectDecay: 20,
         reconnectInterval: 10,
         secure: true,
-        timeout: 20
+        timeout: 20,
     },
     identity: {
         password: "oauth:xxxOAuthIDHerexxx",
-        username: "yourusernamehere"
+        username: "yourusernamehere",
     },
     logger: {
-        warn: (message) => { },
-        error: (message) => { },
-        info: (message) => { },
+        warn: (message) => {},
+        error: (message) => {},
+        info: (message) => {},
     },
     options: {
         clientId: "xxxapiidherexxx",
-        debug: true
-    }
+        debug: true,
+    },
 };
 
 const client: tmi.Client = tmi.Client(options);
 
 client.connect().then(() => {
-    client.on("subscription", (channel: string, username: string, methods: tmi.SubMethods, msg: string, userstate: tmi.SubUserstate) => {
-        client.say(channel, `Thank you to ${userstate["display-name"]} for subscribing!`);
-        client.ping();
-        client.r9kbeta(channel);
-        client.r9kbetaoff(channel);
-        client.raw("xxxRawIRCHere");
-        switch (client.readyState()) {
-            case "CLOSED":
-            case "CLOSING":
-            case "CONNECTING":
-            case "OPEN":
-                break;
-        }
-        client.slow(channel, 5);
-        client.slowoff(channel);
-        client.subscribers(channel);
-        client.subscribersoff(channel);
-        client.timeout(channel, username, 600, "timeoutreason");
-        client.ban(channel, username, "reason");
-        client.unban(channel, username);
-        client.host(channel, "tohost");
-        client.unhost(channel);
-        client.mod(channel, username);
-        client.unmod(channel, username);
-        client.whisper(username, "whisper");
-        client.part(channel);
-        switch (methods.plan) {
-            case "1000":
-            case "2000":
-            case "3000":
-            case "Prime":
-                break;
-        }
-        const { badges, color, emotes, flags, id, login, message, mod, subscriber, turbo } = userstate;
-        if (emotes) {
-            emotes.test.forEach(element => { });
-        }
-        if (badges) {
-            const { admin, turbo, subscriber, bits, broadcaster, global_mod, moderator, premium, staff, vip, partner, founder } = badges;
-            badges['bits-leader'];
-            const test = 'hello';
-            badges[test];
-        }
-        userstate["display-name"];
-        userstate["emotes-raw"];
-        userstate["badges-raw"];
-        userstate["message-type"];
-        userstate["msg-param-cumulative-months"];
-        userstate["msg-param-should-share-streak"];
-        userstate["msg-param-streak-months"];
-        userstate["msg-param-sub-plan"];
-        userstate["msg-param-sub-plan-name"];
-        userstate["room-id"];
-        userstate["system-msg"];
-        userstate["tmi-sent-ts"];
-        userstate["user-id"];
-        userstate["user-type"];
-    }).on("roomstate", (chnl: string, roomstate: tmi.RoomState) => {
+    client.on(
+        "subscription",
+        (channel: string, username: string, methods: tmi.SubMethods, msg: string, userstate: tmi.SubUserstate) => {
+            client.say(channel, `Thank you to ${userstate["display-name"]} for subscribing!`);
+            client.ping();
+            client.r9kbeta(channel);
+            client.r9kbetaoff(channel);
+            client.raw("xxxRawIRCHere");
+            switch (client.readyState()) {
+                case "CLOSED":
+                case "CLOSING":
+                case "CONNECTING":
+                case "OPEN":
+                    break;
+            }
+            client.slow(channel, 5);
+            client.slowoff(channel);
+            client.subscribers(channel);
+            client.subscribersoff(channel);
+            client.timeout(channel, username, 600, "timeoutreason");
+            client.ban(channel, username, "reason");
+            client.unban(channel, username);
+            client.host(channel, "tohost");
+            client.unhost(channel);
+            client.mod(channel, username);
+            client.unmod(channel, username);
+            client.whisper(username, "whisper");
+            client.part(channel);
+            switch (methods.plan) {
+                case "1000":
+                case "2000":
+                case "3000":
+                case "Prime":
+                    break;
+            }
+            const { badges, color, emotes, flags, id, login, message, mod, subscriber, turbo } = userstate;
+            if (emotes) {
+                emotes.test.forEach(element => {});
+            }
+            if (badges) {
+                const {
+                    admin,
+                    turbo,
+                    subscriber,
+                    bits,
+                    broadcaster,
+                    global_mod,
+                    moderator,
+                    premium,
+                    staff,
+                    vip,
+                    partner,
+                    founder,
+                } = badges;
+                badges["bits-leader"];
+                const test = "hello";
+                badges[test];
+            }
+            userstate["display-name"];
+            userstate["emotes-raw"];
+            userstate["badges-raw"];
+            userstate["message-type"];
+            userstate["msg-param-cumulative-months"];
+            userstate["msg-param-should-share-streak"];
+            userstate["msg-param-streak-months"];
+            userstate["msg-param-sub-plan"];
+            userstate["msg-param-sub-plan-name"];
+            userstate["room-id"];
+            userstate["system-msg"];
+            userstate["tmi-sent-ts"];
+            userstate["user-id"];
+            userstate["user-type"];
+        },
+    ).on("roomstate", (chnl: string, roomstate: tmi.RoomState) => {
         const { channel, r9k, rituals, slow } = roomstate;
         roomstate["broadcaster-lang"];
         roomstate["emote-only"];
@@ -111,10 +127,13 @@ client.connect().then(() => {
         userstate["room-id"];
         userstate["target-user-id"];
         userstate["tmi-sent-ts"];
-    }).once("timeout", (channel: string, username: string, reason: string, duration: number, userstate: tmi.TimeoutUserstate) => {
-        userstate["room-id"];
-        userstate["target-user-id"];
-        userstate["tmi-sent-ts"];
-        userstate["ban-duration"];
-    });
+    }).once(
+        "timeout",
+        (channel: string, username: string, reason: string, duration: number, userstate: tmi.TimeoutUserstate) => {
+            userstate["room-id"];
+            userstate["target-user-id"];
+            userstate["tmi-sent-ts"];
+            userstate["ban-duration"];
+        },
+    );
 });

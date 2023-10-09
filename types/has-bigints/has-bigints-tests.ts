@@ -1,3 +1,3 @@
-import hasBigInts = require('has-bigints');
+import hasBigInts = require("has-bigints");
 
 hasBigInts(); // $ExpectType boolean

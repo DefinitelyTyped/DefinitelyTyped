@@ -5,8 +5,6 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- *
- * @flow
  */
 
 // Renderers that don't support test selectors
@@ -14,9 +12,9 @@
 
 function shim(...args: any): any {
     throw new Error(
-        'The current renderer does not support test selectors. ' +
-            'This error is likely caused by a bug in React. ' +
-            'Please file an issue.',
+        "The current renderer does not support test selectors. "
+            + "This error is likely caused by a bug in React. "
+            + "Please file an issue.",
     );
 }
 

@@ -59,7 +59,7 @@ export function transformer<TResult, TInput>(
 ): Transformer<TResult, TInput>;
 
 export interface ReducedConstructor {
-    new <T>(value: T): Reduced<T>;
+    new<T>(value: T): Reduced<T>;
 }
 
 export const Reduced: ReducedConstructor;
@@ -205,9 +205,12 @@ export function repeat<TInput>(n: number): Transducer<TInput, TInput>;
 export function range(n: number): number[];
 
 export interface LazyTransformerConstructor {
-    new <TInput, TOutput>(xf: Transducer<TInput, TOutput>, coll: Iterable<
-        TInput
-    >): IterableIterator<TOutput>;
+    new<TInput, TOutput>(
+        xf: Transducer<TInput, TOutput>,
+        coll: Iterable<
+            TInput
+        >,
+    ): IterableIterator<TOutput>;
 }
 
 export const LazyTransformer: LazyTransformerConstructor;

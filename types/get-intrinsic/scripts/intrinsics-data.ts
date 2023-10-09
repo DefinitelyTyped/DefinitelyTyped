@@ -16,13 +16,13 @@ const generator = function* () {};
 const asyncFn = async function () {};
 const asyncGen = async function* () {};
 
-const generatorFunction = generator ? /** @type {GeneratorFunctionConstructor} */ generator.constructor : undefined;
+const generatorFunction = generator ? generator.constructor : undefined;
 const generatorFunctionPrototype = generatorFunction ? generatorFunction.prototype : undefined;
 const generatorPrototype = generatorFunctionPrototype ? generatorFunctionPrototype.prototype : undefined;
 
-const asyncFunction = asyncFn ? /** @type {FunctionConstructor} */ asyncFn.constructor : undefined;
+const asyncFunction = asyncFn ? asyncFn.constructor : undefined;
 
-const asyncGenFunction = asyncGen ? /** @type {AsyncGeneratorFunctionConstructor} */ asyncGen.constructor : undefined;
+const asyncGenFunction = asyncGen ? asyncGen.constructor : undefined;
 const asyncGenFunctionPrototype = asyncGenFunction ? asyncGenFunction.prototype : undefined;
 const asyncGenPrototype = asyncGenFunctionPrototype ? asyncGenFunctionPrototype.prototype : undefined;
 
@@ -80,7 +80,7 @@ export const BASE_INTRINSICS: { [intrinsic: string]: unknown } = {
     '%encodeURIComponent%': encodeURIComponent,
     '%Error%': Error,
     '%ErrorPrototype%': Error.prototype,
-    '%eval%': eval, // eslint-disable-line no-eval
+    '%eval%': eval, // eslint-disable-line @definitelytyped/no-eval
     '%EvalError%': EvalError,
     '%EvalErrorPrototype%': EvalError.prototype,
     '%Float32Array%': typeof Float32Array === 'undefined' ? undefined : Float32Array,

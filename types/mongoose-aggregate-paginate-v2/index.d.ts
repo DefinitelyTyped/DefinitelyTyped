@@ -9,7 +9,7 @@
 // Thanks to knyuwork <https://github.com/knyuwork>
 // and LiRen Tu <https://github.com/tuliren> for their contribution
 
-declare module 'mongoose' {
+declare module "mongoose" {
     interface CustomLabels<T = string | undefined | boolean> {
         totalDocs?: T | undefined;
         docs?: T | undefined;
@@ -34,6 +34,7 @@ declare module 'mongoose' {
         pagination?: boolean | undefined;
         allowDiskUse?: boolean | undefined;
         countQuery?: object | undefined;
+        useFacet?: boolean | undefined;
     }
 
     interface QueryPopulateOptions {
@@ -66,7 +67,7 @@ declare module 'mongoose' {
         [customLabel: string]: T[] | number | boolean | null | undefined;
     }
 
-    interface AggregatePaginateModel<D extends Document> extends Model<D> {
+    interface AggregatePaginateModel<D> extends Model<D> {
         aggregatePaginate<T>(
             query?: Aggregate<T[]>,
             options?: PaginateOptions,
@@ -77,7 +78,7 @@ declare module 'mongoose' {
     function model(name: string, schema?: Schema, collection?: string, skipInit?: boolean): AggregatePaginateModel<any>;
 }
 
-import mongoose = require('mongoose');
+import mongoose = require("mongoose");
 declare function mongooseAggregatePaginate(schema: mongoose.Schema): void;
 export = mongooseAggregatePaginate;
 declare namespace _ {

@@ -12,10 +12,10 @@
  * will be notified, rather than losing the context of the error in the`process.on('uncaughtException')` handler, or causing the program to
  * exit immediately with an error code.
  * @deprecated Since v1.4.2 - Deprecated
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/domain.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/domain.js)
  */
-declare module 'domain' {
-    import EventEmitter = require('node:events');
+declare module "domain" {
+    import EventEmitter = require("node:events");
     /**
      * The `Domain` class encapsulates the functionality of routing errors and
      * uncaught exceptions to the active `Domain` object.
@@ -56,15 +56,15 @@ declare module 'domain' {
         exit(): void;
         /**
          * Run the supplied function in the context of the domain, implicitly
-         * binding all event emitters, timers, and lowlevel requests that are
+         * binding all event emitters, timers, and low-level requests that are
          * created in that context. Optionally, arguments can be passed to
          * the function.
          *
          * This is the most basic way to use a domain.
          *
          * ```js
-         * const domain = require('domain');
-         * const fs = require('fs');
+         * const domain = require('node:domain');
+         * const fs = require('node:fs');
          * const d = domain.create();
          * d.on('error', (er) => {
          *   console.error('Caught error!', er);
@@ -165,6 +165,6 @@ declare module 'domain' {
     }
     function create(): Domain;
 }
-declare module 'node:domain' {
-    export * from 'domain';
+declare module "node:domain" {
+    export * from "domain";
 }

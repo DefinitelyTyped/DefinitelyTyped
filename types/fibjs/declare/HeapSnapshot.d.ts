@@ -30,8 +30,6 @@ declare class Class_HeapSnapshot extends Class__object {
      * 
      * @brief 时间信息
      * 
-     * @readonly
-     * @type Date
      */
     
     time: Date
@@ -42,8 +40,6 @@ declare class Class_HeapSnapshot extends Class__object {
      * 
      * @brief 堆视图的根节点
      * 
-     * @readonly
-     * @type HeapGraphNode
      */
     
     root: Class_HeapGraphNode
@@ -54,8 +50,6 @@ declare class Class_HeapSnapshot extends Class__object {
      * 
      * @brief 堆视图节点组成的列表
      * 
-     * @readonly
-     * @type NArray
      */
     
     nodes: any[]

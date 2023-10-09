@@ -1,4 +1,4 @@
-import bonjour = require('bonjour');
+import bonjour = require("bonjour");
 
 let bonjourOptions: bonjour.BonjourOptions;
 let bonjourInstance: bonjour.Bonjour;
@@ -13,7 +13,7 @@ bonjourOptions = {};
 bonjourInstance = bonjour(bonjourOptions);
 
 // Publish a dummy server under name 'My Website' type http port 3000
-serviceOptions = { name: 'My Website', type: 'http', port: 3000 };
+serviceOptions = { name: "My Website", type: "http", port: 3000 };
 service = bonjourInstance.publish(serviceOptions);
 
 const name: string = service.name;
@@ -31,10 +31,10 @@ service.start();
 service.stop(() => {});
 
 browserOptions = {
-    protocol: 'tcp',
-    type: 'http',
-    subtypes: ['subtype1'],
-    txt: {}
+    protocol: "tcp",
+    type: "http",
+    subtypes: ["subtype1"],
+    txt: {},
 };
 // Look for the server
 browser = bonjourInstance.findOne(browserOptions, (srv: bonjour.RemoteService) => {});

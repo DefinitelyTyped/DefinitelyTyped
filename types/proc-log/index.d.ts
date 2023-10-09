@@ -43,7 +43,7 @@ interface Logger {
     /**
      * An array of strings of all log method names.
      */
-    LEVELS: ['error', 'warn', 'notice', 'info', 'verbose', 'silly', 'http'];
+    LEVELS: ["error", "warn", "notice", "info", "verbose", "silly", "http"];
 }
 
 declare const logger: Logger;

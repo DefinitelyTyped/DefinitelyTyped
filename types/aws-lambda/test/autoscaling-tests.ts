@@ -14,10 +14,7 @@ const handler: AutoScalingScaleInHandler = async (event, context, callback) => {
     boolOrUndefined = event.HasMoreInstances;
 
     const result: AutoScalingScaleInResult = {
-        InstanceIDs: [
-            "i-532085293",
-            "i-108479122"
-        ]
+        InstanceIDs: ["i-532085293", "i-108479122"],
     };
 
     callback(new Error());

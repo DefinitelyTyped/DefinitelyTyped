@@ -22,9 +22,9 @@ interface SerialPortFilter {
 
 interface SerialPortInfo extends SerialPortInfoBase, SerialPortFilter {} // mix spec and Chromium implementation
 
-type ParityType = 'none' | 'even' | 'odd' | 'mark' | 'space';
+type ParityType = "none" | "even" | "odd" | "mark" | "space";
 
-type FlowControlType = 'none' | 'hardware';
+type FlowControlType = "none" | "hardware";
 
 interface SerialOptions {
     baudRate: number;

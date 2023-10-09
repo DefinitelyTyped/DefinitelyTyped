@@ -11,7 +11,7 @@ declare namespace JQueryNanoScroller {
         /**
          * To scroll at the top or bottom.
          */
-        scroll?: 'top' | 'bottom' | undefined;
+        scroll?: "top" | "bottom" | undefined;
         /**
          * To scroll at the top with an offset value.
          */
@@ -108,7 +108,6 @@ declare namespace JQueryNanoScroller {
          */
         flashedClass?: string | undefined;
         /**
-         *
          * If you change this setting, you also have to change it in the plugin's CSS file.
          * @default 'active'
          */

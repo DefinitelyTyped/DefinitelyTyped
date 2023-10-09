@@ -10,8 +10,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import express = require('express');
-import { EventEmitter } from 'events';
+import express = require("express");
+import { EventEmitter } from "events";
 
 declare global {
     namespace Express {
@@ -158,7 +158,7 @@ declare namespace session {
          * - `keep`: The session in the store will be kept, but modifications made during the request are ignored and not saved.
          * @default 'keep'
          */
-        unset?: 'destroy' | 'keep' | undefined;
+        unset?: "destroy" | "keep" | undefined;
     }
 
     class Session {
@@ -217,7 +217,6 @@ declare namespace session {
      *         views: number;
      *     }
      * }
-     *
      */
     interface SessionData {
         cookie: Cookie;
@@ -284,7 +283,7 @@ declare namespace session {
          *
          * Please see the [README](https://github.com/expressjs/session) for an example of using secure cookies in production, but allowing for testing in development based on NODE_ENV.
          */
-        secure?: boolean | 'auto' | undefined;
+        secure?: boolean | "auto" | undefined;
 
         encode?: ((val: string) => string) | undefined;
 
@@ -301,7 +300,7 @@ declare namespace session {
          * **Note:** This is an attribute that has not yet been fully standardized, and may change in the future.
          * This also means many clients may ignore this attribute until they understand it.
          */
-        sameSite?: boolean | 'lax' | 'strict' | 'none' | undefined;
+        sameSite?: boolean | "lax" | "strict" | "none" | undefined;
     }
 
     class Cookie implements CookieOptions {
@@ -314,8 +313,8 @@ declare namespace session {
         httpOnly?: boolean | undefined;
         path?: string | undefined;
         domain?: string | undefined;
-        secure?: boolean | 'auto' | undefined;
-        sameSite?: boolean | 'lax' | 'strict' | 'none' | undefined;
+        secure?: boolean | "auto" | undefined;
+        sameSite?: boolean | "lax" | "strict" | "none" | undefined;
     }
 
     abstract class Store extends EventEmitter {

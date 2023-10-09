@@ -15,22 +15,22 @@ declare namespace Spinnies {
     const dashes: Spinner;
 
     type Color =
-      "black"
-      | "red"
-      | "green"
-      | "yellow"
-      | "blue"
-      | "magenta"
-      | "cyan"
-      | "white"
-      | "gray"
-      | "redBright"
-      | "greenBright"
-      | "yellowBright"
-      | "blueBright"
-      | "magentaBright"
-      | "cyanBright"
-      | "whiteBright";
+        | "black"
+        | "red"
+        | "green"
+        | "yellow"
+        | "blue"
+        | "magenta"
+        | "cyan"
+        | "white"
+        | "gray"
+        | "redBright"
+        | "greenBright"
+        | "yellowBright"
+        | "blueBright"
+        | "magentaBright"
+        | "cyanBright"
+        | "whiteBright";
 
     type StopAllStatus = "succeed" | "fail" | "stopped";
     type SpinnerStatus = StopAllStatus | "spinning" | "non-spinnable";

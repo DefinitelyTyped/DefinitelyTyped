@@ -29,6 +29,6 @@ export class ISBN {
 
 export function asIsbn10(isbn: string, hyphenate?: boolean): string;
 export function asIsbn13(isbn: string, hyphenate?: boolean): string;
-export function parse(isbn: string, groups?: IGroups): ISBN|null;
+export function parse(isbn: string, groups?: IGroups): ISBN | null;
 export function hyphenate(isbn: string): string;
 export function isValid(isbn: string, groups?: IGroups): boolean;

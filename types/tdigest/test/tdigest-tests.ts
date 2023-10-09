@@ -1,5 +1,5 @@
-import { Centroid, Digest, DigestConfiguration, FullCentroid, TDigest } from 'tdigest';
-import 'tdigest/dist/tdigest';
+import { Centroid, Digest, DigestConfiguration, FullCentroid, TDigest } from "tdigest";
+import "tdigest/dist/tdigest";
 
 // test type exports
 type TD = TDigest;
@@ -34,11 +34,11 @@ tDigest.percentile([1]); // $ExpectType number[]
 tDigest.compress(); // $ExpectType void
 
 const digest = new Digest(); // $ExpectType Digest
-new Digest({ mode: 'auto' }); // $ExpectType Digest
-new Digest({ mode: 'cont' }); // $ExpectType Digest
-new Digest({ mode: 'disc' }); // $ExpectType Digest
+new Digest({ mode: "auto" }); // $ExpectType Digest
+new Digest({ mode: "cont" }); // $ExpectType Digest
+new Digest({ mode: "disc" }); // $ExpectType Digest
 // @ts-expect-error
-new Digest({ mode: 'foo' }); // $ExpectType Digest
+new Digest({ mode: "foo" }); // $ExpectType Digest
 new Digest({ ratio: 1 }); // $ExpectType Digest
 new Digest({ thresh: 100 }); // $ExpectType Digest
 

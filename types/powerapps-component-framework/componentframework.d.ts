@@ -15,7 +15,12 @@ declare namespace ComponentFramework {
          * 'setControlState' in the Mode interface.
          * @param container If a control is marked control-type='standard', it will receive an empty div element within which it can render its content.
          */
-        init(context: Context<TInputs>, notifyOutputChanged?: () => void, state?: Dictionary, container?: HTMLDivElement): void;
+        init(
+            context: Context<TInputs>,
+            notifyOutputChanged?: () => void,
+            state?: Dictionary,
+            container?: HTMLDivElement,
+        ): void;
 
         /**
          * Called when any value in the property bag has changed. This includes field values, data-sets, global values such as container height and width,
@@ -41,7 +46,7 @@ declare namespace ComponentFramework {
     /**
      * Interface for Power Apps React controls
      */
-     interface ReactControl<TInputs, TOutputs> extends StandardControl<TInputs, TOutputs> {
+    interface ReactControl<TInputs, TOutputs> extends StandardControl<TInputs, TOutputs> {
         /**
          * Called when any value in the property bag has changed. This includes field values, data-sets, global values such as container height and width,
          * offline status, control metadata values such as label, visible, etc.
@@ -294,7 +299,10 @@ declare namespace ComponentFramework {
          * @param options Dialog options
          * @returns promise defining success or failure of operation
          */
-        openAlertDialog(alertStrings: NavigationApi.AlertDialogStrings, options?: NavigationApi.AlertDialogOptions): Promise<void>;
+        openAlertDialog(
+            alertStrings: NavigationApi.AlertDialogStrings,
+            options?: NavigationApi.AlertDialogOptions,
+        ): Promise<void>;
 
         /**
          * Opens Confirm Dialog
@@ -302,7 +310,10 @@ declare namespace ComponentFramework {
          * @param options Options for the dialog
          * @returns promise defining success or failure of operation. the success case returns a boolean specifying whether yes or no button was pressed
          */
-        openConfirmDialog(confirmStrings: NavigationApi.ConfirmDialogStrings, options?: NavigationApi.ConfirmDialogOptions): Promise<NavigationApi.ConfirmDialogResponse>;
+        openConfirmDialog(
+            confirmStrings: NavigationApi.ConfirmDialogStrings,
+            options?: NavigationApi.ConfirmDialogOptions,
+        ): Promise<NavigationApi.ConfirmDialogResponse>;
 
         /**
          * Opens an Error Dialog.
@@ -325,7 +336,10 @@ declare namespace ComponentFramework {
          * @param parameters entity form parameters.
          * @returns promise defining success or failure of operation
          */
-        openForm(options: NavigationApi.EntityFormOptions, parameters?: {[key: string]: string}): Promise<NavigationApi.OpenFormSuccessResponse>;
+        openForm(
+            options: NavigationApi.EntityFormOptions,
+            parameters?: { [key: string]: string },
+        ): Promise<NavigationApi.OpenFormSuccessResponse>;
 
         /**
          * Open url, including file urls.
@@ -378,7 +392,6 @@ declare namespace ComponentFramework {
 
         /**
          * Current user's language id
-         *
          */
         languageId: number;
 
@@ -426,7 +439,11 @@ declare namespace ComponentFramework {
          * @param privilegeType privilege type i.e. Create, Read, Write etc.
          * @param privilegeDepth privilege depth i.e. basic, Global etc.
          */
-        hasEntityPrivilege(entityTypeName: string, privilegeType: PropertyHelper.Types.PrivilegeType, privilegeDepth: PropertyHelper.Types.PrivilegeDepth): boolean;
+        hasEntityPrivilege(
+            entityTypeName: string,
+            privilegeType: PropertyHelper.Types.PrivilegeType,
+            privilegeDepth: PropertyHelper.Types.PrivilegeDepth,
+        ): boolean;
 
         /**
          * Opens a lookup dialog allowing the user to select one or more entities.
@@ -472,7 +489,11 @@ declare namespace ComponentFramework {
          * @param maxPageSize Max number of records to be retrieved per page
          * @returns The deferred object for the result of the operation. An object with interface RetrieveMultipleResponse will be resolved if successful.
          */
-        retrieveMultipleRecords(entityType: string, options?: string, maxPageSize?: number): Promise<WebApi.RetrieveMultipleResponse>;
+        retrieveMultipleRecords(
+            entityType: string,
+            options?: string,
+            maxPageSize?: number,
+        ): Promise<WebApi.RetrieveMultipleResponse>;
 
         /**
          * Retrieves an entity record.
@@ -1278,7 +1299,7 @@ declare namespace ComponentFramework {
         /**
          * The record id. Read-only.
          */
-        id: { guid: string; };
+        id: { guid: string };
 
         /**
          * The entity logical name. Read-only.
@@ -1337,7 +1358,7 @@ declare namespace ComponentFramework {
         mimeType: string;
     }
 
-///////////////////// Parameter ////////////////////////
+    ///////////////////// Parameter ////////////////////////
 
     namespace PropertyTypes {
         /**
@@ -1724,8 +1745,43 @@ declare namespace ComponentFramework {
                  * Supported Condition Operator for filtering expression condition
                  * This is subset of full condition operators list defined in https://docs.microsoft.com/en-us/dotnet/api/microsoft.xrm.sdk.query.conditionoperator
                  */
-                type ConditionOperator = -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 12 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 22 | 23
-                                            | 25 | 26 | 27 | 28 | 29 | 33 | 34 | 37 | 38 | 49 | 70 | 75 | 76 | 77 | 78 | 79 | 87;
+                type ConditionOperator =
+                    | -1
+                    | 0
+                    | 1
+                    | 2
+                    | 3
+                    | 4
+                    | 5
+                    | 6
+                    | 8
+                    | 12
+                    | 14
+                    | 15
+                    | 16
+                    | 17
+                    | 18
+                    | 19
+                    | 20
+                    | 22
+                    | 23
+                    | 25
+                    | 26
+                    | 27
+                    | 28
+                    | 29
+                    | 33
+                    | 34
+                    | 37
+                    | 38
+                    | 49
+                    | 70
+                    | 75
+                    | 76
+                    | 77
+                    | 78
+                    | 79
+                    | 87;
 
                 /**
                  * Supported Filter Operator for filtering expression linkage
@@ -1878,7 +1934,18 @@ declare namespace ComponentFramework {
                  * Get the raw value of the record's column
                  * @param columnName Column name of the record
                  */
-                getValue(columnName: string): string | Date | number | number[] | boolean | EntityReference | EntityReference[] | LookupValue | LookupValue[];
+                getValue(
+                    columnName: string,
+                ):
+                    | string
+                    | Date
+                    | number
+                    | number[]
+                    | boolean
+                    | EntityReference
+                    | EntityReference[]
+                    | LookupValue
+                    | LookupValue[];
 
                 /**
                  * Get the object that encapsulates an Entity Reference as a plain object

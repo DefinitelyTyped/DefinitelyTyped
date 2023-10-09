@@ -81,7 +81,9 @@ untypedCallback(null, { bar: 123 });
 // @ts-expect-error
 untypedCallback(null, anyObj, anyObj);
 
-interface TestResult { foo: number; }
+interface TestResult {
+    foo: number;
+}
 declare const typedCallback: AWSLambda.Callback<TestResult>;
 typedCallback();
 typedCallback(undefined);
@@ -154,7 +156,7 @@ const untypedCallbackHandler: AWSLambda.Handler = (event, context, cb) => {
 // Test we get error for unsafe old style
 // @ts-expect-error
 const unsafeAsyncHandler: CustomHandler = async (event, context, cb) => {
-    cb(null, { resultString: 'No longer valid' });
+    cb(null, { resultString: "No longer valid" });
 };
 
 // Test safe old style still works
@@ -187,7 +189,7 @@ const typedAsyncHandler: CustomHandler = async (event, context, cb) => {
     cb;
     // Can still use callback
     cb(null, { resultString: str });
-    return { resultString: 'Is now valid!' };
+    return { resultString: "Is now valid!" };
 };
 
 // @ts-expect-error

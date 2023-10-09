@@ -13,24 +13,25 @@ interface event {
         text: string,
         properties: {
             date_happened?: number | undefined;
-            priority?: 'normal' | 'low' | undefined;
+            priority?: "normal" | "low" | undefined;
             host?: string | undefined;
             tags?: ReadonlyArray<string> | undefined;
-            alert_type?: 'error' | 'warning' | 'info' | 'success' | undefined;
+            alert_type?: "error" | "warning" | "info" | "success" | undefined;
             aggregation_key?: string | undefined;
             source_type_name?:
-                | 'nagios'
-                | 'hudson'
-                | 'jenkins'
-                | 'user'
-                | 'my apps'
-                | 'feed'
-                | 'chef'
-                | 'puppet'
-                | 'git'
-                | 'bitbucket'
-                | 'fabric'
-                | 'capistrano' | undefined;
+                | "nagios"
+                | "hudson"
+                | "jenkins"
+                | "user"
+                | "my apps"
+                | "feed"
+                | "chef"
+                | "puppet"
+                | "git"
+                | "bitbucket"
+                | "fabric"
+                | "capistrano"
+                | undefined;
         },
         callback: (err: Error | null, res: EventCreateResponse) => void,
     ): void;
@@ -39,17 +40,17 @@ interface event {
 export const event: event;
 
 interface metric {
-    send(metric: string, points: number | number[], callback: (err: Error | null, res: 'ok') => void): void;
+    send(metric: string, points: number | number[], callback: (err: Error | null, res: "ok") => void): void;
     send(
         metric: string,
         points: number | number[],
         extra: {
-            type?: 'gauge' | 'rate' | 'count' | undefined;
-            metric_type?: 'gauge' | 'count' | undefined;
+            type?: "gauge" | "rate" | "count" | undefined;
+            metric_type?: "gauge" | "count" | undefined;
             host?: string | undefined;
             tags?: ReadonlyArray<string> | undefined;
         },
-        callback: (err: Error | null, res: 'ok') => void,
+        callback: (err: Error | null, res: "ok") => void,
     ): void;
     send_all(
         metrics: Array<{
@@ -71,14 +72,14 @@ export interface EventCreateResponse {
         date_happened: number;
         handle: any;
         id: bigint;
-        priority: 'normal' | 'low';
+        priority: "normal" | "low";
         related_event_id: number | null;
         tags: ReadonlyArray<string>;
         text: string;
         title: string;
         url: string;
     };
-    status: 'ok';
+    status: "ok";
 }
 
 export {};

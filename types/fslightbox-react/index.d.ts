@@ -3,9 +3,9 @@
 // Definitions by: Kirill Nikitin <https://github.com/locke23rus>, Piotr Zdziarski <https://github.com/piotrzdziarski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
-export type SourceType = 'image' | 'video' | 'youtube' | null;
+export type SourceType = "image" | "video" | "youtube" | null;
 
 export interface VideoDimensions {
     width: number;
@@ -66,6 +66,8 @@ export interface FsLightboxProps {
     customToolbarButtons?: CustomToolbarButtonProps[] | undefined; // pro feature
 
     // preferences
+    disableBackgroundClose?: boolean | undefined;
+    disableSlideSwiping?: boolean | undefined;
     loadOnlyCurrentSource?: boolean | undefined;
     showThumbsOnMount?: boolean | undefined; // pro feature
     disableThumbs?: boolean | undefined; // pro feature

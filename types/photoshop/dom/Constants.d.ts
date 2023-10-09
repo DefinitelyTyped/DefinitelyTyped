@@ -1,8 +1,25 @@
 /**
+ * To use any constant, import the `constants` object from the photoshop module first.
+ *
+ * ```javascript
+ * const {app, constants} = require("photoshop");
+ *
+ * await app.activeDocument.resizeImage(
+ *     800, 600, 100,
+ *     constants.InterpolationMethod.AUTOMATIC
+ * );
+ * ```
+ */
+/**
  * The method to use for bitmap interpolation.
  *
- * Pass to [[PreferencesGeneral.imageInterpolation]],
- * [[Layer.scale]](), [[Layer.skew]](), [[Layer.rotate]]()
+ * Pass to
+ * - [[PreferencesGeneral.imageInterpolation]]
+ * - [[Layer.scale]]()
+ * - [[Layer.skew]]()
+ * - [[Layer.rotate]]()
+ * - [[Selection.resizeBoundary]]()
+ * - [[Selection.rotateBoundary]]()
  *
  * @minVersion 24.0
  */
@@ -30,7 +47,7 @@ export declare enum InterpolationMethod {
     /**
      * Determine value based on nearest neighbor
      */
-    NEARESTNEIGHBOR = "nearestNeighbor"
+    NEARESTNEIGHBOR = "nearestNeighbor",
 }
 /**
  * The method to use for document interpolation
@@ -77,7 +94,7 @@ export declare enum ResampleMethod {
      *
      * Currently unsupported**
      */
-    NONE = "none"
+    NONE = "none",
 }
 /**
  * The type of save operation.
@@ -95,7 +112,7 @@ export declare enum SaveMethod {
     /**
      * Creates a copy of the document in the new format.
      */
-    SAVEASCOPY = "saveAsCopy"
+    SAVEASCOPY = "saveAsCopy",
 }
 /**
  * The policy for handling new changes upon closing a document.
@@ -113,7 +130,7 @@ export declare enum SaveOptions {
     /**
      * Will save all existing changes before closing, prompting if document is not saved yet
      */
-    SAVECHANGES = 2
+    SAVECHANGES = 2,
 }
 /**
  * Number of bits per channel (also called pixel depth or color depth).
@@ -127,7 +144,7 @@ export declare enum BMPDepthType {
     EIGHT = "bitDepth8",
     SIXTEEN = "bitDepth16",
     TWENTYFOUR = "bitDepth24",
-    THIRTYTWO = "bitDepth32"
+    THIRTYTWO = "bitDepth32",
 }
 /**
  * The number of bits per color channel.
@@ -137,7 +154,7 @@ export declare enum BitsPerChannelType {
     ONE = "bitDepth1",
     EIGHT = "bitDepth8",
     SIXTEEN = "bitDepth16",
-    THIRTYTWO = "bitDepth32"
+    THIRTYTWO = "bitDepth32",
 }
 /**
  * The source to use for the depth map. Pass to
@@ -148,7 +165,7 @@ export declare enum DepthMapSource {
     IMAGEHIGHLIGHT = "imageHighlight",
     LAYERMASK = "layerMask",
     NONE = "none",
-    TRANSPARENCYCHANNEL = "transparency"
+    TRANSPARENCYCHANNEL = "transparency",
 }
 /**
  * The target operating system in [[BMPSaveOptions]].
@@ -156,7 +173,7 @@ export declare enum DepthMapSource {
  */
 export declare enum OperatingSystem {
     WINDOWS = "windows",
-    OS2 = "OS2"
+    OS2 = "OS2",
 }
 /**
  * The option with which to save a JPEG file.
@@ -174,7 +191,7 @@ export declare enum JPEGFormatOptions {
     /**
      * Optimized color and a slightly reduced file size.
      */
-    OPTIMIZEDBASELINE = "optimizedbaseline"
+    OPTIMIZEDBASELINE = "optimizedbaseline",
 }
 /**
  * The color to use to fill anti-aliased edges
@@ -191,7 +208,7 @@ export declare enum MatteColor {
     FOREGROUND = "foregroundColor",
     NETSCAPE = "netscapeGray",
     SEMIGRAY = "gray50",
-    WHITE = "white"
+    WHITE = "white",
 }
 /**
  * The type of dithering
@@ -201,7 +218,7 @@ export declare enum Dither {
     DIFFUSION = "diffusion",
     PATTERN = "pattern",
     NOISE = "blue",
-    NONE = "none"
+    NONE = "none",
 }
 /**
  * The type of colors to be included the color
@@ -224,7 +241,7 @@ export declare enum ForcedColors {
     /**
      * The 216 web-safe colors
      */
-    WEB = "web"
+    WEB = "web",
 }
 /**
  * The palette type to use
@@ -242,7 +259,7 @@ export declare enum Palette {
     MASTERPERCEPTUAL = "masterPerceptual",
     MASTERSELECTIVE = "masterSelective",
     MASTERADAPTIVE = "masterAdaptive",
-    PREVIOUSPALETTE = "previous"
+    PREVIOUSPALETTE = "previous",
 }
 /**
  * Compression method for saving a PNG file
@@ -251,7 +268,7 @@ export declare enum Palette {
 export declare enum PNGMethod {
     QUICK = "quick",
     MODERATE = "moderate",
-    THOROUGH = "thorough"
+    THOROUGH = "thorough",
 }
 /**
  * The point around which to transform an object.
@@ -268,7 +285,7 @@ export declare enum AnchorPosition {
     MIDDLERIGHT = "middle-right",
     TOPCENTER = "top-center",
     TOPLEFT = "top-left",
-    TOPRIGHT = "top-right"
+    TOPRIGHT = "top-right",
 }
 /**
  * Type of pixels to trim around an image, passed to [[Document.trim]].
@@ -286,7 +303,7 @@ export declare enum TrimType {
     /**
      * Transparent pixels.
      */
-    TRANSPARENT = "transparent"
+    TRANSPARENT = "transparent",
 }
 /**
  * Options for layer list label colors
@@ -300,7 +317,7 @@ export declare enum LabelColors {
     BLUE = "blue",
     VIOLET = "violet",
     GRAY = "gray",
-    NONE = "none"
+    NONE = "none",
 }
 /**
  * Blending mode
@@ -334,10 +351,10 @@ export declare enum BlendMode {
     SATURATION = "saturation",
     COLOR = "color",
     LUMINOSITY = "luminosity",
-    PASSTHROUGH = "passThrough"
+    PASSTHROUGH = "passThrough",
 }
 /**
- * The way color should be blended in a fill or stroke operation.
+ * The kind of blending used in a fill or stroke operation.
  * Pass to [[PathItem.fillPath]]()
  * @minVersion 23.3
  */
@@ -368,7 +385,65 @@ export declare enum ColorBlendMode {
     SATURATION = "saturation",
     SCREEN = "screen",
     SOFTLIGHT = "softLight",
-    VIVIDLIGHT = "vividLight"
+    VIVIDLIGHT = "vividLight",
+}
+/**
+ * The kind of blending used in a [[Document.calculations]] operation.
+ * @minVersion 24.5
+ */
+export declare enum CalculationsBlendMode {
+    NORMAL = "normal",
+    DARKEN = "darken",
+    MULTIPLY = "multiply",
+    COLORBURN = "colorBurn",
+    LINEARBURN = "linearBurn",
+    DARKERCOLOR = "darkerColor",
+    LIGHTEN = "lighten",
+    SCREEN = "screen",
+    COLORDODGE = "colorDodge",
+    LINEARDODGE = "linearDodge",
+    LIGHTERCOLOR = "lighterColor",
+    OVERLAY = "overlay",
+    SOFTLIGHT = "softLight",
+    HARDLIGHT = "hardLight",
+    VIVIDLIGHT = "vividLight",
+    LINEARLIGHT = "linearLight",
+    PINLIGHT = "pinLight",
+    HARDMIX = "hardMix",
+    ADD = "add",
+    SUBTRACT = "subtract",
+    DIFFERENCE = "difference",
+    EXCLUSION = "exclusion",
+    DIVIDE = "blendDivide",
+}
+/**
+ * The kind of blending used in a [[Layer.applyImage]] operation.
+ * @minVersion 24.5
+ */
+export declare enum ApplyImageBlendMode {
+    NORMAL = "normal",
+    DARKEN = "darken",
+    MULTIPLY = "multiply",
+    COLORBURN = "colorBurn",
+    LINEARBURN = "linearBurn",
+    DARKERCOLOR = "darkerColor",
+    LIGHTEN = "lighten",
+    SCREEN = "screen",
+    COLORDODGE = "colorDodge",
+    LINEARDODGE = "linearDodge",
+    LIGHTERCOLOR = "lighterColor",
+    OVERLAY = "overlay",
+    SOFTLIGHT = "softLight",
+    HARDLIGHT = "hardLight",
+    VIVIDLIGHT = "vividLight",
+    LINEARLIGHT = "linearLight",
+    PINLIGHT = "pinLight",
+    HARDMIX = "hardMix",
+    ADD = "add",
+    SUBTRACT = "subtract",
+    DIFFERENCE = "difference",
+    EXCLUSION = "exclusion",
+    DIVIDE = "blendDivide",
 }
 /**
  * Color mode of an open document. See also [[Document.mode]] and [[Document.changeMode]]
@@ -382,7 +457,7 @@ export declare enum DocumentMode {
     INDEXEDCOLOR = "indexedColorMode",
     LAB = "labColorMode",
     MULTICHANNEL = "multichannelMode",
-    RGB = "RGBColorMode"
+    RGB = "RGBColorMode",
 }
 /**
  * Color Modes available for new document
@@ -393,7 +468,7 @@ export declare enum NewDocumentMode {
     GRAYSCALE = "grayscaleMode",
     RGB = "RGBColorMode",
     CMYK = "CMYKColorMode",
-    LAB = "labColorMode"
+    LAB = "labColorMode",
 }
 /**
  * Valid Units for convertUnits method, used in [[Photoshop.convertUnits]]
@@ -405,7 +480,7 @@ export declare enum Units {
     MM = "mm",
     PICAS = "pc",
     PIXELS = "px",
-    POINTS = "pt"
+    POINTS = "pt",
 }
 /**
  * The new color profile or mode for a document, specified in [[Document.changeMode]]
@@ -420,7 +495,7 @@ export declare enum ChangeMode {
     INDEXEDCOLOR = "indexedColorMode",
     LAB = "labColorMode",
     MULTICHANNEL = "multichannelMode",
-    RGB = "RGBColorMode"
+    RGB = "RGBColorMode",
 }
 /**
  * Fill methods available for the new document background
@@ -431,7 +506,7 @@ export declare enum DocumentFill {
     BLACK = "black",
     BACKGROUNDCOLOR = "backgroundColor",
     TRANSPARENT = "transparent",
-    COLOR = "color"
+    COLOR = "color",
 }
 /**
  * Kinds of different layers in a document
@@ -462,7 +537,7 @@ export declare enum LayerKind {
     VIBRANCE = "vibrance",
     VIDEO = "video",
     GROUP = "group",
-    COLORLOOKUP = "colorLookup"
+    COLORLOOKUP = "colorLookup",
 }
 /**
  * Placement modes for Layer.move method
@@ -488,7 +563,7 @@ export declare enum ElementPlacement {
     /**
      * Place inside a group layer, throws error if not group layer
      */
-    PLACEINSIDE = "placeInside"
+    PLACEINSIDE = "placeInside",
 }
 /**
  * Type of color profile used to manage a document, used in [[Document.colorProfileType]]
@@ -506,7 +581,7 @@ export declare enum ColorProfileType {
     /**
      * Set when document uses the working color profile
      */
-    WORKING = "workingSpaceCode"
+    WORKING = "workingSpaceCode",
 }
 /**
  * Specifies the quality of an image you are converting to bitmap mode. Used in [[BitmapConversionOptions]]
@@ -517,7 +592,7 @@ export declare enum BitmapConversionType {
     DIFFUSIONDITHER = "diffusionDither",
     HALFTHRESHOLD = "halfThreshold",
     HALFTONESCREEN = "halfToneScreen",
-    PATTERNDITHER = "patternDither"
+    PATTERNDITHER = "patternDither",
 }
 /**
  * Specifies the shape of the dots (ink deposits) in the halftone screen. Used in [[BitmapConversionOptions]]
@@ -529,7 +604,7 @@ export declare enum BitmapHalfToneType {
     ELLIPSE = "ellipse",
     LINE = "lineClass",
     ROUND = "round",
-    SQUARE = "square"
+    SQUARE = "square",
 }
 /**
  * The rendering intent to use when converting from one color space to another with
@@ -540,7 +615,7 @@ export declare enum Intent {
     ABSOLUTECOLORIMETRIC = "absColorimetric",
     PERCEPTUAL = "image",
     RELATIVECOLORIMETRIC = "colorimetric",
-    SATURATION = "graphics"
+    SATURATION = "graphics",
 }
 /**
  * Used in multiple places to represent orientation.
@@ -550,7 +625,7 @@ export declare enum Intent {
  */
 export declare enum Direction {
     HORIZONTAL = "horizontal",
-    VERTICAL = "vertical"
+    VERTICAL = "vertical",
 }
 /**
  * Used in multiple places to represent orientation
@@ -559,7 +634,7 @@ export declare enum Direction {
  */
 export declare enum Orientation {
     HORIZONTAL = "horizontal",
-    VERTICAL = "vertical"
+    VERTICAL = "vertical",
 }
 /**
  * The color model representing the current color space
@@ -572,7 +647,7 @@ export declare enum ColorModel {
     CMYK = "CMYKColorEnum",
     LAB = "labColor",
     RGB = "RGBColor",
-    NONE = "noColor"
+    NONE = "noColor",
 }
 /**
  * The type of layer to get rasterized.
@@ -588,7 +663,7 @@ export declare enum RasterizeType {
     VECTORMASK = "vectorMask",
     PLACED = "placed",
     VIDEO = "video",
-    LAYERSTYLE = "layerStyle"
+    LAYERSTYLE = "layerStyle",
 }
 /**
  * Controls the type of dialogs Photoshop displays
@@ -607,7 +682,7 @@ export declare enum DialogModes {
     /**
      * All dialogs will be hidden, and bad calls will silently fail
      */
-    NONE = "dontDisplay"
+    NONE = "dontDisplay",
 }
 /**
  * Describes how the displacement map fits the
@@ -617,7 +692,7 @@ export declare enum DialogModes {
  */
 export declare enum DisplacementMapType {
     STRETCHTOFIT = "stretchToFit",
-    TILE = "tile"
+    TILE = "tile",
 }
 /**
  * The type of a color channel.
@@ -639,7 +714,7 @@ export declare enum ChannelType {
     /**
      * Alpha channel to store a spot color
      */
-    SPOTCOLOR = "spot"
+    SPOTCOLOR = "spot",
 }
 /**
  * Distribution model to use when applying an Add Noise filter. Pass to [[Layer.applyAddNoise]].
@@ -647,7 +722,7 @@ export declare enum ChannelType {
  */
 export declare enum NoiseDistribution {
     GAUSSIAN = "gaussianDistribution",
-    UNIFORM = "uniformDistribution"
+    UNIFORM = "uniformDistribution",
 }
 /**
  * The type of field to eliminate. Pass to [[Layer.applyDeInterlace]].
@@ -655,7 +730,7 @@ export declare enum NoiseDistribution {
  */
 export declare enum EliminateFields {
     EVENFIELDS = "eliminateEvenFields",
-    ODDFIELDS = "eliminateOddFields"
+    ODDFIELDS = "eliminateOddFields",
 }
 /**
  * Geometric options for shapes, such as the iris shape in the
@@ -668,7 +743,7 @@ export declare enum Geometry {
     OCTAGON = "octagon",
     PENTAGON = "pentagon",
     SQUARE = "square",
-    TRIANGLE = "triangle"
+    TRIANGLE = "triangle",
 }
 /**
  * The method used for creating fields. Pass to [[Layer.applyDeInterlace]].
@@ -676,7 +751,7 @@ export declare enum Geometry {
  */
 export declare enum CreateFields {
     DUPLICATION = "createDroplet",
-    INTERPOLATION = "createInterpolation"
+    INTERPOLATION = "createInterpolation",
 }
 /**
  * The type of a [[PathItem]]
@@ -689,11 +764,11 @@ export declare enum PathKind {
     NORMALPATH = "normalPath",
     TEXTMASK = "textShape",
     VECTORMASK = "vectorMask",
-    WORKPATH = "workPathIndex"
+    WORKPATH = "workPathIndex",
 }
 /**
  * The selection behavior when a selection already exists.
- * Used in [[PathItem.makeSelection]]()
+ * Used in [[PathItem.makeSelection]](), [[Selection.saveTo]]() and [[Selection.load]]()
  * @minVersion 23.3
  */
 export declare enum SelectionType {
@@ -712,7 +787,7 @@ export declare enum SelectionType {
     /**
      * Replace the selected area
      */
-    REPLACE = "set"
+    REPLACE = "set",
 }
 /**
  * The tool to use with [[PathItem.strokePath]]()
@@ -734,7 +809,7 @@ export declare enum ToolType {
     PENCIL = "pencilTool",
     SHARPEN = "sharpenTool",
     SMUDGE = "smudgeTool",
-    SPONGE = "saturationTool"
+    SPONGE = "saturationTool",
 }
 /**
  * The role a [[PathPoint]] plays in a [[PathItem]]
@@ -742,7 +817,7 @@ export declare enum ToolType {
  */
 export declare enum PointKind {
     CORNERPOINT = "cornerPoint",
-    SMOOTHPOINT = "smoothPoint"
+    SMOOTHPOINT = "smoothPoint",
 }
 /**
  * How to combine the shapes if the destination path already has a selection.
@@ -754,7 +829,7 @@ export declare enum ShapeOperation {
     SHAPEADD = "add",
     SHAPEINTERSECT = "intersect",
     SHAPESUBTRACT = "subtract",
-    SHAPEXOR = "xor"
+    SHAPEXOR = "xor",
 }
 /**
  * The type of texture or glass surface image to load for a texturizer
@@ -765,7 +840,7 @@ export declare enum TextureType {
     BLOCKS = "texTypeBlocks",
     CANVAS = "texTypeCanvas",
     FROSTED = "texTypeFrosted",
-    TINYLENS = "texTypeTinyLens"
+    TINYLENS = "texTypeTinyLens",
 }
 /**
  * How to treat undistorted areas or areas left blank in an image
@@ -775,7 +850,7 @@ export declare enum TextureType {
  */
 export declare enum UndefinedAreas {
     REPEATEDGEPIXELS = "repeatEdgePixels",
-    WRAPAROUND = "wrapAround"
+    WRAPAROUND = "wrapAround",
 }
 /**
  * The kind of polar conversion.
@@ -792,7 +867,7 @@ export declare enum PolarConversionType {
      * The distortion applied will take the input pixel grid as rectangular coordinates
      * and convert them to polar coordinates.
      */
-    RECTANGULARTOPOLAR = "rectToPolar"
+    RECTANGULARTOPOLAR = "rectToPolar",
 }
 /**
  * Radial blur comes in two flavors: spin and zoom.
@@ -804,7 +879,7 @@ export declare enum PolarConversionType {
  */
 export declare enum RadialBlurMethod {
     SPIN = "spin",
-    ZOOM = "zoom"
+    ZOOM = "zoom",
 }
 /**
  * The radial blur quality.
@@ -815,7 +890,7 @@ export declare enum RadialBlurMethod {
 export declare enum RadialBlurQuality {
     DRAFT = "draft",
     GOOD = "good",
-    BEST = "best"
+    BEST = "best",
 }
 /**
  * The size of undulations.
@@ -825,7 +900,7 @@ export declare enum RadialBlurQuality {
 export declare enum RippleSize {
     LARGE = "large",
     MEDIUM = "mediumQuality",
-    SMALL = "small"
+    SMALL = "small",
 }
 /**
  * The smart blur quality.
@@ -835,7 +910,7 @@ export declare enum RippleSize {
 export declare enum SmartBlurQuality {
     HIGH = "smartBlurQualityHigh",
     LOW = "smartBlurQualityLow",
-    MEDIUM = "smartBlurQualityMedium"
+    MEDIUM = "smartBlurQualityMedium",
 }
 /**
  * The method to use for smart blurring.
@@ -845,7 +920,7 @@ export declare enum SmartBlurQuality {
 export declare enum SmartBlurMode {
     EDGEONLY = "smartBlurModeEdgeOnly",
     NORMAL = "smartBlurModeNormal",
-    OVERLAYEDGE = "smartBlurModeOverlayEdge"
+    OVERLAYEDGE = "smartBlurModeOverlayEdge",
 }
 /**
  * The curve (or stretch shape) to use for the distortion.
@@ -855,7 +930,7 @@ export declare enum SmartBlurMode {
 export declare enum SpherizeMode {
     HORIZONTAL = "horizontalOnly",
     NORMAL = "normal",
-    VERTICAL = "verticalOnly"
+    VERTICAL = "verticalOnly",
 }
 /**
  * The type of wave.
@@ -865,7 +940,7 @@ export declare enum SpherizeMode {
 export declare enum WaveType {
     SINE = "waveSine",
     SQUARE = "waveSquare",
-    TRIANGULAR = "waveTriangle"
+    TRIANGULAR = "waveTriangle",
 }
 /**
  * The method of zigzagging.
@@ -875,7 +950,7 @@ export declare enum WaveType {
 export declare enum ZigZagType {
     AROUNDCENTER = "aroundCenter",
     OUTFROMCENTER = "outFromCenter",
-    PONDRIPPLES = "pondRipples"
+    PONDRIPPLES = "pondRipples",
 }
 /**
  * The type of Lens to use. Pass to [[Layer.applyLensFlare]]().
@@ -885,7 +960,7 @@ export declare enum LensType {
     MOVIEPRIME = "panaVision",
     PRIME105 = "nikon105",
     PRIME35 = "nikon",
-    ZOOMLENS = "zoom"
+    ZOOMLENS = "zoom",
 }
 /**
  * Favor the promotion of either corners or curves.
@@ -894,7 +969,7 @@ export declare enum LensType {
  */
 export declare enum PreserveShape {
     SQUARENESS = "squareness",
-    ROUNDNESS = "roundness"
+    ROUNDNESS = "roundness",
 }
 /**
  * Method to use to fill the empty space left by offsetting an image or selection.
@@ -904,7 +979,7 @@ export declare enum PreserveShape {
 export declare enum OffsetUndefinedAreas {
     SETTOBACKGROUND = "background",
     REPEATEDGEPIXELS = "repeat",
-    WRAPAROUND = "wrap"
+    WRAPAROUND = "wrap",
 }
 /**
  * Sample size for the EyeDropper tool and ColorSampler instances.
@@ -918,7 +993,7 @@ export declare enum SampleSize {
     SAMPLE11X11 = 5,
     SAMPLE31X31 = 15,
     SAMPLE51X51 = 25,
-    SAMPLE101X101 = 50
+    SAMPLE101X101 = 50,
 }
 /**
  * The application's behavior regarding image previews.
@@ -937,7 +1012,7 @@ export declare enum SavePreview {
     /**
      * Never save the item with the file.
      */
-    NEVERSAVE = "queryNever"
+    NEVERSAVE = "queryNever",
 }
 /**
  * The kind of color picker dialog to use.
@@ -956,7 +1031,7 @@ export declare enum ColorPicker {
     /**
      * The built-in Windows color picker.
      */
-    PLUGIN = "pluginPicker"
+    PLUGIN = "pluginPicker",
 }
 /**
  * The history log edit options.
@@ -978,7 +1053,7 @@ export declare enum EditLogItemsType {
      * Photoshop and each time you open and close files (each image’s filename is included).
      * Does not include any information about edits made to the file.
      */
-    SESSIONONLY = "session"
+    SESSIONONLY = "session",
 }
 /**
  * The size of grid squares.
@@ -1001,7 +1076,7 @@ export declare enum GridSize {
     /**
      * Small grid squares.
      */
-    SMALL = "small"
+    SMALL = "small",
 }
 /**
  * The line style for nonprinting grids displayed over images.
@@ -1011,7 +1086,7 @@ export declare enum GridSize {
 export declare enum GridLineStyle {
     DASHED = "dashedLines",
     DOTTED = "dots",
-    SOLID = "lens"
+    SOLID = "lens",
 }
 /**
  * The line style for nonprinting guides displayed over images.
@@ -1020,7 +1095,7 @@ export declare enum GridLineStyle {
  */
 export declare enum GuideLineStyle {
     DASHED = "dashedLines",
-    SOLID = "lens"
+    SOLID = "lens",
 }
 /**
  * The permission state for queries.
@@ -1039,7 +1114,7 @@ export declare enum MaximizeCompatibility {
     /**
      * Never ask about maximize compatibility.
      */
-    NEVER = "queryNever"
+    NEVER = "queryNever",
 }
 /**
  * The style of the cursors for the following tools: Marquee, Lasso, Polygonal Lasso, Magic Wand, Crop, Slice,
@@ -1056,7 +1131,7 @@ export declare enum OtherCursors {
     /**
      * Use small iconic cursors for tools.
      */
-    STANDARD = "standard"
+    STANDARD = "standard",
 }
 /**
  * The style of the cursors for the following tools: Eraser, Pencil, Paintbrush, Healing Brush,
@@ -1081,7 +1156,7 @@ export declare enum PaintingCursors {
     /**
      * Use small iconic cursors when painting.
      */
-    STANDARD = "standard"
+    STANDARD = "standard",
 }
 /**
  * The point/pica size: either 72 or 72.27 points per inch.
@@ -1096,7 +1171,7 @@ export declare enum PointType {
     /**
      * 72.27 points per inch.
      */
-    TRADITIONAL = "TRADITIONAL"
+    TRADITIONAL = "TRADITIONAL",
 }
 /**
  * Options for logging the history items.
@@ -1115,7 +1190,7 @@ export declare enum SaveLogItemsType {
     /**
      * Save history log in file metadata.
      */
-    METADATA = "metadata"
+    METADATA = "metadata",
 }
 /**
  * Font size in panels and dialogs.
@@ -1138,7 +1213,7 @@ export declare enum FontSize {
     /**
      * Small size.
      */
-    SMALL = "preferSmallPaletteFontType"
+    SMALL = "preferSmallPaletteFontType",
 }
 /**
  * The measurement unit for type.
@@ -1148,7 +1223,7 @@ export declare enum FontSize {
 export declare enum TypeUnits {
     MILLIMETERS = "rulerMm",
     PIXELS = "rulerPixels",
-    POINTS = "rulerPoints"
+    POINTS = "rulerPoints",
 }
 /**
  * The measurement unit for ruler increments.
@@ -1162,7 +1237,7 @@ export declare enum RulerUnits {
     PERCENT = "rulerPercent",
     PICAS = "rulerPicas",
     PIXELS = "rulerPixels",
-    POINTS = "rulerPoints"
+    POINTS = "rulerPoints",
 }
 /**
  * Options for changing user interface of Character and Paragraph panels.
@@ -1173,7 +1248,51 @@ export declare enum RulerUnits {
 export declare enum TypeInterfaceFeatures {
     DEFAULT = "defaultTextInterface",
     EASTASIAN = "advancedAsianInterface",
-    MIDDLEEASTERN = "middleEasternInterface"
+    MIDDLEEASTERN = "middleEasternInterface",
+}
+/**
+ * The result of [[Document.calculations]] can go into a new document,
+ *  a new channel in the active document, or a new selection in the active document.
+ * @minVersion 24.5
+ */
+export declare enum CalculationsResult {
+    NEWDOCUMENT = "document",
+    NEWCHANNEL = "channel",
+    SELECTION = "selection",
+}
+/**
+ * Special channels used in [[Document.calculations]].
+ * @minVersion 24.5
+ */
+export declare enum CalculationsChannel {
+    TRANSPARENCY = "transparencyEnum",
+    SELECTION = "selection",
+    GRAY = "gray",
+}
+/**
+ * Special channels used in [[Layer.applyImage]].
+ * @minVersion 24.5
+ */
+export declare enum ApplyImageChannel {
+    TRANSPARENCY = "transparencyEnum",
+    SELECTION = "selection",
+    RGB = "RGB",
+    CMYK = "CMYK",
+    LAB = "lab",
+}
+/**
+ * Use merged layers as a source in [Document.calculations]].
+ * @minVersion 24.5
+ */
+export declare enum CalculationsLayer {
+    MERGED = "merged",
+}
+/**
+ * Use merged layers as a source in [[Layer.applyImage]].
+ * @minVersion 24.5
+ */
+export declare enum ApplyImageLayer {
+    MERGED = "merged",
 }
 /**
  * Method to use to smooth edges by softening the color transition between edge pixels
@@ -1185,7 +1304,7 @@ export declare enum AntiAlias {
     SHARP = "antiAliasSharp",
     CRISP = "antiAliasCrisp",
     STRONG = "antiAliasStrong",
-    SMOOTH = "antiAliasSmooth"
+    SMOOTH = "antiAliasSmooth",
 }
 /**
  * The warp style to use with Text. Used in a [[WarpStyle.style]]
@@ -1207,7 +1326,7 @@ export declare enum WarpStyle {
     SHELLUPPER = "warpShellUpper",
     SQUEEZE = "warpSqueeze",
     TWIST = "warpTwist",
-    WAVE = "warpWave"
+    WAVE = "warpWave",
 }
 /**
  * The type of kerning to use for characters. Used in [[CharacterStyle.autoKerning]]
@@ -1216,7 +1335,7 @@ export declare enum WarpStyle {
 export declare enum AutoKernType {
     MANUAL = "manual",
     METRICS = "metricsKern",
-    OPTICAL = "opticalKern"
+    OPTICAL = "opticalKern",
 }
 /**
  * The capitalization style to use in text. Used in [[CharacterStyle.capitalization]]
@@ -1225,7 +1344,7 @@ export declare enum AutoKernType {
 export declare enum TextCase {
     ALLCAPS = "allCaps",
     NORMAL = "normal",
-    SMALLCAPS = "smallCaps"
+    SMALLCAPS = "smallCaps",
 }
 /**
  * The baseline style to use in text. Used in [[CharacterStyle.baseline]]
@@ -1234,7 +1353,7 @@ export declare enum TextCase {
 export declare enum Baseline {
     NORMAL = "normal",
     SUPERSCRIPT = "superScript",
-    SUBSCRIPT = "subScript"
+    SUBSCRIPT = "subScript",
 }
 /**
  * The underline style to use in text. Used in [[CharacterStyle.underline]]
@@ -1243,7 +1362,7 @@ export declare enum Baseline {
 export declare enum Underline {
     NONE = "underlineOff",
     RIGHTINVERTICAL = "underlineOnRightInVertical",
-    LEFTINVERTICAL = "underlineOnLeftInVertical"
+    LEFTINVERTICAL = "underlineOnLeftInVertical",
 }
 /**
  * The language to use for text. Used in [[CharacterStyle.language]]
@@ -1308,7 +1427,7 @@ export declare enum Language {
     BURMESE = "burmeseLanguage",
     LAO = "laoLanguage",
     SINHALESE = "sinhaleseLanguage",
-    INDONESIAN = "indonesianLanguage"
+    INDONESIAN = "indonesianLanguage",
 }
 /**
  * The placement of paragraph text within the bounding box.
@@ -1322,7 +1441,7 @@ export declare enum Justification {
     LEFTJUSTIFIED = "justifyLeft",
     CENTERJUSTIFIED = "justifyCenter",
     RIGHTJUSTIFIED = "justifyRight",
-    FULLYJUSTIFIED = "justifyAll"
+    FULLYJUSTIFIED = "justifyAll",
 }
 /**
  * The text strikethrough style to use in text. Used in [[CharacterStyle.strikeThrough]]
@@ -1331,7 +1450,7 @@ export declare enum Justification {
 export declare enum StrikeThrough {
     STRIKEBOX = "eMBoxStrikethroughOn",
     STRIKEHEIGHT = "xHeightStrikethroughOn",
-    STRIKEOFF = "strikethroughOff"
+    STRIKEOFF = "strikethroughOff",
 }
 /**
  * The character alignment to use in text.
@@ -1344,7 +1463,7 @@ export declare enum CharacterAlignment {
     EMBOXCENTER = "center",
     EMBOXBOTTOMLEFT = "bottom",
     ICFBOXTOPRIGHT = "icftop",
-    ICFBOTTOMLEFT = "icfbottom"
+    ICFBOTTOMLEFT = "icfbottom",
 }
 /**
  * The paragraph layout to use in text.
@@ -1353,7 +1472,7 @@ export declare enum CharacterAlignment {
  */
 export declare enum ParagraphLayout {
     LATINEASTASIAN = "textLatinCJKComposer",
-    WORLDREADY = "textOptycaComposer"
+    WORLDREADY = "textOptycaComposer",
 }
 /**
  * The paragraph features to use in text.
@@ -1363,7 +1482,7 @@ export declare enum ParagraphLayout {
 export declare enum ParagraphFeatures {
     DEFAULT = "defaultTextInterface",
     EASTASIAN = "advancedAsianInterface",
-    MIDDLEASTERN = "middleEasternInterface"
+    MIDDLEASTERN = "middleEasternInterface",
 }
 /**
  * Text flow direction (Middle Eastern features).
@@ -1373,7 +1492,7 @@ export declare enum ParagraphFeatures {
 export declare enum MiddleEasternTextDirection {
     DEFAULT = "dirOverrideDefault",
     LEFTTORIGHT = "dirOverrideLTR",
-    RIGHTTOLEFT = "dirOverrideRTL"
+    RIGHTTOLEFT = "dirOverrideRTL",
 }
 /**
  * Digit type to use in text (Middle Eastern features).
@@ -1384,7 +1503,7 @@ export declare enum MiddleEasternDigitsType {
     LTRARABIC = "arabicDigits",
     RTLARABIC = "RTLarabicDigits",
     HINDI = "hindiDigits",
-    FARSI = "farsiDigits"
+    FARSI = "farsiDigits",
 }
 /**
  * The width of kashida (tatweel) character
@@ -1396,7 +1515,7 @@ export declare enum KashidaWidthType {
     SHORT = "kashidaWidthSmall",
     MEDIUM = "kashidaWidthMedium",
     LONG = "kashidaWidthLong",
-    STYLISTIC = "kashidaWidthStylistic"
+    STYLISTIC = "kashidaWidthStylistic",
 }
 /**
  * Line breaking rules in Japanese text
@@ -1406,7 +1525,7 @@ export declare enum KashidaWidthType {
 export declare enum Kinsoku {
     NONE = "None",
     JISWEAK = "Soft",
-    JISMAXIMUM = "Hard"
+    JISMAXIMUM = "Hard",
 }
 /**
  * Spacing between punctuation, symbols, numbers,
@@ -1419,5 +1538,5 @@ export declare enum Mojikumi {
     SET1 = "Photoshop6MojiKumiSet1",
     SET2 = "Photoshop6MojiKumiSet2",
     SET3 = "Photoshop6MojiKumiSet3",
-    SET4 = "Photoshop6MojiKumiSet4"
+    SET4 = "Photoshop6MojiKumiSet4",
 }

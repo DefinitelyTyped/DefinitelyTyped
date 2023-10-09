@@ -7,15 +7,12 @@
 import * as d3 from "d3";
 
 declare global {
-    namespace CalHeatMap
-    {
-        interface CalHeatMapStatic
-        {
-            new (): CalHeatMap;
+    namespace CalHeatMap {
+        interface CalHeatMapStatic {
+            new(): CalHeatMap;
         }
 
-        interface CalHeatMap
-        {
+        interface CalHeatMap {
             /**
              * Initialise the CalHeatMap with the specified options
              * @param {InitOptions} options The CalHeatMap options
@@ -109,8 +106,7 @@ declare global {
             destroy(callback?: Function): CalHeatMap;
         }
 
-        interface LegendColor
-        {
+        interface LegendColor {
             /** Color of the smallest value on the legend */
             min: string;
             /** Color of the highest value on the legend */
@@ -123,8 +119,7 @@ declare global {
             overflow?: string | undefined;
         }
 
-        interface InitOptions
-        {
+        interface InitOptions {
             // ================================================
             // Presentation
             // ================================================
@@ -428,8 +423,7 @@ declare global {
             onMaxDomainReached?: ((reached: boolean) => void) | undefined;
         }
 
-        interface RuntimeOptions extends InitOptions
-        {
+        interface RuntimeOptions extends InitOptions {
             /** Margin around each domain, in pixels. Ordered like in CSS (top, right, bottom, left) */
             domainMargin: number[];
             /** Margin around the legend, in pixels. Ordered like in CSS (top, right, bottom, left) */
@@ -443,8 +437,7 @@ declare global {
             itemName: string[];
         }
 
-        interface LegendTitleTemplates
-        {
+        interface LegendTitleTemplates {
             /** Formatting of the smallest (leftmost) value of the legend. Default value: "less than {min} {name}" */
             lower?: string | undefined;
             /** Formatting of all the value but the first and the last. Default value: "between {down} and {up} {name}" */
@@ -453,29 +446,25 @@ declare global {
             upper?: string | undefined;
         }
 
-        interface SubDomainFormatTemplates
-        {
+        interface SubDomainFormatTemplates {
             /** Format of the title when there is no value associated to the date. Default value: "{date}" */
             empty?: string | undefined;
             /** Format of the title when it's associated to a value. Default value: "{count} {name} {connector} {date}" */
             filled?: string | undefined;
         }
 
-        interface DataFormat
-        {
+        interface DataFormat {
             /** timestamp are in seconds, value can be any number (integer or float) */
             [timestamp: string]: number;
         }
 
-        interface LabelOffset
-        {
+        interface LabelOffset {
             x: number;
             y: number;
         }
 
         /** Position and alignment of the domain label. */
-        interface Label
-        {
+        interface Label {
             /**
              * Position of the label, relative to the domain. Default: "bottom"
              * Valid values: {"top", "right", "bottom", "left"}

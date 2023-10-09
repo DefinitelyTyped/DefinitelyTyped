@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Store, StoreEnhancer } from 'redux';
+import { Store, StoreEnhancer } from "redux";
 
 export type NotifyFunction = () => void;
 export type BatchFunction = (notify: NotifyFunction) => void;

@@ -14,7 +14,7 @@ declare function f(options: (options?: session.SessionOptions) => express.Reques
 
 declare namespace f {
     interface FileStore {
-        new (options?: Options): session.Store;
+        new(options?: Options): session.Store;
     }
     /**
      * FileStore Options

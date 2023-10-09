@@ -3,7 +3,7 @@
 // Definitions by: Piotr Kuczynski <https://github.com/pkuczynski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Plugin } from 'postcss';
+import { Plugin } from "postcss";
 
 declare namespace GapProperties {
     interface Options {

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare namespace CarouselItem {
     interface CarouselItemProps extends React.HTMLProps<CarouselItem> {
@@ -11,5 +11,5 @@ declare namespace CarouselItem {
         onAnimateOutEnd?: Function | undefined;
     }
 }
-declare class CarouselItem extends React.Component<CarouselItem.CarouselItemProps> { }
+declare class CarouselItem extends React.Component<CarouselItem.CarouselItemProps> {}
 export = CarouselItem;

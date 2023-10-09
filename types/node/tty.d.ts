@@ -1,10 +1,9 @@
 /**
- * The `tty` module provides the `tty.ReadStream` and `tty.WriteStream` classes.
- * In most cases, it will not be necessary or possible to use this module directly.
- * However, it can be accessed using:
+ * The `node:tty` module provides the `tty.ReadStream` and `tty.WriteStream`classes. In most cases, it will not be necessary or possible to use this module
+ * directly. However, it can be accessed using:
  *
  * ```js
- * const tty = require('tty');
+ * const tty = require('node:tty');
  * ```
  *
  * When Node.js detects that it is being run with a text terminal ("TTY")
@@ -22,10 +21,10 @@
  *
  * In most cases, there should be little to no reason for an application to
  * manually create instances of the `tty.ReadStream` and `tty.WriteStream`classes.
- * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/tty.js)
+ * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/tty.js)
  */
-declare module 'tty' {
-    import * as net from 'node:net';
+declare module "tty" {
+    import * as net from "node:net";
     /**
      * The `tty.isatty()` method returns `true` if the given `fd` is associated with
      * a TTY and `false` if it is not, including whenever `fd` is not a non-negative
@@ -43,7 +42,10 @@ declare module 'tty' {
         constructor(fd: number, options?: net.SocketConstructorOpts);
         /**
          * A `boolean` that is `true` if the TTY is currently configured to operate as a
-         * raw device. Defaults to `false`.
+         * raw device.
+         *
+         * This flag is always `false` when a process starts, even if the terminal is
+         * operating in raw mode. Its value will change with subsequent calls to`setRawMode`.
          * @since v0.7.7
          */
         isRaw: boolean;
@@ -81,17 +83,17 @@ declare module 'tty' {
     class WriteStream extends net.Socket {
         constructor(fd: number);
         addListener(event: string, listener: (...args: any[]) => void): this;
-        addListener(event: 'resize', listener: () => void): this;
+        addListener(event: "resize", listener: () => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: 'resize'): boolean;
+        emit(event: "resize"): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
-        on(event: 'resize', listener: () => void): this;
+        on(event: "resize", listener: () => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        once(event: 'resize', listener: () => void): this;
+        once(event: "resize", listener: () => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
-        prependListener(event: 'resize', listener: () => void): this;
+        prependListener(event: "resize", listener: () => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: 'resize', listener: () => void): this;
+        prependOnceListener(event: "resize", listener: () => void): this;
         /**
          * `writeStream.clearLine()` clears the current line of this `WriteStream` in a
          * direction identified by `dir`.
@@ -201,6 +203,6 @@ declare module 'tty' {
         isTTY: boolean;
     }
 }
-declare module 'node:tty' {
-    export * from 'tty';
+declare module "node:tty" {
+    export * from "tty";
 }

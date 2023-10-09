@@ -1,6 +1,6 @@
-import remoteGitTags from 'remote-git-tags';
+import remoteGitTags from "remote-git-tags";
 
-remoteGitTags('https://github.com/sindresorhus/got').then(tags => {
+remoteGitTags("https://github.com/sindresorhus/got").then(tags => {
     // $ExpectType string | undefined
-    tags.get('v6.0.0');
+    tags.get("v6.0.0");
 });

@@ -53,7 +53,13 @@ export interface TestOperation extends BaseOperation {
 /**
  * All possible JSON patch operations
  */
-export type JsonPatchOperation = AddOperation | RemoveOperation | ReplaceOperation | MoveOperation | CopyOperation | TestOperation;
+export type JsonPatchOperation =
+    | AddOperation
+    | RemoveOperation
+    | ReplaceOperation
+    | MoveOperation
+    | CopyOperation
+    | TestOperation;
 
 /**
  * A JSON patch as specified in RFC 6902

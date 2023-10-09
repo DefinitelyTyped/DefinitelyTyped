@@ -17,9 +17,8 @@ declare namespace OO.ui {
         }
 
         interface ConfigOptions
-            extends Widget.ConfigOptions,
-                mixin.LabelElement.ConfigOptions,
-                mixin.TitledElement.ConfigOptions {
+            extends Widget.ConfigOptions, mixin.LabelElement.ConfigOptions, mixin.TitledElement.ConfigOptions
+        {
             /** Whether the option is initially selected */
             selected?: boolean;
         }
@@ -86,19 +85,19 @@ declare namespace OO.ui {
 
             connect<T extends Partial<Record<keyof EventMap, any>>, C>(
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
             ): this;
 
             disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
             ): this;
             // #endregion
         }
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): MultioptionWidget;
+            new(config?: ConfigOptions): MultioptionWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

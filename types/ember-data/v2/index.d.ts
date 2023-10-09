@@ -6,8 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import Ember from 'ember';
-import RSVP from 'rsvp';
+import Ember from "ember";
+import RSVP from "rsvp";
 
 export interface ModelRegistry {}
 export interface AdapterRegistry {}
@@ -34,7 +34,7 @@ interface AttributeMeta<Model extends DS.Model> {
 }
 interface RelationshipMeta<Model extends DS.Model> {
     key: RelationshipsFor<Model>;
-    kind: 'belongsTo' | 'hasMany';
+    kind: "belongsTo" | "hasMany";
     type: keyof ModelRegistry;
     options: object;
     name: string;
@@ -146,7 +146,7 @@ export namespace DS {
          * Used by `findAll` and `findRecord` to build the query's `data` hash supplied to the ajax method.
          */
         buildQuery<K extends keyof ModelRegistry>(
-            snapshot: Snapshot<K>
+            snapshot: Snapshot<K>,
         ): Record<string, unknown>;
         /**
          * Builds a URL for a `store.findRecord(type, id)` call.
@@ -934,14 +934,14 @@ export namespace DS {
         belongsTo<L extends RelationshipsFor<ModelRegistry[K]>>(
             keyName: L,
             options?: {},
-        ): Snapshot<K>['record'][L] | string | null | undefined;
+        ): Snapshot<K>["record"][L] | string | null | undefined;
         /**
          * Returns the current value of a hasMany relationship.
          */
         hasMany<L extends RelationshipsFor<ModelRegistry[K]>>(
             keyName: L,
             options?: { ids: false },
-        ): Array<Snapshot<K>['record'][L]> | undefined;
+        ): Array<Snapshot<K>["record"][L]> | undefined;
         hasMany<L extends RelationshipsFor<ModelRegistry[K]>>(keyName: L, options: { ids: true }): string[] | undefined;
         /**
          * Iterates through all the attributes of the model, calling the passed
@@ -1286,7 +1286,7 @@ export namespace DS {
          * Used by `findAll` and `findRecord` to build the query's `data` hash supplied to the ajax method.
          */
         buildQuery<K extends keyof ModelRegistry>(
-            snapshot: Snapshot<K>
+            snapshot: Snapshot<K>,
         ): Record<string, unknown>;
         /**
          * Builds a URL for a `store.findRecord(type, id)` call.
@@ -1955,7 +1955,7 @@ export namespace DS {
 
 export default DS;
 
-declare module 'ember' {
+declare module "ember" {
     namespace Ember {
         /*
          * The store is automatically injected into these objects
@@ -1976,13 +1976,13 @@ declare module 'ember' {
     // It is also available to inject anywhere
 }
 
-declare module '@ember/service' {
+declare module "@ember/service" {
     interface Registry {
         store: DS.Store;
     }
 }
 
-declare module 'ember-test-helpers' {
+declare module "ember-test-helpers" {
     interface TestContext {
         store: DS.Store;
     }

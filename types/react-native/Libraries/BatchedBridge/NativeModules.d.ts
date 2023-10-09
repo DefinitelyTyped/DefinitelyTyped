@@ -1,9 +1,9 @@
 /**
- * Interface for NativeModules which allows to augment NativeModules with type informations.
+ * Interface for NativeModules which allows to augment NativeModules with type information.
  * See react-native-sensor-manager for example.
  */
 interface NativeModulesStatic {
-  [name: string]: any;
+    [name: string]: any;
 }
 
 /**

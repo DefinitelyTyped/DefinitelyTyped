@@ -1,6 +1,6 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { useBeforeunload, Beforeunload } from 'react-beforeunload';
+import * as React from "react";
+import { Beforeunload, useBeforeunload } from "react-beforeunload";
+import * as ReactDOM from "react-dom";
 
 function AppWithNoopHook() {
     useBeforeunload();
@@ -56,4 +56,4 @@ function App() {
         </>
     );
 }
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById("app"));

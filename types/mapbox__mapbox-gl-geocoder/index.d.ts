@@ -6,7 +6,7 @@
 
 /// <reference types="geojson" />
 
-import mapboxgl = require('mapbox-gl');
+import mapboxgl = require("mapbox-gl");
 
 export as namespace MapboxGeocoder;
 export = MapboxGeocoder;
@@ -112,10 +112,12 @@ declare namespace MapboxGeocoder {
          * A function accepting the query string and current features list which performs geocoding to supplement results from the Mapbox Geocoding API.
          * Expected to return a Promise which resolves to an Array of GeoJSON Features in the [Carmen GeoJSON](https://github.com/mapbox/carmen/blob/master/carmen-geojson.md) format.
          */
-        externalGeocoder?: ((
-            searchInput: string,
-            features: GeoJSON.FeatureCollection<GeoJSON.Geometry>,
-        ) => Promise<GeoJSON.FeatureCollection>) | undefined;
+        externalGeocoder?:
+            | ((
+                searchInput: string,
+                features: GeoJSON.FeatureCollection<GeoJSON.Geometry>,
+            ) => Promise<GeoJSON.FeatureCollection>)
+            | undefined;
         /**
          * If `true`, enable reverse geocoding mode. In reverse geocoding, search input is expected to be coordinates in the form `lat, lon`, with suggestions being the reverse geocodes.
          * (optional, default false)
@@ -147,7 +149,7 @@ declare namespace MapboxGeocoder {
          *  A string specifying the geocoding [endpoint](https://docs.mapbox.com/api/search/#endpoints) to query.
          * Options are `mapbox.places` and `mapbox.places`. The `mapbox.places-permanent` mode requires an enterprise license for permanent geocodes. (optional, default "mapbox.places")
          */
-        mode?: 'mapbox.places' | 'mapbox.places-permanent' | undefined;
+        mode?: "mapbox.places" | "mapbox.places-permanent" | undefined;
         /**
          * A function accepting the query string which performs local geocoding to supplement results from the Mapbox Geocoding API.
          * Expected to return an Array of GeoJSON Features in the [Carmen GeoJSON](https://github.com/mapbox/carmen/blob/master/carmen-geojson.md) format.
@@ -158,6 +160,30 @@ declare namespace MapboxGeocoder {
          * If `false`, indicates that the `localGeocoder` results should be combined with those from the Mapbox API with the `localGeocoder` results ranked higher. (optional, default false)
          */
         localGeocoderOnly?: boolean | undefined;
+        /**
+         * Specify whether to return autocomplete results or not. When autocomplete is enabled,
+         * results will be included that start with the requested string, rather than just responses
+         * that match it exactly. (optional, default true)
+         */
+        autocomplete?: boolean | undefined;
+        /**
+         *  Specify whether the Geocoding API should attempt approximate, as well as exact, matching
+         *  when performing searches, or whether it should opt out of this behavior and only attempt
+         *  exact matching. (optional, default true)
+         */
+        fuzzyMatch?: boolean | undefined;
+        /**
+         * Specify whether to request additional metadata about the recommended navigation
+         * destination corresponding to the feature or not. Only applicable for address features.
+         * (optional, default false)
+         */
+        routing?: boolean | undefined;
+        /**
+         * Filter results to geographic features whose characteristics are defined differently by
+         * audiences belonging to various regional, cultural, or political groups. (optional,
+         * default "us")
+         */
+        worldview?: string | undefined;
     }
 }
 declare class MapboxGeocoder implements mapboxgl.IControl {
@@ -252,6 +278,14 @@ declare class MapboxGeocoder implements mapboxgl.IControl {
     setFilter(filter: (feature: MapboxGeocoder.Result) => boolean): this;
     setOrigin(origin: string): this;
     getOrigin(): string;
+    setAutocomplete(value: boolean): this;
+    getAutocomplete(): boolean;
+    setFuzzyMatch(value: boolean): this;
+    getFuzzyMatch(): boolean;
+    setRouting(value: boolean): this;
+    getRouting(): boolean;
+    setWorldview(code: string): this;
+    getWorldview(): string;
     /**
      * Subscribe to events that happen within the plugin.
      * type name of event. Available events and the data passed into their respective event objects are:

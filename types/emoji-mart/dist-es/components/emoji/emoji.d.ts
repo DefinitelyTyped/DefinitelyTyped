@@ -1,6 +1,6 @@
-import React = require('react');
+import React = require("react");
 
-import { EmojiProps } from '../..';
+import { EmojiProps } from "../..";
 
 declare const Emoji: React.FunctionComponent<EmojiProps>;
 

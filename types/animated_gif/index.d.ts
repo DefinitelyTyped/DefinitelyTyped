@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Animated_GIF {
-    type DitheringMethod = 'bayer' | 'floyd' | 'closest';
+    type DitheringMethod = "bayer" | "floyd" | "closest";
 
     interface options {
         width?: number;

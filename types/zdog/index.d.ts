@@ -140,7 +140,6 @@ export interface PathBezierCommand {
     bezier: readonly [VectorOptions, VectorOptions, VectorOptions];
 }
 
-/* tslint:disable:max-line-length */
 /**
  * Set {@link ShapeOptions#path path} to {@link Array} of path commands.
  * Path commands set the directions for the path to shape.
@@ -148,8 +147,6 @@ export interface PathBezierCommand {
  * @see {@link https://zzz.dog/shapes#shape-path-commands Zdog Shape API}
  */
 export type PathCommand = VectorOptions | PathLineCommand | PathMoveCommand | PathArcCommand | PathBezierCommand;
-
-/* tslint:enable:max-line-length */
 
 /** @see {@link Shape} */
 export interface ShapeOptions extends AnchorOptions {
@@ -694,10 +691,10 @@ export interface PolygonOptions extends ShapeOptions {
  */
 export class Polygon extends Shape {
     /** @see {@link PolygonOptions#radius} */
-    readonly radius?: number | undefined;
+    radius?: number | undefined;
 
     /** @see {@link PolygonOptions#sides} */
-    readonly sides?: number | undefined;
+    sides?: number | undefined;
 
     constructor(options?: PolygonOptions);
 

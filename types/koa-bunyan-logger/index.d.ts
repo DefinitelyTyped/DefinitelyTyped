@@ -5,9 +5,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Middleware, Request, Response } from 'koa';
+import { Middleware, Request, Response } from "koa";
 
-import Logger = require('bunyan');
+import Logger = require("bunyan");
 
 declare function koaBunyanLogger(logger?: Logger): Middleware;
 
@@ -50,7 +50,7 @@ declare namespace koaBunyanLogger {
 }
 
 // Extend the Koa context to add the logger..
-declare module 'koa' {
+declare module "koa" {
     interface BaseContext {
         log: Logger;
     }

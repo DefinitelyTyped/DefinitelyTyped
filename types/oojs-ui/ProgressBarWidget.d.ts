@@ -72,7 +72,7 @@ declare namespace OO.ui {
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): ProgressBarWidget;
+            new(config?: ConfigOptions): ProgressBarWidget;
             prototype: Prototype;
             static: Static;
             super: Widget.Constructor;

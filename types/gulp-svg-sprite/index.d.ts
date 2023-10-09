@@ -2,11 +2,11 @@
 // Project: https://github.com/jkphl/gulp-svg-sprite
 // Definitions by: Qubo <https://github.com/tkqubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 4.4
 
 /// <reference types="node" />
 
-import spriter = require('svg-sprite');
+import spriter = require("svg-sprite");
 
 declare namespace svgSprite {
     interface SvgSprite {

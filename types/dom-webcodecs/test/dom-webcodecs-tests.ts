@@ -26,7 +26,7 @@ function genericCodec(codec: AudioDecoder | AudioEncoder | VideoDecoder | VideoE
     codec.close();
 }
 
-function errorCallback(error: DOMException): void { }
+function errorCallback(error: DOMException): void {}
 
 //////////////////////////////////////////////////
 // audio-decoder.any.js
@@ -599,7 +599,7 @@ new VideoFrame(new ArrayBuffer(1024), {
 });
 
 const videoFramePlaneInit: VideoFrameBufferInit = {
-    format: 'BGRA',
+    format: "BGRA",
     timestamp: 1234,
     codedWidth: 4,
     codedHeight: 2,
@@ -608,7 +608,7 @@ const videoFramePlaneInit: VideoFrameBufferInit = {
 new VideoFrame(new ArrayBuffer(1024), videoFramePlaneInit);
 
 new VideoFrame(new ArrayBuffer(1024), {
-    format: 'BGRA',
+    format: "BGRA",
     timestamp: 1234,
     duration: 4321,
     codedWidth: 4,

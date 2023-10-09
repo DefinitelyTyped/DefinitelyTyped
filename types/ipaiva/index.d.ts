@@ -3,7 +3,7 @@
 // Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'ipaiva' {
+declare module "ipaiva" {
     /**
      * The version of the ipaiva.
      */
@@ -14,7 +14,7 @@ declare module 'ipaiva' {
     }
 
     interface TextEditor {
-        on(event: 'completed', fn: (content: string) => void): this;
+        on(event: "completed", fn: (content: string) => void): this;
     }
 
     export namespace textEditor {
@@ -31,7 +31,7 @@ declare module 'ipaiva' {
     export namespace library {
         type OnDidPickCallback = (callback: { url: string }) => void;
         interface OnDidPickOption {
-            type: 'image' | 'video' | 'audio';
+            type: "image" | "video" | "audio";
         }
 
         function onDidPick(callback: OnDidPickCallback, option?: OnDidPickOption): void;

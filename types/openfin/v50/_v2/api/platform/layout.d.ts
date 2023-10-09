@@ -1,5 +1,5 @@
-import { Identity } from '../../identity';
-import { LayoutPresetTypes } from './utils';
+import { Identity } from "../../identity";
+import { LayoutPresetTypes } from "./utils";
 import "./golden-layout";
 export interface InitLayoutOptions {
     containerId?: string | undefined;
@@ -10,34 +10,31 @@ export interface PresetLayoutOptions {
 }
 /**
  * InitLayoutOptions interface
- * @typedef { object } InitLayoutOptions
- * @property { string } [containerId] The id attribute of the container where the window's Layout should be initialized.  If not provided
+ * [containerId] The id attribute of the container where the window's Layout should be initialized.  If not provided
  * then an element with id `layout-container` is used.
- * @property { LayoutConfig } [layout] The layout configuration to be initialized. If not provided then the layout included in window
+ * [layout] The layout configuration to be initialized. If not provided then the layout included in window
  * options is used.
  */
 /**
  * PresetLayoutOptions interface
- * @typedef { object } PresetLayoutOptions
- * @property { LayoutPresetTypes } presetType Which preset layout arrangement to use.
+ * presetType Which preset layout arrangement to use.
  * The preset options are `columns`, `grid`, `rows`, and `tabs`.
  */
 /**
  * LayoutConfig interface
- * @typedef { object } LayoutConfig
- * @property { Array<LayoutItem> } content Content of the layout.  There can only be one top-level LayoutItem in the content array.
+ * content Content of the layout.  There can only be one top-level LayoutItem in the content array.
  * We do not recommend trying to build Layouts or LayoutItems by hand and instead use calls such as {@link Platform#getSnapshot getSnapshot}
  * or our {@link https://openfin.github.io/golden-prototype/config-gen Layout Config Generation Tool }.
  */
 /**
  * LayoutItem Interface
- * @typedef { object } LayoutItem Represents the arrangement of Views within a Platform window's Layout.  We do not recommend trying
+ * LayoutItem Represents the arrangement of Views within a Platform window's Layout.  We do not recommend trying
  * to build Layouts or LayoutItems by hand and instead use calls such as {@link Platform#getSnapshot getSnapshot} or our
  * {@link https://openfin.github.io/golden-prototype/config-gen Layout Config Generation Tool }.
- * @property { string } type The type of the item. Possible values are 'row', 'column', 'stack', and 'component'.
- * @property { Array<LayoutItem> } [content] An array of configurations for items that will be created as children of this item.
- * @property { string } [componentName] Only a `component` type will have this property and it should be set to `view`.
- * @property { View~options } [componentState] Only a `component` type will have this property and it represents the view
+ * type The type of the item. Possible values are 'row', 'column', 'stack', and 'component'.
+ * [content] An array of configurations for items that will be created as children of this item.
+ * [componentName] Only a `component` type will have this property and it should be set to `view`.
+ * [componentState] Only a `component` type will have this property and it represents the view
  * options of a given component.
  */
 /**

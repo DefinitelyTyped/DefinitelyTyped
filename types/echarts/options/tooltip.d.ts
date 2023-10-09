@@ -1,4 +1,3 @@
-// Type definitions for ECharts v4.7.0
 declare namespace echarts {
     namespace EChartOption {
         interface BaseTooltip {

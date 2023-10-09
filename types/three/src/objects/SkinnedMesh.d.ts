@@ -1,9 +1,11 @@
-import { Material } from './../materials/Material';
-import { Matrix4 } from './../math/Matrix4';
-import { Vector3 } from './../math/Vector3';
-import { Skeleton } from './Skeleton';
-import { Mesh } from './Mesh';
-import { BufferGeometry } from '../core/BufferGeometry';
+import { Material } from './../materials/Material.js';
+import { Box3 } from '../math/Box3.js';
+import { Matrix4 } from './../math/Matrix4.js';
+import { Vector3 } from './../math/Vector3.js';
+import { Skeleton } from './Skeleton.js';
+import { Mesh } from './Mesh.js';
+import { BufferGeometry } from '../core/BufferGeometry.js';
+import { Sphere } from '../math/Sphere.js';
 
 /**
  * A mesh that has a {@link THREE.Skeleton | Skeleton} with {@link Bone | bones} that can then be used to animate the vertices of the geometry.
@@ -87,6 +89,18 @@ export class SkinnedMesh<
     bindMatrixInverse: Matrix4;
 
     /**
+     * The bounding box of the SkinnedMesh. Can be calculated with {@link computeBoundingBox | .computeBoundingBox()}.
+     * @default `null`
+     */
+    boundingBox: Box3;
+
+    /**
+     * The bounding box of the SkinnedMesh. Can be calculated with {@link computeBoundingSphere | .computeBoundingSphere()}.
+     * @default `null`
+     */
+    boundingSphere: Sphere;
+
+    /**
      * {@link THREE.Skeleton | Skeleton} representing the bone hierarchy of the skinned mesh.
      */
     skeleton: Skeleton;
@@ -101,6 +115,23 @@ export class SkinnedMesh<
     bind(skeleton: Skeleton, bindMatrix?: Matrix4): void;
 
     /**
+     * Computes the bounding box, updating {@link boundingBox | .boundingBox} attribute.
+     * @remarks
+     * Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are `null`. If an
+     * instance of SkinnedMesh is animated, this method should be called per frame to compute a correct bounding box.
+     */
+    computeBoundingBox(): void;
+
+    /**
+     * Computes the bounding sphere, updating {@link boundingSphere | .boundingSphere} attribute.
+     * @remarks
+     * Bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are `null`. If
+     * an instance of SkinnedMesh is animated, this method should be called per frame to compute a correct bounding
+     * sphere.
+     */
+    computeBoundingSphere(): void;
+
+    /**
      * This method sets the skinned mesh in the rest pose (resets the pose).
      */
     pose(): void;
@@ -110,35 +141,16 @@ export class SkinnedMesh<
      */
     normalizeSkinWeights(): void;
 
-    /////////////////////////////////////////////////
-    // FUTURE - r151
-    /////////////////////////////////////////////////
-    // /**
-    //  * Applies the bone transform associated with the given index to the given position vector
-    //  * @remarks Returns the updated vector.
-    //  * @param index Expects a `Integer`
-    //  * @param vector
-    //  */
-    // applyBoneTransform(index: number, vector: Vector3): Vector3;
-
-    // /**
-    //  * @deprecated {@link THREE.SkinnedMesh}: {@link boneTransform | .boneTransform()} was renamed to {@link applyBoneTransform | .applyBoneTransform()} in **r151**.
-    //  */
-    // boneTransform(index: number, target: Vector3): Vector3;
-    /////////////////////////////////////////////////
-
     /**
-     * Applies the bone transform associated with the given index to the given position vector.
-     * Calculates the position of the vertex at the given index relative to the current bone transformations.
-     * Target vector must be initialized with the vertex coordinates prior to the transformation:
-     * ```typescript
-     * const target = new THREE.Vector3();
-     * target.fromBufferAttribute( mesh.geometry.attributes.position, index );
-     * mesh.boneTransform( index, target );
-     * ```
+     * Applies the bone transform associated with the given index to the given position vector
      * @remarks Returns the updated vector.
      * @param index Expects a `Integer`
      * @param vector
+     */
+    applyBoneTransform(index: number, vector: Vector3): Vector3;
+
+    /**
+     * @deprecated {@link THREE.SkinnedMesh}: {@link boneTransform | .boneTransform()} was renamed to {@link applyBoneTransform | .applyBoneTransform()} in **r151**.
      */
     boneTransform(index: number, target: Vector3): Vector3;
 }

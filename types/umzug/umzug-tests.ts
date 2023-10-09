@@ -1,6 +1,6 @@
-import Umzug = require('umzug');
-import Sequelize = require('sequelize');
-import MongoDB = require('mongodb');
+import Umzug = require("umzug");
+import Sequelize = require("sequelize");
+import MongoDB = require("mongodb");
 
 let someVar: Umzug.Umzug;
 const umzug = new Umzug({});
@@ -9,8 +9,8 @@ someVar = umzug;
 umzug.up().then((migrations: Umzug.Migration[]) => null);
 
 umzug.execute({
-  migrations: ['some-id', 'some-other-id'],
-  method: 'up'
+    migrations: ["some-id", "some-other-id"],
+    method: "up",
 }).then((migrations: Umzug.Migration[]) => null);
 
 umzug.pending().then((migrations: Umzug.Migration[]) => null);
@@ -19,34 +19,37 @@ umzug.executed().then((migrations: Umzug.Migration[]) => null);
 
 umzug.up().then((migrations: Umzug.Migration[]) => null);
 
-umzug.up({ to: '20141101203500-task' }).then((migrations: Umzug.Migration[]) => null);
+umzug.up({ to: "20141101203500-task" }).then((migrations: Umzug.Migration[]) => null);
 
-umzug.up({ migrations: ['20141101203500-task', '20141101203501-task-2'] }).then((migrations: Umzug.Migration[]) => null);
+umzug.up({ migrations: ["20141101203500-task", "20141101203501-task-2"] }).then((migrations: Umzug.Migration[]) =>
+    null
+);
 
-umzug.up('20141101203500-task').then((migrations: Umzug.Migration[]) => null); // Runs just the passed migration
-umzug.up(['20141101203500-task', '20141101203501-task-2']).then((migrations: Umzug.Migration[]) => null);
+umzug.up("20141101203500-task").then((migrations: Umzug.Migration[]) => null); // Runs just the passed migration
+umzug.up(["20141101203500-task", "20141101203501-task-2"]).then((migrations: Umzug.Migration[]) => null);
 
 umzug.down().then((migrations: Umzug.Migration[]) => null);
 
-umzug.down({ to: '20141031080000-task' }).then((migrations: Umzug.Migration[]) => null);
+umzug.down({ to: "20141031080000-task" }).then((migrations: Umzug.Migration[]) => null);
 
-umzug.down({ migrations: ['20141101203500-task', '20141101203501-task-2'] }).then((migrations: Umzug.Migration[]) => null);
+umzug.down({ migrations: ["20141101203500-task", "20141101203501-task-2"] }).then((migrations: Umzug.Migration[]) =>
+    null
+);
 
-umzug.down('20141101203500-task').then((migrations: Umzug.Migration[]) => null);
-umzug.down(['20141101203500-task', '20141101203501-task-2']).then((migrations: Umzug.Migration[]) => null);
+umzug.down("20141101203500-task").then((migrations: Umzug.Migration[]) => null);
+umzug.down(["20141101203500-task", "20141101203501-task-2"]).then((migrations: Umzug.Migration[]) => null);
 
 umzug.down({ to: 0 }).then((migrations: Umzug.Migration[]) => null);
 
-umzug.on('migrating', (name: string, migration: Umzug.Migration) => null);
-umzug.on('migrated', (name: string, migration: Umzug.Migration) => null);
-umzug.on('reverting', (name: string, migration: Umzug.Migration) => null);
-umzug.on('reverted', (name: string, migration: Umzug.Migration) => null);
-
+umzug.on("migrating", (name: string, migration: Umzug.Migration) => null);
+umzug.on("migrated", (name: string, migration: Umzug.Migration) => null);
+umzug.on("reverting", (name: string, migration: Umzug.Migration) => null);
+umzug.on("reverted", (name: string, migration: Umzug.Migration) => null);
 
 new Umzug({
     // The storage.
     // Possible values: 'json', 'sequelize', 'mongodb' an object
-    storage: 'json',
+    storage: "json",
 
     // The options for the storage.
     // Check the available storages for further details.
@@ -57,10 +60,10 @@ new Umzug({
     logging: false,
 
     // The name of the positive method in migrations.
-    upName: 'up',
+    upName: "up",
 
     // The name of the negative method in migrations.
-    downName: 'down',
+    downName: "down",
 
     migrations: {
         // The params that gets passed to the migrations.
@@ -68,32 +71,32 @@ new Umzug({
         params: [],
 
         // The path to the migrations directory.
-        path: 'migrations',
+        path: "migrations",
 
         // The pattern that determines whether or not a file is a migration.
         pattern: /^\d+[\w-]+\.js$/,
 
         // A function that receives and returns the to be executed function.
         // This can be used to modify the function.
-        wrap: <T> (fun: T) => fun,
+        wrap: <T>(fun: T) => fun,
     },
 });
 
 new Umzug({
     // The storage.
     // Possible values: 'json', 'sequelize', 'mongodb' an object
-    storage: 'json',
+    storage: "json",
     storageOptions: {
-        path: '/db/sequelize-meta.json',
+        path: "/db/sequelize-meta.json",
     },
 });
 
-const sequelize = new Sequelize('');
+const sequelize = new Sequelize("");
 
 new Umzug({
     // The storage.
     // Possible values: 'json', 'sequelize', an object
-    storage: 'sequelize',
+    storage: "sequelize",
     storageOptions: {
         // The configured instance of Sequelize.
         // Optional if `model` is passed.
@@ -102,33 +105,32 @@ new Umzug({
         // The to be used Sequelize model.
         // Must have column name matching `columnName` option
         // Optional of `sequelize` is passed.
-        model: sequelize.define<any, any>('model', {}),
+        model: sequelize.define<any, any>("model", {}),
 
         // The name of the to be used model.
         // Defaults to 'SequelizeMeta'
-        modelName: 'Schema',
+        modelName: "Schema",
 
         // The name of table to create if `model` option is not supplied
         // Defaults to `modelName`
-        tableName: 'Schema',
+        tableName: "Schema",
 
         // The name of table column holding migration name.
         // Defaults to 'name'.
-        columnName: 'migration',
+        columnName: "migration",
 
         // The type of the column holding migration name.
         // Defaults to `Sequelize.STRING`
         columnType: Sequelize.STRING(100),
     },
-
 });
 
-const mongodb = new MongoDB.Db(new MongoDB.MongoClient('host', { localPort: 21017 }), 'database');
+const mongodb = new MongoDB.Db(new MongoDB.MongoClient("host", { localPort: 21017 }), "database");
 
 new Umzug({
     // The storage.
     // Possible values: 'json', 'sequelize', 'mongodb' an object
-    storage: 'mongodb',
+    storage: "mongodb",
     storageOptions: {
         /**
          * The MongoDB database connection instance.
@@ -139,13 +141,12 @@ new Umzug({
          * The to be used Mongo collection cursor.
          * Defaults to collection created from collectionName attribute.
          */
-        collection: mongodb.collection('migrations'),
+        collection: mongodb.collection("migrations"),
 
         /**
          * The name of the collection used by the connection.
          * Defaults to 'migrations'
          */
-        collectionName: 'migrations'
+        collectionName: "migrations",
     },
-
 });

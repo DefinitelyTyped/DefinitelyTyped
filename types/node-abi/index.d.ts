@@ -3,7 +3,7 @@
 // Definitions by: Florian Keller <https://github.com/ffflorian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export type Runtime = 'electron' | 'node' | 'node-webkit';
+export type Runtime = "electron" | "node" | "node-webkit";
 export interface Target {
     abi: string;
     lts: boolean;

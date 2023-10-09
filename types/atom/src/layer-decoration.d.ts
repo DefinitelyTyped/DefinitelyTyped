@@ -1,4 +1,4 @@
-import { DecorationLayerOptions, DisplayMarker, Marker } from '../index';
+import { DecorationLayerOptions, DisplayMarker, Marker } from "../index";
 
 /**
  *  Represents a decoration that applies to every marker on a given layer. Created via

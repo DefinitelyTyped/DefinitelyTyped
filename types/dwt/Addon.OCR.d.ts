@@ -14,8 +14,8 @@ export interface OCR {
         successCallback: () => void,
         failureCallback: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Return whether the OCR engine has been installed.
@@ -34,8 +34,8 @@ export interface OCR {
         successCallback: () => void,
         failureCallback: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Return whether the output uses the fonts detected by the OCR system or the default/provided ones. Only valid when the result format is PDF.
@@ -93,12 +93,12 @@ export interface OCR {
         index: number,
         successCallback: (
             imageId: number,
-            result: OCRResult
+            result: OCRResult,
         ) => void,
         failureCallback: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Perform OCR on the specified local file.
@@ -110,15 +110,16 @@ export interface OCR {
      * @argument errorCode The error code.
      * @argument errorString The error string.
      */
-    RecognizeFile(path: string,
+    RecognizeFile(
+        path: string,
         successCallback: (
             path: string,
-            result: OCRResult
+            result: OCRResult,
         ) => void,
         failureCallback: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Perform OCR on the specified rectangular area on the image.
@@ -146,12 +147,12 @@ export interface OCR {
             top: number,
             right: number,
             bottom: number,
-            result: OCRResult
+            result: OCRResult,
         ) => void,
         failureCallback: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Perform OCR on the selected images in the buffer.
@@ -164,12 +165,12 @@ export interface OCR {
      */
     RecognizeSelectedImages(
         successCallback: (
-            result: OCRResult
+            result: OCRResult,
         ) => void,
         failureCallback: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void;
 }
 export interface OCRResult {
@@ -216,7 +217,7 @@ export interface PageSet {
     GetPageCount(): number;
     /**
      * Return the content of the specified page.
-     * @index Specify the page.
+     * @param index Specify the page.
      */
     GetPageContent(index: number): Page;
 }
@@ -227,7 +228,7 @@ export interface Page {
     GetLineCount(): number;
     /**
      * Return the content of the specified line.
-     * @index Specify the line.
+     * @param index Specify the line.
      */
     GetLineContent(index: number): Line;
 }
@@ -242,7 +243,7 @@ export interface Line {
     GetLineRect(): string;
     /**
      * Return the content of the specified word.
-     * @index Specify the word.
+     * @param index Specify the word.
      */
     GetWordContent(index: number): Word;
 }
@@ -258,7 +259,7 @@ export interface Word {
     GetText(): string;
     /**
      * Return the coordinates for the rectangle that contains the specified word. The coordinates are in the sequence of "left,top,right,bottom" like "121,126,157,139".
-     * @index Specify the word.
+     * @param index Specify the word.
      */
     GetWordRect(index: number): string;
 }

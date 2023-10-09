@@ -1,15 +1,15 @@
-import { IntlProvider, MarkupText, Text, translate, useText, withText } from 'preact-i18n';
-import { h, render, Component } from 'preact';
+import { Component, h, render } from "preact";
+import { IntlProvider, MarkupText, Text, translate, useText, withText } from "preact-i18n";
 
 interface P {
     foo: string;
 }
 
-@withText<P>({ exampleText2: '<strong>someText2</strong>' })
+@withText<P>({ exampleText2: "<strong>someText2</strong>" })
 class Example extends Component<P> {
     render({}: P) {
         return (
-            <IntlProvider definition={{ exampleText1: 'someText1' }}>
+            <IntlProvider definition={{ exampleText1: "someText1" }}>
                 <p>
                     <Text id="exampleText1">fallbackText</Text>
                     <MarkupText id="exampleText2">fallbackText2</MarkupText>
@@ -27,10 +27,10 @@ const HookExample = () => {
 };
 
 render(
-    <IntlProvider definition={{ test: 'Example' }}>
+    <IntlProvider definition={{ test: "Example" }}>
         <HookExample />
     </IntlProvider>,
     document,
 );
 
-translate('test', '', { test: 'Example {{no}}' }, { no: 2 });
+translate("test", "", { test: "Example {{no}}" }, { no: 2 });

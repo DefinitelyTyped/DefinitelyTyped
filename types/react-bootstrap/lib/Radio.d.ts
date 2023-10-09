@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare namespace Radio {
     export interface RadioProps extends React.HTMLProps<Radio> {
@@ -8,7 +8,6 @@ declare namespace Radio {
         inputRef?: ((instance: HTMLInputElement) => void) | undefined;
         validationState?: "success" | "warning" | "error" | undefined;
     }
-
 }
-declare class Radio extends React.Component<Radio.RadioProps> { }
+declare class Radio extends React.Component<Radio.RadioProps> {}
 export = Radio;

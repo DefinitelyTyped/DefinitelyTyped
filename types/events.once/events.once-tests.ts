@@ -22,27 +22,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import once from 'events.once';
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
+import once from "events.once";
 
 async function run() {
     const ee = new EventEmitter();
     process.nextTick(() => {
-        ee.emit('myevent', 42);
+        ee.emit("myevent", 42);
     });
 
-    const [value] = await once(ee, 'myevent');
+    const [value] = await once(ee, "myevent");
     console.log(value);
 
-    const err = new Error('kaboom');
+    const err = new Error("kaboom");
     process.nextTick(() => {
-        ee.emit('error', err);
+        ee.emit("error", err);
     });
 
     try {
-        await once(ee, 'myevent');
+        await once(ee, "myevent");
     } catch (err) {
-        console.log('error happened', err);
+        console.log("error happened", err);
     }
 }
 

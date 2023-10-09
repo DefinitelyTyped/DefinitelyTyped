@@ -1,14 +1,14 @@
-import TermMap from '.';
-import { Term } from '@rdfjs/types';
+import { Term } from "@rdfjs/types";
+import TermMap from "./index.js";
 
 export interface TermMapFactory {
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     termMap<T extends Term = Term, V = any>(entries?: Array<[T, V]>): TermMap<T, V>;
 }
 
 interface FactoryCtor {
     new(): TermMapFactory;
-    exports: ['termMap'];
+    exports: ["termMap"];
 }
 declare const factoryCtor: FactoryCtor;
 export default factoryCtor;

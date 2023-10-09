@@ -7,6 +7,7 @@
 
 /// <reference types="node"/>
 
+import stream = require("node:stream");
 import { PathLike } from "fs";
 
 export type ZendeskCallback<TResponse, TResult> = (
@@ -86,18 +87,20 @@ export namespace Attachments {
         show(attachmentId: number): Promise<ShowResponseModel>;
 
         upload(
-            file: PathLike,
+            file: PathLike | Buffer | stream,
             fileOptions: {
                 filename: string;
                 token?: string | undefined;
+                binary?: boolean;
             },
             cb: ZendeskCallback<unknown, UploadResponseModel>,
         ): void;
         upload(
-            file: PathLike,
+            file: PathLike | Buffer | stream,
             fileOptions: {
                 filename: string;
                 token?: string | undefined;
+                binary?: boolean;
             },
         ): Promise<UploadResponseModel>;
     }
@@ -213,13 +216,23 @@ export namespace Organizations {
         /** Creating Organizations */
         create(organization: CreatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
         create(organization: CreatePayload): Promise<ResponsePayload>;
-        createMany(organizations: CreateManyPayload, cb: ZendeskCallback<unknown, unknown>): JobStatuses.ResponsePayload;
+        createMany(
+            organizations: CreateManyPayload,
+            cb: ZendeskCallback<unknown, unknown>,
+        ): JobStatuses.ResponsePayload;
         createMany(organizations: CreateManyPayload): Promise<JobStatuses.ResponsePayload>;
 
         /** Updating Organizations */
-        update(organizationId: ZendeskID, organization: UpdatePayload, cb: ZendeskCallback<unknown, unknown>): ResponsePayload;
+        update(
+            organizationId: ZendeskID,
+            organization: UpdatePayload,
+            cb: ZendeskCallback<unknown, unknown>,
+        ): ResponsePayload;
         update(organizationId: ZendeskID, organization: UpdatePayload): Promise<ResponsePayload>;
-        updateMany(organizations: UpdateManyPayload, cb: ZendeskCallback<unknown, unknown>): JobStatuses.ResponsePayload;
+        updateMany(
+            organizations: UpdateManyPayload,
+            cb: ZendeskCallback<unknown, unknown>,
+        ): JobStatuses.ResponsePayload;
         updateMany(organizations: UpdateManyPayload): Promise<JobStatuses.ResponsePayload>;
 
         /** Deleting Organizations */

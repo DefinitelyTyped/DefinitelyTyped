@@ -2,44 +2,44 @@
  * 播放模式
  */
 type PLAY_MODE =
-    | 'order' // 顺序播放（同列表循环，到最后一个会切到第一个继续播）
-    | 'loop' // 单曲循环播放
-    | 'random' // 随机播放（到最后一个会切到第一个继续播）
-    | 'single'; // 单个播放（播完即止）
+    | "order" // 顺序播放（同列表循环，到最后一个会切到第一个继续播）
+    | "loop" // 单曲循环播放
+    | "random" // 随机播放（到最后一个会切到第一个继续播）
+    | "single"; // 单个播放（播完即止）
 
 /**
  * 播放器状态
  */
 type PLAY_STATE =
-    | 'ready' // 初始状态
-    | 'loading' // 加载中（1.播放，2.恢复播放，3.seek）引起的声音加载
-    | 'playing' // 播放中
-    | 'paused' // 暂停
-    | 'stoped' // 停止
-    | 'error'; // 播放器异常
+    | "ready" // 初始状态
+    | "loading" // 加载中（1.播放，2.恢复播放，3.seek）引起的声音加载
+    | "playing" // 播放中
+    | "paused" // 暂停
+    | "stoped" // 停止
+    | "error"; // 播放器异常
 
 /**
  * 播放相关事件
  */
 type PLAY_EVENT =
-    | 'play' // 播放
-    | 'canplay' // 进入可播放状态
-    | 'pause' // 暂停
-    | 'resume' // 续播
-    | 'stop' // 停止
-    | 'end' // 播放结束
-    | 'next' // 点击下一首| 或自动切换下一首
-    | 'prev' // 点击上一首
-    | 'loading' // 因为加载阻塞播放触发
-    | 'timeupdate' // 播放进度更新
-    | 'change.sound' // 声音切换
-    | 'change.playlist' // 播放列表切换
-    | 'change.playState' // 播放状态切换
-    | 'change.playMode' // 切换播放模式
-    | 'change.playbackRate' // 播放速率切换
-    | 'error' // 错误
-    | 'error.accessToken' // access_token 过期、失效、不存在事件
-    | 'sound.needPay'; // 需要购买
+    | "play" // 播放
+    | "canplay" // 进入可播放状态
+    | "pause" // 暂停
+    | "resume" // 续播
+    | "stop" // 停止
+    | "end" // 播放结束
+    | "next" // 点击下一首| 或自动切换下一首
+    | "prev" // 点击上一首
+    | "loading" // 因为加载阻塞播放触发
+    | "timeupdate" // 播放进度更新
+    | "change.sound" // 声音切换
+    | "change.playlist" // 播放列表切换
+    | "change.playState" // 播放状态切换
+    | "change.playMode" // 切换播放模式
+    | "change.playbackRate" // 播放速率切换
+    | "error" // 错误
+    | "error.accessToken" // access_token 过期、失效、不存在事件
+    | "sound.needPay"; // 需要购买
 
 /**
  * 播放器通用声音, 可直接播放(用户传入的第三方声音、喜马声音解析后生成)

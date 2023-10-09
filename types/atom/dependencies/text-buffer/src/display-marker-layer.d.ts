@@ -1,5 +1,5 @@
-import { Disposable } from '../../../index';
-import { DisplayMarker, Marker, PointCompatible, RangeCompatible } from './text-buffer';
+import { Disposable } from "../../../index";
+import { DisplayMarker, Marker, PointCompatible, RangeCompatible } from "./text-buffer";
 
 /**
  *  Experimental: A container for a related set of markers at the DisplayLayer level.
@@ -45,9 +45,9 @@ export interface DisplayMarkerLayer {
         range: RangeCompatible,
         options?: {
             reversed?: boolean | undefined;
-            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch' | undefined;
+            invalidate?: "never" | "surround" | "overlap" | "inside" | "touch" | undefined;
             exclusive?: boolean | undefined;
-            clipDirection?: 'backward' | 'forward' | 'closest' | undefined;
+            clipDirection?: "backward" | "forward" | "closest" | undefined;
         },
     ): DisplayMarker;
 
@@ -58,9 +58,9 @@ export interface DisplayMarkerLayer {
     markScreenPosition(
         screenPosition: PointCompatible,
         options?: {
-            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch' | undefined;
+            invalidate?: "never" | "surround" | "overlap" | "inside" | "touch" | undefined;
             exclusive?: boolean | undefined;
-            clipDirection?: 'backward' | 'forward' | 'closest' | undefined;
+            clipDirection?: "backward" | "forward" | "closest" | undefined;
         },
     ): DisplayMarker;
 
@@ -69,7 +69,7 @@ export interface DisplayMarkerLayer {
         range: RangeCompatible,
         options?: {
             reversed?: boolean | undefined;
-            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch' | undefined;
+            invalidate?: "never" | "surround" | "overlap" | "inside" | "touch" | undefined;
             exclusive?: boolean | undefined;
         },
     ): DisplayMarker;
@@ -81,7 +81,7 @@ export interface DisplayMarkerLayer {
     markBufferPosition(
         bufferPosition: PointCompatible,
         options?: {
-            invalidate?: 'never' | 'surround' | 'overlap' | 'inside' | 'touch' | undefined;
+            invalidate?: "never" | "surround" | "overlap" | "inside" | "touch" | undefined;
             exclusive?: boolean | undefined;
         },
     ): DisplayMarker;

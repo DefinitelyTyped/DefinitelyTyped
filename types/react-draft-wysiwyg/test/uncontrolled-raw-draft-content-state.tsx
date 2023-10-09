@@ -22,15 +22,15 @@ class UncontrolledEditor extends React.Component<
                     "entityRanges":[],
                     "data":{}
                 }]
-            }`)
+            }`),
         };
     }
 
     onContentStateChange = (contentState: RawDraftContentState) => {
         this.setState({
-            contentState
+            contentState,
         });
-    }
+    };
 
     render() {
         const { contentState } = this.state;

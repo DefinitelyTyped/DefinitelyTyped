@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { Plugin } from 'webpack';
+import { Plugin } from "webpack";
 
 /**
  * Names all remaining modules that do not get named via NamedModulesPlugin

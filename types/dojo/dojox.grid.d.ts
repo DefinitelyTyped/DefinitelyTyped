@@ -1,9 +1,3 @@
-// Type definitions for Dojo v1.9
-// Project: http://dojotoolkit.org
-// Definitions by: Michael Van Sickle <https://github.com/vansimke>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
 declare namespace dojox {
 
     namespace grid {
@@ -15390,10 +15384,10 @@ declare namespace dojox {
              */
             onStyleRow(row: any): void;
         }
-        module _CheckBoxSelector {
+        namespace _CheckBoxSelector {
         }
 
-        module _RadioSelector {
+        namespace _RadioSelector {
         }
 
         namespace bidi {
@@ -15619,7 +15613,7 @@ declare namespace dojox {
                  */
                 setValue(inRowIndex: number, inValue: any): void;
             }
-            module _base {
+            namespace _base {
                 /**
                  * Permalink: http://dojotoolkit.org/api/1.9/dojox/grid/cells/_base.Cell.html
                  *
@@ -24034,7 +24028,7 @@ declare namespace dojox {
                      */
                     interface _ConditionExpr {
                     }
-                    module _ConditionExpr {
+                    namespace _ConditionExpr {
                         /**
                          * Permalink: http://dojotoolkit.org/api/1.9/dojox/grid/enhanced/plugins/filter/_ConditionExpr._DataExpr.html
                          *
@@ -24225,7 +24219,7 @@ declare namespace dojox {
                          */
                         TimeExpr(): void;
                     }
-                    module _DataExprs {
+                    namespace _DataExprs {
                         /**
                          * Permalink: http://dojotoolkit.org/api/1.9/dojox/grid/enhanced/plugins/filter/_DataExprs._ConditionExpr.html
                          *
@@ -24690,7 +24684,7 @@ declare namespace dojox {
                          */
                         TimeExpr(): void;
                     }
-                    module _FilterExpr {
+                    namespace _FilterExpr {
                         /**
                          * Permalink: http://dojotoolkit.org/api/1.9/dojox/grid/enhanced/plugins/filter/_FilterExpr._BiOpExpr.html
                          *
@@ -25859,7 +25853,7 @@ declare namespace dojox {
                      */
                     wrap(store: any, funcName: any, layer: dojox.grid.enhanced.plugins._StoreLayer._StoreLayer, layerFuncName: any): any;
                 }
-                module _StoreLayer {
+                namespace _StoreLayer {
                     /**
                      * Permalink: http://dojotoolkit.org/api/1.9/dojox/grid/enhanced/plugins/_StoreLayer._StoreLayer.html
                      *

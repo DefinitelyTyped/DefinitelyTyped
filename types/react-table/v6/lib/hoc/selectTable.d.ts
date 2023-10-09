@@ -1,8 +1,8 @@
-import { ComponentType, ComponentClass } from 'react';
+import { ComponentClass, ComponentType } from "react";
 
-import { TableProps } from '../../index';
+import { TableProps } from "../../index";
 
-export type SelectType = 'checkbox' | 'radio';
+export type SelectType = "checkbox" | "radio";
 
 export interface SelectInputComponentProps {
     selectType: SelectType;
@@ -28,9 +28,9 @@ export interface SelectTableAdditionalProps {
 
     selectAll?: boolean | undefined;
 
-    toggleAll?: SelectAllInputComponentProps['onClick'] | undefined;
+    toggleAll?: SelectAllInputComponentProps["onClick"] | undefined;
 
-    toggleSelection?: SelectInputComponentProps['onClick'] | undefined;
+    toggleSelection?: SelectInputComponentProps["onClick"] | undefined;
 
     /**
      * Default: checkbox
@@ -50,7 +50,7 @@ export interface SelectTableHOCOptions {
 
 declare function selectTableHOC<Props extends Partial<TableProps>>(
     WrappedComponent: ComponentType<Props>,
-    options?: SelectTableHOCOptions
+    options?: SelectTableHOCOptions,
 ): ComponentClass<Props & SelectTableAdditionalProps>;
 
 export default selectTableHOC;

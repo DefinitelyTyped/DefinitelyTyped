@@ -1,20 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6",
-            "dom"
-        ],
-        "paths": {
-            "react": [
-                "react/v17"
-            ]
-        },
+        "lib": ["es6", "dom"],
         "jsx": "react",
         "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "typeRoots": ["../"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -24,8 +14,5 @@
         "forceConsistentCasingInFileNames": true,
         "target": "es5"
     },
-    "files": [
-        "index.d.ts",
-        "react-virtualized-tests.tsx"
-    ]
+    "files": ["index.d.ts", "react-virtualized-tests.tsx"]
 }

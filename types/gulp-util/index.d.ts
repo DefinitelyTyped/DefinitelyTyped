@@ -5,9 +5,9 @@
 
 /// <reference types="node" />
 
-import vinyl = require('vinyl');
-import chalk from 'chalk';
-import through2 = require('through2');
+import vinyl = require("vinyl");
+import chalk from "chalk";
+import through2 = require("through2");
 
 export { vinyl as File };
 

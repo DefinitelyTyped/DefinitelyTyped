@@ -37,7 +37,6 @@ interface Trunk8Options {
 interface JQuery {
     /**
     Creates a trunk8 instance and calls a method.
-    @constructor
     @param {string} method
     @param {string} value
     */
@@ -45,7 +44,6 @@ interface JQuery {
 
     /**
     Creates a trunk8 instance with default options.
-    @constructor
     @param {Trunk8Options} options
     */
     trunk8(options?: Trunk8Options): any;

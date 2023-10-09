@@ -1,6 +1,6 @@
-// Type definitions for yt-search 2.3
+// Type definitions for yt-search 2.10
 // Project: https://github.com/talmobi/yt-search#readme
-// Definitions by: cherryblossom <https://github.com/cherryblossom000>
+// Definitions by: Lauren Yim <https://github.com/cherryblossom000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = yts;
@@ -89,13 +89,13 @@ declare namespace yts {
     }
 
     interface VideoSearchResult {
-        type: 'video';
+        type: "video";
         videoId: string;
         url: string;
         title: string;
         description: string;
         image: string;
-        thumbnail: string;
+        thumbnail: string | undefined;
         seconds: number;
         timestamp: string;
         duration: Duration;
@@ -105,50 +105,50 @@ declare namespace yts {
     }
 
     interface LiveSearchResultBase {
-        type: 'live';
+        type: "live";
         videoId: string;
         url: string;
         title: string;
         description: string;
         image: string;
-        thumbnail: string;
+        thumbnail: string | undefined;
         watching: number;
         author: Author;
     }
 
     interface UpcomingLiveSearchResult extends LiveSearchResultBase {
-        status: 'UPCOMING';
+        status: "UPCOMING";
         startTime: number;
         startDate: string;
     }
 
     interface LiveLiveSearchResult extends LiveSearchResultBase {
-        status: 'LIVE';
+        status: "LIVE";
     }
 
     type LiveSearchResult = UpcomingLiveSearchResult | LiveLiveSearchResult;
 
     interface PlaylistSearchResult {
-        type: 'list';
+        type: "list";
         listId: string;
         url: string;
         title: string;
         image: string;
-        thumbnail: string;
+        thumbnail: string | undefined;
         videoCount: number;
         author: Author;
     }
 
     interface ChannelSearchResult {
-        type: 'channel';
+        type: "channel";
         name: string;
         url: string;
         title: string;
         image: string;
-        thumbnail: string;
+        thumbnail: string | undefined;
         videoCount: number;
         videoCountLabel: string;
-        subCount: number;
+        subCount: number | undefined;
         subCountLabel: string;
     }
 
@@ -183,7 +183,8 @@ declare namespace yts {
         title: string;
         videoId: string;
         listId: string;
-        thumbnail: string;
+        thumbnail: string | undefined;
+        duration: Duration;
         author: Author;
     }
 
@@ -191,6 +192,7 @@ declare namespace yts {
         title: string;
         listId: string;
         url: string;
+        size: number;
         views: number;
         date: string;
         image: string;

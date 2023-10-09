@@ -14,9 +14,9 @@ export interface PackDebugOptions extends PackOptions {
 
 export interface DebugObject {
     dictionary: {
-        strings: string[],
-        integers: number[],
-        floats: number[],
+        strings: string[];
+        integers: number[];
+        floats: number[];
     };
     ast: Array<{
         type: string;
@@ -27,5 +27,5 @@ export interface DebugObject {
 
 export function pack(json: string | object, options?: PackOptions): string;
 export function pack(json: string | object, options?: PackDebugOptions): DebugObject;
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function unpack<T = {}>(packed: string, options?: PackOptions): T;

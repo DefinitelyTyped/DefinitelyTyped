@@ -1,6 +1,6 @@
 declare namespace AMap {
     namespace BezierCurve {
-        interface EventMap<I = BezierCurve> extends Polyline.EventMap<I> { }
+        interface EventMap<I = BezierCurve> extends Polyline.EventMap<I> {}
         type Options<ExtraData = any> = Merge<Polyline.Options<ExtraData>, {
             /**
              * 贝瑟尔曲线的路径

@@ -1,4 +1,4 @@
-import { ErrorRequestHandler } from 'express';
+import { ErrorRequestHandler } from "express";
 
 declare function handler(options?: any): ErrorRequestHandler;
 

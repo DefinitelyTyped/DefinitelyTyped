@@ -86,12 +86,12 @@ export interface Tracker extends EventEmitter {
      */
     on(
         event: "query",
-        callback: (query: QueryDetails, step: number) => void
+        callback: (query: QueryDetails, step: number) => void,
     ): this;
 
     once(
         event: "query",
-        callback: (query: QueryDetails, step: number) => void
+        callback: (query: QueryDetails, step: number) => void,
     ): this;
 }
 

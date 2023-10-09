@@ -4,19 +4,19 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
-import { Observable } from 'rxjs/Observable';
-import { Epic } from 'redux-observable';
+import * as React from "react";
+import { Epic } from "redux-observable";
+import { Observable } from "rxjs/Observable";
 
 export interface Action {
     type: string;
 }
 
 export function wrapRootEpic<T extends Action, S, D, O extends T>(
-    epic: Epic<T, S, D, O>
+    epic: Epic<T, S, D, O>,
 ): Epic<T, S, D, O>;
 
 export function renderToString(
     element: React.ReactElement,
-    wrappedEpic: Epic<any, any>
+    wrappedEpic: Epic<any, any>,
 ): Observable<{ markup: string }>;

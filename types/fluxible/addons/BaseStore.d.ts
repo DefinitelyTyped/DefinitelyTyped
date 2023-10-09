@@ -1,4 +1,4 @@
 /// <reference types="node" />
-import BaseStore = require('dispatchr/addons/BaseStore');
+import BaseStore = require("dispatchr/addons/BaseStore");
 
 export = BaseStore;

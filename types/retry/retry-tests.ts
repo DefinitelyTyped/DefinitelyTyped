@@ -1,4 +1,4 @@
-import retry = require('retry');
+import retry = require("retry");
 
 // Option values
 const att = 4;
@@ -73,6 +73,6 @@ retry.timeouts(); // $ExpectType number[]
 retry.timeouts(timeoutsOptions); // $ExpectType number[]
 
 retry.wrap(new Foo());
-retry.wrap(new Foo(), ['bar']);
-retry.wrap(new Foo(), operationOptions, ['bar']);
+retry.wrap(new Foo(), ["bar"]);
+retry.wrap(new Foo(), operationOptions, ["bar"]);
 retry.wrap(new Foo(), operationOptions);

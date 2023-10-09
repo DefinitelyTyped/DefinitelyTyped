@@ -3,15 +3,15 @@
 // Definitions by: Chris Wilkinson <https://github.com/thewilkybarkid>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter } from 'events';
-import { Context } from 'jsonld/jsonld-spec';
-import { Sink, Stream, BaseQuad, Quad } from 'rdf-js';
+import { EventEmitter } from "events";
+import { Context } from "jsonld/jsonld-spec";
+import { BaseQuad, Quad, Sink, Stream } from "rdf-js";
 
 declare namespace Serializer {
     interface SerializerOptions {
         context?: Context | undefined;
         compact?: boolean | undefined;
-        encoding?: 'string' | 'object' | undefined;
+        encoding?: "string" | "object" | undefined;
         flatten?: boolean | undefined;
         frame?: boolean | undefined;
         skipContext?: boolean | undefined;

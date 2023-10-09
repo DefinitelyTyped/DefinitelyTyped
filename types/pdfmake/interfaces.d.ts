@@ -19,7 +19,7 @@ export interface CustomPageSize {
      * Page height in `pt`, or `auto` to adapt the page height to the document's content
      * (the document will always have a single page).
      */
-    height: number | 'auto';
+    height: number | "auto";
 }
 
 /**
@@ -48,13 +48,54 @@ export interface Position {
  * - American loose sizes (e.g. `TABLOID`)
  */
 export type PredefinedPageSize =
-    | '4A0' | '2A0'
-    | 'A0' | 'A1' | 'A2' | 'A3' | 'A4' | 'A5' | 'A6' | 'A7' | 'A8' | 'A9' | 'A10'
-    | 'B0' | 'B1' | 'B2' | 'B3' | 'B4' | 'B5' | 'B6' | 'B7' | 'B8' | 'B9' | 'B10'
-    | 'C0' | 'C1' | 'C2' | 'C3' | 'C4' | 'C5' | 'C6' | 'C7' | 'C8' | 'C9' | 'C10'
-    | 'RA1' | 'RA2' | 'RA3' | 'RA4'
-    | 'SRA1' | 'SRA2' | 'SRA3' | 'SRA4'
-    | 'EXECUTIVE' | 'FOLIO' | 'LEGAL' | 'LETTER' | 'TABLOID';
+    | "4A0"
+    | "2A0"
+    | "A0"
+    | "A1"
+    | "A2"
+    | "A3"
+    | "A4"
+    | "A5"
+    | "A6"
+    | "A7"
+    | "A8"
+    | "A9"
+    | "A10"
+    | "B0"
+    | "B1"
+    | "B2"
+    | "B3"
+    | "B4"
+    | "B5"
+    | "B6"
+    | "B7"
+    | "B8"
+    | "B9"
+    | "B10"
+    | "C0"
+    | "C1"
+    | "C2"
+    | "C3"
+    | "C4"
+    | "C5"
+    | "C6"
+    | "C7"
+    | "C8"
+    | "C9"
+    | "C10"
+    | "RA1"
+    | "RA2"
+    | "RA3"
+    | "RA4"
+    | "SRA1"
+    | "SRA2"
+    | "SRA3"
+    | "SRA4"
+    | "EXECUTIVE"
+    | "FOLIO"
+    | "LEGAL"
+    | "LETTER"
+    | "TABLOID";
 
 /**
  * Orientation of a page:
@@ -63,7 +104,7 @@ export type PredefinedPageSize =
  *
  * A page's orientation does not rotate its content; it is always rendered top to bottom.
  */
-export type PageOrientation = 'portrait' | 'landscape';
+export type PageOrientation = "portrait" | "landscape";
 
 /**
  * Different types of page breaks:
@@ -73,7 +114,7 @@ export type PageOrientation = 'portrait' | 'landscape';
  * - `beforeOdd`/`afterOdd` adds one or two page breaks before/after an element
  *   so that the content after the page break is on an odd page
  */
-export type PageBreak = 'before' | 'beforeEven' | 'beforeOdd' | 'after' | 'afterEven' | 'afterOdd';
+export type PageBreak = "before" | "beforeEven" | "beforeOdd" | "after" | "afterEven" | "afterOdd";
 
 /**
  * Sizes for the width of stand-alone columns and table columns.
@@ -87,8 +128,8 @@ export type PageBreak = 'before' | 'beforeEven' | 'beforeOdd' | 'after' | 'after
  */
 export type Size =
     | number
-    | 'auto'
-    | '*'
+    | "auto"
+    | "*"
     | string;
 
 /**
@@ -171,7 +212,7 @@ export interface TDocumentInformation {
     modDate?: Date | undefined;
 
     /** Indicates whether the document has been corrected for color misregistrations. */
-    trapped?: 'True' | 'False' | 'Unknown' | undefined;
+    trapped?: "True" | "False" | "Unknown" | undefined;
 }
 
 /**
@@ -206,17 +247,17 @@ export type Margins = number | [number, number] | [number, number, number, numbe
  * Available types of decorations.
  * Can be combined with a {@link DecorationStyle}.
  */
-export type Decoration = 'underline' | 'lineThrough' | 'overline';
+export type Decoration = "underline" | "lineThrough" | "overline";
 
 /**
  * Available {@link Decoration} styles.
  */
-export type DecorationStyle = 'solid' | 'dashed' | 'dotted' | 'double' | 'wavy';
+export type DecorationStyle = "solid" | "dashed" | "dotted" | "double" | "wavy";
 
 /**
  * Available horizontal alignment options.
  */
-export type Alignment = 'left' | 'right' | 'justify' | 'center';
+export type Alignment = "left" | "right" | "justify" | "center";
 
 /**
  * Callback to define a height in `pt` for a table row based on its row number
@@ -224,7 +265,7 @@ export type Alignment = 'left' | 'right' | 'justify' | 'center';
  *
  * `auto` sets the height based on the row's content.
  */
-export type DynamicRowSize = (rowIndex: number) => number | 'auto';
+export type DynamicRowSize = (rowIndex: number) => number | "auto";
 
 /**
  * Custom layout to control borders, cell padding, and cell background of a table.
@@ -505,7 +546,7 @@ export interface Table {
      *
      * Defaults to `auto`.
      */
-    widths?: '*' | 'auto' | Size[] | undefined;
+    widths?: "*" | "auto" | Size[] | undefined;
 
     /**
      * Row heights of the table.
@@ -517,7 +558,7 @@ export interface Table {
      *
      * Defaults to `auto`.
      */
-    heights?: number | 'auto' | Array<number | 'auto'> | DynamicRowSize | undefined;
+    heights?: number | "auto" | Array<number | "auto"> | DynamicRowSize | undefined;
 
     /**
      * Number of rows from the top that make up the table's header.
@@ -550,7 +591,7 @@ export interface Table {
  * - `headerLineOnly` only renders a horizontal border below the rows marked as header
  * - `lightHorizontalLines` renders gray horizontal borders
  */
-export type PredefinedTableLayout = 'noBorders' | 'headerLineOnly' | 'lightHorizontalLines';
+export type PredefinedTableLayout = "noBorders" | "headerLineOnly" | "lightHorizontalLines";
 
 /**
  * A table layout.
@@ -651,7 +692,7 @@ export interface Style {
     /**
      * Text decoration to apply.
      */
-    decoration?: Decoration | undefined;
+    decoration?: Decoration | Decoration[] | undefined;
 
     /**
      * Style to apply to the given {@link decoration}.
@@ -826,6 +867,7 @@ export type StyleReference = string | Style | Array<string | Style>;
  */
 export type Content =
     | string
+    | number
     | Content[]
     | ContentText
     | ContentColumns
@@ -889,7 +931,7 @@ type ForbidOtherElementProperties<TProperty extends keyof ForbiddenElementProper
  *
  * For simple text without other properties, a string can be used instead of this element.
  */
-export interface ContentText extends ContentLink, ContentBase, ForbidOtherElementProperties<'text'> {
+export interface ContentText extends ContentLink, ContentBase, ForbidOtherElementProperties<"text"> {
     /**
      * Text content.
      *
@@ -902,7 +944,7 @@ export interface ContentText extends ContentLink, ContentBase, ForbidOtherElemen
 /**
  * Element that divides its children into multiple columns.
  */
-export interface ContentColumns extends ContentBase, ForbidOtherElementProperties<'columns'> {
+export interface ContentColumns extends ContentBase, ForbidOtherElementProperties<"columns"> {
     /** Divides the given elements into multiple columns. */
     columns: Column[];
 }
@@ -912,7 +954,7 @@ export interface ContentColumns extends ContentBase, ForbidOtherElementPropertie
  *
  * For simple stacks without properties, a content array can be used instead.
  */
-export interface ContentStack extends ContentBase, ForbidOtherElementProperties<'stack'> {
+export interface ContentStack extends ContentBase, ForbidOtherElementProperties<"stack"> {
     /**
      * Stack that renders the given elements as multiple paragraphs.
      *
@@ -924,7 +966,7 @@ export interface ContentStack extends ContentBase, ForbidOtherElementProperties<
 /**
  * Element that renders an ordered / numbered list.
  */
-export interface ContentOrderedList extends ContentBase, ForbidOtherElementProperties<'ol'> {
+export interface ContentOrderedList extends ContentBase, ForbidOtherElementProperties<"ol"> {
     /**
      * Renders the given elements as an ordered / numbered list.
      */
@@ -968,7 +1010,7 @@ export interface ContentOrderedList extends ContentBase, ForbidOtherElementPrope
 /**
  * Element that renders an unordered / bulleted list element.
  */
-export interface ContentUnorderedList extends ContentBase, ForbidOtherElementProperties<'ul'> {
+export interface ContentUnorderedList extends ContentBase, ForbidOtherElementProperties<"ul"> {
     /**
      * Renders the given elements as an unordered / bulleted list.
      */
@@ -985,7 +1027,7 @@ export interface ContentUnorderedList extends ContentBase, ForbidOtherElementPro
 /**
  * Canvas / vector element.
  */
-export interface ContentCanvas extends ContentBase, ForbidOtherElementProperties<'canvas'> {
+export interface ContentCanvas extends ContentBase, ForbidOtherElementProperties<"canvas"> {
     /**
      * Renders the given vector elements on a canvas.
      *
@@ -999,7 +1041,7 @@ export interface ContentCanvas extends ContentBase, ForbidOtherElementProperties
  *
  * For images other than SVG, use a {@link ContentImage} instead.
  */
-export interface ContentSvg extends ContentBase, ForbidOtherElementProperties<'svg'> {
+export interface ContentSvg extends ContentBase, ForbidOtherElementProperties<"svg"> {
     /**
      * Renders the given SVG content string as an image.
      *
@@ -1053,7 +1095,7 @@ export interface ContentSvg extends ContentBase, ForbidOtherElementProperties<'s
  *
  * For SVG images, use a {@link ContentSvg} element instead.
  */
-export interface ContentImage extends ContentLink, ContentBase, ForbidOtherElementProperties<'image'> {
+export interface ContentImage extends ContentLink, ContentBase, ForbidOtherElementProperties<"image"> {
     /**
      * Renders the given value as image.
      *
@@ -1114,7 +1156,7 @@ export interface ContentImage extends ContentLink, ContentBase, ForbidOtherEleme
 /**
  * Table element.
  */
-export interface ContentTable extends ContentBase, ForbidOtherElementProperties<'table'> {
+export interface ContentTable extends ContentBase, ForbidOtherElementProperties<"table"> {
     /**
      * Renders a table.
      *
@@ -1136,7 +1178,7 @@ export interface ContentTable extends ContentBase, ForbidOtherElementProperties<
  *
  * Anchors can contain text content only.
  */
-export interface ContentAnchor extends ContentBase, ForbidOtherElementProperties<'text'> {
+export interface ContentAnchor extends ContentBase, ForbidOtherElementProperties<"text"> {
     /**
      * Text content of the anchor.
      */
@@ -1153,7 +1195,7 @@ export interface ContentAnchor extends ContentBase, ForbidOtherElementProperties
 /**
  * Text element to be displayed in a table of contents.
  */
-export interface ContentTocItem extends ContentBase, ForbidOtherElementProperties<'text'> {
+export interface ContentTocItem extends ContentBase, ForbidOtherElementProperties<"text"> {
     /**
      * Text content of the element.
      *
@@ -1196,7 +1238,7 @@ export interface ContentTocItem extends ContentBase, ForbidOtherElementPropertie
 /**
  * Reference to an anchor element, displaying its page number.
  */
-export interface ContentPageReference extends ContentBase, ForbidOtherElementProperties<'pageReference'> {
+export interface ContentPageReference extends ContentBase, ForbidOtherElementProperties<"pageReference"> {
     /**
      * `id` of a {@link ContentAnchor} to reference.
      *
@@ -1212,7 +1254,7 @@ export interface ContentPageReference extends ContentBase, ForbidOtherElementPro
 /**
  * Reference to an anchor element, displaying its text content.
  */
-export interface ContentTextReference extends ContentBase, ForbidOtherElementProperties<'textReference'> {
+export interface ContentTextReference extends ContentBase, ForbidOtherElementProperties<"textReference"> {
     /**
      * `id` of a {@link ContentAnchor} to reference.
      *
@@ -1226,7 +1268,7 @@ export interface ContentTextReference extends ContentBase, ForbidOtherElementPro
 /**
  * Table of contents element.
  */
-export interface ContentToc extends ContentBase, ForbidOtherElementProperties<'toc'> {
+export interface ContentToc extends ContentBase, ForbidOtherElementProperties<"toc"> {
     /**
      * Renders a table of contents.
      *
@@ -1240,7 +1282,7 @@ export interface ContentToc extends ContentBase, ForbidOtherElementProperties<'t
 /**
  * QR code element.
  */
-export interface ContentQr extends ContentBase, ForbidOtherElementProperties<'qr'> {
+export interface ContentQr extends ContentBase, ForbidOtherElementProperties<"qr"> {
     /**
      * Renders the given string as a QR code.
      */
@@ -1298,14 +1340,14 @@ export interface ContentQr extends ContentBase, ForbidOtherElementProperties<'qr
      *
      * Defaults to `L`.
      */
-    eccLevel?: 'L' | 'M' | 'Q' | 'H' | undefined;
+    eccLevel?: "L" | "M" | "Q" | "H" | undefined;
 
     /**
      * QR code encoding mode.
      *
      * Defaults to the mode that produces the smallest payload for the given {@link qr} data.
      */
-    mode?: 'numeric' | 'alphanumeric' | 'octet' | undefined;
+    mode?: "numeric" | "alphanumeric" | "octet" | undefined;
 
     /**
      * QR code mask pattern from 0-7.
@@ -1484,12 +1526,12 @@ export type Column = Content & ColumnProperties;
  * - `none`: no marker
  */
 export type OrderedListType =
-    | 'decimal'
-    | 'lower-alpha'
-    | 'upper-alpha'
-    | 'lower-roman'
-    | 'upper-roman'
-    | 'none';
+    | "decimal"
+    | "lower-alpha"
+    | "upper-alpha"
+    | "lower-roman"
+    | "upper-roman"
+    | "none";
 
 /**
  * Additional properties of {@link Content} objects that are used as items
@@ -1526,7 +1568,7 @@ export type OrderedListElement = Content & OrderedListElementProperties;
  * - `circle`: an outlined circle
  * - `none`: no marker
  */
-export type UnorderedListType = 'disc' | 'square' | 'circle' | 'none';
+export type UnorderedListType = "disc" | "square" | "circle" | "none";
 
 /**
  * Additional properties of {@link Content} objects that are used as items
@@ -1557,7 +1599,7 @@ export type CanvasElement = CanvasRect | CanvasPolyline | CanvasLine | CanvasEll
  * - `square` renders a long square line end
  * - `round` renders a long round line end
  */
-export type CanvasLineCap = 'butt' | 'round' | 'square';
+export type CanvasLineCap = "butt" | "round" | "square";
 
 /**
  * Type to render joints between lines of different angles in a canvas:
@@ -1565,13 +1607,13 @@ export type CanvasLineCap = 'butt' | 'round' | 'square';
  * - `round` renders round edges
  * - `bevel` adds diagonal edges
  */
-export type CanvasLineJoin = 'miter' | 'round' | 'bevel';
+export type CanvasLineJoin = "miter" | "round" | "bevel";
 
 /**
  * A rectangle as part of a {@link ContentCanvas}.
  */
 export interface CanvasRect extends CanvasLineElement, CanvasFilledElement {
-    type: 'rect';
+    type: "rect";
 
     /** Horizontal position from the left edge of the canvas element in `pt`. */
     x: number;
@@ -1608,7 +1650,7 @@ export interface Point {
  * A line or shape consisting of multiple points as part of a {@link ContentCanvas}.
  */
 export interface CanvasPolyline extends CanvasLineElement, CanvasFilledElement {
-    type: 'polyline';
+    type: "polyline";
 
     /**
      * The points that make up the line.
@@ -1634,7 +1676,7 @@ export interface CanvasPolyline extends CanvasLineElement, CanvasFilledElement {
  * A simple line as part of a {@link ContentCanvas}.
  */
 export interface CanvasLine extends CanvasLineElement {
-    type: 'line';
+    type: "line";
 
     /** Horizontal line start position from the left in `pt`. */
     x1: number;
@@ -1660,7 +1702,7 @@ export interface CanvasLine extends CanvasLineElement {
  * An ellipse or circle as part of a {@link ContentCanvas}.
  */
 export interface CanvasEllipse extends CanvasLineElement, CanvasFilledElement {
-    type: 'ellipse';
+    type: "ellipse";
 
     /** Horizontal position from the left edge of the canvas element in `pt`. */
     x: number;
@@ -1759,12 +1801,12 @@ export interface CanvasLineElement {
 /**
  * Horizontal image alignment within its container.
  */
-export type ImageAlignment = 'left' | 'right' | 'center';
+export type ImageAlignment = "left" | "right" | "center";
 
 /**
  * Vertical image alignment within its container.
  */
-export type ImageVerticalAlignment = 'top' | 'bottom' | 'center';
+export type ImageVerticalAlignment = "top" | "bottom" | "center";
 
 /**
  * Container to completely cover with an image, possibly cutting it off horizontally
@@ -1810,7 +1852,7 @@ export interface StyleDictionary {
 /**
  * Supported PDF versions.
  */
-export type PDFVersion = '1.3' | '1.4' | '1.5' | '1.6' | '1.7' | '1.7ext3';
+export type PDFVersion = "1.3" | "1.4" | "1.5" | "1.6" | "1.7" | "1.7ext3";
 
 /**
  * Watermark that is rendered on top of each page.
@@ -2008,12 +2050,14 @@ export interface TDocumentDefinitions {
      *
      * @returns whether to insert a page break before the current node.
      */
-    pageBreakBefore?: ((
-        currentNode: Node,
-        followingNodesOnPage: Node[],
-        nodesOnNextPage: Node[],
-        previousNodesOnPage: Node[],
-    ) => boolean) | undefined;
+    pageBreakBefore?:
+        | ((
+            currentNode: Node,
+            followingNodesOnPage: Node[],
+            nodesOnNextPage: Node[],
+            previousNodesOnPage: Node[],
+        ) => boolean)
+        | undefined;
 
     /**
      * Margins around the {@link content} on each page.

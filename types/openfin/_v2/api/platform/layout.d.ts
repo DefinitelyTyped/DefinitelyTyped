@@ -1,6 +1,6 @@
 /// <reference path="./golden-layout.d.ts" />
-import { Identity } from '../../identity';
-import { LayoutPresetTypes } from './utils';
+import { Identity } from "../../identity";
+import { LayoutPresetTypes } from "./utils";
 export interface InitLayoutOptions {
     containerId?: string | undefined;
     layout?: GoldenLayout.Config | undefined;
@@ -10,49 +10,46 @@ export interface PresetLayoutOptions {
 }
 /**
  * InitLayoutOptions interface
- * @typedef { object } InitLayoutOptions
- * @property { string } [containerId] The id attribute of the container where the window's Layout should be initialized.  If not provided
+ * [containerId] The id attribute of the container where the window's Layout should be initialized.  If not provided
  * then an element with id `layout-container` is used. We recommend using a div element.
  */
 /**
  * PresetLayoutOptions interface
- * @typedef { object } PresetLayoutOptions
- * @property { LayoutPresetTypes } presetType Which preset layout arrangement to use.
+ * presetType Which preset layout arrangement to use.
  * The preset options are `columns`, `grid`, `rows`, and `tabs`.
  */
 /**
  * LayoutConfig interface
- * @typedef { object } LayoutConfig
- * @property { Array<LayoutItem> } content Content of the layout.  There can only be one top-level LayoutItem in the content array.
+ * content Content of the layout.  There can only be one top-level LayoutItem in the content array.
  * We do not recommend trying to build Layouts or LayoutItems by hand and instead use calls such as {@link Platform#getSnapshot getSnapshot}
  * or our {@link https://openfin.github.io/golden-prototype/config-gen Layout Config Generation Tool }.
- * @property { LayoutSettings } settings Configuration for certain Layout behaviors. See the LayoutSettings interface.
+ * settings Configuration for certain Layout behaviors. See the LayoutSettings interface.
  */
 /**
  * LayoutItem Interface
- * @typedef { object } LayoutItem Represents the arrangement of Views within a Platform window's Layout.  We do not recommend trying
+ * LayoutItem Represents the arrangement of Views within a Platform window's Layout.  We do not recommend trying
  * to build Layouts or LayoutItems by hand and instead use calls such as {@link Platform#getSnapshot getSnapshot} or our
  * {@link https://openfin.github.io/golden-prototype/config-gen Layout Config Generation Tool }.
- * @property { string } type The type of the item. Possible values are 'row', 'column', 'stack', and 'component'.
- * @property { Array<LayoutItem> } [content] An array of configurations for items that will be created as children of this item.
- * @property { string } [componentName] Only a `component` type will have this property and it should be set to `view`.
- * @property { View~options } [componentState] Only a `component` type will have this property and it represents the view
+ * type The type of the item. Possible values are 'row', 'column', 'stack', and 'component'.
+ * [content] An array of configurations for items that will be created as children of this item.
+ * [componentName] Only a `component` type will have this property and it should be set to `view`.
+ * [componentState] Only a `component` type will have this property and it represents the view
  * options of a given component.
  */
 /**
  * LayoutSettings Interface
- * @typedef { object } LayoutSettings Represents a potential ways to customize behavior of your Layout
- * @property { boolean } hasHeaders Turns tab headers on or off.
+ * LayoutSettings Represents a potential ways to customize behavior of your Layout
+ * hasHeaders Turns tab headers on or off.
  * If false, the layout will be displayed with splitters only.
- * @property { boolean } popoutWholeStack Whether the popout button will only act on the entire stack,
+ * popoutWholeStack Whether the popout button will only act on the entire stack,
  * as opposed to only the active tab.
- * @property { boolean } reorderEnabled If true, the user can re-arrange the layout by
+ * reorderEnabled If true, the user can re-arrange the layout by
  * dragging items by their tabs to the desired location.
- * @property { boolean } showCloseIcon Whether to show the close button on stack header
+ * showCloseIcon Whether to show the close button on stack header
  * (not to be confused with close button on every tab).
- * @property { boolean } showMaximiseIcon Whether to show the maximize button on stack header.
+ * showMaximiseIcon Whether to show the maximize button on stack header.
  * The button will maximize the current tab to fill the entire window.
- * @property { boolean } showPopoutIcon Whether to show the popout button on stack header.
+ * showPopoutIcon Whether to show the popout button on stack header.
  * The button will create a new window with current tab as its content.
  * In case `popoutWholeStack` is set to true, all tabs in the stack will be in the new window.
  */

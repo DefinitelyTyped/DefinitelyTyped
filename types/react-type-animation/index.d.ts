@@ -3,7 +3,7 @@
 // Definitions by: Seungbin Oh <https://github.com/sboh1214>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { FunctionComponent } from 'react';
+import { FunctionComponent } from "react";
 
 export interface TypeAnimationProps {
     sequence: Array<string | number>;

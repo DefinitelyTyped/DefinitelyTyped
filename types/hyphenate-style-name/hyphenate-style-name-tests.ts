@@ -1,3 +1,3 @@
-import hyphenateStyleName = require('hyphenate-style-name');
+import hyphenateStyleName = require("hyphenate-style-name");
 
-hyphenateStyleName('MozTransition'); // $ExpectType string
+hyphenateStyleName("MozTransition"); // $ExpectType string

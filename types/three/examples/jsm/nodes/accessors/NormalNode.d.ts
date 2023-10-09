@@ -1,4 +1,4 @@
-import Node from '../core/Node';
+import Node from '../core/Node.js';
 
 export type NormalNodeScope = typeof NormalNode.GEOMETRY | typeof NormalNode.LOCAL | typeof NormalNode.VIEW;
 

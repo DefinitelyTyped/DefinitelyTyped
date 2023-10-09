@@ -1,5 +1,5 @@
-import { NodeInitializer, NodeDef } from 'node-red';
-import * as helper from 'node-red-node-test-helper';
+import { NodeDef, NodeInitializer } from "node-red";
+import * as helper from "node-red-node-test-helper";
 
 const anotherHelper = new helper.NodeTestHelper();
 
@@ -25,17 +25,21 @@ function helperTests(testHelper: typeof anotherHelper) {
     }
 
     type Flows = FlowsItem[];
-    const flows: Flows = [{ id: 'n1', type: 'some-node', name: 'some-node' }];
+    const flows: Flows = [{ id: "n1", type: "some-node", name: "some-node" }];
 
     function withNodeInitializer(nodeInitializer: NodeInitializer) {
         // $ExpectType Promise<void>
         testHelper.load(nodeInitializer, flows, () => {});
     }
+
+    // $ExpectType Promise<void>
+    testHelper.setFlows(flows, "full", {}, () => {});
+
     // $ExpectType Promise<void>
     testHelper.unload();
 
     // $ExpectType Node<{}>
-    const n = testHelper.getNode('some-node');
+    const n = testHelper.getNode("some-node");
 
     // $ExpectType Promise<void>
     testHelper.clearFlows();

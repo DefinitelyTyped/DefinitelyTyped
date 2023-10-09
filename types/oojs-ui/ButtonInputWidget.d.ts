@@ -23,20 +23,24 @@ declare namespace OO.ui {
 
     namespace ButtonInputWidget {
         interface EventMap
-            extends InputWidget.EventMap,
+            extends
+                InputWidget.EventMap,
                 mixin.ButtonElement.EventMap,
                 mixin.LabelElement.EventMap,
-                mixin.FlaggedElement.EventMap {}
+                mixin.FlaggedElement.EventMap
+        {}
 
         interface ConfigOptions
-            extends InputWidget.ConfigOptions,
+            extends
+                InputWidget.ConfigOptions,
                 mixin.ButtonElement.ConfigOptions,
                 mixin.IconElement.ConfigOptions,
                 mixin.IndicatorElement.ConfigOptions,
                 mixin.LabelElement.ConfigOptions,
-                mixin.FlaggedElement.ConfigOptions {
+                mixin.FlaggedElement.ConfigOptions
+        {
             /** The value of the HTML `'type'` attribute: 'button', 'submit' or 'reset'. */
-            type?: 'button' | 'submit' | 'reset';
+            type?: "button" | "submit" | "reset";
 
             /**
              * Use an `<input>` tag instead of a `<button>` tag, the default.
@@ -52,28 +56,34 @@ declare namespace OO.ui {
         }
 
         interface Static
-            extends InputWidget.Static,
+            extends
+                InputWidget.Static,
                 mixin.ButtonElement.Static,
                 mixin.IconElement.Static,
                 mixin.IndicatorElement.Static,
                 mixin.LabelElement.Static,
-                mixin.FlaggedElement.Static {}
+                mixin.FlaggedElement.Static
+        {}
 
         interface Props
-            extends InputWidget.Props,
+            extends
+                InputWidget.Props,
                 mixin.ButtonElement.Props,
                 mixin.IconElement.Props,
                 mixin.IndicatorElement.Props,
                 mixin.LabelElement.Props,
-                mixin.FlaggedElement.Props {}
+                mixin.FlaggedElement.Props
+        {}
 
         interface Prototype
-            extends InputWidget.Prototype,
+            extends
+                InputWidget.Prototype,
                 mixin.ButtonElement.Prototype,
                 mixin.IconElement.Prototype,
                 mixin.IndicatorElement.Prototype,
                 mixin.LabelElement.Prototype,
-                mixin.FlaggedElement.Prototype {
+                mixin.FlaggedElement.Prototype
+        {
             /**
              * Set label value.
              *
@@ -137,19 +147,19 @@ declare namespace OO.ui {
 
             connect<T extends Partial<Record<keyof EventMap, any>>, C>(
                 context: C,
-                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods: EventConnectionMap<T, C, EventMap>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
             ): this;
 
             disconnect<T extends Partial<Record<keyof EventMap, any>>, C>(
                 context: C,
-                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line no-unnecessary-generics
+                methods?: EventConnectionMap<T, C, EventMap>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
             ): this;
             // #endregion
         }
 
         interface Constructor {
             /** @param config Configuration options */
-            new (config?: ConfigOptions): ButtonInputWidget;
+            new(config?: ConfigOptions): ButtonInputWidget;
             prototype: Prototype;
             static: Static;
             super: InputWidget.Constructor;

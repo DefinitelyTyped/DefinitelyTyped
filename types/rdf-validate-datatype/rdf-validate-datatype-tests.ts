@@ -1,5 +1,5 @@
-import { NamedNode, Quad, Term } from 'rdf-js';
-import validateDatatype = require('rdf-validate-datatype');
+import { NamedNode, Quad, Term } from "rdf-js";
+import validateDatatype = require("rdf-validate-datatype");
 
 const { validateTerm, validateQuad, validators } = validateDatatype;
 
@@ -14,7 +14,7 @@ func = validators.find(null);
 func = validators.find(undefined);
 
 if (func) {
-    const isValid: boolean = func('foo');
+    const isValid: boolean = func("foo");
 }
 
 const termIsValid: boolean = validateTerm(term);

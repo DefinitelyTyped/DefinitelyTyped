@@ -1,4 +1,4 @@
-import { Capabilities } from './capabilities'
+import { Capabilities } from "./capabilities";
 
 /**
  * Contains information about a single WebDriver session.

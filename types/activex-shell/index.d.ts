@@ -7,7 +7,7 @@
 /// <reference types="activex-shdocvw" />
 
 declare namespace Shell32 {
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum BrowseInfoFlags {
         /**
          * Allow folder junctions such as a library or a compressed file with a .zip file name extension to be browsed.
@@ -128,15 +128,15 @@ declare namespace Shell32 {
         BIF_VALIDATE = 0x00000020,
     }
 
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum ExplorerBarCLSID {
-        Favorites = '{EFA24E61-B078-11d0-89E4-00C04FC9E26E}',
-        Folders = '{EFA24E64-B078-11d0-89E4-00C04FC9E26E}',
-        History = '{EFA24E62-B078-11d0-89E4-00C04FC9E26E}',
-        Search = '{30D02401-6A81-11d0-8274-00C04FD5AE38}',
+        Favorites = "{EFA24E61-B078-11d0-89E4-00C04FC9E26E}",
+        Folders = "{EFA24E64-B078-11d0-89E4-00C04FC9E26E}",
+        History = "{EFA24E62-B078-11d0-89E4-00C04FC9E26E}",
+        Search = "{30D02401-6A81-11d0-8274-00C04FD5AE38}",
     }
 
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum FileOperationFlag {
         /** Preserve undo information, if possible. */
         FOF_ALLOWUNDO = 64,
@@ -180,7 +180,7 @@ declare namespace Shell32 {
         FOF_SIMPLEPROGRESS = 256,
     }
 
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum FileSystemDetails {
         Name = 0,
         Size = 1,
@@ -190,15 +190,15 @@ declare namespace Shell32 {
         InfoTip = -1,
     }
 
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum HotkeyModifiers {
         SHIFT = 1,
         CTRL = 2,
         ALT = 4,
-        Extended = 8
+        Extended = 8,
     }
 
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum LinkShowWindowState {
         /** Activates and displays a window. If the window is minimized or maximized, the system restores it to its original size and position. */
         Normal = 1,
@@ -207,11 +207,11 @@ declare namespace Shell32 {
         Minimized = 2,
 
         /** Activates the window and displays it as a maximized window. */
-        Maximized = 3
+        Maximized = 3,
     }
 
     /** Constants for Folder2.OfflineStatus */
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum OfflineFolderStatus {
         OFS_DIRTYCACHE = 3,
         OFS_INACTIVE = -1,
@@ -220,7 +220,7 @@ declare namespace Shell32 {
         OFS_SERVERBACK = 2,
     }
 
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum ShellFolderEnumerationFlags {
         /** **Windows 7 and later** The calling application is checking for the existence of child items in the folder. */
         SHCONTF_CHECKING_FOR_CHILDREN = 0x00010,
@@ -265,7 +265,7 @@ declare namespace Shell32 {
         SHCONTF_INCLUDESUPERHIDDEN = 0x10000,
     }
 
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum ShellFolderViewOptions {
         /** The **Show All Files** option is enabled. */
         SFVVO_SHOWALLOBJECTS = 0x00000001,
@@ -286,20 +286,20 @@ declare namespace Shell32 {
         SFVVO_DOUBLECLICKINWEBVIEW = 0x00000080,
 
         /** The **Active Desktop – View as Web Page** option is enabled. */
-        SFVVO_DESKTOPHTML = 0x00000200
+        SFVVO_DESKTOPHTML = 0x00000200,
     }
 
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum ShellFolderViewSelectItem {
         Deselect = 0,
         Select = 1,
         EditMode = 3,
         DeselectAllButThis = 4,
         ScrollIntoView = 8,
-        Focus = 16
+        Focus = 16,
     }
 
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum ShellLinkResolveFlags {
         /**
          * Do not display a dialog box if the link cannot be resolved. When this flag is set, the high-order word of _fFlags_ specifies a time-out duration, in milliseconds.
@@ -326,10 +326,10 @@ declare namespace Shell32 {
         NoLinkInfo = 64,
 
         /** Call the Windows Installer. */
-        InvokeMSI = 128
+        InvokeMSI = 128,
     }
 
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum SettingKey {
         /**
          * The state of the **Use check boxes to select items** option. This option is enabled automatically when the system has a pen input device configured.
@@ -425,7 +425,7 @@ declare namespace Shell32 {
         SSF_WIN95CLASSIC = 0x00000400,
     }
 
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum ShellExecuteShow {
         /** Open the application with a hidden window. */
         Hidden = 0,
@@ -453,7 +453,7 @@ declare namespace Shell32 {
     }
 
     /** Constants for Special Folders for open/Explore */
-    // eslint-disable-next-line no-const-enum
+    // eslint-disable-next-line @definitelytyped/no-const-enum
     const enum ShellSpecialFolderConstants {
         ssfALTSTARTUP = 29,
         ssfAPPDATA = 26,
@@ -497,7 +497,7 @@ declare namespace Shell32 {
 
     /** FileSearchBand Class */
     class FileSearchBand {
-        private 'Shell32.FileSearchBand_typekey': FileSearchBand;
+        private "Shell32.FileSearchBand_typekey": FileSearchBand;
         private constructor();
 
         /** Retrieve the file from which the search was restored. */
@@ -518,7 +518,7 @@ declare namespace Shell32 {
 
     /** Definition of interface Folder version 3 */
     class Folder3 {
-        private 'Shell32.Folder3_typekey': Folder3;
+        private "Shell32.Folder3_typekey": Folder3;
         private constructor();
 
         /** Get Application object */
@@ -574,7 +574,7 @@ declare namespace Shell32 {
 
     /** Definition of interface FolderItems3 */
     class FolderItems3 {
-        private 'Shell32.FolderItems3_typekey': FolderItems3;
+        private "Shell32.FolderItems3_typekey": FolderItems3;
         private constructor();
 
         /** Get Application object */
@@ -602,7 +602,7 @@ declare namespace Shell32 {
 
     /** Definition of interface FolderItemVerb */
     class FolderItemVerb {
-        private 'Shell32.FolderItemVerb_typekey': FolderItemVerb;
+        private "Shell32.FolderItemVerb_typekey": FolderItemVerb;
         private constructor();
 
         /** Execute the verb */
@@ -614,7 +614,7 @@ declare namespace Shell32 {
 
     /** Definition of interface FolderItemVerbs */
     class FolderItemVerbs {
-        private 'Shell32.FolderItemVerbs_typekey': FolderItemVerbs;
+        private "Shell32.FolderItemVerbs_typekey": FolderItemVerbs;
         private constructor();
 
         /** Get count of open folder windows */
@@ -626,7 +626,7 @@ declare namespace Shell32 {
 
     /** Shell Object Type Information */
     class Shell {
-        private 'Shell32.Shell_typekey': Shell;
+        private "Shell32.Shell_typekey": Shell;
         private constructor();
 
         /** Add an object to the Recent Docuements */
@@ -636,7 +636,12 @@ declare namespace Shell32 {
         readonly Application: any;
 
         /** Browse the name space for a Folder */
-        BrowseForFolder(Hwnd: number, Title: string, Options: number | BrowseInfoFlags, RootFolder?: string | ShellSpecialFolderConstants): Folder3;
+        BrowseForFolder(
+            Hwnd: number,
+            Title: string,
+            Options: number | BrowseInfoFlags,
+            RootFolder?: string | ShellSpecialFolderConstants,
+        ): Folder3;
 
         /** Determine if the current user can start/stop the named service. */
         CanStartStopService(ServiceName: string): boolean;
@@ -692,7 +697,9 @@ declare namespace Shell32 {
          *
          * `IsOS_Professional` -- Returns **true** if the operating system is Windows XP Professional Edition (_Windows XP only_)
          */
-        GetSystemInformation(Name: 'DirectoryServiceAvailable' | 'IsOS_DomainMember' | 'IsOS_Personal' | 'IsOS_Professional'): boolean;
+        GetSystemInformation(
+            Name: "DirectoryServiceAvailable" | "IsOS_DomainMember" | "IsOS_Personal" | "IsOS_Professional",
+        ): boolean;
 
         /**
          * `DoubleClickTime` -- The double-click time, in milliseconds
@@ -706,7 +713,14 @@ declare namespace Shell32 {
          *
          * `ProcessorSpeed` -- The processor speed, in megahertz (MHz)
          */
-        GetSystemInformation(Name: 'DoubleClickTime' | 'PhysicalMemoryInstalled' | 'ProcessorArchitecture' | 'ProcessorLevel' | 'ProcessorSpeed'): number;
+        GetSystemInformation(
+            Name:
+                | "DoubleClickTime"
+                | "PhysicalMemoryInstalled"
+                | "ProcessorArchitecture"
+                | "ProcessorLevel"
+                | "ProcessorSpeed",
+        ): number;
 
         /** Display shell help */
         Help(): void;
@@ -798,13 +812,13 @@ declare namespace Shell32 {
 
     /** ShellDispatch Load in Shell Context */
     class ShellDispatchInproc {
-        private 'Shell32.ShellDispatchInproc_typekey': ShellDispatchInproc;
+        private "Shell32.ShellDispatchInproc_typekey": ShellDispatchInproc;
         private constructor();
     }
 
     /** Shell Folder Item */
     class ShellFolderItem {
-        private 'Shell32.ShellFolderItem_typekey': ShellFolderItem;
+        private "Shell32.ShellFolderItem_typekey": ShellFolderItem;
         private constructor();
 
         /** Get Application object */
@@ -869,7 +883,7 @@ declare namespace Shell32 {
 
     /** Shell Folder View Object */
     class ShellFolderView {
-        private 'Shell32.ShellFolderView_typekey': ShellFolderView;
+        private "Shell32.ShellFolderView_typekey": ShellFolderView;
         private constructor();
 
         /** Get Application object */
@@ -926,7 +940,7 @@ declare namespace Shell32 {
      * forwards the event to its own handler for processing.
      */
     class ShellFolderViewOC {
-        private 'Shell32.ShellFolderViewOC_typekey': ShellFolderViewOC;
+        private "Shell32.ShellFolderViewOC_typekey": ShellFolderViewOC;
         private constructor();
 
         /** Set the ShellFolderView object to monitor events of. */
@@ -935,7 +949,7 @@ declare namespace Shell32 {
 
     /** Shell Link object */
     class ShellLinkObject {
-        private 'Shell32.ShellLinkObject_typekey': ShellLinkObject;
+        private "Shell32.ShellLinkObject_typekey": ShellLinkObject;
         private constructor();
 
         /** Arguments for the link */
@@ -980,7 +994,7 @@ declare namespace Shell32 {
     }
 
     class ShellWindows {
-        private 'Shell32.ShellWindows_typekey': ShellWindows;
+        private "Shell32.ShellWindows_typekey": ShellWindows;
         private constructor();
 
         /**
@@ -996,16 +1010,23 @@ declare namespace Shell32 {
 
 interface ActiveXObject {
     on(
-        obj: Shell32.ShellFolderView, event: 'BeginDrag' | 'DefaultVerbInvoked' | 'EnumDone' | 'SelectionChanged' | 'VerbInvoked', handler: (
-            this: Shell32.ShellFolderView, parameter: {}) => void): void;
+        obj: Shell32.ShellFolderView,
+        event: "BeginDrag" | "DefaultVerbInvoked" | "EnumDone" | "SelectionChanged" | "VerbInvoked",
+        handler: (
+            this: Shell32.ShellFolderView,
+            parameter: {},
+        ) => void,
+    ): void;
     on(
-        obj: Shell32.ShellFolderViewOC, event: 'BeginDrag' | 'DefaultVerbInvoked' | 'EnumDone' | 'SelectionChanged' | 'VerbInvoked',
-        handler: (this: Shell32.ShellFolderViewOC, parameter: {}) => void): void;
+        obj: Shell32.ShellFolderViewOC,
+        event: "BeginDrag" | "DefaultVerbInvoked" | "EnumDone" | "SelectionChanged" | "VerbInvoked",
+        handler: (this: Shell32.ShellFolderViewOC, parameter: {}) => void,
+    ): void;
 }
 
 interface ActiveXObjectNameMap {
-    'Shell.Application': Shell32.Shell;
-    'Shell.FolderView': Shell32.ShellFolderViewOC;
+    "Shell.Application": Shell32.Shell;
+    "Shell.FolderView": Shell32.ShellFolderViewOC;
 }
 
 interface EnumeratorConstructor {

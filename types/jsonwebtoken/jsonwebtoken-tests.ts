@@ -45,20 +45,50 @@ token = jwt.sign(testObject, cert, { algorithm: "RS256" });
 const privKey: Buffer = fs.readFileSync("encrypted_private.key"); // get private key
 const secret = { key: privKey.toString(), passphrase: "keypwd" };
 token = jwt.sign(testObject, secret, { algorithm: "RS256" }); // the algorithm option is mandatory in this case
-token = jwt.sign(testObject, { key: privKey, passphrase: 'keypwd' }, { algorithm: "RS256" });
+token = jwt.sign(testObject, { key: privKey, passphrase: "keypwd" }, { algorithm: "RS256" });
 
 // sign with secret key (KeyObject)
 secretKey = createSecretKey("shhhhh", "utf-8");
 token = jwt.sign(testObject, secretKey);
 
 // sign with insecure key size
-token = jwt.sign({ foo: 'bar' }, 'shhhhh', { algorithm: 'RS256', allowInsecureKeySizes: true });
+token = jwt.sign({ foo: "bar" }, "shhhhh", { algorithm: "RS256", allowInsecureKeySizes: true });
 
 // sign with invalid asymmetric key type for algorithm
-token = jwt.sign({ foo: 'bar' }, 'shhhhh', { algorithm: 'RS256', allowInvalidAsymmetricKeyTypes: true });
+token = jwt.sign({ foo: "bar" }, "shhhhh", { algorithm: "RS256", allowInvalidAsymmetricKeyTypes: true });
+
+// sign with algorithm none
+token = jwt.sign(testObject, null, { algorithm: "none" });
+// @ts-expect-error
+token = jwt.sign({ foo: "bar" }, null, { algorithm: "RS256", allowInvalidAsymmetricKeyTypes: true });
 
 // sign asynchronously
 jwt.sign(testObject, cert, { algorithm: "RS256" }, (
+    err: Error | null,
+    token: string | undefined,
+) => {
+    if (err) {
+        console.log(err);
+        return;
+    }
+
+    console.log(token);
+});
+
+// sign asynchronously with algorithm none
+jwt.sign(testObject, null, { algorithm: "none" }, (
+    err: Error | null,
+    token: string | undefined,
+) => {
+    if (err) {
+        console.log(err);
+        return;
+    }
+
+    console.log(token);
+});
+// @ts-expect-error
+jwt.sign(testObject, null, { algorithm: "RS256" }, (
     err: Error | null,
     token: string | undefined,
 ) => {
@@ -85,7 +115,7 @@ jwt.verify(token, "shhhhh", (err, decoded) => {
 });
 
 // use external time for verifying
-jwt.verify(token, 'shhhhh', { clockTimestamp: 1 }, (err, decoded) => {
+jwt.verify(token, "shhhhh", { clockTimestamp: 1 }, (err, decoded) => {
     const result = decoded as TestObject;
 
     console.log(result.foo); // bar
@@ -121,7 +151,7 @@ jwt.verify(token, cert, (err, decoded) => {
 
 // verify a token assymetric with async key fetch function
 function getKeySuccess(header: jwt.JwtHeader, callback: jwt.SigningKeyCallback) {
-    cert = fs.readFileSync('public.pem');
+    cert = fs.readFileSync("public.pem");
 
     callback(null, cert);
 }
@@ -132,9 +162,9 @@ jwt.verify(token, getKeySuccess, (err, decoded) => {
 });
 
 function getKeyFailed(header: jwt.JwtHeader, callback: jwt.SigningKeyCallback) {
-    cert = fs.readFileSync('public.pem');
+    cert = fs.readFileSync("public.pem");
 
-    callback(new Error('FAILED_KEY_RETRIEVAL'), cert);
+    callback(new Error("FAILED_KEY_RETRIEVAL"), cert);
 }
 jwt.verify(token, getKeyFailed, (err, decoded) => {
     console.error(err); // new JsonWebTokenError('error in secret or public key callback: FAILED_KEY_RETRIEVAL')

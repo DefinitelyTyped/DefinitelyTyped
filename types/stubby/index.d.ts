@@ -5,10 +5,10 @@
 
 /// <reference types="node" />
 
-import * as http from 'http';
-import * as tls from 'tls';
+import * as http from "http";
+import * as tls from "tls";
 
-export type StubbyMethod = 'GET' | 'PUT' | 'POST' | 'HEAD' | 'PATCH' | 'TRACE' | 'DELETE' | 'CONNECT' | 'OPTIONS';
+export type StubbyMethod = "GET" | "PUT" | "POST" | "HEAD" | "PATCH" | "TRACE" | "DELETE" | "CONNECT" | "OPTIONS";
 
 export interface StubbyRequest {
     /**
@@ -176,12 +176,12 @@ declare class Endpoints {
     constructor(
         endpoint: StubbyData | StubbyData[],
         callback: (err: Error | undefined, datadir: string) => void,
-        datadir: string
+        datadir: string,
     );
     create(
         endpoint: StubbyData | StubbyData[],
         callback: (err: Error | undefined, endpoint: Endpoint) => void,
-        datadir: string
+        datadir: string,
     ): void;
     retrieve(id: string, callback: (err: Error | undefined, endpoint: Endpoint) => void): void;
     update(id: string, data: StubbyData, callback: (err?: Error) => void): void;

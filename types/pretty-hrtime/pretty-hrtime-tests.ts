@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import prettyHrtime = require('pretty-hrtime');
+import prettyHrtime = require("pretty-hrtime");
 
 const hrtime = process.hrtime();
 

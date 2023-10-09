@@ -1,4 +1,4 @@
-import BaseError from './base/Error';
+import BaseError from "./base/Error";
 
 declare class Error extends BaseError {
     constructor(reason?: string, options?: { cause?: unknown });

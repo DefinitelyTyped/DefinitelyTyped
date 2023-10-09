@@ -1,6 +1,6 @@
-import { PureComponent, Validator, Requireable } from 'react';
-import { GridProps } from './Grid';
-import { CellPosition } from './CellMeasurer';
+import { PureComponent, Requireable, Validator } from "react";
+import { CellPosition } from "./CellMeasurer";
+import { GridProps } from "./Grid";
 
 export type MultiGridProps = {
     classNameBottomLeftGrid?: string | undefined;
@@ -48,10 +48,10 @@ export class MultiGrid extends PureComponent<MultiGridProps, MultiGridState> {
     };
 
     static defaultProps: {
-        classNameBottomLeftGrid: '';
-        classNameBottomRightGrid: '';
-        classNameTopLeftGrid: '';
-        classNameTopRightGrid: '';
+        classNameBottomLeftGrid: "";
+        classNameBottomRightGrid: "";
+        classNameTopLeftGrid: "";
+        classNameTopRightGrid: "";
         enableFixedColumnScroll: false;
         enableFixedRowScroll: false;
         fixedColumnCount: 0;

@@ -1,7 +1,7 @@
-import Sntp = require('sntp');
+import Sntp = require("sntp");
 
 const options = {
-    host: 'abc',
+    host: "abc",
     port: 123,
 };
 
