@@ -13,7 +13,6 @@
 //                 Pirasis Leelatanon <https://github.com/1pete>
 //                 Alexander Shipulin <https://github.com/y>
 //                 Rafik Ogandzhanian <https://github.com/inomn>
-//                 Pierre Sköldborg <https://github.com/skoldborg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 
