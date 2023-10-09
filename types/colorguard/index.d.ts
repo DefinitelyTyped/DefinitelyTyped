@@ -2,7 +2,7 @@
 // Project: https://github.com/SlexAxton/css-colorguard
 // Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { Plugin } from 'postcss';
+import { Plugin } from "postcss";
 
 declare namespace cologuard {
     interface Options {
