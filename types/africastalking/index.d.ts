@@ -67,6 +67,6 @@ interface AfricasTalking{
 
 
 declare module 'africastalking' {
-    type africastalking = (options:{username: string,apiKey:string}): AfricasTalking
+    type africastalking = (options:{username: string,apiKey:string})=> AfricasTalking
     export = africastalking
 }
