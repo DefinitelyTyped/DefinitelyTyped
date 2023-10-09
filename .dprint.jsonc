@@ -33,8 +33,7 @@
     "./types/vscode",
 
     // These files will be formatted soon, but are failing in CI for now.
-    "./types/react-blessed",
-    "./types/react-map-gl"
+    "./types/react-blessed"
   ],
   // NOTE: if extending this list, also update settings.template.json.
   "plugins": [
