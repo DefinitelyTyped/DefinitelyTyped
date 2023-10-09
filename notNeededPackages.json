@@ -6615,6 +6615,10 @@
             "libraryName": "zetapush-js",
             "asOfVersion": "3.1.2"
         },
+        "ziggy-js": {
+            "libraryName": "ziggy-js",
+            "asOfVersion": "1.8.0"
+        },
         "zipkin-instrumentation-express": {
             "libraryName": "zipkin-instrumentation-express",
             "asOfVersion": "0.12.0"
