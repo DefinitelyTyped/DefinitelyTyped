@@ -221,6 +221,13 @@ declare class Dict {
     contains(key: string): number;
 
     /**
+     * Frees the dictionary data from the native c peer, which is not considered by the JavaScript garbage collector,
+     * and may consume lots of memory until the garbage collector decides to run based on JS allocated memory.
+     * Once called, the dict object is not available for any other use.
+     */
+    freepeer(): void;
+
+    /**
      * Return the value associated with a key.
      */
     get(key: string): any;
@@ -228,7 +235,7 @@ declare class Dict {
     /**
      * Return a list of all the keys in a dictionary.
      */
-    getkeys(): any[];
+    getkeys(): string[];
 
     /**
      * Return a list of all the dictionaries that currently exist.
@@ -238,7 +245,7 @@ declare class Dict {
     /**
      * Return the number of values associated with a key.
      */
-    getsize(): number;
+    getsize(key: string): number;
 
     /**
      * Return the type of the values associated with a key.
@@ -246,9 +253,9 @@ declare class Dict {
     gettype(): string;
 
     /**
-     * Replace the content of a dictionary.
+     * Replace the content of a dictionary with a JSON string.
      */
-    parse(key: string, value: string): void;
+    parse(value: string): void;
 
     /**
      * Pull the content of a named coll object into the dictionary.
@@ -271,19 +278,28 @@ declare class Dict {
     remove(key: string): void;
 
     /**
-     * Set the value for a key to a specified value, creating heirarchy.
+     * Set the value for a key to a specified value creating hierarchy if needed.
+     * Hierarchy is specified using double-colons
+     *
+     * d.replace("salami", "6.99");
+     * d.replace("drink::hot::coffee::type", "espresso");
      */
-    replace(key: string, value: any[]): void;
+    replace(key: string, ...values: any[]): void;
 
     /**
-     * Set the value for a key to a specified value.
+     * Set the value for a key to a specified value creating a hierarchy if needed.
+     * Hierarchy is specified using double-colons
+     *
+     * d.set("salami", "7.99");
+     * d.set("bologna", 1.99);
+     * d.set("drink::hot::coffee::sizes", "small", "medium", "large");
      */
-    set(key: string, value: any[]): void;
+    set(key: string, ...values: any[]): void;
 
     /**
-     * Set the value for a key to dictionary content defined using JSON.
+     * Set the value for a key to dictionary content defined using JSON as a string.
      */
-    setparse(key: string, value: any[]): void;
+    setparse(key: string, value: string): void;
 
     /**
      * Open a save dialog to write the dictionary contents to a file.
