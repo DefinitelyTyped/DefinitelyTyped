@@ -55,3 +55,7 @@ pnpm-debug.log
 
 # Output of 'npm pack'
 *.tgz
+
+# Package names containing dots may match any of the above.
+# Just allow any directory within the types directory directly.
+!/types/*/
