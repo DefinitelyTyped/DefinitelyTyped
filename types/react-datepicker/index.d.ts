@@ -1,4 +1,4 @@
-// Type definitions for react-datepicker 4.15
+// Type definitions for react-datepicker 4.19
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
 //                 Greg Smith <https://github.com/smrq>
@@ -13,6 +13,7 @@
 //                 Pirasis Leelatanon <https://github.com/1pete>
 //                 Alexander Shipulin <https://github.com/y>
 //                 Rafik Ogandzhanian <https://github.com/inomn>
+//                 Pierre Sköldborg <https://github.com/skoldborg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 
