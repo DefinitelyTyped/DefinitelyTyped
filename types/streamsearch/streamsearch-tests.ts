@@ -16,6 +16,6 @@ ss.matches; // $ExpectType number
 ss.maxMatches; // $ExpectType number
 
 ss.destroy; // $ExpectType () => void
-ss.push; // $ExpectType (chunk: string | Buffer) => number
+ss.push; // $ExpectType (chunk: string | Buffer, pos?: number | undefined) => number
 ss.reset; // $ExpectType () => void
 
