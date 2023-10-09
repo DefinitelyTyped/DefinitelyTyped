@@ -6613,7 +6613,7 @@
         },
         "ziggy-js": {
             "libraryName": "ziggy-js",
-            "asOfVersion": "v1.8.0"
+            "asOfVersion": "1.8.0"
         },
         "zipkin-instrumentation-express": {
             "libraryName": "zipkin-instrumentation-express",
