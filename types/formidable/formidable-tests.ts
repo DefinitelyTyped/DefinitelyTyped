@@ -195,7 +195,7 @@ http.createServer(async req => {
         err;
         // $ExpectType Fields<"name" | "age">
         fields;
-        // $ExpectType Files<"avatar" | "document">
+        // $ExpectType Files<"avatar" | "document"> || Files<"document" | "avatar">
         files;
     });
 
@@ -210,7 +210,7 @@ http.createServer(async req => {
     const [newFields, newFiles] = await form.parse<"name" | "age", "avatar" | "document">(req); // testing with promise and type arguments
     // $ExpectType Fields<"name" | "age">
     newFields;
-    // $ExpectType Files<"avatar" | "document">
+    // $ExpectType Files<"avatar" | "document"> || Files<"document" | "avatar">
     newFiles;
 });
 
