@@ -146,6 +146,7 @@ declare namespace GoogleAppsScript {
          * use Range.setValue(value) or Range.setValues(values) to add the image value to the cell.
          */
         interface CellImage {
+            valueType: ValueType;
             getAltTextDescription(): string;
             getAltTextTitle(): string;
             getContentUrl(): string;
@@ -156,6 +157,7 @@ declare namespace GoogleAppsScript {
          * Builder for CellImage. This builder creates the image value needed to add an image to a cell.
          */
         interface CellImageBuilder {
+            valueType: ValueType;
             build(): CellImage;
             getAltTextDescription(): string;
             getAltTextTitle(): string;
@@ -2380,6 +2382,7 @@ declare namespace GoogleAppsScript {
             TextDirection: typeof TextDirection;
             TextToColumnsDelimiter: typeof TextToColumnsDelimiter;
             ThemeColorType: typeof ThemeColorType;
+            ValueType: typeof ValueType;
             WrapStrategy: typeof WrapStrategy;
             create(name: string): Spreadsheet;
             create(name: string, rows: Integer, columns: Integer): Spreadsheet;
@@ -2540,6 +2543,13 @@ declare namespace GoogleAppsScript {
             ACCENT5,
             ACCENT6,
             HYPERLINK,
+        }
+        /**
+         * An enumeration of the value types returned by Range.getValue and Range.getValues() from the Range class of the Spreadsheet service.
+         * The enumeration values listed below are in addition to Number, Boolean, Date, or String.
+         */
+        enum ValueType {
+            IMAGE,
         }
         /**
          * An enumeration of the strategies used to handle cell text wrapping.

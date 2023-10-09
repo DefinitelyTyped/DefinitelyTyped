@@ -862,6 +862,8 @@ const sheetCellImage = () => {
     cellImage.getAltTextDescription();
     cellImage.getContentUrl();
     cellImage.getUrl();
+
+    console.assert(cellImage.valueType === SpreadsheetApp.ValueType.IMAGE);
 };
 
 // Blob test
