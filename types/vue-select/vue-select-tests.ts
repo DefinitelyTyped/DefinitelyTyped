@@ -16,6 +16,10 @@ const calculatePosition: VueSelectProps["calculatePosition"] = (dropdownList, co
     dropdownList.style.width = width;
 };
 
+const components: VueSelectProps["components"] = {
+    Deselect: undefined,
+};
+
 new Vue({
     el: "#app",
     data: {
@@ -87,9 +91,3 @@ new Vue({
     </vue-select>
 `,
 });
-
-const props: VueSelectProps = {
-    components: {
-        Deselect: undefined,
-    },
-};
