@@ -1,5 +1,5 @@
-import postcss = require('postcss');
-import postcssGray = require('postcss-color-gray');
+import postcss = require("postcss");
+import postcssGray = require("postcss-color-gray");
 
 postcss([postcssGray]);
 postcss([postcssGray()]);
