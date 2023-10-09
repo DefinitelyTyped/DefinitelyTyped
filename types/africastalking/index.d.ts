@@ -1,3 +1,4 @@
+// Project: https://www.npmjs.com/package/africastalking
 // Definitions by: James Kaguru <https://github.com/James-Kaguru>
 
 interface SMSMessageData {
