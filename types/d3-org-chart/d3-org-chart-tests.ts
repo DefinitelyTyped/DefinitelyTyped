@@ -1,4 +1,4 @@
-import { OrgChart } from "d3-org-chart";
+import {OrgChart} from "d3-org-chart";
 
 interface Person {
     id: string;

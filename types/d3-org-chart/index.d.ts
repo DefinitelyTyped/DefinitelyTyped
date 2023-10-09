@@ -372,12 +372,11 @@ export interface LayoutBinding<Datum> {
         node: HierarchyNode<Datum>;
     }) => [number, number];
     zoomTransform: (params: { centerY: number; scale: number }) => string;
-
-    diagonal(source: Point, target: Point, m: Point): string;
-
     /** Swaps x and y coordinates */
     swap: (d: Point) => Point;
     nodeUpdateTransform: (params: { width: number; height: number } & Point) => string;
+
+    diagonal(source: Point, target: Point, m: Point): string;
 }
 
 // Helper type to remove the need to explicitly declare get / set methods
