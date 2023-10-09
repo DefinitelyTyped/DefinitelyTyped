@@ -1,1 +1,0 @@
-index.es.d.ts
