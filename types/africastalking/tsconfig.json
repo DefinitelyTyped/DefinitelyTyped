@@ -19,5 +19,6 @@
     },
     "files": [
         "index.d.ts",
+        "africastalking-tests.ts"
     ]
 }
