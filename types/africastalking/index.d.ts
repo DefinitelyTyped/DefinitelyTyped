@@ -1,4 +1,4 @@
-// Type definitions for Africastalking 0.6.3
+// Type definitions for africastalking 0.6.3
 // Project: https://www.npmjs.com/package/africastalking
 // Definitions by: James Kaguru <https://github.com/James-Kaguru>
 
