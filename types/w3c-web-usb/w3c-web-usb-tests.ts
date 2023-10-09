@@ -11,13 +11,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 const button = document.getElementById("request-device");
 if (button) {
     button.addEventListener("click", async () => {
-        let device;
+        let device: USBDevice | undefined;
         try {
             device = await navigator.usb.requestDevice({
                 filters: [{
                     vendorId: 0xABCD,
                     classCode: 0xFF, // vendor-specific
                     protocolCode: 0x01,
+                }],
+            });
+            device = await navigator.usb.requestDevice({
+                filters: [{
+                    vendorId: 0xABCD,
+                    classCode: 0xFF, // vendor-specific
+                    protocolCode: 0x01,
+                }],
+                exclusionFilters: [{
+                    serialNumber: "12345678"
                 }],
             });
         } catch (e) {

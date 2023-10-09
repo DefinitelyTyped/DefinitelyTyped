@@ -2,6 +2,7 @@
 // Project: https://wicg.github.io/webusb/
 // Definitions by: Lars Knudsen <https://github.com/larsgk>
 //                 Rob Moran <https://github.com/thegecko>
+//                 Simon Chan <https://github.com/yume-chan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -37,6 +38,7 @@ interface USBDeviceFilter {
 
 interface USBDeviceRequestOptions {
     filters: USBDeviceFilter[];
+    exclusionFilters?: USBDeviceFilter[] | undefined;
 }
 
 interface USBConnectionEventInit extends EventInit {
