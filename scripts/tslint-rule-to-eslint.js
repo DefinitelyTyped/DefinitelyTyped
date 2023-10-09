@@ -2,6 +2,7 @@ import { parse } from "comment-json";
 import fs from "fs";
 import * as path from "path";
 import sh from "shelljs";
+import cp from "child_process"
 
 /** @type {any} */
 const emptyObject = {};
@@ -19,13 +20,29 @@ const parseAndReadFileContents = filePath => {
 };
 
 /**
+ * @param {string} contents
+ */
+function formatFile(contents) {
+    return cp.execFileSync(
+        process.execPath,
+        ["./node_modules/dprint/bin.js", "fmt", "--stdin", "json"],
+        {
+            stdio: ["pipe", "pipe", "inherit"],
+            encoding: "utf-8",
+            input: contents,
+            maxBuffer: 100 * 1024 * 1024, // 100 MB "ought to be enough for anyone"; https://github.com/nodejs/node/issues/9829
+        },
+    );
+}
+
+/**
  * @param {string} filePath
  * @param {unknown} contents
  */
 const writeFileFormatted = (filePath, contents) => {
     fs.writeFileSync(
         filePath,
-        JSON.stringify(contents, null, 4),
+        formatFile(JSON.stringify(contents, null, 4)),
     );
 };
 
