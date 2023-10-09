@@ -1,7 +1,7 @@
-import { connect } from 'net';
-import { types, Client, CustomTypesConfig, QueryArrayConfig, Pool, DatabaseError, Connection, defaults } from 'pg';
-import TypeOverrides = require('pg/lib/type-overrides');
-import { NoticeMessage } from 'pg-protocol/dist/messages';
+import { connect } from "net";
+import { Client, Connection, CustomTypesConfig, DatabaseError, defaults, Pool, QueryArrayConfig, types } from "pg";
+import TypeOverrides = require("pg/lib/type-overrides");
+import { NoticeMessage } from "pg-protocol/dist/messages";
 
 // https://github.com/brianc/node-pg-types
 // tslint:disable-next-line no-unnecessary-callback-wrapper
