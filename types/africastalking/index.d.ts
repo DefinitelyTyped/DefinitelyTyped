@@ -1,4 +1,5 @@
 // Definitions by: James Kaguru <https://github.com/James-Kaguru>
+
 interface SMSMessageData {
     Message: string,
     Recipients: {
