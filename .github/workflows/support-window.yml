@@ -48,7 +48,7 @@ jobs:
       - name: Make SVG diagram
         run: node --experimental-json-modules scripts/support-window > docs/support-window.svg
 
-      - uses: stefanzweifel/git-auto-commit-action@v4.16.0
+      - uses: stefanzweifel/git-auto-commit-action@v5.0.0
         with:
           commit_author: "TypeScript Bot <typescriptbot@microsoft.com>"
           commit_message: "🤖 Update support window"
