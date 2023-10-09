@@ -32,45 +32,5 @@ import ReactDOM = require("./canary");
 
 export {};
 
-declare const REACT_FORM_STATE_SIGIL: unique symbol;
-
 declare module "." {
-    interface FormStatusNotPending {
-        pending: false;
-        data: null;
-        method: null;
-        action: null;
-    }
-
-    interface FormStatusPending {
-        pending: true;
-        data: FormData;
-        method: string;
-        action: string | ((formData: FormData) => void | Promise<void>);
-    }
-
-    type FormStatus = FormStatusPending | FormStatusNotPending;
-
-    function experimental_useFormStatus(): FormStatus;
-
-    function experimental_useFormState<State>(
-        action: (state: State) => Promise<State>,
-        initialState: State,
-        permalink?: string,
-    ): [state: State, dispatch: () => void];
-    function experimental_useFormState<State, Payload>(
-        action: (state: State, payload: Payload) => Promise<State>,
-        initialState: State,
-        permalink?: string,
-    ): [state: State, dispatch: (payload: Payload) => void];
-}
-
-declare module "./client" {
-    interface ReactFormState {
-        [REACT_FORM_STATE_SIGIL]: never;
-    }
-
-    interface HydrationOptions {
-        experimental_formState?: ReactFormState | null;
-    }
 }

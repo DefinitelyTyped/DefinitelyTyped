@@ -31,6 +31,8 @@ import ReactDOM = require(".");
 
 export {};
 
+declare const REACT_FORM_STATE_SIGIL: unique symbol;
+
 declare module "." {
     function prefetchDNS(href: string): void;
 
@@ -106,4 +108,43 @@ declare module "." {
         nonce?: string | undefined;
     }
     function preinitModule(href: string, options?: PreinitModuleOptions): void;
+
+    interface FormStatusNotPending {
+        pending: false;
+        data: null;
+        method: null;
+        action: null;
+    }
+
+    interface FormStatusPending {
+        pending: true;
+        data: FormData;
+        method: string;
+        action: string | ((formData: FormData) => void | Promise<void>);
+    }
+
+    type FormStatus = FormStatusPending | FormStatusNotPending;
+
+    function useFormStatus(): FormStatus;
+
+    function useFormState<State>(
+        action: (state: State) => Promise<State>,
+        initialState: State,
+        permalink?: string,
+    ): [state: State, dispatch: () => void];
+    function useFormState<State, Payload>(
+        action: (state: State, payload: Payload) => Promise<State>,
+        initialState: State,
+        permalink?: string,
+    ): [state: State, dispatch: (payload: Payload) => void];
+}
+
+declare module "./client" {
+    interface ReactFormState {
+        [REACT_FORM_STATE_SIGIL]: never;
+    }
+
+    interface HydrationOptions {
+        formState?: ReactFormState | null;
+    }
 }
