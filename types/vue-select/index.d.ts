@@ -29,7 +29,9 @@ interface CalculatedPosition {
 
 export interface VueSelectProps {
     value: VueSelectOption;
-    components: Record<ChildComponentName, VueConstructor | ComponentOptions<Vue>>;
+    components: {
+        [key in ChildComponentName]?: VueConstructor | ComponentOptions<Vue>;
+    };
     options: VueSelectOption[];
     disabled: boolean;
     clearable: boolean;
