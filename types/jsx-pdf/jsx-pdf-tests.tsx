@@ -225,7 +225,7 @@ const doc12 = (
                 </text>
             )}
         </header>
-        <content>{/* ... */}</content>
+        <content>Hello, Bob!</content>
     </document>
 );
 
