@@ -16,7 +16,7 @@
 //                 Dmitry Avezov       <https://github.com/avezov>
 //                 Jose Fuentes        <https://github.com/j-fuentes>
 //                 Anya Reyes          <https://github.com/darkade>
-//                 Tino                <https://github.com/tino-247>
+//                 Tino                
 //                 BendingBender       <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.9
