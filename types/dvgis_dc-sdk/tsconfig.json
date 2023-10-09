@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "dc-sdk-tests.ts"
+        "dvgis_dc-sdk-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
