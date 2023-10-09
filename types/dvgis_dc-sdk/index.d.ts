@@ -1,4 +1,4 @@
-// Type definitions for dvgis_dc-sdk 0.0.1
+// Type definitions for @dvgis/dc-sdk 0.0.1
 // Project: https://github.com/dvgis/dc-sdk
 // Definitions by: Caven Chen  <https://github.com/cavencj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
