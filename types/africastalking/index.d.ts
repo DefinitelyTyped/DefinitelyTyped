@@ -67,5 +67,5 @@ interface AfricasTalking{
 
 
 declare module 'africastalking' {
-    export default function (options:{username: string,apiKey:string}): AfricasTalking
+    export = function (options:{username: string,apiKey:string}): AfricasTalking
 }
