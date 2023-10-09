@@ -1,4 +1,4 @@
-import * as DC from 'dvgis__dc-sdk'
+import * as DC from '@dvgis/dc-sdk'
 
 DC.ready({})
 

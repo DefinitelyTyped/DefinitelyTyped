@@ -18,7 +18,11 @@
             "../"
         ],
         "types": [],
-         "paths": {},
+         "paths": {
+             "@dvgis/*": [
+                 "dvgis__*"
+             ]
+         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     }
