@@ -36,8 +36,7 @@
     "./types/i18next-ko",
     "./types/i18next-node-fs-backend",
     "./types/i18next-sprintf-postprocessor",
-    "./types/react-blessed",
-    "./types/react-map-gl"
+    "./types/react-blessed"
   ],
   // NOTE: if extending this list, also update settings.template.json.
   "plugins": [
