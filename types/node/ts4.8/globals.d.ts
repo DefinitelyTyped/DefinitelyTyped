@@ -320,4 +320,62 @@ declare namespace NodeJS {
     interface ReadOnlyDict<T> {
         readonly [key: string]: T | undefined;
     }
+
+    namespace fetch {
+        type _Request = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Request;
+        type _Response = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Response;
+        type _FormData = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").FormData;
+        type _Headers = typeof globalThis extends { onmessage: any } ? {} : import("undici-types").Headers;
+        type _RequestInit = typeof globalThis extends { onmessage: any } ? {}
+            : import("undici-types").RequestInit;
+        type Request = globalThis.Request;
+        type Response = globalThis.Response;
+        type Headers = globalThis.Headers;
+        type FormData = globalThis.FormData;
+        type RequestInit = globalThis.RequestInit;
+        type RequestInfo = import("undici-types").RequestInfo;
+        type HeadersInit = import("undici-types").HeadersInit;
+        type BodyInit = import("undici-types").BodyInit;
+        type RequestRedirect = import("undici-types").RequestRedirect;
+        type RequestCredentials = import("undici-types").RequestCredentials;
+        type RequestMode = import("undici-types").RequestMode;
+        type ReferrerPolicy = import("undici-types").ReferrerPolicy;
+        type Dispatcher = import("undici-types").Dispatcher;
+        type RequestDuplex = import("undici-types").RequestDuplex;
+    }
 }
+
+interface RequestInit extends NodeJS.fetch._RequestInit {}
+
+declare function fetch(
+    input: NodeJS.fetch.RequestInfo,
+    init?: RequestInit,
+): Promise<Response>;
+
+interface Request extends NodeJS.fetch._Request {}
+declare var Request: typeof globalThis extends {
+    onmessage: any;
+    Request: infer T;
+} ? T
+    : typeof import("undici-types").Request;
+
+interface Response extends NodeJS.fetch._Response {}
+declare var Response: typeof globalThis extends {
+    onmessage: any;
+    Response: infer T;
+} ? T
+    : typeof import("undici-types").Response;
+
+interface FormData extends NodeJS.fetch._FormData {}
+declare var FormData: typeof globalThis extends {
+    onmessage: any;
+    FormData: infer T;
+} ? T
+    : typeof import("undici-types").FormData;
+
+interface Headers extends NodeJS.fetch._Headers {}
+declare var Headers: typeof globalThis extends {
+    onmessage: any;
+    Headers: infer T;
+} ? T
+    : typeof import("undici-types").Headers;
