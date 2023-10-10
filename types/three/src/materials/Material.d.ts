@@ -66,6 +66,12 @@ export interface MaterialParameters {
 export class Material extends EventDispatcher<{ dispose: {} }> {
     constructor();
 
+    /**
+     * Enables alpha hashed transparency, an alternative to {@link .transparent} or {@link .alphaTest}. The material
+     * will not be rendered if opacity is lower than a random threshold. Randomization introduces some grain or noise,
+     * but approximates alpha blending without the associated problems of sorting. Using TAARenderPass can reduce the
+     * resulting noise.
+     */
     alphaHash: boolean;
 
     /**

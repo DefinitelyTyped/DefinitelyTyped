@@ -724,6 +724,14 @@ export type ColorSpace =
     | typeof DisplayP3ColorSpace
     | typeof LinearDisplayP3ColorSpace;
 
+export const LinearTransfer: 'linear';
+export const SRGBTransfer: 'srgb';
+export type ColorSpaceTransfer = typeof LinearTransfer | typeof SRGBTransfer;
+
+export const Rec709Primaries: 'rec709';
+export const P3Primaries: 'p3';
+export type ColorSpacePrimaries = typeof Rec709Primaries | typeof P3Primaries;
+
 // Stencil Op types
 export const ZeroStencilOp: 0;
 export const KeepStencilOp: 7680;

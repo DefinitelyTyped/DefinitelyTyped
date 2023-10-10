@@ -1,7 +1,7 @@
-import { WebGLCubeRenderTarget } from './../renderers/WebGLCubeRenderTarget.js';
-import { Scene } from './../scenes/Scene.js';
-import { WebGLRenderer } from './../renderers/WebGLRenderer.js';
-import { Object3D } from './../core/Object3D.js';
+import { WebGLCubeRenderTarget } from '../renderers/WebGLCubeRenderTarget.js';
+import { Scene } from '../scenes/Scene.js';
+import { WebGLRenderer } from '../renderers/WebGLRenderer.js';
+import { Object3D } from '../core/Object3D.js';
 import { CoordinateSystem } from '../constants.js';
 
 /**
@@ -55,6 +55,8 @@ export class CubeCamera extends Object3D {
     renderTarget: WebGLCubeRenderTarget;
 
     coordinateSystem: CoordinateSystem;
+
+    activeMipmapLevel: number;
 
     updateCoordinateSystem(): void;
 

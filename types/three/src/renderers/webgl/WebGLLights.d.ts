@@ -17,6 +17,9 @@ export class WebGLLights {
             numDirectionalShadows: number;
             numPointShadows: number;
             numSpotShadows: number;
+            numSpotMaps: number;
+
+            numLightProbes: number;
         };
 
         ambient: number[];
@@ -35,6 +38,8 @@ export class WebGLLights {
         pointShadowMap: any[];
         pointShadowMatrix: any[];
         hemi: any[];
+        numSpotLightShadowsWithMaps: number;
+        numLightProbes: number;
     };
 
     get(light: any): any;

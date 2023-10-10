@@ -204,8 +204,7 @@ export class Color {
      */
     b: number;
 
-    set(color: ColorRepresentation): this;
-    set(r: number, g: number, b: number): this;
+    set(...args: [color: ColorRepresentation] | [r: number, g: number, b: number]): this;
 
     /**
      * Sets this color's {@link r}, {@link g} and {@link b} components from the x, y, and z components of the specified
