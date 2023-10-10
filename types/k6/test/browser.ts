@@ -121,34 +121,34 @@ browserContext.browser();
 browserContext.addCookies();
 // $ExpectType void
 browserContext.addCookies([{
-    name: 'foo',
-    value: 'bar',
-    domain: 'test.k6.io',
-    path: '/browser.php',
-    url: 'https://test.k6.io',
+    name: "foo",
+    value: "bar",
+    domain: "test.k6.io",
+    path: "/browser.php",
+    url: "https://test.k6.io",
     expires: 60,
     httpOnly: false,
     secure: true,
-    sameSite: 'Lax',
-}, { 
-    name: 'foo',
-    value: 'bar',
-    sameSite: 'Strict',
-}, { 
-    name: 'foo',
-    value: 'bar',
-    sameSite: 'None',
+    sameSite: "Lax",
+}, {
+    name: "foo",
+    value: "bar",
+    sameSite: "Strict",
+}, {
+    name: "foo",
+    value: "bar",
+    sameSite: "None",
 }]);
 // @ts-expect-error
-browserContext.cookies()[0].sameSite = 'NotAllowed';
+browserContext.cookies()[0].sameSite = "NotAllowed";
 // @ts-expect-error
-browserContext.addCookies([{ /* without value */ name: 'foo' }]);
+browserContext.addCookies([{ /* without value */ name: "foo" }]);
 // @ts-expect-error
-browserContext.addCookies([{ /* without name */ value: 'bar' }]);
+browserContext.addCookies([{ /* without name */ value: "bar" }]);
 // $ExpectType Cookie[]
 browserContext.cookies();
 // $ExpectType Cookie[]
-browserContext.cookies('https://test.k6.io', 'https://k6.io');
+browserContext.cookies("https://test.k6.io", "https://k6.io");
 // $ExpectType void
 browserContext.clearCookies();
 // $ExpectType void

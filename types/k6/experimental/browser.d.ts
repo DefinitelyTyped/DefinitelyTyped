@@ -632,7 +632,7 @@ export interface BrowserContext {
     /**
      * Retrieves the {@link Cookie | cookies} in this {@link BrowserContext} filtered by provided URLs,
      * or all {@link Cookie | cookies} if no URLs are provided.
-     * 
+     *
      * @param urls URLs to filter {@link Cookie | cookies} by.
      * @returns An array of {@link Cookie | cookies}.
      * @example
@@ -777,7 +777,6 @@ export interface BrowserContext {
     ): Page | null;
 }
 
-
 /**
  * {@link Cookie} represents a cookie in a {@link BrowserContext}.
  *
@@ -819,7 +818,7 @@ export interface Cookie {
      * The {@link Cookie | cookie}'s path.
      *
      * Required unless one of {@link Cookie.url | url} or {@link Cookie.domain | domain} are specified.
-     * 
+     *
      * @defaultValue
      * The default is `'/'`.
      */
@@ -868,7 +867,7 @@ export interface Cookie {
  * @defaultValue
  * The default is `'Lax'`.
  */
-export type CookieSameSite = 'Strict' | 'Lax' | 'None';
+export type CookieSameSite = "Strict" | "Lax" | "None";
 
 /**
  * ElementHandle represents an in-page DOM element.
