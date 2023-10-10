@@ -797,7 +797,6 @@ export interface BrowserContext {
  * await msg.args()[0].jsonValue(); // hello
  * await msg.args()[1].jsonValue(); // 42
  * ```
- *
  */
 export interface ConsoleMessage {
     /**
@@ -809,7 +808,7 @@ export interface ConsoleMessage {
     /**
      * The page that produced this console message, if any.
      */
-    page(): null|Page;
+    page(): null | Page;
 
     /**
      * The text of the console message.
@@ -2625,9 +2624,8 @@ export interface Page {
      * });
      * page.evaluate(() => console.log('hello', 5, { foo: 'bar' }));
      * ```
-     *
      */
-    on(event: 'console', listener: (consoleMessage: ConsoleMessage) => void): void;
+    on(event: "console", listener: (consoleMessage: ConsoleMessage) => void): void;
 
     /**
      * Returns the page that opened the current page. The first page that is

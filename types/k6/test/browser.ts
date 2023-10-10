@@ -522,11 +522,11 @@ page.mouse;
 // @ts-expect-error
 page.on();
 // @ts-expect-error
-page.on('invalid');
+page.on("invalid");
 // @ts-expect-error
-page.on('console');
+page.on("console");
 // $ExpectType void
-page.on('console', msg => {
+page.on("console", msg => {
     // $ExpectType JSHandle<any>[]
     msg.args();
     // $ExpectType Page | null
