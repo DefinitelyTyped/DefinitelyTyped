@@ -12,6 +12,7 @@ on:
 jobs:
   dprint-fmt:
     runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
     steps:
     - uses: actions/checkout@v3
       with:
