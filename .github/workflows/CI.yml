@@ -71,6 +71,7 @@ jobs:
       # REMOVEME: fixing missing depo
       - run: |
           cd packages/header-parser
+          pnpm add semver
           pnpm add -D @types/semver
         working-directory: DefinitelyTyped-tools
 
