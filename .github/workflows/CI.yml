@@ -68,6 +68,12 @@ jobs:
       - run: pnpm install
         working-directory: DefinitelyTyped-tools
 
+      # REMOVEME: fixing missing depo
+      - run: |
+          cd packages/header-parser
+          pnpm add -D @types/semver
+        working-directory: DefinitelyTyped-tools
+
       - run: pnpm run build
         working-directory: DefinitelyTyped-tools
 
