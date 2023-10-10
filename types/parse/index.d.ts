@@ -727,6 +727,15 @@ declare global {
         }
         const Installation: InstallationConstructor;
 
+        // Read preference describes how MongoDB driver route read operations to the members of a replica set.
+        enum ReadPreferenceOption {
+            Primary = "PRIMARY",
+            PrimaryPreferred = "PRIMARY_PREFERRED",
+            Secondary = "SECONDARY",
+            SecondaryPreferred = "SECONDARY_PREFERRED",
+            Nearest = "NEAREST",
+        }
+
         /**
          * Creates a new parse Parse.Query for the given Parse.Object subclass.
          * @param objectClass -
@@ -1582,15 +1591,6 @@ declare global {
                 file: File;
                 fileSize: number;
                 contentLength: number;
-            }
-
-            // Read preference describes how MongoDB driver route read operations to the members of a replica set.
-            enum ReadPreferenceOption {
-                Primary = "PRIMARY",
-                PrimaryPreferred = "PRIMARY_PREFERRED",
-                Secondary = "SECONDARY",
-                SecondaryPreferred = "SECONDARY_PREFERRED",
-                Nearest = "NEAREST",
             }
 
             interface BeforeFindRequest<T extends Object = Object> extends TriggerRequest<T> {
