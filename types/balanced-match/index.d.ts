@@ -1,9 +1,9 @@
-// Type definitions for balanced-match 1.0
+// Type definitions for balanced-match 3.0
 // Project: https://github.com/juliangruber/balanced-match
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface Output {
+export interface Output {
     /**
      * The index of the first match of a
      */
@@ -38,14 +38,10 @@ interface Output {
  * the first match that was closed will be used.
  * For example, `{{a}` will match `['{', 'a', '']` and `{a}}` will match `['', 'a', '}']`
  */
-declare function balanced(a: string | RegExp, b: string | RegExp, str: string): Output | undefined;
+export default function balanced(a: string | RegExp, b: string | RegExp, str: string): Output | undefined;
 
-declare namespace balanced {
-    /**
-     * For the first non-nested matching pair of `a` and `b` in `str`,
-     * return an array with indexes: `[ <a index>, <b index> ]`.
-     */
-    function range(a: string | RegExp, b: string | RegExp, str: string): [number, number] | undefined;
-}
-
-export = balanced;
+/**
+ * For the first non-nested matching pair of `a` and `b` in `str`,
+ * return an array with indexes: `[ <a index>, <b index> ]`.
+ */
+export function range(a: string | RegExp, b: string | RegExp, str: string): [number, number] | undefined;
