@@ -56,7 +56,7 @@ declare namespace inline {
          * * `false`: no `noscript`
          * @default 'body'
          */
-        noscript?: 'body' | 'head' | false | undefined;
+        noscript?: "body" | "head" | false | undefined;
 
         /**
          * Whether to add loadCSS if it's not already loaded.

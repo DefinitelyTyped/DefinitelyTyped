@@ -66,7 +66,7 @@ declare namespace ImageZoom {
         horizontal?: number;
     }
 
-    type ZoomPosition = 'top' | 'left' | 'bottom' | 'right' | 'original';
+    type ZoomPosition = "top" | "left" | "bottom" | "right" | "original";
 }
 
 export = ImageZoom;

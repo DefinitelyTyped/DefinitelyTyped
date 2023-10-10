@@ -1,7 +1,7 @@
-import jwtAuthz from 'tadashi__koa-jwt-authz';
+import jwtAuthz from "tadashi__koa-jwt-authz";
 
-jwtAuthz(['read:documents']);
-jwtAuthz(['read:documents'], { checkAllScopes: true, customScopeKey: 'test' });
+jwtAuthz(["read:documents"]);
+jwtAuthz(["read:documents"], { checkAllScopes: true, customScopeKey: "test" });
 
 // @ts-expect-error
 jwtAuthz({});

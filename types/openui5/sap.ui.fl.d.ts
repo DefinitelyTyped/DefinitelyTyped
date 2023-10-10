@@ -1,4 +1,4 @@
-// For Library Version: 1.117.0
+// For Library Version: 1.119.0
 
 declare module "sap/ui/fl/library" {}
 
@@ -7,7 +7,6 @@ declare module "sap/ui/fl/apply/api/ControlVariantApplyAPI" {
 
   /**
    * @since 1.67
-   * @experimental (since 1.67)
    *
    * Provides an API for applications to work with control variants. See also {@link sap.ui.fl.variants.VariantManagement}.
    */
@@ -1527,8 +1526,6 @@ declare namespace sap {
     "sap/ui/fl/apply/api/SmartVariantManagementApplyAPI": undefined;
 
     "sap/ui/fl/apply/api/UI2PersonalizationApplyAPI": undefined;
-
-    "sap/ui/fl/Cache": undefined;
 
     "sap/ui/fl/changeHandler/Base": undefined;
 

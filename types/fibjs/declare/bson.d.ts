@@ -194,7 +194,7 @@
 
 
 
-declare module __bson {
+declare namespace __bson {
 
 
 

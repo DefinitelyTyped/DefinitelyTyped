@@ -1,6 +1,10 @@
-import { JetElement, JetSettableProperties, JetElementCustomEvent, JetSetPropertyType } from '..';
+import { JetElement, JetElementCustomEvent, JetSetPropertyType, JetSettableProperties } from "..";
 export interface ojDefer extends JetElement<ojDeferSettableProperties> {
-    addEventListener<T extends keyof ojDeferEventMap>(type: T, listener: (this: HTMLElement, ev: ojDeferEventMap[T]) => any, useCapture?: boolean): void;
+    addEventListener<T extends keyof ojDeferEventMap>(
+        type: T,
+        listener: (this: HTMLElement, ev: ojDeferEventMap[T]) => any,
+        useCapture?: boolean,
+    ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     getProperty<T extends keyof ojDeferSettableProperties>(property: T): ojDefer[T];
     getProperty(property: string): any;

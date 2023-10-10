@@ -5,7 +5,7 @@
 
 export = jsonp;
 
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function jsonp<R = unknown>(url: string, options?: JsonpOptions): JsonpResult<R>;
 
 interface JsonpResult<R> {

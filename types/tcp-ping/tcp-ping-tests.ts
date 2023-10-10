@@ -1,4 +1,4 @@
-import * as tp from 'tcp-ping';
+import * as tp from "tcp-ping";
 
 // $ExpectType void
 tp.ping({}, (err, result) => {

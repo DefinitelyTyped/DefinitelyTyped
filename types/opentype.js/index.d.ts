@@ -3,7 +3,10 @@
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
 //                 Edgar Simson <https://github.com/edzis>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
+//                 Alec Mev <https://github.com/alecmev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference lib="dom" />
 
 export as namespace opentype;
 
@@ -83,8 +86,10 @@ export class Font {
     validate(): void;
 }
 
-export type FontConstructorOptions = FontConstructorOptionsBase &
-    Partial<FontOptions> & {
+export type FontConstructorOptions =
+    & FontConstructorOptionsBase
+    & Partial<FontOptions>
+    & {
         glyphs: Glyph[];
     };
 
@@ -253,8 +258,8 @@ export interface RenderOptions {
     tracking?: number | undefined;
     features?:
         | {
-              [key: string]: boolean;
-          }
+            [key: string]: boolean;
+        }
         | undefined;
 }
 
@@ -302,34 +307,34 @@ export class Path {
 
 export type PathCommand =
     | {
-          type: 'M';
-          x: number;
-          y: number;
-      }
+        type: "M";
+        x: number;
+        y: number;
+    }
     | {
-          type: 'L';
-          x: number;
-          y: number;
-      }
+        type: "L";
+        x: number;
+        y: number;
+    }
     | {
-          type: 'C';
-          x1: number;
-          y1: number;
-          x2: number;
-          y2: number;
-          x: number;
-          y: number;
-      }
+        type: "C";
+        x1: number;
+        y1: number;
+        x2: number;
+        y2: number;
+        x: number;
+        y: number;
+    }
     | {
-          type: 'Q';
-          x1: number;
-          y1: number;
-          x: number;
-          y: number;
-      }
+        type: "Q";
+        x1: number;
+        y1: number;
+        x: number;
+        y: number;
+    }
     | {
-          type: 'Z';
-      };
+        type: "Z";
+    };
 
 /******************************************
  * UTIL CLASSES

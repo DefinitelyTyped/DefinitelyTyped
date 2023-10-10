@@ -4,8 +4,6 @@
         "no-duplicate-imports": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,
-        "prefer-const": false,
-        "strict-export-declare-modifiers": false,
-        "whitespace": false
+        "prefer-const": false
     }
 }

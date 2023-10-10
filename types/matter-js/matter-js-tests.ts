@@ -1,4 +1,4 @@
-import Matter = require('matter-js');
+import Matter = require("matter-js");
 var Engine = Matter.Engine,
     World = Matter.World,
     Body = Matter.Body,
@@ -21,8 +21,8 @@ var Engine = Matter.Engine,
     Detector = Matter.Detector,
     Resolver = Matter.Resolver;
 
-Matter.use('matter-attractors');
-Plugin.use(Matter, ['matter-wrap']);
+Matter.use("matter-attractors");
+Plugin.use(Matter, ["matter-wrap"]);
 
 // $ExpectType Engine
 var engine = Engine.create({
@@ -35,7 +35,7 @@ engine.detector;
 // $ExpectType Body
 const body = Body.create({});
 
-//Bodies
+// Bodies
 var box1 = Bodies.rectangle(400, 200, 80, 80);
 var box2 = Bodies.rectangle(400, 610, 810, 60, {
     angle: 10,
@@ -102,7 +102,7 @@ var box4 = Bodies.rectangle(400, 200, 80, 80, {
 });
 
 // Composites
-var stack = Composites.stack(0, 100, 5, 1, 20, 0, function (x: number, y: number, column: number, row: number) {
+var stack = Composites.stack(0, 100, 5, 1, 20, 0, function(x: number, y: number, column: number, row: number) {
     return Bodies.circle(x, y, 75, { restitution: 0.9 });
 });
 
@@ -132,7 +132,7 @@ var collisions = Query.ray([box1, box2, circle1], { x: 1, y: 2 }, { x: 3, y: 4 }
 collisions = Query.collides(box1, [box2, circle1]);
 
 // events
-Events.on(engine, 'beforeTick', (e: Matter.IEventTimestamped<Matter.Engine>) => {});
+Events.on(engine, "beforeTick", (e: Matter.IEventTimestamped<Matter.Engine>) => {});
 
 Engine.run(engine);
 
@@ -172,7 +172,7 @@ const mouseConstraint = MouseConstraint.create(engine, { mouse });
 
 render.mouse = mouse;
 
-Events.on(mouseConstraint, 'mousemove', (e: Matter.IMouseEvent<Matter.MouseConstraint>) => {});
+Events.on(mouseConstraint, "mousemove", (e: Matter.IMouseEvent<Matter.MouseConstraint>) => {});
 
 // Composite
 // $ExpectType Composite
@@ -186,11 +186,11 @@ composite3.bodies = [body];
 composite3.composites = [composite1];
 composite3.constraints = [constraint1];
 composite3.isModified = false;
-composite3.label = 'test';
+composite3.label = "test";
 composite3.parent = composite2;
-composite3.plugin = Plugin.resolve('test')!;
+composite3.plugin = Plugin.resolve("test")!;
 // @ts-expect-error
-composite3.type = 'test';
+composite3.type = "test";
 
 // $ExpectType Composite
 Composite.add(composite1, box1);

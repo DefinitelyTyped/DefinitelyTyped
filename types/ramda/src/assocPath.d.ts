@@ -1,2 +1,2 @@
-import { assocPath } from '../index';
+import { assocPath } from "../index";
 export default assocPath;

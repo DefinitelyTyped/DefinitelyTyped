@@ -17,7 +17,7 @@ declare class Cache<K, V> {
     wrap(
         key: K,
         revalidate: Cache.RevalidationCallback<K, V>,
-        callback: Cache.OptionsCallback<K, V>
+        callback: Cache.OptionsCallback<K, V>,
     ): void;
 }
 

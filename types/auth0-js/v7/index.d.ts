@@ -11,7 +11,7 @@ interface Window {
 
 /** This is the interface for the main Auth0 client. */
 interface Auth0Static {
-    new (options: Auth0ClientOptions): Auth0Static;
+    new(options: Auth0ClientOptions): Auth0Static;
     changePassword(options: any, callback?: (error?: Auth0Error, valid?: any) => void): void;
     decodeJwt(jwt: string): any;
     login(
@@ -172,6 +172,7 @@ interface Auth0DelegationToken {
 
 declare const Auth0: Auth0Static;
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "auth0-js" {
     export = Auth0;
 }

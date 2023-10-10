@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Sizes, Omit } from 'react-bootstrap';
+import * as React from "react";
+import { Omit, Sizes } from "react-bootstrap";
 
 declare namespace ProgressBar {
     export interface ProgressBarProps extends Omit<React.HTMLProps<ProgressBar>, "label"> {
@@ -17,5 +17,5 @@ declare namespace ProgressBar {
         label?: React.ReactNode | undefined;
     }
 }
-declare class ProgressBar extends React.Component<ProgressBar.ProgressBarProps> { }
+declare class ProgressBar extends React.Component<ProgressBar.ProgressBarProps> {}
 export = ProgressBar;

@@ -1,6 +1,6 @@
-import * as React from 'react';
-import * as Box from 'ink-box';
-import * as Gradient from 'ink-gradient';
+import * as Box from "ink-box";
+import * as Gradient from "ink-gradient";
+import * as React from "react";
 
 function test() {
     return (

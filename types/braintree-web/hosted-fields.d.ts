@@ -1,5 +1,5 @@
-import { callback } from './core';
-import { Client } from './client';
+import { Client } from "./client";
+import { callback } from "./core";
 
 export interface HostedFieldsFieldMaskInput {
     /**
@@ -11,6 +11,26 @@ export interface HostedFieldsFieldMaskInput {
      * Only applicable for the credit card field. Whether or not to show the last 4 digits of the card when masking.
      */
     showLastFour?: boolean | undefined;
+}
+
+export interface HostedFieldsFieldSupportedCardBrands {
+    /**
+     * The options for supporting card brands as either valid or invalid.
+     * Only applicable for the credit card number field.
+     * An object used in {@link module:braintree-web/hosted-fields~field field objects}
+     */
+    visa?: boolean | undefined;
+    mastercard?: boolean | undefined;
+    "american-express"?: boolean | undefined;
+    "diners-club"?: boolean | undefined;
+    discover?: boolean | undefined;
+    jcb?: boolean | undefined;
+    "union-pay"?: boolean | undefined;
+    maestro?: boolean | undefined;
+    elo?: boolean | undefined;
+    mir?: boolean | undefined;
+    hiper?: boolean | undefined;
+    hipercard?: boolean | undefined;
 }
 
 /**
@@ -32,6 +52,7 @@ export interface HostedFieldsField {
     minlength?: number | undefined;
     prefill?: string | undefined;
     rejectUnsupportedCards?: boolean | undefined;
+    supportedCardBrands?: HostedFieldsFieldSupportedCardBrands | undefined;
 }
 
 /**
@@ -119,13 +140,13 @@ export interface HostedFieldsHostedFieldsFieldData {
  * - `"postalCode"`
  */
 export type HostedFieldsHostedFieldsFieldName =
-    | 'number'
-    | 'cvv'
-    | 'expirationDate'
-    | 'expirationMonth'
-    | 'expirationYear'
-    | 'postalCode'
-    | 'cardholderName';
+    | "number"
+    | "cvv"
+    | "expirationDate"
+    | "expirationMonth"
+    | "expirationYear"
+    | "postalCode"
+    | "cardholderName";
 
 export type HostedFieldsFieldDataFields = {
     [key in HostedFieldsHostedFieldsFieldName]: HostedFieldsHostedFieldsFieldData;
@@ -178,14 +199,14 @@ export interface HostedFieldsTokenizePayload {
      * See https://developer.paypal.com/braintree/docs/guides/3d-secure/migration/javascript/v3#authentication-insight.
      */
     authenticationInsight?: {
-        regulationEnvironment?: 'psd2' | 'unregulated' | 'unavailable';
+        regulationEnvironment?: "psd2" | "unregulated" | "unavailable";
     };
 }
 
 /**
  * @description The name of a HostedFields attribute.
  */
-export type HostedFieldAttributeName = 'aria-invalid' | 'aria-required' | 'disabled' | 'placeholder';
+export type HostedFieldAttributeName = "aria-invalid" | "aria-required" | "disabled" | "placeholder";
 
 /**
  * @description Fields used in setAttribute() and removeAttribute() for modifying a HostedFields instance's attributes.
@@ -464,7 +485,6 @@ export interface HostedFields {
      *   field: 'number',
      *   message: ''
      * });
-     *
      */
     setMessage(options: HostedFieldMessageOptions): void;
 }

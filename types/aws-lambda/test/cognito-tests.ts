@@ -1,29 +1,29 @@
 import {
+    CreateAuthChallengeTriggerEvent,
+    CreateAuthChallengeTriggerHandler,
+    CustomEmailSenderTriggerEvent,
+    CustomEmailSenderTriggerHandler,
+    CustomMessageTriggerEvent,
+    CustomMessageTriggerHandler,
+    CustomSMSSenderTriggerHandler,
+    DefineAuthChallengeTriggerEvent,
+    DefineAuthChallengeTriggerHandler,
     Handler,
-    PreSignUpTriggerEvent,
-    PreSignUpTriggerHandler,
+    PostAuthenticationTriggerEvent,
+    PostAuthenticationTriggerHandler,
     PostConfirmationTriggerEvent,
     PostConfirmationTriggerHandler,
     PreAuthenticationTriggerEvent,
     PreAuthenticationTriggerHandler,
-    PostAuthenticationTriggerEvent,
-    PostAuthenticationTriggerHandler,
-    CreateAuthChallengeTriggerEvent,
-    CreateAuthChallengeTriggerHandler,
-    DefineAuthChallengeTriggerEvent,
-    DefineAuthChallengeTriggerHandler,
-    VerifyAuthChallengeResponseTriggerEvent,
-    VerifyAuthChallengeResponseTriggerHandler,
+    PreSignUpTriggerEvent,
+    PreSignUpTriggerHandler,
     PreTokenGenerationTriggerEvent,
     PreTokenGenerationTriggerHandler,
     UserMigrationTriggerEvent,
     UserMigrationTriggerHandler,
-    CustomMessageTriggerEvent,
-    CustomMessageTriggerHandler,
-    CustomEmailSenderTriggerEvent,
-    CustomEmailSenderTriggerHandler,
-    CustomSMSSenderTriggerHandler,
-} from 'aws-lambda';
+    VerifyAuthChallengeResponseTriggerEvent,
+    VerifyAuthChallengeResponseTriggerHandler,
+} from "aws-lambda";
 
 type CognitoTriggerEvent =
     | PreSignUpTriggerEvent
@@ -61,22 +61,22 @@ const preSignUp: PreSignUpTriggerHandler = async (event, _, callback) => {
 
     obj = request.userAttributes;
     str = request.userAttributes.email;
-    str = request.validationData!['k1'];
-    str = request.clientMetadata!['action'];
+    str = request.validationData!["k1"];
+    str = request.clientMetadata!["action"];
 
     bool = response.autoConfirmUser;
     bool = response.autoVerifyEmail;
     bool = response.autoVerifyPhone;
 
-    triggerSource === 'PreSignUp_SignUp';
-    triggerSource === 'PreSignUp_ExternalProvider';
-    triggerSource === 'PreSignUp_AdminCreateUser';
+    triggerSource === "PreSignUp_SignUp";
+    triggerSource === "PreSignUp_ExternalProvider";
+    triggerSource === "PreSignUp_AdminCreateUser";
 
     // @ts-expect-error
-    triggerSource === 'PostConfirmation_ConfirmSignUp';
+    triggerSource === "PostConfirmation_ConfirmSignUp";
 
     // @ts-expect-error
-    request.session[0].challengeName === 'CUSTOM_CHALLENGE';
+    request.session[0].challengeName === "CUSTOM_CHALLENGE";
 };
 
 const postConfirmation: PostConfirmationTriggerHandler = async (event, _, callback) => {
@@ -84,19 +84,19 @@ const postConfirmation: PostConfirmationTriggerHandler = async (event, _, callba
 
     obj = request.userAttributes;
     str = request.userAttributes.email;
-    str = request.clientMetadata!['action'];
+    str = request.clientMetadata!["action"];
 
     objectOrUndefined = response;
 
-    triggerSource === 'PostConfirmation_ConfirmSignUp';
-    triggerSource === 'PostConfirmation_ConfirmForgotPassword';
+    triggerSource === "PostConfirmation_ConfirmSignUp";
+    triggerSource === "PostConfirmation_ConfirmForgotPassword";
 
     // @ts-expect-error
-    triggerSource === 'PreSignUp_ExternalProvider';
+    triggerSource === "PreSignUp_ExternalProvider";
     // @ts-expect-error
-    request.session[0].challengeName === 'CUSTOM_CHALLENGE';
+    request.session[0].challengeName === "CUSTOM_CHALLENGE";
     // @ts-expect-error
-    str = request.validationData['k1'];
+    str = request.validationData["k1"];
     // @ts-expect-error
     bool = response.autoVerifyEmail;
     // @ts-expect-error
@@ -111,13 +111,13 @@ const defineAuthChallenge: DefineAuthChallengeTriggerHandler = async (event, _, 
     array = request.session;
 
     const session = request.session[0];
-    session.challengeName === 'CUSTOM_CHALLENGE';
-    session.challengeName === 'PASSWORD_VERIFIER';
-    session.challengeName === 'SMS_MFA';
-    session.challengeName === 'DEVICE_SRP_AUTH';
-    session.challengeName === 'DEVICE_PASSWORD_VERIFIER';
-    session.challengeName === 'ADMIN_NO_SRP_AUTH';
-    session.challengeName === 'SRP_A';
+    session.challengeName === "CUSTOM_CHALLENGE";
+    session.challengeName === "PASSWORD_VERIFIER";
+    session.challengeName === "SMS_MFA";
+    session.challengeName === "DEVICE_SRP_AUTH";
+    session.challengeName === "DEVICE_PASSWORD_VERIFIER";
+    session.challengeName === "ADMIN_NO_SRP_AUTH";
+    session.challengeName === "SRP_A";
     bool = session.challengeResult;
     boolOrUndefined = request.userNotFound;
 
@@ -125,7 +125,7 @@ const defineAuthChallenge: DefineAuthChallengeTriggerHandler = async (event, _, 
     bool = response.failAuthentication;
     bool = response.issueTokens;
 
-    triggerSource === 'DefineAuthChallenge_Authentication';
+    triggerSource === "DefineAuthChallenge_Authentication";
 
     // @ts-expect-error
     nullOrUndefined = request.userAttributes;
@@ -146,12 +146,12 @@ const createAuthChallenge: CreateAuthChallengeTriggerHandler = async (event, _, 
     boolOrUndefined = request.userNotFound;
 
     obj = response.publicChallengeParameters;
-    str = response.publicChallengeParameters['foo'];
+    str = response.publicChallengeParameters["foo"];
     obj = response.privateChallengeParameters;
-    str = response.privateChallengeParameters['bar'];
+    str = response.privateChallengeParameters["bar"];
     str = response.challengeMetadata;
 
-    triggerSource === 'CreateAuthChallenge_Authentication';
+    triggerSource === "CreateAuthChallenge_Authentication";
 
     objectOrUndefined = request.clientMetadata;
 
@@ -165,13 +165,13 @@ const validateAuthChallengeResponse: VerifyAuthChallengeResponseTriggerHandler =
     obj = request.userAttributes;
     str = request.userAttributes.email;
     obj = request.privateChallengeParameters;
-    str = request.privateChallengeParameters['foo'];
+    str = request.privateChallengeParameters["foo"];
     str = request.challengeAnswer;
     boolOrUndefined = request.userNotFound;
 
     bool = response.answerCorrect;
 
-    triggerSource === 'VerifyAuthChallengeResponse_Authentication';
+    triggerSource === "VerifyAuthChallengeResponse_Authentication";
 
     objectOrUndefined = request.clientMetadata;
 };
@@ -185,7 +185,7 @@ const preAuthentication: PreAuthenticationTriggerHandler = async (event, _, call
 
     objectOrUndefined = response;
 
-    triggerSource === 'PreAuthentication_Authentication';
+    triggerSource === "PreAuthentication_Authentication";
 };
 
 const postAuthentication: PostAuthenticationTriggerHandler = async (event, _, callback) => {
@@ -197,7 +197,7 @@ const postAuthentication: PostAuthenticationTriggerHandler = async (event, _, ca
 
     objectOrUndefined = response;
 
-    triggerSource === 'PostAuthentication_Authentication';
+    triggerSource === "PostAuthentication_Authentication";
 
     objectOrUndefined = request.clientMetadata;
 };
@@ -221,11 +221,11 @@ const preTokenGeneration: PreTokenGenerationTriggerHandler = async (event, _, ca
     strArrayOrUndefined = groupOverrideDetails.iamRolesToOverride;
     strOrUndefined = groupOverrideDetails.preferredRole;
 
-    triggerSource === 'TokenGeneration_AuthenticateDevice';
-    triggerSource === 'TokenGeneration_Authentication';
-    triggerSource === 'TokenGeneration_HostedAuth';
-    triggerSource === 'TokenGeneration_NewPasswordChallenge';
-    triggerSource === 'TokenGeneration_RefreshTokens';
+    triggerSource === "TokenGeneration_AuthenticateDevice";
+    triggerSource === "TokenGeneration_Authentication";
+    triggerSource === "TokenGeneration_HostedAuth";
+    triggerSource === "TokenGeneration_NewPasswordChallenge";
+    triggerSource === "TokenGeneration_RefreshTokens";
 
     objectOrUndefined = request.clientMetadata;
 };
@@ -240,21 +240,21 @@ const userMigration: UserMigrationTriggerHandler = async (event, _, callback) =>
     obj = response.userAttributes;
     str = response.userAttributes.email;
     strOrUndefined = response.finalUserStatus;
-    response.finalUserStatus === 'UNCONFIRMED';
-    response.finalUserStatus === 'CONFIRMED';
-    response.finalUserStatus === 'ARCHIVED';
-    response.finalUserStatus === 'COMPROMISED';
-    response.finalUserStatus === 'UNKNOWN';
-    response.finalUserStatus === 'RESET_REQUIRED';
-    response.finalUserStatus === 'FORCE_CHANGE_PASSWORD';
+    response.finalUserStatus === "UNCONFIRMED";
+    response.finalUserStatus === "CONFIRMED";
+    response.finalUserStatus === "ARCHIVED";
+    response.finalUserStatus === "COMPROMISED";
+    response.finalUserStatus === "UNKNOWN";
+    response.finalUserStatus === "RESET_REQUIRED";
+    response.finalUserStatus === "FORCE_CHANGE_PASSWORD";
     boolOrUndefined = response.forceAliasCreation;
-    response.messageAction === 'RESEND';
-    response.messageAction === 'SUPPRESS';
-    response.desiredDeliveryMediums[0] === 'EMAIL';
-    response.desiredDeliveryMediums[0] === 'SMS';
+    response.messageAction === "RESEND";
+    response.messageAction === "SUPPRESS";
+    response.desiredDeliveryMediums[0] === "EMAIL";
+    response.desiredDeliveryMediums[0] === "SMS";
 
-    triggerSource === 'UserMigration_Authentication';
-    triggerSource === 'UserMigration_ForgotPassword';
+    triggerSource === "UserMigration_Authentication";
+    triggerSource === "UserMigration_ForgotPassword";
 
     objectOrUndefined = request.clientMetadata;
 };
@@ -272,13 +272,13 @@ const customMessage: CustomMessageTriggerHandler = async (event, _, callback) =>
     strOrNull = response.emailMessage;
     strOrNull = response.emailSubject;
 
-    triggerSource === 'CustomMessage_AdminCreateUser';
-    triggerSource === 'CustomMessage_Authentication';
-    triggerSource === 'CustomMessage_ForgotPassword';
-    triggerSource === 'CustomMessage_ResendCode';
-    triggerSource === 'CustomMessage_SignUp';
-    triggerSource === 'CustomMessage_UpdateUserAttribute';
-    triggerSource === 'CustomMessage_VerifyUserAttribute';
+    triggerSource === "CustomMessage_AdminCreateUser";
+    triggerSource === "CustomMessage_Authentication";
+    triggerSource === "CustomMessage_ForgotPassword";
+    triggerSource === "CustomMessage_ResendCode";
+    triggerSource === "CustomMessage_SignUp";
+    triggerSource === "CustomMessage_UpdateUserAttribute";
+    triggerSource === "CustomMessage_VerifyUserAttribute";
 
     objectOrUndefined = request.clientMetadata;
 };
@@ -291,12 +291,12 @@ const customEmailSender: CustomEmailSenderTriggerHandler = async (event, _, call
     obj = request.userAttributes;
     objectOrUndefined = request.clientMetadata;
 
-    triggerSource === 'CustomEmailSender_AdminCreateUser';
-    triggerSource === 'CustomEmailSender_VerifyUserAttribute';
-    triggerSource === 'CustomEmailSender_UpdateUserAttribute';
-    triggerSource === 'CustomEmailSender_ResendCode';
-    triggerSource === 'CustomEmailSender_SignUp';
-    triggerSource === 'CustomEmailSender_AccountTakeOverNotification';
+    triggerSource === "CustomEmailSender_AdminCreateUser";
+    triggerSource === "CustomEmailSender_VerifyUserAttribute";
+    triggerSource === "CustomEmailSender_UpdateUserAttribute";
+    triggerSource === "CustomEmailSender_ResendCode";
+    triggerSource === "CustomEmailSender_SignUp";
+    triggerSource === "CustomEmailSender_AccountTakeOverNotification";
 };
 
 const customSmsSender: CustomSMSSenderTriggerHandler = async (event, _, callback) => {
@@ -307,11 +307,11 @@ const customSmsSender: CustomSMSSenderTriggerHandler = async (event, _, callback
     obj = request.userAttributes;
     objectOrUndefined = request.clientMetadata;
 
-    triggerSource === 'CustomSMSSender_AdminCreateUser';
-    triggerSource === 'CustomSMSSender_VerifyUserAttribute';
-    triggerSource === 'CustomSMSSender_ForgotPassword';
-    triggerSource === 'CustomSMSSender_UpdateUserAttribute';
-    triggerSource === 'CustomSMSSender_ResendCode';
-    triggerSource === 'CustomSMSSender_SignUp';
-    triggerSource === 'CustomSMSSender_Authentication';
+    triggerSource === "CustomSMSSender_AdminCreateUser";
+    triggerSource === "CustomSMSSender_VerifyUserAttribute";
+    triggerSource === "CustomSMSSender_ForgotPassword";
+    triggerSource === "CustomSMSSender_UpdateUserAttribute";
+    triggerSource === "CustomSMSSender_ResendCode";
+    triggerSource === "CustomSMSSender_SignUp";
+    triggerSource === "CustomSMSSender_Authentication";
 };

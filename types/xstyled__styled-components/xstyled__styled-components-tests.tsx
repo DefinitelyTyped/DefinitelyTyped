@@ -1,31 +1,33 @@
-import * as React from 'react';
 import styled, {
     Box,
+    ColorModeProvider,
     css,
+    getColorModeInitScriptElement,
+    getColorModeInitScriptTag,
     useBreakpoint,
     useBreakpoints,
+    useColorMode,
     useDown,
     useUp,
     useViewportWidth,
-    useColorMode,
-    ColorModeProvider,
-    getColorModeInitScriptElement,
-    getColorModeInitScriptTag
-} from '@xstyled/styled-components';
+} from "@xstyled/styled-components";
+import * as React from "react";
 
 interface WithFoo {
     foo: boolean;
 }
 
 const WithRequiredProp = styled.div<WithFoo>`
-    ${({ foo }) => css`
-        display: ${foo ? 'block' : 'none'};
+    ${({ foo }) =>
+    css`
+        display: ${foo ? "block" : "none"};
     `}
 `;
 
 const WithOptionalProp = styled.div<Partial<WithFoo>>`
-    ${({ foo }) => css`
-        display: ${foo ? 'block' : 'none'};
+    ${({ foo }) =>
+    css`
+        display: ${foo ? "block" : "none"};
     `}
 `;
 
@@ -34,7 +36,7 @@ const StyledDivBox = styled.divBox``;
 
 const sum = (a: number) => a * a;
 // @ts-expect-error
-sum('b');
+sum("b");
 
 const Main = () => {
     const breakpoints = useBreakpoints();
@@ -42,28 +44,28 @@ const Main = () => {
     const breakpoint = useBreakpoint();
 
     // @ts-expect-error
-    breakpoint = 'abc';
+    breakpoint = "abc";
 
     let width = useViewportWidth();
 
     // @ts-expect-error
     width = false;
 
-    let isUp = useUp('md');
+    let isUp = useUp("md");
 
     // @ts-expect-error
     isUp = useUp(1);
 
     // @ts-expect-error
-    isUp = '';
+    isUp = "";
 
-    let isDown = useDown('md');
+    let isDown = useDown("md");
 
     // @ts-expect-error
     isDown = useDown(1);
 
     // @ts-expect-error
-    isDown = '';
+    isDown = "";
 
     const [colorMode, setColorMode] = useColorMode();
 
@@ -101,7 +103,7 @@ const ColorMode = () => {
         <>
             <ColorModeProvider target={document.body} targetSelector="#small-react-app">
                 {getColorModeInitScriptElement()}
-                {getColorModeInitScriptElement({ target: 'document.body' })}
+                {getColorModeInitScriptElement({ target: "document.body" })}
                 {/* @ts-expect-error */}
                 {getColorModeInitScriptElement({})}
             </ColorModeProvider>
@@ -114,7 +116,7 @@ const ColorMode = () => {
 };
 
 let colorModeScriptTag = getColorModeInitScriptTag();
-colorModeScriptTag = getColorModeInitScriptTag({ target: 'document.getElementById("small-react-app")' });
+colorModeScriptTag = getColorModeInitScriptTag({ target: "document.getElementById(\"small-react-app\")" });
 // @ts-expect-error
 colorModeScriptTag = getColorModeInitScriptTag({});
 

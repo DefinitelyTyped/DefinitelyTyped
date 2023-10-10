@@ -4,12 +4,12 @@ let config_1: DataTables.Settings = {
         footer: true,
         footerOffset: 4,
         header: true,
-        headerOffset: 3
-    }
+        headerOffset: 3,
+    },
 };
 
 let dt: DataTables.Api = $("selector").DataTable({
-    fixedHeader: true
+    fixedHeader: true,
 });
 
 // Statics

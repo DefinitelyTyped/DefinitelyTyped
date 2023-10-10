@@ -1,20 +1,20 @@
-import { RawSourceMap } from 'source-map';
+import { Hash } from "crypto";
+import { RawSourceMap } from "source-map";
 import {
     CachedSource,
     CompatSource,
     ConcatSource,
+    MapOptions,
     OriginalSource,
     PrefixSource,
     RawSource,
     ReplaceSource,
-    SourceMapSource,
-    Source,
-    MapOptions,
     SizeOnlySource,
-} from 'webpack-sources';
-import { Hash } from 'crypto';
+    Source,
+    SourceMapSource,
+} from "webpack-sources";
 
-const CONTENT = 'Line1\n\nLine3\n';
+const CONTENT = "Line1\n\nLine3\n";
 class TrackedSource extends Source {
     private readonly _innerSource: Source;
     sizeCalled: number;
@@ -69,10 +69,10 @@ class TrackedSource extends Source {
 }
 
 const tests = (options: MapOptions, hash: Hash, sourceMap: RawSourceMap) => {
-    let source: Source = new OriginalSource(Buffer.from(new Array(256)), 'file.wasm');
-    source = new OriginalSource('TestTestTest', 'file.js');
-    source = new OriginalSource('😋', 'file.js');
-    source = new TrackedSource(new OriginalSource('TestTestTest', 'file.js'));
+    let source: Source = new OriginalSource(Buffer.from(new Array(256)), "file.wasm");
+    source = new OriginalSource("TestTestTest", "file.js");
+    source = new OriginalSource("😋", "file.js");
+    source = new TrackedSource(new OriginalSource("TestTestTest", "file.js"));
     source = CompatSource.from({
         source() {
             return CONTENT;
@@ -102,13 +102,13 @@ const tests = (options: MapOptions, hash: Hash, sourceMap: RawSourceMap) => {
     concatSource.map(options); // $ExpectType RawSourceMap | null
     concatSource.sourceAndMap(options); // $ExpectType SourceAndMapResult
 
-    const originalSource = new OriginalSource(concatSource.source(), 'originalSource');
+    const originalSource = new OriginalSource(concatSource.source(), "originalSource");
     originalSource.source(); // $ExpectType string
     originalSource.updateHash(hash); // $ExpectType void
     originalSource.map(options); // $ExpectType RawSourceMap | null
     originalSource.sourceAndMap(options); // $ExpectType SourceAndMapResult
 
-    const prefixSource = new PrefixSource('prefixSource', originalSource);
+    const prefixSource = new PrefixSource("prefixSource", originalSource);
     prefixSource.source(); // $ExpectType string
     prefixSource.updateHash(hash); // $ExpectType void
     prefixSource.map(options); // $ExpectType RawSourceMap | null
@@ -119,17 +119,17 @@ const tests = (options: MapOptions, hash: Hash, sourceMap: RawSourceMap) => {
     rawSource.map(options); // $ExpectType null
     rawSource.updateHash(hash); // $ExpectType void
 
-    const replaceSource = new ReplaceSource(rawSource, 'replaceSource');
-    replaceSource.replace(0, 0, 'newValue');
-    replaceSource.insert(0, 'newValue');
-    replaceSource.replace(0, 0, 'newValue', 'name');
-    replaceSource.insert(0, 'newValue', 'name');
+    const replaceSource = new ReplaceSource(rawSource, "replaceSource");
+    replaceSource.replace(0, 0, "newValue");
+    replaceSource.insert(0, "newValue");
+    replaceSource.replace(0, 0, "newValue", "name");
+    replaceSource.insert(0, "newValue", "name");
     replaceSource.source(); // $ExpectType string
     replaceSource.original(); // $ExpectType Source
     replaceSource.map(options); // $ExpectType RawSourceMap | null
     replaceSource.sourceAndMap(options); // $ExpectType SourceAndMapResult
 
-    const sourceMapSource = new SourceMapSource(replaceSource.source(), 'sourceMapSource', sourceMap);
+    const sourceMapSource = new SourceMapSource(replaceSource.source(), "sourceMapSource", sourceMap);
     sourceMapSource.buffer(); // $ExpectType Buffer
     sourceMapSource.source(); // $ExpectType string
     sourceMapSource.updateHash(hash); // $ExpectType void

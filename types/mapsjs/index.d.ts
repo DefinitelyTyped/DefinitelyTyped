@@ -5,9 +5,7 @@
 
 /**
  * Mapsjs 9.6.0 Copyright (c) 2013 ISC. All Rights Reserved.
-*/
-
-
+ */
 
 /**
  * Clusters a set of points.
@@ -166,8 +164,7 @@ export class envelope {
  * Exposes static functions that act on or return envelopes.
  * @module envelope
  */
-export module envelope {
-
+export namespace envelope {
     /**
      * Creates a new envelope from MapDotNet XML.
      * @param {string} xml A MapDotNet XML string of the envelope.
@@ -192,7 +189,12 @@ export module envelope {
      * @param {number} marginY The margin from center y coordinate.
      * @returns {envelope} A new envelope
      */
-    export function createFromCenterAndMargins(centerPtX: number, centerPtY: number, marginX: number, marginY: number): envelope;
+    export function createFromCenterAndMargins(
+        centerPtX: number,
+        centerPtY: number,
+        marginX: number,
+        marginY: number,
+    ): envelope;
 
     /**
      * Tests whether two given envelopes intersect.
@@ -298,7 +300,7 @@ export class geometry {
      * the 0-based index of the set the point was added to and idx is the
      * 0-based index of the point in its set.
      */
-    addPointToLastSet(pt: point): { setIdx: number; idx: number; };
+    addPointToLastSet(pt: point): { setIdx: number; idx: number };
 
     /**
      * Tests the validity of this geometry. An open path geometry is valid
@@ -324,7 +326,7 @@ export class geometry {
      * index of the point in the set, pt is the point object, and distance
      * is the distance of the point to the reference point in map units.
      */
-    findNearestVertex(pt: point): { setIdx: number; ptIdx: number; pt: point; distance: number; };
+    findNearestVertex(pt: point): { setIdx: number; ptIdx: number; pt: point; distance: number };
 
     /**
      * Finds point along boundary of geometry nearest to the given point
@@ -336,7 +338,7 @@ export class geometry {
      * index of the point in the set, pt is the point object, and distance
      * is the distance of the point to the reference point in map units.
      */
-    findNearestSegment(pt: point, close?: boolean): { setIdx: number; ptIdx: number; pt: point; distance: number; };
+    findNearestSegment(pt: point, close?: boolean): { setIdx: number; ptIdx: number; pt: point; distance: number };
 
     /**
      * Finds coordinates in map units of the midpoint of this geometry. If
@@ -362,8 +364,7 @@ export class geometry {
  * constructors for specific geometries such as polygon and polyline.
  * @module geometry
  */
-export module geometry {
-
+export namespace geometry {
     /**
      * A polyline object which is an open path geometry with one or more paths.
      */
@@ -436,8 +437,8 @@ export module geometry {
     }
 
     /**
-      * A polyline object which is a closed path geometry with one or more paths.
-      */
+     * A polyline object which is a closed path geometry with one or more paths.
+     */
     class polygon extends geometry {
         constructor(geom: geometry);
 
@@ -629,7 +630,6 @@ export var license: string;
  * A simple point class with x and y coordinates.
  */
 export class point {
-
     constructor(x: number, y: number);
 
     /**
@@ -705,8 +705,7 @@ export class point {
  * Exposes static functions that act on points.
  * @module point
  */
-export module point {
-
+export namespace point {
     /**
      * Computes the distance between two points in coordinate units.
      * @param {number} x1 The x coordinate for the first point.
@@ -732,8 +731,7 @@ export module point {
  * Exposes static functions related to the Spherical Mercator projection.
  * @module sphericalMercator
  */
-export module sphericalMercator {
-
+export namespace sphericalMercator {
     /**
      * Gets the EPSG number for Spherical Mercator.
      * @return {number} ESPG number.
@@ -871,7 +869,7 @@ export module sphericalMercator {
      * @param {string} key Reference quad-key.
      * @return {object} JavaScript object of the form {x,y,z}.
      */
-    export function getXYZFromQuadKey(key: string): { x: number; y: number; z: number; };
+    export function getXYZFromQuadKey(key: string): { x: number; y: number; z: number };
 
     /**
      * Project a point from latitude/longitude to Spherical Mercator.
@@ -1029,8 +1027,7 @@ export var version: string;
  * Exposes static functions for working with well known text.
  * @module wkt
  */
-export module wkt {
-
+export namespace wkt {
     /**
      * Parses WKT as a point.
      * @param {string} w A WKT string.
@@ -1094,8 +1091,7 @@ export module wkt {
  * and requestors.
  * @module tile
  */
-export module tile {
-
+export namespace tile {
     /**
      * A tile layer is a view on the map containing an array of rectangular content.
      */
@@ -1279,13 +1275,16 @@ export module tile {
          * @param {function} Processor function with signature
          * processor(requestor, descriptor, quad, timeoutMs, complete, error)
          */
-        setRequestProcessor(processorFunc: (
-            requestor: tile.requestor,
-            descriptor: any,
-            quad: tile.quad,
-            timeoutMs: number,
-            completeAction: (img: HTMLElement) => void,
-            errorAction: (msg: string) => void) => void): void;
+        setRequestProcessor(
+            processorFunc: (
+                requestor: tile.requestor,
+                descriptor: any,
+                quad: tile.quad,
+                timeoutMs: number,
+                completeAction: (img: HTMLElement) => void,
+                errorAction: (msg: string) => void,
+            ) => void,
+        ): void;
 
         /**
          * Instructs the tile loader to populate a specified tile pyramid.
@@ -1328,8 +1327,8 @@ export module tile {
         };
 
         /**
-        * Unbind all associations with this tile layer to facilitate garbage collection
-        */
+         * Unbind all associations with this tile layer to facilitate garbage collection
+         */
         dispose(): void;
     }
 
@@ -1380,7 +1379,6 @@ export module tile {
      * coordinate space.
      */
     export class quad {
-
         /**
          * Gets the x coodinate of this quad tile.
          * @returns {number} The x coordinate of this quad tile.
@@ -1390,7 +1388,7 @@ export module tile {
         /**
          * Gets the y coordinate of this quad tile.
          * @returns {number} The y coordinate of this quad tile.
-          */
+         */
         getY(): number;
 
         /**
@@ -1439,8 +1437,7 @@ export module tile {
      * Exposes static functions for generating and handling quad tiles.
      * @module quad
      */
-    export module quad {
-
+    export namespace quad {
         /**
          * Generates a new quad tile based on a given quad key.
          * @param {string} key The quad key from which to generate the quad tile.
@@ -1454,10 +1451,12 @@ export module tile {
      * MapDotNet REST feature service into a canvas rendering on a tile.
      */
     export class renderer {
-        constructor(options? : {
+        constructor(options?: {
             renderPoint?: ((pt: point, context: CanvasRenderingContext2D) => void) | undefined;
             renderGeometry?: ((shape: geometry, context: CanvasRenderingContext2D) => void) | undefined;
-            renderBitmap?: ((img: HTMLElement, context: CanvasRenderingContext2D, contextSize: number, bleed: number) => void) | undefined;
+            renderBitmap?:
+                | ((img: HTMLElement, context: CanvasRenderingContext2D, contextSize: number, bleed: number) => void)
+                | undefined;
         });
 
         /**
@@ -1468,7 +1467,7 @@ export module tile {
          * where shape is the point object to be rendered and context is the
          * canvas context on which to render.
          */
-        setRenderPoint(func: (pt: point, context: CanvasRenderingContext2D) => void): void ;
+        setRenderPoint(func: (pt: point, context: CanvasRenderingContext2D) => void): void;
 
         /**
          * Sets render geometry function which takes a geometry and canvas
@@ -1490,14 +1489,15 @@ export module tile {
          * render the image, contextSize is the size of the canvas context
          * in pixels and bleed is the margin around each tile to bleed.
          */
-        setRenderBitmap(func: (img: HTMLElement, context: CanvasRenderingContext2D, contextSize: number, bleed: number) => void): void;
+        setRenderBitmap(
+            func: (img: HTMLElement, context: CanvasRenderingContext2D, contextSize: number, bleed: number) => void,
+        ): void;
     }
 
     /**
      * An auto-ranging density map renderer.
      */
     export class rendererDensityMap {
-
         constructor();
 
         /**
@@ -1565,7 +1565,6 @@ export module tile {
      * This is a base requestor class.
      */
     export class requestor {
-
         constructor();
 
         /**
@@ -1691,7 +1690,6 @@ export module tile {
      * A tile requestor for Microsoft Bing maps.
      */
     export class requestorBing extends requestor {
-
         constructor(options?: {
             dataFormat?: string | undefined;
             timeoutMs?: number | undefined;
@@ -1905,7 +1903,7 @@ export module tile {
          * @param {number} g Green level.
          * @param {number} b Blue level.
          */
-        setBackgroundColor(a: number, r: number, g:number, b:number): void;
+        setBackgroundColor(a: number, r: number, g: number, b: number): void;
 
         /**
          * Checks whether or not the map background is transparent.
@@ -1945,7 +1943,7 @@ export module tile {
          * where color is the CSS style string of the outline color and
          * thickness is the outline thickness in pixels.
          */
-        getLayerOutline(layerId: string): { color: string; thickness: number; };
+        getLayerOutline(layerId: string): { color: string; thickness: number };
 
         /**
          * Sets a layer's fill color.
@@ -2198,7 +2196,6 @@ interface pointObject {
 }
 
 interface envObject {
-
     /**
      * @returns {number} minX as integer
      */
@@ -2221,7 +2218,6 @@ interface envObject {
 }
 
 interface extentChangeStatsObj {
-
     centerX: number;
     centerY: number;
     centerLat: number;
@@ -2234,7 +2230,6 @@ interface extentChangeStatsObj {
 }
 
 interface repositionStatsObj {
-
     centerX: number;
     centerY: number;
     zoomLevel: number;
@@ -2255,18 +2250,16 @@ interface beginDigitizeOptions {
     leavePath?: boolean | undefined;
 }
 
-
 interface styleObj {
     fillColor?: string | undefined;
     fillOpacity?: number | undefined;
     outlineColor?: string | undefined;
     outlineOpacity?: number | undefined;
-    outlineThicknessPix?: number | undefined
+    outlineThicknessPix?: number | undefined;
     dashArray?: string | undefined;
 }
 
 interface mapsjsWidget {
-
     /**
      * Gets the center of the map in spherical mercator. Use
      * sphericalMercator.deprojectToLatLon static function to convert to a lat/lon.
@@ -2299,18 +2292,18 @@ interface mapsjsWidget {
     setMapCenterToGeolocationAnimate(durationMs?: number, completeAction?: () => void): void;
 
     /**
-    * Offsets the current map center by the specified deltas in pixels.
-    * @param {number} [dx] offset x in pixels.
-    * @param {number} [dy] offset y in pixels.
-    */
+     * Offsets the current map center by the specified deltas in pixels.
+     * @param {number} [dx] offset x in pixels.
+     * @param {number} [dy] offset y in pixels.
+     */
     offsetMapCenterByPixelDelta(dx: number, dy: number): void;
 
     /**
-    * Offsets the current map center by the specified deltas in pixels - animated version.
-    * @param {number} [dx] offset x in pixels.
-    * @param {number} [dy] offset y in pixels.
-    * @param {number} [durationMs] animation duration in mS.
-    */
+     * Offsets the current map center by the specified deltas in pixels - animated version.
+     * @param {number} [dx] offset x in pixels.
+     * @param {number} [dy] offset y in pixels.
+     * @param {number} [durationMs] animation duration in mS.
+     */
     offsetMapCenterByPixelDeltaAnimate(dx: number, dy: number, durationMs?: number): void;
 
     /**
@@ -2388,7 +2381,7 @@ interface mapsjsWidget {
      * the current extents' width in pixels and h is the current extents'
      * height in pixels.
      */
-    getViewExtentsInPix(): { w: number; h: number; };
+    getViewExtentsInPix(): { w: number; h: number };
 
     /**
      * Gets the current projected map scale. This is the ratio of units on
@@ -2444,14 +2437,14 @@ interface mapsjsWidget {
     popTileLayer(): tile.layer;
 
     /**
-    * Removes a tile layer off the display stack by reference
-    * @param {tile.layer} tl A tile layer to remove.
-    */
+     * Removes a tile layer off the display stack by reference
+     * @param {tile.layer} tl A tile layer to remove.
+     */
     removeTileLayer(tl: tile.layer): void;
 
     /**
-    * Removes all tile layers off the display stack
-    */
+     * Removes all tile layers off the display stack
+     */
     removeAllTileLayers(): void;
 
     /**
@@ -2530,7 +2523,7 @@ interface mapsjsWidget {
             moveAction?: ((movePoint: point) => void) | undefined;
             upAction?: ((upPoint: point) => void) | undefined;
             wheelAction?: ((delta: number) => void) | undefined;
-        }
+        },
     ): void;
 
     /**
@@ -2565,7 +2558,8 @@ interface mapsjsWidget {
         styledGeom: styledGeometry,
         key: string,
         addAction?: (svg: SVGElement) => void,
-        removeAction?: (svg: SVGElement) => void): SVGElement;
+        removeAction?: (svg: SVGElement) => void,
+    ): SVGElement;
 
     /**
      * Updates an existing path geometry to reflect a style change.
@@ -2674,26 +2668,24 @@ interface mapsjsWidget {
     setPointerHoverAction(action: (pt: point) => void): void;
 
     /**
-    * Sets the margin around the map in pixels for extra content fetched so that tile
-    * rebuilding of the display is minimized. This is an advanced property and does not
-    * generally need to be adjusted. The default is 128 pixels, or half the width
-    * of a tile. This should be increased for maps which are very large in pixels
-    * or where panning is constant. This should be decreased for very small maps,
-    * such as on mobile devices, or where panning is minimal.
-    * @param {number} cem The content extent margin in pixels.
-    */
+     * Sets the margin around the map in pixels for extra content fetched so that tile
+     * rebuilding of the display is minimized. This is an advanced property and does not
+     * generally need to be adjusted. The default is 128 pixels, or half the width
+     * of a tile. This should be increased for maps which are very large in pixels
+     * or where panning is constant. This should be decreased for very small maps,
+     * such as on mobile devices, or where panning is minimal.
+     * @param {number} cem The content extent margin in pixels.
+     */
     setContentExtentsMarginInPixels(cem: number): void;
 
     /**
-    * Sets the background color of the map using a css color string
-    * @param {number} b- a css color string
-    */
+     * Sets the background color of the map using a css color string
+     * @param {number} b- a css color string
+     */
     setBackground(b: string): void;
 }
 
-
 interface JQuery {
-
     rimMap(): JQuery;
     rimMap(command: any, param?: any, param2?: any, param3?: any, param4?: any, param5?: any): JQuery;
     getMapsjs(): any;

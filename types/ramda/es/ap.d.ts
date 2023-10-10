@@ -1,2 +1,2 @@
-import { ap } from '../index';
+import { ap } from "../index.js";
 export default ap;

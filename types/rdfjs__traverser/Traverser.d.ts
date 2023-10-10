@@ -1,4 +1,4 @@
-import { Term, DatasetCore, DataFactory, Quad } from '@rdfjs/types';
+import { DataFactory, DatasetCore, Quad, Term } from "@rdfjs/types";
 
 export interface PointerLike<D extends DatasetCore> {
     term: Term;
@@ -30,7 +30,7 @@ export interface Options {
 }
 
 export default class Traverser<D extends DatasetCore = DatasetCore> {
-    constructor(filter: TraversePredicate<D>, options?: Options)
+    constructor(filter: TraversePredicate<D>, options?: Options);
 
     forEach(pointer: PointerLike<D>, callback: ForEachCallback<D>): void;
     match(pointer: PointerLike<D>): D;

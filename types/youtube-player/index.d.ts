@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
-import PlayerFactory from './dist/index';
+import PlayerFactory from "./dist/index";
 
 export default PlayerFactory;

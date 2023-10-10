@@ -1,5 +1,5 @@
-import * as xmljs from 'libxmljs';
-import { Stylesheet } from './index';
+import * as xmljs from "libxmljs";
+import { Stylesheet } from "./index";
 
 export type ApplyCallback = (err: Error | null, result: string | xmljs.Document) => void;
 export type ApplyStringCallback = (err: Error | null, result: string) => void;

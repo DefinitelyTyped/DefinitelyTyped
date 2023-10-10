@@ -1,4 +1,4 @@
-import { extensions, jsVariants, Extensions } from 'interpret';
+import { Extensions, extensions, jsVariants } from "interpret";
 
 // $ExpectType Extensions
 extensions;
@@ -6,44 +6,44 @@ extensions;
 jsVariants;
 
 const myExts: Extensions = {
-    '.babel.js': [
+    ".babel.js": [
         {
-            module: 'babel-register',
+            module: "babel-register",
             register(hook) {
-                hook({ extensions: '.js' });
+                hook({ extensions: ".js" });
             },
         },
     ],
-    '.co': 'coco',
-    '.coffee': ['coffeescript/register', 'coffee-script/register', 'coffeescript', 'coffee-script'],
-    '.esm.js': {
-        module: 'esm',
+    ".co": "coco",
+    ".coffee": ["coffeescript/register", "coffee-script/register", "coffeescript", "coffee-script"],
+    ".esm.js": {
+        module: "esm",
         register(hook) {
             const esmLoader = hook(module);
-            require.extensions['.js'] = esmLoader('module')._extensions['.js'];
+            require.extensions[".js"] = esmLoader("module")._extensions[".js"];
         },
     },
-    '.js': null,
-    '.jsx': [
+    ".js": null,
+    ".jsx": [
         {
-            module: 'node-jsx',
+            module: "node-jsx",
             register(hook) {
-                hook.install({ extension: '.jsx', harmony: true });
+                hook.install({ extension: ".jsx", harmony: true });
             },
         },
     ],
-    '.toml': {
-        module: 'toml-require',
+    ".toml": {
+        module: "toml-require",
         register(hook) {
             hook.install();
         },
     },
-    '.ts': [
-        'typescript-require',
+    ".ts": [
+        "typescript-require",
         {
-            module: '@babel/register',
+            module: "@babel/register",
             register(hook) {
-                hook({ extensions: '.ts' });
+                hook({ extensions: ".ts" });
             },
         },
     ],

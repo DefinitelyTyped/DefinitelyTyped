@@ -1,5 +1,5 @@
 import { Change } from "diff";
-import { QuestionCollection, PromptModule, Answers } from "inquirer";
+import { Answers, PromptModule, QuestionCollection } from "inquirer";
 import { Logger } from "./util/log";
 
 declare namespace TerminalAdapter {
@@ -64,7 +64,7 @@ declare class TerminalAdapter {
     prompt<TAnswers extends Answers, TResult>(
         questions: TerminalAdapter.Questions<TAnswers>,
         answers?: TAnswers,
-        cb?: (res: TAnswers) => TResult
+        cb?: (res: TAnswers) => TResult,
     ): Promise<TResult>;
 
     /**

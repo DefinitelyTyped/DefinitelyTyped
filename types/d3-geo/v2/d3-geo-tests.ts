@@ -6,8 +6,8 @@
  * are not intended as functional tests.
  */
 
-import * as d3Geo from 'd3-geo';
-import { Selection } from 'd3-selection';
+import * as d3Geo from "d3-geo";
+import { Selection } from "d3-selection";
 
 // ----------------------------------------------------------------------
 // Tests setup
@@ -23,98 +23,101 @@ interface SampleProperties2 {
 }
 
 const samplePolygon: GeoJSON.Polygon = {
-    type: 'Polygon',
+    type: "Polygon",
     coordinates: [
-        [[0, 0], [0, 90], [90, 0], [0, 0]]
-    ]
+        [[0, 0], [0, 90], [90, 0], [0, 0]],
+    ],
 };
 
 const sampleSphere: d3Geo.GeoSphere = {
-    type: 'Sphere'
+    type: "Sphere",
 };
 
 const sampleGeometryCollection: GeoJSON.GeometryCollection = {
-    type: 'GeometryCollection',
+    type: "GeometryCollection",
     geometries: [
         samplePolygon,
-        samplePolygon
-    ]
+        samplePolygon,
+    ],
 };
 
 const sampleExtendedGeometryCollection: d3Geo.ExtendedGeometryCollection<GeoJSON.Polygon | d3Geo.GeoSphere> = {
-    type: 'GeometryCollection',
+    type: "GeometryCollection",
     geometries: [
         samplePolygon,
-        sampleSphere
-    ]
+        sampleSphere,
+    ],
 };
 
 const sampleFeature: GeoJSON.Feature<GeoJSON.Polygon> = {
-    type: 'Feature',
+    type: "Feature",
     geometry: samplePolygon,
     properties: {
-        name: 'Alabama'
-    }
+        name: "Alabama",
+    },
 };
 
 const sampleExtendedFeature1: d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1> = {
-    type: 'Feature',
+    type: "Feature",
     geometry: samplePolygon,
     properties: {
-        name: 'Alabama'
-    }
+        name: "Alabama",
+    },
 };
 
 const sampleExtendedFeature2: d3Geo.ExtendedFeature<d3Geo.GeoSphere, SampleProperties2> = {
-    type: 'Feature',
+    type: "Feature",
     geometry: sampleSphere,
     properties: {
-        name: 'earth',
-        value: 42
-    }
+        name: "earth",
+        value: 42,
+    },
 };
 
 const sampleFeatureCollection: GeoJSON.FeatureCollection<GeoJSON.Polygon> = {
-    type: 'FeatureCollection',
+    type: "FeatureCollection",
     features: [
         sampleFeature,
-        sampleFeature
-    ]
+        sampleFeature,
+    ],
 };
 
-const sampleExtendedFeatureCollection: d3Geo.ExtendedFeatureCollection<d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1> | d3Geo.ExtendedFeature<d3Geo.GeoSphere, SampleProperties2>> = {
-    type: 'FeatureCollection',
+const sampleExtendedFeatureCollection: d3Geo.ExtendedFeatureCollection<
+    | d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>
+    | d3Geo.ExtendedFeature<d3Geo.GeoSphere, SampleProperties2>
+> = {
+    type: "FeatureCollection",
     features: [
         sampleExtendedFeature1,
-        sampleExtendedFeature2
-    ]
+        sampleExtendedFeature2,
+    ],
 };
 const sampleNullableFeature: GeoJSON.Feature<null> = {
-    type: 'Feature',
+    type: "Feature",
     geometry: null,
-    properties: null
+    properties: null,
 };
 
 const sampleExtendedNullableFeature: d3Geo.ExtendedFeature = {
-    type: 'Feature',
+    type: "Feature",
     geometry: null,
-    properties: null
+    properties: null,
 };
 
 const sampleNullableFeatureCollection: GeoJSON.FeatureCollection<null> = {
-    type: 'FeatureCollection',
+    type: "FeatureCollection",
     features: [
         sampleNullableFeature,
-        sampleNullableFeature
-    ]
+        sampleNullableFeature,
+    ],
 };
 
 const sampleExtendedNullableFeatureCollection: d3Geo.ExtendedFeatureCollection = {
-    type: 'FeatureCollection',
+    type: "FeatureCollection",
     features: [
         sampleExtendedNullableFeature,
-        sampleExtendedNullableFeature
-    ]
+        sampleExtendedNullableFeature,
+    ],
 };
 // ----------------------------------------------------------------------
 // Spherical Math
@@ -256,7 +259,7 @@ class Circulator {
     private readonly circleGenerator: d3Geo.GeoCircleGenerator<Circulator, [number, number] | undefined>;
 
     getCirclePolygon(center?: [number, number]): GeoJSON.Polygon {
-        if (center && center.length === 2 && typeof center[0] === 'number' && typeof center[1] === 'number') {
+        if (center && center.length === 2 && typeof center[0] === "number" && typeof center[1] === "number") {
             return this.circleGenerator(center);
         } else {
             return this.circleGenerator();
@@ -270,7 +273,7 @@ const circulator = new Circulator(50, 2);
 
 // center(...) ----------------------------------------------------------
 
-const centerFctSimple: ((this: any, d: any, ...args: any[]) => [number, number]) = circleGeneratorSimple.center();
+const centerFctSimple: (this: any, d: any, ...args: any[]) => [number, number] = circleGeneratorSimple.center();
 
 const c: [number, number] = [54, 2];
 
@@ -279,13 +282,13 @@ circleGeneratorSimple = circleGeneratorSimple.center(c);
 
 // radius(...) -----------------------------------------------------------
 
-const radius: ((...args: any[]) => number) = circleGeneratorSimple.radius();
+const radius: (...args: any[]) => number = circleGeneratorSimple.radius();
 circleGeneratorSimple = circleGeneratorSimple.radius(() => 5);
 circleGeneratorSimple = circleGeneratorSimple.radius(2);
 
 // precision(...) --------------------------------------------------------
 
-const precision: ((...args: any[]) => number) = circleGeneratorSimple.precision();
+const precision: (...args: any[]) => number = circleGeneratorSimple.precision();
 circleGeneratorSimple = circleGeneratorSimple.precision(() => 5);
 circleGeneratorSimple = circleGeneratorSimple.precision(2);
 
@@ -535,11 +538,21 @@ conicConformal = conicConformal.fitSize([960, 500], samplePolygon); // inherited
 // ----------------------------------------------------------------------
 
 const minimalRenderingContextMockUp: d3Geo.GeoContext = {
-    beginPath: () => { return; },
-    moveTo: (x: number, y: number) => { return; },
-    lineTo: (x: number, y: number) => { return; },
-    arc: (x, y, radius, startAngle, endAngle) => { return; },
-    closePath: () => { return; }
+    beginPath: () => {
+        return;
+    },
+    moveTo: (x: number, y: number) => {
+        return;
+    },
+    lineTo: (x: number, y: number) => {
+        return;
+    },
+    arc: (x, y, radius, startAngle, endAngle) => {
+        return;
+    },
+    closePath: () => {
+        return;
+    },
 };
 
 // Create geoPath Generator =============================================
@@ -553,15 +566,21 @@ geoPathCanvas = d3Geo.geoPath(d3Geo.geoAzimuthalEqualArea(), minimalRenderingCon
 
 let geoPathSVG: d3Geo.GeoPath<SVGPathElement, d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>>;
 geoPathSVG = d3Geo.geoPath<SVGPathElement, d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>>();
-geoPathSVG = d3Geo.geoPath<SVGPathElement, d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>>(d3Geo.geoAzimuthalEqualArea());
-geoPathSVG = d3Geo.geoPath<SVGPathElement, d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>>(d3Geo.geoAzimuthalEqualArea(), null);
+geoPathSVG = d3Geo.geoPath<SVGPathElement, d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>>(
+    d3Geo.geoAzimuthalEqualArea(),
+);
+geoPathSVG = d3Geo.geoPath<SVGPathElement, d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>>(
+    d3Geo.geoAzimuthalEqualArea(),
+    null,
+);
 // Configure geoPath Generator ==========================================
 
 // projection(...) ------------------------------------------------------
 
 geoPathCanvas = geoPathCanvas.projection(azimuthalEqualArea);
 const geoPathProjectionMinimal: d3Geo.GeoStreamWrapper | null = geoPathCanvas.projection();
-const geoPathProjectionUnion: d3Geo.GeoProjection | d3Geo.GeoConicProjection | d3Geo.GeoStreamWrapper | null = geoPathCanvas.projection();
+const geoPathProjectionUnion: d3Geo.GeoProjection | d3Geo.GeoConicProjection | d3Geo.GeoStreamWrapper | null =
+    geoPathCanvas.projection();
 const geoPathProjection: d3Geo.GeoProjection = geoPathCanvas.projection<d3Geo.GeoProjection>();
 
 geoPathSVG = geoPathSVG.projection(conicConformal);
@@ -591,15 +610,20 @@ canvasContext = geoPathCanvas.context<CanvasRenderingContext2D>();
 // pointRadius(...) ------------------------------------------------------
 
 geoPathCanvas = geoPathCanvas.pointRadius(5);
-const geoPathCanvasPointRadiusAccessor: ((this: any, d: d3Geo.GeoPermissibleObjects, ...args: any[]) => number) | number = geoPathCanvas.pointRadius();
+const geoPathCanvasPointRadiusAccessor:
+    | ((this: any, d: d3Geo.GeoPermissibleObjects, ...args: any[]) => number)
+    | number = geoPathCanvas.pointRadius();
 
 geoPathSVG = geoPathSVG.pointRadius(function(datum) {
     const that: SVGPathElement = this;
     const d: d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1> = datum;
-    return datum.properties.name === 'Alabama' ? 10 : 15;
+    return datum.properties.name === "Alabama" ? 10 : 15;
 });
 
-const geoPathSVGPointRadiusAccessor: number | ((this: SVGPathElement, d: d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>, ...args: any[]) => number) = geoPathSVG.pointRadius();
+const geoPathSVGPointRadiusAccessor:
+    | number
+    | ((this: SVGPathElement, d: d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>, ...args: any[]) => number) =
+        geoPathSVG.pointRadius();
 // let geoPathSVGPointRadiusAccessorWrong1: number | ((this: SVGCircleElement, d: d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>, ...args: any[]) => number)
 //     = geoPathSVG.pointRadius(); // fails, mismatch in this context
 // let geoPathSVGPointRadiusAccessorWrong2: number | ((this: SVGPathElement, d: d3Geo.GeoGeometryObjects, ...args: any[]) => number) = geoPathSVG.pointRadius(); // fails, mismatch in object datum type
@@ -700,9 +724,14 @@ geoPathCanvas(sampleExtendedNullableFeatureCollection);
 // Use path string generator for SVGPathElement
 
 declare const svgPath: Selection<SVGPathElement, d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>, any, any>;
-svgPath.attr('d', geoPathSVG);
+svgPath.attr("d", geoPathSVG);
 
-declare const svgCircleWrong: Selection<SVGCircleElement, d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>, any, any>;
+declare const svgCircleWrong: Selection<
+    SVGCircleElement,
+    d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>,
+    any,
+    any
+>;
 // svgCircleWrong.attr('d', geoPathSVG); // fails, mismatch in `this` context
 
 declare const svgPathWrong: Selection<SVGPathElement, GeoJSON.Polygon, any, any>;
@@ -712,11 +741,21 @@ declare const svgPathWrong: Selection<SVGPathElement, GeoJSON.Polygon, any, any>
 // Context interface
 // ----------------------------------------------------------------------
 const context: d3Geo.GeoContext = {
-    beginPath: () => { return; },
-    moveTo: (x: number, y: number) => { return; },
-    lineTo: (x: number, y: number) => { return; },
-    arc: (x, y, radius, startAngle, endAngle) => { return; },
-    closePath: () => { return; }
+    beginPath: () => {
+        return;
+    },
+    moveTo: (x: number, y: number) => {
+        return;
+    },
+    lineTo: (x: number, y: number) => {
+        return;
+    },
+    arc: (x, y, radius, startAngle, endAngle) => {
+        return;
+    },
+    closePath: () => {
+        return;
+    },
 };
 
 // ----------------------------------------------------------------------
@@ -737,10 +776,12 @@ customTransformProto = {
     point(x, y) {
         this.stream.point(x + this.a, -y);
     },
-    a: 10
+    a: 10,
 };
 
-const t: { stream(s: d3Geo.GeoStream): CustomTransformProto & d3Geo.GeoStream } = d3Geo.geoTransform(customTransformProto);
+const t: { stream(s: d3Geo.GeoStream): CustomTransformProto & d3Geo.GeoStream } = d3Geo.geoTransform(
+    customTransformProto,
+);
 
 // geoIdentity() ========================================================
 

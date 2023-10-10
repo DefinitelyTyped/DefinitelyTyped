@@ -8,14 +8,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { NextHandleFunction } from 'connect';
-import * as webpack from 'webpack';
+import { NextHandleFunction } from "connect";
+import * as webpack from "webpack";
 
 export = WebpackHotMiddleware;
 
 declare function WebpackHotMiddleware(
     compiler: webpack.Compiler | webpack.MultiCompiler,
-    options?: WebpackHotMiddleware.MiddlewareOptions
+    options?: WebpackHotMiddleware.MiddlewareOptions,
 ): NextHandleFunction & WebpackHotMiddleware.EventStream;
 
 declare namespace WebpackHotMiddleware {
@@ -30,10 +30,10 @@ declare namespace WebpackHotMiddleware {
         dynamicPublicPath?: boolean | undefined;
         autoConnect?: boolean | undefined;
         ansiColors?: {
-            [key: string]: any
+            [key: string]: any;
         } | undefined;
         overlayStyles?: {
-            [key: string]: any
+            [key: string]: any;
         } | undefined;
         overlayWarnings?: boolean | undefined;
     }

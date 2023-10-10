@@ -1,8 +1,7 @@
-import { parse } from 'comment-json';
-import fs from 'fs';
-import { format } from 'prettier';
-import sh from 'shelljs';
-import * as path from 'path';
+import { parse } from "comment-json";
+import fs from "fs";
+import * as path from "path";
+import sh from "shelljs";
 
 /** @type {any} */
 const emptyObject = {};
@@ -19,8 +18,6 @@ const parseAndReadFileContents = filePath => {
     }
 };
 
-const prettierConfig = parseAndReadFileContents('.prettierrc.json');
-
 /**
  * @param {string} filePath
  * @param {unknown} contents
@@ -28,29 +25,32 @@ const prettierConfig = parseAndReadFileContents('.prettierrc.json');
 const writeFileFormatted = (filePath, contents) => {
     fs.writeFileSync(
         filePath,
-        format(JSON.stringify(contents, null, 4), {
-            ...prettierConfig,
-            filepath: filePath,
-        }),
+        JSON.stringify(contents, null, 4),
     );
 };
 
-const [, , tslintRuleName, eslintRuleName = tslintRuleName] = process.argv;
+const [, , tslintRuleName, eslintRuleName = "@definitelytyped/" + tslintRuleName] = process.argv;
 
-sh.exec(`find types -path '*/node_modules' -prune -o -iname '*.ts' -type f -print | xargs sed -i 's/tslint:disable-next-line[: ]${tslintRuleName}/eslint-disable-next-line ${eslintRuleName}/'`);
-sh.exec(`find types -path '*/node_modules' -prune -o -iname '*.ts' -type f -print | xargs sed -i 's/tslint:disable-next-line[: ] ${tslintRuleName}/eslint-disable-next-line ${eslintRuleName}/'`);
-sh.exec(`find types -path '*/node_modules' -prune -o -iname '*.ts' -type f -print | xargs sed -i 's/tslint:disable-line[: ]${tslintRuleName}/eslint-disable-line ${eslintRuleName}/'`);
+sh.exec(
+    `find types -path '*/node_modules' -prune -o -iname '*.ts' -type f -print | xargs sed -i 's_tslint:disable-next-line[: ]${tslintRuleName}_eslint-disable-next-line ${eslintRuleName}_'`,
+);
+sh.exec(
+    `find types -path '*/node_modules' -prune -o -iname '*.ts' -type f -print | xargs sed -i 's_tslint:disable-next-line[: ] ${tslintRuleName}_eslint-disable-next-line ${eslintRuleName}_'`,
+);
+sh.exec(
+    `find types -path '*/node_modules' -prune -o -iname '*.ts' -type f -print | xargs sed -i 's_tslint:disable-line[: ]${tslintRuleName}_eslint-disable-line ${eslintRuleName}_'`,
+);
 
-const typeNames = fs.readdirSync('types');
+const typeNames = fs.readdirSync("types");
 for (const typeName of typeNames) {
-    const typeDirectory = path.join('types', typeName);
+    const typeDirectory = path.join("types", typeName);
     typeNames.push(
         ...(fs.readdirSync(typeDirectory))
             .filter(childDirectory => /^(ts|v)(\d+|\.)+$/.test(childDirectory))
             .map(childDirectory => path.join(typeName, childDirectory)),
     );
 
-    const tslintFilePath = path.join(typeDirectory, 'tslint.json');
+    const tslintFilePath = path.join(typeDirectory, "tslint.json");
     /** @type {{ rules?: { [s:string]: boolean }}} */
     const tslintData = parseAndReadFileContents(tslintFilePath);
     if (tslintData?.rules?.[tslintRuleName] !== false) {
@@ -68,7 +68,7 @@ for (const typeName of typeNames) {
     }
     writeFileFormatted(tslintFilePath, tslintData);
 
-    const eslintFilePath = path.join(typeDirectory, '.eslintrc.json');
+    const eslintFilePath = path.join(typeDirectory, ".eslintrc.json");
     const eslintData = parseAndReadFileContents(eslintFilePath) ?? emptyObject;
 
     if (eslintData === emptyObject) {
@@ -81,7 +81,7 @@ for (const typeName of typeNames) {
         ...eslintData,
         rules: {
             ...eslintData.rules,
-            [eslintRuleName]: 'off',
+            [eslintRuleName]: "off",
         },
     });
 }

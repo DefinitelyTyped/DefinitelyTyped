@@ -7,7 +7,6 @@
 /// <reference types="knockout" />
 
 /**
- *
  * Extensions to KO to provide a command, editable and sortable patterns
  * - available at http://www.nuget.org/packages/ko.plus/
  *
@@ -20,10 +19,9 @@
  *
  * Version 1.2 - amended callback on commmand.fail() method - accepts response,
  *               status and message values
- * 
+ *
  * Version 1.3 - added module declaration so it be used with node, requirejs etc.
  *               removed jquery reference as it is not required
- * 
  */
 
 //
@@ -37,7 +35,7 @@ interface KnockoutStatic {
     editableArray: KoPlus.EditableArrayStatic;
 }
 
-//#region Sortable type extensions
+// #region Sortable type extensions
 
 //
 // extends the KnockoutObservableArray to add sorting methods
@@ -51,7 +49,7 @@ interface KnockoutObservableArray<T> {
     setSourceKey: (key: string) => void;
 }
 
-//#endregion
+// #endregion
 
 //
 // declare new binding handlers in ko.plus
@@ -68,8 +66,7 @@ interface KnockoutBindingHandlers {
 // namespace for ko.plus types
 //
 declare namespace KoPlus {
-
-    //#region Command types
+    // #region Command types
 
     //
     // the Command interface - returned by ko.command(..)
@@ -95,7 +92,7 @@ declare namespace KoPlus {
         //
         done: (callback: (data: any) => void) => Command;
 
-        fail: (callback: (response: any, status?: string, statusText?:string) => void) => Command;
+        fail: (callback: (response: any, status?: string, statusText?: string) => void) => Command;
 
         always: (callback: Function) => Command;
 
@@ -117,9 +114,9 @@ declare namespace KoPlus {
         context?: any;
     }
 
-    //#endregion
+    // #endregion
 
-    //#region Editable types
+    // #region Editable types
 
     export interface EditableStatic extends KnockoutObservableStatic {
         <T>(value?: T): Editable<T>;
@@ -130,7 +127,7 @@ declare namespace KoPlus {
     export interface EditableArrayStatic extends KnockoutObservableArrayStatic {
         <T>(value?: Array<T>): EditableArray<T>;
 
-        makeEditable(target: any): void; //>
+        makeEditable(target: any): void; // >
     }
 
     //
@@ -157,7 +154,7 @@ declare namespace KoPlus {
     export interface EditableArray<T> extends KnockoutObservableArray<T>, EditableFunctions {
     }
 
-    //#endregion
+    // #endregion
 }
 
 declare var ko: KnockoutStatic;

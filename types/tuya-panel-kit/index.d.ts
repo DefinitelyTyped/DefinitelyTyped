@@ -4,36 +4,35 @@
 //                 ShinyLeee <https://github.com/ShinyLeee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
-// tslint:disable:max-line-length
-import * as React from 'react';
+import * as React from "react";
 import {
-    StyleProp,
-    ViewStyle,
-    TextStyle,
-    TextProps,
-    TouchableOpacityProps,
-    ScrollViewProps,
     FlatListProps,
-    ViewPagerAndroidProps,
-    NativeSyntheticEvent,
-    NativeScrollEvent,
-    ViewProps,
-    TextInputProps,
-    ImageStyle,
-    ImageSourcePropType,
     GestureResponderEvent,
+    ImageSourcePropType,
+    ImageStyle,
+    ListRenderItem,
+    ModalProps as ModalNativeProps,
+    NativeScrollEvent,
+    NativeSyntheticEvent,
     PickerIOSProps,
     PickerProps,
-    ModalProps as ModalNativeProps,
+    ScrollViewProps,
     SectionListProps,
-    ListRenderItem,
-} from 'react-native';
-import { NavigationContainerProps, ParamListBase, RouteProp, NavigationContainerRef } from './@react-navigation/native';
-import { StackNavigationOptions } from './@react-navigation/stack';
-import { TransitionPreset } from './@react-navigation/stack/types';
-import { GlobalTheme, StopsProps, LinearGradientBackground, RadialGradientBackground, BackgroundProps } from './theme';
+    StyleProp,
+    TextInputProps,
+    TextProps,
+    TextStyle,
+    TouchableOpacityProps,
+    ViewPagerAndroidProps,
+    ViewProps,
+    ViewStyle,
+} from "react-native";
+import { NavigationContainerProps, NavigationContainerRef, ParamListBase, RouteProp } from "./@react-navigation/native";
+import { StackNavigationOptions } from "./@react-navigation/stack";
+import { TransitionPreset } from "./@react-navigation/stack/types";
+import { BackgroundProps, GlobalTheme, LinearGradientBackground, RadialGradientBackground, StopsProps } from "./theme";
 
-export { GlobalTheme } from './theme';
+export { GlobalTheme } from "./theme";
 
 export type AnyFunction = (...args: any[]) => void;
 
@@ -128,8 +127,8 @@ export interface BatteryProps {
      */
     theme?:
         | {
-              batteryColor: string;
-          }
+            batteryColor: string;
+        }
         | undefined;
 }
 export class Battery extends React.Component<BatteryProps> {}
@@ -212,7 +211,7 @@ export interface BrickButtonProps {
      * @description Type of button
      * @defaultValue 'primary'
      */
-    type?: 'primary' | 'primaryGradient' | 'primaryBorder' | 'normal' | 'small' | undefined;
+    type?: "primary" | "primaryGradient" | "primaryBorder" | "normal" | "small" | undefined;
     /**
      * @language zh-CN
      * @description 按钮内部包裹内容样式
@@ -311,7 +310,7 @@ export interface BrickButtonProps {
      * @description The size of the loading component
      * @defaultValue 'small'
      */
-    loadingSize?: ('small' | 'large') | number | undefined;
+    loadingSize?: ("small" | "large") | number | undefined;
     /**
      * @language zh-CN
      * @description 加载组件的样式
@@ -357,19 +356,19 @@ export interface BrickButtonProps {
      */
     theme?:
         | {
-              fontSize?: number | undefined;
-              fontColor?: string | undefined;
-              bgRadius?: number | undefined;
-              bgHeight?: number | undefined;
-              bgWidth?: number | undefined;
-              margin?: number[] | undefined;
-              padding?: number[] | undefined;
-              bgColor?: string | undefined;
-              bgBorder?: string | undefined;
-              bgBorderWidth?: number | undefined;
-              loadingColor?: string | undefined;
-              loadingBackground?: string | undefined;
-          }
+            fontSize?: number | undefined;
+            fontColor?: string | undefined;
+            bgRadius?: number | undefined;
+            bgHeight?: number | undefined;
+            bgWidth?: number | undefined;
+            margin?: number[] | undefined;
+            padding?: number[] | undefined;
+            bgColor?: string | undefined;
+            bgBorder?: string | undefined;
+            bgBorderWidth?: number | undefined;
+            loadingColor?: string | undefined;
+            loadingBackground?: string | undefined;
+        }
         | undefined;
 }
 export class BrickButton extends React.Component<BrickButtonProps> {}
@@ -408,7 +407,7 @@ export interface ButtonProps extends TouchableOpacityProps {
      * @description Button background size, the default is `noset`. large: 48, normal: 40, small: 32.
      * @defaultValue 'noSet'
      */
-    size?: 'large' | 'normal' | 'small' | 'noSet' | number | undefined;
+    size?: "large" | "normal" | "small" | "noSet" | number | undefined;
     /**
      * @language zh-CN
      * @description 按钮背景类型。normal：背景色为transparent；若为primary：则跟随主色
@@ -419,7 +418,7 @@ export interface ButtonProps extends TouchableOpacityProps {
      * @description Button background type. normal: the background color is transparent; primary: it follows the main color
      * @defaultValue 'normal'
      */
-    type?: 'primary' | 'normal' | undefined;
+    type?: "primary" | "normal" | undefined;
     /**
      * @language zh-CN
      * @description 按钮背景，可为颜色值或渐变值
@@ -463,7 +462,7 @@ export interface ButtonProps extends TouchableOpacityProps {
      * @description The text arrangement direction within the button. The default placement text is at the bottom of the button
      * @defaultValue 'bottom'
      */
-    textDirection?: 'left' | 'top' | 'right' | 'bottom' | 'center' | undefined;
+    textDirection?: "left" | "top" | "right" | "bottom" | "center" | undefined;
     /**
      * @language zh-CN
      * @description 按钮内的图标名称
@@ -685,16 +684,16 @@ export interface ButtonProps extends TouchableOpacityProps {
      */
     theme?:
         | {
-              fontSize?: number | undefined;
-              fontColor?: string | undefined;
-              iconSize?: number | undefined;
-              bgWidth?: number | undefined;
-              bgHeight?: number | undefined;
-              bgColor?: string | undefined;
-              margin?: number[] | undefined;
-              iconColor?: string | undefined;
-              bgRadius?: number | undefined;
-          }
+            fontSize?: number | undefined;
+            fontColor?: string | undefined;
+            iconSize?: number | undefined;
+            bgWidth?: number | undefined;
+            bgHeight?: number | undefined;
+            bgColor?: string | undefined;
+            margin?: number[] | undefined;
+            iconColor?: string | undefined;
+            bgRadius?: number | undefined;
+        }
         | undefined;
 }
 export class Button extends React.Component<ButtonProps> {}
@@ -780,12 +779,12 @@ export interface CarouselProps extends ViewPagerAndroidProps {
     dots?:
         | React.ElementType
         | ((params: {
-              dotStyle: StyleProp<ViewStyle>;
-              dotWrapperStyle: StyleProp<ViewStyle>;
-              dotActiveStyle: StyleProp<ViewStyle>;
-              currentIndex: number;
-              count: number;
-          }) => React.ReactNode)
+            dotStyle: StyleProp<ViewStyle>;
+            dotWrapperStyle: StyleProp<ViewStyle>;
+            dotActiveStyle: StyleProp<ViewStyle>;
+            currentIndex: number;
+            count: number;
+        }) => React.ReactNode)
         | undefined;
     /**
      * @language zh-CN
@@ -1142,7 +1141,7 @@ export interface CollapsibleProps {
      * @description Alignment of child elements
      * @defaultValue 'top'
      */
-    align?: 'top' | 'center' | 'bottom' | undefined;
+    align?: "top" | "center" | "bottom" | undefined;
     /**
      * @language zh-CN
      * @description 是否折叠
@@ -1235,7 +1234,7 @@ export interface ControllerBarProps extends ViewProps {
      * @description The background type of the button
      * @defaultValue 'normal'
      */
-    type?: 'primary' | 'normal' | undefined;
+    type?: "primary" | "normal" | undefined;
     /**
      * @language zh-CN
      * @description 按钮大小
@@ -1246,7 +1245,7 @@ export interface ControllerBarProps extends ViewProps {
      * @description The size of the button
      * @defaultValue 'normal'
      */
-    size?: ('large' | 'normal' | 'small') | number | undefined;
+    size?: ("large" | "normal" | "small") | number | undefined;
     /**
      * @language zh-CN
      * @description 按钮是否跟随父容器拉伸
@@ -1268,7 +1267,7 @@ export interface ControllerBarProps extends ViewProps {
      * @description Transparent type of background
      * @defaultValue 'pure'
      */
-    backgroundType?: 'alpha' | 'pure' | undefined;
+    backgroundType?: "alpha" | "pure" | undefined;
     /**
      * @language zh-CN
      * @description 背景颜色
@@ -1336,7 +1335,7 @@ export interface BarGroupProps {
      * @description Type of the bottom column of the group
      * @defaultValue 'warp'
      */
-    type?: 'warp' | 'swiper' | 'divide' | undefined;
+    type?: "warp" | "swiper" | "divide" | undefined;
     /**
      * @language zh-CN
      * @description 按钮的大小
@@ -1347,7 +1346,7 @@ export interface BarGroupProps {
      * @description The size of the button
      * @defaultValue  'normal'
      */
-    size?: 'large' | 'normal' | 'small' | number | undefined;
+    size?: "large" | "normal" | "small" | number | undefined;
     /**
      * @language zh-CN
      * @description 当 type 为 'swiper' 时的配置参数
@@ -1387,7 +1386,7 @@ export class ControllerBar extends React.Component<ControllerBarProps> {
 }
 
 // DatePicker
-export interface DatePickerProps extends Omit<PickerViewProps, 'mode'> {
+export interface DatePickerProps extends Omit<PickerViewProps, "mode"> {
     /**
      * @language zh-CN
      * @description 测试标识
@@ -1412,14 +1411,14 @@ export interface DatePickerProps extends Omit<PickerViewProps, 'mode'> {
     locale?:
         | string
         | {
-              year?: string | undefined;
-              month?: string | undefined;
-              day?: string | undefined;
-              hour?: string | undefined;
-              minute?: string | undefined;
-              am?: string | undefined;
-              pm?: string | undefined;
-          }
+            year?: string | undefined;
+            month?: string | undefined;
+            day?: string | undefined;
+            hour?: string | undefined;
+            minute?: string | undefined;
+            am?: string | undefined;
+            pm?: string | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -1431,7 +1430,7 @@ export interface DatePickerProps extends Omit<PickerViewProps, 'mode'> {
      * @description The selection type of the selector
      * @defaultValue 'date'
      */
-    mode?: 'datetime' | 'date' | 'time' | 'month' | 'year' | undefined;
+    mode?: "datetime" | "date" | "time" | "month" | "year" | undefined;
     /**
      * @language zh-CN
      * @description 选择 picker 是否可循环
@@ -1744,7 +1743,7 @@ export interface DialogProps {
      * @description Animation type
      * @defaultValue 'ScaleFadeIn'
      */
-    motionType?: 'none' | 'ScaleFadeIn' | 'Fade' | 'PullUp' | 'ScalePullDown' | 'PushDown' | undefined;
+    motionType?: "none" | "ScaleFadeIn" | "Fade" | "PullUp" | "ScalePullDown" | "PushDown" | undefined;
     /**
      * @language zh-CN
      * @description 动画配置
@@ -1821,9 +1820,8 @@ export interface DialogCheckbox extends TYFlatListData {
 }
 
 export interface DialogCheckboxProps
-    extends DialogProps,
-        DialogCancelProps,
-        Omit<TYFlatListProps<{}>, 'data' | 'renderItem'> {
+    extends DialogProps, DialogCancelProps, Omit<TYFlatListProps<{}>, "data" | "renderItem">
+{
     /**
      * @language zh-CN
      * @description CheckBox 类型
@@ -1834,7 +1832,7 @@ export interface DialogCheckboxProps
      * @description CheckBox type
      * @defaultValue 'radio'
      */
-    type?: 'radio' | 'switch' | undefined;
+    type?: "radio" | "switch" | undefined;
     /**
      * @language zh-CN
      * @description 选中的值
@@ -1939,9 +1937,11 @@ export interface DialogList extends TYFlatListData {
     title: string;
 }
 export interface DialogListProps
-    extends Omit<DialogProps, 'motionType' | 'motionConfig'>,
+    extends
+        Omit<DialogProps, "motionType" | "motionConfig">,
         DialogCancelProps,
-        Omit<TYFlatListProps<{}>, 'data' | 'renderItem'> {
+        Omit<TYFlatListProps<{}>, "data" | "renderItem">
+{
     /**
      * @language zh-CN
      * @description 最大列表项
@@ -1977,7 +1977,7 @@ export interface DialogListProps
     listStyle?: StyleProp<ViewStyle> | undefined;
 }
 
-export interface DialogPromptProps extends TextInputProps, Omit<DialogProps, 'style'>, DialogCancelProps {
+export interface DialogPromptProps extends TextInputProps, Omit<DialogProps, "style">, DialogCancelProps {
     /**
      * @language zh-CN
      * @description 是否显示帮助图标
@@ -2099,7 +2099,7 @@ export interface DividerProps {
      * @description The direction of main axis
      * @defaultValue 'row'
      */
-    flexDirection?: 'row' | 'column' | undefined;
+    flexDirection?: "row" | "column" | undefined;
     /**
      * @language zh-CN
      * @description 是否显示
@@ -2217,7 +2217,7 @@ export interface GlobalToastProps extends ToastProps, IconFontProps {
     showIcon?: boolean | undefined;
 }
 export const GlobalToast: {
-    show: (option: Omit<GlobalToastProps, 'show'>) => void;
+    show: (option: Omit<GlobalToastProps, "show">) => void;
     hide: () => void;
 };
 
@@ -2233,45 +2233,45 @@ export type IconFontName =
     | 7
     | 8
     | 9
-    | 'power'
-    | 'arrow'
-    | '+'
-    | '-'
-    | '.'
-    | ':'
-    | ','
-    | 'celsius'
-    | 'fahrenheit'
-    | '%'
-    | 'edit'
-    | 'minus'
-    | 'plus'
-    | 'error'
-    | 'warning'
-    | 'correct'
-    | 'backIos'
-    | 'backAndroid'
-    | 'moreV'
-    | 'moreH'
-    | 'close'
-    | 'selected'
-    | 'unselected'
-    | 'selectedUnBordered'
-    | 'volumeMute'
-    | 'volumeMax'
-    | 'volumeMuteBorder'
-    | 'volumeMaxBorder'
-    | 'help'
-    | 'pen'
-    | 'notice-sharp'
-    | 'selected-sharp'
-    | 'unselected-sharp'
-    | 'volume-sharp-off'
-    | 'volume-sharp-max'
-    | 'volume-border-2'
-    | 'volume-border-1'
-    | 'volume-border-off'
-    | 'help-sharp';
+    | "power"
+    | "arrow"
+    | "+"
+    | "-"
+    | "."
+    | ":"
+    | ","
+    | "celsius"
+    | "fahrenheit"
+    | "%"
+    | "edit"
+    | "minus"
+    | "plus"
+    | "error"
+    | "warning"
+    | "correct"
+    | "backIos"
+    | "backAndroid"
+    | "moreV"
+    | "moreH"
+    | "close"
+    | "selected"
+    | "unselected"
+    | "selectedUnBordered"
+    | "volumeMute"
+    | "volumeMax"
+    | "volumeMuteBorder"
+    | "volumeMaxBorder"
+    | "help"
+    | "pen"
+    | "notice-sharp"
+    | "selected-sharp"
+    | "unselected-sharp"
+    | "volume-sharp-off"
+    | "volume-sharp-max"
+    | "volume-border-2"
+    | "volume-border-1"
+    | "volume-border-off"
+    | "help-sharp";
 
 export interface IconFontProps {
     /**
@@ -2526,7 +2526,7 @@ export interface IconFontProps {
      * @description Shape of the stroke join
      * @defaultValue "round"
      */
-    strokeJoin?: 'round' | 'miter' | 'bevel' | undefined;
+    strokeJoin?: "round" | "miter" | "bevel" | undefined;
     /**
      * @language zh-CN
      * @description 首尾端形状
@@ -2537,7 +2537,7 @@ export interface IconFontProps {
      * @description Shape of the stroke cap
      * @defaultValue "round"
      */
-    strokeCap?: 'round' | 'butt' | 'square' | undefined;
+    strokeCap?: "round" | "butt" | "square" | undefined;
     /**
      * @language zh-CN
      * @description 实虚线，数组内第一个元素为一段虚线的长度，第二个为间距
@@ -2624,7 +2624,7 @@ export interface ModalProps extends ModalNativeProps {
      * @description The animation effect of the mask
      * @defaultValue 'fade'
      */
-    animationType?: 'fade' | 'none' | undefined;
+    animationType?: "fade" | "none" | undefined;
     /**
      * @language zh-CN
      * @description modal默认出现的位置
@@ -2635,7 +2635,7 @@ export interface ModalProps extends ModalNativeProps {
      * @description The default position of the mask
      * @defaultValue 'bottom'
      */
-    alignContainer?: 'top' | 'center' | 'bottom' | undefined;
+    alignContainer?: "top" | "center" | "bottom" | undefined;
     /**
      * @language zh-CN
      * @description 点击遮罩回调
@@ -2836,11 +2836,11 @@ export interface MotionProps {
      */
     animationConfig?:
         | {
-              duration?: number | undefined;
-              delay?: number | undefined;
-              isInteraction?: boolean | undefined;
-              useNativeDriver?: boolean | undefined;
-          }
+            duration?: number | undefined;
+            delay?: number | undefined;
+            isInteraction?: boolean | undefined;
+            useNativeDriver?: boolean | undefined;
+        }
         | undefined;
 }
 export interface MotionFadeProps extends MotionProps {
@@ -2974,7 +2974,7 @@ export interface MotionPushDownProps extends MotionProps {
      */
     isAlign?: boolean | undefined;
 }
-export interface MotionToastProps extends Omit<MotionProps, 'onHide'> {
+export interface MotionToastProps extends Omit<MotionProps, "onHide"> {
     /**
      * @language zh-CN
      * @description 初始缩放倍数
@@ -3043,15 +3043,15 @@ export interface NotificationProps extends TouchableOpacityProps {
      */
     theme?:
         | {
-              background?: string | undefined;
-              text?: string | undefined;
-              iconColor?: string | undefined;
-              successIcon?: string | undefined;
-              warningIcon?: string | undefined;
-              errorIcon?: string | undefined;
-              closeIcon?: string | undefined;
-              radius?: number | undefined;
-          }
+            background?: string | undefined;
+            text?: string | undefined;
+            iconColor?: string | undefined;
+            successIcon?: string | undefined;
+            warningIcon?: string | undefined;
+            errorIcon?: string | undefined;
+            closeIcon?: string | undefined;
+            radius?: number | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -3096,7 +3096,7 @@ export interface NotificationProps extends TouchableOpacityProps {
      * @description Type of notification bar
      * @defaultValue 'warning'
      */
-    variant?: 'success' | 'warning' | 'error' | undefined;
+    variant?: "success" | "warning" | "error" | undefined;
     /**
      * @language zh-CN
      * @description 是否显示关闭按钮。若为false，则会在 autoCloseTime 后自动触发 onClose 回调
@@ -3250,15 +3250,15 @@ export interface NotificationLegacyProps extends TouchableOpacityProps {
      */
     theme?:
         | {
-              background?: string | undefined;
-              text?: string | undefined;
-              iconColor?: string | undefined;
-              successIcon?: string | undefined;
-              warningIcon?: string | undefined;
-              errorIcon?: string | undefined;
-              closeIcon?: string | undefined;
-              radius?: number | undefined;
-          }
+            background?: string | undefined;
+            text?: string | undefined;
+            iconColor?: string | undefined;
+            successIcon?: string | undefined;
+            warningIcon?: string | undefined;
+            errorIcon?: string | undefined;
+            closeIcon?: string | undefined;
+            radius?: number | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -3281,7 +3281,7 @@ export interface NotificationLegacyProps extends TouchableOpacityProps {
      * @description Type of notification bar
      * @defaultValue 'warning'
      */
-    variant?: 'success' | 'warning' | 'error' | undefined;
+    variant?: "success" | "warning" | "error" | undefined;
     /**
      * @language zh-CN
      * @description 是否显示关闭按钮。若为false，则会在 autoCloseTime 后自动触发 onClose 回调
@@ -3376,15 +3376,15 @@ export interface PickerViewIOSProps extends PickerIOSProps {
      */
     theme?:
         | {
-              fontSize?: number | undefined;
-              fontColor?: string | undefined;
-              dividerColor?: string | undefined;
-              unitFontSize?: number | undefined;
-              unitFontColor?: string | undefined;
-          }
+            fontSize?: number | undefined;
+            fontColor?: string | undefined;
+            dividerColor?: string | undefined;
+            unitFontSize?: number | undefined;
+            unitFontColor?: string | undefined;
+        }
         | undefined;
 }
-export interface PickerViewProps extends Omit<PickerIOSProps, 'onValueChange' | 'selectedValue'>, PickerProps {
+export interface PickerViewProps extends Omit<PickerIOSProps, "onValueChange" | "selectedValue">, PickerProps {
     /**
      * @language zh-CN
      * @description Picker是否循环滚动
@@ -3494,7 +3494,7 @@ export interface PickerViewProps extends Omit<PickerIOSProps, 'onValueChange' | 
      * @description Alignment method of items
      * @defaultValue 'center'
      */
-    itemAlign?: 'flex-end' | 'center' | 'flex-start' | 'baseline' | 'stretch' | undefined;
+    itemAlign?: "flex-end" | "center" | "flex-start" | "baseline" | "stretch" | undefined;
     /**
      * @language zh-CN
      * @description 容器样式
@@ -3578,15 +3578,15 @@ export interface PickerViewProps extends Omit<PickerIOSProps, 'onValueChange' | 
      * @defaultValue 'DIN Alternate'
      * @platform IOS only
      */
-    fontFamily?: 'DIN Alternate' | 'Times New Roman' | 'PingFangHK-Regular' | 'PingFangHK-Medium' | string;
+    fontFamily?: "DIN Alternate" | "Times New Roman" | "PingFangHK-Regular" | "PingFangHK-Medium" | string;
     theme?:
         | {
-              fontSize?: number | undefined;
-              fontColor?: string | undefined;
-              dividerColor?: string | undefined;
-              unitFontSize?: number | undefined;
-              unitFontColor?: string | undefined;
-          }
+            fontSize?: number | undefined;
+            fontColor?: string | undefined;
+            dividerColor?: string | undefined;
+            unitFontSize?: number | undefined;
+            unitFontColor?: string | undefined;
+        }
         | undefined;
 }
 export class Picker extends React.Component<PickerViewProps> {
@@ -3594,7 +3594,7 @@ export class Picker extends React.Component<PickerViewProps> {
 }
 
 // Popup
-export interface PopupProps extends Omit<ModalProps, 'onMaskPress'> {
+export interface PopupProps extends Omit<ModalProps, "onMaskPress"> {
     /**
      * @language zh-CN
      * @description 容器样式
@@ -3770,7 +3770,7 @@ export interface PopupProps extends Omit<ModalProps, 'onMaskPress'> {
      * @description footer container display status.
      * @defaultValue 'both'
      */
-    footerType?: 'both' | 'singleConfirm' | 'singleCancel' | undefined;
+    footerType?: "both" | "singleConfirm" | "singleCancel" | undefined;
     /**
      * @language zh-CN
      * @description 动画类型
@@ -3781,7 +3781,7 @@ export interface PopupProps extends Omit<ModalProps, 'onMaskPress'> {
      * @description Animation type
      * @defaultValue "PullUp"
      */
-    motionType?: 'none' | 'ScaleFadeIn' | 'Fade' | 'PullUp' | 'ScalePullDown' | undefined;
+    motionType?: "none" | "ScaleFadeIn" | "Fade" | "PullUp" | "ScalePullDown" | undefined;
     /**
      * @language zh-CN
      * @description 动画配置
@@ -3882,38 +3882,38 @@ export interface PopupProps extends Omit<ModalProps, 'onMaskPress'> {
      */
     theme?:
         | {
-              cellHeight?: number | undefined;
-              cellBg?: string | undefined;
-              cellFontColor?: string | undefined;
-              cellFontSize?: number | undefined;
-              subTitleFontColor?: string | undefined;
-              titleRadius?: number | undefined;
-              titleBg?: string | undefined;
-              titleHeight?: number | undefined;
-              footerRadius?: number | undefined;
-              bottomBg?: string | undefined;
-              lineColor?: string | undefined;
-              titleFontSize?: number | undefined;
-              checkboxColor?: string | undefined;
-              titleFontColor?: string | undefined;
-              cancelFontSize?: number | undefined;
-              cancelFontColor?: string | undefined;
-              confirmFontSize?: number | undefined;
-              confirmFontColor?: string | undefined;
-              backIconColor?: string | undefined;
-              tintColor?: string | undefined;
-              numberSelector?:
-                  | {
-                        cellPlusColor?: string | undefined;
-                        maximumTrackTintColor?: string | undefined;
-                    }
-                  | undefined;
-              list?:
-                  | {
-                        cellFontColor?: string | undefined;
-                    }
-                  | undefined;
-          }
+            cellHeight?: number | undefined;
+            cellBg?: string | undefined;
+            cellFontColor?: string | undefined;
+            cellFontSize?: number | undefined;
+            subTitleFontColor?: string | undefined;
+            titleRadius?: number | undefined;
+            titleBg?: string | undefined;
+            titleHeight?: number | undefined;
+            footerRadius?: number | undefined;
+            bottomBg?: string | undefined;
+            lineColor?: string | undefined;
+            titleFontSize?: number | undefined;
+            checkboxColor?: string | undefined;
+            titleFontColor?: string | undefined;
+            cancelFontSize?: number | undefined;
+            cancelFontColor?: string | undefined;
+            confirmFontSize?: number | undefined;
+            confirmFontColor?: string | undefined;
+            backIconColor?: string | undefined;
+            tintColor?: string | undefined;
+            numberSelector?:
+                | {
+                    cellPlusColor?: string | undefined;
+                    maximumTrackTintColor?: string | undefined;
+                }
+                | undefined;
+            list?:
+                | {
+                    cellFontColor?: string | undefined;
+                }
+                | undefined;
+        }
         | undefined;
 }
 
@@ -3930,14 +3930,14 @@ export interface ListDate extends TYFlatListData {
      */
     styles?:
         | {
-              container?: StyleProp<ViewStyle> | undefined;
-              content?: StyleProp<ViewStyle> | undefined;
-              contentLeft?: StyleProp<ViewStyle> | undefined;
-              contentCenter?: StyleProp<ViewStyle> | undefined;
-              contentRight?: StyleProp<ViewStyle> | undefined;
-              title?: StyleProp<TextStyle> | undefined;
-              subTitle?: StyleProp<TextStyle> | undefined;
-          }
+            container?: StyleProp<ViewStyle> | undefined;
+            content?: StyleProp<ViewStyle> | undefined;
+            contentLeft?: StyleProp<ViewStyle> | undefined;
+            contentCenter?: StyleProp<ViewStyle> | undefined;
+            contentRight?: StyleProp<ViewStyle> | undefined;
+            title?: StyleProp<TextStyle> | undefined;
+            subTitle?: StyleProp<TextStyle> | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -3973,7 +3973,7 @@ export interface ListDate extends TYFlatListData {
      */
     value: any;
 }
-export interface PopUpListProps extends PopupProps, Omit<TYFlatListProps<{}>, 'renderItem' | 'data'> {
+export interface PopUpListProps extends PopupProps, Omit<TYFlatListProps<{}>, "renderItem" | "data"> {
     /**
      * @language zh-CN
      * @description 列表弹窗样式
@@ -4006,7 +4006,7 @@ export interface PopUpListProps extends PopupProps, Omit<TYFlatListProps<{}>, 'r
      * @description List selection popup type
      * @defaultValue 'radio'
      */
-    type?: 'radio' | 'switch' | 'arrow' | undefined;
+    type?: "radio" | "switch" | "arrow" | undefined;
     /**
      * @language zh-CN
      * @description 最大列表数量
@@ -4118,11 +4118,11 @@ export interface PopUpListProps extends PopupProps, Omit<TYFlatListProps<{}>, 'r
      */
     styles?:
         | {
-              container?: StyleProp<ViewStyle> | undefined;
-              content?: StyleProp<ViewStyle> | undefined;
-              title?: StyleProp<TextStyle> | undefined;
-              contentRight?: StyleProp<ViewStyle> | undefined;
-          }
+            container?: StyleProp<ViewStyle> | undefined;
+            content?: StyleProp<ViewStyle> | undefined;
+            title?: StyleProp<TextStyle> | undefined;
+            contentRight?: StyleProp<ViewStyle> | undefined;
+        }
         | undefined;
 }
 export interface PopUpCountdownProps extends PopupProps {
@@ -4305,7 +4305,7 @@ export interface PopUpCountdownProps extends PopupProps {
      */
     minuteUnitStyle?: StyleProp<TextStyle> | undefined;
 }
-export interface PopupDatePickerProps extends PopupProps, Omit<DatePickerProps, 'theme' | 'children'> {
+export interface PopupDatePickerProps extends PopupProps, Omit<DatePickerProps, "theme" | "children"> {
     /**
      * @language zh-CN
      * @description 日期更改回调
@@ -4330,8 +4330,8 @@ export interface PopupDatePickerProps extends PopupProps, Omit<DatePickerProps, 
     children?: React.ReactNode | undefined;
 }
 export interface PopupNumberSelectorProps
-    extends Omit<PopupProps, 'onLayout' | 'animationType'>,
-        Omit<SliderProps, 'theme' | 'type'> {
+    extends Omit<PopupProps, "onLayout" | "animationType">, Omit<SliderProps, "theme" | "type">
+{
     /**
      * @language zh-CN
      * @description numberSelector弹框样式
@@ -4353,7 +4353,7 @@ export interface PopupNumberSelectorProps
      * @description alue selection popup type
      * @defaultValue 'basic'
      */
-    type?: 'basic' | 'slider' | undefined;
+    type?: "basic" | "slider" | undefined;
     /**
      * @language zh-CN
      * @description 最小值
@@ -4478,7 +4478,7 @@ export interface PickerDataProps {
      */
     value: string;
 }
-export interface PopupPickerProps extends Omit<PopupProps, 'onConfirm'>, Omit<PickerViewProps, 'theme' | 'children'> {
+export interface PopupPickerProps extends Omit<PopupProps, "onConfirm">, Omit<PickerViewProps, "theme" | "children"> {
     /**
      * @language zh-CN
      * @description 单位标志
@@ -4623,7 +4623,7 @@ export interface PopupPickerProps extends Omit<PopupProps, 'onConfirm'>, Omit<Pi
      */
     onConfirm?: ((data: any, idx: number, args: { close: () => void }) => void) | undefined;
 }
-export interface PopupTimerPickerProps extends PopupProps, Omit<TimerPickerProps, 'theme'> {}
+export interface PopupTimerPickerProps extends PopupProps, Omit<TimerPickerProps, "theme"> {}
 export interface PopupCustomProps extends PopupProps {
     /**
      * @language zh-CN
@@ -4700,7 +4700,7 @@ export interface PopupDropdownProps {
      * @description Top border width size
      * @defaultValue 'normal'
      */
-    cornerSize?: 'small' | 'large' | 'normal' | undefined;
+    cornerSize?: "small" | "large" | "normal" | undefined;
     /**
      * @language zh-CN
      * @description 自定义顶部边框宽度大小
@@ -4722,7 +4722,7 @@ export interface PopupDropdownProps {
      * @description Location of the pop-up area
      * @defaultValue 'top'
      */
-    cornerDirection?: 'top' | 'bottom' | 'left' | 'right' | undefined;
+    cornerDirection?: "top" | "bottom" | "left" | "right" | undefined;
     cornerDirectionValue?: string | undefined;
     cornerColor?: string | undefined;
     corner?: boolean | undefined;
@@ -4757,7 +4757,7 @@ export interface GestureProps extends ViewProps {
      * @description Gesture area
      * @defaultValue 'box-only'
      */
-    pointerEvents?: 'box-none' | 'none' | 'box-only' | 'auto' | undefined;
+    pointerEvents?: "box-none" | "none" | "box-only" | "auto" | undefined;
     /**
      * @language zh-CN
      * @description 是否禁止滑动
@@ -4928,8 +4928,8 @@ export interface ProgressProps extends GestureProps {
         | string
         | StopsProps[]
         | {
-              [key: string]: string;
-          }
+            [key: string]: string;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -4998,7 +4998,7 @@ export interface ProgressBasicProps extends ProgressProps {
      * @description Gesture area
      * @defaultValue 'box-only'
      */
-    pointerEvents?: 'box-none' | 'none' | 'box-only' | 'auto' | undefined;
+    pointerEvents?: "box-none" | "none" | "box-only" | "auto" | undefined;
     /**
      * @language zh-CN
      * @description thumb 小圆球的填充色
@@ -5481,8 +5481,8 @@ export interface ComposeProps extends GestureProps {
         | string
         | StopsProps[]
         | {
-              [key: string]: string;
-          }
+            [key: string]: string;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -5814,15 +5814,15 @@ export interface SliderProps {
      */
     theme?:
         | {
-              width?: number | undefined;
-              trackRadius?: number | undefined;
-              trackHeight?: number | undefined;
-              minimumTrackTintColor?: string | undefined;
-              maximumTrackTintColor?: string | undefined;
-              thumbSize?: number | undefined;
-              thumbRadius?: number | undefined;
-              thumbTintColor?: string | undefined;
-          }
+            width?: number | undefined;
+            trackRadius?: number | undefined;
+            trackHeight?: number | undefined;
+            minimumTrackTintColor?: string | undefined;
+            maximumTrackTintColor?: string | undefined;
+            thumbSize?: number | undefined;
+            thumbRadius?: number | undefined;
+            thumbTintColor?: string | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -5957,9 +5957,9 @@ export interface SliderProps {
      */
     thumbTouchSize?:
         | {
-              width: number;
-              height: number;
-          }
+            width: number;
+            height: number;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -6092,7 +6092,7 @@ export interface SliderProps {
      * @description Animation type, spring elastic animation or timing linear animation
      * @defaultValue 'timing'
      */
-    animationType?: 'spring' | 'timing' | undefined;
+    animationType?: "spring" | "timing" | undefined;
     /**
      * @language zh-CN
      * @description 动画配置
@@ -6105,12 +6105,12 @@ export interface SliderProps {
      */
     animationConfig?:
         | {
-              friction?: number | undefined;
-              tension?: number | undefined;
-              duration?: number | undefined;
-              easing?: (() => void) | undefined;
-              delay?: number | undefined;
-          }
+            friction?: number | undefined;
+            tension?: number | undefined;
+            duration?: number | undefined;
+            easing?: (() => void) | undefined;
+            delay?: number | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -6168,12 +6168,12 @@ export interface SliderProps {
      */
     styles?:
         | {
-              container?: StyleProp<ViewStyle> | undefined;
-              track?: StyleProp<ViewStyle> | undefined;
-              thumb?: StyleProp<ViewStyle> | undefined;
-              touchArea?: StyleProp<ViewStyle> | undefined;
-              debugThumbTouchArea?: StyleProp<ViewStyle> | undefined;
-          }
+            container?: StyleProp<ViewStyle> | undefined;
+            track?: StyleProp<ViewStyle> | undefined;
+            thumb?: StyleProp<ViewStyle> | undefined;
+            touchArea?: StyleProp<ViewStyle> | undefined;
+            debugThumbTouchArea?: StyleProp<ViewStyle> | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -6187,7 +6187,7 @@ export interface SliderProps {
      * @addVersion 4.4.0
      * @defaultValue normal
      */
-    type?: 'normal' | 'parcel' | undefined;
+    type?: "normal" | "parcel" | undefined;
     /**
      * @language zh-CN
      * @description 是否使用刻度
@@ -6689,7 +6689,7 @@ export interface SliderWithLineProps {
 export class SliderWithLine extends React.Component<SliderProps> {}
 
 // Stepper
-export interface StepperProps extends Omit<TextInputProps, 'value'> {
+export interface StepperProps extends Omit<TextInputProps, "value"> {
     /**
      * @language zh-CN
      * @description 内容样式
@@ -6733,7 +6733,7 @@ export interface StepperProps extends Omit<TextInputProps, 'value'> {
      * @description Button type
      * @defaultValue 'ellipse'
      */
-    buttonType?: 'ellipse' | 'triangle' | undefined;
+    buttonType?: "ellipse" | "triangle" | undefined;
     /**
      * @language zh-CN
      * @description 最小值
@@ -6958,7 +6958,7 @@ export interface SwipeoutAction {
      * @description Set the button type
      * @defaultValue undefined
      */
-    type?: 'delete' | 'primary' | 'secondary' | undefined;
+    type?: "delete" | "primary" | "secondary" | undefined;
     /**
      * @language zh-CN
      * @description 字体大小
@@ -7176,20 +7176,20 @@ export interface SwitchButtonProps {
      */
     theme?:
         | {
-              width?: number | undefined;
-              height?: number | undefined;
-              thumbSize?: number | undefined;
-              margin?: number | number[] | undefined;
-              tintColor?:
-                  | string
-                  | {
-                        [key: string]: string;
-                    }
-                  | undefined;
-              onTintColor?: string | undefined;
-              thumbTintColor?: string | undefined;
-              onThumbTintColor?: string | undefined;
-          }
+            width?: number | undefined;
+            height?: number | undefined;
+            thumbSize?: number | undefined;
+            margin?: number | number[] | undefined;
+            tintColor?:
+                | string
+                | {
+                    [key: string]: string;
+                }
+                | undefined;
+            onTintColor?: string | undefined;
+            thumbTintColor?: string | undefined;
+            onThumbTintColor?: string | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -7258,11 +7258,11 @@ export interface SwitchButtonProps {
      */
     size?:
         | {
-              width?: number | undefined;
-              height?: number | undefined;
-              activeSize?: number | undefined;
-              margin?: number | undefined;
-          }
+            width?: number | undefined;
+            height?: number | undefined;
+            activeSize?: number | undefined;
+            margin?: number | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -7288,8 +7288,8 @@ export interface SwitchButtonProps {
     tintColor?:
         | string
         | {
-              [key: string]: string;
-          }
+            [key: string]: string;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -7304,8 +7304,8 @@ export interface SwitchButtonProps {
     onTintColor?:
         | string
         | {
-              [key: string]: string;
-          }
+            [key: string]: string;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -7597,7 +7597,7 @@ export interface TabProps {
      * @description The position of the tabBar.
      * @defaultValue 'top'
      */
-    tabBarPosition?: 'top' | 'bottom' | undefined;
+    tabBarPosition?: "top" | "bottom" | undefined;
     /**
      * @language zh-CN
      * @description 测试标识
@@ -7764,7 +7764,7 @@ export interface TabBarProps {
      * @description Tab type
      * @defaultValue undefined
      */
-    type?: 'radio' | string | undefined;
+    type?: "radio" | string | undefined;
     /**
      * @language zh-CN
      * @description 下划线的样式
@@ -8057,7 +8057,7 @@ export interface TopBarContentProps {
      * @description TopBar.Content  Can be left, center, and right
      * @defaultValue 'center'
      */
-    position?: 'left' | 'center' | 'right' | undefined;
+    position?: "left" | "center" | "right" | undefined;
     /**
      * @language zh-CN
      * @description 点击事件
@@ -8195,9 +8195,9 @@ export interface TopBarProps extends TopBarContentProps {
      */
     theme?:
         | {
-              background?: string | undefined;
-              color?: string | undefined;
-          }
+            background?: string | undefined;
+            color?: string | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -8485,7 +8485,7 @@ export interface TabsProps {
      * @description When Tab and TabContent exist at the same time, the arrangement position of Tab
      * @defaultValue 'top'
      */
-    tabPosition?: 'top' | 'bottom' | undefined;
+    tabPosition?: "top" | "bottom" | undefined;
     /**
      * @language zh-CN
      * @description Tab Content 是否可滚动
@@ -8608,12 +8608,12 @@ export interface TabsProps {
      */
     animationConfig?:
         | {
-              duration?: number | undefined;
-              easing?: (() => void) | undefined;
-              delay?: number | undefined;
-              isInteraction?: boolean | undefined;
-              useNativeDriver?: boolean | undefined;
-          }
+            duration?: number | undefined;
+            easing?: (() => void) | undefined;
+            delay?: number | undefined;
+            isInteraction?: boolean | undefined;
+            useNativeDriver?: boolean | undefined;
+        }
         | undefined;
 }
 export interface TabContentProps {
@@ -8752,12 +8752,12 @@ export interface TabContentProps {
      */
     animationConfig?:
         | {
-              duration?: number | undefined;
-              easing?: (() => void) | undefined;
-              delay?: number | undefined;
-              isInteraction?: boolean | undefined;
-              useNativeDriver?: boolean | undefined;
-          }
+            duration?: number | undefined;
+            easing?: (() => void) | undefined;
+            delay?: number | undefined;
+            isInteraction?: boolean | undefined;
+            useNativeDriver?: boolean | undefined;
+        }
         | undefined;
 }
 export interface TabPanelProps extends ViewProps {
@@ -8791,7 +8791,7 @@ export class Tabs extends React.Component<TabsProps> {
 }
 
 // TimerPicker
-export interface TimerPickerProps extends Omit<PickerViewProps, 'children'> {
+export interface TimerPickerProps extends Omit<PickerViewProps, "children"> {
     /**
      * @language zh-CN
      * @description 测试标识
@@ -8890,7 +8890,7 @@ export interface TimerPickerProps extends Omit<PickerViewProps, 'children'> {
      * @description Prefix position (i.e. AM / PM position)
      * @defaultValue 'right'
      */
-    prefixPosition?: string[] | ('left' | 'right') | undefined;
+    prefixPosition?: string[] | ("left" | "right") | undefined;
     /**
      * @language zh-CN
      * @description picker 字体颜色
@@ -9016,7 +9016,7 @@ export interface TipsProps {
      * @description Bubble animation type
      * @defaultValue 'ScaleFadeIn'
      */
-    motionType?: 'Fade' | 'PullUp' | 'ScaleFadeIn' | 'ScalePullDown' | 'PushDown' | undefined;
+    motionType?: "Fade" | "PullUp" | "ScaleFadeIn" | "ScalePullDown" | "PushDown" | undefined;
     /**
      * @language zh-CN
      * @description 角标位置
@@ -9027,7 +9027,7 @@ export interface TipsProps {
      * @description Corner mark position
      * @defaultValue 'topCenter'
      */
-    cornerPosition?: 'topLeft' | 'topCenter' | 'topRight' | 'bottomLeft' | 'bottomCenter' | 'bottomRight' | undefined;
+    cornerPosition?: "topLeft" | "topCenter" | "topRight" | "bottomLeft" | "bottomCenter" | "bottomRight" | undefined;
     /**
      * @language zh-CN
      * @description 动画配置
@@ -9148,7 +9148,7 @@ export interface ToastProps {
      * @description Display position
      * @defaultValue 'bottom'
      */
-    showPosition?: 'top' | 'bottom' | 'center' | undefined;
+    showPosition?: "top" | "bottom" | "center" | undefined;
     /**
      * @language zh-CN
      * @description 图片
@@ -9387,8 +9387,8 @@ export class Toast extends React.Component<ToastProps> {
 
 // TYFlatList
 export interface TYSectionInputProps
-    extends Omit<TYListItemProps, 'onBlur' | 'onFocus'>,
-        Omit<TextInputProps, 'style'> {
+    extends Omit<TYListItemProps, "onBlur" | "onFocus">, Omit<TextInputProps, "style">
+{
     /**
      * @language zh-CN
      * @description 标题
@@ -9502,7 +9502,7 @@ export interface TYFlatListData {
      */
     onChange?: (() => void) | undefined;
 }
-export interface TYFlatListProps<ItemT extends TYFlatListData> extends Omit<FlatListProps<ItemT>, 'renderItem'> {
+export interface TYFlatListProps<ItemT extends TYFlatListData> extends Omit<FlatListProps<ItemT>, "renderItem"> {
     /**
      * @language zh-CN
      * @description 内容样式
@@ -9615,14 +9615,14 @@ export interface TYListItemProps extends TouchableOpacityProps {
      */
     styles?:
         | {
-              container?: StyleProp<ViewStyle> | undefined;
-              content?: StyleProp<ViewStyle> | undefined;
-              contentLeft?: StyleProp<ViewStyle> | undefined;
-              contentCenter?: StyleProp<ViewStyle> | undefined;
-              contentRight?: StyleProp<ViewStyle> | undefined;
-              title?: StyleProp<TextStyle> | undefined;
-              subTitle?: StyleProp<TextStyle> | undefined;
-          }
+            container?: StyleProp<ViewStyle> | undefined;
+            content?: StyleProp<ViewStyle> | undefined;
+            contentLeft?: StyleProp<ViewStyle> | undefined;
+            contentCenter?: StyleProp<ViewStyle> | undefined;
+            contentRight?: StyleProp<ViewStyle> | undefined;
+            title?: StyleProp<TextStyle> | undefined;
+            subTitle?: StyleProp<TextStyle> | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -9636,16 +9636,16 @@ export interface TYListItemProps extends TouchableOpacityProps {
      */
     theme?:
         | {
-              boardBg?: string | undefined;
-              fontColor?: string | undefined;
-              subFontColor?: string | undefined;
-              descFontColor?: string | undefined;
-              cellLine?: string | undefined;
-              cellBg?: string | undefined;
-              cellRadius?: number | undefined;
-              margin?: number[] | number | undefined;
-              padding?: number[] | number | undefined;
-          }
+            boardBg?: string | undefined;
+            fontColor?: string | undefined;
+            subFontColor?: string | undefined;
+            descFontColor?: string | undefined;
+            cellLine?: string | undefined;
+            cellBg?: string | undefined;
+            cellRadius?: number | undefined;
+            margin?: number[] | number | undefined;
+            padding?: number[] | number | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -9756,7 +9756,7 @@ export interface TYListItemProps extends TouchableOpacityProps {
      * @description Icon type on the left
      * @defaultValue 'auto'
      */
-    iconType?: 'auto' | 'image' | 'iconfont' | 'text' | undefined;
+    iconType?: "auto" | "image" | "iconfont" | "text" | undefined;
     /**
      * @language zh-CN
      * @description 右侧 Action 类型
@@ -9767,7 +9767,7 @@ export interface TYListItemProps extends TouchableOpacityProps {
      * @description Right action type
      * @defaultValue 'auto'
      */
-    actionType?: 'auto' | 'image' | 'iconfont' | 'text' | undefined;
+    actionType?: "auto" | "image" | "iconfont" | "text" | undefined;
     /**
      * @language zh-CN
      * @description 图标尺寸
@@ -9917,17 +9917,17 @@ export interface SectionDataProps {
      */
     theme?:
         | {
-              boardBg?: string | undefined;
-              iconColor?: string | undefined;
-              fontColor?: string | undefined;
-              subFontColor?: string | undefined;
-              descFontColor?: string | undefined;
-              cellLine?: string | undefined;
-              cellBg?: string | undefined;
-              cellRadius?: number | undefined;
-              margin?: number[] | number | undefined;
-              padding?: number[] | number | undefined;
-          }
+            boardBg?: string | undefined;
+            iconColor?: string | undefined;
+            fontColor?: string | undefined;
+            subFontColor?: string | undefined;
+            descFontColor?: string | undefined;
+            cellLine?: string | undefined;
+            cellBg?: string | undefined;
+            cellRadius?: number | undefined;
+            margin?: number[] | number | undefined;
+            padding?: number[] | number | undefined;
+        }
         | undefined;
     /**
      * @language zh-CN
@@ -9941,17 +9941,17 @@ export interface SectionDataProps {
      */
     data?:
         | Array<{
-              key?: string | number | undefined;
-              value?: string | number | boolean | undefined;
-              Action?: any;
-              title?: string | number | undefined;
-              subTitle?: string | undefined;
-              arrow?: boolean | undefined;
-              checked?: boolean | undefined;
-              disabled?: boolean | undefined;
-              onPress?: ((idx: number) => void) | undefined;
-              onValueChange?: ((value: string) => void) | undefined;
-          }>
+            key?: string | number | undefined;
+            value?: string | number | boolean | undefined;
+            Action?: any;
+            title?: string | number | undefined;
+            subTitle?: string | undefined;
+            arrow?: boolean | undefined;
+            checked?: boolean | undefined;
+            disabled?: boolean | undefined;
+            onPress?: ((idx: number) => void) | undefined;
+            onValueChange?: ((value: string) => void) | undefined;
+        }>
         | undefined;
 }
 export interface TYSectionListProps extends SectionListProps<SectionDataProps> {
@@ -10033,7 +10033,7 @@ export interface TYSectionListProps extends SectionListProps<SectionDataProps> {
      */
     useART?: boolean | undefined;
 }
-export interface TYSectionSliderProps extends Omit<SliderProps, 'theme'> {
+export interface TYSectionSliderProps extends Omit<SliderProps, "theme"> {
     /**
      * @language zh-CN
      * @description 主题配置
@@ -10070,7 +10070,7 @@ export interface TYSectionSliderProps extends Omit<SliderProps, 'theme'> {
      * @description Icon type on the left
      * @defaultValue 'auto'
      */
-    iconType?: 'auto' | 'image' | 'iconfont' | 'text' | undefined;
+    iconType?: "auto" | "image" | "iconfont" | "text" | undefined;
     /**
      * @language zh-CN
      * @description 右侧 Action 类型
@@ -10081,7 +10081,7 @@ export interface TYSectionSliderProps extends Omit<SliderProps, 'theme'> {
      * @description Right action type
      * @defaultValue 'auto'
      */
-    actionType?: 'auto' | 'image' | 'iconfont' | 'text' | undefined;
+    actionType?: "auto" | "image" | "iconfont" | "text" | undefined;
     /**
      * @language zh-CN
      * @description 图标尺寸
@@ -10194,7 +10194,7 @@ export interface TYSectionSliderProps extends Omit<SliderProps, 'theme'> {
     useART?: boolean | undefined;
 }
 export interface TYSectionCheckboxProps extends TYListItemProps, CheckboxProps {}
-export interface TYSectionSwitchProps extends Omit<TYListItemProps, 'theme'>, SwitchButtonProps {}
+export interface TYSectionSwitchProps extends Omit<TYListItemProps, "theme">, SwitchButtonProps {}
 export class TYSectionList extends React.Component<TYSectionListProps> {
     static CheckboxItem: React.ElementType<TYSectionCheckboxProps>;
     static Item: React.ElementType<TYListItemProps>;
@@ -10215,7 +10215,7 @@ export interface TYTextProps extends TextProps {
      * @description Type of font
      * @defaultValue null
      */
-    type?: 'heading' | 'title' | 'paragraph' | undefined;
+    type?: "heading" | "title" | "paragraph" | undefined;
     /**
      * @language zh-CN
      * @description 字体尺寸
@@ -10226,7 +10226,7 @@ export interface TYTextProps extends TextProps {
      * @description Size of font
      * @defaultValue null
      */
-    size?: ('large' | 'normal' | 'small') | number | undefined;
+    size?: ("large" | "normal" | "small") | number | undefined;
     /**
      * @language zh-CN
      * @description 字体对齐方式
@@ -10237,7 +10237,7 @@ export interface TYTextProps extends TextProps {
      * @description Font alignment
      * @defaultValue null
      */
-    align?: 'left' | 'center' | 'right' | undefined;
+    align?: "left" | "center" | "right" | undefined;
     /**
      * @language zh-CN
      * @description 字体粗细
@@ -10407,7 +10407,7 @@ export interface UnitTextProps {
      * @description Type of unit
      * @defaultValue 'icon'
      */
-    unitType?: 'icon' | 'text' | undefined;
+    unitType?: "icon" | "text" | undefined;
     /**
      * @language zh-CN
      * @description 具体值
@@ -10622,7 +10622,7 @@ export let Utils: {
         ThemeProvider: React.ElementType<ThemeProviderProps>;
         ThemeConsumer: React.ElementType<ThemeConsumerProps>;
         deepMerge(target: object, ...args: object[]): object;
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         withTheme<P extends { theme?: T | undefined }, T>(component: React.ComponentType<P>): React.ComponentType<P>;
         parseToCss: (values: number[], key: string) => { [styleKey: string]: number };
         parseToStyle: (values: number[], key: string) => { [styleKey: string]: number };
@@ -10681,7 +10681,7 @@ export interface I18NLanMap {
     [lanKey: string]: Record<string, string>;
 }
 
-export type DpType = 'bool' | 'value' | 'enum' | 'raw' | 'string' | 'bitmap';
+export type DpType = "bool" | "value" | "enum" | "raw" | "string" | "bitmap";
 
 export interface DpSchema {
     code: string;
@@ -10704,7 +10704,7 @@ export interface DpSchema {
      * type: 'value' only
      */
     min?: number | undefined;
-    mode: 'rw' | 'ro' | 'rw';
+    mode: "rw" | "ro" | "rw";
     name: string;
     /**
      * type: 'enum' only
@@ -10725,7 +10725,7 @@ export interface DpSchema {
     unit?: string | undefined;
 }
 
-export type NetworkType = 'WIFI' | 'GPRS' | 'BLE' | 'NONE';
+export type NetworkType = "WIFI" | "GPRS" | "BLE" | "NONE";
 
 export type DpValue = boolean | number | string;
 
@@ -10830,7 +10830,7 @@ export interface DevInfo<S = Record<string, DpType>> {
     groupId?: string | undefined;
 }
 
-export type MobileService = 'AY' | 'AZ' | 'EU' | 'WE' | 'UE' | 'IN';
+export type MobileService = "AY" | "AZ" | "EU" | "WE" | "UE" | "IN";
 
 export interface MobileInfo {
     appRnVersion: string;
@@ -10890,7 +10890,6 @@ export interface NavigationOptions {
      * @label `{ uri: string }` 渲染网络图片
      * @label `RadialGradientBackground` 渲染径向渐变
      * @label `LinearGradientBackground` 渲染线性渐变
-     *
      */
     background?:
         | number
@@ -10970,10 +10969,13 @@ export interface NavigationParam {
 }
 
 export interface NavigationComponentClass<P = {}, S = {}> {
-    new (props: P, context?: any): NavigatorLayout<P, S>;
+    new(props: P, context?: any): NavigatorLayout<P, S>;
 }
-// eslint-disable-next-line no-unnecessary-generics
-export function createNavigator<P = {}, S = {}>(createNavigatorParam: NavigationParam, navigationContainerProps?: Omit<NavigationContainerProps, 'children'>): any;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+export function createNavigator<P = {}, S = {}>(
+    createNavigatorParam: NavigationParam,
+    navigationContainerProps?: Omit<NavigationContainerProps, "children">,
+): any;
 
 export type GotoDpAlarmData = Array<{
     dpId: string;
@@ -11011,7 +11013,7 @@ export let TYSdk: {
      * @param postData api params
      * @param version - api version, default 1.0
      */
-    // eslint-disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     apiRequest<T>(a: string, postData: Record<string, any>, version?: string): Promise<T>;
     applyNavigator(navigator: DeprecatedNavigator): void;
     devInfo: DevInfo;
@@ -11022,7 +11024,7 @@ export let TYSdk: {
         getBleManagerState(): Promise<boolean>;
         getBluetoothState(): Promise<number>;
         getDeviceInfo(): Promise<DevInfo>;
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         getDeviceState<S = Record<string, DpType>>(): Promise<S>;
         getDpCodeById(id: string | number): string;
         getDpCodes(): string[];
@@ -11074,7 +11076,7 @@ export let TYSdk: {
          */
         off(event: string, callback?: AnyFunction): void;
         on(event: string, callback: AnyFunction): void;
-        // eslint-disable-next-line no-unnecessary-generics
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         on<T>(event: string, callback: (args: T) => void): void;
         /**
          * @description
@@ -11083,28 +11085,28 @@ export let TYSdk: {
          * type: deviceOnline 设备是否在线通知，payload 为 boolean
          */
         on(
-            event: 'deviceDataChange',
+            event: "deviceDataChange",
             callback: (data: {
-                type: 'dpData' | 'devInfo' | 'deviceOnline';
+                type: "dpData" | "devInfo" | "deviceOnline";
                 payload: Record<string, DpValue> | DevInfo | boolean;
             }) => void,
         ): void;
         /**
          * @description app 网络状态变更通知
          */
-        on(event: 'networkStateChange', callback: (data: { appOnline: boolean }) => void): void;
+        on(event: "networkStateChange", callback: (data: { appOnline: boolean }) => void): void;
         /**
          * @description 云定时状态变更通知
          */
-        on(event: 'linkageTimeUpdate', callback: (data: {}) => void): void;
+        on(event: "linkageTimeUpdate", callback: (data: {}) => void): void;
         /**
          * @description 设备局域网在线状态变更通知
          */
-        on(event: 'deviceLocalStateChange', callback: (data: { state: boolean }) => void): void;
+        on(event: "deviceLocalStateChange", callback: (data: { state: boolean }) => void): void;
         /**
          * @description 蓝牙状态变更通知
          */
-        on(event: 'bluetoothChange', callback: (value: boolean) => void): void;
+        on(event: "bluetoothChange", callback: (value: boolean) => void): void;
         once(event: string, callback: AnyFunction): void;
         remove(event: string, callback: AnyFunction): void;
     };

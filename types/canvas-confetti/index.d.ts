@@ -18,7 +18,6 @@
  * If you call `confetti` multiple times before it is done, it
  * will return the same promise every time. Internally, the same canvas element will be reused, continuing the existing animation with the
  * new confetti added. The promise returned by each call to `confetti` will resolve once all animations are done.
- *
  */
 declare function confetti(options?: confetti.Options): Promise<undefined> | null;
 
@@ -29,7 +28,7 @@ declare namespace confetti {
      */
     let Promise: PromiseLike<undefined> | null | undefined;
 
-    type Shape = 'circle' | 'square' | 'star';
+    type Shape = "circle" | "square" | "star";
 
     interface Options {
         /**
@@ -151,7 +150,7 @@ declare namespace confetti {
      */
     function create(
         canvas?: HTMLCanvasElement,
-        options?: GlobalOptions
+        options?: GlobalOptions,
     ): CreateTypes;
 }
 

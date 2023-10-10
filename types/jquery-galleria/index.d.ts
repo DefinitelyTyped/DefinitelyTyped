@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace GalleriaJS {
-
     interface GalleriaOptions {
         dataSource: GalleriaEntry[];
         autoplay?: boolean | undefined;
@@ -23,17 +22,16 @@ declare namespace GalleriaJS {
         run(selector: String): GalleriaFactory;
         run(selector: String, options: GalleriaOptions): GalleriaFactory;
 
-        loadTheme(url : String): GalleriaFactory;
+        loadTheme(url: String): GalleriaFactory;
         configure(options: GalleriaOptions): GalleriaFactory;
 
-        ready( method: () => any): void;
+        ready(method: () => any): void;
 
         refreshImage(): GalleriaFactory;
         resize(): GalleriaFactory;
-        load( data: GalleriaEntry[]): GalleriaFactory;
-        setOptions( options: GalleriaOptions): GalleriaFactory;
+        load(data: GalleriaEntry[]): GalleriaFactory;
+        setOptions(options: GalleriaOptions): GalleriaFactory;
     }
-
 }
 
 declare var Galleria: GalleriaJS.GalleriaFactory;

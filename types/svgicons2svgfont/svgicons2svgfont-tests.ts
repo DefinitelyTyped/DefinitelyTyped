@@ -1,19 +1,19 @@
-import { Metadata, MetadataProvider } from 'svgicons2svgfont';
-import SVGIcons2SVGFontStream = require('svgicons2svgfont');
-import defaultMetadataProvider = require('svgicons2svgfont/src/metadata');
+import { Metadata, MetadataProvider } from "svgicons2svgfont";
+import SVGIcons2SVGFontStream = require("svgicons2svgfont");
+import defaultMetadataProvider = require("svgicons2svgfont/src/metadata");
 
 // $ExpectType SVGIcons2SVGFontStream
 new SVGIcons2SVGFontStream();
 // $ExpectType SVGIcons2SVGFontStream
 new SVGIcons2SVGFontStream({});
 // $ExpectType SVGIcons2SVGFontStream
-new SVGIcons2SVGFontStream({ fontName: 'testfont' });
+new SVGIcons2SVGFontStream({ fontName: "testfont" });
 // $ExpectType SVGIcons2SVGFontStream
-new SVGIcons2SVGFontStream({ fontName: 'testfont', fontId: 'testId' });
+new SVGIcons2SVGFontStream({ fontName: "testfont", fontId: "testId" });
 // $ExpectType SVGIcons2SVGFontStream
-new SVGIcons2SVGFontStream({ fontStyle: 'italic' });
+new SVGIcons2SVGFontStream({ fontStyle: "italic" });
 // $ExpectType SVGIcons2SVGFontStream
-new SVGIcons2SVGFontStream({ fontWeight: 'normal' });
+new SVGIcons2SVGFontStream({ fontWeight: "normal" });
 // $ExpectType SVGIcons2SVGFontStream
 new SVGIcons2SVGFontStream({ fixedWidth: true });
 // $ExpectType SVGIcons2SVGFontStream
@@ -31,7 +31,7 @@ new SVGIcons2SVGFontStream({ descent: 10 });
 // $ExpectType SVGIcons2SVGFontStream
 new SVGIcons2SVGFontStream({ ascent: 10 });
 // $ExpectType SVGIcons2SVGFontStream
-new SVGIcons2SVGFontStream({ metadata: 'test metadata' });
+new SVGIcons2SVGFontStream({ metadata: "test metadata" });
 // $ExpectType SVGIcons2SVGFontStream
 new SVGIcons2SVGFontStream({
     log: (message: string) => console.log(message),
@@ -46,7 +46,7 @@ new SVGIcons2SVGFontStream({
 
 const customProvider: MetadataProvider = () => (file: string, cb: (err: any, metadata?: Metadata) => void) => {
     if (!file) {
-        cb(new Error('wrong path'));
+        cb(new Error("wrong path"));
         return;
     }
     cb(null, {

@@ -31,12 +31,12 @@ SwaggerNodeRunner.create(config, (err, runner) => {
 
 /// <reference types="node"/>
 
-import { Express, NextFunction } from "express";
-import { Spec } from "swagger-schema-official";
 import { EventEmitter } from "events";
+import { Express, NextFunction } from "express";
 import * as Hapi from "hapi";
-import * as Restify from "restify";
 import { OutgoingHttpHeaders } from "http";
+import * as Restify from "restify";
+import { Spec } from "swagger-schema-official";
 
 /**
  * Config object for SwaggerNodeRunner
@@ -129,7 +129,12 @@ export interface SwaggerToolsSecurityHandlerCallbackError {
     message?: string | undefined;
     statusCode?: number | undefined;
 }
-export type SwaggerToolsSecurityHandler = (request: any, securityDefinition: any, scopes: any, callback: (err?: Error | SwaggerToolsSecurityHandlerCallbackError, result?: any) => void) => void;
+export type SwaggerToolsSecurityHandler = (
+    request: any,
+    securityDefinition: any,
+    scopes: any,
+    callback: (err?: Error | SwaggerToolsSecurityHandlerCallbackError, result?: any) => void,
+) => void;
 
 /**
  *  The keys match SecurityDefinition names and the associated values are functions that accept the following parameters:
@@ -167,7 +172,7 @@ export interface Runner extends EventEmitter {
          *
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-metadata.js|Git Source}
          */
-        swaggerMetadata(rlOrSO: any, apiDeclarations: any[]): SwaggerToolsMiddleware
+        swaggerMetadata(rlOrSO: any, apiDeclarations: any[]): SwaggerToolsMiddleware;
         /**
          *  Middleware for using Swagger information to route requests to handlers.
          * @param [] options - The configuration options
@@ -175,14 +180,14 @@ export interface Runner extends EventEmitter {
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/docs/Middleware.md#swaggerrouteroptions|Docs}
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-router.js|Github Source}
          */
-        swaggerRouter(options?: any): SwaggerToolsMiddleware
+        swaggerRouter(options?: any): SwaggerToolsMiddleware;
         /**
          * Middleware for using Swagger security information to authenticate requests.
          * @param [] options - The configuration options
          *
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-security.js|Github Source}
          */
-        swaggerSecurity(options?: SwaggerSecurityHandlers): SwaggerToolsMiddleware
+        swaggerSecurity(options?: SwaggerSecurityHandlers): SwaggerToolsMiddleware;
         /**
          * Middleware for serving the Swagger documents and Swagger UI.
          *
@@ -192,14 +197,14 @@ export interface Runner extends EventEmitter {
          *
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-ui.js|Github Source}
          */
-        swaggerUi(rlOrSO: any, apiDeclarations: any[], options?: any): SwaggerToolsMiddleware
+        swaggerUi(rlOrSO: any, apiDeclarations: any[], options?: any): SwaggerToolsMiddleware;
         /**
          * Middleware for using Swagger information to validate API requests/responses.type
          * @param [] options - The configuration options
          *
          * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-validator.js|Github Source}
          */
-        swaggerValidator(options?: any): SwaggerToolsMiddleware
+        swaggerValidator(options?: any): SwaggerToolsMiddleware;
     };
     swaggerSecurityHandlers: SwaggerSecurityHandlers | undefined;
     /**
@@ -237,7 +242,7 @@ export interface ConnectMiddleware extends Middleware {
  * _Alias for `ConnectMiddleware`_
  */
 // tslint:disable-next-line:no-empty-interface
-export interface ExpressMiddleware extends ConnectMiddleware { }
+export interface ExpressMiddleware extends ConnectMiddleware {}
 
 /** Sails specific Middleware */
 export interface SailsMiddleware extends Middleware {
@@ -268,11 +273,11 @@ export interface HapiMiddleware extends Middleware {
             /** Object attached to `register` function to provide hapi with some additional information about the plugin */
             attributes: {
                 /**  Name of Plugin (e.g. `swagger-node-runner`) */
-                name: string
+                name: string;
                 /** Version of Plugin */
-                version: string
-            }
-        }
+                version: string;
+            };
+        };
     };
 }
 

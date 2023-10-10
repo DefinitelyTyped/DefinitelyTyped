@@ -3,40 +3,37 @@
 // Definitions by: Timoteo Ponce <https://github.com/timoteoponce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare module "jwt-client" {
+    interface JWTHeader {
+        typ: string;
+        alg: string;
+    }
 
-declare module "jwt-client"{
+    interface JWTObject {
+        header: JWTHeader;
+        claim: any;
+        signature: string;
+    }
 
-  interface JWTHeader{
-    typ: string;
-    alg: string;
-  }
+    /**
+     * Read a string value (normally an HTTP header)
+     * from JSON Web Token to an Object
+     */
+    function read(header: string): JWTObject;
 
-  interface JWTObject{
-    header: JWTHeader;
-    claim: any;
-    signature: string;
-  }
+    /**
+     * Given a JWT object, stringify it back to
+     * its JWT representation.
+     */
+    function write(value: JWTObject): string;
 
-  /**
-   * Read a string value (normally an HTTP header)
-   * from JSON Web Token to an Object
-   */ 
-  function read(header:string):JWTObject;
+    function keep(value: JWTObject, key?: any, storate?: any): void;
 
-  /**
-   * Given a JWT object, stringify it back to
-   * its JWT representation.
-   */ 
-  function write(value:JWTObject):string;
+    function remember(): void;
 
-  function keep(value:JWTObject, key?:any, storate?: any):void;
+    function forget(): void;
 
-  function remember():void;
+    function get(): string;
 
-  function forget():void;
-
-  function get():string;
-
-  function validate(value:JWTObject, issuer?:any, audience?: any):boolean;
+    function validate(value: JWTObject, issuer?: any, audience?: any): boolean;
 }
-

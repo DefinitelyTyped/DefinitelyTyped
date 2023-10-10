@@ -3,7 +3,7 @@
 // Definitions by: Duy Nguyen <https://github.com/Wyfy0107>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Strategy as PassportStrategy } from 'passport';
+import { Strategy as PassportStrategy } from "passport";
 
 declare class GoogleTokenStrategy extends PassportStrategy {
     constructor(opt: StrategyOptions, verify: VerifyCallback);

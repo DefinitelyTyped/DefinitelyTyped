@@ -1,3 +1,3 @@
-import matchIt = require('match-it');
+import matchIt = require("match-it");
 
-matchIt('Hello World!', /(World|Mars)/); // $ExpectType string[]
+matchIt("Hello World!", /(World|Mars)/); // $ExpectType string[]

@@ -1,10 +1,10 @@
-import hystrixjs = require('hystrixjs');
-import q = require('q');
+import hystrixjs = require("hystrixjs");
+import q = require("q");
 
 const commandFactory = hystrixjs.commandFactory;
 
 const command = commandFactory
-    .getOrCreate<string, string>('testCommand', 'testGroup')
+    .getOrCreate<string, string>("testCommand", "testGroup")
     .circuitBreakerSleepWindowInMilliseconds(5000)
     .errorHandler((error) => {
         return false;
@@ -20,14 +20,14 @@ const command = commandFactory
     .percentileWindowLength(60)
     .circuitBreakerErrorThresholdPercentage(30)
     .fallbackTo((error) => {
-        return q.resolve('fallback');
+        return q.resolve("fallback");
     })
     .run((args) => {
         return q.resolve(args);
     })
     .build();
 
-command.execute('something').then((result) => {
+command.execute("something").then((result) => {
     console.log(result);
 });
 
@@ -36,8 +36,8 @@ commandFactory.resetCache();
 const metricsFactory = hystrixjs.metricsFactory;
 
 const metrics = metricsFactory.getOrCreate({
-    commandKey: 'metricsKey',
-    commandGroup: 'metricsGroup'
+    commandKey: "metricsKey",
+    commandGroup: "metricsGroup",
 });
 metrics.markSuccess();
 metrics.markFailure();

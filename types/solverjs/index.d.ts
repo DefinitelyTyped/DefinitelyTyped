@@ -3,15 +3,15 @@
 // Definitions by: Martin Badin <https://github.com/martin-badin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export * from './area';
-export * from './digital_storage';
-export * from './length';
-export * from './math';
-export * from './matrix';
-export * from './number';
-export * from './temperature';
-export * from './time';
-export * from './utils';
+export * from "./area";
+export * from "./digital_storage";
+export * from "./length";
+export * from "./math";
+export * from "./matrix";
+export * from "./number";
+export * from "./temperature";
+export * from "./time";
+export * from "./utils";
 
 /**
  * Docs: https://github.com/suryapratapsinghsuryavanshi/solverjs/blob/main/index.js

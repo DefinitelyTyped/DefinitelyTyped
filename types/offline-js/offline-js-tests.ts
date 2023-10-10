@@ -1,27 +1,26 @@
 // Test file for offline-js.
 
-
 Offline.options = {
     checkOnLoad: false,
     interceptRequests: true,
     checks: {
-        xhr: { url: '/connection-test' },
-        image: { url: 'my-image.gif' },
-        active: 'image'
+        xhr: { url: "/connection-test" },
+        image: { url: "my-image.gif" },
+        active: "image",
     },
     reconnect: {
         initialDelay: 3,
-        delay: 60
+        delay: 60,
     },
     requests: true,
-    game: false
+    game: false,
 };
 
 Offline.check();
 
 Offline.state;
 
-var handler = () => { },
+var handler = () => {},
     context = {};
 
 Offline.on("up", handler, context);

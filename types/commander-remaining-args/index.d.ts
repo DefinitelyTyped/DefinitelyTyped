@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { Command } from 'commander';
+import { Command } from "commander";
 
 declare function getRemainingArgs(cli: Command): string[];
 

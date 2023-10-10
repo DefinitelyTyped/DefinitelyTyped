@@ -1,6 +1,6 @@
-import { OnfleetDestination, CreateDestinationProps, Location } from './Destinations';
-import { OnfleetMetadata, MatchMetadata } from '../metadata';
-import { OnfleetRecipient, CreateRecipientProps } from './Recipients';
+import { MatchMetadata, OnfleetMetadata } from "../metadata";
+import { CreateDestinationProps, Location, OnfleetDestination } from "./Destinations";
+import { CreateRecipientProps, OnfleetRecipient } from "./Recipients";
 
 declare class Task {
     autoAssign(tasks: Task.AutomaticallyAssignTaskProps): Promise<Task.AutomaticallyAssignTaskResult>;
@@ -22,13 +22,13 @@ declare class Task {
     get(queryOrId: string, queryKey?: Task.TaskQueryKey): Promise<Task.GetTaskResult>;
     get(queryParams?: Task.TaskQueryParam): Promise<Task.GetManyTaskResult>;
 
-    matchMetadata: MatchMetadata<Task.OnfleetTask['metadata']>;
+    matchMetadata: MatchMetadata<Task.OnfleetTask["metadata"]>;
 
     update(id: string, task: Partial<Task.CreateTaskProps>): Promise<Task.UpdateTaskResult>;
 }
 
 declare namespace Task {
-    type TaskQueryKey = 'shortId';
+    type TaskQueryKey = "shortId";
 
     enum TaskState {
         Unassigned,
@@ -98,11 +98,11 @@ declare namespace Task {
         worker: string | null;
         barcodes?:
             | {
-                  /** The requested barcodes */
-                  required: Barcode[];
-                  /** Once a task is completed for which barcodes have been captured, the capture details can be found here */
-                  captured: CapturedBarcode[];
-              }
+                /** The requested barcodes */
+                required: Barcode[];
+                /** Once a task is completed for which barcodes have been captured, the capture details can be found here */
+                captured: CapturedBarcode[];
+            }
             | undefined;
     }
 
@@ -164,9 +164,9 @@ declare namespace Task {
         restrictAutoAssignmentToTeam?: boolean | undefined;
     }
 
-    type TasksAutoAssign = Omit<TaskAutoAssignOptions, 'team'>;
+    type TasksAutoAssign = Omit<TaskAutoAssignOptions, "team">;
 
-    type TaskAutoAssign = Omit<TaskAutoAssignOptions, 'teams' | 'restrictAutoAssignmentToTeam'>;
+    type TaskAutoAssign = Omit<TaskAutoAssignOptions, "teams" | "restrictAutoAssignmentToTeam">;
 
     interface Barcode {
         /** Whether the worker must capture this data prior to task completion, defaults to false */
@@ -181,7 +181,7 @@ declare namespace Task {
         /** The symbology that was captured */
         symbology: string;
         /** The base64 string of the data contained in the captured barcode */
-        data: Barcode['data'];
+        data: Barcode["data"];
         /** The [ lon, lat ] coordinates where the barcode capture took place */
         location: [number, number];
         /** The time at which the barcode capture happened */
@@ -214,15 +214,15 @@ declare namespace Task {
         includeMetadata: boolean;
         overrides?:
             | {
-                  completeAfter?: number | undefined;
-                  completeBefore?: number | undefined;
-                  destination?: string | CreateDestinationProps | undefined;
-                  metadata?: OnfleetMetadata[] | undefined;
-                  notes?: string | undefined;
-                  pickupTask?: boolean | undefined;
-                  recipients?: OnfleetRecipient | OnfleetRecipient[] | undefined;
-                  serviceTime?: number | undefined;
-              }
+                completeAfter?: number | undefined;
+                completeBefore?: number | undefined;
+                destination?: string | CreateDestinationProps | undefined;
+                metadata?: OnfleetMetadata[] | undefined;
+                notes?: string | undefined;
+                pickupTask?: boolean | undefined;
+                recipients?: OnfleetRecipient | OnfleetRecipient[] | undefined;
+                serviceTime?: number | undefined;
+            }
             | undefined;
     }
 
@@ -245,12 +245,12 @@ declare namespace Task {
     }
 
     interface WorkerTaskContainer {
-        type: 'WORKER';
+        type: "WORKER";
         worker: string;
     }
 
     interface OrganizationTaskContainer {
-        type: 'ORGANIZATION';
+        type: "ORGANIZATION";
         organization: string;
     }
 
@@ -265,7 +265,7 @@ declare namespace Task {
     }
 
     interface TeamTaskContainer {
-        type: 'TEAM';
+        type: "TEAM";
         team: string;
     }
 

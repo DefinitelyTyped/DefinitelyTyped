@@ -25,12 +25,20 @@ declare namespace humanparser {
         city: string;
     }
 
-    interface HumanparserStatic {
-        parseName (name: string, ignoreSuffix?: string[]): NameOutput;
-        getFullestName (name: string): FullerNameOutput;
-        parseAddress (address: string): AddressOutput;
+    interface ParseNameOptions {
+        extraCompound?: string[];
+        extraSalutations?: string[];
+        extraSuffixes?: string[];
+        ignoreCompound?: string[];
+        ignoreSalutation?: string[];
+        ignoreSuffix?: string[];
     }
 
+    interface HumanparserStatic {
+        parseName(name: string, options?: string[] | ParseNameOptions): NameOutput;
+        getFullestName(name: string): FullerNameOutput;
+        parseAddress(address: string): AddressOutput;
+    }
 }
 
 declare const humanparser: humanparser.HumanparserStatic;

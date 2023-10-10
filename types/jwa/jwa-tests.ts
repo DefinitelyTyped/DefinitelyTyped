@@ -1,6 +1,6 @@
 import jwa = require("jwa");
 
-const {sign, verify} = jwa("ES256");
+const { sign, verify } = jwa("ES256");
 
 const signature = sign("foo", "bar");
 

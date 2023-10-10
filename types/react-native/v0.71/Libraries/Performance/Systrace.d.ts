@@ -1,5 +1,5 @@
 type EventName = string | (() => string);
-type EventArgs = {[key: string]: string} | undefined | null;
+type EventArgs = { [key: string]: string } | undefined | null;
 
 /**
  * Indicates if the application is currently being traced.
@@ -46,12 +46,12 @@ export function beginAsyncEvent(eventName: EventName, args?: EventArgs): number;
  * Registers a new value for a counter event.
  */
 export function endAsyncEvent(
-  eventName: EventName,
-  cookie: number,
-  args?: EventArgs,
+    eventName: EventName,
+    cookie: number,
+    args?: EventArgs,
 ): void;
 
 /**
  * counterEvent registers the value to the eventName on the systrace timeline
- **/
+ */
 export function counterEvent(eventName: EventName, value: number): void;

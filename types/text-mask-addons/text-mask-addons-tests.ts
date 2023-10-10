@@ -1,21 +1,21 @@
-import { DatePipeYears, NumberMaskOptions, createAutoCorrectedDatePipe, createNumberMask } from 'text-mask-addons';
+import { createAutoCorrectedDatePipe, createNumberMask, DatePipeYears, NumberMaskOptions } from "text-mask-addons";
 
 function testCreateAutoCorrectedDatePipe() {
     const datePipeYears: DatePipeYears = { minYear: 1, maxYear: 1 };
     createAutoCorrectedDatePipe();
-    createAutoCorrectedDatePipe('dd-mm-yyy');
-    createAutoCorrectedDatePipe('dd-mm-yyy', undefined);
-    createAutoCorrectedDatePipe('dd-mm-yyy', datePipeYears);
+    createAutoCorrectedDatePipe("dd-mm-yyy");
+    createAutoCorrectedDatePipe("dd-mm-yyy", undefined);
+    createAutoCorrectedDatePipe("dd-mm-yyy", datePipeYears);
 }
 
 function testCreateNumberMask() {
     const maskOptions: NumberMaskOptions = {
-        prefix: '$',
-        suffix: '-hi',
+        prefix: "$",
+        suffix: "-hi",
         includeThousandsSeparator: false,
-        thousandsSeparatorSymbol: '|',
+        thousandsSeparatorSymbol: "|",
         allowDecimal: false,
-        decimalSymbol: ':',
+        decimalSymbol: ":",
         decimalLimit: 3,
         requireDecimal: true,
         allowNegative: true,

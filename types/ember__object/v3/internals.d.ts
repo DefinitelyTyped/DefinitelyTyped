@@ -8,7 +8,7 @@ import { UnwrapComputedPropertyGetter } from "@ember/object/-private/types";
  */
 export function cacheFor<T, K extends keyof T>(
     obj: T,
-    key: K
+    key: K,
 ): UnwrapComputedPropertyGetter<T[K]> | undefined;
 /**
  * Creates a shallow copy of the passed object. A deep copy of the object is

@@ -16,7 +16,7 @@ export interface EntOpts {
      * If opts.numeric is false or opts.named is true, encoding will used named codes like &pi;.
      */
     named?: boolean | undefined;
-    
+
     /**
      * If opts.special is set to an Object, the key names will be forced to be encoded (defaults to forcing: <>'"&)
      */

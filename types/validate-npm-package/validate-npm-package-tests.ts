@@ -1,9 +1,9 @@
-import validateNpmPackage = require('validate-npm-package');
+import validateNpmPackage = require("validate-npm-package");
 
 // $ExpectType ValidNames | InvalidNames | LegacyNames
 const results = validateNpmPackage({
-    name: 'FooABC',
-    version: 'a.b.c',
+    name: "FooABC",
+    version: "a.b.c",
 });
 
 if (results.validForNewPackages) {

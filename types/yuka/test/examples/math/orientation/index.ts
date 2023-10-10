@@ -1,7 +1,7 @@
 import * as YUKA from "yuka";
 
-const targetMesh = {matrix: new YUKA.Matrix4()};
-const entityMesh = {matrix: new YUKA.Matrix4()};
+const targetMesh = { matrix: new YUKA.Matrix4() };
+const entityMesh = { matrix: new YUKA.Matrix4() };
 
 // game entity setup
 const entityManager = new YUKA.EntityManager();
@@ -23,12 +23,12 @@ const delta = time.update().getDelta();
 entity.rotateTo(target.position, delta);
 entityManager.update(delta);
 
-function sync(entity: YUKA.GameEntity, renderComponent: {matrix: YUKA.Matrix4}) {
+function sync(entity: YUKA.GameEntity, renderComponent: { matrix: YUKA.Matrix4 }) {
     renderComponent.matrix.copy(entity.worldMatrix);
 }
 
 function generateTarget() {
-// generate a random point on a sphere
+    // generate a random point on a sphere
     const radius = 2;
     const phi = Math.acos((2 * Math.random()) - 1);
     const theta = Math.random() * Math.PI * 2;

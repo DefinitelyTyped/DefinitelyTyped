@@ -4,14 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 5.1
 
+/// <reference path="global.d.ts" />
 /// <reference types="react"/>
 
-import type { RuntimeCaching, GenerateSWOptions, InjectManifestOptions } from 'workbox-build';
-import type { NextConfig } from 'next';
+import type { NextConfig } from "next";
+import type { GenerateSWOptions, InjectManifestOptions, RuntimeCaching } from "workbox-build";
 
 declare global {
     interface PopStateEventInit extends EventInit {
-        state?: unknown;
+        state?: any;
     }
 
     /**
@@ -22,12 +23,12 @@ declare global {
      */
     interface PopStateEvent extends Event {
         /** Returns a copy of the information that was provided to pushState() or replaceState(). */
-        readonly state: unknown;
+        readonly state: any;
     }
 
     var PopStateEvent: {
         prototype: PopStateEvent;
-        new (type: string, eventInitDict?: PopStateEventInit): PopStateEvent;
+        new(type: string, eventInitDict?: PopStateEventInit): PopStateEvent;
     };
 }
 
@@ -262,7 +263,7 @@ declare function withPWA(config: NextConfig): NextConfig & PWAConfig;
 declare function nextPWA(config: PWAConfig): typeof withPWA;
 
 declare namespace nextPWA {
-    export { WithPWA, PWAConfig, FallbackRoutes, WebpackConfigOptions };
+    export { FallbackRoutes, PWAConfig, WebpackConfigOptions, WithPWA };
 }
 
 export = nextPWA;

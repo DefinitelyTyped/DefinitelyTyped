@@ -1,13 +1,13 @@
-import Reveal = require('reveal.js');
-import RevealHighlight = require('reveal.js/plugin/highlight/highlight');
-import RevealMarkdown = require('reveal.js/plugin/markdown/markdown');
-import RevealMath = require('reveal.js/plugin/math/math');
-import RevealNotes = require('reveal.js/plugin/notes/notes');
-import RevealSearch = require('reveal.js/plugin/search/search');
-import RevealZoom = require('reveal.js/plugin/zoom/zoom');
+import Reveal = require("reveal.js");
+import RevealHighlight = require("reveal.js/plugin/highlight/highlight");
+import RevealMarkdown = require("reveal.js/plugin/markdown/markdown");
+import RevealMath = require("reveal.js/plugin/math/math");
+import RevealNotes = require("reveal.js/plugin/notes/notes");
+import RevealSearch = require("reveal.js/plugin/search/search");
+import RevealZoom = require("reveal.js/plugin/zoom/zoom");
 
 // define useful constants
-const el = document.querySelector<HTMLElement>('.deck')!;
+const el = document.querySelector<HTMLElement>(".deck")!;
 
 // --------------- //
 // Reveal instance //
@@ -72,11 +72,11 @@ deck.initialize({
     controlsTutorial: true,
 
     // Determines where controls appear, "edges" or "bottom-right"
-    controlsLayout: 'bottom-right',
+    controlsLayout: "bottom-right",
 
     // Visibility rule for backwards navigation arrows; "faded", "hidden"
     // or "visible"
-    controlsBackArrows: 'faded',
+    controlsBackArrows: "faded",
 
     // Display a presentation progress bar
     progress: true,
@@ -99,7 +99,7 @@ deck.initialize({
     // - "all":      Always show the slide number
     // - "print":    Only when printing to PDF
     // - "speaker":  Only in the speaker view
-    showSlideNumber: 'all',
+    showSlideNumber: "all",
 
     // Use 1 based indexing for # links to match slide number (default is zero
     // based)
@@ -167,7 +167,7 @@ deck.initialize({
     // If you're on slide 1.3 and navigate right, you will normally move
     // from 1.3 -> 2.1. If "grid" is used, the same navigation takes you
     // from 1.3 -> 2.3.
-    navigationMode: 'default',
+    navigationMode: "default",
 
     // Randomizes the order of slides each time the presentation loads
     shuffle: false,
@@ -218,7 +218,7 @@ deck.initialize({
 
     // Default settings for our auto-animate transitions, can be
     // overridden per-slide or per-element via data arguments
-    autoAnimateEasing: 'ease',
+    autoAnimateEasing: "ease",
     autoAnimateDuration: 1.0,
     autoAnimateUnmatched: true,
 
@@ -226,18 +226,18 @@ deck.initialize({
     // is matched separately so there's no need to include styles
     // like top/right/bottom/left, width/height or margin.
     autoAnimateStyles: [
-        'opacity',
-        'color',
-        'background-color',
-        'padding',
-        'font-size',
-        'line-height',
-        'letter-spacing',
-        'border-width',
-        'border-color',
-        'border-radius',
-        'outline',
-        'outline-offset',
+        "opacity",
+        "color",
+        "background-color",
+        "padding",
+        "font-size",
+        "line-height",
+        "letter-spacing",
+        "border-width",
+        "border-color",
+        "border-radius",
+        "outline",
+        "outline-offset",
     ],
 
     // Controls automatic progression to the next slide
@@ -276,25 +276,25 @@ deck.initialize({
     focusBodyOnPageVisibilityChange: true,
 
     // Transition style
-    transition: 'slide', // none/fade/slide/convex/concave/zoom
+    transition: "slide", // none/fade/slide/convex/concave/zoom
 
     // Transition speed
-    transitionSpeed: 'default', // default/fast/slow
+    transitionSpeed: "default", // default/fast/slow
 
     // Transition style for full page slide backgrounds
-    backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+    backgroundTransition: "fade", // none/fade/slide/convex/concave/zoom
 
     // Parallax background image
-    parallaxBackgroundImage: '', // CSS syntax, e.g. "a.jpg"
+    parallaxBackgroundImage: "", // CSS syntax, e.g. "a.jpg"
 
     // Parallax background size
-    parallaxBackgroundSize: '', // CSS syntax, e.g. "3000px 2000px"
+    parallaxBackgroundSize: "", // CSS syntax, e.g. "3000px 2000px"
 
     // Parallax background repeat
-    parallaxBackgroundRepeat: '', // repeat/repeat-x/repeat-y/no-repeat/initial/inherit
+    parallaxBackgroundRepeat: "", // repeat/repeat-x/repeat-y/no-repeat/initial/inherit
 
     // Parallax background position
-    parallaxBackgroundPosition: '', // CSS syntax, e.g. "top left"
+    parallaxBackgroundPosition: "", // CSS syntax, e.g. "top left"
 
     // Amount of pixels to move the parallax background per slide step
     parallaxBackgroundHorizontal: null,
@@ -323,7 +323,7 @@ deck.initialize({
     mobileViewDistance: 2,
 
     // The display mode that will be used to show slides
-    display: 'block',
+    display: "block",
 
     // Hide cursor if inactive
     hideInactiveCursor: true,
@@ -349,73 +349,73 @@ deck.initialize({
     // markdown
     markdown: {
         async: true,
-        baseUrl: 'localhost',
+        baseUrl: "localhost",
         breaks: true,
         gfm: true,
         headerIds: true,
-        headerPrefix: 'prefix',
+        headerPrefix: "prefix",
         highlight: () => {},
-        langPrefix: 'prefix',
+        langPrefix: "prefix",
         mangle: true,
         pedantic: true,
-        renderer: { key: 'value' },
+        renderer: { key: "value" },
         sanitize: true,
         sanitizer: () => {},
         silent: true,
         smartLists: true,
         smartypants: true,
-        tokenizer: { key: 'value' },
+        tokenizer: { key: "value" },
         walkTokens: () => {},
         xhtml: true,
     },
 
     // katex.
     katex: {
-        local: 'local',
-        version: 'latest',
+        local: "local",
+        version: "latest",
         delimiters: [
-            { left: '$$', right: '$$', display: true }, // Note: $$ has to come before $
-            { left: '$', right: '$', display: false },
-            { left: '\\(', right: '\\)', display: false },
-            { left: '\\[', right: '\\]', display: true },
+            { left: "$$", right: "$$", display: true }, // Note: $$ has to come before $
+            { left: "$", right: "$", display: false },
+            { left: "\\(", right: "\\)", display: false },
+            { left: "\\[", right: "\\]", display: true },
         ],
-        ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        ignoredTags: ["script", "noscript", "style", "textarea", "pre"],
     },
 
     // mathjax2
     mathjax2: {
-        mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js',
-        config: 'TeX-AMS_HTML-full',
+        mathjax: "https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js",
+        config: "TeX-AMS_HTML-full",
         // pass other options into `MathJax.Hub.Config()`
         tex2jax: {
             inlineMath: [
-                ['$', '$'],
-                ['\\(', '\\)'],
+                ["$", "$"],
+                ["\\(", "\\)"],
             ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            skipTags: ["script", "noscript", "style", "textarea", "pre"],
         },
     },
 
     // mathjax3
     mathjax3: {
-        mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+        mathjax: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js",
         tex: {
             inlineMath: [
-                ['$', '$'],
-                ['\\(', '\\)'],
+                ["$", "$"],
+                ["\\(", "\\)"],
             ],
         },
         options: {
-            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            skipHtmlTags: ["script", "noscript", "style", "textarea", "pre"],
         },
     },
 
     // multiplex
     multiplex: {
         // Example values. To generate your own, see the socket.io server instructions.
-        secret: '13652805320794272084', // Obtained from the socket.io server. Gives this (the master) control of the presentation
-        id: '1ea875674b17ca76', // Obtained from socket.io server
-        url: 'https://reveal-multiplex.glitch.me/', // Location of socket.io server
+        secret: "13652805320794272084", // Obtained from the socket.io server. Gives this (the master) control of the presentation
+        id: "1ea875674b17ca76", // Obtained from socket.io server
+        url: "https://reveal-multiplex.glitch.me/", // Location of socket.io server
     },
 });
 
@@ -431,14 +431,14 @@ deck.initialize({
 
 // use await
 // $ExpectType () => Promise<void>
-async () => {
+(async () => {
     await deck.initialize({
         slideNumber: true,
         width: 20,
         height: 20,
         plugins: [RevealHighlight, RevealMarkdown, RevealSearch, RevealNotes, RevealMath, RevealZoom],
     });
-};
+});
 
 // Config can be empty (example in https://revealjs.com/markup/)
 // $ExpectType Promise<Api>
@@ -563,30 +563,30 @@ deck.nextFragment();
 // --------------------- //
 
 // $ExpectType void
-deck.on('click', el.click, false);
+deck.on("click", el.click, false);
 
 // $ExpectType void
-deck.on('slidetransitionend', event => {
+deck.on("slidetransitionend", event => {
     console.log(event);
 });
 // $ExpectType void
-Reveal.on('slidetransitionend', event => {
+Reveal.on("slidetransitionend", event => {
     console.log(event);
 });
 
 // $ExpectType void
-deck.off('click', el.click, false);
+deck.off("click", el.click, false);
 // $ExpectType void
-Reveal.off('click', el.click, false);
+Reveal.off("click", el.click, false);
 
 // $ExpectType void
-deck.addEventListener('click', el.click);
+deck.addEventListener("click", el.click);
 
 // $ExpectType void
-deck.addEventListener('click', el.click, true);
+deck.addEventListener("click", el.click, true);
 
 // $ExpectType void
-deck.removeEventListener('click', el.click, false);
+deck.removeEventListener("click", el.click, false);
 
 // Forces an update in slide layout
 // $ExpectType void
@@ -670,7 +670,7 @@ deck.unloadSlide(el);
 // Preview management
 
 // $ExpectType void
-deck.showPreview('localhost');
+deck.showPreview("localhost");
 
 // $ExpectType void
 deck.hidePreview();
@@ -684,7 +684,7 @@ deck.addEventListeners();
 deck.removeEventListeners();
 
 // $ExpectType Event
-deck.dispatchEvent({ type: 'resize', data: {} });
+deck.dispatchEvent({ type: "resize", data: {} });
 
 // Facility for persisting and restoring the presentation state
 
@@ -781,10 +781,10 @@ deck.hasNavigatedVertically();
 // Adds/removes a custom key binding
 
 // $ExpectType void
-deck.addKeyBinding('enter', () => {});
+deck.addKeyBinding("enter", () => {});
 
 // $ExpectType void
-deck.addKeyBinding({ keyCode: 1, key: 'enter', description: 'description' }, () => {});
+deck.addKeyBinding({ keyCode: 1, key: "enter", description: "description" }, () => {});
 
 // $ExpectType void
 deck.removeKeyBinding(1);
@@ -797,7 +797,7 @@ deck.triggerKey(1);
 // Registers a new shortcut to include in the help overlay
 
 // $ExpectType void
-deck.registerKeyboardShortcut('entter', 'value');
+deck.registerKeyboardShortcut("entter", "value");
 
 // $ExpectType ComputedSlideSize
 deck.getComputedSlideSize(100, 100);
@@ -842,10 +842,10 @@ deck.getBackgroundsElement();
 deck.registerPlugin(RevealMarkdown());
 
 // $ExpectType boolean
-deck.hasPlugin('markdown');
+deck.hasPlugin("markdown");
 
 // $ExpectType Plugin
-deck.getPlugin('markdwon');
+deck.getPlugin("markdwon");
 
 // $ExpectType { [id: string]: Plugin; }
 deck.getPlugins();

@@ -18,26 +18,23 @@ export enum SSAOPassOUTPUT {
     Default,
     SSAO,
     Blur,
-    Beauty,
     Depth,
     Normal,
 }
 
 export class SSAOPass extends Pass {
-    constructor(scene: Scene, camera: Camera, width?: number, height?: number);
+    constructor(scene: Scene, camera: Camera, width?: number, height?: number, kernelSize?: number);
     scene: Scene;
     camera: Camera;
     width: number;
     height: boolean;
     clear: boolean;
     kernelRadius: number;
-    kernelSize: number;
     kernel: Vector3[];
     noiseTexture: DataTexture;
     output: SSAOPassOUTPUT;
     minDistance: number;
     maxDistance: number;
-    beautyRenderTarget: WebGLRenderTarget;
     normalRenderTarget: WebGLRenderTarget;
     ssaoRenderTarget: WebGLRenderTarget;
     blurRenderTarget: WebGLRenderTarget;
@@ -52,7 +49,7 @@ export class SSAOPass extends Pass {
     static OUTPUT: typeof SSAOPassOUTPUT;
 
     dipose(): void;
-    generateSampleKernel(): Vector3[];
+    generateSampleKernel(kernelSize: number): Vector3[];
     generateRandomKernelRotations(): void;
     renderPass(
         renderer: WebGLRenderer,

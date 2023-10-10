@@ -1,7 +1,7 @@
-import { Connection, Model } from 'mongoose';
+import { Connection, Model } from "mongoose";
 
-import { RateLimitOptions } from '..';
-import Store = require('./Store');
+import { RateLimitOptions } from "..";
+import Store = require("./Store");
 
 export = MongodbStore;
 

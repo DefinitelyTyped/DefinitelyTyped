@@ -90,8 +90,8 @@
  * @since v0.5.8
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/zlib.js)
  */
-declare module 'zlib' {
-    import * as stream from 'node:stream';
+declare module "zlib" {
+    import * as stream from "node:stream";
     interface ZlibOptions {
         /**
          * @default constants.Z_NO_FLUSH
@@ -128,11 +128,11 @@ declare module 'zlib' {
         chunkSize?: number | undefined;
         params?:
             | {
-                  /**
-                   * Each key is a `constants.BROTLI_*` constant.
-                   */
-                  [key: number]: boolean | number;
-              }
+                /**
+                 * Each key is a `constants.BROTLI_*` constant.
+                 */
+                [key: number]: boolean | number;
+            }
             | undefined;
         maxOutputLength?: number | undefined;
     }
@@ -512,6 +512,6 @@ declare module 'zlib' {
     /** @deprecated */
     const Z_DEFLATED: number;
 }
-declare module 'node:zlib' {
-    export * from 'zlib';
+declare module "node:zlib" {
+    export * from "zlib";
 }

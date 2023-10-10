@@ -1,4 +1,4 @@
-import PoissonDiskSampling = require('poisson-disk-sampling');
+import PoissonDiskSampling = require("poisson-disk-sampling");
 
 const p = new PoissonDiskSampling({
     shape: [600, 300, 200],

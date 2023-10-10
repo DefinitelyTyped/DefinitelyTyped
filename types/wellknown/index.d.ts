@@ -38,7 +38,7 @@ export type GeoJSONGeometry =
 export type GeoJSONGeometryOrNull = GeoJSONGeometry | null;
 
 export interface GeoJSONFeature {
-    type: 'Feature';
+    type: "Feature";
     geometry: GeoJSONGeometry;
 }
 

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
 export interface WindowSizeProps {
     windowHeight: number;

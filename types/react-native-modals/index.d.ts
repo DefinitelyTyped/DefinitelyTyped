@@ -4,13 +4,13 @@
 //                 Jean-Baptiste Crestot <https://github.com/jbcrestot>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
-import { StyleProp, ViewStyle, TextStyle } from 'react-native';
+import * as React from "react";
+import { StyleProp, TextStyle, ViewStyle } from "react-native";
 
-export type SlideFromTypes = 'top' | 'bottom' | 'left' | 'right';
-export type AlignTypes = 'flex-start' | 'flex-end' | 'center';
-export type OverlayPointerEventTypes = 'auto' | 'none';
-export type SwipeDirection = 'up' | 'down' | 'left' | 'right';
+export type SlideFromTypes = "top" | "bottom" | "left" | "right";
+export type AlignTypes = "flex-start" | "flex-end" | "center";
+export type OverlayPointerEventTypes = "auto" | "none";
+export type SwipeDirection = "up" | "down" | "left" | "right";
 export interface DragEvent {
     axis: {
         x: number;

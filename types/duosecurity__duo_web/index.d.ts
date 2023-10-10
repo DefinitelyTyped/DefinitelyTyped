@@ -12,12 +12,12 @@ export function sign_request(
     ikey: string,
     skey: string,
     akey: string,
-    username: string
+    username: string,
 ): string;
 
 export function verify_response(
     ikey: string,
     skey: string,
     akey: string,
-    sig_response: string
+    sig_response: string,
 ): string | null;

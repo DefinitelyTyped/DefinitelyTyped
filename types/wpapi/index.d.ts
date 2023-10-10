@@ -102,7 +102,7 @@ declare class WPAPI {
     registerRoute(
         namespace: string,
         restBase: string,
-        options?: WPAPI.RegisterRouteOptions
+        options?: WPAPI.RegisterRouteOptions,
     ): WPAPI.WPRequestFactory;
 
     /**
@@ -323,7 +323,7 @@ declare namespace WPAPI {
          */
         param(
             props: string | { [name: string]: string | number | any[] },
-            value?: string | number | any[]
+            value?: string | number | any[],
         ): WPRequest;
 
         /**
@@ -350,7 +350,7 @@ declare namespace WPAPI {
          */
         setHeaders(
             headers: string | { [name: string]: string },
-            value?: string
+            value?: string,
         ): WPRequest;
 
         /**
@@ -384,7 +384,7 @@ declare namespace WPAPI {
          */
         then(
             successCallback?: (data: any) => void,
-            failureCallback?: (error: Error) => void
+            failureCallback?: (error: Error) => void,
         ): Promise<any>;
 
         /**
@@ -475,7 +475,7 @@ declare namespace WPAPI {
 
     type TransportFunction = (
         wpreq: WPRequest,
-        cb?: WPRequestCallback
+        cb?: WPRequestCallback,
     ) => Promise<any>;
 
     interface Routes {

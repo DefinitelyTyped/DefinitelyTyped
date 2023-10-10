@@ -1,25 +1,17 @@
-import * as React from 'react';
-import {
-    AppRegistry,
-    StyleSheet,
-    Text,
-    View,
-    TouchableHighlight,
-} from 'react-native';
-import SignatureCapture, {
-    SaveEventParams,
-} from 'react-native-signature-capture';
+import * as React from "react";
+import { AppRegistry, StyleSheet, Text, TouchableHighlight, View } from "react-native";
+import SignatureCapture, { SaveEventParams } from "react-native-signature-capture";
 
 class RNSignatureExample extends React.Component {
     private readonly signatureRef = React.createRef<SignatureCapture>();
 
     render() {
         return (
-            <View style={{ flex: 1, flexDirection: 'column' }}>
+            <View style={{ flex: 1, flexDirection: "column" }}>
                 <Text
-                    style={{ alignItems: 'center', justifyContent: 'center' }}
+                    style={{ alignItems: "center", justifyContent: "center" }}
                 >
-                    Signature Capture Extended{' '}
+                    Signature Capture Extended{" "}
                 </Text>
                 <SignatureCapture
                     style={[{ flex: 1 }, styles.signature]}
@@ -29,10 +21,10 @@ class RNSignatureExample extends React.Component {
                     saveImageFileInExtStorage={false}
                     showNativeButtons={false}
                     showTitleLabel={false}
-                    viewMode={'portrait'}
+                    viewMode={"portrait"}
                 />
 
-                <View style={{ flex: 1, flexDirection: 'row' }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
                     <TouchableHighlight
                         style={styles.buttonStyle}
                         onPress={() => {
@@ -74,22 +66,22 @@ class RNSignatureExample extends React.Component {
     }
     _onDragEvent() {
         // This callback will be called when the user enters signature
-        console.log('dragged');
+        console.log("dragged");
     }
 }
 
 const styles = StyleSheet.create({
     signature: {
         flex: 1,
-        borderColor: '#000033',
+        borderColor: "#000033",
         borderWidth: 1,
     },
     buttonStyle: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: "center",
+        alignItems: "center",
         height: 50,
-        backgroundColor: '#eeeeee',
+        backgroundColor: "#eeeeee",
         margin: 10,
     },
 });

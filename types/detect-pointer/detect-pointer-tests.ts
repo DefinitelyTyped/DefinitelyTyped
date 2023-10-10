@@ -1,3 +1,3 @@
-import detectPointer from 'detect-pointer';
+import detectPointer from "detect-pointer";
 
 detectPointer.update();

@@ -1,4 +1,4 @@
-// For Library Version: 1.117.0
+// For Library Version: 1.119.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -1517,9 +1517,14 @@ declare module "sap/f/CardBase" {
 declare module "sap/f/cards/BaseHeader" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import Text from "sap/m/Text";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
-  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+  import {
+    PropertyBindingInfo,
+    AggregationBindingInfo,
+  } from "sap/ui/base/ManagedObject";
 
   /**
    * @since 1.86
@@ -1588,6 +1593,29 @@ declare module "sap/f/cards/BaseHeader" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Adds some bannerLine to the aggregation {@link #getBannerLines bannerLines}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addBannerLine(
+      /**
+       * The bannerLine to add; if empty, nothing is inserted
+       */
+      oBannerLine: Text
+    ): this;
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Destroys all the bannerLines in the aggregation {@link #getBannerLines bannerLines}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyBannerLines(): this;
+    /**
      * @since 1.86
      * @experimental (since 1.86)
      *
@@ -1596,6 +1624,15 @@ declare module "sap/f/cards/BaseHeader" {
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyToolbar(): this;
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Gets content of aggregation {@link #getBannerLines bannerLines}.
+     *
+     * Show as a banner in the header area. Use for example for system info and application shortcut.
+     */
+    getBannerLines(): Text[];
     /**
      * @experimental (since 1.89) - this feature is experimental and the API may change.
      *
@@ -1634,6 +1671,66 @@ declare module "sap/f/cards/BaseHeader" {
      * Defines the toolbar.
      */
     getToolbar(): Control;
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Checks for the provided `sap.m.Text` in the aggregation {@link #getBannerLines bannerLines}. and returns
+     * its index if found or -1 otherwise.
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfBannerLine(
+      /**
+       * The bannerLine whose index is looked for
+       */
+      oBannerLine: Text
+    ): int;
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Inserts a bannerLine into the aggregation {@link #getBannerLines bannerLines}.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    insertBannerLine(
+      /**
+       * The bannerLine to insert; if empty, nothing is inserted
+       */
+      oBannerLine: Text,
+      /**
+       * The `0`-based index the bannerLine should be inserted at; for a negative value of `iIndex`, the bannerLine
+       * is inserted at position 0; for a value greater than the current size of the aggregation, the bannerLine
+       * is inserted at the last position
+       */
+      iIndex: int
+    ): this;
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Removes all the controls from the aggregation {@link #getBannerLines bannerLines}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllBannerLines(): Text[];
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Removes a bannerLine from the aggregation {@link #getBannerLines bannerLines}.
+     *
+     * @returns The removed bannerLine or `null`
+     */
+    removeBannerLine(
+      /**
+       * The bannerLine to remove or its index or id
+       */
+      vBannerLine: int | string | Text
+    ): Text | null;
     /**
      * @experimental (since 1.116) - this feature is experimental and the API may change.
      *
@@ -1696,6 +1793,14 @@ declare module "sap/f/cards/BaseHeader" {
      * Defines the toolbar.
      */
     toolbar?: Control;
+
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Show as a banner in the header area. Use for example for system info and application shortcut.
+     */
+    bannerLines?: Text[] | Text | AggregationBindingInfo | `{${string}}`;
   }
 }
 
@@ -1714,6 +1819,8 @@ declare module "sap/f/cards/Header" {
   import AvatarColor from "sap/m/AvatarColor";
 
   import AvatarShape from "sap/m/AvatarShape";
+
+  import AvatarSize from "sap/m/AvatarSize";
 
   import { URI } from "sap/ui/core/library";
 
@@ -1934,6 +2041,18 @@ declare module "sap/f/cards/Header" {
      */
     getIconInitials(): string;
     /**
+     * @experimental (since 1.119) - this feature is experimental and the API may change.
+     *
+     * Gets current value of property {@link #getIconSize iconSize}.
+     *
+     * Defines the size of the icon.
+     *
+     * Default value is `S`.
+     *
+     * @returns Value of property `iconSize`
+     */
+    getIconSize(): AvatarSize | keyof typeof AvatarSize;
+    /**
      * Gets current value of property {@link #getIconSrc iconSrc}.
      *
      * Defines the icon source.
@@ -2080,6 +2199,25 @@ declare module "sap/f/cards/Header" {
        * New value for property `iconInitials`
        */
       sIconInitials?: string
+    ): this;
+    /**
+     * @experimental (since 1.119) - this feature is experimental and the API may change.
+     *
+     * Sets a new value for property {@link #getIconSize iconSize}.
+     *
+     * Defines the size of the icon.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `S`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconSize(
+      /**
+       * New value for property `iconSize`
+       */
+      sIconSize?: AvatarSize | keyof typeof AvatarSize
     ): this;
     /**
      * Sets a new value for property {@link #getIconSrc iconSrc}.
@@ -2288,6 +2426,16 @@ declare module "sap/f/cards/Header" {
     iconVisible?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
+     * @experimental (since 1.119) - this feature is experimental and the API may change.
+     *
+     * Defines the size of the icon.
+     */
+    iconSize?:
+      | (AvatarSize | keyof typeof AvatarSize)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
      * Fires when the user presses the control.
      */
     press?: (oEvent: Event) => void;
@@ -2355,6 +2503,14 @@ declare module "sap/f/cards/NumericHeader" {
   import Event from "sap/ui/base/Event";
 
   import Control from "sap/ui/core/Control";
+
+  import { ValueState, URI } from "sap/ui/core/library";
+
+  import AvatarColor from "sap/m/AvatarColor";
+
+  import AvatarShape from "sap/m/AvatarShape";
+
+  import AvatarSize from "sap/m/AvatarSize";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -2576,6 +2732,109 @@ declare module "sap/f/cards/NumericHeader" {
      */
     getDetailsMaxLines(): int;
     /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Gets current value of property {@link #getDetailsState detailsState}.
+     *
+     * The semantic color which represents the state of the details text.
+     *
+     * Default value is `None`.
+     *
+     * @returns Value of property `detailsState`
+     */
+    getDetailsState(): ValueState | keyof typeof ValueState;
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Gets current value of property {@link #getIconAlt iconAlt}.
+     *
+     * Defines an alt text for the avatar or icon.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Value of property `iconAlt`
+     */
+    getIconAlt(): string;
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Gets current value of property {@link #getIconBackgroundColor iconBackgroundColor}.
+     *
+     * Defines a background color for the avatar or icon.
+     *
+     * Default value is `Transparent`.
+     *
+     * @returns Value of property `iconBackgroundColor`
+     */
+    getIconBackgroundColor(): AvatarColor | keyof typeof AvatarColor;
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Gets current value of property {@link #getIconDisplayShape iconDisplayShape}.
+     *
+     * Defines the shape of the icon.
+     *
+     * Default value is `Circle`.
+     *
+     * @returns Value of property `iconDisplayShape`
+     */
+    getIconDisplayShape(): AvatarShape | keyof typeof AvatarShape;
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Gets current value of property {@link #getIconInitials iconInitials}.
+     *
+     * Defines the initials of the icon.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Value of property `iconInitials`
+     */
+    getIconInitials(): string;
+    /**
+     * @experimental (since 1.119) - this feature is experimental and the API may change.
+     *
+     * Gets current value of property {@link #getIconSize iconSize}.
+     *
+     * Defines the size of the icon.
+     *
+     * Default value is `S`.
+     *
+     * @returns Value of property `iconSize`
+     */
+    getIconSize(): AvatarSize | keyof typeof AvatarSize;
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Gets current value of property {@link #getIconSrc iconSrc}.
+     *
+     * Defines the icon source.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Value of property `iconSrc`
+     */
+    getIconSrc(): URI;
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Gets current value of property {@link #getIconVisible iconVisible}.
+     *
+     * Defines whether the card icon is visible.
+     *
+     * Default value is `true`.
+     *
+     * @returns Value of property `iconVisible`
+     */
+    getIconVisible(): boolean;
+    /**
      * Gets current value of property {@link #getNumber number}.
      *
      * The numeric value of the main number indicator. If the value contains more than five characters, only
@@ -2584,6 +2843,16 @@ declare module "sap/f/cards/NumericHeader" {
      * @returns Value of property `number`
      */
     getNumber(): string;
+    /**
+     * Gets current value of property {@link #getNumberSize numberSize}.
+     *
+     * The size of the of the main indicator. Possible values are "S" and "L".
+     *
+     * Default value is `"L"`.
+     *
+     * @returns Value of property `numberSize`
+     */
+    getNumberSize(): string;
     /**
      * @since 1.109
      *
@@ -2789,6 +3058,165 @@ declare module "sap/f/cards/NumericHeader" {
       iDetailsMaxLines?: int
     ): this;
     /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Sets a new value for property {@link #getDetailsState detailsState}.
+     *
+     * The semantic color which represents the state of the details text.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `None`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDetailsState(
+      /**
+       * New value for property `detailsState`
+       */
+      sDetailsState?: ValueState | keyof typeof ValueState
+    ): this;
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Sets a new value for property {@link #getIconAlt iconAlt}.
+     *
+     * Defines an alt text for the avatar or icon.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconAlt(
+      /**
+       * New value for property `iconAlt`
+       */
+      sIconAlt?: string
+    ): this;
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Sets a new value for property {@link #getIconBackgroundColor iconBackgroundColor}.
+     *
+     * Defines a background color for the avatar or icon.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Transparent`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconBackgroundColor(
+      /**
+       * New value for property `iconBackgroundColor`
+       */
+      sIconBackgroundColor?: AvatarColor | keyof typeof AvatarColor
+    ): this;
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Sets a new value for property {@link #getIconDisplayShape iconDisplayShape}.
+     *
+     * Defines the shape of the icon.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Circle`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconDisplayShape(
+      /**
+       * New value for property `iconDisplayShape`
+       */
+      sIconDisplayShape?: AvatarShape | keyof typeof AvatarShape
+    ): this;
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Sets a new value for property {@link #getIconInitials iconInitials}.
+     *
+     * Defines the initials of the icon.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconInitials(
+      /**
+       * New value for property `iconInitials`
+       */
+      sIconInitials?: string
+    ): this;
+    /**
+     * @experimental (since 1.119) - this feature is experimental and the API may change.
+     *
+     * Sets a new value for property {@link #getIconSize iconSize}.
+     *
+     * Defines the size of the icon.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `S`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconSize(
+      /**
+       * New value for property `iconSize`
+       */
+      sIconSize?: AvatarSize | keyof typeof AvatarSize
+    ): this;
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Sets a new value for property {@link #getIconSrc iconSrc}.
+     *
+     * Defines the icon source.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconSrc(
+      /**
+       * New value for property `iconSrc`
+       */
+      sIconSrc?: URI
+    ): this;
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Sets a new value for property {@link #getIconVisible iconVisible}.
+     *
+     * Defines whether the card icon is visible.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconVisible(
+      /**
+       * New value for property `iconVisible`
+       */
+      bIconVisible?: boolean
+    ): this;
+    /**
      * Sets a new value for property {@link #getNumber number}.
      *
      * The numeric value of the main number indicator. If the value contains more than five characters, only
@@ -2803,6 +3231,23 @@ declare module "sap/f/cards/NumericHeader" {
        * New value for property `number`
        */
       sNumber: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getNumberSize numberSize}.
+     *
+     * The size of the of the main indicator. Possible values are "S" and "L".
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"L"`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setNumberSize(
+      /**
+       * New value for property `numberSize`
+       */
+      sNumberSize?: string
     ): this;
     /**
      * @since 1.109
@@ -2996,6 +3441,13 @@ declare module "sap/f/cards/NumericHeader" {
        */
       sUnitOfMeasurement: string
     ): this;
+    /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     *
+     * @returns If the icon should be shown.
+     */
+    shouldShowIcon(): boolean;
   }
 
   export interface $NumericHeaderSettings extends $BaseHeaderSettings {
@@ -3029,6 +3481,70 @@ declare module "sap/f/cards/NumericHeader" {
     statusText?: string | PropertyBindingInfo;
 
     /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Defines the shape of the icon.
+     */
+    iconDisplayShape?:
+      | (AvatarShape | keyof typeof AvatarShape)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Defines the icon source.
+     */
+    iconSrc?: URI | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Defines the initials of the icon.
+     */
+    iconInitials?: string | PropertyBindingInfo;
+
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Defines an alt text for the avatar or icon.
+     */
+    iconAlt?: string | PropertyBindingInfo;
+
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Defines a background color for the avatar or icon.
+     */
+    iconBackgroundColor?:
+      | (AvatarColor | keyof typeof AvatarColor)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * Defines whether the card icon is visible.
+     */
+    iconVisible?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * @experimental (since 1.119) - this feature is experimental and the API may change.
+     *
+     * Defines the size of the icon.
+     */
+    iconSize?:
+      | (AvatarSize | keyof typeof AvatarSize)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
      * General unit of measurement for the header. Displayed as side information to the subtitle.
      */
     unitOfMeasurement?: string | PropertyBindingInfo;
@@ -3038,6 +3554,11 @@ declare module "sap/f/cards/NumericHeader" {
      * the first five are displayed. Without rounding the number.
      */
     number?: string | PropertyBindingInfo;
+
+    /**
+     * The size of the of the main indicator. Possible values are "S" and "L".
+     */
+    numberSize?: string | PropertyBindingInfo;
 
     /**
      * @since 1.109
@@ -3076,6 +3597,17 @@ declare module "sap/f/cards/NumericHeader" {
      * Additional text which adds more details to what is shown in the numeric header.
      */
     details?: string | PropertyBindingInfo;
+
+    /**
+     * @since 1.118
+     * @experimental (since 1.118) - For usage only by Work Zone.
+     *
+     * The semantic color which represents the state of the details text.
+     */
+    detailsState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * @experimental (since 1.101)
@@ -9054,7 +9586,7 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
          * for the first two pages, all other pages will open in fullscreen), and `SingleColumn` (one page at a
          * time only).
          */
-        mode: string;
+        mode?: string;
       }
     );
 
@@ -9264,7 +9796,7 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
     /**
      * The value of the {@link sap.f.FlexibleColumnLayout#getLayout layout} property.
      */
-    layout?: string;
+    layout?: LayoutType | keyof typeof LayoutType;
     /**
      * The maximum number of columns that can be displayed at once based on the control width. See {@link sap.f.FlexibleColumnLayout#getMaxColumnsCount}
      */

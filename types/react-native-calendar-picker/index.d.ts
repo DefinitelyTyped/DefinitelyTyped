@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
-import { StyleProp, TextStyle, ViewStyle } from 'react-native';
-import { Moment, MomentInput } from 'moment';
+import { Moment, MomentInput } from "moment";
+import * as React from "react";
+import { StyleProp, TextStyle, ViewStyle } from "react-native";
 
 export default class CalendarPicker extends React.Component<CalendarPickerProps> {
     handleOnPressDay(date: HandleOnPressDayArg): void;
@@ -56,7 +56,7 @@ export interface CalendarPickerProps {
     restrictMonthNavigation?: boolean | undefined;
     onDateChange?: DateChangedCallback | undefined;
     onMonthChange?: DateChangedCallback | undefined;
-    dayShape?: 'circle' | 'square' | undefined;
+    dayShape?: "circle" | "square" | undefined;
     headingLevel?: number | undefined;
     selectMonthTitle?: string | undefined;
     selectYearTitle?: string | undefined;
@@ -70,11 +70,11 @@ export interface CalendarPickerProps {
     monthTitleStyle?: StyleProp<TextStyle> | undefined;
     yearTitleStyle?: StyleProp<TextStyle> | undefined;
     customDayHeaderStyles?: CustomDayHeaderStylesFunc | undefined;
-    initialView?: 'years' | 'months' | 'days' | undefined;
+    initialView?: "years" | "months" | "days" | undefined;
 }
 
 export type DayOfWeekStyle = {
-    [key in '0' | '1' | '2' | '3' | '4' | '5' | '6']?: TextStyle;
+    [key in "0" | "1" | "2" | "3" | "4" | "5" | "6"]?: TextStyle;
 };
 
 export type DisabledDatesFunc = (date: Moment) => boolean;
@@ -125,6 +125,6 @@ export interface HandleOnPressDayArg {
     year: number;
 }
 
-export type DateChangedCallback = (date: Moment, type: 'START_DATE' | 'END_DATE') => void;
+export type DateChangedCallback = (date: Moment, type: "START_DATE" | "END_DATE") => void;
 
 export type MonthChangedCallback = (date: Moment) => void;

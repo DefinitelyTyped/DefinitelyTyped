@@ -1,6 +1,6 @@
-import Choices = require('../objects/choices');
+import Choices = require("../objects/choices");
 
-type Direction = 'up' | 'down';
+type Direction = "up" | "down";
 interface Options {
     choices: Choices;
     loop?: boolean;

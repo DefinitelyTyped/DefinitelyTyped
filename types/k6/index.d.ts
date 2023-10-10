@@ -1,4 +1,4 @@
-// Type definitions for k6 0.46
+// Type definitions for k6 0.47
 // Project: https://k6.io/docs/
 // Definitions by: Mihail Stoykov <https://github.com/MStoykov>
 //                 Ivan <https://github.com/codebien>
@@ -7,6 +7,8 @@
 //                 Pepe Cano <https://github.com/ppcano>
 //                 Nicole van der Hoeven <https://github.com/nicolevanderhoeven>
 //                 Ankur Agarwal <https://github.com/ankur22>
+//                 İnanç Gümüş <https://github.com/inancgumus>
+//                 Daniel Jiménez <https://github.com/ka3de>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.9
 
@@ -29,26 +31,26 @@
  * @packageDocumentation
  */
 
-import './global'; // Type global environment
+import "./global"; // Type global environment
 
 // Expose everything to autoimport
-import './crypto';
-import './data';
-import './encoding';
-import './execution';
-import './html';
-import './http';
-import './metrics';
-import './options';
-import './experimental/browser';
-import './experimental/redis';
-import './experimental/timers';
-import './experimental/tracing';
-import './experimental/webcrypto';
-import './experimental/websockets';
-import './experimental/grpc';
-import './ws';
-import './net/grpc';
+import "./crypto";
+import "./data";
+import "./encoding";
+import "./execution";
+import "./html";
+import "./http";
+import "./metrics";
+import "./options";
+import "./experimental/browser";
+import "./experimental/redis";
+import "./experimental/timers";
+import "./experimental/tracing";
+import "./experimental/webcrypto";
+import "./experimental/websockets";
+import "./experimental/grpc";
+import "./ws";
+import "./net/grpc";
 
 // === Main ===
 // ------------

@@ -2,12 +2,13 @@ import * as THREE from "three";
 import Coordinates from "./Geographic/Coordinates";
 import Style from "./Style";
 
-declare class Label extends THREE.Object3D<THREE.Event> {
+declare class Label extends THREE.Object3D {
     constructor(
         content: string | Element,
         coordinates: Coordinates,
         style?: Style,
-        sprites?: any);
+        sprites?: any,
+    );
 
     readonly isLabel: boolean;
 

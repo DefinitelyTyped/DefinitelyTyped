@@ -33,7 +33,7 @@
 //  @input Component.Image backgroundImage {"showIf": "advanced"}
 //  @input Component.Image errorImage {"showIf": "advanced"}
 
-import type { AnimationData } from './animation-data';
+import type { AnimationData } from "./animation-data";
 
 declare global {
     interface Pass {
@@ -135,14 +135,14 @@ function configureImageTransform({
     imageAlpha,
 }: Pick<
     SnapchatLensStudio.ScriptInputs,
-    | 'mainImage'
-    | 'opacityTexture'
-    | 'trackedImageTransform'
-    | 'imageSize'
-    | 'imageOffsetX'
-    | 'imageOffsetY'
-    | 'imageRotation'
-    | 'imageAlpha'
+    | "mainImage"
+    | "opacityTexture"
+    | "trackedImageTransform"
+    | "imageSize"
+    | "imageOffsetX"
+    | "imageOffsetY"
+    | "imageRotation"
+    | "imageAlpha"
 >) {
     const scaleMultiplier = 20;
     const degToRad = 0.0175;
@@ -191,7 +191,7 @@ function setupTracking() {
         movieImage.enabled = false;
 
         if (movie) {
-            print('WARNING: Please remove Background Video texture from the script component to save memory.');
+            print("WARNING: Please remove Background Video texture from the script component to save memory.");
         }
     } else {
         movieImage.mainPass.baseTex = movie;
@@ -230,7 +230,7 @@ function setupTracking() {
 }
 
 function playAnimatedTexture() {
-    const isAnimated = 'getDuration' in movie.control;
+    const isAnimated = "getDuration" in movie.control;
     if (isAnimated) {
         provider = movie.control as AnimatedTextureFileProvider;
         provider.pause();
@@ -244,7 +244,7 @@ function playAnimatedTexture() {
         const providerDurationCheck = roundToNearest(animationData.duration / animationData.frameRate);
         const providerDuration = roundToNearest(provider.getDuration());
         if (providerDuration !== providerDurationCheck) {
-            showError('ERROR: You need to set the duration on animated texture to: ' + providerDurationCheck);
+            showError("ERROR: You need to set the duration on animated texture to: " + providerDurationCheck);
             return;
         }
         animatedTextureInitialized = true;
@@ -296,7 +296,7 @@ function trackAnimatedTexture() {
     }
 }
 
-script.createEvent('UpdateEvent').bind(function onUpdate() {
+script.createEvent("UpdateEvent").bind(function onUpdate() {
     playBackTimer();
     trackAnimatedTexture();
 });
@@ -312,7 +312,7 @@ function playBackTimer() {
 
 function findAnimationData() {
     const results: AnimationData[] = [];
-    const allComponents = script.getSceneObject().getComponents('Component.ScriptComponent');
+    const allComponents = script.getSceneObject().getComponents("Component.ScriptComponent");
     for (const component of allComponents) {
         if (component.api) {
             if (component.api.animationData) {
@@ -327,7 +327,7 @@ function findAnimationData() {
 
     if (results.length > 1) {
         showError(
-            'WARNING: There are multiple Tracking Data scripts on the faceInVideoController [EDIT_ME] object. Please make sure to only have one',
+            "WARNING: There are multiple Tracking Data scripts on the faceInVideoController [EDIT_ME] object. Please make sure to only have one",
         );
     }
 
@@ -340,7 +340,7 @@ function roundToNearest(value: number) {
 }
 
 function getImageComponent(obj: Component) {
-    return obj.getSceneObject().getComponent('Component.Image');
+    return obj.getSceneObject().getComponent("Component.Image");
 }
 function setAlpha(color: vec4, alpha: number) {
     return new vec4(color.r, color.g, color.b, alpha);
@@ -349,43 +349,43 @@ function setAlpha(color: vec4, alpha: number) {
 function checkProperties() {
     if (!animationData) {
         showError(
-            'ERROR: Tracking data not found. Please place the tracking data on the FaceInVideoController [EDIT_ME] object',
+            "ERROR: Tracking data not found. Please place the tracking data on the FaceInVideoController [EDIT_ME] object",
         );
         return false;
     }
 
     if (!mainImage) {
-        showError('ERROR: Please assign a texture to Image texture input on FaceInVideoController script.');
+        showError("ERROR: Please assign a texture to Image texture input on FaceInVideoController script.");
         return false;
     }
 
     if (!trackedImageTransform) {
         showError(
-            'ERROR: Please make sure Tracked Image object exists and assign the Tracked Image object under the advanced checkbox',
+            "ERROR: Please make sure Tracked Image object exists and assign the Tracked Image object under the advanced checkbox",
         );
         return false;
     }
 
     if (!movieImage) {
         showError(
-            'ERROR: Please make sure Movie Image object exists and assign the Movie Image object under the advanced checkbox',
+            "ERROR: Please make sure Movie Image object exists and assign the Movie Image object under the advanced checkbox",
         );
         return false;
     }
 
     if (!extentsTarget) {
         showError(
-            'ERROR: Please make sure Movie Image object exists and assign the Movie Image object under the advanced checkbox',
+            "ERROR: Please make sure Movie Image object exists and assign the Movie Image object under the advanced checkbox",
         );
         return false;
     }
 
     if (!backgroundImage) {
-        showError('WARNING: Please make sure Background Image object exists and assigned under the advanced checkbox');
+        showError("WARNING: Please make sure Background Image object exists and assigned under the advanced checkbox");
     }
 
     if (!movie && showVideo) {
-        showError('ERROR: Please assign a video or animated texture to Video input on FaceInVideoController script.');
+        showError("ERROR: Please assign a video or animated texture to Video input on FaceInVideoController script.");
         return false;
     }
     return true;
@@ -395,5 +395,5 @@ function showError(message: string) {
     if (errorImage) {
         errorImage.enabled = true;
     }
-    print('FaceInVideoController, ' + message);
+    print("FaceInVideoController, " + message);
 }

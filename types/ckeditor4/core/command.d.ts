@@ -4,7 +4,7 @@ declare namespace CKEDITOR {
     }
 
     interface commandConstructor extends eventConstructor<command> {
-        new (editor: editor, commandDefinition: commandDefinition): command;
+        new(editor: editor, commandDefinition: commandDefinition): command;
     }
 
     /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_command.html */

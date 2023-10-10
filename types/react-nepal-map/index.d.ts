@@ -3,7 +3,7 @@
 // Definitions by: Ashish Yadav <https://github.com/ashiishme>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 export as namespace ReactNepalMap;
 

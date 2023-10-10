@@ -184,7 +184,7 @@ declare function getVersion(): number;
  */
 interface Events {
     // Callback function called when a block is placed at (x, y, z)
-    'block-placed': [x: number, y: number, z: number];
+    "block-placed": [x: number, y: number, z: number];
     // Callback function called each frame (also in play mode)
     update: [];
     // Callback function called when a key is pressed

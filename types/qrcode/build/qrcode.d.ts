@@ -1,4 +1,4 @@
-import * as QRCodeLib from '../index';
+import * as QRCodeLib from "../index";
 
 declare global {
     namespace QRCode {

@@ -16,10 +16,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 
-import * as React from 'react';
-import * as Popper from '@popperjs/core';
-import { Locale } from 'date-fns';
-import { Modifier, StrictModifierNames } from 'react-popper';
+import * as Popper from "@popperjs/core";
+import { Locale } from "date-fns";
+import * as React from "react";
+import { Modifier, StrictModifierNames } from "react-popper";
 
 export interface CalendarContainerProps {
     className?: string | undefined;
@@ -86,7 +86,7 @@ export interface ReactDatePickerProps<
     disabledDayAriaLabelPrefix?: string | undefined;
     disabled?: boolean | undefined;
     disabledKeyboardNavigation?: boolean | undefined;
-    dropdownMode?: 'scroll' | 'select' | undefined;
+    dropdownMode?: "scroll" | "select" | undefined;
     endDate?: Date | null | undefined;
     excludeDates?: Date[] | undefined;
     excludeDateIntervals?: Array<{ start: Date; end: Date }> | undefined;

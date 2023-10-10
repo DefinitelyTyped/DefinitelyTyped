@@ -5,7 +5,6 @@
 
 export class TDigest {
     /**
-     *
      * @param delta The compression factor, the max fraction of mass that
      * can be owned by one centroid (bigger, up to 1.0, means more
      * compression). `false` switches off `TDigest` behavior and treats
@@ -132,7 +131,7 @@ export interface FullCentroid extends Centroid {
 
 export interface DigestConfiguration {
     /** @default 'auto' */
-    mode: 'disc' | 'cont' | 'auto';
+    mode: "disc" | "cont" | "auto";
     /** @default 0.9 */
     ratio: number;
     /** @default 1000 */

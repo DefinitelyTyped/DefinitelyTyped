@@ -1,4 +1,4 @@
-import events = require('node:events');
+import events = require("node:events");
 
 const emitter: events = new events.EventEmitter();
 declare const listener: (...args: any[]) => void;
@@ -26,7 +26,7 @@ declare const any: any;
     result = events.EventEmitter.defaultMaxListeners;
     result = events.EventEmitter.listenerCount(emitter, event); // deprecated
 
-    const promise: Promise<any[]> = events.once(new events.EventEmitter(), 'error');
+    const promise: Promise<any[]> = events.once(new events.EventEmitter(), "error");
 
     result = emitter.getMaxListeners();
     result = emitter.listenerCount(event);
@@ -79,15 +79,15 @@ declare const any: any;
     events.once({
         addEventListener(name: string, listener: (res: number) => void, opts: { once: boolean }) {
             setTimeout(() => listener(123), 100);
-        }
-    }, 'name');
+        },
+    }, "name");
 }
 
 async function test() {
-    for await (const e of events.on(new events.EventEmitter(), 'test')) {
+    for await (const e of events.on(new events.EventEmitter(), "test")) {
         console.log(e);
     }
-    events.on(new events.EventEmitter(), 'test', { signal: new AbortController().signal });
+    events.on(new events.EventEmitter(), "test", { signal: new AbortController().signal });
 }
 
 {
@@ -123,4 +123,21 @@ async function test() {
 
     const eventEmitter = new events.EventEmitter();
     events.EventEmitter.setMaxListeners(42, eventTarget, eventEmitter);
+}
+
+{
+    class MyEmitter extends events.EventEmitterAsyncResource {}
+
+    const emitter = new MyEmitter({
+        triggerAsyncId: 123,
+    });
+
+    new events.EventEmitterAsyncResource({
+        name: "test",
+    });
+
+    emitter.asyncId; // $ExpectType number
+    emitter.asyncResource; // $ExpectType EventEmitterReferencingAsyncResource
+    emitter.triggerAsyncId; // $ExpectType number
+    emitter.emitDestroy();
 }

@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import Parser = require('./Parser');
+import Parser = require("./Parser");
 
 export = make;
 

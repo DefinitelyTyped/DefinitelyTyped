@@ -5,9 +5,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { EventEmitter2 } from "eventemitter2";
+import { Server } from "http";
 import * as SocketIO from "socket.io";
 import { Stream } from "stream";
-import { Server } from "http";
 
 export abstract class Component extends EventEmitter2 {
     constructor(
@@ -15,11 +15,10 @@ export abstract class Component extends EventEmitter2 {
          * Configuration which controls the data being advertised for auto-discovery.
          */
         advertisement: Advertisement,
-
         /**
          * Controls the network-layer configuration and environments for components.
          */
-        discoveryOptions?: DiscoveryOptions
+        discoveryOptions?: DiscoveryOptions,
     );
 
     /**
@@ -34,11 +33,10 @@ export class Requester extends Component {
          * Configuration which controls the data being advertised for auto-discovery.
          */
         advertisement: RequesterAdvertisement,
-
         /**
          * Controls the network-layer configuration and environments for components.
          */
-        discoveryOptions?: DiscoveryOptions
+        discoveryOptions?: DiscoveryOptions,
     );
 
     /**
@@ -75,11 +73,10 @@ export class Responder extends Component {
          * Configuration which controls the data being advertised for auto-discovery.
          */
         advertisement: ResponderAdvertisement,
-
         /**
          * Controls the network-layer configuration and environments for components.
          */
-        discoveryOptions?: DiscoveryOptions
+        discoveryOptions?: DiscoveryOptions,
     );
 
     /**
@@ -88,8 +85,8 @@ export class Responder extends Component {
      * @param listener Callback.
      */
     on(
-        type: 'cote:added' | 'cote:removed',
-        listener: (event: Status) => void
+        type: "cote:added" | "cote:removed",
+        listener: (event: Status) => void,
     ): this;
 
     /**
@@ -100,10 +97,9 @@ export class Responder extends Component {
      */
     on<T extends Event>(
         type: string | string[],
-        listener: (
-            ((event: T, callback: (error: any, result: any) => void) => void) |
-            ((event: T) => Promise<any>)
-        )
+        listener:
+            | ((event: T, callback: (error: any, result: any) => void) => void)
+            | ((event: T) => Promise<any>),
     ): this;
 }
 
@@ -128,11 +124,10 @@ export class Publisher extends Component {
          * Configuration which controls the data being advertised for auto-discovery.
          */
         advertisement: PublisherAdvertisement,
-
         /**
          * Controls the network-layer configuration and environments for components.
          */
-        discoveryOptions?: DiscoveryOptions
+        discoveryOptions?: DiscoveryOptions,
     );
 
     /**
@@ -144,7 +139,7 @@ export class Publisher extends Component {
      */
     publish<T extends Event>(
         type: string,
-        event: T
+        event: T,
     ): void;
 }
 
@@ -164,11 +159,10 @@ export class Subscriber extends Component {
          * Configuration which controls the data being advertised for auto-discovery.
          */
         advertisement: SubscriberAdvertisement,
-
         /**
          * Controls the network-layer configuration and environments for components.
          */
-        discoveryOptions?: DiscoveryOptions
+        discoveryOptions?: DiscoveryOptions,
     );
 
     /**
@@ -179,7 +173,7 @@ export class Subscriber extends Component {
      */
     on<T extends Event>(
         type: string | string[],
-        listener: (event: T) => void
+        listener: (event: T) => void,
     ): this;
 }
 
@@ -199,23 +193,21 @@ export class Sockend extends Component {
      */
     constructor(
         io: SocketIO.Server,
-
         /**
          * Configuration which controls the data being advertised for auto-discovery.
          */
         advertisement: SockendAdvertisement,
-
         /**
          * Controls the network-layer configuration and environments for components.
          */
-        discoveryOptions?: DiscoveryOptions
+        discoveryOptions?: DiscoveryOptions,
     );
 }
 
 /**
  * Configuration which controls the data being advertised for auto-discovery.
  */
-export interface SockendAdvertisement extends ResponderAdvertisement, PublisherAdvertisement { }
+export interface SockendAdvertisement extends ResponderAdvertisement, PublisherAdvertisement {}
 
 export class Monitor extends Component {
     constructor(
@@ -223,14 +215,12 @@ export class Monitor extends Component {
          * Configuration which controls the data being advertised for auto-discovery.
          */
         advertisement: MonitorAdvertisement,
-
         /**
          * Controls the network-layer configuration and environments for components.
          */
         discoveryOptions?: DiscoveryOptions,
-
-        stream?: Stream
-    )
+        stream?: Stream,
+    );
 }
 
 /**
@@ -249,8 +239,8 @@ export interface MonitorAdvertisement extends Advertisement {
  * @param port Open in browser to see network graph in action.
  */
 export function MonitoringTool(port: number): {
-    monitor: Monitor,
-    server: Server
+    monitor: Monitor;
+    server: Server;
 };
 
 /**
@@ -281,7 +271,7 @@ export class TimeBalancedRequester extends Requester {
  * Keeps track of open, pending requests for each known Responder. Each new
  * request goes to the Responder with the minimum open requests.
  */
-export class PendingBalancedRequester extends Requester { }
+export class PendingBalancedRequester extends Requester {}
 
 /**
  * Event is nothing but object with `type`.
@@ -300,11 +290,9 @@ export interface Status extends Event {
 /**
  * Advertisement in internal `cote:added` and `cote:removed` events.
  */
-export interface StatusAdvertisement extends
-    RequesterAdvertisement,
-    ResponderAdvertisement,
-    PublisherAdvertisement,
-    SubscriberAdvertisement { }
+export interface StatusAdvertisement
+    extends RequesterAdvertisement, ResponderAdvertisement, PublisherAdvertisement, SubscriberAdvertisement
+{}
 
 /**
  * Configuration which controls the data being advertised for auto-discovery.

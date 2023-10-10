@@ -1,14 +1,14 @@
-import { Base } from '../base';
-import { Identity } from '../../identity';
-import { Application } from '../application/application';
-import Transport from '../../transport/transport';
-import { WindowEvents } from '../events/window';
-import { AnchorType, Bounds, Transition, TransitionOptions } from '../../shapes';
-import { WindowOption } from './windowOption';
-import { EntityType } from '../frame/frame';
-import { ExternalWindow } from '../external-window/external-window';
-import { WebContents } from '../webcontents/webcontents';
-import { View } from '../view/view';
+import { Identity } from "../../identity";
+import { AnchorType, Bounds, Transition, TransitionOptions } from "../../shapes";
+import Transport from "../../transport/transport";
+import { Application } from "../application/application";
+import { Base } from "../base";
+import { WindowEvents } from "../events/window";
+import { ExternalWindow } from "../external-window/external-window";
+import { EntityType } from "../frame/frame";
+import { View } from "../view/view";
+import { WebContents } from "../webcontents/webcontents";
+import { WindowOption } from "./windowOption";
 /**
  * @lends Window
  */
@@ -84,7 +84,7 @@ export interface PrinterInfo {
     isDefault: boolean;
 }
 interface Margins {
-    marginType?: ('default' | 'none' | 'printableArea' | 'custom') | undefined;
+    marginType?: ("default" | "none" | "printableArea" | "custom") | undefined;
     top?: number | undefined;
     bottom?: number | undefined;
     left?: number | undefined;
@@ -106,7 +106,7 @@ export interface PrintOptions {
     collate?: boolean | undefined;
     copies?: number | undefined;
     pageRanges?: Record<string, number> | undefined;
-    duplexMode?: ('simplex' | 'shortEdge' | 'longEdge') | undefined;
+    duplexMode?: ("simplex" | "shortEdge" | "longEdge") | undefined;
     dpi?: Dpi | undefined;
 }
 interface WindowMovementOptions {
@@ -128,11 +128,11 @@ export interface FindInPageOptions {
  * [bottom] The bottom margin of the printed web page, in pixels.
  * [left] The left margin of the printed web page, in pixels.
  * [right] The right margin of the printed web page, in pixels.
-*/
+ */
 /**
  * [horizontal] The horizontal dpi
  * [vertical] The vertical dpi
-*/
+ */
 /**
  * [silent=false] Don't ask user for print settings.
  * [printBackground=false] Prints the background color and image of the web page.
@@ -149,12 +149,12 @@ export interface FindInPageOptions {
  * @property { Dpi } [dpi] Set dpi for the printed web page
  */
 /**
-* PrinterInfo interface
-* name Printer Name
-* description Printer Description
-* status Printer Status
-* isDefault Indicates that system's default printer
-*/
+ * PrinterInfo interface
+ * name Printer Name
+ * description Printer Description
+ * status Printer Status
+ * isDefault Indicates that system's default printer
+ */
 /**
  * @summary Window creation options.
  * @description This is the options object required by {@link Window.create Window.create}.
@@ -419,7 +419,7 @@ export interface FindInPageOptions {
  * opacity - The Opacity transition
  * position - The Position transition
  * size - The Size transition
-*/
+ */
 /**
  * interrupt - This option interrupts the current animation. When false it pushes
 this animation onto the end of the animation queue.
@@ -441,7 +441,7 @@ this animation onto the end of the animation queue.
  * duration - The total time in milliseconds this transition should take.
  * relative - Treat 'opacity' as absolute or as a delta. Defaults to false.
  * opacity - This value is clamped from 0.0 to 1.0.
-*/
+ */
 /**
  * Bounds is a interface that has the properties of height,
  * width, left, top which are all numbers
@@ -561,13 +561,13 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @tutorial Window.focus
      */
     /**
-    * Returns the zoom level of the window.
-    * @function getZoomLevel
-    * @memberOf Window
-    * @instance
-    * @return {Promise.<number>}
-    * @tutorial Window.getZoomLevel
-    */
+     * Returns the zoom level of the window.
+     * @function getZoomLevel
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<number>}
+     * @tutorial Window.getZoomLevel
+     */
     /**
      * Sets the zoom level of the window.
      * @param { number } level The zoom level
@@ -634,30 +634,30 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @tutorial Window.stopNavigation
      */
     /**
-    * Reloads the window current page
-    * @function reload
-    * @memberOf Window
-    * @instance
-    * @return {Promise.<void>}
-    * @tutorial Window.reload
-    */
+     * Reloads the window current page
+     * @function reload
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<void>}
+     * @tutorial Window.reload
+     */
     /**
-    * Prints the window's web page
-    * @param { PrintOptions } [options] Printer Options
-    * @function print
-    * @memberOf Window
-    * @instance
-    * @return {Promise.<void>}
-    * @tutorial Window.print
-    */
+     * Prints the window's web page
+     * @param { PrintOptions } [options] Printer Options
+     * @function print
+     * @memberOf Window
+     * @instance
+     * @return {Promise.<void>}
+     * @tutorial Window.print
+     */
     /**
-    * Returns an array with all system printers
-    * @function getPrinters
-    * @memberOf Window
-    * @instance
-    * @return { Promise.Array.<PrinterInfo> }
-    * @tutorial Window.getPrinters
-    */
+     * Returns an array with all system printers
+     * @function getPrinters
+     * @memberOf Window
+     * @instance
+     * @return { Promise.Array.<PrinterInfo> }
+     * @tutorial Window.getPrinters
+     */
     createWindow(options: WindowOption): Promise<_Window>;
     private windowListFromNameList;
     /**
@@ -671,7 +671,7 @@ export declare class _Window extends WebContents<WindowEvents> {
      * Gets the current bounds (top, bottom, right, left, width, height) of the window.
      * @return {Promise.<Bounds>}
      * @tutorial Window.getBounds
-    */
+     */
     getBounds(): Promise<Bounds>;
     /**
      * Centers the window on its current screen.
@@ -711,7 +711,7 @@ export declare class _Window extends WebContents<WindowEvents> {
      *  ‘close-requested’ has been subscribed to for application’s main window.
      * @return {Promise.<void>}
      * @tutorial Window.close
-    */
+     */
     close(force?: boolean): Promise<void>;
     /**
      * Returns the native OS level Id.
@@ -721,11 +721,11 @@ export declare class _Window extends WebContents<WindowEvents> {
      */
     getNativeId(): Promise<string>;
     /**
-    * Retrieves window's attached views.
-    * @experimental
-    * @return {Promise.Array.<View>}
-    * @tutorial Window.getCurrentViews
-    */
+     * Retrieves window's attached views.
+     * @experimental
+     * @return {Promise.Array.<View>}
+     * @tutorial Window.getCurrentViews
+     */
     getCurrentViews(): Promise<Array<View>>;
     disableFrame(): Promise<void>;
     /**
@@ -879,7 +879,12 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @return {Promise.<void>}
      * @tutorial Window.resizeBy
      */
-    resizeBy(deltaWidth: number, deltaHeight: number, anchor: AnchorType, options?: WindowMovementOptions): Promise<void>;
+    resizeBy(
+        deltaWidth: number,
+        deltaHeight: number,
+        anchor: AnchorType,
+        options?: WindowMovementOptions,
+    ): Promise<void>;
     /**
      * Resizes the window to the specified dimensions.
      * @param { number } width The change in the width of the window

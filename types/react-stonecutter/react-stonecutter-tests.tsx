@@ -1,22 +1,22 @@
-import { SpringGrid, SpringGridProps, makeResponsive, layout } from "react-stonecutter";
 import * as React from "react";
+import { layout, makeResponsive, SpringGrid, SpringGridProps } from "react-stonecutter";
 
 const ResponsiveGrid: typeof SpringGrid = makeResponsive(SpringGrid, {
     maxWidth: 1920,
-    minPadding: 100
+    minPadding: 100,
 });
 
 const gridConfig: SpringGridProps = {
     component: "ul",
     columns: 5,
     perspective: 600,
-    columnWidth:  200,
+    columnWidth: 200,
     gutterWidth: 30,
-    gutterHeight:  0,
+    gutterHeight: 0,
     layout: layout.pinterest,
     springConfig: {
         stiffness: 100,
-        damping: 12
+        damping: 12,
     },
 };
 

@@ -25,5 +25,5 @@ export class AnimationInfo {
     get isComplete(): boolean;
     get name(): string;
 }
-import { Texture } from '../textures/Texture';
-import { AnimationController } from './AnimationController';
+import { Texture } from "../textures/Texture";
+import { AnimationController } from "./AnimationController";

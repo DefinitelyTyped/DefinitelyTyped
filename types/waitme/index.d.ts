@@ -27,22 +27,24 @@ declare namespace WaitMe {
          *      | bouncePulse
          *      | img
          */
-        effect?:  "none"
-                | "bounce"
-                | "rotateplane"
-                | "stretch"
-                | "orbit"
-                | "roundBounce"
-                | "win8"
-                | "win8_linear"
-                | "ios"
-                | "facebook"
-                | "rotation"
-                | "timer"
-                | "pulse"
-                | "progressBar"
-                | "bouncePulse"
-                | "img" | undefined;
+        effect?:
+            | "none"
+            | "bounce"
+            | "rotateplane"
+            | "stretch"
+            | "orbit"
+            | "roundBounce"
+            | "win8"
+            | "win8_linear"
+            | "ios"
+            | "facebook"
+            | "rotation"
+            | "timer"
+            | "pulse"
+            | "progressBar"
+            | "bouncePulse"
+            | "img"
+            | undefined;
         /**
          * place text under the effect (string).
          * Use: 'text'.
@@ -81,11 +83,11 @@ declare namespace WaitMe {
         /**
          * code execution after closed (function).
          * Use: function(){ //your code here... } or ()=>{ //your code here... }
-         * @returns {void} 
+         * @returns {void}
          */
         onClose?: (() => void) | undefined;
     }
-    
+
     interface WaitMeStatic {
         /**
          * init with default options
@@ -113,9 +115,9 @@ interface JQuery {
     /**
      * execution after closed.
      * Use: $('.waitMe').on('close', function() {});
-     * @param event 
-     * @param handler 
-     * @returns {this} 
+     * @param event
+     * @param handler
+     * @returns {this}
      */
     on(event: "close", handler: () => void): this;
 }

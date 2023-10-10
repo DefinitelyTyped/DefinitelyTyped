@@ -1,2 +1,2 @@
-import { identity } from '../index';
+import { identity } from "../index.js";
 export default identity;

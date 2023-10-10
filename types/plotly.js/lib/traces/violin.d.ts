@@ -1,37 +1,37 @@
-import { BoxPlotData } from './box';
-import { Color } from '../../index';
+import { Color } from "../../index";
+import { BoxPlotData } from "./box";
 
 // See https://github.com/plotly/plotly.js/blob/master/src/traces/violin/attributes.js
 export interface ViolinData {
-    type: 'violin';
+    type: "violin";
 
-    x: BoxPlotData['x'];
-    y: BoxPlotData['y'];
-    x0: BoxPlotData['x0'];
-    y0: BoxPlotData['y0'];
-    name: BoxPlotData['name'];
+    x: BoxPlotData["x"];
+    y: BoxPlotData["y"];
+    x0: BoxPlotData["x0"];
+    y0: BoxPlotData["y0"];
+    name: BoxPlotData["name"];
 
     opacity: number; // Missing from the list of attributes
 
-    orientation: BoxPlotData['orientation'];
+    orientation: BoxPlotData["orientation"];
     bandwidth: number;
     scalegroup: string;
-    scalemode: 'width' | 'count';
-    spanmode: 'soft' | 'hard' | 'manual';
+    scalemode: "width" | "count";
+    spanmode: "soft" | "hard" | "manual";
     span: any[];
     line: Partial<{
         color: Color;
         width: number;
     }>;
     fillcolor: Color;
-    points: BoxPlotData['boxpoints'];
-    jitter: BoxPlotData['jitter'];
-    pointpos: BoxPlotData['pointpos'];
-    width: BoxPlotData['width'];
-    marker: BoxPlotData['marker'];
-    text: BoxPlotData['text'];
-    hovertext: BoxPlotData['hovertext'];
-    hovertemplate: BoxPlotData['hovertemplate'];
+    points: BoxPlotData["boxpoints"];
+    jitter: BoxPlotData["jitter"];
+    pointpos: BoxPlotData["pointpos"];
+    width: BoxPlotData["width"];
+    marker: BoxPlotData["marker"];
+    text: BoxPlotData["text"];
+    hovertext: BoxPlotData["hovertext"];
+    hovertemplate: BoxPlotData["hovertemplate"];
     box: Partial<{
         visible: boolean;
         width: number;
@@ -46,13 +46,13 @@ export interface ViolinData {
         color: Color;
         width: number;
     }>;
-    side: 'both' | 'positive' | 'negative';
+    side: "both" | "positive" | "negative";
 
-    offsetgroup: BoxPlotData['offsetgroup'];
-    alignmentgroup: BoxPlotData['alignmentgroup'];
+    offsetgroup: BoxPlotData["offsetgroup"];
+    alignmentgroup: BoxPlotData["alignmentgroup"];
 
-    selected: BoxPlotData['selected'];
-    unselected: BoxPlotData['unselected'];
+    selected: BoxPlotData["selected"];
+    unselected: BoxPlotData["unselected"];
 
-    hoveron: 'violins' | 'points' | 'kde' | 'all' | string;
+    hoveron: "violins" | "points" | "kde" | "all" | string;
 }

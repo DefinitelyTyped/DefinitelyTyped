@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface TruncateProps extends React.HTMLProps<Truncate> {
     lines?: number | false | undefined;
@@ -13,5 +13,5 @@ export interface TruncateProps extends React.HTMLProps<Truncate> {
     onTruncate?(isTruncated: boolean): void;
 }
 
-declare class Truncate extends React.Component<TruncateProps> { }
+declare class Truncate extends React.Component<TruncateProps> {}
 export default Truncate;

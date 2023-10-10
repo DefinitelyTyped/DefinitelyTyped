@@ -1,14 +1,14 @@
-import ESAbstract = require('es-abstract');
+import ESAbstract = require("es-abstract");
 
-import ES5 = require('es-abstract/es5');
-import ES6 = require('es-abstract/es6');
-import ES7 = require('es-abstract/es7');
+import ES5 = require("es-abstract/es5");
+import ES6 = require("es-abstract/es6");
+import ES7 = require("es-abstract/es7");
 
-import ES2015 = require('es-abstract/es2015');
-import ES2016 = require('es-abstract/es2016');
-import ES2017 = require('es-abstract/es2017');
-import ES2018 = require('es-abstract/es2018');
-import ES2019 = require('es-abstract/es2019');
+import ES2015 = require("es-abstract/es2015");
+import ES2016 = require("es-abstract/es2016");
+import ES2017 = require("es-abstract/es2017");
+import ES2018 = require("es-abstract/es2018");
+import ES2019 = require("es-abstract/es2019");
 
 /**
  * The `expectType` function from https://www.npmjs.com/package/tsd,
@@ -16,7 +16,7 @@ import ES2019 = require('es-abstract/es2019');
  */
 export declare function expectType<T>(value: T): T;
 
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export declare function newType<T>(): T;
 
 expectType<typeof ES5>(ESAbstract.ES5); // $ExpectType ES5

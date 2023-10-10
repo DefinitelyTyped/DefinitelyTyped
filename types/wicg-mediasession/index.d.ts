@@ -25,9 +25,9 @@ interface MediaSession {
 
     // Set/Unset actions handlers.
     setActionHandler(
-        action: 'seekto',
+        action: "seekto",
         listener:
-            | ((details: Required<Pick<MediaSessionActionDetails, 'seekTime'>> & MediaSessionActionDetails) => void)
+            | ((details: Required<Pick<MediaSessionActionDetails, "seekTime">> & MediaSessionActionDetails) => void)
             | null,
     ): void;
     setActionHandler(action: MediaSessionAction, listener: ((details: MediaSessionActionDetails) => void) | null): void;
@@ -75,7 +75,7 @@ interface MediaMetadata {
 
 declare var MediaMetadata: {
     prototype: MediaMetadata;
-    new (init?: MediaMetadataInit): MediaMetadata;
+    new(init?: MediaMetadataInit): MediaMetadata;
 };
 
 interface MediaPositionState {

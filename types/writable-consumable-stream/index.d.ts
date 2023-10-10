@@ -4,9 +4,9 @@
 //                 Nathan Bierema <https://github.com/Methuselah96>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import ConsumableStream = require('consumable-stream');
+import ConsumableStream = require("consumable-stream");
 
-import Consumer = require('./consumer');
+import Consumer = require("./consumer");
 
 declare class WritableConsumableStream<T> extends ConsumableStream<T> {
     nextConsumerId: number;

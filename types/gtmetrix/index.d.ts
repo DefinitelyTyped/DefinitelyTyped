@@ -177,18 +177,18 @@ declare namespace gtmetrix {
     /**
      * https://github.com/fvdm/nodejs-gtmetrix#resources
      */
-    type NonBinaryResourceType = 'har' | 'pagespeed' | 'yslow';
+    type NonBinaryResourceType = "har" | "pagespeed" | "yslow";
 
     /**
      * https://github.com/fvdm/nodejs-gtmetrix#resources
      */
     type BinaryResourceType =
-        | 'filmstrip'
-        | 'pagespeed-files'
-        | 'report-pdf'
-        | 'report-pdf-full'
-        | 'screenshot'
-        | 'video';
+        | "filmstrip"
+        | "pagespeed-files"
+        | "report-pdf"
+        | "report-pdf-full"
+        | "screenshot"
+        | "video";
 }
 
 export = gtmetrix;

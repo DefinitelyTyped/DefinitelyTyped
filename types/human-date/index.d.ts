@@ -26,18 +26,18 @@ export interface RelativeTimeReturns {
 // prettyPrint
 export function prettyPrint(
     arg?: string | Date | number,
-    options?: PrettyPrintOptions
+    options?: PrettyPrintOptions,
 ): string;
 
 // relativeTime
 export function relativeTime(
     arg: string | Date | number,
-    options?: RelativeTimeOptions & { returnObject?: false }
+    options?: RelativeTimeOptions & { returnObject?: false },
 ): string;
 
 export function relativeTime(
     arg: string | Date | number,
-    options: RelativeTimeOptions & { returnObject: true }
+    options: RelativeTimeOptions & { returnObject: true },
 ): RelativeTimeReturns;
 
 // monthName

@@ -1,6 +1,6 @@
-import { Interface as ReadlineInterface } from 'readline';
-import { Answers, NumberQuestionOptions } from '../../index.js';
-import InputPrompt from './input.js';
+import { Interface as ReadlineInterface } from "readline";
+import { Answers, NumberQuestionOptions } from "../../index.js";
+import InputPrompt from "./input.js";
 
 /**
  * The question for the {@link NumberPrompt `NumberPrompt<TQuestion>`}.

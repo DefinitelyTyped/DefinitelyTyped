@@ -9,7 +9,7 @@
 // TypeScript Version: 3.0
 
 /// <reference types="node"/>
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> extends EventEmitter {
     static isOurError(error: any): boolean;
@@ -105,20 +105,20 @@ declare class CircuitBreaker<TI extends unknown[] = unknown[], TR = unknown> ext
     healthCheck(func: () => Promise<void>, interval?: number): void;
 
     /* tslint:disable:unified-signatures */
-    on(event: 'halfOpen', listener: (resetTimeout: number) => void): this;
-    on(event: 'close', listener: () => void): this;
-    on(event: 'open', listener: () => void): this;
-    on(event: 'shutdown', listener: () => void): this;
-    on(event: 'fire', listener: (args: TI) => void): this;
-    on(event: 'cacheHit', listener: () => void): this;
-    on(event: 'cacheMiss', listener: () => void): this;
-    on(event: 'reject', listener: (err: Error) => void): this;
-    on(event: 'timeout', listener: (err: Error) => void): this;
-    on(event: 'success', listener: (result: TR, latencyMs: number) => void): this;
-    on(event: 'semaphoreLocked', listener: (err: Error) => void): this;
-    on(event: 'healthCheckFailed', listener: (err: Error) => void): this;
-    on(event: 'fallback', listener: (result: unknown, err: Error) => void): this;
-    on(event: 'failure', listener: (err: Error, latencyMs: number, args: TI) => void): this;
+    on(event: "halfOpen", listener: (resetTimeout: number) => void): this;
+    on(event: "close", listener: () => void): this;
+    on(event: "open", listener: () => void): this;
+    on(event: "shutdown", listener: () => void): this;
+    on(event: "fire", listener: (args: TI) => void): this;
+    on(event: "cacheHit", listener: () => void): this;
+    on(event: "cacheMiss", listener: () => void): this;
+    on(event: "reject", listener: (err: Error) => void): this;
+    on(event: "timeout", listener: (err: Error) => void): this;
+    on(event: "success", listener: (result: TR, latencyMs: number) => void): this;
+    on(event: "semaphoreLocked", listener: (err: Error) => void): this;
+    on(event: "healthCheckFailed", listener: (err: Error) => void): this;
+    on(event: "fallback", listener: (result: unknown, err: Error) => void): this;
+    on(event: "failure", listener: (err: Error, latencyMs: number, args: TI) => void): this;
     /* tslint:enable:unified-signatures */
 }
 
@@ -231,18 +231,30 @@ declare namespace CircuitBreaker {
         cache?: boolean | undefined;
 
         /**
+         * The cache time to live (TTL) in milliseconds.
+         * The default value is 0, which means the cache will never be cleared.
+         * @default 0
+         */
+        cacheTTL?: number;
+
+        /**
          * Whether to enable the periodic snapshots that are emitted by the Status class.
          * Passing false will result in snapshots not being emitted
          * @default true
          */
         enableSnapshots?: boolean | undefined;
+
+        /**
+         * Optional EventEmitter to be passed in to control the buckets instead of the bucket-interval timer
+         */
+        rotateBucketController?: EventEmitter | undefined;
     }
 
     interface Status extends EventEmitter {
         stats: Stats;
         window: Window;
 
-        on(event: 'snapshot', listener: (snapshot: Stats) => void): this;
+        on(event: "snapshot", listener: (snapshot: Stats) => void): this;
     }
 
     interface Bucket {

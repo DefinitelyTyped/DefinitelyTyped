@@ -16,5 +16,5 @@ export declare enum Intents {
     VIEW_CONTACT = "ViewContact",
     VIEW_CHART = "ViewChart",
     VIEW_QUOTE = "ViewQuote",
-    VIEW_NEWS = "ViewNews"
+    VIEW_NEWS = "ViewNews",
 }

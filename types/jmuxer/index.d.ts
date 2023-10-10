@@ -9,7 +9,7 @@ import { Duplex } from "stream";
 declare namespace JMuxer {
     interface Options {
         node: string | HTMLVideoElement;
-        mode?: 'both' | 'audio' | 'video' | undefined;
+        mode?: "both" | "audio" | "video" | undefined;
         flushingTime?: number | undefined;
         clearBuffer?: boolean | undefined;
         fps?: number | undefined;

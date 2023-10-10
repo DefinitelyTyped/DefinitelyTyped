@@ -1,5 +1,5 @@
-import { Asset } from './asset';
-import { Price } from './price';
+import { Asset } from "./asset";
+import { Price } from "./price";
 
 export interface Variant {
     id: string;

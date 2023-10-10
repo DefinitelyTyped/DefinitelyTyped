@@ -7,7 +7,7 @@ declare function runActivity(
     parameters: any,
     iconClass: any,
     lastShownProcessId: any,
-    validateLastActivity: any
+    validateLastActivity: any,
 ): any;
 declare namespace runActivity {
     const processManager_: any;

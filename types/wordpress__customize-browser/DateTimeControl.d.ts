@@ -1,4 +1,4 @@
-import { Control } from './Control';
+import { Control } from "./Control";
 
 export interface DateTime {
     year: string;
@@ -16,7 +16,7 @@ export class DateTimeControl extends Control {
     populateSetting(): boolean;
     convertInputDateToString(): string;
     isFutureDate(): boolean;
-    convertHourToTwentyFourHourFormat(hourInTwelveHourFormat: string, meridian: 'am' | 'pm'): string;
+    convertHourToTwentyFourHourFormat(hourInTwelveHourFormat: string, meridian: "am" | "pm"): string;
     populateDateInputs(): boolean;
     toggleFutureDateNotification(notify: boolean): DateTimeControl;
 }

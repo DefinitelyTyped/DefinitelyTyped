@@ -202,7 +202,7 @@
 declare module "punycode" {
     
 
-    module punycode {
+    namespace punycode {
         
         
         
