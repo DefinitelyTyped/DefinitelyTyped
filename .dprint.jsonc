@@ -26,6 +26,7 @@
         "./types/openui5",
         "./types/p5",
         "./types/react-native",
+        "./types/recurly__recurly-js",
         "./types/sawtooth-sdk",
         "./types/three",
         "./types/webextension-polyfill",
