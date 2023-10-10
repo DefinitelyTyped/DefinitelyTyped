@@ -36,11 +36,17 @@
     "./types/i18next-ko",
     "./types/i18next-node-fs-backend",
     "./types/i18next-sprintf-postprocessor",
-    "./types/react-blessed"
+    "./types/react-blessed",
+
+    // Machine-generated files.
+    "./docs/support-window.json",
+    "./notNeededPackages.json",
+    "**/package-lock.json"
   ],
   // NOTE: if extending this list, also update settings.template.json.
   "plugins": [
-    "https://plugins.dprint.dev/typescript-0.88.1.wasm"
+    "https://plugins.dprint.dev/typescript-0.88.1.wasm",
+    "https://plugins.dprint.dev/json-0.17.4.wasm"
   ],
   "indentWidth": 4,
   "lineWidth": 120
