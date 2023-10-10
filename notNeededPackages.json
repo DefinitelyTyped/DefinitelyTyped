@@ -6571,6 +6571,14 @@
             "libraryName": "xregexp",
             "asOfVersion": "4.4.0"
         },
+        "xstyled__styled-components": {
+            "libraryName": "@xstyled/styled-components",
+            "asOfVersion": "2.0.0"
+        },
+        "xstyled__system": {
+            "libraryName": "@xstyled/system",
+            "asOfVersion": "2.0.0"
+        },
         "xterm": {
             "libraryName": "xterm",
             "asOfVersion": "3.0.0"
