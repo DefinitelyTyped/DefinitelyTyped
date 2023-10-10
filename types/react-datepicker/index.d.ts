@@ -5,7 +5,6 @@
 //                 Roy Xue <https://github.com/royxue>
 //                 Koala Human <https://github.com/KoalaHuman>
 //                 Justin Grant <https://github.com/justingrant>
-//                 Jake Boone <https://github.com/jakeboone02>
 //                 Avi Klaiman <https://github.com/aviklai>
 //                 Naoki Sekiguchi <https://github.com/seckie>
 //                 Kerry Gougeon <https://github.com/kerry-g>
