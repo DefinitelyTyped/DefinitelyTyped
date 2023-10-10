@@ -5,10 +5,10 @@
 //                 Mohammad Moein Abdi <https://github.com/moeindev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {HierarchyNode, StratifyOperator} from "d3-hierarchy";
-import {BaseType, Selection, ValueFn} from "d3-selection";
-import {DefaultLinkObject, Link} from "d3-shape";
-import {ZoomBehavior, ZoomTransform} from "d3-zoom";
+import { HierarchyNode, StratifyOperator } from "d3-hierarchy";
+import { BaseType, Selection, ValueFn } from "d3-selection";
+import { DefaultLinkObject, Link } from "d3-shape";
+import { ZoomBehavior, ZoomTransform } from "d3-zoom";
 
 export type NodeId = string | number;
 
@@ -298,10 +298,12 @@ export interface StatePublic<Datum> {
      * @param nodes
      * @param state
      */
-    pagingButton: (node: HierarchyNode<Datum>,
-                   index: number,
-                   nodes: Array<HierarchyNode<Datum>>,
-                   state: State<Datum>) => string;
+    pagingButton: (
+        node: HierarchyNode<Datum>,
+        index: number,
+        nodes: Array<HierarchyNode<Datum>>,
+        state: State<Datum>,
+    ) => string;
     /**
      * You can customize/offset positions for each node and link by overriding these functions
      * For example, suppose you want to move link y position 30 px bellow in top layout. You can do it like this:
@@ -422,8 +424,11 @@ export class OrgChart<Datum> {
      */
     removeNode(nodeId: NodeId): this;
 
-    groupBy(array: HTMLCollection, accessor: (node: HierarchyNode<Datum>) => number, aggegator: any): Array<[string,unknown]>;
-
+    groupBy(
+        array: HTMLCollection,
+        accessor: (node: HierarchyNode<Datum>) => number,
+        aggegator: any,
+    ): Array<[string, unknown]>;
 
     calculateCompactFlexDimensions(root: HierarchyNode<Datum>): void;
 
@@ -553,7 +558,15 @@ export class OrgChart<Datum> {
 
     toDataUrl(url: string, callback: (result: string | ArrayBuffer) => void): void;
 
-    exportImg(params?: { full?: boolean; scale?: number; onLoad?: (s: string) => void; save?: boolean, backgroundColor?: string }): void;
+    exportImg(
+        params?: {
+            full?: boolean;
+            scale?: number;
+            onLoad?: (s: string) => void;
+            save?: boolean;
+            backgroundColor?: string;
+        },
+    ): void;
 
     exportSvg(): this;
 

@@ -1,4 +1,4 @@
-import {OrgChart} from "d3-org-chart";
+import { OrgChart } from "d3-org-chart";
 
 interface Person {
     id: string;
@@ -8,12 +8,12 @@ interface Person {
 
 const myData: Person[] = [
     {
-        id: '1',
+        id: "1",
         firstName: "Alice",
         lastName: "Smith",
     },
     {
-        id: '2',
+        id: "2",
         firstName: "Bob",
         lastName: "Smith",
     },
@@ -99,7 +99,7 @@ chart
 chart.backgroundColor("#eee").render();
 
 // $ExpectType OrgChart<Person>
-chart.addNode({ id: '3',firstName: "Charlie", lastName: "Brown" });
+chart.addNode({ id: "3", firstName: "Charlie", lastName: "Brown" });
 
 // $ExpectType OrgChart<Person>
 chart.expandAll();
