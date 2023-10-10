@@ -3,7 +3,6 @@
 // Definitions by: Aaron Mc Adam <https://github.com/aaronmcadam>
 //                 Basti Buck <https://github.com/bastibuck>
 //                 Stefano Magni <https://github.com/NoriSte>
-//                 Justin Hall <https://github.com/wKovacs64>
 //                 Brian Ng <https://github.com/existentialism>
 //                 Airat Aminev <https://github.com/airato>
 //                 Simon Jespersen <https://github.com/simjes>
