@@ -18,8 +18,8 @@
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "paths": {
-            "react-relay/*": [ "react-relay/v7/*" ],
-            "react-relay": [ "react-relay/v7" ]
+            "react-relay/*": ["react-relay/v7/*"],
+            "react-relay": ["react-relay/v7"]
         }
     },
     "files": [

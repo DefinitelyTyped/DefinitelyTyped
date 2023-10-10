@@ -15,8 +15,8 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "paths" :  {
-                "@rollup/*": ["rollup__*"]
+        "paths": {
+            "@rollup/*": ["rollup__*"]
         }
     },
     "files": [

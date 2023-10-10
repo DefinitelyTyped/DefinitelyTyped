@@ -8,7 +8,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "forceConsistentCasingInFileNames":true,
+        "forceConsistentCasingInFileNames": true,
         "baseUrl": "../",
         "typeRoots": ["../"],
         "types": []
@@ -17,5 +17,4 @@
         "index.d.ts",
         "netlify-auth-providers-tests.ts"
     ]
-
 }

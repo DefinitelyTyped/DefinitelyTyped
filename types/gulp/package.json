@@ -1,7 +1,7 @@
 {
-  "private": true,
-  "dependencies": {
-    "@types/undertaker": ">=1.2.6",
-    "chokidar": "^3.3.1"
-  }
+    "private": true,
+    "dependencies": {
+        "@types/undertaker": ">=1.2.6",
+        "chokidar": "^3.3.1"
+    }
 }

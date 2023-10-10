@@ -13,7 +13,7 @@
         ],
         "paths": {
             "rox-node": ["rox-node/v4"]
-        },  
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,

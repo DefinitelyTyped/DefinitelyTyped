@@ -14,7 +14,7 @@
         ],
         "paths": {
             "@styled-system/*": [
-              "styled-system__*"
+                "styled-system__*"
             ]
         },
         "types": [],

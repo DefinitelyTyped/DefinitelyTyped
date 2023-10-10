@@ -13,9 +13,9 @@
             "../../"
         ],
         "paths": {
-          "express-useragent": [
-            "express-useragent/v0"
-          ]
+            "express-useragent": [
+                "express-useragent/v0"
+            ]
         },
         "types": [],
         "noEmit": true,

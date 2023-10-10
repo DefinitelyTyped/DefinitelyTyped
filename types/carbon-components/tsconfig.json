@@ -13,5 +13,4 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": ["index.d.ts", "carbon-components-tests.ts"]
-  }
-  
+}

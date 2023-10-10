@@ -15,9 +15,9 @@
         ],
         "types": [],
         "paths": {
-          "@shakacode/*": [
-            "shakacode__*"
-          ]
+            "@shakacode/*": [
+                "shakacode__*"
+            ]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,

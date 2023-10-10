@@ -12,7 +12,7 @@
         "typeRoots": [
             "../"
         ],
-         "paths": {
+        "paths": {
             "tapable": [
                 "./node_modules/tapable"
             ],

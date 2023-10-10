@@ -14,8 +14,7 @@
         "typeRoots": [
             "../"
         ],
-        "types": [
-        ]
+        "types": []
     },
     "files": [
         "connect-mongodb-session-tests.ts",

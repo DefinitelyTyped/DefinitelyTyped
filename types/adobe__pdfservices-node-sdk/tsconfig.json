@@ -17,10 +17,10 @@
         "forceConsistentCasingInFileNames": true,
         "paths": {
             "@adobe/*": [
-              "adobe__*"
+                "adobe__*"
             ]
-          }
-          },
+        }
+    },
     "files": [
         "index.d.ts",
         "adobe__pdfservices-node-sdk-tests.ts"

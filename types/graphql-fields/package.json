@@ -1,6 +1,6 @@
 {
-  "private": true,
-  "dependencies": {
-    "graphql": "*"
-  }
+    "private": true,
+    "dependencies": {
+        "graphql": "*"
+    }
 }

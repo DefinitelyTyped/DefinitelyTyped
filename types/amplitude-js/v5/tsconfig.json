@@ -13,7 +13,7 @@
             "../../"
         ],
         "paths": {
-            "amplitude-js": [ "amplitude-js/v5" ]
+            "amplitude-js": ["amplitude-js/v5"]
         },
         "types": [],
         "noEmit": true,

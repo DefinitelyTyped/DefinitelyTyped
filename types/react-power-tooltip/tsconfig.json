@@ -14,5 +14,5 @@
         "jsx": "react",
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "react-power-tooltip-tests.tsx" ]
+    "files": ["index.d.ts", "react-power-tooltip-tests.tsx"]
 }

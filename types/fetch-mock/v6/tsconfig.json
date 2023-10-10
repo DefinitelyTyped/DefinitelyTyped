@@ -17,8 +17,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "fetch-mock": [ "fetch-mock/v6" ]
-        }  
+            "fetch-mock": ["fetch-mock/v6"]
+        }
     },
     "files": [
         "index.d.ts",

@@ -14,7 +14,7 @@
             "../../"
         ],
         "paths": {
-            "react-google-recaptcha": [ "react-google-recaptcha/v0" ]
+            "react-google-recaptcha": ["react-google-recaptcha/v0"]
         },
         "types": [],
         "jsx": "react",

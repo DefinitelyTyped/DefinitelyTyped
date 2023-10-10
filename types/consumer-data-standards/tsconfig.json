@@ -17,8 +17,8 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-  "files": [
-      "index.d.ts",
-      "consumer-data-standards-tests.ts"
-  ]
+    "files": [
+        "index.d.ts",
+        "consumer-data-standards-tests.ts"
+    ]
 }

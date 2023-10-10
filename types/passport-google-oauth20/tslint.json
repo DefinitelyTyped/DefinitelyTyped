@@ -2,6 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "unified-signatures": false,
-        "npm-naming": [true,{"mode":"code","errors":[["NeedsExportEquals",false]]}]
+        "npm-naming": [true, { "mode": "code", "errors": [["NeedsExportEquals", false]] }]
     }
 }

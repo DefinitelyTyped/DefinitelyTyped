@@ -17,7 +17,7 @@
         "forceConsistentCasingInFileNames": true,
         "esModuleInterop": true,
         "paths": {
-          "@cyberblast/*": ["cyberblast__*"]
+            "@cyberblast/*": ["cyberblast__*"]
         }
     },
     "files": [

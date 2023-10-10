@@ -13,7 +13,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-      "fast-text-encoding-tests.ts",
-      "index.d.ts"
+        "fast-text-encoding-tests.ts",
+        "index.d.ts"
     ]
 }

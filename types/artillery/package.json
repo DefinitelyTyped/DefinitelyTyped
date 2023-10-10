@@ -1,6 +1,6 @@
 {
-  "private": true,
-  "dependencies": {
-    "got": "^11.8.5"
-  }
+    "private": true,
+    "dependencies": {
+        "got": "^11.8.5"
+    }
 }

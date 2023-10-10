@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-      "markdownlint": "^0.30.0"
+        "markdownlint": "^0.30.0"
     }
 }

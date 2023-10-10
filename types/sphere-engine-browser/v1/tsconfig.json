@@ -10,8 +10,8 @@
             "../../"
         ],
         "paths": {
-            "sphere-engine-browser": [ "sphere-engine-browser/v1" ],
-            "sphere-engine-browser/*": [ "sphere-engine-browser/v1/*" ]
+            "sphere-engine-browser": ["sphere-engine-browser/v1"],
+            "sphere-engine-browser/*": ["sphere-engine-browser/v1/*"]
         },
         "types": [],
         "noEmit": true,

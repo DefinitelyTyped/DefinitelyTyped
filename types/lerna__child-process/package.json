@@ -1,6 +1,6 @@
 {
-    "private":true,
+    "private": true,
     "dependencies": {
-        "execa":"^5.0.0"
+        "execa": "^5.0.0"
     }
 }

@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-      "react-native-countdown-component-tests.tsx"
+        "react-native-countdown-component-tests.tsx"
     ]
 }

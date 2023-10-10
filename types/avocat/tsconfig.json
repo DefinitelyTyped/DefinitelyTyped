@@ -16,7 +16,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "@hapi/*": [ "hapi__*" ]
+            "@hapi/*": ["hapi__*"]
         }
     },
     "files": [

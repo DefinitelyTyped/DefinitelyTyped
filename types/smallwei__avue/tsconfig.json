@@ -15,8 +15,8 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "paths":{
-            "@smallwei/*":["smallwei__*"]
+        "paths": {
+            "@smallwei/*": ["smallwei__*"]
         }
     },
     "files": [

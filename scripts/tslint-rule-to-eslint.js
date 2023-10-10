@@ -1,8 +1,8 @@
+import cp from "child_process";
 import { parse } from "comment-json";
 import fs from "fs";
 import * as path from "path";
 import sh from "shelljs";
-import cp from "child_process"
 
 /** @type {any} */
 const emptyObject = {};

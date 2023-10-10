@@ -1,21 +1,21 @@
 {
-  "compilerOptions": {
-    "lib": [
-      "es6"
-    ],
-    "baseUrl": "../",
-    "typeRoots": ["../"],
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictFunctionTypes": true,
-    "strictNullChecks": true,
-    "module": "commonjs",
-    "types": []
-  },
-  "files": [
-    "index.d.ts",
-    "gorilla-engine-tests.ts"
-  ]
+    "compilerOptions": {
+        "lib": [
+            "es6"
+        ],
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "module": "commonjs",
+        "types": []
+    },
+    "files": [
+        "index.d.ts",
+        "gorilla-engine-tests.ts"
+    ]
 }

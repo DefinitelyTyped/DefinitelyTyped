@@ -1,6 +1,6 @@
 {
-  "private": true,
-  "dependencies": {
-      "@types/rimraf": "^2.0.3"
-  }
+    "private": true,
+    "dependencies": {
+        "@types/rimraf": "^2.0.3"
+    }
 }

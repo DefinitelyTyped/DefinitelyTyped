@@ -16,7 +16,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "ssh2-sftp-client": [ "ssh2-sftp-client/v7" ]
+            "ssh2-sftp-client": ["ssh2-sftp-client/v7"]
         }
     },
     "files": [

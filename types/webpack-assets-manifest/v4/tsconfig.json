@@ -20,7 +20,7 @@
             "tapable": [
                 "tapable/v1"
             ],
-            "webpack-assets-manifest": [ "webpack-assets-manifest/v4" ]
+            "webpack-assets-manifest": ["webpack-assets-manifest/v4"]
         },
         "types": [],
         "noEmit": true,

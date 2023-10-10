@@ -20,10 +20,10 @@
         "paths": {
             "react-data-grid": [
                 "react-data-grid/v2"
-                ],
+            ],
             "react-data-grid/*": [
                 "react-data-grid/v2/*"
-                ]
+            ]
         }
     },
     "files": [

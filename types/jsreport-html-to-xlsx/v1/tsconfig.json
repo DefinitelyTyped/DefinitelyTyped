@@ -11,9 +11,9 @@
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
-       ],
-       "paths": {
-            "jsreport-html-to-xlsx": [ "jsreport-html-to-xlsx/v1" ]
+        ],
+        "paths": {
+            "jsreport-html-to-xlsx": ["jsreport-html-to-xlsx/v1"]
         },
         "types": [],
         "noEmit": true,
