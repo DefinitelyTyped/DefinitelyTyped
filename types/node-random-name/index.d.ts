@@ -3,7 +3,6 @@
 // Definitions by: Ankan Bhattacharya <https://github.com/Ankan002>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare function random_name(args?: random_name.NodeRandomNameArgs): string;
 
 declare namespace random_name {
