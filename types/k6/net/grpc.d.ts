@@ -29,6 +29,11 @@ export interface ConnectParams {
     reflect?: boolean;
 
     /**
+     * Metadata to send with reflection request.
+     */
+    reflectMetadata?: object;
+
+    /**
      * Connection timeout to use.
      */
     timeout?: string | number;
