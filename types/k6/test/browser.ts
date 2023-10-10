@@ -519,6 +519,24 @@ page.mainFrame();
 // $ExpectType Mouse
 page.mouse;
 
+// @ts-expect-error
+page.on();
+// @ts-expect-error
+page.on('invalid');
+// @ts-expect-error
+page.on('console');
+// $ExpectType void
+page.on('console', msg => {
+    // $ExpectType JSHandle<any>[]
+    msg.args();
+    // $ExpectType Page | null
+    msg.page();
+    // $ExpectType string
+    msg.text();
+    // $ExpectType string
+    msg.type();
+});
+
 // $ExpectType Page | null
 page.opener();
 
