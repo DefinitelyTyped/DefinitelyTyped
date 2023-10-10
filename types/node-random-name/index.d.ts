@@ -3,9 +3,9 @@
 // Definitions by: Ankan Bhattacharya <https://github.com/Ankan002>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function random_name(args?: random_name.NodeRandomNameArgs): string;
+declare function getName(args?: getName.NodeRandomNameArgs): string;
 
-declare namespace random_name {
+declare namespace getName {
     interface NodeRandomNameArgs {
         first?: boolean | undefined;
         last?: boolean | undefined;
