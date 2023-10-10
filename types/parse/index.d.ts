@@ -910,6 +910,7 @@ declare global {
                         : never),
             ): this;
             polygonContains<K extends keyof T["attributes"] | keyof BaseAttributes>(key: K, point: GeoPoint): this;
+            readPreference(readPreference: `${ReadPreferenceOption}`, includeReadPreference?: `${ReadPreferenceOption}`, subqueryReadPreference?: `${ReadPreferenceOption}`): this;
             select<K extends keyof T["attributes"] | keyof BaseAttributes>(...keys: K[]): this;
             select<K extends keyof T["attributes"] | keyof BaseAttributes>(keys: K[]): this;
             skip(n: number): Query<T>;
