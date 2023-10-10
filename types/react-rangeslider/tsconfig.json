@@ -11,7 +11,7 @@
         "strictFunctionTypes": true,
         "baseUrl": "../",
         "typeRoots": [
-                "../"
+            "../"
         ],
         "jsx": "react",
         "types": [],

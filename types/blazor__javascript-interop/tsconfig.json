@@ -12,7 +12,7 @@
         "typeRoots": [
             "../"
         ],
-        "paths":{
+        "paths": {
             "@blazor/*": ["blazor__*"]
         },
         "types": [],

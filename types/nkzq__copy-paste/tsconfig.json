@@ -16,10 +16,10 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-          "@nkzq/*": [
-              "nkzq__*"
-          ]
-      }
+            "@nkzq/*": [
+                "nkzq__*"
+            ]
+        }
     },
     "files": [
         "index.d.ts",

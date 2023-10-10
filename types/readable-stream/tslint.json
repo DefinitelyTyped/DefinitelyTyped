@@ -1,3 +1,6 @@
-{ "extends": "@definitelytyped/dtslint/dt.json", "rules": {
-    "unified-signatures": false
-} }
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "unified-signatures": false
+    }
+}
