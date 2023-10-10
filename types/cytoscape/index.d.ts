@@ -112,6 +112,10 @@ declare namespace cytoscape {
          */
         grabbable?: boolean | undefined;
         /**
+         * Whether the element has passthrough panning enabled.
+         */
+        pannable?: boolean | undefined;
+        /**
          * a space separated list of class names that the element has
          */
         classes?: string[] | string | undefined;
