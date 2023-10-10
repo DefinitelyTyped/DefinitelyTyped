@@ -17,4 +17,4 @@ declare namespace getName {
     }
 }
 
-export = random_name;
+export = getName;
