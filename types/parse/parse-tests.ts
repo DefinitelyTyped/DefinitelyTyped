@@ -1781,6 +1781,9 @@ function testQuery() {
         const query = new Parse.Query(MySubClass);
 
         // $ExpectType Query<MySubClass>
+        query.readPreference("SECONDARY_PREFERRED");
+
+        // $ExpectType Query<MySubClass>
         query.addAscending(["attribute1", "attribute2", "updatedAt"]);
         // @ts-expect-error
         query.addAscending(["attribute1", "unexistenProp"]);
