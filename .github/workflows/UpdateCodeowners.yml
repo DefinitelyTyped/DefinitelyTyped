@@ -7,7 +7,7 @@ name: Update CODEOWNERs
 on:
   schedule:
     # https://crontab.guru/#5_8_*_*_1
-    - cron: "5 8 * * 1"
+    - cron: '5 8 * * 1'
   workflow_dispatch:
 
 permissions:
@@ -16,14 +16,14 @@ permissions:
 jobs:
   update:
     permissions:
-      contents: write  # for Git to git push
+      contents: write # for Git to git push
     runs-on: ubuntu-latest
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
 
     steps:
       - uses: actions/checkout@v3
         with:
-            fetch-depth: 0
+          fetch-depth: 0
 
       - uses: actions/setup-node@v3
 
@@ -33,5 +33,4 @@ jobs:
       - run: npm install
       - run: npm run update-codeowners
         env:
-            GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
