@@ -3,7 +3,7 @@
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// tslint:disable-next-line:no-unnecessary-class there are no public  member methods
+// tslint:disable-next-line:no-unnecessary-class
 declare class ImageZoom {
     /**
      * Creates an instance of ImageZoom.
@@ -11,6 +11,11 @@ declare class ImageZoom {
      * @param opts js-image-zoom options
      */
     constructor(container: HTMLElement, opts: ImageZoom.Options);
+
+    /**
+     * Destroys ImageZoom instance
+     */
+    kill(): void;
 }
 
 declare namespace ImageZoom {
