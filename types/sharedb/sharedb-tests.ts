@@ -419,7 +419,7 @@ function startClient(callback) {
     doc.on("destroy", () => {});
 
     doc.del();
-    doc.del({source: true});
+    doc.del({ source: true });
     doc.del((error) => {
         console.log(error);
     });
