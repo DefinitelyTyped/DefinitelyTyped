@@ -607,7 +607,7 @@ declare namespace PDFKit.Mixins {
     interface PDFMetadata {
         /** Called automatically */
         initMetadata(): void;
-        appendXML(XMLxml: string, newLine = true): void;
+        appendXML(XMLxml: string, newLine?: boolean): void;
         /** Called automatically */
         endMetadata(): void;
     }
@@ -701,8 +701,8 @@ declare namespace PDFKit {
         displayTitle?: boolean;
         /** If subset is present:
          *
-         * - `pdfVersion` set to at least `1.4`
-         * - `tagged` set to `true` for PDF/A-1a
+         * * `pdfVersion` set to at least `1.4`
+         * * `tagged` set to `true` for PDF/A-1a
          */
         subset?: Mixins.PDFSubsets;
     }
