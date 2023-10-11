@@ -162,10 +162,10 @@ const staticRange: StaticRange = {
     hasCustomRendering: true,
 };
 
-const createdStaticRanges = createsStaticRanges([
+const createdStaticRanges = createStaticRanges([
     {
         range: () => ({ startDate: new Date("2021-10-01"), endDate: new Date("2021-10-31") }),
-        label: "Example static range",
+        label: "Example created static range",
     }
 ]);
 
