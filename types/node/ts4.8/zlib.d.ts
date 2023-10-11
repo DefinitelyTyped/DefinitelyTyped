@@ -174,6 +174,14 @@ declare module "zlib" {
         buffer: Buffer;
         engine: Deflate;
     }
+    interface CompressGzipInfoResult {
+        buffer: Buffer;
+        engine: Gzip;
+    }
+    interface CompressGunzipInfoResult {
+        buffer: Buffer;
+        engine: Gunzip;
+    }
     interface CompressInflateInfoResult {
         buffer: Buffer;
         engine: Inflate;
@@ -181,6 +189,10 @@ declare module "zlib" {
     interface CompressInflateRawInfoResult {
         buffer: Buffer;
         engine: Inflate;
+    }
+    interface CompressUnzipInfoResult {
+        buffer: Buffer;
+        engine: Unzip;
     }
     /**
      * Creates and returns a new `BrotliCompress` object.
@@ -237,9 +249,12 @@ declare module "zlib" {
     type InputType = string | ArrayBuffer | NodeJS.ArrayBufferView;
     type CompressCallback = (error: Error | null, result: Buffer) => void;
     type CompressDeflateInfoCallback = (error: Error | null, result: CompressDeflateInfoResult) => void;
-    type CompressInflateInfoCallback = (error: Error | null, result: CompressInflateInfoResult) => void;
     type CompressDeflateRawInfoCallback = (error: Error | null, result: CompressDeflateInfoResult) => void;
+    type CompressGzipInfoCallback = (error: Error | null, result: CompressGzipInfoResult) => void;
+    type CompressGunzipInfoCallback = (error: Error | null, result: CompressGunzipInfoResult) => void;
+    type CompressInflateInfoCallback = (error: Error | null, result: CompressInflateInfoResult) => void;    
     type CompressInflateRawInfoCallback = (error: Error | null, result: CompressInflateInfoResult) => void;
+    type CompressUnzipInfoCallback = (error: Error | null, result: CompressUnzipInfoResult) => void;
     /**
      * @since v11.7.0, v10.16.0
      */
@@ -302,28 +317,34 @@ declare module "zlib" {
      * @since v0.6.0
      */
     function gzip(buf: InputType, callback: CompressCallback): void;
-    function gzip(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
+    function gzip(buf: InputType, options: ZlibOptionsWithoutInfo, callback: CompressCallback): void;
+    function gzip(buf: InputType, options: ZlibOptionsWithInfo, callback: CompressGzipInfoCallback): void;
     namespace gzip {
-        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options?: ZlibOptionsWithoutInfo): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options?: ZlibOptionsWithInfo): Promise<CompressGzipInfoResult>;
     }
     /**
      * Compress a chunk of data with `Gzip`.
      * @since v0.11.12
      */
-    function gzipSync(buf: InputType, options?: ZlibOptions): Buffer;
+    function gzipSync(buf: InputType, options?: ZlibOptionsWithoutInfo): Buffer;
+    function gzipSync(buf: InputType, options?: ZlibOptionsWithInfo): CompressGzipInfoResult;
     /**
      * @since v0.6.0
      */
     function gunzip(buf: InputType, callback: CompressCallback): void;
-    function gunzip(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
+    function gunzip(buf: InputType, options: ZlibOptionsWithoutInfo, callback: CompressCallback): void;
+    function gunzip(buf: InputType, options: ZlibOptionsWithInfo, callback: CompressGunzipInfoCallback): void;
     namespace gunzip {
-        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options?: ZlibOptionsWithoutInfo): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options?: ZlibOptionsWithInfo): Promise<CompressGunzipInfoResult>;
     }
     /**
      * Decompress a chunk of data with `Gunzip`.
      * @since v0.11.12
      */
-    function gunzipSync(buf: InputType, options?: ZlibOptions): Buffer;
+    function gunzipSync(buf: InputType, options?: ZlibOptionsWithoutInfo): Buffer;
+    function gunzipSync(buf: InputType, options?: ZlibOptionsWithInfo): CompressGunzipInfoResult;
     /**
      * @since v0.6.0
      */
@@ -360,15 +381,18 @@ declare module "zlib" {
      * @since v0.6.0
      */
     function unzip(buf: InputType, callback: CompressCallback): void;
-    function unzip(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
+    function unzip(buf: InputType, options: ZlibOptionsWithoutInfo, callback: CompressCallback): void;
+    function unzip(buf: InputType, options: ZlibOptionsWithInfo, callback: CompressUnzipInfoCallback): void;
     namespace unzip {
-        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options?: ZlibOptionsWithoutInfo): Promise<Buffer>;
+        function __promisify__(buffer: InputType, options?: ZlibOptionsWithInfo): Promise<CompressUnzipInfoResult>;
     }
     /**
      * Decompress a chunk of data with `Unzip`.
      * @since v0.11.12
      */
-    function unzipSync(buf: InputType, options?: ZlibOptions): Buffer;
+    function unzipSync(buf: InputType, options?: ZlibOptionsWithoutInfo): Buffer;
+    function unzipSync(buf: InputType, options?: ZlibOptionsWithInfo): CompressUnzipInfoResult;
     namespace constants {
         const BROTLI_DECODE: number;
         const BROTLI_DECODER_ERROR_ALLOC_BLOCK_TYPE_TREES: number;
