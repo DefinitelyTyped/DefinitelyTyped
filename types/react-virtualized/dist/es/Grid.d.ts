@@ -66,7 +66,7 @@ export type OverscanIndicesGetterParams = {
     direction?: SCROLL_DIRECTION_HORIZONTAL | SCROLL_DIRECTION_VERTICAL | undefined;
     cellCount: number;
     overscanCellsCount: number;
-    scrollDirection: SCROLL_DIRECTION_HORIZONTAL | SCROLL_DIRECTION_VERTICAL;
+    scrollDirection: 1 | -1;
     startIndex: number;
     stopIndex: number;
 };
