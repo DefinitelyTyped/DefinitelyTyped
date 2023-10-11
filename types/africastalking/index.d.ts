@@ -70,5 +70,3 @@ interface SMSMessageData {
   declare function africastalking(
     options: { username: string; apiKey: string },
   ): AfricasTalking;
-
-  
