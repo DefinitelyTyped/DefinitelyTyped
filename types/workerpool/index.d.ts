@@ -37,7 +37,7 @@ export interface WorkerPool {
     exec<T extends (...args: any[]) => any>(
         method: T | string,
         params: Parameters<T> | null,
-        options?: { on?: (payload: any) => void; transfer?: Transferable[] },
+        options?: { on?: (payload: any) => void; transfer?: Transfer[] },
     ): Promise<ReturnType<T>>;
 
     /**
@@ -64,13 +64,13 @@ export interface WorkerPool {
  */
 export class Transfer {
     message: any;
-    transfer: Transferable[];
+    transfer: Transfer[];
 
     /**
      * @param message The object to deliver to the main thread.
      * @param transfer An array of transferable Objects to transfer ownership of.
      */
-    constructor(message: any, transfer: Transferable[]);
+    constructor(message: any, transfer: Transfer[]);
 }
 
 export class Promise<T, E = Error> {
