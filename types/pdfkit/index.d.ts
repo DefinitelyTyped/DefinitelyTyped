@@ -699,11 +699,6 @@ declare namespace PDFKit {
         tagged?: boolean;
         lang?: string;
         displayTitle?: boolean;
-        /** If subset is present:
-         *
-         * * `pdfVersion` set to at least `1.4`
-         * * `tagged` set to `true` for PDF/A-1a
-         */
         subset?: Mixins.PDFSubsets;
     }
 
