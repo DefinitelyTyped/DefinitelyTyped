@@ -66,8 +66,9 @@ interface SMSMessageData {
   
   export = africastalking;
   
-  // default export
+
   declare function africastalking(
     options: { username: string; apiKey: string },
   ): AfricasTalking;
+
   
