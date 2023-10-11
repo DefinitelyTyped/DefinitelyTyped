@@ -1,4 +1,4 @@
-import vuePlugin from "esbuild-vue";
+import vuePlugin = require("esbuild-vue");
 
 // $ExpectType EsbuildVuePluginInstance
 vuePlugin();
