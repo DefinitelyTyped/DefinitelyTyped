@@ -1593,6 +1593,15 @@ declare global {
                 contentLength: number;
             }
 
+            // Read preference describes how MongoDB driver route read operations to the members of a replica set.
+            enum ReadPreferenceOption {
+                Primary = "PRIMARY",
+                PrimaryPreferred = "PRIMARY_PREFERRED",
+                Secondary = "SECONDARY",
+                SecondaryPreferred = "SECONDARY_PREFERRED",
+                Nearest = "NEAREST",
+            }
+
             interface BeforeFindRequest<T extends Object = Object> extends TriggerRequest<T> {
                 query: Query<T>;
                 count: boolean;
