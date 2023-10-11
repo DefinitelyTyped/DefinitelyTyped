@@ -6,9 +6,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Optional } from "./_util"
 import { Locale } from "date-fns";
 import * as React from "react";
+import { Optional } from "./_util";
 
 // =============================================================================
 // Helper Types/Interfaces

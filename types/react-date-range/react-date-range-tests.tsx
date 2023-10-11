@@ -1,7 +1,7 @@
 import * as React from "react";
 import {
-    createStaticRanges,
     Calendar,
+    createStaticRanges,
     DateRange,
     DateRangePicker,
     defaultInputRanges,
@@ -166,9 +166,8 @@ const createdStaticRanges = createStaticRanges([
     {
         range: () => ({ startDate: new Date("2021-10-01"), endDate: new Date("2021-10-31") }),
         label: "Example created static range",
-    }
+    },
 ]);
-
 
 const inputRange: InputRange = {
     range: () => ({ startDate: new Date("2021-10-01"), endDate: new Date("2021-10-31") }),
