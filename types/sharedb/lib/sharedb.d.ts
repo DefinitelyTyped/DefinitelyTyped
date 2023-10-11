@@ -178,7 +178,8 @@ export class Doc<T = any> extends TypedEmitter<DocEventMap<T>> {
     create(data: any, type?: string, callback?: Callback): void;
     create(data: any, type?: string, options?: ShareDBSourceOptions, callback?: Callback): void;
     submitOp(data: any, options?: ShareDBSourceOptions, callback?: Callback): void;
-    del(options: ShareDBSourceOptions, callback?: (err: Error) => void): void;
+    del(callback?: Callback): void;
+    del(options?: ShareDBSourceOptions, callback?: Callback): void;
     whenNothingPending(callback: () => void): void;
     hasPending(): boolean;
     hasWritePending(): boolean;
