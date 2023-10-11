@@ -6,7 +6,7 @@
 /// <reference types="node" />
 
 import { Readable } from "stream";
-import { ZlibOptions } from "zlib";
+import { ZlibOptionsWithoutInfo, ZlibOptionsWithInfo } from "zlib";
 
 export = inflate;
 
@@ -18,10 +18,20 @@ export = inflate;
 declare function inflate(req: Readable, options?: inflate.Options): Readable;
 
 declare namespace inflate {
-    interface Options extends ZlibOptions {
+    interface OptionsWithoutInfo extends ZlibOptionsWithoutInfo {
         /**
          * The encoding of the stream. If not given, will look in `stream.headers['content-encoding']`.
          */
         gzip?: "deflate" | "gzip" | "identity" | undefined;
     }
+    interface OptionsWithInfo extends ZlibOptionsWithInfo {
+        /**
+         * The encoding of the stream. If not given, will look in `stream.headers['content-encoding']`.
+         */
+        gzip?: "deflate" | "gzip" | "identity" | undefined;
+    }
+    /**
+     * I do not believe that passing info would matter with the actual JavaScript code and even if it did, it would be irrelevant from TypeScript's point of view. - @WilcoBakker
+     */
+    type Options = OptionsWithoutInfo | OptionsWithInfo;
 }
