@@ -12,10 +12,10 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: '16'
 
       # forbid symlinks
-      - name: "Pre-run validation"
+      - name: 'Pre-run validation'
         run: |
           symlinks="$(find . -type l)"
           if [[ -n "$symlinks" ]]; then
@@ -29,10 +29,10 @@ jobs:
       # Run tests
       - run: npm run test-all
 
-      - name: "Run Danger"
+      - name: 'Run Danger'
         env:
           # See https://github.com/danger/danger-js/issues/1042
-          DANGER_GITHUB_API_BASE_URL: "https://api.github.com"
+          DANGER_GITHUB_API_BASE_URL: 'https://api.github.com'
 
         # Danger failing (for example through rate-limiting) shouldn't fail the build
         run: |
