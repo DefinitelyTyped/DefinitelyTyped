@@ -323,7 +323,8 @@ export class DefinedRange extends React.Component<DefinedRangeProps> {}
 export const defaultStaticRanges: StaticRange[];
 export const defaultInputRanges: InputRange[];
 
-export function createStaticRanges(ranges: StaticRange[]): StaticRange[];
+type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
+export function createStaticRanges(ranges: Optional<StaticRange, "isSelected">[]): StaticRange[];
 
 // =============================================================================
 // DateRangePicker Component
