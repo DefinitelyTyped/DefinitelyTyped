@@ -418,6 +418,12 @@ function startClient(callback) {
     doc.on("error", (error: ShareDB.Error) => {});
     doc.on("destroy", () => {});
 
+    doc.del();
+    doc.del({source: true});
+    doc.del((error) => {
+        console.log(error);
+    });
+
     connection.fetchSnapshot("examples", "foo", 123, (error, snapshot: ShareDBClient.Snapshot) => {
         if (error) throw error;
         console.log(snapshot.data);
