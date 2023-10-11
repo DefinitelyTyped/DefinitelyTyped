@@ -6,6 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+import { Optional } from "./_util"
 import { Locale } from "date-fns";
 import * as React from "react";
 
@@ -323,7 +324,6 @@ export class DefinedRange extends React.Component<DefinedRangeProps> {}
 export const defaultStaticRanges: StaticRange[];
 export const defaultInputRanges: InputRange[];
 
-type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
 export function createStaticRanges(ranges: Optional<StaticRange, "isSelected">[]): StaticRange[];
 
 // =============================================================================
