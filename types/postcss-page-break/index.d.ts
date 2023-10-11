@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import { PluginCreator } from "postcss";
 
-declare const pageBreak: PluginCreator<never>;
+declare const pageBreak: PluginCreator<{}>;
 
 export = pageBreak;
