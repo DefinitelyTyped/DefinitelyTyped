@@ -5,4 +5,4 @@
 
 declare function uuid(): string;
 
-export = uuid
+export = uuid;
