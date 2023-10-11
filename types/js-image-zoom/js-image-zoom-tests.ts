@@ -55,3 +55,5 @@ new ImageZoom(container, {
     img: "../1.jpg",
     offset: { vertical: 0, horizontal: 10 },
 });
+new ImageZoom(container, { fillContainer: true, img: "../1.jpg" });
+new ImageZoom(container, { width: 400, height: 250, zoomWidth: 500, img: "../1.jpg" }).kill();
