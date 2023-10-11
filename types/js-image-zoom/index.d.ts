@@ -64,6 +64,10 @@ declare namespace ImageZoom {
          * custom style applied to to zoom lents (i.e. 'opacity: 0.1;background-color: white;')
          */
         zoomLensStyle?: string;
+        /**
+         * Container dimensions are css-set
+         */
+        fillContainer?: boolean;
     }
 
     interface Offset {
