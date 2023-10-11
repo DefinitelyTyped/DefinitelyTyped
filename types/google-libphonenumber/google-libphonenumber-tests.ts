@@ -31,7 +31,7 @@ import {
     // => (202) 456-1414
 
     // $ExpectType number
-    phoneUtil.getLengthOfNationalDestinationCode(phoneNumber)
+    phoneUtil.getLengthOfNationalDestinationCode(phoneNumber);
 });
 
 (() => {
