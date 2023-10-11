@@ -128,7 +128,7 @@ if (unformatted.length > 0) {
 `);
     }
 
-    message.push("Consider running `npx dprint fmt` on these files to make review easier.");
+    message.push("\nConsider running `npx dprint fmt` on these files to make review easier.");
 
     markdown(message.join("\n"));
 }
