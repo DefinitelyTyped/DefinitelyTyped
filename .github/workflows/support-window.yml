@@ -11,7 +11,7 @@ on:
   # https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow
   workflow_dispatch:
   schedule:
-    # Weekly at 16:00 UTC on Monday 
+    # Weekly at 16:00 UTC on Monday
     - cron: '0 16 * * 1'
 permissions:
   contents: read
@@ -19,18 +19,18 @@ permissions:
 jobs:
   support-window:
     permissions:
-      contents: write  # for Git to git push
+      contents: write # for Git to git push
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - uses: actions/setup-node@v3
         #with:
         #  cache: npm
-      
+
       - run: npm install
-      
+
       - name: Fetch TypeScript versions and release dates from npm
         run: |
           npm view --json typescript time |
@@ -44,13 +44,13 @@ jobs:
               | unique_by(.key)
               | from_entries
             ' > docs/support-window.json
-      
+
       - name: Make SVG diagram
         run: node --experimental-json-modules scripts/support-window > docs/support-window.svg
 
       - uses: stefanzweifel/git-auto-commit-action@v5.0.0
         with:
-          commit_author: "TypeScript Bot <typescriptbot@microsoft.com>"
-          commit_message: "🤖 Update support window"
-          commit_user_email: "typescriptbot@microsoft.com"
-          commit_user_name: "TypeScript Bot"
+          commit_author: 'TypeScript Bot <typescriptbot@microsoft.com>'
+          commit_message: '🤖 Update support window'
+          commit_user_email: 'typescriptbot@microsoft.com'
+          commit_user_name: 'TypeScript Bot'
