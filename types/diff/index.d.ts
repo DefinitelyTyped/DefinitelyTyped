@@ -366,7 +366,7 @@ export function applyPatch(
     source: string,
     patch: string | ParsedDiff | [ParsedDiff],
     options?: ApplyPatchOptions,
-): string;
+): string | false;
 
 /**
  * Applies one or more patches.
