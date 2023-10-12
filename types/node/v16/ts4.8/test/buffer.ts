@@ -429,8 +429,8 @@ buff.writeDoubleBE(123.123, 0);
 
 {
     const blobTest = new Blob([""]);
-    //@ts-expect-error
+    // @ts-expect-error
     blobTest.arguments;
-    //@ts-expect-error
+    // @ts-expect-error
     new blobTest();
 }
