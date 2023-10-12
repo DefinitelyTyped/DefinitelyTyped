@@ -1,4 +1,4 @@
-import AfricasTalking from "africastalking";
+import AfricasTalking = require("africastalking");
 
 const africastalking = AfricasTalking({
   apiKey: "apiKey",
