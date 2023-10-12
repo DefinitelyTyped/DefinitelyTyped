@@ -4,6 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+interface CrumbData {
+    headerName: string;
+    headerValue: string;
+    cookies?: string[];
+}
+
 interface JenkinsClientOptions {
     baseUrl: string;
     crumbIssuer?: boolean | undefined | `() => void`;
