@@ -58,9 +58,7 @@ FB.login(function(response: fb.StatusResponse) {
     console.log(response);
     console.log(response.status);
     console.log(response.authResponse.code);
-},
-    { config_id: "10000019", response_type: "code", override_default_response_type: true }
-);
+}, { config_id: "10000019", response_type: "code", override_default_response_type: true });
 
 FB.logout(function(response: fb.StatusResponse) {
     console.log(response);
