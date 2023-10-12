@@ -1,5 +1,5 @@
 import * as RdfJs from "rdf-js";
-import * as SparqlJs from "sparqljs";
+import SparqlJs = require("sparqljs");
 
 // Declare RDF/JS factory implementation to create terms (IRIs, literals, variables, etc)
 declare const DataFactory: RdfJs.DataFactory;
