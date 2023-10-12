@@ -12,7 +12,7 @@ interface CrumbData {
 
 interface JenkinsClientOptions {
     baseUrl: string;
-    crumbIssuer?: boolean | undefined | `() => void`;
+    crumbIssuer?: boolean | undefined | ((client: Jenkins) => Promise<CrumbData>);
     formData?: FormData;
     headers?: any;
 }
