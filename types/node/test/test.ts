@@ -673,13 +673,13 @@ describe("Mock Timers Test Suite", () => {
         // @ts-expect-error
         t.mock.timers.enable({ apis: ["NOT_THERE"] });
         t.mock.timers.enable();
-        t.mock.timers.setTime(1000)
+        t.mock.timers.setTime(1000);
         // @ts-expect-error
-        t.mock.timers.setTime("1000")
+        t.mock.timers.setTime("1000");
         // @ts-expect-error
-        t.mock.timers.setTime(new Date())
+        t.mock.timers.setTime(new Date());
         // @ts-expect-error
-        t.mock.timers.setTime()
+        t.mock.timers.setTime();
         t.mock.timers.reset();
         t.mock.timers.tick(1000);
     });
