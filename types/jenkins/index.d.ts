@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+import FormData = require('form-data');
+
 interface CrumbData {
     headerName: string;
     headerValue: string;
