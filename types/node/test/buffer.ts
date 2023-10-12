@@ -14,6 +14,7 @@ import {
     TranscodeEncoding,
 } from "node:buffer";
 import { Readable, Writable } from "node:stream";
+import { ReadableStream } from "stream/web";
 
 const utf8Buffer = new Buffer("test");
 const base64Buffer = new Buffer("", "base64");
@@ -487,4 +488,29 @@ buff.writeDoubleBE(123.123, 0);
     const u16 = new Uint16Array([0xffff]);
     Buffer.copyBytesFrom(u16); // $ExpectType Buffer
     Buffer.copyBytesFrom(u16, 1, 5); // $ExpectType Buffer
+}
+
+declare class NodeFile implements File {
+    lastModified: number;
+    name: string;
+    webkitRelativePath: string;
+    get size(): number;
+    type: string;
+    constructor(filepath: string, type: string, slicer?: {
+        start: number;
+        end: number;
+    });
+    hi: string;
+    slice(start?: number , end?: number , type?: string ): NodeBlob;
+    stream(): ReadableStream;
+    arrayBuffer(): Promise<ArrayBuffer>;
+    text(): Promise<string>;
+}
+
+{
+    const blobTest = new Blob([""]);
+    //@ts-expect-error
+    blobTest.arguments;
+    //@ts-expect-error
+    new blobTest();
 }

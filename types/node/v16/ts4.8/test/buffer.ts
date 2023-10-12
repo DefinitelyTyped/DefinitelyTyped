@@ -426,3 +426,11 @@ buff.writeDoubleBE(123.123, 0);
     //  local "Blob" which comes with node.
     resolveObjectURL(URL.createObjectURL(new Blob([""]) as any)); // $ExpectType Blob | undefined
 }
+
+{
+    const blobTest = new Blob([""]);
+    //@ts-expect-error
+    blobTest.arguments;
+    //@ts-expect-error
+    new blobTest();
+}
