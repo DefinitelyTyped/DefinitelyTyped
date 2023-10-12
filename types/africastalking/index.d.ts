@@ -6,21 +6,21 @@
 interface SMSMessageData {
     Message: string;
     Recipients: {
-      "statusCode": number;
-      "number": string;
-      "status": "fulfilled" | "failed";
-      "cost": string;
-      "messageId": string;
+        "statusCode": number;
+        "number": string;
+        "status": "fulfilled" | "failed";
+        "cost": string;
+        "messageId": string;
     };
-  }
-  
-  interface SMSOptions {
+}
+
+interface SMSOptions {
     to: string | string[];
     from: string;
     message: string;
-  }
-  
-  interface SMS {
+}
+
+interface SMS {
     /**
      * This is used to send SMSs to your clients/recipients.
      *
@@ -38,35 +38,34 @@ interface SMSMessageData {
      */
     sendBulk: (options: SMSOptions) => Promise<SMSMessageData>;
     createSubscription: (options: {
-      shortCode: string;
-      keyword: string;
-      phoneNumber: string;
-      checkoutToken: string;
+        shortCode: string;
+        keyword: string;
+        phoneNumber: string;
+        checkoutToken: string;
     }) => Promise<{
-      "description": "Success" | "Failed";
-      "token": string;
+        "description": "Success" | "Failed";
+        "token": string;
     }>;
-  }
-  
-  interface TOKEN {
+}
+
+interface TOKEN {
     generateAuthToken: () => Promise<{
-      "description": "Success" | "Failed";
-      "token": string;
+        "description": "Success" | "Failed";
+        "token": string;
     }>;
     createCheckoutToken: (phoneNumber: string) => Promise<{
-      description: "Success" | "Failed";
-      token: string;
+        description: "Success" | "Failed";
+        token: string;
     }>;
-  }
-  
-  interface AfricasTalking {
+}
+
+interface AfricasTalking {
     SMS: SMS;
     TOKEN: TOKEN;
-  }
-  
-  export = africastalking;
-  
+}
 
-  declare function africastalking(
+export = africastalking;
+
+declare function africastalking(
     options: { username: string; apiKey: string },
-  ): AfricasTalking;
+): AfricasTalking;
