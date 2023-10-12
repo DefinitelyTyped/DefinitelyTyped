@@ -8,7 +8,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "noEmit": true,
+        "noEmit": true
     },
     "files": [
         "index.d.ts",
