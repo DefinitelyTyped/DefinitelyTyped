@@ -77,9 +77,9 @@ declare namespace GoogleAppsScript {
                 timestamp?: string | undefined;
             }
             interface DriveItem {
-                // file is deprecated; please use the driveFile instead.
+                /** @deprecated Use driveFile instead. */
                 file?: any;
-                // folder is deprecated; please use the driveFolder instead.
+                /** @deprecated Use driveFolder instead. */
                 folder?: DriveActivity.Schema.Folder | undefined;
                 mimeType?: string | undefined;
                 name?: string | undefined;
