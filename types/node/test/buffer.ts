@@ -501,7 +501,7 @@ declare class NodeFile implements File {
         end: number;
     });
     hi: string;
-    slice(start?: number , end?: number , type?: string ): NodeBlob;
+    slice(start?: number, end?: number, type?: string): NodeBlob;
     stream(): ReadableStream;
     arrayBuffer(): Promise<ArrayBuffer>;
     text(): Promise<string>;
@@ -509,8 +509,8 @@ declare class NodeFile implements File {
 
 {
     const blobTest = new Blob([""]);
-    //@ts-expect-error
+    // @ts-expect-error
     blobTest.arguments;
-    //@ts-expect-error
+    // @ts-expect-error
     new blobTest();
 }
