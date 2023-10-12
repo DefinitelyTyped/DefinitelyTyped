@@ -1,4 +1,4 @@
-// Type definitions for react-big-calendar 1.6
+// Type definitions for react-big-calendar 1.8
 // Project: https://github.com/jquense/react-big-calendar
 // Definitions by: Piotr Witek <https://github.com/piotrwitek>
 //                 Austin Turner <https://github.com/paustint>
@@ -485,6 +485,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     slotGroupPropGetter?: SlotGroupPropGetter | undefined;
     dayPropGetter?: DayPropGetter | undefined;
     showMultiDayTimes?: boolean | undefined;
+    allDayMaxRows?: number | undefined;
     min?: Date | undefined;
     max?: Date | undefined;
     scrollToTime?: Date | undefined;
