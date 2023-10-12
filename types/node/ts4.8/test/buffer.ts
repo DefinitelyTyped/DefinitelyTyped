@@ -480,3 +480,11 @@ buff.writeDoubleBE(123.123, 0);
     Buffer.copyBytesFrom(u16); // $ExpectType Buffer
     Buffer.copyBytesFrom(u16, 1, 5); // $ExpectType Buffer
 }
+
+{
+    const blobTest = new Blob([""]);
+    //@ts-expect-error
+    blobTest.arguments;
+    //@ts-expect-error
+    new blobTest();
+}
