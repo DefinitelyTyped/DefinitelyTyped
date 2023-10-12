@@ -64,6 +64,7 @@ const topLogger: Modifier<"topLogger"> = {
     formatWeekDay={(day) => day[0]}
     formatWeekNumber={date => 0}
     highlightDates={[{ someClassName: [new Date()] }]}
+    icon=""
     id=""
     includeDates={[new Date()]}
     includeDateIntervals={[{ start: new Date(), end: new Date() }]}
