@@ -98,7 +98,7 @@ export interface ReactDatePickerProps<
     formatWeekDay?(day: string): React.ReactNode;
     formatWeekNumber?(date: Date): string | number;
     highlightDates?: Array<HighlightDates | Date> | undefined;
-    icon?: string | React.ReactNode;
+    icon?: string | React.ReactElement;
     id?: string | undefined;
     includeDates?: Date[] | undefined;
     includeDateIntervals?: Array<{ start: Date; end: Date }> | undefined;
