@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/jasmine": "*",
-        "@types/react": "*"
+        "@types/react": "^16"
     },
     "devDependencies": {
         "@types/enzyme": "*",
