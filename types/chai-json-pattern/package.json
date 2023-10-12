@@ -6,8 +6,10 @@
         "https://github.com/damian-szulc/chai-json-pattern",
         "http://chaijs.com"
     ],
+    "dependencies": {
+        "@types/chai": "*"
+    },
     "devDependencies": {
-        "@types/chai": "*",
         "@types/chai-json-pattern": "workspace:."
     },
     "owners": [

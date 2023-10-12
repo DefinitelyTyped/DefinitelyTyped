@@ -7,10 +7,11 @@
         "http://chaijs.com"
     ],
     "dependencies": {
+        "@types/chai": "*",
+        "@types/node": "*",
         "@types/tv4": "*"
     },
     "devDependencies": {
-        "@types/chai": "*",
         "@types/chai-json-schema": "workspace:."
     },
     "owners": [
