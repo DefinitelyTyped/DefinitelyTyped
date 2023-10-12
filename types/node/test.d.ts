@@ -1062,18 +1062,16 @@ declare module "node:test" {
          * Note: This method will execute any mocked timers that are in the past from the new time.
          * In the below example we are setting a new time for the mocked date.
          * import assert from 'node:assert';
-           import { test } from 'node:test';
-
-           test('sets the time of a date object', (context) => {
-           // Optionally choose what to mock
-           context.mock.timers.enable({ apis: ['Date'], now: 100 });
-           assert.strictEqual(Date.now(), 100);
-
-           // Advance in time will also advance the date
-           context.mock.timers.setTime(1000);
-           context.mock.timers.tick(200);
-           assert.strictEqual(Date.now(), 1200);
-           });
+         * import { test } from 'node:test';
+         * test('sets the time of a date object', (context) => {
+         * // Optionally choose what to mock
+         * context.mock.timers.enable({ apis: ['Date'], now: 100 });
+         * assert.strictEqual(Date.now(), 100);
+         * // Advance in time will also advance the date
+         * context.mock.timers.setTime(1000);
+         * context.mock.timers.tick(200);
+         * assert.strictEqual(Date.now(), 1200);
+         * });
          */
         setTime(time: number): void;
         /**
