@@ -174,9 +174,9 @@ export class Doc<T = any> extends TypedEmitter<DocEventMap<T>> {
 
     ingestSnapshot(snapshot: Pick<Snapshot<T>, "v" | "type" | "data">, callback?: Callback): void;
     destroy(callback?: Callback): void;
-    create(data: any, callback?: Callback): void;
-    create(data: any, type?: string, callback?: Callback): void;
-    create(data: any, type?: string, options?: ShareDBSourceOptions, callback?: Callback): void;
+    create(data: T, callback?: Callback): void;
+    create(data: T, type?: string, callback?: Callback): void;
+    create(data: T, type?: string, options?: ShareDBSourceOptions, callback?: Callback): void;
     submitOp(data: any, options?: ShareDBSourceOptions, callback?: Callback): void;
     del(callback?: Callback): void;
     del(options?: ShareDBSourceOptions, callback?: Callback): void;
