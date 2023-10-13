@@ -59,7 +59,7 @@ export interface PLCEnum {
     value: number;
 }
 
-export type PLCValue = boolean | number | string | [] | object | PLCEnum | Date
+export type PLCValue = boolean | number | string | [] | object | PLCEnum | Date;
 
 export interface SymbolData {
     symbol: object;
