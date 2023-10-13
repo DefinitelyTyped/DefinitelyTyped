@@ -32,6 +32,7 @@
         "@definitelytyped/utils": "latest",
         "@octokit/core": "^3.5.1",
         "@octokit/rest": "^16.0.0",
+        "@types/node": "^20.8.5",
         "comment-json": "^4.2.3",
         "d3-array": "^3.0.2",
         "d3-axis": "^3.0.0",
