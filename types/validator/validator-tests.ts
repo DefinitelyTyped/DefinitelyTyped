@@ -652,7 +652,7 @@ const any: any = null;
     const isEmailOptions: validator.IsEmailOptions = {
         host_blacklist: ["domain"],
     };
-    
+
     const isEmailOptionsWithWhitelistedHosts: validator.IsEmailOptions = {
         host_whitelist: ["domain"],
     };
@@ -660,7 +660,7 @@ const any: any = null;
     const isEmailOptionsWithBlacklistedCharacters: validator.IsEmailOptions = {
         blacklisted_chars: "sample",
     };
-    
+
     result = validator.isEmail("sample");
     result = validator.isEmail("sample", isEmailOptions);
     result = validator.isEmail("sample", isEmailOptionsWithBlacklistedCharacters);
