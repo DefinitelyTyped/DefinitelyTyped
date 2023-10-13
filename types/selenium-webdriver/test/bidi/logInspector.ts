@@ -20,18 +20,21 @@ async function TestLogInspector() {
     })
 
     await driver.executeScript(`console.log('${testText}')`);
-    checkForLog();
-
-    async function checkForLog() {
-        if (!complete) {
-            setTimeout(checkForLog)
-        }
-
-        await logInspector.close()
-        await driver.close()
-
-        if (error) {
-            throw new Error(error)
-        }
+    await checkForLog(testText, 1000);
+    await logInspector.close();
+    await driver.close();
+    
+    async function checkForLog(expectedText: string, timeout: number) {
+        const findLog = new Promise((resolve) => {
+            logInspector.onLog(({ text }) => {
+                if (text === expectedText) {
+                    resolve();
+                }
+            });
+        });
+        const timeOut = new Promise((_, reject) => {
+            setTimeout(() => { reject(new Error("Search timed out")); }, timeout);
+        });
+        return Promise.race([findLog, timeOut]);
     }
 }
