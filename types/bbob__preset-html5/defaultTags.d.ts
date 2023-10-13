@@ -1,5 +1,5 @@
-import { DefaultTags } from "@bbob/preset"
+import { DefaultTags } from "@bbob/preset";
 
-export const tags: DefaultTags
+export const tags: DefaultTags;
 
 export default tags;

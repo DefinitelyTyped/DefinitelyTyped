@@ -1,4 +1,19 @@
-import { COLUMN_ID, LINE_ID, TYPE_ATTR_NAME, TYPE_ATTR_VALUE, TYPE_ID, TYPE_NEW_LINE, TYPE_SPACE, TYPE_TAG, TYPE_WORD, Token, VALUE_ID, createCharGrabber, createLexer, parse } from "@bbob/parser";
+import {
+    COLUMN_ID,
+    createCharGrabber,
+    createLexer,
+    LINE_ID,
+    parse,
+    Token,
+    TYPE_ATTR_NAME,
+    TYPE_ATTR_VALUE,
+    TYPE_ID,
+    TYPE_NEW_LINE,
+    TYPE_SPACE,
+    TYPE_TAG,
+    TYPE_WORD,
+    VALUE_ID,
+} from "@bbob/parser";
 import { TagNode } from "@bbob/plugin-helper";
 
 // Token.d.ts
@@ -16,13 +31,13 @@ new Token(TYPE_ATTR_NAME);
 new Token(TYPE_ATTR_VALUE);
 
 // $ExpectType Token
-new Token(TYPE_TAG, 'my-tag');
+new Token(TYPE_TAG, "my-tag");
 
 // $ExpectType Token
-new Token(TYPE_TAG, 'my-tag', 12);
+new Token(TYPE_TAG, "my-tag", 12);
 
 // $ExpectType Token
-new Token(TYPE_TAG, 'my-tag', 12, 14);
+new Token(TYPE_TAG, "my-tag", 12, 14);
 
 // $ExpectType Token
 const token = new Token();
@@ -63,10 +78,10 @@ token.toString();
 // index.d.ts
 
 // $ExpectType TagNode
-const tagNode = TagNode.create('test', {test: 1}, ['Hello'])
+const tagNode = TagNode.create("test", { test: 1 }, ["Hello"]);
 
 // $ExpectType string
-tagNode.toString()
+tagNode.toString();
 
 // lexer.d.ts
 
@@ -78,8 +93,8 @@ const TYPE = {
     "SPACE": TYPE_SPACE,
     ["NEW_LINE" as string]: TYPE_NEW_LINE,
 };
-  
-const TYPE_NAMES = Object.keys(TYPE).reduce((o, key) => ({...o, [TYPE[key]]: key}), {})
+
+const TYPE_NAMES = Object.keys(TYPE).reduce((o, key) => ({ ...o, [TYPE[key]]: key }), {});
 
 // $ExpectType (input: string) => Token[]
 const tokenize = (input: string) => (createLexer(input).tokenize());
@@ -88,7 +103,10 @@ const tokenize = (input: string) => (createLexer(input).tokenize());
 const tokenizeEscape = (input: string) => (createLexer(input, { enableEscapeTags: true }).tokenize());
 
 // $ExpectType (input: string, tags?: string[] | undefined) => Token[]
-const tokenizeContextFreeTags = (input: string, tags?: string[]) => (createLexer(input, { contextFreeTags: tags }).tokenize());
+const tokenizeContextFreeTags = (
+    input: string,
+    tags?: string[],
+) => (createLexer(input, { contextFreeTags: tags }).tokenize());
 
 // $ExpectType TOKEN_TYPE | undefined
 token[TYPE_ID];
@@ -105,12 +123,12 @@ token[COLUMN_ID];
 // parse.d.ts
 
 // $ExpectType Node[]
-parse('[best name=value]Foo Bar[/best]')
+parse("[best name=value]Foo Bar[/best]");
 
 // utils.d.ts
 
 // $ExpectType CharGrabber
-const bufferGrabber = createCharGrabber('[h1 name=value]Foo [Bar] [/h1]');
+const bufferGrabber = createCharGrabber("[h1 name=value]Foo [Bar] [/h1]");
 
 // $ExpectType string
 bufferGrabber.substrUntilChar("]");

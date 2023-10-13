@@ -32,6 +32,6 @@
 //     function foo(): void;
 // }
 
-export * from "./helpers"
-export * from "./char"
-export * from "./TagNode"
+export * from "./char";
+export * from "./helpers";
+export * from "./TagNode";

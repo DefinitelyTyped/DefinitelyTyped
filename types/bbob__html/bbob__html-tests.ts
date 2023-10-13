@@ -5,7 +5,7 @@ const process = (input: string, params?: HTMLOptions) => toHTML(input, [], param
 const input = "[url=https://ru.wikipedia.org]Text[/url]";
 
 // $AssertType string
-process(input)
+process(input);
 
 // $AssertType string
-process(input, { stripTags: true })
+process(input, { stripTags: true });

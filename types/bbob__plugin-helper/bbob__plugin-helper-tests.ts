@@ -1,4 +1,18 @@
-import { Attr, Attrs, Node, TagNode, appendToNode, attrValue, attrsToString, getNodeLength, getUniqAttr, isEOL, isStringNode, isTagNode, keysReduce } from "@bbob/plugin-helper";
+import {
+    appendToNode,
+    Attr,
+    Attrs,
+    attrsToString,
+    attrValue,
+    getNodeLength,
+    getUniqAttr,
+    isEOL,
+    isStringNode,
+    isTagNode,
+    keysReduce,
+    Node,
+    TagNode,
+} from "@bbob/plugin-helper";
 
 const attrs: Attrs = {};
 
@@ -15,14 +29,14 @@ keysReduce<Attr | null>(
 keysReduce(
     attrs,
     (arr, key) => [...arr, attrValue(key, attrs[key])],
-    [''],
-)
+    [""],
+);
 
 // $ExpectType TagNode
-const tagNode = TagNode.create('test', {test: 1}, ['Hello']);
+const tagNode = TagNode.create("test", { test: 1 }, ["Hello"]);
 
 // $ExpectType boolean
-TagNode.isOf(tagNode, 'test');
+TagNode.isOf(tagNode, "test");
 
 // helpers.d.ts
 
@@ -30,7 +44,7 @@ TagNode.isOf(tagNode, 'test');
 const node = new TagNode("a", {}, []);
 
 // $ExpectType void
-appendToNode(node, 'test');
+appendToNode(node, "test");
 
 // $ExpectType Node | undefined
 node.content?.pop();
@@ -45,32 +59,32 @@ isTagNode(node);
 isStringNode(node);
 
 // $ExpectType string
-attrValue('test', true);
+attrValue("test", true);
 
 // $ExpectType string
-attrValue('test', 123);
+attrValue("test", 123);
 
 // $ExpectType string
-attrValue('test', "hello");
+attrValue("test", "hello");
 
 // $ExpectType string
-attrValue('test', { tag: 'test' });
+attrValue("test", { tag: "test" });
 
 // $ExpectType boolean
 isEOL("\n");
 
 // $ExpectType string
 attrsToString({
-    tag: 'test',
-    foo: 'bar',
-    disabled: true
-})
+    tag: "test",
+    foo: "bar",
+    disabled: true,
+});
 
 // $ExpectType string
-attrsToString(null)
+attrsToString(null);
 
 // $ExpectType Attr | null
-getUniqAttr({foo: true, 'http://bar.com': 'http://bar.com'})
+getUniqAttr({ foo: true, "http://bar.com": "http://bar.com" });
 
 // $ExpectType Attr | null
-getUniqAttr({foo: true})
+getUniqAttr({ foo: true });

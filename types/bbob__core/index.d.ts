@@ -3,43 +3,43 @@
 // Definitions by: shme-e <https://github.com/shme-e>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import { parse } from "@bbob/parser";
 import { Node, TagNode } from "@bbob/plugin-helper";
-import { parse } from "@bbob/parser"
 import { iterate, match } from "./utils";
 
 export * from "./utils";
 
 export type Tree = TagNode[] & {
-    messages: string[],
-    options: ProcessOptions,
-    walk(cb: (val: TagNode) => TagNode): Tree,
-    match: typeof match
+    messages: string[];
+    options: ProcessOptions;
+    walk(cb: (val: TagNode) => TagNode): Tree;
+    match: typeof match;
 };
 
-export type Plugins = Plugin[] | Plugin
+export type Plugins = Plugin[] | Plugin;
 export interface PluginOptions {
-    parse: ProcessOptions["parser"], 
-    render: ProcessOptions["render"], 
-    iterate: typeof iterate, 
-    match: typeof match, 
-    data: any
+    parse: ProcessOptions["parser"];
+    render: ProcessOptions["render"];
+    iterate: typeof iterate;
+    match: typeof match;
+    data: any;
 }
-export type Plugin = (tree: Tree, options: PluginOptions) => Tree | void
+export type Plugin = (tree: Tree, options: PluginOptions) => Tree | void;
 
 export interface ProcessOptions {
-    parser?: typeof parse,
-    render(val: Node): string,
-    data?: any,
-    skipParse?: boolean
+    parser?: typeof parse;
+    render(val: Node): string;
+    data?: any;
+    skipParse?: boolean;
 }
 
 export interface ProcessResponse {
-    html: string,
-    tree: Tree,
-    raw: string,
-    messages: string[]
+    html: string;
+    tree: Tree;
+    raw: string;
+    messages: string[];
 }
 
 export default function bbob(plugs?: Plugins): {
-    process(input: string, opts?: ProcessOptions): ProcessResponse
+    process(input: string, opts?: ProcessOptions): ProcessResponse;
 };
