@@ -1,5 +1,4 @@
 import * as ads from "ads-client";
-import { PLCEnum } from "ads-client";
 
 const client = new ads.Client({
     targetAmsNetId: "localhost",
@@ -15,7 +14,7 @@ async function usage() {
     console.log("Value read:", res.value);
 
     const res2 = await client.readSymbol("GVL_Test.ImaginaryEnum");
-    const plcEnum = res2.value as PLCEnum;
+    const plcEnum = res2.value as ads.PLCEnum;
     console.log("Enum name:", plcEnum.name);
     console.log("Enum value:", plcEnum.value);
 
