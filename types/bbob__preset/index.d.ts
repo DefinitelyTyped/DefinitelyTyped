@@ -23,3 +23,4 @@ export type Core = PluginOptions;
  * Creates preset for @bbob/core
  */
 export function createPreset(defTags: DefaultTags, processor?: PresetProcessor): PresetFactory;
+export default createPreset;

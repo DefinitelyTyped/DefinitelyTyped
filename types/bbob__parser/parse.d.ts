@@ -9,3 +9,4 @@ export function parse(input: string, opts?: {
     openTag?: string;
     closeTag?: string;
 }): Node[];
+export default parse;

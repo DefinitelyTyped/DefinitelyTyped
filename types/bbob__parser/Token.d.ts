@@ -35,3 +35,5 @@ export type TOKEN_TYPE =
     | typeof TYPE_ATTR_VALUE
     | typeof TYPE_SPACE
     | typeof TYPE_NEW_LINE;
+
+export default Token;
