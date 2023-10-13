@@ -1,26 +1,30 @@
+import { Tree } from "@bbob/core";
 import { Attrs, Node } from "@bbob/plugin-helper";
-import { Core, DefTags, PresetFactory, PresetOptions, createPreset } from "@bbob/preset";
+import { Core, DefaultTags, PresetFactory, PresetOptions, createPreset } from "@bbob/preset";
 
-function processor(tags: Attrs, tree: Node[], core: Core, options: PresetOptions) {
+const defTags = <DefaultTags> <unknown>undefined;
+
+// $ExpectType PresetFactory
+createPreset(defTags);
+
+function processor(tags: DefaultTags, tree: Tree, core: Core, options: PresetOptions) {
     return tags
 }
-
-const defTags: DefTags = { test: true }
 const options: PresetOptions = { foo: 'bar' }
-const tree: Node[] = []
+const tree = <Tree> <unknown>undefined
 // $ExpectType PresetFactory
 const preset = createPreset(defTags, processor)
 
-// $ExpectType Attrs
+// $ExpectType void
 preset(options)(tree);
 
-const extendedTags = { bar: true };
+const extendedTags = <DefaultTags> <unknown>undefined;
 const preset2 = preset.extend(tags => ({ ...tags, ...extendedTags }));
 
-// $ExpectType Attrs
+// $ExpectType void
 preset(options)(tree);
 
-const preset3 = preset.extend((tags, options) => ({ bar: true }));
+const preset3 = preset.extend((tags, options) => extendedTags);
 
 // $ExpectType PresetExecutor
 const instance = preset({ foo: 'bar' });

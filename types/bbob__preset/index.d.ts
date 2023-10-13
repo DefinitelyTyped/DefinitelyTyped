@@ -3,19 +3,21 @@
 // Definitions by: shme-e <https://github.com/shme-e>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Attrs, Node } from "@bbob/plugin-helper"
+import { Attrs, Content, TagNode } from "@bbob/plugin-helper"
+import { PluginOptions, Tree } from "@bbob/core"
 
 export type PresetFactory = ((options?: PresetOptions) => PresetExecutor) & { 
     options?: PresetOptions,
-    extend: (callback: (defTags: DefTags, options: PresetOptions) => DefTags) => PresetFactory
+    extend: (callback: (defTags: DefaultTags, options: PresetOptions) => DefaultTags) => PresetFactory
 };
 export type PresetOptions = object
-export type PresetExecutor = ((tree: Node[], core?: Core) => DefTags) & { options: PresetOptions };
-export type PresetProcessor = (tags: DefTags, tree: Node[], core: Core, options: PresetOptions) => DefTags;
-export type DefTags = Attrs
-export type Core = any
+export type PresetExecutor = ((tree: Tree, core?: Core) => void) & { options: PresetOptions };
+export type PresetProcessor = (tags: DefaultTags, tree: Tree, core: Core, options: PresetOptions) => DefaultTags;
+export interface DefaultTags { [tag: string]: TagFunction }
+export type TagFunction = (node: TagNode, pluginOptions?: PluginOptions, options?: PresetOptions) => TagNode;
+export type Core = PluginOptions
 
 /**
  * Creates preset for @bbob/core
  */
-export function createPreset(defTags: DefTags, processor?: PresetProcessor): PresetFactory;
+export function createPreset(defTags: DefaultTags, processor?: PresetProcessor): PresetFactory;

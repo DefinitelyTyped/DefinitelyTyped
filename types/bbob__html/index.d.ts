@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Node } from "@bbob/plugin-helper"
-import { Plugin, Plugins, ProcessOptions } from "@bbob/core"
+import { Plugins, ProcessOptions } from "@bbob/core"
 
 export interface RenderOptions {
     stripTags?: boolean
