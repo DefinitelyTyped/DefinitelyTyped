@@ -4,7 +4,7 @@ export function isTagNode(node: Node): node is TagNode;
 export function isStringNode(node: Node): node is string;
 export function isEOL(el: string): boolean;
 export function keysReduce<V>(
-    obj: { [key: string]: any },
+    obj: object,
     reduce: (previousValue: V, currentValue: string, currentIndex: number, array: string[]) => V,
     def: V,
 ): V;
