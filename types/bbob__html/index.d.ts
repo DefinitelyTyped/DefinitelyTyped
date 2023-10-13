@@ -12,6 +12,6 @@ export interface RenderOptions {
 
 export type HTMLOptions = Omit<ProcessOptions & RenderOptions, "render">;
 
-export function render(nodes: Node[], options?: RenderOptions): string;
+export function render(nodes: ReadonlyArray<Node>, options?: RenderOptions): string;
 
 export default function toHTML(source: string, plugins?: Plugins, options?: HTMLOptions): string;

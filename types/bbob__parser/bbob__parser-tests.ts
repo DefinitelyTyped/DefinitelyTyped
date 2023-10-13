@@ -96,13 +96,13 @@ const TYPE = {
 
 const TYPE_NAMES = Object.keys(TYPE).reduce((o, key) => ({ ...o, [TYPE[key]]: key }), {});
 
-// $ExpectType (input: string) => Token[]
+// $ExpectType (input: string) => readonly Token[]
 const tokenize = (input: string) => (createLexer(input).tokenize());
 
-// $ExpectType (input: string) => Token[]
+// $ExpectType (input: string) => readonly Token[]
 const tokenizeEscape = (input: string) => (createLexer(input, { enableEscapeTags: true }).tokenize());
 
-// $ExpectType (input: string, tags?: string[] | undefined) => Token[]
+// $ExpectType (input: string, tags?: string[] | undefined) => readonly Token[]
 const tokenizeContextFreeTags = (
     input: string,
     tags?: string[],
