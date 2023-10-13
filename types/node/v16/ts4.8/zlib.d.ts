@@ -92,7 +92,7 @@
  */
 declare module "zlib" {
     import * as stream from "node:stream";
-    interface ZlibOptionsBase {
+    interface ZlibOptions {
         /**
          * @default constants.Z_NO_FLUSH
          */
@@ -110,15 +110,15 @@ declare module "zlib" {
         memLevel?: number | undefined; // compression only
         strategy?: number | undefined; // compression only
         dictionary?: NodeJS.ArrayBufferView | ArrayBuffer | undefined; // deflate/inflate only, empty dictionary by default
+        info?: boolean | undefined;
         maxOutputLength?: number | undefined;
     }
-    interface ZlibOptionsWithoutInfo extends ZlibOptionsBase {
+    interface ZlibOptionsWithoutInfo extends ZlibOptions {
         info?: false | undefined;
     }
-    interface ZlibOptionsWithInfo extends ZlibOptionsBase {
+    interface ZlibOptionsWithInfo extends ZlibOptions {
         info: true;
     }
-    type ZlibOptions = ZlibOptionsWithoutInfo | ZlibOptionsWithInfo;
     interface BrotliOptions {
         /**
          * @default constants.BROTLI_OPERATION_PROCESS
