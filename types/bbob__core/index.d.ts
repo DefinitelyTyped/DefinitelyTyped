@@ -7,8 +7,6 @@ import { parse } from "@bbob/parser";
 import { Node, TagNode } from "@bbob/plugin-helper";
 import { iterate, match } from "./utils";
 
-export * from "./utils";
-
 export type Tree = TagNode[] & {
     messages: string[];
     options: ProcessOptions;
