@@ -1,9 +1,8 @@
 name: Check Markdown links
-# TODO(jakebailey): removeme
 on:
-  push:
-    branches:
-      - pnpm-workspaces-working
+  pull_request:
+    paths:
+      - '**.md'
 permissions:
   contents: read
 
@@ -18,4 +17,4 @@ jobs:
           version: latest
           run_install: |
             - args: [--filter, .]
-      - run: pnpm exec remark --frail . .github
+      - run: pnpm remark --frail . .github

@@ -14,11 +14,12 @@ jobs:
           versionSpec: 16.x
           checkLatest: true
 
-      # TODO(jakebailey): this is not great
-      - script: |
-          npm install -g pnpm
-          pnpm install
-      - script: pnpm ls
+      - script: npm install -g pnpm
+        displayName: 'Setup pnpm'
+
+      - script: pnpm install
+        displayName: 'pnpm install'
+
       - script: |
           if [[ $BUILD_REASON == "Schedule" ]]; then git config --global user.email "types@microsoft.com" && git config --global user.name "TypeScript Bot" && pnpm run update-codeowners; fi
           git checkout -- .
