@@ -2,7 +2,7 @@ import Mixin from "@ember/object/mixin";
 // eslint-disable-next-line @definitelytyped/no-self-import
 import MutableEnumerable from "@ember/array/-private/mutable-enumerable";
 // eslint-disable-next-line @definitelytyped/no-self-import
-import EmberArray from '@ember/array';
+import EmberArray from "@ember/array";
 // eslint-disable-next-line @definitelytyped/no-self-import
 import Enumerable from "@ember/array/-private/enumerable";
 

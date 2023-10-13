@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-///<reference types="express"/>
+/// <reference types="express"/>
 
 declare module "vitalsigns" {
     import { RequestHandler } from "express";
@@ -125,7 +125,7 @@ declare module "vitalsigns" {
          * Constructor.
          * @param {Options} [options] Options.
          */
-        constructor (options?: vitalsigns.Options);
+        constructor(options?: vitalsigns.Options);
 
         /**
          * Pushes a health constraint onto this instance's constraint array.

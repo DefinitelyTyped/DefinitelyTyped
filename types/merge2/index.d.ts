@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import { PassThrough } from 'stream';
+import { PassThrough } from "stream";
 
 /**
  * @summary        This function takes an arbitrary number of streams and returns a
@@ -68,10 +68,10 @@ declare namespace merge2 {
          *
          * @return     This stream
          */
-        on(event: 'queueDrain', listener: () => void): this;
+        on(event: "queueDrain", listener: () => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
 
-        once(event: 'queueDrain', listener: () => void): this;
+        once(event: "queueDrain", listener: () => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
     }
 }

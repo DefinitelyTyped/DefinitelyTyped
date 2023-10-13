@@ -9,9 +9,9 @@
 /// <reference types="ace" />
 /// <reference types="jquery" />
 
-import { LocalSettings as RuntimeLocalSettings } from '@node-red/runtime';
-import { I18nTFunction } from '@node-red/util';
-import * as registry from '@node-red/registry';
+import * as registry from "@node-red/registry";
+import { LocalSettings as RuntimeLocalSettings } from "@node-red/runtime";
+import { I18nTFunction } from "@node-red/util";
 
 declare const editorClient: editorClient.EditorClientModule;
 
@@ -26,7 +26,7 @@ declare namespace editorClient {
      */
     interface NodePropertyDef<TVal, TInstProps extends NodeProperties = NodeProperties> {
         /** The default value the property takes */
-        value: TVal | '';
+        value: TVal | "";
         /** Whether the property is required. If set to true, the property will be invalid if its value is null or an empty string. */
         required?: boolean | undefined;
         /** A function that can be used to validate the value of the property. */
@@ -54,48 +54,49 @@ declare namespace editorClient {
 
     /** Reserved name for properties that MUST NOT BE USED. */
     type NodeReservedProperties =
-        | 'changed'
-        | 'dirty'
-        | 'icon'
-        | 'id'
-        | 'info'
-        | 'inputLabels'
-        | 'outputLabels'
-        | 'ports'
-        | 'selected'
-        | 'type'
-        | 'valid'
-        | 'validationErrors'
-        | 'wires'
-        | 'a'
-        | 'b'
-        | 'c'
-        | 'd'
-        | 'e'
-        | 'f'
-        | 'g'
-        | 'h'
-        | 'i'
-        | 'j'
-        | 'k'
-        | 'l'
-        | 'm'
-        | 'n'
-        | 'o'
-        | 'p'
-        | 'q'
-        | 'r'
-        | 's'
-        | 't'
-        | 'u'
-        | 'v'
-        | 'w'
-        | 'x'
-        | 'y'
-        | 'z';
+        | "changed"
+        | "dirty"
+        | "icon"
+        | "id"
+        | "info"
+        | "inputLabels"
+        | "outputLabels"
+        | "ports"
+        | "selected"
+        | "type"
+        | "valid"
+        | "validationErrors"
+        | "wires"
+        | "a"
+        | "b"
+        | "c"
+        | "d"
+        | "e"
+        | "f"
+        | "g"
+        | "h"
+        | "i"
+        | "j"
+        | "k"
+        | "l"
+        | "m"
+        | "n"
+        | "o"
+        | "p"
+        | "q"
+        | "r"
+        | "s"
+        | "t"
+        | "u"
+        | "v"
+        | "w"
+        | "x"
+        | "y"
+        | "z";
 
-    type NodeInstance<TProps extends NodeProperties = NodeProperties> = Omit<TProps, NodeReservedProperties> &
-        Readonly<{
+    type NodeInstance<TProps extends NodeProperties = NodeProperties> =
+        & Omit<TProps, NodeReservedProperties>
+        & Readonly<{
             _: I18nTFunction;
             id: string;
             type: string;
@@ -113,7 +114,7 @@ declare namespace editorClient {
     };
 
     interface NodeCredential {
-        type: 'text' | 'password';
+        type: "text" | "password";
     }
 
     /**
@@ -122,7 +123,7 @@ declare namespace editorClient {
      */
     interface NodeDef<TProps extends NodeProperties, TCreds = undefined, TInstProps extends TProps = TProps> {
         /** The palette category the node appears in. */
-        category: 'config' | string;
+        category: "config" | string;
         /**
          * The editable properties for the node.
          * Read more: https://nodered.org/docs/creating-nodes/properties
@@ -161,10 +162,10 @@ declare namespace editorClient {
          * Read more: https://nodered.org/docs/creating-nodes/appearance#label-style
          */
         labelStyle?:
-            | 'node_label'
-            | 'node_label_italic'
+            | "node_label"
+            | "node_label_italic"
             | string
-            | ((this: NodeInstance<TInstProps>) => 'node_label' | 'node_label_italic' | string)
+            | ((this: NodeInstance<TInstProps>) => "node_label" | "node_label_italic" | string)
             | undefined;
         /**
          * Optional label to add on hover to the input port of a node.
@@ -189,20 +190,20 @@ declare namespace editorClient {
          * The alignment of the icon and label.
          * Read more: https://nodered.org/docs/creating-nodes/appearance#alignment
          */
-        align?: 'left' | 'right' | undefined;
+        align?: "left" | "right" | undefined;
         /**
          * Adds a button to the edge of the node.
          * Read more: https://nodered.org/docs/creating-nodes/appearance#buttons
          */
         button?:
             | {
-                  /** Called when the button is clicked */
-                  onclick: (this: NodeInstance<TInstProps>) => void;
-                  /** Function to dynamically enable and disable the button based on the node’s current configuration. */
-                  enabled?: ((this: NodeInstance<TInstProps>) => boolean) | undefined;
-                  /** Function to determine whether the button should be shown at all. */
-                  visible?: ((this: NodeInstance<TInstProps>) => boolean) | undefined;
-              }
+                /** Called when the button is clicked */
+                onclick: (this: NodeInstance<TInstProps>) => void;
+                /** Function to dynamically enable and disable the button based on the node’s current configuration. */
+                enabled?: ((this: NodeInstance<TInstProps>) => boolean) | undefined;
+                /** Function to determine whether the button should be shown at all. */
+                visible?: ((this: NodeInstance<TInstProps>) => boolean) | undefined;
+            }
             | undefined;
         /**
          * Called when the edit dialog is being built.
@@ -260,94 +261,96 @@ declare namespace editorClient {
         emit(evt: string, ...args: any[]): void;
     }
 
-    type HistoryEvent = {
-        dirty?: boolean | undefined;
-        callback?: ((ev: HistoryEvent) => void) | undefined;
-    } & (
-        | {
-              t: 'multi';
-              events: HistoryEvent[];
-          }
-        | {
-              t: 'replace';
-              config: object;
-              changed: object;
-              rev: string;
-          }
-        | {
-              t: 'add';
-              nodes?: object[] | undefined;
-              links?: object[] | undefined;
-              groups?: object[] | undefined;
-              workspaces?: object[] | undefined;
-              subflows?: object[] | undefined;
-              subflow?: object | undefined;
-              removedLinks?: object[] | undefined;
-          }
-        | {
-              t: 'delete';
-              workspaces?: object[] | undefined;
-              subflows?: object[] | undefined;
-              subflowInputs?: object[] | undefined;
-              subflowOutputs?: object[] | undefined;
-              subflow?: object | undefined;
-              groups?: object[] | undefined;
-              nodes?: object[] | undefined;
-              links?: object[] | undefined;
-              createdLinks?: object[] | undefined;
-              changes?: object[] | undefined;
-          }
-        | {
-              t: 'move';
-              nodes: object[];
-              links?: object[] | undefined;
-              removedLinks?: object[] | undefined;
-              addToGroup?: object | undefined;
-              removeFromGroup?: object | undefined;
-          }
-        | {
-              t: 'edit';
-              node: object;
-              changes: object[];
-              links?: object[] | undefined;
-              createdLinks?: object[] | undefined;
-          }
-        | {
-              t: 'createSubflow';
-              nodes?: object[] | undefined;
-              links?: object[] | undefined;
-              subflow: object;
-              removedLinks?: object[] | undefined;
-          }
-        | {
-              t: 'deleteSubflow';
-              subflow?: object | undefined;
-              subflows?: object[] | undefined;
-              movedNodes?: object[] | undefined;
-              links?: object[] | undefined;
-              createdLinks?: object[] | undefined;
-          }
-        | {
-              t: 'reorder';
-              order?: object | undefined;
-          }
-        | {
-              t: 'createGroup';
-              groups?: object[] | undefined;
-          }
-        | {
-              t: 'ungroup';
-              groups?: object[] | undefined;
-          }
-        | {
-              t: 'addToGroup';
-              nodes?: object[] | undefined;
-          }
-        | {
-              t: 'removeFromGroup';
-              nodes?: object[] | undefined;
-          }
-    );
+    type HistoryEvent =
+        & {
+            dirty?: boolean | undefined;
+            callback?: ((ev: HistoryEvent) => void) | undefined;
+        }
+        & (
+            | {
+                t: "multi";
+                events: HistoryEvent[];
+            }
+            | {
+                t: "replace";
+                config: object;
+                changed: object;
+                rev: string;
+            }
+            | {
+                t: "add";
+                nodes?: object[] | undefined;
+                links?: object[] | undefined;
+                groups?: object[] | undefined;
+                workspaces?: object[] | undefined;
+                subflows?: object[] | undefined;
+                subflow?: object | undefined;
+                removedLinks?: object[] | undefined;
+            }
+            | {
+                t: "delete";
+                workspaces?: object[] | undefined;
+                subflows?: object[] | undefined;
+                subflowInputs?: object[] | undefined;
+                subflowOutputs?: object[] | undefined;
+                subflow?: object | undefined;
+                groups?: object[] | undefined;
+                nodes?: object[] | undefined;
+                links?: object[] | undefined;
+                createdLinks?: object[] | undefined;
+                changes?: object[] | undefined;
+            }
+            | {
+                t: "move";
+                nodes: object[];
+                links?: object[] | undefined;
+                removedLinks?: object[] | undefined;
+                addToGroup?: object | undefined;
+                removeFromGroup?: object | undefined;
+            }
+            | {
+                t: "edit";
+                node: object;
+                changes: object[];
+                links?: object[] | undefined;
+                createdLinks?: object[] | undefined;
+            }
+            | {
+                t: "createSubflow";
+                nodes?: object[] | undefined;
+                links?: object[] | undefined;
+                subflow: object;
+                removedLinks?: object[] | undefined;
+            }
+            | {
+                t: "deleteSubflow";
+                subflow?: object | undefined;
+                subflows?: object[] | undefined;
+                movedNodes?: object[] | undefined;
+                links?: object[] | undefined;
+                createdLinks?: object[] | undefined;
+            }
+            | {
+                t: "reorder";
+                order?: object | undefined;
+            }
+            | {
+                t: "createGroup";
+                groups?: object[] | undefined;
+            }
+            | {
+                t: "ungroup";
+                groups?: object[] | undefined;
+            }
+            | {
+                t: "addToGroup";
+                nodes?: object[] | undefined;
+            }
+            | {
+                t: "removeFromGroup";
+                nodes?: object[] | undefined;
+            }
+        );
     interface History {
         markAllDirty(): void;
         list(): HistoryEvent[];
@@ -403,13 +406,13 @@ declare namespace editorClient {
     interface Nodes {
         fontAwesome: NodesFontAwesome;
         registry: NodesRegistry;
-        setNodeList: NodesRegistry['setNodeList'];
-        getNodeList: NodesRegistry['getNodeList'];
-        removeNodeSet: NodesRegistry['removeNodeSet'];
-        enableNodeSet: NodesRegistry['enableNodeSet'];
-        disableNodeSet: NodesRegistry['disableNodeSet'];
-        setIconSets: NodesRegistry['setIconSets'];
-        getIconSets: NodesRegistry['getIconSets'];
+        setNodeList: NodesRegistry["setNodeList"];
+        getNodeList: NodesRegistry["getNodeList"];
+        removeNodeSet: NodesRegistry["removeNodeSet"];
+        enableNodeSet: NodesRegistry["enableNodeSet"];
+        disableNodeSet: NodesRegistry["disableNodeSet"];
+        setIconSets: NodesRegistry["setIconSets"];
+        getIconSets: NodesRegistry["getIconSets"];
 
         /**
          * Registers a node with the editor.     *
@@ -419,8 +422,8 @@ declare namespace editorClient {
          * @param def The node definition contains all of the information about the node
          * needed by the editor.
          */
-        registerType: NodesRegistry['registerNodeType'];
-        getType: NodesRegistry['getNodeType'];
+        registerType: NodesRegistry["registerNodeType"];
+        getType: NodesRegistry["getNodeType"];
         /**
          * Converts a node to an exportable JSON Object
          */
@@ -532,7 +535,7 @@ declare namespace editorClient {
     }
 
     interface Plugins {
-        registerPlugin: PluginsRegistry['registerPluginType'];
+        registerPlugin: PluginsRegistry["registerPluginType"];
     }
     interface PluginsRegistry {
         /**
@@ -601,7 +604,7 @@ declare namespace editorClient {
          */
         attach(
             element: HTMLDivElement,
-            type: 'filepath' | 'url' | 'email',
+            type: "filepath" | "url" | "email",
             args: any,
             isRtl: boolean,
             locale: string,
@@ -643,7 +646,7 @@ declare namespace editorClient {
          *      icon : the icon to use. Null removes the icon. default: "red/images/deploy-full-o.svg"
          */
         init(options?: {
-            type?: 'default' | 'simple' | undefined;
+            type?: "default" | "simple" | undefined;
             label?: string | undefined;
             icon?: string | undefined;
         }): void;
@@ -663,7 +666,6 @@ declare namespace editorClient {
         init(): void;
         edit(node: object): void;
         /**
-         *
          * @param name - name of the property that holds this config node
          * @param type - type of config node
          * @param id - id of config node to edit. _ADD_ for a new one
@@ -745,7 +747,7 @@ declare namespace editorClient {
 
     interface JavaScriptTypeEditorShowOptions extends TypeEditorShowOptions {
         value: any;
-        width: number | 'Infinite';
+        width: number | "Infinite";
         stateId: string;
         mode: string;
         focus: boolean;
@@ -774,7 +776,7 @@ declare namespace editorClient {
 
     interface MarkdownTypeEditorShowOptions extends TypeEditorShowOptions {
         value: string;
-        width?: number | 'Infinite';
+        width?: number | "Infinite";
         stateId: string;
         focus?: boolean;
         cancel?: () => void;
@@ -787,7 +789,7 @@ declare namespace editorClient {
         mode: string;
         value: string;
         stateId: string;
-        width: number | 'Infinite';
+        width: number | "Infinite";
         focus: boolean;
         complete?: (value: string, cursor?: any) => void;
     }
@@ -835,10 +837,10 @@ declare namespace editorClient {
             editor:
                 | AceAjax.Editor
                 | {
-                      // Orion Editor
-                      setText: () => void;
-                      getText: () => void;
-                  };
+                    // Orion Editor
+                    setText: () => void;
+                    getText: () => void;
+                };
             type: string;
             url: string;
             mode?: string | undefined;
@@ -859,7 +861,7 @@ declare namespace editorClient {
         loadLibraryFolder(library: string, type: string, root: string, done: (items: object[]) => void): void;
     }
 
-    type NotificationType = 'warning' | 'compact' | 'success' | 'error';
+    type NotificationType = "warning" | "compact" | "success" | "error";
 
     interface Notifications {
         init(): void;
@@ -874,11 +876,11 @@ declare namespace editorClient {
                 width?: number | undefined;
                 buttons?:
                     | Array<{
-                          id?: string | undefined;
-                          class?: string | undefined;
-                          text: string;
-                          click: (event: JQuery.Event) => void;
-                      }>
+                        id?: string | undefined;
+                        class?: string | undefined;
+                        text: string;
+                        click: (event: JQuery.Event) => void;
+                    }>
                     | undefined;
             },
         ): HTMLDivElement;
@@ -976,7 +978,7 @@ declare namespace editorClient {
 
     interface StatusBar {
         init(): void;
-        add(options: { id: string; element: JQuery; align?: 'left' | 'right' | undefined }): void;
+        add(options: { id: string; element: JQuery; align?: "left" | "right" | undefined }): void;
     }
 
     interface Subflow {
@@ -1244,7 +1246,7 @@ declare namespace editorClient {
         create(options: {
             id: string;
             container?: JQuery | undefined;
-            dir?: 'vertical' | undefined;
+            dir?: "vertical" | undefined;
             resize?: ((size1: number, size2: number) => void) | undefined;
         }): PanelsInstance;
     }
@@ -1258,8 +1260,8 @@ declare namespace editorClient {
     interface Popover {
         create(options: {
             target: JQuery;
-            direction?: 'right' | 'left' | 'bottom' | 'top' | undefined;
-            trigger?: 'hover' | 'click' | 'modal' | undefined;
+            direction?: "right" | "left" | "bottom" | "top" | undefined;
+            trigger?: "hover" | "click" | "modal" | undefined;
             interactive?: boolean | undefined;
             tooltip?: boolean | undefined;
             content: string | ((res: PopoverInstance) => void);
@@ -1270,18 +1272,18 @@ declare namespace editorClient {
         }): PopoverInstance;
         tooltip(target: JQuery, content: string, action?: string): PopoverInstance;
         menu(options: {
-            style?: 'compact' | undefined;
+            style?: "compact" | undefined;
             disposeOnClose?: boolean | undefined;
             onclose?: ((v: boolean) => void) | undefined;
             options?:
                 | Array<{
-                      onselect?: (() => void) | undefined;
-                  }>
+                    onselect?: (() => void) | undefined;
+                }>
                 | undefined;
         }): {
             show(opts: {
                 target: JQuery;
-                align?: 'right' | 'left' | undefined;
+                align?: "right" | "left" | undefined;
                 offset?: [number, number] | undefined;
                 dispose?: boolean | undefined;
             }): void;
@@ -1292,7 +1294,7 @@ declare namespace editorClient {
             show(options: {
                 onclose: () => void;
                 target: JQuery;
-                align?: 'right' | 'left' | undefined;
+                align?: "right" | "left" | undefined;
                 offset?: [number, number] | undefined;
                 dispose?: boolean | undefined;
             }): void;
@@ -1458,7 +1460,7 @@ declare namespace editorClient {
             ]
         });
         */
-        notify: Notifications['notify'];
+        notify: Notifications["notify"];
 
         // ui > common
         colorPicker: ColorPicker;
@@ -1503,7 +1505,7 @@ declare namespace editorClient {
          * to ‘auto’ removes the vertical scrollbar and displays the list at the full height
          * needed to contain the contents.
          */
-        height?: number | 'auto' | undefined;
+        height?: number | "auto" | undefined;
         /**
          * A callback function that gets called to filter what items are visible in the list.
          *
@@ -1584,55 +1586,55 @@ declare namespace editorClient {
          * Adds an item to the end of the list.         *
          * @param value - An object that will be associated with the item in the list.
          */
-        (action: 'addItem', value: object): void;
+        (action: "addItem", value: object): void;
         /**
          * Adds items contained in an array to the end of the list.
          * @param value - An array of objects that will be associated with the item in the list.
          */
-        (action: 'addItems', value: object[]): void;
+        (action: "addItems", value: object[]): void;
         /**
          * Removes an item from the list.
          * @param value - The object that identifies the item to be removed.
          */
-        (action: 'removeItem', value: object): void; // tslint:disable-line:unified-signatures
+        (action: "removeItem", value: object): void; // tslint:disable-line:unified-signatures
         /**
          * Sets the width of the editableList. This must be used in place of the standard jQuery.width() function as it ensures the component resizes properly.
          */
-        (action: 'width', value: string | number): void;
+        (action: "width", value: string | number): void;
         /**
          * Sets the height of the editableList. This must be used in place of the standard jQuery.height() function as it ensures the component resizes properly.
          */
-        (action: 'height', value: string | number): void; // tslint:disable-line:unified-signatures
+        (action: "height", value: string | number): void; // tslint:disable-line:unified-signatures
         /**
          * Gets an Array of all list items. Each item is the jQuery DOM element for the item.
          * Each element stores the original data for the item under property called data.
          */
-        (action: 'items'): JQuery;
+        (action: "items"): JQuery;
         /**
          * Clears the list of all items. This does not trigger any callbacks.
          */
-        (action: 'empty'): void;
+        (action: "empty"): void;
         /**
          * Filters the list to show/hide items based on the active filter function and returns the number of visible items.
          * If filter is not provided, the list is filtered using the current active filter function.
          * If filter is null, the filter is removed.
          */
-        (action: 'filter', value?: (data: object) => boolean): number;
+        (action: "filter", value?: (data: object) => boolean): number;
         /**
          * Scrolls the list to ensure the specific item is in view.
          * @param value - An object associated with the item in the list.
          */
-        (action: 'show', value: object): void; // tslint:disable-line:unified-signatures
+        (action: "show", value: object): void; // tslint:disable-line:unified-signatures
         /**
          * Get item at index. Returns item dat or undefined.
          * @param value - Item index: 0..length-1
          */
-        (action: 'getItemAt', value: number): object | undefined;
+        (action: "getItemAt", value: number): object | undefined;
         /**
          * Get index of item. Returns index or -1 if not found
          * @param value - Item data
          */
-        (action: 'indexOf', value: object): number;
+        (action: "indexOf", value: object): number;
         /**
          * Sorts the list using the active sort function.
          *
@@ -1642,11 +1644,11 @@ declare namespace editorClient {
          * If the function returns 0, the items are left unchanged.
          * If the function returns a value greater than 0, itemDataA comes after itemDataB.
          */
-        (action: 'sort', value: (itemDataA: object, itemDataB: object) => number): void;
+        (action: "sort", value: (itemDataA: object, itemDataB: object) => number): void;
         /**
          * Gets the number of list items.
          */
-        (action: 'length'): number;
+        (action: "length"): number;
     }
 
     interface WidgetTypedInputOptions {
@@ -1663,18 +1665,18 @@ declare namespace editorClient {
     }
 
     type WidgetTypedInputType =
-        | 'msg'
-        | 'flow'
-        | 'global'
-        | 'str'
-        | 'num'
-        | 'bool'
-        | 'json'
-        | 'bin'
-        | 're'
-        | 'date'
-        | 'jsonata'
-        | 'env';
+        | "msg"
+        | "flow"
+        | "global"
+        | "str"
+        | "num"
+        | "bool"
+        | "json"
+        | "bin"
+        | "re"
+        | "date"
+        | "jsonata"
+        | "env";
 
     interface WidgetTypedInputTypeDefinition {
         /** The identifier for the type */
@@ -1699,38 +1701,38 @@ declare namespace editorClient {
          * More info: https://nodered.org/docs/api/ui/typedInput/
          */
         (opts: WidgetTypedInputOptions): this;
-        (action: 'hide'): void;
-        (action: 'show'): void; // tslint:disable-line:unified-signatures
+        (action: "hide"): void;
+        (action: "show"): void; // tslint:disable-line:unified-signatures
         /**
          * Gets the selected type of the typedInput.
          */
-        (action: 'type'): WidgetTypedInputType | string;
+        (action: "type"): WidgetTypedInputType | string;
         /**
          * Sets the selected type of the typedInput.
          */
-        (action: 'type', value: WidgetTypedInputType | string): void;
+        (action: "type", value: WidgetTypedInputType | string): void;
         /**
          * Sets the list of types offered by the typedInput.
          */
-        (action: 'types', value: Array<WidgetTypedInputType | WidgetTypedInputTypeDefinition>): void;
+        (action: "types", value: Array<WidgetTypedInputType | WidgetTypedInputTypeDefinition>): void;
         /**
          * Triggers a revalidation of the typedInput’s type/value. This occurs automatically
          * whenever the type or value change, but this method allows it to be run manually.
          */
-        (action: 'validate'): boolean;
+        (action: "validate"): boolean;
         /**
          * Gets the value of the typedInput.
          */
-        (action: 'value'): string;
+        (action: "value"): string;
         /**
          * Sets the value of the typedInput.
          */
-        (action: 'value', value: string): void;
+        (action: "value", value: string): void;
         /**
          * Sets the width of the typedInput. This must be used in place of the standard
          * ```jQuery.width()``` function as it ensures the component resizes properly.
          */
-        (action: 'width', value: string | number): void;
+        (action: "width", value: string | number): void;
     }
 }
 

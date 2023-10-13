@@ -1,6 +1,7 @@
 declare namespace GorillaEngine.UI {
     interface SliceStyle {
         y: number;
+        xOffset: number;
         width: number;
         height: number;
         color: string;
@@ -46,9 +47,33 @@ declare namespace GorillaEngine.UI {
     }
     interface GridMeasure {
         fractionOfBar: number;
+        enabled: boolean;
         showLabels?: boolean;
+        tickWidth: boolean;
         tickHeight: number;
-        font?: { size: number };
+        tickColor?: string;
+        tickImage?: string;
+        font?: { name: string; size: number; kerning: number; color: string };
+    }
+
+    interface Marker {
+        value: number;
+        snapToGrid?: boolean;
+        snapToSlices?: boolean;
+        boundToSlice?: boolean;
+        fireChangeEventOnlyOnMouseUp?: boolean;
+        group?: string;
+        canPassPeers?: boolean;
+        hideCoveredSlice?: boolean;
+        overlayColorLeft?: string;
+        overlayColorRight?: string;
+        enforceValueOnConstraintViolation?: boolean;
+        valueOffsetOnConstraintViolation?: number;
+        styles?: SliceStyle[];
+    }
+
+    interface Slice {
+        value: number;
     }
 
     interface SliceEditorProps extends Common, Bounds, Background, Clickable {
@@ -56,12 +81,14 @@ declare namespace GorillaEngine.UI {
         audioLengthInSamples: number;
         audioLengthInBeats: number;
         minSliceSpacing: number;
+        minMarkerSpacing: number;
         canChangeSlices: boolean;
         canAddSlices: boolean;
         canRemoveSlices: boolean;
         snapSlicesToGrid: boolean;
-        zoom: { start: number; end: number };
+        zoom: { start: number; end: number; dragToZoomFactor: number; dragToZoomEnabled: boolean };
         addModulation(modulation: Partial<Modulation>): Modulation;
+        removeModulation(modulation: Partial<Modulation>): void;
         grid: Partial<{
             position: string;
             height: number;
@@ -80,18 +107,24 @@ declare namespace GorillaEngine.UI {
         }>;
         selectionAreaStyle: Partial<{
             backgroundColor: string;
+            enabled: boolean;
             border: Partial<{
                 width: number;
                 radius: number;
                 color: string;
             }>;
         }>;
-        addMarker(marker: any): void;
-        addSlice(slice: any): void;
-        removeSlice(slice: any): void;
-        getSlicesForZoneModule(): any[];
+        addMarker(marker: Partial<Marker>): Marker;
+        removeMarker(marker: Partial<Marker>): void;
+        addSlice(sliceLegthInFrames: number): Slice;
+        removeSlice(slice: Slice): void;
+        getSlicesForZoneModule(): number[];
         clearSlices(): void;
-        setZoom: (start: number, end: number) => void;
+        addGridMeasure(measure: Partial<GridMeasure>): GridMeasure;
+        removeGridMeasure(measure: Partial<GridMeasure>): void;
+        setModulationValues(values: number[]): void;
+        bindMarkerToSlice(slice: Slice): void;
+        unbindMarkerFromSlice(): void;
         mappedSampleChanged(): void;
         modulations: Modulation[];
     }

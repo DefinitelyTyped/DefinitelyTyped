@@ -1,3 +1,3 @@
-import { DateRangePicker } from '../../index';
+import { DateRangePicker } from "../../index";
 
 export default DateRangePicker;

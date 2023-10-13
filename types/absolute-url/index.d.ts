@@ -3,9 +3,9 @@
 // Definitions by: tpluscode <https://github.com/tpluscode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { RequestHandler, Request } from "express";
+import { Request, RequestHandler } from "express";
 
-declare module 'express-serve-static-core' {
+declare module "express-serve-static-core" {
     interface Request {
         absoluteUrl(): string;
     }

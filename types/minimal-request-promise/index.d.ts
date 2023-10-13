@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import * as http from 'http';
+import * as http from "http";
 
 interface MinimalRequestPromiseResponse {
     headers: http.IncomingHttpHeaders[];
@@ -15,12 +15,31 @@ interface MinimalRequestPromiseResponse {
     statusMessage: string;
 }
 
-declare function minimalRequestPromise(callOptions: http.RequestOptions, PromiseImplementation?: PromiseConstructor): Promise<MinimalRequestPromiseResponse>;
+declare function minimalRequestPromise(
+    callOptions: http.RequestOptions,
+    PromiseImplementation?: PromiseConstructor,
+): Promise<MinimalRequestPromiseResponse>;
 declare namespace minimalRequestPromise {
-    export function get(url: string, additionalOptions?: http.RequestOptions, PromiseImplementation?: PromiseConstructor): Promise<MinimalRequestPromiseResponse>;
-    export function post(url: string, additionalOptions: http.RequestOptions, PromiseImplementation?: PromiseConstructor): Promise<MinimalRequestPromiseResponse>;
-    export function put(url: string, additionalOptions: http.RequestOptions, PromiseImplementation?: PromiseConstructor): Promise<MinimalRequestPromiseResponse>;
-    function del(url: string, additionalOptions?: http.RequestOptions, PromiseImplementation?: PromiseConstructor): Promise<MinimalRequestPromiseResponse>;
+    export function get(
+        url: string,
+        additionalOptions?: http.RequestOptions,
+        PromiseImplementation?: PromiseConstructor,
+    ): Promise<MinimalRequestPromiseResponse>;
+    export function post(
+        url: string,
+        additionalOptions: http.RequestOptions,
+        PromiseImplementation?: PromiseConstructor,
+    ): Promise<MinimalRequestPromiseResponse>;
+    export function put(
+        url: string,
+        additionalOptions: http.RequestOptions,
+        PromiseImplementation?: PromiseConstructor,
+    ): Promise<MinimalRequestPromiseResponse>;
+    function del(
+        url: string,
+        additionalOptions?: http.RequestOptions,
+        PromiseImplementation?: PromiseConstructor,
+    ): Promise<MinimalRequestPromiseResponse>;
     export { del as delete };
 }
 

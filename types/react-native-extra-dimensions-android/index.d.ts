@@ -5,11 +5,11 @@
 // TypeScript Version: 3.0
 
 export type Dimensions =
-    | 'REAL_WINDOW_HEIGHT'
-    | 'REAL_WINDOW_WIDTH'
-    | 'STATUS_BAR_HEIGHT'
-    | 'SOFT_MENU_BAR_HEIGHT'
-    | 'SMART_BAR_HEIGHT';
+    | "REAL_WINDOW_HEIGHT"
+    | "REAL_WINDOW_WIDTH"
+    | "STATUS_BAR_HEIGHT"
+    | "SOFT_MENU_BAR_HEIGHT"
+    | "SMART_BAR_HEIGHT";
 
 export function get(dimension: Dimensions): number;
 export function getRealWindowHeight(): number;

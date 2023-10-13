@@ -3,6 +3,5 @@ lineToPolygon.d.ts
 circle.d.ts
 circleOutline.d.ts
 ellipse.d.ts
-line.d.ts
 point.d.ts
 polygon.d.ts

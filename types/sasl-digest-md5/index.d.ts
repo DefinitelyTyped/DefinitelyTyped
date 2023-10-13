@@ -3,18 +3,18 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Mechanism } from 'saslmechanisms';
+import { Mechanism } from "saslmechanisms";
 
 export = DigestMd5Mechanism;
 
 declare class DigestMd5Mechanism implements Mechanism {
     static Mechanism: typeof DigestMd5Mechanism;
     static prototype: {
-        name: 'DIGEST-MD5';
+        name: "DIGEST-MD5";
         clientFirst: false;
     };
 
-    name: 'DIGEST-MD5';
+    name: "DIGEST-MD5";
     clientFirst: false;
 
     constructor(options?: DigestMd5Mechanism.Options);

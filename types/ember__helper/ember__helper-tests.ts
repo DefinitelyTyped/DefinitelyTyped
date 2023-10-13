@@ -1,4 +1,4 @@
-import { array, concat, fn, get, hash } from '@ember/helper';
+import { array, concat, fn, get, hash } from "@ember/helper";
 
 array; // $ExpectType ArrayHelper
 concat; // $ExpectType ConcatHelper

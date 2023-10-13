@@ -1,4 +1,4 @@
-import RouteInfo, { RouteInfoWithAttributes } from './route-info';
+import RouteInfo, { RouteInfoWithAttributes } from "./route-info";
 
 /**
  * A Transition is a thennable (a promise-like object) that represents an

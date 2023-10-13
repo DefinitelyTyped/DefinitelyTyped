@@ -1,4 +1,4 @@
-import semver = require('../index');
+import semver = require("../index");
 
 declare class SemVer {
     constructor(version: string | SemVer, optionsOrLoose?: boolean | semver.RangeOptions);

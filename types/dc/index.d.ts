@@ -50,7 +50,11 @@ declare namespace dc {
 
     // http://dc-js.github.io/dc.js/docs/html/dc.units.html
     export interface UnitFunction {
-        (start: number|Date, end: number|Date, domain?: number|Array<string>): number | Array<number|Date|string>;
+        (
+            start: number | Date,
+            end: number | Date,
+            domain?: number | Array<string>,
+        ): number | Array<number | Date | string>;
     }
 
     export interface FloatPointUnits {
@@ -75,7 +79,7 @@ declare namespace dc {
         RangedFilter(low: number, high: number): Filter;
         TwoDimensionalFilter(filter: Array<number>): Filter;
         RangedTwoDimensionalFilter(arr: Array<Array<number>>): Filter;
-        HierarchyFilter(path: string):  Filter;
+        HierarchyFilter(path: string): Filter;
     }
 
     export interface Logger {
@@ -88,14 +92,14 @@ declare namespace dc {
     }
 
     export interface Config {
-        disableTransitions: boolean
+        disableTransitions: boolean;
         dateFormat: (date: Date) => string;
         defaultColors(colors?: Array<string>): Array<string> | Config;
     }
 
     export interface Printers {
         filters(filters: Array<any>): string;
-        filter(filter: Printers['filters'] | any | Array<any>): string;
+        filter(filter: Printers["filters"] | any | Array<any>): string;
     }
 
     export interface Round {
@@ -116,7 +120,11 @@ declare namespace dc {
         constant(x: any): () => any;
         uniqueId(): number;
         nameToId(name: string): string;
-        appendOrSelect(parent: d3.Selection<d3.BaseType, any, d3.BaseType, any>, selector: string, tag: string): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
+        appendOrSelect(
+            parent: d3.Selection<d3.BaseType, any, d3.BaseType, any>,
+            selector: string,
+            tag: string,
+        ): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
         safeNumber(n: any): number;
         arraysEqual(a1: Array<any> | null, a2: Array<any> | null): boolean;
     }
@@ -154,11 +162,21 @@ declare namespace dc {
         group: IBiGetSet<any, string, T>;
         ordering: IGetSet<Accessor<any, any>, T>;
         filterAll(): void;
-        select(selector: d3.Selection<d3.BaseType, any, d3.BaseType, any> | string): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
-        selectAll(selector: d3.Selection<d3.BaseType, any, d3.BaseType, any> | string): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
-        anchor(anchor: BaseMixin<any> | d3.Selection<d3.BaseType, any, d3.BaseType, any> | string, chartGroup?: string): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
+        select(
+            selector: d3.Selection<d3.BaseType, any, d3.BaseType, any> | string,
+        ): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
+        selectAll(
+            selector: d3.Selection<d3.BaseType, any, d3.BaseType, any> | string,
+        ): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
+        anchor(
+            anchor: BaseMixin<any> | d3.Selection<d3.BaseType, any, d3.BaseType, any> | string,
+            chartGroup?: string,
+        ): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
         anchorName(): string;
-        svg: IGetSet<d3.Selection<d3.BaseType, any, d3.BaseType, any>, d3.Selection<d3.BaseType, any, d3.BaseType, any>>;
+        svg: IGetSet<
+            d3.Selection<d3.BaseType, any, d3.BaseType, any>,
+            d3.Selection<d3.BaseType, any, d3.BaseType, any>
+        >;
         resetSvg(): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
         filterPrinter: IGetSet<(filters: Array<any>) => string, T>;
         controlsUseVisibility: IGetSet<boolean, T>;
@@ -210,7 +228,7 @@ declare namespace dc {
     }
 
     export interface MarginMixin<T> {
-        margins: IGetSet<Margins, T>
+        margins: IGetSet<Margins, T>;
     }
 
     export interface ColorMixin<T> {
@@ -293,7 +311,9 @@ declare namespace dc {
         drawPaths: IGetSet<boolean, PieChart>;
     }
 
-    export interface SunburstChart extends CapMixin<SunburstChart>, ColorMixin<SunburstChart>, BaseMixin<SunburstChart> {
+    export interface SunburstChart
+        extends CapMixin<SunburstChart>, ColorMixin<SunburstChart>, BaseMixin<SunburstChart>
+    {
         innerRadius: IGetSet<number, SunburstChart>;
         radius: IGetSet<number, SunburstChart>;
         cx: IGetSet<number, SunburstChart>;
@@ -377,7 +397,7 @@ declare namespace dc {
         rightYAxis: IGetSet<d3.Axis<any>, ICompositeChart<T>>;
     }
 
-    export interface CompositeChart extends ICompositeChart<CompositeChart> { }
+    export interface CompositeChart extends ICompositeChart<CompositeChart> {}
 
     export interface SeriesChart extends ICompositeChart<SeriesChart> {
         chart: IGetSet<(c: any) => BaseMixin<any>, SeriesChart>;
@@ -404,7 +424,9 @@ declare namespace dc {
         point(name: string, x: number, y: number): BubbleOverlayChart;
     }
 
-    export interface RowChart extends CapMixin<RowChart>, MarginMixin<RowChart>, ColorMixin<RowChart>, BaseMixin<RowChart> {
+    export interface RowChart
+        extends CapMixin<RowChart>, MarginMixin<RowChart>, ColorMixin<RowChart>, BaseMixin<RowChart>
+    {
         x: IGetSet<Scale<number>, RowChart>;
         renderTitleLabel: IGetSet<boolean, RowChart>;
         xAxis: IGetSet<d3.Axis<any>, RowChart>;
@@ -478,7 +500,7 @@ declare namespace dc {
     export interface SelectMenu extends BaseMixin<SelectMenu> {
         order: IGetSet<(a: any, b: any) => number, SelectMenu>;
         promptText: IGetSet<string, SelectMenu>;
-        filterDisplayed: IGetSet<(a: {value: any, key: any}, index: number) => boolean, SelectMenu>;
+        filterDisplayed: IGetSet<(a: { value: any; key: any }, index: number) => boolean, SelectMenu>;
         multiple: IGetSet<boolean, SelectMenu>;
         promptValue: IGetSet<any, SelectMenu>;
         numberVisible: IGetSet<number, SelectMenu>;
@@ -520,14 +542,20 @@ declare namespace dc {
             selections: d3.Selection<d3.BaseType, any, d3.BaseType, any>,
             duration?: number | Function,
             delay?: number | Function,
-            name?: string
+            name?: string,
         ): d3.Transition<d3.BaseType, any, d3.BaseType, any> | d3.Selection<d3.BaseType, any, d3.BaseType, any>;
         optionalTransition(
             enable: boolean,
             duration?: number | Function,
-            delay?: number | Function, name?: string
-        ): (selection: d3.Selection<d3.BaseType, any, d3.BaseType, any>) => Base['transition'] | d3.Selection<d3.BaseType, any, d3.BaseType, any>;
-        afterTransition(transition: d3.Transition<d3.BaseType, any, d3.BaseType, any>,  callback: (transition: d3.Transition<d3.BaseType, any, d3.BaseType, any>) => void): void;
+            delay?: number | Function,
+            name?: string,
+        ): (
+            selection: d3.Selection<d3.BaseType, any, d3.BaseType, any>,
+        ) => Base["transition"] | d3.Selection<d3.BaseType, any, d3.BaseType, any>;
+        afterTransition(
+            transition: d3.Transition<d3.BaseType, any, d3.BaseType, any>,
+            callback: (transition: d3.Transition<d3.BaseType, any, d3.BaseType, any>) => void,
+        ): void;
 
         units: Units;
         round: Round;
@@ -546,8 +574,14 @@ declare namespace dc {
         // http://dc-js.github.io/dc.js/docs/html/core.js.html, Line 20
         version: string;
 
-        pieChart(parent: string | Node | d3.Selection<d3.BaseType, any, d3.BaseType, any>, chartGroup?: string): PieChart;
-        sunburstChart(parent: string | Node | d3.Selection<d3.BaseType, any, d3.BaseType, any>, chartGroup?: string): SunburstChart;
+        pieChart(
+            parent: string | Node | d3.Selection<d3.BaseType, any, d3.BaseType, any>,
+            chartGroup?: string,
+        ): PieChart;
+        sunburstChart(
+            parent: string | Node | d3.Selection<d3.BaseType, any, d3.BaseType, any>,
+            chartGroup?: string,
+        ): SunburstChart;
         // http://dc-js.github.io/dc.js/docs/html/dc.barChart.html
         barChart(parent: string | CompositeChart, chartGroup?: string): BarChart;
         // http://dc-js.github.io/dc.js/docs/html/dc.lineChart.html

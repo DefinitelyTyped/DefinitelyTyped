@@ -1,53 +1,53 @@
-import Share from 'react-native-share';
+import Share from "react-native-share";
 
 // $ExpectType Promise<OpenReturn>
 Share.open({
-    url: '',
-    message: '',
+    url: "",
+    message: "",
 });
 
 // $ExpectType Promise<OpenReturn>
 Share.open({
-    title: '',
-    message: '',
+    title: "",
+    message: "",
     urls: [],
 });
 
 // $ExpectType Promise<OpenReturn>
 Share.open({
-    url: '',
-    type: '',
-    message: '',
-    title: '',
-    subject: '',
-    excludedActivityTypes: '',
+    url: "",
+    type: "",
+    message: "",
+    title: "",
+    subject: "",
+    excludedActivityTypes: "",
     showAppsToView: true,
 });
 
 // $ExpectType Promise<ShareSingleReturn>
 Share.shareSingle({
-    url: '',
-    message: '',
-    social: 'facebook',
+    url: "",
+    message: "",
+    social: "facebook",
 });
 
 // $ExpectType Promise<ShareSingleReturn>
 Share.shareSingle({
-    url: '',
-    type: '',
-    message: '',
-    title: '',
-    subject: '',
-    social: 'facebook',
+    url: "",
+    type: "",
+    message: "",
+    title: "",
+    subject: "",
+    social: "facebook",
 });
 
 // $ExpectType Promise<ShareSingleReturn>
 Share.shareSingle({
-    url: '',
-    type: '',
-    message: '',
-    title: '',
-    subject: '',
-    filename: 'test',
-    social: 'facebook',
+    url: "",
+    type: "",
+    message: "",
+    title: "",
+    subject: "",
+    filename: "test",
+    social: "facebook",
 });

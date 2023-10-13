@@ -1,5 +1,5 @@
-import d3Cloud = require('d3-cloud');
-import d3 = require('d3');
+import d3Cloud = require("d3-cloud");
+import d3 = require("d3");
 
 // $ExpectType Cloud<Word>
 d3Cloud();
@@ -28,7 +28,7 @@ d3.layout
     .cloud()
     .size([300, 300])
     .words(
-        ['Hello', 'world', 'normally', 'you', 'want', 'more', 'words', 'than', 'this'].map(function(d: string) {
+        ["Hello", "world", "normally", "you", "want", "more", "words", "than", "this"].map(function(d: string) {
             return { text: d, size: 10 + Math.random() * 90 };
         }),
     )
@@ -37,39 +37,39 @@ d3.layout
     .rotate(function() {
         return ~~(Math.random() * 2) * 90;
     })
-    .font('Impact')
+    .font("Impact")
     .fontSize(10)
     .fontSize(function(d: ICompTextSize) {
         return d.size;
     })
-    .spiral('archimedean')
+    .spiral("archimedean")
     .spiral(archimedeanSpiral)
-    .on('end', draw)
+    .on("end", draw)
     .random()
     .canvas()
     .start();
 
 function draw(words: ICompTextSize[]) {
-    d3.select('body')
-        .append('svg')
-        .attr('width', 300)
-        .attr('height', 300)
-        .append('g')
-        .attr('transform', 'translate(150,150)')
-        .selectAll('text')
+    d3.select("body")
+        .append("svg")
+        .attr("width", 300)
+        .attr("height", 300)
+        .append("g")
+        .attr("transform", "translate(150,150)")
+        .selectAll("text")
         .data(words)
         .enter()
-        .append('text')
-        .style('font-size', function(d: ICompTextSize) {
-            return d.size + 'px';
+        .append("text")
+        .style("font-size", function(d: ICompTextSize) {
+            return d.size + "px";
         })
-        .style('font-family', 'Impact')
-        .style('fill', function(_d: ICompTextSize, i: number) {
+        .style("font-family", "Impact")
+        .style("fill", function(_d: ICompTextSize, i: number) {
             return fill(i);
         })
-        .attr('text-anchor', 'middle')
-        .attr('transform', function(d: ICompTextSize) {
-            return 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')';
+        .attr("text-anchor", "middle")
+        .attr("transform", function(d: ICompTextSize) {
+            return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
         })
         .text(function(d: ICompTextSize) {
             return d.text;

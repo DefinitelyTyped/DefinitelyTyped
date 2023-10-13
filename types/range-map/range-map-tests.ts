@@ -1,4 +1,4 @@
-import rangeMap = require('range-map');
+import rangeMap = require("range-map");
 
 const mapped = rangeMap(50, 0, 100, 0, 1000);
 // mapped == 500

@@ -1,4 +1,4 @@
-import pull = require('..');
+import pull = require("..");
 
 /**
  * Returns a through stream that calls the given `fn` for each chunk of incoming data and outputs the return value, in the same order as before.

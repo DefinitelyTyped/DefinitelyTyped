@@ -3,10 +3,10 @@ import * as YUKA from "yuka";
 const points: YUKA.Vector3[] = [];
 
 const params = {
-    boundingVolume: 'None'
+    boundingVolume: "None",
 };
 
-fetch('points.json').then(response => response.json()).then((position: Array<[number, number, number]>) => {
+fetch("points.json").then(response => response.json()).then((position: Array<[number, number, number]>) => {
     // add object to scene
     for (let i = 0; i < position.length; i += 3) {
         const x = position[i][0];
@@ -17,16 +17,16 @@ fetch('points.json').then(response => response.json()).then((position: Array<[nu
 });
 
 switch (params.boundingVolume) {
-    case 'BoundingSphere':
+    case "BoundingSphere":
         const boundingSphere = new YUKA.BoundingSphere().fromPoints(points);
         break;
-    case 'AABB':
+    case "AABB":
         const aabb = new YUKA.AABB().fromPoints(points);
         break;
-    case 'OBB':
+    case "OBB":
         const obb = new YUKA.OBB().fromPoints(points);
         break;
-    case 'ConvexHull':
+    case "ConvexHull":
         const convexHull = new YUKA.ConvexHull().fromPoints(points);
         break;
     default:

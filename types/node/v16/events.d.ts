@@ -34,7 +34,9 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/events.js)
  */
-declare module 'events' {
+declare module "events" {
+    import { AsyncResource, AsyncResourceOptions } from "node:async_hooks";
+
     interface EventEmitterOptions {
         /**
          * Enables automatic capturing of promise rejection.
@@ -50,7 +52,7 @@ declare module 'events' {
             listener: (...args: any[]) => void,
             opts?: {
                 once: boolean;
-            }
+            },
         ): any;
     }
     interface StaticEventEmitterOptions {
@@ -72,6 +74,9 @@ declare module 'events' {
      */
     class EventEmitter {
         constructor(options?: EventEmitterOptions);
+
+        [EventEmitter.captureRejectionSymbol]?(error: Error, event: string, ...args: any[]): void;
+
         /**
          * Creates a `Promise` that is fulfilled when the `EventEmitter` emits the given
          * event or that is rejected if the `EventEmitter` emits `'error'` while waiting.
@@ -154,7 +159,11 @@ declare module 'events' {
          * ```
          * @since v11.13.0, v10.16.0
          */
-        static once(emitter: NodeEventTarget, eventName: string | symbol, options?: StaticEventEmitterOptions): Promise<any[]>;
+        static once(
+            emitter: NodeEventTarget,
+            eventName: string | symbol,
+            options?: StaticEventEmitterOptions,
+        ): Promise<any[]>;
         static once(emitter: DOMEventTarget, eventName: string, options?: StaticEventEmitterOptions): Promise<any[]>;
         /**
          * ```js
@@ -214,7 +223,11 @@ declare module 'events' {
          * @param eventName The name of the event being listened for
          * @return that iterates `eventName` events emitted by the `emitter`
          */
-        static on(emitter: NodeJS.EventEmitter, eventName: string, options?: StaticEventEmitterOptions): AsyncIterableIterator<any>;
+        static on(
+            emitter: NodeJS.EventEmitter,
+            eventName: string,
+            options?: StaticEventEmitterOptions,
+        ): AsyncIterableIterator<any>;
         /**
          * A class method that returns the number of listeners for the given `eventName`registered on the given `emitter`.
          *
@@ -296,7 +309,7 @@ declare module 'events' {
         static captureRejections: boolean;
         static defaultMaxListeners: number;
     }
-    import internal = require('node:events');
+    import internal = require("node:events");
     namespace EventEmitter {
         // Should just be `export { EventEmitter }`, but that doesn't work in TypeScript 3.4
         export { internal as EventEmitter };
@@ -306,10 +319,54 @@ declare module 'events' {
              */
             signal?: AbortSignal | undefined;
         }
+
+        export interface EventEmitterReferencingAsyncResource extends AsyncResource {
+            readonly eventEmitter: EventEmitterAsyncResource;
+        }
+
+        export interface EventEmitterAsyncResourceOptions extends AsyncResourceOptions, EventEmitterOptions {
+            /**
+             * The type of async event, this is required when instantiating `EventEmitterAsyncResource`
+             * directly rather than as a child class.
+             * @default new.target.name if instantiated as a child class.
+             */
+            name?: string;
+        }
+
+        /**
+         * Integrates `EventEmitter` with `AsyncResource` for `EventEmitter`s that require
+         * manual async tracking. Specifically, all events emitted by instances of
+         * `EventEmitterAsyncResource` will run within its async context.
+         *
+         * The EventEmitterAsyncResource class has the same methods and takes the
+         * same options as EventEmitter and AsyncResource themselves.
+         * @throws if `options.name` is not provided when instantiated directly.
+         * @since v17.4.0, v16.14.0
+         */
+        export class EventEmitterAsyncResource extends EventEmitter {
+            /**
+             * @param options Only optional in child class.
+             */
+            constructor(options?: EventEmitterAsyncResourceOptions);
+            /**
+             * Call all destroy hooks. This should only ever be called once. An
+             * error will be thrown if it is called more than once. This must be
+             * manually called. If the resource is left to be collected by the GC then
+             * the destroy hooks will never be called.
+             */
+            emitDestroy(): void;
+            /** The unique asyncId assigned to the resource. */
+            readonly asyncId: number;
+            /** The same triggerAsyncId that is passed to the AsyncResource constructor. */
+            readonly triggerAsyncId: number;
+            /** The underlying AsyncResource */
+            readonly asyncResource: EventEmitterReferencingAsyncResource;
+        }
     }
     global {
         namespace NodeJS {
             interface EventEmitter {
+                [EventEmitter.captureRejectionSymbol]?(error: Error, event: string, ...args: any[]): void;
                 /**
                  * Alias for `emitter.on(eventName, listener)`.
                  * @since v0.1.26
@@ -635,7 +692,7 @@ declare module 'events' {
     }
     export = EventEmitter;
 }
-declare module 'node:events' {
-    import events = require('events');
+declare module "node:events" {
+    import events = require("events");
     export = events;
 }

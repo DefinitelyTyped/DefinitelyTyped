@@ -13,9 +13,9 @@
 
 /// <reference types="jquery" />
 
-import RSVP from 'rsvp';
+import RSVP from "rsvp";
 
-type KeyEventType = 'keydown' | 'keyup' | 'keypress';
+type KeyEventType = "keydown" | "keyup" | "keypress";
 type WaitResult<T> = RSVP.Promise<T>;
 
 declare global {
@@ -56,7 +56,7 @@ declare global {
         selector: string,
         context: Object,
         type: string,
-        options: Object
+        options: Object,
     ): WaitResult<void>;
     function triggerEvent(selector: string, context: Object, type: string): WaitResult<void>;
     function triggerEvent(selector: string, type: string, options: Object): WaitResult<void>;

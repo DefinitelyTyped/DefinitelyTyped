@@ -1,5 +1,5 @@
 // TODO: move this into relay-runtime
-import { KeyType, KeyTypeData } from 'react-relay/relay-hooks/helpers';
+import { KeyType, KeyTypeData } from "react-relay/relay-hooks/helpers";
 
 /**
  * Utility function for testing Relay Resolvers. Pass the resolver function and
@@ -22,5 +22,5 @@ import { KeyType, KeyTypeData } from 'react-relay/relay-hooks/helpers';
  */
 export function testResolver<TKey extends KeyType, Ret>(
     resolver: (arg: TKey) => Ret,
-    fragmentData: Omit<KeyTypeData<TKey>, ' $fragmentSpreads' | ' $fragmentType'>,
+    fragmentData: Omit<KeyTypeData<TKey>, " $fragmentSpreads" | " $fragmentType">,
 ): Ret;

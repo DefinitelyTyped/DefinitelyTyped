@@ -1,10 +1,10 @@
-import { Agent as httpAgent } from 'http';
-import { Agent as httpsAgent } from 'https';
-import { Credentials, CredentialsOptions } from './credentials';
-import { CredentialProviderChain } from './credentials/credential_provider_chain';
-import { AWSError } from './error';
-import { Token } from './token';
-import { TokenProviderChain } from './token/token_provider_chain';
+import { Agent as httpAgent } from "http";
+import { Agent as httpsAgent } from "https";
+import { Credentials, CredentialsOptions } from "./credentials";
+import { CredentialProviderChain } from "./credentials/credential_provider_chain";
+import { AWSError } from "./error";
+import { Token } from "./token";
+import { TokenProviderChain } from "./token/token_provider_chain";
 
 export class ConfigBase extends ConfigurationOptions {
     constructor(options?: ConfigurationOptions);
@@ -230,7 +230,7 @@ export abstract class ConfigurationOptions {
      * or 'us-east-1' regional endpoints. This config is only applicable to S3 client;
      * Defaults to 'legacy'
      */
-    s3UsEast1RegionalEndpoint?: 'regional' | 'legacy';
+    s3UsEast1RegionalEndpoint?: "regional" | "legacy";
     /**
      * Whether to override the request region with the region inferred
      * from requested resource's ARN. Only available for S3 buckets
@@ -245,7 +245,7 @@ export abstract class ConfigurationOptions {
      * The signature version to sign requests with (overriding the API configuration).
      * Possible values: 'v2'|'v3'|'v4'
      */
-    signatureVersion?: 'v2' | 'v3' | 'v4' | string;
+    signatureVersion?: "v2" | "v3" | "v4" | string;
     /**
      * Whether SSL is enabled for requests.
      */
@@ -282,7 +282,7 @@ export abstract class ConfigurationOptions {
      * Whether to send sts request to global endpoints or
      * regional endpoints.
      */
-    stsRegionalEndpoints?: 'legacy' | 'regional';
+    stsRegionalEndpoints?: "legacy" | "regional";
     /**
      * Enables FIPS compatible endpoints.
      */

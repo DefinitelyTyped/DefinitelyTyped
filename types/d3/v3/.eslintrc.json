@@ -2,6 +2,7 @@
     "rules": {
         "@definitelytyped/export-just-namespace": "off",
         "@definitelytyped/no-any-union": "off",
-        "@definitelytyped/no-unnecessary-generics": "off"
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off"
     }
 }

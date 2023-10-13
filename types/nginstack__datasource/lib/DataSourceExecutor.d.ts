@@ -9,4 +9,4 @@ declare class DataSourceExecutor {
 declare namespace DataSourceExecutor {
     export { DataSet };
 }
-type DataSet = import('@nginstack/engine/lib/dataset/DataSet');
+type DataSet = import("@nginstack/engine/lib/dataset/DataSet");

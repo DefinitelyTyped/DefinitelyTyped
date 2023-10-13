@@ -89,9 +89,17 @@ export interface ItemProps extends CommonFlexProps {
      * A value for the flex-basis css property. Valid values are: `0` (and `'none'`, which is the same),
      * `'auto'`, `'content'`, `'fit-content'`, `'min-content'`, `'max-content'`, `'fit'`.
      */
-    flexBasis?: number | "none" | "auto" | "content" | "fit-content" | "min-content" | "max-content" | "fit" | undefined;
+    flexBasis?:
+        | number
+        | "none"
+        | "auto"
+        | "content"
+        | "fit-content"
+        | "min-content"
+        | "max-content"
+        | "fit"
+        | undefined;
 }
 
 export class Item extends React.Component<ItemProps> {
 }
-

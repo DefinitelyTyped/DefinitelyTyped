@@ -3,8 +3,8 @@
 // Definitions by: Rudolf <https://github.com/schrudolf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type Types = 'normal' | 'normal+' | 'medium' | 'medium+' | 'extra' | 'onlyNumbers';
-export { genSync, genAsync, withMyOwnCharacters, syncValidator, asyncValidator };
+type Types = "normal" | "normal+" | "medium" | "medium+" | "extra" | "onlyNumbers";
+export { asyncValidator, genAsync, genSync, syncValidator, withMyOwnCharacters };
 /*
  * @description sync token generator
  *
@@ -77,4 +77,9 @@ declare function syncValidator(type: Types, length: number, token: string, allow
  * @example asyncValidator("extra", 50, token, "")
  * @returns {Promise<boolean>}
  */
-declare function asyncValidator(type: Types, length: number, token: string, allowedPlusCharacters?: string): Promise<boolean>;
+declare function asyncValidator(
+    type: Types,
+    length: number,
+    token: string,
+    allowedPlusCharacters?: string,
+): Promise<boolean>;

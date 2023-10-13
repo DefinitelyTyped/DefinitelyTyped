@@ -1,4 +1,4 @@
-import { sign, RequestSigner } from "aws4";
+import { RequestSigner, sign } from "aws4";
 
 // $ExpectType Request
 sign("");

@@ -3,11 +3,11 @@
 // Definitions by: Pedro Queiroz <https://github.com/pmqueiroz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
-type _KEYDOWN = 'keydown';
-type _KEYPRESS = 'keypress';
-type _KEYUP = 'keyup';
+type _KEYDOWN = "keydown";
+type _KEYPRESS = "keypress";
+type _KEYUP = "keyup";
 
 export type Matcher = (event: KeyboardEvent, ref: ReactKeyHandlerIntrinsicProps) => boolean;
 

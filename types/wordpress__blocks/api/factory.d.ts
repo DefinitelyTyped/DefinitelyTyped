@@ -1,4 +1,4 @@
-import { Block, BlockInstance, Transform, InnerBlockTemplate } from '../';
+import { Block, BlockInstance, InnerBlockTemplate, Transform } from "../";
 
 /**
  * Given a `BlockInstance`, returns a copy of `BlockInstance`, optionally merging
@@ -11,7 +11,7 @@ import { Block, BlockInstance, Transform, InnerBlockTemplate } from '../';
 export function cloneBlock<T extends Record<string, any>>(
     block: BlockInstance<T>,
     mergeAttributes?: Partial<T>,
-    newInnerBlocks?: BlockInstance[]
+    newInnerBlocks?: BlockInstance[],
 ): BlockInstance<T>;
 
 /**
@@ -24,7 +24,7 @@ export function cloneBlock<T extends Record<string, any>>(
 export function createBlock<T extends Record<string, any>>(
     name: string,
     attributes?: Partial<T>,
-    innerBlocks?: BlockInstance[]
+    innerBlocks?: BlockInstance[],
 ): BlockInstance<T>;
 
 /**
@@ -32,12 +32,12 @@ export function createBlock<T extends Record<string, any>>(
  * returns an array of created Blocks from them.
  * It handles the case of having InnerBlocks as Blocks by
  * converting them to the proper format to continue recursively.
- * 
+ *
  * @param innerBlocksOrTemplate - Nested blocks or InnerBlocks templates.
  */
 export function createBlocksFromInnerBlocksTemplate(
-    innerBlocksOrTemplate: InnerBlockTemplate[]
-): BlockInstance[]
+    innerBlocksOrTemplate: InnerBlockTemplate[],
+): BlockInstance[];
 
 /**
  * Given an array of transforms, returns the highest-priority transform where
@@ -53,7 +53,7 @@ export function createBlocksFromInnerBlocksTemplate(
  */
 export function findTransform<T extends Transform, U extends Record<string, any> = Record<string, any>>(
     transforms: T[],
-    predicate: (transform: T) => boolean
+    predicate: (transform: T) => boolean,
 ): Transform<U> | null; // eslint-disable-line @definitelytyped/no-unnecessary-generics
 
 /**
@@ -66,8 +66,8 @@ export function findTransform<T extends Transform, U extends Record<string, any>
  * @param blockTypeOrName - `BlockInstance` or name.
  */
 export function getBlockTransforms<T extends Record<string, any> = Record<string, any>>(
-    direction: 'to' | 'from',
-    blockTypeOrName?: string | Block
+    direction: "to" | "from",
+    blockTypeOrName?: string | Block,
 ): Array<Transform<T> & { blockName: string }>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
 
 /**

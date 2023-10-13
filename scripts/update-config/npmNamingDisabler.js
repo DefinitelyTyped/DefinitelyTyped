@@ -12,16 +12,22 @@ export function npmNamingDisabler(failures) {
         }
         const message = ruleFailure.failure;
         // Name errors.
-        if (message.includes("must have a matching npm package")
+        if (
+            message.includes("must have a matching npm package")
             || message.includes("must match a version that exists on npm")
-            || message.includes("conflicts with the existing npm package")) {
+            || message.includes("conflicts with the existing npm package")
+        ) {
             return false;
         }
         // Code errors.
         if (message.includes("declaration should use 'export =' syntax")) {
             disabledErrors.add(ErrorKind.NeedsExportEquals);
-        } else if (message.includes("declaration specifies 'export default' but the JavaScript source \
-            does not mention 'default' anywhere")) {
+        } else if (
+            message.includes(
+                "declaration specifies 'export default' but the JavaScript source \
+            does not mention 'default' anywhere",
+            )
+        ) {
             disabledErrors.add(ErrorKind.NoDefaultExport);
         } else {
             return [true, { mode: Mode.NameOnly }];

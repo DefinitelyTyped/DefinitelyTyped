@@ -12,7 +12,7 @@
         "typeRoots": [
             "../"
         ],
-        "paths":{
+        "paths": {
             "@breejs/*": ["breejs__*"]
         },
         "types": [],

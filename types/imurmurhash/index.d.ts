@@ -43,7 +43,7 @@ declare var MurmurHash3: {
      * This is safe to use as long as the object is only used from a single thread and no other hashes are created while operating on this one.
      * If this constraint cannot be met, you can use new to create a new state object
      */
-    new (text?: string, seed?: number): MurmurHash3;
+    new(text?: string, seed?: number): MurmurHash3;
 };
 
 export as namespace MurmurHash3;

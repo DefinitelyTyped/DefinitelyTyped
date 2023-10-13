@@ -223,32 +223,32 @@ export interface PossibleErrors extends Linter.RulesRecord {
      */
     "no-extra-parens":
         | Linter.RuleEntry<
-              [
-                  "all",
-                  Partial<{
-                      /**
-                       * @default true,
-                       */
-                      conditionalAssign: boolean;
-                      /**
-                       * @default true
-                       */
-                      returnAssign: boolean;
-                      /**
-                       * @default true
-                       */
-                      nestedBinaryExpressions: boolean;
-                      /**
-                       * @default 'none'
-                       */
-                      ignoreJSX: "none" | "all" | "multi-line" | "single-line";
-                      /**
-                       * @default true
-                       */
-                      enforceForArrowConditionals: boolean;
-                  }>,
-              ]
-          >
+            [
+                "all",
+                Partial<{
+                    /**
+                     * @default true,
+                     */
+                    conditionalAssign: boolean;
+                    /**
+                     * @default true
+                     */
+                    returnAssign: boolean;
+                    /**
+                     * @default true
+                     */
+                    nestedBinaryExpressions: boolean;
+                    /**
+                     * @default 'none'
+                     */
+                    ignoreJSX: "none" | "all" | "multi-line" | "single-line";
+                    /**
+                     * @default true
+                     */
+                    enforceForArrowConditionals: boolean;
+                }>,
+            ]
+        >
         | Linter.RuleEntry<["functions"]>;
 
     /**

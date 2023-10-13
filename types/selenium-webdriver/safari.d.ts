@@ -1,4 +1,4 @@
-import * as webdriver from './index';
+import * as webdriver from "./index";
 
 export class Server {}
 

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { ClientOpts, RedisClient } from 'redis';
+import { ClientOpts, RedisClient } from "redis";
 
 /**
  * @summary Redis store for Express Brute

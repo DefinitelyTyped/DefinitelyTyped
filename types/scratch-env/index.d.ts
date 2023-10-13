@@ -116,7 +116,7 @@ declare enum ReporterScope {
      * This reporter's value is specific to a particular target/sprite.
      * Another target may have a different value or may not even have a value.
      */
-    TARGET = "target"
+    TARGET = "target",
 }
 
 declare namespace Scratch {
@@ -149,7 +149,7 @@ declare namespace Scratch {
         NOTE = "note",
 
         /** Inline image on block (as part of the label). */
-        IMAGE = "image"
+        IMAGE = "image",
     }
 
     /** Types of blocks. */
@@ -185,7 +185,7 @@ declare namespace Scratch {
         LOOP = "loop",
 
         /** General reporter with numeric or string value. */
-        REPORTER = "reporter"
+        REPORTER = "reporter",
     }
 
     /** Default types of target supported by the VM. */
@@ -194,6 +194,6 @@ declare namespace Scratch {
         SPRITE = "sprite",
 
         /** Rendered target which cannot move but can change backdrops. */
-        STAGE = "stage"
+        STAGE = "stage",
     }
 }

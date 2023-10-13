@@ -1,4 +1,4 @@
-import ScreenManager = require('./screen-manager');
+import ScreenManager = require("./screen-manager");
 
 interface PaginatorOptions {
     /**

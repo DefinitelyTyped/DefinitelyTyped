@@ -14,7 +14,7 @@
             "../../"
         ],
         "paths": {
-            "intl-tel-input": [ "intl-tel-input/v13" ]
+            "intl-tel-input": ["intl-tel-input/v13"]
         },
         "types": [],
         "noEmit": true,

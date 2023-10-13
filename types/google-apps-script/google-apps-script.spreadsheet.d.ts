@@ -146,6 +146,7 @@ declare namespace GoogleAppsScript {
          * use Range.setValue(value) or Range.setValues(values) to add the image value to the cell.
          */
         interface CellImage {
+            valueType: ValueType;
             getAltTextDescription(): string;
             getAltTextTitle(): string;
             getContentUrl(): string;
@@ -156,6 +157,7 @@ declare namespace GoogleAppsScript {
          * Builder for CellImage. This builder creates the image value needed to add an image to a cell.
          */
         interface CellImageBuilder {
+            valueType: ValueType;
             build(): CellImage;
             getAltTextDescription(): string;
             getAltTextTitle(): string;
@@ -337,6 +339,21 @@ declare namespace GoogleAppsScript {
             updateSpec(spec: DataSourceSpec): DataSource;
         }
         /**
+         * Access and modify a data source column.
+         *
+         * Only use this class with data that's connected to a database.
+         */
+        interface DataSourceColumn {
+            getDataSource(): DataSource;
+            getFormula(): string;
+            getName(): string;
+            hasArrayDependency(): boolean;
+            isCalculatedColumn(): boolean;
+            remove(): void;
+            setFormula(formula: string): DataSourceColumn;
+            setName(name: string): DataSourceColumn;
+        }
+        /**
          * Access existing data source parameters.
          */
         interface DataSourceParameter {
@@ -350,6 +367,43 @@ declare namespace GoogleAppsScript {
         enum DataSourceParameterType {
             DATA_SOURCE_PARAMETER_TYPE_UNSUPPORTED,
             CELL,
+        }
+        /**
+         * Access and modify existing data source sheet. To create a new data source sheet, use Spreadsheet.insertDataSourceSheet(spec).
+         *
+         * Only use this class with data that's connected to a database.
+         */
+        interface DataSourceSheet {
+            addFilter(columnName: string, filterCriteria: FilterCriteria): DataSourceSheet;
+            asSheet(): Sheet;
+            autoResizeColumn(columnName: string): DataSourceSheet;
+            autoResizeColumns(columnNames: string[]): DataSourceSheet;
+            forceRefreshData(): DataSourceSheet;
+            getColumnWidth(columnName: string): number;
+            getDataSource(): DataSource;
+            getFilters(): DataSourceSheetFilter[];
+            getSheetValues(columnName: string, startRow?: number, numRows?: number): any[];
+            getSortSpecs(): SortSpec[];
+            getStatus(): DataExecutionStatus;
+            refreshData(): DataSourceSheet;
+            removeFilters(columnName: string): DataSourceSheet;
+            removeSortSpec(columnName: string): DataSourceSheet;
+            setColumnWidth(columnName: string, width: number): DataSourceSheet;
+            setColumnWidths(columnNames: string[], width: number): DataSourceSheet;
+            setSortSpec(columnName: string, ascending: boolean): DataSourceSheet;
+            waitForCompletion(timeoutInSeconds: number): DataExecutionStatus;
+        }
+        /**
+         * Access and modify an existing data source sheet filter. To create a new data source sheet filter, use DataSourceSheet.addFilter(columnName, filterCriteria).
+         *
+         * Only use this class with data that's connected to a database.
+         */
+        interface DataSourceSheetFilter {
+            getDataSourceColumn(): DataSourceColumn;
+            getDataSourceSheet(): DataSourceSheet;
+            getFilterCriteria(): FilterCriteria;
+            remove(): void;
+            setFilterCriteria(filterCriteria: FilterCriteria): DataSourceSheetFilter;
         }
         /**
          * Access the general settings of an existing data source spec. To access data source spec for
@@ -1963,6 +2017,7 @@ declare namespace GoogleAppsScript {
             addDeveloperMetadata(key: string, value: string): Sheet;
             addDeveloperMetadata(key: string, value: string, visibility: DeveloperMetadataVisibility): Sheet;
             appendRow(rowContents: any[]): Sheet;
+            asDataSourceSheet(): DataSourceSheet | null;
             autoResizeColumn(columnPosition: Integer): Sheet;
             autoResizeColumns(startColumn: Integer, numColumns: Integer): Sheet;
             autoResizeRows(startRow: Integer, numRows: Integer): Sheet;
@@ -2327,6 +2382,7 @@ declare namespace GoogleAppsScript {
             TextDirection: typeof TextDirection;
             TextToColumnsDelimiter: typeof TextToColumnsDelimiter;
             ThemeColorType: typeof ThemeColorType;
+            ValueType: typeof ValueType;
             WrapStrategy: typeof WrapStrategy;
             create(name: string): Spreadsheet;
             create(name: string, rows: Integer, columns: Integer): Spreadsheet;
@@ -2374,6 +2430,24 @@ declare namespace GoogleAppsScript {
                 blue: Integer,
             ): SpreadsheetTheme;
             setFontFamily(fontFamily: string): SpreadsheetTheme;
+        }
+        /**
+         * An enumerations representing the sort order.
+         */
+        enum SortOrder {
+            ASCENDING,
+            DESCENDING,
+        }
+        /**
+         * The sorting specification.
+         */
+        interface SortSpec {
+            getBackgroundColor(): Color | null;
+            getDataSourceColumn(): DataSourceColumn;
+            getDimensionIndex(): number | null;
+            getForegroundColor(): Color | null;
+            getSortOrder(): SortOrder;
+            isAscending(): boolean;
         }
         /**
          * An enumerations of text directions.
@@ -2469,6 +2543,13 @@ declare namespace GoogleAppsScript {
             ACCENT5,
             ACCENT6,
             HYPERLINK,
+        }
+        /**
+         * An enumeration of the value types returned by Range.getValue and Range.getValues() from the Range class of the Spreadsheet service.
+         * The enumeration values listed below are in addition to Number, Boolean, Date, or String.
+         */
+        enum ValueType {
+            IMAGE,
         }
         /**
          * An enumeration of the strategies used to handle cell text wrapping.

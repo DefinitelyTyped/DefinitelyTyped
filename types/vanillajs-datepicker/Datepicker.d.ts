@@ -1,4 +1,4 @@
-import DateRangePicker from './DateRangePicker';
+import DateRangePicker from "./DateRangePicker";
 
 export interface DatepickerOptionsFormat {
     toValue: (date: Date, format: object, locale: object) => Date | number;
@@ -26,11 +26,11 @@ export interface DatepickerOptionsShortcutKeys {
     exitEditMode?: DatepickerOptionsShortcutKeysDefinition;
 }
 
-export type DatepickerOptionsOrientationVertical = 'top' | 'middle' | 'bottom' | 'auto';
-export type DatepickerOptionsOrientationHorizontal = 'left' | 'center' | 'right' | 'auto';
+export type DatepickerOptionsOrientationVertical = "top" | "middle" | "bottom" | "auto";
+export type DatepickerOptionsOrientationHorizontal = "left" | "center" | "right" | "auto";
 export type DatepickerOptionsOrientation =
     | `${DatepickerOptionsOrientationVertical} ${DatepickerOptionsOrientationHorizontal}`
-    | 'auto';
+    | "auto";
 
 export interface DatepickerOptions {
     autohide?: boolean;
@@ -107,7 +107,7 @@ export default class Datepicker {
 
     setFocusedDate(viewDate?: Date | number | string, resetView?: boolean): void;
 
-    refresh(target?: 'picker' | 'input', forceRender?: boolean): void;
+    refresh(target?: "picker" | "input", forceRender?: boolean): void;
 
     enterEditMode(): void;
 

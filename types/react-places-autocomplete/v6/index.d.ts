@@ -16,25 +16,29 @@ export interface formattedSuggestionType {
     secondaryText: string;
 }
 
-export interface InputProps extends Pick<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  Exclude<
-    keyof React.InputHTMLAttributes<HTMLInputElement>,
-    "onChange"
-  >
-> {
-  value: string;
-  onChange: (value: string) => void;
+export interface InputProps extends
+    Pick<
+        React.InputHTMLAttributes<HTMLInputElement>,
+        Exclude<
+            keyof React.InputHTMLAttributes<HTMLInputElement>,
+            "onChange"
+        >
+    >
+{
+    value: string;
+    onChange: (value: string) => void;
 }
 
 export interface PropTypes {
     inputProps: InputProps;
     onError?: ((status: string, clearSuggestion: () => void) => void) | undefined;
     onSelect?: ((address: string, placeID: string) => void) | undefined;
-    renderSuggestion?: ((obj: {
-      suggestion: string;
-      formattedSuggestion: formattedSuggestionType;
-    }) => React.ReactNode) | undefined;
+    renderSuggestion?:
+        | ((obj: {
+            suggestion: string;
+            formattedSuggestion: formattedSuggestionType;
+        }) => React.ReactNode)
+        | undefined;
     classNames?: {
         root?: string | undefined;
         input?: string | undefined;
@@ -64,8 +68,14 @@ export interface PropTypes {
     shouldFetchSuggestions?: ((value: string) => boolean) | undefined;
 }
 
-export function geocodeByAddress(address: string, callback: (results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => void): void;
-export function geocodeByPlaceId(placeId: string, callback: (results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => void): void;
+export function geocodeByAddress(
+    address: string,
+    callback: (results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => void,
+): void;
+export function geocodeByPlaceId(
+    placeId: string,
+    callback: (results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => void,
+): void;
 export function getLatLng(results: google.maps.GeocoderResult): Promise<google.maps.LatLngLiteral>;
 
 export default class PlacesAutocomplete extends React.Component<PropTypes> {}

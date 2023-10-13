@@ -23,11 +23,14 @@
 
 // See https://github.com/facebook/react/blob/main/packages/react/src/React.js to see how the exports are declared,
 
-import React = require('.');
+import React = require(".");
 
 export {};
 
-declare module '.' {
+declare const UNDEFINED_VOID_ONLY: unique symbol;
+type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
+
+declare module "." {
     interface ThenableImpl<T> {
         then(onFulfill: (value: T) => unknown, onReject: (error: unknown) => unknown): void | PromiseLike<unknown>;
     }
@@ -36,16 +39,16 @@ declare module '.' {
     }
 
     export interface PendingThenable<T> extends ThenableImpl<T> {
-        status: 'pending';
+        status: "pending";
     }
 
     export interface FulfilledThenable<T> extends ThenableImpl<T> {
-        status: 'fulfilled';
+        status: "fulfilled";
         value: T;
     }
 
     export interface RejectedThenable<T> extends ThenableImpl<T> {
-        status: 'rejected';
+        status: "rejected";
         reason: unknown;
     }
 
@@ -83,4 +86,27 @@ declare module '.' {
     export function cache<CachedFunction extends Function>(fn: CachedFunction): CachedFunction;
 
     export function unstable_useCacheRefresh(): () => void;
+
+    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS {
+        functions: (formData: FormData) => void;
+    }
+
+    export interface TransitionStartFunction {
+        /**
+         * Marks all state updates inside the async function as transitions
+         *
+         * @see {https://react.dev/reference/react/ts5.0/useTransition#starttransition}
+         *
+         * @param callback
+         */
+        (callback: () => Promise<VoidOrUndefinedOnly>): void;
+    }
+
+    function useOptimistic<State>(
+        passthrough: State,
+    ): [State, (action: State | ((pendingState: State) => State)) => void];
+    function useOptimistic<State, Action>(
+        passthrough: State,
+        reducer: (state: State, action: Action) => State,
+    ): [State, (action: Action) => void];
 }

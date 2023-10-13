@@ -1,7 +1,7 @@
 {
-  "private": true,
-  "dependencies": {
-    "next": "^12.2.5 || ^13.0.0",
-    "workbox-build": "^6.5.4"
-  }
+    "private": true,
+    "dependencies": {
+        "next": "^12.2.5 || ^13.0.0",
+        "workbox-build": "^6.5.4"
+    }
 }

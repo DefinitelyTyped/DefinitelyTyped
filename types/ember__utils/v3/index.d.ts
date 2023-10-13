@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { TypeLookup, TypeOf, FunctionArgs } from './-private/types';
+import { FunctionArgs, TypeLookup, TypeOf } from "./-private/types";
 
 /**
  * Compares two javascript values and returns:
@@ -61,5 +61,5 @@ export function tryInvoke(obj: object, methodName: string, args?: any[]): undefi
  * Returns a consistent type for the passed object.
  */
 export function typeOf<T>(value: T): TypeOf<TypeLookup, T>;
-export function typeOf(): 'undefined';
+export function typeOf(): "undefined";
 export function typeOf(item: any): string;

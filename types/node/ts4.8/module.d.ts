@@ -1,9 +1,10 @@
 /**
  * @since v0.3.7
+ * @experimental
  */
-declare module 'module' {
-    import { URL } from 'node:url';
-    import { MessagePort } from 'node:worker_threads';
+declare module "module" {
+    import { URL } from "node:url";
+    import { MessagePort } from "node:worker_threads";
     namespace Module {
         /**
          * The `module.syncBuiltinESMExports()` method updates all the live bindings for
@@ -64,6 +65,24 @@ declare module 'module' {
             originalLine: number;
             originalColumn: number;
         }
+        interface SourceOrigin {
+            /**
+             * The name of the range in the source map, if one was provided
+             */
+            name?: string;
+            /**
+             * The file name of the original source, as reported in the SourceMap
+             */
+            fileName: string;
+            /**
+             * The 1-indexed lineNumber of the corresponding call site in the original source
+             */
+            lineNumber: number;
+            /**
+             * The 1-indexed columnNumber of the corresponding call site in the original source
+             */
+            columnNumber: number;
+        }
         /**
          * @since v13.7.0, v12.17.0
          */
@@ -92,11 +111,21 @@ declare module 'module' {
              * @param columnOffset The zero-indexed column number offset in the generated source
              */
             findEntry(lineOffset: number, columnOffset: number): SourceMapping;
+            /**
+             * Given a 1-indexed `lineNumber` and `columnNumber` from a call site in the generated source,
+             * find the corresponding call site location in the original source.
+             *
+             * If the `lineNumber` and `columnNumber` provided are not found in any source map,
+             * then an empty object is returned.
+             * @param lineNumber The 1-indexed line number of the call site in the generated source
+             * @param columnNumber The 1-indexed column number of the call site in the generated source
+             */
+            findOrigin(lineNumber: number, columnNumber: number): SourceOrigin | {};
         }
         interface ImportAssertions extends NodeJS.Dict<string> {
             type?: string | undefined;
         }
-        type ModuleFormat = 'builtin' | 'commonjs' | 'json' | 'module' | 'wasm';
+        type ModuleFormat = "builtin" | "commonjs" | "json" | "module" | "wasm";
         type ModuleSource = string | ArrayBuffer | NodeJS.TypedArray;
         interface GlobalPreloadContext {
             port: MessagePort;
@@ -113,13 +142,13 @@ declare module 'module' {
          */
         type GlobalPreloadHook = (context: GlobalPreloadContext) => string;
         /**
-         * The `initialize` hook provides a way to define a custom function that runs in the loader's thread
-         * when the loader is initialized. Initialization happens when the loader is registered via `register`
-         * or registered via the `--experimental-loader` command line option.
+         * The `initialize` hook provides a way to define a custom function that runs in the hooks thread
+         * when the hooks module is initialized. Initialization happens when the hooks module is registered via `register`.
          *
-         * This hook can send and receive data from a `register` invocation, including ports and other transferrable objects.
+         * This hook can receive data from a `register` invocation, including ports and other transferrable objects.
+         * The return value of `initialize` can be a `Promise`, in which case it will be awaited before the main application thread execution resumes.
          */
-        type InitializeHook<Data = any, ReturnType = any> = (data: Data) => ReturnType;
+        type InitializeHook<Data = any> = (data: Data) => void | Promise<void>;
         interface ResolveHookContext {
             /**
              * Export conditions of the relevant `package.json`
@@ -165,7 +194,10 @@ declare module 'module' {
         type ResolveHook = (
             specifier: string,
             context: ResolveHookContext,
-            nextResolve: (specifier: string, context?: ResolveHookContext) => ResolveFnOutput | Promise<ResolveFnOutput>
+            nextResolve: (
+                specifier: string,
+                context?: ResolveHookContext,
+            ) => ResolveFnOutput | Promise<ResolveFnOutput>,
         ) => ResolveFnOutput | Promise<ResolveFnOutput>;
         interface LoadHookContext {
             /**
@@ -204,11 +236,11 @@ declare module 'module' {
         type LoadHook = (
             url: string,
             context: LoadHookContext,
-            nextLoad: (url: string, context?: LoadHookContext) => LoadFnOutput | Promise<LoadFnOutput>
+            nextLoad: (url: string, context?: LoadHookContext) => LoadFnOutput | Promise<LoadFnOutput>,
         ) => LoadFnOutput | Promise<LoadFnOutput>;
     }
     interface RegisterOptions<Data> {
-        parentURL: string;
+        parentURL: string | URL;
         data?: Data | undefined;
         transferList?: any[] | undefined;
     }
@@ -220,8 +252,12 @@ declare module 'module' {
         static builtinModules: string[];
         static isBuiltin(moduleName: string): boolean;
         static Module: typeof Module;
-        static register<Data = any, ReturnType = any>(specifier: string, parentURL?: string, options?: RegisterOptions<Data>): ReturnType;
-        static register<Data = any, ReturnType = any>(specifier: string, options?: RegisterOptions<Data>): ReturnType;
+        static register<Data = any>(
+            specifier: string | URL,
+            parentURL?: string | URL,
+            options?: RegisterOptions<Data>,
+        ): void;
+        static register<Data = any>(specifier: string | URL, options?: RegisterOptions<Data>): void;
         constructor(id: string, parent?: Module);
     }
     global {
@@ -251,7 +287,7 @@ declare module 'module' {
     }
     export = Module;
 }
-declare module 'node:module' {
-    import module = require('module');
+declare module "node:module" {
+    import module = require("module");
     export = module;
 }

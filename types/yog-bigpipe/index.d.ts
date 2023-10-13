@@ -4,15 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { EventEmitter } from 'events';
-import { Readable } from 'stream';
-import { RequestHandler } from 'express';
+import { EventEmitter } from "events";
+import { RequestHandler } from "express";
+import { Readable } from "stream";
 
 interface BigPipeOption {
     skipAnalysis?: boolean | undefined;
     tpl?: {
-        _default?: string | undefined,
-        quickling?: string | undefined
+        _default?: string | undefined;
+        quickling?: string | undefined;
     } | undefined;
 }
 
@@ -29,7 +29,7 @@ declare function yogBigpipe(option?: BigPipeOption): RequestHandler;
 export = yogBigpipe;
 declare namespace yogBigpipe {
     class BigPipe extends Readable {
-        constructor(option?: BigPipeOption)
+        constructor(option?: BigPipeOption);
         // @ts-ignore conflicts with built-in Readable.map
         map: { [key: string]: Pagelet };
         pagelets: Pagelet[];
@@ -54,7 +54,7 @@ declare namespace yogBigpipe {
 
         addPagelet(obj: AddPageletConfig): void;
 
-        isQuicklingWidget(item: { 'mode': Pagelet.mode, [key: string]: any }): void;
+        isQuicklingWidget(item: { "mode": Pagelet.mode; [key: string]: any }): void;
 
         render(): void;
 
@@ -77,7 +77,7 @@ declare namespace yogBigpipe {
         _markPageletRendered(pagelet: Pagelet): void;
     }
 
-    type PageletConstructor<T> = new (obj: PageletOption) => T;
+    type PageletConstructor<T> = new(obj: PageletOption) => T;
 
     interface PageletOption {
         id: string;
@@ -103,7 +103,7 @@ declare namespace yogBigpipe {
         scripts: string[];
     }
     class Pagelet extends EventEmitter {
-        constructor(obj: PageletOption)
+        constructor(obj: PageletOption);
 
         model: {};
         container: string;
@@ -137,7 +137,7 @@ declare namespace yogBigpipe {
     }
 
     namespace Pagelet {
-        type status = 'pending' | 'rendering' | 'fulfilled' | 'failed';
-        type mode = 'async' | 'pipeline' | 'quickling';
+        type status = "pending" | "rendering" | "fulfilled" | "failed";
+        type mode = "async" | "pipeline" | "quickling";
     }
 }

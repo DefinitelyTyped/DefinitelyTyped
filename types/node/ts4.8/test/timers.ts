@@ -1,10 +1,10 @@
-import { promisify } from 'node:util';
-import * as timers from 'node:timers';
+import * as timers from "node:timers";
+import { promisify } from "node:util";
 {
     {
         const immediate = timers
             .setImmediate(() => {
-                console.log('immediate');
+                console.log("immediate");
             })
             .unref()
             .ref();
@@ -14,7 +14,7 @@ import * as timers from 'node:timers';
     {
         const timeout = timers
             .setInterval(() => {
-                console.log('interval');
+                console.log("interval");
             }, 20)
             .unref()
             .ref()
@@ -26,7 +26,7 @@ import * as timers from 'node:timers';
     {
         const timeout = timers
             .setTimeout(() => {
-                console.log('timeout');
+                console.log("timeout");
             }, 20)
             .unref()
             .ref()
@@ -41,17 +41,17 @@ import * as timers from 'node:timers';
     }) {
         const setTimeout = promisify(timers.setTimeout);
         let v: void = await setTimeout(100); // tslint:disable-line no-void-expression void-return
-        let s: string = await setTimeout(100, '');
+        let s: string = await setTimeout(100, "");
 
         const setImmediate = promisify(timers.setImmediate);
         v = await setImmediate();
-        s = await setImmediate('');
+        s = await setImmediate("");
 
         // $ExpectType (foo: any) => Promise<string>
         const doSomethingPromise = promisify(doSomething);
 
         // $ExpectType string
-        s = await doSomethingPromise('foo');
+        s = await doSomethingPromise("foo");
     }
 }
 
@@ -86,9 +86,9 @@ import * as timers from 'node:timers';
 
 // globals
 {
-    setTimeout((a: number, b: string) => {}, 12, 1, 'test');
-    setInterval((a: number, b: string) => {}, 12, 1, 'test');
-    setImmediate((a: number, b: string) => {}, 1, 'test');
+    setTimeout((a: number, b: string) => {}, 12, 1, "test");
+    setInterval((a: number, b: string) => {}, 12, 1, "test");
+    setImmediate((a: number, b: string) => {}, 1, "test");
     queueMicrotask(() => {
         // cool
     });

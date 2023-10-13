@@ -1,10 +1,10 @@
-import AsyncStreamEmitter = require('async-stream-emitter');
-import { AGClientSocket } from 'socketcluster-client';
-import { Secret } from 'jsonwebtoken';
-import AGChannel = require('ag-channel');
-import ConsumableStream = require('consumable-stream');
+import AsyncStreamEmitter = require("async-stream-emitter");
+import { Secret } from "jsonwebtoken";
+import { AGClientSocket } from "socketcluster-client";
+import AGChannel = require("ag-channel");
+import ConsumableStream = require("consumable-stream");
 
-import Hasher = require('./hasher');
+import Hasher = require("./hasher");
 
 interface ClientPoolOptions {
     clientCount?: number | undefined;
@@ -27,17 +27,17 @@ declare class ClientPool extends AsyncStreamEmitter<any> {
 
     constructor(options?: ClientPoolOptions);
 
-    emit(eventName: 'error', data: { error: Error }): void;
-    emit(eventName: 'subscribe', data: ClientPool.SubscribeData): void;
-    emit(eventName: 'subscribeFail', data: ClientPool.SubscribeFailData): void;
-    emit(eventName: 'publish', data: ClientPool.PublishData): void;
-    emit(eventName: 'publishFail', data: ClientPool.PublishFailData): void;
+    emit(eventName: "error", data: { error: Error }): void;
+    emit(eventName: "subscribe", data: ClientPool.SubscribeData): void;
+    emit(eventName: "subscribeFail", data: ClientPool.SubscribeFailData): void;
+    emit(eventName: "publish", data: ClientPool.PublishData): void;
+    emit(eventName: "publishFail", data: ClientPool.PublishFailData): void;
 
-    listener(eventName: 'error'): ConsumableStream<{ error: Error }>;
-    listener(eventName: 'subscribe'): ConsumableStream<ClientPool.SubscribeData>;
-    listener(eventName: 'subscribeFail'): ConsumableStream<ClientPool.SubscribeFailData>;
-    listener(eventName: 'publish'): ConsumableStream<ClientPool.PublishData>;
-    listener(eventName: 'publishFail'): ConsumableStream<ClientPool.PublishFailData>;
+    listener(eventName: "error"): ConsumableStream<{ error: Error }>;
+    listener(eventName: "subscribe"): ConsumableStream<ClientPool.SubscribeData>;
+    listener(eventName: "subscribeFail"): ConsumableStream<ClientPool.SubscribeFailData>;
+    listener(eventName: "publish"): ConsumableStream<ClientPool.PublishData>;
+    listener(eventName: "publishFail"): ConsumableStream<ClientPool.PublishFailData>;
 
     breakDownURI(uri: string): BrokenDownURI;
 

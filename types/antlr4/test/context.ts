@@ -1,16 +1,16 @@
-import CommonTokenStream from 'antlr4/CommonTokenStream';
-import ParserRuleContext from 'antlr4/context/ParserRuleContext';
-import PredictionContext from 'antlr4/context/PredictionContext';
-import RuleContext from 'antlr4/context/RuleContext';
-import InputStream from 'antlr4/InputStream';
-import Lexer from 'antlr4/Lexer';
-import HashCode from 'antlr4/misc/HashCode';
-import Parser from 'antlr4/Parser';
-import Token from 'antlr4/Token';
-import ParseTreeListener from 'antlr4/tree/ParseTreeListener';
-import ParseTreeVisitor from 'antlr4/tree/ParseTreeVisitor';
+import CommonTokenStream from "antlr4/CommonTokenStream";
+import ParserRuleContext from "antlr4/context/ParserRuleContext";
+import PredictionContext from "antlr4/context/PredictionContext";
+import RuleContext from "antlr4/context/RuleContext";
+import InputStream from "antlr4/InputStream";
+import Lexer from "antlr4/Lexer";
+import HashCode from "antlr4/misc/HashCode";
+import Parser from "antlr4/Parser";
+import Token from "antlr4/Token";
+import ParseTreeListener from "antlr4/tree/ParseTreeListener";
+import ParseTreeVisitor from "antlr4/tree/ParseTreeVisitor";
 
-const parserInstance = new Parser(new CommonTokenStream(new Lexer(new InputStream(''))));
+const parserInstance = new Parser(new CommonTokenStream(new Lexer(new InputStream(""))));
 const parseTreeListenerInstance = new ParseTreeListener();
 const tokenInstance = new Token();
 
@@ -67,5 +67,5 @@ ruleContextInstance.setAltNumber(0); // $ExpectType void
 ruleContextInstance.getChild(0); // $ExpectType RuleContext | null
 ruleContextInstance.getChildCount(); // $ExpectType number
 ruleContextInstance.accept(new ParseTreeVisitor()); // $ExpectType void
-ruleContextInstance.toStringTree([''], parserInstance); // $ExpectType string
-ruleContextInstance.toString([''], parserRuleContextInstance); // $ExpectType string
+ruleContextInstance.toStringTree([""], parserInstance); // $ExpectType string
+ruleContextInstance.toString([""], parserRuleContextInstance); // $ExpectType string

@@ -1,6 +1,6 @@
-import { Message } from '../MessagesClient';
-import { UserId } from '../StreamsClient';
 import { Connection } from "../ConnectionsClient";
+import { Message } from "../MessagesClient";
+import { UserId } from "../StreamsClient";
 
 export const MESSAGEML_FORMAT: string;
 export const PRESENTATIONML_FORMAT: string;
@@ -17,4 +17,10 @@ export interface OboUser {
 export function oboGetAllConnections(status: string): Promise<Connection[]>;
 export function oboGetConnection(userId: string): Promise<Connection>;
 export function oboGetUserIMStreamId(userToken: string, userIds: number[]): Promise<UserId>;
-export function oboSendMessage(userToken: string, conversationId: string, message: string, data: any, format: string): Promise<Message>;
+export function oboSendMessage(
+    userToken: string,
+    conversationId: string,
+    message: string,
+    data: any,
+    format: string,
+): Promise<Message>;

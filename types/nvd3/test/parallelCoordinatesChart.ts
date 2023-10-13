@@ -10,15 +10,18 @@ namespace nvd3_test_parallelCoordinatesChart {
 
     function resetSorting() {
         var dim = chart.dimensionData();
-        dim.map(function (d) { return d.currentPosition = d.originalPosition; });
-        dim.sort(function (a, b) { return a.originalPosition - b.originalPosition; });
+        dim.map(function(d) {
+            return d.currentPosition = d.originalPosition;
+        });
+        dim.sort(function(a, b) {
+            return a.originalPosition - b.originalPosition;
+        });
         chart.dimensionData(dim);
         d3.select("#resetSortingButton").style("visibility", "hidden");
         chart.update();
     }
 
-    nv.addGraph(function () {
-
+    nv.addGraph(function() {
         var dim = dimensions();
         chart = nv.models.parallelCoordinatesChart()
             .dimensionData(dim)
@@ -26,35 +29,35 @@ namespace nvd3_test_parallelCoordinatesChart {
             .lineTension(0.85);
 
         var data = mydata();
-        d3.select('#test')
+        d3.select("#test")
             .datum(data)
             .call(chart);
 
         nv.utils.windowResize(chart.update);
 
-        chart.dispatch.on('brushEnd', function (e) {
+        chart.dispatch.on("brushEnd", function(e) {
             d3.select("#resetBrushButton").style("visibility", "visible");
         });
 
-        chart.dispatch.on('dimensionsOrder', function (e, b) {
+        chart.dispatch.on("dimensionsOrder", function(e, b) {
             if (b) {
                 d3.select("#resetSortingButton").style("visibility", "visible");
             }
         });
 
         // update chart data values randomly
-        setInterval(function () {
+        setInterval(function() {
             data[0].values.P1 = Math.floor(Math.random() * 100).toString();
             chart.update();
         }, 4000);
 
         // update chart data dimension randomly
-        setInterval(function () {
+        setInterval(function() {
             var element = {
                 key: "P7",
                 format: "p",
                 tooltip: "year",
-            }
+            };
             if (dim.length === 7) {
                 dim.splice(dim.indexOf(element), 1);
             } else {
@@ -103,7 +106,7 @@ namespace nvd3_test_parallelCoordinatesChart {
                 key: "P7",
                 format: "p",
                 tooltip: "year",
-            }
+            },
         ];
     }
 
@@ -118,10 +121,10 @@ namespace nvd3_test_parallelCoordinatesChart {
                     "P4": "175",
                     "P5": "3821",
                     "P6": "11",
-                    "P7": "73"
+                    "P7": "73",
                 },
                 color: "red",
-                strokeWidth: 2
+                strokeWidth: 2,
             },
             {
                 name: "DP1",
@@ -132,10 +135,10 @@ namespace nvd3_test_parallelCoordinatesChart {
                     "P4": "190",
                     "P5": "3850",
                     "P6": "8.5",
-                    "P7": "70"
+                    "P7": "70",
                 },
                 color: "blue",
-                strokeWidth: 1
+                strokeWidth: 1,
             },
             {
                 name: "DP2",
@@ -146,10 +149,10 @@ namespace nvd3_test_parallelCoordinatesChart {
                     "P4": "150",
                     "P5": "3672",
                     "P6": "11.5",
-                    "P7": "72"
+                    "P7": "72",
                 },
                 color: "blue",
-                strokeWidth: 2
+                strokeWidth: 2,
             },
             {
                 name: "DP3",
@@ -160,10 +163,10 @@ namespace nvd3_test_parallelCoordinatesChart {
                     "P4": "",
                     "P5": "3265",
                     "P6": "18.2",
-                    "P7": "79"
+                    "P7": "79",
                 },
                 color: "blue",
-                strokeWidth: 1
+                strokeWidth: 1,
             },
             {
                 name: "DP4",
@@ -174,11 +177,11 @@ namespace nvd3_test_parallelCoordinatesChart {
                     "P4": "120",
                     "P5": "3410",
                     "P6": "15.1",
-                    "P7": "78"
+                    "P7": "78",
                 },
                 color: "blue",
-                strokeWidth: 1
-            }
+                strokeWidth: 1,
+            },
         ];
     }
 }

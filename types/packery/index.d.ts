@@ -7,8 +7,7 @@
 
 /// <reference types="jquery" />
 
-declare module 'packery' {
-
+declare module "packery" {
     export interface PackeryOptions {
         /**
          * [itemSelector Specifies which child elements to be used as item elements. Setting itemSelector is always recommended. itemSelector is useful to exclude sizing elements]
@@ -281,5 +280,4 @@ declare module 'packery' {
          */
         unstamp(element: Array<Element>): void;
     }
-
 }

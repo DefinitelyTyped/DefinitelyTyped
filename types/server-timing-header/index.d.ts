@@ -2,7 +2,7 @@
 // Project: https://github.com/SilentImp/express-middleware-headers-server-timing#readme
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { RequestHandler } from 'express';
+import { RequestHandler } from "express";
 
 /**
  * Express middleware add serverTiming to request and
@@ -205,7 +205,7 @@ declare namespace serverTimingMiddleware {
     }
 }
 
-declare module 'express-serve-static-core' {
+declare module "express-serve-static-core" {
     interface Request {
         readonly serverTiming: serverTimingMiddleware.ServerTiming;
     }

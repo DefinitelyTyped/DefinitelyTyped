@@ -3,7 +3,7 @@ declare function Interaction(
     process: any,
     name: any,
     functionOfInteraction: any,
-    onExitFunction: any
+    onExitFunction: any,
 ): void;
 declare class Interaction {
     constructor(process: any, name: any, functionOfInteraction: any, onExitFunction: any);
@@ -23,5 +23,5 @@ declare class Interaction {
 declare namespace Interaction {
     export { Process };
 }
-type Process = import('./Process');
-import LegacyEvent = require('@nginstack/engine/lib/event/LegacyEvent.js');
+type Process = import("./Process");
+import LegacyEvent = require("@nginstack/engine/lib/event/LegacyEvent.js");

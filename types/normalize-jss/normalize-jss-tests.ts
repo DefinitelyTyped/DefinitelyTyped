@@ -1,3 +1,3 @@
-import normalize from 'normalize-jss';
+import normalize from "normalize-jss";
 
-const test = normalize['@global'].a;
+const test = normalize["@global"].a;

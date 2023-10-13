@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.7
 
-import { CodecEngine, AGServerOptions } from 'socketcluster-server/server';
-import { SpliceOptions, QueryOptions } from 'sc-broker';
-import { SCChannel } from 'sc-channel';
-import { EventEmitter } from 'events';
-import { AsyncResultArrayCallback } from 'async';
-import { KeyChain, FlexiMap } from 'fleximap';
-import { Keys } from 'expirymanager';
-import { ClientCluster } from './clientcluster';
+import { AsyncResultArrayCallback } from "async";
+import { EventEmitter } from "events";
+import { Keys } from "expirymanager";
+import { FlexiMap, KeyChain } from "fleximap";
+import { QueryOptions, SpliceOptions } from "sc-broker";
+import { SCChannel } from "sc-channel";
+import { AGServerOptions, CodecEngine } from "socketcluster-server/server";
+import { ClientCluster } from "./clientcluster";
 
 export class AbstractDataClient extends EventEmitter {
     constructor(dataClient: ClientCluster);
@@ -27,7 +27,12 @@ export class AbstractDataClient extends EventEmitter {
 
     get(keyChain: KeyChain, callback: (err: Error | null, value: any) => void): void;
 
-    getRange(keyChain: KeyChain, fromIndex: number, toIndex: number, callback: (err: Error | null, value: any) => void): void;
+    getRange(
+        keyChain: KeyChain,
+        fromIndex: number,
+        toIndex: number,
+        callback: (err: Error | null, value: any) => void,
+    ): void;
     getRange(keyChain: KeyChain, fromIndex: number, callback: (err: Error | null, value: any) => void): void;
 
     getAll(callback: (err: Error | null, value: any[] | object) => void): void;
@@ -37,7 +42,13 @@ export class AbstractDataClient extends EventEmitter {
     remove(keyChain: KeyChain, getValue?: boolean, callback?: (err?: Error) => void): void;
     remove(keyChain: KeyChain, callback?: (err?: Error) => void): void;
 
-    removeRange(keyChain: KeyChain, fromIndex: number, toIndex?: number, getValue?: boolean, callback?: (err?: Error) => void): void;
+    removeRange(
+        keyChain: KeyChain,
+        fromIndex: number,
+        toIndex?: number,
+        getValue?: boolean,
+        callback?: (err?: Error) => void,
+    ): void;
     removeRange(keyChain: KeyChain, fromIndex: number, toIndex?: number, callback?: (err?: Error) => void): void;
     removeRange(keyChain: KeyChain, fromIndex: number, callback?: (err?: Error) => void): void;
 
@@ -54,7 +65,11 @@ export class AbstractDataClient extends EventEmitter {
 
     extractValues(keyChain: KeyChain): any[];
 
-    exec(query: (datamap: FlexiMap) => void, options?: QueryOptions, callback?: (err: Error | null, data: any) => void): void;
+    exec(
+        query: (datamap: FlexiMap) => void,
+        options?: QueryOptions,
+        callback?: (err: Error | null, data: any) => void,
+    ): void;
     exec(query: (datamap: FlexiMap) => void, callback: (err: Error | null, data: any) => void): void;
 }
 
@@ -110,11 +125,11 @@ export interface SCBrokerClusterServerOptions {
 export class Server extends EventEmitter {
     constructor(options: SCBrokerClusterServerOptions);
 
-    on(event: 'brokerStart', listener: (brokerInfo: BrokerStartInfo) => void): this;
-    on(event: 'brokerExit', listener: (brokerInfo: BrokerExitInfo) => void): this;
-    on(event: 'brokerMessage', listener: BrokerMessageListener): this;
-    on(event: 'ready', listener: () => void): this;
-    on(event: 'error', listener: (err?: Error) => void): this;
+    on(event: "brokerStart", listener: (brokerInfo: BrokerStartInfo) => void): this;
+    on(event: "brokerExit", listener: (brokerInfo: BrokerExitInfo) => void): this;
+    on(event: "brokerMessage", listener: BrokerMessageListener): this;
+    on(event: "ready", listener: () => void): this;
+    on(event: "error", listener: (err?: Error) => void): this;
 
     sendToBroker(brokerId: string, data: any, callback?: (err: Error | null, data: any) => void): void;
     killBrokers(): void;
@@ -159,10 +174,10 @@ export class Client extends EventEmitter {
 
     options: SCBrokerClusterClientOptions;
 
-    on(event: 'error', listener: (err?: Error) => void): this;
-    on(event: 'warning', listener: (warning?: Error) => void): this;
-    on(event: 'ready', listener: () => void): this;
-    on(event: 'message', listener: (packet: MessagePacket) => void): this;
+    on(event: "error", listener: (err?: Error) => void): this;
+    on(event: "warning", listener: (warning?: Error) => void): this;
+    on(event: "ready", listener: () => void): this;
+    on(event: "message", listener: (packet: MessagePacket) => void): this;
 
     destroy(callback?: AsyncResultArrayCallback<SCExchange>): void;
 

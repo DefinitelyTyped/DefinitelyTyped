@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
-import { Schema } from 'protocol-buffers-schema/types';
+import { Schema } from "protocol-buffers-schema/types";
 
 declare namespace ResolveProtobufSchema {
     function sync(file: string): Schema;

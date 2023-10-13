@@ -1,8 +1,8 @@
-import baseAssert = require('assert');
-import empower = require('empower');
-import { Formatter } from 'power-assert-formatter';
+import baseAssert = require("assert");
+import empower = require("empower");
+import { Formatter } from "power-assert-formatter";
 
-const fakeFormatter: Formatter = (_context: any) => '';
+const fakeFormatter: Formatter = (_context: any) => "";
 
 {
     const assert: typeof baseAssert = empower(baseAssert, fakeFormatter);

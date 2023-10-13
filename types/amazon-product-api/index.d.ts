@@ -3,12 +3,10 @@
 // Definitions by: Matti Lehtinen <https://github.com/MattiLehtinen>, Alex Leon <https://github.com/alien35>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 interface ICredentials {
-    awsId: string,
-    awsSecret: string,
-    awsTag: string
+    awsId: string;
+    awsSecret: string;
+    awsTag: string;
 }
 
 interface IAmazonProductQueryCallback {
