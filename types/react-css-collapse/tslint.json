@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "no-duplicate-imports": false,
-        "no-single-declare-module": false
+        "no-duplicate-imports": false
     }
 }

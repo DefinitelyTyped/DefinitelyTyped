@@ -70,37 +70,37 @@ const createEvent = (): void => {
 
 // Calendar Working Locations (Advanced Service)
 const createWorkingLocationEvent = (): void => {
-    const calendarId = 'primary';
+    const calendarId = "primary";
     const start = new Date();
     const end = new Date();
     start.setHours(10);
     end.setHours(11);
     let event: GoogleAppsScript.Calendar.Schema.Event = {
-        creator: { "self": true, "email": "alice@example.com" },
+        creator: { self: true, email: "alice@example.com" },
         workingLocationProperties: {
             officeLocation: {
                 buildingId: "The-Office",
-                label: "The-Office"
+                label: "The-Office",
             },
-            type: "officeLocation"
+            type: "officeLocation",
         },
         kind: "calendar#event",
         summary: "The-Office (Office)",
         visibility: "public",
         transparency: "transparent",
         created: "2023-05-30T14:47:58.000Z",
-        originalStartTime: { "date": "2023-09-25" },
+        originalStartTime: { date: "2023-09-25" },
         eventType: "workingLocation",
-        organizer: { "email": "bob@example.com", "self": true },
+        organizer: { email: "bob@example.com", self: true },
         start: {
-            date: "2023-09-25"
+            date: "2023-09-25",
         },
         end: {
-            date: "2023-09-26"
+            date: "2023-09-26",
         },
     };
     event = Calendar.Events.insert(event, calendarId);
-    Logger.log('Event ID: ' + event.id);
+    Logger.log("Event ID: " + event.id);
 };
 
 // Admin Directory (Advanced service)
@@ -132,24 +132,28 @@ const listAllUserOrganizations = () => {
     let page: GoogleAppsScript.AdminDirectory.Schema.Users;
     do {
         page = AdminDirectory.Users.list({
-            domain: 'example.com',
-            orderBy: 'givenName',
+            domain: "example.com",
+            orderBy: "givenName",
             maxResults: 100,
             pageToken: pageToken,
-            viewType: 'domain_public',
+            viewType: "domain_public",
         });
         const users: GoogleAppsScript.AdminDirectory.Schema.User[] = page.users;
         if (users) {
             for (const user of users) {
-                Logger.log('%s: %s - %s)', user.name.fullName, user.organizations[0].location, user.organizations[0].department);
+                Logger.log(
+                    "%s: %s - %s)",
+                    user.name.fullName,
+                    user.organizations[0].location,
+                    user.organizations[0].department,
+                );
             }
         } else {
-            Logger.log('No users found.');
+            Logger.log("No users found.");
         }
         pageToken = page.nextPageToken;
     } while (pageToken);
 };
-
 
 // doPost function
 function doPost(e: GoogleAppsScript.Events.DoPost) {
@@ -376,7 +380,7 @@ const handleCalendarAction = (e: GoogleAppsScript.Addons.EventObject) => {
     const ev = cal.getEventById(recurringEventId);
 
     // $ExpectType string[]
-    const attends: typeof attendees[number]["displayName"][] = ev.getGuestList().map(guest => guest.getName());
+    const attends: (typeof attendees)[number]["displayName"][] = ev.getGuestList().map((guest) => guest.getName());
 
     console.log({ attends });
 
@@ -548,7 +552,7 @@ const handleCommonAction = (e: GoogleAppsScript.Addons.EventObject) => {
         const formattedDate = Utilities.formatDate(now, timeZone.id, "MM/dd/yyyy");
         const formattedTime = Utilities.formatDate(now, timeZone.id, "hh:mm a");
 
-        Object.keys(formInputs).forEach(id => {
+        Object.keys(formInputs).forEach((id) => {
             const {
                 // V8
                 dateInput,
@@ -678,7 +682,7 @@ const makeGridItem = ({ id, subtitle, title, ...options }: GridItemOptions) => {
 const makeGrid = ({ items, ...options }: GridOptions) => {
     // $ExpectType Grid
     const grid = CardService.newGrid();
-    items.forEach(item => grid.addItem(item));
+    items.forEach((item) => grid.addItem(item));
 
     const action = CardService.newAction();
     action.setFunctionName("somefunc");
@@ -761,9 +765,7 @@ const formAppParagraphTextValidation = FormApp.createParagraphTextValidation()
     .setHelpText("Hey! You put a string in your string!")
     .build();
 
-const mimeTypes: string[] = [
-    MimeType.GOOGLE_APPS_SCRIPT,
-];
+const mimeTypes: string[] = [MimeType.GOOGLE_APPS_SCRIPT];
 
 // analytics reporting test
 const analyticsReporting = () => {
@@ -858,6 +860,8 @@ const sheetCellImage = () => {
     cellImage.getAltTextDescription();
     cellImage.getContentUrl();
     cellImage.getUrl();
+
+    console.assert(cellImage.valueType === SpreadsheetApp.ValueType.IMAGE);
 };
 
 // Blob test
@@ -870,4 +874,52 @@ const blob = () => {
     const contentType = blob.getContentType();
 
     return contentType;
+};
+
+// DataSourceSheet test
+const sheetDataSource = () => {
+    const sheet = SpreadsheetApp.getActiveSheet();
+    const dss = sheet.asDataSourceSheet();
+
+    // methods
+    dss.addFilter("column1", {} as unknown as GoogleAppsScript.Spreadsheet.FilterCriteria);
+    dss.asSheet();
+    dss.autoResizeColumn("column1");
+    dss.autoResizeColumns(["column1"]);
+    dss.forceRefreshData();
+    dss.getColumnWidth("column1");
+    dss.getDataSource();
+    dss.getFilters();
+    dss.getSheetValues("column1");
+    dss.getSheetValues("column1", 1, 1);
+    dss.getSortSpecs();
+    dss.getStatus();
+    dss.refreshData();
+    dss.removeFilters("column1");
+    dss.removeSortSpec("column1");
+    dss.setColumnWidth("column1", 100);
+    dss.setColumnWidths(["column1"], 100);
+    dss.setSortSpec("column1", true);
+    dss.waitForCompletion(10);
+};
+
+// Drive Activity (Advanced service)
+const driveActivity = () => {
+    const response = DriveActivity.Activity.query({ pageSize: 10, filter: "time > 1452409200000" });
+    for (const activity of response.activities) {
+        const originalObject = activity.primaryActionDetail.create?.copy?.originalObject;
+        if (originalObject) {
+            console.log(originalObject.driveItem.file); // DriveFileReference.file is deprecated
+            console.log(originalObject.driveItem.driveFile);
+            console.log(originalObject.driveItem.folder); // DriveFileReference.folder is deprecated
+            console.log(originalObject.driveItem.driveFolder);
+        }
+        for (const target of activity.targets) {
+            const driveItem = target.driveItem;
+            console.log(driveItem.file); // DriveFile.file is deprecated
+            console.log(driveItem.driveFile);
+            console.log(driveItem.folder); // DriveFile.folder is deprecated
+            console.log(driveItem.driveFolder);
+        }
+    }
 };

@@ -15,19 +15,19 @@ import {
     keys as keysImport,
     once as onceImport,
     values as valuesImport,
-} from './sources';
+} from "./sources";
 
 import {
     asyncMap as asyncMapImport,
-    filterNot as filterNotImport,
     filter as filterImport,
+    filterNot as filterNotImport,
     flatten as flattenImport,
     map as mapImport,
     nonUnique as nonUniqueImport,
     take as takeImport,
     through as throughImport,
     unique as uniqueImport,
-} from './throughs';
+} from "./throughs";
 
 import {
     collect as collectImport,
@@ -37,7 +37,7 @@ import {
     log as logImport,
     onEnd as onEndImport,
     reduce as reduceImport,
-} from './sinks';
+} from "./sinks";
 
 declare namespace pull {
     type Abort = Error | boolean | null;

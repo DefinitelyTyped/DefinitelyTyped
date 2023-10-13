@@ -1,5 +1,5 @@
-import Ruler = require('./ruler');
-import StateCore = require('./rules_core/state_core');
+import Ruler = require("./ruler");
+import StateCore = require("./rules_core/state_core");
 
 declare namespace Core {
     type RuleCore = (state: StateCore) => void;

@@ -29,6 +29,9 @@ import {
     // Print number in the original format with specified region.
     console.log(phoneUtil.formatInOriginalFormat(phoneNumber, "US"));
     // => (202) 456-1414
+
+    // $ExpectType number
+    phoneUtil.getLengthOfNationalDestinationCode(phoneNumber);
 });
 
 (() => {

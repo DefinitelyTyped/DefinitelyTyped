@@ -1,4 +1,4 @@
-import pull = require('..');
+import pull = require("..");
 
 /**
  * Drain the stream and then call `cb` when done.

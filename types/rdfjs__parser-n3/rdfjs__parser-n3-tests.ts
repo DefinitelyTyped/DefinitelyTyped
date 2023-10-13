@@ -1,9 +1,9 @@
-import ParserN3 from '@rdfjs/parser-n3';
-import { Stream, DataFactory, Sink, BaseQuad } from 'rdf-js';
-import { EventEmitter } from 'events';
+import ParserN3 from "@rdfjs/parser-n3";
+import { EventEmitter } from "events";
+import { BaseQuad, DataFactory, Sink, Stream } from "rdf-js";
 
 const factory: DataFactory = <any> {};
-const baseIRI = '';
+const baseIRI = "";
 
 const parser = new ParserN3();
 const parser1 = new ParserN3({});

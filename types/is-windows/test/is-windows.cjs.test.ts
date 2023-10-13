@@ -1,4 +1,4 @@
-import isWindows = require('is-windows');
+import isWindows = require("is-windows");
 
 // $ExpectType () => boolean
 isWindows;

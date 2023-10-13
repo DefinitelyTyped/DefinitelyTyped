@@ -8,7 +8,7 @@ new AMap.ToolBar({});
 // $ExpectType ToolBar
 const toolBar = new AMap.ToolBar({
     offset: pixel,
-    position: 'LT',
+    position: "LT",
     ruler: true,
     noIpLocate: true,
     locate: true,
@@ -16,7 +16,7 @@ const toolBar = new AMap.ToolBar({
     direction: true,
     autoPosition: true,
     locationMarker: marker,
-    useNative: false
+    useNative: false,
 });
 
 map.addControl(toolBar);
@@ -58,23 +58,23 @@ toolBar.hide();
 // $ExpectType void
 toolBar.show();
 
-toolBar.on('show', (event: AMap.ToolBar.EventMap['show']) => {
+toolBar.on("show", (event: AMap.ToolBar.EventMap["show"]) => {
     // $ExpectType "show"
     event.type;
 });
 
-toolBar.on('hide', (event: AMap.ToolBar.EventMap['hide']) => {
+toolBar.on("hide", (event: AMap.ToolBar.EventMap["hide"]) => {
     // $ExpectType "hide"
     event.type;
 });
 
-toolBar.on('location', (event: AMap.ToolBar.EventMap['location']) => {
+toolBar.on("location", (event: AMap.ToolBar.EventMap["location"]) => {
     // $ExpectType "location"
     event.type;
     // $ExpectType LngLat
     event.lnglat;
 });
 
-toolBar.on('zoomchanged', (event: AMap.ToolBar.EventMap['zoomchanged']) => {
-    const type: 'zoomin' | 'zoomout' = event.type;
+toolBar.on("zoomchanged", (event: AMap.ToolBar.EventMap["zoomchanged"]) => {
+    const type: "zoomin" | "zoomout" = event.type;
 });

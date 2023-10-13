@@ -4,5 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import refractor = require('./core');
+import refractor = require("./core");
 export = refractor;

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import * as request from 'superagent';
+import * as request from "superagent";
 
 declare function plugin(prefix: string): request.Plugin;
 

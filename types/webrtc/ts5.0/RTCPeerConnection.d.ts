@@ -26,7 +26,7 @@ interface RTCErrorInit {
 
 declare var RTCError: {
     prototype: RTCError;
-    new (init: RTCErrorInit, message?: string): RTCError;
+    new(init: RTCErrorInit, message?: string): RTCError;
 };
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcerrorevent
@@ -41,7 +41,7 @@ interface RTCErrorEventInit extends EventInit {
 
 declare var RTCErrorEvent: {
     prototype: RTCErrorEvent;
-    new (type: string, eventInitDict: RTCErrorEventInit): RTCErrorEvent;
+    new(type: string, eventInitDict: RTCErrorEventInit): RTCErrorEvent;
 };
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcicecandidatepair
@@ -79,7 +79,7 @@ interface RTCIceParameters {
 }
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcicerole
-type RTCIceRole = 'controlled' | 'controlling' | 'unknown';
+type RTCIceRole = "controlled" | "controlling" | "unknown";
 
 interface RTCIceTransportEventMap {
     "gatheringstatechange": Event;
@@ -91,8 +91,8 @@ interface RTCIceTransportEventMap {
 type IceTransportEventHandler = ((this: RTCIceTransport, ev: Event) => any) | null;
 interface RTCIceTransport extends EventTarget {
     readonly role: RTCIceRole;
-    //readonly component: RTCIceComponent;
-    //readonly state: RTCIceTransportState;
+    // readonly component: RTCIceComponent;
+    // readonly state: RTCIceTransportState;
     readonly gatheringState: RTCIceGatheringState;
     getLocalCandidates(): RTCIceCandidate[];
     getRemoteCandidates(): RTCIceCandidate[];
@@ -102,10 +102,26 @@ interface RTCIceTransport extends EventTarget {
     onstatechange: IceTransportEventHandler;
     ongatheringstatechange: IceTransportEventHandler;
     onselectedcandidatepairchange: IceTransportEventHandler;
-    addEventListener<K extends keyof RTCIceTransportEventMap>(type: K, listener: (this: RTCIceTransport, ev: RTCIceTransportEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof RTCIceTransportEventMap>(type: K, listener: (this: RTCIceTransport, ev: RTCIceTransportEventMap[K]) => any, options: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    addEventListener<K extends keyof RTCIceTransportEventMap>(
+        type: K,
+        listener: (this: RTCIceTransport, ev: RTCIceTransportEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<K extends keyof RTCIceTransportEventMap>(
+        type: K,
+        listener: (this: RTCIceTransport, ev: RTCIceTransportEventMap[K]) => any,
+        options: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ): void;
 }
 
 interface RTCDtlsTransportEventMap {
@@ -121,10 +137,26 @@ interface RTCDtlsTransport extends EventTarget {
     getRemoteCertificates(): ArrayBuffer[];
     onerror: DtlsTransportEventHandler<Event>;
     onstatechange: DtlsTransportEventHandler<Event>;
-    addEventListener<K extends keyof RTCDtlsTransportEventMap>(type: K, listener: (this: RTCDtlsTransport, ev: RTCDtlsTransportEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-    removeEventListener<K extends keyof RTCDtlsTransportEventMap>(type: K, listener: (this: RTCDtlsTransport, ev: RTCDtlsTransportEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    addEventListener<K extends keyof RTCDtlsTransportEventMap>(
+        type: K,
+        listener: (this: RTCDtlsTransport, ev: RTCDtlsTransportEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<K extends keyof RTCDtlsTransportEventMap>(
+        type: K,
+        listener: (this: RTCDtlsTransport, ev: RTCDtlsTransportEventMap[K]) => any,
+        options?: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ): void;
 }
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcrtpcodeccapability
@@ -139,51 +171,51 @@ interface RTCRtpHeaderExtensionCapability {
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcrtpcapabilities
 interface RTCRtpCapabilities {
-    //codecs: RTCRtpCodecCapability[];
-    //headerExtensions: RTCRtpHeaderExtensionCapability[];
+    // codecs: RTCRtpCodecCapability[];
+    // headerExtensions: RTCRtpHeaderExtensionCapability[];
 }
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcrtprtxparameters
 interface RTCRtpRtxParameters {
-    //ssrc: number;
+    // ssrc: number;
 }
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcrtpfecparameters
 interface RTCRtpFecParameters {
-    //ssrc: number;
+    // ssrc: number;
 }
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcrtpencodingparameters
 interface RTCRtpEncodingParameters {
-    //ssrc: number;
-    //rtx: RTCRtpRtxParameters;
-    //fec: RTCRtpFecParameters;
+    // ssrc: number;
+    // rtx: RTCRtpRtxParameters;
+    // fec: RTCRtpFecParameters;
     // dtx?: RTCDtxStatus;
-    //active: boolean;
-    //priority: RTCPriorityType;
-    //maxBitrate: number;
+    // active: boolean;
+    // priority: RTCPriorityType;
+    // maxBitrate: number;
     rid: string;
     scaleResolutionDownBy?: number | undefined; // default = 1
 }
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcrtpheaderextensionparameters
 interface RTCRtpHeaderExtensionParameters {
-    //uri: string;
-    //id: number;
+    // uri: string;
+    // id: number;
     encrypted?: boolean | undefined;
 }
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcrtcpparameters
 interface RTCRtcpParameters {
-    //cname: string;
-    //reducedSize: boolean;
+    // cname: string;
+    // reducedSize: boolean;
 }
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcrtpcodecparameters
 interface RTCRtpCodecParameters {
-    //payloadType: number;
+    // payloadType: number;
     mimeType: string;
-    //clockRate: number;
+    // clockRate: number;
     channels?: number | undefined; // default = 1
     sdpFmtpLine?: string | undefined;
 }
@@ -191,18 +223,18 @@ interface RTCRtpCodecParameters {
 // https://www.w3.org/TR/webrtc/#idl-def-rtcrtpparameters
 interface RTCRtpParameters {
     transactionId: string;
-    //encodings: RTCRtpEncodingParameters[];
-    //headerExtensions: RTCRtpHeaderExtensionParameters[];
-    //rtcp: RTCRtcpParameters;
-    //codecs: RTCRtpCodecParameters[];
+    // encodings: RTCRtpEncodingParameters[];
+    // headerExtensions: RTCRtpHeaderExtensionParameters[];
+    // rtcp: RTCRtcpParameters;
+    // codecs: RTCRtpCodecParameters[];
     // degradationPreference?: RTCDegradationPreference; // default = 'balanced'
 }
 
 // https://www.w3.org/TR/webrtc/#dom-rtcrtpcontributingsource
 interface RTCRtpContributingSource {
-    //readonly timestamp: number;
+    // readonly timestamp: number;
     source: number;
-    //readonly audioLevel: number | null;
+    // readonly audioLevel: number | null;
     readonly voiceActivityFlag?: boolean | undefined;
 }
 
@@ -214,9 +246,9 @@ interface RTCRtcCapabilities {
 
 // https://www.w3.org/TR/webrtc/#dom-rtcrtpsender
 interface RTCRtpSender {
-    //readonly track?: MediaStreamTrack;
-    //readonly transport?: RTCDtlsTransport;
-    //readonly rtcpTransport?: RTCDtlsTransport;
+    // readonly track?: MediaStreamTrack;
+    // readonly transport?: RTCDtlsTransport;
+    // readonly rtcpTransport?: RTCDtlsTransport;
     setParameters(parameters?: RTCRtpParameters): Promise<void>;
     getParameters(): RTCRtpParameters;
     replaceTrack(withTrack: MediaStreamTrack): Promise<void>;
@@ -224,9 +256,9 @@ interface RTCRtpSender {
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcrtpreceiver
 interface RTCRtpReceiver {
-    //readonly track?: MediaStreamTrack;
-    //readonly transport?: RTCDtlsTransport;
-    //readonly rtcpTransport?: RTCDtlsTransport;
+    // readonly track?: MediaStreamTrack;
+    // readonly transport?: RTCDtlsTransport;
+    // readonly rtcpTransport?: RTCDtlsTransport;
     getParameters(): RTCRtpParameters;
     getContributingSources(): RTCRtpContributingSource[];
 }
@@ -384,23 +416,35 @@ interface RTCPeerConnection extends EventTarget {
 
     // Extension: https://www.w3.org/TR/webrtc/#legacy-interface-extensions
     // Deprecated!
-    createOffer(successCallback: RTCSessionDescriptionCallback,
+    createOffer(
+        successCallback: RTCSessionDescriptionCallback,
         failureCallback: RTCPeerConnectionErrorCallback,
-        options?: RTCOfferOptions): Promise<void>;
-    setLocalDescription(description: RTCSessionDescriptionInit,
+        options?: RTCOfferOptions,
+    ): Promise<void>;
+    setLocalDescription(
+        description: RTCSessionDescriptionInit,
         successCallback: () => void,
-        failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
-    createAnswer(successCallback: RTCSessionDescriptionCallback,
-        failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
-    setRemoteDescription(description: RTCSessionDescriptionInit,
+        failureCallback: RTCPeerConnectionErrorCallback,
+    ): Promise<void>;
+    createAnswer(
+        successCallback: RTCSessionDescriptionCallback,
+        failureCallback: RTCPeerConnectionErrorCallback,
+    ): Promise<void>;
+    setRemoteDescription(
+        description: RTCSessionDescriptionInit,
         successCallback: () => void,
-        failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
-    addIceCandidate(candidate: RTCIceCandidateInit | RTCIceCandidate,
+        failureCallback: RTCPeerConnectionErrorCallback,
+    ): Promise<void>;
+    addIceCandidate(
+        candidate: RTCIceCandidateInit | RTCIceCandidate,
         successCallback: () => void,
-        failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
-    getStats(selector: MediaStreamTrack | null,
+        failureCallback: RTCPeerConnectionErrorCallback,
+    ): Promise<void>;
+    getStats(
+        selector: MediaStreamTrack | null,
         successCallback: (report: RTCStatsReport) => void,
-        failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
+        failureCallback: RTCPeerConnectionErrorCallback,
+    ): Promise<void>;
 }
 interface RTCPeerConnectionStatic {
     new(configuration?: RTCConfiguration, options?: any): RTCPeerConnection;

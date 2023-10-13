@@ -113,7 +113,6 @@ declare class GlideDBFunctionBuilder {
      * gr.query();
      * while(gr.next())
      *   gs.log(gr.getValue(dayOfWeekFunction));
-     *
      */
     dayofweek(): GlideDBFunctionBuilder;
 
@@ -155,7 +154,6 @@ declare class GlideDBFunctionBuilder {
      * var myLengthFunction = functionBuilder.length();
      * myLengthFunction = functionBuilder.field('short_description');
      * myLengthFunction = functionBuilder.build();
-     *
      */
     length(): GlideDBFunctionBuilder;
 

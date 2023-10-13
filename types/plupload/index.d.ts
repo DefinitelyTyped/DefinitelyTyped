@@ -5,11 +5,11 @@
 
 interface plupload_settings {
     /** Required Options */
-    browse_button: any,
-    url: string,
+    browse_button: any;
+    url: string;
 
     /** Filters */
-    filters?: plupload_filters | undefined,
+    filters?: plupload_filters | undefined;
 
     /** Control the request */
     headers?: any;
@@ -138,21 +138,17 @@ interface plupload_error extends plupload_response {
 }
 
 declare namespace plupload {
-
     class Uploader {
-
         constructor(settings: plupload_settings);
 
         /**
          * Unique id for the Uploader instance.
-         *
          */
         id: string;
 
         /**
          * Current state of the total uploading progress. This one can either be plupload.STARTED or plupload.STOPPED.
          * These states are controlled by the stop/start methods. The default value is STOPPED.
-         *
          */
         state: number;
 
@@ -160,13 +156,11 @@ declare namespace plupload {
          * Map of features that are available for the uploader runtime. Features will be filled
          * before the init event is called, these features can then be used to alter the UI for the end user.
          * Some of the current features that might be in this map is: dragdrop, chunks, jpgresize, pngresize.
-         *
          */
         features: any;
 
         /**
          * Current runtime name.
-         *
          */
         runtime: string;
 
@@ -179,13 +173,11 @@ declare namespace plupload {
 
         /**
          * Object with name/value settings.
-         *
          */
         settings: any;
 
         /**
          * Total progess information. How many files has been uploaded, total percent etc.
-         *
          */
         total: plupload_queue_progress;
 
@@ -290,11 +282,11 @@ declare namespace plupload {
         /**
          * Dispatches the specified event name and its arguments to all listeners.
          * @method trigger
-          * @param {String} name Event name to fire.
+         * @param {String} name Event name to fire.
          * @param {Object..} Multiple arguments to pass along to the listener functions.
-        */
+         */
         trigger(name: string, Multiple: any): any;
-        
+
         hasEventListener(name: string): any;
         bind(name: string, func: any, scope?: any): any;
         unbind(name: string, func: any): any;
@@ -710,7 +702,6 @@ declare namespace plupload {
      */
     function parseSize(size: number | string): number;
 
-
     /**
      * A way to predict what runtime will be choosen in the current environment with the
      * specified settings.
@@ -738,6 +729,6 @@ declare namespace plupload {
     function addFileFilter(name: string, cb: Function): void;
 }
 
-declare module 'plupload' {
+declare module "plupload" {
     export = plupload;
 }

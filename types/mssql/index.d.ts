@@ -13,29 +13,52 @@
 
 /// <reference types="node" />
 
-
-import events = require('events');
-import { Readable, ReadableOptions } from 'stream';
-import tds = require('tedious');
-import { Pool } from 'tarn';
-import { CallbackOrPromise, PoolOptions } from 'tarn/dist/Pool';
+import events = require("events");
+import { Readable, ReadableOptions } from "stream";
+import tds = require("tedious");
+import { Pool } from "tarn";
+import { CallbackOrPromise, PoolOptions } from "tarn/dist/Pool";
 export interface ISqlType {
     type: ISqlTypeFactory;
 }
-export interface ISqlTypeWithNoParams extends ISqlType { type: ISqlTypeFactoryWithNoParams }
-export interface ISqlTypeWithLength extends ISqlType { type: ISqlTypeFactoryWithLength; length: number }
-export interface ISqlTypeWithScale extends ISqlType { type: ISqlTypeFactoryWithScale; scale: number }
-export interface ISqlTypeWithPrecisionScale extends ISqlType { type: ISqlTypeFactoryWithPrecisionScale; precision: number, scale: number }
-export interface ISqlTypeWithTvpType extends ISqlType { type: ISqlTypeFactoryWithTvpType; tvpType: any }
+export interface ISqlTypeWithNoParams extends ISqlType {
+    type: ISqlTypeFactoryWithNoParams;
+}
+export interface ISqlTypeWithLength extends ISqlType {
+    type: ISqlTypeFactoryWithLength;
+    length: number;
+}
+export interface ISqlTypeWithScale extends ISqlType {
+    type: ISqlTypeFactoryWithScale;
+    scale: number;
+}
+export interface ISqlTypeWithPrecisionScale extends ISqlType {
+    type: ISqlTypeFactoryWithPrecisionScale;
+    precision: number;
+    scale: number;
+}
+export interface ISqlTypeWithTvpType extends ISqlType {
+    type: ISqlTypeFactoryWithTvpType;
+    tvpType: any;
+}
 
 export interface ISqlTypeFactory {
 }
-export interface ISqlTypeFactoryWithNoParams extends ISqlTypeFactory { (): ISqlTypeWithNoParams; }
-export interface ISqlTypeFactoryWithLength extends ISqlTypeFactory { (length?: number): ISqlTypeWithLength }
-export interface ISqlTypeFactoryWithScale extends ISqlTypeFactory { (scale?: number): ISqlTypeWithScale }
-export interface ISqlTypeFactoryWithPrecisionScale extends ISqlTypeFactory { (precision?: number, scale?: number): ISqlTypeWithPrecisionScale; }
-export interface ISqlTypeFactoryWithTvpType extends ISqlTypeFactory { (tvpType?: any): ISqlTypeWithTvpType }
-
+export interface ISqlTypeFactoryWithNoParams extends ISqlTypeFactory {
+    (): ISqlTypeWithNoParams;
+}
+export interface ISqlTypeFactoryWithLength extends ISqlTypeFactory {
+    (length?: number): ISqlTypeWithLength;
+}
+export interface ISqlTypeFactoryWithScale extends ISqlTypeFactory {
+    (scale?: number): ISqlTypeWithScale;
+}
+export interface ISqlTypeFactoryWithPrecisionScale extends ISqlTypeFactory {
+    (precision?: number, scale?: number): ISqlTypeWithPrecisionScale;
+}
+export interface ISqlTypeFactoryWithTvpType extends ISqlTypeFactory {
+    (tvpType?: any): ISqlTypeWithTvpType;
+}
 
 export declare var VarChar: ISqlTypeFactoryWithLength;
 export declare var NVarChar: ISqlTypeFactoryWithLength;
@@ -113,7 +136,7 @@ export declare var MAX: number;
 export declare var fix: boolean;
 export declare var Promise: any;
 
-interface IMap extends Array<{ js: any, sql: any }> {
+interface IMap extends Array<{ js: any; sql: any }> {
     register(jstype: any, sql: any): void;
 }
 
@@ -133,12 +156,12 @@ export interface IColumnMetadata {
         caseSensitive: boolean;
         identity: boolean;
         readOnly: boolean;
-    }
+    };
 }
 export interface IResult<T> {
     recordsets: T extends Array<any> ? { [P in keyof T]: IRecordSet<T[P]> } : IRecordSet<T>[];
     recordset: IRecordSet<T extends Array<any> ? T[0] : T>;
-    rowsAffected: number[],
+    rowsAffected: number[];
     output: { [key: string]: any };
 }
 
@@ -157,14 +180,14 @@ export interface IRecordSet<T> extends Array<T> {
 type IIsolationLevel = number;
 
 export declare var ISOLATION_LEVEL: {
-    READ_UNCOMMITTED: IIsolationLevel
-    READ_COMMITTED: IIsolationLevel
-    REPEATABLE_READ: IIsolationLevel
-    SERIALIZABLE: IIsolationLevel
-    SNAPSHOT: IIsolationLevel
-}
+    READ_UNCOMMITTED: IIsolationLevel;
+    READ_COMMITTED: IIsolationLevel;
+    REPEATABLE_READ: IIsolationLevel;
+    SERIALIZABLE: IIsolationLevel;
+    SNAPSHOT: IIsolationLevel;
+};
 
-export interface IOptions extends Omit<tds.ConnectionOptions, 'useColumnNames'> {
+export interface IOptions extends Omit<tds.ConnectionOptions, "useColumnNames"> {
     beforeConnect?: void | undefined;
     connectionString?: string | undefined;
     trustedConnection?: boolean | undefined;
@@ -172,7 +195,7 @@ export interface IOptions extends Omit<tds.ConnectionOptions, 'useColumnNames'> 
 
 export declare var pool: ConnectionPool;
 
-export interface PoolOpts<T> extends Omit<PoolOptions<T>, 'create' | 'destroy' | 'min' | 'max'> {
+export interface PoolOpts<T> extends Omit<PoolOptions<T>, "create" | "destroy" | "min" | "max"> {
     create?: CallbackOrPromise<T> | undefined;
     destroy?: ((resource: T) => any) | undefined;
     min?: number | undefined;
@@ -199,7 +222,7 @@ export interface config {
      * Invoked before opening the connection. The parameter conn is the configured
      * tedious Connection. It can be used for attaching event handlers.
      */
-    beforeConnect?: ((conn: Connection) => void) | undefined
+    beforeConnect?: ((conn: Connection) => void) | undefined;
 }
 
 export declare class MSSQLError extends Error {
@@ -219,7 +242,9 @@ export declare class ConnectionPool extends events.EventEmitter {
     public readonly pending: number;
     public readonly borrowed: number;
     public readonly pool: Pool<Connection>;
-    public static parseConnectionString(connectionString: string): config & { options: IOptions, pool: Partial<PoolOpts<Connection>> };
+    public static parseConnectionString(
+        connectionString: string,
+    ): config & { options: IOptions; pool: Partial<PoolOpts<Connection>> };
     public constructor(config: config, callback?: (err?: any) => void);
     public constructor(connectionString: string, callback?: (err?: any) => void);
     public query(command: string): Promise<IResult<any>>;
@@ -247,7 +272,7 @@ export interface IColumnOptions {
     primary?: boolean | undefined;
     identity?: boolean | undefined;
     readOnly?: boolean | undefined;
-    length?: number | undefined
+    length?: number | undefined;
 }
 
 export interface IColumn extends ISqlType {
@@ -288,7 +313,7 @@ interface IRequestParameters {
         scale: number;
         precision: number;
         tvpType: any;
-    }
+    };
 }
 
 /**
@@ -318,7 +343,10 @@ export declare class Request extends events.EventEmitter {
     public constructor(preparedStatement: PreparedStatement);
     public execute(procedure: string): Promise<IProcedureResult<any>>;
     public execute<Entity>(procedure: string): Promise<IProcedureResult<Entity>>;
-    public execute<Entity>(procedure: string, callback: (err?: any, recordsets?: IProcedureResult<Entity>, returnValue?: any) => void): void;
+    public execute<Entity>(
+        procedure: string,
+        callback: (err?: any, recordsets?: IProcedureResult<Entity>, returnValue?: any) => void,
+    ): void;
     public input(name: string, value: any): Request;
     public input(name: string, type: (() => ISqlType) | ISqlType, value: any): Request;
     public replaceInput(name: string, value: any): Request;
@@ -364,7 +392,10 @@ export declare class Transaction extends events.EventEmitter {
      * @param [callback] A callback which is called after transaction has began, or an error has occurred. If omited, method returns Promise.
      */
     public begin(isolationLevel?: IIsolationLevel): Promise<Transaction>;
-    public begin(isolationLevel?: IIsolationLevel, callback?: (err?: ConnectionError | TransactionError) => void): Transaction;
+    public begin(
+        isolationLevel?: IIsolationLevel,
+        callback?: (err?: ConnectionError | TransactionError) => void,
+    ): Transaction;
     public commit(): Promise<void>;
     public commit(callback: (err?: any) => void): void;
     public rollback(): Promise<void>;
@@ -409,9 +440,14 @@ export declare function connect(config: config | string): Promise<ConnectionPool
  */
 export declare function connect(config: config | string, callback?: (err?: Error) => void): void;
 
-
 export declare function query(command: string): Promise<IResult<any>>;
 export declare function query(command: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
 export declare function query<Entity>(command: string): Promise<IResult<Entity>>;
-export declare function query<Entity>(command: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<Entity>>;
-export declare function query<Entity>(command: string, callback: (err?: Error, recordset?: IResult<Entity>) => void): void;
+export declare function query<Entity>(
+    command: TemplateStringsArray,
+    ...interpolations: any[]
+): Promise<IResult<Entity>>;
+export declare function query<Entity>(
+    command: string,
+    callback: (err?: Error, recordset?: IResult<Entity>) => void,
+): void;

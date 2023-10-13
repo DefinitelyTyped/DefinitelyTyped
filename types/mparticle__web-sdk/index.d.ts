@@ -4,7 +4,7 @@
 //                 Robert Ing <https://github.com/rmi22186>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.6
-import { Batch } from '@mparticle/event-models';
+import { Batch } from "@mparticle/event-models";
 
 // Placeholder for Dictionary-like Types
 export type Dictionary<V = any> = Record<string, V>;
@@ -19,7 +19,7 @@ export interface MPConfiguration {
     appVersion?: string | undefined;
     appName?: string | undefined;
     package?: string | undefined;
-    logLevel?: 'verbose' | 'warning' | 'none' | undefined;
+    logLevel?: "verbose" | "warning" | "none" | undefined;
     logger?: Logger | undefined;
     sessionTimeout?: number | undefined;
     deviceId?: string | undefined;
@@ -138,7 +138,7 @@ interface SetAppVersion {
     (version: string): void;
 }
 interface SetLogLevel {
-    (newLogLevel: 'verbose' | 'warning' | 'none'): void;
+    (newLogLevel: "verbose" | "warning" | "none"): void;
 }
 interface SetOptOut {
     (isOptingOut: boolean): void;
@@ -482,7 +482,6 @@ export namespace eCommerce {
     const logPromotion: LogPromotion;
     const logPurchase: LogPurchase;
     /**
-     *
      * @deprecated logRefund has been deprecated
      */
     const logRefund: LogRefund;
@@ -510,7 +509,6 @@ export interface User {
     getUserAttributesLists: () => Record<string, UserAttributesValue[]>;
     getAllUserAttributes: () => AllUserAttributes;
     /**
-     *
      * @deprecated Cart persistence in mParticle has been deprecated
      */
     getCart: () => Cart;
@@ -548,17 +546,14 @@ export interface UserIdentities {
 
 interface Cart {
     /**
-     *
      * @deprecated Cart persistence in mParticle has been deprecated. Please use mParticle.eCommerce.logProductAction(mParticle.ProductActionType.AddToCart, [products])
      */
     add: (product: Product, logEventBoolean?: boolean) => void;
     /**
-     *
      * @deprecated Cart persistence in mParticle has been deprecated. Please use mParticle.eCommerce.logProductAction(mParticle.ProductActionType.RemoveFromCart, [products])
      */
     remove: (product: Product, logEventBoolean?: boolean) => void;
     /**
-     *
      * @deprecated Cart persistence in mParticle has been deprecated.
      */
     clear: () => void;

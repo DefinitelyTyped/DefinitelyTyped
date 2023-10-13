@@ -4,18 +4,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 
 interface LEVELS {
     // 访问日志
-    0: 'ACCESS';
-    3: 'ACCESS_ERROR';
+    0: "ACCESS";
+    3: "ACCESS_ERROR";
     // 应用日志等级 ODP格式
-    1: 'FATAL';
-    2: 'WARNING';
-    4: 'NOTICE';
-    8: 'TRACE';
-    16: 'DEBUG';
+    1: "FATAL";
+    2: "WARNING";
+    4: "NOTICE";
+    8: "TRACE";
+    16: "DEBUG";
 }
 
 type LevelInt = keyof LEVELS | 0 | 3 | 1 | 2 | 4 | 8 | 16;
@@ -57,7 +57,7 @@ interface LogInfo {
 
 type LogInput = string | LogInfo | Error;
 
-declare function yog_log(config?: LogConfig): ((req: Request, resp: Response, next: NextFunction) => any);
+declare function yog_log(config?: LogConfig): (req: Request, resp: Response, next: NextFunction) => any;
 
 declare namespace yog_log {
     class Logger {

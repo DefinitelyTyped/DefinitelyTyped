@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import * as http from 'http';
-import * as https from 'https';
+import * as http from "http";
+import * as https from "https";
 
 // lib/spdy/agent.js
 export namespace agent {
@@ -18,11 +18,11 @@ export namespace agent {
     interface AgentOptions extends https.AgentOptions {
         port?: number | undefined;
         spdy?: {
-            plain?: boolean | undefined,
-            ssl?: boolean | undefined,
-            'x-forwarded-for'?: string | undefined,
-            protocol?: string | undefined,
-            protocols?: string[] | undefined
+            plain?: boolean | undefined;
+            ssl?: boolean | undefined;
+            "x-forwarded-for"?: string | undefined;
+            protocol?: string | undefined;
+            protocols?: string[] | undefined;
         } | undefined;
     }
 }
@@ -59,20 +59,26 @@ export namespace server {
     interface ServerResponse extends http.ServerResponse {
         push(filename: string, options: PushOptions): any;
     }
-    function create(base: any,
-                            options: https.ServerOptions,
-                            handler: (request: IncomingMessage, response: ServerResponse | http.ServerResponse) => void): Server;
-    function create(options: https.ServerOptions,
-                            handler: (request: IncomingMessage, response: http.ServerResponse) => void): Server;
-    function create(handler: (request: IncomingMessage, response: ServerResponse | http.ServerResponse) => void): Server;
+    function create(
+        base: any,
+        options: https.ServerOptions,
+        handler: (request: IncomingMessage, response: ServerResponse | http.ServerResponse) => void,
+    ): Server;
+    function create(
+        options: https.ServerOptions,
+        handler: (request: IncomingMessage, response: http.ServerResponse) => void,
+    ): Server;
+    function create(
+        handler: (request: IncomingMessage, response: ServerResponse | http.ServerResponse) => void,
+    ): Server;
 
     type Protocol =
-        'h2'
-            | 'spdy/3.1'
-            | 'spdy/3'
-            | 'spdy/2'
-            | 'http/1.1'
-            | 'http/1.0';
+        | "h2"
+        | "spdy/3.1"
+        | "spdy/3"
+        | "spdy/2"
+        | "http/1.1"
+        | "http/1.0";
 
     interface PushOptions {
         status?: number | undefined;
@@ -83,13 +89,13 @@ export namespace server {
 
     interface ServerOptions extends https.ServerOptions {
         spdy?: {
-            protocols?: Protocol[] | undefined,
-            plain?: boolean | undefined,
-            'x-forwarded-for'?: boolean | undefined,
+            protocols?: Protocol[] | undefined;
+            plain?: boolean | undefined;
+            "x-forwarded-for"?: boolean | undefined;
             connection?: {
-                windowSize?: number | undefined,
-                autoSpdy31?: boolean | undefined,
-            } | undefined,
+                windowSize?: number | undefined;
+                autoSpdy31?: boolean | undefined;
+            } | undefined;
         } | undefined;
     }
 }

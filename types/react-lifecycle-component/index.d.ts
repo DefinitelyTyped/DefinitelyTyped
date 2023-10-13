@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import { ComponentLifecycle, Component, ComponentClass } from 'react';
-import { Connect } from 'react-redux';
+import { Component, ComponentClass, ComponentLifecycle } from "react";
+import { Connect } from "react-redux";
 
 export interface LifecycleStateProps<P = {}, S = {}> {
     component: ComponentClass<P, S>;

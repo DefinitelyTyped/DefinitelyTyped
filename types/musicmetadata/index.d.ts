@@ -7,12 +7,16 @@
 
 declare module "musicmetadata" {
     import { Readable } from "stream";
-    import {EventEmitter} from "events";
+    import { EventEmitter } from "events";
 
     function mm(readStream: Readable, callback: (err: Error, metadata: MM.Metadata) => void): EventEmitter;
-    function mm(readStream: Readable, options: MM.Options, callback: (err: Error, metadata: MM.Metadata) => void): EventEmitter;
+    function mm(
+        readStream: Readable,
+        options: MM.Options,
+        callback: (err: Error, metadata: MM.Metadata) => void,
+    ): EventEmitter;
 
-    namespace mm { }
+    namespace mm {}
 
     export = mm;
 }

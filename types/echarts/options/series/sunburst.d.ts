@@ -25,7 +25,6 @@ declare namespace echarts {
          * [series-sunburst.nodeClick](https://echarts.apache.org/en/option.html#series-treemap.nodeClick)
          * .
          *
-         *
          * @see https://echarts.apache.org/en/option.html#series-sunburst
          */
         interface SeriesSunburst {
@@ -41,7 +40,6 @@ declare namespace echarts {
              * If specified, it can be used to refer the component in option
              * or API.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-sunburst.id
              */
             id?: string | undefined;
@@ -52,7 +50,6 @@ declare namespace echarts {
              * and filtering with
              * [legend](https://echarts.apache.org/en/option.html#legend)
              * , or updaing data and configuration with `setOption`.
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-sunburst.name
              */
@@ -72,7 +69,6 @@ declare namespace echarts {
              * Canvases with bigger `zlevel` will be placed on Canvases with
              * smaller `zlevel`.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-sunburst.zlevel
              */
             zlevel?: number | undefined;
@@ -85,7 +81,6 @@ declare namespace echarts {
              *
              * `z` has a lower priority to `zlevel`, and will not create new
              * Canvas.
-             *
              *
              * @default
              * 2
@@ -105,7 +100,6 @@ declare namespace echarts {
              *
              * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst)
              *
-             *
              * @default
              * ['50%', '50%']
              * @see https://echarts.apache.org/en/option.html#series-sunburst.center
@@ -124,7 +118,6 @@ declare namespace echarts {
              * specifies the outside radius.
              * Each item follows the definitions above.
              *
-             *
              * @default
              * [0, '75%']
              * @see https://echarts.apache.org/en/option.html#series-sunburst.radius
@@ -137,7 +130,6 @@ declare namespace echarts {
              * is like tree. For example:
              *
              * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst)
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-sunburst.data
              */
@@ -161,7 +153,6 @@ declare namespace echarts {
              * taken to be at the same level with `itemStyle`, and has `emphasis`
              * as `itemStyle` does.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-sunburst.label
              */
             label?: {
@@ -180,7 +171,6 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.label)
                  *
-                 *
                  * @default
                  * "radial"
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.rotate
@@ -194,7 +184,6 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.label)
                  *
-                 *
                  * @default
                  * "center"
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.align
@@ -206,14 +195,12 @@ declare namespace echarts {
                  * then text is not displayed.
                  * This is used for hiding text for small piece of data.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.minAngle
                  */
                 minAngle?: number | undefined;
 
                 /**
                  * Whether to show label.
-                 *
                  *
                  * @default
                  * "true"
@@ -253,7 +240,6 @@ declare namespace echarts {
                  * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                  * .
                  *
-                 *
                  * @default
                  * "inside"
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.position
@@ -268,7 +254,6 @@ declare namespace echarts {
                  * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                  * .
                  *
-                 *
                  * @default
                  * 5
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.distance
@@ -279,7 +264,6 @@ declare namespace echarts {
                  * Whether to move text slightly.
                  * For example: `[30, 40]` means move `30` horizontally and
                  * move `40` vertically.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.offset
                  */
@@ -323,7 +307,6 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.label)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.formatter
                  */
                 formatter?: Function | string | undefined;
@@ -333,7 +316,6 @@ declare namespace echarts {
                  *
                  * If set as `'auto'`, the color will assigned as visual color,
                  * such as series color.
-                 *
                  *
                  * @default
                  * ""#fff""
@@ -349,7 +331,6 @@ declare namespace echarts {
                  * + `'normal'`
                  * + `'italic'`
                  * + `'oblique'`
-                 *
                  *
                  * @default
                  * "normal"
@@ -368,7 +349,6 @@ declare namespace echarts {
                  * + `'lighter'`
                  * + 100 | 200 | 300 | 400...
                  *
-                 *
                  * @default
                  * "normal"
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.fontWeight
@@ -380,7 +360,6 @@ declare namespace echarts {
                  *
                  * Can also be 'serif' , 'monospace', ...
                  *
-                 *
                  * @default
                  * "sans-serif"
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.fontFamily
@@ -389,7 +368,6 @@ declare namespace echarts {
 
                 /**
                  * font size
-                 *
                  *
                  * @default
                  * 12
@@ -411,7 +389,6 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.label)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.verticalAlign
                  */
                 verticalAlign?: string | undefined;
@@ -423,7 +400,6 @@ declare namespace echarts {
                  * level will be used. For example:
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.label)
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.lineHeight
                  */
@@ -444,7 +420,6 @@ declare namespace echarts {
                  * If set as `'auto'`, the color will assigned as visual color,
                  * such as series color.
                  *
-                 *
                  * @default
                  * "transparent"
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.backgroundColor
@@ -457,7 +432,6 @@ declare namespace echarts {
                  * If set as `'auto'`, the color will assigned as visual color,
                  * such as series color.
                  *
-                 *
                  * @default
                  * "transparent"
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.borderColor
@@ -467,14 +441,12 @@ declare namespace echarts {
                 /**
                  * Border width of the text fregment.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.borderWidth
                  */
                 borderWidth?: number | undefined;
 
                 /**
                  * Border radius of the text fregment.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.borderRadius
                  */
@@ -491,14 +463,12 @@ declare namespace echarts {
                  * Notice, `width` and `height` specifies the width and height
                  * of the content, without `padding`.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.padding
                  */
                 padding?: any[] | number | undefined;
 
                 /**
                  * Shadow color of the text block.
-                 *
                  *
                  * @default
                  * "transparent"
@@ -509,7 +479,6 @@ declare namespace echarts {
                 /**
                  * Show blur of the text block.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.shadowBlur
                  */
                 shadowBlur?: number | undefined;
@@ -517,14 +486,12 @@ declare namespace echarts {
                 /**
                  * Shadow X offset of the text block.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.shadowOffsetX
                  */
                 shadowOffsetX?: number | undefined;
 
                 /**
                  * Shadow Y offset of the text block.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.shadowOffsetY
                  */
@@ -549,7 +516,6 @@ declare namespace echarts {
                  *
                  * Notice, `width` and `height` only work when `rich` specified.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.width
                  */
                 width?: number | string | undefined;
@@ -565,7 +531,6 @@ declare namespace echarts {
                  *
                  * Notice, `width` and `height` only work when `rich` specified.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.height
                  */
                 height?: number | string | undefined;
@@ -576,7 +541,6 @@ declare namespace echarts {
                  * If set as `'auto'`, the color will assigned as visual color,
                  * such as series color.
                  *
-                 *
                  * @default
                  * "transparent"
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.textBorderColor
@@ -586,14 +550,12 @@ declare namespace echarts {
                 /**
                  * Storke line width of the text.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.textBorderWidth
                  */
                 textBorderWidth?: number | undefined;
 
                 /**
                  * Shadow color of the text itself.
-                 *
                  *
                  * @default
                  * "transparent"
@@ -604,7 +566,6 @@ declare namespace echarts {
                 /**
                  * Shadow blue of the text itself.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.textShadowBlur
                  */
                 textShadowBlur?: number | undefined;
@@ -612,14 +573,12 @@ declare namespace echarts {
                 /**
                  * Shadow X offset of the text itself.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.textShadowOffsetX
                  */
                 textShadowOffsetX?: number | undefined;
 
                 /**
                  * Shadow Y offset of the text itself.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.textShadowOffsetY
                  */
@@ -635,7 +594,6 @@ declare namespace echarts {
                  * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                  * please.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.label.rich
                  */
                 rich?: {
@@ -648,7 +606,6 @@ declare namespace echarts {
                          *
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
-                         *
                          *
                          * @default
                          * ""#fff""
@@ -664,7 +621,6 @@ declare namespace echarts {
                          * + `'normal'`
                          * + `'italic'`
                          * + `'oblique'`
-                         *
                          *
                          * @default
                          * "normal"
@@ -683,7 +639,6 @@ declare namespace echarts {
                          * + `'lighter'`
                          * + 100 | 200 | 300 | 400...
                          *
-                         *
                          * @default
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -695,7 +650,6 @@ declare namespace echarts {
                          *
                          * Can also be 'serif' , 'monospace', ...
                          *
-                         *
                          * @default
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -704,7 +658,6 @@ declare namespace echarts {
 
                         /**
                          * font size
-                         *
                          *
                          * @default
                          * 12
@@ -726,7 +679,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.label.rich.%3Cuser%20defined%20style%20name%3E.align
                          */
                         align?: string | undefined;
@@ -745,7 +697,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.label.rich.%3Cuser%20defined%20style%20name%3E)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                          */
                         verticalAlign?: string | undefined;
@@ -757,7 +708,6 @@ declare namespace echarts {
                          * in parent level will be used. For example:
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.label.rich.%3Cuser%20defined%20style%20name%3E)
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                          */
@@ -778,7 +728,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -791,7 +740,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -801,14 +749,12 @@ declare namespace echarts {
                         /**
                          * Border width of the text fregment.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                          */
                         borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                          */
@@ -826,14 +772,12 @@ declare namespace echarts {
                          * Notice, `width` and `height` specifies the width
                          * and height of the content, without `padding`.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                          */
                         padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -844,7 +788,6 @@ declare namespace echarts {
                         /**
                          * Show blur of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                          */
                         shadowBlur?: number | undefined;
@@ -852,14 +795,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                          */
@@ -887,7 +828,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.label.rich.%3Cuser%20defined%20style%20name%3E.width
                          */
                         width?: number | string | undefined;
@@ -904,7 +844,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.label.rich.%3Cuser%20defined%20style%20name%3E.height
                          */
                         height?: number | string | undefined;
@@ -915,7 +854,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -925,14 +863,12 @@ declare namespace echarts {
                         /**
                          * Storke line width of the text.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                          */
                         textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -943,7 +879,6 @@ declare namespace echarts {
                         /**
                          * Shadow blue of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                          */
                         textShadowBlur?: number | undefined;
@@ -951,14 +886,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                          */
                         textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                          */
@@ -999,7 +932,6 @@ declare namespace echarts {
              * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
              * .
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-sunburst.itemStyle
              */
             itemStyle?: {
@@ -1018,14 +950,12 @@ declare namespace echarts {
                  * >
                  * > [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.itemStyle)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.itemStyle.color
                  */
                 color?: EChartOption.Color | undefined;
 
                 /**
                  * border color, whose format is similar to that of `color`.
-                 *
                  *
                  * @default
                  * "white"
@@ -1036,7 +966,6 @@ declare namespace echarts {
                 /**
                  * border width. No border when it is set to be 0.
                  *
-                 *
                  * @default
                  * 1
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.itemStyle.borderWidth
@@ -1046,7 +975,6 @@ declare namespace echarts {
                 /**
                  * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
                  * `'solid'` by default.
-                 *
                  *
                  * @default
                  * "solid"
@@ -1063,14 +991,12 @@ declare namespace echarts {
                  *
                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.itemStyle)
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.itemStyle.shadowBlur
                  */
                 shadowBlur?: number | undefined;
 
                 /**
                  * Shadow color. Support same format as `color`.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.itemStyle.shadowColor
                  */
@@ -1079,14 +1005,12 @@ declare namespace echarts {
                 /**
                  * Offset distance on the horizontal direction of shadow.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.itemStyle.shadowOffsetX
                  */
                 shadowOffsetX?: number | undefined;
 
                 /**
                  * Offset distance on the vertical direction of shadow.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.itemStyle.shadowOffsetY
                  */
@@ -1096,7 +1020,6 @@ declare namespace echarts {
                  * Opacity of the component.
                  * Supports value from 0 to 1, and the component will not be
                  * drawn when set to 0.
-                 *
                  *
                  * @default
                  * 1
@@ -1131,7 +1054,6 @@ declare namespace echarts {
              *
              * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst)
              *
-             *
              * @default
              * "descendant"
              * @see https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy
@@ -1146,7 +1068,6 @@ declare namespace echarts {
              * + `'link'`：if
              * [link](https://echarts.apache.org/en/option.html#series-sunburst.data.link)
              * is set, the page will redirect to it.
-             *
              *
              * @default
              * "rootToNode"
@@ -1164,7 +1085,6 @@ declare namespace echarts {
              *
              * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst)
              *
-             *
              * @default
              * "desc"
              * @see https://echarts.apache.org/en/option.html#series-sunburst.sort
@@ -1174,7 +1094,6 @@ declare namespace echarts {
             /**
              * If there is no `name`, whether need to render it.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-sunburst.renderLabelForZeroData
              */
             renderLabelForZeroData?: boolean | undefined;
@@ -1183,7 +1102,6 @@ declare namespace echarts {
              * Item style when mouse is hovering. See
              * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
              * .
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis
              */
@@ -1206,7 +1124,6 @@ declare namespace echarts {
                  * `label`is taken to be at the same level with `itemStyle`,
                  * and has `emphasis` as `itemStyle` does.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label
                  */
                 label?: {
@@ -1226,7 +1143,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.emphasis.label)
                      *
-                     *
                      * @default
                      * "radial"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.rotate
@@ -1241,7 +1157,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.emphasis.label)
                      *
-                     *
                      * @default
                      * "center"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.align
@@ -1253,14 +1168,12 @@ declare namespace echarts {
                      * degrees), then text is not displayed.
                      * This is used for hiding text for small piece of data.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.minAngle
                      */
                     minAngle?: number | undefined;
 
                     /**
                      * Whether to show label.
-                     *
                      *
                      * @default
                      * "true"
@@ -1300,7 +1213,6 @@ declare namespace echarts {
                      * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
-                     *
                      * @default
                      * "inside"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.position
@@ -1315,7 +1227,6 @@ declare namespace echarts {
                      * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
-                     *
                      * @default
                      * 5
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.distance
@@ -1326,7 +1237,6 @@ declare namespace echarts {
                      * Whether to move text slightly.
                      * For example: `[30, 40]` means move `30` horizontally
                      * and move `40` vertically.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.offset
                      */
@@ -1371,7 +1281,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.emphasis.label)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.formatter
                      */
                     formatter?: Function | string | undefined;
@@ -1381,7 +1290,6 @@ declare namespace echarts {
                      *
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
-                     *
                      *
                      * @default
                      * ""#fff""
@@ -1397,7 +1305,6 @@ declare namespace echarts {
                      * + `'normal'`
                      * + `'italic'`
                      * + `'oblique'`
-                     *
                      *
                      * @default
                      * "normal"
@@ -1416,7 +1323,6 @@ declare namespace echarts {
                      * + `'lighter'`
                      * + 100 | 200 | 300 | 400...
                      *
-                     *
                      * @default
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.fontWeight
@@ -1428,7 +1334,6 @@ declare namespace echarts {
                      *
                      * Can also be 'serif' , 'monospace', ...
                      *
-                     *
                      * @default
                      * "sans-serif"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.fontFamily
@@ -1437,7 +1342,6 @@ declare namespace echarts {
 
                     /**
                      * font size
-                     *
                      *
                      * @default
                      * 12
@@ -1459,7 +1363,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.emphasis.label)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.verticalAlign
                      */
                     verticalAlign?: string | undefined;
@@ -1471,7 +1374,6 @@ declare namespace echarts {
                      * parent level will be used. For example:
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.emphasis.label)
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.lineHeight
                      */
@@ -1492,7 +1394,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.backgroundColor
@@ -1505,7 +1406,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.borderColor
@@ -1515,14 +1415,12 @@ declare namespace echarts {
                     /**
                      * Border width of the text fregment.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.borderWidth
                      */
                     borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.borderRadius
                      */
@@ -1539,14 +1437,12 @@ declare namespace echarts {
                      * Notice, `width` and `height` specifies the width and
                      * height of the content, without `padding`.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.padding
                      */
                     padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
-                     *
                      *
                      * @default
                      * "transparent"
@@ -1557,7 +1453,6 @@ declare namespace echarts {
                     /**
                      * Show blur of the text block.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.shadowBlur
                      */
                     shadowBlur?: number | undefined;
@@ -1565,14 +1460,12 @@ declare namespace echarts {
                     /**
                      * Shadow X offset of the text block.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.shadowOffsetY
                      */
@@ -1598,7 +1491,6 @@ declare namespace echarts {
                      *
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.width
                      */
                     width?: number | string | undefined;
@@ -1614,7 +1506,6 @@ declare namespace echarts {
                      *
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.height
                      */
                     height?: number | string | undefined;
@@ -1625,7 +1516,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.textBorderColor
@@ -1635,14 +1525,12 @@ declare namespace echarts {
                     /**
                      * Storke line width of the text.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.textBorderWidth
                      */
                     textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
-                     *
                      *
                      * @default
                      * "transparent"
@@ -1653,7 +1541,6 @@ declare namespace echarts {
                     /**
                      * Shadow blue of the text itself.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.textShadowBlur
                      */
                     textShadowBlur?: number | undefined;
@@ -1661,14 +1548,12 @@ declare namespace echarts {
                     /**
                      * Shadow X offset of the text itself.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.textShadowOffsetX
                      */
                     textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.textShadowOffsetY
                      */
@@ -1684,7 +1569,6 @@ declare namespace echarts {
                      * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.rich
                      */
                     rich?: {
@@ -1697,7 +1581,6 @@ declare namespace echarts {
                              *
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
-                             *
                              *
                              * @default
                              * ""#fff""
@@ -1713,7 +1596,6 @@ declare namespace echarts {
                              * + `'normal'`
                              * + `'italic'`
                              * + `'oblique'`
-                             *
                              *
                              * @default
                              * "normal"
@@ -1732,7 +1614,6 @@ declare namespace echarts {
                              * + `'lighter'`
                              * + 100 | 200 | 300 | 400...
                              *
-                             *
                              * @default
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -1744,7 +1625,6 @@ declare namespace echarts {
                              *
                              * Can also be 'serif' , 'monospace', ...
                              *
-                             *
                              * @default
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -1753,7 +1633,6 @@ declare namespace echarts {
 
                             /**
                              * font size
-                             *
                              *
                              * @default
                              * 12
@@ -1775,7 +1654,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
                             align?: string | undefined;
@@ -1794,7 +1672,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
                             verticalAlign?: string | undefined;
@@ -1806,7 +1683,6 @@ declare namespace echarts {
                              * in parent level will be used. For example:
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
@@ -1828,7 +1704,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -1841,7 +1716,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -1851,14 +1725,12 @@ declare namespace echarts {
                             /**
                              * Border width of the text fregment.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
                             borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
@@ -1877,14 +1749,12 @@ declare namespace echarts {
                              * Notice, `width` and `height` specifies the width
                              * and height of the content, without `padding`.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
                             padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -1895,7 +1765,6 @@ declare namespace echarts {
                             /**
                              * Show blur of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
                             shadowBlur?: number | undefined;
@@ -1903,14 +1772,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
                             shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
@@ -1938,7 +1805,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
                             width?: number | string | undefined;
@@ -1955,7 +1821,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
                             height?: number | string | undefined;
@@ -1966,7 +1831,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -1976,14 +1840,12 @@ declare namespace echarts {
                             /**
                              * Storke line width of the text.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
                             textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -1994,7 +1856,6 @@ declare namespace echarts {
                             /**
                              * Shadow blue of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
                             textShadowBlur?: number | undefined;
@@ -2002,14 +1863,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
                             textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
@@ -2050,7 +1909,6 @@ declare namespace echarts {
                  * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
                  * .
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.itemStyle
                  */
                 itemStyle?: {
@@ -2069,14 +1927,12 @@ declare namespace echarts {
                      * >
                      * > [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.emphasis.itemStyle)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.itemStyle.color
                      */
                     color?: EChartOption.Color | undefined;
 
                     /**
                      * border color, whose format is similar to that of `color`.
-                     *
                      *
                      * @default
                      * "white"
@@ -2087,7 +1943,6 @@ declare namespace echarts {
                     /**
                      * border width. No border when it is set to be 0.
                      *
-                     *
                      * @default
                      * 1
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.itemStyle.borderWidth
@@ -2097,7 +1952,6 @@ declare namespace echarts {
                     /**
                      * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
                      * `'solid'` by default.
-                     *
                      *
                      * @default
                      * "solid"
@@ -2114,14 +1968,12 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.emphasis.itemStyle)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.itemStyle.shadowBlur
                      */
                     shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.itemStyle.shadowColor
                      */
@@ -2130,14 +1982,12 @@ declare namespace echarts {
                     /**
                      * Offset distance on the horizontal direction of shadow.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.emphasis.itemStyle.shadowOffsetY
                      */
@@ -2147,7 +1997,6 @@ declare namespace echarts {
                      * Opacity of the component.
                      * Supports value from 0 to 1, and the component will not
                      * be drawn when set to 0.
-                     *
                      *
                      * @default
                      * 1
@@ -2161,7 +2010,6 @@ declare namespace echarts {
              * Item style when mouse is hovering related items. See
              * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
              * .
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight
              */
@@ -2184,7 +2032,6 @@ declare namespace echarts {
                  * `label`is taken to be at the same level with `itemStyle`,
                  * and has `emphasis` as `itemStyle` does.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label
                  */
                 label?: {
@@ -2204,7 +2051,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.highlight.label)
                      *
-                     *
                      * @default
                      * "radial"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.rotate
@@ -2219,7 +2065,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.highlight.label)
                      *
-                     *
                      * @default
                      * "center"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.align
@@ -2231,14 +2076,12 @@ declare namespace echarts {
                      * degrees), then text is not displayed.
                      * This is used for hiding text for small piece of data.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.minAngle
                      */
                     minAngle?: number | undefined;
 
                     /**
                      * Whether to show label.
-                     *
                      *
                      * @default
                      * "true"
@@ -2278,7 +2121,6 @@ declare namespace echarts {
                      * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
-                     *
                      * @default
                      * "inside"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.position
@@ -2293,7 +2135,6 @@ declare namespace echarts {
                      * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
-                     *
                      * @default
                      * 5
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.distance
@@ -2304,7 +2145,6 @@ declare namespace echarts {
                      * Whether to move text slightly.
                      * For example: `[30, 40]` means move `30` horizontally
                      * and move `40` vertically.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.offset
                      */
@@ -2349,7 +2189,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.highlight.label)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.formatter
                      */
                     formatter?: Function | string | undefined;
@@ -2359,7 +2198,6 @@ declare namespace echarts {
                      *
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
-                     *
                      *
                      * @default
                      * ""#fff""
@@ -2375,7 +2213,6 @@ declare namespace echarts {
                      * + `'normal'`
                      * + `'italic'`
                      * + `'oblique'`
-                     *
                      *
                      * @default
                      * "normal"
@@ -2394,7 +2231,6 @@ declare namespace echarts {
                      * + `'lighter'`
                      * + 100 | 200 | 300 | 400...
                      *
-                     *
                      * @default
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.fontWeight
@@ -2406,7 +2242,6 @@ declare namespace echarts {
                      *
                      * Can also be 'serif' , 'monospace', ...
                      *
-                     *
                      * @default
                      * "sans-serif"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.fontFamily
@@ -2415,7 +2250,6 @@ declare namespace echarts {
 
                     /**
                      * font size
-                     *
                      *
                      * @default
                      * 12
@@ -2437,7 +2271,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.highlight.label)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.verticalAlign
                      */
                     verticalAlign?: string | undefined;
@@ -2449,7 +2282,6 @@ declare namespace echarts {
                      * parent level will be used. For example:
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.highlight.label)
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.lineHeight
                      */
@@ -2470,7 +2302,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.backgroundColor
@@ -2483,7 +2314,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.borderColor
@@ -2493,14 +2323,12 @@ declare namespace echarts {
                     /**
                      * Border width of the text fregment.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.borderWidth
                      */
                     borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.borderRadius
                      */
@@ -2517,14 +2345,12 @@ declare namespace echarts {
                      * Notice, `width` and `height` specifies the width and
                      * height of the content, without `padding`.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.padding
                      */
                     padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
-                     *
                      *
                      * @default
                      * "transparent"
@@ -2535,7 +2361,6 @@ declare namespace echarts {
                     /**
                      * Show blur of the text block.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.shadowBlur
                      */
                     shadowBlur?: number | undefined;
@@ -2543,14 +2368,12 @@ declare namespace echarts {
                     /**
                      * Shadow X offset of the text block.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.shadowOffsetY
                      */
@@ -2576,7 +2399,6 @@ declare namespace echarts {
                      *
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.width
                      */
                     width?: number | string | undefined;
@@ -2592,7 +2414,6 @@ declare namespace echarts {
                      *
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.height
                      */
                     height?: number | string | undefined;
@@ -2603,7 +2424,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.textBorderColor
@@ -2613,14 +2433,12 @@ declare namespace echarts {
                     /**
                      * Storke line width of the text.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.textBorderWidth
                      */
                     textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
-                     *
                      *
                      * @default
                      * "transparent"
@@ -2631,7 +2449,6 @@ declare namespace echarts {
                     /**
                      * Shadow blue of the text itself.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.textShadowBlur
                      */
                     textShadowBlur?: number | undefined;
@@ -2639,14 +2456,12 @@ declare namespace echarts {
                     /**
                      * Shadow X offset of the text itself.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.textShadowOffsetX
                      */
                     textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.textShadowOffsetY
                      */
@@ -2662,7 +2477,6 @@ declare namespace echarts {
                      * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.rich
                      */
                     rich?: {
@@ -2675,7 +2489,6 @@ declare namespace echarts {
                              *
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
-                             *
                              *
                              * @default
                              * ""#fff""
@@ -2691,7 +2504,6 @@ declare namespace echarts {
                              * + `'normal'`
                              * + `'italic'`
                              * + `'oblique'`
-                             *
                              *
                              * @default
                              * "normal"
@@ -2710,7 +2522,6 @@ declare namespace echarts {
                              * + `'lighter'`
                              * + 100 | 200 | 300 | 400...
                              *
-                             *
                              * @default
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -2722,7 +2533,6 @@ declare namespace echarts {
                              *
                              * Can also be 'serif' , 'monospace', ...
                              *
-                             *
                              * @default
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -2731,7 +2541,6 @@ declare namespace echarts {
 
                             /**
                              * font size
-                             *
                              *
                              * @default
                              * 12
@@ -2753,7 +2562,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
                             align?: string | undefined;
@@ -2772,7 +2580,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
                             verticalAlign?: string | undefined;
@@ -2784,7 +2591,6 @@ declare namespace echarts {
                              * in parent level will be used. For example:
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
@@ -2806,7 +2612,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -2819,7 +2624,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -2829,14 +2633,12 @@ declare namespace echarts {
                             /**
                              * Border width of the text fregment.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
                             borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
@@ -2855,14 +2657,12 @@ declare namespace echarts {
                              * Notice, `width` and `height` specifies the width
                              * and height of the content, without `padding`.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
                             padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -2873,7 +2673,6 @@ declare namespace echarts {
                             /**
                              * Show blur of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
                             shadowBlur?: number | undefined;
@@ -2881,14 +2680,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
                             shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
@@ -2916,7 +2713,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
                             width?: number | string | undefined;
@@ -2933,7 +2729,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
                             height?: number | string | undefined;
@@ -2944,7 +2739,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -2954,14 +2748,12 @@ declare namespace echarts {
                             /**
                              * Storke line width of the text.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
                             textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -2972,7 +2764,6 @@ declare namespace echarts {
                             /**
                              * Shadow blue of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
                             textShadowBlur?: number | undefined;
@@ -2980,14 +2771,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
                             textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
@@ -3028,7 +2817,6 @@ declare namespace echarts {
                  * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
                  * .
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.itemStyle
                  */
                 itemStyle?: {
@@ -3047,14 +2835,12 @@ declare namespace echarts {
                      * >
                      * > [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.highlight.itemStyle)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.itemStyle.color
                      */
                     color?: EChartOption.Color | undefined;
 
                     /**
                      * border color, whose format is similar to that of `color`.
-                     *
                      *
                      * @default
                      * "white"
@@ -3065,7 +2851,6 @@ declare namespace echarts {
                     /**
                      * border width. No border when it is set to be 0.
                      *
-                     *
                      * @default
                      * 1
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.itemStyle.borderWidth
@@ -3075,7 +2860,6 @@ declare namespace echarts {
                     /**
                      * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
                      * `'solid'` by default.
-                     *
                      *
                      * @default
                      * "solid"
@@ -3092,14 +2876,12 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.highlight.itemStyle)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.itemStyle.shadowBlur
                      */
                     shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.itemStyle.shadowColor
                      */
@@ -3108,14 +2890,12 @@ declare namespace echarts {
                     /**
                      * Offset distance on the horizontal direction of shadow.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.highlight.itemStyle.shadowOffsetY
                      */
@@ -3125,7 +2905,6 @@ declare namespace echarts {
                      * Opacity of the component.
                      * Supports value from 0 to 1, and the component will not
                      * be drawn when set to 0.
-                     *
                      *
                      * @default
                      * 1
@@ -3139,7 +2918,6 @@ declare namespace echarts {
              * Item style when mouse is hovering unrelated items. See
              * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
              * .
-             *
              *
              * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay
              */
@@ -3162,7 +2940,6 @@ declare namespace echarts {
                  * `label`is taken to be at the same level with `itemStyle`,
                  * and has `emphasis` as `itemStyle` does.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label
                  */
                 label?: {
@@ -3182,7 +2959,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.downplay.label)
                      *
-                     *
                      * @default
                      * "radial"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.rotate
@@ -3197,7 +2973,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.downplay.label)
                      *
-                     *
                      * @default
                      * "center"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.align
@@ -3209,14 +2984,12 @@ declare namespace echarts {
                      * degrees), then text is not displayed.
                      * This is used for hiding text for small piece of data.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.minAngle
                      */
                     minAngle?: number | undefined;
 
                     /**
                      * Whether to show label.
-                     *
                      *
                      * @default
                      * "true"
@@ -3256,7 +3029,6 @@ declare namespace echarts {
                      * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
-                     *
                      * @default
                      * "inside"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.position
@@ -3271,7 +3043,6 @@ declare namespace echarts {
                      * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
-                     *
                      * @default
                      * 5
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.distance
@@ -3282,7 +3053,6 @@ declare namespace echarts {
                      * Whether to move text slightly.
                      * For example: `[30, 40]` means move `30` horizontally
                      * and move `40` vertically.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.offset
                      */
@@ -3327,7 +3097,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.downplay.label)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.formatter
                      */
                     formatter?: Function | string | undefined;
@@ -3337,7 +3106,6 @@ declare namespace echarts {
                      *
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
-                     *
                      *
                      * @default
                      * ""#fff""
@@ -3353,7 +3121,6 @@ declare namespace echarts {
                      * + `'normal'`
                      * + `'italic'`
                      * + `'oblique'`
-                     *
                      *
                      * @default
                      * "normal"
@@ -3372,7 +3139,6 @@ declare namespace echarts {
                      * + `'lighter'`
                      * + 100 | 200 | 300 | 400...
                      *
-                     *
                      * @default
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.fontWeight
@@ -3384,7 +3150,6 @@ declare namespace echarts {
                      *
                      * Can also be 'serif' , 'monospace', ...
                      *
-                     *
                      * @default
                      * "sans-serif"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.fontFamily
@@ -3393,7 +3158,6 @@ declare namespace echarts {
 
                     /**
                      * font size
-                     *
                      *
                      * @default
                      * 12
@@ -3415,7 +3179,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.downplay.label)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.verticalAlign
                      */
                     verticalAlign?: string | undefined;
@@ -3427,7 +3190,6 @@ declare namespace echarts {
                      * parent level will be used. For example:
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.downplay.label)
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.lineHeight
                      */
@@ -3448,7 +3210,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.backgroundColor
@@ -3461,7 +3222,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.borderColor
@@ -3471,14 +3231,12 @@ declare namespace echarts {
                     /**
                      * Border width of the text fregment.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.borderWidth
                      */
                     borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.borderRadius
                      */
@@ -3495,14 +3253,12 @@ declare namespace echarts {
                      * Notice, `width` and `height` specifies the width and
                      * height of the content, without `padding`.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.padding
                      */
                     padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
-                     *
                      *
                      * @default
                      * "transparent"
@@ -3513,7 +3269,6 @@ declare namespace echarts {
                     /**
                      * Show blur of the text block.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.shadowBlur
                      */
                     shadowBlur?: number | undefined;
@@ -3521,14 +3276,12 @@ declare namespace echarts {
                     /**
                      * Shadow X offset of the text block.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.shadowOffsetY
                      */
@@ -3554,7 +3307,6 @@ declare namespace echarts {
                      *
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.width
                      */
                     width?: number | string | undefined;
@@ -3570,7 +3322,6 @@ declare namespace echarts {
                      *
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.height
                      */
                     height?: number | string | undefined;
@@ -3581,7 +3332,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.textBorderColor
@@ -3591,14 +3341,12 @@ declare namespace echarts {
                     /**
                      * Storke line width of the text.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.textBorderWidth
                      */
                     textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
-                     *
                      *
                      * @default
                      * "transparent"
@@ -3609,7 +3357,6 @@ declare namespace echarts {
                     /**
                      * Shadow blue of the text itself.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.textShadowBlur
                      */
                     textShadowBlur?: number | undefined;
@@ -3617,14 +3364,12 @@ declare namespace echarts {
                     /**
                      * Shadow X offset of the text itself.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.textShadowOffsetX
                      */
                     textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.textShadowOffsetY
                      */
@@ -3640,7 +3385,6 @@ declare namespace echarts {
                      * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.rich
                      */
                     rich?: {
@@ -3653,7 +3397,6 @@ declare namespace echarts {
                              *
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
-                             *
                              *
                              * @default
                              * ""#fff""
@@ -3669,7 +3412,6 @@ declare namespace echarts {
                              * + `'normal'`
                              * + `'italic'`
                              * + `'oblique'`
-                             *
                              *
                              * @default
                              * "normal"
@@ -3688,7 +3430,6 @@ declare namespace echarts {
                              * + `'lighter'`
                              * + 100 | 200 | 300 | 400...
                              *
-                             *
                              * @default
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -3700,7 +3441,6 @@ declare namespace echarts {
                              *
                              * Can also be 'serif' , 'monospace', ...
                              *
-                             *
                              * @default
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -3709,7 +3449,6 @@ declare namespace echarts {
 
                             /**
                              * font size
-                             *
                              *
                              * @default
                              * 12
@@ -3731,7 +3470,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
                             align?: string | undefined;
@@ -3750,7 +3488,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
                             verticalAlign?: string | undefined;
@@ -3762,7 +3499,6 @@ declare namespace echarts {
                              * in parent level will be used. For example:
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
@@ -3784,7 +3520,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -3797,7 +3532,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -3807,14 +3541,12 @@ declare namespace echarts {
                             /**
                              * Border width of the text fregment.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
                             borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
@@ -3833,14 +3565,12 @@ declare namespace echarts {
                              * Notice, `width` and `height` specifies the width
                              * and height of the content, without `padding`.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
                             padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -3851,7 +3581,6 @@ declare namespace echarts {
                             /**
                              * Show blur of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
                             shadowBlur?: number | undefined;
@@ -3859,14 +3588,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
                             shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
@@ -3894,7 +3621,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
                             width?: number | string | undefined;
@@ -3911,7 +3637,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
                             height?: number | string | undefined;
@@ -3922,7 +3647,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -3932,14 +3656,12 @@ declare namespace echarts {
                             /**
                              * Storke line width of the text.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
                             textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -3950,7 +3672,6 @@ declare namespace echarts {
                             /**
                              * Shadow blue of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
                             textShadowBlur?: number | undefined;
@@ -3958,14 +3679,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
                             textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
@@ -4006,7 +3725,6 @@ declare namespace echarts {
                  * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
                  * .
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.itemStyle
                  */
                 itemStyle?: {
@@ -4025,14 +3743,12 @@ declare namespace echarts {
                      * >
                      * > [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.downplay.itemStyle)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.itemStyle.color
                      */
                     color?: EChartOption.Color | undefined;
 
                     /**
                      * border color, whose format is similar to that of `color`.
-                     *
                      *
                      * @default
                      * "white"
@@ -4043,7 +3759,6 @@ declare namespace echarts {
                     /**
                      * border width. No border when it is set to be 0.
                      *
-                     *
                      * @default
                      * 1
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.itemStyle.borderWidth
@@ -4053,7 +3768,6 @@ declare namespace echarts {
                     /**
                      * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
                      * `'solid'` by default.
-                     *
                      *
                      * @default
                      * "solid"
@@ -4070,14 +3784,12 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.downplay.itemStyle)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.itemStyle.shadowBlur
                      */
                     shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.itemStyle.shadowColor
                      */
@@ -4086,14 +3798,12 @@ declare namespace echarts {
                     /**
                      * Offset distance on the horizontal direction of shadow.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.downplay.itemStyle.shadowOffsetY
                      */
@@ -4103,7 +3813,6 @@ declare namespace echarts {
                      * Opacity of the component.
                      * Supports value from 0 to 1, and the component will not
                      * be drawn when set to 0.
-                     *
                      *
                      * @default
                      * 1
@@ -4129,7 +3838,6 @@ declare namespace echarts {
              *
              * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst)
              *
-             *
              * @default
              * []
              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels
@@ -4153,7 +3861,6 @@ declare namespace echarts {
                  * `label`is taken to be at the same level with `itemStyle`,
                  * and has `emphasis` as `itemStyle` does.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label
                  */
                 label?: {
@@ -4173,7 +3880,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label)
                      *
-                     *
                      * @default
                      * "radial"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rotate
@@ -4188,7 +3894,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label)
                      *
-                     *
                      * @default
                      * "center"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.align
@@ -4200,14 +3905,12 @@ declare namespace echarts {
                      * degrees), then text is not displayed.
                      * This is used for hiding text for small piece of data.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.minAngle
                      */
                     minAngle?: number | undefined;
 
                     /**
                      * Whether to show label.
-                     *
                      *
                      * @default
                      * "true"
@@ -4247,7 +3950,6 @@ declare namespace echarts {
                      * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
-                     *
                      * @default
                      * "inside"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.position
@@ -4262,7 +3964,6 @@ declare namespace echarts {
                      * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
-                     *
                      * @default
                      * 5
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.distance
@@ -4273,7 +3974,6 @@ declare namespace echarts {
                      * Whether to move text slightly.
                      * For example: `[30, 40]` means move `30` horizontally
                      * and move `40` vertically.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.offset
                      */
@@ -4318,7 +4018,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.formatter
                      */
                     formatter?: Function | string | undefined;
@@ -4328,7 +4027,6 @@ declare namespace echarts {
                      *
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
-                     *
                      *
                      * @default
                      * ""#fff""
@@ -4344,7 +4042,6 @@ declare namespace echarts {
                      * + `'normal'`
                      * + `'italic'`
                      * + `'oblique'`
-                     *
                      *
                      * @default
                      * "normal"
@@ -4363,7 +4060,6 @@ declare namespace echarts {
                      * + `'lighter'`
                      * + 100 | 200 | 300 | 400...
                      *
-                     *
                      * @default
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.fontWeight
@@ -4375,7 +4071,6 @@ declare namespace echarts {
                      *
                      * Can also be 'serif' , 'monospace', ...
                      *
-                     *
                      * @default
                      * "sans-serif"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.fontFamily
@@ -4384,7 +4079,6 @@ declare namespace echarts {
 
                     /**
                      * font size
-                     *
                      *
                      * @default
                      * 12
@@ -4406,7 +4100,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.verticalAlign
                      */
                     verticalAlign?: string | undefined;
@@ -4418,7 +4111,6 @@ declare namespace echarts {
                      * parent level will be used. For example:
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label)
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.lineHeight
                      */
@@ -4439,7 +4131,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.backgroundColor
@@ -4452,7 +4143,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.borderColor
@@ -4462,14 +4152,12 @@ declare namespace echarts {
                     /**
                      * Border width of the text fregment.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.borderWidth
                      */
                     borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.borderRadius
                      */
@@ -4486,14 +4174,12 @@ declare namespace echarts {
                      * Notice, `width` and `height` specifies the width and
                      * height of the content, without `padding`.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.padding
                      */
                     padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
-                     *
                      *
                      * @default
                      * "transparent"
@@ -4504,7 +4190,6 @@ declare namespace echarts {
                     /**
                      * Show blur of the text block.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.shadowBlur
                      */
                     shadowBlur?: number | undefined;
@@ -4512,14 +4197,12 @@ declare namespace echarts {
                     /**
                      * Shadow X offset of the text block.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.shadowOffsetY
                      */
@@ -4545,7 +4228,6 @@ declare namespace echarts {
                      *
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.width
                      */
                     width?: number | string | undefined;
@@ -4561,7 +4243,6 @@ declare namespace echarts {
                      *
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.height
                      */
                     height?: number | string | undefined;
@@ -4572,7 +4253,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.textBorderColor
@@ -4582,14 +4262,12 @@ declare namespace echarts {
                     /**
                      * Storke line width of the text.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.textBorderWidth
                      */
                     textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
-                     *
                      *
                      * @default
                      * "transparent"
@@ -4600,7 +4278,6 @@ declare namespace echarts {
                     /**
                      * Shadow blue of the text itself.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.textShadowBlur
                      */
                     textShadowBlur?: number | undefined;
@@ -4608,14 +4285,12 @@ declare namespace echarts {
                     /**
                      * Shadow X offset of the text itself.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.textShadowOffsetX
                      */
                     textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.textShadowOffsetY
                      */
@@ -4631,7 +4306,6 @@ declare namespace echarts {
                      * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich
                      */
                     rich?: {
@@ -4644,7 +4318,6 @@ declare namespace echarts {
                              *
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
-                             *
                              *
                              * @default
                              * ""#fff""
@@ -4660,7 +4333,6 @@ declare namespace echarts {
                              * + `'normal'`
                              * + `'italic'`
                              * + `'oblique'`
-                             *
                              *
                              * @default
                              * "normal"
@@ -4679,7 +4351,6 @@ declare namespace echarts {
                              * + `'lighter'`
                              * + 100 | 200 | 300 | 400...
                              *
-                             *
                              * @default
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -4691,7 +4362,6 @@ declare namespace echarts {
                              *
                              * Can also be 'serif' , 'monospace', ...
                              *
-                             *
                              * @default
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -4700,7 +4370,6 @@ declare namespace echarts {
 
                             /**
                              * font size
-                             *
                              *
                              * @default
                              * 12
@@ -4722,7 +4391,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
                             align?: string | undefined;
@@ -4741,7 +4409,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
                             verticalAlign?: string | undefined;
@@ -4753,7 +4420,6 @@ declare namespace echarts {
                              * in parent level will be used. For example:
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
@@ -4775,7 +4441,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -4788,7 +4453,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -4798,14 +4462,12 @@ declare namespace echarts {
                             /**
                              * Border width of the text fregment.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
                             borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
@@ -4824,14 +4486,12 @@ declare namespace echarts {
                              * Notice, `width` and `height` specifies the width
                              * and height of the content, without `padding`.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
                             padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -4842,7 +4502,6 @@ declare namespace echarts {
                             /**
                              * Show blur of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
                             shadowBlur?: number | undefined;
@@ -4850,14 +4509,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
                             shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
@@ -4885,7 +4542,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
                             width?: number | string | undefined;
@@ -4902,7 +4558,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
                             height?: number | string | undefined;
@@ -4913,7 +4568,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -4923,14 +4577,12 @@ declare namespace echarts {
                             /**
                              * Storke line width of the text.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
                             textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -4941,7 +4593,6 @@ declare namespace echarts {
                             /**
                              * Shadow blue of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
                             textShadowBlur?: number | undefined;
@@ -4949,14 +4600,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
                             textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
@@ -4997,7 +4646,6 @@ declare namespace echarts {
                  * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
                  * .
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle
                  */
                 itemStyle?: {
@@ -5016,14 +4664,12 @@ declare namespace echarts {
                      * >
                      * > [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.itemStyle)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.color
                      */
                     color?: EChartOption.Color | undefined;
 
                     /**
                      * border color, whose format is similar to that of `color`.
-                     *
                      *
                      * @default
                      * "white"
@@ -5034,7 +4680,6 @@ declare namespace echarts {
                     /**
                      * border width. No border when it is set to be 0.
                      *
-                     *
                      * @default
                      * 1
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.borderWidth
@@ -5044,7 +4689,6 @@ declare namespace echarts {
                     /**
                      * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
                      * `'solid'` by default.
-                     *
                      *
                      * @default
                      * "solid"
@@ -5061,14 +4705,12 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.itemStyle)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.shadowBlur
                      */
                     shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.shadowColor
                      */
@@ -5077,14 +4719,12 @@ declare namespace echarts {
                     /**
                      * Offset distance on the horizontal direction of shadow.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.itemStyle.shadowOffsetY
                      */
@@ -5094,7 +4734,6 @@ declare namespace echarts {
                      * Opacity of the component.
                      * Supports value from 0 to 1, and the component will not
                      * be drawn when set to 0.
-                     *
                      *
                      * @default
                      * 1
@@ -5107,7 +4746,6 @@ declare namespace echarts {
                  * Item style when mouse is hovering. See
                  * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
                  * .
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis
                  */
@@ -5130,7 +4768,6 @@ declare namespace echarts {
                      * `label`is taken to be at the same level with `itemStyle`,
                      * and has `emphasis` as `itemStyle` does.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label
                      */
                     label?: {
@@ -5150,7 +4787,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label)
                          *
-                         *
                          * @default
                          * "radial"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rotate
@@ -5165,7 +4801,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label)
                          *
-                         *
                          * @default
                          * "center"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.align
@@ -5177,14 +4812,12 @@ declare namespace echarts {
                          * (in degrees), then text is not displayed.
                          * This is used for hiding text for small piece of data.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.minAngle
                          */
                         minAngle?: number | undefined;
 
                         /**
                          * Whether to show label.
-                         *
                          *
                          * @default
                          * "true"
@@ -5224,7 +4857,6 @@ declare namespace echarts {
                          * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
-                         *
                          * @default
                          * "inside"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.position
@@ -5239,7 +4871,6 @@ declare namespace echarts {
                          * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
-                         *
                          * @default
                          * 5
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.distance
@@ -5250,7 +4881,6 @@ declare namespace echarts {
                          * Whether to move text slightly.
                          * For example: `[30, 40]` means move `30` horizontally
                          * and move `40` vertically.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.offset
                          */
@@ -5297,7 +4927,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.formatter
                          */
                         formatter?: Function | string | undefined;
@@ -5307,7 +4936,6 @@ declare namespace echarts {
                          *
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
-                         *
                          *
                          * @default
                          * ""#fff""
@@ -5323,7 +4951,6 @@ declare namespace echarts {
                          * + `'normal'`
                          * + `'italic'`
                          * + `'oblique'`
-                         *
                          *
                          * @default
                          * "normal"
@@ -5342,7 +4969,6 @@ declare namespace echarts {
                          * + `'lighter'`
                          * + 100 | 200 | 300 | 400...
                          *
-                         *
                          * @default
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.fontWeight
@@ -5354,7 +4980,6 @@ declare namespace echarts {
                          *
                          * Can also be 'serif' , 'monospace', ...
                          *
-                         *
                          * @default
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.fontFamily
@@ -5363,7 +4988,6 @@ declare namespace echarts {
 
                         /**
                          * font size
-                         *
                          *
                          * @default
                          * 12
@@ -5385,7 +5009,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.verticalAlign
                          */
                         verticalAlign?: string | undefined;
@@ -5397,7 +5020,6 @@ declare namespace echarts {
                          * in parent level will be used. For example:
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label)
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.lineHeight
                          */
@@ -5418,7 +5040,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.backgroundColor
@@ -5431,7 +5052,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.borderColor
@@ -5441,14 +5061,12 @@ declare namespace echarts {
                         /**
                          * Border width of the text fregment.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.borderWidth
                          */
                         borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.borderRadius
                          */
@@ -5466,14 +5084,12 @@ declare namespace echarts {
                          * Notice, `width` and `height` specifies the width
                          * and height of the content, without `padding`.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.padding
                          */
                         padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -5484,7 +5100,6 @@ declare namespace echarts {
                         /**
                          * Show blur of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.shadowBlur
                          */
                         shadowBlur?: number | undefined;
@@ -5492,14 +5107,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.shadowOffsetY
                          */
@@ -5527,7 +5140,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.width
                          */
                         width?: number | string | undefined;
@@ -5544,7 +5156,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.height
                          */
                         height?: number | string | undefined;
@@ -5555,7 +5166,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.textBorderColor
@@ -5565,14 +5175,12 @@ declare namespace echarts {
                         /**
                          * Storke line width of the text.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.textBorderWidth
                          */
                         textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -5583,7 +5191,6 @@ declare namespace echarts {
                         /**
                          * Shadow blue of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.textShadowBlur
                          */
                         textShadowBlur?: number | undefined;
@@ -5591,14 +5198,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.textShadowOffsetX
                          */
                         textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.textShadowOffsetY
                          */
@@ -5614,7 +5219,6 @@ declare namespace echarts {
                          * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich
                          */
                         rich?: {
@@ -5627,7 +5231,6 @@ declare namespace echarts {
                                  *
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
-                                 *
                                  *
                                  * @default
                                  * ""#fff""
@@ -5643,7 +5246,6 @@ declare namespace echarts {
                                  * + `'normal'`
                                  * + `'italic'`
                                  * + `'oblique'`
-                                 *
                                  *
                                  * @default
                                  * "normal"
@@ -5662,7 +5264,6 @@ declare namespace echarts {
                                  * + `'lighter'`
                                  * + 100 | 200 | 300 | 400...
                                  *
-                                 *
                                  * @default
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -5674,7 +5275,6 @@ declare namespace echarts {
                                  *
                                  * Can also be 'serif' , 'monospace', ...
                                  *
-                                 *
                                  * @default
                                  * "sans-serif"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -5683,7 +5283,6 @@ declare namespace echarts {
 
                                 /**
                                  * font size
-                                 *
                                  *
                                  * @default
                                  * 12
@@ -5707,7 +5306,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string | undefined;
@@ -5728,7 +5326,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string | undefined;
@@ -5741,7 +5338,6 @@ declare namespace echarts {
                                  * For example:
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
@@ -5764,7 +5360,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -5777,7 +5372,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -5787,14 +5381,12 @@ declare namespace echarts {
                                 /**
                                  * Border width of the text fregment.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
@@ -5814,14 +5406,12 @@ declare namespace echarts {
                                  * width and height of the content, without
                                  * `padding`.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -5832,7 +5422,6 @@ declare namespace echarts {
                                 /**
                                  * Show blur of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number | undefined;
@@ -5840,14 +5429,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
@@ -5879,7 +5466,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string | undefined;
@@ -5897,7 +5483,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string | undefined;
@@ -5908,7 +5493,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -5918,14 +5502,12 @@ declare namespace echarts {
                                 /**
                                  * Storke line width of the text.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -5936,7 +5518,6 @@ declare namespace echarts {
                                 /**
                                  * Shadow blue of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number | undefined;
@@ -5944,14 +5525,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
@@ -5993,7 +5572,6 @@ declare namespace echarts {
                      * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
                      * .
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle
                      */
                     itemStyle?: {
@@ -6013,7 +5591,6 @@ declare namespace echarts {
                          * >
                          * > [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.itemStyle)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.color
                          */
                         color?: EChartOption.Color | undefined;
@@ -6021,7 +5598,6 @@ declare namespace echarts {
                         /**
                          * border color, whose format is similar to that of
                          * `color`.
-                         *
                          *
                          * @default
                          * "white"
@@ -6032,7 +5608,6 @@ declare namespace echarts {
                         /**
                          * border width. No border when it is set to be 0.
                          *
-                         *
                          * @default
                          * 1
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.borderWidth
@@ -6042,7 +5617,6 @@ declare namespace echarts {
                         /**
                          * Border type, which can be `'solid'`, `'dashed'`,
                          * or `'dotted'`. `'solid'` by default.
-                         *
                          *
                          * @default
                          * "solid"
@@ -6059,14 +5633,12 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.emphasis.itemStyle)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.shadowBlur
                          */
                         shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.shadowColor
                          */
@@ -6075,14 +5647,12 @@ declare namespace echarts {
                         /**
                          * Offset distance on the horizontal direction of shadow.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.emphasis.itemStyle.shadowOffsetY
                          */
@@ -6092,7 +5662,6 @@ declare namespace echarts {
                          * Opacity of the component.
                          * Supports value from 0 to 1, and the component will
                          * not be drawn when set to 0.
-                         *
                          *
                          * @default
                          * 1
@@ -6106,7 +5675,6 @@ declare namespace echarts {
                  * Item style when mouse is hovering related items. See
                  * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
                  * .
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight
                  */
@@ -6129,7 +5697,6 @@ declare namespace echarts {
                      * `label`is taken to be at the same level with `itemStyle`,
                      * and has `emphasis` as `itemStyle` does.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label
                      */
                     label?: {
@@ -6149,7 +5716,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label)
                          *
-                         *
                          * @default
                          * "radial"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rotate
@@ -6164,7 +5730,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label)
                          *
-                         *
                          * @default
                          * "center"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.align
@@ -6176,14 +5741,12 @@ declare namespace echarts {
                          * (in degrees), then text is not displayed.
                          * This is used for hiding text for small piece of data.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.minAngle
                          */
                         minAngle?: number | undefined;
 
                         /**
                          * Whether to show label.
-                         *
                          *
                          * @default
                          * "true"
@@ -6223,7 +5786,6 @@ declare namespace echarts {
                          * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
-                         *
                          * @default
                          * "inside"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.position
@@ -6238,7 +5800,6 @@ declare namespace echarts {
                          * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
-                         *
                          * @default
                          * 5
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.distance
@@ -6249,7 +5810,6 @@ declare namespace echarts {
                          * Whether to move text slightly.
                          * For example: `[30, 40]` means move `30` horizontally
                          * and move `40` vertically.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.offset
                          */
@@ -6296,7 +5856,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.formatter
                          */
                         formatter?: Function | string | undefined;
@@ -6306,7 +5865,6 @@ declare namespace echarts {
                          *
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
-                         *
                          *
                          * @default
                          * ""#fff""
@@ -6322,7 +5880,6 @@ declare namespace echarts {
                          * + `'normal'`
                          * + `'italic'`
                          * + `'oblique'`
-                         *
                          *
                          * @default
                          * "normal"
@@ -6341,7 +5898,6 @@ declare namespace echarts {
                          * + `'lighter'`
                          * + 100 | 200 | 300 | 400...
                          *
-                         *
                          * @default
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.fontWeight
@@ -6353,7 +5909,6 @@ declare namespace echarts {
                          *
                          * Can also be 'serif' , 'monospace', ...
                          *
-                         *
                          * @default
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.fontFamily
@@ -6362,7 +5917,6 @@ declare namespace echarts {
 
                         /**
                          * font size
-                         *
                          *
                          * @default
                          * 12
@@ -6384,7 +5938,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.verticalAlign
                          */
                         verticalAlign?: string | undefined;
@@ -6396,7 +5949,6 @@ declare namespace echarts {
                          * in parent level will be used. For example:
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label)
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.lineHeight
                          */
@@ -6417,7 +5969,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.backgroundColor
@@ -6430,7 +5981,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.borderColor
@@ -6440,14 +5990,12 @@ declare namespace echarts {
                         /**
                          * Border width of the text fregment.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.borderWidth
                          */
                         borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.borderRadius
                          */
@@ -6465,14 +6013,12 @@ declare namespace echarts {
                          * Notice, `width` and `height` specifies the width
                          * and height of the content, without `padding`.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.padding
                          */
                         padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -6483,7 +6029,6 @@ declare namespace echarts {
                         /**
                          * Show blur of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.shadowBlur
                          */
                         shadowBlur?: number | undefined;
@@ -6491,14 +6036,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.shadowOffsetY
                          */
@@ -6526,7 +6069,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.width
                          */
                         width?: number | string | undefined;
@@ -6543,7 +6085,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.height
                          */
                         height?: number | string | undefined;
@@ -6554,7 +6095,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.textBorderColor
@@ -6564,14 +6104,12 @@ declare namespace echarts {
                         /**
                          * Storke line width of the text.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.textBorderWidth
                          */
                         textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -6582,7 +6120,6 @@ declare namespace echarts {
                         /**
                          * Shadow blue of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.textShadowBlur
                          */
                         textShadowBlur?: number | undefined;
@@ -6590,14 +6127,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.textShadowOffsetX
                          */
                         textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.textShadowOffsetY
                          */
@@ -6613,7 +6148,6 @@ declare namespace echarts {
                          * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich
                          */
                         rich?: {
@@ -6626,7 +6160,6 @@ declare namespace echarts {
                                  *
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
-                                 *
                                  *
                                  * @default
                                  * ""#fff""
@@ -6642,7 +6175,6 @@ declare namespace echarts {
                                  * + `'normal'`
                                  * + `'italic'`
                                  * + `'oblique'`
-                                 *
                                  *
                                  * @default
                                  * "normal"
@@ -6661,7 +6193,6 @@ declare namespace echarts {
                                  * + `'lighter'`
                                  * + 100 | 200 | 300 | 400...
                                  *
-                                 *
                                  * @default
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -6673,7 +6204,6 @@ declare namespace echarts {
                                  *
                                  * Can also be 'serif' , 'monospace', ...
                                  *
-                                 *
                                  * @default
                                  * "sans-serif"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -6682,7 +6212,6 @@ declare namespace echarts {
 
                                 /**
                                  * font size
-                                 *
                                  *
                                  * @default
                                  * 12
@@ -6706,7 +6235,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string | undefined;
@@ -6727,7 +6255,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string | undefined;
@@ -6740,7 +6267,6 @@ declare namespace echarts {
                                  * For example:
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
@@ -6763,7 +6289,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -6776,7 +6301,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -6786,14 +6310,12 @@ declare namespace echarts {
                                 /**
                                  * Border width of the text fregment.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
@@ -6813,14 +6335,12 @@ declare namespace echarts {
                                  * width and height of the content, without
                                  * `padding`.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -6831,7 +6351,6 @@ declare namespace echarts {
                                 /**
                                  * Show blur of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number | undefined;
@@ -6839,14 +6358,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
@@ -6878,7 +6395,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string | undefined;
@@ -6896,7 +6412,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string | undefined;
@@ -6907,7 +6422,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -6917,14 +6431,12 @@ declare namespace echarts {
                                 /**
                                  * Storke line width of the text.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -6935,7 +6447,6 @@ declare namespace echarts {
                                 /**
                                  * Shadow blue of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number | undefined;
@@ -6943,14 +6454,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
@@ -6992,7 +6501,6 @@ declare namespace echarts {
                      * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
                      * .
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle
                      */
                     itemStyle?: {
@@ -7012,7 +6520,6 @@ declare namespace echarts {
                          * >
                          * > [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.itemStyle)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.color
                          */
                         color?: EChartOption.Color | undefined;
@@ -7020,7 +6527,6 @@ declare namespace echarts {
                         /**
                          * border color, whose format is similar to that of
                          * `color`.
-                         *
                          *
                          * @default
                          * "white"
@@ -7031,7 +6537,6 @@ declare namespace echarts {
                         /**
                          * border width. No border when it is set to be 0.
                          *
-                         *
                          * @default
                          * 1
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.borderWidth
@@ -7041,7 +6546,6 @@ declare namespace echarts {
                         /**
                          * Border type, which can be `'solid'`, `'dashed'`,
                          * or `'dotted'`. `'solid'` by default.
-                         *
                          *
                          * @default
                          * "solid"
@@ -7058,14 +6562,12 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.highlight.itemStyle)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.shadowBlur
                          */
                         shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.shadowColor
                          */
@@ -7074,14 +6576,12 @@ declare namespace echarts {
                         /**
                          * Offset distance on the horizontal direction of shadow.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.highlight.itemStyle.shadowOffsetY
                          */
@@ -7091,7 +6591,6 @@ declare namespace echarts {
                          * Opacity of the component.
                          * Supports value from 0 to 1, and the component will
                          * not be drawn when set to 0.
-                         *
                          *
                          * @default
                          * 1
@@ -7105,7 +6604,6 @@ declare namespace echarts {
                  * Item style when mouse is hovering unrelated items. See
                  * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
                  * .
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay
                  */
@@ -7128,7 +6626,6 @@ declare namespace echarts {
                      * `label`is taken to be at the same level with `itemStyle`,
                      * and has `emphasis` as `itemStyle` does.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label
                      */
                     label?: {
@@ -7148,7 +6645,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label)
                          *
-                         *
                          * @default
                          * "radial"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rotate
@@ -7163,7 +6659,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label)
                          *
-                         *
                          * @default
                          * "center"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.align
@@ -7175,14 +6670,12 @@ declare namespace echarts {
                          * (in degrees), then text is not displayed.
                          * This is used for hiding text for small piece of data.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.minAngle
                          */
                         minAngle?: number | undefined;
 
                         /**
                          * Whether to show label.
-                         *
                          *
                          * @default
                          * "true"
@@ -7222,7 +6715,6 @@ declare namespace echarts {
                          * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
-                         *
                          * @default
                          * "inside"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.position
@@ -7237,7 +6729,6 @@ declare namespace echarts {
                          * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
-                         *
                          * @default
                          * 5
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.distance
@@ -7248,7 +6739,6 @@ declare namespace echarts {
                          * Whether to move text slightly.
                          * For example: `[30, 40]` means move `30` horizontally
                          * and move `40` vertically.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.offset
                          */
@@ -7295,7 +6785,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.formatter
                          */
                         formatter?: Function | string | undefined;
@@ -7305,7 +6794,6 @@ declare namespace echarts {
                          *
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
-                         *
                          *
                          * @default
                          * ""#fff""
@@ -7321,7 +6809,6 @@ declare namespace echarts {
                          * + `'normal'`
                          * + `'italic'`
                          * + `'oblique'`
-                         *
                          *
                          * @default
                          * "normal"
@@ -7340,7 +6827,6 @@ declare namespace echarts {
                          * + `'lighter'`
                          * + 100 | 200 | 300 | 400...
                          *
-                         *
                          * @default
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.fontWeight
@@ -7352,7 +6838,6 @@ declare namespace echarts {
                          *
                          * Can also be 'serif' , 'monospace', ...
                          *
-                         *
                          * @default
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.fontFamily
@@ -7361,7 +6846,6 @@ declare namespace echarts {
 
                         /**
                          * font size
-                         *
                          *
                          * @default
                          * 12
@@ -7383,7 +6867,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.verticalAlign
                          */
                         verticalAlign?: string | undefined;
@@ -7395,7 +6878,6 @@ declare namespace echarts {
                          * in parent level will be used. For example:
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label)
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.lineHeight
                          */
@@ -7416,7 +6898,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.backgroundColor
@@ -7429,7 +6910,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.borderColor
@@ -7439,14 +6919,12 @@ declare namespace echarts {
                         /**
                          * Border width of the text fregment.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.borderWidth
                          */
                         borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.borderRadius
                          */
@@ -7464,14 +6942,12 @@ declare namespace echarts {
                          * Notice, `width` and `height` specifies the width
                          * and height of the content, without `padding`.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.padding
                          */
                         padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -7482,7 +6958,6 @@ declare namespace echarts {
                         /**
                          * Show blur of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.shadowBlur
                          */
                         shadowBlur?: number | undefined;
@@ -7490,14 +6965,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.shadowOffsetY
                          */
@@ -7525,7 +6998,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.width
                          */
                         width?: number | string | undefined;
@@ -7542,7 +7014,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.height
                          */
                         height?: number | string | undefined;
@@ -7553,7 +7024,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.textBorderColor
@@ -7563,14 +7033,12 @@ declare namespace echarts {
                         /**
                          * Storke line width of the text.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.textBorderWidth
                          */
                         textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -7581,7 +7049,6 @@ declare namespace echarts {
                         /**
                          * Shadow blue of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.textShadowBlur
                          */
                         textShadowBlur?: number | undefined;
@@ -7589,14 +7056,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.textShadowOffsetX
                          */
                         textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.textShadowOffsetY
                          */
@@ -7612,7 +7077,6 @@ declare namespace echarts {
                          * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich
                          */
                         rich?: {
@@ -7625,7 +7089,6 @@ declare namespace echarts {
                                  *
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
-                                 *
                                  *
                                  * @default
                                  * ""#fff""
@@ -7641,7 +7104,6 @@ declare namespace echarts {
                                  * + `'normal'`
                                  * + `'italic'`
                                  * + `'oblique'`
-                                 *
                                  *
                                  * @default
                                  * "normal"
@@ -7660,7 +7122,6 @@ declare namespace echarts {
                                  * + `'lighter'`
                                  * + 100 | 200 | 300 | 400...
                                  *
-                                 *
                                  * @default
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -7672,7 +7133,6 @@ declare namespace echarts {
                                  *
                                  * Can also be 'serif' , 'monospace', ...
                                  *
-                                 *
                                  * @default
                                  * "sans-serif"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -7681,7 +7141,6 @@ declare namespace echarts {
 
                                 /**
                                  * font size
-                                 *
                                  *
                                  * @default
                                  * 12
@@ -7705,7 +7164,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string | undefined;
@@ -7726,7 +7184,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string | undefined;
@@ -7739,7 +7196,6 @@ declare namespace echarts {
                                  * For example:
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
@@ -7762,7 +7218,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -7775,7 +7230,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -7785,14 +7239,12 @@ declare namespace echarts {
                                 /**
                                  * Border width of the text fregment.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
@@ -7812,14 +7264,12 @@ declare namespace echarts {
                                  * width and height of the content, without
                                  * `padding`.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -7830,7 +7280,6 @@ declare namespace echarts {
                                 /**
                                  * Show blur of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number | undefined;
@@ -7838,14 +7287,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
@@ -7877,7 +7324,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string | undefined;
@@ -7895,7 +7341,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string | undefined;
@@ -7906,7 +7351,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -7916,14 +7360,12 @@ declare namespace echarts {
                                 /**
                                  * Storke line width of the text.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -7934,7 +7376,6 @@ declare namespace echarts {
                                 /**
                                  * Shadow blue of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number | undefined;
@@ -7942,14 +7383,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
@@ -7991,7 +7430,6 @@ declare namespace echarts {
                      * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
                      * .
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle
                      */
                     itemStyle?: {
@@ -8011,7 +7449,6 @@ declare namespace echarts {
                          * >
                          * > [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.itemStyle)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.color
                          */
                         color?: EChartOption.Color | undefined;
@@ -8019,7 +7456,6 @@ declare namespace echarts {
                         /**
                          * border color, whose format is similar to that of
                          * `color`.
-                         *
                          *
                          * @default
                          * "white"
@@ -8030,7 +7466,6 @@ declare namespace echarts {
                         /**
                          * border width. No border when it is set to be 0.
                          *
-                         *
                          * @default
                          * 1
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.borderWidth
@@ -8040,7 +7475,6 @@ declare namespace echarts {
                         /**
                          * Border type, which can be `'solid'`, `'dashed'`,
                          * or `'dotted'`. `'solid'` by default.
-                         *
                          *
                          * @default
                          * "solid"
@@ -8057,14 +7491,12 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.levels.downplay.itemStyle)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.shadowBlur
                          */
                         shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.shadowColor
                          */
@@ -8073,14 +7505,12 @@ declare namespace echarts {
                         /**
                          * Offset distance on the horizontal direction of shadow.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.levels.downplay.itemStyle.shadowOffsetY
                          */
@@ -8090,7 +7520,6 @@ declare namespace echarts {
                          * Opacity of the component.
                          * Supports value from 0 to 1, and the component will
                          * not be drawn when set to 0.
-                         *
                          *
                          * @default
                          * 1
@@ -8104,7 +7533,6 @@ declare namespace echarts {
             /**
              * Whether to enable animation.
              *
-             *
              * @default
              * "true"
              * @see https://echarts.apache.org/en/option.html#series-sunburst.animation
@@ -8115,7 +7543,6 @@ declare namespace echarts {
              * Whether to set graphic number threshold to animation.
              * Animation will be disabled when graphic number is larger than
              * threshold.
-             *
              *
              * @default
              * 2000
@@ -8129,7 +7556,6 @@ declare namespace echarts {
              *
              * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst)
              *
-             *
              * @default
              * 1000
              * @see https://echarts.apache.org/en/option.html#series-sunburst.animationDuration
@@ -8141,7 +7567,6 @@ declare namespace echarts {
              * Varied easing effects can be found at
              * [easing effect example](https://echarts.apache.org/examples/en/editor.html?c=line-easing)
              * .
-             *
              *
              * @default
              * "cubicOut"
@@ -8161,7 +7586,6 @@ declare namespace echarts {
              * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
              * for more information.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-sunburst.animationDelay
              */
             animationDelay?: Function | number | undefined;
@@ -8172,7 +7596,6 @@ declare namespace echarts {
              *
              * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst)
              *
-             *
              * @default
              * 500
              * @see https://echarts.apache.org/en/option.html#series-sunburst.animationDurationUpdate
@@ -8181,7 +7604,6 @@ declare namespace echarts {
 
             /**
              * Easing method used for animation.
-             *
              *
              * @default
              * "cubicOut"
@@ -8201,7 +7623,6 @@ declare namespace echarts {
              * [this example](https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay)
              * for more information.
              *
-             *
              * @see https://echarts.apache.org/en/option.html#series-sunburst.animationDelayUpdate
              */
             animationDelayUpdate?: Function | number | undefined;
@@ -8214,14 +7635,12 @@ declare namespace echarts {
                  * If contains children, value can be left unset, and sum of
                  * children values will be used in this case.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.value
                  */
                 value?: number | undefined;
 
                 /**
                  * Name displayed in each sector.
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.name
                  */
@@ -8237,7 +7656,6 @@ declare namespace echarts {
                  * [series-sunburst.data.target](https://echarts.apache.org/en/option.html#series-sunburst.data.target)
                  * .
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.link
                  */
                 link?: string | undefined;
@@ -8247,7 +7665,6 @@ declare namespace echarts {
                  * `'blank'` or `'self'`. See
                  * [series-sunburst.data.link](https://echarts.apache.org/en/option.html#series-sunburst.data.link)
                  * .
-                 *
                  *
                  * @default
                  * "blank"
@@ -8273,7 +7690,6 @@ declare namespace echarts {
                  * `label`is taken to be at the same level with `itemStyle`,
                  * and has `emphasis` as `itemStyle` does.
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label
                  */
                 label?: {
@@ -8293,7 +7709,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.label)
                      *
-                     *
                      * @default
                      * "radial"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.rotate
@@ -8308,7 +7723,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.label)
                      *
-                     *
                      * @default
                      * "center"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.align
@@ -8320,14 +7734,12 @@ declare namespace echarts {
                      * degrees), then text is not displayed.
                      * This is used for hiding text for small piece of data.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.minAngle
                      */
                     minAngle?: number | undefined;
 
                     /**
                      * Whether to show label.
-                     *
                      *
                      * @default
                      * "true"
@@ -8367,7 +7779,6 @@ declare namespace echarts {
                      * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                      * .
                      *
-                     *
                      * @default
                      * "inside"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.position
@@ -8382,7 +7793,6 @@ declare namespace echarts {
                      * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                      * .
                      *
-                     *
                      * @default
                      * 5
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.distance
@@ -8393,7 +7803,6 @@ declare namespace echarts {
                      * Whether to move text slightly.
                      * For example: `[30, 40]` means move `30` horizontally
                      * and move `40` vertically.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.offset
                      */
@@ -8438,7 +7847,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.label)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.formatter
                      */
                     formatter?: Function | string | undefined;
@@ -8448,7 +7856,6 @@ declare namespace echarts {
                      *
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
-                     *
                      *
                      * @default
                      * ""#fff""
@@ -8464,7 +7871,6 @@ declare namespace echarts {
                      * + `'normal'`
                      * + `'italic'`
                      * + `'oblique'`
-                     *
                      *
                      * @default
                      * "normal"
@@ -8483,7 +7889,6 @@ declare namespace echarts {
                      * + `'lighter'`
                      * + 100 | 200 | 300 | 400...
                      *
-                     *
                      * @default
                      * "normal"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.fontWeight
@@ -8495,7 +7900,6 @@ declare namespace echarts {
                      *
                      * Can also be 'serif' , 'monospace', ...
                      *
-                     *
                      * @default
                      * "sans-serif"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.fontFamily
@@ -8504,7 +7908,6 @@ declare namespace echarts {
 
                     /**
                      * font size
-                     *
                      *
                      * @default
                      * 12
@@ -8526,7 +7929,6 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.label)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.verticalAlign
                      */
                     verticalAlign?: string | undefined;
@@ -8538,7 +7940,6 @@ declare namespace echarts {
                      * parent level will be used. For example:
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.label)
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.lineHeight
                      */
@@ -8559,7 +7960,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.backgroundColor
@@ -8572,7 +7972,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.borderColor
@@ -8582,14 +7981,12 @@ declare namespace echarts {
                     /**
                      * Border width of the text fregment.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.borderWidth
                      */
                     borderWidth?: number | undefined;
 
                     /**
                      * Border radius of the text fregment.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.borderRadius
                      */
@@ -8606,14 +8003,12 @@ declare namespace echarts {
                      * Notice, `width` and `height` specifies the width and
                      * height of the content, without `padding`.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.padding
                      */
                     padding?: any[] | number | undefined;
 
                     /**
                      * Shadow color of the text block.
-                     *
                      *
                      * @default
                      * "transparent"
@@ -8624,7 +8019,6 @@ declare namespace echarts {
                     /**
                      * Show blur of the text block.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.shadowBlur
                      */
                     shadowBlur?: number | undefined;
@@ -8632,14 +8026,12 @@ declare namespace echarts {
                     /**
                      * Shadow X offset of the text block.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text block.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.shadowOffsetY
                      */
@@ -8665,7 +8057,6 @@ declare namespace echarts {
                      *
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.width
                      */
                     width?: number | string | undefined;
@@ -8681,7 +8072,6 @@ declare namespace echarts {
                      *
                      * Notice, `width` and `height` only work when `rich` specified.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.height
                      */
                     height?: number | string | undefined;
@@ -8692,7 +8082,6 @@ declare namespace echarts {
                      * If set as `'auto'`, the color will assigned as visual
                      * color, such as series color.
                      *
-                     *
                      * @default
                      * "transparent"
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.textBorderColor
@@ -8702,14 +8091,12 @@ declare namespace echarts {
                     /**
                      * Storke line width of the text.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.textBorderWidth
                      */
                     textBorderWidth?: number | undefined;
 
                     /**
                      * Shadow color of the text itself.
-                     *
                      *
                      * @default
                      * "transparent"
@@ -8720,7 +8107,6 @@ declare namespace echarts {
                     /**
                      * Shadow blue of the text itself.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.textShadowBlur
                      */
                     textShadowBlur?: number | undefined;
@@ -8728,14 +8114,12 @@ declare namespace echarts {
                     /**
                      * Shadow X offset of the text itself.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.textShadowOffsetX
                      */
                     textShadowOffsetX?: number | undefined;
 
                     /**
                      * Shadow Y offset of the text itself.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.textShadowOffsetY
                      */
@@ -8751,7 +8135,6 @@ declare namespace echarts {
                      * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                      * please.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.rich
                      */
                     rich?: {
@@ -8764,7 +8147,6 @@ declare namespace echarts {
                              *
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
-                             *
                              *
                              * @default
                              * ""#fff""
@@ -8780,7 +8162,6 @@ declare namespace echarts {
                              * + `'normal'`
                              * + `'italic'`
                              * + `'oblique'`
-                             *
                              *
                              * @default
                              * "normal"
@@ -8799,7 +8180,6 @@ declare namespace echarts {
                              * + `'lighter'`
                              * + 100 | 200 | 300 | 400...
                              *
-                             *
                              * @default
                              * "normal"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -8811,7 +8191,6 @@ declare namespace echarts {
                              *
                              * Can also be 'serif' , 'monospace', ...
                              *
-                             *
                              * @default
                              * "sans-serif"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -8820,7 +8199,6 @@ declare namespace echarts {
 
                             /**
                              * font size
-                             *
                              *
                              * @default
                              * 12
@@ -8842,7 +8220,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.align
                              */
                             align?: string | undefined;
@@ -8861,7 +8238,6 @@ declare namespace echarts {
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E)
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                              */
                             verticalAlign?: string | undefined;
@@ -8873,7 +8249,6 @@ declare namespace echarts {
                              * in parent level will be used. For example:
                              *
                              * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E)
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                              */
@@ -8895,7 +8270,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -8908,7 +8282,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -8918,14 +8291,12 @@ declare namespace echarts {
                             /**
                              * Border width of the text fregment.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                              */
                             borderWidth?: number | undefined;
 
                             /**
                              * Border radius of the text fregment.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                              */
@@ -8944,14 +8315,12 @@ declare namespace echarts {
                              * Notice, `width` and `height` specifies the width
                              * and height of the content, without `padding`.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                              */
                             padding?: any[] | number | undefined;
 
                             /**
                              * Shadow color of the text block.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -8962,7 +8331,6 @@ declare namespace echarts {
                             /**
                              * Show blur of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                              */
                             shadowBlur?: number | undefined;
@@ -8970,14 +8338,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text block.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                              */
                             shadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text block.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                              */
@@ -9005,7 +8371,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.width
                              */
                             width?: number | string | undefined;
@@ -9022,7 +8387,6 @@ declare namespace echarts {
                              * Notice, `width` and `height` only work when `rich`
                              * specified.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.height
                              */
                             height?: number | string | undefined;
@@ -9033,7 +8397,6 @@ declare namespace echarts {
                              * If set as `'auto'`, the color will assigned as
                              * visual color, such as series color.
                              *
-                             *
                              * @default
                              * "transparent"
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -9043,14 +8406,12 @@ declare namespace echarts {
                             /**
                              * Storke line width of the text.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                              */
                             textBorderWidth?: number | undefined;
 
                             /**
                              * Shadow color of the text itself.
-                             *
                              *
                              * @default
                              * "transparent"
@@ -9061,7 +8422,6 @@ declare namespace echarts {
                             /**
                              * Shadow blue of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                              */
                             textShadowBlur?: number | undefined;
@@ -9069,14 +8429,12 @@ declare namespace echarts {
                             /**
                              * Shadow X offset of the text itself.
                              *
-                             *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                              */
                             textShadowOffsetX?: number | undefined;
 
                             /**
                              * Shadow Y offset of the text itself.
-                             *
                              *
                              * @see https://echarts.apache.org/en/option.html#series-sunburst.data.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                              */
@@ -9117,7 +8475,6 @@ declare namespace echarts {
                  * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
                  * .
                  *
-                 *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle
                  */
                 itemStyle?: {
@@ -9136,14 +8493,12 @@ declare namespace echarts {
                      * >
                      * > [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.itemStyle)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle.color
                      */
                     color?: EChartOption.Color | undefined;
 
                     /**
                      * border color, whose format is similar to that of `color`.
-                     *
                      *
                      * @default
                      * "white"
@@ -9154,7 +8509,6 @@ declare namespace echarts {
                     /**
                      * border width. No border when it is set to be 0.
                      *
-                     *
                      * @default
                      * 1
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle.borderWidth
@@ -9164,7 +8518,6 @@ declare namespace echarts {
                     /**
                      * Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`.
                      * `'solid'` by default.
-                     *
                      *
                      * @default
                      * "solid"
@@ -9181,14 +8534,12 @@ declare namespace echarts {
                      *
                      * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.itemStyle)
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle.shadowBlur
                      */
                     shadowBlur?: number | undefined;
 
                     /**
                      * Shadow color. Support same format as `color`.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle.shadowColor
                      */
@@ -9197,14 +8548,12 @@ declare namespace echarts {
                     /**
                      * Offset distance on the horizontal direction of shadow.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle.shadowOffsetX
                      */
                     shadowOffsetX?: number | undefined;
 
                     /**
                      * Offset distance on the vertical direction of shadow.
-                     *
                      *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.itemStyle.shadowOffsetY
                      */
@@ -9214,7 +8563,6 @@ declare namespace echarts {
                      * Opacity of the component.
                      * Supports value from 0 to 1, and the component will not
                      * be drawn when set to 0.
-                     *
                      *
                      * @default
                      * 1
@@ -9227,7 +8575,6 @@ declare namespace echarts {
                  * Item style when mouse is hovering. See
                  * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
                  * .
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis
                  */
@@ -9250,7 +8597,6 @@ declare namespace echarts {
                      * `label`is taken to be at the same level with `itemStyle`,
                      * and has `emphasis` as `itemStyle` does.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label
                      */
                     label?: {
@@ -9270,7 +8616,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.emphasis.label)
                          *
-                         *
                          * @default
                          * "radial"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.rotate
@@ -9285,7 +8630,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.emphasis.label)
                          *
-                         *
                          * @default
                          * "center"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.align
@@ -9297,14 +8641,12 @@ declare namespace echarts {
                          * (in degrees), then text is not displayed.
                          * This is used for hiding text for small piece of data.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.minAngle
                          */
                         minAngle?: number | undefined;
 
                         /**
                          * Whether to show label.
-                         *
                          *
                          * @default
                          * "true"
@@ -9344,7 +8686,6 @@ declare namespace echarts {
                          * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
-                         *
                          * @default
                          * "inside"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.position
@@ -9359,7 +8700,6 @@ declare namespace echarts {
                          * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
-                         *
                          * @default
                          * 5
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.distance
@@ -9370,7 +8710,6 @@ declare namespace echarts {
                          * Whether to move text slightly.
                          * For example: `[30, 40]` means move `30` horizontally
                          * and move `40` vertically.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.offset
                          */
@@ -9417,7 +8756,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.emphasis.label)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.formatter
                          */
                         formatter?: Function | string | undefined;
@@ -9427,7 +8765,6 @@ declare namespace echarts {
                          *
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
-                         *
                          *
                          * @default
                          * ""#fff""
@@ -9443,7 +8780,6 @@ declare namespace echarts {
                          * + `'normal'`
                          * + `'italic'`
                          * + `'oblique'`
-                         *
                          *
                          * @default
                          * "normal"
@@ -9462,7 +8798,6 @@ declare namespace echarts {
                          * + `'lighter'`
                          * + 100 | 200 | 300 | 400...
                          *
-                         *
                          * @default
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.fontWeight
@@ -9474,7 +8809,6 @@ declare namespace echarts {
                          *
                          * Can also be 'serif' , 'monospace', ...
                          *
-                         *
                          * @default
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.fontFamily
@@ -9483,7 +8817,6 @@ declare namespace echarts {
 
                         /**
                          * font size
-                         *
                          *
                          * @default
                          * 12
@@ -9505,7 +8838,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.emphasis.label)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.verticalAlign
                          */
                         verticalAlign?: string | undefined;
@@ -9517,7 +8849,6 @@ declare namespace echarts {
                          * in parent level will be used. For example:
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.emphasis.label)
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.lineHeight
                          */
@@ -9538,7 +8869,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.backgroundColor
@@ -9551,7 +8881,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.borderColor
@@ -9561,14 +8890,12 @@ declare namespace echarts {
                         /**
                          * Border width of the text fregment.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.borderWidth
                          */
                         borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.borderRadius
                          */
@@ -9586,14 +8913,12 @@ declare namespace echarts {
                          * Notice, `width` and `height` specifies the width
                          * and height of the content, without `padding`.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.padding
                          */
                         padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -9604,7 +8929,6 @@ declare namespace echarts {
                         /**
                          * Show blur of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.shadowBlur
                          */
                         shadowBlur?: number | undefined;
@@ -9612,14 +8936,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.shadowOffsetY
                          */
@@ -9647,7 +8969,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.width
                          */
                         width?: number | string | undefined;
@@ -9664,7 +8985,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.height
                          */
                         height?: number | string | undefined;
@@ -9675,7 +8995,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.textBorderColor
@@ -9685,14 +9004,12 @@ declare namespace echarts {
                         /**
                          * Storke line width of the text.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.textBorderWidth
                          */
                         textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -9703,7 +9020,6 @@ declare namespace echarts {
                         /**
                          * Shadow blue of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.textShadowBlur
                          */
                         textShadowBlur?: number | undefined;
@@ -9711,14 +9027,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.textShadowOffsetX
                          */
                         textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.textShadowOffsetY
                          */
@@ -9734,7 +9048,6 @@ declare namespace echarts {
                          * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.rich
                          */
                         rich?: {
@@ -9747,7 +9060,6 @@ declare namespace echarts {
                                  *
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
-                                 *
                                  *
                                  * @default
                                  * ""#fff""
@@ -9763,7 +9075,6 @@ declare namespace echarts {
                                  * + `'normal'`
                                  * + `'italic'`
                                  * + `'oblique'`
-                                 *
                                  *
                                  * @default
                                  * "normal"
@@ -9782,7 +9093,6 @@ declare namespace echarts {
                                  * + `'lighter'`
                                  * + 100 | 200 | 300 | 400...
                                  *
-                                 *
                                  * @default
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -9794,7 +9104,6 @@ declare namespace echarts {
                                  *
                                  * Can also be 'serif' , 'monospace', ...
                                  *
-                                 *
                                  * @default
                                  * "sans-serif"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -9803,7 +9112,6 @@ declare namespace echarts {
 
                                 /**
                                  * font size
-                                 *
                                  *
                                  * @default
                                  * 12
@@ -9827,7 +9135,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string | undefined;
@@ -9848,7 +9155,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string | undefined;
@@ -9861,7 +9167,6 @@ declare namespace echarts {
                                  * For example:
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
@@ -9884,7 +9189,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -9897,7 +9201,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -9907,14 +9210,12 @@ declare namespace echarts {
                                 /**
                                  * Border width of the text fregment.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
@@ -9934,14 +9235,12 @@ declare namespace echarts {
                                  * width and height of the content, without
                                  * `padding`.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -9952,7 +9251,6 @@ declare namespace echarts {
                                 /**
                                  * Show blur of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number | undefined;
@@ -9960,14 +9258,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
@@ -9999,7 +9295,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string | undefined;
@@ -10017,7 +9312,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string | undefined;
@@ -10028,7 +9322,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -10038,14 +9331,12 @@ declare namespace echarts {
                                 /**
                                  * Storke line width of the text.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -10056,7 +9347,6 @@ declare namespace echarts {
                                 /**
                                  * Shadow blue of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number | undefined;
@@ -10064,14 +9354,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
@@ -10113,7 +9401,6 @@ declare namespace echarts {
                      * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
                      * .
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.itemStyle
                      */
                     itemStyle?: {
@@ -10133,7 +9420,6 @@ declare namespace echarts {
                          * >
                          * > [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.emphasis.itemStyle)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.itemStyle.color
                          */
                         color?: EChartOption.Color | undefined;
@@ -10141,7 +9427,6 @@ declare namespace echarts {
                         /**
                          * border color, whose format is similar to that of
                          * `color`.
-                         *
                          *
                          * @default
                          * "white"
@@ -10152,7 +9437,6 @@ declare namespace echarts {
                         /**
                          * border width. No border when it is set to be 0.
                          *
-                         *
                          * @default
                          * 1
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.itemStyle.borderWidth
@@ -10162,7 +9446,6 @@ declare namespace echarts {
                         /**
                          * Border type, which can be `'solid'`, `'dashed'`,
                          * or `'dotted'`. `'solid'` by default.
-                         *
                          *
                          * @default
                          * "solid"
@@ -10179,14 +9462,12 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.emphasis.itemStyle)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.itemStyle.shadowBlur
                          */
                         shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.itemStyle.shadowColor
                          */
@@ -10195,14 +9476,12 @@ declare namespace echarts {
                         /**
                          * Offset distance on the horizontal direction of shadow.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.itemStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.emphasis.itemStyle.shadowOffsetY
                          */
@@ -10212,7 +9491,6 @@ declare namespace echarts {
                          * Opacity of the component.
                          * Supports value from 0 to 1, and the component will
                          * not be drawn when set to 0.
-                         *
                          *
                          * @default
                          * 1
@@ -10226,7 +9504,6 @@ declare namespace echarts {
                  * Item style when mouse is hovering related items. See
                  * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
                  * .
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight
                  */
@@ -10249,7 +9526,6 @@ declare namespace echarts {
                      * `label`is taken to be at the same level with `itemStyle`,
                      * and has `emphasis` as `itemStyle` does.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label
                      */
                     label?: {
@@ -10269,7 +9545,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.highlight.label)
                          *
-                         *
                          * @default
                          * "radial"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.rotate
@@ -10284,7 +9559,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.highlight.label)
                          *
-                         *
                          * @default
                          * "center"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.align
@@ -10296,14 +9570,12 @@ declare namespace echarts {
                          * (in degrees), then text is not displayed.
                          * This is used for hiding text for small piece of data.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.minAngle
                          */
                         minAngle?: number | undefined;
 
                         /**
                          * Whether to show label.
-                         *
                          *
                          * @default
                          * "true"
@@ -10343,7 +9615,6 @@ declare namespace echarts {
                          * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
-                         *
                          * @default
                          * "inside"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.position
@@ -10358,7 +9629,6 @@ declare namespace echarts {
                          * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
-                         *
                          * @default
                          * 5
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.distance
@@ -10369,7 +9639,6 @@ declare namespace echarts {
                          * Whether to move text slightly.
                          * For example: `[30, 40]` means move `30` horizontally
                          * and move `40` vertically.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.offset
                          */
@@ -10416,7 +9685,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.highlight.label)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.formatter
                          */
                         formatter?: Function | string | undefined;
@@ -10426,7 +9694,6 @@ declare namespace echarts {
                          *
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
-                         *
                          *
                          * @default
                          * ""#fff""
@@ -10442,7 +9709,6 @@ declare namespace echarts {
                          * + `'normal'`
                          * + `'italic'`
                          * + `'oblique'`
-                         *
                          *
                          * @default
                          * "normal"
@@ -10461,7 +9727,6 @@ declare namespace echarts {
                          * + `'lighter'`
                          * + 100 | 200 | 300 | 400...
                          *
-                         *
                          * @default
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.fontWeight
@@ -10473,7 +9738,6 @@ declare namespace echarts {
                          *
                          * Can also be 'serif' , 'monospace', ...
                          *
-                         *
                          * @default
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.fontFamily
@@ -10482,7 +9746,6 @@ declare namespace echarts {
 
                         /**
                          * font size
-                         *
                          *
                          * @default
                          * 12
@@ -10504,7 +9767,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.highlight.label)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.verticalAlign
                          */
                         verticalAlign?: string | undefined;
@@ -10516,7 +9778,6 @@ declare namespace echarts {
                          * in parent level will be used. For example:
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.highlight.label)
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.lineHeight
                          */
@@ -10537,7 +9798,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.backgroundColor
@@ -10550,7 +9810,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.borderColor
@@ -10560,14 +9819,12 @@ declare namespace echarts {
                         /**
                          * Border width of the text fregment.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.borderWidth
                          */
                         borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.borderRadius
                          */
@@ -10585,14 +9842,12 @@ declare namespace echarts {
                          * Notice, `width` and `height` specifies the width
                          * and height of the content, without `padding`.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.padding
                          */
                         padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -10603,7 +9858,6 @@ declare namespace echarts {
                         /**
                          * Show blur of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.shadowBlur
                          */
                         shadowBlur?: number | undefined;
@@ -10611,14 +9865,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.shadowOffsetY
                          */
@@ -10646,7 +9898,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.width
                          */
                         width?: number | string | undefined;
@@ -10663,7 +9914,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.height
                          */
                         height?: number | string | undefined;
@@ -10674,7 +9924,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.textBorderColor
@@ -10684,14 +9933,12 @@ declare namespace echarts {
                         /**
                          * Storke line width of the text.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.textBorderWidth
                          */
                         textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -10702,7 +9949,6 @@ declare namespace echarts {
                         /**
                          * Shadow blue of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.textShadowBlur
                          */
                         textShadowBlur?: number | undefined;
@@ -10710,14 +9956,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.textShadowOffsetX
                          */
                         textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.textShadowOffsetY
                          */
@@ -10733,7 +9977,6 @@ declare namespace echarts {
                          * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.rich
                          */
                         rich?: {
@@ -10746,7 +9989,6 @@ declare namespace echarts {
                                  *
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
-                                 *
                                  *
                                  * @default
                                  * ""#fff""
@@ -10762,7 +10004,6 @@ declare namespace echarts {
                                  * + `'normal'`
                                  * + `'italic'`
                                  * + `'oblique'`
-                                 *
                                  *
                                  * @default
                                  * "normal"
@@ -10781,7 +10022,6 @@ declare namespace echarts {
                                  * + `'lighter'`
                                  * + 100 | 200 | 300 | 400...
                                  *
-                                 *
                                  * @default
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -10793,7 +10033,6 @@ declare namespace echarts {
                                  *
                                  * Can also be 'serif' , 'monospace', ...
                                  *
-                                 *
                                  * @default
                                  * "sans-serif"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -10802,7 +10041,6 @@ declare namespace echarts {
 
                                 /**
                                  * font size
-                                 *
                                  *
                                  * @default
                                  * 12
@@ -10826,7 +10064,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string | undefined;
@@ -10847,7 +10084,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string | undefined;
@@ -10860,7 +10096,6 @@ declare namespace echarts {
                                  * For example:
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
@@ -10883,7 +10118,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -10896,7 +10130,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -10906,14 +10139,12 @@ declare namespace echarts {
                                 /**
                                  * Border width of the text fregment.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
@@ -10933,14 +10164,12 @@ declare namespace echarts {
                                  * width and height of the content, without
                                  * `padding`.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -10951,7 +10180,6 @@ declare namespace echarts {
                                 /**
                                  * Show blur of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number | undefined;
@@ -10959,14 +10187,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
@@ -10998,7 +10224,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string | undefined;
@@ -11016,7 +10241,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string | undefined;
@@ -11027,7 +10251,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -11037,14 +10260,12 @@ declare namespace echarts {
                                 /**
                                  * Storke line width of the text.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -11055,7 +10276,6 @@ declare namespace echarts {
                                 /**
                                  * Shadow blue of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number | undefined;
@@ -11063,14 +10283,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
@@ -11112,7 +10330,6 @@ declare namespace echarts {
                      * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
                      * .
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.itemStyle
                      */
                     itemStyle?: {
@@ -11132,7 +10349,6 @@ declare namespace echarts {
                          * >
                          * > [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.highlight.itemStyle)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.itemStyle.color
                          */
                         color?: EChartOption.Color | undefined;
@@ -11140,7 +10356,6 @@ declare namespace echarts {
                         /**
                          * border color, whose format is similar to that of
                          * `color`.
-                         *
                          *
                          * @default
                          * "white"
@@ -11151,7 +10366,6 @@ declare namespace echarts {
                         /**
                          * border width. No border when it is set to be 0.
                          *
-                         *
                          * @default
                          * 1
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.itemStyle.borderWidth
@@ -11161,7 +10375,6 @@ declare namespace echarts {
                         /**
                          * Border type, which can be `'solid'`, `'dashed'`,
                          * or `'dotted'`. `'solid'` by default.
-                         *
                          *
                          * @default
                          * "solid"
@@ -11178,14 +10391,12 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.highlight.itemStyle)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.itemStyle.shadowBlur
                          */
                         shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.itemStyle.shadowColor
                          */
@@ -11194,14 +10405,12 @@ declare namespace echarts {
                         /**
                          * Offset distance on the horizontal direction of shadow.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.itemStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.highlight.itemStyle.shadowOffsetY
                          */
@@ -11211,7 +10420,6 @@ declare namespace echarts {
                          * Opacity of the component.
                          * Supports value from 0 to 1, and the component will
                          * not be drawn when set to 0.
-                         *
                          *
                          * @default
                          * 1
@@ -11225,7 +10433,6 @@ declare namespace echarts {
                  * Item style when mouse is hovering unrelated items. See
                  * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
                  * .
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay
                  */
@@ -11248,7 +10455,6 @@ declare namespace echarts {
                      * `label`is taken to be at the same level with `itemStyle`,
                      * and has `emphasis` as `itemStyle` does.
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label
                      */
                     label?: {
@@ -11268,7 +10474,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.downplay.label)
                          *
-                         *
                          * @default
                          * "radial"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.rotate
@@ -11283,7 +10488,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.downplay.label)
                          *
-                         *
                          * @default
                          * "center"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.align
@@ -11295,14 +10499,12 @@ declare namespace echarts {
                          * (in degrees), then text is not displayed.
                          * This is used for hiding text for small piece of data.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.minAngle
                          */
                         minAngle?: number | undefined;
 
                         /**
                          * Whether to show label.
-                         *
                          *
                          * @default
                          * "true"
@@ -11342,7 +10544,6 @@ declare namespace echarts {
                          * [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position)
                          * .
                          *
-                         *
                          * @default
                          * "inside"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.position
@@ -11357,7 +10558,6 @@ declare namespace echarts {
                          * [label position](https://echarts.apache.org/examples/en/editor.html?c=doc-example/label-position)
                          * .
                          *
-                         *
                          * @default
                          * 5
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.distance
@@ -11368,7 +10568,6 @@ declare namespace echarts {
                          * Whether to move text slightly.
                          * For example: `[30, 40]` means move `30` horizontally
                          * and move `40` vertically.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.offset
                          */
@@ -11415,7 +10614,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.downplay.label)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.formatter
                          */
                         formatter?: Function | string | undefined;
@@ -11425,7 +10623,6 @@ declare namespace echarts {
                          *
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
-                         *
                          *
                          * @default
                          * ""#fff""
@@ -11441,7 +10638,6 @@ declare namespace echarts {
                          * + `'normal'`
                          * + `'italic'`
                          * + `'oblique'`
-                         *
                          *
                          * @default
                          * "normal"
@@ -11460,7 +10656,6 @@ declare namespace echarts {
                          * + `'lighter'`
                          * + 100 | 200 | 300 | 400...
                          *
-                         *
                          * @default
                          * "normal"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.fontWeight
@@ -11472,7 +10667,6 @@ declare namespace echarts {
                          *
                          * Can also be 'serif' , 'monospace', ...
                          *
-                         *
                          * @default
                          * "sans-serif"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.fontFamily
@@ -11481,7 +10675,6 @@ declare namespace echarts {
 
                         /**
                          * font size
-                         *
                          *
                          * @default
                          * 12
@@ -11503,7 +10696,6 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.downplay.label)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.verticalAlign
                          */
                         verticalAlign?: string | undefined;
@@ -11515,7 +10707,6 @@ declare namespace echarts {
                          * in parent level will be used. For example:
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.downplay.label)
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.lineHeight
                          */
@@ -11536,7 +10727,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.backgroundColor
@@ -11549,7 +10739,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.borderColor
@@ -11559,14 +10748,12 @@ declare namespace echarts {
                         /**
                          * Border width of the text fregment.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.borderWidth
                          */
                         borderWidth?: number | undefined;
 
                         /**
                          * Border radius of the text fregment.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.borderRadius
                          */
@@ -11584,14 +10771,12 @@ declare namespace echarts {
                          * Notice, `width` and `height` specifies the width
                          * and height of the content, without `padding`.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.padding
                          */
                         padding?: any[] | number | undefined;
 
                         /**
                          * Shadow color of the text block.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -11602,7 +10787,6 @@ declare namespace echarts {
                         /**
                          * Show blur of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.shadowBlur
                          */
                         shadowBlur?: number | undefined;
@@ -11610,14 +10794,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text block.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text block.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.shadowOffsetY
                          */
@@ -11645,7 +10827,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.width
                          */
                         width?: number | string | undefined;
@@ -11662,7 +10843,6 @@ declare namespace echarts {
                          * Notice, `width` and `height` only work when `rich`
                          * specified.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.height
                          */
                         height?: number | string | undefined;
@@ -11673,7 +10853,6 @@ declare namespace echarts {
                          * If set as `'auto'`, the color will assigned as visual
                          * color, such as series color.
                          *
-                         *
                          * @default
                          * "transparent"
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.textBorderColor
@@ -11683,14 +10862,12 @@ declare namespace echarts {
                         /**
                          * Storke line width of the text.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.textBorderWidth
                          */
                         textBorderWidth?: number | undefined;
 
                         /**
                          * Shadow color of the text itself.
-                         *
                          *
                          * @default
                          * "transparent"
@@ -11701,7 +10878,6 @@ declare namespace echarts {
                         /**
                          * Shadow blue of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.textShadowBlur
                          */
                         textShadowBlur?: number | undefined;
@@ -11709,14 +10885,12 @@ declare namespace echarts {
                         /**
                          * Shadow X offset of the text itself.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.textShadowOffsetX
                          */
                         textShadowOffsetX?: number | undefined;
 
                         /**
                          * Shadow Y offset of the text itself.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.textShadowOffsetY
                          */
@@ -11732,7 +10906,6 @@ declare namespace echarts {
                          * [Rich Text](https://echarts.apache.org/en/option.htmltutorial.html#Rich%20Text)
                          * please.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.rich
                          */
                         rich?: {
@@ -11745,7 +10918,6 @@ declare namespace echarts {
                                  *
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
-                                 *
                                  *
                                  * @default
                                  * ""#fff""
@@ -11761,7 +10933,6 @@ declare namespace echarts {
                                  * + `'normal'`
                                  * + `'italic'`
                                  * + `'oblique'`
-                                 *
                                  *
                                  * @default
                                  * "normal"
@@ -11780,7 +10951,6 @@ declare namespace echarts {
                                  * + `'lighter'`
                                  * + 100 | 200 | 300 | 400...
                                  *
-                                 *
                                  * @default
                                  * "normal"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.fontWeight
@@ -11792,7 +10962,6 @@ declare namespace echarts {
                                  *
                                  * Can also be 'serif' , 'monospace', ...
                                  *
-                                 *
                                  * @default
                                  * "sans-serif"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.fontFamily
@@ -11801,7 +10970,6 @@ declare namespace echarts {
 
                                 /**
                                  * font size
-                                 *
                                  *
                                  * @default
                                  * 12
@@ -11825,7 +10993,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.align
                                  */
                                 align?: string | undefined;
@@ -11846,7 +11013,6 @@ declare namespace echarts {
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.verticalAlign
                                  */
                                 verticalAlign?: string | undefined;
@@ -11859,7 +11025,6 @@ declare namespace echarts {
                                  * For example:
                                  *
                                  * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E)
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.lineHeight
                                  */
@@ -11882,7 +11047,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.backgroundColor
@@ -11895,7 +11059,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.borderColor
@@ -11905,14 +11068,12 @@ declare namespace echarts {
                                 /**
                                  * Border width of the text fregment.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.borderWidth
                                  */
                                 borderWidth?: number | undefined;
 
                                 /**
                                  * Border radius of the text fregment.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.borderRadius
                                  */
@@ -11932,14 +11093,12 @@ declare namespace echarts {
                                  * width and height of the content, without
                                  * `padding`.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.padding
                                  */
                                 padding?: any[] | number | undefined;
 
                                 /**
                                  * Shadow color of the text block.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -11950,7 +11109,6 @@ declare namespace echarts {
                                 /**
                                  * Show blur of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowBlur
                                  */
                                 shadowBlur?: number | undefined;
@@ -11958,14 +11116,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text block.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetX
                                  */
                                 shadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text block.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.shadowOffsetY
                                  */
@@ -11997,7 +11153,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.width
                                  */
                                 width?: number | string | undefined;
@@ -12015,7 +11170,6 @@ declare namespace echarts {
                                  * Notice, `width` and `height` only work when
                                  * `rich` specified.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.height
                                  */
                                 height?: number | string | undefined;
@@ -12026,7 +11180,6 @@ declare namespace echarts {
                                  * If set as `'auto'`, the color will assigned
                                  * as visual color, such as series color.
                                  *
-                                 *
                                  * @default
                                  * "transparent"
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderColor
@@ -12036,14 +11189,12 @@ declare namespace echarts {
                                 /**
                                  * Storke line width of the text.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textBorderWidth
                                  */
                                 textBorderWidth?: number | undefined;
 
                                 /**
                                  * Shadow color of the text itself.
-                                 *
                                  *
                                  * @default
                                  * "transparent"
@@ -12054,7 +11205,6 @@ declare namespace echarts {
                                 /**
                                  * Shadow blue of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowBlur
                                  */
                                 textShadowBlur?: number | undefined;
@@ -12062,14 +11212,12 @@ declare namespace echarts {
                                 /**
                                  * Shadow X offset of the text itself.
                                  *
-                                 *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetX
                                  */
                                 textShadowOffsetX?: number | undefined;
 
                                 /**
                                  * Shadow Y offset of the text itself.
-                                 *
                                  *
                                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.label.rich.%3Cuser%20defined%20style%20name%3E.textShadowOffsetY
                                  */
@@ -12111,7 +11259,6 @@ declare namespace echarts {
                      * [highlightPolicy](https://echarts.apache.org/en/option.html#series-sunburst.highlightPolicy)
                      * .
                      *
-                     *
                      * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.itemStyle
                      */
                     itemStyle?: {
@@ -12131,7 +11278,6 @@ declare namespace echarts {
                          * >
                          * > [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.downplay.itemStyle)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.itemStyle.color
                          */
                         color?: EChartOption.Color | undefined;
@@ -12139,7 +11285,6 @@ declare namespace echarts {
                         /**
                          * border color, whose format is similar to that of
                          * `color`.
-                         *
                          *
                          * @default
                          * "white"
@@ -12150,7 +11295,6 @@ declare namespace echarts {
                         /**
                          * border width. No border when it is set to be 0.
                          *
-                         *
                          * @default
                          * 1
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.itemStyle.borderWidth
@@ -12160,7 +11304,6 @@ declare namespace echarts {
                         /**
                          * Border type, which can be `'solid'`, `'dashed'`,
                          * or `'dotted'`. `'solid'` by default.
-                         *
                          *
                          * @default
                          * "solid"
@@ -12177,14 +11320,12 @@ declare namespace echarts {
                          *
                          * [see doc](https://echarts.apache.org/en/option.html#series-sunburst.sunburst.data.downplay.itemStyle)
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.itemStyle.shadowBlur
                          */
                         shadowBlur?: number | undefined;
 
                         /**
                          * Shadow color. Support same format as `color`.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.itemStyle.shadowColor
                          */
@@ -12193,14 +11334,12 @@ declare namespace echarts {
                         /**
                          * Offset distance on the horizontal direction of shadow.
                          *
-                         *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.itemStyle.shadowOffsetX
                          */
                         shadowOffsetX?: number | undefined;
 
                         /**
                          * Offset distance on the vertical direction of shadow.
-                         *
                          *
                          * @see https://echarts.apache.org/en/option.html#series-sunburst.data.downplay.itemStyle.shadowOffsetY
                          */
@@ -12210,7 +11349,6 @@ declare namespace echarts {
                          * Opacity of the component.
                          * Supports value from 0 to 1, and the component will
                          * not be drawn when set to 0.
-                         *
                          *
                          * @default
                          * 1
@@ -12225,7 +11363,6 @@ declare namespace echarts {
                  * In the same format to
                  * [series-sunburst.data](https://echarts.apache.org/en/option.html#series-sunburst.data)
                  * .
-                 *
                  *
                  * @see https://echarts.apache.org/en/option.html#series-sunburst.data.children
                  */

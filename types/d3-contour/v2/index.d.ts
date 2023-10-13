@@ -8,8 +8,8 @@
 
 // Last module patch version validated against: 2.0.0
 
-import { MultiPolygon } from 'geojson';
-import { ThresholdNumberArrayGenerator, ThresholdCountGenerator } from 'd3-array';
+import { ThresholdCountGenerator, ThresholdNumberArrayGenerator } from "d3-array";
+import { MultiPolygon } from "geojson";
 
 /**
  * An extended GeoJSON MultiPolygon representing a contour.
@@ -27,7 +27,6 @@ export interface ContourMultiPolygon extends MultiPolygon {
  * For each threshold value, the contour generator constructs a GeoJSON MultiPolygon geometry object representing the area
  * where the input values are greater than or equal to the threshold value.
  * The geometry is in planar coordinates, where ⟨i + 0.5, j + 0.5⟩ corresponds to element i + jn in the input values array.
- *
  */
 export interface Contours {
     /**

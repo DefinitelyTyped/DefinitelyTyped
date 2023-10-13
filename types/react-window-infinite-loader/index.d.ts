@@ -5,8 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import { FC, Ref, ReactNode, Component } from 'react';
-import { ListOnItemsRenderedProps, FixedSizeList, VariableSizeList } from 'react-window';
+import { Component, FC, ReactNode, Ref } from "react";
+import { FixedSizeList, ListOnItemsRenderedProps, VariableSizeList } from "react-window";
 
 type OnItemsRendered = (props: ListOnItemsRenderedProps) => any;
 

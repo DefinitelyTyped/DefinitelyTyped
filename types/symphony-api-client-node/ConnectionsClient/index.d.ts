@@ -6,7 +6,7 @@ export const ALL: string;
 
 export interface Connection {
     userId: number;
-    status: "REJECTED" | "ACCEPTED" | "PENDING_INCOMING" | 'PENDING_OUTGOING';
+    status: "REJECTED" | "ACCEPTED" | "PENDING_INCOMING" | "PENDING_OUTGOING";
     firstRequestedAt?: number | undefined;
     updatedAt?: number | undefined;
     requestCounter?: number | undefined;
@@ -21,7 +21,11 @@ export function acceptConnectionRequest(userId: string, sessionToken: string): P
 export function getAcceptedConnections(sessionToken: string): Promise<Connection[]>;
 export function getAllConnections(sessionToken: string): Promise<Connection[]>;
 export function getConnectionRequestStatus(userId: string, sessionToken: string): Promise<Connection>;
-export function getConnections(status: string, commaSeparatedUserIds: string, sessionToken: string): Promise<Connection[]>;
+export function getConnections(
+    status: string,
+    commaSeparatedUserIds: string,
+    sessionToken: string,
+): Promise<Connection[]>;
 export function getInboundPendingConnections(sessionToken: string): Promise<Connection[]>;
 export function getPendingConnections(sessionToken: string): Promise<Connection[]>;
 export function getRejectedConnections(sessionToken: string): Promise<Connection[]>;

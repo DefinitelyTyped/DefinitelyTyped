@@ -18,7 +18,7 @@ export default abstract class Node {
     getUpdateType(builder: NodeBuilder): NodeUpdateTypeOption;
     getNodeType(builder: NodeBuilder, output?: string | null): NodeTypeOption | null;
     getReference(builder: NodeBuilder): Node;
-    construct(builder: NodeBuilder): Node | null;
+    setup(builder: NodeBuilder): Node | null;
     analyze(builder: NodeBuilder): void;
     generate(builder: NodeBuilder, output?: string | null): string;
     /** This method must be overriden when {@link updateType} !== 'none' */

@@ -1,24 +1,24 @@
 import {
-    hookRequire,
     hookCreateScript,
-    unhookCreateScript,
-    hookRunInThisContext,
-    unhookRunInThisContext,
+    hookRequire,
     hookRunInContext,
+    hookRunInThisContext,
+    unhookCreateScript,
     unhookRunInContext,
-    unloadRequireCache
-} from 'istanbul-lib-hook';
+    unhookRunInThisContext,
+    unloadRequireCache,
+} from "istanbul-lib-hook";
 
 const matcher = (filename: string) => true;
-const transformer = (code: string, options: { filename: string }) => 'foo';
+const transformer = (code: string, options: { filename: string }) => "foo";
 
 hookRequire(matcher, transformer);
 hookRequire(matcher, transformer, {});
 hookRequire(matcher, transformer, { verbose: true });
 
 const retVal = hookRequire(matcher, transformer, {
-    extensions: ['.js'],
-    postLoadHook: (filename: string) => {}
+    extensions: [".js"],
+    postLoadHook: (filename: string) => {},
 });
 retVal();
 
@@ -35,6 +35,6 @@ unhookRunInThisContext();
 unloadRequireCache(matcher);
 
 hookRunInContext(matcher, transformer, {});
-hookRunInContext(matcher, transformer, { verbose: true, coverageVariable: '__cov__' });
+hookRunInContext(matcher, transformer, { verbose: true, coverageVariable: "__cov__" });
 
 unhookRunInContext();

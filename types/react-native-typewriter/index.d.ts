@@ -2,8 +2,8 @@
 // Project: https://github.com/TaylorBriggs/react-native-typewriter
 // Definitions by: Andréas "ScreamZ" HANSS <https://github.com/ScreamZ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import React = require('react');
-import { TextProps } from 'react-native';
+import React = require("react");
+import { TextProps } from "react-native";
 
 interface TypeWriterProps extends TextProps {
     children: React.ReactNode;

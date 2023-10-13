@@ -26,27 +26,125 @@
 // See https://github.com/facebook/react/blob/main/packages/react-dom/index.js to see how the exports are declared,
 // but confirm with published source code (e.g. https://unpkg.com/react-dom@canary) that these exports end up in the published code
 
-import React = require('react');
-import ReactDOM = require('.');
+import React = require("react");
+import ReactDOM = require(".");
 
 export {};
 
-declare module '.' {
-    type PreloadAs = 'font' | 'script' | 'style';
+declare const REACT_FORM_STATE_SIGIL: unique symbol;
+
+declare module "." {
+    function prefetchDNS(href: string): void;
+
+    interface PreconnectOptions {
+        // Don't create a helper type.
+        // It would have to be in module scope to be inlined in TS tooltips.
+        // But then it becomes part of the public API.
+        // TODO: Upstream to microsoft/TypeScript-DOM-lib-generator -> w3c/webref
+        // since the spec has a notion of a dedicated type: https://html.spec.whatwg.org/multipage/urls-and-fetching.html#cors-settings-attribute
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+    }
+    function preconnect(href: string, options?: PreconnectOptions): void;
+
+    type PreloadAs =
+        | "audio"
+        | "document"
+        | "embed"
+        | "fetch"
+        | "font"
+        | "image"
+        | "object"
+        | "track"
+        | "script"
+        | "style"
+        | "video"
+        | "worker";
     interface PreloadOptions {
         as: PreloadAs;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        fetchPriority?: "high" | "low" | "auto" | undefined;
+        // TODO: These should only be allowed with `as: 'image'` but it's not trivial to write tests against the full TS support matrix.
+        imageSizes?: string | undefined;
+        imageSrcSet?: string | undefined;
         integrity?: string | undefined;
+        nonce?: string | undefined;
+        referrerPolicy?: ReferrerPolicy | undefined;
     }
     function preload(href: string, options?: PreloadOptions): void;
 
-    type PreinitAs = 'script' | 'style';
+    // https://html.spec.whatwg.org/multipage/links.html#link-type-modulepreload
+    type PreloadModuleAs = RequestDestination;
+    interface PreloadModuleOptions {
+        /**
+         * @default "script"
+         */
+        as: PreloadModuleAs;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        integrity?: string | undefined;
+        nonce?: string | undefined;
+    }
+    function preloadModule(href: string, options?: PreloadModuleOptions): void;
+
+    type PreinitAs = "script" | "style";
     interface PreinitOptions {
         as: PreinitAs;
-        crossOrigin?: string | undefined;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        fetchPriority?: "high" | "low" | "auto" | undefined;
         precedence?: string | undefined;
         integrity?: string | undefined;
         nonce?: string | undefined;
     }
     function preinit(href: string, options?: PreinitOptions): void;
+
+    // Will be expanded to include all of https://github.com/tc39/proposal-import-attributes
+    type PreinitModuleAs = "script";
+    interface PreinitModuleOptions {
+        /**
+         * @default "script"
+         */
+        as?: PreinitModuleAs;
+        crossOrigin?: "anonymous" | "use-credentials" | "" | undefined;
+        integrity?: string | undefined;
+        nonce?: string | undefined;
+    }
+    function preinitModule(href: string, options?: PreinitModuleOptions): void;
+
+    interface FormStatusNotPending {
+        pending: false;
+        data: null;
+        method: null;
+        action: null;
+    }
+
+    interface FormStatusPending {
+        pending: true;
+        data: FormData;
+        method: string;
+        action: string | ((formData: FormData) => void | Promise<void>);
+    }
+
+    type FormStatus = FormStatusPending | FormStatusNotPending;
+
+    function useFormStatus(): FormStatus;
+
+    function useFormState<State>(
+        action: (state: State) => Promise<State>,
+        initialState: State,
+        permalink?: string,
+    ): [state: State, dispatch: () => void];
+    function useFormState<State, Payload>(
+        action: (state: State, payload: Payload) => Promise<State>,
+        initialState: State,
+        permalink?: string,
+    ): [state: State, dispatch: (payload: Payload) => void];
+}
+
+declare module "./client" {
+    interface ReactFormState {
+        [REACT_FORM_STATE_SIGIL]: never;
+    }
+
+    interface HydrationOptions {
+        formState?: ReactFormState | null;
+    }
 }

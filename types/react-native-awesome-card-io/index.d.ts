@@ -5,8 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
-import { StyleProp, ViewStyle } from 'react-native';
+import * as React from "react";
+import { StyleProp, ViewStyle } from "react-native";
 
 export interface CardDetails {
     /**  Localized card type. */
@@ -93,7 +93,7 @@ export interface CardIOModuleProps extends CardIOCommonProps {
     usePaypalActionbarIcon?: boolean | undefined;
 }
 
-export type CardIODetectionMode = 'IMAGE_AND_NUMBER' | 'IMAGE' | 'AUTOMATIC';
+export type CardIODetectionMode = "IMAGE_AND_NUMBER" | "IMAGE" | "AUTOMATIC";
 
 export namespace CardIOUtilities {
     /**  iOS only - prepares card.io to launch faster. */

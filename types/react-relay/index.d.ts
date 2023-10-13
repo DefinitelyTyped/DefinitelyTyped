@@ -7,5 +7,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-export * from './hooks';
-export * from './legacy';
+export * from "./hooks";
+export * from "./legacy";

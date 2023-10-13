@@ -4,14 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
-import {
-    TextInputProps,
-    ReturnKeyType,
-    ReturnKeyTypeAndroid,
-    TextStyle,
-    ReturnKeyTypeIOS,
-} from 'react-native';
+import * as React from "react";
+import { ReturnKeyType, ReturnKeyTypeAndroid, ReturnKeyTypeIOS, TextInputProps, TextStyle } from "react-native";
 
 export interface SearchBarProps {
     height: number;

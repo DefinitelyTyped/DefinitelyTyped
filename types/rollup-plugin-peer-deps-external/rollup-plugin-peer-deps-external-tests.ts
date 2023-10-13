@@ -1,5 +1,5 @@
-import external from 'rollup-plugin-peer-deps-external';
+import external from "rollup-plugin-peer-deps-external";
 
 external();
 external({});
-external({ includeDependencies: true, packageJsonPath: '' });
+external({ includeDependencies: true, packageJsonPath: "" });

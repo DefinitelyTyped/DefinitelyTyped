@@ -3,7 +3,7 @@
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import _parse = require('./lib/parse');
+import _parse = require("./lib/parse");
 /**
  * Strip all code comments from the given `input`, including protected
  * comments that start with `!`, unless disabled by setting `options.keepProtected`

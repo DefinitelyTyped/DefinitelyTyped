@@ -18,7 +18,7 @@
             "select2": [
                 "select2/v3"
             ]
-        },        
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

@@ -1,7 +1,7 @@
-import ParseTree from './ParseTree';
-import ParseTreeVisitor from './ParseTreeVisitor';
-import Interval from '../misc/Interval';
-import Token from '../Token';
+import Interval from "../misc/Interval";
+import Token from "../Token";
+import ParseTree from "./ParseTree";
+import ParseTreeVisitor from "./ParseTreeVisitor";
 
 export default class TerminalNode implements ParseTree {
     parentCtx: ParseTree;

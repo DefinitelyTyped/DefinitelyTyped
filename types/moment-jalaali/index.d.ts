@@ -3,12 +3,12 @@
 // Definitions by: Ali Taheri Moghaddar <https://github.com/alitaheri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import moment = require('moment');
+import moment = require("moment");
 
 export = moment;
 
-declare module 'moment' {
-    type JUnitOfTime = 'jYear' | 'jMonth';
+declare module "moment" {
+    type JUnitOfTime = "jYear" | "jMonth";
 
     interface LoadPersianOptions {
         /**
@@ -20,43 +20,43 @@ declare module 'moment' {
          *      persian: default dialect(امرداد، آدینه، ...)
          *      persian-modern: modern dialect(مرداد، جمعه، ...)
          */
-        dialect?: 'persian' | 'persian-modern' | undefined;
+        dialect?: "persian" | "persian-modern" | undefined;
     }
     interface LoadPersian_dariOptions {
         /**
          * Use persian digits as decribed by unicode
          */
-      usePersianDigits?: boolean | undefined;
+        usePersianDigits?: boolean | undefined;
         /**
          * use dialect option to change usePersian-dari dialect, available options are:
          *      persian-dari: default dialect(ثور، حمل ...)
          *      persian-dari-modern: modern dialect(حمل، جمعه، ...)
          */
-      dialect?: 'persian-dari' | 'persian-dari-modern' | undefined;
+        dialect?: "persian-dari" | "persian-dari-modern" | undefined;
     }
     interface LoadPashtoOptions {
         /**
          * Use persian digits as decribed by unicode
          */
-      usePersianDigits?: boolean | undefined;
+        usePersianDigits?: boolean | undefined;
         /**
          * use dialect option to change usePashto dialect, available options are:
          *      pashto: default dialect(مرغومی، سلواغ، ...)
          *      pashto-modern: modern dialect(وری، جمعه، ...)
          */
-      dialect?: 'pashto' | 'pashto-modern' | undefined;
+        dialect?: "pashto" | "pashto-modern" | undefined;
     }
-        /**
-         * Add persian language.
-         */
+    /**
+     * Add persian language.
+     */
     function loadPersian(options?: LoadPersianOptions): void;
-        /**
-         * Add persian-dari language.
-         */
+    /**
+     * Add persian-dari language.
+     */
     function loadPersian_dari(options?: LoadPersian_dariOptions): void;
-        /**
-         * Add pashto language.
-         */
+    /**
+     * Add pashto language.
+     */
     function loadPashto(options?: LoadPashtoOptions): void;
 
     function jIsLeapYear(year: number): boolean;
@@ -83,5 +83,4 @@ declare module 'moment' {
         jDayOfYear(d: number): Moment;
         jDayOfYear(): number;
     }
-
 }

@@ -1,7 +1,7 @@
-import { Interface as ReadLineInterface } from 'readline';
-import { Observable } from 'rxjs';
-import inquirer, { Answers, Question } from '../../index.js';
-import ScreenManager from '../utils/screen-manager.js';
+import { Interface as ReadLineInterface } from "readline";
+import { Observable } from "rxjs";
+import inquirer, { Answers, Question } from "../../index.js";
+import ScreenManager from "../utils/screen-manager.js";
 
 /**
  * Represents a prompt.

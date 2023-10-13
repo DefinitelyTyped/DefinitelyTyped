@@ -13,7 +13,7 @@
             "../../"
         ],
         "paths": {
-            "react-inner-image-zoom": [ "react-inner-image-zoom/v2" ]
+            "react-inner-image-zoom": ["react-inner-image-zoom/v2"]
         },
         "types": [],
         "noEmit": true,

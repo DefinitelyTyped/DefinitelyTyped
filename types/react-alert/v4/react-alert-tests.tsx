@@ -1,13 +1,13 @@
-import * as React from 'react';
+import * as React from "react";
 
 import {
     Alert,
     AlertOptions,
-    Provider as AlertProvider,
     AlertTemplateProps,
     InjectedAlertProps,
+    Provider as AlertProvider,
     withAlert,
-} from 'react-alert';
+} from "react-alert";
 
 class AlertTemplate extends React.Component<AlertTemplateProps> {
     render() {
@@ -19,9 +19,9 @@ class AlertTemplate extends React.Component<AlertTemplateProps> {
 
         return (
             <div style={style}>
-                {options.type === 'info' && '!'}
-                {options.type === 'success' && ':)'}
-                {options.type === 'error' && ':('}
+                {options.type === "info" && "!"}
+                {options.type === "success" && ":)"}
+                {options.type === "error" && ":("}
                 {message}
                 <button onClick={close}>X</button>
             </div>
@@ -30,10 +30,10 @@ class AlertTemplate extends React.Component<AlertTemplateProps> {
 }
 
 const options: AlertOptions = {
-    position: 'bottom center',
+    position: "bottom center",
     timeout: 5000,
-    offset: '30px',
-    transition: 'scale',
+    offset: "30px",
+    transition: "scale",
 };
 
 class App extends React.Component<{} & InjectedAlertProps> {
@@ -41,7 +41,7 @@ class App extends React.Component<{} & InjectedAlertProps> {
         return (
             <button
                 onClick={() => {
-                    this.props.alert.show('Oh look, an alert!');
+                    this.props.alert.show("Oh look, an alert!");
                 }}
             >
                 Show Alert
@@ -69,7 +69,7 @@ class AppUseAlertConsumer extends React.Component {
                 {alert => (
                     <button
                         onClick={() => {
-                            alert.show('Oh look, an alert!');
+                            alert.show("Oh look, an alert!");
                         }}
                     >
                         Show Alert

@@ -3,7 +3,7 @@
 // Definitions by: Daniel Rose <https://github.com/DanielRose>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export import SCClientSocket = require('./lib/scclientsocket');
+export import SCClientSocket = require("./lib/scclientsocket");
 
 export function create(options?: SCClientSocket.ClientOptions): SCClientSocket;
 

@@ -1,54 +1,54 @@
-import PushNotifications = require('node-pushnotifications');
-import { supportedContentEncodings } from 'web-push';
+import PushNotifications = require("node-pushnotifications");
+import { supportedContentEncodings } from "web-push";
 
 const settings = {
     gcm: {
-        id: "null"
+        id: "null",
     },
     apn: {
         token: {
-            key: './certs/key.p8',
-            keyId: 'ABCD',
-            teamId: 'EFGH',
-        }
+            key: "./certs/key.p8",
+            keyId: "ABCD",
+            teamId: "EFGH",
+        },
     },
     adm: {
         client_id: "null",
-        client_secret: "null"
+        client_secret: "null",
     },
     wns: {
         client_id: "null",
         client_secret: "null",
-        notificationMethod: 'sendTileSquareBlock',
+        notificationMethod: "sendTileSquareBlock",
     },
     web: {
         vapidDetails: {
-            subject: '< \'mailto\' Address or URL >',
-            publicKey: '< URL Safe Base64 Encoded Public Key >',
-            privateKey: '< URL Safe Base64 Encoded Private Key >',
+            subject: "< 'mailto' Address or URL >",
+            publicKey: "< URL Safe Base64 Encoded Public Key >",
+            privateKey: "< URL Safe Base64 Encoded Private Key >",
         },
-        gcmAPIKey: 'gcmkey',
+        gcmAPIKey: "gcmkey",
         TTL: 2419200,
         contentEncoding: supportedContentEncodings.AES_128_GCM,
         headers: {},
-    }
+    },
 };
 const push = new PushNotifications(settings);
 
 const registrationIds = [];
-registrationIds.push('INSERT_YOUR_DEVICE_ID');
-registrationIds.push('INSERT_OTHER_DEVICE_ID');
+registrationIds.push("INSERT_YOUR_DEVICE_ID");
+registrationIds.push("INSERT_OTHER_DEVICE_ID");
 registrationIds.push({
-    endpoint: 'https://fcm.googleapis.com/fcm/send/...',
+    endpoint: "https://fcm.googleapis.com/fcm/send/...",
     keys: {
-        auth: '...',
-        p256dh: '...'
-    }
+        auth: "...",
+        p256dh: "...",
+    },
 });
 
 const data = {
-    title: 'New push notification',
-    body: 'Powered by AppFeel'
+    title: "New push notification",
+    body: "Powered by AppFeel",
 };
 
 // You can use it in node callback style

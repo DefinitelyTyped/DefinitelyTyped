@@ -94,7 +94,7 @@ declare namespace Intercom_ {
     }
 
     interface IntercomAvatar {
-        type: 'avatar';
+        type: "avatar";
         image_url: string;
     }
 

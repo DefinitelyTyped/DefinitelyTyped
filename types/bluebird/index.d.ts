@@ -666,7 +666,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
     reduce<U, Q>(
         this: Bluebird<R & Iterable<Q>>,
         reducer: (memo: U, item: Q, index: number, arrayLength: number) => Resolvable<U>,
-        initialValue?: U,
+        initialValue?: Resolvable<U>,
     ): Bluebird<U>;
 
     /**
@@ -1069,7 +1069,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
     static reduce<R, U>(
         values: Resolvable<Iterable<Resolvable<R>>>,
         reducer: (total: U, current: R, index: number, arrayLength: number) => Resolvable<U>,
-        initialValue?: U,
+        initialValue?: Resolvable<U>,
     ): Bluebird<U>;
 
     /**

@@ -1,13 +1,13 @@
-import { Repository } from './repository';
-import { Oid } from './oid';
-import { Tree } from './tree';
-import { Commit } from './commit';
-import { Index } from './index';
-import { AnnotatedCommit } from './annotated-commit';
-import { CheckoutOptions } from './checkout-options';
-import { Oidarray } from './oid-array';
-import { MergeOptions } from './merge-options';
-import { MergeFileInput } from './merge-file-input';
+import { AnnotatedCommit } from "./annotated-commit";
+import { CheckoutOptions } from "./checkout-options";
+import { Commit } from "./commit";
+import { Index } from "./index";
+import { MergeFileInput } from "./merge-file-input";
+import { MergeOptions } from "./merge-options";
+import { Oid } from "./oid";
+import { Oidarray } from "./oid-array";
+import { Repository } from "./repository";
+import { Tree } from "./tree";
 
 export namespace Merge {
     const enum ANALYSIS {

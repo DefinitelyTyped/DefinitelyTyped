@@ -8,9 +8,13 @@
  * built around the Node.js [Event Loop](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/#setimmediate-vs-settimeout).
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/timers.js)
  */
-declare module 'timers' {
-    import { Abortable } from 'node:events';
-    import { setTimeout as setTimeoutPromise, setImmediate as setImmediatePromise, setInterval as setIntervalPromise } from 'node:timers/promises';
+declare module "timers" {
+    import { Abortable } from "node:events";
+    import {
+        setImmediate as setImmediatePromise,
+        setInterval as setIntervalPromise,
+        setTimeout as setTimeoutPromise,
+    } from "node:timers/promises";
     interface TimerOptions extends Abortable {
         /**
          * Set to `false` to indicate that the scheduled `Timeout`
@@ -40,6 +44,11 @@ declare module 'timers' {
                  */
                 hasRef(): boolean;
                 _onImmediate: Function; // to distinguish it from the Timeout class
+                /**
+                 * Cancels the immediate. This is similar to calling `clearImmediate()`.
+                 * @since v18.18.0
+                 */
+                [Symbol.dispose](): void;
             }
             interface Timeout extends Timer {
                 /**
@@ -60,6 +69,11 @@ declare module 'timers' {
                  */
                 refresh(): this;
                 [Symbol.toPrimitive](): number;
+                /**
+                 * Cancels the timeout.
+                 * @since v18.18.0
+                 */
+                [Symbol.dispose](): void;
             }
         }
         /**
@@ -69,7 +83,11 @@ declare module 'timers' {
          * If `callback` is not a function, a [TypeError](https://nodejs.org/api/errors.html#class-typeerror) will be thrown.
          * @since v0.0.1
          */
-        function setTimeout<TArgs extends any[]>(callback: (...args: TArgs) => void, ms?: number, ...args: TArgs): NodeJS.Timeout;
+        function setTimeout<TArgs extends any[]>(
+            callback: (...args: TArgs) => void,
+            ms?: number,
+            ...args: TArgs
+        ): NodeJS.Timeout;
         // util.promisify no rest args compability
         // tslint:disable-next-line void-return
         function setTimeout(callback: (args: void) => void, ms?: number): NodeJS.Timeout;
@@ -77,15 +95,22 @@ declare module 'timers' {
             const __promisify__: typeof setTimeoutPromise;
         }
         function clearTimeout(timeoutId: NodeJS.Timeout | string | number | undefined): void;
-        function setInterval<TArgs extends any[]>(callback: (...args: TArgs) => void, ms?: number, ...args: TArgs): NodeJS.Timer;
+        function setInterval<TArgs extends any[]>(
+            callback: (...args: TArgs) => void,
+            ms?: number,
+            ...args: TArgs
+        ): NodeJS.Timeout;
         // util.promisify no rest args compability
         // tslint:disable-next-line void-return
-        function setInterval(callback: (args: void) => void, ms?: number): NodeJS.Timer;
+        function setInterval(callback: (args: void) => void, ms?: number): NodeJS.Timeout;
         namespace setInterval {
             const __promisify__: typeof setIntervalPromise;
         }
         function clearInterval(intervalId: NodeJS.Timeout | string | number | undefined): void;
-        function setImmediate<TArgs extends any[]>(callback: (...args: TArgs) => void, ...args: TArgs): NodeJS.Immediate;
+        function setImmediate<TArgs extends any[]>(
+            callback: (...args: TArgs) => void,
+            ...args: TArgs
+        ): NodeJS.Immediate;
         // util.promisify no rest args compability
         // tslint:disable-next-line void-return
         function setImmediate(callback: (args: void) => void): NodeJS.Immediate;
@@ -96,6 +121,6 @@ declare module 'timers' {
         function queueMicrotask(callback: () => void): void;
     }
 }
-declare module 'node:timers' {
-    export * from 'timers';
+declare module "node:timers" {
+    export * from "timers";
 }

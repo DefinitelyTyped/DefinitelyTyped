@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.3
 
-export { };
+export {};
 
 type Maybe<T> = T | undefined;
 

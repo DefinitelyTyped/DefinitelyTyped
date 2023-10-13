@@ -1,22 +1,22 @@
-import { describe, it, test } from 'node:test';
+import { describe, it, test } from "node:test";
 
-test('foo', t => {
+test("foo", t => {
     // $ExpectType TestContext
     t;
 });
 
-test('blank options', {});
+test("blank options", {});
 
-test('options with values', {
+test("options with values", {
     concurrency: 1,
     only: true,
     signal: new AbortController().signal,
-    skip: 'reason for skip',
+    skip: "reason for skip",
     timeout: Infinity,
-    todo: 'reason for todo',
+    todo: "reason for todo",
 });
 
-test('options with booleans', {
+test("options with booleans", {
     skip: true,
     todo: false,
 });
@@ -32,21 +32,21 @@ test((t, cb) => {
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
-    cb({ x: 'anything' });
+    cb({ x: "anything" });
 });
 
 // Test the context's methods
 test(undefined, undefined, t => {
     // $ExpectType void
-    t.diagnostic('tap diagnostic');
+    t.diagnostic("tap diagnostic");
     // $ExpectType void
     t.runOnly(true);
     // $ExpectType void
-    t.skip('skip reason');
+    t.skip("skip reason");
     // $ExpectType void
     t.skip();
     // $ExpectType void
-    t.todo('todo reason');
+    t.todo("todo reason");
     // $ExpectType void
     t.todo();
 });
@@ -55,7 +55,7 @@ test(undefined, undefined, t => {
 test(t => {
     // $ExpectType TestContext
     t;
-    const sub = t.test('sub', {}, t => {
+    const sub = t.test("sub", {}, t => {
         // $ExpectType TestContext
         t;
     });
@@ -66,36 +66,36 @@ test(t => {
 // @ts-expect-error
 test(1, () => {});
 
-describe('foo', () => {
-    it('it', () => {});
+describe("foo", () => {
+    it("it", () => {});
 });
 
-describe('blank options', {});
-it('blank options', {});
+describe("blank options", {});
+it("blank options", {});
 
-describe('options with values', {
+describe("options with values", {
     concurrency: 1,
     only: true,
     signal: new AbortController().signal,
-    skip: 'reason for skip',
+    skip: "reason for skip",
     timeout: Infinity,
-    todo: 'reason for todo',
+    todo: "reason for todo",
 });
 
-it('options with values', {
+it("options with values", {
     concurrency: 1,
     only: true,
     signal: new AbortController().signal,
-    skip: 'reason for skip',
+    skip: "reason for skip",
     timeout: Infinity,
-    todo: 'reason for todo',
+    todo: "reason for todo",
 });
 
-describe('options with booleans', {
+describe("options with booleans", {
     skip: true,
     todo: false,
 });
-it('options with booleans', {
+it("options with booleans", {
     skip: true,
     todo: false,
 });
@@ -105,7 +105,7 @@ describe(cb => {
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
-    cb({ x: 'anything' });
+    cb({ x: "anything" });
 });
 
 // Test callback mode
@@ -113,7 +113,7 @@ it(cb => {
     // $ExpectType (result?: any) => void
     cb;
     // $ExpectType void
-    cb({ x: 'anything' });
+    cb({ x: "anything" });
 });
 
 // @ts-expect-error

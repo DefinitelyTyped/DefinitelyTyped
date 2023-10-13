@@ -6,8 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import { IncomingMessage } from 'http';
-import http = require('http');
+import { IncomingMessage } from "http";
+import http = require("http");
 
 /**
  * Parses set-cookie headers into objects

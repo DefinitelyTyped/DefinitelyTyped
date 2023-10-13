@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.1
 
-import Datepicker from './Datepicker';
-import DateRangePicker from './DateRangePicker';
+import Datepicker from "./Datepicker";
+import DateRangePicker from "./DateRangePicker";
 export { Datepicker, DateRangePicker };

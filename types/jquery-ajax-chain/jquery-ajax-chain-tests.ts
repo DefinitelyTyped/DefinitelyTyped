@@ -170,7 +170,7 @@ function test_optional_parameters(): void {
             categoryId = $tempXmlResponse.find("categoryId")
                 .text();
 
-            return (categoryId) ? ("/" + categoryId) : "";
+            return categoryId ? ("/" + categoryId) : "";
         },
     };
 

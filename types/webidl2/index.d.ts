@@ -139,12 +139,12 @@ export class WebIDLParseError extends WebIDLError {
         tokens: Token[];
     });
 
-    name: 'WebIDLParseError';
+    name: "WebIDLParseError";
 }
 
 export class WebIDLErrorData extends WebIDLError {
     /** the level of error */
-    level: 'error' | 'warning';
+    level: "error" | "warning";
 
     /** A function to automatically fix the error */
     autofix?(): void;
@@ -188,7 +188,7 @@ export interface AbstractTypeDescription extends AbstractBase {
 
 interface AbstractNonUnionTypeDescription extends AbstractTypeDescription {
     /** String indicating the generic type (e.g. "Promise", "sequence"). The empty string otherwise. */
-    generic: IDLTypeDescription['generic'];
+    generic: IDLTypeDescription["generic"];
     /** Boolean indicating whether this is a union type or not. */
     union: false;
 }
@@ -209,32 +209,32 @@ export type GenericTypeDescription =
     | SequenceTypeDescription;
 
 export interface FrozenArrayTypeDescription extends AbstractGenericTypeDescription {
-    generic: 'FrozenArray';
+    generic: "FrozenArray";
     idlType: [IDLTypeDescription];
 }
 
 export interface ObservableArrayTypeDescription extends AbstractGenericTypeDescription {
-    generic: 'ObservableArray';
+    generic: "ObservableArray";
     idlType: [IDLTypeDescription];
 }
 
 export interface PromiseTypeDescription extends AbstractGenericTypeDescription {
-    generic: 'Promise';
+    generic: "Promise";
     idlType: [IDLTypeDescription];
 }
 
 export interface RecordTypeDescription extends AbstractGenericTypeDescription {
-    generic: 'record';
+    generic: "record";
     idlType: [IDLTypeDescription, IDLTypeDescription];
 }
 
 export interface SequenceTypeDescription extends AbstractGenericTypeDescription {
-    generic: 'sequence';
+    generic: "sequence";
     idlType: [IDLTypeDescription];
 }
 
 export interface SingleTypeDescription extends AbstractNonUnionTypeDescription {
-    generic: '';
+    generic: "";
     /**
      * In most cases, this will just be a string with the type name.
      * If the type is a union, then this contains an array of the types it unites.
@@ -246,7 +246,7 @@ export interface SingleTypeDescription extends AbstractNonUnionTypeDescription {
 
 export interface UnionTypeDescription extends AbstractTypeDescription {
     /** String indicating the generic type (e.g. "Promise", "sequence"). The empty string otherwise. */
-    generic: '';
+    generic: "";
     /** Boolean indicating whether this is a union type or not. */
     union: true;
     /**
@@ -268,14 +268,14 @@ export interface AbstractContainer extends AbstractBase {
 }
 
 export interface CallbackInterfaceType extends AbstractContainer {
-    type: 'callback interface';
+    type: "callback interface";
     members: IDLCallbackInterfaceMemberType[];
     inheritance: null;
     parent: null;
 }
 
 export interface InterfaceType extends AbstractContainer {
-    type: 'interface';
+    type: "interface";
     members: IDLInterfaceMemberType[];
     /** A string giving the name of an interface this one inherits from, null otherwise. */
     inheritance: string | null;
@@ -283,21 +283,21 @@ export interface InterfaceType extends AbstractContainer {
 }
 
 export interface InterfaceMixinType extends AbstractContainer {
-    type: 'interface mixin';
+    type: "interface mixin";
     members: IDLInterfaceMixinMemberType[];
     inheritance: null;
     parent: null;
 }
 
 export interface NamespaceType extends AbstractContainer {
-    type: 'namespace';
+    type: "namespace";
     members: IDLNamespaceMemberType[];
     inheritance: null;
     parent: null;
 }
 
 export interface CallbackType extends AbstractBase {
-    type: 'callback';
+    type: "callback";
     /** The name of the callback. */
     name: string;
     /** An IDL Type describing what the callback returns. */
@@ -308,7 +308,7 @@ export interface CallbackType extends AbstractBase {
 }
 
 export interface DictionaryType extends AbstractContainer {
-    type: 'dictionary';
+    type: "dictionary";
     members: DictionaryMemberType[];
     /** A string giving the name of a dictionary this one inherits from, null otherwise. */
     inheritance: string | null;
@@ -318,7 +318,7 @@ export interface DictionaryType extends AbstractContainer {
 export type DictionaryMemberType = FieldType;
 
 export interface FieldType extends AbstractBase {
-    type: 'field';
+    type: "field";
     /** The name of the field. */
     name: string;
     /** Boolean indicating whether this is a required field. */
@@ -331,17 +331,17 @@ export interface FieldType extends AbstractBase {
 }
 
 export interface EnumType extends AbstractBase {
-    type: 'enum';
+    type: "enum";
     /** The enum's name. */
     name: string;
     /** An array of values (strings). */
-    values: Array<{ type: 'enum-value'; value: string; parent: EnumType }>;
+    values: Array<{ type: "enum-value"; value: string; parent: EnumType }>;
     /** The container of this type. */
     parent: null;
 }
 
 export interface TypedefType extends AbstractBase {
-    type: 'typedef';
+    type: "typedef";
     /** The typedef's name. */
     name: string;
     /** An IDL Type describing what typedef's type. */
@@ -350,7 +350,7 @@ export interface TypedefType extends AbstractBase {
 }
 
 export interface IncludesType extends AbstractBase {
-    type: 'includes';
+    type: "includes";
     /** The interface that includes an interface mixin. */
     target: string;
     /** The interface mixin that is being included by the target. */
@@ -359,16 +359,16 @@ export interface IncludesType extends AbstractBase {
 }
 
 export interface ConstructorMemberType extends AbstractBase {
-    type: 'constructor';
+    type: "constructor";
     /** An array of arguments for the constructor operation. */
     arguments: Argument[];
     parent: InterfaceType;
 }
 
 export interface OperationMemberType extends AbstractBase {
-    type: 'operation';
+    type: "operation";
     /** Special modifier if exists */
-    special: 'getter' | 'setter' | 'deleter' | 'static' | 'stringifier' | null;
+    special: "getter" | "setter" | "deleter" | "static" | "stringifier" | null;
     /** An IDL Type of what the operation returns. If a stringifier, may be absent. */
     idlType: IDLTypeDescription | null;
     /** The name of the operation. If a stringifier, may be null. */
@@ -379,11 +379,11 @@ export interface OperationMemberType extends AbstractBase {
 }
 
 export interface AttributeMemberType extends AbstractBase {
-    type: 'attribute';
+    type: "attribute";
     /** The attribute's name. */
     name: string;
     /** Special modifier if exists */
-    special: 'static' | 'stringifier' | null;
+    special: "static" | "stringifier" | null;
     /** True if it's an inherit attribute. */
     inherit: boolean;
     /** True if it's a read-only attribute. */
@@ -394,7 +394,7 @@ export interface AttributeMemberType extends AbstractBase {
 }
 
 export interface ConstantMemberType extends AbstractBase {
-    type: 'const';
+    type: "const";
     /** Whether its type is nullable. */
     nullable: boolean;
     /** An IDL Type of the constant that represents a simple type, the type name. */
@@ -407,7 +407,7 @@ export interface ConstantMemberType extends AbstractBase {
 }
 
 interface AbstractDeclarationMemberType extends AbstractBase {
-    type: DeclarationMemberType['type'];
+    type: DeclarationMemberType["type"];
     /** An array with one or more IDL Types representing the declared type arguments. */
     idlType: IDLTypeDescription[];
     /** Whether the iterable is declared as async. */
@@ -425,7 +425,7 @@ export type DeclarationMemberType =
     | SetlikeDeclarationMemberType;
 
 export interface IterableDeclarationMemberType extends AbstractDeclarationMemberType {
-    type: 'iterable';
+    type: "iterable";
     idlType: [IDLTypeDescription] | [IDLTypeDescription, IDLTypeDescription];
     async: boolean;
     readonly: false;
@@ -438,17 +438,17 @@ interface AbstractCollectionLikeMemberType extends AbstractDeclarationMemberType
 }
 
 export interface MaplikeDeclarationMemberType extends AbstractCollectionLikeMemberType {
-    type: 'maplike';
+    type: "maplike";
     idlType: [IDLTypeDescription, IDLTypeDescription];
 }
 
 export interface SetlikeDeclarationMemberType extends AbstractCollectionLikeMemberType {
-    type: 'setlike';
+    type: "setlike";
     idlType: [IDLTypeDescription];
 }
 
 export interface Argument extends AbstractBase {
-    type: 'argument';
+    type: "argument";
     /** A default value, absent if there is none. */
     default: ValueDescription | null;
     /** True if the argument is optional. */
@@ -463,7 +463,7 @@ export interface Argument extends AbstractBase {
 }
 
 export interface ExtendedAttribute extends AbstractBase {
-    type: 'extended-attribute';
+    type: "extended-attribute";
     /** The extended attribute's name. */
     name: string;
     /** If the extended attribute takes arguments or if its right-hand side does they are listed here. */
@@ -491,42 +491,42 @@ export type ExtendedAttributeRightHandSideList =
     | ExtendedAttributeRightHandSideIntegerList;
 
 export interface ExtendedAttributeRightHandSideIdentifier {
-    type: 'identifier';
+    type: "identifier";
     value: string;
 }
 
 export interface ExtendedAttributeRightHandSideIdentifierList {
-    type: 'identifier-list';
+    type: "identifier-list";
     value: ExtendedAttributeRightHandSideIdentifier[];
 }
 
 export interface ExtendedAttributeRightHandSideString {
-    type: 'string';
+    type: "string";
     value: string;
 }
 
 export interface ExtendedAttributeRightHandSideStringList {
-    type: 'string-list';
+    type: "string-list";
     value: ExtendedAttributeRightHandSideString[];
 }
 
 export interface ExtendedAttributeRightHandSideDecimal {
-    type: 'decimal';
+    type: "decimal";
     value: string;
 }
 
 export interface ExtendedAttributeRightHandSideDecimalList {
-    type: 'decimal-list';
+    type: "decimal-list";
     value: ExtendedAttributeRightHandSideDecimal[];
 }
 
 export interface ExtendedAttributeRightHandSideInteger {
-    type: 'integer';
+    type: "integer";
     value: string;
 }
 
 export interface ExtendedAttributeRightHandSideIntegerList {
-    type: 'integer-list';
+    type: "integer-list";
     value: ExtendedAttributeRightHandSideInteger[];
 }
 
@@ -545,38 +545,38 @@ export type ValueDescription =
     | ValueDescriptionDictionary;
 
 export interface ValueDescriptionString extends AbstractValueDescription {
-    type: 'string';
+    type: "string";
     value: string;
 }
 
 export interface ValueDescriptionNumber extends AbstractValueDescription {
-    type: 'number';
+    type: "number";
     value: string;
 }
 
 export interface ValueDescriptionBoolean extends AbstractValueDescription {
-    type: 'boolean';
+    type: "boolean";
     value: boolean;
 }
 
 export interface ValueDescriptionNull extends AbstractValueDescription {
-    type: 'null';
+    type: "null";
 }
 
 export interface ValueDescriptionInfinity extends AbstractValueDescription {
-    type: 'Infinity';
+    type: "Infinity";
     negative: boolean;
 }
 
 export interface ValueDescriptionNaN extends AbstractValueDescription {
-    type: 'NaN';
+    type: "NaN";
 }
 
 export interface ValueDescriptionSequence extends AbstractValueDescription {
-    type: 'sequence';
+    type: "sequence";
     value: [];
 }
 
 export interface ValueDescriptionDictionary extends AbstractValueDescription {
-    type: 'dictionary';
+    type: "dictionary";
 }

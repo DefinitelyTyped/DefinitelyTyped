@@ -20,7 +20,10 @@ declare namespace stripe {
         cardType(cardNumber: string): StripeCardDataBrand;
         getToken(token: string, responseHandler: (status: number, response: StripeCardTokenResponse) => void): void;
         card: StripeCard;
-        createToken(data: StripeCardTokenData, responseHandler: (status: number, response: StripeCardTokenResponse) => void): void;
+        createToken(
+            data: StripeCardTokenData,
+            responseHandler: (status: number, response: StripeCardTokenResponse) => void,
+        ): void;
         bankAccount: StripeBankAccount;
     }
 
@@ -61,9 +64,16 @@ declare namespace stripe {
         param?: string | undefined;
     }
 
-    type StripeCardDataBrand = 'Visa' | 'American Express' | 'MasterCard' | 'Discover' | 'JCB' | 'Diners Club' | 'Unknown';
+    type StripeCardDataBrand =
+        | "Visa"
+        | "American Express"
+        | "MasterCard"
+        | "Discover"
+        | "JCB"
+        | "Diners Club"
+        | "Unknown";
 
-    type StripeCardDataFunding = 'credit' | 'debit' | 'prepaid' | 'unknown';
+    type StripeCardDataFunding = "credit" | "debit" | "prepaid" | "unknown";
 
     interface StripeCard {
         object: string;
@@ -80,14 +90,20 @@ declare namespace stripe {
         address_country?: string | undefined;
         brand?: StripeCardDataBrand | undefined;
         funding?: StripeCardDataFunding | undefined;
-        createToken(data: StripeCardTokenData, responseHandler: (status: number, response: StripeCardTokenResponse) => void): void;
+        createToken(
+            data: StripeCardTokenData,
+            responseHandler: (status: number, response: StripeCardTokenResponse) => void,
+        ): void;
         validateCardNumber(cardNumber: string): boolean;
         validateExpiry(month: string, year: string): boolean;
         validateCVC(cardCVC: string): boolean;
     }
 
     interface StripeBankAccount {
-        createToken(params: StripeBankTokenParams, stripeResponseHandler: (status: number, response: StripeBankTokenResponse) => void): void;
+        createToken(
+            params: StripeBankTokenParams,
+            stripeResponseHandler: (status: number, response: StripeBankTokenResponse) => void,
+        ): void;
         validateRoutingNumber(routingNumber: number | string, countryCode: string): boolean;
         validateAccountNumber(accountNumber: number | string, countryCode: string): boolean;
     }
@@ -113,14 +129,16 @@ declare namespace stripe {
 
     interface StripeApplePay {
         checkAvailability(resopnseHandler: (result: boolean) => void): void;
-        buildSession(data: StripeApplePayPaymentRequest,
-                     onSuccessHandler: (result: StripeApplePaySessionResult, completion: ((value: any) => void)) => void,
-                     onErrorHanlder: (error: { message: string }) => void): any;
+        buildSession(
+            data: StripeApplePayPaymentRequest,
+            onSuccessHandler: (result: StripeApplePaySessionResult, completion: (value: any) => void) => void,
+            onErrorHanlder: (error: { message: string }) => void,
+        ): any;
     }
 
-    type StripeApplePayBillingContactField = 'postalAddress' | 'name';
-    type StripeApplePayShippingContactField = StripeApplePayBillingContactField | 'phone' | 'email';
-    type StripeApplePayShipping = 'shipping' | 'delivery' | 'storePickup' | 'servicePickup';
+    type StripeApplePayBillingContactField = "postalAddress" | "name";
+    type StripeApplePayShippingContactField = StripeApplePayBillingContactField | "phone" | "email";
+    type StripeApplePayShipping = "shipping" | "delivery" | "storePickup" | "servicePickup";
 
     interface StripeApplePayPaymentRequest {
         billingContact: StripeApplePayPaymentContact;
@@ -137,7 +155,7 @@ declare namespace stripe {
 
     // https://developer.apple.com/reference/applepayjs/1916082-applepay_js_data_types
     interface StripeApplePayLineItem {
-        type: 'pending' | 'final';
+        type: "pending" | "final";
         label: string;
         amount: number;
     }

@@ -1,6 +1,6 @@
-import type * as React from 'react';
-import {ColorValue, StyleProp} from '../../StyleSheet/StyleSheet';
-import {ViewStyle} from '../../StyleSheet/StyleSheetTypes';
+import type * as React from "react";
+import { ColorValue, StyleProp } from "../../StyleSheet/StyleSheet";
+import { ViewStyle } from "../../StyleSheet/StyleSheetTypes";
 
 /**
  * A component which enables customization of the keyboard input accessory view on iOS. The input accessory view is
@@ -12,14 +12,14 @@ import {ViewStyle} from '../../StyleSheet/StyleSheetTypes';
 export class InputAccessoryView extends React.Component<InputAccessoryViewProps> {}
 
 export interface InputAccessoryViewProps {
-  backgroundColor?: ColorValue | undefined;
+    backgroundColor?: ColorValue | undefined;
 
-  children?: React.ReactNode;
+    children?: React.ReactNode;
 
-  /**
-   * An ID which is used to associate this InputAccessoryView to specified TextInput(s).
-   */
-  nativeID?: string | undefined;
+    /**
+     * An ID which is used to associate this InputAccessoryView to specified TextInput(s).
+     */
+    nativeID?: string | undefined;
 
-  style?: StyleProp<ViewStyle> | undefined;
+    style?: StyleProp<ViewStyle> | undefined;
 }

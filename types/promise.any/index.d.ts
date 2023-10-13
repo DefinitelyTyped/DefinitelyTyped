@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.9
 
-import implementation = require('./implementation');
-import getPolyfill = require('./polyfill');
-import shim = require('./shim');
+import implementation = require("./implementation");
+import getPolyfill = require("./polyfill");
+import shim = require("./shim");
 
 type ExportedImplementationType = typeof implementation & {
     getPolyfill: typeof getPolyfill;

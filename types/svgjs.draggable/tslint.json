@@ -4,7 +4,6 @@
         "ban-types": false,
         "no-internal-module": false,
         "npm-naming": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
 }

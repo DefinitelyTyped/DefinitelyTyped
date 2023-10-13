@@ -123,23 +123,32 @@ browserContext.addCookies();
 browserContext.addCookies([{
     name: "foo",
     value: "bar",
+    domain: "test.k6.io",
+    path: "/browser.php",
     url: "https://test.k6.io",
     expires: 60,
     httpOnly: false,
     secure: true,
-    sameSite: "Strict",
-}]);
-// $ExpectType void
-browserContext.addCookies([{
+    sameSite: "Lax",
+}, {
     name: "foo",
     value: "bar",
-    domain: "test.k6.io",
-    path: "/browser.php",
-    expires: 60,
-    httpOnly: false,
-    secure: true,
-    sameSite: "Lax",
+    sameSite: "Strict",
+}, {
+    name: "foo",
+    value: "bar",
+    sameSite: "None",
 }]);
+// @ts-expect-error
+browserContext.cookies()[0].sameSite = "NotAllowed";
+// @ts-expect-error
+browserContext.addCookies([{ /* without value */ name: "foo" }]);
+// @ts-expect-error
+browserContext.addCookies([{ /* without name */ value: "bar" }]);
+// $ExpectType Cookie[]
+browserContext.cookies();
+// $ExpectType Cookie[]
+browserContext.cookies("https://test.k6.io", "https://k6.io");
 // $ExpectType void
 browserContext.clearCookies();
 // $ExpectType void
@@ -509,6 +518,24 @@ page.mainFrame();
 
 // $ExpectType Mouse
 page.mouse;
+
+// @ts-expect-error
+page.on();
+// @ts-expect-error
+page.on("invalid");
+// @ts-expect-error
+page.on("console");
+// $ExpectType void
+page.on("console", msg => {
+    // $ExpectType JSHandle<any>[]
+    msg.args();
+    // $ExpectType Page | null
+    msg.page();
+    // $ExpectType string
+    msg.text();
+    // $ExpectType string
+    msg.type();
+});
 
 // $ExpectType Page | null
 page.opener();

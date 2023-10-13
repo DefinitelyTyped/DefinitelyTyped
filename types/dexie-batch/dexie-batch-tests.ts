@@ -1,8 +1,8 @@
-import DexieBatch = require('dexie-batch');
-import Dexie from 'dexie';
+import DexieBatch = require("dexie-batch");
+import Dexie from "dexie";
 
-const db = new Dexie('MyDatabase');
-const collection = db.table<string, number>('table').toCollection();
+const db = new Dexie("MyDatabase");
+const collection = db.table<string, number>("table").toCollection();
 
 new DexieBatch({ batchSize: 10, limit: 10 }).each(collection, (item, index) => {
     item; // $ExpectType string

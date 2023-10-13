@@ -3,7 +3,7 @@
 // Definitions by: Federico Grandi <https://github.com/EndBug>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 interface LatexProps {
     children?: string;

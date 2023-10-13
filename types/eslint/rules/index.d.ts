@@ -10,7 +10,8 @@ import { StylisticIssues } from "./stylistic-issues";
 import { Variables } from "./variables";
 
 export interface ESLintRules
-    extends Linter.RulesRecord,
+    extends
+        Linter.RulesRecord,
         PossibleErrors,
         BestPractices,
         StrictMode,
@@ -18,4 +19,5 @@ export interface ESLintRules
         NodeJSAndCommonJS,
         StylisticIssues,
         ECMAScript6,
-        Deprecated {}
+        Deprecated
+{}

@@ -11,6 +11,13 @@ import { Source } from '../textures/Source.js';
 export class ObjectLoader extends Loader<Object3D> {
     constructor(manager?: LoadingManager);
 
+    load(
+        url: string,
+        onLoad?: (data: Object3D) => void,
+        onProgress?: (event: ProgressEvent) => void,
+        onError?: (err: unknown) => void,
+    ): void;
+
     parse(json: unknown, onLoad?: (object: Object3D) => void): Object3D;
     parseAsync(json: unknown): Promise<Object3D>;
     parseGeometries(json: unknown): { [key: string]: InstancedBufferGeometry | BufferGeometry };

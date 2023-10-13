@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import { Readable, Writable, Duplex, Transform, DuplexOptions } from 'stream';
+import { Duplex, DuplexOptions, Readable, Transform, Writable } from "stream";
 
 export = Chain;
 

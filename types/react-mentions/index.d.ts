@@ -21,7 +21,9 @@ export const Mention: React.FC<MentionProps>;
 /**
  * The properties for the @see MentionsInput component.
  */
-export interface MentionsInputProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange' | 'onBlur' | 'onKeyDown' | 'onSelect'> {
+export interface MentionsInputProps
+    extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange" | "onBlur" | "onKeyDown" | "onSelect">
+{
     /**
      * If set to `true` a regular text input element will be rendered
      * instead of a textarea
@@ -37,9 +39,16 @@ export interface MentionsInputProps extends Omit<React.TextareaHTMLAttributes<HT
     value?: string | undefined;
     onChange?: OnChangeHandlerFunc | undefined;
     placeholder?: string | undefined;
-    onBlur?: ((event: React.FocusEvent<HTMLInputElement> | React.FocusEvent<HTMLTextAreaElement>, clickedSuggestion: boolean) => void) | undefined;
+    onBlur?:
+        | ((
+            event: React.FocusEvent<HTMLInputElement> | React.FocusEvent<HTMLTextAreaElement>,
+            clickedSuggestion: boolean,
+        ) => void)
+        | undefined;
     onSelect?: ((event: React.UIEvent) => void) | undefined;
-    onKeyDown?: ((event: React.KeyboardEvent<HTMLTextAreaElement> | React.KeyboardEvent<HTMLInputElement>) => void) | undefined;
+    onKeyDown?:
+        | ((event: React.KeyboardEvent<HTMLTextAreaElement> | React.KeyboardEvent<HTMLInputElement>) => void)
+        | undefined;
     children: React.ReactElement<MentionProps> | Array<React.ReactElement<MentionProps>>;
     className?: string | undefined;
     classNames?: any;
@@ -83,7 +92,15 @@ export interface MentionsInputClass extends React.ComponentClass<MentionsInputPr
  */
 export interface MentionProps {
     onAdd?: ((id: string | number, display: string) => void) | undefined;
-    renderSuggestion?: ((suggestion: SuggestionDataItem, search: string, highlightedDisplay: React.ReactNode, index: number, focused: boolean) => React.ReactNode) | undefined;
+    renderSuggestion?:
+        | ((
+            suggestion: SuggestionDataItem,
+            search: string,
+            highlightedDisplay: React.ReactNode,
+            index: number,
+            focused: boolean,
+        ) => React.ReactNode)
+        | undefined;
     className?: string | undefined;
     markup?: string | undefined;
     displayTransform?: DisplayTransformFunc | undefined;
@@ -122,9 +139,17 @@ export type DisplayTransformFunc = (id: string, display: string) => string;
 /**
  * Defines the function signature for implementing @see MentionsInputProps.onChange
  */
-export type OnChangeHandlerFunc = (event: { target: { value: string } }, newValue: string, newPlainTextValue: string, mentions: MentionItem[]) => void;
+export type OnChangeHandlerFunc = (
+    event: { target: { value: string } },
+    newValue: string,
+    newPlainTextValue: string,
+    mentions: MentionItem[],
+) => void;
 
 /**
  * The function to implement asynchronous loading of suggestions in @see MentionProps.data .
  */
-export type DataFunc = (query: string, callback: (data: SuggestionDataItem[]) => void) => Promise<void> | void | Promise<SuggestionDataItem[]> | SuggestionDataItem[];
+export type DataFunc = (
+    query: string,
+    callback: (data: SuggestionDataItem[]) => void,
+) => Promise<void> | void | Promise<SuggestionDataItem[]> | SuggestionDataItem[];

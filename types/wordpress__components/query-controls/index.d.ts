@@ -1,42 +1,42 @@
-import { ComponentType } from 'react';
+import { ComponentType } from "react";
 
 declare namespace QueryControls {
-    type Order = 'asc' | 'desc';
-    type OrderBy = 'date' | 'title';
+    type Order = "asc" | "desc";
+    type OrderBy = "date" | "title";
     type CategoryProps =
         | {
-              categoriesList: ReadonlyArray<{
-                  id: number;
-                  name: string;
-                  parent: number;
-              }>;
-              selectedCategoryId: number;
-              onCategoryChange(categoryId: number): void;
-          }
+            categoriesList: ReadonlyArray<{
+                id: number;
+                name: string;
+                parent: number;
+            }>;
+            selectedCategoryId: number;
+            onCategoryChange(categoryId: number): void;
+        }
         | {};
     type OrderProps =
         | {
-              order: Order;
-              orderBy: OrderBy;
-              onOrderChange(order: Order): void;
-              onOrderByChange(orderBy: OrderBy): void;
-          }
+            order: Order;
+            orderBy: OrderBy;
+            onOrderChange(order: Order): void;
+            onOrderByChange(orderBy: OrderBy): void;
+        }
         | {};
     type NumberProps =
         | {
-              /**
-               * Maximum number of items.
-               * @defaultValue 100
-               */
-              maxItems?: number | undefined;
-              /**
-               * Minimum number of items.
-               * @defaultValue 1
-               */
-              minItems?: number | undefined;
-              numberOfItems: number;
-              onNumberOfItemsChange(newNumber: number): void;
-          }
+            /**
+             * Maximum number of items.
+             * @defaultValue 100
+             */
+            maxItems?: number | undefined;
+            /**
+             * Minimum number of items.
+             * @defaultValue 1
+             */
+            minItems?: number | undefined;
+            numberOfItems: number;
+            onNumberOfItemsChange(newNumber: number): void;
+        }
         | {};
     type Props = CategoryProps & OrderProps & NumberProps;
 }
