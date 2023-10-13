@@ -31,17 +31,17 @@ export const Permission: {
 };
 
 export interface Stat {
-    czxid: number;
-    mzxid: number;
-    ctime: number;
-    mtime: number;
+    czxid: Buffer;
+    mzxid: Buffer;
+    ctime: Buffer;
+    mtime: Buffer;
     version: number;
     cversion: number;
     aversion: number;
-    ephemeralOwner: number;
+    ephemeralOwner: Buffer;
     dataLength: number;
     numChildren: number;
-    pzxid: number;
+    pzxid: Buffer;
 }
 
 export class State {
