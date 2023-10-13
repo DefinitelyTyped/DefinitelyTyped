@@ -1,8 +1,5 @@
 name: CI
-# TODO: readd this line and remove other trigger
-# on: pull_request
-on:
-  workflow_dispatch:
+on: pull_request
 
 permissions:
   contents: read
@@ -10,6 +7,7 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
 
     steps:
       - uses: actions/checkout@v4
