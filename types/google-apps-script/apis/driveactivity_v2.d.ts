@@ -77,18 +77,26 @@ declare namespace GoogleAppsScript {
                 timestamp?: string | undefined;
             }
             interface DriveItem {
+                /** @deprecated Use driveFile instead. */
                 file?: any;
+                /** @deprecated Use driveFolder instead. */
                 folder?: DriveActivity.Schema.Folder | undefined;
                 mimeType?: string | undefined;
                 name?: string | undefined;
                 owner?: DriveActivity.Schema.Owner | undefined;
                 title?: string | undefined;
+                driveFile?: any;
+                driveFolder?: DriveActivity.Schema.Folder;
             }
             interface DriveItemReference {
+                // file is deprecated; please use the driveFile instead.
                 file?: any;
+                // folder is deprecated; please use the driveFolder instead.
                 folder?: DriveActivity.Schema.Folder | undefined;
                 name?: string | undefined;
                 title?: string | undefined;
+                driveFile?: any;
+                driveFolder?: DriveActivity.Schema.Folder;
             }
             interface FileComment {
                 legacyCommentId?: string | undefined;
