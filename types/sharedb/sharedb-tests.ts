@@ -356,7 +356,7 @@ function startClient(callback) {
     });
 
     // @ts-expect-error :: invalid payload
-    typedDoc.create({bad: true});
+    typedDoc.create({ bad: true });
 
     typedDoc.ingestSnapshot({
         v: 10,
