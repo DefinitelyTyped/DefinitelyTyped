@@ -73,6 +73,9 @@
                 "react-autosize-textarea>react": "*",
                 "react-autosize-textarea>react-dom": "*"
             }
+        },
+        "overrides": {
+            "@types/mongodb@2>@types/node": "*"
         }
     }
 }
