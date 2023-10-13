@@ -3,37 +3,19 @@
 // Definitions by: shme-e <https://github.com/shme-e>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*~ If this module is a UMD module that exposes a global variable 'myLib' when
- *~ loaded outside a module loader environment, declare that global here.
- *~ Otherwise, delete this declaration.
+import { Attrs, Node } from "@bbob/plugin-helper"
+
+export type PresetFactory = ((options?: PresetOptions) => PresetExecutor) & { 
+    options?: PresetOptions,
+    extend: (callback: (defTags: DefTags, options: PresetOptions) => DefTags) => PresetFactory
+};
+export type PresetOptions = object
+export type PresetExecutor = ((tree: Node[], core?: Core) => DefTags) & { options: PresetOptions };
+export type PresetProcessor = (tags: DefTags, tree: Node[], core: Core, options: PresetOptions) => DefTags;
+export type DefTags = Attrs
+export type Core = any
+
+/**
+ * Creates preset for @bbob/core
  */
-export as namespace myLib;
-
-/*~ If this module has methods, declare them as functions like so.
- */
-export function myMethod(a: string): string;
-export function myOtherMethod(a: number): number;
-
-/*~ You can declare types that are available via importing the module */
-export interface someType {
-    name: string;
-    length: number;
-    extras?: string[];
-}
-
-/*~ You can declare properties of the module using const, let, or var */
-export const myField: number;
-
-/*~ If there are types, properties, or methods inside dotted names
- *~ of the module, declare them inside a 'namespace'.
- */
-export namespace subProp {
-    /*~ For example, given this definition, someone could write:
-     *~   import { subProp } from 'yourModule';
-     *~   subProp.foo();
-     *~ or
-     *~   import * as yourMod from 'yourModule';
-     *~   yourMod.subProp.foo();
-     */
-    function foo(): void;
-}
+export function createPreset(defTags: DefTags, processor?: PresetProcessor): PresetFactory;
