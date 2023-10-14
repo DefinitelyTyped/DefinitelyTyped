@@ -5,6 +5,12 @@ export interface SettingsAppStartupOptions {
      * @default 5000
      */
     timeout?: number;
+    /**
+     * Whether to restore
+     * the activity which was the current one before Settings startup
+     * @default false
+     */
+    shouldRestoreCurrentApp?: boolean;
 }
 
 export interface Location {

@@ -3,7 +3,7 @@
 // Definitions by: Remco Haszing <https://github.com/remcohaszing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { AcceptedPlugin, Transformer } from 'postcss';
+import { AcceptedPlugin, Transformer } from "postcss";
 
 export = atImport;
 
@@ -62,10 +62,10 @@ declare namespace atImport {
          */
         resolve?:
             | ((
-                  id: string,
-                  basedir: string,
-                  importOptions: AtImportOptions,
-              ) => string | string[] | PromiseLike<string | string[]>)
+                id: string,
+                basedir: string,
+                importOptions: AtImportOptions,
+            ) => string | string[] | PromiseLike<string | string[]>)
             | undefined;
 
         /**

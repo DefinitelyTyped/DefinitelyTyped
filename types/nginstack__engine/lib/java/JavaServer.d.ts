@@ -7,5 +7,7 @@ declare class JavaServer {
     configFileName: string;
 }
 declare namespace JavaServer {
-    function getInstance(): any;
+    export { getInstance, Classes };
 }
+declare function getInstance(): Classes;
+type Classes = import('../database/Classes');

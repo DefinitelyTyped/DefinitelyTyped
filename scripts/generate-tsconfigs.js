@@ -1,11 +1,11 @@
 /// <reference types="node" />
 
-import * as fs from 'node:fs';
+import * as fs from "node:fs";
 
-const home = new URL('../types/', import.meta.url);
+const home = new URL("../types/", import.meta.url);
 
 for (const dirName of fs.readdirSync(home)) {
-    if (dirName.startsWith('.') || dirName === 'node_modules' || dirName === 'scripts') {
+    if (dirName.startsWith(".") || dirName === "node_modules" || dirName === "scripts") {
         continue;
     }
 
@@ -26,10 +26,10 @@ for (const dirName of fs.readdirSync(home)) {
  * @param {URL} dir
  */
 function fixTsconfig(dir) {
-    const target = new URL('tsconfig.json', dir);
-    const json = JSON.parse(fs.readFileSync(target, 'utf-8'));
+    const target = new URL("tsconfig.json", dir);
+    const json = JSON.parse(fs.readFileSync(target, "utf-8"));
     json.compilerOptions = fixCompilerOptions(json.compilerOptions);
-    fs.writeFileSync(target, JSON.stringify(json, undefined, 4), 'utf-8');
+    fs.writeFileSync(target, JSON.stringify(json, undefined, 4), "utf-8");
 }
 
 /**

@@ -17,7 +17,8 @@ export declare class Layers extends Array<Layer> {
     /** @ignore */
     private layerIDs;
     /**
-     * Used to access the layers in the collection
+     * Used to access the layers in the collection.
+     * @minVersion 22.5
      */
     [index: number]: Layer;
     /** @ignore */
@@ -27,24 +28,28 @@ export declare class Layers extends Array<Layer> {
         get: (obj: any, key: any) => any;
     };
     /**
-     * Find the first layer with the matching name
+     * Find the first layer with the matching name.
+     * @minVersion 22.5
      */
     getByName(name: string): Layer;
     /**
-     * Number of [[Layer]] elements in this collection
+     * Number of [[Layer]] elements in this collection.
+     * @minVersion 22.5
      */
     get length(): number;
     /**
-     * The name for this object collection: Layers
+     * The name for this object collection: Layers.
+     * @minVersion 22.5
      */
-    get typename(): string;
+    get typename(): "Layers";
     /**
      * Create a new layer.
      *
-     * @async
      * ```javascript
      * let newDoc1 = await app.activeDocument.layers.add();
      * ```
+     * @async
+     * @minVersion 22.5
      */
     add(): Promise<Layer | null>;
 }

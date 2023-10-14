@@ -19,7 +19,7 @@ unhijack = hijack({
     preventDefault: false,
     skipFilter(link: HTMLAnchorElement) {
         return false;
-    }
+    },
 }, callback);
 
 unhijack();

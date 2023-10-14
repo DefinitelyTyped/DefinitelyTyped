@@ -10,7 +10,7 @@ import {
     LexGenericAttachment,
     LexHandler,
     LexResult,
-    LexSlotDetail
+    LexSlotDetail,
 } from "aws-lambda";
 
 // TODO: Update test to read all event properties, and write all result
@@ -25,11 +25,11 @@ const handler: LexHandler = async (event, context, callback) => {
     };
     result = {
         sessionAttributes: {
-            attrib1: 'Value One',
+            attrib1: "Value One",
         },
         dialogAction: {
-            type: 'Close',
-            fulfillmentState: 'Failed',
+            type: "Close",
+            fulfillmentState: "Failed",
         },
     };
 
@@ -41,36 +41,36 @@ const handler: LexHandler = async (event, context, callback) => {
 declare let lexEvent: LexEvent;
 lexEvent = {
     currentIntent: {
-        name: 'intent-name',
+        name: "intent-name",
         slots: {
             slot1: null,
-            slot2: 'value2',
+            slot2: "value2",
         },
         slotDetails: {
             slot1: {
-                resolutions: [{ value: 'value1' }],
-                originalValue: 'originalValue',
+                resolutions: [{ value: "value1" }],
+                originalValue: "originalValue",
             },
         },
-        confirmationStatus: 'None',
+        confirmationStatus: "None",
     },
     bot: {
-        name: 'bot name',
-        alias: 'bot alias',
-        version: 'bot version',
+        name: "bot name",
+        alias: "bot alias",
+        version: "bot version",
     },
-    userId: 'User ID specified in the POST request to Amazon Lex.',
-    inputTranscript: 'Text used to process the request',
-    invocationSource: 'FulfillmentCodeHook',
-    outputDialogMode: 'Text',
-    messageVersion: '1.0',
+    userId: "User ID specified in the POST request to Amazon Lex.",
+    inputTranscript: "Text used to process the request",
+    invocationSource: "FulfillmentCodeHook",
+    outputDialogMode: "Text",
+    messageVersion: "1.0",
     sessionAttributes: {
-        key1: 'value1',
-        key2: 'value2',
+        key1: "value1",
+        key2: "value2",
     },
     requestAttributes: {
-        key1: 'value1',
-        key2: 'value2',
+        key1: "value1",
+        key2: "value2",
     },
 };
 
@@ -90,42 +90,42 @@ str = lexGenericAttachment.attachmentLinkUrl;
 str = lexGenericAttachment.buttons[0].text;
 str = lexGenericAttachment.buttons[0].value;
 
-lexDialogAction.type === 'Close';
-lexDialogAction.type === 'ConfirmIntent';
-lexDialogAction.type === 'Delegate';
-lexDialogAction.type === 'ElicitIntent';
-lexDialogAction.type === 'ElicitSlot';
+lexDialogAction.type === "Close";
+lexDialogAction.type === "ConfirmIntent";
+lexDialogAction.type === "Delegate";
+lexDialogAction.type === "ElicitIntent";
+lexDialogAction.type === "ElicitSlot";
 
-lexDialogActionBase.message!.contentType === 'CustomPayload';
-lexDialogActionBase.message!.contentType === 'PlainText';
-lexDialogActionBase.message!.contentType === 'SSML';
+lexDialogActionBase.message!.contentType === "CustomPayload";
+lexDialogActionBase.message!.contentType === "PlainText";
+lexDialogActionBase.message!.contentType === "SSML";
 str = lexDialogActionBase.message!.content;
 num = lexDialogActionBase.responseCard!.version;
-lexDialogActionBase.responseCard!.contentType === 'application/vnd.amazonaws.card.generic';
+lexDialogActionBase.responseCard!.contentType === "application/vnd.amazonaws.card.generic";
 // $ExpectType LexGenericAttachment
 lexDialogActionBase.responseCard!.genericAttachments[0];
 
-lexDialogActionClose.type === 'Close';
-lexDialogActionClose.fulfillmentState === 'Failed';
-lexDialogActionClose.fulfillmentState === 'Fulfilled';
+lexDialogActionClose.type === "Close";
+lexDialogActionClose.fulfillmentState === "Failed";
+lexDialogActionClose.fulfillmentState === "Fulfilled";
 
-lexDialogActionConfirmIntent.type === 'ConfirmIntent';
+lexDialogActionConfirmIntent.type === "ConfirmIntent";
 str = lexDialogActionConfirmIntent.intentName;
-strOrNull = lexDialogActionConfirmIntent.slots['example'];
+strOrNull = lexDialogActionConfirmIntent.slots["example"];
 
-lexDialogActionDelegate.type === 'Delegate';
-strOrNull = lexDialogActionDelegate.slots['example'];
+lexDialogActionDelegate.type === "Delegate";
+strOrNull = lexDialogActionDelegate.slots["example"];
 
-lexDialogActionElicitIntent.type === 'ElicitIntent';
-lexDialogActionElicitSlot.type === 'ElicitSlot';
-strOrNull = lexDialogActionElicitSlot.slots['example'];
+lexDialogActionElicitIntent.type === "ElicitIntent";
+lexDialogActionElicitSlot.type === "ElicitSlot";
+strOrNull = lexDialogActionElicitSlot.slots["example"];
 str = lexDialogActionElicitSlot.slotToElicit;
 str = lexDialogActionElicitSlot.intentName;
 
 declare let lexSlotDetail: LexSlotDetail;
 lexSlotDetail = {
-    resolutions: [{ value: 'value1' }],
-    originalValue: 'originalValue',
+    resolutions: [{ value: "value1" }],
+    originalValue: "originalValue",
 };
 
 lexSlotDetail.resolutions[0];
@@ -139,12 +139,12 @@ lexSlotDetail.resolutions[5];
 lexSlotDetail = {
     // @ts-expect-error
     resolutions: [
-        { value: 'value0' },
-        { value: 'value1' },
-        { value: 'value2' },
-        { value: 'value3' },
-        { value: 'value4' },
-        { value: 'value5' },
+        { value: "value0" },
+        { value: "value1" },
+        { value: "value2" },
+        { value: "value3" },
+        { value: "value4" },
+        { value: "value5" },
     ],
-    originalValue: 'originalValue',
+    originalValue: "originalValue",
 };

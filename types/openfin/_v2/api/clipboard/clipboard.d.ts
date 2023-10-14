@@ -1,11 +1,5 @@
-import { Base } from '../base';
-import { WriteRequestType, WriteAnyRequestType } from './write-request';
-/**
- * WriteRequestType interface
- * @typedef { object } WriteRequestType
- * @property { string } name The name of the running application
- * @property { string } uuid The uuid of the running application
- */
+import { Base } from "../base";
+import { WriteAnyRequestType, WriteRequestType } from "./write-request";
 /**
  * The Clipboard API allows reading and writing to the clipboard in multiple formats.
  * @namespace

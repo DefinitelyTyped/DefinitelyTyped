@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { View, Text, ViewStyle, StyleSheet } from 'react-native';
+import * as React from "react";
+import { StyleSheet, Text, View, ViewStyle } from "react-native";
 
 interface Props {
     style: ViewStyle;
@@ -17,6 +17,6 @@ export function App(props: Props) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'red',
+        backgroundColor: "red",
     },
 });

@@ -1,4 +1,4 @@
-// Type definitions for prompts 2.0
+// Type definitions for prompts 2.4
 // Project: https://github.com/terkelg/prompts
 // Definitions by: Berkay GURSOY <https://github.com/Berkays>
 //                 Daniel Perez Alvarez <https://github.com/unindented>
@@ -6,6 +6,7 @@
 //                 theweirdone <https://github.com/theweirdone>
 //                 whoaa512 <https://github.com/whoaa512>
 //                 John Reilly <https://github.com/johnnyreilly>
+//                 Christopher Hiller <https://github.com/boneskull>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.9
 
@@ -13,11 +14,12 @@
 
 export = prompts;
 
-import { Readable, Writable } from 'stream';
+import { Kleur } from "kleur";
+import { Readable, Writable } from "stream";
 
 declare function prompts<T extends string = string>(
     questions: prompts.PromptObject<T> | Array<prompts.PromptObject<T>>,
-    options?: prompts.Options
+    options?: prompts.Options,
 ): Promise<prompts.Answers<T>>;
 
 declare namespace prompts {
@@ -83,6 +85,7 @@ declare namespace prompts {
         format?: PrevCaller<T, void> | undefined;
         validate?: PrevCaller<T, boolean | string | Promise<boolean | string>> | undefined;
         onState?: PrevCaller<T, void> | undefined;
+        onRender?: ((kleur: Kleur) => void) | undefined;
         min?: number | PrevCaller<T, number | Falsy> | undefined;
         max?: number | PrevCaller<T, number | Falsy> | undefined;
         float?: boolean | PrevCaller<T, boolean | Falsy> | undefined;
@@ -107,12 +110,24 @@ declare namespace prompts {
     type PrevCaller<T extends string, R = T> = (
         prev: any,
         values: Answers<T>,
-        prompt: PromptObject
+        prompt: PromptObject,
     ) => R;
 
     type Falsy = false | null | undefined;
 
-    type PromptType = "text" | "password" | "invisible" | "number" | "confirm" | "list" | "toggle" | "select" | "multiselect" | "autocomplete" | "date" | "autocompleteMultiselect";
+    type PromptType =
+        | "text"
+        | "password"
+        | "invisible"
+        | "number"
+        | "confirm"
+        | "list"
+        | "toggle"
+        | "select"
+        | "multiselect"
+        | "autocomplete"
+        | "date"
+        | "autocompleteMultiselect";
 
     type ValueOrFunc<T extends string> = T | PrevCaller<T>;
 

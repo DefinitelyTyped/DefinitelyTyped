@@ -57,7 +57,7 @@ declare namespace Strophe {
             /**
              * Send a message to a room.
              *
-             * @param) room - The multi-user chat room name.
+             * @param room - The multi-user chat room name.
              * @param nick - The nick name used in the chat room.
              * @param message - The plaintext message to send to the room.
              * @param html_message - The message to send to the room with html markup.
@@ -69,7 +69,7 @@ declare namespace Strophe {
                 nick: string,
                 message: string,
                 html_message: string,
-                type: 'groupchat' | 'chat',
+                type: "groupchat" | "chat",
             ): string;
 
             /**
@@ -399,7 +399,7 @@ declare namespace Strophe {
 
             leave(handler_cb?: Function, exit_msg?: string): void;
 
-            message(message: string, html_message: string, type: 'groupchat' | 'chat'): string;
+            message(message: string, html_message: string, type: "groupchat" | "chat"): string;
 
             groupchat(message: string, html_message?: string): string;
 
@@ -460,7 +460,7 @@ declare namespace Strophe {
              * @param handler - The handler function.
              * @return id - the id of handler.
              */
-            addHandler(handler_type: 'presence' | 'message' | 'roster', handler: Function): number;
+            addHandler(handler_type: "presence" | "message" | "roster", handler: Function): number;
 
             /**
              * Removes a handler from the MUC room.

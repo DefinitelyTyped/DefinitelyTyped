@@ -17,11 +17,63 @@ export interface Response {
 }
 
 export interface ConnectParams {
+    /**
+     * If `true` will connect to the gRPC server using plaintext i.e. insecure.
+     */
     plaintext?: boolean;
 
+    /**
+     * If `true` connection will try to use the gRPC server reflection protocol.
+     * https://github.com/grpc/grpc/blob/master/doc/server-reflection.md
+     */
     reflect?: boolean;
 
+    /**
+     * Metadata to send with reflection request.
+     */
+    reflectMetadata?: object;
+
+    /**
+     * Connection timeout to use.
+     */
     timeout?: string | number;
+
+    /**
+     *  Maximum message size in bytes the client can receive.
+     */
+    maxReceiveSize?: number;
+
+    /**
+     * Maximum message size in bytes the client can send.
+     */
+    maxSendSize?: number;
+
+    /**
+     * TLS settings of the connection.
+     */
+    tls?: TLSParams;
+}
+
+export interface TLSParams {
+    /**
+     *  PEM formatted client certificate.
+     */
+    cert: string;
+
+    /**
+     * PEM formatted client private key.
+     */
+    key: string;
+
+    /**
+     * Password for decrypting the client's private key.
+     */
+    password?: string;
+
+    /**
+     * PEM formatted string/strings of the certificate authorities.
+     */
+    cacerts?: string | string[];
 }
 
 export interface Params {
@@ -56,6 +108,9 @@ declare namespace grpc {
 
         /** Loads and parses the protocol buffer descriptors. */
         load(importPaths: string[], ...protoFiles: string[]): void;
+
+        /** Loads a protoset and parses the protocol buffer descriptors */
+        loadProtoset(protosetPath: string): void;
 
         /** Invokes an unary RPC request. */
         invoke(url: string, request: object, params?: Params): Response;

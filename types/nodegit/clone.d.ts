@@ -1,5 +1,5 @@
-import { Repository } from './repository';
-import { CloneOptions } from './clone-options';
+import { CloneOptions } from "./clone-options";
+import { Repository } from "./repository";
 
 export namespace Clone {
     const enum LOCAL {
@@ -10,11 +10,7 @@ export namespace Clone {
     }
 }
 
-export class Clone {
-    /**
-     * Patch repository cloning to automatically coerce objects.
-     */
-    static clone(url: string, localPath: string, options?: CloneOptions): Promise<Repository>;
-
-    static initOptions(opts: CloneOptions, version: number): number;
-}
+/**
+ * Patch repository cloning to automatically coerce objects.
+ */
+export function Clone(url: string, localPath: string, options?: CloneOptions): Promise<Repository>;

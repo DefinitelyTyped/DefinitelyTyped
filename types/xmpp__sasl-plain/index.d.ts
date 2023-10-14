@@ -3,7 +3,7 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { SASL } from '@xmpp/sasl';
+import { SASL } from "@xmpp/sasl";
 
 export = saslPlain;
 

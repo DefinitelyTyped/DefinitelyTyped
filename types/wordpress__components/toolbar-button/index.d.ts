@@ -1,11 +1,11 @@
-import { ComponentType, ReactNode } from 'react';
+import { ComponentType, ReactNode } from "react";
 
-import DropdownMenu from '../dropdown-menu';
-import IconButton from '../icon-button';
-import Button from '../button';
+import Button from "../button";
+import DropdownMenu from "../dropdown-menu";
+import IconButton from "../icon-button";
 
 declare namespace ToolbarButton {
-    interface Props extends DropdownMenu.Control, Pick<IconButton.Props, 'shortcut'> {
+    interface Props extends DropdownMenu.Control, Pick<IconButton.Props, "shortcut"> {
         /**
          * Anything to add into the containing element after the button.
          */
@@ -32,6 +32,6 @@ declare namespace ToolbarButton {
         subscript?: string | undefined;
     }
 }
-declare const ToolbarButton: ComponentType<ToolbarButton.Props|Button.Props>;
+declare const ToolbarButton: ComponentType<ToolbarButton.Props | Button.Props>;
 
 export default ToolbarButton;

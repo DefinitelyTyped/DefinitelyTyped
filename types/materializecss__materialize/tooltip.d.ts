@@ -3,17 +3,17 @@
 declare namespace M {
     class Tooltip extends Component<TooltipOptions> implements Openable {
         /**
-         * Get Instance
+         * Get Instance.
          */
         static getInstance(elem: Element): Tooltip;
 
         /**
-         * Init Tooltip
+         * Init Tooltip.
          */
         static init(els: Element, options?: Partial<TooltipOptions>): Tooltip;
 
         /**
-         * Init Tooltips
+         * Init Tooltips.
          */
         static init(els: MElements, options?: Partial<TooltipOptions>): Tooltip[];
 
@@ -41,18 +41,19 @@ declare namespace M {
     interface TooltipOptions {
         /**
          * Delay time before tooltip disappears.
-         * @default 0
+         * @default 200
          */
         exitDelay: number;
 
         /**
          * Delay time before tooltip appears.
-         * @default 200
+         * @default 0
          */
         enterDelay: number;
 
         /**
          * Text string for the tooltip.
+         * @default ""
          */
         text: string;
 
@@ -64,15 +65,17 @@ declare namespace M {
         unsafeHTML: string;
 
         /**
-         * HTML content that will be appended to text. Only use properly sanitized or otherwise trusted data for html.
-         * Will be ignored if unsafeHTML is set.\
+         * HTML content that will be appended to text.\
+         * Only use properly sanitized or otherwise trusted data for html.\
+         * Will be ignored if unsafeHTML is set.
          * @deprecated Will be removed in a later release.
          * @default null
          */
         html: string;
 
         /**
-         * Set distance tooltip appears away from its activator excluding transitionMovement.
+         * Set distance tooltip appears away from its activator
+         * excluding transitionMovement.
          * @default 5
          */
         margin: number;
@@ -99,7 +102,7 @@ declare namespace M {
          * Set the direction of the tooltip.
          * @default 'bottom'
          */
-        position: 'top' | 'right' | 'bottom' | 'left';
+        position: "top" | "right" | "bottom" | "left";
 
         /**
          * Amount in px that the tooltip moves during its transition.

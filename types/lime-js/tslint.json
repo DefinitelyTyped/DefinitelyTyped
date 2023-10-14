@@ -1,14 +1,10 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "export-just-namespace": false,
         "interface-name": false,
-        "max-line-length": false,
         "no-object-literal-type-assertion": false,
-        "no-padding": false,
         "no-unnecessary-class": false,
         "no-var-keyword": false,
-        "prefer-const": false,
-        "whitespace": false
+        "prefer-const": false
     }
 }

@@ -1,4 +1,4 @@
-// Type definitions for node-scanf
+// Type definitions for node-sleep
 // Project: https://github.com/ErikDubbelboer/node-sleep
 // Definitions by: Jeongho Nam <http://samchon.org>, Rahul Rajaram <https://github.com/rajarz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -26,7 +26,6 @@ declare namespace __node_sleep {
     function usleep(n: number): void;
 }
 
-declare module "sleep"
-{
+declare module "sleep" {
     export = __node_sleep;
 }

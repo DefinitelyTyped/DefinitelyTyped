@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.5
 
-import { h, Component, Context, VNode, ComponentChild, JSX } from 'preact';
+import { Component, ComponentChild, Context, h, JSX, VNode } from "preact";
 
 interface IntlContext {
     intl: {
@@ -55,11 +55,11 @@ export function useText(
     mapping: { [key: string]: string | JSX.Element } | string | JSX.Element,
 ): { [key: string]: string };
 
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function withText<Props, Context = IntlContext>(mapping: {}): (
     Child: ComponentChild,
-    // tslint:disable-next-line:no-unnecessary-generics
-) => new (props?: Props, context?: Context) => any;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+) => new(props?: Props, context?: Context) => any;
 
 export function intl(Child: Component, options?: { scope?: string | undefined; definition?: {} | undefined }): VNode;
 

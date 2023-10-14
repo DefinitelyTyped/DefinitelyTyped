@@ -8,7 +8,7 @@
 
 // Last module patch version validated against: 3.0.0
 
-import { Selection, TransitionLike, ValueFn } from 'd3-selection';
+import { Selection, TransitionLike, ValueFn } from "d3-selection";
 
 /**
  * Type alias for a BrushSelection. For a two-dimensional brush, it must be defined as [[x0, y0], [x1, y1]],
@@ -45,7 +45,11 @@ export interface BrushBehavior<Datum> {
      * The returned array defines the brush selection for that element.
      * @param event
      */
-    move(group: Selection<SVGGElement, Datum, any, any> | TransitionLike<SVGGElement, Datum>, selection: null | BrushSelection | ValueFn<SVGGElement, Datum, BrushSelection>, event?: Event): void;
+    move(
+        group: Selection<SVGGElement, Datum, any, any> | TransitionLike<SVGGElement, Datum>,
+        selection: null | BrushSelection | ValueFn<SVGGElement, Datum, BrushSelection>,
+        event?: Event,
+    ): void;
 
     /**
      * Clear the active selection of the brush on the specified SVG G element(s) selection.
@@ -201,7 +205,7 @@ export interface BrushBehavior<Datum> {
  * The generic "Datum" refers to the type of the data of the selected svg:g element to
  * which the returned BrushBehavior will be applied.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function brush<Datum>(): BrushBehavior<Datum>;
 /**
  * Creates a new one-dimensional brush along the x-dimension.
@@ -209,7 +213,7 @@ export function brush<Datum>(): BrushBehavior<Datum>;
  * The generic "Datum" refers to the type of the data of the selected svg:g element to
  * which the returned BrushBehavior will be applied.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function brushX<Datum>(): BrushBehavior<Datum>;
 /**
  * Creates a new one-dimensional brush along the y-dimension.
@@ -217,7 +221,7 @@ export function brushX<Datum>(): BrushBehavior<Datum>;
  * The generic "Datum" refers to the type of the data of the selected svg:g element to
  * which the returned BrushBehavior will be applied.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function brushY<Datum>(): BrushBehavior<Datum>;
 
 /**
@@ -242,7 +246,7 @@ export interface D3BrushEvent<Datum> {
     /**
      * The event type for the BrushEvent
      */
-    type: 'start' | 'brush' | 'end' | string; // Leave failsafe string type for cases like 'brush.foo'
+    type: "start" | "brush" | "end" | string; // Leave failsafe string type for cases like 'brush.foo'
     /**
      * The current brush selection associated with the event.
      * This is null when the selection is empty.
@@ -255,5 +259,5 @@ export interface D3BrushEvent<Datum> {
     /**
      * The mode of the brush.
      */
-    mode: 'drag' | 'space' | 'handle' | 'center';
+    mode: "drag" | "space" | "handle" | "center";
 }

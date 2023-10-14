@@ -16,7 +16,7 @@ export const VERSION: string;
 /**
  * Name for detection of EJS.
  */
-export const name: 'ejs';
+export const name: "ejs";
 
 /**
  * Get the path to the included file from the parent file path and the
@@ -171,11 +171,11 @@ export class Template {
 
 export namespace Template {
     enum modes {
-        EVAL = 'eval',
-        ESCAPED = 'escaped',
-        RAW = 'raw',
-        COMMENT = 'comment',
-        LITERAL = 'literal',
+        EVAL = "eval",
+        ESCAPED = "escaped",
+        RAW = "raw",
+        COMMENT = "comment",
+        LITERAL = "literal",
     }
 }
 
@@ -205,7 +205,6 @@ export type AsyncTemplateFunction = (data?: Data) => Promise<string>;
  * This type of function is returned from `compile`, when
  * `Options.client` is true.
  *
- *
  * This is also used internally to generate a `TemplateFunction`.
  *
  * @param locals an object of data to be passed into the template.
@@ -227,7 +226,6 @@ export type ClientFunction = (
 /**
  * This type of function is returned from `compile`, when
  * `Options.client` is true.
- *
  *
  * This is also used internally to generate a `TemplateFunction`.
  *
@@ -375,12 +373,12 @@ export interface Options {
     filename?: string | undefined;
 
     /**
-     * The path to the project root. When this is set, absolute paths for includes
-     * (/filename.ejs) will be relative to the project root.
+     * The path to templates root(s). When this is set, absolute paths for includes
+     * (/filename.ejs) will be relative to the templates root(s).
      *
      * @default undefined
      */
-    root?: string | undefined;
+    root?: string[] | string | undefined;
 
     /**
      * The opening delimiter for all statements. This allows you to clearly delinate

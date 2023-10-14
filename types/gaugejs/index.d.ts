@@ -37,7 +37,7 @@ export interface GaugeOptions extends BaseOptions {
         color?: string | undefined;
         fractionDigits?: number | undefined;
     } | undefined;
-    staticZones?: StaticZoneOptions[] | Array<StaticZoneOptions & { height: number; }> | undefined;
+    staticZones?: StaticZoneOptions[] | Array<StaticZoneOptions & { height: number }> | undefined;
     renderTicks?: {
         divisions: number;
         divWidth: number;
@@ -124,4 +124,4 @@ export class Gauge extends BaseGauge {
     set(value: number): boolean;
 }
 
-export { };
+export {};

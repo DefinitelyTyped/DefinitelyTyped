@@ -1,12 +1,23 @@
-import { createMimeMessage, MailLocation, MIMEHeader, RecipientOptions, RecipientType, TextFormat } from 'mimetext';
+import {
+    createMimeMessage,
+    MailLocation,
+    MIMEHeader,
+    MIMEType,
+    RecipientOptions,
+    RecipientType,
+    TextFormat,
+} from "mimetext";
 
-let textFormat: TextFormat = 'text/html';
-textFormat = 'text/plain';
+let textFormat: TextFormat = "text/html";
+textFormat = "text/plain";
 
-const mailLocation: MailLocation = { addr: '' };
-mailLocation.name = '';
+let mimeType: MIMEType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+mimeType = "image/png";
 
-const recipientType: RecipientType = 'bcc';
+const mailLocation: MailLocation = { addr: "" };
+mailLocation.name = "";
+
+const recipientType: RecipientType = "bcc";
 
 const recipientOptions: RecipientOptions = {};
 recipientOptions.type = recipientType;
@@ -24,10 +35,10 @@ mimeMessage.asEncoded();
 mimeMessage.asRaw();
 
 // $ExpectType string | undefined
-mimeMessage.getHeader('');
+mimeMessage.getHeader("");
 
 // $ExpectType MIMEMessageContent | undefined
-mimeMessage.getMessageByType('');
+mimeMessage.getMessageByType("");
 
 // $ExpectType Mailbox[]
 mimeMessage.getRecipients();
@@ -40,25 +51,25 @@ mimeMessage.getSender();
 mimeMessage.getSubject();
 
 // $ExpectType MIMEMessageContent
-mimeMessage.setAttachment('', textFormat, '');
+mimeMessage.setAttachment("", mimeType, "");
 
 // $ExpectType Mailbox[]
-mimeMessage.setBcc('');
-mimeMessage.setBcc(['']);
+mimeMessage.setBcc("");
+mimeMessage.setBcc([""]);
 mimeMessage.setBcc(mailLocation);
 mimeMessage.setBcc([mailLocation]);
 
 // $ExpectType Mailbox[]
-mimeMessage.setCc('');
-mimeMessage.setCc(['']);
+mimeMessage.setCc("");
+mimeMessage.setCc([""]);
 mimeMessage.setCc(mailLocation);
 mimeMessage.setCc([mailLocation]);
 
 // $ExpectType string
-mimeMessage.setHeader('', '');
+mimeMessage.setHeader("", "");
 
 // $ExpectType MIMEMessageContent
-mimeMessage.setMessage(textFormat, '');
+mimeMessage.setMessage(textFormat, "");
 
 // $ExpectType Mailbox[]
 mimeMessage.setRecipient(mailLocation);
@@ -69,11 +80,11 @@ mimeMessage.setSender(mailLocation);
 mimeMessage.setSender([mailLocation]);
 
 // $ExpectType string
-mimeMessage.setSubject('');
+mimeMessage.setSubject("");
 
 // $ExpectType Mailbox[]
-mimeMessage.setTo('');
-mimeMessage.setTo(['']);
+mimeMessage.setTo("");
+mimeMessage.setTo([""]);
 mimeMessage.setTo(mailLocation);
 mimeMessage.setTo([mailLocation]);
 
@@ -81,13 +92,13 @@ mimeMessage.setTo([mailLocation]);
 const mailbox = mimeMessage.getSender();
 
 // $ExpectType MailLocationData
-mailbox.parseSpecCompliantText('');
+mailbox.parseSpecCompliantText("");
 
 // $ExpectType void
 mailbox.createMailbox();
 
 // $ExpectType InputType
-mailbox.findInputType('');
+mailbox.findInputType("");
 
 // $ExpectType string
 mailbox.getAddrDomain();
@@ -101,9 +112,9 @@ mailbox.toObject();
 const mimeHeader: MIMEHeader = {
     custom: true,
     dump: v => v,
-    name: '',
-    placement: 'content',
-    value: '',
+    name: "",
+    placement: "content",
+    value: "",
 };
 
 const [messageContent] = mimeMessage.asAttachments();
@@ -112,18 +123,18 @@ const [messageContent] = mimeMessage.asAttachments();
 messageContent.getHeaders();
 
 // $ExpectType string | undefined
-messageContent.getHeader('');
+messageContent.getHeader("");
 
 // $ExpectType boolean
 messageContent.isAttachment();
 
 // $ExpectType string
-messageContent.dump({}, { alt: '', mixed: '' });
-messageContent.dump({ toBase64: input => `${input}`, store: [mimeHeader] }, { alt: '', mixed: '' });
+messageContent.dump({}, { alt: "", mixed: "" });
+messageContent.dump({ toBase64: input => `${input}`, store: [mimeHeader] }, { alt: "", mixed: "" });
 
 // $ExpectType MIMEMessageContent
-messageContent.setHeader('', '');
+messageContent.setHeader("", "");
 
 // $ExpectType MIMEMessageContent
-messageContent.setHeaders(['']);
-messageContent.setHeaders({ '': '' });
+messageContent.setHeaders([""]);
+messageContent.setHeaders({ "": "" });

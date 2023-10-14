@@ -59,13 +59,11 @@ declare namespace bunnymq {
 
         /**
          * Number of fetched messages at once on the channel.
-         *
          */
         prefetch?: number | undefined;
 
         /**
          * Requeue put back message into the broker if consumer crashes/trigger exception.
-         *
          */
         requeue?: boolean | undefined;
         rpcTimeout?: number | undefined;

@@ -4,11 +4,7 @@
         "array-type": false,
         "ban-types": false,
         "member-access": false,
-        "no-declare-current-package": false,
-        "no-single-declare-module": false,
         "prefer-const": false,
-        "semicolon": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
 }

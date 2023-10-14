@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-import * as redis from 'redis';
-import * as Promise from 'bluebird';
+import * as Promise from "bluebird";
+import * as redis from "redis";
 
 export = Redlock;
 
@@ -29,7 +29,7 @@ declare namespace Redlock {
     }
 
     class LockError extends Error {
-        readonly name: 'LockError';
+        readonly name: "LockError";
         constructor(message?: string);
     }
 }
@@ -55,5 +55,10 @@ declare class Redlock {
     unlock(lock: Redlock.Lock, callback?: Redlock.Callback<void>): Promise<void>;
 
     extend(lock: Redlock.Lock, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
-    _lock(resource: string, value: string, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
+    _lock(
+        resource: string,
+        value: string,
+        ttl: number,
+        callback?: Redlock.Callback<Redlock.Lock>,
+    ): Promise<Redlock.Lock>;
 }

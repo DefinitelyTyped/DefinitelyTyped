@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-type Signal = 'SIGINT' | 'SIGTERM' | 'SIGQUIT';
+type Signal = "SIGINT" | "SIGTERM" | "SIGQUIT";
 
 /**
  * Invokes a callback when a SIGINT, SIGTERM, or SIGQUIT is detected

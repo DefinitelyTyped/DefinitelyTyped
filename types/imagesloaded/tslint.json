@@ -2,9 +2,7 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "no-declare-current-package": false,
         "no-misused-new": false,
-        "no-single-declare-module": false,
         "no-var-keyword": false,
         "only-arrow-functions": false,
         "prefer-const": false,

@@ -1,4 +1,4 @@
-import * as deepExtend from 'deep-extend';
+import * as deepExtend from "deep-extend";
 const obj1 = {
     a: 1,
     b: 2,
@@ -16,7 +16,7 @@ const obj2 = {
     b: 3,
     c: 5,
     d: {
-        b: { first: 'one', second: 'two' },
+        b: { first: "one", second: "two" },
         c: { test2: 222 },
     },
     e: { one: 1, two: 2 },
@@ -35,3 +35,4 @@ deepExtend(obj1, obj1, obj1, obj1, obj1, obj1); // More than 5 arguments
 deepExtend({ a: 1 }, { b: true }); // $ExpectType { a: number; } & { b: boolean; }
 // @ts-expect-error
 deepExtend({ a: 1 }, 1);
+deepExtend({ a: 1 }); // $ExpectType { a: number; }

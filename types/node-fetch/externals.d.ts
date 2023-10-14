@@ -4,18 +4,29 @@
 
 export interface AbortSignal {
     aborted: boolean;
+    reason: any;
 
-    addEventListener: (type: "abort", listener: ((this: AbortSignal, event: any) => any), options?: boolean | {
-        capture?: boolean | undefined,
-        once?: boolean | undefined,
-        passive?: boolean | undefined
-    }) => void;
+    addEventListener: (
+        type: "abort",
+        listener: (this: AbortSignal, event: any) => any,
+        options?: boolean | {
+            capture?: boolean | undefined;
+            once?: boolean | undefined;
+            passive?: boolean | undefined;
+        },
+    ) => void;
 
-    removeEventListener: (type: "abort", listener: ((this: AbortSignal, event: any) => any), options?: boolean | {
-        capture?: boolean | undefined
-    }) => void;
+    removeEventListener: (
+        type: "abort",
+        listener: (this: AbortSignal, event: any) => any,
+        options?: boolean | {
+            capture?: boolean | undefined;
+        },
+    ) => void;
 
     dispatchEvent: (event: any) => boolean;
 
     onabort: null | ((this: AbortSignal, event: any) => any);
+
+    throwIfAborted(): void;
 }

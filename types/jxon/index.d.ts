@@ -1,7 +1,6 @@
 // Type definitions for jxon 2.0
 // Project: https://www.npmjs.com/package/jxon
-// Definitions by: Definitions by: Vladimir Grenaderov <https://github.com/VladimirGrenaderov>,
-//                                 Max Boguslavskiy <https://github.com/maxbogus>
+// Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
@@ -29,7 +28,12 @@ export function jsToString(
     qualifiedName?: string,
     documentType?: object,
 ): string;
-export function stringify(objTree: object, namespaceURI?: string, qualifiedName?: string, documentType?: object): string;
+export function stringify(
+    objTree: object,
+    namespaceURI?: string,
+    qualifiedName?: string,
+    documentType?: object,
+): string;
 
 export function xmlToJs(
     xmlDocument: any,

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Progress from 'delowar__react-circle-progressbar';
+import Progress from "@delowar/react-circle-progressbar";
+import * as React from "react";
 
 // Basic Usage
 const basic = () => <Progress percent={40} />;
@@ -16,8 +16,8 @@ const customGradient = () => (
         isGradient
         gradient={{
             angle: 90,
-            startColor: '#ff0000',
-            stopColor: '#ffff00',
+            startColor: "#ff0000",
+            stopColor: "#ffff00",
         }}
     />
 );
@@ -35,7 +35,7 @@ const customShadow = () => (
             horizontal: 2,
             blur: 4,
             opacity: 0.4,
-            color: '#000000',
+            color: "#000000",
         }}
         emptyColor="#f7f7f7"
         borderWidth="6"

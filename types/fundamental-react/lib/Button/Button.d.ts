@@ -15,9 +15,10 @@ export type ButtonProps = {
     selected?: boolean | undefined;
     type?: ButtonTypes | undefined;
     typeAttr?: "submit" | "reset" | "button" | undefined;
-    onClick?: ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void) | undefined;
+    /** Determines whether the icon should be placed before the text */
+    iconBeforeText?: boolean;
 } & React.HTMLAttributes<HTMLButtonElement>;
 
-declare const Button: React.FunctionComponent<ButtonProps> & {displayName: "Button"};
+declare const Button: React.FunctionComponent<ButtonProps> & { displayName: "Button" };
 
 export default Button;

@@ -5,13 +5,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-export type FrameCallbackType = () => FrameCallbackType | void;
+export type FrameCallbackType = (didTimeout: boolean) => FrameCallbackType | void;
 export interface CallbackNode {
-  callback: FrameCallbackType;
-  priorityLevel: number;
-  expirationTime: number;
-  next: CallbackNode | null;
-  prev: CallbackNode | null;
+    callback: FrameCallbackType;
+    priorityLevel: number;
+    expirationTime: number;
+    next: CallbackNode | null;
+    prev: CallbackNode | null;
 }
 
 export const unstable_ImmediatePriority = 1;
@@ -20,7 +20,11 @@ export const unstable_NormalPriority = 3;
 export const unstable_IdlePriority = 5;
 export const unstable_LowPriority = 4;
 export function unstable_runWithPriority<T>(priorityLevel: number, eventHandler: () => T): T;
-export function unstable_scheduleCallback(priorityLevel: number, callback: FrameCallbackType, options?: { delay?: number | undefined, timeout?: number | undefined}): CallbackNode;
+export function unstable_scheduleCallback(
+    priorityLevel: number,
+    callback: FrameCallbackType,
+    options?: { delay?: number | undefined; timeout?: number | undefined },
+): CallbackNode;
 export function unstable_next<T>(eventHandler: () => T): T;
 export function unstable_cancelCallback(callbackNode: CallbackNode): void;
 export function unstable_wrapCallback(callback: FrameCallbackType): () => FrameCallbackType;

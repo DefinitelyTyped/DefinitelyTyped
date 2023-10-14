@@ -1,4 +1,4 @@
-import solverjs = require('solverjs');
+import solverjs = require("solverjs");
 
 solverjs.nsToUs(1);
 solverjs.nsToMs(1);

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Component } from 'react';
+import { Component } from "react";
 
 interface LoaderOptions {
     lines?: number | undefined;
@@ -35,7 +35,7 @@ interface LoaderProps extends LoaderOptions {
     className?: string | undefined;
 }
 
-declare class ReactLoader extends Component<LoaderProps>  {
+declare class ReactLoader extends Component<LoaderProps> {
 }
 
 declare namespace ReactLoader {

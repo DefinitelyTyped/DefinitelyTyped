@@ -1,10 +1,10 @@
-import * as CodeMirror from 'codemirror';
-import 'codemirror/addon/search/search';
+import * as CodeMirror from "codemirror";
+import "codemirror/addon/search/search";
 
 const editor = CodeMirror(document.body, {
     search: {
         bottom: true,
-    }
+    },
 });
 
 const myKeyMap: CodeMirror.KeyMap = {

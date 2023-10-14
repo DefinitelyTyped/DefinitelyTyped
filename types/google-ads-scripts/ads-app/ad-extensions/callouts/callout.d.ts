@@ -31,11 +31,13 @@ declare namespace GoogleAdsScripts {
         interface CalloutOperation extends Base.Operation<Callout> {}
 
         interface CalloutSelector
-            extends Base.Selector<CalloutIterator>,
+            extends
+                Base.Selector<CalloutIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

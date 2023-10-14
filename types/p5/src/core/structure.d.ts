@@ -24,7 +24,8 @@ declare module '../../index' {
          *   noLoop() has been specified. Otherwise, the sketch
          *   would enter an odd state until loop() was called.
          *
-         *   Use isLooping() to check current state of loop().
+         *   Use isLooping() to check the current state of
+         *   loop().
          */
         noLoop(): void;
 
@@ -36,7 +37,8 @@ declare module '../../index' {
          *   resumed with loop(). Avoid calling loop() from
          *   inside setup().
          *
-         *   Use isLooping() to check current state of loop().
+         *   Use isLooping() to check the current state of
+         *   loop().
          */
         loop(): void;
 

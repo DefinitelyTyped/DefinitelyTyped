@@ -75,4 +75,8 @@ result.results; // LintResult[]
     formatter = xo.getFormatter("./my/formatter.js");
     xo.getFormatter("compact")(report.results);
     formatter(report.results); // $ExpectType string
+    // tests getConfig
+    const config = await xo.getConfig({ filePath: "./xo-tests.ts" }); // $ExpectType any
+    // @ts-expect-error
+    await xo.getConfig({});
 })();

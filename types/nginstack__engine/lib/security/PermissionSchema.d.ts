@@ -16,42 +16,42 @@ declare class PermissionSchema {
     getFieldsForClass(
         classKey: number,
         opt_options?:
-            | Record<any, any>
             | {
                   includeNonDatabaseFields: boolean;
               }
+            | Record<any, any>
     ): string[];
     getDeclaredFieldsInClass(
         classKey: number,
         opt_options?:
-            | Record<any, any>
             | {
                   includeNonDatabaseFields: boolean;
               }
+            | Record<any, any>
     ): string[];
     getFieldsByClass(
         rootClass: number,
         opt_options?:
-            | Record<any, any>
             | {
                   includeNonDatabaseFields: boolean;
               }
+            | Record<any, any>
     ): any;
     getDeclaredFieldsByClass(
         rootClass: number,
         opt_options?:
-            | Record<any, any>
             | {
                   includeNonDatabaseFields: boolean;
               }
+            | Record<any, any>
     ): any;
     getFieldsForFile(
         fileKey: number,
         opt_options?:
-            | Record<any, any>
             | {
                   includeNonDatabaseFields: boolean;
               }
+            | Record<any, any>
     ): string[];
     mountTabularMap(
         permissionFields: string[],

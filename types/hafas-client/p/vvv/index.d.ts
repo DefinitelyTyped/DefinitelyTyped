@@ -1,5 +1,3 @@
-export = vvvProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const vvvProfile: createClient.Profile;
+export const profile: Profile;

@@ -1,37 +1,37 @@
-import { Address, AddressMap, SignerInfo } from './account';
-import { CadenceTransformer } from './transformers';
+import { Address, AddressMap, SignerInfo } from "./account";
+import { CadenceTransformer } from "./transformers";
 
 export type Interaction = Promise<any> | (() => Promise<any>);
 
 export type TransactionProps =
     | {
-          name: string;
-          code?: string;
-          args?: any[];
-          signers: Address[] | SignerInfo[];
-          addressMap?: AddressMap;
-      }
+        name: string;
+        code?: string;
+        args?: any[];
+        signers: Address[] | SignerInfo[];
+        addressMap?: AddressMap;
+    }
     | {
-          name?: string;
-          code: string;
-          args?: any[];
-          signers: Address[] | SignerInfo[];
-          addressMap?: AddressMap;
-      };
+        name?: string;
+        code: string;
+        args?: any[];
+        signers: Address[] | SignerInfo[];
+        addressMap?: AddressMap;
+    };
 
 export type ScriptProps =
     | {
-          name: string;
-          code?: string;
-          args?: any[];
-          transformers?: CadenceTransformer[];
-      }
+        name: string;
+        code?: string;
+        args?: any[];
+        transformers?: CadenceTransformer[];
+    }
     | {
-          name?: string;
-          code: string;
-          args?: any[];
-          transformers?: CadenceTransformer[];
-      };
+        name?: string;
+        code: string;
+        args?: any[];
+        transformers?: CadenceTransformer[];
+    };
 
 export interface TransactionEvent {
     type: string;
@@ -50,9 +50,9 @@ export interface TransactionStatus {
     events: TransactionEvent[];
 }
 
-export type TransactionResponse = [TransactionStatus | null, Error | null];
+export type TransactionResponse = [TransactionStatus | null, string | Error | null];
 
-export type ScriptResponse = [any, Error | null];
+export type ScriptResponse = [any, string | Error | null];
 
 export function sendTransaction(props: TransactionProps): Promise<TransactionResponse>;
 

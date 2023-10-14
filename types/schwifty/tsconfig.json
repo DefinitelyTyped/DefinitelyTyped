@@ -13,7 +13,7 @@
         "target": "es6",
         "strictFunctionTypes": true,
         "paths": {
-            "@hapi/*": [ "hapi__*" ]
+            "@hapi/*": ["hapi__*"]
         }
     },
     "files": [

@@ -20,7 +20,7 @@ declare const WavEncoder: {
     encode: {
         (audioData: WavEncoder.AudioData, opts?: WavEncoder.Options): Promise<ArrayBuffer>;
         sync: (audioData: WavEncoder.AudioData, opts?: WavEncoder.Options) => ArrayBuffer;
-    }
+    };
 };
 
 export = WavEncoder;

@@ -16,7 +16,7 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "command-line-args": [ "command-line-args/v4" ]
+            "command-line-args": ["command-line-args/v4"]
         }
     },
     "files": [

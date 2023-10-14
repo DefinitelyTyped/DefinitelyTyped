@@ -324,7 +324,7 @@ export class Writer {
  * @param value
  * The value to escape into a string.
  */
-export const escape: EscapeFunction;
+export let escape: EscapeFunction;
 
 /**
  * Clears all cached templates in this writer.
@@ -370,16 +370,24 @@ export function render(
     tagsOrOptions?: OpeningAndClosingTags | RenderOptions,
 ): string;
 
-export type RAW_VALUE = 'text';
-export type ESCAPED_VALUE = 'name';
-export type UNESCAPED_VALUE = '&';
-export type SECTION = '#';
-export type INVERTED = '^';
-export type COMMENT = '!';
-export type PARTIAL = '>';
-export type EQUAL = '=';
+export type RAW_VALUE = "text";
+export type ESCAPED_VALUE = "name";
+export type UNESCAPED_VALUE = "&";
+export type SECTION = "#";
+export type INVERTED = "^";
+export type COMMENT = "!";
+export type PARTIAL = ">";
+export type EQUAL = "=";
 
-export type TemplateSpanType = RAW_VALUE | ESCAPED_VALUE | SECTION | UNESCAPED_VALUE | INVERTED | COMMENT | PARTIAL | EQUAL;
+export type TemplateSpanType =
+    | RAW_VALUE
+    | ESCAPED_VALUE
+    | SECTION
+    | UNESCAPED_VALUE
+    | INVERTED
+    | COMMENT
+    | PARTIAL
+    | EQUAL;
 
 export type TemplateSpans = Array<
     | [TemplateSpanType, string, number, number]

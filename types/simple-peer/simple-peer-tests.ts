@@ -10,7 +10,7 @@ declare const stream: MediaStream;
         trickle: false,
         stream,
         iceCompleteTimeout: 500,
-        allowHalfTrickle: false
+        allowHalfTrickle: false,
     });
 
     p.on("error", err => console.log("error", err));

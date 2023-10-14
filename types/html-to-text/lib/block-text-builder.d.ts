@@ -1,19 +1,49 @@
+import { FormatCallback } from "../index";
 /**
  * types of options for BlockTextBuilder methods.  These replace previously positional options.
  */
 
-export interface AddInlineOptions { noWordTransform?: boolean | undefined; }
-export interface OpenBlockOptions { leadingLineBreaks?: number | undefined;
-    reservedLineLength?: number | undefined;
-    isPre?: boolean | undefined; }
-export type BlockTransformer = (str: string) => string;
-export interface CloseBlockOptions { trailingLineBreaks?: number | undefined; blockTransform?: BlockTransformer | undefined; }
-export interface OpenTableCellOptions { maxColumnWidth?: number | undefined; }
-export interface CloseTableCellOptions { colspan?: number | undefined; rowspan?: number | undefined; }
-export interface CloseTableOptions { colSpacing?: number | undefined;
-    rowSpacing?: number | undefined;
+export interface AddInlineOptions {
+    noWordTransform?: boolean | undefined;
+}
+export interface OpenBlockOptions {
     leadingLineBreaks?: number | undefined;
-    trailingLineBreaks?: number | undefined; }
+    reservedLineLength?: number | undefined;
+    isPre?: boolean | undefined;
+}
+export type BlockTransformer = (str: string) => string;
+export interface CloseBlockOptions {
+    trailingLineBreaks?: number | undefined;
+    blockTransform?: BlockTransformer | undefined;
+}
+export interface OpenListOptions {
+    maxPrefixLength?: number | undefined;
+    prefixAlign?: "left" | "right" | undefined;
+    interRowLineBreaks?: number | undefined;
+    leadingLineBreaks?: number | undefined;
+}
+
+export interface OpenTableCellOptions {
+    maxColumnWidth?: number | undefined;
+}
+export interface CloseTableCellOptions {
+    colspan?: number | undefined;
+    rowspan?: number | undefined;
+}
+
+export interface TablePrinterCell {
+    colspan: number;
+    rowspan: number;
+    text: string;
+}
+
+export type TablePrinter = (cells: TablePrinterCell[][]) => string;
+
+export interface CloseTableOptions {
+    tableToString: TablePrinter;
+    leadingLineBreaks?: number | undefined;
+    trailingLineBreaks?: number | undefined;
+}
 
 /**
  * Helps to build text from inline and block elements.
@@ -32,6 +62,16 @@ export interface BlockTextBuilder {
      */
     popWordTransform(): ((str: string) => string) | undefined;
     /**
+     * Ignore wordwrap option in followup inline additions and disable automatic wrapping.
+     */
+    startNoWrap(): void;
+
+    /**
+     * Return automatic wrapping to behavior defined by options.
+     */
+    stopNoWrap(): void;
+
+    /**
      * Add a line break into currently built block.
      */
     addLineBreak(): void;
@@ -44,18 +84,15 @@ export interface BlockTextBuilder {
      */
     addInline(str: string, addInlineOptions?: AddInlineOptions): void;
     /**
-     *  @deprecated See the documentation.
+     * Add a string inline into the currently built block.
+     *
+     * Use this for markup elements that don't have to adhere to text layout rules.
      */
-    // tslint:disable-next-line:unified-signatures
-    addInline(str: string, noWordTransform?: boolean): void;
+    addLiteral(str: string): void;
     /**
      * Start building a new block.
      */
     openBlock(openBlockOptions?: OpenBlockOptions): void;
-    /**
-     *  @deprecated See the documentation.
-     */
-    openBlock(leadingLineBreaks?: number, reservedLineLength?: number, isPre?: boolean): void;
     /**
      * Finalize currently built block, add it's content to the parent block.
      *
@@ -66,9 +103,21 @@ export interface BlockTextBuilder {
      */
     closeBlock(closeBlockOptions?: CloseBlockOptions): void;
     /**
-     *  @deprecated See the documentation.
+     * Start building a new list.
      */
-    closeBlock(trailingLineBreaks?: number, blockTransform?: BlockTransformer): void;
+    openList(openListOptions?: OpenListOptions): void;
+    /**
+     * Start building a new list item.
+     */
+    openListItem({ prefix }: { prefix?: string }): void;
+    /**
+     * Finalize currently built list item, add it's content to the parent list.
+     */
+    closeListItem(): void;
+    /**
+     * Finalize currently built list, add it's content to the parent block.
+     */
+    closeList({ trailingLineBreaks }: { trailingLineBreaks?: number }): void;
     /**
      * Start building a table.
      */
@@ -82,18 +131,9 @@ export interface BlockTextBuilder {
      */
     openTableCell(openTableCellOptions?: OpenTableCellOptions): void;
     /**
-     *  @deprecated See the documentation.
-     */
-    // tslint:disable-next-line:unified-signatures
-    openTableCell(maxColumnWidth?: number): void;
-    /**
      * Finalize currently built table cell and add it to parent table row's cells.
      */
     closeTableCell(closeTableCellOptions?: CloseTableCellOptions): void;
-    /**
-     *  @deprecated See the documentation.
-     */
-    closeTableCell(colspan?: number, rowspan?: number): void;
     /**
      * Finalize currently built table row and add it to parent table's rows.
      */
@@ -103,11 +143,17 @@ export interface BlockTextBuilder {
      */
     closeTable(closeTableOptions?: CloseTableOptions): void;
     /**
-     *  @deprecated See the documentation.
-     */
-    closeTable(colSpacing?: number, rowSpacing?: number, leadingLineBreaks?: number, trailingLineBreaks?: number): void;
-    /**
      * Return the rendered text content of this builder.
      */
     toString(): string;
+
+    /**
+     * Speciallized access to formatters, including default ones.  It is recommended to
+     * use the css style selectors.  If formatting depends on actual content, this
+     * provides access to user and default formatters.  Setting of options is left up
+     * to the caller.  See the test driver for sample usage.
+     */
+    options: {
+        formatters: Record<string, FormatCallback>;
+    };
 }

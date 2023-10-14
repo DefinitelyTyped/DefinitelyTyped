@@ -1,4 +1,4 @@
-// Type definitions for ssh2-sftp-client 7.1
+// Type definitions for ssh2-sftp-client 9.0
 // Project: https://github.com/theophilusx/ssh2-sftp-client
 // Definitions by: igrayson <https://github.com/igrayson>
 //                 Ascari Andrea <https://github.com/ascariandrea>
@@ -12,17 +12,17 @@
 //                 Emma Milner <https://github.com/tsop14>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as ssh2 from 'ssh2';
+import * as ssh2 from "ssh2";
 
 export = sftp;
 
-type FileInfoType = 'd' | '-' | 'l';
+type FileInfoType = "d" | "-" | "l";
 
 declare class sftp {
     constructor(name?: string);
     connect(options: sftp.ConnectOptions): Promise<ssh2.SFTPWrapper>;
 
-    list(remoteFilePath: string, pattern?: string | RegExp): Promise<sftp.FileInfo[]>;
+    list(remoteFilePath: string, filter?: sftp.ListFilterFunction): Promise<sftp.FileInfo[]>;
 
     exists(remotePath: string): Promise<false | FileInfoType>;
 
@@ -64,9 +64,9 @@ declare class sftp {
         options?: sftp.WriteStreamOptions,
     ): Promise<string>;
 
-    uploadDir(srcDir: string, destDir: string, filter?: string | RegExp): Promise<string>;
+    uploadDir(srcDir: string, destDir: string, options?: sftp.UploadDirOptions): Promise<string>;
 
-    downloadDir(srcDir: string, destDir: string, filter?: string | RegExp): Promise<string>;
+    downloadDir(srcDir: string, destDir: string, options?: sftp.DownloadDirOptions): Promise<string>;
 
     end(): Promise<void>;
 
@@ -95,19 +95,30 @@ declare namespace sftp {
     }
 
     interface PipeOptions {
+        /**
+         * @deprecated this option is ignored in v9.x. raw stream operations should use {@link createReadStream} or {@link createWriteStream} instead
+         */
         end?: boolean;
     }
 
     interface ReadStreamOptions extends ModeOption {
-        flags?: 'r';
+        flags?: "r";
         encoding?: null | string;
         handle?: null | string;
+
+        /**
+         * @deprecated this option is ignored in v9.x. raw stream operations should use {@link createReadStream} instead
+         */
         autoClose?: boolean;
     }
 
     interface WriteStreamOptions extends ModeOption {
-        flags?: 'w' | 'a';
+        flags?: "w" | "a";
         encoding?: null | string;
+
+        /**
+         * @deprecated this option is ignored in v9.x. raw stream operations should use {@link createWriteStream} instead
+         */
         autoClose?: boolean;
     }
 
@@ -154,5 +165,20 @@ declare namespace sftp {
         isSymbolicLink: boolean;
         isFIFO: boolean;
         isSocket: boolean;
+    }
+
+    type ListFilterFunction = (fileInfo: FileInfo) => boolean;
+    type DirFilterFunction = (filePath: string, isDirectory: boolean) => boolean;
+
+    interface DirOptions {
+        filter?: DirFilterFunction;
+    }
+
+    interface UploadDirOptions extends DirOptions {
+        useFastput?: boolean;
+    }
+
+    interface DownloadDirOptions extends DirOptions {
+        useFastget?: boolean;
     }
 }

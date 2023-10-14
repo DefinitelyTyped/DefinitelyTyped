@@ -3,7 +3,7 @@
 // Definitions by: Vicky Lai <https://github.com/velveret>
 //                 Rudi Chen <https://github.com/rudi-c>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
+// TypeScript Version: 5.0
 
 /// <reference types="react"/>
 /// <reference types="codemirror"/>
@@ -36,7 +36,7 @@ declare namespace ReactCodeMirror {
         /** (DEPRECATED), use `name` */
         path?: string | undefined;
         /** Preserve previous scroll position after updating value */
-        preserveScrollPosition?: boolean | undefined
+        preserveScrollPosition?: boolean | undefined;
         /** The editor value */
         value?: string | undefined;
     }

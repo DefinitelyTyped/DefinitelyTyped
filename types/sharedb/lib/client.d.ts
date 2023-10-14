@@ -1,8 +1,8 @@
 /// <reference path="sharedb.d.ts" />
-import * as ShareDB from './sharedb';
-import Agent = require('./agent');
+import * as ShareDB from "./sharedb";
+import Agent = require("./agent");
 
-export class Connection {
+export class Connection extends ShareDB.TypedEmitter<ShareDB.ConnectionEventMap> {
     constructor(ws: ShareDB.Socket);
 
     // This direct reference from connection to agent is not used internal to
@@ -19,14 +19,35 @@ export class Connection {
     nextSnapshotRequestId: number;
 
     state: string;
+    readonly canSend: boolean;
     debug: boolean;
 
     close(): void;
     get(collectionName: string, documentID: string): Doc;
-    createFetchQuery<T = any>(collectionName: string, query: any, options?: {results?: Array<Doc<T>>} | null, callback?: (err: Error, results: Array<Doc<T>>) => void): Query<T>;
-    createSubscribeQuery<T = any>(collectionName: string, query: any, options?: {results?: Array<Doc<T>>} | null, callback?: (err: Error, results: Array<Doc<T>>) => void): Query<T>;
-    fetchSnapshot(collection: string, id: string, version: number, callback: (error: Error, snapshot: ShareDB.Snapshot) => void): void;
-    fetchSnapshotByTimestamp(collection: string, id: string, timestamp: number, callback: (error: Error, snapshot: ShareDB.Snapshot) => void): void;
+    createFetchQuery<T = any>(
+        collectionName: string,
+        query: any,
+        options?: { results?: Array<Doc<T>> } | null,
+        callback?: (err: Error, results: Array<Doc<T>>) => void,
+    ): Query<T>;
+    createSubscribeQuery<T = any>(
+        collectionName: string,
+        query: any,
+        options?: { results?: Array<Doc<T>> } | null,
+        callback?: (err: Error, results: Array<Doc<T>>) => void,
+    ): Query<T>;
+    fetchSnapshot(
+        collection: string,
+        id: string,
+        version: number | null,
+        callback: (error: Error, snapshot: ShareDB.Snapshot) => void,
+    ): void;
+    fetchSnapshotByTimestamp(
+        collection: string,
+        id: string,
+        timestamp: number | null,
+        callback: (error: Error, snapshot: ShareDB.Snapshot) => void,
+    ): void;
     getPresence(channel: string): Presence;
     getDocPresence(collection: string, id: string): Presence;
 
@@ -53,6 +74,8 @@ export class Connection {
      * etc., which will manage the necessary message exchanges.
      */
     send(message: Record<string, unknown>): void;
+
+    ping(): void;
 }
 export type Doc<T = any> = ShareDB.Doc<T>;
 export type Snapshot<T = any> = ShareDB.Snapshot<T>;

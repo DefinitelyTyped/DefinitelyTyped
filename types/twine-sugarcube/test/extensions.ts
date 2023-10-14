@@ -1,17 +1,21 @@
 const ar1 = [1, 2, 3];
 ar1.concatUnique([3, 4, 5], [6, 7, 8]);
-ar1.concatUnique([3, 4, 5], ['a', 'b', 'c']);
+ar1.concatUnique([3, 4, 5], ["a", "b", "c"]);
 
 let n: number = ar1.count(1);
-n = ar1.count(1, 1);
+
+declare const arNum: number[] | readonly number[];
+
+n = arNum.count(1, 1);
 // @ts-expect-error
-n = ar1.count('a', 1);
+n = arNum.count("a", 1);
 
 declare function countPredicate(fruit: string, index: number, array: string[]): boolean;
-const fruits = ["Apples", "Oranges", "Plums", "Oranges"];
+declare const fruits: string[] | readonly string[];
+
 fruits.countWith(countPredicate);
 const fakeThis = {
-    propA: "string"
+    propA: "string",
 };
 
 fruits.countWith(function(value: string) {
@@ -21,27 +25,27 @@ fruits.countWith(function(value: string) {
 
 ar1.delete(1, 2);
 // @ts-expect-error
-ar1.delete(1, 'a');
+ar1.delete(1, "a");
 
 ar1.deleteAt(1, 2);
 // @ts-expect-error
-ar1.deleteAt('a', 2);
+ar1.deleteAt("a", 2);
 
 ar1.deleteWith((v: number, i: number, ar: number[]) => true);
 
 // @ts-expect-error
-n = ar1.first();
-let nu: number | undefined = ar1.first();
+n = arNum.first();
+let nu: number | undefined = arNum.first();
 
-let b: boolean = ar1.includesAll(1, 2, 3);
-b = ar1.includesAll([1, 2, 3]);
+let b: boolean = arNum.includesAll(1, 2, 3);
+b = arNum.includesAll([1, 2, 3]);
 
-b = ar1.includesAny(1, 2, 3);
-b = ar1.includesAny([1, 2, 3]);
+b = arNum.includesAny(1, 2, 3);
+b = arNum.includesAny([1, 2, 3]);
 
 // @ts-expect-error
-n = ar1.last();
-nu = ar1.last();
+n = arNum.last();
+nu = arNum.last();
 
 // @ts-expect-error
 n = ar1.pluck();
@@ -53,22 +57,22 @@ ar2 = ar1.pluckMany(2);
 ar1.pushUnique(1, 2);
 
 // @ts-expect-error
-n = ar1.random();
-nu = ar1.random();
+n = arNum.random();
+nu = arNum.random();
 
-ar2 = ar1.randomMany();
-ar2 = ar1.randomMany(2);
+ar2 = arNum.randomMany();
+ar2 = arNum.randomMany(2);
 
 ar2 = ar1.shuffle();
 
 ar1.unshiftUnique(1, 2, 3);
 // @ts-expect-error
-ar1.unshiftUnique(1, 2, 'a');
+ar1.unshiftUnique(1, 2, "a");
 
-JSON.reviveWrapper('new Character($ReviveData$)', {});
+JSON.reviveWrapper("new Character($ReviveData$)", {});
 
 n = Math.clamp(23, 0, 20);
-n = Math.clamp('23', 0, 20);
+n = Math.clamp("23", 0, 20);
 
 n = Math.trunc(1.23);
 
@@ -76,8 +80,8 @@ n = n.clamp(1, 20);
 
 const s = "str1";
 
-s.count('test');
-s.count('test', 1);
+s.count("test");
+s.count("test", 1);
 
 let s2: string = s.first();
 s2 = s.last();

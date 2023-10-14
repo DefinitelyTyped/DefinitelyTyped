@@ -3,11 +3,10 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
 
 /// <reference types="node" />
 
-export * from 'fs';
+export * from "fs";
 
 /**
  * Use this method to patch the global fs module (or any other fs-like module).

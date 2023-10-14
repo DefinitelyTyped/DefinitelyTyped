@@ -1,4 +1,4 @@
-// Type definitions for Sortable.js 1.13
+// Type definitions for Sortable.js 1.15
 // Project: https://github.com/RubaXa/Sortable
 // Definitions by: Maw-Fox <https://github.com/Maw-Fox>
 //                 Maarten Staa <https://github.com/maartenstaa>
@@ -7,15 +7,15 @@
 // TypeScript Version: 2.1
 import {
     AutoScrollOptions,
-    MultiDragOptions,
-    OnSpillOptions,
-    SwapOptions,
     AutoScrollPlugin,
+    MultiDragOptions,
     MultiDragPlugin,
+    OnSpillOptions,
     OnSpillPlugin,
-    SwapPlugin,
     SortablePlugin,
-} from './plugins';
+    SwapOptions,
+    SwapPlugin,
+} from "./plugins";
 
 export = Sortable;
 
@@ -105,11 +105,8 @@ declare class Sortable {
 
 declare namespace Sortable {
     export interface Options
-        extends SortableOptions,
-            AutoScrollOptions,
-            MultiDragOptions,
-            OnSpillOptions,
-            SwapOptions {}
+        extends SortableOptions, AutoScrollOptions, MultiDragOptions, OnSpillOptions, SwapOptions
+    {}
 
     /**
      * A class that all plugins inherit from for the sake of type inference.
@@ -130,6 +127,10 @@ declare namespace Sortable {
          * dragged element
          */
         item: HTMLElement;
+        /**
+         * dragged elements
+         */
+        items: HTMLElement[];
         /**
          * new index within parent
          */
@@ -154,7 +155,7 @@ declare namespace Sortable {
         /**
          * Pull mode if dragging into another sortable
          */
-        pullMode: 'clone' | boolean | undefined;
+        pullMode: "clone" | boolean | undefined;
         /**
          * When MultiDrag is used to sort, this holds a HTMLElement and oldIndex for each item selected.
          *
@@ -188,7 +189,7 @@ declare namespace Sortable {
         willInsertAfter?: boolean | undefined;
     }
 
-    type PullResult = ReadonlyArray<string> | boolean | 'clone';
+    type PullResult = ReadonlyArray<string> | boolean | "clone";
     type PutResult = ReadonlyArray<string> | boolean;
     export interface GroupOptions {
         /**
@@ -198,35 +199,45 @@ declare namespace Sortable {
         /**
          * ability to move from the list. clone — copy the item, rather than move.
          */
-        pull?: PullResult | ((to: Sortable, from: Sortable, dragEl: HTMLElement, event: SortableEvent) => PullResult) | undefined;
+        pull?:
+            | PullResult
+            | ((to: Sortable, from: Sortable, dragEl: HTMLElement, event: SortableEvent) => PullResult)
+            | undefined;
         /**
          * whether elements can be added from other lists, or an array of group names from which elements can be taken.
          */
-        put?: PutResult | ((to: Sortable, from: Sortable, dragEl: HTMLElement, event: SortableEvent) => PutResult) | undefined;
+        put?:
+            | PutResult
+            | ((to: Sortable, from: Sortable, dragEl: HTMLElement, event: SortableEvent) => PutResult)
+            | undefined;
         /**
          * a canonical version of pull, created by Sortable
          */
-        checkPull?: ((
-            sortable: Sortable,
-            activeSortable: Sortable,
-            dragEl: HTMLElement,
-            event: SortableEvent,
-        ) => boolean | string | Array<string>) | undefined;
+        checkPull?:
+            | ((
+                sortable: Sortable,
+                activeSortable: Sortable,
+                dragEl: HTMLElement,
+                event: SortableEvent,
+            ) => boolean | string | Array<string>)
+            | undefined;
         /**
          * a canonical version of put, created by Sortable
          */
-        checkPut?: ((
-            sortable: Sortable,
-            activeSortable: Sortable,
-            dragEl: HTMLElement,
-            event: SortableEvent,
-        ) => boolean | string | 'clone' | Array<string>) | undefined;
+        checkPut?:
+            | ((
+                sortable: Sortable,
+                activeSortable: Sortable,
+                dragEl: HTMLElement,
+                event: SortableEvent,
+            ) => boolean | string | "clone" | Array<string>)
+            | undefined;
         /**
          * revert cloned element to initial position after moving to a another list.
          */
         revertClone?: boolean | undefined;
     }
-    type Direction = 'vertical' | 'horizontal';
+    type Direction = "vertical" | "horizontal";
     export interface SortableOptions {
         /**
          * ms, animation speed moving items when sorting, `0` — without animation
@@ -249,7 +260,10 @@ declare namespace Sortable {
          * Direction of Sortable
          * (will be detected automatically if not given)
          */
-        direction?: ((evt: SortableEvent, target: HTMLElement, dragEl: HTMLElement) => Direction) | Direction | undefined;
+        direction?:
+            | ((evt: SortableEvent, target: HTMLElement, dragEl: HTMLElement) => Direction)
+            | Direction
+            | undefined;
         /**
          * Disables the sortable if set to true.
          */
@@ -314,7 +328,8 @@ declare namespace Sortable {
          */
         filter?:
             | string
-            | ((this: Sortable, event: Event | TouchEvent, target: HTMLElement, sortable: Sortable) => boolean) | undefined;
+            | ((this: Sortable, event: Event | TouchEvent, target: HTMLElement, sortable: Sortable) => boolean)
+            | undefined;
         /**
          * ignore the HTML5 DnD behaviour and force the fallback to kick in
          */
@@ -492,6 +507,18 @@ declare namespace Sortable {
          * @param state a class's state.
          */
         toggleClass(element: HTMLElement, name: string, state: boolean): void;
+
+        /**
+         * Selects the provided multi-drag item
+         * @param element The element to be selected
+         */
+        select(element: HTMLElement): void;
+
+        /**
+         * Deselects the provided multi-drag item
+         * @param element The element to be deselected
+         */
+        deselect(element: HTMLElement): void;
     }
 
     interface DOMRect {

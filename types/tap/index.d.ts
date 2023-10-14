@@ -342,7 +342,7 @@ declare namespace Assertions {
     ) => boolean;
     type Type = (
         found: any,
-        type: string | (new (...args: any[]) => object),
+        type: string | (new(...args: any[]) => object),
         message?: string,
         extra?: Options.Assert,
     ) => boolean;
@@ -508,7 +508,13 @@ declare global {
              *
              * @see {@link https://node-tap.org/docs/api/advanced/#tspawncommand-arguments-options-name}
              */
-            spawn(cmd: string, args: string, options?: Options.Bag, name?: string, extra?: Options.Spawn): Promise<void>;
+            spawn(
+                cmd: string,
+                args: string,
+                options?: Options.Bag,
+                name?: string,
+                extra?: Options.Spawn,
+            ): Promise<void>;
 
             done(): void;
 
@@ -870,6 +876,20 @@ declare global {
              * but it will not differentiate between a missing property and a property set to undefined.
              */
             has: Assertions.Match;
+
+            /**
+             * Verify that the found object contains the provided property and that it is not undefined. Searches the prototype chain as well as "own" properties.
+             *
+             * @example t.hasProp({ a: 1, b: 2 }, 'a') would succeed, while both t.hasProp({ a: 1, b: 2 }, 'c') and t.hasProp({ a: undefined, b: 2 }, 'a') would fail.
+             */
+            hasProp: Assertions.Match;
+
+            /**
+             * Verifies that the object found contains each of the property names in propertyList, and that they are not undefined. Searches prototype chain as well as "own" properties.
+             *
+             * @example t.hasProps({ a: 1, b: 2 }, ['a', 'b']) would succeed, while both t.hasProp({ a: 1, b: 2 }, ['a', 'c']) and t.hasProp({ a: undefined, b: 2 }, ['a', 'b']) would fail.
+             */
+            hasProps: Assertions.Match;
 
             /**
              * Inverse of match().

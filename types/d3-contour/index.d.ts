@@ -7,8 +7,8 @@
 
 // Last module patch version validated against: 3.0.1
 
-import { MultiPolygon } from 'geojson';
-import { ThresholdNumberArrayGenerator, ThresholdCountGenerator } from 'd3-array';
+import { ThresholdCountGenerator, ThresholdNumberArrayGenerator } from "d3-array";
+import { MultiPolygon } from "geojson";
 
 /**
  * An extended GeoJSON MultiPolygon representing a contour.
@@ -26,7 +26,6 @@ export interface ContourMultiPolygon extends MultiPolygon {
  * For each threshold value, the contour generator constructs a GeoJSON MultiPolygon geometry object representing the area
  * where the input values are greater than or equal to the threshold value.
  * The geometry is in planar coordinates, where ⟨i + 0.5, j + 0.5⟩ corresponds to element i + jn in the input values array.
- *
  */
 export interface Contours {
     /**
@@ -88,7 +87,9 @@ export interface Contours {
      * Thus, there is exactly one generated MultiPolygon geometry object for each specified threshold value; the threshold value is exposed as geometry.value.
      * If a count is specified instead of an array of thresholds, then the input values’ extent will be uniformly divided into approximately count bins; see d3.ticks.
      */
-    thresholds(thresholds: number | number[] | ThresholdCountGenerator<number> | ThresholdNumberArrayGenerator<number>): this;
+    thresholds(
+        thresholds: number | number[] | ThresholdCountGenerator<number> | ThresholdNumberArrayGenerator<number>,
+    ): this;
 }
 
 /**
@@ -196,7 +197,9 @@ export interface ContourDensity<Datum = [number, number]> {
      * The first value x0 should typically be greater than zero.
      * If a count is specified instead of an array of thresholds, then approximately count uniformly-spaced nicely-rounded thresholds will be generated; see d3.ticks.
      */
-    thresholds(thresholds: number | number[] | ThresholdCountGenerator<number> | ThresholdNumberArrayGenerator<number>): this;
+    thresholds(
+        thresholds: number | number[] | ThresholdCountGenerator<number> | ThresholdNumberArrayGenerator<number>,
+    ): this;
 
     /**
      * Returns the current bandwidth, which defaults to 20.4939….
@@ -222,5 +225,5 @@ export interface ContourDensity<Datum = [number, number]> {
  * Important: ensure that the x- and y-accessor functions are configured to
  * match the data type used for the generic Datum.
  */
-// tslint:disable-next-line:no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function contourDensity<Datum = [number, number]>(): ContourDensity<Datum>;

@@ -3,7 +3,6 @@
     "rules": {
         "adjacent-overload-signatures": false,
         "ban-types": false,
-        "no-any-union": false,
         "no-redundant-jsdoc-2": false,
         "npm-naming": false,
         "unified-signatures": false

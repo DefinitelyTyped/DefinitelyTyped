@@ -1,2 +1,2 @@
-import { splitEvery } from '../index';
+import { splitEvery } from "../index";
 export default splitEvery;

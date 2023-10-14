@@ -1,11 +1,3 @@
-// Type definitions for Dojo v1.9
-// Project: http://dojotoolkit.org
-// Definitions by: Michael Van Sickle <https://github.com/vansimke>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
-
-
 declare namespace dojox {
 
     /**
@@ -228,7 +220,7 @@ declare namespace dojox {
              */
             Viewport(): void;
         }
-        module _base {
+        namespace _base {
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/gfx3d/_base.Cube.html
              *

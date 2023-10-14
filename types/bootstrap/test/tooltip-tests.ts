@@ -1,10 +1,15 @@
-import { Tooltip } from 'bootstrap';
-import * as $ from 'jquery';
+import { Tooltip } from "bootstrap";
+import * as $ from "jquery";
 
 const element = new Element();
 
 // $ExpectType Tooltip
-new Tooltip(element, { delay: 0.5, title: () => 'foo', customClass: () => 'custom-class' });
+new Tooltip(element, {
+    delay: 0.5,
+    title: () => "foo",
+    customClass: () => "custom-class",
+    placement: () => "auto",
+});
 
 // $ExpectType Tooltip | null
 Tooltip.getInstance(element);
@@ -22,7 +27,7 @@ Tooltip.Default.placement;
 Tooltip.Default.selector;
 Tooltip.Default.template;
 Tooltip.Default.title;
-Tooltip.Default.fallbackPlacement;
+Tooltip.Default.fallbackPlacements;
 Tooltip.Default.boundary;
 Tooltip.Default.customClass;
 Tooltip.Default.sanitize;
@@ -31,9 +36,9 @@ Tooltip.Default.allowList;
 Tooltip.Default.offset;
 Tooltip.Default.popperConfig;
 
-Tooltip.Default.allowList['*'];
-Tooltip.Default.allowList['*'].push(/^data-my-app-[\w-]+/);
-Tooltip.Default.allowList['td'];
+Tooltip.Default.allowList["*"];
+Tooltip.Default.allowList["*"].push(/^data-my-app-[\w-]+/);
+Tooltip.Default.allowList["td"];
 
 Tooltip.DefaultType.animation; // $ExpectType string
 Tooltip.DefaultType.container; // $ExpectType string
@@ -43,7 +48,7 @@ Tooltip.DefaultType.placement; // $ExpectType string
 Tooltip.DefaultType.selector; // $ExpectType string
 Tooltip.DefaultType.template; // $ExpectType string
 Tooltip.DefaultType.title; // $ExpectType string
-Tooltip.DefaultType.fallbackPlacement; // $ExpectType string
+Tooltip.DefaultType.fallbackPlacements; // $ExpectType string
 Tooltip.DefaultType.boundary; // $ExpectType string
 Tooltip.DefaultType.customClass; // $ExpectType string
 Tooltip.DefaultType.sanitize; // $ExpectType string
@@ -69,16 +74,16 @@ element.addEventListener(Tooltip.Events.shown, event => {
 });
 
 // $ExpectType JQuery<HTMLElement>
-$('.alert').tooltip();
+$(".alert").tooltip();
 
 // $ExpectType JQuery<HTMLElement>
-$('.alert').tooltip({ delay: 0.5, title: () => 'foo', customClass: () => 'custom-class' });
+$(".alert").tooltip({ delay: 0.5, title: () => "foo", customClass: () => "custom-class" });
 
-$('.alert').tooltip('hide'); // $ExpectType JQuery<HTMLElement>
-$('.alert').tooltip('show'); // $ExpectType JQuery<HTMLElement>
-$('.alert').tooltip('toggle'); // $ExpectType JQuery<HTMLElement>
-$('.alert').tooltip('enable'); // $ExpectType JQuery<HTMLElement>
-$('.alert').tooltip('disable'); // $ExpectType JQuery<HTMLElement>
-$('.alert').tooltip('toggleEnabled'); // $ExpectType JQuery<HTMLElement>
-$('.alert').tooltip('update'); // $ExpectType JQuery<HTMLElement>
-$('.alert').tooltip('setContent'); // $ExpectType JQuery<HTMLElement>
+$(".alert").tooltip("hide"); // $ExpectType JQuery<HTMLElement>
+$(".alert").tooltip("show"); // $ExpectType JQuery<HTMLElement>
+$(".alert").tooltip("toggle"); // $ExpectType JQuery<HTMLElement>
+$(".alert").tooltip("enable"); // $ExpectType JQuery<HTMLElement>
+$(".alert").tooltip("disable"); // $ExpectType JQuery<HTMLElement>
+$(".alert").tooltip("toggleEnabled"); // $ExpectType JQuery<HTMLElement>
+$(".alert").tooltip("update"); // $ExpectType JQuery<HTMLElement>
+$(".alert").tooltip("setContent"); // $ExpectType JQuery<HTMLElement>

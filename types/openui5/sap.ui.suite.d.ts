@@ -1,4 +1,4 @@
-// For Library Version: 1.102.0
+// For Library Version: 1.119.0
 
 declare module "sap/ui/suite/library" {
   /**
@@ -38,7 +38,9 @@ declare module "sap/ui/suite/TaskCircle" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * @EXPERIMENTAL (since 1.2)
+   * @deprecated (since 1.108) - there's no replacement for this functionality as no active use cases are
+   * known
+   * @experimental (since 1.2) - The API may change. Use with care.
    *
    * This control shows a circle which radius and color depends on the given parameters
    */
@@ -188,6 +190,8 @@ declare module "sap/ui/suite/TaskCircle" {
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -203,13 +207,11 @@ declare module "sap/ui/suite/TaskCircle" {
      */
     focus(): void;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -275,7 +277,7 @@ declare module "sap/ui/suite/TaskCircle" {
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -286,7 +288,7 @@ declare module "sap/ui/suite/TaskCircle" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Sets a new value for property {@link #getColor color}.
      *
@@ -398,6 +400,13 @@ declare module "sap/ui/suite/TaskCircle" {
      */
     press?: (oEvent: Event) => void;
   }
+
+  export interface TaskCircle$PressEventParameters {}
+
+  export type TaskCircle$PressEvent = Event<
+    TaskCircle$PressEventParameters,
+    TaskCircle
+  >;
 }
 
 declare module "sap/ui/suite/VerticalProgressIndicator" {
@@ -412,7 +421,9 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * @EXPERIMENTAL (since 1.2)
+   * @deprecated (since 1.108) - there's no replacement for this functionality as no active use cases are
+   * known
+   * @experimental (since 1.2) - The API may change. Use with care.
    *
    * This control shows a vertical progress bar in dependency of the given percentage. Only values between
    * 0 and 100 are valid.
@@ -565,6 +576,8 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
       oListener?: object
     ): this;
     /**
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
      * Fires event {@link #event:press press} to attached listeners.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -580,13 +593,11 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
      */
     focus(): void;
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy
-     * ariaDescribedBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
     /**
-     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy
-     * ariaLabelledBy}.
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
     getAriaLabelledBy(): ID[];
     /**
@@ -620,7 +631,7 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
        * The ariaDescribedBy to be removed or its index or ID
        */
       vAriaDescribedBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
      *
@@ -631,7 +642,7 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
        * The ariaLabelledBy to be removed or its index or ID
        */
       vAriaLabelledBy: int | ID | Control
-    ): ID;
+    ): ID | null;
     /**
      * Property setter for the Percentage, which determines the height of the vertical bar. Values higher than
      * 100 will be displayed as 100%, values lower than zero will be displayed as 0%. A new rendering is not
@@ -664,6 +675,13 @@ declare module "sap/ui/suite/VerticalProgressIndicator" {
      */
     press?: (oEvent: Event) => void;
   }
+
+  export interface VerticalProgressIndicator$PressEventParameters {}
+
+  export type VerticalProgressIndicator$PressEvent = Event<
+    VerticalProgressIndicator$PressEventParameters,
+    VerticalProgressIndicator
+  >;
 }
 
 declare namespace sap {

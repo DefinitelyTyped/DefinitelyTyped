@@ -5,10 +5,8 @@
 
 /// <reference types="node" />
 
-
-
-import stream = require('stream');
-export declare module streams {
+import stream = require("stream");
+export declare namespace streams {
     export function convert(options: IStreamConvertOptions): stream.Transform;
 }
 

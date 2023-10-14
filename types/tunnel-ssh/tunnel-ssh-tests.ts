@@ -1,16 +1,35 @@
-import tunnel = require("tunnel-ssh");
-import Net = require("net");
+import { ListenOptions } from "net";
+import { ConnectConfig } from "ssh2";
+import { createTunnel, ForwardOptions, TunnelOptions } from "tunnel-ssh";
 
-const config: tunnel.Config = {
-    username: "myuser",
-    password: "supersecret"
+const tunnelOptions: TunnelOptions = {
+    autoClose: true,
 };
 
-const myTunnel: Net.Server = tunnel(config, (err: Error, server: Net.Server) => {
-    if (err) {
-        console.error(err.message);
-        return;
-    }
+const serverOptions: ListenOptions = {
+    port: 22,
+};
 
-    server.close();
-});
+const sshOptions: ConnectConfig = {
+    host: "localhost",
+    port: 22,
+    username: "username",
+    password: "password",
+};
+
+const forwardOptions: ForwardOptions = {
+    srcAddr: "localhost",
+    srcPort: 5433,
+    dstAddr: "localhost",
+    dstPort: 5432,
+};
+
+(async () => {
+    try {
+        const [server, client] = await createTunnel(tunnelOptions, serverOptions, sshOptions, forwardOptions);
+        client.end();
+        server.close();
+    } catch (err) {
+        console.log(err);
+    }
+})();

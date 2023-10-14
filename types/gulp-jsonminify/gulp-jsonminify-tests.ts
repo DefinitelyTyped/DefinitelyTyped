@@ -1,8 +1,8 @@
-import * as gulp from 'gulp';
-import jsonminify = require('gulp-jsonminify');
+import * as gulp from "gulp";
+import jsonminify = require("gulp-jsonminify");
 
-gulp.task('minify', () => {
-  return gulp.src('src/*.json')
-    .pipe(jsonminify())
-    .pipe(gulp.dest('dist'));
+gulp.task("minify", () => {
+    return gulp.src("src/*.json")
+        .pipe(jsonminify())
+        .pipe(gulp.dest("dist"));
 });

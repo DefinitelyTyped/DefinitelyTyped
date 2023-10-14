@@ -1,22 +1,26 @@
 // Type definitions for non-npm package @ember/application 4.0
 // Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Fapplication
 // Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
+//                 Krystan HuffMenne <https://github.com/gitKrystan>
 //                 James C. Davis <https://github.com/jamescdavis>
+//                 Peter Wagenet <https://github.com/wagenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import Engine from '@ember/engine';
-import ApplicationInstance from '@ember/application/instance';
-import EventDispatcher from '@ember/application/-private/event-dispatcher';
-import { EventDispatcherEvents } from '@ember/application/types';
-import { Router } from '@ember/routing';
-import Registry from '@ember/application/-private/registry';
-import Resolver from 'ember-resolver';
-import { AnyFn } from 'ember/-private/type-utils';
-import Owner from '@ember/owner';
-import type GlimmerComponent from '@glimmer/component';
-import EmberObject from '@ember/object';
+import Engine from "@ember/engine";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import ApplicationInstance from "@ember/application/instance";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import EventDispatcher from "@ember/application/-private/event-dispatcher";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import { EventDispatcherEvents } from "@ember/application/types";
+import Router from "@ember/routing/router";
+// eslint-disable-next-line @definitelytyped/no-self-import
+import Registry from "@ember/application/-private/registry";
+import EmberObject from "@ember/object";
+import Owner, { Resolver } from "@ember/owner";
+import type GlimmerComponent from "@glimmer/component";
+import { AnyFn } from "ember/-private/type-utils";
 
 // Shut off default exporting; we don't want anything but the *intended*
 // public API present.
@@ -60,7 +64,11 @@ export default class Application extends Engine {
      * @param fullName type:name (e.g., 'model:user')
      * @param factory (e.g., App.Person)
      */
-    register(fullName: string, factory: unknown, options?: { singleton?: boolean | undefined; instantiate?: boolean | undefined }): void;
+    register(
+        fullName: string,
+        factory: unknown,
+        options?: { singleton?: boolean | undefined; instantiate?: boolean | undefined },
+    ): void;
     /**
      * This removes all helpers that have been registered, and resets and functions
      * that were overridden by the helpers.

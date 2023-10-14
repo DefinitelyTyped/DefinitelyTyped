@@ -1,6 +1,6 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
+    "compilerOptions": {
+        "module": "commonjs",
         "lib": [
             "es6"
         ],
@@ -16,6 +16,6 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-  },
-  "files": ["index.d.ts", "react-native-base64-tests.tsx"]
+    },
+    "files": ["index.d.ts", "react-native-base64-tests.tsx"]
 }

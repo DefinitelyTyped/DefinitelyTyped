@@ -20,7 +20,6 @@ declare const CsvAsync: {
     parse(input: string, options?: CsvAsync.CsvParseOptions): Promise<unknown[]>;
 
     /**
-     *
      * @param data
      * @param handler
      * @param options
@@ -56,7 +55,7 @@ declare namespace CsvAsync {
 
     type PlainObject<T> = Record<string, T>;
 
-    type RecordDelimiter = string | Buffer | 'auto' | 'unix' | 'mac' | 'windows' | 'ascii' | 'unicode';
+    type RecordDelimiter = string | Buffer | "auto" | "unix" | "mac" | "windows" | "ascii" | "unicode";
 
     interface CastingContext {
         readonly column?: number | string | undefined;

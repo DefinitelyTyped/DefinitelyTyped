@@ -1,9 +1,8 @@
-// Type definitions for Mithril 2.0
+// Type definitions for Mithril 2.2
 // Project: https://mithril.js.org/, https://github.com/mithriljs/mithril.js
 // Definitions by: Mike Linkovich <https://github.com/spacejack>
 //                 Claudia Meadows <https://github.com/dead-claudia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
 
 /** Renders a vnode structure into a DOM element. */
 declare function render(el: Element, vnodes: Mithril.Children): void;
@@ -13,15 +12,21 @@ declare function mount(element: Element, component: Mithril.ComponentTypes<any, 
 /** Unmounts a component from a DOM element. */
 declare function mount(element: Element, component: null): void; // tslint:disable-line unified-signatures
 
+/** Returns a shallow-cloned object with lifecycle attributes and any given custom attributes omitted. */
+declare function censor<
+    O extends Record<string, any>,
+    E extends Readonly<string[]>,
+>(object: O, extra: E): Omit<Mithril._NoLifecycle<O>, E[number]>;
+
 /** Makes an XHR request and returns a promise. */
 declare function request<T>(options: Mithril.RequestOptions<T> & { url: string }): Promise<T>;
 /** Makes an XHR request and returns a promise. */
 declare function request<T>(url: string, options?: Mithril.RequestOptions<T>): Promise<T>;
 
 /** Makes a JSON-P request and returns a promise. */
-declare function jsonp<T>(options: Mithril.JsonpOptions & { url: string }): Promise<T>; // tslint:disable-line:no-unnecessary-generics
+declare function jsonp<T>(options: Mithril.JsonpOptions & { url: string }): Promise<T>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
 /** Makes a JSON-P request and returns a promise. */
-declare function jsonp<T>(url: string, options?: Mithril.JsonpOptions): Promise<T>; // tslint:disable-line:no-unnecessary-generics
+declare function jsonp<T>(url: string, options?: Mithril.JsonpOptions): Promise<T>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
 
 declare namespace Mithril {
     interface CommonAttributes<Attrs, State> {
@@ -55,7 +60,10 @@ declare namespace Mithril {
         /** Creates a virtual element (Vnode). */
         (selector: string, ...children: Children[]): Vnode<any, any>;
         /** Creates a fragment virtual element (Vnode). */
-        fragment(attrs: CommonAttributes<any, any> & { [key: string]: any }, children: ChildArrayOrPrimitive): Vnode<any, any>;
+        fragment(
+            attrs: CommonAttributes<any, any> & { [key: string]: any },
+            children: ChildArrayOrPrimitive,
+        ): Vnode<any, any>;
         /** Turns an HTML string into a virtual element (Vnode). Do not use trust on unsanitized user input. */
         trust(html: string): Vnode<any, any>;
     }
@@ -108,6 +116,8 @@ declare namespace Mithril {
         param(name: string): string;
         /** Gets all route parameters. */
         param(): any;
+        /** Special value to SKIP current route */
+        SKIP: any;
     }
 
     interface RequestOptions<T> {
@@ -116,7 +126,10 @@ declare namespace Mithril {
         /** The data to be interpolated into the URL and serialized into the querystring. */
         params?: { [key: string]: any } | undefined;
         /** The data to be serialized into the request body. */
-        body?: (XMLHttpRequest['send'] extends (x: infer R) => any ? R : never) | (object & { [id: string]: any }) | undefined;
+        body?:
+            | (XMLHttpRequest["send"] extends (x: infer R) => any ? R : never)
+            | (object & { [id: string]: any })
+            | undefined;
         /** Whether the request should be asynchronous. Defaults to true. */
         async?: boolean | undefined;
         /** A username for HTTP authorization. */
@@ -130,7 +143,7 @@ declare namespace Mithril {
         /** Headers to append to the request before sending it. */
         headers?: { [key: string]: string } | undefined;
         /** A constructor to be applied to each object in the response. */
-        type?: new (o: any) => any;
+        type?: new(o: any) => any;
         /** A serialization method to be applied to data. Defaults to JSON.stringify, or if options.data is an instance of FormData, defaults to the identity function. */
         serialize?(data: any): any;
         /** A deserialization method to be applied to the response. Defaults to a small wrapper around JSON.parse that returns null for empty responses. */
@@ -148,7 +161,7 @@ declare namespace Mithril {
         /** Milliseconds a request can take before automatically being terminated. */
         timeout?: number | undefined;
         /** The expected type of the response, as a legal value of XMLHttpRequest.responseType. */
-        responseType?: '' | 'arraybuffer' | 'blob' | 'document' | 'json' | 'text' | undefined;
+        responseType?: "" | "arraybuffer" | "blob" | "document" | "json" | "text" | undefined;
     }
 
     interface JsonpOptions {
@@ -157,7 +170,7 @@ declare namespace Mithril {
         /** The data to be serialized into the request body. */
         body?: any;
         /** A constructor to be applied to each object in the response. */
-        type?: new (o: any) => any;
+        type?: new(o: any) => any;
         /** The name of the function that will be called as the callback. */
         callbackName?: string | undefined;
         /** The name of the querystring parameter name that specifies the callback name. */
@@ -182,6 +195,7 @@ declare namespace Mithril {
     }
 
     interface Static extends Hyperscript {
+        censor: typeof censor;
         route: Route;
         mount: typeof mount;
         render: typeof render;
@@ -250,11 +264,18 @@ declare namespace Mithril {
         /** The oncreate hook is called after a DOM element is created and attached to the document. */
         oncreate?(this: _NoLifecycle<this & State>, vnode: VnodeDOM<Attrs, _NoLifecycle<this & State>>): any;
         /** The onbeforeremove hook is called before a DOM element is detached from the document. If a Promise is returned, Mithril only detaches the DOM element after the promise completes. */
-        onbeforeremove?(this: _NoLifecycle<this & State>, vnode: VnodeDOM<Attrs, _NoLifecycle<this & State>>): Promise<any> | void;
+        onbeforeremove?(
+            this: _NoLifecycle<this & State>,
+            vnode: VnodeDOM<Attrs, _NoLifecycle<this & State>>,
+        ): Promise<any> | void;
         /** The onremove hook is called before a DOM element is removed from the document. */
         onremove?(this: _NoLifecycle<this & State>, vnode: VnodeDOM<Attrs, _NoLifecycle<this & State>>): any;
         /** The onbeforeupdate hook is called before a vnode is diffed in a update. */
-        onbeforeupdate?(this: _NoLifecycle<this & State>, vnode: Vnode<Attrs, _NoLifecycle<this & State>>, old: VnodeDOM<Attrs, _NoLifecycle<this & State>>): boolean | void;
+        onbeforeupdate?(
+            this: _NoLifecycle<this & State>,
+            vnode: Vnode<Attrs, _NoLifecycle<this & State>>,
+            old: VnodeDOM<Attrs, _NoLifecycle<this & State>>,
+        ): boolean | void;
         /** The onupdate hook is called after a DOM element is updated, while attached to the document. */
         onupdate?(this: _NoLifecycle<this & State>, vnode: VnodeDOM<Attrs, _NoLifecycle<this & State>>): any;
         /** Creates a view out of virtual elements. */
@@ -306,7 +327,7 @@ declare namespace Mithril {
     /** Components are a mechanism to encapsulate parts of a view to make code easier to organize and/or reuse. Components can be consumed via the m() utility. */
     type ComponentTypes<A = {}, S = {}> =
         | Component<A, S>
-        | { new (vnode: CVnode<A>): ClassComponent<A> }
+        | { new(vnode: CVnode<A>): ClassComponent<A> }
         | FactoryComponent<A>;
 
     /** This represents the attributes available for configuring virtual elements, beyond the applicable DOM attributes. */
@@ -326,7 +347,9 @@ declare global {
         interface Element extends Mithril.Vnode {}
 
         // tslint:disable-next-line:no-empty-interface
-        interface IntrinsicAttributes extends Mithril.Attributes {}
+        interface IntrinsicAttributes extends Mithril.Attributes {
+            children?: Mithril.Children | HTMLCollection;
+        }
         // tslint:disable-next-line:no-empty-interface
         interface IntrinsicClassAttributes extends Mithril.Attributes {}
 
@@ -510,7 +533,7 @@ declare global {
             view: Mithril.Attributes;
 
             // Special Mithril types
-            '[': Mithril.Attributes;
+            "[": Mithril.Attributes;
         }
     }
 }

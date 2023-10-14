@@ -14,15 +14,15 @@
 /// <reference types="node" />
 /// <reference types="geojson" />
 
-declare module 'twit' {
-    import { IncomingMessage } from 'http';
-    import { EventEmitter } from 'events';
+declare module "twit" {
+    import { IncomingMessage } from "http";
+    import { EventEmitter } from "events";
 
     namespace Twit {
-        export type StreamEndpoint = 'statuses/filter' | 'statuses/sample' | 'statuses/firehose' | 'user' | 'site';
+        export type StreamEndpoint = "statuses/filter" | "statuses/sample" | "statuses/firehose" | "user" | "site";
 
         export namespace Twitter {
-            export type ResultType = 'mixed' | 'popular' | 'recent';
+            export type ResultType = "mixed" | "popular" | "recent";
 
             /**
              * @see https://dev.twitter.com/overview/api/tweets#obj-contributors
@@ -52,7 +52,7 @@ declare module 'twit' {
             export interface Size {
                 h: number;
                 w: number;
-                resize: 'crop' | 'fit';
+                resize: "crop" | "fit";
             }
             export interface Sizes {
                 thumb: Size;
@@ -170,7 +170,7 @@ declare module 'twit' {
                 phone: string;
                 twitter: string;
                 url: string;
-                'app:id': string;
+                "app:id": string;
             }
             export interface Place {
                 geometry: GeoJSON.Point;
@@ -207,7 +207,7 @@ declare module 'twit' {
                 } | undefined;
                 favorite_count?: number | undefined;
                 favorited?: boolean | undefined;
-                filter_level: 'none' | 'low' | 'medium';
+                filter_level: "none" | "low" | "medium";
                 full_text?: string | undefined;
                 in_reply_to_screen_name?: string | undefined;
                 in_reply_to_status_id?: number | undefined;
@@ -264,6 +264,48 @@ declare module 'twit' {
         interface MediaParam {
             file_path: string;
         }
+
+        interface QuickReplyOption {
+            label: string;
+            description?: string;
+            metadata?: string;
+        }
+
+        interface QuickReply {
+            type: "options";
+            options: QuickReplyOption[];
+        }
+
+        interface Attachement {
+            type: "location" | "media";
+            location?: {
+                type: "shared_coordinate";
+                shared_coordinate: {
+                    coordinates: {
+                        type: "Point";
+                        coordinates: number[];
+                    };
+                };
+            };
+            media?: {
+                id: string;
+            };
+        }
+
+        interface MessageCreateEvent {
+            type: "message_create";
+            message_create: {
+                target: {
+                    recipient_id: string;
+                };
+                message_data: {
+                    text: string;
+                    quick_reply?: QuickReply;
+                    attachment?: Attachement;
+                };
+            };
+        }
+
         interface Params {
             // search/tweets
             q?: string | undefined;
@@ -316,7 +358,7 @@ declare module 'twit' {
             list_id?: number | string | undefined;
             name?: string | undefined;
             description?: string | undefined;
-            mode?: 'public' | 'private' | undefined;
+            mode?: "public" | "private" | undefined;
             exclude_reply_user_ids?: string | string[] | undefined;
             attachment_url?: string | undefined;
             place_id?: string | undefined;
@@ -324,6 +366,7 @@ declare module 'twit' {
             enable_dmcommands?: boolean | undefined;
             fail_dmcommands?: boolean | undefined;
             card_uri?: string | undefined;
+            event?: MessageCreateEvent;
         }
         export interface PromiseResponse {
             data: Response;

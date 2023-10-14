@@ -1,11 +1,11 @@
-import * as React from 'react';
-import Button, { targets, types, widths, AvailableTargets, AvailableTypes, AvailableWidths } from '@hig/button';
+import Button, { AvailableTargets, AvailableTypes, AvailableWidths, targets, types, widths } from "@hig/button";
+import * as React from "react";
 
 /** Button */
 const emptyFunc = () => {};
 const disabled = true;
 const icon = <div />;
-const link = '';
+const link = "";
 const onClick = emptyFunc;
 const onBlur = emptyFunc;
 const onFocus = emptyFunc;
@@ -16,7 +16,7 @@ const onMouseLeave = emptyFunc;
 const onMouseUp = emptyFunc;
 const stylesheet = emptyFunc;
 const target = targets.BLANK;
-const title = '';
+const title = "";
 const type = types.FLAT;
 const width = widths.GROW;
 

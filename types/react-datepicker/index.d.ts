@@ -1,25 +1,24 @@
-// Type definitions for react-datepicker 4.4
+// Type definitions for react-datepicker 4.19
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
 //                 Greg Smith <https://github.com/smrq>
 //                 Roy Xue <https://github.com/royxue>
 //                 Koala Human <https://github.com/KoalaHuman>
 //                 Justin Grant <https://github.com/justingrant>
-//                 Jake Boone <https://github.com/jakeboone02>
-//                 Roman Nuritdinov <https://github.com/Ky6uk>
 //                 Avi Klaiman <https://github.com/aviklai>
 //                 Naoki Sekiguchi <https://github.com/seckie>
 //                 Kerry Gougeon <https://github.com/kerry-g>
 //                 Shiftr Tech SAS <https://github.com/ShiftrTechSAS>
 //                 Pirasis Leelatanon <https://github.com/1pete>
 //                 Alexander Shipulin <https://github.com/y>
+//                 Rafik Ogandzhanian <https://github.com/inomn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 3.8
 
-import * as React from 'react';
-import * as Popper from '@popperjs/core';
-import { Locale } from 'date-fns';
-import { Modifier, StrictModifierNames } from 'react-popper';
+import * as Popper from "@popperjs/core";
+import { Locale } from "date-fns";
+import * as React from "react";
+import { Modifier, StrictModifierNames } from "react-popper";
 
 export interface CalendarContainerProps {
     className?: string | undefined;
@@ -86,7 +85,7 @@ export interface ReactDatePickerProps<
     disabledDayAriaLabelPrefix?: string | undefined;
     disabled?: boolean | undefined;
     disabledKeyboardNavigation?: boolean | undefined;
-    dropdownMode?: 'scroll' | 'select' | undefined;
+    dropdownMode?: "scroll" | "select" | undefined;
     endDate?: Date | null | undefined;
     excludeDates?: Date[] | undefined;
     excludeDateIntervals?: Array<{ start: Date; end: Date }> | undefined;
@@ -95,9 +94,10 @@ export interface ReactDatePickerProps<
     filterTime?(date: Date): boolean;
     fixedHeight?: boolean | undefined;
     forceShowMonthNavigation?: boolean | undefined;
-    formatWeekDay?(formattedDate: string): React.ReactNode;
+    formatWeekDay?(day: string): React.ReactNode;
     formatWeekNumber?(date: Date): string | number;
     highlightDates?: Array<HighlightDates | Date> | undefined;
+    icon?: string | React.ReactElement;
     id?: string | undefined;
     includeDates?: Date[] | undefined;
     includeDateIntervals?: Array<{ start: Date; end: Date }> | undefined;
@@ -157,6 +157,7 @@ export interface ReactDatePickerProps<
     readOnly?: boolean | undefined;
     renderCustomHeader?(params: ReactDatePickerCustomHeaderProps): React.ReactNode;
     renderDayContents?(dayOfMonth: number, date?: Date): React.ReactNode;
+    renderMonthContent?(monthIndex: number, shortMonthText: string, fullMonthText: string): React.ReactNode;
     required?: boolean | undefined;
     scrollableMonthYearDropdown?: boolean | undefined;
     scrollableYearDropdown?: boolean | undefined;
@@ -181,6 +182,7 @@ export interface ReactDatePickerProps<
     showWeekNumbers?: boolean | undefined;
     showYearDropdown?: boolean | undefined;
     showYearPicker?: boolean | undefined;
+    showIcon?: boolean | undefined;
     startDate?: Date | null | undefined;
     startOpen?: boolean | undefined;
     strictParsing?: boolean | undefined;
@@ -194,6 +196,7 @@ export interface ReactDatePickerProps<
     useShortMonthInDropdown?: boolean | undefined;
     useWeekdaysShort?: boolean | undefined;
     weekAriaLabelPrefix?: string | undefined;
+    monthAriaLabelPrefix?: string | undefined;
     value?: string | undefined;
     weekLabel?: string | undefined;
     withPortal?: boolean | undefined;

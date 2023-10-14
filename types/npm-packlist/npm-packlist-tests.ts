@@ -1,13 +1,14 @@
-import packlist = require('npm-packlist');
+import packlist = require("npm-packlist");
+import Arborist = require("@npmcli/arborist");
 
-let result: string[] = packlist.sync();
-result = packlist.sync({});
-result = packlist.sync({path: 'foo'});
-result = packlist.sync({path: 'foo', packageJsonCache: new Map().set('test', 'test')});
 (async () => {
-    result = await packlist();
-    result = await packlist({});
-    result = await packlist({path: 'foo'});
-    packlist(undefined, (r) => result = r);
-    packlist({path: 'foo'}, (r) => result = r);
+    const arborist = new Arborist({ path: "foo" });
+    const tree = await arborist.loadActual();
+    const files = await packlist(tree);
+    let result: string[] = [];
+    result = await packlist(tree);
+    result = await packlist(tree, {});
+    result = await packlist(tree, { path: "foo" });
+    packlist(tree, undefined, r => (result = r));
+    packlist(tree, { path: "foo" }, r => (result = r));
 })();

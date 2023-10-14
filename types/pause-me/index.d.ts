@@ -16,7 +16,6 @@ declare namespace pauseMe {
 }
 
 /**
- *
  * @param callback function or lambda that you want executed after duration
  * @param duration Milliseconds to set the timeout to
  * @param repeating When true the timeout is treated as an interval

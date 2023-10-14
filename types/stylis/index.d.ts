@@ -1,4 +1,4 @@
-// Type definitions for stylis 4.0
+// Type definitions for stylis 4.2
 // Project: https://github.com/thysultan/stylis.js
 // Definitions by: Gen Hames <https://github.com/heyheyhello>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -23,31 +23,32 @@ export type Middleware = (element: Element, index: number, children: Element[], 
 
 // Enum.js
 
-export const MS = '-ms-';
-export const MOZ = '-moz-';
-export const WEBKIT = '-webkit-';
-export const COMMENT = 'comm';
-export const RULESET = 'rule';
-export const DECLARATION = 'decl';
-export const PAGE = '@page';
-export const MEDIA = '@media';
-export const IMPORT = '@import';
-export const CHARSET = '@charset';
-export const VIEWPORT = '@viewport';
-export const SUPPORTS = '@supports';
-export const DOCUMENT = '@document';
-export const NAMESPACE = '@namespace';
-export const KEYFRAMES = '@keyframes';
-export const FONT_FACE = '@font-face';
-export const COUNTER_STYLE = '@counter-style';
-export const FONT_FEATURE_VALUES = '@font-feature-values';
+export const MS = "-ms-";
+export const MOZ = "-moz-";
+export const WEBKIT = "-webkit-";
+export const COMMENT = "comm";
+export const RULESET = "rule";
+export const DECLARATION = "decl";
+export const PAGE = "@page";
+export const MEDIA = "@media";
+export const IMPORT = "@import";
+export const CHARSET = "@charset";
+export const VIEWPORT = "@viewport";
+export const SUPPORTS = "@supports";
+export const DOCUMENT = "@document";
+export const NAMESPACE = "@namespace";
+export const KEYFRAMES = "@keyframes";
+export const FONT_FACE = "@font-face";
+export const COUNTER_STYLE = "@counter-style";
+export const FONT_FEATURE_VALUES = "@font-feature-values";
+export const LAYER = "@layer";
 
 // Utility.js
 
 export function hash(value: string, length: number): number;
 export function trim(value: string): string;
 export function match(value: string, pattern: RegExp): string | null;
-export function replace(value: string, pattern: (string | RegExp), replacement: string): string;
+export function replace(value: string, pattern: string | RegExp, replacement: string): string;
 export function indexof(value: string, search: unknown): number;
 export function charat(value: string, index: number): number;
 export function substr(value: string, begin: number, end: number): string;
@@ -71,7 +72,7 @@ export function parse(
     rulesets: Element[],
     pseudo: number,
     points: number[],
-    declarations: string[]
+    declarations: string[],
 ): Element[];
 
 export function ruleset(
@@ -85,7 +86,7 @@ export function ruleset(
     type: string,
     props: string[],
     children: Element[],
-    length: number
+    length: number,
 ): Element;
 
 export function comment(value: string, root: Element, parent: Element | null): Element;
@@ -111,7 +112,7 @@ export function node(
     type: string,
     props: string[],
     children: Element[],
-    length: number
+    length: number,
 ): Element;
 
 export function copy(value: string, root: Element, type: string): Element;

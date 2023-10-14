@@ -15,11 +15,11 @@ export interface PackageJSON1 {
  */
 export type Person =
     | {
-          name: string;
-          url?: string;
-          email?: string;
-          [k: string]: unknown | undefined;
-      }
+        name: string;
+        url?: string;
+        email?: string;
+        [k: string]: unknown | undefined;
+    }
     | string;
 export type PackageExportsEntry = PackageExportsEntryPath | PackageExportsEntryObject;
 /**
@@ -93,16 +93,16 @@ export interface PackageJSON2 {
      */
     bugs?:
         | {
-              /**
-               * The url to your project's issue tracker.
-               */
-              url?: string;
-              /**
-               * The email address to which issues should be reported.
-               */
-              email?: string;
-              [k: string]: unknown | undefined;
-          }
+            /**
+             * The url to your project's issue tracker.
+             */
+            url?: string;
+            /**
+             * The email address to which issues should be reported.
+             */
+            email?: string;
+            [k: string]: unknown | undefined;
+        }
         | string;
     /**
      * You should specify a license for your package so that people know how they are permitted to use it, and any restrictions you're placing on it.
@@ -141,56 +141,56 @@ export interface PackageJSON2 {
     exports?:
         | (string | null)
         | {
-              /**
-               * The module path that is resolved when the module specifier matches "name", shadows the "main" field.
-               */
-              '.'?: PackageExportsEntry | PackageExportsFallback;
-              /**
-               * The module path prefix that is resolved when the module specifier starts with "name/", set to "./*" to allow external modules to import any subpath.
-               *
-               * This interface was referenced by `undefined`'s JSON-Schema definition
-               * via the `patternProperty` "^\./.+".
-               */
-              [k: string]: PackageExportsEntry | PackageExportsFallback | undefined;
-          }
+            /**
+             * The module path that is resolved when the module specifier matches "name", shadows the "main" field.
+             */
+            "."?: PackageExportsEntry | PackageExportsFallback;
+            /**
+             * The module path prefix that is resolved when the module specifier starts with "name/", set to "./*" to allow external modules to import any subpath.
+             *
+             * This interface was referenced by `undefined`'s JSON-Schema definition
+             * via the `patternProperty` "^\./.+".
+             */
+            [k: string]: PackageExportsEntry | PackageExportsFallback | undefined;
+        }
         | {
-              /**
-               * The module path that is resolved when this specifier is imported as a CommonJS module using the `require(...)` function.
-               */
-              require?: PackageExportsEntry | PackageExportsFallback;
-              /**
-               * The module path that is resolved when this specifier is imported as an ECMAScript module using an `import` declaration or the dynamic `import(...)` function.
-               */
-              import?: PackageExportsEntry | PackageExportsFallback;
-              /**
-               * The module path that is resolved when this environment is Node.js.
-               */
-              node?: PackageExportsEntry | PackageExportsFallback;
-              /**
-               * The module path that is resolved when no other export type matches.
-               */
-              default?: PackageExportsEntry | PackageExportsFallback;
-              /**
-               * The module path that is resolved when this environment matches the property name.
-               *
-               * This interface was referenced by `PackageExportsEntryObject`'s JSON-Schema definition
-               * via the `patternProperty` "^(?![\.0-9]).".
-               *
-               * This interface was referenced by `undefined`'s JSON-Schema definition
-               * via the `patternProperty` "^(?![\.0-9]).".
-               */
-              [k: string]: PackageExportsEntry | PackageExportsFallback | undefined;
-          }
+            /**
+             * The module path that is resolved when this specifier is imported as a CommonJS module using the `require(...)` function.
+             */
+            require?: PackageExportsEntry | PackageExportsFallback;
+            /**
+             * The module path that is resolved when this specifier is imported as an ECMAScript module using an `import` declaration or the dynamic `import(...)` function.
+             */
+            import?: PackageExportsEntry | PackageExportsFallback;
+            /**
+             * The module path that is resolved when this environment is Node.js.
+             */
+            node?: PackageExportsEntry | PackageExportsFallback;
+            /**
+             * The module path that is resolved when no other export type matches.
+             */
+            default?: PackageExportsEntry | PackageExportsFallback;
+            /**
+             * The module path that is resolved when this environment matches the property name.
+             *
+             * This interface was referenced by `PackageExportsEntryObject`'s JSON-Schema definition
+             * via the `patternProperty` "^(?![\.0-9]).".
+             *
+             * This interface was referenced by `undefined`'s JSON-Schema definition
+             * via the `patternProperty` "^(?![\.0-9]).".
+             */
+            [k: string]: PackageExportsEntry | PackageExportsFallback | undefined;
+        }
         | PackageExportsEntry[];
     bin?:
         | string
         | {
-              [k: string]: string | undefined;
-          };
+            [k: string]: string | undefined;
+        };
     /**
      * When set to "module", the type field allows a package to specify all .js files within are ES modules. If the "type" field is omitted or set to "commonjs", all .js files are treated as CommonJS.
      */
-    type?: 'commonjs' | 'module';
+    type?: "commonjs" | "module";
     /**
      * Set the types property to point to your bundled declaration file.
      */
@@ -208,11 +208,11 @@ export interface PackageJSON2 {
          */
         [k: string]:
             | {
-                  /**
-                   * Maps all file paths to the file paths specified in the array.
-                   */
-                  '*'?: string[];
-              }
+                /**
+                 * Maps all file paths to the file paths specified in the array.
+                 */
+                "*"?: string[];
+            }
             | undefined;
     };
     /**
@@ -248,11 +248,11 @@ export interface PackageJSON2 {
      */
     repository?:
         | {
-              type?: string;
-              url?: string;
-              directory?: string;
-              [k: string]: unknown | undefined;
-          }
+            type?: string;
+            url?: string;
+            directory?: string;
+            [k: string]: unknown | undefined;
+        }
         | string;
     funding?: FundingUrl | FundingWay | [FundingUrl | FundingWay, ...Array<FundingUrl | FundingWay>];
     /**
@@ -344,12 +344,12 @@ export interface PackageJSON2 {
     peerDependenciesMeta?: {
         [k: string]:
             | {
-                  /**
-                   * Specifies that this peer dependency is optional and should not be installed automatically.
-                   */
-                  optional?: boolean;
-                  [k: string]: unknown | undefined;
-              }
+                /**
+                 * Specifies that this peer dependency is optional and should not be installed automatically.
+                 */
+                optional?: boolean;
+                [k: string]: unknown | undefined;
+            }
             | undefined;
     };
     /**
@@ -394,9 +394,9 @@ export interface PackageJSON2 {
     /**
      * If set to true, then npm will refuse to publish it.
      */
-    private?: boolean | ('false' | 'true');
+    private?: boolean | ("false" | "true");
     publishConfig?: {
-        access?: 'public' | 'restricted';
+        access?: "public" | "restricted";
         tag?: string;
         registry?: string;
         [k: string]: unknown | undefined;
@@ -417,10 +417,10 @@ export interface PackageJSON2 {
     esnext?:
         | string
         | {
-              main?: string;
-              browser?: string;
-              [k: string]: string | undefined;
-          };
+            main?: string;
+            browser?: string;
+            [k: string]: string | undefined;
+        };
     /**
      * Allows packages within a directory to depend on one another using direct linking of local files. Additionally,
      * dependencies within a workspace are hoisted to the workspace root when possible to reduce duplication. Note:
@@ -429,16 +429,16 @@ export interface PackageJSON2 {
     workspaces?:
         | string[]
         | {
-              /**
-               * Workspace package paths. Glob patterns are supported.
-               */
-              packages?: string[];
-              /**
-               * Packages to block from hoisting to the workspace root. Currently only supported in Yarn only.
-               */
-              nohoist?: string[];
-              [k: string]: unknown | undefined;
-          };
+            /**
+             * Workspace package paths. Glob patterns are supported.
+             */
+            packages?: string[];
+            /**
+             * Packages to block from hoisting to the workspace root. Currently only supported in Yarn only.
+             */
+            nohoist?: string[];
+            [k: string]: unknown | undefined;
+        };
     jspm?: PackageJSON1;
     /**
      * Any property starting with _ is valid.

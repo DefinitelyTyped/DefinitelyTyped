@@ -8,7 +8,7 @@ const options: ReconnectingWebSocket.Options = {
     maxReconnectInterval: 1000,
     reconnectDecay: 1.5,
     reconnectInterval: 1000,
-    timeoutInterval: 1000
+    timeoutInterval: 1000,
 };
 
 const ws1: ReconnectingWebSocket = new ReconnectingWebSocket("url", ["protocol"], options);
@@ -25,11 +25,11 @@ const closeListener = (event: CustomEvent<undefined>) => {
     console.log(event.type);
 };
 ws1.onclose = closeListener;
-ws2.addEventListener('close', closeListener);
-ws2.removeEventListener('close', closeListener);
+ws2.addEventListener("close", closeListener);
+ws2.removeEventListener("close", closeListener);
 
 ws2.onconnecting = (event) => {
-    console.log(event.type, 'was clean?', event.wasClean);
+    console.log(event.type, "was clean?", event.wasClean);
 };
 
 ws3.onerror = (event) => {
@@ -41,7 +41,7 @@ ws1.onmessage = (event: any) => {
 };
 
 ws1.onopen = (event) => {
-    console.log(event.type, 'is reconnect?', event.isReconnect);
+    console.log(event.type, "is reconnect?", event.isReconnect);
 };
 
 ws1.open(true);

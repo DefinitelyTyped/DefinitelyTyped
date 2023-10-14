@@ -1,6 +1,6 @@
 // Type definitions for non-npm package ZWJSBridge API - zwjsbridge.js 1.1
 // Project: https://assets.zjzwfw.gov.cn/assets/ZWJSBridge/1.1.0/zwjsbridge.js
-// Definitions by: Yuxiang Ren <https://github.com/shlyren>
+// Definitions by: Yuxiang Ren <https://github.com/shlyren>, Jungzl <https://github.com/jungzl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
 
@@ -18,6 +18,48 @@
  *      })
  *  ```
  */
+
+/**
+ * 文件上传参数
+ */
+interface UploadFileOptions {
+    /** 对应 input 文件选择 accept 属性说明 在微信端会转化为 image/video/file/all */
+    type?: string;
+    /** 服务端接受文件流上传地址 */
+    url: string;
+    /** 上传文件数量 默认为1 */
+    count?: number;
+}
+
+/**
+ * 文件上传返回结果
+ */
+interface UploadFileResult {
+    /** 上传状态 */
+    status: "success" | "fail";
+    /** 上传文件地址 */
+    filePath: string[];
+    /** 选择文件名称 */
+    fileName: string[];
+    /** 成功/错误信息 */
+    msg: string;
+}
+
+/**
+ * 文件下载参数
+ */
+interface DownloadFileOptions {
+    /** 文件下载地址 */
+    url: string;
+}
+
+/**
+ * 文件下载返回结果
+ */
+interface DownloadFileResult {
+    /** 下载成功标识 */
+    success: boolean;
+}
 
 interface ZWJSBridge {
     /**
@@ -87,7 +129,7 @@ interface ZWJSBridge {
      */
     openLink(options: {
         /** 重新发起单点 适用于微信小程序环境 */
-        type?: 'reload';
+        type?: "reload";
         /** 重定向地址 */
         url?: string;
     }): Promise<{
@@ -285,7 +327,7 @@ interface ZWJSBridge {
         /**
          * type: "qrCode"
          */
-        type: 'qrCode';
+        type: "qrCode";
     }): Promise<{
         text: string;
     }>;
@@ -314,10 +356,43 @@ interface ZWJSBridge {
         credential: string;
         /**
          * 是否为测试环境，缺省为False。支付宝只支持Android端
-         *
          */
         inSandBox?: boolean;
     }): Promise<any>;
+
+    /**
+     * 文件上传
+     *
+     * @param options - 文件上传参数 {@link UploadFileOptions}
+     *
+     * @returns 异步返回 {@link UploadFileResult} 对象
+     *
+     * @example
+     * ZWJSBridge.uploadFile({
+     *   type: 'image/*',
+     *   url: 'https://xxx.com.cn/uploadFile',
+     *   count: 1
+     * }).then(res => {
+     *   console.log(res)
+     *  })
+     */
+    uploadFile(options: UploadFileOptions): Promise<UploadFileResult>;
+
+    /**
+     * 文件下载
+     *
+     * @param options - 文件下载参数 {@link DownloadFileOptions}
+     *
+     * @returns 异步返回 {@link DownloadFileResult} 对象
+     *
+     * @example
+     * ZWJSBridge.downloadFile({
+     *   url: 'https://xxx.com.cn/079898a47d1249f4bf509928b2afbf83.xls'
+     * }).then(res => {
+     *   console.log(res)
+     * })
+     */
+    downloadFile(options: DownloadFileOptions): Promise<DownloadFileResult>;
 
     /***********    UI界面类     ***********/
     /**
@@ -358,7 +433,7 @@ interface ZWJSBridge {
          * fail
          * exception，值为exception时，必须上传文字信息。
          */
-        type?: 'none' | 'success' | 'fail' | 'exception';
+        type?: "none" | "success" | "fail" | "exception";
         /** 消息内容 */
         message?: string;
         /** 消息显示持续时间，单位毫秒，默认值为2000s */
@@ -375,7 +450,7 @@ interface ZWJSBridge {
          * number
          * password
          */
-        inputType?: 'text' | 'number' | 'password';
+        inputType?: "text" | "number" | "password";
         /** 文本框中的实际消息内容 */
         message?: string;
         /** 文本框的标题 */
@@ -472,7 +547,7 @@ interface ZWJSBridge {
          * weibo，微博。
          * dingtlk，钉钉。
          */
-        channel?: 'wechat' | 'wechat_moments' | 'weibo' | 'dingtlk';
+        channel?: "wechat" | "wechat_moments" | "weibo" | "dingtlk";
         /** 分享标题 */
         title?: string;
         /** 分享内容 */

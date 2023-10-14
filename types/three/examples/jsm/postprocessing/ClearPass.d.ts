@@ -1,6 +1,6 @@
-import { ColorRepresentation } from '../../../src/Three';
+import { ColorRepresentation } from '../../../src/Three.js';
 
-import { Pass } from './Pass';
+import { Pass, FullScreenQuad } from './Pass.js';
 
 export class ClearPass extends Pass {
     constructor(clearColor?: ColorRepresentation, clearAlpha?: number);

@@ -17,9 +17,12 @@ declare class Link {
     private paramsFieldNames_;
     cssClass: string;
     private written_;
+    parent: any;
     srcId: string;
     paramsFieldNames: any[];
     autoSanitize: boolean;
+    parameters: string[];
+    params: Record<string, any>;
     private getProcessedParameters;
     private toString;
     private getClientFunction_;

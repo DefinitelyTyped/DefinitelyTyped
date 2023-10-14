@@ -3,7 +3,7 @@
  * https://k6.io/docs/using-k6/options/
  */
 
-import { CipherSuite } from './http';
+import { CipherSuite } from "./http";
 
 /**
  * Program options.
@@ -30,9 +30,9 @@ export interface Options {
         /** 0, inf, or any time duration(60s, 5m30s, 10m, 2h). */
         ttl: string;
 
-        select: 'first' | 'random' |  'roundRobin';
+        select: "first" | "random" | "roundRobin";
 
-        policy: 'preferIPv4' | 'preferIPv6' | 'onlyIPv4' | 'onlyIPv6' | 'any';
+        policy: "preferIPv4" | "preferIPv6" | "onlyIPv4" | "onlyIPv6" | "any";
     };
 
     /** Test duration. */
@@ -87,7 +87,7 @@ export interface Options {
     rps?: number;
 
     /** Scenario specifications. */
-    scenarios?: { [name: string]: Scenario};
+    scenarios?: { [name: string]: Scenario };
 
     /** Setup function timeout. */
     setupTimeout?: string;
@@ -188,7 +188,14 @@ export interface Certificate {
     password?: string;
 }
 
-export type ExecutorOptions = "shared-iterations" | "per-vu-iterations" | "constant-vus" | "ramping-vus" | "constant-arrival-rate" | "ramping-arrival-rate" | "externally-controlled";
+export type ExecutorOptions =
+    | "shared-iterations"
+    | "per-vu-iterations"
+    | "constant-vus"
+    | "ramping-vus"
+    | "constant-arrival-rate"
+    | "ramping-arrival-rate"
+    | "externally-controlled";
 
 /**
  * BaseScenario.
@@ -235,6 +242,9 @@ export abstract class BaseScenario {
 
     /** Tags specific to this scenario. */
     tags?: { [name: string]: string };
+
+    /** Additional options for each scenario */
+    options?: ScenarioOptions;
 }
 
 /**
@@ -424,10 +434,16 @@ export interface ExternallyControlledScenario extends BaseScenario {
     maxVUs?: number;
 }
 
-export type Scenario = SharedIterationsScenario |
-                       PerVUIterationsScenario |
-                       ConstantVUsScenario |
-                       RampingVUsScenario |
-                       ConstantArrivalRateScenario |
-                       RampingArrivalRateScenario |
-                       ExternallyControlledScenario;
+export type Scenario =
+    | SharedIterationsScenario
+    | PerVUIterationsScenario
+    | ConstantVUsScenario
+    | RampingVUsScenario
+    | ConstantArrivalRateScenario
+    | RampingArrivalRateScenario
+    | ExternallyControlledScenario;
+
+export interface ScenarioOptions {
+    /** Browser specific options */
+    browser?: any;
+}

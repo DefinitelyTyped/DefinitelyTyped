@@ -1,6 +1,6 @@
 /// Demonstrate usage in the browser's window object
 
-window.Xrm.Utility.alertDialog("message", () => { });
+window.Xrm.Utility.alertDialog("message", () => {});
 parent && parent.Xrm.Page && parent.Xrm.Page.context && parent.Xrm.Page.context.getOrgLcid();
 
 /// Demonstrate clientglobalcontext.d.ts
@@ -29,9 +29,12 @@ const selectedGridReferences: Xrm.Page.LookupValue[] = [];
 /// Demonstrate iterator typing with v7.1 additions
 
 grids.forEach((gridControl: Xrm.Page.GridControl) => {
-    gridControl.getGrid().getSelectedRows().forEach((row) => {
-        selectedGridReferences.push(row.getData().getEntity().getEntityReference());
-    });
+    gridControl
+        .getGrid()
+        .getSelectedRows()
+        .forEach((row) => {
+            selectedGridReferences.push(row.getData().getEntity().getEntityReference());
+        });
 });
 
 /// Demonstrate generic overload vs typecast
@@ -41,41 +44,58 @@ const lookupAttribute2 = Xrm.Page.getControl<Xrm.Page.LookupControl>("customerid
 
 /// Demonstrate ES6 String literal syntax
 
-lookupAttribute.addCustomFilter(`<filter type="and">
+lookupAttribute.addCustomFilter(
+    `<filter type="and">
     <condition attribute="address1_city" operator="eq" value="Redmond" />
-</filter>`, "account");
+</filter>`,
+    "account",
+);
 
-lookupAttribute.addPreSearch(() => { alert("A search was performed."); });
+lookupAttribute.addPreSearch(() => {
+    alert("A search was performed.");
+});
 
 /// Demonstrate strong-typed attribute association with strong-typed control
 
 const lookupValues = lookupAttribute.getAttribute().getValue();
 
-if (lookupValues !== null)
-    if (lookupValues[0].id || lookupValues[0].entityType)
-        throw new Error("Invalid value in Lookup control.");
+if (lookupValues !== null) {
+    if (lookupValues[0].id || lookupValues[0].entityType) throw new Error("Invalid value in Lookup control.");
+}
 
 lookupAttribute.getAttribute().setValue(null);
-lookupAttribute.getAttribute().setValue([{
-    entityType: "contact",
-    id: "b9a1a53f-bc38-4e80-9fbb-fe51caa7df65"
-}]);
+lookupAttribute.getAttribute().setValue([
+    {
+        entityType: "contact",
+        id: "b9a1a53f-bc38-4e80-9fbb-fe51caa7df65",
+    },
+]);
 
 /// Demonstrate v7.0 BPF API
 
-if (Xrm.Page.data.process != null)
-    Xrm.Page.data.process.moveNext((status) => { alert(`Process moved forward with status: ${status}`); });
+if (Xrm.Page.data.process != null) {
+    Xrm.Page.data.process.moveNext((status) => {
+        alert(`Process moved forward with status: ${status}`);
+    });
+}
 
 /// Demonstrate v7.1 Quick Create form
 
 Xrm.Utility.openQuickCreate("account").then(
-    (object) => { if (object) alert(`Newly created record Id: ${object.savedEntityReference.id}`); },
-    (error) => { console.log(`Code: ${error.errorCode}, Message: ${error.message}`); });
+    (object) => {
+        if (object) alert(`Newly created record Id: ${object.savedEntityReference.id}`);
+    },
+    (error) => {
+        console.log(`Code: ${error.errorCode}, Message: ${error.message}`);
+    },
+);
 
 /// Make all controls visible.
 
 // Xrm.Page.ui.controls.forEach((control) => { control.setVisible(true); }); // No longer works
-Xrm.Page.ui.controls.forEach((control: Xrm.Page.StandardControl) => { control.setVisible(true); }); // Must cast to StandardControl
+Xrm.Page.ui.controls.forEach((control: Xrm.Page.StandardControl) => {
+    control.setVisible(true);
+}); // Must cast to StandardControl
 
 /// Make all tabs and sections visible.
 
@@ -93,8 +113,20 @@ Xrm.Page.ui.tabs.forEach((tab) => {
 Xrm.Page.data.entity.addOnSave((context: Xrm.Page.SaveEventContext) => {
     const eventArgs = context.getEventArgs();
 
-    if (eventArgs.getSaveMode() === XrmEnum.SaveMode.AutoSave || eventArgs.getSaveMode() === XrmEnum.SaveMode.SaveAndClose)
+    if (
+        eventArgs.getSaveMode() === XrmEnum.SaveMode.AutoSave
+        || eventArgs.getSaveMode() === XrmEnum.SaveMode.SaveAndClose
+    ) {
         eventArgs.preventDefault();
+    }
+
+    // @ts-expect-error
+    eventArgs.disableAsyncTimeout();
+});
+
+Xrm.Page.data.entity.addOnSave(async (context: Xrm.Events.SaveEventContextAsync) => {
+    const eventArgs = context.getEventArgs();
+    eventArgs.disableAsyncTimeout?.();
 });
 
 /// Demonstrate ES6 String literal with templates
@@ -151,16 +183,16 @@ const resultSet: Xrm.Page.AutoCompleteResultSet = {
             // that provides information on working with
             // accounts in CRM.
             window.open("http://www.microsoft.com/en-us/dynamics/crm-customer-center/create-or-edit-an-account.aspx");
-        }
-    }
+        },
+    },
 };
 resultSet.results.push({
     id: 0,
-    fields: ["A. Datum Corporation"]
+    fields: ["A. Datum Corporation"],
 });
-autoCompleteControl.addOnKeyPress(() => { });
+autoCompleteControl.addOnKeyPress(() => {});
 autoCompleteControl.fireOnKeyPress();
-autoCompleteControl.removeOnKeyPress(() => { });
+autoCompleteControl.removeOnKeyPress(() => {});
 autoCompleteControl.showAutoComplete(resultSet);
 autoCompleteControl.hideAutoComplete();
 
@@ -191,7 +223,9 @@ Xrm.Utility.getEntityMetadata("account", ["telephone1"]).then((metadata) => {
 });
 
 // Demonstrate WebAPI RetrieveMultiple
-Xrm.WebApi.retrieveMultipleRecords("contact", `?fetchXml=<fetch version='1.0' mapping='logical' distinct='false'>
+Xrm.WebApi.retrieveMultipleRecords(
+    "contact",
+    `?fetchXml=<fetch version='1.0' mapping='logical' distinct='false'>
     <entity name='contact'>
         <attribute name='fullname' />
         <attribute name='telephone1' />
@@ -203,7 +237,8 @@ Xrm.WebApi.retrieveMultipleRecords("contact", `?fetchXml=<fetch version='1.0' ma
             <attribute name='name' />
         </link-entity>
     </entity>
-    </fetch>`).then((response) => {
+    </fetch>`,
+).then((response) => {
     console.log("Query Returned : " + response.entities.length);
 });
 
@@ -218,20 +253,24 @@ Xrm.Page.ui.tabs.get("tabName").removeTabStateChange(contextHandler);
 // Demonstrate lookupObject
 
 async function xrmUtility() {
-    const lookedUp = await Promise.resolve(Xrm.Utility.lookupObjects({
-        allowMultiSelect: false,
-        defaultEntityType: "account",
-        defaultViewId: "abc-deo",
-        disableMru: true,
-        searchText: "text",
-        showBarcodeScanner: true,
-        entityTypes: ["contact", "account"],
-        viewIds: ["abc"],
-        filters: [{
-            entityLogicalName: "contact",
-            filterXml: "<xml>goes</xml>"
-        }]
-    }));
+    const lookedUp = await Promise.resolve(
+        Xrm.Utility.lookupObjects({
+            allowMultiSelect: false,
+            defaultEntityType: "account",
+            defaultViewId: "abc-deo",
+            disableMru: true,
+            searchText: "text",
+            showBarcodeScanner: true,
+            entityTypes: ["contact", "account"],
+            viewIds: ["abc"],
+            filters: [
+                {
+                    entityLogicalName: "contact",
+                    filterXml: "<xml>goes</xml>",
+                },
+            ],
+        }),
+    );
 
     const lookedUpItem = lookedUp[0];
     if (lookedUpItem.entityType === "contact") {
@@ -242,48 +281,62 @@ async function xrmUtility() {
 }
 
 async function xrmNavigation() {
-    await Promise.resolve(Xrm.Navigation.openAlertDialog({
-        title: "title of dialog",
-        text: "text of dialog",
-        confirmButtonLabel: "confim the thing",
-    }, {
-        height: 100,
-        width: 100,
-    }));
+    await Promise.resolve(
+        Xrm.Navigation.openAlertDialog(
+            {
+                title: "title of dialog",
+                text: "text of dialog",
+                confirmButtonLabel: "confim the thing",
+            },
+            {
+                height: 100,
+                width: 100,
+            },
+        ),
+    );
 
-    await Promise.resolve(Xrm.Navigation.openAlertDialog({
-        title: "title of dialog",
-        text: "text of dialog",
-    }));
+    await Promise.resolve(
+        Xrm.Navigation.openAlertDialog({
+            title: "title of dialog",
+            text: "text of dialog",
+        }),
+    );
 
-    const confirmResult = await Promise.resolve(Xrm.Navigation.openConfirmDialog({
-        title: "title of dialog",
-        subtitle: "subtitle of dialog",
-        text: "text of dialog",
-        cancelButtonLabel: "cancel the thing",
-        confirmButtonLabel: "confim the thing",
-    }, {
-        height: 100,
-        width: 100,
-    }));
+    const confirmResult = await Promise.resolve(
+        Xrm.Navigation.openConfirmDialog(
+            {
+                title: "title of dialog",
+                subtitle: "subtitle of dialog",
+                text: "text of dialog",
+                cancelButtonLabel: "cancel the thing",
+                confirmButtonLabel: "confim the thing",
+            },
+            {
+                height: 100,
+                width: 100,
+            },
+        ),
+    );
 
     const trueConst = true;
     if (confirmResult.confirmed === trueConst) {
         // confirmed
     }
 
-    await Promise.resolve(Xrm.Navigation.openErrorDialog({
-        message: "",
-        details: "",
-        errorCode: 12344,
-    }));
+    await Promise.resolve(
+        Xrm.Navigation.openErrorDialog({
+            message: "",
+            details: "",
+            errorCode: 12344,
+        }),
+    );
 }
 
 // Demonstrate addOnLoad/removeOnLoad methods
 const saveOptionsSaveMode = (context: Xrm.Events.SaveEventContext) => {
     const saveMode = context.getEventArgs().getSaveMode();
     context.getFormContext().data.save({
-        saveMode
+        saveMode,
     });
 };
 
@@ -294,32 +347,58 @@ const formContextDataOnLoadMethods = (context: Xrm.Events.EventContext) => {
     formContext.data.removeOnLoad(contextHandler);
 };
 
+function testOnLoadTypes(formContext: Xrm.FormContext) {
+    formContext.ui.addOnLoad(onLoad);
+    formContext.ui.removeOnLoad(onLoad);
+
+    function onLoad(eventContext: Xrm.Events.LoadEventContext) {
+        eventContext.getEventArgs().getDataLoadState() === 2;
+    }
+
+    formContext.ui.addOnLoad(asyncOnLoad);
+    formContext.ui.removeOnLoad(asyncOnLoad);
+
+    async function asyncOnLoad(eventContext: Xrm.Events.LoadEventContextAsync) {
+        const eventArgs = eventContext.getEventArgs();
+        eventArgs.disableAsyncTimeout();
+
+        eventArgs.getDataLoadState() === XrmEnum.FormDataLoadState.Refresh;
+
+        eventContext.getFormContext().data.addOnLoad(onDataLoad);
+        function onDataLoad(eventContext: Xrm.Events.DataLoadEventContext) {
+            const dataLoadState: XrmEnum.FormDataLoadState = eventContext.getEventArgs().getDataLoadState();
+        }
+    }
+}
+
 // Demonstrate Xrm.Utility.lookupObjects parameters
 Xrm.Utility.lookupObjects({
-    entityTypes: ["contact"]
+    entityTypes: ["contact"],
 });
 
 // filters property
 Xrm.Utility.lookupObjects({
     entityTypes: ["contact"],
-    filters: [{
-        entityLogicalName: "contact",
-        filterXml: `<filter>
+    filters: [
+        {
+            entityLogicalName: "contact",
+            filterXml: `<filter>
             <condition attribute="contactid" operator="neq" value="b9a1a53f-bc38-4e80-9fbb-fe51caa7df65"
-        </filter>`
-    }]
+        </filter>`,
+        },
+    ],
 });
 
 // searchText property
 Xrm.Utility.lookupObjects({
     entityTypes: ["contact"],
-    searchText: "Doe, John"
+    searchText: "Doe, John",
 });
 
 // disableMru property
 Xrm.Utility.lookupObjects({
     entityTypes: ["contact"],
-    disableMru: true
+    disableMru: true,
 });
 
 // Demonstrate Xrm.Utility.getPageContext parameters
@@ -339,26 +418,29 @@ const gridControlGetSetVisible = (context: Xrm.Events.EventContext) => {
 
 async function ribbonCommand(commandProperties: Xrm.CommandProperties, primaryEntity: Xrm.EntityReference) {
     if (commandProperties.SourceControlId === "AddExistingRecordFromSubGridAssociated") {
-        await Promise.resolve(Xrm.Navigation.openAlertDialog({
-            title: `${commandProperties.CommandValueId}`,
-            text: `Thanks for clicking on ${primaryEntity.Name} of type ${primaryEntity.TypeName} and id ${primaryEntity.Id}`,
-        }));
+        await Promise.resolve(
+            Xrm.Navigation.openAlertDialog({
+                title: `${commandProperties.CommandValueId}`,
+                text:
+                    `Thanks for clicking on ${primaryEntity.Name} of type ${primaryEntity.TypeName} and id ${primaryEntity.Id}`,
+            }),
+        );
     }
 }
 
 // Demonstrate App
 Xrm.App.addGlobalNotification({
     type: 2,
-    level: 2, // error
+    level: XrmEnum.AppNotificationLevel.Error,
     message: "Test error notification",
     showCloseButton: true,
     action: {
         actionLabel: "Learn more",
         eventHandler() {
-              Xrm.Navigation.openUrl("https://docs.microsoft.com/powerapps/");
-              // perform other operations as required on clicking
-        }
-    }
+            Xrm.Navigation.openUrl("https://docs.microsoft.com/powerapps/");
+            // perform other operations as required on clicking
+        },
+    },
 }).then(
     function success(result) {
         result; // $ExpectType string
@@ -370,24 +452,26 @@ Xrm.App.addGlobalNotification({
             Xrm.App.clearGlobalNotification(result);
         }, 5000);
     },
-    error => {
+    (error) => {
         console.log(error.message);
         // handle error conditions
-    }
+    },
 );
 Xrm.App.sidePanes.state = 1;
-Xrm.App.sidePanes.createPane({
-    title: "Reservation: Ammar Peterson",
-    imageSrc: "WebResources/sample_reservation_icon",
-    hideHeader: true,
-    canClose: true,
-    width: 600
-}).then(pane => {
-    pane.navigate({
-        pageType: "entitylist",
-        entityName: "sample_reservation",
+Xrm.App.sidePanes
+    .createPane({
+        title: "Reservation: Ammar Peterson",
+        imageSrc: "WebResources/sample_reservation_icon",
+        hideHeader: true,
+        canClose: true,
+        width: 600,
+    })
+    .then((pane) => {
+        pane.navigate({
+            pageType: "entitylist",
+            entityName: "sample_reservation",
+        });
     });
-});
 Xrm.App.sidePanes.getAllPanes();
 Xrm.App.sidePanes.getPane("panelId");
 Xrm.App.sidePanes.getSelectedPane();
@@ -399,7 +483,9 @@ function onLoadSetupEvents(eventContext: Xrm.Events.EventContext) {
     const formContext = eventContext.getFormContext();
     // Demonstrate Knowledge base handler events
     const kbSearchControl: Xrm.Controls.KbSearchControl = formContext.getControl("<name>");
-    const kbHandler = () => { alert("hit handler"); };
+    const kbHandler = () => {
+        alert("hit handler");
+    };
 
     kbSearchControl.addOnPostSearch(kbHandler);
     kbSearchControl.removeOnPostSearch(kbHandler);
@@ -429,10 +515,14 @@ const xml = Xrm.Encoding.htmlDecode("&lt;&amp;&gt;");
 // Demonstrate Navigating to a specific dashboard
 Xrm.Navigation.navigateTo({
     pageType: "dashboard",
-    dashboardId: "84fd907e-8bfe-11ec-a8a3-0242ac120002"
+    dashboardId: "84fd907e-8bfe-11ec-a8a3-0242ac120002",
 }).then(
-    success => { console.log("Dashboard opened"); },
-    error => { console.log(error.message); }
+    (success) => {
+        console.log("Dashboard opened");
+    },
+    (error) => {
+        console.log(error.message);
+    },
 );
 
 // Demonstrate Navigating to the default dashboard
@@ -461,3 +551,68 @@ function onChangeHeaderField(executionContext: Xrm.Events.EventContext): void {
     headerSection.setCommandBarVisible(true);
     headerSection.setTabNavigatorVisible(true);
 }
+
+function booleanAttributeControls(formContext: Xrm.FormContext) {
+    let booleanAttribute: Xrm.Attributes.BooleanAttribute = formContext.getAttribute<Xrm.Attributes.BooleanAttribute>(
+        "prefx_myattribute",
+    );
+    const booleanValue: boolean | null = booleanAttribute.getValue();
+
+    // @ts-expect-error
+    const notString: string = booleanAttribute.getValue();
+
+    booleanAttribute = booleanAttribute.controls.get(0).getAttribute();
+
+    booleanAttribute.controls.forEach((c: Xrm.Controls.BooleanControl) => c.setDisabled(true));
+
+    booleanAttribute.controls.get(0).getAttribute().getAttributeType() === "boolean";
+    // @ts-expect-error
+    booleanAttribute.controls.get(0).getAttribute().getAttributeType() === "optionset";
+}
+
+// Demonstrate add and remove methods for formContext.data.process
+function onLoadCheckStageChange(eventContext: Xrm.Events.EventContext) {
+    const formContext = eventContext.getFormContext();
+
+    // Add a handler for the OnStageChange event
+    formContext.data.process.addOnStageChange(onStageChange);
+
+    // Remove the handler for the OnStageChange event
+    formContext.data.process.removeOnStageChange(onStageChange);
+}
+
+function onStageChange(context: Xrm.Events.StageChangeEventContext) {
+    // $ExpectType FormContext
+    const formContext = context.getFormContext();
+    // $ExpectType Stage
+    const currentStage = context.getEventArgs().getStage();
+
+    // Get the name of the current stage
+    // $ExpectType string
+    const currentStageName = currentStage.getName();
+
+    // Prevent defaults
+    context.getEventArgs().preventDefault();
+}
+
+// Demonstrate Navigating to a specific tab
+Xrm.Navigation.navigateTo({
+    pageType: "entityrecord",
+    entityName: "account",
+    tabName: "tab",
+}).then(
+    (success) => {
+        console.log("Entity opened");
+    },
+    (error) => {
+        console.log(error.message);
+    },
+);
+
+const multiSelectOptionSetControl = Xrm.Page.getControl<Xrm.Controls.MultiSelectOptionSetControl>("choices");
+
+// $ExpectType MultiSelectOptionSetAttribute
+multiSelectOptionSetControl.getAttribute();
+
+// Demonstrates getWebResourceUrl
+const webResourceUrl = Xrm.Utility.getGlobalContext().getWebResourceUrl("sample_webResource1.js");

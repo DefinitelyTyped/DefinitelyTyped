@@ -1,21 +1,23 @@
-import * as React from 'react';
+import * as React from "react";
 import {
+    FCReturn,
+    ForwardRefProps,
     InternationalProps,
     ReactInputAttr,
     VerticalDirection,
-    FCReturn,
-    ForwardRefProps,
-} from '../../../typings/shared';
-import { ListBoxProps } from '../ListBox';
-import { ListBoxMenuIconTranslationKey } from '../ListBox/ListBoxMenuIcon';
-import { ListBoxSelectionTranslationKey } from '../ListBox/ListBoxSelection';
-import { ListBoxSize } from '../ListBox/ListBoxPropTypes';
+} from "../../../typings/shared";
+import { ListBoxProps } from "../ListBox";
+import { ListBoxMenuIconTranslationKey } from "../ListBox/ListBoxMenuIcon";
+import { ListBoxSize } from "../ListBox/ListBoxPropTypes";
+import { ListBoxSelectionTranslationKey } from "../ListBox/ListBoxSelection";
 
-type ExcludedAttributes = 'id' | 'onChange' | 'ref' | 'size';
+type ExcludedAttributes = "id" | "onChange" | "ref" | "size";
 
 export interface ComboBoxProps<ItemType = string, CustomElementProps = Extract<ItemType, object>>
-    extends Omit<ReactInputAttr, ExcludedAttributes>,
-        InternationalProps<ListBoxMenuIconTranslationKey | ListBoxSelectionTranslationKey> {
+    extends
+        Omit<ReactInputAttr, ExcludedAttributes>,
+        InternationalProps<ListBoxMenuIconTranslationKey | ListBoxSelectionTranslationKey>
+{
     ariaLabel?: string | undefined;
     direction?: VerticalDirection | undefined;
     downshiftProps?: any; // TODO
@@ -25,8 +27,7 @@ export interface ComboBoxProps<ItemType = string, CustomElementProps = Extract<I
     invalid?: boolean | undefined;
     invalidText?: React.ReactNode | undefined;
     items: readonly ItemType[];
-    itemToElement?: CustomElementProps extends object
-        ? React.JSXElementConstructor<CustomElementProps>
+    itemToElement?: CustomElementProps extends object ? React.JSXElementConstructor<CustomElementProps>
         : never | undefined;
     itemToString?(item: ItemType | null | undefined): string;
     light?: boolean | undefined;
@@ -36,12 +37,12 @@ export interface ComboBoxProps<ItemType = string, CustomElementProps = Extract<I
     selectedItem?: ItemType | null | undefined;
     shouldFilterItem?(data: {
         item: ItemType;
-        itemToString?: ComboBoxProps<ItemType>['itemToString'] | undefined;
+        itemToString?: ComboBoxProps<ItemType>["itemToString"] | undefined;
         inputValue?: string | undefined;
     }): void;
     size?: ListBoxSize | undefined;
     titleText?: React.ReactNode | undefined;
-    type?: ListBoxProps['type'] | undefined;
+    type?: ListBoxProps["type"] | undefined;
     warn?: boolean | undefined;
     warnText?: React.ReactNode | undefined;
 }

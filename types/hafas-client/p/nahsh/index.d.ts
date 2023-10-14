@@ -1,5 +1,3 @@
-export = nahshProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const nahshProfile: createClient.Profile;
+export const profile: Profile;

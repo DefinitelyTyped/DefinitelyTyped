@@ -50,4 +50,4 @@ const unitedStates = iso3166.data["US"];
 const alpha3 = "SWE";
 const alpha2 = "SE";
 // $ExpectType boolean
-const codesWork = (alpha2 === iso3166.codes[alpha3]);
+const codesWork = alpha2 === iso3166.codes[alpha3];

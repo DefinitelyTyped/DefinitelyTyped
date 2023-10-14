@@ -1,4 +1,4 @@
-// Type definitions for koa-favicon v2.x
+// Type definitions for koa-favicon 2.1
 // Project: https://github.com/koajs/favicon
 // Definitions by: Jerry Chin <https://github.com/hellopao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,19 +14,20 @@
 
  =============================================== */
 
-
 import * as Koa from "koa";
 
 /**
  * Returns a middleware serving the favicon found on the given path.
  */
 declare function favicon(path: string, options?: {
-
     /**
      * cache-control max-age directive in ms, defaulting to 1 day.
      */
     maxage?: number | undefined;
-
+    /**
+     * MIME type of the file at path, defaulting to image/x-icon.
+     */
+    mime?: string | undefined;
 }): Koa.Middleware;
 
 declare namespace favicon {}

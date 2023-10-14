@@ -1,5 +1,5 @@
-import * as React from 'react';
-import * as Table from '@af-utils/react-table';
+import * as Table from "@af-utils/react-table";
+import * as React from "react";
 
 const basicTable = () => {
     return (
@@ -7,8 +7,8 @@ const basicTable = () => {
             model={Table.useVirtualModel()}
             columns={[
                 {
-                    key: 'abc',
-                    label: 'ABC',
+                    key: "abc",
+                    label: "ABC",
                 },
             ]}
             getRowData={i => i}
@@ -22,8 +22,8 @@ const overrideAllExceptComponents = () => {
             model={Table.useVirtualModel()}
             columns={[
                 {
-                    key: 'abc',
-                    label: 'ABC',
+                    key: "abc",
+                    label: "ABC",
                 },
             ]}
             getRowData={i => i}
@@ -49,8 +49,8 @@ const overrideComponentsOnly = () => {
             model={Table.useVirtualModel()}
             columns={[
                 {
-                    key: 'abc',
-                    label: 'ABC',
+                    key: "abc",
+                    label: "ABC",
                 },
             ]}
             getRowData={i => i}
@@ -107,6 +107,5 @@ const components: Table.ComponentMap = {
             return col.key;
         });
     },
-
     // Remaining components have identical types to the above
 };

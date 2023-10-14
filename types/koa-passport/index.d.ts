@@ -1,4 +1,4 @@
-// Type definitions for koa-passport 4.0
+// Type definitions for koa-passport 6.0
 // Project: https://github.com/rkusa/koa-passport
 // Definitions by: horiuchi <https://github.com/horiuchi>
 //                 Tomek Łaziuk <https://github.com/tlaziuk>
@@ -14,9 +14,7 @@
 
  =============================================== */
 
-import {
-    Middleware,
-} from "koa";
+import { Middleware } from "koa";
 
 import * as passport from "passport";
 
@@ -25,7 +23,7 @@ declare module "koa" {
         login(user: any, options?: any): Promise<void>;
         logIn: ExtendableContext["login"];
 
-        logout(): void;
+        logout(): Promise<void>;
         logOut: ExtendableContext["logout"];
 
         isAuthenticated(): boolean;
@@ -39,11 +37,15 @@ declare namespace KoaPassport {
         use(name: string, strategy: passport.Strategy): this;
         unuse(name: string): this;
         framework(fw: passport.Framework): this;
-        initialize(options?: { userProperty: string; }): Middleware;
-        session(options?: { pauseStream: boolean; }): Middleware;
+        initialize(options?: { userProperty: string }): Middleware;
+        session(options?: { pauseStream: boolean }): Middleware;
 
         authenticate(strategy: string | string[], callback?: (...args: any[]) => any): Middleware;
-        authenticate(strategy: string | string[], options: passport.AuthenticateOptions | object, callback?: (...args: any[]) => any): Middleware;
+        authenticate(
+            strategy: string | string[],
+            options: passport.AuthenticateOptions | object,
+            callback?: (...args: any[]) => any,
+        ): Middleware;
         authorize(strategy: string | string[], callback?: (...args: any[]) => any): Middleware;
         authorize(strategy: string | string[], options: any, callback?: (...args: any[]) => any): Middleware;
 

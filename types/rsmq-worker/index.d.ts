@@ -1,14 +1,13 @@
-// Type definitions for rsmq-worker 0.3.5
+// Type definitions for rsmq-worker 0.4.2
 // Project: http://smrchy.github.io/rsmq/rsmq-worker/
 // Definitions by: TANAKA Koichi <https://github.com/MugeSo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="rsmq"/>
 
-
-import redis = require('redis');
-import events = require('events');
-import * as RedisSMQ from 'rsmq';
+import redis = require("redis");
+import events = require("events");
+import * as RedisSMQ from "rsmq";
 
 declare namespace RSMQWorker {
     export interface Client extends events.EventEmitter {
@@ -18,6 +17,7 @@ declare namespace RSMQWorker {
         send(message: string, cb: CallbackT<string>): Client;
         del(id: string, cb?: CallbackT<void>): Client;
         changeInterval(interval: number | number[]): Client;
+        quit(): void;
     }
 
     export interface Options {
@@ -46,7 +46,7 @@ declare namespace RSMQWorker {
 }
 
 interface RSMQWorkerStatic {
-    new (queuename: string, options?: RSMQWorker.Options): RSMQWorker.Client;
+    new(queuename: string, options?: RSMQWorker.Options): RSMQWorker.Client;
 }
 
 declare var RSMQWorker: RSMQWorkerStatic;

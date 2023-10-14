@@ -9,7 +9,7 @@ declare class GeneralSettings {
     private getRecordValue_;
     private updateRecordValue_;
     private update_;
-    getSettingOptionsFromRecord(data: any): SettingOptions;
+    getSettingOptionsFromRecord(data: DataSet): SettingOptions;
     get(id: string | number | DBKey): any;
     update(id: string | number | DBKey, value: any): number;
     validateSettingName(name: string, key?: DBKey | number): void;
@@ -19,8 +19,9 @@ declare class GeneralSettings {
     version: number;
 }
 declare namespace GeneralSettings {
-    export { getInstance, SettingOptions };
+    export { getInstance, SettingOptions, DataSet };
 }
+type DataSet = import('../dataset/DataSet');
 interface SettingOptions {
     type: SettingType;
     multiple?: boolean;

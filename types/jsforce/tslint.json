@@ -5,15 +5,7 @@
         "await-promise": false,
         "ban-types": false,
         "eofline": false,
-        "no-any-union": false,
         "no-empty-interface": false,
-        "redundant-undefined": false,
-        "no-unnecessary-class": false,
-        "no-unnecessary-generics": false,
-        "semicolon": false,
-        "space-within-parens": false,
-        "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "no-unnecessary-class": false
     }
 }

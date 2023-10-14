@@ -17,7 +17,7 @@ declare class OpenIdProvider {
     userInfoSigningAlgValuesSupported: string[];
     jwks: string;
     jwk(kid: string): string;
-    getSigningKey(kid: string): any;
+    getSigningKey(kid: string): CryptoPKey;
     newOpenIdClient(
         options?: import('./OpenIdClient').OpenIdClientConstructorOptions
     ): import('./OpenIdClient');
@@ -26,10 +26,12 @@ declare class OpenIdProvider {
     ): import('../oauth2/OAuth2Client');
 }
 declare namespace OpenIdProvider {
-    export { discover, fromConfig, ProviderMetadata };
+    export { discover, fromConfig, CryptoPKey, DBKey, ProviderMetadata };
 }
+type CryptoPKey = import('../crypto/CryptoPKey');
 declare function discover(discoverUri: string): ProviderMetadata;
-declare function fromConfig(key: any): OpenIdProvider;
+declare function fromConfig(key: DBKey): OpenIdProvider;
+type DBKey = import('../dbkey/DBKey');
 interface ProviderMetadata {
     issuer: string;
     authorizationEndpoint: string;

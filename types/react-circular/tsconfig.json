@@ -19,6 +19,7 @@
         "jsx": "react"
     },
     "files": [
-        "index.d.ts", "react-circular-tests.tsx"
+        "index.d.ts",
+        "react-circular-tests.tsx"
     ]
 }

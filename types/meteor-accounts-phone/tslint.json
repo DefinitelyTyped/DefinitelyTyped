@@ -4,7 +4,6 @@
         "array-type": false,
         "ban-types": false,
         "no-var-keyword": false,
-        "npm-naming": false,
-        "trim-file": false
+        "npm-naming": false
     }
 }

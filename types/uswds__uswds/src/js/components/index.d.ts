@@ -4,9 +4,13 @@ import {
     characterCount,
     comboBox,
     datePicker,
+    dateRangePicker,
     fileInput,
     footer,
+    inPageNavigation,
+    inputMask,
     inputPrefixSuffix,
+    languageSelector,
     modal,
     navigation,
     password,
@@ -16,7 +20,7 @@ import {
     timePicker,
     tooltip,
     validator,
-} from '../../../js';
+} from "../../../js";
 
 export {
     accordion,
@@ -24,9 +28,13 @@ export {
     characterCount,
     comboBox,
     datePicker,
+    dateRangePicker,
     fileInput,
     footer,
+    inPageNavigation,
+    inputMask,
     inputPrefixSuffix,
+    languageSelector,
     modal,
     navigation,
     password,

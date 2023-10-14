@@ -1,15 +1,15 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     const xs = [
         { a: 1, b: 0 },
         { a: 1, b: 1 },
     ];
-    R.findLast(R.propEq('a', 1))(xs); // => {a: 1, b: 1}
-    R.findLast(R.propEq('a', 4))(xs); // => undefined
-};
+    R.findLast(R.propEq(1, "a"))(xs); // => {a: 1, b: 1}
+    R.findLast(R.propEq(4, "a"))(xs); // => undefined
+});
 
-() => {
+(() => {
     const findLastNumber = R.findLast(R.is(Number));
 
     const unknownArray: unknown[] = [];
@@ -22,4 +22,4 @@ import * as R from 'ramda';
     string = R.findLast(R.is(Number), unknownArray);
     // @ts-expect-error
     string = findLastNumber(unknownArray);
-};
+});

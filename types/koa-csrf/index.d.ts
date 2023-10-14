@@ -1,7 +1,7 @@
 // Type definitions for koa-csrf 5.0
 // Project: https://github.com/koajs/csrf
 // Definitions by: Haskaalo <https://github.com/haskaalo>
-//                 Kirill Shvets <https://github.com/kirillshvets97>
+//                 Kirill Shvets <https://github.com/kirillshvets>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -22,16 +22,16 @@ app.use(new CSRF({
 
 export = CSRF;
 
-import { Context, Middleware } from 'koa';
+import { Context, Middleware } from "koa";
 
-declare module 'koa' {
+declare module "koa" {
     interface DefaultState {
         _csrf: string;
     }
 }
 
 declare const CSRF: {
-    new (opts?: {
+    new(opts?: {
         errorHandler?: (ctx: Context) => never;
         excludedMethods?: string[];
         disableQuery?: boolean;

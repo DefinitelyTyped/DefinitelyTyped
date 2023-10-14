@@ -20,30 +20,144 @@ declare namespace English {
     }
 
     interface Library extends Language.Library {
-        given(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, ...args: string[]) => Promise<void>): this;
-        given(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, next: (err?: Error) => void) => void): this;
-        given(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, arg1: string, next: (err?: Error) => void) => void): this;
-        given(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, arg1: string, arg2: string, next: (err?: Error) => void) => void): this;
-        given(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, arg1: string, arg2: string, arg3: string, next: (err?: Error) => void) => void): this;
-        given(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, arg1: string, arg2: string, arg3: string, arg4: string, next: (err?: Error) => void) => void): this;
-        given(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, next: (err?: Error) => void) => void): this;
-        given(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, arg6: string, next: (err?: Error) => void) => void): this;
-        when(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, ...args: string[]) => Promise<void>): this;
-        when(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, next: (err?: Error) => void) => void): this;
-        when(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, arg1: string, next: (err?: Error) => void) => void): this;
-        when(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, arg1: string, arg2: string, next: (err?: Error) => void) => void): this;
-        when(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, arg1: string, arg2: string, arg3: string, next: (err?: Error) => void) => void): this;
-        when(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, arg1: string, arg2: string, arg3: string, arg4: string, next: (err?: Error) => void) => void): this;
-        when(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, next: (err?: Error) => void) => void): this;
-        when(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, arg6: string, next: (err?: Error) => void) => void): this;
-        then(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, ...args: string[]) => Promise<void>): this;
-        then(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, next: (err?: Error) => void) => void): this;
-        then(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, arg1: string, next: (err?: Error) => void) => void): this;
-        then(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, arg1: string, arg2: string, next: (err?: Error) => void) => void): this;
-        then(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, arg1: string, arg2: string, arg3: string, next: (err?: Error) => void) => void): this;
-        then(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, arg1: string, arg2: string, arg3: string, arg4: string, next: (err?: Error) => void) => void): this;
-        then(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, next: (err?: Error) => void) => void): this;
-        then(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, arg6: string, next: (err?: Error) => void) => void): this;
+        given(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, ...args: any[]) => Promise<void>): this;
+        given(
+            step: string | string[] | RegExp | RegExp[],
+            fn?: (this: StepFn, next: (err?: Error) => void) => void,
+        ): this;
+        given(
+            step: string | string[] | RegExp | RegExp[],
+            fn?: (this: StepFn, arg1: any, next: (err?: Error) => void) => void,
+        ): this;
+        given(
+            step: string | string[] | RegExp | RegExp[],
+            fn?: (this: StepFn, arg1: any, arg2: any, next: (err?: Error) => void) => void,
+        ): this;
+        given(
+            step: string | string[] | RegExp | RegExp[],
+            fn?: (this: StepFn, arg1: any, arg2: any, arg3: any, next: (err?: Error) => void) => void,
+        ): this;
+        given(
+            step: string | string[] | RegExp | RegExp[],
+            fn?: (this: StepFn, arg1: any, arg2: any, arg3: any, arg4: any, next: (err?: Error) => void) => void,
+        ): this;
+        given(
+            step: string | string[] | RegExp | RegExp[],
+            fn?: (
+                this: StepFn,
+                arg1: any,
+                arg2: any,
+                arg3: any,
+                arg4: any,
+                arg5: any,
+                next: (err?: Error) => void,
+            ) => void,
+        ): this;
+        given(
+            step: string | string[] | RegExp | RegExp[],
+            fn?: (
+                this: StepFn,
+                arg1: any,
+                arg2: any,
+                arg3: any,
+                arg4: any,
+                arg5: any,
+                arg6: any,
+                next: (err?: Error) => void,
+            ) => void,
+        ): this;
+        when(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, ...args: any[]) => Promise<void>): this;
+        when(
+            step: string | string[] | RegExp | RegExp[],
+            fn?: (this: StepFn, next: (err?: Error) => void) => void,
+        ): this;
+        when(
+            step: string | string[] | RegExp | RegExp[],
+            fn?: (this: StepFn, arg1: any, next: (err?: Error) => void) => void,
+        ): this;
+        when(
+            step: string | string[] | RegExp | RegExp[],
+            fn?: (this: StepFn, arg1: any, arg2: any, next: (err?: Error) => void) => void,
+        ): this;
+        when(
+            step: string | string[] | RegExp | RegExp[],
+            fn?: (this: StepFn, arg1: any, arg2: any, arg3: any, next: (err?: Error) => void) => void,
+        ): this;
+        when(
+            step: string | string[] | RegExp | RegExp[],
+            fn?: (this: StepFn, arg1: any, arg2: any, arg3: any, arg4: any, next: (err?: Error) => void) => void,
+        ): this;
+        when(
+            step: string | string[] | RegExp | RegExp[],
+            fn?: (
+                this: StepFn,
+                arg1: any,
+                arg2: any,
+                arg3: any,
+                arg4: any,
+                arg5: any,
+                next: (err?: Error) => void,
+            ) => void,
+        ): this;
+        when(
+            step: string | string[] | RegExp | RegExp[],
+            fn?: (
+                this: StepFn,
+                arg1: any,
+                arg2: any,
+                arg3: any,
+                arg4: any,
+                arg5: any,
+                arg6: any,
+                next: (err?: Error) => void,
+            ) => void,
+        ): this;
+        then(step: string | string[] | RegExp | RegExp[], fn?: (this: StepFn, ...args: any[]) => Promise<void>): this;
+        then(
+            step: string | string[] | RegExp | RegExp[],
+            fn?: (this: StepFn, next: (err?: Error) => void) => void,
+        ): this;
+        then(
+            step: string | string[] | RegExp | RegExp[],
+            fn?: (this: StepFn, arg1: any, next: (err?: Error) => void) => void,
+        ): this;
+        then(
+            step: string | string[] | RegExp | RegExp[],
+            fn?: (this: StepFn, arg1: any, arg2: any, next: (err?: Error) => void) => void,
+        ): this;
+        then(
+            step: string | string[] | RegExp | RegExp[],
+            fn?: (this: StepFn, arg1: any, arg2: any, arg3: any, next: (err?: Error) => void) => void,
+        ): this;
+        then(
+            step: string | string[] | RegExp | RegExp[],
+            fn?: (this: StepFn, arg1: any, arg2: any, arg3: any, arg4: any, next: (err?: Error) => void) => void,
+        ): this;
+        then(
+            step: string | string[] | RegExp | RegExp[],
+            fn?: (
+                this: StepFn,
+                arg1: any,
+                arg2: any,
+                arg3: any,
+                arg4: any,
+                arg5: any,
+                next: (err?: Error) => void,
+            ) => void,
+        ): this;
+        then(
+            step: string | string[] | RegExp | RegExp[],
+            fn?: (
+                this: StepFn,
+                arg1: any,
+                arg2: any,
+                arg3: any,
+                arg4: any,
+                arg5: any,
+                arg6: any,
+                next: (err?: Error) => void,
+            ) => void,
+        ): this;
     }
 }
 

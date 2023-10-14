@@ -1,17 +1,30 @@
-// Type definitions for html-encoding-sniffer 2.0
+// Type definitions for html-encoding-sniffer 3.0
 // Project: https://github.com/jsdom/html-encoding-sniffer#readme
 // Definitions by: ExE Boss <https://github.com/ExE-Boss>
+//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node"/>
-
 /**
- * @param buffer The NodeJS buffer containing the (X)HTML source text.
+ * Determine the Encoding of a HTML Byte Stream.
+ *
+ * Implements the HTML Standard's
+ * [encoding sniffing algorithm](https://html.spec.whatwg.org/multipage/syntax.html#encoding-sniffing-algorithm)
+ * in all its glory. The most interesting part of this is how it pre-scans the first 1024 bytes in order to search
+ * for certain `<meta charset>`-related patterns.
+ *
+ * @param htmlBytes The typed array containing the (X)HTML source text.
  *
  * @return The canonical [encoding name](https://encoding.spec.whatwg.org/#names-and-labels)
- *         for use with the `whatwg-encoding` or similar package.
+ *         for use with the [`whatwg-encoding`](https://github.com/jsdom/whatwg-encoding) or similar package.
+ *
+ * @example
+ * import htmlEncodingSniffer = require("html-encoding-sniffer");
+ * import * as fs from "fs";
+ *
+ * const htmlBytes = fs.readFileSync("./html-page.html");
+ * const sniffedEncoding = htmlEncodingSniffer(htmlBytes);
  */
-declare function sniffHTMLEncoding(buffer: Buffer, options?: sniffHTMLEncoding.Options): string;
+declare function sniffHTMLEncoding(htmlBytes: Uint8Array, options?: sniffHTMLEncoding.Options): string;
 
 declare namespace sniffHTMLEncoding {
     interface Options {
@@ -27,7 +40,7 @@ declare namespace sniffHTMLEncoding {
          * by the transport layer, and no encoding is sniffed from the bytes.
          *
          * @default
-         * ```js
+         * ```
          * 'windows-1252'
          * ```
          *

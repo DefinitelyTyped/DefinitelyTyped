@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.0
 
-import { AttributeMemberType } from 'webidl2';
+import { AttributeMemberType } from "webidl2";
 
 declare class Transformer {
     constructor(opts?: Transformer.Options);

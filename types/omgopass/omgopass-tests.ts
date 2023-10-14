@@ -1,4 +1,4 @@
-import generatePassword = require('omgopass');
+import generatePassword = require("omgopass");
 
 // $ExpectType string
 generatePassword({ hasNumbers: false });
@@ -16,7 +16,7 @@ generatePassword({
     maxSyllableLength: 4,
     hasNumbers: false,
     titlecased: true,
-    separators: '-_',
-    vowels: 'аеиоуэюя',
-    consonants: 'бвгджзклмнпрстчш',
+    separators: "-_",
+    vowels: "аеиоуэюя",
+    consonants: "бвгджзклмнпрстчш",
 });

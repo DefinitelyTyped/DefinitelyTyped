@@ -10,10 +10,10 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "baseUrl": "../",
+        "types": [],
         "typeRoots": [
             "../"
         ],
-        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

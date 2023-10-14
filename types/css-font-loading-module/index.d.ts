@@ -2,9 +2,10 @@
 // Project: https://drafts.csswg.org/css-font-loading/
 // Definitions by: slikts <https://github.com/slikts>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Minimum TypeScript Version: 5.0
 
-export type FontFaceLoadStatus = 'unloaded' | 'loading' | 'loaded' | 'error';
-export type FontFaceSetLoadStatus = 'loading' | 'loaded';
+export type FontFaceLoadStatus = "unloaded" | "loading" | "loaded" | "error";
+export type FontFaceSetLoadStatus = "loading" | "loaded";
 export type BinaryData = ArrayBuffer | ArrayBufferView;
 
 export interface FontFaceSetLoadEventInit extends EventInit {
@@ -19,7 +20,7 @@ export interface FontFaceSetCallbackMap {
 
 declare global {
     interface FontFaceDescriptors {
-        display?: string | undefined;
+        display?: FontDisplay | undefined;
         featureSettings?: string | undefined;
         stretch?: string | undefined;
         style?: string | undefined;
@@ -39,7 +40,7 @@ declare global {
         variant: string;
         featureSettings: string;
         variationSettings: string;
-        display: string;
+        display: FontDisplay;
         readonly status: FontFaceLoadStatus;
         readonly loaded: Promise<FontFace>;
     }
@@ -90,7 +91,7 @@ declare global {
 
     var FontFace: {
         prototype: FontFace;
-        new (family: string, source: string | BinaryData, descriptors?: FontFaceDescriptors): FontFace;
+        new(family: string, source: string | BinaryData, descriptors?: FontFaceDescriptors): FontFace;
     };
 
     interface FontFaceSetLoadEvent extends Event {
@@ -99,7 +100,7 @@ declare global {
 
     var FontFaceSetLoadEvent: {
         prototype: FontFaceSetLoadEvent;
-        new (type: string, eventInitDict?: FontFaceSetLoadEventInit): FontFaceSetLoadEvent;
+        new(type: string, eventInitDict?: FontFaceSetLoadEventInit): FontFaceSetLoadEvent;
     };
 
     interface Document {

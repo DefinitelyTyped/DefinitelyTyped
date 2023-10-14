@@ -1,5 +1,5 @@
-import chai = require('chai');
-import chaiQuantifiers = require('chai-quantifiers');
+import chai = require("chai");
+import chaiQuantifiers = require("chai-quantifiers");
 
 chai.use(chaiQuantifiers);
 

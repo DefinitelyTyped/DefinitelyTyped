@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "dependencies": {
+        "tailwindcss": ">=3.2.0"
+    }
+}

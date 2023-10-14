@@ -1,6 +1,6 @@
-import { Environment, ButtonStyle } from './configuration';
+import { ButtonStyle, Environment } from "./configuration";
 
-import { AuthorizationData, AuthorizationResponse, CancellationData } from './callback-data';
+import { AuthorizationData, AuthorizationResponse, CancellationData } from "./callback-data";
 
 export enum FundingOption {
     CREDIT,
@@ -26,10 +26,12 @@ export interface ButtonRenderer {
             accessToken?: (() => void) | undefined;
             onClose?: (() => void) | undefined;
 
-            funding?: {
-                allowed?: FundingOption[] | undefined;
-                disallowed?: FundingOption[] | undefined;
-            } | undefined;
+            funding?:
+                | {
+                    allowed?: FundingOption[] | undefined;
+                    disallowed?: FundingOption[] | undefined;
+                }
+                | undefined;
 
             sessionID?: string | undefined;
             buttonSessionID?: string | undefined;
@@ -52,15 +54,16 @@ export interface ButtonRenderer {
 }
 
 export interface ButtonsRenderer {
-    (
-        options: {
-            fundingSource?: string | undefined;
-            createOrder?: (() => Promise<string>) | undefined;
-            createBillingAgreement?: (() => Promise<string>) | undefined;
-            onApprove: (data: AuthorizationData, actions: object) => Promise<AuthorizationResponse>;
-            onCancel?: ((data: CancellationData, actions: object) => void) | undefined;
-            onError?: ((error: string) => void) | undefined;
-        }
-    ): ButtonsRenderer;
+    (options: {
+        style?: ButtonStyle | undefined;
+        fundingSource?: string | undefined;
+        createOrder?: (() => Promise<string>) | undefined;
+        createBillingAgreement?: (() => Promise<string>) | undefined;
+        onApprove: (data: AuthorizationData, actions: object) => Promise<AuthorizationResponse>;
+        onCancel?: ((data: CancellationData, actions: object) => void) | undefined;
+        onError?: ((error: string) => void) | undefined;
+        onInit?: (data: AuthorizationData, actions: object) => void;
+        onClick?: () => void;
+    }): ButtonsRenderer;
     render(selector: string): void;
 }

@@ -1,5 +1,5 @@
-import { DiffDelta } from './diff-delta';
-import { StatusFileOptions } from './status-file-options';
+import { DiffDelta } from "./diff-delta";
+import { StatusFileOptions } from "./status-file-options";
 
 export class StatusFile {
     constructor(args: StatusFileOptions);

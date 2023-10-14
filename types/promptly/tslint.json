@@ -2,10 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "arrow-return-shorthand": false,
-        "comment-format": false,
-        "no-padding": false,
-        "no-var-keyword": false,
-        "semicolon": false,
-        "strict-export-declare-modifiers": false
+        "no-var-keyword": false
     }
 }

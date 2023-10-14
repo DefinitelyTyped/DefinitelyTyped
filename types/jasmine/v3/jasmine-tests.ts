@@ -320,7 +320,7 @@ describe("Included matchers:", () => {
 
 describe("toThrowMatching", () => {
     expect(() => {
-        (({} as any).doSomething());
+        ({} as any).doSomething();
     }).toThrowMatching(error => error !== undefined);
 });
 
@@ -622,12 +622,19 @@ describe("A spy, when configured to fake a promised return value", () => {
         getAsyncBar: () => {
             return Promise.resolve(bar);
         },
+        getMaybeAsyncBar: (): number | Promise<number> => {
+            return bar;
+        },
     };
 
     it("verifies return value type", () => {
         spyOn(foo, "getAsyncBar").and.resolveTo(745);
         // @ts-expect-error
         spyOn(foo, "getAsyncBar").and.resolveTo("42");
+
+        spyOn(foo, "getMaybeAsyncBar").and.resolveTo(745);
+        // @ts-expect-error
+        spyOn(foo, "getMaybeAsyncBar").and.resolveTo("42");
     });
 
     it("tracks that the spy was called", async () => {
@@ -647,6 +654,9 @@ describe("A spy, when configured to fake a promised rejection", () => {
         getAsyncBar: () => {
             return Promise.resolve(bar);
         },
+        getMaybeAsyncBar: (): number | Promise<number> => {
+            return bar;
+        },
         getBar: () => {
             return bar;
         },
@@ -654,6 +664,7 @@ describe("A spy, when configured to fake a promised rejection", () => {
 
     it("verifies rejection value type", () => {
         spyOn(foo, "getAsyncBar").and.rejectWith("Error message");
+        spyOn(foo, "getMaybeAsyncBar").and.rejectWith("Error message");
         // @ts-expect-error
         spyOn(foo, "getBar").and.rejectWith("42");
     });
@@ -1291,6 +1302,11 @@ describe("DiffBuilder", () => {
         jasmine.matchersUtil.equals(1, 1, undefined, differ);
     });
 
+    it("can be passed to matchersUtil.equals as the third argument", () => {
+        const differ = jasmine.DiffBuilder();
+        jasmine.matchersUtil.equals(1, 1, differ);
+    });
+
     it("records the actual and expected objects", () => {
         const diffBuilder = jasmine.DiffBuilder();
         diffBuilder.setRoots({ x: "actual" }, { x: "expected" });
@@ -1324,8 +1340,8 @@ describe("custom asymmetry", () => {
             return matchersUtil.equals(secondValue, "bar");
         },
         jasmineToString(pp) {
-            return 'an asymmetric tester for ' + pp('bar');
-        }
+            return "an asymmetric tester for " + pp("bar");
+        },
     };
 
     it("dives in deep", () => {
@@ -1424,10 +1440,9 @@ describe("jasmine.objectContaining", () => {
         );
     });
 
-    describe('stringContaining', () => {
-        it('passes', () => {
-            expect('foot').toEqual(jasmine.stringContaining('foo'));
-            expect('foot').toEqual(jasmine.stringContaining(/foo/));
+    describe("stringContaining", () => {
+        it("passes", () => {
+            expect("foot").toEqual(jasmine.stringContaining("foo"));
         });
     });
 
@@ -2026,7 +2041,7 @@ describe("better typed spys", () => {
     });
     describe("spyOnProperty", () => {
         it("works", () => {
-            const obj = {prop: "test", otherProp: 1};
+            const obj = { prop: "test", otherProp: 1 };
             const getSpy = spyOnProperty(obj, "prop");
             getSpy.and.returnValue("spy");
             // @ts-expect-error
@@ -2055,6 +2070,30 @@ describe("better typed spys", () => {
 
             // $ExpectType (val: string) => Spy<() => string>
             spyObj.method.and.returnValue;
+        });
+
+        // All objects (even object literals) have Object prototype methods like toString().
+        // If a class overrides those methods, createSpyObj shouldn't throw any type errors.
+        class TestOverride {
+            method(): number {
+                return 0;
+            }
+            toString(): string {
+                return "";
+            }
+            toLocaleString(): string {
+                return "";
+            }
+            // Also make sure we don't throw type errors when using a more specific return type.
+            valueOf(): boolean {
+                return true;
+            }
+        }
+        it("works for classes that override Object prototype methods", () => {
+            jasmine.createSpyObj<TestOverride>("TestOverride", { method: 1 });
+        });
+        it("allows spying on Object prototype methods", () => {
+            jasmine.createSpyObj<TestOverride>("TestOverride", { toString: "", toLocaleString: "", valueOf: false });
         });
     });
 });
@@ -2233,7 +2272,7 @@ describe("Randomize Tests", () => {
         }).not.toThrow();
         const env = jasmine.getEnv();
         const seed1 = env.seed(42); // $ExpectType string | number
-        const seed2 = env.seed('42'); // $ExpectType string | number
+        const seed2 = env.seed("42"); // $ExpectType string | number
     });
 });
 
@@ -2447,7 +2486,7 @@ describe("Jasmine constructor", () => {
 
     it("creates new Jasmine instance with args", () => {
         const instance = new JasmineClass({
-            projectBaseDir: 'foo',
+            projectBaseDir: "foo",
         });
         expect(instance).toBeInstanceOf(JasmineClass);
     });

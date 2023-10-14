@@ -1,7 +1,6 @@
 // This is necessary to disallow import of `call-bind/callBound.js`:
-// tslint:disable-next-line: no-declare-current-package no-single-declare-module
-declare module 'call-bind/callBound' {
-    import type { Intrinsics } from 'get-intrinsic';
+declare module "call-bind/callBound" {
+    import type { Intrinsics } from "get-intrinsic";
 
     type PrependThisParameter<T> = T extends (...args: infer A) => infer R
         ? (thisArg: ThisParameterType<T>, ...args: A) => R

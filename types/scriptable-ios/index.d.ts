@@ -1,10 +1,10 @@
-// Type definitions for non-npm package scriptable-ios 1.6
+// Type definitions for non-npm package scriptable-ios 1.7
 // Project: https://scriptable.app/
 // Definitions by: schl3ck <https://github.com/schl3ck>
 //                 FuJuntao <https://github.com/FuJuntao>
 //                 FifiTheBulldog <https://github.com/FifiTheBulldog>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
+// Minimum TypeScript Version: 4.7
 
 /**
  * _Presents an alert._
@@ -63,8 +63,8 @@ declare class Alert {
     /**
      * _Adds a text field prompting for user input._
      *
-     * Adds a text field to the alert controller prompting for user input. Retrieve the value for the text field using textFieldValue() and supply the index of the text field. Indices
-     * for text fields are assigned in the same order as they are added to the alert starting at 0.
+     * Adds a text field to the alert controller prompting for user input. Retrieve the value for the text field using textFieldValue() and supply the index of the text field. Indices for
+     * text fields are assigned in the same order as they are added to the alert starting at 0.
      *
      * Text fields are not supported when using the sheet presentation.
      * @param placeholder - Optional placeholder that will be displayed when the text field is empty.
@@ -244,6 +244,12 @@ declare class Calendar {
     color: Color;
 
     /**
+     * _Holds reminders and events._
+     * @see https://docs.scriptable.app/calendar
+     */
+    private constructor();
+
+    /**
      * _Fetches calendars for reminders._
      *
      * A calendar can only hold either reminders or events. Call this function to fetch all calendars that can hold reminders.
@@ -329,7 +335,7 @@ declare class Calendar {
      * @param availability - Availability to check against.
      * @see https://docs.scriptable.app/calendar/#-supportsavailability
      */
-    supportsAvailability(availability: 'busy' | 'free' | 'tentative' | 'unavailable'): boolean;
+    supportsAvailability(availability: "busy" | "free" | "tentative" | "unavailable"): boolean;
 
     /**
      * _Saves calendar._
@@ -439,7 +445,7 @@ declare class CalendarEvent {
      * calendar supports a specific availability.
      * @see https://docs.scriptable.app/calendarevent/#availability
      */
-    availability: 'busy' | 'free' | 'tentative' | 'unavailable';
+    availability: "busy" | "free" | "tentative" | "unavailable";
 
     /**
      * _Time zone of event._
@@ -596,8 +602,7 @@ declare class CallbackURL<T extends string = string> {
      * @see https://docs.scriptable.app/callbackurl/#-open
      */
     open(): Promise<
-        T extends `shortcuts://x-callback-url/${string}`
-            ? { result: string | number | boolean | null }
+        T extends `shortcuts://x-callback-url/${string}` ? { result: string | number | boolean | null }
             : Record<string, string | number | boolean | null>
     >;
 
@@ -787,9 +792,19 @@ declare var config: {
 
     /**
      * Whether the script is running in a widget.
+     *
+     * This is true both when running in a widget on the Home Screen and when running in a widget on the Lock Screen.
      * @see https://docs.scriptable.app/config/#runsinwidget
      */
     runsInWidget: boolean;
+
+    /**
+     * Whether the script is running in a widget.
+     *
+     * This is true when running in an accessory widget. These widgets can appear on the Lock Screen. Accessory widgets are only available starting from iOS 16.
+     * @see https://docs.scriptable.app/config/#runsinaccessorywidget
+     */
+    runsInAccessoryWidget: boolean;
 
     /**
      * Whether the script is running in a notification.
@@ -806,10 +821,21 @@ declare var config: {
     /**
      * The size of the widget the script is running in.
      *
-     * Possible values are: `small`, `medium`, `large`, `extraLarge` and `null`. The value is `null` when the script is not running in a widget.
+     * Possible values are: `small`, `medium`, `large`, `extraLarge`, `accessoryRectangular`, `accessoryInline`, `accessoryCircular`, and `null`. The value is `null` when the script is
+     * not running in a widget.
+     *
+     * `extraLarge` is only available on iPads running iPadOS 15. `accessoryRectangular`, `accessoryInline`, and `accessoryCircular` are only available starting from iOS 16.
      * @see https://docs.scriptable.app/config/#widgetfamily
      */
-    widgetFamily: "small" | "medium" | "large" | "extraLarge" | null;
+    widgetFamily:
+        | "small"
+        | "medium"
+        | "large"
+        | "extraLarge"
+        | "accessoryRectangular"
+        | "accessoryInline"
+        | "accessoryCircular"
+        | null;
 };
 
 /**
@@ -1300,6 +1326,12 @@ declare class ContactsContainer {
     name: string;
 
     /**
+     * _Collection of contacts._
+     * @see https://docs.scriptable.app/contactscontainer
+     */
+    private constructor();
+
+    /**
      * _Fetches default contacts container._
      * @see https://docs.scriptable.app/contactscontainer/#default
      */
@@ -1421,6 +1453,12 @@ declare class ContactsGroup {
  * @see https://docs.scriptable.app/data
  */
 declare class Data {
+    /**
+     * _Raw data representation._
+     * @see https://docs.scriptable.app/data
+     */
+    private constructor();
+
     /**
      * _Creates data from string._
      *
@@ -2314,6 +2352,12 @@ declare namespace FileManager {
  */
 declare class FileManager {
     /**
+     * _Read and write files on disk._
+     * @see https://docs.scriptable.app/filemanager
+     */
+    private constructor();
+
+    /**
      * _Creates a local FileManager._
      *
      * Creates a file manager for operating with files stored locally.
@@ -2328,8 +2372,6 @@ declare class FileManager {
      * @see https://docs.scriptable.app/filemanager/#icloud
      */
     static iCloud(): FileManager;
-
-    private constructor();
 
     /**
      * _Read contents of a file as data._
@@ -2741,8 +2783,14 @@ declare class FileManager {
  * Refer to [iosfonts.com](http://iosfonts.com) for a list of the fonts that are available in iOS and iPadOS.
  * @see https://docs.scriptable.app/font/#-new-font
  */
-// tslint:disable-next-line no-unnecessary-class
 declare class Font {
+    /**
+     * _This is only here for TypeScript_
+     *
+     * TypeScript can't distinguish an instance of this class from an empty object if it doesn't have at least one property or function
+     */
+    #font: boolean;
+
     /**
      * _Represents a font and text size._
      *
@@ -3035,6 +3083,12 @@ declare class Image {
     size: Size;
 
     /**
+     * _Manages image data._
+     * @see https://docs.scriptable.app/image
+     */
+    private constructor();
+
+    /**
      * _Creates an image from file._
      *
      * Loads an image from the specified file path. If the image could not be read, the function will return null.
@@ -3153,6 +3207,8 @@ declare class LinearGradient {
 declare class ListWidget {
     /**
      * _Background color of the widget._
+     *
+     * Defaults to a solid color in widgets placed on the Home Screen and a transparent color placed on the Lock Screen.
      * @see https://docs.scriptable.app/listwidget/#backgroundcolor
      */
     backgroundColor: Color;
@@ -3168,6 +3224,16 @@ declare class ListWidget {
      * @see https://docs.scriptable.app/listwidget/#backgroundgradient
      */
     backgroundGradient: LinearGradient;
+
+    /**
+     * _Whether to use an accessory widget background._
+     *
+     * Enable to add an adaptive background that provides a standard appearance based on the widget's environment. Defaults to false.
+     *
+     * This is only available starting from iOS 16.
+     * @see https://docs.scriptable.app/listwidget/#addaccessorywidgetbackground
+     */
+    addAccessoryWidgetBackground: boolean;
 
     /**
      * _Spacing between elements._
@@ -3273,7 +3339,7 @@ declare class ListWidget {
      *
      * The widget is presented in its small size.
      *
-     * Widgets on the Home screen are updated periodically so while working on your widget you may want to preview it in the app.
+     * Widgets on the Home Screen are updated periodically so while working on your widget you may want to preview it in the app.
      * @see https://docs.scriptable.app/listwidget/#-presentsmall
      */
     presentSmall(): Promise<void>;
@@ -3283,7 +3349,7 @@ declare class ListWidget {
      *
      * The widget is presented in its medium size.
      *
-     * Widgets on the Home screen are updated periodically so while working on your widget you may want to preview it in the app.
+     * Widgets on the Home Screen are updated periodically so while working on your widget you may want to preview it in the app.
      * @see https://docs.scriptable.app/listwidget/#-presentmedium
      */
     presentMedium(): Promise<void>;
@@ -3293,7 +3359,7 @@ declare class ListWidget {
      *
      * The widget is presented in its large size.
      *
-     * Widgets on the Home screen are updated periodically so while working on your widget you may want to preview it in the app.
+     * Widgets on the Home Screen are updated periodically so while working on your widget you may want to preview it in the app.
      * @see https://docs.scriptable.app/listwidget/#-presentlarge
      */
     presentLarge(): Promise<void>;
@@ -3303,12 +3369,58 @@ declare class ListWidget {
      *
      * The widget is presented in its extra large size.
      *
-     * Widgets on the Home screen are updated periodically so while working on your widget you may want to preview it in the app.
+     * Widgets on the Home Screen are updated periodically so while working on your widget you may want to preview it in the app.
      *
-     * Please be aware that extra large widgets are only available on iPads running iOS 15 and newer.
+     * The extra large widget is only available on iPads running iOS 15 and newer.
      * @see https://docs.scriptable.app/listwidget/#-presentextralarge
      */
     presentExtraLarge(): Promise<void>;
+
+    /**
+     * _Presents a preview of the widget._
+     *
+     * The widget is presented in its accessory inline size that is suitable to be displayed above the clock on the Lock Screen.
+     *
+     * The preview is an estimated representation of the widget and is not accurate. Widgets placed on the Lock Screen change appearance based on the wallpaper and tint color of the Lock
+     * Screen, and as such, they cannot be previewed accurately in Scriptable.
+     *
+     * Widgets on the Lock Screen are updated periodically so while working on your widget you may want to preview it in the app.
+     *
+     * The accessory inline widget is available on iPhones running iOS 16 and newer and can display a single image and a single text. Any additional elements will be filtered away during
+     * presentation.
+     * @see https://docs.scriptable.app/listwidget/#-presentaccessoryinline
+     */
+    presentAccessoryInline(): Promise<void>;
+
+    /**
+     * _Presents a preview of the widget._
+     *
+     * The widget is presented in its circular accessory size that is suitable to be displayed below the clock on the Lock Screen.
+     *
+     * The preview is an estimated representation of the widget and is not accurate. Widgets placed on the Lock Screen change appearance based on the wallpaper and tint color of the Lock
+     * Screen, and as such, they cannot be previewed accurately in Scriptable.
+     *
+     * Widgets on the Lock Screen are updated periodically so while working on your widget you may want to preview it in the app.
+     *
+     * The circular accessory widget is available on iPhones running iOS 16 and newer.
+     * @see https://docs.scriptable.app/listwidget/#-presentaccessorycircular
+     */
+    presentAccessoryCircular(): Promise<void>;
+
+    /**
+     * _Presents a preview of the widget._
+     *
+     * The widget is presented in its rectangular accessory size that is suitable to be displayed below the clock on the Lock Screen.
+     *
+     * The preview is an estimated representation of the widget and is not accurate. Widgets placed on the Lock Screen change appearance based on the wallpaper and tint color of the Lock
+     * Screen, and as such, they cannot be previewed accurately in Scriptable.
+     *
+     * Widgets on the Lock Screen are updated periodically so while working on your widget you may want to preview it in the app.
+     *
+     * The rectangular accessory widget is available on iPhones running iOS 16 and newer.
+     * @see https://docs.scriptable.app/listwidget/#-presentaccessoryrectangular
+     */
+    presentAccessoryRectangular(): Promise<void>;
 }
 
 declare namespace Location {
@@ -3713,15 +3825,15 @@ declare class Notification {
      * @see https://docs.scriptable.app/notification/#sound
      */
     sound:
-        | 'default'
-        | 'accept'
-        | 'alert'
-        | 'complete'
-        | 'event'
-        | 'failure'
-        | 'piano_error'
-        | 'piano_success'
-        | 'popup';
+        | "default"
+        | "accept"
+        | "alert"
+        | "complete"
+        | "event"
+        | "failure"
+        | "piano_error"
+        | "piano_success"
+        | "popup";
 
     /**
      * _URL to open when notification is tapped._
@@ -4310,9 +4422,20 @@ declare class Rect {
  * _Recurrence rule used with reminders and calendar events._
  * @see https://docs.scriptable.app/recurrencerule
  */
-declare class RecurrenceRule {}
+declare class RecurrenceRule {
+    /**
+     * _This is only here for TypeScript_
+     *
+     * TypeScript can't distinguish an instance of this class from an empty object if it doesn't have at least one property or function
+     */
+    #recurrenceRule: boolean;
 
-declare namespace RecurrenceRule {
+    /**
+     * _Recurrence rule used with reminders and calendar events._
+     * @see https://docs.scriptable.app/recurrencerule
+     */
+    private constructor();
+
     /**
      * _Constructs a daily recurrence rule._
      *
@@ -4321,7 +4444,7 @@ declare namespace RecurrenceRule {
      * @param interval - Interval at which to repeat the rule.
      * @see https://docs.scriptable.app/recurrencerule/#daily
      */
-    function daily(interval: number): RecurrenceRule;
+    static daily(interval: number): RecurrenceRule;
 
     /**
      * _Constructs a daily recurrence rule with an end date._
@@ -4332,7 +4455,7 @@ declare namespace RecurrenceRule {
      * @param endDate - Date at which the recurrence rule should end.
      * @see https://docs.scriptable.app/recurrencerule/#dailyenddate
      */
-    function dailyEndDate(interval: number, endDate: Date): RecurrenceRule;
+    static dailyEndDate(interval: number, endDate: Date): RecurrenceRule;
 
     /**
      * _Constructs a daily recurrence rule with an occurrence count._
@@ -4343,7 +4466,7 @@ declare namespace RecurrenceRule {
      * @param occurrenceCount - Number of times the rule should repeat before it ends.
      * @see https://docs.scriptable.app/recurrencerule/#dailyoccurrencecount
      */
-    function dailyOccurrenceCount(interval: number, occurrenceCount: number): RecurrenceRule;
+    static dailyOccurrenceCount(interval: number, occurrenceCount: number): RecurrenceRule;
 
     /**
      * _Constructs a weekly recurrence rule._
@@ -4353,7 +4476,7 @@ declare namespace RecurrenceRule {
      * @param interval - Interval at which to repeat the rule.
      * @see https://docs.scriptable.app/recurrencerule/#weekly
      */
-    function weekly(interval: number): RecurrenceRule;
+    static weekly(interval: number): RecurrenceRule;
 
     /**
      * _Constructs a weekly recurrence rule with an end date._
@@ -4364,7 +4487,7 @@ declare namespace RecurrenceRule {
      * @param endDate - Date at which the recurrence rule should end.
      * @see https://docs.scriptable.app/recurrencerule/#weeklyenddate
      */
-    function weeklyEndDate(interval: number, endDate: Date): RecurrenceRule;
+    static weeklyEndDate(interval: number, endDate: Date): RecurrenceRule;
 
     /**
      * _Constructs a weekly recurrence rule with an occurrence count._
@@ -4375,7 +4498,7 @@ declare namespace RecurrenceRule {
      * @param occurrenceCount - Number of times the rule should repeat before it ends.
      * @see https://docs.scriptable.app/recurrencerule/#weeklyoccurrencecount
      */
-    function weeklyOccurrenceCount(interval: number, occurrenceCount: number): RecurrenceRule;
+    static weeklyOccurrenceCount(interval: number, occurrenceCount: number): RecurrenceRule;
 
     /**
      * _Constructs a monthly recurrence rule._
@@ -4385,7 +4508,7 @@ declare namespace RecurrenceRule {
      * @param interval - Interval at which to repeat the rule.
      * @see https://docs.scriptable.app/recurrencerule/#monthly
      */
-    function monthly(interval: number): RecurrenceRule;
+    static monthly(interval: number): RecurrenceRule;
 
     /**
      * _Constructs a monthly recurrence rule with an end date._
@@ -4396,7 +4519,7 @@ declare namespace RecurrenceRule {
      * @param endDate - Date at which the recurrence rule should end.
      * @see https://docs.scriptable.app/recurrencerule/#monthlyenddate
      */
-    function monthlyEndDate(interval: number, endDate: Date): RecurrenceRule;
+    static monthlyEndDate(interval: number, endDate: Date): RecurrenceRule;
 
     /**
      * _Constructs a monthly recurrence rule with an occurrence count._
@@ -4407,7 +4530,7 @@ declare namespace RecurrenceRule {
      * @param occurrenceCount - Number of times the rule should repeat before it ends.
      * @see https://docs.scriptable.app/recurrencerule/#monthlyoccurrencecount
      */
-    function monthlyOccurrenceCount(interval: number, occurrenceCount: number): RecurrenceRule;
+    static monthlyOccurrenceCount(interval: number, occurrenceCount: number): RecurrenceRule;
 
     /**
      * _Constructs a yearly recurrence rule._
@@ -4417,7 +4540,7 @@ declare namespace RecurrenceRule {
      * @param interval - Interval at which to repeat the rule.
      * @see https://docs.scriptable.app/recurrencerule/#yearly
      */
-    function yearly(interval: number): RecurrenceRule;
+    static yearly(interval: number): RecurrenceRule;
 
     /**
      * _Constructs a yearly recurrence rule with an end date._
@@ -4428,7 +4551,7 @@ declare namespace RecurrenceRule {
      * @param endDate - Date at which the recurrence rule should end.
      * @see https://docs.scriptable.app/recurrencerule/#yearlyenddate
      */
-    function yearlyEndDate(interval: number, endDate: Date): RecurrenceRule;
+    static yearlyEndDate(interval: number, endDate: Date): RecurrenceRule;
 
     /**
      * _Constructs a yearly recurrence rule with an occurrence count._
@@ -4439,7 +4562,7 @@ declare namespace RecurrenceRule {
      * @param occurrenceCount - Number of times the rule should repeat before it ends.
      * @see https://docs.scriptable.app/recurrencerule/#yearlyoccurrencecount
      */
-    function yearlyOccurrenceCount(interval: number, occurrenceCount: number): RecurrenceRule;
+    static yearlyOccurrenceCount(interval: number, occurrenceCount: number): RecurrenceRule;
 
     /**
      * _Constructs a complex weekly recurrence rule._
@@ -4454,7 +4577,11 @@ declare namespace RecurrenceRule {
      * @param setPositions - Filters which recurrences to include in the rule's frequency.
      * @see https://docs.scriptable.app/recurrencerule/#complexweekly
      */
-    function complexWeekly(interval: number, daysOfTheWeek: ReadonlyArray<number>, setPositions: ReadonlyArray<number>): RecurrenceRule;
+    static complexWeekly(
+        interval: number,
+        daysOfTheWeek: ReadonlyArray<number>,
+        setPositions: ReadonlyArray<number>,
+    ): RecurrenceRule;
 
     /**
      * _Constructs a complex weekly recurrence rule with an end date._
@@ -4470,7 +4597,7 @@ declare namespace RecurrenceRule {
      * @param endDate - Date at which the recurrence rule should end.
      * @see https://docs.scriptable.app/recurrencerule/#complexweeklyenddate
      */
-    function complexWeeklyEndDate(
+    static complexWeeklyEndDate(
         interval: number,
         daysOfTheWeek: ReadonlyArray<number>,
         setPositions: ReadonlyArray<number>,
@@ -4491,7 +4618,7 @@ declare namespace RecurrenceRule {
      * @param occurrenceCount - Number of times the rule should repeat before it ends.
      * @see https://docs.scriptable.app/recurrencerule/#complexweeklyoccurrencecount
      */
-    function complexWeeklyOccurrenceCount(
+    static complexWeeklyOccurrenceCount(
         interval: number,
         daysOfTheWeek: ReadonlyArray<number>,
         setPositions: ReadonlyArray<number>,
@@ -4512,7 +4639,7 @@ declare namespace RecurrenceRule {
      * @param setPositions - Filters which recurrences to include in the rule's frequency.
      * @see https://docs.scriptable.app/recurrencerule/#complexmonthly
      */
-    function complexMonthly(
+    static complexMonthly(
         interval: number,
         daysOfTheWeek: ReadonlyArray<number>,
         daysOfTheMonth: ReadonlyArray<number>,
@@ -4534,7 +4661,7 @@ declare namespace RecurrenceRule {
      * @param endDate - Date at which the recurrence rule should end.
      * @see https://docs.scriptable.app/recurrencerule/#complexmonthlyenddate
      */
-    function complexMonthlyEndDate(
+    static complexMonthlyEndDate(
         interval: number,
         daysOfTheWeek: ReadonlyArray<number>,
         daysOfTheMonth: ReadonlyArray<number>,
@@ -4557,7 +4684,7 @@ declare namespace RecurrenceRule {
      * @param occurrenceCount - Number of times the rule should repeat before it ends.
      * @see https://docs.scriptable.app/recurrencerule/#complexmonthlyoccurrencecount
      */
-    function complexMonthlyOccurrenceCount(
+    static complexMonthlyOccurrenceCount(
         interval: number,
         daysOfTheWeek: ReadonlyArray<number>,
         daysOfTheMonth: ReadonlyArray<number>,
@@ -4581,7 +4708,7 @@ declare namespace RecurrenceRule {
      * @param setPositions - Filters which recurrences to include in the rule's frequency.
      * @see https://docs.scriptable.app/recurrencerule/#complexyearly
      */
-    function complexYearly(
+    static complexYearly(
         interval: number,
         daysOfTheWeek: ReadonlyArray<number>,
         monthsOfTheYear: ReadonlyArray<number>,
@@ -4607,7 +4734,7 @@ declare namespace RecurrenceRule {
      * @param endDate - Date at which the recurrence rule should end.
      * @see https://docs.scriptable.app/recurrencerule/#complexyearlyenddate
      */
-    function complexYearlyEndDate(
+    static complexYearlyEndDate(
         interval: number,
         daysOfTheWeek: ReadonlyArray<number>,
         monthsOfTheYear: ReadonlyArray<number>,
@@ -4634,7 +4761,7 @@ declare namespace RecurrenceRule {
      * @param occurrenceCount - Number of times the rule should repeat before it ends.
      * @see https://docs.scriptable.app/recurrencerule/#complexyearlyoccurrencecount
      */
-    function complexYearlyOccurrenceCount(
+    static complexYearlyOccurrenceCount(
         interval: number,
         daysOfTheWeek: ReadonlyArray<number>,
         monthsOfTheYear: ReadonlyArray<number>,
@@ -4723,7 +4850,7 @@ declare class Reminder {
      * _Notes associated with reminder._
      * @see https://docs.scriptable.app/reminder/#notes
      */
-    notes: string;
+    notes?: string;
 
     /**
      * _Whether the reminder is completed._
@@ -4749,7 +4876,7 @@ declare class Reminder {
      * _Due date of reminder._
      * @see https://docs.scriptable.app/reminder/#duedate
      */
-    dueDate: Date;
+    dueDate: Date | null;
 
     /**
      * _Whether the due date includes a time._
@@ -4763,13 +4890,13 @@ declare class Reminder {
      * _Completion date of reminder._
      * @see https://docs.scriptable.app/reminder/#completiondate
      */
-    completionDate: Date;
+    completionDate: Date | null;
 
     /**
      * _Creation date of reminder._
      * @see https://docs.scriptable.app/reminder/#creationdate
      */
-    creationDate: Date;
+    creationDate: Date | null;
 
     /**
      * _Calendar the reminder is stored in._
@@ -4991,7 +5118,11 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#completedduebetween
      */
-    static completedDueBetween(startDate: Date, endDate: Date, calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static completedDueBetween(
+        startDate: Date,
+        endDate: Date,
+        calendars?: ReadonlyArray<Calendar>,
+    ): Promise<Reminder[]>;
 
     /**
      * _Fetches incomplete reminders._
@@ -5000,7 +5131,11 @@ declare class Reminder {
      * @param calendars - Calendars to fetch reminders for. Defaults to all calendars.
      * @see https://docs.scriptable.app/reminder/#incompleteduebetween
      */
-    static incompleteDueBetween(startDate: Date, endDate: Date, calendars?: ReadonlyArray<Calendar>): Promise<Reminder[]>;
+    static incompleteDueBetween(
+        startDate: Date,
+        endDate: Date,
+        calendars?: ReadonlyArray<Calendar>,
+    ): Promise<Reminder[]>;
 
     /**
      * _Fetches completed reminders._
@@ -5251,6 +5386,10 @@ declare class SFSymbol {
      */
     image: Image;
 
+    /**
+     * _Representation of an SF symbol._
+     * @see https://docs.scriptable.app/sfsymbol
+     */
     private constructor();
 
     /**
@@ -5756,6 +5895,12 @@ declare class UITableCell {
     subtitleFont: Font;
 
     /**
+     * _Cell in a UITableRow._
+     * @see https://docs.scriptable.app/uitablecell
+     */
+    private constructor();
+
+    /**
      * _Constructs a text cell._
      *
      * Constructs a new cell containing text.
@@ -5964,7 +6109,7 @@ declare var URLScheme: {
      *
      * Gets the URL for running the current script. When making a request to the returned URL from another app, e.g. Safari, the current script will run.
      *
-     * Get the query parameters using `args.queryParameters`.
+     * Get the query parameters by using `args.queryParameters`.
      * @see https://docs.scriptable.app/urlscheme/#forrunningscript
      */
     forRunningScript(): string;
@@ -6502,6 +6647,12 @@ declare class WidgetStack {
      * @see https://docs.scriptable.app/widgetstack/#url
      */
     url: string;
+
+    /**
+     * _Stack element shown in widget._
+     * @see https://docs.scriptable.app/widgetstack
+     */
+    private constructor();
 
     /**
      * _Add text to the stack._

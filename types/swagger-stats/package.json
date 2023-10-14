@@ -1,7 +1,9 @@
 {
     "private": true,
     "dependencies": {
+        "@hapi/hapi": "21.1.0",
         "fastify": "^3.0.0",
+        "joi": "^17.7.0",
         "prom-client": ">=11.5.3"
     }
 }

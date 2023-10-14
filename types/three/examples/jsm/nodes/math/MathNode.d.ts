@@ -1,5 +1,5 @@
-import Node from '../core/Node';
-import TempNode from '../core/TempNode';
+import Node from '../core/Node.js';
+import TempNode from '../core/TempNode.js';
 
 export type MathNodeMethod1 =
     | typeof MathNode.RADIANS
@@ -24,10 +24,9 @@ export type MathNodeMethod1 =
     | typeof MathNode.SIGN
     | typeof MathNode.LENGTH
     | typeof MathNode.NEGATE
-    | typeof MathNode.INVERT
+    | typeof MathNode.ONE_MINUS
     | typeof MathNode.DFDX
     | typeof MathNode.DFDY
-    | typeof MathNode.SATURATE
     | typeof MathNode.ROUND;
 
 export type MathNodeMethod2 =
@@ -77,11 +76,11 @@ export default class MathNode extends TempNode {
     static SIGN: 'sign';
     static LENGTH: 'length';
     static NEGATE: 'negate';
-    static INVERT: 'invert';
+    static ONE_MINUS: 'oneMinus';
     static DFDX: 'dFdx';
     static DFDY: 'dFdy';
-    static SATURATE: 'saturate';
     static ROUND: 'round';
+    static RECIPROCAL: 'reciprocal';
 
     // 2 inputs
 

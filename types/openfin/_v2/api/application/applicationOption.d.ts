@@ -1,6 +1,6 @@
-import { WindowOption } from '../window/windowOption';
-import { ShortcutOverride } from '../../shapes/shapes';
-import { ViewCreationOptions } from '../view/view';
+import { ShortcutOverride } from "../../shapes/shapes";
+import { ViewCreationOptions } from "../view/view";
+import { WindowOption } from "../window/windowOption";
 export interface ApplicationOption extends LegacyWinOptionsInAppOptions {
     disableIabSecureLogging?: boolean | undefined;
     loadErrorMessage?: string | undefined;
@@ -18,4 +18,42 @@ export interface ApplicationOption extends LegacyWinOptionsInAppOptions {
     defaultWindowOptions?: WindowOption | undefined;
     defaultViewOptions?: ViewCreationOptions | undefined;
 }
-export declare type LegacyWinOptionsInAppOptions = Pick<WindowOption, 'accelerator' | 'alwaysOnTop' | 'api' | 'aspectRatio' | 'autoShow' | 'backgroundColor' | 'contentNavigation' | 'contextMenu' | 'cornerRounding' | 'customData' | 'customRequestHeaders' | 'defaultCentered' | 'defaultHeight' | 'defaultLeft' | 'defaultTop' | 'defaultWidth' | 'frame' | 'hideOnClose' | 'icon' | 'maxHeight' | 'maximizable' | 'maxWidth' | 'minHeight' | 'minimizable' | 'minWidth' | 'opacity' | 'preloadScripts' | 'resizable' | 'resizeRegion' | 'saveWindowState' | 'shadow' | 'showTaskbarIcon' | 'smallWindow' | 'state' | 'taskbarIconGroup' | 'waitForPageLoad'>;
+export declare type LegacyWinOptionsInAppOptions = Pick<
+    WindowOption,
+    | "accelerator"
+    | "alwaysOnTop"
+    | "api"
+    | "aspectRatio"
+    | "autoShow"
+    | "backgroundColor"
+    | "contentNavigation"
+    | "contextMenu"
+    | "cornerRounding"
+    | "customData"
+    | "customRequestHeaders"
+    | "defaultCentered"
+    | "defaultHeight"
+    | "defaultLeft"
+    | "defaultTop"
+    | "defaultWidth"
+    | "frame"
+    | "hideOnClose"
+    | "icon"
+    | "maxHeight"
+    | "maximizable"
+    | "maxWidth"
+    | "minHeight"
+    | "minimizable"
+    | "minWidth"
+    | "opacity"
+    | "preloadScripts"
+    | "resizable"
+    | "resizeRegion"
+    | "saveWindowState"
+    | "shadow"
+    | "showTaskbarIcon"
+    | "smallWindow"
+    | "state"
+    | "taskbarIconGroup"
+    | "waitForPageLoad"
+>;

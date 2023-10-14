@@ -7,18 +7,18 @@
 export as namespace Encoding;
 
 export type Encoding =
-    | 'UTF32'
-    | 'UTF16'
-    | 'UTF16BE'
-    | 'UTF16LE'
-    | 'BINARY'
-    | 'ASCII'
-    | 'JIS'
-    | 'UTF8'
-    | 'EUCJP'
-    | 'SJIS'
-    | 'UNICODE'
-    | 'AUTO';
+    | "UTF32"
+    | "UTF16"
+    | "UTF16BE"
+    | "UTF16LE"
+    | "BINARY"
+    | "ASCII"
+    | "JIS"
+    | "UTF8"
+    | "EUCJP"
+    | "SJIS"
+    | "UNICODE"
+    | "AUTO";
 type IntArrayType =
     | ReadonlyArray<number>
     | Uint8Array
@@ -27,7 +27,6 @@ type IntArrayType =
     | Int8Array
     | Int16Array
     | Int32Array;
-type RawType = IntArrayType | ReadonlyArray<number>;
 type EncodingDetection = Encoding | false;
 
 export type ConvertOptions =
@@ -39,42 +38,42 @@ export type ConvertOptions =
 export interface ConvertStringOptions {
     to: Encoding;
     from?: Encoding | undefined;
-    type: 'string';
-    fallback?: 'html-entity' | 'html-entity-hex';
+    type: "string";
+    fallback?: "html-entity" | "html-entity-hex";
     bom?: boolean | string | undefined;
 }
 
 export interface ConvertArrayBufferOptions {
     to: Encoding;
     from?: Encoding | undefined;
-    type: 'arraybuffer';
-    fallback?: 'html-entity' | 'html-entity-hex';
+    type: "arraybuffer";
+    fallback?: "html-entity" | "html-entity-hex";
     bom?: boolean | string | undefined;
 }
 
 export interface ConvertArrayOptions {
     to: Encoding;
     from?: Encoding | undefined;
-    type: 'array';
-    fallback?: 'html-entity' | 'html-entity-hex';
+    type: "array";
+    fallback?: "html-entity" | "html-entity-hex";
     bom?: boolean | string | undefined;
 }
 
 export interface ConvertUnknownOptions {
     to: Encoding;
     from?: Encoding | undefined;
-    fallback?: 'html-entity' | 'html-entity-hex';
+    fallback?: "html-entity" | "html-entity-hex";
     bom?: boolean | string | undefined;
 }
 
-export function detect(data: RawType | string, encodings?: Encoding | Encoding[]): EncodingDetection;
-export function convert(data: RawType, to: Encoding, from?: Encoding): number[];
+export function detect(data: IntArrayType | string, encodings?: Encoding | Encoding[]): EncodingDetection;
+export function convert(data: IntArrayType, to: Encoding, from?: Encoding): number[];
 export function convert(data: string, to: Encoding, from?: Encoding): string;
-export function convert(data: RawType | string, options: ConvertStringOptions): string;
-export function convert(data: RawType | string, options: ConvertArrayBufferOptions): ArrayBuffer;
-export function convert(data: RawType | string, options: ConvertArrayOptions): number[];
+export function convert(data: IntArrayType | string, options: ConvertStringOptions): string;
+export function convert(data: IntArrayType | string, options: ConvertArrayBufferOptions): ArrayBuffer;
+export function convert(data: IntArrayType | string, options: ConvertArrayOptions): number[];
 export function convert(data: string, options: ConvertUnknownOptions): string;
-export function convert(data: RawType, options: ConvertUnknownOptions): number[];
+export function convert(data: IntArrayType, options: ConvertUnknownOptions): number[];
 export function urlEncode(data: IntArrayType): string;
 export function urlDecode(data: string): number[];
 export function base64Encode(data: IntArrayType): string;

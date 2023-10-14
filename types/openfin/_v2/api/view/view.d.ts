@@ -1,12 +1,12 @@
-import { WebContents } from '../webcontents/webcontents';
-import Transport from '../../transport/transport';
-import { Identity } from '../../identity';
-import { Base } from '../base';
-import { ViewEvents } from '../events/view';
-import { _Window } from '../window/window';
-import { WindowOption, CustomRequestHeaders, Api, ContentNavigation } from '../window/windowOption';
-import { ViewBounds, ContextMenuSettings, Hotkey } from '../../shapes/shapes';
-import { PreloadScript } from '../../shapes/PreloadScript';
+import { Identity } from "../../identity";
+import { PreloadScript } from "../../shapes/PreloadScript";
+import { ContextMenuSettings, Hotkey, ViewBounds } from "../../shapes/shapes";
+import Transport from "../../transport/transport";
+import { Base } from "../base";
+import { ViewEvents } from "../events/view";
+import { WebContents } from "../webcontents/webcontents";
+import { _Window } from "../window/window";
+import { Api, ContentNavigation, CustomRequestHeaders, WindowOption } from "../window/windowOption";
 /**
  * @lends View
  */
@@ -58,29 +58,28 @@ export default class ViewModule extends Base {
     getCurrentSync(): View;
 }
 /**
- * @typedef {object} View~options
  * @summary View creation options.
- * @desc This is the options object required by {@link View.create View.create}.
+ * @description This is the options object required by {@link View.create View.create}.
  *
  * Note that `name` and `target` are the only required properties — albeit the `url` property is usually provided as well
  * (defaults to `"about:blank"` when omitted).
  *
- * @property {object} [experimental]
+ * [experimental]
  * Configurations for API injection.
  *
- * @property {boolean} [experimental.childWindows] Configure if the runtime should enable child windows for views.
+ * [experimental.childWindows] Configure if the runtime should enable child windows for views.
  *
- * @property {object} [api]
+ * [api]
  * Configurations for API injection.
  *
- * @property {object} [api.iframe] Configure if the the API should be injected into iframes based on domain.
+ * [api.iframe] Configure if the the API should be injected into iframes based on domain.
  *
- * @property {boolean} [api.iframe.crossOriginInjection=false] Controls if the `fin` API object is present for cross origin iframes.
- * @property {boolean} [api.iframe.sameOriginInjection=true] Controls if the `fin` API object is present for same origin iframes.
+ * [api.iframe.crossOriginInjection=false] Controls if the `fin` API object is present for cross origin iframes.
+ * [api.iframe.sameOriginInjection=true] Controls if the `fin` API object is present for same origin iframes.
  *
- * @property {object} [autoResize] AutoResize options
+ * [autoResize] AutoResize options
  *
- * @property {object} [bounds] initial bounds
+ * [bounds] initial bounds
  *
  * @property {string} [backgroundColor="#FFF"] - _Updatable._
  * The view’s _backfill_ color as a hexadecimal value. Not to be confused with the content background color
@@ -150,7 +149,6 @@ export default class ViewModule extends Base {
  * To change that behavior, see the processAffinity {@link View~options view option}.
  *
  * A View's lifecycle is tied to its owning window and can be re-attached to a different window at any point during its lifecycle.
- * @class
  * @alias View
  * @hideconstructor
  */
@@ -181,7 +179,7 @@ export declare class View extends WebContents<ViewEvents> {
      * @return {Promise.<void>}
      * @function focus
      * @memberof View
-     * @emits focused
+     * @fires focused
      * @instance
      * @tutorial View.focus
      * @experimental
@@ -383,7 +381,10 @@ export declare class View extends WebContents<ViewEvents> {
      * @return {Function}
      * @experimental
      */
-    setCustomWindowHandler: (urls: string | string[], handler: (options: WindowOption) => void) => Promise<() => Promise<void>>;
+    setCustomWindowHandler: (
+        urls: string | string[],
+        handler: (options: WindowOption) => void,
+    ) => Promise<() => Promise<void>>;
 }
 export interface AutoResizeOptions {
     /**

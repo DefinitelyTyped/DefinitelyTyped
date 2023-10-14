@@ -256,7 +256,7 @@ declare namespace SteamAPI {
         /**
          * Whether or not this token is usable.
          */
-         readonly usable: boolean;
+        readonly usable: boolean;
 
         /**
          * Date the last time this token was used.
@@ -340,7 +340,7 @@ declare namespace SteamAPI {
         /**
          * Date when this badge was completed.
          */
-         readonly completedAt: Date;
+        readonly completedAt: Date;
     }
 
     interface Server {

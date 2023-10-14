@@ -37,7 +37,7 @@ declare class DataSourceField {
     classKey: number | null;
     stringIfTrue: string;
     private shared;
-    lookupType: any;
+    lookupType: number;
     options: any[];
     protected notifyNameChange_(name: string): void;
     isDate(): boolean;
@@ -47,8 +47,8 @@ declare class DataSourceField {
         src:
             | DataSourceField
             | {
-                  [x: string]: any;
-              }
+                [x: string]: any;
+            },
     ): void;
     toString(): string;
     clone(): DataSourceField;

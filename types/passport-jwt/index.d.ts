@@ -9,9 +9,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Strategy as PassportStrategy } from 'passport-strategy';
-import { Request } from 'express';
-import { VerifyOptions } from 'jsonwebtoken';
+import * as express from "express";
+import { VerifyOptions } from "jsonwebtoken";
+import { Strategy as PassportStrategy } from "passport-strategy";
 
 export declare class Strategy extends PassportStrategy {
     constructor(opt: StrategyOptions, verify: VerifyCallback);
@@ -23,8 +23,8 @@ export interface StrategyOptions {
     secretOrKey?: string | Buffer | undefined;
     secretOrKeyProvider?: SecretOrKeyProvider | undefined;
     jwtFromRequest: JwtFromRequestFunction;
-    issuer?: string | undefined;
-    audience?: string | undefined;
+    issuer?: string | string[] | undefined;
+    audience?: string | string[] | undefined;
     algorithms?: string[] | undefined;
     ignoreExpiration?: boolean | undefined;
     passReqToCallback?: boolean | undefined;
@@ -36,19 +36,19 @@ export interface VerifyCallback {
 }
 
 export interface VerifyCallbackWithRequest {
-    (req: Request, payload: any, done: VerifiedCallback): void;
+    (req: express.Request, payload: any, done: VerifiedCallback): void;
 }
 
 export interface VerifiedCallback {
-    (error: any, user?: any, info?: any): void;
+    (error: any, user?: Express.User | false, info?: any): void;
 }
 
 export interface JwtFromRequestFunction {
-    (req: Request): string | null;
+    (req: express.Request): string | null;
 }
 
 export interface SecretOrKeyProvider {
-    (request: Request, rawJwtToken: any, done: (err: any, secretOrKey?: string | Buffer) => void): void;
+    (request: express.Request, rawJwtToken: any, done: (err: any, secretOrKey?: string | Buffer) => void): void;
 }
 
 export declare namespace ExtractJwt {

@@ -1,5 +1,5 @@
-import requestStats = require('request-stats');
-import * as http from 'http';
+import requestStats = require("request-stats");
+import * as http from "http";
 
 const server = http.createServer((req, res) => {
     requestStats(req, res); // $ExpectType StatsEmitter
@@ -25,14 +25,14 @@ requestStats(server, stats => {
     stats.res.bytes; // $ExpectType number
     stats.res.headers; // $ExpectType OutgoingHttpHeaders
     stats.res.status; // $ExpectType number
-    stats.res.raw; // $ExpectType ServerResponse
+    stats.res.raw; // $ExpectType ServerResponse<IncomingMessage>
 });
 
-stats.on('complete', stats => {
+stats.on("complete", stats => {
     stats; // $ExpectType Stats
 });
 
-stats.on('request', req => {
+stats.on("request", req => {
     req; // $ExpectType Request
 
     const progress = req.progress();

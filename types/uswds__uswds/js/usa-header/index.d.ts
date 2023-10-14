@@ -1,9 +1,9 @@
 interface Navigation {
     focusTrap: null;
     init(root: HTMLElement | Document): void;
+    teardown(): void;
     on(el: HTMLElement): void;
     off(el: HTMLElement): void;
-    teardown(): void;
     toggleNav(active: boolean): boolean;
 }
 

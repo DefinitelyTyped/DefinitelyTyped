@@ -1,19 +1,20 @@
-// Type definitions for @wordpress/notices 3.5
+// Type definitions for @wordpress/notices 3.27
 // Project: https://github.com/WordPress/gutenberg/tree/master/packages/notices/README.md
 // Definitions by: Derek Sifford <https://github.com/dsifford>
 //                Chi-Hsuan Huang <https://github.com/chihsuan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.6
 
-import { MouseEventHandler } from 'react';
+import { StoreDescriptor } from "@wordpress/data";
+import { MouseEventHandler } from "react";
 
-declare module '@wordpress/data' {
-    function dispatch(key: 'core/notices'): typeof import('./store/actions');
-    function select(key: 'core/notices'): typeof import('./store/selectors');
+declare module "@wordpress/data" {
+    function dispatch(key: "core/notices"): typeof import("./store/actions");
+    function select(key: "core/notices"): typeof import("./store/selectors");
 }
 
-export type Status = 'error' | 'info' | 'success' | 'warning';
-export type NoticeType = 'snackbar' | 'default';
+export type Status = "error" | "info" | "success" | "warning";
+export type NoticeType = "snackbar" | "default";
 
 export interface Notice {
     /**
@@ -114,4 +115,13 @@ export interface Options {
      *  Called when the notice is dismissed.
      */
     onDismiss(): void;
+}
+
+export interface NoticesStoreDescriptor extends StoreDescriptor {
+    name: "core/notices";
+}
+
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@wordpress/notices" {
+    const store: NoticesStoreDescriptor;
 }

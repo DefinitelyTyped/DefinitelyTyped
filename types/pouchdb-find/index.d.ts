@@ -1,7 +1,8 @@
-// Type definitions for pouchdb-find 6.3
+// Type definitions for pouchdb-find 7.3
 // Project: https://pouchdb.com/, https://github.com/pouchdb/pouchdb
 // Definitions by: Jakub Navratil <https://github.com/trubit>
 //                 Sebastian Ramirez <https://github.com/tiangolo>
+//                 Samuel Kerr <https://github.com/kuzmatech>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -88,7 +89,7 @@ declare namespace PouchDB {
             fields?: string[] | undefined;
 
             /** Defines a list of fields defining how you want to sort. Note that sorted fields also have to be selected in the selector. */
-            sort?: Array<string|{[propName: string]: 'asc' | 'desc'}> | undefined;
+            sort?: Array<string | { [propName: string]: "asc" | "desc" }> | undefined;
 
             /** Maximum number of documents to return. */
             limit?: number | undefined;
@@ -118,6 +119,9 @@ declare namespace PouchDB {
 
                 /** Only supports 'json', and it's also the default */
                 type?: string | undefined;
+
+                /** The same syntax as the selector you’d pass to find(), and only documents matching the selector will be included in the index. */
+                partial_filter_selector?: Selector | undefined;
             };
         }
 
@@ -137,7 +141,7 @@ declare namespace PouchDB {
 
             def: {
                 fields: Array<{
-                    [fieldName: string]: string
+                    [fieldName: string]: string;
                 }>;
             };
         }
@@ -164,13 +168,11 @@ declare namespace PouchDB {
 
     interface Database<Content extends {} = {}> {
         /** Query the API to find some documents. */
-        find(request: Find.FindRequest<Content>,
-             callback: Core.Callback<Find.FindResponse<Content>>): void;
+        find(request: Find.FindRequest<Content>, callback: Core.Callback<Find.FindResponse<Content>>): void;
         find(request?: Find.FindRequest<Content>): Promise<Find.FindResponse<Content>>;
 
         /** Create an index if it doesn't exist, or do nothing if it already exists. */
-        createIndex(index: Find.CreateIndexOptions,
-                    callback: Core.Callback<Find.CreateIndexResponse<Content>>): void;
+        createIndex(index: Find.CreateIndexOptions, callback: Core.Callback<Find.CreateIndexResponse<Content>>): void;
         createIndex(index?: Find.CreateIndexOptions): Promise<Find.CreateIndexResponse<Content>>;
 
         /** Get a list of all the indexes you've created. Also tells you about the special _all_docs index, i.e. the default index on the _id field. */
@@ -178,13 +180,12 @@ declare namespace PouchDB {
         getIndexes(): Promise<Find.GetIndexesResponse<Content>>;
 
         /** Delete an index and clean up any leftover data on the disk. */
-        deleteIndex(index: Find.DeleteIndexOptions,
-                    callback: Core.Callback<Find.DeleteIndexResponse<Content>>): void;
+        deleteIndex(index: Find.DeleteIndexOptions, callback: Core.Callback<Find.DeleteIndexResponse<Content>>): void;
         deleteIndex(index?: Find.DeleteIndexOptions): Promise<Find.DeleteIndexResponse<Content>>;
     }
 }
 
-declare module 'pouchdb-find' {
+declare module "pouchdb-find" {
     const plugin: PouchDB.Plugin;
     export = plugin;
 }

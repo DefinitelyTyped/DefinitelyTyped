@@ -6,7 +6,7 @@
 
 /// <reference types="angular" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
 export type IToastBaseConfig = angular.toastr.IToastBaseConfig;
 export type IToastContainerConfig = angular.toastr.IToastContainerConfig;
@@ -17,14 +17,14 @@ export type IToast = angular.toastr.IToast;
 export type IToastOptions = angular.toastr.IToastOptions;
 export type IToastrService = angular.toastr.IToastrService;
 
-declare module 'angular' {
+declare module "angular" {
     export namespace toastr {
         interface IToastBaseConfig {
             allowHtml?: boolean | undefined;
             closeButton?: boolean | undefined;
             closeHtml?: string | undefined;
             extendedTimeOut?: number | undefined;
-            extraData?: any,
+            extraData?: any;
             messageClass?: string | undefined;
             onHidden?: ((wasClicked: boolean, toast: angular.toastr.IToast) => void) | undefined;
             onShown?: ((toast: angular.toastr.IToast) => void) | undefined;
@@ -60,7 +60,7 @@ declare module 'angular' {
             } | undefined;
         }
 
-        interface IToastrConfig extends IToastContainerConfig, IToastConfig { }
+        interface IToastrConfig extends IToastContainerConfig, IToastConfig {}
 
         interface IToastScope extends angular.IScope {
             message: string;

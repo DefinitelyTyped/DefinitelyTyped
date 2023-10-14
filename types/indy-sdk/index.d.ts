@@ -4,10 +4,10 @@
 //                 Jakub Kočí <https://github.com/jakubkoci>
 //                 Karim Stekelenburg <https://github.com/karimStekelenburg>
 //                 James Ebert <https://github.com/JamesKebert>
-//                 Berend Sliedrecht <https://github.com/blu3beri>
+//                 Berend Sliedrecht <https://github.com/berendsliedrecht>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Buffer } from 'buffer/';
+import { Buffer } from "buffer/";
 
 export function createWallet(config: WalletConfig, credentials: WalletCredentials): Promise<void>;
 export function openWallet(config: WalletConfig, credentials: OpenWalletCredentials): Promise<WalletHandle>;
@@ -21,6 +21,7 @@ export function importWallet(
 export function exportWallet(wh: WalletHandle, exportConfig: WalletExportImportConfig): Promise<void>;
 export function createAndStoreMyDid(wh: WalletHandle, did: DidConfig): Promise<[Did, Verkey]>;
 export function keyForLocalDid(wh: WalletHandle, did: Did): Promise<Verkey>;
+export function listMyDidsWithMeta(wh: WalletHandle): Promise<DidWithMeta[]>;
 export function cryptoAnonCrypt(recipientVk: Verkey, messageRaw: Buffer): Promise<Buffer>;
 export function cryptoSign(wh: WalletHandle, signerVk: Verkey, messageRaw: Buffer): Promise<Buffer>;
 export function cryptoVerify(signerVk: Verkey, messageRaw: Buffer, signatureRaw: Buffer): Promise<boolean>;
@@ -68,6 +69,11 @@ export function buildNymRequest(
     role: NymRole | null,
 ): Promise<LedgerRequest>;
 export function buildGetNymRequest(submitterDid: Did | null, targetDid: Did): Promise<LedgerRequest>;
+export function buildGetTxnRequest(
+    submitterDid: Did | null,
+    ledgerType: "DOMAIN" | "POOL" | "CONFIG",
+    seqNo: number,
+): Promise<LedgerRequest>;
 export function parseGetNymResponse(response: LedgerResponse): Promise<GetNymResponse>;
 export function buildSchemaRequest(submitterDid: Did, schema: Schema): Promise<LedgerRequest>;
 export function buildGetSchemaRequest(submitterDid: Did | null, schemaId: SchemaId): Promise<LedgerRequest>;
@@ -80,7 +86,7 @@ export function parseGetCredDefResponse(response: LedgerResponse): Promise<[Cred
 export function setLogger(
     logFn: (level: number, target: string, message: string, modulePath: string, file: string, line: number) => void,
 ): void;
-export function setDefaultLogger(pattern: 'trace' | 'info' | 'debug'): void;
+export function setDefaultLogger(pattern: "trace" | "info" | "debug"): void;
 
 // Revocation Ledger methods
 export function buildRevocRegDefRequest(submitterDid: Did, data: RevocRegDef): Promise<LedgerRequest>;
@@ -89,7 +95,7 @@ export function parseGetRevocRegDefResponse(response: LedgerResponse): Promise<[
 export function buildRevocRegEntryRequest(
     submitterDid: Did,
     revRegId: RevRegId,
-    revDefType: 'CL_ACCUM',
+    revDefType: "CL_ACCUM",
     value: RevocRegDelta,
 ): Promise<LedgerRequest>;
 export function buildGetRevocRegRequest(
@@ -167,11 +173,11 @@ export function issuerCreateAndStoreCredentialDef(
 export function issuerCreateAndStoreRevocReg(
     wh: WalletHandle,
     issuerDid: Did,
-    revocDefType: 'CL_ACCUM' | null,
+    revocDefType: "CL_ACCUM" | null,
     tag: string,
     credDefId: CredDefId,
     config: {
-        issuance_type?: 'ISSUANCE_BY_DEFAULT' | 'ISSUANCE_ON_DEMAND';
+        issuance_type?: "ISSUANCE_BY_DEFAULT" | "ISSUANCE_ON_DEMAND";
         max_cred_num?: number;
     },
     tailsWriterHandle: BlobWriterHandle,
@@ -250,7 +256,7 @@ export function verifierVerifyProof(
     schemas: Schemas,
     credentialDefs: CredentialDefs,
     revRegDefs: RevocRegDefs,
-    revRegs: RevStates,
+    revRegs: RevRegs,
 ): Promise<boolean>;
 
 export function createRevocationState(
@@ -278,7 +284,7 @@ export type ByteArray = number[];
 export type SchemaId = string;
 export type CredDefId = string;
 export type CredentialId = string;
-export type KeyDerivationMethod = 'ARGON2I_MOD' | 'ARGON2I_INT' | 'RAW';
+export type KeyDerivationMethod = "ARGON2I_MOD" | "ARGON2I_INT" | "RAW";
 export type Tags = Record<string, string | undefined>;
 
 // TODO: Maybe we can make this a bit more specific?
@@ -322,8 +328,8 @@ export interface WalletCredentials {
     key: string;
     storage_credentials?:
         | {
-              [key: string]: unknown;
-          }
+            [key: string]: unknown;
+        }
         | undefined;
     key_derivation_method?: KeyDerivationMethod | undefined;
 }
@@ -345,7 +351,7 @@ export interface GenerateWalletKeyConfig {
 export interface DidConfig {
     did?: string | undefined;
     seed?: string | undefined;
-    crypto_type?: 'ed25519' | undefined;
+    crypto_type?: "ed25519" | undefined;
     cid?: boolean | undefined;
     method_name?: string | undefined;
 }
@@ -362,21 +368,21 @@ export interface SignedLedgerRequest extends LedgerRequest {
 }
 
 export interface LedgerRejectResponse {
-    op: 'REJECT';
+    op: "REJECT";
     reqId: number;
     reason: string;
     identifier: string;
 }
 
 export interface LedgerReqnackResponse {
-    op: 'REQNACK';
+    op: "REQNACK";
     reqId: number;
     reason: string;
     identifier: string;
 }
 
 export interface LedgerReplyResponse {
-    op: 'REPLY';
+    op: "REPLY";
     result: Record<string, unknown>;
 }
 
@@ -449,15 +455,19 @@ export interface CredDefConfig {
 
 export interface RevocRegDef {
     id: RevRegId;
-    revocDefType: 'CL_ACCUM';
+    revocDefType: "CL_ACCUM";
     tag: string;
     credDefId: CredDefId;
     value: {
-        issuanceType: 'ISSUANCE_BY_DEFAULT' | 'ISSUANCE_ON_DEMAND';
+        issuanceType: "ISSUANCE_BY_DEFAULT" | "ISSUANCE_ON_DEMAND";
         maxCredNum: number;
         tailsHash: string;
         tailsLocation: string;
-        publicKeys: string[];
+        publicKeys: {
+            accumKey: {
+                z: string;
+            };
+        };
     };
     ver: string;
 }
@@ -485,7 +495,7 @@ export interface IndyCredentialInfo {
     };
     schema_id: string;
     cred_def_id: string;
-    rev_reg_id?: number | undefined;
+    rev_reg_id?: string | undefined;
     cred_rev_id?: string | undefined;
 }
 
@@ -558,9 +568,14 @@ export interface RevocRegDefs {
     [revRegId: string]: RevocRegDef;
 }
 
+export interface RevRegs {
+    [revocationRegistryDefinitionId: string]: {
+        [timestamp: number]: RevocReg;
+    };
+}
 export interface RevStates {
-    [key: string]: {
-        [key: string]: unknown;
+    [revocationRegistryDefinitionId: string]: {
+        [timestamp: number]: RevState;
     };
 }
 
@@ -593,7 +608,7 @@ export interface IndyProofRequest {
     requested_attributes: {
         [key: string]: {
             name?: string | undefined;
-            names?: string | undefined;
+            names?: string[] | undefined;
             restrictions?: WalletQuery[] | undefined;
             non_revoked?: NonRevokedInterval | undefined;
         };
@@ -601,14 +616,14 @@ export interface IndyProofRequest {
     requested_predicates: {
         [key: string]: {
             name: string;
-            p_type: '>=' | '>' | '<=' | '<';
+            p_type: ">=" | ">" | "<=" | "<";
             p_value: number;
             restrictions?: WalletQuery[] | undefined;
             non_revoked?: NonRevokedInterval | undefined;
         };
     };
     non_revoked?: NonRevokedInterval | undefined;
-    ver?: '1.0' | '2.0' | undefined;
+    ver?: "1.0" | "2.0" | undefined;
 }
 
 export interface CredReq {
@@ -634,7 +649,7 @@ export type BlobStorageReaderHandle = number;
 export interface Cred {
     schema_id: SchemaId;
     cred_def_id: CredDefId;
-    rev_reg_id: string;
+    rev_reg_id?: string;
     values: CredValues;
     signature: unknown;
     signature_correctness_proof: unknown;
@@ -683,8 +698,8 @@ export interface WalletRecord {
     value?: string | undefined;
     tags?:
         | {
-              [key: string]: string | undefined;
-          }
+            [key: string]: string | undefined;
+        }
         | undefined;
 }
 
@@ -699,4 +714,11 @@ export interface GetNymResponse {
     role: NymRole;
 }
 
-export type NymRole = 'TRUSTEE' | 'STEWARD' | 'TRUST_ANCHOR' | 'ENDORSER' | 'NETWORK_MONITOR';
+export interface DidWithMeta {
+    did: Did;
+    verkey: Verkey;
+    metadata?: string | undefined;
+    tempVerkey?: Verkey | undefined;
+}
+
+export type NymRole = "TRUSTEE" | "STEWARD" | "TRUST_ANCHOR" | "ENDORSER" | "NETWORK_MONITOR";

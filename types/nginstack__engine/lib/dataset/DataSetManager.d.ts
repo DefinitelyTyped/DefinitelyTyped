@@ -19,7 +19,7 @@ declare class DataSetManager {
     clearAll(): void;
     clearDataSets(): void;
     delDataSets(names: any): void;
-    saveToStream(stream: any): void;
+    saveToStream(stream: MemoryStream): void;
     private _getDataSetNameFromStream;
     loadFromStream(stream: File | MemoryStream): void;
 }
@@ -27,5 +27,5 @@ declare namespace DataSetManager {
     export { File, MemoryStream };
 }
 import DataSet = require('./DataSet.js');
-type File = import('../io/File');
 type MemoryStream = import('../io/MemoryStream');
+type File = import('../io/File');

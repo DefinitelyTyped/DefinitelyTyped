@@ -5,8 +5,8 @@
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
-import File = require('vinyl');
-import { Logger } from 'winston';
+import File = require("vinyl");
+import { Logger } from "winston";
 
 declare namespace sprite {
     interface SVGSpriterConstructor extends NodeJS.EventEmitter {
@@ -14,7 +14,7 @@ declare namespace sprite {
          * The spriter's constructor (always the entry point)
          * @param config Main configuration for the spriting process
          */
-        new (config: Config): SVGSpriter;
+        new(config: Config): SVGSpriter;
     }
 
     interface SVGSpriter {
@@ -24,7 +24,7 @@ declare namespace sprite {
          * @param name The "local" part of the file path, possibly including subdirectories which will get traversed to CSS selectors using the shape.id.separator configuration option.
          * @param svg SVG file content.
          */
-        add(file: string | File, name: string, svg: string): SVGSpriter;
+        add(file: string | File, name: string | null, svg: string): SVGSpriter;
         /**
          * Registering source SVG files
          * @param file Absolute path to the SVG file or a vinyl file object carrying all the necessary values (the following arguments are ignored then).
@@ -41,6 +41,11 @@ declare namespace sprite {
          * @param callback Callback triggered when the compilation has finished.
          */
         compile(callback: CompileCallback): void;
+        /**
+         * Simple Promise wrapper on `SVGSpriter.compile`.
+         * @param config Configuration object (same as in `SVGSpriter.compile`).
+         */
+        compileAsync(config?: Config): Promise<{ result: any; data: any }>;
         /**
          * Accessing the intermediate SVG resources
          * @param dest Base directory for the SVG files in case the will be written to disk.
@@ -92,7 +97,7 @@ declare namespace sprite {
             /**
              * SVG shape ID generator callback
              */
-            generator?: string | ((svg: string) => string) | undefined;
+            generator?: string | ((svg: string, file: File) => string) | undefined;
             /**
              * File name separator for shape states (e.g. ':hover')
              */
@@ -160,7 +165,7 @@ declare namespace sprite {
     interface CustomConfigurationTransform {
         [transformationName: string]: {
             plugins?: { [transformationName: string]: boolean }[] | undefined;
-        }
+        };
     }
 
     /**
@@ -175,7 +180,7 @@ declare namespace sprite {
              * @param callback Callback
              */
             (shape: any, sprite: SVGSpriter, callback: Function): any;
-        }
+        };
     }
 
     interface Svg {
@@ -242,7 +247,7 @@ declare namespace sprite {
         defs?: DefsAndSymbolSpecificModeConfig | boolean | undefined;
         symbol?: DefsAndSymbolSpecificModeConfig | boolean | undefined;
         stack?: ModeConfig | boolean | undefined;
-        [customConfigName: string]: ModeConfig | boolean;
+        [customConfigName: string]: ModeConfig | boolean | undefined;
     }
 
     interface ModeConfig {

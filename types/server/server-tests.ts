@@ -1,18 +1,7 @@
 import server = require("server");
-import { get, post, del, error, sub, socket } from "server/router";
+import { del, error, get, post, socket, sub } from "server/router";
 
-import {
-    cookie,
-    download,
-    header,
-    json,
-    jsonp,
-    redirect,
-    render,
-    send,
-    status,
-    type
-} from "server/reply";
+import { cookie, download, header, json, jsonp, redirect, render, send, status, type } from "server/reply";
 
 server([
     get("/log", ctx => {
@@ -32,12 +21,12 @@ server([
         cookie("name", "tobi", {
             domain: ".example.com",
             path: "/admin",
-            secure: true
+            secure: true,
         }),
     ctx =>
         cookie("rememberme", "1", {
             expires: new Date(Date.now() + 900000),
-            httpOnly: true
+            httpOnly: true,
         }),
     ctx => download("/report-12345.pdf"),
     ctx => download("/report-12345.pdf", "report.pdf"),
@@ -54,20 +43,20 @@ server([
     ctx => send({}),
     ctx => send("Hello, World!"),
     ctx => status(200),
-    ctx => type("application/json")
+    ctx => type("application/json"),
 ]);
 
 // Test all the options work
 server(
     {
         port: 3000,
-        secret: 'my-secret',
-        public: 'public',
-        views: 'views',
-        engine: 'pug',
-        env: 'development',
-        favicon: 'public/logo.png',
-        parser: { body: { limit: '1mb' } },
+        secret: "my-secret",
+        public: "public",
+        views: "views",
+        engine: "pug",
+        env: "development",
+        favicon: "public/logo.png",
+        parser: { body: { limit: "1mb" } },
         security: {
             csrf: false,
             dnsPrefetchControl: { allow: true },
@@ -76,10 +65,21 @@ server(
             resave: false,
             saveUninitialized: true,
             cookie: {},
-            secret: 'INHERITED',
+            secret: "INHERITED",
             store: undefined,
         },
-        log: 'alert',
+        log: "alert",
     },
-    [get('/', ctx => 'Hello, World!')],
+    [get("/", ctx => "Hello, World!")],
+);
+
+server(
+    {
+        engine: {
+            md(filePath, locals, cb) {
+                cb(null, "<h1>html</h1>");
+            },
+        },
+    },
+    get("/", ctx => "Hello, World!"),
 );

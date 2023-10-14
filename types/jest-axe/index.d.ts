@@ -6,10 +6,11 @@
 
 /// <reference types="jest" />
 
-import { AxeResults, Result, RunOptions, Spec } from 'axe-core';
+import { AxeResults, ImpactValue, Result, RunOptions, Spec } from "axe-core";
 
 export interface JestAxeConfigureOptions extends RunOptions {
     globalOptions?: Spec | undefined;
+    impactLevels?: ImpactValue[];
 }
 
 /**

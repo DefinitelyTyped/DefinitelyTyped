@@ -52,9 +52,11 @@ declare class Classes {
         }
     ): DataSet;
     getCommonAncestor(classA: number, classB: number): number;
-    getRemoteChildren(classKey: number, database: any): string;
+    getRemoteChildren(classKey: number, database: Database): string;
 }
 declare namespace Classes {
-    function getInstance(): Classes;
+    export { getInstance, Database };
 }
 import DataSet = require('../dataset/DataSet.js');
+type Database = import('./Database');
+declare function getInstance(): Classes;

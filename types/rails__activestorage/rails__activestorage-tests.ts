@@ -1,6 +1,6 @@
-import * as ActiveStorage from '@rails/activestorage';
-import { FileChecksum } from '@rails/activestorage/src/file_checksum';
-import { BlobUpload } from '@rails/activestorage/src/blob_upload';
+import * as ActiveStorage from "@rails/activestorage";
+import { BlobUpload } from "@rails/activestorage/src/blob_upload";
+import { FileChecksum } from "@rails/activestorage/src/file_checksum";
 
 ActiveStorage.start();
 
@@ -15,9 +15,9 @@ const delegate: ActiveStorage.DirectUploadDelegate = {
 };
 
 const d = new ActiveStorage.DirectUpload(
-    new File([], 'blank.txt'),
-    '/rails/active_storage/direct_uploads',
-    delegate
+    new File([], "blank.txt"),
+    "/rails/active_storage/direct_uploads",
+    delegate,
 );
 
 d.create((error, blob) => {
@@ -29,7 +29,7 @@ d.create((error, blob) => {
     }
 });
 
-FileChecksum.create(new File([], 'blank.txt'), (error, checksum) => {
+FileChecksum.create(new File([], "blank.txt"), (error, checksum) => {
     if (error) {
         console.log(error);
     } else {
@@ -38,14 +38,14 @@ FileChecksum.create(new File([], 'blank.txt'), (error, checksum) => {
 });
 
 const upload = new BlobUpload({
-    file: new File([], 'blank.txt'),
+    file: new File([], "blank.txt"),
     directUploadData: {
-        headers: { 'X-CSRF-Token': 'qweasdzxc' },
-        url: '/rails/active_storage/direct_uploads/xyz'
+        headers: { "X-CSRF-Token": "qweasdzxc" },
+        url: "/rails/active_storage/direct_uploads/xyz",
     },
 });
 
-upload.xhr.addEventListener('progress', event => console.log(event));
+upload.xhr.addEventListener("progress", event => console.log(event));
 
 upload.create((error, response) => {
     if (error) {

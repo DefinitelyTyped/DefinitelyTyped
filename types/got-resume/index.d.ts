@@ -4,7 +4,7 @@
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { GotOptions } from "got";
+import { Options } from "got";
 import { ClientRequest, IncomingMessage } from "http";
 import { PassThrough, Transform } from "stream";
 import Promise = require("bluebird");
@@ -239,7 +239,7 @@ declare namespace gotResume {
          *
          * const stream = gotResume('http://google.com/', { got: { method: 'POST' } });
          */
-        got?: GotOptions<string | null> | undefined;
+        got?: Options | undefined;
     }
 
     interface TimeoutSpec {
@@ -398,7 +398,7 @@ declare namespace gotResume {
         /** Length of options passed to constructor. */
         length?: number | undefined;
         log: (...args: unknown[]) => void;
-        gotOptions: GotOptions<string | null>;
+        gotOptions: Options;
         idleTimeout?: number | undefined;
 
         attempt: number;

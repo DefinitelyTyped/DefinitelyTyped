@@ -1,8 +1,6 @@
-
-
 // https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/AccessingResourcesWithinYourExtensionFolder/AccessingResourcesWithinYourExtensionFolder.html#//apple_ref/doc/uid/TP40009977-CH18-SW2
 var img = document.createElement("img");
-img.src = safari.extension.baseURI + 'Images/myImage.png'
+img.src = safari.extension.baseURI + "Images/myImage.png";
 
 // https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/AddingExtensionToolbars/AddingExtensionToolbars.html#//apple_ref/doc/uid/TP40009977-CH5-SW2
 const bars = safari.extension.bars;
@@ -14,11 +12,10 @@ for (var i = 0; i < bars.length; ++i) {
     }
 }
 
-
 var server = "http://developer.apple.com/";
-var reflib = "safari/library/documentation/AppleApplications/Reference/"
+var reflib = "safari/library/documentation/AppleApplications/Reference/";
 function openInTab(source: string) {
-    var newTab = (<SafariExtensionBar>safari.self).browserWindow.openTab();
+    var newTab = (<SafariExtensionBar> safari.self).browserWindow.openTab();
     newTab.url = source;
 }
 
@@ -28,16 +25,17 @@ function sendMessage() {
 }
 
 function respondToMessage(messageEvent: SafariExtensionMessageEvent) {
-    if (messageEvent.name === "gotIt")
+    if (messageEvent.name === "gotIt") {
         document.getElementById("textField").innerHTML = messageEvent.message;
+    }
 }
 
-(<SafariExtensionBar>safari.self).browserWindow.addEventListener("message", respondToMessage, false);
+(<SafariExtensionBar> safari.self).browserWindow.addEventListener("message", respondToMessage, false);
 
 const myBars = safari.extension.bars;
 function updateAllBars() {
     for (var i = 0; i < myBars.length; ++i) {
-        var barWindow = <any>myBars[i].contentWindow;
+        var barWindow = <any> myBars[i].contentWindow;
         barWindow.doSomething();
         var myWindow = safari.application.activeBrowserWindow;
         if (myBars[i].browserWindow == myWindow) {
@@ -51,8 +49,8 @@ const myGlobal: any = safari.extension.globalPage.contentWindow;
 
 function doButton() {
     myGlobal.calcThis(myGlobal.theAnswer);
-    var mButton = <HTMLButtonElement>document.getElementById("myButton");
-    mButton.value = ("Increment " + myGlobal.theAnswer);
+    var mButton = <HTMLButtonElement> document.getElementById("myButton");
+    mButton.value = "Increment " + myGlobal.theAnswer;
 }
 
 // https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/AddingButtonstotheMainSafariToolbar/AddingButtonstotheMainSafariToolbar.html#//apple_ref/doc/uid/TP40009977-CH3-SW12
@@ -67,27 +65,29 @@ for (var i = 0; i < itemArray.length; ++i) {
 // https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/AddingButtonstotheMainSafariToolbar/AddingButtonstotheMainSafariToolbar.html#//apple_ref/doc/uid/TP40009977-CH3-SW8
 function performCommand(event: SafariCommandEvent) {
     if (event.command === "reload-page") {
-        var currentURL = (<SafariExtensionToolbarItem>event.target).browserWindow.activeTab.url;
-        if (currentURL)
-            (<SafariExtensionToolbarItem>event.target).browserWindow.activeTab.url = currentURL;
+        var currentURL = (<SafariExtensionToolbarItem> event.target).browserWindow.activeTab.url;
+        if (currentURL) {
+            (<SafariExtensionToolbarItem> event.target).browserWindow.activeTab.url = currentURL;
+        }
     }
 }
 
 function validateCommand(event: SafariValidateEvent) {
     if (event.command === "reload-page") {
         // Disable the button if there is no URL loaded in the tab.
-        (<SafariExtensionToolbarItem>event.target).disabled = !(<SafariExtensionToolbarItem>event.target).browserWindow.activeTab.url;
+        (<SafariExtensionToolbarItem> event.target).disabled = !(<SafariExtensionToolbarItem> event.target)
+            .browserWindow.activeTab.url;
     }
 }
- 
+
 // if event handlers are in the global HTML page,
 // register with application:
 safari.application.addEventListener("command", performCommand, false);
 safari.application.addEventListener("validate", validateCommand, false);
 // if event handlers are in an extension bar,
 // register with parent window:
-(<SafariExtensionBar>safari.self).browserWindow.addEventListener("command", performCommand, false);
-(<SafariExtensionBar>safari.self).browserWindow.addEventListener("validate", validateCommand, false);
+(<SafariExtensionBar> safari.self).browserWindow.addEventListener("command", performCommand, false);
+(<SafariExtensionBar> safari.self).browserWindow.addEventListener("validate", validateCommand, false);
 
 // https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/AddingExtensionMenus/AddingExtensionMenus.html#//apple_ref/doc/uid/TP40009977-CH20-SW8
 var myMenu = safari.extension.createMenu("menuId");
@@ -100,10 +100,10 @@ myMenu.insertSeparator(1, "identifier");
 
 // https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/AddingPopovers/AddingPopovers.html#//apple_ref/doc/uid/TP40009977-CH21-SW7
 var validateHandler = (event: SafariValidateEvent) => {
-    if ((<SafariExtensionPopover>event.target).identifier !== "myToolbarItemID") return;
+    if ((<SafariExtensionPopover> event.target).identifier !== "myToolbarItemID") return;
 };
 var popoverHandler = (event: SafariEvent) => {
-    if ((<SafariExtensionPopover>event.target).identifier !== "myToolbarItemID") return;
+    if ((<SafariExtensionPopover> event.target).identifier !== "myToolbarItemID") return;
 };
 safari.application.addEventListener("validate", validateHandler, true);
 safari.application.addEventListener("popover", popoverHandler, true);
@@ -132,7 +132,7 @@ function bigCalc(startVal: number, event: SafariExtensionMessageEvent) {
     // imagine hundreds of lines of code here...
     var endVal = startVal + 2;
     // return to sender
-    (<SafariBrowserTab>event.target).page.dispatchMessage("theAnswer", endVal);
+    (<SafariBrowserTab> event.target).page.dispatchMessage("theAnswer", endVal);
 }
 
 function respondToMessage2(theMessageEvent: SafariExtensionMessageEvent) {

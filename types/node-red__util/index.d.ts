@@ -1,14 +1,15 @@
-// Type definitions for @node-red/util 1.2
+// Type definitions for @node-red/util 1.3
 // Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/%40node-red/util, https://nodered.org/
 // Definitions by: Alex Kaul <https://github.com/alexk111>
+//                 Tadeusz Wyrzykowski <https://github.com/Shaquu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
+// Minimum TypeScript Version: 4.7
 
-import { EventEmitter } from 'events';
-import { Expression as JsonataExpression } from 'jsonata';
+import { EventEmitter } from "events";
+import { Expression as JsonataExpression } from "jsonata";
 
-import * as registry from '@node-red/registry';
-import * as runtime from '@node-red/runtime';
+import * as registry from "@node-red/registry";
+import * as runtime from "@node-red/runtime";
 
 declare const util: util.UtilModule;
 
@@ -159,7 +160,7 @@ declare namespace util {
          * @param msg - the message object to clone
          * @returns the cloned message
          */
-        cloneMessage<T extends registry.NodeMessage>(msg: T): T;
+        cloneMessage<TNodeMessage extends registry.NodeMessage>(msg: TNodeMessage): TNodeMessage;
         /**
          * Compares two objects, handling various JavaScript types.
          *
@@ -175,10 +176,21 @@ declare namespace util {
          *
          * For example, `a["b"].c` returns `['a','b','c']`
          *
+         * If `msg` is provided, any internal cross-references will be evaluated against that
+         * object. Otherwise, it will return a nested set of properties
+         *
+         * For example, without msg set, 'a[msg.foo]' returns `['a', [ 'msg', 'foo'] ]`
+         * But if msg is set to '{"foo": "bar"}', 'a[msg.foo]' returns `['a', 'bar' ]`
+         *
+         * If `toString` is set to true, the returned array will be converted to a string
+         *
          * @param str - the property expression
+         * @param msg - the message object to use for cross-references
+         * @param toString - whether to convert the returned array to a string
          * @returns the normalised expression
          */
-        normalisePropertyExpression(str: string): Array<string | number>;
+        normalisePropertyExpression(str: string, msg?: registry.NodeMessage, toString?: false): Array<string | number>;
+        normalisePropertyExpression(str: string, msg: registry.NodeMessage, toString: true): string;
         /**
          * Gets a property of a message object.
          *
@@ -189,7 +201,7 @@ declare namespace util {
          * @param expr - the property expression
          * @returns the message property, or undefined if it does not exist
          */
-        getMessageProperty(msg: object, expr: string): any;
+        getMessageProperty(msg: registry.NodeMessage, expr: string): any;
         /**
          * Gets a property of an object.
          *
@@ -197,7 +209,7 @@ declare namespace util {
          * @param expr - the property expression
          * @returns the object property, or undefined if it does not exist
          */
-        getObjectProperty(msg: object, expr: string): any;
+        getObjectProperty(msg: registry.NodeMessage, expr: string): any;
         /**
          * Sets a property of a message object.
          *
@@ -209,7 +221,7 @@ declare namespace util {
          * @param  value         - the value to set
          * @param  createMissing - whether to create missing parent properties
          */
-        setMessageProperty(msg: object, prop: string, value: any, createMissing?: boolean): boolean;
+        setMessageProperty(msg: registry.NodeMessage, prop: string, value: any, createMissing?: boolean): boolean;
         /**
          * Sets a property of an object.
          *
@@ -218,7 +230,7 @@ declare namespace util {
          * @param  value         - the value to set
          * @param  createMissing - whether to create missing parent properties
          */
-        setObjectProperty(msg: object, prop: string, value: any, createMissing?: boolean): boolean;
+        setObjectProperty(msg: registry.NodeMessage, prop: string, value: any, createMissing?: boolean): boolean;
         /**
          * Get value of environment variable.
          * @param node - accessing node
@@ -257,12 +269,12 @@ declare namespace util {
          * @param   callback - (optional) called when the property is evaluated
          * @returns The evaluted property, if no `callback` is provided
          */
-        evaluateNodeProperty(value: string, type: string, node: registry.Node, msg: object): any;
+        evaluateNodeProperty(value: string, type: string, node: registry.Node, msg: registry.NodeMessage): any;
         evaluateNodeProperty(
             value: string,
             type: string,
             node: registry.Node,
-            msg: object,
+            msg: registry.NodeMessage,
             callback: (err: Error | null, result: any) => void,
         ): void;
         /**
@@ -284,10 +296,10 @@ declare namespace util {
          * @param   callback - (optional) called when the expression is evaluated
          * @returns If no callback was provided, the result of the expression
          */
-        evaluateJSONataExpression(expr: JsonataExpression, msg: object): any;
+        evaluateJSONataExpression(expr: JsonataExpression, msg: registry.NodeMessage): any;
         evaluateJSONataExpression(
             expr: JsonataExpression,
-            msg: object,
+            msg: registry.NodeMessage,
             callback: (err: Error | null, resp: any) => void,
         ): void;
         /**
@@ -330,7 +342,7 @@ declare namespace util {
          *
          * If the hook returns `false`, the messages will not proceed any further.
          */
-        add(hookName: 'onSend', hookHandler: HandlerFunction<SendEvent[]>): void;
+        add(hookName: "onSend", hookHandler: HandlerFunction<SendEvent[]>): void;
 
         /**
          * A message is about to be routed to its destination.
@@ -345,7 +357,7 @@ declare namespace util {
          *
          * If the hook returns `false`, the message will not proceed any further.
          */
-        add(hookName: 'preRoute', handlerFunction: HandlerFunction<SendEvent>): void;
+        add(hookName: "preRoute", handlerFunction: HandlerFunction<SendEvent>): void;
 
         /**
          * A message is about to be delivered
@@ -357,14 +369,14 @@ declare namespace util {
          *
          * If the hook returns `false`, the messages will not proceed any further.
          */
-        add(hookName: 'preDeliver', handlerFunction: HandlerFunction<SendEvent>): void; // tslint:disable-line:unified-signatures
+        add(hookName: "preDeliver", handlerFunction: HandlerFunction<SendEvent>): void; // tslint:disable-line:unified-signatures
 
         /**
          * A message has been dispatched to its destination.
          *
          * The hook is passed a single `SendEvent`. The message is delivered asynchronously to the hooks execution.
          */
-        add(hookName: 'postDeliver', handlerFunction: HandlerFunction<SendEvent>): void; // tslint:disable-line:unified-signatures
+        add(hookName: "postDeliver", handlerFunction: HandlerFunction<SendEvent>): void; // tslint:disable-line:unified-signatures
 
         /**
          * A message is about to be received by a node.
@@ -373,21 +385,21 @@ declare namespace util {
          *
          * If the hook returns `false`, the messages will not proceed any further.
          */
-        add(hookName: 'onReceive', handlerFunction: HandlerFunction<ReceiveEvent>): void;
+        add(hookName: "onReceive", handlerFunction: HandlerFunction<ReceiveEvent>): void;
 
         /**
          * A message has been received by a node.
          *
          * The hook is passed `ReceiveEvent` when the message has been given to the node’s `input` handler.
          */
-        add(hookName: 'postReceive', handlerFunction: HandlerFunction<ReceiveEvent>): void; // tslint:disable-line:unified-signatures
+        add(hookName: "postReceive", handlerFunction: HandlerFunction<ReceiveEvent>): void; // tslint:disable-line:unified-signatures
 
         /**
          * A node has completed with a message or logged an error for it.
          *
          * The hook is passed a `CompleteEvent`.
          */
-        add(hookName: 'onComplete', handlerFunction: HandlerFunction<CompleteEvent>): void;
+        add(hookName: "onComplete", handlerFunction: HandlerFunction<CompleteEvent>): void;
 
         /**
          * Called before running `npm install` to install an npm module.
@@ -402,7 +414,7 @@ declare namespace util {
          *
          * If the hook throws an error, the install will be cleanly failed.
          */
-        add(hookName: 'preInstall', handlerFunction: HandlerFunction<InstallEvent>): void;
+        add(hookName: "preInstall", handlerFunction: HandlerFunction<InstallEvent>): void;
 
         /**
          * Called after `npm install` finishes installing an npm module.
@@ -415,7 +427,7 @@ declare namespace util {
          *
          * If the preceding `npm install` returned an error, this hook will not be invoked.
          */
-        add(hookName: 'postInstall', handlerFunction: HandlerFunction<InstallEvent>): void; // tslint:disable-line:unified-signatures
+        add(hookName: "postInstall", handlerFunction: HandlerFunction<InstallEvent>): void; // tslint:disable-line:unified-signatures
 
         /**
          * Called before running `npm remove` to uninstall an npm module.
@@ -430,7 +442,7 @@ declare namespace util {
          *
          * If the hook throws an error, the uninstall will be cleanly failed.
          */
-        add(hookName: 'preUninstall', handlerFunction: HandlerFunction<UninstallEvent>): void;
+        add(hookName: "preUninstall", handlerFunction: HandlerFunction<UninstallEvent>): void;
 
         /**
          * Called after `npm remove` finishes removing an npm module.
@@ -441,7 +453,7 @@ declare namespace util {
          *
          * If the hook throws an error, it will be logged, but the uninstall will complete cleanly as we cannot rollback an `npm remove` after it has completed.
          */
-        add(hookName: 'postUninstall', handlerFunction: HandlerFunction<UninstallEvent>): void; // tslint:disable-line:unified-signatures
+        add(hookName: "postUninstall", handlerFunction: HandlerFunction<UninstallEvent>): void; // tslint:disable-line:unified-signatures
 
         /**
          * Register a new hook handler.
@@ -461,7 +473,7 @@ declare namespace util {
         has(hookName: string): boolean;
     }
 
-    //#region Hook Event Objects
+    // #region Hook Event Objects
 
     interface SendEvent {
         msg: registry.NodeMessage;
@@ -522,7 +534,7 @@ declare namespace util {
         args: string[];
     }
 
-    //#endregion
+    // #endregion
 
     interface UtilModule {
         /**

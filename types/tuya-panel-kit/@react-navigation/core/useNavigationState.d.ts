@@ -1,5 +1,5 @@
-import type { NavigationState } from '../routers';
-// tslint:disable-next-line strict-export-declare-modifiers
+import type { NavigationState } from "../routers";
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 declare type Selector<T> = (state: NavigationState) => T;
 /**
  * Hook to get a value from the current navigation state using a selector.

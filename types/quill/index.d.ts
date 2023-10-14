@@ -11,7 +11,7 @@
 // TypeScript Version: 2.9
 
 import { Blot } from "parchment/dist/src/blot/abstract/blot";
-import Delta = require("quill-delta");
+import Delta from "quill-delta";
 
 /**
  * A stricter type definition would be:
@@ -20,7 +20,9 @@ import Delta = require("quill-delta");
  *
  *  But this would break a lot of existing code as it would require manual discrimination of the union types.
  */
-export type DeltaOperation = { insert?: any; delete?: number | undefined; retain?: number | undefined } & OptionalAttributes;
+export type DeltaOperation =
+    & { insert?: any; delete?: number | undefined; retain?: number | undefined }
+    & OptionalAttributes;
 interface SourceMap {
     API: "api";
     SILENT: "silent";
@@ -99,6 +101,13 @@ export class RangeStatic implements RangeStatic {
     length: number;
 }
 
+export interface History {
+    clear(): void;
+    cutoff(): void;
+    undo(): void;
+    redo(): void;
+}
+
 export interface EventEmitter {
     on(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
     on(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
@@ -119,6 +128,7 @@ export class Quill implements EventEmitter {
     clipboard: ClipboardStatic;
     scroll: Blot;
     keyboard: KeyboardStatic;
+    history: History;
     constructor(container: string | Element, options?: QuillOptionsStatic);
     deleteText(index: number, length: number, source?: Sources): Delta;
     disable(): void;

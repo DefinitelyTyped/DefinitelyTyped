@@ -1,6 +1,6 @@
-import { RemoteCallbacks } from './remote-callbacks';
-import { Strarray } from './str-array';
-import { ProxyOptions } from './proxy-options';
+import { ProxyOptions } from "./proxy-options";
+import { RemoteCallbacks } from "./remote-callbacks";
+import { Strarray } from "./str-array";
 
 export interface PushOptions {
     version?: number | undefined;

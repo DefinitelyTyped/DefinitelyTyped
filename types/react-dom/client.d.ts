@@ -4,13 +4,13 @@
 
 // See https://github.com/facebook/react/blob/main/packages/react-dom/client.js to see how the exports are declared,
 
-import React = require('react');
+import React = require("react");
 export interface HydrationOptions {
     /**
      * Prefix for `useId`.
      */
     identifierPrefix?: string;
-    onRecoverableError?: (error: unknown) => void;
+    onRecoverableError?: (error: unknown, errorInfo: ErrorInfo) => void;
 }
 
 export interface RootOptions {
@@ -18,7 +18,12 @@ export interface RootOptions {
      * Prefix for `useId`.
      */
     identifierPrefix?: string;
-    onRecoverableError?: (error: unknown) => void;
+    onRecoverableError?: (error: unknown, errorInfo: ErrorInfo) => void;
+}
+
+export interface ErrorInfo {
+    digest?: string;
+    componentStack?: string;
 }
 
 export interface Root {

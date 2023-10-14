@@ -4,16 +4,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as L from 'leaflet';
+import * as L from "leaflet";
 
-declare module 'leaflet' {
+declare module "leaflet" {
     namespace Control {
         class Locate extends Control {
-          constructor(locateOptions?: LocateOptions);
-          onAdd(map: Map): HTMLElement;
-          start(): void;
-          stop(): void;
-          setView(): void;
+            constructor(locateOptions?: LocateOptions);
+            onAdd(map: Map): HTMLElement;
+            start(): void;
+            stop(): void;
+            stopFollowing(): void;
+            setView(): void;
         }
         interface LocateOptions {
             position?: string | undefined;
@@ -41,12 +42,19 @@ declare module 'leaflet' {
             textElementTag?: string | undefined;
             circlePadding?: number[] | undefined;
             metric?: boolean | undefined;
-            createButtonCallback?: any;
-            onLocationError?: any;
-            onLocationOutsideMapBounds?: any;
+            createButtonCallback?: ((container: HTMLDivElement, options: LocateOptions) => void) | undefined;
+            onLocationError?: ((event: ErrorEvent, control: Locate) => void) | undefined;
+            onLocationOutsideMapBounds?: ((control: Locate) => void) | undefined;
             showPopup?: boolean | undefined;
-            strings?: any;
+            strings?: StringsOptions | undefined;
             locateOptions?: L.LocateOptions | undefined;
+        }
+        interface StringsOptions {
+            title?: string | undefined;
+            metersUnit?: string | undefined;
+            feetUnit?: string | undefined;
+            popup?: string | undefined;
+            outsideMapBoundsMsg?: string | undefined;
         }
     }
 

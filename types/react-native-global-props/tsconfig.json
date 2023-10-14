@@ -14,7 +14,10 @@
         ],
         "paths": {
             "react-native": [
-                "react-native/v0.65"
+                "react-native/v0.70"
+            ],
+            "react-native/*": [
+                "react-native/v0.70/*"
             ]
         },
         "types": [],

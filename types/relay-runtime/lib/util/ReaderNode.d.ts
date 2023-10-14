@@ -1,5 +1,5 @@
-import type { ConnectionMetadata } from '../handlers/connection/ConnectionHandler';
-import type { ConcreteRequest } from './RelayConcreteNode';
+import type { ConnectionMetadata } from "../handlers/connection/ConnectionHandler";
+import type { ConcreteRequest } from "./RelayConcreteNode";
 
 export interface ReaderFragmentSpread {
     readonly kind: string; // 'FragmentSpread';
@@ -13,6 +13,17 @@ export interface ReaderInlineDataFragmentSpread {
     readonly selections: ReadonlyArray<ReaderSelection>;
 }
 
+export interface ReaderLinkedField {
+    readonly kind: string; // 'LinkedField';
+    readonly alias?: string | null | undefined;
+    readonly name: string;
+    readonly storageKey?: string | null | undefined;
+    readonly args?: ReadonlyArray<ReaderArgument> | null | undefined;
+    readonly concreteType?: string | null | undefined;
+    readonly plural: boolean;
+    readonly selections: ReadonlyArray<ReaderSelection>;
+}
+
 export interface ReaderFragment {
     readonly kind: string; // 'Fragment';
     readonly name: string;
@@ -20,11 +31,11 @@ export interface ReaderFragment {
     readonly abstractKey?: string | null | undefined;
     readonly metadata?:
         | {
-              readonly connection?: ReadonlyArray<ConnectionMetadata>;
-              readonly mask?: boolean;
-              readonly plural?: boolean;
-              readonly refetch?: ReaderRefetchMetadata;
-          }
+            readonly connection?: ReadonlyArray<ConnectionMetadata>;
+            readonly mask?: boolean;
+            readonly plural?: boolean;
+            readonly refetch?: ReaderRefetchMetadata;
+        }
         | null
         | undefined;
     readonly argumentDefinitions: ReadonlyArray<ReaderArgumentDefinition>;
@@ -189,7 +200,7 @@ export interface ReaderStream {
     readonly selections: ReadonlyArray<ReaderSelection>;
 }
 
-export type RequiredFieldAction = 'NONE' | 'LOG' | 'THROW';
+export type RequiredFieldAction = "NONE" | "LOG" | "THROW";
 
 export interface ReaderRequiredField {
     readonly kind: string; // 'RequiredField';

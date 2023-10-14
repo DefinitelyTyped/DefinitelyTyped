@@ -63,6 +63,9 @@ declare namespace Intercom_ {
         getVisitorId: () => string;
         startTour: (tourId: number) => void;
         showArticle: (articleId: number) => void;
+        startSurvey: (surveyId: number) => void;
+        reattach_activator: () => void;
+        showSpace: (space: string) => void;
     }
 
     type IntercomCommand = keyof IntercomCommandSignature;
@@ -91,7 +94,7 @@ declare namespace Intercom_ {
     }
 
     interface IntercomAvatar {
-        type: 'avatar';
+        type: "avatar";
         image_url: string;
     }
 

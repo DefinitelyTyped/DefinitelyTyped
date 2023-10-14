@@ -6,13 +6,12 @@
 
 /// <reference types="jasmine" />
 
-declare namespace JasminePromiseMatchers  {
-    export function install():void;
-    export function uninstall():void;
+declare namespace JasminePromiseMatchers {
+    export function install(): void;
+    export function uninstall(): void;
 }
 
 declare namespace jasmine {
-
     interface Matchers<T> {
         /**
          * Verifies that a Promise is (or has been) rejected.

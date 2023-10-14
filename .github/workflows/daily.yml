@@ -1,0 +1,15 @@
+name: Daily Open PR sync
+
+on:
+  schedule:
+    - cron: '37 */6 * * *'
+
+jobs:
+  trigger_bot:
+    runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+
+    steps:
+      - run: 'gh workflow run daily.yml -R DefinitelyTyped/dt-mergebot'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_DT_MERGEBOT_TOKEN }}

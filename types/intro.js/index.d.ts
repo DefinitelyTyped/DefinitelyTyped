@@ -14,17 +14,18 @@ declare namespace introJs {
         intro: string;
         element?: string | HTMLElement | Element | undefined;
         position?:
-            | 'top'
-            | 'left'
-            | 'right'
-            | 'bottom'
-            | 'bottom-left-aligned'
-            | 'bottom-middle-aligned'
-            | 'bottom-right-aligned'
-            | 'auto' | undefined;
+            | "top"
+            | "left"
+            | "right"
+            | "bottom"
+            | "bottom-left-aligned"
+            | "bottom-middle-aligned"
+            | "bottom-right-aligned"
+            | "auto"
+            | undefined;
         tooltipClass?: string | undefined;
         highlightClass?: string | undefined;
-        scrollTo?: 'off' | 'tooltip' | 'element' | undefined;
+        scrollTo?: "off" | "tooltip" | "element" | undefined;
         disableInteraction?: boolean | undefined;
         title?: string | undefined;
         step?: number | undefined;
@@ -43,6 +44,7 @@ declare namespace introJs {
         doneLabel?: string | undefined;
         hidePrev?: boolean | undefined;
         hideNext?: boolean | undefined;
+        nextToDone?: boolean | undefined;
         tooltipPosition?: string | undefined;
         tooltipClass?: string | undefined;
         highlightClass?: string | undefined;

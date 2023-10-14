@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-type Direction = 'normal' | 'alternate' | 'reverse' | 'alternate-reverse';
+type Direction = "normal" | "alternate" | "reverse" | "alternate-reverse";
 
 interface PresetsConfig {
     duration: number;
@@ -33,7 +33,7 @@ interface AnimationConfigIndex {
 }
 
 type AnimationType =
-    AnimationConfigStartAndEnd
+    | AnimationConfigStartAndEnd
     | AnimationConfigIndex
     | number[][]
     | Array<Record<string, unknown>>;
@@ -66,7 +66,7 @@ export function runAnimation<T extends OptsType>(els: ElsType, opts: T): Promise
 export function runAnimation<T extends ElsType, U>(
     els: T,
     opts: OptsType,
-    cb: (err: Error | null, result?: InferParams<T>) => U
+    cb: (err: Error | null, result?: InferParams<T>) => U,
 ): Promise<U> | void;
 
 /**

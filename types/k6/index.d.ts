@@ -1,13 +1,16 @@
-// Type definitions for k6 0.38
+// Type definitions for k6 0.47
 // Project: https://k6.io/docs/
-// Definitions by: na-- <https://github.com/na-->
-//                 Mihail Stoykov <https://github.com/MStoykov>
+// Definitions by: Mihail Stoykov <https://github.com/MStoykov>
 //                 Ivan <https://github.com/codebien>
 //                 Théo Crevon <https://github.com/oleiade>
 //                 Oleg Bespalov <https://github.com/olegbespalov>
 //                 Pepe Cano <https://github.com/ppcano>
+//                 Nicole van der Hoeven <https://github.com/nicolevanderhoeven>
+//                 Ankur Agarwal <https://github.com/ankur22>
+//                 İnanç Gümüş <https://github.com/inancgumus>
+//                 Daniel Jiménez <https://github.com/ka3de>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
+// TypeScript Version: 3.9
 
 /**
  * k6 JavaScript API.
@@ -28,19 +31,26 @@
  * @packageDocumentation
  */
 
-import './global'; // Type global environment
+import "./global"; // Type global environment
 
 // Expose everything to autoimport
-import './crypto';
-import './data';
-import './encoding';
-import './execution';
-import './html';
-import './http';
-import './metrics';
-import './options';
-import './ws';
-import './net/grpc';
+import "./crypto";
+import "./data";
+import "./encoding";
+import "./execution";
+import "./html";
+import "./http";
+import "./metrics";
+import "./options";
+import "./experimental/browser";
+import "./experimental/redis";
+import "./experimental/timers";
+import "./experimental/tracing";
+import "./experimental/webcrypto";
+import "./experimental/websockets";
+import "./experimental/grpc";
+import "./ws";
+import "./net/grpc";
 
 // === Main ===
 // ------------
@@ -48,7 +58,7 @@ import './net/grpc';
 /**
  * Run checks on a value.
  * https://k6.io/docs/javascript-api/k6/check-val-sets-tags/
- * @typeParam VT - Value type.
+ * @template VT - Value type.
  * @param val - Value to test.
  * @param sets - Tests (checks) to run on the value.
  * @param tags - Extra tags to attach to metrics emitted.
@@ -73,7 +83,7 @@ export function fail(err?: string): never;
 /**
  * Run code inside a group.
  * https://k6.io/docs/javascript-api/k6/group-name-fn/
- * @typeParam RT - Return type.
+ * @template RT - Return type.
  * @param name - Name of the group.
  * @param fn - Group body. Code to be executed in the group context.
  * @returns The return value of `fn`.
@@ -83,6 +93,15 @@ export function fail(err?: string): never;
  * });
  */
 export function group<RT>(name: string, fn: () => RT): RT;
+
+/**
+ * Set seed to get a reproducible pseudo-random number using Math.random.
+ * https://k6.io/docs/javascript-api/k6/randomseed/
+ * @param int - The seed value.
+ * @example
+ * randomSeed(123456789);
+ */
+export function randomseed(int: number): void;
 
 /**
  * Suspend VU execution for the specified duration.
@@ -95,7 +114,7 @@ export function sleep(t: number): void;
 
 /**
  * Check procedure.
- * @typeParam VT - Value type.
+ * @template VT - Value type.
  */
 export interface Checker<VT> {
     /**
@@ -108,7 +127,7 @@ export interface Checker<VT> {
 
 /**
  * Named check procedures.
- * @typeParam VT - Value type.
+ * @template VT - Value type.
  */
 export interface Checkers<VT> {
     [description: string]: Checker<VT>;

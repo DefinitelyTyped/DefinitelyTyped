@@ -2,12 +2,12 @@
 // Project: https://api.emberjs.com/ember/3.16/modules/@ember%2Futils
 // Definitions by: Mike North <https://github.com/mike-north>
 //                 Chris Krycho <https://github.com/chriskrycho>
-//                 Dan Freeman <https://github.com/dfreeman>
+//                 Krystan HuffMenne <https://github.com/gitKrystan>
 //                 James C. Davis <https://github.com/jamescdavis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { TypeLookup, TypeOf, FunctionArgs } from './-private/types';
+import { FunctionArgs, TypeLookup, TypeOf } from "./-private/types";
 
 /**
  * Compares two javascript values and returns:
@@ -49,15 +49,17 @@ export function isPresent(obj?: any): boolean;
 export function tryInvoke<FNAME extends keyof T, T extends object>(
     obj: T,
     methodName: FNAME,
-    args: FunctionArgs<T[FNAME]>): T[FNAME] extends ((...args: any[]) => any)
-        ? ReturnType<T[FNAME]>
-        : undefined;
-export function tryInvoke<FNAME extends keyof T, T extends object>(obj: T, methodName: FNAME): T[FNAME] extends (() => any) ? ReturnType<T[FNAME]> : undefined;
+    args: FunctionArgs<T[FNAME]>,
+): T[FNAME] extends (...args: any[]) => any ? ReturnType<T[FNAME]> : undefined;
+export function tryInvoke<FNAME extends keyof T, T extends object>(
+    obj: T,
+    methodName: FNAME,
+): T[FNAME] extends () => any ? ReturnType<T[FNAME]> : undefined;
 export function tryInvoke(obj: object, methodName: string, args?: any[]): undefined;
 
 /**
  * Returns a consistent type for the passed object.
  */
 export function typeOf<T>(value: T): TypeOf<TypeLookup, T>;
-export function typeOf(): 'undefined';
+export function typeOf(): "undefined";
 export function typeOf(item: any): string;

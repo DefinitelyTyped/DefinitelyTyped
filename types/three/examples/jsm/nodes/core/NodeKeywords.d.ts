@@ -1,5 +1,5 @@
-import NodeBuilder from './NodeBuilder';
-import Node from './Node';
+import NodeBuilder from './NodeBuilder.js';
+import Node from './Node.js';
 
 export default class NodeKeywords {
     keywords: string[];

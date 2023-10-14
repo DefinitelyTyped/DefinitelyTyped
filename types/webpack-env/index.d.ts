@@ -10,8 +10,10 @@
  */
 
 declare namespace __WebpackModuleApi {
+    type ModuleId = string | number;
+
     interface RequireResolve {
-        (id: string): string | number;
+        (id: string): ModuleId;
     }
 
     interface RequireContext {
@@ -20,7 +22,7 @@ declare namespace __WebpackModuleApi {
         <T>(id: string): T;
         resolve(id: string): string;
         /** The module id of the context module. This may be useful for module.hot.accept. */
-        id: string;
+        id: ModuleId;
     }
 
     interface RequireFunction {
@@ -39,8 +41,18 @@ declare namespace __WebpackModuleApi {
          * This creates a chunk. The chunk can be named. If a chunk with this name already exists, the dependencies are merged into that chunk and that chunk is used.
          */
         ensure(paths: string[], callback: (require: NodeRequire) => void, chunkName?: string): void;
-        ensure(paths: string[], callback: (require: NodeRequire) => void, errorCallback?: (error: any) => void, chunkName?: string): void;
-        context(path: string, deep?: boolean, filter?: RegExp, mode?: "sync" | "eager" | "weak" | "lazy" | "lazy-once"): RequireContext;
+        ensure(
+            paths: string[],
+            callback: (require: NodeRequire) => void,
+            errorCallback?: (error: any) => void,
+            chunkName?: string,
+        ): void;
+        context(
+            path: string,
+            deep?: boolean,
+            filter?: RegExp,
+            mode?: "sync" | "eager" | "weak" | "lazy" | "lazy-once",
+        ): RequireContext;
         /**
          * Returns the module id of a dependency. The call is sync. No request to the server is fired. The compiler ensures that the dependency is available.
          *
@@ -50,7 +62,7 @@ declare namespace __WebpackModuleApi {
         /**
          * Like require.resolve, but doesn’t include the module into the bundle. It’s a weak dependency.
          */
-        resolveWeak(path: string): number | string;
+        resolveWeak(path: string): ModuleId;
         /**
          * Ensures that the dependency is available, but don’t execute it. This can be use for optimizing the position of a module in the chunks.
          */
@@ -60,30 +72,29 @@ declare namespace __WebpackModuleApi {
          */
         cache: {
             [id: string]: NodeModule | undefined;
-        }
+        };
     }
 
     interface Module {
         exports: any;
-        id: string;
+        id: ModuleId;
         filename: string;
         loaded: boolean;
         parent: NodeModule | null | undefined;
         children: NodeModule[];
         hot?: Hot | undefined;
     }
-    type ModuleId = string|number;
 
     interface HotNotifierInfo {
         type:
-          | 'self-declined'
-          | 'declined'
-          | 'unaccepted'
-          | 'accepted'
-          | 'disposed'
-          | 'accept-errored'
-          | 'self-accept-errored'
-          | 'self-accept-error-handler-errored';
+            | "self-declined"
+            | "declined"
+            | "unaccepted"
+            | "accepted"
+            | "disposed"
+            | "accept-errored"
+            | "self-accept-errored"
+            | "self-accept-error-handler-errored";
         /**
          * The module in question.
          */
@@ -108,7 +119,7 @@ declare namespace __WebpackModuleApi {
          * For accepted: The location of accept handlers that will handle the update
          */
         outdatedDependencies?: {
-          [dependencyId: number]: number[];
+            [dependencyId: number]: number[];
         } | undefined;
         /**
          * For errors: the thrown error
@@ -119,7 +130,7 @@ declare namespace __WebpackModuleApi {
          * before the error handler tried to handle it.
          */
         originalError?: Error | undefined;
-      }
+    }
 
     interface Hot {
         /**
@@ -128,7 +139,11 @@ declare namespace __WebpackModuleApi {
          * @param callback
          * @param errorHandler
          */
-        accept(dependencies: string[], callback?: (updatedDependencies: ModuleId[]) => void, errorHandler?: (err: Error) => void): void;
+        accept(
+            dependencies: string[],
+            callback?: (updatedDependencies: ModuleId[]) => void,
+            errorHandler?: (err: Error) => void,
+        ): void;
         /**
          * Accept code updates for the specified dependencies. The callback is called when dependencies were replaced.
          * @param dependency
@@ -189,7 +204,7 @@ declare namespace __WebpackModuleApi {
          * If autoApply is not set the callback will be called with all modules that will be disposed on apply().
          * @param autoApply
          */
-        check(autoApply?: boolean): Promise<null|ModuleId[]>;
+        check(autoApply?: boolean): Promise<null | ModuleId[]>;
         /**
          * If status() != "ready" it throws an error.
          * Continue the update process.
@@ -253,8 +268,8 @@ declare namespace __WebpackModuleApi {
         autoApply?: boolean | undefined;
     }
     /**
-    * Inside env you can pass any variable
-    */
+     * Inside env you can pass any variable
+     */
     interface NodeProcess {
         env?: any;
     }
@@ -312,7 +327,7 @@ declare var __non_webpack_require__: any;
 /**
  * Initializes the shared scope. Fills it with known provided modules from this build and all remotes
  */
- declare var __webpack_init_sharing__: (scope: string) => Promise<void>;
+declare var __webpack_init_sharing__: (scope: string) => Promise<void>;
 
 /**
  * Adds nonce to all scripts that webpack loads.
@@ -346,17 +361,17 @@ interface ImportMeta {
     webpackContext?: (
         request: string,
         options?: {
-          recursive?: boolean;
-          regExp?: RegExp;
-          include?: RegExp;
-          exclude?: RegExp;
-          preload?: boolean | number;
-          prefetch?: boolean | number;
-          chunkName?: string;
-          exports?: string | string[][];
-          mode?: 'sync' | 'eager' | 'weak' | 'lazy' | 'lazy-once';
-        }
-      ) => __WebpackModuleApi.RequireContext;
+            recursive?: boolean;
+            regExp?: RegExp;
+            include?: RegExp;
+            exclude?: RegExp;
+            preload?: boolean | number;
+            prefetch?: boolean | number;
+            chunkName?: string;
+            exports?: string | string[][];
+            mode?: "sync" | "eager" | "weak" | "lazy" | "lazy-once";
+        },
+    ) => __WebpackModuleApi.RequireContext;
 }
 
 interface NodeModule extends NodeJS.Module {}
@@ -364,8 +379,8 @@ interface NodeModule extends NodeJS.Module {}
 declare var module: NodeModule;
 
 /**
-* Declare process variable
-*/
+ * Declare process variable
+ */
 declare namespace NodeJS {
     interface Process extends __WebpackModuleApi.NodeProcess {}
     interface RequireResolve extends __WebpackModuleApi.RequireResolve {}

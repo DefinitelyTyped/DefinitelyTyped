@@ -1,8 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "array-type": false,
-        "no-consecutive-blank-lines": false,
-        "trim-file": false
+        "array-type": false
     }
 }

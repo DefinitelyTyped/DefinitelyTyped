@@ -12,7 +12,7 @@ declare class BufferReader {
     /**
      * Create a new reader, if no buffer provided, a empty buffer will be used.
      */
-    constructor(buffer?: Buffer)
+    constructor(buffer?: Buffer);
     /**
      * Append new buffer to the end of current reader.
      * @param buffer buffer to append

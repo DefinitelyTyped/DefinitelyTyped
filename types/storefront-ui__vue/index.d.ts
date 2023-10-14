@@ -2,68 +2,70 @@
 // Project: https://github.com/vuestorefront/storefront-ui
 // Definitions by:  Luïs De Zutter <https://github.com/ImLuze>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+// Minimum TypeScript Version: 4.5
 
-import { VueConstructor } from 'vue';
-import { Location } from 'vue-router';
-import Glide = require('@glidejs/glide');
+import { VueConstructor } from "vue";
+import { Location } from "vue-router";
+import Glide = require("@glidejs/glide");
 
-export type Icon = 'add_to_cart'
-    | 'added_to_cart'
-    | 'empty_cart'
-    | 'clock'
-    | 'arrow_left'
-    | 'arrow_right'
-    | 'check'
-    | 'chevron_down'
-    | 'chevron_up'
-    | 'chevron_left'
-    | 'chevron_right'
-    | 'cross'
-    | 'heart'
-    | 'heart_fill'
-    | 'home'
-    | 'home_fill'
-    | 'menu'
-    | 'search'
-    | 'profile'
-    | 'profile_fill'
-    | 'newsletter'
-    | 'info_circle'
-    | 'info_shield'
-    | 'mail'
-    | 'marker'
-    | 'more'
-    | 'credits'
-    | 'rewards'
-    | 'shipping'
-    | 'return'
-    | 'safety'
-    | 'star'
-    | 'show_password'
-    | 'phone'
-    | 'drag'
-    | 'list'
-    | 'tiles'
-    | 'filter'
-    | 'account';
-export type IconSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'xl3' | 'xl4';
-export type TypographySize = 'extra-small' | 'small' | 'regular' | 'big';
-export type IconColor = 'greenPrimary'
-    | 'greenSecondary'
-    | 'black'
-    | 'darkSecondary'
-    | 'grayPrimary'
-    | 'graySecondary'
-    | 'lightPrimary'
-    | 'white'
-    | 'redPrimary'
-    | 'redSecondary'
-    | 'yellowPrimary'
-    | 'yellowSecondary'
-    | 'bluePrimary'
-    | 'blueSecondary';
-export type Color = 'primary' | 'secondary' | 'light' | 'dark' | 'info' | 'success' | 'warning' | 'danger';
+export type Icon =
+    | "add_to_cart"
+    | "added_to_cart"
+    | "empty_cart"
+    | "clock"
+    | "arrow_left"
+    | "arrow_right"
+    | "check"
+    | "chevron_down"
+    | "chevron_up"
+    | "chevron_left"
+    | "chevron_right"
+    | "cross"
+    | "heart"
+    | "heart_fill"
+    | "home"
+    | "home_fill"
+    | "menu"
+    | "search"
+    | "profile"
+    | "profile_fill"
+    | "newsletter"
+    | "info_circle"
+    | "info_shield"
+    | "mail"
+    | "marker"
+    | "more"
+    | "credits"
+    | "rewards"
+    | "shipping"
+    | "return"
+    | "safety"
+    | "star"
+    | "show_password"
+    | "phone"
+    | "drag"
+    | "list"
+    | "tiles"
+    | "filter"
+    | "account";
+export type IconSize = "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "xl3" | "xl4";
+export type TypographySize = "extra-small" | "small" | "regular" | "big";
+export type IconColor =
+    | "greenPrimary"
+    | "greenSecondary"
+    | "black"
+    | "darkSecondary"
+    | "grayPrimary"
+    | "graySecondary"
+    | "lightPrimary"
+    | "white"
+    | "redPrimary"
+    | "redSecondary"
+    | "yellowPrimary"
+    | "yellowSecondary"
+    | "bluePrimary"
+    | "blueSecondary";
+export type Color = "primary" | "secondary" | "light" | "dark" | "info" | "success" | "warning" | "danger";
 
 export interface Breadcrumb {
     link: string;
@@ -245,8 +247,8 @@ export namespace SfImage {
         source: Source | null;
         noscript: string;
         size: {
-            ['--_image-width']: Props['width'];
-            ['--_image-height']: Props['height'];
+            ["--_image-width"]: Props["width"];
+            ["--_image-height"]: Props["height"];
         };
         hasOverlay: boolean;
     }
@@ -278,7 +280,7 @@ export namespace SfInput {
     }
 
     interface Computed {
-        listeners: Vue['$listeners'];
+        listeners: Vue["$listeners"];
         isPassword: boolean;
     }
 
@@ -302,8 +304,8 @@ export namespace SfLink {
     interface Computed {
         isExternal: boolean;
         isNativeLinkTag: boolean;
-        urlTag: { href: Props['link'] } | { to: Props['link'] };
-        linkComponentTag: 'a' | 'nuxt-link' | 'router-link';
+        urlTag: { href: Props["link"] } | { to: Props["link"] };
+        linkComponentTag: "a" | "nuxt-link" | "router-link";
     }
 
     interface Constructor extends VueConstructor {
@@ -403,11 +405,11 @@ export namespace SfAddToCart {
 export namespace SfAlert {
     interface Props {
         message: string;
-        type: 'secondary' | 'info' | 'success' | 'warning' | 'danger';
+        type: "secondary" | "info" | "success" | "warning" | "danger";
     }
 
     interface Computed {
-        icon: 'added_to_cart' | 'info_shield' | 'info_circle';
+        icon: "added_to_cart" | "info_shield" | "info_circle";
     }
 
     interface Constructor extends VueConstructor {
@@ -431,9 +433,9 @@ export namespace SfBanner {
         mobileObserverClients: number;
         mobileObserverIsInitialized: boolean;
         style: {
-            ['--_banner-background-image']: string;
-            ['--_banner-background-desktop-image']: string;
-            ['--_banner-background-color']: string;
+            ["--_banner-background-image"]: string;
+            ["--_banner-background-desktop-image"]: string;
+            ["--_banner-background-color"]: string;
         };
     }
 
@@ -483,9 +485,9 @@ export namespace SfCallToAction {
 
     interface Computed {
         style: {
-            ['--_call-to-action-background-image']: string;
-            ['--_call-to-action-background-desktop-image']: string;
-            ['--_call-to-action-background-color']: string;
+            ["--_call-to-action-background-image"]: string;
+            ["--_call-to-action-background-desktop-image"]: string;
+            ["--_call-to-action-background-color"]: string;
         };
     }
 
@@ -567,7 +569,7 @@ export namespace SfGallery {
     }
 
     interface Methods {
-        positionObject: (index: number) => ClientRect | '';
+        positionObject: (index: number) => ClientRect | "";
         go: (index: number) => void;
         startZoom: (picture: Image) => void;
         moveZoom: ($event: any, index: number) => void;
@@ -630,11 +632,11 @@ export namespace SfNotification {
         title: string;
         message: string;
         action: string;
-        type: 'secondary' | 'info' | 'success' | 'warning' | 'danger';
+        type: "secondary" | "info" | "success" | "warning" | "danger";
     }
 
     interface Computed {
-        icon: 'added_to_cart' | 'info_shield' | 'info_circle';
+        icon: "added_to_cart" | "info_shield" | "info_circle";
     }
 
     interface Methods {
@@ -660,7 +662,7 @@ export namespace SfPagination {
 
     interface Computed {
         hasRouter: boolean;
-        compoenntIs: 'sf-link' | 'sf-button';
+        compoenntIs: "sf-link" | "sf-button";
         currentPage: number;
         getPrev: number;
         canGoPrev: number;
@@ -770,7 +772,7 @@ export namespace SfScrollable {
 
     interface Computed {
         style: {
-            ['--_scrollable-max-height']: string | undefined;
+            ["--_scrollable-max-height"]: string | undefined;
         };
     }
 
@@ -900,14 +902,14 @@ export namespace SfSteps {
     interface Computed {
         parsedSteps: any[];
         progress: {
-            ['--_steps-progress-width']: string;
-            ['--_steps-progress-active-step']: number;
+            ["--_steps-progress-width"]: string;
+            ["--_steps-progress-active-step"]: number;
         };
     }
 
     interface Methods {
         updateSteps: (step: any) => void;
-        stepClick: (props: { index: number, disabled: boolean }) => void;
+        stepClick: (props: { index: number; disabled: boolean }) => void;
     }
 
     interface Constructor extends VueConstructor {
@@ -1008,7 +1010,7 @@ export namespace SfCarousel {
     }
 
     interface Methods {
-        go: (direct: 'prev' | 'next') => void;
+        go: (direct: "prev" | "next") => void;
     }
 
     interface Constructor extends VueConstructor {
@@ -1086,7 +1088,7 @@ export namespace SfFooter {
         mobileObserverClients: number;
         mobileObserverIsInitialized: boolean;
         style: {
-            ['--_footer-column-width']: string;
+            ["--_footer-column-width"]: string;
         };
     }
 
@@ -1136,7 +1138,7 @@ export namespace SfHeader {
         cartIcon: Icon | boolean;
         wishlistIcon: Icon | boolean;
         accountIcon: Icon | boolean;
-        activeIcon: '' | 'account' | 'wishlist' | 'cart';
+        activeIcon: "" | "account" | "wishlist" | "cart";
         searchPlaceholder: string;
         searchValue: string;
         cartItemsQty: string | number;
@@ -1161,7 +1163,7 @@ export namespace SfHeader {
         mobileObserverIsInitialized: boolean;
         cartHasProducts: boolean;
         stickyHeight: {
-            ['--_header-height']: string;
+            ["--_header-height"]: string;
         };
     }
 
@@ -1195,7 +1197,7 @@ export namespace SfHero {
     }
 
     interface Methods {
-        go: (direct: 'prev' | 'next') => void;
+        go: (direct: "prev" | "next") => void;
     }
 
     interface Constructor extends VueConstructor {
@@ -1269,8 +1271,10 @@ export namespace SfProductCard {
         badgeColorClass: string;
         currentWishlistIcon: Icon;
         showAddedToCartBadge: boolean;
-        ariaLabel: 'Remove from wishlist' | 'Add to wishlist';
-        wishlistIconClasses: 'sf-button--pure sf-product-card__wishlist-icon' | 'sf-button--pure sf-product-card__wishlist-icon sf-product-card--on-wishlist';
+        ariaLabel: "Remove from wishlist" | "Add to wishlist";
+        wishlistIconClasses:
+            | "sf-button--pure sf-product-card__wishlist-icon"
+            | "sf-button--pure sf-product-card__wishlist-icon sf-product-card--on-wishlist";
         linkComponentTag: string;
     }
 
@@ -1311,8 +1315,10 @@ export namespace SfProductCardHorizontal {
 
     interface Computed {
         currentWishlistIcon: Icon;
-        ariaLabel: 'Remove from wishlist' | 'Add to wishlist';
-        wishlistIconClasses: 'sf-product-card-horizontal__wishlist-icon' | 'sf-product-card-horizontal__wishlist-icon sf-product-card-horizontal--on-wishlist';
+        ariaLabel: "Remove from wishlist" | "Add to wishlist";
+        wishlistIconClasses:
+            | "sf-product-card-horizontal__wishlist-icon"
+            | "sf-product-card-horizontal__wishlist-icon sf-product-card-horizontal--on-wishlist";
         linkComponentTag: string;
     }
 

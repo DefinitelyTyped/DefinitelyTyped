@@ -7,9 +7,7 @@
 /// <reference types="jquery" />
 
 interface JQuery {
-    /**
-    * @constructor
-    */
+    /** */
     dynatable: JQueryDynatable.Dynatable;
 }
 
@@ -108,7 +106,7 @@ declare namespace JQueryDynatable {
          * Detected internally by dynatable.
          * Possible values are:
          *
-         * @enum('left', 'right', 'center', 'justify', 'initial', 'inherit')
+         * ('left', 'right', 'center', 'justify', 'initial', 'inherit')
          */
         textAlign: string;
     }
@@ -116,7 +114,7 @@ declare namespace JQueryDynatable {
         /**
          * By default, dynatable converts headings to JSON attribute names using:
          *
-         * @enum('camelCase', 'trimDash', 'dashed', 'underscore', 'lowercase')
+         * ('camelCase', 'trimDash', 'dashed', 'underscore', 'lowercase')
          * @default 'camelCase'
          * @see http://www.dynatable.com/#converting-attribute-names
          *
@@ -200,7 +198,7 @@ declare namespace JQueryDynatable {
         /**
          * Determines where the recordCount is inserted
          *
-         * @enum('before', 'after')
+         * ('before', 'after')
          * @default 'after'
          * @see http://api.jquery.com/category/manipulation/dom-insertion-outside/
          */
@@ -211,11 +209,11 @@ declare namespace JQueryDynatable {
          *
          * @default null
          */
-        paginationLinkTarget?: string|Element|JQuery | undefined;
+        paginationLinkTarget?: string | Element | JQuery | undefined;
         /**
          * Determines where the pagination links are inserted
          *
-         * @enum('before', 'after')
+         * ('before', 'after')
          * @default 'after'
          * @see http://api.jquery.com/category/manipulation/dom-insertion-outside/
          */
@@ -280,11 +278,11 @@ declare namespace JQueryDynatable {
          *
          * @default null
          */
-        searchTarget?: string|Element|JQuery | undefined;
+        searchTarget?: string | Element | JQuery | undefined;
         /**
          * Determines where the search field is inserted
          *
-         * @enum('before', 'after')
+         * ('before', 'after')
          * @default 'before'
          * @see http://api.jquery.com/category/manipulation/dom-insertion-outside/
          */
@@ -301,11 +299,11 @@ declare namespace JQueryDynatable {
          *
          * @default null
          */
-        perPageTarget?: string|Element|JQuery | undefined;
+        perPageTarget?: string | Element | JQuery | undefined;
         /**
          * Determines where the perPage menu is inserted
          *
-         * @enum('before', 'after')
+         * ('before', 'after')
          * @default 'before'
          * @see http://api.jquery.com/category/manipulation/dom-insertion-outside/
          */
@@ -402,7 +400,7 @@ declare namespace JQueryDynatable {
          * Defining the `method` setting for the jQuery's ajax call...
          * The HTTP method to use for the request (e.g. "POST", "GET", "PUT").
          *
-         * @enum('GET', 'POST')
+         * ('GET', 'POST')
          * @default 'GET'
          * @todo Check if other methods could be used... ('GET', 'PUT', 'HEAD', 'POST', 'PATCH', 'TRACE', 'DELETE', 'CONNECT', 'OPTIONS', 'IS_AWARE', 'IS_EAGER', 'PROPFIND', 'IS_OPTIONAL', 'IS_REQUIRED', 'IS_CONSTRUCTOR', 'IS_INSTANTIATOR')
          */
@@ -411,7 +409,7 @@ declare namespace JQueryDynatable {
          * The type of data that you're expecting back from the server.
          * If none is specified, jQuery will try to infer it based on the MIME type of the response...
          *
-         * @enum('xml', 'html', 'script', 'json', 'jsonp', 'text')
+         * ('xml', 'html', 'script', 'json', 'jsonp', 'text')
          * @default 'json'
          * @see http://api.jquery.com/jQuery.ajax
          */
@@ -500,7 +498,9 @@ declare namespace JQueryDynatable {
          *     return '<tr>' + tr + '</tr>';
          * };
          */
-        _rowWriter?: ((rowIndex: number, record: any, columns: Array<Column>, cellWriter: Function) => string) | undefined;
+        _rowWriter?:
+            | ((rowIndex: number, record: any, columns: Array<Column>, cellWriter: Function) => string)
+            | undefined;
         /**
          * Function that returns the HTML code that will be injected for the cell
          *
@@ -671,7 +671,7 @@ declare namespace JQueryDynatable {
          *
          * @return Could return an `$.error()` if nothing is found.
          */
-        getFromTable(): void|JQuery;
+        getFromTable(): void | JQuery;
         /** Initializes `settings.table.columns` array and calls `getFromTable()` */
         init(): void;
         /**
@@ -685,7 +685,7 @@ declare namespace JQueryDynatable {
          *
          * @param columnIndexOrId A number (the column index) or a string (the column id)
          */
-        remove(columnIndexOrId: number|string): void;
+        remove(columnIndexOrId: number | string): void;
         /**
          * Remove the column from `settings.table.columns`
          *
@@ -730,7 +730,13 @@ declare namespace JQueryDynatable {
          * @param conditionalClass The classname for both the `<li>` and its `<a>`
          * @return A string containing html markup
          */
-        buildLink(page: number, label: string|number, linkClass: string, conditional: boolean, conditionalClass: string): string;
+        buildLink(
+            page: number,
+            label: string | number,
+            linkClass: string,
+            conditional: boolean,
+            conditionalClass: string,
+        ): string;
         /**
          * Build the `<ul>` and creates the event listeners
          *
@@ -1098,10 +1104,10 @@ declare namespace JQueryDynatable {
     }
     interface Dynatable {
         /**
-        * Initialize Dynatable plugin
-        *
-        * @param options An optional object that allow you to change the default configuration options
-        */
+         * Initialize Dynatable plugin
+         *
+         * @param options An optional object that allow you to change the default configuration options
+         */
         (options?: Options): JQuery;
         /**
          * Each dynatable instance inherits from this,
@@ -1125,7 +1131,7 @@ declare namespace JQueryDynatable {
         /** The `domColumns` API */
         domColumns: DOMColumns;
         /** The native element on which the dynatable plugin was called */
-        element: Element
+        element: Element;
         /** The `inputsSearch` API */
         inputsSearch: InputsSearch;
         /** The `paginationLinks` API */
@@ -1153,4 +1159,4 @@ declare namespace JQueryDynatable {
     }
 }
 
-//declare var dynatable: JQueryDynatable.Dynatable;
+// declare var dynatable: JQueryDynatable.Dynatable;

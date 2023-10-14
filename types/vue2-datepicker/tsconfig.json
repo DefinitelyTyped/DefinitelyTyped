@@ -21,7 +21,5 @@
     "files": [
         "index.d.ts",
         "vue2-datepicker-tests.ts"
-    ],
-    "baseUrl": "types",
-    "typeRoots": ["types"]
+    ]
 }

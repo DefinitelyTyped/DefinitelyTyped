@@ -1,4 +1,4 @@
-// Type definitions for happo-cypress 3.0
+// Type definitions for happo-cypress 4.1
 // Project: https://github.com/happo/happo-cypress#readme
 // Definitions by: Alexander Polyankin <https://github.com/alexanderpolyankin>
 //                 Mario Beltrán Alarcón <https://github.com/Belco90>
@@ -6,12 +6,19 @@
 
 /// <reference types="cypress" />
 
+export interface HappoScreenshotTarget {
+    name: string;
+    browser: string;
+    viewport: string;
+}
+
 export interface HappoScreenshotOptions {
     component?: string | undefined;
     variant?: string | undefined;
-    targets?: ReadonlyArray<string> | undefined;
+    targets?: ReadonlyArray<string | HappoScreenshotTarget> | undefined;
     responsiveInlinedCanvases?: boolean | undefined;
     transformDOM?: HappoTransformDOMOptions | undefined;
+    includeAllElements?: boolean | undefined;
 }
 
 export interface HappoTransformDOMOptions {

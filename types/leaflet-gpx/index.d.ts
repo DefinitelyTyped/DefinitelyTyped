@@ -4,15 +4,20 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as L from 'leaflet';
+import * as L from "leaflet";
 
-declare module 'leaflet' {
+declare module "leaflet" {
     interface GPXMarkerOptions {
         startIconUrl?: string;
         endIconUrl?: string;
         shadowUrl?: string | undefined;
         wptIconUrls?: {
             [key: string]: string;
+        };
+        startIcon?: Icon | undefined;
+        endIcon?: Icon | undefined;
+        wptIcons?: {
+            [key: string]: Icon;
         };
     }
 
@@ -21,7 +26,7 @@ declare module 'leaflet' {
         max_point_interval?: number | undefined;
         marker_options?: GPXMarkerOptions | undefined;
         polyline_options?: PolylineOptions | undefined;
-        gpx_options?: { parseElements: ['track', 'route', 'waypoint'] } | undefined;
+        gpx_options?: { parseElements: ["track", "route", "waypoint"] } | undefined;
     }
 
     class GPX extends FeatureGroup {

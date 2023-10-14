@@ -1,22 +1,24 @@
-import * as Constants from "./Constants";
-import { Layers } from "./collections/Layers";
+import { Channel } from "./Channel";
+import { Channels } from "./collections/Channels";
+import { ColorSamplers } from "./collections/ColorSamplers";
+import { CountItems } from "./collections/CountItems";
 import { Guides } from "./collections/Guides";
 import { HistoryStates } from "./collections/HistoryStates";
-import { Channels } from "./collections/Channels";
-import { Channel } from "./Channel";
-import { HistoryState } from "./HistoryState";
-import { Bounds } from "./objects/Bounds";
-import { BitmapConversionOptions, IndexedConversionOptions } from "./objects/ConversionOptions";
-import { JPEGSaveOptions, GIFSaveOptions, PNGSaveOptions, BMPSaveOptions, PhotoshopSaveOptions } from "./Objects";
-import { LayerCreateOptions, GroupLayerCreateOptions } from "./objects/CreateOptions";
-import { Layer } from "./Layer";
+import { LayerComps } from "./collections/LayerComps";
+import { Layers } from "./collections/Layers";
+import { PathItems } from "./collections/PathItems";
+import * as Constants from "./Constants";
 import { ExecutionContext } from "./CoreModules";
-/** @ignore */
-export declare function validateDocument(d: Document): void;
-/**
- * @ignore
- */
-export declare function PSDocument(id: number): Document;
+import { HistoryState } from "./HistoryState";
+import { Layer } from "./Layer";
+import { BMPSaveOptions, GIFSaveOptions, JPEGSaveOptions, PhotoshopSaveOptions, PNGSaveOptions } from "./Objects";
+import { Bounds } from "./objects/Bounds";
+import { NoColor } from "./objects/Colors";
+import { BitmapConversionOptions, IndexedConversionOptions } from "./objects/ConversionOptions";
+import { SolidColor } from "./objects/SolidColor";
+import { Selection } from "./Selection";
+import { CalculationsOptions } from "./types/CalculationsTypes";
+import { GroupLayerCreateOptions, PixelLayerCreateOptions, TextLayerCreateOptions } from "./types/LayerTypes";
 /**
  * Execution Context with the Document injected for modal execution within Document.suspendHistory
  * @ignore
@@ -29,163 +31,226 @@ export interface SuspendHistoryContext extends ExecutionContext {
  * You can access instances of documents using one of these methods:
  *
  * ```javascript
+ * const app = require('photoshop').app;
+ * const constants = require('photoshop').constants;
+ *
  * // The currently active document from the Photoshop object
- * const currentDocument = app.activeDocument
+ * const currentDocument = app.activeDocument;
  *
  * // Choose one of the open documents from the Photoshop object
- * const secondDocument = app.documents[1]
+ * const secondDocument = app.documents[1];
  *
  * // You can also create an instance of a document via a UXP File entry
- * let fileEntry = require('uxp').storage.localFileSystem.getFileForOpening()
- * const newDocument = await app.open('/project.psd')
+ * let fileEntry = require('uxp').storage.localFileSystem.getFileForOpening();
+ * const newDocument = await app.open('/project.psd');
  * ```
  */
 export declare class Document {
     /**
-     * The class name of the referenced Document object
+     * The class name of the referenced object: *"Document"*.
+     * @minVersion 23.0
      */
-    get typename(): string;
+    get typename(): "Document";
     /**
-     * The internal ID of this document, valid as long as this document is open
-     * Can be used for batchPlay calls to refer to this document, used internally
+     * The internal ID of this document will remain valid as long as this document is open.
+     * It can be used for batchPlay calls to refer to this document.
+     * @minVersion 22.5
      */
     get id(): number;
     /**
      * True if the document has been saved since the last change.
+     * @minVersion 23.0
      */
     get saved(): boolean;
     /**
-     * The selected layers in the document
+     * The selected layers in the document.
+     * @minVersion 22.5
      */
     get activeLayers(): Layers;
     /**
      * The artboards in the document
+     * @minVersion 22.5
      */
     get artboards(): Layers;
     /**
      * The name of the document
+     * @minVersion 23.0
      */
     get name(): string;
     /**
      * A histogram containing the number of pixels at each color
-     * intensity level for the composite channel. The array contains 256
+     * intensity level for the component channel. The array contains 256
      * members.
      *
      * Valid only when [[mode]] = `DocumentMode.{RGB,CMYK,INDEXEDCOLOR}`
+     * @minVersion 23.0
      */
     get histogram(): number[];
     /**
      * The state of Quick Mask mode. If true, the app is in Quick Mask mode.
+     * @minVersion 23.0
      */
     get quickMaskMode(): boolean;
     set quickMaskMode(qmMode: boolean);
+    /**
+     * The collection of Guides present in the document.
+     * @minVersion 23.0
+     */
     get guides(): Guides;
     /**
-     * The color profile. To change it, please use [[Document.changeMode]]
+     * The collection of CountItems present in the document.
+     * @minVersion 24.1
+     */
+    get countItems(): CountItems;
+    /**
+     * The collection of ColorSamplers present in the document.
+     * @minVersion 24.0
+     */
+    get colorSamplers(): ColorSamplers;
+    /**
+     * The color mode. To change it, please use [[Document.changeMode]].
+     * @minVersion 23.0
      */
     get mode(): Constants.DocumentMode;
     /**
      * The bits per color channel.
+     * @minVersion 23.0
      */
     get bitsPerChannel(): Constants.BitsPerChannelType;
     set bitsPerChannel(bitDepth: Constants.BitsPerChannelType);
     /**
-     * This document is in the Adobe Creative Cloud.
+     * Check whether this a [Photoshop cloud document](https://helpx.adobe.com/photoshop/using/cloud-documents-faq.html).
+     * @minVersion 23.0
      */
     get cloudDocument(): boolean;
     /**
      * Local directory for this cloud document.
+     * @minVersion 23.0
      */
     get cloudWorkAreaDirectory(): string;
     /**
-     * All the layers in the document at the top level
+     * The layers in the document at the top level of the layer/group hierarchy.
+     * @minVersion 22.5
      */
     get layers(): Layers;
     /**
-     * Background layer, if it exists
+     * The layer comps present in the document.
+     * @minVersion 24.0
+     */
+    get layerComps(): LayerComps;
+    /**
+     * Background layer, if it exists.
+     * @minVersion 22.5
      */
     get backgroundLayer(): Layer | null;
     /**
-     * Full file system path to this document, or the identifier if it is a cloud document
+     * Full file system path to this document, or the identifier if it is a cloud document.
+     * @minVersion 22.5
      */
     get path(): string;
     /**
-     * History states of the document
+     * The collection of paths in this document, as shown in the
+     * Paths panel.
+     * @minVersion 23.3
+     */
+    get pathItems(): PathItems;
+    /**
+     * History states of the document.
+     * @minVersion 22.5
      */
     get historyStates(): HistoryStates;
     /**
-     * Currently active history state of the document
+     * Currently active history state of the document.
+     * @minVersion 22.5
      */
     get activeHistoryState(): HistoryState;
     /**
-     * Selects the given history state to be the active one
+     * Selects the given history state to be the active one.
+     * @minVersion 22.5
      */
     set activeHistoryState(historyState: HistoryState);
     /**
-     * The history state that history brush tool will use as its source
+     * The history state that history brush tool will use as its source.
+     * @minVersion 22.5
      */
     get activeHistoryBrushSource(): HistoryState;
     set activeHistoryBrushSource(historyState: HistoryState);
     /**
      * Document title
+     * @minVersion 22.5
      */
     get title(): string;
     /**
-     * Document's resolution (in pixels per inch)
+     * Document's resolution (in pixels per inch).
+     * @minVersion 22.5
      */
     get resolution(): number;
     /**
-     * Document's width in pixels
+     * Document's width in pixels.
+     * @minVersion 22.5
      */
     get width(): number;
     /**
-     * Document's height in pixels
+     * Document's height in pixels.
+     * @minVersion 22.5
      */
     get height(): number;
     /**
-     * The (custom) pixel aspect ratio to use
+     * The (custom) pixel aspect ratio to use.
+     * @minVersion 22.5
      */
     get pixelAspectRatio(): number;
     set pixelAspectRatio(newValue: number);
     /**
      * Name of the color profile.
      *
-     * Valid only when [[colorProfileType]] is `CUSTOM` or `WORKING`, returns "None" otherwise
+     * Valid only when [[colorProfileType]] is `CUSTOM` or `WORKING`, returns "None" otherwise.
+     * @minVersion 23.0
      */
     get colorProfileName(): string;
     set colorProfileName(profile: string);
     /**
      * Whether the document uses the working color profile, a custom profile, or no profile.
+     * @minVersion 23.0
      */
     get colorProfileType(): Constants.ColorProfileType;
     set colorProfileType(type: Constants.ColorProfileType);
+    /**
+     * The object containing the document's currently active selection
+     * @minVersion 25.0
+     */
+    readonly selection: Selection;
     /**
      * @ignore
      */
     constructor(id: number);
     /**
      * Closes the document, showing a prompt to save
-     * unsaved changes if specified
+     * unsaved changes if specified.
      *
-     * @param saveOptions By default, prompts a save dialog
-     *                    if there are unsaved changes
+     * @param saveDialogOptions By default, prompts a save dialog
+     *                    if there are unsaved changes.
      *
      * @async
+     * @minVersion 22.5
      */
     close(saveDialogOptions?: Constants.SaveOptions): Promise<void>;
     /**
-     * Close the document, reverting all unsaved changes.
+     * Close the document, discarding all unsaved changes.
+     * @minVersion 22.5
      */
     closeWithoutSaving(): void;
     /**
      * Crops the document to given bounds
      *
      * @async
+     * @minVersion 23.0
      */
     crop(bounds: Bounds, angle?: number, width?: number, height?: number): Promise<void>;
     /**
-     * Flatten all layers in the document
+     * Flatten all layers in the document.
      * @async
+     * @minVersion 22.5
      */
     flatten(): Promise<void>;
     /**
@@ -194,32 +259,38 @@ export declare class Document {
      * The optional parameter `name` provides the name for the duplicated document.
      *
      * The optional parameter `mergeLayersOnly` indicates whether to only duplicate merged layers.
+     * @minVersion 23.0
      */
     duplicate(name?: string, mergeLayersOnly?: boolean): Promise<Document>;
     /**
      * Merges all visible layers in the document into a single layer.
      * @async
+     * @minVersion 23.0
      */
     mergeVisibleLayers(): Promise<void>;
     /**
      * Splits the document channels into separate, single-channel
      * documents.
      * @async
+     * @minVersion 23.0
      */
     splitChannels(): Promise<Document[]>;
     /**
      * Expands the document to show clipped sections.
      * @async
+     * @minVersion 23.0
      */
     revealAll(): Promise<void>;
     /**
      * Rasterizes all layers.
      * @async
+     * @minVersion 23.0
      */
     rasterizeAllLayers(): Promise<void>;
     /**
-     * Changes the color profile of the document
+     * Changes the color mode of the document.
      * @async
+     * @minVersion 23.0
      */
     changeMode(mode: Constants.ChangeMode, options?: BitmapConversionOptions | IndexedConversionOptions): Promise<void>;
     /**
@@ -231,20 +302,26 @@ export declare class Document {
      * `"Working RGB", "Working CMYK", "Working Gray", "Lab Color"`
      *
      * @async
+     * @minVersion 23.0
      */
-    convertProfile(destinationProfile: string, intent: Constants.Intent, blackPointCompensation?: boolean, dither?: boolean): Promise<void>;
+    convertProfile(
+        destinationProfile: string,
+        intent: Constants.Intent,
+        blackPointCompensation?: boolean,
+        dither?: boolean,
+    ): Promise<void>;
     /**
      * Applies trapping to a CMYK document.
      *
      * Valid only when [[Document.mode]] is `Constants.DocumentMode.CMYK`
      *
      * @async
+     * @minVersion 23.0
      */
     trap(width: number): Promise<void>;
     /**
      * Changes the size of the canvas, but does not change image size
      * To change the image size, see [[resizeImage]]
-     *
      *
      * ```javascript
      * // grow the canvas by 400px
@@ -257,6 +334,7 @@ export declare class Document {
      * @param anchor Anchor point for resizing, by default will resize an equal amount on all sides.
      *
      * @async
+     * @minVersion 23.0
      */
     resizeCanvas(width: number, height: number, anchor?: Constants.AnchorPosition): Promise<void>;
     /**
@@ -272,8 +350,15 @@ export declare class Document {
      * @param amount Numeric value that controls the amount of noise value when using preserve details 0..100
      *
      * @async
+     * @minVersion 23.0
      */
-    resizeImage(width?: number, height?: number, resolution?: number, resampleMethod?: Constants.ResampleMethod, amount?: number): Promise<void>;
+    resizeImage(
+        width?: number,
+        height?: number,
+        resolution?: number,
+        resampleMethod?: Constants.ResampleMethod,
+        amount?: number,
+    ): Promise<void>;
     /**
      * Trims the transparent area around the image on the specified sides of the canvas
      * base on trimType
@@ -285,6 +370,7 @@ export declare class Document {
      * @param right
      *
      * @async
+     * @minVersion 23.0
      */
     trim(trimType: Constants.TrimType, top?: boolean, left?: boolean, bottom?: boolean, right?: boolean): Promise<void>;
     /**
@@ -292,6 +378,7 @@ export declare class Document {
      * @param angle
      *
      * @async
+     * @minVersion 23.0
      */
     rotate(angles: number): Promise<void>;
     /**
@@ -300,6 +387,7 @@ export declare class Document {
      * @param intoSelection
      *
      * @async
+     * @minVersion 23.0
      */
     paste(intoSelection?: boolean): Promise<Layer | null>;
     /**
@@ -315,14 +403,14 @@ export declare class Document {
      * ```
      *
      * @async
+     * @minVersion 23.0
      */
     save(): Promise<void>;
     /**
      * Save the document to a desired file type.
      *
-     * For operations that require a UXP File token, use the UXP storage APIs to generate one.
-     * See https://www.adobe.com/go/ps-api-uxp-filesystemprovider.
-     *
+     * For operations that require a UXP File token, use the
+     * [UXP storage APIs](https://www.adobe.com/go/ps-api-uxp-filesystemprovider) to generate one.
      *
      * ```javascript
      * let entry = await require('uxp').storage.localFileSystem.getFileForSaving("target.psd");
@@ -333,8 +421,8 @@ export declare class Document {
      *
      * // Save a PSB, with some options:
      * document.saveAs.psb(entryPsb, { embedColorProfile: true });
-     *
      * ```
+     * @minVersion 23.0
      */
     saveAs: {
         /**
@@ -342,6 +430,7 @@ export declare class Document {
          * @param entry UXP File token generated from the UXP Storage APIs.
          * @param saveOptions PSD specific save options. See SaveOptions/PhotoshopSaveOptions.
          * @param asCopy Whether to save as a copy.
+         * @minVersion 23.0
          */
         psd(entry: File, saveOptions?: PhotoshopSaveOptions, asCopy?: boolean): Promise<void>;
         /**
@@ -349,6 +438,7 @@ export declare class Document {
          * @param entry UXP File token generated from the UXP Storage APIs.
          * @param saveOptions PSD/PSB specific save options. See SaveOptions/PhotoshopSaveOptions.
          * @param asCopy Whether to save as a copy.
+         * @minVersion 23.0
          */
         psb(entry: File, saveOptions?: PhotoshopSaveOptions, asCopy?: boolean): Promise<void>;
         /**
@@ -356,12 +446,14 @@ export declare class Document {
          * Save the document into Cloud Documents (PSDC).
          * @param path String title or path (separated by slash '/') location to save to.
          * @param saveOptions PSD/PSB specific save options. See SaveOptions/PhotoshopSaveOptions.
+         * @minVersion ?
          */
         /**
          * Save the document as a JPG file.
          * @param entry UXP File token generated from the UXP Storage APIs.
          * @param saveOptions JPEG specific save options. See SaveOptions/JPEGSaveOptions.
          * @param asCopy Whether to save as a copy.
+         * @minVersion 23.0
          */
         jpg(entry: File, saveOptions?: JPEGSaveOptions, asCopy?: boolean): Promise<void>;
         /**
@@ -369,6 +461,7 @@ export declare class Document {
          * @param entry UXP File token generated from the UXP Storage APIs.
          * @param saveOptions GIF specific save options. See SaveOptions/GIFSaveOptions.
          * @param asCopy Whether to save as a copy.
+         * @minVersion 23.0
          */
         gif(entry: File, saveOptions?: GIFSaveOptions, asCopy?: boolean): Promise<void>;
         /**
@@ -376,6 +469,7 @@ export declare class Document {
          * @param entry UXP File token generated from the UXP Storage APIs.
          * @param saveOptions PNG specific save options. See SaveOptions/PNGSaveOptions.
          * @param asCopy Whether to save as a copy.
+         * @minVersion 23.0
          */
         png(entry: File, saveOptions?: PNGSaveOptions, asCopy?: boolean): Promise<void>;
         /**
@@ -383,12 +477,14 @@ export declare class Document {
          * @param entry UXP File token generated from the UXP Storage APIs.
          * @param saveOptions JPEG specific save options. See SaveOptions/BMPSaveOptions.
          * @param asCopy Whether to save as a copy.
+         * @minVersion 23.0
          */
         bmp(entry: File, saveOptions?: BMPSaveOptions, asCopy?: boolean): Promise<void>;
     };
     /**
      * Duplicates given layer(s), creating all copies above the top most one in layer stack,
      * and returns the newly created layers.
+     *
      * ```javascript
      * // duplicate some layers
      * const layerCopies = await document.duplicateLayers([layer1, layer3])
@@ -402,40 +498,96 @@ export declare class Document {
      * @param targetDocument if specified, duplicate to a different document target.
      *
      * @async
+     * @minVersion 23.0
      */
     duplicateLayers(layers: Layer[], targetDocument?: Document): Promise<Layer[]>;
     /**
      * Links layers together if possible, and returns a list of linked layers.
      * @param layers array of layers to link together
      * @returns array of successfully linked layers
+     * @minVersion 23.0
      */
     linkLayers(layers: Layer[]): Layer[];
     /**
-     * Create a layer. See @CreateOptions
+     * Create a new layer.
+     *
      * ```javascript
-     * const myEmptyLayer = await doc.createLayer()
-     * const myLayer = await doc.createLayer({ name: "myLayer", opacity: 80, mode: "colorDodge" })
+     * await doc.createLayer() // defaults to pixel layer
      * ```
      * @async
+     * @minVersion 23.0
      */
-    createLayer(options?: LayerCreateOptions): Promise<Layer | null>;
+    createLayer(): Promise<Layer | null>;
     /**
-     * Create a layer group. See [[GroupLayerCreateOptions]]
+     * Create a new pixel layer.
+     *
+     * ```javascript
+     * await doc.createLayer(
+     *   Constants.LayerKind.NORMAL,
+     *   { name: "myLayer", opacity: 80, blendMode: Constants.BlendMode.COLORDODGE })
+     * ```
+     * @async
+     * @param kind The kind of layer to create [[Constants.LayerKind]].
+     * @param options The options for creation, including general layer options and those specific to the layer kind.
+     * @minVersion 23.0
+     */
+    createLayer(kind: Constants.LayerKind.NORMAL, options?: PixelLayerCreateOptions): Promise<Layer | null>;
+    /**
+     * Create a new layer group.
+     *
+     * ```javascript
+     * await doc.createLayer( Constants.LayerKind.GROUP, { name: "myLayer", opacity: 80 })
+     * ```
+     * @async
+     * @param kind The kind of layer to create [[Constants.LayerKind]].
+     * @param options The options for creation, including general layer options and those specific to the layer kind.
+     * @minVersion 24.1
+     */
+    createLayer(kind: Constants.LayerKind.GROUP, options?: GroupLayerCreateOptions): Promise<Layer | null>;
+    /**
+     * Create a pixel layer using options described by [[PixelLayerCreateOptions]].
+     *
+     * ```javascript
+     * await doc.createPixelLayer()
+     * await doc.createPixelLayer({ name: "myLayer", opacity: 80, fillNeutral: true })
+     * ```
+     * @async
+     * @minVersion 24.1
+     */
+    createPixelLayer(options?: PixelLayerCreateOptions): Promise<Layer | null>;
+    /**
+     * Create a text layer using options described by [[TextLayerCreateOptions]].
+     *
+     * ```javascript
+     * await doc.createTextLayer()
+     * await doc.createTextLayer({ name: "myTextLayer", contents: "Hello, World!", fontSize: 32 })
+     * ```
+     * @async
+     * @minVersion 24.2
+     */
+    createTextLayer(options?: TextLayerCreateOptions): Promise<Layer | null>;
+    /**
+     * Create a layer group using options described by [[GroupLayerCreateOptions]].
+     *
      * ```javascript
      * const myEmptyGroup = await doc.createLayerGroup()
-     * const myGroup = await doc.createLayerGroup({ name: "myLayer", opacity: 80, mode: "colorDodge" })
+     * const myGroup = await doc.createLayerGroup({ name: "myLayer", opacity: 80, blendMode: "colorDodge" })
      * const nonEmptyGroup = await doc.createLayerGroup({ name: "group", fromLayers: [layer1, layer2] })
+     * const selectedGroup = await doc.createLayerGroup({ name: "group", fromLayers: doc.activeLayers })
      * ```
      * @async
+     * @minVersion 23.0
      */
     createLayerGroup(options?: GroupLayerCreateOptions): Promise<Layer | null>;
     /**
      * Create a layer group from existing layers.
+     *
      * ```javascript
      * const layers = doc.layers
      * const group = await doc.groupLayers([layers[1], layers[2], layers[4]])
      * ```
      * @async
+     * @minVersion 23.0
      */
     groupLayers(layers: Layer[]): Promise<Layer | null>;
     /**
@@ -458,18 +610,90 @@ export declare class Document {
      *        context.document.activeLayers[0].name = "Changed name";
      *    });
      * ```
+     * @minVersion 23.0
      */
-    suspendHistory(callback: (e: SuspendHistoryContext) => void, historyStateName: string): Promise<any>;
+    suspendHistory(callback: (e: SuspendHistoryContext) => void, historyStateName: string): Promise<void>;
+    /**
+     * Returns a SolidColor object sampled from the document at the given position.
+     *
+     * ```javascript
+     * let col = await app.activeDocument.sampleColor({x: 100, y: 100});
+     * console.log(col.rgb);
+     * // {
+     * //    red: 233,
+     * //    green: 179,
+     * //    blue: 135,
+     * //    hexValue: "E9B387"
+     * // }
+     * ```
+     *
+     * @param position The point to sample `{x: number, y: number}`.
+     * @param position.x The horizontal coordinate in pixels.
+     * @param position.y The vertical coordinate in pixels.
+     * @returns A [[SolidColor]] instance of the sampled pixel
+     * @async
+     * @minVersion 24.0
+     */
+    sampleColor(position: {
+        x: number;
+        y: number;
+    }): Promise<NoColor | SolidColor>;
+    /**
+     * The Calculations command lets you blend two individual channels from one or more source images. You can then
+     * apply the results to a new image or to a new channel or selection in the active image.
+     *
+     * Performs Image > Calculations on the document. See the [[CalculationsOptions]]
+     * object for more info and examples.
+     *
+     * ```javascript
+     * const doc = app.activeDocument;
+     * const options = {
+     *     source1: {
+     *         document: doc,
+     *         layer: doc.layers[0],
+     *         channel: CalculationsChannel.GRAY
+     *         invert: true
+     *     },
+     *     source2: {
+     *         document: doc,
+     *         layer: CalculationsLayer.MERGED,
+     *         channel: doc.channels[2]
+     *     },
+     *     blending: CalculationsBlendMode.DARKEN,
+     *     opacity: 50,
+     *     result: CalculationsResult.NEWCHANNEL
+     * };
+     * doc.calculations(options);
+     *
+     * ```
+     *
+     * Known issue: currently calculations requires having exactly one unlocked pixel layer being selected otherwise
+     * it won't work. In future there should not be any layer requirements since this cannot output into layer.
+     * @param calculationsOptions Option object for the calculations.
+     * @async
+     * @minVersion 24.5
+     */
+    calculations(calculationsOptions: CalculationsOptions): Promise<Document | Channel | void>;
     /**
      * All channels in the document.
+     * @minVersion 23.0
      */
     get channels(): Channels;
     /**
-     * Composite channels in the document.
+     * Component channels in the document. [(24.6)](/ps_reference/changelog#246-bug-fixes)
+     * @minVersion 24.5
+     */
+    get componentChannels(): Channel[];
+    /**
+     * Deprecated since these channels are component not composite.
+     * Use `compositeChannels` above.
+     * @deprecated
+     * @minVersion 23.0
      */
     get compositeChannels(): Channel[];
     /**
-     * Currently active channels of the document
+     * Currently active channels of the document. [(24.6)](/ps_reference/changelog#246-bug-fixes)
+     * @minVersion 23.0
      */
     get activeChannels(): Channel[];
     set activeChannels(channels: Channel[]);

@@ -1,43 +1,46 @@
 import yargs = require("./index.js");
 interface RequireType {
-  (path: string): Function;
-  main: MainType;
+    (path: string): Function;
+    main: MainType;
 }
 
 interface MainType {
-  filename: string;
-  children: MainType[];
+    filename: string;
+    children: MainType[];
 }
 declare const _instanceFactory: (
-  processArgs?: ReadonlyArray<string> | string,
-  cwd?: string, 
-  parentRequire?: RequireType
+    processArgs?: ReadonlyArray<string> | string,
+    cwd?: string,
+    parentRequire?: RequireType,
 ) => yargs.Argv;
 export default _instanceFactory;
 
 export type {
-    BuilderCallback,
-    ParserConfigurationOptions,
-    Argv,
     Arguments,
-    RequireDirectoryOptions,
-    Options,
-    PositionalOptions,
+    ArgumentsCamelCase,
+    Argv,
+    AsyncCompletionFunction,
+    BuilderCallback,
+    Choices,
+    CommandBuilder,
+    CommandModule,
+    CompletionCallback,
     Defined,
-    ToArray,
-    ToString,
-    ToNumber,
+    FallbackCompletionFunction,
     InferredOptionType,
     InferredOptionTypeInner,
-    RequiredOptionType,
+    InferredOptionTypePrimitive,
     InferredOptionTypes,
-    CommandModule,
-    ParseCallback,
-    CommandBuilder,
-    SyncCompletionFunction,
-    AsyncCompletionFunction,
-    PromiseCompletionFunction,
     MiddlewareFunction,
-    Choices,
+    Options,
+    ParseCallback,
+    ParserConfigurationOptions,
+    PositionalOptions,
     PositionalOptionsType,
-} from './index.js';
+    PromiseCompletionFunction,
+    RequireDirectoryOptions,
+    SyncCompletionFunction,
+    ToArray,
+    ToNumber,
+    ToString,
+} from "./index.js";

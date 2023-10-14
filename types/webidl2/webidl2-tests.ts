@@ -394,3 +394,9 @@ function logValueDescription(valueDesc: webidl2.ValueDescription) {
             break;
     }
 }
+
+// $ExpectType string
+const written = webidl2.write(parsed);
+
+// $ExpectType WebIDLErrorData[]
+const errors = webidl2.validate(parsed);

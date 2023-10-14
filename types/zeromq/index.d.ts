@@ -1,7 +1,6 @@
 // Type definitions for zeromq 5.2
 // Project: https://github.com/zeromq/zeromq.js
 // Definitions by: Dave McKeown <https://github.com/davemckeown>
-//                 Erik Mavrinac <https://github.com/erikma>
 //                 Philippe D'Alva <https://github.com/TitaneBoy>
 //                 Nika Gogeshvili <https://github.com/overflowz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,7 +11,7 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export interface SocketTypes {
     pub: number;
@@ -245,7 +244,6 @@ export class Socket extends EventEmitter {
 
     /**
      * Close the socket.
-     *
      */
     close(): this;
 
@@ -295,13 +293,11 @@ export class Socket extends EventEmitter {
 export interface CurveKeyPair {
     /**
      * A Z85 string denoting the public portion of the Curve25519 key.
-     *
      */
     public: string;
 
     /**
      * A Z85 string denoting the private, secret portion of the Curve25519 key.
-     *
      */
     secret: string;
 }
@@ -318,13 +314,19 @@ export let options: SocketOptions;
  * Creates a ZeroMQ socket of the specified type.
  * @return The created socket in an unconnected state.
  */
-export function socket(type: keyof SocketTypes | SocketTypes[keyof SocketTypes], options?: Partial<SocketOptions>): Socket;
+export function socket(
+    type: keyof SocketTypes | SocketTypes[keyof SocketTypes],
+    options?: Partial<SocketOptions>,
+): Socket;
 
 /**
  * Creates a ZeroMQ socket of the specified type.
  * @return The created socket in an unconnected state.
  */
-export function createSocket(type: keyof SocketTypes | SocketTypes[keyof SocketTypes], options?: Partial<SocketOptions>): Socket;
+export function createSocket(
+    type: keyof SocketTypes | SocketTypes[keyof SocketTypes],
+    options?: Partial<SocketOptions>,
+): Socket;
 
 /**
  * Generates a CurveZMQ (Curve25519) key pair.

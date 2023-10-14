@@ -1,11 +1,8 @@
-// Type definitions for p5 1.4
+// Type definitions for p5 1.7
 // Project: https://github.com/processing/p5.js
 // Definitions by: p5-types <https://github.com/p5-types>
-//                 Pierre Krafft <https://github.com/Zalastax>
-//                 Rahul V <https://github.com/rahulv4667>
-//                 Gareth Williams <https://github.com/gaweph>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
+// TypeScript Version: 4.9
 
 // This file was auto-generated. Please do not edit it.
 /// <reference path="./src/accessibility/describe.d.ts" />
@@ -49,6 +46,7 @@
 /// <reference path="./src/webgl/loading.d.ts" />
 /// <reference path="./src/webgl/material.d.ts" />
 /// <reference path="./src/webgl/p5.Camera.d.ts" />
+/// <reference path="./src/webgl/p5.RendererGL.Immediate.d.ts" />
 /// <reference path="./src/webgl/p5.RendererGL.d.ts" />
 /// <reference path="./src/color/p5.Color.d.ts" />
 /// <reference path="./src/core/p5.Element.d.ts" />
@@ -59,6 +57,7 @@
 /// <reference path="./src/io/p5.XML.d.ts" />
 /// <reference path="./src/math/p5.Vector.d.ts" />
 /// <reference path="./src/typography/p5.Font.d.ts" />
+/// <reference path="./src/webgl/p5.Framebuffer.d.ts" />
 /// <reference path="./src/webgl/p5.Geometry.d.ts" />
 /// <reference path="./src/webgl/p5.Shader.d.ts" />
 /// <reference path="./src/core/p5.Renderer.d.ts" />
@@ -180,7 +179,7 @@ declare class p5 {
      *   disable the parts of the FES that cause
      *   performance slowdown (like argument checking).
      *   Friendly errors that have no performance cost
-     *   (like giving an descriptive error if a file load
+     *   (like giving a descriptive error if a file load
      *   fails, or warning you if you try to override p5.js
      *   functions in the global space), will remain in
      *   place.

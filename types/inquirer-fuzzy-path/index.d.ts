@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.2
 
-import { Answers, KeyUnion, QuestionCollection } from 'inquirer';
-import { AutocompleteQuestionOptions } from 'inquirer-autocomplete-prompt';
-import InquirerAutocomplete = require('inquirer-autocomplete-prompt');
-import { Interface as ReadlineInterface } from 'readline';
+import { Answers, KeyUnion, QuestionCollection } from "inquirer";
+import { AutocompleteQuestionOptions } from "inquirer-autocomplete-prompt";
+import InquirerAutocomplete = require("inquirer-autocomplete-prompt");
+import { Interface as ReadlineInterface } from "readline";
 
 export = InquirerFuzzyPath;
 
@@ -55,11 +55,12 @@ declare namespace InquirerFuzzyPath {
      * The type of the answers.
      */
     interface FuzzyPathQuestionOptions<T extends Answers = Answers>
-        extends Partial<Omit<AutocompleteQuestionOptions<T>, 'type'>> {
+        extends Partial<Omit<AutocompleteQuestionOptions<T>, "type">>
+    {
         /**
          * The key to save the answer to the answers-hash.
          */
-        type: 'fuzzypath';
+        type: "fuzzypath";
 
         /**
          * The key to save the answer to the answers-hash.
@@ -84,7 +85,7 @@ declare namespace InquirerFuzzyPath {
         /**
          * A string to specify the type of nodes to display, default to "any".
          */
-        itemType?: 'any' | 'directory' | 'file' | undefined;
+        itemType?: "any" | "directory" | "file" | undefined;
 
         /**
          * An integer (>= 0) to limit the depth of sub-folders to scan,

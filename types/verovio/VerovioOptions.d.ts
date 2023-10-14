@@ -44,7 +44,7 @@ export interface VerovioOptions {
     inputFrom?: string;
 
     /**
-     * (int) Scale of the output in percent
+     * (int) Scale of the output in percent (100 is normal size)
      *
      * default: 100
      *
@@ -88,7 +88,7 @@ export interface VerovioOptions {
      *
      * default: "auto"
      */
-    breaks?: 'none' | 'auto' | 'line' | 'smart' | 'encoded';
+    breaks?: "none" | "auto" | "line" | "smart" | "encoded";
 
     /**
      * (double) In smart breaks mode, the portion of system width usage at which an encoded sb will be used
@@ -106,7 +106,7 @@ export interface VerovioOptions {
      *
      * default: "auto"
      */
-    condense?: 'none' | 'auto' | 'encoded';
+    condense?: "none" | "auto" | "encoded";
 
     /**
      * When condensing a score also condense the first page
@@ -148,14 +148,14 @@ export interface VerovioOptions {
      *
      * default: "auto"
      */
-    footer?: 'none' | 'auto' | 'encoded' | 'always';
+    footer?: "none" | "auto" | "encoded" | "always";
 
     /**
      * Control header layout
      *
      * default: "auto"
      */
-    header?: 'none' | 'auto' | 'encoded';
+    header?: "none" | "auto" | "encoded";
 
     /**
      * Include type attributes when importing from Humdrum
@@ -334,7 +334,7 @@ export interface VerovioOptions {
      *
      * default: "auto"
      */
-    pedalStyle?: 'auto' | 'line' | 'pedstar' | 'altpedstar';
+    pedalStyle?: "auto" | "line" | "pedstar" | "altpedstar";
 
     /**
      * Preserves the analytical markup in MEI
@@ -351,6 +351,13 @@ export interface VerovioOptions {
     removeIds?: boolean;
 
     /**
+     * Scale the content within the page instead of scaling the page itself
+     *
+     * default: false
+     */
+    scaleToPageSize?: boolean;
+
+    /**
      * Display the total runtime on command-line
      *
      * default: false
@@ -363,6 +370,13 @@ export interface VerovioOptions {
      * default: false
      */
     shrinkToFit?: boolean;
+
+    /**
+     * Specify if the smufl text font is embedded, linked, or ignored
+     *
+     * default: "embedded"
+     */
+    smuflTextFont?: "embedded" | "linked" | "none";
 
     /**
      * Align staccato and staccatissimo articulations with center of the note
@@ -591,9 +605,27 @@ export interface VerovioOptions {
     dynamDist?: number;
 
     /**
+     * Don't use SMuFL's predefined dynamics glyph combinations
+     *
+     * default: false
+     */
+    dynamSingleGlyphs?: boolean;
+
+    /**
      * Json describing defaults for engraving SMuFL elements
      */
     engravingDefaults?: EngravingDefaults;
+
+    /**
+     * (double) Minimum space required for extender line to be drawn
+     *
+     * default: 1.5
+     *
+     * max: 10
+     *
+     * min: 1.5
+     */
+    extenderLineMinSpace?: number;
 
     /**
      * (double) The scale of fingering font compared to default font size
@@ -756,6 +788,13 @@ export interface VerovioOptions {
     ledgerLineThickness?: number;
 
     /**
+     * The lyric elision width
+     *
+     * default: "regular"
+     */
+    lyricElision?: "unicode" | "narrow" | "regular" | "wide";
+
+    /**
      * (double) The lyric hyphen and dash length
      *
      * default: 1.2
@@ -851,7 +890,7 @@ export interface VerovioOptions {
      *
      * default: "auto"
      */
-    multiRestStyle?: 'auto' | 'default' | 'block' | 'symbols';
+    multiRestStyle?: "auto" | "default" | "block" | "symbols";
 
     /**
      * (double) The thickness of the multi rest in unit
@@ -1103,7 +1142,7 @@ export interface VerovioOptions {
      *
      * default: "auto"
      */
-    systemDivider?: 'none' | 'auto' | 'left' | 'left-right';
+    systemDivider?: "none" | "auto" | "left" | "left-right";
 
     /**
      * (int) Maximun number of systems per page

@@ -51,7 +51,12 @@ export function getTeXSource(el: string | Element): string | null;
  * @param rightToLeft - indicates whether the MathML output should be in RTL direction
  * @param throwOnError - indicates whether TeXZilla should throw an exception when parsing fails
  */
-export function toMathMLString(str: string, displayMode?: boolean, rightToLeft?: boolean, throwOnError?: boolean): string;
+export function toMathMLString(
+    str: string,
+    displayMode?: boolean,
+    rightToLeft?: boolean,
+    throwOnError?: boolean,
+): string;
 
 /**
  * Converts a TeX string into a MathML source and returns a MathML DOM element.
@@ -81,7 +86,13 @@ export function toMathML(str: string, displayMode?: boolean, rightToLeft?: boole
  * @param size - indicates the font-size in pixels of the MathML element and defaults to 64px
  * @param document - indicates the host HTML document to use for the measuring step and defaults to window.document
  */
-export function toImage(str: string, rightToLeft?: boolean, roundToPowerOfTwo?: boolean, size?: number, document?: Document): HTMLImageElement;
+export function toImage(
+    str: string,
+    rightToLeft?: boolean,
+    roundToPowerOfTwo?: boolean,
+    size?: number,
+    document?: Document,
+): HTMLImageElement;
 
 /**
  * Applies the stream filter to `str` and returns the output string.

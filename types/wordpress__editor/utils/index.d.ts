@@ -1,4 +1,13 @@
-export { uploadMedia as mediaUpload } from '@wordpress/media-utils';
+import type { UploadMediaOptions } from "@wordpress/media-utils";
+
+export type MediaUploadOptions =
+    & Omit<UploadMediaOptions, "maxUploadFileSize" | "onError" | "wpAllowedMimeTypes">
+    & Partial<Pick<UploadMediaOptions, "maxUploadFileSize">>
+    & {
+        onError?(message: string): void;
+    };
+
+export function mediaUpload(options: MediaUploadOptions): void;
 
 /**
  * Performs some basic cleanup of a string for use as a post slug
@@ -14,5 +23,7 @@ export { uploadMedia as mediaUpload } from '@wordpress/media-utils';
  * @param slug - Title or slug to be processed.
  *
  * @returns Processed string
+ *
+ * @deprecated since 12.3.0.
  */
 export function cleanForSlug(slug: string): string;

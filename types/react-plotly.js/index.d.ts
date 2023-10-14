@@ -1,4 +1,4 @@
-// Type definitions for react-plotly.js 2.5
+// Type definitions for react-plotly.js 2.6
 // Project: https://github.com/plotly/react-plotly.js#readme
 // Definitions by: Jon Freedman <https://github.com/jonfreedman>
 //                 Mitchell Grice <https://github.com/gricey432>
@@ -6,8 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as Plotly from 'plotly.js';
-import * as React from 'react';
+import * as Plotly from "plotly.js";
+import * as React from "react";
 
 export interface Figure {
     data: Plotly.Data[];
@@ -96,6 +96,8 @@ export interface PlotParams {
     onTransitioning?: (() => void) | undefined;
     onTransitionInterrupted?: (() => void) | undefined;
     onUnhover?: ((event: Readonly<Plotly.PlotMouseEvent>) => void) | undefined;
+    onWebGlContextLost?: (() => void) | undefined;
 }
 
-export default class Plot extends React.PureComponent<PlotParams> {}
+export default class Plot extends React.PureComponent<PlotParams> {
+}

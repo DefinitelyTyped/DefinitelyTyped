@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import { Transform } from 'stream';
+import { Transform } from "stream";
 
 /**
  * Asynchronous encoding.
@@ -124,9 +124,10 @@ export function encodeBlock(input: Buffer, output: Buffer, startIdx?: number, en
  *
  * @param input data block to encode with high compression
  * @param output encoded data block
+ * @param compressionLevel compression level (3-12, default 9)
  * @returns >0: compressed size, =0: not compressible
  */
-export function encodeBlockHC(input: Buffer, output: Buffer): number;
+export function encodeBlockHC(input: Buffer, output: Buffer, compressionLevel?: number): number;
 
 /**
  * LZ4 encoder stream options.
@@ -175,29 +176,29 @@ export interface EncoderOptions {
 
 export interface EncoderConstructor {
     (options?: EncoderOptions): Encoder;
-    new (options?: EncoderOptions): Encoder;
+    new(options?: EncoderOptions): Encoder;
 }
 
 export interface Encoder extends Transform {
-    addListener(event: 'data', listener: (chunk: Buffer) => void): this;
+    addListener(event: "data", listener: (chunk: Buffer) => void): this;
     addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    on(event: 'data', listener: (chunk: Buffer) => void): this;
+    on(event: "data", listener: (chunk: Buffer) => void): this;
     on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    once(event: 'data', listener: (chunk: Buffer) => void): this;
+    once(event: "data", listener: (chunk: Buffer) => void): this;
     once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    prependListener(event: 'data', listener: (chunk: Buffer) => void): this;
+    prependListener(event: "data", listener: (chunk: Buffer) => void): this;
     prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    prependOnceListener(event: 'data', listener: (chunk: Buffer) => void): this;
+    prependOnceListener(event: "data", listener: (chunk: Buffer) => void): this;
     prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    removeListener(event: 'data', listener: (chunk: Buffer) => void): this;
+    removeListener(event: "data", listener: (chunk: Buffer) => void): this;
     removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    off(event: 'data', listener: (chunk: Buffer) => void): this;
+    off(event: "data", listener: (chunk: Buffer) => void): this;
     off(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
@@ -214,28 +215,28 @@ export interface DecoderOptions {
 
 export interface DecoderConstructor {
     (options?: DecoderOptions): Decoder;
-    new (options?: DecoderOptions): Decoder;
+    new(options?: DecoderOptions): Decoder;
 }
 
 export interface Decoder extends Transform {
-    addListener(event: 'data', listener: (chunk: Buffer) => void): this;
+    addListener(event: "data", listener: (chunk: Buffer) => void): this;
     addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    on(event: 'data', listener: (chunk: Buffer) => void): this;
+    on(event: "data", listener: (chunk: Buffer) => void): this;
     on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    once(event: 'data', listener: (chunk: Buffer) => void): this;
+    once(event: "data", listener: (chunk: Buffer) => void): this;
     once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    prependListener(event: 'data', listener: (chunk: Buffer) => void): this;
+    prependListener(event: "data", listener: (chunk: Buffer) => void): this;
     prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    prependOnceListener(event: 'data', listener: (chunk: Buffer) => void): this;
+    prependOnceListener(event: "data", listener: (chunk: Buffer) => void): this;
     prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    removeListener(event: 'data', listener: (chunk: Buffer) => void): this;
+    removeListener(event: "data", listener: (chunk: Buffer) => void): this;
     removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    off(event: 'data', listener: (chunk: Buffer) => void): this;
+    off(event: "data", listener: (chunk: Buffer) => void): this;
     off(event: string | symbol, listener: (...args: any[]) => void): this;
 }

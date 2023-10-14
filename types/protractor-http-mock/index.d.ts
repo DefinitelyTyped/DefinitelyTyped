@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import * as webdriver from 'selenium-webdriver';
+import * as webdriver from "selenium-webdriver";
 
 declare namespace mock {
     interface ProtractorHttpMock {
@@ -16,7 +16,11 @@ declare namespace mock {
          * @param plugins An array of either Plugin objects or NPM modules as strings.
          * @param skipDefaults Set true to skip loading of default mocks.
          */
-        (mocks?: ReadonlyArray<requests.AllRequests | string>, plugins?: ReadonlyArray<Plugin1<any> | Plugin2<any, any> | string>, skipDefaults?: boolean): ProtractorHttpMock;
+        (
+            mocks?: ReadonlyArray<requests.AllRequests | string>,
+            plugins?: ReadonlyArray<Plugin1<any> | Plugin2<any, any> | string>,
+            skipDefaults?: boolean,
+        ): ProtractorHttpMock;
 
         /**
          * Clean up.
@@ -58,22 +62,22 @@ declare namespace mock {
                  * Name of the folder where mocks will reside.
                  * Default: 'mocks'
                  */
-                dir?: string | undefined,
+                dir?: string | undefined;
 
                 /**
                  * Collection of default mocks to load for every test.
                  * Default: []
                  */
-                default?: ReadonlyArray<string> | undefined
-            } | undefined,
+                default?: ReadonlyArray<string> | undefined;
+            } | undefined;
 
             plugins?: {
                 /**
                  * Collection of default plugins to load for every test.
                  * Default: []
                  */
-                default?: ReadonlyArray<string> | undefined
-            } | undefined
+                default?: ReadonlyArray<string> | undefined;
+            } | undefined;
         };
 
         /**
@@ -149,15 +153,16 @@ declare namespace mock {
         /**
          * All available request types.
          */
-        type AllRequests = Get<any> |
-            PostData<any, any> |
-            Post<any> |
-            Head<any> |
-            Delete<any> |
-            PutData<any, any> |
-            Put<any> |
-            Patch<any> |
-            Jsonp<any>;
+        type AllRequests =
+            | Get<any>
+            | PostData<any, any>
+            | Post<any>
+            | Head<any>
+            | Delete<any>
+            | PutData<any, any>
+            | Put<any>
+            | Patch<any>
+            | Jsonp<any>;
 
         /**
          * GET request mock.

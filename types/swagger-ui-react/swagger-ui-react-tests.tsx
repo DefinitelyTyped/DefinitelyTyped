@@ -1,5 +1,5 @@
-import * as React from 'react';
-import SwaggerUI from 'swagger-ui-react';
+import * as React from "react";
+import SwaggerUI from "swagger-ui-react";
 
 <div>
     <SwaggerUI
@@ -24,6 +24,7 @@ import SwaggerUI from 'swagger-ui-react';
         deepLinking
         showMutatedRequest={false}
         showExtensions={true}
+        showCommonExtensions={true}
         presets={[]}
         filter={true}
         requestSnippetsEnabled={true}

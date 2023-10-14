@@ -2,11 +2,7 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "interface-over-type-literal": false,
-        "no-consecutive-blank-lines": false,
-        "no-unnecessary-generics": false,
-        "one-line": false,
         "one-variable-per-declaration": false,
-        "only-arrow-functions": false,
-        "space-before-function-paren": false
+        "only-arrow-functions": false
     }
 }

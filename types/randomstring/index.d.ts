@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Randomstring {
-    type Charset = "alphanumeric"
+    type Charset =
+        | "alphanumeric"
         | "alphabetic"
         | "numeric"
         | "hex"

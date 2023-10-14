@@ -1,5 +1,5 @@
-import { TransformOptions } from 'stream';
-import Utf8Stream = require('../utils/Utf8Stream');
+import { TransformOptions } from "stream";
+import Utf8Stream = require("../utils/Utf8Stream");
 
 export = JsonlParser;
 
@@ -10,6 +10,7 @@ declare class JsonlParser extends Utf8Stream {
 declare namespace JsonlParser {
     interface JsonlParserOptions extends TransformOptions {
         reviver?: ((this: any, key: string, value: any) => any) | undefined;
+        checkErrors?: boolean | undefined;
     }
 
     function make(options?: JsonlParserOptions): JsonlParser;

@@ -1,18 +1,18 @@
 import {
-    LexV2Event,
-    LexV2Result,
-    LexV2Handler,
-    LexV2Interpretation,
+    LexV2ActiveContext,
     LexV2Bot,
+    LexV2DialogAction,
+    LexV2Event,
+    LexV2Handler,
     LexV2Intent,
-    LexV2Slot,
-    LexV2SlotValue,
+    LexV2Interpretation,
+    LexV2Result,
     LexV2SentimentResponse,
     LexV2SentimentScore,
     LexV2SessionState,
-    LexV2ActiveContext,
-    LexV2DialogAction,
-} from 'aws-lambda';
+    LexV2Slot,
+    LexV2SlotValue,
+} from "aws-lambda";
 
 const handler: LexV2Handler = async (event, context, callback) => {
     str = event.messageVersion;
@@ -77,41 +77,41 @@ const handler: LexV2Handler = async (event, context, callback) => {
     result = {
         sessionState: {
             dialogAction: {
-                type: 'Close',
+                type: "Close",
             },
             intent: {
-                state: 'Fulfilled',
-                name: 'MyIntent',
+                state: "Fulfilled",
+                name: "MyIntent",
                 slots: {
-                    str: slot
-                }
+                    str: slot,
+                },
             },
         },
         messages: [
             {
-                contentType: 'PlainText',
-                content: 'Hello!'
-            }
-        ]
+                contentType: "PlainText",
+                content: "Hello!",
+            },
+        ],
     };
     result.messages = [
         {
-            contentType: 'ImageResponseCard',
+            contentType: "ImageResponseCard",
             imageResponseCard: {
-                title: 'title',
-                subtitle: 'subtitle',
-                imageUrl: 'url',
+                title: "title",
+                subtitle: "subtitle",
+                imageUrl: "url",
                 buttons: [
                     {
-                        text: 'text',
-                        value: 'value'
-                    }
-                ]
-            }
-        }
+                        text: "text",
+                        value: "value",
+                    },
+                ],
+            },
+        },
     ];
     result.sessionState.sessionAttributes = {
-        key: 'value'
+        key: "value",
     };
 
     callback(new Error());
@@ -132,27 +132,25 @@ const event1: LexV2Event = {
                         shape: "Scalar",
                         value: {
                             originalValue: "7",
-                            resolvedValues: [
-                                "7"
-                            ],
-                            interpretedValue: "7"
-                        }
-                    }
+                            resolvedValues: ["7"],
+                            interpretedValue: "7",
+                        },
+                    },
                 },
                 confirmationState: "None",
                 name: "IntentName",
-                state: "InProgress"
+                state: "InProgress",
             },
-            nluConfidence: 1
+            nluConfidence: 1,
         },
         {
             intent: {
                 slots: {},
                 confirmationState: "None",
                 name: "FallbackIntent",
-                state: "InProgress"
-            }
-        }
+                state: "InProgress",
+            },
+        },
     ],
     proposedNextState: {
         intent: {
@@ -163,21 +161,19 @@ const event1: LexV2Event = {
                     shape: "Scalar",
                     value: {
                         originalValue: "7",
-                        resolvedValues: [
-                            "7"
-                        ],
-                        interpretedValue: "7"
-                    }
-                }
+                        resolvedValues: ["7"],
+                        interpretedValue: "7",
+                    },
+                },
             },
             confirmationState: "None",
             name: "IntentName",
-            state: "InProgress"
+            state: "InProgress",
         },
         dialogAction: {
             slotToElicit: "Slot1",
-            type: "ElicitSlot"
-        }
+            type: "ElicitSlot",
+        },
     },
     responseContentType: "text/plain; charset=utf-8",
     invocationSource: "DialogCodeHook",
@@ -189,22 +185,20 @@ const event1: LexV2Event = {
                     shape: "Scalar",
                     value: {
                         originalValue: "7",
-                        resolvedValues: [
-                            "7"
-                        ]
-                    }
-                }
+                        resolvedValues: ["7"],
+                    },
+                },
             },
             resolvedContext: {
-                intent: "IntentName"
+                intent: "IntentName",
             },
             transcription: "7",
-            transcriptionConfidence: 1
-        }
+            transcriptionConfidence: 1,
+        },
     ],
     sessionState: {
         sessionAttributes: {
-            attribute1: "1"
+            attribute1: "1",
         },
         activeContexts: [],
         intent: {
@@ -215,18 +209,16 @@ const event1: LexV2Event = {
                     shape: "Scalar",
                     value: {
                         originalValue: "7",
-                        resolvedValues: [
-                            "7"
-                        ],
-                        interpretedValue: "7"
-                    }
-                }
+                        resolvedValues: ["7"],
+                        interpretedValue: "7",
+                    },
+                },
             },
             confirmationState: "None",
             name: "IntentName",
-            state: "InProgress"
+            state: "InProgress",
         },
-        originatingRequestId: "11111111-1111-1111-1111-111111111111"
+        originatingRequestId: "11111111-1111-1111-1111-111111111111",
     },
     inputMode: "Text",
     bot: {
@@ -235,6 +227,6 @@ const event1: LexV2Event = {
         name: "string",
         version: "DRAFT",
         localeId: "en_US",
-        id: "string"
-    }
+        id: "string",
+    },
 };

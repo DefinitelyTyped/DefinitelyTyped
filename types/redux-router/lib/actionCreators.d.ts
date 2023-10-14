@@ -1,6 +1,6 @@
 export interface ReduxRouterAction {
-    type: string,
-    payload: any
+    type: string;
+    payload: any;
 }
 
 export function routerDidChange(state: any): ReduxRouterAction;

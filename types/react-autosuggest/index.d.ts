@@ -11,7 +11,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.2
 
-import * as React from 'react';
+import * as React from "react";
 
 declare class Autosuggest<T = any, T2 = any> extends React.Component<
     Autosuggest.AutosuggestProps<T, T2>,
@@ -33,23 +33,26 @@ declare namespace Autosuggest {
      */
 
     /** @internal */
-    type Omit<T, K extends keyof T> = Pick<T, ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never, [x: number]: never })[keyof T]>;
+    type Omit<T, K extends keyof T> = Pick<
+        T,
+        ({ [P in keyof T]: P } & { [P in K]: never } & { [x: string]: never; [x: number]: never })[keyof T]
+    >;
 
     type FetchRequestedReasons =
-        | 'input-changed'
-        | 'input-focused'
-        | 'escape-pressed'
-        | 'suggestions-revealed'
-        | 'suggestion-selected';
+        | "input-changed"
+        | "input-focused"
+        | "escape-pressed"
+        | "suggestions-revealed"
+        | "suggestion-selected";
 
     type ShouldRenderReasons =
-        | 'input-changed'
-        | 'input-focused'
-        | 'input-blurred'
-        | 'escape-pressed'
-        | 'suggestions-revealed'
-        | 'suggestions-updated'
-        | 'render';
+        | "input-changed"
+        | "input-focused"
+        | "input-blurred"
+        | "escape-pressed"
+        | "suggestions-revealed"
+        | "suggestions-updated"
+        | "render";
 
     interface SuggestionsFetchRequestedParams {
         value: string;
@@ -67,7 +70,7 @@ declare namespace Autosuggest {
 
     interface ChangeEvent {
         newValue: string;
-        method: 'down' | 'up' | 'escape' | 'enter' | 'click' | 'type';
+        method: "down" | "up" | "escape" | "enter" | "click" | "type";
     }
 
     interface BlurEvent<TSuggestion> {
@@ -79,8 +82,7 @@ declare namespace Autosuggest {
         ref?: React.Ref<HTMLInputElement> | undefined;
     }
 
-    interface InputProps<TSuggestion>
-        extends Omit<React.InputHTMLAttributes<HTMLElement>, 'onChange' | 'onBlur'> {
+    interface InputProps<TSuggestion> extends Omit<React.InputHTMLAttributes<HTMLElement>, "onChange" | "onBlur"> {
         onChange: (event: React.FormEvent<HTMLElement>, params: ChangeEvent) => void;
         onBlur?: ((event: React.FocusEvent<HTMLElement>, params?: BlurEvent<TSuggestion>) => void) | undefined;
         value: string;
@@ -94,28 +96,26 @@ declare namespace Autosuggest {
         suggestionValue: string;
         suggestionIndex: number;
         sectionIndex: number | null;
-        method: 'click' | 'enter';
+        method: "click" | "enter";
     }
 
     type ThemeKey =
-        | 'container'
-        | 'containerOpen'
-        | 'input'
-        | 'inputOpen'
-        | 'inputFocused'
-        | 'suggestionsContainer'
-        | 'suggestionsContainerOpen'
-        | 'suggestionsList'
-        | 'suggestion'
-        | 'suggestionFirst'
-        | 'suggestionHighlighted'
-        | 'sectionContainer'
-        | 'sectionContainerFirst'
-        | 'sectionTitle';
+        | "container"
+        | "containerOpen"
+        | "input"
+        | "inputOpen"
+        | "inputFocused"
+        | "suggestionsContainer"
+        | "suggestionsContainerOpen"
+        | "suggestionsList"
+        | "suggestion"
+        | "suggestionFirst"
+        | "suggestionHighlighted"
+        | "sectionContainer"
+        | "sectionContainerFirst"
+        | "sectionTitle";
 
-    type Theme =
-        | Record<string, string | React.CSSProperties>
-        | Partial<Record<ThemeKey, string | React.CSSProperties>>;
+    type Theme = Record<string, string | React.CSSProperties> | Partial<Record<ThemeKey, string | React.CSSProperties>>;
 
     interface RenderSuggestionsContainerParams {
         containerProps: {
@@ -142,10 +142,8 @@ declare namespace Autosuggest {
     type RenderInputComponent = (inputProps: RenderInputComponentProps) => React.ReactNode;
     type RenderSuggestionsContainer = (params: RenderSuggestionsContainerParams) => React.ReactNode;
     type RenderSectionTitle = (section: any) => React.ReactNode;
-    type RenderSuggestion<TSuggestion> = (
-        suggestion: TSuggestion,
-        params: RenderSuggestionParams,
-    ) => React.ReactNode;
+    type RenderSuggestion<TSuggestion> = (suggestion: TSuggestion, params: RenderSuggestionParams) => React.ReactNode;
+    type ShouldKeepSuggestionsOnSelect<TSuggestion> = (suggestion?: TSuggestion) => boolean;
     type ShouldRenderSuggestions = (value: string, reason: ShouldRenderReasons) => boolean;
 
     interface AutosuggestPropsBase<TSuggestion> {
@@ -206,6 +204,12 @@ declare namespace Autosuggest {
          */
         renderSuggestion: RenderSuggestion<TSuggestion>;
         /**
+         * When a suggestion is selected, Autosuggest will consult this function on whether to close the suggestions list.
+         * Use it, for example, if you want to make multiple selections at the same time. By default it will close every time
+         * a suggestion is selected.
+         */
+        shouldKeepSuggestionsOnSelect?: ShouldKeepSuggestionsOnSelect<TSuggestion>;
+        /**
          * When the input is focused, Autosuggest will consult this function when to render suggestions.
          * Use it, for example, if you want to display suggestions when input value is at least 2 characters long.
          */
@@ -246,7 +250,9 @@ declare namespace Autosuggest {
         renderSectionTitle?: RenderSectionTitle | undefined;
     }
 
-    type AutosuggestProps<TSuggestion, TSection> = AutosuggestPropsSingleSection<TSuggestion> | AutosuggestPropsMultiSection<TSuggestion, TSection>;
+    type AutosuggestProps<TSuggestion, TSection> =
+        | AutosuggestPropsSingleSection<TSuggestion>
+        | AutosuggestPropsMultiSection<TSuggestion, TSection>;
 
     interface AutosuggestState<TSuggestion> {
         isFocused: boolean;

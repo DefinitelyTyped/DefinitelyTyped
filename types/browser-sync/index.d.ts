@@ -1,10 +1,11 @@
-// Type definitions for browser-sync 2.26
+// Type definitions for browser-sync 2.27
 // Project: http://www.browsersync.io/
 // Definitions by: Asana <https://asana.com>,
 //                 Joe Skeen <https://github.com/joeskeen>
 //                 Thomas "Thasmo" Deinhamer <https://thasmo.com/>
 //                 Kiyotoshi Ichikawa <https://github.com/aznnomness>
 //                 Yuma Hashimoto <https://github.com/yuma84>
+//                 Andreas Bomholtz <https://github.com/seluxit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -109,6 +110,18 @@ declare namespace browserSync {
          * Override http module to allow using 3rd party server modules (such as http2).
          */
         httpModule?: string | undefined;
+        /**
+         * Current working directory
+         */
+        cwd?: string;
+        /**
+         * Register callbacks via a regular option - this can be used to get access the Browsersync
+         * instance in situations where you cannot provide a callback via the normal API (for example,
+         * in a Gruntfile)
+         *
+         * This 'ready' callback can be used to access the Browsersync instance
+         */
+        callbacks?: CallbacksOptions;
         /**
          * Clicks, Scrolls & Form inputs on any device will be mirrored to all others.
          * clicks - Default: true
@@ -270,6 +283,12 @@ declare namespace browserSync {
          */
         host?: string | undefined;
         /**
+         * Specify a host to listen on. Use this if you want to prevent binding to all interfaces.
+         *
+         * Note: When you specify this option, it overrides the 'host' option
+         */
+        listen?: string;
+        /**
          * Support environments where dynamic hostnames are not required (ie: electron).
          */
         localOnly?: boolean | undefined;
@@ -306,6 +325,10 @@ declare namespace browserSync {
          * Note: Requires at least version 1.6.2.
          */
         socket?: SocketOptions | undefined;
+        /**
+         * Configure the script domain
+         */
+        script?: ScriptOptions | undefined;
         /**
          * ¯\_(ツ)_/¯
          */
@@ -373,7 +396,11 @@ declare namespace browserSync {
     }
 
     interface ProxyResponseMiddleware {
-        (proxyRes: http.ServerResponse | http.IncomingMessage, res: http.ServerResponse, req: http.IncomingMessage): void;
+        (
+            proxyRes: http.ServerResponse | http.IncomingMessage,
+            res: http.ServerResponse,
+            req: http.IncomingMessage,
+        ): void;
     }
 
     interface HttpsOptions {
@@ -382,8 +409,8 @@ declare namespace browserSync {
     }
 
     interface StaticOptions {
-        route: string | string[],
-        dir: string | string[]
+        route: string | string[];
+        dir: string | string[];
     }
 
     interface MiddlewareHandler {
@@ -396,6 +423,10 @@ declare namespace browserSync {
         handle: MiddlewareHandler;
     }
 
+    interface CallbacksOptions {
+        ready: (err: Error, bs: BrowserSyncInstance) => void;
+    }
+
     interface GhostOptions {
         clicks?: boolean | undefined;
         scroll?: boolean | undefined;
@@ -403,18 +434,18 @@ declare namespace browserSync {
     }
 
     interface FormsOptions {
-        inputs: boolean,
-        submit: boolean,
-        toggles: boolean
+        inputs: boolean;
+        submit: boolean;
+        toggles: boolean;
     }
 
     interface SnippetOptions {
         async?: boolean | undefined;
-        whitelist?: string[] | undefined,
-        blacklist?: string[] | undefined,
+        whitelist?: string[] | undefined;
+        blacklist?: string[] | undefined;
         rule?: {
             match?: RegExp | undefined;
-            fn?: ((snippet: string, match: string) => any) | undefined
+            fn?: ((snippet: string, match: string) => any) | undefined;
         } | undefined;
     }
 
@@ -424,7 +455,11 @@ declare namespace browserSync {
         namespace?: string | undefined;
         domain?: string | undefined;
         port?: number | undefined;
-        clients?: { heartbeatTimeout?: number | undefined; } | undefined;
+        clients?: { heartbeatTimeout?: number | undefined } | undefined;
+    }
+
+    interface ScriptOptions {
+        domain?: string | undefined;
     }
 
     interface TagNamesOptions {
@@ -456,9 +491,7 @@ declare namespace browserSync {
          * depending on your use-case.
          */
         (config?: Options, callback?: (err: Error, bs: BrowserSyncInstance) => any): BrowserSyncInstance;
-        /**
-         *
-         */
+        /** */
         instances: Array<BrowserSyncInstance>;
         /**
          * Create a Browsersync instance
@@ -550,7 +583,11 @@ declare namespace browserSync {
          * @param {object} options The
          * @param {any} cb A callback function that will return any errors.
          */
-        use(module: { "plugin:name"?: string | undefined, plugin: (opts: object, bs: BrowserSyncInstance) => any }, options?: object, cb?: any): void;
+        use(
+            module: { "plugin:name"?: string | undefined; plugin: (opts: object, bs: BrowserSyncInstance) => any },
+            options?: object,
+            cb?: any,
+        ): void;
         /**
          * Callback helper to examine what options have been set.
          * @param {string} name The key to search options map for.
@@ -559,8 +596,11 @@ declare namespace browserSync {
         /**
          * Stand alone file-watcher. Use this along with Browsersync to create your own, minimal build system
          */
-        watch(patterns: string, opts?: chokidar.WatchOptions, fn?: (event: string, file: fs.Stats) => any)
-            : NodeJS.EventEmitter;
+        watch(
+            patterns: string,
+            opts?: chokidar.WatchOptions,
+            fn?: (event: string, file: fs.Stats) => any,
+        ): NodeJS.EventEmitter;
         /**
          * The internal Event Emitter used by the running Browsersync instance (if there is one). You can use
          * this to emit your own events, such as changed files, logging etc.

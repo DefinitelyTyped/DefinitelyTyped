@@ -177,6 +177,15 @@ declare namespace i18n {
              */
             disable?: boolean | undefined;
         } | undefined;
+
+        /**
+         * Parser can be any object that responds to .parse & .stringify
+         */
+        parser?: ParserOptions | undefined;
+    }
+    interface ParserOptions {
+        parse: (src: string, options?: any) => any;
+        stringify: (value: any, options?: any) => string;
     }
     interface TranslateOptions {
         phrase: string;
@@ -191,9 +200,15 @@ declare namespace i18n {
     interface Replacements {
         [key: string]: string;
     }
-
-    interface LocaleCatalog {
+    /**
+     * This interface represents a plural translation.
+     * e.g. { one: "you have 1 friend", other: "you have many friends" }
+     */
+    interface Plurals {
         [key: string]: string;
+    }
+    interface LocaleCatalog {
+        [key: string]: string | Plurals;
     }
     interface GlobalCatalog {
         [key: string]: LocaleCatalog;
@@ -217,7 +232,7 @@ declare namespace i18n {
      */
     function init(request: Express.Request, response: Express.Response, next?: () => void): void;
 
-    //#region __()
+    // #region __()
 
     /**
      * Translate the given phrase using locale configuration
@@ -233,9 +248,9 @@ declare namespace i18n {
      */
     function __(phraseOrOptions: string | TranslateOptions, replacements: Replacements): string;
 
-    //#endregion
+    // #endregion
 
-    //#region __n()
+    // #region __n()
 
     /**
      * Translate with plural condition the given phrase and count using locale configuration
@@ -269,9 +284,9 @@ declare namespace i18n {
      */
     function __n(phrase: string, count: number | string, replacements: Replacements): string;
 
-    //#endregion
+    // #endregion
 
-    //#region __mf()
+    // #region __mf()
 
     /**
      * Translate the given phrase using locale configuration and MessageFormat
@@ -287,9 +302,9 @@ declare namespace i18n {
      */
     function __mf(phraseOrOptions: string | TranslateOptions, replacements: Replacements): string;
 
-    //#endregion
+    // #endregion
 
-    //#region __l()
+    // #region __l()
 
     /**
      * Returns a list of translations for a given phrase in each language.
@@ -298,9 +313,9 @@ declare namespace i18n {
      */
     function __l(phrase: string): string[];
 
-    //#endregion
+    // #endregion
 
-    //#region __h()
+    // #region __h()
 
     /**
      * Returns a hashed list of translations for a given phrase in each language.
@@ -309,9 +324,9 @@ declare namespace i18n {
      */
     function __h(phrase: string): HashedList[];
 
-    //#endregion
+    // #endregion
 
-    //#region Locale
+    // #region Locale
 
     /**
      * Change the current active locale
@@ -324,7 +339,11 @@ declare namespace i18n {
      * @param locale - The locale to set as default
      * @param [inheritance=false] - Disables inheritance if true
      */
-    function setLocale(requestOrResponse: Express.Request | Express.Response, locale: string, inheritance?: boolean): void;
+    function setLocale(
+        requestOrResponse: Express.Request | Express.Response,
+        locale: string,
+        inheritance?: boolean,
+    ): void;
     /**
      * Change the current active locale for specified response
      * @param objects - The object(s) to change locale on
@@ -350,9 +369,9 @@ declare namespace i18n {
 
     function removeLocale(locale: string): void;
 
-    //#endregion
+    // #endregion
 
-    //#region Catalog
+    // #region Catalog
 
     /**
      * Get the current global catalog
@@ -373,7 +392,7 @@ declare namespace i18n {
      */
     function getCatalog(request: Express.Request, locale?: string): LocaleCatalog;
 
-    //#endregion
+    // #endregion
 
     /**
      * Override the current request locale by using the query param (?locale=en)
@@ -442,7 +461,7 @@ declare namespace i18n {
 interface i18nAPI {
     locale: string;
 
-    //#region __()
+    // #region __()
 
     /**
      * Translate the given phrase using locale configuration
@@ -458,9 +477,9 @@ interface i18nAPI {
      */
     __(phraseOrOptions: string | i18n.TranslateOptions, replacements: i18n.Replacements): string;
 
-    //#endregion
+    // #endregion
 
-    //#region __n()
+    // #region __n()
 
     /**
      * Translate with plural condition the given phrase and count using locale configuration
@@ -486,9 +505,9 @@ interface i18nAPI {
      */
     __n(singular: string, plural: string, count: number | string): string;
 
-    //#endregion
+    // #endregion
 
-    //#region __mf()
+    // #region __mf()
 
     /**
      * Translate the given phrase using locale configuration and MessageFormat
@@ -504,9 +523,9 @@ interface i18nAPI {
      */
     __mf(phraseOrOptions: string | i18n.TranslateOptions, replacements: i18n.Replacements): string;
 
-    //#endregion
+    // #endregion
 
-    //#region __l()
+    // #region __l()
 
     /**
      * Returns a list of translations for a given phrase in each language.
@@ -515,9 +534,9 @@ interface i18nAPI {
      */
     __l(phrase: string): string[];
 
-    //#endregion
+    // #endregion
 
-    //#region __h()
+    // #region __h()
 
     /**
      * Returns a hashed list of translations for a given phrase in each language.
@@ -526,7 +545,7 @@ interface i18nAPI {
      */
     __h(phrase: string): i18n.HashedList[];
 
-    //#endregion
+    // #endregion
 
     /**
      * Get the current active locale

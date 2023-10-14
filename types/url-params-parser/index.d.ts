@@ -3,4 +3,4 @@
 // Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export { UrlParser, UrlParserResult } from './url_parser';
+export { UrlParser, UrlParserResult } from "./url_parser";

@@ -30,6 +30,7 @@ declare class Session {
     limitKeyCreation(limit: number): void;
     setPassword(newPassword: string): void;
     executeStartupScripts(): void;
+    hasRequest(): boolean;
 }
 import DBKey = require('../dbkey/DBKey.js');
 import AuthToken = require('../security/AuthToken.js');

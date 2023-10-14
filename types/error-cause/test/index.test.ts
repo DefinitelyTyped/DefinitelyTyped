@@ -1,4 +1,4 @@
-import ErrorTypes from 'error-cause';
+import ErrorTypes from "error-cause";
 
 declare const Ø: any;
 

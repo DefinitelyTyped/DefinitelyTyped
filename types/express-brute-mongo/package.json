@@ -1,6 +1,6 @@
 {
     "private": true,
     "dependencies": {
-        "@types/mongodb": "^2.1.28"
+        "@types/mongodb": "2.1.28"
     }
 }

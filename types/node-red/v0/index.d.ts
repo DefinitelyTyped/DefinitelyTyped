@@ -8,7 +8,7 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 /**
  * Node-RED node creation api.
@@ -132,9 +132,9 @@ export type NodeId = string;
 export type NodeType = string;
 
 /** Node status icon color choices. */
-export type StatusFill = 'red' | 'green' | 'yellow' | 'blue' | 'grey';
+export type StatusFill = "red" | "green" | "yellow" | "blue" | "grey";
 /** Node status icon shape choices. */
-export type StatusShape = 'ring' | 'dot';
+export type StatusShape = "ring" | "dot";
 
 /**
  * Object used to set the nodes status flag.
@@ -216,6 +216,6 @@ export interface Nodes {
      * @param constructor - the constructor function for this node type
      * @param opts - optional additional options for the node
      */
-    // tslint:disable-next-line no-unnecessary-generics
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     registerType<T extends NodeProperties>(type: string, constructor: (props: T) => any, opts?: any): void;
 }

@@ -12,6 +12,7 @@ const webAuth = new auth0.WebAuth({
     redirectUri: "http://example.com/redirect",
     scope: "openid offline_access",
     audience: "http://audience.com/aud",
+    cookieDomain: "mine.auth0.com",
     leeway: 50,
     jwksURI: "./well-known/jwks.json",
     overrides: {
@@ -82,8 +83,7 @@ webAuth.parseHash((err, authResult) => {
 webAuth.parseHash(
     {
         nonce: "asfd",
-        hash:
-            "#access_token=VjubIMBmpgQ2W2& \
+        hash: "#access_token=VjubIMBmpgQ2W2& \
             id_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlF6RTROMFpCTTBWRFF6RTJSVVUwTnpJMVF6WTFNelE0UVRrMU16QXdNRUk0UkRneE56RTRSZyJ9. \
             eyJpc3MiOiJodHRwczovL3dwdGVzdC5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NTVkNDhjNTdkNWIwYWQwMjIzYzQwOGQ3IiwiYXVkIjoiZ1lTTmxVNFlDNFYxWVBkcXE \
             4elBRY3VwNnJKdzFNYnQiLCJleHAiOjE0ODI5NjkwMzEsImlhdCI6MTQ4MjkzMzAzMSwibm9uY2UiOiJhc2ZkIn0. \
@@ -296,7 +296,7 @@ webAuth.checkSession({}, (err, authResult: auth0.Auth0Result) => {
     }
 });
 
-const input: HTMLInputElement = document.querySelector('input[name="captcha"]');
+const input: HTMLInputElement = document.querySelector("input[name=\"captcha\"]");
 // $ExpectType Captcha
 webAuth.renderCaptcha(input);
 // $ExpectType Captcha
@@ -441,7 +441,7 @@ authentication.dbConnection.signup(
 );
 authentication.dbConnection.changePassword({ connection: "bla", email: "blabla" }, () => {});
 
-authentication.passwordless.start({ connection: "bla", send: "blabla" }, () => {});
+authentication.passwordless.start({ connection: "bla", send: "link" }, () => {});
 authentication.passwordless.verify(
     { connection: "bla", verificationCode: "asdfasd", email: "me@example.com" },
     () => {},

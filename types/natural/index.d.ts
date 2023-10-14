@@ -6,7 +6,7 @@
 
 /// <reference types="node"/>
 
-import events = require('events');
+import events = require("events");
 
 interface Tokenizer {
     tokenize(text: string): string[];
@@ -128,6 +128,7 @@ declare function DiceCoefficient(str1: string, str2: string): number;
 
 interface Stemmer {
     stem(token: string): string;
+    removeStopWords(moreStopWords: string[]): void;
     tokenizeAndStem(text: string): string[];
     attach(): void;
 }

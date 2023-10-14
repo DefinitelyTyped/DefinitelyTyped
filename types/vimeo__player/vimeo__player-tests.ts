@@ -1,10 +1,11 @@
-import Player from '@vimeo/player';
+import Player = require("@vimeo/player");
 
 // based on README.md of @vimeo/player >> https://github.com/vimeo/player.js
 
 let player: Player;
+let defaultPlayer: Player.default;
 
-player = new Player('handstick', {
+player = new Player("handstick", {
     id: 19231868,
     width: 640,
 
@@ -13,35 +14,39 @@ player = new Player('handstick', {
     autoplay: false,
     background: false,
     byline: true,
-    color: '#00adef',
+    color: "#00adef",
     controls: true,
     dnt: false,
-    interactive_params: 'key1=value1,key2=value2',
+    interactive_params: "key1=value1,key2=value2",
     keyboard: true,
     loop: false,
     muted: false,
     pip: false,
     playsinline: true,
     portrait: true,
-    quality: 'auto',
+    quality: "auto",
     responsive: false,
     speed: false,
     title: true,
     transparent: true,
 });
 
+player = new Player.default("handstick");
+defaultPlayer = new Player("handstick");
+defaultPlayer = new Player.default("handstick");
+
 const onPlay = (data: any) => {
     // data is an object containing properties specific to that event
 };
 
-player.on('play', onPlay);
+player.on("play", onPlay);
 
 // If later on you decide that you don’t need to listen for play anymore.
-player.off('play', onPlay);
+player.off("play", onPlay);
 
 // Alternatively, `off` can be called with just the event name to remove all
 // listeners.
-player.off('play');
+player.off("play");
 
 player
     .loadVideo(76979871)
@@ -50,16 +55,16 @@ player
     })
     .catch(error => {
         switch (error.name) {
-            case 'TypeError':
+            case "TypeError":
                 // the id was not a number
                 break;
 
-            case 'PasswordError':
+            case "PasswordError":
                 // the video is password-protected and the viewer needs to enter the
                 // password first
                 break;
 
-            case 'PrivacyError':
+            case "PrivacyError":
                 // the video is password-protected or private
                 break;
 
@@ -70,22 +75,22 @@ player
     });
 
 player
-    .loadVideo('http://vimeo.com/video/76979871')
+    .loadVideo("http://vimeo.com/video/76979871")
     .then(url => {
         // the video successfully loaded
     })
     .catch(error => {
         switch (error.name) {
-            case 'TypeError':
+            case "TypeError":
                 // the id was not a number
                 break;
 
-            case 'PasswordError':
+            case "PasswordError":
                 // the video is password-protected and the viewer needs to enter the
                 // password first
                 break;
 
-            case 'PrivacyError':
+            case "PrivacyError":
                 // the video is password-protected or private
                 break;
 
@@ -104,16 +109,16 @@ player
     })
     .catch(error => {
         switch (error.name) {
-            case 'TypeError':
+            case "TypeError":
                 // the id was not a number
                 break;
 
-            case 'PasswordError':
+            case "PasswordError":
                 // the video is password-protected and the viewer needs to enter the
                 // password first
                 break;
 
-            case 'PrivacyError':
+            case "PrivacyError":
                 // the video is password-protected or private
                 break;
 
@@ -128,7 +133,7 @@ player.ready().then(() => {
 });
 
 player
-    .enableTextTrack('en')
+    .enableTextTrack("en")
     .then(track => {
         console.log(track.label);
         console.log(track.kind);
@@ -139,11 +144,11 @@ player
     })
     .catch(error => {
         switch (error.name) {
-            case 'InvalidTrackLanguageError':
+            case "InvalidTrackLanguageError":
                 // no track was available with the specified language
                 break;
 
-            case 'InvalidTrackError':
+            case "InvalidTrackError":
                 // no track was available with the specified language and kind
                 break;
 
@@ -169,12 +174,12 @@ player
     })
     .catch(error => {
         switch (error.name) {
-            case 'PasswordError':
+            case "PasswordError":
                 // the video is password-protected and the viewer needs to enter the
                 // password first
                 break;
 
-            case 'PrivacyError':
+            case "PrivacyError":
                 // the video is private
                 break;
 
@@ -191,12 +196,12 @@ player
     })
     .catch(error => {
         switch (error.name) {
-            case 'PasswordError':
+            case "PasswordError":
                 // the video is password-protected and the viewer needs to enter the
                 // password first
                 break;
 
-            case 'PrivacyError':
+            case "PrivacyError":
                 // the video is private
                 break;
 
@@ -276,7 +281,7 @@ player
     })
     .catch(error => {
         switch (error.name) {
-            case 'UnsupportedError':
+            case "UnsupportedError":
                 // Autopause is not supported with the current player or browser
                 break;
 
@@ -293,7 +298,7 @@ player
     })
     .catch(error => {
         switch (error.name) {
-            case 'UnsupportedError':
+            case "UnsupportedError":
                 // Autopause is not supported with the current player or browser
                 break;
 
@@ -313,22 +318,22 @@ player
     });
 
 player
-    .setColor('#00adef')
+    .setColor("#00adef")
     .then(color => {
         // color was successfully set
     })
     .catch(error => {
         switch (error.name) {
-            case 'ContrastError':
+            case "ContrastError":
                 // the color was set, but the contrast is outside of the acceptable
                 // range
                 break;
 
-            case 'TypeError':
+            case "TypeError":
                 // the string was not a valid hex or rgb color
                 break;
 
-            case 'EmbedSettingsError':
+            case "EmbedSettingsError":
                 // the owner of the video has chosen to use a specific color
                 break;
 
@@ -358,18 +363,18 @@ player
 
 player
     .addCuePoint(15, {
-        customKey: 'customValue',
+        customKey: "customValue",
     })
     .then(id => {
         // cue point was added successfully
     })
     .catch(error => {
         switch (error.name) {
-            case 'UnsupportedError':
+            case "UnsupportedError":
                 // cue points are not supported with the current player or browser
                 break;
 
-            case 'RangeError':
+            case "RangeError":
                 // the time was less than 0 or greater than the video’s duration
                 break;
 
@@ -380,17 +385,17 @@ player
     });
 
 player
-    .removeCuePoint('09ecf4e4-b587-42cf-ad9f-e666b679c9ab')
+    .removeCuePoint("09ecf4e4-b587-42cf-ad9f-e666b679c9ab")
     .then(id => {
         // cue point was removed successfully
     })
     .catch(error => {
         switch (error.name) {
-            case 'UnsupportedError':
+            case "UnsupportedError":
                 // cue points are not supported with the current player or browser
                 break;
 
-            case 'InvalidCuePoint':
+            case "InvalidCuePoint":
                 // a cue point with the id passed wasn’t found
                 break;
 
@@ -407,7 +412,7 @@ player
     })
     .catch(error => {
         switch (error.name) {
-            case 'UnsupportedError':
+            case "UnsupportedError":
                 // cue points are not supported with the current player or browser
                 break;
 
@@ -433,7 +438,7 @@ player
     })
     .catch(error => {
         switch (error.name) {
-            case 'RangeError':
+            case "RangeError":
                 // the time was less than 0 or greater than the video’s duration
                 break;
 
@@ -522,7 +527,7 @@ player
     })
     .catch(error => {
         switch (error.name) {
-            case 'RangeError':
+            case "RangeError":
                 // the playback rate was less than 0.5 or greater than 2
                 break;
 
@@ -605,7 +610,7 @@ player
     })
     .catch(error => {
         switch (error.name) {
-            case 'PrivacyError':
+            case "PrivacyError":
                 // the url isn’t available because of the video’s privacy setting
                 break;
 
@@ -631,7 +636,7 @@ player
     })
     .catch(error => {
         switch (error.name) {
-            case 'RangeError':
+            case "RangeError":
                 // the volume was less than 0 or greater than 1
                 break;
 
@@ -660,13 +665,13 @@ player
     });
 
 player
-    .setQuality('540p')
+    .setQuality("540p")
     .then(quality => {
         // quality was successfully set
     })
     .catch(error => {
         switch (error.name) {
-            case 'TypeError':
+            case "TypeError":
                 // the quality selected is not valid
                 break;
 
@@ -697,7 +702,7 @@ player
     })
     .catch(error => {
         switch (error.name) {
-            case 'RangeError':
+            case "RangeError":
                 // one of the camera properties is out of range
                 break;
             default:
@@ -744,7 +749,7 @@ player
 
 // EVENTS
 
-player.on('play', data => {
+player.on("play", data => {
     // data is an object containing properties specific to that event
     // $ExpectType number
     data.duration;
@@ -754,7 +759,7 @@ player.on('play', data => {
     data.seconds;
 });
 
-player.on('pause', data => {
+player.on("pause", data => {
     // data is an object containing properties specific to that event
     // $ExpectType number
     data.duration;
@@ -764,7 +769,7 @@ player.on('pause', data => {
     data.seconds;
 });
 
-player.on('ended', data => {
+player.on("ended", data => {
     // data is an object containing properties specific to that event
     // $ExpectType number
     data.duration;
@@ -774,7 +779,7 @@ player.on('ended', data => {
     data.seconds;
 });
 
-player.on('timeupdate', data => {
+player.on("timeupdate", data => {
     // data is an object containing properties specific to that event
     // $ExpectType number
     data.duration;
@@ -784,7 +789,7 @@ player.on('timeupdate', data => {
     data.seconds;
 });
 
-player.on('progress', data => {
+player.on("progress", data => {
     // data is an object containing properties specific to that event
     // $ExpectType number
     data.duration;
@@ -794,7 +799,7 @@ player.on('progress', data => {
     data.seconds;
 });
 
-player.on('seeked', data => {
+player.on("seeked", data => {
     // data is an object containing properties specific to that event
     // $ExpectType number
     data.duration;
@@ -804,7 +809,7 @@ player.on('seeked', data => {
     data.seconds;
 });
 
-player.on('texttrackchange', data => {
+player.on("texttrackchange", data => {
     // data is an object containing properties specific to that event
     // This can’t be asserted consistently between TypeScript versions.
     data.kind;
@@ -814,7 +819,7 @@ player.on('texttrackchange', data => {
     data.language;
 });
 
-player.on('cuechange', data => {
+player.on("cuechange", data => {
     // data is an object containing properties specific to that event
     console.log(data.cues); // Array of Cues
     // $ExpectType string
@@ -828,7 +833,7 @@ player.on('cuechange', data => {
     data.language;
 });
 
-player.on('cuepoint', data => {
+player.on("cuepoint", data => {
     // data is an object containing properties specific to that event
     // $ExpectType number
     data.time;
@@ -839,26 +844,26 @@ player.on('cuepoint', data => {
     data.id;
 });
 
-player.on('volumechange', data => {
+player.on("volumechange", data => {
     // data is an object containing properties specific to that event
     // $ExpectType number
     data.volume;
 });
 
-player.on('playbackratechange', data => {
+player.on("playbackratechange", data => {
     // data is an object containing properties specific to that event
     console.log(data.playbackRate);
 });
 
-player.on('bufferstart', () => {
+player.on("bufferstart", () => {
     // no associated data with this event
 });
 
-player.on('bufferend', () => {
+player.on("bufferend", () => {
     // no associated data with this event
 });
 
-player.on('seeking', data => {
+player.on("seeking", data => {
     // data is an object containing properties specific to that event
     // $ExpectType number
     data.duration;
@@ -868,13 +873,13 @@ player.on('seeking', data => {
     data.seconds;
 });
 
-player.on('error', data => {
+player.on("error", data => {
     // data is an object containing properties specific to that event
     // $ExpectType Error
     data;
 });
 
-player.on('loaded', data => {
+player.on("loaded", data => {
     // data is an object containing properties specific to that event
     // $ExpectType number
     data.id;

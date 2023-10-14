@@ -8,8 +8,8 @@
 
 /// <reference types="node" />
 
-import { Pool, Options as PoolOptions } from 'generic-pool';
-import { Readable } from 'stream';
+import { Options as PoolOptions, Pool } from "generic-pool";
+import { Readable } from "stream";
 
 /**
  * ### Related Docs
@@ -152,8 +152,8 @@ export enum ErrorCode {
 export interface SnowflakeErrorExternal extends Error {
     code?: ErrorCode;
     sqlState?: string;
-    data?: object;
-    response?: object;
+    data?: Record<string, any>;
+    response?: Record<string, any>;
     responseBody?: string;
     cause?: Error;
     isFatal?: boolean;
@@ -161,6 +161,12 @@ export interface SnowflakeErrorExternal extends Error {
 
 export interface SnowflakeError extends SnowflakeErrorExternal {
     externalize?: () => SnowflakeErrorExternal;
+}
+
+export interface StreamOptions {
+    start?: number;
+    end?: number;
+    fetchAsString?: Array<"String" | "Boolean" | "Number" | "Date" | "JSON" | "Buffer"> | undefined;
 }
 
 /**
@@ -213,6 +219,11 @@ export interface ConnectionOptions {
      * The default security role to use for the session after connecting.
      */
     role?: string | undefined;
+
+    /**
+     * Number of milliseconds to keep the connection alive with no response. Default: 60000 (1 minute).
+     */
+    timeout?: number | undefined;
 
     /**
      * By default, client connections typically time out approximately 3-4 hours after the most recent query was executed.
@@ -385,8 +396,8 @@ export interface Column {
 }
 
 export enum StatementStatus {
-    Fetching = 'fetching',
-    Complete = 'complete',
+    Fetching = "fetching",
+    Complete = "complete",
 }
 
 export interface Statement {
@@ -448,7 +459,13 @@ export interface Statement {
      */
     cancel(fn: (err: SnowflakeError | undefined, stmt: Statement) => void): void;
 
-    streamRows(): Readable;
+    /**
+     * Streams the rows in this statement's result. If start and end values are
+     * specified, only rows in the specified range are streamed.
+     *
+     * @param StreamOptions options
+     */
+    streamRows(options?: StreamOptions): Readable;
 }
 
 export type Bind = string | number;
@@ -501,6 +518,11 @@ export type Connection = NodeJS.EventEmitter & {
      */
     isUp(): boolean;
 
+    /**
+     * Returns true if the connection is good to send a query otherwise false
+     */
+    isValidAsync(): Promise<boolean>;
+
     getServiceName(): string;
     getClientSessionKeepAlive(): boolean;
     getClientSessionKeepAliveHeartbeatFrequency(): number;
@@ -548,7 +570,7 @@ export type Connection = NodeJS.EventEmitter & {
          * ### Related Docs
          * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#fetching-data-types-as-strings Fetching Data Types As Strings}
          */
-        fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON'> | undefined;
+        fetchAsString?: Array<"String" | "Boolean" | "Number" | "Date" | "JSON" | "Buffer"> | undefined;
         complete?: (err: SnowflakeError | undefined, stmt: Statement, rows: any[] | undefined) => void;
     }): Statement;
 
@@ -569,20 +591,20 @@ export type Connection = NodeJS.EventEmitter & {
     serialize(): string;
 };
 
-export const STRING = 'STRING';
-export const BOOLEAN = 'BOOLEAN';
-export const NUMBER = 'NUMBER';
-export const DATE = 'DATE';
-export const JSON = 'JSON';
+export const STRING = "STRING";
+export const BOOLEAN = "BOOLEAN";
+export const NUMBER = "NUMBER";
+export const DATE = "DATE";
+export const JSON = "JSON";
 
 export enum ocspModes {
-    FAIL_CLOSED = 'FAIL_CLOSED',
-    FAIL_OPEN = 'FAIL_OPEN',
-    INSECURE = 'INSECURE',
+    FAIL_CLOSED = "FAIL_CLOSED",
+    FAIL_OPEN = "FAIL_OPEN",
+    INSECURE = "INSECURE",
 }
 
 export interface ConfigureOptions {
-    logLevel?: 'ERROR' | 'WARN' | 'INFO' | 'DEBUG' | 'TRACE' | undefined;
+    logLevel?: "ERROR" | "WARN" | "INFO" | "DEBUG" | "TRACE" | undefined;
     insecureConnect?: boolean | undefined;
 
     /**

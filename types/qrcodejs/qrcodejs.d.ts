@@ -41,7 +41,7 @@ declare namespace QRCode {
     interface Options {
         /** QRCode link data  */
         text?: string | undefined;
-        /** @efault 256 */
+        /** @default 256 */
         width?: number | undefined;
         /** @default 256 */
         height?: number | undefined;

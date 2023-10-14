@@ -6,7 +6,7 @@
 
 /// <reference types="node"/>
 
-import { MinifyOptions } from 'terser';
+import { MinifyOptions } from "terser";
 
 export = terser;
 

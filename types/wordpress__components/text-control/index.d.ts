@@ -1,11 +1,11 @@
-import { ComponentType, HTMLProps } from 'react';
+import { ComponentType, HTMLProps } from "react";
 
-import BaseControl from '../base-control';
+import BaseControl from "../base-control";
 
 declare namespace TextControl {
     interface Props
-        extends Omit<HTMLProps<HTMLInputElement>, keyof BaseControl.ControlProps | 'onChange'>,
-            BaseControl.ControlProps {
+        extends Omit<HTMLProps<HTMLInputElement>, keyof BaseControl.ControlProps | "onChange">, BaseControl.ControlProps
+    {
         /**
          * The current value of the input.
          */

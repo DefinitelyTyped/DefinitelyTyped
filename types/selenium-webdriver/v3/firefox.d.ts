@@ -1,6 +1,6 @@
-import * as webdriver from './index';
-import * as remote from './remote';
-import * as http from './http';
+import * as http from "./http";
+import * as webdriver from "./index";
+import * as remote from "./remote";
 
 /**
  * Manages a Firefox subprocess configured for use with WebDriver.
@@ -9,7 +9,6 @@ export class Binary {
     /**
      * @param {string=} opt_exe Path to the Firefox binary to use. If not
      *     specified, will attempt to locate Firefox on the current system.
-     * @constructor
      */
     constructor(opt_exe?: string);
 
@@ -46,7 +45,6 @@ export class Profile {
      * @param {string=} opt_dir Path to an existing Firefox profile directory to
      *     use a template for this profile. If not specified, a blank profile will
      *     be used.
-     * @constructor
      */
     constructor(opt_dir?: string);
 

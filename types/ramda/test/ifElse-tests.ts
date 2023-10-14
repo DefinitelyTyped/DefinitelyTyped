@@ -1,15 +1,15 @@
-import * as R from 'ramda';
+import * as R from "ramda";
 
-() => {
+(() => {
     interface ObjWithCount {
         count?: number;
     }
 
-    // $ExpectType (a: unknown) => { count: number; } | (Record<"count", number> & Omit<unknown, "count">)
+    // $ExpectType (a: unknown) => { count: number; } | Record<"count", number>
     const incCount = R.ifElse(
-        R.has('count'),
-        obj => ({ ...obj, count: (obj as Required<ObjWithCount>).count + 1 }),
-        R.assoc('count', 1),
+        R.has("count"),
+        obj => ({ ...(obj as Required<ObjWithCount>), count: (obj as Required<ObjWithCount>).count + 1 }),
+        R.assoc("count", 1),
     );
     incCount({}); // => { count: 1 }
 
@@ -19,7 +19,7 @@ import * as R from 'ramda';
     const addWhenEquals = R.ifElse(
         (a: any, b: any) => a === b,
         (a: number, b: number) => a + b,
-        R.always(''),
+        R.always(""),
     );
 
     addWhenEquals(1, 2); // => ''
@@ -32,7 +32,7 @@ import * as R from 'ramda';
         a => a * 2,
     );
 
-    getLengthIfStringElseDouble('foo'); // => 3
+    getLengthIfStringElseDouble("foo"); // => 3
     getLengthIfStringElseDouble(3); // => 6
 
     /**
@@ -48,4 +48,4 @@ import * as R from 'ramda';
         (a): [string, string] => [a.foo, a.bar],
         (a): [string | undefined, string | number] => [a.foo, a.bar],
     );
-};
+});

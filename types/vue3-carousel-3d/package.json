@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "dependencies": {
+        "@babel/types": "^7.21.2",
+        "vue": "^3.2.38"
+    }
+}

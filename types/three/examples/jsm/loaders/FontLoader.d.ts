@@ -1,15 +1,15 @@
-import { Shape, Loader, LoadingManager } from '../../../src/Three';
+import { Shape, Loader, LoadingManager } from '../../../src/Three.js';
 
-export class FontLoader extends Loader {
+export class FontLoader extends Loader<Font> {
     constructor(manager?: LoadingManager);
 
     load(
         url: string,
-        onLoad?: (responseFont: Font) => void,
+        onLoad?: (data: Font) => void,
         onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
+        onError?: (err: unknown) => void,
     ): void;
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<Font>;
+
     parse(json: any): Font;
 }
 

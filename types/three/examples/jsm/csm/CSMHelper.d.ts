@@ -7,9 +7,9 @@ import {
     Mesh,
     MeshBasicMaterial,
     PlaneGeometry,
-} from '../../../src/Three';
+} from '../../../src/Three.js';
 
-import { CSM } from './CSM';
+import { CSM } from './CSM.js';
 
 export class CSMHelper<TCSM extends CSM = CSM> extends Group {
     constructor(csm: TCSM);
@@ -23,4 +23,5 @@ export class CSMHelper<TCSM extends CSM = CSM> extends Group {
     shadowLines: Box3Helper[];
     updateVisibility(): void;
     update(): void;
+    dispose(): void;
 }

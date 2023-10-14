@@ -1,5 +1,5 @@
 import _ = require("../index");
-// tslint:disable-next-line:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 type GlobalFunction = Function;
 declare module "../index" {
     type FunctionBase = GlobalFunction;
@@ -574,6 +574,7 @@ declare module "../index" {
         isEmpty<T extends { __trapAny: any }>(value?: T): boolean;
         isEmpty(value: string): value is '';
         isEmpty(value: Map<any, any> | Set<any> | List<any> | null | undefined): boolean;
+        isEmpty(value: object): boolean;
         isEmpty<T extends object>(value: T | null | undefined): value is EmptyObjectOf<T> | null | undefined;
         isEmpty(value?: any): boolean;
     }

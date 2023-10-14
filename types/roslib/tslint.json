@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "export-just-namespace": false,
         "member-access": false,
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-class": false,
@@ -9,8 +8,6 @@
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-template": false,
-        "space-before-function-paren": false,
-        "strict-export-declare-modifiers": false
+        "prefer-template": false
     }
 }

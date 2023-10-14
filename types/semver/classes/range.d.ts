@@ -1,9 +1,9 @@
-import semver = require('../index');
-import Comparator = require('./comparator');
-import SemVer = require('./semver');
+import semver = require("../index");
+import Comparator = require("./comparator");
+import SemVer = require("./semver");
 
 declare class Range {
-    constructor(range: string | Range, optionsOrLoose?: boolean | semver.Options);
+    constructor(range: string | Range, optionsOrLoose?: boolean | semver.RangeOptions);
 
     range: string;
     raw: string;

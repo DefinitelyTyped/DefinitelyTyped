@@ -1,4 +1,4 @@
-import xmlNameValidator = require("xml-name-validator");
+import { name, qname } from "xml-name-validator";
 
-xmlNameValidator.name(""); // $ExpectType boolean
-xmlNameValidator.qname(""); // $ExpectType boolean
+name(""); // $ExpectType boolean
+qname(""); // $ExpectType boolean

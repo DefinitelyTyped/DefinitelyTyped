@@ -1,5 +1,3 @@
-export = tpgProfile;
+import { Profile } from "../../index";
 
-import createClient = require('../../index');
-
-declare const tpgProfile: createClient.Profile;
+export const profile: Profile;

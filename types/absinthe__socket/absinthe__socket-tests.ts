@@ -1,5 +1,5 @@
-import { Socket } from 'phoenix';
-import * as withAbsintheSocket from '@absinthe/socket';
+import * as withAbsintheSocket from "@absinthe/socket";
+import { Socket } from "phoenix";
 
 const operation = `
   subscription userSubscription($userId: ID!) {
@@ -12,7 +12,7 @@ const operation = `
 
 function test_absinthe_socket() {
     const queryVariables = { userId: 10 };
-    const phoenixSocket = new Socket('/ws', { params: { userToken: '123' } });
+    const phoenixSocket = new Socket("/ws", { params: { userToken: "123" } });
     const absintheSocket = withAbsintheSocket.create(phoenixSocket);
 
     const notifier = withAbsintheSocket.send(absintheSocket, {

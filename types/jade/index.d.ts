@@ -13,7 +13,7 @@ export interface JadeOptions {
     doctype?: string | undefined;
     pretty?: boolean | string | undefined;
     filters?: {
-        [key: string]: JadeCustomFilterFunction
+        [key: string]: JadeCustomFilterFunction;
     } | undefined;
     self?: boolean | undefined;
     debug?: boolean | undefined;

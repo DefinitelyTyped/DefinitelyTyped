@@ -1,4 +1,4 @@
-import { Handler, Callback } from "../handler";
+import { Callback, Handler } from "../handler";
 
 /**
  * S3 Batch Operations event
@@ -32,7 +32,7 @@ export interface S3BatchResult {
     results: S3BatchResultResult[];
 }
 
-export type S3BatchResultResultCode = 'Succeeded' | 'TemporaryFailure' | 'PermanentFailure';
+export type S3BatchResultResultCode = "Succeeded" | "TemporaryFailure" | "PermanentFailure";
 
 export interface S3BatchResultResult {
     taskId: string;

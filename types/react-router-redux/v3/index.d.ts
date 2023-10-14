@@ -5,8 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as Redux from "redux";
 import * as History from "history";
+import * as Redux from "redux";
 
 export const TRANSITION: string;
 export const UPDATE_LOCATION: string;

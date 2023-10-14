@@ -1,4 +1,4 @@
-import { DataID } from '../../../lib/util/RelayRuntimeTypes';
+import { DataID } from "../../../lib/util/RelayRuntimeTypes";
 
 export interface EdgeRecord extends Record<string, unknown> {
     cursor: unknown;
@@ -12,20 +12,22 @@ export interface PageInfo {
     startCursor: string | null | undefined;
 }
 
+interface ConnectionConfig {
+    CURSOR: string;
+    EDGES: string;
+    END_CURSOR: string;
+    HAS_NEXT_PAGE: string;
+    HAS_PREV_PAGE: string;
+    NODE: string;
+    PAGE_INFO: string;
+    PAGE_INFO_TYPE: string;
+    START_CURSOR: string;
+}
+
 declare const ConnectionInterface: {
-    get(): {
-        CLIENT_MUTATION_ID: 'clientMutationId';
-        CURSOR: 'cursor';
-        EDGES_HAVE_SOURCE_FIELD: boolean;
-        EDGES: 'edges';
-        END_CURSOR: 'endCursor';
-        HAS_NEXT_PAGE: 'hasNextPage';
-        HAS_PREV_PAGE: 'hasPreviousPage';
-        NODE: 'node';
-        PAGE_INFO_TYPE: 'PageInfo';
-        PAGE_INFO: 'pageInfo';
-        START_CURSOR: 'startCursor';
-    };
+    get(): ConnectionConfig;
+
+    inject(newConfig: ConnectionConfig): void;
 };
 
 export default ConnectionInterface;

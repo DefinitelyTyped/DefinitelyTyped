@@ -5,7 +5,7 @@
 
 /// <reference types="node"/>
 
-import * as BumpRegex from 'bump-regex';
+import * as BumpRegex from "bump-regex";
 
 declare function GulpBump(options?: BumpRegex.Options): NodeJS.ReadWriteStream;
 

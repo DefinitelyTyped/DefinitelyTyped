@@ -5,21 +5,22 @@
 
 /// <reference types="node" />
 
-// tslint:disable-next-line no-single-declare-module
+/* eslint-disable @definitelytyped/no-declare-current-package */
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
 declare module "@ronomon/hash-table" {
     class HashTable {
         constructor(
             keySize: number,
             valueSize: number,
             elementsMin: number,
-            elementsMax: number
+            elementsMax: number,
         );
 
         cache(
             key: Buffer,
             keyOffset: number,
             value: Buffer,
-            valueOffset: number
+            valueOffset: number,
         ): number;
 
         exist(key: Buffer, keyOffset: number): number;
@@ -28,14 +29,14 @@ declare module "@ronomon/hash-table" {
             key: Buffer,
             keyOffset: number,
             value: Buffer,
-            valueOffset: number
+            valueOffset: number,
         ): number;
 
         set(
             key: Buffer,
             keyOffset: number,
             value: Buffer,
-            valueOffset: number
+            valueOffset: number,
         ): number;
 
         unset(key: Buffer, keyOffset: number): number;

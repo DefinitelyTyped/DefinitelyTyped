@@ -1,11 +1,6 @@
-// Type definitions for iScroll Lite 5
-// Project: http://cubiq.org/iscroll-5-ready-for-beta-test
-// Definitions by: Christiaan Rakowski <https://github.com/csrakowski/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface IScrollOptions {
-    //hScroll?: boolean;
-    //vScroll?: boolean;
+    // hScroll?: boolean;
+    // vScroll?: boolean;
 
     scrollX?: boolean;
     scrollY?: boolean;
@@ -21,9 +16,8 @@ interface IScrollOptions {
 }
 
 declare class IScroll {
-
-    constructor (element: string, options?: IScrollOptions);
-    constructor (element: HTMLElement, options?: IScrollOptions);
+    constructor(element: string, options?: IScrollOptions);
+    constructor(element: HTMLElement, options?: IScrollOptions);
 
     destroy(): void;
     refresh(): void;

@@ -1,9 +1,10 @@
-import * as QueryAnalyzer from '@nginstack/dev-tools/lib/database/QueryAnalyzer';
+import * as QueryAnalyzer from "@nginstack/dev-tools/lib/database/QueryAnalyzer";
 
-QueryAnalyzer.getTxtExecutionPlan('query', { disableHeader: true }); // $ExpectType string
-QueryAnalyzer.getHtmlExecutionPlan('query', { disableHeader: true }); // $ExpectType string
+QueryAnalyzer.getTxtExecutionPlan("query", { disableHeader: true }); // $ExpectType string
+QueryAnalyzer.getHtmlExecutionPlan("query", { disableHeader: true }); // $ExpectType string
 
 function testMajorVersions(prior: number, current: number): boolean {
     return current > prior;
 }
-testMajorVersions(62, 63); // $ExpectType boolean
+
+testMajorVersions(70, 71); // $ExpectType boolean

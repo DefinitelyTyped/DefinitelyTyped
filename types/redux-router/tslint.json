@@ -3,10 +3,6 @@
     "rules": {
         "ban-types": false,
         "jsdoc-format": false,
-        "no-consecutive-blank-lines": false,
-        "only-arrow-functions": false,
-        "prefer-declare-function": false,
-        "semicolon": false,
-        "trim-file": false
+        "only-arrow-functions": false
     }
 }

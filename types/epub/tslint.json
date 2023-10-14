@@ -4,11 +4,7 @@
         "array-type": false,
         "ban-types": false,
         "jsdoc-format": false,
-        "no-declare-current-package": false,
-        "no-padding": false,
-        "no-single-declare-module": false,
         "no-var-keyword": false,
-        "one-line": false,
         "only-arrow-functions": false,
         "prefer-const": false
     }

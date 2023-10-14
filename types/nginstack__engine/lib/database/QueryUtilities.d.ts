@@ -15,7 +15,7 @@ declare class QueryUtilities {
     clauseWhereOfChar(
         prefixWhereAndOr: string,
         columnName: string,
-        value: string,
+        value: string | string[],
         negation?: boolean
     ): string;
     clauseWhereOfStrings(

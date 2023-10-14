@@ -5,28 +5,28 @@ declare namespace M {
 
     class Timepicker extends Component<TimepickerOptions> {
         /**
-         * Get Instance
+         * Get Instance.
          */
         static getInstance(elem: Element): Timepicker;
 
         /**
-         * Init Timepicker
+         * Init Timepicker.
          */
         static init(els: Element, options?: Partial<TimepickerOptions>): Timepicker;
 
         /**
-         * Init Timepickers
+         * Init Timepickers.
          */
         static init(els: MElements, options?: Partial<TimepickerOptions>): Timepicker[];
 
         /**
-         * If the time is AM or PM on twelve-hour clock
+         * If the time is AM or PM on twelve-hour clock.
          * @default 'PM'
          */
         amOrPm: "AM" | "PM";
 
         /**
-         * Current view on the timepicker
+         * Current view on the timepicker.
          * @default 'hours'
          */
         currentView: Views;
@@ -47,17 +47,17 @@ declare namespace M {
         vibrate: "vibrate" | "webkitVibrate" | null;
 
         /**
-         * Open timepicker
+         * Open timepicker.
          */
         open(): void;
 
         /**
-         * Close timepicker
+         * Close timepicker.
          */
         close(): void;
 
         /**
-         * Show hours or minutes view on timepicker
+         * Show hours or minutes view on timepicker.
          * @param view The name of the view you want to switch to, 'hours' or 'minutes'.
          */
         showView(view: Views): void;
@@ -71,18 +71,20 @@ declare namespace M {
         duration: number;
 
         /**
-         * Specify a selector for a DOM element to render the calendar in, by default it will be placed before the input.
+         * Specify a DOM element OR selector for a DOM element to render
+         * the time picker in, by default it will be placed before the input.
+         * @default null
          */
-        container: string;
+        container: Element | string | null;
 
         /**
-         * Show the clear button in the Timepicker
+         * Show the clear button in the Timepicker.
          * @default false
          */
         showClearBtn: boolean;
 
         /**
-         * Default time to set on the timepicker 'now' or '13:14'
+         * Default time to set on the timepicker 'now' or '13:14'.
          * @default 'now';
          */
         defaultTime: string;
@@ -94,7 +96,7 @@ declare namespace M {
         fromNow: number;
 
         /**
-         * Internationalization options
+         * Internationalization options.
          */
         i18n: Partial<InternationalizationOptions>;
 
@@ -117,31 +119,31 @@ declare namespace M {
         vibrate: boolean;
 
         /**
-         * Callback function called before modal is opened
+         * Callback function called before modal is opened.
          * @default null
          */
         onOpenStart: (this: Modal, el: Element) => void;
 
         /**
-         * Callback function called after modal is opened
+         * Callback function called after modal is opened.
          * @default null
          */
         onOpenEnd: (this: Modal, el: Element) => void;
 
         /**
-         * Callback function called before modal is closed
+         * Callback function called before modal is closed.
          * @default null
          */
         onCloseStart: (this: Modal, el: Element) => void;
 
         /**
-         * Callback function called after modal is closed
+         * Callback function called after modal is closed.
          * @default null
          */
         onCloseEnd: (this: Modal, el: Element) => void;
 
         /**
-         * Callback function when a time is selected
+         * Callback function when a time is selected.
          * @default null
          */
         onSelect: (this: Modal, hour: number, minute: number) => void;

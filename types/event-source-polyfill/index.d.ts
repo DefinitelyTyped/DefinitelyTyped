@@ -16,7 +16,7 @@ export interface EventSourcePolyfillInit {
     lastEventIdQueryParameterName?: string;
     heartbeatTimeout?: number;
     headers?: { [name: string]: string };
-    Transport?: new () => any;
+    Transport?: new() => any;
 }
 
 export interface Event {
@@ -46,9 +46,9 @@ export interface MessageEvent extends Event {
 }
 
 export class EventSourcePolyfill {
-    static readonly CLOSED: number;
-    static readonly CONNECTING: number;
-    static readonly OPEN: number;
+    static readonly CLOSED: 2;
+    static readonly CONNECTING: 0;
+    static readonly OPEN: 1;
 
     constructor(url: string, options?: EventSourcePolyfillInit);
 
@@ -59,15 +59,23 @@ export class EventSourcePolyfill {
     readonly readyState: number;
     readonly url: string;
     readonly withCredentials: boolean;
-    readonly CLOSED: number;
-    readonly CONNECTING: number;
-    readonly OPEN: number;
+    readonly CLOSED: 2;
+    readonly CONNECTING: 0;
+    readonly OPEN: 1;
 
     close(): void;
     dispatchEvent(event: Event): boolean;
-    addEventListener<K extends keyof EventSourceEventMap>(type: K, listener: (this: EventSource, ev: EventSourceEventMap[K]) => any, options?: any): void;
+    addEventListener<K extends keyof EventSourceEventMap>(
+        type: K,
+        listener: (this: EventSource, ev: EventSourceEventMap[K]) => any,
+        options?: any,
+    ): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: any): void;
-    removeEventListener<K extends keyof EventSourceEventMap>(type: K, listener: (this: EventSource, ev: EventSourceEventMap[K]) => any, options?: any): void;
+    removeEventListener<K extends keyof EventSourceEventMap>(
+        type: K,
+        listener: (this: EventSource, ev: EventSourceEventMap[K]) => any,
+        options?: any,
+    ): void;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: any): void;
 }
 
@@ -75,7 +83,7 @@ export class EventSourcePolyfill {
 // tslint:disable-next-line:interface-over-type-literal
 export type EventSourceConstructor = {
     prototype: any;
-    new (url: string, eventSourceInitDict?: EventSourceInit): EventSource;
+    new(url: string, eventSourceInitDict?: EventSourceInit): EventSource;
     readonly CLOSED: number;
     readonly CONNECTING: number;
     readonly OPEN: number;

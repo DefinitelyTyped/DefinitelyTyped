@@ -25,8 +25,6 @@ declare namespace self {
          * @kind property
          * @access public
          *
-         * @type {any}
-         *
          * @description
          * Language subtag {@link http://www.unicode.org/reports/tr35/#Language_Locale_Field_Definitions}
          */
@@ -37,8 +35,6 @@ declare namespace self {
          * @memberof cldr.Attributes
          * @kind property
          * @access public
-         *
-         * @type {any}
          *
          * @description
          * Script subtag {@link http://www.unicode.org/reports/tr35/#Language_Locale_Field_Definitions}
@@ -51,8 +47,6 @@ declare namespace self {
          * @kind property
          * @access public
          *
-         * @type {any}
-         *
          * @description
          * Region subtag {@link http://www.unicode.org/reports/tr35/#Language_Locale_Field_Definitions}
          */
@@ -63,8 +57,6 @@ declare namespace self {
          * @memberof cldr.Attributes
          * @kind property
          * @access public
-         *
-         * @type {any}
          *
          * @description
          * Region subtag (territory variant) {@link http://www.unicode.org/reports/tr35/#Language_Locale_Field_Definitions}
@@ -77,8 +69,6 @@ declare namespace self {
          * @kind property
          * @access public
          *
-         * @type {any}
-         *
          * @description
          * Language Id {@link http://www.unicode.org/reports/tr35/#Unicode_language_identifier}
          */
@@ -90,8 +80,6 @@ declare namespace self {
          * @kind property
          * @access public
          *
-         * @type {any}
-         *
          * @description
          * Maximized Language Id {@link http://www.unicode.org/reports/tr35/#Likely_Subtags}
          */
@@ -102,8 +90,6 @@ declare namespace self {
          * @memberof cldr.Attributes
          * @kind property
          * @access public
-         *
-         * @type {any}
          *
          * @description
          * Minimized Language Id {@link http://www.unicode.org/reports/tr35/#Likely_Subtags}
@@ -133,7 +119,7 @@ declare namespace self {
          *
          * @returns {any} The cldr member.
          */
-        get(path: string) : any;
+        get(path: string): any;
 
         /**
          * @name get
@@ -186,8 +172,6 @@ declare namespace self {
          * @kind property
          * @access public
          *
-         * @type {string}
-         *
          * @declaration
          * The locale string.
          */
@@ -198,8 +182,6 @@ declare namespace self {
          * @memberof cldr.CldrStatic
          * @kind property
          * @access public
-         *
-         * @type {cldr.Attributes}
          *
          * @declaration
          * The object created during instance initialization and used internally by .get()
@@ -246,7 +228,7 @@ declare namespace self {
          *
          * @returns {cldr.CldrStatic} The instance of {@link cldr.CldrStatic} class.
          */
-        new (locale: string): CldrStatic;
+        new(locale: string): CldrStatic;
 
         /**
          * Allow user to override locale separator "-" (default) | "_".
@@ -257,15 +239,14 @@ declare namespace self {
     }
 
     interface CldrStatic {
-        on(event:string, listener:(path:string, value:any) => void): void;
-        once(event:string, listener:(path:string, value:any) => void): void;
-        off(event:string, listener:(path:string, value:any) => void): void;
+        on(event: string, listener: (path: string, value: any) => void): void;
+        once(event: string, listener: (path: string, value: any) => void): void;
+        off(event: string, listener: (path: string, value: any) => void): void;
     }
 
     interface CldrFactory {
-        on(event:string, listener:(path:string, value:any) => void): void;
-        once(event:string, listener:(path:string, value:any) => void): void;
-        off(event:string, listener:(path:string, value:any) => void): void;
+        on(event: string, listener: (path: string, value: any) => void): void;
+        once(event: string, listener: (path: string, value: any) => void): void;
+        off(event: string, listener: (path: string, value: any) => void): void;
     }
-
 }

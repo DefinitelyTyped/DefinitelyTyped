@@ -1,5 +1,5 @@
-import { Data3DTexture } from '../textures/Data3DTexture';
-import { WebGLRenderTarget } from './WebGLRenderTarget';
+import { Data3DTexture } from '../textures/Data3DTexture.js';
+import { WebGLRenderTarget } from './WebGLRenderTarget.js';
 
 /**
  * Represents a three-dimensional render target.
@@ -12,7 +12,7 @@ export class WebGL3DRenderTarget extends WebGLRenderTarget {
      * @param height the height of the render target, in pixels.
      * @param depth the depth of the render target.
      */
-    constructor(width: number, height: number, depth: number);
+    constructor(width?: number, height?: number, depth?: number);
 
     /**
      * The depth of the render target.

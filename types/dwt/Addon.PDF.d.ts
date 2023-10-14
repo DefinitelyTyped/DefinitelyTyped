@@ -15,8 +15,8 @@ export interface PDF {
         successCallback: () => void,
         failureCallback: (
             errorCode: number,
-            errorString: string
-        ) => void
+            errorString: string,
+        ) => void,
     ): void;
     /**
      * Return the convert mode.
@@ -28,7 +28,7 @@ export interface PDF {
     IsModuleInstalled(): boolean;
     /**
      * Detect whether a local PDF file is text based or not.
-     * @path Specify the path of the PDF file.
+     * @param path Specify the path of the PDF file.
      */
     IsTextBasedPDF(path: string): boolean;
     /**

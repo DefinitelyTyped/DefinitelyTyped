@@ -112,42 +112,28 @@ declare namespace jsts {
          * in a context where envelope overlap is already known to occur (or be likely).
          */
         export class LineIntersector {
-            /**
-             * @type {int}
-             */
+            /** */
             static COLLINEAR: number;
             /**
              * Indicates that line segments intersect in a line segment
-             *
-             * @type {int}
              */
             static COLLINEAR_INTERSECTION: number;
-            /**
-             * @type {int}
-             */
+            /** */
             static DO_INTERSECT: number;
             /**
              * These are deprecated, due to ambiguous naming
-             *
-             * @type {int}
              */
             static DONT_INTERSECT: number;
             /**
              * Indicates that line segments do not intersect
-             *
-             * @type {int}
              */
             static NO_INTERSECTION: number;
             /**
              * Indicates that line segments intersect in a single point
-             *
-             * @type {int}
              */
             static POINT_INTERSECTION: number;
 
-            /**
-             * @constructor
-             */
+            /** */
             constructor();
 
             /**
@@ -211,7 +197,6 @@ declare namespace jsts {
             getIntersectionNum(): number;
 
             /**
-             *
              * @param {int} intIndex is 0 or 1
              * @returns the intIndex'th intersection point
              */
@@ -293,9 +278,7 @@ declare namespace jsts {
          * A robust version of {@link LineIntersector}.
          */
         export class RobustLineIntersector extends LineIntersector {
-            /**
-             * @constructor
-             */
+            /** */
             constructor();
 
             /**
@@ -456,7 +439,6 @@ declare namespace jsts {
          * Coordinates are represented internally as Java double-precision values. Since Java uses the IEEE-754 floating point standard, this provides 53 bits of precision.
          *
          * JSTS methods currently do not handle inputs with different precision models.
-         *
          */
         export class PrecisionModel {
             static FIXED: string;
@@ -464,7 +446,6 @@ declare namespace jsts {
             static FLOATING_SINGLE: string;
 
             /**
-             *
              * @param modelType
              */
             constructor(modelType?: number | string);
@@ -745,24 +726,16 @@ declare namespace jsts {
          * coordinate values and accessor methods.
          */
         export class Coordinate {
-            /**
-             * @constructor
-             */
+            /** */
             constructor(x: number, y: number);
 
-            /**
-             * @constructor
-             */
+            /** */
             constructor(c: Coordinate);
 
-            /**
-             * @constructor
-             */
+            /** */
             constructor();
 
-            /**
-             * @constructor
-             */
+            /** */
             constructor(x: number, y: number, z: number);
 
             /**
@@ -1418,7 +1391,7 @@ declare namespace jsts {
             getGeometryType(): string;
 
             /**
-             *Returns the number of {@link Geometry}s in a {@link GeometryCollection}
+             * Returns the number of {@link Geometry}s in a {@link GeometryCollection}
              * (or 1, if the geometry is not a collection).
              *
              * @return {number} the number of geometries contained in this geometry.
@@ -1990,6 +1963,51 @@ declare namespace jsts {
             equals(o: Object): boolean;
 
             /**
+             * Computes a buffer area around this geometry having the given width.
+             * The buffer of a Geometry is the Minkowski sum or difference of the geometry with a disc of radius abs(distance).
+             * Mathematically-exact buffer area boundaries can contain circular arcs.
+             * To represent these arcs using linear geometry they must be approximated with line segments.
+             * The buffer geometry is constructed using 8 segments per quadrant to approximate the circular arcs.
+             * The end cap style is CAP_ROUND.
+             * The buffer operation always returns a polygonal result.
+             * The negative or zero-distance buffer of lines and points is always an empty Polygon.
+             * This is also the result for the buffers of degenerate (zero-area) polygons.
+             *
+             * @param {double} distance the width of the buffer (may be positive, negative or 0)
+             *
+             * @returns a polygonal geometry representing the buffer region (which may be empty)
+             *
+             * @throws {TopologyException} if a robustness error occurs
+             *
+             * @see buffer(double, int)
+             * @see buffer(double, int, int)
+             */
+            buffer(distance: number): Polygon | MultiPolygon;
+
+            /**
+             * Computes a buffer area around this geometry having the given width and
+             * with a specified accuracy of approximation for circular arcs.
+             * Mathematically-exact buffer area boundaries can contain circular arcs.
+             * To represent these arcs using linear geometry they must be approximated with line segments.
+             * The quadrantSegments argument allows controlling the accuracy of the approximation
+             * by specifying the number of line segments used to represent a quadrant of a circle.
+             * The buffer operation always returns a polygonal result.
+             * The negative or zero-distance buffer of lines and points is always an empty Polygon.
+             * This is also the result for the buffers of degenerate (zero-area) polygons.
+
+             * @param {double} distance the width of the buffer (may be positive, negative or 0)
+             * @param {int} quadrantSegments the number of line segments used to represent a quadrant of a circle
+             *
+             * @returns a polygonal geometry representing the buffer region (which may be empty)
+             *
+             * @throws {TopologyException} if a robustness error occurs
+             *
+             * @see #buffer(double)
+             * @see #buffer(double, int, int)
+             */
+            buffer(distance: number, quadrantSegments: number): Polygon | MultiPolygon;
+
+            /**
              * Computes a buffer area around this geometry having the given width and with a
              * specified accuracy of approximation for circular arcs, and using a specified
              * end cap style.
@@ -2307,13 +2325,11 @@ declare namespace jsts {
             checkNotGeometryCollection(g: Geometry): void;
 
             /**
-             *
              * @return {boolean} true if this is a GeometryCollection.
              */
             isGeometryCollection(): boolean;
 
             /**
-             *
              * @return {boolean} true if this is a GeometryCollection but not subclass.
              */
             isGeometryCollectionBase(): boolean;
@@ -2372,6 +2388,15 @@ declare namespace jsts {
              * @return {boolean} true if equal.
              */
             equal(a: Coordinate, b: Coordinate, tolerance: number): boolean;
+
+            /**
+             * Gets a hash code for the Geometry.
+             *
+             * @override hashCode in class Object
+             *
+             * @return {int} an integer value suitable for use as a hashcode
+             */
+            hashCode(): number;
 
             /**
              * Returns a WKT representation of this geometry.
@@ -2448,9 +2473,7 @@ declare namespace jsts {
         export class LinearRing extends LineString {}
 
         export class LineString extends Geometry {
-            /**
-             * @constructor
-             */
+            /** */
             constructor(points: Array<Coordinate>, factory?: any);
 
             /**
@@ -2493,13 +2516,8 @@ declare namespace jsts {
         }
 
         export class MultiLineString extends GeometryCollection {
-            /**
-             * @construtor
-             */
             constructor(lineStrings: LineString[], factory: GeometryFactory);
             /**
-             * @constructor
-             *
              * @deprecated Use GeometryFactory instead
              */
             constructor(lineStrings: LineString[], precisionModel: PrecisionModel, SRID: number);
@@ -2531,9 +2549,7 @@ declare namespace jsts {
         }
 
         export class Point extends Geometry {
-            /**
-             * @constructor
-             */
+            /** */
             constructor(coordinate: Coordinate, factory?: any);
 
             /**
@@ -2553,13 +2569,9 @@ declare namespace jsts {
         }
 
         export class MultiPoint extends GeometryCollection {
-            /**
-             * @constructor
-             */
+            /** */
             constructor(points: Point[], factory: GeometryFactory);
             /**
-             * @constructor
-             *
              * @deprecated Use GeometryFactory instead
              */
             constructor(points: Point[], precisionModel: PrecisionModel, SRID: number);
@@ -2601,9 +2613,7 @@ declare namespace jsts {
          * Specification for SQL</A>.
          */
         export class Polygon extends Geometry {
-            /**
-             * @constructor
-             */
+            /** */
             constructor(shell: LinearRing, holes?: Array<LinearRing>, factory?: any);
 
             /**
@@ -2772,7 +2782,6 @@ declare namespace jsts {
          *          p0
          * @param {Coordinate}
          *          p1
-         * @constructor
          */
         export class LineSegment {
             p0: Coordinate;
@@ -3063,9 +3072,9 @@ declare namespace jsts {
              *  Compares this object with the specified object for order.
              *  Uses the standard lexicographic ordering for the points in the LineSegment.
              *
-             *@param {Object} o  the <code>LineSegment</code> with which this <code>LineSegment</code>
+             * @param {Object} o  the <code>LineSegment</code> with which this <code>LineSegment</code>
              *      is being compared
-             *@return {number} a negative integer, zero, or a positive integer as this <code>LineSegment</code>
+             * @return {number} a negative integer, zero, or a positive integer as this <code>LineSegment</code>
              *      is less than, equal to, or greater than the specified <code>LineSegment</code>
              */
             compareTo(o: LineSegment): number;
@@ -3119,7 +3128,6 @@ declare namespace jsts {
              * <p>
              *
              * @see WKTReader
-             * @constructor
              */
             constructor();
 
@@ -3149,9 +3157,7 @@ declare namespace jsts {
          * <P>
          */
         export class WKTReader {
-            /**
-             * @constructor
-             */
+            /** */
             constructor(geometryFactory?: jsts.geom.GeometryFactory);
 
             /**
@@ -3169,9 +3175,7 @@ declare namespace jsts {
         }
 
         export class WKTWriter {
-            /**
-             * @constructor
-             */
+            /** */
             constructor(geometryFactory?: jsts.geom.GeometryFactory);
 
             /**
@@ -3234,26 +3238,18 @@ declare namespace jsts {
             export class BufferParameters {
                 /**
                  * Specifies a round line buffer end cap style.
-                 *
-                 * @type {int}
                  */
                 static CAP_ROUND: number;
                 /**
                  * Specifies a flat line buffer end cap style.
-                 *
-                 * @type {int}
                  */
                 static CAP_FLAT: number;
                 /**
                  * Specifies a square line buffer end cap style.
-                 *
-                 * @type {int}
                  */
                 static CAP_SQUARE: number;
                 /**
                  * Specifies a round join style.
-                 *
-                 * @type {int}
                  */
                 static JOIN_ROUND: number;
                 /**
@@ -3262,8 +3258,6 @@ declare namespace jsts {
                 static JOIN_MITRE: number;
                 /**
                  * Specifies a bevel join style.
-                 *
-                 * @type {int}
                  */
                 static JOIN_BEVEL: number;
 
@@ -3271,21 +3265,15 @@ declare namespace jsts {
                  * The default number of facets into which to divide a fillet of 90 degrees. A
                  * value of 8 gives less than 2% max error in the buffer distance. For a max
                  * error of < 1%, use QS = 12. For a max error of < 0.1%, use QS = 18.
-                 *
-                 * @type {int}
                  */
                 static DEFAULT_QUADRANT_SEGMENTS: number;
                 /**
                  * The default mitre limit Allows fairly pointy mitres.
-                 *
-                 * @type {double}
                  */
                 static DEFAULT_MITRE_LIMIT: number;
 
                 /**
                  * Contains the parameters which describe how a buffer should be constructed.
-                 *
-                 * @constructor
                  */
                 constructor(quadrantSegments?: number, endCapStyle?: number, joinStyle?: number, mitreLimit?: number);
 
@@ -3455,7 +3443,6 @@ declare namespace jsts {
              * <li>{@link #CAP_SQUARE} - end caps are squared off at the buffer distance
              * beyond the line ends
              * </ul>
-             *
              */
             export class BufferOp {
                 /**
@@ -3464,8 +3451,6 @@ declare namespace jsts {
                  *
                  * This value should be less than the decimal precision of double-precision
                  * values (16).
-                 *
-                 * @type {int}
                  */
                 static MAX_PRECISION_DIGITS: number;
 
@@ -3477,7 +3462,6 @@ declare namespace jsts {
                  *          g the geometry to buffer.
                  * @param {BufferParameters}
                  *          bufParams the buffer parameters to use.
-                 * @constructor
                  */
                 constructor(g: Geometry, bufParams: BufferParameters);
 
@@ -3521,7 +3505,6 @@ declare namespace jsts {
                  * @param {BufferParameters}
                  *          params the buffer parameters to use.
                  * @return {Geometry} the buffer of the input geometry.
-                 *
                  */
                 static bufferOp2(g: Geometry, distance: number, params: BufferParameters): Geometry;
 
@@ -3537,7 +3520,6 @@ declare namespace jsts {
                  *          quadrantSegments the number of segments used to approximate a
                  *          quarter circle.
                  * @return {Geometry} the buffer of the input geometry.
-                 *
                  */
                 static bufferOp3(g: Geometry, distance: number, quadrantSegments: number): Geometry;
 
@@ -3555,7 +3537,6 @@ declare namespace jsts {
                  * @param {int}
                  *          endCapStyle the end cap style to use.
                  * @return {Geometry} the buffer of the input geometry.
-                 *
                  */
                 static bufferOp4(
                     g: Geometry,
@@ -3699,8 +3680,6 @@ declare namespace jsts {
             export class GeometryLocation {
                 /**
                  * A special value of segmentIndex used for locations inside area geometries.
-                 *
-                 * @type {int}
                  */
                 static INSIDE_AREA: number;
 
@@ -3746,6 +3725,138 @@ declare namespace jsts {
                 isInsideArea(): boolean;
 
                 toString(): string;
+            }
+        }
+
+        namespace polygonize {
+            import ArrayList = java.utils.ArrayList;
+            import Geometry = jsts.geom.Geometry;
+            import HashSet = java.utils.HashSet;
+            import LineString = jsts.geom.LineString;
+            import Polygon = jsts.geom.Polygon;
+
+            export class Polygonizer {
+                /**
+                 * Creates a polygonizer that extracts all polygons.
+                 */
+                constructor();
+                /**
+                 * Creates a polygonizer, specifying whether a valid polygonal geometry must be created.
+                 * If the argument is true then areas may be discarded in order to ensure
+                 * that the extracted geometry is a valid polygonal geometry.
+                 *
+                 * @param {boolean} extractOnlyPolygonal true if a valid polygonal geometry should be extracted
+                 */
+                constructor(extractOnlyPolygonal: boolean);
+
+                /**
+                 * Adds a collection of geometries to the edges to be polygonized.
+                 * May be called multiple times.
+                 * Any dimension of Geometry may be added; the constituent linework will be extracted and used.
+                 *
+                 * @param geomList {Array} a list of Geometrys with linework to be polygonized
+                 */
+                add(geomList: Array<Geometry>): void;
+
+                /**
+                 * Add a Geometry to the edges to be polygonized.
+                 * May be called multiple times.
+                 * Any dimension of Geometry may be added; the constituent linework will be extracted and used
+                 *
+                 * @param g {Geometry} a Geometry with linework to be polygonized
+                 */
+                add(g: Geometry): void;
+
+                /**
+                 * Allows disabling the valid ring checking, to optimize situations where invalid rings are not expected.
+                 * The default is true.
+                 *
+                 * @param isCheckingRingsValid {boolean} true if generated rings should be checked for validity
+                 */
+                setCheckRingsValid(isCheckingRingsValid: boolean): void;
+
+                /**
+                 * Gets the list of polygons formed by the polygonization.
+                 */
+                getPolygons(): ArrayList<Polygon>;
+
+                /**
+                 * Gets a geometry representing the polygons formed by the polygonization.
+                 * If a valid polygonal geometry was extracted the result is a Polygonal geometry.
+                 *
+                 * @returns a geometry containing the polygons
+                 */
+                getGeometry(): Geometry;
+
+                /**
+                 * Gets the list of dangling lines found during polygonization.
+                 *
+                 * @returns a collection of the input LineStrings which are dangles
+                 */
+                getDangles(): HashSet<LineString>;
+
+                /**
+                 * Gets the list of cut edges found during polygonization.
+                 *
+                 * @returns a collection of the input LineStrings which are cut edges
+                 */
+                getCutEdges(): ArrayList<LineString>;
+
+                /**
+                 * Gets the list of lines forming invalid rings found during polygonization.
+                 *
+                 * @returns a collection of the input LineStrings which form invalid rings
+                 */
+                getInvalidRingLines(): ArrayList<LineString>;
+            }
+        }
+
+        namespace linemerge {
+            import Collection = java.utils.Collection;
+            import Geometry = jsts.geom.Geometry;
+            import LineString = jsts.geom.LineString;
+            /**
+             * Merges a collection of linear components to form maximal-length linestrings.
+             * Merging stops at nodes of degree 1 or degree 3 or more.
+             * In other words, all nodes of degree 2 are merged together.
+             * The exception is in the case of an isolated loop, which only has degree-2 nodes.
+             * In this case one of the nodes is chosen as a starting point.
+             *
+             * The direction of each merged LineString will be that of the majority of the LineStrings from which it was derived.
+             * Any dimension of Geometry is handled - the constituent linework is extracted to form the edges.
+             * The edges must be correctly noded; that is, they must only meet at their endpoints.
+             * The LineMerger will accept non-noded input but will not merge non-noded edges.
+             *
+             * Input lines which are empty or contain only a single unique coordinate are not included in the merging.
+             */
+            export class LineMerger {
+                /**
+                 * Creates a new line merger.
+                 */
+                constructor();
+
+                /**
+                 * Adds a Geometry to be processed. May be called multiple times.
+                 * Any dimension of Geometry may be added; the constituent linework will be extracted.
+                 *
+                 * @param geometry geometry to be line-merged
+                 */
+                add(geometry: Geometry): void;
+
+                /**
+                 * Adds a collection of Geometries to be processed. May be called multiple times.
+                 * Any dimension of Geometry may be added; the constituent linework will be extracted.
+                 *
+                 * @param geometries the geometries to be line-merged
+                 */
+                add(geometries: Collection<Geometry>): void;
+
+                /**
+                 * Gets the LineStrings created by the merging process.
+                 *
+                 * @returns the collection of merged LineStrings
+                 */
+                getMergedLineStrings(): Collection<LineString>;
             }
         }
     }
@@ -3876,8 +3987,176 @@ declare namespace jsts {
             getResultGeometry(): Geometry;
         }
     }
+
+    namespace util {
+        /**
+         * An extendable array of primitive int values.
+         */
+        export class IntArrayList {
+            /**
+             * Constructs an empty list.
+             */
+            constructor();
+            /**
+             * Constructs an empty list with the specified initial capacity
+             *
+             * @param initialCapacity {integer} the initial capacity of the list
+             */
+            constructor(initialCapacity: number);
+
+            /**
+             * Returns the number of values in this list.
+             */
+            size(): number;
+
+            /**
+             * Increases the capacity of this list instance, if necessary,
+             * to ensure that it can hold at least the number of elements specified by the capacity argument.
+             *
+             * @param capacity {integer} the desired capacity
+             */
+            ensureCapacity(capacity: number): void;
+
+            /**
+             * Adds a value to the end of this list.
+             *
+             * @param value {integer} the value to add
+             */
+            add(value: number): void;
+
+            /**
+             * Adds all values in an array to the end of this list.
+             *
+             * @param values an array of values
+             */
+            addAll(values: number[]): void;
+
+            /**
+             * Returns a int array containing a copy of the values in this list.
+             */
+            toArray(): number[];
+        }
+    }
 }
 
-declare module 'jsts' {
+declare namespace java {
+    namespace utils {
+        export class Iterator<T> {
+            /**
+             * Returns true if the iteration has more elements.
+             * @return {boolean}
+             */
+            hasNext(): boolean;
+
+            /**
+             * Returns the next element in the iteration.
+             * @return {T}
+             */
+            next(): T;
+
+            /**
+             * Removes from the underlying collection the last element returned by the
+             * iterator (optional operation).
+             */
+            remove(): void;
+        }
+        export class Comparator<T> {
+            compare(a: T, b: T): number;
+        }
+        export class Collection<T> {
+            /**
+             * Ensures that this collection contains the specified element (optional
+             * operation).
+             * @param {T} e
+             * @return {boolean}
+             */
+            add(e: T): boolean;
+            /**
+             * Appends all of the elements in the specified collection to the end of this
+             * list, in the order that they are returned by the specified collection's
+             * iterator (optional operation).
+             * @param {javascript.util.Collection} c
+             * @return {boolean}
+             */
+            addAll(c: Collection<T>): boolean;
+            /**
+             * Returns true if this collection contains no elements.
+             * @return {boolean}
+             */
+            isEmpty(): boolean;
+            /**
+             * Returns an iterator over the elements in this collection.
+             * @return {javascript.util.Iterator}
+             */
+            iterator(): Iterator<T>;
+            /**
+             * Returns an iterator over the elements in this collection.
+             * @return {number}
+             */
+            size(): number;
+            /**
+             * Returns an array containing all of the elements in this collection.
+             * @return {Array}
+             */
+            toArray(): Array<T>;
+            /**
+             * Removes a single instance of the specified element from this collection if it
+             * is present. (optional)
+             * @param {Object} e
+             * @return {boolean}
+             */
+            remove(e: T): boolean;
+        }
+        export class List<T> extends Collection<T> {
+            /**
+             * Returns the element at the specified position in this list.
+             * @param {number} index
+             * @return {T}
+             */
+            get(index: number): T;
+            /**
+             * Replaces the element at the specified position in this list with the
+             * specified element (optional operation).
+             * @param {number} index
+             * @param {Object} e
+             * @return {Object}
+             */
+            set(index: number, e: T): T;
+        }
+        export class ArrayList<T> extends List<T> {
+            constructor(c?: Collection<T>);
+
+            /**
+             * Increases the capacity of this list instance, if necessary,
+             * to ensure that it can hold at least the number of elements specified by the capacity argument.
+             *
+             * @param capacity {integer} the desired capacity
+             */
+            ensureCapacity(capacity: number): void;
+
+            /**
+             * Empties this list
+             */
+            clear(): void;
+
+            sort(comparator: Comparator<T>): void;
+        }
+        export class Set<T> extends Collection<T> {
+            /**
+             * Returns true if this set contains the specified element. More formally,
+             * returns true if and only if this set contains an element e such that (o==null ?
+             * e==null : o.equals(e)).
+             * @param {T} e
+             * @return {boolean}
+             */
+            contains(e: T): boolean;
+        }
+        export class HashSet<T> extends Set<T> {
+            constructor(c?: Collection<T>);
+        }
+    }
+}
+
+declare module "jsts" {
     export = jsts;
 }

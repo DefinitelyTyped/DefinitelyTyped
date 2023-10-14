@@ -5,7 +5,7 @@ import {
     AppSyncIdentityLambda,
     AppSyncIdentityOIDC,
     AppSyncResolverHandler,
-} from 'aws-lambda';
+} from "aws-lambda";
 
 declare let objectOrNull: {} | null;
 declare let prevResultOrNull: { result: { [key: string]: any } } | null;
@@ -55,6 +55,7 @@ const handler: AppSyncResolverHandler<TestArguments, TestEntity> = async (event,
     anyObj = (event.identity as AppSyncIdentityLambda).resolverContext;
 
     strOrUndefined = event.request.headers.host;
+    strOrNull = event.request.domainName;
 
     str = event.info.fieldName;
     str = event.info.parentTypeName;
@@ -68,8 +69,8 @@ const handler: AppSyncResolverHandler<TestArguments, TestEntity> = async (event,
     anyObj = event.stash;
 
     return {
-        id: '',
-        name: '',
+        id: "",
+        name: "",
         check: true,
     };
 };
@@ -103,6 +104,7 @@ const batchHandler: AppSyncBatchResolverHandler<TestArguments, TestEntity> = asy
         anyObj = (event.identity as AppSyncIdentityLambda).resolverContext;
 
         strOrUndefined = event.request.headers.host;
+        strOrNull = event.request.domainName;
 
         str = event.info.fieldName;
         str = event.info.parentTypeName;
@@ -118,8 +120,8 @@ const batchHandler: AppSyncBatchResolverHandler<TestArguments, TestEntity> = asy
 
     return [
         {
-            id: '',
-            name: '',
+            id: "",
+            name: "",
             check: true,
         },
     ];
@@ -135,8 +137,8 @@ const handlerWithDefinedSourceTypes: AppSyncResolverHandler<TestArguments, TestE
     numOrUndefined = event.source ? event.source.age : undefined;
 
     return {
-        id: '',
-        name: '',
+        id: "",
+        name: "",
         check: true,
     };
 };
@@ -155,8 +157,8 @@ const batchHandlerWithDefinedSourceTypes: AppSyncBatchResolverHandler<TestArgume
 
     return [
         {
-            id: '',
-            name: '',
+            id: "",
+            name: "",
             check: true,
         },
     ];

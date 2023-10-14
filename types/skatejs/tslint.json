@@ -3,9 +3,6 @@
     "rules": {
         "array-type": false,
         "interface-over-type-literal": false,
-        "no-redundant-undefined": false,
-        "no-unnecessary-generics": false,
-        "prefer-declare-function": false,
-        "strict-export-declare-modifiers": false
+        "no-redundant-undefined": false
     }
 }

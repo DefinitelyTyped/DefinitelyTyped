@@ -1,13 +1,13 @@
 import {
+    AbsoluteOrientationSensor,
     Accelerometer,
-    LinearAccelerationSensor,
     GravitySensor,
     Gyroscope,
-    AbsoluteOrientationSensor,
+    LinearAccelerationSensor,
     RelativeOrientationSensor,
     // Magnetometer,
     // GeolocationSensor,
-} from 'motion-sensors-polyfill';
+} from "motion-sensors-polyfill";
 
 const accelerometer = new Accelerometer();
 accelerometer.timestamp;

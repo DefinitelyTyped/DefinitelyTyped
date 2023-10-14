@@ -14,14 +14,14 @@
             "../"
         ],
         "types": [],
+        "paths": {
+            "@zedit/upf": ["zedit__upf"]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
         "zedit__upf-tests.ts"
-    ],
-    "paths": {
-        "@zedit/upf": ["zedit__upf"]
-    }
+    ]
 }

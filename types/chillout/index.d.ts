@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.0
 
-// tslint:disable:no-unnecessary-generics
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
 
 export as namespace chillout;
 
@@ -73,27 +73,26 @@ export type ForEachArgs<
     TObject extends ArrayLike<unknown> | object,
     TContext,
     TCallbackReturn extends DefaultCallbackReturn = DefaultCallbackReturn,
-> = TObject extends ArrayLike<unknown>
-    ? [
-          arr: TObject,
-          callback: (
-              this: TContext,
-              value: TObject extends ArrayLike<infer T> ? T : never,
-              key: number,
-              arr: TObject,
-          ) => TCallbackReturn,
-          context?: TContext,
-      ]
+> = TObject extends ArrayLike<unknown> ? [
+        arr: TObject,
+        callback: (
+            this: TContext,
+            value: TObject extends ArrayLike<infer T> ? T : never,
+            key: number,
+            arr: TObject,
+        ) => TCallbackReturn,
+        context?: TContext,
+    ]
     : [
-          obj: TObject,
-          callback: (
-              this: TContext,
-              value: TObject[keyof TObject],
-              key: keyof TObject,
-              obj: TObject,
-          ) => TCallbackReturn,
-          context?: TContext,
-      ];
+        obj: TObject,
+        callback: (
+            this: TContext,
+            value: TObject[keyof TObject],
+            key: keyof TObject,
+            obj: TObject,
+        ) => TCallbackReturn,
+        context?: TContext,
+    ];
 
 /**
  * Executes a provided function the specified number times.

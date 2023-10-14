@@ -3,11 +3,8 @@
     "rules": {
         "array-type": false,
         "ban-types": false,
-        "export-just-namespace": false,
-        "no-trailing-whitespace": false,
         "no-var-keyword": false,
         "prefer-const": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
 }

@@ -2,7 +2,6 @@
 // Project: https://github.com/nfl/react-helmet
 // Definitions by: Evan Bremer <https://github.com/evanbb>
 //                 Isman Usoh <https://github.com/isman-usoh>
-//                 Kok Sam <https://github.com/sammkj>
 //                 Yui T. <https://github.com/yuit>
 //                 Yamagishi Kazutoshi <https://github.com/ykzts>
 //                 Justin Hall <https://github.com/wKovacs64>
@@ -56,11 +55,13 @@ export interface HelmetProps {
 /**
  * Used by Helmet.peek()
  */
-export type HelmetPropsToState = HelmetTags &
-    Pick<
+export type HelmetPropsToState =
+    & HelmetTags
+    & Pick<
         HelmetProps,
         "bodyAttributes" | "defer" | "htmlAttributes" | "onChangeClientState" | "title" | "titleAttributes"
-    > & {
+    >
+    & {
         encode: Required<HelmetProps["encodeSpecialCharacters"]>;
     };
 
