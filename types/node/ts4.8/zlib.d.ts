@@ -113,9 +113,6 @@ declare module "zlib" {
         info?: boolean | undefined;
         maxOutputLength?: number | undefined;
     }
-    interface ZlibOptionsWithoutInfo extends ZlibOptions {
-        info?: false | undefined;
-    }
     interface ZlibOptionsWithInfo extends ZlibOptions {
         info: true;
     }
@@ -285,114 +282,114 @@ declare module "zlib" {
      * @since v0.6.0
      */
     function deflate(buf: InputType, callback: CompressCallback): void;
-    function deflate(buf: InputType, options: ZlibOptionsWithoutInfo, callback: CompressCallback): void;
     function deflate(buf: InputType, options: ZlibOptionsWithInfo, callback: CompressDeflateInfoCallback): void;
+    function deflate(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
     namespace deflate {
-        function __promisify__(buffer: InputType, options?: ZlibOptionsWithoutInfo): Promise<Buffer>;
-        function __promisify__(buffer: InputType, options?: ZlibOptionsWithInfo): Promise<CompressDeflateInfoResult>;
+        function __promisify__(buffer: InputType, options: ZlibOptionsWithInfo): Promise<CompressDeflateInfoResult>;
+        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
     }
     /**
      * Compress a chunk of data with `Deflate`.
      * @since v0.11.12
      */
-    function deflateSync(buf: InputType, options?: ZlibOptionsWithoutInfo): Buffer;
-    function deflateSync(buf: InputType, options?: ZlibOptionsWithInfo): CompressDeflateInfoResult;
+    function deflateSync(buf: InputType, options: ZlibOptionsWithInfo): CompressDeflateInfoResult;
+    function deflateSync(buf: InputType, options?: ZlibOptions): Buffer;
     /**
      * @since v0.6.0
      */
     function deflateRaw(buf: InputType, callback: CompressCallback): void;
-    function deflateRaw(buf: InputType, options: ZlibOptionsWithoutInfo, callback: CompressCallback): void;
     function deflateRaw(buf: InputType, options: ZlibOptionsWithInfo, callback: CompressDeflateRawInfoCallback): void;
+    function deflateRaw(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
     namespace deflateRaw {
-        function __promisify__(buffer: InputType, options?: ZlibOptionsWithoutInfo): Promise<Buffer>;
-        function __promisify__(buffer: InputType, options?: ZlibOptionsWithInfo): Promise<CompressDeflateRawInfoResult>;
+        function __promisify__(buffer: InputType, options: ZlibOptionsWithInfo): Promise<CompressDeflateRawInfoResult>;
+        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
     }
     /**
      * Compress a chunk of data with `DeflateRaw`.
      * @since v0.11.12
      */
-    function deflateRawSync(buf: InputType, options?: ZlibOptionsWithoutInfo): Buffer;
-    function deflateRawSync(buf: InputType, options?: ZlibOptionsWithInfo): CompressDeflateRawInfoResult;
+    function deflateRawSync(buf: InputType, options: ZlibOptionsWithInfo): CompressDeflateRawInfoResult;
+    function deflateRawSync(buf: InputType, options?: ZlibOptions): Buffer;
     /**
      * @since v0.6.0
      */
     function gzip(buf: InputType, callback: CompressCallback): void;
-    function gzip(buf: InputType, options: ZlibOptionsWithoutInfo, callback: CompressCallback): void;
     function gzip(buf: InputType, options: ZlibOptionsWithInfo, callback: CompressGzipInfoCallback): void;
+    function gzip(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
     namespace gzip {
-        function __promisify__(buffer: InputType, options?: ZlibOptionsWithoutInfo): Promise<Buffer>;
-        function __promisify__(buffer: InputType, options?: ZlibOptionsWithInfo): Promise<CompressGzipInfoResult>;
+        function __promisify__(buffer: InputType, options: ZlibOptionsWithInfo): Promise<CompressGzipInfoResult>;
+        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
     }
     /**
      * Compress a chunk of data with `Gzip`.
      * @since v0.11.12
      */
-    function gzipSync(buf: InputType, options?: ZlibOptionsWithoutInfo): Buffer;
-    function gzipSync(buf: InputType, options?: ZlibOptionsWithInfo): CompressGzipInfoResult;
+    function gzipSync(buf: InputType, options: ZlibOptionsWithInfo): CompressGzipInfoResult;
+    function gzipSync(buf: InputType, options?: ZlibOptions): Buffer;
     /**
      * @since v0.6.0
      */
     function gunzip(buf: InputType, callback: CompressCallback): void;
-    function gunzip(buf: InputType, options: ZlibOptionsWithoutInfo, callback: CompressCallback): void;
     function gunzip(buf: InputType, options: ZlibOptionsWithInfo, callback: CompressGunzipInfoCallback): void;
+    function gunzip(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
     namespace gunzip {
-        function __promisify__(buffer: InputType, options?: ZlibOptionsWithoutInfo): Promise<Buffer>;
-        function __promisify__(buffer: InputType, options?: ZlibOptionsWithInfo): Promise<CompressGunzipInfoResult>;
+        function __promisify__(buffer: InputType, options: ZlibOptionsWithInfo): Promise<CompressGunzipInfoResult>;
+        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
     }
     /**
      * Decompress a chunk of data with `Gunzip`.
      * @since v0.11.12
      */
-    function gunzipSync(buf: InputType, options?: ZlibOptionsWithoutInfo): Buffer;
-    function gunzipSync(buf: InputType, options?: ZlibOptionsWithInfo): CompressGunzipInfoResult;
+    function gunzipSync(buf: InputType, options: ZlibOptionsWithInfo): CompressGunzipInfoResult;
+    function gunzipSync(buf: InputType, options?: ZlibOptions): Buffer;
     /**
      * @since v0.6.0
      */
     function inflate(buf: InputType, callback: CompressCallback): void;
-    function inflate(buf: InputType, options: ZlibOptionsWithoutInfo, callback: CompressCallback): void;
     function inflate(buf: InputType, options: ZlibOptionsWithInfo, callback: CompressInflateInfoCallback): void;
+    function inflate(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
     namespace inflate {
-        function __promisify__(buffer: InputType, options?: ZlibOptionsWithoutInfo): Promise<Buffer>;
-        function __promisify__(buffer: InputType, options?: ZlibOptionsWithInfo): Promise<CompressInflateInfoResult>;
+        function __promisify__(buffer: InputType, options: ZlibOptionsWithInfo): Promise<CompressInflateInfoResult>;
+        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
     }
     /**
      * Decompress a chunk of data with `Inflate`.
      * @since v0.11.12
      */
-    function inflateSync(buf: InputType, options?: ZlibOptionsWithoutInfo): Buffer;
-    function inflateSync(buf: InputType, options?: ZlibOptionsWithInfo): CompressInflateInfoResult;
+    function inflateSync(buf: InputType, options: ZlibOptionsWithInfo): CompressInflateInfoResult;
+    function inflateSync(buf: InputType, options?: ZlibOptions): Buffer;
     /**
      * @since v0.6.0
      */
     function inflateRaw(buf: InputType, callback: CompressCallback): void;
-    function inflateRaw(buf: InputType, options: ZlibOptionsWithoutInfo, callback: CompressCallback): void;
     function inflateRaw(buf: InputType, options: ZlibOptionsWithInfo, callback: CompressInflateRawInfoCallback): void;
+    function inflateRaw(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
     namespace inflateRaw {
-        function __promisify__(buffer: InputType, options?: ZlibOptionsWithoutInfo): Promise<Buffer>;
-        function __promisify__(buffer: InputType, options?: ZlibOptionsWithInfo): Promise<CompressInflateRawInfoResult>;
+        function __promisify__(buffer: InputType, options: ZlibOptionsWithInfo): Promise<CompressInflateRawInfoResult>;
+        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
     }
     /**
      * Decompress a chunk of data with `InflateRaw`.
      * @since v0.11.12
      */
-    function inflateRawSync(buf: InputType, options?: ZlibOptionsWithoutInfo): Buffer;
-    function inflateRawSync(buf: InputType, options?: ZlibOptionsWithInfo): CompressInflateRawInfoResult;
+    function inflateRawSync(buf: InputType, options: ZlibOptionsWithInfo): CompressInflateRawInfoResult;
+    function inflateRawSync(buf: InputType, options?: ZlibOptions): Buffer;
     /**
      * @since v0.6.0
      */
     function unzip(buf: InputType, callback: CompressCallback): void;
-    function unzip(buf: InputType, options: ZlibOptionsWithoutInfo, callback: CompressCallback): void;
     function unzip(buf: InputType, options: ZlibOptionsWithInfo, callback: CompressUnzipInfoCallback): void;
+    function unzip(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
     namespace unzip {
-        function __promisify__(buffer: InputType, options?: ZlibOptionsWithoutInfo): Promise<Buffer>;
-        function __promisify__(buffer: InputType, options?: ZlibOptionsWithInfo): Promise<CompressUnzipInfoResult>;
+        function __promisify__(buffer: InputType, options: ZlibOptionsWithInfo): Promise<CompressUnzipInfoResult>;
+        function __promisify__(buffer: InputType, options?: ZlibOptions): Promise<Buffer>;
     }
     /**
      * Decompress a chunk of data with `Unzip`.
      * @since v0.11.12
      */
-    function unzipSync(buf: InputType, options?: ZlibOptionsWithoutInfo): Buffer;
-    function unzipSync(buf: InputType, options?: ZlibOptionsWithInfo): CompressUnzipInfoResult;
+    function unzipSync(buf: InputType, options: ZlibOptionsWithInfo): CompressUnzipInfoResult;
+    function unzipSync(buf: InputType, options?: ZlibOptions): Buffer;
     namespace constants {
         const BROTLI_DECODE: number;
         const BROTLI_DECODER_ERROR_ALLOC_BLOCK_TYPE_TREES: number;
