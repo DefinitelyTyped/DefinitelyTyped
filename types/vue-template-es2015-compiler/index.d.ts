@@ -4,18 +4,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface TransformsOptions {
-    modules?: boolean;
+    modules?: boolean | undefined;
     /** Custom feature for stripping with from Vue render functions */
-    stripWith?: boolean;
+    stripWith?: boolean | undefined;
     /** Custom feature ensures with context targets functional render */
-    stripWithFunctional?: boolean;
+    stripWithFunctional?: boolean | undefined;
 }
 
 interface CompilerOptions {
     /** Selectively support some handy ES2015 features in templates */
-    transforms?: TransformsOptions;
+    transforms?: TransformsOptions | undefined;
     /** Allow spread... */
-    objectAssign?: string;
+    objectAssign?: string | undefined;
 }
 
 /**

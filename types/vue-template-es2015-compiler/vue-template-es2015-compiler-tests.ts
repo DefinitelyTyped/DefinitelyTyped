@@ -26,3 +26,19 @@ vuePlugin("", {
     },
     objectAssign: "",
 });
+
+// $ExpectType string
+vuePlugin("", {
+    transforms: undefined,
+    objectAssign: undefined,
+});
+
+// $ExpectType string
+vuePlugin("", {
+    transforms: {
+        modules: undefined,
+        stripWith: undefined,
+        stripWithFunctional: undefined,
+    },
+    objectAssign: undefined,
+});
