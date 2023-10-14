@@ -1,4 +1,4 @@
-// Type definitions for webpack-virtual-modules 0.1
+// Type definitions for webpack-virtual-modules 0.6
 // Project: https://github.com/sysgears/webpack-virtual-modules
 // Definitions by: Avi Vahl <https://github.com/AviVahl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
