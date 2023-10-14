@@ -8,6 +8,10 @@ const virtualModules = new VirtualModulesPlugin({
 
 virtualModules.writeModule("node_modules/module-foo.js", "module.exports = { foo: \"foo\" };");
 
+const allModules = virtualModules.getModuleList();
+const staticModules = virtualModules.getModuleList('static');
+const dynamicModules = virtualModules.getModuleList('dynamic');
+
 webpack({
     plugins: [virtualModules],
 });

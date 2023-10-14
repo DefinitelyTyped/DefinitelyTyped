@@ -26,8 +26,9 @@ declare class VirtualModulesPlugin {
 
     /**
      * Get virtual modules
+     * @param filter Possible values are: 'all' | 'static' | 'dynamic'. Default value 'all'
      */
-    getModuleList(filter: 'all' | 'static' |  'dynamic'): Record<string, string>;
+    getModuleList(filter?: 'all' | 'static' | 'dynamic'): Record<string, string>
 }
 
 export = VirtualModulesPlugin;
