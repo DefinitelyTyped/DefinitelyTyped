@@ -2609,6 +2609,10 @@
             "libraryName": "jdenticon",
             "asOfVersion": "2.2.0"
         },
+        "jest": {
+            "libraryName": "jest",
+            "asOfVersion": "24.3.0"
+        },
         "jest-cli": {
             "libraryName": "jest-cli",
             "asOfVersion": "24.3.0"
