@@ -1,21 +1,4 @@
-// utils.d.ts
-
-import core, { Plugin, Plugins, same } from "@bbob/core";
-
-// $ExpectType boolean
-same(1, {});
-
-// $ExpectType boolean
-same(true, true);
-
-// $ExpectType boolean
-same(null, null);
-
-// $ExpectType boolean
-same([1, 2, 3], [1, 2, 3, 4]);
-
-// $ExpectType boolean
-same({ foo: true, bar: "test" }, { foo: true, bar: "test", ext: true });
+import core, { Plugin, Plugins } from "@bbob/core";
 
 // index.d.ts
 
