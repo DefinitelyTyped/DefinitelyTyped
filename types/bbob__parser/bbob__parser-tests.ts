@@ -1,4 +1,4 @@
-import { TagNode, parse } from "@bbob/parser";
+import { parse, TagNode } from "@bbob/parser";
 
 // $ExpectType TagNode
 const tagNode = TagNode.create("test", { test: 1 }, ["Hello"]);
