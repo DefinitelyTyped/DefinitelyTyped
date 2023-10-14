@@ -720,7 +720,15 @@ export class Led {
 
     blink(ms?: number, callback?: () => void): this;
     blink(callback?: () => void): this;
+    /**
+     * A value between 0 and 255 representing the brightness of the led.
+     */
     brightness(val: number): this;
+    /**
+     *
+     * @param percentage A value between 0 and 100 representing the brightness of the led in percentage.
+     */
+    intensity(percentage: number): this;
     fade(brightness: number, ms?: number, callback?: () => void): this;
     fade(animation: AnimationSegment): this;
     fadeIn(ms?: number, callback?: () => void): this;
