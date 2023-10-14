@@ -1,5 +1,3 @@
-import hexToBinary = require("hex-to-binary");
+import hexToRgba = require("hex-to-binary");
 
-// $ExpectType string
-hexToBinary("AAFF01");
-
+const binary = hexToRgba("1b2b34");
