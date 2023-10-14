@@ -612,7 +612,7 @@ declare namespace PDFKit.Mixins {
         endMetadata(): void;
     }
 
-    type PDFSubsets = `PDF/A-1${'' | 'a' | 'b'}` | `PDF/A-2${'' | 'a' | 'b'}` | `PDF/A-3${'' | 'a' | 'b'}`;
+    type PDFSubsets = `PDF/A-1${"" | "a" | "b"}` | `PDF/A-2${"" | "a" | "b"}` | `PDF/A-3${"" | "a" | "b"}`;
     interface PDFSubset {
         // TODO: Add more types if needed. I do not understand this enought...
         initSubset(options: { subset: PDFSubsets }): void;
