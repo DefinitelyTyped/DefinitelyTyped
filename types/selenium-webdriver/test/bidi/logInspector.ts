@@ -1,7 +1,7 @@
 import * as webdriver from "selenium-webdriver";
 import LogInspector = require("selenium-webdriver/bidi/logInspector");
 
-const testText = 'hello!';
+const testText = "hello!";
 
 async function TestLogInspector() {
     const driver: webdriver.WebDriver = new webdriver.Builder().build();
@@ -10,7 +10,7 @@ async function TestLogInspector() {
     await checkForLog(testText, 1000);
     await logInspector.close();
     await driver.close();
-    
+
     async function checkForLog(expectedText: string, timeout: number): Promise<void> {
         const findLog = new Promise<void>((resolve) => {
             logInspector.onLog(({ text }) => {
@@ -20,7 +20,9 @@ async function TestLogInspector() {
             });
         });
         const timeOut = new Promise<void>((_, reject) => {
-            setTimeout(() => { reject(new Error("Search timed out")); }, timeout);
+            setTimeout(() => {
+                reject(new Error("Search timed out"));
+            }, timeout);
         });
         return Promise.race([findLog, timeOut]);
     }

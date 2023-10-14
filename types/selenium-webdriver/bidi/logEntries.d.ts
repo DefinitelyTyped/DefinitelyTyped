@@ -1,6 +1,6 @@
 declare class BaseLogEntry {
     constructor(level: string, text: string, timeStamp: Date, stackTrace: string);
-    
+
     readonly level: string;
     readonly text: string;
     readonly timeStamp: Date;
@@ -9,7 +9,7 @@ declare class BaseLogEntry {
 
 declare class GenericLogEntry extends BaseLogEntry {
     constructor(level: string, text: string, timeStamp: Date, type: string, stackTrace: string);
-    
+
     readonly type: string;
 }
 
@@ -22,7 +22,7 @@ declare class ConsoleLogEntry extends GenericLogEntry {
         method: string,
         realm: string,
         args: any[],
-        stackTrace: string
+        stackTrace: string,
     );
 
     readonly method: string;
@@ -32,9 +32,4 @@ declare class ConsoleLogEntry extends GenericLogEntry {
 
 declare class JavascriptLogEntry extends GenericLogEntry {}
 
-export {
-    BaseLogEntry,
-    GenericLogEntry,
-    ConsoleLogEntry,
-    JavascriptLogEntry
-};
+export { BaseLogEntry, ConsoleLogEntry, GenericLogEntry, JavascriptLogEntry };
