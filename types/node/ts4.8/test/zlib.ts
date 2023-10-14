@@ -32,7 +32,7 @@ import {
     unzipSync,
 } from "node:zlib";
 
-const compressMe = new Buffer("some data");
+const compressMe = Buffer.from("some data");
 const compressMeString = "compress me!";
 
 // Deflate / Inflate
