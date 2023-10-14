@@ -6,12 +6,6 @@
 
 import webpack = require("webpack");
 
-const ALL = 'all';
-const STATIC = 'static';
-const DYNAMIC = 'dynamic';
-
-type AvailableModules = typeof ALL | typeof STATIC | typeof DYNAMIC;
-
 /**
  * Plugin that allows dynamic generation of in-memory virtual modules for JavaScript builds
  * created with webpack.
@@ -33,7 +27,7 @@ declare class VirtualModulesPlugin {
     /**
      * Get virtual modules
      */
-    getModuleList(filter: AvailableModules = ALL)
+    getModuleList(filter: 'all' | 'static' |  'dynamic'): Record<string, string>;
 }
 
 export = VirtualModulesPlugin;
