@@ -1,0 +1,10 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "jsdoc-format": false,
+        "member-access": false,
+        "no-internal-module": false,
+        "no-var-keyword": false,
+        "prefer-const": false
+    }
+}

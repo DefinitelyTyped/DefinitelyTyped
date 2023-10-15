@@ -1,0 +1,40 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "lib": [
+            "es2018",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "paths": {
+            "@ember/array": ["ember__array/v3"],
+            "@ember/array/*": ["ember__array/v3/*"],
+            "@ember/controller": ["ember__controller/v3"],
+            "@ember/component": ["ember__component/v3"],
+            "@ember/object": ["ember__object/v3"],
+            "@ember/object/*": ["ember__object/v3/*"],
+            "@ember/routing": ["ember__routing/v3"],
+            "@ember/routing/*": ["ember__routing/v3/*"],
+            "@ember/service": ["ember__service/v3"],
+            "@ember/service/*": ["ember__service/v3/*"]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/lib/assert.ts",
+        "test/route.ts",
+        "test/router.ts",
+        "test/router-service.ts"
+    ]
+}

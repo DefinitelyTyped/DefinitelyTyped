@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "es2018"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "walk-asyncgen-tests.ts"
+    ]
+}

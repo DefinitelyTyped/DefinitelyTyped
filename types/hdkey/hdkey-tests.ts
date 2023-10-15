@@ -1,0 +1,16 @@
+import HDKey = require("hdkey");
+const hdKey = new HDKey();
+hdKey.derive("m/1/42");
+hdKey.privateKey;
+hdKey.publicKey;
+hdKey.publicExtendedKey;
+const priv = hdKey.privateExtendedKey;
+HDKey.fromExtendedKey(priv);
+const sign = hdKey.sign(Buffer.from("hello world"));
+hdKey.verify(Buffer.from("hello world"), sign);
+hdKey.wipePrivateData();
+hdKey.chainCode;
+hdKey.toJSON();
+HDKey.fromJSON({ xpriv: "", xpub: "" });
+HDKey.fromMasterSeed(Buffer.from("hello world"));
+HDKey.fromMasterSeed(Buffer.from("hello world"), { private: 0x043587cf, public: 0x04358394 });

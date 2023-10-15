@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../",
+        "forceConsistentCasingInFileNames": true,
+        "lib": ["es6"],
+        "module": "commonjs",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "typeRoots": ["../"],
+        "paths": {
+            "webpack": [
+                "webpack/v4"
+            ],
+            "tapable": [
+                "tapable/v1"
+            ]
+        },
+        "types": []
+    },
+    "files": [
+        "index.d.ts",
+        "webpack-deadcode-plugin-tests.ts"
+    ]
+}

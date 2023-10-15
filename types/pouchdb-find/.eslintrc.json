@@ -1,0 +1,7 @@
+{
+    "rules": {
+        "@definitelytyped/no-any-union": "off",
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/no-single-declare-module": "off"
+    }
+}

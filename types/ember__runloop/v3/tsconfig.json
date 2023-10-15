@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "paths": {
+            "@ember/object": ["ember__object/v3"],
+            "@ember/object/*": ["ember__object/v3/*"],
+            "@ember/runloop": ["ember__runloop/v3"],
+            "@ember/runloop/*": ["ember__runloop/v3/*"]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "ember__runloop-tests.ts"
+    ]
+}

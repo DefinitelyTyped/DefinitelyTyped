@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@newrelic/*": [
+                "newrelic__*"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "newrelic__winston-enricher-tests.ts"
+    ]
+}

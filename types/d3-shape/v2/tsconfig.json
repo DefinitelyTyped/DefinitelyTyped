@@ -1,0 +1,38 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "paths": {
+            "d3-hierarchy": [
+                "d3-hierarchy/v2"
+            ],
+            "d3-path": [
+                "d3-path/v2"
+            ],
+            "d3-selection": [
+                "d3-selection/v2"
+            ],
+            "d3-shape": [
+                "d3-shape/v2"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "d3-shape-tests.ts"
+    ]
+}

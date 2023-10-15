@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "DOM"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@alpinejs/*": [
+                "alpinejs__*"
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "alpinejs__focus-tests.ts"
+    ]
+}

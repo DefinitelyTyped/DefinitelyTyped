@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "paths": {
+            "@hapi/*": [
+                "hapi__*"
+            ]
+        },
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "hapi__bell-tests.ts"
+    ]
+}

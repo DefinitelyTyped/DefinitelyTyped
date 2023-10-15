@@ -1,0 +1,11 @@
+{
+    "private": true,
+    "description": "Tool that rolls over files for major version",
+    "author": "Simon Schick <demwizzy@gmail.com>",
+    "dependencies": {
+        "fs-extra": "^10.0.0"
+    },
+    "devDependencies": {
+        "@types/fs-extra": "^9.0.13"
+    }
+}

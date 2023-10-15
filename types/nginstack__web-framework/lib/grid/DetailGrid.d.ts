@@ -1,0 +1,50 @@
+export = DetailGrid;
+declare function DetailGrid(parent: any, name: any, master: any): void;
+declare class DetailGrid {
+    constructor(parent: any, name: any, master: any);
+    master: any;
+    private adaptEvent_;
+    private _masterScrollRequiresDataSet;
+    private lastMasterBookmarkSynchronized;
+    maxRecordCount: any;
+    masterDeleteAction: number;
+    onCreateDataSet: Event;
+    onMasterInsert: Event;
+    onMasterScroll: Event;
+    onMasterPost: Event;
+    onMasterCancel: Event;
+    onMasterDelete: Event;
+    private prepare;
+    protected sync_(...args: any[]): void;
+    config(): void;
+    title: any;
+    readOnly: boolean;
+    classKey: any;
+    defaultMasterDetailCreateDataSet(sender: any): DataSet;
+    defaultMasterDetailBeforeInsert(sender: any): void;
+    defaultMasterDetailAfterInsert(sender: any): void;
+    defaultMasterDetailScroll(detailGrid: any): void;
+    defaultMasterDetailDelete(sender: any): void;
+    private _tryCreateDataSet;
+    ds: any;
+    notifyCreateDataSet(): void;
+    notifyMasterInsert(): void;
+    notifyMasterPost(): void;
+    notifyMasterCancel(): void;
+    notifyMasterDelete(): void;
+    private notifyingMasterScroll_;
+    notifyMasterScroll(): void;
+    fDs: any;
+    insert(): void;
+    del(handleDetailGrid: any): void;
+    delete: any;
+    edit(field: any): void;
+    autoMasterPost: boolean;
+    post(autoMasterPost: any, ...args: any[]): void;
+    private toString;
+}
+declare namespace DetailGrid {
+    export { Event };
+}
+type Event = import("@nginstack/engine/lib/event/Event");
+import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");

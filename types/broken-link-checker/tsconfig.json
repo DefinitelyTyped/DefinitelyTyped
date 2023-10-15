@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "jsx": "react",
+        "lib": ["es6"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "forceConsistentCasingInFileNames": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "types": [],
+        "noEmit": true
+    },
+    "files": ["index.d.ts", "broken-link-checker-tests.ts"]
+}

@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "jsx": "react",
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
+        "types": [],
+        "paths": {
+            "akumina-core": [
+                "akumina-core/v4"
+            ]
+        },
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "akumina-core-tests.ts"
+    ]
+}

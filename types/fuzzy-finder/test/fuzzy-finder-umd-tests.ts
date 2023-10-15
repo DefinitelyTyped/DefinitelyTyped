@@ -1,0 +1,1 @@
+fuzzyFinder(); // $ExpectType string[]

@@ -1,0 +1,12 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "ban-types": false,
+        "no-boolean-literal-compare": false,
+        "no-irregular-whitespace": false,
+        "no-var-keyword": false,
+        "only-arrow-functions": false,
+        "prefer-template": false,
+        "unified-signatures": false
+    }
+}

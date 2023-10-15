@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "paths": {
+            "@sinonjs/*": [
+                "sinonjs__*"
+            ]
+        },
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/karma-sinon-chai-global-tests.ts",
+        "test/karma-sinon-chai-karma-config-tests.ts"
+    ]
+}

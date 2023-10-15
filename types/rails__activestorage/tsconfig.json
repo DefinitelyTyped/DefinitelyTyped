@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@rails/*": ["rails__*"]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "rails__activestorage-tests.ts"
+    ]
+}

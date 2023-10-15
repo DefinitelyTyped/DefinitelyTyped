@@ -1,0 +1,6 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "no-conditional-assignment": false
+    }
+}

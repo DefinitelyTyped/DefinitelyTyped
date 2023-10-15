@@ -1,0 +1,28 @@
+{
+    "files": [
+        "index.d.ts",
+        "af-utils__react-table-tests.tsx"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "jsx": "react",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "@af-utils/*": ["af-utils__*"]
+        }
+    }
+}

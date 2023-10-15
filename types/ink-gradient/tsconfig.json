@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "jsx": "react",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "ink-gradient-tests.tsx"
+    ]
+}

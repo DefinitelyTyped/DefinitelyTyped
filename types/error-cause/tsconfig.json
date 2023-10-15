@@ -1,0 +1,27 @@
+{
+    "files": [
+        "index.d.ts",
+        "test/auto.test.ts",
+        "test/Error.test.ts",
+        "test/EvalError.test.ts",
+        "test/RangeError.test.ts",
+        "test/ReferenceError.test.ts",
+        "test/SyntaxError.test.ts",
+        "test/TypeError.test.ts",
+        "test/URIError.test.ts",
+        "test/index.test.ts"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "types": [],
+        "lib": ["es6"],
+        "baseUrl": "../",
+        "typeRoots": ["../"]
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "lib": ["es6"],
+        "module": "commonjs",
+        "noEmit": true,
+        "strict": true,
+        "typeRoots": ["../"],
+        "types": []
+    },
+    "files": ["index.d.ts", "react-hyperscript-tests.ts"]
+}
