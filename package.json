@@ -12,7 +12,7 @@
         "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
     },
     "engines": {
-        "pnpm": ">=8.8.0",
+        "pnpm": ">=8.9.2",
         "node": ">=7.8.0"
     },
     "scripts": {
