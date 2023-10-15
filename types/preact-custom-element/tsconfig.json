@@ -13,8 +13,8 @@
         "typeRoots": [
             "../"
         ],
-        "jsx": "react",
-        "jsxFactory": "h",
+        "jsx": "react-jsx",
+        "jsxImportSource": "preact",
         "experimentalDecorators": true,
         "types": [],
         "noEmit": true,

@@ -1,7 +1,7 @@
 import { Component, FunctionalComponent, h, render } from "preact";
 import register = require("preact-custom-element");
 
-const Foo: FunctionalComponent<any> = props => {
+const Foo = (props: any) => {
     return <div></div>;
 };
 
@@ -15,3 +15,12 @@ class Bar extends Component {
     }
 }
 register(Bar);
+
+class FooBar extends Component {
+    static tagName = "my-foo-bar";
+    static observedAttributes = [];
+    render() {
+        return <div>foo bar</div>;
+    }
+}
+register(FooBar, "my-foo-bar", [], { shadow: true, mode: "closed" });
