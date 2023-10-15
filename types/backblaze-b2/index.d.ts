@@ -22,7 +22,7 @@ interface CommonArgs {
 }
 
 interface StandardApiResponse {
-    status: string;
+    status: number;
     statusText: string;
     headers: any;
     config: any;
