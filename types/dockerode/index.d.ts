@@ -1163,6 +1163,7 @@ declare namespace Dockerode {
 
     interface ContainerStartOptions {
         detachKeys?: string;
+        abortSignal?: AbortSignal;
     }
 
     interface ContainerRemoveOptions {
