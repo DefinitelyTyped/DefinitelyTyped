@@ -1,0 +1,17 @@
+{
+    "name": "@types/cardinal",
+    "version": "2.1.99999",
+    "projects": [
+        "https://github.com/thlorenz/cardinal"
+    ],
+    "contributors": [
+        {
+            "name": "Andrew Branch",
+            "githubUsername": "andrewbranch"
+        }
+    ],
+    "devDependencies": {
+        "@types/ansicolors": "^0",
+        "@types/marked-terminal": "workspace:."
+    }
+}

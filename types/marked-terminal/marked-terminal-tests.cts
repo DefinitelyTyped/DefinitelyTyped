@@ -1,7 +1,5 @@
-import chalk from "chalk";
 import { marked } from "marked";
 import TerminalRenderer from "marked-terminal";
-import "./marked-terminal-tests.cjs";
 
 marked.setOptions({
     // Define custom renderer
@@ -11,8 +9,6 @@ marked.setOptions({
 marked.setOptions({
     // Define custom renderer
     renderer: new TerminalRenderer({
-        // Change style for code
-        codespan: chalk.underline.magenta,
         // Can also override color/styling by own functions.
         firstHeading: (text: string) => `*** ${text}`,
     }),
