@@ -4,8 +4,7 @@ export interface Options {
     onSkip: boolean;
 }
 
-export class CharGrabber {
-    constructor(source: string, options?: Options);
+export interface CharGrabber {
     skip(num: number, silent: boolean): void;
     hasNext(): boolean;
     getCurr(): string;
@@ -29,9 +28,7 @@ export function trimChar(str: string, charToRemove: string): string;
 export function unquote(str: string): string;
 
 export type NodeListValue = Node;
-export class NodeList {
-    constructor(values?: NodeListValue[]);
-
+export interface NodeList {
     push(value: NodeListValue): void;
     toArray(): NodeListValue[];
     getLast(): NodeListValue | null;
