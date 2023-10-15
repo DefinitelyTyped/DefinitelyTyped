@@ -111,9 +111,9 @@ container.inspect((err, data) => {
     // NOOP
 });
 
-container.start({abortSignal: new AbortController().signal}, (err, data) => {
+container.start({ abortSignal: new AbortController().signal }, (err, data) => {
     // NOOP
-})
+});
 
 container.start((err, data) => {
     // NOOP
