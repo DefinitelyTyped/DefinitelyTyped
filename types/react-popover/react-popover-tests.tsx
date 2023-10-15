@@ -1,5 +1,5 @@
-import * as React from 'react';
-import Popover = require('react-popover');
+import * as React from "react";
+import Popover = require("react-popover");
 
 class Test extends React.Component {
     render() {
@@ -14,9 +14,9 @@ class Test extends React.Component {
                 enterExitTransitionDurationMs={10}
                 tipSize={10}
                 className="xxx"
-                style={{ display: 'block' }}
+                style={{ display: "block" }}
                 target={<div>target</div>}
-                appendTarget={document.createElement('div')}
+                appendTarget={document.createElement("div")}
             />
         );
     }

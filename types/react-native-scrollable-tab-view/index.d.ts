@@ -6,8 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
-import { Animated, ScrollViewProps, ViewStyle, TextStyle, StyleProp, LayoutChangeEvent } from 'react-native';
+import * as React from "react";
+import { Animated, LayoutChangeEvent, ScrollViewProps, StyleProp, TextStyle, ViewStyle } from "react-native";
 
 export interface ScrollableTabViewProperties {
     children?: React.ReactNode;
@@ -26,7 +26,7 @@ export interface ScrollableTabViewProperties {
      * "overlayTop" or "overlayBottom" for a semitransparent tab bar that overlays content. Custom
      * tab bars must consume a style prop on their outer element to support this feature: style={this.props.style}.
      */
-    tabBarPosition?: 'top' | 'bottom' | 'overlayTop' | 'overlayBottom' | undefined;
+    tabBarPosition?: "top" | "bottom" | "overlayTop" | "overlayBottom" | undefined;
 
     /**
      * function to call when tab changes, should accept 1 argument which is
@@ -132,18 +132,23 @@ export type TabProps<T = {}> = T & {
 };
 
 export interface DefaultTabBarProps {
-  backgroundColor?: string | undefined;
-  activeTextColor?: string | undefined;
-  inactiveTextColor?: string | undefined;
-  textStyle?: TextStyle | undefined;
-  tabStyle?: ViewStyle | undefined;
-  renderTab?: RenderTabProperties | undefined;
-  underlineStyle?: ViewStyle | undefined;
-  style?: ViewStyle | undefined;
+    backgroundColor?: string | undefined;
+    activeTextColor?: string | undefined;
+    inactiveTextColor?: string | undefined;
+    textStyle?: TextStyle | undefined;
+    tabStyle?: ViewStyle | undefined;
+    renderTab?: RenderTabProperties | undefined;
+    underlineStyle?: ViewStyle | undefined;
+    style?: ViewStyle | undefined;
 }
 
-export type RenderTabProperties =
-    (name: string, pageIndex: number, isTabActive: boolean, onPressHandler: (pageNumber: number) => void, onLayoutHandler?: (event: LayoutChangeEvent) => void) => JSX.Element;
+export type RenderTabProperties = (
+    name: string,
+    pageIndex: number,
+    isTabActive: boolean,
+    onPressHandler: (pageNumber: number) => void,
+    onLayoutHandler?: (event: LayoutChangeEvent) => void,
+) => JSX.Element;
 
 export class DefaultTabBar extends React.Component<TabBarProps<DefaultTabBarProps>> {
 }

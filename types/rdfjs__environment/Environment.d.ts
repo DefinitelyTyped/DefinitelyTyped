@@ -1,22 +1,26 @@
-interface FactoryConstructor<F = {}> {
-    new (...args: any[]): F;
-    exports?: string[];
+export interface FactoryConstructor<F = {}> {
+    new(...args: any[]): F;
 }
 
-type ReturnFactory<C> = C extends FactoryConstructor<infer X> ? X : never;
+type Narrow<T> =
+    | (T extends infer U ? U : never)
+    | Extract<T, number | string | boolean | bigint | symbol | null | undefined | []>
+    | ([T] extends [[]] ? [] : { [K in keyof T]: Narrow<T[K]> });
+
+type ReturnFactory<C> = C extends FactoryConstructor<infer X> ? X : C;
 type Distribute<U> = U extends any ? ReturnFactory<U> : never;
 
-type UnionToIntersection<U> =
-    (U extends {} ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
+type UnionToIntersection<U> = (U extends {} ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
 
 export type Environment<T> = {
-    clone(): Environment<T>
-} & Omit<{
-    [K in keyof UnionToIntersection<T>]: UnionToIntersection<T>[K]
-}, 'init'>;
+    clone(): Environment<T>;
+} & Omit<UnionToIntersection<T>, "init" | "clone">;
 
 interface EnvironmentCtor {
-    new<F extends FactoryConstructor>(factories: F[], options?: { bind: boolean }): Environment<Distribute<F>>;
+    new<F extends ReadonlyArray<FactoryConstructor<any>>>(
+        factories: Narrow<F>,
+        options?: { bind: boolean },
+    ): Environment<Distribute<F[number]>>;
 }
 
 declare const environment: EnvironmentCtor;

@@ -1,18 +1,10 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "comment-format": false,
         "interface-name": false,
-        "no-padding": false,
-        "no-trailing-whitespace": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "npm-naming": false,
-        "object-literal-shorthand": false,
-        "one-line": false,
-        "semicolon": false,
-        "strict-export-declare-modifiers": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "object-literal-shorthand": false
     }
 }

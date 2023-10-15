@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.0
 
-import { AbstractLevelDOWNConstructor } from 'abstract-leveldown';
+import { AbstractLevelDOWNConstructor } from "abstract-leveldown";
 
 interface SearchIndexOptions {
     db?: AbstractLevelDOWNConstructor;
@@ -21,9 +21,9 @@ interface Page {
     SIZE: number;
 }
 
-type Type = 'NUMERIC' | 'ALPHABETIC';
+type Type = "NUMERIC" | "ALPHABETIC";
 
-type Direction = 'ASCENDING' | 'DESCENDING';
+type Direction = "ASCENDING" | "DESCENDING";
 
 interface AND {
     AND: Token[];
@@ -70,7 +70,7 @@ interface Sort {
     FIELD: string;
 }
 
-type Score = 'TFIDF' | 'SUM' | 'PRODUCT' | 'CONCAT';
+type Score = "TFIDF" | "SUM" | "PRODUCT" | "CONCAT";
 
 type AlterToken = (token: Token) => Promise<Token>;
 

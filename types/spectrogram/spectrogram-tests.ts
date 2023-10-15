@@ -1,7 +1,7 @@
 import * as Spectrogram from "spectrogram";
 
 // XHR
-const canvas1 = document.createElement('canvas');
+const canvas1 = document.createElement("canvas");
 const spectro1 = Spectrogram(canvas1, {
     audio: {
         enable: false,
@@ -9,8 +9,8 @@ const spectro1 = Spectrogram(canvas1, {
 });
 const audioContext1 = new AudioContext();
 const request = new XMLHttpRequest();
-request.open('GET', 'audio.mp3', true);
-request.responseType = 'arraybuffer';
+request.open("GET", "audio.mp3", true);
+request.responseType = "arraybuffer";
 
 request.onload = () => {
     audioContext1.decodeAudioData(request.response, (buffer) => {
@@ -22,7 +22,7 @@ request.onload = () => {
 request.send();
 
 // User media stream
-const canvas2 = document.createElement('canvas');
+const canvas2 = document.createElement("canvas");
 const spectro2 = new Spectrogram(canvas2, {
     canvas: {
         width: 1280,
@@ -46,7 +46,7 @@ const spectro2 = new Spectrogram(canvas2, {
         }
 
         return colors;
-    }
+    },
 });
 
 const audioContext2 = new AudioContext();

@@ -1,4 +1,4 @@
-import { VueConstructor } from 'vue';
+import { VueConstructor } from "vue";
 
 export const Popover: Popover;
 

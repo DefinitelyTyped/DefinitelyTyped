@@ -155,7 +155,7 @@ declare global {
              * original value of window.Simmer which was there before loading the
              * Simmer.js script (if there was one)
              */
-            noConflict(): any
+            noConflict(): any;
         };
     }
 }

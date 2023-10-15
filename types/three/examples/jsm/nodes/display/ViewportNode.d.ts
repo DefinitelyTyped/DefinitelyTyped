@@ -1,4 +1,4 @@
-import Node from '../core/Node';
+import Node from '../core/Node.js';
 
 export type ViewportNodeScope =
     | typeof ViewportNode.COORDINATE

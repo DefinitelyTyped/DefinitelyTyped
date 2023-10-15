@@ -1,21 +1,185 @@
-import {
-    ElementState,
-    ImageFormat,
-    InputElementState,
-    LifecycleEvent,
-    Page,
-    Request,
-    Response,
-    ElementHandle } from 'k6/experimental/browser';
+import { browser } from "k6/experimental/browser";
 
-const url = 'http://example.com';
-const selector = 'a[href="http://example.com"]';
-const elementHandle = new ElementHandle();
+const url = "http://example.com";
+const selector = "a[href=\"http://example.com\"]";
+
+//
+// browser tests
+//
+
+// $ExpectType BrowserContext
+browser.context();
+
+// $ExpectType boolean
+browser.isConnected();
+
+// $ExpectType BrowserContext
+browser.newContext();
+// $ExpectType BrowserContext
+browser.newContext({ bypassCSP: true });
+// $ExpectType BrowserContext
+browser.newContext({ colorScheme: "light" });
+// $ExpectType BrowserContext
+browser.newContext({ colorScheme: "dark" });
+// $ExpectType BrowserContext
+browser.newContext({ colorScheme: "no-preference" });
+// $ExpectType BrowserContext
+browser.newContext({ deviceScaleFactor: 2 });
+// $ExpectType BrowserContext
+browser.newContext({ extraHTTPHeaders: { Accept: "text/html" } });
+// $ExpectType BrowserContext
+browser.newContext({ geolocation: { latitude: 0, longitude: 0, accuracy: 1 } });
+// $ExpectType BrowserContext
+browser.newContext({ hasTouch: true });
+// $ExpectType BrowserContext
+browser.newContext({ httpCredentials: { username: "username", password: "password" } });
+// $ExpectType BrowserContext
+browser.newContext({ ignoreHTTPSErrors: true });
+// $ExpectType BrowserContext
+browser.newContext({ isMobile: true });
+// $ExpectType BrowserContext
+browser.newContext({ javaScriptEnabled: true });
+// $ExpectType BrowserContext
+browser.newContext({ locale: "en-US" });
+// $ExpectType BrowserContext
+browser.newContext({ offline: true });
+// $ExpectType BrowserContext
+browser.newContext({ permissions: ["geolocation"] });
+// $ExpectType BrowserContext
+browser.newContext({ permissions: ["geolocation", "notifications"] });
+// $ExpectType BrowserContext
+browser.newContext({ reducedMotion: "reduce" });
+// $ExpectType BrowserContext
+browser.newContext({ reducedMotion: "no-preference" });
+// $ExpectType BrowserContext
+browser.newContext({ screen: { width: 1280, height: 720 } });
+// $ExpectType BrowserContext
+browser.newContext({ timezoneID: "GMT" });
+// $ExpectType BrowserContext
+browser.newContext({ userAgent: "foo" });
+// $ExpectType BrowserContext
+browser.newContext({ viewport: { width: 1280, height: 720 } });
+
+// $ExpectType Page
+browser.newPage();
+// $ExpectType Page
+browser.newPage({ bypassCSP: true });
+// $ExpectType Page
+browser.newPage({ colorScheme: "light" });
+// $ExpectType Page
+browser.newPage({ colorScheme: "dark" });
+// $ExpectType Page
+browser.newPage({ colorScheme: "no-preference" });
+// $ExpectType Page
+browser.newPage({ deviceScaleFactor: 2 });
+// $ExpectType Page
+browser.newPage({ extraHTTPHeaders: { Accept: "text/html" } });
+// $ExpectType Page
+browser.newPage({ geolocation: { latitude: 0, longitude: 0, accuracy: 1 } });
+// $ExpectType Page
+browser.newPage({ hasTouch: true });
+// $ExpectType Page
+browser.newPage({ httpCredentials: { username: "username", password: "password" } });
+// $ExpectType Page
+browser.newPage({ ignoreHTTPSErrors: true });
+// $ExpectType Page
+browser.newPage({ isMobile: true });
+// $ExpectType Page
+browser.newPage({ javaScriptEnabled: true });
+// $ExpectType Page
+browser.newPage({ locale: "en-US" });
+// $ExpectType Page
+browser.newPage({ offline: true });
+// $ExpectType Page
+browser.newPage({ permissions: ["geolocation"] });
+// $ExpectType Page
+browser.newPage({ permissions: ["geolocation", "notifications"] });
+// $ExpectType Page
+browser.newPage({ reducedMotion: "reduce" });
+// $ExpectType Page
+browser.newPage({ reducedMotion: "no-preference" });
+// $ExpectType Page
+browser.newPage({ screen: { width: 1280, height: 720 } });
+// $ExpectType Page
+browser.newPage({ timezoneID: "GMT" });
+// $ExpectType Page
+browser.newPage({ userAgent: "foo" });
+// $ExpectType Page
+browser.newPage({ viewport: { width: 1280, height: 720 } });
+
+// $ExpectType string
+browser.version();
+
+//
+// Create a browserContext
+//
+const browserContext = browser.newContext();
+
+// $ExpectType Browser
+browserContext.browser();
+// @ts-expect-error
+browserContext.addCookies();
+// $ExpectType void
+browserContext.addCookies([{
+    name: "foo",
+    value: "bar",
+    domain: "test.k6.io",
+    path: "/browser.php",
+    url: "https://test.k6.io",
+    expires: 60,
+    httpOnly: false,
+    secure: true,
+    sameSite: "Lax",
+}, {
+    name: "foo",
+    value: "bar",
+    sameSite: "Strict",
+}, {
+    name: "foo",
+    value: "bar",
+    sameSite: "None",
+}]);
+// @ts-expect-error
+browserContext.cookies()[0].sameSite = "NotAllowed";
+// @ts-expect-error
+browserContext.addCookies([{ /* without value */ name: "foo" }]);
+// @ts-expect-error
+browserContext.addCookies([{ /* without name */ value: "bar" }]);
+// $ExpectType Cookie[]
+browserContext.cookies();
+// $ExpectType Cookie[]
+browserContext.cookies("https://test.k6.io", "https://k6.io");
+// $ExpectType void
+browserContext.clearCookies();
+// $ExpectType void
+browserContext.clearPermissions();
+// $ExpectType void
+browserContext.close();
+// @ts-expect-error
+browserContext.grantPermissions();
+// $ExpectType void
+browserContext.grantPermissions(["geolocation", "notifications"]);
+// $ExpectType void
+browserContext.grantPermissions(["geolocation", "notifications"], { origin: "https://test.k6.io" });
+// $ExpectType Page
+browserContext.newPage();
+// $ExpectType Page[]
+browserContext.pages();
+// $ExpectType void
+browserContext.setDefaultNavigationTimeout(30000);
+// $ExpectType void
+browserContext.setDefaultTimeout(30000);
+// $ExpectType void
+browserContext.setGeolocation({ latitude: 0, longitude: 0, accuracy: 1 });
+// $ExpectType void
+browserContext.setOffline(true);
+// $ExpectType Page | null
+browserContext.waitForEvent("", { predicate: () => true, timeout: 30000 });
 
 //
 // Create a page
 //
-const page = new Page();
+const page = browser.newPage();
 
 // $ExpectType void
 page.bringToFront();
@@ -42,11 +206,11 @@ page.click();
 // $ExpectType Promise<void>
 page.click(selector);
 // $ExpectType Promise<void>
-page.click(selector, { button: 'left' });
+page.click(selector, { button: "left" });
 // $ExpectType Promise<void>
-page.click(selector, { button: 'middle' });
+page.click(selector, { button: "middle" });
 // $ExpectType Promise<void>
-page.click(selector, { button: 'right' });
+page.click(selector, { button: "right" });
 // $ExpectType Promise<void>
 page.click(selector, { clickCount: 3 });
 // $ExpectType Promise<void>
@@ -54,7 +218,7 @@ page.click(selector, { delay: 1000 });
 // $ExpectType Promise<void>
 page.click(selector, { force: true });
 // $ExpectType Promise<void>
-page.click(selector, { modifiers: ['Alt', 'Control', 'Meta', 'Shift'] });
+page.click(selector, { modifiers: ["Alt", "Control", "Meta", "Shift"] });
 // $ExpectType Promise<void>
 page.click(selector, { noWaitAfter: true });
 // $ExpectType Promise<void>
@@ -80,17 +244,17 @@ page.dblclick();
 // $ExpectType void
 page.dblclick(selector);
 // $ExpectType void
-page.dblclick(selector, { button: 'left' });
+page.dblclick(selector, { button: "left" });
 // $ExpectType void
-page.dblclick(selector, { button: 'middle' });
+page.dblclick(selector, { button: "middle" });
 // $ExpectType void
-page.dblclick(selector, { button: 'right' });
+page.dblclick(selector, { button: "right" });
 // $ExpectType void
 page.dblclick(selector, { delay: 1000 });
 // $ExpectType void
 page.dblclick(selector, { force: true });
 // $ExpectType void
-page.dblclick(selector, { modifiers: ['Alt', 'Control', 'Meta', 'Shift'] });
+page.dblclick(selector, { modifiers: ["Alt", "Control", "Meta", "Shift"] });
 // $ExpectType void
 page.dblclick(selector, { noWaitAfter: true });
 // $ExpectType void
@@ -107,32 +271,32 @@ page.dispatchEvent();
 // @ts-expect-error
 page.dispatchEvent(selector);
 // $ExpectType void
-page.dispatchEvent(selector, 'click');
+page.dispatchEvent(selector, "click");
 // $ExpectType void
-page.dispatchEvent(selector, 'click', undefined, { strict: true });
+page.dispatchEvent(selector, "click", undefined, { strict: true });
 // $ExpectType void
-page.dispatchEvent(selector, 'click', undefined, { timeout: 10000 });
+page.dispatchEvent(selector, "click", undefined, { timeout: 10000 });
 // $ExpectType void
-page.dispatchEvent(selector, 'click', { type: 'look' });
+page.dispatchEvent(selector, "click", { type: "look" });
 // @ts-expect-error
-page.dispatchEvent(selector, 'click', 'string');
+page.dispatchEvent(selector, "click", "string");
 
 // $ExpectType void
 page.emulateMedia();
 // $ExpectType void
-page.emulateMedia({ colorScheme: 'light' });
+page.emulateMedia({ colorScheme: "light" });
 // $ExpectType void
-page.emulateMedia({ colorScheme: 'dark' });
+page.emulateMedia({ colorScheme: "dark" });
 // $ExpectType void
-page.emulateMedia({ colorScheme: 'no-preference' });
+page.emulateMedia({ colorScheme: "no-preference" });
 // $ExpectType void
-page.emulateMedia({ media: 'screen' });
+page.emulateMedia({ media: "screen" });
 // $ExpectType void
-page.emulateMedia({ media: 'print' });
+page.emulateMedia({ media: "print" });
 // $ExpectType void
-page.emulateMedia({ reducedMotion: 'no-preference' });
+page.emulateMedia({ reducedMotion: "no-preference" });
 // $ExpectType void
-page.emulateMedia({ reducedMotion: 'reduce' });
+page.emulateMedia({ reducedMotion: "reduce" });
 
 // @ts-expect-error
 page.emulateVisionDeficiency();
@@ -160,9 +324,13 @@ page.evaluate("");
 // @ExpectType void
 page.evaluate(() => {});
 // @ExpectType string
-page.evaluate(() => { ""; });
+page.evaluate(() => {
+    "";
+});
 // @ExpectType string
-page.evaluate((a: string) => { a; }, "");
+page.evaluate((a: string) => {
+    a;
+}, "");
 // @ExpectType string[]
 page.evaluate((a: string[]) => a, [""]);
 
@@ -175,9 +343,13 @@ page.evaluateHandle("");
 // @ExpectType JSHandle
 page.evaluateHandle(() => {});
 // @ExpectType JSHandle
-page.evaluateHandle(() => { ""; });
+page.evaluateHandle(() => {
+    "";
+});
 // @ExpectType JSHandle
-page.evaluateHandle((a: string) => { a; }, "");
+page.evaluateHandle((a: string) => {
+    a;
+}, "");
 // @ExpectType JSHandle
 page.evaluateHandle((a: string[]) => a, [""]);
 
@@ -237,7 +409,7 @@ page.hover(selector);
 // $ExpectType void
 page.hover(selector, { force: true });
 // $ExpectType void
-page.hover(selector, { modifiers: ['Alt', 'Control', 'Meta', 'Shift'] });
+page.hover(selector, { modifiers: ["Alt", "Control", "Meta", "Shift"] });
 // $ExpectType void
 page.hover(selector, { noWaitAfter: true });
 // $ExpectType void
@@ -347,6 +519,24 @@ page.mainFrame();
 // $ExpectType Mouse
 page.mouse;
 
+// @ts-expect-error
+page.on();
+// @ts-expect-error
+page.on("invalid");
+// @ts-expect-error
+page.on("console");
+// $ExpectType void
+page.on("console", msg => {
+    // $ExpectType JSHandle<any>[]
+    msg.args();
+    // $ExpectType Page | null
+    msg.page();
+    // $ExpectType string
+    msg.text();
+    // $ExpectType string
+    msg.type();
+});
+
 // $ExpectType Page | null
 page.opener();
 
@@ -386,7 +576,7 @@ page.screenshot({ path: "image.jpeg" });
 page.screenshot({ quality: 50 });
 for (const format of ["png", "jpeg"]) {
     // $ExpectType ArrayBuffer
-    page.screenshot({ type: format as ImageFormat });
+    page.screenshot({ type: format as any });
 }
 
 // @ts-expect-error
@@ -396,7 +586,7 @@ page.selectOption(selector);
 // $ExpectType string[]
 page.selectOption(selector, "option");
 // $ExpectType string[]
-page.selectOption(selector, elementHandle);
+page.selectOption(selector, page.waitForSelector(selector));
 // $ExpectType string[]
 page.selectOption(selector, { value: "" });
 // $ExpectType string[]
@@ -406,7 +596,7 @@ page.selectOption(selector, { index: 0 });
 // $ExpectType string[]
 page.selectOption(selector, ["option", "option2"]);
 // $ExpectType string[]
-page.selectOption(selector, [elementHandle, elementHandle]);
+page.selectOption(selector, [page.waitForSelector(selector), page.waitForSelector(selector)]);
 // $ExpectType string[]
 page.selectOption(selector, [{ value: "" }, { label: "" }]);
 // $ExpectType string[]
@@ -454,7 +644,7 @@ page.tap(selector);
 // $ExpectType void
 page.tap(selector, { force: true });
 // $ExpectType void
-page.tap(selector, { modifiers: ['Alt', 'Control', 'Meta', 'Shift'] });
+page.tap(selector, { modifiers: ["Alt", "Control", "Meta", "Shift"] });
 // $ExpectType void
 page.tap(selector, { noWaitAfter: true });
 // $ExpectType void
@@ -636,7 +826,7 @@ mouse.click(0);
 // $ExpectType void
 mouse.click(0, 0);
 // $ExpectType void
-mouse.click(0, 0, { button: 'right' });
+mouse.click(0, 0, { button: "right" });
 // $ExpectType void
 mouse.click(0, 0, { clickCount: 2 });
 // $ExpectType void
@@ -649,14 +839,14 @@ mouse.dblclick(0);
 // $ExpectType void
 mouse.dblclick(0, 0);
 // $ExpectType void
-mouse.dblclick(0, 0, { button: 'right' });
+mouse.dblclick(0, 0, { button: "right" });
 // $ExpectType void
 mouse.dblclick(0, 0, { delay: 1000 });
 
 // $ExpectType void
 mouse.down();
 // $ExpectType void
-mouse.down({ button: 'right' });
+mouse.down({ button: "right" });
 // $ExpectType void
 mouse.down({ clickCount: 2 });
 
@@ -672,7 +862,7 @@ mouse.move(0, 0, { steps: 10 });
 // $ExpectType void
 mouse.up();
 // $ExpectType void
-mouse.up({ button: 'right' });
+mouse.up({ button: "right" });
 // $ExpectType void
 mouse.up({ clickCount: 2 });
 
@@ -684,9 +874,9 @@ const locator = page.locator(selector);
 // $ExpectType Promise<void>
 locator.click();
 // $ExpectType Promise<void>
-locator.click({ button: 'right' });
+locator.click({ button: "right" });
 // @ts-expect-error
-locator.click({ button: 'top' });
+locator.click({ button: "top" });
 // $ExpectType Promise<void>
 locator.click({ delay: 1000 });
 // $ExpectType Promise<void>
@@ -694,7 +884,7 @@ locator.click({ clickCount: 2 });
 // $ExpectType Promise<void>
 locator.click({ force: true });
 // $ExpectType Promise<void>
-locator.click({ modifiers: ['Alt', 'Control', 'Meta', 'Shift'] });
+locator.click({ modifiers: ["Alt", "Control", "Meta", "Shift"] });
 // $ExpectType Promise<void>
 locator.click({ noWaitAfter: true });
 // $ExpectType Promise<void>
@@ -709,17 +899,17 @@ locator.click({ strict: true });
 // $ExpectType void
 locator.dblclick();
 // $ExpectType void
-locator.dblclick({ button: 'right' });
+locator.dblclick({ button: "right" });
 // @ts-expect-error
-locator.dblclick({ button: 'top' });
+locator.dblclick({ button: "top" });
 // $ExpectType void
 locator.dblclick({ delay: 1000 });
 // $ExpectType void
 locator.dblclick({ force: true });
 // $ExpectType void
-locator.dblclick({ modifiers: ['Alt', 'Control', 'Meta', 'Shift'] });
+locator.dblclick({ modifiers: ["Alt", "Control", "Meta", "Shift"] });
 // @ts-expect-error
-locator.dblclick({ modifiers: ['Esc'] });
+locator.dblclick({ modifiers: ["Esc"] });
 // $ExpectType void
 locator.dblclick({ noWaitAfter: true });
 // $ExpectType void
@@ -936,7 +1126,7 @@ locator.dispatchEvent("click", { buttons: 2 & 4 }, { strict: true });
 locator.waitFor();
 for (const state of ["attached", "detached", "visible", "hidden"]) {
     // $ExpectType void
-    locator.waitFor({ state: state as ElementState });
+    locator.waitFor({ state: state as any });
 }
 // $ExpectType void
 locator.waitFor({ timeout: 10000 });
@@ -963,9 +1153,13 @@ jsHandle.evaluate("");
 // @ExpectType void
 jsHandle.evaluate(() => {});
 // @ExpectType string
-jsHandle.evaluate(() => { ""; });
+jsHandle.evaluate(() => {
+    "";
+});
 // @ExpectType string
-jsHandle.evaluate((a: string) => { a; }, "");
+jsHandle.evaluate((a: string) => {
+    a;
+}, "");
 // @ExpectType string[]
 jsHandle.evaluate((a: string[]) => a, [""]);
 
@@ -978,9 +1172,13 @@ jsHandle.evaluateHandle("");
 // @ExpectType JSHandle
 jsHandle.evaluateHandle(() => {});
 // @ExpectType JSHandle
-jsHandle.evaluateHandle(() => { ""; });
+jsHandle.evaluateHandle(() => {
+    "";
+});
 // @ExpectType JSHandle
-jsHandle.evaluateHandle((a: string) => { a; }, "");
+jsHandle.evaluateHandle((a: string) => {
+    a;
+}, "");
 // @ExpectType JSHandle
 jsHandle.evaluateHandle((a: string[]) => a, [""]);
 
@@ -993,109 +1191,111 @@ jsHandle.jsonValue();
 //
 // Request
 //
-const request = new Request();
+const request = page.goto(url).then(r => r?.request());
 
-// $ExpectType Record<string, string>
-request.allHeaders();
+// $ExpectType Promise<Record<string, string> | undefined>
+request.then(r => r?.allHeaders());
 
-// $ExpectType Frame
-request.frame();
+// $ExpectType Promise<Frame | undefined>
+request.then(r => r?.frame());
 
-// $ExpectType Record<string, string>
-request.headers();
+// $ExpectType Promise<Record<string, string> | undefined>
+request.then(r => r?.headers());
 
-// $ExpectType { name: string; value: string; }[]
-request.headersArray();
+// $ExpectType Promise<{ name: string; value: string; }[] | undefined>
+request.then(r => r?.headersArray());
 
 // @ts-expect-error
-request.headerValue();
-// $ExpectType string | null
-request.headerValue("content-type");
+request.then(r => r?.headerValue());
+// $ExpectType Promise<string | null | undefined>
+request.then(r => r?.headerValue("content-type"));
 
-// $ExpectType boolean
-request.isNavigationRequest();
+// $ExpectType Promise<boolean | undefined>
+request.then(r => r?.isNavigationRequest());
 
-// $ExpectType string
-request.method();
+// $ExpectType Promise<string | undefined>
+request.then(r => r?.method());
 
-// $ExpectType string
-request.postData();
+// $ExpectType Promise<string | undefined>
+request.then(r => r?.postData());
 
-// $ExpectType ArrayBuffer | null
-request.postDataBuffer();
+// $ExpectType Promise<ArrayBuffer | null | undefined>
+request.then(r => r?.postDataBuffer());
 
-// $ExpectType ResourceType
-request.resourceType();
+// $ExpectType Promise<"document" | "stylesheet" | "image" | "media" | "font" | "script" | "texttrack" | "xhr" | "fetch" | "eventsource" | "websocket" | "manifest" | "other" | undefined>
+request.then(r => r?.resourceType());
 
-// $ExpectType Response | null
-request.response();
+// $ExpectType Promise<Response | null | undefined>
+request.then(r => r?.response());
 
-// $ExpectType { body: number; headers: number; }
-request.size();
+// $ExpectType Promise<{ body: number; headers: number; } | undefined>
+request.then(r => r?.size());
 
-// $ExpectType ResourceTiming
-request.timing();
+// $ExpectType Promise<ResourceTiming | undefined>
+request.then(r => r?.timing());
 
 //
 // Response
 //
-const response = new Response();
+const response = page.goto(url);
 
-// $ExpectType Record<string, string>
-response.allHeaders();
+// $ExpectType Promise<Record<string, string> | undefined>
+response.then(r => r?.allHeaders());
 
-// $ExpectType ArrayBuffer
-response.body();
+// $ExpectType Promise<ArrayBuffer | undefined>
+response.then(r => r?.body());
 
-// $ExpectType Frame
-response.frame();
+// $ExpectType Promise<Frame | undefined>
+response.then(r => r?.frame());
 
-// $ExpectType Record<string, string>
-response.headers();
+// $ExpectType Promise<Record<string, string> | undefined>
+response.then(r => r?.headers());
 
-// $ExpectType { name: string; value: string; }[]
-response.headersArray();
-
-// @ts-expect-error
-response.headerValue();
-// $ExpectType string | null
-response.headerValue("content-type");
+// $ExpectType Promise<{ name: string; value: string; }[] | undefined>
+response.then(r => r?.headersArray());
 
 // @ts-expect-error
-response.headerValues();
-// $ExpectType string[]
-response.headerValues("content-type");
+response.then(r => r?.headerValue());
+// $ExpectType Promise<string | null | undefined>
+response.then(r => r?.headerValue("content-type"));
 
-// $ExpectType any
-response.json();
+// @ts-expect-error
+response.then(r => r?.headerValues());
+// $ExpectType Promise<string[] | undefined>
+response.then(r => r?.headerValues("content-type"));
 
-// $ExpectType boolean
-response.ok();
+// $ExpectType Promise<any>
+response.then(r => r?.json());
 
-// $ExpectType Request
-response.request();
+// $ExpectType Promise<boolean | undefined>
+response.then(r => r?.ok());
 
-// $ExpectType SecurityDetailsObject | null
-response.securityDetails();
+// $ExpectType Promise<Request | undefined>
+response.then(r => r?.request());
 
-// $ExpectType { ipAddress: string; port: number; } | null
-response.serverAddr();
+// $ExpectType Promise<SecurityDetailsObject | null | undefined>
+response.then(r => r?.securityDetails());
 
-// $ExpectType number
-response.status();
+// $ExpectType Promise<{ ipAddress: string; port: number; } | null | undefined>
+response.then(r => r?.serverAddr());
 
-// $ExpectType string
-response.statusText();
+// $ExpectType Promise<number | undefined>
+response.then(r => r?.status());
 
-// $ExpectType { body: number; headers: number; }
-response.size();
+// $ExpectType Promise<string | undefined>
+response.then(r => r?.statusText());
 
-// $ExpectType string
-response.url();
+// $ExpectType Promise<{ body: number; headers: number; } | undefined>
+response.then(r => r?.size());
+
+// $ExpectType Promise<string | undefined>
+response.then(r => r?.url());
 
 //
 // ElementHandle
 //
+
+const elementHandle = page.$(selector);
 
 // @ts-expect-error
 elementHandle.$();
@@ -1198,7 +1398,7 @@ elementHandle.screenshot({ omitBackground: true });
 elementHandle.screenshot({ quality: 100 });
 for (const format of ["png", "jpeg"]) {
     // $ExpectType ArrayBuffer
-    elementHandle.screenshot({ type: format as ImageFormat });
+    elementHandle.screenshot({ type: format as any });
 }
 
 // $ExpectType void
@@ -1290,7 +1490,7 @@ elementHandle.uncheck({ strict: true });
 elementHandle.waitForElementState();
 for (const state of ["visible", "hidden", "stable", "enabled", "disabled", "editable", "disabled"]) {
     // $ExpectType void
-    elementHandle.waitForElementState(state as InputElementState);
+    elementHandle.waitForElementState(state as any);
 }
 // $ExpectType void
 elementHandle.waitForElementState("visible", { timeout: 10000 });
@@ -1489,13 +1689,16 @@ frame.selectOption("select", "value");
 // $ExpectType string[]
 frame.selectOption("select", ["value1", "value2"]);
 // $ExpectType string[]
-frame.selectOption("select", new ElementHandle());
+frame.selectOption("select", elementHandle);
 // $ExpectType string[]
-frame.selectOption("select", [new ElementHandle(), new ElementHandle()]);
+frame.selectOption("select", [elementHandle, elementHandle]);
 // $ExpectType string[]
 frame.selectOption("select", { value: "value", index: 1, label: "label" });
 // $ExpectType string[]
-frame.selectOption("select", [{ value: "value1", index: 1, label: "label1" }, { value: "value2", index: 2, label: "label2" }]);
+frame.selectOption("select", [
+    { value: "value1", index: 1, label: "label1" },
+    { value: "value2", index: 2, label: "label2" },
+]);
 // $ExpectType string[]
 frame.selectOption("select", "value", { force: true });
 // $ExpectType string[]
@@ -1527,9 +1730,13 @@ frame.evaluate("");
 // @ExpectType void
 frame.evaluate(() => {});
 // @ExpectType string
-frame.evaluate(() => { ""; });
+frame.evaluate(() => {
+    "";
+});
 // @ExpectType string
-frame.evaluate((a: string) => { a; }, "");
+frame.evaluate((a: string) => {
+    a;
+}, "");
 // @ExpectType string[]
 frame.evaluate((a: string[]) => a, [""]);
 
@@ -1542,9 +1749,13 @@ frame.evaluateHandle("");
 // @ExpectType JSHandle
 frame.evaluateHandle(() => {});
 // @ExpectType JSHandle
-frame.evaluateHandle(() => { ""; });
+frame.evaluateHandle(() => {
+    "";
+});
 // @ExpectType JSHandle
-frame.evaluateHandle((a: string) => { a; }, "");
+frame.evaluateHandle((a: string) => {
+    a;
+}, "");
 // @ExpectType JSHandle
 frame.evaluateHandle((a: string[]) => a, [""]);
 
@@ -1568,7 +1779,7 @@ frame.goto("https://example.com");
 frame.goto("https://example.com", { timeout: 10000 });
 for (const state of ["load", "domcontentloaded", "networkidle"]) {
     // $ExpectType Promise<Response | null>
-    frame.goto("https://example.com", { waitUntil: state as LifecycleEvent });
+    frame.goto("https://example.com", { waitUntil: state as any });
 }
 // $ExpectType Promise<Response | null>
 frame.goto("https://example.com", { referer: "https://example.com" });
@@ -1581,7 +1792,7 @@ frame.setContent("<div>content</div>");
 frame.setContent("<div>content</div>", { timeout: 10000 });
 for (const state of ["load", "domcontentloaded", "networkidle"]) {
     // $ExpectType void
-    frame.setContent("<div>content</div>", { waitUntil: state as LifecycleEvent });
+    frame.setContent("<div>content</div>", { waitUntil: state as any });
 }
 
 // $ExpectType string
@@ -1722,7 +1933,7 @@ frame.waitForFunction((a: number) => a === 1, {}, 1);
 frame.waitForLoadState();
 for (const state of ["load", "domcontentloaded", "networkidle"]) {
     // $ExpectType void
-    frame.waitForLoadState(state as LifecycleEvent);
+    frame.waitForLoadState(state as any);
 }
 // $ExpectType void
 frame.waitForLoadState("domcontentloaded", { timeout: 10000 });
@@ -1742,7 +1953,7 @@ frame.waitForSelector("div");
 frame.waitForSelector("div", { timeout: 10000 });
 for (const state of ["attached", "detached", "visible", "hidden"]) {
     // $ExpectType ElementHandle
-    frame.waitForSelector("div", { state: state as ElementState });
+    frame.waitForSelector("div", { state: state as any });
 }
 
 // @ts-expect-error

@@ -1,4 +1,4 @@
-import * as mockDb from 'mock-knex';
+import * as mockDb from "mock-knex";
 
 interface Knex {
     client: any;
@@ -13,32 +13,32 @@ function knex(opt: KnexOptions): Knex {
 }
 
 const db = knex({
-    client: 'sqlite'
+    client: "sqlite",
 });
 
 mockDb.mock(db);
 
 const tracker = mockDb.getTracker();
 tracker.install();
-tracker.on('query', (query, step) => {
-    if (query.method === 'first' || step === 1) {
+tracker.on("query", (query, step) => {
+    if (query.method === "first" || step === 1) {
         query.response([{
-            a: 1
+            a: 1,
         }, {
-            a: 2
+            a: 2,
         }, {
-            a: 3
+            a: 3,
         }], {
-            stream: false
+            stream: false,
         });
     } else {
-        query.reject(new Error('bad query'));
+        query.reject(new Error("bad query"));
     }
 });
 
 const queries = tracker.queries;
 if (tracker !== queries.tracker) {
-    throw new Error('unexpected query tracker');
+    throw new Error("unexpected query tracker");
 }
 if (queries.count() > 0) {
     // $ExpectType string
@@ -46,7 +46,7 @@ if (queries.count() > 0) {
     // $ExpectType string
     queries.last().sql;
 
-    queries.track({ query: 'SELECT * FROM table' }, (query) => {
+    queries.track({ query: "SELECT * FROM table" }, (query) => {
         // $ExpectType { query: string; }
         query;
     }, (error) => {

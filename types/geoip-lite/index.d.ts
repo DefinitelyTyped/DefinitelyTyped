@@ -21,7 +21,7 @@ export interface Lookup {
      */
     region: string;
     /** 1 if the country is a member state of the European Union, 0 otherwise. */
-    eu: '1' | '0';
+    eu: "1" | "0";
     /** "Country/Zone" Timezone from IANA Time Zone Database */
     timezone: string;
     /** This is the full city name */

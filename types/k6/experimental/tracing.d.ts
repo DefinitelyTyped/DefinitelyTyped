@@ -8,7 +8,7 @@
  * https://k6.io/docs/javascript-api/k6-experimental/tracing/
  */
 
-import { RefinedParams, RefinedResponse, RequestBody, ResponseType } from '../http';
+import { RefinedParams, RefinedResponse, RequestBody, ResponseType } from "../http";
 
 /**
  * The instrumentHTTP function instruments the k6 http module
@@ -54,7 +54,7 @@ export class Client {
     del<RT extends ResponseType | undefined>(
         url: string | HttpURL,
         body?: RequestBody | null,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -66,7 +66,7 @@ export class Client {
      */
     head<RT extends ResponseType | undefined>(
         url: string | HttpURL,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -78,7 +78,7 @@ export class Client {
      */
     get<RT extends ResponseType | undefined>(
         url: string | HttpURL,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -92,7 +92,7 @@ export class Client {
     options<RT extends ResponseType | undefined>(
         url: string | HttpURL,
         body?: RequestBody | null,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -106,7 +106,7 @@ export class Client {
     patch<RT extends ResponseType | undefined>(
         url: string | HttpURL,
         body?: RequestBody | null,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -120,7 +120,7 @@ export class Client {
     post<RT extends ResponseType | undefined>(
         url: string | HttpURL,
         body?: RequestBody | null,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -134,7 +134,7 @@ export class Client {
     put<RT extends ResponseType | undefined>(
         url: string | HttpURL,
         body?: RequestBody | null,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -150,7 +150,7 @@ export class Client {
         method: string,
         url: string | HttpURL,
         body?: RequestBody | null,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): RefinedResponse<RT>;
 
     /**
@@ -169,7 +169,7 @@ export class Client {
         method: string,
         url: string | HttpURL,
         body?: RequestBody | null,
-        params?: RefinedParams<RT> | null
+        params?: RefinedParams<RT> | null,
     ): Promise<RefinedResponse<RT>>;
 }
 
@@ -186,7 +186,7 @@ export interface Options {
      *
      * Defaults to `w3c`.
      */
-    propagator: 'w3c' | 'jaeger';
+    propagator: "w3c" | "jaeger";
 
     /**
      * The probability of each request having

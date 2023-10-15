@@ -3,8 +3,8 @@
 // Definitions by: MathleteDev <https://github.com/mathletedev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as Eris from 'eris';
-import { EventEmitter } from 'events';
+import * as Eris from "eris";
+import { EventEmitter } from "events";
 
 export interface Cluster {
     shards: number;

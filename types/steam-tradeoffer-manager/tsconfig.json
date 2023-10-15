@@ -2,8 +2,9 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6"
+            "ES6"
         ],
+        "target": "ES6",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,

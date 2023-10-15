@@ -7,8 +7,6 @@
         "new-parens": false,
         "no-reference-import": false,
         "only-arrow-functions": false,
-        "prefer-const": false,
-        "space-before-function-paren": false,
-        "strict-export-declare-modifiers": false
+        "prefer-const": false
     }
 }

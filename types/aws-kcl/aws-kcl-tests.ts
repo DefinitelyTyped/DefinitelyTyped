@@ -1,4 +1,4 @@
-import kcl from 'aws-kcl';
+import kcl from "aws-kcl";
 
 // Example used from https://github.com/awslabs/amazon-kinesis-client-nodejs
 const recordProcessor = {
@@ -19,7 +19,7 @@ const recordProcessor = {
         for (record of records) {
             sequenceNumber = record.sequenceNumber;
             const partitionKey = record.partitionKey;
-            const data = new Buffer(record.data, 'base64').toString();
+            const data = new Buffer(record.data, "base64").toString();
             console.log(partitionKey, data);
         }
 

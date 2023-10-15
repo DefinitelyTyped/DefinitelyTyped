@@ -7,10 +7,10 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/url.js)
  */
-declare module 'url' {
-    import { Blob as NodeBlob } from 'node:buffer';
-    import { ClientRequestArgs } from 'node:http';
-    import { ParsedUrlQuery, ParsedUrlQueryInput } from 'node:querystring';
+declare module "url" {
+    import { Blob as NodeBlob } from "node:buffer";
+    import { ClientRequestArgs } from "node:http";
+    import { ParsedUrlQuery, ParsedUrlQueryInput } from "node:querystring";
     // Input to `url.format`
     interface UrlObject {
         auth?: string | null | undefined;
@@ -72,7 +72,11 @@ declare module 'url' {
      * result would be `{host: 'foo', pathname: '/bar'}` rather than `{pathname: '//foo/bar'}`.
      */
     function parse(urlString: string): UrlWithStringQuery;
-    function parse(urlString: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;
+    function parse(
+        urlString: string,
+        parseQueryString: false | undefined,
+        slashesDenoteHost?: boolean,
+    ): UrlWithStringQuery;
     function parse(urlString: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
     function parse(urlString: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;
     /**
@@ -404,6 +408,20 @@ declare module 'url' {
          * @param id A `'blob:nodedata:...` URL string returned by a prior call to `URL.createObjectURL()`.
          */
         static revokeObjectURL(objectUrl: string): void;
+        /**
+         * Checks if an `input` relative to the `base` can be parsed to a `URL`.
+         *
+         * ```js
+         * const isValid = URL.canParse('/foo', 'https://example.org/'); // true
+         *
+         * const isNotValid = URL.canParse('/foo'); // false
+         * ```
+         * @since v18.17.0
+         * @param input The absolute or relative input URL to parse. If `input` is relative, then `base` is required. If `input` is absolute, the `base` is ignored. If `input` is not a string, it is
+         * `converted to a string` first.
+         * @param base The base URL to resolve against if the `input` is not absolute. If `base` is not a string, it is `converted to a string` first.
+         */
+        static canParse(input: string, base?: string): boolean;
         constructor(input: string, base?: string | URL);
         /**
          * Gets and sets the fragment portion of the URL.
@@ -752,15 +770,25 @@ declare module 'url' {
      * @since v7.5.0, v6.13.0
      */
     class URLSearchParams implements Iterable<[string, string]> {
-        constructor(init?: URLSearchParams | string | Record<string, string | ReadonlyArray<string>> | Iterable<[string, string]> | ReadonlyArray<[string, string]>);
+        constructor(
+            init?:
+                | URLSearchParams
+                | string
+                | Record<string, string | ReadonlyArray<string>>
+                | Iterable<[string, string]>
+                | ReadonlyArray<[string, string]>,
+        );
         /**
          * Append a new name-value pair to the query string.
          */
         append(name: string, value: string): void;
         /**
-         * Remove all name-value pairs whose name is `name`.
+         * If `value` is provided, removes all name-value pairs
+         * where name is `name` and value is `value`..
+         *
+         * If `value` is not provided, removes all name-value pairs whose name is `name`.
          */
-        delete(name: string): void;
+        delete(name: string, value?: string): void;
         /**
          * Returns an ES6 `Iterator` over each of the name-value pairs in the query.
          * Each item of the iterator is a JavaScript `Array`. The first item of the `Array`is the `name`, the second item of the `Array` is the `value`.
@@ -783,7 +811,10 @@ declare module 'url' {
          * @param fn Invoked for each name-value pair in the query
          * @param thisArg To be used as `this` value for when `fn` is called
          */
-        forEach<TThis = this>(callback: (this: TThis, value: string, name: string, searchParams: URLSearchParams) => void, thisArg?: TThis): void;
+        forEach<TThis = this>(
+            callback: (this: TThis, value: string, name: string, searchParams: URLSearchParams) => void,
+            thisArg?: TThis,
+        ): void;
         /**
          * Returns the value of the first name-value pair whose name is `name`. If there
          * are no such pairs, `null` is returned.
@@ -796,9 +827,15 @@ declare module 'url' {
          */
         getAll(name: string): string[];
         /**
-         * Returns `true` if there is at least one name-value pair whose name is `name`.
+         * Checks if the `URLSearchParams` object contains key-value pair(s) based on`name` and an optional `value` argument.
+         *
+         * If `value` is provided, returns `true` when name-value pair with
+         * same `name` and `value` exists.
+         *
+         * If `value` is not provided, returns `true` if there is at least one name-value
+         * pair whose name is `name`.
          */
-        has(name: string): boolean;
+        has(name: string, value?: string): boolean;
         /**
          * Returns an ES6 `Iterator` over the names of each name-value pair.
          *
@@ -865,7 +902,7 @@ declare module 'url' {
         values(): IterableIterator<string>;
         [Symbol.iterator](): IterableIterator<[string, string]>;
     }
-    import { URL as _URL, URLSearchParams as _URLSearchParams } from 'url';
+    import { URL as _URL, URLSearchParams as _URLSearchParams } from "url";
     global {
         interface URLSearchParams extends _URLSearchParams {}
         interface URL extends _URL {}
@@ -881,8 +918,7 @@ declare module 'url' {
         var URL: typeof globalThis extends {
             onmessage: any;
             URL: infer T;
-        }
-            ? T
+        } ? T
             : typeof _URL;
         /**
          * `URLSearchParams` class is a global reference for `require('url').URLSearchParams`
@@ -892,11 +928,10 @@ declare module 'url' {
         var URLSearchParams: typeof globalThis extends {
             onmessage: any;
             URLSearchParams: infer T;
-        }
-            ? T
+        } ? T
             : typeof _URLSearchParams;
     }
 }
-declare module 'node:url' {
-    export * from 'url';
+declare module "node:url" {
+    export * from "url";
 }

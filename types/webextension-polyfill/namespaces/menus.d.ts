@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.menus
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the browser.menus API to add items to the browser's menus. You can choose what types of objects your context menu
  * additions apply to, such as images, hyperlinks, and pages.
@@ -11,9 +14,9 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
+import { Events } from "./events";
 import { Extension } from "./extension";
 import { Tabs } from "./tabs";
-import { Events } from "./events";
 
 export namespace Menus {
     /**

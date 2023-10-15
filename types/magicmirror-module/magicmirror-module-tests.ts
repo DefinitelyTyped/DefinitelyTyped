@@ -1,22 +1,22 @@
-import * as NodeHelper from 'node_helper';
-import * as Log from 'logger';
+import * as Log from "logger";
+import * as NodeHelper from "node_helper";
 
-Module.register('test', {});
+Module.register("test", {});
 interface TestConfig {
     bla: number;
     blubb: string;
     locale?: string;
 }
 
-Module.register<TestConfig>('test', {
+Module.register<TestConfig>("test", {
     defaults: {
         bla: 1,
-        blubb: 'abc',
-        locale: config.locale || 'de',
+        blubb: "abc",
+        locale: config.locale || "de",
     },
     config: {
         bla: 1,
-        blubb: 'abc',
+        blubb: "abc",
     },
     getHeader() {
         this.name;
@@ -26,32 +26,32 @@ Module.register<TestConfig>('test', {
         return new HTMLElement();
     },
     getStyles() {
-        return ['abc'];
+        return ["abc"];
     },
     getTemplate() {
-        return 'abc';
+        return "abc";
     },
     getTemplateData() {
-        return { bla: 123, blubb: 'abc' };
+        return { bla: 123, blubb: "abc" };
     },
     getTranslations() {
-        return { de: 'bla', en: 'blubb' };
+        return { de: "bla", en: "blubb" };
     },
     getScripts() {
-        return ['one', 'two'];
+        return ["one", "two"];
     },
-    requiresVersion: '1.2.3',
+    requiresVersion: "1.2.3",
     resume() {
-        console.log('resume');
-        this.translate('hello');
-        this.translate('hello', ['abc', 'def']);
+        console.log("resume");
+        this.translate("hello");
+        this.translate("hello", ["abc", "def"]);
         this.config.bla;
         this.config.blubb;
         this.config.locale;
         this.data.path;
-        this.file('abc');
-        this.sendNotification('test', {});
-        this.sendSocketNotification('test', {});
+        this.file("abc");
+        this.sendNotification("test", {});
+        this.sendSocketNotification("test", {});
         this.hide();
         this.hide(100);
         this.hide(100, () => {});
@@ -62,27 +62,27 @@ Module.register<TestConfig>('test', {
         this.show(100, () => {}, { lockString: this.identifier, force: true, onError: () => {} });
     },
     socketNotificationReceived(notification: string, payload: any) {
-        if (notification === 'test') {
+        if (notification === "test") {
             console.log(payload);
         }
     },
     notificationReceived(notification: string, payload: any) {
-        if (notification === 'test') {
+        if (notification === "test") {
             console.log(payload);
         }
     },
     start() {
-        console.log('started');
+        console.log("started");
     },
     suspend() {
-        console.log('suspended');
+        console.log("suspended");
     },
     loaded() {
-        console.log('loaded');
+        console.log("loaded");
         this.myCustom();
     },
     myCustom(): string {
-        return 'abc';
+        return "abc";
     },
     blabla(): number {
         this.config;
@@ -93,23 +93,23 @@ Module.register<TestConfig>('test', {
 
 NodeHelper.create({
     start() {
-        Log.debug('Starting module: ' + this.name);
+        Log.debug("Starting module: " + this.name);
         return;
     },
     stop() {
-        Log.error('Oh no :-(');
+        Log.error("Oh no :-(");
         this.name;
         this.init();
-        this.requiresVersion === 'abc';
-        this.sendSocketNotification('abc', {});
+        this.requiresVersion === "abc";
+        this.sendSocketNotification("abc", {});
         this.path;
     },
     socketNotificationReceived(notification, payload) {
-        notification === 'abc';
+        notification === "abc";
         this.myCustom();
-        Log.info('Woohoo');
+        Log.info("Woohoo");
     },
     myCustom() {
-        console.log('hi');
+        console.log("hi");
     },
 });

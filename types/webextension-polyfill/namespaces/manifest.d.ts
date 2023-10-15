@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.manifest
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Permissions: -
  *
@@ -18,8 +21,8 @@
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
-import { ExtensionTypes } from "./extensionTypes";
 import { Experiments } from "./experiments";
+import { ExtensionTypes } from "./extensionTypes";
 
 export namespace Manifest {
     /**
@@ -32,7 +35,7 @@ export namespace Manifest {
          * The applications property is deprecated, please use 'browser_specific_settings'
          * Optional.
          */
-        applications?: BrowserSpecificSettings;
+        applications?: DeprecatedApplications;
 
         /**
          * Optional.
@@ -245,11 +248,6 @@ export namespace Manifest {
      * Represents a WebExtension language pack manifest.json file
      */
     interface WebExtensionLangpackManifest extends ManifestBase {
-        /**
-         * Optional.
-         */
-        homepage_url?: string;
-
         langpack_id: string;
 
         languages: Record<string, WebExtensionLangpackManifestLanguagesPatternType>;
@@ -264,11 +262,6 @@ export namespace Manifest {
      * Represents a WebExtension dictionary manifest.json file
      */
     interface WebExtensionDictionaryManifest extends ManifestBase {
-        /**
-         * Optional.
-         */
-        homepage_url?: string;
-
         dictionaries: Record<string, string>;
     }
 
@@ -307,6 +300,7 @@ export namespace Manifest {
         | "activeTab"
         | "webRequest"
         | "webRequestBlocking"
+        | "webRequestFilterResponse"
         | "webRequestFilterResponse.serviceWorkerScript";
 
     type OptionalPermission =
@@ -318,6 +312,7 @@ export namespace Manifest {
         | "bookmarks"
         | "browserSettings"
         | "browsingData"
+        | "declarativeNetRequestFeedback"
         | "devtools"
         | "downloads"
         | "downloads.open"
@@ -347,7 +342,6 @@ export namespace Manifest {
         | "unlimitedStorage"
         | "captivePortal"
         | "contextualIdentities"
-        | "declarativeNetRequestFeedback"
         | "declarativeNetRequestWithHostAccess"
         | "dns"
         | "geckoProfiler"
@@ -394,11 +388,35 @@ export namespace Manifest {
         strict_max_version?: string;
     }
 
+    interface GeckoAndroidSpecificProperties {
+        /**
+         * Optional.
+         */
+        strict_min_version?: string;
+
+        /**
+         * Optional.
+         */
+        strict_max_version?: string;
+    }
+
+    interface DeprecatedApplications {
+        /**
+         * Optional.
+         */
+        gecko?: FirefoxSpecificProperties;
+    }
+
     interface BrowserSpecificSettings {
         /**
          * Optional.
          */
         gecko?: FirefoxSpecificProperties;
+
+        /**
+         * Optional.
+         */
+        gecko_android?: GeckoAndroidSpecificProperties;
     }
 
     type MatchPattern = "<all_urls>" | MatchPatternRestricted | MatchPatternUnestricted;
@@ -497,6 +515,7 @@ export namespace Manifest {
         default_popup?: string;
 
         /**
+         * Deprecated in Manifest V3.
          * Optional.
          */
         browser_style?: boolean;
@@ -652,8 +671,15 @@ export namespace Manifest {
         persistent?: boolean;
     }
 
+    type WebExtensionManifestBackgroundC2TypeEnum = "module" | "classic";
+
     interface WebExtensionManifestBackgroundC2Type {
         scripts: ExtensionURL[];
+
+        /**
+         * Optional.
+         */
+        type?: WebExtensionManifestBackgroundC2TypeEnum;
 
         /**
          * Optional.
@@ -676,11 +702,13 @@ export namespace Manifest {
         page: ExtensionURL;
 
         /**
+         * Defaults to true in Manifest V2; Deprecated in Manifest V3.
          * Optional.
          */
         browser_style?: boolean;
 
         /**
+         * chrome_style is ignored in Firefox. Its replacement (browser_style) has been deprecated.
          * Optional.
          */
         chrome_style?: boolean;
@@ -929,6 +957,7 @@ export namespace Manifest {
         default_popup?: string;
 
         /**
+         * Deprecated in Manifest V3.
          * Optional.
          */
         browser_style?: boolean;
@@ -961,6 +990,7 @@ export namespace Manifest {
         default_icon?: IconPath;
 
         /**
+         * Defaults to true in Manifest V2; Deprecated in Manifest V3.
          * Optional.
          */
         browser_style?: boolean;

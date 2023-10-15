@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 
 declare namespace Col {
     export interface ColProps extends React.HTMLProps<Col> {
@@ -25,5 +25,5 @@ declare namespace Col {
         xsPush?: number | undefined;
     }
 }
-declare class Col extends React.Component<Col.ColProps> { }
+declare class Col extends React.Component<Col.ColProps> {}
 export = Col;

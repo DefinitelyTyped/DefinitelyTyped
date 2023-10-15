@@ -29,7 +29,7 @@ export class modal {
     addFooterBtn(
         label: string,
         cssClass: string | undefined,
-        listener: HTMLElement['onclick'],
+        listener: HTMLElement["onclick"],
     ): HTMLButtonElement;
     isOverflow(): boolean;
     checkOverflow(): void;

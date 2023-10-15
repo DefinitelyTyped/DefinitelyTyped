@@ -3,7 +3,7 @@
 // Definitions by: Julian Schmidt <https://github.com/julisch94>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import Vue from 'vue';
+import Vue from "vue";
 
 /**
  * Emits the following events:

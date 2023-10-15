@@ -3,7 +3,7 @@
 // Definitions by: Nick K <https://github.com/i7N3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import type { SvelteComponentTyped } from 'svelte';
+import type { SvelteComponentTyped } from "svelte";
 
 declare namespace RangeSlider {
     interface OnStart {

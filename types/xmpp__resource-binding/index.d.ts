@@ -3,10 +3,10 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { IQCaller } from '@xmpp/iq/caller';
-import { Entity } from '@xmpp/middleware';
-import { StreamFeatures } from '@xmpp/stream-features';
-import { Node } from '@xmpp/xml';
+import { IQCaller } from "@xmpp/iq/caller";
+import { Entity } from "@xmpp/middleware";
+import { StreamFeatures } from "@xmpp/stream-features";
+import { Node } from "@xmpp/xml";
 
 export = resourceBinding;
 

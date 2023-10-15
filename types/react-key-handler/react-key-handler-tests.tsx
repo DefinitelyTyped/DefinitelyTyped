@@ -1,12 +1,12 @@
-import * as React from 'react';
+import * as React from "react";
 import KeyHandler, {
     KEYDOWN,
-    KEYPRESS,
-    KEYUP,
     keyHandleDecorator,
     keyHandler,
+    KEYPRESS,
     keyToggleHandler,
-} from 'react-key-handler';
+    KEYUP,
+} from "react-key-handler";
 
 const onKeyHandleCallback = () => {};
 
@@ -40,16 +40,16 @@ KEYUP;
 keyHandler()();
 
 // @ts-expect-error
-keyHandler({ keyEventName: KEYPRESS, keyValue: 's' })();
+keyHandler({ keyEventName: KEYPRESS, keyValue: "s" })();
 
 // $ExpectType (...args: any[]) => Element
-keyHandler({ keyEventName: KEYPRESS, keyValue: 's' })(<div />);
+keyHandler({ keyEventName: KEYPRESS, keyValue: "s" })(<div />);
 
 // @ts-expect-error
 keyToggleHandler()();
 
 // @ts-expect-error
-keyToggleHandler({ keyEventName: KEYPRESS, keyValue: 's' })();
+keyToggleHandler({ keyEventName: KEYPRESS, keyValue: "s" })();
 
 // $ExpectType (...args: any[]) => Element
-keyToggleHandler({ keyEventName: KEYPRESS, keyValue: 's' })(<div />);
+keyToggleHandler({ keyEventName: KEYPRESS, keyValue: "s" })(<div />);

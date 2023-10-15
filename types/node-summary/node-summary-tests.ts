@@ -1,10 +1,10 @@
 import * as SummaryTool from "node-summary";
 
-const title = '';
-const content = '';
+const title = "";
+const content = "";
 SummaryTool.summarize(title, content, (err, summary, dict) => {});
 
-const url = '';
+const url = "";
 SummaryTool.summarizeFromUrl(url, (err, summary) => {});
 
 const n = 0;

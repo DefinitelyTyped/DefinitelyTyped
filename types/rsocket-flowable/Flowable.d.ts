@@ -1,4 +1,4 @@
-import { IPublisher, ISubscriber } from 'rsocket-types';
+import { IPublisher, ISubscriber } from "rsocket-types";
 export type Source<T> = (subscriber: ISubscriber<T>) => void;
 /**
  * Implements the ReactiveStream `Publisher` interface with Rx-style operators.

@@ -1,4 +1,4 @@
-import { appid, Callback, CallbackError, EditProfileSettings, ProfileSetting } from '../index';
+import { appid, Callback, CallbackError, EditProfileSettings, ProfileSetting } from "../index";
 
 export interface Profile {
     /**
@@ -33,11 +33,15 @@ export interface Profile {
      * If provided, `format` should be one of `jpg` (or `jpeg`), `gif`, or `png`. These are the only supported image formats.
      * @param callback Optional. Called when the upload is complete or fails.
      */
-    uploadAvatar(image: Buffer | string, format: any, callback: (
-        err: CallbackError,
-        /** The URL to the new image on Steam's CDN. */
-        url: string,
-    ) => any): void;
+    uploadAvatar(
+        image: Buffer | string,
+        format: any,
+        callback: (
+            err: CallbackError,
+            /** The URL to the new image on Steam's CDN. */
+            url: string,
+        ) => any,
+    ): void;
 
     /**
      * Posts a status update to your profile feed.
@@ -46,14 +50,18 @@ export interface Profile {
      * @param options Optional. Can be omitted if no options are desired. An object containing zero or more of properties.
      * @param callback Required. Called when request completes.
      */
-    postProfileStatus(statusText: any, options: {
-        /** An integer appID if you want this status update to be tagged with a specific game. */
-        appID: appid
-    }, callback: (
-        err: CallbackError,
-        /** The ID of this new post. */
-        postID: any,
-    ) => any): void;
+    postProfileStatus(
+        statusText: any,
+        options: {
+            /** An integer appID if you want this status update to be tagged with a specific game. */
+            appID: appid;
+        },
+        callback: (
+            err: CallbackError,
+            /** The ID of this new post. */
+            postID: any,
+        ) => any,
+    ): void;
 
     /**
      * Delete a previously-posted profile status update.

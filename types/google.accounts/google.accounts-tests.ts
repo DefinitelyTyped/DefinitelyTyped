@@ -1,7 +1,7 @@
 // $ExpectType CodeClient
 google.accounts.oauth2.initCodeClient({
-    client_id: '',
-    scope: '',
+    client_id: "",
+    scope: "",
     callback: response => {
         // $ExpectType string
         response.code;
@@ -26,10 +26,46 @@ google.accounts.oauth2.initCodeClient({
     },
 });
 
+// all options
+// $ExpectType CodeClient
+google.accounts.oauth2.initCodeClient({
+    client_id: "",
+    scope: "",
+    include_granted_scopes: true,
+    redirect_uri: "",
+    callback: response => {
+        // $ExpectType string
+        response.code;
+        // $ExpectType string
+        response.scope;
+        // $ExpectType string
+        response.state;
+        // $ExpectType string
+        response.error;
+        // $ExpectType string
+        response.error_description;
+        // $ExpectType string
+        response.error_uri;
+    },
+    state: "",
+    enable_granular_consent: true,
+    login_hint: "",
+    hd: "",
+    ux_mode: "popup",
+    select_account: false,
+    error_callback: error => {
+        // $ExpectType string
+        error.message;
+        // $ExpectType string | undefined
+        error.stack;
+        // $ExpectType "unknown" | "popup_closed" | "popup_failed_to_open"
+        error.type;
+    },
+});
+
 // $ExpectType TokenClient
 google.accounts.oauth2.initTokenClient({
-    client_id: '',
-    scope: '',
+    client_id: "",
     callback: response => {
         // $ExpectType string
         response.access_token;
@@ -52,6 +88,49 @@ google.accounts.oauth2.initTokenClient({
         // $ExpectType string
         response.error_uri;
     },
+    scope: "",
+    error_callback: error => {
+        // $ExpectType string
+        error.message;
+        // $ExpectType string | undefined
+        error.stack;
+        // $ExpectType "unknown" | "popup_closed" | "popup_failed_to_open"
+        error.type;
+    },
+});
+
+// all options
+// $ExpectType TokenClient
+google.accounts.oauth2.initTokenClient({
+    client_id: "",
+    callback: response => {
+        // $ExpectType string
+        response.access_token;
+        // $ExpectType string
+        response.expires_in;
+        // $ExpectType string
+        response.hd;
+        // $ExpectType string
+        response.prompt;
+        // $ExpectType string
+        response.token_type;
+        // $ExpectType string
+        response.scope;
+        // $ExpectType string
+        response.state;
+        // $ExpectType string
+        response.error;
+        // $ExpectType string
+        response.error_description;
+        // $ExpectType string
+        response.error_uri;
+    },
+    scope: "",
+    include_granted_scopes: true,
+    prompt: "",
+    enable_granular_consent: true,
+    login_hint: "",
+    hd: "",
     error_callback: error => {
         // $ExpectType string
         error.message;
@@ -65,47 +144,47 @@ google.accounts.oauth2.initTokenClient({
 // $ExpectType boolean
 google.accounts.oauth2.hasGrantedAllScopes(
     {
-        access_token: '',
-        expires_in: '',
-        hd: '',
-        prompt: '',
-        token_type: '',
-        scope: '',
-        state: '',
-        error: '',
-        error_description: '',
-        error_uri: '',
+        access_token: "",
+        expires_in: "",
+        hd: "",
+        prompt: "",
+        token_type: "",
+        scope: "",
+        state: "",
+        error: "",
+        error_description: "",
+        error_uri: "",
     },
-    '',
-    '...',
+    "",
+    "...",
 );
 
 // $ExpectType boolean
 google.accounts.oauth2.hasGrantedAnyScope(
     {
-        access_token: '',
-        expires_in: '',
-        hd: '',
-        prompt: '',
-        token_type: '',
-        scope: '',
-        state: '',
-        error: '',
-        error_description: '',
-        error_uri: '',
+        access_token: "",
+        expires_in: "",
+        hd: "",
+        prompt: "",
+        token_type: "",
+        scope: "",
+        state: "",
+        error: "",
+        error_description: "",
+        error_uri: "",
     },
-    '',
-    '...',
+    "",
+    "...",
 );
 
-google.accounts.oauth2.revoke('', () => {});
+google.accounts.oauth2.revoke("", () => {});
 
 // required options
-google.accounts.id.initialize({ client_id: 'YOUR_GOOGLE_CLIENT_ID' });
+google.accounts.id.initialize({ client_id: "YOUR_GOOGLE_CLIENT_ID" });
 
 // all options
 google.accounts.id.initialize({
-    client_id: 'YOUR_GOOGLE_CLIENT_ID',
+    client_id: "YOUR_GOOGLE_CLIENT_ID",
     callback: response => {
         // $ExpectType string
         response.credential;
@@ -113,7 +192,7 @@ google.accounts.id.initialize({
         response.select_by;
     },
     auto_select: true,
-    login_uri: '',
+    login_uri: "",
     native_callback: response => {
         // $ExpectType string
         response.credential;
@@ -121,14 +200,17 @@ google.accounts.id.initialize({
         response.select_by;
     },
     cancel_on_tap_outside: true,
-    prompt_parent_id: '',
-    nonce: '',
-    context: 'signin',
-    state_cookie_domain: '',
-    ux_mode: 'popup',
-    allowed_parent_origin: '',
+    prompt_parent_id: "",
+    nonce: "",
+    context: "signin",
+    state_cookie_domain: "",
+    ux_mode: "popup",
+    allowed_parent_origin: "",
     intermediate_iframe_close_callback: () => {},
     itp_support: true,
+    hd: "*",
+    login_hint: "user@domain.net",
+    use_fedcm_for_prompt: true,
 });
 
 google.accounts.id.prompt();
@@ -156,37 +238,35 @@ google.accounts.id.prompt(notification => {
 
 // required options
 google.accounts.id.renderButton(
-    document.getElementById('buttonDiv')!,
-
+    document.getElementById("buttonDiv")!,
     {
-        type: 'standard',
+        type: "standard",
     },
 );
 
 // all options
 google.accounts.id.renderButton(
-    document.getElementById('buttonDiv')!,
-
+    document.getElementById("buttonDiv")!,
     {
-        type: 'standard',
-        theme: 'outline',
-        size: 'small',
-        text: 'signin_with',
-        shape: 'rectangular',
-        logo_alignment: 'left',
-        width: '',
-        locale: '',
+        type: "standard",
+        theme: "outline",
+        size: "small",
+        text: "signin_with",
+        shape: "rectangular",
+        logo_alignment: "left",
+        width: undefined,
+        locale: "",
         click_listener: () => {},
     },
 );
 
 google.accounts.id.disableAutoSelect();
 
-google.accounts.id.storeCredential({ id: '...', password: '...' });
+google.accounts.id.storeCredential({ id: "...", password: "..." });
 
 google.accounts.id.cancel();
 
-google.accounts.id.revoke('1618033988749895', done => {
+google.accounts.id.revoke("1618033988749895", done => {
     // $ExpectType boolean
     done.successful;
     if (done.error) {

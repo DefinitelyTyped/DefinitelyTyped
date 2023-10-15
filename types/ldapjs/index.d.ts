@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export import DN = dn.DN;
 export import RDN = dn.RDN;
@@ -42,10 +42,10 @@ export interface ClientOptions {
     reconnect?:
         | boolean
         | {
-              initialDelay?: number | undefined;
-              maxDelay?: number | undefined;
-              failAfter?: number | undefined;
-          }
+            initialDelay?: number | undefined;
+            maxDelay?: number | undefined;
+            failAfter?: number | undefined;
+        }
         | undefined;
     strictDN?: boolean | undefined;
     queueSize?: number | undefined;
@@ -57,7 +57,7 @@ export interface ClientOptions {
 
 export interface SearchOptions {
     /** Defaults to base */
-    scope?: 'base' | 'one' | 'sub' | undefined;
+    scope?: "base" | "one" | "sub" | undefined;
     /**  Defaults to (objectclass=*) */
     filter?: string | Filter | undefined;
     /** Defaults to the empty set, which means all attributes */
@@ -71,9 +71,9 @@ export interface SearchOptions {
     paged?:
         | boolean
         | {
-              pageSize?: number | undefined;
-              pagePause?: boolean | undefined;
-          }
+            pageSize?: number | undefined;
+            pagePause?: boolean | undefined;
+        }
         | undefined;
 }
 
@@ -85,17 +85,17 @@ export interface Change {
 }
 
 export var Change: {
-    new (change: Change): Change;
+    new(change: Change): Change;
 };
 
 export type SearchReference = any;
 
 export interface SearchCallbackResponse extends EventEmitter {
-    on(event: 'searchEntry', listener: (entry: SearchEntry) => void): this;
-    on(event: 'searchReference', listener: (referral: SearchReference) => void): this;
-    on(event: 'page', listener: (res: SearchResultDone, cb: (...args: any[]) => void) => void): this;
-    on(event: 'error', listener: (err: Error) => void): this;
-    on(event: 'end', listener: (res: SearchResultDone | null) => void): this;
+    on(event: "searchEntry", listener: (entry: SearchEntry) => void): this;
+    on(event: "searchReference", listener: (referral: SearchReference) => void): this;
+    on(event: "page", listener: (res: SearchResultDone, cb: (...args: any[]) => void) => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: "end", listener: (res: SearchResultDone | null) => void): this;
     on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
@@ -358,7 +358,7 @@ export interface Server extends EventEmitter {
 }
 export class SearchRequest {
     baseObject: string;
-    scope: 'base' | 'one' | 'sub';
+    scope: "base" | "one" | "sub";
     derefAliases: number;
     sizeLimit: number;
     timeLimit: number;
@@ -540,11 +540,18 @@ export class ExtensibleFilter extends Filter {
 
 export interface AttributeJson {
     type: string;
-    vals: string[];
+    values: string[];
 }
 
 export class Attribute {
-    constructor(options?: { type?: string; vals?: any });
+    constructor(options?: {
+        type?: string;
+        values?: any;
+        /**
+         * @deprecated
+         */
+        vals?: any;
+    });
     readonly type: string;
     readonly buffers: Buffer[];
 
@@ -553,6 +560,10 @@ export class Attribute {
      *  get: When reading it always returns an array of strings.
      *  set: When assigning it accepts either an array or a single value.
      *       `Buffer`s are assigned directly, any other value is converted to string and loaded into a `Buffer`.
+     */
+    values: string | string[];
+    /**
+     * @deprecated
      */
     vals: string | string[];
 
@@ -569,7 +580,6 @@ interface LDAPMessageJsonObject {
     messageID: number;
     protocolOp: string | undefined;
     controls: Control[];
-    [k: string]: any;
 }
 
 export abstract class LDAPMessage {
@@ -585,7 +595,7 @@ export abstract class LDAPMessage {
     readonly json: LDAPMessageJsonObject;
 
     /** plain old js object */
-    readonly pojo: SearchEntryObject;
+    readonly pojo: LDAPMessageJsonObject;
 
     /** Stringified json property */
     toString(): string;
@@ -603,25 +613,26 @@ declare class BaseLDAPResult extends LDAPMessage {
 }
 
 export class LDAPResult extends BaseLDAPResult {
-    readonly type: 'LDAPResult';
+    readonly type: "LDAPResult";
 }
 
 export class SearchResultDone extends BaseLDAPResult {
-    readonly type: 'SearchResultDone';
+    readonly type: "SearchResultDone";
 }
 
-export interface SearchEntryObject {
-    dn: string;
-    controls: Control[];
-    [p: string]: string | string[];
-}
+export type SearchEntryObject = LDAPMessageJsonObject & {
+    type: "SearchResultEntry";
+    objectName: string;
+    attributes: AttributeJson[];
+};
 
 export class SearchEntry extends LDAPMessage {
-    readonly type: 'SearchResultEntry';
+    readonly type: "SearchResultEntry";
     objectName: string | null;
     attributes: Attribute[];
 
-    readonly json: LDAPMessageJsonObject & { objectName: string; attributes: AttributeJson[] };
+    readonly json: SearchEntryObject;
+    readonly pojo: SearchEntryObject;
 }
 
 export function parseDN(dn: string): dn.DN;

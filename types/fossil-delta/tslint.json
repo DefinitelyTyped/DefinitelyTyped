@@ -3,8 +3,6 @@
     "rules": {
         "array-type": false,
         "no-var-keyword": false,
-        "prefer-const": false,
-        "strict-export-declare-modifiers": false,
-        "whitespace": false
+        "prefer-const": false
     }
 }

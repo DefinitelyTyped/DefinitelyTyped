@@ -1,24 +1,24 @@
-import * as React from 'react';
-import {View, Text, ViewStyle, StyleSheet} from 'react-native';
+import * as React from "react";
+import { StyleSheet, Text, View, ViewStyle } from "react-native";
 
 interface Props {
-  style: ViewStyle;
+    style: ViewStyle;
 }
 
 export function App(props: Props) {
-  const backgroundColor = (
-    StyleSheet.flatten([styles.container, props.style]) as ViewStyle
-  ).backgroundColor;
+    const backgroundColor = (
+        StyleSheet.flatten([styles.container, props.style]) as ViewStyle
+    ).backgroundColor;
 
-  return (
-    <View style={[styles.container, props.style]}>
-      <Text>{String(backgroundColor)}</Text>
-    </View>
-  );
+    return (
+        <View style={[styles.container, props.style]}>
+            <Text>{String(backgroundColor)}</Text>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'red',
-  },
+    container: {
+        backgroundColor: "red",
+    },
 });

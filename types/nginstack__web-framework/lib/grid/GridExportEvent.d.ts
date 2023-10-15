@@ -5,8 +5,8 @@ declare class GridExportEvent {
     exporter: GridExporter;
 }
 declare namespace GridExportEvent {
-    export { Grid, GridField, GridExporter };
+    export { Grid, GridExporter, GridField };
 }
-type GridExporter = import('./GridExporter');
-type Grid = import('./Grid');
-type GridField = import('./GridField');
+type GridExporter = import("./GridExporter");
+type Grid = import("./Grid");
+type GridField = import("./GridField");

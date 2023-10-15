@@ -1,6 +1,6 @@
 import { PortalGUID } from "./iitctypes";
 
-export { };
+export {};
 
 declare global {
     /**

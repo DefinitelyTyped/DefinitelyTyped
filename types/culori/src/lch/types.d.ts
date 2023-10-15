@@ -1,5 +1,5 @@
 export interface Lch {
-    mode: 'lch';
+    mode: "lch";
     l: number;
     c: number;
     h?: number;

@@ -1,5 +1,5 @@
-import { ComponentType } from 'react';
-import * as tinycolor from 'tinycolor2';
+import { ComponentType } from "react";
+import * as tinycolor from "tinycolor2";
 
 declare namespace ColorPicker {
     interface OnChangeCompleteValue {
@@ -9,7 +9,7 @@ declare namespace ColorPicker {
         hsv: string;
         rgb: string;
         oldHue: string;
-        source: 'rgb' | undefined;
+        source: "rgb" | undefined;
         draftHex: string;
         draftHsl: string;
         draftRgb: string;

@@ -4,10 +4,8 @@
         "adjacent-overload-signatures": false,
         "array-type": false,
         "ban-types": false,
-        "comment-format": false,
         "interface-name": false,
         "jsdoc-format": false,
-        "no-single-declare-module": false,
         "no-unnecessary-class": false,
         "no-var-keyword": false,
         "unified-signatures": false

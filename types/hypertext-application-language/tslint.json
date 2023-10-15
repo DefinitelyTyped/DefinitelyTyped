@@ -3,9 +3,6 @@
     "rules": {
         "no-duplicate-variable": false,
         "no-var-keyword": false,
-        "npm-naming": false,
-        "object-literal-key-quotes": false,
-        "typedef-whitespace": false,
-        "whitespace": false
+        "npm-naming": false
     }
 }

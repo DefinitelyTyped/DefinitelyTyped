@@ -1,5 +1,5 @@
-import { OrbitControls } from './OrbitControls';
-import { Camera } from '../../../src/Three';
+import { OrbitControls } from './OrbitControls.js';
+import { Camera } from '../../../src/Three.js';
 
 /**
  * MapControls performs orbiting, dollying (zooming), and panning.

@@ -3,6 +3,6 @@
 // Definitions by: TekuConcept <https://github.com/TekuConcept>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as jquery from './lib';
+import * as jquery from "./lib";
 
 export default jquery;

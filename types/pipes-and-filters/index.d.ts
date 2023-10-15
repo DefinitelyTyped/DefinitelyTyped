@@ -4,7 +4,7 @@
 //                 Federico Banchero <https://github.com/FdBn1999>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export type NextFunction<TOutput> = (err?: Error | null, result?: TOutput) => void;
 export type Filter<TInput = any, TOutput = any> = (input: TInput, next: NextFunction<TOutput>) => void;
@@ -20,6 +20,6 @@ export class Pipeline<TInput, TOutput> extends EventEmitter {
     wireupEvents(done: NextFunction<TOutput>): void;
 }
 
-// eslint-disable-next-line no-unnecessary-generics
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function create<TInput, TOutput>(name: string): Pipeline<TInput, TOutput>;
 export function breakIf(predicate: Predicate): Filter;

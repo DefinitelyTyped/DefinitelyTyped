@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-
 interface Options {
     arithmetic?: string | undefined;
     selfExecutingBundle?: boolean | undefined;

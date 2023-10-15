@@ -1,6 +1,6 @@
 {
-  "private": true,
-  "dependencies": {
-    "electron": "latest"
-  }
+    "private": true,
+    "dependencies": {
+        "electron": "latest"
+    }
 }

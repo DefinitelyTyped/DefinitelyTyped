@@ -126,7 +126,7 @@ export interface TimeLocaleObject {
      *
      * @param specifier A specifier string for the date format.
      */
-    parse(specifier: string): (dateString: string) => (Date | null);
+    parse(specifier: string): (dateString: string) => Date | null;
     /**
      * Equivalent to locale.format (TimeLocaleObject.format), except all directives are interpreted as Coordinated Universal Time (UTC) rather than local time.
      *
@@ -138,7 +138,7 @@ export interface TimeLocaleObject {
      *
      * @param specifier A specifier string for the date format.
      */
-    utcParse(specifier: string): (dateString: string) => (Date | null);
+    utcParse(specifier: string): (dateString: string) => Date | null;
 }
 
 /**
@@ -174,7 +174,7 @@ export function timeFormat(specifier: string): (date: Date) => string;
  *
  * @param specifier A specifier string for the date format.
  */
-export function timeParse(specifier: string): (dateString: string) => (Date | null);
+export function timeParse(specifier: string): (dateString: string) => Date | null;
 
 /**
  * Equivalent to timeFormat, except all directives are interpreted as Coordinated Universal Time (UTC) rather than local time.
@@ -192,7 +192,7 @@ export function utcFormat(specifier: string): (date: Date) => string;
  *
  * @param specifier A specifier string for the date format.
  */
-export function utcParse(specifier: string): (dateString: string) => (Date | null);
+export function utcParse(specifier: string): (dateString: string) => Date | null;
 
 /**
  * The full ISO 8601 UTC time formatter. Where available, this method will use Date.toISOString to format.

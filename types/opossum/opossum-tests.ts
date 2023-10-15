@@ -1,9 +1,9 @@
-import * as fs from 'fs';
-import * as CircuitBreaker from 'opossum';
-import { promisify } from 'util';
+import * as fs from "fs";
+import * as CircuitBreaker from "opossum";
+import { promisify } from "util";
 
 let breaker: CircuitBreaker;
-const callbackNoArgs = async () => console.log('foo');
+const callbackNoArgs = async () => console.log("foo");
 
 CircuitBreaker.isOurError(new Error()); // $ExpectType boolean
 
@@ -13,8 +13,8 @@ breaker = new CircuitBreaker(async () => true, {
     resetTimeout: 10,
     rollingCountTimeout: 500,
     rollingCountBuckets: 20,
-    name: 'test',
-    group: 'group',
+    name: "test",
+    group: "group",
     rollingPercentilesEnabled: true,
     capacity: 1,
     errorThresholdPercentage: 1,
@@ -22,10 +22,11 @@ breaker = new CircuitBreaker(async () => true, {
     allowWarmUp: true,
     volumeThreshold: 1,
     cache: true,
+    cacheTTL: 100,
     errorFilter: (err) => {
         err; // $ExpectType any
         return true;
-    }
+    },
 });
 
 breaker.name; // $ExpectType string
@@ -55,13 +56,13 @@ const action = async (foo: string, bar: number) => {
 };
 const typedBreaker = new CircuitBreaker(action);
 // @ts-expect-error
-typedBreaker.fire(5, 'hello');
-typedBreaker.fire('hello world', 42); // $ExpectType Promise<number>
-typedBreaker.on('success', (result, latencyMs) => {
+typedBreaker.fire(5, "hello");
+typedBreaker.fire("hello world", 42); // $ExpectType Promise<number>
+typedBreaker.on("success", (result, latencyMs) => {
     result; // $ExpectType number
     latencyMs; // $ExpectType number
 });
-typedBreaker.on('fire', ([foo, bar]) => {
+typedBreaker.on("fire", ([foo, bar]) => {
     foo; // $ExpectType string
     bar; // $ExpectType number
 });
@@ -81,36 +82,38 @@ const options: CircuitBreaker.Options = {
     errorThresholdPercentage: 50, // When 50% of requests fail, trip the circuit
     resetTimeout: 30000, // After 30 seconds, try again.
 };
+options.enableSnapshots; // $ExpectType boolean | undefined
+options.rotateBucketController; // $ExpectType EventEmitter | undefined
 breaker = new CircuitBreaker(asyncFunctionThatCouldFail, options);
 
 breaker
-    .fire('foo')
+    .fire("foo")
     .then(console.log)
     .catch(console.error);
 
 breaker = new CircuitBreaker(asyncFunctionThatCouldFail, options);
 // if asyncFunctionThatCouldFail starts to fail, firing the breaker
 // will trigger our fallback function
-breaker.fallback(() => 'Sorry, out of service right now');
-breaker.on('fallback', result => console.log(result));
+breaker.fallback(() => "Sorry, out of service right now");
+breaker.on("fallback", result => console.log(result));
 
 breaker = new CircuitBreaker(callbackNoArgs, options);
 
 breaker.fallback(callbackNoArgs);
 
-breaker.on('success', result => console.log(result));
-breaker.on('timeout', callbackNoArgs);
-breaker.on('reject', callbackNoArgs);
-breaker.on('open', callbackNoArgs);
-breaker.on('halfOpen', callbackNoArgs);
-breaker.on('close', callbackNoArgs);
-breaker.on('fallback', data => console.log(data));
+breaker.on("success", result => console.log(result));
+breaker.on("timeout", callbackNoArgs);
+breaker.on("reject", callbackNoArgs);
+breaker.on("open", callbackNoArgs);
+breaker.on("halfOpen", callbackNoArgs);
+breaker.on("close", callbackNoArgs);
+breaker.on("fallback", data => console.log(data));
 
 const readFile = promisify(fs.readFile);
 breaker = new CircuitBreaker(readFile, options);
 
 breaker
-    .fire('./package.json', 'utf-8')
+    .fire("./package.json", "utf-8")
     .then(console.log)
     .catch(console.error);
 
@@ -136,7 +139,7 @@ const noTimeoutOptions: CircuitBreaker.Options = {
 };
 
 // you can call with a provided this arg
-const context = {test: 'test' as const};
+const context = { test: "test" as const };
 async function proxyFn(this: typeof context, ...args: number[]) {
     return {
         args,

@@ -38,7 +38,6 @@ declare global {
      */
     const Macro: MacroAPI;
     /**
-     *
      * @since 2.28.0
      */
     const SimpleAudio: SimpleAudioAPI;
@@ -53,7 +52,7 @@ declare global {
      * Strings localization object.
      * @since 2.10.0
      */
-    const l10nStrings: {[x: string]: string};
+    const l10nStrings: { [x: string]: string };
 
     /**
      * Object that authors/developers may use to set up various bits of static data. Generally, you would use this for data that

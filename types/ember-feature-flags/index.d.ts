@@ -6,7 +6,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Minimum TypeScript Version: 4.4
 
-import Service from '@ember/service';
+import Service from "@ember/service";
 
 // https://github.com/kategengler/ember-feature-flags/blob/v6.0.0/addon/services/features.js#L5
 export default interface Features extends Service {
@@ -14,4 +14,5 @@ export default interface Features extends Service {
     enable(feature: string): void;
     disable(feature: string): void;
     isEnabled(feature: string): boolean;
+    readonly flags: string[];
 }

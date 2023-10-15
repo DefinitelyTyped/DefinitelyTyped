@@ -5,11 +5,11 @@ import Mime from "mime/Mime";
 let strOrNul: string | undefined;
 
 const obj = {
-    mime: ["ext", "ext2"]
+    mime: ["ext", "ext2"],
 };
 
 const obj2 = {
-    "text/plain": ["txt"]
+    "text/plain": ["txt"],
 };
 
 mime.define(obj);

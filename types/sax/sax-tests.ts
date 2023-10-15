@@ -6,10 +6,10 @@ import fs = require("fs");
         lowercase: true,
         normalize: true,
         xmlns: true,
-        position: true
+        position: true,
     };
 
-    const parser = sax.parser(/*strict=*/true, opts);
+    const parser = sax.parser(/*strict=*/ true, opts);
 
     parser.ENTITIES["foo"] = "bar";
 
@@ -38,13 +38,13 @@ import fs = require("fs");
 
     parser.onsgmldeclaration = (sgmlDecl: string) => {};
 
-    parser.onattribute = (attr: { name: string; value: string; }) => {};
+    parser.onattribute = (attr: { name: string; value: string }) => {};
 
     parser.onend = () => {};
 
     parser.write("<xml>Hello, <who name=\"world\">world</who>!</xml>").close();
 
-    const saxStream = sax.createStream(/*strict=*/true, opts);
+    const saxStream = sax.createStream(/*strict=*/ true, opts);
 
     saxStream.on("text", text => {
         // $ExpectType string
@@ -139,10 +139,10 @@ import fs = require("fs");
         lowercase: true,
         normalize: true,
         xmlns: false,
-        position: true
+        position: true,
     };
 
-    const parser = sax.parser(/*strict=*/true, opts);
+    const parser = sax.parser(/*strict=*/ true, opts);
 
     parser.onerror = (e: Error) => {};
 
@@ -154,7 +154,7 @@ import fs = require("fs");
         const attrValue: string = tag.attributes["name"];
     };
 
-    parser.onattribute = (attr: { name: string; value: string; }) => {
+    parser.onattribute = (attr: { name: string; value: string }) => {
         const tag: sax.Tag = parser.tag;
     };
 
@@ -173,7 +173,7 @@ sax.parser(true);
 sax.parser(true, {});
 
 // $ExpectType SAXParser
-sax.parser(true, {normalize: true, position: false});
+sax.parser(true, { normalize: true, position: false });
 
 new sax.SAXParser();
 
@@ -181,7 +181,7 @@ new sax.SAXParser(true);
 
 new sax.SAXParser(true, {});
 
-new sax.SAXParser(false, {lowercase: true, xmlns: false});
+new sax.SAXParser(false, { lowercase: true, xmlns: false });
 
 // $ExpectType SAXStream
 sax.createStream();
@@ -193,7 +193,7 @@ sax.createStream(false);
 sax.createStream(true, {});
 
 // $ExpectType SAXStream
-sax.createStream(true, {trim: true, position: false});
+sax.createStream(true, { trim: true, position: false });
 
 new sax.SAXStream();
 
@@ -201,4 +201,4 @@ new sax.SAXStream(true);
 
 new sax.SAXStream(false, {});
 
-new sax.SAXStream(false, {noscript: true});
+new sax.SAXStream(false, { noscript: true });

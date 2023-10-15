@@ -1,13 +1,13 @@
 import {
+    getEventsSince,
+    ParcelWatcherCallback,
+    ParcelWatcherEvent,
+    ParcelWatcherSubscription,
     subscribe,
     unsubscribe,
-    getEventsSince,
-    ParcelWatcherEvent,
-    ParcelWatcherCallback,
     writeSnapshot,
-    ParcelWatcherSubscription,
-} from '@parcel/watcher';
-import * as path from 'path';
+} from "@parcel/watcher";
+import * as path from "path";
 
 const handler: ParcelWatcherCallback = (err?: Error, events?: ParcelWatcherEvent[]) => {
     if (err) {
@@ -24,10 +24,10 @@ subscriptionPromise.then((subscription: ParcelWatcherSubscription) => {
 
 unsubscribe(process.cwd(), handler);
 
-const snapshotPath = path.join(process.cwd(), 'snapshot.txt');
+const snapshotPath = path.join(process.cwd(), "snapshot.txt");
 
 getEventsSince(process.cwd(), snapshotPath).then((events: ParcelWatcherEvent[]) => {
     console.log;
 });
 
-writeSnapshot(process.cwd(), snapshotPath, { backend: 'inotify' });
+writeSnapshot(process.cwd(), snapshotPath, { backend: "inotify" });

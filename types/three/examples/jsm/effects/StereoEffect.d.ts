@@ -1,4 +1,4 @@
-import { Camera, Scene, WebGLRenderer } from '../../../src/Three';
+import { Camera, Scene, WebGLRenderer } from '../../../src/Three.js';
 
 export class StereoEffect {
     constructor(renderer: WebGLRenderer);

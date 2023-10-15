@@ -1,6 +1,6 @@
-import { rejects } from 'assert';
-import * as docusign from 'docusign-esign';
-import { resolve } from 'path';
+import { rejects } from "assert";
+import * as docusign from "docusign-esign";
+import { resolve } from "path";
 
 const oAuth = docusign.ApiClient.OAuth;
 const scopes = [oAuth.Scope.SIGNATURE, oAuth.Scope.IMPERSONATION];
@@ -19,8 +19,8 @@ interface AccessToken {
 }
 
 const apiClient = () => {
-    const basePath = 'base/path';
-    const oAuthBasePath = 'oauth/path';
+    const basePath = "base/path";
+    const oAuthBasePath = "oauth/path";
     return new docusign.ApiClient({ basePath, oAuthBasePath });
 };
 
@@ -55,7 +55,7 @@ const getEnvelopeWithStoredConfiguredClient = async (
 
 const getClient = async (token: string) => {
     const client = apiClient();
-    client.addDefaultHeader('Authorization', `Bearer ${token}`);
+    client.addDefaultHeader("Authorization", `Bearer ${token}`);
     return client;
 };
 
@@ -75,9 +75,9 @@ const getDsRequestParams = async (): Promise<RequestParams> => {
 };
 
 const getAccessToken = async (): Promise<AccessToken> => {
-    const privateKey: Buffer = Buffer.from('read private key file');
-    const integratorKey = 'integrator key';
-    const apiUserGuid = 'api user id';
+    const privateKey: Buffer = Buffer.from("read private key file");
+    const integratorKey = "integrator key";
+    const apiUserGuid = "api user id";
     const client = apiClient();
     const results = await client.requestJWTUserToken(integratorKey, apiUserGuid, scopes, privateKey, 3600);
 
@@ -90,9 +90,9 @@ const getAccessToken = async (): Promise<AccessToken> => {
 
 const getUserInfo = async (token: string) => {
     const client = apiClient();
-    client.setOAuthBasePath('set oauth base path');
+    client.setOAuthBasePath("set oauth base path");
     const results = await client.getUserInfo(token);
-    return results.accounts.find((account: { isDefault: string }) => account.isDefault === 'true');
+    return results.accounts.find((account: { isDefault: string }) => account.isDefault === "true");
 };
 
 const getDocument = async (envelopeId: string, documentId: string, options: docusign.DocumentOptions) => {
@@ -104,14 +104,21 @@ const getDocument = async (envelopeId: string, documentId: string, options: docu
 };
 
 const callback = (error: any, data: any, response: any) => {
-    let docusignHeaderData: { docusign_esign_url?: string, hourly_rate_limit?: string, hourly_rate_limit_remaining?: string, date?: string, burst_limit?: string, burst_limit_remaining?: string };
+    let docusignHeaderData: {
+        docusign_esign_url?: string;
+        hourly_rate_limit?: string;
+        hourly_rate_limit_remaining?: string;
+        date?: string;
+        burst_limit?: string;
+        burst_limit_remaining?: string;
+    };
     if (error !== null) {
         docusignHeaderData = {
             hourly_rate_limit: error.response?.header["x-ratelimit-limit"],
             hourly_rate_limit_remaining: error.response?.header["x-ratelimit-remaining"],
             date: error.response?.header.date,
             burst_limit: error.response?.header["x-burstlimit-limit"],
-            burst_limit_remaining: error.response?.header["x-burstlimit-remaining"]
+            burst_limit_remaining: error.response?.header["x-burstlimit-remaining"],
         };
         console.log(docusignHeaderData);
         rejects(error);
@@ -122,7 +129,7 @@ const callback = (error: any, data: any, response: any) => {
             hourly_rate_limit_remaining: response.header["x-ratelimit-remaining"],
             date: response.header.date,
             burst_limit: response.header["x-burstlimit-limit"],
-            burst_limit_remaining: response.header["x-burstlimit-remaining"]
+            burst_limit_remaining: response.header["x-burstlimit-remaining"],
         };
         console.log(docusignHeaderData);
         resolve(data);

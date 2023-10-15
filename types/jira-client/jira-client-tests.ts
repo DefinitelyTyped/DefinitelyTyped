@@ -1,16 +1,16 @@
-import * as JiraApi from 'jira-client';
+import * as JiraApi from "jira-client";
 
 // Initialize
 const jira = new JiraApi({
-    protocol: 'https',
-    host: 'jira.somehost.com',
-    username: 'username',
-    password: 'password',
-    apiVersion: '2',
+    protocol: "https",
+    host: "jira.somehost.com",
+    username: "username",
+    password: "password",
+    apiVersion: "2",
     strictSSL: true,
 });
 
-const issueNumber = '123';
+const issueNumber = "123";
 
 jira.findIssue(issueNumber)
     .then(issue => {
@@ -28,4 +28,4 @@ async function logIssueName() {
     }
 }
 
-jira.getBoardIssuesForSprint('123', '456', undefined, undefined, undefined, undefined, undefined, 'changelog');
+jira.getBoardIssuesForSprint("123", "456", undefined, undefined, undefined, undefined, undefined, "changelog");

@@ -53,7 +53,12 @@ declare namespace FHIR {
              * @param done Function called once all the resources are fetched
              * @param fail Function called when an error occurs in the process
              */
-            drain(params: SearchParams, process: (entries: Entry[]) => any, done: () => any, fail: (error: any) => any): void;
+            drain(
+                params: SearchParams,
+                process: (entries: Entry[]) => any,
+                done: () => any,
+                fail: (error: any) => any,
+            ): void;
 
             /**
              * GET BASEURL/{resourceType}?searchParams
@@ -723,7 +728,11 @@ declare namespace FHIR {
              * @param callback Callled once the authorization type is retrieved from the conformance statement.
              * @param errBack Called when an error occured while trying to fetch the conformance statement.
              */
-            resolveAuthType(fhirServiceUrl: string, callback?: (type: string) => void, errBack?: (type: string) => void): void;
+            resolveAuthType(
+                fhirServiceUrl: string,
+                callback?: (type: string) => void,
+                errBack?: (type: string) => void,
+            ): void;
         }
     }
 

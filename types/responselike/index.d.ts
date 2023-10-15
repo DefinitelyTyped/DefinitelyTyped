@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import { IncomingMessage } from 'http';
-import { Stream } from 'stream';
+import { IncomingMessage } from "http";
+import { Stream } from "stream";
 
 export = ResponseLike;
 
@@ -29,6 +29,6 @@ declare class ResponseLike extends Stream.Readable {
         statusCode: number,
         headers: { [header: string]: string | string[] | undefined },
         body: Buffer,
-        url: string
+        url: string,
     );
 }

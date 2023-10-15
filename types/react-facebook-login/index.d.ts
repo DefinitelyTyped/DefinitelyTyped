@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface ReactFacebookLoginProps {
     appId: string;
@@ -25,7 +25,7 @@ export interface ReactFacebookLoginProps {
     reAuthenticate?: boolean | undefined;
     redirectUri?: string | undefined;
     scope?: string | undefined;
-    size?: 'small' | 'medium' | 'metro' | undefined;
+    size?: "small" | "medium" | "metro" | undefined;
     textButton?: string | undefined;
     typeButton?: string | undefined;
     version?: string | undefined;
@@ -50,13 +50,13 @@ export interface ReactFacebookLoginInfo {
     email?: string | undefined;
     picture?:
         | {
-              data: {
-                  height?: number | undefined;
-                  is_silhouette?: boolean | undefined;
-                  url?: string | undefined;
-                  width?: number | undefined;
-              };
-          }
+            data: {
+                height?: number | undefined;
+                is_silhouette?: boolean | undefined;
+                url?: string | undefined;
+                width?: number | undefined;
+            };
+        }
         | undefined;
 }
 

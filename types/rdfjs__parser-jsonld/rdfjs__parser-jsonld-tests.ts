@@ -1,9 +1,9 @@
-import Parser from '@rdfjs/parser-jsonld';
-import { Context } from 'jsonld/jsonld-spec';
-import { DataFactory, Sink, Stream, BaseQuad } from 'rdf-js';
-import { EventEmitter } from 'events';
+import Parser from "@rdfjs/parser-jsonld";
+import { EventEmitter } from "events";
+import { Context } from "jsonld/jsonld-spec";
+import { BaseQuad, DataFactory, Sink, Stream } from "rdf-js";
 
-const baseIRI = '';
+const baseIRI = "";
 const context: Context = {} as any;
 const factory: DataFactory = {} as any;
 const stream: Stream = {} as any;

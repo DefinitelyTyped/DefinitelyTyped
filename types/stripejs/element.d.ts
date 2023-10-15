@@ -32,7 +32,7 @@ export interface ElementFactory {
      */
     create(
         type: ElementType,
-        options: CardElementOptions | IBANElementOptions | IdealBankOptions | PaymentButtonOptions
+        options: CardElementOptions | IBANElementOptions | IdealBankOptions | PaymentButtonOptions,
     ): StripeElement;
 }
 
@@ -49,7 +49,22 @@ export interface ElementCreatorOptions {
      *
      * @default 'auto'
      */
-    locale?: 'auto' | 'da' | 'de' | 'en' | 'es' | 'fi' | 'fr' | 'it' | 'ja' | 'no' | 'nl' | 'sv' | 'zh' | string | undefined;
+    locale?:
+        | "auto"
+        | "da"
+        | "de"
+        | "en"
+        | "es"
+        | "fi"
+        | "fr"
+        | "it"
+        | "ja"
+        | "no"
+        | "nl"
+        | "sv"
+        | "zh"
+        | string
+        | undefined;
 }
 
 export interface FontCSSElement {
@@ -79,7 +94,7 @@ export interface FontConfigElement {
      * The style of the text
      * @default 'normal'
      */
-    style?: 'normal' | 'italic' | 'oblique' | undefined;
+    style?: "normal" | "italic" | "oblique" | undefined;
 
     /**
      * A unicode range for the font that should be used
@@ -91,7 +106,7 @@ export interface FontConfigElement {
      * The weight of the font
      * NOTE: This cannot be a number!
      */
-    weight?: 'initial' | 'inherit' | 'bold' | 'bolder' | 'lighter' | 'normal' | 'revert' | 'unset' | undefined;
+    weight?: "initial" | "inherit" | "bold" | "bolder" | "lighter" | "normal" | "revert" | "unset" | undefined;
 }
 
 // --- ELEMENT --- //
@@ -118,9 +133,9 @@ export interface StripeElement {
      * @param event - What event to listen to
      * @param handler - The handler function that is called when the event fires
      */
-    on(event: 'blur' | 'focus' | 'ready', handler: () => void): void;
-    on(event: 'click', handler: (event: { preventDefault: () => void }) => void): void;
-    on(event: 'change', handler: (event: OnChange) => void): void;
+    on(event: "blur" | "focus" | "ready", handler: () => void): void;
+    on(event: "click", handler: (event: { preventDefault: () => void }) => void): void;
+    on(event: "change", handler: (event: OnChange) => void): void;
 
     /**
      * Blur the element
@@ -163,7 +178,7 @@ export interface StripeElement {
  * The type of element that can be created by the ElementCreator
  * @see ElementCreator
  */
-export type ElementType = 'card' | 'cardNumber' | 'cardExpiry' | 'cardCvc' | 'postalCode' | 'paymentRequestButton';
+export type ElementType = "card" | "cardNumber" | "cardExpiry" | "cardCvc" | "postalCode" | "paymentRequestButton";
 
 // --- ELEMENT EVENTS --- //
 export interface OnChange {
@@ -241,7 +256,7 @@ export interface CardElementOptions extends BaseOptions {
     /**
      * Appearance of the icon in the Element
      */
-    iconStyle?: 'solid' | 'default' | undefined;
+    iconStyle?: "solid" | "default" | undefined;
 
     /**
      * A placeholder text
@@ -266,7 +281,7 @@ export interface IBANElementOptions extends BaseOptions {
     /**
      * Appearance of the icon in the Element
      */
-    iconStyle?: 'solid' | 'default' | undefined;
+    iconStyle?: "solid" | "default" | undefined;
 }
 
 // --- IDEAL ELEMENT --- //
@@ -309,13 +324,13 @@ export interface PaymentRequestButtonStyle {
      * The type of button that should be shown
      * @default 'default'
      */
-    type?: 'default' | 'donate' | 'buy' | undefined;
+    type?: "default" | "donate" | "buy" | undefined;
 
     /**
      * The theme of the button that should be used
      * @default 'dark'
      */
-    theme?: 'dark' | 'light' | 'light-outline' | undefined;
+    theme?: "dark" | "light" | "light-outline" | undefined;
 
     /**
      * The height of the button
@@ -384,7 +399,7 @@ export interface StyleAttributes {
      * NOTE: Only available for the `cardNumber`, `cardExpiry`, and `cardCvc` Elements
      */
     textAlign?: string | undefined;
-    '::-ms-clear'?: MSClearAttributes | undefined;
+    "::-ms-clear"?: MSClearAttributes | undefined;
 
     /**
      * Add padding to the element
@@ -395,12 +410,12 @@ export interface StyleAttributes {
     textDecoration?: string | undefined;
     textShadow?: string | undefined;
     textTransform?: string | undefined;
-    ':hover'?: StyleAttributes | undefined;
-    ':focus'?: StyleAttributes | undefined;
-    '::placeholder'?: StyleAttributes | undefined;
-    '::selection'?: StyleAttributes | undefined;
-    ':-webkit-autofill'?: StyleAttributes | undefined;
-    ':disabled'?: StyleAttributes | undefined;
+    ":hover"?: StyleAttributes | undefined;
+    ":focus"?: StyleAttributes | undefined;
+    "::placeholder"?: StyleAttributes | undefined;
+    "::selection"?: StyleAttributes | undefined;
+    ":-webkit-autofill"?: StyleAttributes | undefined;
+    ":disabled"?: StyleAttributes | undefined;
 }
 
 export interface MSClearAttributes extends StyleAttributes {

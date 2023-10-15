@@ -1,2 +1,2 @@
-import { count } from '../index';
+import { count } from "../index";
 export default count;

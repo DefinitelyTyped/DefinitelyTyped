@@ -1,14 +1,14 @@
-import carbone = require('carbone');
+import carbone = require("carbone");
 
 const buffer = Buffer.alloc(1024);
-const convertTo = 'pdf';
-const currencySource = 'EUR';
-const currencyTarget = 'PLN';
-const extension = 'odt';
-const lang = 'pl';
-const timezone = 'Asia/Tokyo';
-const tempPath = '/tmp';
-const templatePath = './templates';
+const convertTo = "pdf";
+const currencySource = "EUR";
+const currencyTarget = "PLN";
+const extension = "odt";
+const lang = "pl";
+const timezone = "Asia/Tokyo";
+const tempPath = "/tmp";
+const templatePath = "./templates";
 const factories = 2;
 const startFactory = true;
 const attempts = 2;
@@ -30,12 +30,12 @@ const emptyTranslations: carbone.Translations = {};
 const translations: carbone.Translations = {
     ...emptyTranslations,
     en: {
-        Hello: 'Hello',
-        Goodbye: 'Goodbye',
+        Hello: "Hello",
+        Goodbye: "Goodbye",
     },
     pl: {
-        Hello: 'Witaj',
-        Goodbye: 'Do widzenia',
+        Hello: "Witaj",
+        Goodbye: "Do widzenia",
     },
 };
 
@@ -44,19 +44,19 @@ const data = {
     ...emptyData,
     b: true,
     n: 100,
-    s: 'carbone',
+    s: "carbone",
     o: {
-        field: 'value',
+        field: "value",
     },
 };
 
 const emptyEnums: carbone.Enums = {};
 const enums: carbone.Enums = {
     ...emptyEnums,
-    ARRAY: ['some', 'values'],
+    ARRAY: ["some", "values"],
     MAP: {
-        yes: 'true',
-        no: 'false',
+        yes: "true",
+        no: "false",
     },
 };
 
@@ -73,7 +73,7 @@ const options: carbone.Options = {
     currencyRates,
     factories,
     startFactory,
-    attempts
+    attempts,
 };
 
 const emptyRenderOptions: carbone.RenderOptions = {};
@@ -88,18 +88,18 @@ const renderOptions: carbone.RenderOptions = {
     lang,
     timezone,
     translations,
-    variableStr: '',
+    variableStr: "",
 };
 
 const variables: carbone.Variable[] = [
     {
-        code: 'code1',
-        name: 'name1',
+        code: "code1",
+        name: "name1",
         regex: /^/,
     },
     {
-        code: 'code2',
-        name: 'name2',
+        code: "code2",
+        name: "name2",
         regex: /$/,
     },
 ];
@@ -122,16 +122,23 @@ carbone.reset();
 
 carbone.addFormatters(formatters);
 
-carbone.addTemplate('xml', '<xml>', err => {});
-carbone.removeTemplate('xml', err => {});
+carbone.addTemplate("xml", "<xml>", err => {});
+carbone.removeTemplate("xml", err => {});
 
-const conversionFormats: carbone.ConversionFormat[] = carbone.listConversionFormats('document');
+const conversionFormats: carbone.ConversionFormat[] = carbone.listConversionFormats("document");
 
-carbone.render('./template.odf', data, renderOptions, (err, result: Buffer | string, reportName: string) => {});
-carbone.render('./template.odf', data, (err, result: Buffer | string, reportName: string) => {});
+carbone.render("./template.odf", data, renderOptions, (err, result: Buffer | string, reportName: string) => {});
+carbone.render("./template.odf", data, (err, result: Buffer | string, reportName: string) => {});
 
-carbone.renderXML('<xml>', data, renderXMLOptions, (err, result: Buffer | string) => {});
-carbone.renderXML('<xml>', data, (err, result: Buffer | string) => {});
+carbone.renderXML("<xml>", data, renderXMLOptions, (err, result: Buffer | string) => {});
+carbone.renderXML("<xml>", data, (err, result: Buffer | string) => {});
 
-carbone.convert(buffer, 'pdf', {}, (err, result: Buffer) => {});
-carbone.convert(buffer, 'pdf', (err, result: Buffer) => {});
+carbone.convert(buffer, { convertTo, extension: "docx" }, (err, result: Buffer) => {});
+carbone.convert(buffer, { extension: "docx" }, (err, result: Buffer) => {});
+
+// Encoded filenames are <prefix><22-random-chars><encodedReportName.extension>
+carbone.decodeRenderedFilename("./0000000000000000000000template.odf");
+// This is with prefix length of 2
+carbone.decodeRenderedFilename("./ab0000000000000000000000template.odf", 2);
+
+carbone.getFileExtension("./template.odf", (err, extension) => {});

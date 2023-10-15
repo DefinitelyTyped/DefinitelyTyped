@@ -335,7 +335,7 @@ declare class Calendar {
      * @param availability - Availability to check against.
      * @see https://docs.scriptable.app/calendar/#-supportsavailability
      */
-    supportsAvailability(availability: 'busy' | 'free' | 'tentative' | 'unavailable'): boolean;
+    supportsAvailability(availability: "busy" | "free" | "tentative" | "unavailable"): boolean;
 
     /**
      * _Saves calendar._
@@ -445,7 +445,7 @@ declare class CalendarEvent {
      * calendar supports a specific availability.
      * @see https://docs.scriptable.app/calendarevent/#availability
      */
-    availability: 'busy' | 'free' | 'tentative' | 'unavailable';
+    availability: "busy" | "free" | "tentative" | "unavailable";
 
     /**
      * _Time zone of event._
@@ -602,8 +602,7 @@ declare class CallbackURL<T extends string = string> {
      * @see https://docs.scriptable.app/callbackurl/#-open
      */
     open(): Promise<
-        T extends `shortcuts://x-callback-url/${string}`
-            ? { result: string | number | boolean | null }
+        T extends `shortcuts://x-callback-url/${string}` ? { result: string | number | boolean | null }
             : Record<string, string | number | boolean | null>
     >;
 
@@ -829,13 +828,13 @@ declare var config: {
      * @see https://docs.scriptable.app/config/#widgetfamily
      */
     widgetFamily:
-        | 'small'
-        | 'medium'
-        | 'large'
-        | 'extraLarge'
-        | 'accessoryRectangular'
-        | 'accessoryInline'
-        | 'accessoryCircular'
+        | "small"
+        | "medium"
+        | "large"
+        | "extraLarge"
+        | "accessoryRectangular"
+        | "accessoryInline"
+        | "accessoryCircular"
         | null;
 };
 
@@ -3826,15 +3825,15 @@ declare class Notification {
      * @see https://docs.scriptable.app/notification/#sound
      */
     sound:
-        | 'default'
-        | 'accept'
-        | 'alert'
-        | 'complete'
-        | 'event'
-        | 'failure'
-        | 'piano_error'
-        | 'piano_success'
-        | 'popup';
+        | "default"
+        | "accept"
+        | "alert"
+        | "complete"
+        | "event"
+        | "failure"
+        | "piano_error"
+        | "piano_success"
+        | "popup";
 
     /**
      * _URL to open when notification is tapped._

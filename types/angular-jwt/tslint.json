@@ -2,9 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "interface-name": false,
-        "max-line-length": false,
-        "no-consecutive-blank-lines": false,
-        "no-padding": false,
         "no-reference-import": false,
         "no-var-keyword": false,
         "npm-naming": [
@@ -13,8 +10,6 @@
                 "errors": [["NeedsExportEquals", false]],
                 "mode": "code"
             }
-        ],
-        "semicolon": false,
-        "strict-export-declare-modifiers": false
+        ]
     }
 }

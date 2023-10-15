@@ -41,11 +41,13 @@ declare namespace GoogleAdsScripts {
         interface PhoneNumberOperation extends Base.Operation<PhoneNumber> {}
 
         interface PhoneNumberSelector
-            extends Base.Selector<PhoneNumberIterator>,
+            extends
+                Base.Selector<PhoneNumberIterator>,
                 Base.SelectorForDateRange,
                 Base.SelectorOrderBy,
                 Base.SelectorWithCondition,
                 Base.SelectorWithIds,
-                Base.SelectorWithLimit {}
+                Base.SelectorWithLimit
+        {}
     }
 }

@@ -1,11 +1,11 @@
 import * as React from "react";
 import Spinner from "react-native-loading-spinner-overlay";
 
-() => {
+(() => {
     <Spinner />;
-};
+});
 
-() => {
+(() => {
     <Spinner
         cancelable={false}
         color="red"
@@ -17,4 +17,4 @@ import Spinner from "react-native-loading-spinner-overlay";
         visible={true}
         customIndicator={<></>}
     />;
-};
+});

@@ -1,10 +1,9 @@
-
 /// <reference types="node" />
 
-import clc = require('cli-color');
-import ansiStrip = require('cli-color/strip');
-import setupThrobber = require('cli-color/throbber');
-import bare = require('cli-color/bare');
+import clc = require("cli-color");
+import ansiStrip = require("cli-color/strip");
+import setupThrobber = require("cli-color/throbber");
+import bare = require("cli-color/bare");
 
 let text: string;
 let period: number;
@@ -13,8 +12,8 @@ format = bare.red.redBright;
 text = format();
 
 // Test cli-color
-text = clc('foo');
-text = clc('foo', 42, { toString: () => 'bar' });
+text = clc("foo");
+text = clc("foo", 42, { toString: () => "bar" });
 
 text = clc.red("Text in red");
 text = clc.red.bgWhite.underline("Underlined red text on white background.");
@@ -24,8 +23,8 @@ text = clc.bold.italic.underline.blink.inverse.strike(text);
 text = clc.black.red.green.yellow.blue.magenta.cyan.white(text);
 text = clc.bgBlack.bgRed.bgGreen.bgYellow.bgBlack.bgMagenta.bgCyan.bgWhite(text);
 text = clc.blackBright.redBright.greenBright.yellowBright.blueBright.magentaBright.cyanBright.whiteBright(text);
-text = clc.bgBlackBright.bgRedBright.bgGreenBright.bgYellowBright.bgBlueBright.bgMagentaBright.bgCyanBright.bgWhiteBright(text);
-
+text = clc.bgBlackBright.bgRedBright.bgGreenBright.bgYellowBright.bgBlueBright.bgMagentaBright.bgCyanBright
+    .bgWhiteBright(text);
 
 const error: clc.Format = clc.red.bold;
 const warn: clc.Format = clc.yellow;
@@ -74,28 +73,32 @@ text = ".........\n" + ". Hello .\n" + ".........\n";
 var style = { ".": clc.yellowBright("X") };
 text = clc.art(text, style);
 
-text =
-    clc.columns([
-        [clc.bold("First Name"), clc.bold("Last Name"), clc.bold("Age")], ["John", "Doe", 34],
-        ["Martha", "Smith", 20], ["Jan", "Kowalski", 30]
-    ]);
+text = clc.columns([
+    [clc.bold("First Name"), clc.bold("Last Name"), clc.bold("Age")],
+    ["John", "Doe", 34],
+    ["Martha", "Smith", 20],
+    ["Jan", "Kowalski", 30],
+]);
 
-text =
-    clc.columns([
-        [clc.bold("First Name"), clc.bold("Last Name"), clc.bold("Age")], ["John", "Doe", 34],
-        ["Martha", "Smith", 20], { [0]: "Jan", [1]: "Kowalski", [2]: 30, length: 3 }
-    ]);
+text = clc.columns([
+    [clc.bold("First Name"), clc.bold("Last Name"), clc.bold("Age")],
+    ["John", "Doe", 34],
+    ["Martha", "Smith", 20],
+    { [0]: "Jan", [1]: "Kowalski", [2]: 30, length: 3 },
+]);
 
-text =
-    clc.columns([
-        [clc.bold("First Name"), clc.bold("Last Name"), clc.bold("Age")], ["John", "Doe", 34],
-        ["Martha", "Smith", 20], ["Jan", "Kowalski", 30]
-    ], { sep: '|' });
-text =
-    clc.columns([
-        [clc.bold("First Name"), clc.bold("Last Name"), clc.bold("Age")], ["John", "Doe", 34],
-        ["Martha", "Smith", 20], ["Jan", "Kowalski", 30]
-    ], { columns: [{ align: 'right' }, null, { align: 'left' }] });
+text = clc.columns([
+    [clc.bold("First Name"), clc.bold("Last Name"), clc.bold("Age")],
+    ["John", "Doe", 34],
+    ["Martha", "Smith", 20],
+    ["Jan", "Kowalski", 30],
+], { sep: "|" });
+text = clc.columns([
+    [clc.bold("First Name"), clc.bold("Last Name"), clc.bold("Age")],
+    ["John", "Doe", 34],
+    ["Martha", "Smith", 20],
+    ["Jan", "Kowalski", 30],
+], { columns: [{ align: "right" }, null, { align: "left" }] });
 
 // Test cli-color/throbber
 var throbber: setupThrobber.Throbber;

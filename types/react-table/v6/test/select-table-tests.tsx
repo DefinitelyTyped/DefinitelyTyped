@@ -1,12 +1,12 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 
-import ReactTable, { Column } from 'react-table';
+import ReactTable, { Column } from "react-table";
 import selectTableHOC, {
-    SelectTableAdditionalProps,
+    SelectAllInputComponentProps,
     SelectInputComponentProps,
-    SelectAllInputComponentProps
-} from 'react-table/lib/hoc/selectTable';
+    SelectTableAdditionalProps,
+} from "react-table/lib/hoc/selectTable";
 
 const SelectTable = selectTableHOC(ReactTable);
 
@@ -14,7 +14,7 @@ const SelectInput: React.FunctionComponent<SelectInputComponentProps> = ({
     onClick,
     id,
     checked,
-    row
+    row,
 }) => (
     <input
         type="checkbox"
@@ -25,27 +25,25 @@ const SelectInput: React.FunctionComponent<SelectInputComponentProps> = ({
 
 const SelectAllInput: React.FunctionComponent<
     SelectAllInputComponentProps
-> = ({ onClick, checked }) => (
-    <input type="checkbox" onClick={onClick} checked={checked} />
-);
+> = ({ onClick, checked }) => <input type="checkbox" onClick={onClick} checked={checked} />;
 
 const selectTableAdditionalProps: SelectTableAdditionalProps = {
     isSelected: () => true,
-    keyField: 'id',
+    keyField: "id",
     selectAll: true,
-    selectType: 'checkbox',
+    selectType: "checkbox",
     selectWidth: 50,
     toggleAll: () => null,
     toggleSelection: () => null,
     SelectInputComponent: SelectInput,
-    SelectAllInputComponent: SelectAllInput
+    SelectAllInputComponent: SelectAllInput,
 };
 
-const data = [{ id: 1, name: 'Foo' }, { id: 2, name: 'Bar' }];
+const data = [{ id: 1, name: "Foo" }, { id: 2, name: "Bar" }];
 
 const columns: Column[] = [
-    { Header: 'ID', accessor: 'id' },
-    { Header: 'Name', accessor: 'name' }
+    { Header: "ID", accessor: "id" },
+    { Header: "Name", accessor: "name" },
 ];
 
 ReactDOM.render(
@@ -55,5 +53,5 @@ ReactDOM.render(
         columns={columns}
         ref={React.createRef()}
     />,
-    document.getElementById('root')
+    document.getElementById("root"),
 );

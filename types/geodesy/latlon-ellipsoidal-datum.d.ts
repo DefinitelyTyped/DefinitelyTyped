@@ -2,9 +2,9 @@
  * @format
  */
 
-import { Datum, Datums, Ellipsoids } from '.';
+import { Datum, Datums, Ellipsoids } from ".";
 
-import LatLonEllipsoidal, { Cartesian, Dms } from './latlon-ellipsoidal';
+import LatLonEllipsoidal, { Cartesian, Dms } from "./latlon-ellipsoidal";
 
 declare const datums: Datums;
 
@@ -31,9 +31,4 @@ declare class Cartesian_Datum extends Cartesian {
     convertDatum(toDatum: Datum): Cartesian_Datum;
 }
 
-export {
-    LatLonEllipsoidal_Datum as default,
-    Cartesian_Datum as Cartesian,
-    datums,
-    Dms,
-};
+export { Cartesian_Datum as Cartesian, datums, Dms, LatLonEllipsoidal_Datum as default };

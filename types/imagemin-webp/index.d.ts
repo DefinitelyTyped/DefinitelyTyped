@@ -4,14 +4,14 @@
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Plugin } from 'imagemin';
+import { Plugin } from "imagemin";
 
 /**
  * WebP imagemin plugin
  */
 export default function imageminWebp(options?: Options): Plugin;
 
-export type Preset = 'default' | 'photo' | 'picture' | 'drawing' | 'icon' | 'text';
+export type Preset = "default" | "photo" | "picture" | "drawing" | "icon" | "text";
 export interface Resize {
     width: number;
     height: number;
@@ -22,7 +22,7 @@ export interface Crop extends Resize {
     y: number;
 }
 
-export type Metadata = 'all' | 'none' | 'exif' | 'icc' | 'xmp';
+export type Metadata = "all" | "none" | "exif" | "icc" | "xmp";
 
 export interface Options {
     /**

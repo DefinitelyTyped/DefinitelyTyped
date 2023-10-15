@@ -7,9 +7,9 @@
 
 /// <reference types="node" />
 
-import { Hash } from 'crypto';
-import { SourceNode, RawSourceMap, SourceMapGenerator } from 'source-map';
-import { SourceListMap } from 'source-list-map';
+import { Hash } from "crypto";
+import { SourceListMap } from "source-list-map";
+import { RawSourceMap, SourceMapGenerator, SourceNode } from "source-map";
 
 export interface MapOptions {
     /**
@@ -166,7 +166,6 @@ export interface Replacement {
 
 /**
  * Decorates a Source with replacements and insertions of source code.
- *
  */
 export class ReplaceSource extends Source implements SourceAndMapMixin {
     replacements: Replacement[];

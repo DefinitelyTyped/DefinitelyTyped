@@ -1,8 +1,8 @@
 import "jquery";
-import { FilterControlFactory } from "../Filtering/Formatter/FilterControlFactory";
 import { FilterFunction } from "../Filtering/FilterFunction";
 import { FilterFunctionCollection } from "../Filtering/FilterFunctionCollection";
 import { FilterPlaceholders } from "../Filtering/FilterPlaceholders";
+import { FilterControlFactory } from "../Filtering/Formatter/FilterControlFactory";
 import { MatchTypeSettings } from "../Filtering/MatchTypeSettings";
 import { SelectSources } from "../Filtering/SelectSources";
 import { MappedSettings } from "../System/MappedSettings";

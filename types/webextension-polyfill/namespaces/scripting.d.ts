@@ -1,6 +1,9 @@
+//////////////////////////////////////////////////////
+// BEWARE: DO NOT EDIT MANUALLY! Changes will be lost!
+//////////////////////////////////////////////////////
+
 /**
  * Namespace: browser.scripting
- * Generated from Mozilla sources. Do not manually edit!
  *
  * Use the scripting API to execute script in different contexts.
  * Permissions: "scripting"
@@ -10,8 +13,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-import { Manifest } from "./manifest";
 import { ExtensionTypes } from "./extensionTypes";
+import { Manifest } from "./manifest";
 
 export namespace Scripting {
     /**

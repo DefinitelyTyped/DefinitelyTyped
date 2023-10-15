@@ -6,8 +6,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-import * as m from "mime";
 import * as http from "http";
+import { HttpError } from "http-errors";
+import * as m from "mime";
 
 /**
  * Create a new middleware function to serve files from within a given root directory.
@@ -16,7 +17,7 @@ import * as http from "http";
  */
 declare function serveStatic<R extends http.ServerResponse>(
     root: string,
-    options?: serveStatic.ServeStaticOptions<R>
+    options?: serveStatic.ServeStaticOptions<R>,
 ): serveStatic.RequestHandler<R>;
 
 declare namespace serveStatic {
@@ -101,7 +102,7 @@ declare namespace serveStatic {
     }
 
     interface RequestHandler<R extends http.ServerResponse> {
-        (request: http.IncomingMessage, response: R, next: () => void): any;
+        (request: http.IncomingMessage, response: R, next: (err?: HttpError) => void): any;
     }
 
     interface RequestHandlerConstructor<R extends http.ServerResponse> {

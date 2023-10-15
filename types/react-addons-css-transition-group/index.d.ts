@@ -4,10 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import 'react-addons-transition-group';
-import { ComponentClass, CSSTransitionGroupProps } from 'react';
+import "react-addons-transition-group";
+import { ComponentClass, CSSTransitionGroupProps } from "react";
 
-declare module 'react' {
+declare module "react" {
     interface CSSTransitionGroupTransitionName {
         enter: string;
         enterActive?: string | undefined;

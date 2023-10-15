@@ -1,4 +1,4 @@
-import * as AWS from 'aws-sdk2-types';
+import * as AWS from "aws-sdk2-types";
 function ssm(filter: AWS.SSM.Types.ParameterStringFilter) {
     return filter.Key === "Stroustrup";
 }

@@ -152,7 +152,13 @@ export class KerberosServer {
  */
 export function checkPassword(name: string, password: string, service: string, defaultRealm?: string): Promise<void>;
 export function checkPassword(name: string, password: string, service: string, callback: (err: string) => any): void;
-export function checkPassword(name: string, password: string, service: string, defaultRealm: string, callback: (err: string) => any): void;
+export function checkPassword(
+    name: string,
+    password: string,
+    service: string,
+    defaultRealm: string,
+    callback: (err: string) => any,
+): void;
 
 /**
  * This function returns the service principal for the server given a service type and hostname.
@@ -165,7 +171,11 @@ export function checkPassword(name: string, password: string, service: string, d
  * @return returns Promise if no callback passed
  */
 export function principalDetails(service: string, hostname: string): Promise<string>;
-export function principalDetails(service: string, hostname: string, callback: (err: string, details: string) => any): void;
+export function principalDetails(
+    service: string,
+    hostname: string,
+    callback: (err: string, details: string) => any,
+): void;
 
 /**
  * Initializes a context for client-side authentication with the given service principal.
@@ -177,7 +187,11 @@ export function principalDetails(service: string, hostname: string, callback: (e
  */
 export function initializeClient(service: string, options?: InitializeClientOptions): Promise<KerberosClient>;
 export function initializeClient(service: string, callback: (err: string, client: KerberosClient) => any): void;
-export function initializeClient(service: string, options: InitializeClientOptions, callback: (err: string, client: KerberosClient) => any): void;
+export function initializeClient(
+    service: string,
+    options: InitializeClientOptions,
+    callback: (err: string, client: KerberosClient) => any,
+): void;
 
 /**
  * Initializes a context for server-side authentication with the given service principal.

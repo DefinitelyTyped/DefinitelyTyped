@@ -3,8 +3,8 @@
 // Definitions by: Daniil Pronin <https://github.com/grawl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { PluginWithOptions } from 'markdown-it';
-import { RenderRule } from 'markdown-it/lib/renderer';
+import { PluginWithOptions } from "markdown-it";
+import { RenderRule } from "markdown-it/lib/renderer";
 
 declare namespace markdownItExternalLinks {
     interface Config {
@@ -17,7 +17,9 @@ declare namespace markdownItExternalLinks {
         internalRel?: string | undefined;
     }
 }
-declare const markdownItExternalLinks: PluginWithOptions<markdownItExternalLinks.Config | markdownItExternalLinks.Config[]> & {
-    readonly defaultRender: RenderRule;
-};
+declare const markdownItExternalLinks:
+    & PluginWithOptions<markdownItExternalLinks.Config | markdownItExternalLinks.Config[]>
+    & {
+        readonly defaultRender: RenderRule;
+    };
 export = markdownItExternalLinks;

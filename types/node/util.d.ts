@@ -8,8 +8,8 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/util.js)
  */
-declare module 'util' {
-    import * as types from 'node:util/types';
+declare module "util" {
+    import * as types from "node:util/types";
     export interface InspectOptions {
         /**
          * If `true`, object's non-enumerable symbols and properties are included in the formatted result.
@@ -85,14 +85,25 @@ declare module 'util' {
          * the getter function.
          * @default false
          */
-        getters?: 'get' | 'set' | boolean | undefined;
+        getters?: "get" | "set" | boolean | undefined;
         /**
          * If set to `true`, an underscore is used to separate every three digits in all bigints and numbers.
          * @default false
          */
         numericSeparator?: boolean | undefined;
     }
-    export type Style = 'special' | 'number' | 'bigint' | 'boolean' | 'undefined' | 'null' | 'string' | 'symbol' | 'date' | 'regexp' | 'module';
+    export type Style =
+        | "special"
+        | "number"
+        | "bigint"
+        | "boolean"
+        | "undefined"
+        | "null"
+        | "string"
+        | "symbol"
+        | "date"
+        | "regexp"
+        | "module";
     export type CustomInspectFunction = (depth: number, options: InspectOptionsStylized) => any; // TODO: , inspect: inspect
     export interface InspectOptionsStylized extends InspectOptions {
         stylize(text: string, styleType: Style): string;
@@ -408,8 +419,14 @@ declare module 'util' {
      * const bigNumber = 123_456_789n;
      * const bigDecimal = 1_234.123_45;
      *
-     * console.log(thousand, million, bigNumber, bigDecimal);
-     * // 1_000 1_000_000 123_456_789n 1_234.123_45
+     * console.log(inspect(thousand, { numericSeparator: true }));
+     * // 1_000
+     * console.log(inspect(million, { numericSeparator: true }));
+     * // 1_000_000
+     * console.log(inspect(bigNumber, { numericSeparator: true }));
+     * // 123_456_789n
+     * console.log(inspect(bigDecimal, { numericSeparator: true }));
+     * // 1_234.123_45
      * ```
      *
      * `util.inspect()` is a synchronous method intended for debugging. Its maximum
@@ -970,40 +987,83 @@ declare module 'util' {
      * @return a callback style function
      */
     export function callbackify(fn: () => Promise<void>): (callback: (err: NodeJS.ErrnoException) => void) => void;
-    export function callbackify<TResult>(fn: () => Promise<TResult>): (callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
-    export function callbackify<T1>(fn: (arg1: T1) => Promise<void>): (arg1: T1, callback: (err: NodeJS.ErrnoException) => void) => void;
-    export function callbackify<T1, TResult>(fn: (arg1: T1) => Promise<TResult>): (arg1: T1, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
-    export function callbackify<T1, T2>(fn: (arg1: T1, arg2: T2) => Promise<void>): (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException) => void) => void;
-    export function callbackify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2) => Promise<TResult>): (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException | null, result: TResult) => void) => void;
-    export function callbackify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3) => Promise<void>): (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<TResult>(
+        fn: () => Promise<TResult>,
+    ): (callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1>(
+        fn: (arg1: T1) => Promise<void>,
+    ): (arg1: T1, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<T1, TResult>(
+        fn: (arg1: T1) => Promise<TResult>,
+    ): (arg1: T1, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void;
+    export function callbackify<T1, T2>(
+        fn: (arg1: T1, arg2: T2) => Promise<void>,
+    ): (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException) => void) => void;
+    export function callbackify<T1, T2, TResult>(
+        fn: (arg1: T1, arg2: T2) => Promise<TResult>,
+    ): (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException | null, result: TResult) => void) => void;
+    export function callbackify<T1, T2, T3>(
+        fn: (arg1: T1, arg2: T2, arg3: T3) => Promise<void>,
+    ): (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException) => void) => void;
     export function callbackify<T1, T2, T3, TResult>(
-        fn: (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>
+        fn: (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>,
     ): (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException | null, result: TResult) => void) => void;
     export function callbackify<T1, T2, T3, T4>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>,
     ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException) => void) => void;
     export function callbackify<T1, T2, T3, T4, TResult>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>
-    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException | null, result: TResult) => void) => void;
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>,
+    ): (
+        arg1: T1,
+        arg2: T2,
+        arg3: T3,
+        arg4: T4,
+        callback: (err: NodeJS.ErrnoException | null, result: TResult) => void,
+    ) => void;
     export function callbackify<T1, T2, T3, T4, T5>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>,
     ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException) => void) => void;
     export function callbackify<T1, T2, T3, T4, T5, TResult>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>
-    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException | null, result: TResult) => void) => void;
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>,
+    ): (
+        arg1: T1,
+        arg2: T2,
+        arg3: T3,
+        arg4: T4,
+        arg5: T5,
+        callback: (err: NodeJS.ErrnoException | null, result: TResult) => void,
+    ) => void;
     export function callbackify<T1, T2, T3, T4, T5, T6>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<void>
-    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, callback: (err: NodeJS.ErrnoException) => void) => void;
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<void>,
+    ): (
+        arg1: T1,
+        arg2: T2,
+        arg3: T3,
+        arg4: T4,
+        arg5: T5,
+        arg6: T6,
+        callback: (err: NodeJS.ErrnoException) => void,
+    ) => void;
     export function callbackify<T1, T2, T3, T4, T5, T6, TResult>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<TResult>
-    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6, callback: (err: NodeJS.ErrnoException | null, result: TResult) => void) => void;
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, arg6: T6) => Promise<TResult>,
+    ): (
+        arg1: T1,
+        arg2: T2,
+        arg3: T3,
+        arg4: T4,
+        arg5: T5,
+        arg6: T6,
+        callback: (err: NodeJS.ErrnoException | null, result: TResult) => void,
+    ) => void;
     export interface CustomPromisifyLegacy<TCustom extends Function> extends Function {
         __promisify__: TCustom;
     }
     export interface CustomPromisifySymbol<TCustom extends Function> extends Function {
         [promisify.custom]: TCustom;
     }
-    export type CustomPromisify<TCustom extends Function> = CustomPromisifySymbol<TCustom> | CustomPromisifyLegacy<TCustom>;
+    export type CustomPromisify<TCustom extends Function> =
+        | CustomPromisifySymbol<TCustom>
+        | CustomPromisifyLegacy<TCustom>;
     /**
      * Takes a function following the common error-first callback style, i.e. taking
      * an `(err, value) => ...` callback as the last argument, and returns a version
@@ -1033,6 +1093,8 @@ declare module 'util' {
      *   const stats = await stat('.');
      *   console.log(`This directory is owned by ${stats.uid}`);
      * }
+     *
+     * callStat();
      * ```
      *
      * If there is an `original[util.promisify.custom]` property present, `promisify`will return its value, see `Custom promisified functions`.
@@ -1072,23 +1134,37 @@ declare module 'util' {
      * @since v8.0.0
      */
     export function promisify<TCustom extends Function>(fn: CustomPromisify<TCustom>): TCustom;
-    export function promisify<TResult>(fn: (callback: (err: any, result: TResult) => void) => void): () => Promise<TResult>;
+    export function promisify<TResult>(
+        fn: (callback: (err: any, result: TResult) => void) => void,
+    ): () => Promise<TResult>;
     export function promisify(fn: (callback: (err?: any) => void) => void): () => Promise<void>;
-    export function promisify<T1, TResult>(fn: (arg1: T1, callback: (err: any, result: TResult) => void) => void): (arg1: T1) => Promise<TResult>;
+    export function promisify<T1, TResult>(
+        fn: (arg1: T1, callback: (err: any, result: TResult) => void) => void,
+    ): (arg1: T1) => Promise<TResult>;
     export function promisify<T1>(fn: (arg1: T1, callback: (err?: any) => void) => void): (arg1: T1) => Promise<void>;
-    export function promisify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2, callback: (err: any, result: TResult) => void) => void): (arg1: T1, arg2: T2) => Promise<TResult>;
-    export function promisify<T1, T2>(fn: (arg1: T1, arg2: T2, callback: (err?: any) => void) => void): (arg1: T1, arg2: T2) => Promise<void>;
-    export function promisify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: any, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
-    export function promisify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err?: any) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
+    export function promisify<T1, T2, TResult>(
+        fn: (arg1: T1, arg2: T2, callback: (err: any, result: TResult) => void) => void,
+    ): (arg1: T1, arg2: T2) => Promise<TResult>;
+    export function promisify<T1, T2>(
+        fn: (arg1: T1, arg2: T2, callback: (err?: any) => void) => void,
+    ): (arg1: T1, arg2: T2) => Promise<void>;
+    export function promisify<T1, T2, T3, TResult>(
+        fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: any, result: TResult) => void) => void,
+    ): (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
+    export function promisify<T1, T2, T3>(
+        fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err?: any) => void) => void,
+    ): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
     export function promisify<T1, T2, T3, T4, TResult>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: any, result: TResult) => void) => void
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: any, result: TResult) => void) => void,
     ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>;
-    export function promisify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err?: any) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
+    export function promisify<T1, T2, T3, T4>(
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err?: any) => void) => void,
+    ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
     export function promisify<T1, T2, T3, T4, T5, TResult>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: any, result: TResult) => void) => void
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: any, result: TResult) => void) => void,
     ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>;
     export function promisify<T1, T2, T3, T4, T5>(
-        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err?: any) => void) => void
+        fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err?: any) => void) => void,
     ): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
     export function promisify(fn: Function): Function;
     export namespace promisify {
@@ -1127,7 +1203,7 @@ declare module 'util' {
             options?: {
                 fatal?: boolean | undefined;
                 ignoreBOM?: boolean | undefined;
-            }
+            },
         );
         /**
          * Decodes the `input` and returns a string. If `options.stream` is `true`, any
@@ -1141,7 +1217,7 @@ declare module 'util' {
             input?: NodeJS.ArrayBufferView | ArrayBuffer | null,
             options?: {
                 stream?: boolean | undefined;
-            }
+            },
         ): string;
     }
     export interface EncodeIntoResult {
@@ -1195,7 +1271,7 @@ declare module 'util' {
          */
         encodeInto(src: string, dest: Uint8Array): EncodeIntoResult;
     }
-    import { TextDecoder as _TextDecoder, TextEncoder as _TextEncoder } from 'util';
+    import { TextDecoder as _TextDecoder, TextEncoder as _TextEncoder } from "util";
     global {
         /**
          * `TextDecoder` class is a global reference for `require('util').TextDecoder`
@@ -1205,8 +1281,7 @@ declare module 'util' {
         var TextDecoder: typeof globalThis extends {
             onmessage: any;
             TextDecoder: infer TextDecoder;
-        }
-            ? TextDecoder
+        } ? TextDecoder
             : typeof _TextDecoder;
         /**
          * `TextEncoder` class is a global reference for `require('util').TextEncoder`
@@ -1216,8 +1291,7 @@ declare module 'util' {
         var TextEncoder: typeof globalThis extends {
             onmessage: any;
             TextEncoder: infer TextEncoder;
-        }
-            ? TextEncoder
+        } ? TextEncoder
             : typeof _TextEncoder;
     }
 
@@ -1255,7 +1329,7 @@ declare module 'util' {
         /**
          * Type of argument.
          */
-        type: 'string' | 'boolean';
+        type: "string" | "boolean";
         /**
          * Whether this option can be provided multiple times.
          * If `true`, all values will be collected in an array.
@@ -1313,89 +1387,81 @@ declare module 'util' {
     This is technically incorrect but is a much nicer UX for the common case.
     The IfDefaultsTrue version is for things which default to true; the IfDefaultsFalse version is for things which default to false.
     */
-    type IfDefaultsTrue<T, IfTrue, IfFalse> = T extends true
-        ? IfTrue
-        : T extends false
-        ? IfFalse
+    type IfDefaultsTrue<T, IfTrue, IfFalse> = T extends true ? IfTrue
+        : T extends false ? IfFalse
         : IfTrue;
 
     // we put the `extends false` condition first here because `undefined` compares like `any` when `strictNullChecks: false`
-    type IfDefaultsFalse<T, IfTrue, IfFalse> = T extends false
-        ? IfFalse
-        : T extends true
-        ? IfTrue
+    type IfDefaultsFalse<T, IfTrue, IfFalse> = T extends false ? IfFalse
+        : T extends true ? IfTrue
         : IfFalse;
 
     type ExtractOptionValue<T extends ParseArgsConfig, O extends ParseArgsOptionConfig> = IfDefaultsTrue<
-        T['strict'],
-        O['type'] extends 'string' ? string : O['type'] extends 'boolean' ? boolean : string | boolean,
+        T["strict"],
+        O["type"] extends "string" ? string : O["type"] extends "boolean" ? boolean : string | boolean,
         string | boolean
     >;
 
     type ParsedValues<T extends ParseArgsConfig> =
-        & IfDefaultsTrue<T['strict'], unknown, { [longOption: string]: undefined | string | boolean }>
-        & (T['options'] extends ParseArgsOptionsConfig
-            ? {
-                -readonly [LongOption in keyof T['options']]: IfDefaultsFalse<
-                    T['options'][LongOption]['multiple'],
-                    undefined | Array<ExtractOptionValue<T, T['options'][LongOption]>>,
-                    undefined | ExtractOptionValue<T, T['options'][LongOption]>
+        & IfDefaultsTrue<T["strict"], unknown, { [longOption: string]: undefined | string | boolean }>
+        & (T["options"] extends ParseArgsOptionsConfig ? {
+                -readonly [LongOption in keyof T["options"]]: IfDefaultsFalse<
+                    T["options"][LongOption]["multiple"],
+                    undefined | Array<ExtractOptionValue<T, T["options"][LongOption]>>,
+                    undefined | ExtractOptionValue<T, T["options"][LongOption]>
                 >;
             }
             : {});
 
     type ParsedPositionals<T extends ParseArgsConfig> = IfDefaultsTrue<
-        T['strict'],
-        IfDefaultsFalse<T['allowPositionals'], string[], []>,
-        IfDefaultsTrue<T['allowPositionals'], string[], []>
+        T["strict"],
+        IfDefaultsFalse<T["allowPositionals"], string[], []>,
+        IfDefaultsTrue<T["allowPositionals"], string[], []>
     >;
 
     type PreciseTokenForOptions<
         K extends string,
         O extends ParseArgsOptionConfig,
-    > = O['type'] extends 'string'
-        ? {
-              kind: 'option';
-              index: number;
-              name: K;
-              rawName: string;
-              value: string;
-              inlineValue: boolean;
-          }
-        : O['type'] extends 'boolean'
-        ? {
-              kind: 'option';
-              index: number;
-              name: K;
-              rawName: string;
-              value: undefined;
-              inlineValue: undefined;
-          }
+    > = O["type"] extends "string" ? {
+            kind: "option";
+            index: number;
+            name: K;
+            rawName: string;
+            value: string;
+            inlineValue: boolean;
+        }
+        : O["type"] extends "boolean" ? {
+                kind: "option";
+                index: number;
+                name: K;
+                rawName: string;
+                value: undefined;
+                inlineValue: undefined;
+            }
         : OptionToken & { name: K };
 
     type TokenForOptions<
         T extends ParseArgsConfig,
-        K extends keyof T['options'] = keyof T['options'],
+        K extends keyof T["options"] = keyof T["options"],
     > = K extends unknown
-        ? T['options'] extends ParseArgsOptionsConfig
-            ? PreciseTokenForOptions<K & string, T['options'][K]>
-            : OptionToken
+        ? T["options"] extends ParseArgsOptionsConfig ? PreciseTokenForOptions<K & string, T["options"][K]>
+        : OptionToken
         : never;
 
-    type ParsedOptionToken<T extends ParseArgsConfig> = IfDefaultsTrue<T['strict'], TokenForOptions<T>, OptionToken>;
+    type ParsedOptionToken<T extends ParseArgsConfig> = IfDefaultsTrue<T["strict"], TokenForOptions<T>, OptionToken>;
 
     type ParsedPositionalToken<T extends ParseArgsConfig> = IfDefaultsTrue<
-        T['strict'],
-        IfDefaultsFalse<T['allowPositionals'], { kind: 'positional'; index: number; value: string }, never>,
-        IfDefaultsTrue<T['allowPositionals'], { kind: 'positional'; index: number; value: string }, never>
+        T["strict"],
+        IfDefaultsFalse<T["allowPositionals"], { kind: "positional"; index: number; value: string }, never>,
+        IfDefaultsTrue<T["allowPositionals"], { kind: "positional"; index: number; value: string }, never>
     >;
 
     type ParsedTokens<T extends ParseArgsConfig> = Array<
-        ParsedOptionToken<T> | ParsedPositionalToken<T> | { kind: 'option-terminator'; index: number }
+        ParsedOptionToken<T> | ParsedPositionalToken<T> | { kind: "option-terminator"; index: number }
     >;
 
     type PreciseParsedResults<T extends ParseArgsConfig> = IfDefaultsFalse<
-        T['tokens'],
+        T["tokens"],
         {
             values: ParsedValues<T>;
             positionals: ParsedPositionals<T>;
@@ -1408,31 +1474,30 @@ declare module 'util' {
     >;
 
     type OptionToken =
-        | { kind: 'option'; index: number; name: string; rawName: string; value: string; inlineValue: boolean }
+        | { kind: "option"; index: number; name: string; rawName: string; value: string; inlineValue: boolean }
         | {
-              kind: 'option';
-              index: number;
-              name: string;
-              rawName: string;
-              value: undefined;
-              inlineValue: undefined;
-          };
+            kind: "option";
+            index: number;
+            name: string;
+            rawName: string;
+            value: undefined;
+            inlineValue: undefined;
+        };
 
     type Token =
         | OptionToken
-        | { kind: 'positional'; index: number; value: string }
-        | { kind: 'option-terminator'; index: number };
+        | { kind: "positional"; index: number; value: string }
+        | { kind: "option-terminator"; index: number };
 
     // If ParseArgsConfig extends T, then the user passed config constructed elsewhere.
     // So we can't rely on the `"not definitely present" implies "definitely not present"` assumption mentioned above.
-    type ParsedResults<T extends ParseArgsConfig> = ParseArgsConfig extends T
-        ? {
-              values: {
-                  [longOption: string]: undefined | string | boolean | Array<string | boolean>;
-              };
-              positionals: string[];
-              tokens?: Token[];
-          }
+    type ParsedResults<T extends ParseArgsConfig> = ParseArgsConfig extends T ? {
+            values: {
+                [longOption: string]: undefined | string | boolean | Array<string | boolean>;
+            };
+            positionals: string[];
+            tokens?: Token[];
+        }
         : PreciseParsedResults<T>;
 
     /**
@@ -1460,32 +1525,72 @@ declare module 'util' {
 
         /**
          * Gets and sets the type portion of the MIME.
+         *
+         * ```js
+         * import { MIMEType } from 'node:util';
+         *
+         * const myMIME = new MIMEType('text/javascript');
+         * console.log(myMIME.type);
+         * // Prints: text
+         * myMIME.type = 'application';
+         * console.log(myMIME.type);
+         * // Prints: application
+         * console.log(String(myMIME));
+         * // Prints: application/javascript
+         * ```
          */
         type: string;
         /**
          * Gets and sets the subtype portion of the MIME.
+         *
+         * ```js
+         * import { MIMEType } from 'node:util';
+         *
+         * const myMIME = new MIMEType('text/ecmascript');
+         * console.log(myMIME.subtype);
+         * // Prints: ecmascript
+         * myMIME.subtype = 'javascript';
+         * console.log(myMIME.subtype);
+         * // Prints: javascript
+         * console.log(String(myMIME));
+         * // Prints: text/javascript
+         * ```
          */
         subtype: string;
         /**
-         * Gets the essence of the MIME.
-         *
+         * Gets the essence of the MIME. This property is read only.
          * Use `mime.type` or `mime.subtype` to alter the MIME.
+         *
+         * ```js
+         * import { MIMEType } from 'node:util';
+         *
+         * const myMIME = new MIMEType('text/javascript;key=value');
+         * console.log(myMIME.essence);
+         * // Prints: text/javascript
+         * myMIME.type = 'application';
+         * console.log(myMIME.essence);
+         * // Prints: application/javascript
+         * console.log(String(myMIME));
+         * // Prints: application/javascript;key=value
+         * ```
          */
         readonly essence: string;
         /**
-         * Gets the `MIMEParams` object representing the parameters of the MIME.
+         * Gets the `MIMEParams` object representing the
+         * parameters of the MIME. This property is read-only. See `MIMEParams` documentation for details.
          */
         readonly params: MIMEParams;
         /**
-         * Returns the serialized MIME.
+         * The `toString()` method on the `MIMEType` object returns the serialized MIME.
          *
-         * Because of the need for standard compliance, this method
-         * does not allow users to customize the serialization process of the MIME.
+         * Because of the need for standard compliance, this method does not allow users
+         * to customize the serialization process of the MIME.
          */
         toString(): string;
     }
     /**
-     * @since v18.13.0
+     * The `MIMEParams` API provides read and write access to the parameters of a`MIMEType`.
+     * @since v19.1.0, v18.13.0
      */
     export class MIMEParams {
         /**
@@ -1494,11 +1599,14 @@ declare module 'util' {
         delete(name: string): void;
         /**
          * Returns an iterator over each of the name-value pairs in the parameters.
+         * Each item of the iterator is a JavaScript `Array`. The first item of the array
+         * is the `name`, the second item of the array is the `value`.
          */
         entries(): IterableIterator<[name: string, value: string]>;
         /**
-         * Returns the value of the first name-value pair whose name is `name`.
-         * If there are no such pairs, `null` is returned.
+         * Returns the value of the first name-value pair whose name is `name`. If there
+         * are no such pairs, `null` is returned.
+         * @return or `null` if there is no name-value pair with the given `name`.
          */
         get(name: string): string | null;
         /**
@@ -1507,12 +1615,33 @@ declare module 'util' {
         has(name: string): boolean;
         /**
          * Returns an iterator over the names of each name-value pair.
+         *
+         * ```js
+         * import { MIMEType } from 'node:util';
+         *
+         * const { params } = new MIMEType('text/plain;foo=0;bar=1');
+         * for (const name of params.keys()) {
+         *   console.log(name);
+         * }
+         * // Prints:
+         * //   foo
+         * //   bar
+         * ```
          */
         keys(): IterableIterator<string>;
         /**
-         * Sets the value in the `MIMEParams` object associated with `name` to `value`.
-         * If there are any pre-existing name-value pairs whose names are `name`,
+         * Sets the value in the `MIMEParams` object associated with `name` to`value`. If there are any pre-existing name-value pairs whose names are `name`,
          * set the first such pair's value to `value`.
+         *
+         * ```js
+         * import { MIMEType } from 'node:util';
+         *
+         * const { params } = new MIMEType('text/plain;foo=0;bar=1');
+         * params.set('foo', 'def');
+         * params.set('baz', 'xyz');
+         * console.log(params.toString());
+         * // Prints: foo=def;bar=1;baz=xyz
+         * ```
          */
         set(name: string, value: string): void;
         /**
@@ -1525,11 +1654,11 @@ declare module 'util' {
         [Symbol.iterator]: typeof MIMEParams.prototype.entries;
     }
 }
-declare module 'util/types' {
-    export * from 'util/types';
+declare module "util/types" {
+    export * from "util/types";
 }
-declare module 'util/types' {
-    import { KeyObject, webcrypto } from 'node:crypto';
+declare module "util/types" {
+    import { KeyObject, webcrypto } from "node:crypto";
     /**
      * Returns `true` if the value is a built-in [`ArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer) or
      * [`SharedArrayBuffer`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) instance.
@@ -1795,7 +1924,10 @@ declare module 'util/types' {
      * ```
      * @since v10.0.0
      */
-    function isMap<T>(object: T | {}): object is T extends ReadonlyMap<any, any> ? (unknown extends T ? never : ReadonlyMap<any, any>) : Map<unknown, unknown>;
+    function isMap<T>(
+        object: T | {},
+    ): object is T extends ReadonlyMap<any, any> ? (unknown extends T ? never : ReadonlyMap<any, any>)
+        : Map<unknown, unknown>;
     /**
      * Returns `true` if the value is an iterator returned for a built-in [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) instance.
      *
@@ -1909,7 +2041,9 @@ declare module 'util/types' {
      * ```
      * @since v10.0.0
      */
-    function isSet<T>(object: T | {}): object is T extends ReadonlySet<any> ? (unknown extends T ? never : ReadonlySet<any>) : Set<unknown>;
+    function isSet<T>(
+        object: T | {},
+    ): object is T extends ReadonlySet<any> ? (unknown extends T ? never : ReadonlySet<any>) : Set<unknown>;
     /**
      * Returns `true` if the value is an iterator returned for a built-in [`Set`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set) instance.
      *
@@ -2044,9 +2178,9 @@ declare module 'util/types' {
      */
     function isCryptoKey(object: unknown): object is webcrypto.CryptoKey;
 }
-declare module 'node:util' {
-    export * from 'util';
+declare module "node:util" {
+    export * from "util";
 }
-declare module 'node:util/types' {
-    export * from 'util/types';
+declare module "node:util/types" {
+    export * from "util/types";
 }

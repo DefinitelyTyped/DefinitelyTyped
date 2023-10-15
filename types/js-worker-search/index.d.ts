@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export enum INDEX_MODES {
-    ALL_SUBSTRINGS = 'ALL_SUBSTRINGS',
-    EXACT_WORDS = 'EXACT_WORDS',
-    PREFIXES = 'PREFIXES',
+    ALL_SUBSTRINGS = "ALL_SUBSTRINGS",
+    EXACT_WORDS = "EXACT_WORDS",
+    PREFIXES = "PREFIXES",
 }
 
 export default class SearchApi {

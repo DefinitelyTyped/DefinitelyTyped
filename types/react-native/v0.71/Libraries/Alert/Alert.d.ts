@@ -2,18 +2,18 @@
  * @see https://reactnative.dev/docs/alert#content
  */
 export interface AlertButton {
-  text?: string | undefined;
-  onPress?: ((value?: string) => void) | undefined;
-  isPreferred?: boolean;
-  style?: 'default' | 'cancel' | 'destructive' | undefined;
+    text?: string | undefined;
+    onPress?: ((value?: string) => void) | undefined;
+    isPreferred?: boolean;
+    style?: "default" | "cancel" | "destructive" | undefined;
 }
 
 interface AlertOptions {
-  /** @platform android */
-  cancelable?: boolean | undefined;
-  userInterfaceStyle?: 'unspecified' | 'light' | 'dark';
-  /** @platform android */
-  onDismiss?: (() => void) | undefined;
+    /** @platform android */
+    cancelable?: boolean | undefined;
+    userInterfaceStyle?: "unspecified" | "light" | "dark";
+    /** @platform android */
+    onDismiss?: (() => void) | undefined;
 }
 
 /**
@@ -55,27 +55,27 @@ interface AlertOptions {
  * ```
  */
 export interface AlertStatic {
-  alert: (
-    title: string,
-    message?: string,
-    buttons?: AlertButton[],
-    options?: AlertOptions,
-  ) => void;
-  prompt: (
-    title: string,
-    message?: string,
-    callbackOrButtons?: ((text: string) => void) | AlertButton[],
-    type?: AlertType,
-    defaultValue?: string,
-    keyboardType?: string,
-  ) => void;
+    alert: (
+        title: string,
+        message?: string,
+        buttons?: AlertButton[],
+        options?: AlertOptions,
+    ) => void;
+    prompt: (
+        title: string,
+        message?: string,
+        callbackOrButtons?: ((text: string) => void) | AlertButton[],
+        type?: AlertType,
+        defaultValue?: string,
+        keyboardType?: string,
+    ) => void;
 }
 
 export type AlertType =
-  | 'default'
-  | 'plain-text'
-  | 'secure-text'
-  | 'login-password';
+    | "default"
+    | "plain-text"
+    | "secure-text"
+    | "login-password";
 
 export const Alert: AlertStatic;
 export type Alert = AlertStatic;

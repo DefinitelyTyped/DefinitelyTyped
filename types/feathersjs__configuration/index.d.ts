@@ -4,6 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
-import { Application } from '@feathersjs/feathers';
+import { Application } from "@feathersjs/feathers";
 
 export default function feathersConfiguration(): <T>(app: Application<T>) => Application<T>;

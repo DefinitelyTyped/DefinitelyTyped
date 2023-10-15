@@ -21,8 +21,8 @@ declare global {
     interface ReadableStream {}
 }
 
-import { ReactElement, ReactNode } from 'react';
-import { ErrorInfo } from './client';
+import { ReactElement, ReactNode } from "react";
+import { ErrorInfo } from "./client";
 
 export interface RenderToPipeableStreamOptions {
     identifierPrefix?: string;
@@ -39,7 +39,7 @@ export interface RenderToPipeableStreamOptions {
 }
 
 export interface PipeableStream {
-    abort: () => void;
+    abort: (reason?: unknown) => void;
     pipe: <Writable extends NodeJS.WritableStream>(destination: Writable) => Writable;
 }
 

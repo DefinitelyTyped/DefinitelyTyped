@@ -3,7 +3,7 @@
 // Definitions by: Romain Faust <https://github.com/romain-faust>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Plugin } from 'imagemin';
+import { Plugin } from "imagemin";
 
 declare function imageminOptipng(options?: imageminOptipng.Options): Plugin;
 

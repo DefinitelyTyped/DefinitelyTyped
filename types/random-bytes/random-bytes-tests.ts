@@ -1,4 +1,4 @@
-import randomBytes = require('random-bytes');
+import randomBytes = require("random-bytes");
 
 // Callback-based signature.
 randomBytes(16, (err, buff) => {

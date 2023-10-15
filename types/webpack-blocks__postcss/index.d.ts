@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.7
 
-import { Block } from 'webpack-blocks';
+import { Block } from "webpack-blocks";
 
 declare namespace postCss {
     type FunctionType = () => string;

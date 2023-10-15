@@ -1,12 +1,12 @@
-import { MDXComponents, MDXContent, MDXModule } from 'mdx/types';
-import MyMDXComponent from './MyComponent.mdx';
-import MyMDComponent from './MyComponent.md';
-import MyMarkdownComponent from './MyComponent.markdown';
-import MyMDownComponent from './MyComponent.mdown';
-import MyMKDNComponent from './MyComponent.mkdn';
-import MyMKDComponent from './MyComponent.mkd';
-import MyMKDownComponent from './MyComponent.mkdown';
-import MyRonComponent from './MyComponent.ron';
+import { MDXComponents, MDXContent, MDXModule } from "mdx/types";
+import MyMarkdownComponent from "./MyComponent.markdown";
+import MyMDComponent from "./MyComponent.md";
+import MyMDownComponent from "./MyComponent.mdown";
+import MyMDXComponent from "./MyComponent.mdx";
+import MyMKDComponent from "./MyComponent.mkd";
+import MyMKDNComponent from "./MyComponent.mkdn";
+import MyMKDownComponent from "./MyComponent.mkdown";
+import MyRonComponent from "./MyComponent.ron";
 
 // Test setup — A minimal JSX framework.
 
@@ -47,6 +47,19 @@ declare function jsx(): TestElementType;
 // A JSX test implementation type
 declare global {
     namespace JSX {
+        // Note: The below code  and variations on it need to be tested manually.
+        // It is not possible to run this test with multiple TypeScript configurations in DefinitelyTyped.
+        //
+        // type ElementType =
+        //     | 'a'
+        //     | 'div'
+        //     | 'h1'
+        //     | 'img'
+        //     | 'span'
+        //     | 'video'
+        //     | ((props: Record<string, any>) => Element | null)
+        //     | (new (props: Record<string, any>) => ElementClass);
+
         type Element = TestElementType;
 
         interface IntrinsicElements {
@@ -107,8 +120,8 @@ const Div = customComponents.div!;
 // $ExpectType TestElementType
 <MyMDXComponent
     the="answer"
-    to={{ life: 'the' }}
-    universe={() => 'and'}
+    to={{ life: "the" }}
+    universe={() => "and"}
     everything={42}
     components={{
         a(props) {
@@ -153,15 +166,15 @@ const Div = customComponents.div!;
                             props;
                             return <div />;
                         },
-                        span: 'div',
+                        span: "div",
                     },
                 },
             },
         },
         // @ts-expect-error
-        invalid: 'Not just any type is allowed though',
+        invalid: "Not just any type is allowed though",
         // Aliasing is valid though
-        span: 'div',
+        span: "div",
     }}
 />;
 
@@ -171,8 +184,8 @@ const Div = customComponents.div!;
 // $ExpectType TestElementType
 <MyMDComponent
     the="answer"
-    to={{ life: 'the' }}
-    universe={() => 'and'}
+    to={{ life: "the" }}
+    universe={() => "and"}
     everything={42}
     components={{
         a(props) {
@@ -217,15 +230,15 @@ const Div = customComponents.div!;
                             props;
                             return <div />;
                         },
-                        span: 'div',
+                        span: "div",
                     },
                 },
             },
         },
         // @ts-expect-error
-        invalid: 'Not just any type is allowed though',
+        invalid: "Not just any type is allowed though",
         // Aliasing is valid though
-        span: 'div',
+        span: "div",
     }}
 />;
 
@@ -235,8 +248,8 @@ const Div = customComponents.div!;
 // $ExpectType TestElementType
 <MyMarkdownComponent
     the="answer"
-    to={{ life: 'the' }}
-    universe={() => 'and'}
+    to={{ life: "the" }}
+    universe={() => "and"}
     everything={42}
     components={{
         a(props) {
@@ -281,15 +294,15 @@ const Div = customComponents.div!;
                             props;
                             return <div />;
                         },
-                        span: 'div',
+                        span: "div",
                     },
                 },
             },
         },
         // @ts-expect-error
-        invalid: 'Not just any type is allowed though',
+        invalid: "Not just any type is allowed though",
         // Aliasing is valid though
-        span: 'div',
+        span: "div",
     }}
 />;
 
@@ -299,8 +312,8 @@ const Div = customComponents.div!;
 // $ExpectType TestElementType
 <MyMDownComponent
     the="answer"
-    to={{ life: 'the' }}
-    universe={() => 'and'}
+    to={{ life: "the" }}
+    universe={() => "and"}
     everything={42}
     components={{
         a(props) {
@@ -345,15 +358,15 @@ const Div = customComponents.div!;
                             props;
                             return <div />;
                         },
-                        span: 'div',
+                        span: "div",
                     },
                 },
             },
         },
         // @ts-expect-error
-        invalid: 'Not just any type is allowed though',
+        invalid: "Not just any type is allowed though",
         // Aliasing is valid though
-        span: 'div',
+        span: "div",
     }}
 />;
 
@@ -363,8 +376,8 @@ const Div = customComponents.div!;
 // $ExpectType TestElementType
 <MyMKDNComponent
     the="answer"
-    to={{ life: 'the' }}
-    universe={() => 'and'}
+    to={{ life: "the" }}
+    universe={() => "and"}
     everything={42}
     components={{
         a(props) {
@@ -409,15 +422,15 @@ const Div = customComponents.div!;
                             props;
                             return <div />;
                         },
-                        span: 'div',
+                        span: "div",
                     },
                 },
             },
         },
         // @ts-expect-error
-        invalid: 'Not just any type is allowed though',
+        invalid: "Not just any type is allowed though",
         // Aliasing is valid though
-        span: 'div',
+        span: "div",
     }}
 />;
 
@@ -427,8 +440,8 @@ const Div = customComponents.div!;
 // $ExpectType TestElementType
 <MyMKDComponent
     the="answer"
-    to={{ life: 'the' }}
-    universe={() => 'and'}
+    to={{ life: "the" }}
+    universe={() => "and"}
     everything={42}
     components={{
         a(props) {
@@ -473,15 +486,15 @@ const Div = customComponents.div!;
                             props;
                             return <div />;
                         },
-                        span: 'div',
+                        span: "div",
                     },
                 },
             },
         },
         // @ts-expect-error
-        invalid: 'Not just any type is allowed though',
+        invalid: "Not just any type is allowed though",
         // Aliasing is valid though
-        span: 'div',
+        span: "div",
     }}
 />;
 
@@ -491,8 +504,8 @@ const Div = customComponents.div!;
 // $ExpectType TestElementType
 <MyMKDownComponent
     the="answer"
-    to={{ life: 'the' }}
-    universe={() => 'and'}
+    to={{ life: "the" }}
+    universe={() => "and"}
     everything={42}
     components={{
         a(props) {
@@ -537,15 +550,15 @@ const Div = customComponents.div!;
                             props;
                             return <div />;
                         },
-                        span: 'div',
+                        span: "div",
                     },
                 },
             },
         },
         // @ts-expect-error
-        invalid: 'Not just any type is allowed though',
+        invalid: "Not just any type is allowed though",
         // Aliasing is valid though
-        span: 'div',
+        span: "div",
     }}
 />;
 
@@ -555,8 +568,8 @@ const Div = customComponents.div!;
 // $ExpectType TestElementType
 <MyRonComponent
     the="answer"
-    to={{ life: 'the' }}
-    universe={() => 'and'}
+    to={{ life: "the" }}
+    universe={() => "and"}
     everything={42}
     components={{
         a(props) {
@@ -601,14 +614,14 @@ const Div = customComponents.div!;
                             props;
                             return <div />;
                         },
-                        span: 'div',
+                        span: "div",
                     },
                 },
             },
         },
         // @ts-expect-error
-        invalid: 'Not just any type is allowed though',
+        invalid: "Not just any type is allowed though",
         // Aliasing is valid though
-        span: 'div',
+        span: "div",
     }}
 />;

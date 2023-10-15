@@ -9,7 +9,7 @@
 // Thanks to knyuwork <https://github.com/knyuwork>
 // and LiRen Tu <https://github.com/tuliren> for their contribution
 
-declare module 'mongoose' {
+declare module "mongoose" {
     interface CustomLabels<T = string | undefined | boolean> {
         totalDocs?: T | undefined;
         docs?: T | undefined;
@@ -78,7 +78,7 @@ declare module 'mongoose' {
     function model(name: string, schema?: Schema, collection?: string, skipInit?: boolean): AggregatePaginateModel<any>;
 }
 
-import mongoose = require('mongoose');
+import mongoose = require("mongoose");
 declare function mongooseAggregatePaginate(schema: mongoose.Schema): void;
 export = mongooseAggregatePaginate;
 declare namespace _ {

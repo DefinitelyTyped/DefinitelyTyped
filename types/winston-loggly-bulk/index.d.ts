@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-import { Url } from 'url';
-import TransportStream = require('winston-transport');
+import { Url } from "url";
+import TransportStream = require("winston-transport");
 
 export interface BufferOptions {
     size: number;
@@ -14,10 +14,13 @@ export interface BufferOptions {
 }
 
 export interface LogglyOptions extends TransportStream.TransportStreamOptions {
-    auth?: {
-        username: string;
-        password: string;
-    } | null | undefined;
+    auth?:
+        | {
+            username: string;
+            password: string;
+        }
+        | null
+        | undefined;
     bufferOptions?: BufferOptions | undefined;
     isBulk?: boolean | undefined;
     json?: boolean | undefined;

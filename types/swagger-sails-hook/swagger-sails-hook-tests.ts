@@ -6,12 +6,12 @@ const mockSailsApp = {
     conf: {},
     sockets: {},
     hooks: {},
-    lift: () => { /* do nothing */ }
+    lift: () => {/* do nothing */},
 };
 
 // create and register hook
 const swaggerHookRef = swaggerSailsHook(mockSailsApp);
-if (typeof swaggerHookRef.routes.after['/*'] === 'function') {
+if (typeof swaggerHookRef.routes.after["/*"] === "function") {
     // right type
 }
 

@@ -70,10 +70,8 @@ type ValidName<Type extends ValidType> = keyof DIRegistry[Type] & string;
 type ResolveFactoryManager<
     Type extends string,
     Name extends string,
-> = DIRegistry[Type][Name] extends infer RegistryEntry
-    ? RegistryEntry extends object
-        ? FactoryManager<RegistryEntry>
-        : FactoryManager<object> | undefined
+> = DIRegistry[Type][Name] extends infer RegistryEntry ? RegistryEntry extends object ? FactoryManager<RegistryEntry>
+    : FactoryManager<object> | undefined
     : never;
 
 /**
@@ -186,6 +184,10 @@ export interface Resolver {
     makeToString?: (factory: Factory<object>, fullName: FullName) => string;
     normalize?: (fullName: FullName) => string;
 }
+
+export function getOwner(object: object): Owner | undefined;
+
+export function setOwner(object: object, owner: Owner): void;
 
 // Don't export things unless we *intend* to.
 export {};

@@ -4,7 +4,7 @@ var vox: VoxImplant.Client = VoxImplant.getInstance(),
     room: string;
 
 vox.init({
-    micRequired: true
+    micRequired: true,
 });
 
 vox.addEventListener(VoxImplant.Events.SDKReady, function(event: VoxImplant.EventTypes.SDKReady) {
@@ -12,10 +12,13 @@ vox.addEventListener(VoxImplant.Events.SDKReady, function(event: VoxImplant.Even
     vox.connect();
 });
 
-vox.addEventListener(VoxImplant.Events.ConnectionEstablished, function(event: VoxImplant.EventTypes.ConnectionEstablished) {
-    console.log("Connection established");
-    vox.login("username", "password");
-});
+vox.addEventListener(
+    VoxImplant.Events.ConnectionEstablished,
+    function(event: VoxImplant.EventTypes.ConnectionEstablished) {
+        console.log("Connection established");
+        vox.login("username", "password");
+    },
+);
 
 vox.addEventListener(VoxImplant.Events.ConnectionClosed, function(event: VoxImplant.EventTypes.ConnectionClosed) {
     console.log("Connection closed");
@@ -31,18 +34,23 @@ vox.addEventListener(VoxImplant.Events.AuthResult, function(event: VoxImplant.Ev
         console.log("Logged in as " + event.displayName);
 
         call = vox.call("some_number", false);
-        call.addEventListener(VoxImplant.CallEvents.Connected, function(callevent: VoxImplant.CallEventTypes.Connected) {
-            console.log("Call connected");
-        });
+        call.addEventListener(
+            VoxImplant.CallEvents.Connected,
+            function(callevent: VoxImplant.CallEventTypes.Connected) {
+                console.log("Call connected");
+            },
+        );
         call.addEventListener(VoxImplant.CallEvents.Failed, function(callevent: VoxImplant.CallEventTypes.Failed) {
             console.log("Call failed, reason: " + callevent.reason);
         });
-        call.addEventListener(VoxImplant.CallEvents.Disconnected, function(callevent: VoxImplant.CallEventTypes.Disconnected) {
-            console.log("Call disconnected");
-        });
+        call.addEventListener(
+            VoxImplant.CallEvents.Disconnected,
+            function(callevent: VoxImplant.CallEventTypes.Disconnected) {
+                console.log("Call disconnected");
+            },
+        );
 
-        var msg_id:String = vox.sendInstantMessage("other_user", "Hello World!");
-
+        var msg_id: String = vox.sendInstantMessage("other_user", "Hello World!");
     } else {
         console.log("Authorization failed. Code: " + event.code);
     }
@@ -74,8 +82,16 @@ vox.addEventListener(VoxImplant.Events.SourcesInfoUpdated, function(event: VoxIm
     console.log("Audio: " + audioSources);
     console.log("Video: " + videoSources);
 
-    vox.useAudioSource(audioSources[0].id, function() { console.log('OK'); }, function() { console.log('Failed'); });
-    vox.useVideoSource(videoSources[0].id, function() { console.log('OK'); }, function() { console.log('Failed'); });
+    vox.useAudioSource(audioSources[0].id, function() {
+        console.log("OK");
+    }, function() {
+        console.log("Failed");
+    });
+    vox.useVideoSource(videoSources[0].id, function() {
+        console.log("OK");
+    }, function() {
+        console.log("Failed");
+    });
 });
 
 vox.addEventListener(VoxImplant.IMEvents.RosterReceived, function(event: VoxImplant.IMEventTypes.RosterReceived) {

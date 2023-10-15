@@ -10,7 +10,7 @@ export interface Sizes {
 }
 
 export function WithSizes<SP extends object, P extends SP>(
-    mapSizesToProps: (sizes: Sizes) => SP
+    mapSizesToProps: (sizes: Sizes) => SP,
 ): (component: React.ComponentType<P>) => React.ComponentType<P>;
 
 export default WithSizes;

@@ -7,35 +7,38 @@ import * as oauth2lib from "simple-oauth2";
 // Set the configuration settings
 const credentials: oauth2lib.ModuleOptions = {
     client: {
-        id: '<client-id>',
-        secret: '<client-secret>'
+        id: "<client-id>",
+        secret: "<client-secret>",
     },
     auth: {
-        tokenHost: 'https://api.oauth.com'
-    }
+        tokenHost: "https://api.oauth.com",
+    },
 };
 
 const oauth2 = oauth2lib.create(credentials);
 
 // Test custom `idParamName`
 {
-    const oauth2 = oauth2lib.create({ client: { id: 'x', secret: 'x', idParamName: 'foobar' }, auth: { tokenHost: 'x' } });
-    oauth2.authorizationCode.authorizeURL({ foobar: 'x' });
+    const oauth2 = oauth2lib.create({
+        client: { id: "x", secret: "x", idParamName: "foobar" },
+        auth: { tokenHost: "x" },
+    });
+    oauth2.authorizationCode.authorizeURL({ foobar: "x" });
 }
 
 // #Authorization Code flow
 (async () => {
     // Authorization oauth2 URI
     const authorizationUri = oauth2.authorizationCode.authorizeURL({
-        redirect_uri: 'http://localhost:3000/callback',
-        scope: '<scope>',
-        state: '<state>'
+        redirect_uri: "http://localhost:3000/callback",
+        scope: "<scope>",
+        state: "<state>",
     });
 
     oauth2.authorizationCode.authorizeURL({
-        redirect_uri: 'http://localhost:3000/callback',
-        scope: ['<scope1>', '<scope2>'],
-        state: '<state>'
+        redirect_uri: "http://localhost:3000/callback",
+        scope: ["<scope1>", "<scope2>"],
+        state: "<state>",
     });
 
     // Redirect example using Express (see http://expressjs.com/api.html#res.redirect)
@@ -43,9 +46,9 @@ const oauth2 = oauth2lib.create(credentials);
 
     // Get the access token object (the authorization code is given from the previous step).
     const tokenConfig = {
-        code: '<code>',
-        redirect_uri: 'http://localhost:3000/callback',
-        scope: ['<scope1>', '<scope2>']
+        code: "<code>",
+        redirect_uri: "http://localhost:3000/callback",
+        scope: ["<scope1>", "<scope2>"],
     };
 
     // Save the access token
@@ -53,16 +56,16 @@ const oauth2 = oauth2lib.create(credentials);
         const result = await oauth2.authorizationCode.getToken(tokenConfig);
         const accessToken = oauth2.accessToken.create(result);
     } catch (error) {
-        console.log('Access Token Error', error.message);
+        console.log("Access Token Error", error.message);
     }
 })();
 
 // #Password Credentials Flow
 (async () => {
     const tokenConfig = {
-        username: 'username',
-        password: 'password',
-        scope: [ '<scope1>', '<scope2>' ],
+        username: "username",
+        password: "password",
+        scope: ["<scope1>", "<scope2>"],
     };
 
     // Save the access token
@@ -70,7 +73,7 @@ const oauth2 = oauth2lib.create(credentials);
         const result = await oauth2.ownerPassword.getToken(tokenConfig);
         const accessToken = oauth2.accessToken.create(result);
     } catch (error) {
-        console.log('Access Token Error', error.message);
+        console.log("Access Token Error", error.message);
     }
 })();
 
@@ -83,7 +86,7 @@ const oauth2 = oauth2lib.create(credentials);
         const result = await oauth2.clientCredentials.getToken(tokenConfig);
         const accessToken = oauth2.accessToken.create(result);
     } catch (error) {
-        console.log('Access Token error', error.message);
+        console.log("Access Token error", error.message);
     }
 })();
 
@@ -91,9 +94,9 @@ const oauth2 = oauth2lib.create(credentials);
 (async () => {
     // Sample of a JSON access token (you got it through previous steps)
     const tokenObject = {
-        access_token: '<access-token>',
-        refresh_token: '<refresh-token>',
-        expires_in: '7200'
+        access_token: "<access-token>",
+        refresh_token: "<refresh-token>",
+        expires_in: "7200",
     };
 
     // Create the access token wrapper
@@ -104,22 +107,22 @@ const oauth2 = oauth2lib.create(credentials);
         try {
             accessToken = await accessToken.refresh();
         } catch (error) {
-            console.log('Error refreshing access token: ', error.message);
+            console.log("Error refreshing access token: ", error.message);
         }
     }
 
     // Revoke both access and refresh tokens
     try {
         // Revoke only the access token
-        await accessToken.revoke('access_token');
+        await accessToken.revoke("access_token");
 
         // Session ended. But the refresh_token is still valid.
         // Revoke the refresh token
-        await accessToken.revoke('refresh_token');
+        await accessToken.revoke("refresh_token");
 
-        console.log('Token revoked');
+        console.log("Token revoked");
     } catch (error) {
-        console.log('Error revoking token: ', error.message);
+        console.log("Error revoking token: ", error.message);
     }
 
     // or...
@@ -128,7 +131,7 @@ const oauth2 = oauth2lib.create(credentials);
         // Revokes both tokens, refresh token is only revoked if the access_token is properly revoked
         await accessToken.revokeAll();
     } catch (error) {
-        console.log('Error revoking token: ', error.message);
+        console.log("Error revoking token: ", error.message);
     }
 })();
 
@@ -147,10 +150,10 @@ const oauth2 = oauth2lib.create(credentials);
 // #Custom Grant
 (async () => {
     const tokenConfig = {
-        username: 'username',
-        password: 'password',
-        scope: [ '<scope1>', '<scope2>' ],
-        grant_type: 'openapi_2lo'
+        username: "username",
+        password: "password",
+        scope: ["<scope1>", "<scope2>"],
+        grant_type: "openapi_2lo",
     };
 
     // Save the access token
@@ -158,6 +161,6 @@ const oauth2 = oauth2lib.create(credentials);
         const result = await oauth2.ownerPassword.getToken(tokenConfig);
         const accessToken = oauth2.accessToken.create(result);
     } catch (error) {
-        console.log('Access Token Error', error.message);
+        console.log("Access Token Error", error.message);
     }
 })();

@@ -1,4 +1,4 @@
-import { CompressedPixelFormat, TextureDataType, Wrapping } from '../constants';
+import { CompressedPixelFormat, TextureDataType, Wrapping } from '../constants.js';
 import { CompressedTexture } from './CompressedTexture.js';
 
 /**

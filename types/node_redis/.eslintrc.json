@@ -1,6 +1,5 @@
 {
     "rules": {
-        "no-useless-files": "off",
-        "trim-file": "off"
+        "@definitelytyped/no-useless-files": "off"
     }
 }

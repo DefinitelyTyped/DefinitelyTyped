@@ -1,4 +1,4 @@
-import skmeans = require('skmeans');
+import skmeans = require("skmeans");
 
 const dataUni = [0, 1, 3, 6, 8, 3];
 
@@ -12,9 +12,9 @@ const distance3d = ([x1, y1, z1]: number[], [x2, y2, z2]: number[]) =>
 
 const distance1d = (x1: number, x2: number) => Math.abs(x1 - x2);
 
-skmeans(dataUni, 4, 'kmrand');
+skmeans(dataUni, 4, "kmrand");
 
-skmeans(dataUni, 3, 'kmpp');
+skmeans(dataUni, 3, "kmpp");
 
 skmeans(dataUni, 3, [3]);
 

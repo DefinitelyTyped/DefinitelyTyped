@@ -3,10 +3,7 @@
     "rules": {
         "ban-types": false,
         "interface-over-type-literal": false,
-        "no-single-declare-module": false,
         "no-var-keyword": false,
-        "prefer-const": false,
-        "semicolon": false,
-        "strict-export-declare-modifiers": false
+        "prefer-const": false
     }
 }

@@ -2,8 +2,8 @@ import {
     APIGatewayEventClientCertificate,
     APIGatewayEventDefaultAuthorizerContext,
     APIGatewayEventRequestContextWithAuthorizer,
-} from '../common/api-gateway';
-import { Callback, CognitoIdentity, Handler } from '../handler';
+} from "../common/api-gateway";
+import { Callback, CognitoIdentity, Handler } from "../handler";
 
 /**
  * Works with Lambda Proxy Integration for Rest API or HTTP API integration Payload Format version 1.0
@@ -90,12 +90,14 @@ export type APIGatewayProxyWithLambdaAuthorizerEventRequestContext<TAuthorizerCo
 
 // API Gateway proxy integration mangles the context from a custom authorizer,
 // converting all number or boolean properties to string, and adding some extra properties.
-export type APIGatewayEventLambdaAuthorizerContext<TAuthorizerContext> = {
-    [P in keyof TAuthorizerContext]: TAuthorizerContext[P] extends null ? null : string;
-} & {
-    principalId: string;
-    integrationLatency: number;
-};
+export type APIGatewayEventLambdaAuthorizerContext<TAuthorizerContext> =
+    & {
+        [P in keyof TAuthorizerContext]: TAuthorizerContext[P] extends null ? null : string;
+    }
+    & {
+        principalId: string;
+        integrationLatency: number;
+    };
 
 export type APIGatewayProxyWithCognitoAuthorizerEvent = APIGatewayProxyEventBase<APIGatewayProxyCognitoAuthorizer>;
 
@@ -153,13 +155,13 @@ export interface APIGatewayProxyResult {
     statusCode: number;
     headers?:
         | {
-              [header: string]: boolean | number | string;
-          }
+            [header: string]: boolean | number | string;
+        }
         | undefined;
     multiValueHeaders?:
         | {
-              [header: string]: Array<boolean | number | string>;
-          }
+            [header: string]: Array<boolean | number | string>;
+        }
         | undefined;
     body: string;
     isBase64Encoded?: boolean | undefined;
@@ -198,10 +200,10 @@ export interface APIGatewayEventRequestContextV2 {
 export interface APIGatewayEventWebsocketRequestContextV2 {
     routeKey: string;
     messageId: string;
-    eventType: 'CONNECT' | 'MESSAGE' | 'DISCONNECT';
+    eventType: "CONNECT" | "MESSAGE" | "DISCONNECT";
     extendedRequestId: string;
     requestTime: string;
-    messageDirection: 'IN';
+    messageDirection: "IN";
     stage: string;
     connectedAt: number;
     requestTimeEpoch: number;
@@ -300,8 +302,9 @@ export type APIGatewayProxyEventV2 = APIGatewayProxyEventV2WithRequestContext<AP
 /**
  * Default Websocket Proxy event with no Authorizer
  */
-export type APIGatewayProxyWebsocketEventV2 =
-    APIGatewayProxyWebsocketEventV2WithRequestContext<APIGatewayEventWebsocketRequestContextV2>;
+export type APIGatewayProxyWebsocketEventV2 = APIGatewayProxyWebsocketEventV2WithRequestContext<
+    APIGatewayEventWebsocketRequestContextV2
+>;
 
 /**
  * Works with HTTP API integration Payload Format version 2.0
@@ -318,8 +321,8 @@ export interface APIGatewayProxyStructuredResultV2 {
     statusCode?: number | undefined;
     headers?:
         | {
-              [header: string]: boolean | number | string;
-          }
+            [header: string]: boolean | number | string;
+        }
         | undefined;
     body?: string | undefined;
     isBase64Encoded?: boolean | undefined;

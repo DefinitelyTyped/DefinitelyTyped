@@ -323,6 +323,8 @@ export const UnsignedShort4444Type: 1017;
 export const UnsignedShort5551Type: 1018;
 export const UnsignedInt248Type: 1020;
 
+export type AttributeGPUType = typeof FloatType | typeof IntType;
+
 /**
  * Texture Types.
  * @remarks Must correspond to the correct {@link PixelFormat | format}.
@@ -409,7 +411,7 @@ export const RGIntegerFormat: 1031;
  */
 export const RGBAIntegerFormat: 1033;
 
-export const _SRGBAFormat = 1035; // fallback for WebGL 1
+export const _SRGBAFormat: 1035; // fallback for WebGL 1
 
 /**
  * Texture Pixel Formats Modes. Compatible only with {@link WebGLRenderingContext | WebGL 1 Rendering Context}.
@@ -594,6 +596,8 @@ export const RGBA_ASTC_12x12_Format: 37821;
  * @remarks Require support for the _EXT_texture_compression_bptc_ WebGL extension.
  */
 export const RGBA_BPTC_Format: 36492;
+export const RGB_BPTC_SIGNED_Format = 36494;
+export const RGB_BPTC_UNSIGNED_Format = 36495;
 
 // RGTC compressed texture formats
 export const RED_RGTC1_Format: 36283;
@@ -632,6 +636,8 @@ export type CompressedPixelFormat =
     | typeof RGBA_ASTC_12x10_Format
     | typeof RGBA_ASTC_12x12_Format
     | typeof RGBA_BPTC_Format
+    | typeof RGB_BPTC_SIGNED_Format
+    | typeof RGB_BPTC_UNSIGNED_Format
     | typeof RED_RGTC1_Format
     | typeof SIGNED_RED_RGTC1_Format
     | typeof RED_GREEN_RGTC2_Format
@@ -709,12 +715,22 @@ export type NormalMapTypes = typeof TangentSpaceNormalMap | typeof ObjectSpaceNo
 export const NoColorSpace: '';
 export const SRGBColorSpace: 'srgb';
 export const LinearSRGBColorSpace: 'srgb-linear';
-export const DisplayP3ColorSpace = 'display-p3';
+export const DisplayP3ColorSpace: 'display-p3';
+export const LinearDisplayP3ColorSpace = 'display-p3-linear';
 export type ColorSpace =
     | typeof NoColorSpace
     | typeof SRGBColorSpace
     | typeof LinearSRGBColorSpace
-    | typeof DisplayP3ColorSpace;
+    | typeof DisplayP3ColorSpace
+    | typeof LinearDisplayP3ColorSpace;
+
+export const LinearTransfer: 'linear';
+export const SRGBTransfer: 'srgb';
+export type ColorSpaceTransfer = typeof LinearTransfer | typeof SRGBTransfer;
+
+export const Rec709Primaries: 'rec709';
+export const P3Primaries: 'p3';
+export type ColorSpacePrimaries = typeof Rec709Primaries | typeof P3Primaries;
 
 // Stencil Op types
 export const ZeroStencilOp: 0;
@@ -754,6 +770,24 @@ export type StencilFunc =
     | typeof GreaterEqualStencilFunc
     | typeof AlwaysStencilFunc;
 
+export const NeverCompare: 512;
+export const LessCompare: 513;
+export const EqualCompare: 514;
+export const LessEqualCompare: 515;
+export const GreaterCompare: 516;
+export const NotEqualCompare: 517;
+export const GreaterEqualCompare: 518;
+export const AlwaysCompare: 519;
+export type TextureComparisonFunction =
+    | typeof NeverCompare
+    | typeof LessCompare
+    | typeof EqualCompare
+    | typeof LessEqualCompare
+    | typeof GreaterCompare
+    | typeof NotEqualCompare
+    | typeof GreaterEqualCompare
+    | typeof AlwaysCompare;
+
 // usage types
 export const StaticDrawUsage: 35044;
 export const DynamicDrawUsage: 35048;
@@ -778,6 +812,10 @@ export type Usage =
 export const GLSL1: '100';
 export const GLSL3: '300 es';
 export type GLSLVersion = typeof GLSL1 | typeof GLSL3;
+
+export const WebGLCoordinateSystem: 2000;
+export const WebGPUCoordinateSystem: 2001;
+export type CoordinateSystem = typeof WebGLCoordinateSystem | typeof WebGPUCoordinateSystem;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Texture - Internal Pixel Formats

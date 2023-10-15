@@ -1,4 +1,4 @@
-import { HmsPushResultCodeEnum } from './HmsPushResultCode';
+import { HmsPushResultCodeEnum } from "./HmsPushResultCode";
 
 export interface ResultResponse<T> {
     result: T;

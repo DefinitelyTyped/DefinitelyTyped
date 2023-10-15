@@ -1,5 +1,5 @@
-import { WebGLExtensions } from './WebGLExtensions';
-import { WebGLCapabilities } from './WebGLCapabilities';
+import { WebGLExtensions } from './WebGLExtensions.js';
+import { WebGLCapabilities } from './WebGLCapabilities.js';
 
 export class WebGLLights {
     constructor(extensions: WebGLExtensions, capabilities: WebGLCapabilities);
@@ -17,6 +17,9 @@ export class WebGLLights {
             numDirectionalShadows: number;
             numPointShadows: number;
             numSpotShadows: number;
+            numSpotMaps: number;
+
+            numLightProbes: number;
         };
 
         ambient: number[];
@@ -35,6 +38,8 @@ export class WebGLLights {
         pointShadowMap: any[];
         pointShadowMatrix: any[];
         hemi: any[];
+        numSpotLightShadowsWithMaps: number;
+        numLightProbes: number;
     };
 
     get(light: any): any;

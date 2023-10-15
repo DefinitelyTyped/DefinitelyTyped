@@ -1,6 +1,6 @@
-import { spawn } from 'child_process';
+import { spawn } from "child_process";
 
-spawn('node', ['input.js'], {
+spawn("node", ["input.js"], {
     cwd: __dirname,
-    stdio: 'inherit',
+    stdio: "inherit",
 });

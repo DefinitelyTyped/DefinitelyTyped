@@ -1,14 +1,14 @@
-// Type definitions for k6 0.44
+// Type definitions for k6 0.47
 // Project: https://k6.io/docs/
-// Definitions by: na-- <https://github.com/na-->
-//                 Mihail Stoykov <https://github.com/MStoykov>
+// Definitions by: Mihail Stoykov <https://github.com/MStoykov>
 //                 Ivan <https://github.com/codebien>
-//                 Ivan Mirić <https://github.com/imiric>
 //                 Théo Crevon <https://github.com/oleiade>
 //                 Oleg Bespalov <https://github.com/olegbespalov>
 //                 Pepe Cano <https://github.com/ppcano>
 //                 Nicole van der Hoeven <https://github.com/nicolevanderhoeven>
 //                 Ankur Agarwal <https://github.com/ankur22>
+//                 İnanç Gümüş <https://github.com/inancgumus>
+//                 Daniel Jiménez <https://github.com/ka3de>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 3.9
 
@@ -31,25 +31,26 @@
  * @packageDocumentation
  */
 
-import './global'; // Type global environment
+import "./global"; // Type global environment
 
 // Expose everything to autoimport
-import './crypto';
-import './data';
-import './encoding';
-import './execution';
-import './html';
-import './http';
-import './metrics';
-import './options';
-import './experimental/browser';
-import './experimental/redis';
-import './experimental/timers';
-import './experimental/tracing';
-import './experimental/webcrypto';
-import './experimental/websockets';
-import './ws';
-import './net/grpc';
+import "./crypto";
+import "./data";
+import "./encoding";
+import "./execution";
+import "./html";
+import "./http";
+import "./metrics";
+import "./options";
+import "./experimental/browser";
+import "./experimental/redis";
+import "./experimental/timers";
+import "./experimental/tracing";
+import "./experimental/webcrypto";
+import "./experimental/websockets";
+import "./experimental/grpc";
+import "./ws";
+import "./net/grpc";
 
 // === Main ===
 // ------------
@@ -92,6 +93,15 @@ export function fail(err?: string): never;
  * });
  */
 export function group<RT>(name: string, fn: () => RT): RT;
+
+/**
+ * Set seed to get a reproducible pseudo-random number using Math.random.
+ * https://k6.io/docs/javascript-api/k6/randomseed/
+ * @param int - The seed value.
+ * @example
+ * randomSeed(123456789);
+ */
+export function randomseed(int: number): void;
 
 /**
  * Suspend VU execution for the specified duration.

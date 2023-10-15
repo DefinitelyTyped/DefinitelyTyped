@@ -8,43 +8,50 @@
 
 declare namespace jQuery.easing {
     type IEasingType =
-        'swing' |
-        'easeInQuad' |
-        'easeOutQuad' |
-        'easeInOutQuad' |
-        'easeInCubic' |
-        'easeOutCubic' |
-        'easeInOutCubic' |
-        'easeInQuart' |
-        'easeOutQuart' |
-        'easeInOutQuart' |
-        'easeInQuint' |
-        'easeOutQuint' |
-        'easeInOutQuint' |
-        'easeInSine' |
-        'easeOutSine' |
-        'easeInOutSine' |
-        'easeInExpo' |
-        'easeOutExpo' |
-        'easeInOutExpo' |
-        'easeInCirc' |
-        'easeOutCirc' |
-        'easeInOutCirc' |
-        'easeInElastic' |
-        'easeOutElastic' |
-        'easeInOutElastic' |
-        'easeInBack' |
-        'easeOutBack' |
-        'easeInOutBack' |
-        'easeInBounce' |
-        'easeOutBounce' |
-        'easeInOutBounce';
+        | "swing"
+        | "easeInQuad"
+        | "easeOutQuad"
+        | "easeInOutQuad"
+        | "easeInCubic"
+        | "easeOutCubic"
+        | "easeInOutCubic"
+        | "easeInQuart"
+        | "easeOutQuart"
+        | "easeInOutQuart"
+        | "easeInQuint"
+        | "easeOutQuint"
+        | "easeInOutQuint"
+        | "easeInSine"
+        | "easeOutSine"
+        | "easeInOutSine"
+        | "easeInExpo"
+        | "easeOutExpo"
+        | "easeInOutExpo"
+        | "easeInCirc"
+        | "easeOutCirc"
+        | "easeInOutCirc"
+        | "easeInElastic"
+        | "easeOutElastic"
+        | "easeInOutElastic"
+        | "easeInBack"
+        | "easeOutBack"
+        | "easeInOutBack"
+        | "easeInBounce"
+        | "easeOutBounce"
+        | "easeInOutBounce";
 }
 
 interface SlidingMarkerOptions extends google.maps.MarkerOptions {
-    easing?: jQuery.easing.IEasingType | undefined,
-    duration?: number | undefined,
-    animateFunctionAdapter?: ((marker: google.maps.Marker, destPoint: google.maps.LatLng, easing: 'linear' | jQuery.easing.IEasingType, duration: number) => void) | undefined
+    easing?: jQuery.easing.IEasingType | undefined;
+    duration?: number | undefined;
+    animateFunctionAdapter?:
+        | ((
+            marker: google.maps.Marker,
+            destPoint: google.maps.LatLng,
+            easing: "linear" | jQuery.easing.IEasingType,
+            duration: number,
+        ) => void)
+        | undefined;
 }
 
 declare class SlidingMarker extends google.maps.Marker {

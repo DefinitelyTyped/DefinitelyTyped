@@ -24,7 +24,7 @@ declare namespace debug {
         formatArgs: (this: Debugger, args: any[]) => void;
         log: (...args: any[]) => any;
         selectColor: (namespace: string) => string | number;
-        humanize: typeof import('ms');
+        humanize: typeof import("ms");
 
         names: RegExp[];
         skips: RegExp[];

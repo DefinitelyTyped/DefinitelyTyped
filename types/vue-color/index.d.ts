@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import Vue from 'vue';
+import Vue from "vue";
 
 export const version: string;
 export class Compact extends Vue {}

@@ -3,7 +3,7 @@
 // Definitions by: Fabio Nettis <https://github.com/fabio-nettis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { LegacyRef } from 'react';
+import { LegacyRef } from "react";
 
 export type PlayerReference = HTMLVideoElement & StaticPlayerInstanceMethods;
 
@@ -234,7 +234,7 @@ export interface PlayerProps {
      * - auto: indicates that both video and audio should be preloaded.
      * (even if the user is not interacting with the video)
      */
-    preload?: 'none' | 'metadata' | 'auto';
+    preload?: "none" | "metadata" | "auto";
     /**
      * A Boolean attribute which indicates the default setting of the audio
      * contained in the video. If set, the audio will be initially silenced.
@@ -349,7 +349,7 @@ export interface BigPlayButtonProps {
     /**
      * Determines the position of the big play button.
      */
-    position?: 'center' | 'left' | 'left-top' | 'left-bottom' | 'right' | 'right-top' | 'right-bottom';
+    position?: "center" | "left" | "left-top" | "left-bottom" | "right" | "right-top" | "right-bottom";
     className?: string;
 }
 

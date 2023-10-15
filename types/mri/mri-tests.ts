@@ -1,7 +1,7 @@
-import mri = require('mri');
+import mri = require("mri");
 
-const first = mri(['--foo', 'bar']);
+const first = mri(["--foo", "bar"]);
 
-const second = mri(['--foo', 'bar'], {
-  default: { foo: true, baz: 'hello', bat: 42 }
+const second = mri(["--foo", "bar"], {
+    default: { foo: true, baz: "hello", bat: 42 },
 });

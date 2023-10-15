@@ -1,4 +1,4 @@
-{ 
+{
     "extends": "@definitelytyped/dtslint/dt.json",
     "linterOptions": {
         "exclude": [

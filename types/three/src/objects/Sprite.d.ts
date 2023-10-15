@@ -1,9 +1,7 @@
-import { Vector2 } from './../math/Vector2';
-import { Raycaster } from './../core/Raycaster';
-import { Object3D } from './../core/Object3D';
-import { Intersection } from '../core/Raycaster';
-import { SpriteMaterial } from '../materials/Materials';
-import { BufferGeometry } from '../core/BufferGeometry';
+import { Vector2 } from '../math/Vector2.js';
+import { Object3D } from '../core/Object3D.js';
+import { SpriteMaterial } from '../materials/Materials.js';
+import { BufferGeometry } from '../core/BufferGeometry.js';
 
 /**
  * A {@link Sprite} is a plane that always faces towards the camera, generally with a partially transparent texture applied.

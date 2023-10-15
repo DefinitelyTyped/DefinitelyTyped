@@ -1,6 +1,6 @@
 Frida.version; // $ExpectType string
 
-const opts: HexdumpOptions = { address: ptr('0x1000') };
+const opts: HexdumpOptions = { address: ptr("0x1000") };
 // $ExpectType NativePointer | undefined
 opts.address;
 
@@ -13,7 +13,9 @@ Script.runtime;
 // $ExpectType any
 Script.evaluate("/true.js", "true");
 
-const screenshot = Script.load("/plugins/screenshot.js", `
+const screenshot = Script.load(
+    "/plugins/screenshot.js",
+    `
 import { registerPlugin } from "/agent.js";
 
 registerPlugin({
@@ -26,7 +28,8 @@ registerPlugin({
 export function screenshot() {
     // TODO
 }
-`) as Promise<ScreenshotPlugin>;
+`,
+) as Promise<ScreenshotPlugin>;
 
 interface ScreenshotPlugin {
     screenshot(): void;
@@ -69,6 +72,9 @@ p.blend(1337);
 p.blend(ptr(42));
 // @ts-expect-error
 p.blend();
+
+// $ExpectType ArrayBuffer | null
+p.readVolatile(2);
 
 // $ExpectType NativePointer
 Memory.alloc(1);
@@ -157,7 +163,7 @@ result.value;
 // $ExpectType Promise<void>
 Memory.scan(ptr("0x1234"), Process.pageSize, new MatchPattern("13 37"), {
     onMatch(address, size) {
-    }
+    },
 });
 
 // $ExpectType number
@@ -285,10 +291,10 @@ Stalker.follow(Process.getCurrentThreadId(), {
     events: {
         compile: true,
         call: true,
-        ret: true
+        ret: true,
     },
     onEvent: cm.process,
-    data: ptr(42)
+    data: ptr(42),
 });
 
 const basicBlockStartAddress = ptr("0x400000");

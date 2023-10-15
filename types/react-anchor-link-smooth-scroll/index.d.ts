@@ -3,7 +3,7 @@
 // Definitions by: Nicholas Newman <https://github.com/nicholas-newman1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface AnchorLinkProps extends React.HTMLProps<HTMLAnchorElement> {
     offset?: string | number | (() => number) | undefined;

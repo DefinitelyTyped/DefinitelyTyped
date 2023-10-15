@@ -1,4 +1,4 @@
-import implementation = require('./implementation');
+import implementation = require("./implementation");
 
 declare function getPolyfill(): typeof implementation;
 

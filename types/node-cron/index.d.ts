@@ -7,12 +7,29 @@
 //                 Alex Seidmann <https://github.com/aseidma>
 //                 Pedro Américo <https://github.com/ghostebony>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
-export function schedule(cronExpression: string, func: ((now: Date | "manual" | "init") => void) | string, options?: ScheduleOptions): ScheduledTask;
+/**
+ * Creates a new task to execute the given function when the cron expression ticks.
+ * @param cronExpression
+ * @param func
+ * @param options
+ */
+export function schedule(
+    cronExpression: string,
+    func: ((now: Date | "manual" | "init") => void) | string,
+    options?: ScheduleOptions,
+): ScheduledTask;
 
+/**
+ * To validate whether the expression is a cron expression or not
+ * @param cronExpression
+ */
 export function validate(cronExpression: string): boolean;
 
+/**
+ * Get the list of tasks created using the `schedule` function
+ */
 export function getTasks(): Map<string, ScheduledTask>;
 
 export interface ScheduledTask extends EventEmitter {

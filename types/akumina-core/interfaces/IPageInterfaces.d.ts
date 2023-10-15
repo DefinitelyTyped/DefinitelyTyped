@@ -18,6 +18,6 @@ export interface IPageVersionPriorityGroup {
 
 // used to get/update complete page version ==> properties + widgets
 // tslint:disable-next-line interface-name
-export interface IPageVersion extends IPageVersionProperties  {
+export interface IPageVersion extends IPageVersionProperties {
     pageWidgets: any[];
 }

@@ -8,9 +8,9 @@ import {
     ReaderFragment,
     ReaderPaginationMetadata,
     VariablesOf,
-} from 'relay-runtime';
+} from "relay-runtime";
 
-export type Direction = 'forward' | 'backward';
+export type Direction = "forward" | "backward";
 
 export type LoadMoreFn<TQuery extends OperationType> = (
     count: number,
@@ -37,7 +37,7 @@ export interface UseLoadMoreFunctionArgs {
 
 export function useLoadMoreFunction<TQuery extends OperationType>(
     args: UseLoadMoreFunctionArgs,
-): // eslint-disable-next-line no-unnecessary-generics
+): // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 [LoadMoreFn<TQuery>, boolean, DisposeFn];
 
 export function getConnectionState(

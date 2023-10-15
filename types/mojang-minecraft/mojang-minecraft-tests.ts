@@ -1,6 +1,6 @@
-import * as mc from 'mojang-minecraft';
+import * as mc from "mojang-minecraft";
 
-const overworld = mc.world.getDimension('overworld');
+const overworld = mc.world.getDimension("overworld");
 
 export function createExplosion(log: (message: string, status?: number) => void, targetLocation: mc.Location) {
     overworld.createExplosion(targetLocation, 10, new mc.ExplosionOptions());
@@ -59,19 +59,19 @@ export function itemStacks(log: (message: string, status?: number) => void, targ
 
 export function quickFoxLazyDog(log: (message: string, status?: number) => void, targetLocation: mc.Location) {
     const fox = overworld.spawnEntity(
-        'minecraft:fox',
+        "minecraft:fox",
         new mc.BlockLocation(targetLocation.x + 1, targetLocation.y + 2, targetLocation.z + 3),
     );
     fox.addEffect(mc.MinecraftEffectTypes.speed, 10, 20);
-    log('Created a fox.');
+    log("Created a fox.");
 
     const wolf = overworld.spawnEntity(
-        'minecraft:wolf',
+        "minecraft:wolf",
         new mc.BlockLocation(targetLocation.x + 4, targetLocation.y + 2, targetLocation.z + 3),
     );
     wolf.addEffect(mc.MinecraftEffectTypes.slowness, 10, 20);
     wolf.isSneaking = true;
-    log('Created a sneaking wolf.', 1);
+    log("Created a sneaking wolf.", 1);
 }
 
 export function runEntityCreatedEvent(log: (message: string, status?: number) => void, targetLocation: mc.Location) {
@@ -87,7 +87,7 @@ export function runEntityCreatedEvent(log: (message: string, status?: number) =>
 
 export function createOldHorse(log: (message: string, status?: number) => void, targetLocation: mc.Location) {
     // create a horse and trigger the 'ageable_grow_up' event, ensuring the horse is created as an adult
-    overworld.spawnEntity('minecraft:horse<minecraft:ageable_grow_up>', targetLocation);
+    overworld.spawnEntity("minecraft:horse<minecraft:ageable_grow_up>", targetLocation);
 }
 
 export function pistonEvent(log: (message: string, status?: number) => void, targetLocation: mc.Location) {
@@ -102,7 +102,7 @@ export function pistonEvent(log: (message: string, status?: number) => void, tar
     const pistonCallback = mc.world.events.beforePistonActivate.subscribe(
         (pistonEvent: mc.BeforePistonActivateEvent) => {
             if (pistonEvent.piston.location.equals(pistonLoc)) {
-                log('Cancelling piston event');
+                log("Cancelling piston event");
                 pistonEvent.cancel = true;
                 canceled = true;
             }
@@ -114,7 +114,7 @@ export function spawnItem(log: (message: string, status?: number) => void, targe
     const featherItem = new mc.ItemStack(mc.MinecraftItemTypes.feather, 1, 0);
 
     overworld.spawnItem(featherItem, targetLocation);
-    log('New feather created!');
+    log("New feather created!");
 }
 
 export function testThatEntityIsFeatherItem(
@@ -124,11 +124,11 @@ export function testThatEntityIsFeatherItem(
     const items = overworld.getEntities();
 
     for (const item of items) {
-        const itemComp = item.getComponent('item') as any;
+        const itemComp = item.getComponent("item") as any;
 
         if (itemComp) {
-            if (itemComp.itemStack.id.endsWith('feather')) {
-                log('Success! Found a feather', 1);
+            if (itemComp.itemStack.id.endsWith("feather")) {
+                log("Success! Found a feather", 1);
             }
         }
     }
@@ -142,7 +142,7 @@ export function trapTick() {
 
         // Minecraft runs at 20 ticks per second
         if (ticks % 1200 === 0) {
-            overworld.runCommand('say Another minute passes...');
+            overworld.runCommand("say Another minute passes...");
         }
     });
 }
@@ -162,24 +162,24 @@ export default class SampleManager {
 
     gameplayLogger(message: string, status?: number) {
         if (status !== undefined && status > 0) {
-            message = 'SUCCESS: ' + message;
+            message = "SUCCESS: " + message;
         } else if (status !== undefined && status < 0) {
-            message = 'FAIL: ' + message;
+            message = "FAIL: " + message;
         }
 
         this.say(message);
     }
     say(message: string) {
-        mc.world.getDimension('overworld').runCommand('say ' + message);
+        mc.world.getDimension("overworld").runCommand("say " + message);
     }
 
     newChatMessage(chatEvent: mc.ChatEvent) {
         const message = chatEvent.message.toLowerCase();
 
-        if (message.startsWith('howto') && chatEvent.sender) {
+        if (message.startsWith("howto") && chatEvent.sender) {
             const nearbyBlock = chatEvent.sender.getBlockFromViewVector();
             if (!nearbyBlock) {
-                this.gameplayLogger('Please look at the block where you want me to run this.');
+                this.gameplayLogger("Please look at the block where you want me to run this.");
                 return;
             }
 
@@ -189,10 +189,10 @@ export default class SampleManager {
             const sampleId = message.substring(5).trim();
 
             if (sampleId.length < 2) {
-                let availableFuncStr = 'Here is my list of available samples:';
+                let availableFuncStr = "Here is my list of available samples:";
 
                 for (const sampleFuncKey in this._availableFuncs) {
-                    availableFuncStr += ' ' + sampleFuncKey;
+                    availableFuncStr += " " + sampleFuncKey;
                 }
 
                 this.say(availableFuncStr);

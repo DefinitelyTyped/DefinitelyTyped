@@ -1,16 +1,16 @@
-import * as React from 'react';
 import Carousel, {
-    Dots,
-    slidesToShowPlugin,
-    infinitePlugin,
-    clickToChangePlugin,
-    autoplayPlugin,
-    rtlPlugin,
-    centeredPlugin,
-    slidesToScrollPlugin,
     arrowsPlugin,
+    autoplayPlugin,
+    centeredPlugin,
+    clickToChangePlugin,
+    Dots,
     fastSwipePlugin,
-} from '@brainhubeu/react-carousel';
+    infinitePlugin,
+    rtlPlugin,
+    slidesToScrollPlugin,
+    slidesToShowPlugin,
+} from "@brainhubeu/react-carousel";
+import * as React from "react";
 
 interface MyCarouselProps {
     value: number;
@@ -18,7 +18,7 @@ interface MyCarouselProps {
 
 interface MyCarouselState {
     value: number;
-    slides: Array<React.ReactComponentElement<'img'>>;
+    slides: Array<React.ReactComponentElement<"img">>;
 }
 
 class MyCarousel extends React.Component<MyCarouselProps, MyCarouselState> {
@@ -29,7 +29,7 @@ class MyCarousel extends React.Component<MyCarouselProps, MyCarouselState> {
 
     handleChange = (value: number) => {
         this.setState({ value });
-    }
+    };
 
     render() {
         const { value, slides } = this.state;
@@ -38,7 +38,7 @@ class MyCarousel extends React.Component<MyCarouselProps, MyCarouselState> {
             <>
                 <Carousel
                     plugins={[
-                        'infinite',
+                        "infinite",
                         {
                             resolve: slidesToShowPlugin,
                             options: {
@@ -64,7 +64,7 @@ class MyCarousel extends React.Component<MyCarouselProps, MyCarouselState> {
                             resolve: autoplayPlugin,
                             options: {
                                 interval: 2000,
-                                direction: 'left',
+                                direction: "left",
                             },
                         },
                         {
@@ -76,10 +76,10 @@ class MyCarousel extends React.Component<MyCarouselProps, MyCarouselState> {
                         {
                             resolve: arrowsPlugin,
                             options: {
-                                arrowLeft: <button>{'<<'}</button>,
-                                arrowLeftDisabled: <button>{'<'}</button>,
-                                arrowRight: <button>{'>>'}</button>,
-                                arrowRightDisabled: <button>{'>'}</button>,
+                                arrowLeft: <button>{"<<"}</button>,
+                                arrowLeftDisabled: <button>{"<"}</button>,
+                                arrowRight: <button>{">>"}</button>,
+                                arrowRightDisabled: <button>{">"}</button>,
                                 addArrowClickHandler: true,
                             },
                         },

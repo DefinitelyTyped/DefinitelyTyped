@@ -16,7 +16,9 @@ declare namespace WordExtractor {
         getHeaders(options?: { includeFooters?: boolean | undefined }): string;
         getFooters(): string;
         getAnnotations(): string;
-        getTextboxes(options?: { includeHeadersAndFooters?: boolean | undefined; includeBody?: boolean | undefined }): string;
+        getTextboxes(
+            options?: { includeHeadersAndFooters?: boolean | undefined; includeBody?: boolean | undefined },
+        ): string;
         getEndnotes(): string;
     }
 }

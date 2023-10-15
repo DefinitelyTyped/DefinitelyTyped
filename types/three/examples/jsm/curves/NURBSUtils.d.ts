@@ -1,4 +1,4 @@
-import { Vector3, Vector4 } from '../../../src/Three';
+import { Vector3, Vector4 } from '../../../src/Three.js';
 
 export function findSpan(p: number, u: number, U: number[]): number;
 export function calcBasisFunctions(span: number, u: number, p: number, U: number[]): number[];

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
-import { GraphQLScalarType } from 'graphql';
+import { GraphQLScalarType } from "graphql";
 
 declare const date: GraphQLScalarType;
 

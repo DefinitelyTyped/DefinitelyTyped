@@ -1,4 +1,4 @@
-// For Library Version: 1.115.0
+// For Library Version: 1.119.0
 
 declare module "sap/tnt/library" {
   /**
@@ -50,23 +50,22 @@ declare module "sap/tnt/InfoLabel" {
    *
    * Overview:
    *
-   * The control visualizes text information without user interaction. The text inside the control is always
-   * in upper case. It can have smaller or larger side paddings which can be specified by the `renderMode`
-   * property. The text-background color pair can be changed by setting a number between 1 and 10 that corresponds
-   * to the 10 predefined color combinations of the `colorScheme` property. The control is designed to be
-   * vertically aligned with UI5 Input and Button control families. When using `InfoLabel` in non-editable
-   * `Forms`, `Tables`, etc., set `displayOnly=true` for best visual results.
+   * The control visualizes text information without user interaction. The text-background color pair can
+   * be changed by setting a number between 1 and 10 that corresponds to the 10 predefined color combinations
+   * of the `colorScheme` property. The control is designed to be vertically aligned with UI5 Input and Button
+   * control families. When using `InfoLabel` in non-editable `Forms`, `Tables`, etc., set `displayOnly=true`
+   * for best visual results.
    *
    * Usage Guidelines:
    * 	 - If the text is longer than the width of the control, it doesn’t wrap. Instead, it’s represented as
    *     ellipsis.
    * 	 - When truncated, the full text in the control is not visible. Therefore, it’s recommended to make
    *     more space for longer items to be fully displayed.
-   * 	 - Colors are not semantic and have no visual representation in sap_belize_hcb and sap_belize_hcw themes.
-   *
+   * 	 - Colors are not semantic and have no visual representation in sap_belize_hcb, sap_belize_hcw, sap_fiori_3_hcb
+   *     and sap_fiori_3_hcw themes.
    * 	 - The control shows plain text only, formatting is not visualized.
    */
-  class InfoLabel extends Control implements IFormContent {
+  export default class InfoLabel extends Control implements IFormContent {
     __implements__sap_ui_core_IFormContent: boolean;
     /**
      * Constructor for a new `InfoLabel`.
@@ -148,7 +147,7 @@ declare module "sap/tnt/InfoLabel" {
      * Specifies the fill and text color of the control. Accepts a number between 1 and 10 as a value. You can
      * choose from 10 predefined background and text color combinations. The color schemes are non-semantic,
      * you can select them according to your own preferences. **Note:** ColorScheme 10 is available only in
-     * Fiori 3 theme. The default `colorScheme` is 7.
+     * Fiori 3 and Horizon themes. The default `colorScheme` is 7.
      *
      * Default value is `7`.
      *
@@ -183,7 +182,8 @@ declare module "sap/tnt/InfoLabel" {
      * Gets current value of property {@link #getRenderMode renderMode}.
      *
      * Specifies the type of the `InfoLabel` paddings - loose or narrow. **Note:** By default the padding is
-     * loose. It is recommended to use narrow (smaller) paddings for numeric texts.
+     * loose. It is recommended to use narrow (smaller) paddings for numeric texts. **Note:** In Horizon theme
+     * there is only one mode and setting this property will not have effect.
      *
      * Default value is `Loose`.
      *
@@ -226,7 +226,7 @@ declare module "sap/tnt/InfoLabel" {
      * Specifies the fill and text color of the control. Accepts a number between 1 and 10 as a value. You can
      * choose from 10 predefined background and text color combinations. The color schemes are non-semantic,
      * you can select them according to your own preferences. **Note:** ColorScheme 10 is available only in
-     * Fiori 3 theme. The default `colorScheme` is 7.
+     * Fiori 3 and Horizon themes. The default `colorScheme` is 7.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -282,7 +282,8 @@ declare module "sap/tnt/InfoLabel" {
      * Sets a new value for property {@link #getRenderMode renderMode}.
      *
      * Specifies the type of the `InfoLabel` paddings - loose or narrow. **Note:** By default the padding is
-     * loose. It is recommended to use narrow (smaller) paddings for numeric texts.
+     * loose. It is recommended to use narrow (smaller) paddings for numeric texts. **Note:** In Horizon theme
+     * there is only one mode and setting this property will not have effect.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -354,7 +355,6 @@ declare module "sap/tnt/InfoLabel" {
      */
     unbindText(): this;
   }
-  export default InfoLabel;
 
   export interface $InfoLabelSettings extends $ControlSettings {
     /**
@@ -364,7 +364,8 @@ declare module "sap/tnt/InfoLabel" {
 
     /**
      * Specifies the type of the `InfoLabel` paddings - loose or narrow. **Note:** By default the padding is
-     * loose. It is recommended to use narrow (smaller) paddings for numeric texts.
+     * loose. It is recommended to use narrow (smaller) paddings for numeric texts. **Note:** In Horizon theme
+     * there is only one mode and setting this property will not have effect.
      */
     renderMode?:
       | (RenderMode | keyof typeof RenderMode)
@@ -375,7 +376,7 @@ declare module "sap/tnt/InfoLabel" {
      * Specifies the fill and text color of the control. Accepts a number between 1 and 10 as a value. You can
      * choose from 10 predefined background and text color combinations. The color schemes are non-semantic,
      * you can select them according to your own preferences. **Note:** ColorScheme 10 is available only in
-     * Fiori 3 theme. The default `colorScheme` is 7.
+     * Fiori 3 and Horizon themes. The default `colorScheme` is 7.
      */
     colorScheme?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -417,8 +418,6 @@ declare module "sap/tnt/NavigationList" {
 
   import NavigationListItem from "sap/tnt/NavigationListItem";
 
-  import Event from "sap/ui/base/Event";
-
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import {
@@ -428,13 +427,15 @@ declare module "sap/tnt/NavigationList" {
 
   import Item from "sap/ui/core/Item";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @since 1.34
    *
    * The NavigationList control is an interactive control, which provides a choice of different items, ordered
    * as a list.
    */
-  class NavigationList extends Control {
+  export default class NavigationList extends Control {
     /**
      * Constructor for a new NavigationList.
      *
@@ -547,7 +548,7 @@ declare module "sap/tnt/NavigationList" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$NavigationListItemSelectEventParameters>) => void,
+      fnFunction: (p1: NavigationList$ItemSelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationList` itself
        */
@@ -567,7 +568,7 @@ declare module "sap/tnt/NavigationList" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$NavigationListItemSelectEventParameters>) => void,
+      fnFunction: (p1: NavigationList$ItemSelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationList` itself
        */
@@ -590,14 +591,14 @@ declare module "sap/tnt/NavigationList" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$NavigationListItemSelectEventParameters>) => void,
+      fnFunction: (p1: NavigationList$ItemSelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
      *
@@ -607,7 +608,7 @@ declare module "sap/tnt/NavigationList" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $NavigationListItemSelectEventParameters
+      mParameters?: NavigationList$ItemSelectEventParameters
     ): this;
     /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
@@ -794,7 +795,6 @@ declare module "sap/tnt/NavigationList" {
       sWidth: CSSSize
     ): this;
   }
-  export default NavigationList;
 
   export interface $NavigationListSettings extends $ControlSettings {
     /**
@@ -843,23 +843,24 @@ declare module "sap/tnt/NavigationList" {
     /**
      * Fired when an item is selected.
      */
-    itemSelect?: (
-      oEvent: Event<$NavigationListItemSelectEventParameters>
-    ) => void;
+    itemSelect?: (oEvent: NavigationList$ItemSelectEvent) => void;
   }
 
-  export interface $NavigationListItemSelectEventParameters {
+  export interface NavigationList$ItemSelectEventParameters {
     /**
      * The selected item.
      */
     item?: Item;
   }
+
+  export type NavigationList$ItemSelectEvent = Event<
+    NavigationList$ItemSelectEventParameters,
+    NavigationList
+  >;
 }
 
 declare module "sap/tnt/NavigationListItem" {
   import { default as Item, $ItemSettings } from "sap/ui/core/Item";
-
-  import Event from "sap/ui/base/Event";
 
   import { URI } from "sap/ui/core/library";
 
@@ -870,13 +871,15 @@ declare module "sap/tnt/NavigationListItem" {
     AggregationBindingInfo,
   } from "sap/ui/base/ManagedObject";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @since 1.34
    *
    * The NavigationListItem control represents an action, which can be selected by the user. It can provide
    * sub items.
    */
-  class NavigationListItem extends Item {
+  export default class NavigationListItem extends Item {
     /**
      * Constructor for a new NavigationListItem.
      *
@@ -967,7 +970,7 @@ declare module "sap/tnt/NavigationListItem" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$NavigationListItemSelectEventParameters>) => void,
+      fnFunction: (p1: NavigationListItem$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationListItem` itself
        */
@@ -987,7 +990,7 @@ declare module "sap/tnt/NavigationListItem" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$NavigationListItemSelectEventParameters>) => void,
+      fnFunction: (p1: NavigationListItem$SelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.tnt.NavigationListItem` itself
        */
@@ -1010,14 +1013,14 @@ declare module "sap/tnt/NavigationListItem" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$NavigationListItemSelectEventParameters>) => void,
+      fnFunction: (p1: NavigationListItem$SelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:select select} to attached listeners.
      *
@@ -1027,7 +1030,7 @@ declare module "sap/tnt/NavigationListItem" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $NavigationListItemSelectEventParameters
+      mParameters?: NavigationListItem$SelectEventParameters
     ): this;
     /**
      * Gets current value of property {@link #getExpanded expanded}.
@@ -1040,7 +1043,7 @@ declare module "sap/tnt/NavigationListItem" {
      */
     getExpanded(): boolean;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Returns the DOM Element that should get the focus.
      *
@@ -1082,6 +1085,20 @@ declare module "sap/tnt/NavigationListItem" {
      * The sub items.
      */
     getItems(): NavigationListItem[];
+    /**
+     * @since 1.116
+     * @experimental (since 1.116) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release.
+     *
+     * Gets current value of property {@link #getSelectable selectable}.
+     *
+     * Specifies if the item can be selected.
+     *
+     * Default value is `true`.
+     *
+     * @returns Value of property `selectable`
+     */
+    getSelectable(): boolean;
     /**
      * Gets current value of property {@link #getTarget target}.
      *
@@ -1222,6 +1239,27 @@ declare module "sap/tnt/NavigationListItem" {
       sIcon?: URI
     ): this;
     /**
+     * @since 1.116
+     * @experimental (since 1.116) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release.
+     *
+     * Sets a new value for property {@link #getSelectable selectable}.
+     *
+     * Specifies if the item can be selected.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setSelectable(
+      /**
+       * New value for property `selectable`
+       */
+      bSelectable?: boolean
+    ): this;
+    /**
      * Sets a new value for property {@link #getTarget target}.
      *
      * Specifies the browsing context where the linked content will open.
@@ -1260,7 +1298,6 @@ declare module "sap/tnt/NavigationListItem" {
       bVisible?: boolean
     ): this;
   }
-  export default NavigationListItem;
 
   export interface $NavigationListItemSettings extends $ItemSettings {
     /**
@@ -1284,6 +1321,15 @@ declare module "sap/tnt/NavigationListItem" {
      * Specifies if the item should be shown.
      */
     visible?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * @since 1.116
+     * @experimental (since 1.116) - Disclaimer: this property is in a beta state - incompatible API changes
+     * may be done before its official public release.
+     *
+     * Specifies if the item can be selected.
+     */
+    selectable?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the link target URI. Supports standard hyperlink behavior. If a JavaScript action should be triggered,
@@ -1312,21 +1358,24 @@ declare module "sap/tnt/NavigationListItem" {
     /**
      * Fired when this item is selected.
      */
-    select?: (oEvent: Event<$NavigationListItemSelectEventParameters>) => void;
+    select?: (oEvent: NavigationListItem$SelectEvent) => void;
   }
 
-  export interface $NavigationListItemSelectEventParameters {
+  export interface NavigationListItem$SelectEventParameters {
     /**
      * The selected item.
      */
     item?: Item;
   }
+
+  export type NavigationListItem$SelectEvent = Event<
+    NavigationListItem$SelectEventParameters,
+    NavigationListItem
+  >;
 }
 
 declare module "sap/tnt/SideNavigation" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
-
-  import Event from "sap/ui/base/Event";
 
   import {
     AggregationBindingInfo,
@@ -1343,6 +1392,8 @@ declare module "sap/tnt/SideNavigation" {
 
   import Item from "sap/ui/core/Item";
 
+  import Event from "sap/ui/base/Event";
+
   /**
    * @since 1.34
    *
@@ -1352,15 +1403,13 @@ declare module "sap/tnt/SideNavigation" {
    * 	 - The flexible part has a scrollbar when the content is larger than the available space.  **Note:**
    *     In order for the SideNavigation to stretch properly, its parent layout control should only be the sap.tnt.ToolPage.
    */
-  class SideNavigation extends Control {
+  export default class SideNavigation extends Control {
     /**
      * Constructor for a new SideNavigation.
      *
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
-     * See:
-     * 	{@link fiori:https://experience.sap.com/fiori-design-web/side-navigation/ Side Navigation}
      */
     constructor(
       /**
@@ -1374,8 +1423,6 @@ declare module "sap/tnt/SideNavigation" {
      * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
      * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
      * of the syntax of the settings object.
-     * See:
-     * 	{@link fiori:https://experience.sap.com/fiori-design-web/side-navigation/ Side Navigation}
      */
     constructor(
       /**
@@ -1436,7 +1483,7 @@ declare module "sap/tnt/SideNavigation" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$SideNavigationItemSelectEventParameters>) => void,
+      fnFunction: (p1: SideNavigation$ItemSelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.tnt.SideNavigation` itself
        */
@@ -1456,7 +1503,7 @@ declare module "sap/tnt/SideNavigation" {
       /**
        * The function to be called when the event occurs
        */
-      fnFunction: (p1: Event<$SideNavigationItemSelectEventParameters>) => void,
+      fnFunction: (p1: SideNavigation$ItemSelectEvent) => void,
       /**
        * Context object to call the event handler with. Defaults to this `sap.tnt.SideNavigation` itself
        */
@@ -1505,14 +1552,14 @@ declare module "sap/tnt/SideNavigation" {
       /**
        * The function to be called, when the event occurs
        */
-      fnFunction: (p1: Event<$SideNavigationItemSelectEventParameters>) => void,
+      fnFunction: (p1: SideNavigation$ItemSelectEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
       oListener?: object
     ): this;
     /**
-     * Protected: DO NOT USE IN APPLICATIONS (only for related classes in the framework)
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
      *
      * Fires event {@link #event:itemSelect itemSelect} to attached listeners.
      *
@@ -1522,7 +1569,7 @@ declare module "sap/tnt/SideNavigation" {
       /**
        * Parameters to pass along with the event
        */
-      mParameters?: $SideNavigationItemSelectEventParameters
+      mParameters?: SideNavigation$ItemSelectEventParameters
     ): this;
     /**
      * @since 1.98
@@ -1669,7 +1716,6 @@ declare module "sap/tnt/SideNavigation" {
      */
     unbindItem(): this;
   }
-  export default SideNavigation;
 
   export interface $SideNavigationSettings extends $ControlSettings {
     /**
@@ -1716,17 +1762,20 @@ declare module "sap/tnt/SideNavigation" {
     /**
      * Fired when an item is selected.
      */
-    itemSelect?: (
-      oEvent: Event<$SideNavigationItemSelectEventParameters>
-    ) => void;
+    itemSelect?: (oEvent: SideNavigation$ItemSelectEvent) => void;
   }
 
-  export interface $SideNavigationItemSelectEventParameters {
+  export interface SideNavigation$ItemSelectEventParameters {
     /**
      * The selected item.
      */
     item?: Item;
   }
+
+  export type SideNavigation$ItemSelectEvent = Event<
+    SideNavigation$ItemSelectEventParameters,
+    SideNavigation
+  >;
 }
 
 declare module "sap/tnt/ToolHeader" {
@@ -1777,7 +1826,9 @@ declare module "sap/tnt/ToolHeader" {
    * Support for default (Accent 6) color. Image avatar. -   sap.m.Image
    * Primarily used for displaying the company logo. Interaction states
    */
-  class ToolHeader extends OverflowToolbar implements IToolHeader {
+  export default class ToolHeader
+    extends OverflowToolbar
+    implements IToolHeader {
     __implements__sap_tnt_IToolHeader: boolean;
     /**
      * Constructor for a new ToolHeader.
@@ -1788,8 +1839,6 @@ declare module "sap/tnt/ToolHeader" {
      *
      * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.OverflowToolbar#constructor sap.m.OverflowToolbar }
      * can be used.
-     * See:
-     * 	{@link fiori:https://experience.sap.com/fiori-design-web/tool-header/ Tool Header}
      */
     constructor(
       /**
@@ -1806,8 +1855,6 @@ declare module "sap/tnt/ToolHeader" {
      *
      * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.OverflowToolbar#constructor sap.m.OverflowToolbar }
      * can be used.
-     * See:
-     * 	{@link fiori:https://experience.sap.com/fiori-design-web/tool-header/ Tool Header}
      */
     constructor(
       /**
@@ -1850,7 +1897,6 @@ declare module "sap/tnt/ToolHeader" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default ToolHeader;
 
   export interface $ToolHeaderSettings extends $OverflowToolbarSettings {}
 }
@@ -1866,7 +1912,7 @@ declare module "sap/tnt/ToolHeaderUtilitySeparator" {
    * The ToolHeaderUtilitySeparator control is used in the sap.tnt.ToolHeader control to specify where the
    * overflow button is placed.
    */
-  class ToolHeaderUtilitySeparator extends Control {
+  export default class ToolHeaderUtilitySeparator extends Control {
     /**
      * Constructor for a new ToolHeaderUtilitySeparator.
      *
@@ -1934,7 +1980,6 @@ declare module "sap/tnt/ToolHeaderUtilitySeparator" {
      */
     static getMetadata(): ElementMetadata;
   }
-  export default ToolHeaderUtilitySeparator;
 
   export interface $ToolHeaderUtilitySeparatorSettings
     extends $ControlSettings {}
@@ -1965,7 +2010,7 @@ declare module "sap/tnt/ToolPage" {
    * and {@link sap.tnt.SideNavigation}. Usage: The main usage of the sap.tnt controls is for scenarios in
    * the tooling or administration space.
    */
-  class ToolPage extends Control {
+  export default class ToolPage extends Control {
     /**
      * Constructor for a new ToolPage.
      *
@@ -2235,7 +2280,6 @@ declare module "sap/tnt/ToolPage" {
      */
     toggleSideContentMode(): this;
   }
-  export default ToolPage;
 
   export interface $ToolPageSettings extends $ControlSettings {
     /**

@@ -1,6 +1,6 @@
-import TempNode from '../core/TempNode';
-import { ShaderNode } from '../shadernode/ShaderNodeBaseElements';
-import { Node } from '../Nodes';
+import TempNode from '../core/TempNode.js';
+import { ShaderNode } from '../shadernode/ShaderNodeBaseElements.js';
+import { Node } from '../Nodes.js';
 
 export const BurnNode: ShaderNode<{ base: Node; blendNode: Node }>;
 
@@ -28,5 +28,5 @@ export default class BlendModeNode extends TempNode {
 
     constructor(blendMode: BlendMode, baseNode: Node, blendNode: Node);
 
-    construct(): Node;
+    setup(): Node;
 }

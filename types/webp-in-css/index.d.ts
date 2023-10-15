@@ -5,14 +5,14 @@
 
 /// <reference types="node" />
 
-// eslint-disable-next-line no-declare-current-package
-declare module 'webp-in-css/polyfill' {
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "webp-in-css/polyfill" {
     // nothing here, global script
 }
 
-// eslint-disable-next-line no-declare-current-package
-declare module 'webp-in-css/plugin' {
-    import { Declaration, PluginCreator } from 'postcss';
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "webp-in-css/plugin" {
+    import { Declaration, PluginCreator } from "postcss";
 
     namespace webpInCss {
         interface Options {

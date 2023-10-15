@@ -28,9 +28,9 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/perf_hooks.js)
  */
-declare module 'perf_hooks' {
-    import { AsyncResource } from 'node:async_hooks';
-    type EntryType = 'node' | 'mark' | 'measure' | 'gc' | 'function' | 'http2' | 'http';
+declare module "perf_hooks" {
+    import { AsyncResource } from "node:async_hooks";
+    type EntryType = "node" | "mark" | "measure" | "gc" | "function" | "http2" | "http";
     interface NodeGCPerformanceDetail {
         /**
          * When `performanceEntry.entryType` is equal to 'gc', `the performance.kind` property identifies
@@ -146,7 +146,10 @@ declare module 'perf_hooks' {
      * @param util1 The result of a previous call to eventLoopUtilization()
      * @param util2 The result of a previous call to eventLoopUtilization() prior to util1
      */
-    type EventLoopUtilityFunction = (util1?: EventLoopUtilization, util2?: EventLoopUtilization) => EventLoopUtilization;
+    type EventLoopUtilityFunction = (
+        util1?: EventLoopUtilization,
+        util2?: EventLoopUtilization,
+    ) => EventLoopUtilization;
     interface MarkOptions {
         /**
          * Additional optional detail to include with the mark.
@@ -425,13 +428,13 @@ declare module 'perf_hooks' {
         observe(
             options:
                 | {
-                      entryTypes: ReadonlyArray<EntryType>;
-                      buffered?: boolean | undefined;
-                  }
+                    entryTypes: ReadonlyArray<EntryType>;
+                    buffered?: boolean | undefined;
+                }
                 | {
-                      type: EntryType;
-                      buffered?: boolean | undefined;
-                  }
+                    type: EntryType;
+                    buffered?: boolean | undefined;
+                },
         ): void;
     }
     namespace constants {
@@ -580,7 +583,21 @@ declare module 'perf_hooks' {
      * @since v15.9.0
      */
     function createHistogram(options?: CreateHistogramOptions): RecordableHistogram;
+
+    import { performance as _performance } from "perf_hooks";
+    global {
+        /**
+         * `performance` is a global reference for `require('perf_hooks').performance`
+         * https://nodejs.org/api/globals.html#performance
+         * @since v16.0.0
+         */
+        var performance: typeof globalThis extends {
+            onmessage: any;
+            performance: infer T;
+        } ? T
+            : typeof _performance;
+    }
 }
-declare module 'node:perf_hooks' {
-    export * from 'perf_hooks';
+declare module "node:perf_hooks" {
+    export * from "perf_hooks";
 }
