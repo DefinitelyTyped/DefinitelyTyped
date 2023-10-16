@@ -45,7 +45,7 @@ sqlite.openDatabase({ name: "test.db", location: "default" }).then(db => {
 });
 
 sqlite.openDatabase({ name: "test.db", location: "default" }).then(async db => {
-    await db.attach(db.dbName, "alias");
+    await db.attach(db.dbname, "alias");
     await db.detach("alias");
 
     db.readTransaction(async tx => {

@@ -85,7 +85,7 @@ export type TransactionCallback = (transaction: Transaction) => void;
 export type TransactionErrorCallback = (error: SQLError) => void;
 
 export interface SQLiteDatabase {
-    dbName: string;
+    dbname: string;
 
     transaction(scope: (tx: Transaction) => void): Promise<Transaction>;
     transaction(
