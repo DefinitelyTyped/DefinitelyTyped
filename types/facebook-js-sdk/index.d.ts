@@ -113,7 +113,7 @@ declare namespace facebook {
                 gender?: TParam extends "gender" ? string : never | undefined | undefined;
                 hometown?: TParam extends "hometown" ? Page : never | undefined | undefined;
                 inspirational_people?: TParam extends "inspirational_people" ? Experience[]
-                    : never | undefined | undefined;
+                : never | undefined | undefined;
                 install_type?: TParam extends "install_type" ? any : never | undefined | undefined;
                 is_guest_user?: TParam extends "is_guest_user" ? boolean : never | undefined | undefined;
                 languages?: TParam extends "languages" ? Experience[] : never | undefined | undefined;
@@ -125,21 +125,21 @@ declare namespace facebook {
                 name?: TParam extends "name" ? string : never | undefined | undefined;
                 name_format?: TParam extends "name_format" ? string : never | undefined | undefined;
                 payment_pricepoints?: TParam extends "payment_pricepoints" ? PaymentPricepoints
-                    : never | undefined | undefined;
+                : never | undefined | undefined;
                 name_political?: TParam extends "political" ? string : never | undefined | undefined;
                 profile_pic?: TParam extends "profile_pic" ? string : never | undefined | undefined;
                 quotes?: TParam extends "quotes" ? string : never | undefined | undefined;
                 relationship_status?: TParam extends "relationship_status" ? string : never | undefined | undefined;
                 religion?: TParam extends "religion" ? string : never | undefined | undefined;
                 shared_login_upgrade_required_by?: TParam extends "shared_login_upgrade_required_by" ? any
-                    : never | undefined | undefined;
+                : never | undefined | undefined;
                 short_name?: TParam extends "short_name" ? any : never | undefined | undefined;
                 significant_other?: TParam extends "significant_other" ? User : never | undefined | undefined;
                 sports?: TParam extends "sports" ? Experience[] : never | undefined | undefined;
                 supports_donate_button_in_live_video?: TParam extends "supports_donate_button_in_live_video" ? boolean
-                    : never | undefined | undefined;
+                : never | undefined | undefined;
                 token_for_business?: TParam extends "token_for_business" ? VideoUploadLimits
-                    : never | undefined | undefined;
+                : never | undefined | undefined;
                 video_upload_limits?: TParam extends "video_upload_limits" ? string : never | undefined | undefined;
                 website?: TParam extends "website" ? string : never | undefined | undefined;
             }) => void,
@@ -342,6 +342,32 @@ declare namespace facebook {
         config_id?: string | undefined;
         response_type?: string | undefined;
         override_default_response_type?: boolean | undefined;
+        extras?: {
+            setup: {
+                business: {
+                    name: string | undefined;
+                    email: string | undefined;
+                    phone: {
+                        code: number | undefined;
+                        number: string | undefined;
+                    }
+                    website: string | undefined;
+                    address: {
+                        streetAddress1: string | undefined;
+                        city: string | undefined;
+                        state: string | undefined;
+                        zipPostal: string | undefined;
+                        country: string | undefined;
+                    }
+                    timezone: string | undefined;
+                }
+                phone: {
+                    displayName: string | undefined;
+                    category: string | undefined;
+                    description: string | undefined;
+                }
+            }
+        }
     }
 
     ////////////////////////
@@ -386,10 +412,10 @@ declare namespace facebook {
         data?: string | undefined;
         exclude_ids?: string[] | undefined;
         filters?:
-            | "app_users"
-            | "app_non_users"
-            | Array<{ name: string; user_ids: string[] }>
-            | undefined;
+        | "app_users"
+        | "app_non_users"
+        | Array<{ name: string; user_ids: string[] }>
+        | undefined;
         max_recipients?: number | undefined;
         object_id?: string | undefined;
         suggestions?: string[] | undefined;
@@ -435,12 +461,12 @@ declare namespace facebook {
         display: "popup";
         method: "create_offer";
         objective:
-            | "APP_INSTALLS"
-            | "CONVERSIONS"
-            | "LINK_CLICKS"
-            | "OFFER_CLAIMS"
-            | "PRODUCT_CATALOG_SALES"
-            | "STORE_VISITS";
+        | "APP_INSTALLS"
+        | "CONVERSIONS"
+        | "LINK_CLICKS"
+        | "OFFER_CLAIMS"
+        | "PRODUCT_CATALOG_SALES"
+        | "STORE_VISITS";
         page_id: string;
     }
 
@@ -554,5 +580,5 @@ declare namespace facebook {
         success: boolean;
     }
 
-    interface CollectionAdsDialogResponse extends InstantExperiencesAdsDialogResponse {}
+    interface CollectionAdsDialogResponse extends InstantExperiencesAdsDialogResponse { }
 }
