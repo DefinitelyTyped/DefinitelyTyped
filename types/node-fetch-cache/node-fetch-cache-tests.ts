@@ -1,5 +1,5 @@
-import defaultFetch, { fetchBuilder, FileSystemCache, MemoryCache } from "node-fetch-cache";
 import { Response } from "node-fetch";
+import defaultFetch, { fetchBuilder, FileSystemCache, MemoryCache } from "node-fetch-cache";
 
 function test_defaultFetch() {
     // $ExpectType Promise<NFCResponse>
