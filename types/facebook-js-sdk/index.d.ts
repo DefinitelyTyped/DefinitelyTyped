@@ -342,32 +342,7 @@ declare namespace facebook {
         config_id?: string | undefined;
         response_type?: string | undefined;
         override_default_response_type?: boolean | undefined;
-        extras?: {
-            setup: {
-                business: {
-                    name: string | undefined;
-                    email: string | undefined;
-                    phone: {
-                        code: number | undefined;
-                        number: string | undefined;
-                    }
-                    website: string | undefined;
-                    address: {
-                        streetAddress1: string | undefined;
-                        city: string | undefined;
-                        state: string | undefined;
-                        zipPostal: string | undefined;
-                        country: string | undefined;
-                    }
-                    timezone: string | undefined;
-                }
-                phone: {
-                    displayName: string | undefined;
-                    category: string | undefined;
-                    description: string | undefined;
-                }
-            }
-        }
+        extras?: { [key: string]: any } | undefined;
     }
 
     ////////////////////////
