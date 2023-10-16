@@ -54,11 +54,11 @@ const packageJsonOrder = [
     "type",
     "exports",
     "types",
-    "typeScriptVersion",
+    "minimumTypeScriptVersion",
     "typesVersions",
     "dependencies",
     "devDependencies",
-    "contributors",
+    "owners",
 ];
 
 /**
@@ -138,7 +138,7 @@ async function handlePackage(typingsData) {
 
     packageJsonContents.version = `${typingsData.major}.${typingsData.minor}.99999`;
 
-    packageJsonContents.contributors = typingsData.contributors
+    packageJsonContents.owners = typingsData.contributors
         .map(author => {
             /** @type {{ name: string; url?: string | undefined; githubUsername?: string | undefined }} */
             const newAuthor = { ...author };
@@ -150,11 +150,13 @@ async function handlePackage(typingsData) {
         .filter(author => author.githubUsername !== "DefinitelyTyped");
 
     // If it's not supported or it's the current minimum, there's no reason to note it.
+    // Both the header parser and typingsData both convert too-low and missing versions
+    // to the minimum version, so this is the best we can do.
     if (
         TypeScriptVersion.isSupported(typingsData.minTypeScriptVersion)
         && typingsData.minTypeScriptVersion !== TypeScriptVersion.lowest
     ) {
-        packageJsonContents.typeScriptVersion = typingsData.minTypeScriptVersion;
+        packageJsonContents.minimumTypeScriptVersion = typingsData.minTypeScriptVersion;
     }
 
     const indexDtsPath = path.join(packageRoot, "index.d.ts");
