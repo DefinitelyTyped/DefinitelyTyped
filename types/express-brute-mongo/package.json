@@ -18,5 +18,10 @@
             "name": "Cyril Schumacher",
             "githubUsername": "cyrilschumacher"
         }
-    ]
+    ],
+    "pnpm": {
+        "overrides": {
+            "@types/node": "workspace:../node"
+        }
+    }
 }

@@ -66,16 +66,5 @@
             "_comment": "This will remove husky from when we started migrating to use prettier",
             "pre-commit": "npm uninstall husky"
         }
-    },
-    "pnpm": {
-        "peerDependencyRules": {
-            "allowedVersions": {
-                "react-autosize-textarea>react": "*",
-                "react-autosize-textarea>react-dom": "*"
-            }
-        },
-        "overrides": {
-            "@types/mongodb@2>@types/node": "*"
-        }
     }
 }
