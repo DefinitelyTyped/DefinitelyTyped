@@ -22,5 +22,6 @@
             "name": "tyankatsu",
             "githubUsername": "tyankatsu0105"
         }
-    ]
+    ],
+    "minimumTypeScriptVersion": "4.7"
 }
