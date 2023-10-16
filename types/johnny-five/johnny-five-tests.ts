@@ -128,6 +128,14 @@ board
 
         const led = new five.Led(13);
         led.blink();
+        led.brightness(255);
+        led.intensity(100);
+        led.pulse({
+            easing: "linear",
+            duration: 3500,
+            cuePoints: [0, 0.3, 0.6, 0.8, 1],
+            keyFrames: [0, 60, 100, 50, 70],
+          })
 
         new five.Led.Digits({
             pins: {
