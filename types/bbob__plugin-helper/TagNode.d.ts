@@ -1,7 +1,3 @@
-import { CLOSE_BRAKET, OPEN_BRAKET } from "./char";
-
-export function getTagAttrs(tag: string, params: Attrs): string;
-
 export type Tag = string;
 export type Content = Node[];
 export interface Attrs {
