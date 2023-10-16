@@ -136,7 +136,7 @@ async function handlePackage(typingsData) {
         Object.assign(packageJsonContents, existing);
     }
 
-    packageJsonContents.version = `${typingsData.major}.${typingsData.minor}.99999`;
+    packageJsonContents.version = `${typingsData.major}.${typingsData.minor}.9999`;
 
     packageJsonContents.owners = typingsData.contributors
         .map(author => {
