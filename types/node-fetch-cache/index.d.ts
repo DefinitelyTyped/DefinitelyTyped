@@ -12,7 +12,7 @@ declare class NFCResponse extends Response {
 interface Cache {
     get(key: string): Promise<any>;
     remove(key: string): Promise<void>;
-    set(value: any): Promise<any>;
+    set(key: string, bodyStream: Response["body"], metaData: any): Promise<any>;
 }
 
 interface MemoryCacheOptions {
@@ -23,7 +23,7 @@ export class MemoryCache implements Cache {
     constructor(options?: MemoryCacheOptions);
     get(key: string): Promise<any>;
     remove(key: string): Promise<void>;
-    set(value: any): Promise<any>;
+    set(key: string, bodyStream: Response["body"], metaData: any): Promise<any>;
 }
 
 interface FileSystemCacheOptions {
@@ -35,7 +35,7 @@ export class FileSystemCache implements Cache {
     constructor(options?: FileSystemCacheOptions);
     get(key: string): Promise<any>;
     remove(key: string): Promise<void>;
-    set(value: any): Promise<any>;
+    set(key: string, bodyStream: Response["body"], metaData: any): Promise<any>;
 }
 
 type FetchBuilder = (cache: Cache) => FetchCache;
