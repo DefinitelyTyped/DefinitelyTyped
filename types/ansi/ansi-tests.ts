@@ -25,9 +25,9 @@ Object.keys({
         (_: string, l: string, u: string): string => `${l} ${u.toLowerCase()}`,
     );
 
-    ((cursor[color] as (...anything: any[]) => ansi.Cursor)()
+    (cursor[color] as (...anything: any[]) => ansi.Cursor)()
         .bold()
-        .bg)[color === "blue" || color === "brightBlue" ? "black" : "blue"]()
+        .bg[color === "blue" || color === "brightBlue" ? "black" : "blue"]()
         .write(
             `Hello, bold ${cname} world!\n`,
         )

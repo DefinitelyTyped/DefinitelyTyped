@@ -19,7 +19,7 @@
         ],
         "jsx": "react",
         "paths": {
-            "react-portal": [ "react-portal/v3" ]
+            "react-portal": ["react-portal/v3"]
         }
     },
     "files": [

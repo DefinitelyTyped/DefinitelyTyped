@@ -72,94 +72,6 @@ function useEvent() {
     );
 }
 
-function useAsyncAction() {
-    const [isPending, startTransition] = React.useTransition();
-
-    function handleClick() {
-        // $ExpectType void
-        startTransition(async () => {});
-    }
-}
-
-function formActionsTest() {
-    <form
-        action={formData => {
-            // $ExpectType FormData
-            formData;
-        }}
-    >
-        <input type="text" name="title" defaultValue="Hello" />
-        <input
-            type="submit"
-            formAction={formData => {
-                // $ExpectType FormData
-                formData;
-            }}
-            value="Save"
-        />
-        <button
-            formAction={formData => {
-                // $ExpectType FormData
-                formData;
-            }}
-        >
-            Delete
-        </button>
-    </form>;
-}
-
-const useOptimistic = React.experimental_useOptimistic;
-function Optimistic() {
-    const savedCartSize = 0;
-    const [optimisticCartSize, addToOptimisticCart] = useOptimistic(savedCartSize, (prevSize, newItem) => {
-        // This is the default type for un-inferrable generics in TypeScript.
-        // To have a concrete type either type the second parameter in the reducer (see addToOptimisticCartTyped)
-        // or declare the type of the generic (see addToOptimisticCartTyped2)
-        // $ExpectType unknown
-        newItem;
-        console.log("Increment optimistic cart size for " + newItem);
-        return prevSize + 1;
-    });
-    // $ExpectType number
-    optimisticCartSize;
-
-    const [, addToOptimisticCartTyped] = useOptimistic(savedCartSize, (prevSize, newItem: string) => {
-        // $ExpectType string
-        newItem;
-        console.log("Increment optimistic cart size for " + newItem);
-        return prevSize + 1;
-    });
-    const [, addToOptimisticCartTyped2] = useOptimistic<number, string>(savedCartSize, (prevSize, newItem) => {
-        // $ExpectType string
-        newItem;
-        console.log("Increment optimistic cart size for " + newItem);
-        return prevSize + 1;
-    });
-
-    const addItemToCart = (item: unknown) => {
-        addToOptimisticCart(item);
-        addToOptimisticCartTyped(
-            // @ts-expect-error unknown is not assignable to string
-            item,
-        );
-        addToOptimisticCartTyped(String(item));
-        addToOptimisticCartTyped2(
-            // @ts-expect-error unknown is not assignable to string
-            item,
-        );
-        addToOptimisticCartTyped2(String(item));
-    };
-
-    const [state, setStateDefaultAction] = useOptimistic(1);
-    const handleClick = () => {
-        setStateDefaultAction(2);
-        setStateDefaultAction(() => 3);
-        setStateDefaultAction(n => n + 1);
-        // @ts-expect-error string is not assignable to number
-        setStateDefaultAction("4");
-    };
-}
-
 // ReactNode tests
 {
     // @ts-expect-error
@@ -187,4 +99,51 @@ function elementTypeTests() {
     React.createElement(ReturnPromise);
     <RenderPromise />;
     React.createElement(RenderPromise);
+}
+
+function taintTests() {
+    const taintUniqueValue = React.experimental_taintUniqueValue;
+    const taintObjectReference = React.experimental_taintObjectReference;
+
+    const process = {
+        env: {
+            SECRET: "0967af1802d2a516e88c7c42e0b8ef95",
+        },
+    };
+    const user = {
+        name: "Sebbie",
+    };
+
+    taintUniqueValue("Cannot pass a secret token to the client", process, process.env.SECRET);
+    taintUniqueValue(undefined, process, process.env.SECRET);
+    // @ts-expect-error Probably meant `taintObjectReference`
+    taintUniqueValue(
+        undefined,
+        user,
+    );
+    taintUniqueValue(
+        undefined,
+        process,
+        // @ts-expect-error should use taintObjectReference instead
+        process.env,
+    );
+    taintUniqueValue(
+        undefined,
+        process,
+        // @ts-expect-error Not unique
+        5,
+    );
+
+    taintObjectReference("Don't pass the raw user object to the client", user);
+    taintObjectReference(undefined, user);
+    taintObjectReference(
+        undefined,
+        // @ts-expect-error Not a reference
+        process.env.SECRET,
+    );
+    taintObjectReference(
+        undefined,
+        // @ts-expect-error Not a reference
+        true,
+    );
 }

@@ -135,11 +135,28 @@ async function test() {
     let disposable: Disposable | undefined;
     try {
         const signal = new AbortSignal();
-        signal.addEventListener('abort', (e) => e.stopImmediatePropagation());
+        signal.addEventListener("abort", (e) => e.stopImmediatePropagation());
         disposable = events.addAbortListener(signal, (e) => {
             console.log(e);
         });
     } finally {
         disposable?.[Symbol.dispose]();
     }
+}
+
+{
+    class MyEmitter extends events.EventEmitterAsyncResource {}
+
+    const emitter = new MyEmitter({
+        triggerAsyncId: 123,
+    });
+
+    new events.EventEmitterAsyncResource({
+        name: "test",
+    });
+
+    emitter.asyncId; // $ExpectType number
+    emitter.asyncResource; // $ExpectType EventEmitterReferencingAsyncResource
+    emitter.triggerAsyncId; // $ExpectType number
+    emitter.emitDestroy();
 }

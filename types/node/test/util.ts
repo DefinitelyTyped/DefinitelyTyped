@@ -170,7 +170,7 @@ const arg1UnknownError: (arg: string) => Promise<number> = util.promisify(
 const arg1NoResult: (arg: string) => Promise<any> = util.promisify(
     (arg: string, cb: (err: Error | null) => void): void => {},
 );
- // tslint:disable-next-line void-return
+// tslint:disable-next-line void-return
 const cbOptionalError: () => Promise<void | {}> = util.promisify((cb: (err?: Error | null) => void): void => {
     cb();
 });

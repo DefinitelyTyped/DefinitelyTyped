@@ -14,6 +14,7 @@ export type Dialect =
     | "es7"
     | 7
     | "es6"
+    | "default"
     | "next";
 
 export interface Keywords {

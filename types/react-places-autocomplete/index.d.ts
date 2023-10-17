@@ -41,6 +41,7 @@ export interface PropTypes {
         radius?: number | string | undefined;
         sessionToken?: any;
         types?: string[] | undefined;
+        locationRestriction?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined;
     } | undefined;
     debounce?: number | undefined;
     highlightFirstSuggestion?: boolean | undefined;

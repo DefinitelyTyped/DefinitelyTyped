@@ -355,6 +355,9 @@ function startClient(callback) {
         bar: "abc",
     });
 
+    // @ts-expect-error :: invalid payload
+    typedDoc.create({ bad: true });
+
     typedDoc.ingestSnapshot({
         v: 10,
         type: "json0",
@@ -417,6 +420,12 @@ function startClient(callback) {
     doc.on("del", (data: MyDoc, source: any) => {});
     doc.on("error", (error: ShareDB.Error) => {});
     doc.on("destroy", () => {});
+
+    doc.del();
+    doc.del({ source: true });
+    doc.del((error) => {
+        console.log(error);
+    });
 
     connection.fetchSnapshot("examples", "foo", 123, (error, snapshot: ShareDBClient.Snapshot) => {
         if (error) throw error;

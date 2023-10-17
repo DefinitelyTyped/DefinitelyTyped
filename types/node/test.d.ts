@@ -84,7 +84,9 @@ declare module "node:test" {
     /**
      * ```js
      * import { tap } from 'node:test/reporters';
+     * import { run } from 'node:test';
      * import process from 'node:process';
+     * import path from 'node:path';
      *
      * run({ files: [path.resolve('./tests/test.js')] })
      *   .compose(tap)
@@ -292,6 +294,10 @@ declare module "node:test" {
          * For each test that is executed, any corresponding test hooks, such as `beforeEach()`, are also run.
          */
         testNamePatterns?: string | RegExp | string[] | RegExp[];
+        /**
+         * If truthy, the test context will only run tests that have the `only` option set
+         */
+        only?: boolean;
         /**
          * A function that accepts the TestsStream instance and can be used to setup listeners before any tests are run.
          */
@@ -1368,5 +1374,9 @@ declare module "node:test/reporters" {
     class Spec extends Transform {
         constructor();
     }
-    export { dot, Spec as spec, tap, TestEvent };
+    /**
+     * The `junit` reporter outputs test results in a jUnit XML format
+     */
+    function junit(source: TestEventGenerator): AsyncGenerator<string, void>;
+    export { dot, junit, Spec as spec, tap, TestEvent };
 }

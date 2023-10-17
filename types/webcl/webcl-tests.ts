@@ -326,7 +326,7 @@ class Kernel {
     addArg(arg: ArrayBufferView): number;
     addArg(arg: number): number;
     addArg(value: any): number {
-        if (typeof (value) === "number") { // integer values
+        if (typeof value === "number") { // integer values
             this.kernel.setArg(this.argCount, new Int32Array([<number> value]));
         } else if (value instanceof ArgCLBuffer) { // clBuffer
             this.kernel.setArg(this.argCount, (<ArgCLBuffer> value).buffer); // use the CLBuffer
@@ -342,7 +342,7 @@ class Kernel {
     replaceArg(argIdx: number, arg: number): void;
     replaceArg(argIdx: number, arg: ArrayBufferView): void;
     replaceArg(argIdx: number, value: any): void {
-        if (typeof (value) === "number") {
+        if (typeof value === "number") {
             this.kernel.setArg(argIdx, new Uint32Array([<number> value]));
         } else if (value instanceof ArgCLBuffer) {
             this.kernel.setArg(argIdx, (<ArgCLBuffer> value).buffer); // use the CLBuffer

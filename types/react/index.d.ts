@@ -165,7 +165,7 @@ declare namespace React {
     > {
         type: T;
         props: P;
-        key: Key | null;
+        key: string | null;
     }
 
     interface ReactComponentElement<
@@ -204,7 +204,6 @@ declare namespace React {
     }
 
     interface ReactPortal extends ReactElement {
-        key: Key | null;
         children: ReactNode;
     }
 
@@ -3242,7 +3241,8 @@ declare namespace React {
         /**
          * Captures which component contained the exception, and its ancestors.
          */
-        componentStack: string;
+        componentStack?: string | null;
+        digest?: string | null;
     }
 
     // Keep in sync with JSX namespace in ./jsx-runtime.d.ts and ./jsx-dev-runtime.d.ts

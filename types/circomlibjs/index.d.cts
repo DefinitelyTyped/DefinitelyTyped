@@ -1,4 +1,4 @@
-export type BigNumberish = string | bigint | number | Uint8Array
+export type BigNumberish = string | bigint | number | Uint8Array;
 
 export type Point = [Uint8Array, Uint8Array];
 
@@ -110,11 +110,11 @@ export interface PedersenHash {
     babyJub: BabyJub;
     bases: any[];
 
-    baseHash(type: 'blake' | 'blake2b', S: any): any;
+    baseHash(type: "blake" | "blake2b", S: any): any;
 
-    hash(msg: Uint8Array, options?: { baseHash?: 'blake' | 'blake2b' }): Uint8Array;
+    hash(msg: Uint8Array, options?: { baseHash?: "blake" | "blake2b" }): Uint8Array;
 
-    getBasePoint(baseHashType: 'blake' | 'blake2b', pointIdx: number): Point;
+    getBasePoint(baseHashType: "blake" | "blake2b", pointIdx: number): Point;
 
     padLeftZeros(idx: number, n: number): string;
 

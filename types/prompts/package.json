@@ -1,6 +1,6 @@
 {
-  "private": true,
-  "dependencies": {
-    "kleur": "^3.0.3"
-  }
+    "private": true,
+    "dependencies": {
+        "kleur": "^3.0.3"
+    }
 }

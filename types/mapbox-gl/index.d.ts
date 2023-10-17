@@ -494,7 +494,7 @@ declare namespace mapboxgl {
          */
         setPadding(padding: PaddingOptions, eventData?: EventData): this;
 
-        rotateTo(bearing: number, options?: mapboxgl.AnimationOptions, eventData?: EventData): this;
+        rotateTo(bearing: number, options?: AnimationOptions & CameraOptions, eventData?: EventData): this;
 
         resetNorth(options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 

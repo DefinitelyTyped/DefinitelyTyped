@@ -13,7 +13,7 @@
             "../"
         ],
         "paths": {
-          "@ffmpeg/*": ["ffmpeg__*"]
+            "@ffmpeg/*": ["ffmpeg__*"]
         },
         "types": [],
         "noEmit": true,

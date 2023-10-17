@@ -169,6 +169,7 @@ declare namespace libphonenumber {
         isNumberMatch(firstNumber: string | PhoneNumber, secondNumber: string | PhoneNumber): PhoneNumberUtil.MatchType;
         getLengthOfGeographicalAreaCode(number: PhoneNumber): number;
         getNationalSignificantNumber(number: PhoneNumber): string;
+        getLengthOfNationalDestinationCode(number: PhoneNumber): number;
     }
 
     export class AsYouTypeFormatter {

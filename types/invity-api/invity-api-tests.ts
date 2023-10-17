@@ -17,6 +17,12 @@ const et: ExchangeTrade = {};
 
 const sft: SellFiatTrade = {
     paymentMethodName: "Test",
+    destinationPaymentExtraIdDescription: {
+        description: "",
+        name: "",
+        required: true,
+        type: "number",
+    },
 };
 
 const svt: SavingsTrade = { exchange: "", reauthorizationUrl: "" };

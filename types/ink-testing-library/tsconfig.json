@@ -19,7 +19,7 @@
         "strictFunctionTypes": true
     },
     "files": [
-        "index.d.ts", 
+        "index.d.ts",
         "ink-testing-library-tests.tsx"
     ]
 }
