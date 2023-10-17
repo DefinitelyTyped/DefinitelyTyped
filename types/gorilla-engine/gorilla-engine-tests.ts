@@ -6,5 +6,4 @@ const toggle = new GorillaEngine.UI.Toggle({ id: "myToggle" });
 
 const pad = new GorillaEngine.UI.XYPad({ id: "myXYPad" });
 
-const scrollView = new GorillaEngine.UI.ScrollView({ id: "myScrollView" }); 
-
+const scrollView = new GorillaEngine.UI.ScrollView({ id: "myScrollView" });
