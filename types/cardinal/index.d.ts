@@ -1,8 +1,3 @@
-// Type definitions for cardinal 2.1
-// Project: https://github.com/thlorenz/cardinal#readme
-// Definitions by: Andrew Branch <https://github.com/andrewbranch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import highlight = require("./lib/highlight");
 import highlightFile = require("./lib/highlightFile");
 import highlightFileSync = require("./lib/highlightFileSync");
