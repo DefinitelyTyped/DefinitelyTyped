@@ -2,7 +2,7 @@ import * as express from "express";
 import * as passport from "passport";
 import * as oauth2 from "passport-oauth2";
 
-export interface Profile extends passport.Profile {
+interface Profile extends passport.Profile {
     id: string;
     provider: string;
     username: string;
@@ -18,7 +18,7 @@ export interface Profile extends passport.Profile {
     _json: any;
 }
 
-export interface StrategyOptions extends Partial<passport.Strategy> {
+interface StrategyOptions extends Partial<passport.Strategy> {
     /**
      * clientID: your 42 application's UID
      */
@@ -41,11 +41,11 @@ export interface StrategyOptions extends Partial<passport.Strategy> {
     profileFields?: Record<string, string | ((json: any) => unknown)>;
 }
 
-export interface StrategyOptionsWithRequest extends Omit<StrategyOptions, "passReqToCallback"> {
+interface StrategyOptionsWithRequest extends Omit<StrategyOptions, "passReqToCallback"> {
     passReqToCallback: true;
 }
 
-export type VerifyFunctionWithRequest = (
+type VerifyFunctionWithRequest = (
     req: express.Request,
     accessToken: string,
     refreshToken: string,
@@ -53,14 +53,14 @@ export type VerifyFunctionWithRequest = (
     done: (error: any, user?: any, info?: any) => void,
 ) => void;
 
-export type VerifyFunction = (
+type VerifyFunction = (
     accessToken: string,
     refreshToken: string,
     profile: Profile,
     done: (error: any, user?: any, info?: any) => void,
 ) => void;
 
-export class Strategy extends oauth2.Strategy {
+declare class Strategy extends oauth2.Strategy {
     constructor(options: StrategyOptions, verify: VerifyFunction);
     constructor(options: StrategyOptionsWithRequest, verify: VerifyFunctionWithRequest);
 
@@ -87,3 +87,5 @@ export class Strategy extends oauth2.Strategy {
      */
     userProfile(accessToken: string, done: (err: any, profile?: Profile) => void): void;
 }
+
+export = Strategy;

@@ -1,5 +1,5 @@
 import * as passport from "passport";
-import { Strategy as FortyTwoStrategy } from "passport-42";
+import FortyTwoStrategy = require("passport-42");
 
 const FORTYTWO_APP_ID = "intra client id";
 const FORTYTWO_APP_SECRET = "intra client secret";
