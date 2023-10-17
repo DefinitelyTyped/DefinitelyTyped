@@ -236,9 +236,9 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     React.useMemo(() => ({}));
 
     // allow explicit return empty object
-    React.useMemo(() => ({}), undefined)
+    React.useMemo(() => ({}), undefined);
     // allow explicit return null
-    React.useMemo(() => null, undefined)
+    React.useMemo(() => null, undefined);
     // but not allow factory function return void, prevent accidentally forget to return
     // @ts-expect-error
     React.useMemo(() => {});
