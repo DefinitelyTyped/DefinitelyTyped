@@ -289,6 +289,7 @@ declare namespace sharedb {
 
     type Path = ShareDB.Path;
     type ShareDBSourceOptions = ShareDB.ShareDBSourceOptions;
+    const MESSAGE_ACTIONS: ShareDB.RequestActions;
 
     namespace middleware {
         interface ActionContextMap {

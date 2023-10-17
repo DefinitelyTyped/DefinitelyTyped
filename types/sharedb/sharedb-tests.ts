@@ -489,3 +489,7 @@ class SocketLike {
 
 const socketLike = new SocketLike();
 new ShareDBClient.Connection(socketLike);
+
+const handWrittenMessage = {
+    a: ShareDB.MESSAGE_ACTIONS.bulkFetch,
+};
