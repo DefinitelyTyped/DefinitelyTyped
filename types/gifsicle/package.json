@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/gifsicle",
+    "version": "5.2.9999",
+    "projects": [
+        "https://github.com/imagemin/gifsicle-bin#readme"
+    ],
+    "devDependencies": {
+        "@types/gifsicle": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Almeida",
+            "githubUsername": "almeidx"
+        }
+    ]
+}

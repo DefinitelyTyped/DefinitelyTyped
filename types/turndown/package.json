@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/turndown",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/domchristie/turndown"
+    ],
+    "devDependencies": {
+        "@types/turndown": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sergey Zhidkov",
+            "githubUsername": "sergey-zhidkov"
+        }
+    ]
+}

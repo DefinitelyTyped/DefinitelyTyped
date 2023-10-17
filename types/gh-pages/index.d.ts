@@ -1,8 +1,3 @@
-// Type definitions for gh-pages 3.2
-// Project: https://github.com/tschaub/gh-pages
-// Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export interface Git {
     exec: (command: string) => Promise<this>;
     init: () => Promise<this>;

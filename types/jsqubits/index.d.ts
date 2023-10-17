@@ -1,9 +1,3 @@
-// Type definitions for jsqubits 1.1
-// Project: https://github.com/davidbkemp/jsqubits
-// Definitions by: kamakiri01 <https://github.com/kamakiri01>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
-
 export = jsqubits;
 
 declare const jsqubits: ExternalJSQubitsStatic;

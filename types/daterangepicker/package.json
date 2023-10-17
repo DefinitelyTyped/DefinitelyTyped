@@ -1,6 +1,30 @@
 {
     "private": true,
+    "name": "@types/daterangepicker",
+    "version": "3.1.9999",
+    "projects": [
+        "http://www.daterangepicker.com/",
+        "https://github.com/dangrossman/daterangepicker"
+    ],
     "dependencies": {
+        "@types/jquery": "*",
         "moment": ">=2.14.0"
-    }
+    },
+    "devDependencies": {
+        "@types/daterangepicker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "SirMartin",
+            "githubUsername": "SirMartin"
+        },
+        {
+            "name": "Steven Masala",
+            "githubUsername": "smasala"
+        },
+        {
+            "name": "Grant Hutchins",
+            "githubUsername": "nertzy"
+        }
+    ]
 }

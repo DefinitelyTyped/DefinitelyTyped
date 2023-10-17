@@ -1,10 +1,3 @@
-// Type definitions for react-motion
-// Project: https://github.com/chenglou/react-motion
-// Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
-//                 Dimitar Nestorov <https://github.com/dimitarnestorov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { Component, ReactElement } from "react";
 
 // your typical style object given in props. Maps to a number or a spring config

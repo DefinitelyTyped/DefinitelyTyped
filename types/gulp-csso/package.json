@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-csso",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/ben-eb/gulp-csso"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-csso": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tanguy Krotoff",
+            "githubUsername": "tkrotoff"
+        }
+    ]
+}

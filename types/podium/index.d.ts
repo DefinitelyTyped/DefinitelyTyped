@@ -1,9 +1,3 @@
-// Type definitions for podium 1.0
-// Project: https://github.com/hapijs/podium
-// Definitions by: AJP <https://github.com/AJamesPhillips>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /**
  * Podium
  * Node (semi) compatible event emitter with extra features.

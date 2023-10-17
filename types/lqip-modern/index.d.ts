@@ -1,9 +1,3 @@
-// Type definitions for lqip-modern 1.1
-// Project: https://github.com/transitive-bullshit/lqip-modern/
-// Definitions by: Yaroslav Kiliba <https://github.com/Dattaya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.2
-
 /// <reference types="node" />
 
 import sharp = require("sharp");

@@ -1,10 +1,3 @@
-// Type definitions for rox-node 5.0
-// Project: https://rollout.io
-// Definitions by: g-guirado <https://github.com/g-guirado>
-//                 AsafRollout: <https://github.com/asafRollout>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /**
  * Official documentation for rox-node is available here:
  * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/nodejs-api

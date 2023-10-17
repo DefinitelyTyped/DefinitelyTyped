@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/svg4everybody",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/jonathantneal/svg4everybody#readme"
+    ],
+    "devDependencies": {
+        "@types/svg4everybody": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        },
+        {
+            "name": "bryceosterhaus",
+            "githubUsername": "bryceosterhaus"
+        }
+    ]
+}

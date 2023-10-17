@@ -1,8 +1,3 @@
-// Type definitions for react-native-modern-datepicker 1.0
-// Project: https://github.com/HosseinShabani/react-native-modern-datepicker#readme
-// Definitions by: Ankan002 <https://github.com/Ankan002>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { CSSProperties } from "react";
 
 export interface ModernDatepickerProps {

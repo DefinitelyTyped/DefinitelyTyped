@@ -1,8 +1,3 @@
-// Type definitions for jsprim 2.0
-// Project: https://github.com/joyent/node-jsprim#readme
-// Definitions by: Konrad Perlicki <https://github.com/KonradPerlicki>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { JSONSchema4, JSONSchema6, JSONSchema7, ValidationError } from "json-schema";
 import { WError } from "verror";
 

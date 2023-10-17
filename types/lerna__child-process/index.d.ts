@@ -1,8 +1,3 @@
-// Type definitions for @lerna/child-process 5.1
-// Project: https://github.com/lerna/lerna/blob/main/core/child-process
-// Definitions by: donmahallem <https://github.com/donmahallem>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Package } from "@lerna/package";
 import * as execa from "execa";
 

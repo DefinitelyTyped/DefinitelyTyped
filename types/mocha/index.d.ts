@@ -1,15 +1,3 @@
-// Type definitions for mocha 10.0
-// Project: https://mochajs.org
-// Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>
-//                 otiai10 <https://github.com/otiai10>
-//                 Vadim Macagon <https://github.com/enlight>
-//                 Andrew Bradley <https://github.com/cspotcode>
-//                 Dmitrii Sorin <https://github.com/1999>
-//                 Noah Hummel <https://github.com/strangedev>
-//                 nicojs <https://github.com/nicojs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /**
  * Mocha API
  *

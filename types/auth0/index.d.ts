@@ -1,18 +1,3 @@
-// Type definitions for auth0 3.3
-// Project: https://github.com/auth0/node-auth0
-// Definitions by: Ian Howe <https://github.com/ianhowe76>
-//                 Anthony Messerschmidt <https://github.com/CatGuardian>
-//                 Meng Bernie Sung <https://github.com/MengRS>
-//                 Léo Haddad Carneiro <https://github.com/Scoup>
-//                 Isabela Morais <https://github.com/isabela-morais>
-//                 Raimondo Butera <https://github.com/rbutera>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Dan Ursin <https://github.com/danursin>
-//                 Nathan Hardy <https://github.com/nhardy>
-//                 Nicholas Molen <https://github.com/robotastronaut>
-//                 Chris Frewin <https://github.com/princefishthrower>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ManagementClientOptions {
     token?: string | undefined;
     domain: string;

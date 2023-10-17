@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/proclaim",
+    "version": "3.6.9999",
+    "projects": [
+        "https://github.com/rowanmanning/proclaim"
+    ],
+    "devDependencies": {
+        "@types/proclaim": "workspace:."
+    },
+    "owners": []
+}

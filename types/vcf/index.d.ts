@@ -1,9 +1,3 @@
-// Type definitions for vcf 2.0
-// Project: https://github.com/jhermsmeier/node-vcf
-// Definitions by: mcpar-land <https://github.com/mcpar-land>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
 export = vCard;

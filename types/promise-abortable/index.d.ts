@@ -1,9 +1,3 @@
-// Type definitions for promise-abortable 1.2
-// Project: https://github.com/dondevi/promise-abortable
-// Definitions by: Junxiao Shi <https://github.com/yoursunny>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 interface AbortSignal {
     readonly aborted: boolean;
 

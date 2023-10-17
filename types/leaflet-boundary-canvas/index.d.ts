@@ -1,8 +1,3 @@
-// Type definitions for leaflet-boundary-canvas 1.0
-// Project: https://github.com/ttungbmt/leaflet-boundary-canvas#readme
-// Definitions by: TurtIeSocks <https://github.com/TurtIeSocks>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import type { FeatureCollection } from "geojson";
 import * as L from "leaflet";
 

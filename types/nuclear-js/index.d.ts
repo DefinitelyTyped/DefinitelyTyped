@@ -1,8 +1,3 @@
-// Type definitions for nuclear-js 1.4
-// Project: https://github.com/optimizely/nuclear-js
-// Definitions by: Pat Lillis <https://github.com/patlillis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as _Immutable from "immutable";
 
 // Disable automatic exports.

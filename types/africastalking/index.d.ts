@@ -1,8 +1,3 @@
-// Type definitions for africastalking 0.6
-// Project: https://www.npmjs.com/package/africastalking
-// Definitions by: James Kaguru <https://github.com/James-Kaguru>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface SMSMessageData {
     Message: string;
     Recipients: {

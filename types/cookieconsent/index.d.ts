@@ -1,8 +1,3 @@
-// Type definitions for cookieconsent 3.1
-// Project: https://www.npmjs.com/package/cookieconsent
-// Definitions by: Kelly Littlepage <https://github.com/klittlepage>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as CSS from "csstype";
 
 export type Status = "deny" | "allow" | "dismiss";

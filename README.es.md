@@ -151,7 +151,7 @@ Para un buen paquete de ejemplo, vea [base64-js](https://github.com/DefinitelyTy
 
 Cuando un paquete [bundles](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) sus propios tipos, estos tipos deberán ser removidos de Definitely Typed para evitar que generen confusión.
 
-Se puede remover ejecutando `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`.
+Se puede remover ejecutando `pnpm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`.
 - `<typingsPackageName>`: Este es el nombre del directorio que tienes que eliminar.
 - `<asOfVersion>`: Un stub será publicado a `@types/<typingsPackageName>` con esta versión. Debería ser más grande que cualquier versión publicada actualmente.
 - `<libraryName>`: Un nombre descriptivo de la librería, p.ej. "Angular 2" en vez de "angular2". (Si es omitido, será idéntico a `<typingsPackageName>`.)

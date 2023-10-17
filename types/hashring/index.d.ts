@@ -1,9 +1,3 @@
-// Type definitions for hashring 3.2
-// Project: https://github.com/3rd-Eden/node-hashring
-// Definitions by: superzheng <https://github.com/medns>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
 declare namespace HashRing {

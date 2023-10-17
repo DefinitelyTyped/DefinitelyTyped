@@ -1,9 +1,3 @@
-// Type definitions for enzyme-react-intl 2.0
-// Project: https://github.com/joetidee/enzyme-react-intl#readme
-// Definitions by: Mateusz Meller <https://github.com/mateusz-meller>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 import { MountRendererProps, ReactWrapper, ShallowRendererProps, ShallowWrapper } from "enzyme";
 import { Component, ReactElement } from "react";
 import { IntlProvider } from "react-intl";

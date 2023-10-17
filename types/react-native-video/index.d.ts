@@ -1,11 +1,3 @@
-// Type definitions for react-native-video 5.0
-// Project: https://github.com/react-native-community/react-native-video, https://github.com/brentvatne/react-native-video
-// Definitions by: HuHuanming <https://github.com/huhuanming>
-//                 Nekith <https://github.com/Nekith>
-//                 Philip Frank <https://github.com/bananer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 import { ViewProps } from "react-native";
 

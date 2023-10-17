@@ -1,8 +1,3 @@
-// Type definitions for mitsobox 0.1
-// Project: https://github.com/jimfilippou/mitsobox
-// Definitions by: MrClemds <https://github.com/MrClemds>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Create a win32 messageBox ok dialog
  *

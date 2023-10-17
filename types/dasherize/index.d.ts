@@ -1,9 +1,3 @@
-// Type definitions for dasherize 2.0
-// Project: https://github.com/shahata/dasherize
-// Definitions by: Julio Cordeiro <https://github.com/juliomrc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.5
-
 declare function dasherize<T>(data: T): DasherizeReturnType<T>;
 export = dasherize;
 

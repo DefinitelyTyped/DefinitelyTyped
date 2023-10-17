@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/leaflet-routing-machine",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/perliedman/leaflet-routing-machine#readme"
+    ],
+    "dependencies": {
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/leaflet-routing-machine": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chanaka Rathnayaka",
+            "githubUsername": "chanakadrathnayaka"
+        }
+    ]
+}

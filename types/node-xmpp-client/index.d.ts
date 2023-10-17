@@ -1,9 +1,3 @@
-// Type definitions for node-xmpp-client 3.1
-// Project: https://github.com/node-xmpp/node-xmpp
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export class Client {
     static Stanza: Stanza;
 

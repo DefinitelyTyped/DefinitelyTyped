@@ -11,10 +11,6 @@
         "noUnusedLocals": true,
         "strictFunctionTypes": true,
         "noUnusedParameters": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

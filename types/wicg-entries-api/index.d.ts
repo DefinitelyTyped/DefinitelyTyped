@@ -1,9 +1,3 @@
-// Type definitions for non-npm package File and Directory Entries API 2020.08
-// Project: https://github.com/WICG/entries-api, https://wicg.github.io/entries-api/
-// Definitions by: Henning Kasch <https://github.com/HenningCash>
-//                 Ingvar Stepanyan <https://github.com/RReverser>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type ErrorCallback = (err: DOMException) => void;
 type FileSystemEntryCallback = (entry: FileSystemEntry) => void;
 type FileSystemEntriesCallback = (entries: FileSystemEntry[]) => void;

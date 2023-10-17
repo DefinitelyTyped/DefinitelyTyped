@@ -1,17 +1,3 @@
-// Type definitions for PapaParse 5.3
-// Project: https://github.com/mholt/PapaParse
-// Definitions by: Pedro Flemming <https://github.com/torpedro>
-//                 Rain Shen <https://github.com/rainshen49>
-//                 João Loff <https://github.com/jfloff>
-//                 John Reilly <https://github.com/johnnyreilly>
-//                 Alberto Restifo <https://github.com/albertorestifo>
-//                 Janne Liuhtonen <https://github.com/jliuhtonen>
-//                 Raphaël Barbazza <https://github.com/rbarbazz>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
-//                 Opportunity Liu <https://github.com/OpportunityLiu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Duplex } from "stream";

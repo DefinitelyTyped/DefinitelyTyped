@@ -1,8 +1,3 @@
-// Type definitions for fastbitset 0.2
-// Project: https://github.com/lemire/FastBitSet.js
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class FastBitSet {
     constructor(iterable?: Iterable<number>);
 

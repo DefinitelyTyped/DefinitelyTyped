@@ -1,9 +1,3 @@
-// Type definitions for liftoff 4.0
-// Project: https://github.com/js-cli/js-liftoff#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>,
-//                 Corbin Crutchley <https://github.com/crutchcorn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

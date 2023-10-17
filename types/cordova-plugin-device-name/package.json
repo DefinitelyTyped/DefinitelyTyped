@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/cordova-plugin-device-name",
+    "version": "1.1.9999",
+    "projects": [
+        "https://www.npmjs.com/package/cordova-plugin-device-name"
+    ],
+    "devDependencies": {
+        "@types/cordova": "*",
+        "@types/cordova-plugin-device-name": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Larry Bahr",
+            "githubUsername": "larrybahr"
+        }
+    ]
+}

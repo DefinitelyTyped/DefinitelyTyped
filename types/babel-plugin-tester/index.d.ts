@@ -1,10 +1,3 @@
-// Type definitions for babel-plugin-tester 9.0
-// Project: https://github.com/babel-utils/babel-plugin-tester#readme
-// Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
-//                 Mathieu TUDISCO <https://github.com/mathieutu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
-
 import * as Babel from "@babel/core";
 import { Options } from "prettier";
 

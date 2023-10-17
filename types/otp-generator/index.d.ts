@@ -1,8 +1,3 @@
-// Type definitions for otp-generator 4.0
-// Project: https://github.com/Maheshkumar-Kakade/otp-generator
-// Definitions by: Md Sifatul Islam Rabbi <https://github.com/sifatulrabbi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Options {
     digits?: boolean;
     lowerCaseAlphabets?: boolean;

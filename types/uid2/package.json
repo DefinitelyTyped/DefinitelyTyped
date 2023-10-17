@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/uid2",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/coreh/uid2"
+    ],
+    "devDependencies": {
+        "@types/uid2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Levi Bostian",
+            "githubUsername": "levibostian"
+        }
+    ]
+}

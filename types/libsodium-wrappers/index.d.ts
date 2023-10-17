@@ -1,9 +1,3 @@
-// Type definitions for libsodium-wrappers 0.7
-// Project: https://github.com/jedisct1/libsodium.js
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export type Uint8ArrayOutputFormat = "uint8array";
 
 export type StringOutputFormat = "text" | "hex" | "base64";

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jasmine",
+    "version": "1.3.9999",
+    "projects": [
+        "https://jasmine.github.io/"
+    ],
+    "devDependencies": {
+        "@types/jasmine": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for react-native-listener 1.1
-// Project: https://github.com/erikras/react-native-listener
-// Definitions by: Chintan <https://github.com/ChintanAcharya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Component, ReactElement } from "react";
 
 type NativeEvent =

@@ -1,8 +1,3 @@
-// Type definitions for react-native-joi 0.0
-// Project: https://github.com/GoldenOwlAsia/react-native-joi.git
-// Definitions by: charles strong <https://github.com/CharlesStrong-GeoH>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.3
 export type Types =
     | "any"

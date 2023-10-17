@@ -1,8 +1,3 @@
-// Type definitions for fireo 1.0
-// Project: https://github.com/octabytes/fireo-nodejs
-// Definitions by: Azeem Haider <https://github.com/AxeemHaider>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export namespace Fireo {
     function runTransaction(callback: () => any): Promise<any>;
 

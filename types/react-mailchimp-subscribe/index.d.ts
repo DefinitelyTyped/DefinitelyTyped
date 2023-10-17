@@ -1,9 +1,3 @@
-// Type definitions for react-mailchimp-subscribe 2.1
-// Project: https://revolunet.github.io/react-mailchimp-subscribe/
-// Definitions by: Omar Diab <https://github.com/osdiab>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 import { Component, ReactNode } from "react";
 
 // A few common set of form fields, based on defaults in Mailchimp's website

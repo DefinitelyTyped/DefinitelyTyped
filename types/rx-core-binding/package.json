@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/rx-core-binding",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/Reactive-Extensions/RxJS"
+    ],
+    "dependencies": {
+        "@types/rx-core": "*"
+    },
+    "devDependencies": {
+        "@types/rx-core-binding": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Carl de Billy",
+            "url": "http://carl.debilly.net/"
+        },
+        {
+            "name": "Igor Oleinikov",
+            "githubUsername": "Igorbek"
+        }
+    ]
+}

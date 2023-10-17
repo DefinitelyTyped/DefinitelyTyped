@@ -1,11 +1,3 @@
-// Type definitions for @rebass/grid 6.0
-// Project: https://github.com/rebassjs/grid
-// Definitions by: Anton Vasin <https://github.com/antonvasin>
-//                 Victor Orlov <https://github.com/vittorio>
-//                 akameco <https://github.com/akameco>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 import * as React from "react";
 import * as StyledSystem from "styled-system";
 

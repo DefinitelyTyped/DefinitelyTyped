@@ -1,10 +1,3 @@
-// Type definitions for dinero.js 1.9
-// Project: https://sarahdayan.github.io/dinero.js
-// Definitions by: BendingBender <https://github.com/BendingBender>
-//                 David Acosta <https://github.com/juandaco>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace Dinero;
 
 export = DineroFactory;

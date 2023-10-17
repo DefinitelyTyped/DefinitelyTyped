@@ -1,14 +1,3 @@
-// Type definitions for TinyMCE 4.6
-// Project: https://github.com/tinymce/tinymce, https://github.com/tinymce/tinymce-dist
-// Definitions by: Martin Duparc <https://github.com/martinduparc>
-//                 Poul Poulsen <https://github.com/iampoul>
-//                 Nico Hartto <https://github.com/nicohartto>
-//                 Tyler Romeo <https://github.com/Parent5446>
-//                 Ashley Workman <https://github.com/CymruKakashi>
-//                 Tagawa Hirotaka <https://github.com/wafuwafu13>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // Work In Progress
 
 /// <reference types="jquery" />

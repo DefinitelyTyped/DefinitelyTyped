@@ -1,8 +1,3 @@
-// Type definitions for paystack 2.0
-// Project: https://github.com/kehers/paystack
-// Definitions by: Oladiran Segun Solomon <https://github.com/sheghun>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /*~ Note that ES6 modules cannot directly export callable functions.
  *~ This file should be imported using the CommonJS-style:
  *~   import x = require('someLibrary');

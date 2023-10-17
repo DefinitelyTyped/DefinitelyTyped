@@ -1,19 +1,3 @@
-// Type definitions for ECharts 4.9.0
-// Project: http://echarts.apache.org
-// Definitions by: Xie Jingyang <https://github.com/xieisabug>
-//                 AntiMoron <https://github.com/AntiMoron>
-//                 Liveangela <https://github.com/liveangela>
-//                 Ovilia <https://github.com/Ovilia>
-//                 Roman <https://github.com/iRON5>
-//                 Bilal <https://github.com/bilalucar>
-//                 TMTron <https://github.com/tmtron>
-//                 dwhitney <https://github.com/dwhitney>
-//                 Ruixuel <https://github.com/ruixuel>
-//                 trajnisz <https://github.com/trajnisz>
-//                 Godfery <https://github.com/hiyangguo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="zrender" />
 /// <reference path="./options/index.d.ts" />
 

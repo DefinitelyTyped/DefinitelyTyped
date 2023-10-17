@@ -1,9 +1,3 @@
-// Type definitions for date-arithmetic 4.1
-// Project: https://github.com/jquense/date-math
-// Definitions by: Sergii Paryzhskyi <https://github.com/HeeL>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type Unit =
     | "milliseconds"
     | "seconds"

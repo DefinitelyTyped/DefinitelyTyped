@@ -1,8 +1,3 @@
-// Type definitions for nsqjs 0.12
-// Project: https://github.com/dudleycarr/nsqjs
-// Definitions by: Robert Kania <https://github.com/cezaryrk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as events from "events";

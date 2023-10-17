@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/voca",
+    "version": "1.4.9999",
+    "projects": [
+        "https://vocajs.com/"
+    ],
+    "devDependencies": {
+        "@types/voca": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pine Mizune",
+            "githubUsername": "pine"
+        }
+    ]
+}

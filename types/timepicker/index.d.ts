@@ -1,9 +1,3 @@
-// Type definitions for Timepicker Plugin for jQuery 1.13
-// Project: <https://github.com/jonthornton/jquery-timepicker>
-// Definitions by: doberkofler <https://github.com/doberkofler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="jquery"/>
 
 interface JQueryTimepickerOptions {

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/pg-cursor",
+    "version": "2.7.9999",
+    "projects": [
+        "https://github.com/brianc/node-postgres#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/pg": "*"
+    },
+    "devDependencies": {
+        "@types/pg-cursor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tiogshi Laj",
+            "githubUsername": "Tiogshi"
+        },
+        {
+            "name": "Elias Fauser",
+            "githubUsername": "elias-fauser"
+        }
+    ]
+}

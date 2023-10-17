@@ -1,9 +1,3 @@
-// Type definitions for jxon 2.0
-// Project: https://www.npmjs.com/package/jxon
-// Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 export type FunctionType = (arg: unknown) => void;
 export type VerbosityType = 0 | 1 | 2 | 3;
 

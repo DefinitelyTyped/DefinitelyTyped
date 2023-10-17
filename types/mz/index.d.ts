@@ -1,9 +1,3 @@
-// Type definitions for mz 2.7
-// Project: https://github.com/normalize/mz
-// Definitions by: Thomas Hickman <https://github.com/ThomasHickman>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Modified from the node.js definitions.
 // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/node/index.d.ts
 

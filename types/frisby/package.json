@@ -1,6 +1,26 @@
 {
     "private": true,
+    "name": "@types/frisby",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/vlucas/frisby",
+        "http://frisbyjs.com"
+    ],
     "dependencies": {
+        "@types/node-fetch": "*",
         "joi": "^17.3.0"
-    }
+    },
+    "devDependencies": {
+        "@types/frisby": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christopher E. Woodland",
+            "githubUsername": "cwoodland"
+        },
+        {
+            "name": "Johnny Li",
+            "githubUsername": "johnny4753"
+        }
+    ]
 }

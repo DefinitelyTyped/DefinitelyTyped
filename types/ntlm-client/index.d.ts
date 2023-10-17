@@ -1,8 +1,3 @@
-// Type definitions for ntlm-client 0.1
-// Project: https://github.com/clncln1/node-ntlm-client
-// Definitions by: Manuel Borrajo <https://github.com/borrajo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 interface NtlmType2 {

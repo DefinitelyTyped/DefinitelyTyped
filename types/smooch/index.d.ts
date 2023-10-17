@@ -1,9 +1,3 @@
-// Type definitions for smooch 5.3
-// Project: https://github.com/zendesk/sunshine-conversations-web
-// Definitions by: Jordan Sorensen <https://github.com/jpsorensen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-
 /// <reference path="./global.d.ts" />
 
 declare namespace Smooch {

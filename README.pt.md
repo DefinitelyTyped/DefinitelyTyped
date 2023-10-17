@@ -163,7 +163,7 @@ Para ver um bom exemplo, veja o pacote [base64-js](https://github.com/Definitely
 
 Quando um pacote [inclui](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) seus próprios tipos, os tipos devem ser removidos do Definitely Typed para evitar confusão.
 
-Você pode removê-lo executando `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`
+Você pode removê-lo executando `pnpm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`
 - `<typingsPackageName>`: O nome do diretório a ser deletado.
 - `<asOfVersion>`: Um esboço será publicado em `@types/<typingsPackageName>` com essa versão. Deve ser maior do que qualquer versão atualmente publicada, e deve ser uma versão de `<libraryName>` no npm.
 - `<libraryName>`: Nome do pacote no npm que substitui os tipos do Definitely Typed. Normalmente é idêntico ao `<typingsPackageName>`, e nesse caso pode ser omitido.
@@ -280,7 +280,7 @@ Se um arquivo não for testado nem referenciado no `index.d.ts`, adicione-o em u
 #### Erros comuns
 
 * Primeiro, siga as instruções do [manual](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formatação: Use 4 espaços. O Prettier está configurado neste repositório, então você pode executar `npm run prettier -- --write 'path/to/package/**/*.ts'`. [Se estiver usando asserções](https://github.com/SamVerschueren/tsd#assertions), adicione a tag de exclusão `// prettier-ignore` para marcar linhas de código como exclusas da formatação:
+* Formatação: Use 4 espaços. O Prettier está configurado neste repositório, então você pode executar `pnpm run prettier -- --write 'path/to/package/**/*.ts'`. [Se estiver usando asserções](https://github.com/SamVerschueren/tsd#assertions), adicione a tag de exclusão `// prettier-ignore` para marcar linhas de código como exclusas da formatação:
   ```tsx
   // prettier-ignore
   // @ts-expect-error

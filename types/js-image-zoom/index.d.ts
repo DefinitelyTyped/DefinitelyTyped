@@ -1,8 +1,3 @@
-// Type definitions for js-image-zoom 0.7
-// Project: https://github.com/malaman/js-image-zoom/#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // tslint:disable-next-line:no-unnecessary-class
 declare class ImageZoom {
     /**

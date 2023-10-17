@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/restify-errors",
+    "version": "4.3.9999",
+    "projects": [
+        "http://www.restify.com"
+    ],
+    "dependencies": {
+        "@types/verror": "*"
+    },
+    "devDependencies": {
+        "@types/restify-errors": "workspace:."
+    },
+    "owners": []
+}

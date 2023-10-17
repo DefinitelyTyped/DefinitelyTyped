@@ -1,9 +1,3 @@
-// Type definitions for ag-simple-broker 5.0
-// Project: https://github.com/SocketCluster/ag-simple-broker
-// Definitions by: Daniel Rose <https://github.com/DanielRose>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import AsyncStreamEmitter = require("async-stream-emitter");
 import AGServer = require("socketcluster-server/server");
 import ConsumableStream = require("consumable-stream");

@@ -1,8 +1,3 @@
-// Type definitions for jsx-pdf 2.2
-// Project: https://github.com/schibsted/jsx-pdf#readme
-// Definitions by: Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
 import * as PDFMake from "pdfmake/interfaces";
 
 export function renderPdf(jsx: JSX.Element): PDFMake.TDocumentDefinitions;

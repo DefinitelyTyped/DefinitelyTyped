@@ -1,8 +1,3 @@
-// Type definitions for voilab-pdf-table 0.5
-// Project: https://github.com/voilab/voilab-pdf-table
-// Definitions by: Daniel Sousa <https://github.com/danielb7390>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import "pdfkit";
 
 export = VoilabPdfTable;

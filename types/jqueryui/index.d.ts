@@ -1,9 +1,3 @@
-// Type definitions for jQueryUI 1.12
-// Project: http://jqueryui.com/
-// Definitions by: Boris Yankov <https://github.com/borisyankov>, John Reilly <https://github.com/johnnyreilly>, Dieter Oberkofler <https://github.com/doberkofler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 declare namespace JQueryUI {

@@ -1,8 +1,3 @@
-// Type definitions for db-stations 4.1
-// Project: https://github.com/derhuerst/db-stations
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { Readable } from "stream";
 

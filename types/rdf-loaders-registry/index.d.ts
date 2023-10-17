@@ -1,9 +1,3 @@
-// Type definitions for rdf-loaders-registry 0.3
-// Project: https://github.com/zazuko/rdf-loaders-registry
-// Definitions by: tpluscode <https://github.com/tpluscode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 import { GraphPointer } from "clownface";
 import { NamedNode } from "rdf-js";
 

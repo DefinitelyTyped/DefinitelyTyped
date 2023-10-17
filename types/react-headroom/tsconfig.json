@@ -2,16 +2,19 @@
     "compilerOptions": {
         "jsx": "react",
         "module": "commonjs",
-        "lib": ["es6"],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "react-headroom-tests.tsx"]
+    "files": [
+        "index.d.ts",
+        "react-headroom-tests.tsx"
+    ]
 }

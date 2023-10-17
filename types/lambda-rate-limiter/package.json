@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/lambda-rate-limiter",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/blackflux/lambda-rate-limiter"
+    ],
+    "devDependencies": {
+        "@types/lambda-rate-limiter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "bendingbender"
+        }
+    ]
+}

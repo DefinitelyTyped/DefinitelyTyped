@@ -1,8 +1,3 @@
-// Type definitions for ouibounce 0.0
-// Project: https://github.com/carlsednaoui/ouibounce
-// Definitions by: Krzysztof Gutkowski <https://github.com/LiquidPL>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace ouibounce;
 
 export = Ouibounce;

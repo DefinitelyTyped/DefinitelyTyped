@@ -1,8 +1,3 @@
-// Type definitions for @eseb/request-state 2.0
-// Project: https://github.com/eseb/request-state#readme
-// Definitions by: Ciarán Ingle <https://github.com/inglec-arista>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type State = "FAILED" | "IN_PROGRESS" | "NOT_REQUESTED" | "SUCCEEDED";
 
 export default class RequestState<T = never> {

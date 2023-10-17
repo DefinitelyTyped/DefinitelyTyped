@@ -1,17 +1,20 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6"],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "wepy-redux-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "wepy-redux-tests.ts"
+    ]
 }

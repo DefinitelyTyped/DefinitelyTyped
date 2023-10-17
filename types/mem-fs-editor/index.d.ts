@@ -1,10 +1,3 @@
-// Type definitions for mem-fs-editor 7.0
-// Project: https://github.com/SBoudrias/mem-fs-editor#readme
-// Definitions by: My Food Bag <https://github.com/MyFoodBag>
-//                 Jason Kwok <https://github.com/JasonHK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="node" />
 
 import { Data as TemplateData, Options as TemplateOptions } from "ejs";

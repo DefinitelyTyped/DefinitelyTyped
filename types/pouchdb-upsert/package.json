@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/pouchdb-upsert",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/pouchdb/upsert",
+        "https://github.com/nolanlawson/pouchdb-upsert"
+    ],
+    "dependencies": {
+        "@types/pouchdb-core": "*"
+    },
+    "devDependencies": {
+        "@types/pouchdb-upsert": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Keith D. Moore",
+            "githubUsername": "keithdmoore"
+        },
+        {
+            "name": "Andrew Mitchell",
+            "githubUsername": "hotforfeature"
+        },
+        {
+            "name": "Eddie Hsu",
+            "githubUsername": "apolkingg8"
+        },
+        {
+            "name": "John McLaughlin",
+            "githubUsername": "zamb3zi"
+        }
+    ]
+}

@@ -1,18 +1,3 @@
-// Type definitions for Ember.js 3.16
-// Project: https://emberjs.com/, https://github.com/emberjs/ember
-// Definitions by: bttf <https://github.com/bttf>
-//                 Derek Wickern <https://github.com/dwickern>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 Theron Cross <https://github.com/theroncross>
-//                 Martin Feckie <https://github.com/mfeckie>
-//                 Alex LaFroscia <https://github.com/alexlafroscia>
-//                 Mike North <https://github.com/mike-north>
-//                 Bryan Crotaz <https://github.com/BryanCrotaz>
-//                 James C. Davis <https://github.com/jamescdavis>
-//                 Krystan HuffMenne <https://github.com/gitKrystan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 // Capitalization is intentional: this makes it much easier to re-export RSVP on
 // the Ember namespace.
 import Rsvp from "rsvp";

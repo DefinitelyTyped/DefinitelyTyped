@@ -1,9 +1,3 @@
-// Type definitions for webpack-shell-plugin 0.5
-// Project: https://github.com/1337programming/webpack-shell-plugin
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
 import { Plugin } from "webpack";
 
 declare class WebpackShellPlugin extends Plugin {

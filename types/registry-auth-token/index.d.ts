@@ -1,10 +1,3 @@
-// Type definitions for Registry Auth Token 4.2
-// Project: https://github.com/rexxars/registry-auth-token
-// Definitions by: Maurice de Beijer <https://github.com/mauricedb>
-//                 James Liang <https://github.com/LiangZugeng>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Simple namespace describing the inputs and outputs for `registry-auth-token`
  */

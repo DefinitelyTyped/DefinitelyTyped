@@ -1,9 +1,3 @@
-// Type definitions for react-speech-recognition 3.9
-// Project: https://github.com/JamesBrill/react-speech-recognition#readme
-// Definitions by: OleksandrYehorov <https://github.com/OleksandrYehorov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 /// <reference types="dom-speech-recognition" />
 
 interface Command {

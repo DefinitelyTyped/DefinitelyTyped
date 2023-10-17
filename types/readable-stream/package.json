@@ -1,6 +1,25 @@
 {
     "private": true,
+    "name": "@types/readable-stream",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/nodejs/readable-stream"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "safe-buffer": "~5.1.1"
-    }
+    },
+    "devDependencies": {
+        "@types/readable-stream": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "TeamworkGuy2",
+            "githubUsername": "TeamworkGuy2"
+        },
+        {
+            "name": "markdreyer",
+            "githubUsername": "markdreyer"
+        }
+    ]
 }

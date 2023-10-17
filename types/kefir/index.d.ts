@@ -1,10 +1,3 @@
-// Type definitions for Kefir 3.8.1
-// Project: http://rpominov.github.io/kefir/
-// Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
-//                 Piotr Hitori Bosak <https://github.com/HitoriSensei>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="node" />
 
 export type ValueOfAnObservable<T extends Observable<any, any>> = T[""];

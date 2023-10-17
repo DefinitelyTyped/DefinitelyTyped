@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/google-apps-script",
+    "version": "1.0.9999",
+    "projects": [
+        "https://developers.google.com/apps-script/"
+    ],
+    "devDependencies": {
+        "@types/google-apps-script": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "PopGoesTheWza",
+            "githubUsername": "PopGoesTheWza"
+        },
+        {
+            "name": "motemen",
+            "githubUsername": "motemen"
+        },
+        {
+            "name": "pierluigi-montagna",
+            "githubUsername": "pierluigi-montagna"
+        },
+        {
+            "name": "mtgto",
+            "githubUsername": "mtgto"
+        }
+    ]
+}

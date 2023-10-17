@@ -1,8 +1,3 @@
-// Type definitions for passport-google-id-token 0.4
-// Project: https://github.com/jmreyes/passport-google-id-token
-// Definitions by: Duy Nguyen <https://github.com/Wyfy0107>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Strategy as PassportStrategy } from "passport";
 
 declare class GoogleTokenStrategy extends PassportStrategy {

@@ -1,8 +1,3 @@
-// Type definitions for crimsonq 0.5
-// Project: https://github.com/ywadi/crimsonqClient
-// Definitions by: AsharDweedar <https://github.com/AsharDweedar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { EventEmitter } from "events";
 import * as IORedis from "ioredis";
 

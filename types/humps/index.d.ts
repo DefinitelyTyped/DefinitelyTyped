@@ -1,9 +1,3 @@
-// Type definitions for humps 2.0
-// Project: https://github.com/domchristie/humps
-// Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Minimum TypeScript Version: 4.1
 
 export type SnakeToCamelCase<S extends string> = S extends `${infer P1}_${infer P2}${infer P3}`

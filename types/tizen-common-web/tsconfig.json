@@ -2,11 +2,12 @@
     "compilerOptions": {
         "target": "ES2016",
         "module": "commonjs",
-        "lib": ["dom", "es6"],
+        "lib": [
+            "dom",
+            "es6"
+        ],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "esModuleInterop": true,
         "noImplicitAny": true,

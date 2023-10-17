@@ -1,9 +1,3 @@
-// Type definitions for Gamedig 4.0
-// Project: https://github.com/sonicsnes/node-gamedig
-// Definitions by: Ivan Sieder <https://github.com/ivansieder>
-//                 Pascal Sthamer <https://github.com/p4sca1>
-//                 Joshua Schmeder <https://github.com/MaximumWoahverdrive>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare class Gamedig {
     constructor(runnerOpts?: { listenUdpPort?: number | undefined });
     query(options: Gamedig.QueryOptions): Promise<Gamedig.QueryResult>;

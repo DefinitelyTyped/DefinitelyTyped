@@ -1,13 +1,3 @@
-// Type definitions for non-npm package NAVER Maps JavaScript API 3.7
-// Project: https://navermaps.github.io/maps.js.ncp/
-// Definitions by: Ckboyjiy <https://github.com/ckboyjiy>
-//                 DongKyuuuu <https://github.com/DongKyuuuu>
-//                 Minchul Joh <https://github.com/fclemonschool>
-//                 Suhwan Cha <https://github.com/suhwancha>
-//                 Yellowinq <https://github.com/hig4342>
-//                 kkokko Jeong <https://github.com/kkokkojeong>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // NAVER Maps JavaScript API Version: 3.7
 
 /// <reference types="geojson" />

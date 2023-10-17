@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-easy-chart",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/rma-consulting/react-easy-chart"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-easy-chart": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dave Leaver",
+            "githubUsername": "danzel"
+        }
+    ]
+}

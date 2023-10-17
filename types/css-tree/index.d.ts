@@ -1,10 +1,3 @@
-// Type definitions for css-tree 2.3
-// Project: https://github.com/csstree/csstree
-// Definitions by: Erik Källén <https://github.com/erik-kallen>
-//                 Jason Kratzer <https://github.com/pyoor>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 export interface CssLocation {
     source: string;
     start: {

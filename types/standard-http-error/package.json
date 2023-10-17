@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/standard-http-error",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/moll/js-standard-http-error"
+    ],
+    "dependencies": {
+        "@types/standard-error": "*"
+    },
+    "devDependencies": {
+        "@types/standard-http-error": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Labat Robin",
+            "githubUsername": "roblabat"
+        },
+        {
+            "name": "Saiichi Hashimoto",
+            "githubUsername": "saiichihashimoto"
+        }
+    ]
+}

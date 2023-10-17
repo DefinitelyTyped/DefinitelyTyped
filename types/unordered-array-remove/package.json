@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/unordered-array-remove",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mafintosh/unordered-array-remove"
+    ],
+    "devDependencies": {
+        "@types/unordered-array-remove": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

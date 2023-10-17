@@ -8,13 +8,6 @@
         ],
         "strict": true,
         "experimentalDecorators": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "@ember/*": ["ember__*"]
-        },
         "types": [],
         "noEmit": true,
         "exactOptionalPropertyTypes": true,

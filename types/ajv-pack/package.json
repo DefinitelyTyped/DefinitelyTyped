@@ -1,6 +1,24 @@
 {
     "private": true,
+    "name": "@types/ajv-pack",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/epoberezkin/ajv-pack"
+    ],
     "dependencies": {
         "ajv": "^5.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/ajv-pack": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mihail Malo",
+            "githubUsername": "qm3ster"
+        },
+        {
+            "name": "Christian Murphy",
+            "githubUsername": "ChristianMurphy"
+        }
+    ]
 }

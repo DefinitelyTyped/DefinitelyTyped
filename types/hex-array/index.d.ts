@@ -1,8 +1,3 @@
-// Type definitions for hex-array 1.0
-// Project: https://github.com/colinbarry/hex-array#readme
-// Definitions by: 0xcaff <https://github.com/0xcaff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Options {
     /**
      * This number of hex bytes are grouped together with spaces between groups.

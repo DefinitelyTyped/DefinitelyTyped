@@ -1,12 +1,3 @@
-// Type definitions for non-npm package Atom 1.40
-// Project: https://github.com/atom/atom
-// Definitions by: GlenCFL <https://github.com/GlenCFL>
-//                 smhxx <https://github.com/smhxx>
-//                 lierdakil <https://github.com/lierdakil>
-//                 aminya <https://github.com/aminya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // NOTE: only those classes exported within this file should be retain that status below.
 // https://github.com/atom/atom/blob/v1.40.0/exports/atom.js
 

@@ -73,11 +73,11 @@ if (danger.git.created_files.some(f => path.basename(f) === ".editorconfig")) {
 }
 
 // Tell people that they've added @me to their lib and not themselves
-const newDTSFiles = danger.git.created_files.filter(f => f.endsWith(".d.ts"));
-newDTSFiles.forEach(dts => {
-    const file = fs.readFileSync(dts, "utf8");
-    if (file.includes("<https://github.com/me>")) {
-        fail("This line should have your github username in it, not /me", dts, 3);
+const newPackageJsonFiles = danger.git.created_files.filter(f => f.endsWith("package.json"));
+newPackageJsonFiles.forEach(p => {
+    const file = fs.readFileSync(p, "utf8");
+    if (/"githubUsername":\s*"me"/.test(file)) {
+        fail("package.json should have your github username in it, not \"me\".", p);
     }
 });
 

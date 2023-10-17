@@ -8,16 +8,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": false,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
-        "paths": {
-            "shot": [
-                "shot/v3"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

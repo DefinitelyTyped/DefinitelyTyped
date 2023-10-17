@@ -1,9 +1,3 @@
-// Type definitions for @yaireo/tagify 4.17
-// Project: https://github.com/yairEO/tagify
-// Definitions by: Brakebein <https://github.com/Brakebein>
-//                 Andre Wachsmuth <https://github.com/blutorange>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Tagify {
     /**
      * Mode for how tags are displayed and how they can be edited:

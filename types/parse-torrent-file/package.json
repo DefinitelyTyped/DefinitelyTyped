@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/parse-torrent-file",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/webtorrent/parse-torrent-file"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/parse-torrent-file": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tomasz Łaziuk",
+            "githubUsername": "tlaziuk"
+        }
+    ]
+}

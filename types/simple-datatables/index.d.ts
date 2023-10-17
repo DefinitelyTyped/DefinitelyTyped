@@ -1,8 +1,3 @@
-// Type definitions for simple-datatables 3.2
-// Project: https://github.com/fiduswriter/Simple-DataTables
-// Definitions by: Jonatas de Moraes Junior <https://github.com/Honatas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type DataTableOrderDirection = "asc" | "desc";
 export type DataTableColumnType = "string" | "number" | "date";
 

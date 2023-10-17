@@ -1,8 +1,3 @@
-// Type definitions for gulp-protractor v4.1.1
-// Project: https://github.com/mllrsohn/gulp-protractor
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import gulp = require("gulp");

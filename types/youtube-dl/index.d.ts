@@ -1,11 +1,3 @@
-// Type definitions for youtube-dl 3.0
-// Project: https://github.com/przemyslawpluta/node-youtube-dl
-// Definitions by: Bogdan Surai <https://github.com/bsurai>
-//                 Moshe Feuchtwanger <https://github.com/moshfeu>
-//                 Tiger Oakes <https://github.com/NotWoods>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="node" />
 import { Readable } from "stream";
 

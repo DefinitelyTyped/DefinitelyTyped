@@ -1,8 +1,3 @@
-// Type definitions for non-npm package firemonkey-browser 2.62
-// Project: https://github.com/erosman/support/tree/FireMonkey
-// Definitions by: DrakeTDL <https://github.com/DrakeTDL>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.4
 //
 // This definition is based on the API reference of FireMonkey
 // https://erosman.github.io/support/content/help.html#Script-API

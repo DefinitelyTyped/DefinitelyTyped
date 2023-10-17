@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/luaparse",
+    "version": "0.2.9999",
+    "projects": [
+        "https://oxyc.github.io/luaparse"
+    ],
+    "devDependencies": {
+        "@types/luaparse": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sam Saint-Pettersen",
+            "githubUsername": "stpettersens"
+        },
+        {
+            "name": "thomasfn",
+            "githubUsername": "thomasfn"
+        },
+        {
+            "name": "Zaoqi",
+            "githubUsername": "zaoqi"
+        }
+    ]
+}

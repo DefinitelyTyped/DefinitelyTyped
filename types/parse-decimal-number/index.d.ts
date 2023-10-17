@@ -1,8 +1,3 @@
-// Type definitions for parse-decimal-number 1.0
-// Project: https://github.com/AndreasPizsa/parse-decimal-number
-// Definitions by: Ciarán Ingle <https://github.com/ciaran1344>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace parseDecimalNumber {
     type ArrayOptions = [thousands: string, decimal: string];
 

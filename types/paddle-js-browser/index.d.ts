@@ -1,8 +1,3 @@
-// Type definitions for non-npm package Paddle.js 2.0
-// Project: https://developer.paddle.com
-// Definitions by: Christopher Atlan <https://github.com/catlan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare global {
     interface Window {
         Paddle: Paddle;

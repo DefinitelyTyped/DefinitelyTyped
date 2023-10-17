@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/invity-api",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "invity-api",
+    "projects": [
+        "https://github.com/satoshilabs/invity-api (not public repo)"
+    ],
+    "devDependencies": {
+        "@types/invity-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martin Boehm",
+            "githubUsername": "martinboehm"
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/correlation-id",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/toboid/correlation-id#readme"
+    ],
+    "devDependencies": {
+        "@types/correlation-id": "workspace:."
+    },
+    "owners": []
+}

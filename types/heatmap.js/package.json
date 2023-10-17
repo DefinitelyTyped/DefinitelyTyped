@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/heatmap.js",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/pa7/heatmap.js/",
+        "https://www.patrick-wied.at/static/heatmapjs"
+    ],
+    "dependencies": {
+        "@types/leaflet": "^0"
+    },
+    "devDependencies": {
+        "@types/heatmap.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yang Guan",
+            "githubUsername": "lookuptable"
+        },
+        {
+            "name": "Rhys van der Waerden",
+            "githubUsername": "rhys-vdw"
+        }
+    ]
+}

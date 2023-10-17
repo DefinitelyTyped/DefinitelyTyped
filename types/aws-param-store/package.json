@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/aws-param-store",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/vandium-io/aws-param-store#readme"
+    ],
+    "dependencies": {
+        "@types/aws-sdk2-types": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/aws-param-store": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Gray",
+            "githubUsername": "jasonthomasgray"
+        },
+        {
+            "name": "Nathan Oertel",
+            "githubUsername": "nathanoertel"
+        }
+    ]
+}

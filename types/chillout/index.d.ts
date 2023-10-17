@@ -1,9 +1,3 @@
-// Type definitions for chillout 5.0
-// Project: https://github.com/polygonplanet/chillout
-// Definitions by: BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
-
 /* eslint-disable @definitelytyped/no-unnecessary-generics */
 
 export as namespace chillout;

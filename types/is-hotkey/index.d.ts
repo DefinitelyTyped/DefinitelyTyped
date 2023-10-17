@@ -1,8 +1,3 @@
-// Type definitions for is-hotkey 0.1
-// Project: https://github.com/ianstormtaylor/is-hotkey#readme
-// Definitions by: Alex Kondratyuk <https://github.com/lynxtaa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface KeyboardEventLike {
     key: string;
     which: number;

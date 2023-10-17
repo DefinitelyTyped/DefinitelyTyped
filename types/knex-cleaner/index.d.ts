@@ -1,8 +1,3 @@
-// Type definitions for knex-cleaner 1.3
-// Project: https://github.com/steven-ferguson/knex-cleaner
-// Definitions by: Karol Goraus <https://github.com/Szarlus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
 import { Knex } from "knex";
 
 export interface KnexCleanerOptions {

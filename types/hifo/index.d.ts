@@ -1,8 +1,3 @@
-// Type definitions for hifo 1.0
-// Project: https://github.com/derhuerst/hifo
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = hifo;
 
 /**

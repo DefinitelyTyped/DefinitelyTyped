@@ -1,11 +1,3 @@
-// Type definitions for react-form 4.0
-// Project: https://github.com/tannerlinsley/react-form
-// Definitions by: Cameron McAteer <https://github.com/cameron-mcateer>
-//                 Mathieu Masy <https://github.com/TiuSh>
-//                 Anatolii Titov <https://github.com/Toliak>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
 import * as React from "react";
 
 // Hooks

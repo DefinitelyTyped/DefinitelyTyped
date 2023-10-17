@@ -1,9 +1,3 @@
-// Type definitions for node-easy-cert 1.3
-// Project: https://github.com/ottomao/node-easy-cert
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
-
 export = CertManager;
 
 declare function CertManager(options: CertManager.CertManagerOptions): CertManager;

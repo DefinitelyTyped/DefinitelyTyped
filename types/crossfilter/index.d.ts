@@ -1,8 +1,3 @@
-// Type definitions for CrossFilter
-// Project: https://github.com/square/crossfilter
-// Definitions by: Schmulik Raskin <https://github.com/schmuli>, Izaak Baker <https://github.com/iebaker>, Einar Norðfjörð <https://github.com/nordfjord>, Tijmen Wildervanck <https://github.com/TijmenW>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace CrossFilter {
     export interface Selector<T> {
         (value: T): any;

@@ -1,8 +1,3 @@
-// Type definitions for iput 1.1
-// Project: https://github.com/lizheming/iput
-// Definitions by: DongKyoo Kim <https://github.com/kdk8747>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 export interface IputProp {

@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/plv8-internal",
+    "version": "3.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "plv8",
+    "projects": [
+        "https://github.com/plv8/plv8"
+    ],
+    "devDependencies": {
+        "@types/plv8-internal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Constantine Peresypkin",
+            "githubUsername": "pkit"
+        }
+    ]
+}

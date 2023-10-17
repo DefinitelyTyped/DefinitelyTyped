@@ -1,9 +1,3 @@
-// Type definitions for leaflet.vectorgrid 1.3
-// Project: https://github.com/Leaflet/Leaflet.VectorGrid
-// Definitions by: Cody Duong <https://github.com/codyduong>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
 import * as geojson from "geojson";
 import * as geojsonvt from "geojson-vt";
 import * as L from "leaflet";

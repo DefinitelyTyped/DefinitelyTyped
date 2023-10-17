@@ -1,9 +1,3 @@
-// Type definitions for mergerino 0.4
-// Project: https://github.com/fuzetsu/mergerino#readme
-// Definitions by: Slawomir "Fivitti" Figiel <https://github.com/fivitti>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 // TypeScript in version below 3.4 doesn't correctly support FunctionPatch. Arguments have "any" type.
 
 /**

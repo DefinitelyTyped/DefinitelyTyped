@@ -1,11 +1,3 @@
-// Type definitions for blueimp-load-image 5.16
-// Project: https://github.com/blueimp/JavaScript-Load-Image
-// Definitions by: Evan Kesten <https://github.com/ebk46>
-//                 Konstantin Lukaschenko <https://github.com/KonstantinLukaschenko>
-//                 Saeid Rezaei <https://github.com/moeinio>
-//                 Zak Barbuto <https://github.com/zbarbuto>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace loadImage {
     type LoadImageCallback = (eventOrImage: Event | HTMLCanvasElement | HTMLImageElement, data?: MetaData) => void;
     type LoadImageResult = MetaData & {

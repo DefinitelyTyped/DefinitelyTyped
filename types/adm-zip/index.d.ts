@@ -1,12 +1,3 @@
-// Type definitions for adm-zip 0.5
-// Project: https://github.com/cthackers/adm-zip
-// Definitions by: John Vilk <https://github.com/jvilk>
-//                 Abner Oliveira <https://github.com/abner>
-//                 BendingBender <https://github.com/BendingBender>
-//                 Matthew Sainsbury <https://github.com/mattsains>
-//                 Lei Nelissen <https://github.com/LeiNelissen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as FS from "fs";

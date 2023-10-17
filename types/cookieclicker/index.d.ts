@@ -1,10 +1,3 @@
-// Type definitions for non-npm package cookieclicker 2.052
-// Project: https://orteil.dashnet.org/cookieclicker/
-// Definitions by: Lubomir <https://github.com/TheGLander>
-//                 Static Variable James <https://github.com/staticvariablejames>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 declare function AddEvent(htmlElement: HTMLElement, eventName: string, eventFunction: (e: Event) => void): void;
 declare function l(name: string): HTMLElement | null;
 declare function escapeRegExp(str: string): string;

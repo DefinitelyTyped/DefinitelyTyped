@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/inline-css",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/jonkemp/inline-css"
+    ],
+    "dependencies": {
+        "@types/cheerio": "*"
+    },
+    "devDependencies": {
+        "@types/inline-css": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Philip Spain",
+            "githubUsername": "philipisapain"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

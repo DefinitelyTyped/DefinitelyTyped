@@ -1,9 +1,3 @@
-// Type definitions for storybook-readme 5.0
-// Project: https://github.com/tuchk4/storybook-readme
-// Definitions by: Taeheon Kim  <https://github.com/lonyele>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 import { DecoratorFunction, StoryFn } from "@storybook/addons";
 import { StoryFnReactReturnType } from "@storybook/react/dist/ts3.9/client/preview/types";
 import { ReactNode } from "react";

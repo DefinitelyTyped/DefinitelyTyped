@@ -1,8 +1,3 @@
-// Type definitions for noise-curve-secp 3.0
-// Project: https://github.com/chm-diederichs/noise-curve-secp256k1#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export const DHLEN: 32;

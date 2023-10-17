@@ -1,8 +1,3 @@
-// Type definitions for gulp-rename 2.0
-// Project: https://github.com/hparra/gulp-rename
-// Definitions by: Asana <https://asana.com>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 import * as File from "vinyl";
 

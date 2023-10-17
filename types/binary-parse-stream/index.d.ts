@@ -1,8 +1,3 @@
-// Type definitions for binary-parse-stream 1.3
-// Project: https://github.com/nathan7/binary-parse-stream
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import stream = require("stream");

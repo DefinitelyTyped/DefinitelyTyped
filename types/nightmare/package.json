@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/nightmare",
+    "version": "2.10.9999",
+    "projects": [
+        "https://github.com/segmentio/nightmare"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/jquery": "*",
+        "@types/nightmare": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "horiuchi",
+            "githubUsername": "horiuchi"
+        },
+        {
+            "name": "Sam Yang",
+            "githubUsername": "samyang-au"
+        }
+    ]
+}

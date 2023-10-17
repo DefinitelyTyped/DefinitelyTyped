@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/dasherize",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/shahata/dasherize"
+    ],
+    "devDependencies": {
+        "@types/dasherize": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Julio Cordeiro",
+            "githubUsername": "juliomrc"
+        }
+    ]
+}

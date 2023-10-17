@@ -1,8 +1,3 @@
-// Type definitions for branca 0.4
-// Project: https://github.com/tuupola/branca-js
-// Definitions by: Brett Cocking <https://github.com/BrettIRL>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = branca;

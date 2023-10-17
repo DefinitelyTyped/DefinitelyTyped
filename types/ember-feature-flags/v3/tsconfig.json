@@ -9,21 +9,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": false,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "ember": [
-                "ember/v2"
-            ],
-            "ember-feature-flags": [
-                "ember-feature-flags/v3"
-            ],
-            "ember-feature-flags/*": [
-                "ember-feature-flags/v3/*"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

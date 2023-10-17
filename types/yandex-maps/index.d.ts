@@ -1,11 +1,3 @@
-// Type definitions for non-npm package yandex-maps 2.1
-// Project: https://github.com/Delagen/typings-yandex-maps
-// Definitions by: Delagen <https://github.com/Delagen>
-//                 gastwork13 <https://github.com/gastwork13>
-//                 kaskar2008 <https://github.com/kaskar2008>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 declare namespace ymaps {
     interface IClassConstructor<T> {
         new(): T;

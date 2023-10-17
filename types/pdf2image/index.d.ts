@@ -1,8 +1,3 @@
-// Type definitions for pdf2image 1.2
-// Project: https://bitbucket.org/RicardoCacheira/pdf2image#readme
-// Definitions by: taoqf <https://github.com/taoqf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.9
 
 /**

@@ -3,8 +3,6 @@
         "lib": [
             "es6"
         ],
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "forceConsistentCasingInFileNames": true,
         "noEmit": true,
         "noImplicitAny": true,

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/secure-sample",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/emilbayes/secure-sample"
+    ],
+    "devDependencies": {
+        "@types/secure-sample": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

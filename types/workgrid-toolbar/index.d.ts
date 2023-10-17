@@ -1,8 +1,3 @@
-// Type definitions for non-npm package workgrid-toolbar 1.3
-// Project: https://github.com/jguardino-workgrid/workgrid-toolbar
-// Definitions by: J Guardino <https://github.com/jguardino-workgrid>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface WorkgridToolbarOptions {
     // Required
     companyCode: string;

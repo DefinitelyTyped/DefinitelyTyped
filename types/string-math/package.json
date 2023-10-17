@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/string-math",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/devrafalko/string-math"
+    ],
+    "devDependencies": {
+        "@types/string-math": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rouzwelt",
+            "githubUsername": "rouzwelt"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for Recharts 1.8
-// Project: http://recharts.org/, https://github.com/recharts/recharts
-// Definitions by: Dmitriy Serdtsev <https://github.com/in19farkt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { CurveFactory } from "d3-shape";
 import * as React from "react";
 

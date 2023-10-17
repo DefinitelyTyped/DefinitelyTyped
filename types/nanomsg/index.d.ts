@@ -1,9 +1,3 @@
-// Type definitions for nanomsg 4.2
-// Project: https://github.com/nickdesaulniers/node-nanomsg
-// Definitions by: Tobey Blaber <https://github.com/toebeann>
-//                 Titan <https://github.com/titan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

@@ -1,7 +1,21 @@
 {
     "private": true,
+    "name": "@types/marked-terminal",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/mikaelbr/marked-terminal"
+    ],
     "dependencies": {
         "chalk": "^2.4.1",
         "marked": "^6.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/marked-terminal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bryan Kendall",
+            "githubUsername": "bkendall"
+        }
+    ]
 }

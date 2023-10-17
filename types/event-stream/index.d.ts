@@ -1,8 +1,3 @@
-// Type definitions for event-stream v4.0
-// Project: https://github.com/dominictarr/event-stream
-// Definitions by: David Gardiner <https://github.com/flcdrg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as stream from "stream";

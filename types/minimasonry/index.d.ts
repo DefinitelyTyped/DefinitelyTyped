@@ -1,8 +1,3 @@
-// Type definitions for minimasonry 1.3
-// Project: https://spope.github.io/MiniMasonry.js/
-// Definitions by: Paul Ebose <https://github.com/plbstl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyType
-
 export interface MiniMasonryOptions {
     /**
      * Target width of elements.

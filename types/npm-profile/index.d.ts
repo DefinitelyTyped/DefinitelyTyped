@@ -1,8 +1,3 @@
-// Type definitions for npm-profile 5.0
-// Project: https://github.com/npm/npm-profile#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
 import fetch = require("npm-registry-fetch");
 
 /**

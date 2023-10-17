@@ -1,0 +1,38 @@
+{
+    "private": true,
+    "name": "@types/d3-transition",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/d3/d3-transition/",
+        "https://d3js.org/d3-transition"
+    ],
+    "dependencies": {
+        "@types/d3-selection": "^2"
+    },
+    "devDependencies": {
+        "@types/d3-interpolate": "*",
+        "@types/d3-transition": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tom Wanzek",
+            "githubUsername": "tomwanzek"
+        },
+        {
+            "name": "Alex Ford",
+            "githubUsername": "gustavderdrache"
+        },
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Robert Moura",
+            "githubUsername": "robertmoura"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

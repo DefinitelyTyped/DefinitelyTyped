@@ -1,8 +1,3 @@
-// Type definitions for rdf-validate-datatype 0.1
-// Project: https://github.com/zazuko/rdf-validate-datatype#readme
-// Definitions by: Tomasz Pluskiewicz <https://github.com/tpluscode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { NamedNode, Quad, Term } from "rdf-js";
 
 interface ValidatorFunc {

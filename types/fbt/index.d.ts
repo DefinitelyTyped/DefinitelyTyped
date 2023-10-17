@@ -1,9 +1,3 @@
-// Type definitions for fbt 1.0
-// Project: https://github.com/facebook/fbt
-// Definitions by: Davyd <https://github.com/retyui>
-//                 Alexander Nanberg <https://github.com/alexandernanberg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
 import * as React from "react";
 
 export interface ParamOptions {

@@ -1,16 +1,3 @@
-// Type definitions for Knockout v3.4.0
-// Project: http://knockoutjs.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov>,
-//                 Igor Oleinikov <https://github.com/Igorbek>,
-//                 Clément Bourgeois <https://github.com/moonpyk>,
-//                 Matt Brooks <https://github.com/EnableSoftware>,
-//                 Benjamin Eckardt <https://github.com/BenjaminEckardt>,
-//                 Mathias Lorenzen <https://github.com/ffMathy>,
-//                 Leonardo Lombardi <https://github.com/ltlombardi>
-//                 Retsam <https://github.com/Retsam>
-//                 Rey Pena <https://github.com/ReyPena>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface KnockoutSubscribableFunctions<T> {
     /**
      * Notify subscribers of knockout "change" event. This doesn't actually change the observable value.

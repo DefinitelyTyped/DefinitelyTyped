@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/lunr",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/olivernn/lunr.js",
+        "http://lunrjs.com"
+    ],
+    "devDependencies": {
+        "@types/lunr": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sean Tan",
+            "githubUsername": "seantanly"
+        },
+        {
+            "name": "Andrés Pérez",
+            "githubUsername": "hokiegeek"
+        }
+    ]
+}

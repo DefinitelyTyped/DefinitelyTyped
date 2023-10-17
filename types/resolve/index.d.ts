@@ -1,10 +1,3 @@
-// Type definitions for resolve 1.20.0
-// Project: https://github.com/browserify/resolve
-// Definitions by: Mario Nebl <https://github.com/marionebl>
-//                 Klaus Meinhardt <https://github.com/ajafff>
-//                 Jordan Harband <https://github.com/ljharb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface PackageMeta {
     name: string;
     version: string;

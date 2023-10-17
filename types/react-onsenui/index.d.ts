@@ -1,13 +1,3 @@
-// Type definitions for React Onsen UI (react-onsenui) 2.9.5
-// Project: https://onsen.io/v2/docs/guide/react/
-// Definitions by: Ozytis <https://ozytis.fr>,
-//                 Salim <https://github.com/salim7>,
-//                 Jemmyw <https://github.com/jemmyw>
-//                 Yuji Tabata <https://github.com/uztbt>
-//                 LBLZR_ <https://github.com/LaBlazer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export type HTMLAttributes<K extends keyof React.HTMLAttributes<{}>> = Partial<Pick<React.HTMLAttributes<{}>, K>>;

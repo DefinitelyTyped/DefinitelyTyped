@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-running",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/nisaacson/is-running"
+    ],
+    "devDependencies": {
+        "@types/is-running": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Byrne",
+            "githubUsername": "danwbyrne"
+        }
+    ]
+}

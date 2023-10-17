@@ -1,10 +1,3 @@
-// Type definitions for webidl2 24.4
-// Project: https://github.com/w3c/webidl2.js#readme
-// Definitions by: Kagama Sascha Rosylight <https://github.com/saschanaz>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 Vinyl Da.i'gyu-Kazotetsu <https://github.com/queengooborg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace WebIDL2;
 export {};
 

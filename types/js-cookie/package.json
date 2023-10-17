@@ -1,5 +1,10 @@
 {
     "private": true,
+    "name": "@types/js-cookie",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/js-cookie/js-cookie"
+    ],
     "exports": {
         ".": {
             "types": {
@@ -7,5 +12,34 @@
                 "require": "./index.d.ts"
             }
         }
-    }
+    },
+    "devDependencies": {
+        "@types/js-cookie": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Theodore Brown",
+            "githubUsername": "theodorejb"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        },
+        {
+            "name": "Antoine Lépée",
+            "githubUsername": "alepee"
+        },
+        {
+            "name": "Yuto Doi",
+            "githubUsername": "yutod"
+        },
+        {
+            "name": "Nicolas Reynis",
+            "githubUsername": "nreynis"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

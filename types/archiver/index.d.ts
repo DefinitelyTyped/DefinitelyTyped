@@ -1,11 +1,3 @@
-// Type definitions for archiver 5.3
-// Project: https://github.com/archiverjs/node-archiver
-// Definitions by:  Esri
-//                  Dolan Miu <https://github.com/dolanmiu>
-//                  Crevil <https://github.com/crevil>
-//                  Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as fs from "fs";
 import * as ReaddirGlob from "readdir-glob";
 import * as stream from "stream";

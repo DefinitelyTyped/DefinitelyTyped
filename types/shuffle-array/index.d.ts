@@ -1,8 +1,3 @@
-// Type definitions for shuffle-array 1.0
-// Project: https://github.com/pazguille/shuffle-array
-// Definitions by: rhysd <https://github.com/rhysd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace shuffleArray {
     /**
      * copy - Sets if should return a shuffled copy of the given array. By default it's a falsy value.

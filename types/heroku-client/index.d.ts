@@ -1,8 +1,3 @@
-// Type definitions for heroku-client 3.1
-// Project: https://github.com/heroku/node-heroku-client
-// Definitions by: Oleg Valter <https://github.com/Oaphi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import http = require("http");

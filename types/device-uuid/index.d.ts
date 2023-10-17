@@ -1,8 +1,3 @@
-// Type definitions for device-uuid 1.0
-// Project: https://github.com/biggora/device-uuid/
-// Definitions by: Dariusz Czajkowski <https://github.com/DCzajkowski>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace DeviceUUID;
 
 export type Headers = Record<string, string>;

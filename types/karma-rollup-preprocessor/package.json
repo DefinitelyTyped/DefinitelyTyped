@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/karma-rollup-preprocessor",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/jlmakes/karma-rollup-preprocessor"
+    ],
     "dependencies": {
+        "@types/karma": "*",
         "rollup": ">=1.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/karma-rollup-preprocessor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

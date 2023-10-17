@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/genyus__country-code",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/lwhiteley/cc#readme"
+    ],
+    "devDependencies": {
+        "@types/genyus__country-code": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

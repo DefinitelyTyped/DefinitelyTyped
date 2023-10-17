@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/readmore-js",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/jedfoster/Readmore.js"
+    ],
+    "devDependencies": {
+        "@types/readmore-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "AntonDemarczyk",
+            "githubUsername": "AntonDemarczyk"
+        }
+    ]
+}

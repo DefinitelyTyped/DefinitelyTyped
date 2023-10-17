@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/deline",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/airbnb/deline#readme"
+    ],
+    "devDependencies": {
+        "@types/deline": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tim van der Horst",
+            "githubUsername": "vdh"
+        }
+    ]
+}

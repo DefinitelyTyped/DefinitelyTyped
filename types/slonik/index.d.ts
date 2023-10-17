@@ -1,10 +1,3 @@
-// Type definitions for slonik 22.1
-// Project: https://github.com/gajus/slonik#readme
-// Definitions by: Sebastian Sebald <https://github.com/sebald>
-//                 Misha Kaletsky <https://github.com/mmkal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 /// <reference types="node" />
 
 import { Readable } from "stream";

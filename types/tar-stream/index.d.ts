@@ -1,11 +1,3 @@
-// Type definitions for tar-stream 3.1
-// Project: https://github.com/mafintosh/tar-stream
-// Definitions by: Guy Lichtman <https://github.com/glicht>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Kevin Lindsay <https://github.com/kevin-lindsay-1>
-//                 Christian Rackerseder <https://github.com/screendriver>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import stream = require("stream");

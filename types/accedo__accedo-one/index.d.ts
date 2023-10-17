@@ -1,9 +1,3 @@
-// Type definitions for @accedo/accedo-one 4.0
-// Project: https://www.accedo.tv/one
-// Definitions by: Alexander P. Cerutti <https://github.com/alexandercerutti>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
-
 /**
  * @example
  * ~ import accedoOne from "@accedo/accedo-one"; // ESM Syntax

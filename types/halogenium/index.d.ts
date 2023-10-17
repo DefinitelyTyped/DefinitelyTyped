@@ -1,9 +1,3 @@
-// Type definitions for halogenium 2.3
-// Project: https://github.com/kirillDanshin/halogenium#readme
-// Definitions by: Weslley Nascimento Rocha <https://github.com/WeslleyNasRocha>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export type VerticalAlign =

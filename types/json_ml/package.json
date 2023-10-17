@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/json_ml",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/59naga/json-ml"
+    ],
+    "dependencies": {
+        "@types/cheerio": "*"
+    },
+    "devDependencies": {
+        "@types/json_ml": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Alan Plum",
+            "githubUsername": "pluma"
+        }
+    ]
+}

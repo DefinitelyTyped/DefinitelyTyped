@@ -1,8 +1,3 @@
-// Type definitions for bitfield-rle 2.2
-// Project: https://github.com/mafintosh/bitfield-rle
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export function align(n: number): {

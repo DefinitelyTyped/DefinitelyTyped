@@ -1,8 +1,3 @@
-// Type definitions for heap 0.2.7
-// Project: https://github.com/qiao/heap.js
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Heap<T> {
     // Constructor
 

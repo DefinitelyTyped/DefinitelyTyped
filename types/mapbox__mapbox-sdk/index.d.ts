@@ -1,13 +1,3 @@
-// Type definitions for @mapbox/mapbox-sdk 0.13
-// Project: https://github.com/mapbox/mapbox-sdk-js
-// Definitions by: Jeff Dye <https://github.com/jeffbdye>
-//                 Mike O'Meara <https://github.com/mikeomeara1>
-//                 chachan <https://github.com/chachan>
-//                 techieshark <https://github.com/techieshark>
-//                 Robin Heinemann <https://github.com/rroohhh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package

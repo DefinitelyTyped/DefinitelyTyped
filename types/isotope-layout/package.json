@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/isotope-layout",
+    "version": "3.0.9999",
+    "projects": [
+        "https://isotope.metafizzy.co"
+    ],
+    "devDependencies": {
+        "@types/isotope-layout": "workspace:.",
+        "@types/jquery": "*"
+    },
+    "owners": [
+        {
+            "name": "Anže Videnič",
+            "githubUsername": "avidenic"
+        },
+        {
+            "name": "Mălin Brândușe",
+            "githubUsername": "malinushj"
+        },
+        {
+            "name": "SPWizard01",
+            "githubUsername": "SPWizard01"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for webpack-config-utils 2.3
-// Project: https://github.com/kentcdodds/webpack-config-utils#readme
-// Definitions by: Martin Hochel <https://github.com/hotell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export function getIfUtils<E extends EnvVars | string>(
     env: { [P in E]: boolean | string } | E,
     vars?: Array<EnvVars | string>,

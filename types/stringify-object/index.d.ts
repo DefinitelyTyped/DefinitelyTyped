@@ -1,8 +1,3 @@
-// Type definitions for stringify-object 4.0
-// Project: https://github.com/yeoman/stringify-object
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Stringify an object/array like JSON.stringify just without all the double-quotes
  */

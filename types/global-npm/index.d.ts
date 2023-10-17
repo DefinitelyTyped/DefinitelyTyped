@@ -1,8 +1,3 @@
-// Type definitions for global-npm 0.4
-// Project: https://github.com/dracupid/global-npm
-// Definitions by: Waseem Dahman <https://github.com/wsmd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as npm from "npm";
 
 interface GlobalNPM {

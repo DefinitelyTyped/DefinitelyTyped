@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/has-property-descriptors",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/inspect-js/has-property-descriptors#readme"
+    ],
+    "devDependencies": {
+        "@types/has-property-descriptors": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

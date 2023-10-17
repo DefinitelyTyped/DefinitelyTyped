@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/arcgis-js-api",
+    "version": "4.27.9999",
+    "projects": [
+        "http://js.arcgis.com"
+    ],
+    "devDependencies": {
+        "@types/arcgis-js-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Esri",
+            "githubUsername": "Esri"
+        },
+        {
+            "name": "Andy Gup",
+            "githubUsername": "andygup"
+        },
+        {
+            "name": "Bjorn Svensson",
+            "githubUsername": "bsvensson"
+        }
+    ]
+}

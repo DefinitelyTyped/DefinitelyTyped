@@ -1,9 +1,3 @@
-// Type definitions for meteor-sjobs 4.0
-// Project: https://github.com/msavin/SteveJobs
-// Definitions by: Witold H <https://github.com/LinearMilk/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 /// <reference types="meteor" />
 
 // eslint-disable-next-line @definitelytyped/no-single-declare-module

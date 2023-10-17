@@ -1,10 +1,3 @@
-// Type definitions for vue-nice-dates 2.0
-// Project: https://github.com/zhangchizi/vue-nice-dates#readme
-// Definitions by: zhangchizi <https://github.com/zhangchizi>
-//                 wanghuan <https://github.com/huanlala>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
 export { Calendar } from "./Calendar";
 export { DatePicker } from "./DatePicker";
 export { DatePickerCalendar } from "./DatePickerCalendar";

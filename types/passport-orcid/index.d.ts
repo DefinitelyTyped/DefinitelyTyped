@@ -1,8 +1,3 @@
-// Type definitions for passport-orcid 0.0
-// Project: https://github.com/hubgit/passport-orcid
-// Definitions by: Chris Wilkinson <https://github.com/thewilkybarkid>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import OAuth2Strategy = require("passport-oauth2");
 
 type OrcidStrategyOptions<

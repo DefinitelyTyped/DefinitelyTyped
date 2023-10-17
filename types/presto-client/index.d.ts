@@ -1,8 +1,3 @@
-// Type definitions for presto-client 0.13
-// Project: https://github.com/tagomoris/presto-client-node
-// Definitions by: Matthew Peveler <https://github.com/MasterOdin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ClientOptions {
     /**
      * Presto coordinator hostname or address

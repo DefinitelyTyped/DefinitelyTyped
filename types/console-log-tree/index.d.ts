@@ -1,8 +1,3 @@
-// Type definitions for console-log-tree 1.2
-// Project: https://github.com/QiShaoXuan/log-tree#readme
-// Definitions by: Rajas Paranjpe <https://github.com/ChocolateLoverRaj>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace library;
 
 export interface Tree {

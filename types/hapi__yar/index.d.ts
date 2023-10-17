@@ -1,11 +1,3 @@
-// Type definitions for @hapi/yar 10.1
-// Project: https://github.com/hapijs/yar#readme
-// Definitions by: Simon Schick <https://github.com/SimonSchick>
-//                 Silas Rech <https://github.com/lenovouser>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.9
-// From https://github.com/hapijs/yar/blob/master/API.md
-
 import { Id, PolicyOptions } from "@hapi/catbox";
 import { CachePolicyOptions, Plugin, Request, ResponseToolkit, Server, ServerOptionsCache } from "@hapi/hapi";
 declare namespace yar {

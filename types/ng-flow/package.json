@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/ng-flow",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/flowjs/ng-flow"
+    ],
+    "dependencies": {
+        "@types/angular": "*",
+        "@types/flowjs": "*"
+    },
+    "devDependencies": {
+        "@types/ng-flow": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martin Nuc",
+            "githubUsername": "martinnuc"
+        }
+    ]
+}

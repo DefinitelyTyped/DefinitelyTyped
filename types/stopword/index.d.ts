@@ -1,9 +1,3 @@
-// Type definitions for stopword 2.0
-// Project: https://github.com/fergiemcdowall/stopword
-// Definitions by: Rico Sandyca Novenza <https://github.com/ricosandyca>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace sw;
 
 declare namespace stopword {

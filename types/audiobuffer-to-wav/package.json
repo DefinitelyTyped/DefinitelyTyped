@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/audiobuffer-to-wav",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Jam3/audiobuffer-to-wav"
+    ],
+    "devDependencies": {
+        "@types/audiobuffer-to-wav": "workspace:."
+    },
+    "owners": []
+}

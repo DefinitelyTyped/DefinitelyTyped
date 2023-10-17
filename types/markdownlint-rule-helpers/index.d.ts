@@ -1,8 +1,3 @@
-// Type definitions for markdownlint-rule-helpers 0.21
-// Project: https://github.com/DavidAnson/markdownlint
-// Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as MarkdownIt from "markdown-it";

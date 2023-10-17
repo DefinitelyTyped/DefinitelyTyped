@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/ember-modal-dialog",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/yapplabs/ember-modal-dialog#readme"
+    ],
+    "dependencies": {
+        "@types/ember__component": "*"
+    },
+    "devDependencies": {
+        "@types/ember-modal-dialog": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dan Freeman",
+            "githubUsername": "dfreeman"
+        },
+        {
+            "name": "Chris Krycho",
+            "githubUsername": "chriskrycho"
+        },
+        {
+            "name": "James C. Davis",
+            "githubUsername": "jamescdavis"
+        }
+    ]
+}

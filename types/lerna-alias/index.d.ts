@@ -1,8 +1,3 @@
-// Type definitions for lerna-alias 3.0
-// Project: https://github.com/Andarist/lerna-alias#readme
-// Definitions by: Elizabeth Craig <https://github.com/ecraig12345>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Aliases {
     /**
      * Key is the package name or an appropriate mapping for the tool.

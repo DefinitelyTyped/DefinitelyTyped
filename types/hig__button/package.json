@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/hig__button",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/Autodesk/hig/tree/development/packages/button"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/hig__button": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matthew Bryant",
+            "githubUsername": "matthewbryant95"
+        }
+    ]
+}

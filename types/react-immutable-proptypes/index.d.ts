@@ -1,9 +1,3 @@
-// Type definitions for react-immutable-proptypes 2.1
-// Project: https://github.com/HurricaneJames/react-immutable-proptypes
-// Definitions by: Joris van der Wel <https://github.com/Joris-van-der-Wel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as Immutable from "immutable";
 import { Requireable, ValidationMap, Validator } from "prop-types";
 

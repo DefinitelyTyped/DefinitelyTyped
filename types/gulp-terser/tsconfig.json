@@ -7,14 +7,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
-        "paths": {
-            "gulp": ["gulp/v3"]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "strictFunctionTypes": true

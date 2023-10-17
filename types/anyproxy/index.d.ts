@@ -1,9 +1,3 @@
-// Type definitions for anyproxy 4.1
-// Project: https://github.com/alibaba/anyproxy
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT>
-//                 Roland Reed <https://github.com/roland-reed>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { IncomingMessage, RequestOptions, ServerResponse } from "http";

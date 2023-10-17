@@ -1,10 +1,3 @@
-// Type definitions for react-native-background-downloader 2.3
-// Project: https://github.com/EkoLabs/react-native-background-downloader.git
-// Definitions by: Junseong Park <https://github.com/Kweiza>
-//                 Adam Hunter <https://github.com/adamrhunter>
-//                 Philip Su <https://github.com/fivecar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface DownloadHeaders {
     [key: string]: string | null;
 }

@@ -1,15 +1,3 @@
-// Type definitions for react-test-renderer 18.0
-// Project: https://facebook.github.io/react/
-// Definitions by: Arvitaly <https://github.com/arvitaly>
-//                 Lochbrunner <https://github.com/lochbrunner>
-//                 John Reilly <https://github.com/johnnyreilly>
-//                 John Gozde <https://github.com/jgoz>
-//                 Jessica Franco <https://github.com/Jessidhia>
-//                 Dhruv Jain <https://github.com/maddhruv>
-//                 Sebastian Silbermann <https://github.com/eps1lon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { ElementType, ReactElement } from "react";
 export {};
 

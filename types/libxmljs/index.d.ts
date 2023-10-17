@@ -1,10 +1,3 @@
-// Type definitions for Libxmljs 0.18
-// Project: https://github.com/libxmljs/libxmljs
-// Definitions by: François de Campredon <https://github.com/fdecampredon>
-//                 ComFreek <https://github.com/ComFreek>
-//                 Roeland <https://github.com/r03>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 import { EventEmitter } from "events";
 

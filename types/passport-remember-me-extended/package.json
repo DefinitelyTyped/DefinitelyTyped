@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/passport-remember-me-extended",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/dereklakin/passport-remember-me"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/passport": "*"
+    },
+    "devDependencies": {
+        "@types/passport-remember-me-extended": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "AylaJK",
+            "githubUsername": "AylaJK"
+        }
+    ]
+}

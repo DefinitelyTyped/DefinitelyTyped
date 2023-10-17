@@ -1,10 +1,3 @@
-// Type definitions for graphviz 0.0
-// Project: https://github.com/glejeune/node-graphviz
-// Definitions by: Matt Frantz <https://github.com/mhfrantz>,
-//                 Kamontat Chantrachirathumrong <https://github.com/kamontat>
-//                 Kirill Ivanov <https://github.com/koorya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export type PossibleValue = string | number | boolean;

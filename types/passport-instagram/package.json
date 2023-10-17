@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/passport-instagram",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jaredhanson/passport-instagram"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/passport": "*"
+    },
+    "devDependencies": {
+        "@types/passport-instagram": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sagar Jain",
+            "githubUsername": "sagar7993"
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/imap-simple",
+    "version": "4.2.9999",
+    "projects": [
+        "https://github.com/chadxz/imap-simple"
+    ],
+    "dependencies": {
+        "@types/imap": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/imap-simple": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeffery Grajkowski",
+            "githubUsername": "pushplay"
+        },
+        {
+            "name": "Ilari Aarnio",
+            "githubUsername": "iaarnio"
+        }
+    ]
+}

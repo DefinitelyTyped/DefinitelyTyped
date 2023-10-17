@@ -1,13 +1,3 @@
-// Type definitions for Sequelize 3.30.4
-// Project: http://sequelizejs.com, https://github.com/sequelize/sequelize
-// Definitions by: samuelneff <https://github.com/samuelneff>
-//                 Peter Harris <https://github.com/codeanimal>
-//                 Ivan Drinchev <https://github.com/drinchev>
-//                 Nick Mueller <https://github.com/morpheusxaut>
-//                 James D. Callahan III <https://github.com/torhal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
 import * as Promise from "bluebird";

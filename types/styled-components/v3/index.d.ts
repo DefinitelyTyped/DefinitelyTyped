@@ -1,10 +1,3 @@
-// Type definitions for styled-components 3.0
-// Project: https://github.com/styled-components/styled-components
-// Definitions by: Igor Oleinikov <https://github.com/Igorbek>
-//                 Ihor Chulinda <https://github.com/Igmat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="node" />
 
 import * as React from "react";

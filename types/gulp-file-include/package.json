@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-file-include",
+    "version": "0.14.9999",
+    "projects": [
+        "https://github.com/coderhaoxin/gulp-file-include"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-file-include": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Rosenwasser",
+            "githubUsername": "DanielRosenwasser"
+        }
+    ]
+}

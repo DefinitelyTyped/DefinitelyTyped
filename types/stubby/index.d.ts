@@ -1,8 +1,3 @@
-// Type definitions for stubby 4.1
-// Project: https://github.com/mrak/stubby4node
-// Definitions by: Piotr Roszatycki <https://github.com/dex4er>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as http from "http";

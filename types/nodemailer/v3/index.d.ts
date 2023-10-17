@@ -1,8 +1,3 @@
-// Type definitions for Nodemailer 3.1.5
-// Project: https://github.com/andris9/Nodemailer
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import directTransport = require("nodemailer-direct-transport");

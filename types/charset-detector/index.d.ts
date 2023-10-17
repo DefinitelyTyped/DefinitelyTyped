@@ -1,8 +1,3 @@
-// Type definitions for charset-detector 0.0
-// Project: https://github.com/btd/node-charset-detector
-// Definitions by: OpportunityLiu <https://github.com/OpportunityLiu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace detect {
     /**
      * charset detect match result

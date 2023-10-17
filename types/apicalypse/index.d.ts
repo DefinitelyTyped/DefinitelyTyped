@@ -1,8 +1,3 @@
-// Type definitions for apicalypse 0.1
-// Project: https://github.com/igdb/node-apicalypse
-// Definitions by: Susam <https://github.com/susam-projects>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 
 export interface Apicalypse {

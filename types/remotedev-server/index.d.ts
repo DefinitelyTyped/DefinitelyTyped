@@ -1,9 +1,3 @@
-// Type definitions for remotedev-server 0.3
-// Project: https://github.com/zalmoxisus/remotedev-server
-// Definitions by: Ciarán Ingle <https://github.com/inglec-arista>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-
 import SocketCluster = require("socketcluster");
 
 declare function remotedev(argv: remotedev.Options): Promise<SocketCluster | remotedev.PortUsedError>;

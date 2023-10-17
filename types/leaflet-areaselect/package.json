@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/leaflet-areaselect",
+    "version": "0.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Leaflet.areaSelect",
+    "projects": [
+        "https://github.com/heyman/leaflet-areaselect"
+    ],
+    "dependencies": {
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/leaflet-areaselect": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "André Wallat",
+            "githubUsername": "awallat"
+        }
+    ]
+}

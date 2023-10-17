@@ -1,9 +1,3 @@
-// Type definitions for redlock 2.x
-// Project: https://github.com/mike-marcacci/node-redlock
-// Definitions by: Ilya Mochalov <https://github.com/chrootsu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 import * as Promise from "bluebird";
 import * as redis from "redis";
 

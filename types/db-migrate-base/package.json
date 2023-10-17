@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/db-migrate-base",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/db-migrate/db-migrate-base"
+    ],
+    "dependencies": {
+        "@types/bluebird": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/db-migrate-base": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "nickiannone",
+            "githubUsername": "nickiannone"
+        }
+    ]
+}

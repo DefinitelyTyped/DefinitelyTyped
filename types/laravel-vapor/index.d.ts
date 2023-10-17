@@ -1,8 +1,3 @@
-// Type definitions for laravel-vapor 0.6
-// Project: https://github.com/laravel/vapor-js
-// Definitions by: saibotk <https://github.com/saibotk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 2.9
 //
 
 interface VaporStoreOptions {

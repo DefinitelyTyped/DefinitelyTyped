@@ -1,8 +1,3 @@
-// Type definitions for yaml-front-matter 4.1
-// Project: https://github.com/dworthen/js-yaml-front-matter#readme
-// Definitions by: ZHAO Jinxiang <https://github.com/xiaoxiangmoe>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { LoadOptions } from "js-yaml";

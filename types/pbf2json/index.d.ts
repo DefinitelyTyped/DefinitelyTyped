@@ -1,8 +1,3 @@
-// Type definitions for pbf2json 6.6
-// Project: https://github.com/pelias/pbf2json
-// Definitions by: Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import stream = require("stream");

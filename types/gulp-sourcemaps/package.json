@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/gulp-sourcemaps",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/gulp-sourcemaps/gulp-sourcemaps"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/vinyl": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-sourcemaps": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Phips Peter",
+            "githubUsername": "pspeter3"
+        },
+        {
+            "name": "Concision",
+            "githubUsername": "concision"
+        }
+    ]
+}

@@ -8,16 +8,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": false,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
-        "paths": {
-            "@google-cloud/*": [
-                "google-cloud__*"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

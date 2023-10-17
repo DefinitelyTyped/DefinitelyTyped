@@ -1,10 +1,3 @@
-// Type definitions for node-zendesk 2.0
-// Project: https://github.com/blakmatrix/node-zendesk
-// Definitions by: jgeth <https://github.com/jgeth>
-//                 dannyhostetler <https://github.com/dannyhostetler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
-
 /// <reference types="node"/>
 
 import stream = require("node:stream");

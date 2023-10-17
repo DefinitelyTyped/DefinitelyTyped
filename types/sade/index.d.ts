@@ -1,9 +1,3 @@
-// Type definitions for sade 1.7
-// Project: https://github.com/lukeed/sade#readme
-// Definitions by: Epimodev <https://github.com/Epimodev>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as mri from "mri";
 
 /**

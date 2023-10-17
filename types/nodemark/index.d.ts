@@ -1,8 +1,3 @@
-// Type definitions for nodemark 0.3
-// Project: https://github.com/JoshuaWise/nodemark
-// Definitions by: Beeno Tung <https://github.com/beenotung>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace benchmark {
     type SyncFn = () => void;
 

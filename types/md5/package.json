@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/md5",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/pvorb/node-md5"
+    ],
+    "devDependencies": {
+        "@types/md5": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bill Sourour",
+            "githubUsername": "arcdev1"
+        },
+        {
+            "name": "Cameron Crothers",
+            "githubUsername": "jprogrammer"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Ruslan Arkhipau",
+            "githubUsername": "DethAriel"
+        }
+    ]
+}

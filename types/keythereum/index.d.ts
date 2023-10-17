@@ -1,8 +1,3 @@
-// Type definitions for keythereum 1.2
-// Project: https://github.com/ethereumjs/keythereum
-// Definitions by: septs <https://github.com/septs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { createCipheriv, createDecipheriv, getCiphers, pbkdf2, pbkdf2Sync, randomBytes } from "crypto";

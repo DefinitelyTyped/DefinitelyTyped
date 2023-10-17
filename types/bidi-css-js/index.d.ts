@@ -1,8 +1,3 @@
-// Type definitions for bidi-css-js 3.1
-// Project: https://www.npmjs.com/package/bidi-css-js
-// Definitions by: Gabor Juhasz <https://github.com/juhg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // source: https://github.com/TxHawks/bidi-css-js/blob/master/src/index.js#L11
 type Property =
     | "paddingStart"

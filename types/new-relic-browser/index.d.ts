@@ -1,9 +1,3 @@
-// Type definitions for non-npm package NewRelicBrowser 1.230
-// Project: https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api
-// Definitions by: Rene Hamburger <https://github.com/renehamburger>
-//                 Piotr Kubisa <https://github.com/piotrkubisa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * The browser and Single Page Application (SPA) APIs
  * allow you to customize and extend your browser monitoring.

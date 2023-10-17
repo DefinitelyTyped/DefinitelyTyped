@@ -1,11 +1,3 @@
-// Type definitions for karma 6.3
-// Project: https://github.com/karma-runner/karma
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-//                 James Garbutt <https://github.com/43081j>
-//                 Yaroslav Admin <https://github.com/devoto13>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 // See Karma public API https://karma-runner.github.io/latest/dev/public-api.html

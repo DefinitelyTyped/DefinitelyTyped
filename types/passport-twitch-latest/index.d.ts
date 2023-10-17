@@ -1,9 +1,3 @@
-// Type definitions for passport-twitch-latest 1.0
-// Project: https://github.com/sascha-beloborodov/passport-twitch
-// Definitions by: Charlie Laabs <https://github.com/claabs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
 import * as e from "express";
 import * as passport from "passport";
 import * as PassportOauth2 from "passport-oauth2";

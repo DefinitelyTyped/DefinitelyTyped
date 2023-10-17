@@ -1,13 +1,3 @@
-// Type definitions for d3JS 3.5
-// Project: http://d3js.org/
-// Definitions by: Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 Matthias Jobst <https://github.com/MatthiasJobst>
-//                 Nithyanandam Venu <https://github.com/vbinithyanandamv>
-//                 Mihai Cherej <https://github.com/cronco>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Latest patch version of module validated against: 3.5.18
 
 export = d3;

@@ -1,9 +1,3 @@
-// Type definitions for globaloffensive 2.3
-// Project: https://github.com/DoctorMcKay/node-globaloffensive
-// Definitions by: joshuajeschek <https://github.com/joshuajeschek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

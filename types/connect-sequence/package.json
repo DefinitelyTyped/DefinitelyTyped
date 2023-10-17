@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/connect-sequence",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/sirap-group/connect-sequence"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/connect-sequence": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Levi Bostian",
+            "githubUsername": "levibostian"
+        }
+    ]
+}

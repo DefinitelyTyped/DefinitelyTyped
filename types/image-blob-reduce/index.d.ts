@@ -1,8 +1,3 @@
-// Type definitions for image-blob-reduce 4.1
-// Project: https://github.com/nodeca/image-blob-reduce#readme
-// Definitions by: Matthias Fischer <https://github.com/dotnetautor>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import type { Pica, PicaStatic } from "pica";
 
 interface InternalProperties {

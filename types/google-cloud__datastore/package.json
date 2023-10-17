@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/google-cloud__datastore",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/googleapis/nodejs-datastore"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/google-cloud__datastore": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Antoine Beauvais-Lacasse",
+            "githubUsername": "beaulac"
+        },
+        {
+            "name": "Futa Ogawa",
+            "githubUsername": "ogawa0071"
+        },
+        {
+            "name": "Thomas den Hollander",
+            "githubUsername": "ThomasdenH"
+        }
+    ]
+}

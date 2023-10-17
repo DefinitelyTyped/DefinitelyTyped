@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/black-engine",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/MassiveHeights/Black"
+    ],
+    "devDependencies": {
+        "@types/black-engine": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "David Dunnings",
+            "githubUsername": "Dunnings"
+        }
+    ]
+}

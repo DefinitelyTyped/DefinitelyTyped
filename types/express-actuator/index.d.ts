@@ -1,9 +1,3 @@
-// Type definitions for express-actuator 1.8
-// Project: https://www.npmjs.org/package/express-actuator
-// Definitions by:  Eduardo Silva <https://github.com/etruta>, Raúl Cruz <https://github.com/rcruzper>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import express = require("express");
 
 declare function actuator(options?: actuator.Options): express.RequestHandler;

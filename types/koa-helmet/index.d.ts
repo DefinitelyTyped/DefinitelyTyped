@@ -1,10 +1,3 @@
-// Type definitions for koa-helmet 6.0
-// Project: https://github.com/venables/koa-helmet#readme
-// Definitions by: Nick Simmons <https://github.com/nsimmons>
-//                 Jan Dolezel <https://github.com/dolezel>
-//                 John Reilly <https://github.com/johnnyreilly>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import helmet = require("helmet");
 import { Context, Middleware } from "koa";
 

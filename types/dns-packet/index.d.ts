@@ -1,8 +1,3 @@
-// Type definitions for dns-packet 5.6
-// Project: https://github.com/mafintosh/dns-packet
-// Definitions by: John Hurliman <https://github.com/jhurliman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

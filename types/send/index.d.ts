@@ -1,9 +1,3 @@
-// Type definitions for send 0.17
-// Project: https://github.com/pillarjs/send
-// Definitions by: Mike Jerred <https://github.com/MikeJerred>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as fs from "fs";

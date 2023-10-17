@@ -1,9 +1,3 @@
-// Type definitions for react-native-indicators 0.16
-// Project: https://github.com/n4kz/react-native-indicators#readme
-// Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { Component } from "react";
 import { Animated, EasingFunction, StyleProp, ViewStyle } from "react-native";
 export interface BaseIndicatorProps {

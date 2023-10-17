@@ -1,8 +1,3 @@
-// Type definitions for leaflet-freehandshapes 0.3
-// Project: https://github.com/bozdoz/Leaflet.FreeHandShapes
-// Definitions by: Cynthia Meng <https://github.com/cynthiameng>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import "leaflet";
 import * as geojson from "geojson";
 

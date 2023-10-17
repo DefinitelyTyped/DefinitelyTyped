@@ -1,8 +1,3 @@
-// Type definitions for base64util 2.2
-// Project: https://github.com/duzun/base64util
-// Definitions by: Jonathan Ehman <https://github.com/jpehman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* eslint-disable @typescript-eslint/naming-convention */
 export const VERSION: string;
 

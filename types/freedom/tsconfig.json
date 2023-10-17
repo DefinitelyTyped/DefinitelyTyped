@@ -1,14 +1,18 @@
 {
-    "files": ["index.d.ts", "freedom-tests.ts"],
+    "files": [
+        "index.d.ts",
+        "freedom-tests.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6", "dom"],
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

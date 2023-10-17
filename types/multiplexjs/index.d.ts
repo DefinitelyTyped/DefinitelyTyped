@@ -1,8 +1,3 @@
-// Type definitions for Multiplex.js 0.9
-// Project: https://github.com/multiplex/multiplex.js
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var multiplex: multiplex.MultiplexStatic;
 
 // Support AMD require

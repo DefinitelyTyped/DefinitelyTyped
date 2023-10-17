@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/frecency",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/mixmaxhq/frecency#readme"
+    ],
+    "devDependencies": {
+        "@types/frecency": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "swyx",
+            "githubUsername": "sw-yx"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jalaali-js",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/jalaali/jalaali-js"
+    ],
+    "devDependencies": {
+        "@types/jalaali-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ali Taheri Moghaddar",
+            "githubUsername": "alitaheri"
+        }
+    ]
+}

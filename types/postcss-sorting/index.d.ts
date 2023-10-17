@@ -1,7 +1,3 @@
-// Type definitions for postcss-sorting 8.0
-// Project: https://github.com/hudochenkov/postcss-sorting
-// Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import { PluginCreator } from "postcss";
 
 declare namespace sorting {

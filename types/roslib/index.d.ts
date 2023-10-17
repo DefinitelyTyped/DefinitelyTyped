@@ -1,11 +1,3 @@
-// Type definitions for roslib.js 1.3.0
-// Project: http://wiki.ros.org/roslibjs
-// Definitions by: Stefan Profanter <https://github.com/Pro>
-//                 David Gonzalez <https://github.com/dgorobopec>
-//                 Aluma Gelbard <https://github.com/alumag>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /* ----------------------------------
 
  NOTE: This typescript definition is not yet complete. I should be extended if definitions are missing.

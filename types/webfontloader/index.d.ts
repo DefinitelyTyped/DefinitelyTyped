@@ -1,8 +1,3 @@
-// Type definitions for typekit-webfontloader 1.6.28
-// Project: https://github.com/typekit/webfontloader
-// Definitions by: SECT <https://github.com/sectsect>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = WebFont;
 export as namespace WebFont;
 

@@ -1,8 +1,3 @@
-// Type definitions for @babel/preset-env 7.9
-// Project: https://github.com/babel/babel/tree/master/packages/babel-preset-env, https://babeljs.io/docs/en/babel-preset-env
-// Definitions by: Slava Fomin II <https://github.com/slavafomin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Options {
     targets?: TargetsOptions | undefined;
     bugfixes?: boolean | undefined;

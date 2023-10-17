@@ -1,8 +1,3 @@
-// Type definitions for serialport 4.0
-// Project: https://github.com/EmergingTechnologyAdvisors/node-serialport
-// Definitions by: Jeremy Foster <https://github.com/codefoster>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 /// <reference types="streamjs" />
 

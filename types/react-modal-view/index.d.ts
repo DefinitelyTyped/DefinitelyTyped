@@ -1,8 +1,3 @@
-// Type definitions for react-modal-view 1.1
-// Project: https://github.com/StevenIseki/react-modal-view
-// Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Component, ReactNode } from "react";
 
 export interface ModalProps {

@@ -1,7 +1,3 @@
-// Type definitions for react-otp-input 2.0
-// Project: https://github.com/devfolioco/react-otp-input
-// Definitions by: Anup Bhatkhande <https://github.com/anupbui>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import * as React from "react";
 
 export interface OTPInputProps {

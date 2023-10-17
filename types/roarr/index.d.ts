@@ -1,9 +1,3 @@
-// Type definitions for roarr 2.14
-// Project: https://github.com/gajus/roarr#readme
-// Definitions by: Philip Saxton <https://github.com/psaxton>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 // the package defines a recursive type SerializeValueType but, fortunately, neither it nor SerializableObjectType are
 // used anywhere
 

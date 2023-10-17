@@ -1,8 +1,3 @@
-// Type definitions for @mapbox/hast-util-table-cell-style 0.2
-// Project: https://github.com/mapbox/hast-util-table-cell-style
-// Definitions by: Remco Haszing <https://github.com/remcohaszing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Element, Root } from "hast";
 
 /**

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/cytoscape-avsdf",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/iVis-at-Bilkent/cytoscape.js-avsdf"
+    ],
+    "dependencies": {
+        "@types/cytoscape": "*"
+    },
+    "devDependencies": {
+        "@types/cytoscape-avsdf": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Roger Dubbs",
+            "githubUsername": "rogerdubbs"
+        }
+    ]
+}

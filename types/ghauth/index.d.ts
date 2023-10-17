@@ -1,8 +1,3 @@
-// Type definitions for ghauth 3.2
-// Project: https://github.com/rvagg/ghauth
-// Definitions by: Leko <https://github.com/Leko>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function ghauth(
     authOptions: ghauth.AuthOptions,
     callback: (err: Error, tokenData: ghauth.TokenData) => void,

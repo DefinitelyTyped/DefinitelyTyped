@@ -1,8 +1,3 @@
-// Type definitions for psi 4.1
-// Project: https://github.com/GoogleChromeLabs/psi#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * PageSpeed Insights with reporting
  */

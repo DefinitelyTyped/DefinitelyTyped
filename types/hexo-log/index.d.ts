@@ -1,9 +1,3 @@
-// Type definitions for hexo-log 0.2
-// Project: http://hexo.io/
-// Definitions by: segayuu <https://github.com/segayuu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import bunyan = require("hexo-bunyan");
 import streams = require("stream");
 

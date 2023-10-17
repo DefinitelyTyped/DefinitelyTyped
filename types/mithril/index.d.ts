@@ -1,9 +1,3 @@
-// Type definitions for Mithril 2.2
-// Project: https://mithril.js.org/, https://github.com/mithriljs/mithril.js
-// Definitions by: Mike Linkovich <https://github.com/spacejack>
-//                 Claudia Meadows <https://github.com/dead-claudia>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /** Renders a vnode structure into a DOM element. */
 declare function render(el: Element, vnodes: Mithril.Children): void;
 

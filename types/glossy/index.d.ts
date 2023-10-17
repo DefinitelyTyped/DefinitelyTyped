@@ -1,8 +1,3 @@
-// Type definitions for glossy 0.1
-// Project: https://github.com/squeeks/glossy
-// Definitions by: bmaupin <https://github.com/bmaupin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface ProduceOptions {

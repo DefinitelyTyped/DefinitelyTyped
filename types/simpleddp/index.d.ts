@@ -1,8 +1,3 @@
-// Type definitions for simpleddp 2.2
-// Project: https://gregivy.github.io/simpleddp/
-// Definitions by: SPWizard01 <https://github.com/SPWizard01>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { ddpCollection } from "./classes/ddpCollection";
 import { ddpEventListener } from "./classes/ddpEventListener";
 import { ddpSubscription } from "./classes/ddpSubscription";

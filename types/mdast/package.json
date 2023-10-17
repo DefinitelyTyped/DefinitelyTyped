@@ -1,0 +1,37 @@
+{
+    "private": true,
+    "name": "@types/mdast",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/syntax-tree/mdast",
+        "https://github.com/wooorm/mdast"
+    ],
+    "dependencies": {
+        "@types/unist": "*"
+    },
+    "devDependencies": {
+        "@types/mdast": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Murphy",
+            "githubUsername": "ChristianMurphy"
+        },
+        {
+            "name": "Jun Lu",
+            "githubUsername": "lujun2"
+        },
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        },
+        {
+            "name": "Titus Wormer",
+            "githubUsername": "wooorm"
+        },
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
+}

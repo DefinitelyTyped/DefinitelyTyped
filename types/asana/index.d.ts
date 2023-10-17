@@ -1,12 +1,3 @@
-// Type definitions for node-asana 0.18.14
-// Project: https://github.com/Asana/node-asana
-// Definitions by: Qubo <https://github.com/tkqubo>
-//                 Tasyp <https://github.com/tasyp>
-//                 Filippo Sarzana <https://github.com/filipposarzana>
-//                 Lorant Szakacs <https://github.com/szlori>
-//                 Vince Broz <https://github.com/apiology>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
 import * as Promise from "bluebird";
 
 declare namespace asana {

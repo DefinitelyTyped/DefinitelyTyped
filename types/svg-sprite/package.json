@@ -1,6 +1,22 @@
 {
     "private": true,
+    "name": "@types/svg-sprite",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/jkphl/svg-sprite"
+    ],
     "dependencies": {
+        "@types/node": "*",
+        "@types/vinyl": "*",
         "winston": "^3.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/svg-sprite": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qubo",
+            "githubUsername": "tkqubo"
+        }
+    ]
 }

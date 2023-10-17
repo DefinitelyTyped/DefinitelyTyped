@@ -1,8 +1,3 @@
-// Type definitions for @feflow/cli 0.18
-// Project: https://github.com/Tencent/feflow/releases
-// Definitions by: nikewu <https://github.com/nikewu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 /**
  *  feflow namespace

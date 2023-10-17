@@ -1,8 +1,3 @@
-// Type definitions for ebay-oauth-nodejs-client 1.2
-// Project: https://github.com/eBay/ebay-oauth-nodejs-client
-// Definitions by: Jeremy Möglich <https://github.com/JeremyMoeglich>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type EbayEnvironment = "SANDBOX" | "PRODUCTION";
 
 type EbayAuthTokenOptions =

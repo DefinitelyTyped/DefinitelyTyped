@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-mailchimp-subscribe",
+    "version": "2.1.9999",
+    "projects": [
+        "https://revolunet.github.io/react-mailchimp-subscribe/"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-mailchimp-subscribe": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Omar Diab",
+            "githubUsername": "osdiab"
+        }
+    ]
+}

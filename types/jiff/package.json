@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jiff",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/cujojs/jiff#readme"
+    ],
+    "devDependencies": {
+        "@types/jiff": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Kneip",
+            "githubUsername": "daedal-knickerbockers"
+        }
+    ]
+}

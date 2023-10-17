@@ -1,9 +1,3 @@
-// Type definitions for react-native-htmlview 0.16
-// Project: https://github.com/jsdf/react-native-htmlview
-// Definitions by: Ifiok Jr. <https://github.com/ifiokjr>, Kiruse <https://github.com/Kiruse>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { ComponentType, ReactNode } from "react";
 import { ImageStyle, StyleProp, TextProps, TextStyle, ViewProps, ViewStyle } from "react-native";
 

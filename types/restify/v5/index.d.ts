@@ -1,9 +1,3 @@
-// Type definitions for restify 5.0
-// Project: https://github.com/restify/node-restify
-// Definitions by: Bret Little <https://github.com/blittle>, Leandro Almeida <https://github.com/leanazulyoro>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
 import http = require("http");

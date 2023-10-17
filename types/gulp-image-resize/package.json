@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-image-resize",
+    "version": "0.13.9999",
+    "projects": [
+        "https://github.com/scalableminds/gulp-image-resize"
+    ],
+    "dependencies": {
+        "@types/gm": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp-image-resize": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aankhen",
+            "githubUsername": "Aankhen"
+        }
+    ]
+}

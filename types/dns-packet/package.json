@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/dns-packet",
+    "version": "5.6.9999",
+    "projects": [
+        "https://github.com/mafintosh/dns-packet"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/dns-packet": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "John Hurliman",
+            "githubUsername": "jhurliman"
+        }
+    ]
+}

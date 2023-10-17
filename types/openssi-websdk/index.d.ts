@@ -1,9 +1,3 @@
-// Type definitions for openssi-websdk 0.0
-// Project: https://github.com/IBM-Blockchain-Identity/openssi-websdk#readme
-// Definitions by: Arne Rutjes <https://github.com/arner>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /**
  * Constructs an Agent instance for a user
  * {string} account_url  The Agent endpoint url

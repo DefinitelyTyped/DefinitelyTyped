@@ -1,8 +1,3 @@
-// Type definitions for blocked-at 1.0
-// Project: https://github.com/naugtur/blocked-at#readme
-// Definitions by: Jan Dolezel <https://github.com/dolezel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /*~ Note that ES6 modules cannot directly export callable functions.

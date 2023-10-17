@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/mysql-import",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/pamblam/mysql-import#readme"
+    ],
+    "devDependencies": {
+        "@types/mysql-import": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Grynhaus",
+            "githubUsername": "bengry"
+        }
+    ]
+}

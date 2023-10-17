@@ -1,9 +1,3 @@
-// Type definitions for sodium-native 2.3
-// Project: https://github.com/sodium-friends/sodium-native
-// Definitions by: Florian Keller <https://github.com/ffflorian>,
-//                 nshcore <https://github.com/nshcore>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface CryptoGenericHashWrap {

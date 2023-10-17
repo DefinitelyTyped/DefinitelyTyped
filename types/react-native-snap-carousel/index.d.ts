@@ -1,14 +1,3 @@
-// Type definitions for react-native-snap-carousel 3.8
-// Project: https://github.com/archriss/react-native-snap-carousel
-// Definitions by: jnbt <https://github.com/jnbt>
-//                 Jacob Froman <https://github.com/j-fro>
-//                 Nikolay Polukhin <https://github.com/gazaret>
-//                 Guillaume Amat <https://github.com/GuillaumeAmat>
-//                 Vitor Luiz Cavalcanti <https://github.com/VitorLuizC>
-//                 Lemon Garrett <https://github.com/egarrett94>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 import {
     Animated,

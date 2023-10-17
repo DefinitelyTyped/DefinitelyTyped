@@ -1,9 +1,3 @@
-// Type definitions for Noteflight Client API 2.0
-// Project: Noteflight Client API 2.0 - <https://github.com/noteflight>
-// Definitions by: Nicholas Epps <https://github.com/nickslick03>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// visit https://www.noteflight.com/info/api/client_doc_v2 for more details.
-
 // IMPORTANT:
 //  <script src="https://www.noteflight.com/clientapi/2.0.0/nfclient.js"></script>
 // IS REQUIRED IN THE DOCUMENT HEAD

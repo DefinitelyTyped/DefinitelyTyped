@@ -1,8 +1,3 @@
-// Type definitions for @tonic-ui/react 1.10
-// Project: https://github.com/trendmicro-frontend/tonic-ui/tree/master/packages/react
-// Definitions by: Derek Hawker <https://github.com/derekhawker>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 // Things to work on

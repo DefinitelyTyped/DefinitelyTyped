@@ -1,7 +1,3 @@
-// Type definitions for memorystream 0.3
-// Project: https://github.com/JSBizon/node-memorystream
-// Definitions by: bangbang93 <https://github.com/bangbang93>, geniou <https://github.com/geniou>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
 import { Duplex, Stream } from "stream";

@@ -1,9 +1,3 @@
-// Type definitions for flatbuffers 1.10
-// Project: http://google.github.io/flatbuffers/index.html
-// Definitions by: Kamil Rojewski <kamil.rojewski@gmail.com>
-//                 Robin Giese <robin@grumpycorp.com>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export { flatbuffers };
 
 declare global {

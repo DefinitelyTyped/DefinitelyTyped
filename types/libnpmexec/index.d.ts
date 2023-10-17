@@ -1,8 +1,3 @@
-// Type definitions for libnpmexec 2.0
-// Project: https://github.com/npm/libnpmexec#readme
-// Definitions by: jameswilddev <https://github.com/jameswilddev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare function libnpmexec(opts: {

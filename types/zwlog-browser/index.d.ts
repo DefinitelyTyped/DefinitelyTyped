@@ -1,9 +1,3 @@
-// Type definitions for non-npm package ZwLog API - zwlog.js 1.0
-// Project: //assets.zjzwfw.gov.cn/assets/zwlog/1.0.0/zwlog.js
-// Definitions by: Jungzl <https://github.com/jungzl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
-
 /**
  * “浙里办” 多端容器环境支持的数据埋点上报能力。
  * This API just for [浙里办](https://apps.apple.com/us/app/zhe-jiang-zheng-wu-fu-wu/id910260096)

@@ -1,8 +1,3 @@
-// Type definitions for flutterwave-node 1.0
-// Project: https://github.com/Flutterwave/ravepay-nodejs
-// Definitions by: Besemuna <https://github.com/besemuna>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { AxiosResponse } from "axios";
 
 declare class Rave {

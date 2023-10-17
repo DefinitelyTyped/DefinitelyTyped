@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/can-autoplay",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/video-dev/can-autoplay"
+    ],
+    "minimumTypeScriptVersion": "4.6",
+    "devDependencies": {
+        "@types/can-autoplay": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Viacheslav Borodulin",
+            "githubUsername": "vborodulin"
+        }
+    ]
+}

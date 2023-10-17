@@ -1,10 +1,3 @@
-// Type definitions for waterline 0.13
-// Project: https://github.com/balderdashy/waterline
-// Definitions by: Alexandro Libertino <https://github.com/arvitaly>
-//                 Keith Kikta <https://github.com/newbish>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 /// <reference types="node" />
 
 import BluebirdPromise = require("bluebird");

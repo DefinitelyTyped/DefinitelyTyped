@@ -1,13 +1,3 @@
-// Type definitions for sharedb 3.3
-// Project: https://github.com/share/sharedb
-// Definitions by: Steve Oney <https://github.com/soney>
-//                 Eric Hwang <https://github.com/ericyhwang>
-//                 Peter Xu <https://github.com/pxpeterxu>
-//                 Alec Gibson <https://github.com/alecgibson>
-//                 Christina Burger <https://github.com/pypmannetjies>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference path="lib/sharedb.d.ts" />
 
 import { EventEmitter } from "events";

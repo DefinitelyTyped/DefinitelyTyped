@@ -1,12 +1,3 @@
-// Type definitions for non-npm package Titanium 12.0
-// Project: https://github.com/appcelerator/titanium_mobile
-// Definitions by: Axway Appcelerator <https://github.com/appcelerator>
-//                 Jan Vennemann <https://github.com/janvennemann>
-//                 Sergey Volkov <https://github.com/drauggres>
-//                 Mathias Lorenzen <https://github.com/ffMathy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 // Base definitions that can't be generated yet
 /// <reference path="base.d.ts" />
 

@@ -1,6 +1,17 @@
 {
     "private": true,
+    "name": "@types/bunyan-winston-adapter",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/gluwer/bunyan-winston-adapter"
+    ],
     "dependencies": {
+        "@types/bunyan": "*",
+        "@types/node": "*",
         "winston": "^3.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/bunyan-winston-adapter": "workspace:."
+    },
+    "owners": []
 }

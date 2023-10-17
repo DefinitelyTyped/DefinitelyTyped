@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/js-nacl",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/tonyg/js-nacl#readme"
+    ],
+    "devDependencies": {
+        "@types/js-nacl": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ethan Frey",
+            "githubUsername": "ethanfrey"
+        }
+    ]
+}

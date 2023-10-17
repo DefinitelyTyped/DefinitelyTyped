@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-signature-canvas",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/agilgur5/react-signature-canvas"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/signature_pad": "*"
+    },
+    "devDependencies": {
+        "@types/react-signature-canvas": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kamil Socha",
+            "githubUsername": "ksocha"
+        }
+    ]
+}

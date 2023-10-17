@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/gm",
+    "version": "1.25.9999",
+    "projects": [
+        "https://github.com/aheckmann/gm"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gm": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maarten van Vliet",
+            "githubUsername": "maartenvanvliet"
+        },
+        {
+            "name": "Vaclav Mlejnsky",
+            "githubUsername": "mlejva"
+        },
+        {
+            "name": "Dimitry Kooijmans",
+            "githubUsername": "mrcageman"
+        },
+        {
+            "name": "Dmitry Semigradsky",
+            "githubUsername": "Semigradsky"
+        }
+    ]
+}

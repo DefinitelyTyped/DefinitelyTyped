@@ -1,12 +1,3 @@
-// Type definitions for D3JS d3-dsv module 3.0
-// Project: https://github.com/d3/d3-dsv/, https://d3js.org/d3-dsv
-// Definitions by: Tom Wanzek <https://github.com/tomwanzek>
-//                 Alex Ford <https://github.com/gustavderdrache>
-//                 Boris Yankov <https://github.com/borisyankov>
-//                 denisname <https://github.com/denisname>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Last module patch version validated against: 3.0.1
 
 // ------------------------------------------------------------------------------------------

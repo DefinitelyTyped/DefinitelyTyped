@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/fs-plus",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/atom/fs-plus",
+        "http://atom.github.io/fs-plus"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/fs-plus": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Perez Alvarez",
+            "githubUsername": "unindented"
+        }
+    ]
+}

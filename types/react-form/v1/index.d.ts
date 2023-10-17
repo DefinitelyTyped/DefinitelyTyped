@@ -1,9 +1,3 @@
-// Type definitions for react-form 1.3
-// Project: https://github.com/tannerlinsley/react-form#readme
-// Definitions by: Cameron McAteer <https://github.com/cameron-mcateer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export type FormValue = any;

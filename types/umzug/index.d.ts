@@ -1,12 +1,3 @@
-// Type definitions for Umzug v2.3.0
-// Project: https://github.com/sequelize/umzug
-// Definitions by: Ivan Drinchev <https://github.com/drinchev>
-//                 Margus Lamp <https://github.com/mlamp>
-//                 Troy McKinnon <https://github.com/trodi>
-//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 import { EventEmitter } from "events";
 import Sequelize = require("sequelize");
 import MongoDB = require("mongodb");

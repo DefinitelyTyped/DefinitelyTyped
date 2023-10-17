@@ -1,8 +1,3 @@
-// Type definitions for oauth-signature 1.5
-// Project: https://github.com/bettiolo/oauth-signature-js
-// Definitions by: Sean Coker <https://github.com/okcoker>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace OauthSignature {
     function generate(
         httpMethod: string,

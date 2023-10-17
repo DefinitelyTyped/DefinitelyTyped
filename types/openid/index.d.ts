@@ -1,10 +1,3 @@
-// Type definitions for openid 2.0
-// Project: https://github.com/havard/node-openid
-// Definitions by: Jacob Stein <https://github.com/jacobmstein>
-//                 Joao Dias <https://github.com/alfaproject>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 export interface OpenIdError {
     message: string;
 }

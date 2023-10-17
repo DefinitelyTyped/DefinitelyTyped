@@ -1,8 +1,3 @@
-// Type definitions for dom-parser 0.1
-// Project: https://github.com/ershov-konst/dom-parser#readme
-// Definitions by: Guy Bidkar <https://github.com/gbidkar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class DomParser {
     constructor();
 

@@ -1,9 +1,3 @@
-// Type definitions for final-form-focus 1.1
-// Project: https://github.com/final-form/final-form-focus
-// Definitions by: Jeow Li Huan <https://github.com/huan086>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { Decorator } from "final-form";
 
 export interface FocusableInput {

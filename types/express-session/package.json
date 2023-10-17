@@ -1,0 +1,44 @@
+{
+    "private": true,
+    "name": "@types/express-session",
+    "version": "1.17.9999",
+    "projects": [
+        "https://github.com/expressjs/session"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/express-session": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hiroki Horiuchi",
+            "githubUsername": "horiuchi"
+        },
+        {
+            "name": "Jacob Bogers",
+            "githubUsername": "jacobbogers"
+        },
+        {
+            "name": "Naoto Yokoyama",
+            "githubUsername": "builtinnya"
+        },
+        {
+            "name": "Ryan Cannon",
+            "githubUsername": "ry7n"
+        },
+        {
+            "name": "Tom Spencer",
+            "githubUsername": "fiznool"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Ravi van Rooijen",
+            "githubUsername": "HoldYourWaffle"
+        }
+    ]
+}

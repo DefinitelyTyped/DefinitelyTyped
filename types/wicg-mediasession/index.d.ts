@@ -1,10 +1,3 @@
-// Type definitions for non-npm package Media Session API 1.1
-// Project: https://wicg.github.io/mediasession/
-// Definitions by: Julien CROUZET <https://github.com/jucrouzet>
-//                 Eana Hufwe <https://github.com/blueset>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.9
-
 interface Navigator {
     readonly mediaSession: MediaSession;
 }

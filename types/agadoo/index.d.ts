@@ -1,8 +1,3 @@
-// Type definitions for agadoo 2.0
-// Project: https://github.com/Rich-Harris/agadoo#readme
-// Definitions by: Artem Klyuev <https://github.com/ArtemKlyuev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Result {
     shaken: boolean;
 }

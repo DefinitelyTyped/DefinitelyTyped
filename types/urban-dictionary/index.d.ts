@@ -1,9 +1,3 @@
-// Type definitions for urban-dictionary 3.0
-// Project: https://github.com/NightfallAlicorn/urban-dictionary
-// Definitions by: Nigecat <https://github.com/Nigecat>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface DefinitionObject {
     author: string;
     current_vote: string;

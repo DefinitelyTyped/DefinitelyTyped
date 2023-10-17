@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/make-generator-function",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/ljharb/make-generator-function#readme"
+    ],
+    "devDependencies": {
+        "@types/make-generator-function": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

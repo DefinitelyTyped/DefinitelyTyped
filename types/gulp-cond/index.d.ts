@@ -1,8 +1,3 @@
-// Type definitions for gulp-cond 1.0
-// Project: https://github.com/nfroidure/gulp-cond
-// Definitions by: Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 interface GulpCond {

@@ -1,9 +1,3 @@
-// Type definitions for bearcat-es6 0.6
-// Project: https://github.com/ChrisPei/bearcat-es6
-// Definitions by: Xin Li <https://github.com/xinxinran0221010>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

@@ -1,10 +1,3 @@
-// Type definitions for camunda-external-task-client-js 1.3
-// Project: https://github.com/camunda/camunda-external-task-client-js#readme
-// Definitions by: MacRusher <https://github.com/MacRusher>
-//                 DoYoung Ha <https://github.com/hados99>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export class Client {
     constructor(config: ClientConfig);
     start(): void;

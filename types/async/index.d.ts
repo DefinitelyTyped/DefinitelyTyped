@@ -1,16 +1,3 @@
-// Type definitions for Async 3.2
-// Project: https://github.com/caolan/async, https://caolan.github.io/async
-// Definitions by: Boris Yankov <https://github.com/borisyankov>
-//                 Arseniy Maximov <https://github.com/kern0>
-//                 Angus Fenying <https://github.com/fenying>
-//                 Pascal Martin <https://github.com/pascalmartin>
-//                 Etienne Rossignon <https://github.com/erossignon>
-//                 Lifeng Zhu <https://github.com/Juliiii>
-//                 Tümay Çeber <https://github.com/brendtumi>
-//                 Andrew Pensinger <https://github.com/apnsngr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export as namespace async;
 
 export interface Dictionary<T> {

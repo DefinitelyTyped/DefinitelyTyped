@@ -1,9 +1,3 @@
-// Type definitions for electron-localshortcut 3.1
-// Project: https://github.com/parro-it/electron-localshortcut#readme
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import { BrowserWindow } from "electron";
 
 /**

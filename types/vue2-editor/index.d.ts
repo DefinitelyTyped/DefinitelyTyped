@@ -1,9 +1,3 @@
-// Type definitions for vue-tel-input 2.6
-// Project: https://github.com/davidroyer/vue2-editor/#readme
-// Definitions by: Komang Suryadana <https://github.com/suryadana>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { VueConstructor } from "vue";
 import { DirectiveOptions } from "vue/types/options";
 

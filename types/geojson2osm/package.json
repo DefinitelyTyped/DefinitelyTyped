@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/geojson2osm",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/Rub21/geojson2osm"
+    ],
+    "dependencies": {
+        "@types/geojson": "*"
+    },
+    "devDependencies": {
+        "@types/geojson2osm": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Denis Carriere",
+            "githubUsername": "DenisCarriere"
+        }
+    ]
+}

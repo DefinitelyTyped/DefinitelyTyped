@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/cookiejar",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/bmeck/node-cookiejar"
+    ],
+    "devDependencies": {
+        "@types/cookiejar": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rafal Proszowski",
+            "githubUsername": "paroxp"
+        },
+        {
+            "name": "Charles Samborski",
+            "githubUsername": "demurgos"
+        }
+    ]
+}

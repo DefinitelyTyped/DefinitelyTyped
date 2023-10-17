@@ -1,8 +1,3 @@
-// Type definitions for python-struct 1.0
-// Project: https://github.com/danielgindi/node-python-struct
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as Long from "long";

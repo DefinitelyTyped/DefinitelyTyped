@@ -1,12 +1,3 @@
-// Type definitions for react-slider 1.3
-// Project: https://github.com/zillow/react-slider
-// Definitions by: Jason Unger <https://github.com/jsonunger>
-//                 Björgvin Bæhrenz Þórðarson <https://github.com/bjorgvin>
-//                 Loïc Huder <https://github.com/loichuder>
-//                 Axel Bocciarelli <https://github.com/axelboc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.9
-
 import { Component, HTMLProps, RefCallback } from "react";
 
 interface HTMLPropsWithRefCallback<T> extends HTMLProps<T> {

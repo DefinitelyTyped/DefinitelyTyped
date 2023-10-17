@@ -10,13 +10,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": false,
-        "baseUrl": "../../",
-        "paths": {
-            "ember": ["ember/v2"]
-        },
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

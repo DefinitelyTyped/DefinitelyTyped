@@ -1,8 +1,3 @@
-// Type definitions for OpenLayers.js 2.10
-// Project: https://github.com/openlayers/openlayers
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace OpenLayers {
     export interface MapOptions {
         projection?: string | undefined;

@@ -1,10 +1,3 @@
-// Type definitions for Bootstrap 4.6
-// Project: https://github.com/twbs/bootstrap/, https://getbootstrap.com
-// Definitions by: denisname <https://github.com/denisname>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 import * as Popper from "popper.js";

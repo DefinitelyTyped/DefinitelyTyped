@@ -1,8 +1,3 @@
-// Type definitions for @cerner/terra-functional-testing 2.5
-// Project: https://github.com/cerner/terra-toolkit/tree/main/packages/terra-functional-testing
-// Definitions by: Juzer Zarif <https://github.com/juzerzarif>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { RunOptions } from "axe-core";
 import { Suite } from "mocha";
 

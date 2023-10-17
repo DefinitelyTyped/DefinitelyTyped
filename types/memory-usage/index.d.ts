@@ -1,8 +1,3 @@
-// Type definitions for memory-usage 1.2
-// Project: https://github.com/watson/memory-usage#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import * as GCProfiler from "gc-profiler";
 

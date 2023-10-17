@@ -1,18 +1,3 @@
-// Type definitions for react-beautiful-dnd 12.2
-// Project: https://github.com/atlassian/react-beautiful-dnd
-// Definitions by: varHarrie <https://github.com/varHarrie>
-//                 Bradley Ayers <https://github.com/bradleyayers>
-//                 Austin Turner <https://github.com/paustint>
-//                 Mark Nelissen <https://github.com/marknelissen>
-//                 Enrico Boccadifuoco <https://github.com/enricoboccadifuoco>
-//                 Taeheon Kim <https://github.com/lonyele>
-//                 Kanitkorn Sujautra <https://github.com/lukyth>
-//                 Arun George <https://github.com/aruniverse>
-//                 Declan Warn <https://github.com/declan-warn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-// Refer to https://github.com/atlassian/react-beautiful-dnd/blob/master/src/types.js
-
 import * as React from "react";
 
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;

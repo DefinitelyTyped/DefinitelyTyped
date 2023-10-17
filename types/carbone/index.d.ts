@@ -1,8 +1,3 @@
-// Type definitions for carbone 3.2
-// Project: https://carbone.io
-// Definitions by: Artur Nerkowski <https://github.com/apatryda>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface ConversionFormat {

@@ -1,19 +1,3 @@
-// Type definitions for codemirror 5.60
-// Project: https://github.com/codemirror/CodeMirror
-// Definitions by: mihailik <https://github.com/mihailik>
-//                 nrbernard <https://github.com/nrbernard>
-//                 Pr1st0n <https://github.com/Pr1st0n>
-//                 rileymiller <https://github.com/rileymiller>
-//                 toddself <https://github.com/toddself>
-//                 ysulyma <https://github.com/ysulyma>
-//                 azoson <https://github.com/azoson>
-//                 kylesferrazza <https://github.com/kylesferrazza>
-//                 fityocsaba96 <https://github.com/fityocsaba96>
-//                 koddsson <https://github.com/koddsson>
-//                 ficristo <https://github.com/ficristo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 5.0
-
 export = CodeMirror;
 export as namespace CodeMirror;
 

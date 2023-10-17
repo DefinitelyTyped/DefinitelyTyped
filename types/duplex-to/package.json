@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/duplex-to",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/bergos/duplex-to"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/readable-stream": "*"
+    },
+    "devDependencies": {
+        "@types/duplex-to": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tomasz Pluskiewicz",
+            "githubUsername": "tpluscode"
+        }
+    ]
+}

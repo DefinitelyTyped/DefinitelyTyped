@@ -1,8 +1,3 @@
-// Type definitions for chai-quantifiers 1.0
-// Project: https://github.com/frankthelen/chai-quantifiers#readme
-// Definitions by: tpluscode <https://github.com/tpluscode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="chai" />
 
 declare global {

@@ -1,9 +1,3 @@
-// Type definitions for swagger-ui-react 4.18
-// Project: https://github.com/swagger-api/swagger-ui#readme
-// Definitions by: viki.green <https://github.com/VictoriaGreen93>, afrkorsakow <https://github.com/afrkorsakow>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 interface Request {

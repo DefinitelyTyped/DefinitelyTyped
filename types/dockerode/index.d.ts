@@ -1,18 +1,3 @@
-// Type definitions for dockerode 3.3
-// Project: https://github.com/apocas/dockerode
-// Definitions by: Carl Winkler <https://github.com/seikho>
-//                 Nicolas Laplante <https://github.com/nlaplante>
-//                 ByeongHun Yoo <https://github.com/isac322>
-//                 Ray Fang <https://github.com/lazarusx>
-//                 Marius Meisenzahl <https://github.com/meisenzahl>
-//                 Rob Moran <https://github.com/thegecko>
-//                 Cameron Diver <https://github.com/CameronDiver>
-//                 Pascal Sthamer <https://github.com/p4sca1>
-//                 Stuart Thomson <https://github.com/stuartthomson>
-//                 Luis Rueda <https://github.com/userlerueda>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
 import * as DockerModem from "docker-modem";

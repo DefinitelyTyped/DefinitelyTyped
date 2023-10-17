@@ -1,9 +1,3 @@
-// Type definitions for dogapi 2.8
-// Project: https://github.com/brettlangdon/node-dogapi#readme
-// Definitions by: olebedev <https://github.com/olebedev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 export function initialize(opts: { api_key: string; app_key: string; api_host?: string | undefined }): void;
 
 interface event {

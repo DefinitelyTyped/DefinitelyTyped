@@ -1,10 +1,3 @@
-// Type definitions for react-bootstrap-table 2.6
-// Project: https://github.com/AllenFang/react-bootstrap-table
-// Definitions by: Frank Laub <https://github.com/flaub>
-//                 Aleksander Lode <https://github.com/alelode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="node" />
 
 // documentation taken from http://allenfang.github.io/react-bootstrap-table/docs.html

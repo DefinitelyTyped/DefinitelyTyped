@@ -1,19 +1,24 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6"],
-        "paths": {
-            "react-native-share": ["react-native-share/v1"]
-        },
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": ["../../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "react-native": [
+                "../../react-native/index.d.ts"
+            ]
+        }
     },
-    "files": ["index.d.ts", "react-native-share-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "react-native-share-tests.ts"
+    ]
 }

@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/tail",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/lucagrulla/node-tail",
+        "https://www.lucagrulla.com/node-tail"
+    ],
+    "devDependencies": {
+        "@types/tail": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mike Linkovich",
+            "githubUsername": "spacejack"
+        },
+        {
+            "name": "Devin Davies",
+            "githubUsername": "devindavies"
+        }
+    ]
+}

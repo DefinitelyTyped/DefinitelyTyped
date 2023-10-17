@@ -1,11 +1,3 @@
-// Type definitions for raygun4js 2.13
-// Project: https://github.com/MindscapeHQ/raygun4js
-// Definitions by: Krishna Kapadia <https://github.com/krishnakapadia>,
-//                 Benjamin Harding <https://github.com/BenjaminHarding>,
-//                 Brian Surowiec <https://github.com/xt0rted>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 interface TracekitStackTrace {
     message: string;
     mode: string;

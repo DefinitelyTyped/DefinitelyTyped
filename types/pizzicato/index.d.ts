@@ -1,9 +1,3 @@
-// Type definitions for pizzicato 0.6
-// Project: https://alemangui.github.io/pizzicato/
-// Definitions by: Matthew Soulanille <https://github.com/mattsoulanille>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
-
 export const context: AudioContext;
 export const masterGainNode: GainNode;
 

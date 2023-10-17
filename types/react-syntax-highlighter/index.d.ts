@@ -1,13 +1,3 @@
-// Type definitions for react-syntax-highlighter 15.5
-// Project: https://github.com/conorhastings/react-syntax-highlighter
-// Definitions by: Ivo Stratev <https://github.com/NoHomey>
-//                 Guo Yunhe <https://github.com/guoyunhe>
-//                 Anirban Sengupta <https://github.com/anirban09>
-//                 Michael Yuen <https://github.com/michaelyuen>
-//                 Dokyun Kim <https://github.com/DoK6n>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 type lineNumberStyleFunction = (lineNumber: number) => React.CSSProperties;
 type lineTagPropsFunction = (lineNumber: number) => React.HTMLProps<HTMLElement>;
 interface rendererNode {

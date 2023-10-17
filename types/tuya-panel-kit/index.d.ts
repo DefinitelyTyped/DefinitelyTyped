@@ -1,9 +1,3 @@
-// Type definitions for tuya-panel-kit 4.7
-// Project: https://github.com/TuyaInc/tuya-panel-kit#readme
-// Definitions by: youngjuning <https://github.com/youngjuning>
-//                 ShinyLeee <https://github.com/ShinyLeee>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
 import * as React from "react";
 import {
     FlatListProps,

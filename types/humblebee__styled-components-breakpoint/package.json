@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/humblebee__styled-components-breakpoint",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/wearehumblebee/styled-components-breakpoint"
+    ],
     "dependencies": {
+        "@types/styled-components": "*",
         "csstype": "^3.0.2"
-    }
+    },
+    "devDependencies": {
+        "@types/humblebee__styled-components-breakpoint": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Carl Ribbegårdh",
+            "githubUsername": "CarlRibbegaardh"
+        }
+    ]
 }

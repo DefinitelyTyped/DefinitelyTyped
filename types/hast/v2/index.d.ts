@@ -1,11 +1,3 @@
-// Type definitions for non-npm package Hast 2.3
-// Project: https://github.com/syntax-tree/hast
-// Definitions by: lukeggchapman <https://github.com/lukeggchapman>
-//                 Junyoung Choi <https://github.com/rokt33r>
-//                 Christian Murphy <https://github.com/ChristianMurphy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import { Literal as UnistLiteral, Node as UnistNode, Parent as UnistParent } from "unist";
 
 export { UnistNode as Node };

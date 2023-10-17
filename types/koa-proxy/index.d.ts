@@ -1,9 +1,3 @@
-// Type definitions for koa-proxy 1.0
-// Project: https://github.com/edorivai/koa-proxy#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as Koa from "koa";
 
 declare namespace proxy {

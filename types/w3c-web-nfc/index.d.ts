@@ -1,9 +1,3 @@
-// Type definitions for non-npm package W3C Web NFC API 1.0
-// Project: https://github.com/w3c/web-nfc
-// Definitions by: Takefumi Yoshii <https://github.com/takefumi-yoshii>
-//                 Francois Beaufort <https://github.com/beaufortfrancois>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference lib="dom" />
 
 interface Window {

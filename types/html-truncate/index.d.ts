@@ -1,9 +1,3 @@
-// Type definitions for html-truncate 1.2
-// Project: https://github.com/huang47/nodejs-html-truncate
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 interface TruncateOptions {
     /**
      * Flag to specify if keep image tag, false by default.

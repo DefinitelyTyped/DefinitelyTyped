@@ -1,8 +1,3 @@
-// Type definitions for jsreport 2.9
-// Project: https://github.com/jsreport/jsreport
-// Definitions by: pofider <https://github.com/pofider>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // import all availible types for jsreport included extensions
 import JsReportAssets = require("jsreport-assets");
 import JsReportChromePdf = require("jsreport-chrome-pdf");

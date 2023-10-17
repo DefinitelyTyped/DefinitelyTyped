@@ -1,9 +1,3 @@
-// Type definitions for mongoose-geojson-schema 2.1
-// Project: https://github.com/rideamigoscorp/mongoose-geojson-schema#readme
-// Definitions by: Bond <https://github.com/bondz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 import mongoose = require("mongoose");
 
 declare module "mongoose" {

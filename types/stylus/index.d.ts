@@ -1,10 +1,3 @@
-// Type definitions for stylus 0.48
-// Project: https://github.com/stylus/stylus
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT>
-//                 Daniel Moore <https://github.com/STRd6>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/ini",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/isaacs/ini"
+    ],
+    "devDependencies": {
+        "@types/ini": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marcin Porębski",
+            "githubUsername": "marcinporebski"
+        },
+        {
+            "name": "Chris Arnesen",
+            "githubUsername": "carnesen"
+        },
+        {
+            "name": "Adaline Simonian",
+            "githubUsername": "adalinesimonian"
+        }
+    ]
+}

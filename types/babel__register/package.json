@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/babel__register",
+    "version": "7.17.9999",
+    "projects": [
+        "https://github.com/babel/babel/tree/main/packages/babel-register",
+        "https://babeljs.io/docs/en/babel-register/"
+    ],
+    "dependencies": {
+        "@types/babel__core": "*"
+    },
+    "devDependencies": {
+        "@types/babel__register": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paul Sanchez",
+            "githubUsername": "basicdays"
+        }
+    ]
+}

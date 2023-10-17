@@ -1,8 +1,3 @@
-// Type definitions for noise-handshake 3.0
-// Project: https://github.com/chm-diederichs/noise-handshake#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import SymmetricState = require("./symmetric-state");

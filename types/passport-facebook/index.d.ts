@@ -1,9 +1,3 @@
-// Type definitions for passport-facebook 3.0
-// Project: https://github.com/jaredhanson/passport-facebook
-// Definitions by: James Roland Cabresos <https://github.com/staticfunction>, Lucas Acosta <https://github.com/lucasmacosta>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as express from "express";
 import { OutgoingHttpHeaders } from "http";
 import * as passport from "passport";

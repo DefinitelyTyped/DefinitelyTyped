@@ -1,8 +1,3 @@
-// Type definitions for @bigbite/wp-cypress 0.11
-// Project: https://github.com/bigbite/wp-cypress#readme
-// Definitions by: Konstantinos Pappas <https://github.com/over-engineer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="cypress" />
 
 export {};

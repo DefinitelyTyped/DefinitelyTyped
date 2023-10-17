@@ -1,9 +1,3 @@
-// Type definitions for @adeira/graphql-global-id 2.1
-// Project: https://github.com/adeira/universe/tree/master/src/graphql-global-id
-// Definitions by: Martin Zlámal <https://github.com/mrtnzlml>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 import { GraphQLFieldConfig, GraphQLResolveInfo } from "graphql";
 
 export function fromGlobalId(opaqueID: string): string;

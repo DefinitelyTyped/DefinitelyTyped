@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/dispatchr",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/yahoo/fluxible#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/dispatchr": "workspace:."
+    },
+    "owners": []
+}

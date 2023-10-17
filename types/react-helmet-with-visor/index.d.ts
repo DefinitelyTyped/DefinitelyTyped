@@ -1,9 +1,3 @@
-// Type definitions for react-helmet-with-visor 5.4
-// Project: https://github.com/kokushkin/react-helmet-with-visor
-// Definitions by: Nickolay Kulikov <https://github.com/kokushkin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 interface OtherElementAttributes {

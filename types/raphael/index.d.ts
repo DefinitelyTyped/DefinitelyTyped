@@ -1,9 +1,3 @@
-// Type definitions for Raphael 2.3
-// Project: http://raphaeljs.com
-// Definitions by: CheCoxshall <https://github.com/CheCoxshall>
-//                 blutorange <https://github.com/blutorange>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Minimum TypeScript Version: 3.2
 
 /**

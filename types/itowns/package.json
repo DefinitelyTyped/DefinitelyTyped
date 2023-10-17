@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/itowns",
+    "version": "2.39.9999",
+    "projects": [
+        "https://itowns.github.io/"
+    ],
+    "dependencies": {
+        "@types/three": "*"
+    },
+    "devDependencies": {
+        "@types/itowns": "workspace:.",
+        "@types/proj4": "*"
+    },
+    "owners": [
+        {
+            "name": "Bouillaguet Quentin",
+            "githubUsername": "desplandis"
+        },
+        {
+            "name": "Madec Germerie",
+            "githubUsername": "mgermerie"
+        }
+    ]
+}

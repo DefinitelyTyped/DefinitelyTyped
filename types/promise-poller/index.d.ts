@@ -1,8 +1,3 @@
-// Type definitions for promise-poller 1.7
-// Project: https://github.com/joeattardi/promise-poller
-// Definitions by: Emily Marigold Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * @returns taskFn's resolved promise or array of rejections
  */

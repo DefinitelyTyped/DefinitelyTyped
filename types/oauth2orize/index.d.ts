@@ -1,9 +1,3 @@
-// Type definitions for oauth2orize 1.11
-// Project: https://github.com/jaredhanson/oauth2orize/
-// Definitions by: Wonshik Kim <https://github.com/wokim>, Kei Son <https://github.com/heycalmdown>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 /// <reference types="express" />
 

@@ -1,9 +1,3 @@
-// Type definitions for serve-favicon 2.5
-// Project: https://github.com/expressjs/serve-favicon
-// Definitions by: Uros Smolnik <https://github.com/urossmolnik>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* =================== USAGE ===================
 
     import serveFavicon = require('serve-favicon');

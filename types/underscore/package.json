@@ -1,5 +1,10 @@
 {
     "private": true,
+    "name": "@types/underscore",
+    "version": "1.11.9999",
+    "projects": [
+        "https://underscorejs.org/"
+    ],
     "exports": {
         ".": {
             "types": {
@@ -7,5 +12,50 @@
                 "default": "./index.d.ts"
             }
         }
-    }
+    },
+    "devDependencies": {
+        "@types/underscore": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Josh Baldwin",
+            "githubUsername": "jbaldwin"
+        },
+        {
+            "name": "Christopher Currens",
+            "githubUsername": "ccurrens"
+        },
+        {
+            "name": "Ard Timmerman",
+            "githubUsername": "confususs"
+        },
+        {
+            "name": "Julian Gonggrijp",
+            "githubUsername": "jgonggrijp"
+        },
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        },
+        {
+            "name": "Regev Brody",
+            "githubUsername": "regevbr"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Michael Ness",
+            "githubUsername": "reubenrybnik"
+        },
+        {
+            "name": "Luke Tsekouras",
+            "githubUsername": "LukeGT"
+        }
+    ]
 }

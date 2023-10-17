@@ -1,8 +1,3 @@
-// Type definitions for @hippy/react 2.13
-// Project: http://hippyjs.org
-// Definitions by: zeroyu <https://github.com/zerosrat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 import * as ReactReconciler from "react-reconciler";
 

@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/workerpool",
+    "version": "6.4.9999",
+    "projects": [
+        "https://github.com/josdejong/workerpool"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/workerpool": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alorel",
+            "githubUsername": "Alorel"
+        },
+        {
+            "name": "Seulgi Kim",
+            "githubUsername": "sgkim126"
+        },
+        {
+            "name": "Emily M Klassen",
+            "githubUsername": "forivall"
+        }
+    ]
+}

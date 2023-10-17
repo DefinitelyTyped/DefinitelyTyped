@@ -1,10 +1,3 @@
-// Type definitions for ajv-pack 0.3
-// Project: https://github.com/epoberezkin/ajv-pack
-// Definitions by: Mihail Malo <https://github.com/qm3ster>
-//                 Christian Murphy <https://github.com/ChristianMurphy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 import { Ajv, ValidateFunction } from "ajv";
 
 declare namespace AjvPack {

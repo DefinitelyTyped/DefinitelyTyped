@@ -1,8 +1,3 @@
-// Type definitions for electron-devtools-installer v2.2.4
-// Project: https://github.com/MarshallOfSound/electron-devtools-installer
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare module "electron-devtools-installer" {
     interface ExtensionReference {
         id: string;

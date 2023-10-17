@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/react-leaflet-fullscreen-plugin",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/elangobharathi/react-leaflet-fullscreen-plugin"
+    ],
+    "devDependencies": {
+        "@types/react": "*",
+        "@types/react-leaflet-fullscreen-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Zenoo",
+            "githubUsername": "Zenoo"
+        }
+    ]
+}

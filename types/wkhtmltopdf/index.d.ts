@@ -1,9 +1,3 @@
-// Type definitions for wkhtmltopdf 0.3
-// Project: https://github.com/devongovett/node-wkhtmltopdf
-// Definitions by: Jasper <https://github.com/digijap>
-//                 Rens de Wolf <https://github.com/rensdewolf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // This is based on wkhtmltopdf version 0.12.6
 // Source: https://wkhtmltopdf.org/usage/wkhtmltopdf.txt
 

@@ -1,8 +1,3 @@
-// Type definitions for makeerror 1.0
-// Project: https://github.com/daaku/nodejs-makeerror#readme
-// Definitions by: yutak23 <https://github.com/yutak23>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = makeError;
 
 declare function makeError<T extends makeError.DefaultData>(

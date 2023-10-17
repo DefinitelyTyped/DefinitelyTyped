@@ -1,12 +1,3 @@
-// Type definitions for rox-browser 5.0
-// Project: https://rollout.io
-// Definitions by: ahanriat <https://github.com/ahanriat>
-//                 g-guirado <https://github.com/g-guirado>
-//                 glenna <https://github.com/glenna>
-//                 AsafRollout: <https://github.com/asafRollout>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /**
  * Official documentation for rox-react-native is available here:
  * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/latest/api-reference/react-native-api

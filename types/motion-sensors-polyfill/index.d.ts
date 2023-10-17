@@ -1,8 +1,3 @@
-// Type definitions for motion-sensors-polyfill 0.3
-// Project: https://github.com/kenchris/lit-element
-// Definitions by: Kevin Wylder <https://github.com/me>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export {};
 
 type EventHandler = (event: Event) => void;

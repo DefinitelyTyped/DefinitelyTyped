@@ -1,6 +1,29 @@
 {
     "private": true,
+    "name": "@types/carbon-components-react",
+    "version": "7.55.9999",
+    "projects": [
+        "https://github.com/carbon-design-system/carbon/tree/master/packages/react"
+    ],
     "dependencies": {
+        "@types/react": "*",
         "flatpickr": "4.6.9"
-    }
+    },
+    "devDependencies": {
+        "@types/carbon-components-react": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kyle Albert",
+            "githubUsername": "kalbert312"
+        },
+        {
+            "name": "Sebastien Gregoire",
+            "githubUsername": "sgregoire"
+        },
+        {
+            "name": "Mathias Schilling",
+            "githubUsername": "matchilling"
+        }
+    ]
 }

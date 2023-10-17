@@ -1,8 +1,3 @@
-// Type definitions for confusing-browser-globals 1.0
-// Project: https://github.com/facebook/create-react-app/tree/master/packages/confusing-browser-globals#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type ConfusingGlobal =
     | "addEventListener"
     | "blur"

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/mdurl",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/markdown-it/mdurl#readme"
+    ],
+    "devDependencies": {
+        "@types/mdurl": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Junyoung Choi",
+            "githubUsername": "rokt33r"
+        }
+    ]
+}

@@ -1,14 +1,3 @@
-// Type definitions for OpenSeadragon 3.0
-// Project: https://openseadragon.github.io/
-// Definitions by:  Álvaro Martínez <https://github.com/alvaromartmart>
-//                  RobertYost <https://github.com/RobertYost>
-//                  Jasper Staab <https://github.com/jstaab>
-//                  Kristin Ruben <https://github.com/kristinruben>
-//                  Geoff Harper <https://github.com/geoff-harper>
-//                  Justin <https://github.com/justincy>
-//                  Peter Blazejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
 declare namespace OpenSeadragon {
     class Browser {
         vendor: BROWSERS;

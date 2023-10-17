@@ -1,11 +1,3 @@
-// Type definitions for listr 0.14
-// Project: https://github.com/samverschueren/listr#readme
-// Definitions by: Dusan Radovanovic <https://github.com/durad>
-//                 Vladislav Polyakov <https://github.com/polRk>
-//                 Jason Zukewich <https://github.com/jgzuke>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="node" />
 
 import { Observable } from "rxjs";

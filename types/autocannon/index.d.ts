@@ -1,9 +1,3 @@
-// Type definitions for autocannon 7.12
-// Project: https://github.com/mcollina/autocannon#readme
-// Definitions by: Jeremy Bensimon <https://github.com/jeremyben>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
 import { IncomingHttpHeaders } from "http";

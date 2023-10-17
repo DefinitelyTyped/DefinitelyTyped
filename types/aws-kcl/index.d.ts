@@ -1,9 +1,3 @@
-// Type definitions for aws-kcl 2.0
-// Project: https://github.com/awslabs/amazon-kinesis-client-nodejs
-// Definitions by: Vlad Shlosberg <https://github.com/vshlos>
-//                 Foqal <https://github.com/foqal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as fs from "fs";

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/dagre-layout",
+    "version": "0.8.9999",
+    "projects": [
+        "https://github.com/tylingsoft/dagre-layout#readme"
+    ],
+    "devDependencies": {
+        "@types/dagre-layout": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qinfeng Chen",
+            "githubUsername": "qinfchen"
+        },
+        {
+            "name": "Pete Vilter",
+            "githubUsername": "vilterp"
+        }
+    ]
+}

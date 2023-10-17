@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/quoted-printable",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mathiasbynens/quoted-printable"
+    ],
+    "devDependencies": {
+        "@types/quoted-printable": "workspace:.",
+        "@types/utf8": "*"
+    },
+    "owners": [
+        {
+            "name": "Jeffery Grajkowski",
+            "githubUsername": "pushplay"
+        }
+    ]
+}

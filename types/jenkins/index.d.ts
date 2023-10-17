@@ -1,8 +1,3 @@
-// Type definitions for jenkins 1.0.2
-// Project: https://github.com/silas/node-jenkins
-// Definitions by: rhysd <https://rhysd.github.io>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import FormData = require("form-data");
 

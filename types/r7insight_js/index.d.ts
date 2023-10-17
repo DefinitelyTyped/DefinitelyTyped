@@ -1,8 +1,3 @@
-// Type definitions for r7insight_js 1.1
-// Project: https://github.com/rapid7/r7insight_js
-// Definitions by: Nick Malyarsky <https://github.com/nmalyarsky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Insight log options
  */

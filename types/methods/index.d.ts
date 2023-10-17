@@ -1,9 +1,3 @@
-// Type definitions for methods 1.1
-// Project: https://github.com/jshttp/methods
-// Definitions by: Carlos Precioso <https://github.com/cprecioso>
-//                 Michel Bitter <https://github.com/michelbitter>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type Method =
     | "ACL"
     | "BIND"

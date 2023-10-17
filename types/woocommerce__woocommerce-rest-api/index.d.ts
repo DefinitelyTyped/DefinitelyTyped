@@ -1,7 +1,3 @@
-// Type definitions for @woocommerce/woocommerce-rest-api 1.0
-// Project: https://github.com/woocommerce/woocommerce-rest-api-js-lib
-// Definitions by: KaKa <https://github.com/climba03003>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export type WooCommerceRestApiVersion = "wc/v3" | "wc/v2" | "wc/v1" | "wc-api/v3" | "wc-api/v2" | "wc-api/v1";
 export type WooCommerceRestApiEncoding = "utf-8" | "ascii";
 export type WooCommerceRestApiMethod = "get" | "post" | "put" | "delete" | "options";

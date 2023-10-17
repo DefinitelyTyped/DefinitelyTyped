@@ -1,9 +1,3 @@
-// Type definitions for non-npm package nova-editor-node 5.1
-// Project: https://docs.nova.app/api-reference/
-// Definitions by: Cameron Little <https://github.com/apexskier>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.3
-
 /// https://docs.nova.app/extensions/#javascript-runtime
 
 // This runs in an extension of Apple's JavaScriptCore, manually set libs

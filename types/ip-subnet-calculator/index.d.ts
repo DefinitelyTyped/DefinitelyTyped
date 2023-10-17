@@ -1,8 +1,3 @@
-// Type definitions for ip-subnet-calculator 1.1
-// Project: https://github.com/franksrevenge/IPSubnetCalculator
-// Definitions by: dahool <https://github.com/dahool>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace IpSubnetCalculator;
 
 export function calculate(ipStart: string | number, ipEnd: string | number): SubnetResult[];

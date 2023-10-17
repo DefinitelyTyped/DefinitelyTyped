@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ghauth",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/rvagg/ghauth"
+    ],
+    "devDependencies": {
+        "@types/ghauth": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leko",
+            "githubUsername": "Leko"
+        }
+    ]
+}

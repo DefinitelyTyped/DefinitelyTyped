@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/normalize-jss",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/cssinjs/normalize-jss"
+    ],
+    "devDependencies": {
+        "@types/normalize-jss": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Max Boguslavskiy",
+            "githubUsername": "maxbogus"
+        }
+    ]
+}

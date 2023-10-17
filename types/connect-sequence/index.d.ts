@@ -1,9 +1,3 @@
-// Type definitions for connect-sequence 2.1
-// Project: https://github.com/sirap-group/connect-sequence
-// Definitions by: Levi Bostian <https://github.com/levibostian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 import { NextFunction, Request, RequestHandler, Response } from "express";
 
 declare class ConnectSequence {

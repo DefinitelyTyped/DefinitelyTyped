@@ -1,8 +1,3 @@
-// Type definitions for editor-info 0.0
-// Project: https://github.com/fisker/editor-info#readme
-// Definitions by: Matt Wilkinson <https://github.com/matwilko>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] } & {};
 
 interface EditorMap {

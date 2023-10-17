@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/serverless-step-functions",
+    "version": "3.14.9999",
+    "projects": [
+        "https://github.com/serverless-operations/serverless-step-functions"
+    ],
+    "devDependencies": {
+        "@types/serverless-step-functions": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Cook",
+            "githubUsername": "zirkelc"
+        },
+        {
+            "name": "Enric Bisbe Gil",
+            "githubUsername": "ebisbe"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for persistent-cache 1.1
-// Project: https://github.com/LionC/persistent-cache#readme
-// Definitions by: Cesar Daniel Bañuelos Gómez <https://github.com/DanielBGomez>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 interface CacheOptions {

@@ -1,8 +1,3 @@
-// Type definitions for react-native-orientation 5.0
-// Project: https://github.com/yamill/react-native-orientation
-// Definitions by: Moshe Atlow <https://github.com/MoLow>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Orientation {
     type orientation = "LANDSCAPE" | "PORTRAIT" | "UNKNOWN" | "PORTRAITUPSIDEDOWN";
     type specificOrientation = "LANDSCAPE-LEFT" | "LANDSCAPE-RIGHT" | "PORTRAIT" | "UNKNOWN" | "PORTRAITUPSIDEDOWN";

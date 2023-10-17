@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/get-size",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/desandro/get-size"
+    ],
+    "devDependencies": {
+        "@types/get-size": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leon Si",
+            "githubUsername": "leondreamed"
+        }
+    ]
+}

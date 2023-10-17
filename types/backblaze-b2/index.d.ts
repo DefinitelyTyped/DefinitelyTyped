@@ -1,8 +1,3 @@
-// Type definitions for backblaze-b2 1.5
-// Project: https://github.com/yakovkhalinsky/backblaze-b2
-// Definitions by: Rohith Bhaskaran <https://github.com/rohithb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export as namespace BackBlazeB2;

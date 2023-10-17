@@ -1,10 +1,3 @@
-// Type definitions for cannon 0.1
-// Project: https://github.com/clark-stevenson/cannon.d.ts
-// Definitions by: Clark Stevenson <https://github.com/clark-stevenson>
-//                 Grzegorz Rozdzialik <https://github.com/Gelio>
-//                 Sean Bradley <https://github.com/Sean-Bradley>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace CANNON {
     export interface IAABBOptions {
         upperBound?: Vec3 | undefined;

@@ -1,9 +1,3 @@
-// Type definitions for non-npm package webgl2-compute 0.0
-// Project: https://www.khronos.org/registry/webgl/specs/latest/2.0-compute/
-// Definitions by: Aneta Suns <https://github.com/suns-echoes>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 // Constants and methods found in Chromium 87.0.4280.141 (nw.js 0.50.3)
 // WebGL 2 Compute was removed in Chromium 88.0.4324.11 (19 November 2020), see:
 // https://chromereleases.googleblog.com/2020/11/dev-channel-update-for-desktop_19.html

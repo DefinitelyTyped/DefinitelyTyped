@@ -1,10 +1,3 @@
-// Type definitions for mime-db 1.43
-// Project: https://github.com/jshttp/mime-db
-// Definitions by: AJP <https://github.com/AJamesPhillips>
-//                 Linus Unnebäck <https://github.com/LinusU>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace database {
     /**
      * @see {@link https://github.com/jshttp/mime-db#data-structure}

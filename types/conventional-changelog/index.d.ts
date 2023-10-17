@@ -1,9 +1,3 @@
-// Type definitions for conventional-changelog 3.1
-// Project: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog#readme
-// Definitions by: Jason Kwok <https://github.com/JasonHK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 /// <reference types="node" />
 
 import * as Stream from "stream";

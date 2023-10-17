@@ -1,7 +1,3 @@
-// Type definitions for plugapi 4.2
-// Project: https://github.com/plugcubed/plugapi
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace PlugAPI {
     interface PlugLogin {
         email: string;

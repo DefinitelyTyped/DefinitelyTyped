@@ -1,8 +1,3 @@
-// Type definitions for non-npm package scaleway-functions 1.0
-// Project: https://www.scaleway.com/en/serverless-functions/
-// Definitions by: MrMicky <https://github.com/MrMicky-FR>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type Handler<TResult = Response | object> = (
     event: Event,
     context: Context,

@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/get-sass-vars",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/niksy/get-sass-vars#readme"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "sass": "^1.45.0"
-    }
+    },
+    "devDependencies": {
+        "@types/get-sass-vars": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Manuel Thalmann",
+            "githubUsername": "manuth"
+        }
+    ]
 }

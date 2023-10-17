@@ -1,12 +1,3 @@
-// Type definitions for react-native-material-textfield 0.16
-// Project: https://github.com/n4kz/react-native-material-textfield
-// Definitions by: Ville Venäläinen <https://github.com/mindhivefi>
-//                 Kyle Roach <https://github.com/iRoachie>
-//                 Deividi Cavarzan <https://github.com/cavarzan>
-//                 Neel bhasin <https://github.com/neelb2>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 import { StyleProp, TextInputProps, TextStyle, ViewStyle } from "react-native";
 

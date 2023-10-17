@@ -1,10 +1,3 @@
-// Type definitions for json2csv 5.0
-// Project: https://github.com/zemirco/json2csv
-// Definitions by: Juanjo Diaz <https://github.com/juanjoDiaz>
-//                 Daniel Gooß <https://github.com/dangoo>
-//                 Denis Yilmaz <https://github.com/denisyilmaz>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 import { Readable, TransformOptions } from "stream";
 

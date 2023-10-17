@@ -1,10 +1,3 @@
-// Type definitions for dygraphs 2.1
-// Project: http://dygraphs.com
-// Definitions by: Dan Vanderkam <https://github.com/danvk>
-//                 Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
 /// <reference types="google.visualization" />
 
 export namespace dygraphs {

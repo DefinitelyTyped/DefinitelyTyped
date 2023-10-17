@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/change-emitter",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/acdlite/change-emitter"
+    ],
+    "devDependencies": {
+        "@types/change-emitter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Iskander Sierra",
+            "githubUsername": "iskandersierra"
+        }
+    ]
+}

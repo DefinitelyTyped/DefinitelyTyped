@@ -1,16 +1,3 @@
-// Type definitions for styled-components 5.1
-// Project: https://github.com/styled-components/styled-components, https://styled-components.com
-// Definitions by: Igor Oleinikov <https://github.com/Igorbek>
-//                 Ihor Chulinda <https://github.com/Igmat>
-//                 Jessica Franco <https://github.com/Jessidhia>
-//                 Jason Killian <https://github.com/jkillian>
-//                 Sebastian Silbermann <https://github.com/eps1lon>
-//                 Matthew Wagerfield <https://github.com/wagerfield>
-//                 Yuki Ito <https://github.com/Lazyuki>
-//                 Aaron Reisman <https://github.com/lifeiscontent>
-//                 Aaron Rose <https://github.com/acdr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // forward declarations
 declare global {
     namespace NodeJS {

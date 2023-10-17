@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/chai-fs",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/chaijs/chai-fs"
+    ],
+    "dependencies": {
+        "@types/chai": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/chai-fs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dimitar Danailov",
+            "githubUsername": "dimitardanailov"
+        }
+    ]
+}

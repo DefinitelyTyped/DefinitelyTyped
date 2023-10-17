@@ -1,8 +1,3 @@
-// Type definitions for Google Recaptcha
-// Project: https://www.google.com/recaptcha
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Recaptcha {
     constructor();
     static reload(): void;

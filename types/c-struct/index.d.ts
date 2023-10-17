@@ -1,8 +1,3 @@
-// Type definitions for c-struct 0.0
-// Project: https://github.com/majimboo/c-struct#readme
-// Definitions by: Ben Allfree <https://github.com/benallfree>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 export type SchemaDefinition<TObject> = { [_ in keyof TObject]: string };

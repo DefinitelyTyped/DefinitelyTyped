@@ -1,11 +1,3 @@
-// Type definitions for i18n-node 0.13
-// Project: https://github.com/mashpie/i18n-node
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT>
-//                 FindQ <https://github.com/FindQ>
-//                 Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
 declare namespace i18n {
     interface Response extends i18nAPI {
         locals: Partial<i18nAPI>;

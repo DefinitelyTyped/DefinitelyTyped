@@ -1,9 +1,3 @@
-// Type definitions for parse-full-name 1.2
-// Project: https://github.com/dschnelldavis/parse-full-name
-// Definitions by: n8 <https://github.com/n8Guy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0
-
 export type partToReturn =
     | "title"
     | "first"

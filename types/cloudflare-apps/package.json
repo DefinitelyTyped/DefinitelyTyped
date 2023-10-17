@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/cloudflare-apps",
+    "version": "0.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "cloudflare-apps",
+    "projects": [
+        "https://www.cloudflare.com/apps/"
+    ],
+    "devDependencies": {
+        "@types/cloudflare-apps": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "MartynasZilinskas",
+            "githubUsername": "MartynasZilinskas"
+        }
+    ]
+}

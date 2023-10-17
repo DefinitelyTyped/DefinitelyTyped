@@ -10,16 +10,9 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "jsx": "react",
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@webscopeio/*": ["webscopeio__*"]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

@@ -1,9 +1,3 @@
-// Type definitions for zfont 1.2
-// Project: https://github.com/jaames/zfont
-// Definitions by: Dmitry Demensky <https://github.com/demensky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 import * as zdog from "zdog";
 
 export as namespace Zfont;

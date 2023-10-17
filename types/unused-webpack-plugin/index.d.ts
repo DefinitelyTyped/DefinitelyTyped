@@ -1,9 +1,3 @@
-// Type definitions for unused-webpack-plugin 2.4
-// Project: https://github.com/MatthieuLemoine/unused-webpack-plugin#readme
-// Definitions by: Remco Haszing <https://github.com/remcohaszing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import { Compiler, WebpackPluginInstance } from "webpack";
 
 export = UnusedWebpackPlugin;

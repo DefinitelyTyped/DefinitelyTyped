@@ -1,8 +1,3 @@
-// Type definitions for logger 0.0
-// Project: https://github.com/quirkey/node-logger
-// Definitions by: Max Wan <https://github.com/maxwan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export function createLogger(logFilePath?: string): Logger;
 
 export type LogLevel = "fatal" | "error" | "warn" | "info" | "debug";

@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/connect-timeout",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/expressjs/timeout"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/body-parser": "*",
+        "@types/connect-timeout": "workspace:.",
+        "@types/cookie-parser": "*"
+    },
+    "owners": [
+        {
+            "name": "Cyril Schumacher",
+            "githubUsername": "cyrilschumacher"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for non-npm package cyclonedx 1.4
-// Project: https://github.com/CycloneDX/specification
-// Definitions by: Erlend Oftedal <https://github.com/eoftedal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export {};
 
 export type CycloneDXBom = CycloneDXBomV1_2 | CycloneDXBomV1_3 | CycloneDXBomV1_4;

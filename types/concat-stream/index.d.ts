@@ -1,8 +1,3 @@
-// Type definitions for concat-stream 2.0
-// Project: https://github.com/maxogden/concat-stream
-// Definitions by: Joey Marianer <https://github.com/jmarianer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Writable } from "stream";

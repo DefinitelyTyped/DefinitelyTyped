@@ -1,8 +1,3 @@
-// Type definitions for transform-pouch 1.0
-// Project: https://github.com/pouchdb-community/transform-pouch
-// Definitions by: Lucas Rainett <https://github.com/lucasrainett>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="pouchdb-core" />
 
 declare namespace PouchDB {

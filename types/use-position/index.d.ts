@@ -1,8 +1,3 @@
-// Type definitions for use-position 1.0
-// Project: https://github.com/trekhleb/use-position
-// Definitions by: Claudio Musumeci <https://github.com/muscla87>, MatyiFKBT <https://github.com/MatyiFKBT>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * The PositionOptions interface describes an object containing option properties to pass as a
  * parameter of Geolocation.getCurrentPosition() and Geolocation.watchPosition() used inside [[usePosition]] React custom hook

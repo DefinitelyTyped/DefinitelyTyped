@@ -1,9 +1,3 @@
-// Type definitions for @chenfengyuan/datepicker 1.0
-// Project: https://fengyuanchen.github.io/datepicker
-// Definitions by: Anton Rieder <https://github.com/aried3r>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
-
 /// <reference types="jquery"/>
 
 export interface DatepickerPlugin<TElement = HTMLElement> {

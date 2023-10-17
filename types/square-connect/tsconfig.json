@@ -1,10 +1,10 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6"],
+        "lib": [
+            "es6"
+        ],
         "types": [],
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "noEmit": true,
         "noImplicitAny": true,
         "noImplicitThis": true,

@@ -1,9 +1,3 @@
-// Type definitions for djv 2.1
-// Project: https://github.com/korzio/djv#readme
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 interface DjvStatic {
     (options?: DjvStatic.DjvConfig): DjvStatic.djv;
     new(options?: DjvStatic.DjvConfig): DjvStatic.djv;

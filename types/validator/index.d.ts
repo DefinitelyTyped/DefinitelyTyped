@@ -1,21 +1,3 @@
-// Type definitions for validator.js 13.11
-// Project: https://github.com/validatorjs/validator.js
-// Definitions by: tgfjt <https://github.com/tgfjt>
-//                 Ilya Mochalov <https://github.com/chrootsu>
-//                 Ayman Nedjmeddine <https://github.com/IOAyman>
-//                 Louay Alakkad <https://github.com/louy>
-//                 Bonggyun Lee <https://github.com/deptno>
-//                 Naoto Yokoyama <https://github.com/builtinnya>
-//                 Philipp Katz <https://github.com/qqilihq>
-//                 Jace Warren <https://github.com/keatz55>
-//                 Munif Tanjim <https://github.com/MunifTanjim>
-//                 Vlad Poluch <https://github.com/vlapo>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Matteo Nista <https://github.com/Mattewn99>
-//                 Roman Babiak <https://github.com/Almost-Infinity>
-//                 Daniel Freire <https://github.com/dcfreire>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as _isBoolean from "./lib/isBoolean";
 import * as _isEmail from "./lib/isEmail";
 import * as _isFQDN from "./lib/isFQDN";

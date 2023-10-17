@@ -1,9 +1,3 @@
-// Type definitions for mongoose-delete 1.0
-// Project: https://github.com/dsanel/mongoose-delete
-// Definitions by: Mochamad Arifin <https://github.com/ndunks>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
 import mongoose = require("mongoose");
 
 /**

@@ -1,8 +1,3 @@
-// Type definitions for bliss
-// Project: http://blissfuljs.com/
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Element {
     _: BlissNS.BlissBindedElement<Element>;
 }

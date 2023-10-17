@@ -1,10 +1,3 @@
-// Type definitions for standard-version 7.1
-// Project: https://github.com/conventional-changelog/standard-version#readme
-// Definitions by: Jason Kwok <https://github.com/JasonHK>
-//                 David Goitia <https://github.com/davidgoitia>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 /// <reference types="node" />
 
 import { Config } from "conventional-changelog-config-spec";

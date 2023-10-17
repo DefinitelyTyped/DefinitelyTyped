@@ -1,8 +1,3 @@
-// Type definitions for geojson-equality 0.2
-// Project: https://github.com/geosquare/geojson-equality
-// Definitions by: Matt Fedderly <https://github.com/mfedderly>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="geojson" />
 
 declare class GeojsonEquality {

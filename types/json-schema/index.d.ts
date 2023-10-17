@@ -1,12 +1,3 @@
-// Type definitions for json-schema 4.0, 6.0 and 7.0
-// Project: https://github.com/kriszyp/json-schema
-// Definitions by: Boris Cherny <https://github.com/bcherny>
-//                 Lucian Buzzo <https://github.com/lucianbuzzo>
-//                 Roland Groza <https://github.com/rolandjitsu>
-//                 Jason Kwok <https://github.com/JasonHK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 // ==================================================================================================
 // JSON Schema Draft 04
 // ==================================================================================================

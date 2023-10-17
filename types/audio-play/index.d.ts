@@ -1,9 +1,3 @@
-// Type definitions for audio-play 2.3
-// Project: https://github.com/audiojs/audio-play
-// Definitions by: Jeff Peterson <https://github.com/bdjeffyp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /**
  * Creates and plays/pauses a sound effect or music.
  * @param buffer Handle to the audio buffer created by an audio loader

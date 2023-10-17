@@ -1,9 +1,3 @@
-// Type definitions for diva.js 6.0
-// Project: https://github.com/DDMAL/diva.js#readme
-// Definitions by: Juliette Regimbal <https://github.com/JRegimbal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 import { Dimensions, Options, Settings, State, ViewerState } from "./interfaces";
 import ViewerCore from "./viewer-core";
 

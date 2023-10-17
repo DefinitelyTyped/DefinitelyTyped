@@ -1,8 +1,3 @@
-// Type definitions for creditkey-js 1.0
-// Project: https://github.com/creditkey/creditkey-js
-// Definitions by: Mike Bennett <https://github.com/Entroper>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type Platform = "production" | "staging" | "development";
 export type Mode = "modal" | "redirect";
 export type Copy = "checkout" | "pdp";

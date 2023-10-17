@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/sass-true",
+    "version": "6.0.9999",
+    "projects": [
+        "https://github.com/oddbird/true"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "sass": "^1.45.0"
-    }
+    },
+    "devDependencies": {
+        "@types/sass-true": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "robertmaier",
+            "githubUsername": "robertmaier"
+        }
+    ]
 }

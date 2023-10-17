@@ -1,11 +1,3 @@
-// Type definitions for falcor-router 0.8
-// Project: https://github.com/Netflix/falcor-router
-// Definitions by: Quramy <https://github.com/Quramy>
-//                 cdhgee <https://github.com/cdhgee>
-//                 LukeRielley <https://github.com/lukerielley>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="falcor" />
 import * as FalcorModel from "falcor";
 import * as FalcorJsonGraph from "falcor-json-graph";

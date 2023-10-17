@@ -1,10 +1,3 @@
-// Type definitions for power-assert 1.5
-// Project: https://github.com/twada/power-assert
-// Definitions by: vvakame <https://github.com/vvakame>
-//                 Christian Murphy <https://github.com/ChristianMurphy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 // copy from assert external module in node.d.ts
 
 import { Options as EmpowerOptions } from "empower";

@@ -1,8 +1,3 @@
-// Type definitions for stylis 4.2
-// Project: https://github.com/thysultan/stylis.js
-// Definitions by: Gen Hames <https://github.com/heyheyhello>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace stylis;
 
 export interface Element {

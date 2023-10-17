@@ -1,8 +1,3 @@
-// Type definitions for Visual Studio Code 1.83
-// Project: https://github.com/microsoft/vscode
-// Definitions by: Visual Studio Code Team, Microsoft <https://github.com/microsoft>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /*---------------------------------------------------------------------------------------------
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License.

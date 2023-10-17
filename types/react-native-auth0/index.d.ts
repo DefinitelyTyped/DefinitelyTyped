@@ -1,18 +1,3 @@
-// Type definitions for react-native-auth0 2.17
-// Project: https://github.com/auth0/react-native-auth0
-// Definitions by: Andrea Ascari <https://github.com/ascariandrea>
-//                 Mark Nelissen <https://github.com/marknelissen>
-//                 Leo Farias <https://github.com/leoafarias>
-//                 Will Dady <https://github.com/willdady>
-//                 Bogdan Vitoc <https://github.com/bogidon>
-//                 Yam Mesicka <https://github.com/yammesicka>
-//                 Mathias Djärv <https://github.com/mdjarv>
-//                 Greg Friedman <https://github.com/gfriedm4>
-//                 Poovamraj T T <https://github.com/poovamraj>
-//                 TAKAGI Kensuke <https://github.com/januswel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 import * as React from "react";
 
 /**

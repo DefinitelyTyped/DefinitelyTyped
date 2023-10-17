@@ -1,8 +1,3 @@
-// Type definitions for spritesmith 3.4
-// Project: https://github.com/twolfson/spritesmith
-// Definitions by: Zenoo <https://github.com/Zenoo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Transform } from "stream";
 import { BufferFile } from "vinyl";
 

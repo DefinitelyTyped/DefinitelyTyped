@@ -1,8 +1,3 @@
-// Type definitions for gaussian 1.2
-// Project: https://github.com/errcw/gaussian
-// Definitions by: Scott Cooper <https://github.com/scttcper>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function gaussian(mean: number, variance: number): gaussian.Gaussian;
 
 export = gaussian;

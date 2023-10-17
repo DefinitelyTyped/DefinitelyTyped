@@ -1,11 +1,3 @@
-// Type definitions for non-npm package Tampermonkey 4.20
-// Project: https://tampermonkey.net
-// Definitions by: Steven Wang <https://github.com/silverwzw>
-//                 Nikolay Borzov <https://github.com/nikolay-borzov>
-//                 taozhiyu <https://github.com/taozhiyu>
-//                 double-beep <https://github.com/double-beep>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // This definition is based on the API reference of Tampermonkey
 // https://tampermonkey.net/documentation.php
 // TypeScript Version: 3.3

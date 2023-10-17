@@ -1,8 +1,3 @@
-// Type definitions for splitPanes 2.2
-// Project: https://github.com/antoniandre/splitpanes
-// Definitions by: n0k0 <https://github.com/n0k0>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
 import { VueConstructor } from "vue";
 
 // Misc

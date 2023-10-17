@@ -1,9 +1,3 @@
-// Type definitions for sorted-array-functions 1.3
-// Project: https://github.com/mafintosh/sorted-array-functions
-// Definitions by: Behind The Math <https://github.com/BehindTheMath>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export type CompareFn<T = any> = (a: T, b: T) => -1 | 0 | 1;
 
 /**

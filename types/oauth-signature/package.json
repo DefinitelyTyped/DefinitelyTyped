@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/oauth-signature",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/bettiolo/oauth-signature-js"
+    ],
+    "devDependencies": {
+        "@types/oauth-signature": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sean Coker",
+            "githubUsername": "okcoker"
+        }
+    ]
+}

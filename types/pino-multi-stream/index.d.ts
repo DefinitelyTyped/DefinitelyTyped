@@ -1,9 +1,3 @@
-// Type definitions for pino-multi-stream 5.1
-// Project: https://github.com/pinojs/pino-multi-stream#readme
-// Definitions by: Jake Ginnivan <https://github.com/JakeGinnivan>
-//                 Slava Obukhov <https://github.com/vyobukhov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
 import {
     DestinationStream as PinoDestinationStream,
     LevelWithSilent as PinoLevel,

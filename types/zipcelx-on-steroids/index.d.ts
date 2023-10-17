@@ -1,8 +1,3 @@
-// Type definitions for zipcelx-on-steroids 1.0
-// Project: https://github.com/davidramos-om/zipcelx-on-steroids#readme
-// Definitions by: David Ramos <https://github.com/davidramos-om>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * The value and type of a single cell. Only strings and numbers are supported.
  */

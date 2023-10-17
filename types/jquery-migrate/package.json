@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/jquery-migrate",
+    "version": "3.3.9999",
+    "projects": [
+        "https://github.com/jquery/jquery-migrate"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery-migrate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

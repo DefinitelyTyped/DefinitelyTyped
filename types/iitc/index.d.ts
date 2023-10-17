@@ -1,9 +1,3 @@
-// Type definitions for IITC (Ingress Intel Total Conversation) 0.30
-// Project: https://github.com/IITC-CE/ingress-intel-total-conversion
-// Definitions by: McBen <https://github.com/McBen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 // generate docs: npx typedoc --mode file --includeDeclarations --excludeExternals  core/
 
 // dependencies FIXME: triggers error

@@ -1,17 +1,21 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["dom", "es6"],
+        "lib": [
+            "dom",
+            "es6"
+        ],
         "jsx": "react",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "react-image-gallery-tests.tsx"]
+    "files": [
+        "index.d.ts",
+        "react-image-gallery-tests.tsx"
+    ]
 }

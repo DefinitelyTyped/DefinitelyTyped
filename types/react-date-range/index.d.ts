@@ -1,11 +1,3 @@
-// Type definitions for react-date-range 1.4
-// Project: https://github.com/hypeserver/react-date-range
-// Definitions by: Junbong Lee <https://github.com/Junbong>
-//                 Minseok Choi <https://github.com/Curzy>
-//                 John Demetriou <https://github.com/DemetriouJohn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { Locale } from "date-fns";
 import * as React from "react";
 

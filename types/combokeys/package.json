@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/combokeys",
+    "version": "2.4.9999",
+    "projects": [
+        "https://github.com/PolicyStat/combokeys"
+    ],
+    "devDependencies": {
+        "@types/combokeys": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ian Clanton-Thuon",
+            "githubUsername": "iclanton"
+        }
+    ]
+}

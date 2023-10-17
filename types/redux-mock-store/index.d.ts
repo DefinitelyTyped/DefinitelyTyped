@@ -1,9 +1,3 @@
-// Type definitions for Redux Mock Store 1.0.2
-// Project: https://github.com/dmitry-zaets/redux-mock-store
-// Definitions by: Marian Palkus <https://github.com/MarianPalkus>, Cap3 <http://www.cap3.de>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as Redux from "redux";
 
 export interface MockStore<S = any, A extends Redux.Action = Redux.AnyAction> extends Redux.Store<S, A> {

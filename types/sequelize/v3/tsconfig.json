@@ -8,16 +8,7 @@
         "noImplicitThis": false,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
-        "paths": {
-            "sequelize": [
-                "sequelize/v3"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

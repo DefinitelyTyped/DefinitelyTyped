@@ -1,18 +1,3 @@
-// Type definitions for Video.js 7.3
-// Project: https://github.com/videojs/video.js, https://videojs.com
-// Definitions by: Vincent Bortone <https://github.com/vbortone>
-//                 Simon Clériot <https://github.com/scleriot>
-//                 Sean Bennett <https://github.com/SWBennett06>
-//                 Christoph Wagner <https://github.com/IgelCampus>
-//                 Gio Freitas <https://github.com/giofreitas>
-//                 Grzegorz Błaszczyk <https://github.com/gjanblaszczyk>
-//                 Mei Qingguang <https://github.com/meikidd>
-//                 Joe Flateau <https://github.com/joeflateau>
-//                 KuanYu Chu <https://github.com/ckybonist>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Chris Frewin <https://github.com/princefishthrower>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // The Video.js API allows you to interact with the video through
 // Javascript, whether the browser is playing the video through HTML5
 // video, Flash, or any other supported playback technologies.

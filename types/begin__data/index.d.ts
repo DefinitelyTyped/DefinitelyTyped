@@ -1,11 +1,3 @@
-// Type definitions for @begine/data 2.0
-// Project: https://github.com/beginner-corp/begin-data#readme
-// Definitions by: Luma <https://github.com/LumaKernel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-// Documentation comments are licensed under the Apache License 2.0 by beginner-corp.
-// https://github.com/beginner-corp/docs.begin.com/blob/master/LICENSE
-
 export type BeginDataType =
     | number
     | string

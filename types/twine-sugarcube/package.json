@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/twine-sugarcube",
+    "version": "2.36.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "sugarcube",
+    "projects": [
+        "https://github.com/tmedwards/sugarcube-2"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/twine-sugarcube": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ezsh",
+            "githubUsername": "ezsh"
+        },
+        {
+            "name": "Thomas M. Edwards",
+            "githubUsername": "tmedwards"
+        }
+    ]
+}

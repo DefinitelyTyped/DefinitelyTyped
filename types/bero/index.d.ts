@@ -1,8 +1,3 @@
-// Type definitions for bero 0.1
-// Project: https://github.com/ZER0/bero
-// Definitions by: Alessandro Rabitti <https://github.com/silversonicaxel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function bem(block?: string, element?: string): bem.Bemmed;
 declare function bem(block: string, element: bem.Modifier | undefined): string;
 declare function bem(block: string, element: bem.Element, modifier: bem.Modifier): string;

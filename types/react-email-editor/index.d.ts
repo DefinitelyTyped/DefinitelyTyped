@@ -1,11 +1,3 @@
-// Type definitions for react-email-editor 1.5
-// Project: https://github.com/unlayer/react-email-editor
-// Definitions by: Nikita Granko <https://github.com/ngranko>
-//                 Vladimir Penyazkov <https://github.com/mindtraveller>
-//                 Dmitry Semigradsky <https://github.com/Semigradsky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { Component as ReactComponent, CSSProperties } from "react";
 
 export type ThemeColor = "light" | "dark";

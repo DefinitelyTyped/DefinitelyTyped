@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/nodemailer-smtp-pool",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/andris9/nodemailer-smtp-pool"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/nodemailer": "^3"
+    },
+    "devDependencies": {
+        "@types/nodemailer-smtp-pool": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rogier Schouten",
+            "githubUsername": "rogierschouten"
+        }
+    ]
+}

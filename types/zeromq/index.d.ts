@@ -1,9 +1,3 @@
-// Type definitions for zeromq 5.2
-// Project: https://github.com/zeromq/zeromq.js
-// Definitions by: Dave McKeown <https://github.com/davemckeown>
-//                 Philippe D'Alva <https://github.com/TitaneBoy>
-//                 Nika Gogeshvili <https://github.com/overflowz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Forked from the DefinitelyTyped 'zmq' project originally created by Dave McKeown,
 // then updated with recent changes in the 'zeromq' project from

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/kube-probe",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/nodeshift/kube-probe"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/overload-protection": "*"
+    },
+    "devDependencies": {
+        "@types/kube-probe": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ash McBride",
+            "githubUsername": "emacsified"
+        }
+    ]
+}

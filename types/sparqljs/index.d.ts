@@ -1,10 +1,3 @@
-// Type definitions for sparqljs 3.1
-// Project: https://github.com/RubenVerborgh/SPARQL.js
-// Definitions by: Alexey Morozov <https://github.com/AlexeyMz>
-//                 Ruben Taelman <https://github.com/rubensworks>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 import * as RdfJs from "rdf-js";
 
 export const Parser: {

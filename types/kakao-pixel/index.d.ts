@@ -1,7 +1,3 @@
-// Type definitions for non-npm package kakao-pixel 0.11
-// Project: https://kakaoad.github.io/kakao-pixel/
-// Definitions by: hahnlee <https://github.com/hahnlee>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare function kakaoPixel(id: string): kakao.Pixel.Event;
 
 declare namespace kakao.Pixel {

@@ -1,20 +1,3 @@
-// Type definitions for Selenium WebDriverJS 4.1
-// Project: https://github.com/SeleniumHQ/selenium
-// Definitions by: Bill Armstrong <https://github.com/BillArmstrong>,
-//   Yuki Kokubun <https://github.com/Kuniwak>,
-//   Craig Nishina <https://github.com/cnishina>,
-//   Simon Gellis <https://github.com/SupernaviX>,
-//   Ben Dixon <https://github.com/bendxn>,
-//   Ziyu <https://github.com/oddui>
-//   Johann Wolf <https://github.com/beta-vulgaris>
-//   Aleksey Chemakin <https://github.com/Dzenly>
-//   David Burns <https://github.com/AutomatedTester>
-//   Pirasis Leelatanon <https://github.com/1pete>
-//   Harmandeep Singh <https://github.com/SinghHrmn>
-//   Shubh Sheth <https://github.com/shubhsheth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 import { WebSocket } from "ws";
 import LogInspector = require("./bidi/logInspector");
 import * as chrome from "./chrome";

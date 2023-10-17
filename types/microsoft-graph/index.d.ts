@@ -1,14 +1,3 @@
-// Type definitions for non-npm package microsoft-graph 2.38
-// Project: https://github.com/microsoftgraph/msgraph-typescript-typings
-// Definitions by: Microsoft Graph Team <https://github.com/microsoftgraph>
-//                 Michael Mainer <https://github.com/MIchaelMainer>
-//                 Geoffrey Koros <https://github.com/koros>
-//                 Mustafa Zengin <https://github.com/zengin>
-//                 DeVere Dyett <https://github.com/ddyett>
-//                 Gavin Barron <https://github.com/gavinbarron>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export as namespace microsoftgraph;
 
 export type NullableOption<T> = T | null;

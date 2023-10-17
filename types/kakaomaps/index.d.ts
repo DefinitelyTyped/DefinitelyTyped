@@ -1,9 +1,3 @@
-// Type definitions for non-npm package kakaomaps-browser 1.1
-// Project: https://apis.map.kakao.com/web/documentation/
-// Definitions by: MinByeongDon <https://github.com/MinByeongDon>
-//                 PositiveKo <https://github.com/positiveko>
-//                 Sanghyeon Lee <https://github.com/yongdamsh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare namespace kakao.maps {
     // # Core
     interface MapOptions {

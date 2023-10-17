@@ -1,11 +1,3 @@
-// Type definitions for Jest 16.0
-// Project: http://facebook.github.io/jest/
-// Definitions by: Asana (https://asana.com)
-//                 Ivo Stratev <https://github.com/NoHomey>
-//                 jwbay <https://github.com/jwbay>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
 declare var afterAll: jest.Lifecycle;

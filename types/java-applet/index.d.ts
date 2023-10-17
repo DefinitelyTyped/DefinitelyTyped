@@ -1,8 +1,3 @@
-// Type definitions for Java Applet
-// Project: https://www.java.com/
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // HTMLAppletElement was removed in TS 4.4's DOM APIs
 interface HTMLAppletElement extends HTMLElement {}
 

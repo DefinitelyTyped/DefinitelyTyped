@@ -1,10 +1,3 @@
-// Type definitions for @feathersjs/socket-commons 3.1
-// Project: https://github.com/feathersjs/socket-commons
-// Definitions by: Jan Lohage <https://github.com/j2L4e>
-//                 deskoh <https://github.com/deskoh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { HookContext } from "@feathersjs/feathers";
 
 export type Connection = any; // todo: spec connection

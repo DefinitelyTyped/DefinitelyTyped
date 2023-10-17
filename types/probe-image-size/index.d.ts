@@ -1,8 +1,3 @@
-// Type definitions for probe-image-size 7.2
-// Project: https://github.com/nodeca/probe-image-size#readme
-// Definitions by: Jinesh Shah <https://github.com/jineshshah36>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
 import needle = require("needle");

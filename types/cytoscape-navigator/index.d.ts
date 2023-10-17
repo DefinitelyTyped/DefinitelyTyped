@@ -1,8 +1,3 @@
-// Type definitions for cytoscape-navigator 2.0
-// Project: https://github.com/cytoscape/cytoscape.js-navigator
-// Definitions by: Musa <https://github.com/hellomusa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import cytoscape = require("cytoscape");
 
 declare const navigator: cytoscape.Ext;

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/raf-schd",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/alexreardon/raf-schd"
+    ],
+    "devDependencies": {
+        "@types/raf-schd": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Bergman",
+            "githubUsername": "adambrgmn"
+        }
+    ]
+}

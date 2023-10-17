@@ -1,8 +1,3 @@
-// Type definitions for sha256-wasm 2.2
-// Project: https://github.com/chm-diederichs/sha256-wasm#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference lib="dom" />
 /// <reference types="node" />
 

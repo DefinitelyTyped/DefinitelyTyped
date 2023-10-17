@@ -1,8 +1,3 @@
-// Type definitions for mysql-query-util 0.2
-// Project: https://github.com/uchennaemeruche/mysql-util#readme
-// Definitions by: Uchenna Emeruche <https://github.com/uchennaemeruche>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare function _delete(options: IterableOptions): Promise<any>;

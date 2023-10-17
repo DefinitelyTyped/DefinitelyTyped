@@ -1,8 +1,3 @@
-// Type definitions for @trust/keyto 1.0
-// Project: https://github.com/EternalDeiwos/keyto#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = Key;

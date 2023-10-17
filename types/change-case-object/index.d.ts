@@ -1,8 +1,3 @@
-// Type definitions for change-case-object 2.0
-// Project: https://github.com/BinaryThumb/change-case-object#readme
-// Definitions by: James Chao <https://github.com/jameschao>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export function camelCase(s: string): string;
 export function camelCase(arr: ReadonlyArray<string>): string[];
 export function camelCase(arr: ReadonlyArray<object>): object[];

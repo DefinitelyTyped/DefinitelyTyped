@@ -1,9 +1,3 @@
-// Type definitions for react-resizable 3.0
-// Project: https://github.com/react-grid-layout/react-resizable
-// Definitions by: Harry Brrundage <https://github.com/airhorns>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export type Axis = "both" | "x" | "y" | "none";

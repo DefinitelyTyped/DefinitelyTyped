@@ -1,8 +1,3 @@
-// Type definitions for node-microphone 0.1
-// Project: https://github.com/MexXxo/node-microphone#readme
-// Definitions by: Andreas May <https://github.com/Maanex>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 interface MicrophoneOptions {

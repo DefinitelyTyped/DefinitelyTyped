@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/milkcocoa",
+    "version": "0.2.9999",
+    "projects": [
+        "https://mlkcca.com/"
+    ],
+    "devDependencies": {
+        "@types/milkcocoa": "workspace:."
+    },
+    "owners": []
+}

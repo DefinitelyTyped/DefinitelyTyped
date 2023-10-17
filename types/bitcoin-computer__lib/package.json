@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/bitcoin-computer__lib",
+    "version": "0.15.9999",
+    "projects": [
+        "https://github.com/bitcoin-computer/monorepo"
+    ],
+    "devDependencies": {
+        "@types/bitcoin-computer__lib": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jonty007",
+            "githubUsername": "jonty007"
+        }
+    ]
+}

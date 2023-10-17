@@ -1,8 +1,3 @@
-// Type definitions for svelte-range-slider-pips 2.0
-// Project: https://github.com/simeydotme/svelte-range-slider-pips
-// Definitions by: Nick K <https://github.com/i7N3>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import type { SvelteComponentTyped } from "svelte";
 
 declare namespace RangeSlider {

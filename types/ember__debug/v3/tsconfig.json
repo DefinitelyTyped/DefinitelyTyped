@@ -10,17 +10,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "@ember/debug": ["ember__debug/v3"],
-            "@ember/debug/*": ["ember__debug/v3/*"],
-            "@ember/engine": ["ember__engine/v3"],
-            "@ember/engine/*": ["ember__engine/v3/*"],
-            "@ember/object": ["ember__object/v3"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

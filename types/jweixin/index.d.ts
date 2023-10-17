@@ -1,8 +1,3 @@
-// Type definitions for jweixin 1.0
-// Project: https://github.com/heyong-2015/jweixin
-// Definitions by: taoqf <https://github.com/taoqf>
-//                     gomydodo <https://github.com/gomydodo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /* =================== USAGE ===================
 import * as wx from 'jweixin';
 wx.config(...);

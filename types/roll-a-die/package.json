@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/roll-a-die",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/chukwumaijem/roll-a-die"
+    ],
+    "devDependencies": {
+        "@types/roll-a-die": "workspace:."
+    },
+    "owners": []
+}

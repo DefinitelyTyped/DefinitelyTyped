@@ -9,25 +9,10 @@
             "es6",
             "dom"
         ],
-        "paths": {
-            "react": [
-                "react/v16"
-            ],
-            "react-dom": [
-                "react-dom/v16"
-            ],
-            "react-dom/*": [
-                "react-dom/v16/*"
-            ]
-        },
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,

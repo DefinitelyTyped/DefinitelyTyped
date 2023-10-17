@@ -1,28 +1,19 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6"],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
-        "paths": {
-            "webpack": [
-                "webpack/v4"
-            ],
-            "webpack-bundle-analyzer": [
-                "webpack-bundle-analyzer/v3"
-            ],
-            "tapable": [
-                "tapable/v1"
-            ],
-            "@babel/*": ["babel__*"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "customize-cra-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "customize-cra-tests.ts"
+    ]
 }

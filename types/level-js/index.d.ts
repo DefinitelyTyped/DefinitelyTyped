@@ -1,9 +1,3 @@
-// Type definitions for level-js 4.0
-// Project: https://github.com/Level/level-js
-// Definitions by: Daniel Byrne <https://github.com/danwbyrne>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { AbstractLevelDOWN, AbstractOptions } from "abstract-leveldown";
 
 interface Level extends AbstractLevelDOWN {

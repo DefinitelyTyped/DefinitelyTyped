@@ -1,8 +1,3 @@
-// Type definitions for tapable v0.2.5
-// Project: https://github.com/webpack/tapable.git
-// Definitions by: e-cloud <https://github.com/e-cloud>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare abstract class Tapable {
     private _plugins: {
         [propName: string]: Tapable.Handler[];

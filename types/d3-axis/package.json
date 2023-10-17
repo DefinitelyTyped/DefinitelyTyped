@@ -1,0 +1,41 @@
+{
+    "private": true,
+    "name": "@types/d3-axis",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/d3/d3-axis/",
+        "https://d3js.org/d3-axis"
+    ],
+    "dependencies": {
+        "@types/d3-selection": "*"
+    },
+    "devDependencies": {
+        "@types/d3-axis": "workspace:.",
+        "@types/d3-format": "*",
+        "@types/d3-scale": "*",
+        "@types/d3-time": "*",
+        "@types/d3-transition": "*"
+    },
+    "owners": [
+        {
+            "name": "Tom Wanzek",
+            "githubUsername": "tomwanzek"
+        },
+        {
+            "name": "Alex Ford",
+            "githubUsername": "gustavderdrache"
+        },
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "denisname",
+            "githubUsername": "denisname"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

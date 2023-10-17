@@ -1,8 +1,3 @@
-// Type definitions for vue-template-es2015-compiler 1.9
-// Project: https://github.com/vuejs/vue-template-es2015-compiler#readme
-// Definitions by: Ilya Medvedev <https://github.com/iam-medvedev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface TransformsOptions {
     modules?: boolean | undefined;
     /** Custom feature for stripping with from Vue render functions */

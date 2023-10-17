@@ -1,8 +1,3 @@
-// Type definitions for ffmpeg-concat 1.1
-// Project: https://github.com/transitive-bullshit/ffmpeg-concat
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Transition {
     duration: number;
     name: string;

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/sql-tagged-template-literal",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/TehShrike/sql-tagged-template-literal#readme"
+    ],
+    "devDependencies": {
+        "@types/sql-tagged-template-literal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Junxiao Shi",
+            "githubUsername": "yoursunny"
+        }
+    ]
+}

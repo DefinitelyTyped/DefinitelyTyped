@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jp-conversion",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/Pomax/node-jp-conversion"
+    ],
+    "devDependencies": {
+        "@types/jp-conversion": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nicolas Newman",
+            "githubUsername": "NicolasNewman"
+        }
+    ]
+}

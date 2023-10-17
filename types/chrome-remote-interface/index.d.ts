@@ -1,10 +1,3 @@
-// Type definitions for chrome-remote-interface 0.31
-// Project: https://github.com/cyrus-and/chrome-remote-interface
-// Definitions by: Khairul Azhar Kasmiran <https://github.com/kazarmy>
-//                 Seth Westphal <https://github.com/westy92>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
-
 import type ProtocolMappingApi from "devtools-protocol/types/protocol-mapping";
 import type ProtocolProxyApi from "devtools-protocol/types/protocol-proxy-api";
 

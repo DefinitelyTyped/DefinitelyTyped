@@ -29,7 +29,13 @@ jobs:
 
       - uses: actions/setup-node@v3
 
-      - run: npm install --no-package-lock
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: latest
+          run_install: |
+            - args: [--filter, .]
+
       - run: node ./scripts/ghostbuster.js
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_API_READ }}

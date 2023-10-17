@@ -1,8 +1,3 @@
-// Type definitions for mersennetwister 0.2
-// Project: https://github.com/pigulla/mersennetwister#readme
-// Definitions by: Klemen Slavič <https://github.com/krofdrakula>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = MersenneTwister;
 
 declare class MersenneTwister {

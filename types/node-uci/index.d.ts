@@ -1,8 +1,3 @@
-// Type definitions for node-uci 1.3
-// Project: https://github.com/ebemunk/node-uci
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Minimum TypeScript Version: 3.0
 /// <reference types="node" />
 

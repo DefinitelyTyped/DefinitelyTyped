@@ -1,9 +1,3 @@
-// Type definitions for highlight.js 9.12
-// Project: https://github.com/isagalaev/highlight.js
-// Definitions by: Andrew Branch <https://github.com/andrewbranch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare namespace hljs {
     // tslint:disable-next-line:no-empty-interface
     interface Node {}

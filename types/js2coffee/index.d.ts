@@ -1,9 +1,3 @@
-// Type definitions for JS2Coffee 2.2
-// Project: https://github.com/js2coffee/js2coffee
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 import * as estree from "estree";
 import * as sourceMap from "source-map";
 

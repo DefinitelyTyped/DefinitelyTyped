@@ -1,28 +1,3 @@
-// Type definitions for Sequelize 4.28.0
-// Project: http://sequelizejs.com, https://github.com/sequelize/sequelize
-// Definitions by: samuelneff <https://github.com/samuelneff>
-//                 Peter Harris <https://github.com/codeanimal>
-//                 Ivan Drinchev <https://github.com/drinchev>
-//                 Brendan Abolivier <https://github.com/babolivier>
-//                 Patsakol Tangjitcharoenchai <https://github.com/kukoo1>
-//                 Sebastien Bramille <https://github.com/oktapodia>
-//                 Nick Mueller <https://github.com/morpheusxaut>
-//                 Philippe D'Alva <https://github.com/TitaneBoy>
-//                 Carven Zhang <https://github.com/zjy01>
-//                 Florian Oellerich <https://github.com/Raigen>
-//                 Todd Bealmear <https://github.com/todd>
-//                 Nick Schultz <https://github.com/nrschultz>
-//                 Thomas Breleur <https://github.com/thomas-b>
-//                 Antoine Boisadam <https://github.com/Antoine38660>
-//                 Dima Smirnov <https://github.com/smff>
-//                 Duy Truong <https://github.com/truongkhanhduy95>
-//                 Emmanuel Gautier <https://github.com/emmanuelgautier>
-//                 Dan Rumney <https://github.com/dancrumb>
-//                 Kan Yueh Chen <https://github.com/lalayueh>
-//                 Rohit Sud <https://github.com/rohitsud>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 // ***************************** IMPORTANT NOTE *****************************
 // These types are for the 4.x branch of Sequelize. As of Sequelize 5.0,
 // types are packaged directly within Sequelize itself. Please target the

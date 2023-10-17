@@ -1,11 +1,3 @@
-// Type definitions for Mousetrap 1.6
-// Project: http://craig.is/killing/mice
-// Definitions by: Dániel Tar <https://github.com/qcz>
-//                 Alan Choi <https://github.com/alanhchoi>
-//                 Nic Barker <https://github.com/nicbarker>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Mousetrap {
     interface ExtendedKeyboardEvent extends KeyboardEvent {
         returnValue: boolean; // IE returnValue

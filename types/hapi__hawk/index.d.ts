@@ -1,8 +1,3 @@
-// Type definitions for @hapi/hawk 8.0
-// Project: https://github.com/hapijs/hawk/
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as sntp from "@hapi/sntp";

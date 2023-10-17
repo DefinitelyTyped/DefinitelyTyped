@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/loadjs",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/muicss/loadjs"
+    ],
+    "devDependencies": {
+        "@types/loadjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Rackerseder",
+            "githubUsername": "screendriver"
+        },
+        {
+            "name": "Aziz Khambati",
+            "githubUsername": "azizhk"
+        }
+    ]
+}

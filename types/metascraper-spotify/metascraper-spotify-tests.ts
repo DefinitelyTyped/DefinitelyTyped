@@ -1,4 +1,4 @@
-import metascraper = require("metascraper");
+import metascraper from "metascraper";
 import metascraperSpotify = require("metascraper-spotify");
 
 const html = "example";

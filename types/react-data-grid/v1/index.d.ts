@@ -1,9 +1,3 @@
-// Type definitions for react-data-grid 1.0.4
-// Project: https://github.com/adazzle/react-data-grid.git
-// Definitions by: Simon Gellis <https://github.com/SupernaviX>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="react" />
 
 declare namespace AdazzleReactDataGrid {

@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/isomorphic-git__lightning-fs",
+    "version": "4.4.9999",
+    "projects": [
+        "https://github.com/isomorphic-git/lightning-fs#readme"
+    ],
+    "devDependencies": {
+        "@types/isomorphic-git__lightning-fs": "workspace:."
+    },
+    "owners": []
+}

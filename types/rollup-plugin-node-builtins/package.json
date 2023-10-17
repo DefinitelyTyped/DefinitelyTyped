@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/rollup-plugin-node-builtins",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/calvinmetcalf/rollup-plugin-node-builtins#readme"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "rollup": "^0.63.4"
-    }
+    },
+    "devDependencies": {
+        "@types/rollup-plugin-node-builtins": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hugo Alliaume",
+            "githubUsername": "Kocal"
+        }
+    ]
 }

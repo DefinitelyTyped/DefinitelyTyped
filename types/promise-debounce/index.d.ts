@@ -1,8 +1,3 @@
-// Type definitions for promise-debounce 1.0
-// Project: https://github.com/jaz303/promise-debounce
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Returns a debounced version of `fn` with optional calling context `ctx`.
  *

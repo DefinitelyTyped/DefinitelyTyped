@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/omit",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/DamonOehlman/omit#readme"
+    ],
+    "devDependencies": {
+        "@types/omit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rajas Paranjpe",
+            "githubUsername": "ChocolateLoverRaj"
+        }
+    ]
+}

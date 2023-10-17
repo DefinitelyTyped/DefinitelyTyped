@@ -1,9 +1,3 @@
-// Type definitions for xml-crypto 1.4
-// Project: https://github.com/yaronn/xml-crypto#readme
-// Definitions by: Eric Heikes <https://github.com/eheikes>
-//                 Max Chehab <https://github.com/maxchehab>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { SelectedValue } from "xpath";

@@ -1,8 +1,3 @@
-// Type definitions for RequireJS 2.1.20
-// Project: http://requirejs.org/
-// Definitions by: Josh Baldwin <https://github.com/jbaldwin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /*
 require-2.1.8.d.ts may be freely distributed under the MIT license.
 

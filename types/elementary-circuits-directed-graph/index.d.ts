@@ -1,8 +1,3 @@
-// Type definitions for elementary-circuits-directed-graph 1.2
-// Project: https://github.com/antoinerg/elementary-circuits-directed-graph#readme
-// Definitions by: Michon van Dooren <https://github.com/maienm>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Takes an adjacencyList and returns the circuits found therein.
  */

@@ -1,8 +1,3 @@
-// Type definitions for complex.js 2.0
-// Project: https://github.com/infusion/Complex.js
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type ComplexLike =
     | { re: number; im: number }
     | { arg: number; abs: number }

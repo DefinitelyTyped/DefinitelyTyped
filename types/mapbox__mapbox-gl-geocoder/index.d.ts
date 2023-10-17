@@ -1,9 +1,3 @@
-// Type definitions for @mapbox/mapbox-gl-geocoder 4.7
-// Project: https://github.com/mapbox/mapbox-gl-geocoder
-// Definitions by: makspetrov <https://github.com/Nosfit>
-//                 Dmytro Gokun <https://github.com/dmytro-gokun>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="geojson" />
 
 import mapboxgl = require("mapbox-gl");

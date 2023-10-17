@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/express-paginate",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/niftylettuce/express-paginate"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/express-paginate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Amir Tugendhaft",
+            "githubUsername": "AmirTugi"
+        }
+    ]
+}

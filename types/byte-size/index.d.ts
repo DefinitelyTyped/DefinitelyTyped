@@ -1,8 +1,3 @@
-// Type definitions for byte-size 8.1
-// Project: https://github.com/75lb/byte-size#readme
-// Definitions by: lntel <https://github.com/lntel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ByteSizeOptions {
     precision?: number;
     units?: string;

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/stripe-checkout",
+    "version": "1.0.9999",
+    "projects": [
+        "https://stripe.com/checkout",
+        "https://github.com/matthewmueller/stripe-checkout"
+    ],
+    "dependencies": {
+        "@types/stripe-v3": "*"
+    },
+    "devDependencies": {
+        "@types/stripe-checkout": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Wrench",
+            "githubUsername": "cgwrench"
+        }
+    ]
+}

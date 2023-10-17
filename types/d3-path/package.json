@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/d3-path",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/d3/d3-path/",
+        "https://d3js.org/d3-path"
+    ],
+    "devDependencies": {
+        "@types/d3-path": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tom Wanzek",
+            "githubUsername": "tomwanzek"
+        },
+        {
+            "name": "Alex Ford",
+            "githubUsername": "gustavderdrache"
+        },
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

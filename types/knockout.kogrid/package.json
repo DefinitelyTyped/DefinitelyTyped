@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/knockout.kogrid",
+    "version": "0.0.9999",
+    "projects": [
+        "http://knockout-contrib.github.io/KoGrid/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*",
+        "@types/knockout": "*"
+    },
+    "devDependencies": {
+        "@types/knockout.kogrid": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "huer12",
+            "githubUsername": "huer12"
+        }
+    ]
+}

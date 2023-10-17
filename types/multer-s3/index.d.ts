@@ -1,11 +1,3 @@
-// Type definitions for multer-s3 3.0
-// Project: https://github.com/badunk/multer-s3
-// Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <https://github.com/tcaesvk>
-//                 Gal Talmor <https://github.com/galtalmor>
-//                 Matt Terski <https://github.com/terski>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { S3Client } from "@aws-sdk/client-s3";
 import { StorageEngine } from "multer";
 

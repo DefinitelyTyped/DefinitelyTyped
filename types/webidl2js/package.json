@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/webidl2js",
+    "version": "16.0.9999",
+    "projects": [
+        "https://github.com/jsdom/webidl2js#readme"
+    ],
+    "dependencies": {
+        "@types/webidl2": "*"
+    },
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/webidl2js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

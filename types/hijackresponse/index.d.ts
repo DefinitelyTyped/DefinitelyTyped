@@ -1,9 +1,3 @@
-// Type definitions for hijackresponse 4.0
-// Project: https://github.com/gustavnikolaj/hijackresponse
-// Definitions by: Matthias Kunnen <https://github.com/MatthiasKunnen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
 import express = require("express");
 import { Readable } from "stream";
 

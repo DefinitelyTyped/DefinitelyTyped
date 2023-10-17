@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/uppercamelcase",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/samverschueren/uppercamelcase"
+    ],
+    "devDependencies": {
+        "@types/uppercamelcase": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "York Yao",
+            "githubUsername": "plantain-00"
+        }
+    ]
+}

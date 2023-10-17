@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-sticky-el",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/gm0t/react-sticky-el"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-sticky-el": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Justin Braithwaite",
+            "githubUsername": "jbraithwaite"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for @hapi/call 9.0
-// Project: https://github.com/hapijs/call#readme
-// Definitions by: Rodrigo Saboya <https://github.com/saboya>
-//                 Sebastian Malton <https://github.com/nokel81>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface RouteDefinition {

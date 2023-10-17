@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/git-user-name",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/git-user-name"
+    ],
+    "devDependencies": {
+        "@types/git-user-name": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

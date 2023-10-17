@@ -1,12 +1,3 @@
-// Type definitions for in-app-purchase 1.11
-// Project: https://github.com/voltrue2/in-app-purchase#readme
-// Definitions by: Jonas Lochmann <https://github.com/l-jonas>
-//                 Dennis Kugelmann <https://github.com/IchordeDionysos>
-//                 Alexander Tartmin <https://github.com/Baskerville42>
-//                 Hiroshi Kikuchi <https://github.com/kikuchy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export const UNITY = "unity";
 export const APPLE = "apple";
 export const GOOGLE = "google";

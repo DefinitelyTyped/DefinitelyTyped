@@ -1,10 +1,3 @@
-// Type definitions for connect-mongodb-session 2.4
-// Project: https://github.com/mongodb-js/connect-mongodb-session#readme
-// Definitions by: Nattapong Sirilappanich <https://github.com/NattapongSiri>
-//                 Ravi van Rooijen <https://github.com/HoldYourWaffle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 import session = require("express-session");
 import { MongoClient, MongoClientOptions } from "mongodb";
 

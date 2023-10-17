@@ -1,20 +1,3 @@
-// Type definitions for pubnub 7.3
-// Project: https://github.com/pubnub/javascript
-// Definitions by:  bitbankinc <https://github.com/bitbankinc>,
-//                  rollymaduk <https://github.com/rollymaduk>,
-//                  vitosamson <https://github.com/vitosamson>,
-//                  FlorianDr <https://github.com/FlorianDr>,
-//                  danduh <https://github.com/danduh>,
-//                  ChristianBoehlke <https://github.com/ChristianBoehlke>,
-//                  divyun <https://github.com/divyun>
-//                  elviswolcott <https://github.com/elviswolcott>
-//                  mohitpubnub <https://github.com/mohitpubnub>
-//                  Salet <https://github.com/Salet>
-//                  elvis-pn <https://github.com/elvis-pn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// @see https://www.pubnub.com/docs/web-javascript/api-reference-configuration
-// TypeScript Version: 3.5
-
 // SDK callbacks all accept Pubnub.PubnubStatus as the first argument
 type Callback<ResponseType> = (status: Pubnub.PubnubStatus, response: ResponseType) => void;
 type StatusCallback = (status: Pubnub.PubnubStatus) => void;

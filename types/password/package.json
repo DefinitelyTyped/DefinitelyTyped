@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/password",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/shimaore/password"
+    ],
+    "devDependencies": {
+        "@types/password": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "James Lismore",
+            "githubUsername": "jlismore"
+        }
+    ]
+}

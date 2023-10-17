@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/feathersjs__primus",
+    "version": "3.0.9999",
+    "projects": [
+        "https://feathersjs.com"
+    ],
+    "dependencies": {
+        "@types/feathersjs__socket-commons": "*"
+    },
+    "devDependencies": {
+        "@types/feathersjs__feathers": "*",
+        "@types/feathersjs__primus": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jan Lohage",
+            "githubUsername": "j2L4e"
+        }
+    ]
+}

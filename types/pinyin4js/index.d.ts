@@ -1,8 +1,3 @@
-// Type definitions for pinyin4js 1.3
-// Project: https://github.com/superbiger/pinyin4js
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // export = pinyin4js;
 export as namespace pinyin4js;
 

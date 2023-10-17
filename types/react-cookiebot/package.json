@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/react-cookiebot",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/yeutech-lab/react-cookiebot/"
+    ],
+    "devDependencies": {
+        "@types/react": "*",
+        "@types/react-cookiebot": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "David Díez",
+            "githubUsername": "hartstarx"
+        }
+    ]
+}

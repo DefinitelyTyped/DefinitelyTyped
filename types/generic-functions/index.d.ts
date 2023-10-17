@@ -1,8 +1,3 @@
-// Type definitions for generic-functions
-// Project: https://github.com/stpettersens/genericFunctions-for-node#readme
-// Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare module "generic-functions" {
     function strcmp(str1: string, str2: string): boolean;
     function icstrcmp(str1: string, str2: string): boolean;

@@ -1,9 +1,3 @@
-// Type definitions for make-fetch-happen 10.0
-// Project: https://github.com/npm/make-fetch-happen
-// Definitions by: Jesse Rosenberger <https://github.com/abernix>
-//                 Trevor Scheer <https://github.com/trevor-scheer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
 /// <reference lib="dom" />
 import { AgentOptions, ClientRequestArgs } from "http";
 import { SecureContextOptions } from "tls";

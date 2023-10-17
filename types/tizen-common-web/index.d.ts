@@ -1,12 +1,3 @@
-// Type definitions for tizen-common-web 2.0
-// Project: https://docs.tizen.org/application/web/api/5.5/device_api/tv/index.html
-// Definitions by: SejoongDeJang <https://github.com/SejoongDeJang>
-//                 Dongkeun Nam <https://github.com/capscrom>
-//                 Woosik Park <https://github.com/pwsses>
-//                 Dayoung Kim <https://github.com/darangkim>
-//                 Hyojin Kim <https://github.com/prozanne>
-//                 Egor Shulga <https://github.com/egorshulga>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /**
  * The AccountInit dictionary represents options for creating accounts.
  * Attributes are not mandatory, and can be added and modified by accessing the

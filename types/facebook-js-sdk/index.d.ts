@@ -1,12 +1,3 @@
-// Type definitions for the Facebook Javascript SDK 3.3
-// Project: https://developers.facebook.com/docs/javascript
-// Definitions by:  Amrit Kahlon    <https://github.com/amritk>
-//                  Mahmoud Zohdi   <https://github.com/mahmoudzohdi>
-//                  Marc Knaup      <https://github.com/fluidsonic>
-//                  Ben Grynhaus    <https://github.com/bengry>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 declare function fbAsyncInit(): void;
 
 import fb = facebook;

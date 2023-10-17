@@ -1,11 +1,3 @@
-// Type definitions for jsdom 21.1
-// Project: https://github.com/jsdom/jsdom
-// Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
-//                 Johan Palmfjord <https://github.com/palmfjord>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.5
-
 /// <reference path="base.d.ts"/>
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package

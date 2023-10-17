@@ -1,9 +1,3 @@
-// Type definitions for cookie 0.5
-// Project: https://github.com/jshttp/cookie
-// Definitions by: Pine Mizune <https://github.com/pine>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Basic HTTP cookie parser and serializer for HTTP servers.
  */

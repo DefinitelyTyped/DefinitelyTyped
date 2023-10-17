@@ -1,10 +1,3 @@
-// Type definitions for react-svg-pan-zoom 3.3
-// Project: https://github.com/chrvadala/react-svg-pan-zoom#readme, https://chrvadala.github.io/react-svg-pan-zoom
-// Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
-//                 Trey Wenger <https://github.com/tvwenger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 // String constants:

@@ -1,8 +1,3 @@
-// Type definitions for jMuxer 2.0
-// Project: https://github.com/samirkumardas/jmuxer
-// Definitions by: Samir Das <https://github.com/samirkumardas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { Duplex } from "stream";
 

@@ -1,6 +1,25 @@
 {
     "private": true,
+    "name": "@types/hapi__catbox-redis",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/hapijs/catbox-redis"
+    ],
     "dependencies": {
+        "@types/hapi__catbox": "*",
         "@types/ioredis": "^4.28.10"
-    }
+    },
+    "devDependencies": {
+        "@types/hapi__catbox-redis": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Simon Schick",
+            "githubUsername": "SimonSchick"
+        },
+        {
+            "name": "Silas Rech",
+            "githubUsername": "lenovouser"
+        }
+    ]
 }

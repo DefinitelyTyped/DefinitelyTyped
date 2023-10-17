@@ -1,6 +1,26 @@
 {
     "private": true,
+    "name": "@types/activex-infopath",
+    "version": "3.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Microsoft InfoPath 3.0 Type Library - InfoPath",
+    "projects": [
+        "https://msdn.microsoft.com/en-us/library/jj602751.aspx"
+    ],
     "dependencies": {
+        "@types/activex-adodb": "*",
+        "@types/activex-mshtml": "*",
+        "@types/activex-msxml2": "*",
+        "@types/activex-stdole": "*",
         "activex-helpers": "*"
-    }
+    },
+    "devDependencies": {
+        "@types/activex-infopath": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Zev Spitz",
+            "githubUsername": "zspitz"
+        }
+    ]
 }

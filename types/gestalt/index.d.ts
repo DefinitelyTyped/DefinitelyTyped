@@ -1,18 +1,3 @@
-// Type definitions for gestalt 101.0
-// Project: https://github.com/pinterest/gestalt, https://pinterest.github.io/gestalt
-// Definitions by: Nicolás Serrano Arévalo <https://github.com/serranoarevalo>
-//                 Josh Gachnang <https://github.com/joshgachnang>
-//                 Calvin Chhour <https://github.com/calvinchhour>
-//                 Muhammed Hafiz <https://github.com/zifahm>
-//                 Kyle Hensel <https://github.com/k-yle>
-//                 Francisco Jimenez <https://github.com/jimenezff>
-//                 Charlie Gu <https://github.com/czgu>
-//                 Jay Kim <https://github.com/keyworks>
-//                 Vaibhav Sharma <https://github.com/v4iv>
-//                 Juan Alvarez <https://github.com/juanjalvarez>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 import React = require("react");
 
 /**

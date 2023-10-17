@@ -1,8 +1,3 @@
-// Type definitions for quick-store 0.1
-// Project: https://www.npmjs.com/package/quick-store (repository is deleted)
-// Definitions by: Glenn <https://github.com/promise>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = QuickStore;
 
 interface DatabaseContents {

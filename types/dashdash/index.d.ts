@@ -1,9 +1,3 @@
-// Type definitions for dashdash 1.14
-// Project: https://github.com/trentm/node-dashdash#readme
-// Definitions by: Adam Voss <https://github.com/adamvoss>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class Parser {
     /**  Allow interspersed arguments. @default true */
     interpersed: boolean;

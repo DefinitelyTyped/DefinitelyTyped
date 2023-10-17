@@ -1,5 +1,10 @@
 {
     "private": true,
+    "name": "@types/three",
+    "version": "0.157.9999",
+    "projects": [
+        "https://threejs.org/"
+    ],
     "type": "module",
     "exports": {
         ".": {
@@ -13,7 +18,22 @@
         "./nodes": "./examples/jsm/nodes/Nodes.js"
     },
     "dependencies": {
+        "@types/stats.js": "*",
+        "@types/webxr": "*",
         "fflate": "~0.6.10",
         "meshoptimizer": "~0.18.1"
-    }
+    },
+    "devDependencies": {
+        "@types/three": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Josh Ellis",
+            "githubUsername": "joshuaellis"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
 }

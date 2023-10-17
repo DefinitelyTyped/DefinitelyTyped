@@ -1,8 +1,3 @@
-// Type definitions for pigpio-dht 1.1
-// Project: https://github.com/depuits/pigpio-dht
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = dht;

@@ -1,9 +1,3 @@
-// Type definitions for non-npm package wegame 2.8
-// Project: https://developers.weixin.qq.com/minigame/dev/index.html
-// Definitions by: J.C <https://github.com/jcyuan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /**
  * IOS及安卓不支持：
  *     globalCompositeOperation不支持以下值：source-in source-out destination-atop lighter copy

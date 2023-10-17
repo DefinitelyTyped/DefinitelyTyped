@@ -1,10 +1,3 @@
-// Type definitions for rrdtool 0.1
-// Project: https://github.com/LinusU/node-rrdtool
-// Definitions by: Filip Stenbacka <https://github.com/filiptypjeu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Based on: https://oss.oetiker.ch/rrdtool/doc/index.en.html
-// Minimum TypeScript Version: 4.1
-
 export {};
 
 type Timestamp = number;

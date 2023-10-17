@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/extract-text-webpack-plugin",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/webpack-contrib/extract-text-webpack-plugin"
+    ],
+    "dependencies": {
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/extract-text-webpack-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "flying-sheep",
+            "githubUsername": "flying-sheep"
+        },
+        {
+            "name": "kayo",
+            "githubUsername": "katyo"
+        }
+    ]
+}

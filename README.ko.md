@@ -173,7 +173,7 @@ Definitely Typed 의 관리자들이 주기적으로 새로운 풀 리퀘스트(
 
 패키지가 스스로의 형(Type)을 [포함](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)하게 되면, Definitely Typed 에 있는 자료형(Typing) 패키지를 삭제하는 것이 좋습니다.
 
-`npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]` 명령어를 사용하여 자료형(Typing) 패키지를 삭제할 수 있습니다.
+`pnpm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]` 명령어를 사용하여 자료형(Typing) 패키지를 삭제할 수 있습니다.
 - `<typingsPackageName>` 는 삭제할 디렉토리의 이름입니다.
 - `<asOfVersion>`  는 새 스텁(Stub) 용 `@types/<typingsPackageName>` 를 퍼블리시(Publish)할 버전입니다. 이 버전은 현재 npm 에 올라간 버전보다 더 높은 버전이어야 합니다.
 - `<libraryName>` 는 패키지의 이름을 읽기 쉽게 쓴 것입니다. 즉, "angular2" 대신에 "Angular 2" 와 같이 쓰는 것이 좋습니다. (생략했을 경우에는 `<typingsPackageName>` 와 같은 것으로 취급됩니다.)

@@ -1,18 +1,3 @@
-// Type definitions for URI.js 1.19
-// Project: http://medialize.github.io/URI.js
-// Definitions by: RodneyJT <https://github.com/RodneyJT>
-//                 Brian Surowiec <https://github.com/xt0rted>
-//                 Pete Johanson <https://github.com/petejohanson>
-//                 Zhibin Liu <https://github.com/ljqx>
-//                 TeamworkGuy2 <https://github.com/teamworkguy2>
-//                 Akuukis <https://github.com/Akuukis>
-//                 Marcell Toth <https://github.com/marcelltoth>
-//                 Vincenzo Chianese <https://github.com/XVincentX>
-//                 Andree Hagelstein <https://github.com/ahagelstein>
-//                 Alexander Pepper <https://github.com/apepper>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 // urijs uses DOM dependencies which are absent in browserless envoronment like node.js.
 // to avoid compiler errors this monkey patch is used. See more details in:
 // - sinon: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11351

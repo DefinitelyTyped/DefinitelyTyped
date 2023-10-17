@@ -1,9 +1,3 @@
-// Type definitions for jackrabbit 4.3
-// Project: https://github.com/hunterloftis/jackrabbit
-// Definitions by: Elvis Adomnica <https://github.com/elvisvoer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 import { Connection, Message, Options } from "amqplib";
 
 declare namespace jackrabbit {

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-html5-camera-photo",
+    "version": "1.5.9999",
+    "projects": [
+        "https://mabelanger.github.io/react-html5-camera-photo/"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-html5-camera-photo": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ryan Blackman",
+            "githubUsername": "rblackman"
+        }
+    ]
+}

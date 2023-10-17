@@ -1,8 +1,3 @@
-// Type definitions for gulp-task-listing
-// Project: https://github.com/OverZealous/gulp-task-listing
-// Definitions by: Joe Skeen <https://github.com/joeskeen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Provides an easy way to get a listing of your tasks from your gulpfile. By default, the
  * output groups tasks based on whether or not they contain a hyphen (-), underscore (_),

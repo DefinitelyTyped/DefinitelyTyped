@@ -1,8 +1,3 @@
-// Type definitions for parse-env-string 1.0
-// Project: https://github.com/watson/parse-env-string#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * It takes a string and returns an object.
  * If given null or undefined an empty object is returned.

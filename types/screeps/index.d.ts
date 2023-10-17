@@ -1,16 +1,3 @@
-// Type definitions for Screeps 3.3
-// Project: https://github.com/screeps/screeps
-// Definitions by: Nhan Ho <https://github.com/NhanHo>
-//                 Bryan <https://github.com/bryanbecker>
-//                 Resi Respati <https://github.com/resir014>
-//                 Adam Laycock <https://github.com/Arcath>
-//                 Dominic Marcuse <https://github.com/dmarcuse>
-//                 Skyler Kehren <https://github.com/pyrodogg>
-//                 Kieran Carnegie <https://github.com/kotarou>
-//                 Mofeng <https://github.com/DiamondMofeng>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.6
-
 // Please contribute types to https://github.com/screepers/typed-screeps
 
 // Game Constants

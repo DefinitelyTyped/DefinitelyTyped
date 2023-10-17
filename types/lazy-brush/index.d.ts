@@ -1,8 +1,3 @@
-// Type definitions for lazy-brush 1.0
-// Project: https://github.com/dulnan/lazy-brush#readme
-// Definitions by: Kamil Socha <https://github.com/ksocha>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Coordinates {
     x: number;
 

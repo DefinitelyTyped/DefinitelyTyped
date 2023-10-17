@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/dcp-client",
+    "version": "4.2.9999",
+    "projects": [
+        "https://github.com/Distributed-Compute-Labs/dcp-client"
+    ],
+    "minimumTypeScriptVersion": "4.7",
+    "devDependencies": {
+        "@types/dcp-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bryan Hoang",
+            "githubUsername": "bryan-hoang"
+        },
+        {
+            "name": "Brandon Christie",
+            "githubUsername": "BChristieDistributive"
+        },
+        {
+            "name": "Roman Fairushyn",
+            "githubUsername": "fairushyn"
+        }
+    ]
+}

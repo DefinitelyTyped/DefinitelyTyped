@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/jasmine_dom_matchers",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/charleshansen/jasmine_dom_matchers"
+    ],
+    "dependencies": {
+        "@types/jasmine": "*"
+    },
+    "devDependencies": {
+        "@types/jasmine_dom_matchers": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yaroslav Admin",
+            "githubUsername": "devoto13"
+        }
+    ]
+}

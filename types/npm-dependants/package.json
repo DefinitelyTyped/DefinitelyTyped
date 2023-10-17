@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/npm-dependants",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/juliangruber/npm-dependants#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/npm-dependants": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christoph Thiede",
+            "githubUsername": "LinqLover"
+        }
+    ]
+}

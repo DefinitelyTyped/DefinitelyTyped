@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/jest-axe",
+    "version": "3.5.9999",
+    "projects": [
+        "https://github.com/nickcolley/jest-axe"
+    ],
     "dependencies": {
+        "@types/jest": "*",
         "axe-core": "^3.5.5"
-    }
+    },
+    "devDependencies": {
+        "@types/jest-axe": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "erbridge",
+            "githubUsername": "erbridge"
+        }
+    ]
 }

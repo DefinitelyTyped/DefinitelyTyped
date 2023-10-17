@@ -1,9 +1,3 @@
-// Type definitions for non-npm package mpv-script 0.32
-// Project: https://github.com/mpv-player/mpv
-// Definitions by: David T <https://github.com/mrxdst>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
-
 declare namespace mp {
     type LogLevel = "fatal" | "error" | "warn" | "info" | "v" | "debug" | "trace";
 

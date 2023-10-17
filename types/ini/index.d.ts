@@ -1,10 +1,3 @@
-// Type definitions for ini v1.3.3
-// Project: https://github.com/isaacs/ini
-// Definitions by: Marcin Porębski <https://github.com/marcinporebski>
-//                 Chris Arnesen <https://github.com/carnesen>
-//                 Adaline Simonian <https://github.com/adalinesimonian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface EncodeOptions {
     section?: string;
     whitespace?: boolean;

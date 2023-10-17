@@ -1,8 +1,3 @@
-// Type definitions for extract-colors 1.1
-// Project: https://github.com/Namide/extract-colors
-// Definitions by: Matt <https://github.com/punctuations>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * @param src String for a path of image, Image or ImageData.
  * @param options Optional parameters.

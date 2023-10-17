@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Pendo.io Agent 2.17
-// Project: https://www.pendo.io/
-// Definitions by: Aaron Beall <https://github.com/aaronbeall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 declare namespace pendo {
     interface Identity {
         /** visitor.id is required if user is logged in, otherwise an anonymous ID is generated and tracked by a cookie (if enabled for a domain) */

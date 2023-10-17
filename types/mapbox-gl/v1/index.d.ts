@@ -1,16 +1,3 @@
-// Type definitions for Mapbox GL JS 1.13
-// Project: https://github.com/mapbox/mapbox-gl-js
-// Definitions by: Dominik Bruderer <https://github.com/dobrud>
-//                 Karl-Aksel Puulmann <https://github.com/macobo>
-//                 Dmytro Gokun <https://github.com/dmytro-gokun>
-//                 Liam Clarke <https://github.com/LiamAttClarke>
-//                 Vladimir Dashukevich <https://github.com/life777>
-//                 Marko Klopets <https://github.com/mklopets>
-//                 André Fonseca <https://github.com/amxfonseca>
-//                 Olivier Pascal <https://github.com/pascaloliv>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="geojson" />
 
 export = mapboxgl;

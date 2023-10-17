@@ -1,11 +1,3 @@
-// Type definitions for jsreport-core 2.0
-// Project: http://jsreport.net
-// Definitions by: taoqf <https://github.com/taoqf>
-//                 pofider <https://github.com/pofider>
-//                 Keith Kikta <https://github.com/newbish>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
 import * as fs from "fs";

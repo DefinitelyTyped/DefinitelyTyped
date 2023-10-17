@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 // test from : https://github.com/flowbe/node-qbittorrent-api-v2/blob/master/test/qbt-tests.js
 
 import assert = require("assert");

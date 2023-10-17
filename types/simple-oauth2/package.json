@@ -1,0 +1,37 @@
+{
+    "private": true,
+    "name": "@types/simple-oauth2",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/lelylan/simple-oauth2"
+    ],
+    "devDependencies": {
+        "@types/simple-oauth2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Müller",
+            "githubUsername": "mad-mike"
+        },
+        {
+            "name": "Troy Lamerton",
+            "githubUsername": "troy-lamerton"
+        },
+        {
+            "name": "Martín Rodriguez",
+            "githubUsername": "netux"
+        },
+        {
+            "name": "Linus Unnebäck",
+            "githubUsername": "LinusU"
+        },
+        {
+            "name": "Do Nam",
+            "githubUsername": "namdien177"
+        },
+        {
+            "name": "Lyubin Pavel",
+            "githubUsername": "pafik13"
+        }
+    ]
+}

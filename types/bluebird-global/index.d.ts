@@ -1,9 +1,3 @@
-// Type definitions for bluebird 3.5
-// Project: https://github.com/kaatt/bluebird-global
-// Definitions by: d-ph <https://github.com/d-ph>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 /*
  * 1. Why use `bluebird-global` instead of `bluebird`?
  *

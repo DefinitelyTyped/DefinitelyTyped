@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/promise-poller",
+    "version": "1.7.9999",
+    "projects": [
+        "https://github.com/joeattardi/promise-poller"
+    ],
+    "devDependencies": {
+        "@types/promise-poller": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Emily Marigold Klassen",
+            "githubUsername": "forivall"
+        }
+    ]
+}

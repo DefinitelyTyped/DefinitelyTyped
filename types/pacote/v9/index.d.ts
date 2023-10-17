@@ -1,9 +1,3 @@
-// Type definitions for pacote 9.5
-// Project: https://github.com/npm/pacote#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
 import { Readable } from "stream";

@@ -1,8 +1,3 @@
-// Type definitions for react-scroll-sync 0.8
-// Project: https://github.com/okonet/react-scroll-sync
-// Definitions by: Corné Dorrestijn <https://github.com/cornedor>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 export interface ScrollSyncProps {

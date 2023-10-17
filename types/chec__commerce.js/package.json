@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/chec__commerce.js",
+    "version": "2.8.9999",
+    "projects": [
+        "https://github.com/chec/commerce.js#readme"
+    ],
+    "devDependencies": {
+        "@types/chec__commerce.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Robbie Averill",
+            "githubUsername": "robbieaverill"
+        },
+        {
+            "name": "Guy Marriott",
+            "githubUsername": "ScopeyNZ"
+        },
+        {
+            "name": "Paito Anderson",
+            "githubUsername": "PaitoAnderson"
+        },
+        {
+            "name": "Kyle Visca",
+            "githubUsername": "kvisca"
+        }
+    ]
+}

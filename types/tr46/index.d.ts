@@ -1,8 +1,3 @@
-// Type definitions for tr46 3.0
-// Project: https://github.com/jsdom/tr46
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Converts a string of Unicode symbols to a case-folded Punycode string of ASCII symbols.
  */

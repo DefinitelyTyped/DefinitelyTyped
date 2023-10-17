@@ -1,8 +1,3 @@
-// Type definitions for easycaptchajs 1.1
-// Project: https://github.com/HichemTab-tech/EasyCaptchaJS#readme
-// Definitions by: HichemTab <https://github.com/HichemTab-tech>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace EasyCaptchaJs;
 
 export interface EasyCaptchaSettings {

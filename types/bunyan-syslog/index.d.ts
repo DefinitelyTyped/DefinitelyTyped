@@ -1,7 +1,3 @@
-// Type definitions for bunyan-syslog 0.3
-// Project: https://www.npmjs.com/package/bunyan-syslog
-// Definitions by: Naor Tedgi <https://github.com/ntedgi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export {};
 
 type PrependNextNum<A extends unknown[]> = A["length"] extends infer T

@@ -1,8 +1,3 @@
-// Type definitions for stream-fork 1.0
-// Project: https://github.com/uhop/stream-fork#readme
-// Definitions by: Michael de Wit <https://github.com/mjwwit>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import stream = require("stream");

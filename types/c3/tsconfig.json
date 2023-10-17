@@ -1,21 +1,20 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6", "dom"],
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": false,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
-        "paths": {
-            "d3-scale": ["d3-scale/v1"],
-            "d3": ["d3/v4"],
-            "d3-array": ["d3-array/v1"]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "c3-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "c3-tests.ts"
+    ]
 }

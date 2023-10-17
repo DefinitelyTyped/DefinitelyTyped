@@ -1,9 +1,3 @@
-// Type definitions for libnpmpublish 4.0
-// Project: https://npmjs.com/package/libnpmpublish
-// Definitions by: Nicolas Rodriguez <https://github.com/nicolas377>
-//                 Guy Adler <https://github.com/Guy-Adler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { PackageJson } from "@npm/types";
 import fetch = require("npm-registry-fetch");
 import { Response } from "node-fetch";

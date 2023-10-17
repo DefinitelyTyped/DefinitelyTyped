@@ -1,8 +1,3 @@
-// Type definitions for non-npm package Google Funding Choices JavaScript API 1.0
-// Project: https://developers.google.com/funding-choices/fc-api-docs
-// Definitions by: John Wright <https://github.com/johngeorgewright>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * [The Funding Choices API](https://developers.google.com/funding-choices/fc-api-docs) provides a library to interact with the Funding Choices tool.
  * The API has general functionality, but also functionality specific to consent gathering. It can:

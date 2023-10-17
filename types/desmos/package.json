@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/desmos",
+    "version": "1.6.9999",
+    "projects": [
+        "https://www.desmos.com/api/v1.6/docs/"
+    ],
+    "devDependencies": {
+        "@types/desmos": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ysulyma",
+            "githubUsername": "ysulyma"
+        }
+    ]
+}

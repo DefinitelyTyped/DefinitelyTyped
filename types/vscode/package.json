@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/vscode",
+    "version": "1.83.9999",
+    "projects": [
+        "https://github.com/microsoft/vscode"
+    ],
+    "devDependencies": {
+        "@types/vscode": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Visual Studio Code Team, Microsoft",
+            "githubUsername": "microsoft"
+        }
+    ]
+}

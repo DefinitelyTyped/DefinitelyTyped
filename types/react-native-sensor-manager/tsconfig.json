@@ -8,18 +8,6 @@
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "react-native": [
-                "react-native/v0.70"
-            ],
-            "react-native/*": [
-                "react-native/v0.70/*"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

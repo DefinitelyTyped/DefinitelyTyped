@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/gulp-run",
+    "version": "1.7.9999",
+    "projects": [
+        "https://github.com/MrBoolean/gulp-run"
+    ],
+    "minimumTypeScriptVersion": "4.6",
+    "dependencies": {
+        "@types/node": "*",
+        "@types/vinyl": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-run": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Thompson-Sharpe",
+            "githubUsername": "MysteryBlokHed"
+        }
+    ]
+}

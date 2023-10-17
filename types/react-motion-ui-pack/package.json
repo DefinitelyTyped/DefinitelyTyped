@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-motion-ui-pack",
+    "version": "0.10.9999",
+    "projects": [
+        "https://github.com/souporserious/react-motion-ui-pack"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/react-motion": "*"
+    },
+    "devDependencies": {
+        "@types/react-motion-ui-pack": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Unger",
+            "githubUsername": "jsonunger"
+        }
+    ]
+}

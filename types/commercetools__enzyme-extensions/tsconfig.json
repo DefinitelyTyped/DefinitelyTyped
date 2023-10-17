@@ -8,16 +8,14 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "paths": {
-            "@commercetools/*": ["commercetools__*"]
+            "react": [
+                "../react/v16/index.d.ts"
+            ]
         }
     },
     "files": [

@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/react-adaptive-hooks",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/GoogleChromeLabs/react-adaptive-hooks#readme"
+    ],
+    "devDependencies": {
+        "@types/react": "*",
+        "@types/react-adaptive-hooks": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Stramel",
+            "githubUsername": "stramel"
+        }
+    ]
+}

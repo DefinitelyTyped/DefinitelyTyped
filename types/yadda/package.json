@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/yadda",
+    "version": "2.0.9999",
+    "projects": [
+        "http://acuminous.gitbooks.io/yadda-user-guide"
+    ],
+    "dependencies": {
+        "@types/mocha": "*"
+    },
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/yadda": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Roszatycki",
+            "githubUsername": "dex4er"
+        }
+    ]
+}

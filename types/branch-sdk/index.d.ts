@@ -1,9 +1,3 @@
-// Type definitions for branch-sdk 2.53
-// Project: https://github.com/BranchMetrics/web-branch-deep-linking-attribution
-// Definitions by: Jonas Daniels <https://github.com/jnsdls>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0
-
 export as namespace branch;
 
 export interface InitOptions {

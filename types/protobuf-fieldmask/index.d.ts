@@ -1,8 +1,3 @@
-// Type definitions for protobuf-fieldmask 1.2
-// Project: http://github.com/kibertoad/protobuf-fieldmask
-// Definitions by: Jorge Yero Salazar <https://github.com/jyeros>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type WithFieldMask<T> = { [K in keyof T]?: WithFieldMask<T[K]> | undefined };
 /**
  * Creates a new object that copies fields present in field mask from specified source object

@@ -1,9 +1,3 @@
-// Type definitions for leaflet-rastercoords 1.0
-// Project: https://github.com/commenthol/leaflet-rastercoords
-// Definitions by: Kan Cheung <https://github.com/chinkan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { LatLng, LatLngBounds, LatLngExpression, Map, Point, PointExpression } from "leaflet";
 
 declare module "leaflet" {

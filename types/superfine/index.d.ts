@@ -1,9 +1,3 @@
-// Type definitions for superfine 7.0
-// Project: https://github.com/jorgebucaran/superfine#readme
-// Definitions by: jameswilddev <https://github.com/jameswilddev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
-
 export {};
 
 type HtmlOrSvgElementTagNameMap =

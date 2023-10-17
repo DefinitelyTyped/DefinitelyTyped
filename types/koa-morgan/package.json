@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/koa-morgan",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/koa-modules/morgan"
+    ],
+    "dependencies": {
+        "@types/koa": "*",
+        "@types/morgan": "*"
+    },
+    "devDependencies": {
+        "@types/koa-morgan": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vesa Poikajärvi",
+            "githubUsername": "vesse"
+        }
+    ]
+}

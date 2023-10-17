@@ -1,26 +1,3 @@
-// Type definitions for Meteor 2.9
-// Project: http://www.meteor.com/
-// Definitions by: Alex Borodach <https://github.com/barbatus>
-//                 Dave Allen <https://github.com/fullflavedave>
-//                 Olivier Refalo <https://github.com/orefalo>
-//                 Daniel Neveux <https://github.com/dagatsoin>
-//                 Arda TANRIKULU <https://github.com/ardatan>
-//                 Stefan Holzapfel <https://github.com/stefanholzapfel>
-//                 Andrey Markeev <https://github.com/andrei-markeev>
-//                 Leon Machens <https://github.com/lmachens>
-//                 Arthur Gunn <https://github.com/gunn>
-//                 alesn <https://github.com/alesn>
-//                 Per Bergland <https://github.com/perbergland>
-//                 Nicusor Chiciuc <https://github.com/nicu-chiciuc>
-//                 Evan Broder <https://github.com/ebroder>
-//                 Radosław Miernik <https://github.com/radekmie>
-//                 Wojciech Adamek <https://github.com/wadamek65>
-//                 Maciej Stasieluk <https://github.com/MacRusher>
-//                 Markus Peloso <https://github.com/ToastHawaii>
-//                 Erik Demaine <https://github.com/edemaine>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 /// <reference path="./accounts-base.d.ts" />
 /// <reference path="./globals/accounts-base.d.ts" />
 /// <reference path="./blaze.d.ts" />

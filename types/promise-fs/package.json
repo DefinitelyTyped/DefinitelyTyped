@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/promise-fs",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/octet-stream/promise-fs#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/promise-fs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Cassidy",
+            "githubUsername": "djcsdy"
+        }
+    ]
+}

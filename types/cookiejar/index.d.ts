@@ -1,9 +1,3 @@
-// Type definitions for CookieJar 2.1
-// Project: https://github.com/bmeck/node-cookiejar
-// Definitions by: Rafal Proszowski <https://github.com/paroxp>, Charles Samborski <https://github.com/demurgos>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export class CookieAccessInfo {
     /**
      * Class to determine matching qualities of a cookie

@@ -1,8 +1,3 @@
-// Type definitions for saml 1.0
-// Project: https://github.com/auth0/node-saml#readme
-// Definitions by: Eric Heikes <https://github.com/eheikes>, Eva Sarafianou <https://github.com/esarafianou>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface SamlAttributes {

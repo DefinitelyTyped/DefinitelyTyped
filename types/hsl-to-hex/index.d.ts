@@ -1,8 +1,3 @@
-// Type definitions for hsl-to-hex 1.0
-// Project: https://github.com/davidmarkclements/hsl-to-hex#readme
-// Definitions by: vijexa <https://github.com/vijexa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Convert hue, saturation and luminosity to hex string
  *

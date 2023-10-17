@@ -1,8 +1,3 @@
-// Type definitions for projections 1.0
-// Project: https://github.com/juliuste/projections#readme
-// Definitions by: LiamAttClarke <https://github.com/LiamAttClarke>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Braun Stereographic
  * - Reference: https://en.wikipedia.org/wiki/Gall_stereographic_projection#Braun_stereographic_projection

@@ -1,8 +1,3 @@
-// Type definitions for node-fetch-cache 3.0
-// Project: https://github.com/mistval/node-fetch-cache#readme
-// Definitions by: Yusuke Fujiki <https://github.com/fujikky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import fetch, { Response } from "node-fetch";
 
 declare class NFCResponse extends Response {

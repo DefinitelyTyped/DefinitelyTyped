@@ -1,8 +1,3 @@
-// Type definitions for kos-core 0.6
-// Project: https://github.com/ali-Kos/Kos
-// Definitions by: alibaba ali-Kos <https://github.com/ali-Kos>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
 import * as React from "react";
 
 type ReactComponent<P = any, S = any> = React.ComponentClass<P, S>;

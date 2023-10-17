@@ -1,9 +1,3 @@
-// Type definitions for node-resque 5.5
-// Project: https://github.com/taskrabbit/node-resque
-// Definitions by: Gordey Doronin <https://github.com/gordey4doronin>, Pete Nykänen <https://github.com/petetnt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 import { EventEmitter } from "events";
 

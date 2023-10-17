@@ -1,14 +1,3 @@
-// Type definitions for koa-websocket 5.0
-// Project: https://github.com/kudos/koa-websocket
-// Definitions by: Maël Lavault <https://github.com/moimael>
-//                 Jaco Greeff <https://github.com/jacogr>
-//                 Martin Ždila <https://github.com/zdila>
-//                 Eunchong Yu <https://github.com/Kroisse>
-//                 Christopher N. Katoyi-Kaba <https://github.com/Christopher2K>
-//                 Zuo Jiazi <https://github.com/Aoiujz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import Koa = require("koa");
 import compose = require("koa-compose");
 import * as http from "http";

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/quantize",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/olivierlesnicki/quantize"
+    ],
+    "devDependencies": {
+        "@types/quantize": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "matiand",
+            "githubUsername": "matiand"
+        }
+    ]
+}

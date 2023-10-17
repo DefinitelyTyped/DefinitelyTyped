@@ -1,8 +1,3 @@
-// Type definitions for readdir-glob 1.1
-// Project: https://github.com/Yqnn/node-readdir-glob
-// Definitions by: Dolan Miu <https://github.com/dolanmiu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

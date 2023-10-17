@@ -1,11 +1,3 @@
-// Type definitions for object-hash 3.0
-// Project: https://github.com/puleos/object-hash
-// Definitions by: Michael Zabka <https://github.com/misak113>
-//                 Artur Diniz <https://github.com/artdiniz>
-//                 Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-
 declare namespace objectHash {
     type NotUndefined = object | string | number | boolean | null | NotUndefined[];
 

@@ -1,8 +1,3 @@
-// Type definitions for ltijs 4.0
-// Project: https://cvmcosta.github.io/ltijs
-// Definitions by: Paul Schwörer <https://github.com/paulschwoerer/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="express" />
 
 import { IdToken } from "./lib/IdToken";

@@ -1,15 +1,3 @@
-// Type definitions for react-bootstrap-typeahead 5.1
-// Project: https://github.com/ericgio/react-bootstrap-typeahead, http://ericgio.github.io/react-bootstrap-typeahead
-// Definitions by: Guymestef <https://github.com/Guymestef>
-//                 Rajab Shakirov <https://github.com/radziksh>
-//                 Paito Anderson <https://github.com/PaitoAnderson>
-//                 Andreas Richter <https://github.com/arichter83>
-//                 Dale Fenton <https://github.com/dalevfenton>
-//                 Håkon Holhjem <https://github.com/KngHawkon>
-//                 Christian Dornbusch <https://github.com/Chrisdo82>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 import * as React from "react";
 export type EventHandler<T> = (e: React.SyntheticEvent<T>) => void;
 export type Option = string | { [key: string]: any };

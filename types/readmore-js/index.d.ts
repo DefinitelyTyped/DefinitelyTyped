@@ -1,8 +1,3 @@
-// Type definitions for readmore-js 3.0
-// Project: https://github.com/jedfoster/Readmore.js
-// Definitions by: AntonDemarczyk <https://github.com/AntonDemarczyk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Readmore {
     constructor(element: string | Element | NodeList, options?: Readmore.Options);
 

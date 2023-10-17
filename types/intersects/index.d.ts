@@ -1,8 +1,3 @@
-// Type definitions for intersects 2.7
-// Project: https://github.com/davidfig/intersects#readme
-// Definitions by: Voxylu <https://github.com/voxylu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import circlePoint = require("./circle-point");
 import circleCircle = require("./circle-circle");
 import circleLine = require("./circle-line");

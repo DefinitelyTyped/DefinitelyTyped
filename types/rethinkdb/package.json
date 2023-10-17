@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/rethinkdb",
+    "version": "2.3.9999",
+    "projects": [
+        "http://rethinkdb.com/"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/rethinkdb": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex Gorbatchev",
+            "githubUsername": "alexgorbatchev"
+        },
+        {
+            "name": "Adrian Farmadin",
+            "githubUsername": "AdrianFarmadin"
+        },
+        {
+            "name": "Pusztai Tibor",
+            "githubUsername": "kondi"
+        },
+        {
+            "name": "Keiichiro Amemiya",
+            "githubUsername": "hoishin"
+        }
+    ]
+}

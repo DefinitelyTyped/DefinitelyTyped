@@ -1,8 +1,3 @@
-// Type definitions for aws-param-store 3.2
-// Project: https://github.com/vandium-io/aws-param-store#readme
-// Definitions by: Jason Gray <https://github.com/jasonthomasgray>, Nathan Oertel <https://github.com/nathanoertel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { SSM } from "aws-sdk2-types";
 

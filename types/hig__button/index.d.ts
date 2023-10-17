@@ -1,9 +1,3 @@
-// Type definitions for @hig/button 1.4
-// Project: https://github.com/Autodesk/hig/tree/development/packages/button
-// Definitions by: Matthew Bryant <https://github.com/matthewbryant95>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 // Turn off automatic exporting
 export {};
 

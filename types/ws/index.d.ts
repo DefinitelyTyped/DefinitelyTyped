@@ -1,15 +1,3 @@
-// Type definitions for ws 8.5
-// Project: https://github.com/websockets/ws
-// Definitions by: Paul Loyd <https://github.com/loyd>
-//                 Margus Lamp <https://github.com/mlamp>
-//                 Philippe D'Alva <https://github.com/TitaneBoy>
-//                 reduckted <https://github.com/reduckted>
-//                 teidesu <https://github.com/teidesu>
-//                 Bartosz Wojtkowiak <https://github.com/wojtkowiak>
-//                 Kyle Hensel <https://github.com/k-yle>
-//                 Samuel Skeen <https://github.com/cwadrupldijjit>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

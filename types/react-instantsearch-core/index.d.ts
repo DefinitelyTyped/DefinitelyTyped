@@ -1,12 +1,3 @@
-// Type definitions for react-instantsearch-core 6.26
-// Project: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react
-// Definitions by: Gordon Burgett <https://github.com/gburgett>
-//                 Justin Powell <https://github.com/jpowell>
-//                 David Furlong <https://github.com/davidfurlong>
-//                 Haroen Viaene <https://github.com/haroenv>
-//                 Samuel Vaillant <https://github.com/samouss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { SearchParameters } from "algoliasearch-helper";
 import * as React from "react";
 

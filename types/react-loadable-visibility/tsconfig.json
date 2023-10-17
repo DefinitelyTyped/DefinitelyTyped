@@ -8,22 +8,7 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
         "jsx": "react",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "webpack": [
-                "webpack/v4"
-            ],
-            "tapable": [
-                "tapable/v1"
-            ],
-            "@loadable/*": [
-                "loadable__*"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

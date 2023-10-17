@@ -1,11 +1,3 @@
-// Type definitions for workerpool 6.4
-// Project: https://github.com/josdejong/workerpool
-// Definitions by: Alorel <https://github.com/Alorel>
-//                 Seulgi Kim <https://github.com/sgkim126>
-//                 Emily M Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 /// <reference types="node" />
 
 import * as cp from "child_process";

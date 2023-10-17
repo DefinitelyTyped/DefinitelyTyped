@@ -1,12 +1,3 @@
-// Type definitions for semver 6.2
-// Project: https://github.com/npm/node-semver
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 BendingBender <https://github.com/BendingBender>
-//                 Lucian Buzzo <https://github.com/LucianBuzzo>
-//                 Klaus Meinhardt <https://github.com/ajafff>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export const SEMVER_SPEC_VERSION: "2.0.0";
 
 export type ReleaseType = "major" | "premajor" | "minor" | "preminor" | "patch" | "prepatch" | "prerelease";

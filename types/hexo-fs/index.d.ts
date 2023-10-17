@@ -1,9 +1,3 @@
-// Type definitions for hexo-fs 0.2
-// Project: https://hexo.io
-// Definitions by: segayuu <https://github.com/segayuu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-
 import Promise = require("bluebird");
 import {
     // chmod,

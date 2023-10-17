@@ -1,9 +1,3 @@
-// Type definitions for writable-consumable-stream 2.0
-// Project: https://github.com/SocketCluster/writable-consumable-stream
-// Definitions by: Daniel Rose <https://github.com/DanielRose>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import ConsumableStream = require("consumable-stream");
 
 import Consumer = require("./consumer");

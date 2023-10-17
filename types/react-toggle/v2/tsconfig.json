@@ -9,16 +9,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
-        "paths": {
-            "react-toggle": [
-                "react-toggle/v2"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/xmlpoke",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/mikeobrien/node-xmlpoke"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/xmlpoke": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Garth Kidd",
+            "githubUsername": "garthk"
+        }
+    ]
+}
