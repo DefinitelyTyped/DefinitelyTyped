@@ -14,8 +14,8 @@
         ],
         "types": [],
         "paths": {
-            "react-native-fbsdk": [ "react-native-fbsdk/v1" ],            
-            "react-native-fbsdk/*": [ "react-native-fbsdk/v1/*" ]
+            "react-native-fbsdk": ["react-native-fbsdk/v1"],
+            "react-native-fbsdk/*": ["react-native-fbsdk/v1/*"]
         },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,

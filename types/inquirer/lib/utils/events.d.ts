@@ -1,5 +1,5 @@
-import { Interface as ReadlineInterface, Key } from 'readline';
-import { Observable } from 'rxjs';
+import { Interface as ReadlineInterface, Key } from "readline";
+import { Observable } from "rxjs";
 
 /**
  * Provides a description about a key.

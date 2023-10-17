@@ -12,7 +12,8 @@
         "baseUrl": "../../",
         "typeRoots": [
             "../../"
-        ],"paths": {
+        ],
+        "paths": {
             "react": [
                 "react/v17"
             ],

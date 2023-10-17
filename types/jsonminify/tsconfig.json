@@ -20,6 +20,5 @@
         "index.d.ts",
         "test/jsonminify-tests.cjs.ts",
         "test/jsonminify-tests.global.ts"
-
     ]
 }

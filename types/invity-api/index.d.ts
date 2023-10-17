@@ -424,6 +424,7 @@ export interface SellFiatTrade {
     refundAddressExtraId?: string | undefined; // Extra ID for returns to exchange for networks that require it (destinationTag)
     destinationAddress?: string | undefined; // crypto address to which sent crypto currency to sell
     destinationPaymentExtraId?: string | undefined; // Extra ID for payments to exchange for networks that require it (destinationTag)
+    destinationPaymentExtraIdDescription?: CoinExtraField;
     error?: string | undefined; // something went wrong
     exchange?: string | undefined; // which exchange this trade belongs to, used for discrimination in ExchangeService
     validUntil?: string | undefined; // timestamp in ISO format of offer validity

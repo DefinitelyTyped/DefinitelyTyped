@@ -54,7 +54,12 @@ export interface Connection {
     targetAdsPort: number;
 }
 
-export type PLCValue = boolean | number | string | [] | object | Date;
+export interface PLCEnum {
+    name: string;
+    value: number;
+}
+
+export type PLCValue = boolean | number | string | [] | object | PLCEnum | Date;
 
 export interface SymbolData {
     symbol: object;

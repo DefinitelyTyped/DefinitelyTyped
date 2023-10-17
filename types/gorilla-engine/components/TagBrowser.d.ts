@@ -1,5 +1,5 @@
 declare namespace GorillaEngine.UI {
-    interface TagBrowserProps extends Common, Bounds, Background, Font  {
+    interface TagBrowserProps extends Common, Bounds, Background, Font {
         value: any;
         tags: Tag[];
     }
@@ -9,9 +9,3 @@ declare namespace GorillaEngine.UI {
     }
     interface TagBrowser extends TagBrowserProps {}
 }
-
-
-
-
-
-

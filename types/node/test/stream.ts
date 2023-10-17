@@ -13,6 +13,7 @@ import {
 import { promisify } from "node:util";
 import { constants, createGzip } from "node:zlib";
 import assert = require("node:assert");
+import { Blob } from "node:buffer";
 import { Http2ServerResponse } from "node:http2";
 import { performance } from "node:perf_hooks";
 import { stdout } from "node:process";
@@ -495,6 +496,13 @@ async function testConsumers() {
     await arrayBuffer(r);
     // $ExpectType Blob
     await blob(r);
+
+    const iterable: AsyncGenerator<Buffer> = async function*() {}();
+    await buffer(iterable);
+
+    const iterator: AsyncIterator<Buffer> = { next: () => iterable.next() };
+    // @ts-expect-error
+    await buffer(iterator);
 }
 
 // https://nodejs.org/api/stream.html#stream_readable_pipe_destination_options
@@ -734,4 +742,8 @@ async function testTransferringStreamWithPostMessage() {
         // $ExpectType Error
         err;
     });
+}
+
+{
+    new Blob(["1", "2"]).stream().getReader({ mode: "byob" });
 }

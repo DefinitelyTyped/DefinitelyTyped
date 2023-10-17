@@ -21,7 +21,7 @@
             "devexpress-web/*": [
                 "devexpress-web/v191/*"
             ]
-        },        
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

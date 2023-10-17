@@ -240,6 +240,7 @@ declare module "net" {
          *
          * Each address is a string in the form of `$IP:$PORT`.
          * If the connection was successful, then the last address is the one that the socket is currently connected to.
+         * @since v19.4.0
          */
         readonly autoSelectFamilyAttemptedAddresses: string[];
         /**
@@ -832,9 +833,27 @@ declare module "net" {
     function createConnection(options: NetConnectOpts, connectionListener?: () => void): Socket;
     function createConnection(port: number, host?: string, connectionListener?: () => void): Socket;
     function createConnection(path: string, connectionListener?: () => void): Socket;
+    /**
+     * Gets the current default value of the `autoSelectFamily` option of `socket.connect(options)`.
+     * The initial default value is `true`, unless the command line option`--no-network-family-autoselection` is provided.
+     * @since v19.4.0
+     */
     function getDefaultAutoSelectFamily(): boolean;
+    /**
+     * Sets the default value of the `autoSelectFamily` option of `socket.connect(options)`.
+     * @since v19.4.0
+     */
     function setDefaultAutoSelectFamily(value: boolean): void;
+    /**
+     * Gets the current default value of the `autoSelectFamilyAttemptTimeout` option of `socket.connect(options)`.
+     * The initial default value is `250`.
+     * @since v19.8.0
+     */
     function getDefaultAutoSelectFamilyAttemptTimeout(): number;
+    /**
+     * Sets the default value of the `autoSelectFamilyAttemptTimeout` option of `socket.connect(options)`.
+     * @since v19.8.0
+     */
     function setDefaultAutoSelectFamilyAttemptTimeout(value: number): void;
     /**
      * Returns `6` if `input` is an IPv6 address. Returns `4` if `input` is an IPv4

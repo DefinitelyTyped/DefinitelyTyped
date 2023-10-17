@@ -1,4 +1,4 @@
-import inquirer = require('inquirer');
+import inquirer = require("inquirer");
 
 /**
  * Recursive prompt example
@@ -8,14 +8,14 @@ const output: any[] = [];
 
 const questions: inquirer.QuestionCollection = [
     {
-        type: 'input',
-        name: 'tvShow',
+        type: "input",
+        name: "tvShow",
         message: "What's your favorite TV show?",
     },
     {
-        type: 'confirm',
-        name: 'askAgain',
-        message: 'Want to enter another TV show favorite (just hit enter for YES)?',
+        type: "confirm",
+        name: "askAgain",
+        message: "Want to enter another TV show favorite (just hit enter for YES)?",
         default: true,
     },
 ];
@@ -26,7 +26,7 @@ function ask() {
         if (answers.askAgain) {
             ask();
         } else {
-            console.log('Your favorite TV Shows:', output.join(', '));
+            console.log("Your favorite TV Shows:", output.join(", "));
         }
     });
 }

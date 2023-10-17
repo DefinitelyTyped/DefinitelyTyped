@@ -1,7 +1,7 @@
 {
-  "private": true,
-  "dependencies": {
-    "unified": "^10.1.2",
-    "remark": "^14.0.3"
-  }
+    "private": true,
+    "dependencies": {
+        "unified": "^10.1.2",
+        "remark": "^14.0.3"
+    }
 }

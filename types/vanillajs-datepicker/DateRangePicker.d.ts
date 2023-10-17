@@ -1,6 +1,6 @@
-import Datepicker from "./Datepicker";
+import Datepicker, { DatepickerOptions } from "./Datepicker";
 
-export interface DateRangePickerOptions {
+export interface DateRangePickerOptions extends DatepickerOptions {
     allowOneSidedRange?: boolean;
     inputs?: HTMLElement[];
 }

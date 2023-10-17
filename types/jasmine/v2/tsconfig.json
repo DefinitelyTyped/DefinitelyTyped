@@ -18,7 +18,7 @@
             "../../"
         ],
         "paths": {
-            "jasmine": [ "jasmine/v2" ]
+            "jasmine": ["jasmine/v2"]
         },
         "types": [],
         "noEmit": true,

@@ -169,8 +169,8 @@ export default function useNavigationBuilder<
                         {}
                     >
                     | undefined,
-                    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-            >(): T;
+            > // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+            (): T;
             dangerouslyGetState(): Readonly<{
                 key: string;
                 index: number;
@@ -276,8 +276,8 @@ export default function useNavigationBuilder<
                         {}
                     >
                     | undefined,
-                    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-            >(): T_1;
+            > // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+            (): T_1;
             dangerouslyGetState(): any;
         }
         & {

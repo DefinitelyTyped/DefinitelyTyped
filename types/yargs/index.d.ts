@@ -188,7 +188,11 @@ declare namespace yargs {
             middlewares?: Array<MiddlewareFunction<O>>,
             deprecated?: boolean | string,
         ): Argv<T>;
-        command(command: string | ReadonlyArray<string>, description: string, module: CommandModule<T, any>): Argv<T>;
+        command<U = any>(
+            command: string | ReadonlyArray<string>,
+            description: string,
+            module: CommandModule<T, U>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+        ): Argv<T>;
         command<U = T>(
             command: string | ReadonlyArray<string>,
             showInHelp: false,
@@ -203,9 +207,15 @@ declare namespace yargs {
             builder?: O,
             handler?: (args: ArgumentsCamelCase<InferredOptionTypes<O>>) => void | Promise<void>,
         ): Argv<T>;
-        command(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, any>): Argv<T>;
-        command(module: CommandModule<T, any>): Argv<T>;
-        command(modules: Array<CommandModule<T, any>>): Argv<T>;
+        command<U = any>(
+            command: string | ReadonlyArray<string>,
+            showInHelp: false,
+            module: CommandModule<T, U>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+        ): Argv<T>;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        command<U = any>(module: CommandModule<T, U>): Argv<T>;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        command<U = any>(modules: Array<CommandModule<T, U>>): Argv<T>;
 
         // Advanced API
         /** Apply command modules from a directory relative to the module calling this method. */

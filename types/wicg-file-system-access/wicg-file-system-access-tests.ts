@@ -25,9 +25,9 @@
     const saveFilePickerOptions = {
         suggestedName: "image.svg",
     };
-    const filePickerOptions = {
+    const filePickerOptions: FilePickerOptions = {
         excludeAcceptAllOption: true,
-        types: [{ description: "SVG images", accept: { "image/svg": ["svg"] } }],
+        types: [{ description: "SVG images", accept: { "image/svg": [".svg"] } }],
     };
 
     fileHandle = await showSaveFilePicker();

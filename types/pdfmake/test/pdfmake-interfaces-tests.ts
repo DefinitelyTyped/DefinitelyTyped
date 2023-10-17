@@ -380,3 +380,8 @@ const singleSideMargins: Content = {
     marginBottom: 3,
     marginLeft: 4,
 };
+
+const decorations: Content = [
+    { text: "Single decoration", decoration: "underline" },
+    { text: "Multiple decorations", decoration: ["underline", "lineThrough", "overline"] },
+];

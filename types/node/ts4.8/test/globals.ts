@@ -43,3 +43,25 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     x.reason; // $ExpectType any
     x.throwIfAborted(); // $ExpectType void
 }
+
+// fetch
+{
+    fetch("https://example.com").then(response => {
+        response.arrayBuffer(); // $ExpectType Promise<ArrayBuffer>
+        response.blob(); // $ExpectType Promise<Blob>
+        response.formData(); // $ExpectType Promise<FormData>
+        response.json(); // $ExpectType Promise<unknown>
+        response.text(); // $ExpectType Promise<string>
+    });
+    const fd = new FormData();
+    fd.append("foo", "bar");
+    const headers = new Headers();
+    headers.append("Accept", "application/json");
+    fetch("https://example.com", { body: fd });
+    fetch(new URL("https://example.com"), {
+        dispatcher: undefined,
+    });
+
+    // @ts-expect-error
+    NodeJS.fetch;
+}

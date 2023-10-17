@@ -29,7 +29,11 @@ export class TrackballControls extends EventDispatcher<TrackballControlsEventMap
     minZoom: number;
     maxZoom: number;
     keys: string[];
-    mouseButtons: { LEFT: MOUSE; MIDDLE: MOUSE; RIGHT: MOUSE };
+    mouseButtons: {
+        LEFT?: MOUSE | null | undefined;
+        MIDDLE?: MOUSE | null | undefined;
+        RIGHT?: MOUSE | null | undefined;
+    };
 
     target: Vector3;
     position0: Vector3;

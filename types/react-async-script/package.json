@@ -1,7 +1,7 @@
 {
-  "private": true,
-  "dependencies": {
-    "@types/hoist-non-react-statics": "^3.3.1",
-    "hoist-non-react-statics": "^3.3.1"
-  }
+    "private": true,
+    "dependencies": {
+        "@types/hoist-non-react-statics": "^3.3.1",
+        "hoist-non-react-statics": "^3.3.1"
+    }
 }

@@ -408,7 +408,10 @@ declare namespace MapboxDraw {
             isTrue: () => boolean;
         };
 
-        constrainFeatureMovement(geojsonFeatures: DrawFeature[], delta: { lng: number; lat: number }): number;
+        constrainFeatureMovement(
+            geojsonFeatures: DrawFeature[],
+            delta: { lng: number; lat: number },
+        ): { lng: number; lat: number };
 
         createMidPoint(parent: string, startVertex: Feature, endVertex: Feature): Feature<Point> | null;
 

@@ -71,7 +71,16 @@ declare module "buffer" {
         MAX_LENGTH: number;
         MAX_STRING_LENGTH: number;
     };
-    export type TranscodeEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "latin1" | "binary";
+    export type TranscodeEncoding =
+        | "ascii"
+        | "utf8"
+        | "utf-8"
+        | "utf16le"
+        | "utf-16le"
+        | "ucs2"
+        | "ucs-2"
+        | "latin1"
+        | "binary";
     /**
      * Re-encodes the given `Buffer` or `Uint8Array` instance from one character
      * encoding to another. Returns a new `Buffer` instance.
@@ -214,7 +223,7 @@ declare module "buffer" {
     import { Blob as NodeBlob } from "buffer";
     // This conditional type will be the existing global Blob in a browser, or
     // the copy below in a Node environment.
-    type __Blob = typeof globalThis extends { onmessage: any; Blob: infer T } ? T : NodeBlob;
+    type __Blob = typeof globalThis extends { onmessage: any; Blob: any } ? {} : NodeBlob;
     global {
         namespace NodeJS {
             export { BufferEncoding };
@@ -225,6 +234,7 @@ declare module "buffer" {
             | "utf8"
             | "utf-8"
             | "utf16le"
+            | "utf-16le"
             | "ucs2"
             | "ucs-2"
             | "base64"
@@ -529,7 +539,7 @@ declare module "buffer" {
              * @param [fill=0] A value to pre-fill the new `Buffer` with.
              * @param [encoding='utf8'] If `fill` is a string, this is its encoding.
              */
-            alloc(size: number, fill?: string | Buffer | number, encoding?: BufferEncoding): Buffer;
+            alloc(size: number, fill?: string | Uint8Array | number, encoding?: BufferEncoding): Buffer;
             /**
              * Allocates a new `Buffer` of `size` bytes. If `size` is larger than {@link constants.MAX_LENGTH} or smaller than 0, `ERR_OUT_OF_RANGE` is thrown.
              *

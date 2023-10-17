@@ -505,6 +505,13 @@ declare namespace Xrm {
          * @returns The current value of the setting.
          */
         getCurrentAppSetting(settingName: string): string | number | boolean;
+
+        /**
+         * Returns the relative URL with the caching token for the specified web resource.
+         * @param webResourceName Name of the web resource.
+         * @returns  The relative URL, including the caching token, for the specified web resource.
+         */
+        getWebResourceUrl(webResourceName: string): string;
     }
 
     /**

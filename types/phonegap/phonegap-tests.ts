@@ -615,7 +615,7 @@ function test_media() {
         my_media.getCurrentPosition(
             function(position) {
                 if (position > -1) {
-                    console.log((position) + " sec");
+                    console.log(position + " sec");
                 }
             },
             function(e) {
@@ -633,7 +633,7 @@ function test_media() {
         var dur = my_media.getDuration();
         if (dur > 0) {
             clearInterval(timerDur);
-            document.getElementById("audio_duration").innerHTML = (dur) + " sec";
+            document.getElementById("audio_duration").innerHTML = dur + " sec";
         }
     }, 100);
 

@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.fullscreen 1.6
+// Type definitions for Leaflet.fullscreen 3.0
 // Project: https://github.com/brunob/leaflet.fullscreen
 // Definitions by: William Comartin <https://github.com/wcomartin>
 //                 Dan Manastireanu <https://github.com/danmana>
@@ -21,7 +21,6 @@ declare module "leaflet" {
             titleCancel?: string | undefined;
             forceSeparateButton?: boolean | undefined;
             forcePseudoFullscreen?: boolean | undefined;
-            pseudoFullscreen?: boolean | undefined;
             fullscreenElement?: false | HTMLElement | undefined;
         }
     }

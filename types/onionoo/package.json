@@ -1,6 +1,6 @@
 {
-  "private": true,
-  "dependencies": {
-    "@types/got": "^9"
-  }
+    "private": true,
+    "dependencies": {
+        "@types/got": "^9"
+    }
 }
