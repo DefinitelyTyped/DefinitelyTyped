@@ -60,8 +60,6 @@ jobs:
           fi
         name: pnpm install
 
-      - run: npm ls --all || true
-
       # Run tests
       - run: pnpm run test-all
 
