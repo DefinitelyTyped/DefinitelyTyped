@@ -1,6 +1,6 @@
 {
     "name": "@types/cardinal",
-    "version": "2.1.99999",
+    "version": "2.1.9999",
     "projects": [
         "https://github.com/thlorenz/cardinal"
     ],
