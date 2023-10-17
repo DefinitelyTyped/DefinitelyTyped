@@ -344,6 +344,7 @@ declare namespace GorillaEngine {
     function initialiseSpliceRTO(pluginName?: string): any;
     function disposeInstrument(instrument: Instrument): void;
     function setActiveInstrument(instrument: Instrument): void;
+    function createEmptyInstrument(): Instrument;
     function setSessionSaveCallback(callback: (state: string) => string, instance: any): void;
     function setSessionLoadCallback(callback: (state: string) => string, instance: any): void;
     function setParametersDirty(dirty: boolean): void;
