@@ -12,5 +12,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "mermaid-tests.ts"]
+    "files": ["index.d.ts", "mermaid-ssr-tests.ts"]
 }
