@@ -53,14 +53,14 @@ jobs:
           # If we're deleting packages, pnpm won't know what other unrelated packages
           # need to be reinstalled that may now be sourced from npm instead of the
           # local repo. Just pay the cost of the full install.
-          if git diff --diff-filter=DR --name-only origin/master | grep -q 'package.json'; then
-            pnpm install
-          else
-            pnpm install --filter . --filter '...[origin/master]'
-          fi
+          # TODO: enable this; see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/67087#issuecomment-1767228131
+          # if git diff --diff-filter=DR --name-only origin/master | grep -q 'package.json'; then
+          #   pnpm install
+          # else
+          #   pnpm install --filter . --filter '...[origin/master]'
+          # fi
+          pnpm install
         name: pnpm install
-
-      - run: npm ls --all || true
 
       # Run tests
       - run: pnpm run test-all
