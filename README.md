@@ -6,6 +6,10 @@
 
 *Link to [Admin manual](./docs/admin.md)*
 
+## !!! Important! This repo has recently changed layout! !!!
+
+Definitely Typed has recently changed to a proper `pnpm` monorepo; you may want to reread this document for changes to the layout of packages in this repo.
+
 ## Current status
 
 This section tracks the health of the repository and publishing process.
@@ -130,8 +134,8 @@ Once you've tested your package, you can share it on Definitely Typed.
 First, [fork](https://guides.github.com/activities/forking/) this repository, [clone](#partial-clone) it,
 install [node](https://nodejs.org/), and run `pnpm install`. Note that `pnpm install` will install the _entire_
 repository, including packages you may not be editing. If you'd like to install only a subset,
-you can run `pnpm install -w --filter "...{./types/foo}..."` to install `@types/foo` and all of
-its related dependencies and dependents.
+you can run `pnpm install -w --filter "{./types/foo}..."` to install `@types/foo` and all of
+its dependencies. If you need to run tests for packages that _depend_ on `@types/foo`, you can run `pnpm install -w --filter "...{./types/foo}..."` to pull in all related packages for testing.
 
 > [!NOTE]
 > If you are using Windows, you may find that `git clean` does not remove the `node_modules` directory, or hangs when doing so. If you need to remove `node_modules`, you can run `pnpm clean-node-modules` to reset the repo.
