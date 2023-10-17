@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/microlight",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/asvd/microlight"
+    ],
+    "devDependencies": {
+        "@types/microlight": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ravenclaw900",
+            "githubUsername": "ravenclaw900"
+        }
+    ]
+}

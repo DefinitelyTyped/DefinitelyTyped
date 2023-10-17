@@ -1,18 +1,3 @@
-// Type definitions for React 15.7
-// Project: https://react.dev/
-// Definitions by: Asana <https://asana.com>
-//                 AssureSign <http://www.assuresign.com>
-//                 Microsoft <https://microsoft.com>
-//                 John Reilly <https://github.com/johnnyreilly/>
-//                 Benoit Benezech <https://github.com/bbenezech>
-//                 Patricio Zavolinsky <https://github.com/pzavolinsky>
-//                 Eric Anderson <https://github.com/ericanderson>
-//                 Dovydas Navickas <https://github.com/DovydasNavickas>
-//                 Stéphane Goetz <https://github.com/onigoetz>
-//                 Kyle Scully <https://github.com/zieka>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /*
 Known Problems & Workarounds
 

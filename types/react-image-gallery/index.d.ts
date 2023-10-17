@@ -1,10 +1,3 @@
-// Type definitions for react-image-gallery 1.2
-// Project: https://github.com/xiaolin/react-image-gallery
-// Definitions by: Adam Webb <https://github.com/adamwpc>
-//                 William Tio <https://github.com/WToa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 import * as React from "react";
 
 export type ReactImageGalleryImageSet = ReadonlyArray<{

@@ -1,5 +1,10 @@
 {
     "private": true,
+    "name": "@types/hot-formula-parser",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/handsontable/formula-parser"
+    ],
     "exports": {
         ".": {
             "types": {
@@ -7,5 +12,14 @@
                 "require": "./index.d.ts"
             }
         }
-    }
+    },
+    "devDependencies": {
+        "@types/hot-formula-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "João Nascimento",
+            "githubUsername": "joao-mbn"
+        }
+    ]
 }

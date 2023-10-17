@@ -1,11 +1,3 @@
-// Type definitions for react-relay 7.0
-// Project: https://github.com/facebook/relay, https://facebook.github.io/relay
-// Definitions by: Eloy Durán <https://github.com/alloy>
-//                 Marais Rossouw <https://github.com/maraisr>
-//                 Edvin Erikson <https://github.com/edvinerikson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import * as React from "react";
 import {
     _FragmentRefs,

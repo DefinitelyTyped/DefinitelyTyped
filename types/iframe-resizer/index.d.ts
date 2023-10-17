@@ -1,8 +1,3 @@
-// Type definitions for iframe-resizer 3.5
-// Project: https://github.com/davidjbradshaw/iframe-resizer
-// Definitions by: Armin Baljic <https://github.com/arminbaljic>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace iframeResizer {
     // tslint:disable-next-line:interface-name
     interface IFrameObject {

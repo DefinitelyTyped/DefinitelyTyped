@@ -4,15 +4,8 @@
         "lib": [
             "es6"
         ],
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "jsx": "react",
         "types": [],
-        "paths": {
-            "gulp": ["gulp/v3"]
-        },
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,

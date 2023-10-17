@@ -1,8 +1,3 @@
-// Type definitions for wif 2.0
-// Project: https://github.com/Groestlcoin/wifgrs
-// Definitions by: Gruve-p <https://github.com/gruve-p>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 export interface WIFReturn {

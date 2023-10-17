@@ -1,10 +1,3 @@
-// Type definitions for signale 1.4
-// Project: https://github.com/klaussinani/signale
-// Definitions by: Resi Respati <https://github.com/resir014>
-//                 Joydip Roy <https://github.com/rjoydip>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="node" />
 
 declare namespace signale {

@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/haxball-headless-browser",
+    "version": "0.2.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "haxball-headless-browser",
+    "projects": [
+        "https://github.com/haxball/haxball-issues/wiki/Headless-Host"
+    ],
+    "devDependencies": {
+        "@types/haxball-headless-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jakub Juszko",
+            "githubUsername": "jakjus"
+        }
+    ]
+}

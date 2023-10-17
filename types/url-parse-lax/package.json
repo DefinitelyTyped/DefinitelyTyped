@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/url-parse-lax",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/sindresorhus/url-parse-lax"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/url-parse-lax": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Junxiao Shi",
+            "githubUsername": "yoursunny"
+        }
+    ]
+}

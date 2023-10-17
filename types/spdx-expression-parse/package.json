@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/spdx-expression-parse",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/jslicense/spdx-expression-parse.js#readme"
+    ],
+    "devDependencies": {
+        "@types/spdx-expression-parse": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

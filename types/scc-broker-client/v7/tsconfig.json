@@ -9,30 +9,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "ag-channel": [
-                "ag-channel/v4"
-            ],
-            "ag-simple-broker": [
-                "ag-simple-broker/v4"
-            ],
-            "async-stream-emitter": [
-                "async-stream-emitter/v3"
-            ],
-            "consumable-stream": [
-                "consumable-stream/v1"
-            ],
-            "scc-broker-client": [
-                "scc-broker-client/v7"
-            ],
-            "socketcluster-client": [
-                "socketcluster-client/v15"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

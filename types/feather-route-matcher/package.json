@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/feather-route-matcher",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/henrikjoreteg/feather-route-matcher"
+    ],
+    "devDependencies": {
+        "@types/feather-route-matcher": "workspace:."
+    },
+    "owners": []
+}

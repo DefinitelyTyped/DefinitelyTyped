@@ -1,9 +1,3 @@
-// Type definitions for passport-spotify 2.0
-// Project: https://github.com/jmperez/passport-spotify#readme
-// Definitions by: Rishi Kodali <https://github.com/rishikodali>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { Request } from "express";
 
 export interface Profile {

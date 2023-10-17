@@ -1,8 +1,3 @@
-// Type definitions for Resemble.js v4.1.0
-// Project: https://github.com/rsmbl/Resemble.js
-// Definitions by: GreenYun <https://github.com/Greenyun>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference path="compareImages.d.ts" />
 
 declare global {

@@ -1,8 +1,3 @@
-// Type definitions for money 0.2
-// Project: https://github.com/openexchangerates/money.js
-// Definitions by: Ivan Ergunov <https://github.com/hozblok>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace fx {
     type Currency = string;
 

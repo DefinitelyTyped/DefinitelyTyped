@@ -1,6 +1,23 @@
 {
     "private": true,
+    "name": "@types/hawk",
+    "version": "9.0.9999",
+    "projects": [
+        "https://github.com/mozilla/hawk/"
+    ],
     "dependencies": {
-        "@hapi/boom": "^9.0.0"
-    }
+        "@hapi/boom": "^9.0.0",
+        "@types/crypto-js": "*",
+        "@types/node": "*",
+        "@types/request": "*"
+    },
+    "devDependencies": {
+        "@types/hawk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        }
+    ]
 }

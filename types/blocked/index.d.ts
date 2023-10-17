@@ -1,8 +1,3 @@
-// Type definitions for blocked 1.3
-// Project: https://github.com/visionmedia/node-blocked#readme
-// Definitions by: Jonas Lochmann <https://github.com/l-jonas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /*~ Note that ES6 modules cannot directly export callable functions.

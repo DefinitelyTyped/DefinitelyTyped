@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/recase",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/coolaj86/recase-js"
+    ],
+    "devDependencies": {
+        "@types/recase": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mikal Madsen",
+            "githubUsername": "18steps"
+        }
+    ]
+}

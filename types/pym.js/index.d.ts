@@ -1,8 +1,3 @@
-// Type definitions for pym.js 1.3
-// Project: https://github.com/nprapps/pym.js/
-// Definitions by: James Lin <https://github.com/igowerf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Callback {
     (value: string): void;
 }

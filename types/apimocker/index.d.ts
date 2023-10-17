@@ -1,9 +1,3 @@
-// Type definitions for apimocker 1.1
-// Project: https://www.npmjs.com/package/apimocker
-// Definitions by: Uchenna <https://github.com/uchilaka>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { Application, RequestHandler } from "express";
 
 export interface ConfigOptions {

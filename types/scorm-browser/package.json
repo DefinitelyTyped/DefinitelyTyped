@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/scorm-browser",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "scorm-browser",
+    "projects": [
+        "http://xml.coverpages.org/SCORM-12-RunTimeEnv.pdf"
+    ],
+    "devDependencies": {
+        "@types/scorm-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Cook",
+            "githubUsername": "CookieCookson"
+        }
+    ]
+}

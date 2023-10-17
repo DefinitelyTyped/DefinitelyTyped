@@ -10,10 +10,6 @@
         "noUnusedLocals": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "jsx": "react",
         "noEmit": true,

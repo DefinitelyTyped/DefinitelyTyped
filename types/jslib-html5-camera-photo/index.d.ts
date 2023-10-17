@@ -1,8 +1,3 @@
-// Type definitions for jslib-html5-camera-photo 3.1
-// Project: https://mabelanger.github.io/jslib-html5-camera-photo/
-// Definitions by: Glen Cheney <https://github.com/Vestride>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface FacingModes {
     USER: "user";
     ENVIRONMENT: "environment";

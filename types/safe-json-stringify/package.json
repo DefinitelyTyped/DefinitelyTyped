@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/safe-json-stringify",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/debitoor/safe-json-stringify"
+    ],
+    "devDependencies": {
+        "@types/safe-json-stringify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eric Byers",
+            "githubUsername": "ericbyers"
+        }
+    ]
+}

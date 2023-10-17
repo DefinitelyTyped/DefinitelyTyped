@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/yargs-interactive",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/nanovazquez/yargs-interactive#readme"
+    ],
+    "dependencies": {
+        "@types/yargs": "*"
+    },
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/yargs-interactive": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nano Vazquez",
+            "githubUsername": "nanovazquez"
+        }
+    ]
+}

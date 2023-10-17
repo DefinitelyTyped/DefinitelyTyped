@@ -8,10 +8,6 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "jsx": "preserve",
         "types": [],
         "noEmit": true,

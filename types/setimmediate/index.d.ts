@@ -1,8 +1,3 @@
-// Type definitions for setimmediate 1.0
-// Project: https://github.com/yuzujs/setImmediate#readme
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Schedules a macrotask to run after the current events have been processed.
  *

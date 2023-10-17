@@ -1,8 +1,3 @@
-// Type definitions for screenshot-desktop 1.12
-// Project: https://github.com/bencevans/screenshot-desktop
-// Definitions by: Usama Ahsan <https://github.com/usama8800>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = screenshotDesktop;

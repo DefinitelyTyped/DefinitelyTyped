@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/webgl-ext",
+    "version": "0.0.9999",
+    "projects": [
+        "http://webgl.org/"
+    ],
+    "devDependencies": {
+        "@types/webgl-ext": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Arthur Langereis",
+            "githubUsername": "zenmumbler"
+        }
+    ]
+}

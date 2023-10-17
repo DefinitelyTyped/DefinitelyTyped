@@ -1,10 +1,3 @@
-// Type definitions for apidoc 0.50
-// Project: https://github.com/apidoc/apidoc
-// Definitions by: rigwild <https://github.com/rigwild>
-//                 hoonga <https://github.com/hoonga>
-//                 NicolasCARPi <https://github.com/NicolasCARPi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ParsedFile {
     filename: string;
     extension: string;

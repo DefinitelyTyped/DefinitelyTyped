@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/rollup-plugin-url",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/Swatinem/rollup-plugin-url#readme"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "rollup": "^0.63.4"
-    }
+    },
+    "devDependencies": {
+        "@types/rollup-plugin-url": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeroen Claassens",
+            "githubUsername": "me"
+        }
+    ]
 }

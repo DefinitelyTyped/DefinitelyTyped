@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/inflation",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/stream-utils/inflation#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/inflation": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
+}

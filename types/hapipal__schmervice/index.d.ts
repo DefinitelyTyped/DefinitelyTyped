@@ -1,10 +1,3 @@
-// Type definitions for @hapipal/schmervice 2.0
-// Project: https://github.com/hapipal/schmervice#readme
-// Definitions by: Tim Costa <https://github.com/timcosta>
-//                 Danilo Alonso <https://github.com/damusix>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.9
-
 import { Plugin, Server, ServerMethodOptions, ServerOptionsCache } from "@hapi/hapi";
 
 export const name: unique symbol;

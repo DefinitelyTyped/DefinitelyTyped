@@ -1,19 +1,19 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6"],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
-        "paths": {
-            "@fusebit/*": ["fusebit__*"]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "fusebit__add-on-sdk-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "fusebit__add-on-sdk-tests.ts"
+    ]
 }

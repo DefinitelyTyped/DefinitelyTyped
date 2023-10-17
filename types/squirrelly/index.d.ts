@@ -1,9 +1,3 @@
-// Type definitions for squirrelly 7.1
-// Project: https://squirrelly.js.org
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export as namespace Sqrl;
 
 export interface Options {

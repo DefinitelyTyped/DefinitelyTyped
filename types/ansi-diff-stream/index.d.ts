@@ -1,8 +1,3 @@
-// Type definitions for ansi-diff-stream 1.2
-// Project: https://github.com/mafintosh/ansi-diff-stream
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { Transform } from "stream";
 

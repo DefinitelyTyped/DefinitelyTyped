@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/dagre",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/dagrejs/dagre"
+    ],
+    "devDependencies": {
+        "@types/dagre": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qinfeng Chen",
+            "githubUsername": "qinfchen"
+        },
+        {
+            "name": "Pete Vilter",
+            "githubUsername": "vilterp"
+        },
+        {
+            "name": "David Newell",
+            "githubUsername": "rustedgrail"
+        },
+        {
+            "name": "Graham Lea",
+            "githubUsername": "GrahamLea"
+        }
+    ]
+}

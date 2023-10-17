@@ -1,6 +1,26 @@
 {
     "private": true,
+    "name": "@types/react-inspector",
+    "version": "4.0.9999",
+    "projects": [
+        "http://formatjs.io/react/",
+        "https://github.com/yahoo/react-intl"
+    ],
     "dependencies": {
+        "@types/react": "*",
         "csstype": "^3.0.2"
-    }
+    },
+    "devDependencies": {
+        "@types/react-inspector": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Roger Clotet",
+            "githubUsername": "rogerclotet"
+        },
+        {
+            "name": "Xinyan Chen",
+            "githubUsername": "chenxinyanc"
+        }
+    ]
 }

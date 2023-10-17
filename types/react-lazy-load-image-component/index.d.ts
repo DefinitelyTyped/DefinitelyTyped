@@ -1,12 +1,3 @@
-// Type definitions for react-lazy-load-image-component 1.6
-// Project: https://github.com/Aljullu/react-lazy-load-image-component#readme
-// Definitions by: Dan Vanderkam <https://github.com/danvk>
-//                 Diego Chavez <https://github.com/diegochavez>
-//                 Truong Hoang Dung <https://github.com/revskill10>
-//                 Kodai Suzuki <https://github.com/kodai3>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 import { ComponentType, CSSProperties, FunctionComponent, ImgHTMLAttributes, ReactElement, ReactNode } from "react";
 
 export type DelayMethod = "debounce" | "throttle";

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/color-check",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/motleydev/color-check#readme"
+    ],
+    "devDependencies": {
+        "@types/color-check": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Elizabeth Craig",
+            "githubUsername": "ecraig12345"
+        }
+    ]
+}

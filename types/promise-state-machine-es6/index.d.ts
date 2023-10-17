@@ -1,7 +1,4 @@
-// Type definitions for promise-state-machine-es6 2.1
-// Project: https://github.com/faleij/promise-state-machine
-// Definitions by: Dmitry Zakablukov <https://github.com/dmitry-zakablukov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="node" />
 
 import * as events from "events";
 

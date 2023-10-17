@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/react-dnd-scrollzone",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/azuqua/react-dnd-scrollzone#readme"
+    ],
+    "devDependencies": {
+        "@types/react": "*",
+        "@types/react-dnd-scrollzone": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marcos Junior",
+            "githubUsername": "junalmeida"
+        }
+    ]
+}

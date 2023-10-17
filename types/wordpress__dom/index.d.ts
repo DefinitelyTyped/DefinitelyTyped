@@ -1,9 +1,3 @@
-// Type definitions for @wordpress/dom 2.3
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/dom/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 export interface Focusable {
     find(context: ParentNode): Element[];
 }

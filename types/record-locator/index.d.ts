@@ -1,8 +1,3 @@
-// Type definitions for record-locator 1.0
-// Project: https://github.com/dkhr/record-locator
-// Definitions by: Moritz Hein <https://github.com/Kage0x3B>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Encodes an integer into a record locator string
  *

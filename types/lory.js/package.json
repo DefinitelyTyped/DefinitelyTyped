@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/lory.js",
+    "version": "2.5.9999",
+    "projects": [
+        "https://github.com/meandmax/lory/"
+    ],
+    "devDependencies": {
+        "@types/lory.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "kubosho",
+            "githubUsername": "kubosho"
+        }
+    ]
+}

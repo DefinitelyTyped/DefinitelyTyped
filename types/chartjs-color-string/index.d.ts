@@ -1,8 +1,3 @@
-// Type definitions for chartjs-color-string 0.6
-// Project: https://github.com/chartjs/chartjs-color-string#readme
-// Definitions by: Ankan Bhattacharya <https://github.com/Ankan002>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export function getRgba(colorString?: string): number[] | undefined;
 export function getHsla(colorString?: string): number[] | undefined;
 export function getHwb(colorString?: string): number[] | undefined;

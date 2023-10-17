@@ -1,8 +1,3 @@
-// Type definitions for transit-js 0.8
-// Project: https://github.com/cognitect/transit-js
-// Definitions by: Tim Griesser <https://github.com/tgriesser>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace transit;
 
 export interface Decoder {

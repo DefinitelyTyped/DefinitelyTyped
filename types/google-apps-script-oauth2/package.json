@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/google-apps-script-oauth2",
+    "version": "38.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "google-apps-script-oauth2",
+    "projects": [
+        "https://github.com/googlesamples/apps-script-oauth2"
+    ],
+    "dependencies": {
+        "@types/google-apps-script": "*"
+    },
+    "devDependencies": {
+        "@types/google-apps-script-oauth2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "dhayab",
+            "githubUsername": "dhayab"
+        },
+        {
+            "name": "George Dietrich",
+            "githubUsername": "blacksmoke16"
+        }
+    ]
+}

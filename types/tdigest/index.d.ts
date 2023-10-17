@@ -1,8 +1,3 @@
-// Type definitions for tdigest 0.1
-// Project: https://github.com/welch/tdigest
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class TDigest {
     /**
      * @param delta The compression factor, the max fraction of mass that

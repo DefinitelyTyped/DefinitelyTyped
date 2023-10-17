@@ -1,9 +1,3 @@
-// Type definitions for express-ws-routes 1.1
-// Project: https://github.com/amekkawi/express-ws-routes
-// Definitions by: Gregor Stamać <https://github.com/gstamac>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { Express as exExpress, NextFunction, Request } from "express";
 import { Router as coreRouter } from "express-serve-static-core";
 import { Server as httpServer } from "http";

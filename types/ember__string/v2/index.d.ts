@@ -1,12 +1,3 @@
-// Type definitions for non-npm package @ember/string 2.0
-// Project: https://www.npmjs.com/package/@ember/string
-// Definitions by: Mike North <https://github.com/mike-north>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 Krystan HuffMenne <https://github.com/gitKrystan>
-//                 James C. Davis <https://github.com/jamescdavis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import { htmlSafe as templateHtmlSafe, isHTMLSafe as templateIsHTMLSafe } from "@ember/template";
 
 export function camelize(str: string): string;

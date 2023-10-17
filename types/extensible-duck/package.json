@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/extensible-duck",
+    "version": "1.6.9999",
+    "projects": [
+        "https://github.com/investtools/extensible-duck"
+    ],
+    "devDependencies": {
+        "@types/extensible-duck": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cheng Gibson",
+            "githubUsername": "nossbigg"
+        }
+    ]
+}

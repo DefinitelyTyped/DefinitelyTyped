@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/wrap-ansi",
+    "version": "8.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/wrap-ansi"
+    ],
+    "devDependencies": {
+        "@types/wrap-ansi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Klaus Reimer",
+            "githubUsername": "kayahr"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

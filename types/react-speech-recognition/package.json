@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-speech-recognition",
+    "version": "3.9.9999",
+    "projects": [
+        "https://github.com/JamesBrill/react-speech-recognition#readme"
+    ],
+    "dependencies": {
+        "@types/dom-speech-recognition": "*"
+    },
+    "devDependencies": {
+        "@types/react-speech-recognition": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "OleksandrYehorov",
+            "githubUsername": "OleksandrYehorov"
+        }
+    ]
+}

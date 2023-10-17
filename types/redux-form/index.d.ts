@@ -1,19 +1,3 @@
-// Type definitions for redux-form 8.3
-// Project: https://github.com/erikras/redux-form, https://redux-form.com
-// Definitions by: Daniel Lytkin <https://github.com/aikoven>
-//                 Karol Janyst <https://github.com/LKay>
-//                 Luka Zakrajsek <https://github.com/bancek>
-//                 Huw Martin <https://github.com/huwmartin>
-//                 Matt Davis <https://github.com/m-b-davis>
-//                 Ethan Resnick <https://github.com/ethanresnick>
-//                 Maddi Joyce <https://github.com/maddijoyce>
-//                 Kamil Wojcik <https://github.com/smifun>
-//                 Mohamed Shaaban <https://github.com/mshaaban088>
-//                 Ethan Setnik <https://github.com/esetnik>
-//                 Kota Marusue <https://github.com/mrsekut>
-//                 Adam Bouqdib <https://github.com/abemedia>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
 import { ComponentClass, FunctionComponent, ReactElement } from "react";
 
 export type FieldType = "Field" | "FieldArray";

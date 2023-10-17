@@ -1,9 +1,3 @@
-// Type definitions for imperium 2.0
-// Project: https://github.com/terrajs/imperium
-// Definitions by: Gaetan SENN <https://github.com/gaetansenn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="node" />
 
 import express = require("express");

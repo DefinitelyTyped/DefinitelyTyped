@@ -1,9 +1,3 @@
-// Type definitions for nuclear-js-react-addons-chefsplate 1.0
-// Project: https://github.com/chefsplate/nuclear-js-react-addons
-// Definitions by: Pat Lillis <https://github.com/patlillis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 import * as React from "react";
 
 // Disable automatic exports.

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/word2vector",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/LeeXun/word2vector#readme"
+    ],
+    "devDependencies": {
+        "@types/word2vector": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rene Keijzer",
+            "githubUsername": "renekeijzer"
+        }
+    ]
+}

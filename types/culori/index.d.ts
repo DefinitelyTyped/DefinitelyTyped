@@ -1,8 +1,3 @@
-// Type definitions for culori 2.0
-// Project: https://github.com/Evercoder/culori
-// Definitions by: Bijela Gora <https://github.com/bijela-gora>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import modeA98 from "./src/a98/definition";
 import { ConvertFn } from "./src/converter";
 import modeCubehelix from "./src/cubehelix/definition";

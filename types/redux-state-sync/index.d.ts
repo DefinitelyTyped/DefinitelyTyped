@@ -1,10 +1,3 @@
-// Type definitions for redux-state-sync 3.1
-// Project: https://github.com/AOHUA/redux-state-sync#readme
-// Definitions by: MU AOHUA <https://github.com/AOHUA>
-//                 AntonioMendez <https://github.com/AntonioMendez>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 import BroadcastChannel, { BroadcastChannelOptions } from "broadcast-channel";
 import { AnyAction, Middleware, Reducer, Store } from "redux";
 

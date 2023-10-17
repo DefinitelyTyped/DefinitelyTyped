@@ -8,8 +8,6 @@
         ],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noImplicitAny": true,
         "noImplicitThis": true,

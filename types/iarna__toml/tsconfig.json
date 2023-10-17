@@ -7,19 +7,10 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "strictFunctionTypes": true,
-        "paths": {
-            "@iarna/*": [
-                "iarna__*"
-            ]
-        }
+        "strictFunctionTypes": true
     },
     "files": [
         "index.d.ts",

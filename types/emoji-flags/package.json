@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/emoji-flags",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/matiassingers/emoji-flags"
+    ],
+    "devDependencies": {
+        "@types/emoji-flags": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Todd Dukart",
+            "githubUsername": "tdukart"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

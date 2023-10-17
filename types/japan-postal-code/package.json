@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/japan-postal-code",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/mzp/japan-postal-code"
+    ],
+    "devDependencies": {
+        "@types/japan-postal-code": "workspace:."
+    },
+    "owners": []
+}

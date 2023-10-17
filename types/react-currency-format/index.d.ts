@@ -1,8 +1,3 @@
-// Type definitions for react-currency-format 1.0
-// Project: https://github.com/mohitgupta8888/react-currency-format#readme
-// Definitions by: Guilherme Samuel <https://github.com/guilhermefront>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Component, ComponentType, HTMLAttributes, InputHTMLAttributes } from "react";
 
 declare namespace CurrencyFormat {

@@ -1,10 +1,3 @@
-// Type definitions for loadjs 4.0
-// Project: https://github.com/muicss/loadjs
-// Definitions by: Christian Rackerseder <https://github.com/screendriver>
-//                 Aziz Khambati <https://github.com/azizhk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 export as namespace loadjs;
 
 export = loadjs;

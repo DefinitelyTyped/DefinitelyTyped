@@ -1,11 +1,3 @@
-// Type definitions for Photoshop JavaScript API 25.0
-// Project: https://adobe.io/photoshop/uxp
-// Definitions by:  Adobe Photoshop <https://github.com/adobe-photoshop>
-//                  Barkin Aygun <https://github.com/baaygun>
-//                  Heewoo Ahn <https://github.com/heewooa>
-//                  Jaroslav Bereza <https://github.com/jardicc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as photoshopConstants from "./dom/Constants";
 import { photoshopAction, photoshopCore } from "./dom/CoreModules";
 import { imaging as photoshopImaging } from "./dom/ImagingModule";

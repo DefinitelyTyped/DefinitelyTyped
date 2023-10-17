@@ -8,14 +8,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
-        "paths": {
-            "@svgr/rollup": ["svgr__rollup"]
-        },
         "noEmit": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true

@@ -1,10 +1,3 @@
-// Type definitions for whatwg-url 11.0
-// Project: https://github.com/jsdom/whatwg-url#readme
-// Definitions by: Alexander Marks <https://github.com/aomarks>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference lib="es2020"/>
 /** https://url.spec.whatwg.org/#url-representation */
 export interface URLRecord {

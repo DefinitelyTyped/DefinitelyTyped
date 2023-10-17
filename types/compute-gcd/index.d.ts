@@ -1,8 +1,3 @@
-// Type definitions for compute-gcd 1.2
-// Project: https://github.com/compute-io/gcd
-// Definitions by: Sean S. LeBlanc <https://github.com/seleb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type Accessor<T> = (item: T) => number;
 
 declare function gcd(firstValue: number, secondValue: number, ...values: ReadonlyArray<number>): number;

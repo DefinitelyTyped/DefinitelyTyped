@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/cache-manager-memcached-store",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/theogravity/node-cache-manager-memcached-store"
+    ],
+    "dependencies": {
+        "@types/cache-manager": "*"
+    },
+    "devDependencies": {
+        "@types/cache-manager-memcached-store": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "James Wigley",
+            "githubUsername": "jwigley"
+        }
+    ]
+}

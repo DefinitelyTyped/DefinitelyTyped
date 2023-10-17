@@ -1,6 +1,39 @@
 {
     "private": true,
+    "name": "@types/redux-form",
+    "version": "6.6.9999",
+    "projects": [
+        "https://github.com/erikras/redux-form"
+    ],
     "dependencies": {
+        "@types/react": "*",
         "redux": "^3.6.0"
-    }
+    },
+    "devDependencies": {
+        "@types/react-dom-factories": "*",
+        "@types/react-redux": "*",
+        "@types/redux-form": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Carson Full",
+            "githubUsername": "carsonf"
+        },
+        {
+            "name": "Daniel Lytkin",
+            "githubUsername": "aikoven"
+        },
+        {
+            "name": "Karol Janyst",
+            "githubUsername": "LKay"
+        },
+        {
+            "name": "Luka Zakrajsek",
+            "githubUsername": "bancek"
+        },
+        {
+            "name": "Mohamed Shaaban",
+            "githubUsername": "mshaaban088"
+        }
+    ]
 }

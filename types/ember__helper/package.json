@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/ember__helper",
+    "version": "4.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "@ember/helper",
+    "projects": [
+        "https://github.com/emberjs/ember.js"
+    ],
+    "dependencies": {
+        "@types/ember": "*"
+    },
+    "devDependencies": {
+        "@types/ember__helper": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Krycho",
+            "githubUsername": "chriskrycho"
+        },
+        {
+            "name": "Krystan HuffMenne",
+            "githubUsername": "gitKrystan"
+        },
+        {
+            "name": "James C. Davis",
+            "githubUsername": "jamescdavis"
+        },
+        {
+            "name": "Peter Wagenet",
+            "githubUsername": "wagenet"
+        }
+    ]
+}

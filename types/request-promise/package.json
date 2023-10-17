@@ -1,0 +1,38 @@
+{
+    "private": true,
+    "name": "@types/request-promise",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/request/request-promise"
+    ],
+    "dependencies": {
+        "@types/bluebird": "*",
+        "@types/request": "*"
+    },
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/request-promise": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christopher Glantschnig",
+            "githubUsername": "cglantschnig"
+        },
+        {
+            "name": "Joe Skeen",
+            "githubUsername": "joeskeen"
+        },
+        {
+            "name": "Aya Morisawa",
+            "githubUsername": "AyaMorisawa"
+        },
+        {
+            "name": "Matt R. Wilson",
+            "githubUsername": "mastermatt"
+        },
+        {
+            "name": "Sergey Bakulin",
+            "githubUsername": "vansergen"
+        }
+    ]
+}

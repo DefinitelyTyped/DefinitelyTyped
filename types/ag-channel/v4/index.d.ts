@@ -1,9 +1,3 @@
-// Type definitions for ag-channel 4.0
-// Project: https://github.com/SocketCluster/ag-channel
-// Definitions by: Daniel Rose <https://github.com/DanielRose>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
 import ConsumableStream = require("consumable-stream");
 import StreamDemux = require("stream-demux");
 import DemuxedConsumableStream = require("stream-demux/demuxed-consumable-stream");

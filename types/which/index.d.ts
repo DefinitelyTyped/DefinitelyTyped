@@ -1,10 +1,3 @@
-// Type definitions for which 3.0
-// Project: https://github.com/isaacs/node-which
-// Definitions by: vvakame <https://github.com/vvakame>
-//                 cspotcode <https://github.com/cspotcode>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /** Finds all instances of a specified executable in the PATH environment variable */
 declare function which(cmd: string, options: which.Options & which.AsyncOptions & which.OptionsAll): Promise<string[]>;
 declare function which(cmd: string, options?: which.Options & which.AsyncOptions & which.OptionsFirst): Promise<string>;

@@ -1,27 +1,3 @@
-// Type definitions for plotly.js 2.12
-// Project: https://plot.ly/javascript/, https://github.com/plotly/plotly.js
-// Definitions by: Chris Gervang <https://github.com/chrisgervang>
-//                 Martin Duparc <https://github.com/martinduparc>
-//                 Frederik Aalund <https://github.com/frederikaalund>
-//                 taoqf <https://github.com/taoqf>
-//                 Dadstart <https://github.com/Dadstart>
-//                 Jared Szechy <https://github.com/szechyjs>
-//                 Sooraj Pudiyadath <https://github.com/soorajpudiyadath>
-//                 Jon Freedman <https://github.com/jonfreedman>
-//                 Megan Riel-Mehan <https://github.com/meganrm>
-//                 Josh Miles <https://github.com/milesjos>
-//                 Pramod Mathai  <https://github.com/skippercool>
-//                 Michael Adams <https://github.com/mtadams007>
-//                 Michael Arnett <https://github.com/marnett-git>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Brandon Mitchell <https://github.com/brammitch>
-//                 Jessica Blizzard <https://github.com/blizzardjessica>
-//                 Oleg Shilov <https://github.com/olegshilov>
-//                 Pablo Gracia <https://github.com/PabloGracia>
-//                 Jeffrey van Gogh <https://github.com/jvgogh>
-//                 John Abdou <https://github.com/jpabdou>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { BoxPlotData, BoxPlotMarker } from "./lib/traces/box";
 import { CandlestickData } from "./lib/traces/candlestick";
 import { OhlcData } from "./lib/traces/ohlc";

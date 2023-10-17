@@ -1,8 +1,3 @@
-// Type definitions for polygon-lookup 2.6
-// Project: https://github.com/pelias/polygon-lookup
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Feature, FeatureCollection, Polygon } from "geojson";
 import RBush from "rbush";
 

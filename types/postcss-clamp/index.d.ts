@@ -1,7 +1,3 @@
-// Type definitions for postcss-clamp 4.1
-// Project: https://github.com/polemius/postcss-clamp
-// Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import { PluginCreator } from "postcss";
 
 declare namespace postcssClamp {

@@ -1,8 +1,3 @@
-// Type definitions for gaugeJS 1.3
-// Project: https://github.com/bernii/gauge.js#readme
-// Definitions by: Bradley Odell <https://github.com/BTOdell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface PointerOptions {
     length: number;
     strokeWidth: number;

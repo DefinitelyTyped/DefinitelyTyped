@@ -9,24 +9,12 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "noUnusedParameters": true,
-        "noUnusedLocals": true,
-        "paths": {
-            "react-color": [
-                "react-color/v2"
-            ],
-            "react-color/*": [
-                "react-color/v2/*"
-            ]
-        }
+        "noUnusedLocals": true
     },
     "files": [
         "index.d.ts",

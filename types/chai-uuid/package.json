@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/chai-uuid",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/rfrench/chai-uuid"
+    ],
+    "dependencies": {
+        "@types/chai": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/chai-uuid": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Harm van der Werf",
+            "githubUsername": "harm-less"
+        }
+    ]
+}
