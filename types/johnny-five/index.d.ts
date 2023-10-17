@@ -1122,6 +1122,7 @@ export class Sensor {
 
     id: string;
     pin: number | string;
+    freq: number;
     threshold: number;
     readonly boolean: boolean;
     readonly raw: number;

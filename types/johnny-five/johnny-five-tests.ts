@@ -188,7 +188,7 @@ board
         const sensor = new five.Sensor("A0");
 
         const value = sensor.scaleTo([0, 10]);
-        console.log(value);
+        sensor.freq = 1000
 
         const sonar = new five.Sonar("A0");
 
