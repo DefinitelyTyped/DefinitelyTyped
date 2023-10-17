@@ -135,6 +135,16 @@ export type WithEasing<T> = T & {
  */
 export type KeyframeValue =
     | number
+    | {
+        /**
+         * A number between 0 and 255
+         */
+        brightness: number
+    }
+    | {
+        /** A number between 0% and 100% */
+        intensity: number
+    }
     | null
     | false
     | WithEasing<{
