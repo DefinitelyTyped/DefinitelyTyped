@@ -58,6 +58,13 @@ export type GooglePayOptions = {
     };
 
     /**
+     * If set to true, then the Google Pay button will not be rendered and an error will be emitted if the user
+     * is not eligible to pay with Google Pay.
+     * See https://developers.google.com/pay/api/web/reference/request-objects#IsReadyToPayRequest for more information.
+     */
+    existingPaymentMethodRequired?: boolean;
+
+    /**
      * Requires the user to accept providing the full billing address.
      * @deprecated use billingAddressRequired
      */
