@@ -1,8 +1,3 @@
-// Type definitions for fontkit 2.0
-// Project: https://github.com/foliojs/fontkit#readme
-// Definitions by: Stepan Mikhailiuk <https://github.com/stepancar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

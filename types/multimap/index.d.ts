@@ -1,10 +1,3 @@
-// Type definitions for multimap 1.1
-// Project: https://github.com/villadora/multi-map
-// Definitions by: Tyler Allen <https://github.com/tallenstudios>
-//                 Kyle Scheuing <https://github.com/oppzippy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Typescript Version: 3.1
-
 declare class Multimap<K = any, V = any> {
     constructor(iterable?: ReadonlyArray<[K, V]> | ReadonlySet<[K, V]>);
 

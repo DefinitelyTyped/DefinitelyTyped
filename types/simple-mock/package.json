@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/simple-mock",
+    "version": "0.8.9999",
+    "projects": [
+        "https://github.com/jupiter/simple-mock"
+    ],
+    "devDependencies": {
+        "@types/simple-mock": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leon Yu",
+            "githubUsername": "leonyu"
+        }
+    ]
+}

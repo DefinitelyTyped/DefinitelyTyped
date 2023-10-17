@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fast-fifo",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mafintosh/fast-fifo"
+    ],
+    "devDependencies": {
+        "@types/fast-fifo": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex Potsides",
+            "githubUsername": "achingbrain"
+        }
+    ]
+}

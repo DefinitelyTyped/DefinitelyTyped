@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/mixpanel",
+    "version": "2.14.9999",
+    "projects": [
+        "https://mixpanel.com/",
+        "https://github.com/mixpanel/mixpanel-node",
+        "https://github.com/mixpanel/mixpanel-js"
+    ],
+    "devDependencies": {
+        "@types/mixpanel": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Knut Eirik Leira Hjelle",
+            "githubUsername": "hjellek"
+        },
+        {
+            "name": "Manduro",
+            "githubUsername": "Manduro"
+        },
+        {
+            "name": "Noam Golani",
+            "githubUsername": "noamgolani"
+        }
+    ]
+}

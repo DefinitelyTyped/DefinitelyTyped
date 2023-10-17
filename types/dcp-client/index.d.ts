@@ -1,11 +1,3 @@
-// Type definitions for dcp-client 4.2
-// Project: https://github.com/Distributed-Compute-Labs/dcp-client
-// Definitions by: Bryan Hoang <https://github.com/bryan-hoang>
-//                 Brandon Christie <https://github.com/BChristieDistributive>
-//                 Roman Fairushyn <https://github.com/fairushyn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyType
-// Minimum TypeScript Version: 4.7
-
 /// <reference path="./dcp.d.ts" />
 /// <reference path="./compute.d.ts" />
 /// <reference path="./wallet.d.ts" />

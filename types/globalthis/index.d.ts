@@ -1,9 +1,3 @@
-// Type definitions for globalthis 1.0
-// Project: https://github.com/ljharb/System.global#readme
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 /**
  * Gets the `globalThis` object.
  */

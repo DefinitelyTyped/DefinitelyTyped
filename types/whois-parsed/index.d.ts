@@ -1,8 +1,3 @@
-// Type definitions for whois-parsed 1.0
-// Project: https://github.com/moneals/whois-parsed#readme
-// Definitions by: Uche Chilaka <https://github.com/uchilaka>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface WhoIsResult {
     domainName: string;
     updatedDate?: string | undefined;

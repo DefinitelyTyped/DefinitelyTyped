@@ -1,9 +1,3 @@
-// Type definitions for simple-query-string 1.3
-// Project: https://github.com/khalidsalomao/simple-query-string#readme
-// Definitions by: Ciarán Ingle <https://github.com/inglec-arista>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
-
 declare const qs: {
     version: string;
 

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/traverse",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/substack/js-traverse"
+    ],
+    "devDependencies": {
+        "@types/traverse": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bazyli Brzóska",
+            "url": "https://invent.life"
+        },
+        {
+            "name": "newclear",
+            "githubUsername": "newclear"
+        },
+        {
+            "name": "Guten Ye",
+            "url": "https://guten.me"
+        }
+    ]
+}

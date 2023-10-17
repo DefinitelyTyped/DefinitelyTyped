@@ -1,9 +1,3 @@
-// Type definitions for jest-environment-vscode-extension 0.0
-// Project: https://github.com/macabeus/jest-environment-vscode-extension
-// Definitions by: Bruno Macabeus <https://github.com/macabeus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
 import type * as vscodeTypes from "vscode";
 
 type Using = <Files extends { [filename: string]: string }>(

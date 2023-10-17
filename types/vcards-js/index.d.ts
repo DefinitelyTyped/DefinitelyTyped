@@ -1,9 +1,3 @@
-// Type definitions for vcards-js 2.10
-// Project: https://github.com/enesser/vCards-JS
-// Definitions by: Ben Allfree <https://github.com/benallfree>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface vCard {
     /**
      * Specifies a value that represents a persistent, globally unique identifier associated with the vCard

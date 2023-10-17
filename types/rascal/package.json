@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/rascal",
+    "version": "10.0.9999",
+    "projects": [
+        "https://guidesmiths.github.io/rascal/"
+    ],
+    "dependencies": {
+        "@types/amqplib": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/rascal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ethan",
+            "githubUsername": "zijin-m"
+        },
+        {
+            "name": "MartinTechy",
+            "githubUsername": "MartinTechy"
+        },
+        {
+            "name": "Nikita Volodin",
+            "githubUsername": "qlonik"
+        }
+    ]
+}

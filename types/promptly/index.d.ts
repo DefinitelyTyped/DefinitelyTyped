@@ -1,9 +1,3 @@
-// Type definitions for node-promptly 3.0.3
-// Project: https://github.com/IndigoUnited/node-promptly
-// Definitions by: Dan Spencer <https://github.com/danrspencer>
-//                 Alex Ilyaev <https://github.com/alexilyaev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 import stream = require("stream");

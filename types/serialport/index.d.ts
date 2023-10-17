@@ -1,11 +1,3 @@
-// Type definitions for serialport 8.0
-// Project: https://github.com/node-serialport/node-serialport
-// Definitions by: Jeremy Foster <https://github.com/codefoster>
-//                 Andrew Pearson <https://github.com/apearson>
-//                 Cameron Tacklind <https://github.com/cinderblock>
-//                 Doug Brunner <https://github.com/doug-a-brunner>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as Stream from "stream";

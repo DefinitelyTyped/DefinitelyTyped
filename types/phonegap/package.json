@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/phonegap",
+    "version": "2.3.9999",
+    "projects": [
+        "http://phonegap.com"
+    ],
+    "devDependencies": {
+        "@types/phonegap": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Dick van den Brink",
+            "githubUsername": "DickvdBrink"
+        }
+    ]
+}

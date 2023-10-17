@@ -1,11 +1,3 @@
-// Type definitions for needle 3.2
-// Project: https://github.com/tomas/needle
-// Definitions by: San Chen <https://github.com/bigsan>,
-//                 Niklas Mollenhauer <https://github.com/nikeee>,
-//                 Matanel Sindilevich <https://github.com/sindilevich>,
-//                 Bryan Spears <https://github.com/bryanspears>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as http from "http";

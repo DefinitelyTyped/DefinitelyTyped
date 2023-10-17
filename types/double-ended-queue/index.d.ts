@@ -1,9 +1,3 @@
-// Type definitions for double-ended-queue 2.1
-// Project: https://github.com/petkaantonov/deque
-// Definitions by: Dmitry <https://github.com/dsagal>
-//                 Dmitry Parzhitsky <https://github.com/parzh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Deque<Item> {
     /**
      * Amount of items currently in the queue.

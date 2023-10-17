@@ -1,8 +1,3 @@
-// Type definitions for heic-convert 1.2
-// Project: https://github.com/catdad-experiments/heic-convert
-// Definitions by: Tregan <https://github.com/treemmett>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface ConversionOptions {
     /**
      * the HEIC file buffer

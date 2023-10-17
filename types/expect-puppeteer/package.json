@@ -1,6 +1,25 @@
 {
     "private": true,
+    "name": "@types/expect-puppeteer",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/smooth-code/jest-puppeteer/tree/master/packages/expect-puppeteer"
+    ],
     "dependencies": {
+        "@types/jest": "*",
         "@types/puppeteer": "^5.4.0"
-    }
+    },
+    "devDependencies": {
+        "@types/expect-puppeteer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tanguy Krotoff",
+            "githubUsername": "tkrotoff"
+        },
+        {
+            "name": "Jason Mong",
+            "githubUsername": "jfm710"
+        }
+    ]
 }

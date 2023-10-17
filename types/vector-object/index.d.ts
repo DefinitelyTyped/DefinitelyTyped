@@ -1,8 +1,3 @@
-// Type definitions for vector-object 1.3
-// Project: https://github.com/stanleyfok/vector-object
-// Definitions by: = <https://github.com/bakedpotatolord>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Vector {
     vector: object;
     constructor(object: object);

@@ -1,8 +1,3 @@
-// Type definitions for sentiment 5.0
-// Project: https://github.com/thisandagain/sentiment
-// Definitions by: Isaac Ong <https://github.com/iojw>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Sentiment;
 
 declare class Sentiment {

@@ -1,8 +1,3 @@
-// Type definitions for athenajs 0.1
-// Project: https://github.com/AthenaJS/athenajs
-// Definitions by: Nicolas Ramz <https://github.com/warpdesign>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace AthenaJS;
 
 export function Dom(sel?: string | HTMLElement): _Dom<HTMLElement>;

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/mariasql",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/mscdex/node-mariasql"
+    ],
+    "devDependencies": {
+        "@types/mariasql": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "MichaelBennett",
+            "githubUsername": "bennett000"
+        }
+    ]
+}

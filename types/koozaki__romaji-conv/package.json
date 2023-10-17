@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/koozaki__romaji-conv",
+    "version": "2.0.9999",
+    "projects": [
+        "https://romaji-conv.koozaki.com/"
+    ],
+    "devDependencies": {
+        "@types/koozaki__romaji-conv": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

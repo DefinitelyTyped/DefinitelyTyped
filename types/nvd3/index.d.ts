@@ -1,8 +1,3 @@
-// Type definitions for nvd3 1.8.1
-// Project: https://github.com/novus/nvd3
-// Definitions by: Peter Mitchell <https://github.com/PjMitchell>, Nathan Robbert <https://github.com/bigrocketgames>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as d3 from "d3";
 
 export = nv;

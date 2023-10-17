@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/akumina-core",
+    "version": "4.5.9999",
+    "projects": [
+        "https://github.com/akumina/AkuminaDev"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/akumina-core": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Akumina",
+            "githubUsername": "akumina"
+        },
+        {
+            "name": "Jason Arden",
+            "githubUsername": "jasonarden"
+        },
+        {
+            "name": "Sean Glover",
+            "githubUsername": "MarshHawk"
+        }
+    ]
+}

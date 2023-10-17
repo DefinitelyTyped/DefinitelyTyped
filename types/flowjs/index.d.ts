@@ -1,8 +1,3 @@
-// Type definitions for flowjs 2.13
-// Project: https://github.com/flowjs/flow.js
-// Definitions by: Martin Nuc <https://github.com/martinnuc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace flowjs {
     class Flow {
         constructor(options?: FlowOptions);

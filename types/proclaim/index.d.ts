@@ -1,9 +1,3 @@
-// Type definitions for proclaim 3.6
-// Project: https://github.com/rowanmanning/proclaim
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 interface AssertionError {
     msg: string;
     actual: any;

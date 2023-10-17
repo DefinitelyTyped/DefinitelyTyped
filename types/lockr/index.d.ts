@@ -1,8 +1,3 @@
-// Type definitions for lockr 0.8.3
-// Project: https://github.com/tsironis/lockr
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var Lockr: lockr.LockrStatic;
 
 declare namespace lockr {

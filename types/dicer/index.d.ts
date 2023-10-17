@@ -1,8 +1,3 @@
-// Type definitions for dicer 0.2
-// Project: https://github.com/mscdex/dicer
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 /// <reference types="node" />
 
 export = Dicer;

@@ -9,24 +9,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "d3-hierarchy": [
-                "d3-hierarchy/v1"
-            ],
-            "d3-path": [
-                "d3-path/v1"
-            ],
-            "d3-selection": [
-                "d3-selection/v1"
-            ],
-            "d3-shape": [
-                "d3-shape/v1"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

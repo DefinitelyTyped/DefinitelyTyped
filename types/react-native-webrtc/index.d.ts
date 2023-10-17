@@ -1,8 +1,3 @@
-// Type definitions for react-native-webrtc 1.75
-// Project: https://github.com/react-native-webrtc/react-native-webrtc
-// Definitions by: Carlos Quiroga <https://github.com/KarlosQ>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 import { Component } from "react";
 import { ViewStyle } from "react-native";
 

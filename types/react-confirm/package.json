@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/react-confirm",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/haradakunihiko/react-confirm"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-confirm": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "santiagodoldan",
+            "githubUsername": "santiagodoldan"
+        },
+        {
+            "name": "Mark Nelissen",
+            "githubUsername": "marknelissen"
+        }
+    ]
+}

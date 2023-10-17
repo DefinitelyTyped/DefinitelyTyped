@@ -1,17 +1,14 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["ESNext"],
+        "lib": [
+            "ESNext"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
-        "paths": {
-            "@babel/*": ["babel__*"]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

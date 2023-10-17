@@ -1,9 +1,3 @@
-// Type definitions for react-photoswipe 1.3
-// Project: https://github.com/minhtranite/react-photoswipe
-// Definitions by: kwzm <https://github.com/kwzm>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 import { Item, Options } from "photoswipe";
 import * as React from "react";
 

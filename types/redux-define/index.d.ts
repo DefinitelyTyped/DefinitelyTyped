@@ -1,9 +1,3 @@
-// Type definitions for redux-define 1.1
-// Project: https://github.com/smeijer/redux-define
-// Definitions by: Joe Barnett <https://github.com/ensconced>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 export as namespace ReduxDefine;
 
 export type SubActionProps<

@@ -1,11 +1,3 @@
-// Type definitions for react-native-calendars 1.1264
-// Project: https://github.com/wix/react-native-calendars#readme
-// Definitions by: Tyler Zhang <https://github.com/Tyler-Zhang>
-//                 David Noreña <https://github.com/DavidNorena>
-//                 Fabian Meul <https://github.com/FabianMeul>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 import { ImageSourcePropType, StyleProp, TextStyle, ViewStyle } from "react-native";
 import XDateLocaleConfig = require("xdate");

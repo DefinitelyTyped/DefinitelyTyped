@@ -1,8 +1,3 @@
-// Type definitions for artillery 1.7
-// Project: https://github.com/artilleryio/artillery
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { OptionsOfJSONResponseBody, OptionsOfTextResponseBody, OptionsOfUnknownResponseBody, Response } from "got";

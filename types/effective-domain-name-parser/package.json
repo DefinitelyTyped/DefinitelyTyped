@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/effective-domain-name-parser",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/dontcallmedom/node-domain-name-parser#readme"
+    ],
+    "devDependencies": {
+        "@types/effective-domain-name-parser": "workspace:."
+    },
+    "owners": []
+}

@@ -1,9 +1,3 @@
-// Type definitions for node-7z 2.1
-// Project: https://github.com/quentinrossetti/node-7z
-// Definitions by: Erik Rothoff Andersson <https://github.com/erkie>
-//                 Colin Berry <https://github.com/colin969>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { ChildProcess } from "child_process";

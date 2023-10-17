@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/through2",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/rvagg/through2"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/through2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bart van der Schoor",
+            "githubUsername": "Bartvds"
+        }
+    ]
+}

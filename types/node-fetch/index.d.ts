@@ -1,19 +1,3 @@
-// Type definitions for node-fetch 2.6
-// Project: https://github.com/bitinn/node-fetch
-// Definitions by: Torsten Werner <https://github.com/torstenwerner>
-//                 Niklas Lindgren <https://github.com/nikcorg>
-//                 Vinay Bedre <https://github.com/vinaybedre>
-//                 Antonio Román <https://github.com/kyranet>
-//                 Andrew Leedham <https://github.com/AndrewLeedham>
-//                 Jason Li <https://github.com/JasonLi914>
-//                 Steve Faulkner <https://github.com/southpolesteve>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 Alex Savin <https://github.com/alexandrusavin>
-//                 Alexis Tyler <https://github.com/OmgImAlexis>
-//                 Jakub Kisielewski <https://github.com/kbkk>
-//                 David Glasser <https://github.com/glasser>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import FormData = require("form-data");

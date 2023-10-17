@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/seen",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/themadcreator/seen"
+    ],
+    "devDependencies": {
+        "@types/seen": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Vernon",
+            "githubUsername": "admvx"
+        }
+    ]
+}

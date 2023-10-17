@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/requestidlecallback",
+    "version": "0.3.9999",
+    "projects": [
+        "https://w3c.github.io/requestidlecallback/",
+        "https://github.com/afarkas/requestidlecallback"
+    ],
+    "devDependencies": {
+        "@types/requestidlecallback": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "贺师俊",
+            "githubUsername": "hax"
+        },
+        {
+            "name": "Max Boguslavskiy",
+            "githubUsername": "maxbogus"
+        },
+        {
+            "name": "Teramoto Daiki",
+            "githubUsername": "teramotodaiki"
+        }
+    ]
+}

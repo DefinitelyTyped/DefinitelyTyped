@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/ottomated__passport-twitch",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ottomated/passport-twitch"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/passport": "*",
+        "@types/passport-oauth2": "*"
+    },
+    "devDependencies": {
+        "@types/ottomated__passport-twitch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ottomated",
+            "githubUsername": "ottomated"
+        }
+    ]
+}

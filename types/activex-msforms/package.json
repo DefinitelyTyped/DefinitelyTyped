@@ -1,6 +1,23 @@
 {
     "private": true,
+    "name": "@types/activex-msforms",
+    "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Microsoft Forms 2.0 Object Library - MSForms",
+    "projects": [
+        "https://msdn.microsoft.com/VBA/Language-Reference-VBA/articles/reference-microsoft-forms"
+    ],
     "dependencies": {
+        "@types/activex-stdole": "*",
         "activex-helpers": "*"
-    }
+    },
+    "devDependencies": {
+        "@types/activex-msforms": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Zev Spitz",
+            "githubUsername": "zspitz"
+        }
+    ]
 }

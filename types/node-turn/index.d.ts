@@ -1,8 +1,3 @@
-// Type definitions for node-turn 0.0
-// Project: https://github.com/Atlantis-Software/node-turn#readme
-// Definitions by: Johannes Garz <https://github.com/garzj>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

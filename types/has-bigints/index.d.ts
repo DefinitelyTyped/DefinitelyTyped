@@ -1,8 +1,3 @@
-// Type definitions for has-bigints 1.0
-// Project: https://github.com/ljharb/has-bigints#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = hasBigInts;
 
 /**

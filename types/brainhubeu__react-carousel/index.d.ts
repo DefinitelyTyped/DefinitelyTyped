@@ -1,11 +1,3 @@
-// Type definitions for @brainhubeu/react-carousel 2.0
-// Project: https://github.com/brainhubeu/react-carousel
-// Definitions by: Jack Allen <https://github.com/jackall3n>
-//                 Jeff Wen <https://github.com/sinchang>
-//                 Robert Hebel <https://github.com/roberthebel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 export type ImgProps = React.ReactComponentElement<"img">;
 

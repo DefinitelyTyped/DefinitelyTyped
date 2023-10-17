@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/normalplaytime",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/eteubert/normalplaytime"
+    ],
+    "devDependencies": {
+        "@types/normalplaytime": "workspace:."
+    },
+    "owners": []
+}

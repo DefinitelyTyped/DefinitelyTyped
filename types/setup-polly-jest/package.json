@@ -1,8 +1,23 @@
 {
     "private": true,
+    "name": "@types/setup-polly-jest",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/gribnoysup/setup-polly-jest#readme"
+    ],
+    "minimumTypeScriptVersion": "4.9",
     "dependencies": {
         "@pollyjs/adapter": "^6.0.4",
         "@pollyjs/core": "^6.0.5",
         "@pollyjs/persister": "^6.0.5"
-    }
+    },
+    "devDependencies": {
+        "@types/setup-polly-jest": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Offir Golan",
+            "githubUsername": "offirgolan"
+        }
+    ]
 }

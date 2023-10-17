@@ -1,9 +1,3 @@
-// Type definitions for swagger-ui 3.52
-// Project: https://github.com/swagger-api/swagger-ui
-// Definitions by: Julian Pfeil <https://github.com/juarrow>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = SwaggerUI;
 
 declare function SwaggerUI(opts: SwaggerUI.SwaggerUIOptions): SwaggerUI;

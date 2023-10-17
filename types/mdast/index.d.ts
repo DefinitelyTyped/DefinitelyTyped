@@ -1,12 +1,3 @@
-// Type definitions for Mdast 4.0
-// Project: https://github.com/syntax-tree/mdast, https://github.com/wooorm/mdast
-// Definitions by: Christian Murphy <https://github.com/ChristianMurphy>
-//                 Jun Lu <https://github.com/lujun2>
-//                 Remco Haszing <https://github.com/remcohaszing>
-//                 Titus Wormer <https://github.com/wooorm>
-//                 Remco Haszing <https://github.com/remcohaszing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import type { Data as UnistData, Literal as UnistLiteral, Node as UnistNode, Parent as UnistParent } from "unist";
 
 // ## Enumeration

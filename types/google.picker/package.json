@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/google.picker",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Google Picker API",
+    "projects": [
+        "https://developers.google.com/picker/"
+    ],
+    "devDependencies": {
+        "@types/google.picker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "grapswiz",
+            "githubUsername": "grapswiz"
+        },
+        {
+            "name": "Chives",
+            "githubUsername": "chivesrs"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for non-npm package cloudinary-uploadwidget-browser 2.3
-// Project: https://cloudinary.com/documentation/upload_widget_reference
-// Definitions by: Jeremy Liberman <https://github.com/mrleebo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var cloudinary: CloudinaryBase;
 
 interface CloudinaryBase {

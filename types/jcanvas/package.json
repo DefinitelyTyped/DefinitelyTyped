@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/jcanvas",
+    "version": "15.2.9999",
+    "projects": [
+        "https://github.com/caleb531/jcanvas"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jcanvas": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rogier Schouten",
+            "githubUsername": "rogierschouten"
+        }
+    ]
+}

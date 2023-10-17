@@ -1,9 +1,3 @@
-// Type definitions for snazzy-info-window 1.1
-// Project: https://github.com/atmist/snazzy-info-window
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="google.maps" />
 
 declare namespace SnazzyInfoWindow {

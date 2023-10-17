@@ -1,11 +1,3 @@
-// Type definitions for redlock 4.0
-// Project: https://github.com/mike-marcacci/node-redlock
-// Definitions by: Ilya Mochalov <https://github.com/chrootsu>
-//                 BendingBender <https://github.com/BendingBender>
-//                 Doug Ayers <https://github.com/douglascayers>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 import * as Promise from "bluebird";
 import { EventEmitter } from "events";
 

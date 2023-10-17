@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/package-name-regex",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/dword-design/package-name-regex#readme"
+    ],
+    "devDependencies": {
+        "@types/package-name-regex": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rajas Paranjpe",
+            "githubUsername": "ChocolateLoverRaj"
+        }
+    ]
+}

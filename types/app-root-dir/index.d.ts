@@ -1,8 +1,3 @@
-// Type definitions for app-root-dir 0.1
-// Project: https://github.com/philidem/node-app-root-dir
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface AppRootDir {
     // Get the application's root directory
     get(): string;

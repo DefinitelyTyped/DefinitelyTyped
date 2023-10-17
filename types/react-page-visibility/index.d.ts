@@ -1,8 +1,3 @@
-// Type definitions for react-page-visibility 6.4
-// Project: https://github.com/pgilad/react-page-visibility#readme
-// Definitions by: Daniel <https://github.com/dannycochran>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Component } from "react";
 
 /**

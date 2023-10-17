@@ -1,9 +1,3 @@
-// Type definitions for Tether v1.4
-// Project: https://github.com/shipshapecode/tether
-// Definitions by: Adi Dahiya <https://github.com/adidahiya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export = Tether;
 export as namespace Tether;
 

@@ -1,8 +1,3 @@
-// Type definitions for openapi-to-postman 3.2
-// Project: https://github.com/postmanlabs/openapi-to-postman/
-// Definitions by: detachhead <https://github.com/detachhead>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export {};
 
 import { CollectionDefinition } from "postman-collection";

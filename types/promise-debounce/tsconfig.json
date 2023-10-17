@@ -1,15 +1,13 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["ES2015"],
+        "lib": [
+            "ES2015"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

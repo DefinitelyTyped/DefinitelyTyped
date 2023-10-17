@@ -1,11 +1,3 @@
-// Type definitions for webpack-node-externals 3.0
-// Project: https://github.com/liady/webpack-node-externals
-// Definitions by: Matt Traynham <https://github.com/mtraynham>
-//                 Manuel Pogge <https://github.com/MrSpoocy>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.4
-
 /// <reference types="node" />
 import { ExternalsPlugin } from "webpack";
 

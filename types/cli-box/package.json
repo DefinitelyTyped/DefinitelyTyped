@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/cli-box",
+    "version": "6.0.9999",
+    "projects": [
+        "https://github.com/IonicaBizau/node-cli-box"
+    ],
+    "devDependencies": {
+        "@types/cli-box": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kent Wong",
+            "githubUsername": "athasach"
+        }
+    ]
+}

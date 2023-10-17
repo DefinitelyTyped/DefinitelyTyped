@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/express-cluster",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/Flipboard/express-cluster"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/express-cluster": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Miloslav Nenadál",
+            "githubUsername": "nenadalm"
+        }
+    ]
+}

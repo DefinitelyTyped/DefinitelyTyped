@@ -1,6 +1,25 @@
 {
     "private": true,
+    "name": "@types/rollup-plugin-visualizer",
+    "version": "4.2.9999",
+    "projects": [
+        "https://github.com/doesdev/rollup-plugin-analyzer#readme"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "rollup": "^2.42.3"
-    }
+    },
+    "devDependencies": {
+        "@types/rollup-plugin-visualizer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nick",
+            "githubUsername": "fobdy"
+        },
+        {
+            "name": "Max Boguslavskiy",
+            "githubUsername": "maxbogus"
+        }
+    ]
 }

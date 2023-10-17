@@ -10,16 +10,7 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "jsx": "react",
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
-        "paths": {
-            "react-image-crop": [
-                "react-image-crop/v7"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

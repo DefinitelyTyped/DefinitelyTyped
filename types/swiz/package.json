@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/swiz",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/racker/node-swiz"
+    ],
+    "devDependencies": {
+        "@types/swiz": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeff Goddard",
+            "githubUsername": "jedigo"
+        }
+    ]
+}

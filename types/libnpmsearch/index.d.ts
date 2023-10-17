@@ -1,9 +1,3 @@
-// Type definitions for libnpmsearch 2.0
-// Project: https://npmjs.com/package/libnpmsearch
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
 import npmFetch = require("npm-registry-fetch");

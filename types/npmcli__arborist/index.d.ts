@@ -1,9 +1,3 @@
-// Type definitions for @npmcli/arborist 5.6
-// Project: https://github.com/npm/cli/tree/latest/workspaces/arborist#readme
-// Definitions by: Emily M Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.3
-
 import { LockDependency, PackageLock as _PackageLock } from "@npm/types";
 import { PackageJson } from "@npmcli/package-json";
 import { EventEmitter } from "events";

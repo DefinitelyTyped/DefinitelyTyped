@@ -1,8 +1,3 @@
-// Type definitions for @sap/logging 6.2
-// Project: https://www.npmjs.com/package/@sap/logging
-// Definitions by: Merbin J Anselm <https://github.com/anselm94>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as express from "express-serve-static-core";
 import * as http from "http";
 
