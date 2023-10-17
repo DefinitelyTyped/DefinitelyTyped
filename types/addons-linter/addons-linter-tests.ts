@@ -18,27 +18,27 @@ const linterInstance = linter.createInstance({
         scanFile: ["dist/", "src/"],
         shouldScanFile: (fileName) => {
             return fileName.includes("ignore");
-        }
+        },
     },
-    runAsBinary: false
+    runAsBinary: false,
 });
 
 linterInstance.run().then((result) => {
-    const {count, metadata, errors, notices, warnings} = result;
+    const { count, metadata, errors, notices, warnings } = result;
 
     const errorsCount = result.summary.errors;
     const noticesCount = result.summary.notices;
     const warningsCount = result.summary.warnings;
 
     for (const error of errors) {
-        const {code, message, description, file} = error;
+        const { code, message, description, file } = error;
     }
 
     for (const notice of notices) {
-        const {code, message, description, file} = notice;
+        const { code, message, description, file } = notice;
     }
 
     for (const warning of warnings) {
-        const {code, message, description, file} = warning;
+        const { code, message, description, file } = warning;
     }
 });
