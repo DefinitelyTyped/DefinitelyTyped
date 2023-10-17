@@ -1,4 +1,4 @@
-import * as passport from "passport"
+import * as passport from "passport";
 import { Strategy as FortyTwoStrategy } from "passport-42";
 
 const FORTYTWO_APP_ID = "intra client id";
@@ -15,15 +15,16 @@ const ftStrategy = new FortyTwoStrategy({
 });
 
 passport.use(ftStrategy);
-passport.use(new FortyTwoStrategy({
-    clientID: FORTYTWO_APP_ID,
-    clientSecret: FORTYTWO_APP_SECRET,
-    callbackURL: "http://127.0.0.1:3000/auth/42/callback",
-    passReqToCallback: true,
-}, (req, accessToken, refreshToken, profile, cb) => {
-    req; // $ExpectType Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>
-    accessToken; // $ExpectType string
-    refreshToken; // $ExpectType string
-    profile; // $ExpectType Profile
-}));
-
+passport.use(
+    new FortyTwoStrategy({
+        clientID: FORTYTWO_APP_ID,
+        clientSecret: FORTYTWO_APP_SECRET,
+        callbackURL: "http://127.0.0.1:3000/auth/42/callback",
+        passReqToCallback: true,
+    }, (req, accessToken, refreshToken, profile, cb) => {
+        req; // $ExpectType Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>
+        accessToken; // $ExpectType string
+        refreshToken; // $ExpectType string
+        profile; // $ExpectType Profile
+    }),
+);
