@@ -1,7 +1,3 @@
-// Type definitions for passport-42 1.2
-// Project: https://github.com/pandark/passport-42#readme
-// Definitions by: Abdelhadi Sabani <https://github.com/awbx>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as express from "express";
 import * as passport from "passport";
