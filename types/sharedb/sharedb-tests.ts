@@ -5,6 +5,13 @@ import { Duplex } from "stream";
 import * as WebSocket from "ws";
 import Agent = require("sharedb/lib/agent");
 
+const { Connection, Doc, Query, types, logger } = ShareDBClient;
+Connection.prototype;
+Doc.prototype;
+Query.prototype;
+types.register({} as any);
+logger.info();
+
 // Adapted from https://github.com/avital/websocket-json-stream
 class WebSocketJSONStream extends Duplex {
     constructor(private readonly ws: WebSocket) {
