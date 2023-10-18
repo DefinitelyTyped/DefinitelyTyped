@@ -14,7 +14,7 @@ export function setDefaultLocale(localeName: string): void;
 export function getDefaultLocale(): string;
 export function CalendarContainer(props: CalendarContainerProps): React.ReactElement;
 
-interface HighlightDates {
+export interface HighlightDates {
     [className: string]: Date[];
 }
 
