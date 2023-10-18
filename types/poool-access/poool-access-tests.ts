@@ -37,7 +37,7 @@ access.config(
 access.config(
     {
         debug: false,
-        skip_audit_loader: false
+        skip_audit_loader: false,
     },
     true,
 );
