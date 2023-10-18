@@ -1,3 +1,4 @@
+// @ts-check
 import { AllPackages, clean, getDefinitelyTyped, parseDefinitions } from "@definitelytyped/definitions-parser";
 import { loggerWithErrors } from "@definitelytyped/utils";
 import * as cp from "node:child_process";
@@ -57,12 +58,12 @@ const header = `# This file is generated.
 # See https://github.com/DefinitelyTyped/DefinitelyTyped#definition-owners`;
 
 /**
- * @param { { contributors: ReadonlyArray<{githubUsername?: string }>, subDirectoryPath: string} } pkg
+ * @param { import("@definitelytyped/definitions-parser").TypingsData } pkg
  * @param {number} maxPathLen
  * @return {string | undefined}
  */
 function getEntry(pkg, maxPathLen) {
-    const users = mapDefined(pkg.contributors, c => c.githubUsername);
+    const users = mapDefined(pkg.contributors, c => "githubUsername" in c ? c.githubUsername : undefined);
     if (!users.length) {
         return undefined;
     }
