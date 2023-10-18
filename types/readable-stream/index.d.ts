@@ -653,8 +653,8 @@ declare namespace _Readable {
         ): T;
     }
 
-    const finished: typeof NodeStream.finished
-    const pipeline: typeof NodeStream.pipeline
+    const finished: typeof NodeStream.finished;
+    const pipeline: typeof NodeStream.pipeline;
 }
 
 export = _Readable;
