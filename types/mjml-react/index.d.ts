@@ -1,10 +1,3 @@
-// Type definitions for mjml-react 2.0
-// Project: https://github.com/wix-incubator/mjml-react
-// Definitions by: Henri Normak <https://github.com/henrinormak>
-//                 Ian Edington <https://github.com/IanEdington>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export function renderToMjml(email: React.ReactElement): string;

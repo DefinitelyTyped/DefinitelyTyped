@@ -1,9 +1,3 @@
-// Type definitions for passport.socketio 3.7
-// Project: https://github.com/jfromaniello/passport.socketio#readme
-// Definitions by: Jack Scotson <https://github.com/Scotsoo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import { RequestHandler } from "express";
 import { Store } from "express-session";
 import { PassportStatic } from "passport";

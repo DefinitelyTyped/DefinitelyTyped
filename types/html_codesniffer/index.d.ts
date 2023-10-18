@@ -1,8 +1,3 @@
-// Type definitions for html_codesniffer 2.5
-// Project: http://squizlabs.github.io/HTML_CodeSniffer/
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace HTMLCS;
 
 export const ERROR = 1;

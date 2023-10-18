@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/hostile",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/feross/hostile"
+    ],
+    "devDependencies": {
+        "@types/hostile": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrew Leedham",
+            "githubUsername": "AndrewLeedham"
+        }
+    ]
+}

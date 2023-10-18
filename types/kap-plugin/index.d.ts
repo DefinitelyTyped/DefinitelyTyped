@@ -1,9 +1,3 @@
-// Type definitions for kap-plugin 1.0
-// Project: https://github.com/wulkano/kap/blob/master/docs/plugins.md
-// Definitions by: Connor Peet <https://github.com/connor4312>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
-
 import * as ElectronStore from "electron-store";
 import * as got from "got";
 import { JSONSchema7 } from "json-schema";

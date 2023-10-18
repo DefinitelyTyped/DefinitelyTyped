@@ -1,8 +1,3 @@
-// Type definitions for non-npm package web-app-manifest 1.0
-// Project: https://w3c.github.io/manifest/
-// Definitions by: Yamagishi Kazutoshi <https://github.com/ykzts>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type TextDirectionType = "ltr" | "rtl" | "auto";
 export type DisplayModeType = "fullscreen" | "standalone" | "minimal-ui" | "browser";
 

@@ -1,8 +1,3 @@
-// Type definitions for svgicons2svgfont 10.0
-// Project: https://github.com/nfroidure/svgicons2svgfont
-// Definitions by: Kaspar Vollenweider <https://github.com/casaper>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Stream } from "stream";

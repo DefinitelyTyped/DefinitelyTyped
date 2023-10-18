@@ -1,9 +1,3 @@
-// Type definitions for string-replace-loader 2.3
-// Project: https://github.com/Va1/string-replace-loader
-// Definitions by: Jason Kwok <https://github.com/JasonHK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import * as Webpack from "webpack";
 
 declare const loader: Webpack.loader.Loader;

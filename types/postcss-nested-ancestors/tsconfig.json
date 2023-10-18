@@ -1,16 +1,20 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6", "ES2018.Promise"],
+        "lib": [
+            "es6",
+            "ES2018.Promise"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "postcss-nested-ancestors-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "postcss-nested-ancestors-tests.ts"
+    ]
 }

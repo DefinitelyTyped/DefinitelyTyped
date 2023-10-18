@@ -1,9 +1,3 @@
-// Type definitions for @styled-system/core 5.1
-// Project: https://github.com/styled-system/styled-system
-// Definitions by: Leo Toneff <https://github.com/bragle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 import * as CSS from "csstype";
 
 export function get(obj: any, ...paths: Array<string | number>): any;

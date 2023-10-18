@@ -1,8 +1,3 @@
-// Type definitions for medium-editor 5.0
-// Project: https://yabwe.github.io/medium-editor/
-// Definitions by: pascaliske <https://github.com/pascaliske>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace MediumEditor {
     export interface MediumEditor {
         // Initialization Functions

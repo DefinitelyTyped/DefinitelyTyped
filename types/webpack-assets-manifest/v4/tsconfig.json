@@ -9,19 +9,6 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "esModuleInterop": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "webpack": [
-                "webpack/v4"
-            ],
-            "tapable": [
-                "tapable/v1"
-            ],
-            "webpack-assets-manifest": [ "webpack-assets-manifest/v4" ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

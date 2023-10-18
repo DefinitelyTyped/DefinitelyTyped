@@ -1,11 +1,3 @@
-// Type definitions for @tryghost/content-api 1.3
-// Project: https://github.com/TryGhost/Ghost-SDK/tree/master/packages/content-api
-// Definitions by: Kevin Nguyen <https://github.com/knguyen0125>
-//                 Anton Van Eechaute <https://github.com/antonve>
-//                 Yashar Moradi <https://github.com/maveric1977>
-//                 Oliver Emery <https://github.com/thrymgjol>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type ArrayOrValue<T> = T | T[];
 export type Nullable<T> = T | null;
 

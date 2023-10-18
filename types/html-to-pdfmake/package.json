@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/html-to-pdfmake",
+    "version": "2.4.9999",
+    "projects": [
+        "https://github.com/Aymkdn/html-to-pdfmake#readme"
+    ],
+    "dependencies": {
+        "@types/jsdom": "*",
+        "@types/pdfmake": "*"
+    },
+    "devDependencies": {
+        "@types/html-to-pdfmake": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martin Zloch",
+            "githubUsername": "me"
+        },
+        {
+            "name": "Cecil Wöbker",
+            "githubUsername": "cwoebker"
+        }
+    ]
+}

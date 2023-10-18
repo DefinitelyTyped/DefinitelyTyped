@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/mcping-js",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/Cryptkeeper/mcping-js"
+    ],
+    "devDependencies": {
+        "@types/mcping-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Inrix",
+            "githubUsername": "Inrixia"
+        }
+    ]
+}

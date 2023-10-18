@@ -1,9 +1,3 @@
-// Type definitions for @babel/code-frame 7.0
-// Project: https://github.com/babel/babel/tree/master/packages/babel-code-frame, https://babeljs.io
-// Definitions by: Mohsen Azimi <https://github.com/mohsen1>
-//                 Forbes Lindesay <https://github.com/ForbesLindesay>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface SourceLocation {
     start: { line: number; column?: number | undefined };
     end?: { line: number; column?: number | undefined } | undefined;

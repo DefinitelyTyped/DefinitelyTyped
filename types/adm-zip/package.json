@@ -1,0 +1,36 @@
+{
+    "private": true,
+    "name": "@types/adm-zip",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/cthackers/adm-zip"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/adm-zip": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "John Vilk",
+            "githubUsername": "jvilk"
+        },
+        {
+            "name": "Abner Oliveira",
+            "githubUsername": "abner"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        },
+        {
+            "name": "Matthew Sainsbury",
+            "githubUsername": "mattsains"
+        },
+        {
+            "name": "Lei Nelissen",
+            "githubUsername": "LeiNelissen"
+        }
+    ]
+}

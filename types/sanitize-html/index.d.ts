@@ -1,17 +1,3 @@
-// Type definitions for sanitize-html 2.9
-// Project: https://github.com/punkave/sanitize-html
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-//                 Afshin Darian <https://github.com/afshin>
-//                 Rinze de Laat <https://github.com/biermeester>
-//                 Johan Davidsson <https://github.com/johandavidson>
-//                 Jianrong Yu <https://github.com/YuJianrong>
-//                 GP <https://github.com/paambaati>
-//                 Dariusz Syncerek <https://github.com/dsyncerek>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Pirasis Leelatanon <https://github.com/1pete>
-//                 Alex Rantos <https://github.com/alex-rantos>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { ParserOptions } from "htmlparser2";
 
 export = sanitize;

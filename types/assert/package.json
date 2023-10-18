@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/assert",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/browserify/commonjs-assert",
+        "https://github.com/defunctzombie/commonjs-assert"
+    ],
+    "devDependencies": {
+        "@types/assert": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nico Gallinal",
+            "githubUsername": "nicoabie"
+        },
+        {
+            "name": "Linus Unnebäck",
+            "githubUsername": "LinusU"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

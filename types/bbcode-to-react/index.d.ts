@@ -1,9 +1,3 @@
-// Type definitions for bbcode-to-react 0.2
-// Project: https://github.com/JimLiu/bbcode-to-react#readme
-// Definitions by: hkleungai <https://github.com/hkleungai>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
 import { ReactNode } from "react";
 
 /**

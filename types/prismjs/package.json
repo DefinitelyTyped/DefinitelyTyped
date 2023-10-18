@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/prismjs",
+    "version": "1.26.9999",
+    "projects": [
+        "http://prismjs.com/",
+        "https://github.com/leaverou/prism"
+    ],
+    "devDependencies": {
+        "@types/prismjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Schmidt",
+            "githubUsername": "RunDevelopment"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        },
+        {
+            "name": "Erik Lieben",
+            "githubUsername": "eriklieben"
+        },
+        {
+            "name": "Andre Wiggins",
+            "githubUsername": "andrewiggins"
+        },
+        {
+            "name": "Michał Miszczyszyn",
+            "githubUsername": "mmiszy"
+        }
+    ]
+}

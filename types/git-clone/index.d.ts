@@ -1,8 +1,3 @@
-// Type definitions for git-clone 0.2
-// Project: https://github.com/jaz303/git-clone
-// Definitions by: Christoph Thiede <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Clone `repo` to `targetPath`, calling `cb` on completion.
  */

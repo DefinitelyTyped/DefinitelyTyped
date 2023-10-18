@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/notifyjs-browser",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/notifyjs/notifyjs"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/notifyjs-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bahman Nikkhahan",
+            "githubUsername": "bahman616"
+        }
+    ]
+}

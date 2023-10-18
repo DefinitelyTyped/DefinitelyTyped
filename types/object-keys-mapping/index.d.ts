@@ -1,9 +1,3 @@
-// Type definitions for object-keys-mapping 3.0
-// Project: https://github.com/coderhaoxin/object-keys-mapping#readme
-// Definitions by: newraina <https://github.com/newraina>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export function trim(origin: object, ignore?: (v: any) => boolean): object;
 export function trim(origin: ReadonlyArray<object>, ignore?: (v: any) => boolean): object[];
 

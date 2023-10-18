@@ -1,9 +1,3 @@
-// Type definitions for alcides 1.4
-// Project: https://github.com/asaidimu/alcides
-// Definitions by: saidimu <https://github.com/asaidimu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="chai" />
 
 interface SuiteFunction {

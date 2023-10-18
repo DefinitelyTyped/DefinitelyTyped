@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/telegram-web-app",
+    "version": "6.9.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "telegram-web-app",
+    "projects": [
+        "https://telegram.org/js/telegram-web-app.js"
+    ],
+    "devDependencies": {
+        "@types/telegram-web-app": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "KnorpelSenf",
+            "githubUsername": "KnorpelSenf"
+        },
+        {
+            "name": "MKRhere",
+            "githubUsername": "MKRhere"
+        },
+        {
+            "name": "deptyped",
+            "githubUsername": "deptyped"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for SignalR 1.0
-// Project: http://www.asp.net/signalr
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, T. Michael Keesey <https://github.com/keesey/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 interface HubMethod {

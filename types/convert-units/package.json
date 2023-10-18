@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/convert-units",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/ben-ng/convert-units#readme"
+    ],
+    "devDependencies": {
+        "@types/convert-units": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "vladkampov",
+            "githubUsername": "vladkampov"
+        },
+        {
+            "name": "ben-ng",
+            "githubUsername": "ben-ng"
+        },
+        {
+            "name": "Toby Bell",
+            "githubUsername": "tobybell"
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/ipaiva",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/ipaiva-studio"
+    ],
+    "devDependencies": {
+        "@types/ipaiva": "workspace:."
+    },
+    "owners": []
+}

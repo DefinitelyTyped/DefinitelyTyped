@@ -1,13 +1,3 @@
-// Type definitions for non-npm package MapKit JS 5.65
-// Project: https://developer.apple.com/reference/mapkitjs
-// Definitions by: Philipp Jean-Jacques <https://github.com/kilghaz>
-//                 Waseem Dahman <https://github.com/wsmd>
-//                 Chris Drackett <https://github.com/chrisdrackett>
-//                 Moritz Sternemann <https://github.com/moritzsternemann>
-//                 Vinayak Kulkarni <https://github.com/vinayakkulkarni>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /**
  * The JavaScript API for embedding Apple maps on your website.
  */

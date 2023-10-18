@@ -1,6 +1,24 @@
 {
     "private": true,
+    "name": "@types/activex-scripting",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Microsoft Scripting Runtime",
+    "projects": [
+        "https://msdn.microsoft.com/en-us/library/bstcxhf7(v=vs.84).aspx"
+    ],
     "dependencies": {
+        "@types/activex-interop": "*",
         "activex-helpers": "*"
-    }
+    },
+    "devDependencies": {
+        "@types/activex-scripting": "workspace:.",
+        "@types/windows-script-host": "*"
+    },
+    "owners": [
+        {
+            "name": "Zev Spitz",
+            "githubUsername": "zspitz"
+        }
+    ]
 }

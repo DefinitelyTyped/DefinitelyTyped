@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/debessmann",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/fs535/debessmann#readme"
+    ],
+    "devDependencies": {
+        "@types/debessmann": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vladislavs Korehovs",
+            "githubUsername": "vkorehov"
+        }
+    ]
+}

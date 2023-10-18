@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-espower",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/power-assert-js/gulp-espower"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-espower": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qubo",
+            "githubUsername": "tkQubo"
+        }
+    ]
+}

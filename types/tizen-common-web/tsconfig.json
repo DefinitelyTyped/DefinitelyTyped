@@ -1,25 +1,26 @@
 {
-  "compilerOptions": {
-    "target": "ES2016",
-    "module": "commonjs",
-    "lib": ["dom", "es6"],
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": "../",
-    "typeRoots": ["../"],
-    "types": [],
-    "esModuleInterop": true,
-    "noImplicitAny": true,
-    "noImplicitThis" : true,
-    "strictNullChecks": true,
-    "strictFunctionTypes":true
-  },
-  "files": [
-    "index.d.ts",
-    "test/alarm-test.ts",
-    "test/application-test.ts",
-    "test/tizen-common-web-tests.commonjs.ts",
-    "test/tizen-common-web-tests.global.ts",
-    "test/time-test.ts"
-  ]
+    "compilerOptions": {
+        "target": "ES2016",
+        "module": "commonjs",
+        "lib": [
+            "dom",
+            "es6"
+        ],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "types": [],
+        "esModuleInterop": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/alarm-test.ts",
+        "test/application-test.ts",
+        "test/tizen-common-web-tests.commonjs.ts",
+        "test/tizen-common-web-tests.global.ts",
+        "test/time-test.ts"
+    ]
 }

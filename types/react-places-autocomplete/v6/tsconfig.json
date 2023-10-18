@@ -1,25 +1,21 @@
 {
-  "files": [
-    "index.d.ts",
-    "react-places-autocomplete-tests.tsx"
-  ],
-  "compilerOptions": {
-    "baseUrl": "../../",
-    "forceConsistentCasingInFileNames": true,
-    "jsx": "react",
-    "lib": ["es6", "dom"],
-    "module": "commonjs",
-    "noEmit": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "paths": {
-      "react-places-autocomplete": [
-        "react-places-autocomplete/v6"
-      ]
-    },
-    "strictFunctionTypes": true,
-    "strictNullChecks": true,
-    "typeRoots": ["../../"],
-    "types": []
-  }
+    "files": [
+        "index.d.ts",
+        "react-places-autocomplete-tests.tsx"
+    ],
+    "compilerOptions": {
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "module": "commonjs",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": []
+    }
 }

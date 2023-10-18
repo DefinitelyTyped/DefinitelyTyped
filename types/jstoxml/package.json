@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jstoxml",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/davidcalhoun/jstoxml"
+    ],
+    "devDependencies": {
+        "@types/jstoxml": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Steven Snoeijen",
+            "githubUsername": "stevensnoeijen"
+        }
+    ]
+}

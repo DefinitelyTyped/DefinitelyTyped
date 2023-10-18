@@ -1,8 +1,3 @@
-// Type definitions for lcov-parse 1.0
-// Project: https://github.com/davglass/lcov-parse
-// Definitions by: Rouslan Placella <https://github.com/roccivic>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace parse {
     /**
      * Line coverage detail

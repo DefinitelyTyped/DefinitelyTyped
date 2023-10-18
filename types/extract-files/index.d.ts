@@ -1,9 +1,3 @@
-// Type definitions for extract-files 8.1
-// Project: https://github.com/jaydenseric/extract-files#readme
-// Definitions by: Edward Sammut Alessi <https://github.com/Slessi>
-//                 Alex K <https://github.com/lynxtaa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ReactNativeFileOptions {
     uri: string;
     type?: string | undefined;

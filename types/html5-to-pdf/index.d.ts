@@ -1,8 +1,3 @@
-// Type definitions for html5-to-pdf 4.0
-// Project: https://github.com/peterdemartini/html5-to-pdf
-// Definitions by: Sam Alexander <https://github.com/samalexander>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { LaunchOptions, Page, PDFOptions } from "puppeteer";
 
 declare class HTML5ToPDF {

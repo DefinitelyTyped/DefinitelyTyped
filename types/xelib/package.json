@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/xelib",
+    "version": "0.6.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "xelib",
+    "projects": [
+        "https://github.com/z-edit/xelib"
+    ],
+    "devDependencies": {
+        "@types/xelib": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex Layton",
+            "githubUsername": "awlayton"
+        }
+    ]
+}

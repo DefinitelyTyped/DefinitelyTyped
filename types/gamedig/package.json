@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/gamedig",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/sonicsnes/node-gamedig"
+    ],
+    "devDependencies": {
+        "@types/gamedig": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ivan Sieder",
+            "githubUsername": "ivansieder"
+        },
+        {
+            "name": "Pascal Sthamer",
+            "githubUsername": "p4sca1"
+        },
+        {
+            "name": "Joshua Schmeder",
+            "githubUsername": "MaximumWoahverdrive"
+        }
+    ]
+}

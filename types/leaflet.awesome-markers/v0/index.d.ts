@@ -1,9 +1,3 @@
-// Type definitions for Leaflet.awesome-markers plugin v2.0 with Leaflet 0.x
-// Project: https://github.com/sigma-geosistemas/Leaflet.awesome-markers#properties
-// Definitions by: Egor Komarov <https://github.com/Odrin>, Marcel Sebek <https://github.com/sebek64>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as Leaflet from "leaflet";
 
 declare global {

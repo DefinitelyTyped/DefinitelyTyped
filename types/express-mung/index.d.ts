@@ -1,10 +1,3 @@
-// Type definitions for express-mung 0.5
-// Project: https://github.com/richardschneider/express-mung
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-//                 Levi Bostian <https://github.com/levibostian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node"/>
 
 import { ErrorRequestHandler, Request, RequestHandler, Response } from "express";

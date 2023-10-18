@@ -1,16 +1,3 @@
-// Type definitions for yargs 16.0
-// Project: https://github.com/chevex/yargs, https://yargs.js.org
-// Definitions by: Martin Poelstra <https://github.com/poelstra>
-//                 Mizunashi Mana <https://github.com/mizunashi-mana>
-//                 Jeffery Grajkowski <https://github.com/pushplay>
-//                 Jimi (Dimitris) Charalampidis <https://github.com/JimiC>
-//                 Steffen Viken Valvåg <https://github.com/steffenvv>
-//                 Emily Marigold Klassen <https://github.com/forivall>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 Aankhen <https://github.com/Aankhen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 // The following TSLint rules have been disabled:
 // unified-signatures: Because there is useful information in the argument names of the overloaded signatures
 

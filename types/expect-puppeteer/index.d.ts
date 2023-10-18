@@ -1,10 +1,3 @@
-// Type definitions for expect-puppeteer 5.0
-// Project: https://github.com/smooth-code/jest-puppeteer/tree/master/packages/expect-puppeteer
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-//                 Jason Mong <https://github.com/jfm710>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.3
-
 /// <reference types="jest" />
 
 import { Dialog, ElementHandle, Page } from "puppeteer";

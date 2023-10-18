@@ -1,8 +1,3 @@
-// Type definitions for envinfo 7.8
-// Project: https://github.com/tabrindle/envinfo#readme
-// Definitions by: nashaofu <https://github.com/nashaofu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Config {
     System?: string[] | undefined;
     Binaries?: string[] | undefined;

@@ -1,9 +1,3 @@
-// Type definitions for @tinajs/tina-redux 1.4
-// Project: https://github.com/tinajs/tina-redux
-// Definitions by: Jiayu Liu <https://github.com/Jimexist>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { Action, Dispatch, Store } from "redux";
 
 type MapStateToProps = (state: any) => any;

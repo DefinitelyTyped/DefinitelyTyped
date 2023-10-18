@@ -1,8 +1,3 @@
-// Type definitions for Hopscotch v0.2.5
-// Project: https://github.com/LinkedInAttic/hopscotch
-// Definitions by: Tim Perry <https://github.com/pimterry>, Aurimas <https://github.com/Aurimas1>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare type CallbackNameNamesOrDefinition = string | string[] | (() => void);
 declare type placementTypes = "top" | "bottom" | "right" | "left";
 

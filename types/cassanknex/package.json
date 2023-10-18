@@ -1,6 +1,22 @@
 {
     "private": true,
+    "name": "@types/cassanknex",
+    "version": "1.19.9999",
+    "projects": [
+        "https://github.com/azuqua/cassanknex"
+    ],
     "dependencies": {
-        "cassandra-driver": "^4.2.0"
-    }
+        "@types/node": "*",
+        "cassandra-driver": "^4.2.0",
+        "long": "^5.2.3"
+    },
+    "devDependencies": {
+        "@types/cassanknex": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Chao",
+            "githubUsername": "bioball"
+        }
+    ]
 }

@@ -1,11 +1,3 @@
-// Type definitions for non-npm package mdx 2.0
-// Project: https://github.com/mdx-js/mdx
-// Definitions by: Christian Murphy <https://github.com/ChristianMurphy>
-//                 Remco Haszing <https://github.com/remcohaszing>
-//                 Titus Wormer <https://github.com/wooorm>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.9
-
 /**
  * An MDX file which exports a JSX component.
  *

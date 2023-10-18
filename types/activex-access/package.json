@@ -1,6 +1,28 @@
 {
     "private": true,
+    "name": "@types/activex-access",
+    "version": "14.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Microsoft Access 14.0 Object Library - Access",
+    "projects": [
+        "https://msdn.microsoft.com/en-us/library/dn142571.aspx"
+    ],
     "dependencies": {
+        "@types/activex-adodb": "*",
+        "@types/activex-dao": "*",
+        "@types/activex-interop": "*",
+        "@types/activex-office": "*",
+        "@types/activex-vbide": "*",
         "activex-helpers": "*"
-    }
+    },
+    "devDependencies": {
+        "@types/activex-access": "workspace:.",
+        "@types/windows-script-host": "*"
+    },
+    "owners": [
+        {
+            "name": "Zev Spitz",
+            "githubUsername": "zspitz"
+        }
+    ]
 }

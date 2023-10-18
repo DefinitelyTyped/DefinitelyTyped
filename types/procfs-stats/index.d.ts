@@ -1,8 +1,3 @@
-// Type definitions for procfs-stats 1.0
-// Project: https://github.com/soldair/node-procfs-stats
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function procfs(pid: number): procfs.StatStatic;
 declare namespace procfs {
     type Callback<Value> = (error: any, value: Value) => void;

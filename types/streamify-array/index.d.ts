@@ -1,8 +1,3 @@
-// Type definitions for streamify-array 1.0
-// Project: https://github.com/rubensworks/streamify-array.js#readme
-// Definitions by: Joachim Van Herwegen <https://github.com/joachimvh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Readable } from "stream";

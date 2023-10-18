@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/chai-dom",
+    "version": "1.11.9999",
+    "projects": [
+        "https://github.com/nathanboktae/chai-dom"
+    ],
+    "dependencies": {
+        "@types/chai": "*"
+    },
+    "devDependencies": {
+        "@types/chai-dom": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt Lewis",
+            "githubUsername": "mattlewis92"
+        }
+    ]
+}

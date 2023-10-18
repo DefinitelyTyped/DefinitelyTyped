@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/express-requests-logger",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/PayU/express-request-logger"
+    ],
+    "dependencies": {
+        "@types/express-serve-static-core": "*"
+    },
+    "devDependencies": {
+        "@types/bunyan": "*",
+        "@types/express": "*",
+        "@types/express-requests-logger": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

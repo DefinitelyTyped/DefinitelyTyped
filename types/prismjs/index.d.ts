@@ -1,12 +1,3 @@
-// Type definitions for prismjs 1.26
-// Project: http://prismjs.com/, https://github.com/leaverou/prism
-// Definitions by: Michael Schmidt <https://github.com/RunDevelopment>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 Erik Lieben <https://github.com/eriklieben>
-//                 Andre Wiggins <https://github.com/andrewiggins>
-//                 Michał Miszczyszyn <https://github.com/mmiszy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace Prism;
 export const languages: Languages;
 export const plugins: Record<string, any>;

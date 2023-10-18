@@ -1,8 +1,3 @@
-// Type definitions for redis-info 3.0
-// Project: https://github.com/FGRibreau/node-redis-info#readme
-// Definitions by: Yurick Hauschild <https://github.com/Yurickh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export enum Flag {
     ON = "1",
     OFF = "0",

@@ -1,12 +1,3 @@
-// Type definitions for chess.js 0.13
-// Project: https://github.com/jhlywa/chess.js
-// Definitions by: Jacob Fischer <https://github.com/JacobFischer>
-//                 Zachary Svoboda <https://github.com/zacnomore>
-//                 Lars Kecker <https://github.com/CapOfCave>
-//                 Vicary Archangel <https://github.com/vicary>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
-
 /**
  * One of the possible squares on a chess board in san format,
  * e.g. "a8" to "h1".

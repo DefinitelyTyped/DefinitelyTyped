@@ -1,11 +1,3 @@
-// Type definitions for difflib 0.2
-// Project: https://github.com/qiao/difflib.js
-// Definitions by: majames <https://github.com/majames>
-//                 Hugues Le Gendre <https://github.com/hlegendre>
-//                 Antonio Min <https://github.com/antoniomin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 export class SequenceMatcher<T> {
     constructor(isjunk: (() => boolean) | null, left: T, right: T, autojunk?: boolean);
     setSeqs(left: T, right: T): ((char: string) => boolean) | undefined;

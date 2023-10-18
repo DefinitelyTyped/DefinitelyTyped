@@ -1,4 +1,4 @@
-import metascraper = require("metascraper");
+import metascraper from "metascraper";
 import metascraperUrl = require("metascraper-url");
 
 const html = "example";

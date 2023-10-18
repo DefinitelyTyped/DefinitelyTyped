@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/hystrixjs",
+    "version": "0.2.9999",
+    "projects": [
+        "https://bitbucket.org/igor_sechyn/hystrixjs"
+    ],
+    "dependencies": {
+        "@types/rx": "*"
+    },
+    "devDependencies": {
+        "@types/hystrixjs": "workspace:.",
+        "@types/q": "*"
+    },
+    "owners": [
+        {
+            "name": "Igor Sechyn",
+            "githubUsername": "igorsechyn"
+        }
+    ]
+}

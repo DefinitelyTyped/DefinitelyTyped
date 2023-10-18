@@ -1,9 +1,3 @@
-// Type definitions for justified-layout 4.1
-// Project: https://github.com/flickr/justified-layout
-// Definitions by: Alex Walter <https://github.com/ArgonAlex/>
-//                 Liau Jian Jie <https://github.com/liaujianjie/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * An item to be layout.
  */

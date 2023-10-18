@@ -1,0 +1,48 @@
+{
+    "private": true,
+    "name": "@types/pdfkit",
+    "version": "0.13.9999",
+    "projects": [
+        "http://pdfkit.org"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/pdfkit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eric Hillah",
+            "githubUsername": "erichillah"
+        },
+        {
+            "name": "Erik Berreßem",
+            "githubUsername": "she11sh0cked"
+        },
+        {
+            "name": "Jeroen Vervaeke",
+            "githubUsername": "jeroenvervaeke"
+        },
+        {
+            "name": "Thales Agapito",
+            "githubUsername": "thalesagapito"
+        },
+        {
+            "name": "Evgeny Baram",
+            "githubUsername": "r4tz52"
+        },
+        {
+            "name": "Benjamin Just",
+            "githubUsername": "BamButz"
+        },
+        {
+            "name": "Joanna Gabis",
+            "githubUsername": "jg-mms"
+        },
+        {
+            "name": "Robin Guinant",
+            "githubUsername": "Foohx"
+        }
+    ]
+}

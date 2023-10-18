@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/awesome-notifications",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/f3oall/awesome-notifications"
+    ],
+    "devDependencies": {
+        "@types/awesome-notifications": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sibin Grasic",
+            "githubUsername": "oblakstudio"
+        }
+    ]
+}

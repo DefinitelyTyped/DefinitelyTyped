@@ -1,6 +1,26 @@
 {
-  "dependencies": {
-    "@npm/types": "*"
-  },
-  "private": true
+    "private": true,
+    "name": "@types/libnpmpublish",
+    "version": "4.0.9999",
+    "projects": [
+        "https://npmjs.com/package/libnpmpublish"
+    ],
+    "dependencies": {
+        "@npm/types": "*",
+        "@types/node-fetch": "*",
+        "@types/npm-registry-fetch": "*"
+    },
+    "devDependencies": {
+        "@types/libnpmpublish": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nicolas Rodriguez",
+            "githubUsername": "nicolas377"
+        },
+        {
+            "name": "Guy Adler",
+            "githubUsername": "Guy-Adler"
+        }
+    ]
 }

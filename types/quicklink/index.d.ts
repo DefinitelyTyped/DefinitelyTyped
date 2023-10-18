@@ -1,8 +1,3 @@
-// Type definitions for quicklink 2.3
-// Project: https://getquick.link/
-// Definitions by: Pimm Hogeling <https://github.com/Pimm>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export {};
 
 /**

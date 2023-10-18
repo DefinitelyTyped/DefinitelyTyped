@@ -1,8 +1,3 @@
-// Type definitions for @nkzq/copy-paste 2.0
-// Project: https://github.com/Nkzq/node-copy-paste
-// Definitions by: Sfilata <https://github.com/sfilata>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type CopyCallback = (err: Error) => void;
 export type PasteCallback = (err: Error, content: string) => void;
 

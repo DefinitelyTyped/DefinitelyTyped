@@ -1,9 +1,3 @@
-// Type definitions for proper-url-join 2.1
-// Project: https://github.com/moxystudio/js-proper-url-join
-// Definitions by: Jules Sam. Randolph <https://github.com/jsamr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import { StringifyOptions } from "query-string";
 
 export interface Options {

@@ -1,14 +1,3 @@
-// Type definitions for QUnit v2.19.0
-// Project: https://qunitjs.com/
-// Definitions by: James Bracy <https://github.com/waratuman>
-//                 Mike North <https://github.com/mike-north>
-//                 Stefan Sechelmann <https://github.com/sechel>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 Krystan HuffMenne <https://github.com/gitKrystan>
-//                 James C. Davis <https://github.com/jamescdavis>
-//                 Timo Tijhof <https://github.com/Krinkle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare global {
     interface Assert {
         /**

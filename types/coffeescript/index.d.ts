@@ -1,8 +1,3 @@
-// Type definitions for CoffeeScript 2.5
-// Project: https://github.com/jashkenas/coffeescript
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as Babel from "@babel/core";
 
 /**

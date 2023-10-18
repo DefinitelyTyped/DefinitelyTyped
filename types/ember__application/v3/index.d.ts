@@ -1,12 +1,3 @@
-// Type definitions for non-npm package @ember/application 3.16
-// Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Fapplication
-// Definitions by: Mike North <https://github.com/mike-north>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 Krystan HuffMenne <https://github.com/gitKrystan>
-//                 James C. Davis <https://github.com/jamescdavis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import DefaultResolver from "@ember/application/-private/default-resolver";
 import EventDispatcher from "@ember/application/-private/event-dispatcher";
 import Registry from "@ember/application/-private/registry";

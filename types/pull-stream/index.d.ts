@@ -1,9 +1,3 @@
-// Type definitions for pull-stream 3.6
-// Project: https://pull-stream.github.io
-// Definitions by: Rong Shen <https://github.com/jacobbubu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 // This definition document heavily references
 // the original declaration of Michael de Wit <https://github.com/mjwwit>
 

@@ -1,7 +1,25 @@
 {
-  "private": true,
-  "dependencies": {
-    "next": "^12.2.5 || ^13.0.0",
-    "workbox-build": "^6.5.4"
-  }
+    "private": true,
+    "name": "@types/next-pwa",
+    "version": "5.6.9999",
+    "projects": [
+        "https://github.com/shadowwalker/next-pwa#readme"
+    ],
+    "minimumTypeScriptVersion": "5.1",
+    "dependencies": {
+        "@types/node": "*",
+        "@types/react": "*",
+        "@types/react-dom": "*",
+        "next": "^12.2.5 || ^13.0.0",
+        "workbox-build": "^6.5.4"
+    },
+    "devDependencies": {
+        "@types/next-pwa": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nivaldo Farias",
+            "githubUsername": "NivaldoFarias"
+        }
+    ]
 }

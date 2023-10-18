@@ -1,8 +1,3 @@
-// Type definitions for connect-memcached 1.0
-// Project: https://github.com/balor/connect-memcached#readme
-// Definitions by: Daniel Sousa <https://github.com/danielb7390>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import session = require("express-session");
 import Memcached = require("memcached");
 

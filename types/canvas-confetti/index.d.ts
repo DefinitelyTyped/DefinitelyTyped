@@ -1,9 +1,3 @@
-// Type definitions for canvas-confetti 1.6
-// Project: https://github.com/catdad/canvas-confetti#readme
-// Definitions by: Martin Tracey <https://github.com/matracey>
-//                 Josh Batley <https://github.com/joshbatley>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * `confetti` takes a single optional object. When `window.Promise` is available, it will return a Promise to let you know when it is done.
  * When promises are not available (like in IE), it will return `null`. You can polyfill promises using any of the popular polyfills. You

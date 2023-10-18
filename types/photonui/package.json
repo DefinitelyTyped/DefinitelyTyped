@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/photonui",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/wanadev/PhotonUI"
+    ],
+    "devDependencies": {
+        "@types/photonui": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florent Poujol",
+            "githubUsername": "florentpoujol"
+        }
+    ]
+}

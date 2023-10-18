@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/seatsio",
+    "version": "1.2.9999",
+    "projects": [
+        "https://www.seats.io"
+    ],
+    "devDependencies": {
+        "@types/seatsio": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "seatsio",
+            "githubUsername": "seatsio"
+        },
+        {
+            "name": "Peter de Kok",
+            "githubUsername": "PeterDeKok"
+        }
+    ]
+}

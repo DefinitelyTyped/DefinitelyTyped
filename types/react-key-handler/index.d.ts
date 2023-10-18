@@ -1,8 +1,3 @@
-// Type definitions for react-key-handler 1.2
-// Project: https://github.com/ayrton/react-key-handler
-// Definitions by: Pedro Queiroz <https://github.com/pmqueiroz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 type _KEYDOWN = "keydown";

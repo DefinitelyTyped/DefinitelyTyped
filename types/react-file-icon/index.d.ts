@@ -1,8 +1,3 @@
-// Type definitions for react-file-icon 1.0
-// Project: https://github.com/pixelunion/react-file-icon#readme
-// Definitions by: njuro <https://github.com/njuro>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 export type IconType =

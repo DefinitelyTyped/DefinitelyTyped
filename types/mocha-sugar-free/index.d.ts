@@ -1,8 +1,3 @@
-// Type definitions for mocha-sugar-free 1.4
-// Project: https://github.com/Joris-van-der-Wel/mocha-sugar-free#readme
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Suite, Test } from "mocha";
 
 /** Construct a type with the properties of T except for those in type K. */

@@ -1,12 +1,3 @@
-// Type definitions for @nuxtjs/auth 4.8
-// Project: https://auth.nuxtjs.org
-// Definitions by: Ruskin Constant <https://github.com/jonnyparris>
-//                Daniel Leal <https://github.com/danielgek>
-//                Nick Bolles <https://github.com/NickBolles>
-//                Andrii Rodionov <https://github.com/arodiono>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 import Vue, { ComponentOptions } from "vue";
 
 export interface Storage {

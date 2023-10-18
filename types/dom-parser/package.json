@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/dom-parser",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/ershov-konst/dom-parser#readme"
+    ],
+    "devDependencies": {
+        "@types/dom-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Guy Bidkar",
+            "githubUsername": "gbidkar"
+        }
+    ]
+}

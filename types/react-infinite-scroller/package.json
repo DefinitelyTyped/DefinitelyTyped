@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/react-infinite-scroller",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/CassetteRocks/react-infinite-scroller"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-infinite-scroller": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lauri Lavanti",
+            "githubUsername": "Lapanti"
+        },
+        {
+            "name": "Piotr Srebniak",
+            "githubUsername": "psrebniak"
+        },
+        {
+            "name": "Brett Miller",
+            "githubUsername": "WrathZA"
+        },
+        {
+            "name": "Yipeng Zhao",
+            "githubUsername": "daggerjames"
+        }
+    ]
+}

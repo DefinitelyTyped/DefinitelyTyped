@@ -206,7 +206,8 @@ export class WebGLRenderer implements Renderer {
      * {@link SRGBColorSpace} and {@link LinearSRGBColorSpace}.
      * @default THREE.SRGBColorSpace.
      */
-    outputColorSpace: ColorSpace;
+    get outputColorSpace(): ColorSpace;
+    set outputColorSpace(colorSpace: ColorSpace);
 
     get coordinateSystem(): typeof WebGLCoordinateSystem;
 

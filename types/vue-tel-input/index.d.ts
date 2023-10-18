@@ -1,9 +1,3 @@
-// Type definitions for vue-tel-input 2.1
-// Project: https://educationlink.github.io/vue-tel-input
-// Definitions by: Komang Suryadana <https://github.com/suryadana>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { PluginFunction, VueConstructor } from "vue";
 import { DirectiveOptions } from "vue/types/options";
 

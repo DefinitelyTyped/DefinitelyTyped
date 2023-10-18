@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/xmpp__websocket",
+    "version": "0.13.9999",
+    "projects": [
+        "https://github.com/xmppjs/xmpp.js/tree/main/packages/websocket"
+    ],
+    "dependencies": {
+        "@types/ws": "*",
+        "@types/xmpp__connection": "*",
+        "@types/xmpp__xml": "*"
+    },
+    "devDependencies": {
+        "@types/xmpp__websocket": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

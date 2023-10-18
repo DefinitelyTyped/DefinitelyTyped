@@ -1,8 +1,3 @@
-// Type definitions for madge 5.0
-// Project: https://github.com/pahen/madge
-// Definitions by: Jason Gerbes <https://github.com/jasongerbes>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = madge;

@@ -1,8 +1,3 @@
-// Type definitions for cjson 0.5
-// Project: https://github.com/kof/node-cjson#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Default options.
  */

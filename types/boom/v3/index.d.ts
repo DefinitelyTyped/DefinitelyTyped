@@ -1,8 +1,3 @@
-// Type definitions for boom 3.2
-// Project: https://github.com/hapijs/boom
-// Definitions by: Igor Rogatty <https://github.com/rogatty>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = Boom;

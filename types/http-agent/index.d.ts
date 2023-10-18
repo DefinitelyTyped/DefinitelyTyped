@@ -1,8 +1,3 @@
-// Type definitions for http-agent 0.1
-// Project: https://github.com/indexzero/http-agent
-// Definitions by: Ivan Ergunov <https://github.com/hozblok>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import EventEmitter = require("events");
 import request = require("request");
 

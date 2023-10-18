@@ -1,10 +1,3 @@
-// Type definitions for buble 0.20
-// Project: https://github.com/bublejs/buble
-// Definitions by: Hugo Alliaume <https://github.com/Kocal>
-//                 Ye-hyoung Kang <https://github.com/pastelmind>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 import { SourceMap } from "magic-string";
 
 export interface TransformOptions {

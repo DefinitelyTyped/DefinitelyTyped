@@ -1,9 +1,3 @@
-// Type definitions for purifycss-webpack 0.7
-// Project: https://github.com/webpack-contrib/purifycss-webpack
-// Definitions by: Geoff Garbers <https://github.com/garbetjie>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import * as webpack from "webpack";
 
 declare class PurifyPlugin extends webpack.Plugin {

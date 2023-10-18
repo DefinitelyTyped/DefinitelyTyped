@@ -1,8 +1,3 @@
-// Type definitions for sjcl v1.0.8
-// Project: http://crypto.stanford.edu/sjcl/
-// Definitions by: Eugene Chernyshov <https://github.com/Evgenus>, Vytautas Mizgiris <https://github.com/mizvyt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = sjcl;
 export as namespace sjcl;
 

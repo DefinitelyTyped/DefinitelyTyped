@@ -1,8 +1,3 @@
-// Type definitions for mochawesome 6.2
-// Project: https://github.com/adamgruber/mochawesome#readme
-// Definitions by: Chris Gilardi <https://github.com/Christop406>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Mochawesome {
     interface ReporterOptions {
         quiet: boolean;

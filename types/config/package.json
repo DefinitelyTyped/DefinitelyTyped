@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/config",
+    "version": "3.3.9999",
+    "projects": [
+        "https://github.com/lorenwest/node-config"
+    ],
+    "devDependencies": {
+        "@types/config": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Roman Korneev",
+            "githubUsername": "RWander"
+        },
+        {
+            "name": "Forrest Bice",
+            "githubUsername": "forrestbice"
+        },
+        {
+            "name": "James Donald",
+            "githubUsername": "jndonald3"
+        },
+        {
+            "name": "Alberto Vasquez",
+            "githubUsername": "albertovasquez"
+        },
+        {
+            "name": "Christian Vaagland Tellnes",
+            "githubUsername": "tellnes"
+        }
+    ]
+}

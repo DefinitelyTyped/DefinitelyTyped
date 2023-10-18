@@ -1,11 +1,3 @@
-// Type definitions for @hapi/vision 5.5
-// Project: https://github.com/hapijs/vision
-// Definitions by: Jason Swearingen <https://github.com/jasonswearingen>
-//                 Alexander James Phillips <https://github.com/AJamesPhillips>
-//                 Silas Rech <https://github.com/lenovouser>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.9
-
 import { Plugin, Request, ResponseObject } from "@hapi/hapi";
 
 declare namespace vision {

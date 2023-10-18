@@ -1,9 +1,3 @@
-// Type definitions for text-mask-addons 3.8
-// Project: https://github.com/text-mask/text-mask/tree/master/addons/#readme
-// Definitions by: josh <https://github.com/huntjosh>
-//                 Aerophite <https://github.com/Aerophite>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Mask, Pipe } from "text-mask-core";
 
 export interface DatePipeYears {

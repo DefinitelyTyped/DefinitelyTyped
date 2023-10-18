@@ -1,13 +1,3 @@
-// Type definitions for @sinonjs/fake-timers 8.1
-// Project: https://github.com/sinonjs/fake-timers
-// Definitions by: Wim Looman <https://github.com/Nemo157>
-//                 Rogier Schouten <https://github.com/rogierschouten>
-//                 Yishai Zehavi <https://github.com/zyishai>
-//                 Remco Haszing <https://github.com/remcohaszing>
-//                 Jaden Simon <https://github.com/JadenSimon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /**
  * Names of clock methods that may be faked by install.
  */
