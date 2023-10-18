@@ -908,7 +908,7 @@ declare namespace TelegramBot {
     }
 
     // tslint:disable-next-line:no-empty-interface Currently holds no information (https://core.telegram.org/bots/api#forumtopicclosed)
-    interface ForumTopicClosed {}
+    interface ForumTopicClosed { }
 
     interface ForumTopicEdited {
         name: string;
@@ -916,13 +916,13 @@ declare namespace TelegramBot {
     }
 
     // tslint:disable-next-line:no-empty-interface Currently holds no information (https://core.telegram.org/bots/api#forumtopicreopened)
-    interface ForumTopicReopened {}
+    interface ForumTopicReopened { }
 
     // tslint:disable-next-line:no-empty-interface Currently holds no information (https://core.telegram.org/bots/api#generalforumtopichidden)
-    interface GeneralForumTopicHidden {}
+    interface GeneralForumTopicHidden { }
 
     // tslint:disable-next-line:no-empty-interface Currently holds no information (https://core.telegram.org/bots/api#generalforumtopicunhidden)
-    interface GeneralForumTopicUnhidden {}
+    interface GeneralForumTopicUnhidden { }
 
     interface UserShared {
         request_id: number;
@@ -1399,6 +1399,7 @@ declare class TelegramBot extends EventEmitter<
     | "message"
     | "callback_query"
     | "inline_query"
+    | "poll"
     | "poll_answer"
     | "chat_member"
     | "my_chat_member"
@@ -1861,6 +1862,8 @@ declare class TelegramBot extends EventEmitter<
 
     addListener(event: "inline_query", listener: (query: TelegramBot.InlineQuery) => void): this;
 
+    addListener(event: "poll", listener: (poll: TelegramBot.Poll) => void): this;
+
     addListener(event: "poll_answer", listener: (answer: TelegramBot.PollAnswer) => void): this;
 
     addListener(
@@ -1899,6 +1902,8 @@ declare class TelegramBot extends EventEmitter<
 
     on(event: "inline_query", listener: (query: TelegramBot.InlineQuery) => void): this;
 
+    on(event: "poll", listener: (poll: TelegramBot.Poll) => void): this;
+
     on(event: "poll_answer", listener: (answer: TelegramBot.PollAnswer) => void): this;
 
     on(event: "chat_member" | "my_chat_member", listener: (member: TelegramBot.ChatMemberUpdated) => void): this;
@@ -1934,6 +1939,8 @@ declare class TelegramBot extends EventEmitter<
 
     once(event: "inline_query", listener: (query: TelegramBot.InlineQuery) => void): this;
 
+    once(event: "poll", listener: (poll: TelegramBot.Poll) => void): this;
+
     once(event: "poll_answer", listener: (answer: TelegramBot.PollAnswer) => void): this;
 
     once(event: "chat_member" | "my_chat_member", listener: (member: TelegramBot.ChatMemberUpdated) => void): this;
@@ -1966,6 +1973,8 @@ declare class TelegramBot extends EventEmitter<
     prependListener(event: "callback_query", listener: (query: TelegramBot.CallbackQuery) => void): this;
 
     prependListener(event: "inline_query", listener: (query: TelegramBot.InlineQuery) => void): this;
+
+    prependListener(event: "poll", listener: (poll: TelegramBot.Poll) => void): this;
 
     prependListener(event: "poll_answer", listener: (answer: TelegramBot.PollAnswer) => void): this;
 
@@ -2002,6 +2011,8 @@ declare class TelegramBot extends EventEmitter<
     prependOnceListener(event: "callback_query", listener: (query: TelegramBot.CallbackQuery) => void): this;
 
     prependOnceListener(event: "inline_query", listener: (query: TelegramBot.InlineQuery) => void): this;
+
+    prependOnceListener(event: "poll", listener: (poll: TelegramBot.Poll) => void): this;
 
     prependOnceListener(event: "poll_answer", listener: (answer: TelegramBot.PollAnswer) => void): this;
 
@@ -2042,6 +2053,8 @@ declare class TelegramBot extends EventEmitter<
 
     removeListener(event: "inline_query", listener: (query: TelegramBot.InlineQuery) => void): this;
 
+    removeListener(event: "poll", listener: (poll: TelegramBot.Poll) => void): this;
+
     removeListener(event: "poll_answer", listener: (answer: TelegramBot.PollAnswer) => void): this;
 
     removeListener(
@@ -2078,6 +2091,8 @@ declare class TelegramBot extends EventEmitter<
 
     off(event: "inline_query", listener: (query: TelegramBot.InlineQuery) => void): this;
 
+    off(event: "poll", listener: (poll: TelegramBot.Poll) => void): this;
+
     off(event: "poll_answer", listener: (answer: TelegramBot.PollAnswer) => void): this;
 
     off(event: "chat_member" | "my_chat_member", listener: (member: TelegramBot.ChatMemberUpdated) => void): this;
@@ -2108,6 +2123,7 @@ declare class TelegramBot extends EventEmitter<
             | "message"
             | "callback_query"
             | "inline_query"
+            | "poll"
             | "poll_answer"
             | "chat_member"
             | "my_chat_member"
@@ -2132,6 +2148,7 @@ declare class TelegramBot extends EventEmitter<
             | "message"
             | "callback_query"
             | "inline_query"
+            | "poll"
             | "poll_answer"
             | "chat_member"
             | "my_chat_member"
@@ -2156,6 +2173,7 @@ declare class TelegramBot extends EventEmitter<
             | "message"
             | "callback_query"
             | "inline_query"
+            | "poll"
             | "poll_answer"
             | "chat_member"
             | "my_chat_member"
@@ -2179,6 +2197,7 @@ declare class TelegramBot extends EventEmitter<
         | "message"
         | "callback_query"
         | "inline_query"
+        | "poll"
         | "poll_answer"
         | "chat_member"
         | "my_chat_member"
@@ -2203,6 +2222,7 @@ declare class TelegramBot extends EventEmitter<
             | "message"
             | "callback_query"
             | "inline_query"
+            | "poll"
             | "poll_answer"
             | "chat_member"
             | "my_chat_member"
