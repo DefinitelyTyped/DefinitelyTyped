@@ -12,8 +12,8 @@ declare module "i18next-sprintf-postprocessor" {
         type: "postProcessor";
         process(value: any, key: string, options: any): any;
         overloadTranslationOptionHandler(args: string[]): {
-            postProcess: "sprintf",
-            sprintf: string[]
+            postProcess: "sprintf";
+            sprintf: string[];
         };
     }
 

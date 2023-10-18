@@ -33,11 +33,6 @@
         "./types/winrt-uwp",
         "./types/vscode",
 
-        // These files will be formatted soon, but are failing in CI for now.
-        "./types/i18next-ko",
-        "./types/i18next-node-fs-backend",
-        "./types/i18next-sprintf-postprocessor",
-
         // Machine-generated files.
         "./docs/support-window.json",
         "./notNeededPackages.json",
