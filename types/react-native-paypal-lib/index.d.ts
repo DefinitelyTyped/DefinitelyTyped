@@ -1,8 +1,3 @@
-// Type definitions for react-native-paypal-lib 1.0
-// Project: https://github.com/zeddz92/react-native-paypal#readme
-// Definitions by: Gustavo Silva <https://github.com/gstvds>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type ENVIRONMENT = "NO_NETWORK" | "SANDBOX" | "PRODUCTION";
 export type INTENT = "SALE" | "AUTHORIZE" | "ORDER";
 

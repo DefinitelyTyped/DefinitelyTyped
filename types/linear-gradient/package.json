@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/linear-gradient",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/karmadata/linear-gradient#readme"
+    ],
+    "devDependencies": {
+        "@types/linear-gradient": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jack Works",
+            "githubUsername": "Jack-Works"
+        }
+    ]
+}

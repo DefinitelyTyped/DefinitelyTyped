@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/call-bind",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ljharb/call-bind#readme"
+    ],
+    "dependencies": {
+        "@types/get-intrinsic": "*"
+    },
+    "devDependencies": {
+        "@types/call-bind": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

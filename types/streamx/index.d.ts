@@ -1,8 +1,3 @@
-// Type definitions for streamx 2.9
-// Project: https://github.com/streamxorg/streamx
-// Definitions by: Martin Heidegger <https://github.com/martinheidegger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

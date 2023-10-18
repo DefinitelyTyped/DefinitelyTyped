@@ -1,17 +1,20 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es2017"],
+        "lib": [
+            "es2017"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "esModuleInterop": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "strictFunctionTypes": true
     },
-    "files": ["index.d.ts", "terminal-kit-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "terminal-kit-tests.ts"
+    ]
 }

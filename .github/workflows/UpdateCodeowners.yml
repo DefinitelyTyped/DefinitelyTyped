@@ -26,11 +26,16 @@ jobs:
           fetch-depth: 0
 
       - uses: actions/setup-node@v3
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: latest
+          run_install: |
+            - args: [--filter, .]
 
       - run: git config --global user.email "typescriptbot@microsoft.com"
       - run: git config --global user.name "TypeScript Bot"
 
-      - run: npm install
-      - run: npm run update-codeowners
+      - run: pnpm run update-codeowners
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}

@@ -1,0 +1,13 @@
+{
+    "private": true,
+    "name": "@types/multiplexjs",
+    "version": "0.9.9999",
+    "projects": [
+        "https://github.com/multiplex/multiplex.js"
+    ],
+    "devDependencies": {
+        "@types/multiplexjs": "workspace:.",
+        "@types/qunit": "*"
+    },
+    "owners": []
+}

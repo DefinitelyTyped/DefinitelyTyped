@@ -1,10 +1,3 @@
-// Type definitions for ssri 7.1
-// Project: https://github.com/zkat/ssri
-// Definitions by: Jeow Li Huan <https://github.com/huan086>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { Hash as CryptoHash } from "crypto";
 import { Readable, Transform } from "stream";

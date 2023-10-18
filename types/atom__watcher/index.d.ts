@@ -1,9 +1,3 @@
-// Type definitions for @atom/watcher 1.3
-// Project: https://github.com/atom/watcher
-// Definitions by: LoganDark <https://github.com/LoganDark>
-//                 Jan Vlnas <https://github.com/jnv>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Disposable } from "event-kit";
 
 export const DISABLE: unique symbol;

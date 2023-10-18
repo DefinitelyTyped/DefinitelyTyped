@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/merge-img",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/preco21/merge-img#readme"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "jimp": "^0.9.5"
-    }
+    },
+    "devDependencies": {
+        "@types/merge-img": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz (Peter Blazejewicz)",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

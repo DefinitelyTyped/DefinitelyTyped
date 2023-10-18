@@ -1,9 +1,3 @@
-// Type definitions for got-resume 2.0
-// Project: https://github.com/overlookmotel/got-resume#readme
-// Definitions by: Ciarán Ingle <https://github.com/inglec-arista>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Options } from "got";
 import { ClientRequest, IncomingMessage } from "http";
 import { PassThrough, Transform } from "stream";

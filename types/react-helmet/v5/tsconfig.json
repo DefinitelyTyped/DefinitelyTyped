@@ -9,16 +9,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
         "jsx": "react",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "react-helmet": [
-                "react-helmet/v5"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

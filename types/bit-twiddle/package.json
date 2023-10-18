@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/bit-twiddle",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mikolalysenko/bit-twiddle"
+    ],
+    "devDependencies": {
+        "@types/bit-twiddle": "workspace:."
+    },
+    "owners": []
+}

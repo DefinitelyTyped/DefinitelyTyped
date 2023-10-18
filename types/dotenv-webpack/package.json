@@ -1,7 +1,30 @@
 {
     "private": true,
+    "name": "@types/dotenv-webpack",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/mrsteele/dotenv-webpack"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "tapable": "^2.2.0",
         "webpack": "^5"
-    }
+    },
+    "devDependencies": {
+        "@types/dotenv-webpack": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Karol Majewski",
+            "githubUsername": "karol-majewski"
+        },
+        {
+            "name": "Dave Cardwell",
+            "githubUsername": "davecardwell"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

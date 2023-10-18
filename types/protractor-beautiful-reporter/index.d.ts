@@ -1,8 +1,3 @@
-// Type definitions for Angularized HTML Reporter with Screenshots for Protractor 1.3
-// Project: https://github.com/Evilweed/protractor-beautiful-reporter
-// Definitions by: Adam Kwiatek <https://github.com/akwiatek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import jasmine = require("jasmine");
 import { Capabilities } from "selenium-webdriver";
 

@@ -1,0 +1,37 @@
+{
+    "private": true,
+    "name": "@types/howler",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/goldfire/howler.js"
+    ],
+    "devDependencies": {
+        "@types/howler": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pedro Casaubon",
+            "githubUsername": "xperiments"
+        },
+        {
+            "name": "Alexander Leon",
+            "githubUsername": "alien35"
+        },
+        {
+            "name": "Nicholas Higgins",
+            "githubUsername": "nicholashza"
+        },
+        {
+            "name": "Carlos Urango",
+            "githubUsername": "cjurango"
+        },
+        {
+            "name": "R.J.",
+            "githubUsername": "jun-sheaf"
+        },
+        {
+            "name": "Hagen",
+            "githubUsername": "MrGriefs"
+        }
+    ]
+}

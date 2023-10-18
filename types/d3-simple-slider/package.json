@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/d3-simple-slider",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/johnwalley/d3-simple-slider"
+    ],
+    "dependencies": {
+        "@types/d3-selection": "*"
+    },
+    "devDependencies": {
+        "@types/d3-format": "*",
+        "@types/d3-scale": "*",
+        "@types/d3-simple-slider": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "John Walley",
+            "githubUsername": "johnwalley"
+        }
+    ]
+}

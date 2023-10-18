@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/amazon-product-api",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/t3chnoboy/amazon-product-api"
+    ],
+    "devDependencies": {
+        "@types/amazon-product-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matti Lehtinen",
+            "githubUsername": "MattiLehtinen"
+        },
+        {
+            "name": "Alex Leon",
+            "githubUsername": "alien35"
+        }
+    ]
+}

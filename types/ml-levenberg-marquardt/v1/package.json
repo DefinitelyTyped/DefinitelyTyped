@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ml-levenberg-marquardt",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mljs/levenberg-marquardt#readme"
+    ],
+    "devDependencies": {
+        "@types/ml-levenberg-marquardt": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "m93a",
+            "githubUsername": "m93a"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for simperium 1.1
-// Project: https://github.com/Simperium/node-simperium#readme
-// Definitions by: Dennis Snell <https://github.com/dmsnell>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
-
 import type { EventEmitter } from "events";
 
 export type ChangeVersion = string;

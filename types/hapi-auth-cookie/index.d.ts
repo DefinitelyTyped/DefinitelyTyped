@@ -1,10 +1,3 @@
-// Type definitions for hapi-auth-cookie 10.0
-// Project: https://github.com/hapijs/hapi-auth-cookie
-// Definitions by: Silas Rech <https://github.com/lenovouser>
-//                 Simon Schick <https://github.com/SimonSchick>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.9
-
 import { AuthCredentials, Plugin, Request, ResponseObject, ResponseToolkit, ServerStateCookieOptions } from "hapi";
 
 declare module "hapi" {

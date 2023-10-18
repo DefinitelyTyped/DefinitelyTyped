@@ -96,6 +96,28 @@ const client = zookeeper.createClient(
 
         if (stat) {
             console.log("Node exists.");
+            // $ExpectType Buffer
+            stat.czxid;
+            // $ExpectType Buffer
+            stat.mzxid;
+            // $ExpectType Buffer
+            stat.ctime;
+            // $ExpectType Buffer
+            stat.mtime;
+            // $ExpectType number
+            stat.version;
+            // $ExpectType number
+            stat.cversion;
+            // $ExpectType number
+            stat.aversion;
+            // $ExpectType Buffer
+            stat.ephemeralOwner;
+            // $ExpectType number
+            stat.dataLength;
+            // $ExpectType number
+            stat.numChildren;
+            // $ExpectType Buffer
+            stat.pzxid;
         } else {
             console.log("Node does not exist.");
         }

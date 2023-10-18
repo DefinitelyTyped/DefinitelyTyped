@@ -1,8 +1,3 @@
-// Type definitions for cytoscape-cxtmenu 3.4
-// Project: https://github.com/cytoscape/cytoscape.js-cxtmenu
-// Definitions by: Felix Barczewicz <https://github.com/DieserFelix>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import cytoscape = require("cytoscape");
 
 declare const cytoscapeCxtmenu: cytoscape.Ext;

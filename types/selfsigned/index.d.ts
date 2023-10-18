@@ -1,8 +1,3 @@
-// Type definitions for selfsigned 2.0
-// Project: https://github.com/jfromaniello/selfsigned
-// Definitions by: Steven Chim <https://github.com/chimurai>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type Algorithm = "sha1" | "sha256";
 
 export interface Options {

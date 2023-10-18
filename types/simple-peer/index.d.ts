@@ -1,10 +1,3 @@
-// Type definitions for simple-peer 9.11
-// Project: https://github.com/feross/simple-peer
-// Definitions by: Tomasz Łaziuk <https://github.com/tlaziuk>
-//                 xWiiLLz <https://github.com/xWiiLLz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
 import * as stream from "stream";

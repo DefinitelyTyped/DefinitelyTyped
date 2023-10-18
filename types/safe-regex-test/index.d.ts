@@ -1,8 +1,3 @@
-// Type definitions for safe-regex-test 1.0
-// Project: https://github.com/ljharb/safe-regex-test#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = makeRegexTester;
 
 /**

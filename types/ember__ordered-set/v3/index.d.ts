@@ -1,12 +1,3 @@
-// Type definitions for @ember/ordered-set 3.0
-// Project: https://github.com/emberjs/ember-ordered-set
-// Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Mike North <https://github.com/mike-north>
-//                 Krystan HuffMenne <https://github.com/gitKrystan>
-//                 James C. Davis <https://github.com/jamescdavis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /**
  * The `OrderedSet` class lets you store unique values of any type, whether
  * primitive values or object references. It is mostly similar to the native

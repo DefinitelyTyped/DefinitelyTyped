@@ -1,9 +1,3 @@
-// Type definitions for next-pwa 5.6
-// Project: https://github.com/shadowwalker/next-pwa#readme
-// Definitions by: Nivaldo Farias <https://github.com/NivaldoFarias>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 5.1
-
 /// <reference path="global.d.ts" />
 /// <reference types="react"/>
 

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/upng-js",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/photopea/UPNG.js"
+    ],
+    "devDependencies": {
+        "@types/upng-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "York Yao",
+            "githubUsername": "plantain-00"
+        },
+        {
+            "name": "Sophie Kirschner",
+            "githubUsername": "pineapplemachine"
+        }
+    ]
+}

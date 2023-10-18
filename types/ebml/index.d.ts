@@ -1,9 +1,3 @@
-// Type definitions for ebml 3.0
-// Project: https://github.com/node-ebml/node-ebml#readme
-// Definitions by: AppLover69 <https://github.com/AppLover69>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="node"/>
 import { Transform, Writable } from "stream";
 

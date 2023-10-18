@@ -1,9 +1,3 @@
-// Type definitions for pg 8.10
-// Project: https://github.com/brianc/node-postgres
-// Definitions by: Phips Peter <https://github.com/pspeter3>, Ravi van Rooijen <https://github.com/HoldYourWaffle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
 import events = require("events");

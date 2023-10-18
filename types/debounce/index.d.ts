@@ -1,9 +1,3 @@
-// Type definitions for debounce 1.2
-// Project: https://github.com/component/debounce
-// Definitions by: Denis Sokolov <https://github.com/denis-sokolov>
-//                 Wayne Carson <https://github.com/wcarson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace _debounce {
     const debounce: typeof _debounce;
 }

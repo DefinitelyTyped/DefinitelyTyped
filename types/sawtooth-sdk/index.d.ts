@@ -1,9 +1,3 @@
-// Type definitions for sawtooth-sdk 1.1
-// Project: https://www.hyperledger.org/projects/sawtooth, https://github.com/hyperledger/sawtooth-core
-// Definitions by: Patrick Erichsen <https://github.com/Patrick-Erichsen>
-//                 Trevor McDonald  <https://github.com/trevormcdonald>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Copyright (c) 2020 Target Brands, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");

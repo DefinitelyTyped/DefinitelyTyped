@@ -1,8 +1,3 @@
-// Type definitions for gulp-lesshint 6.1
-// Project: https://github.com/lesshint/gulp-lesshint
-// Definitions by: Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Transform } from "stream";

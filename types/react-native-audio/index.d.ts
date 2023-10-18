@@ -1,8 +1,3 @@
-// Type definitions for react-native-audio 4.3
-// Project: https://github.com/jsierles/react-native-audio#readme
-// Definitions by: taoqf <https://github.com/taoqf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type AudioEncodingAndroidType = "aac_eld" | "amr_nb" | "amr_wb" | "he_aac" | "vorbis";
 
 export type AudioEncodingIOSType = "lpcm" | "ima4" | "MAC3" | "MAC6" | "ulaw" | "alaw" | "mp1" | "mp2" | "alac" | "amr";

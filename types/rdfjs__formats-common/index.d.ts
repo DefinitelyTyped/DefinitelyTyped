@@ -1,8 +1,3 @@
-// Type definitions for @rdfjs/formats-common 3.1
-// Project: https://github.com/rdfjs-base/formats-common
-// Definitions by: tpluscode <https://github.com/tpluscode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { SinkMap } from "@rdfjs/sink-map";
 import { EventEmitter } from "events";
 import { Stream } from "rdf-js";

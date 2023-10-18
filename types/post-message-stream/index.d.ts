@@ -1,8 +1,3 @@
-// Type definitions for post-message-stream 3.0
-// Project: https://github.com/baalexander/node-portscanner
-// Definitions by: Douglas Duteil <https://github.com/douglasduteil>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Duplex } from "readable-stream";
 
 declare class PostMessageStream extends Duplex {

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/webostvjs",
+    "version": "1.2.9999",
+    "projects": [
+        "https://webostv.developer.lge.com/api/webostvjs/intro-webostvjs/"
+    ],
+    "devDependencies": {
+        "@types/webostvjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Denis Seleznev",
+            "githubUsername": "hcodes"
+        },
+        {
+            "name": "Ilya Istomin",
+            "githubUsername": "procot"
+        }
+    ]
+}

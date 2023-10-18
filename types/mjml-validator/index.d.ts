@@ -1,8 +1,3 @@
-// Type definitions for mjml-validator 4.13
-// Project: https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator
-// Definitions by: Emily M Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Component, MJMLJsonObject, MJMLParseError } from "mjml-core";
 
 export interface MJMLDependenciesObject {

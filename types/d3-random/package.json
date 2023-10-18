@@ -1,0 +1,31 @@
+{
+    "private": true,
+    "name": "@types/d3-random",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/d3/d3-random/",
+        "https://d3js.org/d3-random"
+    ],
+    "devDependencies": {
+        "@types/d3-random": "workspace:.",
+        "@types/seedrandom": "*"
+    },
+    "owners": [
+        {
+            "name": "Tom Wanzek",
+            "githubUsername": "tomwanzek"
+        },
+        {
+            "name": "Alex Ford",
+            "githubUsername": "gustavderdrache"
+        },
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

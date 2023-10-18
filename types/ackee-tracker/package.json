@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/ackee-tracker",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/electerious/ackee-tracker"
+    ],
+    "devDependencies": {
+        "@types/ackee-tracker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pablo Sáez",
+            "githubUsername": "PabloSzx"
+        },
+        {
+            "name": "Spencer Elliott",
+            "githubUsername": "elliottsj"
+        },
+        {
+            "name": "Sebastian Krüger",
+            "githubUsername": "mathe42"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for node-wifi 2.0
-// Project: https://github.com/friedrith/node-wifi
-// Definitions by: hieyou1 <https://github.com/hieyou1>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Some comments from README: https://github.com/friedrith/node-wifi#readme
-
 export interface WiFiNetwork {
     ssid: string;
     bssid?: string;

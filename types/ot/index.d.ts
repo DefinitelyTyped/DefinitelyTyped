@@ -1,12 +1,3 @@
-// Type definitions for ot 0.0
-// Project: https://github.com/Operational-Transformation/ot.js
-// Definitions by: Christian Alfoni <https://github.com/christianalfoni>
-//                 Ives van Hoorne <https://github.com/CompuIves>
-//                 Michaël De Boey <https://github.com/MichaelDeBoey>
-//                 Philippe Poulard <https://github.com/ppoulard>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
-
 import { EventEmitter } from "events";
 
 /**

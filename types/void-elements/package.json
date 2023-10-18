@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/void-elements",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/jadejs/void-elements"
+    ],
+    "devDependencies": {
+        "@types/void-elements": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Klaus Meinhardt",
+            "githubUsername": "ajafff"
+        }
+    ]
+}

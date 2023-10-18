@@ -1,8 +1,3 @@
-// Type definitions for non-npm package estree 1.0
-// Project: https://github.com/estree/estree
-// Definitions by: RReverser <https://github.com/RReverser>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // This definition file follows a somewhat unusual format. ESTree allows
 // runtime type checks based on the `type` parameter. In order to explain this
 // to typescript we want to use discriminated union types:

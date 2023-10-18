@@ -1,8 +1,3 @@
-// Type definitions for keychain 1.4
-// Project: https://github.com/drudge/node-keychain
-// Definitions by: Lucas Santos <https://github.com/khaosdoctor>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace keychainTypes {
     interface KeyChainBaseOptions {
         account: string;

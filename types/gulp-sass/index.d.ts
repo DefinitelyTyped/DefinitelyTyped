@@ -1,10 +1,3 @@
-// Type definitions for gulp-sass 5.0.0
-// Project: https://github.com/dlmanning/gulp-sass
-// Definitions by: Asana <https://asana.com>
-//                 Yuma Hashimoto <https://github.com/yuma84>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="node"/>
 
 import { Options } from "node-sass";

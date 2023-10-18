@@ -1,10 +1,3 @@
-// Type definitions for eureka-js-client 4.5
-// Project: https://github.com/jquatier/eureka-js-client
-// Definitions by: Karl O. <https://github.com/karl-run>
-//                 Tom Barton <https://github.com/tombarton>
-//                 Josh Sullivan <https://github.com/jpsullivan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class Eureka {
     constructor(config: EurekaClient.EurekaConfig | EurekaClient.EurekaYmlConfig | EurekaClient.EurekaMiddlewareConfig);
     start(cb?: (err: Error, ...rest: any[]) => void): void;

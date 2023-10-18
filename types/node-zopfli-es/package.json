@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/node-zopfli-es",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/jaeh/node-zopfli-es"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/node-zopfli-es": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alorel",
+            "githubUsername": "Alorel"
+        }
+    ]
+}

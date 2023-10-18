@@ -1,9 +1,3 @@
-// Type definitions for react-portal 3.0
-// Project: https://github.com/tajo/react-portal#readme
-// Definitions by: Shun Takahashi <https://github.com/shuntksh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 interface CallBackProps {

@@ -1,8 +1,3 @@
-// Type definitions for openpay 1.0
-// Project: https://github.com/open-pay/openpay-node
-// Definitions by: Bruno Jardón <https://github.com/bjardon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Openpay;
 
 declare class Openpay {

@@ -8,15 +8,6 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "react": ["react/v17"],
-            "react-dom": ["react-dom/v17"],
-            "react-is": ["react-is/v17"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,

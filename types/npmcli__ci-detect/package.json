@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/npmcli__ci-detect",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/npm/ci-detect"
+    ],
+    "devDependencies": {
+        "@types/npmcli__ci-detect": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Amin Yahyaabadi",
+            "githubUsername": "aminya"
+        }
+    ]
+}

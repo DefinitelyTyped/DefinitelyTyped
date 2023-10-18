@@ -1,9 +1,3 @@
-// Type definitions for pouchdb-live-find 0.4
-// Project: https://github.com/colinskow/pouchdb-live-find
-// Definitions by: assemblethis <https://github.com/assemblethis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="pouchdb-core" />
 declare namespace PouchDB {
     namespace LiveFind {

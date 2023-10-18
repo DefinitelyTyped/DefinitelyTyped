@@ -20,7 +20,12 @@ jobs:
           token: ${{ secrets.GH_DT_MERGEBOT_TOKEN }}
       - uses: actions/setup-node@v3
 
-      - run: npm install
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: latest
+          run_install: |
+            - args: [--filter, .]
 
       - name: Get date
         id: date
@@ -40,7 +45,7 @@ jobs:
             ${{ runner.os }}-dprint-${{ hashFiles('package.json', '.dprint.jsonc') }}
             ${{ runner.os }}-dprint-
 
-      - run: npx dprint fmt
+      - run: pnpm dprint fmt
 
       - uses: stefanzweifel/git-auto-commit-action@v5.0.0
         with:

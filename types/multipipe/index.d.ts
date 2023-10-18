@@ -1,8 +1,3 @@
-// Type definitions for multipipe 3.0
-// Project: https://github.com/juliangruber/multipipe#readme
-// Definitions by: Michael de Wit <https://github.com/mjwwit>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import stream = require("stream");

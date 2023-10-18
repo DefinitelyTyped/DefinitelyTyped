@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/fluxible-addons-react",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/yahoo/fluxible#readme"
+    ],
+    "dependencies": {
+        "@types/fluxible": "*",
+        "@types/node": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/dispatchr": "*",
+        "@types/fluxible-addons-react": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "xbim",
+            "githubUsername": "xbim"
+        }
+    ]
+}

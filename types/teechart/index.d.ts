@@ -1,7 +1,3 @@
-// Type definitions for TeeChart 1.3
-// Project: http://www.steema.com
-// Definitions by: Steema Software <https://steema.com/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /**
  * TeeChart(tm) for TypeScript
  *

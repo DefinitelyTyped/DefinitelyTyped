@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/stack-utils",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/tapjs/stack-utils#readme"
+    ],
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/stack-utils": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

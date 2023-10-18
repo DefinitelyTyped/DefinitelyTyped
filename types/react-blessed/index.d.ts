@@ -1,10 +1,3 @@
-// Type definitions for react-blessed 0.7
-// Project: https://github.com/yomguithereal/react-blessed#readme
-// Definitions by: Century Guo <https://github.com/guoshencheng>
-//                 Robbie Nichols <https://github.com/defnotrobbie>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 import * as React from "react";
 import * as Blessed from "blessed";
 

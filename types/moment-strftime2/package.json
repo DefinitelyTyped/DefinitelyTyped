@@ -1,7 +1,21 @@
 {
     "private": true,
+    "name": "@types/moment-strftime2",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ShogunPanda/moment-strftime2"
+    ],
     "dependencies": {
         "moment": "^2.18.1",
         "moment-timezone": ">=0.5.30"
-    }
+    },
+    "devDependencies": {
+        "@types/moment-strftime2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Roszatycki",
+            "githubUsername": "dex4er"
+        }
+    ]
 }

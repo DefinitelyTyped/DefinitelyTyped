@@ -1,8 +1,3 @@
-// Type definitions for elgamal 0.3
-// Project: https://github.com/kripod/elgamal.js
-// Definitions by: Yu-Hsi Chiang <https://github.com/arbuztw>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { BigInteger as BigInt } from "jsbn";
 
 export default class ElGamal {

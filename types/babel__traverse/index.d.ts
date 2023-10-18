@@ -1,15 +1,3 @@
-// Type definitions for @babel/traverse 7.20
-// Project: https://github.com/babel/babel/tree/main/packages/babel-traverse, https://babeljs.io
-// Definitions by: Troy Gerwien <https://github.com/yortus>
-//                 Marvin Hagemeister <https://github.com/marvinhagemeister>
-//                 Ryan Petrich <https://github.com/rpetrich>
-//                 Melvin Groenhoff <https://github.com/mgroenhoff>
-//                 Dean L. <https://github.com/dlgrit>
-//                 Ifiok Jr. <https://github.com/ifiokjr>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 Daniel Tschinder <https://github.com/danez>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as t from "@babel/types";
 export import Node = t.Node;
 export import RemovePropertiesOptions = t.RemovePropertiesOptions;

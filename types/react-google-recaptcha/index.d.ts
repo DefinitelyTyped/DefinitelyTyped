@@ -1,15 +1,3 @@
-// Type definitions for React Google Recaptcha 2.1
-// Project: https://github.com/dozoisch/react-google-recaptcha
-// Definitions by: Koala Human <https://github.com/KoalaHuman>
-//                 Tom Sturge <https://github.com/tomsturge>
-//                 Max Bo <https://github.com/MaxwellBo>
-//                 Meir Keller <https://github.com/meirkl>
-//                 Florian Roher <https://github.com/RohrerF>
-//                 Timotei Mocan <https://github.com/mocantimoteidavid>
-//                 Michael Szmadzinski <https://github.com/smujmaiku>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export default ReCAPTCHA;

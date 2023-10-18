@@ -1,9 +1,3 @@
-// Type definitions for regenerator-runtime 0.13
-// Project: https://github.com/facebook/regenerator
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 export as namespace regeneratorRuntime;
 declare global {
     var regeneratorRuntime: typeof import(".");

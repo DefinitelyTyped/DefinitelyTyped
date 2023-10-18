@@ -1,9 +1,3 @@
-// Type definitions for csvrow 1.0
-// Project: https://github.com/trentm/node-csvrow
-// Definitions by: Peter Harris <https://github.com/codeanimal>
-//                 Thomas Morelli <https://github.com/hithomasmorelli>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Parse a CSV row (i.e. a single row) into an array of strings.
  *

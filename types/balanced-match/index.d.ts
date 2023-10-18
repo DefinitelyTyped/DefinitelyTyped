@@ -1,8 +1,3 @@
-// Type definitions for balanced-match 3.0
-// Project: https://github.com/juliangruber/balanced-match
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Output {
     /**
      * The index of the first match of a

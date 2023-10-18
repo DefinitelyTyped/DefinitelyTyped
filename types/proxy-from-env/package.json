@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/proxy-from-env",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Rob--W/proxy-from-env#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/proxy-from-env": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "JasonHK",
+            "githubUsername": "JasonHK"
+        },
+        {
+            "name": "FloPes",
+            "githubUsername": "flopes89"
+        }
+    ]
+}

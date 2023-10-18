@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/glidejs__glide",
+    "version": "3.6.9999",
+    "projects": [
+        "https://glidejs.com/"
+    ],
+    "devDependencies": {
+        "@types/glidejs__glide": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martin Badin",
+            "githubUsername": "martin-badin"
+        }
+    ]
+}

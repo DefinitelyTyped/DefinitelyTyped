@@ -1,9 +1,3 @@
-// Type definitions for neo-async 2.6
-// Project: https://github.com/suguru03/neo-async
-// Definitions by: Corentin Verpillat <https://github.com/corentinverpillat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export interface Dictionary<T> {
     [key: string]: T;
 }

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/scrollmagic",
+    "version": "2.0.9999",
+    "projects": [
+        "https://scrollmagic.io/"
+    ],
+    "devDependencies": {
+        "@types/scrollmagic": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tim Weise",
+            "githubUsername": "switchnollie"
+        }
+    ]
+}

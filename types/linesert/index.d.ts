@@ -1,8 +1,3 @@
-// Type definitions for linesert 1.0
-// Project: https://github.com/jasonbellamy/linesert
-// Definitions by: AlanWalk <https://github.com/AlanWalk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { PathLike } from "fs";
 

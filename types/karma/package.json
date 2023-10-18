@@ -1,6 +1,33 @@
 {
     "private": true,
+    "name": "@types/karma",
+    "version": "6.3.9999",
+    "projects": [
+        "https://github.com/karma-runner/karma"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "log4js": "^6.4.1"
-    }
+    },
+    "devDependencies": {
+        "@types/karma": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tanguy Krotoff",
+            "githubUsername": "tkrotoff"
+        },
+        {
+            "name": "James Garbutt",
+            "githubUsername": "43081j"
+        },
+        {
+            "name": "Yaroslav Admin",
+            "githubUsername": "devoto13"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

@@ -1,8 +1,3 @@
-// Type definitions for text-to-svg 3.1
-// Project: https://github.com/shrhdk/text-to-svg
-// Definitions by: Moritz Mahringer <https://github.com/mormahr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Font } from "opentype.js";
 
 export = TextToSVG;

@@ -1,8 +1,3 @@
-// Type definitions for to-json-schema 0.2
-// Project: https://github.com/ruzicka/to-json-schema#readme
-// Definitions by: Emily Marigold Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { JSONSchema4, JSONSchema4TypeName } from "json-schema";
 
 export = toJsonSchema;

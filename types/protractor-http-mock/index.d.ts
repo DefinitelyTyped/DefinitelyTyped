@@ -1,10 +1,3 @@
-// Type definitions for protractor-http-mock 0.10
-// Project: https://github.com/atecarlos/protractor-http-mock
-// Definitions by: Crevil <https://github.com/Crevil>
-//                 Adam Kwiatek <https://github.com/akwiatek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 import * as webdriver from "selenium-webdriver";
 
 declare namespace mock {

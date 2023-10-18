@@ -1,8 +1,3 @@
-// Type definitions for node-observer 0.4
-// Project: https://github.com/hormander/node-observer
-// Definitions by: wjchi <https://github.com/CwjXFH>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = observer;
 
 declare class Observer {

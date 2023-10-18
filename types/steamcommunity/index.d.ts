@@ -1,9 +1,3 @@
-// Type definitions for steamcommunity 3.43
-// Project: https://github.com/DoctorMcKay/node-steamcommunity
-// Definitions by: SenTisso <https://github.com/SenTisso>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
-
 /// <reference types="node" />
 
 type SteamID = import("steamid");

@@ -1,8 +1,3 @@
-// Type definitions for @xmpp/connection 0.13
-// Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/connection
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { EventEmitter } from "@xmpp/events";
 import { JID } from "@xmpp/jid";
 import { Element, Parser } from "@xmpp/xml";

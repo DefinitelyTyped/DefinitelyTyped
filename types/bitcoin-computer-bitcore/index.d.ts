@@ -1,8 +1,3 @@
-// Type definitions for bitcoin-computer-bitcore 0.1
-// Project: https://github.com/bitcoin-computer/bitcoin-computer-bitcore
-// Definitions by: Vivek Singh <https://github.com/jonty007>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.2
 
 /// <reference types="node" />

@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Kythe 0.0
-// Project: https://github.com/kythe/kythe
-// Definitions by: Ayaz Hafiz <https://github.com/ayazhafiz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /**
  * A VName (Vector Name) for a node in the Kythe schema consists of:
  *  - `signature`: a unique, opaque signature for a node
