@@ -1,11 +1,3 @@
-// Type definitions for rc 1.2
-// Project: https://github.com/dominictarr/rc
-// Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
-//                 BendingBender <https://github.com/BendingBender>
-//                 kusyka911 <https://github.com/kusyka911>
-//                 David Gabison <https://github.com/pulsovi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import minimist = require("minimist");
 
 interface RcResultType extends Record<number | string | symbol, unknown> {

@@ -1,14 +1,3 @@
-// Type definitions for browser-sync 2.27
-// Project: http://www.browsersync.io/
-// Definitions by: Asana <https://asana.com>,
-//                 Joe Skeen <https://github.com/joeskeen>
-//                 Thomas "Thasmo" Deinhamer <https://thasmo.com/>
-//                 Kiyotoshi Ichikawa <https://github.com/aznnomness>
-//                 Yuma Hashimoto <https://github.com/yuma84>
-//                 Andreas Bomholtz <https://github.com/seluxit>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 /// <reference types="serve-static" />
 

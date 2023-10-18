@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/iscroll",
+    "version": "4.2.9999",
+    "projects": [
+        "http://cubiq.org/iscroll-4"
+    ],
+    "devDependencies": {
+        "@types/iscroll": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Christiaan Rakowski",
+            "githubUsername": "csrakowski"
+        }
+    ]
+}

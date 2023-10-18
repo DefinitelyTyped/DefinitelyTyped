@@ -1,10 +1,3 @@
-// Type definitions for angular-local-storage 0.7
-// Project: https://github.com/grevory/angular-local-storage#readme
-// Definitions by: Ken Fukuyama <https://github.com/kenfdev>
-//                 Davide Donadello <https://github.com/dona278>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as angular from "angular";
 
 export type ILocalStorageServiceProvider = angular.local.storage.ILocalStorageServiceProvider;

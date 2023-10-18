@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/cordova-plugin-badge",
+    "version": "0.8.9999",
+    "projects": [
+        "https://github.com/katzer/cordova-plugin-badge"
+    ],
+    "devDependencies": {
+        "@types/cordova": "*",
+        "@types/cordova-plugin-badge": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tim Brust",
+            "githubUsername": "timbru31"
+        }
+    ]
+}

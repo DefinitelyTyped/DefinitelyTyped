@@ -1,10 +1,3 @@
-// Type definitions for object.groupby 1.0
-// Project: https://github.com/es-shims/Object.groupBy#readme
-// Definitions by: Ana Kucherova <https://github.com/chilldriven>
-//                 Jordan Harband <https://github.com/ljharb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
-
 /**
  * Returns an object that groups the iterable of the iterable object into arrays, using the return value of the callback function as the key.
  * @param iterable An iterable object

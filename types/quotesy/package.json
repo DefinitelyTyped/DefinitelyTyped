@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/quotesy",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/dwyl/quotes#readme"
+    ],
+    "devDependencies": {
+        "@types/quotesy": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nate Silva",
+            "githubUsername": "natesilva"
+        }
+    ]
+}

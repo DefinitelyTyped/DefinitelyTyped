@@ -1,8 +1,3 @@
-// Type definitions for shade-blend-color 1.0
-// Project: https://github.com/darieldejesus/shade-blend-color#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * This will take a HEX or RGB web color. Shade-Blend-Color can shade it darker or lighter,
  * or blend it with a second color, and can also pass it right thru but convert

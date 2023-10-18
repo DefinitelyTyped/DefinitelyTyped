@@ -1,8 +1,3 @@
-// Type definitions for gulp-live-server 0.0
-// Project: https://github.com/gimm/gulp-live-server
-// Definitions by: robertmaier <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import type { spawn } from "child_process";
 import type { Application, Handler } from "express";
 import type { createServer } from "https";

@@ -1,9 +1,3 @@
-// Type definitions for errorhandler 1.5
-// Project: https://github.com/expressjs/errorhandler
-// Definitions by: Santi Albo <https://github.com/santialbo>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import express = require("express");
 
 /**

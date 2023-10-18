@@ -1,8 +1,4 @@
-// Type definitions for @hapi/jwt 2.0
-// Project: https://github.com/hapijs/jwt
-// Definitions by: Sergio Sánchez <https://github.com/ssanchezmarc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
+/// <reference types="node" />
 
 import { Plugin, Request, ResponseObject, ResponseToolkit } from "@hapi/hapi";
 

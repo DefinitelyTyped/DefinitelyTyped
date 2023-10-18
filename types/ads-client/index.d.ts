@@ -1,8 +1,3 @@
-// Type definitions for ads-client 1.14
-// Project: https://github.com/jisotalo/ads-client
-// Definitions by: Christian Rishøj <https://github.com/crishoj>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import EventEmitter = require("events");
@@ -54,7 +49,12 @@ export interface Connection {
     targetAdsPort: number;
 }
 
-export type PLCValue = boolean | number | string | [] | object | Date;
+export interface PLCEnum {
+    name: string;
+    value: number;
+}
+
+export type PLCValue = boolean | number | string | [] | object | PLCEnum | Date;
 
 export interface SymbolData {
     symbol: object;

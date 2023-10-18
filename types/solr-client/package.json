@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/solr-client",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/lbdremy/solr-node-client#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/solr-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "liul85",
+            "githubUsername": "liul85"
+        }
+    ]
+}

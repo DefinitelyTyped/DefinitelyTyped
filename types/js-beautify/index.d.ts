@@ -1,10 +1,3 @@
-// Type definitions for js_beautify 1.14
-// Project: https://github.com/beautify-web/js-beautify/
-// Definitions by: Hans Windhoff <https://github.com/hansrwindhoff>
-//                 Gavin Rehkemper <https://github.com/gavinr/>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace js_beautify {
     interface CoreBeautifyOptions {
         disabled?: boolean | undefined;

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/dhtmlxgantt",
+    "version": "6.0.9999",
+    "projects": [
+        "https://dhtmlx.com/docs/products/dhtmlxGantt"
+    ],
+    "devDependencies": {
+        "@types/dhtmlxgantt": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maksim Kozhukh",
+            "githubUsername": "mkozhukh"
+        },
+        {
+            "name": "Christophe Camicas",
+            "githubUsername": "chriscamicas"
+        }
+    ]
+}

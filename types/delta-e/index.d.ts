@@ -1,8 +1,3 @@
-// Type definitions for delta-e 0.0
-// Project: https://github.com/zschuessler/DeltaE#readme
-// Definitions by: Aaron Ross <https://github.com/superhawk610>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * LAB color values represent colors in a way that facilitates
  * visual perception comparison. Colors are described in terms

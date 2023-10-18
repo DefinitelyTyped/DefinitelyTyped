@@ -1,10 +1,3 @@
-// Type definitions for jQuery postMessage
-// Project: http://benalman.com/projects/jquery-postmessage-plugin/
-// Definitions by: Junle Li <https://github.com/lijunle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-// Official docs: http://benalman.com/code/projects/jquery-postmessage/docs/files/jquery-ba-postmessage-js.html
-
 interface JQueryStatic {
     /**
      * This method will call window.postMessage if available, setting the targetOrigin parameter to the base of the targetUrl parameter for maximum security in browsers that support it. If window.postMessage is not available, the target window’s location.hash will be used to pass the message. If an object is passed as the message param, it will be serialized into a string using the jQuery.param method.

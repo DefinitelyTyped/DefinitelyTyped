@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/polygon-selfintersect",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/kmcs/polygon-selfintersect"
+    ],
+    "devDependencies": {
+        "@types/polygon-selfintersect": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Russ McKay",
+            "githubUsername": "mcruss"
+        }
+    ]
+}

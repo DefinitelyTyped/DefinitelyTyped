@@ -1,9 +1,3 @@
-// Type definitions for normalize-jss 4.0
-// Project: https://github.com/cssinjs/normalize-jss
-// Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 export = normalize_jss;
 
 declare const normalize_jss: {

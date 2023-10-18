@@ -1,8 +1,3 @@
-// Type definitions for bounds.js 1.0
-// Project: https://github.com/ChrisCavs/bounds.js#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace bounds;
 /**
  * Asynchronous boundary detection. 1KB, no dependencies.

@@ -1,11 +1,3 @@
-// Type definitions for Reveal 4.4
-// Project: https://github.com/hakimel/reveal.js/
-// Definitions by: robertop87 <https://github.com/robertop87>,
-//                 Nava2 <https://github.com/Nava2>,
-//                 JPtenBerge <https://github.com/JPtenBerge>
-//                 Keita Watanabe <https://github.com/kwatanwa17>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace Reveal;
 
 export = Reveal;

@@ -5622,7 +5622,8 @@ export interface EnergyBillingTransactionV2 {
             | "CONTROLLED_LOAD"
             | "SOLAR"
             | "AGGREGATE"
-            | "ALL_DAY";
+            | "ALL_DAY"
+            | "EXCESS";
         [k: string]: unknown;
     };
     /**
@@ -5819,7 +5820,8 @@ export interface EnergyBillingTransactionV2 {
             | "SHOULDER2"
             | "CONTROLLED_LOAD"
             | "SOLAR"
-            | "AGGREGATE";
+            | "AGGREGATE"
+            | "ALL_DAY";
         /**
          * The usage for the period in measure unit.  A negative value indicates power generated
          */

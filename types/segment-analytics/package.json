@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/segment-analytics",
+    "version": "0.0.9999",
+    "projects": [
+        "https://segment.com/docs/libraries/analytics.js/"
+    ],
+    "devDependencies": {
+        "@types/jquery": "*",
+        "@types/segment-analytics": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrew Fong",
+            "githubUsername": "fongandrew"
+        },
+        {
+            "name": "Miroslav Petrik",
+            "githubUsername": "MiroslavPetrik"
+        }
+    ]
+}

@@ -1,21 +1,3 @@
-// Type definitions for slate 0.47
-// Project: https://github.com/ianstormtaylor/slate
-// Definitions by: Andy Kent <https://github.com/andykent>
-//                 Jamie Talbot <https://github.com/majelbstoat>
-//                 Jan Löbel <https://github.com/JanLoebel>
-//                 Brandon Shelton <https://github.com/YangusKhan>
-//                 Kalley Powell <https://github.com/kalley>
-//                 Francesco Agnoletto <https://github.com/Kornil>
-//                 Irwan Fario Subastian <https://github.com/isubasti>
-//                 Jack Allen <https://github.com/jackall3n>
-//                 Benjamin Evenson <https://github.com/benjiro>
-//                 Han Jeon <https://github.com/hanstar17>
-//                 Kay Delaney <https://github.com/kaydelaney>
-//                 Kamil Kamiński <https://github.com/0ctothorp>
-//                 Jay Chen <https://github.com/Jay0328>
-//                 Brian Ingles <https://github.com/bmingles>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 import * as Immutable from "immutable";
 import { SyntheticEvent } from "react";
 

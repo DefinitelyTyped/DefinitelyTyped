@@ -1,9 +1,3 @@
-// Type definitions for git-semver-tags 4.1
-// Project: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/git-semver-tags#readme
-// Definitions by: Jason Kwok <https://github.com/JasonHK>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Get all git semver tags of your repository in reverse chronological order
  */

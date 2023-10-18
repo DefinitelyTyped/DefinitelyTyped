@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/tdweb",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/tdlib/td#readme"
+    ],
+    "devDependencies": {
+        "@types/tdweb": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alexander Krisko",
+            "githubUsername": "esindger"
+        }
+    ]
+}

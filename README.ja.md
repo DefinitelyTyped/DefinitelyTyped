@@ -184,13 +184,13 @@ Definitely Typed のメンバーは常に新しい PR をチェックしてい�
 
 パッケージに型定義が[バンドル](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)されている場合、混乱を避けるために Definitely Typed 側の型定義は削除します。
 
-`npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]` を実行するとパッケージを削除できます。.
+`pnpm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]` を実行するとパッケージを削除できます。.
 * `<typingsPackageName>`: 削除したいディレクトリ名。
 * `<asOfVersion>`: `@types/<typingsPackageName>` に対してスタブ（stub）を公開したいバージョン。現在公開中のバージョンより新しく、かつ npm 上の `<libraryName>` のバージョンとあわせる必要があります。
 * `<libraryName>`: Definitely Typed 側の型定義の代わりとなる npm のパッケージ名。基本的に `<typingsPackageName>` と一致し、その場合は省略できます。
 
 削除されたパッケージを参照していた、他の Definitely Typed 上のパッケージは全て、ライブラリにバンドルされている型定義を参照するように更新する必要があります。
-`npm run test-all` を実行した際のエラーを参照することで、更新が必要なライブラリのリストが確認できます。
+`pnpm run test-all` を実行した際のエラーを参照することで、更新が必要なライブラリのリストが確認できます。
 エラーを修正するには、 [`package.json`](#packagejson) を追加し、 `"dependencies": { "<libraryName>": "x.y.z" }` と記述します。
 たとえば下記のようになります:
 
@@ -354,7 +354,7 @@ DefinitelyTypedのパッケージパブリッシャーは、Definitely Typedの�
 #### よくある間違い
 
 * まず、[ハンドブック](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)のアドバイスに従ってください。
-* フォーマット: 4つのスペースを使用してください。このリポジトリではPrettierが設定されているため、`npm run prettier -- --write 'path/to/package/**/*.ts'`を実行してフォーマットを適用できます。[アサーションを使用する場合](https://github.com/SamVerschueren/tsd#assertions)、フォーマットから除外するために `// prettier-ignore` を追加して、フォーマットの対象外としてマークすることができます：
+* フォーマット: 4つのスペースを使用してください。このリポジトリではPrettierが設定されているため、`pnpm run prettier -- --write 'path/to/package/**/*.ts'`を実行してフォーマットを適用できます。[アサーションを使用する場合](https://github.com/SamVerschueren/tsd#assertions)、フォーマットから除外するために `// prettier-ignore` を追加して、フォーマットの対象外としてマークすることができます：
   ```tsx
   // prettier-ignore
   // @ts-expect-error

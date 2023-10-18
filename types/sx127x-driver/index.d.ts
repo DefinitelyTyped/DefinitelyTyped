@@ -1,8 +1,3 @@
-// Type definitions for sx127x-driver 0.0
-// Project: https://github.com/xtrinch/sx127x-node-driver#readme
-// Definitions by: mariusbackes <https://github.com/mariusbackes>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class SX127x {
     constructor(options?: SX127xOptions);
 

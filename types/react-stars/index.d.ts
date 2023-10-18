@@ -1,9 +1,3 @@
-// Type definitions for react-stars 2.2
-// Project: https://github.com/n49/react-stars
-// Definitions by: TingYuLC <https://github.com/TingYuLC>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
-
 import * as React from "react";
 
 interface ReactStarsProps {

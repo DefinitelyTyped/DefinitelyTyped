@@ -1,6 +1,22 @@
 {
     "private": true,
+    "name": "@types/meteor-collection-hooks",
+    "version": "0.8.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Meteor package matb33:collection-hooks",
+    "projects": [
+        "https://github.com/matb33/meteor-collection-hooks"
+    ],
     "dependencies": {
         "meteor-typings": "^1.3.1"
-    }
+    },
+    "devDependencies": {
+        "@types/meteor-collection-hooks": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Trygve Wastvedt",
+            "githubUsername": "twastvedt"
+        }
+    ]
 }

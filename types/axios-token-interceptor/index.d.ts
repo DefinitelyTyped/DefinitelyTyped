@@ -1,10 +1,3 @@
-// Type definitions for axios-token-interceptor 0.2
-// Project: https://github.com/sandrinodimattia/axios-token-interceptor#readme
-// Definitions by: Vivint Team Innovation <https://github.com/innovation-team>
-//                 Mike Dodge <https://github.com/mgdodge>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { AxiosRequestConfig } from "axios";
 
 // Module

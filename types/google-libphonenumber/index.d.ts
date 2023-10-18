@@ -1,9 +1,3 @@
-// Type definitions for libphonenumber v7.4.3
-// Project: https://github.com/googlei18n/libphonenumber, https://github.com/seegno/google-libphonenumber
-// Definitions by: Leon Yu <https://github.com/leonyu>
-//           Roman Jurkov <https://github.com/winfinit>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace libphonenumber {
     export enum PhoneNumberFormat {
         E164,
@@ -169,6 +163,7 @@ declare namespace libphonenumber {
         isNumberMatch(firstNumber: string | PhoneNumber, secondNumber: string | PhoneNumber): PhoneNumberUtil.MatchType;
         getLengthOfGeographicalAreaCode(number: PhoneNumber): number;
         getNationalSignificantNumber(number: PhoneNumber): string;
+        getLengthOfNationalDestinationCode(number: PhoneNumber): number;
     }
 
     export class AsYouTypeFormatter {

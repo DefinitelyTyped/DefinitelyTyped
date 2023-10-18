@@ -1,10 +1,3 @@
-// Type definitions for cli-table 0.3
-// Project: https://github.com/Automattic/cli-table
-// Definitions by: AryloYeung <https://github.com/arylo>
-//                 Antoni Spaanderman <https://github.com/antonilol>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.9
-
 type HorizontalTableRow = string[];
 type VerticalTableRow = Record<string, string>;
 type CrossTableRow = Record<string, string[]>;

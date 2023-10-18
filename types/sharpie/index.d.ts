@@ -1,7 +1,3 @@
-// Type definitions for sharpie 4.5
-// Project: https://github.com/kapouer/sharpie#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import { RequestHandler } from "express-serve-static-core";
 import sharpModule = require("sharp");
 

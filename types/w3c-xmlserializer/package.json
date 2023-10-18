@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/w3c-xmlserializer",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jsdom/w3c-xmlserializer#readme"
+    ],
+    "devDependencies": {
+        "@types/w3c-xmlserializer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

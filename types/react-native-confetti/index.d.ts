@@ -1,8 +1,3 @@
-// Type definitions for react-native-confetti 0.1
-// Project: https://github.com/cdvntr/react-native-confetti
-// Definitions by: Maurice el-Banna <https://github.com/MauriceNino>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Component } from "react";
 
 export interface ConfettiProps {

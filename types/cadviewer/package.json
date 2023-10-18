@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/cadviewer",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/CADViewer/cadviewer-testapp-react-01"
+    ],
+    "minimumTypeScriptVersion": "4.7",
+    "devDependencies": {
+        "@types/cadviewer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Casper Harnung",
+            "githubUsername": "cadviewer"
+        }
+    ]
+}

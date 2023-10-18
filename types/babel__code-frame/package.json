@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/babel__code-frame",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/babel/babel/tree/master/packages/babel-code-frame",
+        "https://babeljs.io"
+    ],
+    "devDependencies": {
+        "@types/babel__code-frame": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mohsen Azimi",
+            "githubUsername": "mohsen1"
+        },
+        {
+            "name": "Forbes Lindesay",
+            "githubUsername": "ForbesLindesay"
+        }
+    ]
+}

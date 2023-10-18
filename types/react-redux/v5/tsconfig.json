@@ -13,15 +13,8 @@
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
         "jsx": "react",
         "experimentalDecorators": true,
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "react-redux": ["react-redux/v5"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

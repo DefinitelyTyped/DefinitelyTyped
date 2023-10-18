@@ -1,9 +1,3 @@
-// Type definitions for tunajs 1.0
-// Project: https://github.com/Theodeus/tuna#readme
-// Definitions by: Yehyoung Kang <https://github.com/pastelmind>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 5.1
-
 /// <reference lib="dom" />
 
 // This library monkey-patches globals

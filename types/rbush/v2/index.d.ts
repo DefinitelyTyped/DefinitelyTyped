@@ -1,8 +1,3 @@
-// Type definitions for rbush 2.0
-// Project: https://github.com/mourner/rbush
-// Definitions by: Dan Vanderkam <http://danvk.org/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace rbush {
     export interface BBox {
         minX: number;

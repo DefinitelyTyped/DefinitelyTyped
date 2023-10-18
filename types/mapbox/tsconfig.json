@@ -9,16 +9,7 @@
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": false,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
-        "paths": {
-            "leaflet": [
-                "leaflet/v0"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

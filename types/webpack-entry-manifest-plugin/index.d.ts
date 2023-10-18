@@ -1,9 +1,3 @@
-// Type definitions for webpack-entry-manifest-plugin 2.0
-// Project: https://github.com/nuintun/webpack-entry-manifest-plugin#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import { Plugin } from "webpack";
 
 /**

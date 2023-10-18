@@ -1,9 +1,3 @@
-// Type definitions for Lightpick 1.4
-// Project: https://wakirin.github.io/Lightpick
-// Definitions by: Adam Kwiatek <https://github.com/akwiatek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 import moment = require("moment");
 
 export = Lightpick;

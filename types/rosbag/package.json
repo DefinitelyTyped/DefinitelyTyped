@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/rosbag",
+    "version": "2.6.9999",
+    "projects": [
+        "https://github.com/cruise-automation/rosbag.js#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/rosbag": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Itthipol Lateh",
+            "githubUsername": "Rovula"
+        }
+    ]
+}

@@ -1,0 +1,35 @@
+{
+    "private": true,
+    "name": "@types/ember__debug",
+    "version": "3.16.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "@ember/debug",
+    "projects": [
+        "https://emberjs.com/api/ember/3.16/modules/@ember%2Fdebug"
+    ],
+    "dependencies": {
+        "@types/ember__engine": "^3",
+        "@types/ember__object": "^3"
+    },
+    "devDependencies": {
+        "@types/ember__debug": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mike North",
+            "githubUsername": "mike-north"
+        },
+        {
+            "name": "Chris Krycho",
+            "githubUsername": "chriskrycho"
+        },
+        {
+            "name": "Krystan HuffMenne",
+            "githubUsername": "gitKrystan"
+        },
+        {
+            "name": "James C. Davis",
+            "githubUsername": "jamescdavis"
+        }
+    ]
+}

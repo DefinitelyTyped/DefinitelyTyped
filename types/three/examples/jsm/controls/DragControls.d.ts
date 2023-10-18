@@ -16,6 +16,7 @@ export class DragControls extends EventDispatcher<DragControlsEventMap> {
     // API
 
     enabled: boolean;
+    recursive: boolean;
     transformGroup: boolean;
 
     activate(): void;

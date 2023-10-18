@@ -13,12 +13,8 @@
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": false,
-        "baseUrl": "../",
         "jsx": "react",
         "experimentalDecorators": true,
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

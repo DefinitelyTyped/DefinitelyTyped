@@ -1,15 +1,3 @@
-// Type definitions for @testing-library/cypress 5.0
-// Project: https://github.com/testing-library/cypress-testing-library
-// Definitions by: Aaron Mc Adam <https://github.com/aaronmcadam>
-//                 Basti Buck <https://github.com/bastibuck>
-//                 Stefano Magni <https://github.com/NoriSte>
-//                 Justin Hall <https://github.com/wKovacs64>
-//                 Brian Ng <https://github.com/existentialism>
-//                 Airat Aminev <https://github.com/airato>
-//                 Simon Jespersen <https://github.com/simjes>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
 import {
     ByRoleOptions as DTLByRoleOptions,
     configure,

@@ -1,8 +1,3 @@
-// Type definitions for skeleton-rendezvous 1.1
-// Project: https://github.com/SocketCluster/skeleton-rendezvous#readme
-// Definitions by: aikoven <https://github.com/aikoven>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace SkeletonRendezvousHasher {
     interface Options {
         fanout?: number;

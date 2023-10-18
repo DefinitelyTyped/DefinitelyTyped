@@ -1,8 +1,3 @@
-// Type definitions for teen_process 2.0
-// Project: https://github.com/appium/node-teen_process
-// Definitions by: Tiger Oakes <https://github.com/NotWoods>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { ChildProcess, SpawnOptions } from "child_process";

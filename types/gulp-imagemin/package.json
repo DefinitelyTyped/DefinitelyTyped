@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/gulp-imagemin",
+    "version": "8.0.9999",
+    "projects": [
+        "https://github.com/sindresorhus/gulp-imagemin#readme"
+    ],
+    "dependencies": {
+        "@types/imagemin": "*",
+        "@types/imagemin-gifsicle": "*",
+        "@types/imagemin-mozjpeg": "*",
+        "@types/imagemin-optipng": "*",
+        "@types/imagemin-svgo": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-imagemin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Romain Faust",
+            "githubUsername": "romain-faust"
+        }
+    ]
+}

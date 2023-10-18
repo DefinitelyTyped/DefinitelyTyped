@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/color-rgba",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/colorjs/color-rgba#readme"
+    ],
+    "devDependencies": {
+        "@types/color-rgba": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

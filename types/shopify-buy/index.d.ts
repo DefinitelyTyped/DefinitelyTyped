@@ -1,13 +1,3 @@
-// Type definitions for shopify-buy 2.17
-// Project: https://github.com/Shopify/js-buy-sdk#readme
-// Definitions by: Martin Köhn <https://github.com/openminder>
-//                 Stephen Traiforos <https://github.com/straiforos>
-//                 Juan Manuel Incaurgarat <https://github.com/kilinkis>
-//                 Chris Worman <https://github.com/chrisworman-pela>
-//                 Maciej Baron <https://github.com/MaciekBaron>
-//                 Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace ShopifyBuy {
     /**
      * Cart

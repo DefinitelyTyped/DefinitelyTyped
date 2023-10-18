@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/window-or-global",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/purposeindustries/window-or-global"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/window-or-global": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "vvakame",
+            "githubUsername": "vvakame"
+        },
+        {
+            "name": "Jason Kwok",
+            "githubUsername": "JasonHK"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

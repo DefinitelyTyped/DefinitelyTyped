@@ -1,10 +1,3 @@
-// Type definitions for geoip-lite 1.4
-// Project: https://github.com/bluesmoon/node-geoip
-// Definitions by: Yuce Tekol <https://github.com/yuce>
-//                 Artem <https://github.com/witem>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * https://github.com/bluesmoon/node-geoip#looking-up-an-ip-address
  */

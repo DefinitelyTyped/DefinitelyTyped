@@ -1,9 +1,3 @@
-// Type definitions for cloudflare 2.7
-// Project: https://github.com/cloudflare/node-cloudflare
-// Definitions by: Samuel Corsi-House <https://github.com/Xenfo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.3
-
 declare namespace Cloudflare {
     type RecordTypes =
         | "A"

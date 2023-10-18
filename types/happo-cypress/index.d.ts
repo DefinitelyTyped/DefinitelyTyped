@@ -1,9 +1,3 @@
-// Type definitions for happo-cypress 4.1
-// Project: https://github.com/happo/happo-cypress#readme
-// Definitions by: Alexander Polyankin <https://github.com/alexanderpolyankin>
-//                 Mario Beltrán Alarcón <https://github.com/Belco90>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="cypress" />
 
 export interface HappoScreenshotTarget {

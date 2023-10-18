@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Google gtag.js API
-// Project: https://developers.google.com/gtagjs
-// Definitions by:  Junyoung Choi <https://github.com/rokt33r>
-//                  Lucas Akira Uehara <https://github.com/KsAkira10>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var gtag: Gtag.Gtag;
 declare namespace Gtag {
     interface GtagCommands {

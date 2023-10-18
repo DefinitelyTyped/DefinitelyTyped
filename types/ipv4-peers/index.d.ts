@@ -1,8 +1,3 @@
-// Type definitions for ipv4-peers 2.0
-// Project: https://github.com/mafintosh/ipv4-peers
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

@@ -1,9 +1,3 @@
-// Type definitions for http-auth 4.1
-// Project: https://github.com/http-auth/http-auth
-// Definitions by: nokazn <https://github.com/nokazn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

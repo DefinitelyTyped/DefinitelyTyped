@@ -1,11 +1,3 @@
-// Type definitions for react-outside-click-handler 1.3
-// Project: https://github.com/airbnb/react-outside-click-handler
-// Definitions by: Ivan Zub <https://github.com/zubivan>
-//                 JadowityHerbatnik <https://github.com/JadowityHerbatnik>
-//                 Adam Jones <https://github.com/domdomegg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 import * as React from "react";
 
 export interface DefaultProps {

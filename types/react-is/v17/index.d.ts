@@ -1,11 +1,3 @@
-// Type definitions for react-is 17.0
-// Project: https://reactjs.org/
-// Definitions by: Avi Vahl <https://github.com/AviVahl>
-//                 Christian Chown <https://github.com/christianchown>
-//                 Sebastian Silbermann <https://github.com/eps1lon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 // NOTE: Users of the React 18 alpha should add a reference
 // to 'react-is/next' in their project. See next.d.ts's top comment
 // for reference and documentation on how exactly to do it.

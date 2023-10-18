@@ -1,11 +1,3 @@
-// Type definitions for non-npm package W3C (WebAppSec) Credential Management API Level 1, 0.6
-// Project: https://github.com/w3c/webappsec-credential-management
-// Definitions by: Iain McGinniss <https://github.com/iainmcgin>
-//                 Joao Peixoto <https://github.com/Hartimer>
-//                 Michael J. Currie <https://github.com/Basaingeal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 5.1
-
 // Spec: https://www.w3.org/TR/2017/WD-credential-management-1-20170804
 
 /* ************************* FETCH MODIFICATIONS *******************************

@@ -1,8 +1,3 @@
-// Type definitions for emoji-js 3.5
-// Project: https://github.com/iamcal/js-emoji
-// Definitions by: Jason Di Benedetto <https://github.com/jasondibenedetto>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export as namespace EmojiConvertor;
 
 declare namespace Emoji {

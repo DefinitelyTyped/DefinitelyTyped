@@ -1,8 +1,3 @@
-// Type definitions for quotesy 1.0
-// Project: https://github.com/dwyl/quotes#readme
-// Definitions by: Nate Silva <https://github.com/natesilva>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Returns an Array of Quote Objects
  */

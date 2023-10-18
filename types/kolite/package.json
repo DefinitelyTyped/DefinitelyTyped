@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/kolite",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/CodeSeven/kolite"
+    ],
+    "dependencies": {
+        "@types/jquery": "*",
+        "@types/knockout": "*"
+    },
+    "devDependencies": {
+        "@types/kolite": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        }
+    ]
+}

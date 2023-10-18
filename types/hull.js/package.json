@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/hull.js",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/AndriiHeonia/hull"
+    ],
+    "devDependencies": {
+        "@types/hull.js": "workspace:."
+    },
+    "owners": []
+}

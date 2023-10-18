@@ -1,9 +1,3 @@
-// Type definitions for to-regex 3.0
-// Project: https://github.com/jonschlinkert/to-regex
-// Definitions by: Rauli Laine <https://github.com/RauliL>
-//                 Anatoly Pitikin <https://github.com/xapdkop>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace toRegex {
     interface Options {
         /**

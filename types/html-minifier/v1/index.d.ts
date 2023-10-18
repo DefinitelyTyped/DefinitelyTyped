@@ -1,9 +1,3 @@
-// Type definitions for HTMLMinifier v1.1.1
-// Project: https://github.com/kangax/html-minifier
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="uglify-js" />
 
 import * as CleanCSS from "clean-css";

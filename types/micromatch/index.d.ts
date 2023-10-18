@@ -1,9 +1,3 @@
-// Type definitions for micromatch 4.0
-// Project: https://github.com/micromatch/micromatch
-// Definitions by: glen-84 <https://github.com/glen-84>
-//                 vemoo <https://github.com/vemoo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.2
 
 import * as braces from "braces";

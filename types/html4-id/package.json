@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/html4-id",
+    "version": "1.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/html4-id"
+    ],
+    "devDependencies": {
+        "@types/html4-id": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

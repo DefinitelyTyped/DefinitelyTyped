@@ -1,9 +1,3 @@
-// Type definitions for openstack-wrapper 2.1
-// Project: https://github.com/godaddy/node-openstack-wrapper
-// Definitions by: Sanjay Madane <https://github.com/sanjaymadane>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export interface RequestOption {
     uri?: string | undefined;
     headers?: any;

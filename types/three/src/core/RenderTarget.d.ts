@@ -9,6 +9,7 @@ import {
     MinificationTextureFilter,
     MagnificationTextureFilter,
     ColorSpace,
+    PixelFormatGPU,
 } from '../constants.js';
 
 export interface RenderTargetOptions {
@@ -21,6 +22,7 @@ export interface RenderTargetOptions {
     type?: TextureDataType | undefined; // UnsignedByteType;
     anisotropy?: number | undefined; // 1;
     colorSpace?: ColorSpace | undefined;
+    internalFormat?: PixelFormatGPU | null | undefined;
     depthBuffer?: boolean | undefined; // true;
     stencilBuffer?: boolean | undefined; // false;
     depthTexture?: DepthTexture | undefined;

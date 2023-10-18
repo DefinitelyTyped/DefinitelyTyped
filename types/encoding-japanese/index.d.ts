@@ -1,9 +1,3 @@
-// Type definitions for encoding-japanese 2.0
-// Project: https://github.com/polygonplanet/encoding.js
-// Definitions by: rhysd <https://github.com/rhysd>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace Encoding;
 
 export type Encoding =

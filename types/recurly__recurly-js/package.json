@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/recurly__recurly-js",
+    "version": "4.26.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "@recurly/recurly-js",
+    "projects": [
+        "https://github.com/recurly/recurly-js"
+    ],
+    "devDependencies": {
+        "@types/recurly__recurly-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christopher Rogers",
+            "githubUsername": "chrissrogers"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for browser-resolve 2.0
-// Project: https://github.com/defunctzombie/node-browser-resolve
-// Definitions by: Mario Nebl <https://github.com/marionebl>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as resv from "resolve";
 
 /**

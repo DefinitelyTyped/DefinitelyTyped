@@ -1,5 +1,10 @@
 {
     "private": true,
+    "name": "@types/conventional-changelog-preset-loader",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-preset-loader#readme"
+    ],
     "types": "index",
     "typesVersions": {
         "<=4.9": {
@@ -7,5 +12,19 @@
                 "ts4.9/*"
             ]
         }
-    }
+    },
+    "dependencies": {
+        "@types/conventional-changelog-core": "*",
+        "@types/conventional-changelog-writer": "*",
+        "@types/conventional-commits-parser": "*"
+    },
+    "devDependencies": {
+        "@types/conventional-changelog-preset-loader": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Kwok",
+            "githubUsername": "JasonHK"
+        }
+    ]
 }

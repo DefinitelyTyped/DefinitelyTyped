@@ -1,9 +1,3 @@
-// Type definitions for @carbon/icons-react 11.26
-// Project: https://github.com/carbon-design-system/carbon/tree/master/packages/icons-react
-// Definitions by: Eric Liu <https://github.com/metonym>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
-
 /** 2159 icons total */
 
 export interface CarbonIconProps extends

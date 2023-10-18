@@ -1,9 +1,3 @@
-// Type definitions for karma-html-detailed-reporter 2.1
-// Project: https://github.com/a11smiles/karma-html-detailed-reporter
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 import "karma";
 
 declare module "karma" {
