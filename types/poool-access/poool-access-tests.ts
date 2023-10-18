@@ -124,7 +124,7 @@ audit.config('key', false, true);
 audit.on('subscribeClick', () => {});
 
 // $ExpectType Audit
-audit.once('subscribeClick', () => {});
+audit.once('subscribeClick', (a, b, c) => {console.log(a,b,c)});
 
 // $ExpectType Audit
 audit.off('subscribeClick', () => {});
