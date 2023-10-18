@@ -6,7 +6,7 @@ const osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
 const map = L.map("map", { layers: [osm], center: L.latLng(-37.7772, 175.2756), zoom: 15 });
 
 const gpx = new L.GPX(
-"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\
   <gpx creator=\"Garmin Connect\" version=\"1.1\" xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/11.xsd\" \
    xmlns=\"http://www.topografix.com/GPX/1/1\" \
    xmlns:ns3=\"http://www.garmin.com/xmlschemas/TrackPointExtension/v1\" \

@@ -502,7 +502,6 @@ declare module "events" {
     global {
         namespace NodeJS {
             interface EventEmitter {
-
                 [EventEmitter.captureRejectionSymbol]?(error: Error, event: string, ...args: any[]): void;
                 /**
                  * Alias for `emitter.on(eventName, listener)`.

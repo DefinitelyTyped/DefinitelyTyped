@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/redis-scripto",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/arunoda/node-redis-scripto"
+    ],
     "dependencies": {
         "@types/redis": "^2.8.0"
-    }
+    },
+    "devDependencies": {
+        "@types/redis-scripto": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Seth Westphal",
+            "githubUsername": "westy92"
+        }
+    ]
 }

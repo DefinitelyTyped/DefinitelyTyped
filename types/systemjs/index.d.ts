@@ -1,9 +1,3 @@
-// Type definitions for SystemJS 6.13
-// Project: https://github.com/systemjs/systemjs
-// Definitions by: Joel Denning <https://github.com/joeldenning>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 declare const System: {
     /**
      * Loads a javascript module from either a url or bare specifier that is in an import map.

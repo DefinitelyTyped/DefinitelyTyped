@@ -1,9 +1,3 @@
-// Type definitions for @webpack-blocks/webpack 2.0
-// Project: https://github.com/andywer/webpack-blocks/tree/master/packages/webpack
-// Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import { Configuration, Entry, Options, Output, Plugin, Resolve } from "webpack";
 
 import {

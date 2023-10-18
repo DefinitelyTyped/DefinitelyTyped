@@ -1,8 +1,3 @@
-// Type definitions for react-scramble 0.4
-// Project: https://github.com/cettoana/react-scramble#readme
-// Definitions by: fes300 <https://github.com/fes300>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 export interface Step {

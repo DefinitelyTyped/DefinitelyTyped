@@ -1,10 +1,5 @@
-// Type definitions for serverless-step-functions 3.14
-// Project: https://github.com/serverless-operations/serverless-step-functions
-// Definitions by: Chris Cook <https://github.com/zirkelc>
-//                 Enric Bisbe Gil <https://github.com/ebisbe>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { Resource } from './types/state';
-import { StateMachineDefinition } from './types/state-machine';
+import { Resource } from "./types/state";
+import { StateMachineDefinition } from "./types/state-machine";
 
 /**
  * Types for serverless-step-functions plugin for Serverless Framework.
@@ -61,7 +56,7 @@ interface StepFunctions {
 }
 
 interface StateMachine {
-    type?: 'STANDARD' | 'EXPRESS';
+    type?: "STANDARD" | "EXPRESS";
     id?: string;
     name?: string;
     definition: StateMachineDefinition;
@@ -69,7 +64,7 @@ interface StateMachine {
         enabled: boolean;
     };
     loggingConfig?: {
-        level: 'ERROR' | 'ALL' | 'FATAL' | 'OFF';
+        level: "ERROR" | "ALL" | "FATAL" | "OFF";
         includeExecutionData: boolean;
         destinations: Resource | Resource[];
     };

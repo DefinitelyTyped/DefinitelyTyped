@@ -1,9 +1,3 @@
-// Type definitions for React (react-addons-test-utils) 15.6
-// Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import {
     AbstractView,
     CElement,

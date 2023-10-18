@@ -1,10 +1,3 @@
-// Type definitions for leaflet-providers 1.2
-// Project: https://github.com/leaflet-extras/leaflet-providers#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-//                 Simon Legner <https://github.com/simon04>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as L from "leaflet";
 
 declare module "leaflet" {

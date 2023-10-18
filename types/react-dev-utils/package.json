@@ -1,6 +1,25 @@
 {
     "private": true,
+    "name": "@types/react-dev-utils",
+    "version": "9.0.9999",
+    "projects": [
+        "https://github.com/facebook/create-react-app#readme"
+    ],
     "dependencies": {
+        "@types/eslint": "*",
+        "@types/express": "*",
+        "@types/html-webpack-plugin": "*",
+        "@types/node": "*",
+        "@types/webpack": "^4",
         "@types/webpack-dev-server": "3"
-    }
+    },
+    "devDependencies": {
+        "@types/react-dev-utils": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ark120202",
+            "githubUsername": "ark120202"
+        }
+    ]
 }

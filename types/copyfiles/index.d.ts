@@ -1,9 +1,3 @@
-// Type definitions for copyfiles 2.4
-// Project: https://github.com/calvinmetcalf/copyfiles#readme
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace copyfiles {
     interface Options {
         /** include files & directories beginning with a dot (.) */

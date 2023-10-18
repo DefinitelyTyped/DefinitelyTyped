@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/highcharts-ng",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/pablojim/highcharts-ng"
+    ],
     "dependencies": {
         "@types/highcharts": "^5.0.44"
-    }
+    },
+    "devDependencies": {
+        "@types/angular": "*",
+        "@types/highcharts-ng": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Scott Hatcher",
+            "githubUsername": "scatcher"
+        }
+    ]
 }

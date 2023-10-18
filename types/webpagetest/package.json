@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/webpagetest",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/marcelduran/webpagetest-api"
+    ],
+    "devDependencies": {
+        "@types/webpagetest": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Konstantin Simon Maria Möllers",
+            "githubUsername": "ksm2"
+        }
+    ]
+}

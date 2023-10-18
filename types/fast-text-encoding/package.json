@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fast-text-encoding",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/samthor/fast-text-encoding#readme"
+    ],
+    "devDependencies": {
+        "@types/fast-text-encoding": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ciarán Ingle",
+            "githubUsername": "inglec-arista"
+        }
+    ]
+}

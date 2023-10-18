@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/cookie-parser",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/expressjs/cookie-parser"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/cookie-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Santi Albo",
+            "githubUsername": "santialbo"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

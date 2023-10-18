@@ -1,8 +1,3 @@
-// Type definitions for node-postal 1.1
-// Project: https://github.com/openvenues/node-postal
-// Definitions by: João Carmo <https://github.com/joaocarmo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Source: https://github.com/openvenues/libpostal#parser-labels
 export type PostalLabels =
     | "category"

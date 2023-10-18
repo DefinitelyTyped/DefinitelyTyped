@@ -1,8 +1,3 @@
-// Type definitions for cytoscape-canvas 3.0
-// Project: https://github.com/classcraft/cytoscape.js-canvas
-// Definitions by: Musa <https://github.com/hellomusa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import cytoscape = require("cytoscape");
 
 declare const cyCanvas: cytoscape.Ext;

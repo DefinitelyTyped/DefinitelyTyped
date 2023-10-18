@@ -1,8 +1,3 @@
-// Type definitions for eccrypto 1.1
-// Project: https://github.com/bitchan/eccrypto
-// Definitions by: Random Nerd <https://github.com/randomnerd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 /// <reference types="node" />
 export as namespace eccrypto;
 

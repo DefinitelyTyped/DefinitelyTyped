@@ -184,13 +184,13 @@ Per l'esempio di un buon package, guarda [base64-js](https://github.com/Definite
 
 Quando un package [include](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) i suoi dichiarazioni, esse dovrebbero venire rimosse da Definitely Typed per evitare di far confusione.
 
-Puoi rimuoverli eseguendo `npm run not-needed -- <nome-package> <versione> [<nome-libreria>]`.
+Puoi rimuoverli eseguendo `pnpm run not-needed -- <nome-package> <versione> [<nome-libreria>]`.
 * `<nome-package>`: È il nome della cartella da rimuovere.
 * `<versione>`: Verrà pubblicato uno stab su `@types/<nome-package>` con questa versione. Dev'essere più alto della versione attualmente pubblicata e deve essere una versione di `<ome-libreria>` su npm.
 * `<nome-libreria>`: Nome del package npm che sostituisce il package DT. Solitamente è identioc a `<nome-package>` e puoi ometterlo.
 
 Qualunque altro package di Definitely Typed che si riferisce ad un altro package DT eliminato dovrebbe venir aggiornato facendolo riferire ai tipi inclusi nel package stesso.
-Puoi farlo controllando gli errori che escono eseguendo `npm run test-all`.
+Puoi farlo controllando gli errori che escono eseguendo `pnpm run test-all`.
 Per correggere gli errori, [aggiungi un `package.json`](#packagejson) con `"dependencies": { "<nome-libreria>": "x.y.z" }`.
 Ad esempio:
 
@@ -335,7 +335,7 @@ Se un file non è nè testato nè riferito nell'`index.d.ts`, aggiungilo in un f
 #### Errori comuni
 
 * Inanzitutto segui i consigli nel [manuale](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
-* Formattazione: Usa 4 spazi. Prettier è abilitato su questa repo, quindi puoi eseguire `npm run prettier -- --write 'path/to/package/**/*.ts'`. [Quando usi le assertion](https://github.com/SamVerschueren/tsd#assertions), aggiungi `// prettier-ignore` per marcare le linee di codice da escludere quando si fa la formattazione:
+* Formattazione: Usa 4 spazi. Prettier è abilitato su questa repo, quindi puoi eseguire `pnpm run prettier -- --write 'path/to/package/**/*.ts'`. [Quando usi le assertion](https://github.com/SamVerschueren/tsd#assertions), aggiungi `// prettier-ignore` per marcare le linee di codice da escludere quando si fa la formattazione:
 
   ```tsx
     // prettier-ignore
@@ -420,7 +420,7 @@ Questo significa che non vanno bene e noi non ce ne siamo ancora accorti. Puoi c
 
 #### Posso cambiare/imporre una specifica formattazione per alcuni moduli?
 
-No. Abbiamo già provato ad avere una formattazione consistente dei package ma siamo arrivati ad un vicolo cieco data la mole di attività sulla repo. Noi alleghiamo delle impostazioni di formattazione attraverso i file [`.editorconfig`](.editorconfig) e [`.prettierrc.json`](.prettierrc.json). Questi sono esclusivamente per il tuo editor, le loro impostazioni non vanno in conflitto e non abbiamo in piano di modificarle. Né tantomeno abbiamo in piano di imporre uno stile specifico nella repository. Vogliamo tenere le barriere per le contribuzioni basse.
+No. Abbiamo già provato ad avere una formattazione consistente dei package ma siamo arrivati ad un vicolo cieco data la mole di attività sulla repo. Noi alleghiamo delle impostazioni di formattazione attraverso i file [`.editorconfig`](.editorconfig). Questi sono esclusivamente per il tuo editor, le loro impostazioni non vanno in conflitto e non abbiamo in piano di modificarle. Né tantomeno abbiamo in piano di imporre uno stile specifico nella repository. Vogliamo tenere le barriere per le contribuzioni basse.
 
 ####  Posso chiedere che venga implementata una definizione per un modulo che non le ha ancora?
 

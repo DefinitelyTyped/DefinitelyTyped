@@ -1,9 +1,3 @@
-// Type definitions for staticmaps 1.12
-// Project: https://github.com/StephanGeorg/staticmaps#readme
-// Definitions by: Olivier Kamers <https://github.com/olivierkamers>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { FitEnum, JpegOptions, OutputOptions, PngOptions, WebpOptions } from "sharp";
 
 declare class StaticMaps {

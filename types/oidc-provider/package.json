@@ -1,4 +1,22 @@
 {
     "private": true,
-    "type": "module"
+    "name": "@types/oidc-provider",
+    "version": "8.4.9999",
+    "projects": [
+        "https://github.com/panva/node-oidc-provider"
+    ],
+    "type": "module",
+    "dependencies": {
+        "@types/koa": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/oidc-provider": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Filip Skokan",
+            "githubUsername": "panva"
+        }
+    ]
 }

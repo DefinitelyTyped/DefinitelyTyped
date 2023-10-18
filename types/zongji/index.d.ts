@@ -1,8 +1,3 @@
-// Type definitions for zongji 0.5
-// Project: https://github.com/nevill/zongji
-// Definitions by: Eric Hayes <https://github.com/ejhayes>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import mysql = require("mysql");
 declare namespace ZongJi {
     interface StartOptions {

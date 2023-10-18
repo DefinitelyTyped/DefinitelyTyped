@@ -1,9 +1,3 @@
-// Type definitions for av 0.4
-// Project: https://github.com/audiocogs/aurora.js#readme
-// Definitions by: Candid Dauth <https://github.com/cdauth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference path="./asset.d.ts" />
 /// <reference path="./audioDevice.d.ts" />
 /// <reference path="./baseTypes.d.ts" />

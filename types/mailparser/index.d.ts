@@ -1,9 +1,3 @@
-// Type definitions for mailparser 3.4
-// Project: https://github.com/nodemailer/mailparser
-// Definitions by: Peter Snider <https://github.com/psnider>
-//                 Andrey Volynkin <https://github.com/Avol-V>
-//                 Pior Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
 import StreamModule = require("stream");

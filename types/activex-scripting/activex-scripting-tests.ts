@@ -225,7 +225,7 @@ ${subfolders.map(folderContentsString).join("")}`
         let s = `Drive ${drvPath} - `;
         s += d.VolumeName + "<br>";
         s += `Free Space: ${d.FreeSpace / 1024} Kbytes`;
-        return (s);
+        return s;
     };
 }
 
@@ -239,7 +239,7 @@ ${subfolders.map(folderContentsString).join("")}`
             s += file.Read(1);
         }
         file.Close();
-        return (s);
+        return s;
     };
 }
 

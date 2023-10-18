@@ -5622,7 +5622,8 @@ export interface EnergyBillingTransactionV2 {
             | "CONTROLLED_LOAD"
             | "SOLAR"
             | "AGGREGATE"
-            | "ALL_DAY";
+            | "ALL_DAY"
+            | "EXCESS";
         [k: string]: unknown;
     };
     /**
@@ -5819,7 +5820,8 @@ export interface EnergyBillingTransactionV2 {
             | "SHOULDER2"
             | "CONTROLLED_LOAD"
             | "SOLAR"
-            | "AGGREGATE";
+            | "AGGREGATE"
+            | "ALL_DAY";
         /**
          * The usage for the period in measure unit.  A negative value indicates power generated
          */
@@ -8400,14 +8402,14 @@ export interface MetaPaginated {
 
 export interface RequestAccountIdList {
     data: {
-      /**
-       * Array of specific accountIds to obtain data for
-       */
-      accountIds: string[];
-      [k: string]: unknown;
+        /**
+         * Array of specific accountIds to obtain data for
+         */
+        accountIds: string[];
+        [k: string]: unknown;
     };
     meta?: {
-      [k: string]: unknown;
+        [k: string]: unknown;
     };
     [k: string]: unknown;
 }
@@ -8415,14 +8417,14 @@ export interface RequestAccountIdList {
 /* These are the schema definitions stipulated by the Data Standards Body for the energy api. */
 export interface RequestServicePointIdList {
     data: {
-      /**
-       * Array of specific servicePointIds to obtain data for
-       */
-      servicePointIds: string[];
-      [k: string]: unknown;
+        /**
+         * Array of specific servicePointIds to obtain data for
+         */
+        servicePointIds: string[];
+        [k: string]: unknown;
     };
     meta?: {
-      [k: string]: unknown;
+        [k: string]: unknown;
     };
     [k: string]: unknown;
 }

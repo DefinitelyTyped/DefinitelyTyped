@@ -1,9 +1,3 @@
-// Type definitions for jsonquery 0.1
-// Project: https://github.com/eugeneware/jsonquery
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
 declare function jsonquery<T>(query: jsonquery.Query<T>): NodeJS.ReadWriteStream;

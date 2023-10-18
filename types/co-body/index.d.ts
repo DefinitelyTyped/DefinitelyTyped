@@ -1,8 +1,3 @@
-// Type definitions for co-body 6.1
-// Project: https://github.com/cojs/co-body
-// Definitions by: Joshua DeVinney <https://github.com/geoffreak>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 import * as http from "http";

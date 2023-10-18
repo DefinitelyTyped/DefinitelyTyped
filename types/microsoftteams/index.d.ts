@@ -1,11 +1,3 @@
-// Type definitions for non-npm package microsoftteams 1.9
-// Project: https://github.com/OfficeDev/microsoft-teams-library-js
-// Definitions by: Bhargav Krishna <https://github.com/WrathOfZombies>
-//                 Yuri Dogandjiev <https://github.com/ydogandjiev>
-//                 Serge Aradj <https://github.com/orty>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 interface MessageEvent {
     originalEvent: MessageEvent;
 }

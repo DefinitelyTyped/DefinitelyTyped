@@ -408,8 +408,8 @@ import * as url from "node:url";
 // outgoing http headers
 {
     const headers: http.OutgoingHttpHeaders = {
-        'content-type': 'application/json',
-        'set-cookie': ['type=samurai', 'language=javascript']
+        "content-type": "application/json",
+        "set-cookie": ["type=samurai", "language=javascript"],
     };
 
     headers["access-control-request-headers"] = "content-type, x-custom-header";
@@ -417,8 +417,8 @@ import * as url from "node:url";
     headers.origin = "https://example.com";
     headers["foo"] = "bar"; // custom header
 
-    headers['content-length'] = 100; // numeric header
-    headers['accept-charset'] = ["UTF-8", "windows-1252"]; // array example
+    headers["content-length"] = 100; // numeric header
+    headers["accept-charset"] = ["UTF-8", "windows-1252"]; // array example
 }
 
 // statics

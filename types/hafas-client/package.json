@@ -1,4 +1,18 @@
 {
     "private": true,
-    "type": "module"
+    "name": "@types/hafas-client",
+    "version": "6.1.9999",
+    "projects": [
+        "https://github.com/public-transport/hafas-client"
+    ],
+    "type": "module",
+    "devDependencies": {
+        "@types/hafas-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jürgen Bergmann",
+            "githubUsername": "bergmannjg"
+        }
+    ]
 }

@@ -1,8 +1,3 @@
-// Type definitions for When 2.4.0
-// Project: https://github.com/cujojs/when
-// Definitions by: Derek Cicerone <https://github.com/derekcicerone>, Wim Looman <https://github.com/Nemo157>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function When(): When.Promise<void>;
 declare function When<T>(promiseOrValue: T | When.Promise<T> | When.Thenable<T>): When.Promise<T>;
 declare function When<T, U>(

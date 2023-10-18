@@ -117,9 +117,9 @@ const entry: Module.SourceMapping = smap.findEntry(1, 1);
     const parentURL = "some-url"; // import.meta.url
     Module.register(specifier);
     Module.register(specifier, { parentURL });
-    Module.register(specifier, { parentURL: new URL('data:') });
+    Module.register(specifier, { parentURL: new URL("data:") });
     Module.register(specifier, parentURL);
-    Module.register(specifier, new URL('data:'));
+    Module.register(specifier, new URL("data:"));
 
     const someArrayBuffer = new ArrayBuffer(100);
     Module.register(specifier, {

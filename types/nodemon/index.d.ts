@@ -1,8 +1,3 @@
-// Type definitions for nodemon 1.19
-// Project: http://nodemon.io
-// Definitions by: Emily Marigold Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = nodemon;

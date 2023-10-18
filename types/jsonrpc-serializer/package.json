@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jsonrpc-serializer",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/soggie/jsonrpc-serializer"
+    ],
+    "devDependencies": {
+        "@types/jsonrpc-serializer": "workspace:.",
+        "@types/node-uuid": "*"
+    },
+    "owners": [
+        {
+            "name": "Akim95",
+            "githubUsername": "Akim95"
+        },
+        {
+            "name": "many20",
+            "githubUsername": "many20"
+        }
+    ]
+}

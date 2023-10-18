@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/pinyin-engine",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/aui/pinyin-engine"
+    ],
+    "devDependencies": {
+        "@types/pinyin-engine": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "王合亮",
+            "githubUsername": "xiongxiaoliang"
+        }
+    ]
+}

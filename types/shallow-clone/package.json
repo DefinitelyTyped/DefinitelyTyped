@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/shallow-clone",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/shallow-clone"
+    ],
+    "devDependencies": {
+        "@types/shallow-clone": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "vjee",
+            "githubUsername": "vjee"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/xss-filters",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/yahoo/xss-filters"
+    ],
+    "devDependencies": {
+        "@types/xss-filters": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dave Taylor",
+            "url": "http://davetayls.me"
+        }
+    ]
+}

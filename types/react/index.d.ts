@@ -1,35 +1,3 @@
-// Type definitions for React 18.2
-// Project: https://react.dev/
-// Definitions by: Asana <https://asana.com>
-//                 AssureSign <http://www.assuresign.com>
-//                 Microsoft <https://microsoft.com>
-//                 John Reilly <https://github.com/johnnyreilly>
-//                 Benoit Benezech <https://github.com/bbenezech>
-//                 Patricio Zavolinsky <https://github.com/pzavolinsky>
-//                 Eric Anderson <https://github.com/ericanderson>
-//                 Dovydas Navickas <https://github.com/DovydasNavickas>
-//                 Josh Rutherford <https://github.com/theruther4d>
-//                 Guilherme Hübner <https://github.com/guilhermehubner>
-//                 Ferdy Budhidharma <https://github.com/ferdaber>
-//                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
-//                 Olivier Pascal <https://github.com/pascaloliv>
-//                 Martin Hochel <https://github.com/hotell>
-//                 Frank Li <https://github.com/franklixuefei>
-//                 Jessica Franco <https://github.com/Jessidhia>
-//                 Saransh Kataria <https://github.com/saranshkataria>
-//                 Kanitkorn Sujautra <https://github.com/lukyth>
-//                 Sebastian Silbermann <https://github.com/eps1lon>
-//                 Kyle Scully <https://github.com/zieka>
-//                 Cong Zhang <https://github.com/dancerphil>
-//                 Dimitri Mitropoulos <https://github.com/dimitropoulos>
-//                 JongChan Choi <https://github.com/disjukr>
-//                 Victor Magalhães <https://github.com/vhfmag>
-//                 Dale Tan <https://github.com/hellatan>
-//                 Priyanshu Rav <https://github.com/priyanshurav>
-//                 Dmitry Semigradsky <https://github.com/Semigradsky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 // NOTE: Users of the `experimental` builds of React should add a reference
 // to 'react/experimental' in their project. See experimental.d.ts's top comment
 // for reference and documentation on how exactly to do it.
@@ -3241,7 +3209,8 @@ declare namespace React {
         /**
          * Captures which component contained the exception, and its ancestors.
          */
-        componentStack: string;
+        componentStack?: string | null;
+        digest?: string | null;
     }
 
     // Keep in sync with JSX namespace in ./jsx-runtime.d.ts and ./jsx-dev-runtime.d.ts

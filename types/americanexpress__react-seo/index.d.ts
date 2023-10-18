@@ -1,8 +1,3 @@
-// Type definitions for @americanexpress/react-seo 1.4
-// Project: https://github.com/americanexpress/react-seo
-// Definitions by: Zenoo <https://github.com/Zenoo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Media {
     src: string;
     secureUrl?: string;

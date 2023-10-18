@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/passport-google-oauth2",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/mstade/passport-google-oauth2"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/passport-google-oauth2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Elliot Blackburn",
+            "githubUsername": "bluehatbrit"
+        },
+        {
+            "name": "Mike Francis",
+            "githubUsername": "mikefrancis"
+        }
+    ]
+}

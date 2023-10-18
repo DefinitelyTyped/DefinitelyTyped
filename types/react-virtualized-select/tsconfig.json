@@ -5,21 +5,19 @@
             "es6",
             "dom"
         ],
-        "paths": {
-            "react": ["react/v17"]
-        },
         "jsx": "react",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "react": [
+                "../react/v17/index.d.ts"
+            ]
+        }
     },
     "files": [
         "index.d.ts",

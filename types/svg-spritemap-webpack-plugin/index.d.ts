@@ -1,8 +1,3 @@
-// Type definitions for svg-spritemap-webpack-plugin 4.4
-// Project: https://github.com/cascornelissen/svg-spritemap-webpack-plugin
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { IOptions as GlobOptions } from "glob";

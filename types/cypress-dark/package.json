@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/cypress-dark",
+    "version": "1.8.9999",
+    "projects": [
+        "https://github.com/bahmutov/cypress-dark#readme"
+    ],
     "dependencies": {
         "cypress": "8.5.0"
-    }
+    },
+    "devDependencies": {
+        "@types/cypress-dark": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

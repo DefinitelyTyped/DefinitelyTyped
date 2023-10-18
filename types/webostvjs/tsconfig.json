@@ -1,25 +1,23 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "es6",
-    "lib": [
-        "es6",
-        "dom"
-    ],
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": "../",
-    "typeRoots": ["../"],
-    "types": [],
-    "noImplicitAny": true,
-    "noImplicitThis" : true,
-    "strictNullChecks": true,
-    "strictFunctionTypes":true
-  },
-  "files": [
-    "index.d.ts",
-    "test/webOSDev.ts",
-    "test/webOS.ts",
-    "test/mediaOptions.ts"
-  ]
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "types": [],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/webOSDev.ts",
+        "test/webOS.ts",
+        "test/mediaOptions.ts"
+    ]
 }

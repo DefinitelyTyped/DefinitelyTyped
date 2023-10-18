@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/react-css-modules",
+    "version": "4.6.9999",
+    "projects": [
+        "https://github.com/gajus/react-css-modules"
+    ],
+    "devDependencies": {
+        "@types/react": "*",
+        "@types/react-css-modules": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kostya Esmukov",
+            "githubUsername": "KostyaEsmukov"
+        },
+        {
+            "name": "Tadas Dailyda",
+            "githubUsername": "skirsdeda"
+        }
+    ]
+}

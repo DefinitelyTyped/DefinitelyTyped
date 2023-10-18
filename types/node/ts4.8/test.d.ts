@@ -1378,5 +1378,5 @@ declare module "node:test/reporters" {
      * The `junit` reporter outputs test results in a jUnit XML format
      */
     function junit(source: TestEventGenerator): AsyncGenerator<string, void>;
-    export { dot, Spec as spec, tap, junit, TestEvent };
+    export { dot, junit, Spec as spec, tap, TestEvent };
 }

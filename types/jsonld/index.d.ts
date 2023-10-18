@@ -1,9 +1,3 @@
-// Type definitions for jsonld 1.5
-// Project: https://github.com/digitalbazaar/jsonld.js
-// Definitions by: Nathan Shively-Sanders <https://github.com/sandersn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 import { ContextDefinition, JsonLdDocument } from "./jsonld";
 import {
     Frame,

@@ -1499,15 +1499,18 @@ function Argv$commandsWithAsynchronousBuilders() {
                     demandOption: true,
                     describe: "argument",
                     type: "string",
-                })),
-        handler: (argv) => { const arg3: string = argv.arg; }
+                }),
+            ),
+        handler: (argv) => {
+            const arg3: string = argv.arg;
+        },
     }).parseSync();
     // @ts-expect-error
     const arg3: string = argv3.arg;
 }
 
 function Argv$commandHandlersWithExplicitArgTypes() {
-    yargs.command<{ str: string, num: number }>(
+    yargs.command<{ str: string; num: number }>(
         "command <str> <num>",
         "some command",
         () => {},
@@ -1516,10 +1519,10 @@ function Argv$commandHandlersWithExplicitArgTypes() {
             const str = argv.str;
             // $ExpectType number
             const num = argv.num;
-        }
-    ).parseSync(['text', '1']);
+        },
+    ).parseSync(["text", "1"]);
 
-    yargs.command<{ str: string, num: number }>({
+    yargs.command<{ str: string; num: number }>({
         command: "command <str> <num>",
         describe: "some command",
         handler: (argv) => {
@@ -1527,17 +1530,17 @@ function Argv$commandHandlersWithExplicitArgTypes() {
             const str = argv.str;
             // $ExpectType number
             const num = argv.num;
-        }
-    }).parseSync(['text', '1']);
+        },
+    }).parseSync(["text", "1"]);
 
-    yargs.command<{ str: string, num: number }>("command <str> <num>", "some command", {
+    yargs.command<{ str: string; num: number }>("command <str> <num>", "some command", {
         handler: (argv) => {
             // $ExpectType string
             const str = argv.str;
             // $ExpectType number
             const num = argv.num;
-        }
-    }).parseSync(['text', '1']);
+        },
+    }).parseSync(["text", "1"]);
 }
 
 const wait = (n: number) => new Promise(resolve => setTimeout(resolve, n));

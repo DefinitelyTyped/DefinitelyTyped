@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/gulp-cond",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/nfroidure/gulp-cond"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-cond": "workspace:.",
+        "@types/gulp-gzip": "*"
+    },
+    "owners": [
+        {
+            "name": "Martin Badin",
+            "githubUsername": "martin-badin"
+        }
+    ]
+}

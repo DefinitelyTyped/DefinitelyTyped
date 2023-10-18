@@ -30,22 +30,17 @@ declare namespace bricks {
     interface WalletBrickCallbacks<BrickType> extends BrickCallbacks, Submit<BrickType> {}
     interface CardPaymentBrickCallbacks<BrickType> extends BrickCallbacks, Submit<BrickType>, BinChange {}
     interface PaymentBrickCallbacks<BrickType>
-        extends BrickCallbacks,
-            Submit<BrickType>,
-            BinChange,
-            ReviewStepsCallbacks {}
+        extends BrickCallbacks, Submit<BrickType>, BinChange, ReviewStepsCallbacks
+    {}
 
     interface DefaultAddress {
         streetName: string;
         streetNumber: string;
         zipCode: string;
+        complement?: string;
         neighborhood?: string;
         federalUnit?: string;
         city?: string;
-    }
-
-    interface PayerAddress extends Partial<DefaultAddress> {
-        complement?: string;
     }
 
     type EntityType = "individual" | "association";
@@ -55,7 +50,7 @@ declare namespace bricks {
         identification?: PayerIdentification;
         customerId?: string;
         cardsIds?: string[];
-        address?: PayerAddress;
+        address?: Partial<DefaultAddress>;
         firstName?: string;
         lastName?: string;
         entityType?: EntityType;
@@ -330,16 +325,12 @@ declare namespace bricks {
         id: string;
     }
 
-    type FormData<BrickType> = BrickType extends 'cardPayment'
-        ? CardFormData
-        : BrickType extends 'payment'
-        ? PaymentFormData
+    type FormData<BrickType> = BrickType extends "cardPayment" ? CardFormData
+        : BrickType extends "payment" ? PaymentFormData
         : null;
 
-    type AdditionalData<BrickType> = BrickType extends 'cardPayment'
-        ? AdditionalCardFormData
-        : BrickType extends 'payment'
-        ? AdditionalPaymentFormData
+    type AdditionalData<BrickType> = BrickType extends "cardPayment" ? AdditionalCardFormData
+        : BrickType extends "payment" ? AdditionalPaymentFormData
         : null;
 
     interface CardFormData {
@@ -470,12 +461,9 @@ declare namespace bricks {
             containerId: string,
             settings: BrickSettings<BrickType>,
         ): Promise<
-            BrickType extends 'cardPayment'
-                ? CardPaymentController
-                : BrickType extends 'payment'
-                ? PaymentController
-                : BrickType extends 'statusScreen'
-                ? StatusScreenController
+            BrickType extends "cardPayment" ? CardPaymentController
+                : BrickType extends "payment" ? PaymentController
+                : BrickType extends "statusScreen" ? StatusScreenController
                 : WalletController
         >;
     }

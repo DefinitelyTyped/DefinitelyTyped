@@ -1,8 +1,3 @@
-// Type definitions for command-shell-lib 1.0
-// Project: https://github.com/telefonicaid/command-shell-lib
-// Definitions by: Fabian Bäumer <https://github.com/TrueSkrillor>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /** A single command specifying parameters, description and the corresponding handler. */
 export interface Command {
     /**

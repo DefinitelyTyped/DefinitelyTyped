@@ -1,9 +1,4 @@
-// Type definitions for express-legacy-expires 1.0
-// Project: https://github.com/dantman/express-legacy-expires
-// Definitions by: yutak23 <https://github.com/yutak23>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as express from 'express';
+import * as express from "express";
 
 export = expressLegacyExpires;
 

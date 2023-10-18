@@ -1,9 +1,3 @@
-// Type definitions for react-helmet 4.0
-// Project: https://github.com/nfl/react-helmet
-// Definitions by: Evan Bremer <https://github.com/evanbb>, Isman Usoh <https://github.com/isman-usoh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="react" />
 
 import * as React from "react";

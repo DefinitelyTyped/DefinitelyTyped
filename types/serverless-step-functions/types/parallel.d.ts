@@ -1,5 +1,5 @@
-import { Catch, Retry } from './errors';
-import { EndOrNext, JsonObject, Path, ReferencePath, State } from './state';
+import { Catch, Retry } from "./errors";
+import { EndOrNext, JsonObject, Path, ReferencePath, State } from "./state";
 
 export interface Branch {
     StartAt: string;
@@ -16,7 +16,7 @@ export interface Branch {
  * @see https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-parallel-state.html
  */
 export type Parallel = {
-    Type: 'Parallel';
+    Type: "Parallel";
     Comment?: string;
     InputPath?: Path | null;
     OutputPath?: Path | null;

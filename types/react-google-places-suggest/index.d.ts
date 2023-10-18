@@ -1,9 +1,3 @@
-// Type definitions for react-google-places-suggest 3.4
-// Project: https://github.com/xuopled/react-google-places-suggest
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="google.maps" />
 import { Component, ReactNode } from "react";
 

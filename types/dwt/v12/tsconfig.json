@@ -8,15 +8,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "dwt": [
-                "dwt/v12"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

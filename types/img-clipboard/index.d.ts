@@ -1,8 +1,3 @@
-// Type definitions for img-clipboard 1.1
-// Project: https://github.com/kufii/img-clipboard
-// Definitions by: Nigecat <https://github.com/Nigecat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { ExecException } from "child_process";

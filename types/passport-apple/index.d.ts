@@ -1,8 +1,3 @@
-// Type definitions for passport-apple 2.0
-// Project: https://github.com/ananay/passport-apple#readme
-// Definitions by: ytkalan <https://github.com/atomyyyy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Request } from "express";
 import OAuth2Strategy = require("passport-oauth2");
 
@@ -58,7 +53,7 @@ declare namespace AppleStrategy {
     const Strategy: typeof AppleStrategy;
 }
 
-//@ts-ignore AppleStrategy's options type incompatible with OAuth2Strategy's options type
+// @ts-ignore AppleStrategy's options type incompatible with OAuth2Strategy's options type
 declare class AppleStrategy extends OAuth2Strategy {
     constructor(options: AppleStrategy.AuthenticateOptions, verify: AppleStrategy.VerifyFunction);
     constructor(options: AppleStrategy.AuthenticateOptionsWithRequest, verify: AppleStrategy.VerifyFunctionWithRequest);

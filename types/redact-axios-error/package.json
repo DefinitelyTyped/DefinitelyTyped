@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/redact-axios-error",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/tcollinsworth/redact-axios-error#readme"
+    ],
+    "devDependencies": {
+        "@types/redact-axios-error": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Amin Fazl",
+            "githubUsername": "AminFazlMondo"
+        }
+    ]
+}

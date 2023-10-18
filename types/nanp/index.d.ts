@@ -1,8 +1,3 @@
-// Type definitions for nanp v0.3.0
-// Project: https://github.com/weisjohn/nanp
-// Definitions by: Karn Saheb <https://github.com/karn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Nanp {
     /**
      * Test if a string is a North American Number Plan (phone) number.

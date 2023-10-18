@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/blobshape",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/lokesh-coder/blobshape#readme"
+    ],
+    "devDependencies": {
+        "@types/blobshape": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "OyewoleOyedeji",
+            "githubUsername": "OyewoleOyedeji"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for polymer v1.2.6
-// Project: https://github.com/Polymer/polymer
-// Definitions by: Louis Grignon <https://github.com/lgrignon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.4
-
 import { CustomElementConstructor } from "webcomponents.js";
 
 declare global {

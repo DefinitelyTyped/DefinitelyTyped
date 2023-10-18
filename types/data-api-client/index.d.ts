@@ -1,8 +1,3 @@
-// Type definitions for data-api-client 1.2
-// Project: https://github.com/jeremydaly/data-api-client
-// Definitions by: Idan Lottan <https://github.com/idanlo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Minimum TypeScript Version: 3.8
 
 // This is added because aws-sdk depends on @types/node

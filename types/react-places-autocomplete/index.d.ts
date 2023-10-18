@@ -1,12 +1,3 @@
-// Type definitions for react-places-autocomplete 7.2
-// Project: https://github.com/hibiken/react-places-autocomplete/, https://github.com/kenny-hibino/react-places-autocomplete
-// Definitions by: Guilherme Hübner <https://github.com/guilhermehubner>
-//                 Andrew Makarov <https://github.com/r3nya>
-//                 Nokky Goren <https://github.com/ApeNox>
-//                 Aziz Khambati <https://github.com/azizhk>
-//                 Mark Nelissen <https://github.com/marknelissen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
 //
 /// <reference types="google.maps" />
 import * as React from "react";
@@ -41,6 +32,7 @@ export interface PropTypes {
         radius?: number | string | undefined;
         sessionToken?: any;
         types?: string[] | undefined;
+        locationRestriction?: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral | undefined;
     } | undefined;
     debounce?: number | undefined;
     highlightFirstSuggestion?: boolean | undefined;

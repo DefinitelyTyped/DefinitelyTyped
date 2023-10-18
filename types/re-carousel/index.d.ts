@@ -1,8 +1,3 @@
-// Type definitions for re-carousel 2.4
-// Project: https://github.com/amio/re-carousel
-// Definitions by: Josh Kramer <https://github.com/jkjustjoshing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { ComponentType, CSSProperties } from "react";
 
 interface WidgetProps {

@@ -1,10 +1,3 @@
-// Type definitions for gensync 1.0
-// Project: https://github.com/loganfsmyth/gensync
-// Definitions by: Jake Bailey <https://github.com/jakebailey>
-//                 Nicolò Ribaudo <https://github.com/nicolo-ribaudo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
-
 /**
  * Returns a function that can be "awaited" (with `yield*`) in another `gensync` generator
  * function, or executed via

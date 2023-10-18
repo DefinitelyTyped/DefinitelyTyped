@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/ref-array",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/TooTallNate/ref-array"
+    ],
+    "dependencies": {
+        "@types/ref": "*"
+    },
+    "devDependencies": {
+        "@types/ref-array": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paul Loyd",
+            "githubUsername": "loyd"
+        }
+    ]
+}

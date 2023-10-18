@@ -1,8 +1,3 @@
-// Type definitions for convert-excel-to-json 1.7
-// Project: https://github.com/DiegoZoracKy/convert-excel-to-json
-// Definitions by: UNIDY2002 <https://github.com/UNIDY2002>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 interface SheetConfig {

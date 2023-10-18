@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/systemjs",
+    "version": "6.13.9999",
+    "projects": [
+        "https://github.com/systemjs/systemjs"
+    ],
+    "devDependencies": {
+        "@types/systemjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joel Denning",
+            "githubUsername": "joeldenning"
+        }
+    ]
+}

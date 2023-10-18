@@ -2,16 +2,20 @@
     "compilerOptions": {
         "module": "commonjs",
         "jsx": "react",
-        "lib": ["es6", "dom"],
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "react-resizable-tests.tsx"]
+    "files": [
+        "index.d.ts",
+        "react-resizable-tests.tsx"
+    ]
 }

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-dotdir",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/is-dotdir"
+    ],
+    "devDependencies": {
+        "@types/is-dotdir": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

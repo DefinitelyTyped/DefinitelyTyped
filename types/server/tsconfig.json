@@ -9,10 +9,6 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "noUnusedLocals": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

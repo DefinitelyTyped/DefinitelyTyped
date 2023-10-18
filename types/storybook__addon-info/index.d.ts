@@ -1,11 +1,3 @@
-// Type definitions for @storybook/addon-info 5.2
-// Project: https://github.com/storybookjs/storybook
-// Definitions by: Mark Kornblum <https://github.com/mkornblum>
-//                 Mattias Wikstrom <https://github.com/fyrkant>
-//                 Kevin Lee <https://github.com/RunningCoderLee>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 import { DecoratorFunction, Parameters, StoryApi, StoryFn } from "@storybook/addons";
 import { StoryContext } from "@storybook/csf/dist/story";
 import { ComponentType, ReactElement } from "react";

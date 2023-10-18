@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/sc-broker-cluster",
+    "version": "9.0.9999",
+    "projects": [
+        "https://github.com/SocketCluster/sc-broker-cluster"
+    ],
+    "dependencies": {
+        "@types/async": "*",
+        "@types/expirymanager": "*",
+        "@types/fleximap": "*",
+        "@types/sc-broker": "*",
+        "@types/sc-channel": "^1",
+        "@types/socketcluster-server": "*"
+    },
+    "devDependencies": {
+        "@types/sc-broker-cluster": "workspace:.",
+        "@types/ws": "*"
+    },
+    "owners": [
+        {
+            "name": "Daniel Rose",
+            "githubUsername": "DanielRose"
+        }
+    ]
+}

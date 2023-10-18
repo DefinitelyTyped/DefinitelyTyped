@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/slug",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/trott/node-slug"
+    ],
+    "devDependencies": {
+        "@types/slug": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mohamed Hegazy",
+            "githubUsername": "mhegazy"
+        }
+    ]
+}

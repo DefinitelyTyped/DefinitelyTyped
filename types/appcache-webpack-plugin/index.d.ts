@@ -1,9 +1,3 @@
-// Type definitions for appcache-webpack-plugin 1.4
-// Project: https://github.com/lettertwo/appcache-webpack-plugin
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import webpack = require("webpack");
 
 /**

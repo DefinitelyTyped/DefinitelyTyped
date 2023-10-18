@@ -1,6 +1,31 @@
 {
     "private": true,
+    "name": "@types/react-redux-toastr",
+    "version": "7.6.9999",
+    "projects": [
+        "https://github.com/diegoddox/react-redux-toastr"
+    ],
     "dependencies": {
+        "@types/react": "*",
         "redux": "^3.6.0 || ^4.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/react-dom": "*",
+        "@types/react-redux": "*",
+        "@types/react-redux-toastr": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aleksandar Ivanov",
+            "githubUsername": "Smiche"
+        },
+        {
+            "name": "Artyom Stukans",
+            "githubUsername": "artyomsv"
+        },
+        {
+            "name": "Mika Kuitunen",
+            "githubUsername": "kulmajaba"
+        }
+    ]
 }

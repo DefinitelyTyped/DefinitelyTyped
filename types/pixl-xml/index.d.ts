@@ -1,9 +1,3 @@
-// Type definitions for pixl-xml 1.0
-// Project: https://github.com/jhuckaby/pixl-xml
-// Definitions by: Evan Shortiss <https://github.com/evanshortiss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /**
  * Options that can be passed to parse function
  */

@@ -1,8 +1,3 @@
-// Type definitions for concaveman 1.1.0
-// Project: https://github.com/mapbox/concaveman
-// Definitions by: Denis Carriere <https://github.com/DenisCarriere>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare module "concaveman" {
     /**
      * A very fast 2D concave hull algorithm in JavaScript (generates a general outline of a point set).

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/lazy-brush",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/dulnan/lazy-brush#readme"
+    ],
+    "devDependencies": {
+        "@types/lazy-brush": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kamil Socha",
+            "githubUsername": "ksocha"
+        }
+    ]
+}

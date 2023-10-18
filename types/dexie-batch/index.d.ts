@@ -1,8 +1,3 @@
-// Type definitions for dexie-batch 0.4
-// Project: https://github.com/raphinesse/dexie-batch#readme
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Dexie } from "dexie";
 
 declare namespace DexieBatch {

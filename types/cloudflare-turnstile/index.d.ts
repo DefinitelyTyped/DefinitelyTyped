@@ -1,8 +1,3 @@
-// Type definitions for non-npm package Cloudflare Turnstile 0.1
-// Project: https://www.cloudflare.com/products/turnstile
-// Definitions by: Jason Gerbes <https://github.com/jasongerbes>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare const turnstile: Turnstile.Turnstile;
 
 declare namespace Turnstile {

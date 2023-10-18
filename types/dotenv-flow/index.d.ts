@@ -1,9 +1,3 @@
-// Type definitions for dotenv-flow 3.3
-// Project: https://github.com/kerimdzhanov/dotenv-flow
-// Definitions by: Dan Kerimdzhanov <https://github.com/kerimdzhanov>
-//                 James Greenleaf <https://github.com/aMoniker>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface DotenvListFilesOptions {
     /**
      * Node environment (development/test/production/etc,.).

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/mocha-each",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/ryym/mocha-each#readme"
+    ],
+    "dependencies": {
+        "@types/mocha": "*"
+    },
+    "devDependencies": {
+        "@types/mocha-each": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tom Harley",
+            "githubUsername": "magnostherobot"
+        },
+        {
+            "name": "Noah May",
+            "githubUsername": "nmay231"
+        }
+    ]
+}

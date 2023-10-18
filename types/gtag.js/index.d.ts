@@ -1,28 +1,22 @@
-// Type definitions for non-npm package Google gtag.js API
-// Project: https://developers.google.com/gtagjs
-// Definitions by:  Junyoung Choi <https://github.com/rokt33r>
-//                  Lucas Akira Uehara <https://github.com/KsAkira10>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var gtag: Gtag.Gtag;
 declare namespace Gtag {
-    interface Gtag {
-        (command: "config", targetId: string, config?: ControlParams | EventParams | ConfigParams | CustomParams): void;
-        (command: "set", targetId: string, config: CustomParams | boolean | string): void;
-        (command: "set", config: CustomParams): void;
-        (command: "js", config: Date): void;
-        (
-            command: "event",
-            eventName: EventNames | (string & {}),
-            eventParams?: ControlParams | EventParams | CustomParams,
-        ): void;
-        (
-            command: "get",
+    interface GtagCommands {
+        config: [targetId: string, config?: ControlParams | EventParams | ConfigParams | CustomParams];
+        // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+        set: [targetId: string, config: CustomParams | boolean | string] | [config: CustomParams];
+        // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+        js: [config: Date];
+        event: [eventName: EventNames | (string & {}), eventParams?: ControlParams | EventParams | CustomParams];
+        get: [
             targetId: string,
             fieldName: FieldNames | string,
             callback?: (field: string | CustomParams | undefined) => any,
-        ): void;
-        (command: "consent", consentArg: ConsentArg | string, consentParams: ConsentParams): void;
+        ];
+        consent: [consentArg: ConsentArg | (string & {}), consentParams: ConsentParams];
+    }
+
+    interface Gtag {
+        <Command extends keyof GtagCommands>(command: Command, ...args: GtagCommands[Command]): void;
     }
 
     interface ConfigParams {

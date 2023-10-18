@@ -1,9 +1,3 @@
-// Type definitions for @agiledigital/mule-preview 2.1
-// Project: https://github.com/agiledigital/mule-preview
-// Definitions by: Sean Dawson <https://github.com/NoxHarmonium>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 import * as React from "react";
 
 export interface MulePreviewDiffUrlProps {

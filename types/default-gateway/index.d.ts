@@ -1,11 +1,3 @@
-// Type definitions for default-gateway 7.2
-// Project: https://github.com/silverwind/default-gateway#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-//                 Michele Della Mea <https://github.com/ArcaneDiver>
-//                 Junxiao Shi <https://github.com/yoursunny>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.5
-
 export function gateway4async(): Promise<Result<4>>;
 export function gateway6async(): Promise<Result<6>>;
 export function gateway4sync(): Result<4>;

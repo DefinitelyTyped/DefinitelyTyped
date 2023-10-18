@@ -1,6 +1,30 @@
 {
     "private": true,
+    "name": "@types/styled-theming",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/styled-components/styled-theming#readme"
+    ],
     "dependencies": {
+        "@types/styled-components": "*",
         "csstype": "^3.0.2"
-    }
+    },
+    "devDependencies": {
+        "@types/react": "*",
+        "@types/styled-theming": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Arjan Jassal",
+            "githubUsername": "ArjanJ"
+        },
+        {
+            "name": "Hieu Ho",
+            "githubUsername": "hieuhlc"
+        },
+        {
+            "name": "David Daniell",
+            "githubUsername": "tinynumbers"
+        }
+    ]
 }

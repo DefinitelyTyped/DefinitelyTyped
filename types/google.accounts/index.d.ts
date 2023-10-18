@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Google Identity Services JavaScript SDK 0.0
-// Project: https://developers.google.com/identity/oauth2/web/reference/js-reference
-//     https://developers.google.com/identity/gsi/web/reference/js-reference
-// Definitions by: Arthur E. Jones <https://github.com/partylich>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace google.accounts {
     namespace oauth2 {
         /**
@@ -644,21 +638,21 @@ declare namespace google.accounts {
             itp_support?: boolean;
 
             /**
-             * An email address or an ID token 'sub' value. Google will use the 
+             * An email address or an ID token 'sub' value. Google will use the
              * value as a hint of which user to sign in. If successful, account
              * selection is skipped.
              */
             login_hint?: string;
 
             /**
-             * Limits displayed accounts to the provided Workspace domain name.  
-             * Provide a fully qualified domain name or * (wildcard). 
+             * Limits displayed accounts to the provided Workspace domain name.
+             * Provide a fully qualified domain name or * (wildcard).
              */
             hd?: string;
 
             /**
-             * Allow the browser to control user sign-in prompts and mediate the 
-             * sign-in flow between your website and Google. Defaults to false. 
+             * Allow the browser to control user sign-in prompts and mediate the
+             * sign-in flow between your website and Google. Defaults to false.
              */
             use_fedcm_for_prompt?: boolean;
         }

@@ -1,17 +1,21 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6", "dom"],
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "recordrtc-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "recordrtc-tests.ts"
+    ]
 }

@@ -1,6 +1,27 @@
 {
     "private": true,
+    "name": "@types/rdf-validate-shacl",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/zazuko/rdf-validate-shacl#readme"
+    ],
     "dependencies": {
-        "@rdfjs/types": "*"
-    }
-  }
+        "@rdfjs/types": "*",
+        "@types/clownface": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/rdf-ext": "*",
+        "@types/rdf-validate-shacl": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tomasz Pluskiewicz",
+            "githubUsername": "tpluscode"
+        },
+        {
+            "name": "cristianvasquez",
+            "githubUsername": "cristianvasquez"
+        }
+    ]
+}

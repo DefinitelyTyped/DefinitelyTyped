@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/dojo",
+    "version": "1.9.9999",
+    "projects": [
+        "http://dojotoolkit.org"
+    ],
+    "devDependencies": {
+        "@types/dojo": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Van Sickle",
+            "githubUsername": "vansimke"
+        }
+    ]
+}

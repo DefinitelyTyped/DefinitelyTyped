@@ -13,6 +13,7 @@ import {
 import { promisify } from "node:util";
 import { constants, createGzip } from "node:zlib";
 import assert = require("node:assert");
+import { Blob } from "node:buffer";
 import { Http2ServerResponse } from "node:http2";
 import { performance } from "node:perf_hooks";
 import { stdout } from "node:process";
@@ -21,7 +22,6 @@ import { pipeline as pipelinePromise } from "node:stream/promises";
 import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
 import { setInterval as every } from "node:timers/promises";
 import { MessageChannel as NodeMC } from "node:worker_threads";
-import { Blob } from "node:buffer";
 
 // Simplified constructors
 function simplified_stream_ctor_test() {
@@ -497,10 +497,10 @@ async function testConsumers() {
     // $ExpectType Blob
     await blob(r);
 
-    const iterable: AsyncGenerator<Buffer> = async function*(){}();
+    const iterable: AsyncGenerator<Buffer> = async function*() {}();
     await buffer(iterable);
 
-    const iterator: AsyncIterator<Buffer> = { next: () => iterable.next() }
+    const iterator: AsyncIterator<Buffer> = { next: () => iterable.next() };
     // @ts-expect-error
     await buffer(iterator);
 }
@@ -745,5 +745,5 @@ async function testTransferringStreamWithPostMessage() {
 }
 
 {
-    new Blob(['1', '2']).stream().getReader({ mode: 'byob' })
+    new Blob(["1", "2"]).stream().getReader({ mode: "byob" });
 }

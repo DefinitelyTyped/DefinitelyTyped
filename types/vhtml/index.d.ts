@@ -1,8 +1,3 @@
-// Type definitions for vhtml 2.2
-// Project: https://github.com/developit/vhtml
-// Definitions by: pastelmind <https://github.com/pastelmind>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = vhtml;
 
 /**

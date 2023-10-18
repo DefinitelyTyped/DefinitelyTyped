@@ -7,61 +7,61 @@ import {
     SavingsTradeItem,
     SavingsTradeKYCStatusSuccessfulResponse,
     SellFiatTrade,
-} from 'invity-api';
+} from "invity-api";
 
 const bt: BuyTrade = {
-    paymentMethodName: 'Test',
+    paymentMethodName: "Test",
 };
 
 const et: ExchangeTrade = {};
 
 const sft: SellFiatTrade = {
-    paymentMethodName: 'Test',
+    paymentMethodName: "Test",
     destinationPaymentExtraIdDescription: {
-        description: '',
-        name: '',
+        description: "",
+        name: "",
         required: true,
-        type: 'number',
+        type: "number",
     },
 };
 
-const svt: SavingsTrade = { exchange: '', reauthorizationUrl: '' };
+const svt: SavingsTrade = { exchange: "", reauthorizationUrl: "" };
 
 const savingsTradeItem: SavingsTradeItem = {
-    paymentMethodName: 'Bank transfer',
-    id: '',
-    savingsTradeId: '',
-    exchange: '',
-    status: 'InProgress',
-    receiveAddress: '',
-    fiatStringAmount: '',
-    fiatCurrency: '',
-    receiveStringAmount: '',
-    receiveCurrency: '',
-    paymentMethod: 'bankTransfer',
-    created: '',
+    paymentMethodName: "Bank transfer",
+    id: "",
+    savingsTradeId: "",
+    exchange: "",
+    status: "InProgress",
+    receiveAddress: "",
+    fiatStringAmount: "",
+    fiatCurrency: "",
+    receiveStringAmount: "",
+    receiveCurrency: "",
+    paymentMethod: "bankTransfer",
+    created: "",
 };
 
 const p2pQuote: P2pQuote = {
-    provider: '',
-    id: '',
-    assetCode: '',
-    title: '',
-    currency: '',
-    price: '',
-    amountRange: { maximum: '0', minimum: '0' },
+    provider: "",
+    id: "",
+    assetCode: "",
+    title: "",
+    currency: "",
+    price: "",
+    amountRange: { maximum: "0", minimum: "0" },
     paymentWindowMinutes: 0,
     paymentMethods: [],
     confirmations: 0,
-    trader: { name: '', numberOfTrades: 0, onlineStatus: 'OFFLINE', rating: '' },
+    trader: { name: "", numberOfTrades: 0, onlineStatus: "OFFLINE", rating: "" },
 };
 const p2pTrade: P2pTradeRequest = {
     quotesRequest: {
-        amount: '',
-        currency: '',
-        assetCode: '',
+        amount: "",
+        currency: "",
+        assetCode: "",
     },
     selectedQuote: p2pQuote,
 };
 
-const stKYCInProgress: SavingsTradeKYCStatusSuccessfulResponse = { kycStatus: 'InProgress' };
+const stKYCInProgress: SavingsTradeKYCStatusSuccessfulResponse = { kycStatus: "InProgress" };

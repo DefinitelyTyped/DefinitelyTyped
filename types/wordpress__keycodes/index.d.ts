@@ -1,9 +1,3 @@
-// Type definitions for @wordpress/keycodes 2.3
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/keycodes/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export const BACKSPACE = 8;
 export const TAB = 9;
 export const ENTER = 13;

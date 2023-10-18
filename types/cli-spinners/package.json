@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/cli-spinners",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/sindresorhus/cli-spinners#readme"
+    ],
+    "devDependencies": {
+        "@types/cli-spinners": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

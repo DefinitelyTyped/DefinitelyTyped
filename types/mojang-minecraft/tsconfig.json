@@ -1,20 +1,20 @@
 {
-  "compilerOptions": {
-      "module": "commonjs",
-      "lib": ["es6"],
-      "target": "es6",
-      "forceConsistentCasingInFileNames": true,
-      "noEmit": true,
-      "noImplicitAny": true,
-      "noImplicitThis": true,
-      "strictFunctionTypes": true,
-      "strictNullChecks": true,
-      "baseUrl": "../",
-      "typeRoots": ["../"],
-      "types": []
-  },
-  "files": [
-      "index.d.ts",
-      "mojang-minecraft-tests.ts"
-  ]
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "target": "es6",
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": []
+    },
+    "files": [
+        "index.d.ts",
+        "mojang-minecraft-tests.ts"
+    ]
 }

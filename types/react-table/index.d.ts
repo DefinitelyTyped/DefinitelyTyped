@@ -1,12 +1,3 @@
-// Type definitions for react-table 7.7
-// Project: https://github.com/tannerlinsley/react-table
-// Definitions by: Guy Gascoigne-Piggford <https://github.com/ggascoigne>,
-//                 Rohit Garg <https://github.com/gargroh>
-//                 Jason Clark <https://github.com/riceboyler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-// reflects react-table@7.7.0
-
 // tslint:disable:no-empty-interface
 // no-empty-interface is disabled to allow easy extension with declaration merging
 

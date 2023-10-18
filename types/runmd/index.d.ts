@@ -1,8 +1,3 @@
-// Type definitions for runmd 1.3
-// Project: https://github.com/broofa/runmd
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Render RunMD-compatible markdown file
  * @param inputText - text to transform

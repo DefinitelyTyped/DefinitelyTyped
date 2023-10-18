@@ -1,7 +1,57 @@
 {
     "private": true,
+    "name": "@types/redux-first-router",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/faceyspacey/redux-first-router#readme"
+    ],
     "dependencies": {
         "@types/history": "^4.7.11",
         "redux": "^4.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/redux-first-router": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Valbrand",
+            "githubUsername": "Valbrand"
+        },
+        {
+            "name": "viggyfresh",
+            "githubUsername": "viggyfresh"
+        },
+        {
+            "name": "janb87",
+            "githubUsername": "janb87"
+        },
+        {
+            "name": "corydeppen",
+            "githubUsername": "corydeppen"
+        },
+        {
+            "name": "jscinoz",
+            "githubUsername": "jscinoz"
+        },
+        {
+            "name": "surgeboris",
+            "githubUsername": "surgeboris"
+        },
+        {
+            "name": "geirsagberg",
+            "githubUsername": "geirsagberg"
+        },
+        {
+            "name": "Harry Hedger",
+            "githubUsername": "hedgerh"
+        },
+        {
+            "name": "Adam Rich",
+            "githubUsername": "adam1658"
+        },
+        {
+            "name": "Karl-Aksel Puulmann",
+            "githubUsername": "macobo"
+        }
+    ]
 }

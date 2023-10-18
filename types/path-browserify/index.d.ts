@@ -1,8 +1,3 @@
-// Type definitions for path-browserify 1.0
-// Project: https://github.com/browserify/path-browserify
-// Definitions by: Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace path {
     interface PathObject {
         root: string;

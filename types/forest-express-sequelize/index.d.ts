@@ -1,9 +1,3 @@
-// Type definitions for forest-express-sequelize 7.5
-// Project: http://www.forestadmin.com
-// Definitions by: Steve Bunlon <https://github.com/SteveBunlon>
-//                 Guillaume Gautreau <https://github.com/ghusse>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Application, NextFunction, Request, RequestHandler, Response } from "express";
 import { Sequelize, SequelizeStatic } from "sequelize";
 

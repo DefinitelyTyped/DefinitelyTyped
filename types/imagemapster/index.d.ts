@@ -1,8 +1,3 @@
-// Type definitions for imagemapster 1.2.10
-// Project: http://www.outsharked.com/imagemapster/
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import jQuery = require("jquery");
 
 declare global {

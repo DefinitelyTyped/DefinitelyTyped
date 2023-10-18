@@ -1,8 +1,3 @@
-// Type definitions for popup-window 1.0
-// Project: https://github.com/webdeveric/popup-window#readme
-// Definitions by: Aram Khachatrian <https://github.com/aramwram>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface PopupWindowConfig {
     name?: string | undefined;
     width?: number | undefined;

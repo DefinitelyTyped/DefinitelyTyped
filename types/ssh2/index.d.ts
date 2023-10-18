@@ -1,14 +1,3 @@
-// Type definitions for ssh2 1.11
-// Project: https://github.com/mscdex/ssh2
-// Definitions by: Qubo <https://github.com/tkQubo>
-//                 Ron Buckton <https://github.com/rbuckton>
-//                 Will Boyce <https://github.com/wrboyce>
-//                 Tom Xu <https://github.com/hengkx>
-//                 Leo Toneff <https://github.com/bragle>
-//                 Lucian Buzzo <https://github.com/LucianBuzzo>
-//                 Dan Hensby <https://github.com/dhensby>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

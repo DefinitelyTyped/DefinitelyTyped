@@ -1,9 +1,3 @@
-// Type definitions for mjml-core 4.7
-// Project: https://mjml.io
-// Definitions by: Ian Edington       <https://github.com/IanEdington>
-//                 Ryan Burr          <https://github.com/ryanburr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * The main parser for MJML.
  * This version doesn't contain any of the core components registered in the 'mjml' package.

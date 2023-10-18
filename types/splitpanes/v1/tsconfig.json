@@ -9,21 +9,9 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "splitpanes": [
-                "splitpanes/v1"
-            ],
-            "splitpanes/*": [
-                "splitpanes/v1/*"
-            ]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
