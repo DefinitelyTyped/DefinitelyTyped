@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/package-json-validator",
+    "version": "0.6.9999",
+    "projects": [
+        "http://package-json-validator.com"
+    ],
+    "devDependencies": {
+        "@types/package-json-validator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Josh Goldberg",
+            "githubUsername": "JoshuaKGoldberg"
+        }
+    ]
+}
