@@ -1657,6 +1657,7 @@ export namespace WebhooksApi {
         filter?: string | undefined;
         hubId: string;
         projectId?: string | undefined;
+        hookExpiry?: string | undefined;
     }
 }
 
