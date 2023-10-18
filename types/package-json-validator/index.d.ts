@@ -7,14 +7,14 @@ export namespace PJV {
     type SpecType = "array" | "boolean" | "object" | "string";
 
     interface SpecBase {
-        format?: RegExp;
-        recommended?: boolean;
-        required?: boolean;
-        warning?: boolean;
+        format?: RegExp | undefined;
+        recommended?: boolean | undefined;
+        required?: boolean | undefined;
+        warning?: boolean | undefined;
     }
 
     interface FieldSpecWithType extends SpecBase {
-        type?: SpecType;
+        type?: SpecType | undefined;
     }
 
     interface FieldSpecWithTypes extends SpecBase {
@@ -34,9 +34,9 @@ export namespace PJV {
     type JsonSpecName = "npm" | "commonjs_1.0" | "commonjs_1.1";
 
     interface ValidationOptions {
-        errors?: boolean;
-        recommendations?: boolean;
-        warnings?: boolean;
+        errors?: boolean | undefined;
+        recommendations?: boolean | undefined;
+        warnings?: boolean | undefined;
     }
 
     interface ValidationFailureResult {
