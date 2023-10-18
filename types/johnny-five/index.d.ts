@@ -271,7 +271,7 @@ export class Animation {
     currentSpeed: number;
     fps: number;
 
-    enqueue(segment: any): void;
+    enqueue(segment: AnimationSegment): void;
     play(): void;
     pause(): void;
     stop(): void;
