@@ -33,6 +33,15 @@ access.config(
     true,
 );
 
+// $ExpectType AccessFactory
+access.config(
+    {
+        debug: false,
+        skip_audit_loader: false
+    },
+    true,
+);
+
 //  $ExpectType AccessFactory
 access.config("key", "value", true);
 
