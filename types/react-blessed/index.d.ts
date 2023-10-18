@@ -1,4 +1,3 @@
-// master
 import * as Blessed from "blessed";
 import * as React from "react";
 
