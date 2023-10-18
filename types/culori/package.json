@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/culori",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/Evercoder/culori"
+    ],
+    "devDependencies": {
+        "@types/culori": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bijela Gora",
+            "githubUsername": "bijela-gora"
+        }
+    ]
+}

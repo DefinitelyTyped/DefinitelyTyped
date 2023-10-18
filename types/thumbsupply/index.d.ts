@@ -1,8 +1,3 @@
-// Type definitions for thumbsupply 0.4
-// Project: https://github.com/RyanAfrish7/thumbsupply#readme
-// Definitions by: MagiCzOOz <https://github.com/MagiCzOOz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Options {
     forceCreate?: boolean;
     size?: Size;

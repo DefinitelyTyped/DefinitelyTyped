@@ -1,9 +1,3 @@
-// Type definitions for ZeroClipboard 1.3
-// Project: https://github.com/jonrohan/ZeroClipboard
-// Definitions by: Eric J. Smith <https://github.com/ejsmith>, Blake Niemyjski <https://github.com/niemyjski>, György Balássy <https://github.com/balassy>, Leon Yu <https://github.com/leonyu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare class ZeroClipboard {
     constructor(elements?: Element | { [index: number]: Element }, options?: ZeroClipboardOptions);
 

@@ -1,10 +1,3 @@
-// Type definitions for react-swipeable-views-utils 0.13
-// Project: https://github.com/oliviertassinari/react-swipeable-views#react-swipeable-views
-// Definitions by: Sebastian Silbermann <https://github.com/eps1lon>
-//                 Robert Nisipeanu <https://github.com/robertnisipeanu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import { PropInjector } from "@material-ui/types";
 import * as React from "react";
 import { OnChangeIndexCallback, OnSwitchingCallback, OnTransitionEndCallback } from "react-swipeable-views";

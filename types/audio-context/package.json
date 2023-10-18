@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/audio-context",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/audiojs/audio-context"
+    ],
+    "devDependencies": {
+        "@types/audio-context": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeff Peterson",
+            "githubUsername": "bdjeffyp"
+        }
+    ]
+}

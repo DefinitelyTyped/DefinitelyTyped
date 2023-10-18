@@ -1,8 +1,3 @@
-// Type definitions for geometric 2.5
-// Project: https://github.com/HarryStevens/geometric#readme
-// Definitions by: Linda Paiste <https://github.com/lindapaiste>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace geometric;
 
 // -------------------------------PRIMITIVES-------------------------------------------//

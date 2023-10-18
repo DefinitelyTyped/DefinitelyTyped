@@ -1,8 +1,3 @@
-// Type definitions for ttest 4.0
-// Project: https://github.com/AndreasMadsen/ttest
-// Definitions by: Sebastian Silbermann <https://github.com/eps1lon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = ttest;
 
 declare function ttest(left: number[], options?: Omit<ttest.Options, "varEqual">): ttest.TTest;

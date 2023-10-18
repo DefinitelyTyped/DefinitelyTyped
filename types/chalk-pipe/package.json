@@ -1,6 +1,15 @@
 {
     "private": true,
+    "name": "@types/chalk-pipe",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/LitoMore/chalk-pipe"
+    ],
     "dependencies": {
         "chalk": "^2.4.1"
-    }
+    },
+    "devDependencies": {
+        "@types/chalk-pipe": "workspace:."
+    },
+    "owners": []
 }

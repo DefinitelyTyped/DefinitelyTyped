@@ -1,7 +1,33 @@
 {
     "private": true,
+    "name": "@types/jscodeshift",
+    "version": "0.11.9999",
+    "projects": [
+        "https://github.com/facebook/jscodeshift#readme"
+    ],
     "dependencies": {
         "ast-types": "^0.14.1",
         "recast": "^0.20.3"
-    }
+    },
+    "devDependencies": {
+        "@types/jscodeshift": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Brie Bunge",
+            "githubUsername": "brieb"
+        },
+        {
+            "name": "Brian Jacobel",
+            "githubUsername": "bjacobel"
+        },
+        {
+            "name": "Will Nguyen",
+            "githubUsername": "willtn"
+        },
+        {
+            "name": "Bartosz Szewczyk",
+            "githubUsername": "sztobar"
+        }
+    ]
 }

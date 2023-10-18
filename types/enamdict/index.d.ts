@@ -1,8 +1,3 @@
-// Type definitions for enamdict 0.1
-// Project: https://github.com/jeresig/node-enamdict#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * A module for efficiently querying name records from `ENAMDICT` (A Japanese-English mapping of proper names).
  * Specifically this module is designed for the use case of finding a good English/Kana/Kanji mapping for given names and surnames.

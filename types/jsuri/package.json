@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/jsuri",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/derek-watson/jsUri"
+    ],
+    "devDependencies": {
+        "@types/jsuri": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Charabaruk",
+            "githubUsername": "coldacid"
+        },
+        {
+            "name": "Florian Wagner",
+            "githubUsername": "flqw"
+        }
+    ]
+}

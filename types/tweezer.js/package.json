@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/tweezer.js",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/jaxgeller/tweezer.js"
+    ],
+    "devDependencies": {
+        "@types/tweezer.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lindsey Smith",
+            "githubUsername": "praxxis"
+        }
+    ]
+}

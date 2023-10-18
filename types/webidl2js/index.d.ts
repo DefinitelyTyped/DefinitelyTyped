@@ -1,9 +1,3 @@
-// Type definitions for webidl2js 16.0
-// Project: https://github.com/jsdom/webidl2js#readme
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import { AttributeMemberType } from "webidl2";
 
 declare class Transformer {

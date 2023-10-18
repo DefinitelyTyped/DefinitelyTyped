@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/byte-size",
+    "version": "8.1.9999",
+    "projects": [
+        "https://github.com/75lb/byte-size#readme"
+    ],
+    "devDependencies": {
+        "@types/byte-size": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "lntel",
+            "githubUsername": "lntel"
+        }
+    ]
+}

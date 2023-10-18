@@ -1,8 +1,3 @@
-// Type definitions for tap 15.0
-// Project: https://github.com/tapjs/node-tap
-// Definitions by: zkldi <https://github.com/zkldi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TODO: can be removed as soon as https://github.com/tapjs/node-tap/pull/607 is merged
 
 /// <reference types="node" />

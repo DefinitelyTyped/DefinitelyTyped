@@ -1,10 +1,3 @@
-// Type definitions for non-npm package zchat-browser 1.112
-// Project: https://api.zopim.com/web-sdk/#introduction
-// Definitions by: David Copley <https://github.com/davidcopley>
-//                 Matthew Go <https://github.com/lezgomatt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export as namespace zChat;
 
 export interface InitOptions {

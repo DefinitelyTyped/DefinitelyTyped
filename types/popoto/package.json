@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/popoto",
+    "version": "3.0.9999",
+    "projects": [
+        "https://popotojs.com/"
+    ],
     "dependencies": {
+        "@types/d3": "*",
         "neo4j-driver-lite": "^4.3.3"
-    }
+    },
+    "devDependencies": {
+        "@types/popoto": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Omar Almalol",
+            "githubUsername": "alma3lol"
+        }
+    ]
 }

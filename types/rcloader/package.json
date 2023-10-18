@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/rcloader",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/spalger/rcloader"
+    ],
+    "devDependencies": {
+        "@types/rcloader": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Panu Horsmalahti",
+            "githubUsername": "panuhorsmalahti"
+        }
+    ]
+}

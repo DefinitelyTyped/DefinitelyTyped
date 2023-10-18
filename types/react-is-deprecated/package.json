@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-is-deprecated",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/Aweary/react-is-deprecated"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/prop-types": "*",
+        "@types/react-is-deprecated": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sean Kelley",
+            "githubUsername": "seansfkelley"
+        }
+    ]
+}

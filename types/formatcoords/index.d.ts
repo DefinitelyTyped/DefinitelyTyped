@@ -1,8 +1,3 @@
-// Type definitions for formatcoords 1.1
-// Project: https://github.com/nerik/formatcoords
-// Definitions by: Vít Stanislav <https://github.com/slaweet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface CoordsFormatOptions {
     latLonSeparator?: string;
     decimalPlaces?: number;

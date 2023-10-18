@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/styled-react-modal",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/AlexanderRichey/styled-react-modal"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/styled-components": "*"
+    },
+    "devDependencies": {
+        "@types/styled-react-modal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Greg Perlman",
+            "githubUsername": "gperl27"
+        }
+    ]
+}

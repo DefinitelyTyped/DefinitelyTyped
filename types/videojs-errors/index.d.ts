@@ -1,8 +1,3 @@
-// Type definitions for videojs-errors 4.5
-// Project: https://github.com/brightcove/videojs-errors#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // eslint-disable-next-line @definitelytyped/no-import-default-of-export-equals
 import videojs from "video.js";
 

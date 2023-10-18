@@ -1,8 +1,3 @@
-// Type definitions for dmx 0.2
-// Project: https://github.com/node-dmx/dmx#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { EventEmitter } from "stream";
 

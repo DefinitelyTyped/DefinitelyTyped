@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/merge-descriptors",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/component/merge-descriptors"
+    ],
+    "devDependencies": {
+        "@types/merge-descriptors": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Zhiyuan Wang",
+            "githubUsername": "danny8002"
+        }
+    ]
+}

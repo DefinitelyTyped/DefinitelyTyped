@@ -1,8 +1,3 @@
-// Type definitions for node-summary 1.2
-// Project: https://github.com/jbrooksuk/node-summary
-// Definitions by: manuzcheruz <https://github.com/manuzcheruz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * summarize content from a url such as a blog post.
  * @param url

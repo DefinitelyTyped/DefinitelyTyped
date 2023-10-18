@@ -1,8 +1,3 @@
-// Type definitions for struct 0.0
-// Project: https://github.com/xdenser/node-struct#readme
-// Definitions by: Ben Allfree <https://github.com/benallfree>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics

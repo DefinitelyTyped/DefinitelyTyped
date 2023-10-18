@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/http-build-query",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/vladzadvorny/http-build-query"
+    ],
+    "devDependencies": {
+        "@types/http-build-query": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex Ungureanu",
+            "githubUsername": "alexu740"
+        }
+    ]
+}

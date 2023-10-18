@@ -1,8 +1,3 @@
-// Type definitions for jiff 0.7
-// Project: https://github.com/cujojs/jiff#readme
-// Definitions by: Daniel Kneip <https://github.com/daedal-knickerbockers>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace jiff {
     type JSONArray = JSONValue[];
     type JSONObject = object;

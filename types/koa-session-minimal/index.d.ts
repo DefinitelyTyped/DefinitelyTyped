@@ -1,9 +1,3 @@
-// Type definitions for koa-session-minimal v3.x
-// Project: https://github.com/longztian/koa-session-minimal
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /* =================== USAGE ===================
 
     import * as Koa from "koa";

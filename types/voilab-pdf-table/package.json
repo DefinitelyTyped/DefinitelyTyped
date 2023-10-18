@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/voilab-pdf-table",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/voilab/voilab-pdf-table"
+    ],
+    "dependencies": {
+        "@types/pdfkit": "*"
+    },
+    "devDependencies": {
+        "@types/voilab-pdf-table": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Sousa",
+            "githubUsername": "danielb7390"
+        }
+    ]
+}

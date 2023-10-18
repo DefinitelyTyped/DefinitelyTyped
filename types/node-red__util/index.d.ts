@@ -1,10 +1,3 @@
-// Type definitions for @node-red/util 1.3
-// Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/%40node-red/util, https://nodered.org/
-// Definitions by: Alex Kaul <https://github.com/alexk111>
-//                 Tadeusz Wyrzykowski <https://github.com/Shaquu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.7
-
 import { EventEmitter } from "events";
 import { Expression as JsonataExpression } from "jsonata";
 

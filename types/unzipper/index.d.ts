@@ -1,10 +1,3 @@
-// Type definitions for unzipper 0.10
-// Project: https://github.com/ZJONSSON/node-unzipper#readme
-// Definitions by: s73obrien <https://github.com/s73obrien>
-//                 Bart <https://github.com/bartje321>
-//                 Ken Human <https://github.com/kenhuman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 /// <reference types="node" />
 
 import { ClientRequest, RequestOptions } from "http";

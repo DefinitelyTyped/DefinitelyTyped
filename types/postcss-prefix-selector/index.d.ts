@@ -1,7 +1,3 @@
-// Type definitions for postcss-prefix-selector 1.16
-// Project: https://github.com/RadValentin/postcss-prefix-selector
-// Definitions by: robertmaier <https://github.com/robertmaier>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/types/postcss-prefix-selector
 import { Root } from "postcss";
 
 interface Options {

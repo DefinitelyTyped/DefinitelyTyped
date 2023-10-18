@@ -1,4 +1,21 @@
 {
     "private": true,
-    "type": "module"
+    "name": "@types/tadashi__koa-jwt-authz",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/lagden/koa-jwt-authz#readme"
+    ],
+    "type": "module",
+    "dependencies": {
+        "@types/koa": "*"
+    },
+    "devDependencies": {
+        "@types/tadashi__koa-jwt-authz": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrea Giurgola",
+            "githubUsername": "Shqrp"
+        }
+    ]
 }

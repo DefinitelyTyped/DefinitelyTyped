@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/use-set-interval",
+    "version": "1.0.9999",
+    "projects": [
+        "https://reacthooks.org/use-set-interval"
+    ],
+    "devDependencies": {
+        "@types/react": "*",
+        "@types/use-set-interval": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Rackerseder",
+            "githubUsername": "screendriver"
+        }
+    ]
+}

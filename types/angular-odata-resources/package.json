@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/angular-odata-resources",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/devnixs/ODataAngularResources"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/angular-odata-resources": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Raphael ATALLAH",
+            "url": "http://raphael.atallah.me"
+        }
+    ]
+}

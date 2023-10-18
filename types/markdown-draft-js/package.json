@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/markdown-draft-js",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/Rosey/markdown-draft-js#readme"
+    ],
+    "dependencies": {
+        "@types/draft-js": "*"
+    },
+    "devDependencies": {
+        "@types/markdown-draft-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yuri Drabik",
+            "githubUsername": "yurist38"
+        }
+    ]
+}

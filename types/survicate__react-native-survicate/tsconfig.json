@@ -8,15 +8,6 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "@survicate/*": [
-                "survicate__*"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

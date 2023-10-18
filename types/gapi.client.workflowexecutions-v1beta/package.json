@@ -1,6 +1,30 @@
 {
-  "private": true,
-  "dependencies": {
-    "@maxim_mazurok/gapi.client.workflowexecutions-v1beta": "latest"
-  }
+    "private": true,
+    "name": "@types/gapi.client.workflowexecutions-v1beta",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Workflow Executions API v1beta",
+    "projects": [
+        "https://cloud.google.com/workflows"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.workflowexecutions-v1beta": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.workflowexecutions-v1beta": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
 }

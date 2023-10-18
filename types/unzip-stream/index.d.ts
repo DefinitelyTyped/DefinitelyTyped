@@ -1,8 +1,3 @@
-// Type definitions for unzip-stream 0.3
-// Project: https://github.com/mhr3/unzip-stream#readme
-// Definitions by: Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { PassThrough } from "stream";

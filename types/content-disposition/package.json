@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/content-disposition",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/jshttp/content-disposition"
+    ],
+    "devDependencies": {
+        "@types/content-disposition": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Stefan Reichel",
+            "githubUsername": "bomret"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/ko.plus",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/stevegreatrex/ko.plus"
+    ],
+    "dependencies": {
+        "@types/knockout": "*"
+    },
+    "devDependencies": {
+        "@types/ko.plus": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Howard Richards",
+            "githubUsername": "conficient"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/onesignal-cordova-plugin",
+    "version": "2.6.9999",
+    "projects": [
+        "https://github.com/onesignal/OneSignal-Cordova-SDK#readme"
+    ],
+    "devDependencies": {
+        "@types/onesignal-cordova-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "David Broder-Rodgers",
+            "githubUsername": "broder"
+        },
+        {
+            "name": "Vaclav Novotny",
+            "githubUsername": "vaclavnovotny"
+        }
+    ]
+}

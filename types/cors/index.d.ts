@@ -1,10 +1,3 @@
-// Type definitions for cors 2.8
-// Project: https://github.com/expressjs/cors/
-// Definitions by: Alan Plum <https://github.com/pluma>
-//                 Gaurav Sharma <https://github.com/gtpan77>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
 import { IncomingHttpHeaders } from "http";

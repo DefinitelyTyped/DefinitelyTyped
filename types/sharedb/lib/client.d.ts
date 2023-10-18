@@ -10,8 +10,8 @@ export class Connection extends ShareDB.TypedEmitter<ShareDB.ConnectionEventMap>
     // state on the agent and read it in middleware
     agent: Agent | null;
 
-    collections: Record<string, Record<string, Doc>>;
-    queries: Record<string, Query>;
+    collections: Record<string, Record<string, ShareDB.Doc>>;
+    queries: Record<string, ShareDB.Query>;
 
     seq: number;
     id: string | null; // Equals agent.src on the server
@@ -23,19 +23,19 @@ export class Connection extends ShareDB.TypedEmitter<ShareDB.ConnectionEventMap>
     debug: boolean;
 
     close(): void;
-    get(collectionName: string, documentID: string): Doc;
+    get(collectionName: string, documentID: string): ShareDB.Doc;
     createFetchQuery<T = any>(
         collectionName: string,
         query: any,
-        options?: { results?: Array<Doc<T>> } | null,
-        callback?: (err: Error, results: Array<Doc<T>>) => void,
-    ): Query<T>;
+        options?: { results?: Array<ShareDB.Doc<T>> } | null,
+        callback?: (err: Error, results: Array<ShareDB.Doc<T>>) => void,
+    ): ShareDB.Query<T>;
     createSubscribeQuery<T = any>(
         collectionName: string,
         query: any,
-        options?: { results?: Array<Doc<T>> } | null,
-        callback?: (err: Error, results: Array<Doc<T>>) => void,
-    ): Query<T>;
+        options?: { results?: Array<ShareDB.Doc<T>> } | null,
+        callback?: (err: Error, results: Array<ShareDB.Doc<T>>) => void,
+    ): ShareDB.Query<T>;
     fetchSnapshot(
         collection: string,
         id: string,
@@ -48,8 +48,8 @@ export class Connection extends ShareDB.TypedEmitter<ShareDB.ConnectionEventMap>
         timestamp: number | null,
         callback: (error: Error, snapshot: ShareDB.Snapshot) => void,
     ): void;
-    getPresence(channel: string): Presence;
-    getDocPresence(collection: string, id: string): Presence;
+    getPresence(channel: string): ShareDB.Presence;
+    getDocPresence(collection: string, id: string): ShareDB.Presence;
 
     /**
      * Returns whether anything in this client is either:
@@ -77,27 +77,29 @@ export class Connection extends ShareDB.TypedEmitter<ShareDB.ConnectionEventMap>
 
     ping(): void;
 }
-export type Doc<T = any> = ShareDB.Doc<T>;
-export type Snapshot<T = any> = ShareDB.Snapshot<T>;
-export type Query<T = any> = ShareDB.Query<T>;
-export type Presence<T = any> = ShareDB.Presence<T>;
-export type LocalPresence<T = any> = ShareDB.LocalPresence<T>;
-export type Error = ShareDB.Error;
-export type Op = ShareDB.Op;
-export type AddNumOp = ShareDB.AddNumOp;
-export type ListMoveOp = ShareDB.ListMoveOp;
-export type ListInsertOp = ShareDB.ListInsertOp;
-export type ListDeleteOp = ShareDB.ListDeleteOp;
-export type ListReplaceOp = ShareDB.ListReplaceOp;
-export type StringInsertOp = ShareDB.StringInsertOp;
-export type StringDeleteOp = ShareDB.StringDeleteOp;
-export type ObjectInsertOp = ShareDB.ObjectInsertOp;
-export type ObjectDeleteOp = ShareDB.ObjectDeleteOp;
-export type ObjectReplaceOp = ShareDB.ObjectReplaceOp;
-export type SubtypeOp = ShareDB.SubtypeOp;
 
-export type Path = ShareDB.Path;
-export type ShareDBSourceOptions = ShareDB.ShareDBSourceOptions;
+export {
+    AddNumOp,
+    Doc,
+    Error,
+    ListDeleteOp,
+    ListInsertOp,
+    ListMoveOp,
+    ListReplaceOp,
+    LocalPresence,
+    ObjectDeleteOp,
+    ObjectInsertOp,
+    ObjectReplaceOp,
+    Op,
+    Path,
+    Presence,
+    Query,
+    ShareDBSourceOptions,
+    Snapshot,
+    StringDeleteOp,
+    StringInsertOp,
+    SubtypeOp,
+} from "./sharedb";
 
 export const types: ShareDB.Types;
 export const logger: ShareDB.Logger;

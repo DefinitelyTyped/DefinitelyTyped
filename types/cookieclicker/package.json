@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/cookieclicker",
+    "version": "2.52.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "cookieclicker",
+    "projects": [
+        "https://orteil.dashnet.org/cookieclicker/"
+    ],
+    "devDependencies": {
+        "@types/cookieclicker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lubomir",
+            "githubUsername": "TheGLander"
+        },
+        {
+            "name": "Static Variable James",
+            "githubUsername": "staticvariablejames"
+        }
+    ]
+}

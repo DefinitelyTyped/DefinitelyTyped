@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/semantic-ui-site",
+    "version": "2.2.9999",
+    "projects": [
+        "http://www.semantic-ui.com"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/semantic-ui-site": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leonard Thieu",
+            "githubUsername": "leonard-thieu"
+        }
+    ]
+}

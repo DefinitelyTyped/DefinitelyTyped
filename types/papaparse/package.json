@@ -1,0 +1,56 @@
+{
+    "private": true,
+    "name": "@types/papaparse",
+    "version": "5.3.9999",
+    "projects": [
+        "https://github.com/mholt/PapaParse"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/papaparse": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pedro Flemming",
+            "githubUsername": "torpedro"
+        },
+        {
+            "name": "Rain Shen",
+            "githubUsername": "rainshen49"
+        },
+        {
+            "name": "João Loff",
+            "githubUsername": "jfloff"
+        },
+        {
+            "name": "John Reilly",
+            "githubUsername": "johnnyreilly"
+        },
+        {
+            "name": "Alberto Restifo",
+            "githubUsername": "albertorestifo"
+        },
+        {
+            "name": "Janne Liuhtonen",
+            "githubUsername": "jliuhtonen"
+        },
+        {
+            "name": "Raphaël Barbazza",
+            "githubUsername": "rbarbazz"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Emmanuel Gautier",
+            "githubUsername": "emmanuelgautier"
+        },
+        {
+            "name": "Opportunity Liu",
+            "githubUsername": "OpportunityLiu"
+        }
+    ]
+}

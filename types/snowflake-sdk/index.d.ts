@@ -1,11 +1,3 @@
-// Type definitions for snowflake-sdk 1.6
-// Project: https://github.com/snowflakedb/snowflake-connector-nodejs#readme
-// Definitions by: Hunter Tunnicliff <https://github.com/htunnicliff>
-//                 Mauricio Rojas <https://github.com/orellabac>
-//                 Ron Jones <https://github.com/boatilus>
-//                 Brian Gottfried <https://github.com/briangottfried>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Options as PoolOptions, Pool } from "generic-pool";

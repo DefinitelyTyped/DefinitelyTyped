@@ -1,9 +1,3 @@
-// Type definitions for pi-camera 1.5
-// Project: https://github.com/stetsmando/pi-camera
-// Definitions by: Ata Berk YILMAZ <https://github.com/ataberkylmz>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class PiCamera {
     constructor(config?: PiCamera.CameraConfig);
     snap(): Promise<string>;

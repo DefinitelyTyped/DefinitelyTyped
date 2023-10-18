@@ -1,8 +1,3 @@
-// Type definitions for alexa-voice-service 0.0
-// Project: https://github.com/miguelmota/alexa-voice-service
-// Definitions by: Dolan Miu <https://github.com/dolanmiu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace AVS;
 export = AVS;
 

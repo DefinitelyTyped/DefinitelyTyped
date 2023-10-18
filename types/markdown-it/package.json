@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/markdown-it",
+    "version": "13.0.9999",
+    "projects": [
+        "https://github.com/markdown-it/markdown-it"
+    ],
+    "dependencies": {
+        "@types/linkify-it": "*",
+        "@types/mdurl": "*"
+    },
+    "devDependencies": {
+        "@types/markdown-it": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "York Yao",
+            "githubUsername": "plantain-00"
+        },
+        {
+            "name": "Robert Coie",
+            "githubUsername": "rapropos"
+        },
+        {
+            "name": "duduluu",
+            "githubUsername": "duduluu"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

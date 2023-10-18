@@ -1,8 +1,3 @@
-// Type definitions for non-npm package spreedly-iframe-browser 1.0
-// Project: http://docs.spreedly.com/reference/iframe/v1/
-// Definitions by: Philippe Vezina <https://github.com/philippevezina>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace spreedly {
     type SpreedlyField = "number" | "cvv";
     type SpreedlyFieldType = "number" | "text" | "tel";

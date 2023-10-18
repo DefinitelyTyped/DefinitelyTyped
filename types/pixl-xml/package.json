@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/pixl-xml",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jhuckaby/pixl-xml"
+    ],
+    "devDependencies": {
+        "@types/pixl-xml": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Evan Shortiss",
+            "githubUsername": "evanshortiss"
+        }
+    ]
+}

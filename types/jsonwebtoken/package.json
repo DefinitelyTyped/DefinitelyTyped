@@ -1,0 +1,64 @@
+{
+    "private": true,
+    "name": "@types/jsonwebtoken",
+    "version": "9.0.9999",
+    "projects": [
+        "https://github.com/auth0/node-jsonwebtoken"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/jsonwebtoken": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxime LUCE",
+            "githubUsername": "SomaticIT"
+        },
+        {
+            "name": "Daniel Heim",
+            "githubUsername": "danielheim"
+        },
+        {
+            "name": "Brice BERNARD",
+            "githubUsername": "brikou"
+        },
+        {
+            "name": "Veli-Pekka Kestilä",
+            "githubUsername": "vpk"
+        },
+        {
+            "name": "Daniel Parker",
+            "githubUsername": "GeneralistDev"
+        },
+        {
+            "name": "Kjell Dießel",
+            "githubUsername": "kettil"
+        },
+        {
+            "name": "Robert Gajda",
+            "githubUsername": "RunAge"
+        },
+        {
+            "name": "Nico Flaig",
+            "githubUsername": "nflaig"
+        },
+        {
+            "name": "Linus Unnebäck",
+            "githubUsername": "LinusU"
+        },
+        {
+            "name": "Ivan Sieder",
+            "githubUsername": "ivansieder"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Nandor Kraszlan",
+            "githubUsername": "nandi95"
+        }
+    ]
+}

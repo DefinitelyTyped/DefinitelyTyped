@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/datatables.net-fixedheader",
+    "version": "3.1.9999",
+    "projects": [
+        "https://datatables.net/extensions/fixedheader/",
+        "https://datatables.net"
+    ],
+    "dependencies": {
+        "@types/datatables.net": "*",
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/datatables.net-fixedheader": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jared Szechy",
+            "githubUsername": "szechyjs"
+        },
+        {
+            "name": "Kiarash Ghiaseddin",
+            "githubUsername": "Silver-Connection"
+        }
+    ]
+}

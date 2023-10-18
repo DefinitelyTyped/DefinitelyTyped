@@ -1,6 +1,33 @@
 {
     "private": true,
+    "name": "@types/pino-http",
+    "version": "5.8.9999",
+    "projects": [
+        "https://github.com/pinojs/pino-http#readme"
+    ],
     "dependencies": {
         "@types/pino": "6.3"
-    }
+    },
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/pino-http": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Rackerseder",
+            "githubUsername": "screendriver"
+        },
+        {
+            "name": "Jeremy Forsythe",
+            "githubUsername": "jdforsythe"
+        },
+        {
+            "name": "Griffin Yourick",
+            "githubUsername": "tough-griff"
+        },
+        {
+            "name": "Jorge Barnaby",
+            "githubUsername": "yorch"
+        }
+    ]
 }

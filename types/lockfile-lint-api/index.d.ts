@@ -1,9 +1,3 @@
-// Type definitions for lockfile-lint-api 5.1
-// Project: https://github.com/lirantal/lockfile-lint/tree/master/packages/lockfile-lint-api
-// Definitions by: Markus Lasermann <https://github.com/snaptags>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.9
-
 export type Hosts = ReadonlyArray<string>;
 
 export interface PackageMetadata {

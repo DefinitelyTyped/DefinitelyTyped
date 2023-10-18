@@ -1,9 +1,3 @@
-// Type definitions for file-manager 2.0
-// Project: https://github.com/DoctorMcKay/node-file-manager#readme
-// Definitions by: repository <https://github.com/repository>
-//                 Joshua Jeschek <https://github.com/joshuajeschek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import EventEmitter = require("events");

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/junit-report-builder",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/davidparsson/junit-report-builder"
+    ],
+    "devDependencies": {
+        "@types/junit-report-builder": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel König",
+            "githubUsername": "dakoenig"
+        }
+    ]
+}

@@ -1,10 +1,3 @@
-// Type definitions for node-pushnotifications 1.0
-// Project: https://github.com/appfeel/node-pushnotifications
-// Definitions by: Menushka Weeratunga <https://github.com/menushka>
-//                 Julian Hundeloh <https://github.com/jaulz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="node" />
 
 import * as webPush from "web-push";

@@ -1,28 +1,26 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "ES5",
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "baseUrl": "../",
-    "typeRoots": [
-        "../"
-    ],
-    "lib": ["es6"],
-    "types": [],
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "files": [
-    "index.d.ts",
-    "test/api-promisify.test.ts",
-    "test/api.test.ts",
-    "test/app.test.ts",
-    "test/behavior.test.ts",
-    "test/component.test.ts",
-    "test/issue.test.ts",
-    "test/page.test.ts"
-  ]
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "ES5",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "lib": [
+            "es6"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/api-promisify.test.ts",
+        "test/api.test.ts",
+        "test/app.test.ts",
+        "test/behavior.test.ts",
+        "test/component.test.ts",
+        "test/issue.test.ts",
+        "test/page.test.ts"
+    ]
 }

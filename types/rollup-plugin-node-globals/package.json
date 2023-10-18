@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/rollup-plugin-node-globals",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/calvinmetcalf/rollup-plugin-node-globals#readme"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "rollup": "^0.63.4"
-    }
+    },
+    "devDependencies": {
+        "@types/rollup-plugin-node-globals": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hugo Alliaume",
+            "githubUsername": "kocal"
+        }
+    ]
 }

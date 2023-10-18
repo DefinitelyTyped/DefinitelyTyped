@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/pretty",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/pretty"
+    ],
+    "devDependencies": {
+        "@types/pretty": "workspace:."
+    },
+    "owners": []
+}

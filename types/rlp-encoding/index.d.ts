@@ -1,8 +1,3 @@
-// Type definitions for rlp-encoding 3.0
-// Project: https://github.com/fanatid/rlp-encoding
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

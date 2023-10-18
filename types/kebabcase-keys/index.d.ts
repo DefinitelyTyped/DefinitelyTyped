@@ -1,9 +1,3 @@
-// Type definitions for kebabcase-keys 1.0
-// Project: https://github.com/mattii/kebabcase-keys#readme
-// Definitions by: Yuta Katayama <https://github.com/yutak23>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 /**
  * Return a default type if input type is nil.
  * @template T - Input type.

@@ -1,8 +1,3 @@
-// Type definitions for non-npm package Alipay JSSDK - alipayjsapi.js 3.1
-// Project: https://myjsapi.alipay.com/alipayjsapi/index.html
-// Definitions by: Yuxiang Ren <https://github.com/shlyren>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Alipay JSSDK 提供丰富的支付宝原生 API，可以方便调用支付宝提供的能力，达到媲美原生应用的体验，如页面跳转，支付功能等。
  *

@@ -1,10 +1,3 @@
-// Type definitions for stoppable 1.1
-// Project: https://github.com/hunterloftis/stoppable
-// Definitions by: Eric Byers <https://github.com/EricByers>
-//                 John Plusjé <https://github.com/jplusje>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import * as http from "http";
 import * as https from "https";

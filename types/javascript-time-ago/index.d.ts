@@ -1,9 +1,3 @@
-// Type definitions for javascript-time-ago 2.0
-// Project: https://github.com/catamphetamine/javascript-time-ago
-// Definitions by: Erik Burton  <https://github.com/erikburt>
-//                 Henry Nguyen <https://github.com/HenryNguyen5>
-//                 Luis Felipe Zaguini <https://github.com/zaguiini>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import { DefaultFormats, Duration, Formats, Locale, RTFFormatter, TimeUnit } from "./locale";
 import { FormatStyle } from "./style";
 

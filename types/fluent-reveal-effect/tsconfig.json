@@ -4,12 +4,12 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "lib": ["es6"],
+        "lib": [
+            "es6"
+        ],
         "module": "commonjs",
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": []
     },
     "files": [

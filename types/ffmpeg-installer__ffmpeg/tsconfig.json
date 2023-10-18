@@ -1,17 +1,19 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6"],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": { "@ffmpeg-installer/*": ["ffmpeg-installer__*"] }
+        "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "ffmpeg-installer__ffmpeg-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "ffmpeg-installer__ffmpeg-tests.ts"
+    ]
 }

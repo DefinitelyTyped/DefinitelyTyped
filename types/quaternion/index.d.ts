@@ -1,8 +1,3 @@
-// Type definitions for quaternion 1.3
-// Project: https://github.com/infusion/Quaternion.js (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
-// Definitions by: Yann Briançon <https://github.com/yannbriancon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type Matrix4_2D = [
     [number, number, number, number],
     [number, number, number, number],

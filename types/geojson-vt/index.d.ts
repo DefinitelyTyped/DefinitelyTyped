@@ -1,9 +1,3 @@
-// Type definitions for geojson-vt 3.2
-// Project: https://github.com/mapbox/geojson-vt
-// Definitions by: Cody Duong <https://github.com/codyduong>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
 import * as GJ from "geojson";
 
 declare namespace geojsonvt {

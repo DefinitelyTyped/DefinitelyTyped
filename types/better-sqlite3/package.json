@@ -1,0 +1,44 @@
+{
+    "private": true,
+    "name": "@types/better-sqlite3",
+    "version": "7.6.9999",
+    "projects": [
+        "https://github.com/JoshuaWise/better-sqlite3"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/better-sqlite3": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Davies",
+            "githubUsername": "Morfent"
+        },
+        {
+            "name": "Mathew Rumsey",
+            "githubUsername": "matrumz"
+        },
+        {
+            "name": "Santiago Aguilar",
+            "githubUsername": "sant123"
+        },
+        {
+            "name": "Alessandro Vergani",
+            "githubUsername": "loghorn"
+        },
+        {
+            "name": "Andrew Kaiser",
+            "githubUsername": "andykais"
+        },
+        {
+            "name": "Mark Stewart",
+            "githubUsername": "mrkstwrt"
+        },
+        {
+            "name": "Florian Stamer",
+            "githubUsername": "stamerf"
+        }
+    ]
+}

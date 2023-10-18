@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/react-select-country-list",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/Chun-Lin/react-select-country-list"
+    ],
+    "devDependencies": {
+        "@types/react": "*",
+        "@types/react-select-country-list": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kieran Roberts",
+            "githubUsername": "kieran6roberts"
+        }
+    ]
+}

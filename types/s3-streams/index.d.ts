@@ -1,8 +1,3 @@
-// Type definitions for s3-streams 0.4
-// Project: https://github.com/izaakschroeder/s3-streams
-// Definitions by: Carl Fürstenberg <https://github.com/azatoth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { S3 } from "aws-sdk2-types";

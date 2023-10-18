@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/ember-modal-service",
+    "version": "2.7.9999",
+    "projects": [
+        "https://github.com/BBVAEngineering/ember-modal-service/"
+    ],
+    "dependencies": {
+        "@types/ember__array": "*",
+        "@types/ember__component": "*",
+        "@types/ember__service": "*",
+        "@types/rsvp": "*"
+    },
+    "devDependencies": {
+        "@types/ember-modal-service": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "golovkoe",
+            "githubUsername": "elenagolovko"
+        }
+    ]
+}

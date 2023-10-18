@@ -1,8 +1,4 @@
-// Type definitions for graylog2 0.2
-// Project: https://github.com/Wizcorp/node-graylog2
-// Definitions by: Andrey Kun <https://github.com/scalder27>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+/// <reference types="node" />
 
 import { EventEmitter } from "events";
 

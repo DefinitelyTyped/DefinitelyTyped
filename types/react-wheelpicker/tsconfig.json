@@ -1,26 +1,22 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "lib": [
-      "es6",
-      "DOM"
-    ],
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictFunctionTypes": true,
-    "strictNullChecks": true,
-    "baseUrl": "../",
-    "typeRoots": [
-      "../"
-    ],
-    "types": [],
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true,
-    "jsx": "react",
-    "esModuleInterop": true
-  },
-  "files": [
-    "index.d.ts",
-    "react-wheelpicker-tests.tsx"
-  ]
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "DOM"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react",
+        "esModuleInterop": true
+    },
+    "files": [
+        "index.d.ts",
+        "react-wheelpicker-tests.tsx"
+    ]
 }

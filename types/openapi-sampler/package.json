@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/openapi-sampler",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/APIs-guru/openapi-sampler/"
+    ],
+    "devDependencies": {
+        "@types/openapi-sampler": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marcell Toth",
+            "githubUsername": "marcelltoth"
+        }
+    ]
+}

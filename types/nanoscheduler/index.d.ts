@@ -1,8 +1,3 @@
-// Type definitions for nanoscheduler 1.0
-// Project: https://github.com/choojs/nanoscheduler#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Create a new scheduler instance.
  * The instance is shared as a singleton on window (if available).

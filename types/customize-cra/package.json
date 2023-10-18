@@ -1,6 +1,24 @@
 {
-  "private": true,
-  "dependencies": {
-    "@types/workbox-webpack-plugin": "^5.1.8"
-  }
+    "private": true,
+    "name": "@types/customize-cra",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/arackaf/customize-cra#readme"
+    ],
+    "dependencies": {
+        "@types/babel__core": "*",
+        "@types/webpack": "^4",
+        "@types/webpack-bundle-analyzer": "^3",
+        "@types/workbox-webpack-plugin": "^5.1.8"
+    },
+    "devDependencies": {
+        "@types/customize-cra": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Kyle Hensel",
+            "githubUsername": "k-yle"
+        }
+    ]
 }

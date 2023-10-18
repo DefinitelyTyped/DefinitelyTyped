@@ -6,10 +6,6 @@
             "es6",
             "dom"
         ],
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "jsx": "react",
         "types": [],
         "noImplicitAny": true,

@@ -20,8 +20,8 @@
         "forceConsistentCasingInFileNames": true,
         "noEmit": true,
         "types": [],
-        "lib": ["es6"],
-        "baseUrl": "../",
-        "typeRoots": ["../"]
+        "lib": [
+            "es6"
+        ]
     }
 }

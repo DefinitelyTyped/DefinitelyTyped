@@ -1,9 +1,3 @@
-// Type definitions for vue-select 3.16
-// Project: https://github.com/sagalbot/vue-select#readme
-// Definitions by: Ilia Beliaev <https://github.com/silh>, Flo Edelmann <https://github.com/FloEdelmann>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 import { ComponentOptions, VueConstructor } from "vue";
 import { ExtendedVue } from "vue/types/vue";
 
@@ -29,7 +23,9 @@ interface CalculatedPosition {
 
 export interface VueSelectProps {
     value: VueSelectOption;
-    components: Record<ChildComponentName, VueConstructor | ComponentOptions<Vue>>;
+    components: {
+        [key in ChildComponentName]?: VueConstructor | ComponentOptions<Vue>;
+    };
     options: VueSelectOption[];
     disabled: boolean;
     clearable: boolean;

@@ -1,26 +1,3 @@
-// Type definitions for node-forge 1.3
-// Project: https://github.com/digitalbazaar/forge
-// Definitions by: Seth Westphal       <https://github.com/westy92>
-//                 Kay Schecker        <https://github.com/flynetworks>
-//                 Aakash Goenka       <https://github.com/a-k-g>
-//                 Rafal2228           <https://github.com/rafal2228>
-//                 Beeno Tung          <https://github.com/beenotung>
-//                 Joe Flateau         <https://github.com/joeflateau>
-//                 timhwang21          <https://github.com/timhwang21>
-//                 Anders Kaseorg      <https://github.com/andersk>
-//                 Sascha Zarhuber     <https://github.com/saschazar21>
-//                 Rogier Schouten     <https://github.com/rogierschouten>
-//                 Ivan Aseev          <https://github.com/aseevia>
-//                 Wiktor Kwapisiewicz <https://github.com/wiktor-k>
-//                 Ligia Frangello     <https://github.com/frangello>
-//                 Dmitry Avezov       <https://github.com/avezov>
-//                 Jose Fuentes        <https://github.com/j-fuentes>
-//                 Anya Reyes          <https://github.com/darkade>
-//                 Tino                <https://github.com/tino-247>
-//                 BendingBender       <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-
 /// <reference types="node" />
 
 declare module "node-forge" {

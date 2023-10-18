@@ -1,7 +1,23 @@
 {
     "private": true,
+    "name": "@types/hapi__catbox-memcached",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/hapijs/catbox-memcached#readme"
+    ],
     "dependencies": {
         "@hapi/hapi": "^21.1.0",
+        "@types/hapi__catbox": "*",
+        "@types/node": "*",
         "joi": "^17.7.0"
-    }
+    },
+    "devDependencies": {
+        "@types/hapi__catbox-memcached": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Avery Fay",
+            "githubUsername": "btmorex"
+        }
+    ]
 }
