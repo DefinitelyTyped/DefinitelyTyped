@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/use-prefers-color-scheme",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/rfoel/use-prefers-color-scheme"
+    ],
+    "devDependencies": {
+        "@types/use-prefers-color-scheme": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marton Lederer",
+            "githubUsername": "martonlederer"
+        }
+    ]
+}

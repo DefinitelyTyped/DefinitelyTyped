@@ -1,8 +1,3 @@
-// Type definitions for node-syslog-client 1.1
-// Project: https://github.com/paulgrove/node-syslog-client
-// Definitions by: Romain CONNESSON <https://github.com/helorem>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

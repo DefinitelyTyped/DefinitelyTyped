@@ -1,9 +1,3 @@
-// Type definitions for ArcGIS API for JavaScript 3.40
-// Project: https://developers.arcgis.com/javascript/3/
-// Definitions by: Esri <https://github.com/Esri>
-//                 Bjorn Svensson <https://github.com/bsvensson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare module "esri" {
     import Graphic = require("esri/graphic");
     import Point = require("esri/geometry/Point");

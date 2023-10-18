@@ -1,11 +1,3 @@
-// Type definitions for mock-knex 0.4
-// Project: https://github.com/colonyamerican/mock-knex
-// Definitions by: Jesse Zhang <https://github.com/jessezhang91>
-//                 Scott Cooper <https://github.com/scttcper>
-//                 TeamworkGuy2 <https://github.com/TeamworkGuy2>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

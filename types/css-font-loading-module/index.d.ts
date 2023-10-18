@@ -1,9 +1,3 @@
-// Type definitions for CSS Font Loading Module Level 3
-// Project: https://drafts.csswg.org/css-font-loading/
-// Definitions by: slikts <https://github.com/slikts>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 5.0
-
 export type FontFaceLoadStatus = "unloaded" | "loading" | "loaded" | "error";
 export type FontFaceSetLoadStatus = "loading" | "loaded";
 export type BinaryData = ArrayBuffer | ArrayBufferView;

@@ -1,8 +1,3 @@
-// Type definitions for react-bootstrap-range-slider 1.2
-// Project: https://github.com/jaywilz/react-bootstrap-range-slider#readme
-// Definitions by: Isaac Moore <https://github.com/rmsy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import {
     ChangeEvent,
     CSSProperties,

@@ -115,29 +115,6 @@ declare module "." {
     // tslint:disable-next-line ban-types
     export function experimental_useEffectEvent<T extends Function>(event: T): T;
 
-    interface DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_FORM_ACTIONS {
-        functions: (formData: FormData) => void;
-    }
-
-    export interface TransitionStartFunction {
-        /**
-         * Marks all state updates inside the async function as transitions
-         *
-         * @see {https://react.dev/reference/react/ts5.0/useTransition#starttransition}
-         *
-         * @param callback
-         */
-        (callback: () => Promise<VoidOrUndefinedOnly>): void;
-    }
-
-    function experimental_useOptimistic<State>(
-        passthrough: State,
-    ): [State, (action: State | ((pendingState: State) => State)) => void];
-    function experimental_useOptimistic<State, Action>(
-        passthrough: State,
-        reducer: (state: State, action: Action) => State,
-    ): [State, (action: Action) => void];
-
     type Reference = object;
     type TaintableUniqueValue = string | bigint | ArrayBufferView;
     function experimental_taintUniqueValue(

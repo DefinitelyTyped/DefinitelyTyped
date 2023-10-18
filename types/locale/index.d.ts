@@ -1,8 +1,3 @@
-// Type definitions for locale 0.1
-// Project: https://github.com/florrain/locale
-// Definitions by: Emily Marigold Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = locale;
 
 declare global {

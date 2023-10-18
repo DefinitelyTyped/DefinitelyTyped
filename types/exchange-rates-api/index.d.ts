@@ -1,9 +1,3 @@
-// Type definitions for exchange-rates-api 1.0
-// Project: https://github.com/over-engineer/exchange-rates
-// Definitions by: Marton Lederer <https://github.com/martonlederer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 /**
  * Convert the given amount from one currency to another using the exchange rate of the given date
  */

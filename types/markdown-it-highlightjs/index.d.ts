@@ -1,9 +1,3 @@
-// Type definitions for markdown-it-highlightjs 3.3
-// Project: https://github.com/valeriangalliat/markdown-it-highlightjs
-// Definitions by: Wilson Gramer <https://github.com/WilsonGramer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 import hljs = require("highlight.js");
 import { PluginWithOptions } from "markdown-it";
 

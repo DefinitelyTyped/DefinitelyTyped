@@ -1,8 +1,3 @@
-// Type definitions for clamscan 2.0
-// Project: https://github.com/kylefarris/clamscan
-// Definitions by: Viktoriia Hrechukha <https://github.com/vhrechukha>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Readable, Transform } from "stream";

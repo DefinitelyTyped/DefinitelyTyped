@@ -1,16 +1,19 @@
 import { OrgChart } from "d3-org-chart";
 
 interface Person {
+    id: string;
     firstName: string;
     lastName: string;
 }
 
 const myData: Person[] = [
     {
+        id: "1",
         firstName: "Alice",
         lastName: "Smith",
     },
     {
+        id: "2",
         firstName: "Bob",
         lastName: "Smith",
     },
@@ -39,7 +42,7 @@ const chart = new OrgChart<Person>()
     .childrenMargin(d => 90)
     .compactMarginBetween(d => 65)
     .compactMarginPair(d => 100)
-    .neightbourMargin((a, b) => 50)
+    .neighbourMargin((a, b) => 50)
     .siblingsMargin(d => 100)
     .buttonContent(({ node, state }) => {
         return `<div>Show ${node.children && node.children[0] ? node.children[0].data.firstName : ""}</div>`;
@@ -54,6 +57,11 @@ const chart = new OrgChart<Person>()
 
         if (i === arr.length - 1) {
             console.log(`The last node (${d.data.firstName} ${d.data.lastName}) was updated`);
+        }
+    })
+    .onNodeClick((d) => {
+        if (d.id) {
+            console.log(`The node with id of ${d.id} selected`);
         }
     })
     .linkUpdate((d, i, arr) => {
@@ -91,7 +99,7 @@ chart
 chart.backgroundColor("#eee").render();
 
 // $ExpectType OrgChart<Person>
-chart.addNode({ firstName: "Charlie", lastName: "Brown" });
+chart.addNode({ id: "3", firstName: "Charlie", lastName: "Brown" });
 
 // $ExpectType OrgChart<Person>
 chart.expandAll();

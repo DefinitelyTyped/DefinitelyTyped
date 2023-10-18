@@ -1,10 +1,3 @@
-// Type definitions for statuses 2.0
-// Project: https://github.com/jshttp/statuses
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.7
-
 type NumericAscii = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "0";
 type NonNumericAscii<S> = S extends `${NumericAscii}` ? never : any;
 

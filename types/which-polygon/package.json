@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/which-polygon",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/mapbox/which-polygon"
+    ],
+    "dependencies": {
+        "@types/geojson": "*",
+        "@types/rbush": "*"
+    },
+    "devDependencies": {
+        "@types/which-polygon": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kyle Hensel",
+            "githubUsername": "k-yle"
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/browser-bunyan",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/philmander/browser-bunyan"
+    ],
+    "dependencies": {
+        "@types/bunyan": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/browser-bunyan": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paul Lockwood",
+            "githubUsername": "PaulLockwood"
+        },
+        {
+            "name": "Michael Strobel",
+            "githubUsername": "kryops"
+        }
+    ]
+}

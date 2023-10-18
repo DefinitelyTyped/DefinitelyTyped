@@ -8,13 +8,6 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "paths":{
-            "@breejs/*": ["breejs__*"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

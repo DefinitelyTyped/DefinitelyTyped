@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/roll",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/troygoode/node-roll/"
+    ],
+    "devDependencies": {
+        "@types/roll": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "icopp",
+            "githubUsername": "icopp"
+        }
+    ]
+}

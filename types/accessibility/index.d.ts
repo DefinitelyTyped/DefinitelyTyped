@@ -1,8 +1,3 @@
-// Type definitions for accessibility 3.0
-// Project: https://github.com/ranbuch/accessibility#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace Accessibility;
 
 /**

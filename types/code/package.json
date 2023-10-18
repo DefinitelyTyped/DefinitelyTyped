@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/code",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/hapijs/code"
+    ],
+    "devDependencies": {
+        "@types/code": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Prashant Tiwari",
+            "githubUsername": "prashaantt"
+        }
+    ]
+}

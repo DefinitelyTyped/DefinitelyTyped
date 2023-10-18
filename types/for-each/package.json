@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/for-each",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/Raynos/for-each"
+    ],
+    "devDependencies": {
+        "@types/for-each": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

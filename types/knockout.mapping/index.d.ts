@@ -1,11 +1,3 @@
-// Type definitions for Knockout.Mapping 2.0
-// Project: https://github.com/SteveSanderson/knockout.mapping
-// Definitions by: Boris Yankov <https://github.com/borisyankov>
-//                 Mathias Lorenzen <https://github.com/ffMathy>
-//                 Leonardo Lombardi <https://github.com/ltlombardi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="knockout" />
 
 export as namespace mapping;

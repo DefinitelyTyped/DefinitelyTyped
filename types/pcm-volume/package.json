@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/pcm-volume",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/reneraab/pcm-volume"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/pcm-volume": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matthew Peveler",
+            "githubUsername": "MasterOdin"
+        }
+    ]
+}

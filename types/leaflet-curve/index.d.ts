@@ -1,10 +1,3 @@
-// Type definitions for leaflet-curve 0.1
-// Project: https://github.com/onikiienko/Leaflet.curve
-// Definitions by: Onikiienko <https://github.com/onikiienko>
-//                 Andrea <https://github.com/AndreaCimini>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import * as L from "leaflet";
 
 declare module "leaflet" {

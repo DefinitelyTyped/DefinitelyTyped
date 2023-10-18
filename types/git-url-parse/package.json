@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/git-url-parse",
+    "version": "9.0.9999",
+    "projects": [
+        "https://github.com/IonicaBizau/git-url-parse"
+    ],
+    "devDependencies": {
+        "@types/git-url-parse": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Klaus Meinhardt",
+            "githubUsername": "ajafff"
+        }
+    ]
+}

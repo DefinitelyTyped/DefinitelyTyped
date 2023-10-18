@@ -1,10 +1,3 @@
-// Type definitions for http-link-header 1.0
-// Project: https://github.com/jhermsmeier/node-http-link-header
-// Definitions by: Christian Rackerseder <https://github.com/screendriver>
-//                 Noah Loomans <https://github.com/nloomans>
-//                 Harris Lummis <https://github.com/lummish>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
 export = Link;

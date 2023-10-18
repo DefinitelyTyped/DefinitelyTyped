@@ -1,9 +1,3 @@
-// Type definitions for node-mysql-wrapper
-// Project: https://github.com/nodets/node-mysql-wrapper
-// Definitions by: Makis Maropoulos <https://github.com/kataras>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 /// <reference path="./my-meteor.d.ts" />
 
 import * as Promise from "bluebird";

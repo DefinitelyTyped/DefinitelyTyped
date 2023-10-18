@@ -2,20 +2,13 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6", "DOM"
+            "es6",
+            "DOM"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "@glidejs/glide": ["glidejs__glide"],
-            "@glidejs/glide/*": ["glidejs__glide/*"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

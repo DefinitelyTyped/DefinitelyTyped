@@ -1,8 +1,3 @@
-// Type definitions for strman 2.0
-// Project: https://github.com/dleitee/strman#readme
-// Definitions by: Adam Bergman <https://github.com/adambrgmn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export function append(value: string, ...appends: string[]): string;
 export function appendArray(value: string, appends: string[]): string;
 export function at(value: string, index: number): string;

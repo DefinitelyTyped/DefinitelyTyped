@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/materializecss__materialize",
+    "version": "1.2.9999",
+    "projects": [
+        "https://materializecss.github.io/materialize/"
+    ],
     "dependencies": {
+        "@types/jquery": "*",
         "cash-dom": "^8.1.1"
-    }
+    },
+    "devDependencies": {
+        "@types/materializecss__materialize": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Mauro Mascarenhas",
+            "githubUsername": "mauromascarenhas"
+        }
+    ]
 }

@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/chromecast-caf-sender",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Cast Application Framework Sender API",
+    "projects": [
+        "https://developers.google.com/cast/docs/caf_receiver_overview"
+    ],
+    "dependencies": {
+        "@types/chrome": "*"
+    },
+    "devDependencies": {
+        "@types/chromecast-caf-sender": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Samuel Maddock",
+            "githubUsername": "samuelmaddock"
+        }
+    ]
+}

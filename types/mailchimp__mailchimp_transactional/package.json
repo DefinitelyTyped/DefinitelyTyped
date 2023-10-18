@@ -1,6 +1,24 @@
 {
     "private": true,
+    "name": "@types/mailchimp__mailchimp_transactional",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mailchimp/mailchimp-transactional-node"
+    ],
     "dependencies": {
-      "axios": "^0.21.1"
-    }
+        "axios": "^0.21.1"
+    },
+    "devDependencies": {
+        "@types/mailchimp__mailchimp_transactional": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pieter Scheffers",
+            "githubUsername": "PieterScheffers"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
 }

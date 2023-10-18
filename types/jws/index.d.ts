@@ -1,8 +1,3 @@
-// Type definitions for jws 3.2
-// Project: https://github.com/auth0/node-jws
-// Definitions by: Justin Beckwith <https://github.com/JustinBeckwith>, Denis Olsem <https://github.com/dolsem>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as events from "events";

@@ -1,8 +1,3 @@
-// Type definitions for react-native-button 3.0
-// Project: https://github.com/ide/react-native-button
-// Definitions by: mkchung <https://github.com/mkchung>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Component } from "react";
 import { StyleProp, TextProps, TextStyle, TouchableOpacityProps, ViewStyle } from "react-native";
 

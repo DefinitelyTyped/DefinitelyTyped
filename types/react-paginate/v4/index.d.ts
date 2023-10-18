@@ -1,12 +1,3 @@
-// Type definitions for react-paginate 4.3
-// Project: https://github.com/AdeleD/react-paginate
-// Definitions by: Simon Hartcher <https://github.com/deevus>
-//                 Wouter Hardeman <https://github.com/wouterhardeman>
-//                 pegel03 <https://github.com/pegel03>
-//                 Simon Archer <https://github.com/archy-bold>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 interface ReactPaginateProps {

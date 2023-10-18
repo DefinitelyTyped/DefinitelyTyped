@@ -1,9 +1,3 @@
-// Type definitions for imurmurhash 0.1
-// Project: https://github.com/jensyt/imurmurhash-js
-// Definitions by: Jiayu Liu <https://github.com/Jimexist>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * An incremental implementation of MurmurHash3 for JavaScript
  */

@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/file-saver",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/eligrey/FileSaver.js/"
+    ],
+    "devDependencies": {
+        "@types/file-saver": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cyril Schumacher",
+            "githubUsername": "cyrilschumacher"
+        },
+        {
+            "name": "Daniel Roth",
+            "githubUsername": "DaIgeb"
+        },
+        {
+            "name": "HitkoDev",
+            "githubUsername": "HitkoDev"
+        },
+        {
+            "name": "JounQin",
+            "githubUsername": "JounQin"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "bendingbender"
+        }
+    ]
+}

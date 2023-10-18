@@ -1,8 +1,3 @@
-// Type definitions for passport-fido2-webauthn 0.1
-// Project: https://github.com/jaredhanson/passport-webauthn#readme
-// Definitions by: Benjamin Choi <https://github.com/benhchoi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { X509Certificate } from "crypto";
 import express = require("express");
 import { Strategy as PassportStrategy } from "passport-strategy";

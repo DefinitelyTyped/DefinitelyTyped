@@ -1,8 +1,3 @@
-// Type definitions for default-user-agent 1.0
-// Project: https://github.com/node-modules/default-user-agent
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = defaultUserAgent;
 
 /**

@@ -1,9 +1,3 @@
-// Type definitions for NestDb 2.0
-// Project: https://github.com/JamesMGreene/nestdb
-// Definitions by: Alex Anderson <https://github.com/alexanderson1993>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

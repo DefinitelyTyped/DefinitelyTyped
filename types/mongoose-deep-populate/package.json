@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/mongoose-deep-populate",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/buunguyen/mongoose-deep-populate"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "mongoose": "^6.3.0"
-    }
+    },
+    "devDependencies": {
+        "@types/mongoose-deep-populate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aya Morisawa",
+            "githubUsername": "AyaMorisawa"
+        }
+    ]
 }

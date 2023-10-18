@@ -1,9 +1,3 @@
-// Type definitions for chai-arrays 2.0
-// Project: https://github.com/GaneshSPatil/chai-arrays
-// Definitions by: Clément Prévot <https://github.com/clementprevot>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="chai" />
 
 declare global {

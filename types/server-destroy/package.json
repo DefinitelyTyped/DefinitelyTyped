@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/server-destroy",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/isaacs/server-destroy#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/server-destroy": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gyula Szalai",
+            "githubUsername": "gyszalai"
+        },
+        {
+            "name": "Anatoly Pitikin",
+            "githubUsername": "xapdkop"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/color-hash",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/zenozeng/color-hash"
+    ],
+    "devDependencies": {
+        "@types/color-hash": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Johannes Hoppe",
+            "githubUsername": "JohannesHoppe"
+        },
+        {
+            "name": "Kamil Socha",
+            "githubUsername": "ksocha"
+        }
+    ]
+}

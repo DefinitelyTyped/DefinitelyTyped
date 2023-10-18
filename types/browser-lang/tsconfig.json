@@ -1,21 +1,20 @@
 {
-  "files": [
-    "index.d.ts",
-    "browser-lang-tests.ts"
-  ],
-  "compilerOptions": {
-    "module": "commonjs",
-    "lib": ["es6", "dom"],
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictFunctionTypes": true,
-    "strictNullChecks": true,
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true,
-    "types": [],
-    "baseUrl": "../",
-    "typeRoots": [
-      "../"
-    ]
-  }
+    "files": [
+        "index.d.ts",
+        "browser-lang-tests.ts"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "types": []
+    }
 }

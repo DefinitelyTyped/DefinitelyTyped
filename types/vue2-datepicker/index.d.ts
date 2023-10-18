@@ -1,9 +1,3 @@
-// Type definitions for vue2-datepicker 3.3
-// Project: https://github.com/mengxiong10/vue2-datepicker
-// Definitions by: ChristianStornowski <https://github.com/ChristianStornowski>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 import { Component } from "vue/types/options";
 
 declare namespace Datepicker {

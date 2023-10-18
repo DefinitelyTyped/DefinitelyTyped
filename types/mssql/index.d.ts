@@ -1,14 +1,3 @@
-// Type definitions for mssql 9.1
-// Project: https://www.npmjs.com/package/mssql
-// Definitions by: Jørgen Elgaard Larsen <https://github.com/elhaard>
-//                 Peter Keuter <https://github.com/pkeuter>
-//                 Jeff Wooden <https://github.com/woodenconsulting>
-//                 Cahil Foley <https://github.com/cahilfoley>
-//                 Rifa Achrinza <https://github.com/achrinza>
-//                 Daniel Hensby <https://github.com/dhensby>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
-
 // @credit COLSA Corporation <http://www.colsa.com/>
 
 /// <reference types="node" />

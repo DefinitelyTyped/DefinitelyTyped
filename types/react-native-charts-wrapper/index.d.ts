@@ -1,8 +1,3 @@
-// Type definitions for react-native-charts-wrapper 0.5
-// Project: https://github.com/wuxudong/react-native-charts-wrapper
-// Definitions by: Connor Love <https://github.com/dotconnor>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Component } from "react";
 import { ImageResolvedAssetSource, NativeSyntheticEvent, processColor, ViewProps } from "react-native";
 

@@ -1,9 +1,3 @@
-// Type definitions for compass-vertical-rhythm 1.4
-// Project: https://github.com/KyleAMathews/compass-vertical-rhythm
-// Definitions by: Luis Rodrigues <https://github.com/goblindegook>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export = compassVerticalRhythm;
 
 declare namespace compassVerticalRhythm {

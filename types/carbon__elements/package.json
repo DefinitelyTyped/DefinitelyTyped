@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/carbon__elements",
+    "version": "11.10.9999",
+    "projects": [
+        "https://github.com/carbon-design-system/carbon/tree/master/packages/elements"
+    ],
+    "devDependencies": {
+        "@types/carbon__elements": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eric Liu",
+            "githubUsername": "metonym"
+        }
+    ]
+}

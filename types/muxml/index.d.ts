@@ -1,8 +1,3 @@
-// Type definitions for muxml 2.0
-// Project: https://github.com/t1st3/muxml
-// Definitions by: Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as sax from "sax";

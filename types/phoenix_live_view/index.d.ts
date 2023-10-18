@@ -1,8 +1,3 @@
-// Type definitions for phoenix_live_view 0.18
-// Project: https://github.com/phoenixframework/phoenix_live_view
-// Definitions by: Peter Zingg <https://github.com/pzingg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Version 0.15.4 added options and interfaces for LiveView uploads
 // See: https://hexdocs.pm/phoenix_live_view/uploads.html
 

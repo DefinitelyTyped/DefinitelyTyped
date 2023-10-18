@@ -20,10 +20,6 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "exactOptionalPropertyTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,

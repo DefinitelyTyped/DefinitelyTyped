@@ -1,8 +1,3 @@
-// Type definitions for junit-report-builder 3.0
-// Project: https://github.com/davidparsson/junit-report-builder
-// Definitions by: Daniel König <https://github.com/dakoenig>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace builder {
     interface JUnitReportBuilder {
         /**

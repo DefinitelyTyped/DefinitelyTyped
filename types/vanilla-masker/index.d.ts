@@ -1,8 +1,3 @@
-// Type definitions for vanilla-masker 1.2
-// Project: https://fleury.io/vanilla-masker/
-// Definitions by: BenLorantfy <https://github.com/BenLorantfy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface MoneyOptions {
     // Decimal precision -> "90"
     precision?: number | undefined;

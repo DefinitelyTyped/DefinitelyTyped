@@ -1,12 +1,3 @@
-// Type definitions for passport-google-oauth 2.0
-// Project: https://github.com/jaredhanson/passport-google-oauth2
-// Definitions by: Yasunori Ohoka <https://github.com/yasupeke>
-//                 Eduard Zintz <https://github.com/ezintz>
-//                 Tan Nguyen <https://github.com/ngtan>
-//                 Gleb Varenov <https://github.com/acerbic>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 import * as express from "express";
 import * as passport from "passport";
 import * as oauth2 from "passport-oauth2";

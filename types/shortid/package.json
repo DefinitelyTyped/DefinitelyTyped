@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/shortid",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/dylang/shortid"
+    ],
+    "devDependencies": {
+        "@types/shortid": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sam Saint-Pettersen",
+            "githubUsername": "stpettersens"
+        },
+        {
+            "name": "Danny Arnold",
+            "githubUsername": "despairblue"
+        }
+    ]
+}

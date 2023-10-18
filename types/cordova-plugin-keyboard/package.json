@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/cordova-plugin-keyboard",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/cjpearson/cordova-plugin-keyboard"
+    ],
+    "devDependencies": {
+        "@types/cordova-plugin-keyboard": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Dan Manastireanu",
+            "githubUsername": "danmana"
+        },
+        {
+            "name": "Jochen Becker",
+            "githubUsername": "jkfb"
+        }
+    ]
+}

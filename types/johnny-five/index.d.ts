@@ -1,15 +1,3 @@
-// Type definitions for johnny-five 2.1
-// Project: https://github.com/rwaldron/johnny-five
-// Definitions by: Toshiya Nakakura <https://github.com/nakakura>
-//                 Simon Colmer <https://github.com/workshop2>
-//                 XtrimSystems <https://github.com/xtrimsystems>
-//                 Marcin Obiedziński <https://github.com/marcinobiedz>
-//                 Nicholas Hehr <https://github.com/HipsterBrown>
-//                 Scott González <https://github.com/scottgonzalez>
-//                 Andréas "ScreamZ" HANSS <https://github.com/ScreamZ>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 /// <reference types="node"/>
 
 export interface AccelerometerOption {

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/snekfetch",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/GusCaplan/snekfetch",
+        "https://snekfetch.js.org"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/snekfetch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Iker Pérez Brunelli",
+            "githubUsername": "ANekoIsFineToo"
+        },
+        {
+            "name": "Shayne Hartford",
+            "githubUsername": "ShayBox"
+        }
+    ]
+}

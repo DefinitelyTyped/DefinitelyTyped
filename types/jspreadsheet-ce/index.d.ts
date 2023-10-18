@@ -1,10 +1,3 @@
-// Type definitions for jspreadsheet-ce 4.7
-// Project: https://github.com/jspreadsheet/ce
-// Definitions by: arx-8 <https://github.com/arx-8>
-//                  vishnutsivan <https://github.com/vishnutsivan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 2.9
-
 export = jspreadsheet;
 export as namespace jspreadsheet;
 

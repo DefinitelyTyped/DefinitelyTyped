@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/leaflet-freedraw",
+    "version": "2.13.9999",
+    "projects": [
+        "https://github.com/Wildhoney/Leaflet.FreeDraw"
+    ],
+    "dependencies": {
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/leaflet-freedraw": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jean-Baptiste Zeller",
+            "githubUsername": "Esurnir"
+        }
+    ]
+}

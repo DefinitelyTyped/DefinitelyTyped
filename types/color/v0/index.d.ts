@@ -1,8 +1,3 @@
-// Type definitions for color v0.12.0
-// Project: https://github.com/qix-/color
-// Definitions by: Karol Janyst <https://github.com/LKay>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Color {
     interface RGBColor {
         r: number;

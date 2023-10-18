@@ -1,10 +1,3 @@
-// Type definitions for Braintree-web 3.96
-// Project: https://github.com/braintree/braintree-web
-// Definitions by: Jason Buckner <https://github.com/jbuckner>
-//                Daniel Macak <https://github.com/daelmaak>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 import { AmericanExpress, create as americanExpressCreate } from "./american-express";
 import {
     ApplePay,

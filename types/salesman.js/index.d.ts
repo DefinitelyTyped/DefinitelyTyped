@@ -1,8 +1,3 @@
-// Type definitions for salesman.js 2.0
-// Project: https://github.com/lovasoa/salesman.js
-// Definitions by: Josh Peaker <https://github.com/JPeaker>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Solves the following problem:
  *  Given a list of points and the distances between each pair of points,

@@ -1,6 +1,30 @@
 {
-  "private": true,
-  "dependencies": {
-    "@maxim_mazurok/gapi.client.pagespeedonline-v5": "latest"
-  }
+    "private": true,
+    "name": "@types/gapi.client.pagespeedonline-v5",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "PageSpeed Insights API v5",
+    "projects": [
+        "https://developers.google.com/speed/docs/insights/v5/about"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.pagespeedonline-v5": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.pagespeedonline-v5": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
 }

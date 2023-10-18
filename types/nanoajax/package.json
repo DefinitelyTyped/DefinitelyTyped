@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/nanoajax",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/yanatan16/nanoajax"
+    ],
+    "devDependencies": {
+        "@types/nanoajax": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nathan Cahill",
+            "githubUsername": "nathancahill"
+        }
+    ]
+}

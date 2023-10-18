@@ -1,8 +1,3 @@
-// Type definitions for jsonlines 0.1
-// Project: https://github.com/LinusU/node-jsonlines#readme
-// Definitions by: Raine Revere <https://github.com/raineorshine>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Transform } from "stream";

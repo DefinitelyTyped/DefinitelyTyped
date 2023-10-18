@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-dtsm",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/9joneg/gulp-dtsm"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-dtsm": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aya Morisawa",
+            "githubUsername": "AyaMorisawa"
+        }
+    ]
+}

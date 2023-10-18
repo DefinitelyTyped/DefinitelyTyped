@@ -1,10 +1,3 @@
-// Type definitions for optimize-css-assets-webpack-plugin 5.0
-// Project: https://github.com/nmfr/optimize-css-assets-webpack-plugin
-// Definitions by: Armando Meziat <https://github.com/odnamrataizem>
-//                 Spencer Miskoviak <https://github.com/skovy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import { Compiler, WebpackPluginInstance as Plugin } from "webpack";
 
 export = OptimizeCssAssetsPlugin;

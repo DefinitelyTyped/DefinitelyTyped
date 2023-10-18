@@ -1,8 +1,3 @@
-// Type definitions for postcss-pxtorem 6.0
-// Project: https://github.com/cuth/postcss-pxtorem#readme
-// Definitions by: Steven Bassett <https://github.com/bassettsj>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { PluginCreator } from "postcss";
 
 declare namespace PostcssPxToRem {

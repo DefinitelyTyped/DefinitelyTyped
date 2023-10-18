@@ -1,8 +1,3 @@
-// Type definitions for verovio 3.13
-// Project: http://www.verovio.org
-// Definitions by: Benjamin Bloomfield <https://github.com/bbloomf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { AvailableOptions } from "./AvailableOptions";
 import { EditorAction } from "./EditorAction";
 import { VerovioOptions } from "./VerovioOptions";

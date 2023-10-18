@@ -1,9 +1,3 @@
-// Type definitions for escpos 2.5
-// Project: https://github.com/song940/node-escpos#readme
-// Definitions by: Rayo <https://github.com/rayosu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="node" />
 
 import * as net from "net";

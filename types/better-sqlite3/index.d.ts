@@ -1,15 +1,3 @@
-// Type definitions for better-sqlite3 7.6
-// Project: https://github.com/JoshuaWise/better-sqlite3
-// Definitions by: Ben Davies <https://github.com/Morfent>
-//                 Mathew Rumsey <https://github.com/matrumz>
-//                 Santiago Aguilar <https://github.com/sant123>
-//                 Alessandro Vergani <https://github.com/loghorn>
-//                 Andrew Kaiser <https://github.com/andykais>
-//                 Mark Stewart <https://github.com/mrkstwrt>
-//                 Florian Stamer <https://github.com/stamerf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
 /// <reference types="node" />
 
 // FIXME: Is this `any` really necessary?

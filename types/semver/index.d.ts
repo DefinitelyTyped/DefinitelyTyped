@@ -1,13 +1,3 @@
-// Type definitions for semver 7.5
-// Project: https://github.com/npm/node-semver
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 BendingBender <https://github.com/BendingBender>
-//                 Lucian Buzzo <https://github.com/LucianBuzzo>
-//                 Klaus Meinhardt <https://github.com/ajafff>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // re-exports for index file
 
 // functions for working with versions

@@ -1,10 +1,3 @@
-// Type definitions for @architect/sandbox 3.3
-// Project: https://github.com/architect/sandbox#readme
-// Definitions by: Francis Gulotta <https://github.com/reconbot>
-//                 Scott Willeke <https://github.com/activescott>
-//                 Ryan Block <https://github.com/ryanblock>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Callback, StartOptions } from "./shared";
 export { Callback, StartOptions };
 

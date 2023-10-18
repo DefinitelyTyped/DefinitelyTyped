@@ -1,6 +1,30 @@
 {
-  "private": true,
-  "dependencies": {
-    "@maxim_mazurok/gapi.client.area120tables-v1alpha1": "latest"
-  }
+    "private": true,
+    "name": "@types/gapi.client.area120tables-v1alpha1",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Area120 Tables API v1alpha1",
+    "projects": [
+        "https://support.google.com/area120-tables/answer/10011390"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.area120tables-v1alpha1": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.area120tables-v1alpha1": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
 }

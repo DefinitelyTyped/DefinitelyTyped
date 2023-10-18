@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/mockery",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/mfncooper/mockery"
+    ],
+    "devDependencies": {
+        "@types/mockery": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jt000",
+            "githubUsername": "jt000"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for gsheetdb 1.0
-// Project: https://github.com/zdettwiler/gsheetdb
-// Definitions by: Federico Grandi <https://github.com/EndBug>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { JWT, UserRefreshClient } from "google-auth-library";

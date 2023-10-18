@@ -1,8 +1,3 @@
-// Type definitions for nowigence-react-simple-maps 1.0
-// Project: https://github.com/zcreativelabs/react-simple-maps#readme
-// Definitions by: Akash Sharma <https://github.com/akashuplers>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { GeoPath, GeoProjection } from "d3-geo";
 import { D3ZoomEvent } from "d3-zoom";
 import { Feature } from "geojson";

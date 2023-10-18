@@ -1,17 +1,3 @@
-// Type definitions for serverless 3.12
-// Project: https://github.com/serverless/serverless#readme
-// Definitions by: Hassan Khan <https://github.com/hassankhan>
-//                 Jonathan M. Wilbur <https://github.com/JonathanWilbur>
-//                 Alex Pavlenko <https://github.com/a-pavlenko>
-//                 Frédéric Barthelet <https://github.com/fredericbarthelet>
-//                 Bryan Hunter <https://github.com/bryan-hunter>
-//                 Thomas Aribart <https://github.com/thomasaribart>
-//                 Gareth Jones <https://github.com/G-Rath>
-//                 Abdullah Ali <https://github.com/AbdullahAli>
-//                 François Farge <https://github.com/fargito>
-//                 Bruno Bodian <https://github.com/bacarybruno>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import Service = require("./classes/Service");
 import PluginManager = require("./classes/PluginManager");
 import Utils = require("./classes/Utils");

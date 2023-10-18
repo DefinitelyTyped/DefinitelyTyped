@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/smoothscroll-polyfill",
+    "version": "0.3.9999",
+    "projects": [
+        "https://iamdustan.github.io/smoothscroll",
+        "https://iamdustan.com/smoothscroll"
+    ],
+    "devDependencies": {
+        "@types/smoothscroll-polyfill": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Strobel",
+            "githubUsername": "kryops"
+        }
+    ]
+}

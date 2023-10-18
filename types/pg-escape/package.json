@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/pg-escape",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/segmentio/pg-escape"
+    ],
+    "devDependencies": {
+        "@types/pg-escape": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cameron Yan",
+            "githubUsername": "khell"
+        }
+    ]
+}

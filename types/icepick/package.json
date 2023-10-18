@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/icepick",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/aearly/icepick"
+    ],
+    "devDependencies": {
+        "@types/icepick": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nathan Brown",
+            "githubUsername": "ngbrown"
+        },
+        {
+            "name": "Tobias Cohen",
+            "githubUsername": "tobico"
+        }
+    ]
+}

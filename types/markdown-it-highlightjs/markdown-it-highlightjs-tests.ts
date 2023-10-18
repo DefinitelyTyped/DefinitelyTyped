@@ -1,9 +1,10 @@
 // Tests from markdown-it-highlightjs/test.js
 
-import { strictEqual as equal } from "assert";
 import sql = require("highlight.js/lib/languages/sql");
 import md = require("markdown-it");
 import highlightjs = require("markdown-it-highlightjs");
+
+declare function equal(a: string, b: string): boolean;
 
 equal(
     md().use(highlightjs).render("```js\nconsole.log(42)\n```"),

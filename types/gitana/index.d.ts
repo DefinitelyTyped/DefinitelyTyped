@@ -1,9 +1,3 @@
-// Type definitions for gitana 1.0
-// Project: https://github.com/gitana/gitana-node-js
-// Definitions by: Juan E. Tenorio Arzola <https://github.com/tenoriojuann>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import { AppHelper, Job } from "./index";
 
 interface connectionObject {

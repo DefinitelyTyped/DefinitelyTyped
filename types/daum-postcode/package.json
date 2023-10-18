@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/daum-postcode",
+    "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Daum Postcode",
+    "projects": [
+        "https://postcode.map.daum.net/guide"
+    ],
+    "devDependencies": {
+        "@types/daum-postcode": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "doinki",
+            "githubUsername": "doinki"
+        }
+    ]
+}

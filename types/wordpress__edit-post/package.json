@@ -1,7 +1,23 @@
 {
     "private": true,
+    "name": "@types/wordpress__edit-post",
+    "version": "7.5.9999",
+    "projects": [
+        "https://github.com/WordPress/gutenberg/tree/master/packages/edit-post/README.md"
+    ],
     "dependencies": {
+        "@types/react": "*",
+        "@types/wordpress__components": "*",
         "@wordpress/data": "^9.13.0",
         "@wordpress/element": "^5.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/wordpress__edit-post": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Derek Sifford",
+            "githubUsername": "dsifford"
+        }
+    ]
 }

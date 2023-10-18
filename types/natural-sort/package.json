@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/natural-sort",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/studio-b12/natural-sort"
+    ],
+    "devDependencies": {
+        "@types/natural-sort": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Antonio Morales",
+            "githubUsername": "a-morales"
+        },
+        {
+            "name": "Brian Crowell",
+            "githubUsername": "fluggo"
+        }
+    ]
+}

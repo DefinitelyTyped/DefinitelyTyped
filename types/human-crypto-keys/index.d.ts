@@ -1,8 +1,3 @@
-// Type definitions for human-crypto-keys 0.1
-// Project: https://github.com/ipfs-shipyard/js-human-crypto-keys
-// Definitions by: Jack Hedaya <https://github.com/jackHedaya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export function generateKeyPair(
     /**
      * The algorithm identifier and the respective parameters to generate a key pair

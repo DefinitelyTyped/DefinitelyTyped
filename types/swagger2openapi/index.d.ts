@@ -1,8 +1,3 @@
-// Type definitions for swagger2openapi 7.0
-// Project: https://github.com/Mermade/oas-kit/tree/main/packages/swagger2openapi
-// Definitions by: rxliuli <https://github.com/rxliuli>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Readable } from "node:stream";

@@ -1,8 +1,3 @@
-// Type definitions for Humane 3.2
-// Project: http://wavded.github.com/humane-js/
-// Definitions by: jmvrbanac <https://github.com/jmvrbanac>, stof <https://github.com/stof>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface HumaneMessageOptions {
     addnCls?: string | undefined;
     timeout?: number | undefined;

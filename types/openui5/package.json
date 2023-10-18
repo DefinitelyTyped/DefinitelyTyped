@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/openui5",
+    "version": "1.119.9999",
+    "projects": [
+        "https://github.com/SAP/openui5"
+    ],
+    "minimumTypeScriptVersion": "5.0",
+    "dependencies": {
+        "@types/jquery": "*",
+        "@types/qunit": "*"
+    },
+    "devDependencies": {
+        "@types/openui5": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "OpenUI5 Bot",
+            "githubUsername": "openui5bot"
+        },
+        {
+            "name": "Peter Muessig",
+            "githubUsername": "petermuessig"
+        },
+        {
+            "name": "Frank Weigel",
+            "githubUsername": "codeworrior"
+        },
+        {
+            "name": "Andreas Kunz",
+            "githubUsername": "akudev"
+        }
+    ]
+}

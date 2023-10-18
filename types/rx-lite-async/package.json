@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/rx-lite-async",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/Reactive-Extensions/RxJS"
+    ],
+    "dependencies": {
+        "@types/rx-lite": "*"
+    },
+    "devDependencies": {
+        "@types/rx-lite-async": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "zoetrope",
+            "githubUsername": "zoetrope"
+        },
+        {
+            "name": "Igor Oleinikov",
+            "githubUsername": "Igorbek"
+        }
+    ]
+}
