@@ -908,7 +908,7 @@ declare namespace TelegramBot {
     }
 
     // tslint:disable-next-line:no-empty-interface Currently holds no information (https://core.telegram.org/bots/api#forumtopicclosed)
-    interface ForumTopicClosed { }
+    interface ForumTopicClosed {}
 
     interface ForumTopicEdited {
         name: string;
@@ -916,13 +916,13 @@ declare namespace TelegramBot {
     }
 
     // tslint:disable-next-line:no-empty-interface Currently holds no information (https://core.telegram.org/bots/api#forumtopicreopened)
-    interface ForumTopicReopened { }
+    interface ForumTopicReopened {}
 
     // tslint:disable-next-line:no-empty-interface Currently holds no information (https://core.telegram.org/bots/api#generalforumtopichidden)
-    interface GeneralForumTopicHidden { }
+    interface GeneralForumTopicHidden {}
 
     // tslint:disable-next-line:no-empty-interface Currently holds no information (https://core.telegram.org/bots/api#generalforumtopicunhidden)
-    interface GeneralForumTopicUnhidden { }
+    interface GeneralForumTopicUnhidden {}
 
     interface UserShared {
         request_id: number;
