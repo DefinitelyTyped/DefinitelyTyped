@@ -159,10 +159,10 @@ declare namespace runtime {
          * When httpStaticRoot is set differently to httpAdminRoot, there is no need 
          * to move httpAdminRoot.
          */
-        httpStatic?: {
+        httpStatic?: Array<{
             path: string;
             root?: string;
-        }[] | string;
+        }> | string;
 
         /**  
          * All static routes will be appended to httpStaticRoot
