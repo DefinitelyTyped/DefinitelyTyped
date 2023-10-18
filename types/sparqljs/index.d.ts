@@ -1,5 +1,4 @@
 import * as RdfJs from "rdf-js";
-import Wildcard = require('./lib/Wildcard.js');
 
 // tslint:disable-next-line:no-unnecessary-class
 declare class SparqlJs {
@@ -9,7 +8,6 @@ declare class SparqlJs {
     static Generator: {
         new(options?: SparqlJs.GeneratorOptions): SparqlJs.SparqlGenerator;
     };
-    static Wildcard: typeof Wildcard;
 }
 
 declare namespace SparqlJs {
@@ -36,6 +34,12 @@ declare namespace SparqlJs {
         stringify(query: SparqlQuery): string;
 
         createGenerator(): any;
+    }
+
+    class Wildcard {
+        readonly termType: "Wildcard";
+        readonly value: "*";
+        equals(other: RdfJs.Term | null | undefined): boolean;
     }
 
     type Term = VariableTerm | IriTerm | LiteralTerm | BlankTerm | QuadTerm;
