@@ -1,10 +1,3 @@
-// Type definitions for react-simple-maps 3.0
-// Project: https://github.com/zcreativelabs/react-simple-maps#readme
-// Definitions by: Novikov Mihail <https://github.com/thepocp>
-//                 Andrej Mihajlov <https://github.com/pronebird>
-//                 Kouame Komenan  <https://github.com/komenank>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { GeoPath, GeoProjection } from "d3-geo";
 import { D3ZoomEvent } from "d3-zoom";
 import { Feature } from "geojson";
