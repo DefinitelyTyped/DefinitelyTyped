@@ -14,7 +14,7 @@ export namespace PJV {
     }
 
     interface FieldSpecWithType extends SpecBase {
-        type?: SpecType
+        type?: SpecType;
     }
 
     interface FieldSpecWithTypes extends SpecBase {
@@ -31,7 +31,7 @@ export namespace PJV {
 
     function parse(data: string): object | string;
 
-    type JsonSpecName = 'npm' | 'commonjs_1.0' | 'commonjs_1.1';
+    type JsonSpecName = "npm" | "commonjs_1.0" | "commonjs_1.1";
 
     interface ValidationOptions {
         errors?: boolean;
@@ -56,7 +56,7 @@ export namespace PJV {
     function validate(
         data: unknown,
         specName?: JsonSpecName,
-        options?: ValidationOptions
+        options?: ValidationOptions,
     ): ValidationResult;
 
     function validateType(name: string, field: FieldSpec, value: unknown): string[];

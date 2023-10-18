@@ -1,13 +1,13 @@
 import { PJV } from "package-json-validator";
 
 // $ExpectType RegExp
-PJV.emailFormat
+PJV.emailFormat;
 // $ExpectType RegExp
-PJV.packageFormat
+PJV.packageFormat;
 // $ExpectType RegExp
-PJV.urlFormat
+PJV.urlFormat;
 // $ExpectType RegExp
-PJV.versionFormat
+PJV.versionFormat;
 
 // $ExpectType false | FieldSpecs
 PJV.getSpecMap();
@@ -32,7 +32,7 @@ PJV.validate("", "npm", {
 // $ExpectType ValidationResult
 const validated = PJV.validate("");
 
-if ('out' in validated) {
+if ("out" in validated) {
     // $ExpectType ValidationFailureResult
     validated;
 
@@ -41,7 +41,7 @@ if ('out' in validated) {
 
     // $ExpectType false
     validated.valid;
-} else  {
+} else {
     // $ExpectType ValidationSuccessResult
     validated;
 
@@ -59,19 +59,19 @@ if ('out' in validated) {
 }
 
 // $ExpectType string[]
-PJV.validateType("", { type: "array" }, 0)
-PJV.validateType("", { type: "boolean" }, 0)
-PJV.validateType("", { type: "string" }, 0)
-PJV.validateType("", { types: ["boolean", "string"] }, 0)
+PJV.validateType("", { type: "array" }, 0);
+PJV.validateType("", { type: "boolean" }, 0);
+PJV.validateType("", { type: "string" }, 0);
+PJV.validateType("", { types: ["boolean", "string"] }, 0);
 
 // $ExpectType string[]
 PJV.validateDependencies("", {});
 PJV.validateDependencies("", { abc: "1.2.3" });
 
 // $ExpectType string[]
-PJV.validateUrlOrMailto("", "")
-PJV.validateUrlOrMailto("", { email: "", url: "" })
-PJV.validateUrlOrMailto("", { mail: "", web: "" })
+PJV.validateUrlOrMailto("", "");
+PJV.validateUrlOrMailto("", { email: "", url: "" });
+PJV.validateUrlOrMailto("", { mail: "", web: "" });
 
 // $ExpectType string[]
 PJV.validatePeople("", "");
