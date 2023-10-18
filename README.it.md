@@ -49,16 +49,15 @@ Se ancora non riesci a trovarlo, vuol dire che sono [inclusi](https://www.typesc
 Di solito vengono specificati nel campo `"types"` o `"typings"` nel `package.json`;
 oppure prova a cercare per dei file ".d.ts" nel package ed includerli manualmente con `/// <reference path="" />`.
 
-#### Vecchie versioni di TypeScript (4.0 e precedenti)
+### Support window
 
 "Definitely Typed" testa packages solo su versioni di TypeScript che hanno meno di due anni.
-Attualmente vengono testate le versioni 4.1 e successive.
-Se stai usando una versione di TypeScript tra 2.0 e la 4.0, puoi ancora provare ad installare i package `@types`, in quanto la maggior parte di questi non usano le funzionalità più all'avanguardia di Typescript.
-Non c'è comunque nessuna garanzia che funzioneranno.
-Di seguito la finestra di supporto per ogni versione di TypeScript:
 
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
 <img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
+
+<details>
+<summary>Versioni precedenti di TypeScript</summary>
 
 I package `@types` hanno dei tag per indicare le specifiche versioni di TypeScript che supportano, quindi di solito puoi installare versioni precedenti di package seppur precedenti alla finestra dei due anni.
 Ad esempio se esegui `npm dist-tags @types/react`, vedrai che TypeScript 2.5 potrà usare i tipi per react@16.0, mentre TypeScript 2.6 e 2.7 potranno usare i tipi per react@16.4:
@@ -80,6 +79,8 @@ Ad esempio se esegui `npm dist-tags @types/react`, vedrai che TypeScript 2.5 pot
 * ~~[NuGet](https://nuget.org/packages?q=DefinitelyTyped)~~ (usa altre alternative, in quanto la pubblicazione di tipi su nuget DT non è più possibile)
 
 Potresti dover aggiungere manualmente le [reference](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
+
+</details>
 
 ## Come posso contribuire?
 

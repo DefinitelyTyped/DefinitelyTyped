@@ -49,16 +49,13 @@ npm install --save-dev @types/node
 Если вы все еще не можете найти его, проверьте [включает](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) ли пакет собственную типизацию.
 Обычно это отражается в поле `"types"` или `"typings"` файла `package.json`, или просто ищите любые файлы «.d.ts» в пакете и вручную включайте их с помощью `/// <reference path="" />`.
 
-#### TypeScript 4.0 и старее
-
-Начиная с ноября 2019 года, Definitely Typed тестирует пакеты только на версиях Typescript, которым меньше двух лет.
-Если вы используете Typescript от 2.0 до 4.0, вы все равно можете попробовать установить пакеты `@types` - большинство пакетов не используют новые функции Typescript.
-Но нет гарантии, что они будут работать.
-
-График обновлений:
+### Support window
 
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
 <img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
+
+<details>
+<summary>Older versions of TypeScript</summary>
 
 Пакеты, которые существовали до ноября 2019 года, могут иметь более старые версии, которые явно помечены как совместимые с более старыми версиями Typescript; используйте тег "ts2.6" для Typescript 2.6, например.
 
@@ -79,6 +76,8 @@ npm install --save-dev @types/node
 -   Вручную загрузите из ветки `master` этого репозитория
 
 Возможно, вам придется добавить ручные [ссылки (references)](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html).
+
+</details>
 
 ## Как я могу внести свой вклад?
 

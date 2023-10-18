@@ -52,16 +52,13 @@ Se você mesmo assim não consegue achar o pacote, verifique se ele [inclui](htt
 Isso normalmente é informado nos campos `"types"` ou `"typings"` no `package.json`,
 ou apenas procure por qualquer arquivo ".d.ts" no pacote e manualmente inclua-os com `/// <reference path="" />`.
 
-#### Versões antigas do TypeScript (4.0 e anteriores)
-
-O Definitely Typed testa apenas pacotes em versões do TypeScript que tenham sido lançadas a menos de 2 anos.
-Atualmente, as versões 4.1 e acima são testadas.
-Se você está usando as versões 2.0 a 4.0 do TypeScript, você ainda pode tentar instalar os pacotes `@types` &mdash; a maioria dos pacotes não usam as novas funcionalidades chiques do TypeScript.
-Mas não tem nenhuma garantia de que elas funcionarão.
-Esta é a tabela de duração de suporte das versões.
+### Support window
 
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
 <img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
+
+<details>
+<summary>Versões antigas do TypeScript</summary>
 
 Pacotes `@types` têm tags para versões do TypeScript que elas explicitamente suportam, então normalmente você pode usar versões mais antigas dos pacotes que precedem o período de 2 anos.
 Por exemplo, se você executar o comando `npm dist-tags @types/react`, você verá que o TypeScript 2.5 pode usar os tipos para o react@16.0, enquanto o TypeScript 2.6 e 2.7 podem usar os tipos para o react@16.4:
@@ -84,6 +81,8 @@ Por exemplo, se você executar o comando `npm dist-tags @types/react`, você ver
 * ~~[NuGet](https://nuget.org/packages?q=DefinitelyTyped)~~ (use alternativas aconselhadas. A publicação de tipos do NuGet DT foi desligada)
 
 Talvez você precise adicionar [referências](https://www.typescriptlang.org/docs/handbook/triple-slash-directives.html) manuais.
+
+</details>
 
 ## Como eu posso contribuir?
 
