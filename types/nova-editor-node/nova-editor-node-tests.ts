@@ -490,7 +490,7 @@ const tmpTaskName: any = "MyTask";
 tmpTaskName.__type = "TaskName";
 const taskName: TaskName = tmpTaskName;
 
-const taskActionResolveContext: TaskActionResolveContext<any> = {
+const taskActionResolveContext: TaskActionResolveContext<Transferrable> = {
     config: nova.config,
     action: taskName,
 };

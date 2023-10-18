@@ -7,6 +7,9 @@
     "projects": [
         "https://docs.nova.app/api-reference/"
     ],
+    "dependencies": {
+        "vscode-languageserver-types": "*"
+    },
     "devDependencies": {
         "@types/nova-editor-node": "workspace:."
     },

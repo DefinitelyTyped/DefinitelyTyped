@@ -5,6 +5,7 @@
 /// <reference no-default-lib="true"/>
 /// <reference lib="es2020" />
 /// <reference lib="WebWorker" />
+/// <reference types="vscode-languageserver-types" />
 
 /// https://docs.nova.app/api-reference/assistants-registry/
 
@@ -51,8 +52,8 @@ type ResolvedTaskAction = TaskCommandAction | TaskProcessAction;
 
 interface TaskAssistant {
     provideTasks(): AssistantArray<Task>;
-    resolveTaskAction?<T extends Transferrable>(
-        context: TaskActionResolveContext<T>,
+    resolveTaskAction?(
+        context: TaskActionResolveContext<Transferrable>,
     ): ResolvedTaskAction | Promise<ResolvedTaskAction>;
 }
 
@@ -77,7 +78,7 @@ declare class Charset {
 
 /// https://docs.nova.app/api-reference/clipboard/
 
-declare interface Clipboard {
+interface Clipboard {
     readText(): Promise<string>;
     writeText(text: string): Promise<void>;
 }
@@ -543,13 +544,27 @@ declare class IssueParser {
 
 /// https://docs.nova.app/api-reference/language-client/
 
+/**
+ * A `LanguageClient` is an interface for adding a language server compatible
+ * with the Language Server Protocol specification. Creating an instance of a
+ * `LanguageClient` object sets up configuration for the server, at which point
+ * communication with the server is handed-off to the application.
+ *
+ * The `LanguageClient` class is not subclassable.
+ */
 declare class LanguageClient {
-    constructor(
-        identifier: string,
-        name: string,
-        serverOptions: ServerOptions,
-        clientOptions: { initializationOptions?: any; syntaxes: string[] },
-    );
+    /**
+     * @param identifier - a simple, unique string that can be used to identify
+     *   the server (such as `"typescript"`). It will not be displayed to the
+     *   user.
+     * @param name - the name of the server that can potentially be shown to the
+     *   user, to indicate that the server has been enabled and is in use.
+     * @param serverOptions - configuration settings for launching and
+     *   communicating with the server executable:
+     * @param clientOptions - defines configuration settings for how the editor
+     *   invokes the language client
+     */
+    constructor(identifier: string, name: string, serverOptions: ServerOptions, clientOptions: ClientOptions);
 
     readonly identifier: string;
     readonly name: string;
@@ -565,10 +580,27 @@ declare class LanguageClient {
 }
 
 interface ServerOptions {
+    /** The type of transport to use */
     type?: "stdio" | "socket" | "pipe";
+    /** The path to the server executable */
     path: string;
+    /** Additional arguments to pass (array) */
     args?: string[];
+    /** Additional environment variables to set (object) */
     env?: { [key: string]: string };
+}
+
+// Use `import()` rather than a normal module import to avoid throwing this
+// declaration file into module mode, since it provides globals when installed.
+type LSPAny = import("vscode-languageserver-types").LSPAny;
+
+interface ClientOptions {
+    /** Enable debug logging to the Extension Console */
+    debug?: boolean;
+    /** Custom options to send with the LSP initialize request (object) */
+    initializationOptions?: LSPAny;
+    /** Syntaxes for which the client is valid  */
+    syntaxes: string[];
 }
 
 /// https://docs.nova.app/api-reference/notification-center/
@@ -793,7 +825,7 @@ interface NovaSymbol {
 
 /// https://docs.nova.app/api-reference/task/
 
-declare type TaskName = string & { __type: "TaskName" };
+type TaskName = string & { __type: "TaskName" };
 
 declare class Task {
     static readonly Build: TaskName;
@@ -990,7 +1022,7 @@ declare class TreeView<E> extends Disposable {
 /// https://docs.nova.app/api-reference/workspace/
 
 // The line is optional, unless a column is specified
-declare type FileLocation =
+type FileLocation =
     | {
         line?: number;
         column?: never;
