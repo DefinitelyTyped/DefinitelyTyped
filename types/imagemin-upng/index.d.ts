@@ -1,8 +1,3 @@
-// Type definitions for imagemin-upng 3.0
-// Project: https://github.com/fisker/imagemin-upng#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Plugin } from "imagemin";
 
 /**

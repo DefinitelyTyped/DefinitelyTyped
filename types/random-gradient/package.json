@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/random-gradient",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/bukinoshita/random-gradient#readme"
+    ],
+    "devDependencies": {
+        "@types/random-gradient": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "dm1sh",
+            "githubUsername": "dm1sh"
+        }
+    ]
+}

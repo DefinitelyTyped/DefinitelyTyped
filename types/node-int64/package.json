@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/node-int64",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/broofa/node-int64"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/node-int64": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Benno Dreissig",
+            "githubUsername": "x3cion"
+        },
+        {
+            "name": "Kevin Greene",
+            "githubUsername": "kevin-greene-ck"
+        }
+    ]
+}

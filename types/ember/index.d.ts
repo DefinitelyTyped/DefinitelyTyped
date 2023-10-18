@@ -1,16 +1,6 @@
-// Type definitions for Ember.js 4.0
-// Project: https://emberjs.com/, https://github.com/emberjs/ember
-// Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 James C. Davis <https://github.com/jamescdavis>
-//                 Peter Wagenet <https://github.com/wagenet>
-//                 Krystan HuffMenne <https://github.com/gitKrystan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 // Capitalization is intentional: this makes it much easier to re-export RSVP on
 // the Ember namespace.
 import Rsvp from "rsvp";
-
 
 import { Registry as ControllerRegistry } from "@ember/controller";
 import * as EmberStringNs from "@ember/string";

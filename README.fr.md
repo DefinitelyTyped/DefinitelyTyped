@@ -52,15 +52,11 @@ Si vous ne trouvez toujours pas les typages, recherchez simplement les fichiers 
 
 Definitely Typed ne teste que les paquets sur des versions de TypeScript datant de moins de 2 ans.
 
-<details>
-<summary>Actuellement, les versions 4.1 et supérieures sont testées...</summary>
-
-Si vous utilisez TypeScript 2.0 à 4.0, vous pouvez toujours essayer d'installer les paquets `@types` &mdash ; la majorité des paquets n'utilisent pas les nouvelles fonctionnalités fantaisistes de TypeScript.
-Mais rien ne garantit qu'ils fonctionneront.
-Voici le support de version:
-
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
 <img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
+
+<details>
+<summary>Anciennes versions de TypeScript</summary>
 
 Les paquets `@types` ont des étiquettes pour les versions de TypeScript qu'ils supportent explicitement, de sorte que vous pouvez généralement obtenir des versions plus anciennes de paquets qui précèdent la fenêtre de 2 ans.
 Par exemple, si vous lancez `npm dist-tags @types/react`, vous verrez que TypeScript 2.5 peut utiliser les types pour react@16.0, alors que TypeScript 2.6 et 2.7 peuvent utiliser les types pour react@16.4 :
@@ -452,7 +448,7 @@ Alors ils sont faux, et nous ne l'avons pas encore remarqué. Vous pouvez nous a
 
 #### Puis-je modifier/renforcer les paramètres de formatage des modules ?
 
-Non. Nous avons déjà essayé de rendre le formatage du code de DT cohérent, mais nous sommes arrivés à une impasse en raison de la forte activité sur le repo. Nous incluons les paramètres de formatage via [`.editorconfig`](.editorconfig) et [`.prettierrc.json`](.prettierrc.json). Ceux-ci sont exclusivement destinés à l'outillage de votre éditeur, leurs paramètres n'entrent pas en conflit et nous ne prévoyons pas de les modifier. Nous ne prévoyons pas non plus d'imposer un style spécifique dans le repo. Nous voulons garder les barrières aux contributions basses.
+Non. Nous avons déjà essayé de rendre le formatage du code de DT cohérent, mais nous sommes arrivés à une impasse en raison de la forte activité sur le repo. Nous incluons les paramètres de formatage via [`.editorconfig`](.editorconfig). Ceux-ci sont exclusivement destinés à l'outillage de votre éditeur, leurs paramètres n'entrent pas en conflit et nous ne prévoyons pas de les modifier. Nous ne prévoyons pas non plus d'imposer un style spécifique dans le repo. Nous voulons garder les barrières aux contributions basses.
 
 #### Puis-je demander une définition ?
 

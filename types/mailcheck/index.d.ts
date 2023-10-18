@@ -1,9 +1,3 @@
-// Type definitions for Mailcheck 1.1
-// Project: https://github.com/mailcheck/mailcheck
-// Definitions by: Paulo Cesar <https://github.com/pocesar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
 /// <reference types="jquery" />
 
 declare var Mailcheck: MailcheckModule.Static;

@@ -1,8 +1,3 @@
-// Type definitions for epcis2.js 2.7
-// Project: https://github.com/evrythng/epcis2.js#readme
-// Definitions by: clementh59 <https://github.com/clementh59>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export { default as cbv } from "./cbv/cbv";
 export { default as vtype } from "./cbv/vtype";
 export { default as CaptureResponse } from "./entity/epcis/CaptureResponse";

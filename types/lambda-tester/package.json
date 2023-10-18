@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/lambda-tester",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/vandium-io/lambda-tester#readme"
+    ],
+    "dependencies": {
+        "@types/aws-lambda": "*"
+    },
+    "devDependencies": {
+        "@types/lambda-tester": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ivan Kerin",
+            "githubUsername": "ivank"
+        },
+        {
+            "name": "Hajo Aho-Mantila",
+            "githubUsername": "HajoAhoMantila"
+        },
+        {
+            "name": "Suntharesan Mohan",
+            "githubUsername": "msuntharesan"
+        }
+    ]
+}

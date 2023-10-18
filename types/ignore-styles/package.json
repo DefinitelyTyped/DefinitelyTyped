@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/ignore-styles",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/bkonkle/ignore-styles"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/ignore-styles": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Taiju Muto",
+            "githubUsername": "tai2"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for commonmark-react-renderer 4.3
-// Project: https://github.com/rexxars/commonmark-react-renderer#readme
-// Definitions by: Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Node } from "commonmark";
 import * as React from "react";
 

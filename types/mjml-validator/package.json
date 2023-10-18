@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/mjml-validator",
+    "version": "4.13.9999",
+    "projects": [
+        "https://github.com/mjmlio/mjml/tree/master/packages/mjml-validator"
+    ],
+    "dependencies": {
+        "@types/mjml-core": "*"
+    },
+    "devDependencies": {
+        "@types/mjml-validator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Emily M Klassen",
+            "githubUsername": "forivall"
+        }
+    ]
+}

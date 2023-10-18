@@ -1,8 +1,3 @@
-// Type definitions for @cyberblast/logger 0.0
-// Project: https://github.com/cyberblast/logger
-// Definitions by: cyberblast <https://github.com/cyberblast>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface LogData {
     severity: Severity;
     category: string;

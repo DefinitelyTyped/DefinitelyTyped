@@ -4,15 +4,11 @@
         "lib": [
             "es6"
         ],
-        "jsx":"preserve",
+        "jsx": "preserve",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

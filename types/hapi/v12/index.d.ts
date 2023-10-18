@@ -1,8 +1,3 @@
-// Type definitions for hapi 12.0.1
-// Project: https://github.com/spumko/hapi
-// Definitions by: Jason Swearingen <https://github.com/jasonswearingen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Note/Disclaimer:
 // Copied directly from 918608a5e007d925f4f60a275881057f07c12619 which seems to
 // be the last author to work on v12.0

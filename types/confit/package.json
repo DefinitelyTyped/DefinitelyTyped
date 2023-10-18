@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/confit",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/krakenjs/confit"
+    ],
+    "devDependencies": {
+        "@types/confit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ethan Resnick",
+            "githubUsername": "ethanresnick"
+        }
+    ]
+}

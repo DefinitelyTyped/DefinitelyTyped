@@ -1,9 +1,3 @@
-// Type definitions for array-normalize 2.0
-// Project: https://github.com/dy/array-normalize#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.5
-
 export = normalize;
 
 /**

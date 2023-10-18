@@ -1,9 +1,3 @@
-// Type definitions for lgtv2 1.4
-// Project: https://github.com/hobbyquaker/lgtv2
-// Definitions by: Ovidiu Pruteanu <https://github.com/ovidiupruteanu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

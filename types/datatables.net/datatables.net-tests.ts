@@ -840,7 +840,7 @@ $("#example").on(
         const widthRecalced = recalc || recalc === undefined;
         console.log(
             `Column ${column} has changed to ${(state ? "visible" : "hidden")} and width ${
-                (widthRecalced) ? "was" : "was not"
+                widthRecalced ? "was" : "was not"
             } recalculated.`,
         );
     },

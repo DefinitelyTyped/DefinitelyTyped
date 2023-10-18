@@ -1,10 +1,3 @@
-// Type definitions for primus 7.3
-// Project: https://github.com/primus/primus#readme
-// Definitions by: Christian Vaagland Tellnes <https://github.com/tellnes>
-//                 Alaa Zorkane <https://github.com/alaazorkane>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0
-
 /// <reference types="node" />
 import { EventEmitter } from "events";
 import * as http from "http";

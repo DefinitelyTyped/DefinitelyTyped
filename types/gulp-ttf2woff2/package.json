@@ -1,6 +1,22 @@
 {
     "private": true,
+    "name": "@types/gulp-ttf2woff2",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/nfroidure/gulp-ttf2woff2"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "plugin-error": "^1.0.1"
-    }
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-ttf2woff2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Anatoly Pitikin",
+            "githubUsername": "xapdkop"
+        }
+    ]
 }

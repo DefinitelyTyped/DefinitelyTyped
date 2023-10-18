@@ -1,11 +1,11 @@
-import morphPlugin, { morph } from '@alpinejs/morph';
-import Alpine from 'alpinejs';
+import morphPlugin, { morph } from "@alpinejs/morph";
+import Alpine from "alpinejs";
 
 Alpine.plugin(morphPlugin);
 
-const originalNode = document.createElement('div');
+const originalNode = document.createElement("div");
 
-Alpine.morph(originalNode, '<div></div>', {
+Alpine.morph(originalNode, "<div></div>", {
     updating(from, to, childrenOnly, skip) {
         // $ExpectType Node
         from;
@@ -52,12 +52,12 @@ Alpine.morph(originalNode, '<div></div>', {
         // $ExpectType Node
         el;
 
-        return 'key';
+        return "key";
     },
     lookahead: true,
 });
 
-morph(originalNode, document.createElement('div'), {
+morph(originalNode, document.createElement("div"), {
     updating(from, to, childrenOnly, skip) {
         // $ExpectType Node
         from;
@@ -104,7 +104,7 @@ morph(originalNode, document.createElement('div'), {
         // $ExpectType Node
         el;
 
-        return 'key';
+        return "key";
     },
     lookahead: true,
 });

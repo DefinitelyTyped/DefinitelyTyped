@@ -1,16 +1,19 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es2018"],
+        "lib": [
+            "es2018"
+        ],
         "strictFunctionTypes": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "graphql-resolve-batch-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "graphql-resolve-batch-tests.ts"
+    ]
 }

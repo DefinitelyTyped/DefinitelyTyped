@@ -5,10 +5,10 @@
 //                 Kouame Komenan  <https://github.com/komenank>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { GeoPath, GeoProjection } from 'd3-geo';
-import { D3ZoomEvent } from 'd3-zoom';
-import { Feature } from 'geojson';
-import * as React from 'react';
+import { GeoPath, GeoProjection } from "d3-geo";
+import { D3ZoomEvent } from "d3-zoom";
+import { Feature } from "geojson";
+import * as React from "react";
 
 export type Point = [number, number];
 

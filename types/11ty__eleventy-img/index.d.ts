@@ -1,20 +1,14 @@
-// Type definitions for @11ty/eleventy-img 2.0
-// Project: https://github.com/11ty/eleventy-img
-// Definitions by: Tiger Oakes <https://github.com/NotWoods>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
-
 /// <reference types="node" />
-import sharp = require('sharp');
-import generateImageHTML = require('./generate-html');
+import sharp = require("sharp");
+import generateImageHTML = require("./generate-html");
 
 type Awaitable<T> = PromiseLike<T> | T;
 type WithImplicitCoercion<T> = T | { valueOf(): T };
 
 declare namespace EleventyImage {
     type ImageSource = string | URL | Buffer;
-    type ImageFormat = 'webp' | 'jpeg' | 'png' | 'svg' | 'avif';
-    type ImageFormatWithAliases = ImageFormat | 'jpg' | 'svg+xml';
+    type ImageFormat = "webp" | "jpeg" | "png" | "svg" | "avif";
+    type ImageFormatWithAliases = ImageFormat | "jpg" | "svg+xml";
 
     type FormatHook = (
         this: MetadataEntry,
@@ -25,7 +19,7 @@ declare namespace EleventyImage {
         /**
          * @default 'buffer'
          */
-        type?: 'buffer' | 'json' | 'text';
+        type?: "buffer" | "json" | "text";
         /**
          * @default ".cache"
          */
@@ -56,14 +50,14 @@ declare namespace EleventyImage {
          * - `null` and `'auto'` represent the original image width.
          * @default [null]
          */
-        widths?: ReadonlyArray<number | 'auto' | null>;
+        widths?: ReadonlyArray<number | "auto" | null>;
         /**
          * Controls the output image formats.
          * - `null and `'auto'` keep the original format.
          * - `svg` requires SVG input to work.
          * @default ['webp', 'jpeg']
          */
-        formats?: ReadonlyArray<ImageFormatWithAliases | 'auto' | null>;
+        formats?: ReadonlyArray<ImageFormatWithAliases | "auto" | null>;
         /**
          * @default 10
          */
@@ -152,12 +146,12 @@ declare namespace EleventyImage {
          */
         filenameFormat?:
             | ((
-                  id: string,
-                  src: string,
-                  width: number,
-                  format: string,
-                  options: Required<ImageOptions>,
-              ) => string | null | undefined)
+                id: string,
+                src: string,
+                width: number,
+                format: string,
+                options: Required<ImageOptions>,
+            ) => string | null | undefined)
             | null
             | undefined;
 
@@ -179,14 +173,14 @@ declare namespace EleventyImage {
          */
         urlFormat?:
             | ((
-                  format: {
-                      hash: string;
-                      src: string;
-                      width: number;
-                      format: string;
-                  },
-                  options: Required<ImageOptions>,
-              ) => string)
+                format: {
+                    hash: string;
+                    src: string;
+                    width: number;
+                    format: string;
+                },
+                options: Required<ImageOptions>,
+            ) => string)
             | null;
 
         /**
@@ -290,7 +284,7 @@ declare namespace EleventyImage {
     function statsByDimensionsSync(src: ImageSource, width: number, height: number, opts?: ImageOptions): Metadata;
 
     function getFormats(
-        formats: string | ReadonlyArray<ImageFormatWithAliases | null | 'auto'>,
+        formats: string | ReadonlyArray<ImageFormatWithAliases | null | "auto">,
         autoFormat: ImageFormat,
     ): ImageFormat[];
     function getFormats(
@@ -300,7 +294,7 @@ declare namespace EleventyImage {
 
     function getWidths(
         originalWidth: number,
-        widths?: ReadonlyArray<number | 'auto' | null>,
+        widths?: ReadonlyArray<number | "auto" | null>,
         allowUpscale?: boolean,
     ): number[];
 
@@ -311,7 +305,7 @@ declare namespace EleventyImage {
         isRemoteUrl: boolean;
         options: Required<ImageOptions>;
 
-        cacheOptions?: Required<ImageOptions['cacheOptions']>;
+        cacheOptions?: Required<ImageOptions["cacheOptions"]>;
 
         constructor(src: ImageSource, opts?: ImageOptions);
 

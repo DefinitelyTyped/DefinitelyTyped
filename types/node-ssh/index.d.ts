@@ -1,8 +1,3 @@
-// Type definitions for node-ssh 7.0
-// Project: https://github.com/steelbrain/node-ssh
-// Definitions by: Junxiao Shi <https://github.com/yoursunny>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { ClientChannel, ExecOptions as ssh2ExecOptions, SFTPWrapper } from "ssh2";

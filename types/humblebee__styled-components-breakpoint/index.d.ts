@@ -1,10 +1,5 @@
-// Type definitions for @humblebee/styled-components-breakpoint 2.1
-// Project: https://github.com/wearehumblebee/styled-components-breakpoint
-// Definitions by: Carl Ribbegårdh <https://github.com/CarlRibbegaardh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* eslint-disable @definitelytyped/no-declare-current-package */
-// tslint:disable-next-line:no-single-declare-module
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
 declare module "@humblebee/styled-components-breakpoint" {
     import { CSSObject, SimpleInterpolation } from "styled-components";
 

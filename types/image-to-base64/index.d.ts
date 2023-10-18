@@ -1,8 +1,3 @@
-// Type definitions for image-to-base64 2.1
-// Project: https://github.com/renanbastos93/image-to-base64#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Generate a base64 code from an image through a URL or a path.
  */

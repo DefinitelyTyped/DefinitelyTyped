@@ -1,6 +1,6 @@
 import { Transform, TransformCallback, TransformOptions } from "node:stream";
-import { after, afterEach, before, beforeEach, describe, it, only, run, skip, test, todo, mock, Mock } from "node:test";
-import { dot, spec, tap, TestEvent } from "node:test/reporters";
+import { after, afterEach, before, beforeEach, describe, it, Mock, mock, only, run, skip, test, todo } from "node:test";
+import { dot, junit, spec, tap, TestEvent } from "node:test/reporters";
 
 // run without options
 // $ExpectType TestsStream
@@ -21,6 +21,7 @@ run({
     timeout: 100,
     inspectPort: () => 8081,
     testNamePatterns: ["executed"],
+    only: true,
     setup: (root) => {},
     watch: true,
     shard: {
@@ -652,6 +653,10 @@ tap();
 tap("" as any);
 // $ExpectType Spec
 new spec();
+// @ts-expect-error
+junit();
+// $ExpectType AsyncGenerator<string, void, unknown>
+junit("" as any);
 
 describe("Mock Timers Test Suite", () => {
     it((t) => {
@@ -671,12 +676,12 @@ class TestReporter extends Transform {
     _transform(event: TestEvent, _encoding: BufferEncoding, callback: TransformCallback): void {
         switch (event.type) {
             case "test:diagnostic": {
-                const { file, column, line, message, nesting } = event.data
+                const { file, column, line, message, nesting } = event.data;
                 callback(null, `${message}/${nesting}/${file}/${column}/${line}`);
                 break;
             }
             case "test:fail": {
-                const { file, column, line, details, name, nesting, testNumber, skip, todo } = event.data
+                const { file, column, line, details, name, nesting, testNumber, skip, todo } = event.data;
                 callback(
                     null,
                     `${name}/${details.duration_ms}/${details.type}/
@@ -685,7 +690,7 @@ class TestReporter extends Transform {
                 break;
             }
             case "test:pass": {
-                const { file, column, line, details, name, nesting, testNumber, skip, todo } = event.data
+                const { file, column, line, details, name, nesting, testNumber, skip, todo } = event.data;
                 callback(
                     null,
                     `${name}/${details.duration_ms}/${details.type}/
@@ -694,32 +699,32 @@ class TestReporter extends Transform {
                 break;
             }
             case "test:plan": {
-                const { file, column, line, count, nesting } = event.data
+                const { file, column, line, count, nesting } = event.data;
                 callback(null, `${count}/${nesting}/${file}/${column}/${line}`);
                 break;
             }
             case "test:start": {
-                const { file, column, line, name, nesting } = event.data
+                const { file, column, line, name, nesting } = event.data;
                 callback(null, `${name}/${nesting}/${file}/${column}/${line}`);
                 break;
             }
             case "test:stderr": {
-                const { file, column, line, message } = event.data
+                const { file, column, line, message } = event.data;
                 callback(null, `${message}/${file}/${column}/${line}`);
                 break;
             }
             case "test:stdout": {
-                const { file, column, line, message } = event.data
+                const { file, column, line, message } = event.data;
                 callback(null, `${message}/${file}/${column}/${line}`);
                 break;
             }
             case "test:enqueue": {
-                const { file, column, line, name, nesting } = event.data
+                const { file, column, line, name, nesting } = event.data;
                 callback(null, `${name}/${nesting}/${file}/${column}/${line}`);
                 break;
             }
             case "test:dequeue": {
-                const { file, column, line, name, nesting } = event.data
+                const { file, column, line, name, nesting } = event.data;
                 callback(null, `${name}/${nesting}/${file}/${column}/${line}`);
                 break;
             }
@@ -732,4 +737,4 @@ class TestReporter extends Transform {
         }
     }
 }
-const createdMock: Mock<() => undefined> = mock.fn(() => undefined)
+const createdMock: Mock<() => undefined> = mock.fn(() => undefined);

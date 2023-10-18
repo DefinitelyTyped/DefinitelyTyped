@@ -1,8 +1,3 @@
-// Type definitions for long-timeout 0.1
-// Project: https://github.com/tellnes/long-timeout
-// Definitions by: Matthias Kunnen <https://github.com/MatthiasKunnen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type Listener = (...args: any[]) => void;
 
 export class Timeout {

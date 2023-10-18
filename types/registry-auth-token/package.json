@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/registry-auth-token",
+    "version": "4.2.9999",
+    "projects": [
+        "https://github.com/rexxars/registry-auth-token"
+    ],
+    "devDependencies": {
+        "@types/registry-auth-token": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maurice de Beijer",
+            "githubUsername": "mauricedb"
+        },
+        {
+            "name": "James Liang",
+            "githubUsername": "LiangZugeng"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

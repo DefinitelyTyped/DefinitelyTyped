@@ -1,8 +1,3 @@
-// Type definitions for react-async-script 1.2
-// Project: https://github.com/dozoisch/react-async-script
-// Definitions by: Michalis Zachariadis <https://github.com/mzachariadis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 import hoistNonReactStatics = require("hoist-non-react-statics");
 

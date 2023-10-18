@@ -8,12 +8,13 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "jsx": "react",
+        "paths": {
+            "react-native": [
+                "../react-native/index.d.ts"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

@@ -1,7 +1,3 @@
-// Type definitions for @lerna/collect-updates 5.1
-// Project: https://github.com/lerna/lerna/tree/main/utils/collect-updates
-// Definitions by: donmahallem <https://github.com/donmahallem>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import { ExecOpts } from "@lerna/child-process";
 import { Package } from "@lerna/package";
 import { PackageGraph } from "@lerna/package-graph";

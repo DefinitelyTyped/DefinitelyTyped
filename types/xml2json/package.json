@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/xml2json",
+    "version": "0.11.9999",
+    "projects": [
+        "https://github.com/buglabs/node-xml2json"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/xml2json": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dolan Miu",
+            "githubUsername": "dolanmiu"
+        },
+        {
+            "name": "Igor Strebezhev",
+            "githubUsername": "xamgore"
+        }
+    ]
+}

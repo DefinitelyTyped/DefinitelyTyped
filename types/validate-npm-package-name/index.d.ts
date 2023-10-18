@@ -1,9 +1,3 @@
-// Type definitions for validate-npm-package-name 4.0
-// Project: https://github.com/npm/validate-npm-package-name
-// Definitions by: Florian Keller <https://github.com/ffflorian>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace validate {
     interface Results {
         validForNewPackages: boolean;

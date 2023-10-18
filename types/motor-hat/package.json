@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/motor-hat",
+    "version": "2.0.9999",
+    "projects": [
+        "http://www.github.com/jcane86/motor-hat"
+    ],
+    "devDependencies": {
+        "@types/motor-hat": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yevgen Muntyan",
+            "githubUsername": "muntyan"
+        }
+    ]
+}

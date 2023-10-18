@@ -34,7 +34,7 @@ export class Loader<TData = unknown, TUrl = string> {
 
     load(
         url: TUrl,
-        onLoad?: (data: TData) => void,
+        onLoad: (data: TData) => void,
         onProgress?: (event: ProgressEvent) => void,
         onError?: (err: unknown) => void,
     ): void;

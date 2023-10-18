@@ -1,8 +1,3 @@
-// Type definitions for @hapi/content 6.0
-// Project: https://github.com/hapijs/subtext#readme
-// Definitions by: Sebastian Malton <https://github.com/nokel81>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface ContentType {

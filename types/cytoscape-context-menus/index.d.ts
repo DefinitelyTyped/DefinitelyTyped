@@ -1,8 +1,3 @@
-// Type definitions for cytoscape-context-menus 4.1
-// Project: https://github.com/iVis-at-Bilkent/cytoscape.js-context-menus
-// Definitions by: Musa Ali <https://github.com/hellomusa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import cytoscape = require("cytoscape");
 
 declare const contextMenus: cytoscape.Ext;

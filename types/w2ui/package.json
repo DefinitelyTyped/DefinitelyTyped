@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/w2ui",
+    "version": "1.4.9999",
+    "projects": [
+        "http://w2ui.com/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/w2ui": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Valentin Robert",
+            "githubUsername": "Ptival"
+        }
+    ]
+}

@@ -1,16 +1,3 @@
-// Type definitions for yargs 17.0
-// Project: https://github.com/chevex/yargs, https://yargs.js.org
-// Definitions by: Martin Poelstra <https://github.com/poelstra>
-//                 Mizunashi Mana <https://github.com/mizunashi-mana>
-//                 Jeffery Grajkowski <https://github.com/pushplay>
-//                 Jimi (Dimitris) Charalampidis <https://github.com/JimiC>
-//                 Steffen Viken Valvåg <https://github.com/steffenvv>
-//                 Emily Marigold Klassen <https://github.com/forivall>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 Aankhen <https://github.com/Aankhen>
-//                 Ben Coe <https://github.com/bcoe>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // The following TSLint rules have been disabled:
 // unified-signatures: Because there is useful information in the argument names of the overloaded signatures
 
@@ -188,7 +175,11 @@ declare namespace yargs {
             middlewares?: Array<MiddlewareFunction<O>>,
             deprecated?: boolean | string,
         ): Argv<T>;
-        command(command: string | ReadonlyArray<string>, description: string, module: CommandModule<T, any>): Argv<T>;
+        command<U = any>(
+            command: string | ReadonlyArray<string>,
+            description: string,
+            module: CommandModule<T, U>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+        ): Argv<T>;
         command<U = T>(
             command: string | ReadonlyArray<string>,
             showInHelp: false,
@@ -203,9 +194,15 @@ declare namespace yargs {
             builder?: O,
             handler?: (args: ArgumentsCamelCase<InferredOptionTypes<O>>) => void | Promise<void>,
         ): Argv<T>;
-        command(command: string | ReadonlyArray<string>, showInHelp: false, module: CommandModule<T, any>): Argv<T>;
-        command(module: CommandModule<T, any>): Argv<T>;
-        command(modules: Array<CommandModule<T, any>>): Argv<T>;
+        command<U = any>(
+            command: string | ReadonlyArray<string>,
+            showInHelp: false,
+            module: CommandModule<T, U>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+        ): Argv<T>;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        command<U = any>(module: CommandModule<T, U>): Argv<T>;
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        command<U = any>(modules: Array<CommandModule<T, U>>): Argv<T>;
 
         // Advanced API
         /** Apply command modules from a directory relative to the module calling this method. */

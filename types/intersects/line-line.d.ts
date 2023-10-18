@@ -7,6 +7,8 @@ declare function lineLine(
     y3: number,
     x4: number,
     y4: number,
+    thickness1?: number,
+    thickness2?: number,
 ): boolean;
 
 export = lineLine;

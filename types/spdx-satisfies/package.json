@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/spdx-satisfies",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/kemitchell/spdx-satisfies.js#readme"
+    ],
+    "devDependencies": {
+        "@types/spdx-satisfies": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jinwoo Lee",
+            "githubUsername": "jinwoo"
+        }
+    ]
+}

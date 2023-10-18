@@ -1,12 +1,3 @@
-// Type definitions for @mailchimp/mailchimp_marketing 3.0
-// Project: https://github.com/mailchimp/mailchimp-client-lib-codegen
-// Definitions by: Jan Müller <https://github.com/rattkin>
-//                 Jérémy Barbet <https://github.com/jeremybarbet>
-//                 Daniel Castro <https://github.com/odanieldcs>
-//                 Edwin Finch <https://github.com/edwinfinch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// API Documentation: https://mailchimp.com/developer/marketing/api/
-
 /*
 These type definitions are missing many of the actual definitions within the Mailchimp marketing API.
 
@@ -2528,4 +2519,27 @@ export namespace campaigns {
         campaign_id: string,
         opts?: GetCampaignContentOptions,
     ): Promise<CampaignContentSuccessResponse | ErrorResponse>;
+}
+
+/**
+ * Customer Journeys API
+ */
+export namespace customerJourneys {
+    interface TriggerCustomerJourneyBody {
+        email_address: string;
+    }
+
+    /**
+     * Customer Journeys API trigger for a contact
+     * @param journey_id The unique ID for the journey.
+     * @param step_id The unique ID for the step.
+     * @param body
+     * @param body.email_address The list member's email address.
+     * @return A {@link https://www.promisejs.org/|Promise}
+     */
+    function trigger(
+        journey_id: number,
+        step_id: number,
+        body: TriggerCustomerJourneyBody,
+    ): Promise<null | ErrorResponse>;
 }

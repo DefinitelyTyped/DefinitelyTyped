@@ -1,15 +1,8 @@
-// Type definitions for SuperTest v2.0.1
-// Project: https://github.com/visionmedia/supertest
-// Definitions by: Alex Varju <https://github.com/varju>
-//                 Petteri Parkkila <https://github.com/pietu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import * as superagent from "superagent";
 
 export = supertest;
 
-declare function supertest(app: any): supertest.SuperTest<supertest.Test>;
+declare function supertest(app: any, options?: supertest.Options): supertest.SuperTest<supertest.Test>;
 declare namespace supertest {
     interface Response extends superagent.Response {}
 
@@ -31,7 +24,11 @@ declare namespace supertest {
         end(callback?: CallbackHandler): this;
     }
 
-    interface AgentOptions {
+    interface Options {
+        http2?: boolean;
+    }
+
+    interface AgentOptions extends Options {
         ca?: any;
     }
     function agent(app?: any, options?: AgentOptions): SuperAgentTest;

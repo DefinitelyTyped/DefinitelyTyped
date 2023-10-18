@@ -132,7 +132,7 @@ function test_gif_rendering() {
                         cube = new obelisk.Cube(dimension, color, false);
                         stack.push([cube, pixelColor]);
                     }
-                    var p3d = new obelisk.Point3D(x * (size - 2), 0, (HEIGHT - 1 - y) * (size));
+                    var p3d = new obelisk.Point3D(x * (size - 2), 0, (HEIGHT - 1 - y) * size);
                     pixelView.renderObject(cube, p3d);
                 }
             }

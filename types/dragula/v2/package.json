@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/dragula",
+    "version": "2.1.9999",
+    "projects": [
+        "http://bevacqua.github.io/dragula/"
+    ],
+    "devDependencies": {
+        "@types/dragula": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paul Welter",
+            "githubUsername": "pwelter34"
+        },
+        {
+            "name": "Yang He",
+            "githubUsername": "abruzzihraig"
+        }
+    ]
+}

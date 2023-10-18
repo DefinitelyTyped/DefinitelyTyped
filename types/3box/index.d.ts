@@ -1,8 +1,3 @@
-// Type definitions for 3box 1.22
-// Project: https://github.com/3box/3box-js#readme
-// Definitions by: Shikanime Deva <https://github.com/shikanime>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Box;
 export as namespace Box;
 
@@ -110,7 +105,10 @@ declare class Box {
     static isLoggedIn(address: string): boolean;
     static create(ethereumProvider: any): Promise<Box>;
 
-    openSpace(name: string, opts?: { consentCallback?: (() => void) | undefined; onSyncDone?: (() => void) | undefined }): Promise<Box.Space>;
+    openSpace(
+        name: string,
+        opts?: { consentCallback?: (() => void) | undefined; onSyncDone?: (() => void) | undefined },
+    ): Promise<Box.Space>;
     auth(space: string[], user: { address: string }): void;
     syncDone: Promise<Box.Space>;
     onSyncDone(syncDoneFn: () => void): void;
@@ -148,5 +146,8 @@ declare class Box {
         members: boolean,
         opts?: { profileServer?: string | undefined },
     ): Promise<Box.ThreadPost[]>;
-    static getThreadByAddress(address: string, opts?: { profileServer?: string | undefined }): Promise<Box.ThreadPost[]>;
+    static getThreadByAddress(
+        address: string,
+        opts?: { profileServer?: string | undefined },
+    ): Promise<Box.ThreadPost[]>;
 }

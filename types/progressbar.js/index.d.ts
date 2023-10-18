@@ -1,7 +1,3 @@
-// Type definitions for progressbar.js 1.1
-// Project: https://kimmobrunfeldt.github.io/progressbar.js/
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import Line = require("./line");
 import Circle = require("./circle");
 import SemiCircle = require("./semicircle");

@@ -1,8 +1,3 @@
-// Type definitions for selectn 1.1
-// Project: https://github.com/wilmoore/selectn.js
-// Definitions by: Ben Daly <https://github.com/bendaly818>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Curried property accessor function that resolves deeply-nested object properties via dot/bracket-notation
  * string path while mitigating `TypeErrors` via friendly and composable API.

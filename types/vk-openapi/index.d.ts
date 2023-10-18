@@ -1,9 +1,3 @@
-// Type definitions for non-npm package VK Open API 1.6
-// Project: https://vk.com/dev/openapi
-// Definitions by: hikiko4ern <https://github.com/hikiko4ern>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
 declare var VK: vk.OpenAPI.API;
 
 declare namespace vk {

@@ -1,9 +1,3 @@
-// Type definitions for emoji-flags 1.3
-// Project: https://github.com/matiassingers/emoji-flags
-// Definitions by: Todd Dukart <https://github.com/tdukart>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace emojiFlags;
 
 declare namespace emojiFlags {

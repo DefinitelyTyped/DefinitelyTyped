@@ -1,11 +1,3 @@
-// Type definitions for react-tracking 8.1
-// Project: https://github.com/NYTimes/react-tracking
-// Definitions by: Eloy Durán <https://github.com/alloy>
-//                 Christopher Pappas <https://github.com/damassi>
-//                 Chen Asraf <https://github.com/chenasraf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export interface TrackingProp<P = {}> {

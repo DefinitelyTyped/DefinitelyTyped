@@ -1,11 +1,6 @@
-// Type definitions for (actually non-npm package littledata:synced-cron 1.5, but still compatible with this old unmaintained fork:) meteor-synced-cron 1.0
-// Project: https://github.com/percolatestudio/meteor-synced-cron#readme
-// Definitions by: ghybs <https://github.com/ghybs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types='later' />
 
-// tslint:disable-next-line no-single-declare-module
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
 declare module "meteor/littledata:synced-cron" {
     /**
      * A simple cron system for Meteor.

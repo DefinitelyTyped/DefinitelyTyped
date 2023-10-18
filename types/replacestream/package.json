@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/replacestream",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/eugeneware/replacestream#readme"
+    ],
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/replacestream": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Roszatycki",
+            "githubUsername": "dex4er"
+        }
+    ]
+}

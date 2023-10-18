@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/redux-persist-webextension-storage",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ssorallen/redux-persist-webextension-storage"
+    ],
+    "devDependencies": {
+        "@types/redux-persist-webextension-storage": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marton Lederer",
+            "githubUsername": "martonlederer"
+        }
+    ]
+}

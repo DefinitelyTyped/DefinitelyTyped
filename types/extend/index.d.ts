@@ -1,8 +1,3 @@
-// Type definitions for extend 3.0
-// Project: https://github.com/justmoon/node-extend
-// Definitions by: Stefan Steinhart <https://github.com/reppners>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function extend<T, U>(deep: boolean, target: T, source: U): T & U;
 declare function extend<T, U, V>(deep: boolean, target: T, source1: U, source2: V): T & U & V;
 declare function extend<T, U, V, W>(deep: boolean, target: T, source1: U, source2: V, source3: W): T & U & V & W;

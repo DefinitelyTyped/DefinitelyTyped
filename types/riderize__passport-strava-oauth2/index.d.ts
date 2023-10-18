@@ -1,10 +1,5 @@
-// Type definitions for @riderize/passport-strava-oauth2 2.1
-// Project: https://github.com/Riderize/passport-strava-oauth2
-// Definitions by: edilson <https://github.com/edilson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* eslint-disable @definitelytyped/no-declare-current-package */
-// tslint:disable-next-line:no-single-declare-module
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
 declare module "@riderize/passport-strava-oauth2" {
     import { Request } from "express";
 

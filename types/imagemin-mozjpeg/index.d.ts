@@ -1,8 +1,3 @@
-// Type definitions for imagemin-mozjpeg 8.0
-// Project: https://github.com/imagemin/imagemin-mozjpeg#readme
-// Definitions by: Jeff Chan <https://github.com/hkjeffchan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Plugin } from "imagemin";
 
 declare function imageminMozjpeg(options?: imageminMozjpeg.Options): Plugin;

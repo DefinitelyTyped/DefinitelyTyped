@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/react-geocode",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/shukerullah/react-geocode"
+    ],
+    "devDependencies": {
+        "@types/react-geocode": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Steve Mu",
+            "githubUsername": "stevemu"
+        }
+    ]
+}

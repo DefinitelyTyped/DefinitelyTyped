@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/pouch-redux-middleware",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/pgte/pouch-redux-middleware"
+    ],
     "dependencies": {
+        "@types/pouchdb": "*",
         "redux": "^3.6.0"
-    }
+    },
+    "devDependencies": {
+        "@types/pouch-redux-middleware": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Charron",
+            "githubUsername": "charrondev"
+        }
+    ]
 }

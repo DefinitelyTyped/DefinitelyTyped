@@ -1,12 +1,3 @@
-// Type definitions for Emscripten 1.39.16
-// Project: https://emscripten.org
-// Definitions by: Kensuke Matsuzaki <https://github.com/zakki>
-//                 Periklis Tsirakidis <https://github.com/periklis>
-//                 Bumsik Kim <https://github.com/kbumsik>
-//                 Louis DeScioli <https://github.com/lourd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /** Other WebAssembly declarations, for compatibility with older versions of Typescript */
 declare namespace WebAssembly {
     interface Module {}

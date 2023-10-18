@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/is-odd",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/is-odd"
+    ],
+    "devDependencies": {
+        "@types/is-odd": "workspace:."
+    },
+    "owners": []
+}

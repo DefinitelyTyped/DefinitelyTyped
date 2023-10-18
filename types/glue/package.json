@@ -1,6 +1,16 @@
 {
     "private": true,
+    "name": "@types/glue",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/hapijs/glue"
+    ],
     "dependencies": {
+        "@types/hapi": "*",
         "joi": "^17.3.0"
-    }
+    },
+    "devDependencies": {
+        "@types/glue": "workspace:."
+    },
+    "owners": []
 }

@@ -1,9 +1,3 @@
-// Type definitions for @rails/actioncable 6.1
-// Project: https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable
-// Definitions by: Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 export as namespace ActionCable;
 
 export enum MessageTypes {

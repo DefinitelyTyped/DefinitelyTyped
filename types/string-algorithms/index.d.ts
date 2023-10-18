@@ -1,8 +1,3 @@
-// Type definitions for string-algorithms 1.0
-// Project: https://github.com/burgaard/string-algorithms
-// Definitions by: Lionel Rowe <https://github.com/lionel-rowe>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export function search(text: string, term: string): number[];
 
 export function radixSort<T>(

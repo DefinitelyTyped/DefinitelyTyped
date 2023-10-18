@@ -1,6 +1,29 @@
 {
     "private": true,
+    "name": "@types/webpack-node-externals",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/liady/webpack-node-externals"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "webpack": "^5"
-    }
+    },
+    "devDependencies": {
+        "@types/webpack-node-externals": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt Traynham",
+            "githubUsername": "mtraynham"
+        },
+        {
+            "name": "Manuel Pogge",
+            "githubUsername": "MrSpoocy"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

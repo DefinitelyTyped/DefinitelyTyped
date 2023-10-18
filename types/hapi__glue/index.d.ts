@@ -1,10 +1,3 @@
-// Type definitions for @hapi/glue 6.1
-// Project: https://github.com/hapijs/glue
-// Definitions by: Silas Rech <https://github.com/lenovouser>
-//                 Avery Fay <https://github.com/btmorex>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { Plugin, Server, ServerOptions } from "@hapi/hapi";
 
 export interface Options {

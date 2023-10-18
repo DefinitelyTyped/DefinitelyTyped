@@ -1,6 +1,24 @@
 {
     "private": true,
+    "name": "@types/i18next-fs-backend",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/i18next/i18next-fs-backend"
+    ],
     "dependencies": {
         "i18next": "^21.0.1"
-    }
+    },
+    "devDependencies": {
+        "@types/i18next-fs-backend": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nejc Drobnič",
+            "githubUsername": "quantumlyy"
+        },
+        {
+            "name": "Jeroen \"Favna\" Claassens",
+            "githubUsername": "favna"
+        }
+    ]
 }

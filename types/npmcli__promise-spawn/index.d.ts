@@ -1,7 +1,3 @@
-// Type definitions for @npmcli/promise-spawn 6.0
-// Project: https://github.com/npm/promise-spawn#readme
-// Definitions by: Anton Golub <https://github.com/antongolub>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
 import { spawn, SpawnOptions } from "child_process";

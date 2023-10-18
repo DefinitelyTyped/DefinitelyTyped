@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/ember-data",
+    "version": "2.14.9999",
+    "projects": [
+        "https://github.com/emberjs/data"
+    ],
+    "dependencies": {
+        "@types/ember": "^2",
+        "@types/rsvp": "*"
+    },
+    "devDependencies": {
+        "@types/ember-data": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Derek Wickern",
+            "githubUsername": "dwickern"
+        },
+        {
+            "name": "Mike North",
+            "githubUsername": "mike-north"
+        },
+        {
+            "name": "Chris Krycho",
+            "githubUsername": "chriskrycho"
+        }
+    ]
+}

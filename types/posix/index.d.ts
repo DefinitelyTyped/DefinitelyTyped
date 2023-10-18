@@ -1,8 +1,3 @@
-// Type definitions for posix 4.2
-// Project: http://github.com/ohmu/node-posix
-// Definitions by: UNIDY2002 <https://github.com/UNIDY2002>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type PosixMask = boolean | 0 | 1;
 
 export interface Group {

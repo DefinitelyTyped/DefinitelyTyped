@@ -1,8 +1,3 @@
-// Type definitions for clear 0.1
-// Project: https://github.com/bahamas10/node-clear#readme
-// Definitions by: Connor Fitzgerald <https://github.com/connorjayfitzgerald>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface ClearOptions {
     /**
      * Setting this to false will prevent this module from clearing the screen.

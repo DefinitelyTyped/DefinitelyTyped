@@ -9,14 +9,13 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "preserve"
     },
-    "files": ["index.d.ts", "react-native-get-random-values-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "react-native-get-random-values-tests.ts"
+    ]
 }

@@ -1,12 +1,3 @@
-// Type definitions for jsoneditor 9.9
-// Project: https://github.com/josdejong/jsoneditor
-// Definitions by: Alejandro Sánchez <https://github.com/alejo90>
-//                 Errietta Kostala <https://github.com/errietta>
-//                 Adam Vigneaux <https://github.com/adamvig>
-//                 Joep Kockelkorn <https://github.com/joepkockelkorn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="ace" />
 
 import { Ajv, ErrorObject } from "ajv";

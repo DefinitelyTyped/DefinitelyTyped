@@ -1,8 +1,3 @@
-// Type definitions for uapi-json 1.13
-// Project: https://github.com/Travelport-Ukraine/uapi-json
-// Definitions by: Zvi Wex <https://github.com/zviwex>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { createAirService } from "./lib/Air";
 import { airErrors } from "./lib/AirErrors";
 import { errorCodes } from "./lib/error-codes";

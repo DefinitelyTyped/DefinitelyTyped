@@ -8,15 +8,6 @@
         "strictNullChecks": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "@hapi/*": [
-                "hapi__*"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

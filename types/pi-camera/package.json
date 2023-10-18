@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/pi-camera",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/stetsmando/pi-camera"
+    ],
+    "devDependencies": {
+        "@types/pi-camera": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ata Berk YILMAZ",
+            "githubUsername": "ataberkylmz"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

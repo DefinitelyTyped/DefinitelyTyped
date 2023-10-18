@@ -1,9 +1,3 @@
-// Type definitions for draco3d 1.4
-// Project: https://github.com/google/draco#readme
-// Definitions by: Don McCurdy <https://github.com/donmccurdy>
-//                 Horizon0514 <https://github.com/horizon0514>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type TypedArray = Float32Array | Uint32Array | Uint16Array | Uint8Array | Int16Array | Int8Array;
 
 export function createDecoderModule(object?: Record<string, unknown>): Promise<DecoderModule>;
@@ -186,13 +180,55 @@ export interface Mesh extends PointCloud {
 }
 
 export interface PointCloudBuilder {
-    AddFloatAttribute(pointCloud: PointCloud, attribute: number, count: number, itemSize: number, array: TypedArray): number;
-    AddInt8Attribute(pointCloud: PointCloud, attribute: number, count: number, itemSize: number, array: TypedArray): number;
-    AddUInt8Attribute(pointCloud: PointCloud, attribute: number, count: number, itemSize: number, array: TypedArray): number;
-    AddInt16Attribute(pointCloud: PointCloud, attribute: number, count: number, itemSize: number, array: TypedArray): number;
-    AddUInt16Attribute(pointCloud: PointCloud, attribute: number, count: number, itemSize: number, array: TypedArray): number;
-    AddInt32Attribute(pointCloud: PointCloud, attribute: number, count: number, itemSize: number, array: TypedArray): number;
-    AddUInt32Attribute(pointCloud: PointCloud, attribute: number, count: number, itemSize: number, array: TypedArray): number;
+    AddFloatAttribute(
+        pointCloud: PointCloud,
+        attribute: number,
+        count: number,
+        itemSize: number,
+        array: TypedArray,
+    ): number;
+    AddInt8Attribute(
+        pointCloud: PointCloud,
+        attribute: number,
+        count: number,
+        itemSize: number,
+        array: TypedArray,
+    ): number;
+    AddUInt8Attribute(
+        pointCloud: PointCloud,
+        attribute: number,
+        count: number,
+        itemSize: number,
+        array: TypedArray,
+    ): number;
+    AddInt16Attribute(
+        pointCloud: PointCloud,
+        attribute: number,
+        count: number,
+        itemSize: number,
+        array: TypedArray,
+    ): number;
+    AddUInt16Attribute(
+        pointCloud: PointCloud,
+        attribute: number,
+        count: number,
+        itemSize: number,
+        array: TypedArray,
+    ): number;
+    AddInt32Attribute(
+        pointCloud: PointCloud,
+        attribute: number,
+        count: number,
+        itemSize: number,
+        array: TypedArray,
+    ): number;
+    AddUInt32Attribute(
+        pointCloud: PointCloud,
+        attribute: number,
+        count: number,
+        itemSize: number,
+        array: TypedArray,
+    ): number;
 }
 
 export interface MeshBuilder extends PointCloudBuilder {

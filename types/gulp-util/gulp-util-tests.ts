@@ -205,11 +205,11 @@ describe("template()", () => {
 
         const tmpl = util.template("test <%= name %> <%= file.path %>");
         should.exist(tmpl);
-        "function".should.equal(typeof (tmpl));
+        "function".should.equal(typeof tmpl);
 
         // eval it now
         const etmpl = tmpl(opt);
-        "string".should.equal(typeof (etmpl));
+        "string".should.equal(typeof etmpl);
         etmpl.should.equal(expected);
         done();
     });
@@ -224,7 +224,7 @@ describe("template()", () => {
         const expected = "test todd hi.js";
         const tmpl = util.template("test <%= name %> <%= file.path %>", opt);
         should.exist(tmpl);
-        "string".should.equal(typeof (tmpl));
+        "string".should.equal(typeof tmpl);
         tmpl.should.equal(expected);
         done();
     });
@@ -255,11 +255,11 @@ describe("template()", () => {
 
         const tmpl = util.template("test {{name}} <%= file.path %>");
         should.exist(tmpl);
-        "function".should.equal(typeof (tmpl));
+        "function".should.equal(typeof tmpl);
 
         // eval it now
         const etmpl = tmpl(opt);
-        "string".should.equal(typeof (etmpl));
+        "string".should.equal(typeof etmpl);
         etmpl.should.equal(expected);
 
         done();
@@ -276,11 +276,11 @@ describe("template()", () => {
 
         const tmpl = util.template("test ${name} ${file.path}"); // tslint:disable-line no-invalid-template-strings
         should.exist(tmpl);
-        "function".should.equal(typeof (tmpl));
+        "function".should.equal(typeof tmpl);
 
         // eval it now
         const etmpl = tmpl(opt);
-        "string".should.equal(typeof (etmpl));
+        "string".should.equal(typeof etmpl);
         etmpl.should.equal(expected);
 
         done();

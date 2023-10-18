@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/rgrove__parse-xml",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/rgrove/parse-xml"
+    ],
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/rgrove__parse-xml": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pete Johanson",
+            "githubUsername": "petejohanson"
+        }
+    ]
+}

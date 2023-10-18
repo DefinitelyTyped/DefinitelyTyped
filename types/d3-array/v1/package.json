@@ -1,0 +1,39 @@
+{
+    "private": true,
+    "name": "@types/d3-array",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/d3/d3-array"
+    ],
+    "devDependencies": {
+        "@types/d3-array": "workspace:.",
+        "@types/d3-scale": "*",
+        "@types/d3-time": "*"
+    },
+    "owners": [
+        {
+            "name": "Alex Ford",
+            "githubUsername": "gustavderdrache"
+        },
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Tom Wanzek",
+            "githubUsername": "tomwanzek"
+        },
+        {
+            "name": "denisname",
+            "githubUsername": "denisname"
+        },
+        {
+            "name": "Hugues Stefanski",
+            "githubUsername": "ledragon"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

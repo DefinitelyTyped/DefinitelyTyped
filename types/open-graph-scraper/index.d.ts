@@ -1,8 +1,3 @@
-// Type definitions for open-graph-scraper 4.8
-// Project: https://github.com/jshemas/openGraphScraper#readme
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { PassThrough } from "stream";

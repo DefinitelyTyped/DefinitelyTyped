@@ -1,6 +1,24 @@
 {
     "private": true,
+    "name": "@types/activex-msxml2",
+    "version": "6.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Microsoft XML, v6.0 - MSXML2",
+    "projects": [
+        "https://msdn.microsoft.com/en-us/library/ms763742.aspx"
+    ],
     "dependencies": {
+        "@types/activex-interop": "*",
         "activex-helpers": "*"
-    }
+    },
+    "devDependencies": {
+        "@types/activex-msxml2": "workspace:.",
+        "@types/windows-script-host": "*"
+    },
+    "owners": [
+        {
+            "name": "Zev Spitz",
+            "githubUsername": "zspitz"
+        }
+    ]
 }

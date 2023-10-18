@@ -1,8 +1,3 @@
-// Type definitions for docker-modem 3.0
-// Project: https://github.com/apocas/docker-modem
-// Definitions by: Nasreddine Bac Ali <https://github.com/bacali95>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Agent, ClientRequest, IncomingMessage, OutgoingHttpHeaders, RequestOptions } from "http";

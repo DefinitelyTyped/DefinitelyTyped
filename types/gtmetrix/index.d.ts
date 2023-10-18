@@ -1,8 +1,3 @@
-// Type definitions for gtmetrix 1.3
-// Project: https://github.com/fvdm/nodejs-gtmetrix#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Node.js module for the GTmetrix API to run and access tests.
  *

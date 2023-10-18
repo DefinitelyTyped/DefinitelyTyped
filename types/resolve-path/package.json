@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/resolve-path",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/pillarjs/resolve-path#readme"
+    ],
+    "devDependencies": {
+        "@types/resolve-path": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "fer22f",
+            "githubUsername": "fer22f"
+        }
+    ]
+}

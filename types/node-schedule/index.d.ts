@@ -1,11 +1,3 @@
-// Type definitions for node-schedule 2.1
-// Project: https://github.com/node-schedule/node-schedule
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-//                 Florian Plattner <https://github.com/flowpl>
-//                 Tieu Philippe Khim <https://github.com/spike008t>
-//                 Seohyun Yoon <https://github.com/seohyun0120>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

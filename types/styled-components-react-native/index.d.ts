@@ -1,9 +1,4 @@
-// Type definitions for styled-components-react-native 5.2
-// Project: https://github.com/styled-components/styled-components
-// Definitions by: Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-// tslint:disable-next-line:no-single-declare-module
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
 declare module "styled-components/native" {
     import * as ReactNative from "react-native";
     import * as React from "react";

@@ -1,8 +1,3 @@
-// Type definitions for lexicographic-integer 1.1
-// Project: https://github.com/substack/lexicographic-integer
-// Definitions by: Carson Farmer <https://github.com/me>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Return an array of byte values or a lexicographic hex string for an input integer.
  * @param n The input integer as a javascript number.

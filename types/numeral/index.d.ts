@@ -1,10 +1,3 @@
-// Type definitions for Numeral.js 2.0
-// Project: https://github.com/adamwdraper/Numeral-js
-// Definitions by: Vincent Bortone <https://github.com/vbortone>
-//                 Kenneth Luján <https://github.com/klujanrosas>
-//                 Carlos Quiroga <https://github.com/KarlosQ>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export as namespace numeral;
 
 /**

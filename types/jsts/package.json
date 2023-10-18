@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/jsts",
+    "version": "0.17.9999",
+    "projects": [
+        "https://github.com/bjornharrtell/jsts"
+    ],
+    "dependencies": {
+        "@types/openlayers": "*"
+    },
+    "devDependencies": {
+        "@types/jsts": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Stephane Alie",
+            "githubUsername": "StephaneAlie"
+        },
+        {
+            "name": "Jorge Rocha Gualtieri",
+            "githubUsername": "jrocha"
+        }
+    ]
+}

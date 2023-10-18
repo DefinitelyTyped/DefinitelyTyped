@@ -1,9 +1,3 @@
-// Type definitions for non-npm package flashpoint-launcher 10.1
-// Project: Flashpoint Launcher https://github.com/FlashpointProject/launcher
-// Definitions by: Colin Berry <https://github.com/colin969>
-//                 Joel Puig Rubio <https://github.com/XXLuigiMario>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Based off Microsoft VSCode's extension system (MIT Licensed) https://github.com/Microsoft/vscode
  * Module is created during runtime and injected. Please read the documentation below to understand how to use these types.
@@ -15,8 +9,7 @@
 // tslint:disable:interface-over-type-literal
 
 // This gets changed manually during development in the project, rule would require changes when updating DT's definitions since resolution is different.
-// tslint:disable:no-single-declare-module
-// eslint-disable-next-line @definitelytyped/no-declare-current-package
+// eslint-disable-next-line @definitelytyped/no-declare-current-package, @definitelytyped/no-single-declare-module
 declare module "flashpoint-launcher" {
     /** Version of the Flashpoint Launcher */
     const version: string;

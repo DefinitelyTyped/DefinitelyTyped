@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/bezier-js",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/Pomax/bezierjs"
+    ],
+    "devDependencies": {
+        "@types/bezier-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dan Marshall",
+            "githubUsername": "danmarshall"
+        },
+        {
+            "name": "Simon",
+            "githubUsername": "Epskampie"
+        }
+    ]
+}

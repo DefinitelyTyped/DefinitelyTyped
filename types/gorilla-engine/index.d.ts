@@ -1,13 +1,3 @@
-// Type definitions for Gorilla Engine 1.1
-// Project: https://gorilla-engine.com
-// Definitions by: Julian Woodward <https://github.com/jhwoodward>
-//                 UJAM-JH <https://github.com/UJAM-JH>
-//                 rip-off-hb <https://github.com/rip-off-hb>
-//                 pkellett <https://github.com/pkellett>
-//                 vpietropaolo-ujam <https://github.com/vpietropaolo-ujam>
-//                 agachuma <https://github.com/agachuma>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference path = "interfaces/Background.d.ts" />
 /// <reference path = "interfaces/Bounds.d.ts" />
 /// <reference path = "interfaces/Clickable.d.ts" />
@@ -119,6 +109,12 @@ declare namespace GorillaEngine {
          * @returns The serialised module found at the given `path` or `false` if nothing was found.
          */
         getModuleAtPath(path: string): string | boolean;
+        /**
+         * Method used to set a module in an instrument in a given path
+         * @param path The path to the module that should be retrieved.
+         * @param module The serialised module to set as a string
+         */
+        setModuleAtPath(path: string, module: string): boolean;
         /**
          * Method used to determine if a value from the Gorilla Engine is a module.
          *
@@ -329,7 +325,7 @@ declare namespace GorillaEngine {
     function showNativeMessageBox(options: {
         title: string;
         message: string;
-        iconType: 'info' | 'question' | 'warning';
+        iconType: "info" | "question" | "warning";
     }): void;
     function calculateTextWidth(text: string, font: string, fontSize: number, fontKerning: number): number;
     function checkLicense(): boolean;
@@ -338,8 +334,9 @@ declare namespace GorillaEngine {
     function initialiseSpliceRTO(pluginName?: string): any;
     function disposeInstrument(instrument: Instrument): void;
     function setActiveInstrument(instrument: Instrument): void;
-    function setSessionSaveCallback(callback: any, instance: any): void;
-    function setSessionLoadCallback(callback: any, instance: any): void;
+    function createEmptyInstrument(): Instrument;
+    function setSessionSaveCallback(callback: (state: string) => string, instance: any): void;
+    function setSessionLoadCallback(callback: (state: string) => string, instance: any): void;
     function setParametersDirty(dirty: boolean): void;
     function areParametersDirty(): boolean;
     function shouldWaitForReadySignal(): void;

@@ -1,8 +1,3 @@
-// Type definitions for deglob v 2.1
-// Project: https://github.com/standard/deglob, https://github.com/flet/deglob
-// Definitions by: Saad Quadri <https://github.com/saadq>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type Callback = (err: Error | null, files: string[]) => void;
 
 declare function deglob(patterns: string[], cb: Callback): void;

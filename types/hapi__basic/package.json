@@ -1,7 +1,31 @@
 {
     "private": true,
+    "name": "@types/hapi__basic",
+    "version": "5.1.9999",
+    "projects": [
+        "https://github.com/hapijs/basic"
+    ],
     "dependencies": {
         "@hapi/hapi": "^21.1.0",
+        "@types/node": "*",
         "joi": "^17.7.0"
-    }
+    },
+    "devDependencies": {
+        "@types/bcrypt": "*",
+        "@types/hapi__basic": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "AJP",
+            "githubUsername": "AJamesPhillips"
+        },
+        {
+            "name": "Rodrigo Saboya",
+            "githubUsername": "saboya"
+        },
+        {
+            "name": "Silas Rech",
+            "githubUsername": "lenovouser"
+        }
+    ]
 }

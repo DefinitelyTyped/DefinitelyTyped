@@ -1,8 +1,3 @@
-// Type definitions for email-prompt 0.4
-// Project: https://github.com/vercel/email-prompt
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * CLI email prompt featuring autocompletion and validation.
  * Powers [vercel](https://vercel.com/) `--login`.

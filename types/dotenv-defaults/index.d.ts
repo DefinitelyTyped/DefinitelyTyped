@@ -1,7 +1,4 @@
-// Type definitions for dotenv-defaults 2.0
-// Project: https://github.com/mrsteele/dotenv-defaults#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="node" />
 
 import { DotenvConfigOptions, DotenvConfigOutput, DotenvParseOutput } from "dotenv";
 

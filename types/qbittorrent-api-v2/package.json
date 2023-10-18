@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/qbittorrent-api-v2",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/TheFlow95/node-qbittorrent-api-v2#readme"
+    ],
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/qbittorrent-api-v2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Totto16",
+            "githubUsername": "Totto16"
+        }
+    ]
+}

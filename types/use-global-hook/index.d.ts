@@ -1,10 +1,3 @@
-// Type definitions for use-global-hook 0.3
-// Project: https://github.com/andregardi/use-global-hook#readme
-// Definitions by: James Hong <https://github.com/ojameso>
-//                 Jeremy Powers <https://github.com/wutname1>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.5
-
 import Immer from "immer";
 
 // to ignore strict-export-declare-modifiers error

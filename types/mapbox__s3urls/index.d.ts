@@ -1,10 +1,5 @@
-// Type definitions for @mapbox/s3urls 1.5
-// Project: https://github.com/mapbox/s3urls
-// Definitions by: Sebastian Vera <https://github.com/sebastianvera>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* eslint-disable @definitelytyped/no-declare-current-package */
-// tslint:disable-next-line no-single-declare-module
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
 declare module "@mapbox/s3urls" {
     function fromUrl(
         url: string,

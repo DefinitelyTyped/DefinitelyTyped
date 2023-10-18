@@ -1,13 +1,3 @@
-// Type definitions for node-email-templates 10.0
-// Project: https://github.com/forwardemail/email-templates
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-//                 Matus Gura <https://github.com/gurisko>
-//                 Jacob Copeland <https://github.com/blankstar85>
-//                 Vesa Poikajärvi <https://github.com/vesse>
-//                 Philipp Katz <https://github.com/qqilihq>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 ksewo <https://github.com/ksewo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="nodemailer"/>
 
 import { HtmlToTextOptions } from "html-to-text";

@@ -1,6 +1,89 @@
 {
-  "private": true,
-  "dependencies": {
-    "csstype": "^3.0.2"
-  }
+    "private": true,
+    "name": "@types/styled-system",
+    "version": "5.1.9999",
+    "projects": [
+        "https://github.com/jxnblk/styled-system#readme"
+    ],
+    "dependencies": {
+        "csstype": "^3.0.2"
+    },
+    "devDependencies": {
+        "@types/react": "*",
+        "@types/styled-system": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben McCormick",
+            "githubUsername": "phobon"
+        },
+        {
+            "name": "Justin Bennett",
+            "githubUsername": "zephraph"
+        },
+        {
+            "name": "Christopher Pappas",
+            "githubUsername": "damassi"
+        },
+        {
+            "name": "Eloy Durán",
+            "githubUsername": "alloy"
+        },
+        {
+            "name": "Matthieu Vachon",
+            "githubUsername": "maoueh"
+        },
+        {
+            "name": "Joachim Schuler",
+            "githubUsername": "jschuler"
+        },
+        {
+            "name": "Adam Misiorny",
+            "githubUsername": "adam187"
+        },
+        {
+            "name": "Sara F-P",
+            "githubUsername": "gretzky"
+        },
+        {
+            "name": "Chris LoPresto",
+            "githubUsername": "chrislopresto"
+        },
+        {
+            "name": "Pedro Duarte",
+            "githubUsername": "peduarte"
+        },
+        {
+            "name": "Dhalton Huber",
+            "githubUsername": "Dhalton"
+        },
+        {
+            "name": "Elliot Bonneville",
+            "githubUsername": "elliotbonneville"
+        },
+        {
+            "name": "Jack Caldwell",
+            "githubUsername": "jackcaldwell"
+        },
+        {
+            "name": "Eliseu Monar dos Santos",
+            "githubUsername": "eliseumds"
+        },
+        {
+            "name": "Craig Michael Thompson",
+            "githubUsername": "craga89"
+        },
+        {
+            "name": "Nicholas Hehr",
+            "githubUsername": "HipsterBrown"
+        },
+        {
+            "name": "Dhruv Jain",
+            "githubUsername": "maddhruv"
+        },
+        {
+            "name": "Jeffrey Cherewaty",
+            "githubUsername": "cherewaty"
+        }
+    ]
 }

@@ -1,15 +1,3 @@
-// Type definitions for Sinon 10.0
-// Project: https://sinonjs.org
-// Definitions by: William Sears <https://github.com/mrbigdog2u>
-//                 Nico Jansen <https://github.com/nicojs>
-//                 James Garbutt <https://github.com/43081j>
-//                 Greg Jednaszewski <https://github.com/gjednaszewski>
-//                 John Wood <https://github.com/johnjesse>
-//                 Alec Flett <https://github.com/alecf>
-//                 Simon Schick <https://github.com/SimonSchick>
-//                 Mathias Schreck <https://github.com/lo1tuma>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as FakeTimers from "@sinonjs/fake-timers";
 
 // sinon uses DOM dependencies which are absent in browser-less environment like node.js
@@ -1673,6 +1661,16 @@ declare namespace Sinon {
                     | (TType[K] extends (...args: any[]) => infer R ? R : TType[K]);
             },
         ): SinonStubbedInstance<TType>;
+
+        /**
+         * Defines a property on the given object which will be torn down when
+         * the sandbox is restored
+         */
+        define(
+            obj: object,
+            key: PropertyKey,
+            value: unknown,
+        ): void;
     }
 
     type SinonPromise<T> = Promise<T> & {

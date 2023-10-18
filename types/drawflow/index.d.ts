@@ -1,8 +1,3 @@
-// Type definitions for drawflow 0.0
-// Project: https://github.com/jerosoler/Drawflow
-// Definitions by: Benjamin Maisonneuve <https://github.com/BobBDE>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Declare the workflow module to be able to used it in typescript
 // this file must be defined in the include in tsconfig.json
 
@@ -155,7 +150,7 @@ export default class Drawflow {
         data: any,
         html: string,
         typenode: boolean | string,
-    ): number;
+    ): number | string;
 
     /**
      *  Increment zoom +0.1

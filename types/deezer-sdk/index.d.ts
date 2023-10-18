@@ -1,9 +1,3 @@
-// Type definitions for non-npm package deezer-sdk 0.0
-// Project: https://developers.deezer.com/sdk/javascript
-// Definitions by: Marco Eckstein <https://github.com/marco-eckstein>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 // = Notes =
 //
 // == Versioning ==

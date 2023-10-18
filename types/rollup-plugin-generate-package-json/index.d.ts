@@ -1,9 +1,3 @@
-// Type definitions for rollup-plugin-generate-package-json 3.2
-// Project: https://github.com/vladshcherbin/rollup-plugin-generate-package-json
-// Definitions by: Neko <https://github.com/NotEvenANeko>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.7
-
 import { Plugin } from "rollup";
 
 interface GeneratePackageJsonOptions {

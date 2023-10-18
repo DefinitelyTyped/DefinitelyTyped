@@ -1,24 +1,20 @@
 {
-  "files": [
-    "index.d.ts"
-  ],
-  "compilerOptions": {
-    "module": "commonjs",
-    "lib": [
-      "es6",
-      "dom"
+    "files": [
+        "index.d.ts"
     ],
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "baseUrl": "../",
-    "typeRoots": [
-      "../"
-    ],
-    "types": [],
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true,
-    "jsx": "preserve"
-  }
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "preserve"
+    }
 }

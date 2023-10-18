@@ -1,8 +1,3 @@
-// Type definitions for cssstyle 2.2
-// Project: https://github.com/jsdom/cssstyle
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class CSSStyleDeclaration {
     constructor(onChangeCallback?: ((text: string) => void) | null);
 
