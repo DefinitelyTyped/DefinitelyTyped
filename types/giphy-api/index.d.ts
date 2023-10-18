@@ -1,9 +1,3 @@
-// Type definitions for giphy-api 2.0
-// Project: https://github.com/austinkelleher/giphy-api
-// Definitions by: Christian Rackerseder <https://github.com/screendriver>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 type Rating = "y" | "g" | "pg" | "pg-13" | "r";
 type Format = "html" | "json";
 
@@ -31,12 +25,12 @@ interface BaseImage {
 }
 
 interface BaseResponse {
-  pagination: { total_count: number; count: number; offset: number };
-  meta: {
-      status: number;
-      msg: string;
-      response_id: string;
-  };
+    pagination: { total_count: number; count: number; offset: number };
+    meta: {
+        status: number;
+        msg: string;
+        response_id: string;
+    };
 }
 
 type Callback<TResponse> = (err: Error, res: TResponse) => void;
@@ -135,7 +129,7 @@ declare namespace giphyApi {
             webp: string;
             webp_size: string;
         };
-        looping: { mp4: string; };
+        looping: { mp4: string };
         preview: {
             width: string;
             height: string;
@@ -177,11 +171,11 @@ declare namespace giphyApi {
     }
 
     interface MultiResponse extends BaseResponse {
-      data: GIFObject[];
+        data: GIFObject[];
     }
 
     interface SingleResponse extends BaseResponse {
-      data: GIFObject;
+        data: GIFObject;
     }
 }
 

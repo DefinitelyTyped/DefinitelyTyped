@@ -1,8 +1,3 @@
-// Type definitions for esbuild-copy-static-files 0.1
-// Project: https://github.com/nickjj/esbuild-copy-static-files
-// Definitions by: David Enke <https://github.com/davidenke>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface CopyStaticFilesOptions {
     src: string;
     dest: string;
@@ -16,7 +11,7 @@ export interface CopyStaticFilesOptions {
 }
 
 export interface CopyStaticFilesPluginInstance {
-    name: 'copy-static-files';
+    name: "copy-static-files";
     setup(build: any): void;
 }
 

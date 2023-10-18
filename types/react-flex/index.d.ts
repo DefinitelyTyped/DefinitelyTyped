@@ -1,9 +1,3 @@
-// Type definitions for react-flex v2.2.7
-// Project: https://github.com/zippyui/react-flex
-// Definitions by: Jeffery Grajkowski <https://github.com/pushplay>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export interface CommonFlexProps {
@@ -89,9 +83,17 @@ export interface ItemProps extends CommonFlexProps {
      * A value for the flex-basis css property. Valid values are: `0` (and `'none'`, which is the same),
      * `'auto'`, `'content'`, `'fit-content'`, `'min-content'`, `'max-content'`, `'fit'`.
      */
-    flexBasis?: number | "none" | "auto" | "content" | "fit-content" | "min-content" | "max-content" | "fit" | undefined;
+    flexBasis?:
+        | number
+        | "none"
+        | "auto"
+        | "content"
+        | "fit-content"
+        | "min-content"
+        | "max-content"
+        | "fit"
+        | undefined;
 }
 
 export class Item extends React.Component<ItemProps> {
 }
-

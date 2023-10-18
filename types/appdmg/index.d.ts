@@ -1,23 +1,18 @@
-// Type definitions for appdmg 0.5
-// Project: https://github.com/LinusU/node-appdmg#readme
-// Definitions by: Daniel Perez Alvarez <https://github.com/unindented>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare namespace appdmg {
     interface Progress {
         current: number;
         total: number;
-        type: 'step-begin' | 'step-end';
+        type: "step-begin" | "step-end";
         title: string;
-        status: 'ok' | 'skip' | 'fail';
+        status: "ok" | "skip" | "fail";
     }
 
     interface EventEmitter extends NodeJS.EventEmitter {
-        on(event: 'progress', listener: (info: Progress) => void): this;
-        on(event: 'finish', listener: () => void): this;
-        on(event: 'error', listener: (err: any) => void): this;
+        on(event: "progress", listener: (info: Progress) => void): this;
+        on(event: "finish", listener: () => void): this;
+        on(event: "error", listener: (err: any) => void): this;
     }
 
     interface SpecificationOptions {
@@ -36,13 +31,13 @@ declare namespace appdmg {
     interface SpecificationContents {
         x: number;
         y: number;
-        type: 'link' | 'file' | 'position';
+        type: "link" | "file" | "position";
         path: string;
         name?: string | undefined;
     }
 
     interface SpecificationCodeSign {
-        'signing-identity': string;
+        "signing-identity": string;
         identifier?: string | undefined;
     }
 
@@ -50,12 +45,12 @@ declare namespace appdmg {
         title: string;
         icon?: string | undefined;
         background?: string | undefined;
-        'background-color'?: string | undefined;
-        'icon-size'?: number | undefined;
+        "background-color"?: string | undefined;
+        "icon-size"?: number | undefined;
         window?: SpecificationWindow | undefined;
-        format: 'UDRW' | 'UDRO' | 'UDCO' | 'UDZO' | 'UDBZ' | 'ULFO';
+        format: "UDRW" | "UDRO" | "UDCO" | "UDZO" | "UDBZ" | "ULFO";
         contents: SpecificationContents[];
-        'code-sign'?: SpecificationCodeSign | undefined;
+        "code-sign"?: SpecificationCodeSign | undefined;
     }
 
     interface Options {

@@ -1,8 +1,3 @@
-// Type definitions for mcping-js 1.5
-// Project: https://github.com/Cryptkeeper/mcping-js
-// Definitions by: Inrix <https://github.com/Inrixia>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 3.8
 export interface PingResponse {
     version: {
@@ -13,10 +8,12 @@ export interface PingResponse {
     players: {
         max: number;
         online: number;
-        sample?: Array<{
-            name: string;
-            id: string;
-        }> | undefined;
+        sample?:
+            | Array<{
+                name: string;
+                id: string;
+            }>
+            | undefined;
     };
 
     description: {

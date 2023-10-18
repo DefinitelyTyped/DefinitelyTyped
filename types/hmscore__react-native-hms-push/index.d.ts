@@ -1,21 +1,16 @@
-// Type definitions for @hmscore/react-native-hms-push 5.3
-// Project: https://github.com/HMS-Core/hms-react-native-plugin/tree/master/react-native-hms-push
-// Definitions by: Pedro Medeiros <https://github.com/despotes>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { HmsPushEventType } from './src/HmsPushEvent';
-import { ResultResponse } from './src/ResultResponse';
-import { RemoteMessageBuilderInterface } from './src/RemoteMessageBuilder';
-import { LocalNotificationAttributes, Importance, RepeatType, Visibility, Priority } from './src/LocalNotification';
-import RNRemoteMessage from './src/RNRemoteMessage';
-import { ProfileType, ProfileTypeEnum } from './src/HmsPushProfileTypes';
-import { BackgroundRemoteMessage, RemoteDataMessageObject, RemoteDataMessageWithExtras } from './src/RemoteDataMessage';
-import { HmsPushResultCodeInterface } from './src/HmsPushResultCode';
+import { HmsPushEventType } from "./src/HmsPushEvent";
+import { ProfileType, ProfileTypeEnum } from "./src/HmsPushProfileTypes";
+import { HmsPushResultCodeInterface } from "./src/HmsPushResultCode";
+import { Importance, LocalNotificationAttributes, Priority, RepeatType, Visibility } from "./src/LocalNotification";
+import { BackgroundRemoteMessage, RemoteDataMessageObject, RemoteDataMessageWithExtras } from "./src/RemoteDataMessage";
+import { RemoteMessageBuilderInterface } from "./src/RemoteMessageBuilder";
+import { ResultResponse } from "./src/ResultResponse";
+import RNRemoteMessage from "./src/RNRemoteMessage";
 
 export type LocalNotificationOptions =
     | {
-          [k in keyof LocalNotificationAttributes]?: unknown;
-      }
+        [k in keyof LocalNotificationAttributes]?: unknown;
+    }
     | { [extras: string]: unknown };
 
 declare namespace HmsLocalNotification {
@@ -92,22 +87,22 @@ declare const HmsPushEvent: HmsPushEventType;
 declare const HmsPushResultCode: HmsPushResultCodeInterface;
 
 export {
-    RNRemoteMessage,
-    HmsPushEvent,
-    RemoteMessageBuilder,
     HmsLocalNotification,
+    HmsPushEvent,
     HmsPushInstanceId,
+    HmsPushMessaging,
     HmsPushOpenDevice,
     HmsPushProfile,
-    HmsPushMessaging,
     HmsPushResultCode,
+    RemoteMessageBuilder,
+    RNRemoteMessage,
 };
 
 export {
-    RemoteDataMessageObject,
-    RemoteDataMessageWithExtras,
     HmsPushEventType,
     HmsPushResultCodeInterface,
+    RemoteDataMessageObject,
+    RemoteDataMessageWithExtras,
     RemoteMessageBuilderInterface,
 };
 

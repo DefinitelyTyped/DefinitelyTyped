@@ -1,13 +1,7 @@
-// Type definitions for scalike API
-// Project: https://github.com/ryoppy/scalike-typescript
-// Definitions by: ryoppy <https://github.com/ryoppy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = scalike;
 export as namespace scalike;
 
 declare namespace scalike {
-
     export interface Either<A, B> {
         value: A | B;
         isLeft: boolean;
@@ -111,7 +105,14 @@ declare namespace scalike {
         private od;
         private oe;
         private of;
-        constructor(oa: Optional<A>, ob: Optional<B>, oc: Optional<C>, od: Optional<D>, oe: Optional<E>, of: Optional<F>);
+        constructor(
+            oa: Optional<A>,
+            ob: Optional<B>,
+            oc: Optional<C>,
+            od: Optional<D>,
+            oe: Optional<E>,
+            of: Optional<F>,
+        );
         run<G>(f: (a: A, b: B, c: C, d: D, e: E, f: F) => G): Optional<G>;
     }
 

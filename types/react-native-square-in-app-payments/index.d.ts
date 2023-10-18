@@ -1,8 +1,3 @@
-// Type definitions for react-native-square-in-app-payments 1.4
-// Project: https://github.com/square/in-app-payments-react-native-plugin
-// Definitions by: Phillip Sgardelis <https://github.com/Phillip-Cognativ>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // https://github.com/square/in-app-payments-react-native-plugin/blob/master/docs/reference.md
 
 // Types
@@ -10,39 +5,39 @@
 /** Supported brands for `card` payments accepted during the In-App Payments SDK checkout flow. */
 export type Brand =
     /** Visa Inc. credit or debit card. */
-    | 'VISA'
+    | "VISA"
     /** Mastercard Incorporated credit or debit card. */
-    | 'MASTERCARD'
+    | "MASTERCARD"
     /** American Express Company credit card. */
-    | 'AMERICAN_EXPRESS'
+    | "AMERICAN_EXPRESS"
     /** Discover Financial Services credit card. */
-    | 'DISCOVER'
+    | "DISCOVER"
     /** Diners Club International credit card. */
-    | 'DISCOVER_DINERS'
+    | "DISCOVER_DINERS"
     /** Japan Credit Bureau credit card. */
-    | 'JCB'
+    | "JCB"
     /** China UnionPay credit card. */
-    | 'CHINA_UNION_PAY'
+    | "CHINA_UNION_PAY"
     /** An unexpected card type. */
-    | 'OTHER_BRAND';
+    | "OTHER_BRAND";
 
 /** The type of card (for example, Credit or Debit). Note: This property is experimental and will always return UNKNOWN. */
 export type CardType =
     /** Debit card */
-    | 'DEBIT'
+    | "DEBIT"
     /** Credit Card */
-    | 'CREDIT'
+    | "CREDIT"
     /** Unable to determine type of the card */
-    | 'UNKNOWN';
+    | "UNKNOWN";
 
 /** The prepaid type of the credit card (for example, a Prepaid Gift Card). Note: This property is experimental and will always return UNKNOWN */
 export type CardPrepaidType =
     /** Prepaid Card */
-    | 'PREPAID'
+    | "PREPAID"
     /** Card that is not prepaid */
-    | 'NOT_PREPAID'
+    | "NOT_PREPAID"
     /** Unable to determine whether the card is prepaid or not */
-    | 'UNKNOWN';
+    | "UNKNOWN";
 
 /** Represents the non-confidential details of a card. */
 export interface Card {
@@ -78,27 +73,27 @@ export enum SQIPErrorCodes {
      * In-App Payments SDK was used in an unexpected or unsupported way.
      * Returned by all methods
      */
-    USAGE_ERROR = 'usageError',
+    USAGE_ERROR = "usageError",
     /**
      * In-App Payments SDK could not connect to the network.
      * Returned by: `applePayNonceRequestFailureCallback`, `googlePayNonceRequestFailureCallback`
      */
-    NO_NETWORK = 'noNetwork',
+    NO_NETWORK = "noNetwork",
     /**
      * Square Buyer Verification SDK could not verify the provided card.
      * Returned by: `BuyerVerificationErrorCallback`
      */
-    FAILED = 'failed',
+    FAILED = "failed",
     /**
      * The result when the customer cancels the Square Buyer Verification flow before a card is successfully verified.
      * Returned by: `BuyerVerificationErrorCallback`
      */
-    CANCELED = 'canceled',
+    CANCELED = "canceled",
     /**
      * The version of the Square Buyer Verification SDK used by this application is no longer supported.
      * Returned by: `BuyerVerificationErrorCallback`
      */
-    UNSUPPORTED_SDK_VERSION = 'unsupportedSDKVersion',
+    UNSUPPORTED_SDK_VERSION = "unsupportedSDKVersion",
 }
 
 /** Signals that card entry exception of some sort has occurred. This class is the general class of exceptions produced by failed payment card processing operations. */
@@ -233,7 +228,7 @@ export namespace SQIPCardEntry {
         b: number;
         a: number;
     }
-    type KeyboardAppearance = 'Light' | string;
+    type KeyboardAppearance = "Light" | string;
 
     /** Encapsulates options used to style the iOS native card entry view controller. */
     interface ThemeIOS {

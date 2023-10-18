@@ -1,7 +1,7 @@
-import tableCellStyle = require('@mapbox/hast-util-table-cell-style');
+import tableCellStyle = require("@mapbox/hast-util-table-cell-style");
 
 // $ExpectType Root
-tableCellStyle({ type: 'root', children: [] });
+tableCellStyle({ type: "root", children: [] });
 
 // $ExpectType Element
-tableCellStyle({ type: 'element', tagName: 'div', properties: {}, children: [] });
+tableCellStyle({ type: "element", tagName: "div", properties: {}, children: [] });

@@ -1,8 +1,3 @@
-// Type definitions for minimasonry 1.3
-// Project: https://spope.github.io/MiniMasonry.js/
-// Definitions by: Paul Ebose <https://github.com/plbstl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyType
-
 export interface MiniMasonryOptions {
     /**
      * Target width of elements.
@@ -45,7 +40,7 @@ export interface MiniMasonryOptions {
      * Sorting direction, "ltr" or "rtl".
      * @default "ltr"
      */
-    direction?: 'ltr' | 'rtl';
+    direction?: "ltr" | "rtl";
     /**
      * False will start to sort from center, true will start from left or right according to direction parameter.
      * @default false

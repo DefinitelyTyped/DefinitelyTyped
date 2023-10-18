@@ -1,2 +1,2 @@
-import SameValue = require('../2017/SameValue');
+import SameValue = require("../2017/SameValue");
 export = SameValue;

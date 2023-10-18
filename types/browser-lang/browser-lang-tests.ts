@@ -1,6 +1,6 @@
-import browserLang from 'browser-lang';
+import browserLang from "browser-lang";
 
-const Lang = browserLang({ languages: ['en', 'ko', 'ja'], fallback: 'en' });
+const Lang = browserLang({ languages: ["en", "ko", "ja"], fallback: "en" });
 const SystemLang = browserLang();
 
 console.log("Lang:", Lang);

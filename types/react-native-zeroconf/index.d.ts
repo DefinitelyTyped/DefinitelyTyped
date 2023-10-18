@@ -1,11 +1,6 @@
-// Type definitions for react-native-zeroconf 0.12
-// Project: https://github.com/Apercu/react-native-zeroconf#readme
-// Definitions by: Peter Matta <https://github.com/mattapet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 /**
  * @example
@@ -113,21 +108,21 @@ export default class Zeroconf extends EventEmitter {
      */
     unpublishService(name: string): void;
 
-    on(e: 'start' | 'stop' | 'update', listener: () => any): this;
+    on(e: "start" | "stop" | "update", listener: () => any): this;
 
     /**
      * @param name Name of the the service.
      */
-    on(e: 'found' | 'remove', listener: (name: string) => any): this;
+    on(e: "found" | "remove", listener: (name: string) => any): this;
 
     /**
      * Triggered when a service is resolved.
      * @description Broadcast a service object once it is fully resolved.
      */
-    on(e: 'resolved', listener: (service: Service) => any): this;
+    on(e: "resolved", listener: (service: Service) => any): this;
 
     /**
      * Triggered when an error occurs.
      */
-    on(e: 'error', listener: (err: Error) => any): this;
+    on(e: "error", listener: (err: Error) => any): this;
 }

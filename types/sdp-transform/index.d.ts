@@ -1,8 +1,3 @@
-// Type definitions for sdp-transform 2.4
-// Project: https://github.com/clux/sdp-transform#readme
-// Definitions by: @loc <https://github.com/loc>, @muenchow <https://github.com/muenchow>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // https://tools.ietf.org/html/rfc4566
 // https://www.iana.org/assignments/sdp-parameters/sdp-parameters.xhtml
 
@@ -14,10 +9,12 @@ export function parseRemoteCandidates(candidates: string): Array<{
     ip: string;
     port: number;
 }>;
-export function parseSimulcastStreamList(streams: string): Array<Array<{
-    scid: number | string;
-    paused: boolean;
-}>>;
+export function parseSimulcastStreamList(streams: string): Array<
+    Array<{
+        scid: number | string;
+        paused: boolean;
+    }>
+>;
 export interface ParamMap {
     [paramName: string]: number | string;
 }
@@ -60,12 +57,14 @@ export interface SessionDescription extends SharedDescriptionFields, SessionAttr
     // r=
     repeats?: string | undefined;
     // m=
-    media: Array<{
-        type: string;
-        port: number;
-        protocol: string;
-        payloads?: string | undefined;
-    } & MediaDescription>;
+    media: Array<
+        {
+            type: string;
+            port: number;
+            protocol: string;
+            payloads?: string | undefined;
+        } & MediaDescription
+    >;
 }
 
 /**
@@ -78,16 +77,18 @@ export interface SharedAttributes {
     // a=recvonly
     // a=sendonly
     // a=inactive
-    direction?: 'sendrecv' | 'recvonly' | 'sendonly' | 'inactive' | undefined;
+    direction?: "sendrecv" | "recvonly" | "sendonly" | "inactive" | undefined;
     // a=control
     control?: string | undefined;
     // a=extmap
-    ext?: Array<{
-        value: number;
-        direction?: string | undefined;
-        uri: string;
-        config?: string | undefined;
-    }> | undefined;
+    ext?:
+        | Array<{
+            value: number;
+            direction?: string | undefined;
+            uri: string;
+            config?: string | undefined;
+        }>
+        | undefined;
     // a=setup
     setup?: string | undefined;
 
@@ -99,7 +100,7 @@ export interface SharedAttributes {
     } | undefined;
     // a=source-filter: incl IN IP4 239.5.2.31 10.1.15.5
     sourceFilter?: {
-        filterMode: 'excl' | 'incl';
+        filterMode: "excl" | "incl";
         netType: string;
         addressTypes: string;
         destAddress: string;
@@ -123,10 +124,12 @@ export interface SessionAttributes extends SharedAttributes {
         token: string;
     } | undefined;
     // a=group:BUNDLE audio video
-    groups?: Array<{
-        type: string;
-        mids: string;
-    }> | undefined;
+    groups?:
+        | Array<{
+            type: string;
+            mids: string;
+        }>
+        | undefined;
 }
 
 /**
@@ -148,16 +151,20 @@ export interface MediaAttributes extends SharedAttributes {
         address?: string | undefined;
     } | undefined;
     // a=rtcp-fb:98 nack rpsi
-    rtcpFb?: Array<{
-        payload: number;
-        type: string;
-        subtype?: string | undefined;
-    }> | undefined;
+    rtcpFb?:
+        | Array<{
+            payload: number;
+            type: string;
+            subtype?: string | undefined;
+        }>
+        | undefined;
     // a=rtcp-fb:98 trr-int 100
-    rtcpFbTrrInt?: Array<{
-        payload: number;
-        value: number;
-    }> | undefined;
+    rtcpFbTrrInt?:
+        | Array<{
+            payload: number;
+            value: number;
+        }>
+        | undefined;
     // a=fmtp
     fmtp: Array<{
         payload: number;
@@ -178,36 +185,42 @@ export interface MediaAttributes extends SharedAttributes {
         sessionConfig?: string | undefined;
     } | undefined;
     // a=candidate
-    candidates?: Array<{
-        foundation: string;
-        component: number;
-        transport: string;
-        priority: number | string;
-        ip: string;
-        port: number;
-        type: string;
-        raddr?: string | undefined;
-        rport?: number | undefined;
-        tcptype?: string | undefined;
-        generation?: number | undefined;
-        'network-id'?: number | undefined;
-        'network-cost'?: number | undefined;
-    }> | undefined;
+    candidates?:
+        | Array<{
+            foundation: string;
+            component: number;
+            transport: string;
+            priority: number | string;
+            ip: string;
+            port: number;
+            type: string;
+            raddr?: string | undefined;
+            rport?: number | undefined;
+            tcptype?: string | undefined;
+            generation?: number | undefined;
+            "network-id"?: number | undefined;
+            "network-cost"?: number | undefined;
+        }>
+        | undefined;
     // a=end-of-candidates
     endOfCandidates?: string | undefined;
     // a=remote-candidates
     remoteCandidates?: string | undefined;
     // a=ssrc:
-    ssrcs?: Array<{
-        id: number | string;
-        attribute: string;
-        value?: string | undefined;
-    }> | undefined;
+    ssrcs?:
+        | Array<{
+            id: number | string;
+            attribute: string;
+            value?: string | undefined;
+        }>
+        | undefined;
     // a=ssrc-group:
-    ssrcGroups?: Array<{
-        semantics: string;
-        ssrcs: string;
-    }> | undefined;
+    ssrcGroups?:
+        | Array<{
+            semantics: string;
+            ssrcs: string;
+        }>
+        | undefined;
     // a=rtcp-mux
     rtcpMux?: string | undefined;
     // a=rtcp-rsize
@@ -221,19 +234,23 @@ export interface MediaAttributes extends SharedAttributes {
     // a=x-google-flag
     xGoogleFlag?: string | undefined;
     // a=rid
-    rids?: Array<{
-        id: number | string;
-        direction: string;
-        params?: string | undefined;
-    }> | undefined;
+    rids?:
+        | Array<{
+            id: number | string;
+            direction: string;
+            params?: string | undefined;
+        }>
+        | undefined;
     // a=imageattr
-    imageattrs?: Array<{
-        pt: number | string;
-        dir1: string;
-        attrs1: string;
-        dir2?: string | undefined;
-        attrs2?: string | undefined;
-    }> | undefined;
+    imageattrs?:
+        | Array<{
+            pt: number | string;
+            dir1: string;
+            attrs1: string;
+            dir2?: string | undefined;
+            attrs2?: string | undefined;
+        }>
+        | undefined;
     simulcast?: {
         dir1: string;
         list1: string;
@@ -259,8 +276,10 @@ export interface SharedDescriptionFields {
         ip: string;
     } | undefined;
     // b=AS:4000
-    bandwidth?: Array<{
-        type: 'TIAS' | 'AS' | 'CT' | 'RR' | 'RS';
-        limit: number | string;
-    }> | undefined;
+    bandwidth?:
+        | Array<{
+            type: "TIAS" | "AS" | "CT" | "RR" | "RS";
+            limit: number | string;
+        }>
+        | undefined;
 }

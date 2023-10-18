@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/sha512-universal",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/chm-diederichs/sha512-universal#readme"
+    ],
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/sha512-universal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

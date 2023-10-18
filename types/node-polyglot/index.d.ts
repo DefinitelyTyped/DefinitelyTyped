@@ -1,10 +1,3 @@
-// Type definitions for node-polyglot v2.4.0
-// Project: https://github.com/airbnb/polyglot.js
-// Definitions by: Tim Jackson-Kiely <https://github.com/timjk>
-//                 Liam Ross <https://github.com/liamross>
-//                 Michael Mok <https://github.com/pmmmwh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Polyglot {
     interface InterpolationOptions {
         smart_count?: number | { length: number } | undefined;
@@ -19,8 +12,8 @@ declare namespace Polyglot {
     }
 
     interface PluralRules {
-        pluralTypes: {[lang: string]: (n: number) => number};
-        pluralTypeToLanguages: {[lang: string]: string[]};
+        pluralTypes: { [lang: string]: (n: number) => number };
+        pluralTypeToLanguages: { [lang: string]: string[] };
     }
 
     interface PolyglotOptions {

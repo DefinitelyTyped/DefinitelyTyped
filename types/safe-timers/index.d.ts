@@ -1,9 +1,3 @@
-// Type definitions for safe-timers 1.1
-// Project: https://github.com/Wizcorp/safe-timers#readme
-// Definitions by: Kamil Socha <https://github.com/ksocha>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 export const maxInterval: number;
 
 export class Timeout {

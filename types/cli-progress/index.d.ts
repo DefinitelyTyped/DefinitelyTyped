@@ -1,13 +1,6 @@
-// Type definitions for cli-progress 3.11
-// Project: https://github.com/AndiDittrich/Node.CLI-Progress
-// Definitions by:  Mohamed Hegazy <https://github.com/mhegazy>
-//                  Álvaro Martínez <https://github.com/alvaromartmart>
-//                  Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                  Marko Schilde <https://github.com/mschilde>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import EventEmitter = require('events');
+import EventEmitter = require("events");
 
 export interface Params {
     progress: number;

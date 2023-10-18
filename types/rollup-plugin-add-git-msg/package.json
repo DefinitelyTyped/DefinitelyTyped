@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/rollup-plugin-add-git-msg",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/oplinjie/rollup-plugin-add-git-msg"
+    ],
     "dependencies": {
         "rollup": ">=0.63.4"
-    }
+    },
+    "devDependencies": {
+        "@types/rollup-plugin-add-git-msg": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jakub Jirutka",
+            "githubUsername": "jirutka"
+        }
+    ]
 }

@@ -9,16 +9,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
-        "paths": {
-            "arcgis-js-api": [
-                "arcgis-js-api/v3"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

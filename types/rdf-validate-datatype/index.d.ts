@@ -1,9 +1,4 @@
-// Type definitions for rdf-validate-datatype 0.1
-// Project: https://github.com/zazuko/rdf-validate-datatype#readme
-// Definitions by: Tomasz Pluskiewicz <https://github.com/tpluscode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Term, Quad, NamedNode } from 'rdf-js';
+import { NamedNode, Quad, Term } from "rdf-js";
 
 interface ValidatorFunc {
     (value: string): boolean;
@@ -17,9 +12,9 @@ interface Registry {
 }
 
 declare const RdfValidateDatatype: {
-    validateTerm: typeof validateTerm,
-    validateQuad: typeof validateQuad,
-    validators: Registry
+    validateTerm: typeof validateTerm;
+    validateQuad: typeof validateQuad;
+    validators: Registry;
 };
 
 export = RdfValidateDatatype;

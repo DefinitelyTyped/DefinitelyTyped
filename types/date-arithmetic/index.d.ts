@@ -1,20 +1,14 @@
-// Type definitions for date-arithmetic 4.1
-// Project: https://github.com/jquense/date-math
-// Definitions by: Sergii Paryzhskyi <https://github.com/HeeL>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type Unit =
-    | 'milliseconds'
-    | 'seconds'
-    | 'minutes'
-    | 'hours'
-    | 'day'
-    | 'week'
-    | 'month'
-    | 'year'
-    | 'decade'
-    | 'century';
+    | "milliseconds"
+    | "seconds"
+    | "minutes"
+    | "hours"
+    | "day"
+    | "week"
+    | "month"
+    | "year"
+    | "decade"
+    | "century";
 
 export function milliseconds(date: Date): number;
 export function milliseconds(date: Date, value: number): Date;
@@ -45,14 +39,14 @@ export function add(date: Date, num: number, unit: Unit): Date;
 /**
  * The opposite of `startOf`
  */
-export function endOf(date: Date, unit: 'week', firstOfWeek: StartOfWeek): Date;
-export function endOf(date: Date, unit: Exclude<Unit, 'week'>): Date;
+export function endOf(date: Date, unit: "week", firstOfWeek: StartOfWeek): Date;
+export function endOf(date: Date, unit: Exclude<Unit, "week">): Date;
 /**
  * Return a new date with the relevant date parts zero'd out.
  * You only need to provide a firstOfWeek when the unit is 'week'
  */
-export function startOf(date: Date, unit: 'week', firstOfWeek: StartOfWeek): Date;
-export function startOf(date: Date, unit: Exclude<Unit, 'week'>): Date;
+export function startOf(date: Date, unit: "week", firstOfWeek: StartOfWeek): Date;
+export function startOf(date: Date, unit: Exclude<Unit, "week">): Date;
 
 /** Subtract specified amount of units from a provided date and return new date as a result */
 export function subtract(date: Date, num: number, unit: Unit): Date;

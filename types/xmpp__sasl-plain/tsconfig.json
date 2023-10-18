@@ -8,16 +8,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
-        "paths": {
-            "@xmpp/*": [
-                "xmpp__*"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

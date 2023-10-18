@@ -1,10 +1,3 @@
-// Type definitions for formidable 3.4
-// Project: https://github.com/node-formidable/formidable
-// Definitions by: Wim Looman <https://github.com/Nemo157>
-//                 Martin Badin <https://github.com/martin-badin>
-//                 devLana <https://github.com/devLana>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Stream, Writable } from "stream";
@@ -221,7 +214,9 @@ declare namespace formidable {
     /**
      * @link https://github.com/node-formidable/formidable#file
      */
-    interface FileJSON extends Pick<File, "size" | "filepath" | "originalFilename" | "mimetype" | "hash" | "newFilename"> {
+    interface FileJSON
+        extends Pick<File, "size" | "filepath" | "originalFilename" | "mimetype" | "hash" | "newFilename">
+    {
         length: number;
         mimetype: string | null;
         mtime: Date | null;

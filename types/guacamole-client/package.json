@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/guacamole-client",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/KonstantinSimeonov/guacamole-client-typedefs"
+    ],
+    "devDependencies": {
+        "@types/guacamole-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Konstantin Simeonov",
+            "githubUsername": "KonstantinSimeonov"
+        },
+        {
+            "name": "Alex Vakrilov",
+            "githubUsername": "vakrilov"
+        },
+        {
+            "name": "Petar Metodiev",
+            "githubUsername": "PetarMetodiev"
+        }
+    ]
+}

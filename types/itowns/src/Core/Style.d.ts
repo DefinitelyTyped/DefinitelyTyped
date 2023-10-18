@@ -53,7 +53,7 @@ declare class Style {
 
     order: number;
     parent: Style;
-    zoom: { min: number, max: number };
+    zoom: { min: number; max: number };
 
     fill: FillStyle;
     stroke: StrokeStyle;
@@ -72,7 +72,8 @@ declare class Style {
         layer: any,
         sprites: any,
         order?: number,
-        symbolToCircle?: boolean): Style;
+        symbolToCircle?: boolean,
+    ): Style;
     symbolStylefromContext(context: any): any;
 }
 export default Style;

@@ -1,9 +1,3 @@
-// Type definitions for proj4 2.5
-// Project: https://github.com/proj4js/proj4js
-// Definitions by: Denis Carriere <https://github.com/DenisCarriere>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace proj4 {
     type TemplateCoordinates = number[] | InterfaceCoordinates;
 
@@ -94,7 +88,7 @@ declare namespace proj4 {
     function transform(
         source: InterfaceProjection,
         dest: InterfaceProjection,
-        point: TemplateCoordinates
+        point: TemplateCoordinates,
     ): any;
 
     function mgrs(coordinates: number[], accuracy: number): string;
@@ -105,12 +99,12 @@ declare namespace proj4 {
 declare function proj4(fromProjection: string, toProjection?: string): proj4.Converter;
 declare function proj4<T extends proj4.TemplateCoordinates>(
     toProjection: string,
-    coordinates: T
+    coordinates: T,
 ): T;
 declare function proj4<T extends proj4.TemplateCoordinates>(
     fromProjection: string,
     toProjection: string,
-    coordinates: T
+    coordinates: T,
 ): T;
 
 export = proj4;

@@ -1,8 +1,3 @@
-// Type definitions for vara 1.1
-// Project: https://github.com/akzhy/vara#readme
-// Definitions by: Richard Haddad <https://github.com/Chnapy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Comments are from the documentation: http://vara.akzhy.com/documentation/
  */
@@ -32,7 +27,7 @@ interface TextProperties {
     /**
      * Text align, accepted values are left,center,right
      */
-    textAlign?: 'left' | 'center' | 'right' | undefined;
+    textAlign?: "left" | "center" | "right" | undefined;
     /**
      * Whether to animate the text automatically
      */
@@ -92,10 +87,7 @@ interface TextElements {
 }
 
 declare class VaraType {
-    constructor(queryDom: string,
-        fontJSONSource: string,
-        textStep: TextStep[],
-        textGlobals?: TextProperties);
+    constructor(queryDom: string, fontJSONSource: string, textStep: TextStep[], textGlobals?: TextProperties);
 
     /**
      * Is used to execute a function when the font is loaded and the elements are created.
@@ -136,7 +128,7 @@ declare class VaraType {
      */
     playAll(): void;
 
-    createNode(noneName: string, properties: { [k: string]: string; }): SVGElement;
+    createNode(noneName: string, properties: { [k: string]: string }): SVGElement;
 
     getSVGData(): void;
 
@@ -153,7 +145,11 @@ declare class VaraType {
         breakPoints: Array<Array<string | number>>;
     };
 
-    setPosition(element: SVGGElement, obj: { x?: number | undefined; y?: number | undefined }, relative?: { x: boolean; y: boolean; }): void;
+    setPosition(
+        element: SVGGElement,
+        obj: { x?: number | undefined; y?: number | undefined },
+        relative?: { x: boolean; y: boolean },
+    ): void;
 }
 
 declare const Vara: typeof VaraType;

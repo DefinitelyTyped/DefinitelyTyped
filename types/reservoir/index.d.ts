@@ -1,8 +1,3 @@
-// Type definitions for reservoir 0.1
-// Project: https://github.com/imbcmdth/reservoir
-// Definitions by: Dan Vanderkam <https://github.com/danvk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace Reservoir;
 export = Reservoir;
 
@@ -16,8 +11,8 @@ export = Reservoir;
  */
 declare function Reservoir<T>(
     reservoirSize?: number,
-    randomNumberGenerator?: () => number
-): Reservoir.ReservoirArray<T>;  // eslint-disable-line @definitelytyped/no-unnecessary-generics
+    randomNumberGenerator?: () => number,
+): Reservoir.ReservoirArray<T>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
 
 /*~ If you want to expose types from your module as well, you can
  *~ place them in this block. Often you will want to describe the

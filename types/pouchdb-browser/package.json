@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/pouchdb-browser",
+    "version": "6.1.9999",
+    "projects": [
+        "https://pouchdb.com/",
+        "https://github.com/pouchdb/pouchdb"
+    ],
+    "dependencies": {
+        "@types/pouchdb-adapter-http": "*",
+        "@types/pouchdb-adapter-idb": "*",
+        "@types/pouchdb-adapter-websql": "*",
+        "@types/pouchdb-core": "*",
+        "@types/pouchdb-mapreduce": "*",
+        "@types/pouchdb-replication": "*"
+    },
+    "devDependencies": {
+        "@types/pouchdb-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Simon Paulger",
+            "githubUsername": "spaulg"
+        },
+        {
+            "name": "Brian Geppert",
+            "githubUsername": "geppy"
+        },
+        {
+            "name": "Frederico Galvão",
+            "githubUsername": "fredgalvao"
+        }
+    ]
+}

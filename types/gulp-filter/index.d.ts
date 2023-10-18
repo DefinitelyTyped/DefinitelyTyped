@@ -1,13 +1,7 @@
-// Type definitions for gulp-filter v3.0.1
-// Project: https://github.com/sindresorhus/gulp-filter
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
-import File = require('vinyl');
-import * as Minimatch from 'minimatch';
+import File = require("vinyl");
+import * as Minimatch from "minimatch";
 
 declare namespace filter {
     interface FileFunction {
@@ -21,7 +15,7 @@ declare namespace filter {
 
     // A transform stream with a .restore object
     interface Filter extends NodeJS.ReadWriteStream {
-        restore: NodeJS.ReadWriteStream
+        restore: NodeJS.ReadWriteStream;
     }
 }
 

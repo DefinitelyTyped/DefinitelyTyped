@@ -1,18 +1,12 @@
-// Type definitions for promise-pg
-// Project: https://bitbucket.org/lplabs/promise-pg
-// Definitions by: Chris Charabaruk <https://github.com/coldacid>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
-import * as stream from 'stream';
-import * as pg from 'pg';
+import * as pg from "pg";
 import * as Q from "q";
+import * as stream from "stream";
 
-export {pg as raw};
+export { pg as raw };
 
-export interface ClientConfig extends pg.ClientConfig { }
+export interface ClientConfig extends pg.ClientConfig {}
 
 export declare function connect(connection: string): Q.Promise<Client>;
 export declare function connect(connection: pg.ClientConfig): Q.Promise<Client>;
@@ -51,8 +45,8 @@ export declare class Client {
     transaction(task: () => Q.Promise<any>): Q.Promise<any>;
 }
 
-export interface QueryResult extends pg.QueryResult { }
-export interface ResultBuilder extends pg.ResultBuilder { }
+export interface QueryResult extends pg.QueryResult {}
+export interface ResultBuilder extends pg.ResultBuilder {}
 
 export declare class Query extends pg.Query {
     promise: Q.Promise<QueryResult>;

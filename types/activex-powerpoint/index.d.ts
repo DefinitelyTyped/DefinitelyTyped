@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Microsoft PowerPoint 14.0 Object Library - PowerPoint 14.0
-// Project: https://msdn.microsoft.com/en-us/library/fp161225.aspx
-// Definitions by: Zev Spitz <https://github.com/zspitz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 /// <reference types="activex-office" />
 /// <reference types="activex-vbide" />
 
@@ -1787,7 +1781,7 @@ declare namespace PowerPoint {
     }
 
     class ActionSetting {
-        private 'PowerPoint.ActionSetting_typekey': ActionSetting;
+        private "PowerPoint.ActionSetting_typekey": ActionSetting;
         private constructor();
         Action: PpActionType;
         ActionVerb: string;
@@ -1802,7 +1796,7 @@ declare namespace PowerPoint {
     }
 
     class ActionSettings {
-        private 'PowerPoint.ActionSettings_typekey': ActionSettings;
+        private "PowerPoint.ActionSettings_typekey": ActionSettings;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -1811,7 +1805,7 @@ declare namespace PowerPoint {
     }
 
     class AddIn {
-        private 'PowerPoint.AddIn_typekey': AddIn;
+        private "PowerPoint.AddIn_typekey": AddIn;
         private constructor();
         readonly Application: Application;
         AutoLoad: Office.MsoTriState;
@@ -1826,7 +1820,7 @@ declare namespace PowerPoint {
     }
 
     class AddIns {
-        private 'PowerPoint.AddIns_typekey': AddIns;
+        private "PowerPoint.AddIns_typekey": AddIns;
         private constructor();
         Add(FileName: string): AddIn;
         readonly Application: Application;
@@ -1837,7 +1831,7 @@ declare namespace PowerPoint {
     }
 
     class Adjustments {
-        private 'PowerPoint.Adjustments_typekey': Adjustments;
+        private "PowerPoint.Adjustments_typekey": Adjustments;
         private constructor();
         readonly Application: any;
         readonly Count: number;
@@ -1847,7 +1841,7 @@ declare namespace PowerPoint {
     }
 
     class AnimationBehavior {
-        private 'PowerPoint.AnimationBehavior_typekey': AnimationBehavior;
+        private "PowerPoint.AnimationBehavior_typekey": AnimationBehavior;
         private constructor();
         Accumulate: MsoAnimAccumulate;
         Additive: MsoAnimAdditive;
@@ -1867,7 +1861,7 @@ declare namespace PowerPoint {
     }
 
     class AnimationBehaviors {
-        private 'PowerPoint.AnimationBehaviors_typekey': AnimationBehaviors;
+        private "PowerPoint.AnimationBehaviors_typekey": AnimationBehaviors;
         private constructor();
 
         /** @param number [Index=-1] */
@@ -1879,7 +1873,7 @@ declare namespace PowerPoint {
     }
 
     class AnimationPoint {
-        private 'PowerPoint.AnimationPoint_typekey': AnimationPoint;
+        private "PowerPoint.AnimationPoint_typekey": AnimationPoint;
         private constructor();
         readonly Application: Application;
         Delete(): void;
@@ -1890,7 +1884,7 @@ declare namespace PowerPoint {
     }
 
     class AnimationPoints {
-        private 'PowerPoint.AnimationPoints_typekey': AnimationPoints;
+        private "PowerPoint.AnimationPoints_typekey": AnimationPoints;
         private constructor();
 
         /** @param number [Index=-1] */
@@ -1903,7 +1897,7 @@ declare namespace PowerPoint {
     }
 
     class AnimationSettings {
-        private 'PowerPoint.AnimationSettings_typekey': AnimationSettings;
+        private "PowerPoint.AnimationSettings_typekey": AnimationSettings;
         private constructor();
         AdvanceMode: PpAdvanceMode;
         AdvanceTime: number;
@@ -1924,7 +1918,7 @@ declare namespace PowerPoint {
     }
 
     class Application {
-        private 'PowerPoint.Application_typekey': Application;
+        private "PowerPoint.Application_typekey": Application;
         private constructor();
         Activate(): void;
         readonly Active: Office.MsoTriState;
@@ -2005,14 +1999,14 @@ declare namespace PowerPoint {
     }
 
     class AutoCorrect {
-        private 'PowerPoint.AutoCorrect_typekey': AutoCorrect;
+        private "PowerPoint.AutoCorrect_typekey": AutoCorrect;
         private constructor();
         DisplayAutoCorrectOptions: boolean;
         DisplayAutoLayoutOptions: boolean;
     }
 
     class Borders {
-        private 'PowerPoint.Borders_typekey': Borders;
+        private "PowerPoint.Borders_typekey": Borders;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -2021,7 +2015,7 @@ declare namespace PowerPoint {
     }
 
     class Broadcast {
-        private 'PowerPoint.Broadcast_typekey': Broadcast;
+        private "PowerPoint.Broadcast_typekey": Broadcast;
         private constructor();
         readonly Application: Application;
         readonly AttendeeUrl: string;
@@ -2032,7 +2026,7 @@ declare namespace PowerPoint {
     }
 
     class BulletFormat {
-        private 'PowerPoint.BulletFormat_typekey': BulletFormat;
+        private "PowerPoint.BulletFormat_typekey": BulletFormat;
         private constructor();
         readonly Application: Application;
         Character: number;
@@ -2050,7 +2044,7 @@ declare namespace PowerPoint {
     }
 
     class CalloutFormat {
-        private 'PowerPoint.CalloutFormat_typekey': CalloutFormat;
+        private "PowerPoint.CalloutFormat_typekey": CalloutFormat;
         private constructor();
         Accent: Office.MsoTriState;
         Angle: Office.MsoCalloutAngleType;
@@ -2072,25 +2066,52 @@ declare namespace PowerPoint {
     }
 
     class CanvasShapes {
-        private 'PowerPoint.CanvasShapes_typekey': CanvasShapes;
+        private "PowerPoint.CanvasShapes_typekey": CanvasShapes;
         private constructor();
         AddCallout(Type: Office.MsoCalloutType, Left: number, Top: number, Width: number, Height: number): Shape;
         AddConnector(Type: Office.MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
         AddCurve(SafeArrayOfPoints: any): Shape;
-        AddLabel(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddLabel(
+            Orientation: Office.MsoTextOrientation,
+            Left: number,
+            Top: number,
+            Width: number,
+            Height: number,
+        ): Shape;
         AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
 
         /**
          * @param number [Width=-1]
          * @param number [Height=-1]
          */
-        AddPicture(FileName: string, LinkToFile: Office.MsoTriState, SaveWithDocument: Office.MsoTriState, Left: number, Top: number, Width?: number, Height?: number): Shape;
+        AddPicture(
+            FileName: string,
+            LinkToFile: Office.MsoTriState,
+            SaveWithDocument: Office.MsoTriState,
+            Left: number,
+            Top: number,
+            Width?: number,
+            Height?: number,
+        ): Shape;
         AddPolyline(SafeArrayOfPoints: any): Shape;
         AddShape(Type: Office.MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number): Shape;
-        AddTextbox(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddTextbox(
+            Orientation: Office.MsoTextOrientation,
+            Left: number,
+            Top: number,
+            Width: number,
+            Height: number,
+        ): Shape;
         AddTextEffect(
-            PresetTextEffect: Office.MsoPresetTextEffect, Text: string, FontName: string, FontSize: number, FontBold: Office.MsoTriState, FontItalic: Office.MsoTriState,
-            Left: number, Top: number): Shape;
+            PresetTextEffect: Office.MsoPresetTextEffect,
+            Text: string,
+            FontName: string,
+            FontSize: number,
+            FontBold: Office.MsoTriState,
+            FontItalic: Office.MsoTriState,
+            Left: number,
+            Top: number,
+        ): Shape;
         readonly Application: any;
         readonly Background: Shape;
         BuildFreeform(EditingType: Office.MsoEditingType, X1: number, Y1: number): FreeformBuilder;
@@ -2103,7 +2124,7 @@ declare namespace PowerPoint {
     }
 
     class Cell {
-        private 'PowerPoint.Cell_typekey': Cell;
+        private "PowerPoint.Cell_typekey": Cell;
         private constructor();
         readonly Application: Application;
         readonly Borders: Borders;
@@ -2116,7 +2137,7 @@ declare namespace PowerPoint {
     }
 
     class CellRange {
-        private 'PowerPoint.CellRange_typekey': CellRange;
+        private "PowerPoint.CellRange_typekey": CellRange;
         private constructor();
         readonly Application: Application;
         readonly Borders: Borders;
@@ -2126,7 +2147,7 @@ declare namespace PowerPoint {
     }
 
     class Chart {
-        private 'PowerPoint.Chart_typekey': Chart;
+        private "PowerPoint.Chart_typekey": Chart;
         private constructor();
 
         /** @param PowerPoint.XlDataLabelsType [Type=2] */
@@ -2138,8 +2159,17 @@ declare namespace PowerPoint {
 
         /** @param PowerPoint.XlDataLabelsType [Type=2] */
         ApplyDataLabels(
-            Type?: XlDataLabelsType, LegendKey?: any, AutoText?: any, HasLeaderLines?: any, ShowSeriesName?: any, ShowCategoryName?: any, ShowValue?: any,
-            ShowPercentage?: any, ShowBubbleSize?: any, Separator?: any): void;
+            Type?: XlDataLabelsType,
+            LegendKey?: any,
+            AutoText?: any,
+            HasLeaderLines?: any,
+            ShowSeriesName?: any,
+            ShowCategoryName?: any,
+            ShowValue?: any,
+            ShowPercentage?: any,
+            ShowBubbleSize?: any,
+            Separator?: any,
+        ): void;
         ApplyLayout(Layout: number, ChartType?: any): void;
         readonly Area3DGroup: ChartGroup;
         AreaGroups(Index?: any): any;
@@ -2159,8 +2189,18 @@ declare namespace PowerPoint {
         readonly ChartTitle: ChartTitle;
         ChartType: Office.XlChartType;
         ChartWizard(
-            Source?: any, Gallery?: any, Format?: any, PlotBy?: any, CategoryLabels?: any, SeriesLabels?: any, HasLegend?: any, Title?: any, CategoryTitle?: any,
-            ValueTitle?: any, ExtraTitle?: any): void;
+            Source?: any,
+            Gallery?: any,
+            Format?: any,
+            PlotBy?: any,
+            CategoryLabels?: any,
+            SeriesLabels?: any,
+            HasLegend?: any,
+            Title?: any,
+            CategoryTitle?: any,
+            ValueTitle?: any,
+            ExtraTitle?: any,
+        ): void;
         ClearToMatchStyle(): void;
         readonly Column3DGroup: ChartGroup;
         ColumnGroups(Index?: any): any;
@@ -2231,7 +2271,7 @@ declare namespace PowerPoint {
     }
 
     class ChartArea {
-        private 'PowerPoint.ChartArea_typekey': ChartArea;
+        private "PowerPoint.ChartArea_typekey": ChartArea;
         private constructor();
         readonly Application: Application;
         AutoScaleFont: any;
@@ -2256,7 +2296,7 @@ declare namespace PowerPoint {
     }
 
     class ChartBorder {
-        private 'PowerPoint.ChartBorder_typekey': ChartBorder;
+        private "PowerPoint.ChartBorder_typekey": ChartBorder;
         private constructor();
         readonly Application: Application;
         Color: any;
@@ -2268,7 +2308,7 @@ declare namespace PowerPoint {
     }
 
     class ChartCharacters {
-        private 'PowerPoint.ChartCharacters_typekey': ChartCharacters;
+        private "PowerPoint.ChartCharacters_typekey": ChartCharacters;
         private constructor();
         readonly Application: Application;
         Caption: string;
@@ -2283,7 +2323,7 @@ declare namespace PowerPoint {
     }
 
     class ChartColorFormat {
-        private 'PowerPoint.ChartColorFormat_typekey': ChartColorFormat;
+        private "PowerPoint.ChartColorFormat_typekey": ChartColorFormat;
         private constructor();
         readonly _Default: number;
         readonly Application: Application;
@@ -2295,7 +2335,7 @@ declare namespace PowerPoint {
     }
 
     class ChartData {
-        private 'PowerPoint.ChartData_typekey': ChartData;
+        private "PowerPoint.ChartData_typekey": ChartData;
         private constructor();
         Activate(): void;
         BreakLink(): void;
@@ -2304,7 +2344,7 @@ declare namespace PowerPoint {
     }
 
     class ChartFillFormat {
-        private 'PowerPoint.ChartFillFormat_typekey': ChartFillFormat;
+        private "PowerPoint.ChartFillFormat_typekey": ChartFillFormat;
         private constructor();
         readonly Application: Application;
         readonly BackColor: ChartColorFormat;
@@ -2318,7 +2358,11 @@ declare namespace PowerPoint {
         readonly Parent: any;
         readonly Pattern: Office.MsoPatternType;
         Patterned(Pattern: Office.MsoPatternType): void;
-        PresetGradient(Style: Office.MsoGradientStyle, Variant: number, PresetGradientType: Office.MsoPresetGradientType): void;
+        PresetGradient(
+            Style: Office.MsoGradientStyle,
+            Variant: number,
+            PresetGradientType: Office.MsoPresetGradientType,
+        ): void;
         readonly PresetGradientType: Office.MsoPresetGradientType;
         readonly PresetTexture: Office.MsoPresetTexture;
         PresetTextured(PresetTexture: Office.MsoPresetTexture): void;
@@ -2333,7 +2377,7 @@ declare namespace PowerPoint {
     }
 
     class ChartFont {
-        private 'PowerPoint.ChartFont_typekey': ChartFont;
+        private "PowerPoint.ChartFont_typekey": ChartFont;
         private constructor();
         readonly Application: Application;
         Background: any;
@@ -2355,7 +2399,7 @@ declare namespace PowerPoint {
     }
 
     class ChartFormat {
-        private 'PowerPoint.ChartFormat_typekey': ChartFormat;
+        private "PowerPoint.ChartFormat_typekey": ChartFormat;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -2371,7 +2415,7 @@ declare namespace PowerPoint {
     }
 
     class ChartGroup {
-        private 'PowerPoint.ChartGroup_typekey': ChartGroup;
+        private "PowerPoint.ChartGroup_typekey": ChartGroup;
         private constructor();
         readonly Application: Application;
         AxisGroup: XlAxisGroup;
@@ -2407,7 +2451,7 @@ declare namespace PowerPoint {
     }
 
     class ChartTitle {
-        private 'PowerPoint.ChartTitle_typekey': ChartTitle;
+        private "PowerPoint.ChartTitle_typekey": ChartTitle;
         private constructor();
         readonly Application: Application;
         AutoScaleFont: any;
@@ -2442,7 +2486,7 @@ declare namespace PowerPoint {
     }
 
     class Coauthoring {
-        private 'PowerPoint.Coauthoring_typekey': Coauthoring;
+        private "PowerPoint.Coauthoring_typekey": Coauthoring;
         private constructor();
         readonly Application: Application;
         readonly CoauthorCount: number;
@@ -2454,7 +2498,7 @@ declare namespace PowerPoint {
     }
 
     class ColorEffect {
-        private 'PowerPoint.ColorEffect_typekey': ColorEffect;
+        private "PowerPoint.ColorEffect_typekey": ColorEffect;
         private constructor();
         readonly Application: Application;
         readonly By: ColorFormat;
@@ -2464,7 +2508,7 @@ declare namespace PowerPoint {
     }
 
     class ColorFormat {
-        private 'PowerPoint.ColorFormat_typekey': ColorFormat;
+        private "PowerPoint.ColorFormat_typekey": ColorFormat;
         private constructor();
         readonly Application: any;
         Brightness: number;
@@ -2478,7 +2522,7 @@ declare namespace PowerPoint {
     }
 
     class ColorScheme {
-        private 'PowerPoint.ColorScheme_typekey': ColorScheme;
+        private "PowerPoint.ColorScheme_typekey": ColorScheme;
         private constructor();
         readonly Application: Application;
         Colors(SchemeColor: PpColorSchemeIndex): RGBColor;
@@ -2488,7 +2532,7 @@ declare namespace PowerPoint {
     }
 
     class ColorSchemes {
-        private 'PowerPoint.ColorSchemes_typekey': ColorSchemes;
+        private "PowerPoint.ColorSchemes_typekey": ColorSchemes;
         private constructor();
 
         /** @param PowerPoint.ColorScheme [Scheme=0] */
@@ -2500,7 +2544,7 @@ declare namespace PowerPoint {
     }
 
     class Column {
-        private 'PowerPoint.Column_typekey': Column;
+        private "PowerPoint.Column_typekey": Column;
         private constructor();
         readonly Application: Application;
         readonly Cells: CellRange;
@@ -2511,7 +2555,7 @@ declare namespace PowerPoint {
     }
 
     class Columns {
-        private 'PowerPoint.Columns_typekey': Columns;
+        private "PowerPoint.Columns_typekey": Columns;
         private constructor();
 
         /** @param number [BeforeColumn=-1] */
@@ -2523,7 +2567,7 @@ declare namespace PowerPoint {
     }
 
     class CommandEffect {
-        private 'PowerPoint.CommandEffect_typekey': CommandEffect;
+        private "PowerPoint.CommandEffect_typekey": CommandEffect;
         private constructor();
         readonly Application: Application;
         bookmark: string;
@@ -2533,7 +2577,7 @@ declare namespace PowerPoint {
     }
 
     class Comment {
-        private 'PowerPoint.Comment_typekey': Comment;
+        private "PowerPoint.Comment_typekey": Comment;
         private constructor();
         readonly Application: Application;
         readonly Author: string;
@@ -2548,7 +2592,7 @@ declare namespace PowerPoint {
     }
 
     class Comments {
-        private 'PowerPoint.Comments_typekey': Comments;
+        private "PowerPoint.Comments_typekey": Comments;
         private constructor();
         Add(Left: number, Top: number, Author: string, AuthorInitials: string, Text: string): Comment;
         readonly Application: Application;
@@ -2558,7 +2602,7 @@ declare namespace PowerPoint {
     }
 
     class ConnectorFormat {
-        private 'PowerPoint.ConnectorFormat_typekey': ConnectorFormat;
+        private "PowerPoint.ConnectorFormat_typekey": ConnectorFormat;
         private constructor();
         readonly Application: any;
         BeginConnect(ConnectedShape: Shape, ConnectionSite: number): void;
@@ -2577,7 +2621,7 @@ declare namespace PowerPoint {
     }
 
     class Corners {
-        private 'PowerPoint.Corners_typekey': Corners;
+        private "PowerPoint.Corners_typekey": Corners;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -2587,7 +2631,7 @@ declare namespace PowerPoint {
     }
 
     class CustomerData {
-        private 'PowerPoint.CustomerData_typekey': CustomerData;
+        private "PowerPoint.CustomerData_typekey": CustomerData;
         private constructor();
         Add(): Office.CustomXMLPart;
         readonly Application: Application;
@@ -2598,7 +2642,7 @@ declare namespace PowerPoint {
     }
 
     class CustomLayout {
-        private 'PowerPoint.CustomLayout_typekey': CustomLayout;
+        private "PowerPoint.CustomLayout_typekey": CustomLayout;
         private constructor();
         readonly Application: Application;
         readonly Background: ShapeRange;
@@ -2628,7 +2672,7 @@ declare namespace PowerPoint {
     }
 
     class CustomLayouts {
-        private 'PowerPoint.CustomLayouts_typekey': CustomLayouts;
+        private "PowerPoint.CustomLayouts_typekey": CustomLayouts;
         private constructor();
         Add(Index: number): CustomLayout;
         readonly Application: Application;
@@ -2641,7 +2685,7 @@ declare namespace PowerPoint {
     }
 
     class DataTable {
-        private 'PowerPoint.DataTable_typekey': DataTable;
+        private "PowerPoint.DataTable_typekey": DataTable;
         private constructor();
         readonly Application: Application;
         AutoScaleFont: any;
@@ -2659,7 +2703,7 @@ declare namespace PowerPoint {
     }
 
     class DefaultWebOptions {
-        private 'PowerPoint.DefaultWebOptions_typekey': DefaultWebOptions;
+        private "PowerPoint.DefaultWebOptions_typekey": DefaultWebOptions;
         private constructor();
         AllowPNG: Office.MsoTriState;
         AlwaysSaveInDefaultEncoding: Office.MsoTriState;
@@ -2682,7 +2726,7 @@ declare namespace PowerPoint {
     }
 
     class Design {
-        private 'PowerPoint.Design_typekey': Design;
+        private "PowerPoint.Design_typekey": Design;
         private constructor();
         AddTitleMaster(): Master;
         readonly Application: Application;
@@ -2698,7 +2742,7 @@ declare namespace PowerPoint {
     }
 
     class Designs {
-        private 'PowerPoint.Designs_typekey': Designs;
+        private "PowerPoint.Designs_typekey": Designs;
         private constructor();
 
         /** @param number [Index=-1] */
@@ -2716,7 +2760,7 @@ declare namespace PowerPoint {
     }
 
     class Diagram {
-        private 'PowerPoint.Diagram_typekey': Diagram;
+        private "PowerPoint.Diagram_typekey": Diagram;
         private constructor();
         readonly Application: any;
         AutoFormat: Office.MsoTriState;
@@ -2731,7 +2775,7 @@ declare namespace PowerPoint {
     }
 
     class DiagramNode {
-        private 'PowerPoint.DiagramNode_typekey': DiagramNode;
+        private "PowerPoint.DiagramNode_typekey": DiagramNode;
         private constructor();
 
         /**
@@ -2763,7 +2807,7 @@ declare namespace PowerPoint {
     }
 
     class DiagramNodeChildren {
-        private 'PowerPoint.DiagramNodeChildren_typekey': DiagramNodeChildren;
+        private "PowerPoint.DiagramNodeChildren_typekey": DiagramNodeChildren;
         private constructor();
 
         /**
@@ -2782,7 +2826,7 @@ declare namespace PowerPoint {
     }
 
     class DiagramNodes {
-        private 'PowerPoint.DiagramNodes_typekey': DiagramNodes;
+        private "PowerPoint.DiagramNodes_typekey": DiagramNodes;
         private constructor();
         readonly Application: any;
         readonly Count: number;
@@ -2793,7 +2837,7 @@ declare namespace PowerPoint {
     }
 
     class DocumentWindow {
-        private 'PowerPoint.DocumentWindow_typekey': DocumentWindow;
+        private "PowerPoint.DocumentWindow_typekey": DocumentWindow;
         private constructor();
         Activate(): void;
         readonly Active: Office.MsoTriState;
@@ -2844,7 +2888,7 @@ declare namespace PowerPoint {
     }
 
     class DocumentWindows {
-        private 'PowerPoint.DocumentWindows_typekey': DocumentWindows;
+        private "PowerPoint.DocumentWindows_typekey": DocumentWindows;
         private constructor();
         readonly Application: Application;
 
@@ -2856,7 +2900,7 @@ declare namespace PowerPoint {
     }
 
     class DownBars {
-        private 'PowerPoint.DownBars_typekey': DownBars;
+        private "PowerPoint.DownBars_typekey": DownBars;
         private constructor();
         readonly Application: Application;
         readonly Border: ChartBorder;
@@ -2871,7 +2915,7 @@ declare namespace PowerPoint {
     }
 
     class DropLines {
-        private 'PowerPoint.DropLines_typekey': DropLines;
+        private "PowerPoint.DropLines_typekey": DropLines;
         private constructor();
         readonly Application: Application;
         readonly Border: ChartBorder;
@@ -2884,7 +2928,7 @@ declare namespace PowerPoint {
     }
 
     class Effect {
-        private 'PowerPoint.Effect_typekey': Effect;
+        private "PowerPoint.Effect_typekey": Effect;
         private constructor();
         readonly Application: Application;
         readonly Behaviors: AnimationBehaviors;
@@ -2907,7 +2951,7 @@ declare namespace PowerPoint {
     }
 
     class EffectInformation {
-        private 'PowerPoint.EffectInformation_typekey': EffectInformation;
+        private "PowerPoint.EffectInformation_typekey": EffectInformation;
         private constructor();
         readonly AfterEffect: MsoAnimAfterEffect;
         readonly AnimateBackground: Office.MsoTriState;
@@ -2922,7 +2966,7 @@ declare namespace PowerPoint {
     }
 
     class EffectParameters {
-        private 'PowerPoint.EffectParameters_typekey': EffectParameters;
+        private "PowerPoint.EffectParameters_typekey": EffectParameters;
         private constructor();
         Amount: number;
         readonly Application: Application;
@@ -2935,7 +2979,7 @@ declare namespace PowerPoint {
     }
 
     class ExtraColors {
-        private 'PowerPoint.ExtraColors_typekey': ExtraColors;
+        private "PowerPoint.ExtraColors_typekey": ExtraColors;
         private constructor();
         Add(Type: Office.MsoRGBType): void;
         readonly Application: Application;
@@ -2946,7 +2990,7 @@ declare namespace PowerPoint {
     }
 
     class FileConverter {
-        private 'PowerPoint.FileConverter_typekey': FileConverter;
+        private "PowerPoint.FileConverter_typekey": FileConverter;
         private constructor();
         readonly Application: Application;
         readonly CanOpen: boolean;
@@ -2963,14 +3007,14 @@ declare namespace PowerPoint {
     }
 
     class FileConverters {
-        private 'PowerPoint.FileConverters_typekey': FileConverters;
+        private "PowerPoint.FileConverters_typekey": FileConverters;
         private constructor();
         readonly Count: number;
         Item(Index: any): FileConverter;
     }
 
     class FillFormat {
-        private 'PowerPoint.FillFormat_typekey': FillFormat;
+        private "PowerPoint.FillFormat_typekey": FillFormat;
         private constructor();
         readonly Application: any;
         BackColor: ColorFormat;
@@ -2988,7 +3032,11 @@ declare namespace PowerPoint {
         readonly Pattern: Office.MsoPatternType;
         Patterned(Pattern: Office.MsoPatternType): void;
         readonly PictureEffects: Office.PictureEffects;
-        PresetGradient(Style: Office.MsoGradientStyle, Variant: number, PresetGradientType: Office.MsoPresetGradientType): void;
+        PresetGradient(
+            Style: Office.MsoGradientStyle,
+            Variant: number,
+            PresetGradientType: Office.MsoPresetGradientType,
+        ): void;
         readonly PresetGradientType: Office.MsoPresetGradientType;
         readonly PresetTexture: Office.MsoPresetTexture;
         PresetTextured(PresetTexture: Office.MsoPresetTexture): void;
@@ -3011,7 +3059,7 @@ declare namespace PowerPoint {
     }
 
     class FilterEffect {
-        private 'PowerPoint.FilterEffect_typekey': FilterEffect;
+        private "PowerPoint.FilterEffect_typekey": FilterEffect;
         private constructor();
         readonly Application: Application;
         readonly Parent: any;
@@ -3021,7 +3069,7 @@ declare namespace PowerPoint {
     }
 
     class Floor {
-        private 'PowerPoint.Floor_typekey': Floor;
+        private "PowerPoint.Floor_typekey": Floor;
         private constructor();
         readonly Application: Application;
         readonly Border: ChartBorder;
@@ -3039,7 +3087,7 @@ declare namespace PowerPoint {
     }
 
     class Font {
-        private 'PowerPoint.Font_typekey': Font;
+        private "PowerPoint.Font_typekey": Font;
         private constructor();
         readonly Application: Application;
         AutoRotateNumbers: Office.MsoTriState;
@@ -3064,7 +3112,7 @@ declare namespace PowerPoint {
     }
 
     class Fonts {
-        private 'PowerPoint.Fonts_typekey': Fonts;
+        private "PowerPoint.Fonts_typekey": Fonts;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -3074,7 +3122,7 @@ declare namespace PowerPoint {
     }
 
     class FreeformBuilder {
-        private 'PowerPoint.FreeformBuilder_typekey': FreeformBuilder;
+        private "PowerPoint.FreeformBuilder_typekey": FreeformBuilder;
         private constructor();
 
         /**
@@ -3083,7 +3131,16 @@ declare namespace PowerPoint {
          * @param number [X3=0]
          * @param number [Y3=0]
          */
-        AddNodes(SegmentType: Office.MsoSegmentType, EditingType: Office.MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
+        AddNodes(
+            SegmentType: Office.MsoSegmentType,
+            EditingType: Office.MsoEditingType,
+            X1: number,
+            Y1: number,
+            X2?: number,
+            Y2?: number,
+            X3?: number,
+            Y3?: number,
+        ): void;
         readonly Application: any;
         ConvertToShape(): Shape;
         readonly Creator: number;
@@ -3091,7 +3148,7 @@ declare namespace PowerPoint {
     }
 
     class Global {
-        private 'PowerPoint.Global_typekey': Global;
+        private "PowerPoint.Global_typekey": Global;
         private constructor();
         readonly ActivePresentation: Presentation;
         readonly ActiveProtectedViewWindow: ProtectedViewWindow;
@@ -3111,7 +3168,7 @@ declare namespace PowerPoint {
     }
 
     class GroupShapes {
-        private 'PowerPoint.GroupShapes_typekey': GroupShapes;
+        private "PowerPoint.GroupShapes_typekey": GroupShapes;
         private constructor();
         readonly Application: any;
         readonly Count: number;
@@ -3122,7 +3179,7 @@ declare namespace PowerPoint {
     }
 
     class HeaderFooter {
-        private 'PowerPoint.HeaderFooter_typekey': HeaderFooter;
+        private "PowerPoint.HeaderFooter_typekey": HeaderFooter;
         private constructor();
         readonly Application: Application;
         Format: PpDateTimeFormat;
@@ -3133,7 +3190,7 @@ declare namespace PowerPoint {
     }
 
     class HeadersFooters {
-        private 'PowerPoint.HeadersFooters_typekey': HeadersFooters;
+        private "PowerPoint.HeadersFooters_typekey": HeadersFooters;
         private constructor();
         readonly Application: Application;
         Clear(): void;
@@ -3146,7 +3203,7 @@ declare namespace PowerPoint {
     }
 
     class HiLoLines {
-        private 'PowerPoint.HiLoLines_typekey': HiLoLines;
+        private "PowerPoint.HiLoLines_typekey": HiLoLines;
         private constructor();
         readonly Application: Application;
         readonly Border: ChartBorder;
@@ -3159,7 +3216,7 @@ declare namespace PowerPoint {
     }
 
     class Hyperlink {
-        private 'PowerPoint.Hyperlink_typekey': Hyperlink;
+        private "PowerPoint.Hyperlink_typekey": Hyperlink;
         private constructor();
         Address: string;
         AddToFavorites(): void;
@@ -3177,7 +3234,7 @@ declare namespace PowerPoint {
     }
 
     class Hyperlinks {
-        private 'PowerPoint.Hyperlinks_typekey': Hyperlinks;
+        private "PowerPoint.Hyperlinks_typekey": Hyperlinks;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -3186,7 +3243,7 @@ declare namespace PowerPoint {
     }
 
     class Interior {
-        private 'PowerPoint.Interior_typekey': Interior;
+        private "PowerPoint.Interior_typekey": Interior;
         private constructor();
         readonly Application: Application;
         Color: any;
@@ -3200,7 +3257,7 @@ declare namespace PowerPoint {
     }
 
     class Legend {
-        private 'PowerPoint.Legend_typekey': Legend;
+        private "PowerPoint.Legend_typekey": Legend;
         private constructor();
         readonly Application: Application;
         AutoScaleFont: any;
@@ -3226,7 +3283,7 @@ declare namespace PowerPoint {
     }
 
     class LineFormat {
-        private 'PowerPoint.LineFormat_typekey': LineFormat;
+        private "PowerPoint.LineFormat_typekey": LineFormat;
         private constructor();
         readonly Application: any;
         BackColor: ColorFormat;
@@ -3249,7 +3306,7 @@ declare namespace PowerPoint {
     }
 
     class LinkFormat {
-        private 'PowerPoint.LinkFormat_typekey': LinkFormat;
+        private "PowerPoint.LinkFormat_typekey": LinkFormat;
         private constructor();
         readonly Application: Application;
         AutoUpdate: PpUpdateOption;
@@ -3260,7 +3317,7 @@ declare namespace PowerPoint {
     }
 
     class Master {
-        private 'PowerPoint.Master_typekey': Master;
+        private "PowerPoint.Master_typekey": Master;
         private constructor();
         readonly Application: Application;
         ApplyTheme(themeName: string): void;
@@ -3286,7 +3343,7 @@ declare namespace PowerPoint {
     }
 
     class MediaBookmark {
-        private 'PowerPoint.MediaBookmark_typekey': MediaBookmark;
+        private "PowerPoint.MediaBookmark_typekey": MediaBookmark;
         private constructor();
         Delete(): void;
         readonly Index: number;
@@ -3295,7 +3352,7 @@ declare namespace PowerPoint {
     }
 
     class MediaBookmarks {
-        private 'PowerPoint.MediaBookmarks_typekey': MediaBookmarks;
+        private "PowerPoint.MediaBookmarks_typekey": MediaBookmarks;
         private constructor();
         Add(Position: number, Name: string): MediaBookmark;
         readonly Count: number;
@@ -3303,7 +3360,7 @@ declare namespace PowerPoint {
     }
 
     class MediaFormat {
-        private 'PowerPoint.MediaFormat_typekey': MediaFormat;
+        private "PowerPoint.MediaFormat_typekey": MediaFormat;
         private constructor();
         readonly Application: Application;
         readonly AudioCompressionType: string;
@@ -3326,7 +3383,14 @@ declare namespace PowerPoint {
          * @param number [AudioSamplingRate=48000]
          * @param number [VideoBitRate=7000000]
          */
-        Resample(Trim?: boolean, SampleHeight?: number, SampleWidth?: number, VideoFrameRate?: number, AudioSamplingRate?: number, VideoBitRate?: number): void;
+        Resample(
+            Trim?: boolean,
+            SampleHeight?: number,
+            SampleWidth?: number,
+            VideoFrameRate?: number,
+            AudioSamplingRate?: number,
+            VideoBitRate?: number,
+        ): void;
 
         /** @param PowerPoint.PpResampleMediaProfile [profile=2] */
         ResampleFromProfile(profile?: PpResampleMediaProfile): void;
@@ -3342,7 +3406,7 @@ declare namespace PowerPoint {
     }
 
     class MotionEffect {
-        private 'PowerPoint.MotionEffect_typekey': MotionEffect;
+        private "PowerPoint.MotionEffect_typekey": MotionEffect;
         private constructor();
         readonly Application: Application;
         ByX: number;
@@ -3356,14 +3420,14 @@ declare namespace PowerPoint {
     }
 
     class MouseTracker {
-        private 'PowerPoint.MouseTracker_typekey': MouseTracker;
+        private "PowerPoint.MouseTracker_typekey": MouseTracker;
         private constructor();
         EndTrack(X: number, Y: number): void;
         OnTrack(X: number, Y: number): void;
     }
 
     class NamedSlideShow {
-        private 'PowerPoint.NamedSlideShow_typekey': NamedSlideShow;
+        private "PowerPoint.NamedSlideShow_typekey": NamedSlideShow;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -3374,7 +3438,7 @@ declare namespace PowerPoint {
     }
 
     class NamedSlideShows {
-        private 'PowerPoint.NamedSlideShows_typekey': NamedSlideShows;
+        private "PowerPoint.NamedSlideShows_typekey": NamedSlideShows;
         private constructor();
         Add(Name: string, safeArrayOfSlideIDs: any): NamedSlideShow;
         readonly Application: Application;
@@ -3384,7 +3448,7 @@ declare namespace PowerPoint {
     }
 
     class ObjectVerbs {
-        private 'PowerPoint.ObjectVerbs_typekey': ObjectVerbs;
+        private "PowerPoint.ObjectVerbs_typekey": ObjectVerbs;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -3393,7 +3457,7 @@ declare namespace PowerPoint {
     }
 
     class OLEControl {
-        private 'PowerPoint.OLEControl_typekey': OLEControl;
+        private "PowerPoint.OLEControl_typekey": OLEControl;
         private constructor();
         AltHTML: string;
         Height: number;
@@ -3406,7 +3470,7 @@ declare namespace PowerPoint {
     }
 
     class OLEFormat {
-        private 'PowerPoint.OLEFormat_typekey': OLEFormat;
+        private "PowerPoint.OLEFormat_typekey": OLEFormat;
         private constructor();
         Activate(): void;
         readonly Application: Application;
@@ -3421,7 +3485,7 @@ declare namespace PowerPoint {
     }
 
     class Options {
-        private 'PowerPoint.Options_typekey': Options;
+        private "PowerPoint.Options_typekey": Options;
         private constructor();
         DisplayPasteOptions: Office.MsoTriState;
         DoNotPromptForConvert: Office.MsoTriState;
@@ -3429,7 +3493,7 @@ declare namespace PowerPoint {
     }
 
     class PageSetup {
-        private 'PowerPoint.PageSetup_typekey': PageSetup;
+        private "PowerPoint.PageSetup_typekey": PageSetup;
         private constructor();
         readonly Application: Application;
         FirstSlideNumber: number;
@@ -3442,7 +3506,7 @@ declare namespace PowerPoint {
     }
 
     class Pane {
-        private 'PowerPoint.Pane_typekey': Pane;
+        private "PowerPoint.Pane_typekey": Pane;
         private constructor();
         Activate(): void;
         readonly Active: Office.MsoTriState;
@@ -3452,7 +3516,7 @@ declare namespace PowerPoint {
     }
 
     class Panes {
-        private 'PowerPoint.Panes_typekey': Panes;
+        private "PowerPoint.Panes_typekey": Panes;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -3461,7 +3525,7 @@ declare namespace PowerPoint {
     }
 
     class ParagraphFormat {
-        private 'PowerPoint.ParagraphFormat_typekey': ParagraphFormat;
+        private "PowerPoint.ParagraphFormat_typekey": ParagraphFormat;
         private constructor();
         Alignment: PpParagraphAlignment;
         readonly Application: Application;
@@ -3481,7 +3545,7 @@ declare namespace PowerPoint {
     }
 
     class PictureFormat {
-        private 'PowerPoint.PictureFormat_typekey': PictureFormat;
+        private "PowerPoint.PictureFormat_typekey": PictureFormat;
         private constructor();
         readonly Application: any;
         Brightness: number;
@@ -3501,7 +3565,7 @@ declare namespace PowerPoint {
     }
 
     class PlaceholderFormat {
-        private 'PowerPoint.PlaceholderFormat_typekey': PlaceholderFormat;
+        private "PowerPoint.PlaceholderFormat_typekey": PlaceholderFormat;
         private constructor();
         readonly Application: Application;
         readonly ContainedType: Office.MsoShapeType;
@@ -3511,7 +3575,7 @@ declare namespace PowerPoint {
     }
 
     class Placeholders {
-        private 'PowerPoint.Placeholders_typekey': Placeholders;
+        private "PowerPoint.Placeholders_typekey": Placeholders;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -3521,7 +3585,7 @@ declare namespace PowerPoint {
     }
 
     class Player {
-        private 'PowerPoint.Player_typekey': Player;
+        private "PowerPoint.Player_typekey": Player;
         private constructor();
         readonly Application: Application;
         CurrentPosition: number;
@@ -3535,7 +3599,7 @@ declare namespace PowerPoint {
     }
 
     class PlaySettings {
-        private 'PowerPoint.PlaySettings_typekey': PlaySettings;
+        private "PowerPoint.PlaySettings_typekey": PlaySettings;
         private constructor();
         ActionVerb: string;
         readonly Application: Application;
@@ -3549,7 +3613,7 @@ declare namespace PowerPoint {
     }
 
     class PlotArea {
-        private 'PowerPoint.PlotArea_typekey': PlotArea;
+        private "PowerPoint.PlotArea_typekey": PlotArea;
         private constructor();
         readonly Application: Application;
         readonly Border: ChartBorder;
@@ -3573,13 +3637,13 @@ declare namespace PowerPoint {
     }
 
     class PowerRex {
-        private 'PowerPoint.PowerRex_typekey': PowerRex;
+        private "PowerPoint.PowerRex_typekey": PowerRex;
         private constructor();
         OnAsfEncoderEvent(erorCode: any, bstrErrorDesc: any): void;
     }
 
     class Presentation {
-        private 'PowerPoint.Presentation_typekey': Presentation;
+        private "PowerPoint.Presentation_typekey": Presentation;
         private constructor();
         AcceptAll(): void;
 
@@ -3615,7 +3679,14 @@ declare namespace PowerPoint {
          * @param number [FramesPerSecond=30]
          * @param number [Quality=85]
          */
-        CreateVideo(FileName: string, UseTimingsAndNarrations?: boolean, DefaultSlideDuration?: number, VertResolution?: number, FramesPerSecond?: number, Quality?: number): void;
+        CreateVideo(
+            FileName: string,
+            UseTimingsAndNarrations?: boolean,
+            DefaultSlideDuration?: number,
+            VertResolution?: number,
+            FramesPerSecond?: number,
+            Quality?: number,
+        ): void;
         readonly CreateVideoStatus: PpMediaTaskStatus;
         readonly CustomDocumentProperties: any;
         readonly CustomerData: CustomerData;
@@ -3655,9 +3726,23 @@ declare namespace PowerPoint {
          * @param boolean [UseISO19005_1=false]
          */
         ExportAsFixedFormat(
-            Path: string, FixedFormatType: PpFixedFormatType, Intent?: PpFixedFormatIntent, FrameSlides?: Office.MsoTriState, HandoutOrder?: PpPrintHandoutOrder,
-            OutputType?: PpPrintOutputType, PrintHiddenSlides?: Office.MsoTriState, PrintRange?: PrintRange, RangeType?: PpPrintRangeType, SlideShowName?: string,
-            IncludeDocProperties?: boolean, KeepIRMSettings?: boolean, DocStructureTags?: boolean, BitmapMissingFonts?: boolean, UseISO19005_1?: boolean, ExternalExporter?: any): void;
+            Path: string,
+            FixedFormatType: PpFixedFormatType,
+            Intent?: PpFixedFormatIntent,
+            FrameSlides?: Office.MsoTriState,
+            HandoutOrder?: PpPrintHandoutOrder,
+            OutputType?: PpPrintOutputType,
+            PrintHiddenSlides?: Office.MsoTriState,
+            PrintRange?: PrintRange,
+            RangeType?: PpPrintRangeType,
+            SlideShowName?: string,
+            IncludeDocProperties?: boolean,
+            KeepIRMSettings?: boolean,
+            DocStructureTags?: boolean,
+            BitmapMissingFonts?: boolean,
+            UseISO19005_1?: boolean,
+            ExternalExporter?: any,
+        ): void;
         readonly ExtraColors: ExtraColors;
         FarEastLineBreakLanguage: Office.MsoFarEastLineBreakLanguageID;
         FarEastLineBreakLevel: PpFarEastLineBreakLevel;
@@ -3671,7 +3756,15 @@ declare namespace PowerPoint {
          * @param Office.MsoExtraInfoMethod [Method=0]
          * @param string [HeaderInfo='']
          */
-        FollowHyperlink(Address: string, SubAddress?: string, NewWindow?: boolean, AddHistory?: boolean, ExtraInfo?: string, Method?: Office.MsoExtraInfoMethod, HeaderInfo?: string): void;
+        FollowHyperlink(
+            Address: string,
+            SubAddress?: string,
+            NewWindow?: boolean,
+            AddHistory?: boolean,
+            ExtraInfo?: string,
+            Method?: Office.MsoExtraInfoMethod,
+            HeaderInfo?: string,
+        ): void;
         readonly Fonts: Fonts;
         readonly FullName: string;
         GetWorkflowTasks(): Office.WorkflowTasks;
@@ -3767,7 +3860,11 @@ declare namespace PowerPoint {
         SendForReview(Recipients?: string, Subject?: string, ShowMessage?: boolean, IncludeAttachment?: any): void;
         readonly ServerPolicy: Office.ServerPolicy;
         SetPasswordEncryptionOptions(
-            PasswordEncryptionProvider: string, PasswordEncryptionAlgorithm: string, PasswordEncryptionKeyLength: number, PasswordEncryptionFileProperties: boolean): void;
+            PasswordEncryptionProvider: string,
+            PasswordEncryptionAlgorithm: string,
+            PasswordEncryptionKeyLength: number,
+            PasswordEncryptionFileProperties: boolean,
+        ): void;
         SetUndoText(Text: string): void;
         readonly SharedWorkspace: Office.SharedWorkspace;
         readonly Signatures: Office.SignatureSet;
@@ -3790,7 +3887,7 @@ declare namespace PowerPoint {
     }
 
     class Presentations {
-        private 'PowerPoint.Presentations_typekey': Presentations;
+        private "PowerPoint.Presentations_typekey": Presentations;
         private constructor();
 
         /** @param Office.MsoTriState [WithWindow=-1] */
@@ -3806,7 +3903,12 @@ declare namespace PowerPoint {
          * @param Office.MsoTriState [Untitled=0]
          * @param Office.MsoTriState [WithWindow=-1]
          */
-        Open(FileName: string, ReadOnly?: Office.MsoTriState, Untitled?: Office.MsoTriState, WithWindow?: Office.MsoTriState): Presentation;
+        Open(
+            FileName: string,
+            ReadOnly?: Office.MsoTriState,
+            Untitled?: Office.MsoTriState,
+            WithWindow?: Office.MsoTriState,
+        ): Presentation;
 
         /**
          * @param Office.MsoTriState [ReadOnly=0]
@@ -3814,19 +3916,30 @@ declare namespace PowerPoint {
          * @param Office.MsoTriState [WithWindow=-1]
          * @param Office.MsoTriState [OpenAndRepair=0]
          */
-        Open2007(FileName: string, ReadOnly?: Office.MsoTriState, Untitled?: Office.MsoTriState, WithWindow?: Office.MsoTriState, OpenAndRepair?: Office.MsoTriState): Presentation;
+        Open2007(
+            FileName: string,
+            ReadOnly?: Office.MsoTriState,
+            Untitled?: Office.MsoTriState,
+            WithWindow?: Office.MsoTriState,
+            OpenAndRepair?: Office.MsoTriState,
+        ): Presentation;
 
         /**
          * @param Office.MsoTriState [ReadOnly=0]
          * @param Office.MsoTriState [Untitled=0]
          * @param Office.MsoTriState [WithWindow=-1]
          */
-        OpenOld(FileName: string, ReadOnly?: Office.MsoTriState, Untitled?: Office.MsoTriState, WithWindow?: Office.MsoTriState): Presentation;
+        OpenOld(
+            FileName: string,
+            ReadOnly?: Office.MsoTriState,
+            Untitled?: Office.MsoTriState,
+            WithWindow?: Office.MsoTriState,
+        ): Presentation;
         readonly Parent: any;
     }
 
     class PrintOptions {
-        private 'PowerPoint.PrintOptions_typekey': PrintOptions;
+        private "PowerPoint.PrintOptions_typekey": PrintOptions;
         private constructor();
         ActivePrinter: string;
         readonly Application: Application;
@@ -3850,7 +3963,7 @@ declare namespace PowerPoint {
     }
 
     class PrintRange {
-        private 'PowerPoint.PrintRange_typekey': PrintRange;
+        private "PowerPoint.PrintRange_typekey": PrintRange;
         private constructor();
         readonly Application: Application;
         Delete(): void;
@@ -3860,7 +3973,7 @@ declare namespace PowerPoint {
     }
 
     class PrintRanges {
-        private 'PowerPoint.PrintRanges_typekey': PrintRanges;
+        private "PowerPoint.PrintRanges_typekey": PrintRanges;
         private constructor();
         Add(Start: number, End: number): PrintRange;
         readonly Application: Application;
@@ -3871,7 +3984,7 @@ declare namespace PowerPoint {
     }
 
     class PropertyEffect {
-        private 'PowerPoint.PropertyEffect_typekey': PropertyEffect;
+        private "PowerPoint.PropertyEffect_typekey": PropertyEffect;
         private constructor();
         readonly Application: Application;
         From: any;
@@ -3882,7 +3995,7 @@ declare namespace PowerPoint {
     }
 
     class ProtectedViewWindow {
-        private 'PowerPoint.ProtectedViewWindow_typekey': ProtectedViewWindow;
+        private "PowerPoint.ProtectedViewWindow_typekey": ProtectedViewWindow;
         private constructor();
         Activate(): void;
         readonly Active: Office.MsoTriState;
@@ -3904,7 +4017,7 @@ declare namespace PowerPoint {
     }
 
     class ProtectedViewWindows {
-        private 'PowerPoint.ProtectedViewWindows_typekey': ProtectedViewWindows;
+        private "PowerPoint.ProtectedViewWindows_typekey": ProtectedViewWindows;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -3919,7 +4032,7 @@ declare namespace PowerPoint {
     }
 
     class PublishObject {
-        private 'PowerPoint.PublishObject_typekey': PublishObject;
+        private "PowerPoint.PublishObject_typekey": PublishObject;
         private constructor();
         readonly Application: Application;
         FileName: string;
@@ -3934,7 +4047,7 @@ declare namespace PowerPoint {
     }
 
     class PublishObjects {
-        private 'PowerPoint.PublishObjects_typekey': PublishObjects;
+        private "PowerPoint.PublishObjects_typekey": PublishObjects;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -3943,7 +4056,7 @@ declare namespace PowerPoint {
     }
 
     class ResampleMediaTask {
-        private 'PowerPoint.ResampleMediaTask_typekey': ResampleMediaTask;
+        private "PowerPoint.ResampleMediaTask_typekey": ResampleMediaTask;
         private constructor();
         readonly AudioCompressionType: string;
         readonly AudioSamplingRate: number;
@@ -3959,7 +4072,7 @@ declare namespace PowerPoint {
     }
 
     class ResampleMediaTasks {
-        private 'PowerPoint.ResampleMediaTasks_typekey': ResampleMediaTasks;
+        private "PowerPoint.ResampleMediaTasks_typekey": ResampleMediaTasks;
         private constructor();
         Cancel(): void;
         readonly Count: number;
@@ -3970,7 +4083,7 @@ declare namespace PowerPoint {
     }
 
     class Research {
-        private 'PowerPoint.Research_typekey': Research;
+        private "PowerPoint.Research_typekey": Research;
         private constructor();
         readonly Application: Application;
         IsResearchService(ServiceID: string): boolean;
@@ -3980,12 +4093,18 @@ declare namespace PowerPoint {
          * @param boolean [UseSelection=false]
          * @param boolean [LaunchQuery=true]
          */
-        Query(ServiceID: string, QueryString: any, QueryLanguage: any, UseSelection?: boolean, LaunchQuery?: boolean): void;
+        Query(
+            ServiceID: string,
+            QueryString: any,
+            QueryLanguage: any,
+            UseSelection?: boolean,
+            LaunchQuery?: boolean,
+        ): void;
         SetLanguagePair(Language1: any, Language2: any): void;
     }
 
     class RGBColor {
-        private 'PowerPoint.RGBColor_typekey': RGBColor;
+        private "PowerPoint.RGBColor_typekey": RGBColor;
         private constructor();
         readonly Application: Application;
         readonly Parent: any;
@@ -3993,7 +4112,7 @@ declare namespace PowerPoint {
     }
 
     class RotationEffect {
-        private 'PowerPoint.RotationEffect_typekey': RotationEffect;
+        private "PowerPoint.RotationEffect_typekey": RotationEffect;
         private constructor();
         readonly Application: Application;
         By: number;
@@ -4003,7 +4122,7 @@ declare namespace PowerPoint {
     }
 
     class Row {
-        private 'PowerPoint.Row_typekey': Row;
+        private "PowerPoint.Row_typekey": Row;
         private constructor();
         readonly Application: Application;
         readonly Cells: CellRange;
@@ -4014,7 +4133,7 @@ declare namespace PowerPoint {
     }
 
     class Rows {
-        private 'PowerPoint.Rows_typekey': Rows;
+        private "PowerPoint.Rows_typekey": Rows;
         private constructor();
 
         /** @param number [BeforeRow=-1] */
@@ -4026,7 +4145,7 @@ declare namespace PowerPoint {
     }
 
     class Ruler {
-        private 'PowerPoint.Ruler_typekey': Ruler;
+        private "PowerPoint.Ruler_typekey": Ruler;
         private constructor();
         readonly Application: Application;
         readonly Levels: RulerLevels;
@@ -4035,7 +4154,7 @@ declare namespace PowerPoint {
     }
 
     class RulerLevel {
-        private 'PowerPoint.RulerLevel_typekey': RulerLevel;
+        private "PowerPoint.RulerLevel_typekey": RulerLevel;
         private constructor();
         readonly Application: Application;
         FirstMargin: number;
@@ -4044,7 +4163,7 @@ declare namespace PowerPoint {
     }
 
     class RulerLevels {
-        private 'PowerPoint.RulerLevels_typekey': RulerLevels;
+        private "PowerPoint.RulerLevels_typekey": RulerLevels;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -4053,7 +4172,7 @@ declare namespace PowerPoint {
     }
 
     class ScaleEffect {
-        private 'PowerPoint.ScaleEffect_typekey': ScaleEffect;
+        private "PowerPoint.ScaleEffect_typekey": ScaleEffect;
         private constructor();
         readonly Application: Application;
         ByX: number;
@@ -4066,7 +4185,7 @@ declare namespace PowerPoint {
     }
 
     class SectionProperties {
-        private 'PowerPoint.SectionProperties_typekey': SectionProperties;
+        private "PowerPoint.SectionProperties_typekey": SectionProperties;
         private constructor();
         AddBeforeSlide(SlideIndex: number, sectionName: string): number;
         AddSection(sectionIndex: number, sectionName?: any): number;
@@ -4083,7 +4202,7 @@ declare namespace PowerPoint {
     }
 
     class Selection {
-        private 'PowerPoint.Selection_typekey': Selection;
+        private "PowerPoint.Selection_typekey": Selection;
         private constructor();
         readonly Application: Application;
         readonly ChildShapeRange: ShapeRange;
@@ -4101,7 +4220,7 @@ declare namespace PowerPoint {
     }
 
     class Sequence {
-        private 'PowerPoint.Sequence_typekey': Sequence;
+        private "PowerPoint.Sequence_typekey": Sequence;
         private constructor();
 
         /**
@@ -4109,13 +4228,26 @@ declare namespace PowerPoint {
          * @param PowerPoint.MsoAnimTriggerType [trigger=1]
          * @param number [Index=-1]
          */
-        AddEffect(Shape: Shape, effectId: MsoAnimEffect, Level?: MsoAnimateByLevel, trigger?: MsoAnimTriggerType, Index?: number): Effect;
+        AddEffect(
+            Shape: Shape,
+            effectId: MsoAnimEffect,
+            Level?: MsoAnimateByLevel,
+            trigger?: MsoAnimTriggerType,
+            Index?: number,
+        ): Effect;
 
         /**
          * @param string [bookmark='']
          * @param PowerPoint.MsoAnimateByLevel [Level=0]
          */
-        AddTriggerEffect(pShape: Shape, effectId: MsoAnimEffect, trigger: MsoAnimTriggerType, pTriggerShape: Shape, bookmark?: string, Level?: MsoAnimateByLevel): Effect;
+        AddTriggerEffect(
+            pShape: Shape,
+            effectId: MsoAnimEffect,
+            trigger: MsoAnimTriggerType,
+            pTriggerShape: Shape,
+            bookmark?: string,
+            Level?: MsoAnimateByLevel,
+        ): Effect;
         readonly Application: Application;
 
         /** @param number [Index=-1] */
@@ -4125,7 +4257,12 @@ declare namespace PowerPoint {
          * @param Office.MsoRGBType [DimColor=0]
          * @param PowerPoint.PpColorSchemeIndex [DimSchemeColor=0]
          */
-        ConvertToAfterEffect(Effect: Effect, After: MsoAnimAfterEffect, DimColor?: Office.MsoRGBType, DimSchemeColor?: PpColorSchemeIndex): Effect;
+        ConvertToAfterEffect(
+            Effect: Effect,
+            After: MsoAnimAfterEffect,
+            DimColor?: Office.MsoRGBType,
+            DimSchemeColor?: PpColorSchemeIndex,
+        ): Effect;
         ConvertToAnimateBackground(Effect: Effect, AnimateBackground: Office.MsoTriState): Effect;
         ConvertToAnimateInReverse(Effect: Effect, animateInReverse: Office.MsoTriState): Effect;
         ConvertToBuildLevel(Effect: Effect, Level: MsoAnimateByLevel): Effect;
@@ -4138,7 +4275,7 @@ declare namespace PowerPoint {
     }
 
     class Sequences {
-        private 'PowerPoint.Sequences_typekey': Sequences;
+        private "PowerPoint.Sequences_typekey": Sequences;
         private constructor();
 
         /** @param number [Index=-1] */
@@ -4150,7 +4287,7 @@ declare namespace PowerPoint {
     }
 
     class SeriesLines {
-        private 'PowerPoint.SeriesLines_typekey': SeriesLines;
+        private "PowerPoint.SeriesLines_typekey": SeriesLines;
         private constructor();
         readonly Application: Application;
         readonly Border: ChartBorder;
@@ -4163,7 +4300,7 @@ declare namespace PowerPoint {
     }
 
     class SetEffect {
-        private 'PowerPoint.SetEffect_typekey': SetEffect;
+        private "PowerPoint.SetEffect_typekey": SetEffect;
         private constructor();
         readonly Application: Application;
         readonly Parent: any;
@@ -4172,7 +4309,7 @@ declare namespace PowerPoint {
     }
 
     class ShadowFormat {
-        private 'PowerPoint.ShadowFormat_typekey': ShadowFormat;
+        private "PowerPoint.ShadowFormat_typekey": ShadowFormat;
         private constructor();
         readonly Application: any;
         Blur: number;
@@ -4193,7 +4330,7 @@ declare namespace PowerPoint {
     }
 
     class Shape {
-        private 'PowerPoint.Shape_typekey': Shape;
+        private "PowerPoint.Shape_typekey": Shape;
         private constructor();
         readonly ActionSettings: ActionSettings;
         readonly Adjustments: Adjustments;
@@ -4231,7 +4368,13 @@ declare namespace PowerPoint {
          * @param number [ScaleHeight=0]
          * @param PowerPoint.PpExportMode [ExportMode=1]
          */
-        Export(PathName: string, Filter: PpShapeFormat, ScaleWidth?: number, ScaleHeight?: number, ExportMode?: PpExportMode): void;
+        Export(
+            PathName: string,
+            Filter: PpShapeFormat,
+            ScaleWidth?: number,
+            ScaleHeight?: number,
+            ExportMode?: PpExportMode,
+        ): void;
         readonly Fill: FillFormat;
         Flip(FlipCmd: Office.MsoFlipCmd): void;
         readonly Glow: Office.GlowFormat;
@@ -4303,7 +4446,7 @@ declare namespace PowerPoint {
     }
 
     class ShapeNode {
-        private 'PowerPoint.ShapeNode_typekey': ShapeNode;
+        private "PowerPoint.ShapeNode_typekey": ShapeNode;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -4314,7 +4457,7 @@ declare namespace PowerPoint {
     }
 
     class ShapeNodes {
-        private 'PowerPoint.ShapeNodes_typekey': ShapeNodes;
+        private "PowerPoint.ShapeNodes_typekey": ShapeNodes;
         private constructor();
         readonly Application: any;
         readonly Count: number;
@@ -4327,7 +4470,17 @@ declare namespace PowerPoint {
          * @param number [X3=0]
          * @param number [Y3=0]
          */
-        Insert(Index: number, SegmentType: Office.MsoSegmentType, EditingType: Office.MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
+        Insert(
+            Index: number,
+            SegmentType: Office.MsoSegmentType,
+            EditingType: Office.MsoEditingType,
+            X1: number,
+            Y1: number,
+            X2?: number,
+            Y2?: number,
+            X3?: number,
+            Y3?: number,
+        ): void;
         Item(Index: any): ShapeNode;
         readonly Parent: any;
         SetEditingType(Index: number, EditingType: Office.MsoEditingType): void;
@@ -4336,7 +4489,7 @@ declare namespace PowerPoint {
     }
 
     class ShapeRange {
-        private 'PowerPoint.ShapeRange_typekey': ShapeRange;
+        private "PowerPoint.ShapeRange_typekey": ShapeRange;
         private constructor();
         readonly ActionSettings: ActionSettings;
         readonly Adjustments: Adjustments;
@@ -4377,7 +4530,13 @@ declare namespace PowerPoint {
          * @param number [ScaleHeight=0]
          * @param PowerPoint.PpExportMode [ExportMode=1]
          */
-        Export(PathName: string, Filter: PpShapeFormat, ScaleWidth?: number, ScaleHeight?: number, ExportMode?: PpExportMode): void;
+        Export(
+            PathName: string,
+            Filter: PpShapeFormat,
+            ScaleWidth?: number,
+            ScaleHeight?: number,
+            ExportMode?: PpExportMode,
+        ): void;
         readonly Fill: FillFormat;
         Flip(FlipCmd: Office.MsoFlipCmd): void;
         readonly Glow: Office.GlowFormat;
@@ -4452,7 +4611,7 @@ declare namespace PowerPoint {
     }
 
     class Shapes {
-        private 'PowerPoint.Shapes_typekey': Shapes;
+        private "PowerPoint.Shapes_typekey": Shapes;
         private constructor();
         AddCallout(Type: Office.MsoCalloutType, Left: number, Top: number, Width: number, Height: number): Shape;
         AddCanvas(Left: number, Top: number, Width: number, Height: number): Shape;
@@ -4476,7 +4635,13 @@ declare namespace PowerPoint {
         AddConnector(Type: Office.MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
         AddCurve(SafeArrayOfPoints: any): Shape;
         AddDiagram(Type: Office.MsoDiagramType, Left: number, Top: number, Width: number, Height: number): Shape;
-        AddLabel(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddLabel(
+            Orientation: Office.MsoTextOrientation,
+            Left: number,
+            Top: number,
+            Width: number,
+            Height: number,
+        ): Shape;
         AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
 
         /**
@@ -4495,7 +4660,15 @@ declare namespace PowerPoint {
          * @param number [Width=-1]
          * @param number [Height=-1]
          */
-        AddMediaObject2(FileName: string, LinkToFile?: Office.MsoTriState, SaveWithDocument?: Office.MsoTriState, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
+        AddMediaObject2(
+            FileName: string,
+            LinkToFile?: Office.MsoTriState,
+            SaveWithDocument?: Office.MsoTriState,
+            Left?: number,
+            Top?: number,
+            Width?: number,
+            Height?: number,
+        ): Shape;
 
         /**
          * @param number [Left=0]
@@ -4503,7 +4676,13 @@ declare namespace PowerPoint {
          * @param number [Width=-1]
          * @param number [Height=-1]
          */
-        AddMediaObjectFromEmbedTag(EmbedTag: string, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
+        AddMediaObjectFromEmbedTag(
+            EmbedTag: string,
+            Left?: number,
+            Top?: number,
+            Width?: number,
+            Height?: number,
+        ): Shape;
 
         /**
          * @param number [Left=0]
@@ -4519,14 +4698,32 @@ declare namespace PowerPoint {
          * @param Office.MsoTriState [Link=0]
          */
         AddOLEObject(
-            Left?: number, Top?: number, Width?: number, Height?: number, ClassName?: string, FileName?: string, DisplayAsIcon?: Office.MsoTriState, IconFileName?: string,
-            IconIndex?: number, IconLabel?: string, Link?: Office.MsoTriState): Shape;
+            Left?: number,
+            Top?: number,
+            Width?: number,
+            Height?: number,
+            ClassName?: string,
+            FileName?: string,
+            DisplayAsIcon?: Office.MsoTriState,
+            IconFileName?: string,
+            IconIndex?: number,
+            IconLabel?: string,
+            Link?: Office.MsoTriState,
+        ): Shape;
 
         /**
          * @param number [Width=-1]
          * @param number [Height=-1]
          */
-        AddPicture(FileName: string, LinkToFile: Office.MsoTriState, SaveWithDocument: Office.MsoTriState, Left: number, Top: number, Width?: number, Height?: number): Shape;
+        AddPicture(
+            FileName: string,
+            LinkToFile: Office.MsoTriState,
+            SaveWithDocument: Office.MsoTriState,
+            Left: number,
+            Top: number,
+            Width?: number,
+            Height?: number,
+        ): Shape;
 
         /**
          * @param number [Left=-1]
@@ -4552,11 +4749,31 @@ declare namespace PowerPoint {
          * @param number [Width=-1]
          * @param number [Height=-1]
          */
-        AddTable(NumRows: number, NumColumns: number, Left?: number, Top?: number, Width?: number, Height?: number): Shape;
-        AddTextbox(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddTable(
+            NumRows: number,
+            NumColumns: number,
+            Left?: number,
+            Top?: number,
+            Width?: number,
+            Height?: number,
+        ): Shape;
+        AddTextbox(
+            Orientation: Office.MsoTextOrientation,
+            Left: number,
+            Top: number,
+            Width: number,
+            Height: number,
+        ): Shape;
         AddTextEffect(
-            PresetTextEffect: Office.MsoPresetTextEffect, Text: string, FontName: string, FontSize: number, FontBold: Office.MsoTriState, FontItalic: Office.MsoTriState,
-            Left: number, Top: number): Shape;
+            PresetTextEffect: Office.MsoPresetTextEffect,
+            Text: string,
+            FontName: string,
+            FontSize: number,
+            FontBold: Office.MsoTriState,
+            FontItalic: Office.MsoTriState,
+            Left: number,
+            Top: number,
+        ): Shape;
         AddTitle(): Shape;
         readonly Application: any;
         BuildFreeform(EditingType: Office.MsoEditingType, X1: number, Y1: number): FreeformBuilder;
@@ -4575,7 +4792,14 @@ declare namespace PowerPoint {
          * @param string [IconLabel='']
          * @param Office.MsoTriState [Link=0]
          */
-        PasteSpecial(DataType?: PpPasteDataType, DisplayAsIcon?: Office.MsoTriState, IconFileName?: string, IconIndex?: number, IconLabel?: string, Link?: Office.MsoTriState): ShapeRange;
+        PasteSpecial(
+            DataType?: PpPasteDataType,
+            DisplayAsIcon?: Office.MsoTriState,
+            IconFileName?: string,
+            IconIndex?: number,
+            IconLabel?: string,
+            Link?: Office.MsoTriState,
+        ): ShapeRange;
         readonly Placeholders: Placeholders;
         Range(Index?: any): ShapeRange;
         SelectAll(): void;
@@ -4583,7 +4807,7 @@ declare namespace PowerPoint {
     }
 
     class Slide {
-        private 'PowerPoint.Slide_typekey': Slide;
+        private "PowerPoint.Slide_typekey": Slide;
         private constructor();
         readonly Application: Application;
         ApplyTemplate(FileName: string): void;
@@ -4640,7 +4864,7 @@ declare namespace PowerPoint {
     }
 
     class SlideRange {
-        private 'PowerPoint.SlideRange_typekey': SlideRange;
+        private "PowerPoint.SlideRange_typekey": SlideRange;
         private constructor();
         readonly Application: Application;
         ApplyTemplate(FileName: string): void;
@@ -4699,7 +4923,7 @@ declare namespace PowerPoint {
     }
 
     class Slides {
-        private 'PowerPoint.Slides_typekey': Slides;
+        private "PowerPoint.Slides_typekey": Slides;
         private constructor();
         Add(Index: number, Layout: PpSlideLayout): Slide;
         AddSlide(Index: number, pCustomLayout: CustomLayout): Slide;
@@ -4721,7 +4945,7 @@ declare namespace PowerPoint {
     }
 
     class SlideShowSettings {
-        private 'PowerPoint.SlideShowSettings_typekey': SlideShowSettings;
+        private "PowerPoint.SlideShowSettings_typekey": SlideShowSettings;
         private constructor();
         AdvanceMode: PpSlideShowAdvanceMode;
         readonly Application: Application;
@@ -4743,7 +4967,7 @@ declare namespace PowerPoint {
     }
 
     class SlideShowTransition {
-        private 'PowerPoint.SlideShowTransition_typekey': SlideShowTransition;
+        private "PowerPoint.SlideShowTransition_typekey": SlideShowTransition;
         private constructor();
         AdvanceOnClick: Office.MsoTriState;
         AdvanceOnTime: Office.MsoTriState;
@@ -4759,7 +4983,7 @@ declare namespace PowerPoint {
     }
 
     class SlideShowView {
-        private 'PowerPoint.SlideShowView_typekey': SlideShowView;
+        private "PowerPoint.SlideShowView_typekey": SlideShowView;
         private constructor();
         AcceleratorsEnabled: Office.MsoTriState;
         readonly AdvanceMode: PpSlideShowAdvanceMode;
@@ -4803,7 +5027,7 @@ declare namespace PowerPoint {
     }
 
     class SlideShowWindow {
-        private 'PowerPoint.SlideShowWindow_typekey': SlideShowWindow;
+        private "PowerPoint.SlideShowWindow_typekey": SlideShowWindow;
         private constructor();
         Activate(): void;
         readonly Active: Office.MsoTriState;
@@ -4819,7 +5043,7 @@ declare namespace PowerPoint {
     }
 
     class SlideShowWindows {
-        private 'PowerPoint.SlideShowWindows_typekey': SlideShowWindows;
+        private "PowerPoint.SlideShowWindows_typekey": SlideShowWindows;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -4828,7 +5052,7 @@ declare namespace PowerPoint {
     }
 
     class SoundEffect {
-        private 'PowerPoint.SoundEffect_typekey': SoundEffect;
+        private "PowerPoint.SoundEffect_typekey": SoundEffect;
         private constructor();
         readonly Application: Application;
         ImportFromFile(FileName: string): void;
@@ -4839,7 +5063,7 @@ declare namespace PowerPoint {
     }
 
     class SoundFormat {
-        private 'PowerPoint.SoundFormat_typekey': SoundFormat;
+        private "PowerPoint.SoundFormat_typekey": SoundFormat;
         private constructor();
         Export(FileName: string): PpSoundFormatType;
         Import(FileName: string): void;
@@ -4849,7 +5073,7 @@ declare namespace PowerPoint {
     }
 
     class Table {
-        private 'PowerPoint.Table_typekey': Table;
+        private "PowerPoint.Table_typekey": Table;
         private constructor();
         AlternativeText: string;
         readonly Application: Application;
@@ -4878,7 +5102,7 @@ declare namespace PowerPoint {
     }
 
     class TableBackground {
-        private 'PowerPoint.TableBackground_typekey': TableBackground;
+        private "PowerPoint.TableBackground_typekey": TableBackground;
         private constructor();
         readonly Fill: FillFormat;
         readonly Picture: PictureFormat;
@@ -4887,14 +5111,14 @@ declare namespace PowerPoint {
     }
 
     class TableStyle {
-        private 'PowerPoint.TableStyle_typekey': TableStyle;
+        private "PowerPoint.TableStyle_typekey": TableStyle;
         private constructor();
         readonly Id: string;
         readonly Name: string;
     }
 
     class TabStop {
-        private 'PowerPoint.TabStop_typekey': TabStop;
+        private "PowerPoint.TabStop_typekey": TabStop;
         private constructor();
         readonly Application: Application;
         Clear(): void;
@@ -4904,7 +5128,7 @@ declare namespace PowerPoint {
     }
 
     class TabStops {
-        private 'PowerPoint.TabStops_typekey': TabStops;
+        private "PowerPoint.TabStops_typekey": TabStops;
         private constructor();
         Add(Type: PpTabStopType, Position: number): TabStop;
         readonly Application: Application;
@@ -4915,7 +5139,7 @@ declare namespace PowerPoint {
     }
 
     class Tags {
-        private 'PowerPoint.Tags_typekey': Tags;
+        private "PowerPoint.Tags_typekey": Tags;
         private constructor();
         Add(Name: string, Value: string): void;
         AddBinary(Name: string, FilePath: string): void;
@@ -4930,7 +5154,7 @@ declare namespace PowerPoint {
     }
 
     class TextEffectFormat {
-        private 'PowerPoint.TextEffectFormat_typekey': TextEffectFormat;
+        private "PowerPoint.TextEffectFormat_typekey": TextEffectFormat;
         private constructor();
         Alignment: Office.MsoTextEffectAlignment;
         readonly Application: any;
@@ -4951,7 +5175,7 @@ declare namespace PowerPoint {
     }
 
     class TextFrame {
-        private 'PowerPoint.TextFrame_typekey': TextFrame;
+        private "PowerPoint.TextFrame_typekey": TextFrame;
         private constructor();
         readonly Application: any;
         AutoSize: PpAutoSize;
@@ -4972,7 +5196,7 @@ declare namespace PowerPoint {
     }
 
     class TextFrame2 {
-        private 'PowerPoint.TextFrame2_typekey': TextFrame2;
+        private "PowerPoint.TextFrame2_typekey": TextFrame2;
         private constructor();
         readonly Application: any;
         AutoSize: Office.MsoAutoSize;
@@ -4999,7 +5223,7 @@ declare namespace PowerPoint {
     }
 
     class TextRange {
-        private 'PowerPoint.TextRange_typekey': TextRange;
+        private "PowerPoint.TextRange_typekey": TextRange;
         private constructor();
         readonly ActionSettings: ActionSettings;
         AddPeriods(): void;
@@ -5025,7 +5249,12 @@ declare namespace PowerPoint {
          * @param Office.MsoTriState [MatchCase=0]
          * @param Office.MsoTriState [WholeWords=0]
          */
-        Find(FindWhat: string, After?: number, MatchCase?: Office.MsoTriState, WholeWords?: Office.MsoTriState): TextRange;
+        Find(
+            FindWhat: string,
+            After?: number,
+            MatchCase?: Office.MsoTriState,
+            WholeWords?: Office.MsoTriState,
+        ): TextRange;
         readonly Font: Font;
         IndentLevel: number;
 
@@ -5068,7 +5297,14 @@ declare namespace PowerPoint {
          * @param string [IconLabel='']
          * @param Office.MsoTriState [Link=0]
          */
-        PasteSpecial(DataType?: PpPasteDataType, DisplayAsIcon?: Office.MsoTriState, IconFileName?: string, IconIndex?: number, IconLabel?: string, Link?: Office.MsoTriState): TextRange;
+        PasteSpecial(
+            DataType?: PpPasteDataType,
+            DisplayAsIcon?: Office.MsoTriState,
+            IconFileName?: string,
+            IconIndex?: number,
+            IconLabel?: string,
+            Link?: Office.MsoTriState,
+        ): TextRange;
         RemovePeriods(): void;
 
         /**
@@ -5076,8 +5312,23 @@ declare namespace PowerPoint {
          * @param Office.MsoTriState [MatchCase=0]
          * @param Office.MsoTriState [WholeWords=0]
          */
-        Replace(FindWhat: string, ReplaceWhat: string, After?: number, MatchCase?: Office.MsoTriState, WholeWords?: Office.MsoTriState): TextRange;
-        RotatedBounds(X1: number, Y1: number, X2: number, Y2: number, X3: number, Y3: number, x4: number, y4: number): void;
+        Replace(
+            FindWhat: string,
+            ReplaceWhat: string,
+            After?: number,
+            MatchCase?: Office.MsoTriState,
+            WholeWords?: Office.MsoTriState,
+        ): TextRange;
+        RotatedBounds(
+            X1: number,
+            Y1: number,
+            X2: number,
+            Y2: number,
+            X3: number,
+            Y3: number,
+            x4: number,
+            y4: number,
+        ): void;
         RtlRun(): void;
 
         /**
@@ -5104,7 +5355,7 @@ declare namespace PowerPoint {
     }
 
     class TextStyle {
-        private 'PowerPoint.TextStyle_typekey': TextStyle;
+        private "PowerPoint.TextStyle_typekey": TextStyle;
         private constructor();
         readonly Application: Application;
         readonly Levels: TextStyleLevels;
@@ -5114,7 +5365,7 @@ declare namespace PowerPoint {
     }
 
     class TextStyleLevel {
-        private 'PowerPoint.TextStyleLevel_typekey': TextStyleLevel;
+        private "PowerPoint.TextStyleLevel_typekey": TextStyleLevel;
         private constructor();
         readonly Application: Application;
         readonly Font: Font;
@@ -5123,7 +5374,7 @@ declare namespace PowerPoint {
     }
 
     class TextStyleLevels {
-        private 'PowerPoint.TextStyleLevels_typekey': TextStyleLevels;
+        private "PowerPoint.TextStyleLevels_typekey": TextStyleLevels;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -5132,7 +5383,7 @@ declare namespace PowerPoint {
     }
 
     class TextStyles {
-        private 'PowerPoint.TextStyles_typekey': TextStyles;
+        private "PowerPoint.TextStyles_typekey": TextStyles;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -5141,7 +5392,7 @@ declare namespace PowerPoint {
     }
 
     class ThreeDFormat {
-        private 'PowerPoint.ThreeDFormat_typekey': ThreeDFormat;
+        private "PowerPoint.ThreeDFormat_typekey": ThreeDFormat;
         private constructor();
         readonly Application: any;
         BevelBottomDepth: number;
@@ -5185,7 +5436,7 @@ declare namespace PowerPoint {
     }
 
     class TickLabels {
-        private 'PowerPoint.TickLabels_typekey': TickLabels;
+        private "PowerPoint.TickLabels_typekey": TickLabels;
         private constructor();
         Alignment: number;
         readonly Application: Application;
@@ -5208,7 +5459,7 @@ declare namespace PowerPoint {
     }
 
     class TimeLine {
-        private 'PowerPoint.TimeLine_typekey': TimeLine;
+        private "PowerPoint.TimeLine_typekey": TimeLine;
         private constructor();
         readonly Application: Application;
         readonly InteractiveSequences: Sequences;
@@ -5217,7 +5468,7 @@ declare namespace PowerPoint {
     }
 
     class Timing {
-        private 'PowerPoint.Timing_typekey': Timing;
+        private "PowerPoint.Timing_typekey": Timing;
         private constructor();
         Accelerate: number;
         readonly Application: Application;
@@ -5241,7 +5492,7 @@ declare namespace PowerPoint {
     }
 
     class UpBars {
-        private 'PowerPoint.UpBars_typekey': UpBars;
+        private "PowerPoint.UpBars_typekey": UpBars;
         private constructor();
         readonly Application: Application;
         readonly Border: ChartBorder;
@@ -5256,7 +5507,7 @@ declare namespace PowerPoint {
     }
 
     class View {
-        private 'PowerPoint.View_typekey': View;
+        private "PowerPoint.View_typekey": View;
         private constructor();
         readonly Application: Application;
         DisplaySlideMiniature: Office.MsoTriState;
@@ -5277,7 +5528,14 @@ declare namespace PowerPoint {
          * @param string [IconLabel='']
          * @param Office.MsoTriState [Link=0]
          */
-        PasteSpecial(DataType?: PpPasteDataType, DisplayAsIcon?: Office.MsoTriState, IconFileName?: string, IconIndex?: number, IconLabel?: string, Link?: Office.MsoTriState): void;
+        PasteSpecial(
+            DataType?: PpPasteDataType,
+            DisplayAsIcon?: Office.MsoTriState,
+            IconFileName?: string,
+            IconIndex?: number,
+            IconLabel?: string,
+            Link?: Office.MsoTriState,
+        ): void;
         Player(ShapeId: any): Player;
         readonly PrintOptions: PrintOptions;
 
@@ -5296,7 +5554,7 @@ declare namespace PowerPoint {
     }
 
     class Walls {
-        private 'PowerPoint.Walls_typekey': Walls;
+        private "PowerPoint.Walls_typekey": Walls;
         private constructor();
         readonly Application: Application;
         readonly Border: ChartBorder;
@@ -5315,7 +5573,7 @@ declare namespace PowerPoint {
     }
 
     class WebOptions {
-        private 'PowerPoint.WebOptions_typekey': WebOptions;
+        private "PowerPoint.WebOptions_typekey": WebOptions;
         private constructor();
         AllowPNG: Office.MsoTriState;
         Encoding: Office.MsoEncoding;
@@ -5336,48 +5594,140 @@ declare namespace PowerPoint {
 
 interface ActiveXObject {
     on(
-        obj: PowerPoint.Application, event: 'AfterNewPresentation' | 'AfterPresentationOpen' | 'NewPresentation' | 'PresentationClose' | 'PresentationCloseFinal' |
-        'PresentationOpen' | 'PresentationPrint' | 'PresentationSave' | 'SlideShowEnd', argNames: ['Pres'], handler: (
-            this: PowerPoint.Application, parameter: {readonly Pres: PowerPoint.Presentation}) => void): void;
-    on(
-        obj: PowerPoint.Application, event: 'ColorSchemeChanged' | 'SlideSelectionChanged', argNames: ['SldRange'], handler: (
-            this: PowerPoint.Application, parameter: {readonly SldRange: PowerPoint.SlideRange}) => void): void;
-    on(
-        obj: PowerPoint.Application, event: 'PresentationBeforeClose' | 'PresentationBeforeSave', argNames: ['Pres', 'Cancel'], handler: (
-            this: PowerPoint.Application, parameter: {readonly Pres: PowerPoint.Presentation, Cancel: boolean}) => void): void;
-    on(obj: PowerPoint.Application, event: 'PresentationNewSlide', argNames: ['Sld'], handler: (this: PowerPoint.Application, parameter: {readonly Sld: PowerPoint.Slide}) => void): void;
-    on(
-        obj: PowerPoint.Application, event: 'PresentationSync', argNames: ['Pres', 'SyncEventType'], handler: (
-            this: PowerPoint.Application, parameter: {readonly Pres: PowerPoint.Presentation, readonly SyncEventType: Office.MsoSyncEventType}) => void): void;
-    on(
-        obj: PowerPoint.Application, event: 'ProtectedViewWindowActivate' | 'ProtectedViewWindowDeactivate' | 'ProtectedViewWindowOpen', argNames: ['ProtViewWindow'],
-        handler: (this: PowerPoint.Application, parameter: {readonly ProtViewWindow: PowerPoint.ProtectedViewWindow}) => void): void;
-    on(
-        obj: PowerPoint.Application, event: 'ProtectedViewWindowBeforeClose', argNames: ['ProtViewWindow', 'ProtectedViewCloseReason', 'Cancel'],
+        obj: PowerPoint.Application,
+        event:
+            | "AfterNewPresentation"
+            | "AfterPresentationOpen"
+            | "NewPresentation"
+            | "PresentationClose"
+            | "PresentationCloseFinal"
+            | "PresentationOpen"
+            | "PresentationPrint"
+            | "PresentationSave"
+            | "SlideShowEnd",
+        argNames: ["Pres"],
         handler: (
             this: PowerPoint.Application,
-            parameter: {readonly ProtViewWindow: PowerPoint.ProtectedViewWindow, readonly ProtectedViewCloseReason: PowerPoint.PpProtectedViewCloseReason, Cancel: boolean}) => void): void;
+            parameter: { readonly Pres: PowerPoint.Presentation },
+        ) => void,
+    ): void;
     on(
-        obj: PowerPoint.Application, event: 'ProtectedViewWindowBeforeEdit', argNames: ['ProtViewWindow', 'Cancel'], handler: (
-            this: PowerPoint.Application, parameter: {readonly ProtViewWindow: PowerPoint.ProtectedViewWindow, Cancel: boolean}) => void): void;
+        obj: PowerPoint.Application,
+        event: "ColorSchemeChanged" | "SlideSelectionChanged",
+        argNames: ["SldRange"],
+        handler: (
+            this: PowerPoint.Application,
+            parameter: { readonly SldRange: PowerPoint.SlideRange },
+        ) => void,
+    ): void;
     on(
-        obj: PowerPoint.Application, event: 'SlideShowBegin' | 'SlideShowNextBuild' | 'SlideShowNextSlide' | 'SlideShowOnNext' | 'SlideShowOnPrevious', argNames: ['Wn'],
-        handler: (this: PowerPoint.Application, parameter: {readonly Wn: PowerPoint.SlideShowWindow}) => void): void;
+        obj: PowerPoint.Application,
+        event: "PresentationBeforeClose" | "PresentationBeforeSave",
+        argNames: ["Pres", "Cancel"],
+        handler: (
+            this: PowerPoint.Application,
+            parameter: { readonly Pres: PowerPoint.Presentation; Cancel: boolean },
+        ) => void,
+    ): void;
     on(
-        obj: PowerPoint.Application, event: 'SlideShowNextClick', argNames: ['Wn', 'nEffect'], handler: (
-            this: PowerPoint.Application, parameter: {readonly Wn: PowerPoint.SlideShowWindow, readonly nEffect: PowerPoint.Effect}) => void): void;
+        obj: PowerPoint.Application,
+        event: "PresentationNewSlide",
+        argNames: ["Sld"],
+        handler: (this: PowerPoint.Application, parameter: { readonly Sld: PowerPoint.Slide }) => void,
+    ): void;
     on(
-        obj: PowerPoint.Application, event: 'WindowActivate' | 'WindowDeactivate', argNames: ['Pres', 'Wn'], handler: (
-            this: PowerPoint.Application, parameter: {readonly Pres: PowerPoint.Presentation, readonly Wn: PowerPoint.DocumentWindow}) => void): void;
+        obj: PowerPoint.Application,
+        event: "PresentationSync",
+        argNames: ["Pres", "SyncEventType"],
+        handler: (
+            this: PowerPoint.Application,
+            parameter: { readonly Pres: PowerPoint.Presentation; readonly SyncEventType: Office.MsoSyncEventType },
+        ) => void,
+    ): void;
     on(
-        obj: PowerPoint.Application, event: 'WindowBeforeDoubleClick' | 'WindowBeforeRightClick', argNames: ['Sel', 'Cancel'], handler: (
-            this: PowerPoint.Application, parameter: {readonly Sel: PowerPoint.Selection, Cancel: boolean}) => void): void;
-    on(obj: PowerPoint.Application, event: 'WindowSelectionChange', argNames: ['Sel'], handler: (this: PowerPoint.Application, parameter: {readonly Sel: PowerPoint.Selection}) => void): void;
-    on(obj: PowerPoint.OLEControl, event: 'GotFocus' | 'LostFocus', handler: (this: PowerPoint.OLEControl, parameter: {}) => void): void;
+        obj: PowerPoint.Application,
+        event: "ProtectedViewWindowActivate" | "ProtectedViewWindowDeactivate" | "ProtectedViewWindowOpen",
+        argNames: ["ProtViewWindow"],
+        handler: (
+            this: PowerPoint.Application,
+            parameter: { readonly ProtViewWindow: PowerPoint.ProtectedViewWindow },
+        ) => void,
+    ): void;
+    on(
+        obj: PowerPoint.Application,
+        event: "ProtectedViewWindowBeforeClose",
+        argNames: ["ProtViewWindow", "ProtectedViewCloseReason", "Cancel"],
+        handler: (
+            this: PowerPoint.Application,
+            parameter: {
+                readonly ProtViewWindow: PowerPoint.ProtectedViewWindow;
+                readonly ProtectedViewCloseReason: PowerPoint.PpProtectedViewCloseReason;
+                Cancel: boolean;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: PowerPoint.Application,
+        event: "ProtectedViewWindowBeforeEdit",
+        argNames: ["ProtViewWindow", "Cancel"],
+        handler: (
+            this: PowerPoint.Application,
+            parameter: { readonly ProtViewWindow: PowerPoint.ProtectedViewWindow; Cancel: boolean },
+        ) => void,
+    ): void;
+    on(
+        obj: PowerPoint.Application,
+        event:
+            | "SlideShowBegin"
+            | "SlideShowNextBuild"
+            | "SlideShowNextSlide"
+            | "SlideShowOnNext"
+            | "SlideShowOnPrevious",
+        argNames: ["Wn"],
+        handler: (this: PowerPoint.Application, parameter: { readonly Wn: PowerPoint.SlideShowWindow }) => void,
+    ): void;
+    on(
+        obj: PowerPoint.Application,
+        event: "SlideShowNextClick",
+        argNames: ["Wn", "nEffect"],
+        handler: (
+            this: PowerPoint.Application,
+            parameter: { readonly Wn: PowerPoint.SlideShowWindow; readonly nEffect: PowerPoint.Effect },
+        ) => void,
+    ): void;
+    on(
+        obj: PowerPoint.Application,
+        event: "WindowActivate" | "WindowDeactivate",
+        argNames: ["Pres", "Wn"],
+        handler: (
+            this: PowerPoint.Application,
+            parameter: { readonly Pres: PowerPoint.Presentation; readonly Wn: PowerPoint.DocumentWindow },
+        ) => void,
+    ): void;
+    on(
+        obj: PowerPoint.Application,
+        event: "WindowBeforeDoubleClick" | "WindowBeforeRightClick",
+        argNames: ["Sel", "Cancel"],
+        handler: (
+            this: PowerPoint.Application,
+            parameter: { readonly Sel: PowerPoint.Selection; Cancel: boolean },
+        ) => void,
+    ): void;
+    on(
+        obj: PowerPoint.Application,
+        event: "WindowSelectionChange",
+        argNames: ["Sel"],
+        handler: (this: PowerPoint.Application, parameter: { readonly Sel: PowerPoint.Selection }) => void,
+    ): void;
+    on(
+        obj: PowerPoint.OLEControl,
+        event: "GotFocus" | "LostFocus",
+        handler: (this: PowerPoint.OLEControl, parameter: {}) => void,
+    ): void;
 }
 
 interface ActiveXObjectNameMap {
-    'PowerPoint.Application': PowerPoint.Application;
+    "PowerPoint.Application": PowerPoint.Application;
 }
 
 interface EnumeratorConstructor {
@@ -5386,7 +5736,14 @@ interface EnumeratorConstructor {
     new(col: PowerPoint.AnimationBehaviors): Enumerator<PowerPoint.AnimationBehavior>;
     new(col: PowerPoint.AnimationPoints): Enumerator<PowerPoint.AnimationPoint>;
     new(col: PowerPoint.Borders): Enumerator<PowerPoint.LineFormat>;
-    new(col: PowerPoint.CanvasShapes | PowerPoint.GroupShapes | PowerPoint.Placeholders | PowerPoint.ShapeRange | PowerPoint.Shapes): Enumerator<PowerPoint.Shape>;
+    new(
+        col:
+            | PowerPoint.CanvasShapes
+            | PowerPoint.GroupShapes
+            | PowerPoint.Placeholders
+            | PowerPoint.ShapeRange
+            | PowerPoint.Shapes,
+    ): Enumerator<PowerPoint.Shape>;
     new(col: PowerPoint.CellRange): Enumerator<PowerPoint.Cell>;
     new(col: PowerPoint.ColorSchemes): Enumerator<PowerPoint.ColorScheme>;
     new(col: PowerPoint.Columns): Enumerator<PowerPoint.Column>;

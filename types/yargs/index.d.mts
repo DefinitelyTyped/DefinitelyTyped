@@ -1,46 +1,46 @@
 import yargs = require("./index.js");
 interface RequireType {
-  (path: string): Function;
-  main: MainType;
+    (path: string): Function;
+    main: MainType;
 }
 
 interface MainType {
-  filename: string;
-  children: MainType[];
+    filename: string;
+    children: MainType[];
 }
 declare const _instanceFactory: (
-  processArgs?: ReadonlyArray<string> | string,
-  cwd?: string, 
-  parentRequire?: RequireType
+    processArgs?: ReadonlyArray<string> | string,
+    cwd?: string,
+    parentRequire?: RequireType,
 ) => yargs.Argv;
 export default _instanceFactory;
 
 export type {
-    BuilderCallback,
-    ParserConfigurationOptions,
-    Argv,
     Arguments,
     ArgumentsCamelCase,
-    RequireDirectoryOptions,
-    Options,
-    PositionalOptions,
-    Defined,
-    ToArray,
-    ToString,
-    ToNumber,
-    InferredOptionType,
-    InferredOptionTypePrimitive,
-    InferredOptionTypeInner,
-    InferredOptionTypes,
-    CommandModule,
-    ParseCallback,
-    CommandBuilder,
-    SyncCompletionFunction,
+    Argv,
     AsyncCompletionFunction,
-    PromiseCompletionFunction,
-    FallbackCompletionFunction,
-    MiddlewareFunction,
+    BuilderCallback,
     Choices,
-    PositionalOptionsType,
+    CommandBuilder,
+    CommandModule,
     CompletionCallback,
-} from './index.js';
+    Defined,
+    FallbackCompletionFunction,
+    InferredOptionType,
+    InferredOptionTypeInner,
+    InferredOptionTypePrimitive,
+    InferredOptionTypes,
+    MiddlewareFunction,
+    Options,
+    ParseCallback,
+    ParserConfigurationOptions,
+    PositionalOptions,
+    PositionalOptionsType,
+    PromiseCompletionFunction,
+    RequireDirectoryOptions,
+    SyncCompletionFunction,
+    ToArray,
+    ToNumber,
+    ToString,
+} from "./index.js";

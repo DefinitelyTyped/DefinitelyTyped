@@ -1,6 +1,30 @@
 {
-  "private": true,
-  "dependencies": {
-    "@maxim_mazurok/gapi.client.fitness-v1": "latest"
-  }
+    "private": true,
+    "name": "@types/gapi.client.fitness-v1",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Fitness API v1",
+    "projects": [
+        "https://developers.google.com/fit/rest/v1/get-started"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.fitness-v1": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.fitness-v1": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
 }

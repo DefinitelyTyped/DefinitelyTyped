@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/d3kit",
+    "version": "1.1.9999",
+    "projects": [
+        "https://www.npmjs.com/package/d3kit"
+    ],
+    "dependencies": {
+        "@types/d3": "^3"
+    },
+    "devDependencies": {
+        "@types/chai": "*",
+        "@types/d3kit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Morgan Benton",
+            "githubUsername": "morphatic"
+        }
+    ]
+}

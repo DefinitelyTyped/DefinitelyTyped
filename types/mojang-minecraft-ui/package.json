@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/mojang-minecraft-ui",
+    "version": "0.1.9999",
+    "projects": [
+        "https://docs.microsoft.com/minecraft/creator/"
+    ],
+    "dependencies": {
+        "@types/mojang-minecraft": "*"
+    },
+    "devDependencies": {
+        "@types/mojang-minecraft-ui": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jake Shirley",
+            "githubUsername": "JakeShirley"
+        },
+        {
+            "name": "Mike Ammerlaan",
+            "githubUsername": "mammerla"
+        }
+    ]
+}

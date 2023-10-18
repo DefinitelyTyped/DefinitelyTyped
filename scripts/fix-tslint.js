@@ -1,9 +1,9 @@
 /// <reference types="node" />
 
-import * as fs from 'node:fs';
-import JSON from 'comment-json';
+import JSON from "comment-json";
+import * as fs from "node:fs";
 
-const home = new URL('../types/', import.meta.url);
+const home = new URL("../types/", import.meta.url);
 
 for (const dirName of fs.readdirSync(home)) {
     if (dirName.startsWith(".") || dirName === "node_modules" || dirName === "scripts") {
@@ -27,15 +27,14 @@ for (const dirName of fs.readdirSync(home)) {
  * @param {URL} dir
  */
 function fixTslint(dir) {
-    const target = new URL('tslint.json', dir);
+    const target = new URL("tslint.json", dir);
     if (!fs.existsSync(target)) return;
-    const json = JSON.parse(fs.readFileSync(target, 'utf-8'));
+    const json = JSON.parse(fs.readFileSync(target, "utf-8"));
     json.rules = fixRules(json.rules);
-    const text =
-        Object.keys(json).length === 1
-            ? '{ "extends": "@definitelytyped/dtslint/dt.json" }'
-            : JSON.stringify(json, undefined, 4);
-    fs.writeFileSync(target, text + '\n', 'utf-8');
+    const text = Object.keys(json).length === 1
+        ? "{ \"extends\": \"@definitelytyped/dtslint/dt.json\" }"
+        : JSON.stringify(json, undefined, 4);
+    fs.writeFileSync(target, text + "\n", "utf-8");
 }
 
 /**
@@ -44,4 +43,3 @@ function fixTslint(dir) {
 function fixRules(rules) {
     return Object.fromEntries(Object.entries(rules).map(([key, value]) => [key, value]));
 }
-

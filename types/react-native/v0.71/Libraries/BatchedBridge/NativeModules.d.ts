@@ -3,7 +3,7 @@
  * See react-native-sensor-manager for example.
  */
 interface NativeModulesStatic {
-  [name: string]: any;
+    [name: string]: any;
 }
 
 /**

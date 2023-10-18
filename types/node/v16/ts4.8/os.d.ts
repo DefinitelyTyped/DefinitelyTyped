@@ -7,7 +7,7 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v16.9.0/lib/os.js)
  */
-declare module 'os' {
+declare module "os" {
     interface CpuInfo {
         model: string;
         speed: number;
@@ -27,18 +27,18 @@ declare module 'os' {
         cidr: string | null;
     }
     interface NetworkInterfaceInfoIPv4 extends NetworkInterfaceBase {
-        family: 'IPv4';
+        family: "IPv4";
         scopeid?: undefined;
     }
     interface NetworkInterfaceInfoIPv6 extends NetworkInterfaceBase {
-        family: 'IPv6';
+        family: "IPv6";
         scopeid: number;
     }
     interface UserInfo<T> {
         username: T;
         uid: number;
         gid: number;
-        shell: T;
+        shell: T | null;
         homedir: T;
     }
     type NetworkInterfaceInfo = NetworkInterfaceInfoIPv4 | NetworkInterfaceInfoIPv6;
@@ -227,7 +227,7 @@ declare module 'os' {
      * Throws a `SystemError` if a user has no `username` or `homedir`.
      * @since v6.0.0
      */
-    function userInfo(options: { encoding: 'buffer' }): UserInfo<Buffer>;
+    function userInfo(options: { encoding: "buffer" }): UserInfo<Buffer>;
     function userInfo(options?: { encoding: BufferEncoding }): UserInfo<string>;
     type SignalConstants = {
         [key in NodeJS.Signals]: number;
@@ -426,7 +426,7 @@ declare module 'os' {
      * Possible values are `'BE'` for big endian and `'LE'` for little endian.
      * @since v0.9.4
      */
-    function endianness(): 'BE' | 'LE';
+    function endianness(): "BE" | "LE";
     /**
      * Returns the scheduling priority for the process specified by `pid`. If `pid` is
      * not provided or is `0`, the priority of the current process is returned.
@@ -451,6 +451,6 @@ declare module 'os' {
     function setPriority(priority: number): void;
     function setPriority(pid: number, priority: number): void;
 }
-declare module 'node:os' {
-    export * from 'os';
+declare module "node:os" {
+    export * from "os";
 }

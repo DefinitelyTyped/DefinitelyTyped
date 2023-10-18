@@ -1,8 +1,3 @@
-// Type definitions for ffmpeg-concat 1.1
-// Project: https://github.com/transitive-bullshit/ffmpeg-concat
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Transition {
     duration: number;
     name: string;
@@ -13,7 +8,7 @@ interface ConcatOptions {
     audio?: string | undefined;
     cleanupFrames?: boolean | undefined;
     concurrency?: number | undefined;
-    frameFormat?: 'jpg' | 'png' | 'raw' | undefined;
+    frameFormat?: "jpg" | "png" | "raw" | undefined;
     log?: ((stdout: string) => void) | undefined;
     output: string;
     tempDir?: string | undefined;

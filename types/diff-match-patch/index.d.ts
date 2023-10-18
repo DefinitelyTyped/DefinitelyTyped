@@ -1,9 +1,3 @@
-// Type definitions for diff-match-patch 1.0
-// Project: https://www.npmjs.com/package/diff-match-patch
-// Definitions by: Asana <https://asana.com>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace diff_match_patch {
     type Diff = [number, string];
 
@@ -88,7 +82,7 @@ declare class diff_match_patch {
     patch_toText(patches: Array<typeof diff_match_patch.patch_obj>): string;
 
     static patch_obj: {
-        new (): diff_match_patch.patch_obj;
+        new(): diff_match_patch.patch_obj;
     };
 
     static diff_match_patch: typeof diff_match_patch;

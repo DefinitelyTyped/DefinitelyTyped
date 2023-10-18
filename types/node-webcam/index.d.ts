@@ -1,8 +1,3 @@
-// Type definitions for node-webcam 0.8
-// Project: https://github.com/chuckfairy/node-webcam
-// Definitions by: Ricardo Azzi Silva <https://github.com/lordazzi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Minimum TypeScript Version: 4.3
 /// <reference types="node" />
 export const NodeWebcam: {
@@ -20,13 +15,11 @@ export const NodeWebcam: {
 
     /**
      * Quick capture helper
-     *
      */
     capture: typeof capture;
 
     /**
      * Camera list helper
-     *
      */
     list: typeof list;
 
@@ -39,14 +32,13 @@ export const NodeWebcam: {
 export const version: string;
 export const REVISION: number;
 
-export function create(options: WebcamOptions & { platform: 'linux' | 'fswebcam' }): FSWebcam;
-export function create(options: WebcamOptions & { platform: 'win32' | 'win64' }): WindowsWebcam;
-export function create(options: WebcamOptions & { platform: 'darwin' }): ImageSnapWebcam;
+export function create(options: WebcamOptions & { platform: "linux" | "fswebcam" }): FSWebcam;
+export function create(options: WebcamOptions & { platform: "win32" | "win64" }): WindowsWebcam;
+export function create(options: WebcamOptions & { platform: "darwin" }): ImageSnapWebcam;
 export function create(options: WebcamOptions): ImageSnapWebcam | FSWebcam | WindowsWebcam;
 
 /**
  * Quick capture helper
- *
  */
 export function capture(
     location: string | null,
@@ -56,7 +48,6 @@ export function capture(
 
 /**
  * Camera list helper
- *
  */
 export function list(callback?: (cams: string[]) => void): void;
 
@@ -65,17 +56,17 @@ export function list(callback?: (cams: string[]) => void): void;
  */
 export function listControls(device: string, callback: (cameraControl: CameraControl[]) => void): void;
 
-export type IPlatformType = 'linux' | 'darwin' | 'fswebcam' | 'win32' | 'win64' | string;
+export type IPlatformType = "linux" | "darwin" | "fswebcam" | "win32" | "win64" | string;
 
 /**
  * Factory based on OS output
  */
 export class Factory {
-    create(options: WebcamOptions, platform: 'darwin'): ImageSnapWebcam;
+    create(options: WebcamOptions, platform: "darwin"): ImageSnapWebcam;
 
-    create(options: WebcamOptions, platform: 'linux' | 'fswebcam'): FSWebcam;
+    create(options: WebcamOptions, platform: "linux" | "fswebcam"): FSWebcam;
 
-    create(options: WebcamOptions, platform: 'win32' | 'win64'): WindowsWebcam;
+    create(options: WebcamOptions, platform: "win32" | "win64"): WindowsWebcam;
 
     create(options: WebcamOptions, platform?: IPlatformType): ImageSnapWebcam | FSWebcam | WindowsWebcam;
 
@@ -97,19 +88,15 @@ export class ImageSnapWebcam extends Webcam {
 
     constructor(options: WebcamOptions);
 
-    readonly bin: 'imagesnap';
+    readonly bin: "imagesnap";
 
     /**
-     *
      * Generate shell statement
-     *
      */
     override generateSh(location: string | null): string;
 
     /**
-     *
      * Webcam list
-     *
      */
     override list(callback?: (cams: string[]) => void): void;
 
@@ -118,8 +105,6 @@ export class ImageSnapWebcam extends Webcam {
 
 /**
  * API for fswebcam
- *
- *
  */
 export class FSWebcam extends Webcam {
     static readonly Defaults: {
@@ -140,30 +125,25 @@ export class FSWebcam extends Webcam {
 
     constructor(options: WebcamOptions);
 
-    readonly bin: 'fswebcam';
+    readonly bin: "fswebcam";
 
     /**
-     *
      * Create shot possibly from memory stdout
-     *
      */
     override createShot(location: string | null, data: Buffer | null): Shot;
 
     /**
-     *
      * Generate shell statement
      */
     override generateSh(location: string | null): string;
 
     /**
      * Get control values string
-     *
      */
     getControlSetString(setValues: { [attr: string]: string }): string;
 
     /**
      * Get shell statement to get the available camera controls
-     *
      */
     getListControlsSh(): string;
 
@@ -181,12 +161,10 @@ export class FSWebcam extends Webcam {
 
 /**
  * API for Windows
- *
- *
  */
 export class WindowsWebcam extends Webcam {
     static readonly Defaults: {
-        readonly output: 'bmp';
+        readonly output: "bmp";
     };
 
     constructor(options: WebcamOptions);
@@ -194,7 +172,6 @@ export class WindowsWebcam extends Webcam {
     readonly bin: string;
 
     /**
-     *
      * Generate shell statement
      */
     override generateSh(location: string | null): string;
@@ -206,16 +183,16 @@ export class WindowsWebcam extends Webcam {
 
 export type CameraControl =
     | {
-          name: string;
-          type: 'range';
-          min?: number;
-          max?: number;
-      }
+        name: string;
+        type: "range";
+        min?: number;
+        max?: number;
+    }
     | {
-          name: string;
-          type: 'list';
-          opts?: string[];
-      };
+        name: string;
+        type: "list";
+        opts?: string[];
+    };
 
 export interface WebcamOptions {
     width?: number;
@@ -244,13 +221,13 @@ export interface WebcamOptions {
      * [jpeg, png, bmp] support varies
      * Webcam.OutputTypes
      */
-    output?: 'jpeg' | 'png' | 'bmp';
+    output?: "jpeg" | "png" | "bmp";
 
     /**
      * [location, buffer, base64]
      * Webcam.CallbackReturnTypes
      */
-    callbackReturn?: 'location' | 'buffer' | 'base64';
+    callbackReturn?: "location" | "buffer" | "base64";
 
     // Logging
     verbose?: boolean;
@@ -280,9 +257,9 @@ export abstract class Webcam {
     opts: WebcamOptions;
     static readonly Defaults: Readonly<WebcamOptions>;
     static readonly OutputTypes: {
-        readonly jpeg: 'jpg';
-        readonly png: 'png';
-        readonly bmp: 'bmp';
+        readonly jpeg: "jpg";
+        readonly png: "png";
+        readonly bmp: "bmp";
     };
 
     /**
@@ -299,13 +276,11 @@ export abstract class Webcam {
 
     /**
      * Clear shot and camera memory data
-     *
      */
     clear(): void;
 
     /**
      * List available cameras
-     *
      */
     list(callback?: (cams: string[]) => void): void;
 
@@ -319,13 +294,11 @@ export abstract class Webcam {
 
     /**
      * Has camera
-     *
      */
     hasCamera(callback: (length: number) => void): void;
 
     /**
      * Capture shot
-     *
      */
     capture(location: string | null, callback: (err: Error | null, data: string | Buffer) => void): void;
 
@@ -336,19 +309,16 @@ export abstract class Webcam {
 
     /**
      * Create a shot overider
-     *
      */
     createShot(location: string | null, data: Buffer | null): Shot;
 
     /**
      * Get shot instances from cache index
-     *
      */
     getShot(index: number, callback: (err: Error | null, data: string | Buffer) => void): void;
 
     /**
      * Get last shot taken image data
-     *
      */
     getLastShot(): Shot;
 
@@ -360,28 +330,23 @@ export abstract class Webcam {
 
     /**
      * Get last shot buffer taken image data
-     *
      */
     getLastShotBuffer(callback: (err: Error | null, data: string | Buffer) => void): void;
 
     /**
      * Get shot base64 as image
      * if passed Number will return a base 64 in the callback
-     *
-     *
      */
     getBase64(shot: number | Shot, callback: (err: Error | null, data: string | Buffer) => void): void;
     getBase64FromBuffer(shotBuffer: string | Buffer): string;
 
     /**
      * Get last shot taken base 64 string
-     *
      */
     getLastShot64(callback: (err: Error | null, data: string | Buffer) => void): void;
 
     /**
      * Get last shot taken image data
-     *
      */
     handleCallbackReturnType(callback: (err: Error | null, data: string | Buffer) => void, shot: Shot): void;
     abstract runCaptureValidations(data: string): Error | null;
@@ -404,7 +369,7 @@ export interface WebcamEvent {
     type: WebcamEventType;
 }
 
-export type WebcamEventType = 'capture' | string;
+export type WebcamEventType = "capture" | string;
 
 /**
  * Shared camera utils
@@ -432,28 +397,21 @@ export class Utils {
 export class Shot {
     /**
      * Shot location
-     *
      */
     location: string | null;
 
     /**
      * Shot data or buffer
-     *
      */
     data: Buffer | null;
 
     constructor(
         /**
          * Shot location
-         *
-         *
-         *
          */
         location: string | null,
-
         /**
          * Shot data or buffer
-         *
          */
         data: Buffer | null,
     );

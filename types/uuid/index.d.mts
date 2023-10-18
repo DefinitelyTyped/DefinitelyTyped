@@ -1,4 +1,4 @@
-import uuid from './index.js';
+import uuid from "./index.js";
 export import v1 = uuid.v1;
 export import v3 = uuid.v3;
 export import v4 = uuid.v4;

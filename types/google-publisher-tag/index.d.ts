@@ -1,10 +1,3 @@
-// Type definitions for non-npm package Google Publisher Tag 1.20230724
-// Project: https://developers.google.com/publisher-tag/
-// Definitions by: Jonathon Imperiosi <https://github.com/jimper>
-//                 Khoi Doan <https://github.com/zombifier>
-//                 Taymon A. Beal <https://github.com/taymonbeal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * The global namespace the Google Publisher Tag uses for its API.
  */
@@ -1656,7 +1649,7 @@ declare namespace googletag {
      *   Note that both `fluid` and `['fluid']` are acceptable forms to declare a
      *   slot size as fluid.
      */
-    type NamedSize = 'fluid' | ['fluid'];
+    type NamedSize = "fluid" | ["fluid"];
 
     /**
      * A single valid size for a slot.

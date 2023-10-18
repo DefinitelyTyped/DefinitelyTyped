@@ -1,13 +1,6 @@
-// Type definitions for node-pushnotifications 1.0
-// Project: https://github.com/appfeel/node-pushnotifications
-// Definitions by: Menushka Weeratunga <https://github.com/menushka>
-//                 Julian Hundeloh <https://github.com/jaulz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="node" />
 
-import * as webPush from 'web-push';
+import * as webPush from "web-push";
 
 export = PushNotifications;
 
@@ -15,9 +8,21 @@ declare class PushNotifications {
     constructor(settings: PushNotifications.Settings);
 
     setOptions(opts: PushNotifications.Settings): void;
-    sendWith(method: PushNotifications.PushMethod, regIds: string[], data: PushNotifications.Data, cb: PushNotifications.Callback): void;
-    send(registrationIds: PushNotifications.RegistrationId|PushNotifications.RegistrationId[], data: PushNotifications.Data, cb: PushNotifications.Callback): void;
-    send(registrationIds: PushNotifications.RegistrationId|PushNotifications.RegistrationId[], data: PushNotifications.Data): Promise<PushNotifications.Result[]>;
+    sendWith(
+        method: PushNotifications.PushMethod,
+        regIds: string[],
+        data: PushNotifications.Data,
+        cb: PushNotifications.Callback,
+    ): void;
+    send(
+        registrationIds: PushNotifications.RegistrationId | PushNotifications.RegistrationId[],
+        data: PushNotifications.Data,
+        cb: PushNotifications.Callback,
+    ): void;
+    send(
+        registrationIds: PushNotifications.RegistrationId | PushNotifications.RegistrationId[],
+        data: PushNotifications.Data,
+    ): Promise<PushNotifications.Result[]>;
 }
 
 declare namespace PushNotifications {

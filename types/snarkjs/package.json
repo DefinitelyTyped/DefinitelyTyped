@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/snarkjs",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/iden3/snarkjs#readme"
+    ],
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": {
+                "import": "./index.d.ts",
+                "require": "./index.d.cts"
+            }
+        }
+    },
+    "devDependencies": {
+        "@types/snarkjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "cedoor",
+            "githubUsername": "cedoor"
+        },
+        {
+            "name": "vplasencia",
+            "githubUsername": "vplasencia"
+        }
+    ]
+}

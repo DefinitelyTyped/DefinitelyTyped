@@ -1,17 +1,6 @@
-// Type definitions for passport-jwt 3.0
-// Project: https://github.com/themikenicholson/passport-jwt
-// Definitions by: TANAKA Koichi <https://github.com/mugeso/>
-//                 Alex Young <https://github.com/alsiola/>
-//                 David Ng <https://github.com/davidNHK/>
-//                 Carlos Eduardo Scheffer <https://github.com/carlosscheffer/>
-//                 Byungjin Kim <https://github.com/jindev>
-//                 Svyatoslav Bychkov <https://github.com/stbychkov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { Strategy as PassportStrategy } from 'passport-strategy';
-import * as express from 'express';
-import { VerifyOptions } from 'jsonwebtoken';
+import * as express from "express";
+import { VerifyOptions } from "jsonwebtoken";
+import { Strategy as PassportStrategy } from "passport-strategy";
 
 export declare class Strategy extends PassportStrategy {
     constructor(opt: StrategyOptions, verify: VerifyCallback);

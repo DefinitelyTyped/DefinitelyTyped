@@ -1,15 +1,3 @@
-// Type definitions for Parsimmon 1.10
-// Project: https://github.com/jneen/parsimmon
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 Mizunashi Mana <https://github.com/mizunashi-mana>
-//                 Boris Cherny <https://github.com/bcherny>
-//                 Benny van Reeven <https://github.com/bvanreeven>
-//                 Leonard Thieu <https://github.com/leonard-thieu>
-//                 Jonathan Frere <https://github.com/MrJohz>
-//                 Isaac Huang <https://github.com/caasi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /**
  * **NOTE:** You probably will never need to use this function. Most parsing
  * can be accomplished using `Parsimmon.regexp` and combination with
@@ -374,7 +362,7 @@ declare namespace Parsimmon {
     /**
      * Parses using arg, but does not consume what it parses. Yields an empty string.
      */
-    function lookahead(arg: Parser<any> | string | RegExp): Parser<''>;
+    function lookahead(arg: Parser<any> | string | RegExp): Parser<"">;
 
     /**
      * Returns a parser that doesn't consume any of the string, and yields result.
@@ -393,9 +381,30 @@ declare namespace Parsimmon {
     function seq<T, U>(p1: Parser<T>, p2: Parser<U>): Parser<[T, U]>;
     function seq<T, U, V>(p1: Parser<T>, p2: Parser<U>, p3: Parser<V>): Parser<[T, U, V]>;
     function seq<T, U, V, W>(p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>): Parser<[T, U, V, W]>;
-    function seq<T, U, V, W, X>(p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>): Parser<[T, U, V, W, X]>;
-    function seq<T, U, V, W, X, Y>(p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>, p6: Parser<Y>): Parser<[T, U, V, W, X, Y]>;
-    function seq<T, U, V, W, X, Y, Z>(p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>, p6: Parser<Y>, p7: Parser<Z>): Parser<[T, U, V, W, X, Y, Z]>;
+    function seq<T, U, V, W, X>(
+        p1: Parser<T>,
+        p2: Parser<U>,
+        p3: Parser<V>,
+        p4: Parser<W>,
+        p5: Parser<X>,
+    ): Parser<[T, U, V, W, X]>;
+    function seq<T, U, V, W, X, Y>(
+        p1: Parser<T>,
+        p2: Parser<U>,
+        p3: Parser<V>,
+        p4: Parser<W>,
+        p5: Parser<X>,
+        p6: Parser<Y>,
+    ): Parser<[T, U, V, W, X, Y]>;
+    function seq<T, U, V, W, X, Y, Z>(
+        p1: Parser<T>,
+        p2: Parser<U>,
+        p3: Parser<V>,
+        p4: Parser<W>,
+        p5: Parser<X>,
+        p6: Parser<Y>,
+        p7: Parser<Z>,
+    ): Parser<[T, U, V, W, X, Y, Z]>;
     function seq<T>(...parsers: Array<Parser<T>>): Parser<T[]>;
     function seq<T extends any[]>(...parsers: T): Parser<UnParser<T>>;
 
@@ -413,23 +422,80 @@ declare namespace Parsimmon {
     function seqMap<T, U>(p1: Parser<T>, cb: (a1: T) => U): Parser<U>;
     function seqMap<T, U, V>(p1: Parser<T>, p2: Parser<U>, cb: (a1: T, a2: U) => V): Parser<V>;
     function seqMap<T, U, V, W>(p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, cb: (a1: T, a2: U, a3: V) => W): Parser<W>;
-    function seqMap<T, U, V, W, X>(p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, cb: (a1: T, a2: U, a3: V, a4: W) => X): Parser<X>;
-    function seqMap<T, U, V, W, X, Y>(p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>, cb: (a1: T, a2: U, a3: V, a4: W, a5: X) => Y): Parser<Y>;
-    function seqMap<T, U, V, W, X, Y, Z>(p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>, p6: Parser<Y>, cb: (a1: T, a2: U, a3: V, a4: W, a5: X, a6: Y) => Z): Parser<Z>;
+    function seqMap<T, U, V, W, X>(
+        p1: Parser<T>,
+        p2: Parser<U>,
+        p3: Parser<V>,
+        p4: Parser<W>,
+        cb: (a1: T, a2: U, a3: V, a4: W) => X,
+    ): Parser<X>;
+    function seqMap<T, U, V, W, X, Y>(
+        p1: Parser<T>,
+        p2: Parser<U>,
+        p3: Parser<V>,
+        p4: Parser<W>,
+        p5: Parser<X>,
+        cb: (a1: T, a2: U, a3: V, a4: W, a5: X) => Y,
+    ): Parser<Y>;
+    function seqMap<T, U, V, W, X, Y, Z>(
+        p1: Parser<T>,
+        p2: Parser<U>,
+        p3: Parser<V>,
+        p4: Parser<W>,
+        p5: Parser<X>,
+        p6: Parser<Y>,
+        cb: (a1: T, a2: U, a3: V, a4: W, a5: X, a6: Y) => Z,
+    ): Parser<Z>;
     function seqMap<T, U, V, W, X, Y, Z, A>(
-        p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>, p6: Parser<Y>, p7: Parser<Z>,
-        cb: (a1: T, a2: U, a3: V, a4: W, a5: X, a6: Y, a7: Z) => A): Parser<A>;
+        p1: Parser<T>,
+        p2: Parser<U>,
+        p3: Parser<V>,
+        p4: Parser<W>,
+        p5: Parser<X>,
+        p6: Parser<Y>,
+        p7: Parser<Z>,
+        cb: (a1: T, a2: U, a3: V, a4: W, a5: X, a6: Y, a7: Z) => A,
+    ): Parser<A>;
     function seqMap<T, U, V, W, X, Y, Z, A, B>(
-        p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>, p6: Parser<Y>, p7: Parser<Z>, p8: Parser<A>,
-        cb: (a1: T, a2: U, a3: V, a4: W, a5: X, a6: Y, a7: Z, a8: A) => B): Parser<B>;
+        p1: Parser<T>,
+        p2: Parser<U>,
+        p3: Parser<V>,
+        p4: Parser<W>,
+        p5: Parser<X>,
+        p6: Parser<Y>,
+        p7: Parser<Z>,
+        p8: Parser<A>,
+        cb: (a1: T, a2: U, a3: V, a4: W, a5: X, a6: Y, a7: Z, a8: A) => B,
+    ): Parser<B>;
     function seqMap<T, U, V, W, X, Y, Z, A, B, C>(
-        p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>, p6: Parser<Y>, p7: Parser<Z>, p8: Parser<A>, p9: Parser<B>,
-        cb: (a1: T, a2: U, a3: V, a4: W, a5: X, a6: Y, a7: Z, a8: A, a9: B) => C): Parser<C>;
+        p1: Parser<T>,
+        p2: Parser<U>,
+        p3: Parser<V>,
+        p4: Parser<W>,
+        p5: Parser<X>,
+        p6: Parser<Y>,
+        p7: Parser<Z>,
+        p8: Parser<A>,
+        p9: Parser<B>,
+        cb: (a1: T, a2: U, a3: V, a4: W, a5: X, a6: Y, a7: Z, a8: A, a9: B) => C,
+    ): Parser<C>;
     function seqMap<T, U, V, W, X, Y, Z, A, B, C, D>(
-        p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>, p6: Parser<Y>, p7: Parser<Z>, p8: Parser<A>, p9: Parser<B>, p10: Parser<C>,
-        cb: (a1: T, a2: U, a3: V, a4: W, a5: X, a6: Y, a7: Z, a8: A, a9: B, a10: C) => D): Parser<D>;
+        p1: Parser<T>,
+        p2: Parser<U>,
+        p3: Parser<V>,
+        p4: Parser<W>,
+        p5: Parser<X>,
+        p6: Parser<Y>,
+        p7: Parser<Z>,
+        p8: Parser<A>,
+        p9: Parser<B>,
+        p10: Parser<C>,
+        cb: (a1: T, a2: U, a3: V, a4: W, a5: X, a6: Y, a7: Z, a8: A, a9: B, a10: C) => D,
+    ): Parser<D>;
 
-    function seqObj<T, Key extends keyof T = keyof T>(...args: Array<[Key, Parser<T[Key]>] | Parser<any>>): Parser<{ [K in Key]: T[K] }>;
+    function seqObj<T, Key extends keyof T = keyof T>(
+        ...args: Array<[Key, Parser<T[Key]>] | Parser<any>>
+    ): Parser<{ [K in Key]: T[K] }>;
 
     interface SuccessReply<T> {
         status: true;
@@ -455,7 +521,9 @@ declare namespace Parsimmon {
     /**
      * allows to add custom primitive parsers.
      */
-    function custom<U>(parsingFunction: (success: SuccessFunctionType<U>, failure: FailureFunctionType<U>) => ParseFunctionType<U>): Parser<U>;
+    function custom<U>(
+        parsingFunction: (success: SuccessFunctionType<U>, failure: FailureFunctionType<U>) => ParseFunctionType<U>,
+    ): Parser<U>;
 
     /**
      * accepts a variable number of parsers, and yields the value of the first one that succeeds,
@@ -578,7 +646,7 @@ declare namespace Parsimmon {
      * Returns a parser that yields a byte (as a number) that matches the given input;
      * similar to Parsimmon.digit and Parsimmon.letter.
      */
-     function byte(int: number): Parser<number>;
+    function byte(int: number): Parser<number>;
     /**
      * Returns a parser that yields a byte (as a number) that matches the given input;
      * similar to Parsimmon.digit and Parsimmon.letter.
@@ -590,7 +658,9 @@ declare namespace Parsimmon {
      * and put into an object based on the name supplied. If there's no name for the bits,
      * it will be parsed but discarded from the returned value.
      */
-    function bitSeqObj<Key extends string>(namedAlignments: Array<[Key, number] | number>): Parser<{ [K in Key]: number }>;
+    function bitSeqObj<Key extends string>(
+        namedAlignments: Array<[Key, number] | number>,
+    ): Parser<{ [K in Key]: number }>;
 }
 
 export = Parsimmon;

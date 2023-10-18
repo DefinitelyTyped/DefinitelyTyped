@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/langdetect",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/newmsz/node-language-detection"
+    ],
+    "devDependencies": {
+        "@types/langdetect": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "SaidTorres3",
+            "githubUsername": "SaidTorres3"
+        }
+    ]
+}

@@ -1,12 +1,7 @@
-// Type definitions for swagger2openapi 7.0
-// Project: https://github.com/Mermade/oas-kit/tree/main/packages/swagger2openapi
-// Definitions by: rxliuli <https://github.com/rxliuli>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { OpenAPIV2, OpenAPIV3 } from 'openapi-types';
-import { Readable } from 'node:stream';
+import { Readable } from "node:stream";
+import { OpenAPIV2, OpenAPIV3 } from "openapi-types";
 
 export class S2OError extends Error {}
 

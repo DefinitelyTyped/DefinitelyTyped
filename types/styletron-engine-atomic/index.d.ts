@@ -1,10 +1,4 @@
-// Type definitions for styletron-engine-atomic 1.1
-// Project: https://github.com/styletron/styletron
-// Definitions by: Jhey Tompkins <https://github.com/jh3y>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
-import { KeyframesObject, FontFace as FontFaceObject, StandardEngine, StyleObject } from 'styletron-standard';
+import { FontFace as FontFaceObject, KeyframesObject, StandardEngine, StyleObject } from "styletron-standard";
 
 export class SequentialIDGenerator {
     prefix: string;
@@ -15,29 +9,29 @@ export class SequentialIDGenerator {
     constructor(prefix: string);
     next(): string;
     increment(): number;
-  }
+}
 
 export class Cache<T> {
-    cache: {[key: string]: string};
+    cache: { [key: string]: string };
     idGenerator: SequentialIDGenerator;
     key: string;
     onNewValue: (cache: Cache<T>, id: string, value: any) => any;
     constructor(
-      idGenerator: SequentialIDGenerator,
-      onNewValue: (cache: Cache<T>, id: string, value: any) => any,
+        idGenerator: SequentialIDGenerator,
+        onNewValue: (cache: Cache<T>, id: string, value: any) => any,
     );
     addValue(key: string, value: T): number;
 }
 export class MultiCache<T> {
-    caches: {[key: string]: Cache<T>};
+    caches: { [key: string]: Cache<T> };
     idGenerator: SequentialIDGenerator;
     onNewCache: (key: string, cache: Cache<T>, insertAtIndex: number) => any;
     onNewValue: (cache: Cache<T>, id: string, value: T) => any;
     sortedCacheKeys: string[];
     constructor(
-      idGenerator: SequentialIDGenerator,
-      onNewCache: () => any,
-      onNewValue: () => any,
+        idGenerator: SequentialIDGenerator,
+        onNewCache: () => any,
+        onNewValue: () => any,
     );
     getCache(key: string): Cache<T>;
     getSortedCacheKeys(): string[];
@@ -45,18 +39,18 @@ export class MultiCache<T> {
 
 export type hydrateType = HTMLCollectionOf<HTMLStyleElement> | HTMLStyleElement[] | NodeListOf<HTMLStyleElement>;
 export interface Sheet {
-  css: string;
-  attrs: { [key: string]: string };
+    css: string;
+    attrs: { [key: string]: string };
 }
 
 export interface ClientOptions {
-  hydrate?: hydrateType | undefined;
-  container?: Element | undefined;
-  prefix?: string | undefined;
+    hydrate?: hydrateType | undefined;
+    container?: Element | undefined;
+    prefix?: string | undefined;
 }
 
 export interface ServerOptions {
-  prefix?: string | undefined;
+    prefix?: string | undefined;
 }
 
 export class Client implements StandardEngine {
@@ -64,7 +58,7 @@ export class Client implements StandardEngine {
     styleElements: { [key: string]: HTMLStyleElement };
     fontFaceSheet: HTMLStyleElement;
     keyframesSheet: HTMLStyleElement;
-    styleCache: MultiCache<{pseudo: string, block: string}>;
+    styleCache: MultiCache<{ pseudo: string; block: string }>;
     keyframesCache: Cache<KeyframesObject>;
     fontFaceCache: Cache<FontFaceObject>;
     renderStyle(style: StyleObject): string;
@@ -72,7 +66,7 @@ export class Client implements StandardEngine {
     renderFontFace(fontFace: FontFaceObject): string;
 }
 export class Server implements StandardEngine {
-    constructor(opts?: ServerOptions)
+    constructor(opts?: ServerOptions);
     styleRules: { [key: string]: string };
     keyframesRules: string;
     fontFaceRules: string;

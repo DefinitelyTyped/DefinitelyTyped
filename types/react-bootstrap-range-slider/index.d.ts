@@ -1,8 +1,3 @@
-// Type definitions for react-bootstrap-range-slider 1.2
-// Project: https://github.com/jaywilz/react-bootstrap-range-slider#readme
-// Definitions by: Isaac Moore <https://github.com/rmsy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import {
     ChangeEvent,
     CSSProperties,
@@ -14,7 +9,7 @@ import {
     ReactNode,
     RefAttributes,
     RefObject,
-} from 'react';
+} from "react";
 
 export interface RangeSliderProps {
     value?: number | undefined;
@@ -24,11 +19,11 @@ export interface RangeSliderProps {
     max?: number | undefined;
     step?: number | undefined;
     disabled?: boolean | undefined;
-    size?: 'sm' | 'lg' | undefined;
-    variant?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light' | undefined;
+    size?: "sm" | "lg" | undefined;
+    variant?: "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "dark" | "light" | undefined;
     inputProps?: DetailedHTMLProps<HTMLAttributes<HTMLInputElement>, HTMLInputElement> | undefined;
-    tooltip?: 'auto' | 'on' | 'off' | undefined;
-    tooltipPlacement?: 'top' | 'bottom' | undefined;
+    tooltip?: "auto" | "on" | "off" | undefined;
+    tooltipPlacement?: "top" | "bottom" | undefined;
     tooltipLabel?: ((value: number) => ReactNode) | undefined;
     tooltipStyle?: CSSProperties | undefined;
     tooltipProps?: DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> | undefined;

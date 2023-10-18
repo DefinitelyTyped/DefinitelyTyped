@@ -1,1 +1,1 @@
-export * from './src/text-buffer';
+export * from "./src/text-buffer";

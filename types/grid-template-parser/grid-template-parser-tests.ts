@@ -1,17 +1,17 @@
 import {
-    grid,
-    template,
     area,
-    rect,
-    minColumnStart,
-    maxColumnStart,
-    minColumnEnd,
+    grid,
     maxColumnEnd,
-    minRowStart,
-    maxRowStart,
-    minRowEnd,
+    maxColumnStart,
     maxRowEnd,
-} from 'grid-template-parser';
+    maxRowStart,
+    minColumnEnd,
+    minColumnStart,
+    minRowEnd,
+    minRowStart,
+    rect,
+    template,
+} from "grid-template-parser";
 
 const testGrid = grid(`
   "a a a b b"

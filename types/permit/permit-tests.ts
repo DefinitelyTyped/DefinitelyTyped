@@ -1,21 +1,21 @@
 import { IncomingMessage, ServerResponse } from "http";
-import { Permit, Basic, Bearer } from 'permit';
+import { Basic, Bearer, Permit } from "permit";
 
 const permit = new Permit({
     scheme: "some-scheme",
     proxy: "some-proxy",
-    realm: "auth"
+    realm: "auth",
 });
 
 const basic = new Basic({
     scheme: "some-scheme",
     proxy: "some-proxy",
-    realm: "auth"
+    realm: "auth",
 });
 
 const bearer = new Bearer({
-    basic: 'username',
-    query: 'access_token',
+    basic: "username",
+    query: "access_token",
 });
 
 function permitHandler(req: IncomingMessage, res: ServerResponse) {
@@ -39,7 +39,7 @@ function basichHndler(req: IncomingMessage, res: ServerResponse) {
         throw new Error(`Authentication invalid!`);
     }
 
-    return 'Success!';
+    return "Success!";
 }
 
 function bearerHandler(req: IncomingMessage, res: ServerResponse) {
@@ -57,5 +57,5 @@ function bearerHandler(req: IncomingMessage, res: ServerResponse) {
         throw new Error(`Authentication invalid!`);
     }
 
-    return 'Success!';
+    return "Success!";
 }

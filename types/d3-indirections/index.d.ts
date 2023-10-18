@@ -1,12 +1,7 @@
-// Type definitions for non-npm package d3-indirections 0.1
-// Project: https://github.com/herobank110/types-d3-indirections
-// Definitions by: David Kanekanian <https://github.com/herobank110>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Type of resource indirections may control.
  */
-type ResourceType = 'VideoClip' | 'Projection' | 'unknown';
+type ResourceType = "VideoClip" | "Projection" | "unknown";
 
 /**
  * Base class for all indirections. Should not be used directly.

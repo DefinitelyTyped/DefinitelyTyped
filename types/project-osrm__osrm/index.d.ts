@@ -1,8 +1,3 @@
-// Type definitions for @project-osrm/osrm 5.27
-// Project: https://github.com/Project-OSRM/osrm-backend
-// Definitions by: Denis Carriere <https://github.com/DenisCarriere>, Ringo Leese <https://github.com/ringostarr80>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**
@@ -23,7 +18,7 @@ declare class OSRM {
     route(options: OSRM.RouteOptions, callback: (err: Error, results: OSRM.RouteResults) => void): void;
     route(
         options: OSRM.RouteOptions,
-        pluginConfig: OSRM.PluginConfig & { format: 'json_buffer' },
+        pluginConfig: OSRM.PluginConfig & { format: "json_buffer" },
         callback: (err: Error, results: Buffer) => void,
     ): void;
     route(
@@ -38,7 +33,7 @@ declare class OSRM {
     nearest(options: OSRM.NearestOptions, callback: (err: Error, results: OSRM.NearestResults) => void): void;
     nearest(
         options: OSRM.NearestOptions,
-        pluginConfig: OSRM.PluginConfig & { format: 'json_buffer' },
+        pluginConfig: OSRM.PluginConfig & { format: "json_buffer" },
         callback: (err: Error, results: Buffer) => void,
     ): void;
     nearest(
@@ -56,7 +51,7 @@ declare class OSRM {
     table(options: OSRM.TableOptions, callback: (err: Error, results: OSRM.TableResults) => void): void;
     table(
         options: OSRM.TableOptions,
-        pluginConfig: OSRM.PluginConfig & { format: 'json_buffer' },
+        pluginConfig: OSRM.PluginConfig & { format: "json_buffer" },
         callback: (err: Error, results: Buffer) => void,
     ): void;
     table(
@@ -80,7 +75,7 @@ declare class OSRM {
     match(options: OSRM.MatchOptions, callback: (err: Error, results: OSRM.MatchResults) => void): void;
     match(
         options: OSRM.MatchOptions,
-        pluginConfig: OSRM.PluginConfig & { format: 'json_buffer' },
+        pluginConfig: OSRM.PluginConfig & { format: "json_buffer" },
         callback: (err: Error, results: Buffer) => void,
     ): void;
     match(
@@ -97,7 +92,7 @@ declare class OSRM {
     trip(options: OSRM.TripOptions, callback: (err: Error, results: OSRM.TripResults) => void): void;
     trip(
         options: OSRM.TripOptions,
-        pluginConfig: OSRM.PluginConfig & { format: 'json_buffer' },
+        pluginConfig: OSRM.PluginConfig & { format: "json_buffer" },
         callback: (err: Error, results: Buffer) => void,
     ): void;
     trip(
@@ -109,13 +104,13 @@ declare class OSRM {
 
 declare namespace OSRM {
     const version: number;
-    type AlgorithmTypes = 'CH' | 'CoreCH' | 'MLD';
-    type GeometriesTypes = 'polyline' | 'geojson' | 'polyline6';
-    type OverviewTypes = 'full' | 'simplified' | 'false';
-    type SnappingTypes = 'default' | 'any';
-    type ApproachTypes = 'unrestricted' | 'curb';
-    type FallbackCoordinateTypes = 'input' | 'snapped';
-    type GapTypes = 'split' | 'ignore';
+    type AlgorithmTypes = "CH" | "CoreCH" | "MLD";
+    type GeometriesTypes = "polyline" | "geojson" | "polyline6";
+    type OverviewTypes = "full" | "simplified" | "false";
+    type SnappingTypes = "default" | "any";
+    type ApproachTypes = "unrestricted" | "curb";
+    type FallbackCoordinateTypes = "input" | "snapped";
+    type GapTypes = "split" | "ignore";
     type Coordinate = number[];
     type Polyline = string;
     type Bearing = number[];
@@ -125,36 +120,36 @@ declare namespace OSRM {
     type Distance = number;
     type Tile = [number, number, number];
     type StepManeuverTypes =
-        | 'turn'
-        | 'new name'
-        | 'depart'
-        | 'arrive'
-        | 'merge'
-        | 'ramp'
-        | 'on ramp'
-        | 'off ramp'
-        | 'fork'
-        | 'end of road'
-        | 'use lane'
-        | 'continue'
-        | 'roundabout'
-        | 'rotary'
-        | 'roundabout turn'
-        | 'notification'
-        | 'exit roundabout'
-        | 'exit rotary';
+        | "turn"
+        | "new name"
+        | "depart"
+        | "arrive"
+        | "merge"
+        | "ramp"
+        | "on ramp"
+        | "off ramp"
+        | "fork"
+        | "end of road"
+        | "use lane"
+        | "continue"
+        | "roundabout"
+        | "rotary"
+        | "roundabout turn"
+        | "notification"
+        | "exit roundabout"
+        | "exit rotary";
     type Indication =
-        | 'uturn'
-        | 'sharp right'
-        | 'right'
-        | 'slight rigth'
-        | 'straight'
-        | 'slight left'
-        | 'left'
-        | 'sharp left';
+        | "uturn"
+        | "sharp right"
+        | "right"
+        | "slight rigth"
+        | "straight"
+        | "slight left"
+        | "left"
+        | "sharp left";
 
     interface LineString {
-        type: 'LineString';
+        type: "LineString";
         coordinates: Coordinate[];
     }
 
@@ -586,7 +581,7 @@ declare namespace OSRM {
         /**
          * An array with strings of duration, nodes, distance, weight, datasources, speed or boolean for enabling/disabling all. (optional, default false)
          */
-        annotations?: boolean | Array<'duration' | 'nodes' | 'distance' | 'weight' | 'datasources' | 'speed'>;
+        annotations?: boolean | Array<"duration" | "nodes" | "distance" | "weight" | "datasources" | "speed">;
         /**
          * Returned route geometry format (influences overview and per step). Can also be geojson. (optional, default polyline)
          */
@@ -679,7 +674,7 @@ declare namespace OSRM {
          * Return the requested table or tables in response. Can be ['duration'] (return the duration matrix, default) or
          * ['duration', distance'] (return both the duration matrix and the distance matrix).
          */
-        annotations?: Array<'duration' | 'distance'>;
+        annotations?: Array<"duration" | "distance">;
         /**
          * Which classes to exclude.
          */
@@ -702,7 +697,7 @@ declare namespace OSRM {
         /**
          * An array with strings of duration, nodes, distance, weight, datasources, speed or boolean for enabling/disabling all. (optional, default false)
          */
-        annotations?: Array<'duration' | 'nodes' | 'distance' | 'weight' | 'datasources' | 'speed'> | boolean;
+        annotations?: Array<"duration" | "nodes" | "distance" | "weight" | "datasources" | "speed"> | boolean;
         /**
          * Returned route geometry format (influences overview and per step). Can also be geojson. (optional, default polyline)
          */
@@ -756,7 +751,7 @@ declare namespace OSRM {
         /**
          * An array with strings of duration, nodes, distance, weight, datasources, speed or boolean for enabling/disabling all. (optional, default false)
          */
-        annotations?: Array<'duration' | 'nodes' | 'distance' | 'weight' | 'datasources' | 'speed'> | boolean;
+        annotations?: Array<"duration" | "nodes" | "distance" | "weight" | "datasources" | "speed"> | boolean;
         /**
          * Returned route geometry format (influences overview and per step). Can also be geojson. (optional, default polyline)
          */
@@ -772,11 +767,11 @@ declare namespace OSRM {
         /**
          * Return route starts at any or first coordinate. (optional, default any)
          */
-        source?: 'any' | 'first';
+        source?: "any" | "first";
         /**
          * Return route ends at any or last coordinate. (optional, default any)
          */
-        destination?: 'any' | 'last';
+        destination?: "any" | "last";
         /**
          * Keep waypoints on curb side. Can be null (unrestricted, default) or curb.
          */
@@ -825,7 +820,7 @@ declare namespace OSRM {
          * The latter has the advantage that it can be immediately serialized to disk/sent over the network, and the generation of the string is performed outside the main NodeJS event loop.
          * This option is ignored by the tile plugin.
          */
-        format?: 'object' | 'json_buffer';
+        format?: "object" | "json_buffer";
     }
 }
 export = OSRM;

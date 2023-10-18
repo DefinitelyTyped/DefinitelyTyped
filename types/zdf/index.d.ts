@@ -1,8 +1,3 @@
-// Type definitions for zdf 1.2
-// Project: https://github.com/MauriceConrad/zdf-mediathek#readme
-// Definitions by: Christian Koop <https://github.com/SpraxDev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ZdfInfoMeta {
     readonly title: string;
     readonly teasertext: string;

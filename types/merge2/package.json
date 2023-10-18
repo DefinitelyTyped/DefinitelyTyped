@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/merge2",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/teambition/merge2"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/merge2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tanguy Krotoff",
+            "githubUsername": "tkrotoff"
+        },
+        {
+            "name": "Chigozirim C.",
+            "githubUsername": "smac89"
+        },
+        {
+            "name": "Winston01",
+            "githubUsername": "winston01"
+        }
+    ]
+}

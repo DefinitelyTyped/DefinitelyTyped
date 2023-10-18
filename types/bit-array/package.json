@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/bit-array",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/bramstein/bit-array"
+    ],
+    "devDependencies": {
+        "@types/bit-array": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mudkip",
+            "githubUsername": "mudkipme"
+        }
+    ]
+}

@@ -1,21 +1,7 @@
-// Type definitions for Rebass 4.0
-// Project: https://github.com/rebassjs/rebass
-// Definitions by: rhysd <https://github.com/rhysd>
-//                 ryee-dev <https://github.com/ryee-dev>
-//                 jamesmckenzie <https://github.com/jamesmckenzie>
-//                 sara f-p <https://github.com/gretzky>
-//                 angusfretwell <https://github.com/angusfretwell>
-//                 orzarchi <https://github.com/orzarchi>
-//                 ilaiwi <https://github.com/ilaiwi>
-//                 mrkosima <https://github.com/mrkosima>
-//                 rafaelalmeidatk <https://github.com/rafaelalmeidatk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
-import { ResponsiveStyleValue, SystemStyleObject } from '@styled-system/css';
-import * as React from 'react';
-import * as StyledComponents from 'styled-components';
-import * as StyledSystem from 'styled-system';
+import { ResponsiveStyleValue, SystemStyleObject } from "@styled-system/css";
+import * as React from "react";
+import * as StyledComponents from "styled-components";
+import * as StyledSystem from "styled-system";
 
 export {};
 
@@ -34,11 +20,11 @@ export interface BaseProps extends React.RefAttributes<any> {
 export type SxStyleProp =
     | SystemStyleObject
     | Record<
-          string,
-          | SystemStyleObject
-          | ResponsiveStyleValue<number | string>
-          | Record<string, SystemStyleObject | ResponsiveStyleValue<number | string>>
-      >;
+        string,
+        | SystemStyleObject
+        | ResponsiveStyleValue<number | string>
+        | Record<string, SystemStyleObject | ResponsiveStyleValue<number | string>>
+    >;
 
 export interface SxProps {
     /**
@@ -48,13 +34,15 @@ export interface SxProps {
 }
 
 interface BoxKnownProps
-    extends BaseProps,
+    extends
+        BaseProps,
         StyledSystem.SpaceProps,
         StyledSystem.LayoutProps,
         StyledSystem.TypographyProps,
         StyledSystem.ColorProps,
         StyledSystem.FlexboxProps,
-        SxProps {
+        SxProps
+{
     variant?: StyledSystem.ResponsiveValue<string> | undefined;
     tx?: string | undefined;
 }
@@ -63,8 +51,8 @@ export const Box: React.FunctionComponent<BoxProps>;
 
 interface ButtonKnownProps extends BoxKnownProps, StyledSystem.FontWeightProps, StyledSystem.ButtonStyleProps {}
 export interface ButtonProps
-    extends ButtonKnownProps,
-        Omit<React.HTMLProps<HTMLButtonElement>, keyof ButtonKnownProps> {}
+    extends ButtonKnownProps, Omit<React.HTMLProps<HTMLButtonElement>, keyof ButtonKnownProps>
+{}
 export const Button: React.FunctionComponent<ButtonProps>;
 
 export interface CardProps extends BoxKnownProps, Omit<React.HTMLProps<HTMLDivElement>, keyof BoxKnownProps> {}

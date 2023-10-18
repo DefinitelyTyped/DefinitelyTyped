@@ -1,9 +1,3 @@
-// Type definitions for react-gtm-module 2.0
-// Project: https://github.com/alinemorelli/react-gtm
-// Definitions by: Marc Veens <https://github.com/marcveens>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare const TagManager: {
     dataLayer: (dataLayerArgs: DataLayerArgs) => void;
     initialize: (tagManagerArgs: TagManagerArgs) => void;

@@ -1,9 +1,3 @@
-// Type definitions for DevExpress ASP.NET 192.3
-// Project: https://devexpress.com/
-// Definitions by: DevExpress Inc. <https://devexpress.com/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 /// <reference types="knockout"/>
 
@@ -245,7 +239,9 @@ declare class ASPxClientHtmlEditorChangeMediaElementCommandArguments extends ASP
 /**
  * The base class for parameters related to inserting or changing HTML5 media elements (Audio and Video) in the ASPxHtmlEditor.
  */
-declare class ASPxClientHtmlEditorChangeHtml5MediaElementCommandArguments extends ASPxClientHtmlEditorChangeMediaElementCommandArguments {
+declare class ASPxClientHtmlEditorChangeHtml5MediaElementCommandArguments
+    extends ASPxClientHtmlEditorChangeMediaElementCommandArguments
+{
     protected constructor(htmlEditor: ASPxClientHtmlEditor, selectedElement: any);
     /**
      * Determines if a media file will start playing automatically.
@@ -267,7 +263,9 @@ declare class ASPxClientHtmlEditorChangeHtml5MediaElementCommandArguments extend
 /**
  * Contains settings related to the ASPxClientCommandConsts.INSERTAUDIO_COMMAND command parameter.
  */
-declare class ASPxClientHtmlEditorInsertAudioCommandArguments extends ASPxClientHtmlEditorChangeHtml5MediaElementCommandArguments {
+declare class ASPxClientHtmlEditorInsertAudioCommandArguments
+    extends ASPxClientHtmlEditorChangeHtml5MediaElementCommandArguments
+{
     constructor(htmlEditor: ASPxClientHtmlEditor, elementToReplace?: any);
 }
 /**
@@ -279,7 +277,9 @@ declare class ASPxClientHtmlEditorChangeAudioCommandArguments extends ASPxClient
 /**
  * Contains settings related to the ASPxClientCommandConsts.INSERTVIDEO_COMMAND command parameter.
  */
-declare class ASPxClientHtmlEditorInsertVideoCommandArguments extends ASPxClientHtmlEditorChangeHtml5MediaElementCommandArguments {
+declare class ASPxClientHtmlEditorInsertVideoCommandArguments
+    extends ASPxClientHtmlEditorChangeHtml5MediaElementCommandArguments
+{
     constructor(htmlEditor: ASPxClientHtmlEditor, elementToReplace?: any);
     /**
      * Defines the URL of an image that is shown while the video file is downloading, or until an end-user clicks the play button.
@@ -295,7 +295,9 @@ declare class ASPxClientHtmlEditorChangeVideoCommandArguments extends ASPxClient
 /**
  * Contains settings related to the ASPxClientCommandConsts.INSERTFLASH_COMMAND command parameter.
  */
-declare class ASPxClientHtmlEditorInsertFlashCommandArguments extends ASPxClientHtmlEditorChangeMediaElementCommandArguments {
+declare class ASPxClientHtmlEditorInsertFlashCommandArguments
+    extends ASPxClientHtmlEditorChangeMediaElementCommandArguments
+{
     constructor(htmlEditor: ASPxClientHtmlEditor, elementToReplace?: any);
     /**
      * Determines if the target flash element will start playing automatically.
@@ -327,7 +329,9 @@ declare class ASPxClientHtmlEditorChangeFlashCommandArguments extends ASPxClient
 /**
  * Contains settings related to the ASPxClientCommandConsts.INSERTYOUTUBEVIDEO_COMMAND command parameter.
  */
-declare class ASPxClientHtmlEditorInsertYouTubeVideoCommandArguments extends ASPxClientHtmlEditorChangeMediaElementCommandArguments {
+declare class ASPxClientHtmlEditorInsertYouTubeVideoCommandArguments
+    extends ASPxClientHtmlEditorChangeMediaElementCommandArguments
+{
     constructor(htmlEditor: ASPxClientHtmlEditor, elementToReplace?: any);
     /**
      * Determines if suggested videos are shown after the target YouTube video finishes.
@@ -353,7 +357,9 @@ declare class ASPxClientHtmlEditorInsertYouTubeVideoCommandArguments extends ASP
 /**
  * Contains settings related to the ASPxClientCommandConsts.CHANGEYOUTUBEVIDEO_COMMAND command parameter.
  */
-declare class ASPxClientHtmlEditorChangeYouTubeVideoCommandArguments extends ASPxClientHtmlEditorInsertYouTubeVideoCommandArguments {
+declare class ASPxClientHtmlEditorChangeYouTubeVideoCommandArguments
+    extends ASPxClientHtmlEditorInsertYouTubeVideoCommandArguments
+{
     private constructor(htmlEditor: ASPxClientHtmlEditor, selectedElement: any);
 }
 /**
@@ -398,7 +404,9 @@ declare class ASPxClientHtmlEditorTablePropertiesCommandArguments extends ASPxCl
 /**
  * Contains settings related to the ASPxClientCommandConsts.INSERTTABLE_COMMAND command parameter.
  */
-declare class ASPxClientHtmlEditorInsertTableCommandArguments extends ASPxClientHtmlEditorTablePropertiesCommandArguments {
+declare class ASPxClientHtmlEditorInsertTableCommandArguments
+    extends ASPxClientHtmlEditorTablePropertiesCommandArguments
+{
     /**
      * Initializes a new instance of the ASPxClientHtmlEditorInsertTableCommandArguments class with specified settings.
      * @param htmlEditor The HTML editor executing a command.
@@ -889,7 +897,9 @@ declare class ASPxClientCommandConsts {
  * @param source An object representing the event's source.
  * @param e An ASPxClientHtmlEditorDialogInitializedEventArgs object that contains event data.
  */
-interface ASPxClientHtmlEditorDialogInitializedEventHandler<Sender> { (source: Sender, e: ASPxClientHtmlEditorDialogInitializedEventArgs): void; }
+interface ASPxClientHtmlEditorDialogInitializedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientHtmlEditorDialogInitializedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientHtmlEditor.DialogInitialized client event.
  */
@@ -925,7 +935,9 @@ declare class ASPxClientHtmlEditorDialogCloseEventArgs extends ASPxClientEventAr
  * @param source The event source.
  * @param e An ASPxClientHtmlEditorDialogClosingEventArgs object that contains event data.
  */
-interface ASPxClientHtmlEditorDialogClosingEventHandler<Sender> { (source: Sender, e: ASPxClientHtmlEditorDialogClosingEventArgs): void; }
+interface ASPxClientHtmlEditorDialogClosingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientHtmlEditorDialogClosingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientHtmlEditor.DialogClosing event.
  */
@@ -940,7 +952,9 @@ declare class ASPxClientHtmlEditorDialogClosingEventArgs extends ASPxClientHtmlE
  * @param source The event source.
  * @param e An ASPxClientHtmlEditorDialogClosedEventArgs object that contains event data.
  */
-interface ASPxClientHtmlEditorDialogClosedEventHandler<Sender> { (source: Sender, e: ASPxClientHtmlEditorDialogClosedEventArgs): void; }
+interface ASPxClientHtmlEditorDialogClosedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientHtmlEditorDialogClosedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientHtmlEditor.DialogClosed event.
  */
@@ -951,7 +965,9 @@ declare class ASPxClientHtmlEditorDialogClosedEventArgs extends ASPxClientHtmlEd
  * @param source The event's source.
  * @param e An ASPxClientHtmlEditorCommandExecutingEventArgs object that contains event data.
  */
-interface ASPxClientHtmlEditorCommandExecutingEventHandler<Sender> { (source: Sender, e: ASPxClientHtmlEditorCommandExecutingEventArgs): void; }
+interface ASPxClientHtmlEditorCommandExecutingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientHtmlEditorCommandExecutingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientHtmlEditor.CommandExecuting event.
  */
@@ -976,7 +992,9 @@ declare class ASPxClientHtmlEditorCommandExecutingEventArgs extends ASPxClientCa
  * @param source The event source. This parameter identifies the editor which raised the event.
  * @param e An ASPxClientHtmlEditorCommandEventArgs object that contains event data.
  */
-interface ASPxClientHtmlEditorCommandEventHandler<Sender> { (source: Sender, e: ASPxClientHtmlEditorCommandEventArgs): void; }
+interface ASPxClientHtmlEditorCommandEventHandler<Sender> {
+    (source: Sender, e: ASPxClientHtmlEditorCommandEventArgs): void;
+}
 /**
  * Provides data for client events that relate to command processing (ASPxClientHtmlEditor.CommandExecuted, ASPxClientHtmlEditor.CustomCommand).
  */
@@ -1001,7 +1019,9 @@ declare class ASPxClientHtmlEditorCommandEventArgs extends ASPxClientEventArgs {
  * @param source An object representing the event's source.
  * @param e An ASPxClientHtmlEditorCustomDialogEventArgs object that contains event data.
  */
-interface ASPxClientHtmlEditorCustomDialogEventHandler<Sender> { (source: Sender, e: ASPxClientHtmlEditorCustomDialogEventArgs): void; }
+interface ASPxClientHtmlEditorCustomDialogEventHandler<Sender> {
+    (source: Sender, e: ASPxClientHtmlEditorCustomDialogEventArgs): void;
+}
 /**
  * Provides data for client events that relate to custom dialog operations.
  */
@@ -1036,11 +1056,15 @@ declare class ASPxClientHtmlEditorCustomDialogCloseEventArgsBase extends ASPxCli
  * @param source An object representing the event's source.
  * @param e An ASPxClientHtmlEditorCustomDialogClosingEventArgs object that contains event data.
  */
-interface ASPxClientHtmlEditorCustomDialogClosingEventHandler<Sender> { (source: Sender, e: ASPxClientHtmlEditorCustomDialogClosingEventArgs): void; }
+interface ASPxClientHtmlEditorCustomDialogClosingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientHtmlEditorCustomDialogClosingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientHtmlEditor.CustomDialogClosing client event.
  */
-declare class ASPxClientHtmlEditorCustomDialogClosingEventArgs extends ASPxClientHtmlEditorCustomDialogCloseEventArgsBase {
+declare class ASPxClientHtmlEditorCustomDialogClosingEventArgs
+    extends ASPxClientHtmlEditorCustomDialogCloseEventArgsBase
+{
     /**
      * Initializes a new instance of the ASPxClientHtmlEditorCustomDialogClosingEventArgs class with the specified settings.
      * @param name A string value that specifies the custom dialog's name. This value is assigned to the ASPxClientHtmlEditorCustomDialogEventArgs.name property.
@@ -1057,11 +1081,15 @@ declare class ASPxClientHtmlEditorCustomDialogClosingEventArgs extends ASPxClien
  * @param source An object representing the event's source.
  * @param e An ASPxClientHtmlEditorCustomDialogClosedEventArgs object that contains event data.
  */
-interface ASPxClientHtmlEditorCustomDialogClosedEventHandler<Sender> { (source: Sender, e: ASPxClientHtmlEditorCustomDialogClosedEventArgs): void; }
+interface ASPxClientHtmlEditorCustomDialogClosedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientHtmlEditorCustomDialogClosedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientHtmlEditor.CustomDialogClosed client event.
  */
-declare class ASPxClientHtmlEditorCustomDialogClosedEventArgs extends ASPxClientHtmlEditorCustomDialogCloseEventArgsBase {
+declare class ASPxClientHtmlEditorCustomDialogClosedEventArgs
+    extends ASPxClientHtmlEditorCustomDialogCloseEventArgsBase
+{
     /**
      * Initializes a new instance of the ASPxClientHtmlEditorCustomDialogClosedEventArgs class with the specified settings.
      * @param name A string value that specifies the custom dialog's name. This value is assigned to the ASPxClientHtmlEditorCustomDialogEventArgs.name property.
@@ -1079,7 +1107,9 @@ declare class ASPxClientHtmlEditorCustomDialogClosedEventArgs extends ASPxClient
  * @param source An object representing the event's source.
  * @param e An ASPxClientHtmlEditorValidationEventArgs object that contains event data.
  */
-interface ASPxClientHtmlEditorValidationEventHandler<Sender> { (source: Sender, e: ASPxClientHtmlEditorValidationEventArgs): void; }
+interface ASPxClientHtmlEditorValidationEventHandler<Sender> {
+    (source: Sender, e: ASPxClientHtmlEditorValidationEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientHtmlEditor.Validation client event.
  */
@@ -1109,7 +1139,9 @@ declare class ASPxClientHtmlEditorValidationEventArgs extends ASPxClientEventArg
  * @param source The event's source.
  * @param e An ASPxClientHtmlEditorTabEventArgs object that contains event data.
  */
-interface ASPxClientHtmlEditorTabEventHandler<Sender> { (source: Sender, e: ASPxClientHtmlEditorTabEventArgs): void; }
+interface ASPxClientHtmlEditorTabEventHandler<Sender> {
+    (source: Sender, e: ASPxClientHtmlEditorTabEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientHtmlEditor.ActiveTabChanged event that concerns manipulations on tabs.
  */
@@ -1129,7 +1161,9 @@ declare class ASPxClientHtmlEditorTabEventArgs extends ASPxClientEventArgs {
  * @param source The event's source.
  * @param e An ASPxClientHtmlEditorTabCancelEventArgs object that contains event data.
  */
-interface ASPxClientHtmlEditorTabCancelEventHandler<Sender> { (source: Sender, e: ASPxClientHtmlEditorTabCancelEventArgs): void; }
+interface ASPxClientHtmlEditorTabCancelEventHandler<Sender> {
+    (source: Sender, e: ASPxClientHtmlEditorTabCancelEventArgs): void;
+}
 /**
  * Provides data for the cancellable ASPxClientHtmlEditor.ActiveTabChanging event that concerns manipulations on tabs.
  */
@@ -1149,7 +1183,9 @@ declare class ASPxClientHtmlEditorTabCancelEventArgs extends ASPxClientHtmlEdito
  * @param source The event source. This parameter identifies the HTML editor object that raised the event.
  * @param e An ASPxClientHtmlEditorBeforePasteEventArgs object that contains event data.
  */
-interface ASPxClientHtmlEditorBeforePasteEventHandler<Sender> { (source: Sender, e: ASPxClientHtmlEditorBeforePasteEventArgs): void; }
+interface ASPxClientHtmlEditorBeforePasteEventHandler<Sender> {
+    (source: Sender, e: ASPxClientHtmlEditorBeforePasteEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientHtmlEditor.BeforePaste event.
  */
@@ -2076,7 +2112,9 @@ declare class ASPxClientPivotGrid extends ASPxClientControl {
  * @param source The event source.
  * @param e An ASPxClientClickEventArgs object that contains event data.
  */
-interface ASPxClientClickEventHandler<Sender> { (source: Sender, e: ASPxClientClickEventArgs): void; }
+interface ASPxClientClickEventHandler<Sender> {
+    (source: Sender, e: ASPxClientClickEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientPivotGrid.CellClick and ASPxClientPivotGrid.CellDblClick client events.
  */
@@ -2094,7 +2132,18 @@ declare class ASPxClientClickEventArgs extends ASPxClientEventArgs {
      * @param rowValueType A String value that represents a row value type. This value is assigned to the ASPxClientClickEventArgs.RowValueType property.
      * @param dataIndex An integer value that identifies the data field by its index. This value is assigned to the ASPxClientClickEventArgs.DataIndex property.
      */
-    constructor(value: any, columnIndex: number, rowIndex: number, columnValue: any, rowValue: any, columnFieldName: string, rowFieldName: string, columnValueType: string, rowValueType: string, dataIndex: number);
+    constructor(
+        value: any,
+        columnIndex: number,
+        rowIndex: number,
+        columnValue: any,
+        rowValue: any,
+        columnFieldName: string,
+        rowFieldName: string,
+        columnValueType: string,
+        rowValueType: string,
+        dataIndex: number,
+    );
     /**
      * Provides access to the parameters associated with the ASPxClientPivotGrid.CellClick and ASPxClientPivotGrid.CellDblClick events.
      */
@@ -2145,7 +2194,9 @@ declare class ASPxClientClickEventArgs extends ASPxClientEventArgs {
  * @param source The event source.
  * @param e An ASPxClientPivotMenuItemClickEventArgs object that contains event data.
  */
-interface ASPxClientPivotMenuItemClickEventHandler<Sender> { (source: Sender, e: ASPxClientPivotMenuItemClickEventArgs): void; }
+interface ASPxClientPivotMenuItemClickEventHandler<Sender> {
+    (source: Sender, e: ASPxClientPivotMenuItemClickEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientPivotGrid.PopupMenuItemClick event.
  */
@@ -2243,7 +2294,7 @@ declare enum DocumentFormat {
     /**
      * MS Word 97-2003 binary file format.
      */
-    Doc = 10
+    Doc = 10,
 }
 /**
  * Contains spell checking related settings.
@@ -2273,7 +2324,7 @@ declare enum SpellCheckerState {
     /**
      * Spell checking is completed.
      */
-    Done = 2
+    Done = 2,
 }
 /**
  * Contains the settings defining a misspelled interval.
@@ -2315,7 +2366,7 @@ declare enum SpellingErrorType {
     /**
      * A repeating word is found.
      */
-    Repeating = 1
+    Repeating = 1,
 }
 /**
  * Serves as a base for objects implementing different element styles.
@@ -2630,7 +2681,7 @@ declare enum HeaderFooterType {
     /**
      * A header/footer that is displayed on all pages of the section if the document does not distinguish between first, odd and even pages. Actually, this is an alias for the Odd type.
      */
-    Primary = 1
+    Primary = 1,
 }
 /**
  * Contains the settings defining a file to save to.
@@ -2813,7 +2864,7 @@ declare enum SubDocumentType {
     /**
      * A text box.
      */
-    TextBox = 3
+    TextBox = 3,
 }
 /**
  * Contains floating objects base settings.
@@ -3605,7 +3656,7 @@ declare enum MergeMode {
     /**
      * Enables you to join rows, which result from a mail merge involving a table with merged fields, into a whole table.
      */
-    JoinTables = 2
+    JoinTables = 2,
 }
 /**
  * Lists values that specify the range for mail-merge document export.
@@ -3622,7 +3673,7 @@ declare enum MailMergeExportRange {
     /**
      * Specifies that a specific range of data source records will be included into the exported merged document.
      */
-    Range = 2
+    Range = 2,
 }
 /**
  * A command to create a new empty document.
@@ -3875,7 +3926,9 @@ declare class ChangeFloatingObjectLockAnchorCommand extends ChangeFloatingObject
 /**
  * A command to modify a floating object's alignment position.
  */
-declare class ChangeFloatingObjectAlignmentPositionCommand extends ChangeFloatingObjectPropertyCommandBase<FloatingObjectAlignmentPositionSettings> {
+declare class ChangeFloatingObjectAlignmentPositionCommand
+    extends ChangeFloatingObjectPropertyCommandBase<FloatingObjectAlignmentPositionSettings>
+{
     /**
      * Executes the ChangeFloatingObjectAlignmentPositionCommand command with the specified parameter. true if the command has been successfully executed; false if the command execution has failed.
      * @param settings A FloatingObjectAlignmentPositionSettings object specifying alignment position settings.
@@ -3889,7 +3942,9 @@ declare class ChangeFloatingObjectAlignmentPositionCommand extends ChangeFloatin
 /**
  * A command to change a floating object's absolute position.
  */
-declare class ChangeFloatingObjectAbsolutePositionCommand extends ChangeFloatingObjectPropertyCommandBase<FloatingObjectAbsolutePositionSettings> {
+declare class ChangeFloatingObjectAbsolutePositionCommand
+    extends ChangeFloatingObjectPropertyCommandBase<FloatingObjectAbsolutePositionSettings>
+{
     /**
      * Executes the ChangeFloatingObjectAbsolutePositionCommand command with the specified parameter. true if the command has been successfully executed; false if the command execution has failed.
      * @param settings A FloatingObjectAbsolutePositionSettings object specifying object position settings.
@@ -3903,7 +3958,9 @@ declare class ChangeFloatingObjectAbsolutePositionCommand extends ChangeFloating
 /**
  * A command to modify a floating object's relative position.
  */
-declare class ChangeFloatingObjectRelativePositionCommand extends ChangeFloatingObjectPropertyCommandBase<FloatingObjectRelativePositionSettings> {
+declare class ChangeFloatingObjectRelativePositionCommand
+    extends ChangeFloatingObjectPropertyCommandBase<FloatingObjectRelativePositionSettings>
+{
     /**
      * Executes the ChangeFloatingObjectRelativePositionCommand command with the specified parameter. true if the command has been successfully executed; false if the command execution has failed.
      * @param settings A FloatingObjectRelativePositionSettings object specifying relative positioin settings.
@@ -3931,7 +3988,9 @@ declare class ChangeFloatingObjectTextWrappingCommand {
 /**
  * A command to change a floating object's absolute size.
  */
-declare class ChangeFloatingObjectAbsoluteSizeCommand extends ChangeFloatingObjectPropertyCommandBase<FloatingObjectAbsoluteSizeSettings> {
+declare class ChangeFloatingObjectAbsoluteSizeCommand
+    extends ChangeFloatingObjectPropertyCommandBase<FloatingObjectAbsoluteSizeSettings>
+{
     /**
      * Executes the ChangeFloatingObjectAbsoluteSizeCommand command with the specified parameter. true if the command has been successfully executed; false if the command execution has failed.
      * @param settings A FloatingObjectAbsoluteSizeSettings object specifying absolute size settings.
@@ -3945,7 +4004,9 @@ declare class ChangeFloatingObjectAbsoluteSizeCommand extends ChangeFloatingObje
 /**
  * A command to modify a text box' relative size settings.
  */
-declare class ChangeTextBoxRelativeSizeCommand extends ChangeFloatingObjectPropertyCommandBase<TextBoxRelativeSizeSettings> {
+declare class ChangeTextBoxRelativeSizeCommand
+    extends ChangeFloatingObjectPropertyCommandBase<TextBoxRelativeSizeSettings>
+{
     /**
      * Executes the ChangeTextBoxRelativeSizeCommand command with the specified parameter. true if the command has been successfully executed; false if the command execution has failed.
      * @param settings A TextBoxRelativeSizeSettings object specifying relative size settings.
@@ -4207,7 +4268,7 @@ declare enum FloatingObjectRelativeWidthType {
     /**
      * Relative to outside margin.
      */
-    OutsideMargin = 5
+    OutsideMargin = 5,
 }
 /**
  * Lists values specifying to what element the floating object height is relative.
@@ -4236,7 +4297,7 @@ declare enum FloatingObjectRelativeHeightType {
     /**
      * Relative to outside margin.
      */
-    OutsideMargin = 5
+    OutsideMargin = 5,
 }
 /**
  * Lists values specifying how text is wrapped around a floating object.
@@ -4261,7 +4322,7 @@ declare enum FloatingObjectTextWrapType {
     /**
      * The text wraps around the rectangular borders of the shape.
      */
-    Square = 4
+    Square = 4,
 }
 /**
  * Lists values specifying how text can wrap around a floating object's left and right sides.
@@ -4282,7 +4343,7 @@ declare enum FloatingObjectTextWrapSide {
     /**
      * Wraps text on the side that is the greater distance from the shape to the margin.
      */
-    Largest = 3
+    Largest = 3,
 }
 /**
  * Lists values specifying to what element the horizontal position of a floating object is relative.
@@ -4319,7 +4380,7 @@ declare enum FloatingObjectHorizontalPositionType {
     /**
      * Relative to outside margin.
      */
-    OutsideMargin = 7
+    OutsideMargin = 7,
 }
 /**
  * Lists values specifying how a floating object is horizontally aligned relative to the specified element.
@@ -4348,7 +4409,7 @@ declare enum FloatingObjectHorizontalPositionAlignment {
     /**
      * The shape is aligned outside relative to its FloatingObjectAlignmentPositionSettings.horizontalPositionType.
      */
-    Outside = 5
+    Outside = 5,
 }
 /**
  * Lists values specifying to what element the vertical position of a floating object is relative.
@@ -4385,7 +4446,7 @@ declare enum FloatingObjectVerticalPositionType {
     /**
      * Relative to outside margin.
      */
-    OutsideMargin = 7
+    OutsideMargin = 7,
 }
 /**
  * Lists values specifying how a floating object is vertically aligned relative to the specified element.
@@ -4414,7 +4475,7 @@ declare enum FloatingObjectVerticalPositionAlignment {
     /**
      * The shape is aligned outside relative to its FloatingObjectAlignmentPositionSettings.verticalPositionType.
      */
-    Outside = 5
+    Outside = 5,
 }
 /**
  * A command to cancel changes caused by the previous command.
@@ -4993,7 +5054,7 @@ declare enum TabAlign {
     /**
      * For internal use only.
      */
-    Numbering = 4
+    Numbering = 4,
 }
 /**
  * Lists repeated characters used to fill in the space created by a tab which ends at the tab stop.
@@ -5026,7 +5087,7 @@ declare enum TabLeaderType {
     /**
      * The equal sign is used as a tab leader character.
      */
-    EqualSign = 6
+    EqualSign = 6,
 }
 /**
  * Contains paragraph formatting settings.
@@ -5108,7 +5169,7 @@ declare enum ParagraphAlignment {
     /**
      * Text is justified to the entire width of the paragraph.
      */
-    Justify = 3
+    Justify = 3,
 }
 /**
  * Lists values specifying the type of paragraph line spacing.
@@ -5137,7 +5198,7 @@ declare enum ParagraphLineSpacingType {
     /**
      * The line spacing can be greater than or equal to, but never less than, the specified ParagraphFormattingSettings.lineSpacing value.
      */
-    AtLeast = 5
+    AtLeast = 5,
 }
 /**
  * Lists values specifying the indent for the first line in a paragraph.
@@ -5154,7 +5215,7 @@ declare enum ParagraphFirstLineIndent {
     /**
      * The first line of a paragraph is indented to the left, by the value specified by the ParagraphFormattingSettings.firstLineIndent property.
      */
-    Hanging = 2
+    Hanging = 2,
 }
 /**
  * A command to toggle between the bulleted paragraph and normal text.
@@ -5618,7 +5679,7 @@ declare enum ListLevelFormat {
     /**
      * Specifies that the sequence shall consist of Vietnamese numerals. Currently not supported.
      */
-    VietnameseDescriptive = 59
+    VietnameseDescriptive = 59,
 }
 /**
  * Lists values that specify the paragraph text alignment within numbered list levels.
@@ -5635,7 +5696,7 @@ declare enum ListLevelNumberAlignment {
     /**
      * Text is aligned to the right of the list level's paragraph.
      */
-    Right = 2
+    Right = 2,
 }
 /**
  * A command to invoke the Insert Image dialog.
@@ -6186,7 +6247,7 @@ declare enum Orientation {
     /**
      * Worksheet page orientation is portrait.
      */
-    Portrait = 1
+    Portrait = 1,
 }
 /**
  * A command to add an RTF formatted content in the selected position.
@@ -6199,7 +6260,12 @@ declare class InsertRtfCommand extends CommandWithSimpleStateBase {
      * @param subDocumentId A value identifying the target sub-document.
      * @param callback A callback function that passes the inserted content's Interval object and the bool parameter that displays whether the RTF formatted string is valid.
      */
-    execute(rtfText: string, position: number, subDocumentId?: number, callback?: (interval: Interval, isRtfValid: boolean) => void): boolean;
+    execute(
+        rtfText: string,
+        position: number,
+        subDocumentId?: number,
+        callback?: (interval: Interval, isRtfValid: boolean) => void,
+    ): boolean;
     /**
      * Gets information about the command's state.
      */
@@ -7801,7 +7867,7 @@ declare enum BorderLineStyle {
     /**
      * Zigzag stitch.
      */
-    ZigZagStitch = 189
+    ZigZagStitch = 189,
 }
 /**
  * Contains the settings to define the table cell formatting.
@@ -7859,7 +7925,7 @@ declare enum TableCellVerticalAlignment {
     /**
      * The cell content is vertically aligned at the bottom.
      */
-    Bottom = 3
+    Bottom = 3,
 }
 /**
  * Contains the settings to format a table.
@@ -7947,7 +8013,7 @@ declare enum TableHeightUnitType {
     /**
      * The exact height as specified. If the text cannot fit the height, it will appear truncated.
      */
-    Exact = 2
+    Exact = 2,
 }
 /**
  * Lists alignments allowed for the table row.
@@ -7976,7 +8042,7 @@ declare enum TableRowAlignment {
     /**
      * Align right.
      */
-    Right = 5
+    Right = 5,
 }
 /**
  * Lists values that specify unit types for the table width.
@@ -7997,7 +8063,7 @@ declare enum TableWidthUnitType {
     /**
      * Width in units of measurements that are currently in effect for the document.
      */
-    ModelUnits = 3
+    ModelUnits = 3,
 }
 /**
  * A command to change the font name of characters in a selected range.
@@ -8374,7 +8440,7 @@ declare enum CharacterFormattingScript {
     /**
      * Formats text as superscript.
      */
-    Superscript = 2
+    Superscript = 2,
 }
 /**
  * A command to toggle the horizontal ruler's visibility.
@@ -8443,7 +8509,7 @@ declare enum ViewType {
     /**
      * The print layout is enabled.
      */
-    PrintLayout = 1
+    PrintLayout = 1,
 }
 /**
  * A command to insert content created on the server to the client model.
@@ -10673,7 +10739,9 @@ declare class ASPxClientReminder {
  * @param source The event source.
  * @param e An ASPxClientSchedulerStorageControl object that contains event data.
  */
-interface ReminderAlertEventHandler<Sender> { (source: Sender, e: ASPxClientSchedulerStorageReminderAlertEventArgs): void; }
+interface ReminderAlertEventHandler<Sender> {
+    (source: Sender, e: ASPxClientSchedulerStorageReminderAlertEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientSchedulerStorageControl.ReminderAlert event.
  */
@@ -10683,7 +10751,10 @@ declare class ASPxClientSchedulerStorageReminderAlertEventArgs extends ASPxClien
      * @param completedNotifications An array of ASPxClientReminderAlertNotification objects.
      * @param previousNotifications An array of ASPxClientReminderAlertNotification objects.
      */
-    constructor(completedNotifications: ASPxClientReminderAlertNotification[], previousNotifications: ASPxClientReminderAlertNotification[]);
+    constructor(
+        completedNotifications: ASPxClientReminderAlertNotification[],
+        previousNotifications: ASPxClientReminderAlertNotification[],
+    );
     /**
      * Returns an array of currently triggered reminders.
      */
@@ -10882,7 +10953,11 @@ declare class ASPxClientScheduler extends ASPxClientControl {
      * @param propertyNames An array of strings, that are the names of appointment properties to query.
      * @param onCallBack A handler of a function executed after a callback.
      */
-    RefreshClientAppointmentProperties(clientAppointment: ASPxClientAppointment, propertyNames: string[], onCallBack: any): void;
+    RefreshClientAppointmentProperties(
+        clientAppointment: ASPxClientAppointment,
+        propertyNames: string[],
+        onCallBack: any,
+    ): void;
     /**
      * Client-side function that invokes the editing form for the appointment specified by its client ID.
      * @param aptClientId A string, representing the appointment client identifier.
@@ -11173,7 +11248,9 @@ declare class ASPxSchedulerGroupType {
  * @param source The event sender (typically an ASPxClientScheduler control).
  * @param e A ASPxClientAppointmentDeletingEventArgs object that contains event data.
  */
-interface ASPxClientAppointmentDeletingEventHandler<Sender> { (source: Sender, e: ASPxClientAppointmentDeletingEventArgs): void; }
+interface ASPxClientAppointmentDeletingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientAppointmentDeletingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientScheduler.AppointmentDeleting event.
  */
@@ -11193,7 +11270,9 @@ declare class ASPxClientAppointmentDeletingEventArgs extends ASPxClientCancelEve
  * @param source The event sender (typically an ASPxClientScheduler control).
  * @param e A AppointmentClickEventArgs object that contains event data.
  */
-interface AppointmentClickEventHandler<Sender> { (source: Sender, e: AppointmentClickEventArgs): void; }
+interface AppointmentClickEventHandler<Sender> {
+    (source: Sender, e: AppointmentClickEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientScheduler.AppointmentClick and the ASPxClientScheduler.AppointmentDoubleClick events.
  */
@@ -11222,7 +11301,9 @@ declare class AppointmentClickEventArgs extends ASPxClientEventArgs {
  * @param source The ASPxScheduler control which fires the event.
  * @param e A AppointmentsSelectionEventArgs object that contains event data.
  */
-interface AppointmentsSelectionEventHandler<Sender> { (source: Sender, e: AppointmentsSelectionEventArgs): void; }
+interface AppointmentsSelectionEventHandler<Sender> {
+    (source: Sender, e: AppointmentsSelectionEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientScheduler.AppointmentsSelectionChanged event.
  */
@@ -11242,7 +11323,9 @@ declare class AppointmentsSelectionEventArgs extends ASPxClientEventArgs {
  * @param source The event sender (typically an ASPxClientScheduler control).
  * @param e A ShortcutEventArgs object that contains event data.
  */
-interface ShortcutEventHandler<Sender> { (source: Sender, e: ShortcutEventArgs): void; }
+interface ShortcutEventHandler<Sender> {
+    (source: Sender, e: ShortcutEventArgs): void;
+}
 /**
  * Provides data for the client-side ASPxClientScheduler.Shortcut event.
  */
@@ -11271,7 +11354,9 @@ declare class ShortcutEventArgs extends ASPxClientEventArgs {
  * @param source The ASPxClientScheduler control which fires the event.
  * @param e An ActiveViewChangingEventArgs object that contains event data
  */
-interface ActiveViewChangingEventHandler<Sender> { (source: Sender, e: ActiveViewChangingEventArgs): void; }
+interface ActiveViewChangingEventHandler<Sender> {
+    (source: Sender, e: ActiveViewChangingEventArgs): void;
+}
 /**
  * Provides data for the client-side ASPxClientScheduler.ActiveViewChanging event.
  */
@@ -11300,7 +11385,9 @@ declare class ActiveViewChangingEventArgs extends ASPxClientEventArgs {
  * @param source The ASPxClientScheduler control which fires the event.
  * @param e A MoreButtonClickedEventArgs object that contains event data.
  */
-interface MoreButtonClickedEventHandler<Sender> { (source: Sender, e: MoreButtonClickedEventArgs): void; }
+interface MoreButtonClickedEventHandler<Sender> {
+    (source: Sender, e: MoreButtonClickedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientScheduler.MoreButtonClicked client-side event.
  */
@@ -11333,7 +11420,9 @@ declare class MoreButtonClickedEventArgs extends ASPxClientProcessingModeEventAr
  * @param source The ASPxClientScheduler control which fires the event.
  * @param e A MenuItemClickedEventArgs object that contains event data.
  */
-interface MenuItemClickedEventHandler<Sender> { (source: Sender, e: MenuItemClickedEventArgs): void; }
+interface MenuItemClickedEventHandler<Sender> {
+    (source: Sender, e: MenuItemClickedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientScheduler.MenuItemClicked event.
  */
@@ -11357,7 +11446,9 @@ declare class MenuItemClickedEventArgs extends ASPxClientEventArgs {
  * @param source The event sender (typically an ASPxClientScheduler object).
  * @param e A ASPxClientAppointmentDragEventArgs object that contains event data.
  */
-interface AppointmentDragEventHandler<Sender> { (source: Sender, e: ASPxClientAppointmentDragEventArgs): void; }
+interface AppointmentDragEventHandler<Sender> {
+    (source: Sender, e: ASPxClientAppointmentDragEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientScheduler.AppointmentDrag event.
  */
@@ -11386,7 +11477,9 @@ declare class ASPxClientAppointmentDragEventArgs extends ASPxClientEventArgs {
  * @param source The event sender (typically an ASPxClientScheduler object).
  * @param e A ASPxClientAppointmentDropEventArgs object that contains event data.
  */
-interface AppointmentDropEventHandler<Sender> { (source: Sender, e: ASPxClientAppointmentDropEventArgs): void; }
+interface AppointmentDropEventHandler<Sender> {
+    (source: Sender, e: ASPxClientAppointmentDropEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientScheduler.AppointmentDrop event.
  */
@@ -11415,7 +11508,9 @@ declare class ASPxClientAppointmentDropEventArgs extends ASPxClientEventArgs {
  * @param source The event sender (typically an ASPxClientScheduler control).
  * @param e A ASPxClientAppointmentResizeEventArgs object that contains event data.
  */
-interface AppointmentResizeEventHandler<Sender> { (source: Sender, e: ASPxClientAppointmentResizeEventArgs): void; }
+interface AppointmentResizeEventHandler<Sender> {
+    (source: Sender, e: ASPxClientAppointmentResizeEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientScheduler.AppointmentResize event.
  */
@@ -11427,7 +11522,12 @@ declare class ASPxClientAppointmentResizeEventArgs extends ASPxClientEventArgs {
      * @param oldInterval An  object specifying the appointment's interval before the resize operation.
      * @param newInterval An  object specifying the appointment's interval after the resize operation.
      */
-    constructor(operation: ASPxClientAppointmentOperation, appointmentId: string, oldInterval: ASPxClientTimeInterval, newInterval: ASPxClientTimeInterval);
+    constructor(
+        operation: ASPxClientAppointmentOperation,
+        appointmentId: string,
+        oldInterval: ASPxClientTimeInterval,
+        newInterval: ASPxClientTimeInterval,
+    );
     /**
      * Gets or sets whether default event processing is required.
      */
@@ -11454,7 +11554,9 @@ declare class ASPxClientAppointmentResizeEventArgs extends ASPxClientEventArgs {
  * @param source The event sender (typically an ASPxClientScheduler object).
  * @param e A ASPxClientAppointmentResizingEventArgs object that contains event data.
  */
-interface AppointmentResizingEventHandler<Sender> { (source: Sender, e: ASPxClientAppointmentResizingEventArgs): void; }
+interface AppointmentResizingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientAppointmentResizingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientScheduler.AppointmentResizing event.
  */
@@ -11466,7 +11568,12 @@ declare class ASPxClientAppointmentResizingEventArgs extends ASPxClientEventArgs
      * @param oldInterval An  object specifying the appointment's interval before the resize operation.
      * @param newInterval An  object specifying the appointment's interval after the resize operation.
      */
-    constructor(mouseEvent: any, appointmentId: string, oldInterval: ASPxClientTimeInterval, newInterval: ASPxClientTimeInterval);
+    constructor(
+        mouseEvent: any,
+        appointmentId: string,
+        oldInterval: ASPxClientTimeInterval,
+        newInterval: ASPxClientTimeInterval,
+    );
     /**
      * Specifies whether or not an appointment can be resized to the new time interval.
      */
@@ -11500,7 +11607,13 @@ declare class ASPxClientAppointmentDragInfo {
      * @param newInterval An ASPxClientTimeInterval object specifying the appointment's interval after the drag operation.
      * @param newResources A array of strings containing identifiers of resources associated with the appointment after the drag operation.
      */
-    constructor(appointmentId: string, oldInterval: ASPxClientTimeInterval, oldResources: string[], newInterval: ASPxClientTimeInterval, newResources: string[]);
+    constructor(
+        appointmentId: string,
+        oldInterval: ASPxClientTimeInterval,
+        oldResources: string[],
+        newInterval: ASPxClientTimeInterval,
+        newResources: string[],
+    );
     /**
      * Gets the dragged appointment's identifier.
      */
@@ -11527,7 +11640,9 @@ declare class ASPxClientAppointmentDragInfo {
  * @param source The event source.
  * @param e A ASPxClientSchedulerCellClickEventArgs object that contains event data
  */
-interface CellClickEventHandler<Sender> { (source: Sender, e: ASPxClientSchedulerCellClickEventArgs): void; }
+interface CellClickEventHandler<Sender> {
+    (source: Sender, e: ASPxClientSchedulerCellClickEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientScheduler.CellClick event.
  */
@@ -11550,7 +11665,9 @@ declare class ASPxClientSchedulerCellClickEventArgs extends ASPxClientEventArgs 
  * @param source The event source.
  * @param e An ASPxClientAppointmentToolTipShowingEventArgs object that contains event data.
  */
-interface ASPxClientAppointmentToolTipShowingEventHandler<Sender> { (source: Sender, e: ASPxClientAppointmentToolTipShowingEventArgs): void; }
+interface ASPxClientAppointmentToolTipShowingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientAppointmentToolTipShowingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientScheduler.AppointmentToolTipShowing event.
  */
@@ -12000,7 +12117,9 @@ declare class ASPxClientDateNavigator extends ASPxClientControl {
     /**
      * Allows you to provide custom highlighting styles for day cells.
      */
-    DayCellCustomHighlight: ASPxClientEvent<ASPxClientDateNavigatorDayCellCustomHighlightEventHandler<ASPxClientDateNavigator>>;
+    DayCellCustomHighlight: ASPxClientEvent<
+        ASPxClientDateNavigatorDayCellCustomHighlightEventHandler<ASPxClientDateNavigator>
+    >;
     /**
      * Occurs when the end user selects another date.
      */
@@ -12008,14 +12127,18 @@ declare class ASPxClientDateNavigator extends ASPxClientControl {
     /**
      * Occurs when the end user changes the visible month.
      */
-    VisibleMonthChanged: ASPxClientEvent<ASPxClientDateNavigatorVisibleMonthChangedEventHandler<ASPxClientDateNavigator>>;
+    VisibleMonthChanged: ASPxClientEvent<
+        ASPxClientDateNavigatorVisibleMonthChangedEventHandler<ASPxClientDateNavigator>
+    >;
 }
 /**
  * A method that will handle the ASPxClientDateNavigator.DayCellCustomHighlight event.
  * @param source The event source.
  * @param e A ASPxClientDateNavigatorDayCellCustomHighlightEventArgs object that contains event data.
  */
-interface ASPxClientDateNavigatorDayCellCustomHighlightEventHandler<Sender> { (source: Sender, e: ASPxClientDateNavigatorDayCellCustomHighlightEventArgs): void; }
+interface ASPxClientDateNavigatorDayCellCustomHighlightEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDateNavigatorDayCellCustomHighlightEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDateNavigator.DayCellCustomHighlight event.
  */
@@ -12045,7 +12168,9 @@ declare class ASPxClientDateNavigatorDayCellCustomHighlightEventArgs extends ASP
  * @param source The event source.
  * @param e A ASPxClientDateNavigatorVisibleMonthChangedEventArgs object that contains event data.
  */
-interface ASPxClientDateNavigatorVisibleMonthChangedEventHandler<Sender> { (source: Sender, e: ASPxClientDateNavigatorVisibleMonthChangedEventArgs): void; }
+interface ASPxClientDateNavigatorVisibleMonthChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDateNavigatorVisibleMonthChangedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDateNavigator.VisibleMonthChanged event.
  */
@@ -12064,7 +12189,9 @@ declare class ASPxClientDateNavigatorVisibleMonthChangedEventArgs extends ASPxCl
  * @param source The event source.
  * @param e A ASPxClientDateNavigatorSelectionChangedEventArgs object that contains event data.
  */
-interface ASPxClientDateNavigatorSelectionChangedEventHandler<Sender> { (source: Sender, e: ASPxClientDateNavigatorSelectionChangedEventArgs): void; }
+interface ASPxClientDateNavigatorSelectionChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDateNavigatorSelectionChangedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDateNavigator.SelectionChanged event.
  */
@@ -12258,7 +12385,7 @@ declare enum ASPxClientSpreadsheetPopupMenuType {
     /**
      * Specifies a context menu which can be invoked by clicking the AutoFilter drop-down arrow on the row or column label of a pivot table.
      */
-    PivotTableAutoFilter = 10
+    PivotTableAutoFilter = 10,
 }
 /**
  * Lists values identifying a type of the element currently being edited in the Spreadsheet control.
@@ -12332,7 +12459,9 @@ declare class ASPxClientSpreadsheetRectangle {
  * @param source An object representing the event source. Identifies the Spreadsheet that raised the event.
  * @param e A ASPxClientSpreadsheetCellBeginEditEventArgs object that contains event data.
  */
-interface ASPxClientSpreadsheetCellBeginEditEventHandler<Sender> { (source: Sender, e: ASPxClientSpreadsheetCellBeginEditEventArgs): void; }
+interface ASPxClientSpreadsheetCellBeginEditEventHandler<Sender> {
+    (source: Sender, e: ASPxClientSpreadsheetCellBeginEditEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientSpreadsheet.CellBeginEdit event.
  */
@@ -12372,7 +12501,9 @@ declare class ASPxClientSpreadsheetCellBeginEditEventArgs extends ASPxClientCanc
  * @param source An object representing the event source. Identifies the Spreadsheet that raised the event.
  * @param e A ASPxClientSpreadsheetCellEndEditEventArgs object that contains event data.
  */
-interface ASPxClientSpreadsheetCellEndEditEventHandler<Sender> { (source: Sender, e: ASPxClientSpreadsheetCellEndEditEventArgs): void; }
+interface ASPxClientSpreadsheetCellEndEditEventHandler<Sender> {
+    (source: Sender, e: ASPxClientSpreadsheetCellEndEditEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientSpreadsheet.CellEndEdit event.
  */
@@ -12386,7 +12517,14 @@ declare class ASPxClientSpreadsheetCellEndEditEventArgs extends ASPxClientSpread
      * @param sheetName Gets the current worksheet's name.
      * @param editorText Gets or sets the text stored within an active cell's editor.
      */
-    constructor(columnIndex: number, rowIndex: number, formula: string, value: string, sheetName: string, editorText: string);
+    constructor(
+        columnIndex: number,
+        rowIndex: number,
+        formula: string,
+        value: string,
+        sheetName: string,
+        editorText: string,
+    );
     /**
      * Gets or sets the text stored within the active cell's editor.
      */
@@ -12397,7 +12535,9 @@ declare class ASPxClientSpreadsheetCellEndEditEventArgs extends ASPxClientSpread
  * @param source An object representing the event source. Identifies the Spreadsheet that raised the event.
  * @param e A ASPxClientSpreadsheetCellCancelEditEventArgs object that contains event data.
  */
-interface ASPxClientSpreadsheetCellCancelEditEventHandler<Sender> { (source: Sender, e: ASPxClientSpreadsheetCellCancelEditEventArgs): void; }
+interface ASPxClientSpreadsheetCellCancelEditEventHandler<Sender> {
+    (source: Sender, e: ASPxClientSpreadsheetCellCancelEditEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientSpreadsheet.CellCancelEdit event.
  */
@@ -12437,7 +12577,9 @@ declare class ASPxClientSpreadsheetCellCancelEditEventArgs extends ASPxClientEve
  * @param source An object representing the event source. Identifies the button editor that raised the event.
  * @param e An ASPxClientSpreadsheetSelectionChangedEventArgs object that contains event data.
  */
-interface ASPxClientSpreadsheetSelectionChangedEventHandler<Sender> { (source: Sender, e: ASPxClientSpreadsheetSelectionChangedEventArgs): void; }
+interface ASPxClientSpreadsheetSelectionChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientSpreadsheetSelectionChangedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientSpreadsheet.SelectionChanged event.
  */
@@ -12486,7 +12628,9 @@ declare class ASPxClientSpreadsheetSelection {
  * @param source An object representing the event source. Identifies the Spreadsheet that raised the event.
  * @param e A ASPxClientSpreadsheetCustomCommandExecutedEventArgs object that contains event data.
  */
-interface ASPxClientSpreadsheetCustomCommandExecutedEventHandler<Sender> { (source: Sender, e: ASPxClientSpreadsheetCustomCommandExecutedEventArgs): void; }
+interface ASPxClientSpreadsheetCustomCommandExecutedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientSpreadsheetCustomCommandExecutedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientSpreadsheet.CustomCommandExecuted event.
  */
@@ -12516,7 +12660,9 @@ declare class ASPxClientSpreadsheetCustomCommandExecutedEventArgs extends ASPxCl
  * @param source An object representing the event source. Identifies the Spreadsheet that raised the event.
  * @param e A ASPxClientSpreadsheetDocumentChangedEventArgs object that contains event data.
  */
-interface ASPxClientSpreadsheetDocumentChangedEventHandler<Sender> { (source: Sender, e: ASPxClientSpreadsheetDocumentChangedEventArgs): void; }
+interface ASPxClientSpreadsheetDocumentChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientSpreadsheetDocumentChangedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientSpreadsheet.DocumentChanged event.
  */
@@ -12531,7 +12677,9 @@ declare class ASPxClientSpreadsheetDocumentChangedEventArgs extends ASPxClientEv
  * @param source An object representing the event source. Identifies the Spreadsheet that raised the event.
  * @param e A ASPxClientSpreadsheetSynchronizationEventArgs object that contains event data.
  */
-interface ASPxClientSpreadsheetSynchronizationEventHandler<Sender> { (source: Sender, e: ASPxClientSpreadsheetSynchronizationEventArgs): void; }
+interface ASPxClientSpreadsheetSynchronizationEventHandler<Sender> {
+    (source: Sender, e: ASPxClientSpreadsheetSynchronizationEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientSpreadsheet.BeginSynchronization and ASPxClientSpreadsheet.EndSynchronization events.
  */
@@ -12546,7 +12694,9 @@ declare class ASPxClientSpreadsheetSynchronizationEventArgs extends ASPxClientEv
  * @param source An object representing the event source. Identifies the Spreadsheet that raised the event.
  * @param e An ASPxClientSpreadsheetHyperlinkClickEventArgs object that contains event data.
  */
-interface ASPxClientSpreadsheetHyperlinkClickEventHandler<Sender> { (source: Sender, e: ASPxClientSpreadsheetHyperlinkClickEventArgs): void; }
+interface ASPxClientSpreadsheetHyperlinkClickEventHandler<Sender> {
+    (source: Sender, e: ASPxClientSpreadsheetHyperlinkClickEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientSpreadsheet.HyperlinkClick event.
  */
@@ -12581,7 +12731,9 @@ declare class ASPxClientSpreadsheetHyperlinkClickEventArgs extends ASPxClientEve
  * @param source The event sender (typically an ASPxClientSpreadsheet object).
  * @param e A ASPxClientSpreadsheetPopupMenuShowingEventArgs object that contains event data.
  */
-interface ASPxClientSpreadsheetPopupMenuShowingEventHandler<Sender> { (source: Sender, e: ASPxClientSpreadsheetPopupMenuShowingEventArgs): void; }
+interface ASPxClientSpreadsheetPopupMenuShowingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientSpreadsheetPopupMenuShowingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientSpreadsheet.PopupMenuShowing event.
  */
@@ -12606,7 +12758,9 @@ declare class ASPxClientSpreadsheetPopupMenuShowingEventArgs extends ASPxClientC
  * @param source The event sender (typically an ASPxClientSpreadsheet object).
  * @param e A ASPxClientSpreadsheetViewModeChangedEventArgs object that contains event data.
  */
-interface ASPxClientSpreadsheetViewModeChangedEventHandler<Sender> { (source: Sender, e: ASPxClientSpreadsheetViewModeChangedEventArgs): void; }
+interface ASPxClientSpreadsheetViewModeChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientSpreadsheetViewModeChangedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientSpreadsheet.ViewModeChanged event.
  */
@@ -12644,7 +12798,9 @@ declare class ASPxClientSpreadsheet extends ASPxClientControl {
     /**
      * Occurs after a custom command has been executed on the client side.
      */
-    CustomCommandExecuted: ASPxClientEvent<ASPxClientSpreadsheetCustomCommandExecutedEventHandler<ASPxClientSpreadsheet>>;
+    CustomCommandExecuted: ASPxClientEvent<
+        ASPxClientSpreadsheetCustomCommandExecutedEventHandler<ASPxClientSpreadsheet>
+    >;
     /**
      * Fires if any change is made to the Spreadsheet's document on the client.
      */
@@ -13035,7 +13191,11 @@ declare class ASPxClientTreeList extends ASPxClientControl {
      * @param onCallback A ASPxClientTreeListValuesCallback object that represents the JavaScript function which receives the list of values as a parameter.
      * @param visibleOnly true to return values within selected nodes that are displayed within the current page; false to return values within all selected nodes.
      */
-    GetSelectedNodeValues(fieldNames: string | string[], onCallback: ASPxClientTreeListValuesCallback, visibleOnly?: boolean): void;
+    GetSelectedNodeValues(
+        fieldNames: string | string[],
+        onCallback: ASPxClientTreeListValuesCallback,
+        visibleOnly?: boolean,
+    ): void;
     /**
      * Selects the specified page.
      * @param index An integer value that specifies the active page's index.
@@ -13227,7 +13387,9 @@ declare class ASPxClientTreeList extends ASPxClientControl {
     /**
      * Enables you to provide navigation for editors contained in a templated cell in Batch Edit mode.
      */
-    BatchEditTemplateCellFocused: ASPxClientEvent<ASPxClientTreeListBatchEditTemplateCellFocusedEventHandler<ASPxClientTreeList>>;
+    BatchEditTemplateCellFocused: ASPxClientEvent<
+        ASPxClientTreeListBatchEditTemplateCellFocusedEventHandler<ASPxClientTreeList>
+    >;
     /**
      * Occurs on the client side before data changes are saved in batch edit mode.
      */
@@ -13235,7 +13397,9 @@ declare class ASPxClientTreeList extends ASPxClientControl {
     /**
      * Occurs on the client side before data changes are canceled in batch edit mode.
      */
-    BatchEditChangesCanceling: ASPxClientEvent<ASPxClientTreeListBatchEditChangesCancelingEventHandler<ASPxClientTreeList>>;
+    BatchEditChangesCanceling: ASPxClientEvent<
+        ASPxClientTreeListBatchEditChangesCancelingEventHandler<ASPxClientTreeList>
+    >;
     /**
      * Occurs on the client side before a node is inserted in batch edit mode.
      */
@@ -13404,7 +13568,9 @@ declare class ASPxClientTreeListCustomDataCallbackEventArgs extends ASPxClientEv
  * @param source The event source.
  * @param e An ASPxClientTreeListCustomDataCallbackEventArgs object that contains event data.
  */
-interface ASPxClientTreeListCustomDataCallbackEventHandler<Sender> { (source: Sender, e: ASPxClientTreeListCustomDataCallbackEventArgs): void; }
+interface ASPxClientTreeListCustomDataCallbackEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeListCustomDataCallbackEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeList.NodeClick and ASPxClientTreeList.NodeDblClick events.
  */
@@ -13427,7 +13593,9 @@ declare class ASPxClientTreeListNodeEventArgs extends ASPxClientEventArgs {
  * @param source The event source.
  * @param e An ASPxClientTreeListNodeEventArgs object that contains event data.
  */
-interface ASPxClientTreeListNodeEventHandler<Sender> { (source: Sender, e: ASPxClientTreeListNodeEventArgs): void; }
+interface ASPxClientTreeListNodeEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeListNodeEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeList.ContextMenu event.
  */
@@ -13454,7 +13622,9 @@ declare class ASPxClientTreeListContextMenuEventArgs extends ASPxClientEventArgs
  * @param source The event sender.
  * @param e An ASPxClientTreeListContextMenuEventArgs object that contains event data.
  */
-interface ASPxClientTreeListContextMenuEventHandler<Sender> { (source: Sender, e: ASPxClientTreeListContextMenuEventArgs): void; }
+interface ASPxClientTreeListContextMenuEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeListContextMenuEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeList.StartDragNode event.
  */
@@ -13469,7 +13639,9 @@ declare class ASPxClientTreeListStartDragNodeEventArgs extends ASPxClientTreeLis
  * @param source The event source.
  * @param e An ASPxClientTreeListStartDragNodeEventArgs object that contains event data.
  */
-interface ASPxClientTreeListStartDragNodeEventHandler<Sender> { (source: Sender, e: ASPxClientTreeListStartDragNodeEventArgs): void; }
+interface ASPxClientTreeListStartDragNodeEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeListStartDragNodeEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeList.EndDragNode event.
  */
@@ -13484,7 +13656,9 @@ declare class ASPxClientTreeListEndDragNodeEventArgs extends ASPxClientTreeListN
  * @param source The event source.
  * @param e An ASPxClientTreeListEndDragNodeEventArgs object that contains event data.
  */
-interface ASPxClientTreeListEndDragNodeEventHandler<Sender> { (source: Sender, e: ASPxClientTreeListEndDragNodeEventArgs): void; }
+interface ASPxClientTreeListEndDragNodeEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeListEndDragNodeEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeList.CustomButtonClick event.
  */
@@ -13507,12 +13681,16 @@ declare class ASPxClientTreeListCustomButtonEventArgs extends ASPxClientEventArg
  * @param source The event source.
  * @param e An ASPxClientTreeListCustomButtonEventArgs object that contains event data.
  */
-interface ASPxClientTreeListCustomButtonEventHandler<Sender> { (source: Sender, e: ASPxClientTreeListCustomButtonEventArgs): void; }
+interface ASPxClientTreeListCustomButtonEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeListCustomButtonEventArgs): void;
+}
 /**
  * A JavaScript function which receives the list of row values when a specific client method (such as the ASPxClientTreeList.GetNodeValues or ASPxClientTreeList.GetSelectedNodeValues) is called.
  * @param result An object that represents the list of row values received from the server.
  */
-interface ASPxClientTreeListValuesCallback { (result: any): void; }
+interface ASPxClientTreeListValuesCallback {
+    (result: any): void;
+}
 /**
  * Provides data for the ASPxClientTreeList.ColumnResizing event.
  */
@@ -13527,7 +13705,9 @@ declare class ASPxClientTreeListColumnResizingEventArgs extends ASPxClientCancel
  * @param source The event source. Identifies the ASPxFileManager control that raised the event.
  * @param e A ASPxClientTreeListColumnResizingEventArgs object that contains event data.
  */
-interface ASPxClientTreeListColumnResizingEventHandler<Sender> { (source: Sender, e: ASPxClientTreeListColumnResizingEventArgs): void; }
+interface ASPxClientTreeListColumnResizingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeListColumnResizingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeList.ColumnResized event.
  */
@@ -13547,7 +13727,9 @@ declare class ASPxClientTreeListColumnResizedEventArgs extends ASPxClientProcess
  * @param source The event source. Identifies the ASPxFileManager control that raised the event.
  * @param e A ASPxClientTreeListColumnResizedEventArgs object that contains event data.
  */
-interface ASPxClientTreeListColumnResizedEventHandler<Sender> { (source: Sender, e: ASPxClientTreeListColumnResizedEventArgs): void; }
+interface ASPxClientTreeListColumnResizedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeListColumnResizedEventArgs): void;
+}
 /**
  * Provides data for the ASPxTreeList.ToolbarItemClick event.
  */
@@ -13580,13 +13762,17 @@ declare class ASPxClientTreeListToolbarItemClickEventArgs extends ASPxClientProc
  * @param source The event source.
  * @param e An ASPxClientTreeListToolbarItemClickEventArgs object that contains event data.
  */
-interface ASPxClientTreeListToolbarItemClickEventHandler<Sender> { (source: Sender, e: ASPxClientTreeListToolbarItemClickEventArgs): void; }
+interface ASPxClientTreeListToolbarItemClickEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeListToolbarItemClickEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientTreeList.BatchEditStartEditing event.
  * @param source The event source.
  * @param e A ASPxClientTreeListBatchEditStartEditingEventArgs object that contains event data.
  */
-interface ASPxClientTreeListBatchEditStartEditingEventHandler<Sender> { (source: Sender, e: ASPxClientTreeListBatchEditStartEditingEventArgs): void; }
+interface ASPxClientTreeListBatchEditStartEditingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeListBatchEditStartEditingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeList.BatchEditStartEditing event.
  */
@@ -13616,7 +13802,9 @@ declare class ASPxClientTreeListBatchEditStartEditingEventArgs extends ASPxClien
  * @param source The event source.
  * @param e A ASPxClientTreeListBatchEditEndEditingEventArgs object that contains event data.
  */
-interface ASPxClientTreeListBatchEditEndEditingEventHandler<Sender> { (source: Sender, e: ASPxClientTreeListBatchEditEndEditingEventArgs): void; }
+interface ASPxClientTreeListBatchEditEndEditingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeListBatchEditEndEditingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeList.BatchEditEndEditing event.
  */
@@ -13641,7 +13829,9 @@ declare class ASPxClientTreeListBatchEditEndEditingEventArgs extends ASPxClientC
  * @param source The event source.
  * @param e A ASPxClientTreeListBatchEditNodeValidatingEventArgs object that contains event data.
  */
-interface ASPxClientTreeListBatchEditNodeValidatingEventHandler<Sender> { (source: Sender, e: ASPxClientTreeListBatchEditNodeValidatingEventArgs): void; }
+interface ASPxClientTreeListBatchEditNodeValidatingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeListBatchEditNodeValidatingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeList.BatchEditNodeValidating event.
  */
@@ -13666,7 +13856,9 @@ declare class ASPxClientTreeListBatchEditNodeValidatingEventArgs extends ASPxCli
  * @param source The event sender.
  * @param e A ASPxClientTreeListBatchEditTemplateCellFocusedEventArgs object that contains event data.
  */
-interface ASPxClientTreeListBatchEditTemplateCellFocusedEventHandler<Sender> { (source: Sender, e: ASPxClientTreeListBatchEditTemplateCellFocusedEventArgs): void; }
+interface ASPxClientTreeListBatchEditTemplateCellFocusedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeListBatchEditTemplateCellFocusedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeList.BatchEditTemplateCellFocused event.
  */
@@ -13690,7 +13882,9 @@ declare class ASPxClientTreeListBatchEditTemplateCellFocusedEventArgs extends AS
  * @param source The event source.
  * @param e A ASPxClientTreeListBatchEditChangesSavingEventArgs object that contains event data.
  */
-interface ASPxClientTreeListBatchEditChangesSavingEventHandler<Sender> { (source: Sender, e: ASPxClientTreeListBatchEditChangesSavingEventArgs): void; }
+interface ASPxClientTreeListBatchEditChangesSavingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeListBatchEditChangesSavingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeList.BatchEditChangesSaving event.
  */
@@ -13720,7 +13914,9 @@ declare class ASPxClientTreeListBatchEditChangesSavingEventArgs extends ASPxClie
  * @param source The event source.
  * @param e A ASPxClientTreeListBatchEditChangesCancelingEventArgs object that contains event data.
  */
-interface ASPxClientTreeListBatchEditChangesCancelingEventHandler<Sender> { (source: Sender, e: ASPxClientTreeListBatchEditChangesCancelingEventArgs): void; }
+interface ASPxClientTreeListBatchEditChangesCancelingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeListBatchEditChangesCancelingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeList.BatchEditChangesCanceling event.
  */
@@ -13750,7 +13946,9 @@ declare class ASPxClientTreeListBatchEditChangesCancelingEventArgs extends ASPxC
  * @param source The event source.
  * @param e A ASPxClientTreeListBatchEditNodeInsertingEventArgs object that contains event data.
  */
-interface ASPxClientTreeListBatchEditNodeInsertingEventHandler<Sender> { (source: Sender, e: ASPxClientTreeListBatchEditNodeInsertingEventArgs): void; }
+interface ASPxClientTreeListBatchEditNodeInsertingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeListBatchEditNodeInsertingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeList.BatchEditNodeInserting event.
  */
@@ -13775,7 +13973,9 @@ declare class ASPxClientTreeListBatchEditNodeInsertingEventArgs extends ASPxClie
  * @param source The event source.
  * @param e A ASPxClientTreeListBatchEditNodeDeletingEventArgs object that contains event data.
  */
-interface ASPxClientTreeListBatchEditNodeDeletingEventHandler<Sender> { (source: Sender, e: ASPxClientTreeListBatchEditNodeDeletingEventArgs): void; }
+interface ASPxClientTreeListBatchEditNodeDeletingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeListBatchEditNodeDeletingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeList.BatchEditNodeDeleting event.
  */
@@ -13800,7 +14000,9 @@ declare class ASPxClientTreeListBatchEditNodeDeletingEventArgs extends ASPxClien
  * @param source The event source.
  * @param e An ASPxClientTreeListBatchEditNodeRecoveringEventArgs object that contains event data.
  */
-interface ASPxClientTreeListBatchEditNodeRecoveringEventHandler<Sender> { (source: Sender, e: ASPxClientTreeListBatchEditNodeRecoveringEventArgs): void; }
+interface ASPxClientTreeListBatchEditNodeRecoveringEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeListBatchEditNodeRecoveringEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeList.BatchEditNodeRecovering event.
  */
@@ -13825,7 +14027,9 @@ declare class ASPxClientTreeListBatchEditNodeRecoveringEventArgs extends ASPxCli
  * @param source The event source.
  * @param e A ASPxClientTreeListBatchEditConfirmShowingEventArgs object that contains event data.
  */
-interface ASPxClientTreeListBatchEditConfirmShowingEventHandler<Sender> { (source: Sender, e: ASPxClientTreeListBatchEditConfirmShowingEventArgs): void; }
+interface ASPxClientTreeListBatchEditConfirmShowingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeListBatchEditConfirmShowingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeList.BatchEditConfirmShowing event.
  */
@@ -13845,7 +14049,9 @@ declare class ASPxClientTreeListBatchEditConfirmShowingEventArgs extends ASPxCli
  * @param source The event source.
  * @param e A ASPxClientTreeListFocusedCellChangingEventArgs object that contains event data.
  */
-interface ASPxClientTreeListFocusedCellChangingEventHandler<Sender> { (source: Sender, e: ASPxClientTreeListFocusedCellChangingEventArgs): void; }
+interface ASPxClientTreeListFocusedCellChangingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeListFocusedCellChangingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeList.FocusedCellChanging event.
  */
@@ -13898,7 +14104,13 @@ declare class ASPxClientTreeListBatchEditApi {
      * @param displayText A string value that specifies the cell display text.
      * @param cancelCellHighlighting true to cancel highlighting of the modified cell, false to highlight the modified cell.
      */
-    SetCellValue(nodeKey: string, columnFieldNameOrId: string, value: any, displayText?: string, cancelCellHighlighting?: boolean): void;
+    SetCellValue(
+        nodeKey: string,
+        columnFieldNameOrId: string,
+        value: any,
+        displayText?: string,
+        cancelCellHighlighting?: boolean,
+    ): void;
     /**
      * Gets the value of the specified cell. An object containing the specified cell's value.
      * @param nodeKey A zero-based integer value that specifies a visible index of a node containing the processed cell.
@@ -14038,7 +14250,9 @@ declare class ASPxClientCallback extends ASPxClientControl {
  * @param source An object representing the event source. Identifies the web control that raised the event.
  * @param e An ASPxClientCallbackCompleteEventArgs object that contains event data.
  */
-interface ASPxClientCallbackCompleteEventHandler<Sender> { (source: Sender, e: ASPxClientCallbackCompleteEventArgs): void; }
+interface ASPxClientCallbackCompleteEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCallbackCompleteEventArgs): void;
+}
 /**
  * Provides data for events concerning the final processing of a callback.
  */
@@ -14132,7 +14346,9 @@ declare class ASPxClientEvent<T> {
  * @param source An object representing the event source. Identifies the control that raised the event.
  * @param e An ASPxClientEventArgs object that contains event data.
  */
-interface ASPxClientEventHandler<Sender> { (source: Sender, e: ASPxClientEventArgs): void; }
+interface ASPxClientEventHandler<Sender> {
+    (source: Sender, e: ASPxClientEventArgs): void;
+}
 /**
  * Serves as the base class for arguments of the web controls' client-side events.
  */
@@ -14147,7 +14363,9 @@ declare class ASPxClientEventArgs {
  * @param source An object representing the event source. Identifies the web control that raised the event.
  * @param e An ASPxClientCancelEventArgs object that contains event data.
  */
-interface ASPxClientCancelEventHandler<Sender> { (source: Sender, e: ASPxClientCancelEventArgs): void; }
+interface ASPxClientCancelEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCancelEventArgs): void;
+}
 /**
  * Provides data for cancelable client events.
  */
@@ -14166,7 +14384,9 @@ declare class ASPxClientCancelEventArgs extends ASPxClientEventArgs {
  * @param source An object representing the event source. Identifies the web control that raised the event.
  * @param e An ASPxClientProcessingModeEventArgs object that contains event data.
  */
-interface ASPxClientProcessingModeEventHandler<Sender> { (source: Sender, e: ASPxClientProcessingModeEventArgs): void; }
+interface ASPxClientProcessingModeEventHandler<Sender> {
+    (source: Sender, e: ASPxClientProcessingModeEventArgs): void;
+}
 /**
  * Provides data for the client events which can't be cancelled and allow the event's processing to be passed to the server side.
  */
@@ -14186,7 +14406,9 @@ declare class ASPxClientProcessingModeEventArgs extends ASPxClientEventArgs {
  * @param source An object representing the event source. Identifies the web control that raised the event.
  * @param e An ASPxClientProcessingModeCancelEventArgs object that contains event data.
  */
-interface ASPxClientProcessingModeCancelEventHandler<Sender> { (source: Sender, e: ASPxClientProcessingModeCancelEventArgs): void; }
+interface ASPxClientProcessingModeCancelEventHandler<Sender> {
+    (source: Sender, e: ASPxClientProcessingModeCancelEventArgs): void;
+}
 /**
  * Provides data for the cancelable client-side events which allow the event's processing to be passed to the server side.
  */
@@ -14206,7 +14428,9 @@ declare class ASPxClientProcessingModeCancelEventArgs extends ASPxClientProcessi
  * @param sender An object whose client method generated a callback.
  * @param result A string value that represents the result of server-side callback processing.
  */
-interface ASPxClientDataCallback { (sender: any, result: string): void; }
+interface ASPxClientDataCallback {
+    (sender: any, result: string): void;
+}
 /**
  * Represents a client-side equivalent of the ASPxCloudControl control.
  */
@@ -14226,7 +14450,9 @@ declare class ASPxClientCloudControl extends ASPxClientControl {
  * @param source The event source. This parameter identifies the cloud control object which raised the event.
  * @param e An ASPxClientCloudControlItemEventArgs object that contains event data.
  */
-interface ASPxClientCloudControlItemEventHandler<Sender> { (source: Sender, e: ASPxClientCloudControlItemEventArgs): void; }
+interface ASPxClientCloudControlItemEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCloudControlItemEventArgs): void;
+}
 /**
  * Provides data for events which involve clicking on the control's items.
  */
@@ -14257,7 +14483,9 @@ declare class ASPxClientCloudControlItemEventArgs extends ASPxClientProcessingMo
  * @param source An object representing the event source. Identifies the web control that raised the event.
  * @param e An ASPxClientBeginCallbackEventArgs object that contains event data.
  */
-interface ASPxClientBeginCallbackEventHandler<Sender> { (source: Sender, e: ASPxClientBeginCallbackEventArgs): void; }
+interface ASPxClientBeginCallbackEventHandler<Sender> {
+    (source: Sender, e: ASPxClientBeginCallbackEventArgs): void;
+}
 /**
  * Provides data for client events related to the beginning of a callback processing round trip.
  */
@@ -14277,7 +14505,9 @@ declare class ASPxClientBeginCallbackEventArgs extends ASPxClientEventArgs {
  * @param source The event source.
  * @param e An ASPxDataValidationEventArgs object that contains event data.
  */
-interface ASPxClientGlobalBeginCallbackEventHandler<Sender> { (source: Sender, e: ASPxClientGlobalBeginCallbackEventArgs): void; }
+interface ASPxClientGlobalBeginCallbackEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGlobalBeginCallbackEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGlobalEvents.BeginCallback event.
  */
@@ -14298,7 +14528,9 @@ declare class ASPxClientGlobalBeginCallbackEventArgs extends ASPxClientBeginCall
  * @param source An object representing the event source.
  * @param e A MenuItemEventArgs object that contains event data.
  */
-interface ASPxClientEndCallbackEventHandler<Sender> { (source: Sender, e: ASPxClientEndCallbackEventArgs): void; }
+interface ASPxClientEndCallbackEventHandler<Sender> {
+    (source: Sender, e: ASPxClientEndCallbackEventArgs): void;
+}
 /**
  * Provides data for client events related to the completion of a callback processing round trip.
  */
@@ -14318,7 +14550,9 @@ declare class ASPxClientEndCallbackEventArgs extends ASPxClientEventArgs {
  * @param source The event source.
  * @param e An ASPxDataValidationEventArgs object that contains event data.
  */
-interface ASPxClientGlobalEndCallbackEventHandler<Sender> { (source: Sender, e: ASPxClientGlobalEndCallbackEventArgs): void; }
+interface ASPxClientGlobalEndCallbackEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGlobalEndCallbackEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGlobalEvents.EndCallback event.
  */
@@ -14338,7 +14572,9 @@ declare class ASPxClientGlobalEndCallbackEventArgs extends ASPxClientEndCallback
  * @param source An object representing the event source.
  * @param e An ASPxClientCustomDataCallbackEventHandler&lt;Sender&gt; object that contains event data.
  */
-interface ASPxClientCustomDataCallbackEventHandler<Sender> { (source: Sender, e: ASPxClientCustomDataCallbackEventArgs): void; }
+interface ASPxClientCustomDataCallbackEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCustomDataCallbackEventArgs): void;
+}
 /**
  * Provides data for the CustomCallback event.
  */
@@ -14358,7 +14594,9 @@ declare class ASPxClientCustomDataCallbackEventArgs extends ASPxClientEventArgs 
  * @param source An object representing the event source.
  * @param e A ASPxClientCallbackErrorEventArgs object that contains event data.
  */
-interface ASPxClientCallbackErrorEventHandler<Sender> { (source: Sender, e: ASPxClientCallbackErrorEventArgs): void; }
+interface ASPxClientCallbackErrorEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCallbackErrorEventArgs): void;
+}
 /**
  * Provides data for client events related to server-side errors that occured during callback processing.
  */
@@ -14382,7 +14620,9 @@ declare class ASPxClientCallbackErrorEventArgs extends ASPxClientEventArgs {
  * @param source The event source.
  * @param e An ASPxDataValidationEventArgs object that contains event data.
  */
-interface ASPxClientGlobalCallbackErrorEventHandler<Sender> { (source: Sender, e: ASPxClientGlobalCallbackErrorEventArgs): void; }
+interface ASPxClientGlobalCallbackErrorEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGlobalCallbackErrorEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGlobalEvents.CallbackError event.
  */
@@ -14403,7 +14643,9 @@ declare class ASPxClientGlobalCallbackErrorEventArgs extends ASPxClientCallbackE
  * @param source An object representing the event source. Identifies the ASPxClientGlobalEvents object that raised the event.
  * @param e An ASPxClientValidationCompletedEventArgs object that contains event data.
  */
-interface ASPxClientValidationCompletedEventHandler<Sender> { (source: Sender, e: ASPxClientValidationCompletedEventArgs): void; }
+interface ASPxClientValidationCompletedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientValidationCompletedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGlobalEvents.ValidationCompleted client event that allows you to centrally validate user input within all DevExpress web controls to which validation is applied.
  */
@@ -14417,7 +14659,14 @@ declare class ASPxClientValidationCompletedEventArgs extends ASPxClientEventArgs
      * @param firstInvalidControl An object representing the first input control that has an invalid value.
      * @param firstVisibleInvalidControl An object representing the first visible input control that has an invalid value.
      */
-    constructor(container: any, validationGroup: string, invisibleControlsValidated: boolean, isValid: boolean, firstInvalidControl: ASPxClientControl, firstVisibleInvalidControl: ASPxClientControl);
+    constructor(
+        container: any,
+        validationGroup: string,
+        invisibleControlsValidated: boolean,
+        isValid: boolean,
+        firstInvalidControl: ASPxClientControl,
+        firstVisibleInvalidControl: ASPxClientControl,
+    );
     /**
      * Gets a container object that holds the validated control(s).
      */
@@ -14448,7 +14697,9 @@ declare class ASPxClientValidationCompletedEventArgs extends ASPxClientEventArgs
  * @param source An object representing the event source.
  * @param e An ASPxClientControlsInitializedEventArgs object that contains event data.
  */
-interface ASPxClientControlsInitializedEventHandler<Sender> { (source: Sender, e: ASPxClientControlsInitializedEventArgs): void; }
+interface ASPxClientControlsInitializedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientControlsInitializedEventArgs): void;
+}
 /**
  * Provides data for the client ASPxClientControlCollection.ControlsInitialized event.
  */
@@ -14562,12 +14813,16 @@ declare class ASPxClientControl extends ASPxClientControlBase {
  * A JavaScript function which returns a value specifying whether an object meets the criteria defined within the method specified by this delegate. true if the object meets the criteria; otherwise, false.
  * @param control An object to compare against the criteria defined within the method.
  */
-interface ASPxClientControlPredicate { (control: any): boolean; }
+interface ASPxClientControlPredicate {
+    (control: any): boolean;
+}
 /**
  * Represents a JavaScript function which receives the action to perform for a control when the client ASPxClientControlCollection.ForEachControl method is called.
  * @param control An object that specifies a control.
  */
-interface ASPxClientControlAction { (control: any): void; }
+interface ASPxClientControlAction {
+    (control: any): void;
+}
 /**
  * A collection object used on the client side to maintain particular client control objects
  */
@@ -14693,7 +14948,9 @@ declare class ASPxClientDataView extends ASPxClientControl {
  * A JavaScript function which returns a value specifying whether an object meets the criteria defined within the method specified by this delegate. true if the object meets the criteria; otherwise, false.
  * @param item An object to compare against the criteria defined within the method.
  */
-interface ASPxClientDockingFilterPredicate { (item: any): boolean; }
+interface ASPxClientDockingFilterPredicate {
+    (item: any): boolean;
+}
 /**
  * A client-side equivalent of the ASPxDockManager object.
  */
@@ -14779,7 +15036,9 @@ declare class ASPxClientDockManager extends ASPxClientControl {
  * @param source The event source. This parameter identifies the dock manager object which raised the event.
  * @param e An ASPxClientDockManagerProcessingModeCancelEventArgs object that contains event data.
  */
-interface ASPxClientDockManagerProcessingModeCancelEventHandler<Sender> { (source: Sender, e: ASPxClientDockManagerProcessingModeCancelEventArgs): void; }
+interface ASPxClientDockManagerProcessingModeCancelEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDockManagerProcessingModeCancelEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDockManager.BeforeDock event.
  */
@@ -14802,7 +15061,9 @@ declare class ASPxClientDockManagerProcessingModeCancelEventArgs extends ASPxCli
  * @param source The event source. This parameter identifies the dock manager object which raised the event.
  * @param e An ASPxClientDockManagerProcessingModeEventArgs object that contains event data.
  */
-interface ASPxClientDockManagerProcessingModeEventHandler<Sender> { (source: Sender, e: ASPxClientDockManagerProcessingModeEventArgs): void; }
+interface ASPxClientDockManagerProcessingModeEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDockManagerProcessingModeEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDockManager.AfterDock event.
  */
@@ -14828,7 +15089,9 @@ declare class ASPxClientDockManagerProcessingModeEventArgs extends ASPxClientPro
  * @param source The event source. This parameter identifies the dock manager object which raised the event.
  * @param e An ASPxClientDockManagerEventArgs object that contains event data.
  */
-interface ASPxClientDockManagerEventHandler<Sender> { (source: Sender, e: ASPxClientDockManagerEventArgs): void; }
+interface ASPxClientDockManagerEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDockManagerEventArgs): void;
+}
 /**
  * Provides data for events which concern manipulations on panels.
  */
@@ -14847,7 +15110,9 @@ declare class ASPxClientDockManagerEventArgs extends ASPxClientEventArgs {
  * @param source The event source. This parameter identifies the dock manager object which raised the event.
  * @param e An ASPxClientDockManagerCancelEventArgs object that contains event data.
  */
-interface ASPxClientDockManagerCancelEventHandler<Sender> { (source: Sender, e: ASPxClientDockManagerCancelEventArgs): void; }
+interface ASPxClientDockManagerCancelEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDockManagerCancelEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDockManager.BeforeDock event.
  */
@@ -14933,7 +15198,9 @@ declare class ASPxClientDockPanel extends ASPxClientPopupControlBase {
  * @param source A ASPxClientDockPanel object that raised the event.
  * @param e A ASPxClientDockPanelProcessingModeCancelEventArgs object that contains event data.
  */
-interface ASPxClientDockPanelProcessingModeCancelEventHandler<Sender> { (source: Sender, e: ASPxClientDockPanelProcessingModeCancelEventArgs): void; }
+interface ASPxClientDockPanelProcessingModeCancelEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDockPanelProcessingModeCancelEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDockPanel.BeforeDock event.
  */
@@ -14952,7 +15219,9 @@ declare class ASPxClientDockPanelProcessingModeCancelEventArgs extends ASPxClien
  * @param source A ASPxClientDockPanel object that raised the event.
  * @param e A ASPxClientDockPanelProcessingModeEventArgs object that contains event data.
  */
-interface ASPxClientDockPanelProcessingModeEventHandler<Sender> { (source: Sender, e: ASPxClientDockPanelProcessingModeEventArgs): void; }
+interface ASPxClientDockPanelProcessingModeEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDockPanelProcessingModeEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDockPanel.AfterFloat event.
  */
@@ -15020,7 +15289,9 @@ declare class ASPxClientDockZone extends ASPxClientControl {
  * @param source The event source. This parameter identifies the zone object which raised the event.
  * @param e A ASPxClientDockZoneCancelEventArgs object that contains event data.
  */
-interface ASPxClientDockZoneCancelEventHandler<Sender> { (source: Sender, e: ASPxClientDockZoneCancelEventArgs): void; }
+interface ASPxClientDockZoneCancelEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDockZoneCancelEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDockZone.BeforeDock event.
  */
@@ -15041,7 +15312,9 @@ declare class ASPxClientDockZoneCancelEventArgs extends ASPxClientProcessingMode
  * @param source The event source. This parameter identifies the zone object which raised the event.
  * @param e An  ASPxClientDockZoneProcessingModeEventArgs object that contains event data.
  */
-interface ASPxClientDockZoneProcessingModeEventHandler<Sender> { (source: Sender, e: ASPxClientDockZoneProcessingModeEventArgs): void; }
+interface ASPxClientDockZoneProcessingModeEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDockZoneProcessingModeEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDockZone.AfterDock event.
  */
@@ -15186,7 +15459,9 @@ declare class ASPxClientButton extends ASPxClientControl {
  * @param source An object that is the event's source.
  * @param e An ASPxClientButtonClickEventArgs object that contains event data.
  */
-interface ASPxClientButtonClickEventHandler<Sender> { (source: Sender, e: ASPxClientButtonClickEventArgs): void; }
+interface ASPxClientButtonClickEventHandler<Sender> {
+    (source: Sender, e: ASPxClientButtonClickEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientButton.Click event.
  */
@@ -15346,7 +15621,9 @@ declare class ASPxClientCalendarCustomDisabledDateEventArgs extends ASPxClientEv
  * @param source The event source.
  * @param e An ASPxClientCalendarCustomDisabledDateEventArgs object that contains event data.
  */
-interface ASPxClientCalendarCustomDisabledDateEventHandler<Sender> { (source: Sender, e: ASPxClientCalendarCustomDisabledDateEventArgs): void; }
+interface ASPxClientCalendarCustomDisabledDateEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCalendarCustomDisabledDateEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDateEdit.CalendarCellClick event.
  */
@@ -15366,7 +15643,9 @@ declare class ASPxClientCalendarCellClickEventArgs extends ASPxClientEventArgs {
  * @param source The event source.
  * @param e A ASPxClientCalendarCellClickEventArgs object that contains event data.
  */
-interface ASPxClientCalendarCellClickEventHandler<Sender> { (source: Sender, e: ASPxClientCalendarCellClickEventArgs): void; }
+interface ASPxClientCalendarCellClickEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCalendarCellClickEventArgs): void;
+}
 /**
  * Represents the client-side equivalent of the ASPxCaptcha control.
  */
@@ -15636,7 +15915,12 @@ declare class ASPxClientComboBox extends ASPxClientDropDownEditBase {
      * @param tooltip A string value specifying the tooltip text.
      */
     SetItemTextCellTooltip(itemIndex: number, textCellIndex: number, tooltip: string): void;
-    SetItemTextCellAttribute(itemIndex: number, textCellIndex: number, attributeName: string, attributeValue: string): void;
+    SetItemTextCellAttribute(
+        itemIndex: number,
+        textCellIndex: number,
+        attributeName: string,
+        attributeValue: string,
+    ): void;
     /**
      * Sets the CSS class for a combo box item's text cell specified by its index.
      * @param itemIndex An integer value specifying the zero-based index of the item.
@@ -15757,7 +16041,9 @@ declare class ASPxClientParseDateEventArgs extends ASPxClientEventArgs {
  * @param source An object representing the event source. Identifies the button editor that raised the event.
  * @param e An ASPxClientParseDateEventArgs object that contains event data.
  */
-interface ASPxClientParseDateEventHandler<Sender> { (source: Sender, e: ASPxClientParseDateEventArgs): void; }
+interface ASPxClientParseDateEventHandler<Sender> {
+    (source: Sender, e: ASPxClientParseDateEventArgs): void;
+}
 /**
  * Represents a base class for the editors that contain a drop down window.
  */
@@ -15815,7 +16101,9 @@ declare class ASPxClientDropDownEdit extends ASPxClientDropDownEditBase {
  * @param source The event source.
  * @param e A ASPxClientDropDownCommandEventArgs object that contains event data.
  */
-interface ASPxClientDropDownCommandEventHandler<Sender> { (source: Sender, e: ASPxClientDropDownCommandEventArgs): void; }
+interface ASPxClientDropDownCommandEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDropDownCommandEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDropDownEdit.DropDownCommandButtonClick event.
  */
@@ -15933,7 +16221,11 @@ declare class ASPxClientEdit extends ASPxClientEditBase {
      * @param validationGroup A string value specifying the validatiion group's name.
      * @param clearInvisibleEditors true to clear both visible and invisible editors that belong to the specified container and group; false to clear only visible editors.
      */
-    static ClearEditorsInContainerById(containerId: string, validationGroup?: string, clearInvisibleEditors?: boolean): void;
+    static ClearEditorsInContainerById(
+        containerId: string,
+        validationGroup?: string,
+        clearInvisibleEditors?: boolean,
+    ): void;
     /**
      * Assigns a null value to all editors which belong to a specific validation group, dependent on the visibility state specified.
      * @param validationGroup A string value specifying the validation group's name.
@@ -15946,14 +16238,22 @@ declare class ASPxClientEdit extends ASPxClientEditBase {
      * @param validationGroup A string value that specifies the validation group's name.
      * @param validateInvisibleEditors true to validate both visible and invisible editors that belong to the specified container and group; false to validate only visible editors.
      */
-    static ValidateEditorsInContainer(container: any, validationGroup?: string, validateInvisibleEditors?: boolean): boolean;
+    static ValidateEditorsInContainer(
+        container: any,
+        validationGroup?: string,
+        validateInvisibleEditors?: boolean,
+    ): boolean;
     /**
      * Performs validation of the editors which are located within the specified container and belong to a specific validation group, dependent on the visibility state specified. true if the specified editors pass validation; otherwise, false.
      * @param containerId A string value specifying the editor container's identifier.
      * @param validationGroup A string value that specifies the validation group's name.
      * @param validateInvisibleEditors true to validate both visible and invisible editors that belong to the specified container and group; false to validate only visible editors.
      */
-    static ValidateEditorsInContainerById(containerId: string, validationGroup?: string, validateInvisibleEditors?: boolean): boolean;
+    static ValidateEditorsInContainerById(
+        containerId: string,
+        validationGroup?: string,
+        validateInvisibleEditors?: boolean,
+    ): boolean;
     /**
      * Performs validation of editors contained within the specified validation group, dependent on the editor visibility state specified. true if editors of the specified validation group pass validation; otherwise, false.
      * @param validationGroup A string value specifying the validation group's name.
@@ -15966,7 +16266,11 @@ declare class ASPxClientEdit extends ASPxClientEditBase {
      * @param validationGroup A string value that specifies the validation group's name.
      * @param checkInvisibleEditors true to check both visible and invisible editors that belong to the specified container; false to check only visible editors.
      */
-    static AreEditorsValid(container?: any | string, validationGroup?: string, checkInvisibleEditors?: boolean): boolean;
+    static AreEditorsValid(
+        container?: any | string,
+        validationGroup?: string,
+        checkInvisibleEditors?: boolean,
+    ): boolean;
     /**
      * Attaches a handler to the ASPxClientEdit's event indicating whether the editor has been changed since the previous state.
      * @param handler An object representing a handler.
@@ -15985,7 +16289,9 @@ declare class ASPxClientEdit extends ASPxClientEditBase {
  * @param source The event source. This parameter identifies the editor which raised the event.
  * @param e An ASPxClientEditKeyEventArgs object that contains event data.
  */
-interface ASPxClientEditKeyEventHandler<Sender> { (source: Sender, e: ASPxClientEditKeyEventArgs): void; }
+interface ASPxClientEditKeyEventHandler<Sender> {
+    (source: Sender, e: ASPxClientEditKeyEventArgs): void;
+}
 /**
  * Provides data for the client events involved with a key being pressed or released.
  */
@@ -16005,7 +16311,9 @@ declare class ASPxClientEditKeyEventArgs extends ASPxClientEventArgs {
  * @param source An object representing the event source. Identifies the button editor that raised the event.
  * @param e An ASPxClientEditValidationEventArgs object that contains event data.
  */
-interface ASPxClientEditValidationEventHandler<Sender> { (source: Sender, e: ASPxClientEditValidationEventArgs): void; }
+interface ASPxClientEditValidationEventHandler<Sender> {
+    (source: Sender, e: ASPxClientEditValidationEventArgs): void;
+}
 /**
  * Provides data for the client events that are related to data validation (see ASPxClientEdit.Validate).
  */
@@ -16086,7 +16394,9 @@ declare class ASPxClientFilterControl extends ASPxClientControl {
  * @param source The event source.
  * @param e An ASPxClientFilterAppliedEventArgs object that contains event data.
  */
-interface ASPxClientFilterAppliedEventHandler<Sender> { (source: Sender, e: ASPxClientFilterAppliedEventArgs): void; }
+interface ASPxClientFilterAppliedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFilterAppliedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFilterControl.Applied event.
  */
@@ -16360,7 +16670,12 @@ declare class ASPxClientListBox extends ASPxClientListEdit {
      * @param tooltip A string value specifying the tooltip text.
      */
     SetItemTextCellTooltip(itemIndex: number, textCellIndex: number, tooltip: string): void;
-    SetItemTextCellAttribute(itemIndex: number, textCellIndex: number, attributeName: string, attributeValue: string): void;
+    SetItemTextCellAttribute(
+        itemIndex: number,
+        textCellIndex: number,
+        attributeName: string,
+        attributeValue: string,
+    ): void;
     /**
      * Sets the CSS class for a list box item's text cell specified by its index.
      * @param itemIndex An integer value specifying the zero-based index of the item.
@@ -16474,7 +16789,9 @@ declare class ASPxClientCheckBoxList extends ASPxClientCheckListBase {
  * @param source The event source.
  * @param e An ASPxClientListEditItemSelectedChangedEventArgs object that contains event data.
  */
-interface ASPxClientListEditItemSelectedChangedEventHandler<Sender> { (source: Sender, e: ASPxClientListEditItemSelectedChangedEventArgs): void; }
+interface ASPxClientListEditItemSelectedChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientListEditItemSelectedChangedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientListEdit.SelectedIndexChanged event.
  */
@@ -16499,7 +16816,9 @@ declare class ASPxClientListEditItemSelectedChangedEventArgs extends ASPxClientP
  * @param source The event source.
  * @param e A ASPxClientListEditItemFilteringEventArgs object that contains event data.
  */
-interface ASPxClientListEditItemFilteringEventHandler<Sender> { (source: Sender, e: ASPxClientListEditItemFilteringEventArgs): void; }
+interface ASPxClientListEditItemFilteringEventHandler<Sender> {
+    (source: Sender, e: ASPxClientListEditItemFilteringEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientComboBox.ItemFiltering and ASPxClientListBox.ItemFiltering events.
  */
@@ -16526,7 +16845,9 @@ declare class ASPxClientListEditItemFilteringEventArgs extends ASPxClientEventAr
  * @param source The event source.
  * @param e A ASPxClientListEditCustomHighlightingEventArgs object that contains event data.
  */
-interface ASPxClientListEditCustomHighlightingEventHandler<Sender> { (source: Sender, e: ASPxClientListEditCustomHighlightingEventArgs): void; }
+interface ASPxClientListEditCustomHighlightingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientListEditCustomHighlightingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientComboBox.CustomHighlighting and ASPxClientListBox.CustomHighlighting events.
  */
@@ -16696,7 +17017,9 @@ declare class ASPxClientStaticEdit extends ASPxClientEditBase {
  * @param source An object representing the event source. Identifies the editor that raised the event.
  * @param e An ASPxClientEditClickEventArgs object that contains event data.
  */
-interface ASPxClientEditEventHandler<Sender> { (source: Sender, e: ASPxClientEditClickEventArgs): void; }
+interface ASPxClientEditEventHandler<Sender> {
+    (source: Sender, e: ASPxClientEditClickEventArgs): void;
+}
 /**
  * Provides data for the client-side events which concern clicking within editors.
  */
@@ -16912,7 +17235,9 @@ declare class ASPxClientButtonEdit extends ASPxClientButtonEditBase {
  * @param source An object representing the event source. Identifies the button editor that raised the event.
  * @param e An ASPxClientButtonEditClickEventArgs object that contains event data.
  */
-interface ASPxClientButtonEditClickEventHandler<Sender> { (source: Sender, e: ASPxClientButtonEditClickEventArgs): void; }
+interface ASPxClientButtonEditClickEventHandler<Sender> {
+    (source: Sender, e: ASPxClientButtonEditClickEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientButtonEditBase.ButtonClick event.
  */
@@ -17112,7 +17437,9 @@ declare class ASPxClientTrackBar extends ASPxClientEdit {
  * @param source The event source. Identifies the ASPxTrackBar control that raised the event.
  * @param e A ASPxClientTrackBarPositionChangingEventArgs object that contains event data.
  */
-interface ASPxClientTrackBarPositionChangingEventHandler<Sender> { (source: Sender, e: ASPxClientTrackBarPositionChangingEventArgs): void; }
+interface ASPxClientTrackBarPositionChangingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTrackBarPositionChangingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTrackBar.PositionChanging event.
  */
@@ -17124,7 +17451,12 @@ declare class ASPxClientTrackBarPositionChangingEventArgs extends ASPxClientProc
      * @param newPositionStart A Decimal value specifying a position where the main drag handle is being moved.
      * @param newPositionEnd A Decimal value specifying a position where the secondary drag handle is being moved.
      */
-    constructor(currentPositionStart: number, currentPositionEnd: number, newPositionStart: number, newPositionEnd: number);
+    constructor(
+        currentPositionStart: number,
+        currentPositionEnd: number,
+        newPositionStart: number,
+        newPositionEnd: number,
+    );
     /**
      * Gets or sets a value indicating whether the action which raised the event should be canceled.
      */
@@ -17161,14 +17493,18 @@ declare class ASPxClientValidationSummary extends ASPxClientControl {
     /**
      * Occurs on the client side when the validation summary's visibility is changed.
      */
-    VisibilityChanged: ASPxClientEvent<ASPxClientValidationSummaryVisibilityChangedEventHandler<ASPxClientValidationSummary>>;
+    VisibilityChanged: ASPxClientEvent<
+        ASPxClientValidationSummaryVisibilityChangedEventHandler<ASPxClientValidationSummary>
+    >;
 }
 /**
  * A method that will handle the ASPxClientValidationSummary.VisibilityChanged client event.
  * @param source An object representing the event source.
  * @param e A ASPxClientValidationSummaryVisibilityChangedEventArgs object that contains event data.
  */
-interface ASPxClientValidationSummaryVisibilityChangedEventHandler<Sender> { (source: Sender, e: ASPxClientValidationSummaryVisibilityChangedEventArgs): void; }
+interface ASPxClientValidationSummaryVisibilityChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientValidationSummaryVisibilityChangedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientValidationSummary.VisibilityChanged event.
  */
@@ -17290,7 +17626,9 @@ declare class ASPxClientFileManager extends ASPxClientControl {
     /**
      * Enables you to highlight the search text, which is specified using the filter box, in templates.
      */
-    HighlightItemTemplate: ASPxClientEvent<ASPxClientFileManagerHighlightItemTemplateEventHandler<ASPxClientFileManager>>;
+    HighlightItemTemplate: ASPxClientEvent<
+        ASPxClientFileManagerHighlightItemTemplateEventHandler<ASPxClientFileManager>
+    >;
     /** @deprecated This event is now obsolete. Use the FilesUploading event instead. */
     /**
      * Fires on the client side before a file upload starts, and allows you to cancel the action.
@@ -17311,7 +17649,9 @@ declare class ASPxClientFileManager extends ASPxClientControl {
     /**
      * Enables you to specify whether the selected file(s) are valid and provide an error text.
      */
-    FileUploadValidationErrorOccurred: ASPxClientEvent<ASPxClientUploadControlValidationErrorOccurredEventHandler<ASPxClientFileManager>>;
+    FileUploadValidationErrorOccurred: ASPxClientEvent<
+        ASPxClientUploadControlValidationErrorOccurredEventHandler<ASPxClientFileManager>
+    >;
     /**
      * Fires on the client side before a file download starts, and allows you to cancel the action.
      */
@@ -17388,7 +17728,9 @@ declare class ASPxClientFileManager extends ASPxClientControl {
  * A JavaScript function that receives callback data obtained via a call to the ASPxClientFileManager.SetCurrentFolderPath method.
  * @param result An object that contains a callback data.
  */
-interface ASPxClientFileManagerCallback { (result: any): void; }
+interface ASPxClientFileManagerCallback {
+    (result: any): void;
+}
 /**
  * A client-side equivalent of the file manager's FileManagerItem object and serves as a base class for client file and folder objects.
  */
@@ -17447,13 +17789,17 @@ declare class ASPxClientFileManagerFolder extends ASPxClientFileManagerItem {
  * A JavaScript function which receives callback data obtained by a call to the client ASPxClientFileManager.GetAllItems method.
  * @param items An array of ASPxClientFileManagerItem objects that are items contained in the current folder.
  */
-interface ASPxClientFileManagerAllItemsCallback { (items: ASPxClientFileManagerItem[]): void; }
+interface ASPxClientFileManagerAllItemsCallback {
+    (items: ASPxClientFileManagerItem[]): void;
+}
 /**
  * A method that will handle the ASPxClientFileManager.SelectedFileChanged and ASPxClientFileManager.SelectedFileOpened events.
  * @param source An object representing the event's source.
  * @param e An ASPxClientFileManagerFileEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerFileEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerFileEventArgs): void; }
+interface ASPxClientFileManagerFileEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerFileEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.SelectedFileChanged and ASPxClientFileManager.SelectedFileOpened events.
  */
@@ -17473,7 +17819,9 @@ declare class ASPxClientFileManagerFileEventArgs extends ASPxClientEventArgs {
  * @param source The event source. This parameter identifies the file manager object which raised the event.
  * @param e An ASPxClientFileManagerFileOpenedEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerFileOpenedEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerFileOpenedEventArgs): void; }
+interface ASPxClientFileManagerFileOpenedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerFileOpenedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.SelectedFileOpened event.
  */
@@ -17517,7 +17865,9 @@ declare class ASPxClientFileManagerActionEventArgsBase extends ASPxClientEventAr
  * @param source The event source. Identifies the ASPxFileManager control that raised the event.
  * @param e A ASPxClientFileManagerItemEditingEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerItemEditingEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerItemEditingEventArgs): void; }
+interface ASPxClientFileManagerItemEditingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerItemEditingEventArgs): void;
+}
 /**
  * Provides data for the item editing event.
  */
@@ -17539,7 +17889,9 @@ declare class ASPxClientFileManagerItemEditingEventArgs extends ASPxClientFileMa
  * @param source The event source. Identifies the ASPxFileManager control that raised the event.
  * @param e A ASPxClientFileManagerItemRenamedEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerItemRenamedEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerItemRenamedEventArgs): void; }
+interface ASPxClientFileManagerItemRenamedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerItemRenamedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.ItemRenamed event.
  */
@@ -17562,7 +17914,9 @@ declare class ASPxClientFileManagerItemRenamedEventArgs extends ASPxClientFileMa
  * @param source The event source. Identifies the ASPxFileManager control that raised the event.
  * @param e A ASPxClientFileManagerItemDeletedEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerItemDeletedEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerItemDeletedEventArgs): void; }
+interface ASPxClientFileManagerItemDeletedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerItemDeletedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.ItemDeleted event.
  */
@@ -17580,7 +17934,9 @@ declare class ASPxClientFileManagerItemDeletedEventArgs extends ASPxClientFileMa
  * @param source The event source. Identifies the ASPxFileManager control that raised the event.
  * @param e A ASPxClientFileManagerItemsDeletedEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerItemsDeletedEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerItemsDeletedEventArgs): void; }
+interface ASPxClientFileManagerItemsDeletedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerItemsDeletedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.ItemsDeleted event.
  */
@@ -17600,7 +17956,9 @@ declare class ASPxClientFileManagerItemsDeletedEventArgs extends ASPxClientEvent
  * @param source The event source. Identifies the ASPxFileManager control that raised the event.
  * @param e A ASPxClientFileManagerItemMovedEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerItemMovedEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerItemMovedEventArgs): void; }
+interface ASPxClientFileManagerItemMovedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerItemMovedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.ItemMoved event.
  */
@@ -17623,7 +17981,9 @@ declare class ASPxClientFileManagerItemMovedEventArgs extends ASPxClientFileMana
  * @param source The event source. Identifies the ASPxFileManager control that raised the event.
  * @param e A ASPxClientFileManagerItemsMovedEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerItemsMovedEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerItemsMovedEventArgs): void; }
+interface ASPxClientFileManagerItemsMovedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerItemsMovedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.ItemsMoved event.
  */
@@ -17648,7 +18008,9 @@ declare class ASPxClientFileManagerItemsMovedEventArgs extends ASPxClientEventAr
  * @param source The event source. Identifies the ASPxFileManager control that raised the event.
  * @param e A ASPxClientFileManagerItemCopiedEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerItemCopiedEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerItemCopiedEventArgs): void; }
+interface ASPxClientFileManagerItemCopiedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerItemCopiedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.ItemCopied event.
  */
@@ -17671,7 +18033,9 @@ declare class ASPxClientFileManagerItemCopiedEventArgs extends ASPxClientFileMan
  * @param source The event source. Identifies the ASPxFileManager control that raised the event.
  * @param e A ASPxClientFileManagerItemsCopiedEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerItemsCopiedEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerItemsCopiedEventArgs): void; }
+interface ASPxClientFileManagerItemsCopiedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerItemsCopiedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.ItemsCopied event.
  */
@@ -17696,7 +18060,9 @@ declare class ASPxClientFileManagerItemsCopiedEventArgs extends ASPxClientEventA
  * @param source The event source. Identifies the ASPxFileManager control that raised the event.
  * @param e A ASPxClientFileManagerItemCreatedEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerItemCreatedEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerItemCreatedEventArgs): void; }
+interface ASPxClientFileManagerItemCreatedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerItemCreatedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.FolderCreated event.
  */
@@ -17714,7 +18080,9 @@ declare class ASPxClientFileManagerItemCreatedEventArgs extends ASPxClientFileMa
  * @param source An object representing the event's source.
  * @param e An ASPxClientFileManagerErrorEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerErrorEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerErrorEventArgs): void; }
+interface ASPxClientFileManagerErrorEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerErrorEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.ErrorOccurred event.
  */
@@ -17748,7 +18116,9 @@ declare class ASPxClientFileManagerErrorEventArgs extends ASPxClientEventArgs {
  * @param source The event source. Identifies the ASPxFileManager control that raised the event.
  * @param e A ASPxClientFileManagerErrorAlertDisplayingEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerErrorAlertDisplayingEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerErrorAlertDisplayingEventArgs): void; }
+interface ASPxClientFileManagerErrorAlertDisplayingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerErrorAlertDisplayingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.ErrorAlertDisplaying event.
  */
@@ -17777,7 +18147,9 @@ declare class ASPxClientFileManagerErrorAlertDisplayingEventArgs extends ASPxCli
  * @param source The event source. Identifies the ASPxFileManager control that raised the event.
  * @param e A ASPxClientFileManagerFileUploadingEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerFileUploadingEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerFileUploadingEventArgs): void; }
+interface ASPxClientFileManagerFileUploadingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerFileUploadingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.FileUploading event.
  */
@@ -17806,7 +18178,9 @@ declare class ASPxClientFileManagerFileUploadingEventArgs extends ASPxClientEven
  * @param source The event source. Identifies the ASPxFileManager control that raised the event.
  * @param e A ASPxClientFileManagerFilesUploadingEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerFilesUploadingEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerFilesUploadingEventArgs): void; }
+interface ASPxClientFileManagerFilesUploadingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerFilesUploadingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.FilesUploading event.
  */
@@ -17835,7 +18209,9 @@ declare class ASPxClientFileManagerFilesUploadingEventArgs extends ASPxClientEve
  * @param source The event source. Identifies the ASPxFileManager control that raised the event.
  * @param e A ASPxClientFileManagerFileUploadedEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerFileUploadedEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerFileUploadedEventArgs): void; }
+interface ASPxClientFileManagerFileUploadedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerFileUploadedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.FileUploaded event.
  */
@@ -17860,7 +18236,9 @@ declare class ASPxClientFileManagerFileUploadedEventArgs extends ASPxClientEvent
  * @param source The event source. Identifies the ASPxFileManager control that raised the event.
  * @param e A ASPxClientFileManagerFilesUploadedEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerFilesUploadedEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerFilesUploadedEventArgs): void; }
+interface ASPxClientFileManagerFilesUploadedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerFilesUploadedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.FilesUploaded event.
  */
@@ -17885,7 +18263,9 @@ declare class ASPxClientFileManagerFilesUploadedEventArgs extends ASPxClientEven
  * @param source The event source. Identifies the ASPxFileManager control that raised the event.
  * @param e A ASPxClientFileManagerFileDownloadingEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerFileDownloadingEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerFileDownloadingEventArgs): void; }
+interface ASPxClientFileManagerFileDownloadingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerFileDownloadingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.FileDownloading event.
  */
@@ -17905,7 +18285,9 @@ declare class ASPxClientFileManagerFileDownloadingEventArgs extends ASPxClientFi
  * @param source The event source. Identifies the ASPxFileManager control that raised the event.
  * @param e A ASPxClientFileManagerFocusedItemChangedEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerFocusedItemChangedEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerFocusedItemChangedEventArgs): void; }
+interface ASPxClientFileManagerFocusedItemChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerFocusedItemChangedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.FocusedItemChanged event.
  */
@@ -17935,7 +18317,9 @@ declare class ASPxClientFileManagerFocusedItemChangedEventArgs extends ASPxClien
  * @param source The event source. Identifies the ASPxFileManager control that raised the event.
  * @param e A ASPxClientFileManagerCurrentFolderChangedEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerCurrentFolderChangedEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerCurrentFolderChangedEventArgs): void; }
+interface ASPxClientFileManagerCurrentFolderChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerCurrentFolderChangedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.CurrentFolderChanged event.
  */
@@ -17960,7 +18344,9 @@ declare class ASPxClientFileManagerCurrentFolderChangedEventArgs extends ASPxCli
  * @param source The event source. Identifies the ASPxFileManager control that raised the event.
  * @param e A ASPxClientFileManagerSelectionChangedEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerSelectionChangedEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerSelectionChangedEventArgs): void; }
+interface ASPxClientFileManagerSelectionChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerSelectionChangedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.SelectionChanged event.
  */
@@ -17995,7 +18381,9 @@ declare class ASPxClientFileManagerSelectionChangedEventArgs extends ASPxClientE
  * @param source The event source.
  * @param e An ASPxClientFileManagerCustomCommandEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerCustomCommandEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerCustomCommandEventArgs): void; }
+interface ASPxClientFileManagerCustomCommandEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerCustomCommandEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.CustomCommand event.
  */
@@ -18015,7 +18403,9 @@ declare class ASPxClientFileManagerCustomCommandEventArgs extends ASPxClientEven
  * @param source The event source.
  * @param e An ASPxClientFileManagerToolbarUpdatingEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerToolbarUpdatingEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerToolbarUpdatingEventArgs): void; }
+interface ASPxClientFileManagerToolbarUpdatingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerToolbarUpdatingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.ToolbarUpdating event.
  */
@@ -18035,7 +18425,9 @@ declare class ASPxClientFileManagerToolbarUpdatingEventArgs extends ASPxClientEv
  * @param source The event source. This parameter identifies the file manager object that raised the event.
  * @param e An ASPxClientFileManagerHighlightItemTemplateEventArgs object that contains event data.
  */
-interface ASPxClientFileManagerHighlightItemTemplateEventHandler<Sender> { (source: Sender, e: ASPxClientFileManagerHighlightItemTemplateEventArgs): void; }
+interface ASPxClientFileManagerHighlightItemTemplateEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFileManagerHighlightItemTemplateEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFileManager.HighlightItemTemplate event.
  */
@@ -18387,19 +18779,27 @@ declare class ASPxClientFloatingActionButton extends ASPxClientControl {
     /**
      * Occurs when an end user clicks the action item.
      */
-    ActionItemClick: ASPxClientEvent<ASPxClientFloatingActionButtonActionItemClickEventHandler<ASPxClientFloatingActionButton>>;
+    ActionItemClick: ASPxClientEvent<
+        ASPxClientFloatingActionButtonActionItemClickEventHandler<ASPxClientFloatingActionButton>
+    >;
     /**
      * Occurs on the client side when the context is changed.
      */
-    ContextChanging: ASPxClientEvent<ASPxClientFloatingActionButtonContextChangingEventHandler<ASPxClientFloatingActionButton>>;
+    ContextChanging: ASPxClientEvent<
+        ASPxClientFloatingActionButtonContextChangingEventHandler<ASPxClientFloatingActionButton>
+    >;
     /**
      * Occurs on the client side when an end user expands an action group.
      */
-    ActionExpanding: ASPxClientEvent<ASPxClientFloatingActionButtonActionExpandingEventHandler<ASPxClientFloatingActionButton>>;
+    ActionExpanding: ASPxClientEvent<
+        ASPxClientFloatingActionButtonActionExpandingEventHandler<ASPxClientFloatingActionButton>
+    >;
     /**
      * Occurs when the end user collapses the action group.
      */
-    ActionCollapsing: ASPxClientEvent<ASPxClientFloatingActionButtonActionCollapsingEventHandler<ASPxClientFloatingActionButton>>;
+    ActionCollapsing: ASPxClientEvent<
+        ASPxClientFloatingActionButtonActionCollapsingEventHandler<ASPxClientFloatingActionButton>
+    >;
     /**
      * Specifies the floating action button's vertical position.
      * @param verticalPosition An integer value that specifies the vertical position.
@@ -18464,7 +18864,9 @@ declare class ASPxClientFloatingActionButton extends ASPxClientControl {
  * @param source The event source.
  * @param e A ASPxClientFloatingActionButtonActionItemClickEventArgs object that contains event data.
  */
-interface ASPxClientFloatingActionButtonActionItemClickEventHandler<Sender> { (source: Sender, e: ASPxClientFloatingActionButtonActionItemClickEventArgs): void; }
+interface ASPxClientFloatingActionButtonActionItemClickEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFloatingActionButtonActionItemClickEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFloatingActionButton.ActionItemClick event.
  */
@@ -18484,7 +18886,9 @@ declare class ASPxClientFloatingActionButtonActionItemClickEventArgs extends ASP
  * @param source The event source.
  * @param e An object that contains event data.
  */
-interface ASPxClientFloatingActionButtonActionCollapsingEventHandler<Sender> { (source: Sender, e: ASPxClientFloatingActionButtonActionCollapsingEventArgs): void; }
+interface ASPxClientFloatingActionButtonActionCollapsingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFloatingActionButtonActionCollapsingEventArgs): void;
+}
 /**
  * Provides data for the ActionCollapsing event.
  */
@@ -18509,7 +18913,9 @@ declare class ASPxClientFloatingActionButtonActionCollapsingEventArgs extends AS
  * @param source The event source.
  * @param e An object that contains event data.
  */
-interface ASPxClientFloatingActionButtonActionExpandingEventHandler<Sender> { (source: Sender, e: ASPxClientFloatingActionButtonActionExpandingEventArgs): void; }
+interface ASPxClientFloatingActionButtonActionExpandingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFloatingActionButtonActionExpandingEventArgs): void;
+}
 /**
  * Provides data for the ActionExpanding event.
  */
@@ -18529,7 +18935,9 @@ declare class ASPxClientFloatingActionButtonActionExpandingEventArgs extends ASP
  * @param source The event source.
  * @param e A ASPxClientFloatingActionButtonContextChangingEventArgs object that contains event data.
  */
-interface ASPxClientFloatingActionButtonContextChangingEventHandler<Sender> { (source: Sender, e: ASPxClientFloatingActionButtonContextChangingEventArgs): void; }
+interface ASPxClientFloatingActionButtonContextChangingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFloatingActionButtonContextChangingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientFloatingActionButton.ContextChanging event.
  */
@@ -18683,7 +19091,9 @@ declare class ASPxClientCardView extends ASPxClientGridBase {
     /**
      * Enables you to provide navigation for editors contained in a templated cell in Batch Edit mode.
      */
-    BatchEditTemplateCellFocused: ASPxClientEvent<ASPxClientCardViewBatchEditTemplateCellFocusedEventHandler<ASPxClientCardView>>;
+    BatchEditTemplateCellFocused: ASPxClientEvent<
+        ASPxClientCardViewBatchEditTemplateCellFocusedEventHandler<ASPxClientCardView>
+    >;
     /**
      * Enables you to specify whether card data is valid and provide an error text.
      */
@@ -18695,7 +19105,9 @@ declare class ASPxClientCardView extends ASPxClientGridBase {
     /**
      * Occurs on the client side before data changes are canceled in batch edit mode.
      */
-    BatchEditChangesCanceling: ASPxClientEvent<ASPxClientCardViewBatchEditChangesCancelingEventHandler<ASPxClientCardView>>;
+    BatchEditChangesCanceling: ASPxClientEvent<
+        ASPxClientCardViewBatchEditChangesCancelingEventHandler<ASPxClientCardView>
+    >;
     /**
      * Occurs on the client side before a card is inserted in batch edit mode.
      */
@@ -18734,7 +19146,12 @@ declare class ASPxClientCardView extends ASPxClientGridBase {
      * @param sortOrder A string value that specifies the column's sort order ('ASC', 'DSC' or 'NONE').
      * @param reset true to clear any previous sorting; otherwise, false.
      */
-    SortBy(column: ASPxClientCardViewColumn | number | string, sortOrder?: string, reset?: boolean, sortIndex?: number): void;
+    SortBy(
+        column: ASPxClientCardViewColumn | number | string,
+        sortOrder?: string,
+        reset?: boolean,
+        sortIndex?: number,
+    ): void;
     /**
      * Groups cards by the values of the specified column.
      * @param column An ASPxClientCardViewColumn object that represents the card view column.
@@ -18751,7 +19168,11 @@ declare class ASPxClientCardView extends ASPxClientGridBase {
      * @param moveToColumnVisibleIndex An integer value that identifies the target column displayed within the grid.
      * @param moveBefore true to move the column before the target column; otherwise, false.
      */
-    MoveColumn(column: ASPxClientCardViewColumn | number | string, moveToColumnVisibleIndex?: number, moveBefore?: boolean): void;
+    MoveColumn(
+        column: ASPxClientCardViewColumn | number | string,
+        moveToColumnVisibleIndex?: number,
+        moveBefore?: boolean,
+    ): void;
     /**
      * Returns the key value of the specified card. A string representing the specified card's key value. If the index passed via the visibleIndex parameter is wrong, or the ASPxGridBase.KeyFieldName property is not set, null is returned.
      * @param visibleIndex An integer value that specifies the card's visible index.
@@ -19119,13 +19540,17 @@ declare class ASPxClientCardViewColumn extends ASPxClientGridColumnBase {
  * Represents a JavaScript function which receives the list of card values when the client ASPxClientCardView.GetCardValues, ASPxCardView.GetCurrentPageCardValues or ASPxClientCardView.GetSelectedFieldValues method is called.
  * @param result An object that represents the list of card values received from the server.
  */
-interface ASPxClientCardViewValuesCallback { (result: any): void; }
+interface ASPxClientCardViewValuesCallback {
+    (result: any): void;
+}
 /**
  * A method that will handle the cancelable events of a client ASPxCardView column.
  * @param source The event source. This parameter identifies the ASPxClientCardView object that raised the event.
  * @param e An ASPxClientCardViewColumnCancelEventArgs object that contains event data.
  */
-interface ASPxClientCardViewColumnCancelEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewColumnCancelEventArgs): void; }
+interface ASPxClientCardViewColumnCancelEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCardViewColumnCancelEventArgs): void;
+}
 /**
  * Provides data for the cancelable events of a client ASPxCardView column.
  */
@@ -19145,7 +19570,9 @@ declare class ASPxClientCardViewColumnCancelEventArgs extends ASPxClientCancelEv
  * @param source The event source.
  * @param e An ASPxClientCardViewCardFocusingEventArgs object which contains event data.
  */
-interface ASPxClientCardViewCardFocusingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewCardFocusingEventArgs): void; }
+interface ASPxClientCardViewCardFocusingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCardViewCardFocusingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientCardView.CardFocusing event.
  */
@@ -19170,7 +19597,9 @@ declare class ASPxClientCardViewCardFocusingEventArgs extends ASPxClientCancelEv
  * @param source The event source. This parameter identifies the ASPxClientCardView object that raised the event.
  * @param e An ASPxClientCardViewCardClickEventArgs object that contains event data.
  */
-interface ASPxClientCardViewCardClickEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewCardClickEventArgs): void; }
+interface ASPxClientCardViewCardClickEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCardViewCardClickEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientCardView.CardClick event.
  */
@@ -19195,7 +19624,9 @@ declare class ASPxClientCardViewCardClickEventArgs extends ASPxClientCancelEvent
  * @param source The event source.
  * @param e A ASPxClientCardViewGroupCancelEventArgs object that contains event data.
  */
-interface ASPxClientCardViewGroupCancelEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewGroupCancelEventArgs): void; }
+interface ASPxClientCardViewGroupCancelEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCardViewGroupCancelEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientCardView.GroupRowExpanding and ASPxClientCardView.GroupRowCollapsing events.
  */
@@ -19216,7 +19647,9 @@ declare class ASPxClientCardViewGroupCancelEventArgs extends ASPxClientCancelEve
 This parameter identifies the ASPxClientCardView object that raised the event.
  * @param e An ASPxClientCardViewCustomButtonEventArgs object that contains event data.
  */
-interface ASPxClientCardViewCustomButtonEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewCustomButtonEventArgs): void; }
+interface ASPxClientCardViewCustomButtonEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCardViewCustomButtonEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientCardView.CustomButtonClick event.
  */
@@ -19241,7 +19674,9 @@ declare class ASPxClientCardViewCustomButtonEventArgs extends ASPxClientProcessi
  * @param source The event source.
  * @param e An ASPxClientCardViewSelectionEventArgs object that contains event data.
  */
-interface ASPxClientCardViewSelectionEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewSelectionEventArgs): void; }
+interface ASPxClientCardViewSelectionEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCardViewSelectionEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientCardView.SelectionChanged event.
  */
@@ -19273,7 +19708,9 @@ declare class ASPxClientCardViewSelectionEventArgs extends ASPxClientProcessingM
  * @param source The event source.
  * @param e An ASPxClientCardViewFocusEventArgs object which contains event data.
  */
-interface ASPxClientCardViewFocusEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewFocusEventArgs): void; }
+interface ASPxClientCardViewFocusEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCardViewFocusEventArgs): void;
+}
 /**
  * Provides data for the corresponding event.
  */
@@ -19292,7 +19729,9 @@ declare class ASPxClientCardViewFocusEventArgs extends ASPxClientProcessingModeE
  * @param source The event source.
  * @param e An ASPxClientCardViewBatchEditStartEditingEventArgs object that contains event data.
  */
-interface ASPxClientCardViewBatchEditStartEditingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditStartEditingEventArgs): void; }
+interface ASPxClientCardViewBatchEditStartEditingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCardViewBatchEditStartEditingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientCardView.BatchEditStartEditing event.
  */
@@ -19322,7 +19761,9 @@ declare class ASPxClientCardViewBatchEditStartEditingEventArgs extends ASPxClien
  * @param source The event source.
  * @param e An ASPxClientCardViewBatchEditEndEditingEventArgs object that contains event data.
  */
-interface ASPxClientCardViewBatchEditEndEditingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditEndEditingEventArgs): void; }
+interface ASPxClientCardViewBatchEditEndEditingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCardViewBatchEditEndEditingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientCardView.BatchEditEndEditing event.
  */
@@ -19347,7 +19788,9 @@ declare class ASPxClientCardViewBatchEditEndEditingEventArgs extends ASPxClientC
  * @param source The event source.
  * @param e An ASPxClientCardViewBatchEditCardValidatingEventArgs object that contains event data.
  */
-interface ASPxClientCardViewBatchEditCardValidatingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditCardValidatingEventArgs): void; }
+interface ASPxClientCardViewBatchEditCardValidatingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCardViewBatchEditCardValidatingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientCardView.BatchEditCardValidating event.
  */
@@ -19372,7 +19815,9 @@ declare class ASPxClientCardViewBatchEditCardValidatingEventArgs extends ASPxCli
  * @param source The event source.
  * @param e An ASPxClientCardViewBatchEditConfirmShowingEventArgs object that contains event data.
  */
-interface ASPxClientCardViewBatchEditConfirmShowingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditConfirmShowingEventArgs): void; }
+interface ASPxClientCardViewBatchEditConfirmShowingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCardViewBatchEditConfirmShowingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientCardView.BatchEditConfirmShowing event.
  */
@@ -19392,7 +19837,9 @@ declare class ASPxClientCardViewBatchEditConfirmShowingEventArgs extends ASPxCli
  * @param source An object representing the event source. Identifies the button editor that raised the event.
  * @param e An ASPxClientCardViewBatchEditTemplateCellFocusedEventArgs object that contains event data.
  */
-interface ASPxClientCardViewBatchEditTemplateCellFocusedEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditTemplateCellFocusedEventArgs): void; }
+interface ASPxClientCardViewBatchEditTemplateCellFocusedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCardViewBatchEditTemplateCellFocusedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientCardView.BatchEditTemplateCellFocused event.
  */
@@ -19416,7 +19863,9 @@ declare class ASPxClientCardViewBatchEditTemplateCellFocusedEventArgs extends AS
  * @param source The event source. This parameter identifies the card view object which raised the event.
  * @param e An ASPxClientCardViewBatchEditChangesSavingEventArgs object that contains event data.
  */
-interface ASPxClientCardViewBatchEditChangesSavingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditChangesSavingEventArgs): void; }
+interface ASPxClientCardViewBatchEditChangesSavingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCardViewBatchEditChangesSavingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientCardView.BatchEditChangesSaving event.
  */
@@ -19446,7 +19895,9 @@ declare class ASPxClientCardViewBatchEditChangesSavingEventArgs extends ASPxClie
  * @param source The event source. This parameter identifies the card view object which raised the event.
  * @param e An ASPxClientCardViewBatchEditChangesCancelingEventArgs object that contains event data.
  */
-interface ASPxClientCardViewBatchEditChangesCancelingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditChangesCancelingEventArgs): void; }
+interface ASPxClientCardViewBatchEditChangesCancelingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCardViewBatchEditChangesCancelingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientCardView.BatchEditChangesCanceling event.
  */
@@ -19476,7 +19927,9 @@ declare class ASPxClientCardViewBatchEditChangesCancelingEventArgs extends ASPxC
  * @param source The event source. This parameter identifies the card view object which raised the event.
  * @param e An ASPxClientCardViewBatchEditCardInsertingEventArgs object that contains event data.
  */
-interface ASPxClientCardViewBatchEditCardInsertingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditCardInsertingEventArgs): void; }
+interface ASPxClientCardViewBatchEditCardInsertingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCardViewBatchEditCardInsertingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientCardView.BatchEditCardInserting event.
  */
@@ -19496,7 +19949,9 @@ declare class ASPxClientCardViewBatchEditCardInsertingEventArgs extends ASPxClie
  * @param source The event source. This parameter identifies the card view object which raised the event.
  * @param e An ASPxClientCardViewBatchEditCardDeletingEventArgs object that contains event data.
  */
-interface ASPxClientCardViewBatchEditCardDeletingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditCardDeletingEventArgs): void; }
+interface ASPxClientCardViewBatchEditCardDeletingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCardViewBatchEditCardDeletingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientCardView.BatchEditCardDeleting event.
  */
@@ -19521,7 +19976,9 @@ declare class ASPxClientCardViewBatchEditCardDeletingEventArgs extends ASPxClien
  * @param source The event source.
  * @param e An ASPxClientCardViewBatchEditCardRecoveringEventArgs object that contains event data.
  */
-interface ASPxClientCardViewBatchEditCardRecoveringEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewBatchEditCardRecoveringEventArgs): void; }
+interface ASPxClientCardViewBatchEditCardRecoveringEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCardViewBatchEditCardRecoveringEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientCardView.BatchEditCardRecovering event.
  */
@@ -19546,7 +20003,9 @@ declare class ASPxClientCardViewBatchEditCardRecoveringEventArgs extends ASPxCli
  * @param source The event source.
  * @param e An ASPxClientCardViewFocusedCellChangingEventArgs object that contains event data.
  */
-interface ASPxClientCardViewFocusedCellChangingEventHandler<Sender> { (source: Sender, e: ASPxClientCardViewFocusedCellChangingEventArgs): void; }
+interface ASPxClientCardViewFocusedCellChangingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCardViewFocusedCellChangingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientCardView.FocusedCellChanging event.
  */
@@ -19642,7 +20101,13 @@ declare class ASPxClientCardViewBatchEditApi {
      * @param displayText A string value that specifies the cell display text.
      * @param cancelCellHighlighting true to cancel highlighting of the modified cell, false to highlight the modified cell.
      */
-    SetCellValue(visibleIndex: number, columnFieldNameOrId: string, value: any, displayText?: string, cancelCellHighlighting?: boolean): void;
+    SetCellValue(
+        visibleIndex: number,
+        columnFieldNameOrId: string,
+        value: any,
+        displayText?: string,
+        cancelCellHighlighting?: boolean,
+    ): void;
     /**
      * Gets the value of the specified cell. An object containing the specified cell's value.
      * @param visibleIndex A zero-based integer value that specifies the visible index of a card containing the processed cell.
@@ -19754,7 +20219,9 @@ declare class ASPxClientGridBase extends ASPxClientControl {
     /**
      * Fires when a user changes the summary item value.
      */
-    BatchEditSummaryDisplayText: ASPxClientEvent<ASPxClientGridBatchEditSummaryDisplayTextEventHandler<ASPxClientGridBase>>;
+    BatchEditSummaryDisplayText: ASPxClientEvent<
+        ASPxClientGridBatchEditSummaryDisplayTextEventHandler<ASPxClientGridBase>
+    >;
     /**
      * Fires after a toolbar item has been clicked.
      */
@@ -19999,7 +20466,9 @@ declare class ASPxClientGridExportFormat {
  * @param source The event source.
  * @param e An ASPxClientGridToolbarItemClickEventArgs object that contains event data.
  */
-interface ASPxClientGridToolbarItemClickEventHandler<Sender> { (source: Sender, e: ASPxClientGridToolbarItemClickEventArgs): void; }
+interface ASPxClientGridToolbarItemClickEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridToolbarItemClickEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGridBase.ToolbarItemClick event.
  */
@@ -20027,7 +20496,9 @@ declare class ASPxClientGridToolbarItemClickEventArgs extends ASPxClientProcessi
      */
     usePostBack: boolean;
 }
-interface ASPxClientGridBatchEditSummaryDisplayTextEventHandler<Sender> { (source: Sender, e: ASPxClientGridBatchEditSummaryDisplayTextEventArgs): void; }
+interface ASPxClientGridBatchEditSummaryDisplayTextEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridBatchEditSummaryDisplayTextEventArgs): void;
+}
 /**
  * Provides data for the BatchEditSummaryDisplayText event.
  */
@@ -20238,7 +20709,9 @@ declare class ASPxClientGridView extends ASPxClientGridBase {
     /**
      * Enables you to provide navigation for editors contained in a templated cell in Batch Edit mode.
      */
-    BatchEditTemplateCellFocused: ASPxClientEvent<ASPxClientGridViewBatchEditTemplateCellFocusedEventHandler<ASPxClientGridView>>;
+    BatchEditTemplateCellFocused: ASPxClientEvent<
+        ASPxClientGridViewBatchEditTemplateCellFocusedEventHandler<ASPxClientGridView>
+    >;
     /**
      * Occurs on the client side before data changes are saved in batch edit mode.
      */
@@ -20246,7 +20719,9 @@ declare class ASPxClientGridView extends ASPxClientGridBase {
     /**
      * Occurs on the client side before data changes are canceled in batch edit mode.
      */
-    BatchEditChangesCanceling: ASPxClientEvent<ASPxClientGridViewBatchEditChangesCancelingEventHandler<ASPxClientGridView>>;
+    BatchEditChangesCanceling: ASPxClientEvent<
+        ASPxClientGridViewBatchEditChangesCancelingEventHandler<ASPxClientGridView>
+    >;
     /**
      * Occurs on the client side before a data row is inserted in batch edit mode.
      */
@@ -20282,7 +20757,12 @@ declare class ASPxClientGridView extends ASPxClientGridBase {
      * @param reset true to clear any previous sorting; otherwise, false.
      * @param sortIndex An integer value that specifies the zero-based column's index among the sorted columns. &#0045;1 if data is not sorted by this column.
      */
-    SortBy(column: ASPxClientGridViewColumn | number | string, sortOrder?: string, reset?: boolean, sortIndex?: number): void;
+    SortBy(
+        column: ASPxClientGridViewColumn | number | string,
+        sortOrder?: string,
+        reset?: boolean,
+        sortIndex?: number,
+    ): void;
     /**
      * Moves the specified column to the specified visual position within the grid and optionally groups or ungroups the grid's data by this column.
      * @param column An ASPxClientGridViewColumn object that represents the column to move.
@@ -20291,7 +20771,13 @@ declare class ASPxClientGridView extends ASPxClientGridBase {
      * @param moveToGroup true to group the grid's data by the column; otherwise, false.
      * @param moveFromGroup true to ungroup the grid's data by the column; otherwise, false.
      */
-    MoveColumn(column: ASPxClientGridViewColumn | number | string, moveToColumnVisibleIndex?: number, moveBefore?: boolean | ASPxClientGridColumnMovingTargetPosition, moveToGroup?: boolean, moveFromGroup?: boolean): void;
+    MoveColumn(
+        column: ASPxClientGridViewColumn | number | string,
+        moveToColumnVisibleIndex?: number,
+        moveBefore?: boolean | ASPxClientGridColumnMovingTargetPosition,
+        moveToGroup?: boolean,
+        moveFromGroup?: boolean,
+    ): void;
     /**
      * Returns an object specifying the grid column's layout.
      */
@@ -20797,13 +21283,17 @@ declare class ASPxClientGridViewColumn extends ASPxClientGridColumnBase {
  * Represents a JavaScript function which receives the list of row values when the client ASPxClientGridView.GetRowValues, ASPxGridView.GetCurrentPageRowValues or ASPxClientGridView.GetSelectedFieldValues method is called.
  * @param result An object that represents the list of row values received from the server.
  */
-interface ASPxClientGridViewValuesCallback { (result: any): void; }
+interface ASPxClientGridViewValuesCallback {
+    (result: any): void;
+}
 /**
  * A method that will handle the cancelable events of a client ASPxGridView column.
  * @param source The event source.
  * @param e An ASPxClientGridViewColumnCancelEventArgs object that contains event data.
  */
-interface ASPxClientGridViewColumnCancelEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewColumnCancelEventArgs): void; }
+interface ASPxClientGridViewColumnCancelEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridViewColumnCancelEventArgs): void;
+}
 /**
  * Provides data for the cancelable events of a client ASPxGridView column.
  */
@@ -20823,7 +21313,9 @@ declare class ASPxClientGridViewColumnCancelEventArgs extends ASPxClientCancelEv
  * @param source The event source.
  * @param e A ASPxClientGridViewColumnProcessingModeEventArgs object that contains event data.
  */
-interface ASPxClientGridViewColumnProcessingModeEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewColumnProcessingModeEventArgs): void; }
+interface ASPxClientGridViewColumnProcessingModeEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridViewColumnProcessingModeEventArgs): void;
+}
 /**
  * Provides data for the client events  concerned with column processing, and that allow the event's processing to be passed to the server side.
  */
@@ -20843,7 +21335,9 @@ declare class ASPxClientGridViewColumnProcessingModeEventArgs extends ASPxClient
  * @param source The event source.
  * @param e An ASPxClientGridViewRowCancelEventArgs object that contains event data.
  */
-interface ASPxClientGridViewRowCancelEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewRowCancelEventArgs): void; }
+interface ASPxClientGridViewRowCancelEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridViewRowCancelEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGridView.RowCollapsing and ASPxClientGridView.RowExpanding events.
  */
@@ -20863,7 +21357,9 @@ declare class ASPxClientGridViewRowCancelEventArgs extends ASPxClientCancelEvent
  * @param source The event source.
  * @param e An ASPxClientGridViewSelectionEventArgs object that contains event data.
  */
-interface ASPxClientGridViewSelectionEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewSelectionEventArgs): void; }
+interface ASPxClientGridViewSelectionEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridViewSelectionEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGridView.SelectionChanged event.
  */
@@ -20895,7 +21391,9 @@ declare class ASPxClientGridViewSelectionEventArgs extends ASPxClientProcessingM
  * @param source The event source.
  * @param e An ASPxClientGridViewFocusEventArgs object which contains event data.
  */
-interface ASPxClientGridViewFocusEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewFocusEventArgs): void; }
+interface ASPxClientGridViewFocusEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridViewFocusEventArgs): void;
+}
 /**
  * Provides data for the corresponding event.
  */
@@ -20914,7 +21412,9 @@ declare class ASPxClientGridViewFocusEventArgs extends ASPxClientProcessingModeE
  * @param source The event source.
  * @param e An ASPxClientGridViewRowFocusingEventArgs object which contains event data.
  */
-interface ASPxClientGridViewRowFocusingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewRowFocusingEventArgs): void; }
+interface ASPxClientGridViewRowFocusingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridViewRowFocusingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGridView.RowFocusing event.
  */
@@ -20935,7 +21435,9 @@ declare class ASPxClientGridViewRowFocusingEventArgs extends ASPxClientGridViewR
  * @param source The event source. This parameter identifies the ASPxClientGridView object that raised the event.
  * @param e An ASPxClientGridViewRowClickEventArgs object that contains event data.
  */
-interface ASPxClientGridViewRowClickEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewRowClickEventArgs): void; }
+interface ASPxClientGridViewRowClickEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridViewRowClickEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGridView.RowClick event.
  */
@@ -20956,7 +21458,9 @@ declare class ASPxClientGridViewRowClickEventArgs extends ASPxClientGridViewRowC
  * @param source The event source.
  * @param e An ASPxClientGridViewContextMenuEventArgs object that contains event data.
  */
-interface ASPxClientGridViewContextMenuEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewContextMenuEventArgs): void; }
+interface ASPxClientGridViewContextMenuEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridViewContextMenuEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGridView.ContextMenu event.
  */
@@ -20995,7 +21499,9 @@ declare class ASPxClientGridViewContextMenuEventArgs extends ASPxClientEventArgs
  * @param source The event source.
  * @param e An ASPxClientGridViewContextMenuItemClickEventArgs object that contains event data.
  */
-interface ASPxClientGridViewContextMenuItemClickEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewContextMenuItemClickEventArgs): void; }
+interface ASPxClientGridViewContextMenuItemClickEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridViewContextMenuItemClickEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGridView.ContextMenuItemClick event.
  */
@@ -21035,7 +21541,9 @@ declare class ASPxClientGridViewContextMenuItemClickEventArgs extends ASPxClient
 This parameter identifies the ASPxClientGridView object that raised the event.
  * @param e An ASPxClientGridViewCustomButtonEventArgs object that contains event data.
  */
-interface ASPxClientGridViewCustomButtonEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewCustomButtonEventArgs): void; }
+interface ASPxClientGridViewCustomButtonEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridViewCustomButtonEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGridView.CustomButtonClick event.
  */
@@ -21060,7 +21568,9 @@ declare class ASPxClientGridViewCustomButtonEventArgs extends ASPxClientProcessi
  * @param source The event source.
  * @param e An ASPxClientGridViewColumnMovingEventArgs object that contains event data.
  */
-interface ASPxClientGridViewColumnMovingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewColumnMovingEventArgs): void; }
+interface ASPxClientGridViewColumnMovingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridViewColumnMovingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGridView.ColumnMoving event.
  */
@@ -21072,7 +21582,12 @@ declare class ASPxClientGridViewColumnMovingEventArgs extends ASPxClientEventArg
      * @param isDropBefore true if the source column will be inserted before the target column (if dropped); otherwise, false. This value is assigned to the ASPxClientGridViewColumnMovingEventArgs.isDropBefore property.
      * @param isGroupPanel true if the source column is currently over the Group Panel; otherwise, false. This value is assigned to the ASPxClientGridViewColumnMovingEventArgs.isGroupPanel property.
      */
-    constructor(sourceColumn: ASPxClientGridViewColumn, destinationColumn: ASPxClientGridViewColumn, isDropBefore: boolean, isGroupPanel: boolean);
+    constructor(
+        sourceColumn: ASPxClientGridViewColumn,
+        destinationColumn: ASPxClientGridViewColumn,
+        isDropBefore: boolean,
+        isGroupPanel: boolean,
+    );
     /**
      * Gets or sets whether a column is allowed to be moved.
      */
@@ -21099,7 +21614,9 @@ declare class ASPxClientGridViewColumnMovingEventArgs extends ASPxClientEventArg
  * @param source The event source.
  * @param e An ASPxClientGridViewBatchEditConfirmShowingEventArgs object that contains event data.
  */
-interface ASPxClientGridViewBatchEditConfirmShowingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditConfirmShowingEventArgs): void; }
+interface ASPxClientGridViewBatchEditConfirmShowingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridViewBatchEditConfirmShowingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGridView.BatchEditConfirmShowing event.
  */
@@ -21119,7 +21636,9 @@ declare class ASPxClientGridViewBatchEditConfirmShowingEventArgs extends ASPxCli
  * @param source The event source.
  * @param e An ASPxClientGridViewBatchEditStartEditingEventArgs object that contains event data.
  */
-interface ASPxClientGridViewBatchEditStartEditingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditStartEditingEventArgs): void; }
+interface ASPxClientGridViewBatchEditStartEditingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridViewBatchEditStartEditingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGridView.BatchEditStartEditing event.
  */
@@ -21154,7 +21673,9 @@ declare class ASPxClientGridViewBatchEditStartEditingEventArgs extends ASPxClien
  * @param source The event source.
  * @param e An ASPxClientGridViewBatchEditEndEditingEventArgs object that contains event data.
  */
-interface ASPxClientGridViewBatchEditEndEditingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditEndEditingEventArgs): void; }
+interface ASPxClientGridViewBatchEditEndEditingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridViewBatchEditEndEditingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGridView.BatchEditEndEditing event.
  */
@@ -21184,7 +21705,9 @@ declare class ASPxClientGridViewBatchEditEndEditingEventArgs extends ASPxClientC
  * @param source The event source.
  * @param e An ASPxClientGridViewBatchEditRowValidatingEventArgs object that contains event data.
  */
-interface ASPxClientGridViewBatchEditRowValidatingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditRowValidatingEventArgs): void; }
+interface ASPxClientGridViewBatchEditRowValidatingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridViewBatchEditRowValidatingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGridView.BatchEditRowValidating event.
  */
@@ -21214,7 +21737,9 @@ declare class ASPxClientGridViewBatchEditRowValidatingEventArgs extends ASPxClie
  * @param source An object representing the event source. Identifies the button editor that raised the event.
  * @param e An ASPxClientGridViewBatchEditTemplateCellFocusedEventArgs object that contains event data.
  */
-interface ASPxClientGridViewBatchEditTemplateCellFocusedEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditTemplateCellFocusedEventArgs): void; }
+interface ASPxClientGridViewBatchEditTemplateCellFocusedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridViewBatchEditTemplateCellFocusedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGridView.BatchEditTemplateCellFocused event.
  */
@@ -21238,7 +21763,9 @@ declare class ASPxClientGridViewBatchEditTemplateCellFocusedEventArgs extends AS
  * @param source The event source. This parameter identifies the grid view object which raised the event.
  * @param e An ASPxClientGridViewBatchEditChangesSavingEventArgs object that contains event data.
  */
-interface ASPxClientGridViewBatchEditChangesSavingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditChangesSavingEventArgs): void; }
+interface ASPxClientGridViewBatchEditChangesSavingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridViewBatchEditChangesSavingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGridView.BatchEditChangesSaving event.
  */
@@ -21268,7 +21795,9 @@ declare class ASPxClientGridViewBatchEditChangesSavingEventArgs extends ASPxClie
  * @param source The event source. This parameter identifies the grid view object which raised the event.
  * @param e An ASPxClientGridViewBatchEditChangesCancelingEventArgs object that contains event data.
  */
-interface ASPxClientGridViewBatchEditChangesCancelingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditChangesCancelingEventArgs): void; }
+interface ASPxClientGridViewBatchEditChangesCancelingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridViewBatchEditChangesCancelingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGridView.BatchEditChangesCanceling event.
  */
@@ -21298,7 +21827,9 @@ declare class ASPxClientGridViewBatchEditChangesCancelingEventArgs extends ASPxC
  * @param source The event source. This parameter identifies the card view object which raised the event.
  * @param e An ASPxClientGridViewBatchEditRowInsertingEventArgs object that contains event data.
  */
-interface ASPxClientGridViewBatchEditRowInsertingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditRowInsertingEventArgs): void; }
+interface ASPxClientGridViewBatchEditRowInsertingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridViewBatchEditRowInsertingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGridView.BatchEditRowInserting event.
  */
@@ -21318,7 +21849,9 @@ declare class ASPxClientGridViewBatchEditRowInsertingEventArgs extends ASPxClien
  * @param source The event source. This parameter identifies the grid view object which raised the event.
  * @param e An ASPxClientGridViewBatchEditRowDeletingEventArgs object that contains event data.
  */
-interface ASPxClientGridViewBatchEditRowDeletingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditRowDeletingEventArgs): void; }
+interface ASPxClientGridViewBatchEditRowDeletingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridViewBatchEditRowDeletingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGridView.BatchEditRowDeleting event.
  */
@@ -21348,7 +21881,9 @@ declare class ASPxClientGridViewBatchEditRowDeletingEventArgs extends ASPxClient
  * @param source The event source.
  * @param e An ASPxClientGridViewBatchEditRowRecoveringEventArgs object that contains event data.
  */
-interface ASPxClientGridViewBatchEditRowRecoveringEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewBatchEditRowRecoveringEventArgs): void; }
+interface ASPxClientGridViewBatchEditRowRecoveringEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridViewBatchEditRowRecoveringEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGridView.BatchEditRowRecovering event.
  */
@@ -21378,7 +21913,9 @@ declare class ASPxClientGridViewBatchEditRowRecoveringEventArgs extends ASPxClie
  * @param source The event source.
  * @param e An ASPxClientGridViewFocusedCellChangingEventArgs object that contains event data.
  */
-interface ASPxClientGridViewFocusedCellChangingEventHandler<Sender> { (source: Sender, e: ASPxClientGridViewFocusedCellChangingEventArgs): void; }
+interface ASPxClientGridViewFocusedCellChangingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientGridViewFocusedCellChangingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGridView.FocusedCellChanging event.
  */
@@ -21515,7 +22052,13 @@ declare class ASPxClientGridViewBatchEditApi {
      * @param displayText A string value that specifies the cell display text.
      * @param cancelCellHighlighting true to cancel highlighting of the modified cell, false to highlight the modified cell.
      */
-    SetCellValue(visibleIndex: number, columnFieldNameOrId: string, value: any, displayText?: string, cancelCellHighlighting?: boolean): void;
+    SetCellValue(
+        visibleIndex: number,
+        columnFieldNameOrId: string,
+        value: any,
+        displayText?: string,
+        cancelCellHighlighting?: boolean,
+    ): void;
     /**
      * Sets the value of the specified cell.
      * @param key A String value that identifies the row by its key value.
@@ -21524,7 +22067,13 @@ declare class ASPxClientGridViewBatchEditApi {
      * @param displayText A string value that specifies the cell display text.
      * @param cancelCellHighlighting true to cancel highlighting of the modified cell, false to highlight the modified cell.
      */
-    SetCellValueByKey(key: any, columnFieldNameOrId: string, value: any, displayText?: string, cancelCellHighlighting?: boolean): void;
+    SetCellValueByKey(
+        key: any,
+        columnFieldNameOrId: string,
+        value: any,
+        displayText?: string,
+        cancelCellHighlighting?: boolean,
+    ): void;
     /**
      * Gets the value of the specified cell. An object containing the specified cell's value.
      * @param visibleIndex A zero-based integer value that specifies a visible index of a row containing the processed cell.
@@ -21641,7 +22190,9 @@ declare class ASPxClientVerticalGrid extends ASPxClientGridBase {
     /**
      * Occurs when a grid switches to batch edit mode.
      */
-    BatchEditStartEditing: ASPxClientEvent<ASPxClientVerticalGridBatchEditStartEditingEventHandler<ASPxClientVerticalGrid>>;
+    BatchEditStartEditing: ASPxClientEvent<
+        ASPxClientVerticalGridBatchEditStartEditingEventHandler<ASPxClientVerticalGrid>
+    >;
     /**
      * Occurs when a grid leaves the batch edit mode.
      */
@@ -21649,35 +22200,51 @@ declare class ASPxClientVerticalGrid extends ASPxClientGridBase {
     /**
      * Enables you to prevent a batch edit confirmation message from being displayed.
      */
-    BatchEditConfirmShowing: ASPxClientEvent<ASPxClientVerticalGridBatchEditConfirmShowingEventHandler<ASPxClientVerticalGrid>>;
+    BatchEditConfirmShowing: ASPxClientEvent<
+        ASPxClientVerticalGridBatchEditConfirmShowingEventHandler<ASPxClientVerticalGrid>
+    >;
     /**
      * Enables you to provide navigation for editors contained in a templated cell in Batch Edit mode.
      */
-    BatchEditTemplateCellFocused: ASPxClientEvent<ASPxClientVerticalGridBatchEditTemplateCellFocusedEventHandler<ASPxClientVerticalGrid>>;
+    BatchEditTemplateCellFocused: ASPxClientEvent<
+        ASPxClientVerticalGridBatchEditTemplateCellFocusedEventHandler<ASPxClientVerticalGrid>
+    >;
     /**
      * Occurs on the client side before data changes are saved in batch edit mode.
      */
-    BatchEditChangesSaving: ASPxClientEvent<ASPxClientVerticalGridBatchEditChangesSavingEventHandler<ASPxClientVerticalGrid>>;
+    BatchEditChangesSaving: ASPxClientEvent<
+        ASPxClientVerticalGridBatchEditChangesSavingEventHandler<ASPxClientVerticalGrid>
+    >;
     /**
      * Occurs on the client side before data changes are canceled in batch edit mode.
      */
-    BatchEditChangesCanceling: ASPxClientEvent<ASPxClientVerticalGridBatchEditChangesCancelingEventHandler<ASPxClientVerticalGrid>>;
+    BatchEditChangesCanceling: ASPxClientEvent<
+        ASPxClientVerticalGridBatchEditChangesCancelingEventHandler<ASPxClientVerticalGrid>
+    >;
     /**
      * Occurs on the client side before a record is inserted in batch edit mode.
      */
-    BatchEditRecordInserting: ASPxClientEvent<ASPxClientVerticalGridBatchEditRecordInsertingEventHandler<ASPxClientVerticalGrid>>;
+    BatchEditRecordInserting: ASPxClientEvent<
+        ASPxClientVerticalGridBatchEditRecordInsertingEventHandler<ASPxClientVerticalGrid>
+    >;
     /**
      * Occurs on the client side before a record is deleted in batch edit mode.
      */
-    BatchEditRecordDeleting: ASPxClientEvent<ASPxClientVerticalGridBatchEditRecordDeletingEventHandler<ASPxClientVerticalGrid>>;
+    BatchEditRecordDeleting: ASPxClientEvent<
+        ASPxClientVerticalGridBatchEditRecordDeletingEventHandler<ASPxClientVerticalGrid>
+    >;
     /**
      * Occurs on the client side before a record is deleted in batch edit mode.
      */
-    BatchEditRecordRecovering: ASPxClientEvent<ASPxClientVerticalGridBatchEditRecordRecoveringEventHandler<ASPxClientVerticalGrid>>;
+    BatchEditRecordRecovering: ASPxClientEvent<
+        ASPxClientVerticalGridBatchEditRecordRecoveringEventHandler<ASPxClientVerticalGrid>
+    >;
     /**
      * Enables you to specify whether record data is valid and provide an error text.
      */
-    BatchEditRecordValidating: ASPxClientEvent<ASPxClientVerticalGridBatchEditRecordValidatingEventHandler<ASPxClientVerticalGrid>>;
+    BatchEditRecordValidating: ASPxClientEvent<
+        ASPxClientVerticalGridBatchEditRecordValidatingEventHandler<ASPxClientVerticalGrid>
+    >;
     /**
      * Occurs on the client side when the focused cell is about to be changed.
      */
@@ -21708,7 +22275,12 @@ declare class ASPxClientVerticalGrid extends ASPxClientGridBase {
      * @param reset true to clear any previous sorting; otherwise, false.
      * @param sortIndex An integer value that specifies the zero-based row's index among the sorted rows. &#0045;1 if data is not sorted by this row.
      */
-    SortBy(row: ASPxClientVerticalGridRow | number | string, sortOrder?: string, reset?: boolean, sortIndex?: number): void;
+    SortBy(
+        row: ASPxClientVerticalGridRow | number | string,
+        sortOrder?: string,
+        reset?: boolean,
+        sortIndex?: number,
+    ): void;
     /**
      * Returns the key value of the specified data row (record in the vertical grid). A string representing the specified data row's key value. If the index passed using the visibleIndex parameter is wrong or the ASPxGridBase.KeyFieldName property is not set, null is returned.
      * @param visibleIndex An integer value that specifies the record's visible index.
@@ -22000,13 +22572,17 @@ declare class ASPxClientVerticalGridRow extends ASPxClientGridColumnBase {
  * Represents a JavaScript function which receives the list of record values when the client ASPxClientVerticalGrid.GetRecordValues, ASPxVerticalGrid.GetCurrentPageRecordValues or ASPxClientVerticalGrid.GetSelectedFieldValues method is called.
  * @param result An object that represents the list of record values received from the server.
  */
-interface ASPxClientVerticalGridValuesCallback { (result: any): void; }
+interface ASPxClientVerticalGridValuesCallback {
+    (result: any): void;
+}
 /**
  * A method that will handle the cancelable events of a client ASPxVerticalGrid row.
  * @param source The event source.
  * @param e An ASPxClientVerticalGridRowCancelEventArgs object that contains event data.
  */
-interface ASPxClientVerticalGridRowCancelEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridRowCancelEventArgs): void; }
+interface ASPxClientVerticalGridRowCancelEventHandler<Sender> {
+    (source: Sender, e: ASPxClientVerticalGridRowCancelEventArgs): void;
+}
 /**
  * Provides data for the cancelable events of a client ASPxVerticalGrid row.
  */
@@ -22026,7 +22602,9 @@ declare class ASPxClientVerticalGridRowCancelEventArgs extends ASPxClientCancelE
  * @param source The event source. This parameter identifies the ASPxClientVerticalGrid object that raised the event.
  * @param e An ASPxClientVerticalGridRecordClickEventArgs object that contains event data.
  */
-interface ASPxClientVerticalGridRecordClickEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridRecordClickEventArgs): void; }
+interface ASPxClientVerticalGridRecordClickEventHandler<Sender> {
+    (source: Sender, e: ASPxClientVerticalGridRecordClickEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientVerticalGrid.RecordClick event.
  */
@@ -22052,7 +22630,9 @@ declare class ASPxClientVerticalGridRecordClickEventArgs extends ASPxClientCance
 This parameter identifies the ASPxClientVerticalGrid object that raised the event.
  * @param e An ASPxClientVerticalGridCustomButtonEventArgs object that contains event data.
  */
-interface ASPxClientVerticalGridCustomButtonEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridCustomButtonEventArgs): void; }
+interface ASPxClientVerticalGridCustomButtonEventHandler<Sender> {
+    (source: Sender, e: ASPxClientVerticalGridCustomButtonEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientVerticalGrid.CustomButtonClick event.
  */
@@ -22077,7 +22657,9 @@ declare class ASPxClientVerticalGridCustomButtonEventArgs extends ASPxClientProc
  * @param source The event source.
  * @param e An ASPxClientVerticalGridSelectionEventArgs object that contains event data.
  */
-interface ASPxClientVerticalGridSelectionEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridSelectionEventArgs): void; }
+interface ASPxClientVerticalGridSelectionEventHandler<Sender> {
+    (source: Sender, e: ASPxClientVerticalGridSelectionEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientVerticalGrid.SelectionChanged event.
  */
@@ -22109,7 +22691,9 @@ declare class ASPxClientVerticalGridSelectionEventArgs extends ASPxClientProcess
  * @param source The event source.
  * @param e An ASPxClientVerticalGridRowExpandedEventArgs object that contains event data.
  */
-interface ASPxClientVerticalGridRowExpandedEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridRowExpandedEventArgs): void; }
+interface ASPxClientVerticalGridRowExpandedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientVerticalGridRowExpandedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientVerticalGrid.RowExpandedChanged event.
  */
@@ -22129,7 +22713,9 @@ declare class ASPxClientVerticalGridRowExpandedEventArgs extends ASPxClientEvent
  * @param source The event source.
  * @param e An ASPxClientVerticalGridRowExpandedEventArgs object that contains event data.
  */
-interface ASPxClientVerticalGridRowExpandingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridRowExpandingEventArgs): void; }
+interface ASPxClientVerticalGridRowExpandingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientVerticalGridRowExpandingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientVerticalGrid.RowExpandedChanging event.
  */
@@ -22149,7 +22735,9 @@ declare class ASPxClientVerticalGridRowExpandingEventArgs extends ASPxClientVert
  * @param source The event source.
  * @param e An ASPxClientVerticalGridBatchEditStartEditingEventArgs object that contains event data.
  */
-interface ASPxClientVerticalGridBatchEditStartEditingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditStartEditingEventArgs): void; }
+interface ASPxClientVerticalGridBatchEditStartEditingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientVerticalGridBatchEditStartEditingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientVerticalGrid.BatchEditStartEditing event.
  */
@@ -22179,7 +22767,9 @@ declare class ASPxClientVerticalGridBatchEditStartEditingEventArgs extends ASPxC
  * @param source The event source.
  * @param e An ASPxClientVerticalGridBatchEditEndEditingEventArgs object that contains event data.
  */
-interface ASPxClientVerticalGridBatchEditEndEditingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditEndEditingEventArgs): void; }
+interface ASPxClientVerticalGridBatchEditEndEditingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientVerticalGridBatchEditEndEditingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientVerticalGrid.BatchEditEndEditing event.
  */
@@ -22204,7 +22794,9 @@ declare class ASPxClientVerticalGridBatchEditEndEditingEventArgs extends ASPxCli
  * @param source The event source.
  * @param e An ASPxClientVerticalGridBatchEditRecordValidatingEventArgs object that contains event data.
  */
-interface ASPxClientVerticalGridBatchEditRecordValidatingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditRecordValidatingEventArgs): void; }
+interface ASPxClientVerticalGridBatchEditRecordValidatingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientVerticalGridBatchEditRecordValidatingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientVerticalGrid.BatchEditRecordValidating event.
  */
@@ -22229,7 +22821,9 @@ declare class ASPxClientVerticalGridBatchEditRecordValidatingEventArgs extends A
  * @param source The event source.
  * @param e An ASPxClientVerticalGridBatchEditConfirmShowingEventArgs object that contains event data.
  */
-interface ASPxClientVerticalGridBatchEditConfirmShowingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditConfirmShowingEventArgs): void; }
+interface ASPxClientVerticalGridBatchEditConfirmShowingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientVerticalGridBatchEditConfirmShowingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientVerticalGrid.BatchEditConfirmShowing event.
  */
@@ -22249,7 +22843,9 @@ declare class ASPxClientVerticalGridBatchEditConfirmShowingEventArgs extends ASP
  * @param source An object representing the event source. Identifies the button editor that raised the event.
  * @param e An ASPxClientVerticalGridBatchEditTemplateCellFocusedEventArgs object that contains event data.
  */
-interface ASPxClientVerticalGridBatchEditTemplateCellFocusedEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditTemplateCellFocusedEventArgs): void; }
+interface ASPxClientVerticalGridBatchEditTemplateCellFocusedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientVerticalGridBatchEditTemplateCellFocusedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientVerticalGrid.BatchEditTemplateCellFocused event.
  */
@@ -22273,7 +22869,9 @@ declare class ASPxClientVerticalGridBatchEditTemplateCellFocusedEventArgs extend
  * @param source The event source. This parameter identifies the vertical grid object which raised the event.
  * @param e An ASPxClientVerticalGridBatchEditChangesSavingEventArgs object that contains event data.
  */
-interface ASPxClientVerticalGridBatchEditChangesSavingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditChangesSavingEventArgs): void; }
+interface ASPxClientVerticalGridBatchEditChangesSavingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientVerticalGridBatchEditChangesSavingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientVerticalGrid.BatchEditChangesSaving event.
  */
@@ -22303,7 +22901,9 @@ declare class ASPxClientVerticalGridBatchEditChangesSavingEventArgs extends ASPx
  * @param source The event source. This parameter identifies the vertical grid object which raised the event.
  * @param e An ASPxClientVerticalGridBatchEditChangesCancelingEventArgs object that contains event data.
  */
-interface ASPxClientVerticalGridBatchEditChangesCancelingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditChangesCancelingEventArgs): void; }
+interface ASPxClientVerticalGridBatchEditChangesCancelingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientVerticalGridBatchEditChangesCancelingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientVerticalGrid.BatchEditChangesCanceling event.
  */
@@ -22333,7 +22933,9 @@ declare class ASPxClientVerticalGridBatchEditChangesCancelingEventArgs extends A
  * @param source The event source. This parameter identifies the vertical grid object which raised the event.
  * @param e An ASPxClientVerticalGridBatchEditRecordInsertingEventArgs object that contains event data.
  */
-interface ASPxClientVerticalGridBatchEditRecordInsertingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditRecordInsertingEventArgs): void; }
+interface ASPxClientVerticalGridBatchEditRecordInsertingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientVerticalGridBatchEditRecordInsertingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientVerticalGrid.BatchEditRecordInserting event.
  */
@@ -22353,7 +22955,9 @@ declare class ASPxClientVerticalGridBatchEditRecordInsertingEventArgs extends AS
  * @param source The event source. This parameter identifies the vertical grid object which raised the event.
  * @param e An ASPxClientVerticalGridBatchEditRecordDeletingEventArgs object that contains event data.
  */
-interface ASPxClientVerticalGridBatchEditRecordDeletingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditRecordDeletingEventArgs): void; }
+interface ASPxClientVerticalGridBatchEditRecordDeletingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientVerticalGridBatchEditRecordDeletingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientVerticalGrid.BatchEditRecordDeleting event.
  */
@@ -22378,7 +22982,9 @@ declare class ASPxClientVerticalGridBatchEditRecordDeletingEventArgs extends ASP
  * @param source The event source.
  * @param e An ASPxClientVerticalGridBatchEditRecordRecoveringEventArgs object that contains event data.
  */
-interface ASPxClientVerticalGridBatchEditRecordRecoveringEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridBatchEditRecordRecoveringEventArgs): void; }
+interface ASPxClientVerticalGridBatchEditRecordRecoveringEventHandler<Sender> {
+    (source: Sender, e: ASPxClientVerticalGridBatchEditRecordRecoveringEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientVerticalGrid.BatchEditRecordRecovering event.
  */
@@ -22403,7 +23009,9 @@ declare class ASPxClientVerticalGridBatchEditRecordRecoveringEventArgs extends A
  * @param source The event source.
  * @param e An ASPxClientVerticalGridFocusedCellChangingEventArgs object that contains event data.
  */
-interface ASPxClientVerticalGridFocusedCellChangingEventHandler<Sender> { (source: Sender, e: ASPxClientVerticalGridFocusedCellChangingEventArgs): void; }
+interface ASPxClientVerticalGridFocusedCellChangingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientVerticalGridFocusedCellChangingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientVerticalGrid.FocusedCellChanging event.
  */
@@ -22521,7 +23129,13 @@ declare class ASPxClientVerticalGridBatchEditApi {
      * @param displayText A string value that specifies the cell display text.
      * @param cancelCellHighlighting true to cancel highlighting of the modified cell, false to highlight the modified cell.
      */
-    SetCellValue(visibleIndex: number, rowFieldNameOrId: string, value: any, displayText?: string, cancelCellHighlighting?: boolean): void;
+    SetCellValue(
+        visibleIndex: number,
+        rowFieldNameOrId: string,
+        value: any,
+        displayText?: string,
+        cancelCellHighlighting?: boolean,
+    ): void;
     /**
      * Gets the value of the specified cell. An object containing the specified cell's value.
      * @param visibleIndex A zero-based integer value that specifies a visible index of a record containing the processed cell.
@@ -22670,7 +23284,10 @@ declare class ASPxClientHint extends ASPxClientControl {
      * @param targetSelector A string value that is the CSS selector. Specifies to which UI elements the hint is displayed.
      * @param options An ASPxClientHintOptions object that is the hint's options.
      */
-    static Register(targetSelector: string, options: ASPxClientHintOptions | string | ASPxClientEvent<ASPxClientHintShowingEventHandler>): ASPxClientHint;
+    static Register(
+        targetSelector: string,
+        options: ASPxClientHintOptions | string | ASPxClientEvent<ASPxClientHintShowingEventHandler>,
+    ): ASPxClientHint;
     /**
      * Invokes a hint.
      * @param targetSelector A string value that is the CSS selector.
@@ -22710,7 +23327,9 @@ declare class ASPxClientHintWindow {
  * @param sender The event source.
  * @param e A ASPxClientHintShowingEventArgs object that contains the required data.
  */
-interface ASPxClientHintShowingEventHandler { (sender: ASPxClientHintWindow, e: ASPxClientHintShowingEventArgs): void; }
+interface ASPxClientHintShowingEventHandler {
+    (sender: ASPxClientHintWindow, e: ASPxClientHintShowingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientHint.Showing event.
  */
@@ -22750,7 +23369,9 @@ declare class ASPxClientHintShowingEventArgs extends ASPxClientEventArgs {
  * @param sender The event source.
  * @param e A ASPxClientHintHidingEventArgs object that contains the required data.
  */
-interface ASPxClientHintHidingEventHandler { (sender: ASPxClientHintWindow, e: ASPxClientHintHidingEventArgs): void; }
+interface ASPxClientHintHidingEventHandler {
+    (sender: ASPxClientHintWindow, e: ASPxClientHintHidingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientHint.Hiding event.
  */
@@ -22897,7 +23518,9 @@ declare class ASPxClientImageGallery extends ASPxClientDataView {
     /**
      * Occurs on the client side after an active item has been changed within the fullscreen viewer.
      */
-    FullscreenViewerActiveItemIndexChanged: ASPxClientEvent<ASPxClientImageGalleryFullscreenViewerEventHandler<ASPxClientImageGallery>>;
+    FullscreenViewerActiveItemIndexChanged: ASPxClientEvent<
+        ASPxClientImageGalleryFullscreenViewerEventHandler<ASPxClientImageGallery>
+    >;
     /**
      * Shows the fullscreen viewer with the specified active item.
      * @param index An Int32 value that is an index of the active item.
@@ -22940,7 +23563,9 @@ declare class ASPxClientImageGallery extends ASPxClientDataView {
  * @param source The event source. Identifies the ASPxImageGallery control that raised the event.
  * @param e An ASPxClientImageGalleryCancelEventArgs object that contains event data.
  */
-interface ASPxClientImageGalleryCancelEventHandler<Sender> { (source: Sender, e: ASPxClientImageGalleryCancelEventArgs): void; }
+interface ASPxClientImageGalleryCancelEventHandler<Sender> {
+    (source: Sender, e: ASPxClientImageGalleryCancelEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientImageGallery.FullscreenViewerShowing event.
  */
@@ -22965,7 +23590,9 @@ declare class ASPxClientImageGalleryCancelEventArgs extends ASPxClientCancelEven
  * @param source The event source. Identifies the ASPxImageGallery control that raised the event.
  * @param e An ASPxClientImageGalleryFullscreenViewerEventArgs object that contains event data.
  */
-interface ASPxClientImageGalleryFullscreenViewerEventHandler<Sender> { (source: Sender, e: ASPxClientImageGalleryFullscreenViewerEventArgs): void; }
+interface ASPxClientImageGalleryFullscreenViewerEventHandler<Sender> {
+    (source: Sender, e: ASPxClientImageGalleryFullscreenViewerEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientImageGallery.FullscreenViewerActiveItemIndexChanged event.
  */
@@ -23072,7 +23699,9 @@ declare class ASPxClientImageSlider extends ASPxClientControl {
  * @param source The event source. Identifies the ASPxImageSlider control that raised the event.
  * @param e An ASPxClientImageSliderItemEventArgs object that contains event data.
  */
-interface ASPxClientImageSliderItemEventHandler<Sender> { (source: Sender, e: ASPxClientImageSliderItemEventArgs): void; }
+interface ASPxClientImageSliderItemEventHandler<Sender> {
+    (source: Sender, e: ASPxClientImageSliderItemEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientImageSlider.ActiveItemChanged and ASPxClientImageSlider.ItemClick events.
  */
@@ -23133,7 +23762,13 @@ declare class ASPxClientImageZoom extends ASPxClientControl {
      * @param expandWindowText A string value specifying the text displayed in the expand window.
      * @param alternateText A string value that specifies the alternate text displayed instead of the image.
      */
-    SetImageProperties(imageUrl: string, largeImageUrl: string, zoomWindowText: string, expandWindowText: string, alternateText: string): void;
+    SetImageProperties(
+        imageUrl: string,
+        largeImageUrl: string,
+        zoomWindowText: string,
+        expandWindowText: string,
+        alternateText: string,
+    ): void;
 }
 /**
  * Represents a client-side equivalent of the ASPxLoadingPanel control.
@@ -23382,7 +24017,9 @@ declare class ASPxClientMenu extends ASPxClientMenuBase {
  * @param source The event source. This parameter identifies the menu object which raised the event.
  * @param e An ASPxClientMenuItemEventArgs object that contains event data.
  */
-interface ASPxClientMenuItemEventHandler<Sender> { (source: Sender, e: ASPxClientMenuItemEventArgs): void; }
+interface ASPxClientMenuItemEventHandler<Sender> {
+    (source: Sender, e: ASPxClientMenuItemEventArgs): void;
+}
 /**
  * Provides data for events which concern manipulations on menu items.
  */
@@ -23402,7 +24039,9 @@ declare class ASPxClientMenuItemEventArgs extends ASPxClientEventArgs {
  * @param source An object representing the event source.
  * @param e A MenuItemEventArgs object that contains event data.
  */
-interface ASPxClientMenuItemMouseEventHandler<Sender> { (source: Sender, e: ASPxClientMenuItemMouseEventArgs): void; }
+interface ASPxClientMenuItemMouseEventHandler<Sender> {
+    (source: Sender, e: ASPxClientMenuItemMouseEventArgs): void;
+}
 /**
  * Provides data for client events which relate to mouse hovering (such as entering or leaving) over menu items.
  */
@@ -23423,7 +24062,9 @@ declare class ASPxClientMenuItemMouseEventArgs extends ASPxClientMenuItemEventAr
  * @param source An object representing the event source.
  * @param e A MenuItemEventArgs object that contains event data.
  */
-interface ASPxClientMenuItemClickEventHandler<Sender> { (source: Sender, e: ASPxClientMenuItemClickEventArgs): void; }
+interface ASPxClientMenuItemClickEventHandler<Sender> {
+    (source: Sender, e: ASPxClientMenuItemClickEventArgs): void;
+}
 /**
  * Provides data for events which concern clicking on the control's items.
  */
@@ -23705,7 +24346,9 @@ declare class ASPxClientNavBarItem {
  * @param source An object representing the event's source. Identifies the navbar object that raised the event.
  * @param e An ASPxClientNavBarItemEventArgs object that contains event data.
  */
-interface ASPxClientNavBarItemEventHandler<Sender> { (source: Sender, e: ASPxClientNavBarItemEventArgs): void; }
+interface ASPxClientNavBarItemEventHandler<Sender> {
+    (source: Sender, e: ASPxClientNavBarItemEventArgs): void;
+}
 /**
  * Provides data for events which concern manipulations on items.
  */
@@ -23736,7 +24379,9 @@ declare class ASPxClientNavBarItemEventArgs extends ASPxClientProcessingModeEven
  * @param source An object representing the event's source. Identifies the navbar object that raised the event.
  * @param e An ASPxClientNavBarGroupEventArgs object that contains event data.
  */
-interface ASPxClientNavBarGroupEventHandler<Sender> { (source: Sender, e: ASPxClientNavBarGroupEventArgs): void; }
+interface ASPxClientNavBarGroupEventHandler<Sender> {
+    (source: Sender, e: ASPxClientNavBarGroupEventArgs): void;
+}
 /**
  * Provides data for events which concern manipulations on groups.
  */
@@ -23756,7 +24401,9 @@ declare class ASPxClientNavBarGroupEventArgs extends ASPxClientEventArgs {
  * @param source An object representing the event's source. Identifies the navbar object that raised the event.
  * @param e An ASPxClientNavBarGroupCancelEventArgs object that contains event data.
  */
-interface ASPxClientNavBarGroupCancelEventHandler<Sender> { (source: Sender, e: ASPxClientNavBarGroupCancelEventArgs): void; }
+interface ASPxClientNavBarGroupCancelEventHandler<Sender> {
+    (source: Sender, e: ASPxClientNavBarGroupCancelEventArgs): void;
+}
 /**
  * Provides data for cancellable events which concern manipulations on groups.
  */
@@ -23777,7 +24424,9 @@ declare class ASPxClientNavBarGroupCancelEventArgs extends ASPxClientProcessingM
  * @param source The event source. This parameter identifies the navbar object which raised the event.
  * @param e An ASPxClientNavBarGroupClickEventArgs object that contains event data.
  */
-interface ASPxClientNavBarGroupClickEventHandler<Sender> { (source: Sender, e: ASPxClientNavBarGroupClickEventArgs): void; }
+interface ASPxClientNavBarGroupClickEventHandler<Sender> {
+    (source: Sender, e: ASPxClientNavBarGroupClickEventArgs): void;
+}
 /**
  * Provides data for events which concern clicking on the control's group headers.
  */
@@ -23818,7 +24467,9 @@ declare class ASPxClientNewsControl extends ASPxClientDataView {
  * @param source An object representing the event's source. Identifies the news control object that raised the event.
  * @param e An ASPxClientNewsControlItemEventArgs object that contains event data.
  */
-interface ASPxClientNewsControlItemEventHandler<Sender> { (source: Sender, e: ASPxClientNewsControlItemEventArgs): void; }
+interface ASPxClientNewsControlItemEventHandler<Sender> {
+    (source: Sender, e: ASPxClientNewsControlItemEventArgs): void;
+}
 /**
  * Provides data for events which concern tail clicking within the control's items.
  */
@@ -23954,7 +24605,9 @@ declare class ASPxClientObjectContainer extends ASPxClientControl {
  * @param source The event source.
  * @param e A ASPxClientFlashScriptCommandEventArgs object that contains event data.
  */
-interface ASPxClientFlashScriptCommandEventHandler<Sender> { (source: Sender, e: ASPxClientFlashScriptCommandEventArgs): void; }
+interface ASPxClientFlashScriptCommandEventHandler<Sender> {
+    (source: Sender, e: ASPxClientFlashScriptCommandEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientObjectContainer.FlashScriptCommand client event.
  */
@@ -24641,7 +25294,9 @@ declare class ASPxClientPopupWindow {
  * @param source An object representing the event's source. Identifies the popup control object (ASPxClientPopupControl) that raised the event.
  * @param e An ASPxClientPopupWindowEventArgs object that contains event data.
  */
-interface ASPxClientPopupWindowEventHandler<Sender> { (source: Sender, e: ASPxClientPopupWindowEventArgs): void; }
+interface ASPxClientPopupWindowEventHandler<Sender> {
+    (source: Sender, e: ASPxClientPopupWindowEventArgs): void;
+}
 /**
  * Provides data for events concerning client manipulations on popup windows.
  */
@@ -24661,7 +25316,9 @@ declare class ASPxClientPopupWindowEventArgs extends ASPxClientEventArgs {
  * @param source An object representing the event's source. Identifies the popup window object that raised the event.
  * @param e An ASPxClientPopupWindowCancelEventArgs object that contains event data.
  */
-interface ASPxClientPopupWindowCancelEventHandler<Sender> { (source: Sender, e: ASPxClientPopupWindowCancelEventArgs): void; }
+interface ASPxClientPopupWindowCancelEventHandler<Sender> {
+    (source: Sender, e: ASPxClientPopupWindowCancelEventArgs): void;
+}
 /**
  * Provides data for the popup control's cancellable client events, such as the ASPxClientPopupControlBase.Closing.
  */
@@ -24686,7 +25343,9 @@ declare class ASPxClientPopupWindowCancelEventArgs extends ASPxClientCancelEvent
  * @param source The event source.
  * @param e An ASPxClientPopupWindowCloseUpEventArgs object that contains event data.
  */
-interface ASPxClientPopupWindowCloseUpEventHandler<Sender> { (source: Sender, e: ASPxClientPopupWindowCloseUpEventArgs): void; }
+interface ASPxClientPopupWindowCloseUpEventHandler<Sender> {
+    (source: Sender, e: ASPxClientPopupWindowCloseUpEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientPopupControlBase.CloseUp event.
  */
@@ -24707,7 +25366,9 @@ declare class ASPxClientPopupWindowCloseUpEventArgs extends ASPxClientPopupWindo
  * @param source The event source.
  * @param e A ASPxClientPopupWindowResizeEventArgs object that contains event data.
  */
-interface ASPxClientPopupWindowResizeEventHandler<Sender> { (source: Sender, e: ASPxClientPopupWindowResizeEventArgs): void; }
+interface ASPxClientPopupWindowResizeEventHandler<Sender> {
+    (source: Sender, e: ASPxClientPopupWindowResizeEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientPopupControlBase.Resize event.
  */
@@ -24728,7 +25389,9 @@ declare class ASPxClientPopupWindowResizeEventArgs extends ASPxClientPopupWindow
  * @param source The event source.
  * @param e A ASPxClientPopupWindowPinnedChangedEventArgs object that contains event data.
  */
-interface ASPxClientPopupWindowPinnedChangedEventHandler<Sender> { (source: Sender, e: ASPxClientPopupWindowPinnedChangedEventArgs): void; }
+interface ASPxClientPopupWindowPinnedChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientPopupWindowPinnedChangedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientPopupControlBase.PinnedChanged event.
  */
@@ -24905,7 +25568,9 @@ declare class ASPxClientRatingControl extends ASPxClientControl {
  * @param source An object representing the event source.
  * @param e A ASPxClientRatingControlItemClickEventArgs object that contains event data.
  */
-interface ASPxClientRatingControlItemClickEventHandler<Sender> { (source: Sender, e: ASPxClientRatingControlItemClickEventArgs): void; }
+interface ASPxClientRatingControlItemClickEventHandler<Sender> {
+    (source: Sender, e: ASPxClientRatingControlItemClickEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientRatingControl.ItemClick event.
  */
@@ -24926,7 +25591,9 @@ declare class ASPxClientRatingControlItemClickEventArgs extends ASPxClientProces
  * @param source The event source.
  * @param e An ASPxClientRatingControlItemMouseEventArgs object that contains event data.
  */
-interface ASPxClientRatingControlItemMouseEventHandler<Sender> { (source: Sender, e: ASPxClientRatingControlItemMouseEventArgs): void; }
+interface ASPxClientRatingControlItemMouseEventHandler<Sender> {
+    (source: Sender, e: ASPxClientRatingControlItemMouseEventArgs): void;
+}
 /**
  * Provides data for the rating control's ItemMouseOver and ItemMouseOut client events (such as ASPxClientRatingControl.ItemMouseOver and ASPxClientRatingControl.ItemMouseOut).
  */
@@ -25154,7 +25821,9 @@ declare class ASPxClientRibbonItem {
  * @param source The event source. Identifies the ASPxRibbon control that raised the event.
  * @param e An ASPxClientRibbonCommandExecutedEventArgs object that contains event data.
  */
-interface ASPxClientRibbonCommandExecutedEventHandler<Sender> { (source: Sender, e: ASPxClientRibbonCommandExecutedEventArgs): void; }
+interface ASPxClientRibbonCommandExecutedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientRibbonCommandExecutedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientRibbon.CommandExecuted event.
  */
@@ -25180,7 +25849,9 @@ declare class ASPxClientRibbonCommandExecutedEventArgs extends ASPxClientProcess
  * @param source The event source. Identifies the ASPxRibbon control that raised the event.
  * @param e A ASPxClientRibbonTabEventArgs object that contains event data.
  */
-interface ASPxClientRibbonTabEventHandler<Sender> { (source: Sender, e: ASPxClientRibbonTabEventArgs): void; }
+interface ASPxClientRibbonTabEventHandler<Sender> {
+    (source: Sender, e: ASPxClientRibbonTabEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientRibbon.ActiveTabChanged event.
  */
@@ -25200,7 +25871,9 @@ declare class ASPxClientRibbonTabEventArgs extends ASPxClientEventArgs {
  * @param source The event source. Identifies the ASPxRibbon control that raised the event.
  * @param e An ASPxClientRibbonMinimizationStateEventArgs object that contains event data.
  */
-interface ASPxClientRibbonMinimizationStateEventHandler<Sender> { (source: Sender, e: ASPxClientRibbonMinimizationStateEventArgs): void; }
+interface ASPxClientRibbonMinimizationStateEventHandler<Sender> {
+    (source: Sender, e: ASPxClientRibbonMinimizationStateEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientRibbon.MinimizationStateChanged event.
  */
@@ -25220,7 +25893,9 @@ declare class ASPxClientRibbonMinimizationStateEventArgs extends ASPxClientEvent
  * @param source The event source. This parameter identifies the ribbon object which raised the event.
  * @param e An ASPxClientRibbonDialogBoxLauncherClickedEventArgs object that contains event data.
  */
-interface ASPxClientRibbonDialogBoxLauncherClickedEventHandler<Sender> { (source: Sender, e: ASPxClientRibbonDialogBoxLauncherClickedEventArgs): void; }
+interface ASPxClientRibbonDialogBoxLauncherClickedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientRibbonDialogBoxLauncherClickedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientRibbon.DialogBoxLauncherClicked event.
  */
@@ -25523,7 +26198,9 @@ declare class ASPxClientSplitterPane {
  * @param source An object representing the event's source. Identifies the splitter object that raised the event.
  * @param e An ASPxClientSplitterPaneEventArgs object that contains event data.
  */
-interface ASPxClientSplitterPaneEventHandler<Sender> { (source: Sender, e: ASPxClientSplitterPaneEventArgs): void; }
+interface ASPxClientSplitterPaneEventHandler<Sender> {
+    (source: Sender, e: ASPxClientSplitterPaneEventArgs): void;
+}
 /**
  * A method that will handle the splitter's client events concerning manipulations with a pane.
  */
@@ -25543,7 +26220,9 @@ declare class ASPxClientSplitterPaneEventArgs extends ASPxClientEventArgs {
  * @param source An object representing the event's source. Identifies the splitter control object that raised the event.
  * @param e An ASPxClientSplitterPaneCancelEventArgs object that contains event data.
  */
-interface ASPxClientSplitterPaneCancelEventHandler<Sender> { (source: Sender, e: ASPxClientSplitterPaneCancelEventArgs): void; }
+interface ASPxClientSplitterPaneCancelEventHandler<Sender> {
+    (source: Sender, e: ASPxClientSplitterPaneCancelEventArgs): void;
+}
 /**
  * Provides data for a splitter control's cancelable client events concerning manipulations with a pane.
  */
@@ -25736,7 +26415,9 @@ declare class ASPxClientTab {
  * @param source An object representing the event's source. Identifies the tab control object that raised the event.
  * @param e An ASPxClientTabControlTabEventArgs object that contains event data.
  */
-interface ASPxClientTabControlTabEventHandler<Sender> { (source: Sender, e: ASPxClientTabControlTabEventArgs): void; }
+interface ASPxClientTabControlTabEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTabControlTabEventArgs): void;
+}
 /**
  * Provides data for events which concern manipulations on tabs.
  */
@@ -25756,7 +26437,9 @@ declare class ASPxClientTabControlTabEventArgs extends ASPxClientEventArgs {
  * @param source An object representing the event's source. Identifies the tab control object that raised the event.
  * @param e An ASPxClientTabControlTabCancelEventArgs object that contains event data.
  */
-interface ASPxClientTabControlTabCancelEventHandler<Sender> { (source: Sender, e: ASPxClientTabControlTabCancelEventArgs): void; }
+interface ASPxClientTabControlTabCancelEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTabControlTabCancelEventArgs): void;
+}
 /**
  * Provides data for cancellable events which concern manipulations on tabs.
  */
@@ -25781,7 +26464,9 @@ declare class ASPxClientTabControlTabCancelEventArgs extends ASPxClientProcessin
  * @param source The event source. This parameter identifies the tab control object which raised the event.
  * @param e An ASPxClientTabControlTabClickEventArgs object that contains event data.
  */
-interface ASPxClientTabControlTabClickEventHandler<Sender> { (source: Sender, e: ASPxClientTabControlTabClickEventArgs): void; }
+interface ASPxClientTabControlTabClickEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTabControlTabClickEventArgs): void;
+}
 /**
  * Provides data for events which concern clicking on the control's tabs.
  */
@@ -25866,7 +26551,9 @@ declare class ASPxClientTitleIndex extends ASPxClientControl {
  * @param source An object representing the event's source. Identifies the title index control object that raised the event.
  * @param e An ASPxClientTitleIndexItemEventArgs object that contains event data.
  */
-interface ASPxClientTitleIndexItemEventHandler<Sender> { (source: Sender, e: ASPxClientTitleIndexItemEventArgs): void; }
+interface ASPxClientTitleIndexItemEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTitleIndexItemEventArgs): void;
+}
 /**
  * Provides data for events which concern manipulations on the control's items.
  */
@@ -26086,7 +26773,9 @@ declare class ASPxClientTreeViewNode {
  * @param source An object representing the event source. Identifies the ASPxClientTreeView control that raised the event.
  * @param e An ASPxClientTreeViewNodeProcessingModeEventArgs object that contains event data.
  */
-interface ASPxClientTreeViewNodeProcessingModeEventHandler<Sender> { (source: Sender, e: ASPxClientTreeViewNodeProcessingModeEventArgs): void; }
+interface ASPxClientTreeViewNodeProcessingModeEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeViewNodeProcessingModeEventArgs): void;
+}
 /**
  * Provides data for the client events concerned with node processing, and that allow the event's processing to be passed to the server side.
  */
@@ -26107,7 +26796,9 @@ declare class ASPxClientTreeViewNodeProcessingModeEventArgs extends ASPxClientPr
  * @param source The ASPxClientTreeView control which fires the event.
  * @param e An ASPxClientTreeViewNodeClickEventArgs object that contains event data.
  */
-interface ASPxClientTreeViewNodeClickEventHandler<Sender> { (source: Sender, e: ASPxClientTreeViewNodeClickEventArgs): void; }
+interface ASPxClientTreeViewNodeClickEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeViewNodeClickEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeView.NodeClick event.
  */
@@ -26134,7 +26825,9 @@ declare class ASPxClientTreeViewNodeClickEventArgs extends ASPxClientTreeViewNod
  * @param source An object representing the event's source. Identifies the ASPxClientTreeView control object that raised the event.
  * @param e An ASPxClientTreeViewNodeEventArgs object that contains event data.
  */
-interface ASPxClientTreeViewNodeEventHandler<Sender> { (source: Sender, e: ASPxClientTreeViewNodeEventArgs): void; }
+interface ASPxClientTreeViewNodeEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeViewNodeEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeView.ExpandedChanged events.
  */
@@ -26154,7 +26847,9 @@ declare class ASPxClientTreeViewNodeEventArgs extends ASPxClientEventArgs {
  * @param source An object representing the event's source. Identifies the ASPxClientTreeView object that raised the event.
  * @param e An ASPxClientTreeViewNodeCancelEventArgs object that contains event data.
  */
-interface ASPxClientTreeViewNodeCancelEventHandler<Sender> { (source: Sender, e: ASPxClientTreeViewNodeCancelEventArgs): void; }
+interface ASPxClientTreeViewNodeCancelEventHandler<Sender> {
+    (source: Sender, e: ASPxClientTreeViewNodeCancelEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeView.ExpandedChanging event.
  */
@@ -26181,7 +26876,9 @@ declare class ASPxClientUploadControl extends ASPxClientControl {
     /**
      * Occurs on the client after upload of all selected files has been completed.
      */
-    FilesUploadComplete: ASPxClientEvent<ASPxClientUploadControlFilesUploadCompleteEventHandler<ASPxClientUploadControl>>;
+    FilesUploadComplete: ASPxClientEvent<
+        ASPxClientUploadControlFilesUploadCompleteEventHandler<ASPxClientUploadControl>
+    >;
     /** @deprecated This event is now obsolete. Use the FilesUploadStart event instead. */
     /**
      * Occurs on the client side before upload of the specified files starts.
@@ -26198,7 +26895,9 @@ declare class ASPxClientUploadControl extends ASPxClientControl {
     /**
      * Occurs on the client side when the <strong>progress bar indicator</strong> position is changed.
      */
-    UploadingProgressChanged: ASPxClientEvent<ASPxClientUploadControlUploadingProgressChangedEventHandler<ASPxClientUploadControl>>;
+    UploadingProgressChanged: ASPxClientEvent<
+        ASPxClientUploadControlUploadingProgressChangedEventHandler<ASPxClientUploadControl>
+    >;
     /**
      * Occurs on the client side when the <strong>file input elements</strong> count is changed.
      */
@@ -26206,7 +26905,9 @@ declare class ASPxClientUploadControl extends ASPxClientControl {
     /**
      * Enables you to specify whether the selected file(s) are valid and provide an error text.
      */
-    ValidationErrorOccurred: ASPxClientEvent<ASPxClientUploadControlValidationErrorOccurredEventHandler<ASPxClientUploadControl>>;
+    ValidationErrorOccurred: ASPxClientEvent<
+        ASPxClientUploadControlValidationErrorOccurredEventHandler<ASPxClientUploadControl>
+    >;
     /**
      * Fires when the mouse enters a <strong>drop zone</strong> or an external drop zone element while dragging a file.
      */
@@ -26312,7 +27013,9 @@ declare class ASPxClientUploadControl extends ASPxClientControl {
  * @param source The event source. Identifies the ASPxUploadControl control that raised the event.
  * @param e A ASPxClientUploadControlFilesUploadStartEventArgs object that contains event data.
  */
-interface ASPxClientUploadControlFilesUploadStartEventHandler<Sender> { (source: Sender, e: ASPxClientUploadControlFilesUploadStartEventArgs): void; }
+interface ASPxClientUploadControlFilesUploadStartEventHandler<Sender> {
+    (source: Sender, e: ASPxClientUploadControlFilesUploadStartEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientUploadControl.FilesUploadStart event.
  */
@@ -26332,7 +27035,9 @@ declare class ASPxClientUploadControlFilesUploadStartEventArgs extends ASPxClien
  * @param source The event source. This parameter identifies the upload control which raised the event.
  * @param e An ASPxClientUploadControlFileUploadCompleteEventArgs object that contains event data.
  */
-interface ASPxClientUploadControlFileUploadCompleteEventHandler<Sender> { (source: Sender, e: ASPxClientUploadControlFileUploadCompleteEventArgs): void; }
+interface ASPxClientUploadControlFileUploadCompleteEventHandler<Sender> {
+    (source: Sender, e: ASPxClientUploadControlFileUploadCompleteEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientUploadControl.FileUploadComplete event.
  */
@@ -26367,7 +27072,9 @@ declare class ASPxClientUploadControlFileUploadCompleteEventArgs extends ASPxCli
  * @param source The event source. This parameter identifies the upload control which raised the event.
  * @param e A  object that contains event data.
  */
-interface ASPxClientUploadControlFilesUploadCompleteEventHandler<Sender> { (source: Sender, e: ASPxClientUploadControlFilesUploadCompleteEventArgs): void; }
+interface ASPxClientUploadControlFilesUploadCompleteEventHandler<Sender> {
+    (source: Sender, e: ASPxClientUploadControlFilesUploadCompleteEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientUploadControl.FilesUploadComplete client event, which enables you to perform specific actions after all selected files have been uploaded.
  */
@@ -26390,7 +27097,9 @@ declare class ASPxClientUploadControlFilesUploadCompleteEventArgs extends ASPxCl
  * @param source The event source. This parameter identifies the upload control which raised the event.
  * @param e An ASPxClientUploadControlTextChangedEventArgs object that contains event data.
  */
-interface ASPxClientUploadControlTextChangedEventHandler<Sender> { (source: Sender, e: ASPxClientUploadControlTextChangedEventArgs): void; }
+interface ASPxClientUploadControlTextChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientUploadControlTextChangedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientUploadControl.TextChanged client event that allows you to respond to an end-user changing an edit box's text.
  */
@@ -26410,7 +27119,9 @@ declare class ASPxClientUploadControlTextChangedEventArgs extends ASPxClientEven
  * @param source An object representing the event's source. Identifies the ASPxUploadControl object that raised the event.
  * @param e An ASPxClientUploadControlUploadingProgressChangedEventArgs object that contains event data.
  */
-interface ASPxClientUploadControlUploadingProgressChangedEventHandler<Sender> { (source: Sender, e: ASPxClientUploadControlUploadingProgressChangedEventArgs): void; }
+interface ASPxClientUploadControlUploadingProgressChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientUploadControlUploadingProgressChangedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientUploadControl.UploadingProgressChanged event.
  */
@@ -26426,7 +27137,16 @@ declare class ASPxClientUploadControlUploadingProgressChangedEventArgs extends A
      * @param uploadedContentLength Gets the content length of the files already uploaded to the server.
      * @param progress Gets the current position of total upload progress.
      */
-    constructor(fileCount: number, currentFileName: string, currentFileContentLength: number, currentFileUploadedContentLength: number, currentFileProgress: number, totalContentLength: number, uploadedContentLength: number, progress: number);
+    constructor(
+        fileCount: number,
+        currentFileName: string,
+        currentFileContentLength: number,
+        currentFileUploadedContentLength: number,
+        currentFileProgress: number,
+        totalContentLength: number,
+        uploadedContentLength: number,
+        progress: number,
+    );
     /**
      * Gets the number of the files selected for upload.
      */
@@ -26465,7 +27185,9 @@ declare class ASPxClientUploadControlUploadingProgressChangedEventArgs extends A
  * @param source The event source.
  * @param e An ASPxClientUploadControlValidationErrorOccurredEventArgs object that contains event data.
  */
-interface ASPxClientUploadControlValidationErrorOccurredEventHandler<Sender> { (source: Sender, e: ASPxClientUploadControlValidationErrorOccurredEventArgs): void; }
+interface ASPxClientUploadControlValidationErrorOccurredEventHandler<Sender> {
+    (source: Sender, e: ASPxClientUploadControlValidationErrorOccurredEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientUploadControl.ValidationErrorOccurred event.
  */
@@ -26574,7 +27296,9 @@ declare class ASPxClientUploadControlFile {
  * @param source The event source. This parameter identifies the upload control object which raised the event.
  * @param e An ASPxClientUploadControlDropZoneEnterEventArgs object that contains event data.
  */
-interface ASPxClientUploadControlDropZoneEnterEventHandler<Sender> { (source: Sender, e: ASPxClientUploadControlDropZoneEnterEventArgs): void; }
+interface ASPxClientUploadControlDropZoneEnterEventHandler<Sender> {
+    (source: Sender, e: ASPxClientUploadControlDropZoneEnterEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientUploadControl.DropZoneEnter event.
  */
@@ -26594,7 +27318,9 @@ declare class ASPxClientUploadControlDropZoneEnterEventArgs extends ASPxClientEv
  * @param source The event source. Identifies the upload control object that raised the event.
  * @param e A ASPxClientUploadControlDropZoneLeaveEventArgs object that contains event data.
  */
-interface ASPxClientUploadControlDropZoneLeaveEventHandler<Sender> { (source: Sender, e: ASPxClientUploadControlDropZoneLeaveEventArgs): void; }
+interface ASPxClientUploadControlDropZoneLeaveEventHandler<Sender> {
+    (source: Sender, e: ASPxClientUploadControlDropZoneLeaveEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientUploadControl.DropZoneLeave event.
  */
@@ -27346,7 +28072,9 @@ declare class MVCxClientQueryBuilder extends ASPxClientQueryBuilder {
  * @param source An object which is the event source. Identifies the client object that raised the event.
  * @param e A MVCxClientQueryBuilderSaveCommandExecutedEventArgs object that contains event data.
  */
-interface MVCxClientQueryBuilderSaveCommandExecutedEventHandler<Sender> { (source: Sender, e: MVCxClientQueryBuilderSaveCommandExecutedEventArgs): void; }
+interface MVCxClientQueryBuilderSaveCommandExecutedEventHandler<Sender> {
+    (source: Sender, e: MVCxClientQueryBuilderSaveCommandExecutedEventArgs): void;
+}
 /**
  * Provides data for the MVCxClientQueryBuilder.SaveCommandExecuted event.
  */
@@ -27392,7 +28120,9 @@ declare class MVCxClientReportViewer extends ASPxClientReportViewer {
  * @param source An object which is the event source. Identifies the client object that raised the event.
  * @param e A MVCxClientBeforeExportRequestEventArgs object that contains event data.
  */
-interface MVCxClientBeforeExportRequestEventHandler<Sender> { (source: Sender, e: MVCxClientBeforeExportRequestEventArgs): void; }
+interface MVCxClientBeforeExportRequestEventHandler<Sender> {
+    (source: Sender, e: MVCxClientBeforeExportRequestEventArgs): void;
+}
 /**
  * Provides data for client BeforeExportRequest events.
  */
@@ -27417,7 +28147,9 @@ declare class MVCxClientReportDesigner extends ASPxClientReportDesigner {
     /**
      * Occurs after executing the Save command on the client.
      */
-    SaveCommandExecuted: ASPxClientEvent<MVCxClientReportDesignerSaveCommandExecutedEventHandler<MVCxClientReportDesigner>>;
+    SaveCommandExecuted: ASPxClientEvent<
+        MVCxClientReportDesignerSaveCommandExecutedEventHandler<MVCxClientReportDesigner>
+    >;
     /**
      * Sends a callback to the server and generates the server-side event, passing it the specified argument.
      * @param arg A string value that represents any information that needs to be sent to the server-side event.
@@ -27430,7 +28162,9 @@ declare class MVCxClientReportDesigner extends ASPxClientReportDesigner {
  * @param source An object which is the event source. Identifies the client object that raised the event.
  * @param e A MVCxClientBeforeExportRequestEventArgs object that contains event data.
  */
-interface MVCxClientReportDesignerSaveCommandExecutedEventHandler<Sender> { (source: Sender, e: MVCxClientReportDesignerSaveCommandExecutedEventArgs): void; }
+interface MVCxClientReportDesignerSaveCommandExecutedEventHandler<Sender> {
+    (source: Sender, e: MVCxClientReportDesignerSaveCommandExecutedEventArgs): void;
+}
 /**
  * Provides data for the MVCxClientReportDesigner.SaveCommandExecuted event.
  */
@@ -27519,7 +28253,9 @@ declare class MVCxClientSchedulerTemplateToolTip extends ASPxClientToolTipBase {
  * @param source An object which is the event source. Identifies the client object that raised the event.
  * @param e A MVCxClientSchedulerToolTipDisplayingEventArgs object that contains the related arguments.
  */
-interface MVCxClientSchedulerToolTipDisplayingEventHandler<Sender> { (source: Sender, e: MVCxClientSchedulerToolTipDisplayingEventArgs): void; }
+interface MVCxClientSchedulerToolTipDisplayingEventHandler<Sender> {
+    (source: Sender, e: MVCxClientSchedulerToolTipDisplayingEventArgs): void;
+}
 /**
  * Provides data for the MVCxClientScheduler.ToolTipDisplaying event.
  */
@@ -27699,7 +28435,9 @@ declare class MVCxClientUtils {
  * @param source An object which is the event source. Identifies the client object that raised the event.
  * @param e A MVCxClientBeginCallbackEventArgs object that contains event data.
  */
-interface MVCxClientBeginCallbackEventHandler<Sender> { (source: Sender, e: MVCxClientBeginCallbackEventArgs): void; }
+interface MVCxClientBeginCallbackEventHandler<Sender> {
+    (source: Sender, e: MVCxClientBeginCallbackEventArgs): void;
+}
 /**
  * Provides data for client BeginCallback events.
  */
@@ -27719,7 +28457,9 @@ declare class MVCxClientBeginCallbackEventArgs extends ASPxClientBeginCallbackEv
  * @param source An object which is the event source. Identifies the client object that raised the event.
  * @param e A MVCxClientGlobalBeginCallbackEventArgs object that contains event data.
  */
-interface MVCxClientGlobalBeginCallbackEventHandler<Sender> { (source: Sender, e: MVCxClientGlobalBeginCallbackEventArgs): void; }
+interface MVCxClientGlobalBeginCallbackEventHandler<Sender> {
+    (source: Sender, e: MVCxClientGlobalBeginCallbackEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientGlobalEvents.BeginCallback event.
  */
@@ -27759,22 +28499,30 @@ declare class MVCxClientGlobalEvents {
      * Dynamically connects the MVCxClientGlobalEvents.ControlsInitialized client event with an appropriate event handler function.
      * @param handler A object representing the event handling function's content.
      */
-    static AddControlsInitializedEventHandler(handler: ASPxClientEvent<ASPxClientControlsInitializedEventHandler<MVCxClientGlobalEvents>>): void;
+    static AddControlsInitializedEventHandler(
+        handler: ASPxClientEvent<ASPxClientControlsInitializedEventHandler<MVCxClientGlobalEvents>>,
+    ): void;
     /**
      * Dynamically connects the MVCxClientGlobalEvents.BeginCallback client event with an appropriate event handler function.
      * @param handler A object containing the event handling function's content.
      */
-    static AddBeginCallbackEventHandler(handler: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientGlobalEvents>>): void;
+    static AddBeginCallbackEventHandler(
+        handler: ASPxClientEvent<MVCxClientBeginCallbackEventHandler<MVCxClientGlobalEvents>>,
+    ): void;
     /**
      * Dynamically connects the MVCxClientGlobalEvents.EndCallback client event with an appropriate event handler function.
      * @param handler A object containing the event handling function's content.
      */
-    static AddEndCallbackEventHandler(handler: ASPxClientEvent<ASPxClientEndCallbackEventHandler<MVCxClientGlobalEvents>>): void;
+    static AddEndCallbackEventHandler(
+        handler: ASPxClientEvent<ASPxClientEndCallbackEventHandler<MVCxClientGlobalEvents>>,
+    ): void;
     /**
      * Dynamically connects the MVCxClientGlobalEvents.CallbackError client event with an appropriate event handler function.
      * @param handler A object containing the event handling function's content.
      */
-    static AddCallbackErrorHandler(handler: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<MVCxClientGlobalEvents>>): void;
+    static AddCallbackErrorHandler(
+        handler: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<MVCxClientGlobalEvents>>,
+    ): void;
 }
 /**
  * A client-side counterpart of the VerticalGrid extension.
@@ -27812,19 +28560,25 @@ declare class ASPxClientChartDesigner extends ASPxClientControl {
     EndCallback: ASPxClientEvent<ASPxClientEndCallbackEventHandler<ASPxClientChartDesigner>>;
     CallbackError: ASPxClientEvent<ASPxClientCallbackErrorEventHandler<ASPxClientChartDesigner>>;
     SaveCommandExecute: ASPxClientEvent<ASPxClientChartDesignerSaveCommandExecuteEventHandler<ASPxClientChartDesigner>>;
-    CustomizeMenuActions: ASPxClientEvent<ASPxClientChartDesignerCustomizeMenuActionsEventHandler<ASPxClientChartDesigner>>;
+    CustomizeMenuActions: ASPxClientEvent<
+        ASPxClientChartDesignerCustomizeMenuActionsEventHandler<ASPxClientChartDesigner>
+    >;
     PerformCallback(arg: string, onSuccess?: (arg: string) => void): void;
-    UpdateLocalization(localization: { [key: string]: string; }): void;
+    UpdateLocalization(localization: { [key: string]: string }): void;
     GetDesignerModel(): any;
     GetJsonChartModel(): string;
     static Cast(obj: any): ASPxClientChartDesigner;
 }
-interface ASPxClientChartDesignerSaveCommandExecuteEventHandler<Sender> { (source: Sender, e: ASPxClientChartDesignerSaveCommandExecuteEventArgs): void; }
+interface ASPxClientChartDesignerSaveCommandExecuteEventHandler<Sender> {
+    (source: Sender, e: ASPxClientChartDesignerSaveCommandExecuteEventArgs): void;
+}
 declare class ASPxClientChartDesignerSaveCommandExecuteEventArgs extends ASPxClientEventArgs {
     constructor();
     handled: boolean;
 }
-interface ASPxClientChartDesignerCustomizeMenuActionsEventHandler<Sender> { (source: Sender, e: ASPxClientChartDesignerCustomizeMenuActionsEventArgs): void; }
+interface ASPxClientChartDesignerCustomizeMenuActionsEventHandler<Sender> {
+    (source: Sender, e: ASPxClientChartDesignerCustomizeMenuActionsEventArgs): void;
+}
 declare class ASPxClientChartDesignerMenuAction {
     text: string;
     imageClassName: string;
@@ -27880,7 +28634,9 @@ declare class ASPxClientWebChartControl extends ASPxClientControl {
     /**
      * Occurs before crosshair items are drawn when the chart's contents are being drawn.
      */
-    CustomDrawCrosshair: ASPxClientEvent<ASPxClientWebChartControlCustomDrawCrosshairEventHandler<ASPxClientWebChartControl>>;
+    CustomDrawCrosshair: ASPxClientEvent<
+        ASPxClientWebChartControlCustomDrawCrosshairEventHandler<ASPxClientWebChartControl>
+    >;
     /**
      * Occurs on the client side when any chart element is selected.
      */
@@ -27933,7 +28689,9 @@ declare class ASPxClientWebChartControl extends ASPxClientControl {
  * @param source The event source. This parameter identifies the ASPxClientWebChart.chartControl which raised the event.
  * @param e An ASPxClientWebChartControlCustomDrawCrosshairEventArgs object which contains event data.
  */
-interface ASPxClientWebChartControlCustomDrawCrosshairEventHandler<Sender> { (source: Sender, e: ASPxClientWebChartControlCustomDrawCrosshairEventArgs): void; }
+interface ASPxClientWebChartControlCustomDrawCrosshairEventHandler<Sender> {
+    (source: Sender, e: ASPxClientWebChartControlCustomDrawCrosshairEventArgs): void;
+}
 /**
  * Provides data for a chart control's ASPxClientWebChartControl.CustomDrawCrosshair event.
  */
@@ -27946,7 +28704,13 @@ declare class ASPxClientWebChartControlCustomDrawCrosshairEventArgs extends ASPx
      * @param crosshairElementGroups An array of ASPxClientCrosshairElementGroup objects that contain crosshair element groups for custom drawing a crosshair cursor.
      * @param crosshairLegendElements An array of ASPxClientCrosshairLegendElement objects that contain crosshair legend elements for custom drawing a crosshair cursor.
      */
-    constructor(processOnServer: boolean, cursorCrosshairAxisLabelElements: ASPxClientCrosshairAxisLabelElement[], cursorCrosshairLineElement: ASPxClientCrosshairLineElement, crosshairElementGroups: ASPxClientCrosshairElementGroup[], crosshairLegendElements: ASPxClientCrosshairLegendElement[]);
+    constructor(
+        processOnServer: boolean,
+        cursorCrosshairAxisLabelElements: ASPxClientCrosshairAxisLabelElement[],
+        cursorCrosshairLineElement: ASPxClientCrosshairLineElement,
+        crosshairElementGroups: ASPxClientCrosshairElementGroup[],
+        crosshairLegendElements: ASPxClientCrosshairLegendElement[],
+    );
     /** @deprecated This property is now obsolete. Use the crosshairElementGroup.CrosshairElements property instead. */
     /**
      * Returns crosshair elements settings to custom draw a crosshair cursor.
@@ -28112,12 +28876,24 @@ declare class ASPxClientCrosshairLegendElement extends ASPxClientCrosshairLegend
  * @param source The event source. This parameter identifies the ASPxClientWebChartControl which raised the event.
  * @param e An ASPxClientWebChartControlHotTrackEventArgs object which contains event data.
  */
-interface ASPxClientWebChartControlHotTrackEventHandler<Sender> { (source: Sender, e: ASPxClientWebChartControlHotTrackEventArgs): void; }
+interface ASPxClientWebChartControlHotTrackEventHandler<Sender> {
+    (source: Sender, e: ASPxClientWebChartControlHotTrackEventArgs): void;
+}
 /**
  * Provides data for a chart control's ASPxClientWebChartControl.ObjectHotTracked and ASPxClientWebChartControl.ObjectSelected events on the client side.
  */
 declare class ASPxClientWebChartControlHotTrackEventArgs extends ASPxClientProcessingModeEventArgs {
-    constructor(processOnServer: boolean, hitObject: ASPxClientWebChartElement, additionalHitObject: ASPxClientWebChartElement, hitInfo: ASPxClientWebChartHitInfo, htmlElement: any, x: number, y: number, absoluteX?: number, absoluteY?: number);
+    constructor(
+        processOnServer: boolean,
+        hitObject: ASPxClientWebChartElement,
+        additionalHitObject: ASPxClientWebChartElement,
+        hitInfo: ASPxClientWebChartHitInfo,
+        htmlElement: any,
+        x: number,
+        y: number,
+        absoluteX?: number,
+        absoluteY?: number,
+    );
     /**
      * Provides access on the client side to the chart element, for which the event was raised.
      */
@@ -28603,7 +29379,13 @@ declare class ASPxClientXYDiagram2D extends ASPxClientXYDiagramBase {
      * @param axisY An ASPxClientAxis2D descendant, representing the Y-axis.
      * @param pane An ASPxClientXYDiagramPane object, representing the pane.
      */
-    DiagramToPoint(argument: any, value: any, axisX: ASPxClientAxis2D, axisY: ASPxClientAxis2D, pane: ASPxClientXYDiagramPane): ASPxClientControlCoordinates;
+    DiagramToPoint(
+        argument: any,
+        value: any,
+        axisX: ASPxClientAxis2D,
+        axisY: ASPxClientAxis2D,
+        pane: ASPxClientXYDiagramPane,
+    ): ASPxClientControlCoordinates;
     /**
      * Shows the Crosshair Cursor at the point with the specified coordinates.
      * @param screenX The horizontal coordinate that is related to the top-left angle of the chart.
@@ -29732,7 +30514,9 @@ declare class ASPxClientSpellChecker extends ASPxClientControl {
  * @param source The ASPxClientSpellChecker control which fires the event.
  * @param e A ASPxClientSpellCheckerBeforeCheckEventArgs object that contains event data
  */
-interface ASPxClientBeforeCheckEventHandler<Sender> { (source: Sender, e: ASPxClientSpellCheckerBeforeCheckEventArgs): void; }
+interface ASPxClientBeforeCheckEventHandler<Sender> {
+    (source: Sender, e: ASPxClientSpellCheckerBeforeCheckEventArgs): void;
+}
 /**
  * Provides data for an event that occurs before a spelling check is started. Represents the client-side equivalent of the BeforeCheckEventArgs class.
  */
@@ -29752,7 +30536,9 @@ declare class ASPxClientSpellCheckerBeforeCheckEventArgs extends ASPxClientCance
  * @param source The ASPxClientSpellChecker control which fires the event.
  * @param e A ASPxClientSpellCheckerAfterCheckEventArgs object that contains event data
  */
-interface ASPxClientAfterCheckEventHandler<Sender> { (source: Sender, e: ASPxClientSpellCheckerAfterCheckEventArgs): void; }
+interface ASPxClientAfterCheckEventHandler<Sender> {
+    (source: Sender, e: ASPxClientSpellCheckerAfterCheckEventArgs): void;
+}
 /**
  * Provides data for the client event that occurs after a spelling check is complete.
  */
@@ -29789,7 +30575,9 @@ declare class ASPxClientSpellCheckerStopCheckingReason {
  * @param source The event source.
  * @param e An ASPxClientSpellCheckerAfterCheckEventArgs object which contains event data.
  */
-interface ASPxClientWordChangedEventHandler<Sender> { (source: Sender, e: ASPxClientSpellCheckerAfterCheckEventArgs): void; }
+interface ASPxClientWordChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientSpellCheckerAfterCheckEventArgs): void;
+}
 /**
  * A client-side equivalent of the DevExpress.Web.ASPxGantt control.
  */
@@ -29970,13 +30758,17 @@ declare class ASPxClientDashboardItemRequestUnderlyingDataParameters {
  * References a method executed after an asynchronous request is complete.
  * @param data An object that contains a list of records from the dashboard data source.
  */
-interface ASPxClientDashboardItemRequestUnderlyingDataCompleted { (data: ASPxClientDashboardItemUnderlyingData): void; }
+interface ASPxClientDashboardItemRequestUnderlyingDataCompleted {
+    (data: ASPxClientDashboardItemUnderlyingData): void;
+}
 /**
  * References a method that handles the ASPxClientDashboard.ItemClick event.
  * @param source The event source.
  * @param e A ASPxClientDashboardItemClickEventArgs object that contains event data.
  */
-interface ASPxClientDashboardItemClickEventHandler<Sender> { (source: Sender, e: ASPxClientDashboardItemClickEventArgs): void; }
+interface ASPxClientDashboardItemClickEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDashboardItemClickEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDashboard.ItemClick event.
  */
@@ -30012,14 +30804,19 @@ declare class ASPxClientDashboardItemClickEventArgs extends ASPxClientEventArgs 
      * @param onCompleted A ASPxClientDashboardItemRequestUnderlyingDataCompleted object that references a method executed after the request is completed.
      * @param dataMembers (Optional) An array of string values that specify data members used to obtain underlying data. If this parameter is not specified, underlying data for all available data members will be requested.
      */
-    RequestUnderlyingData(onCompleted: ASPxClientDashboardItemRequestUnderlyingDataCompleted, dataMembers: string[]): void;
+    RequestUnderlyingData(
+        onCompleted: ASPxClientDashboardItemRequestUnderlyingDataCompleted,
+        dataMembers: string[],
+    ): void;
 }
 /**
  * References a method that handles the ASPxClientDashboard.ItemVisualInteractivity event.
  * @param source The event source.
  * @param e A ASPxClientDashboardItemVisualInteractivityEventArgs object containing event data.
  */
-interface ASPxClientDashboardItemVisualInteractivityEventHandler<Sender> { (source: Sender, e: ASPxClientDashboardItemVisualInteractivityEventArgs): void; }
+interface ASPxClientDashboardItemVisualInteractivityEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDashboardItemVisualInteractivityEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDashboard.ItemVisualInteractivity event.
  */
@@ -30070,7 +30867,9 @@ declare class ASPxClientDashboardItemVisualInteractivityEventArgs extends ASPxCl
  * @param source The event source.
  * @param e A ASPxClientDashboardItemSelectionChangedEventArgs object containing event data.
  */
-interface ASPxClientDashboardItemSelectionChangedEventHandler<Sender> { (source: Sender, e: ASPxClientDashboardItemSelectionChangedEventArgs): void; }
+interface ASPxClientDashboardItemSelectionChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDashboardItemSelectionChangedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDashboard.ItemSelectionChanged event.
  */
@@ -30089,7 +30888,9 @@ declare class ASPxClientDashboardItemSelectionChangedEventArgs extends ASPxClien
  * @param source The event source.
  * @param e An ASPxClientDashboardItemElementCustomColorEventArgs object that contains event data.
  */
-interface ASPxClientDashboardItemElementCustomColorEventHandler<Sender> { (source: Sender, e: ASPxClientDashboardItemElementCustomColorEventArgs): void; }
+interface ASPxClientDashboardItemElementCustomColorEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDashboardItemElementCustomColorEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDashboard.ItemElementCustomColor event.
  */
@@ -30121,25 +30922,33 @@ declare class ASPxClientDashboardItemElementCustomColorEventArgs extends ASPxCli
  * @param source The event source.
  * @param e A ASPxClientDashboardItemWidgetEventArgs object that contains event data.
  */
-interface ASPxClientDashboardItemWidgetCreatedEventHandler<Sender> { (source: Sender, e: ASPxClientDashboardItemWidgetEventArgs): void; }
+interface ASPxClientDashboardItemWidgetCreatedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDashboardItemWidgetEventArgs): void;
+}
 /**
  * References a method that handles the ASPxClientDashboard.ItemWidgetUpdating event.
  * @param source The event source.
  * @param e A ASPxClientDashboardItemWidgetEventArgs object that contains event data.
  */
-interface ASPxClientDashboardItemWidgetUpdatingEventHandler<Sender> { (source: Sender, e: ASPxClientDashboardItemWidgetEventArgs): void; }
+interface ASPxClientDashboardItemWidgetUpdatingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDashboardItemWidgetEventArgs): void;
+}
 /**
  * References a method that handles the ASPxClientDashboard.ItemWidgetUpdated event.
  * @param source The event source.
  * @param e A ASPxClientDashboardItemWidgetEventArgs object that contains event data.
  */
-interface ASPxClientDashboardItemWidgetUpdatedEventHandler<Sender> { (source: Sender, e: ASPxClientDashboardItemWidgetEventArgs): void; }
+interface ASPxClientDashboardItemWidgetUpdatedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDashboardItemWidgetEventArgs): void;
+}
 /**
  * References a method that handles the ASPxClientDashboard.ItemBeforeWidgetDisposed event.
  * @param source The event source.
  * @param e A ASPxClientDashboardItemWidgetEventArgs object that contains event data.
  */
-interface ASPxClientDashboardItemBeforeWidgetDisposedEventHandler<Sender> { (source: Sender, e: ASPxClientDashboardItemWidgetEventArgs): void; }
+interface ASPxClientDashboardItemBeforeWidgetDisposedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDashboardItemWidgetEventArgs): void;
+}
 /**
  * Provides data for events related to client widgets used to visualize data in dashboard items.
  */
@@ -30183,7 +30992,9 @@ declare class ASPxClientDashboardItemData {
      * Gets the slice of the current ASPxClientDashboardItemData object by the specified axis point tuple. An ASPxClientDashboardItemData object that is the slice of the current client data object by the specified axis point tuple.
      * @param tuple A ASPxClientDashboardItemDataAxisPointTuple object that is a tuple of axis points.
      */
-    GetSlice(tuple: ASPxClientDashboardItemDataAxisPointTuple | ASPxClientDashboardItemDataAxisPoint): ASPxClientDashboardItemData;
+    GetSlice(
+        tuple: ASPxClientDashboardItemDataAxisPointTuple | ASPxClientDashboardItemDataAxisPoint,
+    ): ASPxClientDashboardItemData;
     /**
      * Returns a total summary value for the specified measure. A ASPxClientDashboardItemDataMeasureValue object providing the measure value and display text.
      * @param measureId A String that is the measure identifier.
@@ -30388,7 +31199,9 @@ declare class ASPxClientDashboardItemDataDeltaValue {
  * @param source The event source.
  * @param e The ASPxClientDashboardItemCaptionToolbarUpdatedEventArgs object that contains event data.
  */
-interface ASPxClientDashboardItemCaptionToolbarUpdatedEventHandler<Sender> { (source: Sender, e: ASPxClientDashboardItemCaptionToolbarUpdatedEventArgs): void; }
+interface ASPxClientDashboardItemCaptionToolbarUpdatedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDashboardItemCaptionToolbarUpdatedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDashboard.ItemCaptionToolbarUpdated event.
  */
@@ -30407,7 +31220,9 @@ declare class ASPxClientDashboardItemCaptionToolbarUpdatedEventArgs extends ASPx
  * @param source The event source.
  * @param e A ASPxClientDashboardTitleToolbarUpdatedEventArgs object that contains event data.
  */
-interface ASPxClientDashboardTitleToolbarUpdatedEventHandler<Sender> { (source: Sender, e: ASPxClientDashboardTitleToolbarUpdatedEventArgs): void; }
+interface ASPxClientDashboardTitleToolbarUpdatedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDashboardTitleToolbarUpdatedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDashboard.DashboardTitleToolbarUpdated event.
  */
@@ -31288,7 +32103,9 @@ declare class ASPxClientDashboard extends ASPxClientControl {
     /**
      * Allows you to provide custom visual interactivity for data-bound dashboard items that support element selection and highlighting.
      */
-    ItemVisualInteractivity: ASPxClientEvent<ASPxClientDashboardItemVisualInteractivityEventHandler<ASPxClientDashboard>>;
+    ItemVisualInteractivity: ASPxClientEvent<
+        ASPxClientDashboardItemVisualInteractivityEventHandler<ASPxClientDashboard>
+    >;
     /**
      * Allows you to access underlying UI/Data Visualization widgets.
      */
@@ -31304,7 +32121,9 @@ declare class ASPxClientDashboard extends ASPxClientControl {
     /**
      * Allows you to access underlying UI/Data Visualization widgets.
      */
-    ItemBeforeWidgetDisposed: ASPxClientEvent<ASPxClientDashboardItemBeforeWidgetDisposedEventHandler<ASPxClientDashboard>>;
+    ItemBeforeWidgetDisposed: ASPxClientEvent<
+        ASPxClientDashboardItemBeforeWidgetDisposedEventHandler<ASPxClientDashboard>
+    >;
     /**
      * Occurs after the selection within the dashboard item is changed.
      */
@@ -31316,11 +32135,15 @@ declare class ASPxClientDashboard extends ASPxClientControl {
     /**
      * Occurs when a master filter state is changed.
      */
-    ItemMasterFilterStateChanged: ASPxClientEvent<ASPxClientDashboardItemMasterFilterStateChangedEventHandler<ASPxClientDashboard>>;
+    ItemMasterFilterStateChanged: ASPxClientEvent<
+        ASPxClientDashboardItemMasterFilterStateChangedEventHandler<ASPxClientDashboard>
+    >;
     /**
      * Occurs when a drill-down/drill-up is performed.
      */
-    ItemDrillDownStateChanged: ASPxClientEvent<ASPxClientDashboardItemDrillDownStateChangedEventHandler<ASPxClientDashboard>>;
+    ItemDrillDownStateChanged: ASPxClientEvent<
+        ASPxClientDashboardItemDrillDownStateChangedEventHandler<ASPxClientDashboard>
+    >;
     /**
      * Occurs after the available interactivity actions have changed for the specific dashboard item.
      */
@@ -31348,11 +32171,15 @@ declare class ASPxClientDashboard extends ASPxClientControl {
     /**
      * Allows you to customize a dashboard item's caption (for instance, add custom buttons, menus, etc.).
      */
-    ItemCaptionToolbarUpdated: ASPxClientEvent<ASPxClientDashboardItemCaptionToolbarUpdatedEventHandler<ASPxClientDashboard>>;
+    ItemCaptionToolbarUpdated: ASPxClientEvent<
+        ASPxClientDashboardItemCaptionToolbarUpdatedEventHandler<ASPxClientDashboard>
+    >;
     /**
      * Allows you to customize a dashboard title (for instance, add custom buttons, menus, etc.).
      */
-    DashboardTitleToolbarUpdated: ASPxClientEvent<ASPxClientDashboardTitleToolbarUpdatedEventHandler<ASPxClientDashboard>>;
+    DashboardTitleToolbarUpdated: ASPxClientEvent<
+        ASPxClientDashboardTitleToolbarUpdatedEventHandler<ASPxClientDashboard>
+    >;
     /**
      * Occurs when the selected tab page is changed.
      */
@@ -31512,17 +32339,29 @@ declare class ASPxClientDashboard extends ASPxClientControl {
      * Exports a dashboard item to a PDF file and writes it to the Response.
      * @param itemName A string that is the component name of the dashboard item to be exported.
      */
-    ExportDashboardItemToPdf(itemName: string, options?: DashboardPdfExportOptions | ASPxClientDashboardExportOptions, fileName?: string): void;
+    ExportDashboardItemToPdf(
+        itemName: string,
+        options?: DashboardPdfExportOptions | ASPxClientDashboardExportOptions,
+        fileName?: string,
+    ): void;
     /**
      * Exports a dashboard item to an Image file and writes it to the Response.
      * @param itemName A string that is the component name of the dashboard item to be exported.
      */
-    ExportDashboardItemToImage(itemName: string, options?: DashboardImageExportOptions | ASPxClientDashboardExportOptions, fileName?: string): void;
+    ExportDashboardItemToImage(
+        itemName: string,
+        options?: DashboardImageExportOptions | ASPxClientDashboardExportOptions,
+        fileName?: string,
+    ): void;
     /**
      * Exports a dashboard item to an Excel file and writes it to the Response.
      * @param itemName A string that is the component name of the dashboard item to be exported.
      */
-    ExportDashboardItemToExcel(itemName: string, options?: DashboardExcelExportOptions | ASPxClientDashboardExportOptions, fileName?: string): void;
+    ExportDashboardItemToExcel(
+        itemName: string,
+        options?: DashboardExcelExportOptions | ASPxClientDashboardExportOptions,
+        fileName?: string,
+    ): void;
     /**
      * Returns whether master filtering  can be applied in the current state of the specified master filter item. true, if master filtering can be applied in the current state of the specified master filter item; otherwise, false.
      * @param itemName A string that specifies the component name of the master filter item.
@@ -31609,7 +32448,11 @@ declare class ASPxClientDashboard extends ASPxClientControl {
      * @param args A ASPxClientDashboardItemRequestUnderlyingDataParameters object containing parameters used to obtain the underlying data.
      * @param onCompleted A ASPxClientDashboardItemRequestUnderlyingDataCompleted object that references a method executed after the request is completed.
      */
-    RequestUnderlyingData(itemName: string, args: ASPxClientDashboardItemRequestUnderlyingDataParameters, onCompleted: ASPxClientDashboardItemRequestUnderlyingDataCompleted): void;
+    RequestUnderlyingData(
+        itemName: string,
+        args: ASPxClientDashboardItemRequestUnderlyingDataParameters,
+        onCompleted: ASPxClientDashboardItemRequestUnderlyingDataCompleted,
+    ): void;
     /**
      * Returns the currently selected range in the specified Range Filter or Date Filter dashboard item. A ASPxClientDashboardRangeFilterSelection object that is the selected range.
      * @param itemName A String value that specifies the component name of the Range Filter or Date Filter dashboard item.
@@ -31657,7 +32500,9 @@ declare class ASPxClientDashboard extends ASPxClientControl {
  * @param source The event source.
  * @param e A ASPxClientDashboardStateChangedEventArgs object that contains event data.
  */
-interface ASPxClientDashboardStateChangedEventHandler<Sender> { (source: Sender, e: ASPxClientDashboardStateChangedEventArgs): void; }
+interface ASPxClientDashboardStateChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDashboardStateChangedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDashboard.DashboardStateChanged event.
  */
@@ -31672,7 +32517,9 @@ declare class ASPxClientDashboardStateChangedEventArgs extends ASPxClientEventAr
  * @param source The event source.
  * @param e A ASPxClientDashboardChangedEventArgs object that contains event data.
  */
-interface ASPxClientDashboardChangedEventHandler<Sender> { (source: Sender, e: ASPxClientDashboardChangedEventArgs): void; }
+interface ASPxClientDashboardChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDashboardChangedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDashboard.DashboardChanged event.
  */
@@ -31687,7 +32534,9 @@ declare class ASPxClientDashboardChangedEventArgs extends ASPxClientEventArgs {
  * @param source The event source.
  * @param e A ASPxClientDashboardInitializedEventArgs object that contains event data.
  */
-interface ASPxClientDashboardInitializedEventHandler<Sender> { (source: Sender, e: ASPxClientDashboardInitializedEventArgs): void; }
+interface ASPxClientDashboardInitializedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDashboardInitializedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDashboard.DashboardInitialized event.
  */
@@ -31702,7 +32551,9 @@ declare class ASPxClientDashboardInitializedEventArgs extends ASPxClientEventArg
  * @param source The event source.
  * @param e A ASPxClientDashboardInitializingEventArgs object that contains event data.
  */
-interface ASPxClientDashboardInitializingEventHandler<Sender> { (source: Sender, e: ASPxClientDashboardInitializingEventArgs): void; }
+interface ASPxClientDashboardInitializingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDashboardInitializingEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDashboard.DashboardInitializing event.
  */
@@ -31725,7 +32576,9 @@ declare class ASPxClientDashboardInitializingEventArgs extends ASPxClientEventAr
  * @param source The event source.
  * @param e An ASPxClientEventArgs object that contains event data.
  */
-interface ASPxClientDashboardBeforeRenderEventHandler<Sender> { (source: Sender, e: ASPxClientEventArgs): void; }
+interface ASPxClientDashboardBeforeRenderEventHandler<Sender> {
+    (source: Sender, e: ASPxClientEventArgs): void;
+}
 /**
  * Serves as the base class for classes that provide data for client-side events related to dashboard items.
  */
@@ -31750,7 +32603,9 @@ declare class ASPxClientDashboardItemEventArgs extends ASPxClientEventArgs {
  * @param source The event source.
  * @param e An ASPxClientDashboardItemMasterFilterStateChangedEventArgs object that contains event data.
  */
-interface ASPxClientDashboardItemMasterFilterStateChangedEventHandler<Sender> { (source: Sender, e: ASPxClientDashboardItemMasterFilterStateChangedEventArgs): void; }
+interface ASPxClientDashboardItemMasterFilterStateChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDashboardItemMasterFilterStateChangedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDashboard.ItemMasterFilterStateChanged event.
  */
@@ -31765,7 +32620,9 @@ declare class ASPxClientDashboardItemMasterFilterStateChangedEventArgs extends A
  * @param source The event source.
  * @param e An ASPxClientDashboardItemDrillDownStateChangedEventArgs object that contains event data.
  */
-interface ASPxClientDashboardItemDrillDownStateChangedEventHandler<Sender> { (source: Sender, e: ASPxClientDashboardItemDrillDownStateChangedEventArgs): void; }
+interface ASPxClientDashboardItemDrillDownStateChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDashboardItemDrillDownStateChangedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDashboard.ItemDrillDownStateChanged event.
  */
@@ -31784,7 +32641,9 @@ declare class ASPxClientDashboardItemDrillDownStateChangedEventArgs extends ASPx
  * @param source The event source.
  * @param e A ASPxClientActionAvailabilityChangedEventArgs object that contains event data.
  */
-interface ASPxClientActionAvailabilityChangedEventHandler<Sender> { (source: Sender, e: ASPxClientActionAvailabilityChangedEventArgs): void; }
+interface ASPxClientActionAvailabilityChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientActionAvailabilityChangedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDashboard.ActionAvailabilityChanged event.
  */
@@ -31799,7 +32658,9 @@ declare class ASPxClientActionAvailabilityChangedEventArgs extends ASPxClientEve
  * @param source The event source.
  * @param e A ASPxClientDynamicLookUpValuesLoadedEventArgs object that contains event data.
  */
-interface ASPxClientDynamicLookUpValuesLoadedEventHandler<Sender> { (source: Sender, e: ASPxClientDynamicLookUpValuesLoadedEventArgs): void; }
+interface ASPxClientDynamicLookUpValuesLoadedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDynamicLookUpValuesLoadedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDashboard.DynamicLookUpValuesLoaded event.
  */
@@ -31814,7 +32675,9 @@ declare class ASPxClientDynamicLookUpValuesLoadedEventArgs extends ASPxClientEve
  * @param source The event source.
  * @param e A ASPxClientItemBeginUpdateEventArgs object that contains event data.
  */
-interface ASPxClientItemBeginUpdateEventHandler<Sender> { (source: Sender, e: ASPxClientItemBeginUpdateEventArgs): void; }
+interface ASPxClientItemBeginUpdateEventHandler<Sender> {
+    (source: Sender, e: ASPxClientItemBeginUpdateEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDashboard.ItemBeginUpdate event.
  */
@@ -31829,7 +32692,9 @@ declare class ASPxClientItemBeginUpdateEventArgs extends ASPxClientEventArgs {
  * @param source The event source.
  * @param e A ASPxClientItemEndUpdateEventArgs object that contains event data.
  */
-interface ASPxClientItemEndUpdateEventHandler<Sender> { (source: Sender, e: ASPxClientItemEndUpdateEventArgs): void; }
+interface ASPxClientItemEndUpdateEventHandler<Sender> {
+    (source: Sender, e: ASPxClientItemEndUpdateEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDashboard.ItemEndUpdate event.
  */
@@ -31844,7 +32709,9 @@ declare class ASPxClientItemEndUpdateEventArgs extends ASPxClientEventArgs {
  * @param source The event source.
  * @param e A ASPxClientDashboardBeginUpdateEventArgs object that contains event data.
  */
-interface ASPxClientDashboardBeginUpdateEventHandler<Sender> { (source: Sender, e: ASPxClientDashboardBeginUpdateEventArgs): void; }
+interface ASPxClientDashboardBeginUpdateEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDashboardBeginUpdateEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDashboard.DashboardBeginUpdate event.
  */
@@ -31859,7 +32726,9 @@ declare class ASPxClientDashboardBeginUpdateEventArgs extends ASPxClientEventArg
  * @param source The event source.
  * @param e An ASPxClientDashboardEndUpdateEventArgs object that contains event data.
  */
-interface ASPxClientDashboardEndUpdateEventHandler<Sender> { (source: Sender, e: ASPxClientDashboardEndUpdateEventArgs): void; }
+interface ASPxClientDashboardEndUpdateEventHandler<Sender> {
+    (source: Sender, e: ASPxClientDashboardEndUpdateEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDashboard.DashboardEndUpdate event.
  */
@@ -31874,7 +32743,9 @@ declare class ASPxClientDashboardEndUpdateEventArgs extends ASPxClientEventArgs 
  * @param source The event source.
  * @param e A ASPxClientSelectedTabPageChangedEventArgs object that contains event data.
  */
-interface ASPxClientSelectedTabPageChangedEventHandler<Sender> { (source: Sender, e: ASPxClientSelectedTabPageChangedEventArgs): void; }
+interface ASPxClientSelectedTabPageChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientSelectedTabPageChangedEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientDashboard.SelectedTabPageChanged event.
  */
@@ -31892,7 +32763,9 @@ declare class ASPxClientSelectedTabPageChangedEventArgs extends ASPxClientEventA
      */
     PreviousPage: string;
 }
-interface ASPxClientCustomizeDataSourceWizardEventHandler<Sender> { (source: Sender, e: ASPxClientCustomizeDataSourceWizardEventArgs): void; }
+interface ASPxClientCustomizeDataSourceWizardEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCustomizeDataSourceWizardEventArgs): void;
+}
 declare class ASPxClientCustomizeDataSourceWizardEventArgs extends ASPxClientEventArgs {
     Type: string;
     Wizard: any;
@@ -32027,7 +32900,9 @@ declare class BootstrapClientAccordionItem extends ASPxClientNavBarItem {
  * @param source An object representing the event source. Identifies the BootstrapClientAccordion control that raised the event.
  * @param e An BootstrapClientAccordionItemEventArgs object that contains event data.
  */
-interface BootstrapClientAccordionItemEventHandler<Sender> { (source: Sender, e: BootstrapClientAccordionItemEventArgs): void; }
+interface BootstrapClientAccordionItemEventHandler<Sender> {
+    (source: Sender, e: BootstrapClientAccordionItemEventArgs): void;
+}
 /**
  * Provides data for events related to manipulations on items.
  */
@@ -32058,7 +32933,9 @@ declare class BootstrapClientAccordionItemEventArgs extends ASPxClientProcessing
  * @param source An object representing the event source. Identifies the BootstrapClientAccordion control that raised the event.
  * @param e An BootstrapClientAccordionGroupEventArgs object that contains event data.
  */
-interface BootstrapClientAccordionGroupEventHandler<Sender> { (source: Sender, e: BootstrapClientAccordionGroupEventArgs): void; }
+interface BootstrapClientAccordionGroupEventHandler<Sender> {
+    (source: Sender, e: BootstrapClientAccordionGroupEventArgs): void;
+}
 /**
  * Provides data for events related to manipulations on groups.
  */
@@ -32078,7 +32955,9 @@ declare class BootstrapClientAccordionGroupEventArgs extends ASPxClientEventArgs
  * @param source An object representing the event source. Identifies the BootstrapClientAccordion control that raised the event.
  * @param e An BootstrapClientAccordionGroupCancelEventArgs object that contains event data.
  */
-interface BootstrapClientAccordionGroupCancelEventHandler<Sender> { (source: Sender, e: BootstrapClientAccordionGroupCancelEventArgs): void; }
+interface BootstrapClientAccordionGroupCancelEventHandler<Sender> {
+    (source: Sender, e: BootstrapClientAccordionGroupCancelEventArgs): void;
+}
 /**
  * Provides data for events related to manipulations on accordion groups.
  */
@@ -32094,7 +32973,9 @@ declare class BootstrapClientAccordionGroupCancelEventArgs extends ASPxClientPro
  * @param source An object representing the event source. Identifies the BootstrapClientAccordion control that raised the event.
  * @param e An BootstrapClientAccordionGroupClickEventArgs object that contains event data.
  */
-interface BootstrapClientAccordionGroupClickEventHandler<Sender> { (source: Sender, e: BootstrapClientAccordionGroupClickEventArgs): void; }
+interface BootstrapClientAccordionGroupClickEventHandler<Sender> {
+    (source: Sender, e: BootstrapClientAccordionGroupClickEventArgs): void;
+}
 /**
  * Provides data for events related to clicking on the control's group headers.
  */
@@ -32345,7 +33226,9 @@ declare class BootstrapClientChartBase extends BootstrapUIWidgetBase {
     /**
      * Fires when the selection state of a series point has been changed.
      */
-    PointSelectionChanged: ASPxClientEvent<BootstrapClientChartBasePointSelectionChangedEventHandler<BootstrapClientChartBase>>;
+    PointSelectionChanged: ASPxClientEvent<
+        BootstrapClientChartBasePointSelectionChangedEventHandler<BootstrapClientChartBase>
+    >;
     /**
      * Fires when a point's tooltip becomes hidden.
      */
@@ -32357,7 +33240,9 @@ declare class BootstrapClientChartBase extends BootstrapUIWidgetBase {
     /**
      * Fires when a user clicks a label on the argument axis.
      */
-    ArgumentAxisClick: ASPxClientEvent<BootstrapClientCoordinateSystemChartArgumentAxisClickEventHandler<BootstrapClientChartBase>>;
+    ArgumentAxisClick: ASPxClientEvent<
+        BootstrapClientCoordinateSystemChartArgumentAxisClickEventHandler<BootstrapClientChartBase>
+    >;
     /**
      * Fires when a user clicks a series.
      */
@@ -32365,11 +33250,15 @@ declare class BootstrapClientChartBase extends BootstrapUIWidgetBase {
     /**
      * Fires when the hover state of a series has been changed.
      */
-    SeriesHoverChanged: ASPxClientEvent<BootstrapClientCoordinateSystemChartSeriesHoverChangedEventHandler<BootstrapClientChartBase>>;
+    SeriesHoverChanged: ASPxClientEvent<
+        BootstrapClientCoordinateSystemChartSeriesHoverChangedEventHandler<BootstrapClientChartBase>
+    >;
     /**
      * Fires when the selection state of a series has been changed.
      */
-    SeriesSelectionChanged: ASPxClientEvent<BootstrapClientCoordinateSystemChartSeriesSelectionChangedEventHandler<BootstrapClientChartBase>>;
+    SeriesSelectionChanged: ASPxClientEvent<
+        BootstrapClientCoordinateSystemChartSeriesSelectionChangedEventHandler<BootstrapClientChartBase>
+    >;
 }
 /**
  * Represents a client-side equivalent of the Chart control.
@@ -32399,79 +33288,105 @@ declare class BootstrapClientPieChart extends BootstrapClientChartBase {
  * @param source The event source.
  * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
  */
-interface BootstrapClientChartBaseDoneEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapClientChartBaseDoneEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * A method that will handle the BootstrapClientChartBase.LegendClick event.
  * @param source The event source.
  * @param e An object that contains event data.
  */
-interface BootstrapClientChartBaseLegendClickEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapClientChartBaseLegendClickEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * A method that will handle the Invoke event.
  * @param source The event source.
  * @param e An object that contains event data.
  */
-interface BootstrapClientCoordinateSystemChartArgumentAxisClickEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapClientCoordinateSystemChartArgumentAxisClickEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * A method that will handle the BootstrapClientChartBase.PointClick event.
  * @param source The event source.
  * @param e An object that contains event data.
  */
-interface BootstrapClientChartBasePointClickEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapClientChartBasePointClickEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * A method that will handle the BootstrapClientChartBase.PointHoverChanged event.
  * @param source The event source.
  * @param e An object that contains event data.
  */
-interface BootstrapClientChartBasePointHoverChangedEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapClientChartBasePointHoverChangedEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * A method that will handle the BootstrapClientChartBase.PointSelectionChanged event.
  * @param source The event source.
  * @param e An object that contains event data.
  */
-interface BootstrapClientChartBasePointSelectionChangedEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapClientChartBasePointSelectionChangedEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * A method that will handle the BootstrapClientChartBase.TooltipHidden event.
  * @param source The event source.
  * @param e An object that contains event data.
  */
-interface BootstrapClientChartBaseTooltipHiddenEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapClientChartBaseTooltipHiddenEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * A method that will handle the BootstrapClientChartBase.TooltipShown event.
  * @param source The event source.
  * @param e An object that contains event data.
  */
-interface BootstrapClientChartBaseTooltipShownEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapClientChartBaseTooltipShownEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * A method that will handle the BootstrapClientChartBase.SeriesClick event.
  * @param source The event source.
  * @param e An object that contains event data.
  */
-interface BootstrapClientCoordinateSystemChartSeriesClickEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapClientCoordinateSystemChartSeriesClickEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * A method that will handle the BootstrapClientChartBase.SeriesHoverChanged event.
  * @param source The event source.
  * @param e An object that contains event data.
  */
-interface BootstrapClientCoordinateSystemChartSeriesHoverChangedEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapClientCoordinateSystemChartSeriesHoverChangedEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * A method that will handle the BootstrapClientChartBase.SeriesSelectionChanged event.
  * @param source The event source.
  * @param e An object that contains event data.
  */
-interface BootstrapClientCoordinateSystemChartSeriesSelectionChangedEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapClientCoordinateSystemChartSeriesSelectionChangedEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * A method that will handle the BootstrapClientChart.ZoomStart event.
  * @param source The event source.
  * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
  */
-interface BootstrapClientChartZoomStartEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapClientChartZoomStartEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * A method that will handle the BootstrapClientChart.ZoomEnd event.
  * @param source The event source.
  * @param e An object that contains event data.
  */
-interface BootstrapClientChartZoomEndEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapClientChartZoomEndEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * Represents a client-side equivalent of the BootstrapRangeSelector control.
  */
@@ -32495,7 +33410,9 @@ declare class BootstrapClientRangeSelector extends BootstrapUIWidgetBase {
  * @param source The event source.
  * @param e An object that contains event data.
  */
-interface BootstrapClientRangeSelectorValueChangedEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapClientRangeSelectorValueChangedEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * Represents a client-side equivalent of the BootstrapSparkline control.
  */
@@ -32505,8 +33422,12 @@ declare class BootstrapClientSparkline extends BootstrapUIWidgetBase {
     ExportTo(fileName: string, format: string): void;
     Print(): void;
 }
-interface BootstrapClientSparklineTooltipHiddenEventHandler<Sender> { (source: Sender, e: any): void; }
-interface BootstrapClientSparklineTooltipShownEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapClientSparklineTooltipHiddenEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
+interface BootstrapClientSparklineTooltipShownEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * Represents a client-side equivalent of the BootstrapWebClientUIWidget class.
  */
@@ -32579,25 +33500,33 @@ declare class BootstrapUIWidgetBase extends ASPxClientControl {
  * @param source The event source.
  * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
  */
-interface BootstrapUIWidgetInitializedEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapUIWidgetInitializedEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * A method that will handle the BootstrapUIWidgetBase.Drawn event.
  * @param source The event source.
  * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
  */
-interface BootstrapUIWidgetDrawnEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapUIWidgetDrawnEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * A method that will handle the BootstrapUIWidgetBase.Disposing event.
  * @param source The event source.
  * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
  */
-interface BootstrapUIWidgetDisposingEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapUIWidgetDisposingEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * A method that will handle the BootstrapUIWidgetBase.Exported event.
  * @param source The event source.
  * @param e A BootstrapUIWidgetEventArgsBase object that contains event data.
  */
-interface BootstrapUIWidgetExportedEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapUIWidgetExportedEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * Provides base data for the client-side events.
  */
@@ -32622,25 +33551,33 @@ declare class BootstrapUIWidgetEventArgsBase extends ASPxClientEventArgs {
  * @param source The event source.
  * @param e An object that contains event data.
  */
-interface BootstrapUIWidgetExportingEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapUIWidgetExportingEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * A method that will handle the BootstrapUIWidgetBase.FileSaving event.
  * @param source The event source.
  * @param e An object that contains event data.
  */
-interface BootstrapUIWidgetFileSavingEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapUIWidgetFileSavingEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * A method that will handle the BootstrapUIWidgetBase.OptionChanged event.
  * @param source The event source.
  * @param e An object that contains event data.
  */
-interface BootstrapUIWidgetOptionChangedEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapUIWidgetOptionChangedEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * A method that will handle the BootstrapUIWidgetBase.IncidentOccurred event.
  * @param source The event source.
  * @param e An object that contains event data.
  */
-interface BootstrapUIWidgetErrorEventHandler<Sender> { (source: Sender, e: any): void; }
+interface BootstrapUIWidgetErrorEventHandler<Sender> {
+    (source: Sender, e: any): void;
+}
 /**
  * Represents a client-side equivalent of the BootstrapDropDownEdit control.
  */
@@ -32689,8 +33626,12 @@ declare class BootstrapClientFABAction extends ASPxClientFABAction {
 declare class BootstrapClientFloatingActionButton extends ASPxClientFloatingActionButton {
     SetContainerCssSelector(selector: string): void;
 }
-interface BootstrapClientFloatingActionButtonContextChangingEventHandler<Sender> { (source: Sender, e: BootstrapClientFloatingActionButtonContextChangingEventArgs): void; }
-declare class BootstrapClientFloatingActionButtonContextChangingEventArgs extends ASPxClientFloatingActionButtonContextChangingEventArgs {
+interface BootstrapClientFloatingActionButtonContextChangingEventHandler<Sender> {
+    (source: Sender, e: BootstrapClientFloatingActionButtonContextChangingEventArgs): void;
+}
+declare class BootstrapClientFloatingActionButtonContextChangingEventArgs
+    extends ASPxClientFloatingActionButtonContextChangingEventArgs
+{
     constructor(action: BootstrapClientFABAction);
     action: BootstrapClientFABAction;
 }
@@ -32934,7 +33875,9 @@ declare class BootstrapClientMenu extends ASPxClientMenu {
  * @param source An object representing the event source. Identifies the BootstrapMenu control that raised the event.
  * @param e An BootstrapClientMenuItemEventArgs object that contains event data.
  */
-interface BootstrapClientMenuItemEventHandler<Sender> { (source: Sender, e: BootstrapClientMenuItemEventArgs): void; }
+interface BootstrapClientMenuItemEventHandler<Sender> {
+    (source: Sender, e: BootstrapClientMenuItemEventArgs): void;
+}
 /**
  * Provides data for events related to manipulations on menu items.
  */
@@ -32954,7 +33897,9 @@ declare class BootstrapClientMenuItemEventArgs extends ASPxClientEventArgs {
  * @param source An object representing the event source. Identifies the BootstrapMenu control that raised the event.
  * @param e An BootstrapClientMenuItemMouseEventArgs object that contains event data.
  */
-interface BootstrapClientMenuItemMouseEventHandler<Sender> { (source: Sender, e: BootstrapClientMenuItemMouseEventArgs): void; }
+interface BootstrapClientMenuItemMouseEventHandler<Sender> {
+    (source: Sender, e: BootstrapClientMenuItemMouseEventArgs): void;
+}
 /**
  * Provides data for client events related to mouse hovering over menu items.
  */
@@ -32971,7 +33916,9 @@ declare class BootstrapClientMenuItemMouseEventArgs extends BootstrapClientMenuI
  * @param source An object representing the event source. Identifies the BootstrapMenu control that raised the event.
  * @param e An BootstrapClientMenuItemClickEventArgs object that contains event data.
  */
-interface BootstrapClientMenuItemClickEventHandler<Sender> { (source: Sender, e: BootstrapClientMenuItemClickEventArgs): void; }
+interface BootstrapClientMenuItemClickEventHandler<Sender> {
+    (source: Sender, e: BootstrapClientMenuItemClickEventArgs): void;
+}
 /**
  * Provides data for events related to clicking on the control's items.
  */
@@ -33212,7 +34159,9 @@ declare class BootstrapClientTab extends ASPxClientTab {
  * @param source An object representing the event source. Identifies the BootstrapClientTabControl that raised the event.
  * @param e An BootstrapClientTabControlTabEventArgs object that contains event data.
  */
-interface BootstrapClientTabControlTabEventHandler<Sender> { (source: Sender, e: BootstrapClientTabControlTabEventArgs): void; }
+interface BootstrapClientTabControlTabEventHandler<Sender> {
+    (source: Sender, e: BootstrapClientTabControlTabEventArgs): void;
+}
 /**
  * Provides data for events related to manipulations on tabs.
  */
@@ -33232,7 +34181,9 @@ declare class BootstrapClientTabControlTabEventArgs extends ASPxClientEventArgs 
  * @param source An object representing the event source. Identifies the BootstrapTabControl that raised the event.
  * @param e An BootstrapClientTabControlTabCancelEventArgs object that contains event data.
  */
-interface BootstrapClientTabControlTabCancelEventHandler<Sender> { (source: Sender, e: BootstrapClientTabControlTabCancelEventArgs): void; }
+interface BootstrapClientTabControlTabCancelEventHandler<Sender> {
+    (source: Sender, e: BootstrapClientTabControlTabCancelEventArgs): void;
+}
 /**
  * Provides data for cancellable events related to manipulations on tabs.
  */
@@ -33257,7 +34208,9 @@ declare class BootstrapClientTabControlTabCancelEventArgs extends ASPxClientProc
  * @param source An object representing the event source. Identifies the BootstrapTabControl that raised the event.
  * @param e An BootstrapClientTabControlTabClickEventArgs object that contains event data.
  */
-interface BootstrapClientTabControlTabClickEventHandler<Sender> { (source: Sender, e: BootstrapClientTabControlTabClickEventArgs): void; }
+interface BootstrapClientTabControlTabClickEventHandler<Sender> {
+    (source: Sender, e: BootstrapClientTabControlTabClickEventArgs): void;
+}
 /**
  * Provides data for events related to clicking on the control's tabs.
  */
@@ -33578,7 +34531,9 @@ declare class BootstrapClientTreeViewNode extends ASPxClientTreeViewNode {
  * @param source An object representing the event source. Identifies the BootstrapClientTreeView control that raised the event.
  * @param e An BootstrapClientTreeViewNodeProcessingModeEventArgs object that contains event data.
  */
-interface BootstrapClientTreeViewNodeProcessingModeEventHandler<Sender> { (source: Sender, e: BootstrapClientTreeViewNodeProcessingModeEventArgs): void; }
+interface BootstrapClientTreeViewNodeProcessingModeEventHandler<Sender> {
+    (source: Sender, e: BootstrapClientTreeViewNodeProcessingModeEventArgs): void;
+}
 /**
  * Provides data for the client events related to node processing, and allowing the event's processing to be passed to the server side.
  */
@@ -33599,7 +34554,9 @@ declare class BootstrapClientTreeViewNodeProcessingModeEventArgs extends ASPxCli
  * @param source An object representing the event source. Identifies the BootstrapClientTreeView control that raised the event.
  * @param e An BootstrapClientTreeViewNodeClickEventArgs object that contains event data.
  */
-interface BootstrapClientTreeViewNodeClickEventHandler<Sender> { (source: Sender, e: BootstrapClientTreeViewNodeClickEventArgs): void; }
+interface BootstrapClientTreeViewNodeClickEventHandler<Sender> {
+    (source: Sender, e: BootstrapClientTreeViewNodeClickEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeView.NodeClick event.
  */
@@ -33626,7 +34583,9 @@ declare class BootstrapClientTreeViewNodeClickEventArgs extends BootstrapClientT
  * @param source An object representing the event source. Identifies the BootstrapClientTreeView control that raised the event.
  * @param e An BootstrapClientTreeViewNodeEventArgs object that contains event data.
  */
-interface BootstrapClientTreeViewNodeEventHandler<Sender> { (source: Sender, e: BootstrapClientTreeViewNodeEventArgs): void; }
+interface BootstrapClientTreeViewNodeEventHandler<Sender> {
+    (source: Sender, e: BootstrapClientTreeViewNodeEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeView.ExpandedChanged events.
  */
@@ -33646,7 +34605,9 @@ declare class BootstrapClientTreeViewNodeEventArgs extends ASPxClientEventArgs {
  * @param source An object representing the event source. Identifies the BootstrapClientTreeView control that raised the event.
  * @param e An BootstrapClientTreeViewNodeCancelEventArgs object that contains event data.
  */
-interface BootstrapClientTreeViewNodeCancelEventHandler<Sender> { (source: Sender, e: BootstrapClientTreeViewNodeCancelEventArgs): void; }
+interface BootstrapClientTreeViewNodeCancelEventHandler<Sender> {
+    (source: Sender, e: BootstrapClientTreeViewNodeCancelEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientTreeView.ExpandedChanging event.
  */
@@ -33775,7 +34736,9 @@ declare class ASPxClientDocumentViewer extends ASPxClientControl {
  * @param source A Object that is the event source.
  * @param e An ASPxClientToolbarItemValueChangedEventArgs object, containing the event arguments.
  */
-interface ASPxClientToolbarItemValueChangedEventHandler<Sender> { (source: Sender, e: ASPxClientToolbarItemValueChangedEventArgs): void; }
+interface ASPxClientToolbarItemValueChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientToolbarItemValueChangedEventArgs): void;
+}
 /**
  * Provides data for the ReportToolbarClientSideEvents.ItemValueChanged event.
  */
@@ -33812,11 +34775,15 @@ declare class ASPxClientQueryBuilder extends ASPxClientControl {
     /**
      * Enables you to customize the menu actions of a Query Builder.
      */
-    CustomizeToolbarActions: ASPxClientEvent<ASPxClientQueryBuilderCustomizeToolbarActionsEventHandler<ASPxClientQueryBuilder>>;
+    CustomizeToolbarActions: ASPxClientEvent<
+        ASPxClientQueryBuilderCustomizeToolbarActionsEventHandler<ASPxClientQueryBuilder>
+    >;
     /**
      * Enables you to customize the Query Builder's localization strings.
      */
-    CustomizeLocalization: ASPxClientEvent<ASPxClientQueryBuilderCustomizeLocalizationEventHandler<ASPxClientQueryBuilder>>;
+    CustomizeLocalization: ASPxClientEvent<
+        ASPxClientQueryBuilderCustomizeLocalizationEventHandler<ASPxClientQueryBuilder>
+    >;
     /**
      * Occurs when executing the Save command on the client.
      */
@@ -33839,7 +34806,7 @@ declare class ASPxClientQueryBuilder extends ASPxClientControl {
      * Updates the ASPxClientQueryBuilder properties' localization settings.
      * @param localization A dictionary containing the property names, along with their localized equivalents.
      */
-    UpdateLocalization(localization: { [key: string]: string; }): void;
+    UpdateLocalization(localization: { [key: string]: string }): void;
     /**
      * Returns the object model of a Query Builder.
      */
@@ -33871,7 +34838,9 @@ declare class ASPxClientQueryBuilder extends ASPxClientControl {
  * @param source The event sender.
  * @param e An ASPxClientQueryBuilderSaveCommandExecuteEventArgs object that contains data related to the event.
  */
-interface ASPxClientQueryBuilderSaveCommandExecuteEventHandler<Sender> { (source: Sender, e: ASPxClientQueryBuilderSaveCommandExecuteEventArgs): void; }
+interface ASPxClientQueryBuilderSaveCommandExecuteEventHandler<Sender> {
+    (source: Sender, e: ASPxClientQueryBuilderSaveCommandExecuteEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientQueryBuilder.SaveCommandExecute event.
  */
@@ -33890,23 +34859,31 @@ declare class ASPxClientQueryBuilderSaveCommandExecuteEventArgs extends ASPxClie
  * @param source The event sender.
  * @param e An ASPxClientCustomizeMenuActionsEventArgs object that contains data related to the event.
  */
-interface ASPxClientQueryBuilderCustomizeToolbarActionsEventHandler<Sender> { (source: Sender, e: ASPxClientCustomizeMenuActionsEventArgs): void; }
+interface ASPxClientQueryBuilderCustomizeToolbarActionsEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCustomizeMenuActionsEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientQueryBuilder.CustomizeLocalization event.
  * @param source The event sender.
  */
-interface ASPxClientQueryBuilderCustomizeLocalizationEventHandler<Sender> { (source: Sender): void; }
+interface ASPxClientQueryBuilderCustomizeLocalizationEventHandler<Sender> {
+    (source: Sender): void;
+}
 /**
  * A method that will handle the ASPxClientQueryBuilder.OnServerError event.
  * @param source The event sender.
  * @param e An ASPxClientErrorEventArgs object that contains data related to the event.
  */
-interface ASPxClientQueryBuilderErrorEventHandler<Sender> { (source: Sender, e: ASPxClientErrorEventArgs): void; }
+interface ASPxClientQueryBuilderErrorEventHandler<Sender> {
+    (source: Sender, e: ASPxClientErrorEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientQueryBuilder.BeforeRender event.
  * @param source The event sender.
  */
-interface ASPxClientQueryBuilderBeforeRenderEventHandler<Sender> { (source: Sender, designerModel: any): void; }
+interface ASPxClientQueryBuilderBeforeRenderEventHandler<Sender> {
+    (source: Sender, designerModel: any): void;
+}
 /**
  * The client-side equivalent of the Web Report Designer control.
  */
@@ -33926,19 +34903,27 @@ declare class ASPxClientReportDesigner extends ASPxClientControl {
     /**
      * Occurs when executing the Save command on the client.
      */
-    SaveCommandExecute: ASPxClientEvent<ASPxClientReportDesignerSaveCommandExecuteEventHandler<ASPxClientReportDesigner>>;
+    SaveCommandExecute: ASPxClientEvent<
+        ASPxClientReportDesignerSaveCommandExecuteEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Enables you to customize the Web Report Designer's menu actions.
      */
-    CustomizeMenuActions: ASPxClientEvent<ASPxClientReportDesignerCustomizeMenuActionsEventHandler<ASPxClientReportDesigner>>;
+    CustomizeMenuActions: ASPxClientEvent<
+        ASPxClientReportDesignerCustomizeMenuActionsEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Occurs each time a standard editor is created for a report parameter based on a parameter type.
      */
-    CustomizeParameterEditors: ASPxClientEvent<ASPxClientReportDesignerCustomizeParameterEditorsEventHandler<ASPxClientReportDesigner>>;
+    CustomizeParameterEditors: ASPxClientEvent<
+        ASPxClientReportDesignerCustomizeParameterEditorsEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Occurs each time a look-up editor is created for a report parameter.
      */
-    CustomizeParameterLookUpSource: ASPxClientEvent<ASPxClientReportDesignerCustomizeParameterLookUpSourceEventHandler<ASPxClientReportDesigner>>;
+    CustomizeParameterLookUpSource: ASPxClientEvent<
+        ASPxClientReportDesignerCustomizeParameterLookUpSourceEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Occurs on the client side when the Report Designer is being closed.
      */
@@ -33986,15 +34971,21 @@ declare class ASPxClientReportDesigner extends ASPxClientControl {
     /**
      * Enables you to customize the Save dialog of the Web Report Designer.
      */
-    CustomizeSaveDialog: ASPxClientEvent<ASPxClientReportDesignerCustomizeSaveDialogEventHandler<ASPxClientReportDesigner>>;
+    CustomizeSaveDialog: ASPxClientEvent<
+        ASPxClientReportDesignerCustomizeSaveDialogEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Enables you to customize the Save Report dialog of the Web Report Designer.
      */
-    CustomizeSaveAsDialog: ASPxClientEvent<ASPxClientReportDesignerCustomizeSaveAsDialogEventHandler<ASPxClientReportDesigner>>;
+    CustomizeSaveAsDialog: ASPxClientEvent<
+        ASPxClientReportDesignerCustomizeSaveAsDialogEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Enables you to customize the Open Report dialog of the Web Report Designer.
      */
-    CustomizeOpenDialog: ASPxClientEvent<ASPxClientReportDesignerCustomizeOpenDialogEventHandler<ASPxClientReportDesigner>>;
+    CustomizeOpenDialog: ASPxClientEvent<
+        ASPxClientReportDesignerCustomizeOpenDialogEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Enables you to customize the Toolbox of the Web Report Designer.
      */
@@ -34002,23 +34993,33 @@ declare class ASPxClientReportDesigner extends ASPxClientControl {
     /**
      * Enables you to customize actions available in the Web Report Designer's Field List.
      */
-    CustomizeFieldListActions: ASPxClientEvent<ASPxClientReportDesignerCustomizeFieldListActionsEventHandler<ASPxClientReportDesigner>>;
+    CustomizeFieldListActions: ASPxClientEvent<
+        ASPxClientReportDesignerCustomizeFieldListActionsEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Occurs after a report has been switched to Print Preview.
      */
-    PreviewDocumentReady: ASPxClientEvent<ASPxClientWebDocumentViewerDocumentReadyEventHandler<ASPxClientReportDesigner>>;
+    PreviewDocumentReady: ASPxClientEvent<
+        ASPxClientWebDocumentViewerDocumentReadyEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Occurs each time an editing field's value changes in Print Preview.
      */
-    PreviewEditingFieldChanged: ASPxClientEvent<ASPxClientWebDocumentViewerEditingFieldChangedEventHandler<ASPxClientReportDesigner>>;
+    PreviewEditingFieldChanged: ASPxClientEvent<
+        ASPxClientWebDocumentViewerEditingFieldChangedEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Enables you to customize UI elements of a Document Viewer built into a Web Report Designer.
      */
-    PreviewCustomizeElements: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeElementsEventHandler<ASPxClientReportDesigner>>;
+    PreviewCustomizeElements: ASPxClientEvent<
+        ASPxClientWebDocumentViewerCustomizeElementsEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Enables you to customize the actions of a Document Viewer built into a Web Report Designer.
      */
-    PreviewCustomizeMenuActions: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeMenuActionsEventHandler<ASPxClientReportDesigner>>;
+    PreviewCustomizeMenuActions: ASPxClientEvent<
+        ASPxClientWebDocumentViewerCustomizeMenuActionsEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Occurs when the left mouse button is clicked on a report document in Print Preview.
      */
@@ -34026,15 +35027,21 @@ declare class ASPxClientReportDesigner extends ASPxClientControl {
     /**
      * Occurs after report parameter values are reset to their default values in Print Preview.
      */
-    PreviewParametersReset: ASPxClientEvent<ASPxClientWebDocumentViewerParametersResetEventHandler<ASPxClientReportDesigner>>;
+    PreviewParametersReset: ASPxClientEvent<
+        ASPxClientWebDocumentViewerParametersResetEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Occurs after report parameter values are submitted in Print Preview.
      */
-    PreviewParametersSubmitted: ASPxClientEvent<ASPxClientWebDocumentViewerParametersSubmittedEventHandler<ASPxClientReportDesigner>>;
+    PreviewParametersSubmitted: ASPxClientEvent<
+        ASPxClientWebDocumentViewerParametersSubmittedEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Enables you to customize the Web Report Designer's localization strings.
      */
-    CustomizeLocalization: ASPxClientEvent<ASPxClientReportDesignerCustomizeLocalizationEventHandler<ASPxClientReportDesigner>>;
+    CustomizeLocalization: ASPxClientEvent<
+        ASPxClientReportDesignerCustomizeLocalizationEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Occurs before the Web Report Designer UI is initialized.
      */
@@ -34042,7 +35049,9 @@ declare class ASPxClientReportDesigner extends ASPxClientControl {
     /**
      * Allows you to customize available export formats and corresponding export options in a Document Viewer built into a Web Report Designer.
      */
-    PreviewCustomizeExportOptions: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeExportOptionsEventHandler<ASPxClientReportDesigner>>;
+    PreviewCustomizeExportOptions: ASPxClientEvent<
+        ASPxClientWebDocumentViewerCustomizeExportOptionsEventHandler<ASPxClientReportDesigner>
+    >;
     /**
      * Sends a callback to the server and generates the server-side event, passing it the specified argument.
      * @param arg A string value that represents any information that needs to be sent to the server-side event.
@@ -34053,7 +35062,7 @@ declare class ASPxClientReportDesigner extends ASPxClientControl {
      * Updates the Report Designer properties' localization settings.
      * @param localization A dictionary containing the property names, along with their localized equivalents.
      */
-    UpdateLocalization(localization: { [key: string]: string; }): void;
+    UpdateLocalization(localization: { [key: string]: string }): void;
     /**
      * Provides access to a client-side model of a Web Report Designer.
      */
@@ -34179,7 +35188,9 @@ declare class ASPxClientReportDesigner extends ASPxClientControl {
  * @param source The event sender.
  * @param e An ASPxClientReportDesignerSaveCommandExecuteEventArgs object that contains data related to the event.
  */
-interface ASPxClientReportDesignerSaveCommandExecuteEventHandler<Sender> { (source: Sender, e: ASPxClientReportDesignerSaveCommandExecuteEventArgs): void; }
+interface ASPxClientReportDesignerSaveCommandExecuteEventHandler<Sender> {
+    (source: Sender, e: ASPxClientReportDesignerSaveCommandExecuteEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientReportDesigner.SaveCommandExecute event.
  */
@@ -34386,126 +35397,168 @@ declare class ASPxClientReportDesignerCustomizeFieldListActionsEventArgs extends
  * @param source The event sender.
  * @param e An ASPxClientCustomizeMenuActionsEventArgs object that contains data related to the event.
  */
-interface ASPxClientReportDesignerCustomizeMenuActionsEventHandler<Sender> { (source: Sender, e: ASPxClientCustomizeMenuActionsEventArgs): void; }
+interface ASPxClientReportDesignerCustomizeMenuActionsEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCustomizeMenuActionsEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientReportDesigner.CustomizeParameterLookUpSource event.
  * @param source The event sender.
  * @param e An ASPxClientCustomizeParameterLookUpSourceEventArgs object that contains data related to the event.
  */
-interface ASPxClientReportDesignerCustomizeParameterLookUpSourceEventHandler<Sender> { (source: Sender, e: ASPxClientCustomizeParameterLookUpSourceEventArgs): void; }
+interface ASPxClientReportDesignerCustomizeParameterLookUpSourceEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCustomizeParameterLookUpSourceEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientReportDesigner.CustomizeParameterEditors event.
  * @param source The event sender.
  * @param e An ASPxClientCustomizeParameterEditorsEventArgs object that contains data related to the event.
  */
-interface ASPxClientReportDesignerCustomizeParameterEditorsEventHandler<Sender> { (source: Sender, e: ASPxClientCustomizeParameterEditorsEventArgs): void; }
+interface ASPxClientReportDesignerCustomizeParameterEditorsEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCustomizeParameterEditorsEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientReportDesigner.CustomizeElements event.
  * @param source The event sender.
  * @param e An ASPxClientCustomizeElementsEventArgs object that contains data related to the event.
  */
-interface ASPxClientReportDesignerCustomizeElementsEventHandler<Sender> { (source: Sender, e: ASPxClientCustomizeElementsEventArgs): void; }
+interface ASPxClientReportDesignerCustomizeElementsEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCustomizeElementsEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientReportDesigner.ExitDesigner event.
  * @param source The event sender.
  * @param e An ASPxClientReportDesignerExitDesignerEventArgs object that contains data related to the event.
  */
-interface ASPxClientReportDesignerExitDesignerEventHandler<Sender> { (source: Sender, e: ASPxClientReportDesignerExitDesignerEventArgs): void; }
+interface ASPxClientReportDesignerExitDesignerEventHandler<Sender> {
+    (source: Sender, e: ASPxClientReportDesignerExitDesignerEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientReportDesigner.ReportSaving event.
  * @param source The event sender.
  * @param e An ASPxClientReportDesignerDialogCancelEventArgs object that contains data related to the event.
  */
-interface ASPxClientReportDesignerReportSavingEventHandler<Sender> { (source: Sender, e: ASPxClientReportDesignerDialogCancelEventArgs): void; }
+interface ASPxClientReportDesignerReportSavingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientReportDesignerDialogCancelEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientReportDesigner.ReportSaved event.
  * @param source The event sender.
  * @param e An ASPxClientReportDesignerDialogEventArgs object that contains data related to the event.
  */
-interface ASPxClientReportDesignerReportSavedEventHandler<Sender> { (source: Sender, e: ASPxClientReportDesignerDialogEventArgs): void; }
+interface ASPxClientReportDesignerReportSavedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientReportDesignerDialogEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientReportDesigner.ReportOpening event.
  * @param source The event sender.
  * @param e An ASPxClientReportDesignerDialogCancelEventArgs object that contains data related to the event.
  */
-interface ASPxClientReportDesignerReportOpeningEventHandler<Sender> { (source: Sender, e: ASPxClientReportDesignerDialogCancelEventArgs): void; }
+interface ASPxClientReportDesignerReportOpeningEventHandler<Sender> {
+    (source: Sender, e: ASPxClientReportDesignerDialogCancelEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientReportDesigner.ReportOpened event.
  * @param source The event sender.
  * @param e An ASPxClientReportDesignerDialogEventArgs object that contains data related to the event.
  */
-interface ASPxClientReportDesignerReportOpenedEventHandler<Sender> { (source: Sender, e: ASPxClientReportDesignerDialogEventArgs): void; }
+interface ASPxClientReportDesignerReportOpenedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientReportDesignerDialogEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientReportDesigner.ReportTabClosing event.
  * @param source The event sender.
  * @param e An ASPxClientReportDesignerTabClosingEventArgs object that contains data related to the event.
  */
-interface ASPxClientReportDesignerReportTabClosingEventHandler<Sender> { (source: Sender, e: ASPxClientReportDesignerTabClosingEventArgs): void; }
+interface ASPxClientReportDesignerReportTabClosingEventHandler<Sender> {
+    (source: Sender, e: ASPxClientReportDesignerTabClosingEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientReportDesigner.ReportTabClosed event.
  * @param source The event sender.
  * @param e An ASPxClientReportDesignerTabEventArgs object that contains data related to the event.
  */
-interface ASPxClientReportDesignerReportTabClosedEventHandler<Sender> { (source: Sender, e: ASPxClientReportDesignerTabEventArgs): void; }
+interface ASPxClientReportDesignerReportTabClosedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientReportDesignerTabEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientReportDesigner.TabChanged event.
  * @param source The event sender.
  * @param e An ASPxClientReportDesignerTabEventArgs object that contains data related to the event.
  */
-interface ASPxClientReportDesignerTabChangedEventHandler<Sender> { (source: Sender, e: ASPxClientReportDesignerTabEventArgs): void; }
+interface ASPxClientReportDesignerTabChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientReportDesignerTabEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientReportDesigner.OnServerError event.
  * @param source The event sender.
  * @param e An ASPxClientErrorEventArgs object that contains data related to the event.
  */
-interface ASPxClientReportDesignerErrorEventHandler<Sender> { (source: Sender, e: ASPxClientErrorEventArgs): void; }
+interface ASPxClientReportDesignerErrorEventHandler<Sender> {
+    (source: Sender, e: ASPxClientErrorEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientReportDesigner.ComponentAdded event.
  * @param source The event sender.
  * @param e An ASPxClientReportDesignerComponentAddedEventArgs object that contains data related to the event.
  */
-interface ASPxClientReportDesignerComponentAddedEventHandler<Sender> { (source: Sender, e: ASPxClientReportDesignerComponentAddedEventArgs): void; }
+interface ASPxClientReportDesignerComponentAddedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientReportDesignerComponentAddedEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientReportDesigner.CustomizeSaveDialog event.
  * @param source The event sender.
  * @param e An ASPxClientReportDesignerCustomizeSaveDialogEventArgs object that contains data related to the event.
  */
-interface ASPxClientReportDesignerCustomizeSaveDialogEventHandler<Sender> { (source: Sender, e: ASPxClientReportDesignerCustomizeSaveDialogEventArgs): void; }
+interface ASPxClientReportDesignerCustomizeSaveDialogEventHandler<Sender> {
+    (source: Sender, e: ASPxClientReportDesignerCustomizeSaveDialogEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientReportDesigner.CustomizeSaveAsDialog event.
  * @param source The event sender.
  * @param e An ASPxClientReportDesignerCustomizeSaveAsDialogEventArgs object that contains data related to the event.
  */
-interface ASPxClientReportDesignerCustomizeSaveAsDialogEventHandler<Sender> { (source: Sender, e: ASPxClientReportDesignerCustomizeSaveAsDialogEventArgs): void; }
+interface ASPxClientReportDesignerCustomizeSaveAsDialogEventHandler<Sender> {
+    (source: Sender, e: ASPxClientReportDesignerCustomizeSaveAsDialogEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientReportDesigner.CustomizeOpenDialog event.
  * @param source The event sender.
  * @param e An ASPxClientReportDesignerCustomizeOpenDialogEventArgs object that contains data related to the event.
  */
-interface ASPxClientReportDesignerCustomizeOpenDialogEventHandler<Sender> { (source: Sender, e: ASPxClientReportDesignerCustomizeOpenDialogEventArgs): void; }
+interface ASPxClientReportDesignerCustomizeOpenDialogEventHandler<Sender> {
+    (source: Sender, e: ASPxClientReportDesignerCustomizeOpenDialogEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientReportDesigner.CustomizeToolbox event.
  * @param source The event sender.
  * @param e An ASPxClientReportDesignerCustomizeToolboxEventArgs object that contains data related to the event.
  */
-interface ASPxClientReportDesignerCustomizeToolboxEventHandler<Sender> { (source: Sender, e: ASPxClientReportDesignerCustomizeToolboxEventArgs): void; }
+interface ASPxClientReportDesignerCustomizeToolboxEventHandler<Sender> {
+    (source: Sender, e: ASPxClientReportDesignerCustomizeToolboxEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientReportDesigner.CustomizeFieldListActions event.
  * @param source The event sender.
  * @param e An ASPxClientReportDesignerCustomizeFieldListActionsEventArgs object that contains data related to the event.
  */
-interface ASPxClientReportDesignerCustomizeFieldListActionsEventHandler<Sender> { (source: Sender, e: ASPxClientReportDesignerCustomizeFieldListActionsEventArgs): void; }
+interface ASPxClientReportDesignerCustomizeFieldListActionsEventHandler<Sender> {
+    (source: Sender, e: ASPxClientReportDesignerCustomizeFieldListActionsEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientReportDesigner.CustomizeLocalization event.
  * @param source The event sender.
  */
-interface ASPxClientReportDesignerCustomizeLocalizationEventHandler<Sender> { (source: Sender): void; }
+interface ASPxClientReportDesignerCustomizeLocalizationEventHandler<Sender> {
+    (source: Sender): void;
+}
 /**
  * A method that will handle the ASPxClientReportDesigner.BeforeRender event.
  * @param source The event sender.
  * @param designerModel A client-side Report Designer model.
  */
-interface ASPxClientReportDesignerBeforeRenderEventHandler<Sender> { (source: Sender, designerModel: any): void; }
+interface ASPxClientReportDesignerBeforeRenderEventHandler<Sender> {
+    (source: Sender, designerModel: any): void;
+}
 declare class ASPxDesignerEditorOptions {
     header: string;
     content: string;
@@ -34576,10 +35629,19 @@ declare class ASPxDesignerControlsFactory {
     getControlType(model: any): string;
     registerControl(typeName: string, metadata: ASPxDesignerToolboxItem): void;
     getPropertyInfo(controlType: string, propertyDisplayName: string): ASPxDesignerElementSerializationInfo;
-    setExpressionBinding(controlType: string, propertyName: string, events: string[], group: string, objectProperties: string[]): void;
-    hideExpressionBindings(controlType: string, ... propertyNames: string[]): void;
+    setExpressionBinding(
+        controlType: string,
+        propertyName: string,
+        events: string[],
+        group: string,
+        objectProperties: string[],
+    ): void;
+    hideExpressionBindings(controlType: string, ...propertyNames: string[]): void;
     inheritControl(parentType: string, extendedOptions: ASPxDesignerToolboxItem): ASPxDesignerToolboxItem;
-    createPopularBindingInfo(options: ASPxDesignerElementSerializationInfoWithBindings, isExpression: boolean): ASPxDesignerElementSerializationInfoWithBindings;
+    createPopularBindingInfo(
+        options: ASPxDesignerElementSerializationInfoWithBindings,
+        isExpression: boolean,
+    ): ASPxDesignerElementSerializationInfoWithBindings;
 }
 declare class ASPxDesignerParameterType {
     value: string;
@@ -34674,7 +35736,7 @@ declare class ASPxClientReportViewer extends ASPxClientControl {
      * Submits the values of the specified parameters.
      * @param parameters A dictionary containing the parameter names, along with their Object values.
      */
-    SubmitParameters(parameters: { [key: string]: any; }): void;
+    SubmitParameters(parameters: { [key: string]: any }): void;
     /**
      * Converts the specified object to the current object's type. This method is effective when you utilize the Client API IntelliSense feature provided by DevExpress. An object of the ASPxClientReportViewer type. Represents the converted client object specified by the obj parameter.
      * @param obj The client object to be type cast. Represents an instance of a DevExpress web control's client object.
@@ -34718,7 +35780,9 @@ declare class ASPxClientReportViewer extends ASPxClientControl {
  * @param source The event sender.
  * @param e An ASPxClientReportViewerPageLoadEventArgs object that contains data related to the event.
  */
-interface ASPxClientReportViewerPageLoadEventHandler<Sender> { (source: Sender, e: ASPxClientReportViewerPageLoadEventArgs): void; }
+interface ASPxClientReportViewerPageLoadEventHandler<Sender> {
+    (source: Sender, e: ASPxClientReportViewerPageLoadEventArgs): void;
+}
 /**
  * Provides data for the ASPxClientReportViewer.PageLoad and ASPxClientDocumentViewer.PageLoad events on the client side.
  */
@@ -34959,9 +36023,9 @@ declare class ASPxClientWebDocumentViewerEditingField {
  * Provides data for the ASPxClientWebDocumentViewer.ParametersSubmitted and ASPxClientReportDesigner.PreviewParametersSubmitted events.
  */
 declare class ASPxClientParametersSubmittedEventArgs extends ASPxClientEventArgs {
-    constructor(parameters: { [key: string]: any; });
+    constructor(parameters: { [key: string]: any });
     ParametersViewModel: any;
-    Parameters: { [key: string]: any; };
+    Parameters: { [key: string]: any };
 }
 /**
  * Provides data for the ASPxClientWebDocumentViewer.ParametersReset and ASPxClientReportDesigner.PreviewParametersReset events.
@@ -35047,7 +36111,7 @@ declare class ASPxClientCustomizeExportOptionsEventArgs extends ASPxClientEventA
      * @param format An object that specifies the export format whose options should be hidden.
      * @param properties An array of properties to hide.
      */
-    HideProperties(format: any, ... properties: any[]): void;
+    HideProperties(format: any, ...properties: any[]): void;
     /**
      * Returns the export options model for the specified export format. An export options model.
      * @param format An object that specifies the export format whose model should be returned.
@@ -35055,7 +36119,7 @@ declare class ASPxClientCustomizeExportOptionsEventArgs extends ASPxClientEventA
     GetExportOptionsModel(format: any): any;
 }
 declare class ASPxClientWebDocumentViewerBrick {
-    content: { [key: string]: string; };
+    content: { [key: string]: string };
     navigation: ASPxClientWebDocumentViewerBrickNavigation;
     top: number;
     left: number;
@@ -35079,23 +36143,33 @@ declare class ASPxClientWebDocumentViewer extends ASPxClientControl {
     /**
      * Occurs each time an editing field's value changes.
      */
-    EditingFieldChanged: ASPxClientEvent<ASPxClientWebDocumentViewerEditingFieldChangedEventHandler<ASPxClientWebDocumentViewer>>;
+    EditingFieldChanged: ASPxClientEvent<
+        ASPxClientWebDocumentViewerEditingFieldChangedEventHandler<ASPxClientWebDocumentViewer>
+    >;
     /**
      * Allows you to customize the Web Document Viewer's UI elements.
      */
-    CustomizeElements: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeElementsEventHandler<ASPxClientWebDocumentViewer>>;
+    CustomizeElements: ASPxClientEvent<
+        ASPxClientWebDocumentViewerCustomizeElementsEventHandler<ASPxClientWebDocumentViewer>
+    >;
     /**
      * Enables you to customize the Web Document Viewer's menu actions.
      */
-    CustomizeMenuActions: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeMenuActionsEventHandler<ASPxClientWebDocumentViewer>>;
+    CustomizeMenuActions: ASPxClientEvent<
+        ASPxClientWebDocumentViewerCustomizeMenuActionsEventHandler<ASPxClientWebDocumentViewer>
+    >;
     /**
      * Occurs each time a standard editor is created for a report parameter based on a parameter type.
      */
-    CustomizeParameterEditors: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeParameterEditorsEventHandler<ASPxClientWebDocumentViewer>>;
+    CustomizeParameterEditors: ASPxClientEvent<
+        ASPxClientWebDocumentViewerCustomizeParameterEditorsEventHandler<ASPxClientWebDocumentViewer>
+    >;
     /**
      * Occurs each time a look-up editor is created for a report parameter.
      */
-    CustomizeParameterLookUpSource: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeParameterLookUpSourceEventHandler<ASPxClientWebDocumentViewer>>;
+    CustomizeParameterLookUpSource: ASPxClientEvent<
+        ASPxClientWebDocumentViewerCustomizeParameterLookUpSourceEventHandler<ASPxClientWebDocumentViewer>
+    >;
     /**
      * Occurs when the left mouse button is clicked on a report document.
      */
@@ -35103,15 +36177,21 @@ declare class ASPxClientWebDocumentViewer extends ASPxClientControl {
     /**
      * Occurs after report parameter values are reset to their default values.
      */
-    ParametersReset: ASPxClientEvent<ASPxClientWebDocumentViewerParametersResetEventHandler<ASPxClientWebDocumentViewer>>;
+    ParametersReset: ASPxClientEvent<
+        ASPxClientWebDocumentViewerParametersResetEventHandler<ASPxClientWebDocumentViewer>
+    >;
     /**
      * Occurs after report parameter values are submitted.
      */
-    ParametersSubmitted: ASPxClientEvent<ASPxClientWebDocumentViewerParametersSubmittedEventHandler<ASPxClientWebDocumentViewer>>;
+    ParametersSubmitted: ASPxClientEvent<
+        ASPxClientWebDocumentViewerParametersSubmittedEventHandler<ASPxClientWebDocumentViewer>
+    >;
     /**
      * Enables you to customize the Web Document Viewer's localization strings.
      */
-    CustomizeLocalization: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeLocalizationEventHandler<ASPxClientWebDocumentViewer>>;
+    CustomizeLocalization: ASPxClientEvent<
+        ASPxClientWebDocumentViewerCustomizeLocalizationEventHandler<ASPxClientWebDocumentViewer>
+    >;
     /**
      * Occurs before the Web Document Viewer UI is initialized.
      */
@@ -35119,7 +36199,9 @@ declare class ASPxClientWebDocumentViewer extends ASPxClientControl {
     /**
      * Allows you to customize the Web Document Viewer's available export formats and corresponding export options.
      */
-    CustomizeExportOptions: ASPxClientEvent<ASPxClientWebDocumentViewerCustomizeExportOptionsEventHandler<ASPxClientWebDocumentViewer>>;
+    CustomizeExportOptions: ASPxClientEvent<
+        ASPxClientWebDocumentViewerCustomizeExportOptionsEventHandler<ASPxClientWebDocumentViewer>
+    >;
     /**
      * Occurs on the client each time a server-side error raises.
      */
@@ -35183,12 +36265,15 @@ declare class ASPxClientWebDocumentViewer extends ASPxClientControl {
      * @param customData Provides access to custom client data associated with a target document operation.
      * @param hideMessageFromUser true, to hide a message with the operation result from a user; otherwise, false.
      */
-    PerformCustomDocumentOperation(customData?: string, hideMessageFromUser?: boolean): JQueryPromise<ASPxClientWebDocumentViewerDocumentOperationResponse>;
+    PerformCustomDocumentOperation(
+        customData?: string,
+        hideMessageFromUser?: boolean,
+    ): JQueryPromise<ASPxClientWebDocumentViewerDocumentOperationResponse>;
     /**
      * Updates the Web Document Viewer properties' localization settings.
      * @param localization A dictionary containing the property names, along with their localized equivalents.
      */
-    UpdateLocalization(localization: { [key: string]: string; }): void;
+    UpdateLocalization(localization: { [key: string]: string }): void;
     /**
      * Converts the specified object to the current object's type. This method is effective when you utilize the Client API IntelliSense feature provided by DevExpress. An ASPxClientWebDocumentViewer object.
      * @param obj The client object to be type cast. Represents an instance of a DevExpress web control's client object.
@@ -35200,78 +36285,104 @@ declare class ASPxClientWebDocumentViewer extends ASPxClientControl {
  * @param source The event sender.
  * @param e An ASPxClientWebDocumentViewerEditingFieldChangedEventArgs object that contains data related to the event.
  */
-interface ASPxClientWebDocumentViewerEditingFieldChangedEventHandler<Sender> { (source: Sender, e: ASPxClientWebDocumentViewerEditingFieldChangedEventArgs): void; }
+interface ASPxClientWebDocumentViewerEditingFieldChangedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientWebDocumentViewerEditingFieldChangedEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientWebDocumentViewer.DocumentReady or ASPxClientReportDesigner.PreviewDocumentReady event.
  * @param source The event sender.
  * @param e An ASPxClientWebDocumentViewerDocumentReadyEventArgs object that contains data related to the event.
  */
-interface ASPxClientWebDocumentViewerDocumentReadyEventHandler<Sender> { (source: Sender, e: ASPxClientWebDocumentViewerDocumentReadyEventArgs): void; }
+interface ASPxClientWebDocumentViewerDocumentReadyEventHandler<Sender> {
+    (source: Sender, e: ASPxClientWebDocumentViewerDocumentReadyEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientWebDocumentViewer.CustomizeElements or ASPxClientReportDesigner.PreviewCustomizeElements event.
  * @param source The event sender.
  * @param e An ASPxClientCustomizeElementsEventArgs object that contains data related to the event.
  */
-interface ASPxClientWebDocumentViewerCustomizeElementsEventHandler<Sender> { (source: Sender, e: ASPxClientCustomizeElementsEventArgs): void; }
+interface ASPxClientWebDocumentViewerCustomizeElementsEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCustomizeElementsEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientWebDocumentViewer.CustomizeMenuActions event.
  * @param source The event sender.
  * @param e An ASPxClientCustomizeMenuActionsEventArgs object that contains data related to the event.
  */
-interface ASPxClientWebDocumentViewerCustomizeMenuActionsEventHandler<Sender> { (source: Sender, e: ASPxClientCustomizeMenuActionsEventArgs): void; }
+interface ASPxClientWebDocumentViewerCustomizeMenuActionsEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCustomizeMenuActionsEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientWebDocumentViewer.CustomizeParameterEditors event.
  * @param source The event sender.
  * @param e An ASPxClientCustomizeParameterEditorsEventArgs object that contains data related to the event.
  */
-interface ASPxClientWebDocumentViewerCustomizeParameterEditorsEventHandler<Sender> { (source: Sender, e: ASPxClientCustomizeParameterEditorsEventArgs): void; }
+interface ASPxClientWebDocumentViewerCustomizeParameterEditorsEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCustomizeParameterEditorsEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientWebDocumentViewer.CustomizeParameterLookUpSource event.
  * @param source The event sender.
  * @param e An ASPxClientCustomizeParameterLookUpSourceEventArgs object that contains data related to the event.
  */
-interface ASPxClientWebDocumentViewerCustomizeParameterLookUpSourceEventHandler<Sender> { (source: Sender, e: ASPxClientCustomizeParameterLookUpSourceEventArgs): void; }
+interface ASPxClientWebDocumentViewerCustomizeParameterLookUpSourceEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCustomizeParameterLookUpSourceEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientWebDocumentViewer.PreviewClick or ASPxClientReportDesigner.PreviewClick event.
  * @param source The event sender.
  * @param e An ASPxClientPreviewClickEventArgs object that contains data related to the event.
  */
-interface ASPxClientWebDocumentViewerPreviewClickEventHandler<Sender> { (source: Sender, e: ASPxClientPreviewClickEventArgs): void; }
+interface ASPxClientWebDocumentViewerPreviewClickEventHandler<Sender> {
+    (source: Sender, e: ASPxClientPreviewClickEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientWebDocumentViewer.ParametersReset or ASPxClientReportDesigner.PreviewParametersReset event.
  * @param source The event sender.
  * @param e An ASPxClientParametersResetEventArgs object that contains data related to the event.
  */
-interface ASPxClientWebDocumentViewerParametersResetEventHandler<Sender> { (source: Sender, e: ASPxClientParametersResetEventArgs): void; }
+interface ASPxClientWebDocumentViewerParametersResetEventHandler<Sender> {
+    (source: Sender, e: ASPxClientParametersResetEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientWebDocumentViewer.ParametersSubmitted or ASPxClientReportDesigner.PreviewParametersSubmitted event.
  * @param source The event sender.
  * @param e An ASPxClientParametersSubmittedEventArgs object that contains data related to the event.
  */
-interface ASPxClientWebDocumentViewerParametersSubmittedEventHandler<Sender> { (source: Sender, e: ASPxClientParametersSubmittedEventArgs): void; }
+interface ASPxClientWebDocumentViewerParametersSubmittedEventHandler<Sender> {
+    (source: Sender, e: ASPxClientParametersSubmittedEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientWebDocumentViewer.CustomizeLocalization event.
  * @param source The event sender.
  */
-interface ASPxClientWebDocumentViewerCustomizeLocalizationEventHandler<Sender> { (source: Sender): void; }
+interface ASPxClientWebDocumentViewerCustomizeLocalizationEventHandler<Sender> {
+    (source: Sender): void;
+}
 /**
  * A method that will handle the ASPxClientWebDocumentViewer.BeforeRender event.
  * @param source The event sender.
  * @param previewModel A client-side Document Viewer model.
  */
-interface ASPxClientWebDocumentViewerBeforeRenderEventHandler<Sender> { (source: Sender, previewModel: any): void; }
+interface ASPxClientWebDocumentViewerBeforeRenderEventHandler<Sender> {
+    (source: Sender, previewModel: any): void;
+}
 /**
  * A method that will handle the ASPxClientWebDocumentViewer.CustomizeExportOptions event.
  * @param source The event sender.
  * @param e An ASPxClientCustomizeExportOptionsEventArgs object that contains data related to the event.
  */
-interface ASPxClientWebDocumentViewerCustomizeExportOptionsEventHandler<Sender> { (source: Sender, e: ASPxClientCustomizeExportOptionsEventArgs): void; }
+interface ASPxClientWebDocumentViewerCustomizeExportOptionsEventHandler<Sender> {
+    (source: Sender, e: ASPxClientCustomizeExportOptionsEventArgs): void;
+}
 /**
  * A method that will handle the ASPxClientWebDocumentViewer.OnServerError event.
  * @param source The event sender.
  * @param e An ASPxClientErrorEventArgs object that contains data related to the event.
  */
-interface ASPxClientWebDocumentViewerErrorEventHandler<Sender> { (source: Sender, e: ASPxClientErrorEventArgs): void; }
+interface ASPxClientWebDocumentViewerErrorEventHandler<Sender> {
+    (source: Sender, e: ASPxClientErrorEventArgs): void;
+}
 declare class ASPxClientWebDocumentViewerDocumentOperationResponse {
     succeeded: boolean;
     message: string;

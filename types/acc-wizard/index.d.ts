@@ -1,50 +1,44 @@
-// Type definitions for acc-wizard
-// Project: https://github.com/sathomas/acc-wizard
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 interface AccWizardOptions {
     /**
      * @summary Add next/prev buttons to panels.
      */
     addButtons: boolean;
-    
+
     /**
      * @summary Selector for task sidebar.
      */
     sidebar: string;
-    
+
     /**
      * @summary Class to indicate the active task in sidebar.
      */
     activeClass: string;
-    
+
     /**
      * @summary Class to indicate task is complete.
      */
     completedClass: string;
-    
+
     /**
      * @summary Class to indicate task is still pending.
      */
     todoClass: string;
-    
+
     /**
      * @summary Class for step buttons within panels.
      */
     stepClass: string;
-    
+
     /**
      * @summary Text for next button.
      */
     nextText: string;
-    
+
     /**
      * @summary Text for back button.
      */
     backText: string;
-    
+
     /**
      * @summary HTML input type for next button. (default: "submit")
      */
@@ -54,27 +48,27 @@ interface AccWizardOptions {
      * @summary HTML input type for back button. (default: "reset")
      */
     backType: string;
-    
+
     /**
      * @summary Class(es) for next button.
      */
     nextClasses: string;
-    
+
     /**
      * @summary Class(es) for back button.
      */
     backClasses: string;
-    
+
     /**
      * @summary Auto-scrolling.
      */
     autoScrolling: boolean;
-    
+
     /**
      * @summary Function to call on next step.
      */
     onNext: Function;
-    
+
     /**
      * @summary Function to call on back up.
      */
@@ -84,7 +78,7 @@ interface AccWizardOptions {
      * @summary A chance to hook initialization.
      */
     onInit: Function;
-    
+
     /**
      * @summary A chance to hook destruction.
      */

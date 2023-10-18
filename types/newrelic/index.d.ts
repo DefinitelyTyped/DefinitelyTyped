@@ -1,15 +1,3 @@
-// Type definitions for newrelic 9.14
-// Project: https://github.com/newrelic/node-newrelic
-// Definitions by: Matt R. Wilson <https://github.com/mastermatt>
-//                 Brooks Patton <https://github.com/brookspatton>
-//                 Michael Bond <https://github.com/MichaelRBond>
-//                 Kyle Scully <https://github.com/zieka>
-//                 Kenneth Aasan <https://github.com/kennethaasan>
-//                 Jon Flaishans <https://github.com/funkswing>
-//                 Dylan Smith <https://github.com/dylansmith>
-//                 BlueJeans by Verizon <https://github.com/bluejeans>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // https://docs.newrelic.com/docs/agents/nodejs-agent/api-guides/nodejs-agent-api
 
 /**
@@ -111,7 +99,11 @@ export function noticeError(error: Error, expected?: boolean): void;
  *
  *  Optional. Any custom attributes to be displayed in the New Relic UI.
  */
-export function noticeError(error: Error, customAttributes?: { [key: string]: string | number | boolean }, expected?: boolean): void;
+export function noticeError(
+    error: Error,
+    customAttributes?: { [key: string]: string | number | boolean },
+    expected?: boolean,
+): void;
 
 /**
  * This method lets you define a custom callback to generate error group names, which will be used by
@@ -119,14 +111,16 @@ export function noticeError(error: Error, customAttributes?: { [key: string]: st
  *
  * Calling this function multiple times will replace previously defined versions of this callback function.
  */
-export function setErrorGroupCallback(callback: (metadata: {
-    customAttributes: { [key: string]: string | number | boolean };
-    'request.uri': string;
-    'http.statusCode': string;
-    'http.method': string;
-    error?: Error;
-    'error.expected': boolean;
-}) => string): void;
+export function setErrorGroupCallback(
+    callback: (metadata: {
+        customAttributes: { [key: string]: string | number | boolean };
+        "request.uri": string;
+        "http.statusCode": string;
+        "http.method": string;
+        error?: Error;
+        "error.expected": boolean;
+    }) => string,
+): void;
 
 /**
  * Sends an application log message to New Relic. The agent already
@@ -425,7 +419,7 @@ export function setLambdaHandler<T extends (...args: any[]) => any>(handler: T):
 /**
  * Obfuscates SQL for a given database engine.
  */
-export function obfuscateSql(sql: string, dialect?: 'mysql' | 'postgres' | 'cassandra' | 'oracle'): string;
+export function obfuscateSql(sql: string, dialect?: "mysql" | "postgres" | "cassandra" | "oracle"): string;
 
 export interface Instrument {
     (opts: { moduleName: string; onRequire: () => void; onError?: ((err: Error) => void) | undefined }): void;
@@ -493,29 +487,29 @@ export interface LinkingMetadata {
     /**
      * The current trace ID
      */
-    'trace.id'?: string | undefined;
+    "trace.id"?: string | undefined;
 
     /**
      * The current span ID
      */
-    'span.id'?: string | undefined;
+    "span.id"?: string | undefined;
 
     /**
      * The application name specified in the connect request as
      * app_name. If multiple application names are specified this will only be
      * the first name
      */
-    'entity.name': string;
+    "entity.name": string;
 
     /**
      * The string "SERVICE"
      */
-    'entity.type': string;
+    "entity.type": string;
 
     /**
      * The entity ID returned in the connect reply as entity_guid
      */
-    'entity.guid'?: string | undefined;
+    "entity.guid"?: string | undefined;
 
     /**
      * The hostname as specified in the connect request as

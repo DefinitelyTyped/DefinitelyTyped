@@ -1,14 +1,8 @@
-// Type definitions for angular-bootstrap-calendar
-// Project: https://github.com/mattlewis92/angular-bootstrap-calendar
-// Definitions by: Egor Komarov <https://github.com/Odrin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+import * as angular from "angular";
+import * as moment from "moment";
 
-import * as moment from 'moment';
-import * as angular from 'angular';
-
-declare module 'angular' {
-        export namespace bootstrap.calendar {
+declare module "angular" {
+    export namespace bootstrap.calendar {
         interface IEventAction {
             /**
              * The label of the action
@@ -107,7 +101,7 @@ declare module 'angular' {
             displayEventEndTimes: boolean;
             showTimesOnWeekView: boolean;
             displayAllMonthEvents: boolean;
-            i18nStrings: { weekNumber: string; };
+            i18nStrings: { weekNumber: string };
             templates: {
                 calendarDayView: string;
                 calendarHourList: string;

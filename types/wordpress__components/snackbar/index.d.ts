@@ -1,6 +1,6 @@
-import { ComponentType, ReactNode } from 'react';
+import { ComponentType, ReactNode } from "react";
 
-import Notice from '../notice';
+import Notice from "../notice";
 
 declare namespace Snackbar {
     interface Props {

@@ -1,12 +1,7 @@
-// Type definitions for webpack-assets-manifest 5.1
-// Project: https://github.com/webdeveric/webpack-assets-manifest
-// Definitions by: Franklin Tse <https://github.com/FranklinWhale>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Asset, Compilation, Compiler, LoaderContext, Module, Stats, WebpackPluginInstance } from 'webpack';
-import { AsyncSeriesHook, SyncHook, SyncWaterfallHook } from 'tapable';
+import { AsyncSeriesHook, SyncHook, SyncWaterfallHook } from "tapable";
+import { Asset, Compilation, Compiler, LoaderContext, Module, Stats, WebpackPluginInstance } from "webpack";
 
 declare class WebpackAssetsManifest implements WebpackPluginInstance {
     constructor(options?: WebpackAssetsManifest.Options);
@@ -77,7 +72,7 @@ declare class WebpackAssetsManifest implements WebpackPluginInstance {
     processAssetsByChunkName(
         assets: Record<string, string | ReadonlyArray<string>>,
         hmrFiles?: Set<string>,
-    ): this['assetNames'];
+    ): this["assetNames"];
 
     /** Get the data for `JSON.stringify()` */
     toJSON(): unknown;
@@ -181,7 +176,7 @@ declare namespace WebpackAssetsManifest {
         space?: number | string | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#writetodisk */
-        writeToDisk?: boolean | 'auto' | undefined;
+        writeToDisk?: boolean | "auto" | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#fileextregex */
         fileExtRegex?: RegExp | null | false | undefined;
@@ -190,7 +185,7 @@ declare namespace WebpackAssetsManifest {
         sortManifest?: boolean | ((this: WebpackAssetsManifest, a: string, b: string) => number) | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#merge */
-        merge?: boolean | 'customize' | undefined;
+        merge?: boolean | "customize" | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#publicpath */
         publicPath?:

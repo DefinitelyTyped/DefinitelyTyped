@@ -1,10 +1,4 @@
-// Type definitions for react-infinite-calendar 2.3
-// Project: https://github.com/clauderic/react-infinite-calendar
-// Definitions by: Christian Chown <https://github.com/christianchown>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 export type DateType = Date | string | number;
 
@@ -25,18 +19,18 @@ export type DateSelectFunction = (date: Date) => void;
 
 export interface ReactInfiniteCalendarProps {
     selected?: DateType | false | { start: DateType; end: DateType } | DateType[] | undefined;
-    width?: number | 'auto' | '100%' | undefined;
-    height?: number | 'auto' | undefined;
+    width?: number | "auto" | "100%" | undefined;
+    height?: number | "auto" | undefined;
     min?: DateType | undefined;
     max?: DateType | undefined;
     minDate?: DateType | undefined;
     maxDate?: DateType | undefined;
     disabledDays?: Array<0 | 1 | 2 | 3 | 4 | 5 | 6> | undefined;
     disabledDates?: DateType[] | undefined;
-    display?: 'days' | 'years' | undefined;
+    display?: "days" | "years" | undefined;
     displayOptions?: {
         hideYearsOnSelect?: boolean | undefined;
-        layout?: 'portrait' | 'landscape' | undefined;
+        layout?: "portrait" | "landscape" | undefined;
         overscanMonthCount?: number | undefined;
         shouldHeaderAnimate?: boolean | undefined;
         showHeader?: boolean | undefined;

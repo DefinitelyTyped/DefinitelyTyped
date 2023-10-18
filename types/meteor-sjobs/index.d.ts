@@ -1,13 +1,7 @@
-// Type definitions for meteor-sjobs 4.0
-// Project: https://github.com/msavin/SteveJobs
-// Definitions by: Witold H <https://github.com/LinearMilk/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 /// <reference types="meteor" />
 
-// tslint:disable-next-line no-single-declare-module
-declare module 'meteor/msavin:sjobs' {
+// eslint-disable-next-line @definitelytyped/no-single-declare-module
+declare module "meteor/msavin:sjobs" {
     interface Options {
         /** Specify if the package should start automatically on Meteor.startup. */
         autoStart?: boolean | undefined;
@@ -34,7 +28,7 @@ declare module 'meteor/msavin:sjobs' {
         remoteCollection?: string | undefined;
     }
 
-    type JobState = 'pending' | 'success' | 'failure';
+    type JobState = "pending" | "success" | "failure";
 
     class JobContext {
         /** Access the cached document of the current job. */
@@ -59,7 +53,7 @@ declare module 'meteor/msavin:sjobs' {
         [propName: string]: (this: JobContext, ...args: any[]) => void;
     }
 
-    type State = 'pending' | 'success' | 'failure' | '*';
+    type State = "pending" | "success" | "failure" | "*";
 
     interface HistoryItem {
         date: Date;

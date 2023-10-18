@@ -1185,6 +1185,10 @@
             "libraryName": "datastore-level",
             "asOfVersion": "3.0.0"
         },
+        "date-and-time": {
+            "libraryName": "date-and-time",
+            "asOfVersion": "3.0.3"
+        },
         "date-fns": {
             "libraryName": "date-fns",
             "asOfVersion": "2.6.0"
@@ -1579,6 +1583,10 @@
         },
         "execall": {
             "libraryName": "execall",
+            "asOfVersion": "2.0.0"
+        },
+        "exif-reader": {
+            "libraryName": "exif-reader",
             "asOfVersion": "2.0.0"
         },
         "exit-hook": {
@@ -2016,6 +2024,10 @@
         "google-cloud__storage": {
             "libraryName": "@google-cloud/storage",
             "asOfVersion": "2.3.0"
+        },
+        "google-cloud__tasks": {
+            "libraryName": "@google-cloud/tasks",
+            "asOfVersion": "1.7.0"
         },
         "google-cloud__text-to-speech": {
             "libraryName": "@google-cloud/text-to-speech",
@@ -3145,6 +3157,10 @@
             "libraryName": "markdownlint",
             "asOfVersion": "0.18.0"
         },
+        "marked": {
+            "libraryName": "marked",
+            "asOfVersion": "6.0.0"
+        },
         "match-sorter": {
             "libraryName": "match-sorter",
             "asOfVersion": "6.0.0"
@@ -3272,6 +3288,10 @@
         "matrix-appservice-bridge": {
             "libraryName": "matrix-appservice-bridge",
             "asOfVersion": "2.0.0"
+        },
+        "matrix-js-sdk": {
+            "libraryName": "matrix-js-sdk",
+            "asOfVersion": "11.1.0"
         },
         "matteodisabatino__gc_info": {
             "libraryName": "@matteodisabatino/gc_info",
@@ -4622,6 +4642,10 @@
         "react-circular-progressbar": {
             "libraryName": "react-circular-progressbar",
             "asOfVersion": "1.1.0"
+        },
+        "react-clipboardjs-copy": {
+            "libraryName": "react-clipboardjs-copy",
+            "asOfVersion": "2.0.0"
         },
         "react-clock": {
             "libraryName": "react-clock",
@@ -6547,6 +6571,14 @@
             "libraryName": "xregexp",
             "asOfVersion": "4.4.0"
         },
+        "xstyled__styled-components": {
+            "libraryName": "@xstyled/styled-components",
+            "asOfVersion": "2.0.0"
+        },
+        "xstyled__system": {
+            "libraryName": "@xstyled/system",
+            "asOfVersion": "2.0.0"
+        },
         "xterm": {
             "libraryName": "xterm",
             "asOfVersion": "3.0.0"
@@ -6590,6 +6622,10 @@
         "zetapush-js": {
             "libraryName": "zetapush-js",
             "asOfVersion": "3.1.2"
+        },
+        "ziggy-js": {
+            "libraryName": "ziggy-js",
+            "asOfVersion": "1.8.0"
         },
         "zipkin-instrumentation-express": {
             "libraryName": "zipkin-instrumentation-express",

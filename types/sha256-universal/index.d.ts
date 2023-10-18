@@ -1,8 +1,3 @@
-// Type definitions for sha256-universal 1.2
-// Project: https://github.com/chm-diederichs/sha256-universal#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Sha256;
 
 declare function Sha256(): Sha256.Sha256;
@@ -24,7 +19,7 @@ declare namespace Sha256 {
 
     interface HMACCtor {
         (key: Uint8Array): HMAC;
-        new (key: Uint8Array): HMAC;
+        new(key: Uint8Array): HMAC;
     }
 
     interface HMAC {

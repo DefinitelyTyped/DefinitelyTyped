@@ -1,9 +1,4 @@
-// Type definitions for yt-player 3.5
-// Project: https://github.com/feross/yt-player
-// Definitions by: Thomas Röggla <https://github.com/troeggla>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 interface YouTubePlayerOptions {
     /**  This parameter indicates the width of the player. */
@@ -79,9 +74,9 @@ interface YouTubePlayerOptions {
     host?: string | undefined;
 }
 
-type YouTubePlayerState = 'unstarted' | 'ended' | 'playing' | 'paused' | 'buffering' | 'cued';
+type YouTubePlayerState = "unstarted" | "ended" | "playing" | "paused" | "buffering" | "cued";
 
-type YouTubePlayerQuality = 'small' | 'medium' | 'large' | 'hd720' | 'hd1080' | 'highres' | 'default';
+type YouTubePlayerQuality = "small" | "medium" | "large" | "hd720" | "hd1080" | "highres" | "default";
 
 /**
  * Simple, robust, blazing-fast YouTube Player API
@@ -215,14 +210,14 @@ declare class YouTubePlayer extends EventEmitter {
      * This event fires when the time indicated by the getCurrentTime() method
      * has been updated.
      */
-    on(event: 'timeupdate', callback: (seconds: number) => void): this;
+    on(event: "timeupdate", callback: (seconds: number) => void): this;
     /**
      * This event fires whenever the video playback quality changes. Possible
      * values are: 'small', 'medium', 'large', 'hd720', 'hd1080', 'highres'.
      */
-    on(event: 'playbackQualityChange', callback: (quality: YouTubePlayerQuality) => void): this;
+    on(event: "playbackQualityChange", callback: (quality: YouTubePlayerQuality) => void): this;
     /** This event fires whenever the video playback rate changes. */
-    on(event: 'playbackRateChange', callback: (playbackRate: number) => void): this;
+    on(event: "playbackRateChange", callback: (playbackRate: number) => void): this;
     /**
      * These events fire when the player enters the respective state. These
      * event names are the same as the possible return values from
@@ -237,7 +232,7 @@ declare class YouTubePlayer extends EventEmitter {
      * This event fires if a fatal error occurs in the player. This does not
      * include videos that fail to play, for whatever reason.
      */
-    on(event: 'error', callback: (err: Error) => void): this;
+    on(event: "error", callback: (err: Error) => void): this;
     /**
      * This event fires if the YouTube player cannot play the given video. This
      * is not a fatal error. This event is reported separately from the 'error'
@@ -253,7 +248,7 @@ declare class YouTubePlayer extends EventEmitter {
      *   or if the videoId contains invalid characters, such as exclamation
      *   points or asterisks.
      */
-    on(event: 'unplayable', callback: (videoId: string) => void): this;
+    on(event: "unplayable", callback: (videoId: string) => void): this;
 }
 
 export = YouTubePlayer;

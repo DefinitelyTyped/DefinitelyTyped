@@ -1,13 +1,8 @@
-// Type definitions for elementtree 0.1
-// Project: https://github.com/racker/node-elementtree
-// Definitions by: Daniel Imhoff <https://github.com/dwieeb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ElementTreeWriteOptions {
     default_namespace?: string | undefined;
     encoding?: string | undefined; // default is 'utf-8'
     indent?: number | undefined;
-    method?: 'xml' | 'text' | undefined; // default is 'xml'
+    method?: "xml" | "text" | undefined; // default is 'xml'
     xml_declaration?: boolean | undefined; // on by default
 }
 
@@ -30,7 +25,7 @@ export interface Attributes {
 
 export type ElementTag = typeof Comment | typeof CData | typeof ProcessingInstruction | string;
 
-export type ElementText = { toString(): string; } | string;
+export type ElementText = { toString(): string } | string;
 
 export interface Element {
     tag: ElementTag;

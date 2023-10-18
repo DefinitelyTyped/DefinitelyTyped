@@ -1,11 +1,6 @@
-// Type definitions for sendcloud 1.6
-// Project: https://github.com/shanelau/sendcloud
-// Definitions by: bangbang93 <https://github.com/bangbang93>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
 /// <reference types="node" />
 
-import { SentMessageInfo } from 'nodemailer';
+import { SentMessageInfo } from "nodemailer";
 
 declare class Sendcloud {
     constructor(apiUser: string, apiKey: string, from: string, name?: string, apiUserBatch?: string);
@@ -105,7 +100,7 @@ interface EmailListCreateOptions {
 }
 
 interface EmailListResponse {
-    message: 'success';
+    message: "success";
     count: number;
     lists: Array<{
         created_at: string;
@@ -118,7 +113,7 @@ interface EmailListResponse {
 }
 
 interface EmailListCreateResponse {
-    message: 'success';
+    message: "success";
     list: {
         created_at: string;
         address: string;
@@ -138,7 +133,7 @@ interface EmailListUpdateOptions {
 }
 
 interface EmailListUpdateResponse {
-    message: 'success';
+    message: "success";
     list: {
         modify_at: string;
         address: string;
@@ -158,7 +153,7 @@ interface ListMemberListOptions {
 }
 
 interface ListMemberListResponse {
-    message: 'success';
+    message: "success";
     total_count: number;
     members: Array<{
         created_at: string;
@@ -178,12 +173,12 @@ interface ListMemberAddOptions {
 }
 
 interface ListMemberAddResposne {
-    message: 'success';
+    message: "success";
     total_counts: number;
 }
 
 interface ListMemberDeleteResposne {
-    message: 'success';
+    message: "success";
     del_count: number;
 }
 
@@ -231,17 +226,17 @@ interface TemplateSendOptions {
 }
 
 interface TemplateSendResponse {
-    message: 'success';
+    message: "success";
     email_id_list: string[];
 }
 
 interface SuccessResp {
-    message: 'success';
+    message: "success";
     email_id_list: string[];
 }
 
 interface ErrorResp {
-    message: 'error';
+    message: "error";
     errors: string[];
 }
 

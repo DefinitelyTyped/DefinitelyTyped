@@ -1,10 +1,4 @@
-// Type definitions for markdown-draft-js 2.2
-// Project: https://github.com/Rosey/markdown-draft-js#readme
-// Definitions by: Yuri Drabik <https://github.com/yurist38>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
-import { RawDraftContentState, Entity } from 'draft-js';
+import { Entity, RawDraftContentState } from "draft-js";
 
 export interface BlockEntitiesParam {
     [key: string]: (item?: { [key: string]: any }) => Entity;

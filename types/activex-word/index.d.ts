@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Microsoft Word 14.0 Object Library - Word 14.0
-// Project: https://msdn.microsoft.com/en-us/library/fp179696.aspx
-// Definitions by: Zev Spitz <https://github.com/zspitz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 /// <reference types="activex-interop" />
 /// <reference types="activex-office" />
 /// <reference types="activex-vbide" />
@@ -4778,7 +4772,7 @@ declare namespace Word {
     }
 
     class AddIn {
-        private 'Word.AddIn_typekey': AddIn;
+        private "Word.AddIn_typekey": AddIn;
         private constructor();
         readonly Application: Application;
         readonly Autoload: boolean;
@@ -4793,7 +4787,7 @@ declare namespace Word {
     }
 
     class AddIns {
-        private 'Word.AddIns_typekey': AddIns;
+        private "Word.AddIns_typekey": AddIns;
         private constructor();
         Add(FileName: string, Install?: any): AddIn;
         readonly Application: Application;
@@ -4805,7 +4799,7 @@ declare namespace Word {
     }
 
     class Adjustments {
-        private 'Word.Adjustments_typekey': Adjustments;
+        private "Word.Adjustments_typekey": Adjustments;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -4815,7 +4809,7 @@ declare namespace Word {
     }
 
     class Application {
-        private 'Word.Application_typekey': Application;
+        private "Word.Application_typekey": Application;
         private constructor();
         Activate(): void;
         readonly ActiveDocument: Document;
@@ -4852,8 +4846,20 @@ declare namespace Word {
         CheckGrammar(String: string): boolean;
         CheckLanguage: boolean;
         CheckSpelling(
-            Word: string, CustomDictionary?: any, IgnoreUppercase?: any, MainDictionary?: any, CustomDictionary2?: any, CustomDictionary3?: any, CustomDictionary4?: any,
-            CustomDictionary5?: any, CustomDictionary6?: any, CustomDictionary7?: any, CustomDictionary8?: any, CustomDictionary9?: any, CustomDictionary10?: any): boolean;
+            Word: string,
+            CustomDictionary?: any,
+            IgnoreUppercase?: any,
+            MainDictionary?: any,
+            CustomDictionary2?: any,
+            CustomDictionary3?: any,
+            CustomDictionary4?: any,
+            CustomDictionary5?: any,
+            CustomDictionary6?: any,
+            CustomDictionary7?: any,
+            CustomDictionary8?: any,
+            CustomDictionary9?: any,
+            CustomDictionary10?: any,
+        ): boolean;
         CleanString(String: string): string;
         readonly COMAddIns: Office.COMAddIns;
         readonly CommandBars: Office.CommandBars;
@@ -4875,9 +4881,23 @@ declare namespace Word {
          * @param boolean [IgnoreAllComparisonWarnings=false]
          */
         CompareDocuments(
-            OriginalDocument: Document, RevisedDocument: Document, Destination?: WdCompareDestination, Granularity?: WdGranularity, CompareFormatting?: boolean,
-            CompareCaseChanges?: boolean, CompareWhitespace?: boolean, CompareTables?: boolean, CompareHeaders?: boolean, CompareFootnotes?: boolean,
-            CompareTextboxes?: boolean, CompareFields?: boolean, CompareComments?: boolean, CompareMoves?: boolean, RevisedAuthor?: string, IgnoreAllComparisonWarnings?: boolean): Document;
+            OriginalDocument: Document,
+            RevisedDocument: Document,
+            Destination?: WdCompareDestination,
+            Granularity?: WdGranularity,
+            CompareFormatting?: boolean,
+            CompareCaseChanges?: boolean,
+            CompareWhitespace?: boolean,
+            CompareTables?: boolean,
+            CompareHeaders?: boolean,
+            CompareFootnotes?: boolean,
+            CompareTextboxes?: boolean,
+            CompareFields?: boolean,
+            CompareComments?: boolean,
+            CompareMoves?: boolean,
+            RevisedAuthor?: string,
+            IgnoreAllComparisonWarnings?: boolean,
+        ): Document;
         readonly Creator: number;
         readonly CustomDictionaries: Dictionaries;
         CustomizationContext: any;
@@ -4917,13 +4937,32 @@ declare namespace Word {
         readonly FocusInMailHeader: boolean;
         readonly FontNames: FontNames;
         GetAddress(
-            Name?: any, AddressProperties?: any, UseAutoText?: any, DisplaySelectDialog?: any, SelectDialog?: any, CheckNamesDialog?: any, RecentAddressesChoice?: any,
-            UpdateRecentAddresses?: any): string;
+            Name?: any,
+            AddressProperties?: any,
+            UseAutoText?: any,
+            DisplaySelectDialog?: any,
+            SelectDialog?: any,
+            CheckNamesDialog?: any,
+            RecentAddressesChoice?: any,
+            UpdateRecentAddresses?: any,
+        ): string;
         GetDefaultTheme(DocumentType: WdDocumentMedium): string;
         GetSpellingSuggestions(
-            Word: string, CustomDictionary?: any, IgnoreUppercase?: any, MainDictionary?: any, SuggestionMode?: any, CustomDictionary2?: any, CustomDictionary3?: any,
-            CustomDictionary4?: any, CustomDictionary5?: any, CustomDictionary6?: any, CustomDictionary7?: any, CustomDictionary8?: any, CustomDictionary9?: any,
-            CustomDictionary10?: any): SpellingSuggestions;
+            Word: string,
+            CustomDictionary?: any,
+            IgnoreUppercase?: any,
+            MainDictionary?: any,
+            SuggestionMode?: any,
+            CustomDictionary2?: any,
+            CustomDictionary3?: any,
+            CustomDictionary4?: any,
+            CustomDictionary5?: any,
+            CustomDictionary6?: any,
+            CustomDictionary7?: any,
+            CustomDictionary8?: any,
+            CustomDictionary9?: any,
+            CustomDictionary10?: any,
+        ): SpellingSuggestions;
         GoBack(): void;
         GoForward(): void;
         readonly HangulHanjaDictionaries: HangulHanjaConversionDictionaries;
@@ -4977,12 +5016,33 @@ declare namespace Word {
          * @param Word.WdMergeFormatFrom [FormatFrom=2]
          */
         MergeDocuments(
-            OriginalDocument: Document, RevisedDocument: Document, Destination?: WdCompareDestination, Granularity?: WdGranularity, CompareFormatting?: boolean,
-            CompareCaseChanges?: boolean, CompareWhitespace?: boolean, CompareTables?: boolean, CompareHeaders?: boolean, CompareFootnotes?: boolean,
-            CompareTextboxes?: boolean, CompareFields?: boolean, CompareComments?: boolean, CompareMoves?: boolean, OriginalAuthor?: string, RevisedAuthor?: string,
-            FormatFrom?: WdMergeFormatFrom): Document;
+            OriginalDocument: Document,
+            RevisedDocument: Document,
+            Destination?: WdCompareDestination,
+            Granularity?: WdGranularity,
+            CompareFormatting?: boolean,
+            CompareCaseChanges?: boolean,
+            CompareWhitespace?: boolean,
+            CompareTables?: boolean,
+            CompareHeaders?: boolean,
+            CompareFootnotes?: boolean,
+            CompareTextboxes?: boolean,
+            CompareFields?: boolean,
+            CompareComments?: boolean,
+            CompareMoves?: boolean,
+            OriginalAuthor?: string,
+            RevisedAuthor?: string,
+            FormatFrom?: WdMergeFormatFrom,
+        ): Document;
         MillimetersToPoints(Millimeters: number): number;
-        MountVolume(Zone: string, Server: string, Volume: string, User?: any, UserPassword?: any, VolumePassword?: any): number;
+        MountVolume(
+            Zone: string,
+            Server: string,
+            Volume: string,
+            User?: any,
+            UserPassword?: any,
+            VolumePassword?: any,
+        ): number;
         readonly MouseAvailable: boolean;
         Move(Left: number, Top: number): void;
         readonly Name: string;
@@ -5012,16 +5072,64 @@ declare namespace Word {
         PointsToPixels(Points: number, fVertical?: any): number;
         readonly PortraitFontNames: FontNames;
         PrintOut(
-            Background?: any, Append?: any, Range?: any, OutputFileName?: any, From?: any, To?: any, Item?: any, Copies?: any, Pages?: any, PageType?: any,
-            PrintToFile?: any, Collate?: any, FileName?: any, ActivePrinterMacGX?: any, ManualDuplexPrint?: any, PrintZoomColumn?: any, PrintZoomRow?: any,
-            PrintZoomPaperWidth?: any, PrintZoomPaperHeight?: any): void;
+            Background?: any,
+            Append?: any,
+            Range?: any,
+            OutputFileName?: any,
+            From?: any,
+            To?: any,
+            Item?: any,
+            Copies?: any,
+            Pages?: any,
+            PageType?: any,
+            PrintToFile?: any,
+            Collate?: any,
+            FileName?: any,
+            ActivePrinterMacGX?: any,
+            ManualDuplexPrint?: any,
+            PrintZoomColumn?: any,
+            PrintZoomRow?: any,
+            PrintZoomPaperWidth?: any,
+            PrintZoomPaperHeight?: any,
+        ): void;
         PrintOut2000(
-            Background?: any, Append?: any, Range?: any, OutputFileName?: any, From?: any, To?: any, Item?: any, Copies?: any, Pages?: any, PageType?: any,
-            PrintToFile?: any, Collate?: any, FileName?: any, ActivePrinterMacGX?: any, ManualDuplexPrint?: any, PrintZoomColumn?: any, PrintZoomRow?: any,
-            PrintZoomPaperWidth?: any, PrintZoomPaperHeight?: any): void;
+            Background?: any,
+            Append?: any,
+            Range?: any,
+            OutputFileName?: any,
+            From?: any,
+            To?: any,
+            Item?: any,
+            Copies?: any,
+            Pages?: any,
+            PageType?: any,
+            PrintToFile?: any,
+            Collate?: any,
+            FileName?: any,
+            ActivePrinterMacGX?: any,
+            ManualDuplexPrint?: any,
+            PrintZoomColumn?: any,
+            PrintZoomRow?: any,
+            PrintZoomPaperWidth?: any,
+            PrintZoomPaperHeight?: any,
+        ): void;
         PrintOutOld(
-            Background?: any, Append?: any, Range?: any, OutputFileName?: any, From?: any, To?: any, Item?: any, Copies?: any, Pages?: any, PageType?: any,
-            PrintToFile?: any, Collate?: any, FileName?: any, ActivePrinterMacGX?: any, ManualDuplexPrint?: any): void;
+            Background?: any,
+            Append?: any,
+            Range?: any,
+            OutputFileName?: any,
+            From?: any,
+            To?: any,
+            Item?: any,
+            Copies?: any,
+            Pages?: any,
+            PageType?: any,
+            PrintToFile?: any,
+            Collate?: any,
+            FileName?: any,
+            ActivePrinterMacGX?: any,
+            ManualDuplexPrint?: any,
+        ): void;
         PrintPreview: boolean;
         ProductCode(): string;
         readonly ProtectedViewWindows: ProtectedViewWindows;
@@ -5033,9 +5141,38 @@ declare namespace Word {
         Resize(Width: number, Height: number): void;
         RestrictLinkedStyles: boolean;
         Run(
-            MacroName: string, varg1?: any, varg2?: any, varg3?: any, varg4?: any, varg5?: any, varg6?: any, varg7?: any, varg8?: any, varg9?: any, varg10?: any,
-            varg11?: any, varg12?: any, varg13?: any, varg14?: any, varg15?: any, varg16?: any, varg17?: any, varg18?: any, varg19?: any, varg20?: any, varg21?: any,
-            varg22?: any, varg23?: any, varg24?: any, varg25?: any, varg26?: any, varg27?: any, varg28?: any, varg29?: any, varg30?: any): any;
+            MacroName: string,
+            varg1?: any,
+            varg2?: any,
+            varg3?: any,
+            varg4?: any,
+            varg5?: any,
+            varg6?: any,
+            varg7?: any,
+            varg8?: any,
+            varg9?: any,
+            varg10?: any,
+            varg11?: any,
+            varg12?: any,
+            varg13?: any,
+            varg14?: any,
+            varg15?: any,
+            varg16?: any,
+            varg17?: any,
+            varg18?: any,
+            varg19?: any,
+            varg20?: any,
+            varg21?: any,
+            varg22?: any,
+            varg23?: any,
+            varg24?: any,
+            varg25?: any,
+            varg26?: any,
+            varg27?: any,
+            varg28?: any,
+            varg29?: any,
+            varg30?: any,
+        ): any;
         RunOld(MacroName: string): void;
         ScreenRefresh(): void;
         ScreenUpdating: boolean;
@@ -5062,7 +5199,12 @@ declare namespace Word {
         readonly TaskPanes: TaskPanes;
         readonly Tasks: Tasks;
         readonly Templates: Templates;
-        ThreeWayMerge(LocalDocument: Document, ServerDocument: Document, BaseDocument: Document, FavorSource: boolean): void;
+        ThreeWayMerge(
+            LocalDocument: Document,
+            ServerDocument: Document,
+            BaseDocument: Document,
+            FavorSource: boolean,
+        ): void;
         ToggleKeyboard(): void;
         Top: number;
         readonly UndoRecord: UndoRecord;
@@ -5083,7 +5225,7 @@ declare namespace Word {
     }
 
     class AutoCaption {
-        private 'Word.AutoCaption_typekey': AutoCaption;
+        private "Word.AutoCaption_typekey": AutoCaption;
         private constructor();
         readonly Application: Application;
         AutoInsert: boolean;
@@ -5095,7 +5237,7 @@ declare namespace Word {
     }
 
     class AutoCaptions {
-        private 'Word.AutoCaptions_typekey': AutoCaptions;
+        private "Word.AutoCaptions_typekey": AutoCaptions;
         private constructor();
         readonly Application: Application;
         CancelAutoInsert(): void;
@@ -5106,7 +5248,7 @@ declare namespace Word {
     }
 
     class AutoCorrect {
-        private 'Word.AutoCorrect_typekey': AutoCorrect;
+        private "Word.AutoCorrect_typekey": AutoCorrect;
         private constructor();
         readonly Application: Application;
         CorrectCapsLock: boolean;
@@ -5133,7 +5275,7 @@ declare namespace Word {
     }
 
     class AutoCorrectEntries {
-        private 'Word.AutoCorrectEntries_typekey': AutoCorrectEntries;
+        private "Word.AutoCorrectEntries_typekey": AutoCorrectEntries;
         private constructor();
         Add(Name: string, Value: string): AutoCorrectEntry;
         AddRichText(Name: string, Range: Range): AutoCorrectEntry;
@@ -5145,7 +5287,7 @@ declare namespace Word {
     }
 
     class AutoCorrectEntry {
-        private 'Word.AutoCorrectEntry_typekey': AutoCorrectEntry;
+        private "Word.AutoCorrectEntry_typekey": AutoCorrectEntry;
         private constructor();
         readonly Application: Application;
         Apply(Range: Range): void;
@@ -5159,7 +5301,7 @@ declare namespace Word {
     }
 
     class AutoTextEntries {
-        private 'Word.AutoTextEntries_typekey': AutoTextEntries;
+        private "Word.AutoTextEntries_typekey": AutoTextEntries;
         private constructor();
         Add(Name: string, Range: Range): AutoTextEntry;
         AppendToSpike(Range: Range): AutoTextEntry;
@@ -5171,7 +5313,7 @@ declare namespace Word {
     }
 
     class AutoTextEntry {
-        private 'Word.AutoTextEntry_typekey': AutoTextEntry;
+        private "Word.AutoTextEntry_typekey": AutoTextEntry;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -5185,7 +5327,7 @@ declare namespace Word {
     }
 
     class Bibliography {
-        private 'Word.Bibliography_typekey': Bibliography;
+        private "Word.Bibliography_typekey": Bibliography;
         private constructor();
         readonly Application: Application;
         BibliographyStyle: string;
@@ -5196,7 +5338,7 @@ declare namespace Word {
     }
 
     class Bookmark {
-        private 'Word.Bookmark_typekey': Bookmark;
+        private "Word.Bookmark_typekey": Bookmark;
         private constructor();
         readonly Application: Application;
         readonly Column: boolean;
@@ -5214,7 +5356,7 @@ declare namespace Word {
     }
 
     class Bookmarks {
-        private 'Word.Bookmarks_typekey': Bookmarks;
+        private "Word.Bookmarks_typekey": Bookmarks;
         private constructor();
         Add(Name: string, Range?: any): Bookmark;
         readonly Application: Application;
@@ -5228,7 +5370,7 @@ declare namespace Word {
     }
 
     class Border {
-        private 'Word.Border_typekey': Border;
+        private "Word.Border_typekey": Border;
         private constructor();
         readonly Application: Application;
         ArtStyle: WdPageBorderArt;
@@ -5244,7 +5386,7 @@ declare namespace Word {
     }
 
     class Borders {
-        private 'Word.Borders_typekey': Borders;
+        private "Word.Borders_typekey": Borders;
         private constructor();
         AlwaysInFront: boolean;
         readonly Application: Application;
@@ -5278,7 +5420,7 @@ declare namespace Word {
     }
 
     class Break {
-        private 'Word.Break_typekey': Break;
+        private "Word.Break_typekey": Break;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -5288,7 +5430,7 @@ declare namespace Word {
     }
 
     class Breaks {
-        private 'Word.Breaks_typekey': Breaks;
+        private "Word.Breaks_typekey": Breaks;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -5298,7 +5440,7 @@ declare namespace Word {
     }
 
     class Browser {
-        private 'Word.Browser_typekey': Browser;
+        private "Word.Browser_typekey": Browser;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -5309,7 +5451,7 @@ declare namespace Word {
     }
 
     class BuildingBlock {
-        private 'Word.BuildingBlock_typekey': BuildingBlock;
+        private "Word.BuildingBlock_typekey": BuildingBlock;
         private constructor();
         readonly Application: Application;
         readonly Category: Category;
@@ -5327,11 +5469,18 @@ declare namespace Word {
     }
 
     class BuildingBlockEntries {
-        private 'Word.BuildingBlockEntries_typekey': BuildingBlockEntries;
+        private "Word.BuildingBlockEntries_typekey": BuildingBlockEntries;
         private constructor();
 
         /** @param Word.WdDocPartInsertOptions [InsertOptions=0] */
-        Add(Name: string, Type: WdBuildingBlockTypes, Category: string, Range: Range, Description: any, InsertOptions?: WdDocPartInsertOptions): BuildingBlock;
+        Add(
+            Name: string,
+            Type: WdBuildingBlockTypes,
+            Category: string,
+            Range: Range,
+            Description: any,
+            InsertOptions?: WdDocPartInsertOptions,
+        ): BuildingBlock;
         readonly Application: Application;
         readonly Count: number;
         readonly Creator: number;
@@ -5340,7 +5489,7 @@ declare namespace Word {
     }
 
     class BuildingBlocks {
-        private 'Word.BuildingBlocks_typekey': BuildingBlocks;
+        private "Word.BuildingBlocks_typekey": BuildingBlocks;
         private constructor();
 
         /** @param Word.WdDocPartInsertOptions [InsertOptions=0] */
@@ -5353,7 +5502,7 @@ declare namespace Word {
     }
 
     class BuildingBlockType {
-        private 'Word.BuildingBlockType_typekey': BuildingBlockType;
+        private "Word.BuildingBlockType_typekey": BuildingBlockType;
         private constructor();
         readonly Application: Application;
         readonly Categories: Categories;
@@ -5364,7 +5513,7 @@ declare namespace Word {
     }
 
     class BuildingBlockTypes {
-        private 'Word.BuildingBlockTypes_typekey': BuildingBlockTypes;
+        private "Word.BuildingBlockTypes_typekey": BuildingBlockTypes;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -5374,7 +5523,7 @@ declare namespace Word {
     }
 
     class CalloutFormat {
-        private 'Word.CalloutFormat_typekey': CalloutFormat;
+        private "Word.CalloutFormat_typekey": CalloutFormat;
         private constructor();
         Accent: Office.MsoTriState;
         Angle: Office.MsoCalloutAngleType;
@@ -5396,20 +5545,47 @@ declare namespace Word {
     }
 
     class CanvasShapes {
-        private 'Word.CanvasShapes_typekey': CanvasShapes;
+        private "Word.CanvasShapes_typekey": CanvasShapes;
         private constructor();
         AddCallout(Type: Office.MsoCalloutType, Left: number, Top: number, Width: number, Height: number): Shape;
         AddConnector(Type: Office.MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
         AddCurve(SafeArrayOfPoints: any): Shape;
-        AddLabel(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddLabel(
+            Orientation: Office.MsoTextOrientation,
+            Left: number,
+            Top: number,
+            Width: number,
+            Height: number,
+        ): Shape;
         AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
-        AddPicture(FileName: string, LinkToFile?: any, SaveWithDocument?: any, Left?: any, Top?: any, Width?: any, Height?: any): Shape;
+        AddPicture(
+            FileName: string,
+            LinkToFile?: any,
+            SaveWithDocument?: any,
+            Left?: any,
+            Top?: any,
+            Width?: any,
+            Height?: any,
+        ): Shape;
         AddPolyline(SafeArrayOfPoints: any): Shape;
         AddShape(Type: number, Left: number, Top: number, Width: number, Height: number): Shape;
-        AddTextbox(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
+        AddTextbox(
+            Orientation: Office.MsoTextOrientation,
+            Left: number,
+            Top: number,
+            Width: number,
+            Height: number,
+        ): Shape;
         AddTextEffect(
-            PresetTextEffect: Office.MsoPresetTextEffect, Text: string, FontName: string, FontSize: number, FontBold: Office.MsoTriState, FontItalic: Office.MsoTriState,
-            Left: number, Top: number): Shape;
+            PresetTextEffect: Office.MsoPresetTextEffect,
+            Text: string,
+            FontName: string,
+            FontSize: number,
+            FontBold: Office.MsoTriState,
+            FontItalic: Office.MsoTriState,
+            Left: number,
+            Top: number,
+        ): Shape;
         readonly Application: Application;
         BuildFreeform(EditingType: Office.MsoEditingType, X1: number, Y1: number): FreeformBuilder;
         readonly Count: number;
@@ -5421,7 +5597,7 @@ declare namespace Word {
     }
 
     class CaptionLabel {
-        private 'Word.CaptionLabel_typekey': CaptionLabel;
+        private "Word.CaptionLabel_typekey": CaptionLabel;
         private constructor();
         readonly Application: Application;
         readonly BuiltIn: boolean;
@@ -5438,7 +5614,7 @@ declare namespace Word {
     }
 
     class CaptionLabels {
-        private 'Word.CaptionLabels_typekey': CaptionLabels;
+        private "Word.CaptionLabels_typekey": CaptionLabels;
         private constructor();
         Add(Name: string): CaptionLabel;
         readonly Application: Application;
@@ -5449,7 +5625,7 @@ declare namespace Word {
     }
 
     class Categories {
-        private 'Word.Categories_typekey': Categories;
+        private "Word.Categories_typekey": Categories;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -5459,7 +5635,7 @@ declare namespace Word {
     }
 
     class Category {
-        private 'Word.Category_typekey': Category;
+        private "Word.Category_typekey": Category;
         private constructor();
         readonly Application: Application;
         readonly BuildingBlocks: BuildingBlocks;
@@ -5471,7 +5647,7 @@ declare namespace Word {
     }
 
     class Cell {
-        private 'Word.Cell_typekey': Cell;
+        private "Word.Cell_typekey": Cell;
         private constructor();
         readonly Application: Application;
         AutoSum(): void;
@@ -5511,7 +5687,7 @@ declare namespace Word {
     }
 
     class Cells {
-        private 'Word.Cells_typekey': Cells;
+        private "Word.Cells_typekey": Cells;
         private constructor();
         Add(BeforeCell?: any): Cell;
         readonly Application: Application;
@@ -5539,7 +5715,7 @@ declare namespace Word {
     }
 
     class Characters {
-        private 'Word.Characters_typekey': Characters;
+        private "Word.Characters_typekey": Characters;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -5551,7 +5727,7 @@ declare namespace Word {
     }
 
     class Chart {
-        private 'Word.Chart_typekey': Chart;
+        private "Word.Chart_typekey": Chart;
         private constructor();
         readonly Application: any;
         ApplyChartTemplate(FileName: string): void;
@@ -5559,8 +5735,17 @@ declare namespace Word {
 
         /** @param Word.XlDataLabelsType [Type=2] */
         ApplyDataLabels(
-            Type?: XlDataLabelsType, LegendKey?: any, AutoText?: any, HasLeaderLines?: any, ShowSeriesName?: any, ShowCategoryName?: any, ShowValue?: any,
-            ShowPercentage?: any, ShowBubbleSize?: any, Separator?: any): void;
+            Type?: XlDataLabelsType,
+            LegendKey?: any,
+            AutoText?: any,
+            HasLeaderLines?: any,
+            ShowSeriesName?: any,
+            ShowCategoryName?: any,
+            ShowValue?: any,
+            ShowPercentage?: any,
+            ShowBubbleSize?: any,
+            Separator?: any,
+        ): void;
         ApplyLayout(Layout: number, ChartType?: any): void;
         readonly Area3DGroup: ChartGroup;
         AreaGroups(Index?: any): any;
@@ -5580,8 +5765,18 @@ declare namespace Word {
         readonly ChartTitle: ChartTitle;
         ChartType: Office.XlChartType;
         ChartWizard(
-            Source?: any, Gallery?: any, Format?: any, PlotBy?: any, CategoryLabels?: any, SeriesLabels?: any, HasLegend?: any, Title?: any, CategoryTitle?: any,
-            ValueTitle?: any, ExtraTitle?: any): void;
+            Source?: any,
+            Gallery?: any,
+            Format?: any,
+            PlotBy?: any,
+            CategoryLabels?: any,
+            SeriesLabels?: any,
+            HasLegend?: any,
+            Title?: any,
+            CategoryTitle?: any,
+            ValueTitle?: any,
+            ExtraTitle?: any,
+        ): void;
         ClearToMatchStyle(): void;
         readonly Column3DGroup: ChartGroup;
         ColumnGroups(Index?: any): any;
@@ -5650,7 +5845,7 @@ declare namespace Word {
     }
 
     class ChartArea {
-        private 'Word.ChartArea_typekey': ChartArea;
+        private "Word.ChartArea_typekey": ChartArea;
         private constructor();
         readonly Application: any;
         AutoScaleFont: any;
@@ -5675,7 +5870,7 @@ declare namespace Word {
     }
 
     class ChartBorder {
-        private 'Word.ChartBorder_typekey': ChartBorder;
+        private "Word.ChartBorder_typekey": ChartBorder;
         private constructor();
         readonly Application: any;
         Color: any;
@@ -5687,7 +5882,7 @@ declare namespace Word {
     }
 
     class ChartCharacters {
-        private 'Word.ChartCharacters_typekey': ChartCharacters;
+        private "Word.ChartCharacters_typekey": ChartCharacters;
         private constructor();
         readonly Application: any;
         Caption: string;
@@ -5702,7 +5897,7 @@ declare namespace Word {
     }
 
     class ChartColorFormat {
-        private 'Word.ChartColorFormat_typekey': ChartColorFormat;
+        private "Word.ChartColorFormat_typekey": ChartColorFormat;
         private constructor();
         readonly _Default: number;
         readonly Application: any;
@@ -5714,7 +5909,7 @@ declare namespace Word {
     }
 
     class ChartData {
-        private 'Word.ChartData_typekey': ChartData;
+        private "Word.ChartData_typekey": ChartData;
         private constructor();
         Activate(): void;
         BreakLink(): void;
@@ -5723,7 +5918,7 @@ declare namespace Word {
     }
 
     class ChartFillFormat {
-        private 'Word.ChartFillFormat_typekey': ChartFillFormat;
+        private "Word.ChartFillFormat_typekey": ChartFillFormat;
         private constructor();
         readonly Application: any;
         readonly BackColor: ChartColorFormat;
@@ -5737,7 +5932,11 @@ declare namespace Word {
         readonly Parent: any;
         readonly Pattern: Office.MsoPatternType;
         Patterned(Pattern: Office.MsoPatternType): void;
-        PresetGradient(Style: Office.MsoGradientStyle, Variant: number, PresetGradientType: Office.MsoPresetGradientType): void;
+        PresetGradient(
+            Style: Office.MsoGradientStyle,
+            Variant: number,
+            PresetGradientType: Office.MsoPresetGradientType,
+        ): void;
         readonly PresetGradientType: Office.MsoPresetGradientType;
         readonly PresetTexture: Office.MsoPresetTexture;
         PresetTextured(PresetTexture: Office.MsoPresetTexture): void;
@@ -5752,7 +5951,7 @@ declare namespace Word {
     }
 
     class ChartFont {
-        private 'Word.ChartFont_typekey': ChartFont;
+        private "Word.ChartFont_typekey": ChartFont;
         private constructor();
         readonly Application: any;
         Background: any;
@@ -5774,7 +5973,7 @@ declare namespace Word {
     }
 
     class ChartFormat {
-        private 'Word.ChartFormat_typekey': ChartFormat;
+        private "Word.ChartFormat_typekey": ChartFormat;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -5790,7 +5989,7 @@ declare namespace Word {
     }
 
     class ChartGroup {
-        private 'Word.ChartGroup_typekey': ChartGroup;
+        private "Word.ChartGroup_typekey": ChartGroup;
         private constructor();
         readonly Application: any;
         AxisGroup: XlAxisGroup;
@@ -5826,7 +6025,7 @@ declare namespace Word {
     }
 
     class ChartTitle {
-        private 'Word.ChartTitle_typekey': ChartTitle;
+        private "Word.ChartTitle_typekey": ChartTitle;
         private constructor();
         readonly Application: any;
         AutoScaleFont: any;
@@ -5861,7 +6060,7 @@ declare namespace Word {
     }
 
     class CheckBox {
-        private 'Word.CheckBox_typekey': CheckBox;
+        private "Word.CheckBox_typekey": CheckBox;
         private constructor();
         readonly Application: Application;
         AutoSize: boolean;
@@ -5874,7 +6073,7 @@ declare namespace Word {
     }
 
     class CoAuthLock {
-        private 'Word.CoAuthLock_typekey': CoAuthLock;
+        private "Word.CoAuthLock_typekey": CoAuthLock;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -5887,7 +6086,7 @@ declare namespace Word {
     }
 
     class CoAuthLocks {
-        private 'Word.CoAuthLocks_typekey': CoAuthLocks;
+        private "Word.CoAuthLocks_typekey": CoAuthLocks;
         private constructor();
 
         /** @param Word.WdLockType [Type=1] */
@@ -5901,7 +6100,7 @@ declare namespace Word {
     }
 
     class CoAuthor {
-        private 'Word.CoAuthor_typekey': CoAuthor;
+        private "Word.CoAuthor_typekey": CoAuthor;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -5914,7 +6113,7 @@ declare namespace Word {
     }
 
     class CoAuthoring {
-        private 'Word.CoAuthoring_typekey': CoAuthoring;
+        private "Word.CoAuthoring_typekey": CoAuthoring;
         private constructor();
         readonly Application: Application;
         readonly Authors: CoAuthors;
@@ -5930,7 +6129,7 @@ declare namespace Word {
     }
 
     class CoAuthors {
-        private 'Word.CoAuthors_typekey': CoAuthors;
+        private "Word.CoAuthors_typekey": CoAuthors;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -5940,7 +6139,7 @@ declare namespace Word {
     }
 
     class CoAuthUpdate {
-        private 'Word.CoAuthUpdate_typekey': CoAuthUpdate;
+        private "Word.CoAuthUpdate_typekey": CoAuthUpdate;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -5949,7 +6148,7 @@ declare namespace Word {
     }
 
     class CoAuthUpdates {
-        private 'Word.CoAuthUpdates_typekey': CoAuthUpdates;
+        private "Word.CoAuthUpdates_typekey": CoAuthUpdates;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -5959,7 +6158,7 @@ declare namespace Word {
     }
 
     class ColorFormat {
-        private 'Word.ColorFormat_typekey': ColorFormat;
+        private "Word.ColorFormat_typekey": ColorFormat;
         private constructor();
         readonly Application: Application;
         Black: number;
@@ -5981,7 +6180,7 @@ declare namespace Word {
     }
 
     class Column {
-        private 'Word.Column_typekey': Column;
+        private "Word.Column_typekey": Column;
         private constructor();
         readonly Application: Application;
         AutoFit(): void;
@@ -6002,14 +6201,23 @@ declare namespace Word {
         SetWidth(ColumnWidth: number, RulerStyle: WdRulerStyle): void;
         readonly Shading: Shading;
         Sort(
-            ExcludeHeader?: any, SortFieldType?: any, SortOrder?: any, CaseSensitive?: any, BidiSort?: any, IgnoreThe?: any, IgnoreKashida?: any, IgnoreDiacritics?: any,
-            IgnoreHe?: any, LanguageID?: any): void;
+            ExcludeHeader?: any,
+            SortFieldType?: any,
+            SortOrder?: any,
+            CaseSensitive?: any,
+            BidiSort?: any,
+            IgnoreThe?: any,
+            IgnoreKashida?: any,
+            IgnoreDiacritics?: any,
+            IgnoreHe?: any,
+            LanguageID?: any,
+        ): void;
         SortOld(ExcludeHeader?: any, SortFieldType?: any, SortOrder?: any, CaseSensitive?: any, LanguageID?: any): void;
         Width: number;
     }
 
     class Columns {
-        private 'Word.Columns_typekey': Columns;
+        private "Word.Columns_typekey": Columns;
         private constructor();
         Add(BeforeColumn?: any): Column;
         readonly Application: Application;
@@ -6033,7 +6241,7 @@ declare namespace Word {
     }
 
     class Comment {
-        private 'Word.Comment_typekey': Comment;
+        private "Word.Comment_typekey": Comment;
         private constructor();
         readonly Application: Application;
         Author: string;
@@ -6052,7 +6260,7 @@ declare namespace Word {
     }
 
     class Comments {
-        private 'Word.Comments_typekey': Comments;
+        private "Word.Comments_typekey": Comments;
         private constructor();
         Add(Range: Range, Text?: any): Comment;
         readonly Application: Application;
@@ -6064,7 +6272,7 @@ declare namespace Word {
     }
 
     class ConditionalStyle {
-        private 'Word.ConditionalStyle_typekey': ConditionalStyle;
+        private "Word.ConditionalStyle_typekey": ConditionalStyle;
         private constructor();
         readonly Application: Application;
         Borders: Borders;
@@ -6080,7 +6288,7 @@ declare namespace Word {
     }
 
     class Conflict {
-        private 'Word.Conflict_typekey': Conflict;
+        private "Word.Conflict_typekey": Conflict;
         private constructor();
         Accept(): void;
         readonly Application: Application;
@@ -6093,7 +6301,7 @@ declare namespace Word {
     }
 
     class Conflicts {
-        private 'Word.Conflicts_typekey': Conflicts;
+        private "Word.Conflicts_typekey": Conflicts;
         private constructor();
         AcceptAll(): void;
         readonly Application: Application;
@@ -6105,7 +6313,7 @@ declare namespace Word {
     }
 
     class ConnectorFormat {
-        private 'Word.ConnectorFormat_typekey': ConnectorFormat;
+        private "Word.ConnectorFormat_typekey": ConnectorFormat;
         private constructor();
         readonly Application: Application;
         BeginConnect(ConnectedShape: Shape, ConnectionSite: number): void;
@@ -6124,7 +6332,7 @@ declare namespace Word {
     }
 
     class ContentControl {
-        private 'Word.ContentControl_typekey': ContentControl;
+        private "Word.ContentControl_typekey": ContentControl;
         private constructor();
         readonly Application: Application;
         BuildingBlockCategory: string;
@@ -6173,7 +6381,7 @@ declare namespace Word {
     }
 
     class ContentControlListEntries {
-        private 'Word.ContentControlListEntries_typekey': ContentControlListEntries;
+        private "Word.ContentControlListEntries_typekey": ContentControlListEntries;
         private constructor();
 
         /**
@@ -6190,7 +6398,7 @@ declare namespace Word {
     }
 
     class ContentControlListEntry {
-        private 'Word.ContentControlListEntry_typekey': ContentControlListEntry;
+        private "Word.ContentControlListEntry_typekey": ContentControlListEntry;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -6205,7 +6413,7 @@ declare namespace Word {
     }
 
     class ContentControls {
-        private 'Word.ContentControls_typekey': ContentControls;
+        private "Word.ContentControls_typekey": ContentControls;
         private constructor();
 
         /** @param Word.WdContentControlType [Type=0] */
@@ -6218,7 +6426,7 @@ declare namespace Word {
     }
 
     class Corners {
-        private 'Word.Corners_typekey': Corners;
+        private "Word.Corners_typekey": Corners;
         private constructor();
         readonly Application: any;
         readonly Creator: number;
@@ -6228,7 +6436,7 @@ declare namespace Word {
     }
 
     class CustomLabel {
-        private 'Word.CustomLabel_typekey': CustomLabel;
+        private "Word.CustomLabel_typekey": CustomLabel;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -6250,7 +6458,7 @@ declare namespace Word {
     }
 
     class CustomLabels {
-        private 'Word.CustomLabels_typekey': CustomLabels;
+        private "Word.CustomLabels_typekey": CustomLabels;
         private constructor();
         Add(Name: string, DotMatrix?: any): CustomLabel;
         readonly Application: Application;
@@ -6261,7 +6469,7 @@ declare namespace Word {
     }
 
     class CustomProperties {
-        private 'Word.CustomProperties_typekey': CustomProperties;
+        private "Word.CustomProperties_typekey": CustomProperties;
         private constructor();
         Add(Name: string, Value: string): CustomProperty;
         readonly Application: Application;
@@ -6272,7 +6480,7 @@ declare namespace Word {
     }
 
     class CustomProperty {
-        private 'Word.CustomProperty_typekey': CustomProperty;
+        private "Word.CustomProperty_typekey": CustomProperty;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -6283,7 +6491,7 @@ declare namespace Word {
     }
 
     class DataTable {
-        private 'Word.DataTable_typekey': DataTable;
+        private "Word.DataTable_typekey": DataTable;
         private constructor();
         readonly Application: any;
         AutoScaleFont: any;
@@ -6301,7 +6509,7 @@ declare namespace Word {
     }
 
     class DefaultWebOptions {
-        private 'Word.DefaultWebOptions_typekey': DefaultWebOptions;
+        private "Word.DefaultWebOptions_typekey": DefaultWebOptions;
         private constructor();
         AllowPNG: boolean;
         AlwaysSaveInDefaultEncoding: boolean;
@@ -6327,7 +6535,7 @@ declare namespace Word {
     }
 
     class Diagram {
-        private 'Word.Diagram_typekey': Diagram;
+        private "Word.Diagram_typekey": Diagram;
         private constructor();
         readonly Application: Application;
         AutoFormat: Office.MsoTriState;
@@ -6342,7 +6550,7 @@ declare namespace Word {
     }
 
     class DiagramNode {
-        private 'Word.DiagramNode_typekey': DiagramNode;
+        private "Word.DiagramNode_typekey": DiagramNode;
         private constructor();
 
         /**
@@ -6377,7 +6585,7 @@ declare namespace Word {
     }
 
     class DiagramNodeChildren {
-        private 'Word.DiagramNodeChildren_typekey': DiagramNodeChildren;
+        private "Word.DiagramNodeChildren_typekey": DiagramNodeChildren;
         private constructor();
 
         /**
@@ -6396,7 +6604,7 @@ declare namespace Word {
     }
 
     class DiagramNodes {
-        private 'Word.DiagramNodes_typekey': DiagramNodes;
+        private "Word.DiagramNodes_typekey": DiagramNodes;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -6407,7 +6615,7 @@ declare namespace Word {
     }
 
     class Dialog {
-        private 'Word.Dialog_typekey': Dialog;
+        private "Word.Dialog_typekey": Dialog;
         private constructor();
         readonly Application: Application;
         readonly CommandBarId: number;
@@ -6423,7 +6631,7 @@ declare namespace Word {
     }
 
     class Dialogs {
-        private 'Word.Dialogs_typekey': Dialogs;
+        private "Word.Dialogs_typekey": Dialogs;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -6433,7 +6641,7 @@ declare namespace Word {
     }
 
     class Dictionaries {
-        private 'Word.Dictionaries_typekey': Dictionaries;
+        private "Word.Dictionaries_typekey": Dictionaries;
         private constructor();
         ActiveCustomDictionary: Dictionary;
         Add(FileName: string): Dictionary;
@@ -6447,7 +6655,7 @@ declare namespace Word {
     }
 
     class Dictionary {
-        private 'Word.Dictionary_typekey': Dictionary;
+        private "Word.Dictionary_typekey": Dictionary;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -6462,7 +6670,7 @@ declare namespace Word {
     }
 
     class Document {
-        private 'Word.Document_typekey': Document;
+        private "Word.Document_typekey": Document;
         private constructor();
         _CodeName: string;
         AcceptAllRevisions(): void;
@@ -6472,8 +6680,20 @@ declare namespace Word {
         readonly ActiveThemeDisplayName: string;
         readonly ActiveWindow: Window;
         ActiveWritingStyle(LanguageID: any): string;
-        AddDocumentWorkspaceHeader(RichFormat: boolean, Url: string, Title: string, Description: string, ID: string): void;
-        AddMeetingWorkspaceHeader(SkipIfAbsent: boolean, Url: string, Title: string, Description: string, ID: string): void;
+        AddDocumentWorkspaceHeader(
+            RichFormat: boolean,
+            Url: string,
+            Title: string,
+            Description: string,
+            ID: string,
+        ): void;
+        AddMeetingWorkspaceHeader(
+            SkipIfAbsent: boolean,
+            Url: string,
+            Title: string,
+            Description: string,
+            ID: string,
+        ): void;
         AddToFavorites(): void;
         readonly Application: Application;
         ApplyDocumentTheme(FileName: string): void;
@@ -6507,8 +6727,19 @@ declare namespace Word {
         CheckInWithVersion(SaveChanges?: boolean, Comments?: any, MakePublic?: boolean, VersionType?: any): void;
         CheckNewSmartTags(): void;
         CheckSpelling(
-            CustomDictionary?: any, IgnoreUppercase?: any, AlwaysSuggest?: any, CustomDictionary2?: any, CustomDictionary3?: any, CustomDictionary4?: any,
-            CustomDictionary5?: any, CustomDictionary6?: any, CustomDictionary7?: any, CustomDictionary8?: any, CustomDictionary9?: any, CustomDictionary10?: any): void;
+            CustomDictionary?: any,
+            IgnoreUppercase?: any,
+            AlwaysSuggest?: any,
+            CustomDictionary2?: any,
+            CustomDictionary3?: any,
+            CustomDictionary4?: any,
+            CustomDictionary5?: any,
+            CustomDictionary6?: any,
+            CustomDictionary7?: any,
+            CustomDictionary8?: any,
+            CustomDictionary9?: any,
+            CustomDictionary10?: any,
+        ): void;
         readonly ChildNodeSuggestions: XMLChildNodeSuggestions;
         ClickAndTypeParagraphStyle: any;
         Close(SaveChanges?: any, OriginalFormat?: any, RouteDocument?: any): void;
@@ -6518,10 +6749,24 @@ declare namespace Word {
         readonly CommandBars: Office.CommandBars;
         readonly Comments: Comments;
         Compare(
-            Name: string, AuthorName?: any, CompareTarget?: any, DetectFormatChanges?: any, IgnoreAllComparisonWarnings?: any, AddToRecentFiles?: any,
-            RemovePersonalInformation?: any, RemoveDateAndTime?: any): void;
+            Name: string,
+            AuthorName?: any,
+            CompareTarget?: any,
+            DetectFormatChanges?: any,
+            IgnoreAllComparisonWarnings?: any,
+            AddToRecentFiles?: any,
+            RemovePersonalInformation?: any,
+            RemoveDateAndTime?: any,
+        ): void;
         Compare2000(Name: string): void;
-        Compare2002(Name: string, AuthorName?: any, CompareTarget?: any, DetectFormatChanges?: any, IgnoreAllComparisonWarnings?: any, AddToRecentFiles?: any): void;
+        Compare2002(
+            Name: string,
+            AuthorName?: any,
+            CompareTarget?: any,
+            DetectFormatChanges?: any,
+            IgnoreAllComparisonWarnings?: any,
+            AddToRecentFiles?: any,
+        ): void;
         Compatibility(Type: WdCompatibility): boolean;
         readonly CompatibilityMode: number;
         ComputeStatistics(Statistic: WdStatistic, IncludeFootnotesAndEndnotes?: any): number;
@@ -6537,11 +6782,38 @@ declare namespace Word {
         CopyStylesFromTemplate(Template: string): void;
         CountNumberedItems(NumberType?: any, Level?: any): number;
         CreateLetterContent(
-            DateFormat: string, IncludeHeaderFooter: boolean, PageDesign: string, LetterStyle: WdLetterStyle, Letterhead: boolean,
-            LetterheadLocation: WdLetterheadLocation, LetterheadSize: number, RecipientName: string, RecipientAddress: string, Salutation: string,
-            SalutationType: WdSalutationType, RecipientReference: string, MailingInstructions: string, AttentionLine: string, Subject: string, CCList: string,
-            ReturnAddress: string, SenderName: string, Closing: string, SenderCompany: string, SenderJobTitle: string, SenderInitials: string, EnclosureNumber: number,
-            InfoBlock?: any, RecipientCode?: any, RecipientGender?: any, ReturnAddressShortForm?: any, SenderCity?: any, SenderCode?: any, SenderGender?: any, SenderReference?: any): LetterContent;
+            DateFormat: string,
+            IncludeHeaderFooter: boolean,
+            PageDesign: string,
+            LetterStyle: WdLetterStyle,
+            Letterhead: boolean,
+            LetterheadLocation: WdLetterheadLocation,
+            LetterheadSize: number,
+            RecipientName: string,
+            RecipientAddress: string,
+            Salutation: string,
+            SalutationType: WdSalutationType,
+            RecipientReference: string,
+            MailingInstructions: string,
+            AttentionLine: string,
+            Subject: string,
+            CCList: string,
+            ReturnAddress: string,
+            SenderName: string,
+            Closing: string,
+            SenderCompany: string,
+            SenderJobTitle: string,
+            SenderInitials: string,
+            EnclosureNumber: number,
+            InfoBlock?: any,
+            RecipientCode?: any,
+            RecipientGender?: any,
+            ReturnAddressShortForm?: any,
+            SenderCity?: any,
+            SenderCode?: any,
+            SenderGender?: any,
+            SenderReference?: any,
+        ): LetterContent;
         readonly Creator: number;
         readonly CurrentRsid: number;
         readonly CustomDocumentProperties: Office.DocumentProperties<Application>;
@@ -6593,15 +6865,36 @@ declare namespace Word {
          * @param boolean [UseISO19005_1=false]
          */
         ExportAsFixedFormat(
-            OutputFileName: string, ExportFormat: WdExportFormat, OpenAfterExport?: boolean, OptimizeFor?: WdExportOptimizeFor, Range?: WdExportRange, From?: number,
-            To?: number, Item?: WdExportItem, IncludeDocProps?: boolean, KeepIRM?: boolean, CreateBookmarks?: WdExportCreateBookmarks, DocStructureTags?: boolean,
-            BitmapMissingFonts?: boolean, UseISO19005_1?: boolean, FixedFormatExtClassPtr?: any): void;
+            OutputFileName: string,
+            ExportFormat: WdExportFormat,
+            OpenAfterExport?: boolean,
+            OptimizeFor?: WdExportOptimizeFor,
+            Range?: WdExportRange,
+            From?: number,
+            To?: number,
+            Item?: WdExportItem,
+            IncludeDocProps?: boolean,
+            KeepIRM?: boolean,
+            CreateBookmarks?: WdExportCreateBookmarks,
+            DocStructureTags?: boolean,
+            BitmapMissingFonts?: boolean,
+            UseISO19005_1?: boolean,
+            FixedFormatExtClassPtr?: any,
+        ): void;
         FarEastLineBreakLanguage: WdFarEastLineBreakLanguageID;
         FarEastLineBreakLevel: WdFarEastLineBreakLevel;
         readonly Fields: Fields;
         Final: boolean;
         FitToPages(): void;
-        FollowHyperlink(Address?: any, SubAddress?: any, NewWindow?: any, AddHistory?: any, ExtraInfo?: any, Method?: any, HeaderInfo?: any): void;
+        FollowHyperlink(
+            Address?: any,
+            SubAddress?: any,
+            NewWindow?: any,
+            AddHistory?: any,
+            ExtraInfo?: any,
+            Method?: any,
+            HeaderInfo?: any,
+        ): void;
         readonly Footnotes: Footnotes;
         FormattingShowClear: boolean;
         FormattingShowFilter: WdShowFilter;
@@ -6659,7 +6952,13 @@ declare namespace Word {
         readonly MailMerge: MailMerge;
         MakeCompatibilityDefault(): void;
         ManualHyphenation(): void;
-        Merge(FileName: string, MergeTarget?: any, DetectFormatChanges?: any, UseFormattingFrom?: any, AddToRecentFiles?: any): void;
+        Merge(
+            FileName: string,
+            MergeTarget?: any,
+            DetectFormatChanges?: any,
+            UseFormattingFrom?: any,
+            AddToRecentFiles?: any,
+        ): void;
         Merge2000(FileName: string): void;
         readonly Name: string;
         NoLineBreakAfter: string;
@@ -6693,16 +6992,61 @@ declare namespace Word {
         PrintFormsData: boolean;
         PrintFractionalWidths: boolean;
         PrintOut(
-            Background?: any, Append?: any, Range?: any, OutputFileName?: any, From?: any, To?: any, Item?: any, Copies?: any, Pages?: any, PageType?: any,
-            PrintToFile?: any, Collate?: any, ActivePrinterMacGX?: any, ManualDuplexPrint?: any, PrintZoomColumn?: any, PrintZoomRow?: any, PrintZoomPaperWidth?: any,
-            PrintZoomPaperHeight?: any): void;
+            Background?: any,
+            Append?: any,
+            Range?: any,
+            OutputFileName?: any,
+            From?: any,
+            To?: any,
+            Item?: any,
+            Copies?: any,
+            Pages?: any,
+            PageType?: any,
+            PrintToFile?: any,
+            Collate?: any,
+            ActivePrinterMacGX?: any,
+            ManualDuplexPrint?: any,
+            PrintZoomColumn?: any,
+            PrintZoomRow?: any,
+            PrintZoomPaperWidth?: any,
+            PrintZoomPaperHeight?: any,
+        ): void;
         PrintOut2000(
-            Background?: any, Append?: any, Range?: any, OutputFileName?: any, From?: any, To?: any, Item?: any, Copies?: any, Pages?: any, PageType?: any,
-            PrintToFile?: any, Collate?: any, ActivePrinterMacGX?: any, ManualDuplexPrint?: any, PrintZoomColumn?: any, PrintZoomRow?: any, PrintZoomPaperWidth?: any,
-            PrintZoomPaperHeight?: any): void;
+            Background?: any,
+            Append?: any,
+            Range?: any,
+            OutputFileName?: any,
+            From?: any,
+            To?: any,
+            Item?: any,
+            Copies?: any,
+            Pages?: any,
+            PageType?: any,
+            PrintToFile?: any,
+            Collate?: any,
+            ActivePrinterMacGX?: any,
+            ManualDuplexPrint?: any,
+            PrintZoomColumn?: any,
+            PrintZoomRow?: any,
+            PrintZoomPaperWidth?: any,
+            PrintZoomPaperHeight?: any,
+        ): void;
         PrintOutOld(
-            Background?: any, Append?: any, Range?: any, OutputFileName?: any, From?: any, To?: any, Item?: any, Copies?: any, Pages?: any, PageType?: any,
-            PrintToFile?: any, Collate?: any, ActivePrinterMacGX?: any, ManualDuplexPrint?: any): void;
+            Background?: any,
+            Append?: any,
+            Range?: any,
+            OutputFileName?: any,
+            From?: any,
+            To?: any,
+            Item?: any,
+            Copies?: any,
+            Pages?: any,
+            PageType?: any,
+            PrintToFile?: any,
+            Collate?: any,
+            ActivePrinterMacGX?: any,
+            ManualDuplexPrint?: any,
+        ): void;
         PrintPostScriptOverText: boolean;
         PrintPreview(): void;
         PrintRevisions: boolean;
@@ -6745,16 +7089,55 @@ declare namespace Word {
         RunLetterWizard(LetterContent?: any, WizardMode?: any): void;
         Save(): void;
         SaveAs(
-            FileName?: any, FileFormat?: any, LockComments?: any, Password?: any, AddToRecentFiles?: any, WritePassword?: any, ReadOnlyRecommended?: any,
-            EmbedTrueTypeFonts?: any, SaveNativePictureFormat?: any, SaveFormsData?: any, SaveAsAOCELetter?: any, Encoding?: any, InsertLineBreaks?: any,
-            AllowSubstitutions?: any, LineEnding?: any, AddBiDiMarks?: any): void;
+            FileName?: any,
+            FileFormat?: any,
+            LockComments?: any,
+            Password?: any,
+            AddToRecentFiles?: any,
+            WritePassword?: any,
+            ReadOnlyRecommended?: any,
+            EmbedTrueTypeFonts?: any,
+            SaveNativePictureFormat?: any,
+            SaveFormsData?: any,
+            SaveAsAOCELetter?: any,
+            Encoding?: any,
+            InsertLineBreaks?: any,
+            AllowSubstitutions?: any,
+            LineEnding?: any,
+            AddBiDiMarks?: any,
+        ): void;
         SaveAs2(
-            FileName?: any, FileFormat?: any, LockComments?: any, Password?: any, AddToRecentFiles?: any, WritePassword?: any, ReadOnlyRecommended?: any,
-            EmbedTrueTypeFonts?: any, SaveNativePictureFormat?: any, SaveFormsData?: any, SaveAsAOCELetter?: any, Encoding?: any, InsertLineBreaks?: any,
-            AllowSubstitutions?: any, LineEnding?: any, AddBiDiMarks?: any, CompatibilityMode?: any): void;
+            FileName?: any,
+            FileFormat?: any,
+            LockComments?: any,
+            Password?: any,
+            AddToRecentFiles?: any,
+            WritePassword?: any,
+            ReadOnlyRecommended?: any,
+            EmbedTrueTypeFonts?: any,
+            SaveNativePictureFormat?: any,
+            SaveFormsData?: any,
+            SaveAsAOCELetter?: any,
+            Encoding?: any,
+            InsertLineBreaks?: any,
+            AllowSubstitutions?: any,
+            LineEnding?: any,
+            AddBiDiMarks?: any,
+            CompatibilityMode?: any,
+        ): void;
         SaveAs2000(
-            FileName?: any, FileFormat?: any, LockComments?: any, Password?: any, AddToRecentFiles?: any, WritePassword?: any, ReadOnlyRecommended?: any,
-            EmbedTrueTypeFonts?: any, SaveNativePictureFormat?: any, SaveFormsData?: any, SaveAsAOCELetter?: any): void;
+            FileName?: any,
+            FileFormat?: any,
+            LockComments?: any,
+            Password?: any,
+            AddToRecentFiles?: any,
+            WritePassword?: any,
+            ReadOnlyRecommended?: any,
+            EmbedTrueTypeFonts?: any,
+            SaveNativePictureFormat?: any,
+            SaveFormsData?: any,
+            SaveAsAOCELetter?: any,
+        ): void;
         SaveAsQuickStyleSet(FileName: string): void;
         Saved: boolean;
         SaveEncoding: Office.MsoEncoding;
@@ -6794,7 +7177,12 @@ declare namespace Word {
         SetCompatibilityMode(Mode: number): void;
         SetDefaultTableStyle(Style: any, SetInTemplate: boolean): void;
         SetLetterContent(LetterContent: any): void;
-        SetPasswordEncryptionOptions(PasswordEncryptionProvider: string, PasswordEncryptionAlgorithm: string, PasswordEncryptionKeyLength: number, PasswordEncryptionFileProperties?: any): void;
+        SetPasswordEncryptionOptions(
+            PasswordEncryptionProvider: string,
+            PasswordEncryptionAlgorithm: string,
+            PasswordEncryptionKeyLength: number,
+            PasswordEncryptionFileProperties?: any,
+        ): void;
         readonly Shapes: Shapes;
         readonly SharedWorkspace: Office.SharedWorkspace;
         ShowGrammaticalErrors: boolean;
@@ -6865,7 +7253,7 @@ declare namespace Word {
     }
 
     class Documents {
-        private 'Word.Documents_typekey': Documents;
+        private "Word.Documents_typekey": Documents;
         private constructor();
         Add(Template?: string, NewTemplate?: boolean, DocumentType?: WdNewDocumentType, Visible?: boolean): Document;
 
@@ -6880,28 +7268,90 @@ declare namespace Word {
         readonly Creator: number;
         Item(Index: number | string): Document;
         Open(
-            FileName: any, ConfirmConversions?: any, ReadOnly?: any, AddToRecentFiles?: any, PasswordDocument?: any, PasswordTemplate?: any, Revert?: any,
-            WritePasswordDocument?: any, WritePasswordTemplate?: any, Format?: any, Encoding?: any, Visible?: any, OpenAndRepair?: any, DocumentDirection?: any,
-            NoEncodingDialog?: any, XMLTransform?: any): Document;
+            FileName: any,
+            ConfirmConversions?: any,
+            ReadOnly?: any,
+            AddToRecentFiles?: any,
+            PasswordDocument?: any,
+            PasswordTemplate?: any,
+            Revert?: any,
+            WritePasswordDocument?: any,
+            WritePasswordTemplate?: any,
+            Format?: any,
+            Encoding?: any,
+            Visible?: any,
+            OpenAndRepair?: any,
+            DocumentDirection?: any,
+            NoEncodingDialog?: any,
+            XMLTransform?: any,
+        ): Document;
         Open2000(
-            FileName: any, ConfirmConversions?: any, ReadOnly?: any, AddToRecentFiles?: any, PasswordDocument?: any, PasswordTemplate?: any, Revert?: any,
-            WritePasswordDocument?: any, WritePasswordTemplate?: any, Format?: any, Encoding?: any, Visible?: any): Document;
+            FileName: any,
+            ConfirmConversions?: any,
+            ReadOnly?: any,
+            AddToRecentFiles?: any,
+            PasswordDocument?: any,
+            PasswordTemplate?: any,
+            Revert?: any,
+            WritePasswordDocument?: any,
+            WritePasswordTemplate?: any,
+            Format?: any,
+            Encoding?: any,
+            Visible?: any,
+        ): Document;
         Open2002(
-            FileName: any, ConfirmConversions?: any, ReadOnly?: any, AddToRecentFiles?: any, PasswordDocument?: any, PasswordTemplate?: any, Revert?: any,
-            WritePasswordDocument?: any, WritePasswordTemplate?: any, Format?: any, Encoding?: any, Visible?: any, OpenAndRepair?: any, DocumentDirection?: any, NoEncodingDialog?: any): Document;
+            FileName: any,
+            ConfirmConversions?: any,
+            ReadOnly?: any,
+            AddToRecentFiles?: any,
+            PasswordDocument?: any,
+            PasswordTemplate?: any,
+            Revert?: any,
+            WritePasswordDocument?: any,
+            WritePasswordTemplate?: any,
+            Format?: any,
+            Encoding?: any,
+            Visible?: any,
+            OpenAndRepair?: any,
+            DocumentDirection?: any,
+            NoEncodingDialog?: any,
+        ): Document;
         OpenNoRepairDialog(
-            FileName: any, ConfirmConversions?: any, ReadOnly?: any, AddToRecentFiles?: any, PasswordDocument?: any, PasswordTemplate?: any, Revert?: any,
-            WritePasswordDocument?: any, WritePasswordTemplate?: any, Format?: any, Encoding?: any, Visible?: any, OpenAndRepair?: any, DocumentDirection?: any,
-            NoEncodingDialog?: any, XMLTransform?: any): Document;
+            FileName: any,
+            ConfirmConversions?: any,
+            ReadOnly?: any,
+            AddToRecentFiles?: any,
+            PasswordDocument?: any,
+            PasswordTemplate?: any,
+            Revert?: any,
+            WritePasswordDocument?: any,
+            WritePasswordTemplate?: any,
+            Format?: any,
+            Encoding?: any,
+            Visible?: any,
+            OpenAndRepair?: any,
+            DocumentDirection?: any,
+            NoEncodingDialog?: any,
+            XMLTransform?: any,
+        ): Document;
         OpenOld(
-            FileName: any, ConfirmConversions?: any, ReadOnly?: any, AddToRecentFiles?: any, PasswordDocument?: any, PasswordTemplate?: any, Revert?: any,
-            WritePasswordDocument?: any, WritePasswordTemplate?: any, Format?: any): Document;
+            FileName: any,
+            ConfirmConversions?: any,
+            ReadOnly?: any,
+            AddToRecentFiles?: any,
+            PasswordDocument?: any,
+            PasswordTemplate?: any,
+            Revert?: any,
+            WritePasswordDocument?: any,
+            WritePasswordTemplate?: any,
+            Format?: any,
+        ): Document;
         readonly Parent: any;
         Save(NoPrompt?: any, OriginalFormat?: any): void;
     }
 
     class DownBars {
-        private 'Word.DownBars_typekey': DownBars;
+        private "Word.DownBars_typekey": DownBars;
         private constructor();
         readonly Application: any;
         readonly Border: ChartBorder;
@@ -6916,7 +7366,7 @@ declare namespace Word {
     }
 
     class DropCap {
-        private 'Word.DropCap_typekey': DropCap;
+        private "Word.DropCap_typekey": DropCap;
         private constructor();
         readonly Application: Application;
         Clear(): void;
@@ -6930,7 +7380,7 @@ declare namespace Word {
     }
 
     class DropDown {
-        private 'Word.DropDown_typekey': DropDown;
+        private "Word.DropDown_typekey": DropDown;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -6942,7 +7392,7 @@ declare namespace Word {
     }
 
     class DropLines {
-        private 'Word.DropLines_typekey': DropLines;
+        private "Word.DropLines_typekey": DropLines;
         private constructor();
         readonly Application: any;
         readonly Border: ChartBorder;
@@ -6955,7 +7405,7 @@ declare namespace Word {
     }
 
     class Editor {
-        private 'Word.Editor_typekey': Editor;
+        private "Word.Editor_typekey": Editor;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -6970,7 +7420,7 @@ declare namespace Word {
     }
 
     class Editors {
-        private 'Word.Editors_typekey': Editors;
+        private "Word.Editors_typekey": Editors;
         private constructor();
         Add(EditorID: any): Editor;
         readonly Application: Application;
@@ -6981,7 +7431,7 @@ declare namespace Word {
     }
 
     class Email {
-        private 'Word.Email_typekey': Email;
+        private "Word.Email_typekey": Email;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -6990,7 +7440,7 @@ declare namespace Word {
     }
 
     class EmailAuthor {
-        private 'Word.EmailAuthor_typekey': EmailAuthor;
+        private "Word.EmailAuthor_typekey": EmailAuthor;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -6999,7 +7449,7 @@ declare namespace Word {
     }
 
     class EmailOptions {
-        private 'Word.EmailOptions_typekey': EmailOptions;
+        private "Word.EmailOptions_typekey": EmailOptions;
         private constructor();
         readonly Application: Application;
         AutoFormatAsYouTypeApplyBorders: boolean;
@@ -7046,7 +7496,7 @@ declare namespace Word {
     }
 
     class EmailSignature {
-        private 'Word.EmailSignature_typekey': EmailSignature;
+        private "Word.EmailSignature_typekey": EmailSignature;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -7057,7 +7507,7 @@ declare namespace Word {
     }
 
     class EmailSignatureEntries {
-        private 'Word.EmailSignatureEntries_typekey': EmailSignatureEntries;
+        private "Word.EmailSignatureEntries_typekey": EmailSignatureEntries;
         private constructor();
         Add(Name: string, Range: Range): EmailSignatureEntry;
         readonly Application: Application;
@@ -7068,7 +7518,7 @@ declare namespace Word {
     }
 
     class EmailSignatureEntry {
-        private 'Word.EmailSignatureEntry_typekey': EmailSignatureEntry;
+        private "Word.EmailSignatureEntry_typekey": EmailSignatureEntry;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -7079,7 +7529,7 @@ declare namespace Word {
     }
 
     class Endnote {
-        private 'Word.Endnote_typekey': Endnote;
+        private "Word.Endnote_typekey": Endnote;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -7091,7 +7541,7 @@ declare namespace Word {
     }
 
     class EndnoteOptions {
-        private 'Word.EndnoteOptions_typekey': EndnoteOptions;
+        private "Word.EndnoteOptions_typekey": EndnoteOptions;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -7103,7 +7553,7 @@ declare namespace Word {
     }
 
     class Endnotes {
-        private 'Word.Endnotes_typekey': Endnotes;
+        private "Word.Endnotes_typekey": Endnotes;
         private constructor();
         Add(Range: Range, Reference?: any, Text?: any): Endnote;
         readonly Application: Application;
@@ -7126,7 +7576,7 @@ declare namespace Word {
     }
 
     class Envelope {
-        private 'Word.Envelope_typekey': Envelope;
+        private "Word.Envelope_typekey": Envelope;
         private constructor();
         readonly Address: Range;
         AddressFromLeft: number;
@@ -7144,25 +7594,107 @@ declare namespace Word {
         DefaultWidth: number;
         FeedSource: WdPaperTray;
         Insert(
-            ExtractAddress?: any, Address?: any, AutoText?: any, OmitReturnAddress?: any, ReturnAddress?: any, ReturnAutoText?: any, PrintBarCode?: any, PrintFIMA?: any,
-            Size?: any, Height?: any, Width?: any, FeedSource?: any, AddressFromLeft?: any, AddressFromTop?: any, ReturnAddressFromLeft?: any, ReturnAddressFromTop?: any,
-            DefaultFaceUp?: any, DefaultOrientation?: any, PrintEPostage?: any, Vertical?: any, RecipientNamefromLeft?: any, RecipientNamefromTop?: any,
-            RecipientPostalfromLeft?: any, RecipientPostalfromTop?: any, SenderNamefromLeft?: any, SenderNamefromTop?: any, SenderPostalfromLeft?: any, SenderPostalfromTop?: any): void;
+            ExtractAddress?: any,
+            Address?: any,
+            AutoText?: any,
+            OmitReturnAddress?: any,
+            ReturnAddress?: any,
+            ReturnAutoText?: any,
+            PrintBarCode?: any,
+            PrintFIMA?: any,
+            Size?: any,
+            Height?: any,
+            Width?: any,
+            FeedSource?: any,
+            AddressFromLeft?: any,
+            AddressFromTop?: any,
+            ReturnAddressFromLeft?: any,
+            ReturnAddressFromTop?: any,
+            DefaultFaceUp?: any,
+            DefaultOrientation?: any,
+            PrintEPostage?: any,
+            Vertical?: any,
+            RecipientNamefromLeft?: any,
+            RecipientNamefromTop?: any,
+            RecipientPostalfromLeft?: any,
+            RecipientPostalfromTop?: any,
+            SenderNamefromLeft?: any,
+            SenderNamefromTop?: any,
+            SenderPostalfromLeft?: any,
+            SenderPostalfromTop?: any,
+        ): void;
         Insert2000(
-            ExtractAddress?: any, Address?: any, AutoText?: any, OmitReturnAddress?: any, ReturnAddress?: any, ReturnAutoText?: any, PrintBarCode?: any, PrintFIMA?: any,
-            Size?: any, Height?: any, Width?: any, FeedSource?: any, AddressFromLeft?: any, AddressFromTop?: any, ReturnAddressFromLeft?: any, ReturnAddressFromTop?: any,
-            DefaultFaceUp?: any, DefaultOrientation?: any): void;
+            ExtractAddress?: any,
+            Address?: any,
+            AutoText?: any,
+            OmitReturnAddress?: any,
+            ReturnAddress?: any,
+            ReturnAutoText?: any,
+            PrintBarCode?: any,
+            PrintFIMA?: any,
+            Size?: any,
+            Height?: any,
+            Width?: any,
+            FeedSource?: any,
+            AddressFromLeft?: any,
+            AddressFromTop?: any,
+            ReturnAddressFromLeft?: any,
+            ReturnAddressFromTop?: any,
+            DefaultFaceUp?: any,
+            DefaultOrientation?: any,
+        ): void;
         Options(): void;
         readonly Parent: any;
         PrintOut(
-            ExtractAddress?: any, Address?: any, AutoText?: any, OmitReturnAddress?: any, ReturnAddress?: any, ReturnAutoText?: any, PrintBarCode?: any, PrintFIMA?: any,
-            Size?: any, Height?: any, Width?: any, FeedSource?: any, AddressFromLeft?: any, AddressFromTop?: any, ReturnAddressFromLeft?: any, ReturnAddressFromTop?: any,
-            DefaultFaceUp?: any, DefaultOrientation?: any, PrintEPostage?: any, Vertical?: any, RecipientNamefromLeft?: any, RecipientNamefromTop?: any,
-            RecipientPostalfromLeft?: any, RecipientPostalfromTop?: any, SenderNamefromLeft?: any, SenderNamefromTop?: any, SenderPostalfromLeft?: any, SenderPostalfromTop?: any): void;
+            ExtractAddress?: any,
+            Address?: any,
+            AutoText?: any,
+            OmitReturnAddress?: any,
+            ReturnAddress?: any,
+            ReturnAutoText?: any,
+            PrintBarCode?: any,
+            PrintFIMA?: any,
+            Size?: any,
+            Height?: any,
+            Width?: any,
+            FeedSource?: any,
+            AddressFromLeft?: any,
+            AddressFromTop?: any,
+            ReturnAddressFromLeft?: any,
+            ReturnAddressFromTop?: any,
+            DefaultFaceUp?: any,
+            DefaultOrientation?: any,
+            PrintEPostage?: any,
+            Vertical?: any,
+            RecipientNamefromLeft?: any,
+            RecipientNamefromTop?: any,
+            RecipientPostalfromLeft?: any,
+            RecipientPostalfromTop?: any,
+            SenderNamefromLeft?: any,
+            SenderNamefromTop?: any,
+            SenderPostalfromLeft?: any,
+            SenderPostalfromTop?: any,
+        ): void;
         PrintOut2000(
-            ExtractAddress?: any, Address?: any, AutoText?: any, OmitReturnAddress?: any, ReturnAddress?: any, ReturnAutoText?: any, PrintBarCode?: any, PrintFIMA?: any,
-            Size?: any, Height?: any, Width?: any, FeedSource?: any, AddressFromLeft?: any, AddressFromTop?: any, ReturnAddressFromLeft?: any, ReturnAddressFromTop?: any,
-            DefaultFaceUp?: any, DefaultOrientation?: any): void;
+            ExtractAddress?: any,
+            Address?: any,
+            AutoText?: any,
+            OmitReturnAddress?: any,
+            ReturnAddress?: any,
+            ReturnAutoText?: any,
+            PrintBarCode?: any,
+            PrintFIMA?: any,
+            Size?: any,
+            Height?: any,
+            Width?: any,
+            FeedSource?: any,
+            AddressFromLeft?: any,
+            AddressFromTop?: any,
+            ReturnAddressFromLeft?: any,
+            ReturnAddressFromTop?: any,
+            DefaultFaceUp?: any,
+            DefaultOrientation?: any,
+        ): void;
         RecipientNamefromLeft: number;
         RecipientNamefromTop: number;
         RecipientPostalfromLeft: number;
@@ -7180,7 +7712,7 @@ declare namespace Word {
     }
 
     class Field {
-        private 'Word.Field_typekey': Field;
+        private "Word.Field_typekey": Field;
         private constructor();
         readonly Application: Application;
         Code: Range;
@@ -7209,7 +7741,7 @@ declare namespace Word {
     }
 
     class Fields {
-        private 'Word.Fields_typekey': Fields;
+        private "Word.Fields_typekey": Fields;
         private constructor();
         Add(Range: Range, Type?: any, Text?: any, PreserveFormatting?: any): Field;
         readonly Application: Application;
@@ -7225,7 +7757,7 @@ declare namespace Word {
     }
 
     class FileConverter {
-        private 'Word.FileConverter_typekey': FileConverter;
+        private "Word.FileConverter_typekey": FileConverter;
         private constructor();
         readonly Application: Application;
         readonly CanOpen: boolean;
@@ -7242,7 +7774,7 @@ declare namespace Word {
     }
 
     class FileConverters {
-        private 'Word.FileConverters_typekey': FileConverters;
+        private "Word.FileConverters_typekey": FileConverters;
         private constructor();
         readonly Application: Application;
         ConvertMacWordChevrons: WdChevronConvertRule;
@@ -7253,7 +7785,7 @@ declare namespace Word {
     }
 
     class FillFormat {
-        private 'Word.FillFormat_typekey': FillFormat;
+        private "Word.FillFormat_typekey": FillFormat;
         private constructor();
         readonly Application: Application;
         readonly BackColor: ColorFormat;
@@ -7271,7 +7803,11 @@ declare namespace Word {
         readonly Pattern: Office.MsoPatternType;
         Patterned(Pattern: Office.MsoPatternType): void;
         readonly PictureEffects: Office.PictureEffects;
-        PresetGradient(Style: Office.MsoGradientStyle, Variant: number, PresetGradientType: Office.MsoPresetGradientType): void;
+        PresetGradient(
+            Style: Office.MsoGradientStyle,
+            Variant: number,
+            PresetGradientType: Office.MsoPresetGradientType,
+        ): void;
         readonly PresetGradientType: Office.MsoPresetGradientType;
         readonly PresetTexture: Office.MsoPresetTexture;
         PresetTextured(PresetTexture: Office.MsoPresetTexture): void;
@@ -7294,7 +7830,7 @@ declare namespace Word {
     }
 
     class Find<TParent = Range | Selection> {
-        private 'Word.Find_typekey': Find;
+        private "Word.Find_typekey": Find;
         private constructor();
         readonly Application: Application;
         ClearAllFuzzyOptions(): void;
@@ -7303,15 +7839,57 @@ declare namespace Word {
         CorrectHangulEndings: boolean;
         readonly Creator: number;
         Execute(
-            FindText?: string, MatchCase?: boolean, MatchWholeWord?: boolean, MatchWildcards?: boolean, MatchSoundsLike?: boolean, MatchAllWordForms?: boolean, Forward?: boolean, Wrap?: WdFindWrap,
-            Format?: boolean, ReplaceWith?: string, Replace?: WdReplace, MatchKashida?: boolean, MatchDiacritics?: boolean, MatchAlefHamza?: boolean, MatchControl?: boolean): boolean;
+            FindText?: string,
+            MatchCase?: boolean,
+            MatchWholeWord?: boolean,
+            MatchWildcards?: boolean,
+            MatchSoundsLike?: boolean,
+            MatchAllWordForms?: boolean,
+            Forward?: boolean,
+            Wrap?: WdFindWrap,
+            Format?: boolean,
+            ReplaceWith?: string,
+            Replace?: WdReplace,
+            MatchKashida?: boolean,
+            MatchDiacritics?: boolean,
+            MatchAlefHamza?: boolean,
+            MatchControl?: boolean,
+        ): boolean;
         Execute2007(
-            FindText?: string, MatchCase?: boolean, MatchWholeWord?: boolean, MatchWildcards?: boolean, MatchSoundsLike?: boolean, MatchAllWordForms?: boolean, Forward?: boolean, Wrap?: WdFindWrap,
-            Format?: boolean, ReplaceWith?: string, Replace?: WdReplace, MatchKashida?: boolean, MatchDiacritics?: boolean, MatchAlefHamza?: boolean, MatchControl?: boolean, MatchPrefix?: boolean,
-            MatchSuffix?: boolean, MatchPhrase?: boolean, IgnoreSpace?: boolean, IgnorePunct?: boolean): boolean;
+            FindText?: string,
+            MatchCase?: boolean,
+            MatchWholeWord?: boolean,
+            MatchWildcards?: boolean,
+            MatchSoundsLike?: boolean,
+            MatchAllWordForms?: boolean,
+            Forward?: boolean,
+            Wrap?: WdFindWrap,
+            Format?: boolean,
+            ReplaceWith?: string,
+            Replace?: WdReplace,
+            MatchKashida?: boolean,
+            MatchDiacritics?: boolean,
+            MatchAlefHamza?: boolean,
+            MatchControl?: boolean,
+            MatchPrefix?: boolean,
+            MatchSuffix?: boolean,
+            MatchPhrase?: boolean,
+            IgnoreSpace?: boolean,
+            IgnorePunct?: boolean,
+        ): boolean;
         ExecuteOld(
-            FindText?: string, MatchCase?: boolean, MatchWholeWord?: boolean, MatchWildcards?: boolean, MatchSoundsLike?: boolean, MatchAllWordForms?: boolean, Forward?: boolean, Wrap?: WdFindWrap,
-            Format?: boolean, ReplaceWith?: string, Replace?: WdReplace): boolean;
+            FindText?: string,
+            MatchCase?: boolean,
+            MatchWholeWord?: boolean,
+            MatchWildcards?: boolean,
+            MatchSoundsLike?: boolean,
+            MatchAllWordForms?: boolean,
+            Forward?: boolean,
+            Wrap?: WdFindWrap,
+            Format?: boolean,
+            ReplaceWith?: string,
+            Replace?: WdReplace,
+        ): boolean;
         Font: Font;
         Format: boolean;
         Forward: boolean;
@@ -7320,9 +7898,27 @@ declare namespace Word {
         HanjaPhoneticHangul: boolean;
         Highlight: number;
         HitHighlight(
-            FindText: any, HighlightColor?: any, TextColor?: any, MatchCase?: any, MatchWholeWord?: any, MatchPrefix?: any, MatchSuffix?: any, MatchPhrase?: any,
-            MatchWildcards?: any, MatchSoundsLike?: any, MatchAllWordForms?: any, MatchByte?: any, MatchFuzzy?: any, MatchKashida?: any, MatchDiacritics?: any,
-            MatchAlefHamza?: any, MatchControl?: any, IgnoreSpace?: any, IgnorePunct?: any, HanjaPhoneticHangul?: any): boolean;
+            FindText: any,
+            HighlightColor?: any,
+            TextColor?: any,
+            MatchCase?: any,
+            MatchWholeWord?: any,
+            MatchPrefix?: any,
+            MatchSuffix?: any,
+            MatchPhrase?: any,
+            MatchWildcards?: any,
+            MatchSoundsLike?: any,
+            MatchAllWordForms?: any,
+            MatchByte?: any,
+            MatchFuzzy?: any,
+            MatchKashida?: any,
+            MatchDiacritics?: any,
+            MatchAlefHamza?: any,
+            MatchControl?: any,
+            IgnoreSpace?: any,
+            IgnorePunct?: any,
+            HanjaPhoneticHangul?: any,
+        ): boolean;
         IgnorePunct: boolean;
         IgnoreSpace: boolean;
         LanguageID: WdLanguageID;
@@ -7353,7 +7949,7 @@ declare namespace Word {
     }
 
     class FirstLetterException {
-        private 'Word.FirstLetterException_typekey': FirstLetterException;
+        private "Word.FirstLetterException_typekey": FirstLetterException;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -7364,7 +7960,7 @@ declare namespace Word {
     }
 
     class FirstLetterExceptions {
-        private 'Word.FirstLetterExceptions_typekey': FirstLetterExceptions;
+        private "Word.FirstLetterExceptions_typekey": FirstLetterExceptions;
         private constructor();
         Add(Name: string): FirstLetterException;
         readonly Application: Application;
@@ -7375,7 +7971,7 @@ declare namespace Word {
     }
 
     class Floor {
-        private 'Word.Floor_typekey': Floor;
+        private "Word.Floor_typekey": Floor;
         private constructor();
         readonly Application: any;
         readonly Border: ChartBorder;
@@ -7393,7 +7989,7 @@ declare namespace Word {
     }
 
     class Font {
-        private 'Word.Font_typekey': Font;
+        private "Word.Font_typekey": Font;
         private constructor();
         AllCaps: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
         Animation: WdAnimation;
@@ -7455,7 +8051,7 @@ declare namespace Word {
     }
 
     class FontNames {
-        private 'Word.FontNames_typekey': FontNames;
+        private "Word.FontNames_typekey": FontNames;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -7465,7 +8061,7 @@ declare namespace Word {
     }
 
     class Footnote {
-        private 'Word.Footnote_typekey': Footnote;
+        private "Word.Footnote_typekey": Footnote;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -7477,7 +8073,7 @@ declare namespace Word {
     }
 
     class FootnoteOptions {
-        private 'Word.FootnoteOptions_typekey': FootnoteOptions;
+        private "Word.FootnoteOptions_typekey": FootnoteOptions;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -7489,7 +8085,7 @@ declare namespace Word {
     }
 
     class Footnotes {
-        private 'Word.Footnotes_typekey': Footnotes;
+        private "Word.Footnotes_typekey": Footnotes;
         private constructor();
         Add(Range: Range, Reference?: any, Text?: any): Footnote;
         readonly Application: Application;
@@ -7512,7 +8108,7 @@ declare namespace Word {
     }
 
     class FormField {
-        private 'Word.FormField_typekey': FormField;
+        private "Word.FormField_typekey": FormField;
         private constructor();
         readonly Application: Application;
         CalculateOnExit: boolean;
@@ -7541,7 +8137,7 @@ declare namespace Word {
     }
 
     class FormFields {
-        private 'Word.FormFields_typekey': FormFields;
+        private "Word.FormFields_typekey": FormFields;
         private constructor();
         Add(Range: Range, Type: WdFieldType): FormField;
         readonly Application: Application;
@@ -7553,7 +8149,7 @@ declare namespace Word {
     }
 
     class Frame {
-        private 'Word.Frame_typekey': Frame;
+        private "Word.Frame_typekey": Frame;
         private constructor();
         readonly Application: Application;
         Borders: Borders;
@@ -7580,7 +8176,7 @@ declare namespace Word {
     }
 
     class Frames {
-        private 'Word.Frames_typekey': Frames;
+        private "Word.Frames_typekey": Frames;
         private constructor();
         Add(Range: Range): Frame;
         readonly Application: Application;
@@ -7592,7 +8188,7 @@ declare namespace Word {
     }
 
     class Frameset {
-        private 'Word.Frameset_typekey': Frameset;
+        private "Word.Frameset_typekey": Frameset;
         private constructor();
         AddNewFrame(Where: WdFramesetNewFrameLocation): Frameset;
         readonly Application: Application;
@@ -7618,7 +8214,7 @@ declare namespace Word {
     }
 
     class FreeformBuilder {
-        private 'Word.FreeformBuilder_typekey': FreeformBuilder;
+        private "Word.FreeformBuilder_typekey": FreeformBuilder;
         private constructor();
 
         /**
@@ -7627,7 +8223,16 @@ declare namespace Word {
          * @param number [X3=0]
          * @param number [Y3=0]
          */
-        AddNodes(SegmentType: Office.MsoSegmentType, EditingType: Office.MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
+        AddNodes(
+            SegmentType: Office.MsoSegmentType,
+            EditingType: Office.MsoEditingType,
+            X1: number,
+            Y1: number,
+            X2?: number,
+            Y2?: number,
+            X3?: number,
+            Y3?: number,
+        ): void;
         readonly Application: Application;
         ConvertToShape(Anchor?: any): Shape;
         readonly Creator: number;
@@ -7635,7 +8240,7 @@ declare namespace Word {
     }
 
     class Global {
-        private 'Word.Global_typekey': Global;
+        private "Word.Global_typekey": Global;
         private constructor();
         readonly ActiveDocument: Document;
         ActivePrinter: string;
@@ -7653,8 +8258,20 @@ declare namespace Word {
         CentimetersToPoints(Centimeters: number): number;
         ChangeFileOpenDirectory(Path: string): void;
         CheckSpelling(
-            Word: string, CustomDictionary?: any, IgnoreUppercase?: any, MainDictionary?: any, CustomDictionary2?: any, CustomDictionary3?: any, CustomDictionary4?: any,
-            CustomDictionary5?: any, CustomDictionary6?: any, CustomDictionary7?: any, CustomDictionary8?: any, CustomDictionary9?: any, CustomDictionary10?: any): boolean;
+            Word: string,
+            CustomDictionary?: any,
+            IgnoreUppercase?: any,
+            MainDictionary?: any,
+            CustomDictionary2?: any,
+            CustomDictionary3?: any,
+            CustomDictionary4?: any,
+            CustomDictionary5?: any,
+            CustomDictionary6?: any,
+            CustomDictionary7?: any,
+            CustomDictionary8?: any,
+            CustomDictionary9?: any,
+            CustomDictionary10?: any,
+        ): boolean;
         CleanString(String: string): string;
         readonly CommandBars: Office.CommandBars;
         readonly Creator: number;
@@ -7672,9 +8289,21 @@ declare namespace Word {
         FindKey(KeyCode: number, KeyCode2?: any): KeyBinding;
         readonly FontNames: FontNames;
         GetSpellingSuggestions(
-            Word: string, CustomDictionary?: any, IgnoreUppercase?: any, MainDictionary?: any, SuggestionMode?: any, CustomDictionary2?: any, CustomDictionary3?: any,
-            CustomDictionary4?: any, CustomDictionary5?: any, CustomDictionary6?: any, CustomDictionary7?: any, CustomDictionary8?: any, CustomDictionary9?: any,
-            CustomDictionary10?: any): SpellingSuggestions;
+            Word: string,
+            CustomDictionary?: any,
+            IgnoreUppercase?: any,
+            MainDictionary?: any,
+            SuggestionMode?: any,
+            CustomDictionary2?: any,
+            CustomDictionary3?: any,
+            CustomDictionary4?: any,
+            CustomDictionary5?: any,
+            CustomDictionary6?: any,
+            CustomDictionary7?: any,
+            CustomDictionary8?: any,
+            CustomDictionary9?: any,
+            CustomDictionary10?: any,
+        ): SpellingSuggestions;
         readonly HangulHanjaDictionaries: HangulHanjaConversionDictionaries;
         Help(HelpType: any): void;
         InchesToPoints(Inches: number): number;
@@ -7721,7 +8350,7 @@ declare namespace Word {
     }
 
     class GlowFormat {
-        private 'Word.GlowFormat_typekey': GlowFormat;
+        private "Word.GlowFormat_typekey": GlowFormat;
         private constructor();
         readonly Application: Application;
         readonly Color: ColorFormat;
@@ -7732,7 +8361,7 @@ declare namespace Word {
     }
 
     class GroupShapes {
-        private 'Word.GroupShapes_typekey': GroupShapes;
+        private "Word.GroupShapes_typekey": GroupShapes;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -7743,7 +8372,7 @@ declare namespace Word {
     }
 
     class HangulAndAlphabetException {
-        private 'Word.HangulAndAlphabetException_typekey': HangulAndAlphabetException;
+        private "Word.HangulAndAlphabetException_typekey": HangulAndAlphabetException;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -7754,7 +8383,7 @@ declare namespace Word {
     }
 
     class HangulAndAlphabetExceptions {
-        private 'Word.HangulAndAlphabetExceptions_typekey': HangulAndAlphabetExceptions;
+        private "Word.HangulAndAlphabetExceptions_typekey": HangulAndAlphabetExceptions;
         private constructor();
         Add(Name: string): HangulAndAlphabetException;
         readonly Application: Application;
@@ -7765,7 +8394,7 @@ declare namespace Word {
     }
 
     class HangulHanjaConversionDictionaries {
-        private 'Word.HangulHanjaConversionDictionaries_typekey': HangulHanjaConversionDictionaries;
+        private "Word.HangulHanjaConversionDictionaries_typekey": HangulHanjaConversionDictionaries;
         private constructor();
         ActiveCustomDictionary: Dictionary;
         Add(FileName: string): Dictionary;
@@ -7780,7 +8409,7 @@ declare namespace Word {
     }
 
     class HeaderFooter {
-        private 'Word.HeaderFooter_typekey': HeaderFooter;
+        private "Word.HeaderFooter_typekey": HeaderFooter;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -7795,7 +8424,7 @@ declare namespace Word {
     }
 
     class HeadersFooters {
-        private 'Word.HeadersFooters_typekey': HeadersFooters;
+        private "Word.HeadersFooters_typekey": HeadersFooters;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -7805,7 +8434,7 @@ declare namespace Word {
     }
 
     class HeadingStyle {
-        private 'Word.HeadingStyle_typekey': HeadingStyle;
+        private "Word.HeadingStyle_typekey": HeadingStyle;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -7816,7 +8445,7 @@ declare namespace Word {
     }
 
     class HeadingStyles {
-        private 'Word.HeadingStyles_typekey': HeadingStyles;
+        private "Word.HeadingStyles_typekey": HeadingStyles;
         private constructor();
         Add(Style: any, Level: number): HeadingStyle;
         readonly Application: Application;
@@ -7827,7 +8456,7 @@ declare namespace Word {
     }
 
     class HiLoLines {
-        private 'Word.HiLoLines_typekey': HiLoLines;
+        private "Word.HiLoLines_typekey": HiLoLines;
         private constructor();
         readonly Application: any;
         readonly Border: ChartBorder;
@@ -7840,7 +8469,7 @@ declare namespace Word {
     }
 
     class HorizontalLineFormat {
-        private 'Word.HorizontalLineFormat_typekey': HorizontalLineFormat;
+        private "Word.HorizontalLineFormat_typekey": HorizontalLineFormat;
         private constructor();
         Alignment: WdHorizontalLineAlignment;
         readonly Application: Application;
@@ -7852,7 +8481,7 @@ declare namespace Word {
     }
 
     class HTMLDivision {
-        private 'Word.HTMLDivision_typekey': HTMLDivision;
+        private "Word.HTMLDivision_typekey": HTMLDivision;
         private constructor();
         readonly Application: Application;
         readonly Borders: Borders;
@@ -7869,7 +8498,7 @@ declare namespace Word {
     }
 
     class HTMLDivisions {
-        private 'Word.HTMLDivisions_typekey': HTMLDivisions;
+        private "Word.HTMLDivisions_typekey": HTMLDivisions;
         private constructor();
         Add(Range?: any): HTMLDivision;
         readonly Application: Application;
@@ -7881,7 +8510,7 @@ declare namespace Word {
     }
 
     class Hyperlink {
-        private 'Word.Hyperlink_typekey': Hyperlink;
+        private "Word.Hyperlink_typekey": Hyperlink;
         private constructor();
         Address: string;
         readonly AddressOld: string;
@@ -7906,10 +8535,17 @@ declare namespace Word {
     }
 
     class Hyperlinks {
-        private 'Word.Hyperlinks_typekey': Hyperlinks;
+        private "Word.Hyperlinks_typekey": Hyperlinks;
         private constructor();
         _Add(Anchor: any, Address?: any, SubAddress?: any): Hyperlink;
-        Add(Anchor: any, Address?: any, SubAddress?: any, ScreenTip?: any, TextToDisplay?: any, Target?: any): Hyperlink;
+        Add(
+            Anchor: any,
+            Address?: any,
+            SubAddress?: any,
+            ScreenTip?: any,
+            TextToDisplay?: any,
+            Target?: any,
+        ): Hyperlink;
         readonly Application: Application;
         readonly Count: number;
         readonly Creator: number;
@@ -7918,7 +8554,7 @@ declare namespace Word {
     }
 
     class Index {
-        private 'Word.Index_typekey': Index;
+        private "Word.Index_typekey": Index;
         private constructor();
         AccentedLetters: boolean;
         readonly Application: Application;
@@ -7938,23 +8574,58 @@ declare namespace Word {
     }
 
     class Indexes {
-        private 'Word.Indexes_typekey': Indexes;
+        private "Word.Indexes_typekey": Indexes;
         private constructor();
-        Add(Range: Range, HeadingSeparator?: any, RightAlignPageNumbers?: any, Type?: any, NumberOfColumns?: any, AccentedLetters?: any, SortBy?: any, IndexLanguage?: any): Index;
-        AddOld(Range: Range, HeadingSeparator?: any, RightAlignPageNumbers?: any, Type?: any, NumberOfColumns?: any, AccentedLetters?: any): Index;
+        Add(
+            Range: Range,
+            HeadingSeparator?: any,
+            RightAlignPageNumbers?: any,
+            Type?: any,
+            NumberOfColumns?: any,
+            AccentedLetters?: any,
+            SortBy?: any,
+            IndexLanguage?: any,
+        ): Index;
+        AddOld(
+            Range: Range,
+            HeadingSeparator?: any,
+            RightAlignPageNumbers?: any,
+            Type?: any,
+            NumberOfColumns?: any,
+            AccentedLetters?: any,
+        ): Index;
         readonly Application: Application;
         AutoMarkEntries(ConcordanceFileName: string): void;
         readonly Count: number;
         readonly Creator: number;
         Format: WdIndexFormat;
         Item(Index: number): Index;
-        MarkAllEntries(Range: Range, Entry?: any, EntryAutoText?: any, CrossReference?: any, CrossReferenceAutoText?: any, BookmarkName?: any, Bold?: any, Italic?: any): void;
-        MarkEntry(Range: Range, Entry?: any, EntryAutoText?: any, CrossReference?: any, CrossReferenceAutoText?: any, BookmarkName?: any, Bold?: any, Italic?: any, Reading?: any): Field;
+        MarkAllEntries(
+            Range: Range,
+            Entry?: any,
+            EntryAutoText?: any,
+            CrossReference?: any,
+            CrossReferenceAutoText?: any,
+            BookmarkName?: any,
+            Bold?: any,
+            Italic?: any,
+        ): void;
+        MarkEntry(
+            Range: Range,
+            Entry?: any,
+            EntryAutoText?: any,
+            CrossReference?: any,
+            CrossReferenceAutoText?: any,
+            BookmarkName?: any,
+            Bold?: any,
+            Italic?: any,
+            Reading?: any,
+        ): Field;
         readonly Parent: any;
     }
 
     class InlineShape {
-        private 'Word.InlineShape_typekey': InlineShape;
+        private "Word.InlineShape_typekey": InlineShape;
         private constructor();
         Activate(): void;
         AlternativeText: string;
@@ -8000,7 +8671,7 @@ declare namespace Word {
     }
 
     class InlineShapes {
-        private 'Word.InlineShapes_typekey': InlineShapes;
+        private "Word.InlineShapes_typekey": InlineShapes;
         private constructor();
 
         /** @param Office.XlChartType [Type=-1] */
@@ -8008,7 +8679,16 @@ declare namespace Word {
         AddHorizontalLine(FileName: string, Range?: any): InlineShape;
         AddHorizontalLineStandard(Range?: any): InlineShape;
         AddOLEControl(ClassType?: any, Range?: any): InlineShape;
-        AddOLEObject(ClassType?: any, FileName?: any, LinkToFile?: any, DisplayAsIcon?: any, IconFileName?: any, IconIndex?: any, IconLabel?: any, Range?: any): InlineShape;
+        AddOLEObject(
+            ClassType?: any,
+            FileName?: any,
+            LinkToFile?: any,
+            DisplayAsIcon?: any,
+            IconFileName?: any,
+            IconIndex?: any,
+            IconLabel?: any,
+            Range?: any,
+        ): InlineShape;
         AddPicture(FileName: string, LinkToFile?: any, SaveWithDocument?: any, Range?: any): InlineShape;
         AddPictureBullet(FileName: string, Range?: any): InlineShape;
         AddSmartArt(Layout: Office.SmartArtLayout, Range?: any): InlineShape;
@@ -8021,7 +8701,7 @@ declare namespace Word {
     }
 
     class Interior {
-        private 'Word.Interior_typekey': Interior;
+        private "Word.Interior_typekey": Interior;
         private constructor();
         readonly Application: any;
         Color: any;
@@ -8035,7 +8715,7 @@ declare namespace Word {
     }
 
     class KeyBinding {
-        private 'Word.KeyBinding_typekey': KeyBinding;
+        private "Word.KeyBinding_typekey": KeyBinding;
         private constructor();
         readonly Application: Application;
         Clear(): void;
@@ -8055,9 +8735,15 @@ declare namespace Word {
     }
 
     class KeyBindings {
-        private 'Word.KeyBindings_typekey': KeyBindings;
+        private "Word.KeyBindings_typekey": KeyBindings;
         private constructor();
-        Add(KeyCategory: WdKeyCategory, Command: string, KeyCode: number, KeyCode2?: any, CommandParameter?: any): KeyBinding;
+        Add(
+            KeyCategory: WdKeyCategory,
+            Command: string,
+            KeyCode: number,
+            KeyCode2?: any,
+            CommandParameter?: any,
+        ): KeyBinding;
         readonly Application: Application;
         ClearAll(): void;
         readonly Context: any;
@@ -8069,7 +8755,7 @@ declare namespace Word {
     }
 
     class KeysBoundTo {
-        private 'Word.KeysBoundTo_typekey': KeysBoundTo;
+        private "Word.KeysBoundTo_typekey": KeysBoundTo;
         private constructor();
         readonly Application: Application;
         readonly Command: string;
@@ -8084,7 +8770,7 @@ declare namespace Word {
     }
 
     class Language {
-        private 'Word.Language_typekey': Language;
+        private "Word.Language_typekey": Language;
         private constructor();
         readonly ActiveGrammarDictionary: Dictionary;
         readonly ActiveHyphenationDictionary: Dictionary;
@@ -8102,7 +8788,7 @@ declare namespace Word {
     }
 
     class Languages {
-        private 'Word.Languages_typekey': Languages;
+        private "Word.Languages_typekey": Languages;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -8112,7 +8798,7 @@ declare namespace Word {
     }
 
     class Legend {
-        private 'Word.Legend_typekey': Legend;
+        private "Word.Legend_typekey": Legend;
         private constructor();
         readonly Application: any;
         AutoScaleFont: any;
@@ -8138,7 +8824,7 @@ declare namespace Word {
     }
 
     class LetterContent {
-        private 'Word.LetterContent_typekey': LetterContent;
+        private "Word.LetterContent_typekey": LetterContent;
         private constructor();
         readonly Application: Application;
         AttentionLine: string;
@@ -8178,7 +8864,7 @@ declare namespace Word {
     }
 
     class Line {
-        private 'Word.Line_typekey': Line;
+        private "Word.Line_typekey": Line;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -8193,7 +8879,7 @@ declare namespace Word {
     }
 
     class LineFormat {
-        private 'Word.LineFormat_typekey': LineFormat;
+        private "Word.LineFormat_typekey": LineFormat;
         private constructor();
         readonly Application: Application;
         readonly BackColor: ColorFormat;
@@ -8216,7 +8902,7 @@ declare namespace Word {
     }
 
     class LineNumbering {
-        private 'Word.LineNumbering_typekey': LineNumbering;
+        private "Word.LineNumbering_typekey": LineNumbering;
         private constructor();
         Active: number;
         readonly Application: Application;
@@ -8229,7 +8915,7 @@ declare namespace Word {
     }
 
     class Lines {
-        private 'Word.Lines_typekey': Lines;
+        private "Word.Lines_typekey": Lines;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -8239,7 +8925,7 @@ declare namespace Word {
     }
 
     class LinkFormat {
-        private 'Word.LinkFormat_typekey': LinkFormat;
+        private "Word.LinkFormat_typekey": LinkFormat;
         private constructor();
         readonly Application: Application;
         AutoUpdate: boolean;
@@ -8256,12 +8942,17 @@ declare namespace Word {
     }
 
     class List {
-        private 'Word.List_typekey': List;
+        private "Word.List_typekey": List;
         private constructor();
         readonly Application: Application;
         ApplyListTemplate(ListTemplate: ListTemplate, ContinuePreviousList?: any, DefaultListBehavior?: any): void;
         ApplyListTemplateOld(ListTemplate: ListTemplate, ContinuePreviousList?: any): void;
-        ApplyListTemplateWithLevel(ListTemplate: ListTemplate, ContinuePreviousList?: any, DefaultListBehavior?: any, ApplyLevel?: any): void;
+        ApplyListTemplateWithLevel(
+            ListTemplate: ListTemplate,
+            ContinuePreviousList?: any,
+            DefaultListBehavior?: any,
+            ApplyLevel?: any,
+        ): void;
         CanContinuePreviousList(ListTemplate: ListTemplate): WdContinue;
         ConvertNumbersToText(NumberType?: any): void;
         CountNumberedItems(NumberType?: any, Level?: any): number;
@@ -8275,7 +8966,7 @@ declare namespace Word {
     }
 
     class ListEntries {
-        private 'Word.ListEntries_typekey': ListEntries;
+        private "Word.ListEntries_typekey": ListEntries;
         private constructor();
         Add(Name: string, Index?: any): ListEntry;
         readonly Application: Application;
@@ -8287,7 +8978,7 @@ declare namespace Word {
     }
 
     class ListEntry {
-        private 'Word.ListEntry_typekey': ListEntry;
+        private "Word.ListEntry_typekey": ListEntry;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -8298,14 +8989,25 @@ declare namespace Word {
     }
 
     class ListFormat {
-        private 'Word.ListFormat_typekey': ListFormat;
+        private "Word.ListFormat_typekey": ListFormat;
         private constructor();
         readonly Application: Application;
         ApplyBulletDefault(DefaultListBehavior?: any): void;
         ApplyBulletDefaultOld(): void;
-        ApplyListTemplate(ListTemplate: ListTemplate, ContinuePreviousList?: any, ApplyTo?: any, DefaultListBehavior?: any): void;
+        ApplyListTemplate(
+            ListTemplate: ListTemplate,
+            ContinuePreviousList?: any,
+            ApplyTo?: any,
+            DefaultListBehavior?: any,
+        ): void;
         ApplyListTemplateOld(ListTemplate: ListTemplate, ContinuePreviousList?: any, ApplyTo?: any): void;
-        ApplyListTemplateWithLevel(ListTemplate: ListTemplate, ContinuePreviousList?: any, ApplyTo?: any, DefaultListBehavior?: any, ApplyLevel?: any): void;
+        ApplyListTemplateWithLevel(
+            ListTemplate: ListTemplate,
+            ContinuePreviousList?: any,
+            ApplyTo?: any,
+            DefaultListBehavior?: any,
+            ApplyLevel?: any,
+        ): void;
         ApplyNumberDefault(DefaultListBehavior?: any): void;
         ApplyNumberDefaultOld(): void;
         ApplyOutlineNumberDefault(DefaultListBehavior?: any): void;
@@ -8330,7 +9032,7 @@ declare namespace Word {
     }
 
     class ListGalleries {
-        private 'Word.ListGalleries_typekey': ListGalleries;
+        private "Word.ListGalleries_typekey": ListGalleries;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -8340,7 +9042,7 @@ declare namespace Word {
     }
 
     class ListGallery {
-        private 'Word.ListGallery_typekey': ListGallery;
+        private "Word.ListGallery_typekey": ListGallery;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -8351,7 +9053,7 @@ declare namespace Word {
     }
 
     class ListLevel {
-        private 'Word.ListLevel_typekey': ListLevel;
+        private "Word.ListLevel_typekey": ListLevel;
         private constructor();
         Alignment: WdListLevelAlignment;
         readonly Application: Application;
@@ -8374,7 +9076,7 @@ declare namespace Word {
     }
 
     class ListLevels {
-        private 'Word.ListLevels_typekey': ListLevels;
+        private "Word.ListLevels_typekey": ListLevels;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -8384,7 +9086,7 @@ declare namespace Word {
     }
 
     class ListParagraphs {
-        private 'Word.ListParagraphs_typekey': ListParagraphs;
+        private "Word.ListParagraphs_typekey": ListParagraphs;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -8394,7 +9096,7 @@ declare namespace Word {
     }
 
     class Lists {
-        private 'Word.Lists_typekey': Lists;
+        private "Word.Lists_typekey": Lists;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -8404,7 +9106,7 @@ declare namespace Word {
     }
 
     class ListTemplate {
-        private 'Word.ListTemplate_typekey': ListTemplate;
+        private "Word.ListTemplate_typekey": ListTemplate;
         private constructor();
         readonly Application: Application;
         Convert(Level?: any): ListTemplate;
@@ -8416,7 +9118,7 @@ declare namespace Word {
     }
 
     class ListTemplates {
-        private 'Word.ListTemplates_typekey': ListTemplates;
+        private "Word.ListTemplates_typekey": ListTemplates;
         private constructor();
         Add(OutlineNumbered?: any, Name?: any): ListTemplate;
         readonly Application: Application;
@@ -8427,7 +9129,7 @@ declare namespace Word {
     }
 
     class Mailer {
-        private 'Word.Mailer_typekey': Mailer;
+        private "Word.Mailer_typekey": Mailer;
         private constructor();
         readonly Application: Application;
         BCCRecipients: any;
@@ -8443,12 +9145,34 @@ declare namespace Word {
     }
 
     class MailingLabel {
-        private 'Word.MailingLabel_typekey': MailingLabel;
+        private "Word.MailingLabel_typekey": MailingLabel;
         private constructor();
         readonly Application: Application;
-        CreateNewDocument(Name?: any, Address?: any, AutoText?: any, ExtractAddress?: any, LaserTray?: any, PrintEPostageLabel?: any, Vertical?: any): Document;
-        CreateNewDocument2000(Name?: any, Address?: any, AutoText?: any, ExtractAddress?: any, LaserTray?: any): Document;
-        CreateNewDocumentByID(LabelID?: any, Address?: any, AutoText?: any, ExtractAddress?: any, LaserTray?: any, PrintEPostageLabel?: any, Vertical?: any): Document;
+        CreateNewDocument(
+            Name?: any,
+            Address?: any,
+            AutoText?: any,
+            ExtractAddress?: any,
+            LaserTray?: any,
+            PrintEPostageLabel?: any,
+            Vertical?: any,
+        ): Document;
+        CreateNewDocument2000(
+            Name?: any,
+            Address?: any,
+            AutoText?: any,
+            ExtractAddress?: any,
+            LaserTray?: any,
+        ): Document;
+        CreateNewDocumentByID(
+            LabelID?: any,
+            Address?: any,
+            AutoText?: any,
+            ExtractAddress?: any,
+            LaserTray?: any,
+            PrintEPostageLabel?: any,
+            Vertical?: any,
+        ): Document;
         readonly Creator: number;
         readonly CustomLabels: CustomLabels;
         DefaultLabelName: string;
@@ -8456,19 +9180,56 @@ declare namespace Word {
         DefaultPrintBarCode: boolean;
         LabelOptions(): void;
         readonly Parent: any;
-        PrintOut(Name?: any, Address?: any, ExtractAddress?: any, LaserTray?: any, SingleLabel?: any, Row?: any, Column?: any, PrintEPostageLabel?: any, Vertical?: any): void;
-        PrintOut2000(Name?: any, Address?: any, ExtractAddress?: any, LaserTray?: any, SingleLabel?: any, Row?: any, Column?: any): void;
-        PrintOutByID(LabelID?: any, Address?: any, ExtractAddress?: any, LaserTray?: any, SingleLabel?: any, Row?: any, Column?: any, PrintEPostageLabel?: any, Vertical?: any): void;
+        PrintOut(
+            Name?: any,
+            Address?: any,
+            ExtractAddress?: any,
+            LaserTray?: any,
+            SingleLabel?: any,
+            Row?: any,
+            Column?: any,
+            PrintEPostageLabel?: any,
+            Vertical?: any,
+        ): void;
+        PrintOut2000(
+            Name?: any,
+            Address?: any,
+            ExtractAddress?: any,
+            LaserTray?: any,
+            SingleLabel?: any,
+            Row?: any,
+            Column?: any,
+        ): void;
+        PrintOutByID(
+            LabelID?: any,
+            Address?: any,
+            ExtractAddress?: any,
+            LaserTray?: any,
+            SingleLabel?: any,
+            Row?: any,
+            Column?: any,
+            PrintEPostageLabel?: any,
+            Vertical?: any,
+        ): void;
         Vertical: boolean;
     }
 
     class MailMerge {
-        private 'Word.MailMerge_typekey': MailMerge;
+        private "Word.MailMerge_typekey": MailMerge;
         private constructor();
         readonly Application: Application;
         Check(): void;
         CreateDataSource(
-            Name?: any, PasswordDocument?: any, WritePasswordDocument?: any, HeaderRecord?: any, MSQuery?: any, SQLStatement?: any, SQLStatement1?: any, Connection?: any, LinkToSource?: any): void;
+            Name?: any,
+            PasswordDocument?: any,
+            WritePasswordDocument?: any,
+            HeaderRecord?: any,
+            MSQuery?: any,
+            SQLStatement?: any,
+            SQLStatement1?: any,
+            Connection?: any,
+            LinkToSource?: any,
+        ): void;
         CreateHeaderSource(Name: string, PasswordDocument?: any, WritePasswordDocument?: any, HeaderRecord?: any): void;
         readonly Creator: number;
         readonly DataSource: MailMergeDataSource;
@@ -8485,21 +9246,75 @@ declare namespace Word {
         MailSubject: string;
         MainDocumentType: WdMailMergeMainDocType;
         OpenDataSource(
-            Name: string, Format?: any, ConfirmConversions?: any, ReadOnly?: any, LinkToSource?: any, AddToRecentFiles?: any, PasswordDocument?: any,
-            PasswordTemplate?: any, Revert?: any, WritePasswordDocument?: any, WritePasswordTemplate?: any, Connection?: any, SQLStatement?: any, SQLStatement1?: any,
-            OpenExclusive?: any, SubType?: any): void;
+            Name: string,
+            Format?: any,
+            ConfirmConversions?: any,
+            ReadOnly?: any,
+            LinkToSource?: any,
+            AddToRecentFiles?: any,
+            PasswordDocument?: any,
+            PasswordTemplate?: any,
+            Revert?: any,
+            WritePasswordDocument?: any,
+            WritePasswordTemplate?: any,
+            Connection?: any,
+            SQLStatement?: any,
+            SQLStatement1?: any,
+            OpenExclusive?: any,
+            SubType?: any,
+        ): void;
         OpenDataSource2000(
-            Name: string, Format?: any, ConfirmConversions?: any, ReadOnly?: any, LinkToSource?: any, AddToRecentFiles?: any, PasswordDocument?: any,
-            PasswordTemplate?: any, Revert?: any, WritePasswordDocument?: any, WritePasswordTemplate?: any, Connection?: any, SQLStatement?: any, SQLStatement1?: any): void;
+            Name: string,
+            Format?: any,
+            ConfirmConversions?: any,
+            ReadOnly?: any,
+            LinkToSource?: any,
+            AddToRecentFiles?: any,
+            PasswordDocument?: any,
+            PasswordTemplate?: any,
+            Revert?: any,
+            WritePasswordDocument?: any,
+            WritePasswordTemplate?: any,
+            Connection?: any,
+            SQLStatement?: any,
+            SQLStatement1?: any,
+        ): void;
         OpenHeaderSource(
-            Name: string, Format?: any, ConfirmConversions?: any, ReadOnly?: any, AddToRecentFiles?: any, PasswordDocument?: any, PasswordTemplate?: any, Revert?: any,
-            WritePasswordDocument?: any, WritePasswordTemplate?: any, OpenExclusive?: any): void;
+            Name: string,
+            Format?: any,
+            ConfirmConversions?: any,
+            ReadOnly?: any,
+            AddToRecentFiles?: any,
+            PasswordDocument?: any,
+            PasswordTemplate?: any,
+            Revert?: any,
+            WritePasswordDocument?: any,
+            WritePasswordTemplate?: any,
+            OpenExclusive?: any,
+        ): void;
         OpenHeaderSource2000(
-            Name: string, Format?: any, ConfirmConversions?: any, ReadOnly?: any, AddToRecentFiles?: any, PasswordDocument?: any, PasswordTemplate?: any, Revert?: any,
-            WritePasswordDocument?: any, WritePasswordTemplate?: any): void;
+            Name: string,
+            Format?: any,
+            ConfirmConversions?: any,
+            ReadOnly?: any,
+            AddToRecentFiles?: any,
+            PasswordDocument?: any,
+            PasswordTemplate?: any,
+            Revert?: any,
+            WritePasswordDocument?: any,
+            WritePasswordTemplate?: any,
+        ): void;
         readonly Parent: any;
         ShowSendToCustom: string;
-        ShowWizard(InitialState: any, ShowDocumentStep?: any, ShowTemplateStep?: any, ShowDataStep?: any, ShowWriteStep?: any, ShowPreviewStep?: any, ShowMergeStep?: any): void;
+        ShowWizard(
+            InitialState: any,
+            ShowDocumentStep?: any,
+            ShowTemplateStep?: any,
+            ShowDataStep?: any,
+            ShowWriteStep?: any,
+            ShowPreviewStep?: any,
+            ShowMergeStep?: any,
+        ): void;
         readonly State: WdMailMergeState;
         SuppressBlankLines: boolean;
         UseAddressBook(Type: string): void;
@@ -8508,7 +9323,7 @@ declare namespace Word {
     }
 
     class MailMergeDataField {
-        private 'Word.MailMergeDataField_typekey': MailMergeDataField;
+        private "Word.MailMergeDataField_typekey": MailMergeDataField;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -8519,7 +9334,7 @@ declare namespace Word {
     }
 
     class MailMergeDataFields {
-        private 'Word.MailMergeDataFields_typekey': MailMergeDataFields;
+        private "Word.MailMergeDataFields_typekey": MailMergeDataFields;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -8529,7 +9344,7 @@ declare namespace Word {
     }
 
     class MailMergeDataSource {
-        private 'Word.MailMergeDataSource_typekey': MailMergeDataSource;
+        private "Word.MailMergeDataSource_typekey": MailMergeDataSource;
         private constructor();
         ActiveRecord: WdMailMergeActiveRecord;
         readonly Application: Application;
@@ -8559,7 +9374,7 @@ declare namespace Word {
     }
 
     class MailMergeField {
-        private 'Word.MailMergeField_typekey': MailMergeField;
+        private "Word.MailMergeField_typekey": MailMergeField;
         private constructor();
         readonly Application: Application;
         Code: Range;
@@ -8576,7 +9391,7 @@ declare namespace Word {
     }
 
     class MailMergeFieldName {
-        private 'Word.MailMergeFieldName_typekey': MailMergeFieldName;
+        private "Word.MailMergeFieldName_typekey": MailMergeFieldName;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -8586,7 +9401,7 @@ declare namespace Word {
     }
 
     class MailMergeFieldNames {
-        private 'Word.MailMergeFieldNames_typekey': MailMergeFieldNames;
+        private "Word.MailMergeFieldNames_typekey": MailMergeFieldNames;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -8596,12 +9411,21 @@ declare namespace Word {
     }
 
     class MailMergeFields {
-        private 'Word.MailMergeFields_typekey': MailMergeFields;
+        private "Word.MailMergeFields_typekey": MailMergeFields;
         private constructor();
         Add(Range: Range, Name: string): MailMergeField;
         AddAsk(Range: Range, Name: string, Prompt?: any, DefaultAskText?: any, AskOnce?: any): MailMergeField;
         AddFillIn(Range: Range, Prompt?: any, DefaultFillInText?: any, AskOnce?: any): MailMergeField;
-        AddIf(Range: Range, MergeField: string, Comparison: WdMailMergeComparison, CompareTo?: any, TrueAutoText?: any, TrueText?: any, FalseAutoText?: any, FalseText?: any): MailMergeField;
+        AddIf(
+            Range: Range,
+            MergeField: string,
+            Comparison: WdMailMergeComparison,
+            CompareTo?: any,
+            TrueAutoText?: any,
+            TrueText?: any,
+            FalseAutoText?: any,
+            FalseText?: any,
+        ): MailMergeField;
         AddMergeRec(Range: Range): MailMergeField;
         AddMergeSeq(Range: Range): MailMergeField;
         AddNext(Range: Range): MailMergeField;
@@ -8616,7 +9440,7 @@ declare namespace Word {
     }
 
     class MailMessage {
-        private 'Word.MailMessage_typekey': MailMessage;
+        private "Word.MailMessage_typekey": MailMessage;
         private constructor();
         readonly Application: Application;
         CheckName(): void;
@@ -8635,7 +9459,7 @@ declare namespace Word {
     }
 
     class MappedDataField {
-        private 'Word.MappedDataField_typekey': MappedDataField;
+        private "Word.MappedDataField_typekey": MappedDataField;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -8648,7 +9472,7 @@ declare namespace Word {
     }
 
     class MappedDataFields {
-        private 'Word.MappedDataFields_typekey': MappedDataFields;
+        private "Word.MappedDataFields_typekey": MappedDataFields;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -8658,7 +9482,7 @@ declare namespace Word {
     }
 
     class OLEControl {
-        private 'Word.OLEControl_typekey': OLEControl;
+        private "Word.OLEControl_typekey": OLEControl;
         private constructor();
         Activate(): void;
         AltHTML: string;
@@ -8675,7 +9499,7 @@ declare namespace Word {
     }
 
     class OLEFormat {
-        private 'Word.OLEFormat_typekey': OLEFormat;
+        private "Word.OLEFormat_typekey": OLEFormat;
         private constructor();
         Activate(): void;
         ActivateAs(ClassType: string): void;
@@ -8699,7 +9523,7 @@ declare namespace Word {
     }
 
     class OMath {
-        private 'Word.OMath_typekey': OMath;
+        private "Word.OMath_typekey": OMath;
         private constructor();
         AlignPoint: number;
         readonly Application: Application;
@@ -8727,7 +9551,7 @@ declare namespace Word {
     }
 
     class OMathAcc {
-        private 'Word.OMathAcc_typekey': OMathAcc;
+        private "Word.OMathAcc_typekey": OMathAcc;
         private constructor();
         readonly Application: Application;
         Char: number;
@@ -8737,7 +9561,7 @@ declare namespace Word {
     }
 
     class OMathArgs {
-        private 'Word.OMathArgs_typekey': OMathArgs;
+        private "Word.OMathArgs_typekey": OMathArgs;
         private constructor();
         Add(BeforeArg?: any): OMath;
         readonly Application: Application;
@@ -8748,7 +9572,7 @@ declare namespace Word {
     }
 
     class OMathAutoCorrect {
-        private 'Word.OMathAutoCorrect_typekey': OMathAutoCorrect;
+        private "Word.OMathAutoCorrect_typekey": OMathAutoCorrect;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -8760,7 +9584,7 @@ declare namespace Word {
     }
 
     class OMathAutoCorrectEntries {
-        private 'Word.OMathAutoCorrectEntries_typekey': OMathAutoCorrectEntries;
+        private "Word.OMathAutoCorrectEntries_typekey": OMathAutoCorrectEntries;
         private constructor();
         Add(Name: string, Value: string): OMathAutoCorrectEntry;
         readonly Application: Application;
@@ -8771,7 +9595,7 @@ declare namespace Word {
     }
 
     class OMathAutoCorrectEntry {
-        private 'Word.OMathAutoCorrectEntry_typekey': OMathAutoCorrectEntry;
+        private "Word.OMathAutoCorrectEntry_typekey": OMathAutoCorrectEntry;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -8783,7 +9607,7 @@ declare namespace Word {
     }
 
     class OMathBar {
-        private 'Word.OMathBar_typekey': OMathBar;
+        private "Word.OMathBar_typekey": OMathBar;
         private constructor();
         readonly Application: Application;
         BarTop: boolean;
@@ -8793,7 +9617,7 @@ declare namespace Word {
     }
 
     class OMathBorderBox {
-        private 'Word.OMathBorderBox_typekey': OMathBorderBox;
+        private "Word.OMathBorderBox_typekey": OMathBorderBox;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -8810,7 +9634,7 @@ declare namespace Word {
     }
 
     class OMathBox {
-        private 'Word.OMathBox_typekey': OMathBox;
+        private "Word.OMathBox_typekey": OMathBox;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -8822,7 +9646,7 @@ declare namespace Word {
     }
 
     class OMathBreak {
-        private 'Word.OMathBreak_typekey': OMathBreak;
+        private "Word.OMathBreak_typekey": OMathBreak;
         private constructor();
         AlignAt: number;
         readonly Application: Application;
@@ -8833,7 +9657,7 @@ declare namespace Word {
     }
 
     class OMathBreaks {
-        private 'Word.OMathBreaks_typekey': OMathBreaks;
+        private "Word.OMathBreaks_typekey": OMathBreaks;
         private constructor();
         Add(Range: Range): OMathBreak;
         readonly Application: Application;
@@ -8844,7 +9668,7 @@ declare namespace Word {
     }
 
     class OMathDelim {
-        private 'Word.OMathDelim_typekey': OMathDelim;
+        private "Word.OMathDelim_typekey": OMathDelim;
         private constructor();
         readonly Application: Application;
         BegChar: number;
@@ -8860,7 +9684,7 @@ declare namespace Word {
     }
 
     class OMathEqArray {
-        private 'Word.OMathEqArray_typekey': OMathEqArray;
+        private "Word.OMathEqArray_typekey": OMathEqArray;
         private constructor();
         Align: WdOMathVertAlignType;
         readonly Application: Application;
@@ -8874,7 +9698,7 @@ declare namespace Word {
     }
 
     class OMathFrac {
-        private 'Word.OMathFrac_typekey': OMathFrac;
+        private "Word.OMathFrac_typekey": OMathFrac;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -8885,7 +9709,7 @@ declare namespace Word {
     }
 
     class OMathFunc {
-        private 'Word.OMathFunc_typekey': OMathFunc;
+        private "Word.OMathFunc_typekey": OMathFunc;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -8895,7 +9719,7 @@ declare namespace Word {
     }
 
     class OMathFunction {
-        private 'Word.OMathFunction_typekey': OMathFunction;
+        private "Word.OMathFunction_typekey": OMathFunction;
         private constructor();
         readonly Acc: OMathAcc;
         readonly Application: Application;
@@ -8927,7 +9751,7 @@ declare namespace Word {
     }
 
     class OMathFunctions {
-        private 'Word.OMathFunctions_typekey': OMathFunctions;
+        private "Word.OMathFunctions_typekey": OMathFunctions;
         private constructor();
         Add(Range: Range, Type: WdOMathFunctionType, NumArgs?: any, NumCols?: any): OMathFunction;
         readonly Application: Application;
@@ -8938,7 +9762,7 @@ declare namespace Word {
     }
 
     class OMathGroupChar {
-        private 'Word.OMathGroupChar_typekey': OMathGroupChar;
+        private "Word.OMathGroupChar_typekey": OMathGroupChar;
         private constructor();
         AlignTop: boolean;
         readonly Application: Application;
@@ -8950,7 +9774,7 @@ declare namespace Word {
     }
 
     class OMathLimLow {
-        private 'Word.OMathLimLow_typekey': OMathLimLow;
+        private "Word.OMathLimLow_typekey": OMathLimLow;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -8961,7 +9785,7 @@ declare namespace Word {
     }
 
     class OMathLimUpp {
-        private 'Word.OMathLimUpp_typekey': OMathLimUpp;
+        private "Word.OMathLimUpp_typekey": OMathLimUpp;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -8972,7 +9796,7 @@ declare namespace Word {
     }
 
     class OMathMat {
-        private 'Word.OMathMat_typekey': OMathMat;
+        private "Word.OMathMat_typekey": OMathMat;
         private constructor();
         Align: WdOMathVertAlignType;
         readonly Application: Application;
@@ -8990,7 +9814,7 @@ declare namespace Word {
     }
 
     class OMathMatCol {
-        private 'Word.OMathMatCol_typekey': OMathMatCol;
+        private "Word.OMathMatCol_typekey": OMathMatCol;
         private constructor();
         Align: WdOMathHorizAlignType;
         readonly Application: Application;
@@ -9002,7 +9826,7 @@ declare namespace Word {
     }
 
     class OMathMatCols {
-        private 'Word.OMathMatCols_typekey': OMathMatCols;
+        private "Word.OMathMatCols_typekey": OMathMatCols;
         private constructor();
         Add(BeforeCol?: any): OMathMatCol;
         readonly Application: Application;
@@ -9013,7 +9837,7 @@ declare namespace Word {
     }
 
     class OMathMatRow {
-        private 'Word.OMathMatRow_typekey': OMathMatRow;
+        private "Word.OMathMatRow_typekey": OMathMatRow;
         private constructor();
         readonly Application: Application;
         readonly Args: OMathArgs;
@@ -9024,7 +9848,7 @@ declare namespace Word {
     }
 
     class OMathMatRows {
-        private 'Word.OMathMatRows_typekey': OMathMatRows;
+        private "Word.OMathMatRows_typekey": OMathMatRows;
         private constructor();
         Add(BeforeRow?: any): OMathMatRow;
         readonly Application: Application;
@@ -9035,7 +9859,7 @@ declare namespace Word {
     }
 
     class OMathNary {
-        private 'Word.OMathNary_typekey': OMathNary;
+        private "Word.OMathNary_typekey": OMathNary;
         private constructor();
         readonly Application: Application;
         Char: number;
@@ -9051,7 +9875,7 @@ declare namespace Word {
     }
 
     class OMathPhantom {
-        private 'Word.OMathPhantom_typekey': OMathPhantom;
+        private "Word.OMathPhantom_typekey": OMathPhantom;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -9066,7 +9890,7 @@ declare namespace Word {
     }
 
     class OMathRad {
-        private 'Word.OMathRad_typekey': OMathRad;
+        private "Word.OMathRad_typekey": OMathRad;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -9077,7 +9901,7 @@ declare namespace Word {
     }
 
     class OMathRecognizedFunction {
-        private 'Word.OMathRecognizedFunction_typekey': OMathRecognizedFunction;
+        private "Word.OMathRecognizedFunction_typekey": OMathRecognizedFunction;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -9088,7 +9912,7 @@ declare namespace Word {
     }
 
     class OMathRecognizedFunctions {
-        private 'Word.OMathRecognizedFunctions_typekey': OMathRecognizedFunctions;
+        private "Word.OMathRecognizedFunctions_typekey": OMathRecognizedFunctions;
         private constructor();
         Add(Name: string): OMathRecognizedFunction;
         readonly Application: Application;
@@ -9099,7 +9923,7 @@ declare namespace Word {
     }
 
     class OMaths {
-        private 'Word.OMaths_typekey': OMaths;
+        private "Word.OMaths_typekey": OMaths;
         private constructor();
         Add(Range: Range): Range;
         readonly Application: Application;
@@ -9112,7 +9936,7 @@ declare namespace Word {
     }
 
     class OMathScrPre {
-        private 'Word.OMathScrPre_typekey': OMathScrPre;
+        private "Word.OMathScrPre_typekey": OMathScrPre;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -9124,7 +9948,7 @@ declare namespace Word {
     }
 
     class OMathScrSub {
-        private 'Word.OMathScrSub_typekey': OMathScrSub;
+        private "Word.OMathScrSub_typekey": OMathScrSub;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -9134,7 +9958,7 @@ declare namespace Word {
     }
 
     class OMathScrSubSup {
-        private 'Word.OMathScrSubSup_typekey': OMathScrSubSup;
+        private "Word.OMathScrSubSup_typekey": OMathScrSubSup;
         private constructor();
         AlignScripts: boolean;
         readonly Application: Application;
@@ -9149,7 +9973,7 @@ declare namespace Word {
     }
 
     class OMathScrSup {
-        private 'Word.OMathScrSup_typekey': OMathScrSup;
+        private "Word.OMathScrSup_typekey": OMathScrSup;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -9159,7 +9983,7 @@ declare namespace Word {
     }
 
     class Options {
-        private 'Word.Options_typekey': Options;
+        private "Word.Options_typekey": Options;
         private constructor();
         AddBiDirectionalMarksWhenSavingTextFile: boolean;
         AddControlCharacters: boolean;
@@ -9364,7 +10188,14 @@ declare namespace Word {
         SavePropertiesPrompt: boolean;
         SendMailAttach: boolean;
         SequenceCheck: boolean;
-        SetWPHelpOptions(CommandKeyHelp?: any, DocNavigationKeys?: any, MouseSimulation?: any, DemoGuidance?: any, DemoSpeed?: any, HelpType?: any): void;
+        SetWPHelpOptions(
+            CommandKeyHelp?: any,
+            DocNavigationKeys?: any,
+            MouseSimulation?: any,
+            DemoGuidance?: any,
+            DemoSpeed?: any,
+            HelpType?: any,
+        ): void;
         ShortMenuNames: boolean;
         ShowControlCharacters: boolean;
         ShowDevTools: boolean;
@@ -9407,7 +10238,7 @@ declare namespace Word {
     }
 
     class OtherCorrectionsException {
-        private 'Word.OtherCorrectionsException_typekey': OtherCorrectionsException;
+        private "Word.OtherCorrectionsException_typekey": OtherCorrectionsException;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -9418,7 +10249,7 @@ declare namespace Word {
     }
 
     class OtherCorrectionsExceptions {
-        private 'Word.OtherCorrectionsExceptions_typekey': OtherCorrectionsExceptions;
+        private "Word.OtherCorrectionsExceptions_typekey": OtherCorrectionsExceptions;
         private constructor();
         Add(Name: string): OtherCorrectionsException;
         readonly Application: Application;
@@ -9429,7 +10260,7 @@ declare namespace Word {
     }
 
     class Page {
-        private 'Word.Page_typekey': Page;
+        private "Word.Page_typekey": Page;
         private constructor();
         readonly Application: Application;
         readonly Breaks: Breaks;
@@ -9444,7 +10275,7 @@ declare namespace Word {
     }
 
     class PageNumber {
-        private 'Word.PageNumber_typekey': PageNumber;
+        private "Word.PageNumber_typekey": PageNumber;
         private constructor();
         Alignment: WdPageNumberAlignment;
         readonly Application: Application;
@@ -9458,7 +10289,7 @@ declare namespace Word {
     }
 
     class PageNumbers {
-        private 'Word.PageNumbers_typekey': PageNumbers;
+        private "Word.PageNumbers_typekey": PageNumbers;
         private constructor();
         Add(PageNumberAlignment?: any, FirstPage?: any): PageNumber;
         readonly Application: Application;
@@ -9477,7 +10308,7 @@ declare namespace Word {
     }
 
     class Pages {
-        private 'Word.Pages_typekey': Pages;
+        private "Word.Pages_typekey": Pages;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -9487,7 +10318,7 @@ declare namespace Word {
     }
 
     class PageSetup {
-        private 'Word.PageSetup_typekey': PageSetup;
+        private "Word.PageSetup_typekey": PageSetup;
         private constructor();
         readonly Application: Application;
         BookFoldPrinting: boolean;
@@ -9530,7 +10361,7 @@ declare namespace Word {
     }
 
     class Pane {
-        private 'Word.Pane_typekey': Pane;
+        private "Word.Pane_typekey": Pane;
         private constructor();
         Activate(): void;
         readonly Application: Application;
@@ -9562,7 +10393,7 @@ declare namespace Word {
     }
 
     class Panes {
-        private 'Word.Panes_typekey': Panes;
+        private "Word.Panes_typekey": Panes;
         private constructor();
         Add(SplitVertical?: any): Pane;
         readonly Application: Application;
@@ -9573,7 +10404,7 @@ declare namespace Word {
     }
 
     class Paragraph {
-        private 'Word.Paragraph_typekey': Paragraph;
+        private "Word.Paragraph_typekey": Paragraph;
         private constructor();
         AddSpaceBetweenFarEastAndAlpha: number;
         AddSpaceBetweenFarEastAndDigit: number;
@@ -9620,7 +10451,17 @@ declare namespace Word {
          * @param number [Level8=0]
          * @param number [Level9=0]
          */
-        ListAdvanceTo(Level1?: number, Level2?: number, Level3?: number, Level4?: number, Level5?: number, Level6?: number, Level7?: number, Level8?: number, Level9?: number): void;
+        ListAdvanceTo(
+            Level1?: number,
+            Level2?: number,
+            Level3?: number,
+            Level4?: number,
+            Level5?: number,
+            Level6?: number,
+            Level7?: number,
+            Level8?: number,
+            Level9?: number,
+        ): void;
         ListNumberOriginal(Level: number): number;
         MirrorIndents: number;
         Next(Count?: any): Paragraph;
@@ -9662,7 +10503,7 @@ declare namespace Word {
     }
 
     class ParagraphFormat {
-        private 'Word.ParagraphFormat_typekey': ParagraphFormat;
+        private "Word.ParagraphFormat_typekey": ParagraphFormat;
         private constructor();
         AddSpaceBetweenFarEastAndAlpha: number;
         AddSpaceBetweenFarEastAndDigit: number;
@@ -9720,7 +10561,7 @@ declare namespace Word {
     }
 
     class Paragraphs {
-        private 'Word.Paragraphs_typekey': Paragraphs;
+        private "Word.Paragraphs_typekey": Paragraphs;
         private constructor();
         Add(Range?: any): Paragraph;
         AddSpaceBetweenFarEastAndAlpha: number;
@@ -9788,7 +10629,7 @@ declare namespace Word {
     }
 
     class PictureFormat {
-        private 'Word.PictureFormat_typekey': PictureFormat;
+        private "Word.PictureFormat_typekey": PictureFormat;
         private constructor();
         readonly Application: Application;
         Brightness: number;
@@ -9808,7 +10649,7 @@ declare namespace Word {
     }
 
     class PlotArea {
-        private 'Word.PlotArea_typekey': PlotArea;
+        private "Word.PlotArea_typekey": PlotArea;
         private constructor();
         readonly Application: any;
         readonly Border: ChartBorder;
@@ -9832,7 +10673,7 @@ declare namespace Word {
     }
 
     class ProofreadingErrors {
-        private 'Word.ProofreadingErrors_typekey': ProofreadingErrors;
+        private "Word.ProofreadingErrors_typekey": ProofreadingErrors;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -9843,7 +10684,7 @@ declare namespace Word {
     }
 
     class ProtectedViewWindow {
-        private 'Word.ProtectedViewWindow_typekey': ProtectedViewWindow;
+        private "Word.ProtectedViewWindow_typekey": ProtectedViewWindow;
         private constructor();
         Activate(): void;
         readonly Active: boolean;
@@ -9867,18 +10708,24 @@ declare namespace Word {
     }
 
     class ProtectedViewWindows {
-        private 'Word.ProtectedViewWindows_typekey': ProtectedViewWindows;
+        private "Word.ProtectedViewWindows_typekey": ProtectedViewWindows;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
         readonly Creator: number;
         Item(Index: any): ProtectedViewWindow;
-        Open(FileName: any, AddToRecentFiles?: any, PasswordDocument?: any, Visible?: any, OpenAndRepair?: any): ProtectedViewWindow;
+        Open(
+            FileName: any,
+            AddToRecentFiles?: any,
+            PasswordDocument?: any,
+            Visible?: any,
+            OpenAndRepair?: any,
+        ): ProtectedViewWindow;
         readonly Parent: any;
     }
 
     class Range {
-        private 'Word.Range_typekey': Range;
+        private "Word.Range_typekey": Range;
         private constructor();
         readonly Application: Application;
         AutoFormat(): void;
@@ -9897,8 +10744,19 @@ declare namespace Word {
         CharacterWidth: WdCharacterWidth;
         CheckGrammar(): void;
         CheckSpelling(
-            CustomDictionary?: any, IgnoreUppercase?: any, AlwaysSuggest?: any, CustomDictionary2?: any, CustomDictionary3?: any, CustomDictionary4?: any,
-            CustomDictionary5?: any, CustomDictionary6?: any, CustomDictionary7?: any, CustomDictionary8?: any, CustomDictionary9?: any, CustomDictionary10?: any): void;
+            CustomDictionary?: any,
+            IgnoreUppercase?: any,
+            AlwaysSuggest?: any,
+            CustomDictionary2?: any,
+            CustomDictionary3?: any,
+            CustomDictionary4?: any,
+            CustomDictionary5?: any,
+            CustomDictionary6?: any,
+            CustomDictionary7?: any,
+            CustomDictionary8?: any,
+            CustomDictionary9?: any,
+            CustomDictionary10?: any,
+        ): void;
         CheckSynonyms(): void;
 
         /** @param WdCollapseDirection [Direction=wdCollapseStart] */
@@ -9909,13 +10767,47 @@ declare namespace Word {
         ComputeStatistics(Statistic: WdStatistic): number;
         readonly Conflicts: Conflicts;
         readonly ContentControls: ContentControls;
-        ConvertHangulAndHanja(ConversionsMode?: any, FastConversion?: any, CheckHangulEnding?: any, EnableRecentOrdering?: any, CustomDictionary?: any): void;
+        ConvertHangulAndHanja(
+            ConversionsMode?: any,
+            FastConversion?: any,
+            CheckHangulEnding?: any,
+            EnableRecentOrdering?: any,
+            CustomDictionary?: any,
+        ): void;
         ConvertToTable(
-            Separator?: any, NumRows?: any, NumColumns?: any, InitialColumnWidth?: any, Format?: any, ApplyBorders?: any, ApplyShading?: any, ApplyFont?: any,
-            ApplyColor?: any, ApplyHeadingRows?: any, ApplyLastRow?: any, ApplyFirstColumn?: any, ApplyLastColumn?: any, AutoFit?: any, AutoFitBehavior?: any, DefaultTableBehavior?: any): Table;
+            Separator?: any,
+            NumRows?: any,
+            NumColumns?: any,
+            InitialColumnWidth?: any,
+            Format?: any,
+            ApplyBorders?: any,
+            ApplyShading?: any,
+            ApplyFont?: any,
+            ApplyColor?: any,
+            ApplyHeadingRows?: any,
+            ApplyLastRow?: any,
+            ApplyFirstColumn?: any,
+            ApplyLastColumn?: any,
+            AutoFit?: any,
+            AutoFitBehavior?: any,
+            DefaultTableBehavior?: any,
+        ): Table;
         ConvertToTableOld(
-            Separator?: any, NumRows?: any, NumColumns?: any, InitialColumnWidth?: any, Format?: any, ApplyBorders?: any, ApplyShading?: any, ApplyFont?: any,
-            ApplyColor?: any, ApplyHeadingRows?: any, ApplyLastRow?: any, ApplyFirstColumn?: any, ApplyLastColumn?: any, AutoFit?: any): Table;
+            Separator?: any,
+            NumRows?: any,
+            NumColumns?: any,
+            InitialColumnWidth?: any,
+            Format?: any,
+            ApplyBorders?: any,
+            ApplyShading?: any,
+            ApplyFont?: any,
+            ApplyColor?: any,
+            ApplyHeadingRows?: any,
+            ApplyLastRow?: any,
+            ApplyFirstColumn?: any,
+            ApplyLastColumn?: any,
+            AutoFit?: any,
+        ): Table;
         Copy(): void;
         CopyAsPicture(): void;
         CreatePublisher(Edition?: any, ContainsPICT?: any, ContainsRTF?: any, ContainsText?: any): void;
@@ -9948,9 +10840,20 @@ declare namespace Word {
          * @param boolean [UseISO19005_1=false]
          */
         ExportAsFixedFormat(
-            OutputFileName: string, ExportFormat: WdExportFormat, OpenAfterExport?: boolean, OptimizeFor?: WdExportOptimizeFor, ExportCurrentPage?: boolean,
-            Item?: WdExportItem, IncludeDocProps?: boolean, KeepIRM?: boolean, CreateBookmarks?: WdExportCreateBookmarks, DocStructureTags?: boolean,
-            BitmapMissingFonts?: boolean, UseISO19005_1?: boolean, FixedFormatExtClassPtr?: any): void;
+            OutputFileName: string,
+            ExportFormat: WdExportFormat,
+            OpenAfterExport?: boolean,
+            OptimizeFor?: WdExportOptimizeFor,
+            ExportCurrentPage?: boolean,
+            Item?: WdExportItem,
+            IncludeDocProps?: boolean,
+            KeepIRM?: boolean,
+            CreateBookmarks?: WdExportCreateBookmarks,
+            DocStructureTags?: boolean,
+            BitmapMissingFonts?: boolean,
+            UseISO19005_1?: boolean,
+            FixedFormatExtClassPtr?: any,
+        ): void;
         ExportFragment(FileName: string, Format: WdSaveFormat): void;
         readonly Fields: Fields;
         readonly Find: Find<Range>;
@@ -9962,9 +10865,20 @@ declare namespace Word {
         readonly FormFields: FormFields;
         readonly Frames: Frames;
         GetSpellingSuggestions(
-            CustomDictionary?: any, IgnoreUppercase?: any, MainDictionary?: any, SuggestionMode?: any, CustomDictionary2?: any, CustomDictionary3?: any,
-            CustomDictionary4?: any, CustomDictionary5?: any, CustomDictionary6?: any, CustomDictionary7?: any, CustomDictionary8?: any, CustomDictionary9?: any,
-            CustomDictionary10?: any): SpellingSuggestions;
+            CustomDictionary?: any,
+            IgnoreUppercase?: any,
+            MainDictionary?: any,
+            SuggestionMode?: any,
+            CustomDictionary2?: any,
+            CustomDictionary3?: any,
+            CustomDictionary4?: any,
+            CustomDictionary5?: any,
+            CustomDictionary6?: any,
+            CustomDictionary7?: any,
+            CustomDictionary8?: any,
+            CustomDictionary9?: any,
+            CustomDictionary10?: any,
+        ): SpellingSuggestions;
         GoTo(What?: any, Which?: any, Count?: any, Name?: any): Range;
         GoToEditableRange(EditorID?: any): Range;
         GoToNext(What: WdGoToItem): Range;
@@ -9992,12 +10906,44 @@ declare namespace Word {
         InsertCaption(Label: any, Title?: any, TitleAutoText?: any, Position?: any, ExcludeLabel?: any): void;
         InsertCaptionXP(Label: any, Title?: any, TitleAutoText?: any, Position?: any): void;
         InsertCrossReference(
-            ReferenceType: any, ReferenceKind: WdReferenceKind, ReferenceItem: any, InsertAsHyperlink?: any, IncludePosition?: any, SeparateNumbers?: any, SeparatorString?: any): void;
-        InsertCrossReference_2002(ReferenceType: any, ReferenceKind: WdReferenceKind, ReferenceItem: any, InsertAsHyperlink?: any, IncludePosition?: any): void;
+            ReferenceType: any,
+            ReferenceKind: WdReferenceKind,
+            ReferenceItem: any,
+            InsertAsHyperlink?: any,
+            IncludePosition?: any,
+            SeparateNumbers?: any,
+            SeparatorString?: any,
+        ): void;
+        InsertCrossReference_2002(
+            ReferenceType: any,
+            ReferenceKind: WdReferenceKind,
+            ReferenceItem: any,
+            InsertAsHyperlink?: any,
+            IncludePosition?: any,
+        ): void;
         InsertDatabase(
-            Format?: any, Style?: any, LinkToSource?: any, Connection?: any, SQLStatement?: any, SQLStatement1?: any, PasswordDocument?: any, PasswordTemplate?: any,
-            WritePasswordDocument?: any, WritePasswordTemplate?: any, DataSource?: any, From?: any, To?: any, IncludeFields?: any): void;
-        InsertDateTime(DateTimeFormat?: any, InsertAsField?: any, InsertAsFullWidth?: any, DateLanguage?: any, CalendarType?: any): void;
+            Format?: any,
+            Style?: any,
+            LinkToSource?: any,
+            Connection?: any,
+            SQLStatement?: any,
+            SQLStatement1?: any,
+            PasswordDocument?: any,
+            PasswordTemplate?: any,
+            WritePasswordDocument?: any,
+            WritePasswordTemplate?: any,
+            DataSource?: any,
+            From?: any,
+            To?: any,
+            IncludeFields?: any,
+        ): void;
+        InsertDateTime(
+            DateTimeFormat?: any,
+            InsertAsField?: any,
+            InsertAsFullWidth?: any,
+            DateLanguage?: any,
+            CalendarType?: any,
+        ): void;
         InsertDateTimeOld(DateTimeFormat?: any, InsertAsField?: any, InsertAsFullWidth?: any): void;
         InsertFile(FileName: string, Range?: any, ConfirmConversions?: any, Link?: any, Attachment?: any): void;
         InsertParagraph(): void;
@@ -10047,7 +10993,15 @@ declare namespace Word {
         PasteAppendTable(): void;
         PasteAsNestedTable(): void;
         PasteExcelTable(LinkedToExcel: boolean, WordFormatting: boolean, RTF: boolean): void;
-        PasteSpecial(IconIndex?: any, Link?: any, Placement?: any, DisplayAsIcon?: any, DataType?: any, IconFileName?: any, IconLabel?: any): void;
+        PasteSpecial(
+            IconIndex?: any,
+            Link?: any,
+            Placement?: any,
+            DisplayAsIcon?: any,
+            DataType?: any,
+            IconFileName?: any,
+            IconLabel?: any,
+        ): void;
 
         /**
          * @param Word.WdPhoneticGuideAlignmentType [Alignment=-1]
@@ -10055,7 +11009,13 @@ declare namespace Word {
          * @param number [FontSize=0]
          * @param string [FontName='']
          */
-        PhoneticGuide(Text: string, Alignment?: WdPhoneticGuideAlignmentType, Raise?: number, FontSize?: number, FontName?: string): void;
+        PhoneticGuide(
+            Text: string,
+            Alignment?: WdPhoneticGuideAlignmentType,
+            Raise?: number,
+            FontSize?: number,
+            FontName?: string,
+        ): void;
         Previous(Unit?: any, Count?: any): Range;
         readonly PreviousBookmarkID: number;
         PreviousSubdocument(): void;
@@ -10074,14 +11034,44 @@ declare namespace Word {
         ShowAll: boolean;
         readonly SmartTags: SmartTags;
         Sort(
-            ExcludeHeader?: any, FieldNumber?: any, SortFieldType?: any, SortOrder?: any, FieldNumber2?: any, SortFieldType2?: any, SortOrder2?: any, FieldNumber3?: any,
-            SortFieldType3?: any, SortOrder3?: any, SortColumn?: any, Separator?: any, CaseSensitive?: any, BidiSort?: any, IgnoreThe?: any, IgnoreKashida?: any,
-            IgnoreDiacritics?: any, IgnoreHe?: any, LanguageID?: any): void;
+            ExcludeHeader?: any,
+            FieldNumber?: any,
+            SortFieldType?: any,
+            SortOrder?: any,
+            FieldNumber2?: any,
+            SortFieldType2?: any,
+            SortOrder2?: any,
+            FieldNumber3?: any,
+            SortFieldType3?: any,
+            SortOrder3?: any,
+            SortColumn?: any,
+            Separator?: any,
+            CaseSensitive?: any,
+            BidiSort?: any,
+            IgnoreThe?: any,
+            IgnoreKashida?: any,
+            IgnoreDiacritics?: any,
+            IgnoreHe?: any,
+            LanguageID?: any,
+        ): void;
         SortAscending(): void;
         SortDescending(): void;
         SortOld(
-            ExcludeHeader?: any, FieldNumber?: any, SortFieldType?: any, SortOrder?: any, FieldNumber2?: any, SortFieldType2?: any, SortOrder2?: any, FieldNumber3?: any,
-            SortFieldType3?: any, SortOrder3?: any, SortColumn?: any, Separator?: any, CaseSensitive?: any, LanguageID?: any): void;
+            ExcludeHeader?: any,
+            FieldNumber?: any,
+            SortFieldType?: any,
+            SortOrder?: any,
+            FieldNumber2?: any,
+            SortFieldType2?: any,
+            SortOrder2?: any,
+            FieldNumber3?: any,
+            SortFieldType3?: any,
+            SortOrder3?: any,
+            SortColumn?: any,
+            Separator?: any,
+            CaseSensitive?: any,
+            LanguageID?: any,
+        ): void;
         SpellingChecked: boolean;
         readonly SpellingErrors: ProofreadingErrors;
         Start: number;
@@ -10100,7 +11090,11 @@ declare namespace Word {
          * @param boolean [CommonTerms=false]
          * @param boolean [UseVariants=false]
          */
-        TCSCConverter(WdTCSCConverterDirection?: WdTCSCConverterDirection, CommonTerms?: boolean, UseVariants?: boolean): void;
+        TCSCConverter(
+            WdTCSCConverterDirection?: WdTCSCConverterDirection,
+            CommonTerms?: boolean,
+            UseVariants?: boolean,
+        ): void;
         Text: string;
         TextRetrievalMode: TextRetrievalMode;
         readonly TopLevelTables: Tables;
@@ -10118,7 +11112,7 @@ declare namespace Word {
     }
 
     class ReadabilityStatistic {
-        private 'Word.ReadabilityStatistic_typekey': ReadabilityStatistic;
+        private "Word.ReadabilityStatistic_typekey": ReadabilityStatistic;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -10128,7 +11122,7 @@ declare namespace Word {
     }
 
     class ReadabilityStatistics {
-        private 'Word.ReadabilityStatistics_typekey': ReadabilityStatistics;
+        private "Word.ReadabilityStatistics_typekey": ReadabilityStatistics;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -10138,7 +11132,7 @@ declare namespace Word {
     }
 
     class RecentFile {
-        private 'Word.RecentFile_typekey': RecentFile;
+        private "Word.RecentFile_typekey": RecentFile;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -10152,7 +11146,7 @@ declare namespace Word {
     }
 
     class RecentFiles {
-        private 'Word.RecentFiles_typekey': RecentFiles;
+        private "Word.RecentFiles_typekey": RecentFiles;
         private constructor();
         Add(Document: any, ReadOnly?: any): RecentFile;
         readonly Application: Application;
@@ -10164,7 +11158,7 @@ declare namespace Word {
     }
 
     class Rectangle {
-        private 'Word.Rectangle_typekey': Rectangle;
+        private "Word.Rectangle_typekey": Rectangle;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -10179,7 +11173,7 @@ declare namespace Word {
     }
 
     class Rectangles {
-        private 'Word.Rectangles_typekey': Rectangles;
+        private "Word.Rectangles_typekey": Rectangles;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -10189,7 +11183,7 @@ declare namespace Word {
     }
 
     class ReflectionFormat {
-        private 'Word.ReflectionFormat_typekey': ReflectionFormat;
+        private "Word.ReflectionFormat_typekey": ReflectionFormat;
         private constructor();
         readonly Application: Application;
         Blur: number;
@@ -10202,7 +11196,7 @@ declare namespace Word {
     }
 
     class Replacement {
-        private 'Word.Replacement_typekey': Replacement;
+        private "Word.Replacement_typekey": Replacement;
         private constructor();
         readonly Application: Application;
         ClearFormatting(): void;
@@ -10220,7 +11214,7 @@ declare namespace Word {
     }
 
     class Research {
-        private 'Word.Research_typekey': Research;
+        private "Word.Research_typekey": Research;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -10234,12 +11228,18 @@ declare namespace Word {
          * @param boolean [UseSelection=false]
          * @param boolean [LaunchQuery=true]
          */
-        Query(ServiceID: string, QueryString?: string, QueryLanguage?: WdLanguageID, UseSelection?: boolean, LaunchQuery?: boolean): any;
+        Query(
+            ServiceID: string,
+            QueryString?: string,
+            QueryLanguage?: WdLanguageID,
+            UseSelection?: boolean,
+            LaunchQuery?: boolean,
+        ): any;
         SetLanguagePair(LanguageFrom: WdLanguageID, LanguageTo: WdLanguageID): any;
     }
 
     class Reviewer {
-        private 'Word.Reviewer_typekey': Reviewer;
+        private "Word.Reviewer_typekey": Reviewer;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -10248,7 +11248,7 @@ declare namespace Word {
     }
 
     class Reviewers {
-        private 'Word.Reviewers_typekey': Reviewers;
+        private "Word.Reviewers_typekey": Reviewers;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -10258,7 +11258,7 @@ declare namespace Word {
     }
 
     class Revision {
-        private 'Word.Revision_typekey': Revision;
+        private "Word.Revision_typekey": Revision;
         private constructor();
         Accept(): void;
         readonly Application: Application;
@@ -10277,7 +11277,7 @@ declare namespace Word {
     }
 
     class Revisions {
-        private 'Word.Revisions_typekey': Revisions;
+        private "Word.Revisions_typekey": Revisions;
         private constructor();
         AcceptAll(): void;
         readonly Application: Application;
@@ -10289,7 +11289,7 @@ declare namespace Word {
     }
 
     class RoutingSlip {
-        private 'Word.RoutingSlip_typekey': RoutingSlip;
+        private "Word.RoutingSlip_typekey": RoutingSlip;
         private constructor();
         AddRecipient(Recipient: string): void;
         readonly Application: Application;
@@ -10307,7 +11307,7 @@ declare namespace Word {
     }
 
     class Row {
-        private 'Word.Row_typekey': Row;
+        private "Word.Row_typekey": Row;
         private constructor();
         Alignment: WdRowAlignment;
         AllowBreakAcrossPages: number;
@@ -10339,7 +11339,7 @@ declare namespace Word {
     }
 
     class Rows {
-        private 'Word.Rows_typekey': Rows;
+        private "Word.Rows_typekey": Rows;
         private constructor();
         Add(BeforeRow?: any): Row;
         Alignment: WdRowAlignment;
@@ -10380,7 +11380,7 @@ declare namespace Word {
     }
 
     class Section {
-        private 'Word.Section_typekey': Section;
+        private "Word.Section_typekey": Section;
         private constructor();
         readonly Application: Application;
         Borders: Borders;
@@ -10395,7 +11395,7 @@ declare namespace Word {
     }
 
     class Sections {
-        private 'Word.Sections_typekey': Sections;
+        private "Word.Sections_typekey": Sections;
         private constructor();
         Add(Range?: any, Start?: any): Section;
         readonly Application: Application;
@@ -10409,7 +11409,7 @@ declare namespace Word {
     }
 
     class Selection {
-        private 'Word.Selection_typekey': Selection;
+        private "Word.Selection_typekey": Selection;
         private constructor();
         readonly Active: boolean;
         readonly Application: Application;
@@ -10436,11 +11436,39 @@ declare namespace Word {
         readonly Comments: Comments;
         readonly ContentControls: ContentControls;
         ConvertToTable(
-            Separator?: any, NumRows?: any, NumColumns?: any, InitialColumnWidth?: any, Format?: any, ApplyBorders?: any, ApplyShading?: any, ApplyFont?: any,
-            ApplyColor?: any, ApplyHeadingRows?: any, ApplyLastRow?: any, ApplyFirstColumn?: any, ApplyLastColumn?: any, AutoFit?: any, AutoFitBehavior?: any, DefaultTableBehavior?: any): Table;
+            Separator?: any,
+            NumRows?: any,
+            NumColumns?: any,
+            InitialColumnWidth?: any,
+            Format?: any,
+            ApplyBorders?: any,
+            ApplyShading?: any,
+            ApplyFont?: any,
+            ApplyColor?: any,
+            ApplyHeadingRows?: any,
+            ApplyLastRow?: any,
+            ApplyFirstColumn?: any,
+            ApplyLastColumn?: any,
+            AutoFit?: any,
+            AutoFitBehavior?: any,
+            DefaultTableBehavior?: any,
+        ): Table;
         ConvertToTableOld(
-            Separator?: any, NumRows?: any, NumColumns?: any, InitialColumnWidth?: any, Format?: any, ApplyBorders?: any, ApplyShading?: any, ApplyFont?: any,
-            ApplyColor?: any, ApplyHeadingRows?: any, ApplyLastRow?: any, ApplyFirstColumn?: any, ApplyLastColumn?: any, AutoFit?: any): Table;
+            Separator?: any,
+            NumRows?: any,
+            NumColumns?: any,
+            InitialColumnWidth?: any,
+            Format?: any,
+            ApplyBorders?: any,
+            ApplyShading?: any,
+            ApplyFont?: any,
+            ApplyColor?: any,
+            ApplyHeadingRows?: any,
+            ApplyLastRow?: any,
+            ApplyFirstColumn?: any,
+            ApplyLastColumn?: any,
+            AutoFit?: any,
+        ): Table;
         Copy(): void;
         CopyAsPicture(): void;
         CopyFormat(): void;
@@ -10474,9 +11502,20 @@ declare namespace Word {
          * @param boolean [UseISO19005_1=false]
          */
         ExportAsFixedFormat(
-            OutputFileName: string, ExportFormat: WdExportFormat, OpenAfterExport?: boolean, OptimizeFor?: WdExportOptimizeFor, ExportCurrentPage?: boolean,
-            Item?: WdExportItem, IncludeDocProps?: boolean, KeepIRM?: boolean, CreateBookmarks?: WdExportCreateBookmarks, DocStructureTags?: boolean,
-            BitmapMissingFonts?: boolean, UseISO19005_1?: boolean, FixedFormatExtClassPtr?: any): void;
+            OutputFileName: string,
+            ExportFormat: WdExportFormat,
+            OpenAfterExport?: boolean,
+            OptimizeFor?: WdExportOptimizeFor,
+            ExportCurrentPage?: boolean,
+            Item?: WdExportItem,
+            IncludeDocProps?: boolean,
+            KeepIRM?: boolean,
+            CreateBookmarks?: WdExportCreateBookmarks,
+            DocStructureTags?: boolean,
+            BitmapMissingFonts?: boolean,
+            UseISO19005_1?: boolean,
+            FixedFormatExtClassPtr?: any,
+        ): void;
         Extend(Character?: any): void;
         ExtendMode: boolean;
         readonly Fields: Fields;
@@ -10510,9 +11549,28 @@ declare namespace Word {
         InsertColumns(): void;
         InsertColumnsRight(): void;
         InsertCrossReference(
-            ReferenceType: any, ReferenceKind: WdReferenceKind, ReferenceItem: any, InsertAsHyperlink?: any, IncludePosition?: any, SeparateNumbers?: any, SeparatorString?: any): void;
-        InsertCrossReference_2002(ReferenceType: any, ReferenceKind: WdReferenceKind, ReferenceItem: any, InsertAsHyperlink?: any, IncludePosition?: any): void;
-        InsertDateTime(DateTimeFormat?: any, InsertAsField?: any, InsertAsFullWidth?: any, DateLanguage?: any, CalendarType?: any): void;
+            ReferenceType: any,
+            ReferenceKind: WdReferenceKind,
+            ReferenceItem: any,
+            InsertAsHyperlink?: any,
+            IncludePosition?: any,
+            SeparateNumbers?: any,
+            SeparatorString?: any,
+        ): void;
+        InsertCrossReference_2002(
+            ReferenceType: any,
+            ReferenceKind: WdReferenceKind,
+            ReferenceItem: any,
+            InsertAsHyperlink?: any,
+            IncludePosition?: any,
+        ): void;
+        InsertDateTime(
+            DateTimeFormat?: any,
+            InsertAsField?: any,
+            InsertAsFullWidth?: any,
+            DateLanguage?: any,
+            CalendarType?: any,
+        ): void;
         InsertDateTimeOld(DateTimeFormat?: any, InsertAsField?: any, InsertAsFullWidth?: any): void;
         InsertFile(FileName: string, Range?: any, ConfirmConversions?: any, Link?: any, Attachment?: any): void;
         InsertFormula(Formula?: any, NumberFormat?: any): void;
@@ -10568,7 +11626,15 @@ declare namespace Word {
         PasteAsNestedTable(): void;
         PasteExcelTable(LinkedToExcel: boolean, WordFormatting: boolean, RTF: boolean): void;
         PasteFormat(): void;
-        PasteSpecial(IconIndex?: any, Link?: any, Placement?: any, DisplayAsIcon?: any, DataType?: any, IconFileName?: any, IconLabel?: any): void;
+        PasteSpecial(
+            IconIndex?: any,
+            Link?: any,
+            Placement?: any,
+            DisplayAsIcon?: any,
+            DataType?: any,
+            IconFileName?: any,
+            IconLabel?: any,
+        ): void;
         Previous(Unit?: any, Count?: any): Range;
         readonly PreviousBookmarkID: number;
         PreviousField(): Field;
@@ -10599,18 +11665,68 @@ declare namespace Word {
         ShrinkDiscontiguousSelection(): void;
         readonly SmartTags: SmartTags;
         Sort(
-            ExcludeHeader?: any, FieldNumber?: any, SortFieldType?: any, SortOrder?: any, FieldNumber2?: any, SortFieldType2?: any, SortOrder2?: any, FieldNumber3?: any,
-            SortFieldType3?: any, SortOrder3?: any, SortColumn?: any, Separator?: any, CaseSensitive?: any, BidiSort?: any, IgnoreThe?: any, IgnoreKashida?: any,
-            IgnoreDiacritics?: any, IgnoreHe?: any, LanguageID?: any, SubFieldNumber?: any, SubFieldNumber2?: any, SubFieldNumber3?: any): void;
+            ExcludeHeader?: any,
+            FieldNumber?: any,
+            SortFieldType?: any,
+            SortOrder?: any,
+            FieldNumber2?: any,
+            SortFieldType2?: any,
+            SortOrder2?: any,
+            FieldNumber3?: any,
+            SortFieldType3?: any,
+            SortOrder3?: any,
+            SortColumn?: any,
+            Separator?: any,
+            CaseSensitive?: any,
+            BidiSort?: any,
+            IgnoreThe?: any,
+            IgnoreKashida?: any,
+            IgnoreDiacritics?: any,
+            IgnoreHe?: any,
+            LanguageID?: any,
+            SubFieldNumber?: any,
+            SubFieldNumber2?: any,
+            SubFieldNumber3?: any,
+        ): void;
         Sort2000(
-            ExcludeHeader?: any, FieldNumber?: any, SortFieldType?: any, SortOrder?: any, FieldNumber2?: any, SortFieldType2?: any, SortOrder2?: any, FieldNumber3?: any,
-            SortFieldType3?: any, SortOrder3?: any, SortColumn?: any, Separator?: any, CaseSensitive?: any, BidiSort?: any, IgnoreThe?: any, IgnoreKashida?: any,
-            IgnoreDiacritics?: any, IgnoreHe?: any, LanguageID?: any): void;
+            ExcludeHeader?: any,
+            FieldNumber?: any,
+            SortFieldType?: any,
+            SortOrder?: any,
+            FieldNumber2?: any,
+            SortFieldType2?: any,
+            SortOrder2?: any,
+            FieldNumber3?: any,
+            SortFieldType3?: any,
+            SortOrder3?: any,
+            SortColumn?: any,
+            Separator?: any,
+            CaseSensitive?: any,
+            BidiSort?: any,
+            IgnoreThe?: any,
+            IgnoreKashida?: any,
+            IgnoreDiacritics?: any,
+            IgnoreHe?: any,
+            LanguageID?: any,
+        ): void;
         SortAscending(): void;
         SortDescending(): void;
         SortOld(
-            ExcludeHeader?: any, FieldNumber?: any, SortFieldType?: any, SortOrder?: any, FieldNumber2?: any, SortFieldType2?: any, SortOrder2?: any, FieldNumber3?: any,
-            SortFieldType3?: any, SortOrder3?: any, SortColumn?: any, Separator?: any, CaseSensitive?: any, LanguageID?: any): void;
+            ExcludeHeader?: any,
+            FieldNumber?: any,
+            SortFieldType?: any,
+            SortOrder?: any,
+            FieldNumber2?: any,
+            SortFieldType2?: any,
+            SortOrder2?: any,
+            FieldNumber3?: any,
+            SortFieldType3?: any,
+            SortOrder3?: any,
+            SortColumn?: any,
+            Separator?: any,
+            CaseSensitive?: any,
+            LanguageID?: any,
+        ): void;
         SplitTable(): void;
         Start: number;
         StartIsActive: boolean;
@@ -10637,7 +11753,7 @@ declare namespace Word {
     }
 
     class Sentences {
-        private 'Word.Sentences_typekey': Sentences;
+        private "Word.Sentences_typekey": Sentences;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -10649,7 +11765,7 @@ declare namespace Word {
     }
 
     class SeriesLines {
-        private 'Word.SeriesLines_typekey': SeriesLines;
+        private "Word.SeriesLines_typekey": SeriesLines;
         private constructor();
         readonly Application: any;
         readonly Border: ChartBorder;
@@ -10662,7 +11778,7 @@ declare namespace Word {
     }
 
     class Shading {
-        private 'Word.Shading_typekey': Shading;
+        private "Word.Shading_typekey": Shading;
         private constructor();
         readonly Application: Application;
         BackgroundPatternColor: WdColor;
@@ -10675,7 +11791,7 @@ declare namespace Word {
     }
 
     class ShadowFormat {
-        private 'Word.ShadowFormat_typekey': ShadowFormat;
+        private "Word.ShadowFormat_typekey": ShadowFormat;
         private constructor();
         readonly Application: Application;
         Blur: number;
@@ -10696,7 +11812,7 @@ declare namespace Word {
     }
 
     class Shape {
-        private 'Word.Shape_typekey': Shape;
+        private "Word.Shape_typekey": Shape;
         private constructor();
         Activate(): void;
         readonly Adjustments: Adjustments;
@@ -10797,7 +11913,7 @@ declare namespace Word {
     }
 
     class ShapeNode {
-        private 'Word.ShapeNode_typekey': ShapeNode;
+        private "Word.ShapeNode_typekey": ShapeNode;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -10808,7 +11924,7 @@ declare namespace Word {
     }
 
     class ShapeNodes {
-        private 'Word.ShapeNodes_typekey': ShapeNodes;
+        private "Word.ShapeNodes_typekey": ShapeNodes;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -10821,7 +11937,17 @@ declare namespace Word {
          * @param number [X3=0]
          * @param number [Y3=0]
          */
-        Insert(Index: number, SegmentType: Office.MsoSegmentType, EditingType: Office.MsoEditingType, X1: number, Y1: number, X2?: number, Y2?: number, X3?: number, Y3?: number): void;
+        Insert(
+            Index: number,
+            SegmentType: Office.MsoSegmentType,
+            EditingType: Office.MsoEditingType,
+            X1: number,
+            Y1: number,
+            X2?: number,
+            Y2?: number,
+            X3?: number,
+            Y3?: number,
+        ): void;
         Item(Index: any): ShapeNode;
         readonly Parent: any;
         SetEditingType(Index: number, EditingType: Office.MsoEditingType): void;
@@ -10830,7 +11956,7 @@ declare namespace Word {
     }
 
     class ShapeRange {
-        private 'Word.ShapeRange_typekey': ShapeRange;
+        private "Word.ShapeRange_typekey": ShapeRange;
         private constructor();
         Activate(): void;
         readonly Adjustments: Adjustments;
@@ -10928,30 +12054,93 @@ declare namespace Word {
     }
 
     class Shapes {
-        private 'Word.Shapes_typekey': Shapes;
+        private "Word.Shapes_typekey": Shapes;
         private constructor();
-        AddCallout(Type: Office.MsoCalloutType, Left: number, Top: number, Width: number, Height: number, Anchor?: any): Shape;
+        AddCallout(
+            Type: Office.MsoCalloutType,
+            Left: number,
+            Top: number,
+            Width: number,
+            Height: number,
+            Anchor?: any,
+        ): Shape;
         AddCanvas(Left: number, Top: number, Width: number, Height: number, Anchor?: any): Shape;
 
         /** @param Office.XlChartType [Type=-1] */
         AddChart(Type?: Office.XlChartType, Left?: any, Top?: any, Width?: any, Height?: any, Anchor?: any): Shape;
         AddConnector(Type: Office.MsoConnectorType, BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
         AddCurve(SafeArrayOfPoints: any, Anchor?: any): Shape;
-        AddDiagram(Type: Office.MsoDiagramType, Left: number, Top: number, Width: number, Height: number, Anchor?: any): Shape;
-        AddLabel(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number, Anchor?: any): Shape;
+        AddDiagram(
+            Type: Office.MsoDiagramType,
+            Left: number,
+            Top: number,
+            Width: number,
+            Height: number,
+            Anchor?: any,
+        ): Shape;
+        AddLabel(
+            Orientation: Office.MsoTextOrientation,
+            Left: number,
+            Top: number,
+            Width: number,
+            Height: number,
+            Anchor?: any,
+        ): Shape;
         AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number, Anchor?: any): Shape;
         AddOLEControl(ClassType?: any, Left?: any, Top?: any, Width?: any, Height?: any, Anchor?: any): Shape;
         AddOLEObject(
-            ClassType?: any, FileName?: any, LinkToFile?: any, DisplayAsIcon?: any, IconFileName?: any, IconIndex?: any, IconLabel?: any, Left?: any, Top?: any,
-            Width?: any, Height?: any, Anchor?: any): Shape;
-        AddPicture(FileName: string, LinkToFile?: any, SaveWithDocument?: any, Left?: any, Top?: any, Width?: any, Height?: any, Anchor?: any): Shape;
+            ClassType?: any,
+            FileName?: any,
+            LinkToFile?: any,
+            DisplayAsIcon?: any,
+            IconFileName?: any,
+            IconIndex?: any,
+            IconLabel?: any,
+            Left?: any,
+            Top?: any,
+            Width?: any,
+            Height?: any,
+            Anchor?: any,
+        ): Shape;
+        AddPicture(
+            FileName: string,
+            LinkToFile?: any,
+            SaveWithDocument?: any,
+            Left?: any,
+            Top?: any,
+            Width?: any,
+            Height?: any,
+            Anchor?: any,
+        ): Shape;
         AddPolyline(SafeArrayOfPoints: any, Anchor?: any): Shape;
         AddShape(Type: number, Left: number, Top: number, Width: number, Height: number, Anchor?: any): Shape;
-        AddSmartArt(Layout: Office.SmartArtLayout, Left?: any, Top?: any, Width?: any, Height?: any, Anchor?: any): Shape;
-        AddTextbox(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number, Anchor?: any): Shape;
+        AddSmartArt(
+            Layout: Office.SmartArtLayout,
+            Left?: any,
+            Top?: any,
+            Width?: any,
+            Height?: any,
+            Anchor?: any,
+        ): Shape;
+        AddTextbox(
+            Orientation: Office.MsoTextOrientation,
+            Left: number,
+            Top: number,
+            Width: number,
+            Height: number,
+            Anchor?: any,
+        ): Shape;
         AddTextEffect(
-            PresetTextEffect: Office.MsoPresetTextEffect, Text: string, FontName: string, FontSize: number, FontBold: Office.MsoTriState, FontItalic: Office.MsoTriState,
-            Left: number, Top: number, Anchor?: any): Shape;
+            PresetTextEffect: Office.MsoPresetTextEffect,
+            Text: string,
+            FontName: string,
+            FontSize: number,
+            FontBold: Office.MsoTriState,
+            FontItalic: Office.MsoTriState,
+            Left: number,
+            Top: number,
+            Anchor?: any,
+        ): Shape;
         readonly Application: Application;
         BuildFreeform(EditingType: Office.MsoEditingType, X1: number, Y1: number): FreeformBuilder;
         readonly Count: number;
@@ -10963,7 +12152,7 @@ declare namespace Word {
     }
 
     class SmartTag {
-        private 'Word.SmartTag_typekey': SmartTag;
+        private "Word.SmartTag_typekey": SmartTag;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -10980,7 +12169,7 @@ declare namespace Word {
     }
 
     class SmartTagAction {
-        private 'Word.SmartTagAction_typekey': SmartTagAction;
+        private "Word.SmartTagAction_typekey": SmartTagAction;
         private constructor();
         readonly ActiveXControl: any;
         readonly Application: Application;
@@ -10999,7 +12188,7 @@ declare namespace Word {
     }
 
     class SmartTagActions {
-        private 'Word.SmartTagActions_typekey': SmartTagActions;
+        private "Word.SmartTagActions_typekey": SmartTagActions;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -11010,7 +12199,7 @@ declare namespace Word {
     }
 
     class SmartTagRecognizer {
-        private 'Word.SmartTagRecognizer_typekey': SmartTagRecognizer;
+        private "Word.SmartTagRecognizer_typekey": SmartTagRecognizer;
         private constructor();
         readonly Application: Application;
         readonly Caption: string;
@@ -11022,7 +12211,7 @@ declare namespace Word {
     }
 
     class SmartTagRecognizers {
-        private 'Word.SmartTagRecognizers_typekey': SmartTagRecognizers;
+        private "Word.SmartTagRecognizers_typekey": SmartTagRecognizers;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -11033,7 +12222,7 @@ declare namespace Word {
     }
 
     class SmartTags {
-        private 'Word.SmartTags_typekey': SmartTags;
+        private "Word.SmartTags_typekey": SmartTags;
         private constructor();
         Add(Name: string, Range?: any, Properties?: any): SmartTag;
         readonly Application: Application;
@@ -11045,7 +12234,7 @@ declare namespace Word {
     }
 
     class SmartTagType {
-        private 'Word.SmartTagType_typekey': SmartTagType;
+        private "Word.SmartTagType_typekey": SmartTagType;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -11057,7 +12246,7 @@ declare namespace Word {
     }
 
     class SmartTagTypes {
-        private 'Word.SmartTagTypes_typekey': SmartTagTypes;
+        private "Word.SmartTagTypes_typekey": SmartTagTypes;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -11068,7 +12257,7 @@ declare namespace Word {
     }
 
     class SoftEdgeFormat {
-        private 'Word.SoftEdgeFormat_typekey': SoftEdgeFormat;
+        private "Word.SoftEdgeFormat_typekey": SoftEdgeFormat;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -11078,7 +12267,7 @@ declare namespace Word {
     }
 
     class Source {
-        private 'Word.Source_typekey': Source;
+        private "Word.Source_typekey": Source;
         private constructor();
         readonly Application: Application;
         readonly Cited: boolean;
@@ -11091,7 +12280,7 @@ declare namespace Word {
     }
 
     class Sources {
-        private 'Word.Sources_typekey': Sources;
+        private "Word.Sources_typekey": Sources;
         private constructor();
         Add(Data: string): void;
         readonly Application: Application;
@@ -11102,7 +12291,7 @@ declare namespace Word {
     }
 
     class SpellingSuggestion {
-        private 'Word.SpellingSuggestion_typekey': SpellingSuggestion;
+        private "Word.SpellingSuggestion_typekey": SpellingSuggestion;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -11111,7 +12300,7 @@ declare namespace Word {
     }
 
     class SpellingSuggestions {
-        private 'Word.SpellingSuggestions_typekey': SpellingSuggestions;
+        private "Word.SpellingSuggestions_typekey": SpellingSuggestions;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -11122,7 +12311,7 @@ declare namespace Word {
     }
 
     class StoryRanges {
-        private 'Word.StoryRanges_typekey': StoryRanges;
+        private "Word.StoryRanges_typekey": StoryRanges;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -11132,7 +12321,7 @@ declare namespace Word {
     }
 
     class Style {
-        private 'Word.Style_typekey': Style;
+        private "Word.Style_typekey": Style;
         private constructor();
         readonly Application: Application;
         AutomaticallyUpdate: boolean;
@@ -11170,7 +12359,7 @@ declare namespace Word {
     }
 
     class Styles {
-        private 'Word.Styles_typekey': Styles;
+        private "Word.Styles_typekey": Styles;
         private constructor();
         Add(Name: string, Type?: any): Style;
         readonly Application: Application;
@@ -11181,7 +12370,7 @@ declare namespace Word {
     }
 
     class StyleSheet {
-        private 'Word.StyleSheet_typekey': StyleSheet;
+        private "Word.StyleSheet_typekey": StyleSheet;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -11197,9 +12386,14 @@ declare namespace Word {
     }
 
     class StyleSheets {
-        private 'Word.StyleSheets_typekey': StyleSheets;
+        private "Word.StyleSheets_typekey": StyleSheets;
         private constructor();
-        Add(FileName: string, LinkType: WdStyleSheetLinkType, Title: string, Precedence: WdStyleSheetPrecedence): StyleSheet;
+        Add(
+            FileName: string,
+            LinkType: WdStyleSheetLinkType,
+            Title: string,
+            Precedence: WdStyleSheetPrecedence,
+        ): StyleSheet;
         readonly Application: Application;
         readonly Count: number;
         readonly Creator: number;
@@ -11208,7 +12402,7 @@ declare namespace Word {
     }
 
     class Subdocument {
-        private 'Word.Subdocument_typekey': Subdocument;
+        private "Word.Subdocument_typekey": Subdocument;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -11225,10 +12419,18 @@ declare namespace Word {
     }
 
     class Subdocuments {
-        private 'Word.Subdocuments_typekey': Subdocuments;
+        private "Word.Subdocuments_typekey": Subdocuments;
         private constructor();
         AddFromFile(
-            Name: any, ConfirmConversions?: any, ReadOnly?: any, PasswordDocument?: any, PasswordTemplate?: any, Revert?: any, WritePasswordDocument?: any, WritePasswordTemplate?: any): Subdocument;
+            Name: any,
+            ConfirmConversions?: any,
+            ReadOnly?: any,
+            PasswordDocument?: any,
+            PasswordTemplate?: any,
+            Revert?: any,
+            WritePasswordDocument?: any,
+            WritePasswordTemplate?: any,
+        ): Subdocument;
         AddFromRange(Range: Range): Subdocument;
         readonly Application: Application;
         readonly Count: number;
@@ -11242,7 +12444,7 @@ declare namespace Word {
     }
 
     class SynonymInfo {
-        private 'Word.SynonymInfo_typekey': SynonymInfo;
+        private "Word.SynonymInfo_typekey": SynonymInfo;
         private constructor();
         readonly AntonymList: any;
         readonly Application: Application;
@@ -11259,7 +12461,7 @@ declare namespace Word {
     }
 
     class System {
-        private 'Word.System_typekey': System;
+        private "Word.System_typekey": System;
         private constructor();
         readonly Application: Application;
         readonly ComputerType: string;
@@ -11285,7 +12487,7 @@ declare namespace Word {
     }
 
     class Table {
-        private 'Word.Table_typekey': Table;
+        private "Word.Table_typekey": Table;
         private constructor();
         AllowAutoFit: boolean;
         AllowPageBreaks: boolean;
@@ -11299,8 +12501,17 @@ declare namespace Word {
         ApplyStyleRowBands: boolean;
         AutoFitBehavior(Behavior: WdAutoFitBehavior): void;
         AutoFormat(
-            Format?: any, ApplyBorders?: any, ApplyShading?: any, ApplyFont?: any, ApplyColor?: any, ApplyHeadingRows?: any, ApplyLastRow?: any, ApplyFirstColumn?: any,
-            ApplyLastColumn?: any, AutoFit?: any): void;
+            Format?: any,
+            ApplyBorders?: any,
+            ApplyShading?: any,
+            ApplyFont?: any,
+            ApplyColor?: any,
+            ApplyHeadingRows?: any,
+            ApplyLastRow?: any,
+            ApplyFirstColumn?: any,
+            ApplyLastColumn?: any,
+            AutoFit?: any,
+        ): void;
         readonly AutoFormatType: number;
         Borders: Borders;
         BottomPadding: number;
@@ -11323,13 +12534,40 @@ declare namespace Word {
         Select(): void;
         readonly Shading: Shading;
         Sort(
-            ExcludeHeader?: any, FieldNumber?: any, SortFieldType?: any, SortOrder?: any, FieldNumber2?: any, SortFieldType2?: any, SortOrder2?: any, FieldNumber3?: any,
-            SortFieldType3?: any, SortOrder3?: any, CaseSensitive?: any, BidiSort?: any, IgnoreThe?: any, IgnoreKashida?: any, IgnoreDiacritics?: any, IgnoreHe?: any, LanguageID?: any): void;
+            ExcludeHeader?: any,
+            FieldNumber?: any,
+            SortFieldType?: any,
+            SortOrder?: any,
+            FieldNumber2?: any,
+            SortFieldType2?: any,
+            SortOrder2?: any,
+            FieldNumber3?: any,
+            SortFieldType3?: any,
+            SortOrder3?: any,
+            CaseSensitive?: any,
+            BidiSort?: any,
+            IgnoreThe?: any,
+            IgnoreKashida?: any,
+            IgnoreDiacritics?: any,
+            IgnoreHe?: any,
+            LanguageID?: any,
+        ): void;
         SortAscending(): void;
         SortDescending(): void;
         SortOld(
-            ExcludeHeader?: any, FieldNumber?: any, SortFieldType?: any, SortOrder?: any, FieldNumber2?: any, SortFieldType2?: any, SortOrder2?: any, FieldNumber3?: any,
-            SortFieldType3?: any, SortOrder3?: any, CaseSensitive?: any, LanguageID?: any): void;
+            ExcludeHeader?: any,
+            FieldNumber?: any,
+            SortFieldType?: any,
+            SortOrder?: any,
+            FieldNumber2?: any,
+            SortFieldType2?: any,
+            SortOrder2?: any,
+            FieldNumber3?: any,
+            SortFieldType3?: any,
+            SortOrder3?: any,
+            CaseSensitive?: any,
+            LanguageID?: any,
+        ): void;
         Spacing: number;
         Split(BeforeRow: any): Table;
         Style: any;
@@ -11342,7 +12580,7 @@ declare namespace Word {
     }
 
     class TableOfAuthorities {
-        private 'Word.TableOfAuthorities_typekey': TableOfAuthorities;
+        private "Word.TableOfAuthorities_typekey": TableOfAuthorities;
         private constructor();
         readonly Application: Application;
         Bookmark: string;
@@ -11364,7 +12602,7 @@ declare namespace Word {
     }
 
     class TableOfAuthoritiesCategory {
-        private 'Word.TableOfAuthoritiesCategory_typekey': TableOfAuthoritiesCategory;
+        private "Word.TableOfAuthoritiesCategory_typekey": TableOfAuthoritiesCategory;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -11374,7 +12612,7 @@ declare namespace Word {
     }
 
     class TableOfContents {
-        private 'Word.TableOfContents_typekey': TableOfContents;
+        private "Word.TableOfContents_typekey": TableOfContents;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -11397,7 +12635,7 @@ declare namespace Word {
     }
 
     class TableOfFigures {
-        private 'Word.TableOfFigures_typekey': TableOfFigures;
+        private "Word.TableOfFigures_typekey": TableOfFigures;
         private constructor();
         readonly Application: Application;
         Caption: string;
@@ -11422,9 +12660,15 @@ declare namespace Word {
     }
 
     class Tables {
-        private 'Word.Tables_typekey': Tables;
+        private "Word.Tables_typekey": Tables;
         private constructor();
-        Add(Range: Range, NumRows: number, NumColumns: number, DefaultTableBehavior?: any, AutoFitBehavior?: any): Table;
+        Add(
+            Range: Range,
+            NumRows: number,
+            NumColumns: number,
+            DefaultTableBehavior?: any,
+            AutoFitBehavior?: any,
+        ): Table;
         AddOld(Range: Range, NumRows: number, NumColumns: number): Table;
         readonly Application: Application;
         readonly Count: number;
@@ -11435,24 +12679,40 @@ declare namespace Word {
     }
 
     class TablesOfAuthorities {
-        private 'Word.TablesOfAuthorities_typekey': TablesOfAuthorities;
+        private "Word.TablesOfAuthorities_typekey": TablesOfAuthorities;
         private constructor();
         Add(
-            Range: Range, Category?: any, Bookmark?: any, Passim?: any, KeepEntryFormatting?: any, Separator?: any, IncludeSequenceName?: any, EntrySeparator?: any,
-            PageRangeSeparator?: any, IncludeCategoryHeader?: any, PageNumberSeparator?: any): TableOfAuthorities;
+            Range: Range,
+            Category?: any,
+            Bookmark?: any,
+            Passim?: any,
+            KeepEntryFormatting?: any,
+            Separator?: any,
+            IncludeSequenceName?: any,
+            EntrySeparator?: any,
+            PageRangeSeparator?: any,
+            IncludeCategoryHeader?: any,
+            PageNumberSeparator?: any,
+        ): TableOfAuthorities;
         readonly Application: Application;
         readonly Count: number;
         readonly Creator: number;
         Format: WdToaFormat;
         Item(Index: number): TableOfAuthorities;
         MarkAllCitations(ShortCitation: string, LongCitation?: any, LongCitationAutoText?: any, Category?: any): void;
-        MarkCitation(Range: Range, ShortCitation: string, LongCitation?: any, LongCitationAutoText?: any, Category?: any): Field;
+        MarkCitation(
+            Range: Range,
+            ShortCitation: string,
+            LongCitation?: any,
+            LongCitationAutoText?: any,
+            Category?: any,
+        ): Field;
         NextCitation(ShortCitation: string): void;
         readonly Parent: any;
     }
 
     class TablesOfAuthoritiesCategories {
-        private 'Word.TablesOfAuthoritiesCategories_typekey': TablesOfAuthoritiesCategories;
+        private "Word.TablesOfAuthoritiesCategories_typekey": TablesOfAuthoritiesCategories;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -11462,17 +12722,46 @@ declare namespace Word {
     }
 
     class TablesOfContents {
-        private 'Word.TablesOfContents_typekey': TablesOfContents;
+        private "Word.TablesOfContents_typekey": TablesOfContents;
         private constructor();
         Add(
-            Range: Range, UseHeadingStyles?: any, UpperHeadingLevel?: any, LowerHeadingLevel?: any, UseFields?: any, TableID?: any, RightAlignPageNumbers?: any,
-            IncludePageNumbers?: any, AddedStyles?: any, UseHyperlinks?: any, HidePageNumbersInWeb?: any, UseOutlineLevels?: any): TableOfContents;
+            Range: Range,
+            UseHeadingStyles?: any,
+            UpperHeadingLevel?: any,
+            LowerHeadingLevel?: any,
+            UseFields?: any,
+            TableID?: any,
+            RightAlignPageNumbers?: any,
+            IncludePageNumbers?: any,
+            AddedStyles?: any,
+            UseHyperlinks?: any,
+            HidePageNumbersInWeb?: any,
+            UseOutlineLevels?: any,
+        ): TableOfContents;
         Add2000(
-            Range: Range, UseHeadingStyles?: any, UpperHeadingLevel?: any, LowerHeadingLevel?: any, UseFields?: any, TableID?: any, RightAlignPageNumbers?: any,
-            IncludePageNumbers?: any, AddedStyles?: any, UseHyperlinks?: any, HidePageNumbersInWeb?: any): TableOfContents;
+            Range: Range,
+            UseHeadingStyles?: any,
+            UpperHeadingLevel?: any,
+            LowerHeadingLevel?: any,
+            UseFields?: any,
+            TableID?: any,
+            RightAlignPageNumbers?: any,
+            IncludePageNumbers?: any,
+            AddedStyles?: any,
+            UseHyperlinks?: any,
+            HidePageNumbersInWeb?: any,
+        ): TableOfContents;
         AddOld(
-            Range: Range, UseHeadingStyles?: any, UpperHeadingLevel?: any, LowerHeadingLevel?: any, UseFields?: any, TableID?: any, RightAlignPageNumbers?: any,
-            IncludePageNumbers?: any, AddedStyles?: any): TableOfContents;
+            Range: Range,
+            UseHeadingStyles?: any,
+            UpperHeadingLevel?: any,
+            LowerHeadingLevel?: any,
+            UseFields?: any,
+            TableID?: any,
+            RightAlignPageNumbers?: any,
+            IncludePageNumbers?: any,
+            AddedStyles?: any,
+        ): TableOfContents;
         readonly Application: Application;
         readonly Count: number;
         readonly Creator: number;
@@ -11483,14 +12772,36 @@ declare namespace Word {
     }
 
     class TablesOfFigures {
-        private 'Word.TablesOfFigures_typekey': TablesOfFigures;
+        private "Word.TablesOfFigures_typekey": TablesOfFigures;
         private constructor();
         Add(
-            Range: Range, Caption?: any, IncludeLabel?: any, UseHeadingStyles?: any, UpperHeadingLevel?: any, LowerHeadingLevel?: any, UseFields?: any, TableID?: any,
-            RightAlignPageNumbers?: any, IncludePageNumbers?: any, AddedStyles?: any, UseHyperlinks?: any, HidePageNumbersInWeb?: any): TableOfFigures;
+            Range: Range,
+            Caption?: any,
+            IncludeLabel?: any,
+            UseHeadingStyles?: any,
+            UpperHeadingLevel?: any,
+            LowerHeadingLevel?: any,
+            UseFields?: any,
+            TableID?: any,
+            RightAlignPageNumbers?: any,
+            IncludePageNumbers?: any,
+            AddedStyles?: any,
+            UseHyperlinks?: any,
+            HidePageNumbersInWeb?: any,
+        ): TableOfFigures;
         AddOld(
-            Range: Range, Caption?: any, IncludeLabel?: any, UseHeadingStyles?: any, UpperHeadingLevel?: any, LowerHeadingLevel?: any, UseFields?: any, TableID?: any,
-            RightAlignPageNumbers?: any, IncludePageNumbers?: any, AddedStyles?: any): TableOfFigures;
+            Range: Range,
+            Caption?: any,
+            IncludeLabel?: any,
+            UseHeadingStyles?: any,
+            UpperHeadingLevel?: any,
+            LowerHeadingLevel?: any,
+            UseFields?: any,
+            TableID?: any,
+            RightAlignPageNumbers?: any,
+            IncludePageNumbers?: any,
+            AddedStyles?: any,
+        ): TableOfFigures;
         readonly Application: Application;
         readonly Count: number;
         readonly Creator: number;
@@ -11501,7 +12812,7 @@ declare namespace Word {
     }
 
     class TableStyle {
-        private 'Word.TableStyle_typekey': TableStyle;
+        private "Word.TableStyle_typekey": TableStyle;
         private constructor();
         Alignment: WdRowAlignment;
         AllowBreakAcrossPage: number;
@@ -11524,7 +12835,7 @@ declare namespace Word {
     }
 
     class TabStop {
-        private 'Word.TabStop_typekey': TabStop;
+        private "Word.TabStop_typekey": TabStop;
         private constructor();
         Alignment: WdTabAlignment;
         readonly Application: Application;
@@ -11539,7 +12850,7 @@ declare namespace Word {
     }
 
     class TabStops {
-        private 'Word.TabStops_typekey': TabStops;
+        private "Word.TabStops_typekey": TabStops;
         private constructor();
         Add(Position: number, Alignment?: any, Leader?: any): TabStop;
         After(Position: number): TabStop;
@@ -11553,7 +12864,7 @@ declare namespace Word {
     }
 
     class Task {
-        private 'Word.Task_typekey': Task;
+        private "Word.Task_typekey": Task;
         private constructor();
         Activate(Wait?: any): void;
         readonly Application: Application;
@@ -11573,7 +12884,7 @@ declare namespace Word {
     }
 
     class TaskPane {
-        private 'Word.TaskPane_typekey': TaskPane;
+        private "Word.TaskPane_typekey": TaskPane;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -11582,7 +12893,7 @@ declare namespace Word {
     }
 
     class TaskPanes {
-        private 'Word.TaskPanes_typekey': TaskPanes;
+        private "Word.TaskPanes_typekey": TaskPanes;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -11592,7 +12903,7 @@ declare namespace Word {
     }
 
     class Tasks {
-        private 'Word.Tasks_typekey': Tasks;
+        private "Word.Tasks_typekey": Tasks;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -11604,7 +12915,7 @@ declare namespace Word {
     }
 
     class Template {
-        private 'Word.Template_typekey': Template;
+        private "Word.Template_typekey": Template;
         private constructor();
         readonly Application: Application;
         readonly AutoTextEntries: AutoTextEntries;
@@ -11635,7 +12946,7 @@ declare namespace Word {
     }
 
     class Templates {
-        private 'Word.Templates_typekey': Templates;
+        private "Word.Templates_typekey": Templates;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -11646,7 +12957,7 @@ declare namespace Word {
     }
 
     class TextColumn {
-        private 'Word.TextColumn_typekey': TextColumn;
+        private "Word.TextColumn_typekey": TextColumn;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -11656,7 +12967,7 @@ declare namespace Word {
     }
 
     class TextColumns {
-        private 'Word.TextColumns_typekey': TextColumns;
+        private "Word.TextColumns_typekey": TextColumns;
         private constructor();
         Add(Width?: any, Spacing?: any, EvenlySpaced?: any): TextColumn;
         readonly Application: Application;
@@ -11673,7 +12984,7 @@ declare namespace Word {
     }
 
     class TextEffectFormat {
-        private 'Word.TextEffectFormat_typekey': TextEffectFormat;
+        private "Word.TextEffectFormat_typekey": TextEffectFormat;
         private constructor();
         Alignment: Office.MsoTextEffectAlignment;
         readonly Application: Application;
@@ -11694,7 +13005,7 @@ declare namespace Word {
     }
 
     class TextFrame {
-        private 'Word.TextFrame_typekey': TextFrame;
+        private "Word.TextFrame_typekey": TextFrame;
         private constructor();
         readonly Application: Application;
         AutoSize: number;
@@ -11725,7 +13036,7 @@ declare namespace Word {
     }
 
     class TextInput {
-        private 'Word.TextInput_typekey': TextInput;
+        private "Word.TextInput_typekey": TextInput;
         private constructor();
         readonly Application: Application;
         Clear(): void;
@@ -11740,7 +13051,7 @@ declare namespace Word {
     }
 
     class TextRetrievalMode {
-        private 'Word.TextRetrievalMode_typekey': TextRetrievalMode;
+        private "Word.TextRetrievalMode_typekey": TextRetrievalMode;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -11752,7 +13063,7 @@ declare namespace Word {
     }
 
     class ThreeDFormat {
-        private 'Word.ThreeDFormat_typekey': ThreeDFormat;
+        private "Word.ThreeDFormat_typekey": ThreeDFormat;
         private constructor();
         readonly Application: Application;
         BevelBottomDepth: number;
@@ -11796,7 +13107,7 @@ declare namespace Word {
     }
 
     class TickLabels {
-        private 'Word.TickLabels_typekey': TickLabels;
+        private "Word.TickLabels_typekey": TickLabels;
         private constructor();
         Alignment: number;
         readonly Application: any;
@@ -11819,7 +13130,7 @@ declare namespace Word {
     }
 
     class TwoInitialCapsException {
-        private 'Word.TwoInitialCapsException_typekey': TwoInitialCapsException;
+        private "Word.TwoInitialCapsException_typekey": TwoInitialCapsException;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -11830,7 +13141,7 @@ declare namespace Word {
     }
 
     class TwoInitialCapsExceptions {
-        private 'Word.TwoInitialCapsExceptions_typekey': TwoInitialCapsExceptions;
+        private "Word.TwoInitialCapsExceptions_typekey": TwoInitialCapsExceptions;
         private constructor();
         Add(Name: string): TwoInitialCapsException;
         readonly Application: Application;
@@ -11841,7 +13152,7 @@ declare namespace Word {
     }
 
     class UndoRecord {
-        private 'Word.UndoRecord_typekey': UndoRecord;
+        private "Word.UndoRecord_typekey": UndoRecord;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -11856,7 +13167,7 @@ declare namespace Word {
     }
 
     class UpBars {
-        private 'Word.UpBars_typekey': UpBars;
+        private "Word.UpBars_typekey": UpBars;
         private constructor();
         readonly Application: any;
         readonly Border: ChartBorder;
@@ -11871,7 +13182,7 @@ declare namespace Word {
     }
 
     class Variable {
-        private 'Word.Variable_typekey': Variable;
+        private "Word.Variable_typekey": Variable;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -11883,7 +13194,7 @@ declare namespace Word {
     }
 
     class Variables {
-        private 'Word.Variables_typekey': Variables;
+        private "Word.Variables_typekey": Variables;
         private constructor();
         Add(Name: string, Value?: any): Variable;
         readonly Application: Application;
@@ -11894,7 +13205,7 @@ declare namespace Word {
     }
 
     class Version {
-        private 'Word.Version_typekey': Version;
+        private "Word.Version_typekey": Version;
         private constructor();
         readonly Application: Application;
         readonly Comment: string;
@@ -11909,7 +13220,7 @@ declare namespace Word {
     }
 
     class Versions {
-        private 'Word.Versions_typekey': Versions;
+        private "Word.Versions_typekey": Versions;
         private constructor();
         readonly Application: Application;
         AutoVersion: WdAutoVersions;
@@ -11921,7 +13232,7 @@ declare namespace Word {
     }
 
     class View {
-        private 'Word.View_typekey': View;
+        private "Word.View_typekey": View;
         private constructor();
         readonly Application: Application;
         BrowseToWindow: number;
@@ -11994,7 +13305,7 @@ declare namespace Word {
     }
 
     class Walls {
-        private 'Word.Walls_typekey': Walls;
+        private "Word.Walls_typekey": Walls;
         private constructor();
         readonly Application: any;
         readonly Border: ChartBorder;
@@ -12013,7 +13324,7 @@ declare namespace Word {
     }
 
     class WebOptions {
-        private 'Word.WebOptions_typekey': WebOptions;
+        private "Word.WebOptions_typekey": WebOptions;
         private constructor();
         AllowPNG: boolean;
         readonly Application: Application;
@@ -12034,7 +13345,7 @@ declare namespace Word {
     }
 
     class Window {
-        private 'Word.Window_typekey': Window;
+        private "Word.Window_typekey": Window;
         private constructor();
         Activate(): void;
         readonly Active: boolean;
@@ -12054,7 +13365,13 @@ declare namespace Word {
         DocumentMap: boolean;
         DocumentMapPercentWidth: number;
         EnvelopeVisible: boolean;
-        GetPoint(ScreenPixelsLeft: number, ScreenPixelsTop: number, ScreenPixelsWidth: number, ScreenPixelsHeight: number, obj: any): void;
+        GetPoint(
+            ScreenPixelsLeft: number,
+            ScreenPixelsTop: number,
+            ScreenPixelsWidth: number,
+            ScreenPixelsHeight: number,
+            obj: any,
+        ): void;
         Height: number;
         HorizontalPercentScrolled: number;
         IMEMode: WdIMEMode;
@@ -12068,16 +13385,61 @@ declare namespace Word {
         readonly Parent: any;
         readonly Previous: Window;
         PrintOut(
-            Background?: any, Append?: any, Range?: any, OutputFileName?: any, From?: any, To?: any, Item?: any, Copies?: any, Pages?: any, PageType?: any,
-            PrintToFile?: any, Collate?: any, ActivePrinterMacGX?: any, ManualDuplexPrint?: any, PrintZoomColumn?: any, PrintZoomRow?: any, PrintZoomPaperWidth?: any,
-            PrintZoomPaperHeight?: any): void;
+            Background?: any,
+            Append?: any,
+            Range?: any,
+            OutputFileName?: any,
+            From?: any,
+            To?: any,
+            Item?: any,
+            Copies?: any,
+            Pages?: any,
+            PageType?: any,
+            PrintToFile?: any,
+            Collate?: any,
+            ActivePrinterMacGX?: any,
+            ManualDuplexPrint?: any,
+            PrintZoomColumn?: any,
+            PrintZoomRow?: any,
+            PrintZoomPaperWidth?: any,
+            PrintZoomPaperHeight?: any,
+        ): void;
         PrintOut2000(
-            Background?: any, Append?: any, Range?: any, OutputFileName?: any, From?: any, To?: any, Item?: any, Copies?: any, Pages?: any, PageType?: any,
-            PrintToFile?: any, Collate?: any, ActivePrinterMacGX?: any, ManualDuplexPrint?: any, PrintZoomColumn?: any, PrintZoomRow?: any, PrintZoomPaperWidth?: any,
-            PrintZoomPaperHeight?: any): void;
+            Background?: any,
+            Append?: any,
+            Range?: any,
+            OutputFileName?: any,
+            From?: any,
+            To?: any,
+            Item?: any,
+            Copies?: any,
+            Pages?: any,
+            PageType?: any,
+            PrintToFile?: any,
+            Collate?: any,
+            ActivePrinterMacGX?: any,
+            ManualDuplexPrint?: any,
+            PrintZoomColumn?: any,
+            PrintZoomRow?: any,
+            PrintZoomPaperWidth?: any,
+            PrintZoomPaperHeight?: any,
+        ): void;
         PrintOutOld(
-            Background?: any, Append?: any, Range?: any, OutputFileName?: any, From?: any, To?: any, Item?: any, Copies?: any, Pages?: any, PageType?: any,
-            PrintToFile?: any, Collate?: any, ActivePrinterMacGX?: any, ManualDuplexPrint?: any): void;
+            Background?: any,
+            Append?: any,
+            Range?: any,
+            OutputFileName?: any,
+            From?: any,
+            To?: any,
+            Item?: any,
+            Copies?: any,
+            Pages?: any,
+            PageType?: any,
+            PrintToFile?: any,
+            Collate?: any,
+            ActivePrinterMacGX?: any,
+            ManualDuplexPrint?: any,
+        ): void;
         RangeFromPoint(x: number, y: number): any;
         ScrollIntoView(obj: any, Start?: any): void;
         readonly Selection: Selection;
@@ -12103,7 +13465,7 @@ declare namespace Word {
     }
 
     class Windows {
-        private 'Word.Windows_typekey': Windows;
+        private "Word.Windows_typekey": Windows;
         private constructor();
         Add(Window?: any): Window;
         readonly Application: Application;
@@ -12119,7 +13481,7 @@ declare namespace Word {
     }
 
     class Words {
-        private 'Word.Words_typekey': Words;
+        private "Word.Words_typekey": Words;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -12131,7 +13493,7 @@ declare namespace Word {
     }
 
     class WrapFormat {
-        private 'Word.WrapFormat_typekey': WrapFormat;
+        private "Word.WrapFormat_typekey": WrapFormat;
         private constructor();
         AllowOverlap: number;
         readonly Application: Application;
@@ -12146,7 +13508,7 @@ declare namespace Word {
     }
 
     class XMLChildNodeSuggestion {
-        private 'Word.XMLChildNodeSuggestion_typekey': XMLChildNodeSuggestion;
+        private "Word.XMLChildNodeSuggestion_typekey": XMLChildNodeSuggestion;
         private constructor();
         readonly Application: Application;
         readonly BaseName: string;
@@ -12158,7 +13520,7 @@ declare namespace Word {
     }
 
     class XMLChildNodeSuggestions {
-        private 'Word.XMLChildNodeSuggestions_typekey': XMLChildNodeSuggestions;
+        private "Word.XMLChildNodeSuggestions_typekey": XMLChildNodeSuggestions;
         private constructor();
         readonly Application: Application;
         readonly Count: number;
@@ -12168,7 +13530,7 @@ declare namespace Word {
     }
 
     class XMLMapping {
-        private 'Word.XMLMapping_typekey': XMLMapping;
+        private "Word.XMLMapping_typekey": XMLMapping;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -12189,7 +13551,7 @@ declare namespace Word {
     }
 
     class XMLNamespace {
-        private 'Word.XMLNamespace_typekey': XMLNamespace;
+        private "Word.XMLNamespace_typekey": XMLNamespace;
         private constructor();
 
         /** @param boolean [AllUsers=false] */
@@ -12210,7 +13572,7 @@ declare namespace Word {
     }
 
     class XMLNamespaces {
-        private 'Word.XMLNamespaces_typekey': XMLNamespaces;
+        private "Word.XMLNamespaces_typekey": XMLNamespaces;
         private constructor();
 
         /** @param boolean [InstallForAllUsers=false] */
@@ -12226,7 +13588,7 @@ declare namespace Word {
     }
 
     class XMLNode {
-        private 'Word.XMLNode_typekey': XMLNode;
+        private "Word.XMLNode_typekey": XMLNode;
         private constructor();
         readonly Application: Application;
         readonly Attributes: XMLNodes;
@@ -12281,7 +13643,7 @@ declare namespace Word {
     }
 
     class XMLNodes {
-        private 'Word.XMLNodes_typekey': XMLNodes;
+        private "Word.XMLNodes_typekey": XMLNodes;
         private constructor();
         Add(Name: string, Namespace: string, Range?: any): XMLNode;
         readonly Application: Application;
@@ -12292,7 +13654,7 @@ declare namespace Word {
     }
 
     class XMLSchemaReference {
-        private 'Word.XMLSchemaReference_typekey': XMLSchemaReference;
+        private "Word.XMLSchemaReference_typekey": XMLSchemaReference;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -12304,7 +13666,7 @@ declare namespace Word {
     }
 
     class XMLSchemaReferences {
-        private 'Word.XMLSchemaReferences_typekey': XMLSchemaReferences;
+        private "Word.XMLSchemaReferences_typekey": XMLSchemaReferences;
         private constructor();
 
         /** @param boolean [InstallForAllUsers=false] */
@@ -12323,7 +13685,7 @@ declare namespace Word {
     }
 
     class XSLTransform {
-        private 'Word.XSLTransform_typekey': XSLTransform;
+        private "Word.XSLTransform_typekey": XSLTransform;
         private constructor();
 
         /** @param boolean [AllUsers=false] */
@@ -12339,7 +13701,7 @@ declare namespace Word {
     }
 
     class XSLTransforms {
-        private 'Word.XSLTransforms_typekey': XSLTransforms;
+        private "Word.XSLTransforms_typekey": XSLTransforms;
         private constructor();
 
         /** @param boolean [InstallForAllUsers=false] */
@@ -12352,7 +13714,7 @@ declare namespace Word {
     }
 
     class Zoom {
-        private 'Word.Zoom_typekey': Zoom;
+        private "Word.Zoom_typekey": Zoom;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -12364,7 +13726,7 @@ declare namespace Word {
     }
 
     class Zooms {
-        private 'Word.Zooms_typekey': Zooms;
+        private "Word.Zooms_typekey": Zooms;
         private constructor();
         readonly Application: Application;
         readonly Creator: number;
@@ -12373,10 +13735,30 @@ declare namespace Word {
     }
 
     namespace EventHelperTypes {
-        type Application_EPostageInsertEx_ArgNames = ['Doc', 'cpDeliveryAddrStart', 'cpDeliveryAddrEnd', 'cpReturnAddrStart', 'cpReturnAddrEnd', 'xaWidth', 'yaHeight', 'bstrPrinterName',
-         'bstrPaperFeed', 'fPrint', 'fCancel'];
+        type Application_EPostageInsertEx_ArgNames = [
+            "Doc",
+            "cpDeliveryAddrStart",
+            "cpDeliveryAddrEnd",
+            "cpReturnAddrStart",
+            "cpReturnAddrEnd",
+            "xaWidth",
+            "yaHeight",
+            "bstrPrinterName",
+            "bstrPaperFeed",
+            "fPrint",
+            "fCancel",
+        ];
 
-        type Application_Invoke_ArgNames = ['dispidMember', 'riid', 'lcid', 'wFlags', 'pdispparams', 'pvarResult', 'pexcepinfo', 'puArgErr'];
+        type Application_Invoke_ArgNames = [
+            "dispidMember",
+            "riid",
+            "lcid",
+            "wFlags",
+            "pdispparams",
+            "pvarResult",
+            "pexcepinfo",
+            "puArgErr",
+        ];
 
         interface Application_EPostageInsertEx_Parameter {
             readonly bstrPaperFeed: string;
@@ -12407,101 +13789,341 @@ declare namespace Word {
 
 interface ActiveXObject {
     on(
-        obj: Word.Application, event: 'DocumentBeforeClose' | 'DocumentBeforePrint' | 'MailMergeBeforeRecordMerge', argNames: ['Doc', 'Cancel'],
-        handler: (this: Word.Application, parameter: {readonly Doc: Word.Document, Cancel: boolean}) => void): void;
+        obj: Word.Application,
+        event: "DocumentBeforeClose" | "DocumentBeforePrint" | "MailMergeBeforeRecordMerge",
+        argNames: ["Doc", "Cancel"],
+        handler: (this: Word.Application, parameter: { readonly Doc: Word.Document; Cancel: boolean }) => void,
+    ): void;
     on(
-        obj: Word.Application, event: 'DocumentBeforeSave', argNames: ['Doc', 'SaveAsUI', 'Cancel'], handler: (
-            this: Word.Application, parameter: {readonly Doc: Word.Document, readonly SaveAsUI: boolean, Cancel: boolean}) => void): void;
+        obj: Word.Application,
+        event: "DocumentBeforeSave",
+        argNames: ["Doc", "SaveAsUI", "Cancel"],
+        handler: (
+            this: Word.Application,
+            parameter: { readonly Doc: Word.Document; readonly SaveAsUI: boolean; Cancel: boolean },
+        ) => void,
+    ): void;
     on(
-        obj: Word.Application, event: 'DocumentOpen' | 'EPostageInsert' | 'EPostagePropertyDialog' | 'MailMergeAfterRecordMerge' | 'MailMergeDataSourceLoad' |
-        'MailMergeWizardSendToCustom' | 'NewDocument',
-        argNames: ['Doc'], handler: (this: Word.Application, parameter: {readonly Doc: Word.Document}) => void): void;
+        obj: Word.Application,
+        event:
+            | "DocumentOpen"
+            | "EPostageInsert"
+            | "EPostagePropertyDialog"
+            | "MailMergeAfterRecordMerge"
+            | "MailMergeDataSourceLoad"
+            | "MailMergeWizardSendToCustom"
+            | "NewDocument",
+        argNames: ["Doc"],
+        handler: (this: Word.Application, parameter: { readonly Doc: Word.Document }) => void,
+    ): void;
     on(
-        obj: Word.Application, event: 'DocumentSync', argNames: ['Doc', 'SyncEventType'], handler: (
-            this: Word.Application, parameter: {readonly Doc: Word.Document, readonly SyncEventType: Office.MsoSyncEventType}) => void): void;
+        obj: Word.Application,
+        event: "DocumentSync",
+        argNames: ["Doc", "SyncEventType"],
+        handler: (
+            this: Word.Application,
+            parameter: { readonly Doc: Word.Document; readonly SyncEventType: Office.MsoSyncEventType },
+        ) => void,
+    ): void;
     on(
-        obj: Word.Application, event: 'EPostageInsertEx', argNames: Word.EventHelperTypes.Application_EPostageInsertEx_ArgNames, handler: (
-            this: Word.Application, parameter: Word.EventHelperTypes.Application_EPostageInsertEx_Parameter) => void): void;
+        obj: Word.Application,
+        event: "EPostageInsertEx",
+        argNames: Word.EventHelperTypes.Application_EPostageInsertEx_ArgNames,
+        handler: (
+            this: Word.Application,
+            parameter: Word.EventHelperTypes.Application_EPostageInsertEx_Parameter,
+        ) => void,
+    ): void;
     on(
-        obj: Word.Application, event: 'GetIDsOfNames', argNames: ['riid', 'rgszNames', 'cNames', 'lcid', 'rgdispid'], handler: (
-            this: Word.Application, parameter: {readonly riid: stdole.GUID, readonly rgszNames: number, readonly cNames: number, readonly lcid: number, rgdispid: number}) => void): void;
+        obj: Word.Application,
+        event: "GetIDsOfNames",
+        argNames: ["riid", "rgszNames", "cNames", "lcid", "rgdispid"],
+        handler: (
+            this: Word.Application,
+            parameter: {
+                readonly riid: stdole.GUID;
+                readonly rgszNames: number;
+                readonly cNames: number;
+                readonly lcid: number;
+                rgdispid: number;
+            },
+        ) => void,
+    ): void;
     on(
-        obj: Word.Application, event: 'GetTypeInfo', argNames: ['itinfo', 'lcid', 'pptinfo'], handler: (
-            this: Word.Application, parameter: {readonly itinfo: number, readonly lcid: number, pptinfo: undefined}) => void): void;
-    on(obj: Word.Application, event: 'GetTypeInfoCount', argNames: ['pctinfo'], handler: (this: Word.Application, parameter: {pctinfo: number}) => void): void;
+        obj: Word.Application,
+        event: "GetTypeInfo",
+        argNames: ["itinfo", "lcid", "pptinfo"],
+        handler: (
+            this: Word.Application,
+            parameter: { readonly itinfo: number; readonly lcid: number; pptinfo: undefined },
+        ) => void,
+    ): void;
     on(
-        obj: Word.Application, event: 'Invoke', argNames: Word.EventHelperTypes.Application_Invoke_ArgNames, handler: (
-            this: Word.Application, parameter: Word.EventHelperTypes.Application_Invoke_Parameter) => void): void;
+        obj: Word.Application,
+        event: "GetTypeInfoCount",
+        argNames: ["pctinfo"],
+        handler: (this: Word.Application, parameter: { pctinfo: number }) => void,
+    ): void;
     on(
-        obj: Word.Application, event: 'MailMergeAfterMerge', argNames: ['Doc', 'DocResult'], handler: (
-            this: Word.Application, parameter: {readonly Doc: Word.Document, readonly DocResult: Word.Document}) => void): void;
+        obj: Word.Application,
+        event: "Invoke",
+        argNames: Word.EventHelperTypes.Application_Invoke_ArgNames,
+        handler: (
+            this: Word.Application,
+            parameter: Word.EventHelperTypes.Application_Invoke_Parameter,
+        ) => void,
+    ): void;
     on(
-        obj: Word.Application, event: 'MailMergeBeforeMerge', argNames: ['Doc', 'StartRecord', 'EndRecord', 'Cancel'], handler: (
-            this: Word.Application, parameter: {readonly Doc: Word.Document, readonly StartRecord: number, readonly EndRecord: number, Cancel: boolean}) => void): void;
+        obj: Word.Application,
+        event: "MailMergeAfterMerge",
+        argNames: ["Doc", "DocResult"],
+        handler: (
+            this: Word.Application,
+            parameter: { readonly Doc: Word.Document; readonly DocResult: Word.Document },
+        ) => void,
+    ): void;
     on(
-        obj: Word.Application, event: 'MailMergeDataSourceValidate', argNames: ['Doc', 'Handled'], handler: (
-            this: Word.Application, parameter: {readonly Doc: Word.Document, readonly Handled: boolean}) => void): void;
+        obj: Word.Application,
+        event: "MailMergeBeforeMerge",
+        argNames: ["Doc", "StartRecord", "EndRecord", "Cancel"],
+        handler: (
+            this: Word.Application,
+            parameter: {
+                readonly Doc: Word.Document;
+                readonly StartRecord: number;
+                readonly EndRecord: number;
+                Cancel: boolean;
+            },
+        ) => void,
+    ): void;
     on(
-        obj: Word.Application, event: 'MailMergeDataSourceValidate2', argNames: ['Doc', 'Handled'], handler: (
-            this: Word.Application, parameter: {readonly Doc: Word.Document, Handled: boolean}) => void): void;
+        obj: Word.Application,
+        event: "MailMergeDataSourceValidate",
+        argNames: ["Doc", "Handled"],
+        handler: (
+            this: Word.Application,
+            parameter: { readonly Doc: Word.Document; readonly Handled: boolean },
+        ) => void,
+    ): void;
     on(
-        obj: Word.Application, event: 'MailMergeWizardStateChange', argNames: ['Doc', 'FromState', 'ToState', 'Handled'], handler: (
-            this: Word.Application, parameter: {readonly Doc: Word.Document, readonly FromState: number, readonly ToState: number, readonly Handled: boolean}) => void): void;
+        obj: Word.Application,
+        event: "MailMergeDataSourceValidate2",
+        argNames: ["Doc", "Handled"],
+        handler: (
+            this: Word.Application,
+            parameter: { readonly Doc: Word.Document; Handled: boolean },
+        ) => void,
+    ): void;
     on(
-        obj: Word.Application, event: 'ProtectedViewWindowActivate' | 'ProtectedViewWindowDeactivate' | 'ProtectedViewWindowOpen' | 'ProtectedViewWindowSize',
-        argNames: ['PvWindow'], handler: (this: Word.Application, parameter: {readonly PvWindow: Word.ProtectedViewWindow}) => void): void;
+        obj: Word.Application,
+        event: "MailMergeWizardStateChange",
+        argNames: ["Doc", "FromState", "ToState", "Handled"],
+        handler: (
+            this: Word.Application,
+            parameter: {
+                readonly Doc: Word.Document;
+                readonly FromState: number;
+                readonly ToState: number;
+                readonly Handled: boolean;
+            },
+        ) => void,
+    ): void;
     on(
-        obj: Word.Application, event: 'ProtectedViewWindowBeforeClose', argNames: ['PvWindow', 'CloseReason', 'Cancel'], handler: (
-            this: Word.Application, parameter: {readonly PvWindow: Word.ProtectedViewWindow, readonly CloseReason: number, Cancel: boolean}) => void): void;
+        obj: Word.Application,
+        event:
+            | "ProtectedViewWindowActivate"
+            | "ProtectedViewWindowDeactivate"
+            | "ProtectedViewWindowOpen"
+            | "ProtectedViewWindowSize",
+        argNames: ["PvWindow"],
+        handler: (this: Word.Application, parameter: { readonly PvWindow: Word.ProtectedViewWindow }) => void,
+    ): void;
     on(
-        obj: Word.Application, event: 'ProtectedViewWindowBeforeEdit', argNames: ['PvWindow', 'Cancel'], handler: (
-            this: Word.Application, parameter: {readonly PvWindow: Word.ProtectedViewWindow, Cancel: boolean}) => void): void;
-    on(obj: Word.Application, event: 'QueryInterface', argNames: ['riid', 'ppvObj'], handler: (this: Word.Application, parameter: {readonly riid: stdole.GUID, ppvObj: undefined}) => void): void;
+        obj: Word.Application,
+        event: "ProtectedViewWindowBeforeClose",
+        argNames: ["PvWindow", "CloseReason", "Cancel"],
+        handler: (
+            this: Word.Application,
+            parameter: { readonly PvWindow: Word.ProtectedViewWindow; readonly CloseReason: number; Cancel: boolean },
+        ) => void,
+    ): void;
     on(
-        obj: Word.Application, event: 'WindowActivate' | 'WindowDeactivate' | 'WindowSize', argNames: ['Doc', 'Wn'], handler: (
-            this: Word.Application, parameter: {readonly Doc: Word.Document, readonly Wn: Word.Window}) => void): void;
+        obj: Word.Application,
+        event: "ProtectedViewWindowBeforeEdit",
+        argNames: ["PvWindow", "Cancel"],
+        handler: (
+            this: Word.Application,
+            parameter: { readonly PvWindow: Word.ProtectedViewWindow; Cancel: boolean },
+        ) => void,
+    ): void;
     on(
-        obj: Word.Application, event: 'WindowBeforeDoubleClick' | 'WindowBeforeRightClick', argNames: ['Sel', 'Cancel'], handler: (
-            this: Word.Application, parameter: {readonly Sel: Word.Selection, Cancel: boolean}) => void): void;
-    on(obj: Word.Application, event: 'WindowSelectionChange', argNames: ['Sel'], handler: (this: Word.Application, parameter: {readonly Sel: Word.Selection}) => void): void;
+        obj: Word.Application,
+        event: "QueryInterface",
+        argNames: ["riid", "ppvObj"],
+        handler: (this: Word.Application, parameter: { readonly riid: stdole.GUID; ppvObj: undefined }) => void,
+    ): void;
     on(
-        obj: Word.Application, event: 'XMLSelectionChange', argNames: ['Sel', 'OldXMLNode', 'NewXMLNode', 'Reason'], handler: (
-            this: Word.Application, parameter: {readonly Sel: Word.Selection, readonly OldXMLNode: Word.XMLNode, readonly NewXMLNode: Word.XMLNode, readonly Reason: number}) => void): void;
-    on(obj: Word.Application, event: 'XMLValidationError', argNames: ['XMLNode'], handler: (this: Word.Application, parameter: {readonly XMLNode: Word.XMLNode}) => void): void;
+        obj: Word.Application,
+        event: "WindowActivate" | "WindowDeactivate" | "WindowSize",
+        argNames: ["Doc", "Wn"],
+        handler: (
+            this: Word.Application,
+            parameter: { readonly Doc: Word.Document; readonly Wn: Word.Window },
+        ) => void,
+    ): void;
     on(
-        obj: Word.Document, event: 'BuildingBlockInsert', argNames: ['Range', 'Name', 'Category', 'BlockType', 'Template'], handler: (
-            this: Word.Document, parameter: {readonly Range: Word.Range, readonly Name: string, readonly Category: string, readonly BlockType: string, readonly Template: string}) => void): void;
+        obj: Word.Application,
+        event: "WindowBeforeDoubleClick" | "WindowBeforeRightClick",
+        argNames: ["Sel", "Cancel"],
+        handler: (
+            this: Word.Application,
+            parameter: { readonly Sel: Word.Selection; Cancel: boolean },
+        ) => void,
+    ): void;
     on(
-        obj: Word.Document, event: 'ContentControlAfterAdd', argNames: ['NewContentControl', 'InUndoRedo'], handler: (
-            this: Word.Document, parameter: {readonly NewContentControl: Word.ContentControl, readonly InUndoRedo: boolean}) => void): void;
+        obj: Word.Application,
+        event: "WindowSelectionChange",
+        argNames: ["Sel"],
+        handler: (this: Word.Application, parameter: { readonly Sel: Word.Selection }) => void,
+    ): void;
     on(
-        obj: Word.Document, event: 'ContentControlBeforeContentUpdate' | 'ContentControlBeforeStoreUpdate', argNames: ['ContentControl', 'Content'],
-        handler: (this: Word.Document, parameter: {readonly ContentControl: Word.ContentControl, Content: string}) => void): void;
+        obj: Word.Application,
+        event: "XMLSelectionChange",
+        argNames: ["Sel", "OldXMLNode", "NewXMLNode", "Reason"],
+        handler: (
+            this: Word.Application,
+            parameter: {
+                readonly Sel: Word.Selection;
+                readonly OldXMLNode: Word.XMLNode;
+                readonly NewXMLNode: Word.XMLNode;
+                readonly Reason: number;
+            },
+        ) => void,
+    ): void;
     on(
-        obj: Word.Document, event: 'ContentControlBeforeDelete', argNames: ['OldContentControl', 'InUndoRedo'], handler: (
-            this: Word.Document, parameter: {readonly OldContentControl: Word.ContentControl, readonly InUndoRedo: boolean}) => void): void;
-    on(obj: Word.Document, event: 'ContentControlOnEnter', argNames: ['ContentControl'], handler: (this: Word.Document, parameter: {readonly ContentControl: Word.ContentControl}) => void): void;
+        obj: Word.Application,
+        event: "XMLValidationError",
+        argNames: ["XMLNode"],
+        handler: (this: Word.Application, parameter: { readonly XMLNode: Word.XMLNode }) => void,
+    ): void;
     on(
-        obj: Word.Document, event: 'ContentControlOnExit', argNames: ['ContentControl', 'Cancel'], handler: (
-            this: Word.Document, parameter: {readonly ContentControl: Word.ContentControl, Cancel: boolean}) => void): void;
-    on(obj: Word.Document, event: 'Sync', argNames: ['SyncEventType'], handler: (this: Word.Document, parameter: {readonly SyncEventType: Office.MsoSyncEventType}) => void): void;
+        obj: Word.Document,
+        event: "BuildingBlockInsert",
+        argNames: ["Range", "Name", "Category", "BlockType", "Template"],
+        handler: (
+            this: Word.Document,
+            parameter: {
+                readonly Range: Word.Range;
+                readonly Name: string;
+                readonly Category: string;
+                readonly BlockType: string;
+                readonly Template: string;
+            },
+        ) => void,
+    ): void;
     on(
-        obj: Word.Document, event: 'XMLAfterInsert', argNames: ['NewXMLNode', 'InUndoRedo'], handler: (
-            this: Word.Document, parameter: {readonly NewXMLNode: Word.XMLNode, readonly InUndoRedo: boolean}) => void): void;
+        obj: Word.Document,
+        event: "ContentControlAfterAdd",
+        argNames: ["NewContentControl", "InUndoRedo"],
+        handler: (
+            this: Word.Document,
+            parameter: { readonly NewContentControl: Word.ContentControl; readonly InUndoRedo: boolean },
+        ) => void,
+    ): void;
     on(
-        obj: Word.Document, event: 'XMLBeforeDelete', argNames: ['DeletedRange', 'OldXMLNode', 'InUndoRedo'], handler: (
-            this: Word.Document, parameter: {readonly DeletedRange: Word.Range, readonly OldXMLNode: Word.XMLNode, readonly InUndoRedo: boolean}) => void): void;
-    on(obj: Word.Application, event: 'AddRef' | 'DocumentChange' | 'Quit' | 'Release' | 'Startup', handler: (this: Word.Application, parameter: {}) => void): void;
-    on(obj: Word.Document, event: 'Close' | 'New' | 'Open', handler: (this: Word.Document, parameter: {}) => void): void;
-    on(obj: Word.OLEControl, event: 'GotFocus' | 'LostFocus', handler: (this: Word.OLEControl, parameter: {}) => void): void;
-    set(obj: Word.Document, propertyName: 'ActiveWritingStyle', parameterTypes: [any], newValue: string): void;
-    set(obj: Word.Document, propertyName: 'Compatibility', parameterTypes: [Word.WdCompatibility], newValue: boolean): void;
-    set(obj: Word.System, propertyName: 'PrivateProfileString', parameterTypes: [string, string, string], newValue: string): void;
+        obj: Word.Document,
+        event: "ContentControlBeforeContentUpdate" | "ContentControlBeforeStoreUpdate",
+        argNames: ["ContentControl", "Content"],
+        handler: (
+            this: Word.Document,
+            parameter: { readonly ContentControl: Word.ContentControl; Content: string },
+        ) => void,
+    ): void;
+    on(
+        obj: Word.Document,
+        event: "ContentControlBeforeDelete",
+        argNames: ["OldContentControl", "InUndoRedo"],
+        handler: (
+            this: Word.Document,
+            parameter: { readonly OldContentControl: Word.ContentControl; readonly InUndoRedo: boolean },
+        ) => void,
+    ): void;
+    on(
+        obj: Word.Document,
+        event: "ContentControlOnEnter",
+        argNames: ["ContentControl"],
+        handler: (this: Word.Document, parameter: { readonly ContentControl: Word.ContentControl }) => void,
+    ): void;
+    on(
+        obj: Word.Document,
+        event: "ContentControlOnExit",
+        argNames: ["ContentControl", "Cancel"],
+        handler: (
+            this: Word.Document,
+            parameter: { readonly ContentControl: Word.ContentControl; Cancel: boolean },
+        ) => void,
+    ): void;
+    on(
+        obj: Word.Document,
+        event: "Sync",
+        argNames: ["SyncEventType"],
+        handler: (this: Word.Document, parameter: { readonly SyncEventType: Office.MsoSyncEventType }) => void,
+    ): void;
+    on(
+        obj: Word.Document,
+        event: "XMLAfterInsert",
+        argNames: ["NewXMLNode", "InUndoRedo"],
+        handler: (
+            this: Word.Document,
+            parameter: { readonly NewXMLNode: Word.XMLNode; readonly InUndoRedo: boolean },
+        ) => void,
+    ): void;
+    on(
+        obj: Word.Document,
+        event: "XMLBeforeDelete",
+        argNames: ["DeletedRange", "OldXMLNode", "InUndoRedo"],
+        handler: (
+            this: Word.Document,
+            parameter: {
+                readonly DeletedRange: Word.Range;
+                readonly OldXMLNode: Word.XMLNode;
+                readonly InUndoRedo: boolean;
+            },
+        ) => void,
+    ): void;
+    on(
+        obj: Word.Application,
+        event: "AddRef" | "DocumentChange" | "Quit" | "Release" | "Startup",
+        handler: (this: Word.Application, parameter: {}) => void,
+    ): void;
+    on(
+        obj: Word.Document,
+        event: "Close" | "New" | "Open",
+        handler: (this: Word.Document, parameter: {}) => void,
+    ): void;
+    on(
+        obj: Word.OLEControl,
+        event: "GotFocus" | "LostFocus",
+        handler: (this: Word.OLEControl, parameter: {}) => void,
+    ): void;
+    set(obj: Word.Document, propertyName: "ActiveWritingStyle", parameterTypes: [any], newValue: string): void;
+    set(
+        obj: Word.Document,
+        propertyName: "Compatibility",
+        parameterTypes: [Word.WdCompatibility],
+        newValue: boolean,
+    ): void;
+    set(
+        obj: Word.System,
+        propertyName: "PrivateProfileString",
+        parameterTypes: [string, string, string],
+        newValue: string,
+    ): void;
 }
 
 interface ActiveXObjectNameMap {
-    'Word.Application': Word.Application;
-    'Word.Document': Word.Document;
+    "Word.Application": Word.Application;
+    "Word.Document": Word.Document;
 }
 
 interface EnumeratorConstructor {
@@ -12515,7 +14137,9 @@ interface EnumeratorConstructor {
     new(col: Word.CanvasShapes | Word.GroupShapes | Word.ShapeRange | Word.Shapes): Enumerator<Word.Shape>;
     new(col: Word.CaptionLabels): Enumerator<Word.CaptionLabel>;
     new(col: Word.Cells): Enumerator<Word.Cell>;
-    new(col: Word.Characters | Word.ProofreadingErrors | Word.Sentences | Word.StoryRanges | Word.Words): Enumerator<Word.Range>;
+    new(
+        col: Word.Characters | Word.ProofreadingErrors | Word.Sentences | Word.StoryRanges | Word.Words,
+    ): Enumerator<Word.Range>;
     new(col: Word.CoAuthLocks): Enumerator<Word.CoAuthLock>;
     new(col: Word.CoAuthors): Enumerator<Word.CoAuthor>;
     new(col: Word.CoAuthUpdates): Enumerator<Word.CoAuthUpdate>;

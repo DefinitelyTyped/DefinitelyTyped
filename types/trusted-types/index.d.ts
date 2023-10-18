@@ -1,13 +1,3 @@
-// Type definitions for trusted-types 2.0
-// Project: https://github.com/WICG/trusted-types
-// Definitions by: Jakub Vrana <https://github.com/vrana>
-//                 Damien Engels <https://github.com/engelsdamien>
-//                 Emanuel Tesar <https://github.com/siegrift>
-//                 Bjarki <https://github.com/bjarkler>
-//                 Sebastian Silbermann <https://github.com/eps1lon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 import * as lib from "./lib";
 
 // Re-export the type definitions globally.

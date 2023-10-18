@@ -1,41 +1,36 @@
-// Type definitions for nyaapi 2.4
-// Project: https://github.com/Kylart/Nyaapi#readme
-// Definitions by: Christopher Schreiner <https://github.com/infanf>, Totto16 <https://github.com/Totto16>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export namespace si {
     type UserStatus = number;
 
     enum Filter {
-        'NO_FILTER' = 0,
-        'NO_REMAKES' = 1,
-        'TRUSTED_ONLY' = 2,
+        "NO_FILTER" = 0,
+        "NO_REMAKES" = 1,
+        "TRUSTED_ONLY" = 2,
     }
 
     enum Category {
-        '1_0' = 'ANIME',
-        '1_1' = 'ANIME_AMV',
-        '1_2' = 'ANIME_ENGLISH',
-        '1_3' = 'ANIME_NON_ENGLISH',
-        '1_4' = 'ANIME_RAW',
-        '2_0' = 'AUDIO',
-        '2_1' = 'AUDIO_LOSSLESS',
-        '2_2' = 'AUDIO_LOSSY',
-        '3_0' = 'LITERATURE',
-        '3_1' = 'LITERATURE_ENGLISH',
-        '3_2' = 'LITERATURE_NON_ENGLISH',
-        '3_3' = 'LITERATURE_RAW',
-        '4_0' = 'LIVE_ACTION',
-        '4_1' = 'LIVE_ACTION_ENGLISH',
-        '4_2' = 'LIVE_ACTION_IDOL_PV',
-        '4_3' = 'LIVE_ACTION_NON_ENGLISH',
-        '4_4' = 'LIVE_ACTION_RAW',
-        '5_0' = 'PICTURES',
-        '5_1' = 'PICTURES_GRAPHICS',
-        '5_2' = 'PICTURES_PHOTOS',
-        '6_0' = 'SOFTWARE',
-        '6_1' = 'SOFTWARE_APPS',
-        '6_2' = 'SOFTWARE_GAMES',
+        "1_0" = "ANIME",
+        "1_1" = "ANIME_AMV",
+        "1_2" = "ANIME_ENGLISH",
+        "1_3" = "ANIME_NON_ENGLISH",
+        "1_4" = "ANIME_RAW",
+        "2_0" = "AUDIO",
+        "2_1" = "AUDIO_LOSSLESS",
+        "2_2" = "AUDIO_LOSSY",
+        "3_0" = "LITERATURE",
+        "3_1" = "LITERATURE_ENGLISH",
+        "3_2" = "LITERATURE_NON_ENGLISH",
+        "3_3" = "LITERATURE_RAW",
+        "4_0" = "LIVE_ACTION",
+        "4_1" = "LIVE_ACTION_ENGLISH",
+        "4_2" = "LIVE_ACTION_IDOL_PV",
+        "4_3" = "LIVE_ACTION_NON_ENGLISH",
+        "4_4" = "LIVE_ACTION_RAW",
+        "5_0" = "PICTURES",
+        "5_1" = "PICTURES_GRAPHICS",
+        "5_2" = "PICTURES_PHOTOS",
+        "6_0" = "SOFTWARE",
+        "6_1" = "SOFTWARE_APPS",
+        "6_2" = "SOFTWARE_GAMES",
     }
 
     interface SearchOptions {
@@ -45,7 +40,7 @@ export namespace si {
         p?: number;
         sort?: string;
         filter?: Filter;
-        direction?: 'asc' | 'desc';
+        direction?: "asc" | "desc";
     }
 
     interface SearchOptionsTerm extends SearchOptions {
@@ -126,41 +121,41 @@ export namespace pantsu {
     type UserStatus = number;
 
     enum SortType {
-        'id' = 0,
-        'name' = 1,
-        'date' = 2,
-        'downloads' = 3,
-        'size' = 4,
-        'seeders' = 5,
-        'leechers' = 6,
-        'completed' = 7,
+        "id" = 0,
+        "name" = 1,
+        "date" = 2,
+        "downloads" = 3,
+        "size" = 4,
+        "seeders" = 5,
+        "leechers" = 6,
+        "completed" = 7,
     }
 
     enum Category {
-        '_' = 'ALL',
-        '3_' = 'ANIME',
-        '3_12' = 'ANIME_AMV',
-        '3_5' = 'ANIME_ENGLISH',
-        '3_13' = 'ANIME_NON_ENGLISH',
-        '3_6' = 'ANIME_RAW',
-        '2_' = 'AUDIO',
-        '2_3' = 'AUDIO_LOSSLESS',
-        '2_4' = 'AUDIO_LOSSY',
-        '4_' = 'LITERATURE',
-        '4_7' = 'LITERATURE_ENGLISH',
-        '4_14' = 'LITERATURE_NON_ENGLISH',
-        '4_8' = 'LITERATURE_RAW',
-        '5_' = 'LIVE_ACTION',
-        '5_9' = 'LIVE_ACTION_ENGLISH',
-        '5_10' = 'LIVE_ACTION_IDOL_PV',
-        '5_18' = 'LIVE_ACTION_NON_ENGLISH',
-        '5_11' = 'LIVE_ACTION_RAW',
-        '6_' = 'PICTURES',
-        '6_15' = 'PICTURES_GRAPHICS',
-        '6_16' = 'PICTURES_PHOTOS',
-        '1_' = 'SOFTWARE',
-        '1_1' = 'SOFTWARE_APPS',
-        '1_2' = 'SOFTWARE_GAMES',
+        "_" = "ALL",
+        "3_" = "ANIME",
+        "3_12" = "ANIME_AMV",
+        "3_5" = "ANIME_ENGLISH",
+        "3_13" = "ANIME_NON_ENGLISH",
+        "3_6" = "ANIME_RAW",
+        "2_" = "AUDIO",
+        "2_3" = "AUDIO_LOSSLESS",
+        "2_4" = "AUDIO_LOSSY",
+        "4_" = "LITERATURE",
+        "4_7" = "LITERATURE_ENGLISH",
+        "4_14" = "LITERATURE_NON_ENGLISH",
+        "4_8" = "LITERATURE_RAW",
+        "5_" = "LIVE_ACTION",
+        "5_9" = "LIVE_ACTION_ENGLISH",
+        "5_10" = "LIVE_ACTION_IDOL_PV",
+        "5_18" = "LIVE_ACTION_NON_ENGLISH",
+        "5_11" = "LIVE_ACTION_RAW",
+        "6_" = "PICTURES",
+        "6_15" = "PICTURES_GRAPHICS",
+        "6_16" = "PICTURES_PHOTOS",
+        "1_" = "SOFTWARE",
+        "1_1" = "SOFTWARE_APPS",
+        "1_2" = "SOFTWARE_GAMES",
     }
 
     interface User {
@@ -185,10 +180,10 @@ export namespace pantsu {
     interface SearchOptions {
         term?: string;
         n?: number;
-        c?: Category ;
+        c?: Category;
         page?: number;
         userID?: string;
-        fromID?: string ;
+        fromID?: string;
         s?: string;
         maxage?: string;
         toDate?: string;
@@ -196,8 +191,8 @@ export namespace pantsu {
         dateType?: string;
         minSize?: string;
         maxSize?: string;
-        sizeType?: 'b' | 'k' | 'm' | 'g';
-        sort?: SortType ;
+        sizeType?: "b" | "k" | "m" | "g";
+        sort?: SortType;
         order?: boolean;
         lang?: string[];
     }
@@ -275,8 +270,8 @@ export namespace pantsu {
     }
 
     interface Credentials {
-            username: string;
-            password: string;
+        username: string;
+        password: string;
     }
 
     function search(term: string | SearchOptionsTerm, n?: number, opts?: SearchOptions): Promise<Torrent[]>;

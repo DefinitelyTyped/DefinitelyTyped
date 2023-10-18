@@ -1,39 +1,34 @@
-// Type definitions for ip6addr 0.2
-// Project: https://github.com/joyent/node-ip6addr
-// Definitions by: Vít Stanislav <https://github.com/slaweet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ToStringOpts {
-  format?: 'auto' | 'v4' | 'v4-mapped' | 'v6' | undefined;
-  zeroElide?: boolean | undefined;
-  zeroPad?: boolean | undefined;
+    format?: "auto" | "v4" | "v4-mapped" | "v6" | undefined;
+    zeroElide?: boolean | undefined;
+    zeroPad?: boolean | undefined;
 }
 
 export interface Addr {
-  kind: () => 'ipv4' | 'ipv6';
-  toString: (opts?: ToStringOpts) => string;
-  toBuffer: (buff?: Uint8Array) => Uint8Array;
-  toLong: () => number;
-  offset: (num: number) => Addr | null;
-  compare: (other: string | Addr) => number;
-  clone: () => Addr;
-  and: (input: string | Addr) => Addr;
-  or: (input: string | Addr) => Addr;
-  not: () => Addr;
+    kind: () => "ipv4" | "ipv6";
+    toString: (opts?: ToStringOpts) => string;
+    toBuffer: (buff?: Uint8Array) => Uint8Array;
+    toLong: () => number;
+    offset: (num: number) => Addr | null;
+    compare: (other: string | Addr) => number;
+    clone: () => Addr;
+    and: (input: string | Addr) => Addr;
+    or: (input: string | Addr) => Addr;
+    not: () => Addr;
 }
 
 export interface AddrRange {
-  contains: (input: string | Addr) => boolean;
-  first: () => Addr;
-  last: () => Addr;
+    contains: (input: string | Addr) => boolean;
+    first: () => Addr;
+    last: () => Addr;
 }
 
 export interface CIDR extends AddrRange {
-  broadcast: () => Addr;
-  compare: (other: string | CIDR) => number;
-  prefixLength: (format?: 'auto' | 'v4' | 'v6') => number;
-  address: () => Addr;
-  toString: (opts?: ToStringOpts) => string;
+    broadcast: () => Addr;
+    compare: (other: string | CIDR) => number;
+    prefixLength: (format?: "auto" | "v4" | "v6") => number;
+    address: () => Addr;
+    toString: (opts?: ToStringOpts) => string;
 }
 
 export function compare(addr1: string | Addr, addr2: string | Addr): number;

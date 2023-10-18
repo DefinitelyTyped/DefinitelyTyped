@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 
-export type BusyIndicatorSizes = 's' | 'm' | 'l';
+export type BusyIndicatorSizes = "s" | "m" | "l";
 
 export type BusyIndicatorProps = {
     show: boolean;

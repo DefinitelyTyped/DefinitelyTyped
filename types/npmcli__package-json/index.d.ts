@@ -1,9 +1,3 @@
-// Type definitions for @npmcli/package-json 4.0
-// Project: https://github.com/npm/package-json
-// Definitions by: Michaël De Boey <https://github.com/MichaelDeBoey>
-//                 Stephen Wade <https://github.com/stephenwade>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface NormalizeOptions {
     /**
      * Enables optional strict mode when applying the normalizeData step.
@@ -75,7 +69,7 @@ declare class NPMCliPackageJson {
      *
      * @async
      */
-    static fix: (path: string, opts?: Omit<NormalizeOptions, 'steps'>) => Promise<NPMCliPackageJson>;
+    static fix: (path: string, opts?: Omit<NormalizeOptions, "steps">) => Promise<NPMCliPackageJson>;
 
     /**
      * read-package-json compatible behavior
@@ -126,7 +120,7 @@ declare class NPMCliPackageJson {
     prepare: (opts?: NormalizeOptions) => Promise<this>;
 
     /** @async */
-    fix: (opts?: Omit<NormalizeOptions, 'steps'>) => Promise<this>;
+    fix: (opts?: Omit<NormalizeOptions, "steps">) => Promise<this>;
 }
 
 declare namespace NPMCliPackageJson {
@@ -145,24 +139,24 @@ declare namespace PackageJson {
     type Person =
         | string
         | {
-              name: string;
-              url?: string;
-              email?: string;
-          };
+            name: string;
+            url?: string;
+            email?: string;
+        };
 
     type BugsLocation =
         | string
         | {
-              /**
-               * The URL to the package's issue tracker.
-               */
-              url?: string;
+            /**
+             * The URL to the package's issue tracker.
+             */
+            url?: string;
 
-              /**
-               * The email address to which issues should be reported.
-               */
-              email?: string;
-          };
+            /**
+             * The email address to which issues should be reported.
+             */
+            email?: string;
+        };
 
     interface DirectoryLocations {
         [directoryType: string]: unknown;
@@ -349,7 +343,7 @@ declare namespace PackageJson {
      * Conditions which provide a way to resolve a package entry point based on the environment.
      */
     type ExportCondition = LiteralUnion<
-        'import' | 'require' | 'node' | 'node-addons' | 'deno' | 'browser' | 'electron' | 'react-native' | 'default',
+        "import" | "require" | "node" | "node-addons" | "deno" | "browser" | "electron" | "react-native" | "default",
         string
     >;
 
@@ -377,10 +371,10 @@ declare namespace PackageJson {
         esnext?:
             | string
             | {
-                  [moduleName: string]: string | undefined;
-                  main?: string;
-                  browser?: string;
-              };
+                [moduleName: string]: string | undefined;
+                main?: string;
+                browser?: string;
+            };
 
         /**
          * A hint to JavaScript bundlers or component tools when packaging modules for client side use.
@@ -501,7 +495,7 @@ declare namespace PackageJson {
         /**
          * The URL to the package's homepage.
          */
-        homepage?: LiteralUnion<'.', string>;
+        homepage?: LiteralUnion<".", string>;
 
         /**
          * The URL to the package's issue tracker and/or the email address to which issues should be reported.
@@ -543,7 +537,7 @@ declare namespace PackageJson {
          *
          * [Read more.](https://nodejs.org/api/esm.html#esm_package_json_type_field)
          */
-        type?: 'module' | 'commonjs';
+        type?: "module" | "commonjs";
 
         /**
          * The module ID that is the primary entry point to the program.
@@ -585,16 +579,16 @@ declare namespace PackageJson {
         repository?:
             | string
             | {
-                  type: string;
-                  url: string;
+                type: string;
+                url: string;
 
-                  /**
-                   * Relative path to package.json if it is placed in non-root directory (for example if it is part of a monorepo).
-                   *
-                   * [Read more.](https://github.com/npm/rfcs/blob/latest/implemented/0010-monorepo-subdirectory-declaration.md)
-                   */
-                  directory?: string;
-              };
+                /**
+                 * Relative path to package.json if it is placed in non-root directory (for example if it is part of a monorepo).
+                 *
+                 * [Read more.](https://github.com/npm/rfcs/blob/latest/implemented/0010-monorepo-subdirectory-declaration.md)
+                 */
+                directory?: string;
+            };
 
         /**
          * Script commands that are run at various times in the lifecycle of the package. The key is the lifecycle event, and the value is the command to run at that point.
@@ -645,7 +639,7 @@ declare namespace PackageJson {
          * Engines that this package runs on.
          */
         engines?: {
-            [EngineName in 'npm' | 'node' | string]: string;
+            [EngineName in "npm" | "node" | string]: string;
         };
 
         /**
@@ -658,20 +652,20 @@ declare namespace PackageJson {
          */
         os?: Array<
             LiteralUnion<
-                | 'aix'
-                | 'darwin'
-                | 'freebsd'
-                | 'linux'
-                | 'openbsd'
-                | 'sunos'
-                | 'win32'
-                | '!aix'
-                | '!darwin'
-                | '!freebsd'
-                | '!linux'
-                | '!openbsd'
-                | '!sunos'
-                | '!win32',
+                | "aix"
+                | "darwin"
+                | "freebsd"
+                | "linux"
+                | "openbsd"
+                | "sunos"
+                | "win32"
+                | "!aix"
+                | "!darwin"
+                | "!freebsd"
+                | "!linux"
+                | "!openbsd"
+                | "!sunos"
+                | "!win32",
                 string
             >
         >;
@@ -681,28 +675,28 @@ declare namespace PackageJson {
          */
         cpu?: Array<
             LiteralUnion<
-                | 'arm'
-                | 'arm64'
-                | 'ia32'
-                | 'mips'
-                | 'mipsel'
-                | 'ppc'
-                | 'ppc64'
-                | 's390'
-                | 's390x'
-                | 'x32'
-                | 'x64'
-                | '!arm'
-                | '!arm64'
-                | '!ia32'
-                | '!mips'
-                | '!mipsel'
-                | '!ppc'
-                | '!ppc64'
-                | '!s390'
-                | '!s390x'
-                | '!x32'
-                | '!x64',
+                | "arm"
+                | "arm64"
+                | "ia32"
+                | "mips"
+                | "mipsel"
+                | "ppc"
+                | "ppc64"
+                | "s390"
+                | "s390x"
+                | "x32"
+                | "x64"
+                | "!arm"
+                | "!arm64"
+                | "!ia32"
+                | "!mips"
+                | "!mipsel"
+                | "!ppc"
+                | "!ppc64"
+                | "!s390"
+                | "!s390x"
+                | "!x32"
+                | "!x64",
                 string
             >
         >;
@@ -733,19 +727,19 @@ declare namespace PackageJson {
         funding?:
             | string
             | {
-                  /**
-                   * The type of funding.
-                   */
-                  type?: LiteralUnion<
-                      'github' | 'opencollective' | 'patreon' | 'individual' | 'foundation' | 'corporation',
-                      string
-                  >;
+                /**
+                 * The type of funding.
+                 */
+                type?: LiteralUnion<
+                    "github" | "opencollective" | "patreon" | "individual" | "foundation" | "corporation",
+                    string
+                >;
 
-                  /**
-                   * The URL to the funding page.
-                   */
-                  url: string;
-              };
+                /**
+                 * The URL to the funding page.
+                 */
+                url: string;
+            };
     }
 
     interface PublishConfig {
@@ -759,7 +753,7 @@ declare namespace PackageJson {
          * be publicly viewable (and installable) set `--access=public`. The only valid values for access are public and restricted.
          * Unscoped packages always have an access level of public.
          */
-        access?: 'public' | 'restricted';
+        access?: "public" | "restricted";
 
         /**
          * The base URL of the npm registry.
@@ -782,11 +776,12 @@ declare namespace PackageJson {
  *
  * @category File
  */
-type PackageJsonType = PackageJson.PackageJsonStandard &
-    PackageJson.NonStandardEntryPoints &
-    PackageJson.TypeScriptConfiguration &
-    PackageJson.YarnConfiguration &
-    PackageJson.JSPMConfiguration;
+type PackageJsonType =
+    & PackageJson.PackageJsonStandard
+    & PackageJson.NonStandardEntryPoints
+    & PackageJson.TypeScriptConfiguration
+    & PackageJson.YarnConfiguration
+    & PackageJson.JSPMConfiguration;
 
 // Copied from https://github.com/sindresorhus/type-fest/blob/c5796f5fce6fc8346792929468159648caec30e0/source/literal-union.d.ts
 /**

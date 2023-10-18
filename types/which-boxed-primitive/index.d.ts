@@ -1,8 +1,3 @@
-// Type definitions for which-boxed-primitive 1.0
-// Project: https://github.com/inspect-js/which-boxed-primitive#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = whichBoxedPrimitive;
 
 /**
@@ -55,16 +50,10 @@ export = whichBoxedPrimitive;
  */
 declare function whichBoxedPrimitive<T>(value: T): WhichBoxed<T>;
 
-type WhichBoxed<T> = T extends string | number | boolean | symbol | bigint | null | undefined
-    ? null
-    : T extends String
-    ? 'String'
-    : T extends Number
-    ? 'Number'
-    : T extends Boolean
-    ? 'Boolean'
-    : T extends Symbol
-    ? 'Symbol'
-    : T extends BigInt
-    ? 'BigInt'
+type WhichBoxed<T> = T extends string | number | boolean | symbol | bigint | null | undefined ? null
+    : T extends String ? "String"
+    : T extends Number ? "Number"
+    : T extends Boolean ? "Boolean"
+    : T extends Symbol ? "Symbol"
+    : T extends BigInt ? "BigInt"
     : undefined;

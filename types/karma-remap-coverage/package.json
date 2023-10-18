@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/karma-remap-coverage",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/sshev/karma-remap-coverage#readme"
+    ],
+    "dependencies": {
+        "@types/karma": "*",
+        "@types/karma-coverage": "*"
+    },
+    "devDependencies": {
+        "@types/karma-remap-coverage": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz (Peter Blazejewicz)",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

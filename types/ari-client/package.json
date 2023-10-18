@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/ari-client",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/asterisk/node-ari-client"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/ari-client": "workspace:.",
+        "@types/config": "*"
+    },
+    "owners": [
+        {
+            "name": "Dioris Moreno",
+            "githubUsername": "dioris-moreno"
+        }
+    ]
+}

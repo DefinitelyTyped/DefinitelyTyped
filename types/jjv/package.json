@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jjv",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/acornejo/jjv"
+    ],
+    "devDependencies": {
+        "@types/jjv": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Wim Looman",
+            "githubUsername": "Nemo157"
+        }
+    ]
+}

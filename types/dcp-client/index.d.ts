@@ -1,19 +1,11 @@
-// Type definitions for dcp-client 4.2
-// Project: https://github.com/Distributed-Compute-Labs/dcp-client
-// Definitions by: Bryan Hoang <https://github.com/bryan-hoang>
-//                 Brandon Christie <https://github.com/BChristieDistributive>
-//                 Roman Fairushyn <https://github.com/fairushyn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyType
-// Minimum TypeScript Version: 4.7
-
 /// <reference path="./dcp.d.ts" />
 /// <reference path="./compute.d.ts" />
 /// <reference path="./wallet.d.ts" />
 /// <reference path="./worker.d.ts" />
 
-import type Compute from 'dcp/compute';
-import type Wallet from 'dcp/wallet';
-import type Worker from 'dcp/worker';
+import type Compute from "dcp/compute";
+import type Wallet from "dcp/wallet";
+import type Worker from "dcp/worker";
 
 /**
  * Asynchronously initialize the dcp-client bundle for use by the compute API, etc.

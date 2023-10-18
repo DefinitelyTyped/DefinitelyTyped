@@ -1,9 +1,3 @@
-// Type definitions for steamapi 2.2
-// Project: https://github.com/xDimGG/node-steamapi
-// Definitions by: Joshua Jeschek <https://github.com/joshuajeschek>
-//                 Charlie Laabs <https://github.com/claabs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class SteamAPI {
     /**
      * Sets Steam key for future use.
@@ -256,7 +250,7 @@ declare namespace SteamAPI {
         /**
          * Whether or not this token is usable.
          */
-         readonly usable: boolean;
+        readonly usable: boolean;
 
         /**
          * Date the last time this token was used.
@@ -340,7 +334,7 @@ declare namespace SteamAPI {
         /**
          * Date when this badge was completed.
          */
-         readonly completedAt: Date;
+        readonly completedAt: Date;
     }
 
     interface Server {

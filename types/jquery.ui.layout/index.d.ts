@@ -1,14 +1,7 @@
-// Type definitions for jQuery UI Layout Plug-in
-// Project: http://layout.jquery-dev.net/
-// Definitions by: Steve Fenton <https://github.com/Steve-Fenton>, Douglas Armstrong <https://github.com/drarmstr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 /// <reference types="jqueryui"/>
 
 declare namespace JQueryUILayout {
-
     interface PaneOptions {
         applyDefaultStyles?: boolean | undefined;
         scrollToBookmarkOnLoad?: boolean | undefined;
@@ -53,21 +46,51 @@ declare namespace JQueryUILayout {
         fxSettings?: JQueryAnimationOptions | undefined;
         initClosed?: boolean | undefined;
         initHidden?: boolean | undefined;
-        onshow_start?: string | { (name:string, pane:JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        onshow_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        onshow?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        onhide_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        onhide_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        onhide?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        onopen_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        onopen_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        onopen?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        onclose_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        onclose_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        onclose?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        onresize_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        onresize_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        onresize?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
+        onshow_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        onshow_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        onshow?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        onhide_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        onhide_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        onhide?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        onopen_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        onopen_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        onopen?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        onclose_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        onclose_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        onclose?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        onresize_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        onresize_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        onresize?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
     }
 
     interface Options extends PaneOptions {
@@ -121,21 +144,51 @@ declare namespace JQueryUILayout {
         defaults__fxSettings?: JQueryAnimationOptions | undefined;
         defaults__initClosed?: boolean | undefined;
         defaults__initHidden?: boolean | undefined;
-        defaults__onshow_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        defaults__onshow_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        defaults__onshow?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        defaults__onhide_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        defaults__onhide_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        defaults__onhide?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        defaults__onopen_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        defaults__onopen_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        defaults__onopen?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        defaults__onclose_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        defaults__onclose_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        defaults__onclose?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        defaults__onresize_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        defaults__onresize_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        defaults__onresize?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
+        defaults__onshow_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        defaults__onshow_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        defaults__onshow?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        defaults__onhide_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        defaults__onhide_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        defaults__onhide?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        defaults__onopen_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        defaults__onopen_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        defaults__onopen?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        defaults__onclose_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        defaults__onclose_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        defaults__onclose?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        defaults__onresize_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        defaults__onresize_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        defaults__onresize?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
 
         north__applyDefaultStyles?: boolean | undefined;
         north__scrollToBookmarkOnLoad?: boolean | undefined;
@@ -180,21 +233,51 @@ declare namespace JQueryUILayout {
         north__fxSettings?: JQueryAnimationOptions | undefined;
         north__initClosed?: boolean | undefined;
         north__initHidden?: boolean | undefined;
-        north__onshow_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        north__onshow_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        north__onshow?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        north__onhide_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        north__onhide_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        north__onhide?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        north__onopen_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        north__onopen_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        north__onopen?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        north__onclose_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        north__onclose_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        north__onclose?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        north__onresize_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        north__onresize_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        north__onresize?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
+        north__onshow_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        north__onshow_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        north__onshow?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        north__onhide_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        north__onhide_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        north__onhide?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        north__onopen_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        north__onopen_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        north__onopen?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        north__onclose_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        north__onclose_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        north__onclose?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        north__onresize_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        north__onresize_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        north__onresize?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
 
         east__applyDefaultStyles?: boolean | undefined;
         east__scrollToBookmarkOnLoad?: boolean | undefined;
@@ -239,21 +322,51 @@ declare namespace JQueryUILayout {
         east__fxSettings?: JQueryAnimationOptions | undefined;
         east__initClosed?: boolean | undefined;
         east__initHidden?: boolean | undefined;
-        east__onshow_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        east__onshow_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        east__onshow?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        east__onhide_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        east__onhide_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        east__onhide?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        east__onopen_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        east__onopen_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        east__onopen?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        east__onclose_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        east__onclose_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        east__onclose?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        east__onresize_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        east__onresize_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        east__onresize?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
+        east__onshow_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        east__onshow_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        east__onshow?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        east__onhide_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        east__onhide_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        east__onhide?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        east__onopen_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        east__onopen_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        east__onopen?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        east__onclose_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        east__onclose_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        east__onclose?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        east__onresize_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        east__onresize_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        east__onresize?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
 
         south__applyDefaultStyles?: boolean | undefined;
         south__scrollToBookmarkOnLoad?: boolean | undefined;
@@ -298,21 +411,51 @@ declare namespace JQueryUILayout {
         south__fxSettings?: JQueryAnimationOptions | undefined;
         south__initClosed?: boolean | undefined;
         south__initHidden?: boolean | undefined;
-        south__onshow_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        south__onshow_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        south__onshow?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        south__onhide_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        south__onhide_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        south__onhide?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        south__onopen_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        south__onopen_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        south__onopen?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        south__onclose_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        south__onclose_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        south__onclose?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        south__onresize_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        south__onresize_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        south__onresize?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
+        south__onshow_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        south__onshow_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        south__onshow?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        south__onhide_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        south__onhide_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        south__onhide?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        south__onopen_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        south__onopen_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        south__onopen?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        south__onclose_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        south__onclose_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        south__onclose?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        south__onresize_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        south__onresize_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        south__onresize?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
 
         west__applyDefaultStyles?: boolean | undefined;
         west__scrollToBookmarkOnLoad?: boolean | undefined;
@@ -357,21 +500,51 @@ declare namespace JQueryUILayout {
         west__fxSettings?: JQueryAnimationOptions | undefined;
         west__initClosed?: boolean | undefined;
         west__initHidden?: boolean | undefined;
-        west__onshow_start?: string | { (name:string, pane:JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        west__onshow_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        west__onshow?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        west__onhide_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        west__onhide_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        west__onhide?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        west__onopen_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        west__onopen_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        west__onopen?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        west__onclose_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        west__onclose_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        west__onclose?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        west__onresize_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        west__onresize_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        west__onresize?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
+        west__onshow_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        west__onshow_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        west__onshow?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        west__onhide_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        west__onhide_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        west__onhide?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        west__onopen_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        west__onopen_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        west__onopen?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        west__onclose_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        west__onclose_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        west__onclose?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        west__onresize_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        west__onresize_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        west__onresize?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
 
         center__applyDefaultStyles?: boolean | undefined;
         center__scrollToBookmarkOnLoad?: boolean | undefined;
@@ -416,23 +589,52 @@ declare namespace JQueryUILayout {
         center__fxSettings?: JQueryAnimationOptions | undefined;
         center__initClosed?: boolean | undefined;
         center__initHidden?: boolean | undefined;
-        center__onshow_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        center__onshow_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        center__onshow?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        center__onhide_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        center__onhide_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        center__onhide?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        center__onopen_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        center__onopen_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        center__onopen?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        center__onclose_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        center__onclose_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        center__onclose?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        center__onresize_start?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): (boolean | void) } | undefined;
-        center__onresize_end?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
-        center__onresize?: string | { (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void } | undefined;
+        center__onshow_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        center__onshow_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        center__onshow?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        center__onhide_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        center__onhide_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        center__onhide?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        center__onopen_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        center__onopen_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        center__onopen?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        center__onclose_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        center__onclose_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        center__onclose?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        center__onresize_start?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): boolean | void;
+        } | undefined;
+        center__onresize_end?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
+        center__onresize?: string | {
+            (name: string, pane: JQuery, state: PaneState, options: PaneOptions, layout_name: string): void;
+        } | undefined;
     }
-
 
     interface PaneState {
         isClosed: boolean;
@@ -444,7 +646,6 @@ declare namespace JQueryUILayout {
         minSize: number;
         maxSize: number;
     }
-
 
     interface Layout {
         panes: {
@@ -459,7 +660,7 @@ declare namespace JQueryUILayout {
             east: PaneState;
             south: PaneState;
             west: PaneState;
-        }
+        };
 
         toggle(pane: string): JQuery;
         open(pane: string): JQuery;
@@ -478,7 +679,6 @@ declare namespace JQueryUILayout {
         resetOverflow(elemOrPane: HTMLElement | string): JQuery;
     }
 }
-
 
 interface JQuery {
     layout(options?: JQueryUILayout.Options): JQueryUILayout.Layout;

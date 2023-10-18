@@ -1,19 +1,20 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6", "DOM"],
+        "lib": [
+            "es6",
+            "DOM"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
-        "paths": {
-            "chart.js": ["./node_modules/chart.js"]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "chartjs-plugin-doughnutlabel-rebourne-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "chartjs-plugin-doughnutlabel-rebourne-tests.ts"
+    ]
 }

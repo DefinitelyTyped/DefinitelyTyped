@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/chordsheetjs",
+    "version": "2.8.9999",
+    "projects": [
+        "https://github.com/martijnversluis/ChordSheetJS"
+    ],
+    "devDependencies": {
+        "@types/chordsheetjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Bloom",
+            "githubUsername": "adamsbloom"
+        }
+    ]
+}

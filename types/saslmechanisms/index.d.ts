@@ -1,8 +1,3 @@
-// Type definitions for saslmechanisms 0.1
-// Project: https://github.com/jaredhanson/js-sasl
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Factory;
 
 declare class Factory {
@@ -15,7 +10,7 @@ declare class Factory {
 
 declare namespace Factory {
     interface MechanismStatic {
-        new (): Mechanism;
+        new(): Mechanism;
         prototype: {
             [key: string]: any;
             name: string;

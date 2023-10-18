@@ -1,29 +1,10 @@
-// Type definitions for Enzyme 3.10
-// Project: https://github.com/airbnb/enzyme
-// Definitions by: Marian Palkus <https://github.com/MarianPalkus>
-//                 Cap3 <http://www.cap3.de>
-//                 Ivo Stratev <https://github.com/NoHomey>
-//                 jwbay <https://github.com/jwbay>
-//                 huhuanming <https://github.com/huhuanming>
-//                 MartynasZilinskas <https://github.com/MartynasZilinskas>
-//                 Torgeir Hovden <https://github.com/thovden>
-//                 Martin Hochel <https://github.com/hotell>
-//                 Christian Rackerseder <https://github.com/screendriver>
-//                 Mateusz Sokoła <https://github.com/mateuszsokola>
-//                 Braiden Cutforth <https://github.com/braidencutforth>
-//                 Erick Zhao <https://github.com/erickzhao>
-//                 Jack Tomaszewski <https://github.com/jtomaszewski>
-//                 Jordan Harband <https://github.com/ljharb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 /// <reference types="cheerio" />
 import {
-    ReactElement,
-    Component,
     AllHTMLAttributes as ReactHTMLAttributes,
+    Component,
+    ReactElement,
     SVGAttributes as ReactSVGAttributes,
-} from 'react';
+} from "react";
 
 export type HTMLAttributes = ReactHTMLAttributes<{}> & ReactSVGAttributes<{}>;
 
@@ -34,7 +15,7 @@ export class ElementClass extends Component<any, any> {}
  * all specified in the implementation. TS chooses the EnzymePropSelector overload and loses the generics
  */
 export interface ComponentClass<Props> {
-    new (props: Props, context?: any): Component<Props>;
+    new(props: Props, context?: any): Component<Props>;
 }
 
 export type FunctionComponent<Props> = (props: Props, context?: any) => JSX.Element | null;
@@ -110,7 +91,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
             {
                 [K in keyof P]: P[K] extends ((...arg: any[]) => void) | undefined ? K : never;
             }[keyof P]
-        >
+        >,
     >(
         invokePropName: K,
     ): P[K];
@@ -409,8 +390,8 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
     find<P2>(statelessComponent: FunctionComponent<P2>): ShallowWrapper<P2, never>;
     find<P2>(component: ComponentType<P2>): ShallowWrapper<P2, any>;
     find<C2 extends Component>(
-        componentClass: ComponentClass<C2['props']>,
-    ): ShallowWrapper<C2['props'], C2['state'], C2>;
+        componentClass: ComponentClass<C2["props"]>,
+    ): ShallowWrapper<C2["props"], C2["state"], C2>;
     find(props: EnzymePropSelector): ShallowWrapper<any, any>;
     find(selector: string): ShallowWrapper<HTMLAttributes, any>;
 
@@ -446,7 +427,7 @@ export class ShallowWrapper<P = {}, S = {}, C = Component> {
      * Shallow render the one non-DOM child of the current wrapper, and return a wrapper around the result.
      * NOTE: can only be called on wrapper of a single non-DOM component element node.
      */
-    dive<C2 extends Component, P2 = C2['props'], S2 = C2['state']>(
+    dive<C2 extends Component, P2 = C2["props"], S2 = C2["state"]>(
         options?: ShallowRendererProps,
     ): ShallowWrapper<P2, S2, C2>;
     dive<P2, S2>(options?: ShallowRendererProps): ShallowWrapper<P2, S2>;
@@ -543,7 +524,7 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
      */
     find<P2>(statelessComponent: FunctionComponent<P2>): ReactWrapper<P2, never>;
     find<P2>(component: ComponentType<P2>): ReactWrapper<P2, any>;
-    find<C2 extends Component>(componentClass: ComponentClass<C2['props']>): ReactWrapper<C2['props'], C2['state'], C2>;
+    find<C2 extends Component>(componentClass: ComponentClass<C2["props"]>): ReactWrapper<C2["props"], C2["state"], C2>;
     find(props: EnzymePropSelector): ReactWrapper<any, any>;
     find(selector: string): ReactWrapper<HTMLAttributes, any>;
 
@@ -605,7 +586,7 @@ export class ReactWrapper<P = {}, S = {}, C = Component> {
     /**
      * Returns a wrapper of the node rendered by the provided render prop.
      */
-     renderProp<PropName extends keyof P>(
+    renderProp<PropName extends keyof P>(
         prop: PropName,
     ): (...params: Parameters<P[PropName]>) => ReactWrapper<any, never>;
 
@@ -712,7 +693,7 @@ export interface MountRendererProps {
  * Shallow rendering is useful to constrain yourself to testing a component as a unit, and to ensure that
  * your tests aren't indirectly asserting on behavior of child components.
  */
-export function shallow<C extends Component, P = C['props'], S = C['state']>(
+export function shallow<C extends Component, P = C["props"], S = C["state"]>(
     node: ReactElement<P>,
     options?: ShallowRendererProps,
 ): ShallowWrapper<P, S, C>;
@@ -722,7 +703,7 @@ export function shallow<P, S>(node: ReactElement<P>, options?: ShallowRendererPr
 /**
  * Mounts and renders a react component into the document and provides a testing wrapper around it.
  */
-export function mount<C extends Component, P = C['props'], S = C['state']>(
+export function mount<C extends Component, P = C["props"], S = C["state"]>(
     node: ReactElement<P>,
     options?: MountRendererProps,
 ): ReactWrapper<P, S, C>;

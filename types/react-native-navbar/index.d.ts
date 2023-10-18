@@ -1,11 +1,5 @@
-// Type definitions for react-native-navbar 2.1
-// Project: https://github.com/react-native-community/react-native-navbar
-// Definitions by: Ryo Kikuchi <https://github.com/ryokik>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
-import { ViewStyle, TextProps } from 'react-native';
+import * as React from "react";
+import { TextProps, ViewStyle } from "react-native";
 
 export interface NavigationBarButton {
     title: string;
@@ -22,11 +16,11 @@ export interface NavigationBarTitle {
 }
 
 export interface StatusBar {
-    style?: 'light-content' | 'default' | undefined;
+    style?: "light-content" | "default" | undefined;
     hidden?: boolean | undefined;
     tintColor?: string | undefined;
-    hideAnimation?: 'fade' | 'slide' | 'none' | undefined;
-    showAnimation?: 'fade' | 'slide' | 'none' | undefined;
+    hideAnimation?: "fade" | "slide" | "none" | undefined;
+    showAnimation?: "fade" | "slide" | "none" | undefined;
 }
 
 export interface NavigationBarProps {

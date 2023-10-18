@@ -1,10 +1,4 @@
-// Type definitions for passport-spotify 2.0
-// Project: https://github.com/jmperez/passport-spotify#readme
-// Definitions by: Rishi Kodali <https://github.com/rishikodali>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { Request } from 'express';
+import { Request } from "express";
 
 export interface Profile {
     provider: string;
@@ -48,7 +42,7 @@ export type VerifyFunction = (
     refreshToken: string,
     expires_in: number,
     profile: Profile,
-    done: VerifyCallback
+    done: VerifyCallback,
 ) => void;
 
 export type VerifyFunctionWithRequest = (
@@ -57,7 +51,7 @@ export type VerifyFunctionWithRequest = (
     refreshToken: string,
     expires_in: number,
     profile: Profile,
-    done: VerifyCallback
+    done: VerifyCallback,
 ) => void;
 
 export class Strategy {

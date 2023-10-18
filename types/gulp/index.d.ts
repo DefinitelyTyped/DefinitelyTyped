@@ -1,16 +1,8 @@
-// Type definitions for Gulp 4.0
-// Project: http://gulpjs.com
-// Definitions by: Drew Noakes <https://drewnoakes.com>
-//                 Juan Arroyave <http://jarroyave.co>
-//                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
-//                 David Gabison <https://github.com/pulsovi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as vfs from "vinyl-fs";
 import * as chokidar from "chokidar";
-import * as Undertaker from "undertaker";
 import * as fs from "fs";
 import { Duplex } from "stream";
+import * as Undertaker from "undertaker";
+import * as vfs from "vinyl-fs";
 
 declare namespace GulpClient {
     type Globs = string | string[];

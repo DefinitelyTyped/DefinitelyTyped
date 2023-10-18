@@ -1,14 +1,9 @@
-// Type definitions for electron-installer-dmg 4.0
-// Project: https://github.com/electron-userland/electron-installer-dmg
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import appdmg = require('appdmg');
+import appdmg = require("appdmg");
 
 declare namespace createDMG {
     interface Content {
         path: string;
-        type: 'link' | 'file';
+        type: "link" | "file";
         x: number;
         y: number;
     }
@@ -35,7 +30,7 @@ declare namespace createDMG {
         /** Enable debug message output. */
         debug?: boolean;
         /** Disk image format. [Default: `UDZO`]. */
-        format?: 'UDRW' | 'UDRO' | 'UDCO' | 'UDZO' | 'UDBZ' | 'ULFO';
+        format?: "UDRW" | "UDRO" | "UDCO" | "UDZO" | "UDBZ" | "ULFO";
         /** Path to the icon to use for the app in the DMG window. */
         icon?: string;
         /** How big to make the icon for the app in the DMG. [Default: `80`]. */
@@ -56,7 +51,7 @@ declare namespace createDMG {
     // Note: In the actual implementation, the entire `CreateOptions` object is
     // passed to the `contents` function, but in the type we omit the `contents`
     // field to avoid recursion.
-    type ContentsOptions = Omit<CreateOptions, 'contents'>;
+    type ContentsOptions = Omit<CreateOptions, "contents">;
 }
 
 declare function createDMG(createOptions: createDMG.CreateOptions): Promise<createDMG.CreateOptions>;

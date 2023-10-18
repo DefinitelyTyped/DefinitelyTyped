@@ -1,8 +1,3 @@
-// Type definitions for github-url-to-object 4.0
-// Project: https://github.com/zeke/github-url-to-object#readme
-// Definitions by: Klaus Meinhardt <https://github.com/ajafff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace gh {
     interface Options {
         enterprise?: boolean | undefined;
@@ -20,6 +15,6 @@ declare namespace gh {
     }
 }
 
-declare function gh(url: string | {url: string}, options?: gh.Options): gh.Result | null;
+declare function gh(url: string | { url: string }, options?: gh.Options): gh.Result | null;
 
 export = gh;

@@ -1,8 +1,3 @@
-// Type definitions for pretty-proptypes 1.1
-// Project: https://github.com/atlassian/extract-react-types#readme
-// Definitions by: Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 export interface Components {
@@ -39,17 +34,17 @@ export interface PropProps extends CommonProps {
 export class Prop extends React.Component<PropProps> {}
 
 export interface Obj {
-    kind: 'object';
+    kind: "object";
     members: any[];
 }
 
 export interface Gen {
-    kind: 'generic';
+    kind: "generic";
     value: any;
 }
 
 export interface Inter {
-    kind: 'intersection';
+    kind: "intersection";
     types: Array<Obj | Gen>;
 }
 

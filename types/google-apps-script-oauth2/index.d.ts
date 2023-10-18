@@ -1,9 +1,3 @@
-// Type definitions for non-npm package google-apps-script-oauth2 38.0
-// Project: https://github.com/googlesamples/apps-script-oauth2
-// Definitions by: dhayab <https://github.com/dhayab>, George Dietrich <https://github.com/blacksmoke16>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="google-apps-script" />
 
 declare namespace GoogleAppsScriptOAuth2 {
@@ -229,11 +223,11 @@ declare namespace GoogleAppsScriptOAuth2 {
         /**
          * JSON format, for example `{"access_token": "..."}`.
          */
-        JSON = 'application/json',
+        JSON = "application/json",
         /**
          * Form URL-encoded, for example `access_token=...`.
          */
-        FORM_URL_ENCODED = 'application/x-www-form-urlencoded',
+        FORM_URL_ENCODED = "application/x-www-form-urlencoded",
     }
 
     interface TokenPayload {

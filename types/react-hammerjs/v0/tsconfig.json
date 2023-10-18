@@ -1,21 +1,22 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6", "dom"],
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": ["../../"],
-        "paths": {
-            "react-hammerjs": ["react-hammerjs/v0"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "esModuleInterop": true
     },
-    "files": ["index.d.ts", "react-hammerjs-tests.tsx"]
+    "files": [
+        "index.d.ts",
+        "react-hammerjs-tests.tsx"
+    ]
 }

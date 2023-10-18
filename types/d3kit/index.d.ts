@@ -1,9 +1,3 @@
-// Type definitions for d3Kit 3.2
-// Project: https://github.com/twitter/d3kit
-// Definitions by: Morgan Benton <https://github.com/morphatic>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="d3" />
 
 export as namespace d3kit;
@@ -28,7 +22,7 @@ export class Base {
 }
 
 export class AbstractPlate extends Base {
-    constructor(selector: string|Element, options?: ChartOptions);
+    constructor(selector: string | Element, options?: ChartOptions);
     static getDefaultOptions(options?: ChartOptions): ChartOptions;
     getNode(): Element;
     getSelection(): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
@@ -54,7 +48,7 @@ export class SvgPlate extends AbstractPlate {
 }
 
 export class AbstractChart extends Base {
-    constructor(selector: string|Element, options?: ChartOptions);
+    constructor(selector: string | Element, options?: ChartOptions);
     static getCustomEventNames(): string[];
     addPlate(name: string, plate: AbstractPlate, doNotAppend: boolean): AbstractPlate;
     addPlate(name: string, plate: AbstractPlate): this;
@@ -69,7 +63,7 @@ export class AbstractChart extends Base {
     options(): ChartOptions;
     hasData(): boolean;
     hasNonZeroArea(): boolean;
-    fit(fitOptions?: FitOptions, watchOptions?: boolean|WatchOptions): this;
+    fit(fitOptions?: FitOptions, watchOptions?: boolean | WatchOptions): this;
     stopFitWatcher(): this;
     on(name: string, listener: () => void): this;
     off(name: string): this;
@@ -95,17 +89,17 @@ export interface ChartOptions {
 // from https://github.com/kristw/slimfit
 export interface FitOptions {
     mode?: string | undefined;
-    width?: string|number | undefined;
-    height?: string|number | undefined;
+    width?: string | number | undefined;
+    height?: string | number | undefined;
     ratio?: number | undefined;
-    maxWidth?: string|number | undefined;
-    maxHeight?: string|number | undefined;
+    maxWidth?: string | number | undefined;
+    maxHeight?: string | number | undefined;
 }
 
 // from https://github.com/kristw/slimfit
 export interface WatchOptions {
     mode?: string | undefined;
-    target?: Element|[number, number]|{width: number, height: number}|null | undefined;
+    target?: Element | [number, number] | { width: number; height: number } | null | undefined;
     interval?: number | undefined;
 }
 
@@ -114,11 +108,11 @@ export class SvgChart extends AbstractChart {
     rootG: d3.Selection<d3.BaseType, any, d3.BaseType, any>;
     layers: LayerOrganizer;
     plate: SvgPlate;
-    constructor(selector: string|Element, options?: ChartOptions);
+    constructor(selector: string | Element, options?: ChartOptions);
 }
 
 export class CanvasChart extends AbstractChart {
-    constructor(selector: string|Element, options?: ChartOptions);
+    constructor(selector: string | Element, options?: ChartOptions);
     static getDefaultOptions(): ChartOptions;
     getContext2d(): CanvasRenderingContext2D;
     clear(): this;
@@ -129,19 +123,21 @@ export class HybridChart extends CanvasChart {
     rootG: d3.Selection<d3.BaseType, any, d3.BaseType, any>;
     layers: LayerOrganizer;
     plate: SvgPlate;
-    constructor(selector: string|Element, options?: ChartOptions);
+    constructor(selector: string | Element, options?: ChartOptions);
     static getDefaultOptions(): ChartOptions;
 }
 
 export class LayerOrganizer {
     constructor(container: d3.Selection<d3.BaseType, any, d3.BaseType, any>, defaultTag?: string);
-    create(layerNames: string|string[]|LayerConfig|LayerConfig[]): d3.Selection<d3.BaseType, any, d3.BaseType, any>|Array<d3.Selection<d3.BaseType, any, d3.BaseType, any>>;
+    create(
+        layerNames: string | string[] | LayerConfig | LayerConfig[],
+    ): d3.Selection<d3.BaseType, any, d3.BaseType, any> | Array<d3.Selection<d3.BaseType, any, d3.BaseType, any>>;
     get(name: string): d3.Selection<d3.BaseType, any, d3.BaseType, any>;
     has(name: string): boolean;
 }
 
 export interface LayerConfig {
-    [layerName: string]: string|string[]|LayerConfig|LayerConfig[];
+    [layerName: string]: string | string[] | LayerConfig | LayerConfig[];
 }
 
 export namespace helper {

@@ -1,6 +1,6 @@
-import parsePath = require('parse-filepath');
+import parsePath = require("parse-filepath");
 
-const parsedPath = parsePath('foo/bar/baz/index.js');
+const parsedPath = parsePath("foo/bar/baz/index.js");
 
 parsedPath.absolute; // $ExpectType string
 parsedPath.base; // $ExpectType string

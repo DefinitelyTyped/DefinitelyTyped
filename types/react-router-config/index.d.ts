@@ -1,16 +1,10 @@
-// Type definitions for react-router-config 5.0
-// Project: https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config, https://github.com/reacttraining/react-router
-// Definitions by: John Reilly <https://github.com/johnnyreilly>
-//                 Mathieu TUDISCO <https://github.com/mathieutu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
-import { RouteComponentProps, SwitchProps, match } from 'react-router';
-import { Location } from 'history';
+import { Location } from "history";
+import * as React from "react";
+import { match, RouteComponentProps, SwitchProps } from "react-router";
 
 export interface RouteConfigComponentProps<Params extends { [K in keyof Params]?: string } = {}>
-    extends RouteComponentProps<Params> {
+    extends RouteComponentProps<Params>
+{
     route?: RouteConfig | undefined;
 }
 
@@ -28,7 +22,7 @@ export interface RouteConfig {
 
 export interface MatchedRoute<
     Params extends { [K in keyof Params]?: string },
-    TRouteConfig extends RouteConfig = RouteConfig
+    TRouteConfig extends RouteConfig = RouteConfig,
 > {
     route: TRouteConfig;
     match: match<Params>;
@@ -36,7 +30,7 @@ export interface MatchedRoute<
 
 export function matchRoutes<
     Params extends { [K in keyof Params]?: string },
-    TRouteConfig extends RouteConfig = RouteConfig
+    TRouteConfig extends RouteConfig = RouteConfig,
 >(routes: TRouteConfig[], pathname: string): Array<MatchedRoute<Params, TRouteConfig>>;
 
 export function renderRoutes(

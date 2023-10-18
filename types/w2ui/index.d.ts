@@ -1,9 +1,3 @@
-// Type definitions for w2ui 1.4.3
-// Project: http://w2ui.com/
-// Definitions by: Valentin Robert <https://github.com/Ptival>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 interface JQuery {
@@ -16,17 +10,16 @@ interface JQuery {
     w2popup(options: Object): W2UI.W2Popup;
 }
 
-declare var w2popup: W2UI.W2Popup
-declare var w2ui: W2UI.W2UI
+declare var w2popup: W2UI.W2Popup;
+declare var w2ui: W2UI.W2UI;
 
 declare namespace W2UI {
-
     interface W2Event {
         onComplete: () => void;
         target: string;
     }
 
-    type W2EventHandler = ((e: W2Event) => void) | ((id: string, e: W2Event) => void)
+    type W2EventHandler = ((e: W2Event) => void) | ((id: string, e: W2Event) => void);
 
     /* Primitives (first alphabetically, then by documentation order) */
 
@@ -42,7 +35,7 @@ declare namespace W2UI {
         type?: string | undefined;
     }
 
-    type W2Object = W2Layout | W2Grid | W2Toolbar | W2Sidebar | W2Tabs | W2Form | W2Popup
+    type W2Object = W2Layout | W2Grid | W2Toolbar | W2Sidebar | W2Tabs | W2Form | W2Popup;
 
     interface W2Panel {
         content?: string | JQuery | undefined;
@@ -108,9 +101,9 @@ declare namespace W2UI {
     }
 
     namespace W2Grid {
-        interface Columns { }
-        interface Ranges { }
-        interface Records { }
+        interface Columns {}
+        interface Ranges {}
+        interface Records {}
     }
 
     interface W2Grid extends W2Common, W2OnClickable {
@@ -190,7 +183,7 @@ declare namespace W2UI {
         hideSearch(...fields: string[]): number;
         initAllField(field: string, value?: string): void;
         initColumnOnOff(): void;
-        //initOperator(el, searchInd): void; // this is used internally
+        // initOperator(el, searchInd): void; // this is used internally
         initResize(): void;
         initSearches(): void;
         initToolbar(): void;
@@ -402,8 +395,7 @@ declare namespace W2UI {
     }
 
     interface W2OnClickable {
-      onClick(event: W2Event): void;
-      onClick(id: string, data: W2Event): void;
+        onClick(event: W2Event): void;
+        onClick(id: string, data: W2Event): void;
     }
-
 }

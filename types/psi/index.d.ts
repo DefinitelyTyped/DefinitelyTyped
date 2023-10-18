@@ -1,8 +1,3 @@
-// Type definitions for psi 4.1
-// Project: https://github.com/GoogleChromeLabs/psi#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * PageSpeed Insights with reporting
  */
@@ -25,7 +20,7 @@ declare namespace psi {
          * Strategy to use when analyzing the page.
          * @default 'mobile'
          */
-        strategy?: 'mobile' | 'desktop' | undefined;
+        strategy?: "mobile" | "desktop" | undefined;
         /**
          * Locale results should be generated in.
          * @default 'en_US'

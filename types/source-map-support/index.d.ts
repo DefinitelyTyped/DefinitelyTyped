@@ -1,13 +1,4 @@
-// Type definitions for source-map-support 0.5
-// Project: https://github.com/evanw/node-source-map-support
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 Jason Cheatham <https://github.com/jason0x43>
-//                 Alcedo Nathaniel De Guzman Jr <https://github.com/natealcedo>
-//                 Griffin Yourick <https://github.com/tough-griff>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { RawSourceMap } from 'source-map';
+import { RawSourceMap } from "source-map";
 
 /**
  * Output of `retrieveSourceMap()`.
@@ -19,7 +10,7 @@ export interface UrlAndMap {
     map: string | RawSourceMap;
 }
 
-export type Environment = 'auto' | 'browser' | 'node';
+export type Environment = "auto" | "browser" | "node";
 
 /**
  * Options to install().

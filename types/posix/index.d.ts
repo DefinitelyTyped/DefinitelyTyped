@@ -1,8 +1,3 @@
-// Type definitions for posix 4.2
-// Project: http://github.com/ohmu/node-posix
-// Definitions by: UNIDY2002 <https://github.com/UNIDY2002>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type PosixMask = boolean | 0 | 1;
 
 export interface Group {
@@ -27,7 +22,7 @@ export interface Limit {
     hard: number | null;
 }
 
-export type Resource = 'core' | 'cpu' | 'data' | 'fsize' | 'nofile' | 'nproc' | 'stack' | 'as';
+export type Resource = "core" | "cpu" | "data" | "fsize" | "nofile" | "nproc" | "stack" | "as";
 
 export interface LogOption {
     pid?: PosixMask;
@@ -38,28 +33,28 @@ export interface LogOption {
 }
 
 export type Facility =
-    | 'auth'
-    | 'authpriv'
-    | 'cron'
-    | 'daemon'
-    | 'ftp'
-    | 'kern'
-    | 'lpr'
-    | 'mail'
-    | 'news'
-    | 'syslog'
-    | 'user'
-    | 'uucp'
-    | 'local0'
-    | 'local1'
-    | 'local2'
-    | 'local3'
-    | 'local4'
-    | 'local5'
-    | 'local6'
-    | 'local7';
+    | "auth"
+    | "authpriv"
+    | "cron"
+    | "daemon"
+    | "ftp"
+    | "kern"
+    | "lpr"
+    | "mail"
+    | "news"
+    | "syslog"
+    | "user"
+    | "uucp"
+    | "local0"
+    | "local1"
+    | "local2"
+    | "local3"
+    | "local4"
+    | "local5"
+    | "local6"
+    | "local7";
 
-export type Priority = 'emerg' | 'alert' | 'crit' | 'err' | 'warning' | 'notice' | 'info' | 'debug';
+export type Priority = "emerg" | "alert" | "crit" | "err" | "warning" | "notice" | "info" | "debug";
 
 export interface PriorityMask {
     emerg?: PosixMask;

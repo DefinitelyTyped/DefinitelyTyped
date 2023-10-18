@@ -1,21 +1,13 @@
-// Type definitions for Angular JS (ngCookies module) 1.8
-// Project: http://angularjs.org
-// Definitions by: Diego Vilar <https://github.com/diegovilar>, Anthony Ciccarello <https://github.com/aciccarello>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare var _: string;
 export = _;
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
-
+declare module "angular" {
     /**
      * ngCookies module (angular-cookies.js)
      */
     namespace cookies {
-
         /**
          * CookiesProvider
          * see https://docs.angularjs.org/api/ngCookies/provider/$cookiesProvider
@@ -28,29 +20,29 @@ declare module 'angular' {
         }
 
         /**
-        * Cookies options
-        * see https://docs.angularjs.org/api/ngCookies/provider/$cookiesProvider#defaults
-        */
+         * Cookies options
+         * see https://docs.angularjs.org/api/ngCookies/provider/$cookiesProvider#defaults
+         */
         interface ICookiesOptions {
             /**
-            * The cookie will be available only for this path and its sub-paths.
-            * By default, this would be the URL that appears in your base tag.
-            */
+             * The cookie will be available only for this path and its sub-paths.
+             * By default, this would be the URL that appears in your base tag.
+             */
             path?: string | undefined;
             /**
-            * The cookie will be available only for this domain and its sub-domains.
-            * For obvious security reasons the user agent will not accept the cookie if the
-            * current domain is not a sub domain or equals to the requested domain.
-            */
+             * The cookie will be available only for this domain and its sub-domains.
+             * For obvious security reasons the user agent will not accept the cookie if the
+             * current domain is not a sub domain or equals to the requested domain.
+             */
             domain?: string | undefined;
             /**
-            * String of the form "Wdy, DD Mon YYYY HH:MM:SS GMT" or a Date object
-            * indicating the exact date/time this cookie will expire.
-            */
+             * String of the form "Wdy, DD Mon YYYY HH:MM:SS GMT" or a Date object
+             * indicating the exact date/time this cookie will expire.
+             */
             expires?: string | Date | undefined;
             /**
-            * The cookie will be available only in secured connection.
-            */
+             * The cookie will be available only in secured connection.
+             */
             secure?: boolean | undefined;
             /**
              * Prevents the browser from sending the cookie along with cross-site requests.

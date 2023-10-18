@@ -1,16 +1,16 @@
 import {
-    SMT,
-    SMTMemDb,
-    buildSMT,
     buildBabyjub,
     buildEddsa,
     buildMimc7,
-    buildPoseidon,
     buildMimcSponge,
     buildPedersenHash,
+    buildPoseidon,
+    buildSMT,
     evmasm,
     Point,
-} from 'circomlibjs';
+    SMT,
+    SMTMemDb,
+} from "circomlibjs";
 
 const bigNumber = new Uint8Array([1]);
 const point = [bigNumber, bigNumber] as Point;
@@ -19,14 +19,14 @@ const signature = {
     S: BigInt(3),
 };
 
-const db = new SMTMemDb('F');
+const db = new SMTMemDb("F");
 
 new SMT(
     db,
     1,
     (left, right) => bigNumber,
     (key, value) => bigNumber,
-    'F',
+    "F",
 );
 
 new evmasm();
@@ -34,6 +34,14 @@ new evmasm();
 (async () => {
     const smt = await buildSMT(db, 0);
 
+    // $ExpectType any
+    smt.F;
+    // $ExpectType SMTMemDb
+    smt.db;
+    // $ExpectType BigNumberish
+    smt.root;
+    smt.hash0;
+    smt.hash1;
     // $ExpectType any
     smt.delete(1);
     // $ExpectType any
@@ -46,6 +54,24 @@ new evmasm();
     // $ExpectType BabyJub
     const babyJub = await buildBabyjub();
 
+    // $ExpectType any
+    babyJub.F;
+    // $ExpectType bigint
+    babyJub.p;
+    // $ExpectType bigint
+    babyJub.pm1d2;
+    // $ExpectType Point
+    babyJub.Generator;
+    // $ExpectType Point
+    babyJub.Base8;
+    // $ExpectType bigint
+    babyJub.order;
+    // $ExpectType bigint
+    babyJub.subOrder;
+    // $ExpectType Uint8Array
+    babyJub.A;
+    // $ExpectType Uint8Array
+    babyJub.D;
     // $ExpectType Point
     babyJub.addPoint(point, point);
     // $ExpectType Point
@@ -62,18 +88,30 @@ new evmasm();
     // $ExpectType Eddsa
     const eddsa = await buildEddsa();
 
+    // $ExpectType any
+    eddsa.F;
+    // $ExpectType BabyJub
+    eddsa.babyJub;
+    // $ExpectType PedersenHash
+    eddsa.pedersenHash;
+    // $ExpectType Mimc7
+    eddsa.mimc7;
+    // $ExpectType Poseidon
+    eddsa.poseidon;
+    // $ExpectType MimcSponge
+    eddsa.mimcSponge;
     // $ExpectType Uint8Array
     eddsa.pruneBuffer(new Uint8Array([0]));
     // $ExpectType Point
-    eddsa.prv2pub('sk');
+    eddsa.prv2pub("sk");
     // $ExpectType Signature
-    eddsa.signPedersen('sk', bigNumber);
+    eddsa.signPedersen("sk", bigNumber);
     // $ExpectType Signature
-    eddsa.signPoseidon('sk', bigNumber);
+    eddsa.signPoseidon("sk", bigNumber);
     // $ExpectType Signature
-    eddsa.signMiMC('sk', bigNumber);
+    eddsa.signMiMC("sk", bigNumber);
     // $ExpectType Signature
-    eddsa.signMiMCSponge('sk', bigNumber);
+    eddsa.signMiMCSponge("sk", bigNumber);
     // $ExpectType boolean
     eddsa.verifyPedersen(bigNumber, signature, point);
     // $ExpectType boolean
@@ -90,12 +128,16 @@ new evmasm();
     // $ExpectType Mimc7
     const mimc7 = await buildMimc7();
 
+    // $ExpectType any
+    mimc7.F;
+    // $ExpectType Uint8Array[]
+    mimc7.cts;
     // $ExpectType bigint
-    mimc7.getIV('mimc');
+    mimc7.getIV("mimc");
     mimc7.getIV();
     // $ExpectType Uint8Array[]
-    mimc7.getConstants('mimc', 3);
-    mimc7.getConstants('mimc');
+    mimc7.getConstants("mimc", 3);
+    mimc7.getConstants("mimc");
     mimc7.getConstants();
     // $ExpectType Uint8Array
     mimc7.hash(3, 2);
@@ -106,12 +148,16 @@ new evmasm();
     // $ExpectType MimcSponge
     const mimcSponge = await buildMimcSponge();
 
+    // $ExpectType any
+    mimcSponge.F;
+    // $ExpectType Uint8Array[]
+    mimcSponge.cts;
     // $ExpectType bigint
-    mimcSponge.getIV('mimcsponge');
+    mimcSponge.getIV("mimcsponge");
     mimcSponge.getIV();
     // $ExpectType Uint8Array[]
-    mimcSponge.getConstants('mimcsponge', 3);
-    mimcSponge.getConstants('mimcsponge');
+    mimcSponge.getConstants("mimcsponge", 3);
+    mimcSponge.getConstants("mimcsponge");
     mimcSponge.getConstants();
     // $ExpectType Uint8Array
     mimcSponge.hash(3, 3, 2);
@@ -133,17 +179,21 @@ new evmasm();
     // $ExpectType PedersenHash
     const pederson = await buildPedersenHash();
 
+    // $ExpectType BabyJub
+    pederson.babyJub;
+    // $ExpectType any[]
+    pederson.bases;
     // $ExpectType any
-    pederson.baseHash('blake', 3);
-    pederson.baseHash('blake2b', 4);
+    pederson.baseHash("blake", 3);
+    pederson.baseHash("blake2b", 4);
     // $ExpectType boolean[]
     pederson.buffer2bits(new Uint8Array([1]));
     // $ExpectType Uint8Array
     pederson.hash(new Uint8Array([2]), {});
     pederson.hash(new Uint8Array([2]));
     // $ExpectType Point
-    pederson.getBasePoint('blake', 3);
-    pederson.getBasePoint('blake2b', 3);
+    pederson.getBasePoint("blake", 3);
+    pederson.getBasePoint("blake2b", 3);
     // $ExpectType string
     pederson.padLeftZeros(3, 4);
 })();

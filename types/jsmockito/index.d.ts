@@ -1,8 +1,3 @@
-// Type definitions for JsMockito 1.0.4
-// Project: https://github.com/chrisleishman/jsmockito
-// Definitions by: Karl Bennett <https://github.com/shiver-me-timbers>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Top-level module for the JsMockito mocking library.
  *
@@ -313,7 +308,6 @@
  * </pre>
  */
 declare namespace JsMockito {
-
     /**
      * Library version.
      */
@@ -323,7 +317,6 @@ declare namespace JsMockito {
      * Builder for a textual description.
      */
     export class JsMockitoStubBuilder {
-
         /**
          * Provide functions to be run in place of the mocked method.
          *
@@ -456,10 +449,9 @@ declare namespace JsMockito {
      * @param Obj the constructor for the object to be mocked
      * @return a mock object
      */
-    export function mock<T>(Obj: { new(): T ;}): T;
+    export function mock<T>(Obj: { new(): T }): T;
 
     namespace Verifiers {
-
         /**
          * Test that a invocation never occurred. For example:
          * <pre>
@@ -508,7 +500,6 @@ declare namespace JsMockito {
     }
 
     namespace Integration {
-
         /**
          * Import the public JsMockito API into the specified object (namespace)
          *
@@ -649,8 +640,8 @@ declare function mockFunction(funcName: string, delegate: Function): Function;
  *
  * <pre>
  * MyObject = function() {
-     *   this.add = function(a, b) { return a + b }
-     * };
+ *   this.add = function(a, b) { return a + b }
+ * };
  *
  * var mockObj = JsMockito.mock(MyObject);
  * mockObj.add(5, 4); // result is undefined
@@ -666,7 +657,7 @@ declare function mockFunction(funcName: string, delegate: Function): Function;
  * @param Obj the constructor for the object to be mocked
  * @return a mock object
  */
-declare function mock<T>(Obj: { new(): T ;}): T;
+declare function mock<T>(Obj: { new(): T }): T;
 
 /**
  * Test that a invocation never occurred. For example:

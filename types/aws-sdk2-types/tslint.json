@@ -9,7 +9,6 @@
         "array-type": false,
         "no-var-keyword": false,
         "void-return": false,
-        "strict-export-declare-modifiers": false,
         "no-duplicate-imports": false,
         "no-mergeable-namespace": false,
         "jsdoc-format": false,

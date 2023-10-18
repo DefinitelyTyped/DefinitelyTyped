@@ -1,4 +1,4 @@
-import { NamespaceBuilder } from './index.js';
+import { NamespaceBuilder } from "./index.js";
 
 export interface NamespaceFactory {
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
@@ -7,7 +7,7 @@ export interface NamespaceFactory {
 
 interface NamespaceFactoryCtor {
     new(): NamespaceFactory;
-    exports: ['namespace'];
+    exports: ["namespace"];
 }
 
 declare const namespaceFactory: NamespaceFactoryCtor;

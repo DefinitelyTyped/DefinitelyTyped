@@ -1,13 +1,7 @@
-// Type definitions for react-bootstrap-table2-toolkit 2.1
-// Project: https://github.com/react-bootstrap-table/react-bootstrap-table2#readme
-// Definitions by: Wlad Meixner <https://github.com/gosticks>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 // documentation taken from https://react-bootstrap-table.github.io/react-bootstrap-table2/docs/table-props.html
 
-import { CSSProperties, ReactNode } from 'react';
-import { ColumnDescription, SearchProps } from 'react-bootstrap-table-next';
+import { CSSProperties, ReactNode } from "react";
+import { ColumnDescription, SearchProps } from "react-bootstrap-table-next";
 
 /**
  * declaration for table toolkit sub module

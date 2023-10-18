@@ -1,7 +1,23 @@
 {
     "private": true,
+    "name": "@types/minify",
+    "version": "9.1.9999",
+    "projects": [
+        "http://coderaiser.github.io/minify"
+    ],
     "type": "module",
     "dependencies": {
+        "@types/clean-css": "*",
+        "@types/html-minifier-terser": "*",
         "terser": "^5.3.2"
-    }
+    },
+    "devDependencies": {
+        "@types/minify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
 }

@@ -1,1 +1,1 @@
-export * from '../lib/linkify';
+export * from "../lib/linkify";

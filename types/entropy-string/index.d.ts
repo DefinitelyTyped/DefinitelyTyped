@@ -1,12 +1,8 @@
-// Type definitions for entropy-string 4.2
-// Project: https://github.com/EntropyString/JavaScript
-// Definitions by: aaronleopold <https://github.com/aaronleopold>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-type RequireAtLeastOne<T, Keys extends keyof T = keyof T> = Pick<T, Exclude<keyof T, Keys>> &
-    {
+type RequireAtLeastOne<T, Keys extends keyof T = keyof T> =
+    & Pick<T, Exclude<keyof T, Keys>>
+    & {
         [K in Keys]-?: Required<Pick<T, K>> & Partial<Pick<T, Exclude<Keys, K>>>;
     }[Keys];
 
@@ -21,7 +17,7 @@ interface Opts {
 type Options = RequireAtLeastOne<Opts, keyof Opts>;
 
 export const HASH_LENGTH = 6;
-export const CHARSET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_';
+export const CHARSET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
 
 export function RNG(size: number): Buffer;
 

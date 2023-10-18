@@ -1,18 +1,13 @@
-// Type definitions for bitcore-lib 0.15
-// Project: https://github.com/bitpay/bitcore-lib
-// Definitions by: Lautaro Dragan <https://github.com/lautarodragan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.2
 
 /// <reference types="node" />
 
 export namespace crypto {
-    class BN { }
+    class BN {}
 
     namespace ECDSA {
         function sign(message: Buffer, key: PrivateKey): Signature;
-        function verify(hashbuf: Buffer, sig: Signature, pubkey: PublicKey, endian?: 'little'): boolean;
+        function verify(hashbuf: Buffer, sig: Signature, pubkey: PublicKey, endian?: "little"): boolean;
     }
 
     namespace Hash {
@@ -28,7 +23,7 @@ export namespace crypto {
     }
 
     namespace Random {
-       function getRandomBuffer(size: number): Buffer;
+        function getRandomBuffer(size: number): Buffer;
     }
 
     namespace Point {}

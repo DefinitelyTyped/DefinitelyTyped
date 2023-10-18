@@ -1,0 +1,42 @@
+{
+    "private": true,
+    "name": "@types/passport-oauth2",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/jaredhanson/passport-oauth2#readme"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/oauth": "*",
+        "@types/passport": "*"
+    },
+    "devDependencies": {
+        "@types/passport-oauth2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pasi Eronen",
+            "githubUsername": "pasieronen"
+        },
+        {
+            "name": "Wang Zishi",
+            "githubUsername": "WangZishi"
+        },
+        {
+            "name": "Eduardo AC",
+            "githubUsername": "EduardoAC"
+        },
+        {
+            "name": "Ivan Fernandes",
+            "githubUsername": "ivan94"
+        },
+        {
+            "name": "Daphne Smit",
+            "githubUsername": "daphnesmit"
+        },
+        {
+            "name": "Joel Klint",
+            "githubUsername": "JoelKlint"
+        }
+    ]
+}

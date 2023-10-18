@@ -1,14 +1,8 @@
-// Type definitions for angular-feature-flags 1.4.0
-// Project: https://github.com/mjt01/angular-feature-flags
-// Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
-import * as ng from 'angular';
+import * as ng from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     namespace featureflags {
         export interface FlagData {
             /**
@@ -41,7 +35,7 @@ declare module 'angular' {
             set(
                 flagsPromise:
                     | ng.IPromise<ReadonlyArray<FlagData>>
-                    | ng.IHttpPromise<ReadonlyArray<FlagData>>
+                    | ng.IHttpPromise<ReadonlyArray<FlagData>>,
             ): void;
         }
     }

@@ -1,15 +1,12 @@
-// Type definitions for react-native-video-player 0.10
-// Project: https://github.com/cornedor/react-native-video-player.git
-// Definitions by: Junseong Park <https://github.com/Kweiza>
-//                 mike castleman <https://github.com/mlc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import * as React from "react";
+import { ImageSourcePropType, ImageStyle, StyleProp, TextStyle, ViewStyle } from "react-native";
+import { VideoProperties } from "react-native-video";
 
-import * as React from 'react';
-import { ImageSourcePropType, StyleProp, ViewStyle, TextStyle, ImageStyle } from 'react-native';
-import { VideoProperties } from 'react-native-video';
-
-export interface VideoPlayerProps extends Omit<VideoProperties, 'source'> {
-    video?: { uri?: string | undefined, mainVer?: number | undefined, patchVer?: number | undefined } | number | undefined;
+export interface VideoPlayerProps extends Omit<VideoProperties, "source"> {
+    video?:
+        | { uri?: string | undefined; mainVer?: number | undefined; patchVer?: number | undefined }
+        | number
+        | undefined;
     thumbnail?: ImageSourcePropType | undefined;
     endThumbnail?: ImageSourcePropType | undefined;
     videoWidth?: number | undefined;

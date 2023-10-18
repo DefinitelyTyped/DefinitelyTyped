@@ -1,13 +1,4 @@
-// Type definitions for non-npm package @ember/utils 3.16
-// Project: https://api.emberjs.com/ember/3.16/modules/@ember%2Futils
-// Definitions by: Mike North <https://github.com/mike-north>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 Krystan HuffMenne <https://github.com/gitKrystan>
-//                 James C. Davis <https://github.com/jamescdavis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
-import { TypeLookup, TypeOf, FunctionArgs } from './-private/types';
+import { FunctionArgs, TypeLookup, TypeOf } from "./-private/types";
 
 /**
  * Compares two javascript values and returns:
@@ -61,5 +52,5 @@ export function tryInvoke(obj: object, methodName: string, args?: any[]): undefi
  * Returns a consistent type for the passed object.
  */
 export function typeOf<T>(value: T): TypeOf<TypeLookup, T>;
-export function typeOf(): 'undefined';
+export function typeOf(): "undefined";
 export function typeOf(item: any): string;

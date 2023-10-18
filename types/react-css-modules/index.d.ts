@@ -1,12 +1,6 @@
-// Type definitions for react-css-modules 4.6.0
-// Project: https://github.com/gajus/react-css-modules
-// Definitions by: Kostya Esmukov <https://github.com/KostyaEsmukov>, Tadas Dailyda <https://github.com/skirsdeda>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 interface TypeOptions {
     allowMultiple?: boolean | undefined;
-    handleNotFoundStyleName?: 'throw' | 'log' | 'ignore' | undefined;
+    handleNotFoundStyleName?: "throw" | "log" | "ignore" | undefined;
 }
 
 type StylesObject = any;
@@ -29,7 +23,7 @@ declare let CSSModules: CSSModules;
 
 export = CSSModules;
 
-declare module 'react' {
+declare module "react" {
     interface Attributes {
         styleName?: string | undefined;
     }

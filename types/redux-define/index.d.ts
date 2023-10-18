@@ -1,9 +1,3 @@
-// Type definitions for redux-define 1.1
-// Project: https://github.com/smeijer/redux-define
-// Definitions by: Joe Barnett <https://github.com/ensconced>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 export as namespace ReduxDefine;
 
 export type SubActionProps<
@@ -12,11 +6,10 @@ export type SubActionProps<
     Namespace extends string | undefined,
     OwnAction extends string,
 > = {
-    [k in SubActions[number]]: `${Namespace extends string ? `${Namespace}/` : ''}${OwnAction}_${k}`;
+    [k in SubActions[number]]: `${Namespace extends string ? `${Namespace}/` : ""}${OwnAction}_${k}`;
 };
 
-export type NamespaceString<Namespace extends Action | string> = Namespace extends Action
-    ? Namespace['ACTION']
+export type NamespaceString<Namespace extends Action | string> = Namespace extends Action ? Namespace["ACTION"]
     : Namespace;
 
 export type WithNamespace<OwnAction extends string, Namespace extends string | undefined> = Namespace extends string
@@ -61,7 +54,7 @@ export function defineAction<OwnAction extends string, Namespace extends string 
 export type defineChildAction = <Parent extends Action, OwnAction extends string>(
     this: Parent,
     actionType: OwnAction,
-) => Action<OwnAction, string, Parent['ACTION'], []>;
+) => Action<OwnAction, string, Parent["ACTION"], []>;
 
 export type defineChildActionWithNamespace = <OwnAction extends string, Namespace extends string | Action>(
     this: Action,
@@ -81,4 +74,4 @@ export type defineChildActionWithSubactionsAndNamespace = <
     actionType: OwnAction,
     subactions: SubActions,
     namespace?: string | Action, // Has no effect but is permitted.
-) => Action<OwnAction, SubAction, Parent['ACTION'], SubActions>;
+) => Action<OwnAction, SubAction, Parent["ACTION"], SubActions>;

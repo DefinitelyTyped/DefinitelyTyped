@@ -1,9 +1,3 @@
-// Type definitions for reserved-words 0.1
-// Project: https://github.com/zxqfox/reserved-words#readme
-// Definitions by: Spencer Miskoviak <https://github.com/skovy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 export type Dialect =
     | "es3"
     | 3
@@ -14,6 +8,7 @@ export type Dialect =
     | "es7"
     | 7
     | "es6"
+    | "default"
     | "next";
 
 export interface Keywords {
@@ -36,5 +31,5 @@ export const KEYWORDS: Keywords;
 export function check(
     word: string,
     dialect?: Dialect,
-    strict?: boolean
+    strict?: boolean,
 ): boolean;

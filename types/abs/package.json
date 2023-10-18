@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/abs",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/ionicabizau/abs"
+    ],
+    "devDependencies": {
+        "@types/abs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aya Morisawa",
+            "githubUsername": "AyaMorisawa"
+        }
+    ]
+}

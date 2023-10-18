@@ -1,37 +1,37 @@
-// Type definitions for es-value-fixtures 1.4
-// Project: https://github.com/ljharb/es-value-fixtures#readme
-// Definitions by: Jordan Harband <https://github.com/ljharb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /*~ If this module is a UMD module that exposes a global variable 'myLib' when
  *~ loaded outside a module loader environment, declare that global here.
  *~ Otherwise, delete this declaration.
  */
 
-type ESAbstractDescriptor = {
-    '[[Configurable]]'?: boolean;
-    '[[Enumerable]]'?: boolean;
-} & (
-    | Partial<{
-        '[[Writable]]': boolean;
-        '[[Value]]': unknown;
-    }>
-    | Partial<{
-        '[[Get]]'?: () => unknown;
-        '[[Set]]'?: (value: unknown) => void;
-    }>
-);
+type ESAbstractDescriptor =
+    & {
+        "[[Configurable]]"?: boolean;
+        "[[Enumerable]]"?: boolean;
+    }
+    & (
+        | Partial<{
+            "[[Writable]]": boolean;
+            "[[Value]]": unknown;
+        }>
+        | Partial<{
+            "[[Get]]"?: () => unknown;
+            "[[Set]]"?: (value: unknown) => void;
+        }>
+    );
 
 type Func = (...args: unknown[]) => unknown;
 
-interface CoercibleObject { valueOf: Func, toString: Func }
+interface CoercibleObject {
+    valueOf: Func;
+    toString: Func;
+}
 
 declare const fixtures: {
     primitives: ReadonlyArray<string | number | bigint | boolean | symbol | null | undefined>;
     booleans: readonly boolean[];
     coercibleFnObject: readonly CoercibleObject[];
     coercibleObject: readonly CoercibleObject[];
-    falsies: ReadonlyArray<null | undefined | false | number | '' | 0n>;
+    falsies: ReadonlyArray<null | undefined | false | number | "" | 0n>;
     hasSymbols: boolean;
     infinities: readonly number[];
     int32s: readonly number[];

@@ -1,11 +1,6 @@
-// Type definitions for sha 3.0
-// Project: https://github.com/ForbesLindesay/sha
-// Definitions by: Oscar Busk <https://github.com/oBusk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Transform } from 'stream';
+import { Transform } from "stream";
 
 export type CheckCallback<R> = (err: Error | null) => R;
 export type GetCallback = (err: Error | null, actual: string) => void;

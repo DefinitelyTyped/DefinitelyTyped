@@ -1,8 +1,3 @@
-// Type definitions for node-kmeans 1.1
-// Project: https://www.npmjs.com/package/node-kmeans
-// Definitions by: 3aquin3 <https://github.com/aquine-kujaruk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ClusterizeOptions {
     k: number;
     seed?: number;

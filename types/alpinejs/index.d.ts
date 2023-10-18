@@ -1,10 +1,3 @@
-// Type definitions for alpinejs 3.13
-// Project: https://github.com/alpinejs/alpine
-// Definitions by: Thomas Wirth <https://github.com/wtho>
-//                 Eric Kwoka <https://github.com/ekwoka>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.6
-
 export type ElementWithXAttributes<T extends Element = HTMLElement> = withXAttributes<T>;
 
 export type withXAttributes<T extends Element> = T & Partial<XAttributes>;
@@ -101,13 +94,28 @@ export interface DirectiveData {
     original: string;
 }
 
-type InterceptorCallback = <T>(initial: T, get: () => T, set: (val: T) => void, path: string, key: string) => void;
+type InterceptorCallback<T> = (initial: T, get: () => T, set: (val: T) => void, path: string, key: string) => T;
 
-interface InterceptorObject {
-    initialValue: unknown;
+export interface InterceptorObject<T> {
+    initialValue: T;
     _x_interceptor: true;
-    initialize: (data: Record<string, unknown>, path: string, key: string) => void;
+    initialize: (data: Record<string, unknown>, path: string, key: string) => T;
 }
+
+type InferInterceptor<T> = T extends InterceptorObject<infer U> ? U
+    : T extends Record<string | number | symbol, unknown> ? {
+            [K in keyof T]: InferInterceptor<T[K]>;
+        }
+    : T;
+
+export type InferInterceptors<T> = {
+    [K in keyof T]: InferInterceptor<T[K]>;
+};
+
+type interceptor = <T>(
+    callback: InterceptorCallback<T>,
+    mutateObj?: (obj: InterceptorObject<T>) => void,
+) => (initialValue: T) => InterceptorObject<T>;
 
 export interface DirectiveUtilities {
     Alpine: Alpine;
@@ -118,10 +126,7 @@ export interface DirectiveUtilities {
     evaluate: <T>(expression: string | (() => T), extras?: Record<string, unknown>, _?: boolean) => T;
 }
 export type MagicUtilities = DirectiveUtilities & {
-    interceptor: (
-        callback: InterceptorCallback,
-        mutateObj: (obj: InterceptorObject) => void,
-    ) => (initialValue: unknown) => InterceptorObject;
+    interceptor: interceptor;
 };
 
 export interface DirectiveCallback {
@@ -131,7 +136,7 @@ export interface DirectiveCallback {
 
 export type WalkerCallback = (el: ElementWithXAttributes, skip: () => void) => void;
 
-export type AlpineComponent<T> = T & XDataContext & ThisType<T & XDataContext & Magics<T>>;
+export type AlpineComponent<T> = T & XDataContext & ThisType<InferInterceptors<T> & XDataContext & Magics<T>>;
 
 interface XDataContext {
     /**
@@ -152,7 +157,7 @@ export interface Magics<T> {
     /**
      * Access to current Alpine data.
      */
-    $data: T;
+    $data: InferInterceptors<T>;
     /**
      * Dispatches a CustomEvent on the current DOM node.
      * Event automatically bubbles up.
@@ -283,29 +288,18 @@ export interface Alpine {
     ) => ElementWithXAttributes;
     closestRoot: (el: ElementWithXAttributes, includeInitSelectors?: boolean) => ElementWithXAttributes | undefined;
     destroyTree: (root: ElementWithXAttributes) => void;
-    interceptor: <T_4>(
-        callback: (initial: T_4, get: () => T_4, set: (val: T_4) => void, path: string, key: string) => void,
-        mutateObj?: (obj: {
-            initialValue: unknown;
-            _x_interceptor: true;
-            initialize: (data: Record<string, unknown>, path: string, key: string) => void;
-        }) => void,
-    ) => (initialValue: any) => {
-        initialValue: unknown;
-        _x_interceptor: true;
-        initialize: (data: Record<string, unknown>, path: string, key: string) => void;
-    };
+    interceptor: interceptor;
     transition: (
         el: ElementWithXAttributes,
         setFunction:
             | ((
-                  el: ElementWithXAttributes,
-                  value:
-                      | string
-                      | boolean
-                      | Record<string, boolean>
-                      | (() => string | boolean | Record<string, boolean>),
-              ) => () => void)
+                el: ElementWithXAttributes,
+                value:
+                    | string
+                    | boolean
+                    | Record<string, boolean>
+                    | (() => string | boolean | Record<string, boolean>),
+            ) => () => void)
             | ((el: ElementWithXAttributes, value: string | Partial<CSSStyleDeclaration>) => () => void),
         {
             during,

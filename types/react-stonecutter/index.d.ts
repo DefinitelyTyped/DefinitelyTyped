@@ -1,10 +1,4 @@
-// Type definitions for react-stonecutter 0.3
-// Project: https://github.com/dantrain/react-stonecutter
-// Definitions by:  jzipfler <https://github.com/jzipfler>
-//                  Iswenzz <https://github.com/Iswenzz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
+import * as React from "react";
 
 export type Coordinates = [number, number];
 export interface Layout {

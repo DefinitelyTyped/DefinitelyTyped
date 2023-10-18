@@ -1,6 +1,6 @@
-import { Strarray } from './str-array';
-import { Tree } from './tree';
-import { Index } from './index';
+import { Index } from "./index";
+import { Strarray } from "./str-array";
+import { Tree } from "./tree";
 
 export class CheckoutOptions {
     version?: number | undefined;

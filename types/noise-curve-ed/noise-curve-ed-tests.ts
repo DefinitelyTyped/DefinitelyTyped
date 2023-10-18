@@ -1,5 +1,5 @@
-import * as curve from 'noise-curve-ed';
-import Noise = require('noise-handshake');
+import * as curve from "noise-curve-ed";
+import Noise = require("noise-handshake");
 
 // test type exports
 type KeyPair = curve.KeyPair;
@@ -20,4 +20,4 @@ buf = curve.dh(Buffer.alloc(10), { secretKey: Buffer.alloc(10) });
 buf = curve.dh(Buffer.alloc(10), { scalar: Buffer.alloc(10), secretKey: Buffer.alloc(10) });
 buf = curve.dh(Buffer.alloc(10), kp);
 
-new Noise('IK', true, undefined, { curve });
+new Noise("IK", true, undefined, { curve });

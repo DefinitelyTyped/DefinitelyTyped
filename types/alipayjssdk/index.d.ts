@@ -1,8 +1,3 @@
-// Type definitions for non-npm package Alipay JSSDK - alipayjsapi.js 3.1
-// Project: https://myjsapi.alipay.com/alipayjsapi/index.html
-// Definitions by: Yuxiang Ren <https://github.com/shlyren>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Alipay JSSDK 提供丰富的支付宝原生 API，可以方便调用支付宝提供的能力，达到媲美原生应用的体验，如页面跳转，支付功能等。
  *
@@ -15,7 +10,6 @@
  * - 移除了部分除`on/off`开头接口入参`callback`回调函数。请使用`OPTION.complete`代替
  * - 移除了`OPTION.success`和`OPTION.fail`，请使用`Promise`的`then`、`catch`代替
  * - 部分接口移除了`OPTION`简略入参
- *
  *
  * ### 安装使用
  *  ```js
@@ -46,7 +40,7 @@ declare namespace AlipayJSSDK {
         /** 网络是否可用 */
         networkAvailable: boolean;
         /** 网络类型值 UNKNOWN / NOTREACHABLE / WIFI / 3G / 2G / 4G / WWAN */
-        networkType: 'UNKNOWN' | 'NOTREACHABLE' | 'WIFI' | '3G' | '2G' | '4G' | 'WWAN';
+        networkType: "UNKNOWN" | "NOTREACHABLE" | "WIFI" | "3G" | "2G" | "4G" | "WWAN";
     }
 
     /** 蓝牙设备信息 */
@@ -199,9 +193,9 @@ declare namespace AlipayJSSDK {
         getSessionData(
             optios:
                 | {
-                      keys: string[];
-                      complete?: CompleteCallBack;
-                  }
+                    keys: string[];
+                    complete?: CompleteCallBack;
+                }
                 | string[]
                 | string,
         ): Promise<{
@@ -237,12 +231,12 @@ declare namespace AlipayJSSDK {
         chooseImage(
             option:
                 | {
-                      /** 最大可选照片数，默认1张，上限9张 */
-                      count?: number;
-                      /** 相册选取或者拍照，默认 ['camera', 'album'] */
-                      sourceType?: Array<'camera' | 'album'>;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 最大可选照片数，默认1张，上限9张 */
+                    count?: number;
+                    /** 相册选取或者拍照，默认 ['camera', 'album'] */
+                    sourceType?: Array<"camera" | "album">;
+                    complete?: CompleteCallBack;
+                }
                 | number,
         ): Promise<{
             /** 图片文件路径 */
@@ -266,12 +260,12 @@ declare namespace AlipayJSSDK {
         previewImage(
             option:
                 | {
-                      /** 要预览的图片链接列表 */
-                      urls: string[];
-                      /** 当前显示图片索引，默认 0 */
-                      current?: number;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 要预览的图片链接列表 */
+                    urls: string[];
+                    /** 当前显示图片索引，默认 0 */
+                    current?: number;
+                    complete?: CompleteCallBack;
+                }
                 | string[],
         ): Promise<{}>;
 
@@ -289,14 +283,14 @@ declare namespace AlipayJSSDK {
         chooseVideo(
             option?:
                 | {
-                      /** 最大录制时长，单位秒，默认60s */
-                      maxDuration?: number;
-                      /** 相册选取或者拍照，默认 ['camera','album'] */
-                      sourceType?: Array<'camera' | 'album'>;
-                      /** 前置或者后置摄像头，默认前后都有，即：[‘front’, ‘back’] */
-                      camera?: string[];
-                      complete?: CompleteCallBack;
-                  }
+                    /** 最大录制时长，单位秒，默认60s */
+                    maxDuration?: number;
+                    /** 相册选取或者拍照，默认 ['camera','album'] */
+                    sourceType?: Array<"camera" | "album">;
+                    /** 前置或者后置摄像头，默认前后都有，即：[‘front’, ‘back’] */
+                    camera?: string[];
+                    complete?: CompleteCallBack;
+                }
                 | number,
         ): Promise<{
             /** 视频文件路径 */
@@ -327,20 +321,20 @@ declare namespace AlipayJSSDK {
         playBackgroundAudio(
             option:
                 | {
-                      /** 音乐链接地址 */
-                      url: string;
-                      /** 音乐标题 */
-                      title?: string;
-                      /** 演唱者 */
-                      singer?: string;
-                      /** 音乐描述 */
-                      describe?: string;
-                      /** logo URL */
-                      logo?: string;
-                      /** 封面 URL */
-                      cover?: string;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 音乐链接地址 */
+                    url: string;
+                    /** 音乐标题 */
+                    title?: string;
+                    /** 演唱者 */
+                    singer?: string;
+                    /** 音乐描述 */
+                    describe?: string;
+                    /** logo URL */
+                    logo?: string;
+                    /** 封面 URL */
+                    cover?: string;
+                    complete?: CompleteCallBack;
+                }
                 | string[],
         ): Promise<unknown>;
 
@@ -363,10 +357,10 @@ declare namespace AlipayJSSDK {
         seekBackgroundAudio(
             option:
                 | {
-                      /** 音乐位置，单位秒 */
-                      position: number;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 音乐位置，单位秒 */
+                    position: number;
+                    complete?: CompleteCallBack;
+                }
                 | number,
         ): Promise<unknown>;
 
@@ -457,7 +451,6 @@ declare namespace AlipayJSSDK {
          * | 14 | 定位超时 |
          * | 15 | 网络错误 |
          * | 16 | GPS未打开或用户未授权 |
-         *
          */
         getLocation(option?: {
             /** 钱包经纬度定位缓存过期时间，单位秒。默认 30s。使用缓存会加快定位速度，缓存过期会重新定位 */
@@ -552,7 +545,7 @@ declare namespace AlipayJSSDK {
          */
         scan(option?: {
             /** 扫描目标类型，支持 qr / bar，相应扫码选框会不同，默认 qr */
-            type: 'qr' | 'bar';
+            type: "qr" | "bar";
             complete?: CompleteCallBack;
         }): Promise<{
             /** 扫码所得数据 */
@@ -722,10 +715,10 @@ declare namespace AlipayJSSDK {
         connectBLEDevice(
             option:
                 | {
-                      /** 蓝牙设备 id */
-                      deviceId: string;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 蓝牙设备 id */
+                    deviceId: string;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<unknown>;
 
@@ -741,10 +734,10 @@ declare namespace AlipayJSSDK {
         disconnectBLEDevice(
             option:
                 | {
-                      /** 蓝牙设备 id */
-                      deviceId: string;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 蓝牙设备 id */
+                    deviceId: string;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<unknown>;
 
@@ -835,10 +828,10 @@ declare namespace AlipayJSSDK {
         getBLEDeviceServices(
             option:
                 | {
-                      /** 蓝牙设备 id，参考 device 对象 */
-                      deviceId: string;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 蓝牙设备 id，参考 device 对象 */
+                    deviceId: string;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<{
             /** service 对象 */
@@ -862,12 +855,12 @@ declare namespace AlipayJSSDK {
         getBLEDeviceCharacteristics(
             option:
                 | {
-                      /** 蓝牙设备 id，参考 device 对象 */
-                      deviceId: string;
-                      /** 蓝牙特征值对应 service 的 uuid */
-                      serviceId: string;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 蓝牙设备 id，参考 device 对象 */
+                    deviceId: string;
+                    /** 蓝牙特征值对应 service 的 uuid */
+                    serviceId: string;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<{
             /** 设备特征值列表 */
@@ -1023,12 +1016,12 @@ declare namespace AlipayJSSDK {
         pushWindow(
             option:
                 | {
-                      /** 要打开的页面url */
-                      url: string;
-                      /** url的参数，会以 query string 跟在 url 后面。在打开的新页面里可以用 ap.parseQueryString() 来获取 */
-                      data?: Record<string, string>;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 要打开的页面url */
+                    url: string;
+                    /** url的参数，会以 query string 跟在 url 后面。在打开的新页面里可以用 ap.parseQueryString() 来获取 */
+                    data?: Record<string, string>;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<unknown>;
 
@@ -1040,10 +1033,10 @@ declare namespace AlipayJSSDK {
         popWindow(
             option?:
                 | {
-                      /** 传递的 data 对象将会被即将露出的页面通过 onResume 事件接收 */
-                      data?: Record<string, string>;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 传递的 data 对象将会被即将露出的页面通过 onResume 事件接收 */
+                    data?: Record<string, string>;
+                    complete?: CompleteCallBack;
+                }
                 | Record<string, string>,
         ): Promise<unknown>;
 
@@ -1055,16 +1048,16 @@ declare namespace AlipayJSSDK {
         popTo(
             option:
                 | {
-                      /** 目标页面的完整 URL */
-                      url?: string;
-                      /** 目标页面的 URL 匹配表达式（ URL 如果包含 urlPattern，匹配成功） */
-                      urlPattern?: string;
-                      /** 目标页面在会话页面栈中的索引；如果小于零，则将与当前页面的 index 相加 */
-                      index?: number;
-                      /** 传递的 data 对象将会被即将露出的页面通过 onResume 事件接收 */
-                      data?: Record<string, string>;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 目标页面的完整 URL */
+                    url?: string;
+                    /** 目标页面的 URL 匹配表达式（ URL 如果包含 urlPattern，匹配成功） */
+                    urlPattern?: string;
+                    /** 目标页面在会话页面栈中的索引；如果小于零，则将与当前页面的 index 相加 */
+                    index?: number;
+                    /** 传递的 data 对象将会被即将露出的页面通过 onResume 事件接收 */
+                    data?: Record<string, string>;
+                    complete?: CompleteCallBack;
+                }
                 | number
                 | string,
         ): Promise<unknown>;
@@ -1077,12 +1070,12 @@ declare namespace AlipayJSSDK {
         redirectTo(
             option:
                 | {
-                      /** 要打开的页面url */
-                      url: string;
-                      /** url的参数，会以 query string 跟在 url 后面。在打开的新页面里可以用 ap.parseQueryString() 来获取 */
-                      data?: Record<string, string>;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 要打开的页面url */
+                    url: string;
+                    /** url的参数，会以 query string 跟在 url 后面。在打开的新页面里可以用 ap.parseQueryString() 来获取 */
+                    data?: Record<string, string>;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<unknown>;
 
@@ -1200,14 +1193,14 @@ declare namespace AlipayJSSDK {
         alert(
             option:
                 | {
-                      /** alert框的标题 */
-                      title?: string;
-                      /** alert框的内容 */
-                      content: string;
-                      /** 按钮文字，默认’确定’ */
-                      buttonText?: string;
-                      complete?: CompleteCallBack;
-                  }
+                    /** alert框的标题 */
+                    title?: string;
+                    /** alert框的内容 */
+                    content: string;
+                    /** 按钮文字，默认’确定’ */
+                    buttonText?: string;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<unknown>;
 
@@ -1221,16 +1214,16 @@ declare namespace AlipayJSSDK {
         confirm(
             option:
                 | {
-                      /** confirm框的标题 */
-                      title?: string;
-                      /** confirm框的内容 */
-                      content: string;
-                      /** 确定按钮文字，默认’确定’ */
-                      confirmButtonText?: string;
-                      /** 取消按钮文字，默认’取消’ */
-                      cancelButtonText?: string;
-                      complete?: CompleteCallBack;
-                  }
+                    /** confirm框的标题 */
+                    title?: string;
+                    /** confirm框的内容 */
+                    content: string;
+                    /** 确定按钮文字，默认’确定’ */
+                    confirmButtonText?: string;
+                    /** 取消按钮文字，默认’取消’ */
+                    cancelButtonText?: string;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<{
             /** 用户选择结果。点击 confirmButton 为 true，点击cancelButton 为 false */
@@ -1245,14 +1238,14 @@ declare namespace AlipayJSSDK {
         showToast(
             option:
                 | {
-                      /** 文字内容 */
-                      content: string;
-                      /** toast 类型，展示相应图标，默认 none，支持 success / fail / exception / none’。其中 exception 类型必须传文字信息 */
-                      type?: 'none' | 'success' | 'fail' | 'exception';
-                      /** 显示时长，单位为 ms，默认 2000 */
-                      duration?: number;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 文字内容 */
+                    content: string;
+                    /** toast 类型，展示相应图标，默认 none，支持 success / fail / exception / none’。其中 exception 类型必须传文字信息 */
+                    type?: "none" | "success" | "fail" | "exception";
+                    /** 显示时长，单位为 ms，默认 2000 */
+                    duration?: number;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<unknown>;
 
@@ -1271,12 +1264,12 @@ declare namespace AlipayJSSDK {
         showLoading(
             option:
                 | {
-                      /** loading 的文字提示 */
-                      content?: string;
-                      /** 延迟显示，单位 ms，默认 0。如果在此时间之前调用了 ap.hideLoading 则不会显示 */
-                      delay?: number;
-                      complete?: CompleteCallBack;
-                  }
+                    /** loading 的文字提示 */
+                    content?: string;
+                    /** 延迟显示，单位 ms，默认 0。如果在此时间之前调用了 ap.hideLoading 则不会显示 */
+                    delay?: number;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<unknown>;
 
@@ -1327,18 +1320,18 @@ declare namespace AlipayJSSDK {
         setNavigationBar(
             option:
                 | {
-                      /** 导航栏标题 */
-                      title?: string;
-                      /** 图片链接地址，必须 https，请使用一张3x高清图，尺寸450*90。若设置了 image，则 title 参数失效 */
-                      image?: string;
-                      /** 导航栏背景色，支持16进制颜色值 */
-                      backgroundColor?: string;
-                      /** 导航栏底部边框颜色，支持16进制颜色值。若设置了 backgroundColor，borderBottomColor 会不生效，默认会和 backgroundColor 颜色一样 */
-                      borderBottomColor?: string;
-                      /** 是否重置导航栏为支付宝默认配色，默认 false。 */
-                      reset?: boolean;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 导航栏标题 */
+                    title?: string;
+                    /** 图片链接地址，必须 https，请使用一张3x高清图，尺寸450*90。若设置了 image，则 title 参数失效 */
+                    image?: string;
+                    /** 导航栏背景色，支持16进制颜色值 */
+                    backgroundColor?: string;
+                    /** 导航栏底部边框颜色，支持16进制颜色值。若设置了 backgroundColor，borderBottomColor 会不生效，默认会和 backgroundColor 颜色一样 */
+                    borderBottomColor?: string;
+                    /** 是否重置导航栏为支付宝默认配色，默认 false。 */
+                    reset?: boolean;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<unknown>;
 
@@ -1374,7 +1367,7 @@ declare namespace AlipayJSSDK {
                 /** 按钮标题文字颜色，与 type、icon 三选一。 */
                 color?: string;
                 /** 按钮图标类型，与 title、icon 三选一。支持 user / filter / search / add / settings / scan / info / help / locate / more */
-                type?: 'user' | 'filter' | 'search' | 'add' | 'settings' | 'scan' | 'info' | 'help' | 'locate' | 'more';
+                type?: "user" | "filter" | "search" | "add" | "settings" | "scan" | "info" | "help" | "locate" | "more";
                 /** 按钮图标，支持 base64。与 type 三选一 */
                 icon?: string;
                 /** 按钮红色气泡，默认 -1。其中 0 表示小红点，-1 表示不显示，其他值展示出来 */
@@ -1425,9 +1418,9 @@ declare namespace AlipayJSSDK {
         allowPullDownRefresh(
             option:
                 | {
-                      allow: boolean;
-                      complete?: CompleteCallBack;
-                  }
+                    allow: boolean;
+                    complete?: CompleteCallBack;
+                }
                 | boolean,
         ): Promise<unknown>;
 
@@ -1482,10 +1475,10 @@ declare namespace AlipayJSSDK {
         chooseAlipayContact(
             option?:
                 | {
-                      /** 单次最多选择联系人个数，默认 1，最大 10 */
-                      count?: number;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 单次最多选择联系人个数，默认 1，最大 10 */
+                    count?: number;
+                    complete?: CompleteCallBack;
+                }
                 | number,
         ): Promise<{
             /** 选中的支付宝联系人数组 */
@@ -1551,16 +1544,16 @@ declare namespace AlipayJSSDK {
         datePicker(
             option?:
                 | {
-                      /** 返回的日期格式，默认 yyyy-MM-dd。支持 HH:mm:ss, yyyy-MM-dd, yyyy-MM-dd HH:mm:ss 三种格式 */
-                      formate?: string;
-                      /** 初始选择的日期时间，默认当前时间 */
-                      currentDate?: string;
-                      /** 最小日期时间 */
-                      startDate?: string;
-                      /** 最大日期时间 */
-                      endDate?: string;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 返回的日期格式，默认 yyyy-MM-dd。支持 HH:mm:ss, yyyy-MM-dd, yyyy-MM-dd HH:mm:ss 三种格式 */
+                    formate?: string;
+                    /** 初始选择的日期时间，默认当前时间 */
+                    currentDate?: string;
+                    /** 最小日期时间 */
+                    startDate?: string;
+                    /** 最大日期时间 */
+                    endDate?: string;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<{
             /** 选择的日期时间 */
@@ -1581,20 +1574,20 @@ declare namespace AlipayJSSDK {
         tradePay(
             option:
                 | {
-                      /** 交易号，多个交易号请用英文分号`;`分隔 */
-                      tradeNO?: string;
-                      /** 商户id */
-                      partnerID?: string;
-                      /** 交易类型，默认为 ‘trade’ */
-                      bizType?: string;
-                      /** 交易子类型 */
-                      bizSubType?: string;
-                      /** 支付额外的参数，格式为JSON字符串 */
-                      bizContext?: string;
-                      /** 完整的支付参数拼接成的字符串，从服务端获取。需要入驻蚂蚁金服开放平台 */
-                      orderStr?: string;
-                      complete?: CompleteCallBack;
-                  }
+                    /** 交易号，多个交易号请用英文分号`;`分隔 */
+                    tradeNO?: string;
+                    /** 商户id */
+                    partnerID?: string;
+                    /** 交易类型，默认为 ‘trade’ */
+                    bizType?: string;
+                    /** 交易子类型 */
+                    bizSubType?: string;
+                    /** 支付额外的参数，格式为JSON字符串 */
+                    bizContext?: string;
+                    /** 完整的支付参数拼接成的字符串，从服务端获取。需要入驻蚂蚁金服开放平台 */
+                    orderStr?: string;
+                    complete?: CompleteCallBack;
+                }
                 | string,
         ): Promise<{
             /**

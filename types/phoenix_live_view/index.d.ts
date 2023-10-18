@@ -1,15 +1,10 @@
-// Type definitions for phoenix_live_view 0.18
-// Project: https://github.com/phoenixframework/phoenix_live_view
-// Definitions by: Peter Zingg <https://github.com/pzingg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Version 0.15.4 added options and interfaces for LiveView uploads
 // See: https://hexdocs.pm/phoenix_live_view/uploads.html
 
 // Version 0.17.0 added LiveSocket.execJS() method for executing JavaScript utility operations on the client
 // See: https://github.com/phoenixframework/phoenix_live_view/blob/master/CHANGELOG.md#enhancements-17
 
-import { Socket, SocketConnectOption } from 'phoenix';
+import { Socket, SocketConnectOption } from "phoenix";
 
 export interface Defaults {
     debounce?: number | undefined;

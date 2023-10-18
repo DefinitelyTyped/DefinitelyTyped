@@ -1,8 +1,8 @@
-import metascraper = require('metascraper');
-import metascraperIframe = require('metascraper-iframe');
+import metascraper from "metascraper";
+import metascraperIframe = require("metascraper-iframe");
 
-const html = 'example';
-const url = 'https://example.org';
+const html = "example";
+const url = "https://example.org";
 
 metascraper([metascraperIframe()])({ html, url }).then(data => {
     data;

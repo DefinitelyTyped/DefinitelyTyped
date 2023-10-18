@@ -1,16 +1,3 @@
-// Type definitions for yargs 16.0
-// Project: https://github.com/chevex/yargs, https://yargs.js.org
-// Definitions by: Martin Poelstra <https://github.com/poelstra>
-//                 Mizunashi Mana <https://github.com/mizunashi-mana>
-//                 Jeffery Grajkowski <https://github.com/pushplay>
-//                 Jimi (Dimitris) Charalampidis <https://github.com/JimiC>
-//                 Steffen Viken Valvåg <https://github.com/steffenvv>
-//                 Emily Marigold Klassen <https://github.com/forivall>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 Aankhen <https://github.com/Aankhen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 // The following TSLint rules have been disabled:
 // unified-signatures: Because there is useful information in the argument names of the overloaded signatures
 
@@ -25,14 +12,17 @@
 // Use parameterless declaration instead of declaring all parameters optional,
 // when all parameters are optional and more than one
 
-import { DetailedArguments, Configuration } from 'yargs-parser';
+import { Configuration, DetailedArguments } from "yargs-parser";
 
 declare namespace yargs {
-    type BuilderCallback<T, R> = ((args: Argv<T>) => PromiseLike<Argv<R>>) | ((args: Argv<T>) => Argv<R>) | ((args: Argv<T>) => void);
+    type BuilderCallback<T, R> =
+        | ((args: Argv<T>) => PromiseLike<Argv<R>>)
+        | ((args: Argv<T>) => Argv<R>)
+        | ((args: Argv<T>) => void);
 
     type ParserConfigurationOptions = Configuration & {
         /** Sort commands alphabetically. Default is `false` */
-        'sort-commands': boolean;
+        "sort-commands": boolean;
     };
 
     /**
@@ -54,8 +44,14 @@ declare namespace yargs {
          * Each key of this object should be the canonical version of the option, and each value should be a string or an array of strings.
          */
         // Aliases for previously declared options can inherit the types of those options.
-        alias<K1 extends keyof T, K2 extends string>(shortName: K1, longName: K2 | ReadonlyArray<K2>): Argv<T & { [key in K2]: T[K1] }>;
-        alias<K1 extends keyof T, K2 extends string>(shortName: K2, longName: K1 | ReadonlyArray<K1>): Argv<T & { [key in K2]: T[K1] }>;
+        alias<K1 extends keyof T, K2 extends string>(
+            shortName: K1,
+            longName: K2 | ReadonlyArray<K2>,
+        ): Argv<T & { [key in K2]: T[K1] }>;
+        alias<K1 extends keyof T, K2 extends string>(
+            shortName: K2,
+            longName: K1 | ReadonlyArray<K1>,
+        ): Argv<T & { [key in K2]: T[K1] }>;
         alias(shortName: string | ReadonlyArray<string>, longName: string | ReadonlyArray<string>): Argv<T>;
         alias(aliases: { [shortName: string]: string | ReadonlyArray<string> }): Argv<T>;
 
@@ -80,7 +76,9 @@ declare namespace yargs {
          * When the option is used with a positional, use `--` to tell `yargs` to stop adding values to the array.
          */
         array<K extends keyof T>(key: K | ReadonlyArray<K>): Argv<Omit<T, K> & { [key in K]: ToArray<T[key]> }>;
-        array<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: Array<string | number> | undefined }>;
+        array<K extends string>(
+            key: K | ReadonlyArray<K>,
+        ): Argv<T & { [key in K]: Array<string | number> | undefined }>;
 
         /**
          * Interpret `key` as a boolean. If a non-flag option follows `key` in `process.argv`, that string won't get set as the value of `key`.
@@ -109,9 +107,17 @@ declare namespace yargs {
          *
          * Choices can also be specified as choices in the object given to `option()`.
          */
-        choices<K extends keyof T, C extends ReadonlyArray<any>>(key: K, values: C): Argv<Omit<T, K> & { [key in K]: C[number] | undefined }>;
-        choices<K extends string, C extends ReadonlyArray<any>>(key: K, values: C): Argv<T & { [key in K]: C[number] | undefined }>;
-        choices<C extends { [key: string]: ReadonlyArray<any> }>(choices: C): Argv<Omit<T, keyof C> & { [key in keyof C]: C[key][number] | undefined }>;
+        choices<K extends keyof T, C extends ReadonlyArray<any>>(
+            key: K,
+            values: C,
+        ): Argv<Omit<T, K> & { [key in K]: C[number] | undefined }>;
+        choices<K extends string, C extends ReadonlyArray<any>>(
+            key: K,
+            values: C,
+        ): Argv<T & { [key in K]: C[number] | undefined }>;
+        choices<C extends { [key: string]: ReadonlyArray<any> }>(
+            choices: C,
+        ): Argv<Omit<T, keyof C> & { [key in keyof C]: C[key][number] | undefined }>;
 
         /**
          * Provide a synchronous function to coerce or transform the value(s) given on the command line for `key`.
@@ -129,9 +135,17 @@ declare namespace yargs {
          *
          * If you are using dot-notion or arrays, .e.g., `user.email` and `user.password`, coercion will be applied to the final object that has been parsed
          */
-        coerce<K extends keyof T, V>(key: K | ReadonlyArray<K>, func: (arg: any) => V): Argv<Omit<T, K> & { [key in K]: V | undefined }>;
-        coerce<K extends string, V>(key: K | ReadonlyArray<K>, func: (arg: any) => V): Argv<T & { [key in K]: V | undefined }>;
-        coerce<O extends { [key: string]: (arg: any) => any }>(opts: O): Argv<Omit<T, keyof O> & { [key in keyof O]: ReturnType<O[key]> | undefined }>;
+        coerce<K extends keyof T, V>(
+            key: K | ReadonlyArray<K>,
+            func: (arg: any) => V,
+        ): Argv<Omit<T, K> & { [key in K]: V | undefined }>;
+        coerce<K extends string, V>(
+            key: K | ReadonlyArray<K>,
+            func: (arg: any) => V,
+        ): Argv<T & { [key in K]: V | undefined }>;
+        coerce<O extends { [key: string]: (arg: any) => any }>(
+            opts: O,
+        ): Argv<Omit<T, keyof O> & { [key in keyof O]: ReturnType<O[key]> | undefined }>;
 
         /**
          * Define the commands exposed by your application.
@@ -211,7 +225,11 @@ declare namespace yargs {
          * @param [explicitConfigurationObject] An explicit configuration `object`
          */
         config(): Argv<T>;
-        config(key: string | ReadonlyArray<string>, description?: string, parseFn?: (configPath: string) => object): Argv<T>;
+        config(
+            key: string | ReadonlyArray<string>,
+            description?: string,
+            parseFn?: (configPath: string) => object,
+        ): Argv<T>;
         config(key: string | ReadonlyArray<string>, parseFn: (configPath: string) => object): Argv<T>;
         config(explicitConfigurationObject: object): Argv<T>;
 
@@ -260,7 +278,10 @@ declare namespace yargs {
          * @param demand Controls whether the option is demanded; this is useful when using .options() to specify command line parameters.
          */
         demandOption<K extends keyof T>(key: K | ReadonlyArray<K>, msg?: string | true): Argv<Defined<T, K>>;
-        demandOption<K extends string>(key: K | ReadonlyArray<K>, msg?: string | true): Argv<T & { [key in K]: unknown }>;
+        demandOption<K extends string>(
+            key: K | ReadonlyArray<K>,
+            msg?: string | true,
+        ): Argv<T & { [key in K]: unknown }>;
         demandOption(key: string | ReadonlyArray<string>, demand?: boolean): Argv<T>;
 
         /**
@@ -397,7 +418,10 @@ declare namespace yargs {
          * @param callbacks Can be a function or a list of functions. Each callback gets passed a reference to argv.
          * @param [applyBeforeValidation] Set to `true` to apply middleware before validation. This will execute the middleware prior to validation checks, but after parsing.
          */
-        middleware(callbacks: MiddlewareFunction<T> | ReadonlyArray<MiddlewareFunction<T>>, applyBeforeValidation?: boolean): Argv<T>;
+        middleware(
+            callbacks: MiddlewareFunction<T> | ReadonlyArray<MiddlewareFunction<T>>,
+            applyBeforeValidation?: boolean,
+        ): Argv<T>;
 
         /**
          * The number of arguments that should be consumed after a key. This can be a useful hint to prevent parsing ambiguity.
@@ -435,16 +459,28 @@ declare namespace yargs {
          * This method can be used to make yargs aware of options that could exist.
          * You can also pass an opt object which can hold further customization, like `.alias()`, `.demandOption()` etc. for that option.
          */
-        option<K extends keyof T, O extends Options>(key: K, options: O): Argv<Omit<T, K> & { [key in K]: InferredOptionType<O> }>;
-        option<K extends string, O extends Options>(key: K, options: O): Argv<T & { [key in K]: InferredOptionType<O> }>;
+        option<K extends keyof T, O extends Options>(
+            key: K,
+            options: O,
+        ): Argv<Omit<T, K> & { [key in K]: InferredOptionType<O> }>;
+        option<K extends string, O extends Options>(
+            key: K,
+            options: O,
+        ): Argv<T & { [key in K]: InferredOptionType<O> }>;
         option<O extends { [key: string]: Options }>(options: O): Argv<Omit<T, keyof O> & InferredOptionTypes<O>>;
 
         /**
          * This method can be used to make yargs aware of options that could exist.
          * You can also pass an opt object which can hold further customization, like `.alias()`, `.demandOption()` etc. for that option.
          */
-        options<K extends keyof T, O extends Options>(key: K, options: O): Argv<Omit<T, K> & { [key in K]: InferredOptionType<O> }>;
-        options<K extends string, O extends Options>(key: K, options: O): Argv<T & { [key in K]: InferredOptionType<O> }>;
+        options<K extends keyof T, O extends Options>(
+            key: K,
+            options: O,
+        ): Argv<Omit<T, K> & { [key in K]: InferredOptionType<O> }>;
+        options<K extends string, O extends Options>(
+            key: K,
+            options: O,
+        ): Argv<T & { [key in K]: InferredOptionType<O> }>;
         options<O extends { [key: string]: Options }>(options: O): Argv<Omit<T, keyof O> & InferredOptionTypes<O>>;
 
         /**
@@ -454,7 +490,11 @@ declare namespace yargs {
          * @param [context]  Provides a useful mechanism for passing state information to commands
          */
         parse(): { [key in keyof Arguments<T>]: Arguments<T>[key] };
-        parse(arg: string | ReadonlyArray<string>, context?: object, parseCallback?: ParseCallback<T>): { [key in keyof Arguments<T>]: Arguments<T>[key] };
+        parse(
+            arg: string | ReadonlyArray<string>,
+            context?: object,
+            parseCallback?: ParseCallback<T>,
+        ): { [key in keyof Arguments<T>]: Arguments<T>[key] };
 
         /**
          * If the arguments have not been parsed, this property is `false`.
@@ -476,8 +516,14 @@ declare namespace yargs {
          * Allows you to configure a command's positional arguments with an API similar to `.option()`.
          * `.positional()` should be called in a command's builder function, and is not available on the top-level yargs instance. If so, it will throw an error.
          */
-        positional<K extends keyof T, O extends PositionalOptions>(key: K, opt: O): Argv<Omit<T, K> & { [key in K]: InferredOptionType<O> }>;
-        positional<K extends string, O extends PositionalOptions>(key: K, opt: O): Argv<T & { [key in K]: InferredOptionType<O> }>;
+        positional<K extends keyof T, O extends PositionalOptions>(
+            key: K,
+            opt: O,
+        ): Argv<Omit<T, K> & { [key in K]: InferredOptionType<O> }>;
+        positional<K extends string, O extends PositionalOptions>(
+            key: K,
+            opt: O,
+        ): Argv<T & { [key in K]: InferredOptionType<O> }>;
 
         /** Should yargs provide suggestions regarding similar commands if no matching command is found? */
         recommendCommands(): Argv<T>;
@@ -610,10 +656,30 @@ declare namespace yargs {
          * and allows you to provide configuration for the positional arguments accepted by your program:
          */
         usage(message: string): Argv<T>;
-        usage<U>(command: string | ReadonlyArray<string>, description: string, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void): Argv<T>;
-        usage<U>(command: string | ReadonlyArray<string>, showInHelp: boolean, builder?: (args: Argv<T>) => Argv<U>, handler?: (args: Arguments<U>) => void): Argv<T>;
-        usage<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, description: string, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
-        usage<O extends { [key: string]: Options }>(command: string | ReadonlyArray<string>, showInHelp: boolean, builder?: O, handler?: (args: Arguments<InferredOptionTypes<O>>) => void): Argv<T>;
+        usage<U>(
+            command: string | ReadonlyArray<string>,
+            description: string,
+            builder?: (args: Argv<T>) => Argv<U>,
+            handler?: (args: Arguments<U>) => void,
+        ): Argv<T>;
+        usage<U>(
+            command: string | ReadonlyArray<string>,
+            showInHelp: boolean,
+            builder?: (args: Argv<T>) => Argv<U>,
+            handler?: (args: Arguments<U>) => void,
+        ): Argv<T>;
+        usage<O extends { [key: string]: Options }>(
+            command: string | ReadonlyArray<string>,
+            description: string,
+            builder?: O,
+            handler?: (args: Arguments<InferredOptionTypes<O>>) => void,
+        ): Argv<T>;
+        usage<O extends { [key: string]: Options }>(
+            command: string | ReadonlyArray<string>,
+            showInHelp: boolean,
+            builder?: O,
+            handler?: (args: Arguments<InferredOptionTypes<O>>) => void,
+        ): Argv<T>;
 
         /**
          * Add an option (e.g. `--version`) that displays the version number (given by the version parameter) and exits the process.
@@ -780,38 +846,38 @@ declare namespace yargs {
     /** Gives number[] if T is an array type, otherwise number. Preserves | undefined. */
     type ToNumber<T> = (Exclude<T, undefined> extends any[] ? number[] : number) | Extract<T, undefined>;
 
-    type InferredOptionType<O extends Options | PositionalOptions> =
-        O extends { default: any, coerce: (arg: any) => infer T } ? T :
-        O extends { default: infer D } ? D :
-        O extends { type: "count" } ? number :
-        O extends { count: true } ? number :
-        O extends { required: string | true } ? RequiredOptionType<O> :
-        O extends { require: string | true } ? RequiredOptionType<O> :
-        O extends { demand: string | true } ? RequiredOptionType<O> :
-        O extends { demandOption: string | true } ? RequiredOptionType<O> :
-        RequiredOptionType<O> | undefined;
+    type InferredOptionType<O extends Options | PositionalOptions> = O extends
+        { default: any; coerce: (arg: any) => infer T } ? T
+        : O extends { default: infer D } ? D
+        : O extends { type: "count" } ? number
+        : O extends { count: true } ? number
+        : O extends { required: string | true } ? RequiredOptionType<O>
+        : O extends { require: string | true } ? RequiredOptionType<O>
+        : O extends { demand: string | true } ? RequiredOptionType<O>
+        : O extends { demandOption: string | true } ? RequiredOptionType<O>
+        : RequiredOptionType<O> | undefined;
 
-    type RequiredOptionType<O extends Options | PositionalOptions> =
-        O extends { type: "array", string: true } ? string[] :
-        O extends { type: "array", number: true } ? number[] :
-        O extends { type: "array", normalize: true } ? string[] :
-        O extends { type: "string", array: true } ? string[] :
-        O extends { type: "number", array: true } ? number[] :
-        O extends { string: true, array: true } ? string[] :
-        O extends { number: true, array: true } ? number[] :
-        O extends { normalize: true, array: true } ? string[] :
-        O extends { type: "array" } ? Array<string | number> :
-        O extends { type: "boolean" } ? boolean :
-        O extends { type: "number" } ? number :
-        O extends { type: "string" } ? string :
-        O extends { array: true } ? Array<string | number> :
-        O extends { boolean: true } ? boolean :
-        O extends { number: true } ? number :
-        O extends { string: true } ? string :
-        O extends { normalize: true } ? string :
-        O extends { choices: ReadonlyArray<infer C> } ? C :
-        O extends { coerce: (arg: any) => infer T } ? T :
-        unknown;
+    type RequiredOptionType<O extends Options | PositionalOptions> = O extends { type: "array"; string: true }
+        ? string[]
+        : O extends { type: "array"; number: true } ? number[]
+        : O extends { type: "array"; normalize: true } ? string[]
+        : O extends { type: "string"; array: true } ? string[]
+        : O extends { type: "number"; array: true } ? number[]
+        : O extends { string: true; array: true } ? string[]
+        : O extends { number: true; array: true } ? number[]
+        : O extends { normalize: true; array: true } ? string[]
+        : O extends { type: "array" } ? Array<string | number>
+        : O extends { type: "boolean" } ? boolean
+        : O extends { type: "number" } ? number
+        : O extends { type: "string" } ? string
+        : O extends { array: true } ? Array<string | number>
+        : O extends { boolean: true } ? boolean
+        : O extends { number: true } ? number
+        : O extends { string: true } ? string
+        : O extends { normalize: true } ? string
+        : O extends { choices: ReadonlyArray<infer C> } ? C
+        : O extends { coerce: (arg: any) => infer T } ? T
+        : unknown;
 
     type InferredOptionTypes<O extends { [key: string]: Options }> = { [key in keyof O]: InferredOptionType<O[key]> };
 
@@ -831,9 +897,16 @@ declare namespace yargs {
     }
 
     type ParseCallback<T = {}> = (err: Error | undefined, argv: Arguments<T>, output: string) => void;
-    type CommandBuilder<T = {}, U = {}> = { [key: string]: Options } | ((args: Argv<T>) => Argv<U>) | ((args: Argv<T>) => PromiseLike<Argv<U>>);
+    type CommandBuilder<T = {}, U = {}> =
+        | { [key: string]: Options }
+        | ((args: Argv<T>) => Argv<U>)
+        | ((args: Argv<T>) => PromiseLike<Argv<U>>);
     type SyncCompletionFunction = (current: string, argv: any) => string[];
-    type AsyncCompletionFunction = (current: string, argv: any, done: (completion: ReadonlyArray<string>) => void) => void;
+    type AsyncCompletionFunction = (
+        current: string,
+        argv: any,
+        done: (completion: ReadonlyArray<string>) => void,
+    ) => void;
     type PromiseCompletionFunction = (current: string, argv: any) => Promise<string[]>;
     type MiddlewareFunction<T = {}> = (args: Arguments<T>) => void;
     type Choices = ReadonlyArray<string | number | true | undefined>;

@@ -1,11 +1,6 @@
-// Type definitions for big-json 3.2
-// Project: https://github.com/DonutEspresso/big-json
-// Definitions by: PCOffline <https://github.com/PCOffline>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import type { Stream } from 'node:stream';
+import type { Stream } from "node:stream";
 
 export function createParseStream(): Stream;
 export function createStringifyStream(opts: { body: object }): Stream;

@@ -1,92 +1,87 @@
-// Type definitions for non-npm package netease-captcha 2.1
-// Project: https://cstaticdun.126.net/load.min.js
-// Definitions by: Minjie Shen <https://github.com/norubidium>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Window {
     initNECaptcha?: NeteaseCaptcha.InitFunction | undefined;
 }
 
 type Lang =
-    | 'en'
-    | 'zh-CN'
-    | 'en-US'
-    | 'en-GB'
-    | 'zh-TW'
-    | 'zh-HK'
-    | 'ja'
-    | 'ko'
-    | 'th'
-    | 'vi'
-    | 'fr'
-    | 'ru'
-    | 'ar'
-    | 'de'
-    | 'it'
-    | 'he'
-    | 'hi'
-    | 'id'
-    | 'my'
-    | 'lo'
-    | 'ms'
-    | 'pl'
-    | 'pt'
-    | 'es'
-    | 'tr'
-    | 'ml'
-    | 'or'
-    | 'pa'
-    | 'as'
-    | 'mai'
-    | 'mn'
-    | 'ug'
-    | 'pt-br'
-    | 'es-la'
-    | 'sv'
-    | 'no'
-    | 'da'
-    | 'cs'
-    | 'hu'
-    | 'sk'
-    | 'ro'
-    | 'el'
-    | 'sr'
-    | 'bs'
-    | 'mk'
-    | 'bg'
-    | 'fi'
-    | 'et'
-    | 'lv'
-    | 'lt'
-    | 'sl'
-    | 'hr'
-    | 'uk'
-    | 'fa'
-    | 'nl'
-    | 'ca'
-    | 'gl'
-    | 'eu'
-    | 'ka'
-    | 'az'
-    | 'uz'
-    | 'km'
-    | 'si'
-    | 'ur'
-    | 'bo'
-    | 'be'
-    | 'kk'
-    | 'bn'
-    | 'fil'
-    | 'jv'
-    | 'ne'
-    | 'sw'
-    | 'mi'
-    | 'am'
-    | 'te'
-    | 'mr'
-    | 'ta'
-    | 'gu'
-    | 'kn';
+    | "en"
+    | "zh-CN"
+    | "en-US"
+    | "en-GB"
+    | "zh-TW"
+    | "zh-HK"
+    | "ja"
+    | "ko"
+    | "th"
+    | "vi"
+    | "fr"
+    | "ru"
+    | "ar"
+    | "de"
+    | "it"
+    | "he"
+    | "hi"
+    | "id"
+    | "my"
+    | "lo"
+    | "ms"
+    | "pl"
+    | "pt"
+    | "es"
+    | "tr"
+    | "ml"
+    | "or"
+    | "pa"
+    | "as"
+    | "mai"
+    | "mn"
+    | "ug"
+    | "pt-br"
+    | "es-la"
+    | "sv"
+    | "no"
+    | "da"
+    | "cs"
+    | "hu"
+    | "sk"
+    | "ro"
+    | "el"
+    | "sr"
+    | "bs"
+    | "mk"
+    | "bg"
+    | "fi"
+    | "et"
+    | "lv"
+    | "lt"
+    | "sl"
+    | "hr"
+    | "uk"
+    | "fa"
+    | "nl"
+    | "ca"
+    | "gl"
+    | "eu"
+    | "ka"
+    | "az"
+    | "uz"
+    | "km"
+    | "si"
+    | "ur"
+    | "bo"
+    | "be"
+    | "kk"
+    | "bn"
+    | "fil"
+    | "jv"
+    | "ne"
+    | "sw"
+    | "mi"
+    | "am"
+    | "te"
+    | "mr"
+    | "ta"
+    | "gu"
+    | "kn";
 
 declare namespace NeteaseCaptcha {
     type InitFunction = (config: Config, onLoad?: onLoad, onError?: onError) => void;
@@ -105,12 +100,12 @@ declare namespace NeteaseCaptcha {
         /**
          * Defaults to 'float' on desktop, and 'popup' on mobile. 'bind' is for invisible captcha
          */
-        mode?: 'float' | 'embed' | 'popup' | 'bind' | undefined;
+        mode?: "float" | "embed" | "popup" | "bind" | undefined;
 
         /**
          * Defaults to page protocol
          */
-        protocol?: 'http' | 'https' | undefined;
+        protocol?: "http" | "https" | undefined;
 
         /**
          * Defaults to 'auto'

@@ -1,28 +1,21 @@
-// Type definitions for sshpk 1.17
-// Project: https://github.com/joyent/node-sshpk
-// Definitions by: Meno Abels <https://github.com/mabels>
-//                 Alexander Lavallee <https://github.com/lavalleeale>
-//                 Lukáš Cezner <https://github.com/coalzombik>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { BerWriter, BerReader } from 'asn1';
-import crypto = require('crypto');
-import { Writable } from 'stream';
+import { BerReader, BerWriter } from "asn1";
+import crypto = require("crypto");
+import { Writable } from "stream";
 
 declare class SshPK {}
 
 declare namespace SshPK {
     // == algs.js == //
 
-    type AlgorithmType = 'dsa' | 'rsa' | 'ecdsa' | 'ed25519';
-    type AlgorithmTypeWithCurve = AlgorithmType | 'curve25519';
-    type ShaHashType = 'sha1' | 'sha256' | 'sha384' | 'sha512';
-    type AlgorithmHashType = 'md5' | ShaHashType;
-    type CurveType = 'nistp256' | 'nistp384' | 'nistp521';
-    type AlgorithmPart = 'p' | 'q' | 'g' | 'y' | 'x' | 'n' | 'e' | 'd' | 'iqmp' | 'curve' | 'Q' | 'A' | 'k';
-    type KeyType = 'public' | 'private';
+    type AlgorithmType = "dsa" | "rsa" | "ecdsa" | "ed25519";
+    type AlgorithmTypeWithCurve = AlgorithmType | "curve25519";
+    type ShaHashType = "sha1" | "sha256" | "sha384" | "sha512";
+    type AlgorithmHashType = "md5" | ShaHashType;
+    type CurveType = "nistp256" | "nistp384" | "nistp521";
+    type AlgorithmPart = "p" | "q" | "g" | "y" | "x" | "n" | "e" | "d" | "iqmp" | "curve" | "Q" | "A" | "k";
+    type KeyType = "public" | "private";
 
     class Algo {
         parts: string[];
@@ -103,7 +96,7 @@ declare namespace SshPK {
         ca?: boolean;
     }
 
-    type CertificateFormat = 'openssh' | 'pem' | 'x509';
+    type CertificateFormat = "openssh" | "pem" | "x509";
 
     class Certificate {
         subjects: Identity[];
@@ -199,7 +192,7 @@ declare namespace SshPK {
     // == ed-compat.js == //
 
     class Verifier extends Writable {
-        constructor(key: Key, hashAlgo: 'sha512');
+        constructor(key: Key, hashAlgo: "sha512");
 
         update(chunk: string | Buffer): void;
 
@@ -280,8 +273,8 @@ declare namespace SshPK {
 
     // == fingerprint.js == //
 
-    type FingerprintType = 'key' | 'certificate';
-    type FingerprintHashType = 'ssh' | 'spki';
+    type FingerprintType = "key" | "certificate";
+    type FingerprintHashType = "ssh" | "spki";
 
     interface FingerprintOptions {
         type: FingerprintType;
@@ -303,7 +296,7 @@ declare namespace SshPK {
         type: FingerprintType;
         constructor(opts: FingerprintOptions);
 
-        toString(format?: 'hex' | 'base64'): string;
+        toString(format?: "hex" | "base64"): string;
         matches(other: Key | PrivateKey | Certificate): boolean;
 
         static parse(fp: string, options?: string[] | FingerprintParseOptions): Fingerprint;
@@ -327,7 +320,7 @@ declare namespace SshPK {
         }
 
         interface WriteOptions extends ReadOptions {
-            hashAlgo?: 'sha1' | 'sha256' | 'sha512';
+            hashAlgo?: "sha1" | "sha256" | "sha512";
             comment?: string;
         }
 
@@ -338,7 +331,7 @@ declare namespace SshPK {
 
         interface DnsSec extends Format {
             read(buf: string | Buffer): Key;
-            write(key: PrivateKey, options?: { hashAlgo?: 'sha1' | 'sha256' | 'sha512' }): Buffer;
+            write(key: PrivateKey, options?: { hashAlgo?: "sha1" | "sha256" | "sha512" }): Buffer;
         }
 
         interface OpenSshSignatureExt {
@@ -367,16 +360,16 @@ declare namespace SshPK {
         }
 
         interface Pem extends Format {
-            read(buf: string | Buffer, options?: ReadOptions, forceType?: 'pkcs1' | 'pkcs8'): Key;
-            write(key: Key, options?: any, type?: 'pkcs1' | 'pkcs8'): Buffer;
+            read(buf: string | Buffer, options?: ReadOptions, forceType?: "pkcs1" | "pkcs8"): Key;
+            write(key: Key, options?: any, type?: "pkcs1" | "pkcs8"): Buffer;
         }
 
         interface Pkcs1 extends Format {
             read(buf: string | Buffer, options?: ReadOptions): Key;
-            readPkcs1(alg: 'RSA' | 'DSA' | 'EC' | 'ECDSA', type: 'public', der: BerReader): Key;
+            readPkcs1(alg: "RSA" | "DSA" | "EC" | "ECDSA", type: "public", der: BerReader): Key;
             readPkcs1(
-                alg: 'RSA' | 'DSA' | 'EC' | 'ECDSA' | 'EDDSA' | 'EdDSA',
-                type: 'private',
+                alg: "RSA" | "DSA" | "EC" | "ECDSA" | "EDDSA" | "EdDSA",
+                type: "private",
                 der: BerReader,
             ): PrivateKey;
             write(key: Key): Buffer;
@@ -400,13 +393,13 @@ declare namespace SshPK {
         }
 
         type Rfc4253Algorithm =
-            | 'ssh-dss'
-            | 'ssh-rsa'
-            | 'ssh-ed25519'
-            | 'ssh-curve25519'
-            | 'ecdsa-sha2-nistp256'
-            | 'ecdsa-sha2-nistp384'
-            | 'ecdsa-sha2-nistp521';
+            | "ssh-dss"
+            | "ssh-rsa"
+            | "ssh-ed25519"
+            | "ssh-curve25519"
+            | "ecdsa-sha2-nistp256"
+            | "ecdsa-sha2-nistp384"
+            | "ecdsa-sha2-nistp521";
 
         interface Rfc4253 extends Format {
             read(buf: string | Buffer): Key;
@@ -422,20 +415,20 @@ declare namespace SshPK {
         }
 
         type SshPrivateCipher =
-            | '3des-cbc'
-            | 'blowfish-cbc'
-            | 'aes128-cbc'
-            | 'aes128-ctr'
-            | 'aes128-gcm@openssh.com'
-            | 'aes192-cbc'
-            | 'aes192-ctr'
-            | 'aes192-gcm@openssh.com'
-            | 'aes256-cbc'
-            | 'aes256-ctr'
-            | 'aes256-gcm@openssh.com';
+            | "3des-cbc"
+            | "blowfish-cbc"
+            | "aes128-cbc"
+            | "aes128-ctr"
+            | "aes128-gcm@openssh.com"
+            | "aes192-cbc"
+            | "aes192-ctr"
+            | "aes192-gcm@openssh.com"
+            | "aes256-cbc"
+            | "aes256-ctr"
+            | "aes256-gcm@openssh.com";
 
         interface SshPrivate extends Format {
-            read(buf: string | Buffer, options?: ReadOptions, forceType?: 'pkcs1' | 'pkcs8'): Key;
+            read(buf: string | Buffer, options?: ReadOptions, forceType?: "pkcs1" | "pkcs8"): Key;
             readSSHPrivate(type: KeyType, buf: Buffer, options: { passphrase: string | Buffer }): Key;
             write(key: Key, options?: ReadOptions): Buffer;
         }
@@ -453,20 +446,20 @@ declare namespace SshPK {
         }
 
         type x509SignAlgorithm =
-            | 'rsa-md5'
-            | 'rsa-sha1'
-            | 'rsa-sha256'
-            | 'rsa-sha384'
-            | 'rsa-sha512'
-            | 'dsa-sha1'
-            | 'dsa-sha256'
-            | 'ecdsa-sha1'
-            | 'ecdsa-sha256'
-            | 'ecdsa-sha384'
-            | 'ecdsa-sha512'
-            | 'ed25519-sha512';
+            | "rsa-md5"
+            | "rsa-sha1"
+            | "rsa-sha256"
+            | "rsa-sha384"
+            | "rsa-sha512"
+            | "dsa-sha1"
+            | "dsa-sha256"
+            | "ecdsa-sha1"
+            | "ecdsa-sha256"
+            | "ecdsa-sha384"
+            | "ecdsa-sha512"
+            | "ed25519-sha512";
 
-        type x509ExtsOid = '2.5.29.35' | '2.5.29.17' | '2.5.29.19' | '2.5.29.15' | '2.5.29.37';
+        type x509ExtsOid = "2.5.29.35" | "2.5.29.17" | "2.5.29.19" | "2.5.29.15" | "2.5.29.37";
 
         interface x509SignatureExt {
             oid: x509ExtsOid;
@@ -499,55 +492,55 @@ declare namespace SshPK {
     // == identity.js == //
 
     type IndentityOidName =
-        | 'cn'
-        | 'o'
-        | 'ou'
-        | 'l'
-        | 's'
-        | 'c'
-        | 'sn'
-        | 'postalCode'
-        | 'serialNumber'
-        | 'street'
-        | 'x500UniqueIdentifier'
-        | 'role'
-        | 'telephoneNumber'
-        | 'description'
-        | 'dc'
-        | 'uid'
-        | 'mail'
-        | 'title'
-        | 'gn'
-        | 'initials'
-        | 'pseudonym'
-        | 'emailAddress';
+        | "cn"
+        | "o"
+        | "ou"
+        | "l"
+        | "s"
+        | "c"
+        | "sn"
+        | "postalCode"
+        | "serialNumber"
+        | "street"
+        | "x500UniqueIdentifier"
+        | "role"
+        | "telephoneNumber"
+        | "description"
+        | "dc"
+        | "uid"
+        | "mail"
+        | "title"
+        | "gn"
+        | "initials"
+        | "pseudonym"
+        | "emailAddress";
 
     type IdentityOidValue =
-        | '2.5.4.3'
-        | '2.5.4.10'
-        | '2.5.4.11'
-        | '2.5.4.7'
-        | '2.5.4.8'
-        | '2.5.4.6'
-        | '2.5.4.4'
-        | '2.5.4.17'
-        | '2.5.4.5'
-        | '2.5.4.9'
-        | '2.5.4.45'
-        | '2.5.4.72'
-        | '2.5.4.20'
-        | '2.5.4.13'
-        | '0.9.2342.19200300.100.1.25'
-        | '0.9.2342.19200300.100.1.1'
-        | '0.9.2342.19200300.100.1.3'
-        | '2.5.4.12'
-        | '2.5.4.42'
-        | '2.5.4.43'
-        | '2.5.4.65'
-        | '1.2.840.113549.1.9.1';
+        | "2.5.4.3"
+        | "2.5.4.10"
+        | "2.5.4.11"
+        | "2.5.4.7"
+        | "2.5.4.8"
+        | "2.5.4.6"
+        | "2.5.4.4"
+        | "2.5.4.17"
+        | "2.5.4.5"
+        | "2.5.4.9"
+        | "2.5.4.45"
+        | "2.5.4.72"
+        | "2.5.4.20"
+        | "2.5.4.13"
+        | "0.9.2342.19200300.100.1.25"
+        | "0.9.2342.19200300.100.1.1"
+        | "0.9.2342.19200300.100.1.3"
+        | "2.5.4.12"
+        | "2.5.4.42"
+        | "2.5.4.43"
+        | "2.5.4.65"
+        | "1.2.840.113549.1.9.1";
 
-    type IdentityType = 'host' | 'user' | 'email';
-    type IdentityTypeWithUnknown = IdentityType | 'unknown';
+    type IdentityType = "host" | "user" | "email";
+    type IdentityTypeWithUnknown = IdentityType | "unknown";
 
     interface IdentityComponent {
         name?: IndentityOidName;
@@ -609,17 +602,17 @@ declare namespace SshPK {
     // == key.js == //
 
     type KeyFormatType =
-        | 'auto'
-        | 'pem'
-        | 'pkcs1'
-        | 'pkcs8'
-        | 'rfc4253'
-        | 'ssh'
-        | 'ssh-private'
-        | 'openssh'
-        | 'dnssec'
-        | 'putty'
-        | 'ppk';
+        | "auto"
+        | "pem"
+        | "pkcs1"
+        | "pkcs8"
+        | "rfc4253"
+        | "ssh"
+        | "ssh-private"
+        | "openssh"
+        | "dnssec"
+        | "putty"
+        | "ppk";
 
     interface KeyPart {
         name: AlgorithmPart;
@@ -681,15 +674,15 @@ declare namespace SshPK {
     // == private-key.js == //
 
     type PrivateKeyFormatType =
-        | 'auto'
-        | 'pem'
-        | 'pkcs1'
-        | 'pkcs8'
-        | 'rfc4253'
-        | 'ssh'
-        | 'ssh-private'
-        | 'openssh'
-        | 'dnssec';
+        | "auto"
+        | "pem"
+        | "pkcs1"
+        | "pkcs8"
+        | "rfc4253"
+        | "ssh"
+        | "ssh-private"
+        | "openssh"
+        | "dnssec";
 
     class PrivateKey {
         type: AlgorithmTypeWithCurve;
@@ -707,7 +700,7 @@ declare namespace SshPK {
         fingerprint(algo?: AlgorithmHashType, type?: FingerprintHashType): Fingerprint;
         defaultHashAlgorithm(): ShaHashType;
         toPublic(): Key;
-        derive(newType: 'ed25519' | 'curve25519'): PrivateKey;
+        derive(newType: "ed25519" | "curve25519"): PrivateKey;
         createVerify(algo?: AlgorithmHashType): Verify;
         createSign(hashAlgo: AlgorithmHashType): Signer;
         createDiffieHellman(): DiffieHellman;
@@ -721,8 +714,8 @@ declare namespace SshPK {
 
         static isPrivateKey(data: any, ver: Version): boolean;
 
-        static generate(type: 'ecdsa', options?: { curve?: CurveType }): PrivateKey;
-        static generate(type: 'ed25519'): PrivateKey;
+        static generate(type: "ecdsa", options?: { curve?: CurveType }): PrivateKey;
+        static generate(type: "ed25519"): PrivateKey;
     }
 
     namespace PrivateKey {
@@ -735,13 +728,13 @@ declare namespace SshPK {
         options?: string | KeyParseOptions,
     ): PrivateKey;
 
-    function generatePrivateKey(type: 'ecdsa', options?: { curve?: CurveType }): PrivateKey;
-    function generatePrivateKey(type: 'ed25519'): PrivateKey;
+    function generatePrivateKey(type: "ecdsa", options?: { curve?: CurveType }): PrivateKey;
+    function generatePrivateKey(type: "ed25519"): PrivateKey;
 
     // == signature.js == //
 
-    type SignatureFormatType = 'asn1' | 'ssh' | 'raw';
-    type SignaturePartType = 'r' | 's' | 'sig';
+    type SignatureFormatType = "asn1" | "ssh" | "raw";
+    type SignaturePartType = "r" | "s" | "sig";
 
     interface SignaturePart {
         name: SignaturePartType;
@@ -836,24 +829,24 @@ declare namespace SshPK {
     }
 
     function opensslKeyDeriv(
-        cipher: 'des-ede3-cbc' | 'aes-128-cbc' | 'aes-256-cbc',
+        cipher: "des-ede3-cbc" | "aes-128-cbc" | "aes-256-cbc",
         salt: Buffer,
         passphrase: Buffer,
         count: number,
     ): OpenSslKeyDeriv;
 
     type OpenSshCipherName =
-        | 'des-ede3-cbc'
-        | 'bf-cbc'
-        | 'aes-128-cbc'
-        | 'aes-128-ctr'
-        | 'aes-128-gcm'
-        | 'aes-192-cbc'
-        | 'aes-192-ctr'
-        | 'aes-192-gcm'
-        | 'aes-256-cbc'
-        | 'aes-256-ctr'
-        | 'aes-256-gcm';
+        | "des-ede3-cbc"
+        | "bf-cbc"
+        | "aes-128-cbc"
+        | "aes-128-ctr"
+        | "aes-128-gcm"
+        | "aes-192-cbc"
+        | "aes-192-ctr"
+        | "aes-192-gcm"
+        | "aes-256-cbc"
+        | "aes-256-ctr"
+        | "aes-256-gcm";
 
     class OpenSshCipherInfo {
         keySize: number;

@@ -50,14 +50,11 @@ npm install --save-dev @types/node
 
 Definitely Typed 仅在发布时间小于 2 年的 TypeScript 版本上测试软件包。
 
-<details>
-<summary>当前，已测试 4.1 及更高版本……</summary>
-
-你如果使用 TypeScript 2.0 至 4.0 版本，那么仍可以尝试安装 `@types` 软件包——因为其中大多数都没有使用 TypeScript 的新功能，然而，我们无法保证它们可以正常工作。
-支持周期如下所示：
-
 <img src="docs/support-window.svg#gh-light-mode-only" style="width:100%">
 <img src="docs/support-window.svg#gh-dark-mode-only" style="width:100%">
+
+<details>
+<summary>Older versions of TypeScript</summary>
 
 `@types` 软件包在标签种列出了其明确支持的 TypeScript 版本，因此你常常可以取得大于 2 年支持周期的软件包旧版本。
 例如，若运行 `npm dist-tags @types/react`，你将看到 TypeScript 2.5 可使用 react@16.0 的类型定义，而 TypeScript 2.6 和 2.7 则可使用 react@16.4：
@@ -189,13 +186,13 @@ Definitely Typed 的成员会定期查看新的 PR，但是请留意，当 PR �
 
 当一个软件包[捆绑](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)了自己的类型时，应该从 Definitely Typed 中删除相应的类型以避免混淆。
 
-你可以运行以下命令来删除它： `npm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`。
+你可以运行以下命令来删除它： `pnpm run not-needed -- <typingsPackageName> <asOfVersion> [<libraryName>]`。
 * `<typingsPackageName>`：这是你要删除的目录名字。
 * `<asOfVersion>`：一个含有废弃信息的软件包的新版本将会发布到 `@types/<typingsPackageName>`。此选项指定新版本的版本号，其应该高于当前发布的任何版本，并且应该是 npm 上的 `<libraryName>` 版本。
 * `<libraryName>`：替换 Definitely Typed 中类型的 npm 的包名。与 `<typingsPackageName>` 相同时可省略此项。
 
 Definitely Typed 中引用了被删除的软件包的任何其他软件包，都需要更新以引用新的捆绑类型。
-你可以查看 `npm run test-all` 中的错误来获得此列表。
+你可以查看 `pnpm run test-all` 中的错误来获得此列表。
 接下来，请添加一个带有 `"dependencies": { "<libraryName>": "x.y.z" }` 的 [`package.json`](#packagejson) 文件，以修复这些错误。
 比如：
 
@@ -218,7 +215,7 @@ Definitely Typed 中引用了被删除的软件包的任何其他软件包，都
 
 此脚本使用了 [dtslint](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/dtslint) 来对你的 `.d.ts` 文件进行 TypeScript 编译测试。
 
-一旦你完成以上所有事项，请运行 `npm run test-all` 以查看你的更改对其他模块是否存在影响。
+一旦你完成以上所有事项，请运行 `pnpm run test-all` 以查看你的更改对其他模块是否存在影响。
 
 #### 命名
 
@@ -354,7 +351,7 @@ const enum Enum { Two } // eslint-disable-line no-const-enum
 #### 常见错误
 
 * 首先，请遵循[手册](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)的建议。
-* 格式化：使用 4 个空格。 该仓库已经设置了 Prettier，因此你只需要运行 `npm run prettier -- --write 'path/to/package/**/*.ts'`。[使用断言时](https://github.com/SamVerschueren/tsd#assertions)，添加 `// prettier-ignore` 将这几行标记为不需要格式化的代码：
+* 格式化：使用 4 个空格。 该仓库已经设置了 Prettier，因此你只需要运行 `pnpm run prettier -- --write 'path/to/package/**/*.ts'`。[使用断言时](https://github.com/SamVerschueren/tsd#assertions)，添加 `// prettier-ignore` 将这几行标记为不需要格式化的代码：
   ```tsx
   // prettier-ignore
   // @ts-expect-error
@@ -421,7 +418,7 @@ Definitely Typed 是 GitHub 上最活跃的软件源之一。你可能想知道�
 对于针对广泛使用的项目的更改，例如 Node、Express、Jest 这些 npm 每周下载量数百万的项目，提交贡献的要求会稍高一些。
 由于这些项目的更改可能在整个软件生态系统中带来巨大的影响，我们会对这些项目给予特殊关照。
 这些模块的更改需要来自一位 DT 维护者的同意以及来自模块所有者的强烈支持才会被合并。标准线可能非常高，因而许多 PR 由于得不到足够多的支持而被搁置。
-如果你发现无人原因支持你的 PR，请尝试缩小你的 PR 的关注点。
+如果你发现无人愿意支持你的 PR，请尝试缩小你的 PR 的关注点。
 
 #### 我的 PR 已经合并，什么时候 `@types` npm 软件包会更新？
 
@@ -438,7 +435,7 @@ npm 软件包应该会在几分钟内更新。如果已经超过了一小时，�
 
 #### 我可以为模块更改/强制使用某个格式化设置吗？
 
-不可以。我们之前曾试图统一 DT 代码样式，但由于本仓库过于活跃，最终目标无法达成。为了让你在编辑器中格式化文件，我们在 [`.editorconfig`](.editorconfig) 和 [`.prettierrc.json`](.prettierrc.json) 文件中加入了格式化设置，两者的内容互不冲突。我们即没有改变这些设置的计划，也没有在此仓库强制推行单一代码风格的计划，因为我们希望尽量降低贡献门槛。
+不可以。我们之前曾试图统一 DT 代码样式，但由于本仓库过于活跃，最终目标无法达成。为了让你在编辑器中格式化文件，我们在 [`.editorconfig`](.editorconfig) 文件中加入了格式化设置，两者的内容互不冲突。我们即没有改变这些设置的计划，也没有在此仓库强制推行单一代码风格的计划，因为我们希望尽量降低贡献门槛。
 
 #### 我可以申请新增类型定义吗？
 

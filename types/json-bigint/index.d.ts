@@ -1,8 +1,3 @@
-// Type definitions for json-bigint 1.0
-// Project: https://github.com/sidorares/json-bigint#readme
-// Definitions by: yamachu <https://github.com/yamachu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare const stringify: typeof JSON.stringify;
 declare const parse: typeof JSON.parse;
 
@@ -28,11 +23,11 @@ interface Options {
     /**
      * @default 'error'
      */
-    protoAction?: 'error' | 'ignore' | 'preserve' | undefined;
+    protoAction?: "error" | "ignore" | "preserve" | undefined;
     /**
      * @default 'error'
      */
-    constructorAction?: 'error' | 'ignore' | 'preserve' | undefined;
+    constructorAction?: "error" | "ignore" | "preserve" | undefined;
 }
 
 type JSONBigExport = typeof JSONBig & { parse: typeof parse; stringify: typeof stringify };

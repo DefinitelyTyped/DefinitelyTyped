@@ -1,15 +1,3 @@
-// Type definitions for ws 8.5
-// Project: https://github.com/websockets/ws
-// Definitions by: Paul Loyd <https://github.com/loyd>
-//                 Margus Lamp <https://github.com/mlamp>
-//                 Philippe D'Alva <https://github.com/TitaneBoy>
-//                 reduckted <https://github.com/reduckted>
-//                 teidesu <https://github.com/teidesu>
-//                 Bartosz Wojtkowiak <https://github.com/wojtkowiak>
-//                 Kyle Hensel <https://github.com/k-yle>
-//                 Samuel Skeen <https://github.com/cwadrupldijjit>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";
@@ -101,7 +89,12 @@ declare class WebSocket extends EventEmitter {
     send(data: BufferLike, cb?: (err?: Error) => void): void;
     send(
         data: BufferLike,
-        options: { mask?: boolean | undefined; binary?: boolean | undefined; compress?: boolean | undefined; fin?: boolean | undefined },
+        options: {
+            mask?: boolean | undefined;
+            binary?: boolean | undefined;
+            compress?: boolean | undefined;
+            fin?: boolean | undefined;
+        },
         cb?: (err?: Error) => void,
     ): void;
     terminate(): void;
@@ -374,13 +367,19 @@ declare namespace WebSocket {
         on(event: "close" | "listening", cb: (this: Server<T>) => void): this;
         on(event: string | symbol, listener: (this: Server<T>, ...args: any[]) => void): this;
 
-        once(event: "connection", cb: (this: Server<T>, socket: InstanceType<T>, request: InstanceType<U>) => void): this;
+        once(
+            event: "connection",
+            cb: (this: Server<T>, socket: InstanceType<T>, request: InstanceType<U>) => void,
+        ): this;
         once(event: "error", cb: (this: Server<T>, error: Error) => void): this;
         once(event: "headers", cb: (this: Server<T>, headers: string[], request: InstanceType<U>) => void): this;
         once(event: "close" | "listening", cb: (this: Server<T>) => void): this;
         once(event: string | symbol, listener: (this: Server<T>, ...args: any[]) => void): this;
 
-        off(event: "connection", cb: (this: Server<T>, socket: InstanceType<T>, request: InstanceType<U>) => void): this;
+        off(
+            event: "connection",
+            cb: (this: Server<T>, socket: InstanceType<T>, request: InstanceType<U>) => void,
+        ): this;
         off(event: "error", cb: (this: Server<T>, error: Error) => void): this;
         off(event: "headers", cb: (this: Server<T>, headers: string[], request: InstanceType<U>) => void): this;
         off(event: "close" | "listening", cb: (this: Server<T>) => void): this;

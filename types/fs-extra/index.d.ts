@@ -1,25 +1,10 @@
-// Type definitions for fs-extra 11.0
-// Project: https://github.com/jprichardson/node-fs-extra
-// Definitions by: Alan Agius <https://github.com/alan-agius4>,
-//                 midknight41 <https://github.com/midknight41>,
-//                 Brendan Forster <https://github.com/shiftkey>,
-//                 Mees van Dijk <https://github.com/mees->,
-//                 Justin Rockwood <https://github.com/jrockwood>,
-//                 Sang Dang <https://github.com/sangdth>,
-//                 Florian Keller <https://github.com/ffflorian>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Tiger Oakes <https://github.com/NotWoods>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.5
-
 /// <reference types="node" />
 
-import * as fs from 'fs';
-import * as jsonfile from 'jsonfile';
-import { StringifyOptions } from 'jsonfile/utils';
+import * as fs from "fs";
+import * as jsonfile from "jsonfile";
+import { StringifyOptions } from "jsonfile/utils";
 
-export * from 'fs';
+export * from "fs";
 
 /**
  * Copy a file or directory. The directory can have contents.
@@ -925,8 +910,10 @@ export const readv: typeof fs.readv.__promisify__ & typeof fs.readv;
 export const readdir: typeof fs.readdir.__promisify__ & typeof fs.readdir;
 export const readFile: typeof fs.readFile.__promisify__ & typeof fs.readFile;
 export const readlink: typeof fs.readlink.__promisify__ & typeof fs.readlink;
-export const realpath: typeof fs.realpath.__promisify__ &
-    typeof fs.realpath & {
+export const realpath:
+    & typeof fs.realpath.__promisify__
+    & typeof fs.realpath
+    & {
         native(path: fs.PathLike, options?: fs.EncodingOption): Promise<string>;
         native(path: fs.PathLike, options: fs.BufferEncodingOption): Promise<Buffer>;
     };
@@ -1004,6 +991,6 @@ export interface MoveOptions {
     dereference?: boolean | undefined;
 }
 
-export { JFReadOptions as JsonReadOptions, JFWriteOptions as JsonWriteOptions } from 'jsonfile';
+export { JFReadOptions as JsonReadOptions, JFWriteOptions as JsonWriteOptions } from "jsonfile";
 
 export type JsonOutputOptions = fs.WriteFileOptions & StringifyOptions;

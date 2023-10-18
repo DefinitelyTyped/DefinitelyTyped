@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "only-arrow-functions": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
 }

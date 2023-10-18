@@ -1,12 +1,6 @@
-// Type definitions for Backbone-associations 0.6
-// Project: http://dhruvaray.github.io/backbone-associations
-// Definitions by: Craig Brett <https://github.com/craigbrett17>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+import * as Backbone from "backbone";
 
-import * as Backbone from 'backbone';
-
-declare module 'backbone' {
+declare module "backbone" {
     export namespace Associations {
         /** Defines a 1:Many relationship type */
         export var Many: string;

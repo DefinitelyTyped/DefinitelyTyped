@@ -1,8 +1,3 @@
-// Type definitions for humanparser 1.1.1
-// Project: https://github.com/chovy/humanparser
-// Definitions by: Michał Podeszwa <https://github.com/MichalPodeszwa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace humanparser {
     interface NameOutput {
         firstName?: string | undefined;
@@ -35,11 +30,10 @@ declare namespace humanparser {
     }
 
     interface HumanparserStatic {
-        parseName (name: string, options?: string[] | ParseNameOptions): NameOutput;
-        getFullestName (name: string): FullerNameOutput;
-        parseAddress (address: string): AddressOutput;
+        parseName(name: string, options?: string[] | ParseNameOptions): NameOutput;
+        getFullestName(name: string): FullerNameOutput;
+        parseAddress(address: string): AddressOutput;
     }
-
 }
 
 declare const humanparser: humanparser.HumanparserStatic;

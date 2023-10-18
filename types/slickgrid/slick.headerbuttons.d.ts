@@ -1,5 +1,4 @@
 declare namespace Slick {
-
     export interface Column<T extends SlickData> {
         header?: Header;
     }
@@ -25,7 +24,6 @@ declare namespace Slick {
     }
 
     export namespace Plugins {
-
         export class HeaderButtons<T extends SlickData> extends Plugin<T> {
             constructor();
             public onCommand: Event<OnCommandEventArgs<T>>;

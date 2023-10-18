@@ -1,10 +1,4 @@
-// Type definitions for heap 0.2.7
-// Project: https://github.com/qiao/heap.js
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Heap<T> {
-
     // Constructor
 
     constructor(cmp?: (a: T, b: T) => number);
@@ -54,8 +48,8 @@ declare class Heap<T> {
     toArray(): T[];
 
     // Return a clone of the heap. (note: the internal data is a shallow copy of the original one)
-    clone(): Heap<T>
-    copy(): Heap<T>
+    clone(): Heap<T>;
+    copy(): Heap<T>;
 
     // Static Methods
 
@@ -83,7 +77,6 @@ declare class Heap<T> {
 
     // Find the n smallest elements in a dataset.
     static nsmallest<T>(array: T[], n: number, cmp?: (a: T, b: T) => number): T[];
-
 }
 
 export = Heap;

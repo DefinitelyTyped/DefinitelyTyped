@@ -1,14 +1,8 @@
-// Type definitions for stremio-addon-sdk 1.6
-// Project: https://github.com/Stremio/stremio-addon-sdk#readme
-// Definitions by: Sleeyax <https://github.com/sleeyax>, Victor <https://github.com/victorgveloso>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 export {};
 
-export type ShortManifestResource = 'catalog' | 'meta' | 'stream' | 'subtitles' | 'addon_catalog';
-export type Extra = 'search' | 'genre' | 'skip';
-export type ContentType = 'movie' | 'series' | 'channel' | 'tv';
+export type ShortManifestResource = "catalog" | "meta" | "stream" | "subtitles" | "addon_catalog";
+export type Extra = "search" | "genre" | "skip";
+export type ContentType = "movie" | "series" | "channel" | "tv";
 
 export interface Args {
     type: ContentType;
@@ -159,7 +153,7 @@ export interface MetaPreview {
      *
      * Defaults to 'regular'.
      */
-    posterShape?: 'square' | 'regular' | 'landscape' | undefined;
+    posterShape?: "square" | "regular" | "landscape" | undefined;
     /**
      * The background shown on the stremio detail page.
      *
@@ -602,7 +596,6 @@ export interface ManifestExtra {
      * This is useful for things like genres, where you need the user to select from a pre-set list of options.
      *
      * e.g. { name: "genre", options: ["Action", "Comedy", "Drama"] }
-     *
      *
      * It's also useful if we want to specify a limited number of pages (for the skip parameter).
      *

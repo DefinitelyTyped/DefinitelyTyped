@@ -4,7 +4,7 @@ const params = {
     branchingFactor: 2,
     primitivesPerNode: 1,
     depth: 5,
-    meshVisible: true
+    meshVisible: true,
 };
 
 const vertices = new Float32Array(10);

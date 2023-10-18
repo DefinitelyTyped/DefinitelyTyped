@@ -1,8 +1,3 @@
-// Type definitions for kerberos 1.1
-// Project: https://github.com/mongodb-js/kerberos#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export const GSS_C_DELEG_FLAG: number;
 export const GSS_C_MUTUAL_FLAG: number;
 export const GSS_C_REPLAY_FLAG: number;

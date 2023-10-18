@@ -1,14 +1,8 @@
-// Type definitions for @webpack-blocks/core 2.0
-// Project: https://github.com/andywer/webpack-blocks/tree/master/packages/core
-// Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
-import { Configuration, Plugin, RuleSetRule } from 'webpack';
+import { Configuration, Plugin, RuleSetRule } from "webpack";
 
 export type ConfigSetter<T extends Context = Context> = (
     context: T,
-    util: Util
+    util: Util,
 ) => (config: Configuration) => Configuration;
 
 export interface Block<T extends Context = Context> extends ConfigSetter<T> {

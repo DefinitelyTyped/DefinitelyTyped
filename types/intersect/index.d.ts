@@ -1,8 +1,3 @@
-// Type definitions for intersect 1.0
-// Project: https://github.com/juliangruber/intersect
-// Definitions by: Noah Overcash <https://github.com/ncovercash>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare const intersect: {
     /**
      * Find the intersection of arrays a and b.

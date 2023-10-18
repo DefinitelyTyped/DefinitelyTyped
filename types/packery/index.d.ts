@@ -1,14 +1,6 @@
-// Type definitions for Packery v1.4.1
-// Project: http://packery.metafizzy.co
-// Definitions by:  Piraveen Kamalathas from Kilix <https://github.com/piraveen>
-//                  Juliën Hanssens <https://github.com/hanssens>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
-declare module 'packery' {
-
+declare module "packery" {
     export interface PackeryOptions {
         /**
          * [itemSelector Specifies which child elements to be used as item elements. Setting itemSelector is always recommended. itemSelector is useful to exclude sizing elements]
@@ -281,5 +273,4 @@ declare module 'packery' {
          */
         unstamp(element: Array<Element>): void;
     }
-
 }

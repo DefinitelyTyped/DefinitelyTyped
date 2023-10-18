@@ -1,8 +1,3 @@
-// Type definitions for non-npm package Google Publisher Tag (DoubleClick GPT 2023-02-08) 3.0
-// Project: https://developers.google.com/publisher-tag/reference
-// Definitions by: Wei Wang <https://github.com/atwwei>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * The global namespace the [Google Publisher Tag](https://developers.google.com/publisher-tag) uses for its API.
  *
@@ -42,7 +37,7 @@ declare namespace googletag {
      * Used for native ads (see [related article](https://support.google.com/admanager/answer/6366845)).
      * Note that both `'fluid'` and `['fluid']` are acceptable forms to declare a slot size as fluid.
      */
-    type NamedSize = 'fluid' | ['fluid'];
+    type NamedSize = "fluid" | ["fluid"];
 
     /**
      * A single valid size for a slot.
@@ -325,7 +320,7 @@ declare namespace googletag {
      * @see [Companion ads for video and audio](https://support.google.com/admanager/answer/1191131)
      */
     interface CompanionAdsService extends Service {
-        getName(): 'companion_ads';
+        getName(): "companion_ads";
 
         /**
          * Sets whether companion slots that have not been filled will be automatically backfilled.
@@ -581,11 +576,11 @@ declare namespace googletag {
         getAttributeKeys(): string[];
 
         getCorrelator(): string;
-        getImaContent(): Record<'vid' | 'cmsid', string>;
-        getName(): 'publisher_ads';
+        getImaContent(): Record<"vid" | "cmsid", string>;
+        getName(): "publisher_ads";
         getTagSessionCorrelator(): number;
         getVersion(): string;
-        getVideoContent(): Record<'vid' | 'cmsid', string>;
+        getVideoContent(): Record<"vid" | "cmsid", string>;
 
         /**
          * Returns a specific custom service-level targeting parameter that has been set.
@@ -1227,7 +1222,7 @@ declare namespace googletag {
          */
         getResponseInformation(): ResponseInformation | null;
         getServices(): Service[];
-        getSizes(): Array<Size | 'fluid'>;
+        getSizes(): Array<Size | "fluid">;
 
         /**
          * Returns the ID of the slot `div` provided when the slot was defined.
@@ -1482,17 +1477,17 @@ declare namespace googletag {
          * | page_url                 | N/A                 | www.mysite.com      | valid URLs                                                                                                 |
          */
         type AttributeName =
-            | 'adsense_channel_ids'
-            | 'adsense_ad_types'
-            | 'adsense_ad_format'
-            | 'adsense_background_color'
-            | 'adsense_border_color'
-            | 'adsense_link_color'
-            | 'adsense_test_mode'
-            | 'adsense_text_color'
-            | 'adsense_url_color'
-            | 'adsense_ui_features'
-            | 'page_url';
+            | "adsense_channel_ids"
+            | "adsense_ad_types"
+            | "adsense_ad_format"
+            | "adsense_background_color"
+            | "adsense_border_color"
+            | "adsense_link_color"
+            | "adsense_test_mode"
+            | "adsense_text_color"
+            | "adsense_url_color"
+            | "adsense_ui_features"
+            | "page_url";
     }
 
     /**

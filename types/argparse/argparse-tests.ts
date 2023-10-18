@@ -1,19 +1,19 @@
 // near copy of each of the tests from https://github.com/nodeca/argparse/tree/master/examples
 
 import {
-    ArgumentParser,
-    RawDescriptionHelpFormatter,
     Action,
     ActionConstructorOptions,
-    Namespace,
-    ONE_OR_MORE,
-    ZERO_OR_MORE,
-    OPTIONAL,
-    SUPPRESS,
-    REMAINDER,
     ArgumentError,
+    ArgumentParser,
     ArgumentTypeError,
     BooleanOptionalAction,
+    Namespace,
+    ONE_OR_MORE,
+    OPTIONAL,
+    RawDescriptionHelpFormatter,
+    REMAINDER,
+    SUPPRESS,
+    ZERO_OR_MORE,
 } from "argparse";
 let args: any;
 
@@ -77,13 +77,13 @@ constantExample.add_argument("-a", {
 constantExample.add_argument("--str", {
     action: "append_const",
     dest: "types",
-    help: 'append constant "str" to types',
+    help: "append constant \"str\" to types",
     const: "str",
 });
 constantExample.add_argument("--int", {
     action: "append_const",
     dest: "types",
-    help: 'append constant "int" to types',
+    help: "append constant \"int\" to types",
     const: "int",
 });
 

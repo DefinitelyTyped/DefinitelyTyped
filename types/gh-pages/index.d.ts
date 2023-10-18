@@ -1,8 +1,3 @@
-// Type definitions for gh-pages 3.2
-// Project: https://github.com/tschaub/gh-pages
-// Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export interface Git {
     exec: (command: string) => Promise<this>;
     init: () => Promise<this>;
@@ -48,9 +43,9 @@ export interface PublishOptions {
     user?:
         | null
         | {
-              name: string;
-              email: string;
-          }
+            name: string;
+            email: string;
+        }
         | undefined;
 }
 
@@ -65,18 +60,18 @@ export function clean(): void;
 
 export interface Defaults {
     beforeAdd: null;
-    dest: '.';
+    dest: ".";
     add: false;
-    git: 'git';
+    git: "git";
     depth: 1;
     dotfiles: false;
-    branch: 'gh-pages';
+    branch: "gh-pages";
     remote: string;
-    src: '**/*';
-    remove: '.';
+    src: "**/*";
+    remove: ".";
     push: true;
     history: true;
-    message: 'Updates';
+    message: "Updates";
     silent: false;
 }
 

@@ -1,9 +1,3 @@
-// Type definitions for tableau 2.2
-// Project: https://onlinehelp.tableau.com/current/api/js_api/en-us/JavaScriptAPI/js_api.htm, https://github.com/jwerle/tableau
-// Definitions by: Greg Zapp <https://github.com/protip>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 declare namespace tableau {
     enum DashboardObjectType {
         BLANK = "blank",
@@ -64,7 +58,7 @@ declare namespace tableau {
     enum FieldRoleType {
         DIMENSION,
         MEASURE,
-        UKNOWN,
+        UNKNOWN,
     }
 
     enum SheetType {
@@ -775,7 +769,7 @@ declare namespace tableau {
         getAggregation(): FieldAggregationType;
         /** Gets the data source to which this field belongs. */
         getDataSource(): DataSource;
-        /** One of the following values: DIMENSION, MEASURE, UKNOWN */
+        /** One of the following values: DIMENSION, MEASURE, UNKNOWN */
         getRole(): FieldRoleType;
     }
 

@@ -1,10 +1,3 @@
-// Type definitions for sql.js 1.4
-// Project: https://github.com/sql-js/sql.js
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-//                 Yehyoung Kang <https://github.com/pastelmind>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 /// <reference types="emscripten" />
 
@@ -286,18 +279,17 @@ declare class StatementIterator implements Iterator<Statement>, Iterable<Stateme
 
 declare namespace initSqlJs {
     export {
-        // types
-        SqlValue,
-        ParamsObject,
-        ParamsCallback,
-        SqlJsConfig,
         BindParams,
-
+        InitSqlJsStatic,
+        ParamsCallback,
+        ParamsObject,
         // interfaces
         QueryExecResult,
-        StatementIteratorResult,
+        SqlJsConfig,
         SqlJsStatic,
-        InitSqlJsStatic,
+        // types
+        SqlValue,
+        StatementIteratorResult,
     };
 
     // classes

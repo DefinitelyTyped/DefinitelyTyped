@@ -1,8 +1,3 @@
-// Type definitions for phonon 1.4
-// Project: https://github.com/quark-dev/Phonon-Framework
-// Definitions by: Kévin SERIN <https://github.com/kserin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="awesomplete" />
 
 declare namespace Phonon {
@@ -20,8 +15,20 @@ declare namespace Phonon {
         panel(id: string): PhononPanelComponent;
         sidePanel(id: string): PhononSidePanelComponent;
         alert(text: string, title?: string, cancelable?: boolean, textOk?: string): PhononDialogComponent;
-        confirm(text: string, title?: string, cancelable?: boolean, textOk?: string, textCancel?: string): PhononDialogComponent;
-        prompt(text: string, title?: string, cancelable?: boolean, textOk?: string, textCancel?: string): PhononDialogComponent;
+        confirm(
+            text: string,
+            title?: string,
+            cancelable?: boolean,
+            textOk?: string,
+            textCancel?: string,
+        ): PhononDialogComponent;
+        prompt(
+            text: string,
+            title?: string,
+            cancelable?: boolean,
+            textOk?: string,
+            textCancel?: string,
+        ): PhononDialogComponent;
         indicator(title: string, cancelable?: boolean): PhononIndicatorComponent;
         dialog(id: string): PhononCustomDialogComponent;
         notif(textOrId: string, timeout?: number, showButton?: boolean, textButton?: string): PhononNotifComponent;
@@ -116,7 +123,12 @@ declare namespace Phonon {
     }
 
     /*** Ajax ***/
-    type PhononAjaxErrorFlag = "NO_INTERNET_ACCESS" | "TIMEOUT_EXCEEDED" | "XMLHTTPREQUEST_UNAVAILABLE" | "JSON_MALFORMED" | "REQUEST_CANCELED";
+    type PhononAjaxErrorFlag =
+        | "NO_INTERNET_ACCESS"
+        | "TIMEOUT_EXCEEDED"
+        | "XMLHTTPREQUEST_UNAVAILABLE"
+        | "JSON_MALFORMED"
+        | "REQUEST_CANCELED";
     interface PhononAjaxObject {
         method: string;
         url: string;
@@ -167,9 +179,9 @@ declare namespace Phonon {
     interface PhononPopoverComponent {
         setList(list: string[] | PhononPopoverItem[]): PhononPopoverComponent;
         setList(list: any[], itemBuilder?: (item: any) => void): PhononPopoverComponent;
-        attachButton(element: string|Element, autoBind?: boolean): PhononPopoverComponent;
+        attachButton(element: string | Element, autoBind?: boolean): PhononPopoverComponent;
         open(direction: PhononPopoverDirection): PhononPopoverComponent;
-        openFrom(element: string|Element): PhononPopoverComponent;
+        openFrom(element: string | Element): PhononPopoverComponent;
         close(): void;
         onItemChanged(callback: (data: PhononPopoverItem) => void): PhononPopoverComponent;
     }

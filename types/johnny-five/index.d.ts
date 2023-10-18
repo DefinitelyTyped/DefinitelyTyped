@@ -1,15 +1,3 @@
-// Type definitions for johnny-five 2.1
-// Project: https://github.com/rwaldron/johnny-five
-// Definitions by: Toshiya Nakakura <https://github.com/nakakura>
-//                 Simon Colmer <https://github.com/workshop2>
-//                 XtrimSystems <https://github.com/xtrimsystems>
-//                 Marcin Obiedziński <https://github.com/marcinobiedz>
-//                 Nicholas Hehr <https://github.com/HipsterBrown>
-//                 Scott González <https://github.com/scottgonzalez>
-//                 Andréas "ScreamZ" HANSS <https://github.com/ScreamZ>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 /// <reference types="node"/>
 
 export interface AccelerometerOption {
@@ -58,8 +46,8 @@ export class Accelerometer {
     readonly inclination: number;
     readonly orientation: number;
 
-    on(event: 'change', cb: () => void): this;
-    on(event: 'data', cb: (freq: any) => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (freq: any) => void): this;
     hasAxis(name: string): void;
     enable(): void;
     disable(): void;
@@ -80,8 +68,8 @@ export class Altimeter {
     readonly feet: number;
     readonly meters: number;
 
-    on(event: 'change', cb: () => void): this;
-    on(event: 'data', cb: (data: any) => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: any) => void): this;
 }
 
 export class Animation {
@@ -117,13 +105,13 @@ export interface BoardOption {
 }
 
 export interface BoardLogEvent {
-    type: 'info' | 'warn' | 'fail';
+    type: "info" | "warn" | "fail";
     timestamp: number;
     class: string;
     message: string;
 }
 
-export type SupportedBarometers = 'BMP180' | 'BMP280' | 'BME280' | 'MPL115A2' | 'MPL3115A2' | 'MS5611';
+export type SupportedBarometers = "BMP180" | "BMP280" | "BME280" | "MPL115A2" | "MPL3115A2" | "MS5611";
 
 export interface BarometerGenericArgs {
     controller: SupportedBarometers;
@@ -132,7 +120,7 @@ export interface BarometerGenericArgs {
 }
 
 export interface BarometerBMP180Args {
-    controller: 'BMP180';
+    controller: "BMP180";
     mode: 1 | 2 | 3;
 }
 
@@ -141,7 +129,7 @@ export class Barometer {
     /** Pressure is a string because somehow it's been fixed using {@link Number.toFixed} which returns a string. */
     pressure: string;
     on(
-        event: 'change' | 'data',
+        event: "change" | "data",
         cb: (data: {
             /** Pressure is a string because somehow it's been fixed using {@link Number.toFixed} which returns a string. */
             pressure: string;
@@ -158,9 +146,9 @@ export class Board {
     pins: Record<number, Pin>;
     port: string;
 
-    on(event: 'close' | 'connect' | 'exit' | 'ready', cb: () => void): this;
-    on(event: 'error', cb: (error: Error) => void): this;
-    on(event: 'info' | 'message' | 'warn' | 'fail', cb: (event: BoardLogEvent) => void): this;
+    on(event: "close" | "connect" | "exit" | "ready", cb: () => void): this;
+    on(event: "error", cb: (error: Error) => void): this;
+    on(event: "info" | "message" | "warn" | "fail", cb: (event: BoardLogEvent) => void): this;
     pinMode(pin: number | string, mode: PinMode): void;
     analogWrite(pin: number | string, value: number): void;
     analogRead(pin: number | string, cb: (item: number) => void): void;
@@ -210,8 +198,8 @@ export class Boards<BoardsIDs extends BoardIdsListType, BoardsConfig extends Boa
      * @param cb - The callback is filled with a map of boards with their names.
      */
     on(
-        event: 'ready',
-        cb: (boards: IDBoardMap<BoardsIDs[number]> | IDBoardMap<BoardsConfig[number]['id']>) => void,
+        event: "ready",
+        cb: (boards: IDBoardMap<BoardsIDs[number]> | IDBoardMap<BoardsConfig[number]["id"]>) => void,
     ): this;
 
     /** This function allows to iterate on all boards */
@@ -225,7 +213,7 @@ export class Boards<BoardsIDs extends BoardIdsListType, BoardsConfig extends Boa
     /**
      * Search for a board using its ID, given the typing you can't be wrong so it always returns a {@Link Board}
      */
-    byId(id: BoardsConfig[number]['id']): Board;
+    byId(id: BoardsConfig[number]["id"]): Board;
 }
 
 export type BoardIdsListType = readonly string[];
@@ -259,8 +247,8 @@ export class Button {
     upValue: number;
     holdtime: number;
 
-    on(event: 'hold', cb: (holdTime: number) => void): this;
-    on(event: 'down' | 'press' | 'up' | 'release', cb: () => void): this;
+    on(event: "hold", cb: (holdTime: number) => void): this;
+    on(event: "down" | "press" | "up" | "release", cb: () => void): this;
 }
 
 export interface CollectionPinOptions {
@@ -310,8 +298,8 @@ export class Compass {
         heading: number;
     };
 
-    on(event: 'change', cb: () => void): this;
-    on(event: 'data', cb: (data: unknown) => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
 }
 
 export interface ESCOption {
@@ -319,8 +307,8 @@ export interface ESCOption {
     pin: number | string;
     pwmRange?: number[] | undefined;
     address?: string | undefined;
-    controller?: 'PCA9685' | 'DEFAULT' | undefined;
-    device?: 'FORWARD' | 'FORWARD_REVERSE' | 'FORWARD_REVERSE_BRAKE' | undefined;
+    controller?: "PCA9685" | "DEFAULT" | undefined;
+    device?: "FORWARD" | "FORWARD_REVERSE" | "FORWARD_REVERSE_BRAKE" | undefined;
     neutral?: number | undefined;
 }
 
@@ -394,8 +382,8 @@ export class Gyro {
     readonly y: number;
     readonly z: number;
 
-    on(event: 'change', cb: () => void): this;
-    on(event: 'data', cb: (data: unknown) => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
     recalibrate(): void;
 }
 
@@ -412,8 +400,8 @@ export class Hygrometer {
     readonly relativeHumidity: number;
     readonly RH: number;
 
-    on(event: 'change', cb: () => void): this;
-    on(event: 'data', cb: (data: unknown) => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
 }
 
 // tslint:disable-next-line:interface-name
@@ -436,8 +424,8 @@ export class IMU {
     readonly orientation: Orientation;
     readonly thermometer: Thermometer;
 
-    on(event: 'change' | 'calibrated', cb: () => void): this;
-    on(event: 'data', cb: (data: unknown) => void): this;
+    on(event: "change" | "calibrated", cb: () => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
 }
 
 export interface ReflectanceArrayOption {
@@ -470,7 +458,7 @@ export class ReflectanceArray {
     calibrate(): void;
     calibrateUntil(predicate: () => void): void;
     loadCalibration(option: LoadCalibrationOption): void;
-    on(event: 'data' | 'calibratedData' | 'line', cb: (data: unknown) => void): this;
+    on(event: "data" | "calibratedData" | "line", cb: (data: unknown) => void): this;
 }
 
 export interface JoystickOption {
@@ -490,9 +478,9 @@ export class Joystick {
     axis: number[];
     raw: number[];
 
-    on(event: 'data', cb: (data: unknown) => void): this;
-    on(event: 'change', cb: () => void): this;
-    on(event: 'axismove', cb: (error: Error, date: Date) => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "axismove", cb: (error: Error, date: Date) => void): this;
 }
 
 export interface LCDGeneralOption {
@@ -546,13 +534,13 @@ export interface LedOption {
 }
 
 export class Led {
-    constructor(option: LedOption['pin'] | LedOption);
+    constructor(option: LedOption["pin"] | LedOption);
 
     animation: Animation;
     id: string;
     isOn: boolean;
     isRunning: boolean;
-    mode: Pin['mode'];
+    mode: Pin["mode"];
     pin: number;
     value: number;
 
@@ -674,8 +662,8 @@ export interface MotionOption {
 
 export class Motion {
     constructor(option: number | MotionOption);
-    on(event: 'data', cb: (data: unknown) => void): this;
-    on(event: 'calibrated' | 'motionstart' | 'motionend', cb: () => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
+    on(event: "calibrated" | "motionstart" | "motionend", cb: () => void): this;
 }
 
 export interface MotorPins {
@@ -738,8 +726,8 @@ export class Orientation {
     readonly euler: any;
     readonly quarternion: any;
 
-    on(event: 'change' | 'calibrated', cb: () => void): this;
-    on(event: 'data', cb: (data: unknown) => void): this;
+    on(event: "change" | "calibrated", cb: () => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
 }
 
 export interface PiezoOption {
@@ -812,7 +800,7 @@ export class Pin {
 
     id: number | string;
     pin: number | string;
-    type: 'digital' | 'analog';
+    type: "digital" | "analog";
     value: number;
     mode: PinMode;
 
@@ -823,8 +811,8 @@ export class Pin {
     low(): void;
     write(value: number): void;
     read(cb: (error: Error, value: number) => void): void;
-    on(event: 'high' | 'low', cb: () => void): this;
-    on(event: 'data', cb: (data: unknown) => void): this;
+    on(event: "high" | "low", cb: () => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
 }
 
 export interface PingOption {
@@ -843,7 +831,7 @@ export class Ping {
     /** Calculated distance to object in centimeters */
     readonly cm: number;
 
-    on(event: 'change', cb: () => void): this;
+    on(event: "change", cb: () => void): this;
 }
 
 export interface ProximityOption {
@@ -860,8 +848,8 @@ export interface ProximityData {
 
 export class Proximity {
     constructor(option: number | ProximityOption);
-    on(event: 'data', cb: (data: ProximityData) => void): this;
-    on(event: 'change', cb: () => void): this;
+    on(event: "data", cb: (data: ProximityData) => void): this;
+    on(event: "change", cb: () => void): this;
 }
 
 export interface RelayOption {
@@ -870,14 +858,14 @@ export interface RelayOption {
     /**
      * @default 'NO'
      */
-    type?: 'NO' | 'NC';
+    type?: "NO" | "NC";
 }
 
 /**
  * http://johnny-five.io/api/relay/
  */
 export class Relay {
-    constructor(option: Relay['pin'] | RelayOption);
+    constructor(option: Relay["pin"] | RelayOption);
 
     id: string;
     pin: number | string;
@@ -902,7 +890,7 @@ export class Relays {
     /**
      * An array of pins
      */
-    constructor(options: Array<Relay['pin']>);
+    constructor(options: Array<Relay["pin"]>);
 
     /**
      * Using relays with different types. Some NC, some NO, etc…
@@ -942,7 +930,7 @@ export interface SensorOption {
     freq?: number | undefined;
     threshold?: number | undefined;
     enabled?: boolean | undefined;
-    type?: 'digital' | 'analog';
+    type?: "digital" | "analog";
 }
 
 export class Sensor {
@@ -963,8 +951,8 @@ export class Sensor {
     fscaleTo(range: number[]): number;
     booleanAt(barrier: number): boolean;
     within(range: number[], cb: () => void): void;
-    on(event: 'change', cb: () => void): this;
-    on(event: 'data', cb: (data: unknown) => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
 }
 
 export interface ServoGeneralOption {
@@ -1012,7 +1000,7 @@ export class Servo {
     stop(): void;
     cw(speed: number): void;
     ccw(speed: number): void;
-    on(event: 'move:complete', cb: () => void): this;
+    on(event: "move:complete", cb: () => void): this;
 }
 
 export interface ShiftRegisterOption {
@@ -1048,8 +1036,8 @@ export class Sonar {
 
     within(range: number[], cb: () => void): void;
     within(range: number[], unit: string, cb: () => void): void;
-    on(event: 'change', cb: () => void): this;
-    on(event: 'data', cb: (data: unknown) => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
 }
 
 export interface StepperOption {
@@ -1079,14 +1067,14 @@ export class Stepper {
     ccw(): Stepper;
     within(range: number[], cb: () => void): void;
     within(range: number[], unit: string, cb: () => void): void;
-    on(event: 'change', cb: () => void): this;
-    on(event: 'data', cb: (data: unknown) => void): this;
+    on(event: "change", cb: () => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
 }
 
 export interface SwitchOption {
     board?: Board | undefined;
     pin: number | string;
-    type?: 'NO' | 'NC' | undefined;
+    type?: "NO" | "NC" | undefined;
 }
 
 export class Switch {
@@ -1097,7 +1085,7 @@ export class Switch {
     readonly isClosed: boolean;
     readonly isOpen: boolean;
 
-    on(event: 'open' | 'close', cb: () => void): this;
+    on(event: "open" | "close", cb: () => void): this;
 }
 
 export interface ThermometerOption {
@@ -1120,6 +1108,6 @@ export class Thermometer {
     readonly F: number;
     readonly K: number;
 
-    on(event: 'data', cb: (data: unknown) => void): this;
-    on(event: 'change', cb: () => void): this;
+    on(event: "data", cb: (data: unknown) => void): this;
+    on(event: "change", cb: () => void): this;
 }

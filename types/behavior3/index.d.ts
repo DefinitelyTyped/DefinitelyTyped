@@ -1,8 +1,3 @@
-// Type definitions for non-npm package behavior3 0.2
-// Project: https://github.com/behavior3/behavior3js
-// Definitions by: carry.wu <https://github.com/carrrywu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Behavior3JS
  * ===========
@@ -31,11 +26,9 @@
  *
  * Visit http://behavior3.com to know more!
  *
- *
  * ## Core Classes and Functions
  *
  * This library include the following core structures...
- *
  *
  * **Public:**
  *
@@ -47,7 +40,6 @@
  * - **Action**: base class for all action nodes;
  * - **Condition**: base class for all condition nodes;
  *
- *
  * **Internal:**
  *
  * - **Tick**: used as container and tracking object through the tree during
@@ -56,7 +48,6 @@
  *
  * *Some classes are used internally on Behavior3JS, but you may need to access
  * its functionalities eventually, specially the `Tick` object.*
- *
  *
  * **Nodes:**
  *
@@ -82,14 +73,12 @@
  * DECORATOR           | 'decorator'
  * ACTION              | 'action'
  * CONDITION           | 'condition'
- *
  */
 declare namespace b3 {
     /**
      * This function is used to create unique IDs for trees and nodes.
      *
      * (consult http://www.ietf.org/rfc/rfc4122.txt).
-     *
      */
     function createUUID(): string;
 
@@ -110,18 +99,17 @@ declare namespace b3 {
      * can override. They are `enter`, `open`, `tick`, `close` and `exit`. See
      * their documentation to know more. These callbacks are called inside the
      * `_execute` method, which is called in the tree traversal.
-     *
      */
     class BaseNode {
         /**
          * Initialization method.
          */
-        constructor({category, name, title, description, properties}?: {
-            category?: string | undefined,
-            name?: string | undefined,
-            title?: string | undefined,
-            description?: string | undefined,
-            properties?: any
+        constructor({ category, name, title, description, properties }?: {
+            category?: string | undefined;
+            name?: string | undefined;
+            title?: string | undefined;
+            description?: string | undefined;
+            properties?: any;
         });
 
         /**
@@ -130,7 +118,6 @@ declare namespace b3 {
          * `exit`. It only opens a node if it is not already open. In the same
          * way, this method only close a node if the node  returned a status
          * different of `RUNNING`.
-         *
          */
         _execute(tick: Tick): number;
 
@@ -170,7 +157,6 @@ declare namespace b3 {
          * callback and only if the not isn't closed.
          *
          * Note: a node will be closed if it returned `RUNNING` in the tick.
-         *
          */
         open(tick: Tick): void;
 
@@ -178,7 +164,6 @@ declare namespace b3 {
          * Tick method, override this to use. This method must contain the real
          * execution of node (perform a task, call children, etc.). It is called
          * every time a node is asked to execute.
-         *
          */
         tick(tick: Tick): void;
 
@@ -186,14 +171,12 @@ declare namespace b3 {
          * Close method, override this to use. This method is called after the tick
          * callback, and only if the tick return a state different from
          * `RUNNING`.
-         *
          */
         close(tick: Tick): void;
 
         /**
          * Exit method, override this to use. Called every time in the end of the
          * execution.
-         *
          */
         exit(tick: Tick): void;
     }
@@ -211,13 +194,14 @@ declare namespace b3 {
      *         return b3.RUNNING;
      *       }
      *     };
-     *
      */
     class Action extends BaseNode {
         /**
          * Creates an instance of Action.
          */
-        constructor({name, title, properties}?: {name?: string | undefined, title?: string | undefined, properties?: any});
+        constructor(
+            { name, title, properties }?: { name?: string | undefined; title?: string | undefined; properties?: any },
+        );
     }
 
     /**
@@ -256,7 +240,6 @@ declare namespace b3 {
      *       ...
      *     ]});
      *
-     *
      * Loading a Behavior Tree from data structure
      * -------------------------------------------
      *
@@ -276,7 +259,6 @@ declare namespace b3 {
      *         ...
      *       }
      *     })
-     *
      */
     class BehaviorTree {
         /**
@@ -306,8 +288,6 @@ declare namespace b3 {
          *     //code
          *     var bt = new b3.BehaviorTree();
          *     bt.load(data, {'MyCustomNode':MyCustomNode})
-         *
-         *
          */
         load(data: any, names?: any): void;
 
@@ -316,7 +296,6 @@ declare namespace b3 {
          *
          * Note: This method does not record the current node parameters. Thus,
          * it may not be compatible with load for now.
-         *
          */
         dump(): any;
 
@@ -336,7 +315,6 @@ declare namespace b3 {
          * Note: BehaviorTree stores a list of open nodes from last tick, if these
          * nodes weren't called after the current tick, this method will close them
          * automatically.
-         *
          */
         tick(target: any, blackboard: Blackboard): string;
     }
@@ -375,7 +353,6 @@ declare namespace b3 {
      * and the per node per tree dynamically create inside the per tree memory
      * (it is accessed via `_treeMemory[id].nodeMemory`). Avoid to use these
      * variables manually, use `get` and `set` instead.
-     *
      */
     class Blackboard {
         /**
@@ -386,14 +363,12 @@ declare namespace b3 {
         /**
          * Internal method to retrieve the tree context memory. If the memory does
          * not exist, this method creates it.
-         *
          */
         _getTreeMemory(treeScope: string): any;
 
         /**
          * Internal method to retrieve the node context memory, given the tree
          * memory. If the memory does not exist, this method creates is.
-         *
          */
         _getNodeMemory(treeMemory: string, nodeScope: string): any;
 
@@ -404,7 +379,6 @@ declare namespace b3 {
          * memory. If no parameter is provided, it returns the global memory.
          * Notice that, if only nodeScope is provided, this method will still
          * return the global memory.
-         *
          */
         _getMemory(treeScope: string, nodeScope: string): any;
 
@@ -416,7 +390,6 @@ declare namespace b3 {
          * the value into the global memory. Notice that, if only nodeScope is
          * provided (but treeScope not), this method will still save the value into
          * the global memory.
-         *
          */
         set(key: string, value: string, treeScope: string, nodeScope: string): void;
 
@@ -428,7 +401,6 @@ declare namespace b3 {
          * retrieve from the global memory. If only nodeScope is provided (but
          * treeScope not), this method will still try to retrieve from the global
          * memory.
-         *
          */
         get(key: string, treeScope: string, nodeScope: string): any;
     }
@@ -467,25 +439,32 @@ declare namespace b3 {
      *         return SUCCESS;
      *       }
      *     };
-     *
      */
     class Composite extends BaseNode {
         /**
          * Creates an instance of Composite.
          */
-        constructor({children, name, title, properties}?: {children?: BaseNode[] | undefined, name?: string | undefined, title?: string | undefined, properties?: any});
+        constructor(
+            { children, name, title, properties }?: {
+                children?: BaseNode[] | undefined;
+                name?: string | undefined;
+                title?: string | undefined;
+                properties?: any;
+            },
+        );
     }
 
     /**
      * Condition is the base class for all condition nodes. Thus, if you want to
      * create new custom condition nodes, you need to inherit from this class.
-     *
      */
     class Condition extends BaseNode {
         /**
          * Creates an instance of Condition.
          */
-        constructor({name, title, properties}?: {name?: string | undefined, title?: string | undefined, properties?: any});
+        constructor(
+            { name, title, properties }?: { name?: string | undefined; title?: string | undefined; properties?: any },
+        );
     }
 
     /**
@@ -522,13 +501,19 @@ declare namespace b3 {
      *         return status;
      *       }
      *     });
-     *
      */
     class Decorator extends BaseNode {
         /**
          * Creates an instance of Decorator.
          */
-        constructor({child, name, title, properties}?: {child?: BaseNode | undefined, name?: string | undefined, title?: string | undefined, properties?: any});
+        constructor(
+            { child, name, title, properties }?: {
+                child?: BaseNode | undefined;
+                name?: string | undefined;
+                title?: string | undefined;
+                properties?: any;
+            },
+        );
     }
 
     /**
@@ -544,9 +529,8 @@ declare namespace b3 {
      *
      * This class also makes a bridge between nodes and the debug, passing the
      * node state to the debug if the last is provided.
-     *
      */
-     class Tick {
+    class Tick {
         /**
          * Initialization method.
          */
@@ -580,7 +564,6 @@ declare namespace b3 {
 
     /**
      * This action node returns `ERROR` always.
-     *
      */
     class Error extends Action {
         /**
@@ -596,7 +579,6 @@ declare namespace b3 {
 
     /**
      * This action node returns `FAILURE` always.
-     *
      */
     class Failer extends Action {
         /**
@@ -612,7 +594,6 @@ declare namespace b3 {
 
     /**
      * This action node returns RUNNING always.
-     *
      */
     class Runner extends Action {
         /**
@@ -628,7 +609,6 @@ declare namespace b3 {
 
     /**
      * This action node returns `SUCCESS` always.
-     *
      */
     class Succeeder extends Action {
         /**
@@ -644,13 +624,12 @@ declare namespace b3 {
 
     /**
      * Wait a few seconds.
-     *
      */
     class Wait extends Action {
         /**
          * Creates an instance of Wait.
          */
-        constructor({milliseconds}?: {milliseconds?: number | undefined});
+        constructor({ milliseconds }?: { milliseconds?: number | undefined });
 
         /**
          * Open method.
@@ -668,13 +647,12 @@ declare namespace b3 {
      * `RUNNING` state, its index is recorded and in the next tick the,
      * MemPriority calls the child recorded directly, without calling previous
      * children again.
-     *
      */
     class MemPriority extends Composite {
         /**
          * Creates an instance of MemPriority.
          */
-        constructor({children}?: {children?: BaseNode[] | undefined});
+        constructor({ children }?: { children?: BaseNode[] | undefined });
 
         /**
          * Open method.
@@ -692,13 +670,12 @@ declare namespace b3 {
      * `RUNNING` state, its index is recorded and in the next tick the
      * MemPriority call the child recorded directly, without calling previous
      * children again.
-     *
      */
     class MemSequence extends Composite {
         /**
          * Creates an instance of MemSequence.
          */
-        constructor({children}?: {children?: BaseNode[] | undefined});
+        constructor({ children }?: { children?: BaseNode[] | undefined });
 
         /**
          * Open method.
@@ -715,13 +692,12 @@ declare namespace b3 {
      * Priority ticks its children sequentially until one of them returns
      * `SUCCESS`, `RUNNING` or `ERROR`. If all children return the failure state,
      * the priority also returns `FAILURE`.
-     *
      */
     class Priority extends Composite {
         /**
          * Creates an instance of Priority.
          */
-        constructor({children}?: {children?: BaseNode[] | undefined});
+        constructor({ children }?: { children?: BaseNode[] | undefined });
 
         /**
          * Tick method.
@@ -733,13 +709,12 @@ declare namespace b3 {
      * The Sequence node ticks its children sequentially until one of them
      * returns `FAILURE`, `RUNNING` or `ERROR`. If all children return the
      * success state, the sequence also returns `SUCCESS`.
-     *
      */
     class Sequence extends Composite {
         /**
          * Creates an instance of Sequence.
          */
-        constructor({children}?: {children?: BaseNode[] | undefined});
+        constructor({ children }?: { children?: BaseNode[] | undefined });
 
         /**
          * Tick method.
@@ -750,13 +725,12 @@ declare namespace b3 {
     /**
      * The Inverter decorator inverts the result of the child, returning `SUCCESS`
      * for `FAILURE` and `FAILURE` for `SUCCESS`.
-     *
      */
     class Inverter extends Decorator {
         /**
          * Creates an instance of Inverter.
          */
-        constructor({child}?: {child?: BaseNode | undefined});
+        constructor({ child }?: { child?: BaseNode | undefined });
 
         /**
          * Tick method.
@@ -768,7 +742,6 @@ declare namespace b3 {
      * This decorator limit the number of times its child can be called. After a
      * certain number of times, the Limiter decorator returns `FAILURE` without
      * executing the child.
-     *
      */
     class Limiter extends Decorator {
         /**
@@ -778,9 +751,8 @@ declare namespace b3 {
          *
          * - **maxLoop** (*Integer*) Maximum number of repetitions.
          * - **child** (*BaseNode*) The child node.
-         *
          */
-        constructor({child, maxLoop}?: {child?: BaseNode | undefined, maxLoop?: number | undefined});
+        constructor({ child, maxLoop }?: { child?: BaseNode | undefined; maxLoop?: number | undefined });
 
         /**
          * Open method.
@@ -798,7 +770,6 @@ declare namespace b3 {
      * Notice that it does not interrupt the execution itself (i.e., the child
      * must be non-preemptive), it only interrupts the node after a `RUNNING`
      * status.
-     *
      */
     class MaxTime extends Decorator {
         /**
@@ -806,9 +777,8 @@ declare namespace b3 {
          *
          * - **maxTime** (*Integer*) Maximum time a child can execute.
          * - **child** (*BaseNode*) The child node.
-         *
          */
-        constructor({maxTime, child}?: {maxTime?: number | undefined, child?: BaseNode | undefined});
+        constructor({ maxTime, child }?: { maxTime?: number | undefined; child?: BaseNode | undefined });
 
         /**
          * Open method.
@@ -825,7 +795,6 @@ declare namespace b3 {
      * RepeatUntilFailure is a decorator that repeats the tick signal until the
      * node child returns `FAILURE`, `RUNNING` or `ERROR`. Optionally, a maximum
      * number of repetitions can be defined.
-     *
      */
     class RepeatUntilFailure extends Decorator {
         /**
@@ -833,9 +802,8 @@ declare namespace b3 {
          *
          * - **maxLoop** (*Integer*) Maximum number of repetitions. Default to -1 (infinite).
          * - **child** (*BaseNode*) The child node.
-         *
          */
-        constructor({maxLoop, child}?: {maxLoop?: number | undefined, child?: BaseNode | undefined});
+        constructor({ maxLoop, child }?: { maxLoop?: number | undefined; child?: BaseNode | undefined });
 
         /**
          * Open method.
@@ -852,7 +820,6 @@ declare namespace b3 {
      * RepeatUntilSuccess is a decorator that repeats the tick signal until the
      * node child returns `SUCCESS`, `RUNNING` or `ERROR`. Optionally, a maximum
      * number of repetitions can be defined.
-     *
      */
     class RepeatUntilSuccess extends Decorator {
         /**
@@ -860,9 +827,8 @@ declare namespace b3 {
          *
          * - **maxLoop** (*Integer*) Maximum number of repetitions. Default to -1 (infinite).
          * - **child** (*BaseNode*) The child node.
-         *
          */
-        constructor({maxLoop, child}?: {maxLoop?: number | undefined, child?: BaseNode | undefined});
+        constructor({ maxLoop, child }?: { maxLoop?: number | undefined; child?: BaseNode | undefined });
 
         /**
          * Open method.
@@ -879,7 +845,6 @@ declare namespace b3 {
      * Repeater is a decorator that repeats the tick signal until the child node
      * return `RUNNING` or `ERROR`. Optionally, a maximum number of repetitions
      * can be defined.
-     *
      */
     class Repeater extends Decorator {
         /**
@@ -887,9 +852,8 @@ declare namespace b3 {
          *
          * - **maxLoop** (*Integer*) Maximum number of repetitions. Default to -1 (infinite).
          * - **child** (*BaseNode*) The child node.
-         *
          */
-        constructor({maxLoop, child}?: {maxLoop?: number | undefined, child?: BaseNode | undefined});
+        constructor({ maxLoop, child }?: { maxLoop?: number | undefined; child?: BaseNode | undefined });
 
         /**
          * Open method.

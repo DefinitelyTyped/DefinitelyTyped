@@ -1,8 +1,3 @@
-// Type definitions for subset-font 1.4
-// Project: https://github.com/papandreou/subset-font
-// Definitions by: Logan Graham <https://github.com/omacranger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**
@@ -12,7 +7,7 @@ interface SubsetFontOptions {
     /**
      * The desired output format. Defaults to the format of the original font.
      */
-    targetFormat?: 'sfnt' | 'woff' | 'woff2' | 'truetype';
+    targetFormat?: "sfnt" | "woff" | "woff2" | "truetype";
     /**
      * An array of numbers specifying the extra name ids to preserve in the name table. See README for details.
      */

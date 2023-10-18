@@ -1,8 +1,3 @@
-// Type definitions for cache-manager-ioredis 2.0
-// Project: https://github.com/dabroek/node-cache-manager-ioredis
-// Definitions by: Yi Hong <https://github.com/hongyiweiwu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Cache, CacheOptions, CachingConfig, Store } from "cache-manager";
 import * as IORedis from "ioredis";
 

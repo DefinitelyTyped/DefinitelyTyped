@@ -1,22 +1,8 @@
-// Type definitions for ssh2-sftp-client 9.0
-// Project: https://github.com/theophilusx/ssh2-sftp-client
-// Definitions by: igrayson <https://github.com/igrayson>
-//                 Ascari Andrea <https://github.com/ascariandrea>
-//                 Kartik Malik <https://github.com/kartik2406>
-//                 Michael Pertl <https://github.com/viamuli>
-//                 Taylor Herron <https://github.com/gbhmt>
-//                 Lane Goldberg <https://github.com/builtbylane>
-//                 Lorenzo Adinolfi <https://github.com/loru88>
-//                 Tom Xu <https://github.com/hengkx>
-//                 Joseph Burger <https://github.com/candyapplecorn>
-//                 Emma Milner <https://github.com/tsop14>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as ssh2 from 'ssh2';
+import * as ssh2 from "ssh2";
 
 export = sftp;
 
-type FileInfoType = 'd' | '-' | 'l';
+type FileInfoType = "d" | "-" | "l";
 
 declare class sftp {
     constructor(name?: string);
@@ -102,7 +88,7 @@ declare namespace sftp {
     }
 
     interface ReadStreamOptions extends ModeOption {
-        flags?: 'r';
+        flags?: "r";
         encoding?: null | string;
         handle?: null | string;
 
@@ -113,7 +99,7 @@ declare namespace sftp {
     }
 
     interface WriteStreamOptions extends ModeOption {
-        flags?: 'w' | 'a';
+        flags?: "w" | "a";
         encoding?: null | string;
 
         /**

@@ -1,6 +1,6 @@
-import { ComponentType, ReactNode } from 'react';
+import { ComponentType, ReactNode } from "react";
 
-import Icon from '../icon';
+import Icon from "../icon";
 
 declare namespace PanelBody {
     interface Props {

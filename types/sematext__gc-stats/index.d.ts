@@ -1,9 +1,6 @@
-// Type definitions for @sematext/gc-stats 1.5
-// Project: https://github.com/adnanrahic/node-gcstats#readme
-// Definitions by: Jarco-dev <https://github.com/Jarco-dev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 declare namespace GCStats {
     interface MemoryStatistics {
@@ -33,9 +30,9 @@ declare namespace GCStats {
     type GCStatsListener = (stats: GCStatistics) => void;
 
     interface GCStatsEventEmitter extends EventEmitter {
-        on(event: 'stats', listener: GCStatsListener): this;
-        addListener(event: 'stats', listener: GCStatsListener): this;
-        once(event: 'stats', listener: GCStatsListener): this;
+        on(event: "stats", listener: GCStatsListener): this;
+        addListener(event: "stats", listener: GCStatsListener): this;
+        once(event: "stats", listener: GCStatsListener): this;
     }
 }
 

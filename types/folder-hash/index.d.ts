@@ -1,10 +1,3 @@
-// Type definitions for folder-hash 4.0
-// Project: https://github.com/marc136/node-folder-hash#readme
-// Definitions by: Kevin Brown <https://github.com/thekevinbrown>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Marc Walter <https://github.com/marc136>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type PathGlobFunction = () => string[];
 
 export interface FolderAndFileOptions {

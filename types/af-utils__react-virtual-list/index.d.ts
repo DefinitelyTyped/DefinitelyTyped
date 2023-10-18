@@ -1,10 +1,5 @@
-// Type definitions for @af-utils/react-virtual-list 0.0
-// Project: https://github.com/nowaalex/af-utils
-// Definitions by: Hunter Ross <https://github.com/huner2>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as Headless from '@af-utils/react-virtual-headless';
-import * as React from 'react';
+import * as Headless from "@af-utils/react-virtual-headless";
+import * as React from "react";
 
 export interface ChildProps {
     key: string;
@@ -17,7 +12,7 @@ export interface ChildProps {
 // Since component can be essentially any DOM element, HTMLElement is as specific as possible (I think).
 // Also have to omit children, since the List expects specific children.
 // This could probably be improved, but it's a start.
-export interface ListProps extends Omit<React.HTMLAttributes<HTMLElement>, 'children'> {
+export interface ListProps extends Omit<React.HTMLAttributes<HTMLElement>, "children"> {
     model: Headless.Model;
     children: React.ComponentType<ChildProps>;
     className?: string;
@@ -34,6 +29,6 @@ export interface ListProps extends Omit<React.HTMLAttributes<HTMLElement>, 'chil
  */
 export const List: React.FC<ListProps>;
 
-export * from '@af-utils/react-virtual-headless';
+export * from "@af-utils/react-virtual-headless";
 
 export {};

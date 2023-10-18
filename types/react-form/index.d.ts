@@ -1,12 +1,4 @@
-// Type definitions for react-form 4.0
-// Project: https://github.com/tannerlinsley/react-form
-// Definitions by: Cameron McAteer <https://github.com/cameron-mcateer>
-//                 Mathieu Masy <https://github.com/TiuSh>
-//                 Anatolii Titov <https://github.com/Toliak>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
-import * as React from 'react';
+import * as React from "react";
 
 // Hooks
 // Documentation: https://github.com/tannerlinsley/react-form/blob/a4c951622b623edbe95884eb277fae5f637fd481/docs/api.md
@@ -18,7 +10,7 @@ export interface FieldScopeSpecificMethods<
     ValueType,
     ErrorType,
     EventType,
-    FieldMetaType extends UseFieldInstanceMeta<ErrorType>
+    FieldMetaType extends UseFieldInstanceMeta<ErrorType>,
 > {
     setFieldValue(
         fieldPath: string,
@@ -42,7 +34,7 @@ export interface UseFormOptions<
     ErrorType,
     EventType,
     FieldMetaType extends UseFieldInstanceMeta<ErrorType>,
-    FormMetaType extends UseFormInstanceMeta<ErrorType>
+    FormMetaType extends UseFormInstanceMeta<ErrorType>,
 > {
     defaultValues?: UseFormValues<ValueType> | undefined;
 
@@ -77,7 +69,7 @@ export interface UseFormInstance<
     ErrorType,
     EventType,
     FieldMetaType extends UseFieldInstanceMeta<ErrorType>,
-    FormMetaType extends UseFormInstanceMeta<ErrorType>
+    FormMetaType extends UseFormInstanceMeta<ErrorType>,
 > extends FieldScopeSpecificMethods<ValueType, ErrorType, EventType, FieldMetaType> {
     Form: typeof React.Component;
     values: UseFormValues<ValueType>;
@@ -109,7 +101,7 @@ export interface UseFieldOptions<
     EventType,
     FieldMetaType extends UseFieldInstanceMeta<ErrorType>,
     FormMetaType extends UseFormInstanceMeta<ErrorType>,
-    InputPropsType extends UseFieldInstancePropsType<ValueType>
+    InputPropsType extends UseFieldInstancePropsType<ValueType>,
 > {
     defaultValue?: ValueType | undefined;
     defaultError?: ErrorType | undefined;
@@ -147,7 +139,7 @@ export interface UseFieldInstance<
     EventType,
     FieldMetaType extends UseFieldInstanceMeta<ErrorType>,
     FormMetaType extends UseFormInstanceMeta<ErrorType>,
-    InputPropsType extends UseFieldInstancePropsType<ValueType>
+    InputPropsType extends UseFieldInstancePropsType<ValueType>,
 > extends FieldScopeSpecificMethods<ValueType, ErrorType, EventType, FieldMetaType> {
     form: UseFormInstance<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType>;
     fieldName: string;
@@ -179,7 +171,7 @@ export function useForm<
     ErrorType = string,
     EventType = unknown,
     FieldMetaType extends UseFieldInstanceMeta<ErrorType> = UseFieldInstanceMeta<ErrorType>,
-    FormMetaType extends UseFormInstanceMeta<ErrorType> = UseFormInstanceMeta<ErrorType>
+    FormMetaType extends UseFormInstanceMeta<ErrorType> = UseFormInstanceMeta<ErrorType>,
 >(
     props: UseFormOptions<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType>,
 ): UseFormInstance<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType>;
@@ -190,7 +182,7 @@ export function useField<
     EventType = unknown,
     FieldMetaType extends UseFieldInstanceMeta<ErrorType> = UseFieldInstanceMeta<ErrorType>,
     FormMetaType extends UseFormInstanceMeta<ErrorType> = UseFormInstanceMeta<ErrorType>,
-    InputPropsType extends UseFieldInstancePropsType<ValueType> = UseFieldInstancePropsType<ValueType>
+    InputPropsType extends UseFieldInstancePropsType<ValueType> = UseFieldInstancePropsType<ValueType>,
 >(
     fieldPath: string,
     props: UseFieldOptions<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType, InputPropsType>,

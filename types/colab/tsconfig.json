@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "target": "es6",
+        "lib": [
+            "dom",
+            "es2018",
+            "es2022"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "colab-tests.ts"
+    ]
+}

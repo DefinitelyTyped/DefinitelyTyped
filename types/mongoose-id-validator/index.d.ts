@@ -1,10 +1,4 @@
-// Type definitions for mongoose-id-validator 0.6
-// Project: https://github.com/CampbellSoftwareSolutions/mongoose-id-validator
-// Definitions by: Kerollos Magdy <https://github.com/kerolloz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
-import { Schema, Connection } from 'mongoose';
+import { Connection, Schema } from "mongoose";
 
 interface MongooseIdValidatorOptions {
     /* Optional, custom validation message with {PATH} being replaced

@@ -1,13 +1,9 @@
-// Type definitions for sqlanywhere 1.0
-// Project: https://github.com/sqlanywhere/node-sqlanywhere
-// Definitions by: Peter Keuter <https://github.com/pkeuter>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export function createConnection(): SybaseConnection;
 
 export interface SybaseConnection {
     connect(
         params: ConnectionParameters,
-        cb: (err: Error | undefined) => void
+        cb: (err: Error | undefined) => void,
     ): void;
     close(cb: (err?: Error) => void): void;
     disconnect(cb: (err?: Error) => void): void;
@@ -16,11 +12,11 @@ export interface SybaseConnection {
     exec(
         query: string,
         placeholders: any[],
-        cb: (err: Error | undefined, result: any) => void
+        cb: (err: Error | undefined, result: any) => void,
     ): void;
     prepare(
         query: string,
-        cb: (err: Error | undefined, stmt: Statement) => void
+        cb: (err: Error | undefined, stmt: Statement) => void,
     ): void;
     prepare(query: string): Statement;
     commit(cb: (err: Error | undefined) => void): void;

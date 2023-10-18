@@ -1,9 +1,3 @@
-// Type definitions for ping 0.4
-// Project: https://github.com/danielzzz/node-ping
-// Definitions by: Richard Honor <https://github.com/RMHonor>
-//                 BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface PingConfig {
     /**
      * Map IP address to hostname or not.
@@ -75,7 +69,7 @@ export interface PingResponse {
     /**
      * Time (float) in ms for first successful ping response. `unknown` if ping fails.
      */
-    time: number | 'unknown';
+    time: number | "unknown";
     /**
      * Array of times (float) in ms for each ping response.
      */

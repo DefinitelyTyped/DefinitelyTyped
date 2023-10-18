@@ -1,8 +1,3 @@
-// Type definitions for strftime 0.9.2
-// Project: https://github.com/samsonjs/strftime
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare module "strftime" {
     type strftimeFunction = (format: string, date?: Date) => string;
 
@@ -56,7 +51,7 @@ declare module "strftime" {
             PM?: string | undefined;
             am?: string | undefined;
             pm?: string | undefined;
-            formats: LocaleFormats
+            formats: LocaleFormats;
         }
     }
 

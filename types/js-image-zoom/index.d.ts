@@ -1,9 +1,4 @@
-// Type definitions for js-image-zoom 0.7
-// Project: https://github.com/malaman/js-image-zoom/#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-// tslint:disable-next-line:no-unnecessary-class there are no public  member methods
+// tslint:disable-next-line:no-unnecessary-class
 declare class ImageZoom {
     /**
      * Creates an instance of ImageZoom.
@@ -11,6 +6,11 @@ declare class ImageZoom {
      * @param opts js-image-zoom options
      */
     constructor(container: HTMLElement, opts: ImageZoom.Options);
+
+    /**
+     * Destroys ImageZoom instance
+     */
+    kill(): void;
 }
 
 declare namespace ImageZoom {
@@ -59,6 +59,10 @@ declare namespace ImageZoom {
          * custom style applied to to zoom lents (i.e. 'opacity: 0.1;background-color: white;')
          */
         zoomLensStyle?: string;
+        /**
+         * Container dimensions are css-set
+         */
+        fillContainer?: boolean;
     }
 
     interface Offset {
@@ -66,7 +70,7 @@ declare namespace ImageZoom {
         horizontal?: number;
     }
 
-    type ZoomPosition = 'top' | 'left' | 'bottom' | 'right' | 'original';
+    type ZoomPosition = "top" | "left" | "bottom" | "right" | "original";
 }
 
 export = ImageZoom;

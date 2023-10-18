@@ -1,2 +1,2 @@
-import Day = require('../2015/Day');
+import Day = require("../2015/Day");
 export = Day;

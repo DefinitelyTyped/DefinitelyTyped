@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "baseUrl": "../",
         "forceConsistentCasingInFileNames": true,
         "lib": [
             "dom",
@@ -12,9 +11,6 @@
         "noEmit": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "typeRoots": [
-            "../"
-        ],
         "types": []
     },
     "files": [

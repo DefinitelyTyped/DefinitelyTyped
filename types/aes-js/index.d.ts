@@ -1,8 +1,3 @@
-// Type definitions for aes-js 3.1
-// Project: https://github.com/ricmoo/aes-js
-// Definitions by: Federico Bond <https://github.com/federicobond>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type ByteSource = ArrayBuffer | Uint8Array | number[];
 
 export class AES {
@@ -10,7 +5,7 @@ export class AES {
      * Create a new AES block cipher.
      * @param key The cipher key.
      */
-    constructor(key: ByteSource)
+    constructor(key: ByteSource);
     encrypt(v: ByteSource): ByteSource;
 }
 
@@ -19,7 +14,7 @@ export class AES {
  * @param initialValue The Counter initial value.
  */
 export class Counter {
-    constructor(initialValue: number | ByteSource)
+    constructor(initialValue: number | ByteSource);
     setValue(value: number): void;
     setBytes(bytes: ByteSource): void;
     increment(): void;
@@ -31,7 +26,7 @@ export namespace ModeOfOperation {
          * Create a new ECB stream cipher.
          * @param key The cipher key.
          */
-        constructor(key: ByteSource)
+        constructor(key: ByteSource);
         encrypt(v: ByteSource): Uint8Array;
         decrypt(v: ByteSource): Uint8Array;
     }
@@ -76,7 +71,7 @@ export namespace ModeOfOperation {
          * @param key The cipher key.
          * @param counter The cipher counter state.
          */
-        constructor(key: ByteSource, counter?: Counter)
+        constructor(key: ByteSource, counter?: Counter);
         encrypt(v: ByteSource): Uint8Array;
         decrypt(v: ByteSource): Uint8Array;
     }

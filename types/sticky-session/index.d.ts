@@ -1,8 +1,3 @@
-// Type definitions for sticky-session 1.1
-// Project: https://github.com/indutny/sticky-session
-// Definitions by: Giovanni Barbaro <https://github.com/vanny96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Server } from "http";
@@ -17,7 +12,7 @@ export function listen(
     server: Server,
     port?: number,
     options?: {
-        readonly workers?: number | undefined,
-        readonly env?: any
-    }
+        readonly workers?: number | undefined;
+        readonly env?: any;
+    },
 ): boolean;

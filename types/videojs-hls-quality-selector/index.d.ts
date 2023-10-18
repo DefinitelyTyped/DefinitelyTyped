@@ -1,9 +1,5 @@
-// Type definitions for videojs-hls-quality-selector 1.1
-// Project: https://github.com/chrisboustead/videojs-hls-quality-selector#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import ConcreteMenuItem from './src/ConcreteMenuItem';
+// eslint-disable-next-line @definitelytyped/no-import-default-of-export-equals
+import ConcreteMenuItem from "./src/ConcreteMenuItem";
 
 /**
  * Adds a quality selector menu for HLS sources played in videojs.
@@ -67,7 +63,7 @@ declare namespace hlsQualitySelector {
 
 export = hlsQualitySelector;
 
-declare module 'video.js' {
+declare module "video.js" {
     interface VideoJsPlayer {
         hlsQualitySelector: typeof hlsQualitySelector;
     }

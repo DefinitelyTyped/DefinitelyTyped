@@ -1,20 +1,9 @@
-// Type definitions for Selenium WebDriverJS 3.0
-// Project: https://github.com/SeleniumHQ/selenium/tree/master/javascript/node/selenium-webdriver, https://github.com/seleniumhq/selenium
-// Definitions by: Bill Armstrong <https://github.com/BillArmstrong>,
-//   Yuki Kokubun <https://github.com/Kuniwak>,
-//   Craig Nishina <https://github.com/cnishina>,
-//   Simon Gellis <https://github.com/SupernaviX>,
-//   Ben Dixon <https://github.com/bendxn>,
-//   Ziyu <https://github.com/oddui>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import * as chrome from './chrome';
-import * as edge from './edge';
-import * as firefox from './firefox';
-import * as ie from './ie';
-import * as opera from './opera';
-import * as safari from './safari';
+import * as chrome from "./chrome";
+import * as edge from "./edge";
+import * as firefox from "./firefox";
+import * as ie from "./ie";
+import * as opera from "./opera";
+import * as safari from "./safari";
 
 export namespace error {
     class IError extends Error {

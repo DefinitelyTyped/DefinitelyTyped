@@ -1,10 +1,4 @@
-// Type definitions for @atom/watcher 1.3
-// Project: https://github.com/atom/watcher
-// Definitions by: LoganDark <https://github.com/LoganDark>
-//                 Jan Vlnas <https://github.com/jnv>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Disposable } from 'event-kit';
+import { Disposable } from "event-kit";
 
 export const DISABLE: unique symbol;
 export const STDOUT: unique symbol;
@@ -75,8 +69,8 @@ export interface WatcherOptions {
     recursive: boolean;
 }
 
-export type EntryAction = 'created' | 'modified' | 'deleted' | 'renamed';
-export type EntryType = 'file' | 'directory' | 'symlink' | 'unknown';
+export type EntryAction = "created" | "modified" | "deleted" | "renamed";
+export type EntryType = "file" | "directory" | "symlink" | "unknown";
 
 export interface BaseEvent {
     /**
@@ -97,11 +91,11 @@ export interface BaseEvent {
 }
 
 export interface OtherEvent extends BaseEvent {
-    action: Exclude<EntryAction, 'renamed'>;
+    action: Exclude<EntryAction, "renamed">;
 }
 
 export interface RenamedEvent extends BaseEvent {
-    action: 'renamed';
+    action: "renamed";
 
     /**
      * A string containing the former absolute path of a renamed filesystem entry.

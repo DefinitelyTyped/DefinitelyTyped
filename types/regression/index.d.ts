@@ -1,8 +1,3 @@
-// Type definitions for regression 2.0
-// Project: https://github.com/Tom-Alexander/regression-js
-// Definitions by: Mattias B. Martens <https://github.com/MattiasMartens>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * [x, y]
  */
@@ -75,21 +70,21 @@ export interface Result {
 export function _round(number: number, precision: number): number;
 export function linear(
     data: ReadonlyArray<DataPoint>,
-    options?: Options
+    options?: Options,
 ): Result;
 export function exponential(
     data: ReadonlyArray<DataPoint>,
-    options?: Options
+    options?: Options,
 ): Result;
 export function logarithmic(
     data: ReadonlyArray<DataPoint>,
-    options?: Options
+    options?: Options,
 ): Result;
 export function power(
     data: ReadonlyArray<DataPoint>,
-    options?: Options
+    options?: Options,
 ): Result;
 export function polynomial(
     data: ReadonlyArray<DataPoint>,
-    options?: Options
+    options?: Options,
 ): Result;

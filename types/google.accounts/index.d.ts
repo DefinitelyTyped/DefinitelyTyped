@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Google Identity Services JavaScript SDK 0.0
-// Project: https://developers.google.com/identity/oauth2/web/reference/js-reference
-//     https://developers.google.com/identity/gsi/web/reference/js-reference
-// Definitions by: Arthur E. Jones <https://github.com/partylich>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace google.accounts {
     namespace oauth2 {
         /**
@@ -41,7 +35,7 @@ declare namespace google.accounts {
         interface ClientConfigError extends Error {
             message: string;
             stack?: string;
-            type: 'unknown' | 'popup_closed' | 'popup_failed_to_open';
+            type: "unknown" | "popup_closed" | "popup_failed_to_open";
         }
 
         interface OverridableTokenClientConfig {
@@ -282,7 +276,7 @@ declare namespace google.accounts {
              * 'consent' Prompt the user for consent.
              * 'select_account' Prompt the user to select an account.
              */
-            prompt?: '' | 'none' | 'consent' | 'select_account';
+            prompt?: "" | "none" | "consent" | "select_account";
 
             /**
              * Optional, defaults to true. If set to false, more granular Google
@@ -471,7 +465,7 @@ declare namespace google.accounts {
              * default, it will open the consent flow in a popup. Valid values
              * are popup and redirect.
              */
-            ux_mode?: 'popup' | 'redirect';
+            ux_mode?: "popup" | "redirect";
 
             /**
              * Optional, defaults to 'false'. Boolean value to prompt the user
@@ -609,7 +603,7 @@ declare namespace google.accounts {
              *   signup "Sign up with Google"
              *   use    "Use with Google"
              */
-            context?: 'signin' | 'signup' | 'use';
+            context?: "signin" | "signup" | "use";
 
             /**
              * If you need to call One Tap in the parent domain and its
@@ -622,7 +616,7 @@ declare namespace google.accounts {
              * The Sign In With Google button UX flow. The default value is
              * popup.
              */
-            ux_mode?: 'popup' | 'redirect';
+            ux_mode?: "popup" | "redirect";
 
             /**
              * The origins that are allowed to embed the intermediate iframe.
@@ -642,6 +636,25 @@ declare namespace google.accounts {
              * on browsers that support Intelligent Tracking Prevention (ITP).
              */
             itp_support?: boolean;
+
+            /**
+             * An email address or an ID token 'sub' value. Google will use the
+             * value as a hint of which user to sign in. If successful, account
+             * selection is skipped.
+             */
+            login_hint?: string;
+
+            /**
+             * Limits displayed accounts to the provided Workspace domain name.
+             * Provide a fully qualified domain name or * (wildcard).
+             */
+            hd?: string;
+
+            /**
+             * Allow the browser to control user sign-in prompts and mediate the
+             * sign-in flow between your website and Google. Defaults to false.
+             */
+            use_fedcm_for_prompt?: boolean;
         }
 
         interface PromptMomentNotification {
@@ -666,14 +679,14 @@ declare namespace google.accounts {
              * The detailed reason why the UI isn't displayed.
              */
             getNotDisplayedReason():
-                | 'browser_not_supported'
-                | 'invalid_client'
-                | 'missing_client_id'
-                | 'opt_out_or_no_session'
-                | 'secure_http_required'
-                | 'suppressed_by_user'
-                | 'unregistered_origin'
-                | 'unknown_reason';
+                | "browser_not_supported"
+                | "invalid_client"
+                | "missing_client_id"
+                | "opt_out_or_no_session"
+                | "secure_http_required"
+                | "suppressed_by_user"
+                | "unregistered_origin"
+                | "unknown_reason";
 
             /**
              * Is this notification for a skipped moment?
@@ -683,7 +696,7 @@ declare namespace google.accounts {
             /**
              * The detailed reason for the skipped moment.
              */
-            getSkippedReason(): 'auto_cancel' | 'user_cancel' | 'tap_outside' | 'issuing_failed';
+            getSkippedReason(): "auto_cancel" | "user_cancel" | "tap_outside" | "issuing_failed";
 
             /**
              * Is this notification for a dismissed moment?
@@ -693,12 +706,12 @@ declare namespace google.accounts {
             /**
              * The detailed reason for the dismissal.
              */
-            getDismissedReason(): 'credential_returned' | 'cancel_called' | 'flow_restarted';
+            getDismissedReason(): "credential_returned" | "cancel_called" | "flow_restarted";
 
             /**
              * Return a string for the moment type.
              */
-            getMomentType(): 'display' | 'skipped' | 'dismissed';
+            getMomentType(): "display" | "skipped" | "dismissed";
         }
 
         /**
@@ -721,7 +734,7 @@ declare namespace google.accounts {
             /**
              * The button type: icon, or standard button.
              */
-            type: 'standard' | 'icon';
+            type: "standard" | "icon";
 
             /**
              * The button theme. For example, filled_blue or filled_black.
@@ -729,12 +742,12 @@ declare namespace google.accounts {
              * filled_blue  A blue-filled button theme:
              * filled_black  A black-filled button theme:
              */
-            theme?: 'outline' | 'filled_blue' | 'filled_black';
+            theme?: "outline" | "filled_blue" | "filled_black";
 
             /**
              * The button size. For example, small or large.
              */
-            size?: 'small' | 'medium' | 'large';
+            size?: "small" | "medium" | "large";
 
             /**
              * The button text. The default value is signin_with.
@@ -747,18 +760,18 @@ declare namespace google.accounts {
              * continue_with  The button text is “Continue with Google”:
              * signup_with  The button text is “Sign in”:
              */
-            text?: 'signin_with' | 'signup_with' | 'continue_with' | 'signin';
+            text?: "signin_with" | "signup_with" | "continue_with" | "signin";
 
             /**
              * The button shape. The default value is rectangular.
              */
-            shape?: 'rectangular' | 'pill' | 'circle' | 'square';
+            shape?: "rectangular" | "pill" | "circle" | "square";
 
             /**
              * The alignment of the Google logo. The default value is left.
              * This attribute only applies to the standard button type.
              */
-            logo_alignment?: 'left' | 'center';
+            logo_alignment?: "left" | "center";
 
             /**
              * The minimum button width, in pixels. The maximum width is 400

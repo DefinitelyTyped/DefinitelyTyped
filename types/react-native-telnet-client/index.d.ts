@@ -1,13 +1,8 @@
-// Type definitions for react-native-telnet-client 1.0
-// Project: https://github.com/itgou/react-native-telnet-client
-// Definitions by: Robin Vanden Berghe <https://github.com/robinvandenb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
-import { Socket, SocketConnectOpts } from 'net';
-import { Duplex, DuplexOptions } from 'stream';
+import { EventEmitter } from "events";
+import { Socket, SocketConnectOpts } from "net";
+import { Duplex, DuplexOptions } from "stream";
 
 export type Callback<T> = (err: any, value?: T) => void;
 
@@ -21,14 +16,14 @@ export type EscapeHandler = (escapeSequence: string) => string | null;
 
 export type TelnetState =
     | null
-    | 'end'
-    | 'failedlogin'
-    | 'getprompt'
-    | 'login'
-    | 'ready'
-    | 'response'
-    | 'standby'
-    | 'start';
+    | "end"
+    | "failedlogin"
+    | "getprompt"
+    | "login"
+    | "ready"
+    | "response"
+    | "standby"
+    | "start";
 
 export interface ExecOptions {
     echoLines?: number | undefined;

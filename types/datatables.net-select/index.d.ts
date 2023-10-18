@@ -1,9 +1,3 @@
-// Type definitions for datatables.net-select 1.2
-// Project: https://datatables.net/extensions/select/, https://datatables.net
-// Definitions by: Jared Szechy <https://github.com/szechyjs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="jquery" />
 /// <reference types="datatables.net"/>
 
@@ -49,37 +43,37 @@ declare namespace DataTables {
 
     interface Api {
         select: {
-          /*
-          * Get the current selection style applied to the table
-          */
-          style(): string;
-          /*
-          * Set the table's selection style
-          */
-          style(s: "api" | "single" | "multi" | "os"): Api;
+            /*
+             * Get the current selection style applied to the table
+             */
+            style(): string;
+            /*
+             * Set the table's selection style
+             */
+            style(s: "api" | "single" | "multi" | "os"): Api;
         };
     }
 
     interface RowMethods {
-      /**
-       * Select a row
-       */
-      select(): Api;
-      /**
-       * Deselect a row
-       */
-      deselect(): Api;
+        /**
+         * Select a row
+         */
+        select(): Api;
+        /**
+         * Deselect a row
+         */
+        deselect(): Api;
     }
 
     interface RowsMethods {
-      /**
-       * Select multiple rows
-       */
-      select(): Api;
-      /**
-       * Deselect a row
-       */
-      deselect(): Api;
+        /**
+         * Select multiple rows
+         */
+        select(): Api;
+        /**
+         * Deselect a row
+         */
+        deselect(): Api;
     }
 
     interface CellMethods {

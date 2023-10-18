@@ -1,17 +1,10 @@
-// Type definitions for angular-local-storage 0.7
-// Project: https://github.com/grevory/angular-local-storage#readme
-// Definitions by: Ken Fukuyama <https://github.com/kenfdev>
-//                 Davide Donadello <https://github.com/dona278>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as angular from 'angular';
+import * as angular from "angular";
 
 export type ILocalStorageServiceProvider = angular.local.storage.ILocalStorageServiceProvider;
 export type ILocalStorageService = angular.local.storage.ILocalStorageService;
 export type ICookie = angular.local.storage.ICookie;
 
-declare module 'angular' {
+declare module "angular" {
     namespace local.storage {
         // tslint:disable-next-line interface-name
         interface ILocalStorageServiceProvider extends IServiceProvider {
@@ -85,7 +78,7 @@ declare module 'angular' {
             clearAll(): any;
         }
 
-        type StorageType = 'localStorage' | 'sessionStorage';
+        type StorageType = "localStorage" | "sessionStorage";
 
         // tslint:disable-next-line interface-name
         interface ILocalStorageService {

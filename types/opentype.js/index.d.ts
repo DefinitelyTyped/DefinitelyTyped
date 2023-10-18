@@ -1,9 +1,4 @@
-// Type definitions for opentype.js 1.3
-// Project: https://github.com/opentypejs/opentype.js
-// Definitions by: Dan Marshall <https://github.com/danmarshall>
-//                 Edgar Simson <https://github.com/edzis>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference lib="dom" />
 
 export as namespace opentype;
 

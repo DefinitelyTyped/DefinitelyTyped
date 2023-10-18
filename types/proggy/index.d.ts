@@ -1,10 +1,5 @@
-// Type definitions for proggy 2.0
-// Project: https://github.com/npm/proggy#readme
-// Definitions by: JDB <https://github.com/legodude17>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-import EventEmitter = require('node:events');
+import EventEmitter = require("node:events");
 
 /**
  * Create a new Client.
@@ -21,39 +16,41 @@ export interface ClientOptions {
     normalize?: boolean;
     stopOnDone?: boolean;
 }
-export type ClientEvent = 'bar' | 'progress' | 'barDone' | 'done';
-export type ClientData = {
-    /**
-     * The unique key for this progress bar.
-     */
-    key: string;
-    /**
-     * The name for this progress bar.
-     */
-    name: string;
-    /**
-     * The current value of the progress. If client.normalize is true, then this will always be a number less than 100, and never reduce from one update to the next.
-     */
-    value: number;
-    /**
-     * The expected final value of the progress. If client.normalize is true, then this number will always be 100.
-     */
-    total: number;
-    /**
-     * The value originally sent by the tracker. If client.normalize is not true, then this is always equal to value.
-     */
-    actualValue: number;
-    /**
-     * The total originally sent by the tracker. If client.normalize is not true, then this is always equal to total.
-     */
-    actualTotal: number;
-    /**
-     * True if the tracker explicitly sent done: true in the data, or if value is greater than or equal to total.
-     */
-    done: boolean;
-} & {
-    [K in string | number | symbol]: any;
-};
+export type ClientEvent = "bar" | "progress" | "barDone" | "done";
+export type ClientData =
+    & {
+        /**
+         * The unique key for this progress bar.
+         */
+        key: string;
+        /**
+         * The name for this progress bar.
+         */
+        name: string;
+        /**
+         * The current value of the progress. If client.normalize is true, then this will always be a number less than 100, and never reduce from one update to the next.
+         */
+        value: number;
+        /**
+         * The expected final value of the progress. If client.normalize is true, then this number will always be 100.
+         */
+        total: number;
+        /**
+         * The value originally sent by the tracker. If client.normalize is not true, then this is always equal to value.
+         */
+        actualValue: number;
+        /**
+         * The total originally sent by the tracker. If client.normalize is not true, then this is always equal to total.
+         */
+        actualTotal: number;
+        /**
+         * True if the tracker explicitly sent done: true in the data, or if value is greater than or equal to total.
+         */
+        done: boolean;
+    }
+    & {
+        [K in string | number | symbol]: any;
+    };
 /**
  * The Client class, for consuming progress information.
  *

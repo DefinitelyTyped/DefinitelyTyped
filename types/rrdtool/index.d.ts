@@ -1,10 +1,3 @@
-// Type definitions for rrdtool 0.1
-// Project: https://github.com/LinusU/node-rrdtool
-// Definitions by: Filip Stenbacka <https://github.com/filiptypjeu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Based on: https://oss.oetiker.ch/rrdtool/doc/index.en.html
-// Minimum TypeScript Version: 4.1
-
 export {};
 
 type Timestamp = number;
@@ -15,10 +8,10 @@ export interface RrdtoolDataPoint<D extends RrdtoolData> {
     values: D;
 }
 
-export type Duration = number | `${number}${'s' | 'm' | 'h' | 'd' | 'w' | 'M' | 'y'}`;
+export type Duration = number | `${number}${"s" | "m" | "h" | "d" | "w" | "M" | "y"}`;
 
-type DataSourceType_ = 'GAUGE' | 'COUNTER' | 'DCOUNTER' | 'DERIVE' | 'DDERIVE' | 'ABSOLUTE';
-export type DataSourceType = DataSourceType_ | 'COMPUTE';
+type DataSourceType_ = "GAUGE" | "COUNTER" | "DCOUNTER" | "DERIVE" | "DDERIVE" | "ABSOLUTE";
+export type DataSourceType = DataSourceType_ | "COMPUTE";
 
 // DS:ds-name:{GAUGE | COUNTER | DERIVE | DCOUNTER | DDERIVE | ABSOLUTE}:heartbeat:min:max
 type DataSource_<D extends RrdtoolData> = `DS:${keyof D & string}:${DataSourceType_}:${Duration}:${number}:${number}`;
@@ -43,19 +36,19 @@ type DataSourceCompute<D extends RrdtoolData> = `DS:${keyof D & string}:COMPUTE:
  */
 export type DataSource<D extends RrdtoolData = any> = DataSource_<D> | DataSourceCompute<D>;
 
-type ConsolidationFunction = 'AVERAGE' | 'MIN' | 'MAX' | 'LAST';
+type ConsolidationFunction = "AVERAGE" | "MIN" | "MAX" | "LAST";
 
 // RRA:{AVERAGE | MIN | MAX | LAST}:xff:steps:rows
 type RoundRobinArchive_ = `RRA:${ConsolidationFunction}:${number}:${Duration}:${Duration}`;
 
 // RRA:{HWPREDICT | MHWPREDICT}:rows:alpha:beta:seasonal period[:rra-num]
-type RoundRobinArchiveHWPredict = `RRA:${'HWPREDICT' | 'MHWPREDICT'}:${Duration}:${number}:${number}:${Duration}${
-    | ''
+type RoundRobinArchiveHWPredict = `RRA:${"HWPREDICT" | "MHWPREDICT"}:${Duration}:${number}:${number}:${Duration}${
+    | ""
     | `:${number}`}`;
 
 // RRA:{SEASONAL | DEVSEASONAL}:seasonal period:gamma:rra-num[:smoothing-window]
-type RoundRobinArchiveSeasonal = `RRA:${'SEASONAL' | 'DEVSEASONAL'}:${Duration}:${number}:${number}${
-    | ''
+type RoundRobinArchiveSeasonal = `RRA:${"SEASONAL" | "DEVSEASONAL"}:${Duration}:${number}:${number}${
+    | ""
     | `:${number}`}`;
 
 // RRA:DEVPREDICT:rows:rra-num

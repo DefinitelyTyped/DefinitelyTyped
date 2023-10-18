@@ -1,8 +1,3 @@
-// Type definitions for notp 2.0
-// Project: https://github.com/guyht/notp
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**
@@ -106,9 +101,7 @@ export namespace hotp {
      * every user as it is the seed used to calculate the HMAC.
      * @param opt HOTP verify options.
      */
-     function verify(token: string,
-                     key: string | Buffer | Uint8Array,
-                     opt?: HOTPVerifyOpt): VerifyResult | null;
+    function verify(token: string, key: string | Buffer | Uint8Array, opt?: HOTPVerifyOpt): VerifyResult | null;
 }
 
 /**
@@ -121,7 +114,6 @@ export namespace totp {
      * @param key Key for the one time password. This should be unique and secret
      * for every user as it is the seed used to calculate the HMAC.
      * @param opt TOTP Generate options.
-     *
      */
     function gen(key: string | Buffer | Uint8Array, opt?: TOTPGenOpt): string;
 
@@ -130,9 +122,6 @@ export namespace totp {
      * @param token Passcode to validate.
      * @param key Key for the one time password. This should be unique and secret
      * @param opt TOTP verify options.
-     *
      */
-    function verify(token: string,
-                    key: string | Buffer | Uint8Array,
-                    opt?: TOTPVerifyOpt): VerifyResult | null;
+    function verify(token: string, key: string | Buffer | Uint8Array, opt?: TOTPVerifyOpt): VerifyResult | null;
 }

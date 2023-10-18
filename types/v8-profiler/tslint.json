@@ -4,7 +4,6 @@
         "ban-types": false,
         "interface-over-type-literal": false,
         "no-duplicate-variable": false,
-        "no-single-declare-module": false,
         "no-var-keyword": false,
         "no-void-expression": false,
         "only-arrow-functions": false,

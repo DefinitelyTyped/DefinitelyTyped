@@ -1,12 +1,7 @@
-// Type definitions for simple-get 4.0
-// Project: https://github.com/feross/simple-get
-// Definitions by: Konrad Perlicki <https://github.com/KonradPerlicki>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { ClientRequest, IncomingMessage, RequestOptions } from 'http';
-import { Readable } from 'stream';
+import { ClientRequest, IncomingMessage, RequestOptions } from "http";
+import { Readable } from "stream";
 
 interface SimpleGetOptions extends RequestOptions {
     url: string;

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-bigint",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/inspect-js/is-bigint"
+    ],
+    "devDependencies": {
+        "@types/is-bigint": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "aaronleopold",
+            "githubUsername": "aaronleopold"
+        }
+    ]
+}

@@ -1,116 +1,97 @@
-// Type definitions for backbone.paginator 2.0
-// Project: https://github.com/backbone-paginator/backbone.paginator
-// Definitions by: Nyamazing <https://github.com/Nyamazing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+import * as Backbone from "backbone";
 
-import * as Backbone from 'backbone';
+declare module "backbone" {
+    interface PageableState {
+        firstPage?: number | undefined;
+        lastPage?: number | undefined;
+        currentPage?: number | undefined;
+        pageSize?: number | undefined;
+        totalPages?: number | undefined;
+        totalRecords?: number | undefined;
+        sortKey?: string | undefined;
+        order?: number | undefined;
+    }
 
-declare module 'backbone' {
-  interface PageableState {
-    firstPage?:    number | undefined;
-    lastPage?:     number | undefined;
-    currentPage?:  number | undefined;
-    pageSize?:     number | undefined;
-    totalPages?:   number | undefined;
-    totalRecords?: number | undefined;
-    sortKey?:      string | undefined;
-    order?:        number | undefined;
-  }
+    interface PageableQueryParams {
+        currentPage?: string | undefined;
+        pageSize?: string | undefined;
+        totalPages?: string | undefined;
+        totalRecords?: string | undefined;
+        sortKey?: string | undefined;
+        order?: string | undefined;
+        directions?: any;
+    }
 
-  interface PageableQueryParams {
-    currentPage?:  string | undefined;
-    pageSize?:     string | undefined;
-    totalPages?:   string | undefined;
-    totalRecords?: string | undefined;
-    sortKey?:      string | undefined;
-    order?:        string | undefined;
-    directions?:   any;
-  }
+    interface PageableInitialOptions {
+        comparator?: ((...options: any[]) => number) | undefined;
+        full?: boolean | undefined;
+        state?: PageableState | undefined;
+        queryParam?: PageableQueryParams | undefined;
+    }
 
-  interface PageableInitialOptions {
-    comparator?: ((...options: any[]) => number) | undefined;
-    full?: boolean | undefined;
-    state?: PageableState | undefined;
-    queryParam?: PageableQueryParams | undefined;
-  }
+    interface PageableParseLinksOptions {
+        xhr?: JQueryXHR | undefined;
+    }
 
-  interface PageableParseLinksOptions {
-    xhr?: JQueryXHR | undefined;
-  }
+    interface PageableSetSortingOptions<TModel extends Model> {
+        side?: string | undefined;
+        full?: boolean | undefined;
+        sortValue?: ((model: TModel, sortKey: string) => any | string) | undefined;
+    }
 
-  interface PageableSetSortingOptions<TModel extends Model> {
-    side?: string | undefined;
-    full?: boolean | undefined;
-    sortValue?: ((model: TModel, sortKey: string) => any | string) | undefined;
-  }
+    interface PageableSwitchModeOptions {
+        fetch?: boolean | undefined;
+        resetState?: boolean | undefined;
+    }
 
-  interface PageableSwitchModeOptions {
-    fetch?:      boolean | undefined;
-    resetState?: boolean | undefined;
-  }
+    type PageableGetPageOptions = CollectionFetchOptions | Silenceable;
 
-  type PageableGetPageOptions = CollectionFetchOptions|Silenceable;
+    class PageableCollection<TModel extends Model> extends Collection<TModel> {
+        fullCollection: Collection<TModel>;
+        mode: string;
+        queryParams: PageableQueryParams;
+        state: PageableState;
 
-  class PageableCollection<TModel extends Model> extends Collection<TModel>{
+        constructor(models?: TModel[], options?: PageableInitialOptions);
 
-    fullCollection: Collection<TModel>;
-    mode: string;
-    queryParams: PageableQueryParams;
-    state: PageableState;
+        fetch(options?: CollectionFetchOptions): JQueryXHR;
 
-    constructor(models?: TModel[], options?: PageableInitialOptions);
+        getFirstPage(options?: PageableGetPageOptions): JQueryXHR | PageableCollection<TModel>;
 
-    fetch(options?: CollectionFetchOptions): JQueryXHR;
+        getLastPage(options?: PageableGetPageOptions): JQueryXHR | PageableCollection<TModel>;
 
-    getFirstPage(options?: PageableGetPageOptions):
-                                    JQueryXHR|PageableCollection<TModel>;
+        getNextPage(options?: PageableGetPageOptions): JQueryXHR | PageableCollection<TModel>;
 
-    getLastPage(options?:  PageableGetPageOptions):
-                                    JQueryXHR|PageableCollection<TModel>;
+        getPage(index: number | string, options?: PageableGetPageOptions): JQueryXHR | PageableCollection<TModel>;
 
-    getNextPage(options?:  PageableGetPageOptions):
-                                    JQueryXHR|PageableCollection<TModel>;
+        getPageByOffset(offset: number, options?: PageableGetPageOptions): JQueryXHR | PageableCollection<TModel>;
 
-    getPage(index: number|string, options?: PageableGetPageOptions):
-                                    JQueryXHR|PageableCollection<TModel>;
+        getPreviousPage(options?: PageableGetPageOptions): JQueryXHR | PageableCollection<TModel>;
 
-    getPageByOffset(offset: number, options?: PageableGetPageOptions):
-                                    JQueryXHR|PageableCollection<TModel>;
+        hasNextPage(): boolean;
 
-    getPreviousPage(options?: PageableGetPageOptions):
-                                    JQueryXHR|PageableCollection<TModel>;
+        hasPreviousPage(): boolean;
 
-    hasNextPage():     boolean;
+        parse(resp: any, options?: any): any[];
 
-    hasPreviousPage(): boolean;
+        parseLinks(resp: any, options?: PageableParseLinksOptions): any;
 
-    parse(resp: any, options?: any): any[];
+        parseRecords(resp: any, options?: any): any[];
 
-    parseLinks(resp: any, options?: PageableParseLinksOptions): any;
+        parseState(resp: any, queryParams: PageableQueryParams, state: PageableState, options?: any): PageableState;
 
-    parseRecords(resp: any, options?: any): any[];
+        setPageSize(pageSize: number, options?: CollectionFetchOptions): JQueryXHR | PageableCollection<TModel>;
 
-    parseState(resp: any, queryParams: PageableQueryParams,
-               state: PageableState, options?: any): PageableState;
+        setSorting(
+            sortKey: string,
+            order?: number,
+            options?: PageableSetSortingOptions<TModel>,
+        ): PageableCollection<TModel>;
 
-    setPageSize(pageSize: number,
-                options?: CollectionFetchOptions):
-                    JQueryXHR|PageableCollection<TModel>;
+        switchMode(mode?: string, options?: PageableSwitchModeOptions): JQueryXHR | PageableCollection<TModel>;
 
-    setSorting(sortKey: string, order?: number,
-               options?: PageableSetSortingOptions<TModel>):
-                    PageableCollection<TModel>;
+        sync(method: string, model: TModel | Collection<TModel>, options?: any): JQueryXHR;
 
-    switchMode(mode?: string, options?: PageableSwitchModeOptions):
-                    JQueryXHR|PageableCollection<TModel>;
-
-    sync(method: string,
-         model: TModel|Collection<TModel>,
-         options?: any): JQueryXHR;
-
-    static noConflict(): typeof PageableCollection;
-
-  }
+        static noConflict(): typeof PageableCollection;
+    }
 }
-

@@ -12,7 +12,7 @@ declare namespace echarts {
              *
              * @default 'horizontal'
              */
-            orient?: 'horizontal' | 'vertical' | undefined;
+            orient?: "horizontal" | "vertical" | undefined;
 
             /**
              * Options:

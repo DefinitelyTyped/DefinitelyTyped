@@ -1,13 +1,3 @@
-// Type definitions for non-npm package spotify-web-playback-sdk 0.1
-// Project: https://beta.developer.spotify.com/documentation/web-playback-sdk/reference/
-// Definitions by: Festify Dev Team <https://github.com/Festify>
-//                 Marcus Weiner <https://github.com/mraerino>
-//                 Moritz Gunz <https://github.com/NeoLegends>
-//                 Daniel Almaguer <https://github.com/deini>
-//                 Hanna Becker <https://github.com/hanna-becker>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 interface Window {
     onSpotifyWebPlaybackSDKReady(): void;
     Spotify: typeof Spotify;
@@ -30,7 +20,7 @@ declare namespace Spotify {
         message: string;
     }
 
-    type ErrorTypes = 'account_error' | 'authentication_error' | 'initialization_error' | 'playback_error';
+    type ErrorTypes = "account_error" | "authentication_error" | "initialization_error" | "playback_error";
 
     interface Image {
         height?: number | null | undefined;
@@ -146,13 +136,13 @@ declare namespace Spotify {
     type EmptyListener = () => void;
 
     type AddListenerFn =
-        & ((event: 'ready' | 'not_ready', cb: PlaybackInstanceListener) => void)
-        & ((event: 'autoplay_failed', cb: EmptyListener) => void)
-        & ((event: 'player_state_changed', cb: PlaybackStateListener) => void)
+        & ((event: "ready" | "not_ready", cb: PlaybackInstanceListener) => void)
+        & ((event: "autoplay_failed", cb: EmptyListener) => void)
+        & ((event: "player_state_changed", cb: PlaybackStateListener) => void)
         & ((event: ErrorTypes, cb: ErrorListener) => void);
 
     class Player {
-        readonly _options: PlayerInit & {id: string};
+        readonly _options: PlayerInit & { id: string };
         constructor(options: PlayerInit);
 
         connect(): Promise<boolean>;
@@ -165,7 +155,7 @@ declare namespace Spotify {
         on: AddListenerFn;
 
         removeListener(
-            event: 'ready' | 'not_ready' | 'player_state_changed' | ErrorTypes,
+            event: "ready" | "not_ready" | "player_state_changed" | ErrorTypes,
             cb?: ErrorListener | PlaybackInstanceListener | PlaybackStateListener,
         ): void;
 
@@ -189,9 +179,9 @@ declare namespace Spotify {
         name: string;
         uid: string;
         uri: string;
-        media_type: 'audio' | 'video';
-        type: 'track' | 'episode' | 'ad';
-        track_type: 'audio' | 'video';
+        media_type: "audio" | "video";
+        type: "track" | "episode" | "ad";
+        track_type: "audio" | "video";
         linked_from: {
             uri: string | null;
             id: string | null;

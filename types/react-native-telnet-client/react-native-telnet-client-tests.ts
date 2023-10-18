@@ -1,4 +1,4 @@
-import Telnet from 'react-native-telnet-client';
+import Telnet from "react-native-telnet-client";
 
 // create a new Telnet instance
 const connection = new Telnet();

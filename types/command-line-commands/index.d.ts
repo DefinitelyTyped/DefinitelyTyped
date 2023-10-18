@@ -1,8 +1,3 @@
-// Type definitions for command-line-commands 2.0.0
-// Project: https://github.com/75lb/command-line-commands
-// Definitions by: CzBuCHi <https://github.com/CzBuCHi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Parses the `argv` value supplied (or `process.argv` by default), extracting and returning the `command` and remainder of `argv`. The command will be the first value in the `argv` array unless it is an option (e.g. `--help`).
  *

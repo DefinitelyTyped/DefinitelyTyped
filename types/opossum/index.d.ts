@@ -1,13 +1,3 @@
-// Type definitions for opossum 8.1
-// Project: https://github.com/nodeshift/opossum, https://nodeshift.dev/opossum
-// Definitions by: Quinn Langille <https://github.com/quinnlangille>
-//                 Willy Zhang <https://github.com/merufm>
-//                 Lance Ball <https://github.com/lance>
-//                 Matt R. Wilson <https://github.com/mastermatt>
-//                 Tom Jenkinson <https://github.com/tjenkinson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node"/>
 import { EventEmitter } from "events";
 
@@ -229,6 +219,13 @@ declare namespace CircuitBreaker {
          * @default false
          */
         cache?: boolean | undefined;
+
+        /**
+         * The cache time to live (TTL) in milliseconds.
+         * The default value is 0, which means the cache will never be cleared.
+         * @default 0
+         */
+        cacheTTL?: number;
 
         /**
          * Whether to enable the periodic snapshots that are emitted by the Status class.

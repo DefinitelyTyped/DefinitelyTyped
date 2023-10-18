@@ -1,68 +1,68 @@
 import {
-  dasherize,
-  camelize,
-  capitalize,
-  classify,
-  decamelize,
-  loc,
-  underscore,
-  w,
-  htmlSafe,
-  isHTMLSafe,
-} from '@ember/string';
+    camelize,
+    capitalize,
+    classify,
+    dasherize,
+    decamelize,
+    htmlSafe,
+    isHTMLSafe,
+    loc,
+    underscore,
+    w,
+} from "@ember/string";
 
 // @ts-expect-error
 dasherize();
-dasherize('blue man group'); // $ExpectType string
+dasherize("blue man group"); // $ExpectType string
 // @ts-expect-error
-dasherize('', '');
+dasherize("", "");
 
 // @ts-expect-error
 camelize();
-camelize('blue man group'); // $ExpectType string
+camelize("blue man group"); // $ExpectType string
 // @ts-expect-error
-camelize('', '');
+camelize("", "");
 
 // @ts-expect-error
 decamelize();
-decamelize('blue man group'); // $ExpectType string
+decamelize("blue man group"); // $ExpectType string
 // @ts-expect-error
-decamelize('', '');
+decamelize("", "");
 
 // @ts-expect-error
 underscore();
-underscore('blue man group'); // $ExpectType string
+underscore("blue man group"); // $ExpectType string
 // @ts-expect-error
-underscore('', '');
+underscore("", "");
 
 // @ts-expect-error
 w();
-w('blue man group'); // $ExpectType string[]
+w("blue man group"); // $ExpectType string[]
 // @ts-expect-error
-w('', '');
+w("", "");
 
 // @ts-expect-error
 classify();
-classify('blue man group'); // $ExpectType string
+classify("blue man group"); // $ExpectType string
 // @ts-expect-error
-classify('', '');
+classify("", "");
 
 // @ts-expect-error
 capitalize();
-capitalize('blue man group'); // $ExpectType string
+capitalize("blue man group"); // $ExpectType string
 // @ts-expect-error
-capitalize('', '');
+capitalize("", "");
 
 // @ts-expect-error
 loc();
-loc("_Hello World");  // $ExpectType string
-loc("_Hello %@ %@", ["John", "Smith"]);  // $ExpectType string
+loc("_Hello World"); // $ExpectType string
+loc("_Hello %@ %@", ["John", "Smith"]); // $ExpectType string
 
 // @ts-expect-error
 htmlSafe();
-htmlSafe('foo'); // $ExpectType SafeString
+htmlSafe("foo"); // $ExpectType SafeString
 
 // @ts-expect-error
 isHTMLSafe();
-isHTMLSafe('foo'); // $ExpectType boolean
-isHTMLSafe(htmlSafe('foo')); // $ExpectType boolean
+isHTMLSafe("foo"); // $ExpectType boolean
+isHTMLSafe(htmlSafe("foo")); // $ExpectType boolean

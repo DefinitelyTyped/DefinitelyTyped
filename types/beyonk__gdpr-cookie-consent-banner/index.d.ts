@@ -1,15 +1,10 @@
-// Type definitions for @beyonk/gdpr-cookie-consent-banner 9.0
-// Project: https://github.com/beyonk-adventures/gdpr-cookie-consent-banner
-// Definitions by: Ben Grynhaus <https://github.com/bengry>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Choice {
     label: string;
     description: string;
     value: boolean;
 }
 
-type Category = 'necessary' | 'tracking' | 'analytics' | 'marketing';
+type Category = "necessary" | "tracking" | "analytics" | "marketing";
 
 interface Options {
     cookieName?: string;
@@ -35,16 +30,16 @@ interface GdprConsentInterface {
 declare const GdprConsent: GdprConsentInterface;
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
-declare module '@beyonk/gdpr-cookie-consent-banner' {
-    const attachBanner: GdprConsentInterface['attachBanner'];
+declare module "@beyonk/gdpr-cookie-consent-banner" {
+    const attachBanner: GdprConsentInterface["attachBanner"];
     export default attachBanner;
 }
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
-declare module '@beyonk/gdpr-cookie-consent-banner/dist/esm/bundle.js' {
-    const attachBanner: GdprConsentInterface['attachBanner'];
+declare module "@beyonk/gdpr-cookie-consent-banner/dist/esm/bundle.js" {
+    const attachBanner: GdprConsentInterface["attachBanner"];
     export default attachBanner;
 }
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
-declare module '@beyonk/gdpr-cookie-consent-banner/dist/style.css' {}
+declare module "@beyonk/gdpr-cookie-consent-banner/dist/style.css" {}

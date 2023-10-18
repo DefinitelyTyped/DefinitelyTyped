@@ -1,15 +1,9 @@
-// Type definitions for nodemailer-smtp-pool 1.0.1
-// Project: https://github.com/andris9/nodemailer-smtp-pool
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import tls = require("tls");
 import nodemailer = require("nodemailer");
 
 declare namespace smtpPool {
-
     export interface AuthOptions {
         user?: string | undefined;
         pass?: string | undefined;
@@ -79,7 +73,6 @@ declare namespace smtpPool {
         maxMessages?: number | undefined;
     }
 }
-
 
 declare function smtpPool(options: smtpPool.SmtpPoolOptions): nodemailer.Transport;
 export = smtpPool;

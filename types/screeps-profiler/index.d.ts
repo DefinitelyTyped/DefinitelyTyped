@@ -1,8 +1,3 @@
-// Type definitions for screeps-profiler 1.2
-// Project: https://github.com/screepers/screeps-profiler
-// Definitions by: Casey Link <https://github.com/ramblurr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * The Screeps Profiler is a library that helps to understand where your CPU is being spent in
  * the game of Screeps.

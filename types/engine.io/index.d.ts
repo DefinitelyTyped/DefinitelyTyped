@@ -1,25 +1,22 @@
-// Type definitions for engine.io 3.1
-// Project: https://github.com/socketio/engine.io
-// Definitions by: KentarouTakeda <https://github.com/KentarouTakeda>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
-import http = require('http');
-import net = require('net');
+import http = require("http");
+import net = require("net");
 import { EventEmitter } from "events";
 import { Duplex } from "stream";
 
 declare namespace engine {
-    type Message = string|Buffer|ArrayBuffer|ArrayBufferView;
-    type Transport =  "polling"|"websocket";
+    type Message = string | Buffer | ArrayBuffer | ArrayBufferView;
+    type Transport = "polling" | "websocket";
     interface Packet {
         type: string;
         options?: MessageOptions | undefined;
         data?: Message | undefined;
     }
-    type AllowRequestFunction = (req: http.IncomingMessage, fn: (err: string|null|undefined, success: boolean) => void) => void;
+    type AllowRequestFunction = (
+        req: http.IncomingMessage,
+        fn: (err: string | null | undefined, success: boolean) => void,
+    ) => void;
 
     interface ServerOptions {
         /**
@@ -64,14 +61,14 @@ declare namespace engine {
         /**
          * name of the HTTP cookie that contains the client sid to send as part of handshake response headers. Set to false to not send one. (io)
          */
-        cookie?: string|boolean | undefined;
+        cookie?: string | boolean | undefined;
         /**
          * path of the above cookie option. If false, no path will be sent,
          * which means browsers will only send the cookie on the engine.io
          * attached path (/engine.io). Set false to not save io cookie
          * on all requests. (/)
          */
-        cookiePath?: string|boolean | undefined;
+        cookiePath?: string | boolean | undefined;
         /**
          * If true HttpOnly io cookie cannot be accessed by client-side APIs,
          * such as JavaScript. (true) This option has no effect
@@ -83,7 +80,7 @@ declare namespace engine {
          * conform to the ws interface (see ws module api docs). Default value is ws.
          * An alternative c++ addon is also available by installing uws module.
          */
-        wsEngine?: "ws"|"uws" | undefined;
+        wsEngine?: "ws" | "uws" | undefined;
         /**
          * an optional packet which will be concatenated to the handshake packet emitted by Engine.IO.
          */
@@ -105,7 +102,7 @@ declare namespace engine {
         /**
          * whether to let engine.io handle the OPTIONS requests. You can also pass a custom function to handle the requests (true)
          */
-        handlePreflightRequest?: boolean|((req: http.IncomingMessage, res: http.ServerResponse) => void) | undefined;
+        handlePreflightRequest?: boolean | ((req: http.IncomingMessage, res: http.ServerResponse) => void) | undefined;
     }
     interface ServerAttachOptions extends ServerOptions, AttachOptions {}
 
@@ -120,7 +117,7 @@ declare namespace engine {
         /**
          * hash of connected clients by id.
          */
-        clients: {[sid: string]: Socket};
+        clients: { [sid: string]: Socket };
         /**
          * number of connected clients.
          */
@@ -133,8 +130,8 @@ declare namespace engine {
         /**
          * Fired when a new connection is established.
          */
-        on(ev: 'connection'|'drain', fn: (socket: Socket) => void): this;
-        on(ev: 'flush', fn: (socket: Socket, buffer: Packet[]) => void): this;
+        on(ev: "connection" | "drain", fn: (socket: Socket) => void): this;
+        on(ev: "flush", fn: (socket: Socket, buffer: Packet[]) => void): this;
         /**
          * Closes all clients
          */
@@ -183,12 +180,12 @@ declare namespace engine {
         /**
          * readyState
          */
-        readyState: 'opening'|'open'|'closing'|'closed';
+        readyState: "opening" | "open" | "closing" | "closed";
 
         /**
          * Sends a message, performing message = toString(arguments[0]) unless sending binary data, which is sent as is.
          */
-        send(message: Message, opts?: MessageOptions, fn?: ((transport: any) => void)): void;
+        send(message: Message, opts?: MessageOptions, fn?: (transport: any) => void): void;
 
         /**
          * Disconnects the client
@@ -202,7 +199,7 @@ declare namespace engine {
         /**
          * Fired when the client sends a message.
          */
-        on(ev: "message", fn: (data: string|Buffer) => void): this;
+        on(ev: "message", fn: (data: string | Buffer) => void): this;
         /**
          * Fired when an error occurs.
          */

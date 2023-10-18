@@ -1,6 +1,5 @@
-import * as React from 'react';
-import * as TestUtils from 'react-addons-test-utils';
-import * as DOM from 'react-dom-factories';
+import * as React from "react";
+import * as TestUtils from "react-addons-test-utils";
 
 declare const container: Element;
 
@@ -15,22 +14,23 @@ interface SCProps {
     foo?: number | undefined;
 }
 function FunctionComponent(props: SCProps) {
-    return props.foo ? DOM.div(null, props.foo) : null;
+    return props.foo ? div : null;
 }
 
 const props: Props & React.ClassAttributes<any> = {
     key: 42,
-    ref: 'myComponent42',
-    hello: 'world',
+    ref: "myComponent42",
+    hello: "world",
     foo: 42,
 };
+declare const div: React.DetailedReactHTMLElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 const element: React.CElement<Props, ModernComponent> = React.createElement(ModernComponent, props);
 const inst: ModernComponent = TestUtils.renderIntoDocument<ModernComponent>(element);
-const node: Element = TestUtils.renderIntoDocument(DOM.div());
+const node: Element = TestUtils.renderIntoDocument(div);
 
 TestUtils.Simulate.click(node);
 TestUtils.Simulate.change(node);
-TestUtils.Simulate.keyDown(node, { key: 'Enter', cancelable: false });
+TestUtils.Simulate.keyDown(node, { key: "Enter", cancelable: false });
 
 const renderer: TestUtils.ShallowRenderer = TestUtils.createRenderer();
 renderer.render(React.createElement(ModernComponent));
@@ -52,6 +52,6 @@ if (TestUtils.isElementOfType(emptyElement2, FunctionComponent)) {
 
 if (TestUtils.isDOMComponent(container)) {
     const reassignedContainer: Element = container;
-} else if (TestUtils.isCompositeComponent(new ModernComponent({ hello: 'hi', foo: 3 }))) {
-    new ModernComponent({ hello: 'hi', foo: 3 }).props;
+} else if (TestUtils.isCompositeComponent(new ModernComponent({ hello: "hi", foo: 3 }))) {
+    new ModernComponent({ hello: "hi", foo: 3 }).props;
 }

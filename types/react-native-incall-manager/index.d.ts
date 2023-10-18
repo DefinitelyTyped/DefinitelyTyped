@@ -1,11 +1,5 @@
-// Type definitions for react-native-incall-manager 4.0
-// Project: https://github.com/zxcpoiu/react-native-incall-manager#readme
-// Definitions by: Carlos Quiroga <https://github.com/KarlosQ>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 export interface StartSetup {
-    media?: 'video' | 'audio' | undefined;
+    media?: "video" | "audio" | undefined;
     auto?: boolean | undefined;
     ringback?: string | undefined;
 }
@@ -61,7 +55,7 @@ declare class InCallManager {
 
     chooseAudioRoute(
         route: "EARPIECE" | "SPEAKER_PHONE" | "WIRED_HEADSET" | "BLUETOOTH",
-    ): Promise<{ availableAudioDeviceList: string, selectedAudioDevice: string }>;
+    ): Promise<{ availableAudioDeviceList: string; selectedAudioDevice: string }>;
 
     requestAudioFocus(): Promise<string | undefined>;
 

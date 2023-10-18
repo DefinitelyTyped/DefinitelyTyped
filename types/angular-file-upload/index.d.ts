@@ -1,10 +1,4 @@
-// Type definitions for angular-file-upload 2.5
-// Project: https://github.com/nervgh/angular-file-upload
-// Definitions by: Cyril Gandon <https://github.com/cyrilgandon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import * as angular from 'angular';
+import * as angular from "angular";
 
 export interface FileUploaderFactory {
     new(options?: Partial<FileUploaderOptions>): FileUploader;
@@ -92,7 +86,11 @@ export interface FileUploader extends FileUploaderOptions {
     /**
      * Add items to the queue
      */
-    addToQueue(files: File | HTMLInputElement | object | FileList | object[], options: object, filters: Filter[] | string): void;
+    addToQueue(
+        files: File | HTMLInputElement | object | FileList | object[],
+        options: object,
+        filters: Filter[] | string,
+    ): void;
     /**
      * Remove an item from the queue, where value is {FileItem} or index of item.
      */
@@ -320,7 +318,11 @@ export interface FileItem {
     onComplete(response: Response, status: number, headers: Headers): void;
 }
 export type SyncFilter = (item: File | FileLikeObject, options?: object) => boolean;
-export type AsyncFilter = (item: File | FileLikeObject, options: object | undefined, deferred: angular.IDeferred<any>) => void;
+export type AsyncFilter = (
+    item: File | FileLikeObject,
+    options: object | undefined,
+    deferred: angular.IDeferred<any>,
+) => void;
 export interface Filter {
     name: string;
     fn: SyncFilter | AsyncFilter;

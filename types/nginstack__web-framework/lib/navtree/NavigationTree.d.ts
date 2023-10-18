@@ -25,13 +25,13 @@ declare class NavigationTree {
         parentNodeId: any,
         mimeType: any,
         levelOrder: any,
-        nodeKind: any
+        nodeKind: any,
     ): void;
     collectProcessesAndLayouts(collection: any, classDef: any, parentNodeId: any): any;
     collectImmediateLevelNavigatableChildren(
         collection: any,
         classDef: any,
-        parentNodeId: any
+        parentNodeId: any,
     ): any;
     getChildren(nodeId: any): any;
     modules: {};
@@ -82,4 +82,4 @@ declare namespace NavigationTree {
     function createEmptyNavigationTreeCollection(): DataSet;
     function obtainVisibilityMode(): number;
 }
-import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
+import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");

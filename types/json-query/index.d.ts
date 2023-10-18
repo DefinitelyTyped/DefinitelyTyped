@@ -1,13 +1,8 @@
-// Type definitions for json-query 2.2
-// Project: https://github.com/mmckegg/json-query#readme
-// Definitions by: Matt Traynham <https://github.com/mtraynham>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = JsonQuery;
 
 declare function JsonQuery(
     selector: JsonQuery.Selector | JsonQuery.SelectorWithQueryParams,
-    options: JsonQuery.Options
+    options: JsonQuery.Options,
 ): JsonQuery.Result;
 
 declare namespace JsonQuery {
@@ -17,7 +12,7 @@ declare namespace JsonQuery {
     // No way to support [Selector, ...QueryParam[]]?
     // 10 params should be more than enough, hopefully.
     type SelectorWithQueryParams =
-        [Selector, QueryParam]
+        | [Selector, QueryParam]
         | [Selector, QueryParam]
         | [Selector, QueryParam]
         | [Selector, QueryParam, QueryParam]
@@ -27,8 +22,31 @@ declare namespace JsonQuery {
         | [Selector, QueryParam, QueryParam, QueryParam, QueryParam, QueryParam, QueryParam]
         | [Selector, QueryParam, QueryParam, QueryParam, QueryParam, QueryParam, QueryParam, QueryParam]
         | [Selector, QueryParam, QueryParam, QueryParam, QueryParam, QueryParam, QueryParam, QueryParam, QueryParam]
-        | [Selector, QueryParam, QueryParam, QueryParam, QueryParam, QueryParam, QueryParam, QueryParam, QueryParam, QueryParam]
-        | [Selector, QueryParam, QueryParam, QueryParam, QueryParam, QueryParam, QueryParam, QueryParam, QueryParam, QueryParam, QueryParam];
+        | [
+            Selector,
+            QueryParam,
+            QueryParam,
+            QueryParam,
+            QueryParam,
+            QueryParam,
+            QueryParam,
+            QueryParam,
+            QueryParam,
+            QueryParam,
+        ]
+        | [
+            Selector,
+            QueryParam,
+            QueryParam,
+            QueryParam,
+            QueryParam,
+            QueryParam,
+            QueryParam,
+            QueryParam,
+            QueryParam,
+            QueryParam,
+            QueryParam,
+        ];
 
     type Context = any;
 

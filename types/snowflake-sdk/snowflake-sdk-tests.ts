@@ -1,15 +1,15 @@
-import snowflake = require('snowflake-sdk');
+import snowflake = require("snowflake-sdk");
 
 snowflake.configure({
     insecureConnect: true,
-    logLevel: 'ERROR',
+    logLevel: "ERROR",
     ocspFailOpen: true,
 });
 
 const connection = snowflake.createConnection({
-    account: '',
-    password: '',
-    username: '',
+    account: "",
+    password: "",
+    username: "",
 });
 
 const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowflake.Connection) => {
@@ -23,9 +23,9 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
         err.isFatal; // $ExpectType boolean | undefined
     }
     conn.execute({
-        sqlText: '',
-        fetchAsString: ['Boolean', 'JSON'],
-        binds: [1, ''],
+        sqlText: "",
+        fetchAsString: ["Boolean", "JSON"],
+        binds: [1, ""],
         complete(err, stmt, rows) {
             err; // $ExpectType SnowflakeError | undefined
             err?.data?.line; // $ExpectType any
@@ -57,21 +57,25 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
             col1.isVariant(); // $ExpectType boolean
             col1.isObject(); // $ExpectType boolean
             col1.isArray(); // $ExpectType boolean
-            const option: snowflake.StreamOptions = {start: 0, end: 100, fetchAsString: ['Boolean', 'JSON', 'Buffer']};
+            const option: snowflake.StreamOptions = {
+                start: 0,
+                end: 100,
+                fetchAsString: ["Boolean", "JSON", "Buffer"],
+            };
             const stream = stmt.streamRows(option);
-            stream.on('data', data => {
+            stream.on("data", data => {
                 //
             });
         },
     });
 
     conn.execute({
-        sqlText: '',
+        sqlText: "",
         // @ts-expect-error
-        fetchAsString: ['NaN'],
+        fetchAsString: ["NaN"],
         binds: [
-            [1, ''],
-            [2, ''],
+            [1, ""],
+            [2, ""],
         ],
         complete(err, stmt, rows) {
             //
@@ -80,12 +84,12 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
 
     // $ExpectType Statement
     const statement = conn.execute({
-        sqlText: ''
+        sqlText: "",
     });
-    const option: snowflake.StreamOptions = {start: 0, end: 100, fetchAsString: ['Number' , 'Date' , 'JSON', 'Buffer']};
+    const option: snowflake.StreamOptions = { start: 0, end: 100, fetchAsString: ["Number", "Date", "JSON", "Buffer"] };
     // $ExpectType Readable
     const stream = statement.streamRows(option);
-    stream.on('data', data => {
+    stream.on("data", data => {
         //
     });
 };
@@ -98,35 +102,35 @@ connection.isValidAsync();
 //  Key pair connections
 
 snowflake.createConnection({
-    account: '',
-    username: '',
-    authenticator: '',
-    privateKey: '',
-    privateKeyPass: '',
-    privateKeyPath: '',
+    account: "",
+    username: "",
+    authenticator: "",
+    privateKey: "",
+    privateKeyPass: "",
+    privateKeyPath: "",
 });
 
 //  Oauth connections
 
 snowflake.createConnection({
-    account: '',
-    username: '',
-    authenticator: '',
-    token: '',
+    account: "",
+    username: "",
+    authenticator: "",
+    token: "",
 });
 
 // Application
 
 snowflake.createConnection({
-    account: '',
-    password: '',
-    username: '',
-    application: '',
+    account: "",
+    password: "",
+    username: "",
+    application: "",
 });
 
 // Pool
 // $ExpectType Pool<Connection>
 const pool = snowflake.createPool({
-    account: '',
-    username: '',
+    account: "",
+    username: "",
 });

@@ -1,4 +1,4 @@
-export type BigNumberish = string | bigint | number | Uint8Array
+export type BigNumberish = string | bigint | number | Uint8Array;
 
 export type Point = [Uint8Array, Uint8Array];
 
@@ -13,6 +13,12 @@ export interface Signature {
 }
 
 export class SMT {
+    F: any; // https://github.com/iden3/ffjavascript/blob/master/src/wasm_field1.js
+    db: SMTMemDb;
+    root: BigNumberish;
+    hash0: (left: BigNumberish, right: BigNumberish) => Uint8Array;
+    hash1: (key: BigNumberish, value: BigNumberish) => Uint8Array;
+
     constructor(
         db: SMTMemDb,
         root: BigNumberish,
@@ -31,6 +37,10 @@ export class SMT {
 }
 
 export class SMTMemDb {
+    F: any; // https://github.com/iden3/ffjavascript/blob/master/src/wasm_field1.js
+    nodes: any;
+    root: BigNumberish;
+
     constructor(F: any);
 
     get(key: BigNumberish): any;
@@ -47,6 +57,16 @@ export class SMTMemDb {
 }
 
 export interface BabyJub {
+    F: any; // https://github.com/iden3/ffjavascript/blob/master/src/wasm_field1.js
+    p: bigint;
+    pm1d2: bigint;
+    Generator: Point;
+    Base8: Point;
+    order: bigint;
+    subOrder: bigint;
+    A: Uint8Array;
+    D: Uint8Array;
+
     addPoint(a: Point, b: Point): Point;
 
     mulPointEscalar(base: Point, e: BigNumberish): Point;
@@ -61,6 +81,9 @@ export interface BabyJub {
 }
 
 export interface Mimc7 {
+    F: any; // https://github.com/iden3/ffjavascript/blob/master/src/wasm_field1.js
+    cts: Uint8Array[];
+
     getIV(seed?: string): bigint;
 
     getConstants(seed?: string, nRounds?: number): Uint8Array[];
@@ -71,6 +94,9 @@ export interface Mimc7 {
 }
 
 export interface MimcSponge {
+    F: any; // https://github.com/iden3/ffjavascript/blob/master/src/wasm_field1.js
+    cts: Uint8Array[];
+
     getIV(seed?: string): bigint;
 
     getConstants(seed?: string, nRounds?: number): Uint8Array[];
@@ -81,11 +107,14 @@ export interface MimcSponge {
 }
 
 export interface PedersenHash {
-    baseHash(type: 'blake' | 'blake2b', S: any): any;
+    babyJub: BabyJub;
+    bases: any[];
 
-    hash(msg: Uint8Array, options?: { baseHash?: 'blake' | 'blake2b' }): Uint8Array;
+    baseHash(type: "blake" | "blake2b", S: any): any;
 
-    getBasePoint(baseHashType: 'blake' | 'blake2b', pointIdx: number): Point;
+    hash(msg: Uint8Array, options?: { baseHash?: "blake" | "blake2b" }): Uint8Array;
+
+    getBasePoint(baseHashType: "blake" | "blake2b", pointIdx: number): Point;
 
     padLeftZeros(idx: number, n: number): string;
 
@@ -93,6 +122,13 @@ export interface PedersenHash {
 }
 
 export interface Eddsa {
+    F: any; // https://github.com/iden3/ffjavascript/blob/master/src/wasm_field1.js
+    babyJub: BabyJub;
+    pedersenHash: PedersenHash;
+    mimc7: Mimc7;
+    poseidon: Poseidon;
+    mimcSponge: MimcSponge;
+
     pruneBuffer(buff: Uint8Array): Uint8Array;
 
     prv2pub(prv: any): Point;

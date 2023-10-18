@@ -1,10 +1,3 @@
-// Type definitions for glob-stream v8.0.0
-// Project: https://github.com/wearefractal/glob-stream
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 mrmlnc <https://github.com/mrmlnc>
-//                 Manuel Thalmann <https://github.com/manuth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { PicomatchOptions } from "picomatch";

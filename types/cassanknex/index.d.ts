@@ -1,14 +1,8 @@
-// Type definitions for cassanknex 1.19
-// Project: https://github.com/azuqua/cassanknex
-// Definitions by: Daniel Chao <https://github.com/bioball>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="node" />
 
 import { Client, ClientOptions, types, ValueCallback } from "cassandra-driver";
 import { EventEmitter } from "events";
-import * as Long from "long";
+import Long = require("long");
 import { Readable } from "stream";
 
 declare function CassanKnex(options?: CassanKnex.DriverOptions): CassanKnex.CassanKnex;

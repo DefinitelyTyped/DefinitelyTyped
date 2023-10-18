@@ -1,54 +1,49 @@
-// Type definitions for iamport-react-native 1.5
-// Project: https://github.com/iamport/iamport-react-native#readme
-// Definitions by: seongjoojin <https://github.com/seongjoojin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import * as React from "react";
 
-import * as React from 'react';
-
-export type IMP_CARRIERS = 'SKT' | 'KTF' | 'LGT' | 'MVNO';
+export type IMP_CARRIERS = "SKT" | "KTF" | "LGT" | "MVNO";
 export type IMP_PG =
-    | 'html5_inicis'
-    | 'inicis'
-    | 'uplus'
-    | 'kcp'
-    | 'kcp_billing'
-    | 'nice'
-    | 'jtnet'
-    | 'kakao'
-    | 'kakaopay'
-    | 'danal'
-    | 'danal_tpay'
-    | 'kicc'
-    | 'settle'
-    | 'mobilians'
-    | 'payco'
-    | 'eximbay'
-    | 'paypal'
-    | 'naverco'
-    | 'naverpay'
-    | 'smilepay'
-    | 'chai'
-    | 'payple'
-    | 'alipay';
+    | "html5_inicis"
+    | "inicis"
+    | "uplus"
+    | "kcp"
+    | "kcp_billing"
+    | "nice"
+    | "jtnet"
+    | "kakao"
+    | "kakaopay"
+    | "danal"
+    | "danal_tpay"
+    | "kicc"
+    | "settle"
+    | "mobilians"
+    | "payco"
+    | "eximbay"
+    | "paypal"
+    | "naverco"
+    | "naverpay"
+    | "smilepay"
+    | "chai"
+    | "payple"
+    | "alipay";
 
 export type IMP_PAY_METHOD =
-    | 'card'
-    | 'trans'
-    | 'vbank'
-    | 'phone'
-    | 'samsung'
-    | 'kpay'
-    | 'cultureland'
-    | 'smartculture'
-    | 'happymoney'
-    | 'booknlife'
-    | 'kakaopay'
-    | 'lpay'
-    | 'payco'
-    | 'ssgpay'
-    | 'tosspay';
+    | "card"
+    | "trans"
+    | "vbank"
+    | "phone"
+    | "samsung"
+    | "kpay"
+    | "cultureland"
+    | "smartculture"
+    | "happymoney"
+    | "booknlife"
+    | "kakaopay"
+    | "lpay"
+    | "payco"
+    | "ssgpay"
+    | "tosspay";
 
-export type IMP_CURRENCY = 'KRW' | 'USD' | 'EUR' | 'JPY';
+export type IMP_CURRENCY = "KRW" | "USD" | "EUR" | "JPY";
 
 // Property Note : https://docs.iamport.kr/tech/imp?lang=en#callback
 export interface CallbackRsp {

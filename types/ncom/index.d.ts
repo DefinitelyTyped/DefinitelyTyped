@@ -1,13 +1,8 @@
-// Type definitions for ncom 1.0
-// Project: https://github.com/SocketCluster/ncom
-// Definitions by: Daniel Rose <https://github.com/DanielRose>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
-import { SocketConstructorOpts, Socket, ListenOptions } from 'net';
-import { TlsOptions } from 'tls';
+import { EventEmitter } from "events";
+import { ListenOptions, Socket, SocketConstructorOpts } from "net";
+import { TlsOptions } from "tls";
 
 export class ComSocket extends EventEmitter {
     id: string;
@@ -23,25 +18,25 @@ export class ComSocket extends EventEmitter {
      *   1. error
      */
     addListener(event: string, listener: (...args: any[]) => void): this;
-    addListener(event: 'error', listener: (err: Error) => void): this;
+    addListener(event: "error", listener: (err: Error) => void): this;
 
     emit(event: string | symbol, ...args: any[]): boolean;
-    emit(event: 'error', err: Error): boolean;
+    emit(event: "error", err: Error): boolean;
 
     on(event: string, listener: (...args: any[]) => void): this;
-    on(event: 'error', listener: (err: Error) => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
 
     once(event: string, listener: (...args: any[]) => void): this;
-    once(event: 'error', listener: (err: Error) => void): this;
+    once(event: "error", listener: (err: Error) => void): this;
 
     prependListener(event: string, listener: (...args: any[]) => void): this;
-    prependListener(event: 'error', listener: (err: Error) => void): this;
+    prependListener(event: "error", listener: (err: Error) => void): this;
 
     prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-    prependOnceListener(event: 'error', listener: (err: Error) => void): this;
+    prependOnceListener(event: "error", listener: (err: Error) => void): this;
 
     removeListener(event: string, listener: (...args: any[]) => void): this;
-    removeListener(event: 'error', listener: (err: Error) => void): this;
+    removeListener(event: "error", listener: (err: Error) => void): this;
 
     write(data: any, writeOptions?: WriteOptions): void;
 
@@ -62,32 +57,32 @@ export class ComServer extends EventEmitter {
      */
 
     addListener(event: string, listener: (...args: any[]) => void): this;
-    addListener(event: 'error', listener: (err: Error) => void): this;
-    addListener(event: 'connection', listener: ConnectionListener): this;
+    addListener(event: "error", listener: (err: Error) => void): this;
+    addListener(event: "connection", listener: ConnectionListener): this;
 
     emit(event: string | symbol, ...args: any[]): boolean;
-    emit(event: 'error', err: Error): boolean;
-    emit(event: 'connection', listener: ConnectionListener): this;
+    emit(event: "error", err: Error): boolean;
+    emit(event: "connection", listener: ConnectionListener): this;
 
     on(event: string, listener: (...args: any[]) => void): this;
-    on(event: 'error', listener: (err: Error) => void): this;
-    on(event: 'connection', listener: ConnectionListener): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: "connection", listener: ConnectionListener): this;
 
     once(event: string, listener: (...args: any[]) => void): this;
-    once(event: 'error', listener: (err: Error) => void): this;
-    once(event: 'connection', listener: ConnectionListener): this;
+    once(event: "error", listener: (err: Error) => void): this;
+    once(event: "connection", listener: ConnectionListener): this;
 
     prependListener(event: string, listener: (...args: any[]) => void): this;
-    prependListener(event: 'error', listener: (err: Error) => void): this;
-    prependListener(event: 'connection', listener: ConnectionListener): this;
+    prependListener(event: "error", listener: (err: Error) => void): this;
+    prependListener(event: "connection", listener: ConnectionListener): this;
 
     prependOnceListener(event: string, listener: (...args: any[]) => void): this;
-    prependOnceListener(event: 'error', listener: (err: Error) => void): this;
-    prependOnceListener(event: 'connection', listener: ConnectionListener): this;
+    prependOnceListener(event: "error", listener: (err: Error) => void): this;
+    prependOnceListener(event: "connection", listener: ConnectionListener): this;
 
     removeListener(event: string, listener: (...args: any[]) => void): this;
-    removeListener(event: 'error', listener: (err: Error) => void): this;
-    removeListener(event: 'connection', listener: ConnectionListener): this;
+    removeListener(event: "error", listener: (err: Error) => void): this;
+    removeListener(event: "connection", listener: ConnectionListener): this;
 
     /**
      * Forwards to net.Server.listen()

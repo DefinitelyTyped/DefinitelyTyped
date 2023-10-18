@@ -1,9 +1,3 @@
-// Type definitions for Minecraft Bedrock Edition script APIs (experimental) 0.1
-// Project: https://docs.microsoft.com/minecraft/creator/
-// Definitions by: Jake Shirley <https://github.com/JakeShirley>
-//                 Mike Ammerlaan <https://github.com/mammerla>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* *****************************************************************************
    Copyright (c) Microsoft Corporation.
    ***************************************************************************** */
@@ -19,9 +13,8 @@
  *   "version": "1.0.0-beta"
  * }
  * ```
- *
  */
-import * as mojangminecraft from 'mojang-minecraft';
+import * as mojangminecraft from "mojang-minecraft";
 /**
  * Returns information about whether this fence is connected to
  * other fences in several directions.
@@ -31,22 +24,22 @@ export class FenceConnectivity {
      * Represents whether this fence block is connected to another
      * fence to the east (x + 1).
      */
-    readonly 'east': boolean;
+    readonly "east": boolean;
     /**
      * Represents whether this fence block is connected to another
      * fence to the north (z - 1).
      */
-    readonly 'north': boolean;
+    readonly "north": boolean;
     /**
      * Represents whether this fence block is connected to another
      * fence to the south (z + 1).
      */
-    readonly 'south': boolean;
+    readonly "south": boolean;
     /**
      * Represents whether this fence block is connected to another
      * fence to the west (x - 1).
      */
-    readonly 'west': boolean;
+    readonly "west": boolean;
     protected constructor();
 }
 /**
@@ -163,7 +156,7 @@ export class RegistrationBuilder {
      * RegistrationBuilder object where additional configuration
      * methods can be called.
      */
-    batch(batchName: 'night' | 'day'): RegistrationBuilder;
+    batch(batchName: "night" | "day"): RegistrationBuilder;
     /**
      * @remarks
      * Sets the maximum number of times a test will try to rerun if
@@ -268,7 +261,7 @@ export class SculkSpreader {
      * Gets the maximum charge of a sculk spreader.
      * @throws This property can throw when used.
      */
-    readonly 'maxCharge': number;
+    readonly "maxCharge": number;
     /**
      * @remarks
      * Adds a cursor - which is a notional waypoint that the sculk
@@ -310,74 +303,74 @@ export class SimulatedPlayer extends mojangminecraft.Player {
      * Dimension that the simulated player is currently within.
      * @throws This property can throw when used.
      */
-    readonly 'dimension': mojangminecraft.Dimension;
+    readonly "dimension": mojangminecraft.Dimension;
     /**
      * Location of the center of the head component of the player.
      * @throws This property can throw when used.
      */
-    readonly 'headLocation': mojangminecraft.Location;
+    readonly "headLocation": mojangminecraft.Location;
     /**
      * Rotation of the head across pitch and yaw angles.
      * @throws This property can throw when used.
      */
-    readonly 'headRotation': mojangminecraft.XYRotation;
+    readonly "headRotation": mojangminecraft.XYRotation;
     /**
      * Identifier for the player.
      * @throws This property can throw when used.
      */
-    readonly 'id': string;
+    readonly "id": string;
     /**
      * True if the player is currently using a sneaking movement.
      */
-    'isSneaking': boolean;
+    "isSneaking": boolean;
     /**
      * Current location of the player.
      * @throws This property can throw when used.
      */
-    readonly 'location': mojangminecraft.Location;
+    readonly "location": mojangminecraft.Location;
     /**
      * Name of the player.
      * @throws This property can throw when used.
      */
-    readonly 'name': string;
+    readonly "name": string;
     /**
      * Optional name tag of the player.
      */
-    'nameTag': string;
+    "nameTag": string;
     /**
      * Contains methods for manipulating the on-screen display of a
      * Player.
      */
-    readonly 'onScreenDisplay': mojangminecraft.ScreenDisplay;
+    readonly "onScreenDisplay": mojangminecraft.ScreenDisplay;
     /**
      * Main rotation of the entity.
      * @throws This property can throw when used.
      */
-    readonly 'rotation': mojangminecraft.XYRotation;
+    readonly "rotation": mojangminecraft.XYRotation;
     /**
      * Returns a scoreboard identity that represents this entity.
      * @throws This property can throw when used.
      */
-    readonly 'scoreboard': mojangminecraft.ScoreboardIdentity;
+    readonly "scoreboard": mojangminecraft.ScoreboardIdentity;
     /**
      * Manages the selected slot in the player's hotbar.
      */
-    'selectedSlot': number;
+    "selectedSlot": number;
     /**
      * Retrieves or sets an entity that is used as the target of
      * AI-related behaviors, like attacking.
      */
-    'target': mojangminecraft.Entity;
+    "target": mojangminecraft.Entity;
     /**
      * Current speed of the player across X, Y, and Z dimensions.
      * @throws This property can throw when used.
      */
-    readonly 'velocity': mojangminecraft.Vector;
+    readonly "velocity": mojangminecraft.Vector;
     /**
      * Vector of the current view of the player.
      * @throws This property can throw when used.
      */
-    readonly 'viewVector': mojangminecraft.Vector;
+    readonly "viewVector": mojangminecraft.Vector;
     /**
      * @remarks
      * Adds an effect, like poison, to the entity.
@@ -992,22 +985,22 @@ export class Tags {
      * Indicates that the tagged test should be a part of all
      * suites.
      */
-    static readonly 'suiteAll' = 'suite:all';
+    static readonly "suiteAll" = "suite:all";
     /**
      * Indicates that the tagged test should be a part of an
      * internal (debug) test suite.
      */
-    static readonly 'suiteDebug' = 'suite:debug';
+    static readonly "suiteDebug" = "suite:debug";
     /**
      * Indicates that the tagged test should be a part of the
      * default test suite.
      */
-    static readonly 'suiteDefault' = 'suite:default';
+    static readonly "suiteDefault" = "suite:default";
     /**
      * Indicates that the tagged test should be a part of a suite
      * of disabled tests.
      */
-    static readonly 'suiteDisabled' = 'suite:disabled';
+    static readonly "suiteDisabled" = "suite:disabled";
     protected constructor();
 }
 /**

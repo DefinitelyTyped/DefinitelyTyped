@@ -1,10 +1,4 @@
-// Type definitions for webpack-virtual-modules 0.1
-// Project: https://github.com/sysgears/webpack-virtual-modules
-// Definitions by: Avi Vahl <https://github.com/AviVahl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
-import webpack = require('webpack');
+import webpack = require("webpack");
 
 /**
  * Plugin that allows dynamic generation of in-memory virtual modules for JavaScript builds

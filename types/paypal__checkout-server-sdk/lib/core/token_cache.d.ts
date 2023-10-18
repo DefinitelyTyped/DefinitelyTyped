@@ -4,8 +4,8 @@
  * @see {@link https://github.com/paypal/Checkout-NodeJS-SDK/blob/develop/lib/core/token_cache.js}
  */
 
-import paypalhttp = require('@paypal/paypalhttp');
-import { AccessToken } from './access_token';
+import paypalhttp = require("@paypal/paypalhttp");
+import { AccessToken } from "./access_token";
 
 declare class TokenCache {
     static cacheForEnvironment<T extends paypalhttp.Environment>(environment: T, refreshToken?: string): T;

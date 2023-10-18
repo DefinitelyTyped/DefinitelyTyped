@@ -1,14 +1,3 @@
-// Type definitions for react-helmet 6.1
-// Project: https://github.com/nfl/react-helmet
-// Definitions by: Evan Bremer <https://github.com/evanbb>
-//                 Isman Usoh <https://github.com/isman-usoh>
-//                 Yui T. <https://github.com/yuit>
-//                 Yamagishi Kazutoshi <https://github.com/ykzts>
-//                 Justin Hall <https://github.com/wKovacs64>
-//                 Andriy2 <https://github.com/Andriy2>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 interface OtherElementAttributes {
@@ -55,11 +44,13 @@ export interface HelmetProps {
 /**
  * Used by Helmet.peek()
  */
-export type HelmetPropsToState = HelmetTags &
-    Pick<
+export type HelmetPropsToState =
+    & HelmetTags
+    & Pick<
         HelmetProps,
         "bodyAttributes" | "defer" | "htmlAttributes" | "onChangeClientState" | "title" | "titleAttributes"
-    > & {
+    >
+    & {
         encode: Required<HelmetProps["encodeSpecialCharacters"]>;
     };
 

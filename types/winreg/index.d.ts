@@ -1,8 +1,3 @@
-// Type definitions for Winreg v1.2.0
-// Project: http://fresc81.github.io/node-winreg/
-// Definitions by: RX14 <https://github.com/RX14>, BobBuehler <https://github.com/BobBuehler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var Winreg: WinregStatic;
 
 interface WinregStatic {
@@ -19,7 +14,7 @@ interface WinregStatic {
      *       key:  '\\Software\\Microsoft\\Windows\\CurrentVersion\\Run'
      *     });
      */
-    new (options: Winreg.Options): Winreg.Registry;
+    new(options: Winreg.Options): Winreg.Registry;
 
     /**
      * Registry hive key HKEY_LOCAL_MACHINE.

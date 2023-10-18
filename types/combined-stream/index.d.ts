@@ -1,8 +1,3 @@
-// Type definitions for combined-stream 1.0
-// Project: https://github.com/felixge/node-combined-stream
-// Definitions by: Felix Geisendörfer <https://github.com/felixge>, Tomek Łaziuk <https://github.com/tlaziuk>, Kon Pik <https://github.com/konpikwastaken>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Stream } from "stream";

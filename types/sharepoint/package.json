@@ -1,0 +1,43 @@
+{
+    "private": true,
+    "name": "@types/sharepoint",
+    "version": "2016.1.9999",
+    "projects": [
+        "https://msdn.microsoft.com/en-us/library/office/jj193034.aspx"
+    ],
+    "dependencies": {
+        "@types/microsoft-ajax": "*"
+    },
+    "devDependencies": {
+        "@types/angular": "*",
+        "@types/jquery": "*",
+        "@types/knockout": "*",
+        "@types/sharepoint": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Stanislav Vyshchepan",
+            "githubUsername": "gandjustas"
+        },
+        {
+            "name": "Andrey Markeev",
+            "githubUsername": "andrei-markeev"
+        },
+        {
+            "name": "Tero Arvola",
+            "githubUsername": "teroarvola"
+        },
+        {
+            "name": "Dennis George",
+            "githubUsername": "dennispg"
+        },
+        {
+            "name": "SPWizard01",
+            "githubUsername": "SPWizard01"
+        },
+        {
+            "name": "Vitaliy Kotlyarov",
+            "githubUsername": "betlgtu"
+        }
+    ]
+}

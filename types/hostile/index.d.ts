@@ -1,11 +1,6 @@
-// Type definitions for hostile 1.3
-// Project: https://github.com/feross/hostile
-// Definitions by: Andrew Leedham <https://github.com/AndrewLeedham>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+export const HOSTS: "C:/Windows/System32/drivers/etc/hosts" | "/etc/hosts";
 
-export const HOSTS: 'C:/Windows/System32/drivers/etc/hosts' | '/etc/hosts';
-
-export type Line = string | [string /* host */, string /* ip */];
+export type Line = string | [string, /* host */ string /* ip */];
 export type Lines = Line[];
 export type Callback = (error: Error | null) => void;
 export type GetCallback = (error: Error | null, lines: Lines) => void;

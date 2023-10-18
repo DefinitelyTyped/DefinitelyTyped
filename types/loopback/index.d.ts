@@ -1,13 +1,3 @@
-// Type definitions for Loopback 3.2
-// Project: https://github.com/strongloop/loopback, http://loopback.io
-// Definitions by: Andres D Jimenez <https://github.com/kattsushi>
-//                 Tim Schumacher <https://github.com/enko>
-//                 Sequoia McDowell <https://github.com/sequoia>
-//                 Mike Crowe <https://github.com/drmikecrowe>
-//                 Karim Alibhai <https://github.com/karimsa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /************************************************
  *                                               *
  *               LoopBack v3.x API               *
@@ -43,7 +33,7 @@ declare namespace l {
      * @header var app = loopback();
      */
 
-    // interface ILoopbackAplication extends express.Application { };
+    // interface ILoopbackApplication extends express.Application { };
 
     interface LoopBackApplication extends core.Application {
         start(): void;
@@ -2480,7 +2470,7 @@ declare namespace l {
         permission: "ALARM" | "ALLOW" | "AUDIT" | "DENY";
 
         /** principalType Type of the principal; one of: Application, Use, Role. */
-        principalType: "Aplication" | "User" | "Role" | string;
+        principalType: "Application" | "User" | "Role" | string;
 
         /** principalId ID of the principal - such as appId, userId or roleId. */
         principalId: string;

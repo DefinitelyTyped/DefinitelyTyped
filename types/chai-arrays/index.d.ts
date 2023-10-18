@@ -1,9 +1,3 @@
-// Type definitions for chai-arrays 2.0
-// Project: https://github.com/GaneshSPatil/chai-arrays
-// Definitions by: Clément Prévot <https://github.com/clementprevot>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="chai" />
 
 declare global {
@@ -20,6 +14,7 @@ declare global {
             containingAllOf(values: any[]): Assertion;
             containingAnyOf(values: any[]): Assertion;
             sorted(): Assertion;
+            sorted<TElement = any>(comparefn: (a: TElement, b: TElement) => number): Assertion;
         }
 
         interface Assert {
@@ -34,6 +29,7 @@ declare global {
             containingAllOf(val: any[], values: any[], msg?: string): void;
             containingAnyOf(val: any[], values: any[], msg?: string): void;
             sorted(val: any[], msg?: string): void;
+            sorted<TElement>(val: TElement[], comparefn: (a: TElement, b: TElement) => number, msg?: string): void;
         }
     }
 }

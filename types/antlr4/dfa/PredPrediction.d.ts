@@ -1,4 +1,4 @@
-import SemanticContext from '../atn/SemanticContext';
+import SemanticContext from "../atn/SemanticContext";
 
 /**
  * Map a predicate to a predicted alternative.

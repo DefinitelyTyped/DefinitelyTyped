@@ -1,9 +1,3 @@
-// Type definitions for node-jose 1.1
-// Project: https://github.com/cisco/node-jose
-// Definitions by: Nadun Indunil <https://github.com/nadunindunil>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
-
 /// <reference types="node" />
 
 export function canYouSee(ks: JWK.Key | JWK.KeyStore, opts: object): JWS.Verifier;
@@ -60,7 +54,7 @@ export namespace JWA {
         alg: string,
         key: string | Buffer,
         cdata: string | Buffer,
-        props?: DecryptEncryptOptions
+        props?: DecryptEncryptOptions,
     ): Promise<Buffer>;
 
     function derive(alg: string, key: string | Buffer, props?: DeriveOptions): Promise<Buffer>;
@@ -71,14 +65,14 @@ export namespace JWA {
         alg: string,
         key: string | Buffer,
         pdata: string | Buffer,
-        props?: DecryptEncryptOptions
+        props?: DecryptEncryptOptions,
     ): Promise<EncryptReturn>;
 
     function sign(
         alg: string,
         key: string | Buffer,
         pdata: string | Buffer,
-        props: SignVerifyOptions
+        props: SignVerifyOptions,
     ): Promise<SignReturn>;
 
     function verify(
@@ -86,14 +80,14 @@ export namespace JWA {
         key: string | Buffer,
         pdata: string | Buffer,
         mac: string | Buffer,
-        props: SignVerifyOptions
+        props: SignVerifyOptions,
     ): Promise<VerifyReturn>;
 }
 
 export namespace JWE {
     interface EncryptOptions {
-        format?: 'general' | 'compact' | 'flattened' | undefined;
-        zip?: boolean | 'DEF' | undefined;
+        format?: "general" | "compact" | "flattened" | undefined;
+        zip?: boolean | "DEF" | undefined;
         fields?: object | undefined;
         contentAlg?: string | undefined;
         protect?: string | string[] | undefined;
@@ -150,8 +144,8 @@ export namespace JWK {
 
     function asKey(
         key: string | Buffer | object | RawKey,
-        form?: 'json' | 'private' | 'pkcs8' | 'public' | 'spki' | 'pkix' | 'x509' | 'pem',
-        extras?: Record<string, unknown>
+        form?: "json" | "private" | "pkcs8" | "public" | "spki" | "pkix" | "x509" | "pem",
+        extras?: Record<string, unknown>,
     ): Promise<Key>;
     /**
      * To import a JWK-set as a keystore
@@ -168,7 +162,7 @@ export namespace JWK {
 
     function isKeyStore(input: any): input is KeyStore;
 
-    type KeyUse = 'sig' | 'enc' | 'desc';
+    type KeyUse = "sig" | "enc" | "desc";
 
     interface JWEEncryptor {
         update(input: any): this;
@@ -225,8 +219,8 @@ export namespace JWK {
          */
         add(
             key: string | Buffer | Key | object,
-            form?: 'json' | 'private' | 'pkcs8' | 'public' | 'spki' | 'pkix' | 'x509' | 'pem',
-            extras?: Record<string, unknown>
+            form?: "json" | "private" | "pkcs8" | "public" | "spki" | "pkix" | "x509" | "pem",
+            extras?: Record<string, unknown>,
         ): Promise<Key>;
 
         /**
@@ -267,7 +261,7 @@ export namespace JWK {
 
 export namespace JWS {
     interface SignOptions {
-        format?: 'compact' | 'flattened' | undefined;
+        format?: "compact" | "flattened" | undefined;
         alg?: string | undefined;
         compact?: boolean | undefined;
         fields?: object | undefined;
@@ -281,7 +275,7 @@ export namespace JWS {
      */
     function createVerify(
         input?: string | JWK.Key | JWK.KeyStore | object,
-        opts?: { allowEmbeddedKey?: boolean | undefined; algorithms?: string[] | undefined; handlers?: any }
+        opts?: { allowEmbeddedKey?: boolean | undefined; algorithms?: string[] | undefined; handlers?: any },
     ): Verifier;
 
     interface CreateSignResult {
@@ -335,8 +329,8 @@ export function parse(input: Buffer | string | object): parse.ParseReturn;
 
 export namespace parse {
     interface ParseReturn {
-        type: 'JWS' | 'JWE';
-        format: 'compact' | 'json';
+        type: "JWS" | "JWE";
+        format: "compact" | "json";
         input: Buffer | string | object;
         header: object;
         perform: (ks: JWK.KeyStore) => Promise<JWE.DecryptResult> | Promise<JWS.VerificationResult>;

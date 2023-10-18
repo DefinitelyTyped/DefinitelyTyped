@@ -1,9 +1,4 @@
-// Type definitions for ansi-align 3.0
-// Project: https://github.com/nexdrew/ansi-align
-// Definitions by: Leon Si <https://github.com/leondreamed>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-type Align = 'left' | 'center' | 'right';
+type Align = "left" | "center" | "right";
 
 interface AnsiAlign {
     (text: string, opts?: { align?: Align; split?: string; pad?: string }): string;

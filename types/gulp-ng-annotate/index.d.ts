@@ -1,18 +1,11 @@
-// Type definitions for gulp-ng-annotate
-// Project: https://github.com/Kagami/gulp-ng-annotate
-// Definitions by: Qubo <https://github.com/tkQubo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-
-
 
 declare namespace ngAnnotate {
     interface NgAnnotate {
         (option?: Option): NodeJS.ReadWriteStream;
     }
 
-    //TODO: Should be on ng-annotate module
+    // TODO: Should be on ng-annotate module
     interface Option {
         /**
          * Add annotations where non-existing

@@ -1,8 +1,3 @@
-// Type definitions for compression-next 1.0
-// Project: https://github.com/Econify/compression-next
-// Definitions by: Akira Miyakoda <https://github.com/AkiraMiyakoda>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import express = require("express");
 
 // This module adds a res.flush() method to force the partially-compressed response to be flushed to the client.

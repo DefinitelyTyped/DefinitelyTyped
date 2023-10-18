@@ -1,9 +1,9 @@
-import { ConfigBase as Config } from '../lib/config-base';
-import { AWSError } from '../lib/error';
-import { Request } from '../lib/request';
-import { Response } from '../lib/response';
-import { Service } from '../lib/service';
-import { ServiceConfigurationOptions } from '../lib/service';
+import { ConfigBase as Config } from "../lib/config-base";
+import { AWSError } from "../lib/error";
+import { Request } from "../lib/request";
+import { Response } from "../lib/response";
+import { Service } from "../lib/service";
+import { ServiceConfigurationOptions } from "../lib/service";
 interface Blob {}
 declare class SQS extends Service {
     /**
@@ -578,16 +578,16 @@ declare namespace SQS {
     export type MessageList = Message[];
     export type MessageSystemAttributeMap = { [key: string]: String };
     export type MessageSystemAttributeName =
-        | 'SenderId'
-        | 'SentTimestamp'
-        | 'ApproximateReceiveCount'
-        | 'ApproximateFirstReceiveTimestamp'
-        | 'SequenceNumber'
-        | 'MessageDeduplicationId'
-        | 'MessageGroupId'
-        | 'AWSTraceHeader'
+        | "SenderId"
+        | "SentTimestamp"
+        | "ApproximateReceiveCount"
+        | "ApproximateFirstReceiveTimestamp"
+        | "SequenceNumber"
+        | "MessageDeduplicationId"
+        | "MessageGroupId"
+        | "AWSTraceHeader"
         | string;
-    export type MessageSystemAttributeNameForSends = 'AWSTraceHeader' | string;
+    export type MessageSystemAttributeNameForSends = "AWSTraceHeader" | string;
     export interface MessageSystemAttributeValue {
         /**
          * Strings are Unicode with UTF-8 binary encoding. For a list of code values, see ASCII Printable Characters.
@@ -618,28 +618,28 @@ declare namespace SQS {
     }
     export type QueueAttributeMap = { [key: string]: String };
     export type QueueAttributeName =
-        | 'All'
-        | 'Policy'
-        | 'VisibilityTimeout'
-        | 'MaximumMessageSize'
-        | 'MessageRetentionPeriod'
-        | 'ApproximateNumberOfMessages'
-        | 'ApproximateNumberOfMessagesNotVisible'
-        | 'CreatedTimestamp'
-        | 'LastModifiedTimestamp'
-        | 'QueueArn'
-        | 'ApproximateNumberOfMessagesDelayed'
-        | 'DelaySeconds'
-        | 'ReceiveMessageWaitTimeSeconds'
-        | 'RedrivePolicy'
-        | 'FifoQueue'
-        | 'ContentBasedDeduplication'
-        | 'KmsMasterKeyId'
-        | 'KmsDataKeyReusePeriodSeconds'
-        | 'DeduplicationScope'
-        | 'FifoThroughputLimit'
-        | 'RedriveAllowPolicy'
-        | 'SqsManagedSseEnabled'
+        | "All"
+        | "Policy"
+        | "VisibilityTimeout"
+        | "MaximumMessageSize"
+        | "MessageRetentionPeriod"
+        | "ApproximateNumberOfMessages"
+        | "ApproximateNumberOfMessagesNotVisible"
+        | "CreatedTimestamp"
+        | "LastModifiedTimestamp"
+        | "QueueArn"
+        | "ApproximateNumberOfMessagesDelayed"
+        | "DelaySeconds"
+        | "ReceiveMessageWaitTimeSeconds"
+        | "RedrivePolicy"
+        | "FifoQueue"
+        | "ContentBasedDeduplication"
+        | "KmsMasterKeyId"
+        | "KmsDataKeyReusePeriodSeconds"
+        | "DeduplicationScope"
+        | "FifoThroughputLimit"
+        | "RedriveAllowPolicy"
+        | "SqsManagedSseEnabled"
         | string;
     export type QueueUrlList = String[];
     export interface ReceiveMessageRequest {
@@ -858,7 +858,7 @@ declare namespace SQS {
     /**
      * A string in YYYY-MM-DD format that represents the latest possible API version that can be used in this service. Specify 'latest' to use the latest possible version.
      */
-    export type apiVersion = '2012-11-05' | 'latest' | string;
+    export type apiVersion = "2012-11-05" | "latest" | string;
     export interface ClientApiVersions {
         /**
          * A string in YYYY-MM-DD format that represents the latest possible API version that can be used in this service. Specify 'latest' to use the latest possible version.

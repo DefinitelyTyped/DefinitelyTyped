@@ -1,9 +1,3 @@
-// Type definitions for react-sticky-el 1.0
-// Project: https://github.com/gm0t/react-sticky-el
-// Definitions by: Justin Braithwaite <https://github.com/jbraithwaite>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export default Sticky;
@@ -11,8 +5,7 @@ export default Sticky;
 declare class Sticky extends React.Component<Sticky.Props> {}
 
 declare namespace Sticky {
-    interface Props<HolderProps extends object = {}>
-        extends React.HTMLAttributes<HTMLElement> {
+    interface Props<HolderProps extends object = {}> extends React.HTMLAttributes<HTMLElement> {
         /**
          * 'top' or 'bottom' - to which side element should stick.
          *

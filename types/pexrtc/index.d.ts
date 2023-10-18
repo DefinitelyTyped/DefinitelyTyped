@@ -1,8 +1,3 @@
-// Type definitions for non-npm package PexRTC 26.0
-// Project: https://docs.pexip.com/api_client/api_pexrtc.htm
-// Definitions by: 10Clouds <https://github.com/10clouds>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class PexRTC {
     constructor();
     /**
@@ -23,13 +18,13 @@ declare class PexRTC {
     onMicActivity: (activity: string) => void;
     onParticipantCreate: (participant: PexRTC.AnyParticipant) => void;
     onParticipantDelete: (
-        participant: Pick<PexRTC.AnyParticipant, 'uuid'>
+        participant: Pick<PexRTC.AnyParticipant, "uuid">,
     ) => void;
     onParticipantUpdate: (participant: PexRTC.AnyParticipant) => void;
     onPresentation: (
         setting: boolean,
         presenter: string | null,
-        uuid?: string
+        uuid?: string,
     ) => void;
     onPresentationConnected: (stream: PexRTC.PexMediaStream) => void;
     onPresentationDisconnected: (reason: string) => void;
@@ -43,14 +38,14 @@ declare class PexRTC {
     onSetup: (
         stream: PexRTC.PexMediaStream | null,
         pin_status: PexRTC.PinStatus,
-        conference_extension?: 'standard' | 'mssip'
+        conference_extension?: "standard" | "mssip",
     ) => void;
     onStageUpdate: (
         stage: Array<{
             participant_uuid: string;
             stage_index: number;
             vad: number;
-        }>
+        }>,
     ) => void;
 
     /**
@@ -62,7 +57,7 @@ declare class PexRTC {
         name: string,
         bandwidth?: number,
         call_type?: PexRTC.CallTypes,
-        flash?: { [key: string]: unknown }
+        flash?: { [key: string]: unknown },
     ) => void;
     readonly connect: (pin: string | null, extension?: string) => void;
     readonly muteAudio: (setting: boolean) => boolean;
@@ -74,7 +69,7 @@ declare class PexRTC {
     readonly renegotiate: (resend_sdp?: boolean) => void;
     readonly getPresentation: () => void;
     readonly stopPresentation: () => void;
-    readonly present: (type?: 'screen') => void;
+    readonly present: (type?: "screen") => void;
     readonly getMediaStatistics: () => PexRTC.Statistics;
 
     /**
@@ -82,21 +77,21 @@ declare class PexRTC {
      */
     readonly dialOut: (
         destination: string,
-        protocol?: 'sip' | 'h323' | 'rtmp' | 'mssip' | 'auto',
+        protocol?: "sip" | "h323" | "rtmp" | "mssip" | "auto",
         role?: PexRTC.Role,
         cb?: (res: { result: string[] }) => void,
         params?: {
             presentation_uri?: string;
             streaming?: boolean;
             dtmf_sequence?: string;
-            call_type?: 'video' | 'video-only' | 'audio';
+            call_type?: "video" | "video-only" | "audio";
             keep_conference_alive?:
-                | 'keep_conference_alive'
-                | 'keep_conference_alive_if_multiple'
-                | 'keep_conference_alive_never';
+                | "keep_conference_alive"
+                | "keep_conference_alive_if_multiple"
+                | "keep_conference_alive_never";
             remote_display_name?: string;
             overlay_text?: string;
-        }
+        },
     ) => void;
     readonly setConferenceLock: (setting: boolean) => void;
     readonly setMuteAllGuests: (setting: boolean) => void;
@@ -105,7 +100,7 @@ declare class PexRTC {
     readonly videoUnmuted: (uuid?: string) => void;
     readonly setParticipantRxPresentation: (
         uuid: string,
-        setting: boolean
+        setting: boolean,
     ) => void;
     readonly setParticipantSpotlight: (uuid: string, setting: boolean) => void;
     readonly setParticipantText: (uuid: string, text: string) => void;
@@ -115,18 +110,18 @@ declare class PexRTC {
         uuid: string,
         destination: string,
         role: string,
-        pin?: string
+        pin?: string,
     ) => void;
     readonly startConference: () => void;
     readonly disconnectParticipant: (uuid: string) => void;
     readonly disconnectAll: () => void;
     readonly sendDTMF: (digits: string, uuid: string) => void;
     readonly sendFECC: (
-        action: 'start' | 'stop' | 'continue',
-        axis: 'pan' | 'tilt' | 'zoom',
-        direction: 'left' | 'right' | 'up' | 'down' | 'in' | 'out',
+        action: "start" | "stop" | "continue",
+        axis: "pan" | "tilt" | "zoom",
+        direction: "left" | "right" | "up" | "down" | "in" | "out",
         target: string | null,
-        timeout: number
+        timeout: number,
     ) => void;
     readonly setBuzz: () => void;
     readonly clearBuzz: (uuid: string) => void;
@@ -197,7 +192,7 @@ declare class PexRTC {
     readonly chat_enabled: boolean;
     readonly current_service_type: PexRTC.ServiceType;
     readonly role: PexRTC.Role;
-    readonly service_type: 'conference' | 'gateway' | 'test_call';
+    readonly service_type: "conference" | "gateway" | "test_call";
     readonly uuid: string;
     readonly version: string;
 
@@ -284,36 +279,36 @@ declare class PexRTC {
 
 declare namespace PexRTC {
     type PexMediaStream = MediaStream | string;
-    type Role = 'HOST' | 'GUEST';
-    type PinStatus = 'none' | 'required' | 'optional';
-    type YesNo = 'YES' | 'NO';
-    type ParticipantRole = 'chair' | 'guest';
+    type Role = "HOST" | "GUEST";
+    type PinStatus = "none" | "required" | "optional";
+    type YesNo = "YES" | "NO";
+    type ParticipantRole = "chair" | "guest";
     type LayoutTypes =
-        | '1:0'
-        | '1:7'
-        | '1:21'
-        | '2:21'
-        | '4:0'
-        | '5:7'
-        | 'ac';
+        | "1:0"
+        | "1:7"
+        | "1:21"
+        | "2:21"
+        | "4:0"
+        | "5:7"
+        | "ac";
 
     type ServiceType =
-        | 'connecting'
-        | 'waiting_room'
-        | 'ivr'
-        | 'conference'
-        | 'lecture'
-        | 'gateway'
-        | 'test_call';
+        | "connecting"
+        | "waiting_room"
+        | "ivr"
+        | "conference"
+        | "lecture"
+        | "gateway"
+        | "test_call";
 
     type CallTypes =
-        | 'presentation'
-        | 'screen'
-        | 'audioonly'
-        | 'recvonly'
-        | 'rtmp'
-        | 'stream'
-        | 'none';
+        | "presentation"
+        | "screen"
+        | "audioonly"
+        | "recvonly"
+        | "rtmp"
+        | "stream"
+        | "none";
 
     interface LayoutResponse {
         participants: string[];
@@ -328,12 +323,12 @@ declare namespace PexRTC {
     }
 
     interface AudioStatistics {
-        readonly 'packets-sent': number;
+        readonly "packets-sent": number;
         readonly bitrate: string;
         readonly codec: string;
-        readonly 'packets-lost': number;
-        readonly 'percentage-lost': string;
-        readonly 'percentage-lost-recent': string;
+        readonly "packets-lost": number;
+        readonly "percentage-lost": string;
+        readonly "percentage-lost-recent": string;
     }
 
     interface VideoStatistics extends AudioStatistics {
@@ -355,7 +350,7 @@ declare namespace PexRTC {
     interface Participant {
         readonly api_url: string;
         readonly buzz_time: number;
-        readonly call_direction: 'in' | 'out';
+        readonly call_direction: "in" | "out";
         readonly call_tag: string;
         readonly disconnect_supported: YesNo;
         readonly display_name: string;
@@ -375,7 +370,7 @@ declare namespace PexRTC {
         readonly presentation_supported: YesNo;
         readonly protocol: string;
         readonly role: ParticipantRole;
-        readonly rx_presentation_policy: 'allow' | 'deny';
+        readonly rx_presentation_policy: "allow" | "deny";
         readonly service_type: ServiceType;
         readonly spotlight: number;
         readonly start_time: number;
@@ -386,11 +381,11 @@ declare namespace PexRTC {
     }
 
     interface GuestParticipant extends Participant {
-        readonly role: 'guest';
+        readonly role: "guest";
     }
 
     interface HostParticipant extends Participant {
-        readonly role: 'chair';
+        readonly role: "chair";
     }
 
     type AnyParticipant =

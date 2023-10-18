@@ -1,9 +1,4 @@
-// Type definitions for mochaccino 1.2
-// Project: https://github.com/pawelgalazka/mochaccino#readme
-// Definitions by: Thomas-P <https://github.com/thomas-p>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-import * as Sinon from 'sinon';
+import * as Sinon from "sinon";
 export interface Expect {
     not: Expect;
     toBe(arg: any): void;
@@ -32,7 +27,7 @@ export interface SpyProxy {
     callFake: (fake: (...args: any[]) => any) => void;
 }
 export interface Dom {
-    exposedProperties: ['window', 'navigator', 'document'];
+    exposedProperties: ["window", "navigator", "document"];
     create: () => void;
     destroy: () => void;
     clear: () => void;

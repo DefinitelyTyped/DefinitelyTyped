@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/prelude-ls",
+    "version": "1.1.9999",
+    "projects": [
+        "http://www.preludels.com"
+    ],
+    "devDependencies": {
+        "@types/prelude-ls": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aya Morisawa",
+            "githubUsername": "AyaMorisawa"
+        }
+    ]
+}

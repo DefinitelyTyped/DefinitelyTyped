@@ -1,6 +1,6 @@
-import * as React from "react";
-import { Flex, Box } from "@rebass/grid";
+import { Box, Flex } from "@rebass/grid";
 import * as Emotion from "@rebass/grid/emotion";
+import * as React from "react";
 
 const test = () => (
     <div>
@@ -55,13 +55,11 @@ const test = () => (
         <Box m={2} />
         // sets margin value of `-1 * theme.space[2]`
         <Box m={-2} />
-        // sets a margin value of `16px` since it's greater than
-        `theme.space.length`
+        // sets a margin value of `16px` since it's greater than `theme.space.length`
         <Box m={16} />
         // sets margin `'auto'`
         <Box m="auto" />
-        // sets margin `8px` on all viewports and `16px` from the smallest
-        breakpoint and up
+        // sets margin `8px` on all viewports and `16px` from the smallest breakpoint and up
         <Box m={[1, 2]} />
         <Box m={{ sm: 1, md: 2 }} />
         // examples // width `50%`
@@ -70,14 +68,12 @@ const test = () => (
         <Box width={256} />
         // width `'2em'`
         <Box width="2em" />
-        // width `100%` on all viewports and `50%` from the smallest breakpoint
-        and up
+        // width `100%` on all viewports and `50%` from the smallest breakpoint and up
         <Box width={[1, 1 / 2]} />
         <Box width={{ sm: 1, md: 1 / 2 }} />
         // examples // picks the value defined in `theme.colors['blue']`
         <Box color="blue" />
-        // picks up a nested color value using dot notation //
-        `theme.colors['gray'][0]`
+        // picks up a nested color value using dot notation // `theme.colors['gray'][0]`
         <Box color="gray.0" />
         // raw CSS color value
         <Box color="#f00" />

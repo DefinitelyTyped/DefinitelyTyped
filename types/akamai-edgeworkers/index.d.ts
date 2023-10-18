@@ -1,11 +1,3 @@
-// Type definitions for non-npm package Akamai EdgeWorkers JavaScript API 1.1
-// Project: https://developer.akamai.com/akamai-edgeworkers-overview
-// Definitions by: Evan Hughes <https://github.com/evan-hughes>
-//                 Will Bain <https://github.com/wabain>
-//                 Swathi Bala <https://github.com/swathimr>
-//                 Aman Nanner <https://github.com/ananner>
-//                 Ben Matthews <https://github.com/bmatthew>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Modifyed by: Shige Fukushima <sfukushi@akamai.com>
 //
@@ -390,9 +382,9 @@ declare namespace EW {
 
         getReader(): ReadableStreamDefaultReader<R>;
 
-        pipeThrough<T>({writable, readable}: {
-            writable: WritableStreamEW<R>,
-            readable: ReadableStreamEW<T>
+        pipeThrough<T>({ writable, readable }: {
+            writable: WritableStreamEW<R>;
+            readable: ReadableStreamEW<T>;
         }, options?: PipeOptions): ReadableStreamEW<T>;
 
         pipeTo(dest: WritableStreamEW<R>, options?: PipeOptions): Promise<void>;
@@ -403,8 +395,8 @@ declare namespace EW {
     const ReadableStreamEW: {
         prototype: ReadableStreamEW;
         new(underlyingSource: UnderlyingByteSource, strategy?: {
-            highWaterMark?: number,
-            size?: undefined
+            highWaterMark?: number;
+            size?: undefined;
         }): ReadableStreamEW<Uint8Array>;
         new<R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStreamEW<R>;
     };
@@ -440,22 +432,39 @@ declare namespace EW {
     }
 
     // onClientRequest
-    interface IngressClientRequest extends MutatesHeaders, ReadsHeaders, ReadAllHeader, ReadsVariables, Request, HasRespondWith, HasRoute, HasCacheKey, MutatesVariables {
+    interface IngressClientRequest
+        extends
+            MutatesHeaders,
+            ReadsHeaders,
+            ReadAllHeader,
+            ReadsVariables,
+            Request,
+            HasRespondWith,
+            HasRoute,
+            HasCacheKey,
+            MutatesVariables
+    {
     }
 
     // onOriginRequest
-    interface IngressOriginRequest extends MutatesHeaders, ReadsHeaders, ReadAllHeader, ReadsVariables, Request, HasRespondWith, MutatesVariables {
+    interface IngressOriginRequest
+        extends MutatesHeaders, ReadsHeaders, ReadAllHeader, ReadsVariables, Request, HasRespondWith, MutatesVariables
+    {
     }
 
     // onOriginResponse
-    interface EgressOriginRequest extends ReadsHeaders, ReadAllHeader, ReadsVariables, Request, HasRespondWith, MutatesVariables {
+    interface EgressOriginRequest
+        extends ReadsHeaders, ReadAllHeader, ReadsVariables, Request, HasRespondWith, MutatesVariables
+    {
     }
 
     interface EgressOriginResponse extends MutatesHeaders, ReadsHeaders, HasStatus {
     }
 
     // onClientResponse
-    interface EgressClientRequest extends ReadsHeaders, ReadAllHeader, ReadsVariables, Request, HasRespondWith, MutatesVariables {
+    interface EgressClientRequest
+        extends ReadsHeaders, ReadAllHeader, ReadsVariables, Request, HasRespondWith, MutatesVariables
+    {
     }
 
     interface EgressClientResponse extends MutatesHeaders, ReadsHeaders, HasStatus {
@@ -695,23 +704,23 @@ declare namespace EW {
     }
 
     export {
-        Headers,
-        ReadableStreamEW,
-        WritableStreamEW,
-        ReadableStreamDefaultControllerEW,
-        QueuingStrategy,
-        UnderlyingSource,
-        UnderlyingByteSource,
-        UnderlyingSink,
-        ReadsHeaders,
-        ReadAllHeader,
-        ResponseProviderRequest,
-        IngressClientRequest,
-        IngressOriginRequest,
+        EgressClientRequest,
+        EgressClientResponse,
         EgressOriginRequest,
         EgressOriginResponse,
-        EgressClientRequest,
-        EgressClientResponse
+        Headers,
+        IngressClientRequest,
+        IngressOriginRequest,
+        QueuingStrategy,
+        ReadableStreamDefaultControllerEW,
+        ReadableStreamEW,
+        ReadAllHeader,
+        ReadsHeaders,
+        ResponseProviderRequest,
+        UnderlyingByteSource,
+        UnderlyingSink,
+        UnderlyingSource,
+        WritableStreamEW,
     };
 }
 
@@ -856,10 +865,10 @@ declare module "create-response" {
      */
     function createResponse(status: number, headers: Headers, body: CreateResponseBody, denyReason?: string): object;
     function createResponse(body?: CreateResponseBody, opts?: {
-        status?: number | undefined,
-        headers?: Headers | undefined,
-        body?: object | undefined,
-        denyReason?: string | undefined
+        status?: number | undefined;
+        headers?: Headers | undefined;
+        body?: object | undefined;
+        denyReason?: string | undefined;
     }): object;
 }
 
@@ -885,10 +894,10 @@ declare module "http-request" {
      *  - `timeout` The request timeout, in milliseconds.
      */
     function httpRequest(url: string, options?: {
-        method?: string | undefined,
-        headers?: { [others: string]: string | string[] } | undefined,
-        body?: RequestBody | undefined,
-        timeout?: number | undefined
+        method?: string | undefined;
+        headers?: { [others: string]: string | string[] } | undefined;
+        body?: RequestBody | undefined;
+        timeout?: number | undefined;
     }): Promise<HttpResponse>;
 
     /**
@@ -933,8 +942,8 @@ declare module "streams" {
     const ReadableStream: {
         prototype: ReadableStream;
         new(underlyingSource: EW.UnderlyingByteSource, strategy?: {
-            highWaterMark?: number,
-            size?: undefined
+            highWaterMark?: number;
+            size?: undefined;
         }): ReadableStream<Uint8Array>;
         new<R = any>(underlyingSource?: EW.UnderlyingSource<R>, strategy?: EW.QueuingStrategy<R>): ReadableStream<R>;
     };
@@ -957,7 +966,11 @@ declare module "streams" {
 
     const TransformStream: {
         prototype: TransformStream;
-        new<I = any, O = any>(transformer?: Transformer<I, O>, writableStrategy?: EW.QueuingStrategy<I>, readableStrategy?: EW.QueuingStrategy<O>): TransformStream<I, O>;
+        new<I = any, O = any>(
+            transformer?: Transformer<I, O>,
+            writableStrategy?: EW.QueuingStrategy<I>,
+            readableStrategy?: EW.QueuingStrategy<O>,
+        ): TransformStream<I, O>;
     };
 
     interface Transformer<I = any, O = any> {
@@ -1011,9 +1024,9 @@ declare module "streams" {
         ByteLengthQueuingStrategy,
         CountQueuingStrategy,
         ReadableStream,
+        ReadableStreamDefaultController,
         TransformStream,
         WritableStream,
-        ReadableStreamDefaultController
     };
 }
 
@@ -1091,7 +1104,7 @@ declare module "text-encode-transform" {
         new(label?: string, options?: TextDecoderOptions): TextDecoderStream;
     };
 
-    export { TextEncoderStream, TextDecoderStream };
+    export { TextDecoderStream, TextEncoderStream };
 }
 
 /**
@@ -1266,7 +1279,7 @@ declare module "encoding" {
     }
 
     type TypedArray =
-        Int8Array
+        | Int8Array
         | Uint8Array
         | Uint8ClampedArray
         | Int16Array
@@ -1319,7 +1332,7 @@ declare module "encoding" {
         readonly encoding: string;
     }
 
-    export { base64, base64url, base16, TextEncoder, TextDecoder };
+    export { base16, base64, base64url, TextDecoder, TextEncoder };
 }
 
 /**

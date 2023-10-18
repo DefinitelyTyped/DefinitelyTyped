@@ -1,8 +1,3 @@
-// Type definitions for non-npm package jsqrcode 1.0
-// Project: https://github.com/LazarSoft/jsqrcode
-// Definitions by: Ricardo Azzi Silva <https://github.com/lordazzi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function URShift(number: number, bits: number): number;
 
 interface ResultPointCallback {
@@ -39,9 +34,13 @@ declare class AlignmentPatternFinder {
     resultPointCallback: ResultPointCallback;
 
     constructor(
-        image: Uint8Array, startX: number, startY: number,
-        width: number, height: number,
-        moduleSize: number, resultPointCallback: ResultPointCallback
+        image: Uint8Array,
+        startX: number,
+        startY: number,
+        width: number,
+        height: number,
+        moduleSize: number,
+        resultPointCallback: ResultPointCallback,
     );
 
     private centerFromEnd(stateCount: number, end: number): number;
@@ -88,7 +87,9 @@ declare class BitMatrixParser {
 
 declare class DataBlock {
     static getDataBlocks(
-        rawCodewords: number[], version: Version, ecLevel: ErrorCorrectionLevel
+        rawCodewords: number[],
+        version: Version,
+        ecLevel: ErrorCorrectionLevel,
     ): DataBlock[];
 
     private numDataCodewords: number;
@@ -181,7 +182,7 @@ declare class DataMask111 extends DataMask {
 }
 
 declare const Decoder: {
-    rsDecoder: ReedSolomonDecoder,
+    rsDecoder: ReedSolomonDecoder;
 
     correctErrors(codewordBytes: number[], numDataCodewords: number): void;
 
@@ -200,24 +201,54 @@ declare class PerspectiveTransform {
     a33: number;
 
     static quadrilateralToQuadrilateral(
-        x0: number, y0: number, x1: number, y1: number,
-        x2: number, y2: number, x3: number, y3: number,
-        x0p: number, y0p: number, x1p: number, y1p: number,
-        x2p: number, y2p: number, x3p: number, y3p: number
+        x0: number,
+        y0: number,
+        x1: number,
+        y1: number,
+        x2: number,
+        y2: number,
+        x3: number,
+        y3: number,
+        x0p: number,
+        y0p: number,
+        x1p: number,
+        y1p: number,
+        x2p: number,
+        y2p: number,
+        x3p: number,
+        y3p: number,
     ): PerspectiveTransform;
     static squareToQuadrilateral(
-        x0: number, y0: number, x1: number, y1: number,
-        x2: number, y2: number, x3: number, y3: number
+        x0: number,
+        y0: number,
+        x1: number,
+        y1: number,
+        x2: number,
+        y2: number,
+        x3: number,
+        y3: number,
     ): PerspectiveTransform;
     static quadrilateralToSquare(
-        x0: number, y0: number, x1: number, y1: number,
-        x2: number, y2: number, x3: number, y3: number
+        x0: number,
+        y0: number,
+        x1: number,
+        y1: number,
+        x2: number,
+        y2: number,
+        x3: number,
+        y3: number,
     ): PerspectiveTransform;
 
     constructor(
-        a11: number, a21: number, a31: number,
-        a12: number, a22: number, a32: number,
-        a13: number, a23: number, a33: number
+        a11: number,
+        a21: number,
+        a31: number,
+        a12: number,
+        a22: number,
+        a32: number,
+        a13: number,
+        a23: number,
+        a33: number,
     );
 
     transformPoints1(points: number[]): void;
@@ -228,13 +259,15 @@ declare class PerspectiveTransform {
 
 declare class DetectorResult {
     bits: BitMatrix;
-    points: [DetectorResult, DetectorResult, DetectorResult] |
-    [DetectorResult, DetectorResult, DetectorResult, DetectorResult];
+    points:
+        | [DetectorResult, DetectorResult, DetectorResult]
+        | [DetectorResult, DetectorResult, DetectorResult, DetectorResult];
 
     constructor(
         bits: BitMatrix,
-        points: [DetectorResult, DetectorResult, DetectorResult] |
-            [DetectorResult, DetectorResult, DetectorResult, DetectorResult]
+        points:
+            | [DetectorResult, DetectorResult, DetectorResult]
+            | [DetectorResult, DetectorResult, DetectorResult, DetectorResult],
     );
 }
 
@@ -249,9 +282,25 @@ declare class Detector {
     calculateModuleSizeOneWay(pattern: AlignmentPattern, otherPattern: AlignmentPattern): number;
     calculateModuleSize(topLeft: AlignmentPattern, topRight: AlignmentPattern, bottomLeft: AlignmentPattern): number;
     distance(pattern1: AlignmentPattern, pattern2: AlignmentPattern): number;
-    computeDimension(topLeft: AlignmentPattern, topRight: AlignmentPattern, bottomLeft: AlignmentPattern, moduleSize: number): number;
-    findAlignmentInRegion(overallEstModuleSize: number, estAlignmentX: number, estAlignmentY: number, allowanceFactor: number): AlignmentPattern;
-    createTransform(topLeft: AlignmentPattern, topRight: AlignmentPattern, bottomLeft: AlignmentPattern, alignmentPattern: AlignmentPattern, dimension: number): PerspectiveTransform;
+    computeDimension(
+        topLeft: AlignmentPattern,
+        topRight: AlignmentPattern,
+        bottomLeft: AlignmentPattern,
+        moduleSize: number,
+    ): number;
+    findAlignmentInRegion(
+        overallEstModuleSize: number,
+        estAlignmentX: number,
+        estAlignmentY: number,
+        allowanceFactor: number,
+    ): AlignmentPattern;
+    createTransform(
+        topLeft: AlignmentPattern,
+        topRight: AlignmentPattern,
+        bottomLeft: AlignmentPattern,
+        alignmentPattern: AlignmentPattern,
+        dimension: number,
+    ): PerspectiveTransform;
     sampleGrid(image: Uint8Array, transform: PerspectiveTransform, dimension: number): BitMatrix;
     processFinderPatternInfo(info: FinderPatternInfo): DetectorResult;
     detect(): DetectorResult;
@@ -327,11 +376,38 @@ declare class FinderPatternFinder {
 
 declare const FORMAT_INFO_MASK_QR: 0x5412;
 declare const FORMAT_INFO_DECODE_LOOKUP: [
-    [0x5412, 0x00], [0x5125, 0x01], [0x5E7C, 0x02], [0x5B4B, 0x03], [0x45F9, 0x04], [0x40CE, 0x05], [0x4F97, 0x06],
-    [0x4AA0, 0x07], [0x77C4, 0x08], [0x72F3, 0x09], [0x7DAA, 0x0A], [0x789D, 0x0B], [0x662F, 0x0C], [0x6318, 0x0D],
-    [0x6C41, 0x0E], [0x6976, 0x0F], [0x1689, 0x10], [0x13BE, 0x11], [0x1CE7, 0x12], [0x19D0, 0x13], [0x0762, 0x14],
-    [0x0255, 0x15], [0x0D0C, 0x16], [0x083B, 0x17], [0x355F, 0x18], [0x3068, 0x19], [0x3F31, 0x1A], [0x3A06, 0x1B],
-    [0x24B4, 0x1C], [0x2183, 0x1D], [0x2EDA, 0x1E], [0x2BED, 0x1F]
+    [0x5412, 0x00],
+    [0x5125, 0x01],
+    [0x5E7C, 0x02],
+    [0x5B4B, 0x03],
+    [0x45F9, 0x04],
+    [0x40CE, 0x05],
+    [0x4F97, 0x06],
+    [0x4AA0, 0x07],
+    [0x77C4, 0x08],
+    [0x72F3, 0x09],
+    [0x7DAA, 0x0A],
+    [0x789D, 0x0B],
+    [0x662F, 0x0C],
+    [0x6318, 0x0D],
+    [0x6C41, 0x0E],
+    [0x6976, 0x0F],
+    [0x1689, 0x10],
+    [0x13BE, 0x11],
+    [0x1CE7, 0x12],
+    [0x19D0, 0x13],
+    [0x0762, 0x14],
+    [0x0255, 0x15],
+    [0x0D0C, 0x16],
+    [0x083B, 0x17],
+    [0x355F, 0x18],
+    [0x3068, 0x19],
+    [0x3F31, 0x1A],
+    [0x3A06, 0x1B],
+    [0x24B4, 0x1C],
+    [0x2183, 0x1D],
+    [0x2EDA, 0x1E],
+    [0x2BED, 0x1F],
 ];
 declare const BITS_SET_IN_HALF_BYTE: [0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4];
 
@@ -396,11 +472,24 @@ declare const GridSampler: {
     checkAndNudgePoints(image: Uint8Array, points: number[]): void;
     sampleGrid3(image: Uint8Array, dimension: number, transform: PerspectiveTransform): BitMatrix;
     sampleGridx(
-        image: Uint8Array, dimension: number, p1ToX: number,
-        p1ToY: number, p2ToX: number, p2ToY: number, p3ToX: number,
-        p3ToY: number, p4ToX: number, p4ToY: number, p1FromX: number,
-        p1FromY: number, p2FromX: number, p2FromY: number, p3FromX: number,
-        p3FromY: number, p4FromX: number, p4FromY: number
+        image: Uint8Array,
+        dimension: number,
+        p1ToX: number,
+        p1ToY: number,
+        p2ToX: number,
+        p2ToY: number,
+        p3ToX: number,
+        p3ToY: number,
+        p4ToX: number,
+        p4ToY: number,
+        p1FromX: number,
+        p1FromY: number,
+        p2FromX: number,
+        p2FromY: number,
+        p3FromX: number,
+        p3FromY: number,
+        p4FromX: number,
+        p4FromY: number,
     ): BitMatrix;
 };
 
@@ -441,10 +530,40 @@ declare class ECBlocks {
 
 declare class Version {
     static readonly VERSION_DECODE_INFO: [
-        0x07C94, 0x085BC, 0x09A99, 0x0A4D3, 0x0BBF6, 0x0C762, 0x0D847, 0x0E60D, 0x0F928,
-        0x10B78, 0x1145D, 0x12A17, 0x13532, 0x149A6, 0x15683, 0x168C9, 0x177EC, 0x18EC4,
-        0x191E1, 0x1AFAB, 0x1B08E, 0x1CC1A, 0x1D33F, 0x1ED75, 0x1F250, 0x209D5, 0x216F0,
-        0x228BA, 0x2379F, 0x24B0B, 0x2542E, 0x26A64, 0x27541, 0x28C69
+        0x07C94,
+        0x085BC,
+        0x09A99,
+        0x0A4D3,
+        0x0BBF6,
+        0x0C762,
+        0x0D847,
+        0x0E60D,
+        0x0F928,
+        0x10B78,
+        0x1145D,
+        0x12A17,
+        0x13532,
+        0x149A6,
+        0x15683,
+        0x168C9,
+        0x177EC,
+        0x18EC4,
+        0x191E1,
+        0x1AFAB,
+        0x1B08E,
+        0x1CC1A,
+        0x1D33F,
+        0x1ED75,
+        0x1F250,
+        0x209D5,
+        0x216F0,
+        0x228BA,
+        0x2379F,
+        0x24B0B,
+        0x2542E,
+        0x26A64,
+        0x27541,
+        0x28C69,
     ];
     static readonly VERSIONS: Version[];
 
@@ -461,9 +580,14 @@ declare class Version {
     readonly TotalCodewords: number;
     readonly DimensionForVersion: number;
 
-    constructor(versionNumber: number, alignmentPatternCenters: number[],
-        ecBlocks1: ECBlocks, ecBlocks2: ECBlocks,
-        ecBlocks3: ECBlocks, ecBlocks4: ECBlocks);
+    constructor(
+        versionNumber: number,
+        alignmentPatternCenters: number[],
+        ecBlocks1: ECBlocks,
+        ecBlocks2: ECBlocks,
+        ecBlocks3: ECBlocks,
+        ecBlocks4: ECBlocks,
+    );
 
     buildFunctionPattern(): BitMatrix;
 
@@ -471,29 +595,29 @@ declare class Version {
 }
 
 declare const qrcode: {
-    imagedata: ImageData,
-    width: number,
-    height: number,
-    qrCodeSymbol: any,
-    debug: boolean,
-    maxImgSize: number,
-    readonly sizeOfDataLengthInfo: [[10, 9, 8, 8], [12, 11, 16, 10], [14, 13, 16, 12]],
+    imagedata: ImageData;
+    width: number;
+    height: number;
+    qrCodeSymbol: any;
+    debug: boolean;
+    maxImgSize: number;
+    readonly sizeOfDataLengthInfo: [[10, 9, 8, 8], [12, 11, 16, 10], [14, 13, 16, 12]];
 
-    callback: (result: string) => void,
+    callback: (result: string) => void;
 
-    orderBestPatterns(patterns: AlignmentPattern[]): void,
+    orderBestPatterns(patterns: AlignmentPattern[]): void;
 
-    vidError(error?: any): void,
-    captureToCanvas(): void,
-    setWebcam(videoId: string): void,
-    decode(src?: string): void,
-    isUrl(s: string): boolean,
-    decode_url(s: string): string,
-    decode_utf8(s: string): string,
-    process(ctx: CanvasRenderingContext2D): string,
-    getPixel(x: number, y: number): number,
-    binarize(th: number): boolean[],
-    getMiddleBrightnessPerArea(image: number[]): number[][],
-    grayScaleToBitmap(grayScale: number[]): Uint8Array,
-    grayscale(): Uint8Array
+    vidError(error?: any): void;
+    captureToCanvas(): void;
+    setWebcam(videoId: string): void;
+    decode(src?: string): void;
+    isUrl(s: string): boolean;
+    decode_url(s: string): string;
+    decode_utf8(s: string): string;
+    process(ctx: CanvasRenderingContext2D): string;
+    getPixel(x: number, y: number): number;
+    binarize(th: number): boolean[];
+    getMiddleBrightnessPerArea(image: number[]): number[][];
+    grayScaleToBitmap(grayScale: number[]): Uint8Array;
+    grayscale(): Uint8Array;
 };

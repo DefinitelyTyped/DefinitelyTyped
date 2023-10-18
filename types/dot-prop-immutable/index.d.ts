@@ -1,13 +1,6 @@
-// Type definitions for dot-prop-immutable 1.5
-// Project: https://github.com/debitoor/dot-prop-immutable
-// Definitions by: Paul Brussee <https://github.com/brussee>
-//                 Linus Unnebäck <https://github.com/LinusU>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 export type ArrayOrObject = any[] | object;
 
-export type Path = number | string | Array<number|string>;
+export type Path = number | string | Array<number | string>;
 
 /**
  * Access a nested property by a dot path
@@ -58,13 +51,13 @@ export type Path = number | string | Array<number|string>;
  */
 export function get(
     object: ArrayOrObject | undefined,
-    path: Path
+    path: Path,
 ): any;
 
 export function get<V>(
     object: ArrayOrObject | undefined,
     path: Path,
-    defaultValue: V
+    defaultValue: V,
 ): V;
 
 /**
@@ -111,7 +104,7 @@ export function get<V>(
 export function set<T extends ArrayOrObject>(
     object: T,
     path: Path,
-    value: any
+    value: any,
 ): T;
 
 /**
@@ -133,7 +126,7 @@ export function set<T extends ArrayOrObject>(
  */
 declare function _delete<T extends ArrayOrObject>(
     object: T,
-    path: Path
+    path: Path,
 ): T;
 export { _delete as delete };
 
@@ -153,7 +146,7 @@ export { _delete as delete };
  */
 export function toggle<T extends ArrayOrObject>(
     object: T,
-    path: Path
+    path: Path,
 ): T;
 
 /**
@@ -185,5 +178,5 @@ export function toggle<T extends ArrayOrObject>(
 export function merge<T extends ArrayOrObject>(
     object: T,
     path: Path,
-    value: ArrayOrObject
+    value: ArrayOrObject,
 ): T;

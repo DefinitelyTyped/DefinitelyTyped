@@ -1,14 +1,5 @@
-// Type definitions for react-native-material-textfield 0.16
-// Project: https://github.com/n4kz/react-native-material-textfield
-// Definitions by: Ville Venäläinen <https://github.com/mindhivefi>
-//                 Kyle Roach <https://github.com/iRoachie>
-//                 Deividi Cavarzan <https://github.com/cavarzan>
-//                 Neel bhasin <https://github.com/neelb2>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
-import { StyleProp, TextInputProps, TextStyle, ViewStyle } from 'react-native';
+import * as React from "react";
+import { StyleProp, TextInputProps, TextStyle, ViewStyle } from "react-native";
 
 export interface ContentInset {
     top?: number | undefined;
@@ -61,8 +52,8 @@ export interface TextFieldProps extends TextInputProps {
     renderLeftAccessory?(): JSX.Element;
     renderRightAccessory?(): JSX.Element;
 
-    lineType?: 'solid' | 'dotted' | 'dashed' | 'none' | undefined;
-    disabledLineType?: 'solid' | 'dotted' | 'dashed' | 'none' | undefined;
+    lineType?: "solid" | "dotted" | "dashed" | "none" | undefined;
+    disabledLineType?: "solid" | "dotted" | "dashed" | "none" | undefined;
 
     editable?: boolean | undefined;
     multiline?: boolean | undefined;

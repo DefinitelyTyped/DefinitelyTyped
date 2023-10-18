@@ -1,9 +1,3 @@
-// Type definitions for karma-notify-reporter 1.2
-// Project: https://github.com/jdcataldo/karma-notify-reporter#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 import "karma";
 
 declare module "karma" {

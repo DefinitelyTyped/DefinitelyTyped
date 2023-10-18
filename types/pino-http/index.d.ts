@@ -1,14 +1,5 @@
-// Type definitions for pino-http 5.8
-// Project: https://github.com/pinojs/pino-http#readme
-// Definitions by: Christian Rackerseder <https://github.com/screendriver>
-//                 Jeremy Forsythe <https://github.com/jdforsythe>
-//                 Griffin Yourick <https://github.com/tough-griff>
-//                 Jorge Barnaby <https://github.com/yorch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
-import { IncomingMessage, ServerResponse } from 'http';
-import { DestinationStream, Level, Logger, LoggerOptions } from 'pino';
+import { IncomingMessage, ServerResponse } from "http";
+import { DestinationStream, Level, Logger, LoggerOptions } from "pino";
 
 export = PinoHttp;
 
@@ -47,7 +38,7 @@ declare namespace PinoHttp {
     }
 
     interface AutoLoggingOptions {
-        ignore?: ((req: IncomingMessage) => boolean);
+        ignore?: (req: IncomingMessage) => boolean;
         ignorePaths?: Array<string | RegExp> | undefined;
         getPath?: ((req: IncomingMessage) => string | undefined) | undefined;
     }
@@ -63,7 +54,7 @@ declare namespace PinoHttp {
     const startTime: unique symbol;
 }
 
-declare module 'http' {
+declare module "http" {
     interface IncomingMessage {
         id: PinoHttp.ReqId;
         log: Logger;

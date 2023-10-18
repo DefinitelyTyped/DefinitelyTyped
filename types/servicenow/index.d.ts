@@ -1,9 +1,3 @@
-// Type definitions for ServiceNow Javascript Scoped API 10.x
-// Project: https://docs.servicenow.com/bundle/jakarta-application-development/page/build/applications/concept/api-javascript.html, https://github.com/wa-ocio/servicenowrest
-// Definitions by: Bryce Godfrey <https://github.com/bryceg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 declare const email: servicenow.GlideEmailOutbound;
 declare const g_processor: servicenow.GlideScriptedProcessor;
 declare const g_request: servicenow.GlideServletRequest;
@@ -22,7 +16,12 @@ declare namespace sn_ws {
         getRequestBody(): string;
         getRequestHeader(headerName: string): string;
         getRequestHeaders(): object;
-        saveResponseBodyAsAttachment(tableName: string, recordSysId: string, fileName: string, encryptContext?: string): void;
+        saveResponseBodyAsAttachment(
+            tableName: string,
+            recordSysId: string,
+            fileName: string,
+            encryptContext?: string,
+        ): void;
         setAuthenticationProfile(type: string, profileId: string): void;
         setBasicAuth(userName: string, userPass: string): void;
         setEccCorrelator(correlator: string): void;
@@ -30,7 +29,7 @@ declare namespace sn_ws {
         setEndpoint(endpoint: string): void;
         setHttpMethod(method: servicenow.RestHTTPMethods): void;
         setHttpTimeout(timeoutMs: number): void;
-        setLogLevel(level: 'basic'|'elevated'|'all'): void;
+        setLogLevel(level: "basic" | "elevated" | "all"): void;
         setMIDServer(midServer: string): void;
         setMutualAuth(profileName: string): void;
         setQueryParameter(name: string, value: string): void;
@@ -70,10 +69,10 @@ declare namespace sn_ws {
 
 declare namespace global {
     const GlideStringUtil: {
-        base64Decode(value: string): string,
-        base64DecodeAsBytes(value: string): any,
-        escapeHTML(value: string): string,
-        getStringFromStream(stream: object): string
+        base64Decode(value: string): string;
+        base64DecodeAsBytes(value: string): any;
+        escapeHTML(value: string): string;
+        getStringFromStream(stream: object): string;
     };
 
     const Class: {
@@ -99,10 +98,21 @@ declare namespace global {
         hasWorkflow(record: servicenow.GlideRecord): boolean;
         restartWorkflow(record: servicenow.GlideRecord, maintainStateFlag: boolean): void;
         runFlows(record: servicenow.GlideRecord, operation: servicenow.GlideRecordOperation): void;
-        startFlow(workflowId: string, current: servicenow.GlideRecord|null, operation: servicenow.GlideRecordOperation, vars?: object): string;
+        startFlow(
+            workflowId: string,
+            current: servicenow.GlideRecord | null,
+            operation: servicenow.GlideRecordOperation,
+            vars?: object,
+        ): string;
         startFlowFromContextInsert(context: servicenow.GlideRecord, operation: servicenow.GlideRecordOperation): void;
         startFlowRetroactive(
-            workflowID: string, retroactiveMSecs: number, current: servicenow.GlideRecord, operation: servicenow.GlideRecordOperation, vars?: object, withSchedule?: any): servicenow.GlideRecord;
+            workflowID: string,
+            retroactiveMSecs: number,
+            current: servicenow.GlideRecord,
+            operation: servicenow.GlideRecordOperation,
+            vars?: object,
+            withSchedule?: any,
+        ): servicenow.GlideRecord;
     }
 }
 
@@ -118,9 +128,9 @@ declare class GlideTime {
 }
 
 declare class GlideDateTime {
-    constructor(value?: string|GlideDateTime);
+    constructor(value?: string | GlideDateTime);
 
-    add(gd: GlideTime|number): void;
+    add(gd: GlideTime | number): void;
     addDaysLocalTime(amount: number): void;
     addDaysUTC(amount: number): void;
     addMonthsLocalTime(amount: number): void;
@@ -165,12 +175,12 @@ declare class GlideDateTime {
     setMonthLocalTime(month: number): void;
     setMonthUTC(month: number): void;
     setNumericValue(milliseconds: number): void;
-    setValue(o: string|number|GlideDateTime): void;
+    setValue(o: string | number | GlideDateTime): void;
     setValueUTC(dt: string, format: string): void;
     setYearLocalTime(year: number): void;
     setYearUTC(year: number): void;
     subtract(start: GlideDateTime, end?: GlideDateTime): GlideDuration;
-    subtract(time: GlideTime|number): void;
+    subtract(time: GlideTime | number): void;
     toString(): string;
 }
 
@@ -200,7 +210,7 @@ declare class XMLDocument2 {
 }
 
 declare class GlideDuration {
-    constructor(value?: GlideDuration|number|string);
+    constructor(value?: GlideDuration | number | string);
     add(value: GlideDuration): GlideDuration;
     getByFormat(format: string): string;
     getDayPart(): number;
@@ -253,10 +263,10 @@ declare class GlideEvaluator {
 }
 
 declare const GlideSecureRandomUtil: {
-    getSecureRandomInt(): number,
-    getSecureRandomIntBound(bound: number): number,
-    getSecureRandomLong(): number,
-    getSecureRandomString(length: number): string
+    getSecureRandomInt(): number;
+    getSecureRandomIntBound(bound: number): number;
+    getSecureRandomLong(): number;
+    getSecureRandomString(length: number): string;
 };
 
 declare class GlideSysAttachment {
@@ -268,7 +278,12 @@ declare class GlideSysAttachment {
     getContentStream(sysId: string): object;
     write(record: servicenow.GlideRecord, fileName: string, contentType: string, data: any): string;
     writeBase64(record: servicenow.GlideRecord, fileName: string, contentType: string, base64Content: string): string;
-    writeContentStream(record: servicenow.GlideRecord, fileName: string, contentType: string, inputStream: object): string;
+    writeContentStream(
+        record: servicenow.GlideRecord,
+        fileName: string,
+        contentType: string,
+        inputStream: object,
+    ): string;
 }
 
 declare namespace servicenow {
@@ -279,14 +294,14 @@ declare namespace servicenow {
         readonly sys_mod_count: number & GlideElement;
         readonly sys_updated_by: string & GlideElement;
         readonly sys_updated_on: GlideDateTime & GlideElement;
-        new (type: string): GlideRecord;
+        new(type: string): GlideRecord;
         addActiveQuery(): GlideQueryCondition;
         addEncodedQuery(query: string): void;
         addJoinQuery(joinTable: string, primaryField?: string, joinTableField?: string): GlideQueryCondition;
         addNotNullQuery(fieldName: string): GlideQueryCondition;
         addNullQuery(fieldName: string): GlideQueryCondition;
-        addQuery(fieldName: string, operator: QueryOperator, value: object|string|number): GlideQueryCondition;
-        addQuery(fieldName: string, value?: object|string|number): GlideQueryCondition;
+        addQuery(fieldName: string, operator: QueryOperator, value: object | string | number): GlideQueryCondition;
+        addQuery(fieldName: string, value?: object | string | number): GlideQueryCondition;
         canCreate(): boolean;
         canDelete(): boolean;
         canRead(): boolean;
@@ -344,10 +359,10 @@ declare namespace servicenow {
     }
 
     interface GlideQueryCondition {
-        addCondition(name: string, value: object|string|number): GlideQueryCondition;
-        addCondition(name: string, oper: QueryOperator, value: object|string|number): GlideQueryCondition;
-        addOrCondition(name: string, oper: QueryOperator, value: object|string|number): GlideQueryCondition;
-        addOrCondition(name: string, value: object|string|number): GlideQueryCondition;
+        addCondition(name: string, value: object | string | number): GlideQueryCondition;
+        addCondition(name: string, oper: QueryOperator, value: object | string | number): GlideQueryCondition;
+        addOrCondition(name: string, oper: QueryOperator, value: object | string | number): GlideQueryCondition;
+        addOrCondition(name: string, value: object | string | number): GlideQueryCondition;
     }
 
     interface GlideElement {
@@ -367,7 +382,7 @@ declare namespace servicenow {
         nil(): boolean;
         setDisplayValue(value: object): void;
         setError(value: string): void;
-        setValue(value: object|string): void;
+        setValue(value: object | string): void;
         toString(): string;
     }
 
@@ -449,8 +464,20 @@ declare namespace servicenow {
         endOfThisWeek(): string;
         endOfThisYear(): string;
         error(message: string, parm1?: any, parm2?: any, parm3?: any, parm4?: any, parm5?: any): void;
-        eventQueue(eventName: string, gr: GlideRecord, optionalParam1: string, optionalParam2: string, eventQueue?: string): void;
-        eventQueueScheduled(name: string, instance: GlideRecord, parm1: string, parm2: string, expiration: object): void;
+        eventQueue(
+            eventName: string,
+            gr: GlideRecord,
+            optionalParam1: string,
+            optionalParam2: string,
+            eventQueue?: string,
+        ): void;
+        eventQueueScheduled(
+            name: string,
+            instance: GlideRecord,
+            parm1: string,
+            parm2: string,
+            expiration: object,
+        ): void;
         executeNow(job: GlideRecord): string;
         generateGUID(): string;
         getCallerScopeName(): string;
@@ -534,7 +561,7 @@ declare namespace servicenow {
 
     interface RESTResponseV2 {
         getBody(): string;
-        getCookies(): { size: () => number, get: (index: number) => string };
+        getCookies(): { size: () => number; get: (index: number) => string };
         getErrorCode(): number;
         getErrorMessage(): string;
         getHeader(name: string): string;
@@ -581,7 +608,19 @@ declare namespace servicenow {
         writeString(data: string): void;
     }
 
-    type QueryOperator = "="|"!="|">"|">="|"<"|"<="|"IN"|"STARTSWITH"|"ENDSWITH"|"CONTAINS"|"DOESNOTCONTAIN"|"INSTANCEOF";
-    type RestHTTPMethods = "get"|"post"|"delete"|"patch"|"put"|"head"|"delete"|"options";
-    type GlideRecordOperation = "insert"|"update"|"delete";
+    type QueryOperator =
+        | "="
+        | "!="
+        | ">"
+        | ">="
+        | "<"
+        | "<="
+        | "IN"
+        | "STARTSWITH"
+        | "ENDSWITH"
+        | "CONTAINS"
+        | "DOESNOTCONTAIN"
+        | "INSTANCEOF";
+    type RestHTTPMethods = "get" | "post" | "delete" | "patch" | "put" | "head" | "delete" | "options";
+    type GlideRecordOperation = "insert" | "update" | "delete";
 }

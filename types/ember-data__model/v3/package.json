@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/ember-data__model",
+    "version": "3.16.9999",
+    "projects": [
+        "https://github.com/emberjs/data"
+    ],
+    "dependencies": {
+        "@types/ember-data": "^3"
+    },
+    "devDependencies": {
+        "@types/ember-data__model": "workspace:.",
+        "@types/ember__object": "*",
+        "@types/rsvp": "*"
+    },
+    "owners": [
+        {
+            "name": "Mike North",
+            "githubUsername": "mike-north"
+        },
+        {
+            "name": "Chris Krycho",
+            "githubUsername": "chriskrycho"
+        },
+        {
+            "name": "Krystan HuffMenne",
+            "githubUsername": "gitKrystan"
+        },
+        {
+            "name": "James C. Davis",
+            "githubUsername": "jamescdavis"
+        }
+    ]
+}

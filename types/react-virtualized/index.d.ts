@@ -1,29 +1,17 @@
-// Type definitions for react-virtualized 9.21
-// Project: https://github.com/bvaughn/react-virtualized
-// Definitions by: Kalle Ott <https://github.com/kaoDev>
-//                 John Gunther <https://github.com/guntherjh>
-//                 Konstantin Nesterov <https://github.com/wasd171>
-//                 Steve Zhang <https://github.com/Stevearzh>
-//                 Brandon Hall <https://github.com/brandonhall>
-//                 Sebastian Busch <https://github.com/sbusch>
-//                 Adam Zmenak <https://github.com/azmenak>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 export {
     ArrowKeyStepper,
     ArrowKeyStepperProps,
     ChildProps as ArrowKeyStepperChildProps,
     ScrollIndices,
-} from './dist/es/ArrowKeyStepper';
-export { AutoSizer, AutoSizerProps, Dimensions, Size } from './dist/es/AutoSizer';
+} from "./dist/es/ArrowKeyStepper";
+export { AutoSizer, AutoSizerProps, Dimensions, Size } from "./dist/es/AutoSizer";
 export {
     CellMeasurer,
     CellMeasurerCache,
     CellMeasurerCacheParams,
     CellMeasurerProps,
     KeyMapper,
-} from './dist/es/CellMeasurer';
+} from "./dist/es/CellMeasurer";
 export {
     Collection,
     CollectionCellGroupRenderer,
@@ -33,17 +21,17 @@ export {
     CollectionCellSizeAndPosition,
     CollectionCellSizeAndPositionGetter,
     CollectionProps,
-} from './dist/es/Collection';
-export { ColumnSizer, ColumnSizerProps, SizedColumnProps } from './dist/es/ColumnSizer';
+} from "./dist/es/Collection";
+export { ColumnSizer, ColumnSizerProps, SizedColumnProps } from "./dist/es/ColumnSizer";
 export {
     accessibilityOverscanIndicesGetter,
-    defaultOverscanIndicesGetter,
-    defaultCellRangeRenderer,
-    Grid,
     CellSizeAndPositionManager,
     ConfigureParams,
     ContainerSizeAndOffset,
+    defaultCellRangeRenderer,
+    defaultOverscanIndicesGetter,
     GetVisibleCellRangeParams,
+    Grid,
     GridCellProps,
     GridCellRangeProps,
     GridCellRangeRenderer,
@@ -52,19 +40,19 @@ export {
     GridState,
     OverscanIndices,
     OverscanIndicesGetterParams,
+    ScrollbarPresenceParams,
     ScrollDirection,
     ScrollParams,
     SectionRenderedParams,
     SizeAndPositionData,
     VisibleCellRange,
-    ScrollbarPresenceParams,
-} from './dist/es/Grid';
-export { InfiniteLoader, InfiniteLoaderChildProps, InfiniteLoaderProps } from './dist/es/InfiniteLoader';
-export { List, ListProps, ListRowProps, ListRowRenderer } from './dist/es/List';
+} from "./dist/es/Grid";
+export { InfiniteLoader, InfiniteLoaderChildProps, InfiniteLoaderProps } from "./dist/es/InfiniteLoader";
+export { List, ListProps, ListRowProps, ListRowRenderer } from "./dist/es/List";
 export {
+    CellRenderer,
     createCellPositioner as createMasonryCellPositioner,
     Masonry,
-    CellRenderer,
     MasonryCellProps,
     MasonryProps,
     MasonryState,
@@ -72,30 +60,31 @@ export {
     OnScrollCallback,
     Position,
     Positioner,
-} from './dist/es/Masonry';
-export { MultiGrid, MultiGridProps, MultiGridState } from './dist/es/MultiGrid';
+} from "./dist/es/Masonry";
+export { MultiGrid, MultiGridProps, MultiGridState } from "./dist/es/MultiGrid";
 export {
-    ScrollSync,
     OnScrollParams,
+    ScrollSync,
     ScrollSyncChildProps,
     ScrollSyncProps,
     ScrollSyncState,
-} from './dist/es/ScrollSync';
+} from "./dist/es/ScrollSync";
 export {
+    Column,
+    ColumnProps,
     createMultiSort as createTableMultiSort,
     defaultCellDataGetter as defaultTableCellDataGetter,
     defaultCellRenderer as defaultTableCellRenderer,
     defaultHeaderRenderer as defaultTableHeaderRenderer,
     defaultHeaderRowRenderer as defaultTableHeaderRowRenderer,
     defaultRowRenderer as defaultTableRowRenderer,
-    Table,
-    Column,
-    SortDirection,
-    SortIndicator,
-    ColumnProps,
     HeaderMouseEventHandlerParams,
     RowMouseEventHandlerParams,
+    SortDirection,
     SortDirectionType,
+    SortIndicator,
+    SortParams,
+    Table,
     TableCellDataGetter,
     TableCellDataGetterParams,
     TableCellProps,
@@ -107,15 +96,14 @@ export {
     TableProps,
     TableRowProps,
     TableRowRenderer,
-    SortParams,
-} from './dist/es/Table';
+} from "./dist/es/Table";
 export {
+    IS_SCROLLING_TIMEOUT,
     WindowScroller,
     WindowScrollerChildProps,
     WindowScrollerProps,
     WindowScrollerState,
-    IS_SCROLLING_TIMEOUT,
-} from './dist/es/WindowScroller';
+} from "./dist/es/WindowScroller";
 
 export type Index = {
     index: number;
@@ -140,7 +128,7 @@ export type SizeAndPositionInfo = SizeInfo & PositionInfo;
 
 export type Map<T> = { [key: string]: T };
 
-export type Alignment = 'auto' | 'end' | 'start' | 'center';
+export type Alignment = "auto" | "end" | "start" | "center";
 
 export type IndexRange = {
     startIndex: number;

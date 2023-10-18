@@ -1,20 +1,13 @@
-// Type definitions for webpack-serve 2.0
-// Project: https://github.com/shellscape/webpack-serve
-// Definitions by: Jokcy <https://github.com/Jokcy>
-//                 ZSkycat <https://github.com/ZSkycat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /// <reference types="node" />
 
-import * as koa from 'koa';
-import * as webpack from 'webpack';
-import * as webpackDevMiddleware from 'webpack-dev-middleware';
-import * as webpackHotClient from 'webpack-hot-client';
-import * as https from 'https';
-import * as net from 'net';
+import * as https from "https";
+import * as koa from "koa";
+import * as net from "net";
+import * as webpack from "webpack";
+import * as webpackDevMiddleware from "webpack-dev-middleware";
+import * as webpackHotClient from "webpack-hot-client";
 
-declare module 'webpack' {
+declare module "webpack" {
     interface Configuration {
         serve?: WebpackServe.Options | undefined;
     }
@@ -66,7 +59,7 @@ declare namespace WebpackServe {
         https?: https.ServerOptions | undefined;
 
         /** Level of information for webpack-serve to output */
-        logLevel?: 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'silent' | undefined;
+        logLevel?: "trace" | "debug" | "info" | "warn" | "error" | "silent" | undefined;
 
         /** Prepend timestamp to each log line */
         logTime?: boolean | undefined;
@@ -96,7 +89,7 @@ declare namespace WebpackServe {
     }
 
     interface InitializedOptions extends Options {
-        protocol: 'http' | 'https';
+        protocol: "http" | "https";
     }
 
     interface Middleware {
@@ -107,10 +100,10 @@ declare namespace WebpackServe {
     }
 
     interface EventMap {
-        'build-started': { compiler: webpack.Compiler };
-        'build-finished': { compiler: webpack.Compiler; stats: webpack.Stats };
-        'compiler-error': { compiler: webpack.Compiler; stats: any };
-        'compiler-warning': { compiler: webpack.Compiler; stats: any };
+        "build-started": { compiler: webpack.Compiler };
+        "build-finished": { compiler: webpack.Compiler; stats: webpack.Stats };
+        "compiler-error": { compiler: webpack.Compiler; stats: any };
+        "compiler-warning": { compiler: webpack.Compiler; stats: any };
         listening: { server: net.Server; options: InitializedOptions };
     }
 }

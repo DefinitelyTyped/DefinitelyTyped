@@ -1,9 +1,3 @@
-// Type definitions for jui-core 2.0
-// Project: https://github.com/juijs/jui-core
-// Definitions by: JinHo Park <https://github.com/easylogic>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 export const jui: JuiStatic;
@@ -12,11 +6,11 @@ export interface UtilBase {
     /** check browser agent */
     browser: {
         /** Webkit 브라우저 체크 */
-        webkit: boolean,
+        webkit: boolean;
         /** Mozilla 브라우저 체크 */
-        mozilla: boolean,
+        mozilla: boolean;
         /** IE 브라우저 체크 */
-        msie: boolean
+        msie: boolean;
     };
 
     isTouch: boolean;
@@ -27,7 +21,7 @@ export interface UtilBase {
      * @param ctor base Class
      * @param superCtor super Class
      */
-    inherit(ctor: ((...args: any[]) => any), superCtor: ((...args: any[]) => any)): void;
+    inherit(ctor: (...args: any[]) => any, superCtor: (...args: any[]) => any): void;
 
     /**
      * implements object extend
@@ -58,7 +52,7 @@ export interface UtilBase {
     /**
      * caculate callback runtime
      */
-    runtime(name: string, callback: ((...args: any[]) => void)): void;
+    runtime(name: string, callback: (...args: any[]) => void): void;
 
     /**
      * parsing template string
@@ -69,7 +63,7 @@ export interface UtilBase {
      * add event in window resize event
      * @param ms delay time
      */
-    resize(callback: ((...args: any[]) => void), ms: number): void;
+    resize(callback: (...args: any[]) => void, ms: number): void;
 
     /**
      * IndexParser 객체 생성
@@ -102,7 +96,7 @@ export interface UtilBase {
     /**
      * file 에서 csv 컨텐츠 로드
      */
-    fileToCsv(fileText: string, callback: ((data: any) => void)): void;
+    fileToCsv(fileText: string, callback: (data: any) => void): void;
 
     /**
      * csv 다운로드 링크로 변환
@@ -114,14 +108,11 @@ export interface UtilBase {
     csvToData(keys: string[], csv: string, csvNumber: number): any[];
 
     /**
-     *
      * csv 에서 필드 얻어오기
-     *
      */
     getCsvFields(fields: string[], csvFields: string[]): string[];
 
     /**
-     *
      * xml 문자열로 svg datauri 생성
      *
      * @return 변환된 data uri 링크
@@ -129,7 +120,6 @@ export interface UtilBase {
     svgToBase64(xml: string): string;
 
     /**
-     *
      * implements date format function
      *
      * yyyy : 4 digits year
@@ -141,7 +131,6 @@ export interface UtilBase {
     dateFormat(date: Date, format: string, utc?: boolean): string;
 
     /**
-     *
      * 유니크 아이디 생성
      *
      * @param key  prefix string
@@ -164,7 +153,7 @@ export interface UtilBase {
      *
      * @param total   loop count
      */
-    timeLoop(total: number, context?: any): ((index: number) => void);
+    timeLoop(total: number, context?: any): (index: number) => void;
 
     /**
      * 최적화된 루프 생성 (5단계로 나눔)
@@ -172,16 +161,15 @@ export interface UtilBase {
      * @param total   loop count
      * @return 최적화된 루프 콜백 (index, groupIndex 2가지 파라미터를 받는다.)
      */
-    loop(total: number, context?: any): ((index: number, groupIndex: number) => void);
+    loop(total: number, context?: any): (index: number, groupIndex: number) => void;
 
     /**
      * 배열을 사용해서 최적화된 루프로 생성한다.
      *
-     *
      * @param data 루프로 생성될 배열
      * @return 최적화된 루프 콜백 (data, index, groupIndex 3가지 파라미터를 받는다.)
      */
-    loopArray(data: any[], context?: any): ((data: any, index: number, groupIndex: number) => void);
+    loopArray(data: any[], context?: any): (data: any, index: number, groupIndex: number) => void;
 
     /**
      * 배열의 키 기반 인덱스를 생성한다.
@@ -210,7 +198,7 @@ export interface UtilBase {
 
     trim(text: string): string;
 
-    ready: ((...args: any[]) => void);
+    ready: (...args: any[]) => void;
 
     param(data: any): string;
 
@@ -382,7 +370,7 @@ export interface UICore {
     destroy(): void;
 }
 
-//noinspection TypeScriptUnresolvedVariable
+// noinspection TypeScriptUnresolvedVariable
 export interface UIEvent extends UICore {
     root?: any;
 
@@ -512,7 +500,6 @@ export interface UtilMath {
      * @param radian    roate 할 radian
      * @return return.x  변환된 x
      * @return return.y  변환된 y
-     *
      */
     rotate(x: number, y: number, radian: number): any;
 

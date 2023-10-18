@@ -1,8 +1,3 @@
-// Type definitions for normalize-for-search 2.1
-// Project: https://github.com/ikr/normalize-for-search
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace normalizeForSearch;
 
 export = normalizeForSearch;

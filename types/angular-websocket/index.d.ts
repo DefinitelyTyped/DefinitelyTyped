@@ -1,9 +1,3 @@
-// Type definitions for angular-websocket 2.0
-// Project: https://github.com/gdi2290/angular-websocket, https://github.com/angular-class/angular-websocket
-// Definitions by: Nick Veys <https://github.com/nickveys>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as angular from "angular";
 
 export type IWebSocketConfigOptions = angular.websocket.IWebSocketConfigOptions;
@@ -34,9 +28,11 @@ declare module "angular" {
          * @param url url to connect to
          * @return websocket instance
          */
-        type IWebSocketProvider =
-            (url: string, protocols?: string | string[] | IWebSocketConfigOptions,
-                options?: IWebSocketConfigOptions) => IWebSocket;
+        type IWebSocketProvider = (
+            url: string,
+            protocols?: string | string[] | IWebSocketConfigOptions,
+            options?: IWebSocketConfigOptions,
+        ) => IWebSocket;
 
         /** Options available to be specified for IWebSocket.onMessage */
         interface IWebSocketMessageOptions {

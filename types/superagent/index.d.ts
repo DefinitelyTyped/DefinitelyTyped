@@ -1,26 +1,10 @@
-// Type definitions for SuperAgent 4.1
-// Project: https://github.com/visionmedia/superagent
-// Definitions by: Nico Zelaya <https://github.com/NicoZelaya>
-//                 Michael Ledin <https://github.com/mxl>
-//                 Pap Lőrinc <https://github.com/paplorinc>
-//                 Shrey Jain <https://github.com/shreyjain1994>
-//                 Alec Zopf <https://github.com/zopf>
-//                 Adam Haglund <https://github.com/beeequeue>
-//                 Lukas Elmer <https://github.com/lukaselmer>
-//                 Jesse Rogers <https://github.com/theQuazz>
-//                 Chris Arnesen <https://github.com/carnesen>
-//                 Anders Kindberg <https://github.com/ghostganz>
-//                 LuckyWind_sck <https://github.com/LuckyWindsck>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
+import { Blob } from "buffer";
+import * as cookiejar from "cookiejar";
 import * as fs from "fs";
 import * as http from "http";
 import * as stream from "stream";
-import * as cookiejar from "cookiejar";
-import { Blob } from "buffer";
 
 type CallbackHandler = (err: any, res: request.Response) => void;
 
@@ -146,7 +130,7 @@ declare namespace request {
         ca(cert: string | string[] | Buffer | Buffer[]): this;
         cert(cert: string | string[] | Buffer | Buffer[]): this;
         clearTimeout(): this;
-        connect(override: string | { [hostname: string]: false | string | { host: string, port: number} }): this;
+        connect(override: string | { [hostname: string]: false | string | { host: string; port: number } }): this;
         disableTLSCerts(): this;
         end(callback?: CallbackHandler): void;
         field(name: string, val: MultipartValue): this;

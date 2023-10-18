@@ -1,9 +1,3 @@
-// Type definitions for gettext.js 1.0
-// Project: https://github.com/guillaumepotier/gettext.js
-// Definitions by: Julien Crouzet <https://github.com/jucrouzet>
-//                 Florian Schwingenschlögl <https://github.com/FlorianSchwingenschloegl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace i18n {
     type PluralForm = (n: number) => number;
 
@@ -39,7 +33,14 @@ declare namespace i18n {
         gettext(msgid: string, ...args: any[]): string;
         ngettext(msgid: string, msgid_plural: string, n: number, ...args: any[]): string;
         pgettext(msgctxt: string, msgid: string, ...args: any[]): string;
-        dcnpgettext(domain: Optionull<string>, msgctxt: Optionull<string>, msgid: string, msgid_plural: Optionull<string>, n: Optionull<number>, ...args: any[]): string;
+        dcnpgettext(
+            domain: Optionull<string>,
+            msgctxt: Optionull<string>,
+            msgid: string,
+            msgid_plural: Optionull<string>,
+            n: Optionull<number>,
+            ...args: any[]
+        ): string;
         __(msgid: string, ...args: any[]): string;
         _n(msgid: string, msgid_plural: string, n: number, ...args: any[]): string;
         _p(msgctxt: string, msgid: string, ...args: any[]): string;

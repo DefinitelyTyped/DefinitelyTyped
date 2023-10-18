@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/easy-jsend",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/DeadAlready/easy-jsend"
+    ],
+    "devDependencies": {
+        "@types/easy-jsend": "workspace:.",
+        "@types/express": "*"
+    },
+    "owners": [
+        {
+            "name": "Karl Düüna",
+            "githubUsername": "DeadAlready"
+        }
+    ]
+}

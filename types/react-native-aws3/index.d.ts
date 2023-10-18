@@ -1,8 +1,3 @@
-// Type definitions for react-native-aws3 0.0
-// Project: https://github.com/benjreinhart/react-native-aws3#readme
-// Definitions by: Shirsh Zibbu <https://github.com/zhirzh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface File {
     /**
      * File system URI, can be assets library path or file:// path
@@ -98,8 +93,8 @@ export interface Request {
     send(): this;
     abort(): this;
     progress(callback: (progress: Progress) => any): this;
-    then(...args: Parameters<this['_promise']['then']>): this;
-    catch(...args: Parameters<this['_promise']['catch']>): this;
+    then(...args: Parameters<this["_promise"]["then"]>): this;
+    catch(...args: Parameters<this["_promise"]["catch"]>): this;
 }
 
 export interface Response {

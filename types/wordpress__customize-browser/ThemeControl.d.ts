@@ -1,4 +1,4 @@
-import { Control } from './Control';
+import { Control } from "./Control";
 
 export class ThemeControl extends Control {
     touchDrag: boolean;

@@ -1,23 +1,14 @@
-// Type definitions for non-npm package @ember/component 4.0
-// Project: https://emberjs.com/api/ember/4.0/modules/@ember%2Fcomponent
-// Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 Krystan HuffMenne <https://github.com/gitKrystan>
-//                 James C. Davis <https://github.com/jamescdavis>
-//                 Peter Wagenet <https://github.com/wagenet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 // eslint-disable-next-line @definitelytyped/no-self-import
-import CoreView from '@ember/component/-private/core-view';
+import CoreView from "@ember/component/-private/core-view";
 // eslint-disable-next-line @definitelytyped/no-self-import
-import ClassNamesSupport from '@ember/component/-private/class-names-support';
+import ClassNamesSupport from "@ember/component/-private/class-names-support";
 // eslint-disable-next-line @definitelytyped/no-self-import
-import ViewMixin from '@ember/component/-private/view-mixin';
-import { ComponentManager, Capabilities } from './-private/glimmer-interfaces';
-import { Opaque } from 'ember/-private/type-utils';
+import ViewMixin from "@ember/component/-private/view-mixin";
+import { Opaque } from "ember/-private/type-utils";
+import { Capabilities, ComponentManager } from "./-private/glimmer-interfaces";
 
 // Re-export these types so people can use them!
-export { ComponentManager, Capabilities };
+export { Capabilities, ComponentManager };
 
 interface TemplateFactory {
     __htmlbars_inline_precompile_template_factory: any;
@@ -130,8 +121,8 @@ export function setComponentTemplate<T>(factory: TemplateFactory, obj: T): T;
 // that just need to be importable. Declaring them with unique interfaces
 // like this, however, gives tools like Glint (that DO have a richer
 // notion of what they are) a place to install more detailed type information.
-export interface Input extends Opaque<'component:input'> {}
-export interface Textarea extends Opaque<'component:textarea'> {}
+export interface Input extends Opaque<"component:input"> {}
+export interface Textarea extends Opaque<"component:textarea"> {}
 
 /**
  * The `Input` component lets you create an HTML `<input>` element.

@@ -1,16 +1,7 @@
-// Type definitions for hubot 3.3
-// Project: https://github.com/hubotio/hubot
-// Definitions by: Dirk Gadsden <https://github.com/dirk>
-//                 Kees C. Bakker <https://github.com/KeesCBakker>
-//                 Emil Marklund <https://github.com/eeemil>
-//                 Jon Phenow <https://github.com/jphenow>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
-import { EventEmitter } from 'events';
-import { Options as HttpOptions, ScopedClient } from 'scoped-http-client';
-import { Server } from 'http';
-import { Express } from 'express';
+import { EventEmitter } from "events";
+import { Express } from "express";
+import { Server } from "http";
+import { Options as HttpOptions, ScopedClient } from "scoped-http-client";
 
 declare namespace Hubot {
     class Adapter extends EventEmitter {

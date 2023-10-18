@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/leaflet-imageoverlay-rotated",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/IvanSanchez/Leaflet.ImageOverlay.Rotated"
+    ],
+    "dependencies": {
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/leaflet-imageoverlay-rotated": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Thomas Kleinke",
+            "githubUsername": "tkleinke"
+        }
+    ]
+}

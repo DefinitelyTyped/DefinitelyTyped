@@ -1,9 +1,3 @@
-// Type definitions for pathwatcher 8.x
-// Project: https://github.com/atom/node-pathwatcher, http://atom.github.io/node-pathwatcher
-// Definitions by: GlenCFL <https://github.com/GlenCFL>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
 import { Disposable } from "event-kit";
@@ -16,7 +10,7 @@ export function getWatchedPaths(): string[];
 /** Represents an individual file that can be watched, read from, and written to. */
 export class File {
     // Properties
-    realPath: string|null;
+    realPath: string | null;
     path: string;
     symlink: boolean;
 
@@ -45,8 +39,7 @@ export class File {
      *  your callback has been invoked, the file will have unsubscribed from the
      *  file watches.
      */
-    onWillThrowWatchError(callback: (errorObject: PathWatchErrorThrownEvent) =>
-        void): Disposable;
+    onWillThrowWatchError(callback: (errorObject: PathWatchErrorThrownEvent) => void): Disposable;
 
     // File Metadata
     /** Returns a boolean, always true. */
@@ -119,7 +112,7 @@ export class File {
 /** Represents a directory on disk that can be watched for changes. */
 export class Directory {
     // Properties
-    realPath: string|null;
+    realPath: string | null;
     path: string;
     symlink: boolean;
 
@@ -198,10 +191,10 @@ export class Directory {
     getSubdirectory(dirname: string): Directory;
 
     /** Reads file entries in this directory from disk synchronously. */
-    getEntriesSync(): Array<File|Directory>;
+    getEntriesSync(): Array<File | Directory>;
 
     /** Reads file entries in this directory from disk asynchronously. */
-    getEntries(callback: (error: Error, entries: Array<File|Directory>) => void): void;
+    getEntries(callback: (error: Error, entries: Array<File | Directory>) => void): void;
 
     /**
      *  Determines if the given path (real or symbolic) is inside this directory. This

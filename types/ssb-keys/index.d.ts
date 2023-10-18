@@ -1,9 +1,3 @@
-// Type definitions for ssb-keys 7.2
-// Project: https://github.com/ssbc/ssb-keys
-// Definitions by: Michael de Wit <https://github.com/mjwwit>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
 /**

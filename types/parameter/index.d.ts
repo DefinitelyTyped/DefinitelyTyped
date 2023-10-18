@@ -1,10 +1,3 @@
-// Type definitions for parameter 3.6
-// Project: https://github.com/node-modules/parameter#readme
-// Definitions by: Innpaul Zhang <https://github.com/zhyupe>
-//                 Runtu <https://github.com/Runtu4378>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
 export = Parameter;
 
 declare class Parameter {
@@ -78,37 +71,37 @@ declare namespace Parameter {
         widelyUndefined?: boolean | undefined;
     }
 
-    type ParameterConvertType = 'int' | 'number' | 'string' | 'bool' | 'boolean' | ((value: any) => any);
+    type ParameterConvertType = "int" | "number" | "string" | "bool" | "boolean" | ((value: any) => any);
 
     type ParameterRuleAbbr =
-        | 'int'
-        | 'int?'
-        | 'integer'
-        | 'integer?'
-        | 'number'
-        | 'number?'
-        | 'date'
-        | 'date?'
-        | 'dateTime'
-        | 'dateTime?'
-        | 'datetime'
-        | 'datetime?'
-        | 'id'
-        | 'id?'
-        | 'boolean'
-        | 'boolean?'
-        | 'bool'
-        | 'bool?'
-        | 'string'
-        | 'string?'
-        | 'email'
-        | 'email?'
-        | 'password'
-        | 'password?'
-        | 'object'
-        | 'object?'
-        | 'array'
-        | 'array?'
+        | "int"
+        | "int?"
+        | "integer"
+        | "integer?"
+        | "number"
+        | "number?"
+        | "date"
+        | "date?"
+        | "dateTime"
+        | "dateTime?"
+        | "datetime"
+        | "datetime?"
+        | "id"
+        | "id?"
+        | "boolean"
+        | "boolean?"
+        | "bool"
+        | "bool?"
+        | "string"
+        | "string?"
+        | "email"
+        | "email?"
+        | "password"
+        | "password?"
+        | "object"
+        | "object?"
+        | "array"
+        | "array?"
         | ReadonlyArray<any>
         | RegExp;
 
@@ -145,7 +138,7 @@ declare namespace Parameter {
     }
 
     interface ParameterRuleNumber extends ParameterRuleBase {
-        type: 'int' | 'integer' | 'number' | 'int?' | 'integer?' | 'number?';
+        type: "int" | "integer" | "number" | "int?" | "integer?" | "number?";
         /**
          * The minimum of the value, value must <= max
          */
@@ -157,7 +150,7 @@ declare namespace Parameter {
     }
 
     interface ParameterRuleString extends ParameterRuleBase {
-        type: 'string' | 'string?';
+        type: "string" | "string?";
         /**
          * Allow empty string, default to false. If rule.required set to false, allowEmpty will be set to true by default.
          * @alias ParameterRuleString.empty
@@ -174,46 +167,46 @@ declare namespace Parameter {
     }
 
     interface ParameterRuleID extends ParameterRuleBase {
-        type: 'id' | 'id?';
+        type: "id" | "id?";
         allowEmpty?: boolean | undefined;
     }
 
     interface ParameterRuleDateTime extends ParameterRuleBase {
-        type: 'date' | 'date?' | 'dateTime' | 'dateTime?' | 'datetime' | 'datetime?';
+        type: "date" | "date?" | "dateTime" | "dateTime?" | "datetime" | "datetime?";
         allowEmpty?: boolean | undefined;
     }
 
     interface ParameterRuleEmail extends ParameterRuleBase {
-        type: 'email' | 'email?';
+        type: "email" | "email?";
         message?: string | undefined;
         allowEmpty?: boolean | undefined;
     }
 
     interface ParameterRuleUrl extends ParameterRuleBase {
-        type: 'url' | 'url?';
+        type: "url" | "url?";
         message?: string | undefined;
         allowEmpty?: boolean | undefined;
     }
 
     type ParameterRuleBoolean = ParameterRuleBase;
 
-    interface ParameterRulePassword extends Omit<ParameterRuleString, 'type' | 'format'> {
-        type: 'password' | 'password?';
+    interface ParameterRulePassword extends Omit<ParameterRuleString, "type" | "format"> {
+        type: "password" | "password?";
         compare?: string | undefined;
     }
 
     interface ParameterRuleEnum extends ParameterRuleBase {
-        type: 'enum' | 'enum?';
+        type: "enum" | "enum?";
         values: ReadonlyArray<any>;
     }
 
     interface ParameterRuleObject extends ParameterRuleBase {
-        type: 'object' | 'object?';
+        type: "object" | "object?";
         rule?: ParameterRules | undefined;
     }
 
     interface ParameterRuleArray extends ParameterRuleBase {
-        type: 'array' | 'array?';
+        type: "array" | "array?";
         itemType?: string | undefined;
         rule?: ParameterRules | undefined;
         min?: number | undefined;
@@ -236,7 +229,7 @@ declare namespace Parameter {
 
     type ParameterRule = ParameterRuleItem | ParameterRuleAbbr | undefined;
     type ParameterRules<T = any> = {
-      [K in keyof T]: ParameterRule;
+        [K in keyof T]: ParameterRule;
     };
 
     interface ValidateError {

@@ -1,17 +1,10 @@
-// Type definitions for workerb-api 1.0
-// Project: https://workerb.io/
-// Definitions by: workerB <https://github.com/workerb-io>
-//                Saurabh Garg <https://github.com/s-garg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
-type QueryMethods = 'text' | 'regex' | 'id' | 'xpath' | 'query_selector';
+type QueryMethods = "text" | "regex" | "id" | "xpath" | "query_selector";
 
 declare type clickQueryMethods = `by_${QueryMethods}`;
 
-declare type getAttributeQueryMethods = `by_${QueryMethods | 'query_selector_all'}`;
+declare type getAttributeQueryMethods = `by_${QueryMethods | "query_selector_all"}`;
 
-declare type typeQueryMethods = `by_${QueryMethods | 'label' | 'placeholder'}`;
+declare type typeQueryMethods = `by_${QueryMethods | "label" | "placeholder"}`;
 declare interface SetVarsVariable {
     name: string;
     value: string;
@@ -37,7 +30,6 @@ declare interface ClickQueryOptions extends QueryOptions {
      * * by_id - finds the target element by id
      * * by_xpath - finds the target element by an [xpath](https://developer.mozilla.org/en-US/docs/Web/XPath) query
      * * by_query_selector - finds the target element using a query selector
-     *
      */
     method?: clickQueryMethods | undefined;
 
@@ -111,15 +103,15 @@ declare interface EventConfig {
      * A string value used to the specify the type of the event.
      */
     eventType:
-        | 'keydown'
-        | 'keyup'
-        | 'mousedown'
-        | 'mouseenter'
-        | 'mouseleave'
-        | 'mousemove'
-        | 'mouseout'
-        | 'mouseover'
-        | 'mouseup';
+        | "keydown"
+        | "keyup"
+        | "mousedown"
+        | "mouseenter"
+        | "mouseleave"
+        | "mousemove"
+        | "mouseout"
+        | "mouseover"
+        | "mouseup";
     /**
      * An object used to specify the event properties. For key related event types, KeyboardEvent is supported. For mouse related event types, MouseEvent is supported.
      */
@@ -158,7 +150,7 @@ declare function click(query: string, options?: ClickQueryOptions): undefined;
  *
  * @returns undefined
  */
-declare function notify(message: string, type: 'error' | 'success', timeout: number): undefined;
+declare function notify(message: string, type: "error" | "success", timeout: number): undefined;
 
 /**
  * The type function writes a given string to a target input field. The input field can be specified using different query methods.
@@ -322,7 +314,7 @@ declare function getAttribute(
  *
  * @returns undefined
  */
-declare function logging(state: 'on' | 'off'): undefined;
+declare function logging(state: "on" | "off"): undefined;
 
 /**
  * The httpGet function can be used to make http get requests.

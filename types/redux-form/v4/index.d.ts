@@ -1,11 +1,5 @@
-// Type definitions for redux-form 4.0
-// Project: https://github.com/erikras/redux-form
-// Definitions by: Daniel Lytkin <https://github.com/aikoven>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
-import { Dispatch, ActionCreator, Reducer } from 'redux';
+import * as React from "react";
+import { ActionCreator, Dispatch, Reducer } from "redux";
 
 export const actionTypes: { [actionName: string]: string };
 
@@ -291,9 +285,11 @@ interface MapDispatchToPropsObject {
     [name: string]: ActionCreator<any>;
 }
 
-export declare function reduxForm(config: ReduxFormConfig,
+export declare function reduxForm(
+    config: ReduxFormConfig,
     mapStateToProps?: MapStateToProps,
-    mapDispatchToProps?: MapDispatchToPropsFunction | MapDispatchToPropsObject): ClassDecorator;
+    mapDispatchToProps?: MapDispatchToPropsFunction | MapDispatchToPropsObject,
+): ClassDecorator;
 
 export interface ReduxFormConfig {
     /**
@@ -446,9 +442,12 @@ export interface ReduxFormConfig {
  * @param previousAllValues All the values of the form before the current
  * change. Useful to change one field based on a change in another.
  */
-export type Normalizer =
-    (value: FieldValue, previousValue: FieldValue,
-        allValues: FormData, previousAllValues: FormData) => any;
+export type Normalizer = (
+    value: FieldValue,
+    previousValue: FieldValue,
+    allValues: FormData,
+    previousAllValues: FormData,
+) => any;
 
 export declare const reducer: {
     (state: any, action: any): any;
@@ -462,8 +461,8 @@ export declare const reducer: {
      */
     normalize(normalizers: {
         [formName: string]: {
-            [fieldName: string]: Normalizer
-        }
+            [fieldName: string]: Normalizer;
+        };
     }): Reducer<any>;
 
     /**

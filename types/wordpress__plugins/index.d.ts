@@ -1,11 +1,5 @@
-// Type definitions for @wordpress/plugins 3.0
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/plugins/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
-
-import { Dashicon } from '@wordpress/components';
-import { ComponentType } from 'react';
+import { Dashicon } from "@wordpress/components";
+import { ComponentType } from "react";
 
 export interface PluginSettings {
     /**
@@ -28,7 +22,7 @@ export interface Plugin extends PluginSettings {
     name: string;
 }
 
-export type PluginContext = Omit<Plugin, 'render'>;
+export type PluginContext = Omit<Plugin, "render">;
 
 /**
  * A component that renders all plugin fills in a hidden div.
@@ -69,5 +63,5 @@ export function unregisterPlugin(name: string): Plugin | undefined;
  * A Higher Order Component used to inject Plugin context to the wrapped component.
  */
 export function withPluginContext<CP = {}, OP = {}>(
-    mapContextToProps: (context: PluginContext, props: OP) => CP
+    mapContextToProps: (context: PluginContext, props: OP) => CP,
 ): (Component: ComponentType<CP & OP>) => ComponentType<OP>;

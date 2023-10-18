@@ -1,8 +1,3 @@
-// Type definitions for fontkit 2.0
-// Project: https://github.com/foliojs/fontkit#readme
-// Definitions by: Stepan Mikhailiuk <https://github.com/stepancar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**
@@ -38,7 +33,7 @@ export interface Font {
     /** the font’s bounding box, i.e. the box that encloses all glyphs in the font */
     bbox: BBOX;
     /** the font metric table consisting of a set of metrics and other data required for OpenType fonts */
-    'OS/2': Os2Table;
+    "OS/2": Os2Table;
     /** the font's horizontal header table consisting of information needed to layout fonts with horizontal characters    */
     hhea: HHEA;
 
@@ -262,7 +257,7 @@ export interface Path {
 }
 
 export interface PathCommand {
-    command: 'moveTo' | 'lineTo' | 'quadraticCurveTo' | 'bezierCurveTo' | 'closePath';
+    command: "moveTo" | "lineTo" | "quadraticCurveTo" | "bezierCurveTo" | "closePath";
     args: number[];
 }
 

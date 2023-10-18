@@ -1,8 +1,3 @@
-// Type definitions for @mozilla/readability 0.4
-// Project: https://github.com/mozilla/readability
-// Definitions by: Charles Vandevoorde <https://github.com/charlesvdv>, Alex Wendland <https://github.com/awendland>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * A standalone version of the readability library used for Firefox Reader View.
  *

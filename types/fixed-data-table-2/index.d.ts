@@ -1,9 +1,3 @@
-// Type definitions for fixed-data-table-2 0.8
-// Project: https://github.com/schrodinger/fixed-data-table-2, http://schrodinger.github.io/fixed-data-table-2
-// Definitions by: Ilya Petukhov <https://github.com/ilivit>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export as namespace FixedDataTable;
@@ -30,7 +24,7 @@ export interface ColumnReorderEndEvent {
     reorderColumn: string;
 }
 
-export type ElementOrFunc<P> = string | React.ReactElement | ((props: P) => (string | React.ReactElement));
+export type ElementOrFunc<P> = string | React.ReactElement | ((props: P) => string | React.ReactElement);
 
 export type TableRowEventHandler = (event: React.SyntheticEvent<Table>, rowIndex: number) => void;
 
@@ -125,8 +119,8 @@ export interface TableProps extends React.ClassAttributes<Table> {
      */
     ownerHeight?: number | undefined;
 
-    overflowX?: 'hidden' | 'auto' | undefined;
-    overflowY?: 'hidden' | 'auto' | undefined;
+    overflowX?: "hidden" | "auto" | undefined;
+    overflowY?: "hidden" | "auto" | undefined;
 
     /**
      * Boolean flag indicating of touch scrolling should be enabled
@@ -423,7 +417,7 @@ export interface ColumnProps extends React.ClassAttributes<Column> {
     /**
      * The horizontal alignment of the table cell content.
      */
-    align?: 'left' | 'center' | 'right' | undefined;
+    align?: "left" | "center" | "right" | undefined;
 
     /**
      * Controls if the column is fixed when scrolling in the X axis.
@@ -602,7 +596,7 @@ export interface ColumnGroupProps extends React.ClassAttributes<ColumnGroup> {
     /**
      * The horizontal alignment of the table cell content.
      */
-    align?: 'left' | 'center' | 'right' | undefined;
+    align?: "left" | "center" | "right" | undefined;
 
     /**
      * Controls if the column group is fixed when scrolling in the X axis.
@@ -630,7 +624,7 @@ export interface ColumnGroupProps extends React.ClassAttributes<ColumnGroup> {
      * You can also pass in a function that returns a react elemnt, with the
      * props object above passed in as the first parameter.
      */
-    header?: string | React.ReactElement | ((props: ColumnGroupHeaderProps) => (string | React.ReactElement)) | undefined;
+    header?: string | React.ReactElement | ((props: ColumnGroupHeaderProps) => string | React.ReactElement) | undefined;
 
     /**
      * Extra class for cells in column

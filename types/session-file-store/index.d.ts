@@ -1,10 +1,3 @@
-// Type definitions for express session-file-store 1.2
-// Project: https://github.com/valery-barysok/session-file-store
-// Definitions by: Gevik Babakhani <https://github.com/blendsdk>
-//                 Junyoung Choi <https://github.com/rokt33r>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as express from "express";
 import * as session from "express-session";
 
@@ -14,7 +7,7 @@ declare function f(options: (options?: session.SessionOptions) => express.Reques
 
 declare namespace f {
     interface FileStore {
-        new (options?: Options): session.Store;
+        new(options?: Options): session.Store;
     }
     /**
      * FileStore Options

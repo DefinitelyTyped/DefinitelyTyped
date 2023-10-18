@@ -1,9 +1,4 @@
-// Type definitions for awesome-notifications 3.1
-// Project: https://github.com/f3oall/awesome-notifications
-// Definitions by: Sibin Grasic <https://github.com/oblakstudio>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-export type AwnPosition = 'bottom-right' | 'bottom-left' | 'top-left' | 'top-right';
+export type AwnPosition = "bottom-right" | "bottom-left" | "top-left" | "top-right";
 
 export interface AwnDurations {
     global?: number;
@@ -47,12 +42,12 @@ export interface AwnOptions {
     durations?: AwnDurations;
     minDurations?: {
         async?: number;
-        'async-block'?: number;
+        "async-block"?: number;
     };
     labels?: AwnLabels;
     messages?: {
         async?: string;
-        'async-block'?: string;
+        "async-block"?: string;
     };
 }
 
@@ -202,8 +197,6 @@ export default class AWN {
     ): Promise<T>;
 
     /**
-     *
-     *
      * @param  message   Defines message of the modal window. Can be any valid HTML or text string.
      * @param  className Defines modal window DOM element class name, it will be concatenated with default prefix ‘awn-popup-‘
      * @param  options   Instance of `AwnOptions`, which will override globals for this call

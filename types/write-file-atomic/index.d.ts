@@ -1,9 +1,3 @@
-// Type definitions for write-file-atomic 4.0
-// Project: https://github.com/npm/write-file-atomic
-// Definitions by: BendingBender <https://github.com/BendingBender>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = writeFile;
@@ -27,9 +21,9 @@ declare namespace writeFile {
     interface Options {
         chown?:
             | {
-                  uid: number;
-                  gid: number;
-              }
+                uid: number;
+                gid: number;
+            }
             | undefined;
         /**
          * @default 'utf8'

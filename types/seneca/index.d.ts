@@ -1,19 +1,8 @@
-// Type definitions for seneca v2.1.0
-// Project: https://www.npmjs.com/package/seneca
-// Definitions by: Peter Snider <https://github.com/psnider>
-//                 Kevyn Bruyere <https://github.com/kevynb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-
 declare module "seneca" {
-
     function SNS(options?: SNS.Options): SNS.Instance;
 
     namespace SNS {
-
         type UnknownType = any;
-
 
         interface Options {
             [plugin_name: string]: any;
@@ -21,14 +10,14 @@ declare module "seneca" {
             // Standard length of identifiers for actions.
             idlen?: number | undefined;
             // Standard timeout for actions.
-            timeout?: number | undefined;   // milliseconds
+            timeout?: number | undefined; // milliseconds
             // Register (true) default plugins. Set false to not register when
             // using custom versions.
             default_plugins?: {
-                basic?:       boolean | undefined;
-                'mem-store'?: boolean | undefined;
-                transport?:   boolean | undefined;
-                web?:         boolean | undefined;
+                basic?: boolean | undefined;
+                "mem-store"?: boolean | undefined;
+                transport?: boolean | undefined;
+                web?: boolean | undefined;
             } | undefined;
             // Settings for network REPL.
             repl?: {
@@ -38,9 +27,9 @@ declare module "seneca" {
             // Debug settings.
             debug?: {
                 // Throw (some) errors from seneca.act.
-                fragile?:    boolean | undefined;
+                fragile?: boolean | undefined;
                 // Fatal errors ... aren't fatal. Not for production!
-                undead?:     boolean | undefined;
+                undead?: boolean | undefined;
                 // Print debug info to console
                 print?: {
                     // Print options. Best used via --seneca.print.options.
@@ -65,14 +54,14 @@ declare module "seneca" {
             // Action cache. Makes inbound messages idempotent.
             actcache?: {
                 active?: boolean | undefined;
-                size?:   number | undefined;
+                size?: number | undefined;
             } | undefined;
             // Action executor tracing. See gate-executor module.
             trace?: {
                 act?: boolean | undefined;
                 stack?: boolean | undefined;
                 unknown?: string | undefined;
-            } | undefined,
+            } | undefined;
             // Action statistics settings. See rolling-stats module.
             stats?: {
                 size?: number | undefined;
@@ -107,7 +96,7 @@ declare module "seneca" {
                 interval?: number | undefined;
                 // By default, does not run.
                 running?: boolean | undefined;
-            } | undefined,
+            } | undefined;
             // zig module settings for seneca.start() chaining.
             zig?: any;
             log?: LogSpec | {
@@ -118,28 +107,34 @@ declare module "seneca" {
         }
 
         interface MinimalPattern {
-            //role?: string;
-            //cmd?: string;
+            // role?: string;
+            // cmd?: string;
         }
 
         type LogSpec =
-            'quiet' |    // { level: 'none' }
-            'silent' |   // { level: 'none' }
-            'any' |      // { level: 'debug+' }
-            'all' |      // { level: 'debug+' }
-            'print' |    // { level: 'debug+' }
-            'standard' | // { level: 'info+' }
-            'test'       // { level: 'warn+' }
+            | "quiet"
+            | // { level: 'none' }
+            "silent"
+            | // { level: 'none' }
+            "any"
+            | // { level: 'debug+' }
+            "all"
+            | // { level: 'debug+' }
+            "print"
+            | // { level: 'debug+' }
+            "standard"
+            | // { level: 'info+' }
+            "test"; // { level: 'warn+' }
 
         type LogLevel =
-            'none' |
-            'debug+' |
-            'info+' |
-            'warn+'        
+            | "none"
+            | "debug+"
+            | "info+"
+            | "warn+";
 
         interface Optioner {
-        set: (input: string | Options) => Options;
-        get: () => Options;
+            set: (input: string | Options) => Options;
+            get: () => Options;
         }
 
         type ExecutorWorker = (callback: any) => void;
@@ -193,9 +188,6 @@ declare module "seneca" {
         type EntityRemoveCallback = (error: Error) => void;
         type EntityListCallback = (error: Error, result: any[]) => void;
 
-
-
-
         interface Instance {
             version: string;
 
@@ -233,7 +225,6 @@ declare module "seneca" {
             pin(pattern: Pattern): void;
         }
 
-
         // NOTE: senecas documented use of:
         //    var product = seneca.make('product')
         //    product.name = 'Apple'
@@ -254,9 +245,7 @@ declare module "seneca" {
             remove$(id: DatabaseID | EntityDataWithQuery, callback: EntityRemoveCallback): void;
             list$(query: EntityDataWithQuery, callback: EntityListCallback): void;
         }
-        
     }
 
     export = SNS;
 }
-

@@ -1,9 +1,3 @@
-// Type definitions for @hapi/call 9.0
-// Project: https://github.com/hapijs/call#readme
-// Definitions by: Rodrigo Saboya <https://github.com/saboya>
-//                 Sebastian Malton <https://github.com/nokel81>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export interface RouteDefinition {
@@ -38,7 +32,7 @@ export interface Match<Handler> {
 export type Route<Handler> = Match<Handler> | Error;
 
 export class Router<Handler> {
-    constructor(routerOptions?: RouterOptions)
+    constructor(routerOptions?: RouterOptions);
     add(definition: RouteDefinition, route?: Handler): void;
     route(method: string, path: string): Route<Handler>;
 }

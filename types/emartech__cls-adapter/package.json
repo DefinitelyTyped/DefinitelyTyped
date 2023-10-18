@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/emartech__cls-adapter",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/emartech/cls-adapter"
+    ],
+    "dependencies": {
+        "@types/cls-hooked": "*",
+        "@types/express": "*",
+        "@types/koa": "*"
+    },
+    "devDependencies": {
+        "@types/emartech__cls-adapter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lex Webb",
+            "githubUsername": "lexwebb"
+        }
+    ]
+}

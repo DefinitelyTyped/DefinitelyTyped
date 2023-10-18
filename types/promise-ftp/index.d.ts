@@ -1,15 +1,8 @@
-// Type definitions for promise-ftp 1.3
-// Project: https://github.com/realtymaps/promise-ftp
-// Definitions by: coolreader18 <https://github.com/coolreader18>
-//                 Rolands Jegorovs <https://github.com/Rolandisimo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 /// <reference types="node" />
 
+import * as Promise from "bluebird";
 import * as FtpClient from "ftp";
 import * as PromiseFtpCommon from "promise-ftp-common";
-import * as Promise from "bluebird";
 
 declare namespace PromiseFtp {
     interface ERROR_CODES {
@@ -32,23 +25,23 @@ declare namespace PromiseFtp {
         553: "Requested action not taken / File name not allowed";
     }
     const ERROR_CODES: ERROR_CODES;
-    // tslint:disable-next-line strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export import FtpConnectionError = PromiseFtpCommon.FtpConnectionError;
-    // tslint:disable-next-line strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export import FtpReconnectError = PromiseFtpCommon.FtpReconnectError;
-    // tslint:disable-next-line strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export import STATUSES = PromiseFtpCommon.STATUSES;
 
     /**
      * Options for FtpPromise#connect()
      */
-    // tslint:disable-next-line strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export import Options = FtpClient.Options;
 
     /**
      * Element returned by FtpPromise#list()
      */
-    // tslint:disable-next-line strict-export-declare-modifiers
+    // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
     export import ListingElement = FtpClient.ListingElement;
 }
 
@@ -106,7 +99,7 @@ declare class PromiseFtp {
      */
     listSafe(
         path?: string,
-        useCompression?: boolean
+        useCompression?: boolean,
     ): Promise<Array<FtpClient.ListingElement | string>>;
     listSafe(useCompression: boolean): Promise<Array<FtpClient.ListingElement | string>>;
 
@@ -127,7 +120,7 @@ declare class PromiseFtp {
     put(
         input: NodeJS.ReadableStream | Buffer | string,
         destPath: string,
-        useCompression?: boolean
+        useCompression?: boolean,
     ): Promise<void>;
 
     /**
@@ -139,7 +132,7 @@ declare class PromiseFtp {
     append(
         input: NodeJS.ReadableStream | Buffer | string,
         destPath: string,
-        useCompression?: boolean
+        useCompression?: boolean,
     ): Promise<void>;
 
     /**

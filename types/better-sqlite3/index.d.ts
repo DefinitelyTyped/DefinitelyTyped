@@ -1,15 +1,3 @@
-// Type definitions for better-sqlite3 7.6
-// Project: https://github.com/JoshuaWise/better-sqlite3
-// Definitions by: Ben Davies <https://github.com/Morfent>
-//                 Mathew Rumsey <https://github.com/matrumz>
-//                 Santiago Aguilar <https://github.com/sant123>
-//                 Alessandro Vergani <https://github.com/loghorn>
-//                 Andrew Kaiser <https://github.com/andykais>
-//                 Mark Stewart <https://github.com/mrkstwrt>
-//                 Florian Stamer <https://github.com/stamerf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.8
-
 /// <reference types="node" />
 
 // FIXME: Is this `any` really necessary?
@@ -76,12 +64,15 @@ declare namespace BetterSqlite3 {
         pragma(source: string, options?: Database.PragmaOptions): unknown;
         function(name: string, cb: (...params: unknown[]) => unknown): this;
         function(name: string, options: Database.RegistrationOptions, cb: (...params: unknown[]) => unknown): this;
-        aggregate<T>(name: string, options: Database.RegistrationOptions & {
-            start?: T | (() => T);
-            step: (total: T, next: ElementOf<T>) => T | void;
-            inverse?: ((total: T, dropped: T) => T) | undefined;
-            result?: ((total: T) => unknown) | undefined;
-        }): this;
+        aggregate<T>(
+            name: string,
+            options: Database.RegistrationOptions & {
+                start?: T | (() => T);
+                step: (total: T, next: ElementOf<T>) => T | void;
+                inverse?: ((total: T, dropped: T) => T) | undefined;
+                result?: ((total: T) => unknown) | undefined;
+            },
+        ): this;
         loadExtension(path: string): this;
         close(): this;
         defaultSafeIntegers(toggleState?: boolean): this;
@@ -92,7 +83,7 @@ declare namespace BetterSqlite3 {
     }
 
     interface DatabaseConstructor {
-        new (filename: string | Buffer, options?: Database.Options): Database;
+        new(filename: string | Buffer, options?: Database.Options): Database;
         (filename: string, options?: Database.Options): Database;
         prototype: Database;
 
