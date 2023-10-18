@@ -846,7 +846,7 @@ declare namespace Shelljs {
 
     // Configuration
 
-    export interface ShellConfig {
+    interface ShellConfig {
         /**
          * Suppresses all command output if true, except for echo() calls. Default is false.
          */
