@@ -10,6 +10,8 @@
 
 Definitely Typed has recently changed to a proper `pnpm` monorepo; you may want to reread this document for changes to the layout of packages in this repo.
 
+At the very least, you may want to `git clean -fdx` the repo (or `node ./scripts/clean-node-modules.js` on Windows) to clean up `node_modules` and run `pnpm install --filter .` to install the workspace root. See further sections for more info on `pnpm install`.
+
 ## Current status
 
 This section tracks the health of the repository and publishing process.
