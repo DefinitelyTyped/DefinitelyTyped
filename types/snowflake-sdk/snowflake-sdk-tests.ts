@@ -108,6 +108,7 @@ snowflake.createConnection({
     privateKey: "",
     privateKeyPass: "",
     privateKeyPath: "",
+    accessUrl: "",
 });
 
 //  Oauth connections
