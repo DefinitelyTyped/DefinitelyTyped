@@ -1,6 +1,21 @@
 {
-  "private": true,
-  "dependencies": {
-    "openapi-types": "^12.1.0"
-  }
+    "private": true,
+    "name": "@types/swagger2openapi",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/Mermade/oas-kit/tree/main/packages/swagger2openapi"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "openapi-types": "^12.1.0"
+    },
+    "devDependencies": {
+        "@types/swagger2openapi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "rxliuli",
+            "githubUsername": "rxliuli"
+        }
+    ]
 }

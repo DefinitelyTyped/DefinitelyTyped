@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/brace-expansion",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/juliangruber/brace-expansion"
+    ],
+    "devDependencies": {
+        "@types/brace-expansion": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

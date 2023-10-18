@@ -1,9 +1,3 @@
-// Type definitions for @absinthe/socket 0.2
-// Project: https://github.com/absinthe-graphql/absinthe-socket#readme
-// Definitions by: Maarten van Vliet <https://github.com/maartenvanvliet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
-
 import { Channel, Socket } from "phoenix";
 
 export interface AbsintheSocket<T = {}> {

@@ -1,9 +1,3 @@
-// Type definitions for frappe-gantt 0.6
-// Project: https://github.com/frappe/gantt
-// Definitions by: Sam Alexander <https://github.com/samalexander>
-//                 Elijah Lucian <https://github.com/eli7vh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Gantt;
 
 declare class Gantt {

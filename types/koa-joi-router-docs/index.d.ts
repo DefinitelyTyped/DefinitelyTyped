@@ -1,9 +1,3 @@
-// Type definitions for koa-joi-router-docs 1.0
-// Project: https://github.com/o2team/koa-joi-router-docs#readme
-// Definitions by: 4doge <https://github.com/4doge>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 import { Router } from "koa-joi-router";
 
 export {};

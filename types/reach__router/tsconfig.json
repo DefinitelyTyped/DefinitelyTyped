@@ -1,20 +1,21 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["dom", "es6"],
+        "lib": [
+            "dom",
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "jsx": "react",
-        "paths": {
-            "@reach/*": ["reach__*"]
-        }
+        "jsx": "react"
     },
-    "files": ["index.d.ts", "reach__router-tests.tsx"]
+    "files": [
+        "index.d.ts",
+        "reach__router-tests.tsx"
+    ]
 }

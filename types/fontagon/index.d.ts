@@ -1,8 +1,3 @@
-// Type definitions for fontagon 1.1
-// Project: https://github.com/kdydesign/fontagon
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { FontOptions } from "svg2ttf";
 import { SvgIcons2FontOptions } from "svgicons2svgfont";
 import { Options as Ttf2WoffOptions } from "ttf2woff";

@@ -1,8 +1,3 @@
-// Type definitions for physical-cpu-count 2.0
-// Project: https://www.npmjs.com/package/physical-cpu-count
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Returns the number of physical CPU cores.
  *

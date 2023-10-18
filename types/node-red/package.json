@@ -1,0 +1,43 @@
+{
+    "private": true,
+    "name": "@types/node-red",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/node-red/node-red/tree/master/packages/node_modules/node-red",
+        "https://nodered.org/"
+    ],
+    "minimumTypeScriptVersion": "4.7",
+    "dependencies": {
+        "@types/express": "*",
+        "@types/node-red__editor-api": "*",
+        "@types/node-red__editor-client": "*",
+        "@types/node-red__registry": "*",
+        "@types/node-red__runtime": "*",
+        "@types/node-red__util": "*"
+    },
+    "devDependencies": {
+        "@types/node-red": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Anders E. Andersen",
+            "githubUsername": "andersea"
+        },
+        {
+            "name": "Thomas B. Mørch",
+            "githubUsername": "tbowmo"
+        },
+        {
+            "name": "Bernardo Belchior",
+            "githubUsername": "bernardobelchior"
+        },
+        {
+            "name": "Alex Kaul",
+            "githubUsername": "alexk111"
+        },
+        {
+            "name": "Tadeusz Wyrzykowski",
+            "githubUsername": "Shaquu"
+        }
+    ]
+}

@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/rmc-drawer",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/react-component/m-drawer"
+    ],
     "dependencies": {
+        "@types/react": "*",
         "moment": "^2.19.4"
-    }
+    },
+    "devDependencies": {
+        "@types/rmc-drawer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Frithjof Winkelmann",
+            "githubUsername": "Hoff97"
+        }
+    ]
 }

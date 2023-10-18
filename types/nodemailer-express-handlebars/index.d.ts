@@ -1,8 +1,3 @@
-// Type definitions for nodemailer-express-handlebars 4.0
-// Project: https://github.com/yads/nodemailer-express-handlebars
-// Definitions by: Gabriel de Oliveira <https://github.com/th3rius>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { create } from "express-handlebars";
 import { SentMessageInfo, Transporter } from "nodemailer";
 import * as Mail from "nodemailer/lib/mailer";

@@ -1,8 +1,3 @@
-// Type definitions for mta-h5-analysis 2.0
-// Project: https://www.npmjs.com/package/mta-h5-analysis
-// Definitions by: dusk_ <https://github.com/steady-join>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export const version: string;
 export const conf: {
     autoReport: 0 | 1;

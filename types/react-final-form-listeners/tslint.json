@@ -1,6 +1,6 @@
 {
-  "extends": "@definitelytyped/dtslint/dt.json",
-  "rules": {
-    "npm-naming": [true,{"mode":"code","errors":[["NeedsExportEquals",false]]}]
-  }
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "npm-naming": [true, { "mode": "code", "errors": [["NeedsExportEquals", false]] }]
+    }
 }

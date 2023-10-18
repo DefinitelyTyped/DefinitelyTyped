@@ -8,18 +8,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "paths": {
-            "yargs": [
-                "yargs/v15"
-            ],
-            "yargs/*": [
-                "yargs/v15/*"
-            ]
-        },
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

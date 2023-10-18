@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/moveto",
+    "version": "1.8.9999",
+    "projects": [
+        "https://github.com/hsnaydd/moveTo"
+    ],
+    "devDependencies": {
+        "@types/moveto": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rostislav Shermenyov",
+            "githubUsername": "shermendev"
+        },
+        {
+            "name": "pea3nut",
+            "githubUsername": "pea3nut"
+        }
+    ]
+}

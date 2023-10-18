@@ -1,12 +1,3 @@
-// Type definitions for node-config 3.3
-// Project: https://github.com/lorenwest/node-config
-// Definitions by: Roman Korneev <https://github.com/RWander>
-//                 Forrest Bice <https://github.com/forrestbice>
-//                 James Donald <https://github.com/jndonald3>
-//                 Alberto Vasquez <https://github.com/albertovasquez>
-//                 Christian Vaagland Tellnes <https://github.com/tellnes>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var c: c.IConfig;
 
 declare namespace c {

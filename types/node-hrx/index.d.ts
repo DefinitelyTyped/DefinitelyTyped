@@ -1,9 +1,3 @@
-// Type definitions for node-hrx 0.1
-// Project: https://github.com/issa-tseng/node-hrx#readme
-// Definitions by: Christophe Coevoet <https://github.com/stof>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
 /// <reference types="node" />
 
 import { Readable } from "stream";

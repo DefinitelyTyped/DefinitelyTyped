@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/pg-format",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/datalanche/node-pg-format"
+    ],
+    "devDependencies": {
+        "@types/pg-format": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alec Zopf",
+            "githubUsername": "zopf"
+        }
+    ]
+}

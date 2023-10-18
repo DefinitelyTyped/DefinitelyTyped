@@ -1,5 +1,6 @@
 import Pako = require("pako");
-import assert = require("assert");
+
+declare function strictEqual<T>(actual: T, expected: T): void;
 
 const chunk1 = new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 const chunk2 = new Uint8Array([10, 11, 12, 13, 14, 15, 16, 17, 18, 19]);
@@ -42,10 +43,10 @@ const inflatorUint8Array = new Pako.Inflate();
 inflatorUint8Array.push(deflator.result, true);
 const resultUint8Array: Uint8Array = inflatorUint8Array.result as Uint8Array;
 
-assert.strictEqual(inflatorString.err, 0);
-assert.strictEqual(inflatorString.result, data);
+strictEqual(inflatorString.err, 0);
+strictEqual(inflatorString.result, data);
 
 const header = inflatorString.header;
-assert.strictEqual(header?.time, 1234567);
-assert.strictEqual(header?.os, 15);
-assert.strictEqual(header?.name, "test name");
+strictEqual(header?.time, 1234567);
+strictEqual(header?.os, 15);
+strictEqual(header?.name, "test name");

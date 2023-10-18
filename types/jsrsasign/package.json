@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/jsrsasign",
+    "version": "10.5.9999",
+    "projects": [
+        "https://github.com/kjur/jsrsasign"
+    ],
+    "minimumTypeScriptVersion": "4.6",
+    "devDependencies": {
+        "@types/jsrsasign": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

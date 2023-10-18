@@ -1,9 +1,3 @@
-// Type definitions for react-hyperscript 3.0
-// Project: https://github.com/mlmorg/react-hyperscript
-// Definitions by: roshal <https://github.com/roshal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
-
 import type * as React from "react";
 
 import type { ReactElement, ReactHTML, ReactNode, ReactSVG, ReactSVGElement } from "react";

@@ -1,9 +1,3 @@
-// Type definitions for mail-notifier 0.5
-// Project: https://github.com/jcreigno/nodejs-mail-notifier#readme
-// Definitions by: Jack Hedaya <https://github.com/jackHedaya>
-//                 BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

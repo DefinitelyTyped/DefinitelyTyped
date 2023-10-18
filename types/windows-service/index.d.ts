@@ -1,8 +1,3 @@
-// Type definitions for windows-service 1.0.4
-// Project: https://github.com/stephenwvickers/node-windows-service#readme
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import stream = require("stream");

@@ -1,11 +1,3 @@
-// Type definitions for cache-manager v4.0.1
-// Project: https://github.com/BryanDonovan/node-cache-manager
-// Definitions by: Dominik Einkemmer <https://github.com/dominikeinkemmer>
-//                 Eduard Marbach <https://github.com/BlackDark>
-//                 Bryan Donovan <https://github.com/BryanDonovan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 export interface CachingConfig {
     ttl?: number | TtlFunction;
 }

@@ -1,8 +1,3 @@
-// Type definitions for any-base 1.1
-// Project: https://github.com/HarasimowiczKamil/any-base#readme
-// Definitions by: yutak23 <https://github.com/yutak23>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = anyBase;
 export as namespace anyBase;
 

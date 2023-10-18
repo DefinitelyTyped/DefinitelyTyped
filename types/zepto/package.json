@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/zepto",
+    "version": "1.0.9999",
+    "projects": [
+        "http://zeptojs.com/"
+    ],
+    "devDependencies": {
+        "@types/zepto": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Josh Baldwin",
+            "githubUsername": "jbaldwin"
+        }
+    ]
+}

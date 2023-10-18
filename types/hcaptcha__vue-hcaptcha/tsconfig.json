@@ -1,32 +1,23 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "target": "es6",
-    "lib": [
-      "es6",
-      "dom"
-    ],
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "baseUrl": "../",
-    "jsx": "react",
-    "typeRoots": [
-      "../"
-    ],
-    "paths": {
-      "@hcaptcha/*": [
-        "hcaptcha__*"
-      ]
+    "compilerOptions": {
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "target": "es6",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "jsx": "react",
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     },
-    "types": [],
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "files": [
-    "index.d.ts",
-    "hcaptcha__vue-hcaptcha-tests.ts"
-  ]
+    "files": [
+        "index.d.ts",
+        "hcaptcha__vue-hcaptcha-tests.ts"
+    ]
 }

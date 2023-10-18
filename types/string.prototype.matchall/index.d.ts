@@ -1,8 +1,3 @@
-// Type definitions for string.prototype.matchall 4.0
-// Project: https://github.com/ljharb/String.prototype.matchAll#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Matches a string with a regular expression, and returns an iterable of matches
  * containing the results of that search.

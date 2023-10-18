@@ -1,9 +1,3 @@
-// Type definitions for jexcel 3.9
-// Project: https://github.com/paulhodel/jexcel
-// Definitions by: arx-8 <https://github.com/arx-8>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 2.9
-
 export = jexcel;
 export as namespace jexcel;
 

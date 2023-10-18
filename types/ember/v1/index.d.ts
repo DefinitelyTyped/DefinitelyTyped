@@ -1,9 +1,3 @@
-// Type definitions for Ember.js 1.11.3
-// Project: http://emberjs.com/
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 /// <reference types="handlebars"/>
 

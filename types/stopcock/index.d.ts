@@ -1,8 +1,3 @@
-// Type definitions for stopcock 1.1
-// Project: https://github.com/lpinca/stopcock
-// Definitions by: BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = stopcock;
 
 /**

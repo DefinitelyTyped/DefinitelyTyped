@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/has-symbols",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ljharb/has-symbols#readme"
+    ],
+    "devDependencies": {
+        "@types/has-symbols": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

@@ -206,13 +206,17 @@ export class OrbitControls extends EventDispatcher<OrbitControlsEventMap> {
      * This object contains references to the mouse actions used
      * by the controls.
      */
-    mouseButtons: Partial<{ LEFT: MOUSE; MIDDLE: MOUSE; RIGHT: MOUSE }>;
+    mouseButtons: {
+        LEFT?: MOUSE | null | undefined;
+        MIDDLE?: MOUSE | null | undefined;
+        RIGHT?: MOUSE | null | undefined;
+    };
 
     /**
      * This object contains references to the touch actions used by
      * the controls.
      */
-    touches: Partial<{ ONE: TOUCH; TWO: TOUCH }>;
+    touches: { ONE?: TOUCH | null | undefined; TWO?: TOUCH | null | undefined };
 
     /**
      * Used internally by the .saveState and .reset methods.

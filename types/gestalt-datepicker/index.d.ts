@@ -1,9 +1,3 @@
-// Type definitions for gestalt-datepicker 55.2
-// Project: https://github.com/pinterest/gestalt/tree/master/packages/gestalt-datepicker, https://gestalt.netlify.app/DatePicker
-// Definitions by: cgu <https://github.com/czgu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
-
 import * as React from "react";
 
 export interface Locale {

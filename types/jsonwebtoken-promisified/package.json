@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/jsonwebtoken-promisified",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/joepie91/node-jsonwebtoken-promisified"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/jsonwebtoken-promisified": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxime LUCE",
+            "githubUsername": "SomaticIT"
+        },
+        {
+            "name": "Daniel Heim",
+            "githubUsername": "danielheim"
+        },
+        {
+            "name": "Brice BERNARD",
+            "githubUsername": "brikou"
+        },
+        {
+            "name": "Aneil Mallavarapu",
+            "githubUsername": "aneilbaboo"
+        }
+    ]
+}

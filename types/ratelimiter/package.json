@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/ratelimiter",
+    "version": "3.4.9999",
+    "projects": [
+        "https://github.com/tj/node-ratelimiter"
+    ],
+    "devDependencies": {
+        "@types/ratelimiter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aya Morisawa",
+            "githubUsername": "AyaMorisawa"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

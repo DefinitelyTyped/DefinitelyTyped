@@ -1,8 +1,3 @@
-// Type definitions for slate-html-serializer 0.6
-// Project: https://github.com/ianstormtaylor/slate
-// Definitions by: Brandon Shelton <https://github.com/YangusKhan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 import * as React from "react";
 import { BlockProperties, Leaf, Mark, Node as SlateNode, Value, ValueJSON } from "slate";
 

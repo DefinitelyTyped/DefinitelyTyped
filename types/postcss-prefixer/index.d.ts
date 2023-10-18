@@ -1,8 +1,3 @@
-// Type definitions for postcss-prefixer 2.1
-// Project: https://github.com/marceloucker/postcss-prefixer
-// Definitions by: Nick Saunders <https://github.com/nsaunders>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { PluginCreator } from "postcss";
 
 declare namespace prefixer {

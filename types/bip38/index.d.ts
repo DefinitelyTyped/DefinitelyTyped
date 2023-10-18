@@ -1,9 +1,3 @@
-// Type definitions for bip38 3.1
-// Project: https://github.com/bitcoinjs/bip38, http://cryptocoinjs.com/modules/currency/bip38
-// Definitions by: Satana Charuwichitratana <https://github.com/micksatana>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
 
 // Note: When there is @types/scryptsy, ProgressStatus and ScryptParams should be referred from the definition instead

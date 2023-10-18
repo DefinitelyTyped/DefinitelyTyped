@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/angular-gettext",
+    "version": "2.1.9999",
+    "projects": [
+        "https://angular-gettext.rocketeer.be/"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/angular-gettext": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ákos Lukács",
+            "githubUsername": "AkosLukacs"
+        }
+    ]
+}

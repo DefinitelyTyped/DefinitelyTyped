@@ -9,16 +9,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
-        "paths": {
-            "@yodasws/*": [
-                "yodasws__*"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

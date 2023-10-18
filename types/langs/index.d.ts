@@ -1,8 +1,3 @@
-// Type definitions for langs 2.0
-// Project: https://github.com/adlawson/langs.js#readme
-// Definitions by: Orgad Shaneh <https://github.com/orgads>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace langs {
     type Type = 1 | 2 | 3 | "1" | "2" | "2T" | "2B" | "3";
 

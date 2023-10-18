@@ -1,8 +1,3 @@
-// Type definitions for color-diff 1.2
-// Project: https://github.com/markusn/color-diff#readme
-// Definitions by: katsanva <https://github.com/katsanva>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface RGBColor {
     R: number;
     G: number;

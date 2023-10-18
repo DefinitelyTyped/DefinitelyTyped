@@ -1,8 +1,3 @@
-// Type definitions for webfonts-generator 0.8
-// Project: https://github.com/vusion/webfonts-generator
-// Definitions by: atlowChemi <https://github.com/atlowChemi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as Handlebars from "handlebars";

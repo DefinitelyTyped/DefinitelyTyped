@@ -7,12 +7,8 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
         "strictFunctionTypes": true,
-        "esModuleInterop": true, 
-        "typeRoots": [
-            "../"
-        ],
+        "esModuleInterop": true,
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

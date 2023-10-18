@@ -1,11 +1,3 @@
-// Type definitions for node-mailjet 3.3
-// Project: https://github.com/mailjet/mailjet-apiv3-nodejs
-// Definitions by: Nikola Andreev <https://github.com/Nikola-Andreev>
-//                Jordan Garvey <https://github.com/jordangarvey>
-//                 Philipp Katz <https://github.com/qqilihq>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export function connect(apiKey: string, apiSecret: string, options?: ConnectOptions): Email.Client;
 
 export function connect(apiToken: string, options?: ConnectOptions): SMS.Client;

@@ -1,8 +1,3 @@
-// Type definitions for markdown-magic 1.0
-// Project: https://github.com/DavidWells/markdown-magic#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * @param path Path or glob pattern
  * @param config See configuration options below

@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/cli-progress",
+    "version": "3.11.9999",
+    "projects": [
+        "https://github.com/AndiDittrich/Node.CLI-Progress"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/cli-progress": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Mohamed Hegazy",
+            "githubUsername": "mhegazy"
+        },
+        {
+            "name": "Álvaro Martínez",
+            "githubUsername": "alvaromartmart"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Marko Schilde",
+            "githubUsername": "mschilde"
+        }
+    ]
+}

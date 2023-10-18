@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/react-vertical-timeline-component",
+    "version": "3.3.9999",
+    "projects": [
+        "https://github.com/stephane-monnot/react-vertical-timeline",
+        "https://stephane-monnot.github.io/react-vertical-timeline"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-vertical-timeline-component": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Stéphane Monnot",
+            "githubUsername": "stephane-monnot"
+        },
+        {
+            "name": "Lukas Elmer",
+            "githubUsername": "lukaselmer"
+        }
+    ]
+}

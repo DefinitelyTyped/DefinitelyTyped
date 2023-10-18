@@ -1,8 +1,3 @@
-// Type definitions for hidefile 3.0
-// Project: https://github.com/stevenvachon/hidefile
-// Definitions by: Nicholas Nelson <https://github.com/nelsonni>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { URL } from "url";

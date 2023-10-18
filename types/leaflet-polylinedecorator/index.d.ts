@@ -1,11 +1,3 @@
-// Type definitions for leaflet-polylinedecorator 1.6
-// Project: https://github.com/bbecquet/Leaflet.PolylineDecorator#readme
-// Definitions by: Viktor Soucek <https://github.com/soucekv>
-//                 Michael Faisst <https://github.com/michaelfaisst>
-//                 BePo65 <https://github.com/BePo65>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as L from "leaflet";
 
 declare module "leaflet" {

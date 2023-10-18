@@ -1,10 +1,3 @@
-// Type definitions for animejs 3.1
-// Project: http://animejs.com
-// Definitions by: Andrew Babin     <https://github.com/A-Babin>
-//                 southrock         <https://github.com/southrock>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 type FunctionBasedParameter = (element: HTMLElement, index: number, length: number) => number;
 type AnimeCallbackFunction = (anim: anime.AnimeInstance) => void;
 type CustomEasingFunction = (el: HTMLElement, index: number, length: number) => (time: number) => number;

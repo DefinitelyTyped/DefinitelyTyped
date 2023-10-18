@@ -1,9 +1,3 @@
-// Type definitions for non-npm package xelib 0.6
-// Project: https://github.com/z-edit/xelib
-// Definitions by: Alex Layton <https://github.com/awlayton>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.4
-
 /**
  * xelib instance
  */

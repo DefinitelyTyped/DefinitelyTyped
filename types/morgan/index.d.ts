@@ -1,10 +1,3 @@
-// Type definitions for morgan 1.9
-// Project: https://github.com/expressjs/morgan
-// Definitions by: James Roland Cabresos <https://github.com/staticfunction>
-//                 Paolo Scanferla <https://github.com/pscanf>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import http = require("http");

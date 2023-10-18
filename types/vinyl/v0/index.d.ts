@@ -1,8 +1,3 @@
-// Type definitions for vinyl 0.4.3
-// Project: https://github.com/wearefractal/vinyl
-// Definitions by: vvakame <https://github.com/vvakame>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import fs = require("fs");

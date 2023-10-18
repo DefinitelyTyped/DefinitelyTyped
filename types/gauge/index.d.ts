@@ -1,8 +1,3 @@
-// Type definitions for gauge 5.0
-// Project: https://github.com/npm/gauge
-// Definitions by: strawhat-dev <https://github.com/strawhat-dev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Stream } from "stream";

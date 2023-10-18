@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/xmpp__tls",
+    "version": "0.13.9999",
+    "projects": [
+        "https://github.com/xmppjs/xmpp.js/tree/main/packages/tls"
+    ],
+    "dependencies": {
+        "@types/xmpp__connection": "*",
+        "@types/xmpp__connection-tcp": "*"
+    },
+    "devDependencies": {
+        "@types/xmpp__tls": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

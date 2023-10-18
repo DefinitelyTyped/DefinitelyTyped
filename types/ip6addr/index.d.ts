@@ -1,8 +1,3 @@
-// Type definitions for ip6addr 0.2
-// Project: https://github.com/joyent/node-ip6addr
-// Definitions by: Vít Stanislav <https://github.com/slaweet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ToStringOpts {
     format?: "auto" | "v4" | "v4-mapped" | "v6" | undefined;
     zeroElide?: boolean | undefined;

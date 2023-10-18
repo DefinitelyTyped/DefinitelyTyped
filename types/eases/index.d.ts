@@ -1,8 +1,3 @@
-// Type definitions for eases 1.0
-// Project: https://github.com/mattdesl/eases
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Eases {
     backInOut(t: number): number;
     backIn(t: number): number;

@@ -1,9 +1,3 @@
-// Type definitions for pg 8.10
-// Project: https://github.com/brianc/node-postgres
-// Definitions by: Phips Peter <https://github.com/pspeter3>, Ravi van Rooijen <https://github.com/HoldYourWaffle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
 import events = require("events");
@@ -41,6 +35,7 @@ export interface Defaults extends ClientConfig {
     reapIntervalMillis?: number | undefined;
     binary?: boolean | undefined;
     parseInt8?: boolean | undefined;
+    parseInputDatesAsUTC?: boolean | undefined;
 }
 
 export interface PoolConfig extends ClientConfig {
@@ -173,7 +168,9 @@ export class Pool extends events.EventEmitter {
     readonly waitingCount: number;
 
     connect(): Promise<PoolClient>;
-    connect(callback: (err: Error, client: PoolClient, done: (release?: any) => void) => void): void;
+    connect(
+        callback: (err: Error | undefined, client: PoolClient | undefined, done: (release?: any) => void) => void,
+    ): void;
 
     end(): Promise<void>;
     end(callback: () => void): void;

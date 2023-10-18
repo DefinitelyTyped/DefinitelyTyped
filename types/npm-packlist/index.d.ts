@@ -1,10 +1,3 @@
-// Type definitions for npm-packlist 7.0
-// Project: https://github.com/npm/npm-packlist, https://www.npmjs.com/package/npm-packlist
-// Definitions by: Klaus Meinhardt <https://github.com/ajafff>
-//                 Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.3
-
 import type { Node } from "@npmcli/arborist";
 import type { Walker, WalkerOptions, WalkerSync } from "ignore-walk";
 

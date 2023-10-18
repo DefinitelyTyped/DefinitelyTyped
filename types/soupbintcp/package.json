@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/soupbintcp",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/jvirtanen/node-soupbintcp#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/soupbintcp": "workspace:."
+    },
+    "owners": []
+}

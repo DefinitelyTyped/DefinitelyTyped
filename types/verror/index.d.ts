@@ -1,8 +1,3 @@
-// Type definitions for verror 1.10
-// Project: https://github.com/davepacheco/node-verror
-// Definitions by: Sven Reglitzki <https://github.com/svi3c>, Maxime Toumi-M <https://github.com/max4t>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /*
  * VError([cause], fmt[, arg...]): Like JavaScript's built-in Error class, but
  * supports a "cause" argument (another error) and a printf-style message.  The

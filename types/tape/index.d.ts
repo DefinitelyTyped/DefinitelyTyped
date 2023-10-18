@@ -1,13 +1,3 @@
-// Type definitions for tape v5.6
-// Project: https://github.com/ljharb/tape
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 Haoqun Jiang <https://github.com/sodatea>
-//                 Dennis Schwartz <https://github.com/DennisSchwartz>
-//                 Michael Henretty <https://github.com/mikehenrty>
-//                 Rafał Ostrowski <https://github.com/rostrowski>
-//                 Jordan Harband <https://github.com/ljharb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = tape;

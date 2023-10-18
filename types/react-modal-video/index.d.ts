@@ -1,9 +1,3 @@
-// Type definitions for react-modal-video 1.2
-// Project: https://github.com/appleple/react-modal-video
-// Definitions by: Julián Bovone <https://github.com/jbovone>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 import * as React from "react";
 
 interface VimeoApi {

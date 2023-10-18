@@ -1,9 +1,3 @@
-// Type definitions for bindings 1.5
-// Project: https://github.com/TooTallNate/node-bindings
-// Definitions by: Daniel Perez Alvarez <https://github.com/unindented>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 /**

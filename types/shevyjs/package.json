@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/shevyjs",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/kyleshevlin/shevyjs#readme"
+    ],
+    "devDependencies": {
+        "@types/shevyjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "nonAlgebraic",
+            "githubUsername": "nonAlgebraic"
+        }
+    ]
+}

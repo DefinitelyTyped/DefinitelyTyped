@@ -8,10 +8,6 @@
         "strictFunctionTypes": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

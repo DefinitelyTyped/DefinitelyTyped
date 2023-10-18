@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "name": "@types/react-google-places-suggest",
+    "version": "3.4.9999",
+    "projects": [
+        "https://github.com/xuopled/react-google-places-suggest"
+    ],
+    "dependencies": {
+        "@types/google.maps": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-google-places-suggest": "workspace:."
+    },
+    "owners": []
+}

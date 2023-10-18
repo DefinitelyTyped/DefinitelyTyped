@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/nlcst",
+    "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "nlcst",
+    "projects": [
+        "https://github.com/syntax-tree/nlcst"
+    ],
+    "dependencies": {
+        "@types/unist": "*"
+    },
+    "devDependencies": {
+        "@types/nlcst": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Titus Wormer",
+            "githubUsername": "wooorm"
+        },
+        {
+            "name": "Christian Murphy",
+            "githubUsername": "ChristianMurphy"
+        },
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
+}

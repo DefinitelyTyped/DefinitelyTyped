@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/dhtmlxscheduler",
+    "version": "4.3.9999",
+    "projects": [
+        "http://dhtmlx.com/docs/products/dhtmlxScheduler"
+    ],
+    "devDependencies": {
+        "@types/dhtmlxscheduler": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maksim Kozhukh",
+            "githubUsername": "mkozhukh"
+        }
+    ]
+}

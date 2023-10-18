@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/iferr",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/shesek/iferr"
+    ],
+    "devDependencies": {
+        "@types/iferr": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "segayuu",
+            "githubUsername": "segayuu"
+        }
+    ]
+}

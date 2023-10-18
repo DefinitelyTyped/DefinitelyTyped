@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/sade",
+    "version": "1.7.9999",
+    "projects": [
+        "https://github.com/lukeed/sade#readme"
+    ],
+    "dependencies": {
+        "@types/mri": "*"
+    },
+    "devDependencies": {
+        "@types/sade": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Epimodev",
+            "githubUsername": "Epimodev"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

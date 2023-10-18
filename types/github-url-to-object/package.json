@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/github-url-to-object",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/zeke/github-url-to-object#readme"
+    ],
+    "devDependencies": {
+        "@types/github-url-to-object": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Klaus Meinhardt",
+            "githubUsername": "ajafff"
+        }
+    ]
+}

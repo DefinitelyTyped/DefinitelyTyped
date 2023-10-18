@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/riot-games-api",
+    "version": "0.0.9999",
+    "projects": [
+        "https://developer.riotgames.com/"
+    ],
+    "devDependencies": {
+        "@types/riot-games-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Xavier Stouder",
+            "githubUsername": "xstoudi"
+        }
+    ]
+}

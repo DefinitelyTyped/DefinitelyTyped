@@ -1,12 +1,3 @@
-// Type definitions for React (react-dom) 15.5
-// Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>
-//                 AssureSign <http://www.assuresign.com>
-//                 Microsoft <https://microsoft.com>
-//                 MartynasZilinskas <https://github.com/MartynasZilinskas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 export as namespace ReactDOM;
 
 import {

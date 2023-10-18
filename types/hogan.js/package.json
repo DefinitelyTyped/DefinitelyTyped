@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/hogan.js",
+    "version": "3.0.9999",
+    "projects": [
+        "http://twitter.github.com/hogan.js/"
+    ],
+    "devDependencies": {
+        "@types/hogan.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrew Leedham",
+            "githubUsername": "AndrewLeedham"
+        }
+    ]
+}

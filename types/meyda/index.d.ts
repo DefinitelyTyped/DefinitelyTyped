@@ -1,9 +1,3 @@
-// Type definitions for meyda 4.3
-// Project: https://github.com/meyda/meyda
-// Definitions by: Damien Erambert <https://github.com/eramdam>
-//                 Hugh Rawlinson <https://github.com/hughrawlinson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace Meyda;
 
 export type MeydaWindowingFunction = "blackman" | "sine" | "hanning" | "hamming";

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/picomatch",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/micromatch/picomatch"
+    ],
+    "devDependencies": {
+        "@types/picomatch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Patrick",
+            "githubUsername": "p-kuen"
+        },
+        {
+            "name": "Daniel Tschinder",
+            "githubUsername": "danez"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

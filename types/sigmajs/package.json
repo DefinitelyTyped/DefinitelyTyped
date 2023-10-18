@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/sigmajs",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jacomyal/sigma.js"
+    ],
+    "devDependencies": {
+        "@types/sigmajs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qinfeng Chen",
+            "githubUsername": "qinfchen"
+        }
+    ]
+}

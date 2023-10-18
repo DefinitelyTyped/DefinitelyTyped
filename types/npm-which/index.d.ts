@@ -1,8 +1,3 @@
-// Type definitions for npm-which 3.0
-// Project: https://github.com/timoxley/npm-which
-// Definitions by: Manuel Thalmann <https://github.com/manuth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import "node";
 
 /**

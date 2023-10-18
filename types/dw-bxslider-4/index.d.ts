@@ -1,9 +1,3 @@
-// Type definitions for bxSlider v4.2.5
-// Project: https://github.com/stevenwanderski/bxslider-4
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 interface bxSliderOptions {

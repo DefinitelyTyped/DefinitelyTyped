@@ -1,16 +1,3 @@
-// Type definitions for Cytoscape.js 3.19
-// Project: http://js.cytoscape.org/
-// Definitions by:  Fabian Schmidt and Fred Eisele <https://github.com/phreed>
-//                  Shenghan Gao <https://github.com/wy193777>
-//                  Yuri Pereira Constante <https://github.com/ypconstante>
-//                  Jan-Niclas Struewer <https://github.com/janniclas>
-//                  Andrej Kirejeŭ <https://github.com/gsbelarus>
-//                  Peter Ferrarotto <https://github.com/peterjferrarotto>
-//                  Xavier Ho <https://github.com/spaxe>
-//                  Fredrik Sandström <https://github.com/Veckodag>
-//                  Johan Svensson <https://github.com/jsve>
-//                  Roger Dubbs <https://github.com/rogerdubbs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Translation from Objects in help to Typescript interface.
 // http://js.cytoscape.org/#notation/functions
@@ -111,6 +98,10 @@ declare namespace cytoscape {
          * Wether the node can be grabbed and moved by the user
          */
         grabbable?: boolean | undefined;
+        /**
+         * Whether the element has passthrough panning enabled.
+         */
+        pannable?: boolean | undefined;
         /**
          * a space separated list of class names that the element has
          */

@@ -1,9 +1,3 @@
-// Type definitions for react-native-onboarding-swiper 1.1
-// Project: https://github.com/jfilter/react-native-onboarding-swiper#readme
-// Definitions by: Shirsh Zibbu <https://github.com/zhirzh>
-//                 YEK-PLUS <https://github.com/yek-plus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Component, FC } from "react";
 import { FlatList, FlatListProps, StyleProp, TextStyle, ViewStyle } from "react-native";
 

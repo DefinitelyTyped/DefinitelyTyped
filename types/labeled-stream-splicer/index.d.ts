@@ -1,9 +1,3 @@
-// Type definitions for labeled-stream-splicer 2.0
-// Project: https://github.com/browserify/labeled-stream-splicer
-// Definitions by: Junxiao Shi <https://github.com/yoursunny>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 /// <reference types="node" />
 import * as stream from "stream";
 

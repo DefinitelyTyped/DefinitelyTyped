@@ -1,11 +1,3 @@
-// Type definitions for node-rpio 2.4.1
-// Project: https://github.com/jperkin/node-rpio
-// Definitions by: Dominik Palo <https://github.com/DominikPalo>
-//                 Hannes Früchtenicht <https://github.com/Pencl>
-//                 Mark Hoffmeyer <https://github.com/mhoffmeyerDC>
-//                 Wayne Parrott <https://github.com/wayneparrott>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare var rpio: Rpio;

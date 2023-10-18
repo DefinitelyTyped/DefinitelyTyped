@@ -1,8 +1,3 @@
-// Type definitions for foundation-datepicker 1.5
-// Project: https://github.com/najlepsiwebdesigner/foundation-datepicker
-// Definitions by: Matt Smith <https://github.com/mattsmithcode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="jquery" />
 
 declare namespace FoundationDatepicker {

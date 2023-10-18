@@ -8,19 +8,7 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
-        "paths": {
-            "ml-levenberg-marquardt": [
-                "ml-levenberg-marquardt/v1"
-            ],
-            "ml-levenberg-marquardt/*": [
-                "ml-levenberg-marquardt/v1/*"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

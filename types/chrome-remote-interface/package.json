@@ -1,6 +1,24 @@
 {
     "private": true,
+    "name": "@types/chrome-remote-interface",
+    "version": "0.31.9999",
+    "projects": [
+        "https://github.com/cyrus-and/chrome-remote-interface"
+    ],
     "dependencies": {
         "devtools-protocol": "0.0.927104"
-    }
+    },
+    "devDependencies": {
+        "@types/chrome-remote-interface": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Khairul Azhar Kasmiran",
+            "githubUsername": "kazarmy"
+        },
+        {
+            "name": "Seth Westphal",
+            "githubUsername": "westy92"
+        }
+    ]
 }

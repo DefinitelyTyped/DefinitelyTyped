@@ -1,8 +1,3 @@
-// Type definitions for react-native-html-to-pdf 0.8
-// Project: https://github.com/christopherdro/react-native-html-to-pdf
-// Definitions by: euZebe <https://github.com/euzebe>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Options {
     html: string;
     fileName?: string | undefined;

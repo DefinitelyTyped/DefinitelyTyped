@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/json2mq",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/akiran/json2mq"
+    ],
+    "devDependencies": {
+        "@types/json2mq": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Zhang Yi Jiang",
+            "githubUsername": "ZhangYiJiang"
+        }
+    ]
+}

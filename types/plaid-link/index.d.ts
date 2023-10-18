@@ -1,11 +1,3 @@
-// Type definitions for non-npm package Plaid Link 2.0
-// Project: https://cdn.plaid.com/link/v2/stable/link-initialize.js
-// Definitions by: Aaron Holderman <https://github.com/afholderman>
-//                 Brian Howald <https://github.com/bdhowald>
-//                 Hannes Kindströmmer <https://github.com/brolaugh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.3
-
 declare global {
     interface Window {
         Plaid: {

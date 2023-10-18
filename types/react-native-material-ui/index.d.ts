@@ -1,9 +1,3 @@
-// Type definitions for react-native-material-ui 1.32
-// Project: https://github.com/xotahal/react-native-material-ui
-// Definitions by: Kyle Roach <https://github.com/iRoachie>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { Component } from "react";
 import { Image, StyleProp, TextStyle as TextStyleRaw, ViewStyle as ViewStyleRaw } from "react-native";
 

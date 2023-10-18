@@ -1,0 +1,13 @@
+{
+    "private": true,
+    "name": "@types/less2sass",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ekryski/less2sass",
+        "http://erickryski.com"
+    ],
+    "devDependencies": {
+        "@types/less2sass": "workspace:."
+    },
+    "owners": []
+}

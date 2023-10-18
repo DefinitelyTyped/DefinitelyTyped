@@ -1,8 +1,3 @@
-// Type definitions for pizzip 3.0
-// Project: https://github.com/open-xml-templating/pizzip#readme
-// Definitions by: Edward Sammut Alessi <https://github.com/Slessi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export as namespace PizZip;

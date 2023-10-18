@@ -1,8 +1,3 @@
-// Type definitions for browser-util-inspect 0.2
-// Project: https://github.com/deecewan/browser-util-inspect
-// Definitions by: polyipseity <https://github.com/polyipseity>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = inspect;
 
 /**

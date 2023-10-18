@@ -3,23 +3,19 @@
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "module": "commonjs",
-        "lib": ["es6"],
+        "lib": [
+            "es6"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "paths": {
-            "yargs-parser": [
-                "yargs-parser/v11"
-            ]
-        },
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "yargs-parser-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "yargs-parser-tests.ts"
+    ]
 }

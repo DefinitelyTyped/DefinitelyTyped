@@ -1,9 +1,3 @@
-// Type definitions for hot-formula-parser 4.0
-// Project: https://github.com/handsontable/formula-parser
-// Definitions by: João Nascimento <https://github.com/joao-mbn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.5
-
 /**
  * The class used to perform the formula parsing.
  *

@@ -8,15 +8,6 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "npm-registry-fetch": ["npm-registry-fetch/v4"],
-            "pacote": ["pacote/v9"],
-            "pacote/*": ["pacote/v9/*"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

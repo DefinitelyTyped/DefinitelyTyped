@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Google Identity Services JavaScript SDK 0.0
-// Project: https://developers.google.com/identity/oauth2/web/reference/js-reference
-//     https://developers.google.com/identity/gsi/web/reference/js-reference
-// Definitions by: Arthur E. Jones <https://github.com/partylich>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace google.accounts {
     namespace oauth2 {
         /**

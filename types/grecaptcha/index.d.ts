@@ -1,13 +1,3 @@
-// Type definitions for Google Recaptcha 3.0
-// Project: https://www.google.com/recaptcha
-// Definitions by: Kristof Mattei <http://kristofmattei.be>
-//                 Martin Costello <https://martincostello.com/>
-//                 Ruslan Arkhipau <https://github.com/DethAriel>
-//                 Rafael Tavares <https://github.com/rafaeltavares>
-//                 Florian Rohrer <https://github.com/RohrerF>
-//                 Veniamin Krol <https://github.com/vkrol>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var grecaptcha: ReCaptchaV2.ReCaptcha & {
     enterprise: ReCaptchaV2.ReCaptcha;
 };

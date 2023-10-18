@@ -1,9 +1,3 @@
-// Type definitions for node-github-url-from-git 1.5
-// Project: https://github.com/tj/node-github-url-from-git
-// Definitions by: Christian Murphy <https://github.com/ChristianMurphy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.0
-
 declare namespace githubUrlFromGit {
     interface githubUrlFromGitOptions {
         /**

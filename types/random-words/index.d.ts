@@ -1,8 +1,3 @@
-// Type definitions for random-words 1.1
-// Project: https://github.com/punkave/random-words#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * generates random words for use as sample text.
  * We use it to generate random blog posts when testing Apostrophe.

@@ -1,8 +1,3 @@
-// Type definitions for vector2js 2.0
-// Project: https://github.com/RonenNess/Vector2js
-// Definitions by: Leo Nicolle <https://github.com/Leo-Nicolle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type InputVec = Vector | { x: number; y: number };
 declare class Vector {
     x: number;

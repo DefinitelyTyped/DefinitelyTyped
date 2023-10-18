@@ -1,0 +1,48 @@
+{
+    "private": true,
+    "name": "@types/multer",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/expressjs/multer"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/multer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jt000",
+            "githubUsername": "jt000"
+        },
+        {
+            "name": "vilicvane",
+            "githubUsername": "vilic"
+        },
+        {
+            "name": "David Broder-Rodgers",
+            "githubUsername": "DavidBR-SW"
+        },
+        {
+            "name": "Michael Ledin",
+            "githubUsername": "mxl"
+        },
+        {
+            "name": "HyunSeob Lee",
+            "githubUsername": "hyunseob"
+        },
+        {
+            "name": "Pierre Tchuente",
+            "githubUsername": "PierreTchuente"
+        },
+        {
+            "name": "Oliver Emery",
+            "githubUsername": "thrymgjol"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,10 +1,3 @@
-// Type definitions for country-data 0.0
-// Project: https://github.com/OpenBookPrices/country-data
-// Definitions by: Logan Dam <https://github.com/biltongza>
-//                 Mike MacCana <https://github.com/mikemaccana>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 export interface Country {
     readonly alpha2: string;
     readonly alpha3: string;

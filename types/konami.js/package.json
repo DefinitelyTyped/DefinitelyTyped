@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/konami.js",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/snaptortoise/konami-js"
+    ],
+    "devDependencies": {
+        "@types/konami.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matthieu Mourisson",
+            "githubUsername": "mareek"
+        }
+    ]
+}

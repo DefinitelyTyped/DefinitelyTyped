@@ -1,6 +1,30 @@
 {
-  "private": true,
-  "dependencies": {
-    "@maxim_mazurok/gapi.client.domains-v1alpha2": "latest"
-  }
+    "private": true,
+    "name": "@types/gapi.client.domains-v1alpha2",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Cloud Domains API v1alpha2",
+    "projects": [
+        "https://cloud.google.com/domains/"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.domains-v1alpha2": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.domains-v1alpha2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
 }

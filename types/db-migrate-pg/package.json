@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/db-migrate-pg",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/db-migrate/pg"
+    ],
+    "dependencies": {
+        "@types/bluebird": "*",
+        "@types/db-migrate-base": "*",
+        "@types/pg": "*"
+    },
+    "devDependencies": {
+        "@types/db-migrate-pg": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "nickiannone",
+            "githubUsername": "nickiannone"
+        }
+    ]
+}

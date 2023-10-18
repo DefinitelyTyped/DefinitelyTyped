@@ -1,8 +1,3 @@
-// Type definitions for complexviewer 2.1
-// Project: https://github.com/MICommunity/ComplexViewer
-// Definitions by: EliotRagueneau <https://github.com/EliotRagueneau>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { ScaleOrdinal } from "d3-scale";
 
 export as namespace complexviewer;

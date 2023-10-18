@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/postcss-js",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/postcss/postcss-js"
+    ],
     "dependencies": {
         "postcss": "^8.3.3"
-    }
+    },
+    "devDependencies": {
+        "@types/postcss-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Thompson-Sharpe",
+            "githubUsername": "MysteryBlokHed"
+        }
+    ]
 }

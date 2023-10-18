@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/express-fileupload",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/richardgirges/express-fileupload#readme"
+    ],
+    "dependencies": {
+        "@types/busboy": "*",
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/express-fileupload": "workspace:.",
+        "@types/express-serve-static-core": "*"
+    },
+    "owners": [
+        {
+            "name": "Sefa Ilkimen",
+            "githubUsername": "silkimen"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Mark Oude Elberink",
+            "githubUsername": "markxoe"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

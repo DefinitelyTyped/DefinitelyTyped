@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/rrdir",
+    "version": "8.2.9999",
+    "projects": [
+        "https://github.com/silverwind/rrdir#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/picomatch": "*"
+    },
+    "devDependencies": {
+        "@types/rrdir": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Zhang Nan",
+            "githubUsername": "anyone-developer"
+        }
+    ]
+}

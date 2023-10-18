@@ -8,19 +8,9 @@
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "boom": [ "boom/v4" ],
-            "catbox": [ "catbox/v7" ],
-            "hapi": [ "hapi/v16" ],
-            "glue": [ "glue/v4" ]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
