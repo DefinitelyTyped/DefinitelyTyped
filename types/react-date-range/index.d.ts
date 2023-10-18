@@ -1,5 +1,6 @@
 import { Locale } from "date-fns";
 import * as React from "react";
+import { Optional } from "./_util";
 
 // =============================================================================
 // Helper Types/Interfaces
@@ -315,7 +316,7 @@ export class DefinedRange extends React.Component<DefinedRangeProps> {}
 export const defaultStaticRanges: StaticRange[];
 export const defaultInputRanges: InputRange[];
 
-export function createStaticRanges(ranges: StaticRange[]): StaticRange[];
+export function createStaticRanges(ranges: Array<Optional<StaticRange, "isSelected">>): StaticRange[];
 
 // =============================================================================
 // DateRangePicker Component
