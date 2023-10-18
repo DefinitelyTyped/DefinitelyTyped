@@ -288,6 +288,12 @@ export interface ConnectionOptions {
      * For details, see {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#label-nodejs-key-pair-authentication Using Key Pair Authentication & Key Pair Rotation}.
      */
     privateKeyPass?: string;
+
+    /**
+     * Specifies a fully-qualified endpoint for connecting to Snowflake.
+     * For details, see {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-options#additional-connection-options Additional connection options}.
+     */
+    accessUrl?: string;
 }
 
 export interface Column {
