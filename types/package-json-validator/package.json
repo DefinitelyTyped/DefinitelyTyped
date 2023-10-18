@@ -3,7 +3,7 @@
     "name": "@types/package-json-validator",
     "version": "0.6.9999",
     "projects": [
-        "http://package-json-validator.com"
+        "https://github.com/TechNickAI/package.json-validator"
     ],
     "devDependencies": {
         "@types/package-json-validator": "workspace:."
