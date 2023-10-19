@@ -171,9 +171,7 @@ MyTelegramBot.editChatInviteLink(1234, {
     member_limit: 1234,
     creates_join_request: true
 });
-MyTelegramBot.revokeChatInviteLink(1234, {
-    inviteLink: ""
-});
+MyTelegramBot.revokeChatInviteLink(1234, "");
 MyTelegramBot.approveChatJoinRequest(1234, 5678);
 MyTelegramBot.approveChatJoinRequest(1234, 5678, {});
 MyTelegramBot.declineChatJoinRequest(1234, 5678);

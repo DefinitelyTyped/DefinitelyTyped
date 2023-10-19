@@ -1653,9 +1653,7 @@ declare class TelegramBot extends EventEmitter<
         }
     ): Promise<TelegramBot.ChatInviteLink>;
 
-    revokeChatInviteLink(chatId: TelegramBot.ChatId, options?: {
-        inviteLink: string
-    }): Promise<TelegramBot.ChatInviteLink>;
+    revokeChatInviteLink(chatId: TelegramBot.ChatId, inviteLink: string): Promise<TelegramBot.ChatInviteLink>;
 
     approveChatJoinRequest(chatId: TelegramBot.ChatId, userId: number, form?: object): Promise<boolean>;
 
