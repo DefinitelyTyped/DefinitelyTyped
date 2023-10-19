@@ -5,7 +5,7 @@
     "projects": [
         "https://github.com/mikaelbr/marked-terminal"
     ],
-    "typeScriptVersion": "5.3",
+    "minimumTypeScriptVersion": "5.3",
     "type": "module",
     "exports": {
         "node": {

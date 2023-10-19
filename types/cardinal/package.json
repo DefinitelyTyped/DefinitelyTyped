@@ -1,10 +1,11 @@
 {
+    "private": true,
     "name": "@types/cardinal",
     "version": "2.1.9999",
     "projects": [
         "https://github.com/thlorenz/cardinal"
     ],
-    "contributors": [
+    "owners": [
         {
             "name": "Andrew Branch",
             "githubUsername": "andrewbranch"
@@ -12,6 +13,6 @@
     ],
     "devDependencies": {
         "@types/ansicolors": "^0",
-        "@types/marked-terminal": "workspace:."
+        "@types/cardinal": "workspace:."
     }
 }
