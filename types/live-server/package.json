@@ -6,7 +6,8 @@
         "https://github.com/tapio/live-server#readme"
     ],
     "devDependencies": {
-        "@types/live-server": "workspace:."
+        "@types/live-server": "workspace:.",
+        "@types/node": "*"
     },
     "owners": [
         {
