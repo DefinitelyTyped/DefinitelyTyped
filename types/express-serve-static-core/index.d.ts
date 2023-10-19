@@ -555,7 +555,6 @@ export interface Request<
      * "trust proxy" is `true` return
      * the upstream addr.
      *
-     *
      * Value may be undefined if the `req.socket` is destroyed
      * (for example, if the client disconnected).
      */
