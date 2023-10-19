@@ -220,7 +220,7 @@ declare namespace runtime {
                 }>;
                 default?: {
                     permissions: Permission | Permission[];
-                };
+                } | undefined;
             }
             | {
                 type: "credentials";
