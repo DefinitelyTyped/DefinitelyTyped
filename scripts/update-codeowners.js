@@ -1,7 +1,6 @@
 // @ts-check
 import { AllPackages, clean, getDefinitelyTyped, parseDefinitions } from "@definitelytyped/definitions-parser";
 import { loggerWithErrors } from "@definitelytyped/utils";
-import * as cp from "node:child_process";
 import { writeFile } from "node:fs/promises";
 import * as os from "node:os";
 
@@ -23,35 +22,11 @@ async function main() {
     );
 }
 
-runSequence([
-    ["git", ["checkout", "."]], // reset any changes
-]);
-
 main()
-    .then(() => {
-        runSequence([
-            ["git", ["add", ".github/CODEOWNERS"]], // Add CODEOWNERS
-            ["git", ["pull"]], // Ensure we're up-to-date
-            ["git", ["commit", "-m", `"🤖 Update CODEOWNERS"`]], // Commit all changes
-            ["git", ["push"]], // push the branch
-        ]);
-        console.log(`Pushed new commit.`);
-    })
     .catch(e => {
         console.error(e);
         process.exit(1);
     });
-
-/** @param {[string, string[]][]} tasks */
-function runSequence(tasks) {
-    for (const task of tasks) {
-        console.log(`${task[0]} ${task[1].join(" ")}`);
-        const result = cp.spawnSync(task[0], task[1], { timeout: 100000, shell: true, stdio: "inherit" });
-        if (result.status !== 0) {
-            throw new Error(`${task[0]} ${task[1].join(" ")} failed: ${result.stderr && result.stderr.toString()}`);
-        }
-    }
-}
 
 const header = `# This file is generated.
 # Add yourself to the "Definitions by:" list instead.
