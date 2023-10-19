@@ -62,11 +62,13 @@ export type ScrollbarPresenceParams = {
 export type SectionRenderedParams = RenderedSection;
 export type SCROLL_DIRECTION_HORIZONTAL = "horizontal";
 export type SCROLL_DIRECTION_VERTICAL = "vertical";
+export type SCROLL_DIRECTION_BACKWARD = -1;
+export type SCROLL_DIRECTION_FORWARD = 1;
 export type OverscanIndicesGetterParams = {
     direction?: SCROLL_DIRECTION_HORIZONTAL | SCROLL_DIRECTION_VERTICAL | undefined;
     cellCount: number;
     overscanCellsCount: number;
-    scrollDirection: SCROLL_DIRECTION_HORIZONTAL | SCROLL_DIRECTION_VERTICAL;
+    scrollDirection: SCROLL_DIRECTION_BACKWARD | SCROLL_DIRECTION_FORWARD;
     startIndex: number;
     stopIndex: number;
 };
