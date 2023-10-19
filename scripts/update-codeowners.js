@@ -1,22 +1,17 @@
 // @ts-check
-import { AllPackages, clean, getDefinitelyTyped, parseDefinitions } from "@definitelytyped/definitions-parser";
-import { loggerWithErrors } from "@definitelytyped/utils";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { writeFile } from "node:fs/promises";
-import * as os from "node:os";
+
+const header = `# This file is generated.
+# Add yourself to the "Definitions by:" list instead.
+# See https://github.com/DefinitelyTyped/DefinitelyTyped#definition-owners`;
 
 async function main() {
-    const options = { definitelyTypedPath: ".", progress: false, parseInParallel: true };
-    const log = loggerWithErrors()[0];
-
-    clean();
-    const dt = await getDefinitelyTyped(options, log);
-    await parseDefinitions(dt, { nProcesses: os.cpus().length, definitelyTypedPath: "." }, log);
-    const allPackages = await AllPackages.read(dt);
-    const typings = allPackages.allTypings();
-    const maxPathLen = Math.max(...typings.map(t => t.subDirectoryPath.length));
-    const entries = mapDefined(typings, t => getEntry(t, maxPathLen));
+    const { owners, maxPathLen } = getAllOwners();
+    const codeOwnersPath = new URL("../.github/CODEOWNERS", import.meta.url);
+    const entries = mapDefined(owners, ([p, users]) => getEntry(p, users, maxPathLen));
     await writeFile(
-        [options.definitelyTypedPath, ".github", "CODEOWNERS"].join("/"),
+        codeOwnersPath,
         `${header}\n\n${entries.join("\n")}\n`,
         { encoding: "utf-8" },
     );
@@ -28,23 +23,59 @@ main()
         process.exit(1);
     });
 
-const header = `# This file is generated.
-# Add yourself to the "Definitions by:" list instead.
-# See https://github.com/DefinitelyTyped/DefinitelyTyped#definition-owners`;
+/**
+ * @param {URL} dir
+ * @param {(subpath: URL) => void} fn
+ */
+function recurse(dir, fn) {
+    const entryPoints = readdirSync(dir, { withFileTypes: true });
+    for (const subdir of entryPoints) {
+        if (subdir.isDirectory() && subdir.name !== "node_modules") {
+            const subpath = new URL(`${subdir.name}/`, dir);
+            fn(subpath);
+            recurse(subpath, fn);
+        }
+    }
+}
+
+function getAllOwners() {
+    /** @type {[string, string[]][]} */
+    const owners = [];
+    console.log("Reading headers...");
+    const rootPrefixLength = (new URL("../", import.meta.url)).pathname.length - 1;
+    let maxPathLen = 0;
+
+    recurse(new URL("../types/", import.meta.url), subpath => {
+        const index = new URL("package.json", subpath);
+        if (existsSync(index)) {
+            const indexContent = readFileSync(index, "utf-8");
+            let parsed;
+            try {
+                parsed = JSON.parse(indexContent);
+            } catch (e) {}
+            if (parsed && parsed.owners && Array.isArray(parsed.owners)) {
+                const usernames = mapDefined(parsed.owners, o => o.githubUsername);
+                if (usernames.length > 0) {
+                    const p = subpath.pathname.slice(rootPrefixLength);
+                    maxPathLen = Math.max(maxPathLen, p.length);
+                    owners.push([p, usernames]);
+                }
+            }
+        }
+    });
+
+    return { maxPathLen, owners };
+}
 
 /**
- * @param { import("@definitelytyped/definitions-parser").TypingsData } pkg
+ * @param {string} p
+ * @param {string[]} users
  * @param {number} maxPathLen
  * @return {string | undefined}
  */
-function getEntry(pkg, maxPathLen) {
-    const users = mapDefined(pkg.contributors, c => "githubUsername" in c ? c.githubUsername : undefined);
-    if (!users.length) {
-        return undefined;
-    }
-
-    const path = `${pkg.subDirectoryPath}/`.padEnd(maxPathLen + 1);
-    return `/types/${path} ${users.map(u => `@${u}`).join(" ")}`;
+function getEntry(p, users, maxPathLen) {
+    const path = p.padEnd(maxPathLen);
+    return `${path} ${users.map(u => `@${u}`).join(" ")}`;
 }
 
 /**
