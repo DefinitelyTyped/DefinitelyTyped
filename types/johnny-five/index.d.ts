@@ -257,7 +257,7 @@ export interface AnimationSegment {
 }
 
 export class Animation {
-    constructor(option: Servo | Servo[]);
+    constructor(option: Servo | Servos);
 
     target: number;
     duration: number;
@@ -1205,10 +1205,12 @@ export class ServoMethods {
     /**
      * Sweep the servo between an explicit range, repeatedly.
      */
+    // tslint:disable-next-line:unified-signatures
     sweep(range: [low: number, high: number]): void;
     /**
      * Sweep the servo between an (optional) explicit range, within an (optional) explicit interval, and (optional) explicit steps (in degrees), repeatedly.
      */
+    // tslint:disable-next-line:unified-signatures
     sweep(sweepOpts: ServoSweepOpts): void;
     /**
      * Stop a moving servo.
@@ -1248,6 +1250,7 @@ export class Servos extends ServoMethods {
     /**
      * An array of pins
      */
+    // tslint:disable-next-line:unified-signatures
     constructor(options: Array<Servo["pin"]>);
 
     /**
