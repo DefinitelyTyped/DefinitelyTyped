@@ -11,5 +11,10 @@
     "devDependencies": {
         "@types/node-targz": "workspace:."
     },
-    "owners": []
+    "owners": [
+        {
+            "name": "Mats Jun Larsen",
+            "githubUsername": "junlarsen"
+        }
+    ]
 }
