@@ -1,3 +1,13 @@
+import * as http from "http";
+
+export class Request extends http.IncomingMessage {
+    originalUrl?: http.IncomingMessage["url"];
+}
+
+export class Response extends http.ServerResponse { }
+
+export type NextFunction = (err?: any) => void;
+
 /**
  * The live-server start params.
  */
@@ -23,7 +33,7 @@ export interface LiveServerParams {
     /** 0 = errors only, 1 = some, 2 = lots */
     logLevel?: 0 | 1 | 2 | undefined;
     /** Takes an array of Connect-compatible middleware that are injected into the server middleware stack. */
-    middleware?: Array<(req: any, res: any, next: any) => void> | undefined;
+    middleware?: Array<(req: Request, res: Response, next: NextFunction) => void> | undefined;
 }
 
 /**

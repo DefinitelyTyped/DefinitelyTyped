@@ -1,4 +1,5 @@
 import liveServer = require("live-server");
+import { Request, Response, NextFunction } from '.';
 
 liveServer.start({
     port: 8181,
@@ -12,7 +13,7 @@ liveServer.start({
     mount: [["/components", "./node_modules"]],
     logLevel: 2,
     middleware: [
-        (req: any, res: any, next: any) => {
+        (_req: Request, _res: Response, next: NextFunction) => {
             next();
         },
     ],
