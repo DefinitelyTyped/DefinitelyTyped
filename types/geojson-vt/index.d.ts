@@ -25,9 +25,9 @@ declare namespace geojsonvt {
     }
     enum FeatureTypes {
         Unknown = 0,
-        Point,
-        Linestring,
-        Polygon,
+        Point = 1,
+        Linestring = 2,
+        Polygon = 3,
     }
     type Geometry = [number, number];
     /**
