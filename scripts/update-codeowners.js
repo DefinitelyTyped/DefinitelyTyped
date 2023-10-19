@@ -1,4 +1,3 @@
-// @ts-check
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { writeFile } from "node:fs/promises";
 

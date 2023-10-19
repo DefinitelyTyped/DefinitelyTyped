@@ -1,4 +1,3 @@
-// @ts-check
 import { Octokit } from "@octokit/core";
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 
