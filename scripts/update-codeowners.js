@@ -2,7 +2,7 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { writeFile } from "node:fs/promises";
 
 const header = `# This file is generated.
-# Add yourself to the "Definitions by:" list instead.
+# Add yourself to the "owners" in package.json instead.
 # See https://github.com/DefinitelyTyped/DefinitelyTyped#definition-owners`;
 
 async function main() {
