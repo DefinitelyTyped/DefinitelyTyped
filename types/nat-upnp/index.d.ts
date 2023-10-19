@@ -1,7 +1,3 @@
-// Type definitions for nat-upnp 1.1
-// Project: https://github.com/indutny/node-nat-upnp
-// Definitions by: SimplyLinn <https://github.com/SimplyLinn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 import { EventEmitter } from "events";
 

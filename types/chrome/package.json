@@ -1,0 +1,79 @@
+{
+    "private": true,
+    "name": "@types/chrome",
+    "version": "0.0.9999",
+    "projects": [
+        "http://developer.chrome.com/extensions/"
+    ],
+    "dependencies": {
+        "@types/filesystem": "*",
+        "@types/har-format": "*"
+    },
+    "devDependencies": {
+        "@types/chrome": "workspace:.",
+        "@types/jquery": "*",
+        "@types/jqueryui": "*"
+    },
+    "owners": [
+        {
+            "name": "Matthew Kimber",
+            "githubUsername": "matthewkimber"
+        },
+        {
+            "name": "otiai10",
+            "githubUsername": "otiai10"
+        },
+        {
+            "name": "sreimer15",
+            "githubUsername": "sreimer15"
+        },
+        {
+            "name": "MatCarlson",
+            "githubUsername": "MatCarlson"
+        },
+        {
+            "name": "ekinsol",
+            "githubUsername": "ekinsol"
+        },
+        {
+            "name": "Brian Wilson",
+            "githubUsername": "echoabstract"
+        },
+        {
+            "name": "Sebastiaan Pasma",
+            "githubUsername": "spasma"
+        },
+        {
+            "name": "bdbai",
+            "githubUsername": "bdbai"
+        },
+        {
+            "name": "pokutuna",
+            "githubUsername": "pokutuna"
+        },
+        {
+            "name": "Jason Xian",
+            "githubUsername": "JasonXian"
+        },
+        {
+            "name": "userTim",
+            "githubUsername": "usertim"
+        },
+        {
+            "name": "Idan Zeierman",
+            "githubUsername": "idan315"
+        },
+        {
+            "name": "Nicolas Rodriguez",
+            "githubUsername": "nicolas377"
+        },
+        {
+            "name": "Ido Salomon",
+            "githubUsername": "idosal"
+        },
+        {
+            "name": "Federico Brigante",
+            "githubUsername": "fregante"
+        }
+    ]
+}

@@ -1,10 +1,3 @@
-// Type definitions for FlexSlider 2.7
-// Project: https://github.com/woothemes/FlexSlider
-// Definitions by:  Diullei Gomes <https://github.com/diullei>
-//                  Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 declare namespace FlexSlider {

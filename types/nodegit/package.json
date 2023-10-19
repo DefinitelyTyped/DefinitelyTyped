@@ -1,0 +1,49 @@
+{
+    "private": true,
+    "name": "@types/nodegit",
+    "version": "0.28.9999",
+    "projects": [
+        "https://github.com/nodegit/nodegit",
+        "http://nodegit.org"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/nodegit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dolan Miu",
+            "githubUsername": "dolanmiu"
+        },
+        {
+            "name": "Tobias Nießen",
+            "githubUsername": "tniessen"
+        },
+        {
+            "name": "Pierre Vigier",
+            "githubUsername": "pvigier"
+        },
+        {
+            "name": "Jibril Saffi",
+            "githubUsername": "IGI-111"
+        },
+        {
+            "name": "Benjamin Schuster-Boeckler",
+            "githubUsername": "DaGaMs"
+        },
+        {
+            "name": "Julien Chaumond",
+            "githubUsername": "julien-c"
+        },
+        {
+            "name": "Jake Murzy",
+            "githubUsername": "jmurzy"
+        },
+        {
+            "name": "Niklas Wenzel",
+            "githubUsername": "nikwen"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for p5 1.7
-// Project: https://github.com/processing/p5.js
-// Definitions by: p5-types <https://github.com/p5-types>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.9
-
 // This file was auto-generated. Please do not edit it.
 /// <reference path="./src/accessibility/describe.d.ts" />
 /// <reference path="./src/accessibility/outputs.d.ts" />

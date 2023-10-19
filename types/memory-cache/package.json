@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/memory-cache",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/ptarjan/node-cache"
+    ],
+    "devDependencies": {
+        "@types/memory-cache": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeff Goddard",
+            "githubUsername": "jedigo"
+        },
+        {
+            "name": "Travis Thieman",
+            "githubUsername": "thieman"
+        }
+    ]
+}

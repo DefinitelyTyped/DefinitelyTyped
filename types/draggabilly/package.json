@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/draggabilly",
+    "version": "2.1.9999",
+    "projects": [
+        "https://draggabilly.desandro.com"
+    ],
+    "devDependencies": {
+        "@types/draggabilly": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Wu",
+            "githubUsername": "jaydubu"
+        }
+    ]
+}

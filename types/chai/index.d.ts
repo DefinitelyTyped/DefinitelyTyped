@@ -1,18 +1,3 @@
-// Type definitions for chai 4.3
-// Project: http://chaijs.com/
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 Andrew Brown <https://github.com/AGBrown>
-//                 Olivier Chevet <https://github.com/olivr70>
-//                 Matt Wistrand <https://github.com/mwistrand>
-//                 Shaun Luttin <https://github.com/shaunluttin>
-//                 Satana Charuwichitratana <https://github.com/micksatana>
-//                 Erik Schierboom <https://github.com/ErikSchierboom>
-//                 Bogdan Paranytsia <https://github.com/bparan>
-//                 CXuesong <https://github.com/CXuesong>
-//                 Joey Kilpatrick <https://github.com/joeykilpatrick>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 declare namespace Chai {
     type Message = string | (() => string);
     type ObjectProperty = string | symbol | number;

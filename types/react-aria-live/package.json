@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-aria-live",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/AlmeroSteyn/react-aria-live#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-aria-live": "workspace:.",
+        "@types/react-dom": "*"
+    },
+    "owners": [
+        {
+            "name": "AJ Livingston",
+            "githubUsername": "ajliv"
+        }
+    ]
+}

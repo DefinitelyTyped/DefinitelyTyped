@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/bonjour",
+    "version": "3.5.9999",
+    "projects": [
+        "https://github.com/watson/bonjour"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/bonjour": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Quentin Lampin",
+            "githubUsername": "quentin-ol"
+        }
+    ]
+}

@@ -1,7 +1,26 @@
 {
     "private": true,
+    "name": "@types/webrtc",
+    "version": "0.0.9999",
+    "projects": [
+        "https://webrtc.org/"
+    ],
     "types": "index",
+    "minimumTypeScriptVersion": "4.9",
     "typesVersions": {
-        "<=5.0": { "*": ["ts5.0/*"] }
-    }
+        "<=5.0": {
+            "*": [
+                "ts5.0/*"
+            ]
+        }
+    },
+    "devDependencies": {
+        "@types/webrtc": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Toshiya Nakakura",
+            "githubUsername": "nakakura"
+        }
+    ]
 }

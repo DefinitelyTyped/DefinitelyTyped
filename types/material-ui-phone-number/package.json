@@ -1,7 +1,22 @@
 {
     "private": true,
+    "name": "@types/material-ui-phone-number",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/alexplumb/material-ui-phone-number"
+    ],
     "dependencies": {
         "@material-ui/core": "^4.11.3",
-        "@material-ui/types": "5.1.0"
-    }
+        "@material-ui/types": "5.1.0",
+        "@types/react": "^16.8.6 || ^17.0.0"
+    },
+    "devDependencies": {
+        "@types/material-ui-phone-number": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bassem (NextGLabs)",
+            "githubUsername": "nextglabs"
+        }
+    ]
 }

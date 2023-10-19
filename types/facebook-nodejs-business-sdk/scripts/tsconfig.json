@@ -11,5 +11,5 @@
     "sourceMap": false,
     "declarationMap": false,
     "outDir": "generated",
-  },
+  }
 }

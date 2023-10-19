@@ -1,11 +1,3 @@
-// Type definitions for polka 0.5
-// Project: https://github.com/lukeed/polka
-// Definitions by: Piotr Kuczynski <https://github.com/pkuczynski>
-//                 James Messinger <https://github.com/JamesMessinger>
-//                 Brian Takita <https://github.com/btakita>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
 /// <reference types="node" />
 
 import { RequestHandler } from "express";

@@ -1,9 +1,3 @@
-// Type definitions for Leaflet.markercluster 1.5
-// Project: https://github.com/Leaflet/Leaflet.markercluster
-// Definitions by: Robert Imig <https://github.com/rimig>, Nenad Filipovic <https://github.com/nenadfilipovic>, Yaroslav Kormushyn <https://github.com/YaroslavKormushyn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as L from "leaflet";
 
 declare module "leaflet" {

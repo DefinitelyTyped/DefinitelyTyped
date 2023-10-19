@@ -1,6 +1,7 @@
 import * as React from "react";
 import {
     Calendar,
+    createStaticRanges,
     DateRange,
     DateRangePicker,
     defaultInputRanges,
@@ -161,6 +162,13 @@ const staticRange: StaticRange = {
     hasCustomRendering: true,
 };
 
+const createdStaticRanges = createStaticRanges([
+    {
+        range: () => ({ startDate: new Date("2021-10-01"), endDate: new Date("2021-10-31") }),
+        label: "Example created static range",
+    },
+]);
+
 const inputRange: InputRange = {
     range: () => ({ startDate: new Date("2021-10-01"), endDate: new Date("2021-10-31") }),
     getCurrentValue: range => range?.startDate?.getTime() || "",
@@ -190,7 +198,7 @@ class ReactDefinedDateRange extends React.Component<any, any> {
                     rangeColors={["red", "blue", "yellow"]}
                     ranges={[range]}
                     renderStaticRangeLabel={staticRange => <span>{staticRange?.label}</span>}
-                    staticRanges={[staticRange, defaultStaticRanges[0]]}
+                    staticRanges={[staticRange, defaultStaticRanges[0], ...createdStaticRanges]}
                 />
             </div>
         );
@@ -268,7 +276,7 @@ class ReactDateRangePicker extends React.Component<any, any> {
                     headerContent={<header>Header</header>}
                     inputRanges={[inputRange, defaultInputRanges[0]]}
                     renderStaticRangeLabel={staticRange => <span>{staticRange?.label}</span>}
-                    staticRanges={[staticRange, defaultStaticRanges[0]]}
+                    staticRanges={[staticRange, defaultStaticRanges[0], ...createdStaticRanges]}
                 />
             </div>
         );

@@ -1,10 +1,3 @@
-// Type definitions for google-one-tap 1.2
-// Project: https://developers.google.com/identity/one-tap/web
-// Definitions by: voidpumpkin <https://github.com/voidpumpkin>
-//                 kostasmanionis <https://github.com/kostasmanionis>
-//                 cmgt <https://github.com/cmgt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace google;
 
 export const accounts: accounts;

@@ -1,8 +1,3 @@
-// Type definitions for git-diff-parser 1.0
-// Project: https://github.com/spookd/git-diff-parser
-// Definitions by: Alexey Yaroshevich <https://github.com/qfox>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types='node' />
 
 declare function GitDiffParser(input: string | Buffer): GitDiffParser.Result;

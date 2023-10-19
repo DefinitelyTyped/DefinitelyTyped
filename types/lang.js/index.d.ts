@@ -1,8 +1,3 @@
-// Type definitions for lang.js 1.1
-// Project: https://github.com/rmariuzzo/Lang.js#readme
-// Definitions by: Krzysztof Gutkowski <https://github.com/LiquidPL>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace Lang;
 
 export = Lang;

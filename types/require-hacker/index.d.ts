@@ -1,8 +1,3 @@
-// Type definitions for require-hacker 3.0
-// Project: https://github.com/catamphetamine/require-hacker#readme
-// Definitions by: Ciarán Ingle <https://github.com/inglec-arista>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Resolve {
     /**
      * @param path Path that is `require`d

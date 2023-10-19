@@ -1,0 +1,36 @@
+{
+    "private": true,
+    "name": "@types/jest-when",
+    "version": "3.5.9999",
+    "projects": [
+        "https://github.com/timkindberg/jest-when#readme"
+    ],
+    "dependencies": {
+        "@types/jest": "*"
+    },
+    "devDependencies": {
+        "@types/jest-when": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alden Taylor",
+            "githubUsername": "aldentaylor"
+        },
+        {
+            "name": "Trung Dang",
+            "githubUsername": "immanuel192"
+        },
+        {
+            "name": "Gregor Stamać",
+            "githubUsername": "gstamac"
+        },
+        {
+            "name": "Nicholas Hehr",
+            "githubUsername": "hipsterbrown"
+        },
+        {
+            "name": "Bogi Napoleon Wennerström",
+            "githubUsername": "boginw"
+        }
+    ]
+}

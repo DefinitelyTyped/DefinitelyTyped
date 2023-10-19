@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/microsoftteams",
+    "version": "1.9.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "microsoftteams",
+    "projects": [
+        "https://github.com/OfficeDev/microsoft-teams-library-js"
+    ],
+    "devDependencies": {
+        "@types/microsoftteams": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bhargav Krishna",
+            "githubUsername": "WrathOfZombies"
+        },
+        {
+            "name": "Yuri Dogandjiev",
+            "githubUsername": "ydogandjiev"
+        },
+        {
+            "name": "Serge Aradj",
+            "githubUsername": "orty"
+        }
+    ]
+}

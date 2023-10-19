@@ -1,9 +1,3 @@
-// Type definitions for dynamodb 1.3
-// Project: https://github.com/baseprime/dynamodb#readme
-// Definitions by: katsanva <https://github.com/katsanva>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 import * as bunyan from "bunyan";
 import { AnySchema, ArraySchema, SchemaMap, StringSchema } from "joi";
 

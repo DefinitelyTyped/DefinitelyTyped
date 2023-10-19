@@ -1,9 +1,3 @@
-// Type definitions for xml-flow 1.0
-// Project: https://github.com/matthewmatician/xml-flow
-// Definitions by: Chris Lount <https://github.com/Warerebel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.8
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

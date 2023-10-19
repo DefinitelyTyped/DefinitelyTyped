@@ -1,9 +1,3 @@
-// Type definitions for @mapbox/vector-tile 1.3
-// Project: https://github.com/mapbox/vector-tile-js
-// Definitions by: Mathieu Maes <https://github.com/webberig>
-//                 Harel Mazor <https://github.com/HarelM>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import Pbf = require("pbf");
 import { Feature } from "geojson";
 import Point = require("@mapbox/point-geometry");
@@ -16,7 +10,7 @@ export class VectorTile {
 export class VectorTileFeature {
     static types: ["Unknown", "Point", "LineString", "Polygon"];
     extent: number;
-    type: 1 | 2 | 3;
+    type: 0 | 1 | 2 | 3;
     id: number;
     properties: { [_: string]: string | number | boolean };
     loadGeometry(): Point[][];

@@ -1,8 +1,3 @@
-// Type definitions for passport-instagram-token 1.0
-// Project: https://github.com/ghaiklor/passport-instagram-token
-// Definitions by: Sagar Jain <https://github.com/sagar7993>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.3
 
 import passport = require("passport");

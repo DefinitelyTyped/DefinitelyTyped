@@ -1,9 +1,3 @@
-// Type definitions for notie 4.3
-// Project: https://github.com/jaredreich/notie
-// Definitions by: Mateus Demboski <https://github.com/mateusdemboski>
-//                 Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace notie;
 
 export type AlertType = 1 | 2 | 3 | 4 | 5 | "success" | "warning" | "error" | "info" | "neutral";

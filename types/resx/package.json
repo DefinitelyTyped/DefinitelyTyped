@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/resx",
+    "version": "2.0.9999",
+    "projects": [
+        "http://locize.com"
+    ],
+    "devDependencies": {
+        "@types/resx": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Sousa",
+            "githubUsername": "danielb7390"
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/waterline",
+    "version": "0.13.9999",
+    "projects": [
+        "https://github.com/balderdashy/waterline"
+    ],
+    "dependencies": {
+        "@types/bluebird": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/waterline": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alexandro Libertino",
+            "githubUsername": "arvitaly"
+        },
+        {
+            "name": "Keith Kikta",
+            "githubUsername": "newbish"
+        }
+    ]
+}

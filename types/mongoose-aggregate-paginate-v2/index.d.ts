@@ -1,8 +1,3 @@
-// Type definitions for mongoose-aggregate-paginate-v2 1.0
-// Project: https://github.com/webgangster/mongoose-aggregate-paginate-v2
-// Definitions by: Alexandre Croteau <https://github.com/acrilex1>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
 //
 // Based on type declarations for mongoose-paginate-v2 1.3.
 //

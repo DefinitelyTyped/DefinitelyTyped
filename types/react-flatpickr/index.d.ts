@@ -1,11 +1,3 @@
-// Type definitions for react-flatpickr 3.8
-// Project: https://github.com/coderhaoxin/react-flatpickr
-// Definitions by: snaveevans <https://github.com/snaveevans>
-//                 jleider <https://github.com/jleider>
-//                 sysix <https://github.com/sysix>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import flatpickr from "flatpickr";
 import { Component, ReactElement } from "react";
 

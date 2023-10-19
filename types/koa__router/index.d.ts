@@ -1,15 +1,3 @@
-// Type definitions for @koa/router 12.x
-// Project: https://github.com/koajs/koa-router#readme
-// Definitions by: Jerry Chin <https://github.com/hellopao>
-//                 Pavel Ivanov <https://github.com/schfkt>
-//                 JounQin <https://github.com/JounQin>
-//                 Romain Faust <https://github.com/romain-faust>
-//                 Guillaume Mayer <https://github.com/Guillaume-Mayer>
-//                 Andrea Gueugnaut <https://github.com/falinor>
-//                 Jeremy Forsythe <https://github.com/jdforsythe>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
 /* =================== USAGE ===================
 
     import * as Router from "@koa/router";

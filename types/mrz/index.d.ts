@@ -1,9 +1,3 @@
-// Type definitions for mrz 3.1
-// Project: https://github.com/cheminfo-js/mrz#readme
-// Definitions by: Emily Marigold Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export interface Result {
     /**
      * String identifying the format of the parsed MRZ. Supported formats are:

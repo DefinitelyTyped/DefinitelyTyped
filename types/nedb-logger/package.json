@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/nedb-logger",
+    "version": "1.8.9999",
+    "projects": [
+        "https://github.com/louischatriot/nedb-logger"
+    ],
+    "devDependencies": {
+        "@types/nedb-logger": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joe vanderstelt",
+            "githubUsername": "thisboyiscrazy"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for gulp.spritesmith 6.13
-// Project: https://github.com/twolfson/gulp.spritesmith
-// Definitions by: Maiko Tan <https://github.com/MaikoTan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { Readable, Transform } from "stream";
 

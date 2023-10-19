@@ -1,9 +1,3 @@
-// Type definitions for angular-notify 2.5.0
-// Project: https://github.com/cgross/angular-notify
-// Definitions by: Suwato <https://github.com/Suwato>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
 import * as ng from "angular";

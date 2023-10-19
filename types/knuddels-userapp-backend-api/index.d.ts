@@ -1,8 +1,3 @@
-// Type definitions for non-npm package Knuddels UserApps API 1.20220921162223
-// Project: https://developer.knuddels.de
-// Definitions by: Knuddels GmbH & Co. KG <https://github.com/Knuddels>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // helper types
 export type JsonData = string | number | boolean | Date | Json | JsonArray | undefined;
 export type KnuddelsJsonData =

@@ -1,10 +1,3 @@
-// Type definitions for react-native-awesome-card-io 0.8
-// Project: https://github.com/Kerumen/react-native-awesome-card-io
-// Definitions by: Onur Var <https://github.com/OnurVar>
-//                 Emlyn Bolton <https://github.com/emlynmac>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 import { StyleProp, ViewStyle } from "react-native";
 

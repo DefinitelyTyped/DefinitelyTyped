@@ -1,0 +1,41 @@
+{
+    "private": true,
+    "name": "@types/xrm",
+    "version": "9.0.9999",
+    "projects": [
+        "https://learn.microsoft.com/en-us/dynamics365/customerengagement/on-premises/developer/overview"
+    ],
+    "devDependencies": {
+        "@types/xrm": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Matt Ngan",
+            "githubUsername": "mattngan"
+        },
+        {
+            "name": "Markus Mauch",
+            "githubUsername": "markusmauch"
+        },
+        {
+            "name": "Daryl LaBar",
+            "githubUsername": "daryllabar"
+        },
+        {
+            "name": "Tully H",
+            "githubUsername": "clownwilleatme"
+        },
+        {
+            "name": "Scott Durow",
+            "githubUsername": "scottdurow"
+        },
+        {
+            "name": "Phil Cole",
+            "githubUsername": "filcole"
+        },
+        {
+            "name": "Danish Naglekar",
+            "githubUsername": "power-maverick"
+        }
+    ]
+}

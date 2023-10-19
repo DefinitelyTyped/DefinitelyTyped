@@ -1,8 +1,3 @@
-// Type definitions for filing-cabinet 2.5
-// Project: https://github.com/mrjoelkemp/node-filing-cabinet
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace cabinet {
     interface Options {
         /** the dependency path */

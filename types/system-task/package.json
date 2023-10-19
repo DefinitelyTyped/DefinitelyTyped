@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/system-task",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/leocwlam/system-task"
+    ],
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/system-task": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leo Lam",
+            "githubUsername": "leocwlam"
+        }
+    ]
+}

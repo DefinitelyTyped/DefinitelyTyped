@@ -1,13 +1,3 @@
-// Type definitions for non-npm package @ember/runloop 3.16
-// Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Frunloop
-// Definitions by: Mike North <https://github.com/mike-north>
-//                 Steve Calvert <https://github.com/scalvert>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 Krystan HuffMenne <https://github.com/gitKrystan>
-//                 James C. Davis <https://github.com/jamescdavis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import { EmberRunQueues, RunMethod } from "@ember/runloop/-private/types";
 import { EmberRunTimer } from "@ember/runloop/types";
 import "@ember/runloop/-private/backburner";

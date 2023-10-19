@@ -1,8 +1,3 @@
-// Type definitions for @markedjs/html-differ 3.0
-// Project: https://github.com/markedjs/html-differ
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export class HtmlDiffer {
     constructor(options?: Options);
     constructor(preset: Preset | CustomPreset);

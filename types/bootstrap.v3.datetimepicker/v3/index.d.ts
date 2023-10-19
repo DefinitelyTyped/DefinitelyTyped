@@ -1,9 +1,3 @@
-// Type definitions for Bootstrap datetimepicker v3 3.x
-// Project: http://eonasdan.github.io/bootstrap-datetimepicker
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /**
  * bootstrap-datetimepicker.js 3.0.0 Copyright (c) 2014 Jonathan Peterson
  * Available via the MIT license.

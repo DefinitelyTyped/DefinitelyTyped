@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/which-pm-runs",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/zkochan/packages/tree/master/which-pm-runs"
+    ],
+    "devDependencies": {
+        "@types/which-pm-runs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chuah Chee Shian",
+            "githubUsername": "shian15810"
+        }
+    ]
+}

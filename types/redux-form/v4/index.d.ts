@@ -1,9 +1,3 @@
-// Type definitions for redux-form 4.0
-// Project: https://github.com/erikras/redux-form
-// Definitions by: Daniel Lytkin <https://github.com/aikoven>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 import { ActionCreator, Dispatch, Reducer } from "redux";
 

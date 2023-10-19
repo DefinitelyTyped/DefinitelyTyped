@@ -1,6 +1,42 @@
 {
     "private": true,
+    "name": "@types/mssql",
+    "version": "9.1.9999",
+    "projects": [
+        "https://www.npmjs.com/package/mssql"
+    ],
     "dependencies": {
+        "@types/node": "*",
+        "@types/tedious": "*",
         "tarn": "^3.0.1"
-    }
+    },
+    "devDependencies": {
+        "@types/mssql": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jørgen Elgaard Larsen",
+            "githubUsername": "elhaard"
+        },
+        {
+            "name": "Peter Keuter",
+            "githubUsername": "pkeuter"
+        },
+        {
+            "name": "Jeff Wooden",
+            "githubUsername": "woodenconsulting"
+        },
+        {
+            "name": "Cahil Foley",
+            "githubUsername": "cahilfoley"
+        },
+        {
+            "name": "Rifa Achrinza",
+            "githubUsername": "achrinza"
+        },
+        {
+            "name": "Daniel Hensby",
+            "githubUsername": "dhensby"
+        }
+    ]
 }

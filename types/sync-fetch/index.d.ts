@@ -1,8 +1,3 @@
-// Type definitions for sync-fetch 0.4
-// Project: https://github.com/larsgw/sync-fetch
-// Definitions by: Alex Laz <https://github.com/alex-laz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import NodeFetch = require("node-fetch");
 
 type Blob = NodeFetch.Blob;

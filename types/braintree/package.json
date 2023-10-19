@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/braintree",
+    "version": "3.3.9999",
+    "projects": [
+        "https://github.com/braintree/braintree_node"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/braintree": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sam Rubin",
+            "githubUsername": "smrubin"
+        },
+        {
+            "name": "Aaron Rose",
+            "githubUsername": "acdr"
+        },
+        {
+            "name": "Sanders DeNardi",
+            "githubUsername": "sedenardi"
+        }
+    ]
+}

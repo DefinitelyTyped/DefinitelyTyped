@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/create-keyframe-animation",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/HenrikJoreteg/create-keyframe-animation"
+    ],
+    "devDependencies": {
+        "@types/create-keyframe-animation": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "fengyangfifa",
+            "githubUsername": "fengyangfifa"
+        }
+    ]
+}

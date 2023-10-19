@@ -1,11 +1,3 @@
-// Type definitions for seedrandom 3.0
-// Project: https://github.com/davidbau/seedrandom
-// Definitions by: Kern Handa <https://github.com/kernhanda>
-//                 Eugene Zaretskiy <https://github.com/EugeneZ>
-//                 Martin Badin <https://github.com/martin-badin>
-//                 Martijn van der Ven <https://github.com/Zegnat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type StateBuilder<S extends string> = Record<S, number>;
 type ComplexStateBuilder<S extends string, M extends string> = StateBuilder<S> & Record<M, number[]>;
 

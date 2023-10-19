@@ -1,8 +1,3 @@
-// Type definitions for knuth-shuffle-seeded 1.0
-// Project: https://github.com/TimothyGu/knuth-shuffle-seeded
-// Definitions by: Ethan Brown <https://github.com/EthanRBrown>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = shuffle;
 
 /**

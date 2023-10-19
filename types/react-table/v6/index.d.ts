@@ -1,14 +1,3 @@
-// Type definitions for react-table 6.8
-// Project: https://github.com/tannerlinsley/react-table/tree/v6
-// Definitions by: Roy Xue <https://github.com/royxue>,
-//                 Pavel Sakalo <https://github.com/psakalo>,
-//                 Krzysztof Porębski <https://github.com/Havret>,
-//                 Andy S <https://github.com/andys8>,
-//                 Grzegorz Rozdzialik <https://github.com/Gelio>
-//                 Cam Pepin <https://github.com/cpepin>
-//                 Andrew Luca <https://github.com/iamandrewluca>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
 import * as React from "react";
 
 export type ReactTableFunction = (value?: any) => void;

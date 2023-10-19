@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/obj-file-parser",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/wesunwin/obj-file-parser"
+    ],
+    "devDependencies": {
+        "@types/obj-file-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Coleman",
+            "githubUsername": "benc-uk"
+        }
+    ]
+}

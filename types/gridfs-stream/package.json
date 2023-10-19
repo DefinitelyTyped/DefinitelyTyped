@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/gridfs-stream",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/aheckmann/gridfs-stream"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "mongodb": "^4.5.0"
-    }
+    },
+    "devDependencies": {
+        "@types/gridfs-stream": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lior Mualem",
+            "githubUsername": "liorm"
+        }
+    ]
 }

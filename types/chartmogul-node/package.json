@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/chartmogul-node",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/chartmogul/chartmogul-node"
+    ],
+    "devDependencies": {
+        "@types/chartmogul-node": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ChartMogul",
+            "githubUsername": "chartmogul"
+        }
+    ]
+}

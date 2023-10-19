@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/amplify",
+    "version": "1.1.9999",
+    "projects": [
+        "http://amplifyjs.com/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/amplify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jonas Eriksson",
+            "githubUsername": "joeriks"
+        }
+    ]
+}

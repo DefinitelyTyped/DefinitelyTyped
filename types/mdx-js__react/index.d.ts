@@ -1,9 +1,3 @@
-// Type definitions for @mdx-js/react 1.5
-// Project: https://mdxjs.com
-// Definitions by: Ifiok Jr. <https://github.com/ifiokjr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { Component, ComponentType, createElement, FC, ReactNode, StyleHTMLAttributes } from "react";
 
 interface MDXProviderComponents {

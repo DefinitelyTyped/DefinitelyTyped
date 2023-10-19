@@ -1,6 +1,44 @@
 {
     "private": true,
+    "name": "@types/ssh2",
+    "version": "1.11.9999",
+    "projects": [
+        "https://github.com/mscdex/ssh2"
+    ],
     "dependencies": {
         "@types/node": "^18.11.18"
-    }
+    },
+    "devDependencies": {
+        "@types/ssh2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qubo",
+            "githubUsername": "tkQubo"
+        },
+        {
+            "name": "Ron Buckton",
+            "githubUsername": "rbuckton"
+        },
+        {
+            "name": "Will Boyce",
+            "githubUsername": "wrboyce"
+        },
+        {
+            "name": "Tom Xu",
+            "githubUsername": "hengkx"
+        },
+        {
+            "name": "Leo Toneff",
+            "githubUsername": "bragle"
+        },
+        {
+            "name": "Lucian Buzzo",
+            "githubUsername": "LucianBuzzo"
+        },
+        {
+            "name": "Dan Hensby",
+            "githubUsername": "dhensby"
+        }
+    ]
 }

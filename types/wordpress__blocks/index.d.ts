@@ -1,14 +1,3 @@
-// Type definitions for @wordpress/blocks 12.5
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/blocks/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-//                 Jon Surrell <https://github.com/sirreal>
-//                 Dennis Snell <https://github.com/dmsnell>
-//                 Tomasz Tunik <https://github.com/tomasztunik>
-//                 Lucio Giannotta <https://github.com/sunyatasattva>
-//                 Bas Tolen <https://github.com/bastolen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
-
 import { Dashicon } from "@wordpress/components";
 import { StoreDescriptor } from "@wordpress/data";
 import { ShortcodeMatch } from "@wordpress/shortcode";

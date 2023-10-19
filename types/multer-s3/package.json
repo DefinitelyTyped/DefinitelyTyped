@@ -1,6 +1,30 @@
 {
     "private": true,
+    "name": "@types/multer-s3",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/badunk/multer-s3"
+    ],
     "dependencies": {
-        "@aws-sdk/client-s3": "^3.0.0"
-    }
+        "@aws-sdk/client-s3": "^3.0.0",
+        "@types/multer": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/multer-s3": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "KIM Jaesuck a.k.a. gim tcaesvk",
+            "githubUsername": "tcaesvk"
+        },
+        {
+            "name": "Gal Talmor",
+            "githubUsername": "galtalmor"
+        },
+        {
+            "name": "Matt Terski",
+            "githubUsername": "terski"
+        }
+    ]
 }

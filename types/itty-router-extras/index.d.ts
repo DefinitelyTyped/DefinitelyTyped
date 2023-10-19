@@ -1,8 +1,3 @@
-// Type definitions for itty-router-extras 0.4
-// Project: https://github.com/kwhitley/itty-router-extras
-// Definitions by: David Roizenman <https://github.com/hmnd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Request as IttyRequest, Router } from "itty-router";
 export { Router as ThrowableRouter };
 

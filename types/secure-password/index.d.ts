@@ -1,9 +1,3 @@
-// Type definitions for secure-password 4.0
-// Project: https://github.com/emilbayes/secure-password#readme
-// Definitions by: Jarom Loveridge <https://github.com/jloveridge>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = SecurePassword;

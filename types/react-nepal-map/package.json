@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-nepal-map",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/keyrunpay/react-nepal-map#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-nepal-map": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ashish Yadav",
+            "githubUsername": "ashiishme"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for signalfx 7.4
-// Project: https://github.com/signalfx/signalfx-nodejs
-// Definitions by: Max Boguslavskiy <https://github.com/maxbogus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export interface IngestOptions {
     enableAmazonUniqueId?: boolean | undefined;
     dimensions?: object | undefined;

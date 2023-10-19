@@ -1,8 +1,3 @@
-// Type definitions for b4a 1.6
-// Project: https://github.com/holepunchto/b4a#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

@@ -1,8 +1,3 @@
-// Type definitions for styletron-engine-monolithic 0.0
-// Project: https://github.com/styletron/styletron
-// Definitions by: Tom Golden <https://github.com/tbjgolden>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { FontFace as FontFaceObject, KeyframesObject, StandardEngine, StyleObject } from "styletron-standard";
 
 export interface SequentialIDGenerator {

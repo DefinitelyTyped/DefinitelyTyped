@@ -1,20 +1,3 @@
-// Type definitions for react-stripe-elements 6.0
-// Project: https://github.com/stripe/react-stripe-elements#readme
-// Definitions by: dan-j <https://github.com/dan-j>
-//                 Santiago Doldan <https://github.com/santiagodoldan>
-//                 sonnysangha <https://github.com/sonnysangha>
-//                 Andrew Goh Yisheng <https://github.com/9y5>
-//                 Thomas Chia <https://github.com/thchia>
-//                 Piotr Dabrowski <https://github.com/yhnavein>
-//                 Victor Irzak <https://github.com/virzak>
-//                 Alex Price <https://github.com/remotealex>
-//                 Maciej Dabek <https://github.com/bombek92>
-//                 Hiroshi Ioka <https://github.com/hirochachacha>
-//                 Austin Turner <https://github.com/paustint>
-//                 Benedikt Bauer <https://github.com/mastacheata>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 /// <reference types="stripe-v3" />
 import * as React from "react";
 

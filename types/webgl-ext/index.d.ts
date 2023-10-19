@@ -1,9 +1,3 @@
-// Type definitions for WebGL Extensions
-// Project: http://webgl.org/
-// Definitions by: Arthur Langereis <https://github.com/zenmumbler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 // render-gl1/declarations - WebGL 1 extension definitions (beyond TS lib)
 // Extracted from Stardazed - https://github.com/stardazed/stardazed
 

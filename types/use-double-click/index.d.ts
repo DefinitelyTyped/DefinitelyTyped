@@ -1,8 +1,3 @@
-// Type definitions for use-double-click 1.0
-// Project: https://github.com/tim-soft/use-double-click
-// Definitions by: Matthew Peveler <https://github.com/MasterOdin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { MouseEvent, MutableRefObject, RefObject } from "react";
 
 declare function useDoubleClick<T = unknown>(options: {

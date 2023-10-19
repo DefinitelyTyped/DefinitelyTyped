@@ -1,8 +1,3 @@
-// Type definitions for arrive 2.4
-// Project: https://github.com/uzairfarooq/arrive
-// Definitions by: Vijay Pemmaraju <https://github.com/vijaypemmaraju>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // required for declare global to work
 export {};
 

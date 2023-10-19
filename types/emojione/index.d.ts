@@ -1,9 +1,3 @@
-// Type definitions for emojione 2.2
-// Project: https://github.com/Ranks/emojione, https://www.emojione.com
-// Definitions by: Danilo Bargen <https://github.com/dbrgn>
-//                 David Velasquez <https://github.com/sliker>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace emojione;
 
 export let sprites: boolean;

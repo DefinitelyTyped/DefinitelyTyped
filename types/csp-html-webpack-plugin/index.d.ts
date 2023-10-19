@@ -1,9 +1,3 @@
-// Type definitions for csp-html-webpack-plugin 3.0
-// Project: https://github.com/slackhq/csp-html-webpack-plugin
-// Definitions by: Porama Ruengrairatanaroj <https://github.com/Seally>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import { AsyncSeriesWaterfallHook } from "tapable";
 import { Compiler as WebpackCompiler } from "webpack";
 import HtmlWebpackPlugin = require("html-webpack-plugin");

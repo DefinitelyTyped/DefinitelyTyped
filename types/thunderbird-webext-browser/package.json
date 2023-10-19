@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/thunderbird-webext-browser",
+    "version": "109.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "WebExtension Development in Thunderbird",
+    "projects": [
+        "https://webextension-api.thunderbird.net/en/stable/"
+    ],
+    "devDependencies": {
+        "@types/thunderbird-webext-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jim Danner",
+            "githubUsername": "JimDanner"
+        }
+    ]
+}

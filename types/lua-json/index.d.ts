@@ -1,8 +1,3 @@
-// Type definitions for lua-json 1.0
-// Project: https://github.com/kcwiki/lua-json#readme
-// Definitions by: bitomic <https://github.com/bitomic>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Takes a JSON object and returns a Lua table as a string.
  */

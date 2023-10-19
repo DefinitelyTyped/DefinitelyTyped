@@ -1,12 +1,3 @@
-// Type definitions for linkify-it 3.0.2
-// Project: https://github.com/markdown-it/linkify-it
-// Definitions by: Lindsey Smith <https://github.com/praxxis>
-//                 Robert Coie <https://github.com/rapropos/typed-linkify-it>
-//                 Alex Plumb <https://github.com/alexplumb>
-//                 Rafa Gares <https://github.com/ragafus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare const LinkifyIt: {
     (
         schemas?: LinkifyIt.SchemaRules | LinkifyIt.Options,

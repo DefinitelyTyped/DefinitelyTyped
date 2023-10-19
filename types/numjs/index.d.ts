@@ -1,9 +1,3 @@
-// Type definitions for numjs 0.16
-// Project: https://github.com/nicolaspanel/numjs#readme
-// Definitions by: taoqf <https://github.com/taoqf>
-//                 matt <https://github.com/mattmm3d>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace nj;
 import { Data, DataType, NdArray as BaseNdArray } from "ndarray";
 

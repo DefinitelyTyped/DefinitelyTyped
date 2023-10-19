@@ -1,8 +1,3 @@
-// Type definitions for node-dht-sensor 0.4
-// Project: https://github.com/momenso/node-dht-sensor
-// Definitions by: Manuel Schächinger <https://github.com/schaechinger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export type DHT11 = 11;

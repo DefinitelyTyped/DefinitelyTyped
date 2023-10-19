@@ -8,11 +8,11 @@
         "module": "commonjs",
         "noEmit": true,
         "types": [],
-        "lib": ["es6", "dom"],
-        "baseUrl": "../",
-        "typeRoots": ["../"]
+        "lib": [
+            "es6",
+            "dom"
+        ]
     },
-
     "files": [
         "nise-tests.ts",
         "index.d.ts"

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/pell",
+    "version": "1.0.9999",
+    "projects": [
+        "https://jaredreich.com/pell"
+    ],
+    "devDependencies": {
+        "@types/pell": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gabriel Soicher",
+            "githubUsername": "Lunrtick"
+        }
+    ]
+}

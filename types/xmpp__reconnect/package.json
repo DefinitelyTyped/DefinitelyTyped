@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/xmpp__reconnect",
+    "version": "0.13.9999",
+    "projects": [
+        "https://github.com/xmppjs/xmpp.js/tree/main/packages/reconnect"
+    ],
+    "dependencies": {
+        "@types/xmpp__connection": "*",
+        "@types/xmpp__events": "*"
+    },
+    "devDependencies": {
+        "@types/xmpp__reconnect": "workspace:.",
+        "@types/xmpp__xml": "*"
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

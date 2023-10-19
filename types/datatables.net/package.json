@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/datatables.net",
+    "version": "1.10.9999",
+    "projects": [
+        "https://datatables.net"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/datatables.net": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kiarash Ghiaseddin",
+            "githubUsername": "Silver-Connection"
+        },
+        {
+            "name": "Omid Rad",
+            "githubUsername": "omidkrad"
+        },
+        {
+            "name": "Armin Sander",
+            "githubUsername": "pragmatrix"
+        },
+        {
+            "name": "Craig Boland",
+            "githubUsername": "CNBoland"
+        }
+    ]
+}
