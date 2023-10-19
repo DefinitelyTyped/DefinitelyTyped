@@ -332,8 +332,9 @@ declare class Victor {
 
     /**
      * Rounds both axis to a certain precision.
+     * @param precision (default: 8)
      */
-    toFixed(): Victor;
+    toFixed(precision: number): Victor;
 
     /**
      * Sets the vector to zero (0,0).
