@@ -30,7 +30,7 @@ export interface Settings {
 export interface Metadata {
     deviceInfo: object;
     systemManagerState: object;
-    plcRuntimeState: object;
+    plcRuntimeState: PLCRuntimeState;
     uploadInfo: object;
     symbolVersion: number;
     allSymbolsCached: boolean;
@@ -38,6 +38,34 @@ export interface Metadata {
     allDataTypesCached: boolean;
     dataTypes: object;
     routerState: object;
+}
+
+export type ADSStateStr = 'Invalid'
+    | 'Idle'
+    | 'Reset'
+    | 'Initialize'
+    | 'Start'
+    | 'Run'
+    | 'Stop'
+    | 'SaveConfig'
+    | 'LoadConfig'
+    | 'PowerFailure'
+    | 'PowerGood'
+    | 'Error'
+    | 'Shutdown'
+    | 'Susped' // Upstream typo
+    | 'Resume'
+    | 'Config'
+    | 'Reconfig'
+    | 'Stopping'
+    | 'Incompatible'
+    | 'Exception'
+    | 'UNKNOWN';
+
+export interface PLCRuntimeState {
+    adsState: number,
+    adsStateStr: ADSStateStr,
+    deviceState: number
 }
 
 export interface Connection {
@@ -218,7 +246,7 @@ export class Client extends EventEmitter {
 
     readSystemManagerState(): Promise<object>;
 
-    readPlcRuntimeState(adsPort?: number): Promise<object>;
+    readPlcRuntimeState(adsPort?: number): Promise<PLCRuntimeState>;
 
     readSymbolVersion(): Promise<number>;
 
