@@ -884,10 +884,10 @@ declare namespace runtime {
             req?: object | undefined;
         }) => Promise<object>;
         /**
-         * Initializes an empty project
+         * Initialises an empty project
          * @param opts
          * @param opts.user - the user calling the api
-         * @param opts.id - the id of the project to initialize
+         * @param opts.id - the id of the project to initialise
          * @param opts.project - the project information
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
