@@ -60,7 +60,7 @@ export type ADSStateStr = 'Invalid'
     | 'Stopping'
     | 'Incompatible'
     | 'Exception'
-    | 'UNKNOWN'
+    | 'UNKNOWN';
 
 export interface PLCRuntimeState {
     adsState: number,
