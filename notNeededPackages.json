@@ -6319,6 +6319,10 @@
             "libraryName": "webpack-subresource-integrity",
             "asOfVersion": "5.0.0"
         },
+        "webpack-virtual-modules": {
+            "libraryName": "webpack-virtual-modules",
+            "asOfVersion": "0.4.2"
+        },
         "whatwg-streams": {
             "libraryName": "typescript",
             "asOfVersion": "3.2.1"
