@@ -1,8 +1,3 @@
-// Type definitions for addons-linter 6.15
-// Project: https://github.com/mozilla/addons-linter#readme
-// Definitions by: Robot-Inventor <https://github.com/Robot-Inventor>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Options {
     config: {
         /**
