@@ -169,7 +169,7 @@ export interface AnimationSegment {
     /**
      * @see {@link KeyframeValue}
      */
-    keyFrames: KeyframeValue | KeyframeValue[];
+    keyFrames: KeyframeValue[] | KeyframeValue[][];
 
     /**
      * Overrides the target passed when the Animation was created
@@ -1166,12 +1166,69 @@ export interface ServoPCA9685Option extends ServoGeneralOption {
 }
 
 export interface ServoSweepOpts {
-    range: number[];
+    range?: [low: number, high: number] | undefined;
     interval?: number | undefined;
     step?: number | undefined;
 }
 
-export class Servo {
+export class ServoMethods {
+    /**
+     * Move a servo horn to specified position in degrees, 0-180 (or whatever the current valid range is).
+     * 
+     * If ms is specified, the servo will take that amount of time to move to the position.
+     * If rate is specified, the angle change will be split into distance/rate steps for the ms option. 
+     * If the specified angle is the same as the current angle, no commands are sent.
+     */
+    to(degrees: number, ms?: number, rate?: number): void;
+    /**
+     * Set Servo to minimum degrees. Defaults to 0deg, respects explicit range in constructor.
+     */
+    min(): void;
+    /**
+     * Set Servo to maximum degrees. Defaults to 180deg, respects explicit range in constructor.
+     */
+    max(): void;
+    /**
+     * Set Servo to center point.
+     * Defaults to 90deg, respects explicit range. 
+     * If ms is specified, the servo will take that amount of time to move to the position. If rate is specified, the angle change will be split into distance/rate steps for the ms option. If the specified angle is the same as the current angle, no commands are sent.
+     */
+    center(ms?: number, rate?: number): void;
+    /**
+     * Set Servo to it's `startAt` position defined in constructor.
+     */
+    home(): void;
+    /**
+     * Sweep the servo between default min and max, repeatedly.
+     */
+    sweep(): void;
+    /**
+     * Sweep the servo between an explicit range, repeatedly.
+     */
+    sweep(range: [low: number, high: number]): void;
+    /**
+     * Sweep the servo between an (optional) explicit range, within an (optional) explicit interval, and (optional) explicit steps (in degrees), repeatedly.
+     */
+    sweep(sweepOpts: ServoSweepOpts): void;
+    /**
+     * Stop a moving servo.
+     */
+    stop(): void;
+    /**
+     * (Continuous only) Move a continuous servo clockwise at speed, 0-1
+     */
+    cw(speed: number): void;
+    /**
+     * (Continuous only) Move a continuous servo counter clockwise at speed, 0-1
+     */
+    ccw(speed: number): void;
+    /**
+     * This is emitted when a timed move is completed. The event won't fire unless a time argument has been passed to the `servo.to` method.
+     */
+    on(event: "move:complete", cb: () => void): this;
+}
+export class Servo extends ServoMethods {
+    static Collection: typeof Servos;
     constructor(option: number | string | ServoGeneralOption);
 
     id: string;
@@ -1185,17 +1242,40 @@ export class Servo {
     readonly position: number;
     value: number;
     startAt: number;
+}
 
-    to(degrees: number, ms?: number, rage?: number): void;
-    min(): void;
-    max(): void;
-    center(): void;
-    home(): void;
-    sweep(arg?: number[] | ServoSweepOpts): void;
-    stop(): void;
-    cw(speed: number): void;
-    ccw(speed: number): void;
-    on(event: "move:complete", cb: () => void): this;
+export class Servos extends ServoMethods {
+    /**
+     * An array of pins
+     */
+    constructor(options: Array<Servo["pin"]>);
+
+    /**
+     * Using servo constructor options
+     */
+    // tslint:disable-next-line:unified-signatures
+    constructor(options: ServoGeneralOption[]);
+
+    /**
+     * Using an array of existing servos to join them into a single interface.
+     */
+    // tslint:disable-next-line:unified-signatures
+    constructor(options: Servo[]);
+
+    [index: number]: Servo;
+
+    /**
+     * Open the circuits.
+     */
+    open(): void;
+    /**
+     * Close the circuits.
+     */
+    close(): void;
+    /**
+     * Toggle the circuits open/close.
+     */
+    toggle(): void;
 }
 
 export interface ShiftRegisterOption {

@@ -14,6 +14,13 @@ board
         pin.mode = 4;
         const animation = new five.Animation(new five.Servo(9));
 
+        const servo = new five.Servo({ pin: 4 })
+        const servo2 = new five.Servo({ pin: 5 })
+        const servos = new five.Servo.Collection([servo,servo2])
+        const servos2 = new five.Servos([4, 5])
+        
+        
+
         // Create an animation segment object
         animation.enqueue({
             duration: 2000,
