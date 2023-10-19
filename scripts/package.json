@@ -3,8 +3,6 @@
     "type": "module",
     "devDependencies": {
         "@octokit/core": "^3.5.1",
-        "@octokit/plugin-paginate-rest": "^2",
-        "@octokit/rest": "^16.0.0",
         "@types/d3-array": "^3.0.0",
         "@types/d3-axis": "^3.0.0",
         "@types/d3-scale": "^4.0.0",
