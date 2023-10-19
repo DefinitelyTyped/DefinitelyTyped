@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { RendererFunction, Tag, TagCloud } from "react-tagcloud";
 
 let data: Tag[] = [
@@ -31,19 +30,20 @@ const customRenderer: RendererFunction = (tag, size, color) => (
     </span>
 );
 
-ReactDOM.render(
-    <TagCloud
-        minSize={12}
-        maxSize={35}
-        tags={data}
-        shuffle={false}
-        disableRandomColor={false}
-        randomSeed={123456}
-        colorOptions={{ hue: "green", luminosity: "bright", count: 100, seed: 123, format: "rgba", alpha: 0.9 }}
-        onClick={(tag, event) => console.log("click on:", tag.value, event.target)}
-        onDoubleClick={(tag, event) => console.log("dbl-click on:", tag.value, event.target)}
-        onMouseMove={(tag, event) => console.log("hover on:", tag.value, event.target)}
-        renderer={customRenderer}
-    />,
-    document.getElementById("simple-cloud"),
-);
+export function MyTagCloud() {
+    return (
+        <TagCloud
+            minSize={12}
+            maxSize={35}
+            tags={data}
+            shuffle={false}
+            disableRandomColor={false}
+            randomSeed={123456}
+            colorOptions={{ hue: "green", luminosity: "bright", count: 100, seed: 123, format: "rgba", alpha: 0.9 }}
+            onClick={(tag, event) => console.log("click on:", tag.value, event.target)}
+            onDoubleClick={(tag, event) => console.log("dbl-click on:", tag.value, event.target)}
+            onMouseMove={(tag, event) => console.log("hover on:", tag.value, event.target)}
+            renderer={customRenderer}
+        />
+    );
+}
