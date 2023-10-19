@@ -156,15 +156,17 @@ declare namespace runtime {
          * following property can be used to identify a directory of static content
          * that should be served at http://localhost:1880/.
          *
-         * When httpStaticRoot is set differently to httpAdminRoot, there is no need 
+         * When httpStaticRoot is set differently to httpAdminRoot, there is no need
          * to move httpAdminRoot.
          */
-        httpStatic?: Array<{
-            path: string;
-            root?: string;
-        }> | string;
+        httpStatic?:
+            | Array<{
+                path: string;
+                root?: string;
+            }>
+            | string;
 
-        /**  
+        /**
          * All static routes will be appended to httpStaticRoot
          * e.g. if httpStatic = "/home/nol/docs" and  httpStaticRoot = "/static/"
          *      then "/home/nol/docs" will be served at "/static/"
@@ -199,11 +201,9 @@ declare namespace runtime {
                     password: string;
                     permissions: Permission | Permission[];
                 }>;
-                default?:
-                    | {
-                        permissions: Permission | Permission[];
-                    }
-                   ;
+                default?: {
+                    permissions: Permission | Permission[];
+                };
             }
             | {
                 type: "credentials";
@@ -221,8 +221,7 @@ declare namespace runtime {
                     options: object;
                 };
                 users: UsernamePermissions[];
-            }
-           ;
+            };
 
         /**
          * For password protected node-defined HTTP endpoints (httpNodeRoot),
@@ -261,7 +260,7 @@ declare namespace runtime {
          * in front of all http in nodes. This allows custom authentication to be
          * applied to all http in nodes, or any other sort of common request processing.
          */
-        httpNodeMiddleware?: ((req: Request, res: Response, next: NextFunction) => void);
+        httpNodeMiddleware?: (req: Request, res: Response, next: NextFunction) => void;
 
         /**
          * The following property can be used to pass custom options to the Express.js
@@ -284,8 +283,7 @@ declare namespace runtime {
                     secure: boolean;
                 },
                 callback: (result: boolean, code?: string, reason?: string) => void,
-            ) => void)
-           ;
+            ) => void);
 
         /**
          * The following property can be used to seed Global Context with predefined
@@ -315,15 +313,13 @@ declare namespace runtime {
          * provided here will enable file-based context that flushes to disk every 30 seconds.
          * Refer to the documentation for further options: https://nodered.org/docs/api/context/
          */
-        contextStorage?:
-            | {
-                [key: string]:
-                    | string
-                    | {
-                        module: string;
-                    };
-            }
-           ;
+        contextStorage?: {
+            [key: string]:
+                | string
+                | {
+                    module: string;
+                };
+        };
 
         /**
          * The following property can be used to order the categories in the editor
@@ -337,152 +333,128 @@ declare namespace runtime {
         /**
          * Configure the logging output
          */
-        logging?:
-            | {
+        logging?: {
+            /**
+             * Only console logging is currently supported
+             */
+            console?: {
                 /**
-                 * Only console logging is currently supported
+                 * Level of logging to be recorded. Options are:
+                 * fatal - only those errors which make the application unusable should be recorded
+                 * error - record errors which are deemed fatal for a particular request + fatal errors
+                 * warn - record problems which are non fatal + errors + fatal errors
+                 * info - record information about the general running of the application + warn + error + fatal errors
+                 * debug - record information which is more verbose than info + info + warn + error + fatal errors
+                 * trace - record very detailed logging + debug + info + warn + error + fatal errors
+                 * off - turn off all logging (doesn't affect metrics or audit)
                  */
-                console?:
-                    | {
-                        /**
-                         * Level of logging to be recorded. Options are:
-                         * fatal - only those errors which make the application unusable should be recorded
-                         * error - record errors which are deemed fatal for a particular request + fatal errors
-                         * warn - record problems which are non fatal + errors + fatal errors
-                         * info - record information about the general running of the application + warn + error + fatal errors
-                         * debug - record information which is more verbose than info + info + warn + error + fatal errors
-                         * trace - record very detailed logging + debug + info + warn + error + fatal errors
-                         * off - turn off all logging (doesn't affect metrics or audit)
-                         */
-                        level: "fatal" | "error" | "warn" | "info" | "debug" | "trace" | "off";
+                level: "fatal" | "error" | "warn" | "info" | "debug" | "trace" | "off";
 
-                        /**
-                         * Whether or not to include metric events in the log output
-                         */
-                        metrics: boolean;
+                /**
+                 * Whether or not to include metric events in the log output
+                 */
+                metrics: boolean;
 
-                        /**
-                         * Whether or not to include audit events in the log output
-                         */
-                        audit: boolean;
-                    }
-                   ;
-            }
-           ;
+                /**
+                 * Whether or not to include audit events in the log output
+                 */
+                audit: boolean;
+            };
+        };
 
         /**
          * Customising the editor
          */
-        editorTheme?:
-            | {
-                page?:
-                    | {
-                        /**
-                         * Page title
-                         */
-                        title?: string;
-                        /**
-                         * Absolute path to theme icon
-                         */
-                        favicon?: string;
-                        /**
-                         * Absolute path to custom css file
-                         */
-                        css?: string;
-                        /**
-                         * Absolute paths to custom script files
-                         */
-                        scripts?: string[];
-                    }
-                   ;
-                header?:
-                    | {
-                        /**
-                         * Header title
-                         */
-                        title?: string;
-                        /**
-                         * Absolute path to header image, or `null` to remove image
-                         */
-                        image?: string | null;
-                        /**
-                         * Url to make the header text/image a link to this url
-                         */
-                        url?: string;
-                    }
-                   ;
-                deployButton?:
-                    | {
-                        type: "simple";
-                        /**
-                         * Deploy button label
-                         */
-                        label: string;
-                        /**
-                         * Absolute path to deploy button image or `null` to remove image
-                         */
-                        icon: string;
-                    }
-                   ;
+        editorTheme?: {
+            page?: {
                 /**
-                 * Hide unwanted menu items by id
+                 * Page title
                  */
-                menu?:
-                    | {
-                        "menu-item-import-library"?: boolean;
-                        "menu-item-export-library"?: boolean;
-                        "menu-item-keyboard-shortcuts"?: boolean;
-                        "menu-item-help"?:
-                            | {
-                                /** Help Link Text */
-                                label: string;
-                                /** Help Link URL */
-                                url: string;
-                            }
-                           ;
-                    }
-                   ;
+                title?: string;
                 /**
-                 * Hide the user-menu even if adminAuth is enabled
+                 * Absolute path to theme icon
                  */
-                userMenu?: boolean;
-                login?:
-                    | {
-                        image?: string;
-                    }
-                   ;
-                palette?:
-                    | {
-                        /**
-                         * Enable/disable the Palette Manager
-                         */
-                        editable?: boolean;
-                        /**
-                         * Alternative palette manager catalogues
-                         */
-                        catalogues?: string[];
-                        /**
-                         * Override node colours - rules test against category/type by RegExp.
-                         */
-                        theme?:
-                            | Array<{
-                                category: string;
-                                type: string;
-                                color: string;
-                            }>
-                           ;
-                    }
-                   ;
-                projects?:
-                    | {
-                        /**
-                         * To enable the Projects feature, set this value to true
-                         */
-                        enabled: boolean;
-                    }
-                   ;
-            }
-           ;
+                favicon?: string;
+                /**
+                 * Absolute path to custom css file
+                 */
+                css?: string;
+                /**
+                 * Absolute paths to custom script files
+                 */
+                scripts?: string[];
+            };
+            header?: {
+                /**
+                 * Header title
+                 */
+                title?: string;
+                /**
+                 * Absolute path to header image, or `null` to remove image
+                 */
+                image?: string | null;
+                /**
+                 * Url to make the header text/image a link to this url
+                 */
+                url?: string;
+            };
+            deployButton?: {
+                type: "simple";
+                /**
+                 * Deploy button label
+                 */
+                label: string;
+                /**
+                 * Absolute path to deploy button image or `null` to remove image
+                 */
+                icon: string;
+            };
+            /**
+             * Hide unwanted menu items by id
+             */
+            menu?: {
+                "menu-item-import-library"?: boolean;
+                "menu-item-export-library"?: boolean;
+                "menu-item-keyboard-shortcuts"?: boolean;
+                "menu-item-help"?: {
+                    /** Help Link Text */
+                    label: string;
+                    /** Help Link URL */
+                    url: string;
+                };
+            };
+            /**
+             * Hide the user-menu even if adminAuth is enabled
+             */
+            userMenu?: boolean;
+            login?: {
+                image?: string;
+            };
+            palette?: {
+                /**
+                 * Enable/disable the Palette Manager
+                 */
+                editable?: boolean;
+                /**
+                 * Alternative palette manager catalogues
+                 */
+                catalogues?: string[];
+                /**
+                 * Override node colours - rules test against category/type by RegExp.
+                 */
+                theme?: Array<{
+                    category: string;
+                    type: string;
+                    color: string;
+                }>;
+            };
+            projects?: {
+                /**
+                 * To enable the Projects feature, set this value to true
+                 */
+                enabled: boolean;
+            };
+        };
 
         verbose?: boolean;
         safeMode?: boolean;
