@@ -346,7 +346,7 @@ This file is required and should follow this template:
     "devDependencies": {
         "@types/PACKAGE-NAME": "workspace:."
     },
-    "contributors": [
+    "owners": [
         {
             "name": "Your Name Here",
             "githubUsername": "ghost"
@@ -408,10 +408,10 @@ DT has the concept of "Definition Owners" which are people who want to maintain 
 * Your PR reviews will have a higher precedence of importance to [the bot](https://github.com/DefinitelyTyped/dt-mergebot) which maintains this repo.
 * The DT maintainers are putting trust in the definition owners to ensure a stable eco-system, please don't add yourself lightly.
 
-To add yourself as a Definition Owner, modify the `contributors` array in `package.json`:
+To add yourself as a Definition Owner, modify the `owners` array in `package.json`:
 
 ```json
-"contributors": [
+"owners": [
     {
         "name": "Some Person",
         "githubUsername": "somebody"
