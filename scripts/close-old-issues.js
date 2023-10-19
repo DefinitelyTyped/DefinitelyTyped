@@ -49,6 +49,10 @@ const go = async () => {
 go();
 
 // https://stackoverflow.com/questions/1648392/get-a-date-object-six-months-prior-from-another-date-object
+/**
+ * @param {Date} date
+ * @param {number} months
+ */
 function addMonths(date, months) {
     var month = (date.getMonth() + months) % 12;
     // create a new Date object that gets the last day of the desired month
