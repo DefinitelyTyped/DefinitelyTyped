@@ -134,10 +134,7 @@ export interface Linter {
     run: () => Promise<LinterResults>;
 }
 
+// Since the Linter class and the isRunFromCLI() function are undocumented and seem to be for internal use only,
+// the type is only defined for the createInstance() function.
+
 export function createInstance(options: Options): Linter;
-
-declare const _default: {
-    createInstance: typeof createInstance;
-};
-
-export default _default;

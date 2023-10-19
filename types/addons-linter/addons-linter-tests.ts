@@ -1,4 +1,4 @@
-import linter from "addons-linter";
+import linter = require("addons-linter");
 
 const linterInstance = linter.createInstance({
     config: {
