@@ -13,83 +13,83 @@ export interface Options {
         /**
          * Treat warnings as errors.
          */
-        warningsAsErrors?: boolean;
+        warningsAsErrors?: boolean | undefined;
 
         /**
          * The type of output to generate.
          */
-        output?: "json" | "text" | "none";
+        output?: "json" | "text" | "none" | undefined;
 
         /**
          * Output only metadata as JSON.
          */
-        metadata?: boolean;
+        metadata?: boolean | undefined;
 
         /**
          * Prettify JSON output.
          */
-        pretty?: boolean;
+        pretty?: boolean | undefined;
 
         /**
          * Show stacktraces when errors are thrown.
          */
-        stack?: boolean;
+        stack?: boolean | undefined;
 
         /**
          * Disable colorful shell output.
          */
-        boring?: boolean;
+        boring?: boolean | undefined;
 
         /**
          * Treat the input file (or directory) as a privileged extension.
          */
-        privileged?: boolean;
+        privileged?: boolean | undefined;
 
         /**
          * Disable messages related to hosting on addons.mozilla.org.
          */
-        selfHosted?: boolean;
+        selfHosted?: boolean | undefined;
 
         /**
          * Enable MV3 background service worker support.
          */
-        enableBackgroundServiceWorker?: boolean;
+        enableBackgroundServiceWorker?: boolean | undefined;
 
         /**
          * Set a custom minimum allowed value for the manifest_version property
          */
-        minManifestVersion?: number;
+        minManifestVersion?: number | undefined;
 
         /**
          * Set a custom maximum allowed value for the manifest_version property
          */
-        maxManifestVersion?: number;
+        maxManifestVersion?: number | undefined;
 
         /**
          * Disable list of comma separated eslint rules.
          */
-        disableLinterRules?: string;
+        disableLinterRules?: string | undefined;
 
         /**
          * Disable the auto-close feature when linting XPI files.
          */
-        disableXpiAutoclose?: boolean;
+        disableXpiAutoclose?: boolean | undefined;
 
         /**
          * Exclude files
          */
-        shouldScanFile?: (fileOrDirName: string, isDir: boolean) => boolean;
+        shouldScanFile?: ((fileOrDirName: string, isDir: boolean) => boolean) | undefined;
 
         /**
          * Scan a selected file.
          */
-        scanFile?: string[];
+        scanFile?: string[] | undefined;
     };
 
     /**
      * This prevent the linter to exit the nodejs application.
      */
-    runAsBinary?: boolean;
+    runAsBinary?: boolean | undefined;
 }
 
 export interface LinterResults {
@@ -103,7 +103,7 @@ export interface LinterResults {
 
     metadata: Record<string, unknown>;
 
-    scanFile: string[];
+    scanFile?: string[] | undefined;
 
     errors: Array<{
         _type: "error";
