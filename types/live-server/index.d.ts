@@ -16,6 +16,8 @@ export interface LiveServerParams {
     file?: string | undefined;
     /** Waits for all changes, before reloading. Defaults to 0 sec. */
     wait?: number | undefined;
+    /** Enable CORS (Cross-Origin Resource Sharing). Defaults to false. */
+    cors?: boolean | undefined
     /** Mount a directory to a route. */
     mount?: string[][] | undefined;
     /** 0 = errors only, 1 = some, 2 = lots */

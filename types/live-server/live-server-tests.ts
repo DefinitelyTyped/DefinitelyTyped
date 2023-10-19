@@ -8,6 +8,7 @@ liveServer.start({
     ignore: "scss,my/templates",
     file: "index.html",
     wait: 1000,
+    cors: true,
     mount: [["/components", "./node_modules"]],
     logLevel: 2,
     middleware: [
