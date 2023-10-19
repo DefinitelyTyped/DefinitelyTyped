@@ -71,6 +71,12 @@ declare namespace runtime {
         tcpMsgQueueSize?: number;
 
         /**
+         * Timeout in milliseconds for inbound WebSocket connections that do not
+         * match any configured node. Defaults to 5000
+         */
+        inboundWebSocketTimeout?: number;
+
+        /**
          * Timeout in milliseconds for HTTP request connections
          */
         httpRequestTimeout?: number;
@@ -79,6 +85,9 @@ declare namespace runtime {
          * The maximum length, in characters, of any message sent to the debug sidebar tab
          */
         debugMaxLength?: number;
+
+        /** Maximum buffer size for the exec node. Defaults to 10Mb */
+        execMaxBufferSize?: number;
 
         /**
          * The maximum number of messages nodes will buffer internally as part of their
@@ -129,6 +138,13 @@ declare namespace runtime {
          * The following property can be used to specify an additional directory to scan.
          */
         nodesDir?: string;
+
+        /**
+         * The following property can be used to add a custom middleware function
+         * in front of all admin http routes. For example, to set custom http
+         * headers. It can be a single function or an array of middleware functions.
+         */
+        httpAdminMiddleware?: (req: Request, res: Response, next: NextFunction) => void;
 
         /**
          * By default, the Node-RED UI is available at http://localhost:1880/
@@ -285,6 +301,9 @@ declare namespace runtime {
                 callback: (result: boolean, code?: string, reason?: string) => void,
             ) => void);
 
+        /** Allow the Function node to load additional npm modules directly */
+        functionExternalModules?: boolean;
+
         /**
          * The following property can be used to seed Global Context with predefined
          * values. This allows extra node modules to be made available with the
@@ -306,6 +325,36 @@ declare namespace runtime {
          * their values. Setting this to true will cause the keys to be listed.
          */
         exportGlobalContextKeys?: boolean;
+
+        /**
+         * Configure how the runtime will handle external npm modules.
+         * This covers:
+         *  - whether the editor will allow new node modules to be installed
+         *  - whether nodes, such as the Function node are allowed to have their
+         * own dynamically configured dependencies.
+         * The allow/denyList options can be used to limit what modules the runtime
+         * will install/load. It can use '*' as a wildcard that matches anything.
+         */
+        externalModules?: {
+            autoInstall: boolean; /** Whether the runtime will attempt to automatically install missing modules */
+            autoInstallRetry: number; /** Interval, in seconds, between reinstall attempts */
+            palette: {
+                /** Configuration for the Palette Manager */
+                allowInstall: boolean; /** Enable the Palette Manager in the editor */
+                allowUpdate: boolean; /** Allow modules to be updated in the Palette Manager */
+                allowUpload: boolean; /** Allow module tgz files to be uploaded and installed */
+                allowList: string[];
+                denyList: string[];
+                allowUpdateList: string[];
+                denyUpdateList: string[];
+            };
+            modules: {
+                /** Configuration for node-specified modules */
+                allowInstall: boolean;
+                allowList: string[];
+                denyList: string[];
+            };
+        };
 
         /**
          * Context Storage
