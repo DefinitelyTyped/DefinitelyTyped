@@ -5772,7 +5772,7 @@
             "asOfVersion": "4.0.0"
         },
         "styled-components-react-native": {
-            "libraryName": "styled-components",
+            "libraryName": "styled-components-react-native",
             "asOfVersion": "6.0.0"
         },
         "styled-jsx": {
