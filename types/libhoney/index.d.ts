@@ -1,8 +1,3 @@
-// Type definitions for libhoney 4.1
-// Project: https://github.com/honeycombio/libhoney-js#readme
-// Definitions by: dcposch <https://github.com/dcposch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Libhoney;
 
 declare class Libhoney {
