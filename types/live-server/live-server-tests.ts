@@ -1,5 +1,5 @@
 import liveServer = require("live-server");
-import { Request, Response, NextFunction } from '.';
+import { Request, Response, NextFunction } from 'live-server';
 
 liveServer.start({
     port: 8181,
