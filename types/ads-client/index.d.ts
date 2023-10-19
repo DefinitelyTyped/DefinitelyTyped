@@ -40,32 +40,33 @@ export interface Metadata {
     routerState: object;
 }
 
-export type ADSStateStr = 'Invalid'
-    | 'Idle'
-    | 'Reset'
-    | 'Initialize'
-    | 'Start'
-    | 'Run'
-    | 'Stop'
-    | 'SaveConfig'
-    | 'LoadConfig'
-    | 'PowerFailure'
-    | 'PowerGood'
-    | 'Error'
-    | 'Shutdown'
-    | 'Susped' // Upstream typo
-    | 'Resume'
-    | 'Config'
-    | 'Reconfig'
-    | 'Stopping'
-    | 'Incompatible'
-    | 'Exception'
-    | 'UNKNOWN';
+export type ADSStateStr =
+    | "Invalid"
+    | "Idle"
+    | "Reset"
+    | "Initialize"
+    | "Start"
+    | "Run"
+    | "Stop"
+    | "SaveConfig"
+    | "LoadConfig"
+    | "PowerFailure"
+    | "PowerGood"
+    | "Error"
+    | "Shutdown"
+    | "Susped" // Upstream typo
+    | "Resume"
+    | "Config"
+    | "Reconfig"
+    | "Stopping"
+    | "Incompatible"
+    | "Exception"
+    | "UNKNOWN";
 
 export interface PLCRuntimeState {
-    adsState: number,
-    adsStateStr: ADSStateStr,
-    deviceState: number
+    adsState: number;
+    adsStateStr: ADSStateStr;
+    deviceState: number;
 }
 
 export interface Connection {
