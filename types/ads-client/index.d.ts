@@ -40,7 +40,7 @@ export interface Metadata {
     routerState: object;
 }
 
-type ADSStateStr =
+export type ADSStateStr =
     'Invalid'
     | 'Idle'
     | 'Reset'
