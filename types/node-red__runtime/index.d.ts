@@ -359,7 +359,7 @@ declare namespace runtime {
                 allowList?: string[] | undefined;
                 denyList?: string[] | undefined;
             } | undefined;
-        };
+        } | undefined;
 
         /**
          * Context Storage
