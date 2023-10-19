@@ -8,7 +8,7 @@
     "devDependencies": {
         "@types/addons-linter": "workspace:."
     },
-    "contributors": [
+    "owners": [
         {
             "name": "Robot-Inventor",
             "githubUsername": "Robot-Inventor"
