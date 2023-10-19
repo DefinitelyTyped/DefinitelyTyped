@@ -1130,7 +1130,7 @@ declare namespace React {
      * @see https://react.dev/reference/react/useMemo
      */
     // allow undefined, but don't make it optional as that is very likely a mistake
-    function useMemo<T>(factory: () => T, deps: DependencyList | undefined): T;
+    function useMemo<T>(factory: () => Exclude<T, void>, deps: DependencyList | undefined): T;
     /**
      * `useDebugValue` can be used to display a label for custom hooks in React DevTools.
      *
