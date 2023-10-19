@@ -159,12 +159,14 @@ MyTelegramBot.restrictChatMember(1234, 5678, {
 });
 MyTelegramBot.promoteChatMember(1234, 5678, { can_change_info: true });
 MyTelegramBot.exportChatInviteLink(1234);
+// @ts-expect-error
 MyTelegramBot.createChatInviteLink(1234, {
     name: "Foo",
     expire_date: 1234,
     member_limit: 1234,
     creates_join_request: true
 });
+// @ts-expect-error
 MyTelegramBot.editChatInviteLink(1234, {
     name: "Foo",
     expire_date: 1234,
