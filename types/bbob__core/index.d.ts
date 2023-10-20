@@ -1,8 +1,3 @@
-// Type definitions for @bbob/core 3.0
-// Project: https://github.com/JiLiZART/bbob
-// Definitions by: shme-e <https://github.com/shme-e>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { parse } from "@bbob/parser";
 import { Node, TagNode } from "@bbob/plugin-helper";
 import { iterate, match } from "./utils";
