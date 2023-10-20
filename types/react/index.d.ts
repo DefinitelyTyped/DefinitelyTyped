@@ -3274,7 +3274,7 @@ type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps
     : P;
 
 // Exclude implicity return undefined
-type ExcludeVoidFn<T extends Function> = (() => void) extends T ? never : T;
+type ExcludeVoidFn<T extends () => unknown> = (() => void) extends T ? never : T;
 
 
 declare global {
