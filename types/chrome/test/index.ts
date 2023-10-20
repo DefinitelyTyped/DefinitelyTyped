@@ -2122,6 +2122,14 @@ function testSidePanelAPI() {
         console.log(behavior.openPanelOnActionClick);
     });
 
+    let openOptions: chrome.sidePanel.OpenOptions = {
+        tabId: 123,
+    };
+
+    chrome.sidePanel.open(openOptions, () => {
+        console.log("Opened successfully.");
+    });
+
     let setPanelOptions: chrome.sidePanel.PanelOptions = {
         enabled: true,
         path: "path/to/sidePanel.html",
