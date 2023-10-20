@@ -3,10 +3,6 @@
         "noEmit": true,
         "module": "commonjs",
         "forceConsistentCasingInFileNames": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "lib": [
             "es5"

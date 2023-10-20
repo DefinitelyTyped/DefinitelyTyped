@@ -1,7 +1,24 @@
 {
     "private": true,
+    "name": "@types/react-intl-redux",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/ratson/react-intl-redux"
+    ],
     "dependencies": {
-        "redux": "^4.0.0",
-        "react-intl": "^3"
-    }
+        "@types/react-redux": "*",
+        "react-intl": "^3",
+        "redux": "^4.0.0"
+    },
+    "devDependencies": {
+        "@types/react": "^16",
+        "@types/react-dom": "^16",
+        "@types/react-intl-redux": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Karol Janyst",
+            "githubUsername": "LKay"
+        }
+    ]
 }

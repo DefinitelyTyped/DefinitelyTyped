@@ -1,8 +1,3 @@
-// Type definitions for jabber 1.2
-// Project: https://github.com/dejavu1987/jabber#readme
-// Definitions by: owl-from-hogvarts <https://github.com/owl-from-hogvarts>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Jabber {
     /**
      * @param themeWords Custom words that need to appear in some density

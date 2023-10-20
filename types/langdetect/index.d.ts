@@ -1,8 +1,3 @@
-// Type definitions for langdetect 0.2
-// Project: https://github.com/newmsz/node-language-detection
-// Definitions by: SaidTorres3 <https://github.com/SaidTorres3>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface LanguageDetectionResult {
     lang: string;
     prob: number;

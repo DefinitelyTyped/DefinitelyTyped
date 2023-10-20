@@ -1,11 +1,3 @@
-// Type definitions for swagger-jsdoc 6.0
-// Project: https://github.com/surnet/swagger-jsdoc
-// Definitions by: Daniel Grove <https://github.com/drGrove>
-//                 Neil Bryson Cargamento <https://github.com/neilbryson>
-//                 Preyansh Mitharwal <https://github.com/preyansh07>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /* =================== USAGE ===================
 
     import * as express from 'express';

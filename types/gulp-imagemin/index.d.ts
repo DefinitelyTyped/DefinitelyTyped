@@ -1,8 +1,3 @@
-// Type definitions for gulp-imagemin 8.0
-// Project: https://github.com/sindresorhus/gulp-imagemin#readme
-// Definitions by: Romain Faust <https://github.com/romain-faust>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Plugin } from "imagemin";

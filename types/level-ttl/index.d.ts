@@ -1,8 +1,3 @@
-// Type definitions for level-ttl 3.1
-// Project: https://github.com/level/level-ttl
-// Definitions by: Carson Farmer <https://github.com/carsonfarmer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { AbstractIterator, AbstractLevelDOWN, ErrorCallback } from "abstract-leveldown";
 import { LevelUp } from "levelup";
 

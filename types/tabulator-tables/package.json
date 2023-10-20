@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/tabulator-tables",
+    "version": "5.5.9999",
+    "projects": [
+        "http://tabulator.info"
+    ],
+    "devDependencies": {
+        "@types/tabulator-tables": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Josh Harris",
+            "githubUsername": "jojoshua"
+        },
+        {
+            "name": "Mike Lischke",
+            "githubUsername": "mike-lischke"
+        }
+    ]
+}

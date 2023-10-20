@@ -1,8 +1,3 @@
-// Type definitions for non-npm package Daum Postcode 2.0
-// Project: https://postcode.map.daum.net/guide
-// Definitions by: doinki <https://github.com/doinki>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /** @see [Daum Postcode](https://postcode.map.daum.net/guide) */
 declare namespace daum {
     /**

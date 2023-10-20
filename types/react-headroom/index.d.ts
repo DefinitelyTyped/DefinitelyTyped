@@ -1,10 +1,3 @@
-// Type definitions for react-headroom 3.2
-// Project: https://kyleamathews.github.io/react-headroom/, https://github.com/kyleamathews/react-headroom
-// Definitions by: Zero Cho <https://github.com/zerocho>
-//                 Rafael Derolez <https://github.com/rafaelderolez>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { Component, CSSProperties, ReactNode } from "react";
 
 declare class Headroom extends Component<ReactHeadroomProps> {

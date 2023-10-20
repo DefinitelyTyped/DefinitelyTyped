@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/sasl-scram-sha-1",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/legastero/js-sasl-scram-sha-1"
+    ],
+    "dependencies": {
+        "@types/saslmechanisms": "*"
+    },
+    "devDependencies": {
+        "@types/sasl-scram-sha-1": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

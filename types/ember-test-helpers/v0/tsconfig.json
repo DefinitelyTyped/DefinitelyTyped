@@ -9,15 +9,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": false,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "ember": ["ember/v2"],
-            "ember-test-helpers": ["ember-test-helpers/v0"],
-            "ember-test-helpers/*": ["ember-test-helpers/v0/*"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

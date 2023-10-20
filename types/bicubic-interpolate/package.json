@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/bicubic-interpolate",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/david-boles/bicubic-interpolate"
+    ],
+    "devDependencies": {
+        "@types/bicubic-interpolate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bjarne Undheim Jr.",
+            "githubUsername": "BrUSomania"
+        }
+    ]
+}

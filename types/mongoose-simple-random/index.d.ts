@@ -1,9 +1,3 @@
-// Type definitions for mongoose-simple-random 0.4
-// Project: https://github.com/larryprice/mongoose-simple-random
-// Definitions by: TypeScript Bot <https://github.com/typescript-bot>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 import mongoose = require("mongoose");
 declare function pluginFunc(schema: mongoose.Schema): void;
 declare namespace pluginFunc {}

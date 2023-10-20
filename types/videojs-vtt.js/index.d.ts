@@ -1,8 +1,3 @@
-// Type definitions for videojs-vtt.js 0.15
-// Project: https://github.com/videojs/vtt.js
-// Definitions by: David Ko <https://github.com/davidholyko>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type TimeInSeconds = number;
 type VttText = string;
 type DecoderFn = (data: string) => string;

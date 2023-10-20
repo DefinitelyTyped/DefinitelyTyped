@@ -1,8 +1,3 @@
-// Type definitions for db-hafas-stations 1.0
-// Project: https://github.com/derhuerst/db-hafas-stations
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { Readable } from "stream";
 

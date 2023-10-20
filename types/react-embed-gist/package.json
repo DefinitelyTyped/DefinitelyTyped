@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/react-embed-gist",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/msaracevic/react-embed-gist#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-embed-gist": "workspace:."
+    },
+    "owners": []
+}

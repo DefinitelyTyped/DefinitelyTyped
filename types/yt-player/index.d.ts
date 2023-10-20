@@ -1,8 +1,3 @@
-// Type definitions for yt-player 3.5
-// Project: https://github.com/feross/yt-player
-// Definitions by: Thomas Röggla <https://github.com/troeggla>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { EventEmitter } from "events";
 
 interface YouTubePlayerOptions {

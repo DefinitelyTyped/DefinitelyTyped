@@ -1,4 +1,3 @@
-import { deepEqual } from "assert";
 import multireducer from "multireducer";
 
 const initialState = { a: 1, b: 2, c: 3 };
@@ -22,5 +21,3 @@ const expectedResult = {
     second: { a: 1, b: 20, c: 3 },
     third: { a: 1, b: 2, c: 30 },
 };
-
-deepEqual(reducers, expectedResult);

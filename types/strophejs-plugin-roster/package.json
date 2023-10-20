@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/strophejs-plugin-roster",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/strophe/strophejs-plugin-roster#readme"
+    ],
+    "dependencies": {
+        "@types/strophe.js": "*"
+    },
+    "devDependencies": {
+        "@types/strophejs-plugin-roster": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "LeartS",
+            "githubUsername": "LeartS"
+        }
+    ]
+}

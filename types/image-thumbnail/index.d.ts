@@ -1,8 +1,3 @@
-// Type definitions for image-thumbnail 1.0
-// Project: https://github.com/onildoaguiar/image-thumbnail#readme
-// Definitions by: Noam Alffasy <https://github.com/noamalffasy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { ReadStream } from "fs";

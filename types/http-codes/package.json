@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/http-codes",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/flesler/node-http-codes"
+    ],
+    "devDependencies": {
+        "@types/http-codes": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mohamed Hegazy",
+            "githubUsername": "mhegazy"
+        }
+    ]
+}

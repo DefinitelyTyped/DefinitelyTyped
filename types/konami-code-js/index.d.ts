@@ -1,8 +1,3 @@
-// Type definitions for konami-code-js 0.8
-// Project: https://github.com/Haeresis/konami-code-js#readme
-// Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface KonamiOptions {
     /**
      * Function executed after the the Konami Code sequence has been entered.

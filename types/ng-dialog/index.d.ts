@@ -1,10 +1,3 @@
-// Type definitions for ngDialog 0.6
-// Project: https://github.com/likeastore/ngDialog
-// Definitions by: Stephen Lautier <https://github.com/stephenlautier>
-//                 Philipp Katz <https://github.com/qqilihq>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
 import * as angular from "angular";

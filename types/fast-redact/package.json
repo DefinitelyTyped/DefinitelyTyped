@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/fast-redact",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/davidmarkclements/fast-redact#readme"
+    ],
+    "devDependencies": {
+        "@types/fast-redact": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "asciidisco",
+            "githubUsername": "asciidisco"
+        },
+        {
+            "name": "nazmariam",
+            "githubUsername": "nazmariam"
+        }
+    ]
+}

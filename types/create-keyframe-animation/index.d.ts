@@ -1,9 +1,3 @@
-// Type definitions for create-keyframe-animation 0.1
-// Project: https://github.com/HenrikJoreteg/create-keyframe-animation
-// Definitions by: fengyangfifa <https://github.com/fengyangfifa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 type Direction = "normal" | "alternate" | "reverse" | "alternate-reverse";
 
 interface PresetsConfig {

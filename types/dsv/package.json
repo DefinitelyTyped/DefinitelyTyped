@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/dsv",
+    "version": "0.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/dsv"
+    ],
+    "devDependencies": {
+        "@types/dsv": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Swearingen",
+            "url": "https://jasonswearingen.github.io"
+        }
+    ]
+}

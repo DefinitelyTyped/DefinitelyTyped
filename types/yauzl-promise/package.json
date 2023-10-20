@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "name": "@types/yauzl-promise",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/overlookmotel/yauzl-promise"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/yauzl": "*"
+    },
+    "devDependencies": {
+        "@types/yauzl-promise": "workspace:."
+    },
+    "owners": []
+}

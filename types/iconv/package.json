@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/iconv",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/bnoordhuis/node-iconv"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/iconv": "workspace:."
+    },
+    "owners": []
+}

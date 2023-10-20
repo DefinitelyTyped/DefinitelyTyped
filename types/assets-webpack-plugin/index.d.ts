@@ -1,9 +1,3 @@
-// Type definitions for assets-webpack-plugin 7.1
-// Project: https://github.com/ztoben/assets-webpack-plugin
-// Definitions by: Michael Strobel <https://github.com/kryops>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /// <reference types="node" />
 import { Compiler } from "webpack";
 

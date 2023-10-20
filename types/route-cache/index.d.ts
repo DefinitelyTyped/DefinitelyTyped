@@ -1,8 +1,3 @@
-// Type definitions for route-cache 0.5
-// Project: https://github.com/bradoyler/route-cache
-// Definitions by: yutak23 <https://github.com/yutak23>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as express from "express";
 
 export function config(options: ConfigOptions): RouteCache;

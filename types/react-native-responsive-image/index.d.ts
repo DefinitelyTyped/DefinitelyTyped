@@ -1,8 +1,3 @@
-// Type definitions for react-native-responsive-image 2.3
-// Project: https://github.com/Dharmoslap/react-native-responsive-images#readme
-// Definitions by: dimameshcharakou <https://github.com/dimameshcharakou>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 import {
     Image,

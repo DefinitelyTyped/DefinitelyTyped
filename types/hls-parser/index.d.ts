@@ -1,11 +1,3 @@
-// Type definitions for hls-parser 0.8
-// Project: https://github.com/kuu/hls-parser#readme
-// Definitions by: Christian Rackerseder <https://github.com/screendriver>
-//                 Christopher Manouvrier <https://github.com/cmanou>
-//                 Joe Flateau <https://github.com/joeflateau>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 /// <reference types="node" />
 
 export interface Byterange {

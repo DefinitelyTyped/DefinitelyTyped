@@ -1,8 +1,3 @@
-// Type definitions for node-targz 0.2
-// Project: https://github.com/lafin/node-targz#readme
-// Definitions by: Mats Jun Larsen <https://github.com/matsjla>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import type { PathLike } from "fs";
 import type { ExtractOptions, PackOptions } from "tar-fs";
 

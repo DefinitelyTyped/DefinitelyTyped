@@ -1,8 +1,3 @@
-// Type definitions for ds18b20 0.1
-// Project: https://github.com/chamerling/ds18b20
-// Definitions by: Peter Müller <https://github.com/crycode-de>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.1
 
 /// <reference types="node" />

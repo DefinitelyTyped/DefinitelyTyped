@@ -1,9 +1,3 @@
-// Type definitions for non-npm package OpenRCT2 0.3
-// Project: https://openrct2.io/
-// Definitions by: OpenRCT2 <https://github.com/OpenRCT2>
-//                 Ted John <https://github.com/IntelOrca>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type PluginType = "local" | "remote";
 
 declare global {

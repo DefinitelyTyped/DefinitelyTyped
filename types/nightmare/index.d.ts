@@ -1,10 +1,3 @@
-// Type definitions for Nightmare 2.10.1
-// Project: https://github.com/segmentio/nightmare
-// Definitions by: horiuchi <https://github.com/horiuchi>
-//                 Sam Yang <https://github.com/samyang-au>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
 declare class Nightmare {

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/imagemagick-native",
+    "version": "1.7.9999",
+    "projects": [
+        "https://www.npmjs.org/package/imagemagick-native"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/imagemagick-native": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hiroki Horiuchi",
+            "githubUsername": "horiuchi"
+        }
+    ]
+}

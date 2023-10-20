@@ -1,14 +1,3 @@
-// Type definitions for mui-datatables 4.3
-// Project: https://github.com/gregnb/mui-datatables
-// Definitions by: Jeroen "Favna" Claassens <https://github.com/favna>
-//                 Ankith Konda <https://github.com/ankithkonda>
-//                 Herman "Von" Waters IV <https://github.com/hwatersiv>
-//                 souppower <https://github.com/souppower>
-//                 Byron "Byrekt" Mitchell <https://github.com/byrekt>
-//                 Bohdan Yavorskyi <https://github.com/BohdanYavorskyi>
-//                 Patrick Erichsen <https://github.com/Patrick-Erichsen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
 import { ComponentsOverrides, ComponentsProps, ComponentsVariants } from "@mui/material";
 
 import * as React from "react";

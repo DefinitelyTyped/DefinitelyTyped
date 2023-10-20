@@ -1,8 +1,3 @@
-// Type definitions for wuzzy 0.1
-// Project: https://github.com/xupit3r/wuzzy#readme
-// Definitions by: Thomas Ladd <https://github.com/TLadd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export function jarowinkler(a: string | ReadonlyArray<string>, b: string | ReadonlyArray<string>, t?: number): number;
 
 export interface LevenshteinOptions {

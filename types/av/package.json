@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/av",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/audiocogs/aurora.js#readme"
+    ],
+    "devDependencies": {
+        "@types/av": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Candid Dauth",
+            "githubUsername": "cdauth"
+        }
+    ]
+}

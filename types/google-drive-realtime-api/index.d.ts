@@ -1,8 +1,3 @@
-// Type definitions for Google Realtime API
-// Project: https://developers.google.com/google-apps/realtime/
-// Definitions by: Dustin Wehr <http://cs.toronto.edu/~wehr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // This definition file is merge-compatible with ../gapi/gapi.d.ts
 
 // Note the occurrences of "INCOMPLETE". For some interfaces and object types, I have only included

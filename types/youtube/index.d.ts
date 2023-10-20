@@ -1,12 +1,3 @@
-// Type definitions for YouTube
-// Project: https://developers.google.com/youtube/
-// Definitions by: Ian Obermiller <http://ianobermiller.com>,
-//                 Eliot Fallon <https://github.com/eliotfallon213>
-//                 Terry Mun <https://github.com/terrymun>
-//                 Paul Hobbel <https://github.com/paulhobbel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /**
  * @see https://developers.google.com/youtube/iframe_api_reference
  * @see https://developers.google.com/youtube/player_parameters

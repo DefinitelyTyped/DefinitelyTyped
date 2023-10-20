@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/romaji-name",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/jeresig/node-romaji-name#readme"
+    ],
+    "devDependencies": {
+        "@types/romaji-name": "workspace:."
+    },
+    "owners": []
+}

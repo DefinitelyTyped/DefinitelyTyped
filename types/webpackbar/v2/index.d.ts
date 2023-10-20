@@ -1,9 +1,3 @@
-// Type definitions for webpackbar 2.6
-// Project: https://github.com/nuxt/webpackbar
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 /// <reference types="node" />
 
 import { Plugin } from "webpack";

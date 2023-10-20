@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/paralleljs",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/parallel-js/parallel.js#readme"
+    ],
+    "devDependencies": {
+        "@types/paralleljs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Josh Baldwin",
+            "githubUsername": "jbaldwin"
+        }
+    ]
+}

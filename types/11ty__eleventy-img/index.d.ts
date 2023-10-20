@@ -1,9 +1,3 @@
-// Type definitions for @11ty/eleventy-img 2.0
-// Project: https://github.com/11ty/eleventy-img
-// Definitions by: Tiger Oakes <https://github.com/NotWoods>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
-
 /// <reference types="node" />
 import sharp = require("sharp");
 import generateImageHTML = require("./generate-html");

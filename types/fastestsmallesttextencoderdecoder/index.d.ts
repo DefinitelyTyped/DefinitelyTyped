@@ -1,8 +1,3 @@
-// Type definitions for fastestsmallesttextencoderdecoder 1.0
-// Project: https://github.com/anonyco/FastestSmallestTextEncoderDecoder#quick-start
-// Definitions by: Loren 🤓 <https://github.com/lorensr>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type Binary = ArrayBuffer | Uint8Array | DataView;
 export interface DecodeOptions {
     stream?: boolean;

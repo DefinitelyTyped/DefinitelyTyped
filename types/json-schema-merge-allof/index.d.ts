@@ -1,9 +1,3 @@
-// Type definitions for json-schema-merge-allof 0.6
-// Project: https://github.com/mokkabonna/json-schema-merge-allof#readme
-// Definitions by: Emily Marigold Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { JSONSchema4, JSONSchema6, JSONSchema7 } from "json-schema";
 
 export = merger;

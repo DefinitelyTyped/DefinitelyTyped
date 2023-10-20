@@ -1,8 +1,3 @@
-// Type definitions for @koozaki/romaji-conv 2.0
-// Project: https://romaji-conv.koozaki.com/
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace romajiConv;
 
 /**

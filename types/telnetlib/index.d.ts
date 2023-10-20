@@ -1,8 +1,3 @@
-// Type definitions for telnetlib 1.0
-// Project: https://github.com/cadpnq/telnetlib
-// Definitions by: Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as events from "events";
 import * as net from "net";
 

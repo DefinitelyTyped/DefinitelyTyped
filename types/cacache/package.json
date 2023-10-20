@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/cacache",
+    "version": "17.0.9999",
+    "projects": [
+        "https://github.com/npm/cacache#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/cacache": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

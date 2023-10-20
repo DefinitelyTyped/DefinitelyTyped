@@ -1,8 +1,3 @@
-// Type definitions for facebook-nodejs-business-sdk 15.0
-// Project: https://github.com/facebook/facebook-nodejs-business-sdk
-// Definitions by: Viktor Daiev <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export { default as FacebookAdsApi } from './src/api';
 export { default as FacebookAdsApiBatch } from './src/api-batch';
 export { default as AbstractCrudObject } from './src/abstract-crud-object';

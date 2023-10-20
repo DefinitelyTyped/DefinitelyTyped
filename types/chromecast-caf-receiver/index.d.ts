@@ -1,11 +1,3 @@
-// Type definitions for non-npm package chromecast-caf-receiver 6.0
-// Project: https://github.com/googlecast
-// Definitions by: Sergio Arbeo <https://github.com/Serabe>
-//                 Brandon Risell <https://github.com/brandonrisell>
-//                 Marco Reni <https://github.com/marcoreni>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 /// <reference path="./cast.debug.d.ts" />
 /// <reference path="./cast.framework.d.ts" />
 /// <reference path="./cast.framework.breaks.d.ts" />

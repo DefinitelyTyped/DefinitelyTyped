@@ -1,14 +1,3 @@
-// Type definitions for argparse 2.0
-// Project: https://github.com/nodeca/argparse
-// Definitions by: Andrew Schurman <https://github.com/arcticwaters>
-//                 Tomasz Łaziuk <https://github.com/tlaziuk>
-//                 Sebastian Silbermann <https://github.com/eps1lon>
-//                 Kannan Goundan <https://github.com/cakoose>
-//                 Halvor Holsten Strand <https://github.com/ondkloss>
-//                 Dieter Oberkofler <https://github.com/doberkofler>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
-
 export class ArgumentParser extends ArgumentGroup {
     constructor(options?: ArgumentParserOptions);
     add_subparsers(options?: SubparserOptions): SubParser;

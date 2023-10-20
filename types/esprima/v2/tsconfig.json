@@ -8,16 +8,7 @@
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
-        "paths": {
-            "esprima": [
-                "esprima/v2"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/inquirer-npm-name",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/SBoudrias/inquirer-npm-name"
+    ],
+    "dependencies": {
+        "@types/inquirer": "^8"
+    },
+    "devDependencies": {
+        "@types/inquirer-npm-name": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "manuth",
+            "githubUsername": "manuth"
+        }
+    ]
+}

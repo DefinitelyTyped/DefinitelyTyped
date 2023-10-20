@@ -1,9 +1,3 @@
-// Type definitions for @paypal/payouts-sdk 1.0
-// Project: https://github.com/paypal/Payouts-NodeJS-SDK#readme
-// Definitions by: Rumon <https://github.com/msrumon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
 export type RecipientType = "EMAIL" | "PHONE" | "PAYPAL_ID";
 export type RecipientWallet = "PAYPAL" | "VENMO";
 

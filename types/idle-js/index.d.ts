@@ -1,8 +1,3 @@
-// Type definitions for idle-js 1.2
-// Project: https://github.com/soixantecircuits/idle-js
-// Definitions by: Jeff Peirson <https://github.com/jpeirson>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class IdleJs {
     /**
      * Creates a new unstarted idle tracking instance.

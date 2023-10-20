@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/dom4",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/WebReflection/dom4"
+    ],
+    "devDependencies": {
+        "@types/dom4": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adi Dahiya",
+            "githubUsername": "adidahiya"
+        },
+        {
+            "name": "Gilad Gray",
+            "githubUsername": "giladgray"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for webpack-livereload-plugin 2.3
-// Project: https://github.com/statianzo/webpack-livereload-plugin#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
 import { ServerOptions } from "https";
 import { Plugin, Stats } from "webpack";
 import webpack = require("webpack");

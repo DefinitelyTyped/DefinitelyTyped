@@ -1,9 +1,3 @@
-// Type definitions for superagent-retry-delay 2.6
-// Project: https://github.com/luispabon/superagent-retry-delay#readme
-// Definitions by: Aaron Ross <https://github.com/me>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
-
 import * as cookiejar from "cookiejar";
 import * as stream from "stream";
 import { Request, Response, SuperAgentRequest, SuperAgentStatic } from "superagent";

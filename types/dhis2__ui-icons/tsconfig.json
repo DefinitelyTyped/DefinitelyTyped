@@ -1,16 +1,14 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6", "DOM"],
+        "lib": [
+            "es6",
+            "DOM"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
-        "paths": {
-            "@dhis2/ui-icons": ["dhis2__ui-icons"]
-        },
         "jsx": "react-jsx",
         "types": [],
         "noEmit": true,

@@ -1,8 +1,3 @@
-// Type definitions for @xmpp/time 0.13
-// Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/time
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * @example
  * import { date } from '@xmpp/time';

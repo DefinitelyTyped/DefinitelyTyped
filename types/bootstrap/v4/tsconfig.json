@@ -9,16 +9,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
-        "paths": {
-            "bootstrap": [
-                "bootstrap/v4"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "esModuleInterop": true

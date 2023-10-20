@@ -1,8 +1,3 @@
-// Type definitions for all-the-cities 3.1
-// Project: https://github.com/zeke/all-the-cities#readme
-// Definitions by: Emily Marigold Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = all_the_cities;
 
 interface AllTheCitiesCity {

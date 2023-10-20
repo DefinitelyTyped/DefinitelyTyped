@@ -1,8 +1,3 @@
-// Type definitions for appdynamics 21.8
-// Project: https://www.appdynamics.com/supported-technologies/nodejs
-// Definitions by: Justin Vos <https://github.com/justinvos>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Starts the profiling process.
  */

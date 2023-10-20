@@ -1,8 +1,3 @@
-// Type definitions for browserslist-useragent 3.0
-// Project: https://github.com/browserslist/browserslist-useragent
-// Definitions by: nju33 <https://github.com/nju33>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ResolvedUserAgent {
     family: string;
     version: string;

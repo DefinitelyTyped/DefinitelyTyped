@@ -1,9 +1,3 @@
-// Type definitions for reactabular-table 8.14
-// Project: http://reactabular.js.org/
-// Definitions by: Marcos Junior <https://github.com/junalmeida>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import * as React from "react";
 
 export interface Column {

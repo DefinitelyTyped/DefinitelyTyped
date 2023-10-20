@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/leaflet-gpx",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/mpetazzoni/leaflet-gpx"
+    ],
+    "dependencies": {
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/leaflet-gpx": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Viktor Soucek",
+            "githubUsername": "soucekv"
+        },
+        {
+            "name": "Márton Molnár",
+            "githubUsername": "molnarm"
+        }
+    ]
+}

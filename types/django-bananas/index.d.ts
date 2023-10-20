@@ -1,9 +1,3 @@
-// Type definitions for django-bananas 4.0
-// Project: https://github.com/5monkeys/django-bananas.js
-// Definitions by: Elias Sjögreen <https://github.com/eliassjogreen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 5.1
-
 import * as React from "react";
 import { Theme } from "./themes";
 

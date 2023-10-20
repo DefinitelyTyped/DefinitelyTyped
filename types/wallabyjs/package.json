@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/wallabyjs",
+    "version": "0.0.9999",
+    "projects": [
+        "http://wallabyjs.com"
+    ],
+    "devDependencies": {
+        "@types/wallabyjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrew Connell",
+            "githubUsername": "andrewconnell"
+        }
+    ]
+}

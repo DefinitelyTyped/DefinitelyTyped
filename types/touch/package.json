@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/touch",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/isaacs/node-touch"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/touch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mizunashi Mana",
+            "githubUsername": "mizunashi-mana"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/datatables.net-colreorder",
+    "version": "1.4.9999",
+    "projects": [
+        "https://datatables.net/extensions/colreorder/",
+        "https://datatables.net"
+    ],
+    "dependencies": {
+        "@types/datatables.net": "*",
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/datatables.net-colreorder": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andy Ma",
+            "githubUsername": "andy-maca"
+        }
+    ]
+}

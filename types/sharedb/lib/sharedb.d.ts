@@ -277,7 +277,31 @@ export interface LocalPresenceEventMap {
     "error": (error: Error) => void;
 }
 
-export type RequestAction = "qf" | "qs" | "qu" | "bf" | "bs" | "bu" | "f" | "s" | "u" | "op" | "nf" | "nt";
+export interface RequestActions {
+    initLegacy: "init";
+    handshake: "hs";
+    queryFetch: "qf";
+    querySubscribe: "qs";
+    queryUnsubscribe: "qu";
+    queryUpdate: "q";
+    bulkFetch: "bf";
+    bulkSubscribe: "bs";
+    bulkUnsubscribe: "bu";
+    fetch: "f";
+    fixup: "fixup";
+    subscribe: "s";
+    unsubscribe: "u";
+    op: "op";
+    snapshotFetch: "nf";
+    snapshotFetchByTimestamp: "nt";
+    pingPong: "pp";
+    presence: "p";
+    presenceSubscribe: "ps";
+    presenceUnsubscribe: "pu";
+    presenceRequest: "pr";
+}
+
+export type RequestAction = RequestActions[keyof RequestActions];
 
 export interface ClientRequest {
     /** Short name of the request's action */

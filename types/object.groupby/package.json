@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/object.groupby",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/es-shims/Object.groupBy#readme"
+    ],
+    "devDependencies": {
+        "@types/object.groupby": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ana Kucherova",
+            "githubUsername": "chilldriven"
+        },
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

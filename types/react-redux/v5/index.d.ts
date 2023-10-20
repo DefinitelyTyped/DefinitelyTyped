@@ -1,15 +1,3 @@
-// Type definitions for react-redux 5.0.8
-// Project: https://github.com/rackt/react-redux
-// Definitions by: Qubo <https://github.com/tkqubo>
-//                 Thomas Hasner <https://github.com/thasner>
-//                 Curits Layne <https://github.com/clayne11>
-//                 Frank Tan <https://github.com/tansongyang>
-//                 Nicholas Boll <https://github.com/nicholasboll>
-//                 Dibyo Majumdar <https://github.com/mdibyo>
-//                 Prashant Deva <https://github.com/pdeva>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 // Known Issue:
 // There is a known issue in TypeScript, which doesn't allow decorators to change the signature of the classes
 // they are decorating. Due to this, if you are using @connect() decorator in your code,

@@ -1,9 +1,3 @@
-// Type definitions for webpack-deadcode-plugin 0.1
-// Project: https://github.com/MQuy/webpack-deadcode-plugin#readme
-// Definitions by: Ciarán Ingle <https://github.com/inglec-arista>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import { compilation, Plugin } from "webpack";
 
 interface Options {

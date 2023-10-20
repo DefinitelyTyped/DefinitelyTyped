@@ -1,8 +1,3 @@
-// Type definitions for fluent-reveal-effect 2.0
-// Project: https://www.npmjs.com/package/fluent-reveal-effect
-// Definitions by: Alen Mukaca <https://github.com/ShinzenATT>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface FluentRevealEffectType {
     applyEffect: (element: string, options: RevealOptions) => void;
 }

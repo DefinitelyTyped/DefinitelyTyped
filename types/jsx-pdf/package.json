@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/jsx-pdf",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/schibsted/jsx-pdf#readme"
+    ],
+    "dependencies": {
+        "@types/pdfmake": "*"
+    },
+    "devDependencies": {
+        "@types/jsx-pdf": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Kyle Hensel",
+            "githubUsername": "k-yle"
+        }
+    ]
+}

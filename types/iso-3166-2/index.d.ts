@@ -1,8 +1,3 @@
-// Type definitions for iso-3166-2 1.0
-// Project: https://github.com/olahol/iso-3166-2.js
-// Definitions by: Matt Rollins <https://github.com/sicilica>, Emily Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export namespace CountryInfo {
     interface Partial {
         name: string;

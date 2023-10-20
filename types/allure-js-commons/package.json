@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/allure-js-commons",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/allure-framework/allure-js"
+    ],
+    "devDependencies": {
+        "@types/allure-js-commons": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Denis Artyuhovich",
+            "githubUsername": "zaqqaz"
+        }
+    ]
+}

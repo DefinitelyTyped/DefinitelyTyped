@@ -1,8 +1,3 @@
-// Type definitions for react-image-magnifiers 1.3
-// Project: https://github.com/adamrisberg/react-image-magnifiers
-// Definitions by: Rafal Witczak <https://github.com/rafw87>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 export type MouseActivation = "click" | "doubleClick";

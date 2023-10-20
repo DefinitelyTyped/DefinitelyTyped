@@ -1,13 +1,3 @@
-// Type definitions for eslint 8.44
-// Project: https://eslint.org
-// Definitions by: Pierre-Marie Dartus <https://github.com/pmdartus>
-//                 Jed Fox <https://github.com/j-f1>
-//                 Saad Quadri <https://github.com/saadq>
-//                 Jason Kwok <https://github.com/JasonHK>
-//                 Brad Zacher <https://github.com/bradzacher>
-//                 JounQin <https://github.com/JounQin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference path="helpers.d.ts" />
 
 import * as ESTree from "estree";

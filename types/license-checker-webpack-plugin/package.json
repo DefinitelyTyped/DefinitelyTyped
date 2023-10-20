@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "name": "@types/license-checker-webpack-plugin",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/Microsoft/license-checker-webpack-plugin#readme"
+    ],
+    "dependencies": {
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/license-checker-webpack-plugin": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": []
+}

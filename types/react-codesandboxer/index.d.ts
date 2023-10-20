@@ -1,8 +1,3 @@
-// Type definitions for react-codesandboxer 3.1
-// Project: https://github.com/codesandbox/codesandboxer#readme
-// Definitions by: Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 export interface GitInfo {

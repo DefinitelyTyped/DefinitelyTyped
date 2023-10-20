@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/cloudflare",
+    "version": "2.7.9999",
+    "projects": [
+        "https://github.com/cloudflare/node-cloudflare"
+    ],
+    "devDependencies": {
+        "@types/cloudflare": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Samuel Corsi-House",
+            "githubUsername": "Xenfo"
+        }
+    ]
+}

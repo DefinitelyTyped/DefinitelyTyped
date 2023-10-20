@@ -1,8 +1,3 @@
-// Type definitions for resolve-path 1.4
-// Project: https://github.com/pillarjs/resolve-path#readme
-// Definitions by: fer22f <https://github.com/fer22f>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Resolve a relative path against `process.cwd()` (the process's current working directory) and return an absolute path.
  * *This will throw* if the resulting resolution seems malicious. The following are malicious:

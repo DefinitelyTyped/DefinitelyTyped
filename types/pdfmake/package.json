@@ -1,0 +1,45 @@
+{
+    "private": true,
+    "name": "@types/pdfmake",
+    "version": "0.2.9999",
+    "projects": [
+        "http://pdfmake.org"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/pdfkit": "*"
+    },
+    "devDependencies": {
+        "@types/pdfmake": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Milen Stefanov",
+            "githubUsername": "m1llen1um"
+        },
+        {
+            "name": "Rajab Shakirov",
+            "githubUsername": "radziksh"
+        },
+        {
+            "name": "Enzo Volkmann",
+            "githubUsername": "evolkmann"
+        },
+        {
+            "name": "Andi Pätzold",
+            "githubUsername": "andipaetzold"
+        },
+        {
+            "name": "Neal Mummau",
+            "githubUsername": "nmummau"
+        },
+        {
+            "name": "Jean-Raphaël Matte",
+            "githubUsername": "jeralm"
+        },
+        {
+            "name": "Michael Strobel",
+            "githubUsername": "kryops"
+        }
+    ]
+}

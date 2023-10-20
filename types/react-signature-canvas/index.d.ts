@@ -1,8 +1,3 @@
-// Type definitions for react-signature-canvas 1.0
-// Project: https://github.com/agilgur5/react-signature-canvas
-// Definitions by: Kamil Socha <https://github.com/ksocha>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 import SignaturePad = require("signature_pad");
 

@@ -1,9 +1,3 @@
-// Type definitions for smartystreets-javascript-sdk 1.6
-// Project: https://github.com/smartystreets/smartystreets-javascript-sdk
-// Definitions by: Keith Kikta <https://github.com/newbish>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.9
-
 // <reference types="node" />
 
 import { Request } from "express";

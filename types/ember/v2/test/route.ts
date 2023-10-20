@@ -1,5 +1,3 @@
-import Array from "@ember/array";
-import Object from "@ember/object";
 import Route from "@ember/routing/route";
 import Ember from "ember"; // currently needed for Transition
 

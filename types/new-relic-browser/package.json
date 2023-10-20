@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/new-relic-browser",
+    "version": "1.230.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "NewRelicBrowser",
+    "projects": [
+        "https://docs.newrelic.com/docs/browser/new-relic-browser/browser-agent-spa-api"
+    ],
+    "devDependencies": {
+        "@types/new-relic-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rene Hamburger",
+            "githubUsername": "renehamburger"
+        },
+        {
+            "name": "Piotr Kubisa",
+            "githubUsername": "piotrkubisa"
+        }
+    ]
+}
