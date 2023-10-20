@@ -1,9 +1,3 @@
-// Type definitions for Natural 5.1
-// Project: https://github.com/NaturalNode/natural
-// Definitions by: Dylan R. E. Moonfire <https://github.com/dmoonfire>
-//                 Emily Marigold Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 import events = require("events");

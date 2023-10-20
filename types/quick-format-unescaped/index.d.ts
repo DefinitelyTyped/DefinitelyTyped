@@ -1,8 +1,3 @@
-// Type definitions for quick-format-unescaped 4.0
-// Project: https://github.com/davidmarkclements/quick-format-unescaped#readme
-// Definitions by: Adam Vigneaux <https://github.com/AdamVig>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Alternative to NodeJS `util.format`. Does not escape strings.
  * @description Uses `JSON.stringify` instead of `util.inspect`, this means functions _will not be serialized_.

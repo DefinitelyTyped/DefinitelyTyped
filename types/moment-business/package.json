@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/moment-business",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/jmeas/moment-business"
+    ],
     "dependencies": {
         "moment": "^2.18.0"
-    }
+    },
+    "devDependencies": {
+        "@types/moment-business": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Greg Sieranski",
+            "githubUsername": "wonbyte"
+        }
+    ]
 }

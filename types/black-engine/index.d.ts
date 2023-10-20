@@ -1,7 +1,3 @@
-// Type definitions for black-engine 0.5
-// Project: https://github.com/MassiveHeights/Black
-// Definitions by: David Dunnings <https://github.com/Dunnings>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export { AnimationController } from "./animation/AnimationController";
 export { AnimationInfo } from "./animation/AnimationInfo";
 export { Ease } from "./animation/Ease";

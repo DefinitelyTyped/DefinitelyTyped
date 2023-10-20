@@ -1,10 +1,3 @@
-// Type definitions for @node-red/runtime 1.3
-// Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/%40node-red/runtime, https://nodered.org/
-// Definitions by: Alex Kaul <https://github.com/alexk111>
-//                 Tadeusz Wyrzykowski <https://github.com/Shaquu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.7
-
 import { CorsOptions } from "cors";
 import { EventEmitter } from "events";
 import { Express, NextFunction, Request, Response } from "express";

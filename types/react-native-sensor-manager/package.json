@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/react-native-sensor-manager",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/kprimice/react-native-sensor-manager"
+    ],
+    "dependencies": {
+        "@types/react-native": "^0.70"
+    },
+    "devDependencies": {
+        "@types/react-native-sensor-manager": "workspace:."
+    },
+    "owners": []
+}

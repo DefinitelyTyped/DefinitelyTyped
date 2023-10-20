@@ -1,8 +1,3 @@
-// Type definitions for node-vagrnat.js 1.4
-// Project: https://github.com/edin-m/node-vagrant
-// Definitions by: Matthew Peveler <https://github.com/MasterOdin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import { EventEmitter } from "events";
 

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/i2c-bus",
+    "version": "5.1.9999",
+    "projects": [
+        "https://github.com/fivdi/i2c-bus"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/i2c-bus": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Heard",
+            "githubUsername": "101100"
+        },
+        {
+            "name": "Kohei Watanabe",
+            "githubUsername": "kou029w"
+        }
+    ]
+}

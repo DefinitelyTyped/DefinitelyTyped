@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/posterus",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/Mitranim/posterus#readme"
+    ],
+    "devDependencies": {
+        "@types/posterus": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "David Govea",
+            "githubUsername": "davidgovea"
+        }
+    ]
+}

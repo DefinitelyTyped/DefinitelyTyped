@@ -1,8 +1,3 @@
-// Type definitions for Victor.js 1.1.0
-// Project: http://victorjs.org/
-// Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface VictorCoordinates {
     x: number;
     y: number;
@@ -337,8 +332,9 @@ declare class Victor {
 
     /**
      * Rounds both axis to a certain precision.
+     * @param precision (default: 8)
      */
-    toFixed(): Victor;
+    toFixed(precision: number): Victor;
 
     /**
      * Sets the vector to zero (0,0).

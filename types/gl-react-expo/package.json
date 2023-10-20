@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/gl-react-expo",
+    "version": "3.16.9999",
+    "projects": [
+        "https://github.com/gre/gl-react"
+    ],
+    "dependencies": {
+        "@types/gl-react": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/gl-react-expo": "workspace:.",
+        "@types/react-dom": "*"
+    },
+    "owners": [
+        {
+            "name": "Jussi Kinnula",
+            "githubUsername": "jussikinnula"
+        }
+    ]
+}

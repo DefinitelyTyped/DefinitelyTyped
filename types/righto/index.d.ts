@@ -1,9 +1,3 @@
-// Type definitions for righto 6.1
-// Project: https://github.com/KoryNunn/righto
-// Definitions by: Zac Murray <https://github.com/protango>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
-
 import { CPSFunction, Righto, RightoAfter } from ".";
 
 /** Represents a type as either the type itself, a righto of the type, or a promise of the type */

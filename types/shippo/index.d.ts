@@ -1,11 +1,3 @@
-// Type definitions for shippo 1.7
-// Project: https://github.com/goshippo/shippo-node-client
-// Definitions by: Saiichi <https://github.com/saiichihashimoto>
-//                 James Lismore <https://github.com/jlismore>
-//                 Christopher Alexander <https://github.com/clalexander>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
 declare namespace Shippo {
     type USPSServiceLevel =
         | "usps_priority"

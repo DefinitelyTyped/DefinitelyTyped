@@ -1,8 +1,3 @@
-// Type definitions for gatsby-transformer-remark 2.9
-// Project: https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-transformer-remark#readme
-// Definitions by: Emily M Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface RemarkConfig {
     resolve: "gatsby-transformer-remark";
     options?: RemarkOptions | undefined;

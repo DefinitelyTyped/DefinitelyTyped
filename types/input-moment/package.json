@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/input-moment",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/wangzuo/input-moment"
+    ],
     "dependencies": {
+        "@types/react": "*",
         "moment": "latest"
-    }
+    },
+    "devDependencies": {
+        "@types/input-moment": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tim Ittermann",
+            "githubUsername": "timia2109"
+        }
+    ]
 }

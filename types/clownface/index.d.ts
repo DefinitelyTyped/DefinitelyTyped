@@ -1,10 +1,3 @@
-// Type definitions for clownface 2.0
-// Project: https://github.com/rdf-ext/clownface
-// Definitions by: tpluscode <https://github.com/tpluscode>
-//                 BenjaminHofstetter <https://github.com/BenjaminHofstetter>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 import { BlankNode, DatasetCore, DatasetCoreFactory, Literal, NamedNode, Quad_Graph, Term } from "rdf-js";
 import Context from "./lib/Context.js";
 

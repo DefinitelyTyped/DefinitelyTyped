@@ -1,9 +1,3 @@
-// Type definitions for react-bootstrap-date-picker 4.0
-// Project: https://github.com/pushtell/react-bootstrap-date-picker#readme
-// Definitions by: Karol Janyst <https://github.com/LKay>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { ComponentClass, FocusEventHandler, FunctionComponent, HTMLAttributes, ReactNode } from "react";
 
 export as namespace DatePicker;

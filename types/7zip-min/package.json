@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/7zip-min",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/onikienko/7zip-min"
+    ],
+    "devDependencies": {
+        "@types/7zip-min": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tanandara",
+            "githubUsername": "Tanandara"
+        }
+    ]
+}

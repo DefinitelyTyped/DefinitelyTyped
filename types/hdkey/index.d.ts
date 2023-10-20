@@ -1,10 +1,3 @@
-// Type definitions for hdkey 2.0
-// Project: https://github.com/cryptocoinjs/hdkey
-// Definitions by: Leonid Logvinov <https://github.com/LogvinovLeon>
-//                 Tvrtko Majstorovic <https://github.com/TvrtkoM>
-//                 Alberto Torre <https://github.com/JAlbertoGonzalez>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 declare class HDNode {

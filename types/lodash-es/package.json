@@ -1,4 +1,26 @@
 {
     "private": true,
-    "type": "module"
+    "name": "@types/lodash-es",
+    "version": "4.17.9999",
+    "projects": [
+        "http://lodash.com/",
+        "https://lodash.com/custom-builds"
+    ],
+    "type": "module",
+    "dependencies": {
+        "@types/lodash": "*"
+    },
+    "devDependencies": {
+        "@types/lodash-es": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Stephen Lautier",
+            "githubUsername": "stephenlautier"
+        },
+        {
+            "name": "e-cloud",
+            "githubUsername": "e-cloud"
+        }
+    ]
 }

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/type-detect",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/chaijs/type-detect"
+    ],
+    "devDependencies": {
+        "@types/type-detect": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bart van der Schoor",
+            "githubUsername": "Bartvds"
+        }
+    ]
+}

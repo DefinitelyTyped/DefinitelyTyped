@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/minecraft-pinger",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/dennisbruner/node-minecraft-pinger"
+    ],
+    "devDependencies": {
+        "@types/minecraft-pinger": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Grayson-code",
+            "githubUsername": "Grayson-code"
+        }
+    ]
+}

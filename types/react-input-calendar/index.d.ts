@@ -1,9 +1,3 @@
-// Type definitions for react-input-calendar
-// Project: https://github.com/Rudeg/react-input-calendar
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="react"/>
 
 declare namespace reactInputCalendar {

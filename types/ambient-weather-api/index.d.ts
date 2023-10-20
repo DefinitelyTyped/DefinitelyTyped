@@ -1,8 +1,3 @@
-// Type definitions for ambient-weather-api 0.0
-// Project: https://github.com/owise1/ambient-weather-api#readme
-// Definitions by: Alex Wayne <https://github.com/AlexJWayne>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class AmbientWeatherApi {
     constructor(credentials: AmbientWeatherApi.Credentials);
 

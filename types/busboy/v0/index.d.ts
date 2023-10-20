@@ -1,9 +1,3 @@
-// Type definitions for busboy 0.3
-// Project: https://www.npmjs.com/package/busboy
-// Definitions by: Jacob Baskin <https://github.com/jacobbaskin>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as http from "http";

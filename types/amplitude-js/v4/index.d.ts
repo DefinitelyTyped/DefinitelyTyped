@@ -1,9 +1,3 @@
-// Type definitions for Amplitude SDK 4.4.0
-// Project: https://github.com/amplitude/Amplitude-Javascript
-// Definitions by: Dan Manastireanu <https://github.com/danmana>
-//                 Kimmo Hintikka <https://github.com/HintikkaKimmo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace amplitude;
 
 type Callback = (responseCode: number, responseBody: string, details?: { reason: string }) => void;

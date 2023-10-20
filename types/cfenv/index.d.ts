@@ -1,8 +1,3 @@
-// Type definitions for cfenv 1.2
-// Project: https://github.com/cloudfoundry-community/node-cfenv
-// Definitions by: Jordan Adams <https://github.com/jordanadams>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Service {
     label: string;
     name: string;

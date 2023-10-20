@@ -1,8 +1,3 @@
-// Type definitions for karma-nyan-reporter 0.2
-// Project: https://github.com/dgarlitt/karma-nyan-reporter#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
 import "karma";
 
 declare module "karma" {

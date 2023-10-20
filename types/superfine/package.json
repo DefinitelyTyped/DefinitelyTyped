@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/superfine",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/jorgebucaran/superfine#readme"
+    ],
+    "devDependencies": {
+        "@types/superfine": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jameswilddev",
+            "githubUsername": "jameswilddev"
+        }
+    ]
+}

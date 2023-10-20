@@ -1,9 +1,3 @@
-// Type definitions for rox-browser 4.8
-// Project: https://rollout.io
-// Definitions by: g-guirado <https://github.com/g-guirado>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /**
  * Official documentation for rox-browser is available here:
  * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/4.9/api-reference/javascript-browser-api

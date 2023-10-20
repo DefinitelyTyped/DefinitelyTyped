@@ -1,9 +1,3 @@
-// Type definitions for vite-plugin-react-svg 0.2
-// Project: https://github.com/visualfanatic/vite-svg
-// Definitions by: Priyanshu Rav <https://github.com/priyanshurav>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
-
 import * as React from "react";
 import { OptimizeOptions } from "svgo";
 import { Plugin } from "vite";

@@ -1,9 +1,3 @@
-// Type definitions for socket.io-file 2.0
-// Project: https://github.com/rico345100/socket.io-file
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { Socket } from "socket.io";
 
 export = SocketIOFile;

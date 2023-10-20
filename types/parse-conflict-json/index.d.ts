@@ -1,7 +1,3 @@
-// Type definitions for parse-conflict-json 1.1
-// Project: https://github.com/npm/parse-conflict-json#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
 /**

@@ -327,6 +327,16 @@ map.flyTo({
     maxDuration: 1,
 });
 
+// RotateTo
+map.rotateTo(45, {
+    duration: 2000,
+    animate: true,
+    easing: (t) => t,
+    center: [-122.3085, 47.5505],
+    zoom: 10,
+    pitch: 60,
+});
+
 // QueryRenderedFeatures
 const features = map.queryRenderedFeatures([0, 0], { layers: ["custom"], validate: false });
 features; // $ExpectType MapboxGeoJSONFeature[]

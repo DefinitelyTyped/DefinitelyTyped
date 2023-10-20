@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/webpack-dotenv-plugin",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/nwinch/webpack-dotenv-plugin#readme"
+    ],
+    "dependencies": {
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/webpack-dotenv-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Strobel",
+            "githubUsername": "kryops"
+        }
+    ]
+}

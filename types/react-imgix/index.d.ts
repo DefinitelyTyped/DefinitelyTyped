@@ -1,11 +1,3 @@
-// Type definitions for react-imgix 9.5
-// Project: https://github.com/imgix/react-imgix
-// Definitions by: Sherwin Heydarbeygi <https://github.com/sherwinski>
-//                 Luis Ball <https://github.com/luqven>
-//                 Frederick Fogerty <https://github.com/frederickfogerty>
-//                 Alice Lawrie <https://github.com/atlawrie/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 type ImgixParamType = string | number | boolean;

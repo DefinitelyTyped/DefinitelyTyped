@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/minapp-env",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/chobits4/minapp-env"
+    ],
+    "devDependencies": {
+        "@types/minapp-env": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "chobits4",
+            "githubUsername": "chobits4"
+        }
+    ]
+}

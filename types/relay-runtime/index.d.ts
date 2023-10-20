@@ -1,12 +1,3 @@
-// Type definitions for relay-runtime 14.1
-// Project: https://github.com/facebook/relay, https://facebook.github.io/relay
-// Definitions by: Eloy Durán <https://github.com/alloy>
-//                 Marais Rossouw <https://github.com/maraisr>
-//                 Lorenzo Di Giacomo <https://github.com/morrys>
-//                 Levi Buzolic <https://github.com/levibuzolic>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import ConnectionInterface from "./lib/handlers/connection/ConnectionInterface";
 export { ConnectionInterface };
 export { ConnectionMetadata } from "./lib/handlers/connection/ConnectionHandler";

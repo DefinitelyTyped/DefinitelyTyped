@@ -1,8 +1,3 @@
-// Type definitions for non-npm package WordPress Admin Dashboarsd - WP-Admin 5.8
-// Project: https://github.com/wordpress/wordpress
-// Definitions by: Sibin Grasic <https://github.com/oblakstudio>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="backbone" />
 /// <reference types="lodash" />
 

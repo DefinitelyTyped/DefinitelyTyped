@@ -1,0 +1,69 @@
+{
+    "private": true,
+    "name": "@types/validator",
+    "version": "13.11.9999",
+    "projects": [
+        "https://github.com/validatorjs/validator.js"
+    ],
+    "devDependencies": {
+        "@types/validator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "tgfjt",
+            "githubUsername": "tgfjt"
+        },
+        {
+            "name": "Ilya Mochalov",
+            "githubUsername": "chrootsu"
+        },
+        {
+            "name": "Ayman Nedjmeddine",
+            "githubUsername": "IOAyman"
+        },
+        {
+            "name": "Louay Alakkad",
+            "githubUsername": "louy"
+        },
+        {
+            "name": "Bonggyun Lee",
+            "githubUsername": "deptno"
+        },
+        {
+            "name": "Naoto Yokoyama",
+            "githubUsername": "builtinnya"
+        },
+        {
+            "name": "Philipp Katz",
+            "githubUsername": "qqilihq"
+        },
+        {
+            "name": "Jace Warren",
+            "githubUsername": "keatz55"
+        },
+        {
+            "name": "Munif Tanjim",
+            "githubUsername": "MunifTanjim"
+        },
+        {
+            "name": "Vlad Poluch",
+            "githubUsername": "vlapo"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Matteo Nista",
+            "githubUsername": "Mattewn99"
+        },
+        {
+            "name": "Roman Babiak",
+            "githubUsername": "Almost-Infinity"
+        },
+        {
+            "name": "Daniel Freire",
+            "githubUsername": "dcfreire"
+        }
+    ]
+}

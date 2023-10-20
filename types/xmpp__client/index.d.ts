@@ -1,8 +1,3 @@
-// Type definitions for @xmpp/client 0.13
-// Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/client
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Client as ClientCore, jid as xmppJid, xml as xmppXml } from "@xmpp/client-core";
 import { Options as ConnectionOptions } from "@xmpp/connection";
 import { IQCallee } from "@xmpp/iq/callee";

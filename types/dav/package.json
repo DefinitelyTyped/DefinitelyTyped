@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/dav",
+    "version": "1.7.9999",
+    "projects": [
+        "https://github.com/lambdabaa/dav/",
+        "https://github.com/gaye/dav"
+    ],
+    "devDependencies": {
+        "@types/dav": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ToastHawaii",
+            "githubUsername": "ToastHawaii"
+        },
+        {
+            "name": "chaptergy",
+            "githubUsername": "chaptergy"
+        }
+    ]
+}

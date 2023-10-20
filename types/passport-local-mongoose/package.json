@@ -1,6 +1,24 @@
 {
     "private": true,
+    "name": "@types/passport-local-mongoose",
+    "version": "6.1.9999",
+    "projects": [
+        "https://github.com/saintedlama/passport-local-mongoose"
+    ],
     "dependencies": {
+        "@types/node": "*",
+        "@types/passport-local": "*",
         "mongoose": "^6.3.0"
-    }
+    },
+    "devDependencies": {
+        "@types/express": "*",
+        "@types/passport": "*",
+        "@types/passport-local-mongoose": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Linus Brolin",
+            "githubUsername": "linusbrolin"
+        }
+    ]
 }

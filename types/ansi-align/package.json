@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ansi-align",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/nexdrew/ansi-align"
+    ],
+    "devDependencies": {
+        "@types/ansi-align": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leon Si",
+            "githubUsername": "leondreamed"
+        }
+    ]
+}

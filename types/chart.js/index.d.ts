@@ -1,36 +1,3 @@
-// Type definitions for Chart.js 2.9
-// Project: https://github.com/nnnick/Chart.js, https://www.chartjs.org
-// Definitions by: Alberto Nuti <https://github.com/anuti>
-//                 Fabien Lavocat <https://github.com/FabienLavocat>
-//                 KentarouTakeda <https://github.com/KentarouTakeda>
-//                 Larry Bahr <https://github.com/larrybahr>
-//                 Daniel Luz <https://github.com/mernen>
-//                 Joseph Page <https://github.com/josefpaij>
-//                 Dan Manastireanu <https://github.com/danmana>
-//                 Guillaume Rodriguez <https://github.com/guillaume-ro-fr>
-//                 Simon Archer <https://github.com/archy-bold>
-//                 Ken Elkabany <https://github.com/braincore>
-//                 Alexandros Dorodoulis <https://github.com/alexdor>
-//                 Manuel Heidrich <https://github.com/mahnuh>
-//                 Conrad Holtzhausen <https://github.com/Conrad777>
-//                 Adrián Caballero <https://github.com/adripanico>
-//                 wertzui <https://github.com/wertzui>
-//                 Martin Trobäck <https://github.com/lekoaf>
-//                 Elian Cordoba <https://github.com/ElianCordoba>
-//                 Takuya Uehara <https://github.com/indigolain>
-//                 Ricardo Mello <https://github.com/ricmello>
-//                 Ray Nicholus <https://github.com/rnicholus>
-//                 Oscar Cabrera <https://github.com/mrjack88>
-//                 Carlos Anoceto <https://github.com/canoceto>
-//                 Nobuhiko Futagami <https://github.com/nobu222>
-//                 Marco Ru <https://github.com/Marcoru97>
-//                 Tony Liu <https://github.com/tonybadguy>
-//                 Mathias Helminger <https://github.com/Ilmarinen100>
-//                 Mostafa Sameti <https://github.com/IVIosi>
-//                 Samar Mohan <https://github.com/samarmohan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { Moment } from "moment";
 
 declare class Chart {

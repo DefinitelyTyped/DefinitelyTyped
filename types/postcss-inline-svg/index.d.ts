@@ -1,8 +1,3 @@
-// Type definitions for postcss-inline-svg 5.0
-// Project: https://github.com/TrySound/postcss-inline-svg
-// Definitions by: Anatoly Pitikin <https://github.com/xapdkop>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { PluginCreator } from "postcss";
 
 declare namespace postcssInlineSvg {

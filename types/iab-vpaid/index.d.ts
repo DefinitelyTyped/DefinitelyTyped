@@ -1,9 +1,3 @@
-// Type definitions for non-npm package iab-vpaid 2.0
-// Project: https://www.iab.com/guidelines/digital-video-player-ad-interface-definition-vpaid-2-0/
-// Definitions by: Angelo Di Pilla <https://github.com/dippi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 // Type definitions for IAB VPAID 2.0
 
 declare namespace iab.vpaid {

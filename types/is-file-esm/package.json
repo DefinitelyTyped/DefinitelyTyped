@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-file-esm",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/davidmarkclements/is-file-esm"
+    ],
+    "devDependencies": {
+        "@types/is-file-esm": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leon Si",
+            "githubUsername": "leonzalion"
+        }
+    ]
+}

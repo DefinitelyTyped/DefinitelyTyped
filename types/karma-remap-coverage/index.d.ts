@@ -1,9 +1,3 @@
-// Type definitions for karma-remap-coverage 0.1
-// Project: https://github.com/sshev/karma-remap-coverage#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 /// <reference types="karma-coverage" />
 
 import "karma";

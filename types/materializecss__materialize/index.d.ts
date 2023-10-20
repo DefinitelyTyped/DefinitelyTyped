@@ -1,8 +1,3 @@
-// Type definitions for materializecss__materialize 1.2
-// Project: https://materializecss.github.io/materialize/
-// Definitions by:  Mauro Mascarenhas <https://github.com/mauromascarenhas/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="jquery" />
 /// <reference path="./autocomplete.d.ts" />
 /// <reference path="./autoinit.d.ts" />

@@ -1,9 +1,3 @@
-// Type definitions for react-alert 2.4
-// Project: https://github.com/schiehll/react-alert
-// Definitions by: Steve Syrell <https://github.com/ssyrell>
-//                 Yue Yang <https://github.com/g1eny0ung>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Component, ReactElement, ReactNode } from "react";
 
 export interface AlertContainerProps {

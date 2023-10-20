@@ -1,9 +1,3 @@
-// Type definitions for google-protobuf 3.15
-// Project: https://github.com/google/google-protobuf
-// Definitions by: Marcus Longmuir <https://github.com/marcuslongmuir>
-//                 Chaitanya Kamatham <https://github.com/kamthamc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type ByteSource = ArrayBuffer | Uint8Array | number[] | string;
 type ScalarFieldType = boolean | number | string;
 type RepeatedFieldType = ScalarFieldType[] | Uint8Array[];

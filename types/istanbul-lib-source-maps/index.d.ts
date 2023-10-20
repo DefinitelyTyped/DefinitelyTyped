@@ -1,10 +1,3 @@
-// Type definitions for istanbul-lib-source-maps 4.0
-// Project: https://istanbul.js.org, https://github.com/istanbuljs/istanbuljs
-// Definitions by: Jason Cheatham <https://github.com/jason0x43>
-//                 Sridhar Mallela <https://github.com/sridharmallela>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 import { CoverageMap } from "istanbul-lib-coverage";
 import { RawSourceMap } from "source-map";
 

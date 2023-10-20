@@ -1,9 +1,3 @@
-// Type definitions for backbone-fetch-cache 1.4
-// Project: https://github.com/madglory/backbone-fetch-cache
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as Backbone from "backbone";
 
 interface SuperMethods {

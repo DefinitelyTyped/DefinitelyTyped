@@ -13,19 +13,20 @@ jobs:
         inputs:
           versionSpec: 16.x
           checkLatest: true
-      - task: Npm@1
-        displayName: 'npm install'
-        inputs:
-          verbose: false
-      - script: npm ls --all || true
+
+      - script: npm install -g pnpm
+        displayName: 'Setup pnpm'
+
+      - script: pnpm install
+        displayName: 'pnpm install'
 
       - script: |
-          if [[ $BUILD_REASON == "Schedule" ]]; then git config --global user.email "types@microsoft.com" && git config --global user.name "TypeScript Bot" && npm run update-codeowners; fi
+          if [[ $BUILD_REASON == "Schedule" ]]; then git config --global user.email "types@microsoft.com" && git config --global user.name "TypeScript Bot" && pnpm run update-codeowners; fi
           git checkout -- .
 
-          npm run test-all
+          pnpm run test-all
 
-        displayName: 'npm run test-all'
+        displayName: 'pnpm run test-all'
 
       - task: PublishPipelineArtifact@1
         condition: eq(variables['System.debug'], 'true')

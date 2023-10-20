@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/jsuite",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/darrenthill/jsuite"
+    ],
+    "dependencies": {
+        "@types/jquery": "*",
+        "@types/suitescript": "*"
+    },
+    "devDependencies": {
+        "@types/jsuite": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Darren Hill",
+            "githubUsername": "darrenhillconsulting"
+        }
+    ]
+}

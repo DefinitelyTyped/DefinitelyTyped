@@ -1,9 +1,3 @@
-// Type definitions for multireducer 3.1
-// Project: https://github.com/erikras/multireducer
-// Definitions by: Anthony M. Lee <https://github.com/immigration9>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export interface MetaObject {
     [key: string]: string;
 }

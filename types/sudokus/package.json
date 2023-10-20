@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/sudokus",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Moeriki/node-sudokus#readme"
+    ],
+    "devDependencies": {
+        "@types/sudokus": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Keller",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

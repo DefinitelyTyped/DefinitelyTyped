@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/cookieconsent",
+    "version": "3.1.9999",
+    "projects": [
+        "https://www.npmjs.com/package/cookieconsent"
+    ],
     "dependencies": {
         "csstype": "^3.0.2"
-    }
+    },
+    "devDependencies": {
+        "@types/cookieconsent": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kelly Littlepage",
+            "githubUsername": "klittlepage"
+        }
+    ]
 }

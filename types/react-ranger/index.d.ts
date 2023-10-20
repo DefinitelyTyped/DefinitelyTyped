@@ -1,9 +1,3 @@
-// Type definitions for react-ranger 2.0
-// Project: https://github.com/tannerlinsley/react-ranger#readme
-// Definitions by: Matt Polichette <https://github.com/mpolichette>,
-//                 Guy Gascoigne-Piggford <https://github.com/ggascoigne>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { CSSProperties, Key, MouseEvent, TouchEvent } from "react";
 
 export interface RangerOptions {

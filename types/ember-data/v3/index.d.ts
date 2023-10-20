@@ -1,13 +1,3 @@
-// Type definitions for ember-data 3.16
-// Project: https://github.com/emberjs/data
-// Definitions by: Derek Wickern <https://github.com/dwickern>
-//                 Mike North <https://github.com/mike-north>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 James C. Davis <https://github.com/jamescdavis>
-//                 Krystan HuffMenne <https://github.com/gitKrystan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import Evented from "@ember/object/evented";
 import PromiseProxyMixin from "@ember/object/promise-proxy-mixin";
 import ObjectProxy from "@ember/object/proxy";

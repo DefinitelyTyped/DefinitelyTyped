@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/serviceworker-webpack-plugin",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/oliviertassinari/serviceworker-webpack-plugin#readme"
+    ],
+    "dependencies": {
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/serviceworker-webpack-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
+}

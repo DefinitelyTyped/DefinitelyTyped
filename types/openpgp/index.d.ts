@@ -1,16 +1,3 @@
-// Type definitions for openpgp v4.4.10
-// Project: https://openpgpjs.org
-// Definitions by: Guillaume Lacasa <https://blog.lacasa.fr>
-//                 Errietta Kostala <https://github.com/errietta>
-//                 Daniel Montesinos <https://github.com/damonpam>
-//                 Carlos Villavicencio <https://github.com/po5i>
-//                 Eric Camellini <https://github.com/ecamellini>
-//                 SardineFish <https://github.com/SardineFish>
-//                 Ryo Ota <https://github.com/nwtgck>
-//                 Sergey Bakulin <https://github.com/vansergen>
-//                 Wiktor Kwapisiewicz <https://metacode.biz/@wiktor>
-//                 Ugo Sangiorgi <https://github.com/ugosan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import BN = require("bn.js");
 import stream = require("stream");
 

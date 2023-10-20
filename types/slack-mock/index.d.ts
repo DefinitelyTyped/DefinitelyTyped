@@ -1,10 +1,3 @@
-// Type definitions for slack-mock 1.1
-// Project: https://github.com/Skellington-Closet/slack-mock
-// Definitions by: Kris Kalavantavanich <https://github.com/kkalavantavanich>
-//                 Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 import { IncomingHttpHeaders } from "http";
 import * as nock from "nock";
 import { Url } from "url";

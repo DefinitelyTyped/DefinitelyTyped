@@ -1,9 +1,3 @@
-// Type definitions for sailthru-client 3.0
-// Project: https://github.com/sailthru/sailthru-node-client
-// Definitions by: Sergey Smolnikov <https://github.com/smolnikov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 import * as http from "http";
 import * as Restler from "restler";
 

@@ -1,0 +1,39 @@
+{
+    "private": true,
+    "name": "@types/d3-zoom",
+    "version": "1.8.9999",
+    "projects": [
+        "https://github.com/d3/d3-zoom/",
+        "https://d3js.org/d3-zoom"
+    ],
+    "dependencies": {
+        "@types/d3-interpolate": "^1",
+        "@types/d3-selection": "^1"
+    },
+    "devDependencies": {
+        "@types/d3-transition": "^1",
+        "@types/d3-zoom": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tom Wanzek",
+            "githubUsername": "tomwanzek"
+        },
+        {
+            "name": "Alex Ford",
+            "githubUsername": "gustavderdrache"
+        },
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "denisname",
+            "githubUsername": "denisname"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

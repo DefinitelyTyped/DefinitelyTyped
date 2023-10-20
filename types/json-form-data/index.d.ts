@@ -1,10 +1,3 @@
-// Type definitions for json-form-data 1.7
-// Project: https://github.com/hyperatom/json-form-data
-// Definitions by: Aaron Ross <https://github.com/superhawk610>
-//                 Kamil Socha <https://github.com/ksocha>
-//                 Felix Borzik <https://github.com/Borzik>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface ValidJSON {
     [key: string]: ValidJSON | ValidJSON[] | ValidJSONValue | ValidJSONValue[] | FileList;
 }

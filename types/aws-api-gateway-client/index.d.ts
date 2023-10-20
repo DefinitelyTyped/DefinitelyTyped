@@ -1,8 +1,3 @@
-// Type definitions for aws-api-gateway-client 0.3
-// Project: https://github.com/kndt84/aws-api-gateway-client
-// Definitions by: Jussi Kinnula <https://github.com/jussikinnula>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ApiGatewayClientConfig {
     accessKey?: string | undefined;
     secretKey?: string | undefined;

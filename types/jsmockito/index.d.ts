@@ -1,8 +1,3 @@
-// Type definitions for JsMockito 1.0.4
-// Project: https://github.com/chrisleishman/jsmockito
-// Definitions by: Karl Bennett <https://github.com/shiver-me-timbers>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Top-level module for the JsMockito mocking library.
  *

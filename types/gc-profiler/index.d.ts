@@ -1,8 +1,3 @@
-// Type definitions for gc-profiler 1.4
-// Project: https://github.com/bretcope/node-gc-profiler#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = GCProfiler;

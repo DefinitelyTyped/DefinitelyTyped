@@ -1,10 +1,3 @@
-// Type definitions for post-robot 10.0
-// Project: https://github.com/krakenjs/post-robot
-// Definitions by: NinoScript <https://github.com/NinoScript>
-//                 Cijin <https://github.com/Cijin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Typescript Version: 3.0
-
 // to shut off automatic exports
 export {};
 // Warning: This is not actually a Promise, but the interface is the same.

@@ -1,9 +1,3 @@
-// Type definitions for empower 1.2
-// Project: https://github.com/power-assert-js/empower
-// Definitions by: vvakame <https://github.com/vvakame>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 import { Options as CoreOptions } from "empower-core";
 import { Formatter } from "power-assert-formatter";
 

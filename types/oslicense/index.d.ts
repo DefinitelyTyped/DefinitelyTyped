@@ -1,8 +1,3 @@
-// Type definitions for oslicense 1.2
-// Project: https://github.com/credwards27/oslicense#readme
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface License {
     id: string;
     identifiers: Identifier[];

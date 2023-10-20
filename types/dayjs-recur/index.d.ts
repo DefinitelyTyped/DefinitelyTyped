@@ -1,8 +1,3 @@
-// Type definitions for dayjs-recur 1.0
-// Project: https://github.com/FraserHamilton/dayjs-recur
-// Definitions by: Shahin Sorkh <https://github.com/ShahinSorkh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare const ignored: any; // just to satisfy ci
 export {};
 

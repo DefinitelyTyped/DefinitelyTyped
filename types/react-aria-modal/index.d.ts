@@ -1,12 +1,3 @@
-// Type definitions for react-aria-modal 4.0
-// Project: https://github.com/davidtheclark/react-aria-modal#readme
-// Definitions by: gabycperezdias <https://github.com/gabycperezdias>
-//                 forabi <https://github.com/forabi>
-//                 dkrk <https://github.com/grgr-dkrk>
-//                 Corbin Crutchley <https://github.com/crutchcorn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import React = require("react");
 
 export interface AriaModalProps {

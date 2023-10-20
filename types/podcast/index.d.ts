@@ -1,10 +1,3 @@
-// Type definitions for podcast 1.3
-// Project: https://github.com/maxnowack/node-podcast
-// Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
-//                 Malo Bourgon <https://github.com/malob>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 export = Podcast;
 
 declare class Podcast {

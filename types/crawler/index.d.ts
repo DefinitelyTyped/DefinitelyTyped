@@ -1,9 +1,3 @@
-// Type definitions for crawler 1.2
-// Project: https://github.com/bda-research/node-crawler
-// Definitions by: Paweł Zmarzły <https://github.com/pzmarzly>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
 // Based on https://github.com/bda-research/node-crawler/issues/297
 
 /// <reference types="cheerio" />

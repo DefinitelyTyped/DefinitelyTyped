@@ -1,7 +1,3 @@
-// Type definitions for ng-showdown 1.1
-// Project: https://github.com/showdownjs/ng-showdown#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 import angular = require("angular");
 import { Converter } from "showdown";
 

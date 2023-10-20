@@ -1,8 +1,3 @@
-// Type definitions for sha512-wasm 2.3
-// Project: https://github.com/chm-diederichs/sha512-wasm#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference lib="dom" />
 /// <reference types="node" />
 

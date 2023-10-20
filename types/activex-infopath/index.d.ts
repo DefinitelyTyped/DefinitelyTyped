@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Microsoft InfoPath 3.0 Type Library - InfoPath 3.0
-// Project: https://msdn.microsoft.com/en-us/library/jj602751.aspx
-// Definitions by: Zev Spitz <https://github.com/zspitz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 /// <reference types="activex-adodb" />
 /// <reference types="activex-msxml2" />
 /// <reference types="activex-mshtml" />

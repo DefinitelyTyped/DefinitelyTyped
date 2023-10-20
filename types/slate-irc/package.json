@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/slate-irc",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/slate/slate-irc"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/slate-irc": "workspace:."
+    },
+    "owners": []
+}

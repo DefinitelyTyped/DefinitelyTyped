@@ -1,9 +1,3 @@
-// Type definitions for Gulp 3.8
-// Project: http://gulpjs.com
-// Definitions by: Drew Noakes <https://drewnoakes.com>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 /// <reference types="orchestrator" />
 /// <reference types="vinyl" />

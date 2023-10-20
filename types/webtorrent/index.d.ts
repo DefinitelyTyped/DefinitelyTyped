@@ -1,11 +1,3 @@
-// Type definitions for WebTorrent 0.109
-// Project: https://github.com/feross/webtorrent, https://webtorrent.io
-// Definitions by: Bazyli Brzóska <https://github.com/niieani>
-//                 Tomasz Łaziuk <https://github.com/tlaziuk>
-//                 Gabriel Juchault <https://github.com/gjuchault>
-//                 Adam Crowder <https://github.com/cheeseandcereal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Wire } from "bittorrent-protocol";

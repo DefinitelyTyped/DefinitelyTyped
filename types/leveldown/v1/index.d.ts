@@ -1,9 +1,3 @@
-// Type definitions for leveldown 1.7
-// Project: https://github.com/level/leveldown
-// Definitions by: Thiago de Arruda <https://github.com/tarruda>
-//                 Linus Unnebäck <https://github.com/LinusU>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = leveldown;

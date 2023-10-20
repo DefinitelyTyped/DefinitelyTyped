@@ -1,8 +1,3 @@
-// Type definitions for esbuild-vue 1.2
-// Project: https://github.com/apeschar/esbuild-vue
-// Definitions by: Ilya Medvedev <https://github.com/iam-medvedev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface AssembleOptions {
     normalizer?: string;
     styleInjector?: string;

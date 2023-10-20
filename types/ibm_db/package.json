@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ibm_db",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/ibmdb/node-ibm_db"
+    ],
+    "devDependencies": {
+        "@types/ibm_db": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Voga",
+            "githubUsername": "agov"
+        }
+    ]
+}

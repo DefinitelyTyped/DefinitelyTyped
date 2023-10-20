@@ -1,9 +1,3 @@
-// Type definitions for nspell 2.1
-// Project: https://github.com/wooorm/nspell#readme
-// Definitions by: Ulrich Block <https://github.com/ulrichblock>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.6
-
 /// <reference types="node" />
 
 /**

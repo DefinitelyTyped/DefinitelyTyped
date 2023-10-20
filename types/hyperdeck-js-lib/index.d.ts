@@ -1,9 +1,3 @@
-// Type definitions for hyperdeck-js-lib 1.7
-// Project: https://github.com/LA1TV/Hyperdeck-JS-Lib#readme
-// Definitions by: Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
-
 /// <reference types="node" />
 
 import { EventEmitter } from "events";

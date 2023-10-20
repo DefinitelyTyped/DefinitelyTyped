@@ -1,14 +1,3 @@
-// Type definitions for simpl-schema 1.12
-// Project: https://github.com/aldeed/simpl-schema
-// Definitions by: Andreas Richter <https://github.com/arichter83>
-//                 Qkramer <https://github.com/Qkramer>
-//                 Deskoh <https://github.com/deskoh>
-//                 Nicusor Chiciuc <https://github.com/nicu-chiciuc>
-//                 Rafa Horo <https://github.com/rafahoro>
-//                 Stepan Yurtsiv <https://github.com/yurtsiv>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 import { check } from "meteor/check";
 
 export interface ValidationContext extends SimpleSchemaValidationContextStatic {
