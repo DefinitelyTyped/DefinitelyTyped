@@ -81,8 +81,6 @@ declare class Strategy extends oauth2.Strategy {
      *   - `photos      `     the user's photo
      *   - `phoneNumbers`     the user's phone number
      *
-     * @param {string} accessToken
-     * @param {function} done
      * @access public
      */
     userProfile(accessToken: string, done: (err: any, profile?: Profile) => void): void;
