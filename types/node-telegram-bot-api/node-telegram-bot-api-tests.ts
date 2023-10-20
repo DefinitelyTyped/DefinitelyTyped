@@ -159,8 +159,18 @@ MyTelegramBot.restrictChatMember(1234, 5678, {
 });
 MyTelegramBot.promoteChatMember(1234, 5678, { can_change_info: true });
 MyTelegramBot.exportChatInviteLink(1234);
-MyTelegramBot.createChatInviteLink(1234, "Foo", 1234, 1234, true);
-MyTelegramBot.editChatInviteLink(1234, "", "", 1234, 1234, true);
+MyTelegramBot.createChatInviteLink(1234, {
+    name: "Foo",
+    expire_date: 1234,
+    member_limit: 1234,
+    creates_join_request: true,
+});
+MyTelegramBot.editChatInviteLink(1234, "", {
+    name: "Foo",
+    expire_date: 1234,
+    member_limit: 1234,
+    creates_join_request: true,
+});
 MyTelegramBot.revokeChatInviteLink(1234, "");
 MyTelegramBot.approveChatJoinRequest(1234, 5678);
 MyTelegramBot.approveChatJoinRequest(1234, 5678, {});
