@@ -4,13 +4,13 @@ import highlightFileSync = require("./lib/highlightFileSync");
 
 type CardinalThemeColorizer = (
     value: string,
-    info: { tokens: readonly { type: string; value: string }[]; tokenIndex: number },
+    info: { tokens: ReadonlyArray<{ type: string; value: string }>; tokenIndex: number },
 ) => string;
 
-type CardinalThemeTokenRule = {
+interface CardinalThemeTokenRule {
     [key: string]: CardinalThemeColorizer | undefined;
     _default?: CardinalThemeColorizer | undefined;
-};
+}
 
 export type CardinalTheme = Record<string, CardinalThemeTokenRule | undefined> & {
     _default?: CardinalThemeColorizer | undefined;
