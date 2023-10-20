@@ -851,7 +851,7 @@ declare namespace jest {
         toBe<E = any>(expected: E): R;
         /**
          * Ensures that a mock function is called.
-         * 
+         *
          * @deprecated in favor of `toHaveBeenCalled`
          */
         toBeCalled(): R;
