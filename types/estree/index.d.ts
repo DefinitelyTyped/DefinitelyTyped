@@ -660,7 +660,7 @@ export interface ExportSpecifier extends BaseModuleSpecifier {
 
 export interface ExportDefaultDeclaration extends BaseModuleDeclaration {
     type: "ExportDefaultDeclaration";
-    declaration: Declaration | Expression;
+    declaration: FunctionDeclaration | ClassDeclaration | Expression;
 }
 
 export interface ExportAllDeclaration extends BaseModuleDeclaration {
