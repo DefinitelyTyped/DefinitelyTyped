@@ -7,6 +7,9 @@ const selector = "a[href=\"http://example.com\"]";
 // browser tests
 //
 
+// $ExpectType void
+browser.closeContext();
+
 // $ExpectType BrowserContext
 browser.context();
 

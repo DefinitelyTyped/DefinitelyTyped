@@ -546,6 +546,12 @@ export const browser: Browser;
  */
 export interface Browser {
     /**
+     * Closes the current `BrowserContext`. If there is no active
+     * `BrowserContext`, this method will throw an error.
+     */
+    closeContext(): void;
+
+    /**
      * Returns the current `BrowserContext`. There is a 1-to-1 mapping between
      * `Browser` and `BrowserContext`. If no `BrowserContext` has been
      * initialized, it will return null.
