@@ -7,6 +7,11 @@ import { CardinalOptions } from "cardinal";
 // should keep this ts-ignored version as a typesVersion, since
 // import attributes are only supported in TS 5.3+.
 import type { ChalkInstance } from "chalk";
+// @ts-ignore - same as above, except that this would resolve
+// without error to a CJS module if not for a bug in marked's
+// types - https://github.com/markedjs/marked/pull/3038.
+// We may need to keep this here as long as upstream
+// marked-terminal has such a wide version range for marked.
 import type { Renderer } from "marked";
 
 export interface TerminalRendererOptions {

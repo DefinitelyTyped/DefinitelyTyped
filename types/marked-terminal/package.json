@@ -5,7 +5,6 @@
     "projects": [
         "https://github.com/mikaelbr/marked-terminal"
     ],
-    "minimumTypeScriptVersion": "4.7",
     "type": "module",
     "exports": {
         "node": {
@@ -21,7 +20,8 @@
         "marked": ">=6.0.0 <10"
     },
     "devDependencies": {
-        "@types/marked-terminal": "workspace:."
+        "@types/marked-terminal": "workspace:.",
+        "marked": "6.0.0"
     },
     "owners": [
         {
