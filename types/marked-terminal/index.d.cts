@@ -3,7 +3,9 @@
 
 import { CardinalOptions } from "cardinal";
 // @ts-ignore - should use `with { "resolution-mode": "import " }`
-// but typescript-eslint doesn't parse it yet
+// but typescript-eslint doesn't parse it yet. Once it does, we
+// should keep this ts-ignored version as a typesVersion, since
+// import attributes are only supported in TS 5.3+.
 import type { ChalkInstance } from "chalk";
 import type { Renderer } from "marked";
 
