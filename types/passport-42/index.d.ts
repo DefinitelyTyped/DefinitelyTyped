@@ -83,7 +83,7 @@ declare class Strategy extends oauth2.Strategy {
      *
      * @param {string} accessToken
      * @param {function} done
-     * @access protected
+     * @access public
      */
     userProfile(accessToken: string, done: (err: any, profile?: Profile) => void): void;
 }
