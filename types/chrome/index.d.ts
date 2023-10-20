@@ -3912,7 +3912,10 @@ declare namespace chrome.fileSystemProvider {
         length: number;
     }
 
-    export interface DirectoryPathRecursiveRequestedEventOptions extends DirectoryPathRequestedEventOptions {
+    export interface CreateDirectoryRequestedEventOptions extends RequestedEventOptions {
+        /** The path of the directory to be created. */
+        directoryPath: string;
+
         /** Whether the operation is recursive (for directories only). */
         recursive: boolean;
     }
@@ -4002,10 +4005,10 @@ declare namespace chrome.fileSystemProvider {
         >
     {}
 
-    export interface DirectoryPathRecursiveRequestedEvent extends
+    export interface CreateDirectoryRequestedEvent extends
         chrome.events.Event<
             (
-                options: DirectoryPathRecursiveRequestedEventOptions,
+                options: CreateDirectoryRequestedEventOptions,
                 successCallback: Function,
                 errorCallback: (error: string) => void,
             ) => void
@@ -4144,7 +4147,7 @@ declare namespace chrome.fileSystemProvider {
     /** Raised when reading contents of a file opened previously with openRequestId is requested. The results must be returned in chunks by calling successCallback several times. In case of an error, errorCallback must be called. */
     export var onReadFileRequested: OpenedFileOffsetRequestedEvent;
     /** Raised when creating a directory is requested. The operation must fail with the EXISTS error if the target directory already exists. If recursive is true, then all of the missing directories on the directory path must be created. */
-    export var onCreateDirectoryRequested: DirectoryPathRecursiveRequestedEvent;
+    export var onCreateDirectoryRequested: CreateDirectoryRequestedEvent;
     /** Raised when deleting an entry is requested. If recursive is true, and the entry is a directory, then all of the entries inside must be recursively deleted as well. */
     export var onDeleteEntryRequested: EntryPathRecursiveRequestedEvent;
     /** Raised when creating a file is requested. If the file already exists, then errorCallback must be called with the "EXISTS" error code. */
