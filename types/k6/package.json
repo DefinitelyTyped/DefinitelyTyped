@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/k6",
-    "version": "0.47.9999",
+    "version": "0.48.9999",
     "projects": [
         "https://k6.io/docs/"
     ],
