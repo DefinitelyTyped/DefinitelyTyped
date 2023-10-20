@@ -1635,22 +1635,22 @@ declare class TelegramBot extends EventEmitter<
     createChatInviteLink(
         chatId: TelegramBot.ChatId,
         options?: {
-            name?: string,
-            expire_date?: number,
-            member_limit?: number,
-            creates_join_request?: boolean
-        }
+            name?: string;
+            expire_date?: number;
+            member_limit?: number;
+            creates_join_request?: boolean;
+        },
     ): Promise<TelegramBot.ChatInviteLink>;
 
     editChatInviteLink(
         chatId: TelegramBot.ChatId,
         inviteLink: string,
         options?: {
-            name?: string,
-            expire_date?: number,
-            member_limit?: number,
-            creates_join_request?: boolean
-        }
+            name?: string;
+            expire_date?: number;
+            member_limit?: number;
+            creates_join_request?: boolean;
+        },
     ): Promise<TelegramBot.ChatInviteLink>;
 
     revokeChatInviteLink(chatId: TelegramBot.ChatId, inviteLink: string): Promise<TelegramBot.ChatInviteLink>;
