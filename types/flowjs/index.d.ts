@@ -148,7 +148,7 @@ declare namespace flowjs {
     type FileAddedCallbackArguments = [FlowFile, Event];
     type FilesAddedCallbackArguments = [FlowFile[], Event];
     type FilesSubmittedCallbackArguments = [FlowFile[], Event];
-    type FileRemovedCallbackArguments = [FlowFile];
+    type FileRemovedCallbackArguments = FlowFile;
     type FileRetryCallbackArguments = [FlowFile, FlowChunk];
     type FileErrorCallbackArguments = [FlowFile, string, FlowChunk];
     type UploadStartCallbackArguments = [];
