@@ -11,20 +11,20 @@ import { ArrayKeyType, ArrayKeyTypeData, KeyType, KeyTypeData } from "./helpers"
 
 export function useFragment<TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
-    fragmentRef: TKey
+    fragmentRef: TKey,
 ): KeyTypeData<TKey>;
 
 export function useFragment<TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
-    fragmentRef: TKey | null | undefined
+    fragmentRef: TKey | null | undefined,
 ): KeyTypeData<TKey> | null | undefined;
 
 export function useFragment<TKey extends ArrayKeyType>(
     fragmentInput: GraphQLTaggedNode,
-    fragmentRef: TKey
+    fragmentRef: TKey,
 ): ArrayKeyTypeData<TKey>;
 
 export function useFragment<TKey extends ArrayKeyType>(
     fragmentInput: GraphQLTaggedNode,
-    fragmentRef: TKey | null | undefined
+    fragmentRef: TKey | null | undefined,
 ): ArrayKeyTypeData<TKey> | null | undefined;

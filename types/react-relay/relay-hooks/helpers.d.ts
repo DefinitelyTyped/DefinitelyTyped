@@ -20,13 +20,11 @@ export type ArrayKeyTypeData<TKey extends ArrayKeyType<TData>, TData = unknown> 
 export type GetEntryPointParamsFromEntryPoint<TEntryPoint> = TEntryPoint extends EntryPoint<
     infer TEntryPointComponent,
     infer TEntryPointParams
->
-    ? TEntryPointParams
+> ? TEntryPointParams
     : never;
 
 export type GetEntryPointComponentFromEntryPoint<TEntryPoint> = TEntryPoint extends EntryPoint<
     infer TEntryPointComponent,
     infer TEntryPointParams
->
-    ? TEntryPointComponent
+> ? TEntryPointComponent
     : never;

@@ -6,17 +6,17 @@ import { RefetchFnDynamic } from "./useRefetchableFragmentNode";
 export type useRefetchableFragmentHookType<
     TQuery extends OperationType,
     TKey extends KeyType | null | undefined,
-    TFragmentData
+    TFragmentData,
 > = [TFragmentData, RefetchFnDynamic<TQuery, TKey>];
 
 export function useRefetchableFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
-    fragmentRef: TKey
+    fragmentRef: TKey,
 ): // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 useRefetchableFragmentHookType<TQuery, TKey, KeyTypeData<TKey>>;
 
 export function useRefetchableFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
-    fragmentRef: TKey | null | undefined
+    fragmentRef: TKey | null | undefined,
 ): // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 useRefetchableFragmentHookType<TQuery, TKey, KeyTypeData<TKey> | null | undefined>;

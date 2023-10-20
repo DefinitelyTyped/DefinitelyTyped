@@ -6,7 +6,7 @@ import { RefetchFnDynamic } from "./useRefetchableFragmentNode";
 export interface usePaginationFragmentHookType<
     TQuery extends OperationType,
     TKey extends KeyType | null | undefined,
-    TFragmentData
+    TFragmentData,
 > {
     data: TFragmentData;
     loadNext: LoadMoreFn<TQuery>;
@@ -20,12 +20,12 @@ export interface usePaginationFragmentHookType<
 
 export function usePaginationFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
-    parentFragmentRef: TKey
+    parentFragmentRef: TKey,
 ): // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 usePaginationFragmentHookType<TQuery, TKey, KeyTypeData<TKey>>;
 
 export function usePaginationFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
-    parentFragmentRef: TKey | null | undefined
+    parentFragmentRef: TKey | null | undefined,
 ): // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 usePaginationFragmentHookType<TQuery, TKey | null, KeyTypeData<TKey> | null | undefined>;

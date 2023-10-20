@@ -95,8 +95,8 @@ interface AppQueryVariables {
 interface AppQueryResponse {
     readonly user:
         | {
-              readonly name: string;
-          }
+            readonly name: string;
+        }
         | null
         | undefined;
 }
@@ -171,7 +171,7 @@ function LazyLoadQuery() {
                 }
             `,
             { id: "4" },
-            { fetchPolicy: "store-and-network", networkCacheConfig: { force: true } }
+            { fetchPolicy: "store-and-network", networkCacheConfig: { force: true } },
         );
 
         return <h1>{data.user!.name}</h1>;
@@ -192,7 +192,7 @@ function ClientQuery() {
                     }
                 }
             `,
-            { id: "4" }
+            { id: "4" },
         );
 
         return <h1>{data.user!.name}</h1>;
@@ -237,7 +237,7 @@ function NonNullableFragment() {
                     }
                 }
             `,
-            props.user
+            props.user,
         );
 
         return data.name;
@@ -260,7 +260,7 @@ function NullableFragment() {
                     }
                 }
             `,
-            props.user
+            props.user,
         );
     };
 }
@@ -295,7 +295,7 @@ function NonNullableArrayFragment() {
                     }
                 }
             `,
-            props.users
+            props.users,
         );
 
         return data.map((d) => (
@@ -324,7 +324,7 @@ function NullableArrayFragment() {
                     }
                 }
             `,
-            props.users
+            props.users,
         );
 
         return data!.map((d) => (
@@ -353,7 +353,7 @@ function ArrayOfNullableFragment() {
                     }
                 }
             `,
-            props.users
+            props.users,
         );
 
         return data.map((d) => (
@@ -380,8 +380,8 @@ function RefetchableFragment() {
     interface CommentBodyRefetchQueryResponse {
         readonly node:
             | {
-                  readonly " $fragmentSpreads": FragmentRefs<"CommentBody_comment">;
-              }
+                readonly " $fragmentSpreads": FragmentRefs<"CommentBody_comment">;
+            }
             | null
             | undefined;
     }
@@ -394,8 +394,8 @@ function RefetchableFragment() {
     interface CommentBody_comment {
         readonly body:
             | {
-                  readonly text: string;
-              }
+                readonly text: string;
+            }
             | null
             | undefined;
         readonly id: string | null | undefined;
@@ -423,7 +423,7 @@ function RefetchableFragment() {
                     }
                 }
             `,
-            props.comment
+            props.comment,
         );
         const [dataNullable] = useRefetchableFragment<CommentBodyRefetchQuery, CommentBody_comment$key>(
             graphql`
@@ -433,7 +433,7 @@ function RefetchableFragment() {
                     }
                 }
             `,
-            props.commentNullable
+            props.commentNullable,
         );
 
         return (
@@ -519,7 +519,7 @@ function PaginationFragment() {
                     }
                 }
             `,
-            props.user
+            props.user,
         );
 
         return (
@@ -605,7 +605,7 @@ function PaginationFragment_WithNonNullUserProp() {
                     }
                 }
             `,
-            props.user
+            props.user,
         );
 
         return (
@@ -632,12 +632,12 @@ function Mutation() {
     interface FeedbackLikeMutationRawResponse {
         readonly feedback_like:
             | {
-                  readonly feedback: {
-                      readonly id: string;
-                      readonly viewer_does_like?: boolean | null | undefined;
-                      readonly like_count?: number | null | undefined;
-                  };
-              }
+                readonly feedback: {
+                    readonly id: string;
+                    readonly viewer_does_like?: boolean | null | undefined;
+                    readonly like_count?: number | null | undefined;
+                };
+            }
             | null
             | undefined;
     }
@@ -645,12 +645,12 @@ function Mutation() {
     interface FeedbackLikeMutationResponse {
         readonly feedback_like:
             | {
-                  readonly feedback: {
-                      readonly id: string;
-                      readonly viewer_does_like?: boolean | null | undefined;
-                      readonly like_count?: number | null | undefined;
-                  };
-              }
+                readonly feedback: {
+                    readonly id: string;
+                    readonly viewer_does_like?: boolean | null | undefined;
+                    readonly like_count?: number | null | undefined;
+                };
+            }
             | null
             | undefined;
     }
@@ -758,7 +758,7 @@ function Subscription() {
                 `,
                 variables: { id },
             }),
-            [id]
+            [id],
         );
 
         useSubscription(subscriptionConfig);
@@ -909,7 +909,7 @@ function EntryPointTests() {
         root: JSResource<typeof RootEntryPointComponent>(),
         getPreloadProps(
             // $ExpectType Params
-            params
+            params,
         ) {
             return {
                 queries: {
@@ -994,22 +994,26 @@ function EntryPointTests() {
 
             return (
                 <>
-                    {entryPoints.mainPanelA ? (
-                        <EntryPointContainer
-                            entryPointReference={entryPoints.mainPanelA}
-                            props={{
-                                onClick,
-                            }}
-                        />
-                    ) : null}
-                    {entryPoints.mainPanelB ? (
-                        <EntryPointContainer
-                            entryPointReference={entryPoints.mainPanelB}
-                            props={{
-                                onClick,
-                            }}
-                        />
-                    ) : null}
+                    {entryPoints.mainPanelA
+                        ? (
+                            <EntryPointContainer
+                                entryPointReference={entryPoints.mainPanelA}
+                                props={{
+                                    onClick,
+                                }}
+                            />
+                        )
+                        : null}
+                    {entryPoints.mainPanelB
+                        ? (
+                            <EntryPointContainer
+                                entryPointReference={entryPoints.mainPanelB}
+                                props={{
+                                    onClick,
+                                }}
+                            />
+                        )
+                        : null}
                 </>
             );
         };
@@ -1018,24 +1022,23 @@ function EntryPointTests() {
             root: JSResource(),
             getPreloadProps(params) {
                 return {
-                    entryPoints:
-                        params.route === "a"
-                            ? {
-                                  mainPanelA: {
-                                      entryPoint: entrypointA,
-                                      entryPointParams: {
-                                          slug: "hello",
-                                      },
-                                  },
-                              }
-                            : {
-                                  mainPanelB: {
-                                      entryPoint: entrypointB,
-                                      entryPointParams: {
-                                          author: "world",
-                                      },
-                                  },
-                              },
+                    entryPoints: params.route === "a"
+                        ? {
+                            mainPanelA: {
+                                entryPoint: entrypointA,
+                                entryPointParams: {
+                                    slug: "hello",
+                                },
+                            },
+                        }
+                        : {
+                            mainPanelB: {
+                                entryPoint: entrypointB,
+                                entryPointParams: {
+                                    author: "world",
+                                },
+                            },
+                        },
                     queries: {},
                     extraProps: {
                         foo: "bar",
@@ -1060,7 +1063,7 @@ function EntryPointTests() {
     function UseEntryPointLoaderTests() {
         const [queryReference, entryPointLoaderCallback, dispose] = useEntryPointLoader(
             environmentProvider,
-            entrypoint
+            entrypoint,
         );
 
         React.useEffect(() => {
@@ -1071,13 +1074,15 @@ function EntryPointTests() {
             return dispose;
         }, []);
 
-        return queryReference ? (
-            <EntryPointContainer
-                entryPointReference={queryReference}
-                props={{
-                    onClick() {},
-                }}
-            />
-        ) : null;
+        return queryReference
+            ? (
+                <EntryPointContainer
+                    entryPointReference={queryReference}
+                    props={{
+                        onClick() {},
+                    }}
+                />
+            )
+            : null;
     }
 }
