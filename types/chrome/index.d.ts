@@ -12562,35 +12562,37 @@ declare namespace chrome.declarativeNetRequest {
  */
 declare namespace chrome.sidePanel {
     export interface GetPanelOptions {
-    /**
-     * If specified, the side panel options for the given tab will be returned.
-     * Otherwise, returns the default side panel options (used for any tab that doesn't have specific settings).
-     */
+        /**
+         * If specified, the side panel options for the given tab will be returned.
+         * Otherwise, returns the default side panel options (used for any tab that doesn't have specific settings).
+         */
         tabId?: number;
     }
-    
+
     /**
      * @since Chrome 116
      */
-    export type OpenOptions = {
-        /**The tab in which to open the side panel.
-         * If the corresponding tab has a tab-specific side panel, the panel will only be open for that tab.
-         * If there is not a tab-specific panel, the global panel will be open in the specified tab and any other tabs without a currently-open tab- specific panel.
-         * This will override any currently-active side panel (global or tab-specific) in the corresponding tab.
-         * At least one of this and windowId must be provided.*/
-        tabId?: number,
-        /**
-         * The window in which to open the side panel.
-         * This is only applicable if the extension has a global (non-tab-specific) side panel or tabId is also specified.
-         * This will override any currently-active global side panel the user has open in the given window.
-         * At least one of this and tabId must be provided.
-         */
-        windowId?: number
-    } & ({
-        tabId: number
-    } | {
-        windowId: number
-    })
+    export type OpenOptions =
+        & {
+            /** The tab in which to open the side panel.
+             * If the corresponding tab has a tab-specific side panel, the panel will only be open for that tab.
+             * If there is not a tab-specific panel, the global panel will be open in the specified tab and any other tabs without a currently-open tab- specific panel.
+             * This will override any currently-active side panel (global or tab-specific) in the corresponding tab.
+             * At least one of this and windowId must be provided. */
+            tabId?: number;
+            /**
+             * The window in which to open the side panel.
+             * This is only applicable if the extension has a global (non-tab-specific) side panel or tabId is also specified.
+             * This will override any currently-active global side panel the user has open in the given window.
+             * At least one of this and tabId must be provided.
+             */
+            windowId?: number;
+        }
+        & ({
+            tabId: number;
+        } | {
+            windowId: number;
+        });
 
     export interface PanelBehavior {
         /** Whether clicking the extension's icon will toggle showing the extension's entry in the side panel. Defaults to false. */
@@ -12636,7 +12638,7 @@ declare namespace chrome.sidePanel {
      */
     export function getPanelBehavior(
         /** The `callback` parameter looks like: `(behavior: PanelBehavior) => void` */
-        callback?: (behavior: PanelBehavior) => void
+        callback?: (behavior: PanelBehavior) => void,
     ): Promise<PanelBehavior>;
 
     /**
@@ -12650,8 +12652,8 @@ declare namespace chrome.sidePanel {
         /** Specifies the context in which to open the side panel. */
         options: OpenOptions,
         /** The `callback` parameter looks like: `() => void` */
-        callback?: () => void
-    ): Promise<void>
+        callback?: () => void,
+    ): Promise<void>;
 
     /**
      * Configures the side panel.
@@ -12663,7 +12665,7 @@ declare namespace chrome.sidePanel {
         /** The configuration options to apply to the panel. */
         options: PanelOptions,
         /** The `callback` parameter looks like: `() => void` */
-        callback?: () => void
+        callback?: () => void,
     ): Promise<void>;
 
     /**
@@ -12676,6 +12678,6 @@ declare namespace chrome.sidePanel {
         /** The new behavior to be set. */
         behavior: PanelBehavior,
         /** The `callback` parameter looks like: `() => void` */
-        callback?: () => void
+        callback?: () => void,
     ): Promise<void>;
 }

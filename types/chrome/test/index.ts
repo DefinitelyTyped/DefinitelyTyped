@@ -2123,29 +2123,29 @@ function testSidePanelAPI() {
     });
 
     let openOptionsTab: chrome.sidePanel.OpenOptions = {
-        tabId: 1234567890
-    }
+        tabId: 1234567890,
+    };
 
     let openOptionsWindow: chrome.sidePanel.OpenOptions = {
-        windowId: 9876543210
-    }
+        windowId: 9876543210,
+    };
 
     let openOptionsTabAndWindow: chrome.sidePanel.OpenOptions = {
         tabId: 1234567890,
-        windowId: 9876543210
-    }
+        windowId: 9876543210,
+    };
 
     chrome.sidePanel.open(openOptionsTab, () => {
-        console.log('Side panel opened in tab')
-    })
+        console.log("Side panel opened in tab");
+    });
 
     chrome.sidePanel.open(openOptionsWindow, () => {
-        console.log('Side panel opened in window')
-    })
+        console.log("Side panel opened in window");
+    });
 
     chrome.sidePanel.open(openOptionsTabAndWindow, () => {
-        console.log('Side panel opened in tab in window')
-    })
+        console.log("Side panel opened in tab in window");
+    });
 
     let setPanelOptions: chrome.sidePanel.PanelOptions = {
         enabled: true,
