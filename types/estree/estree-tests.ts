@@ -796,3 +796,96 @@ switch (forOfStatement.left.type) {
         memberExpression = forOfStatement.left;
         break;
 }
+
+switch(exportDefaultDeclaration.declaration.type) {
+    case "Identifier":
+        identifier = exportDefaultDeclaration.declaration;
+        break;
+    case "Literal":
+        literal = exportDefaultDeclaration.declaration;
+        break;
+    case "FunctionExpression":
+        functionExpression = exportDefaultDeclaration.declaration;
+        break;
+
+    // narrowing of Declaration
+    case "FunctionDeclaration":
+        functionDeclaration = exportDefaultDeclaration.declaration;
+        break;
+    case "ClassDeclaration":
+        classDeclaration = exportDefaultDeclaration.declaration;
+        break;
+    // end narrowing of Declaration
+
+    // narrowing of Expression
+    case "ThisExpression":
+        thisExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "ArrayExpression":
+        arrayExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "ObjectExpression":
+        objectExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "ArrowFunctionExpression":
+        arrowFunctionExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "YieldExpression":
+        yieldExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "UnaryExpression":
+        unaryExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "UpdateExpression":
+        updateExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "BinaryExpression":
+        binaryExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "AssignmentExpression":
+        assignmentExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "LogicalExpression":
+        logicalExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "MemberExpression":
+        memberExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "ChainExpression":
+        chainExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "ConditionalExpression":
+        conditionalExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "CallExpression":
+        callExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "NewExpression":
+        newExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "SequenceExpression":
+        sequenceExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "TemplateLiteral":
+        templateLiteral = exportDefaultDeclaration.declaration;
+        break;
+    case "TaggedTemplateExpression":
+        taggedTemplateExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "ClassExpression":
+        classExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "MetaProperty":
+        metaProperty = exportDefaultDeclaration.declaration;
+        break;
+    case "AwaitExpression":
+        awaitExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "ImportExpression":
+        importExpression = exportDefaultDeclaration.declaration;
+        break;
+    // end narrowing of Expression
+
+    default:
+        never = exportDefaultDeclaration.declaration;
+}
