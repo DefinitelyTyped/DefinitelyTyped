@@ -5,16 +5,16 @@ import CEconItem = require("steamcommunity/classes/CEconItem");
 interface BaseItem {
     appid: number;
     contextid: number;
-    amount?: number;
+    amount?: number | undefined;
 }
 
 interface ItemWithId extends BaseItem {
     id: string;
-    assetid?: string | number;
+    assetid?: string | number | undefined;
 }
 
 interface ItemWithAssetId extends BaseItem {
-    id?: string;
+    id?: string | undefined;
     assetid: string | number;
 }
 
