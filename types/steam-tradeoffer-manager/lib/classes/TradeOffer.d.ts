@@ -283,7 +283,7 @@ declare class TradeOffer {
     send(
         callback?: (
             err:
-                | Error & {
+                | TradeOfferManager.EResultError & {
                     cause?:
                         | "TradeBan"
                         | "NewDevice"
