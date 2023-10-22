@@ -282,14 +282,16 @@ declare class TradeOffer {
      */
     send(
         callback?: (
-            err: TradeOfferManager.EResultError & {
-                cause?:
-                    | "TradeBan"
-                    | "NewDevice"
-                    | "TargetCannotTrade"
-                    | "OfferLimitExceeded"
-                    | "ItemServerUnavailable";
-            } | null,
+            err:
+                | TradeOfferManager.EResultError & {
+                    cause?:
+                        | "TradeBan"
+                        | "NewDevice"
+                        | "TargetCannotTrade"
+                        | "OfferLimitExceeded"
+                        | "ItemServerUnavailable";
+                }
+                | null,
             status: "pending" | "sent",
         ) => void,
     ): void;
