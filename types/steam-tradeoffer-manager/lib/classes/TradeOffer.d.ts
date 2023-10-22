@@ -282,7 +282,14 @@ declare class TradeOffer {
      */
     send(
         callback?: (
-            err: TradeOfferManager.EResultError | null,
+            err: TradeOfferManager.EResultError & {
+                cause?:
+                    | "TradeBan"
+                    | "NewDevice"
+                    | "TargetCannotTrade"
+                    | "OfferLimitExceeded"
+                    | "ItemServerUnavailable";
+            } | null,
             status: "pending" | "sent",
         ) => void,
     ): void;
@@ -324,7 +331,7 @@ declare class TradeOffer {
     accept(
         skipStateUpdate?: boolean,
         callback?: (
-            err: TradeOfferManager.EResultError | null,
+            err: TradeOfferManager.EResultError & { cause?: "TradeBan" | "NewDevice" | "TargetCannotTrade" } | null,
             status: "pending" | "accepted" | "escrow",
         ) => void,
     ): void;
@@ -348,7 +355,7 @@ declare class TradeOffer {
      */
     accept(
         callback?: (
-            err: TradeOfferManager.EResultError | null,
+            err: TradeOfferManager.EResultError & { cause?: "TradeBan" | "NewDevice" | "TargetCannotTrade" } | null,
             status: "pending" | "accepted" | "escrow",
         ) => void,
     ): void;

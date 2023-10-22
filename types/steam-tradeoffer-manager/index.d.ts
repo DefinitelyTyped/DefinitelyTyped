@@ -568,12 +568,6 @@ declare namespace TradeOfferManager {
 
     type EResultError = Error & {
         eresult?: EResult;
-        cause?:
-            | "TradeBan"
-            | "NewDevice"
-            | "TargetCannotTrade"
-            | "OfferLimitExceeded"
-            | "ItemServerUnavailable";
     };
 
     type InventoryCallback = (
