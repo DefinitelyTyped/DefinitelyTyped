@@ -372,7 +372,7 @@ declare class TradeOffer {
      * @param callback - Required. A callback to be invoked when complete.
      * - `err` - An `Error` object on failure, `null` on success
      */
-    update(callback: (err: Error | null) => void): void;
+    update(callback: (err: TradeOfferManager.EResultError | null) => void): void;
 
     /**
      * Can be called on an accepted offer to retrieve item data about the items you received, including names, descriptions,
