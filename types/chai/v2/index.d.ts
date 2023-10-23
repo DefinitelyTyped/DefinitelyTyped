@@ -1,9 +1,3 @@
-// Type definitions for chai 2.0.0
-// Project: http://chaijs.com/
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 Andrew Brown <https://github.com/AGBrown>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Chai {
     interface ChaiStatic {
         expect: ExpectStatic;

@@ -1,8 +1,3 @@
-// Type definitions for find-config 1.0
-// Project: https://github.com/shannonmoeller/find-config
-// Definitions by: Luke James <https://github.com/itslukej>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace findConfig {
     interface Options {
         cwd?: string | undefined;

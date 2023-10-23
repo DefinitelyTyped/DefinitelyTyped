@@ -1,13 +1,3 @@
-// Type definitions for request-promise 4.1
-// Project: https://github.com/request/request-promise
-// Definitions by: Christopher Glantschnig <https://github.com/cglantschnig>
-//                 Joe Skeen <https://github.com/joeskeen>
-//                 Aya Morisawa <https://github.com/AyaMorisawa>
-//                 Matt R. Wilson <https://github.com/mastermatt>
-//                 Sergey Bakulin <https://github.com/vansergen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 import request = require("request");
 import http = require("http");
 import errors = require("./errors");

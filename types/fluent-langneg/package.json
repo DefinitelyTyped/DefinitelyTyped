@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/fluent-langneg",
+    "version": "0.1.9999",
+    "projects": [
+        "http://projectfluent.io",
+        "https://projectfluent.org"
+    ],
+    "devDependencies": {
+        "@types/fluent-langneg": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Huy Nguyen",
+            "githubUsername": "huy-nguyen"
+        }
+    ]
+}

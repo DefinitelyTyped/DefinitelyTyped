@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/memjs",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/memcachier/memjs"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/memjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Zongmin Lei",
+            "githubUsername": "leizongmin"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

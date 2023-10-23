@@ -1,8 +1,3 @@
-// Type definitions for lynx 0.2
-// Project: https://github.com/dscape/lynx
-// Definitions by: floy <https://github.com/leftshift>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Socket } from "node:dgram";

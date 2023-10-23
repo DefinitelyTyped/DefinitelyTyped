@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/requires-port",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/unshiftio/requires-port"
+    ],
+    "devDependencies": {
+        "@types/requires-port": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for polygon-selfintersect 1.0
-// Project: https://github.com/kmcs/polygon-selfintersect
-// Definitions by: Russ McKay <https://github.com/mcruss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Find self-intersections of the polygon.
  *

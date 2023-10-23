@@ -1,8 +1,3 @@
-// Type definitions for oidc-provider 8.4
-// Project: https://github.com/panva/node-oidc-provider
-// Definitions by: Filip Skokan <https://github.com/panva>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as crypto from "node:crypto";
 import * as dns from "node:dns";
 import * as events from "node:events";

@@ -1,13 +1,3 @@
-// Type definitions for KaTeX 0.16
-// Project: http://khan.github.io/KaTeX/
-// Definitions by: Michael Randolph <https://github.com/mrand01>
-//                 Kevin Nguyen <https://github.com/knguyen0125>
-//                 bLue <https://github.com/dreamerblue>
-//                 Sebastian Weigand <https://github.com/s-weigand>
-//                 sapphi-red <https://github.com/sapphi-red>
-//                 Stefaans <https://github.com/Stefaans>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface TrustContext {
     command: string;
     url: string;

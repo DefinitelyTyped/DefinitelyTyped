@@ -1,8 +1,3 @@
-// Type definitions for syslog-pro 1.0
-// Project: https://github.com/cyamato/SyslogPro
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Format the ANSI foreground color code from a RGB hex code or ANSI color code.
  *

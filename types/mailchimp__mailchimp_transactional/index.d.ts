@@ -1,9 +1,3 @@
-// Type definitions for @mailchimp/mailchimp_transactional 1.0
-// Project: https://github.com/mailchimp/mailchimp-transactional-node
-// Definitions by: Pieter Scheffers <https://github.com/PieterScheffers>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { AxiosError } from "axios";
 
 export = Mailchimp;

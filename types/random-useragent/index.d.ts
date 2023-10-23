@@ -1,8 +1,3 @@
-// Type definitions for random-useragent 0.3
-// Project: https://github.com/skratchdot/random-useragent
-// Definitions by: Jeffry Angtoni <https://github.com/jeffryang24>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Generated user agent object interface.
  */

@@ -4,7 +4,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "typeRoots": ["../.."],
         "types": ["node"]
     }
 }

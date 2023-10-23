@@ -1,15 +1,3 @@
-// Type definitions for Parsimmon 1.10
-// Project: https://github.com/jneen/parsimmon
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 Mizunashi Mana <https://github.com/mizunashi-mana>
-//                 Boris Cherny <https://github.com/bcherny>
-//                 Benny van Reeven <https://github.com/bvanreeven>
-//                 Leonard Thieu <https://github.com/leonard-thieu>
-//                 Jonathan Frere <https://github.com/MrJohz>
-//                 Isaac Huang <https://github.com/caasi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /**
  * **NOTE:** You probably will never need to use this function. Most parsing
  * can be accomplished using `Parsimmon.regexp` and combination with

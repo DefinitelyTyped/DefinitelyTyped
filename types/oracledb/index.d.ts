@@ -1,10 +1,3 @@
-// Type definitions for oracledb 6.0
-// Project: https://github.com/oracle/node-oracledb
-// Definitions by: Connor Fitzgerald <https://github.com/connorjayfitzgerald>
-//                 Dan Beglin <https://github.com/dannyb648>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 /// <reference types="node" />
 
 import { Duplex, Readable } from "stream";

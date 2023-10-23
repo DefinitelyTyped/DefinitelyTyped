@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fm-websync",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/baz/foo"
+    ],
+    "devDependencies": {
+        "@types/fm-websync": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Markus Mauch",
+            "githubUsername": "markusmauch"
+        }
+    ]
+}

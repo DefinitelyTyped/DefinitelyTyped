@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/defined",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/substack/defined"
+    ],
+    "devDependencies": {
+        "@types/defined": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

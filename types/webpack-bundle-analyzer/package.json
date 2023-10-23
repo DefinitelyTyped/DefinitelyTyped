@@ -1,7 +1,34 @@
 {
     "private": true,
+    "name": "@types/webpack-bundle-analyzer",
+    "version": "4.6.9999",
+    "projects": [
+        "https://github.com/webpack-contrib/webpack-bundle-analyzer"
+    ],
     "dependencies": {
+        "@types/node": "*",
         "tapable": "^2.2.0",
         "webpack": "^5"
-    }
+    },
+    "devDependencies": {
+        "@types/webpack-bundle-analyzer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Strobel",
+            "githubUsername": "kryops"
+        },
+        {
+            "name": "Max Boguslavskiy",
+            "githubUsername": "maxbogus"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Kyle Hensel",
+            "githubUsername": "k-yle"
+        }
+    ]
 }

@@ -1,8 +1,3 @@
-// Type definitions for yargs-interactive 2.1
-// Project: https://github.com/nanovazquez/yargs-interactive#readme
-// Definitions by: Nano Vazquez <https://github.com/nanovazquez>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Argv } from "yargs";
 
 declare function yargsInteractive(): yargsInteractive.Interactive;

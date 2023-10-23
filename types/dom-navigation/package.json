@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/dom-navigation",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "dom-navigation-browser",
+    "projects": [
+        "https://wicg.github.io/navigation-api"
+    ],
+    "devDependencies": {
+        "@types/dom-navigation": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Thomas Wilkinson",
+            "githubUsername": "tbondwilkinson"
+        }
+    ]
+}

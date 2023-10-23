@@ -1,12 +1,3 @@
-// Type definitions for mailgun-js 0.22
-// Project: https://github.com/bojand/mailgun-js
-// Definitions by: Sampson Oliver <https://github.com/sampsonjoliver>
-//                 Andi Pätzold <https://github.com/andipaetzold>
-//                 Jiri Balcar <https://github.com/JiriBalcar>
-//                 Ryan Leonard <https://github.com/CodeLenny>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="node" />
 
 import * as FormData from "form-data";

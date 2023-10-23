@@ -1,8 +1,3 @@
-// Type definitions for round 2.0
-// Project: https://github.com/bendrucker/round.js#readme
-// Definitions by: Rajas Paranjpe <https://github.com/ChocolateLoverRaj>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Round numbers to the nearest multiple with an optional direction.
  * @param value The value to round.

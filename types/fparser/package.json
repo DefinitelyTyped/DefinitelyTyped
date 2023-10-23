@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/fparser",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/bylexus/fparse"
+    ],
+    "devDependencies": {
+        "@types/fparser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "bylexus",
+            "githubUsername": "bylexus"
+        },
+        {
+            "name": "andrew0687",
+            "githubUsername": "andrew0687"
+        }
+    ]
+}

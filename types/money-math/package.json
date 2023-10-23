@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/money-math",
+    "version": "2.5.9999",
+    "projects": [
+        "https://github.com/ikr/money-math#readme"
+    ],
+    "devDependencies": {
+        "@types/money-math": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "taoqf",
+            "githubUsername": "taoqf"
+        }
+    ]
+}

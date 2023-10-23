@@ -1,10 +1,3 @@
-// Type definitions for square-connect 4.20201028
-// Project: https://docs.connect.squareup.com/
-// Definitions by: Dmitri Dimitrioglo <https://github.com/ddimitrioglo>
-//                 Richard Moot <https://github.com/mootrichard>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 export type CountryType =
     | "ZZ"
     | "AD"

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/dinero.js",
+    "version": "1.9.9999",
+    "projects": [
+        "https://sarahdayan.github.io/dinero.js"
+    ],
+    "devDependencies": {
+        "@types/dinero.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        },
+        {
+            "name": "David Acosta",
+            "githubUsername": "juandaco"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,0 +1,46 @@
+{
+    "private": true,
+    "name": "@types/koa__router",
+    "version": "12.0.9999",
+    "projects": [
+        "https://github.com/koajs/koa-router#readme"
+    ],
+    "dependencies": {
+        "@types/koa": "*"
+    },
+    "devDependencies": {
+        "@types/koa-compose": "*",
+        "@types/koa-etag": "*",
+        "@types/koa__router": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jerry Chin",
+            "githubUsername": "hellopao"
+        },
+        {
+            "name": "Pavel Ivanov",
+            "githubUsername": "schfkt"
+        },
+        {
+            "name": "JounQin",
+            "githubUsername": "JounQin"
+        },
+        {
+            "name": "Romain Faust",
+            "githubUsername": "romain-faust"
+        },
+        {
+            "name": "Guillaume Mayer",
+            "githubUsername": "Guillaume-Mayer"
+        },
+        {
+            "name": "Andrea Gueugnaut",
+            "githubUsername": "falinor"
+        },
+        {
+            "name": "Jeremy Forsythe",
+            "githubUsername": "jdforsythe"
+        }
+    ]
+}

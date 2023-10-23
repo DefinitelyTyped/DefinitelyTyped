@@ -1,8 +1,3 @@
-// Type definitions for non-npm package wistia-player-browser 1.0
-// Project: https://wistia.com/support/developers/player-api
-// Definitions by: Kelly Littlepage <https://github.com/klittlepage>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace WistiaPlayer {
     interface Chapter {
         title: string;

@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/americanexpress__react-seo",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/americanexpress/react-seo"
+    ],
+    "devDependencies": {
+        "@types/americanexpress__react-seo": "workspace:.",
+        "@types/react": "*"
+    },
+    "owners": [
+        {
+            "name": "Zenoo",
+            "githubUsername": "Zenoo"
+        }
+    ]
+}

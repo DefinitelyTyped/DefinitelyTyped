@@ -1,12 +1,3 @@
-// Type definitions for non-npm package @ember/engine 3.16
-// Project: https://emberjs.com/api/ember/3.16/modules/@ember%2Fengine
-// Definitions by: Mike North <https://github.com/mike-north>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 Krystan HuffMenne <https://github.com/gitKrystan>
-//                 James C. Davis <https://github.com/jamescdavis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 // import Ember from 'ember';
 import RegistryProxyMixin from "@ember/engine/-private/registry-proxy-mixin";
 import Resolver from "@ember/engine/-private/resolver";

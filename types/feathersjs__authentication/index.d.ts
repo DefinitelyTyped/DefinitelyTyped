@@ -1,11 +1,3 @@
-// Type definitions for @feathersjs/authentication 2.1
-// Project: https://feathersjs.com
-// Definitions by:  Abraao Alves <https://github.com/AbraaoAlves>
-//                  Jan Lohage <https://github.com/j2L4e>
-//                  Nick Bolles <https://github.com/NickBolles>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { Hook, Params } from "@feathersjs/feathers";
 // eslint-disable-next-line @definitelytyped/no-self-import
 import * as self from "@feathersjs/authentication";

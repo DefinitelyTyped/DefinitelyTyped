@@ -1,0 +1,36 @@
+{
+    "private": true,
+    "name": "@types/leaflet-draw",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Leaflet/Leaflet.draw"
+    ],
+    "dependencies": {
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/leaflet-draw": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt Guest",
+            "githubUsername": "matt-guest"
+        },
+        {
+            "name": "Ryan Blace",
+            "githubUsername": "reblace"
+        },
+        {
+            "name": "Yun Shi",
+            "githubUsername": "YunS-Stacy"
+        },
+        {
+            "name": "Kevin Richter",
+            "githubUsername": "beschoenen"
+        },
+        {
+            "name": "Antonio Vida",
+            "githubUsername": "antoniovlx"
+        }
+    ]
+}

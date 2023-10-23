@@ -1,8 +1,3 @@
-// Type definitions for passport-streamlabs 1.0
-// Project: https://github.com/johnRivs/passport-streamlabs
-// Definitions by: Ottomated <https://github.com/ottomated>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as express from "express";
 import { OutgoingHttpHeaders } from "http";
 import * as passport from "passport";

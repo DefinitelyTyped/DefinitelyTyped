@@ -1,11 +1,3 @@
-// Type definitions for vinyl-fs 3.0
-// Project: https://github.com/gulpjs/vinyl-fs
-// Definitions by: vvakame <https://github.com/vvakame>
-//                 remisery <https://github.com/remisery>
-//                 TeamworkGuy2 <https://github.com/TeamworkGuy2>
-//                 Manuel Thalmann <https://github.com/manuth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare global {

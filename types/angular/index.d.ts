@@ -1,12 +1,3 @@
-// Type definitions for Angular JS 1.8
-// Project: http://angularjs.org
-// Definitions by: Diego Vilar <https://github.com/diegovilar>
-//                 Georgii Dolzhykov <https://github.com/thorn0>
-//                 Leonard Thieu <https://github.com/leonard-thieu>
-//                 Steffen Kowalski <https://github.com/scipper>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference path="jqlite.d.ts" />
 
 declare var angular: angular.IAngularStatic;

@@ -1,7 +1,25 @@
 {
     "private": true,
+    "name": "@types/knex-db-manager",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/Vincit/knex-db-manager#readme"
+    ],
     "dependencies": {
-        "@types/node": "16.0.0",
+        "@types/node": "*",
         "knex": "2.1.0"
-    }
+    },
+    "devDependencies": {
+        "@types/knex-db-manager": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dmitrii Solovev",
+            "githubUsername": "dimonnwc3"
+        },
+        {
+            "name": "Nicusor Chiciuc",
+            "githubUsername": "nicu-chiciuc"
+        }
+    ]
 }

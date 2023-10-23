@@ -1,9 +1,3 @@
-// Type definitions for imagemin 8.0
-// Project: https://github.com/imagemin/imagemin#readme
-// Definitions by: Romain Faust <https://github.com/romain-faust>
-//                 Jeff Chan <https://github.com/hkjeffchan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

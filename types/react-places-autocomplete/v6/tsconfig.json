@@ -4,22 +4,18 @@
         "react-places-autocomplete-tests.tsx"
     ],
     "compilerOptions": {
-        "baseUrl": "../../",
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
-        "lib": ["es6", "dom"],
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "module": "commonjs",
         "noEmit": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "paths": {
-            "react-places-autocomplete": [
-                "react-places-autocomplete/v6"
-            ]
-        },
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "typeRoots": ["../../"],
         "types": []
     }
 }

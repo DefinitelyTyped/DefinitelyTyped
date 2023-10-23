@@ -1,9 +1,3 @@
-// Type definitions for non-npm package Google Maps JavaScript API 3.54
-// Project: https://developers.google.com/maps/
-// Definitions by: Alex Muramoto <https://github.com/amuramoto>
-//                 Angela Yu <https://github.com/wangela>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 

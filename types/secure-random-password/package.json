@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/secure-random-password",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/rackerlabs/secure-random-password"
+    ],
+    "devDependencies": {
+        "@types/secure-random-password": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bjørnar Snoksrud",
+            "githubUsername": "bjornars"
+        },
+        {
+            "name": "GaspardFRDev",
+            "githubUsername": "GaspardFRDev"
+        }
+    ]
+}

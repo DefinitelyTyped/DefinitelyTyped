@@ -1,8 +1,3 @@
-// Type definitions for Riot Games API
-// Project: https://developer.riotgames.com/
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="riot-games-api" />
 
 export const BASE_URL: string;

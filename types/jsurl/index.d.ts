@@ -1,8 +1,3 @@
-// Type definitions for jsurl 0.1
-// Project: http://github.com/Sage/jsurl
-// Definitions by: Ben Grynhaus <https://github.com/bengry>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics -- easier to use this function using a generic rather than casting
 export function stringify<T>(value: T): string;
 

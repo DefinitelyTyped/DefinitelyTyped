@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/use-position",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/trekhleb/use-position"
+    ],
+    "devDependencies": {
+        "@types/use-position": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Claudio Musumeci",
+            "githubUsername": "muscla87"
+        },
+        {
+            "name": "MatyiFKBT",
+            "githubUsername": "MatyiFKBT"
+        }
+    ]
+}

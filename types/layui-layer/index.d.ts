@@ -1,9 +1,3 @@
-// Type definitions for layui-layer 1.0
-// Project: https://github.com/sentsin/layer
-// Definitions by: Zhuo Ning <https://github.com/943297456>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="jquery" />
 
 /**

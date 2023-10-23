@@ -1,8 +1,3 @@
-// Type definitions for node-netstat 1.8
-// Project: https://github.com/danielkrainas/node-netstat#readme
-// Definitions by: Nick Glazer <https://github.com/nickglazer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = nodeNetstat;

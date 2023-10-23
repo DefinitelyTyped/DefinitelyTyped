@@ -1,9 +1,3 @@
-// Type definitions for wrap-ansi 8.0
-// Project: https://www.npmjs.com/package/wrap-ansi
-// Definitions by: Klaus Reimer <https://github.com/kayahr>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Wrap words to the specified column width.
  *

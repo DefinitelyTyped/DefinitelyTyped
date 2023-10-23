@@ -1,12 +1,3 @@
-// Type definitions for ua-parser-js 0.7
-// Project: https://github.com/faisalman/ua-parser-js
-// Definitions by: Viktor Miroshnikov <https://github.com/superduper>
-//                 Lucas Woo <https://github.com/legendecas>
-//                 Pablo Rodríguez <https://github.com/MeLlamoPablo>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace UAParser {
     // tslint:disable:interface-name backward compatible exclusion
 

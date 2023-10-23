@@ -1,8 +1,3 @@
-// Type definitions for @bitcoin-computer/lib 0.15
-// Project: https://github.com/bitcoin-computer/monorepo
-// Definitions by: jonty007 <https://github.com/jonty007>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type JUndefined = undefined;
 type JNull = null;
 type JBoolean = boolean;

@@ -1,6 +1,20 @@
 {
     "private": true,
+    "name": "@types/postcss-icss-values",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/css-modules/postcss-icss-values"
+    ],
     "dependencies": {
         "postcss": "7.x.x"
-    }
+    },
+    "devDependencies": {
+        "@types/postcss-icss-values": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeow Li Huan",
+            "githubUsername": "huan086"
+        }
+    ]
 }

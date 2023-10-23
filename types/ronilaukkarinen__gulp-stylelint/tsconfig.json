@@ -8,14 +8,6 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "@ronilaukkarinen/*": ["ronilaukkarinen__*"],
-            "gulp": ["gulp/v3"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

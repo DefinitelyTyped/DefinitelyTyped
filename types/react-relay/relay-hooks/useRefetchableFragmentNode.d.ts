@@ -20,7 +20,7 @@ export type RefetchFn<TQuery extends OperationType, TOptions = Options> = Refetc
 //    /non-null/.
 export type RefetchFnDynamic<
     TQuery extends OperationType,
-    TKey extends KeyType | null,
+    TKey extends KeyType | null | undefined,
     TOptions = Options,
 > = RefetchInexactDynamicResponse<TQuery, TOptions> & RefetchExactDynamicResponse<TQuery, TOptions>;
 
@@ -51,7 +51,11 @@ export type RefetchFnInexact<TQuery extends OperationType, TOptions = Options> =
 
 // NOTE: This is the "ReturnType" from relay, but its reserved by TypeScript.
 // https://github.com/facebook/relay/blob/676660dc86d498624d14dc50278563fc42c3fa7d/packages/relay-experimental/useRefetchableFragmentNode.js#L77-L87
-export interface ReturnTypeNode<TQuery extends OperationType, TKey extends KeyType | null, TOptions = Options> {
+export interface ReturnTypeNode<
+    TQuery extends OperationType,
+    TKey extends KeyType | null | undefined,
+    TOptions = Options,
+> {
     fragmentData: unknown;
     fragmentRef: unknown;
     refetch: RefetchFnDynamic<TQuery, TKey, TOptions>;
@@ -100,7 +104,7 @@ export interface DebugIDandTypename {
     typename: string;
 }
 
-export function useRefetchableFragmentNode<TQuery extends OperationType, TKey extends KeyType | null>(
+export function useRefetchableFragmentNode<TQuery extends OperationType, TKey extends KeyType | null | undefined>(
     fragmentNode: ReaderFragment,
     parentFragmentRef: unknown,
     componentDisplayName: string,

@@ -1,10 +1,3 @@
-// Type definitions for @loadable/component 5.13
-// Project: https://github.com/smooth-code/loadable-components
-// Definitions by: Martynas Kadiša <https://github.com/martynaskadisa>
-//                 Daniel Playfair Cal <https://github.com/hedgepigdaniel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export interface DefaultImportedComponent<Props> {

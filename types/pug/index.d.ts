@@ -1,8 +1,3 @@
-// Type definitions for pug 2.0
-// Project: https://github.com/pugjs/pug
-// Definitions by: TonyYang <https://github.com/TonyPythoneer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Table of Contents
  *

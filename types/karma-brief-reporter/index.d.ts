@@ -1,9 +1,3 @@
-// Type definitions for karma-brief-reporter 0.2
-// Project: https://github.com/prantlf/karma-brief-reporter
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 import "karma";
 
 declare module "karma" {

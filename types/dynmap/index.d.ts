@@ -1,8 +1,3 @@
-// Type definitions for non-npm package dynmap 3.1
-// Project: https://github.com/webbukkit/dynmap
-// Definitions by: Mike Primm <https://github.com/mikeprimm>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
 import * as L from "leaflet";
 import "jquery";
 import "jquery-mousewheel";

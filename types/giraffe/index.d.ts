@@ -1,9 +1,3 @@
-// Type definitions for Giraffe
-// Project: https://github.com/barc/backbone.giraffe
-// Definitions by: Julian Gonggrijp <https://github.com/jgonggrijp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="backbone" />
 /// <reference types="jquery" />
 

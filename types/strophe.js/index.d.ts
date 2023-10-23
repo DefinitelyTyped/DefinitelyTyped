@@ -1,9 +1,3 @@
-// Type definitions for Strophe.js 1.4
-// Project: http://strophe.im/strophejs/
-// Definitions by: Jakub Mikos <https://github.com/CodeBast4rd>
-//                 David Deutsch <https://github.com/DavidKDeutsch>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
 export {};
 
 declare global {

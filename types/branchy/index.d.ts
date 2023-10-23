@@ -1,8 +1,3 @@
-// Type definitions for branchy 2.0
-// Project: https://github.com/loilo/branchy#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import BetterQueue = require("better-queue");
 
 export = branchy;

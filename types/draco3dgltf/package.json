@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/draco3dgltf",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/google/draco#readme"
+    ],
+    "dependencies": {
+        "@types/draco3d": "*"
+    },
+    "devDependencies": {
+        "@types/draco3dgltf": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Don McCurdy",
+            "githubUsername": "donmccurdy"
+        }
+    ]
+}

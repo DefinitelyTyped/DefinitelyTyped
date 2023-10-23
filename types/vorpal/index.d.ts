@@ -1,10 +1,3 @@
-// Type definitions for vorpal 1.12
-// Project: https://github.com/dthree/vorpal
-// Definitions by: Daniel Byrne <https://github.com/danwbyrne>
-//                 Gheorghe Avram <https://github.com/sweethuman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
 declare class Vorpal {
     parse(argv: ReadonlyArray<string>, opts?: Vorpal.ParseOpts): this;
     delimiter(value: string): this;

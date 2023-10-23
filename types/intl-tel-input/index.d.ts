@@ -1,11 +1,3 @@
-// Type definitions for intl-tel-input 18.1
-// Project: https://github.com/jackocnr/intl-tel-input
-// Definitions by: Fidan Hakaj <https://github.com/fdnhkj>
-//                 Leonard Thieu <https://github.com/leonard-thieu>
-//                 Márton Molnár <https://github.com/molnarm>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace intlTelInput;
 
 export = intlTelInput;

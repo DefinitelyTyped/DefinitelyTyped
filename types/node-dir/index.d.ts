@@ -1,9 +1,3 @@
-// Type definitions for node-dir
-// Project: https://github.com/fshost/node-dir
-// Definitions by: Panu Horsmalahti <https://github.com/panuhorsmalahti>
-//                 James Lismore <https://github.com/jlismore>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 import { ReadStream } from "fs";

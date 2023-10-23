@@ -1,8 +1,3 @@
-// Type definitions for markdown-it-plantuml 1.4
-// Project: https://github.com/gmunguia/markdown-it-plantuml#readme
-// Definitions by: Gerardo Munguia <https://github.com/gmunguia>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import MarkdownIt = require("markdown-it");
 import Renderer = require("markdown-it/lib/renderer");
 

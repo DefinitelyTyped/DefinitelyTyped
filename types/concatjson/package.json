@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/concatjson",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/manidlou/concatjson"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/concatjson": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "David Hoppe",
+            "githubUsername": "dh-sa"
+        }
+    ]
+}

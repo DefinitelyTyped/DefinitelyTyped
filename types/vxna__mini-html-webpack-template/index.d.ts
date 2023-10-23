@@ -1,9 +1,3 @@
-// Type definitions for @vxna/mini-html-webpack-template 2.0
-// Project: https://github.com/vxna/mini-html-webpack-template#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import { PluginContext } from "mini-html-webpack-plugin";
 
 /**

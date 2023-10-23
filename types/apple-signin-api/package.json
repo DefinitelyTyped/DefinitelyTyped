@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/apple-signin-api",
+    "version": "1.5.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Apple Sign in API",
+    "projects": [
+        "https://developer.apple.com/documentation/signinwithapplejs"
+    ],
+    "devDependencies": {
+        "@types/apple-signin-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Julius Lungys",
+            "githubUsername": "voidpumpkin"
+        },
+        {
+            "name": "Koen Punt",
+            "githubUsername": "koenpunt"
+        }
+    ]
+}

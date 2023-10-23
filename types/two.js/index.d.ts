@@ -1,11 +1,3 @@
-// Type definitions for js 0.7
-// Project: https://two.js.org
-// Definitions by: Carlos Precioso <https://github.com/cprecioso>
-//                 Konstantin <https://github.com/demkonst>
-//                 Levente <https://github.com/leventefabry>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 type _Object = Two.Object;
 
 declare class Two {

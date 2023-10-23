@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/d3-tip",
+    "version": "3.5.9999",
+    "projects": [
+        "https://github.com/Caged/d3-tip"
+    ],
+    "dependencies": {
+        "@types/d3": "^3"
+    },
+    "devDependencies": {
+        "@types/d3-tip": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gert Braspenning",
+            "githubUsername": "brspnnggrt"
+        }
+    ]
+}

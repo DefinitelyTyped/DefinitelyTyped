@@ -1,8 +1,3 @@
-// Type definitions for win-ca 3.5
-// Project: https://github.com/ukoloff/win-ca
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { pki } from "node-forge";

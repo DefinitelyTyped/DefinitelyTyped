@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/karma-chrome-launcher",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/karma-runner/karma-chrome-launcher#readme"
+    ],
+    "dependencies": {
+        "@types/karma": "*"
+    },
+    "devDependencies": {
+        "@types/karma-chrome-launcher": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz (Peter Blazejewicz)",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

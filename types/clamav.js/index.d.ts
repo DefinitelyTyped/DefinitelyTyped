@@ -1,8 +1,3 @@
-// Type definitions for clamav.js 0.12
-// Project: https://github.com/yongtang/clamav.js
-// Definitions by: NthMetal <https://github.com/NthMetal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { ReadStream } from "fs";

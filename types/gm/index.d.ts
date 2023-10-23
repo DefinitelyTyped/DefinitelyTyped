@@ -1,11 +1,3 @@
-// Type definitions for gm 1.25
-// Project: https://github.com/aheckmann/gm
-// Definitions by: Maarten van Vliet <https://github.com/maartenvanvliet>
-//                 Vaclav Mlejnsky <https://github.com/mlejva>
-//                 Dimitry Kooijmans <https://github.com/mrcageman>
-//                 Dmitry Semigradsky <https://github.com/Semigradsky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 import stream = require("stream");

@@ -1,8 +1,3 @@
-// Type definitions for uint64be 3.0
-// Project: https://github.com/mafintosh/uint64be
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/color-name",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/colorjs/color-name"
+    ],
+    "devDependencies": {
+        "@types/color-name": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Junyoung Clare Jang",
+            "githubUsername": "Ailrun"
+        }
+    ]
+}

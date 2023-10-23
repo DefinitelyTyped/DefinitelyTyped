@@ -1,10 +1,3 @@
-// Type definitions for swagger-ui-express 4.1
-// Project: https://github.com/scottie1984/swagger-ui-express
-// Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>
-//                 Florian Keller <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import { RequestHandler } from "express";
 import { ServeStaticOptions } from "serve-static";
 

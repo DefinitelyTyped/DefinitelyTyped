@@ -1,9 +1,3 @@
-// Type definitions for Backgrid 0.2
-// Project: http://backgridjs.com/
-// Definitions by: Jeremy Lujan <https://github.com/jlujan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as Backbone from "backbone";
 
 export as namespace Backgrid;

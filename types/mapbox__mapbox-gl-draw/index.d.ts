@@ -1,10 +1,3 @@
-// Type definitions for @mapbox/mapbox-gl-draw 1.4
-// Project: https://github.com/mapbox/mapbox-gl-draw
-// Definitions by: Tudor Gergely <https://github.com/tudorgergely>
-//                 Shayan Toqraee <https://github.com/Shayan-To>
-//                 Joel Daros <https://github.com/joel-daros>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { BBox, Feature, FeatureCollection, GeoJSON, GeoJsonTypes, Geometry, Point, Position } from "geojson";
 import {
     CircleLayer,

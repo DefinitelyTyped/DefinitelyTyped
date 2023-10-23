@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/ledgerhq__hw-app-btc",
+    "version": "5.19.9999",
+    "projects": [
+        "https://github.com/LedgerHQ/ledgerjs/tree/master/packages/hw-app-btc",
+        "https://github.com/ledgerhq/ledgerjs"
+    ],
+    "dependencies": {
+        "@types/ledgerhq__hw-transport": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/ledgerhq__hw-app-btc": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gregory Hill",
+            "githubUsername": "gregdhill"
+        }
+    ]
+}

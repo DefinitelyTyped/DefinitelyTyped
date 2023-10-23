@@ -1,22 +1,3 @@
-// Type definitions for nightwatch 2.3
-// Project: http://nightwatchjs.org
-// Definitions by: Rahul Kavalapara <https://github.com/rkavalap>
-//                 Connor Schlesiger <https://github.com/schlesiger>
-//                 Clayton Astrom <https://github.com/ClaytonAstrom>
-//                 Lukas Beranek <https://github.com/lloiser>
-//                 Vaibhav Singh <https://github.com/vaibhavsingh97>
-//                 Andrei Rusu <https://github.com/beatfactor>
-//                 David Burns <https://github.com/AutomatedTester>
-//                 Ravi Sawlani <https://github.com/gravityvi>
-//                 Binayak Ghosh <https://github.com/swrdfish>
-//                 Harshit Agrawal <https://github.com/harshit-bs>
-//                 David Mello <https://github.com/literallyMello>
-//                 Luke Bickell <https://github.com/lukebickell>
-//                 Priyansh Garg <https://github.com/garg3133>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.5
-// Nightwatch Version: 2.3.0
-
 import { Protocol } from "devtools-protocol";
 import { Actions, By, Capabilities, RelativeBy, WebElement } from "selenium-webdriver";
 import { Expect } from "./expect";

@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/pouchdb-http",
+    "version": "6.1.9999",
+    "projects": [
+        "https://pouchdb.com/",
+        "https://github.com/nolanlawson/pouchdb-http"
+    ],
+    "dependencies": {
+        "@types/pouchdb-adapter-http": "*",
+        "@types/pouchdb-core": "*"
+    },
+    "devDependencies": {
+        "@types/pouchdb-http": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Simon Paulger",
+            "githubUsername": "spaulg"
+        },
+        {
+            "name": "Brian Geppert",
+            "githubUsername": "geppy"
+        },
+        {
+            "name": "Frederico Galvão",
+            "githubUsername": "fredgalvao"
+        }
+    ]
+}

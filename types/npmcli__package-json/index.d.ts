@@ -1,9 +1,3 @@
-// Type definitions for @npmcli/package-json 4.0
-// Project: https://github.com/npm/package-json
-// Definitions by: Michaël De Boey <https://github.com/MichaelDeBoey>
-//                 Stephen Wade <https://github.com/stephenwade>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface NormalizeOptions {
     /**
      * Enables optional strict mode when applying the normalizeData step.

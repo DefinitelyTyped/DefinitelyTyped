@@ -1,8 +1,3 @@
-// Type definitions for sat.js
-// Project: https://github.com/jriecken/sat-js
-// Definitions by: Hou Chunlei <https://github.com/omni360>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace SAT {
     /**
      * This is a simple 2D vector/point class,Vector has two parameters {x},{y}.

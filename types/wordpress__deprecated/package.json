@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/wordpress__deprecated",
+    "version": "2.4.9999",
+    "projects": [
+        "https://github.com/WordPress/gutenberg/tree/master/packages/deprecated/README.md"
+    ],
+    "devDependencies": {
+        "@types/wordpress__deprecated": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Derek Sifford",
+            "githubUsername": "dsifford"
+        }
+    ]
+}

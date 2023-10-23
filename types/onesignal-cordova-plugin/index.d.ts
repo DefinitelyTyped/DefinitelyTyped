@@ -1,10 +1,3 @@
-// Type definitions for onesignal-cordova-plugin 2.6
-// Project: https://github.com/onesignal/OneSignal-Cordova-SDK#readme
-// Definitions by: David Broder-Rodgers <https://github.com/broder>
-//                Vaclav Novotny <https://github.com/vaclavnovotny>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 interface Window {
     plugins: CordovaPlugins;
 }
