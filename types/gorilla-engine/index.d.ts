@@ -97,6 +97,18 @@ declare namespace GorillaEngine {
         readonly persistence: InstrumentPropertyPersistence;
     }
 
+    interface ccState {
+        cc: number,
+        path: string
+    }
+
+    interface midiData{
+        status: string, 
+        data0: string, 
+        data1: string, 
+        tickAbsolute: string
+    }
+
     /**
      * Instrument
      */
@@ -265,7 +277,7 @@ declare namespace GorillaEngine {
          *
          * @returns Array of Midi Events
          */
-        getMidiDragData(): Array<{ status: any; data0: any; data1: any; tickAbsolute: any }>;
+        getMidiDragData(): midiData[];
 
         /**
          * Method used to send a `note on` MIDI event to the Gorilla Engine.
@@ -293,6 +305,34 @@ declare namespace GorillaEngine {
          * @returns `false` if the value could not be stringified or the given `value` as a `string`.
          */
         valueToStringAtPath(path: string, value: number): boolean | string;
+
+
+        getMIDICCstate(): ccState[]
+
+        setMIDICCstate(ccMidiSatate: ccState[]): void
+
+        renderAudioFile(renderFilePath: string, key: number, velocity: number, renderUntilSilence: boolean, minFileLength: number ): void
+
+        renderAudioFileFromMidi(renderFilePath: string, midiData: midiData[], renderUntilSilence: boolean, minFileLength: number): void
+
+        setNormalizedDoubleAtPath(path: string, value: number): void
+
+        getNormalizedDoubleAtPath(path: string): number 
+        
+        getLoadingStatus() : boolean
+
+        getLoadingProgressPercent(): number
+
+        startRecallingParameterState(): void
+
+        endRecallingParameterState(): boolean
+
+        addParameter(persistence: number): InstrumentProperty
+
+        getWaveformOverview(numPoints: number, zoneID: number, start: number, end: number, vertZoom: number ) : Uint8Array
+
+        getStringAtPath(path: string) : string
+
     }
 
     interface Blob {
@@ -329,6 +369,7 @@ declare namespace GorillaEngine {
     }): void;
     function calculateTextWidth(text: string, font: string, fontSize: number, fontKerning: number): number;
     function checkLicense(): boolean;
+    function checkBeatportRTO(): string;
     function isTrial(): boolean;
     function trialExpirationTimestamp(): number;
     function initialiseSpliceRTO(pluginName?: string): any;
@@ -347,6 +388,7 @@ declare namespace GorillaEngine {
     function getPluginMM(v: boolean): void;
     function getPluginAE(v: boolean): void;
     function getPreviewPlayer(): PreviewPlayer;
+    function getSampleMetadata(filePath: string, overviewSize: number ): string
     function openFileChooser(config: {
         allowMultiple?: boolean;
         browseDirectory?: boolean;
