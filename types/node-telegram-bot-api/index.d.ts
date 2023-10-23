@@ -181,8 +181,12 @@ declare namespace TelegramBot {
     }
 
     interface BanOptions {
-        until_date: number | undefined
-        revoke_messages: boolean | undefined
+        until_date?: number | undefined
+        revoke_messages?: boolean | undefined
+    }
+
+    interface UnbanOptions {
+        only_if_banned?: boolean | undefined
     }
 
     interface SendAudioOptions extends SendBasicOptions {
@@ -1679,7 +1683,7 @@ declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEv
         options?: TelegramBot.BanOptions
     ): Promise<boolean>;
 
-    unbanChatMember(chatId: TelegramBot.ChatId, userId: number): Promise<boolean>;
+    unbanChatMember(chatId: TelegramBot.ChatId, userId: number, options?: TelegramBot.UnbanOptions): Promise<boolean>;
 
     banChatSenderChat(chatId: TelegramBot.ChatId, senderChatId: TelegramBot.ChatId): Promise<boolean>;
 
