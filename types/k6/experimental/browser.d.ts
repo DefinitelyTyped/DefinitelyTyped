@@ -670,6 +670,9 @@ export interface BrowserContext {
 
     /**
      * Grants specified permissions to the {@link BrowserContext}.
+     * ```js
+     * context.grantPermissions(['geolocation']);
+     * ```
      */
     grantPermissions(
         /**
