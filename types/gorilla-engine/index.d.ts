@@ -277,7 +277,7 @@ declare namespace GorillaEngine {
          *
          * @returns Array of Midi Events
          */
-        getMidiDragData(): Array<midiData>;
+        getMidiDragData(): midiData[];
 
         /**
          * Method used to send a `note on` MIDI event to the Gorilla Engine.
@@ -307,13 +307,13 @@ declare namespace GorillaEngine {
         valueToStringAtPath(path: string, value: number): boolean | string;
 
 
-        getMIDICCstate(): Array<ccState>
+        getMIDICCstate(): ccState[]
 
-        setMIDICCstate(ccMidiSatate: Array<ccState>): void
+        setMIDICCstate(ccMidiSatate: ccState[]): void
 
         renderAudioFile(renderFilePath: string, key: number, velocity: number, renderUntilSilence: boolean, minFileLength: number ): void
 
-        renderAudioFileFromMidi(renderFilePath: string, midiData: Array<midiData>, renderUntilSilence: boolean, minFileLength: number): void
+        renderAudioFileFromMidi(renderFilePath: string, midiData: midiData[], renderUntilSilence: boolean, minFileLength: number): void
 
         setNormalizedDoubleAtPath(path: string, value: number): void
 
