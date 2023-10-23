@@ -5583,7 +5583,6 @@ $( document ).on( "mousemove", function( event ) {
          * For key or mouse events, this property indicates the specific key or button that was pressed.
          * @see \`{@link https://api.jquery.com/event.which/ }\`
          * @since 1.1.3
-         * @deprecated ​ Deprecated since 3.3. See \`{@link https://github.com/jquery/api.jquery.com/issues/821 }\`.
          * @example ​ ````Log which key was depressed.
 ```html
 <!doctype html>
@@ -5883,7 +5882,6 @@ $( document ).on( "mousemove", function( event ) {
          * For key or mouse events, this property indicates the specific key or button that was pressed.
          * @see \`{@link https://api.jquery.com/event.which/ }\`
          * @since 1.1.3
-         * @deprecated ​ Deprecated since 3.3. See \`{@link https://github.com/jquery/api.jquery.com/issues/821 }\`.
          * @example ​ ````Log which key was depressed.
 ```html
 <!doctype html>
@@ -6372,7 +6370,6 @@ $( document ).on( "mousemove", function( event ) {
          * For key or mouse events, this property indicates the specific key or button that was pressed.
          * @see \`{@link https://api.jquery.com/event.which/ }\`
          * @since 1.1.3
-         * @deprecated ​ Deprecated since 3.3. See \`{@link https://github.com/jquery/api.jquery.com/issues/821 }\`.
          * @example ​ ````Log which key was depressed.
 ```html
 <!doctype html>
@@ -6631,7 +6628,6 @@ $( document ).on( "mousemove", function( event ) {
          * For key or mouse events, this property indicates the specific key or button that was pressed.
          * @see \`{@link https://api.jquery.com/event.which/ }\`
          * @since 1.1.3
-         * @deprecated ​ Deprecated since 3.3. See \`{@link https://github.com/jquery/api.jquery.com/issues/821 }\`.
          * @example ​ ````Log which key was depressed.
 ```html
 <!doctype html>
@@ -6899,7 +6895,6 @@ $( document ).on( "mousemove", function( event ) {
          * For key or mouse events, this property indicates the specific key or button that was pressed.
          * @see \`{@link https://api.jquery.com/event.which/ }\`
          * @since 1.1.3
-         * @deprecated ​ Deprecated since 3.3. See \`{@link https://github.com/jquery/api.jquery.com/issues/821 }\`.
          * @example ​ ````Log which key was depressed.
 ```html
 <!doctype html>
