@@ -62,7 +62,6 @@ kebabcaseKeys({ person_interface: person }); // $ExpectType { "person-interface"
 kebabcaseKeys([""]);
 
 // Test for union type
-// eslint-disable-next-line @typescript-eslint/ban-types
 const objectCamelcased: kebabcaseKeys.KebabCasedProperties<{ fooBar: { fooProp: string } | null }, true> =
     kebabcaseKeys({ fooBar: { fooProp: "fooProps" } }, { deep: true });
 objectCamelcased; // $ExpectType { "foo-bar": { "foo-prop": string; } | null; }
