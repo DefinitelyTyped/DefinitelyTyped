@@ -669,7 +669,7 @@ export interface BrowserContext {
     close(): void;
 
     /**
-     * Grants specified permissions to the `BrowserContext`.
+     * Grants specified permissions to the {@link BrowserContext}.
      */
     grantPermissions(
         /**
