@@ -656,7 +656,7 @@ export interface BrowserContext {
     cookies(...urls: string[]): Cookie[];
 
     /**
-     * Clears all permission overrides for the `BrowserContext`.
+     * Clears all permission overrides for the {@link BrowserContext}.
      */
     clearPermissions(): void;
 
