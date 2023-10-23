@@ -1402,90 +1402,90 @@ declare namespace TelegramBot {
     }
 
     interface TelegramEvents {
-        'message': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'text': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'animation': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'audio': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'channel_chat_created': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'contact': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'delete_chat_photo': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'document': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'game': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'group_chat_created': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'invoice': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'left_chat_member': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'location': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'migrate_from_chat_id': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'migrate_to_chat_id': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'new_chat_members': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'new_chat_photo': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'new_chat_title': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'passport_data': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'photo': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'pinned_message': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'sticker': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'successful_payment': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'supergroup_chat_created': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'video': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'video_note': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'voice': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'video_chat_started': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'video_chat_ended': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'video_chat_participants_invited': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'video_chat_scheduled': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'message_auto_delete_timer_changed': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'chat_invite_link': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'chat_member_updated': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'web_app_data': [message: TelegramBot.Message, metadata: TelegramBot.Metadata]
-        'callback_query': [query: TelegramBot.CallbackQuery]
-        'inline_query': [query: TelegramBot.InlineQuery]
-        'poll': [poll: TelegramBot.Poll]
-        'poll_answer': [poll: TelegramBot.PollAnswer]
-        'chat_member': [member: TelegramBot.ChatMemberUpdated]
-        'my_chat_member': [member: TelegramBot.ChatMemberUpdated]
-        'chosen_inline_result': [result: TelegramBot.ChosenInlineResult]
-        'channel_post': [message: TelegramBot.Message]
-        'edited_message': [message: TelegramBot.Message]
-        'edited_message_text': [message: TelegramBot.Message]
-        'edited_message_caption': [message: TelegramBot.Message]
-        'edited_channel_post': [message: TelegramBot.Message]
-        'edited_channel_post_text': [message: TelegramBot.Message]
-        'edited_channel_post_caption': [message: TelegramBot.Message]
-        'shipping_query': [query: TelegramBot.ShippingQuery]
-        'pre_checkout_query': [query: TelegramBot.PreCheckoutQuery]
+        'message': [message: Message, metadata: Metadata]
+        'text': [message: Message, metadata: Metadata]
+        'animation': [message: Message, metadata: Metadata]
+        'audio': [message: Message, metadata: Metadata]
+        'channel_chat_created': [message: Message, metadata: Metadata]
+        'contact': [message: Message, metadata: Metadata]
+        'delete_chat_photo': [message: Message, metadata: Metadata]
+        'document': [message: Message, metadata: Metadata]
+        'game': [message: Message, metadata: Metadata]
+        'group_chat_created': [message: Message, metadata: Metadata]
+        'invoice': [message: Message, metadata: Metadata]
+        'left_chat_member': [message: Message, metadata: Metadata]
+        'location': [message: Message, metadata: Metadata]
+        'migrate_from_chat_id': [message: Message, metadata: Metadata]
+        'migrate_to_chat_id': [message: Message, metadata: Metadata]
+        'new_chat_members': [message: Message, metadata: Metadata]
+        'new_chat_photo': [message: Message, metadata: Metadata]
+        'new_chat_title': [message: Message, metadata: Metadata]
+        'passport_data': [message: Message, metadata: Metadata]
+        'photo': [message: Message, metadata: Metadata]
+        'pinned_message': [message: Message, metadata: Metadata]
+        'sticker': [message: Message, metadata: Metadata]
+        'successful_payment': [message: Message, metadata: Metadata]
+        'supergroup_chat_created': [message: Message, metadata: Metadata]
+        'video': [message: Message, metadata: Metadata]
+        'video_note': [message: Message, metadata: Metadata]
+        'voice': [message: Message, metadata: Metadata]
+        'video_chat_started': [message: Message, metadata: Metadata]
+        'video_chat_ended': [message: Message, metadata: Metadata]
+        'video_chat_participants_invited': [message: Message, metadata: Metadata]
+        'video_chat_scheduled': [message: Message, metadata: Metadata]
+        'message_auto_delete_timer_changed': [message: Message, metadata: Metadata]
+        'chat_invite_link': [message: Message, metadata: Metadata]
+        'chat_member_updated': [message: Message, metadata: Metadata]
+        'web_app_data': [message: Message, metadata: Metadata]
+        'callback_query': [query: CallbackQuery]
+        'inline_query': [query: InlineQuery]
+        'poll': [poll: Poll]
+        'poll_answer': [poll: PollAnswer]
+        'chat_member': [member: ChatMemberUpdated]
+        'my_chat_member': [member: ChatMemberUpdated]
+        'chosen_inline_result': [result: ChosenInlineResult]
+        'channel_post': [message: Message]
+        'edited_message': [message: Message]
+        'edited_message_text': [message: Message]
+        'edited_message_caption': [message: Message]
+        'edited_channel_post': [message: Message]
+        'edited_channel_post_text': [message: Message]
+        'edited_channel_post_caption': [message: Message]
+        'shipping_query': [query: ShippingQuery]
+        'pre_checkout_query': [query: PreCheckoutQuery]
         'polling_error': [error: Error]
         'webhook_error': [error: Error]
-        'chat_join_request': [query: TelegramBot.ChatJoinRequest]
+        'chat_join_request': [query: ChatJoinRequest]
     }
 }
 
 declare class TelegramBotEventEmitter<E extends Record<string, any>> {
-    public on<K extends Exclude<keyof E, number>>(event: K, listener: (...args: E[K]) => any): TelegramBotEventEmitter<E>
-    public on<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
+    on<K extends Exclude<keyof E, number>>(event: K, listener: (...args: E[K]) => any): TelegramBotEventEmitter<E>
+    on<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
 
-    public off<K extends Exclude<keyof E, number>>(event: K, listener: (...args: E[K]) => any): TelegramBotEventEmitter<E>
-    public off<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
+    off<K extends Exclude<keyof E, number>>(event: K, listener: (...args: E[K]) => any): TelegramBotEventEmitter<E>
+    off<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
 
-    public addListener<K extends Exclude<keyof E, number>>(event: K, listener: (...args: E[K]) => any): TelegramBotEventEmitter<E>
-    public addListener<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
+    addListener<K extends Exclude<keyof E, number>>(event: K, listener: (...args: E[K]) => any): TelegramBotEventEmitter<E>
+    addListener<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
 
-    public removeListener<K extends Exclude<keyof E, number>>(event: K, listener: (...args: E[K]) => any): TelegramBotEventEmitter<E>
-    public removeListener<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
+    removeListener<K extends Exclude<keyof E, number>>(event: K, listener: (...args: E[K]) => any): TelegramBotEventEmitter<E>
+    removeListener<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
 
-    public prependListener<K extends Exclude<keyof E, number>>(event: K, listener: (...args: E[K]) => any): TelegramBotEventEmitter<E>
-    public prependListener<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
+    prependListener<K extends Exclude<keyof E, number>>(event: K, listener: (...args: E[K]) => any): TelegramBotEventEmitter<E>
+    prependListener<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
 
-    public prependOnceListener<K extends Exclude<keyof E, number>>(event: K, listener: (...args: E[K]) => any): TelegramBotEventEmitter<E>
-    public prependOnceListener<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
+    prependOnceListener<K extends Exclude<keyof E, number>>(event: K, listener: (...args: E[K]) => any): TelegramBotEventEmitter<E>
+    prependOnceListener<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
 
-    public once<K extends Exclude<keyof E, number>>(event: K, listener: (...args: E[K]) => any): TelegramBotEventEmitter<E>
-    public once<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
+    once<K extends Exclude<keyof E, number>>(event: K, listener: (...args: E[K]) => any): TelegramBotEventEmitter<E>
+    once<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
 
-    public removeAllListeners<K extends Exclude<keyof E, number>>(event?: K): TelegramBotEventEmitter<E>
-    public removeAllListeners<K extends string | symbol>(event?: Exclude<K, keyof E>): TelegramBotEventEmitter<E>
+    removeAllListeners<K extends Exclude<keyof E, number>>(event?: K): TelegramBotEventEmitter<E>
+    removeAllListeners<K extends string | symbol>(event?: Exclude<K, keyof E>): TelegramBotEventEmitter<E>
 
-    public emit<K extends Exclude<keyof E, number>>(event: K, ...args: E[K]): boolean
-    public emit<K extends string | symbol>(event: Exclude<K, keyof E>, ...args: any[]): boolean
+    emit<K extends Exclude<keyof E, number>>(event: K, ...args: E[K]): boolean
+    emit<K extends string | symbol>(event: Exclude<K, keyof E>, ...args: any[]): boolean
 }
 
 declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEvents> {
