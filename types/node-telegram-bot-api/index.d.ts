@@ -1439,7 +1439,7 @@ declare namespace TelegramBot {
         web_app_data: [message: Message, metadata: Metadata]
         callback_query: [query: CallbackQuery]
         inline_query: [query: InlineQuery]
-        poll: [poll: Poll]
+        poll: [pollObject: Poll]
         poll_answer: [poll: PollAnswer]
         chat_member: [member: ChatMemberUpdated]
         my_chat_member: [member: ChatMemberUpdated]
