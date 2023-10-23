@@ -88,6 +88,8 @@ declare var importDefaultSpecifier: ESTree.ImportDefaultSpecifier;
 declare var importNamespaceSpecifier: ESTree.ImportNamespaceSpecifier;
 declare var exportNamedDeclaration: ESTree.ExportNamedDeclaration;
 declare var exportSpecifier: ESTree.ExportSpecifier;
+declare var maybeNamedClassDeclaration: ESTree.MaybeNamedClassDeclaration;
+declare var maybeNamedFunctionDeclaration: ESTree.MaybeNamedFunctionDeclaration;
 declare var exportDefaultDeclaration: ESTree.ExportDefaultDeclaration;
 declare var exportAllDeclaration: ESTree.ExportAllDeclaration;
 declare var awaitExpression: ESTree.AwaitExpression;
@@ -261,6 +263,7 @@ if (memberExpressionOrCallExpression.type === "MemberExpression") {
 // Declarations
 var functionDeclaration: ESTree.FunctionDeclaration;
 var identifierOrNull: ESTree.Identifier | null = functionDeclaration.id;
+// @ts-expect-error Use MaybeNamedFunctionDeclaration for default exports
 functionDeclaration.id = null;
 var params: ESTree.Pattern[] = functionDeclaration.params;
 blockStatement = functionDeclaration.body;
@@ -277,6 +280,7 @@ expressionMaybe = variableDeclarator.init;
 
 var classDeclaration: ESTree.ClassDeclaration;
 identifierOrNull = classDeclaration.id;
+// @ts-expect-error Use MaybeNamedClassDeclaration for default exports
 classDeclaration.id = null;
 
 // Clauses
@@ -797,7 +801,7 @@ switch (forOfStatement.left.type) {
         break;
 }
 
-switch(exportDefaultDeclaration.declaration.type) {
+switch (exportDefaultDeclaration.declaration.type) {
     case "Identifier":
         identifier = exportDefaultDeclaration.declaration;
         break;
@@ -810,10 +814,10 @@ switch(exportDefaultDeclaration.declaration.type) {
 
     // narrowing of Declaration
     case "FunctionDeclaration":
-        functionDeclaration = exportDefaultDeclaration.declaration;
+        maybeNamedFunctionDeclaration = exportDefaultDeclaration.declaration;
         break;
     case "ClassDeclaration":
-        classDeclaration = exportDefaultDeclaration.declaration;
+        maybeNamedClassDeclaration = exportDefaultDeclaration.declaration;
         break;
     // end narrowing of Declaration
 
