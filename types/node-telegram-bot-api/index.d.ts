@@ -181,8 +181,8 @@ declare namespace TelegramBot {
     }
 
     interface BanOptions {
-        until_date?: number | undefined
-        revoke_messages?: boolean | undefined
+        until_date: number | undefined
+        revoke_messages: boolean | undefined
     }
 
     interface SendAudioOptions extends SendBasicOptions {
@@ -1457,31 +1457,31 @@ declare namespace TelegramBot {
 
 declare class TelegramBotEventEmitter<E extends Record<string, any>> {
     public on<K extends Exclude<keyof E, number>>(event: K, listener: (...args: E[K]) => any): TelegramBotEventEmitter<E>
-    public on<K extends string | symbol>(event: Exclude<K, keyof TelegramBot.TelegramEvents>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
+    public on<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
 
     public off<K extends Exclude<keyof E, number>>(event: K, listener: (...args: E[K]) => any): TelegramBotEventEmitter<E>
-    public off<K extends string | symbol>(event: Exclude<K, keyof TelegramBot.TelegramEvents>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
+    public off<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
 
     public addListener<K extends Exclude<keyof E, number>>(event: K, listener: (...args: E[K]) => any): TelegramBotEventEmitter<E>
-    public addListener<K extends string | symbol>(event: Exclude<K, keyof TelegramBot.TelegramEvents>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
+    public addListener<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
 
     public removeListener<K extends Exclude<keyof E, number>>(event: K, listener: (...args: E[K]) => any): TelegramBotEventEmitter<E>
-    public removeListener<K extends string | symbol>(event: Exclude<K, keyof TelegramBot.TelegramEvents>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
+    public removeListener<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
 
     public prependListener<K extends Exclude<keyof E, number>>(event: K, listener: (...args: E[K]) => any): TelegramBotEventEmitter<E>
-    public prependListener<K extends string | symbol>(event: Exclude<K, keyof TelegramBot.TelegramEvents>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
+    public prependListener<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
 
     public prependOnceListener<K extends Exclude<keyof E, number>>(event: K, listener: (...args: E[K]) => any): TelegramBotEventEmitter<E>
-    public prependOnceListener<K extends string | symbol>(event: Exclude<K, keyof TelegramBot.TelegramEvents>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
+    public prependOnceListener<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
 
     public once<K extends Exclude<keyof E, number>>(event: K, listener: (...args: E[K]) => any): TelegramBotEventEmitter<E>
-    public once<K extends string | symbol>(event: Exclude<K, keyof TelegramBot.TelegramEvents>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
+    public once<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
 
     public removeAllListeners<K extends Exclude<keyof E, number>>(event?: K): TelegramBotEventEmitter<E>
-    public removeAllListeners<K extends string | symbol>(event?: Exclude<K, keyof TelegramBot.TelegramEvents>): TelegramBotEventEmitter<E>
+    public removeAllListeners<K extends string | symbol>(event?: Exclude<K, keyof E>): TelegramBotEventEmitter<E>
 
     public emit<K extends Exclude<keyof E, number>>(event: K, ...args: E[K]): boolean
-    public emit<K extends string | symbol>(event: Exclude<K, keyof TelegramBot.TelegramEvents>, ...args: any[]): boolean
+    public emit<K extends string | symbol>(event: Exclude<K, keyof E>, ...args: any[]): boolean
 }
 
 declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEvents> {
