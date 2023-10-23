@@ -53,8 +53,8 @@ export interface PublishOptions {
  *  Get the cache directory.
  */
 export function getCacheDir(optPath?: string): string;
-export function publish(basePath: string, callback: (err: any) => void): void;
-export function publish(basePath: string, config: PublishOptions, callback?: (err: any) => void): void;
+export function publish(basePath: string, callback: (err: any) => void): Promise<void>;
+export function publish(basePath: string, config: PublishOptions, callback?: (err: any) => void): Promise<void>;
 
 export function clean(): void;
 
