@@ -657,6 +657,9 @@ export interface BrowserContext {
 
     /**
      * Clears all permission overrides for the {@link BrowserContext}.
+     * ```js
+     * context.clearPermissions();
+     * ```
      */
     clearPermissions(): void;
 
