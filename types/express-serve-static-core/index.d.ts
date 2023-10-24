@@ -554,8 +554,11 @@ export interface Request<
      * Return the remote address, or when
      * "trust proxy" is `true` return
      * the upstream addr.
+     *
+     * Value may be undefined if the `req.socket` is destroyed
+     * (for example, if the client disconnected).
      */
-    ip: string;
+    ip: string | undefined;
 
     /**
      * When "trust proxy" is `true`, parse
