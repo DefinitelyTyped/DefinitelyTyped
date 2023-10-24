@@ -141,6 +141,12 @@ interface SystemError extends Error {
     code?: string | undefined;
 }
 
+export class AbortError extends Error {
+    readonly name: "AbortError";
+    constructor(message: string);
+    readonly type: "aborted";
+}
+
 export class FetchError extends Error {
     name: "FetchError";
     constructor(message: string, type: string, systemError?: SystemError);
