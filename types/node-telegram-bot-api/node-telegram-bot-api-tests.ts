@@ -155,7 +155,7 @@ MyTelegramBot.sendChatAction(1234, "typing");
 MyTelegramBot.banChatMember(1234, 5678);
 MyTelegramBot.banChatMember(1234, 5678, {
     until_date: Date.now() + 60000,
-    revoke_messages: true
+    revoke_messages: true,
 });
 MyTelegramBot.unbanChatMember(1234, 5678);
 MyTelegramBot.restrictChatMember(1234, 5678, {
@@ -373,7 +373,7 @@ MyTelegramBot.removeAllListeners();
 MyTelegramBot.listeners("message");
 MyTelegramBot.rawListeners("message");
 MyTelegramBot.listenerCount("message");
-MyTelegramBot.emit('ready') // emitting a custom event
+MyTelegramBot.emit("ready"); // emitting a custom event
 MyTelegramBot.setChatPermissions(1234, {});
 MyTelegramBot.sendDice(1234, { disable_notification: true });
 MyTelegramBot.setChatAdministratorCustomTitle(1234, 5678, "some_custom_title");

@@ -181,12 +181,12 @@ declare namespace TelegramBot {
     }
 
     interface BanOptions {
-        until_date?: number | undefined
-        revoke_messages?: boolean | undefined
+        until_date?: number | undefined;
+        revoke_messages?: boolean | undefined;
     }
 
     interface UnbanOptions {
-        only_if_banned?: boolean | undefined
+        only_if_banned?: boolean | undefined;
     }
 
     interface SendAudioOptions extends SendBasicOptions {
@@ -916,7 +916,7 @@ declare namespace TelegramBot {
     }
 
     // tslint:disable-next-line:no-empty-interface Currently holds no information (https://core.telegram.org/bots/api#forumtopicclosed)
-    interface ForumTopicClosed { }
+    interface ForumTopicClosed {}
 
     interface ForumTopicEdited {
         name: string;
@@ -924,13 +924,13 @@ declare namespace TelegramBot {
     }
 
     // tslint:disable-next-line:no-empty-interface Currently holds no information (https://core.telegram.org/bots/api#forumtopicreopened)
-    interface ForumTopicReopened { }
+    interface ForumTopicReopened {}
 
     // tslint:disable-next-line:no-empty-interface Currently holds no information (https://core.telegram.org/bots/api#generalforumtopichidden)
-    interface GeneralForumTopicHidden { }
+    interface GeneralForumTopicHidden {}
 
     // tslint:disable-next-line:no-empty-interface Currently holds no information (https://core.telegram.org/bots/api#generalforumtopicunhidden)
-    interface GeneralForumTopicUnhidden { }
+    interface GeneralForumTopicUnhidden {}
 
     interface UserShared {
         request_id: number;
@@ -1456,36 +1456,57 @@ declare namespace TelegramBot {
         polling_error: (error: Error) => any;
         webhook_error: (error: Error) => any;
         chat_join_request: (query: ChatJoinRequest) => any;
-      }
+    }
 }
 
 declare class TelegramBotEventEmitter<E extends Record<string, any>> {
-    on<K extends Exclude<keyof E, number>>(event: K, listener: E[K]): TelegramBotEventEmitter<E>
-    on<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
+    on<K extends Exclude<keyof E, number>>(event: K, listener: E[K]): TelegramBotEventEmitter<E>;
+    on<K extends string | symbol>(
+        event: Exclude<K, keyof E>,
+        listener: (...args: any[]) => any,
+    ): TelegramBotEventEmitter<E>;
 
-    off<K extends Exclude<keyof E, number>>(event: K, listener: E[K]): TelegramBotEventEmitter<E>
-    off<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
+    off<K extends Exclude<keyof E, number>>(event: K, listener: E[K]): TelegramBotEventEmitter<E>;
+    off<K extends string | symbol>(
+        event: Exclude<K, keyof E>,
+        listener: (...args: any[]) => any,
+    ): TelegramBotEventEmitter<E>;
 
-    addListener<K extends Exclude<keyof E, number>>(event: K, listener: E[K]): TelegramBotEventEmitter<E>
-    addListener<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
+    addListener<K extends Exclude<keyof E, number>>(event: K, listener: E[K]): TelegramBotEventEmitter<E>;
+    addListener<K extends string | symbol>(
+        event: Exclude<K, keyof E>,
+        listener: (...args: any[]) => any,
+    ): TelegramBotEventEmitter<E>;
 
-    removeListener<K extends Exclude<keyof E, number>>(event: K, listener: E[K]): TelegramBotEventEmitter<E>
-    removeListener<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
+    removeListener<K extends Exclude<keyof E, number>>(event: K, listener: E[K]): TelegramBotEventEmitter<E>;
+    removeListener<K extends string | symbol>(
+        event: Exclude<K, keyof E>,
+        listener: (...args: any[]) => any,
+    ): TelegramBotEventEmitter<E>;
 
-    prependListener<K extends Exclude<keyof E, number>>(event: K, listener: E[K]): TelegramBotEventEmitter<E>
-    prependListener<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
+    prependListener<K extends Exclude<keyof E, number>>(event: K, listener: E[K]): TelegramBotEventEmitter<E>;
+    prependListener<K extends string | symbol>(
+        event: Exclude<K, keyof E>,
+        listener: (...args: any[]) => any,
+    ): TelegramBotEventEmitter<E>;
 
-    prependOnceListener<K extends Exclude<keyof E, number>>(event: K, listener: E[K]): TelegramBotEventEmitter<E>
-    prependOnceListener<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
+    prependOnceListener<K extends Exclude<keyof E, number>>(event: K, listener: E[K]): TelegramBotEventEmitter<E>;
+    prependOnceListener<K extends string | symbol>(
+        event: Exclude<K, keyof E>,
+        listener: (...args: any[]) => any,
+    ): TelegramBotEventEmitter<E>;
 
-    once<K extends Exclude<keyof E, number>>(event: K, listener: E[K]): TelegramBotEventEmitter<E>
-    once<K extends string | symbol>(event: Exclude<K, keyof E>, listener: (...args: any[]) => any): TelegramBotEventEmitter<E>
+    once<K extends Exclude<keyof E, number>>(event: K, listener: E[K]): TelegramBotEventEmitter<E>;
+    once<K extends string | symbol>(
+        event: Exclude<K, keyof E>,
+        listener: (...args: any[]) => any,
+    ): TelegramBotEventEmitter<E>;
 
-    removeAllListeners<K extends Exclude<keyof E, number>>(event?: K): TelegramBotEventEmitter<E>
-    removeAllListeners<K extends string | symbol>(event?: Exclude<K, keyof E>): TelegramBotEventEmitter<E>
+    removeAllListeners<K extends Exclude<keyof E, number>>(event?: K): TelegramBotEventEmitter<E>;
+    removeAllListeners<K extends string | symbol>(event?: Exclude<K, keyof E>): TelegramBotEventEmitter<E>;
 
-    emit<K extends Exclude<keyof E, number>>(event: K, ...args: E[K]): boolean
-    emit<K extends string | symbol>(event: Exclude<K, keyof E>, ...args: any[]): boolean
+    emit<K extends Exclude<keyof E, number>>(event: K, ...args: E[K]): boolean;
+    emit<K extends string | symbol>(event: Exclude<K, keyof E>, ...args: any[]): boolean;
 }
 
 declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEvents> {
@@ -1680,7 +1701,7 @@ declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEv
     banChatMember(
         chatId: TelegramBot.ChatId,
         userId: number,
-        options?: TelegramBot.BanOptions
+        options?: TelegramBot.BanOptions,
     ): Promise<boolean>;
 
     unbanChatMember(chatId: TelegramBot.ChatId, userId: number, options?: TelegramBot.UnbanOptions): Promise<boolean>;
