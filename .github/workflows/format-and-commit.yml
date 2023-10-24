@@ -18,7 +18,7 @@ jobs:
         with:
           # Use the bot token so that CI triggers on pushes; we want to know if formatting broke something.
           token: ${{ secrets.GH_DT_MERGEBOT_TOKEN }}
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
 
       - uses: pnpm/action-setup@v2
         name: Install pnpm
