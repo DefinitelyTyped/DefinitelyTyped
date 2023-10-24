@@ -1,5 +1,5 @@
 import { Agent } from "http";
-import fetch, { Blob, FetchError, Headers, Request, RequestInit, Response, AbortError } from "node-fetch";
+import fetch, { AbortError, Blob, FetchError, Headers, Request, RequestInit, Response } from "node-fetch";
 import { URL } from "url";
 
 function test_AbortError() {
