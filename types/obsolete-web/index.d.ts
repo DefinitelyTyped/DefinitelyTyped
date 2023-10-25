@@ -1,8 +1,3 @@
-// Type definitions for obsolete-web 0.5
-// Project: https://github.elenet.me/fe/obsolete-webpack-plugin
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Obsolete {
     constructor(options?: Options);
     static defaultOptions: Readonly<Required<Options>>;

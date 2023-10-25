@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/cli-table2",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/jamestalmage/cli-table2"
+    ],
+    "devDependencies": {
+        "@types/cli-table2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Melvin Groenhoff",
+            "githubUsername": "mgroenhoff"
+        }
+    ]
+}

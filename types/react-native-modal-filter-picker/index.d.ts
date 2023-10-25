@@ -1,11 +1,3 @@
-// Type definitions for react-native-modal-filter-picker 2.1
-// Project: https://github.com/hiddentao/react-native-modal-filter-picker#readme
-// Definitions by: Chang Yanwei <https://github.com/ywchang>
-//                 Cheng Gibson <https://github.com/nossbigg>
-//                 Zheng Arnaud <https://github.com/arnaud-zg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 import { FlatListProps, KeyboardAvoidingView, ModalProps, StyleProp, TextStyle, ViewStyle } from "react-native";
 

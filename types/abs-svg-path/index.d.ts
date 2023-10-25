@@ -1,8 +1,3 @@
-// Type definitions for abs-svg-path 0.1
-// Project: https://github.com/jkroso/abs-svg-path
-// Definitions by: Liam Martens <https://github.com/LiamMartens>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type RelMoveCommand = ["m", number, number];
 type AbsMoveCommand = ["M", number, number];
 type MoveCommand = RelMoveCommand | AbsMoveCommand;

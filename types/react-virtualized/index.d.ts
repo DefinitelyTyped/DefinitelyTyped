@@ -1,15 +1,3 @@
-// Type definitions for react-virtualized 9.21
-// Project: https://github.com/bvaughn/react-virtualized
-// Definitions by: Kalle Ott <https://github.com/kaoDev>
-//                 John Gunther <https://github.com/guntherjh>
-//                 Konstantin Nesterov <https://github.com/wasd171>
-//                 Steve Zhang <https://github.com/Stevearzh>
-//                 Brandon Hall <https://github.com/brandonhall>
-//                 Sebastian Busch <https://github.com/sbusch>
-//                 Adam Zmenak <https://github.com/azmenak>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 export {
     ArrowKeyStepper,
     ArrowKeyStepperProps,

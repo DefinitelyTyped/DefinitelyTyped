@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/smooth-scroll",
+    "version": "16.1.9999",
+    "projects": [
+        "https://github.com/cferdinandi/smooth-scroll"
+    ],
+    "devDependencies": {
+        "@types/smooth-scroll": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrei Horodinca",
+            "githubUsername": "andreiho"
+        },
+        {
+            "name": "grgr-dkrk",
+            "githubUsername": "grgr-dkrk"
+        }
+    ]
+}

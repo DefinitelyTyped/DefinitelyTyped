@@ -38,7 +38,7 @@ declare module "os" {
         username: T;
         uid: number;
         gid: number;
-        shell: T;
+        shell: T | null;
         homedir: T;
     }
     type NetworkInterfaceInfo = NetworkInterfaceInfoIPv4 | NetworkInterfaceInfoIPv6;

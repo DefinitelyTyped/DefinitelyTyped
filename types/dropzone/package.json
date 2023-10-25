@@ -1,0 +1,60 @@
+{
+    "private": true,
+    "name": "@types/dropzone",
+    "version": "5.7.9999",
+    "projects": [
+        "http://www.dropzonejs.com/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/dropzone": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Natan Vivo",
+            "githubUsername": "nvivo"
+        },
+        {
+            "name": "Andy Hawkins",
+            "url": "https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com"
+        },
+        {
+            "name": "Vasya Aksyonov",
+            "githubUsername": "outring"
+        },
+        {
+            "name": "Simon Huber",
+            "githubUsername": "renuo"
+        },
+        {
+            "name": "Sebastiaan de Rooij",
+            "githubUsername": "Hikariii"
+        },
+        {
+            "name": "Ted Bicknell",
+            "githubUsername": "tedbcsgpro"
+        },
+        {
+            "name": "Daniel Waxweiler",
+            "githubUsername": "dwaxweiler"
+        },
+        {
+            "name": "PikachuEXE",
+            "githubUsername": "PikachuEXE"
+        },
+        {
+            "name": "Arne Deruwe",
+            "githubUsername": "arnederuwe"
+        },
+        {
+            "name": "Chris Macklin",
+            "githubUsername": "macklin-10x"
+        },
+        {
+            "name": "Michał Lipiński",
+            "githubUsername": "falsyvalues"
+        }
+    ]
+}

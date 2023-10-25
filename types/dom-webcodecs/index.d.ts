@@ -1,9 +1,3 @@
-// Type definitions for non-npm package WebCodecs 0.1
-// Project: https://w3c.github.io/webcodecs/
-// Definitions by: Ben Wagner <https://github.com/dogben>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 5.2
-
 // Versioning:
 // Until the WebCodecs spec is finalized, the major version number is 0. I have chosen to use minor
 // version 1 to denote the API as defined by the IDL files from the Chromium repo at

@@ -1,11 +1,3 @@
-// Type definitions for Lazy.js 0.5.1
-// Project: https://github.com/dtao/lazy.js/
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 Gabriel Lorquet <https://github.com/gablorquet>
-//                 Alexey Gerasimov <https://github.com/fan-tom>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 declare namespace LazyJS {
     interface LazyStatic {
         (value: string): StringLikeSequence;

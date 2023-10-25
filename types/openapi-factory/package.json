@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/openapi-factory",
+    "version": "4.2.9999",
+    "projects": [
+        "https://github.com/wparad/openapi-factory.js",
+        "https://github.com/wparad/node-openapi-factory"
+    ],
+    "devDependencies": {
+        "@types/openapi-factory": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daan Boerlage",
+            "githubUsername": "runebaas"
+        }
+    ]
+}

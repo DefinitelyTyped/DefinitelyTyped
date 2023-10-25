@@ -1,8 +1,3 @@
-// Type definitions for react-native-square-in-app-payments 1.4
-// Project: https://github.com/square/in-app-payments-react-native-plugin
-// Definitions by: Phillip Sgardelis <https://github.com/Phillip-Cognativ>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // https://github.com/square/in-app-payments-react-native-plugin/blob/master/docs/reference.md
 
 // Types

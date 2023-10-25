@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/duplexer2",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/deoxxa/duplexer2"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/duplexer2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Zlatko Andonovski",
+            "githubUsername": "Goldsmith42"
+        },
+        {
+            "name": "Simon Oulevay",
+            "githubUsername": "AlphaHydrae"
+        }
+    ]
+}

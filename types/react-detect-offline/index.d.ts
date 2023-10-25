@@ -1,8 +1,3 @@
-// Type definitions for react-detect-offline 2.4
-// Project: https://github.com/cwise89/react-detect-offline#readme
-// Definitions by: Rhythm Bhiwani <https://github.com/rhythmbhiwani>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="react" />
 
 export interface PollingConfig {

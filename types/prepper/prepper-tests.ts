@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { EventEmitter } from "events";
 import { handlers, Logger } from "prepper";
 

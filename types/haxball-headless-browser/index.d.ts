@@ -1,8 +1,3 @@
-// Type definitions for non-npm package haxball-headless-browser 0.2
-// Project: https://github.com/haxball/haxball-issues/wiki/Headless-Host
-// Definitions by: Jakub Juszko <https://github.com/jakjus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function HBInit(roomConfig: RoomConfigObject): RoomObject;
 
 interface RoomConfigObject {

@@ -1,8 +1,3 @@
-// Type definitions for node-barion 3.1
-// Project: https://github.com/aron123/node-barion
-// Definitions by: Áron Kiss <https://github.com/aron123>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Barion;
 
 interface BankAccount {

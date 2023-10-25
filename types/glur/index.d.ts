@@ -1,8 +1,3 @@
-// Type definitions for glur 1.1
-// Project: https://github.com/andr83/glur/issues
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Fast Gaussian Blur in pure JavaScript, via IIR filer.
  * Speed does not depend on blur radius

@@ -1,22 +1,20 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "ES5",
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "baseUrl": "../",
-    "typeRoots": [
-        "../"
-    ],
-    "lib": ["es6"],
-    "types": [],
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "files": [
-    "index.d.ts",
-    "wechat-miniprogram-xmly-tests.ts"
-  ]
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "ES5",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "lib": [
+            "es6"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "wechat-miniprogram-xmly-tests.ts"
+    ]
 }

@@ -5,6 +5,7 @@ declare namespace GorillaEngine.UI {
         hideHorizontalScrollbar: boolean;
         ignoreKeypressEvent: boolean;
         scrollChildIntoView(childIndex: number): void;
+        setScrollPositionProportionately(xPos: number, yPos: number): void;
     }
 
     class ScrollView extends Component {

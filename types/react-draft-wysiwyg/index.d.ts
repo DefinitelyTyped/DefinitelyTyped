@@ -1,13 +1,3 @@
-// Type definitions for react-draft-wysiwyg 1.13
-// Project: https://github.com/jpuri/react-draft-wysiwyg#readme
-// Definitions by: imechZhangLY <https://github.com/imechZhangLY>
-//                 brunoMaurice <https://github.com/brunoMaurice>
-//                 ldanet <https://github.com/ldanet>
-//                 Munif Tanjim <https://github.com/MunifTanjim>
-//                 Nathan Zeplowitz <https://github.com/n-zeplo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 import * as Draft from "draft-js";
 import * as React from "react";
 

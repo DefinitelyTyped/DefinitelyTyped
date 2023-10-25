@@ -1,8 +1,3 @@
-// Type definitions for @delowar/react-circle-progressbar 1.0
-// Project: https://github.com/delowardev/react-circle-progressbar
-// Definitions by: Seungbin Oh <https://github.com/sboh1214>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 declare const Progress: React.FunctionComponent<ProgressProps>;

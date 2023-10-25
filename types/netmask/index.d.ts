@@ -1,10 +1,3 @@
-// Type definitions for netmask 2.0
-// Project: https://github.com/rs/node-netmask
-// Definitions by: Matt Frantz <https://github.com/mhfrantz>
-//                 JanST123 <https://github.com/JanST123>
-//                 Junxiao Shi <https://github.com/yoursunny>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * converts long to an ip address
  */

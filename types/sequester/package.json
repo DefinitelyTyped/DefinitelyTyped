@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/sequester",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/bigeasy/sequester"
+    ],
+    "devDependencies": {
+        "@types/sequester": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Artur Eshenbrener",
+            "githubUsername": "Strate"
+        }
+    ]
+}

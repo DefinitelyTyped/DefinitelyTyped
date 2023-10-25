@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/xmpp__sasl-anonymous",
+    "version": "0.13.9999",
+    "projects": [
+        "https://github.com/xmppjs/xmpp.js/tree/main/packages/sasl-anonymous"
+    ],
+    "dependencies": {
+        "@types/xmpp__sasl": "*"
+    },
+    "devDependencies": {
+        "@types/xmpp__sasl-anonymous": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

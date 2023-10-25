@@ -1,20 +1,20 @@
 {
-  "compilerOptions": {
-      "module": "commonjs",
-      "lib": ["es6"],
-      "noImplicitAny": true,
-      "noImplicitThis": true,
-      "strictNullChecks": true,
-      "strictFunctionTypes": true,
-      "baseUrl": "../",
-      "typeRoots": ["../"],
-      "types": [],
-      "noEmit": true,
-      "forceConsistentCasingInFileNames": true,
-      "paths": {
-          "@carbon/*": ["carbon__*"]
-      },
-      "jsx": "preserve"
-  },
-  "files": ["index.d.ts", "carbon__icons-react-tests.tsx"]
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "preserve"
+    },
+    "files": [
+        "index.d.ts",
+        "carbon__icons-react-tests.tsx"
+    ]
 }

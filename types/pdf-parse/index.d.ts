@@ -1,8 +1,3 @@
-// Type definitions for pdf-parse 1.1
-// Project: https://gitlab.com/autokent/pdf-parse
-// Definitions by: Philipp Katz <https://github.com/qqilihq>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = PdfParse;
 
 declare function PdfParse(dataBuffer: Buffer, options?: PdfParse.Options): Promise<PdfParse.Result>;

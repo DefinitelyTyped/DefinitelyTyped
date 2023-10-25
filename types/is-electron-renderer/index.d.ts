@@ -1,8 +1,3 @@
-// Type definitions for is-electron-renderer 2.0
-// Project: https://github.com/jprichardson/is-electron-renderer#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = isRenderer;
 
 /**

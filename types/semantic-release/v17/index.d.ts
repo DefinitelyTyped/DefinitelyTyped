@@ -1,10 +1,3 @@
-// Type definitions for semantic-release 17.2
-// Project: https://github.com/semantic-release/semantic-release#readme
-// Definitions by: Leonardo Gatica <https://github.com/lgaticaq>
-//                 Daniel Cassidy <https://github.com/djcsdy>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare namespace SemanticRelease {

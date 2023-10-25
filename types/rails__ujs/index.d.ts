@@ -1,8 +1,3 @@
-// Type definitions for @rails/ujs 6.0
-// Project: http://rubyonrails.org/
-// Definitions by: fsubal <https://github.com/fsubal>, abcang <https://github.com/abcang>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { SelectorObject } from "./utils/dom";
 
 export * from "./start";

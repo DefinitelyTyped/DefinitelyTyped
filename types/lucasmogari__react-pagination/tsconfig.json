@@ -9,15 +9,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "@lucasmogari/*": [
-                "lucasmogari__*"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
@@ -27,4 +18,4 @@
         "index.d.ts",
         "lucasmogari__react-pagination-tests.tsx"
     ]
- }
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-devtools-inline",
+    "version": "4.24.9999",
+    "projects": [
+        "https://github.com/facebook/react/tree/main/packages/react-devtools-inline"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/react-reconciler": "*"
+    },
+    "devDependencies": {
+        "@types/react-devtools-inline": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yarden Porat",
+            "githubUsername": "yardenporat"
+        }
+    ]
+}

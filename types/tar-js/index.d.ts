@@ -1,8 +1,3 @@
-// Type definitions for tar-js 0.3
-// Project: https://github.com/beatgammit/tar-js
-// Definitions by: Narazaka <https://github.com/Narazaka>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Tar {
     written: number;
     out: Uint8Array;

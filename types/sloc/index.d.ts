@@ -1,9 +1,3 @@
-// Type definitions for sloc 0.2
-// Project: https://github.com/flosse/sloc#readme
-// Definitions by: Gary King <https://github.com/garyking>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 declare function sloc(code: string, extension: string, options?: sloc.Options): Record<sloc.Key, number>;
 
 declare namespace sloc {

@@ -1,6 +1,26 @@
 {
     "private": true,
+    "name": "@types/gulp-filter",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/sindresorhus/gulp-filter"
+    ],
     "dependencies": {
-        "@types/minimatch": "*"
-    }
+        "@types/minimatch": "*",
+        "@types/node": "*",
+        "@types/vinyl": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-concat": "*",
+        "@types/gulp-filter": "workspace:.",
+        "@types/gulp-less": "*",
+        "@types/gulp-uglify": "*"
+    },
+    "owners": [
+        {
+            "name": "Tanguy Krotoff",
+            "githubUsername": "tkrotoff"
+        }
+    ]
 }

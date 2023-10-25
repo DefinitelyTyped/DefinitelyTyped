@@ -1,8 +1,3 @@
-// Type definitions for react-native-android-keyboard-adjust 1.0
-// Project: https://github.com/zubricky/react-native-android-keyboard-adjust
-// Definitions by: Ivan Stelmakh <https://github.com/stelmakhivan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class AndroidKeyboardAdjust {
     setStateUnspecified(): void;
     setAdjustNothing(): void;

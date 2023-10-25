@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/rsocket-websocket-client",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/rsocket/rsocket-js/"
+    ],
+    "dependencies": {
+        "@types/rsocket-core": "*",
+        "@types/rsocket-flowable": "*",
+        "@types/rsocket-types": "*"
+    },
+    "devDependencies": {
+        "@types/rsocket-websocket-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adrian Hope-Bailie",
+            "githubUsername": "adrianhopebailie"
+        },
+        {
+            "name": "Oleh Dokuka",
+            "githubUsername": "olegdokuka"
+        },
+        {
+            "name": "Bryce Matheson",
+            "githubUsername": "brycematheson1234"
+        }
+    ]
+}

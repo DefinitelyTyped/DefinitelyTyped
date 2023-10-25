@@ -1,8 +1,3 @@
-// Type definitions for hafas-client 6.1
-// Project: https://github.com/public-transport/hafas-client
-// Definitions by: Jürgen Bergmann <https://github.com/bergmannjg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * A ProductType relates to how a means of transport "works" in local context.
  * Example: Even though S-Bahn and U-Bahn in Berlin are both trains, they have different operators, service patterns,

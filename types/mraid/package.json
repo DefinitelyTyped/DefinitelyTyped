@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/mraid",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/sumn2u/mraid-type-definitions#readme"
+    ],
+    "devDependencies": {
+        "@types/mraid": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Suman Kunwar",
+            "githubUsername": "sumn2u"
+        }
+    ]
+}

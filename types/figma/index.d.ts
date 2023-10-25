@@ -1,7 +1,3 @@
-// Type definitions for Figma API 1.0
-// Project: https://www.figma.com/plugin-docs/intro
-// Definitions by: Rudi Chen <https://github.com/rudi-c>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Talk to the Figma team regarding changes to the typings.
 //   rudi@figma.com, jonas@figma.com

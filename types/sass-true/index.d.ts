@@ -1,8 +1,3 @@
-// Type definitions for sass-true 6.0
-// Project: https://github.com/oddbird/true
-// Definitions by: robertmaier <https://github.com/robertmaier>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import type { renderSync } from "sass";

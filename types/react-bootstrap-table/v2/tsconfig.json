@@ -9,16 +9,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "paths": {
-            "react-bootstrap-table": [
-                "react-bootstrap-table/v2"
-            ]
-        },
-        "baseUrl": "../../",
         "jsx": "react",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

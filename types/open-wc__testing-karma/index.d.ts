@@ -1,9 +1,3 @@
-// Type definitions for @open-wc/testing-karma 3.3
-// Project: https://github.com/open-wc/open-wc/tree/master/packages/testing-karma
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
-
 import karma = require("karma");
 
 /**

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/scriptjs",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/ded/script.js"
+    ],
+    "devDependencies": {
+        "@types/scriptjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Steve Lam",
+            "githubUsername": "ssttevee"
+        }
+    ]
+}

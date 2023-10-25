@@ -1,8 +1,3 @@
-// Type definitions for ignore-walk 4.0
-// Project: https://github.com/isaacs/ignore-walk#readme
-// Definitions by: Matthew Peveler <https://github.com/MasterOdin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types='node' />
 
 import { EventEmitter } from "events";

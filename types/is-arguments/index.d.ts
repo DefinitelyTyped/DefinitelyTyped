@@ -1,9 +1,3 @@
-// Type definitions for is-arguments 1.0
-// Project: https://github.com/ljharb/is-arguments
-// Definitions by: Jordan Harband <https://github.com/ljharb>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = isArguments;
 
 /**

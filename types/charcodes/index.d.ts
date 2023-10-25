@@ -1,8 +1,3 @@
-// Type definitions for charcodes 0.2
-// Project: https://github.com/xtuc/charcodes
-// Definitions by: Dylan Armstrong <https://github.com/dylanarmstrong>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Char codes constants
  */

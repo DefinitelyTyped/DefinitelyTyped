@@ -1,10 +1,3 @@
-// Type definitions for mongodb-queue 4.0
-// Project: https://github.com/chilts/mongodb-queue
-// Definitions by: FiveOFive <https://github.com/FiveOFive>
-//                 codejockie <https://github.com/codejockie>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 import { Db, MongoError } from "mongodb";
 
 declare function mongodbQueue(db: Db, name: string, opts?: mongodbQueue.QueueOptions): mongodbQueue.Queue;

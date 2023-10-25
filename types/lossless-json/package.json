@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/lossless-json",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/josdejong/lossless-json#readme"
+    ],
+    "devDependencies": {
+        "@types/lossless-json": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "André Vitor de Lima Matos",
+            "githubUsername": "andrevmatos"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for apca-w3 0.1
-// Project: https://github.com/Myndex/apca-w3
-// Definitions by: Daniel Eden <https://github.com/daneden>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
-
 /**
  * @param txtY
  * The linear Y (luminance) of the text color. Must be between 0.0-1.1.

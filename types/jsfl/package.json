@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jsfl",
+    "version": "0.0.9999",
+    "projects": [
+        "https://adobe.com"
+    ],
+    "devDependencies": {
+        "@types/jsfl": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "soywiz",
+            "githubUsername": "soywiz"
+        }
+    ]
+}

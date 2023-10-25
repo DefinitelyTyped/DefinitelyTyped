@@ -1,9 +1,3 @@
-// Type definitions for OpenLayers v3.20.0
-// Project: http://openlayers.org/
-// Definitions by: Olivier Sechet <https://github.com/osechet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
-
 declare type GlobalObject = Object;
 
 /**

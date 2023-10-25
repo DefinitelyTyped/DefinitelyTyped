@@ -1,9 +1,3 @@
-// Type definitions for whoops 4.1
-// Project: https://github.com/Kikobeats/whoops
-// Definitions by: Florian Imdahl <https://github.com/ffflorian>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 declare namespace createErrorClass {
     type ExtendError<E extends Error, P extends Record<string, any> = any> = (propsOrMessage?: P | string) => E & P;
 

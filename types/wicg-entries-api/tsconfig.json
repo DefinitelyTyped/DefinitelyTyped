@@ -3,16 +3,12 @@
         "module": "commonjs",
         "lib": [
             "es6",
-	    "dom"
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

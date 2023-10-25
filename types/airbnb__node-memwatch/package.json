@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/airbnb__node-memwatch",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/airbnb/node-memwatch#readme"
+    ],
+    "devDependencies": {
+        "@types/airbnb__node-memwatch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tyler Levine",
+            "githubUsername": "tylerlevine"
+        }
+    ]
+}

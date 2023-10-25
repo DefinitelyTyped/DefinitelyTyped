@@ -1,8 +1,3 @@
-// Type definitions for bluebird 1.0.0
-// Project: https://github.com/petkaantonov/bluebird
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // ES6 model with generics overload was sourced and trans-multiplied from es6-promises.d.ts
 // By: Campredon <https://github.com/fdecampredon/>
 

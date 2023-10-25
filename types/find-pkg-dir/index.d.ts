@@ -1,8 +1,3 @@
-// Type definitions for find-pkg-dir 2.0
-// Project: https://github.com/shinnn/find-pkg-dir
-// Definitions by: David GABISON <https://github.com/pulsovi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Find the root directory of a Node.js project from a given path.
  *

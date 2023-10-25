@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/should-sinon",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/shouldjs/sinon"
+    ],
     "dependencies": {
         "should": "^13.2.1"
-    }
+    },
+    "devDependencies": {
+        "@types/should-sinon": "workspace:.",
+        "@types/sinon": "*"
+    },
+    "owners": [
+        {
+            "name": "AryloYeung",
+            "githubUsername": "Arylo"
+        }
+    ]
 }

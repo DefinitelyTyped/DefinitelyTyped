@@ -1,10 +1,3 @@
-// Type definitions for non-npm package HAR 1.2
-// Project: https://w3c.github.io/web-performance/specs/HAR/Overview.html
-// Definitions by: Michael Mrowetz <https://github.com/micmro>
-//                 Marcell Toth <https://github.com/marcelltoth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 /**
  * HTTP Archive 1.2
  *

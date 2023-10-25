@@ -1,10 +1,3 @@
-// Type definitions for html-parser 0.11
-// Project: https://www.npmjs.com/package/html-parser
-// Definitions by: Vladimir Grenaderov https://github.com/VladimirGrenaderov,
-//                 Max Boguslavskiy <https://github.com/maxbogus>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 export type Callback = (arg: any) => any;
 export type Token = ">" | "/>" | "?>";
 

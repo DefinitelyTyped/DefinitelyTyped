@@ -1,8 +1,3 @@
-// Type definitions for add 2.0
-// Project: https://github.com/ben-ng/add
-// Definitions by: Tristan F. <https://github.com/LeoDog896>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function accSum(numbers: ReadonlyArray<number>): number;
 
 export = accSum;

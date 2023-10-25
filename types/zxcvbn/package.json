@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/zxcvbn",
+    "version": "4.4.9999",
+    "projects": [
+        "https://github.com/dropbox/zxcvbn#readme"
+    ],
+    "devDependencies": {
+        "@types/zxcvbn": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt Traynham",
+            "githubUsername": "mtraynham"
+        },
+        {
+            "name": "Muhun Kim",
+            "githubUsername": "x86chi"
+        }
+    ]
+}

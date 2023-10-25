@@ -1,8 +1,3 @@
-// Type definitions for naughty-words 1.2
-// Project: https://github.com/LDNOOBW/naughty-words-js
-// Definitions by: BendingBender <https://github.com/bendingbender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import ar = require("./ar.json");
 import cs = require("./cs.json");
 import da = require("./da.json");

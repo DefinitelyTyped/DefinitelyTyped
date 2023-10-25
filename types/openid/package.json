@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/openid",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/havard/node-openid"
+    ],
+    "devDependencies": {
+        "@types/openid": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jacob Stein",
+            "githubUsername": "jacobmstein"
+        },
+        {
+            "name": "Joao Dias",
+            "githubUsername": "alfaproject"
+        }
+    ]
+}

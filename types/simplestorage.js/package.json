@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/simplestorage.js",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/andris9/simpleStorage"
+    ],
+    "devDependencies": {
+        "@types/simplestorage.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Áxel Costas Pena",
+            "githubUsername": "axelcostaspena"
+        },
+        {
+            "name": "Michael Ledin",
+            "githubUsername": "mxl"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

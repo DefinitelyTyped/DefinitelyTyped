@@ -1,8 +1,3 @@
-// Type definitions for jsonp-body 1.0
-// Project: https://github.com/node-modules/jsonp-body
-// Definitions by: Qingrong Ke <https://github.com/keqingrong>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace jsonp {
     interface Options {
         /** length limit for callback function name, default to `512` */

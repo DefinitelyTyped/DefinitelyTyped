@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/ns-api",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/fvdm/nodejs-ns-api#readme"
+    ],
+    "devDependencies": {
+        "@types/ns-api": "workspace:."
+    },
+    "owners": []
+}

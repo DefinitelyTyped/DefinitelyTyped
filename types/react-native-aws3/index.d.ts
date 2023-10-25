@@ -1,8 +1,3 @@
-// Type definitions for react-native-aws3 0.0
-// Project: https://github.com/benjreinhart/react-native-aws3#readme
-// Definitions by: Shirsh Zibbu <https://github.com/zhirzh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface File {
     /**
      * File system URI, can be assets library path or file:// path

@@ -1,10 +1,3 @@
-// Type definitions for non-npm package telegram-web-app 6.9
-// Project: https://telegram.org/js/telegram-web-app.js
-// Definitions by: KnorpelSenf <https://github.com/KnorpelSenf>
-//                 MKRhere <https://github.com/MKRhere>
-//                 deptyped <https://github.com/deptyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var Telegram: Telegram;
 
 type Color = string | false;

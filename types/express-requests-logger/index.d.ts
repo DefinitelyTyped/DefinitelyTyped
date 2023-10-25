@@ -1,8 +1,3 @@
-// Type definitions for express-requests-logger 3.0
-// Project: https://github.com/PayU/express-request-logger
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { NextFunction, Request } from "express-serve-static-core";
 
 /**

@@ -1,9 +1,3 @@
-// Type definitions for redux-promise-listener 1.1
-// Project: https://github.com/erikras/redux-promise-listener
-// Definitions by: hikiko4ern <https://github.com/hikiko4ern>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 import { AnyAction, Middleware } from "redux";
 
 export default ReduxPromiseListener.createListener;

@@ -1,8 +1,3 @@
-// Type definitions for quick-picker 2.0
-// Project: https://github.com/Valiums/react-native-quickpicker#readme
-// Definitions by: Tamas Illes <https://github.com/illestomas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 import { TextStyle, ViewStyle } from "react-native";
 

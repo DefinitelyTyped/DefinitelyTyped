@@ -1,8 +1,3 @@
-// Type definitions for to-ico 1.1
-// Project: https://github.com/kevva/to-ico#readme
-// Definitions by: Remco Haszing <https://github.com/remcohaszing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

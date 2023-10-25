@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/mu2",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/raycmorgan/mu"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/mu2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeff Goddard",
+            "githubUsername": "jedigo"
+        }
+    ]
+}

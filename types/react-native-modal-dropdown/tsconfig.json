@@ -8,19 +8,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
         "jsx": "react",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "react-native": [
-                "react-native/v0.70"
-            ],
-            "react-native/*": [
-                "react-native/v0.70/*"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

@@ -1,8 +1,3 @@
-// Type definitions for is-natural-number 4.0
-// Project: https://github.com/shinnn/is-natural-number.js
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Options {
     /**
      * Setting this option true makes 0 regarded as a natural number.

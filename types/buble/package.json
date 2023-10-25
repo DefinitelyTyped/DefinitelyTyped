@@ -1,6 +1,24 @@
 {
-  "private": true,
-  "dependencies": {
-    "magic-string": "^0.25.0"
-  }
+    "private": true,
+    "name": "@types/buble",
+    "version": "0.20.9999",
+    "projects": [
+        "https://github.com/bublejs/buble"
+    ],
+    "dependencies": {
+        "magic-string": "^0.25.0"
+    },
+    "devDependencies": {
+        "@types/buble": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hugo Alliaume",
+            "githubUsername": "Kocal"
+        },
+        {
+            "name": "Ye-hyoung Kang",
+            "githubUsername": "pastelmind"
+        }
+    ]
 }

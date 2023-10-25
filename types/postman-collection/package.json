@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/postman-collection",
+    "version": "3.5.9999",
+    "projects": [
+        "https://github.com/postmanlabs/postman-collection"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/postman-collection": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kyle Buzby",
+            "githubUsername": "kbuzby"
+        },
+        {
+            "name": "Vincenzo Chianese",
+            "githubUsername": "XVincentX"
+        }
+    ]
+}

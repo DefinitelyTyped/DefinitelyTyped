@@ -1,8 +1,3 @@
-// Type definitions for fill-range 7.0
-// Project: https://github.com/jonschlinkert/fill-range
-// Definitions by: Richie Bendall <https://github.com/Richienb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace fill {
     interface Options<ValueType, TransformValueType> {
         step?: number;

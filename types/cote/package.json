@@ -1,7 +1,25 @@
 {
     "private": true,
+    "name": "@types/cote",
+    "version": "0.19.9999",
+    "projects": [
+        "https://github.com/dashersw/cote#readme"
+    ],
     "dependencies": {
         "@types/socket.io": "2.1.13",
         "eventemitter2": "^4.1.0"
-    }
+    },
+    "devDependencies": {
+        "@types/cote": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "makepost",
+            "githubUsername": "makepost"
+        },
+        {
+            "name": "Labat Robin",
+            "githubUsername": "roblabat"
+        }
+    ]
 }

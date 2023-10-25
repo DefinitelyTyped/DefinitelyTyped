@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/meshblu",
+    "version": "1.30.9999",
+    "projects": [
+        "https://github.com/octoblu/meshblu-npm"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/meshblu": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Felipe Nipo",
+            "githubUsername": "fnipo"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for non-npm package File System Access API 2023.10
-// Project: https://github.com/WICG/file-system-access
-// Definitions by: Ingvar Stepanyan <https://github.com/RReverser>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.6
-
 export {};
 
 declare global {

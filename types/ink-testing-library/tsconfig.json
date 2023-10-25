@@ -8,10 +8,6 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
@@ -19,7 +15,7 @@
         "strictFunctionTypes": true
     },
     "files": [
-        "index.d.ts", 
+        "index.d.ts",
         "ink-testing-library-tests.tsx"
     ]
 }

@@ -1,9 +1,3 @@
-// Type definitions for colab 1.388959523
-// Project: https://github.com/googlecolab/colabtools
-// Definitions by: Google Colab team <https://github.com/googlecolab>
-//                 Brenton Simpson <https://github.com/appsforartists>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare global {
     namespace google.colab {
         namespace kernel {
@@ -132,7 +126,7 @@ declare global {
              * outputframe will be paused until this promise is resolved. This can be used
              * to reduce layout jank while rendering complex outputs.
              */
-            function pauseOutputUntil(promise: Promise<{}>): void;
+            function pauseOutputUntil(promise: Promise<unknown>): void;
 
             interface ResizeOptions {
                 /** The maximum height that the outputframe is allowed to have. */

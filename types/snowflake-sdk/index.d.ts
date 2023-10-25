@@ -1,11 +1,3 @@
-// Type definitions for snowflake-sdk 1.6
-// Project: https://github.com/snowflakedb/snowflake-connector-nodejs#readme
-// Definitions by: Hunter Tunnicliff <https://github.com/htunnicliff>
-//                 Mauricio Rojas <https://github.com/orellabac>
-//                 Ron Jones <https://github.com/boatilus>
-//                 Brian Gottfried <https://github.com/briangottfried>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import { Options as PoolOptions, Pool } from "generic-pool";
@@ -296,6 +288,12 @@ export interface ConnectionOptions {
      * For details, see {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#label-nodejs-key-pair-authentication Using Key Pair Authentication & Key Pair Rotation}.
      */
     privateKeyPass?: string;
+
+    /**
+     * Specifies a fully-qualified endpoint for connecting to Snowflake.
+     * For details, see {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-options#additional-connection-options Additional connection options}.
+     */
+    accessUrl?: string;
 }
 
 export interface Column {

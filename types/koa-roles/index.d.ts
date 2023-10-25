@@ -1,9 +1,3 @@
-// Type definitions for koa-roles 2.0
-// Project: https://github.com/koajs/koa-roles
-// Definitions by: Chris Wilkinson <https://github.com/thewilkybarkid>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.2
-
 import Koa = require("koa");
 
 declare class Roles<

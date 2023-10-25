@@ -1,9 +1,3 @@
-// Type definitions for svelte-leafletjs 0.8
-// Project: https://github.com/ngyewch/svelte-leaflet
-// Definitions by: Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
-
 import * as L from "leaflet";
 import type { SvelteComponentTyped } from "svelte";
 

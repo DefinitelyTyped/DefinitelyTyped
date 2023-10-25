@@ -1,8 +1,3 @@
-// Type definitions for array-polar 1.0
-// Project: https://github.com/dfcreative/array-polar#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = toPolar;
 
 /**

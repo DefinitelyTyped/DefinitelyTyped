@@ -1,0 +1,45 @@
+{
+    "private": true,
+    "name": "@types/react-recompose",
+    "version": "0.33.9999",
+    "projects": [
+        "https://github.com/react-recompose/react-recompose"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/prop-types": "*",
+        "@types/react-recompose": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Iskander Sierra",
+            "githubUsername": "iskandersierra"
+        },
+        {
+            "name": "Curtis Layne",
+            "githubUsername": "clayne11"
+        },
+        {
+            "name": "Rasmus Eneman",
+            "githubUsername": "Pajn"
+        },
+        {
+            "name": "Lucas Terra",
+            "githubUsername": "lucasterra"
+        },
+        {
+            "name": "Mathieu Masy",
+            "githubUsername": "TiuSh"
+        },
+        {
+            "name": "Chris Brody",
+            "githubUsername": "brodybits"
+        },
+        {
+            "name": "Jeremy Daley",
+            "githubUsername": "daleyjem"
+        }
+    ]
+}

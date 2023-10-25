@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/sat",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/jriecken/sat-js"
+    ],
+    "devDependencies": {
+        "@types/sat": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hou Chunlei",
+            "githubUsername": "omni360"
+        }
+    ]
+}

@@ -1,9 +1,3 @@
-// Type definitions for express-sslify 1.2
-// Project: https://github.com/florianheinemann/express-sslify
-// Definitions by: Ben Grynhaus <https://github.com/bengry>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { RequestHandler } from "express";
 
 export interface Options {

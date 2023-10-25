@@ -1,9 +1,3 @@
-// Type definitions for spectrum 1.8
-// Project: https://github.com/bgrins/spectrum/
-// Definitions by: Mordechai Zuber <https://github.com/M-Zuber>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 /// <reference types="jquery"/>
 /// <reference types="tinycolor2"/>
 

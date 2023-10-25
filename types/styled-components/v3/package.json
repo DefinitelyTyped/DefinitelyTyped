@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/styled-components",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/styled-components/styled-components"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-dom": "*",
+        "@types/styled-components": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Igor Oleinikov",
+            "githubUsername": "Igorbek"
+        },
+        {
+            "name": "Ihor Chulinda",
+            "githubUsername": "Igmat"
+        }
+    ]
+}

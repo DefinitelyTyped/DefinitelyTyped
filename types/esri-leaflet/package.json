@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/esri-leaflet",
+    "version": "3.0.9999",
+    "projects": [
+        "http://esri.github.io/esri-leaflet"
+    ],
+    "dependencies": {
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/esri-leaflet": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "strajuser",
+            "githubUsername": "strajuser"
+        },
+        {
+            "name": "Ryan Murphy",
+            "githubUsername": "murphyryan1"
+        }
+    ]
+}

@@ -1,17 +1,21 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6", "dom"],
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
         "strictFunctionTypes": true
     },
-    "files": ["index.d.ts", "gestalt-tests.tsx"]
+    "files": [
+        "index.d.ts",
+        "gestalt-tests.tsx"
+    ]
 }

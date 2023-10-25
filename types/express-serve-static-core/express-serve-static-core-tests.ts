@@ -272,3 +272,8 @@ app.get("/file2.txt", (req, res) => {
     // @ts-expect-error
     res.sendFile("/some/path/to/file2.txt", { "max-age": 3_600_000 });
 });
+
+// IP address may be undefined
+app.get("/:foo", req => {
+    req.ip; // $ExpectType string | undefined
+});

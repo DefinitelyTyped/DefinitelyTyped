@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/ej.web.all",
+    "version": "20.3.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "ej.web.all",
+    "projects": [
+        "http://help.syncfusion.com/js/typescript"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/ej.web.all": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Syncfusion",
+            "githubUsername": "syncfusion"
+        }
+    ]
+}

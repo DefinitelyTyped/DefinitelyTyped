@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/shallowequal",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/dashed/shallowequal"
+    ],
+    "devDependencies": {
+        "@types/shallowequal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sean Kelley",
+            "githubUsername": "seansfkelley"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for event-source-polyfill 1.0
-// Project: https://github.com/Yaffle/EventSource
-// Definitions by: Emily Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare global {
     // Declare empty stub interfaces for environments where "dom" lib is not included
     // tslint:disable-next-line:no-empty-interface

@@ -1,8 +1,3 @@
-// Type definitions for multisig-hmac 0.1
-// Project: https://github.com/emilbayes/multisig-hmac
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export = MultisigHMAC;
