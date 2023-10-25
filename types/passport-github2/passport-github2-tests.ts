@@ -86,6 +86,6 @@ passport.use(
             clientSecret,
             allRawEmails: true,
         },
-        () => { },
+        () => {},
     ),
 );
