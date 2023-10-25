@@ -114,11 +114,11 @@ declare class CleverTap {
     spa: boolean;
     enablePersonalization: boolean;
     dismissSpamControl: boolean;
-    setMultiValuesForKey: (key: any, value: (string | number)[]) => void;
+    setMultiValuesForKey: (key: any, value: Array<string | number>) => void;
     addMultiValueForKey: (key: any, value: string | number) => void;
-    addMultiValuesForKey: (key: any, value: (string | number)[]) => void;
+    addMultiValuesForKey: (key: any, value: Array<string | number>) => void;
     removeMultiValueForKey: (key: any, value: string | number) => void;
-    removeMultiValuesForKey: (key: any, value: (string | number)[]) => void;
+    removeMultiValuesForKey: (key: any, value: Array<string | number>) => void;
     removeValueForKey: (key: any) => void;
     handleDecrementValue: (key: any, value: number) => void;
     handleIncrementValue: (key: any, value: number) => void;
