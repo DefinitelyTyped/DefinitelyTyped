@@ -1,4 +1,4 @@
-import sleep = require('atomic-sleep');
+import sleep = require("atomic-sleep");
 
 // $ExpectType void
 sleep(1000);
