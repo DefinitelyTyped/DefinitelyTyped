@@ -77,3 +77,15 @@ passport.use(
         },
     ),
 );
+
+passport.use(
+    new github.Strategy(
+        {
+            callbackURL,
+            clientID,
+            clientSecret,
+            allRawEmails: true,
+        },
+        () => { },
+    ),
+);
