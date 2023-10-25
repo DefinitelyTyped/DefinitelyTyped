@@ -1,9 +1,3 @@
-// Type definitions for chartjs-plugin-doughnutlabel-rebourne 3.0
-// Project: https://github.com/alexkuc/chartjs-plugin-doughnutlabel-rebourne
-// Definitions by: Piotr Ładoński <https://github.com/Voodu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 import { Chart, ChartType, Plugin } from "chart.js";
 
 declare module "chart.js" {

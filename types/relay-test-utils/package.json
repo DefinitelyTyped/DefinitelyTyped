@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/relay-test-utils",
+    "version": "14.1.9999",
+    "projects": [
+        "https://relay.dev"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/react-relay": "*",
+        "@types/relay-runtime": "*"
+    },
+    "devDependencies": {
+        "@types/relay-test-utils": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Renan Machado",
+            "githubUsername": "renanmav"
+        },
+        {
+            "name": "Stephen Pittman",
+            "githubUsername": "Stephen2"
+        },
+        {
+            "name": "Marais Rossouw",
+            "githubUsername": "maraisr"
+        },
+        {
+            "name": "Levi Buzolic",
+            "githubUsername": "levibuzolic"
+        }
+    ]
+}

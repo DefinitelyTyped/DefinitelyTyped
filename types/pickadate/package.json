@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/pickadate",
+    "version": "3.5.9999",
+    "projects": [
+        "https://github.com/amsul/pickadate.js"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/pickadate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Theodore Brown",
+            "githubUsername": "theodorejb"
+        },
+        {
+            "name": "Leonard Thieu",
+            "githubUsername": "leonard-thieu"
+        }
+    ]
+}

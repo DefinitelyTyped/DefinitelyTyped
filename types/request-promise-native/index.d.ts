@@ -1,11 +1,3 @@
-// Type definitions for request-promise-native 1.0
-// Project: https://github.com/request/request-promise-native
-// Definitions by: Gustavo Henke <https://github.com/gustavohenke>
-//                 Matt R. Wilson <https://github.com/mastermatt>
-//                 Cory Reed <https://github.com/swashcap>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import request = require("request");
 import http = require("http");
 

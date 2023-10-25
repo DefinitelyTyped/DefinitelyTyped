@@ -1,13 +1,3 @@
-// Type definitions for CometD 4.0
-// Project: https://cometd.org
-// Definitions by: Derek Cicerone <https://github.com/derekcicerone>
-//                 Daniel Perez Alvarez <https://github.com/unindented>
-//                 Alex Henry <https://github.com/alxHenry>
-//                 Harald Gliebe <https://github.com/hagl>
-//                 P.J. Swesey <https://github.com/swese44>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export interface Transport {
     readonly type: string;
     url: string;

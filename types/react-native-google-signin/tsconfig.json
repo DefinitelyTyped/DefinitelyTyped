@@ -7,15 +7,16 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "strictFunctionTypes": true,
-        "jsx": "react-native"
+        "jsx": "react-native",
+        "paths": {
+            "react-native": [
+                "../react-native/index.d.ts"
+            ]
+        }
     },
     "files": [
         "index.d.ts",

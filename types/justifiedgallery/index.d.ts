@@ -1,8 +1,3 @@
-// Type definitions for justifiedGallery 3.8
-// Project: https://github.com/miromannino/Justified-Gallery
-// Definitions by: Matt Smith <https://github.com/mattsmithcode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="jquery"/>
 
 declare namespace JustifiedGallery {

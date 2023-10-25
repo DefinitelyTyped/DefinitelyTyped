@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/npm-run",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/timoxley/npm-run"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/npm-run": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Manuel Thalmann",
+            "githubUsername": "manuth"
+        }
+    ]
+}

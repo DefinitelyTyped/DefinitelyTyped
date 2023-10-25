@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/libxslt",
+    "version": "0.9.9999",
+    "projects": [
+        "https://github.com/albanm/node-libxslt"
+    ],
+    "dependencies": {
+        "@types/libxmljs": "*"
+    },
+    "devDependencies": {
+        "@types/libxslt": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alejandro Sánchez",
+            "githubUsername": "alejo90"
+        },
+        {
+            "name": "Daniel Pedersen",
+            "githubUsername": "daniel-pedersen"
+        }
+    ]
+}

@@ -1,0 +1,39 @@
+{
+    "private": true,
+    "name": "@types/loopback",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/strongloop/loopback",
+        "http://loopback.io"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/express-serve-static-core": "*"
+    },
+    "devDependencies": {
+        "@types/cookie-parser": "*",
+        "@types/loopback": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andres D Jimenez",
+            "githubUsername": "kattsushi"
+        },
+        {
+            "name": "Tim Schumacher",
+            "githubUsername": "enko"
+        },
+        {
+            "name": "Sequoia McDowell",
+            "githubUsername": "sequoia"
+        },
+        {
+            "name": "Mike Crowe",
+            "githubUsername": "drmikecrowe"
+        },
+        {
+            "name": "Karim Alibhai",
+            "githubUsername": "karimsa"
+        }
+    ]
+}

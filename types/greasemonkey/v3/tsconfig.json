@@ -9,15 +9,6 @@
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "greasemonkey": [
-                "greasemonkey/v3"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

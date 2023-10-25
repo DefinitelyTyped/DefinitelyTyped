@@ -1,9 +1,3 @@
-// Type definitions for node-pdftk 2.1
-// Project: https://github.com/jjwilly16/node-pdftk#readme
-// Definitions by: Andrea Ascari <https://github.com/ascariandrea>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.0
-
 /// <reference types="node" />
 
 export type Letter =

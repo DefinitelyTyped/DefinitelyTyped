@@ -1,8 +1,3 @@
-// Type definitions for ntqdm 1.0
-// Project: https://github.com/jhedin/ntqdm
-// Definitions by: Christoph Thiede <https://github.com/LinqLover>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace ntqdm {
     interface TqdmOptions {
         /** A desciption string to add before the progress bar */

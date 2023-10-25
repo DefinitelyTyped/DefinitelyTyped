@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/any-db-transaction",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/grncdr/node-any-db-transaction"
+    ],
+    "dependencies": {
+        "@types/any-db": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/any-db-transaction": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rogier Schouten",
+            "githubUsername": "rogierschouten"
+        }
+    ]
+}

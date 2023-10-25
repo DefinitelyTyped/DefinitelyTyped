@@ -1,10 +1,3 @@
-// Type definitions for d3-org-chart 3.1
-// Project: https://github.com/bumbeishvili/org-chart#readme
-// Definitions by: Adam Jones <https://github.com/domdomegg>
-//                 Matteo Gallesio <https://github.com/m-gallesio>
-//                 Mohammad Moein Abdi <https://github.com/moeindev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { HierarchyNode, StratifyOperator } from "d3-hierarchy";
 import { BaseType, Selection, ValueFn } from "d3-selection";
 import { DefaultLinkObject, Link } from "d3-shape";

@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/react-highcharts",
+    "version": "16.0.9999",
+    "projects": [
+        "https://github.com/kirjs/react-highcharts"
+    ],
     "dependencies": {
-        "@types/highcharts": "^5.0.44"
-    }
+        "@types/highcharts": "^5.0.44",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-highcharts": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jiri Marsicek",
+            "githubUsername": "j1r1k"
+        }
+    ]
 }

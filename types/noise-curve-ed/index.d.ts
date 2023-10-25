@@ -1,8 +1,3 @@
-// Type definitions for noise-curve-ed 2.0
-// Project: https://github.com/chm-diederichs/noise-curve-ed#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 export const DHLEN: 32;

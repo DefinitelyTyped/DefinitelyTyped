@@ -1,8 +1,3 @@
-// Type definitions for lzbase62 2.0
-// Project: https://github.com/polygonplanet/lzbase62
-// Definitions by: ArthurKa <https://github.com/ArthurKa>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface DataOption {
     onData(data: string): void;
 }

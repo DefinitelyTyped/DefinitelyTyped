@@ -1,9 +1,3 @@
-// Type definitions for falcor-http-datasource 0.1.3
-// Project: https://github.com/Netflix/falcor-http-datasource
-// Definitions by: Quramy <https://github.com/Quramy>, LukeRielley <https://github.com/lukerielley>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="falcor" />
 
 import * as FalcorModel from "falcor";

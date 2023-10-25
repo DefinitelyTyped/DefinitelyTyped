@@ -1,8 +1,3 @@
-// Type definitions for throng 5.0
-// Project: https://github.com/hunterloftis/throng
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare function throng(startOrOptions: throng.WorkerCallback | throng.Options): Promise<void>;
 declare function throng(workers: throng.WorkerCount, start: throng.WorkerCallback): Promise<void>;
 declare namespace throng {

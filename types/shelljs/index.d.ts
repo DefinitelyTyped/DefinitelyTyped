@@ -1,14 +1,3 @@
-// Type definitions for ShellJS 0.8
-// Project: http://shelljs.org, https://github.com/shelljs/shelljs
-// Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
-//                 Vojtech Jasny <https://github.com/voy>
-//                 George Kalpakas <https://github.com/gkalpak>
-//                 Paul Huynh <https://github.com/pheromonez>
-//                 Alexander Futász <https://github.com/aldafu>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 Mirco Sanguineti <https://github.com/msanguineti>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 
 import child = require("child_process");

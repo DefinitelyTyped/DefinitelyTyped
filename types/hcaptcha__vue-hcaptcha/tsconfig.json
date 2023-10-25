@@ -11,16 +11,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
         "jsx": "react",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "@hcaptcha/*": [
-                "hcaptcha__*"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

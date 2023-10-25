@@ -1,35 +1,3 @@
-// Type definitions for React 18.2
-// Project: https://react.dev/
-// Definitions by: Asana <https://asana.com>
-//                 AssureSign <http://www.assuresign.com>
-//                 Microsoft <https://microsoft.com>
-//                 John Reilly <https://github.com/johnnyreilly>
-//                 Benoit Benezech <https://github.com/bbenezech>
-//                 Patricio Zavolinsky <https://github.com/pzavolinsky>
-//                 Eric Anderson <https://github.com/ericanderson>
-//                 Dovydas Navickas <https://github.com/DovydasNavickas>
-//                 Josh Rutherford <https://github.com/theruther4d>
-//                 Guilherme Hübner <https://github.com/guilhermehubner>
-//                 Ferdy Budhidharma <https://github.com/ferdaber>
-//                 Johann Rakotoharisoa <https://github.com/jrakotoharisoa>
-//                 Olivier Pascal <https://github.com/pascaloliv>
-//                 Martin Hochel <https://github.com/hotell>
-//                 Frank Li <https://github.com/franklixuefei>
-//                 Jessica Franco <https://github.com/Jessidhia>
-//                 Saransh Kataria <https://github.com/saranshkataria>
-//                 Kanitkorn Sujautra <https://github.com/lukyth>
-//                 Sebastian Silbermann <https://github.com/eps1lon>
-//                 Kyle Scully <https://github.com/zieka>
-//                 Cong Zhang <https://github.com/dancerphil>
-//                 Dimitri Mitropoulos <https://github.com/dimitropoulos>
-//                 JongChan Choi <https://github.com/disjukr>
-//                 Victor Magalhães <https://github.com/vhfmag>
-//                 Dale Tan <https://github.com/hellatan>
-//                 Priyanshu Rav <https://github.com/priyanshurav>
-//                 Dmitry Semigradsky <https://github.com/Semigradsky>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 // NOTE: Users of the `experimental` builds of React should add a reference
 // to 'react/experimental' in their project. See experimental.d.ts's top comment
 // for reference and documentation on how exactly to do it.
@@ -1162,7 +1130,7 @@ declare namespace React {
      * @see https://react.dev/reference/react/useMemo
      */
     // allow undefined, but don't make it optional as that is very likely a mistake
-    function useMemo<T>(factory: () => T, deps: DependencyList | undefined): T;
+    function useMemo<T>(factory: ExcludeVoidFn<() => T>, deps: DependencyList | undefined): T;
     /**
      * `useDebugValue` can be used to display a label for custom hooks in React DevTools.
      *
@@ -3303,6 +3271,9 @@ type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps
     : C extends { propTypes: infer T } ? MergePropTypes<P, PropTypes.InferProps<T>>
     : C extends { defaultProps: infer D } ? Defaultize<P, D>
     : P;
+
+// Exclude implicity return undefined
+type ExcludeVoidFn<T extends () => unknown> = (() => void) extends T ? never : T;
 
 declare global {
     /**

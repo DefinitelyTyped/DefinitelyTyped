@@ -1,8 +1,3 @@
-// Type definitions for blake2b 2.1
-// Project: https://github.com/emilbayes/blake2b
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = blake2b;
 
 /**

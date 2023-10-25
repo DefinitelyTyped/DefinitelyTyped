@@ -1,8 +1,3 @@
-// Type definitions for OverlayScrollbars 1.12
-// Project: https://kingsora.github.io/OverlayScrollbars
-// Definitions by: KingSora <https://github.com/KingSora>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace OverlayScrollbars {
     type ResizeBehavior = "none" | "both" | "horizontal" | "vertical" | "n" | "b" | "h" | "v";
 

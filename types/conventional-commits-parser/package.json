@@ -1,5 +1,10 @@
 {
     "private": true,
+    "name": "@types/conventional-commits-parser",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#readme"
+    ],
     "types": "index",
     "typesVersions": {
         "<=4.9": {
@@ -7,5 +12,17 @@
                 "ts4.9/*"
             ]
         }
-    }
+    },
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/conventional-commits-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Kwok",
+            "githubUsername": "JasonHK"
+        }
+    ]
 }

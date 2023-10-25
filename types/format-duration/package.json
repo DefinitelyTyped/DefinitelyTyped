@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/format-duration",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/hypermodules/format-duration"
+    ],
+    "devDependencies": {
+        "@types/format-duration": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Giles Roadnight",
+            "githubUsername": "Roaders"
+        }
+    ]
+}

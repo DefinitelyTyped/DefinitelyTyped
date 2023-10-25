@@ -1,8 +1,3 @@
-// Type definitions for needle 0.7
-// Project: https://github.com/tomas/needle
-// Definitions by: San Chen <https://github.com/bigsan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /* eslint-disable @definitelytyped/no-declare-current-package */

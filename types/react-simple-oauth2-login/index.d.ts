@@ -1,8 +1,3 @@
-// Type definitions for react-simple-oauth2-login 0.5
-// Project: https://github.com/bhubr/react-simple-oauth2-login#readme
-// Definitions by: Kostas Antonopoulos <https://github.com/kostassite>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as React from "react";
 
 export interface OAuth2LoginProps {

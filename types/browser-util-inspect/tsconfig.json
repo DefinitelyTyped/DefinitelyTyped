@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "baseUrl": "../",
         "forceConsistentCasingInFileNames": true,
         "lib": [
             "ES2015"
@@ -11,9 +10,6 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "typeRoots": [
-            "../"
-        ],
         "types": []
     },
     "files": [

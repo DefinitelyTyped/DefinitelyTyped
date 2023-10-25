@@ -1,6 +1,24 @@
 {
     "private": true,
+    "name": "@types/micro-cors",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/possibilities/micro-cors#readme"
+    ],
     "dependencies": {
         "@types/micro": "^7.3.7"
-    }
+    },
+    "devDependencies": {
+        "@types/micro-cors": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Callum Denby",
+            "githubUsername": "CallumDenby"
+        },
+        {
+            "name": "ChanYong Moon",
+            "githubUsername": "moonchanyong"
+        }
+    ]
 }

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/dogapi",
+    "version": "2.8.9999",
+    "projects": [
+        "https://github.com/brettlangdon/node-dogapi#readme"
+    ],
+    "devDependencies": {
+        "@types/dogapi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "olebedev",
+            "githubUsername": "olebedev"
+        }
+    ]
+}

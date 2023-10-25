@@ -1,8 +1,3 @@
-// Type definitions for pgn-parser 2.1
-// Project: https://github.com/kevinludwig/pgn-parser#readme
-// Definitions by: Tyler Neisinger <https://github.com/tneisinger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace pgnParser {
     /**
      * The result of a game or sequence of moves.

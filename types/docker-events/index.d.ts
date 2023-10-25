@@ -1,8 +1,3 @@
-// Type definitions for docker-events 0.0
-// Project: https://github.com/deoxxa/docker-events
-// Definitions by: Ciffelia <https://github.com/ciffelia>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as Dockerode from "dockerode";

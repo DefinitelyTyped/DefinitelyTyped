@@ -1,0 +1,37 @@
+{
+    "private": true,
+    "name": "@types/argparse",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/nodeca/argparse"
+    ],
+    "devDependencies": {
+        "@types/argparse": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrew Schurman",
+            "githubUsername": "arcticwaters"
+        },
+        {
+            "name": "Tomasz Łaziuk",
+            "githubUsername": "tlaziuk"
+        },
+        {
+            "name": "Sebastian Silbermann",
+            "githubUsername": "eps1lon"
+        },
+        {
+            "name": "Kannan Goundan",
+            "githubUsername": "cakoose"
+        },
+        {
+            "name": "Halvor Holsten Strand",
+            "githubUsername": "ondkloss"
+        },
+        {
+            "name": "Dieter Oberkofler",
+            "githubUsername": "doberkofler"
+        }
+    ]
+}

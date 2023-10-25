@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/chocolatechipjs",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/chocolatechipui/ChocolateChipJS"
+    ],
+    "devDependencies": {
+        "@types/chocolatechipjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Robert Biggs",
+            "url": "http://chocolatechip-ui.com"
+        }
+    ]
+}

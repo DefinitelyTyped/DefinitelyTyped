@@ -1,11 +1,3 @@
-// Type definitions for redux-saga-tester 1.0
-// Project: https://github.com/wix/redux-saga-tester#readme
-// Definitions by: Ben Lorantfy <https://github.com/BenLorantfy>
-//                 Law Smith <https://github.com/lawsumisu>
-//                 Björn Böing <https://github.com/BreakBB>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 import { AnyAction, Middleware, Reducer, ReducersMapObject, Store } from "redux";
 import { Task } from "redux-saga";
 

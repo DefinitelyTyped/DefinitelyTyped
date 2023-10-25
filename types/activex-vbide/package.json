@@ -1,6 +1,25 @@
 {
     "private": true,
+    "name": "@types/activex-vbide",
+    "version": "14.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Microsoft Visual Basic for Applications Extensibility 5.3 - VBIDE",
+    "projects": [
+        "https://msdn.microsoft.com/en-us/vba/language-reference-vba/articles/collections-visual-basic-add-in-model"
+    ],
     "dependencies": {
+        "@types/activex-office": "*",
         "activex-helpers": "*"
-    }
+    },
+    "devDependencies": {
+        "@types/activex-vbide": "workspace:.",
+        "@types/activex-word": "*",
+        "@types/windows-script-host": "*"
+    },
+    "owners": [
+        {
+            "name": "Zev Spitz",
+            "githubUsername": "zspitz"
+        }
+    ]
 }

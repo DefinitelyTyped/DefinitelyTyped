@@ -1,9 +1,3 @@
-// Type definitions for tail 2.2
-// Project: https://github.com/lucagrulla/node-tail, https://www.lucagrulla.com/node-tail
-// Definitions by: Mike Linkovich <https://github.com/spacejack>
-//                 Devin Davies <https://github.com/devindavies>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface TailOptions {
     separator?: string | RegExp | null | undefined;
     fromBeginning?: boolean | undefined;

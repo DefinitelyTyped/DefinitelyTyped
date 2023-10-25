@@ -1,9 +1,3 @@
-// Type definitions for scc-broker-client 8.0
-// Project: https://github.com/SocketCluster/scc-broker-client
-// Definitions by: Daniel Rose <https://github.com/DanielRose>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import AGSimpleBroker = require("ag-simple-broker");
 import ConsumableStream = require("consumable-stream");
 import { Secret } from "jsonwebtoken";

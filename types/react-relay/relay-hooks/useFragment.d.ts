@@ -16,8 +16,8 @@ export function useFragment<TKey extends KeyType>(
 
 export function useFragment<TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
-    fragmentRef: TKey | null,
-): KeyTypeData<TKey> | null;
+    fragmentRef: TKey | null | undefined,
+): KeyTypeData<TKey> | null | undefined;
 
 export function useFragment<TKey extends ArrayKeyType>(
     fragmentInput: GraphQLTaggedNode,
@@ -26,5 +26,5 @@ export function useFragment<TKey extends ArrayKeyType>(
 
 export function useFragment<TKey extends ArrayKeyType>(
     fragmentInput: GraphQLTaggedNode,
-    fragmentRef: TKey | null,
-): ArrayKeyTypeData<TKey> | null;
+    fragmentRef: TKey | null | undefined,
+): ArrayKeyTypeData<TKey> | null | undefined;

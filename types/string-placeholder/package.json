@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/string-placeholder",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/crysalead-js/string-placeholder#readme"
+    ],
+    "devDependencies": {
+        "@types/string-placeholder": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Filipe Ferreira",
+            "githubUsername": "iTsFILIPOficial"
+        }
+    ]
+}

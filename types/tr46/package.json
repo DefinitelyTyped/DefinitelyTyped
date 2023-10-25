@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/tr46",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/jsdom/tr46"
+    ],
+    "devDependencies": {
+        "@types/tr46": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

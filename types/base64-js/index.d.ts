@@ -1,9 +1,3 @@
-// Type definitions for base64-js 1.3
-// Project: https://github.com/beatgammit/base64-js
-// Definitions by: Peter Safranek <https://github.com/pe8ter>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Takes a base64 string and returns length of byte array
  */

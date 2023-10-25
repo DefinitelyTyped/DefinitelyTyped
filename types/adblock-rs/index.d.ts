@@ -1,8 +1,3 @@
-// Type definitions for adblock-rs 0.7
-// Project: https://github.com/brave/adblock-rust
-// Definitions by: Wataru Haruna <https://github.com/eggplants>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // Ref: https://github.com/brave/adblock-rust/blob/master/js/src/lib.rs
 
 /// <reference types="node" />

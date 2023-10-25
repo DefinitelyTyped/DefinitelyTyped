@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/autosuggest-trie",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/moroshko/autosuggest-trie#readme"
+    ],
+    "devDependencies": {
+        "@types/autosuggest-trie": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hemand",
+            "githubUsername": "hemandev"
+        }
+    ]
+}

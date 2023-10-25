@@ -1,17 +1,21 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6", "dom"],
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "strictFunctionTypes": true,
         "jsx": "react"
     },
-    "files": ["index.d.ts", "react-aria-modal-tests.tsx"]
+    "files": [
+        "index.d.ts",
+        "react-aria-modal-tests.tsx"
+    ]
 }

@@ -1,8 +1,3 @@
-// Type definitions for @segment/isodate 1.0
-// Project: https://github.com/segmentio/isodate#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Parse the given ISO date `string` into a native `Date` object.
  *

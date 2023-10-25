@@ -1,11 +1,3 @@
-// Type definitions for tough-cookie 4.0
-// Project: https://github.com/salesforce/tough-cookie
-// Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
-//                 LiJinyao <https://github.com/LiJinyao>
-//                 Michael Wei <https://github.com/no2chem>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export const version: string;
 
 export const PrefixSecurityEnum: Readonly<{

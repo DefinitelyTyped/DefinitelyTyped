@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/timestring",
+    "version": "6.0.9999",
+    "projects": [
+        "https://github.com/mike182uk/timestring"
+    ],
+    "devDependencies": {
+        "@types/timestring": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Devin Spikowski",
+            "githubUsername": "vegeta897"
+        }
+    ]
+}

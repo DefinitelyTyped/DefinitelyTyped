@@ -1,11 +1,3 @@
-// Type definitions for non-npm package hast 3.0
-// Project: https://github.com/syntax-tree/hast
-// Definitions by: lukeggchapman <https://github.com/lukeggchapman>
-//                 Junyoung Choi <https://github.com/rokt33r>
-//                 Christian Murphy <https://github.com/ChristianMurphy>
-//                 Remco Haszing <https://github.com/remcohaszing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import type { Data as UnistData, Literal as UnistLiteral, Node as UnistNode, Parent as UnistParent } from "unist";
 
 // ## Interfaces

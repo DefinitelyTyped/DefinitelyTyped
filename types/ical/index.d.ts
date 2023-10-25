@@ -1,9 +1,3 @@
-// Type definitions for ical 0.8
-// Project: https://github.com/peterbraden/ical.js
-// Definitions by: Nick Clifford <https://github.com/nickbclifford>
-//                 Matej Vilk <https://github.com/iammatis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.9
 import { RRule } from "rrule";
 
 export type CalendarComponentType = "VEVENT" | "VTODO" | "VJOURNAL" | "VFREEBUSY" | "VTIMEZONE" | "VALARM";

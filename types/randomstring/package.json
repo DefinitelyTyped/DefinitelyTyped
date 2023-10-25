@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/randomstring",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/klughammer/node-randomstring"
+    ],
+    "devDependencies": {
+        "@types/randomstring": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Isman Usoh",
+            "githubUsername": "isman-usoh"
+        }
+    ]
+}

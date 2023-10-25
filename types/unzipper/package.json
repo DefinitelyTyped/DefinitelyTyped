@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/unzipper",
+    "version": "0.10.9999",
+    "projects": [
+        "https://github.com/ZJONSSON/node-unzipper#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/unzipper": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "s73obrien",
+            "githubUsername": "s73obrien"
+        },
+        {
+            "name": "Bart",
+            "githubUsername": "bartje321"
+        },
+        {
+            "name": "Ken Human",
+            "githubUsername": "kenhuman"
+        }
+    ]
+}

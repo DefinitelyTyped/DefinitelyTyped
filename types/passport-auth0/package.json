@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/passport-auth0",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/auth0/passport-auth0"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/passport": "*"
+    },
+    "devDependencies": {
+        "@types/passport-auth0": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "John Umeh",
+            "githubUsername": "johnbendi"
+        },
+        {
+            "name": "Vishnu Sankar",
+            "githubUsername": "iamvishnusankar"
+        },
+        {
+            "name": "Duncan Hall",
+            "githubUsername": "duncanhall"
+        },
+        {
+            "name": "Karl Horky",
+            "githubUsername": "karlhorky"
+        }
+    ]
+}

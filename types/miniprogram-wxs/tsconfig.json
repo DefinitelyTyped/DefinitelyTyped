@@ -4,10 +4,6 @@
         "lib": [
             "es5"
         ],
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,

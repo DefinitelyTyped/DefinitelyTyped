@@ -1,8 +1,3 @@
-// Type definitions for git-init 1.0
-// Project: https://github.com/yoshuawuyts/git-init#readme
-// Definitions by: Santi <https://github.com/santi100a>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import type { ExecException } from "node:child_process";
 

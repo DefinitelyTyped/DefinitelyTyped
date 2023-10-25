@@ -1,8 +1,3 @@
-// Type definitions for chai-subset-in-order 3.1
-// Project: https://github.com/oprogramador/chai-subset-in-order
-// Definitions by: Mario Ramundo <https://github.com/ramundomario>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="chai" />
 
 declare global {

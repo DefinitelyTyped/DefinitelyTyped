@@ -1,9 +1,3 @@
-// Type definitions for css-declaration-sorter 6.0
-// Project: https://github.com/Siilwyn/css-declaration-sorter#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
 import { PluginCreator } from "postcss";
 
 /**

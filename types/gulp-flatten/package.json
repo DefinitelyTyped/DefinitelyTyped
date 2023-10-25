@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-flatten",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/armed/gulp-flatten"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-flatten": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Keita Kagurazaka",
+            "githubUsername": "k-kagurazaka"
+        }
+    ]
+}

@@ -1,0 +1,40 @@
+{
+    "private": true,
+    "name": "@types/react-grid-layout",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/STRML/react-grid-layout"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-grid-layout": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrew Birkholz",
+            "githubUsername": "abirkholz"
+        },
+        {
+            "name": "Ali Taheri",
+            "githubUsername": "alitaheri"
+        },
+        {
+            "name": "Zheyang Song",
+            "githubUsername": "ZheyangSong"
+        },
+        {
+            "name": "Andrew Hathaway",
+            "githubUsername": "andrewhathaway"
+        },
+        {
+            "name": "Manav Mishra",
+            "githubUsername": "manav-m"
+        },
+        {
+            "name": "Alexey Fyodorov",
+            "githubUsername": "al-fyodorov"
+        }
+    ]
+}

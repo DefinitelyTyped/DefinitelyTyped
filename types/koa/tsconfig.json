@@ -16,10 +16,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,

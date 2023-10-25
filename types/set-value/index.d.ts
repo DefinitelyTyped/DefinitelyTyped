@@ -1,9 +1,3 @@
-// Type definitions for set-value 4.0
-// Project: https://github.com/jonschlinkert/set-value
-// Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
-//                 Piotr Błażejewicz <https://github.com/DanielRosenwasser>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = set;
 
 // Technically, everything will fall to the last overload,

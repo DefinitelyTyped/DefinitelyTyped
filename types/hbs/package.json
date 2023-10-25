@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/hbs",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/pillarjs/hbs"
+    ],
     "dependencies": {
         "handlebars": "^4.1.0"
-    }
+    },
+    "devDependencies": {
+        "@types/express": "*",
+        "@types/hbs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "David Muller",
+            "githubUsername": "davidm77"
+        }
+    ]
 }

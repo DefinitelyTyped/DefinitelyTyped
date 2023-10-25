@@ -1,8 +1,3 @@
-// Type definitions for non-npm package dom-chromium-installation-events 101.0
-// Project: https://developer.mozilla.org/en-US/docs/Web/API/BeforeInstallPromptEvent
-// Definitions by: Sergey Kozlov <https://github.com/dartess>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type AppBannerPromptOutcome = "accepted" | "dismissed";
 
 interface PromptResponseObject {

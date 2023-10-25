@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/yazl",
+    "version": "2.4.9999",
+    "projects": [
+        "https://github.com/thejoshwolfe/yazl"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/yazl": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "taoqf",
+            "githubUsername": "taoqf"
+        },
+        {
+            "name": "Sean Marvi Oliver Genabe",
+            "githubUsername": "seangenabe"
+        }
+    ]
+}

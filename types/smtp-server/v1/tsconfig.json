@@ -8,15 +8,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
-        "paths": {
-            "smtp-server": [
-                "smtp-server/v1"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

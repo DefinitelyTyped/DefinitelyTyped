@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/autoprefixer-core",
+    "version": "5.1.9999",
+    "projects": [
+        "https://github.com/postcss/autoprefixer-core"
+    ],
+    "devDependencies": {
+        "@types/autoprefixer-core": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Asana",
+            "url": "https://asana.com"
+        }
+    ]
+}

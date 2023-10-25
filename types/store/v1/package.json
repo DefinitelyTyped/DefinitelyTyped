@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/store",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/marcuswestin/store.js/"
+    ],
+    "devDependencies": {
+        "@types/store": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vincent Bortone",
+            "githubUsername": "vbortone"
+        }
+    ]
+}

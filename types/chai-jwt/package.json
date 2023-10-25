@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/chai-jwt",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/dafortune/chai-jwt#readme"
+    ],
+    "dependencies": {
+        "@types/chai": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/chai-jwt": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Anatoly Pitikin",
+            "githubUsername": "xapdkop"
+        }
+    ]
+}

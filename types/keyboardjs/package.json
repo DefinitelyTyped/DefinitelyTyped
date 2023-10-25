@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/keyboardjs",
+    "version": "2.5.9999",
+    "projects": [
+        "https://github.com/RobertWHurst/KeyboardJS"
+    ],
+    "devDependencies": {
+        "@types/keyboardjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vincent Bortone",
+            "githubUsername": "vbortone"
+        },
+        {
+            "name": "David Asmuth",
+            "githubUsername": "piranha771"
+        },
+        {
+            "name": "Florian Keller",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

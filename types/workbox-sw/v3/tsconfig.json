@@ -14,16 +14,6 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": ["../../"],
-        "paths": {
-            "workbox-sw": [
-                "workbox-sw/v3"
-            ],
-            "workbox-sw/*": [
-                "workbox-sw/v3/*"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

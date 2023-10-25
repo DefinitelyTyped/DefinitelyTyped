@@ -1,9 +1,3 @@
-// Type definitions for @breejs/later 4.1
-// Project: https://github.com/breejs/later
-// Definitions by: Jamie Magee <https://github.com/JamieMagee>
-//                 Michael Kriese <https://github.com/viceice>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface ScheduleData {
     /**
      * A list of recurrence information as a composite schedule.

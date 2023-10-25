@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/tough-cookie-file-store",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/ivanmarban/tough-cookie-file-store"
+    ],
+    "dependencies": {
+        "@types/tough-cookie": "*"
+    },
+    "devDependencies": {
+        "@types/tough-cookie-file-store": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Emily Marigold Klassen",
+            "githubUsername": "forivall"
+        }
+    ]
+}

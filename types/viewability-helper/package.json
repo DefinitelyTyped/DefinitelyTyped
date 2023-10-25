@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/viewability-helper",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/outbrain/viewabilityhelper"
+    ],
+    "devDependencies": {
+        "@types/viewability-helper": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Liron Zluf",
+            "githubUsername": "lironzluf"
+        }
+    ]
+}

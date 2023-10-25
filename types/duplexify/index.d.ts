@@ -1,7 +1,3 @@
-// Type definitions for duplexify 3.6
-// Project: https://github.com/mafintosh/duplexify
-// Definitions by: Sami Kukkonen <https://github.com/strax>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
 import * as stream from "stream";

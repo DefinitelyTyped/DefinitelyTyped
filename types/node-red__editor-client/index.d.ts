@@ -1,10 +1,3 @@
-// Type definitions for @node-red/editor-client 1.3
-// Project: https://github.com/node-red/node-red/tree/master/packages/node_modules/%40node-red/editor-client, https://nodered.org/
-// Definitions by: Alex Kaul <https://github.com/alexk111>
-//                 Tadeusz Wyrzykowski <https://github.com/Shaquu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.7
-
 /// <reference lib="dom" />
 /// <reference types="ace" />
 /// <reference types="jquery" />

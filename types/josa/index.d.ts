@@ -1,8 +1,3 @@
-// Type definitions for josa 3.0
-// Project: https://github.com/kimdhoe/josa
-// Definitions by: Vichyssoise <https://github.com/vichyssoise>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type Topic = "은" | "는";
 export type Subject = "이" | "가";
 export type Objective = "을" | "를";

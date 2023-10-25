@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/fs-extra-promise-es6",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/vinsonchuong/fs-extra-promise-es6"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/fs-extra-promise-es6": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "midknight41",
+            "githubUsername": "midknight41"
+        },
+        {
+            "name": "Jason Swearingen",
+            "githubUsername": "jasonswearingen"
+        },
+        {
+            "name": "Joshua DeVinney",
+            "githubUsername": "geoffreak"
+        },
+        {
+            "name": "Hiromi Shikata",
+            "githubUsername": "HiromiShikata"
+        }
+    ]
+}

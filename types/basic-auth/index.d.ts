@@ -1,8 +1,3 @@
-// Type definitions for basic-auth 1.1
-// Project: https://github.com/jshttp/basic-auth
-// Definitions by: Clément Bourgeois <https://github.com/moonpyk>, Vesa Poikajärvi <https://github.com/vesse>, Ryo Ota <https://github.com/nwtgck>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as http from "http";

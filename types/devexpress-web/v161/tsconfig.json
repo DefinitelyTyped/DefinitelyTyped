@@ -9,19 +9,7 @@
         "noImplicitThis": true,
         "strictNullChecks": false,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
-        "paths": {
-            "devexpress-web": [
-                "devexpress-web/v161"
-            ],
-            "devexpress-web/*": [
-                "devexpress-web/v161/*"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

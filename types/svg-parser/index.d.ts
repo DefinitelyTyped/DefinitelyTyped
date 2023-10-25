@@ -1,10 +1,3 @@
-// Type definitions for svg-parser 2.0
-// Project: https://github.com/Rich-Harris/svg-parser
-// Definitions by: mrmlnc <https://github.com/mrmlnc>
-//                 Joel Shinness <https://github.com/JoelCodes>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface TextNode {
     type: "text";
     value?: string | boolean | number | undefined;

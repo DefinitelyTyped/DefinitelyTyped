@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/steamcommunity",
+    "version": "3.43.9999",
+    "projects": [
+        "https://github.com/DoctorMcKay/node-steamcommunity"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/request": "*",
+        "@types/steamid": "*"
+    },
+    "devDependencies": {
+        "@types/steamcommunity": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "SenTisso",
+            "githubUsername": "SenTisso"
+        }
+    ]
+}

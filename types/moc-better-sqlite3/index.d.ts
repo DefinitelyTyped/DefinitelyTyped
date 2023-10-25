@@ -1,14 +1,3 @@
-// Type definitions for moc-better-sqlite3 6.2
-// Project: https://github.com/vazra/better-sqlite3
-// Definitions by: Ben Davies <https://github.com/Morfent>
-//                 Mathew Rumsey <https://github.com/matrumz>
-//                 Santiago Aguilar <https://github.com/sant123>
-//                 Alessandro Vergani <https://github.com/loghorn>
-//                 Andrew Kaiser <https://github.com/andykais>
-//                 Mark Stewart <https://github.com/mrkstwrt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.9
-
 import Integer = require("integer");
 
 type VariableArgFunction = (...params: any[]) => any;

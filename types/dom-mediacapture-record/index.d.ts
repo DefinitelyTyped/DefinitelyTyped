@@ -1,9 +1,3 @@
-// Type definitions for non-npm package w3c MediaStream Recording 1.0
-// Project: https://w3c.github.io/mediacapture-record
-// Definitions by: Elias Meire <https://github.com/elsmr>
-//                 AppLover69 <https://github.com/AppLover69>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface MediaRecorderErrorEventInit extends EventInit {
     error: DOMException;
 }

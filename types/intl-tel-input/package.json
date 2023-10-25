@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/intl-tel-input",
+    "version": "18.1.9999",
+    "projects": [
+        "https://github.com/jackocnr/intl-tel-input"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/intl-tel-input": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Fidan Hakaj",
+            "githubUsername": "fdnhkj"
+        },
+        {
+            "name": "Leonard Thieu",
+            "githubUsername": "leonard-thieu"
+        },
+        {
+            "name": "Márton Molnár",
+            "githubUsername": "molnarm"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

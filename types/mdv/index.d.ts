@@ -1,8 +1,3 @@
-// Type definitions for mdv 1.3
-// Project: https://github.com/Mermade/mdv#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * A tiny markdown validator
  */

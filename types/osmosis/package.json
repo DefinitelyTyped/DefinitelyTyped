@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/osmosis",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/rchipka/node-osmosis"
+    ],
+    "devDependencies": {
+        "@types/osmosis": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Juraj Kočan",
+            "githubUsername": "jurajkocan"
+        },
+        {
+            "name": "Evan Shortiss",
+            "githubUsername": "evanshortiss"
+        }
+    ]
+}

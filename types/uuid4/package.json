@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/uuid4",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/tracker1/node-uuid4"
+    ],
+    "devDependencies": {
+        "@types/uuid4": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Brenek Harrison",
+            "githubUsername": "BrenekH"
+        }
+    ]
+}

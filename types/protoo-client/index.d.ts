@@ -1,8 +1,3 @@
-// Type definitions for protoo-client 4.0
-// Project: https://protoojs.org
-// Definitions by: Marks Polakovs <https://github.com/markspolakovs>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as http from "http";
 import * as retry from "retry";
 import * as websocket from "websocket";

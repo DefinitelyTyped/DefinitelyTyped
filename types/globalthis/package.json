@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/globalthis",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ljharb/System.global#readme"
+    ],
+    "devDependencies": {
+        "@types/globalthis": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

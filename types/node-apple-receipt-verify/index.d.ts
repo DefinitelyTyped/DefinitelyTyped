@@ -1,8 +1,3 @@
-// Type definitions for node-apple-receipt-verify 1.7
-// Project: https://github.com/ladeiko/node-apple-receipt-verify
-// Definitions by: serinuntius <https://github.com/serinuntius>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export enum ERROR_CODES {
     /** The receipt validated successfully. */
     SUCCESS = 0,

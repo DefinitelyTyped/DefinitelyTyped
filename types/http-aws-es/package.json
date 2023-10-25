@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/http-aws-es",
+    "version": "6.0.9999",
+    "projects": [
+        "https://github.com/TheDeveloper/http-aws-es#readme"
+    ],
+    "dependencies": {
+        "@types/aws-sdk2-types": "*",
+        "@types/elasticsearch": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/http-aws-es": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marco Gonzalez",
+            "githubUsername": "marcogrcr"
+        }
+    ]
+}

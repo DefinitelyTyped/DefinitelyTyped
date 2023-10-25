@@ -1,9 +1,3 @@
-// Type definitions for leaflet.FeatureGroup.SubGroup 1.0
-// Project: https://github.com/ghybs/Leaflet.FeatureGroup.SubGroup
-// Definitions by: Thomas Revesz <https://github.com/drtomato>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as L from "leaflet";
 
 declare module "leaflet" {

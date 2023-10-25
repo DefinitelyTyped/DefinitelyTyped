@@ -1,21 +1,22 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["es6", "dom"],
-        "paths": {
-            "react-beautiful-dnd": ["react-beautiful-dnd/v12"]
-        },
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "noUnusedLocals": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": ["../../"],
         "types": [],
         "jsx": "react",
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "react-beautiful-dnd-tests.tsx"]
+    "files": [
+        "index.d.ts",
+        "react-beautiful-dnd-tests.tsx"
+    ]
 }

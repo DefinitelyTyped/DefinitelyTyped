@@ -1,8 +1,3 @@
-// Type definitions for broken-link-checker 0.7
-// Project: https://github.com/stevenvachon/broken-link-checker
-// Definitions by: Anh Le <https://github.com/Haizzz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Options {
     acceptedSchemes?: string[] | undefined;
     cacheExpiryTime?: number | undefined;

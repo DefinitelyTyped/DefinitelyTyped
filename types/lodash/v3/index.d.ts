@@ -1,8 +1,3 @@
-// Type definitions for Lo-Dash 3.10
-// Project: http://lodash.com/
-// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare var _: _.LoDashStatic;
 
 declare namespace _ {

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/proxyquire",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/thlorenz/proxyquire"
+    ],
+    "devDependencies": {
+        "@types/proxyquire": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jt000",
+            "githubUsername": "jt000"
+        }
+    ]
+}

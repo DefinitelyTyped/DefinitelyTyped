@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/pvutils",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/PeculiarVentures/pvutils"
+    ],
+    "devDependencies": {
+        "@types/pvutils": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Stepan Miroshin",
+            "githubUsername": "microshine"
+        }
+    ]
+}

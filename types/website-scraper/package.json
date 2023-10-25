@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/website-scraper",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/s0ph1e/node-website-scraper"
+    ],
+    "dependencies": {
+        "@types/request": "*"
+    },
+    "devDependencies": {
+        "@types/website-scraper": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Rackerseder",
+            "githubUsername": "screendriver"
+        }
+    ]
+}

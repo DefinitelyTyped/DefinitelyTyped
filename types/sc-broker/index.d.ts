@@ -1,8 +1,3 @@
-// Type definitions for sc-broker 8.0
-// Project: https://github.com/SocketCluster/sc-broker
-// Definitions by: Daniel Rose <https://github.com/DanielRose>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { EventEmitter } from "events";
 import { Key, Keys } from "expirymanager";
 import { FlexiMap, KeyChain } from "fleximap";

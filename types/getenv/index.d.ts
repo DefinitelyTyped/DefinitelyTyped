@@ -1,9 +1,3 @@
-// Type definitions for getenv 1.0
-// Project: https://github.com/ctavan/node-getenv
-// Definitions by: Ivan Pankratov <https://github.com/impankratov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="node" />
 import { UrlWithStringQuery } from "url";
 

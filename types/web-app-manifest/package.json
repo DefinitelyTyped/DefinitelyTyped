@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/web-app-manifest",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "web-app-manifest",
+    "projects": [
+        "https://w3c.github.io/manifest/"
+    ],
+    "devDependencies": {
+        "@types/web-app-manifest": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yamagishi Kazutoshi",
+            "githubUsername": "ykzts"
+        }
+    ]
+}

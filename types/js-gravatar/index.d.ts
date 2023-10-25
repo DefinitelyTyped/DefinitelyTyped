@@ -1,8 +1,3 @@
-// Type definitions for js-gravatar 1.1
-// Project: https://github.com/chukwumaijem/js-gravatar#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * JS Gravatar
  * {@link https://github.com/chukwumaijem/js-gravatar#js-gravatar}

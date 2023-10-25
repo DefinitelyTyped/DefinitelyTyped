@@ -1,9 +1,3 @@
-// Type definitions for react-star-ratings 2.3
-// Project: https://github.com/ekeric13/react-star-ratings
-// Definitions by: Andrew Shkurenko <https://github.com/vanillkay>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import * as React from "react";
 
 interface StarRatingProps {

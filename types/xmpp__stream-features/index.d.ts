@@ -1,8 +1,3 @@
-// Type definitions for @xmpp/stream-features 0.13
-// Project: https://github.com/xmppjs/xmpp.js/tree/main/packages/stream-features
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { Entity, IncomingContext, Middleware } from "@xmpp/middleware";
 import { Element } from "@xmpp/xml";
 import * as Koa from "koa";

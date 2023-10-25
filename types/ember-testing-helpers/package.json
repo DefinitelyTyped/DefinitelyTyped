@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/ember-testing-helpers",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/emberjs/ember.js/tree/master/packages/ember-testing/lib/helpers"
+    ],
+    "dependencies": {
+        "@types/jquery": "*",
+        "@types/rsvp": "*"
+    },
+    "devDependencies": {
+        "@types/ember-testing-helpers": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Krycho",
+            "githubUsername": "chriskrycho"
+        },
+        {
+            "name": "James C. Davis",
+            "githubUsername": "jamescdavis"
+        },
+        {
+            "name": "Dan Freeman",
+            "githubUsername": "dfreeman"
+        },
+        {
+            "name": "Mike North",
+            "githubUsername": "mike-north"
+        }
+    ]
+}

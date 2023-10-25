@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/uslug",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jeremys/uslug"
+    ],
+    "devDependencies": {
+        "@types/uslug": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Junyoung Choi",
+            "githubUsername": "rokt33r"
+        }
+    ]
+}

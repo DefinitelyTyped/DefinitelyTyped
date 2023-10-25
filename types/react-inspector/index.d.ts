@@ -1,10 +1,3 @@
-// Type definitions for react-inspector 4.0
-// Project: http://formatjs.io/react/, https://github.com/yahoo/react-intl
-// Definitions by: Roger Clotet <https://github.com/rogerclotet>
-//                 Xinyan Chen <https://github.com/chenxinyanc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as CSS from "csstype";
 import * as React from "react";
 

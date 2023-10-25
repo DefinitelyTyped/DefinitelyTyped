@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/chromedriver",
+    "version": "81.0.9999",
+    "projects": [
+        "https://github.com/giggio/node-chromedriver"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/chromedriver": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Peter Safranek",
+            "githubUsername": "pe8ter"
+        }
+    ]
+}

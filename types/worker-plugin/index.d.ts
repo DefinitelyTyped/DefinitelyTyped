@@ -1,10 +1,3 @@
-// Type definitions for worker-plugin 5.0
-// Project: https://github.com/GoogleChromeLabs/worker-plugin
-// Definitions by: Artur Androsovych <https://github.com/arturovt>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import * as webpack from "webpack";
 
 export = WorkerPlugin;
