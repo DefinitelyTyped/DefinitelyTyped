@@ -242,6 +242,7 @@ export interface ClientApplication {
 
 export interface User {
     username?: string;
+    global_name?: string;
     discriminator?: string;
     id: string;
     avatar?: string;
