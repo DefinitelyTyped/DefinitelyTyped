@@ -3275,7 +3275,6 @@ type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps
 // Exclude implicity return undefined
 type ExcludeVoidFn<T extends () => unknown> = (() => void) extends T ? never : T;
 
-
 declare global {
     /**
      * @deprecated Use `React.JSX` instead of the global `JSX` namespace.
