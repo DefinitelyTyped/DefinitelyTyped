@@ -172,6 +172,10 @@
             "libraryName": "applicationinsights",
             "asOfVersion": "0.20.0"
         },
+        "arcgis-js-api": {
+            "libraryName": "arcgis-js-api",
+            "asOfVersion": "4.28.0"
+        },
         "argon2": {
             "libraryName": "argon2",
             "asOfVersion": "0.15.0"
@@ -5374,6 +5378,10 @@
         "sdbm": {
             "libraryName": "sdbm",
             "asOfVersion": "1.1.0"
+        },
+        "seatsio": {
+            "libraryName": "@seatsio/seatsio-types",
+            "asOfVersion": "2.0.0"
         },
         "semver-diff": {
             "libraryName": "semver-diff",
