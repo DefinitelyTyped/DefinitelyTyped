@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/discord-rpc",
-    "version": "4.0.9999",
+    "version": "4.1.0",
     "projects": [
         "https://github.com/discordjs/RPC#readme"
     ],
