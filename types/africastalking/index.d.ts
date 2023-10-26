@@ -55,12 +55,17 @@ interface TOKEN {
     }>;
 }
 
-interface Entry {
+interface CallEntry {
     phoneNumber: string;
     status: "Queued" | "InvalidPhoneNumber" | "DestinationNotSupported" | "InsufficientCredit";
     sessionId: string;
 }
 
+interface NumQueuedCallsEntry {
+    phoneNumber: string;
+    queueName: string;
+    numCalls: number;
+}
 interface VOICE {
     /**
      * This is used to make outbound calls
@@ -74,7 +79,7 @@ interface VOICE {
         callTo: string[];
         clientRequestId?: string;
     }) => Promise<{
-        entries: Entry[];
+        entries: CallEntry[];
         errorMessage?: string;
     }>;
 
@@ -82,11 +87,7 @@ interface VOICE {
         phoneNumbers: string;
     }) => Promise<{
         status: string;
-        entries: {
-            phoneNumber: string;
-            queueName: string;
-            numCalls: number;
-        }[];
+        entries: NumQueuedCallsEntry[];
         errorMessage: string;
     }>;
 
