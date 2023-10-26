@@ -221,11 +221,10 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     React.useDebugValue(id, value => value.toFixed());
     React.useDebugValue(id);
 
-    // allow passing an explicit undefined
     React.useMemo(() => {}, undefined);
-    // but don't allow it to be missing
-    // @ts-expect-error
     React.useMemo(() => {});
+    // @ts-expect-error
+    React.useMemo(() => {}, 0);
 
     // useState convenience overload
     // default to undefined only (not that useful, but type-safe -- no {} or unknown!)
