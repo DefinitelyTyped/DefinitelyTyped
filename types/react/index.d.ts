@@ -1130,7 +1130,7 @@ declare namespace React {
      * @see https://react.dev/reference/react/useMemo
      */
     // allow undefined, but don't make it optional as that is very likely a mistake
-    function useMemo<T>(factory: ExcludeVoidFn<() => T>, deps: DependencyList | undefined): T;
+    function useMemo<T>(factory: () => T, deps: DependencyList | undefined): T;
     /**
      * `useDebugValue` can be used to display a label for custom hooks in React DevTools.
      *
@@ -3271,9 +3271,6 @@ type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps
     : C extends { propTypes: infer T } ? MergePropTypes<P, PropTypes.InferProps<T>>
     : C extends { defaultProps: infer D } ? Defaultize<P, D>
     : P;
-
-// Exclude implicity return undefined
-type ExcludeVoidFn<T extends () => unknown> = (() => void) extends T ? never : T;
 
 declare global {
     /**
