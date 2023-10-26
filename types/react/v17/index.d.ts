@@ -1101,7 +1101,7 @@ declare namespace React {
      * @see https://react.dev/reference/react/useCallback
      */
     // TODO (TypeScript 3.0): <T extends (...args: never[]) => unknown>
-    function useCallback<T extends (...args: any[]) => any>(callback: T, deps: DependencyList): T;
+    function useCallback<T extends (...args: any[]) => any>(callback: T, deps: DependencyList | void | null): T;
     /**
      * `useMemo` will only recompute the memoized value when one of the `deps` has changed.
      *
