@@ -1133,7 +1133,6 @@ declare namespace React {
      * @version 16.8.0
      * @see https://react.dev/reference/react/useMemo
      */
-    // allow undefined, but don't make it optional as that is very likely a mistake
     function useMemo<T>(factory: () => T, deps: DependencyList | void | null): T;
     /**
      * `useDebugValue` can be used to display a label for custom hooks in React DevTools.
