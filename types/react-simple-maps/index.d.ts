@@ -14,6 +14,7 @@ export interface ProjectionConfig {
 export type ProjectionFunction = (width: number, height: number, config: ProjectionConfig) => GeoProjection;
 
 export interface ComposableMapProps extends React.SVGAttributes<SVGSVGElement> {
+    children?: React.ReactNode;
     /**
      * @default 800
      */
@@ -42,6 +43,7 @@ export interface Position {
 }
 
 export interface ZoomableGroupProps extends React.SVGAttributes<SVGGElement> {
+    children?: React.ReactNode;
     /**
      * @default [0, 0]
      */
@@ -118,6 +120,7 @@ export interface GeographyProps
 export interface MarkerProps
     extends Pick<React.SVGProps<SVGPathElement>, Exclude<keyof React.SVGProps<SVGPathElement>, "style">>
 {
+    children?: React.ReactNode;
     coordinates?: Point | undefined;
     style?: {
         default?: React.CSSProperties | undefined;
@@ -133,6 +136,7 @@ export interface MarkerProps
 }
 
 export interface AnnotationProps extends React.SVGProps<SVGGElement> {
+    children?: React.ReactNode;
     subject?: Point | undefined;
     connectorProps: React.SVGProps<SVGPathElement>;
     /**
