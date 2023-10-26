@@ -73,34 +73,34 @@ export class Altimeter {
 }
 
 export type EasingFnVariant =
-    | 'linear'
-    | 'inQuad'
-    | 'outQuad'
-    | 'inOutQuad'
-    | 'inCube'
-    | 'outCube'
-    | 'inOutCube'
-    | 'inQuart'
-    | 'outQuart'
-    | 'inOutQuart'
-    | 'inQuint'
-    | 'outQuint'
-    | 'inOutQuint'
-    | 'inSine'
-    | 'outSine'
-    | 'inOutSine'
-    | 'inExpo'
-    | 'outExpo'
-    | 'inOutExpo'
-    | 'inCirc'
-    | 'outCirc'
-    | 'inOutCirc'
-    | 'inBack'
-    | 'outBack'
-    | 'inOutBack'
-    | 'inBounce'
-    | 'outBounce'
-    | 'inOutBounce';
+    | "linear"
+    | "inQuad"
+    | "outQuad"
+    | "inOutQuad"
+    | "inCube"
+    | "outCube"
+    | "inOutCube"
+    | "inQuart"
+    | "outQuart"
+    | "inOutQuart"
+    | "inQuint"
+    | "outQuint"
+    | "inOutQuint"
+    | "inSine"
+    | "outSine"
+    | "inOutSine"
+    | "inExpo"
+    | "outExpo"
+    | "inOutExpo"
+    | "inCirc"
+    | "outCirc"
+    | "inOutCirc"
+    | "inBack"
+    | "outBack"
+    | "inOutBack"
+    | "inBounce"
+    | "outBounce"
+    | "inOutBounce";
 export type WithEasing<T> = T & {
     /**
      * An easing function from ease-component to apply to the tweened value of the previous and next keyFrames.
@@ -127,31 +127,32 @@ export type KeyframeValue =
         /**
          * A number between 0 and 255
          */
-        brightness: number
+        brightness: number;
     }
     | {
         /** A number between 0% and 100% */
-        intensity: number
+        intensity: number;
     }
     | null
     | false
     | WithEasing<{
-          /** A step in degrees from the previous cuePoint position. */ step: number;
-      }>
+        /** A step in degrees from the previous cuePoint position. */ step: number;
+    }>
     | WithEasing<{
-          /** The servo position in degrees. (Not relative to the previous cuePoint position) */ degrees: number;
-      }>
+        /** The servo position in degrees. (Not relative to the previous cuePoint position) */ degrees: number;
+    }>
     | WithEasing<{
-          /** An index from this keyFrames array from which we copy the calculated or explicitly set degrees value. */ copyDegrees: number;
-      }>
+        /** An index from this keyFrames array from which we copy the calculated or explicitly set degrees value. */ copyDegrees:
+            number;
+    }>
     | WithEasing<{
-          /** An index from this keyFrames array from which we copy all of the properties. */ copyFrame: number;
-      }>
+        /** An index from this keyFrames array from which we copy all of the properties. */ copyFrame: number;
+    }>
     | WithEasing<{
-          /**  A two or three tuple defining a coordinate in 2d or 3d space. */ position:
-              | [number, number]
-              | [number, number, number];
-      }>;
+        /**  A two or three tuple defining a coordinate in 2d or 3d space. */ position:
+            | [number, number]
+            | [number, number, number];
+    }>;
 
 export interface AnimationSegment {
     /**
@@ -712,7 +713,7 @@ export class Led {
     readonly id: string;
     readonly isOn: boolean;
     readonly isRunning: boolean;
-    readonly mode: Pin['mode'];
+    readonly mode: Pin["mode"];
     readonly pin: number;
     readonly value: number;
 
@@ -723,7 +724,6 @@ export class Led {
      */
     brightness(val: number): this;
     /**
-     *
      * @param percentage A value between 0 and 100 representing the brightness of the led in percentage.
      */
     intensity(percentage: number): this;
@@ -1162,9 +1162,9 @@ export interface ServoSweepOpts {
 export class ServoMethods {
     /**
      * Move a servo horn to specified position in degrees, 0-180 (or whatever the current valid range is).
-     * 
+     *
      * If ms is specified, the servo will take that amount of time to move to the position.
-     * If rate is specified, the angle change will be split into distance/rate steps for the ms option. 
+     * If rate is specified, the angle change will be split into distance/rate steps for the ms option.
      * If the specified angle is the same as the current angle, no commands are sent.
      */
     to(degrees: number, ms?: number, rate?: number): void;
@@ -1178,7 +1178,7 @@ export class ServoMethods {
     max(): void;
     /**
      * Set Servo to center point.
-     * Defaults to 90deg, respects explicit range. 
+     * Defaults to 90deg, respects explicit range.
      * If ms is specified, the servo will take that amount of time to move to the position. If rate is specified, the angle change will be split into distance/rate steps for the ms option. If the specified angle is the same as the current angle, no commands are sent.
      */
     center(ms?: number, rate?: number): void;
