@@ -2,6 +2,8 @@ import { GraphPointer } from "clownface";
 import { LoaderRegistry } from "rdf-loaders-registry";
 import * as stream from "readable-stream";
 import { Logger } from "winston";
+import { CreatePipelineArgs } from './factory/pipeline.js';
+import Pipeline from './Pipeline.js';
 
 // tslint:disable-next-line:no-empty-interface
 export interface Variables {}
@@ -21,6 +23,7 @@ export interface Context {
     logger: Logger;
     variables: VariableMap;
     basePath: string;
+    createPipeline(ptr: GraphPointer, arg?: Partial<CreatePipelineArgs>): Pipeline;
 }
 
 export default class StreamObject {

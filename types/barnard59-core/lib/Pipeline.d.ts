@@ -1,7 +1,7 @@
 import * as stream from "readable-stream";
-import StreamObject from "./StreamObject";
+import StreamObject from "./StreamObject.js";
 
-export { Context } from "./StreamObject";
+export { Context } from "./StreamObject.js";
 
 export default class Pipeline extends StreamObject {
     readable: boolean;
