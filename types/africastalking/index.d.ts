@@ -67,14 +67,33 @@ interface VOICE {
      *
      * @param callFrom Your Africa’s Talking phone number (in international format i.e. +XXXYYYYYY)
      * @param callTo An array of entries each corresponding to an individual phone number and their status.
+     * @param clientRequestId Variable sent to your Events Callback URL that can be used to tag the call
      */
     call: (options: {
         callFrom: string;
         callTo: string[];
+        clientRequestId?: string;
     }) => Promise<{
         entries: Entry[];
         errorMessage?: string;
     }>;
+
+    getNumQueuedCalls: (options: {
+        phoneNumbers: string
+    }) => Promise<{
+        status: string,
+        entries: {
+            phoneNumber:string,
+            queueName:string,
+            numCalls: number
+        }[],
+        errorMessage:string,
+    }>
+
+    uploadMediaFile: (options: {
+        phoneNumbers: string,
+        url:string
+    }) => Promise<any>
 }
 
 interface AfricasTalking {

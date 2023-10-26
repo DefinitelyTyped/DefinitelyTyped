@@ -31,8 +31,12 @@ const SMS = async () => {
 const VOICE = async () => {
     const voice = africastalking.VOICE;
 
-    const result = await voice.call({
+    const callResult = await voice.call({
         callFrom: "+254711XXXYYY",
         callTo: ["+254711XXXZZZ", "+254711XXXPPP"],
+    });
+
+    const numQueuedCallsResult = await voice.getNumQueuedCalls({
+        phoneNumbers: "+254711XXXYYY"
     });
 };
