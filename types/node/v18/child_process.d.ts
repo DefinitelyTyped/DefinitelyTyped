@@ -891,7 +891,7 @@ declare module "child_process" {
         encoding: BufferEncoding;
     }
     interface ExecOptionsWithBufferEncoding extends ExecOptions {
-        encoding: BufferEncoding | null; // specify `null`.
+        encoding: BufferEncoding | null | "buffer"; // specify `null`.
     }
     interface ExecException extends Error {
         cmd?: string | undefined;

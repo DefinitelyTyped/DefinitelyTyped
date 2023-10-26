@@ -10,6 +10,13 @@ import { promisify } from "node:util";
     childProcess.exec("echo test");
     const abortController = new AbortController();
     childProcess.exec("echo test", { windowsHide: true, signal: abortController.signal });
+    childProcess.exec("echo test", { encoding: "buffer" }, (err, stdout, stderr) => {
+        assert(stdout instanceof Buffer);
+    });
+    const execOptions: childProcess.ExecOptionsWithBufferEncoding = { encoding: "buffer" };
+    childProcess.exec("echo test", execOptions, (err, stdout, stderr) => {
+        stdout; // $ExpectType Buffer
+    });
     childProcess.spawn("echo");
     childProcess.spawn("echo", { windowsHide: true, signal: new AbortSignal(), killSignal: "SIGABRT", timeout: 123 });
     childProcess.spawn("echo", ["test"], { windowsHide: true });
