@@ -1135,6 +1135,116 @@ declare module "log" {
          * @param values Zero or more values to record in the log.
          */
         log(format: string, ...values: any): void;
+
+        /**
+         * Emit a message to the debug level log. If logging is not enabled, this is a noop.
+         *
+         * When logging is enabled, the format string indicates how to display
+         * the arguments. Format specifiers are:
+         *
+         * - %s - Call `Value::ToString()` on the corresponding argument.
+         * - %d or %i - Convert the argument to an integer.
+         * - %f - Convert the argument to a float.
+         * - %o or %O - Convert the argument to JSON with `JSON.stringify()`.
+         *
+         * See https://console.spec.whatwg.org/#formatter.
+         *
+         * When logging is disabled, the format string is not processed, which
+         * makes it more efficient than string arithmatic in production
+         * environments.
+         *
+         * @param format A format string, containing zero or more specifiers.
+         * @param values Zero or more values to record in the log.
+         */
+        debug(format: string, ...values: any): void;
+
+        /**
+         * Emit a message to the error level log. If logging is not enabled, this is a noop.
+         *
+         * When logging is enabled, the format string indicates how to display
+         * the arguments. Format specifiers are:
+         *
+         * - %s - Call `Value::ToString()` on the corresponding argument.
+         * - %d or %i - Convert the argument to an integer.
+         * - %f - Convert the argument to a float.
+         * - %o or %O - Convert the argument to JSON with `JSON.stringify()`.
+         *
+         * See https://console.spec.whatwg.org/#formatter.
+         *
+         * When logging is disabled, the format string is not processed, which
+         * makes it more efficient than string arithmatic in production
+         * environments.
+         *
+         * @param format A format string, containing zero or more specifiers.
+         * @param values Zero or more values to record in the log.
+         */
+        error(format: string, ...values: any): void;
+
+        /**
+         * Emit a message to the info level log. If logging is not enabled, this is a noop.
+         *
+         * When logging is enabled, the format string indicates how to display
+         * the arguments. Format specifiers are:
+         *
+         * - %s - Call `Value::ToString()` on the corresponding argument.
+         * - %d or %i - Convert the argument to an integer.
+         * - %f - Convert the argument to a float.
+         * - %o or %O - Convert the argument to JSON with `JSON.stringify()`.
+         *
+         * See https://console.spec.whatwg.org/#formatter.
+         *
+         * When logging is disabled, the format string is not processed, which
+         * makes it more efficient than string arithmatic in production
+         * environments.
+         *
+         * @param format A format string, containing zero or more specifiers.
+         * @param values Zero or more values to record in the log.
+         */
+        info(format: string, ...values: any): void;
+
+        /**
+         * Emit a message to the trace level log. If logging is not enabled, this is a noop.
+         *
+         * When logging is enabled, the format string indicates how to display
+         * the arguments. Format specifiers are:
+         *
+         * - %s - Call `Value::ToString()` on the corresponding argument.
+         * - %d or %i - Convert the argument to an integer.
+         * - %f - Convert the argument to a float.
+         * - %o or %O - Convert the argument to JSON with `JSON.stringify()`.
+         *
+         * See https://console.spec.whatwg.org/#formatter.
+         *
+         * When logging is disabled, the format string is not processed, which
+         * makes it more efficient than string arithmatic in production
+         * environments.
+         *
+         * @param format A format string, containing zero or more specifiers.
+         * @param values Zero or more values to record in the log.
+         */
+        trace(format: string, ...values: any): void;
+
+        /**
+         * Emit a message to the warn level log. If logging is not enabled, this is a noop.
+         *
+         * When logging is enabled, the format string indicates how to display
+         * the arguments. Format specifiers are:
+         *
+         * - %s - Call `Value::ToString()` on the corresponding argument.
+         * - %d or %i - Convert the argument to an integer.
+         * - %f - Convert the argument to a float.
+         * - %o or %O - Convert the argument to JSON with `JSON.stringify()`.
+         *
+         * See https://console.spec.whatwg.org/#formatter.
+         *
+         * When logging is disabled, the format string is not processed, which
+         * makes it more efficient than string arithmatic in production
+         * environments.
+         *
+         * @param format A format string, containing zero or more specifiers.
+         * @param values Zero or more values to record in the log.
+         */
+        warn(format: string, ...values: any): void;
     }
 
     const logger: Logger;
