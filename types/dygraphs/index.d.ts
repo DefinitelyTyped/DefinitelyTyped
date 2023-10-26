@@ -1032,7 +1032,7 @@ export namespace dygraphs {
          * form "#AABBCC" or "rgb(255,100,200)" or "yellow".
          * @default black
          */
-        rangeSelectorForegroundStrokeColor?: number | null | undefined;
+        rangeSelectorForegroundStrokeColor?: string | null | undefined;
 
         /**
          * The top color for the range selector mini plot fill color gradient. This can be of the form
