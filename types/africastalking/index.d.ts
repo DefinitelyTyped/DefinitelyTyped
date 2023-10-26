@@ -59,9 +59,10 @@ interface AfricasTalking {
   TOKEN: TOKEN;
 }
 
-export = africastalking;
-
 declare function africastalking(options: {
   username: string;
   apiKey: string;
 }): AfricasTalking;
+
+declare namespace africastalking{}
+export = africastalking;
