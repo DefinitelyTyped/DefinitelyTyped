@@ -1,6 +1,22 @@
 import { atob, base16, base64, base64url, btoa, TextDecoder, TextEncoder } from "encoding";
 
 export function onClientRequest(request: EW.IngressClientRequest) {
+    const str = "Hello, world!";
+    const enc1 = base64.encode(toBytesArray(str)); // "Hello, world!"
+    const dec1 = base64.decode(enc1, "String"); // decode to "Hello, world!"
+    if (str !== dec1) {
+        request.respondWith(400, {}, "`base64` encode or decode gone wrong!");
+    }
+    const enc2 = base64url.encode(toBytesArray(str)); // "Hello, world!"
+    const dec2 = base64url.decode(enc2, "String"); // decode to "Hello, world!"
+    if (str !== dec2) {
+        request.respondWith(400, {}, "`base64url` encode or decode gone wrong!");
+    }
+    const enc3 = base16.encode(new Uint8Array([72, 101, 108, 108, 111])); // "Hello"
+    const dec3 = base16.decode(enc3, "String"); // decode to "Hello"
+    if (str !== dec3) {
+        request.respondWith(400, {}, "`base16` encode or decode gone wrong!");
+    }
     const result = base64.decode("SGVsbG8=", "String"); // decode to "Hello"
     const dec = atob("V29ybGQ="); // decodes to "World"
     request.setHeader("output", result.toString() + dec);
@@ -63,4 +79,9 @@ export function onClientResponse(request: EW.EgressClientRequest, response: EW.E
     // Pass no arguments to decode(), indicating that there are no more chunks, and finish the decoding
     output += decoder.decode(); // produces "€"
     request.respondWith(201, {}, output);
+}
+
+function toBytesArray(str: string) {
+    const encoder = new TextEncoder();
+    return encoder.encode(str);
 }
