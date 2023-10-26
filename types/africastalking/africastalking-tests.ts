@@ -27,3 +27,13 @@ const SMS = async () => {
 
   const res = await sms.createSubscription(options);
 };
+
+const VOICE = async () => {
+  const voice = africastalking.VOICE;
+
+  const result  = await voice.call({
+      callFrom: "+254711XXXYYY",
+      callTo: ['+254711XXXZZZ', '+254711XXXPPP']
+  });
+
+};

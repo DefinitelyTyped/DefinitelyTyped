@@ -1,3 +1,4 @@
+// SMS
 interface SMSMessageData {
   Message: string;
   Recipients: {
@@ -54,10 +55,43 @@ interface TOKEN {
   }>;
 }
 
+interface Entry {
+    phoneNumber: string,
+    status: "Queued" | "InvalidPhoneNumber" | "DestinationNotSupported" | "InsufficientCredit",
+    sessionId: string
+}
+
+interface VOICE {
+    /**
+     * This is used to make outbound calls
+   */
+    call: (options: {
+        /**
+         * Your Africa’s Talking phone number (in international format i.e. +XXXYYYYYY)
+         * */
+        callFrom: string,
+        /**
+         * An array of strings containing list of recipients’ phone numbers.
+         * */
+        callTo: string[],
+    }) => Promise<{
+        /**
+         * An array of entries each corresponding to an individual phone number and their status.
+         * */
+        entries: Entry[],
+        /**
+         * Error message if the entire request was rejected
+         * */
+        errorMessage?: string
+    }>;
+}
+
 interface AfricasTalking {
   SMS: SMS;
   TOKEN: TOKEN;
+  VOICE: VOICE;
 }
+
 
 declare function africastalking(options: {
   username: string;
