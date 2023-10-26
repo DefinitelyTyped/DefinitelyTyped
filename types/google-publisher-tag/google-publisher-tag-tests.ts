@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20230925
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/db40c180491818f53f4b283cfa2eaf677c3be02c
+// Tests for Google Publisher Tag 1.20231023
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/3861b189bff6b81ea6a8385b562ca2611bf45a59
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -855,5 +855,26 @@ function test_googletag_config_componentAuctionConfig_auctionConfig() {
                 auctionConfig: null,
             },
         ],
+    });
+}
+
+// Test for googletag.config.InterstitialConfig.triggers
+function test_googletag_config_interstitialConfig_triggers() {
+    // Define a GPT managed web interstitial ad slot.
+    const interstitialSlot = googletag.defineOutOfPageSlot(
+        "/1234567/sports",
+        googletag.enums.OutOfPageFormat.INTERSTITIAL,
+    )!;
+
+    // Enable optional interstitial triggers.
+    // Change this value to false to disable.
+    const enableTriggers = true;
+
+    interstitialSlot.setConfig({
+        interstitial: {
+            triggers: {
+                unhideWindow: enableTriggers,
+            },
+        },
     });
 }

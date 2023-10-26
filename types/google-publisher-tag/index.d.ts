@@ -2259,6 +2259,11 @@ declare namespace googletag {
              * An array of component auctions to be included in an on-device ad auction.
              */
             componentAuction?: ComponentAuctionConfig[];
+
+            /**
+             * Settings that control interstitial ad slot behavior.
+             */
+            interstitial?: InterstitialConfig;
         }
 
         /**
@@ -2336,5 +2341,44 @@ declare namespace googletag {
                 perBuyerExperimentGroupIds?: { [buyer: string]: number };
             } | null;
         }
+
+        /**
+         * An object which defines the behavior of a single interstitial ad slot.
+         */
+        interface InterstitialConfig {
+            /**
+             * The interstitial trigger configuration for this interstitial ad.
+             *
+             * Setting the value of an interstitial trigger to `true` will enable it and
+             * `false` will disable it. This will override the default values [configured
+             * in Google Ad Manager](https://support.google.com/admanager/answer/9840201).
+             *
+             * @example
+             *  // Define a GPT managed web interstitial ad slot.
+             *  const interstitialSlot = googletag.defineOutOfPageSlot(
+             *      "/1234567/sports",
+             *      googletag.enums.OutOfPageFormat.INTERSTITIAL)!;
+             *
+             *  // Enable optional interstitial triggers.
+             *  // Change this value to false to disable.
+             *  const enableTriggers = true;
+             *
+             *  interstitialSlot.setConfig({
+             *    interstitial: {
+             *      triggers: {
+             *        unhideWindow: enableTriggers
+             *      }
+             *    }
+             *  });
+             *
+             * @see [Display a web interstitial ad](https://developers.google.com/publisher-tag/samples/display-web-interstitial-ad)
+             */
+            triggers?: Partial<Record<InterstitialTrigger, boolean>>;
+        }
+
+        /**
+         * Supported interstitial ad triggers.
+         */
+        type InterstitialTrigger = "unhideWindow";
     }
 }
