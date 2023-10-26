@@ -1079,7 +1079,7 @@ declare namespace React {
      * @version 16.8.0
      * @see https://react.dev/reference/react/useEffect
      */
-    function useEffect(effect: EffectCallback, deps?: DependencyList): void;
+    function useEffect(effect: EffectCallback, deps: DependencyList | void | null): void;
     // NOTE: this does not accept strings, but this will have to be fixed by removing strings from type Ref<T>
     /**
      * `useImperativeHandle` customizes the instance value that is exposed to parent components when using
