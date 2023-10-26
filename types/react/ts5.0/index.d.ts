@@ -1209,7 +1209,7 @@ declare namespace React {
      *
      * @see https://github.com/facebook/react/pull/21913
      */
-    export function useInsertionEffect(effect: EffectCallback, deps?: DependencyList): void;
+    export function useInsertionEffect(effect: EffectCallback, deps: DependencyList | void | null): void;
 
     /**
      * @param subscribe
