@@ -1,4 +1,4 @@
-import { createPipeline, defaultLogger, run, VariableMap } from "barnard59-core";
+import {createPipeline, defaultLogger, PipelineStep, run, VariableMap} from "barnard59-core";
 import Pipeline, { Context } from "barnard59-core/lib/Pipeline";
 import Step from "barnard59-core/lib/Step";
 import StreamObject from "barnard59-core/lib/StreamObject";
@@ -131,4 +131,8 @@ function testStep() {
     } = step);
 
     basePath = context.basePath;
+}
+
+function testStepFactory(this: Context, pipelineStep: PipelineStep) {
+    return this.createPipeline(pipelineStep.pipeline.ptr)
 }
