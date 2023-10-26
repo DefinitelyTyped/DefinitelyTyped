@@ -264,21 +264,39 @@ declare namespace google.maps {
    * Identifiers used to specify the placement of controls on the map. Controls
    * are positioned relative to other controls in the same layout position.
    * Controls that are added first are positioned closer to the edge of the map.
-   * <code> <br>&nbsp;&nbsp;+----------------+
-   * <br>&nbsp;&nbsp;+&nbsp;TL&nbsp;&nbsp;&nbsp;&nbsp;TC&nbsp;&nbsp;&nbsp;&nbsp;TR
-   * +
-   * <br>&nbsp;&nbsp;+&nbsp;LT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RT
-   * +
-   * <br>&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+
-   * <br>&nbsp;&nbsp;+&nbsp;LC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RC
-   * +
-   * <br>&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+
-   * <br>&nbsp;&nbsp;+&nbsp;LB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RB
-   * +
-   * <br>&nbsp;&nbsp;+&nbsp;BL&nbsp;&nbsp;&nbsp;&nbsp;BC&nbsp;&nbsp;&nbsp;&nbsp;BR
-   * + <br>&nbsp;&nbsp;+----------------+ <br></code> Elements in the top or
-   * bottom row flow towards the middle of the row. Elements in the left or
-   * right column flow towards the middle of the column.
+   * Usage of &quot;logical values&quot; (see <a
+   * href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_logical_properties_and_values">https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_logical_properties_and_values</a>)
+   * is recommended in order to be able to automatically support both
+   * left-to-right (LTR) and right-to-left (RTL) layout contexts.<br>
+   * <br>Logical values in LTR: <br> <pre>+----------------+
+   * <br>|&nbsp;BSIS&nbsp;BSIC&nbsp;BSIE |
+   * <br>|&nbsp;ISBS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IEBS |
+   * <br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+   * <br>|&nbsp;ISBC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IEBC |
+   * <br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+   * <br>|&nbsp;ISBE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IEBE |
+   * <br>|&nbsp;BEIS&nbsp;BEIC&nbsp;BEIE | <br>+----------------+</pre><br>
+   * Logical values in RTL:<br> <pre>+----------------+
+   * <br>|&nbsp;BSIE&nbsp;BSIC&nbsp;BSIS |
+   * <br>|&nbsp;IEBS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ISBS |
+   * <br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+   * <br>|&nbsp;IEBC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ISBC |
+   * <br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+   * <br>|&nbsp;IEBE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ISBE |
+   * <br>|&nbsp;BEIE&nbsp;BEIC&nbsp;BEIS | <br>+----------------+</pre><br>
+   * Legacy values:<br> <pre>+----------------+
+   * <br>|&nbsp;TL&nbsp;&nbsp;&nbsp;&nbsp;TC&nbsp;&nbsp;&nbsp;&nbsp;TR |
+   * <br>|&nbsp;LT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RT
+   * |
+   * <br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+   * <br>|&nbsp;LC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RC
+   * |
+   * <br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+   * <br>|&nbsp;LB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RB
+   * | <br>|&nbsp;BL&nbsp;&nbsp;&nbsp;&nbsp;BC&nbsp;&nbsp;&nbsp;&nbsp;BR |
+   * <br>+----------------+</pre><br> Elements in the top or bottom row flow
+   * towards the middle of the row. Elements in the left or right column flow
+   * towards the middle of the column.
    *
    * Access by calling `const {ControlPosition} = await
    * google.maps.importLibrary("core")`. See
@@ -286,59 +304,115 @@ declare namespace google.maps {
    */
   export enum ControlPosition {
     /**
-     * Elements are positioned in the center of the bottom row.
+     * Equivalent to BOTTOM_CENTER in both LTR and RTL.
      */
-    BOTTOM_CENTER = 0.0,
+    BLOCK_END_INLINE_CENTER = 0.0,
+    /**
+     * Equivalent to BOTTOM_RIGHT in LTR, or BOTTOM_LEFT in RTL.
+     */
+    BLOCK_END_INLINE_END = 1.0,
+    /**
+     * Equivalent to BOTTOM_LEFT in LTR, or BOTTOM_RIGHT in RTL.
+     */
+    BLOCK_END_INLINE_START = 2.0,
+    /**
+     * Equivalent to TOP_CENTER in both LTR and RTL.
+     */
+    BLOCK_START_INLINE_CENTER = 3.0,
+    /**
+     * Equivalent to TOP_RIGHT in LTR, or TOP_LEFT in RTL.
+     */
+    BLOCK_START_INLINE_END = 4.0,
+    /**
+     * Equivalent to TOP_LEFT in LTR, or TOP_RIGHT in RTL.
+     */
+    BLOCK_START_INLINE_START = 5.0,
+    /**
+     * Elements are positioned in the center of the bottom row. Consider using
+     * BLOCK_END_INLINE_CENTER instead.
+     */
+    BOTTOM_CENTER = 6.0,
     /**
      * Elements are positioned in the bottom left and flow towards the middle.
-     * Elements are positioned to the right of the Google logo.
+     * Elements are positioned to the right of the Google logo. Consider using
+     * BLOCK_END_INLINE_START instead.
      */
-    BOTTOM_LEFT = 1.0,
+    BOTTOM_LEFT = 7.0,
     /**
      * Elements are positioned in the bottom right and flow towards the middle.
-     * Elements are positioned to the left of the copyrights.
+     * Elements are positioned to the left of the copyrights. Consider using
+     * BLOCK_END_INLINE_END instead.
      */
-    BOTTOM_RIGHT = 2.0,
+    BOTTOM_RIGHT = 8.0,
+    /**
+     * Equivalent to RIGHT_CENTER in LTR, or LEFT_CENTER in RTL.
+     */
+    INLINE_END_BLOCK_CENTER = 9.0,
+    /**
+     * Equivalent to RIGHT_BOTTOM in LTR, or LEFT_BOTTOM in RTL.
+     */
+    INLINE_END_BLOCK_END = 10.0,
+    /**
+     * Equivalent to RIGHT_TOP in LTR, or LEFT_TOP in RTL.
+     */
+    INLINE_END_BLOCK_START = 11.0,
+    /**
+     * Equivalent to LEFT_CENTER in LTR, or RIGHT_CENTER in RTL.
+     */
+    INLINE_START_BLOCK_CENTER = 12.0,
+    /**
+     * Equivalent to LEFT_BOTTOM in LTR, or RIGHT_BOTTOM in RTL.
+     */
+    INLINE_START_BLOCK_END = 13.0,
+    /**
+     * Equivalent to LEFT_TOP in LTR, or RIGHT_TOP in RTL.
+     */
+    INLINE_START_BLOCK_START = 14.0,
     /**
      * Elements are positioned on the left, above bottom-left elements, and flow
-     * upwards.
+     * upwards. Consider using INLINE_START_BLOCK_END instead.
      */
-    LEFT_BOTTOM = 3.0,
+    LEFT_BOTTOM = 15.0,
     /**
-     * Elements are positioned in the center of the left side.
+     * Elements are positioned in the center of the left side. Consider using
+     * INLINE_START_BLOCK_CENTER instead.
      */
-    LEFT_CENTER = 4.0,
+    LEFT_CENTER = 16.0,
     /**
      * Elements are positioned on the left, below top-left elements, and flow
-     * downwards.
+     * downwards. Consider using INLINE_START_BLOCK_START instead.
      */
-    LEFT_TOP = 5.0,
+    LEFT_TOP = 17.0,
     /**
      * Elements are positioned on the right, above bottom-right elements, and
-     * flow upwards.
+     * flow upwards. Consider using INLINE_END_BLOCK_END instead.
      */
-    RIGHT_BOTTOM = 6.0,
+    RIGHT_BOTTOM = 18.0,
     /**
-     * Elements are positioned in the center of the right side.
+     * Elements are positioned in the center of the right side. Consider using
+     * INLINE_END_BLOCK_CENTER instead.
      */
-    RIGHT_CENTER = 7.0,
+    RIGHT_CENTER = 19.0,
     /**
      * Elements are positioned on the right, below top-right elements, and flow
-     * downwards.
+     * downwards. Consider using INLINE_END_BLOCK_START instead.
      */
-    RIGHT_TOP = 8.0,
+    RIGHT_TOP = 20.0,
     /**
-     * Elements are positioned in the center of the top row.
+     * Elements are positioned in the center of the top row. Consider using
+     * BLOCK_START_INLINE_CENTER instead.
      */
-    TOP_CENTER = 9.0,
+    TOP_CENTER = 21.0,
     /**
      * Elements are positioned in the top left and flow towards the middle.
+     * Consider using BLOCK_START_INLINE_START instead.
      */
-    TOP_LEFT = 10.0,
+    TOP_LEFT = 22.0,
     /**
      * Elements are positioned in the top right and flow towards the middle.
+     * Consider using BLOCK_START_INLINE_END instead.
      */
-    TOP_RIGHT = 11.0,
+    TOP_RIGHT = 23.0,
   }
   /**
    * This interface provides convenience methods for generating matrices to use
@@ -1745,8 +1819,8 @@ declare namespace google.maps {
    */
   export interface FullscreenControlOptions {
     /**
-     * Position id. Used to specify the position of the control on the map. The
-     * default position is <code>RIGHT_TOP</code>.
+     * Position id. Used to specify the position of the control on the map.
+     * @defaultValue {@link google.maps.ControlPosition.INLINE_END_BLOCK_START}
      */
     position?: google.maps.ControlPosition|null;
   }
@@ -3518,10 +3592,12 @@ declare namespace google.maps {
    *
    * MapElement is an <code>HTMLElement</code> subclass for rendering maps.
    * After loading the <code>maps</code> library, a map can be created in HTML.
-   * For example:<br> <code>&lt;gmp-map
+   * For example: <pre><code>&lt;gmp-map
    * center=&quot;37.4220656,-122.0840897&quot; zoom=&quot;10&quot;
-   * map-id=&quot;DEMO_MAP_ID&quot;&gt;&lt;/gmp-map&gt;</code><br> <br>
-   * Internally, it uses {@link google.maps.Map}, which can be accessed with the
+   * map-id=&quot;DEMO_MAP_ID&quot;&gt;<br>&nbsp;&nbsp;&lt;button
+   * slot=&quot;control-block-start-inline-end&quot;&gt;Custom
+   * Control&lt;/button&gt;<br>&lt;/gmp-map&gt;</code></pre> <br> Internally, it
+   * uses {@link google.maps.Map}, which can be accessed with the
    * <code>innerMap</code> property.
    *
    * Access by calling `const {MapElement} = await
@@ -3535,11 +3611,13 @@ declare namespace google.maps {
      *
      * MapElement is an <code>HTMLElement</code> subclass for rendering maps.
      * After loading the <code>maps</code> library, a map can be created in
-     * HTML. For example:<br> <code>&lt;gmp-map
+     * HTML. For example: <pre><code>&lt;gmp-map
      * center=&quot;37.4220656,-122.0840897&quot; zoom=&quot;10&quot;
-     * map-id=&quot;DEMO_MAP_ID&quot;&gt;&lt;/gmp-map&gt;</code><br> <br>
-     * Internally, it uses {@link google.maps.Map}, which can be accessed with
-     * the <code>innerMap</code> property.
+     * map-id=&quot;DEMO_MAP_ID&quot;&gt;<br>&nbsp;&nbsp;&lt;button
+     * slot=&quot;control-block-start-inline-end&quot;&gt;Custom
+     * Control&lt;/button&gt;<br>&lt;/gmp-map&gt;</code></pre> <br> Internally,
+     * it uses {@link google.maps.Map}, which can be accessed with the
+     * <code>innerMap</code> property.
      *
      * Access by calling `const {MapElement} = await
      * google.maps.importLibrary("maps")`. See
@@ -3993,7 +4071,8 @@ declare namespace google.maps {
     mapTypeIds?: (string)[]|null;
     /**
      * Position id. Used to specify the position of the control on the map.
-     * @defaultValue {@link google.maps.ControlPosition.TOP_RIGHT}
+     * @defaultValue {@link
+     * google.maps.ControlPosition.BLOCK_START_INLINE_START}
      */
     position?: google.maps.ControlPosition|null;
     /**
@@ -4718,7 +4797,8 @@ declare namespace google.maps {
   export interface MotionTrackingControlOptions {
     /**
      * Position id. This is used to specify the position of this control on the
-     * panorama. The default position is <code>RIGHT_BOTTOM</code>.
+     * panorama.
+     * @defaultValue {@link google.maps.ControlPosition.INLINE_END_BLOCK_END}
      */
     position?: google.maps.ControlPosition|null;
   }
@@ -4821,7 +4901,7 @@ declare namespace google.maps {
   export interface PanControlOptions {
     /**
      * Position id. Used to specify the position of the control on the map.
-     * @defaultValue {@link google.maps.ControlPosition.TOP_LEFT}
+     * @defaultValue {@link google.maps.ControlPosition.INLINE_END_BLOCK_END}
      */
     position?: google.maps.ControlPosition|null;
   }
@@ -5495,8 +5575,8 @@ declare namespace google.maps {
    */
   export interface RotateControlOptions {
     /**
-     * Position id. Used to specify the position of the control on the map. The
-     * default position is <code>TOP_LEFT</code>.
+     * Position id. Used to specify the position of the control on the map.
+     * @defaultValue {@link google.maps.ControlPosition.INLINE_START_BLOCK_END}
      */
     position?: google.maps.ControlPosition|null;
   }
@@ -6974,8 +7054,8 @@ declare namespace google.maps {
    */
   export interface ZoomControlOptions {
     /**
-     * Position id. Used to specify the position of the control on the map. The
-     * default position is <code>TOP_LEFT</code>.
+     * Position id. Used to specify the position of the control on the map.
+     * @defaultValue {@link google.maps.ControlPosition.INLINE_START_BLOCK_END}
      */
     position?: google.maps.ControlPosition|null;
   }
