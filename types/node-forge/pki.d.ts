@@ -176,7 +176,16 @@ declare module "node-forge" {
             verifySubjectKeyIdentifier(): boolean;
         }
 
-        interface CertificateRequest extends Certificate {
+        interface CertificateRequest {
+            version: number;
+            subject: {
+                getField(sn: string | CertificateFieldOptions): any;
+                addField(attr: CertificateField): void;
+                attributes: CertificateField[];
+                hash: any;
+            };
+            privateKey: PrivateKey;
+            publicKey: PublicKey;
             /**
              * Gets an issuer or subject attribute from its name, type, or short name.
              *
@@ -188,6 +197,32 @@ declare module "node-forge" {
              * @return the attribute.
              */
             getAttribute(opts: string | GetAttributeOpts): Attribute | null;
+            addAttribute(attr: Attribute): void;
+            /**
+             * Sets the subject of this certification request.
+             *
+             * @param attrs the array of subject attributes to use.
+             */
+            setSubject(attrs: CertificateField[]): void;
+            /**
+             * Sets the attributes of this certification request.
+             * @param attrs the array of attributes to use.
+             */
+            setAttributes(attrs: Attribute[]): void;
+            /**
+             * Signs this certification request using the given private key.
+             *
+             * @param key the private key to sign with.
+             * @param md the message digest object to use (defaults to forge.md.sha1).
+             */
+            sign(key: pki.PrivateKey, md?: md.MessageDigest): void;
+            /**
+             * Attempts verify the signature on the passed certification request using
+             * its public key.
+             *
+             * @return true if verified, false if not.
+             */
+            verify(): boolean;
         }
 
         /**
@@ -220,15 +255,15 @@ declare module "node-forge" {
             /**
              * OID, e.g. '1.2.840.113549.1.9.7'
              */
-            type: string;
+            type?: string;
             /**
              * Attribute value
              */
-            value: any;
+            value?: any;
             /**
              * Attribute value data type
              */
-            valueTagClass: number;
+            valueTagClass?: number;
             /**
              * Extensions
              */
@@ -246,19 +281,19 @@ declare module "node-forge" {
 
         function certificateFromAsn1(obj: asn1.Asn1, computeHash?: boolean): Certificate;
 
-        function certificationRequestFromAsn1(obj: asn1.Asn1, computeHash?: boolean): Certificate;
+        function certificationRequestFromAsn1(obj: asn1.Asn1, computeHash?: boolean): CertificateRequest;
 
         function certificateToAsn1(cert: Certificate): asn1.Asn1;
 
-        function certificationRequestToAsn1(cert: Certificate): asn1.Asn1;
+        function certificationRequestToAsn1(cert: CertificateRequest): asn1.Asn1;
 
         function decryptRsaPrivateKey(pem: PEM, passphrase?: string): rsa.PrivateKey;
 
         function createCertificate(): Certificate;
 
-        function certificationRequestToPem(cert: Certificate, maxline?: number): PEM;
+        function certificationRequestToPem(cert: CertificateRequest, maxline?: number): PEM;
 
-        function certificationRequestFromPem(pem: PEM, computeHash?: boolean, strict?: boolean): Certificate;
+        function certificationRequestFromPem(pem: PEM, computeHash?: boolean, strict?: boolean): CertificateRequest;
 
         function createCertificationRequest(): CertificateRequest;
 
