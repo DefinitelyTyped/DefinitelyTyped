@@ -79,21 +79,21 @@ interface VOICE {
     }>;
 
     getNumQueuedCalls: (options: {
-        phoneNumbers: string
+        phoneNumbers: string;
     }) => Promise<{
-        status: string,
+        status: string;
         entries: {
-            phoneNumber:string,
-            queueName:string,
-            numCalls: number
-        }[],
-        errorMessage:string,
-    }>
+            phoneNumber: string;
+            queueName: string;
+            numCalls: number;
+        }[];
+        errorMessage: string;
+    }>;
 
     uploadMediaFile: (options: {
-        phoneNumbers: string,
-        url:string
-    }) => Promise<any>
+        phoneNumbers: string;
+        url: string;
+    }) => Promise<any>;
 }
 
 interface AfricasTalking {

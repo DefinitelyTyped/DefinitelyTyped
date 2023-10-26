@@ -37,6 +37,6 @@ const VOICE = async () => {
     });
 
     const numQueuedCallsResult = await voice.getNumQueuedCalls({
-        phoneNumbers: "+254711XXXYYY"
+        phoneNumbers: "+254711XXXYYY",
     });
 };
