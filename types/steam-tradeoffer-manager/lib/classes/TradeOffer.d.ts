@@ -1,21 +1,22 @@
 import TradeOfferManager = require("../../index");
 import SteamID = require("steamid");
 import CEconItem = require("steamcommunity/classes/CEconItem");
+import { appid, assetid, contextid } from "steamcommunity";
 
 interface BaseItem {
-    appid: number;
-    contextid: number;
+    appid: appid;
+    contextid: contextid;
     amount?: number | undefined;
 }
 
 interface ItemWithId extends BaseItem {
-    id: string;
-    assetid?: string | number | undefined;
+    id: assetid;
+    assetid?: assetid | undefined;
 }
 
 interface ItemWithAssetId extends BaseItem {
-    id?: string | undefined;
-    assetid: string | number;
+    id?: assetid | undefined;
+    assetid: assetid;
 }
 
 /**
