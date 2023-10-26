@@ -1088,7 +1088,7 @@ declare namespace React {
      * @version 16.8.0
      * @see https://react.dev/reference/react/useLayoutEffect
      */
-    function useLayoutEffect(effect: EffectCallback, deps?: DependencyList): void;
+    function useLayoutEffect(effect: EffectCallback, deps: DependencyList | void | null): void;
     /**
      * Accepts a function that contains imperative, possibly effectful code.
      *
