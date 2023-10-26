@@ -8,12 +8,18 @@ board
     .on("ready", () => {
         board.pinMode(13, five.Pin.OUTPUT);
         board.pinMode(13, 0);
-        board.pinMode(13, 0);
         const pin = new five.Pin(13);
         pin.mode = five.PinMode.OUTPUT;
         pin.mode = five.Pin.OUTPUT;
         pin.mode = 4;
         const animation = new five.Animation(new five.Servo(9));
+
+        const servo = new five.Servo({ pin: 4 })
+        const servo2 = new five.Servo({ pin: 5 })
+        const servos = new five.Servo.Collection([servo,servo2])
+        const servos2 = new five.Servos([4, 5])
+        
+        
 
         // Create an animation segment object
         animation.enqueue({
@@ -129,6 +135,14 @@ board
 
         const led = new five.Led(13);
         led.blink();
+        led.brightness(255);
+        led.intensity(100);
+        led.pulse({
+            easing: "linear",
+            duration: 3500,
+            cuePoints: [0, 0.3, 0.6, 0.8, 1],
+            keyFrames: [0, 60, 100, 50, 70],
+          })
 
         new five.Led.Digits({
             pins: {
@@ -181,7 +195,7 @@ board
         const sensor = new five.Sensor("A0");
 
         const value = sensor.scaleTo([0, 10]);
-        console.log(value);
+        sensor.freq = 1000
 
         const sonar = new five.Sonar("A0");
 
