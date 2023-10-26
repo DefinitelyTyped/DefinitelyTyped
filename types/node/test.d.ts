@@ -1053,25 +1053,27 @@ declare module "node:test" {
          * and `globalThis` will be mocked.
          * The `Date` constructor from `globalThis` will be mocked.
          *
-         * If there is no initial epoch set, the initial date will be based on 0 in the Unix epoch. This is January 1st, 1970, 00:00:00 UTC. You can set an initial date by passing a now property to the .enable() method. This value will be used as the initial date for the mocked Date object. It can either be a positive integer, or another Date object.
+         * If there is no initial epoch set, the initial date will be based on 0 in the Unix epoch. This is `January 1st, 1970, 00:00:00 UTC`. You can set an initial date by passing a now property to the `.enable()` method. This value will be used as the initial date for the mocked Date object. It can either be a positive integer, or another Date object.
          * @since v20.4.0
          */
         enable(options?: MockTimersOptions): void;
         /**
-         * You can use the .setTime() method to manually move the mocked date to another time. This method only accepts a positive integer.
+         * You can use the `.setTime()` method to manually move the mocked date to another time. This method only accepts a positive integer.
          * Note: This method will execute any mocked timers that are in the past from the new time.
          * In the below example we are setting a new time for the mocked date.
+         * ```js
          * import assert from 'node:assert';
          * import { test } from 'node:test';
          * test('sets the time of a date object', (context) => {
-         * // Optionally choose what to mock
-         * context.mock.timers.enable({ apis: ['Date'], now: 100 });
-         * assert.strictEqual(Date.now(), 100);
-         * // Advance in time will also advance the date
-         * context.mock.timers.setTime(1000);
-         * context.mock.timers.tick(200);
-         * assert.strictEqual(Date.now(), 1200);
+         *   // Optionally choose what to mock
+         *   context.mock.timers.enable({ apis: ['Date'], now: 100 });
+         *   assert.strictEqual(Date.now(), 100);
+         *   // Advance in time will also advance the date
+         *   context.mock.timers.setTime(1000);
+         *   context.mock.timers.tick(200);
+         *   assert.strictEqual(Date.now(), 1200);
          * });
+         * ```
          */
         setTime(time: number): void;
         /**
