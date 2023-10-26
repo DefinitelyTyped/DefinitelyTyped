@@ -64,24 +64,15 @@ interface Entry {
 interface VOICE {
     /**
      * This is used to make outbound calls
+     *
+     * @param callFrom Your Africa’s Talking phone number (in international format i.e. +XXXYYYYYY)
+     * @param callTo An array of entries each corresponding to an individual phone number and their status.
      */
     call: (options: {
-        /**
-         * Your Africa’s Talking phone number (in international format i.e. +XXXYYYYYY)
-         */
         callFrom: string;
-        /**
-         * An array of strings containing list of recipients’ phone numbers.
-         */
         callTo: string[];
     }) => Promise<{
-        /**
-         * An array of entries each corresponding to an individual phone number and their status.
-         */
         entries: Entry[];
-        /**
-         * Error message if the entire request was rejected
-         */
         errorMessage?: string;
     }>;
 }
