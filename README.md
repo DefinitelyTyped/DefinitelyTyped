@@ -188,7 +188,7 @@ Your package should have this structure:
 | [`tsconfig.json`](#tsconfigjson) | This allows you to run `tsc` within the package. |
 | [`tslint.json`](#linter-tslintjson)   | Enables linting. |
 | [`.eslintrc.json`](#linter-eslintrcjson)   | (Rarely) Needed only to disable lint rules written for eslint. |
-| [`package.json`](#packagejson) | Contains metadata for the package, inclding its name, version and dependencies. |
+| [`package.json`](#packagejson) | Contains metadata for the package, including its name, version and dependencies. |
 
 Generate these by running `npx dts-gen --dt --name <my-package> --template module`.
 See all options at [dts-gen](https://github.com/Microsoft/dts-gen).
