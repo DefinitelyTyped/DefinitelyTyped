@@ -110,7 +110,7 @@ for (const files of chunked(allFiles, 50)) {
                     unformatted.push(path.relative(process.cwd(), line));
                 }
             }
-            break
+            break;
         default:
             dprintErrors.push(result.stderr.trim());
             break;
