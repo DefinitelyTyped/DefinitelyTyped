@@ -24,7 +24,7 @@ export interface HTMLViewProps {
      */
     value: string;
 
-    style?: StyleProp<ViewStyle | TextStyle | ImageStyle>;
+    style?: StyleProp<ViewStyle>;
 
     stylesheet?:
         | {
