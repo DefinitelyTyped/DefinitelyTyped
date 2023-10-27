@@ -753,40 +753,55 @@ export interface BrowserContext {
 
     /**
      * Waits for the event to fire and passes its value into the predicate
-     * function.
+     * function. Currently the only supported event is 'page' which when used will
+     * return the new {@link Page} that was created after `waitForEvent` was called.
+     *
+     * @example
+     * ```js
+     * // Call waitForEvent with a predicate which will return true once at least
+     * // one page has been created.
+     * const promise = context.waitForEvent("page", { predicate: page => {
+     *   if (++counter >= 1) {
+     *     return true
+     *   }
+     *   return false
+     * } })
+     * 
+     * // Now we create a page.
+     * const page = context.newPage()
+     *
+     * // Wait for the predicate to pass.
+     * await promise
+     * ```
      */
     waitForEvent(
         /**
-         * Name of event to wait for.
-         *
-         * NOTE: Currently this argument is disregarded, and waitForEvent will
-         * always wait for 'close' or 'page' events.
+         * Name of event to wait for. The only supported event is 'page'. If any
+         * other value is used an error will be thrown.
          */
-        event: string,
+        event: "page",
         /**
-         * The `Page` or null event data will be passed to it and it must
-         * return true to continue.
+         * This is an optional argument. It can either be a predicate function or
+         * an options object.
          */
-        optionsOrPredicate: {
+        optionsOrPredicate?: {
             /**
-             * Function that will be called when the 'Page' event is emitted.
-             * The event data will be passed to it and it must return true
+             * Optional function that will be called when the {@link Page} event is
+             * emitted. The event data will be passed to it and it must return true
              * to continue.
              *
-             * If `Page` is passed to predicate, this signals that a new page
+             * If {@link Page} is passed to predicate, this signals that a new page
              * has been created.
-             * If null is passed to predicate, this signals that the page is
-             * closing.
              */
-            predicate: (page: Page | null) => boolean;
+            predicate?: (page: Page) => boolean;
 
             /**
-             * Maximum time to wait in milliseconds. Pass 0 to disable timeout.
-             * Defaults to 30000 milliseconds.
+             * Maximum time to wait in milliseconds. Defaults to 30000 milliseconds or
+             * the timeout set by setDefaultTimeout on the {@link BrowserContext}.
              */
             timeout?: number;
-        },
-    ): Page | null;
+        } | ((page: Page) => boolean),
+    ): Promise<Page>;
 }
 
 /**
