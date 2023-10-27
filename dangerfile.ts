@@ -113,12 +113,17 @@ for (const files of chunked(allFiles, 50)) {
 if (dprintErrors.length > 0) {
     fail("dprint failed to execute");
 
+    // Try and make sure no reasonable error could ever close the code block.
+    // You can open a code block with as many backticks as you want, so long as
+    // you close it with the same string. Inside of the code block, any lower
+    // number of backticks cannot close the block.
+    const codeBlock = "``````````";
     const message = [
         "## Formatting errors",
         "",
-        "```",
+        codeBlock,
         ...dprintErrors.join("\n\n"),
-        "```",
+        codeBlock,
     ];
 
     markdown(message.join("\n"));
