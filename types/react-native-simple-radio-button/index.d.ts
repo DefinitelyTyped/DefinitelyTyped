@@ -17,6 +17,7 @@ export interface ReactNativeRadioFormProps extends DefaultRadioFormProps {
     formHorizontal?: boolean | undefined;
     labelHorizontal?: boolean | undefined;
     animation?: boolean | undefined;
+    style?: StyleProp<ViewStyle> | undefined;
 }
 
 export interface RadioButtonProps {

@@ -12,7 +12,7 @@ class Example extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <RadioForm radio_props={data} initial={0} onPress={value => console.log(value)} />
+                <RadioForm radio_props={data} initial={0} style={{backgroundColor: 'red'}} onPress={value => console.log(value)} />
 
                 <RadioForm formHorizontal={false} animation={true}>
                     {data.map((obj, i) => (
