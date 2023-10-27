@@ -2,7 +2,6 @@ import fs = require("fs");
 import os = require("os");
 import path = require("path");
 import cp = require("child_process");
-import stripAnsi = require("strip-ansi");
 import { danger, fail, markdown } from "danger";
 const suggestionsDir = [os.homedir(), ".dts", "suggestions"].join("/");
 const lines: string[] = [];
@@ -90,25 +89,45 @@ function chunked<T>(arr: T[], size: number): T[][] {
 }
 
 const unformatted = [];
+const dprintErrors = [];
 const allFiles = [...danger.git.created_files, ...danger.git.modified_files];
 // We batch this in chunks to avoid hitting max arg length issues.
 for (const files of chunked(allFiles, 50)) {
     const result = cp.spawnSync(
         process.execPath,
-        ["node_modules/dprint/bin.js", "check", ...files],
+        ["node_modules/dprint/bin.js", "check", "--list-different", ...files],
         { encoding: "utf8", maxBuffer: 100 * 1024 * 1024 },
     );
-    if (result.status !== 0) {
+    // https://dprint.dev/cli/#exit-codes
+    if (result.status === 20) {
         for (const line of result.stdout.split(/\r?\n/)) {
-            const match = stripAnsi(line).match(/^from (.*):$/);
-            if (match) {
-                unformatted.push(path.relative(process.cwd(), match[1]));
+            if (line) {
+                unformatted.push(path.relative(process.cwd(), line));
             }
         }
+    } else if (result.status !== 0) {
+        dprintErrors.push(result.stderr.trim());
     }
 }
 
-if (unformatted.length > 0) {
+if (dprintErrors.length > 0) {
+    fail("dprint failed to execute");
+
+    // Try and make sure no reasonable error could ever close the code block.
+    // You can open a code block with as many backticks as you want, so long as
+    // you close it with the same string. Inside of the code block, any lower
+    // number of backticks cannot close the block.
+    const codeBlock = "``````````";
+    const message = [
+        "## Formatting errors",
+        "",
+        codeBlock,
+        ...dprintErrors.join("\n\n"),
+        codeBlock,
+    ];
+
+    markdown(message.join("\n"));
+} else if (unformatted.length > 0) {
     const message = [
         "## Formatting",
         "",
