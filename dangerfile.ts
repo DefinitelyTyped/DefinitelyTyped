@@ -105,7 +105,7 @@ for (const files of chunked(allFiles, 50)) {
                 unformatted.push(path.relative(process.cwd(), line));
             }
         }
-    } else if (status !== 0) {
+    } else if (result.status !== 0) {
         dprintErrors.push(result.stderr.trim());
     }
 }
