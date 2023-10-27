@@ -158,24 +158,44 @@ offer.getUserDetails((err, me, them) => {
 });
 
 offer.send((err, status) => {
+    // $ExpectType EResult | undefined
+    err?.eresult;
+    // $ExpectType "TradeBan" | "NewDevice" | "TargetCannotTrade" | "OfferLimitExceeded" | "ItemServerUnavailable" | undefined
+    err?.cause;
 });
 
 offer.send();
 
 offer.cancel(err => {
+    // $ExpectType EResultError | null
+    err;
+    // $ExpectType EResult | undefined
+    err?.eresult;
 });
 
 offer.cancel();
 
 offer.decline(err => {
+    // $ExpectType EResultError | null
+    err;
+    // $ExpectType EResult | undefined
+    err?.eresult;
 });
 
 offer.decline();
 
 offer.accept(true, (err, status) => {
+    // $ExpectType EResult | undefined
+    err?.eresult;
+    // $ExpectType "TradeBan" | "NewDevice" | "TargetCannotTrade" | undefined
+    err?.cause;
 });
 
 offer.accept((err, status) => {
+    // $ExpectType EResult | undefined
+    err?.eresult;
+    // $ExpectType "TradeBan" | "NewDevice" | "TargetCannotTrade" | undefined
+    err?.cause;
 });
 
 offer.accept();
@@ -187,16 +207,28 @@ offer.duplicate();
 offer.counter();
 
 offer.update(err => {
+    // $ExpectType EResultError | null
+    err;
+    // $ExpectType EResult | undefined
+    err?.eresult;
 });
 
 offer.getReceivedItems(true, (err, items) => {
+    // $ExpectType Error | null
+    err;
 });
 
 offer.getReceivedItems((err, items) => {
+    // $ExpectType Error | null
+    err;
 });
 
 offer.getExchangeDetails(false, (err, status, tradeInitTime, receivedItems, sentItems) => {
+    // $ExpectType Error | null
+    err;
 });
 
 offer.getExchangeDetails((err, status, tradeInitTime, receivedItems, sentItems) => {
+    // $ExpectType Error | null
+    err;
 });
