@@ -723,6 +723,9 @@ deck.getTotalSlides();
 // Returns the slide element at the specified index
 
 // $ExpectType HTMLElement
+deck.getSlide(1);
+
+// $ExpectType HTMLElement
 deck.getSlide(1, 2);
 
 // Returns the previous slide element, may be null
@@ -738,7 +741,10 @@ deck.getCurrentSlide();
 // Returns the slide background element at the specified index
 
 // $ExpectType HTMLElement | undefined
-deck.getSlideBackground(el, 2);
+deck.getSlideBackground(el);
+
+// $ExpectType HTMLElement | undefined
+deck.getSlideBackground(1);
 
 // $ExpectType HTMLElement | undefined
 deck.getSlideBackground(1, 2);
@@ -845,7 +851,7 @@ deck.registerPlugin(RevealMarkdown());
 deck.hasPlugin("markdown");
 
 // $ExpectType Plugin
-deck.getPlugin("markdwon");
+deck.getPlugin("markdown");
 
 // $ExpectType { [id: string]: Plugin; }
 deck.getPlugins();
