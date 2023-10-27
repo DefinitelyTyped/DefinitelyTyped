@@ -45,7 +45,7 @@
         "d3-time": "^3.0.0",
         "d3-time-format": "^4.0.0",
         "danger": "^11.2.3",
-        "dprint": "^0.41.0",
+        "dprint": "^0.42.3",
         "eslint-plugin-jsdoc": "^44.2.7",
         "jsdom": "^17.0.0",
         "remark-cli": "^11.0.0",
