@@ -1,12 +1,12 @@
 /* eslint-disable @definitelytyped/no-single-declare-module */
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@chamaeleonidae/chmln' {
- type ChameleonInitOptions = {
+  type ChameleonInitOptions = {
     fastUrl: string;
     forceOverride?: boolean;
   };
 
- type ChameleonCompanyOptions = {
+  type ChameleonCompanyOptions = {
     // For B2B products, send company / account information here
     uid?: string; // Unique ID of the company / account in your database (e.g. 9832 or "590b80e5f433ea81b96c9bf7")
     created?: string; // To enable targeting all users based on this company property
@@ -17,7 +17,7 @@ declare module '@chamaeleonidae/chmln' {
     spend?: string; // Send other properties that will help in targeting users (e.g. sales rep, source, stage)
   };
 
- type ChameleonIdentifyOptions = {
+  type ChameleonIdentifyOptions = {
     email: string; // RECOMMENDED Used to connect data coming from various integrations
 
     // SUGGESTED - User properties:
@@ -29,8 +29,11 @@ declare module '@chamaeleonidae/chmln' {
 
     // OPTIONAL - Company properties:
     company?: ChameleonCompanyOptions;
+  } & {    
+    // OPTIONAL - Other extra properties:
+    [key: string]: string | undefined;
   };
- function init(token: string, options: ChameleonInitOptions): void;
- function identify(id: string, options: ChameleonIdentifyOptions): void;
- function track(event: string): void;
+  function init(token: string, options: ChameleonInitOptions): void;
+  function identify(id: string, options: ChameleonIdentifyOptions): void;
+  function track(event: string): void;
 }
