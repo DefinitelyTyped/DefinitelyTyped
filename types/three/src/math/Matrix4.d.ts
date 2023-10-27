@@ -156,7 +156,8 @@ export class Matrix4 implements Matrix {
     /**
      * Sets the position component for this matrix from vector v.
      */
-    setPosition(v: Vector3 | number, y?: number, z?: number): Matrix4;
+    setPosition(v: Vector3): Matrix4;
+    setPosition(x: number, y: number, z: number): Matrix4;
 
     /**
      * Inverts this matrix.

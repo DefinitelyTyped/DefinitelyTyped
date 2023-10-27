@@ -340,7 +340,7 @@ export class Controller<T = Record<string, unknown>, K extends keyof T = keyof T
     /**
      * The object this controller will modify.
      */
-    object: object;
+    object: T;
     /**
      * The name of the property to control.
      */
@@ -398,12 +398,12 @@ export class Controller<T = Record<string, unknown>, K extends keyof T = keyof T
      *   console.assert( this === controller );
      * } );
      */
-    onChange(callback: (value: T[K]) => void): this;
+    onChange(callback: (this: this, value: T[K]) => void): this;
     /**
      * Used to access the function bound to `onChange` events. Don't modify this value directly.
      * Use the `controller.onChange( callback )` method instead.
      */
-    _onChange: (value: T[K]) => void;
+    _onChange: (this: this, value: T[K]) => void;
     /**
      * Calls the onChange methods of this controller and its parent GUI.
      */
@@ -420,12 +420,12 @@ export class Controller<T = Record<string, unknown>, K extends keyof T = keyof T
      *   console.assert( this === controller );
      * } );
      */
-    onFinishChange(callback: (value: T[K]) => void): this;
+    onFinishChange(callback: (this: this, value: T[K]) => void): this;
     /**
      * Used to access the function bound to `onFinishChange` events. Don't modify this value
      * directly. Use the `controller.onFinishChange( callback )` method instead.
      */
-    _onFinishChange: (value: T[K]) => void;
+    _onFinishChange: (this: this, value: T[K]) => void;
     /**
      * Should be called by Controller when its widgets lose focus.
      */
