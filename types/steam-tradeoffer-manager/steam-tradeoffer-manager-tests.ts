@@ -11,7 +11,12 @@ let manager = new TradeOfferManager();
 const user = new SteamUser();
 const steam = new Steam.SteamClient();
 const offer = manager.createOffer("123");
-const item = new CEconItem("a", "b", "c");
+const item1 = new CEconItem("a", "b", "c");
+const item2 = {
+    appid: 1234,
+    contextid: 1234,
+    assetid: "1234",
+};
 
 // ----- TradeOfferManager -----
 
@@ -86,10 +91,10 @@ manager.loadUserInventory("123", 440, 2, true, (err, inventory, currencies) => {
 manager.getOfferToken((err, token: string) => {
 });
 
-manager.getOffersContainingItem(item, true, (err, sent: TradeOffer[], received: TradeOffer[]) => {
+manager.getOffersContainingItem(item1, true, (err, sent: TradeOffer[], received: TradeOffer[]) => {
 });
 
-manager.getOffersContainingItem(item, (err, sent, received) => {
+manager.getOffersContainingItem(item1, (err, sent, received) => {
 });
 
 manager.doPoll();
@@ -109,31 +114,41 @@ offer.loadPartnerInventory(440, 2, (err, inventory, currencies) => {
 });
 
 // $ExpectType boolean
-offer.addMyItem(item);
+offer.addMyItem(item1);
+// $ExpectType boolean
+offer.addMyItem(item2);
 
 // $ExpectType number
-offer.addMyItems([item, item]);
+offer.addMyItems([item1, item2]);
 
 // $ExpectType boolean
-offer.removeMyItem(item);
+offer.removeMyItem(item1);
+// $ExpectType boolean
+offer.removeMyItem(item2);
 
 // $ExpectType number
-offer.removeMyItems([item, item]);
+offer.removeMyItems([item1, item2]);
 
 // $ExpectType boolean
-offer.addTheirItem(item);
+offer.addTheirItem(item1);
+// $ExpectType boolean
+offer.addTheirItem(item2);
 
 // $ExpectType number
-offer.addTheirItems([item, item]);
+offer.addTheirItems([item1, item2]);
 
 // $ExpectType boolean
-offer.removeTheirItem(item);
+offer.removeTheirItem(item1);
+// $ExpectType boolean
+offer.removeTheirItem(item2);
 
 // $ExpectType number
-offer.removeTheirItems([item, item]);
+offer.removeTheirItems([item1, item2]);
 
 // $ExpectType boolean
-offer.containsItem(item);
+offer.containsItem(item1);
+// $ExpectType boolean
+offer.containsItem(item2);
 
 offer.setMessage("a");
 
@@ -143,24 +158,44 @@ offer.getUserDetails((err, me, them) => {
 });
 
 offer.send((err, status) => {
+    // $ExpectType EResult | undefined
+    err?.eresult;
+    // $ExpectType "TradeBan" | "NewDevice" | "TargetCannotTrade" | "OfferLimitExceeded" | "ItemServerUnavailable" | undefined
+    err?.cause;
 });
 
 offer.send();
 
 offer.cancel(err => {
+    // $ExpectType EResultError | null
+    err;
+    // $ExpectType EResult | undefined
+    err?.eresult;
 });
 
 offer.cancel();
 
 offer.decline(err => {
+    // $ExpectType EResultError | null
+    err;
+    // $ExpectType EResult | undefined
+    err?.eresult;
 });
 
 offer.decline();
 
 offer.accept(true, (err, status) => {
+    // $ExpectType EResult | undefined
+    err?.eresult;
+    // $ExpectType "TradeBan" | "NewDevice" | "TargetCannotTrade" | undefined
+    err?.cause;
 });
 
 offer.accept((err, status) => {
+    // $ExpectType EResult | undefined
+    err?.eresult;
+    // $ExpectType "TradeBan" | "NewDevice" | "TargetCannotTrade" | undefined
+    err?.cause;
 });
 
 offer.accept();
@@ -172,16 +207,28 @@ offer.duplicate();
 offer.counter();
 
 offer.update(err => {
+    // $ExpectType EResultError | null
+    err;
+    // $ExpectType EResult | undefined
+    err?.eresult;
 });
 
 offer.getReceivedItems(true, (err, items) => {
+    // $ExpectType Error | null
+    err;
 });
 
 offer.getReceivedItems((err, items) => {
+    // $ExpectType Error | null
+    err;
 });
 
 offer.getExchangeDetails(false, (err, status, tradeInitTime, receivedItems, sentItems) => {
+    // $ExpectType Error | null
+    err;
 });
 
 offer.getExchangeDetails((err, status, tradeInitTime, receivedItems, sentItems) => {
+    // $ExpectType Error | null
+    err;
 });
