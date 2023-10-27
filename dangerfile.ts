@@ -89,6 +89,7 @@ function chunked<T>(arr: T[], size: number): T[][] {
 }
 
 const unformatted = [];
+const dprintErrors = [];
 const allFiles = [...danger.git.created_files, ...danger.git.modified_files];
 // We batch this in chunks to avoid hitting max arg length issues.
 for (const files of chunked(allFiles, 50)) {
@@ -104,10 +105,24 @@ for (const files of chunked(allFiles, 50)) {
                 unformatted.push(path.relative(process.cwd(), line));
             }
         }
+    } else if (status !== 0) {
+        dprintErrors.push(result.stderr.trim());
     }
 }
 
-if (unformatted.length > 0) {
+if (dprintErrors.length > 0) {
+    fail("dprint failed to execute");
+
+    const message = [
+        "## Formatting errors",
+        "",
+        "```",
+        ...dprintErrors.join("\n\n"),
+        "```",
+    ];
+
+    markdown(message.join("\n"));
+} else if (unformatted.length > 0) {
     const message = [
         "## Formatting",
         "",
