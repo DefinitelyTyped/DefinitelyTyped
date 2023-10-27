@@ -2,7 +2,6 @@ import fs = require("fs");
 import os = require("os");
 import path = require("path");
 import cp = require("child_process");
-import stripAnsi = require("strip-ansi");
 import { danger, fail, markdown } from "danger";
 const suggestionsDir = [os.homedir(), ".dts", "suggestions"].join("/");
 const lines: string[] = [];
