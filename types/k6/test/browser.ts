@@ -176,8 +176,16 @@ browserContext.setDefaultTimeout(30000);
 browserContext.setGeolocation({ latitude: 0, longitude: 0, accuracy: 1 });
 // $ExpectType void
 browserContext.setOffline(true);
-// $ExpectType Page | null
-browserContext.waitForEvent("", { predicate: () => true, timeout: 30000 });
+// $ExpectType Promise<Page>
+browserContext.waitForEvent("page");
+// $ExpectType Promise<Page>
+browserContext.waitForEvent("page", () => true);
+// $ExpectType Promise<Page>
+browserContext.waitForEvent("page", { predicate: () => true});
+// $ExpectType Promise<Page>
+browserContext.waitForEvent("page", { predicate: () => true, timeout: 10000 });
+// $ExpectType Promise<Page>
+browserContext.waitForEvent("page", { timeout: 10000 });
 
 //
 // Create a page
