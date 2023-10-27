@@ -688,7 +688,7 @@ deck.dispatchEvent({ type: "resize", data: {} });
 
 // Facility for persisting and restoring the presentation state
 
-// $ExpectType { indexh: number; indexv: number; indexf: number; paused: boolean; overview: boolean; }
+// $ExpectType RevealState
 deck.getState();
 
 // $ExpectType void
