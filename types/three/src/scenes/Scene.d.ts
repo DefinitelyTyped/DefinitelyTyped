@@ -1,6 +1,6 @@
 import { FogBase } from './Fog.js';
-import { Material } from './../materials/Material.js';
-import { Object3D } from './../core/Object3D.js';
+import { Material } from '../materials/Material.js';
+import { Object3D } from '../core/Object3D.js';
 import { Color } from '../math/Color.js';
 import { Texture } from '../textures/Texture.js';
 import { CubeTexture } from '../Three.js';

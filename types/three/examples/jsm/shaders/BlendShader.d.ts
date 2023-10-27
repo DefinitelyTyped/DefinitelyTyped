@@ -1,6 +1,7 @@
 import { IUniform } from '../../../src/Three.js';
 
 export const BlendShader: {
+    name: string;
     uniforms: {
         tDiffuse1: IUniform;
         tDiffuse2: IUniform;

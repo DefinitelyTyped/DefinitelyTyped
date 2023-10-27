@@ -82,7 +82,7 @@ export abstract class Curve<T extends Vector> {
     getLengths(divisions?: number): number[];
 
     /**
-     * Update the cumlative segment distance cache
+     * Update the cumulative segment distance cache
      * @remarks
      * The method must be called every time {@link Curve} parameters are changed
      * If an updated {@link Curve} is part of a composed {@link Curve} like {@link THREE.CurvePath | CurvePath},
