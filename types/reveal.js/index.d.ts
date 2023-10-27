@@ -1528,6 +1528,8 @@ declare namespace Reveal {
         tokenizer?: object;
         walkTokens?: (...args: any) => any;
         xhtml?: boolean;
+        separator?: string;
+        verticalSeparator?: string;
     }
 
     /**

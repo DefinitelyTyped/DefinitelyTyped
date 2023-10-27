@@ -367,6 +367,8 @@ deck.initialize({
         tokenizer: { key: "value" },
         walkTokens: () => {},
         xhtml: true,
+        separator: "^\r?\\n---\r?\n$",
+        verticalSeparator: "^\r?\n--\r?\n$",
     },
 
     // katex.
