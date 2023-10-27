@@ -475,7 +475,7 @@ deck.sync();
 // $ExpectType void
 deck.syncSlide(el);
 
-// $ExpectType Element[]
+// $ExpectType HTMLElement[]
 deck.syncFragments(el);
 
 // ------------------ //
@@ -756,15 +756,15 @@ deck.getSlideNotes(el);
 
 // Returns an Array of all slides
 
-// $ExpectType Element[]
+// $ExpectType HTMLElement[]
 deck.getSlides();
 
 // Returns an array with all horizontal/vertical slides in the deck
 
-// $ExpectType Element[]
+// $ExpectType HTMLElement[]
 deck.getHorizontalSlides();
 
-// $ExpectType Element[]
+// $ExpectType HTMLElement[]
 deck.getVerticalSlides();
 
 // Checks if the presentation contains two or more horizontal
@@ -830,10 +830,10 @@ deck.getSlidePath(el);
 
 // Returns reveal.js DOM elements
 
-// $ExpectType Element | null
+// $ExpectType HTMLElement | null
 deck.getRevealElement();
 
-// $ExpectType Element | null
+// $ExpectType HTMLElement | null
 deck.getSlidesElement();
 
 // $ExpectType HTMLElement | null
