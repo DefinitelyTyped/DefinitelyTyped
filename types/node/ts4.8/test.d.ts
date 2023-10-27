@@ -1007,7 +1007,7 @@ declare module "node:test" {
          */
         restore(): void;
     }
-    type Timer = "setInterval" | "setTImeout" | "SetImmediate" | "Date";
+    type Timer = "setInterval" | "setTimeout" | "setImmediate" | "Date";
 
     interface MockTimersOptions {
         apis: Timer[];
