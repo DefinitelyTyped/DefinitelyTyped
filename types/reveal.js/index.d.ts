@@ -57,7 +57,7 @@ declare namespace Reveal {
          * when new slides or control elements are added or when
          * the configuration has changed.
          */
-        sync():void;
+        sync(): void;
 
         /**
          * Updates reveal.js to keep in sync with new slide attributes. For
@@ -788,7 +788,7 @@ declare namespace Reveal {
         /**
          * The "normal" size of the presentation, aspect ratio will be preserved
          * when the presentation is scaled to fit different resolutions
-         * 
+         *
          * Can be specified using percentage units.
          *
          * @defaultValue `960`
@@ -798,7 +798,7 @@ declare namespace Reveal {
         /**
          * The "normal" size of the presentation, aspect ratio will be preserved
          * when the presentation is scaled to fit different resolutions
-         * 
+         *
          * Can be specified using percentage units.
          *
          * @defaultValue `700`
@@ -879,7 +879,13 @@ declare namespace Reveal {
          *
          * @defaultValue `false`
          */
-        slideNumber?: boolean | "h.v" | "h/v" | "c" | "c/t" | ((slideObject: any) => [string] | [string, string, string]);
+        slideNumber?:
+            | boolean
+            | "h.v"
+            | "h/v"
+            | "c"
+            | "c/t"
+            | ((slideObject: any) => [string] | [string, string, string]);
 
         /**
          * Can be used to limit the contexts in which the slide number appears
