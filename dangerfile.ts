@@ -94,7 +94,7 @@ const allFiles = [...danger.git.created_files, ...danger.git.modified_files];
 for (const files of chunked(allFiles, 50)) {
     const result = cp.spawnSync(
         process.execPath,
-        ["node_modules/dprint/bin.js", "check", "--list-different" ...files],
+        ["node_modules/dprint/bin.js", "check", "--list-different", ...files],
         { encoding: "utf8", maxBuffer: 100 * 1024 * 1024 },
     );
     // https://dprint.dev/cli/#exit-codes
