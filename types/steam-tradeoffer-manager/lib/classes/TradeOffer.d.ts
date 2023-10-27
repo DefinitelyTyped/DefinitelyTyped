@@ -309,7 +309,7 @@ declare class TradeOffer {
     send(
         callback?: (
             err:
-                | Error & {
+                | TradeOfferManager.EResultError & {
                     cause?:
                         | "TradeBan"
                         | "NewDevice"
@@ -359,7 +359,7 @@ declare class TradeOffer {
     accept(
         skipStateUpdate?: boolean,
         callback?: (
-            err: (TradeOfferManager.EResultError & { cause?: "TradeBan" | "NewDevice" | "TargetCannotTrade" }) | null,
+            err: TradeOfferManager.EResultError & { cause?: "TradeBan" | "NewDevice" | "TargetCannotTrade" } | null,
             status: "pending" | "accepted" | "escrow",
         ) => void,
     ): void;
@@ -383,7 +383,7 @@ declare class TradeOffer {
      */
     accept(
         callback?: (
-            err: (TradeOfferManager.EResultError & { cause?: "TradeBan" | "NewDevice" | "TargetCannotTrade" }) | null,
+            err: TradeOfferManager.EResultError & { cause?: "TradeBan" | "NewDevice" | "TargetCannotTrade" } | null,
             status: "pending" | "accepted" | "escrow",
         ) => void,
     ): void;
@@ -407,7 +407,7 @@ declare class TradeOffer {
      * @param callback - Required. A callback to be invoked when complete.
      * - `err` - An `Error` object on failure, `null` on success
      */
-    update(callback: (err: Error | null) => void): void;
+    update(callback: (err: TradeOfferManager.EResultError | null) => void): void;
 
     /**
      * Can be called on an accepted offer to retrieve item data about the items you received, including names, descriptions,
