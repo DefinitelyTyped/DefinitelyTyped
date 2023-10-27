@@ -99,14 +99,21 @@ for (const files of chunked(allFiles, 50)) {
         { encoding: "utf8", maxBuffer: 100 * 1024 * 1024 },
     );
     // https://dprint.dev/cli/#exit-codes
-    if (result.status === 20) {
-        for (const line of result.stdout.split(/\r?\n/)) {
-            if (line) {
-                unformatted.push(path.relative(process.cwd(), line));
+    switch (result.status) {
+        case 0:
+        case 14:
+            // No change or no files matched
+            break;
+        case 20:
+            for (const line of result.stdout.split(/\r?\n/)) {
+                if (line) {
+                    unformatted.push(path.relative(process.cwd(), line));
+                }
             }
-        }
-    } else if (result.status !== 0) {
-        dprintErrors.push(result.stderr.trim());
+            break;
+        default:
+            dprintErrors.push(result.stderr.trim());
+            break;
     }
 }
 
