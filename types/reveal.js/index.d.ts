@@ -1539,7 +1539,7 @@ declare namespace Reveal {
     }
 
     /**
-     * Reveal Depencency
+     * Reveal Dependency
      *
      * @see {@link https://revealjs.com/plugins/#dependencies}
      */
