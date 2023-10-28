@@ -1,1 +1,0 @@
-src/components/taglib/TransformHelper/getComponentFiles.d.ts
