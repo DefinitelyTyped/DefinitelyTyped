@@ -1536,6 +1536,8 @@ declare namespace Reveal {
         xhtml?: boolean;
         separator?: string;
         verticalSeparator?: string;
+        notesSeparator?: string;
+        attributes?: string;
     }
 
     /**
