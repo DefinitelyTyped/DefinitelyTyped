@@ -4940,7 +4940,7 @@ declare namespace cytoscape {
         /** indicates the element or core that first caused the event */
         target: any;
         /** the event type string (e.g. "tap") */
-        type: UserInputDeviceEventName | UserInputDeviceEventNameExt;
+        type: UserInputDeviceEventName | UserInputDeviceEventNameExt | CollectionEventName | GraphEventName;
         /** the event namespace string (e.g. "foo" for "foo.tap") */
         namespace: string;
         /** Unix epoch time of event in milliseconds */
