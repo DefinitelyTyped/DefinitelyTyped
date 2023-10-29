@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/tampermonkey",
-    "version": "4.20.9999",
+    "version": "5.0.9999",
     "nonNpm": true,
     "nonNpmDescription": "Tampermonkey",
     "projects": [
