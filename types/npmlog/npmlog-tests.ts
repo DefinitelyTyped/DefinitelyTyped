@@ -14,8 +14,8 @@ npmlog.http(prefix, message);
 npmlog.warn(prefix, message);
 npmlog.error(prefix, message);
 
-//log with message object
-const messageObj = {message:"otherStr"};
+// log with message object
+const messageObj = { message: "otherStr" };
 npmlog.silly(prefix, messageObj);
 npmlog.verbose(prefix, messageObj);
 npmlog.info(prefix, messageObj);

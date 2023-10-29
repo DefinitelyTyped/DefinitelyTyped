@@ -25,7 +25,6 @@ declare namespace npmlog {
         log(level: LogLevels | string, prefix: string, message: any, ...args: any[]): void;
 
         /**
-         *
          * @param prefix
          * @param message message of the log which will be formatted using utils.format()
          * @param args additional arguments
