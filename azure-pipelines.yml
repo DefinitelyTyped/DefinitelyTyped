@@ -25,7 +25,7 @@ jobs:
           if git diff --diff-filter=DR --name-only HEAD^1 | grep -q 'package.json'; then
             pnpm install
           else
-            pnpm install --filter . --filter '...[HEAD^1]'
+            pnpm install --filter . --filter '...[HEAD^1]...'
           fi
         displayName: 'pnpm install'
 
