@@ -125,7 +125,7 @@ export interface FontCollection {
   type: string;
 
   getFont(name: string): Font | null
-  fonts(): Font[]
+  fonts: Font[]
 }
 
 export interface Subset {

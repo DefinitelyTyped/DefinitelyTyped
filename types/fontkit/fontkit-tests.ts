@@ -7,6 +7,7 @@ import * as fontkit from "fontkit";
 const openV1 = fontkit.open("fonts/a-font.ttf", "postscriptName", () => {});
 const openV2 = fontkit.open("fonts/a-font.ttf");
 const openV2withPostscriptName = fontkit.open("fonts/a-font.ttf", "postscriptName");
+const openV3 = fontkit.openSync("fonts/a-font.ttc");
 
 // -----------------
 // API: Font['OS/2']
@@ -58,3 +59,10 @@ openV2.then(font => {
     font.getGlyph; // $ExpectType (glyphId: number, codePoints?: number[] | undefined) => Glyph
     font.getGlyph(0); // $ExpectType Glyph
 });
+
+// -----------------
+// API: FontCollection['fonts']
+// -----------------
+openV3.fonts.forEach(font => {
+    const { hhea, postscriptName  } = font; // this is a Font
+})
