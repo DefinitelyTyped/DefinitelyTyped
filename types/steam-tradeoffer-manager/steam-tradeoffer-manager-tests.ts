@@ -11,12 +11,7 @@ let manager = new TradeOfferManager();
 const user = new SteamUser();
 const steam = new Steam.SteamClient();
 const offer = manager.createOffer("123");
-const item1 = new CEconItem("a", "b", "c");
-const item2 = {
-    appid: 1234,
-    contextid: 1234,
-    assetid: "1234",
-};
+const item = new CEconItem("a", "b", "c");
 
 // ----- TradeOfferManager -----
 
@@ -91,10 +86,10 @@ manager.loadUserInventory("123", 440, 2, true, (err, inventory, currencies) => {
 manager.getOfferToken((err, token: string) => {
 });
 
-manager.getOffersContainingItem(item1, true, (err, sent: TradeOffer[], received: TradeOffer[]) => {
+manager.getOffersContainingItem(item, true, (err, sent: TradeOffer[], received: TradeOffer[]) => {
 });
 
-manager.getOffersContainingItem(item1, (err, sent, received) => {
+manager.getOffersContainingItem(item, (err, sent, received) => {
 });
 
 manager.doPoll();
@@ -114,41 +109,31 @@ offer.loadPartnerInventory(440, 2, (err, inventory, currencies) => {
 });
 
 // $ExpectType boolean
-offer.addMyItem(item1);
-// $ExpectType boolean
-offer.addMyItem(item2);
+offer.addMyItem(item);
 
 // $ExpectType number
-offer.addMyItems([item1, item2]);
+offer.addMyItems([item, item]);
 
 // $ExpectType boolean
-offer.removeMyItem(item1);
-// $ExpectType boolean
-offer.removeMyItem(item2);
+offer.removeMyItem(item);
 
 // $ExpectType number
-offer.removeMyItems([item1, item2]);
+offer.removeMyItems([item, item]);
 
 // $ExpectType boolean
-offer.addTheirItem(item1);
-// $ExpectType boolean
-offer.addTheirItem(item2);
+offer.addTheirItem(item);
 
 // $ExpectType number
-offer.addTheirItems([item1, item2]);
+offer.addTheirItems([item, item]);
 
 // $ExpectType boolean
-offer.removeTheirItem(item1);
-// $ExpectType boolean
-offer.removeTheirItem(item2);
+offer.removeTheirItem(item);
 
 // $ExpectType number
-offer.removeTheirItems([item1, item2]);
+offer.removeTheirItems([item, item]);
 
 // $ExpectType boolean
-offer.containsItem(item1);
-// $ExpectType boolean
-offer.containsItem(item2);
+offer.containsItem(item);
 
 offer.setMessage("a");
 

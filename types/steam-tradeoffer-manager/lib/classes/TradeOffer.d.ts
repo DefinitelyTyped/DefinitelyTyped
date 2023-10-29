@@ -1,32 +1,6 @@
 import TradeOfferManager = require("../../index");
 import SteamID = require("steamid");
 import CEconItem = require("steamcommunity/classes/CEconItem");
-import { appid, assetid, contextid } from "steamcommunity";
-
-interface BaseItem {
-    appid: appid;
-    contextid: contextid;
-    amount?: number | undefined;
-}
-
-interface ItemWithId extends BaseItem {
-    id: assetid;
-    assetid?: assetid | undefined;
-}
-
-interface ItemWithAssetId extends BaseItem {
-    id?: assetid | undefined;
-    assetid: assetid;
-}
-
-/**
- * The item object should be in the same format as is returned by the Steam inventory. That is, it should have the following properties:
- * - `assetid` - The item's asset ID within its context (the property can also be named `id`)
- * - `appid` - The ID of the app to which the item belongs
- * - `contextid` - The ID of the context within the app to which the item belongs
- * - `amount` - Default 1, if the item is stackable, this is how much of the stack will be added
- */
-type Item = ItemWithId | ItemWithAssetId;
 
 export = TradeOffer;
 
@@ -66,13 +40,13 @@ declare class TradeOffer {
      * An array of items to be given from your account should this offer be accepted
      * - If this offer has not yet been sent or was just sent, object in this array will not contain `classid` or `instanceid` properties, as it would had you loaded a sent offer
      */
-    readonly itemsToGive: Array<Item | CEconItem>;
+    readonly itemsToGive: CEconItem[];
 
     /**
      * An array of items to be given from the other account and received by yours should this offer be accepted
      * - If this offer has not yet been sent or was just sent, object in this array will not contain `classid` or `instanceid` properties, as it would had you loaded a sent offer
      */
-    readonly itemsToReceive: Array<Item | CEconItem>;
+    readonly itemsToReceive: CEconItem[];
 
     /**
      * `true` if this offer was sent by you, `false` if you received it
@@ -195,14 +169,14 @@ declare class TradeOffer {
      *
      * @param item - An item object
      */
-    addMyItem(item: Item): boolean;
+    addMyItem(item: CEconItem): boolean;
 
     /**
      * Convenience method which simply calls addMyItem for each item in the array. Returns the number of items that were successfully added.
      *
      * @param items - An array of item objects
      */
-    addMyItems(items: Item[]): number;
+    addMyItems(items: CEconItem[]): number;
 
     /**
      * Removes an item from your side of the trade offer. Returns true if the item was found and removed successfully, or false if the item wasn't found in the offer.
@@ -211,28 +185,28 @@ declare class TradeOffer {
      *
      * @param item - An item object
      */
-    removeMyItem(item: Item): boolean;
+    removeMyItem(item: CEconItem): boolean;
 
     /**
      * Convenience method which simply calls removeMyItem for each item in the array. Returns the number of items that were successfully removed.
      *
      * @param items - An array of item objects
      */
-    removeMyItems(items: Item[]): number;
+    removeMyItems(items: CEconItem[]): number;
 
     /**
      * Same as addMyItem, but for the partner's side of the trade.
      *
      * @param item - An item object
      */
-    addTheirItem(item: Item): boolean;
+    addTheirItem(item: CEconItem): boolean;
 
     /**
      * Convenience method which simply calls addTheirItem for each item in the array. Returns the number of items that were successfully added.
      *
      * @param items - An array of item objects
      */
-    addTheirItems(items: Item[]): number;
+    addTheirItems(items: CEconItem[]): number;
 
     /**
      * Removes an item from the other side of the trade offer. Returns true if the item was found and removed successfully, or false if the item wasn't found in the offer.
@@ -241,21 +215,21 @@ declare class TradeOffer {
      *
      * @param item - An item object
      */
-    removeTheirItem(item: Item): boolean;
+    removeTheirItem(item: CEconItem): boolean;
 
     /**
      * Convenience method which simply calls removeTheirItem for each item in the array. Returns the number of items that were successfully removed.
      *
      * @param items - An array of item objects
      */
-    removeTheirItems(items: Item[]): number;
+    removeTheirItems(items: CEconItem[]): number;
 
     /**
      * Returns true if the given item is in this offer, or false if not.
      *
      * @param item - An item object containing `appid`, `contextid`, and `assetid`/`id` properties
      */
-    containsItem(item: Item): boolean;
+    containsItem(item: CEconItem): boolean;
 
     /**
      * Sets this unsent offer's message. Messages are limited by Steam to 128 characters.
