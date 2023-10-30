@@ -1,6 +1,7 @@
 import { IUniform } from '../../../src/Three.js';
 
 export const GodRaysDepthMaskShader: {
+    name: string;
     uniforms: {
         tInput: IUniform;
     };
@@ -9,6 +10,7 @@ export const GodRaysDepthMaskShader: {
 };
 
 export const GodRaysGenerateShader: {
+    name: string;
     uniforms: {
         tInput: IUniform;
         fStepSize: IUniform;
@@ -19,6 +21,7 @@ export const GodRaysGenerateShader: {
 };
 
 export const GodRaysCombineShader: {
+    name: string;
     uniforms: {
         tColors: IUniform;
         tGodRays: IUniform;
@@ -29,6 +32,7 @@ export const GodRaysCombineShader: {
 };
 
 export const GodRaysFakeSunShader: {
+    name: string;
     uniforms: {
         vSunPositionScreenSpace: IUniform;
         fAspect: IUniform;

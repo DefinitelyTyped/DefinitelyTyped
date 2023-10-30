@@ -14,6 +14,10 @@ const styles = StyleSheet.create({
     h6: {},
 });
 
+const style = {
+    flex: 1,
+};
+
 const defaultTextProps = {
     style: {
         fontSize: 14,
@@ -43,6 +47,7 @@ class Simple extends React.Component {
             <HTMLView
                 value="<br><b>This is html</b><div><p>Yo P</p></p>"
                 addLineBreaks={false}
+                style={style}
                 stylesheet={styles}
                 onLinkPress={this.onPressLink}
                 NodeComponent={Text}

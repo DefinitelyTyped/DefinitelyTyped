@@ -1,6 +1,7 @@
 import { IUniform } from '../../../src/Three.js';
 
 export const NormalMapShader: {
+    name: string;
     uniforms: {
         heightMap: IUniform;
         resolution: IUniform;
