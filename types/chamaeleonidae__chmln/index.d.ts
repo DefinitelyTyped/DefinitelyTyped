@@ -1,12 +1,12 @@
 /* eslint-disable @definitelytyped/no-single-declare-module */
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module '@chamaeleonidae/chmln' {
-  type ChameleonInitOptions = {
+  interface ChameleonInitOptions {
     fastUrl: string;
     forceOverride?: boolean;
-  };
+  }
 
-  type ChameleonCompanyOptions = {
+  interface ChameleonCompanyOptions {
     // For B2B products, send company / account information here
     uid?: string; // Unique ID of the company / account in your database (e.g. 9832 or "590b80e5f433ea81b96c9bf7")
     created?: string; // To enable targeting all users based on this company property
@@ -15,7 +15,7 @@ declare module '@chamaeleonidae/chmln' {
     version?: string; // If your software varies by version then this will help show the correct guidance (e.g. "1.56")
     plan?: string; // Send null when no value exists (e.g. "Gold", "Advanced")
     spend?: string; // Send other properties that will help in targeting users (e.g. sales rep, source, stage)
-  };
+  }
 
   type ChameleonIdentifyOptions = {
     email: string; // RECOMMENDED Used to connect data coming from various integrations
