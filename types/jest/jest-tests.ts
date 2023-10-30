@@ -2020,3 +2020,16 @@ test("import.meta.jest replaces the global jest in ESM", () => {
 
     importMetaJest.fn();
 });
+
+// these are deprecated and will be removed in Jest v30
+expect("abc").toBeCalled();
+expect("abc").toBeCalledTimes(0);
+expect("abc").toBeCalledWith();
+expect("abc").lastCalledWith();
+expect("abc").nthCalledWith(0);
+expect("abc").toReturn();
+expect("abc").toReturnTimes(0);
+expect("abc").toReturnWith();
+expect("abc").lastReturnedWith();
+expect("abc").nthReturnedWith(0);
+expect("abc").toThrowError();
