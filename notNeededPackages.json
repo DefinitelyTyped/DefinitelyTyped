@@ -508,6 +508,10 @@
             "libraryName": "canvaskit-wasm",
             "asOfVersion": "0.18.1"
         },
+        "carbon__icons-react": {
+            "libraryName": "@carbon/icons-react",
+            "asOfVersion": "11.29.0"
+        },
         "card-validator": {
             "libraryName": "card-validator",
             "asOfVersion": "7.0.1"
