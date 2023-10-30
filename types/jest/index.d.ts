@@ -805,6 +805,8 @@ declare namespace jest {
          *
          * Optionally, you can provide a type for the expected arguments via a generic.
          * Note that the type must be either an array or a tuple.
+         *
+         * @deprecated in favor of `toHaveBeenLastCalledWith`
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         lastCalledWith<E extends any[]>(...args: E): R;
@@ -813,6 +815,8 @@ declare namespace jest {
          *
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particularly useful for ensuring expected objects have the right structure.
+         *
+         * @deprecated in favor of `toHaveLastReturnedWith`
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         lastReturnedWith<E = any>(expected?: E): R;
@@ -821,6 +825,8 @@ declare namespace jest {
          *
          * Optionally, you can provide a type for the expected arguments via a generic.
          * Note that the type must be either an array or a tuple.
+         *
+         * @deprecated in favor of `toHaveBeenNthCalledWith`
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         nthCalledWith<E extends any[]>(nthCall: number, ...params: E): R;
@@ -829,6 +835,8 @@ declare namespace jest {
          *
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particularly useful for ensuring expected objects have the right structure.
+         *
+         * @deprecated in favor of `toHaveNthReturnedWith`
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         nthReturnedWith<E = any>(n: number, expected?: E): R;
@@ -843,10 +851,14 @@ declare namespace jest {
         toBe<E = any>(expected: E): R;
         /**
          * Ensures that a mock function is called.
+         *
+         * @deprecated in favor of `toHaveBeenCalled`
          */
         toBeCalled(): R;
         /**
          * Ensures that a mock function is called an exact number of times.
+         *
+         * @deprecated in favor of `toHaveBeenCalledTimes`
          */
         toBeCalledTimes(expected: number): R;
         /**
@@ -854,6 +866,8 @@ declare namespace jest {
          *
          * Optionally, you can provide a type for the expected arguments via a generic.
          * Note that the type must be either an array or a tuple.
+         *
+         * @deprecated in favor of `toHaveBeenCalledWith`
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         toBeCalledWith<E extends any[]>(...args: E): R;
@@ -1087,10 +1101,14 @@ declare namespace jest {
         toMatchInlineSnapshot(snapshot?: string): R;
         /**
          * Ensure that a mock function has returned (as opposed to thrown) at least once.
+         *
+         * @deprecated in favor of `toHaveReturned`
          */
         toReturn(): R;
         /**
          * Ensure that a mock function has returned (as opposed to thrown) a specified number of times.
+         *
+         * @deprecated in favor of `toHaveReturnedTimes`
          */
         toReturnTimes(count: number): R;
         /**
@@ -1098,6 +1116,8 @@ declare namespace jest {
          *
          * Optionally, you can provide a type for the expected value via a generic.
          * This is particularly useful for ensuring expected objects have the right structure.
+         *
+         * @deprecated in favor of `toHaveReturnedWith`
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         toReturnWith<E = any>(value?: E): R;
@@ -1115,6 +1135,8 @@ declare namespace jest {
         toThrow(error?: string | Constructable | RegExp | Error): R;
         /**
          * If you want to test that a specific error is thrown inside a function.
+         *
+         * @deprecated in favor of `toThrow`
          */
         toThrowError(error?: string | Constructable | RegExp | Error): R;
         /**
