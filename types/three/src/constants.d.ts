@@ -74,7 +74,7 @@ export type BlendingEquation =
     | typeof MinEquation
     | typeof MaxEquation;
 
-// custom blending destination factors
+// custom blending factors
 export const ZeroFactor: 200;
 export const OneFactor: 201;
 export const SrcColorFactor: 202;
@@ -85,6 +85,11 @@ export const DstAlphaFactor: 206;
 export const OneMinusDstAlphaFactor: 207;
 export const DstColorFactor: 208;
 export const OneMinusDstColorFactor: 209;
+export const SrcAlphaSaturateFactor: 210;
+export const ConstantColorFactor: 211;
+export const OneMinusConstantColorFactor: 212;
+export const ConstantAlphaFactor: 213;
+export const OneMinusConstantAlphaFactor: 214;
 export type BlendingDstFactor =
     | typeof ZeroFactor
     | typeof OneFactor
@@ -95,11 +100,12 @@ export type BlendingDstFactor =
     | typeof DstAlphaFactor
     | typeof OneMinusDstAlphaFactor
     | typeof DstColorFactor
-    | typeof OneMinusDstColorFactor;
-
-// custom blending src factors
-export const SrcAlphaSaturateFactor: 210;
-export type BlendingSrcFactor = typeof SrcAlphaSaturateFactor;
+    | typeof OneMinusDstColorFactor
+    | typeof ConstantColorFactor
+    | typeof OneMinusConstantColorFactor
+    | typeof ConstantAlphaFactor
+    | typeof OneMinusConstantAlphaFactor;
+export type BlendingSrcFactor = BlendingDstFactor | typeof SrcAlphaSaturateFactor;
 
 // depth modes
 export const NeverDepth: 0;
@@ -141,6 +147,11 @@ export type ToneMapping =
     | typeof CineonToneMapping
     | typeof ACESFilmicToneMapping
     | typeof CustomToneMapping;
+
+// Bind modes
+export const AttachedBindMode: 'attached';
+export const DetachedBindMode: 'detached';
+export type BindMode = typeof AttachedBindMode | typeof DetachedBindMode;
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
@@ -462,11 +473,11 @@ export type WebGL2PixelFormat =
 export type PixelFormat = WebGL1PixelFormat | WebGL2PixelFormat;
 
 /**
- * All Texture Pixel Formats Modes for {@link THREE.DeepTexture}.
+ * All Texture Pixel Formats Modes for {@link THREE.DepthTexture}.
  * @see {@link WebGLRenderingContext.texImage2D} for details.
  * @see {@link https://threejs.org/docs/index.html#api/en/constants/Textures | Texture Constants}
  */
-export type DeepTexturePixelFormat = typeof DepthFormat | typeof DepthStencilFormat;
+export type DepthTexturePixelFormat = typeof DepthFormat | typeof DepthStencilFormat;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Compressed texture formats
@@ -649,10 +660,10 @@ export type CompressedPixelFormat =
  * All Possible Texture Pixel Formats Modes. For any Type or SubType of Textures.
  * @remarks Note that the texture must have the correct {@link THREE.Texture.type} set, as described in {@link TextureDataType}.
  * @see {@link WebGLRenderingContext.texImage2D} for details.
- * @see {@link PixelFormat} and {@link DeepTexturePixelFormat} and {@link CompressedPixelFormat}
+ * @see {@link PixelFormat} and {@link DepthTexturePixelFormat} and {@link CompressedPixelFormat}
  * @see {@link https://threejs.org/docs/index.html#api/en/constants/Textures | Texture Constants}
  */
-export type AnyPixelFormat = PixelFormat | DeepTexturePixelFormat | CompressedPixelFormat;
+export type AnyPixelFormat = PixelFormat | DepthTexturePixelFormat | CompressedPixelFormat;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Loop styles for AnimationAction

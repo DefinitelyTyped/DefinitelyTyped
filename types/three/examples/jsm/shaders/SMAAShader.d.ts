@@ -1,6 +1,7 @@
 import { IUniform } from '../../../src/Three.js';
 
 export const SMAAEdgesShader: {
+    name: string;
     defines: {
         SMAA_THRESHOLD: string;
     };
@@ -13,6 +14,7 @@ export const SMAAEdgesShader: {
 };
 
 export const SMAAWeightsShader: {
+    name: string;
     defines: {
         SMAA_MAX_SEARCH_STEPS: string;
         SMAA_AREATEX_MAX_DISTANCE: string;
@@ -30,6 +32,7 @@ export const SMAAWeightsShader: {
 };
 
 export const SMAABlendShader: {
+    name: string;
     uniforms: {
         tDiffuse: IUniform;
         tColor: IUniform;

@@ -232,6 +232,7 @@ router6.put<string>("/blerg", async (ctx) => {
 
 const optsName = router6.stack[0].opts.name; // $ExpectType string | null
 const layerName = router6.stack[0].name; // $ExpectType string | null
+const layerPath = router6.stack[0].path; // $ExpectType string | RegExp
 
 class MyRouter2 extends Router {
     route(name: string): Router.Layer | boolean {

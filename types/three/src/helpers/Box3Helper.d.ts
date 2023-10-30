@@ -1,5 +1,5 @@
 import { Box3 } from './../math/Box3.js';
-import { Color } from './../math/Color.js';
+import { ColorRepresentation } from './../math/Color.js';
 import { LineSegments } from './../objects/LineSegments.js';
 
 /**
@@ -20,7 +20,7 @@ export class Box3Helper extends LineSegments {
      * @param box The Box3 to show.
      * @param color The box's color. Default `0xffff00`
      */
-    constructor(box: Box3, color?: Color);
+    constructor(box: Box3, color?: ColorRepresentation);
 
     /**
      * A Read-only _string_ to check if `this` object type.
