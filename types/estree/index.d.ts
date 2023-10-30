@@ -233,11 +233,15 @@ export type Declaration = FunctionDeclaration | VariableDeclaration | ClassDecla
 
 export interface BaseDeclaration extends BaseStatement {}
 
-export interface FunctionDeclaration extends BaseFunction, BaseDeclaration {
+export interface MaybeNamedFunctionDeclaration extends BaseFunction, BaseDeclaration {
     type: "FunctionDeclaration";
     /** It is null when a function declaration is a part of the `export default function` statement */
     id: Identifier | null;
     body: BlockStatement;
+}
+
+export interface FunctionDeclaration extends MaybeNamedFunctionDeclaration {
+    id: Identifier;
 }
 
 export interface VariableDeclaration extends BaseDeclaration {
@@ -593,10 +597,14 @@ export interface MethodDefinition extends BaseNode {
     static: boolean;
 }
 
-export interface ClassDeclaration extends BaseClass, BaseDeclaration {
+export interface MaybeNamedClassDeclaration extends BaseClass, BaseDeclaration {
     type: "ClassDeclaration";
     /** It is null when a class declaration is a part of the `export default class` statement */
     id: Identifier | null;
+}
+
+export interface ClassDeclaration extends MaybeNamedClassDeclaration {
+    id: Identifier;
 }
 
 export interface ClassExpression extends BaseClass, BaseExpression {
@@ -660,7 +668,7 @@ export interface ExportSpecifier extends BaseModuleSpecifier {
 
 export interface ExportDefaultDeclaration extends BaseModuleDeclaration {
     type: "ExportDefaultDeclaration";
-    declaration: Declaration | Expression;
+    declaration: MaybeNamedFunctionDeclaration | MaybeNamedClassDeclaration | Expression;
 }
 
 export interface ExportAllDeclaration extends BaseModuleDeclaration {
