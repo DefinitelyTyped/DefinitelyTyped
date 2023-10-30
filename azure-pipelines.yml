@@ -14,7 +14,7 @@ jobs:
           versionSpec: 16.x
           checkLatest: true
 
-      - script: npm install -g pnpm
+      - script: npm install -g $(jq -r '.packageManager' < package.json)
         displayName: 'Setup pnpm'
 
       - script: |
