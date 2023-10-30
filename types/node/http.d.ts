@@ -228,8 +228,8 @@ declare module "http" {
         joinDuplicateHeaders?: boolean;
     }
     interface ServerOptions<
-        Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse,
+        Request extends IncomingMessage = IncomingMessage,
+        Response extends ServerResponse = ServerResponse,
     > {
         /**
          * Specifies the `IncomingMessage` class to be used. Useful for extending the original `IncomingMessage`.
@@ -313,15 +313,15 @@ declare module "http" {
         uniqueHeaders?: Array<string | string[]> | undefined;
     }
     type RequestListener<
-        Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse,
+        Request extends IncomingMessage = IncomingMessage,
+        Response extends ServerResponse = ServerResponse,
     > = (req: InstanceType<Request>, res: InstanceType<Response> & { req: InstanceType<Request> }) => void;
     /**
      * @since v0.1.17
      */
     class Server<
-        Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse,
+        Request extends IncomingMessage = IncomingMessage,
+        Response extends ServerResponse = ServerResponse,
     > extends NetServer {
         constructor(requestListener?: RequestListener<Request, Response>);
         constructor(options: ServerOptions<Request, Response>, requestListener?: RequestListener<Request, Response>);
@@ -1537,12 +1537,12 @@ declare module "http" {
      * @since v0.1.13
      */
     function createServer<
-        Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse,
+        Request extends IncomingMessage = IncomingMessage,
+        Response extends ServerResponse = ServerResponse,
     >(requestListener?: RequestListener<Request, Response>): Server<Request, Response>;
     function createServer<
-        Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse,
+        Request extends IncomingMessage = IncomingMessage,
+        Response extends ServerResponse = ServerResponse,
     >(
         options: ServerOptions<Request, Response>,
         requestListener?: RequestListener<Request, Response>,
