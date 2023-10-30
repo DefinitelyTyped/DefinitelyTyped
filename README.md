@@ -335,7 +335,7 @@ This file is required and should follow this template:
 {
     "private": true,
     "name": "@types/PACKAGE-NAME",
-    "version": "1.2.99999",
+    "version": "1.2.9999",
     "projects": [
         "https://aframe.io/"
     ],
@@ -564,20 +564,20 @@ When it graduates draft mode, we may remove it from Definitely Typed and depreca
 *NOTE: The discussion in this section assumes familiarity with [Semantic versioning](https://semver.org/)*
 
 Each Definitely Typed package is versioned when published to npm.
-The [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) (the tool that publishes `@types` packages to npm) will set the declaration package's version by using the `major.minor.99999` version number listed in `package.json`.
+The [DefinitelyTyped-tools](https://github.com/microsoft/DefinitelyTyped-tools/tree/master/packages/publisher) (the tool that publishes `@types` packages to npm) will set the declaration package's version by using the `major.minor.9999` version number listed in `package.json`.
 For example, here are the first few lines of Node's type declarations for version `20.8.x` at the time of writing:
 
 ```json
 {
     "private": true,
     "name": "@types/node",
-    "version": "20.8.99999",
+    "version": "20.8.9999",
 }
 ```
 
-Because the version is listed as `20.8.99999`, the npm version of the `@types/node` package will also be `20.8.x`.
-Note that the version in `package.json` should only contain `major.minor` version (e.g. `10.12`) followed by `.99999`.
-This is because only the major and minor release numbers are aligned between library packages and type declaration packages. (The `.99999` is to ensure that local `@types` packages are always newest during local development.)
+Because the version is listed as `20.8.9999`, the npm version of the `@types/node` package will also be `20.8.x`.
+Note that the version in `package.json` should only contain `major.minor` version (e.g. `10.12`) followed by `.9999`.
+This is because only the major and minor release numbers are aligned between library packages and type declaration packages. (The `.9999` is to ensure that local `@types` packages are always newest during local development.)
 The patch release number of the type declaration package (e.g. `.0` in `20.8.0`) is initialized to zero by Definitely Typed and is incremented each time a new `@types/node` package is published to npm for the same major/minor version of the corresponding library.
 
 Sometimes type declaration package versions and library package versions can get out of sync.
@@ -613,7 +613,7 @@ For example, if we are creating `types/history/v2`, its `package.json` would loo
 {
     "private": true,
     "name": "@types/history",
-    "version": "2.4.99999",
+    "version": "2.4.9999",
 }
 ```
 
@@ -623,7 +623,7 @@ Another package may select this version by specifying:
 {
     "private": true,
     "name": "@types/browser-sync",
-    "version": "2.26.99999",
+    "version": "2.26.9999",
     "dependencies": {
         "@types/history": "^2"
     }
