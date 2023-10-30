@@ -107,7 +107,7 @@ declare class CleverTap {
     session: Session;
     setLogLevel(logLevel: 0 | 1 | 2 | 3): void;
     getCleverTapID(): string | null;
-    getAccountID(): string | null;
+    getAccountID(): void;
     logout(): void;
     clear(): void;
     pageChanged(): void;
