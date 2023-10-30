@@ -5692,6 +5692,15 @@ declare namespace google.maps {
      * Otherwise, it will be displayed separately.
      */
     position?: google.maps.ControlPosition|null;
+    /**
+     * Specifies the sources of panoramas to search. This allows a restriction
+     * to search for just official Google panoramas for example. Setting
+     * multiple sources will be evaluated as the intersection of those sources.
+     * Note: the {@link google.maps.StreetViewSource.OUTDOOR} source is not
+     * supported at this time.
+     * @defaultValue [{@link google.maps.StreetViewSource.DEFAULT}]
+     */
+    sources?: Iterable<google.maps.StreetViewSource>|null;
   }
   /**
    * A layer that illustrates the locations where Street View is available.
@@ -5786,8 +5795,16 @@ declare namespace google.maps {
      * Specifies the source of panoramas to search. This allows a restriction to
      * search for just outdoor panoramas for example.
      * @defaultValue {@link google.maps.StreetViewSource.DEFAULT}
+     * @deprecated Use <code>sources</code> instead.
      */
     source?: google.maps.StreetViewSource|null;
+    /**
+     * Specifies the sources of panoramas to search. This allows a restriction
+     * to search for just outdoor panoramas for example. Setting multiple
+     * sources will be evaluated as the intersection of those sources.
+     * @defaultValue [{@link google.maps.StreetViewSource.DEFAULT}]
+     */
+    sources?: Iterable<google.maps.StreetViewSource>|null;
   }
   /**
    * A <code>StreetViewPanoRequest</code> is used with the
@@ -6189,6 +6206,10 @@ declare namespace google.maps {
      * specific sources.
      */
     DEFAULT = 'default',
+    /**
+     * Limits Street View searches to official Google collections.
+     */
+    GOOGLE = 'google',
     /**
      * Limits Street View searches to outdoor collections. Indoor collections
      * are not included in search results. Note also that the search only
