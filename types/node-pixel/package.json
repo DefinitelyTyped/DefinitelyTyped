@@ -12,7 +12,7 @@
         }
     ],
     "dependencies": {
-        "@types/johnny-five": "^2.1.9999"
+        "@types/johnny-five": "^2.1"
     },
     "devDependencies": {
         "@types/node-pixel": "workspace:."
