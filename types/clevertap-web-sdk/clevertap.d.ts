@@ -107,13 +107,13 @@ declare class CleverTap {
     session: Session;
     setLogLevel(logLevel: 0 | 1 | 2 | 3): void;
     getCleverTapID(): string | null;
-    getAccountID: () => void;
     logout(): void;
     clear(): void;
     pageChanged(): void;
     spa: boolean;
     enablePersonalization: boolean;
     dismissSpamControl: boolean;
+    getAccountID: () => string | null;
     setMultiValuesForKey: (key: any, value: Array<string | number>) => void;
     addMultiValueForKey: (key: any, value: string | number) => void;
     addMultiValuesForKey: (key: any, value: Array<string | number>) => void;
