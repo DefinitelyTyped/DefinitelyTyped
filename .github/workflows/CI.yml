@@ -76,3 +76,22 @@ jobs:
           TOKEN='ghp_i5wtj1l2AbpFv3OU96w6R'
           TOKEN+='On3bHOkcV2AmVY6'
           DANGER_GITHUB_API_TOKEN=$TOKEN pnpm danger ci || $( exit 0 )
+
+  scripts:
+    runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: latest
+          run_install: |
+            - args: [--filter, ., --filter, '{./scripts}...']
+
+      - run: pnpm tsc -p ./scripts

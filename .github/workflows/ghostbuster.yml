@@ -24,8 +24,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - uses: actions/setup-node@v4
 
@@ -34,7 +32,7 @@ jobs:
         with:
           version: latest
           run_install: |
-            - args: [--filter, .]
+            - args: [--filter, ., --filter, '{./scripts}...']
 
       - run: node ./scripts/ghostbuster.js
         env:

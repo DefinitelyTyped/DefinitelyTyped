@@ -25,7 +25,7 @@ jobs:
         with:
           version: latest
           run_install: |
-            - args: [--filter, .]
+            - args: [--filter, ., --filter, '{./scripts}...']
 
       - name: Get date
         id: date

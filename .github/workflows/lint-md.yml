@@ -17,5 +17,5 @@ jobs:
         with:
           version: latest
           run_install: |
-            - args: [--filter, .]
+            - args: [--filter, ., --filter, '{./scripts}...']
       - run: pnpm remark --frail . .github
