@@ -23,5 +23,4 @@ export class Capsule {
         radius: number,
     ): boolean;
     intersectsBox(box: Box3): boolean;
-    lineLineMinimumPoints(line1: Line3, line2: Line3): Vector3[];
 }

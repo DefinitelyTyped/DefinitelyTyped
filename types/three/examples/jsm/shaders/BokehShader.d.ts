@@ -1,6 +1,7 @@
 import { IUniform } from '../../../src/Three.js';
 
 export const BokehShader: {
+    name: string;
     defines: {
         DEPTH_PACKING: number;
         PERSPECTIVE_CAMERA: number;
