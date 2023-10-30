@@ -77,6 +77,7 @@ import * as url from "node:url";
         foo = res.req.foo;
     });
     server = new http.Server({ IncomingMessage: MyIncomingMessage, ServerResponse: MyServerResponse }, reqListener);
+    server = http.createServer<MyIncomingMessage, MyServerResponse>(reqListener);
 
     server.addListener("checkContinue", (req, res) => {
         foo = req.foo;
