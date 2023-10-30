@@ -1,7 +1,7 @@
 import * as defaultChameleon from '@chamaeleonidae/chmln';
 
 export class Chameleon {
-  private chameleon: any;
+  private readonly chameleon: any;
 
   constructor() {
     this.chameleon = defaultChameleon;
