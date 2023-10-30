@@ -31,7 +31,7 @@ jobs:
         with:
           version: latest
           run_install: |
-            - args: [--filter, .]
+            - args: [--filter, ., --filter, '{./scripts}...']
       - name: Fetch TypeScript versions and release dates from npm
         run: |
           npm view --json typescript time |
