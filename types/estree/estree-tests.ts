@@ -88,6 +88,8 @@ declare var importDefaultSpecifier: ESTree.ImportDefaultSpecifier;
 declare var importNamespaceSpecifier: ESTree.ImportNamespaceSpecifier;
 declare var exportNamedDeclaration: ESTree.ExportNamedDeclaration;
 declare var exportSpecifier: ESTree.ExportSpecifier;
+declare var maybeNamedClassDeclaration: ESTree.MaybeNamedClassDeclaration;
+declare var maybeNamedFunctionDeclaration: ESTree.MaybeNamedFunctionDeclaration;
 declare var exportDefaultDeclaration: ESTree.ExportDefaultDeclaration;
 declare var exportAllDeclaration: ESTree.ExportAllDeclaration;
 declare var awaitExpression: ESTree.AwaitExpression;
@@ -261,6 +263,7 @@ if (memberExpressionOrCallExpression.type === "MemberExpression") {
 // Declarations
 var functionDeclaration: ESTree.FunctionDeclaration;
 var identifierOrNull: ESTree.Identifier | null = functionDeclaration.id;
+// @ts-expect-error Use MaybeNamedFunctionDeclaration for default exports
 functionDeclaration.id = null;
 var params: ESTree.Pattern[] = functionDeclaration.params;
 blockStatement = functionDeclaration.body;
@@ -277,6 +280,7 @@ expressionMaybe = variableDeclarator.init;
 
 var classDeclaration: ESTree.ClassDeclaration;
 identifierOrNull = classDeclaration.id;
+// @ts-expect-error Use MaybeNamedClassDeclaration for default exports
 classDeclaration.id = null;
 
 // Clauses
@@ -795,4 +799,97 @@ switch (forOfStatement.left.type) {
     case "MemberExpression":
         memberExpression = forOfStatement.left;
         break;
+}
+
+switch (exportDefaultDeclaration.declaration.type) {
+    case "Identifier":
+        identifier = exportDefaultDeclaration.declaration;
+        break;
+    case "Literal":
+        literal = exportDefaultDeclaration.declaration;
+        break;
+    case "FunctionExpression":
+        functionExpression = exportDefaultDeclaration.declaration;
+        break;
+
+    // narrowing of Declaration
+    case "FunctionDeclaration":
+        maybeNamedFunctionDeclaration = exportDefaultDeclaration.declaration;
+        break;
+    case "ClassDeclaration":
+        maybeNamedClassDeclaration = exportDefaultDeclaration.declaration;
+        break;
+    // end narrowing of Declaration
+
+    // narrowing of Expression
+    case "ThisExpression":
+        thisExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "ArrayExpression":
+        arrayExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "ObjectExpression":
+        objectExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "ArrowFunctionExpression":
+        arrowFunctionExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "YieldExpression":
+        yieldExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "UnaryExpression":
+        unaryExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "UpdateExpression":
+        updateExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "BinaryExpression":
+        binaryExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "AssignmentExpression":
+        assignmentExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "LogicalExpression":
+        logicalExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "MemberExpression":
+        memberExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "ChainExpression":
+        chainExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "ConditionalExpression":
+        conditionalExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "CallExpression":
+        callExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "NewExpression":
+        newExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "SequenceExpression":
+        sequenceExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "TemplateLiteral":
+        templateLiteral = exportDefaultDeclaration.declaration;
+        break;
+    case "TaggedTemplateExpression":
+        taggedTemplateExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "ClassExpression":
+        classExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "MetaProperty":
+        metaProperty = exportDefaultDeclaration.declaration;
+        break;
+    case "AwaitExpression":
+        awaitExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "ImportExpression":
+        importExpression = exportDefaultDeclaration.declaration;
+        break;
+    // end narrowing of Expression
+
+    default:
+        never = exportDefaultDeclaration.declaration;
 }
