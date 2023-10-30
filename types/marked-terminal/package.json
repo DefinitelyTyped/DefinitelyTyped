@@ -20,13 +20,17 @@
         "marked": ">=6.0.0 <10"
     },
     "devDependencies": {
-        "@types/marked-terminal": "workspace:.",
-        "marked": "6.0.0"
+        "@types/marked-terminal": "workspace:."
     },
     "owners": [
         {
             "name": "Bryan Kendall",
             "githubUsername": "bkendall"
         }
-    ]
+    ],
+    "pnpm": {
+        "overrides": {
+            "marked": "6.0.0"
+        }
+    }
 }
