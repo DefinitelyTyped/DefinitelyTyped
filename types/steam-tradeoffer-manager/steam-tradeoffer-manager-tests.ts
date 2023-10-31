@@ -42,7 +42,6 @@ TradeOfferManager.ETradeStatus.Complete;
 // $ExpectType "Complete"
 TradeOfferManager.ETradeStatus[3];
 
-
 // ----- TradeOfferManager -----
 
 manager = new TradeOfferManager({
