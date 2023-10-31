@@ -41,6 +41,7 @@ import * as net from "node:net";
 
     _socket = _socket.end();
     _socket = _socket.destroy();
+    _socket.destroySoon();
 }
 
 {
