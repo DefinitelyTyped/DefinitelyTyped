@@ -127,7 +127,7 @@ clevertap.removeMultiValueForKey("stuff", "belt");
 clevertap.removeMultiValuesForKey("stuff", ["bag", "cap"]);
 clevertap.removeValueForKey("stuff");
 
-clevertap.handleIncrementValue('price', 10);
-clevertap.handleDecrementValue('price', 10);
+clevertap.handleIncrementValue("price", 10);
+clevertap.handleDecrementValue("price", 10);
 
 clevertap.getLocation(21, 79);
