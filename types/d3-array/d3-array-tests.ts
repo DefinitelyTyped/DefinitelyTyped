@@ -2680,18 +2680,26 @@ const matrix: d3Array.Matrix = {
     width: 4,
     height: 3,
     data: [
-      1, 0, 0, 0,
-      0, 0, 0, 0,
-      0, 0, 0, 1
-    ]
-  };
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+    ],
+};
 let blurredMatrix: d3Array.Matrix;
 blurredMatrix = d3Array.blur2(matrix, 3, 5);
 
 const imageData: ImageData = new ImageData(100, 100);
 let blurredImageData: ImageData;
 blurredImageData = d3Array.blurImage(imageData, 5);
-
 
 // -----------------------------------------------------------------------------
 // Test Iterables

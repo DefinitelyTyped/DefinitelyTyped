@@ -17,7 +17,7 @@ export interface Numeric {
 }
 
 /**
- * Administrivia: a matrix of numeric values. 
+ * Administrivia: a matrix of numeric values.
  * If height is not specified, it is inferred from the given width and data.length.
  */
 export interface Matrix {
@@ -804,27 +804,26 @@ export function zip<T>(...arrays: Array<ArrayLike<T>>): T[][];
 
 /**
  * Blurs an array of data in-place by applying three iterations of a moving average transform (box filter)
- * for a fast approximation of a Gaussian kernel of the given radius, a non-negative number. 
+ * for a fast approximation of a Gaussian kernel of the given radius, a non-negative number.
  * Returns the given data.
  */
 export function blur(data: ArrayLike<number>, radius: number): ArrayLike<number>;
 
 /**
  * Blurs a matrix of the given width and height in-place by applying a horizontal blur of radius rx
- * and a vertical blur of radius ry (which defaults to rx). 
- * The matrix values data are stored in a flat (one-dimensional) array. 
- * If height is not specified, it is inferred from the given width and data.length. 
+ * and a vertical blur of radius ry (which defaults to rx).
+ * The matrix values data are stored in a flat (one-dimensional) array.
+ * If height is not specified, it is inferred from the given width and data.length.
  * Returns the blurred matrix {data, width, height}.
  */
 export function blur2(data: Matrix, rx: number, ry?: number): Matrix;
 
 /**
- * Blurs the given ImageData in-place, blurring each of the RGBA layers independently by applying an horizontal blur of radius rx 
- * and a vertical blur of radius ry (which defaults to rx). 
+ * Blurs the given ImageData in-place, blurring each of the RGBA layers independently by applying an horizontal blur of radius rx
+ * and a vertical blur of radius ry (which defaults to rx).
  * Returns the blurred ImageData.
  */
 export function blurImage(imageData: ImageData, rx: number, ry?: number): ImageData;
-
 
 // --------------------------------------------------------------------------------------
 // Iterables
