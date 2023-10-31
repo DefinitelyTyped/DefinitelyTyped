@@ -21,9 +21,7 @@ jobs:
       - uses: actions/setup-node@v4
 
       - uses: pnpm/action-setup@v2
-        name: Install pnpm
         with:
-          version: latest
           run_install: |
             - args: [--filter, ., --filter, '{./scripts}...']
 

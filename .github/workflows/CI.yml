@@ -28,11 +28,6 @@ jobs:
           fi
 
       - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        id: pnpm-install
-        with:
-          version: latest
-          run_install: false
 
       # TODO(jakebailey): this won't work in PRs; we may need to once nightly
       # refresh a new cache based on master, and then consume it here read-only in PRs.
@@ -88,9 +83,7 @@ jobs:
           node-version: '16'
 
       - uses: pnpm/action-setup@v2
-        name: Install pnpm
         with:
-          version: latest
           run_install: |
             - args: [--filter, ., --filter, '{./scripts}...']
 
