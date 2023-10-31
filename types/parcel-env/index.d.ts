@@ -1,5 +1,5 @@
 /**
- * Parcel runtime APIs - variables and global functions available inside the bundle
+ * Parcel module API - variables and global functions available inside modules
  */
 
 declare namespace __ParcelModuleApi {
