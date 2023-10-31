@@ -264,7 +264,7 @@ export function quantileIndex<T>(
     iterable: Iterable<T>,
     p: number,
     accessor: (element: T, i: number, array: Iterable<T>) => number | undefined | null,
-): number | undefined;
+): number;
 
 /**
  * Similar to quantile, but expects the input to be a sorted array of values.
