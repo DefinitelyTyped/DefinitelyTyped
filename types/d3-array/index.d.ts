@@ -216,7 +216,7 @@ export function medianIndex(iterable: Iterable<Numeric | undefined | null>): num
 export function medianIndex<T>(
     iterable: Iterable<T>,
     accessor: (element: T, i: number, array: Iterable<T>) => number | undefined | null,
-): number | undefined;
+): number;
 
 /**
  * Returns the cumulative sum of the given iterable of numbers, as a Float64Array of the same length.
