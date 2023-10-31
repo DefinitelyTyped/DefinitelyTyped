@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "type": "module",
+    "devDependencies": {
+        "@octokit/core": "^3.5.1",
+        "@types/d3-array": "^3.0.0",
+        "@types/d3-axis": "^3.0.0",
+        "@types/d3-scale": "^4.0.0",
+        "@types/d3-selection": "^3.0.0",
+        "@types/d3-time": "^3.0.0",
+        "@types/d3-time-format": "^4.0.0",
+        "@types/jsdom": "^21.1.0",
+        "@types/json-stable-stringify": "^1.0.0",
+        "@types/node": "*",
+        "@types/shelljs": "^0.8.0",
+        "@types/w3c-xmlserializer": "^2.0.0",
+        "@types/yargs": "^17.0.0",
+        "comment-json": "^4.2.3",
+        "d3-array": "^3.0.2",
+        "d3-axis": "^3.0.0",
+        "d3-scale": "^4.0.0",
+        "d3-selection": "^3.0.0",
+        "d3-time": "^3.0.0",
+        "d3-time-format": "^4.0.0",
+        "jsdom": "^17.0.0",
+        "json-stable-stringify": "^1.0.2",
+        "shelljs": "^0.8.5",
+        "typescript": "next",
+        "w3c-xmlserializer": "^2.0.0",
+        "yargs": "^17.1.1"
+    }
+}
