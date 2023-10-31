@@ -5,7 +5,6 @@
         "interface-name": false,
         "no-internal-module": false,
         "no-unnecessary-qualifier": false,
-        "npm-naming": false,
         "unified-signatures": false
     }
 }

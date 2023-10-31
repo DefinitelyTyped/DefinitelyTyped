@@ -7,13 +7,6 @@
         "no-void-expression": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "prefer-template": false,
-        "npm-naming": [
-            true,
-            {
-                "mode": "code",
-                "errors": [["NeedsExportEquals", false]]
-            }
-        ]
+        "prefer-template": false
     }
 }

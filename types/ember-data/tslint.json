@@ -6,13 +6,6 @@
         "no-empty-interface": false,
         "no-return-await": false,
         "only-arrow-functions": false,
-        "prefer-const": false,
-        "npm-naming": [
-            true,
-            {
-                "mode": "code",
-                "errors": [["NoDefaultExport", false]]
-            }
-        ]
+        "prefer-const": false
     }
 }

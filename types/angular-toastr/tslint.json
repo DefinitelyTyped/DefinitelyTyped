@@ -5,13 +5,6 @@
         "no-redundant-jsdoc-2": false,
         "no-reference-import": false,
         "no-unnecessary-qualifier": false,
-        "npm-naming": [
-            true,
-            {
-                "errors": [["NeedsExportEquals", false]],
-                "mode": "code"
-            }
-        ],
         "one-variable-per-declaration": false,
         "only-arrow-functions": false,
         "prefer-const": false

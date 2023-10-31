@@ -5,7 +5,6 @@
         "no-mergeable-namespace": false,
         "no-misused-new": false,
         "no-redundant-jsdoc-2": false,
-        "no-unnecessary-class": false,
-        "npm-naming": false
+        "no-unnecessary-class": false
     }
 }

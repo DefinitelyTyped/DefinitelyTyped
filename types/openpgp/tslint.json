@@ -4,13 +4,6 @@
         "array-type": false,
         "ban-types": false,
         "no-var-keyword": false,
-        "npm-naming": [
-            true,
-            {
-                "errors": [["NeedsExportEquals", false]],
-                "mode": "code"
-            }
-        ],
         "only-arrow-functions": false,
         "prefer-const": false
     }

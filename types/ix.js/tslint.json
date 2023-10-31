@@ -5,7 +5,6 @@
         "array-type": false,
         "no-duplicate-variable": false,
         "no-var-keyword": false,
-        "npm-naming": false,
         "prefer-template": false,
         "triple-equals": false
     }

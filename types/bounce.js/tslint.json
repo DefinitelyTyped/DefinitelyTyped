@@ -3,12 +3,6 @@
     "rules": {
         "array-type": false,
         "no-var-keyword": false,
-        "npm-naming": [
-            true,
-            {
-                "mode": "name-only"
-            }
-        ],
         "prefer-const": false,
         "unified-signatures": false
     }

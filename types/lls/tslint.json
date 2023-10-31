@@ -4,7 +4,6 @@
         "no-duplicate-variable": false,
         "no-misused-new": false,
         "no-var-keyword": false,
-        "npm-naming": false,
         "only-arrow-functions": false,
         "prefer-const": false,
         "prefer-template": false,

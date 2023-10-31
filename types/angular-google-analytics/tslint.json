@@ -6,13 +6,6 @@
         "no-redundant-jsdoc-2": false,
         "no-reference-import": false,
         "no-var-keyword": false,
-        "npm-naming": [
-            true,
-            {
-                "errors": [["NeedsExportEquals", false]],
-                "mode": "code"
-            }
-        ],
         "prefer-const": false
     }
 }

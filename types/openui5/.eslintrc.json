@@ -5,10 +5,14 @@
         "jsdoc/check-tag-names": [
             "error",
             {
-                "definedTags": ["ui5-protected", "experimental"]
+                "definedTags": [
+                    "ui5-protected",
+                    "experimental"
+                ]
             }
         ],
         "@definitelytyped/strict-export-declare-modifiers": "off",
-        "@definitelytyped/no-single-declare-module": "off"
+        "@definitelytyped/no-single-declare-module": "off",
+        "@definitelytyped/npm-naming": "off"
     }
 }

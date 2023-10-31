@@ -5,7 +5,6 @@
         "interface-name": false,
         "interface-over-type-literal": false,
         "void-return": false,
-        "npm-naming": false,
         "no-empty-interface": false,
         "no-unnecessary-class": false
     }
