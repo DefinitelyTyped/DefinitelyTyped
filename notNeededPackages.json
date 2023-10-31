@@ -6539,6 +6539,10 @@
             "libraryName": "wouter",
             "asOfVersion": "2.2.0"
         },
+        "wrap-ansi": {
+            "libraryName": "wrap-ansi",
+            "asOfVersion": "8.1.0"
+        },
         "write-json-file": {
             "libraryName": "write-json-file",
             "asOfVersion": "3.2.0"
