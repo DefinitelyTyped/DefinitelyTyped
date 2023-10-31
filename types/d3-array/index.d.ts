@@ -256,7 +256,7 @@ export function quantile<T>(
 /**
  * Similar to quantile, but returns the index to the left of p.
  */
-export function quantileIndex(iterable: Iterable<Numeric | undefined | null>, p: number): number | undefined;
+export function quantileIndex(iterable: Iterable<Numeric | undefined | null>, p: number): number;
 /**
  * Similar to quantile, but returns the index to the left of p.
  */
