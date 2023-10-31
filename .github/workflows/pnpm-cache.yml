@@ -1,6 +1,7 @@
 name: pnpm cache
 
 on:
+  workflow_dispatch:
   schedule:
     # Run every day at 01:00 UTC
     - cron: '0 1 * * *'
