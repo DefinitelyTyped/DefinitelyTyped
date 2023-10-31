@@ -209,7 +209,7 @@ export function median<T>(
 /**
  * Like median, but returns the index of the element to the left of the median.
  */
-export function medianIndex(iterable: Iterable<Numeric | undefined | null>): number | undefined;
+export function medianIndex(iterable: Iterable<Numeric | undefined | null>): number;
 /**
  * Like median, but returns the index of the element to the left of the median.
  */
