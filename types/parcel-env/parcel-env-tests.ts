@@ -20,7 +20,7 @@ if (module.hot) {
     module.hot.dispose(() => {
         // revoke the side effect
         // ...
-    })
+    });
     module.hot.dispose((data) => {
         data.foo = true;
         // ...
@@ -33,8 +33,8 @@ if (module.hot) {
     // accept itself
     module.hot.accept(() => {});
     module.hot.accept((getParents) => {
-      // ...
-      return getParents();
+        // ...
+        return getParents();
     });
 
     // data stored in previous dispose handler
