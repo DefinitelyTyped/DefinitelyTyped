@@ -11,7 +11,7 @@ otherModule.otherMethod();
 // check if HMR is enabled
 if (module.hot) {
     // accept update of dependency
-    module.hot.accept("./handler.js", function() {
+    module.hot.accept(function() {
         // ...
     });
 }
@@ -35,36 +35,18 @@ class ModuleData {
 }
 
 if (module.hot) {
-    module.hot.accept((err: Error) => {
+    module.hot.dispose((data) => {
+        data.foo = true;
         // ...
     });
-
-    module.hot.decline("./someModule");
-
     module.hot.dispose((data: ModuleData) => {
         data.updated = true;
         // ...
     });
-
-    let disposeHandler: (data: ModuleData) => void = data => {
-        // ...
-    };
-    module.hot.addDisposeHandler(disposeHandler);
-    module.hot.removeDisposeHandler(disposeHandler);
-
-    module.hot.check(true, (err: Error, outdatedModules: (string | number)[]) => {
-        // ...
+    module.hot.accept(() => {});
+    module.hot.accept((getParents) => {
+      // ...
+      return getParents();
     });
-
-    module.hot.apply({ ignoreUnaccepted: true }, (err: Error, outdatedModules: (string | number)[]) => {
-        // ...
-    });
-
-    var status: string = module.hot.status();
-    let statusHandler: (status: string) => void = status => {
-        // ...
-    };
-    module.hot.status(statusHandler);
-    module.hot.addStatusHandler(statusHandler);
-    module.hot.removeStatusHandler(statusHandler);
+    module.hot.data;
 }
