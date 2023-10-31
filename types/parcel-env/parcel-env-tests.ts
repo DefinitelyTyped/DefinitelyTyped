@@ -8,33 +8,19 @@ someModule.someMethod();
 let otherModule = require("./otherModule");
 otherModule.otherMethod();
 
-// check if HMR is enabled
-if (module.hot) {
-    // accept update of dependency
-    module.hot.accept(function() {
-        // ...
-    });
-}
-
 module.exports = null;
-
-// check if HMR is enabled
-if (module.hot) {
-    // accept itself
-    module.hot.accept();
-
-    // dispose handler
-    module.hot.dispose(function() {
-        // revoke the side effect
-        // ...
-    });
-}
 
 class ModuleData {
     updated: boolean;
 }
 
+// check if HMR is enabled
 if (module.hot) {
+    // dispose handler
+    module.hot.dispose(() => {
+        // revoke the side effect
+        // ...
+    })
     module.hot.dispose((data) => {
         data.foo = true;
         // ...
@@ -43,10 +29,14 @@ if (module.hot) {
         data.updated = true;
         // ...
     });
+
+    // accept itself
     module.hot.accept(() => {});
     module.hot.accept((getParents) => {
       // ...
       return getParents();
     });
+
+    // data stored in previous dispose handler
     module.hot.data;
 }
