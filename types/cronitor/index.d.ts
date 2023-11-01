@@ -111,5 +111,3 @@ declare class Cronitor {
 declare function Cronitor(apiKey: string, config?: CronitorConfig): Cronitor;
 
 export = Cronitor;
-
-export as namespace Cronitor;
