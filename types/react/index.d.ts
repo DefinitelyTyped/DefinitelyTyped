@@ -865,9 +865,14 @@ declare namespace React {
         : ComponentPropsWithRef<T> extends RefAttributes<infer Method> ? Method
         : never;
 
+    type CustomComponentPropsWithRef<T extends ComponentType> = T extends ComponentClass<infer P>
+        ? (PropsWithoutRef<P> & RefAttributes<InstanceType<T>>)
+        : T extends FunctionComponent<infer P> ? PropsWithRef<P>
+        : never;
+
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
     // but can be given its own specific name
-    type MemoExoticComponent<T extends ComponentType<any>> = NamedExoticComponent<ComponentPropsWithRef<T>> & {
+    type MemoExoticComponent<T extends ComponentType<any>> = NamedExoticComponent<CustomComponentPropsWithRef<T>> & {
         readonly type: T;
     };
 
