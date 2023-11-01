@@ -10,6 +10,7 @@ examples/jsm/csm/CSMHelper.d.ts
 examples/jsm/csm/CSMShader.d.ts
 examples/jsm/controls/ArcballControls.d.ts
 examples/jsm/controls/DragControls.d.ts
+examples/jsm/controls/FirstPersonControls.d.ts
 examples/jsm/controls/FlyControls.d.ts
 examples/jsm/controls/MapControls.d.ts
 examples/jsm/controls/PointerLockControls.d.ts
@@ -39,6 +40,7 @@ examples/jsm/geometries/ParametricGeometries.d.ts
 examples/jsm/geometries/ParametricGeometry.d.ts
 examples/jsm/geometries/RoundedBoxGeometry.d.ts
 examples/jsm/geometries/TeapotGeometry.d.ts
+examples/jsm/geometries/TextGeometry.d.ts
 examples/jsm/helpers/LightProbeHelper.d.ts
 examples/jsm/helpers/OctreeHelper.d.ts
 examples/jsm/helpers/PositionalAudioHelper.d.ts
@@ -51,6 +53,7 @@ examples/jsm/interactive/SelectionBox.d.ts
 examples/jsm/interactive/SelectionHelper.d.ts
 examples/jsm/libs/meshopt_decoder.module.d.ts
 examples/jsm/libs/stats.module.d.ts
+examples/jsm/lights/IESSpotLight.d.ts
 examples/jsm/lights/LightProbeGenerator.d.ts
 examples/jsm/lights/RectAreaLightUniformsLib.d.ts
 examples/jsm/lines/Line2.d.ts
@@ -67,8 +70,11 @@ examples/jsm/loaders/BVHLoader.d.ts
 examples/jsm/loaders/ColladaLoader.d.ts
 examples/jsm/loaders/DDSLoader.d.ts
 examples/jsm/loaders/EXRLoader.d.ts
+examples/jsm/loaders/FontLoader.d.ts
 examples/jsm/loaders/FBXLoader.d.ts
 examples/jsm/loaders/GCodeLoader.d.ts
+examples/jsm/loaders/HDRCubeTextureLoader.d.ts
+examples/jsm/loaders/IESLoader.d.ts
 examples/jsm/loaders/KMZLoader.d.ts
 examples/jsm/loaders/KTXLoader.d.ts
 examples/jsm/loaders/LogLuvLoader.d.ts
@@ -83,6 +89,7 @@ examples/jsm/loaders/PCDLoader.d.ts
 examples/jsm/loaders/PDBLoader.d.ts
 examples/jsm/loaders/PLYLoader.d.ts
 examples/jsm/loaders/PVRLoader.d.ts
+examples/jsm/loaders/RGBMLoader.d.ts
 examples/jsm/loaders/STLLoader.d.ts
 examples/jsm/loaders/SVGLoader.d.ts
 examples/jsm/loaders/TDSLoader.d.ts
@@ -119,7 +126,11 @@ examples/jsm/misc/VolumeSlice.d.ts
 examples/jsm/modifiers/CurveModifier.d.ts
 examples/jsm/modifiers/EdgeSplitModifier.d.ts
 examples/jsm/modifiers/SimplifyModifier.d.ts
+examples/jsm/modifiers/TessellateModifier.d.ts
+examples/jsm/objects/BatchedMesh.d.ts
+examples/jsm/objects/GroundProjectedSkybox.d.ts
 examples/jsm/objects/Lensflare.d.ts
+examples/jsm/objects/MarchingCubes.d.ts
 examples/jsm/objects/ReflectorForSSRPass.d.ts
 examples/jsm/objects/Refractor.d.ts
 examples/jsm/objects/ShadowMesh.d.ts
@@ -169,6 +180,7 @@ examples/jsm/shaders/DepthLimitedBlurShader.d.ts
 examples/jsm/shaders/DigitalGlitch.d.ts
 examples/jsm/shaders/DOFMipMapShader.d.ts
 examples/jsm/shaders/DotScreenShader.d.ts
+examples/jsm/shaders/ExposureShader.d.ts
 examples/jsm/shaders/FilmShader.d.ts
 examples/jsm/shaders/FocusShader.d.ts
 examples/jsm/shaders/FreiChenShader.d.ts
@@ -183,6 +195,7 @@ examples/jsm/shaders/KaleidoShader.d.ts
 examples/jsm/shaders/LuminosityHighPassShader.d.ts
 examples/jsm/shaders/LuminosityShader.d.ts
 examples/jsm/shaders/MirrorShader.d.ts
+examples/jsm/shaders/MMDToonShader.d.ts
 examples/jsm/shaders/NormalMapShader.d.ts
 examples/jsm/shaders/OutputShader.d.ts
 examples/jsm/shaders/RGBShiftShader.d.ts
@@ -194,6 +207,7 @@ examples/jsm/shaders/SSAOShader.d.ts
 examples/jsm/shaders/SSRShader.d.ts
 examples/jsm/shaders/SubsurfaceScatteringShader.d.ts
 examples/jsm/shaders/TechnicolorShader.d.ts
+examples/jsm/shaders/ToonShader.d.ts
 examples/jsm/shaders/TriangleBlurShader.d.ts
 examples/jsm/shaders/UnpackDepthRGBAShader.d.ts
 examples/jsm/shaders/VerticalBlurShader.d.ts
@@ -201,13 +215,18 @@ examples/jsm/shaders/VerticalTiltShiftShader.d.ts
 examples/jsm/shaders/VignetteShader.d.ts
 examples/jsm/shaders/VolumeShader.d.ts
 examples/jsm/shaders/WaterRefractionShader.d.ts
+examples/jsm/textures/FlakesTexture.d.ts
 examples/jsm/utils/BufferGeometryUtils.d.ts
+examples/jsm/utils/CameraUtils.d.ts
 examples/jsm/utils/GeometryCompressionUtils.d.ts
 examples/jsm/utils/GeometryUtils.d.ts
 examples/jsm/utils/GPUStatsPanel.d.ts
 examples/jsm/utils/PackedPhongMaterial.d.ts
 examples/jsm/utils/SceneUtils.d.ts
+examples/jsm/utils/ShadowMapViewer.d.ts
 examples/jsm/utils/SkeletonUtils.d.ts
+examples/jsm/utils/TextureUtils.d.ts
+examples/jsm/utils/WorkerPool.d.ts
 examples/jsm/utils/UVsDebug.d.ts
 examples/jsm/webxr/ARButton.d.ts
 examples/jsm/webxr/OculusHandModel.d.ts

@@ -15,7 +15,7 @@ jobs:
           # Need this to be able to inquire about origin/master
           filter: blob:none # https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
           fetch-depth: 0 # Default is 1; need to set to 0 to get the benefits of blob:none.
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: '16'
 
@@ -28,11 +28,6 @@ jobs:
           fi
 
       - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        id: pnpm-install
-        with:
-          version: latest
-          run_install: false
 
       # TODO(jakebailey): this won't work in PRs; we may need to once nightly
       # refresh a new cache based on master, and then consume it here read-only in PRs.
@@ -76,3 +71,20 @@ jobs:
           TOKEN='ghp_i5wtj1l2AbpFv3OU96w6R'
           TOKEN+='On3bHOkcV2AmVY6'
           DANGER_GITHUB_API_TOKEN=$TOKEN pnpm danger ci || $( exit 0 )
+
+  scripts:
+    runs-on: ubuntu-latest
+    if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+
+      - uses: pnpm/action-setup@v2
+        with:
+          run_install: |
+            - args: [--filter, ., --filter, '{./scripts}...']
+
+      - run: pnpm tsc -p ./scripts
