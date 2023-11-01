@@ -137,8 +137,17 @@ function formTest() {
         function actionExpectingPromiseState(state: Promise<number>) {
             return state.then(s => s + 1);
         }
-        // @ts-expect-error
-        useFormState(actionExpectingPromiseState, 1);
+
+        useFormState(
+            // @ts-expect-error
+            actionExpectingPromiseState,
+            Promise.resolve(1),
+        );
+        useFormState(
+            action,
+            // @ts-expect-error
+            Promise.resolve(1),
+        );
 
         return (
             <button

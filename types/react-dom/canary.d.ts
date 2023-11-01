@@ -128,12 +128,12 @@ declare module "." {
     function useFormStatus(): FormStatus;
 
     function useFormState<State>(
-        action: (state: State) => State | Promise<State>,
+        action: (state: Awaited<State>) => State | Promise<State>,
         initialState: State,
         permalink?: string,
     ): [state: State, dispatch: () => void];
     function useFormState<State, Payload>(
-        action: (state: State, payload: Payload) => State | Promise<State>,
+        action: (state: Awaited<State>, payload: Payload) => State | Promise<State>,
         initialState: State,
         permalink?: string,
     ): [state: State, dispatch: (payload: Payload) => void];
