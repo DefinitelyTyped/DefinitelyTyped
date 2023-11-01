@@ -12,10 +12,10 @@ declare namespace __ParcelModuleApi {
     }
 
     interface ParcelRequireFunction {
-      (moduleId: string, jumped?: boolean): any;
-      cache: Record<string, Module>;
-      hotData: Record<string, any>;
-      parent: boolean;
+        (moduleId: string, jumped?: boolean): any;
+        cache: Record<string, Module>;
+        hotData: Record<string, any>;
+        parent: boolean;
     }
 
     interface Module {

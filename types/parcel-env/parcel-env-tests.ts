@@ -40,7 +40,7 @@ if (module.hot) {
     // accept itself and specific dependents
     module.hot.accept((getParents) => {
         // ...
-        return getParents().filter((parent) => parent[1] === "someModuleId")
+        return getParents().filter((parent) => parent[1] === "someModuleId");
     });
 
     // data stored in previous dispose handler
