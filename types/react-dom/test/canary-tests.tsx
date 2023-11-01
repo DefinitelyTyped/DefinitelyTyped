@@ -154,6 +154,23 @@ function formTest() {
         );
     }
 
+    function Page3() {
+        function actionSync(state: number, type: "increment" | "decrement") {
+            return state + (type === "increment" ? 1 : -1);
+        }
+
+        const [state, dispatch] = useFormState(actionSync, 1, "/permalink");
+        return (
+            <button
+                onClick={() => {
+                    dispatch("decrement");
+                }}
+            >
+                count: {state}
+            </button>
+        );
+    }
+
     function Page4() {
         async function action(state: number, type: "increment" | "decrement") {
             return state + (type === "increment" ? 1 : -1);
