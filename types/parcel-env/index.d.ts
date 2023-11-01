@@ -11,18 +11,27 @@ declare namespace __ParcelModuleApi {
         <T>(path: string): T;
     }
 
+    interface ParcelRequireFunction {
+      (moduleId: string, jumped?: boolean): any;
+      cache: Record<string, Module>;
+      hotData: Record<string, any>;
+      parent: boolean;
+    }
+
     interface Module {
         id: string;
         exports: any;
-        bundle: (moduleName: string, jumped: boolean) => Module;
+        bundle: ParcelRequireFunction;
         hot?: Hot | undefined;
     }
+
+    type DependentModule = [ParcelRequireFunction, string];
 
     interface Hot {
         /**
          * Accept code updates and specify which parent modules should also potentially be hot reloaded. The callback is called when dependencies were replaced.
          */
-        accept(callback?: ((getParents: () => Array<Module>) => Array<Module>) | (() => void)): void;
+        accept(callback?: ((getParents: () => Array<DependentModule>) => Array<DependentModule>) | (() => void)): void;
         /**
          * Add a one time handler, which is executed when the current module code is replaced.
          * Here you should destroy/remove any persistent resource you have claimed/created.
