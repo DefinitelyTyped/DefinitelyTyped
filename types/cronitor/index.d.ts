@@ -1,6 +1,6 @@
-type MonitorState = 'run' | 'complete' | 'fail' | 'ok';
+type MonitorState = "run" | "complete" | "fail" | "ok";
 
-type MonitorType = 'job' | 'heartbeat' | 'check';
+type MonitorType = "job" | "heartbeat" | "check";
 
 interface CronitorConfig {
     config?: string; // Path to config file
@@ -101,15 +101,15 @@ declare class Cronitor {
     Event: typeof Event;
 
     static State: {
-        RUN: 'run';
-        COMPLETE: 'complete';
-        FAIL: 'fail';
-        OK: 'ok';
+        RUN: "run";
+        COMPLETE: "complete";
+        FAIL: "fail";
+        OK: "ok";
     };
 }
 
-declare function cronitor(apiKey: string, config?: CronitorConfig): Cronitor;
+declare function Cronitor(apiKey: string, config?: CronitorConfig): Cronitor;
 
-export = cronitor;
+export = Cronitor;
 
-export as namespace cronitor;
+export as namespace Cronitor;
