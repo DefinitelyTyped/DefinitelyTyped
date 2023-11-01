@@ -1,14 +1,13 @@
 {
     "private": true,
     "name": "@types/node-telegram-bot-api",
-    "version": "0.61.9999",
+    "version": "0.63.9999",
     "projects": [
         "https://github.com/yagop/node-telegram-bot-api"
     ],
     "dependencies": {
         "@types/node": "*",
-        "@types/request": "*",
-        "eventemitter3": ">=3.0.0"
+        "@types/request": "*"
     },
     "devDependencies": {
         "@types/node-telegram-bot-api": "workspace:."
