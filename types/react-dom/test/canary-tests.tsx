@@ -128,7 +128,11 @@ function formTest() {
             return state + 1;
         }
 
-        const [state, dispatch] = useFormState(action, 1);
+        const [
+            // $ExpectType number
+            state,
+            dispatch,
+        ] = useFormState(action, 1);
         return (
             <button
                 onClick={() => {
@@ -145,7 +149,11 @@ function formTest() {
             return state + 1;
         }
 
-        const [state, dispatch] = useFormState(action, 1, "/permalink");
+        const [
+            // $ExpectType number
+            state,
+            dispatch,
+        ] = useFormState(action, 1, "/permalink");
         return (
             <form action={dispatch}>
                 <span>Count: {state}</span>
@@ -159,7 +167,11 @@ function formTest() {
             return state + (type === "increment" ? 1 : -1);
         }
 
-        const [state, dispatch] = useFormState(actionSync, 1, "/permalink");
+        const [
+            // $ExpectType number
+            state,
+            dispatch,
+        ] = useFormState(actionSync, 1, "/permalink");
         return (
             <button
                 onClick={() => {
@@ -176,7 +188,11 @@ function formTest() {
             return state + (type === "increment" ? 1 : -1);
         }
 
-        const [state, dispatch] = useFormState(action, 1, "/permalink");
+        const [
+            // $ExpectType number
+            state,
+            dispatch,
+        ] = useFormState(action, 1, "/permalink");
         return (
             <button
                 onClick={() => {
