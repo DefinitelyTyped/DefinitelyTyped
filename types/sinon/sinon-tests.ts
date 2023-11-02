@@ -9,6 +9,10 @@ function testSandbox() {
         properties: ["spy", "stub"],
         useFakeTimers: true,
         useFakeServer: true,
+        assertOptions: {
+            shouldLimitAssertionLogs: true,
+            assertionLogLimit: 10,
+        }
     });
     sinon.createSandbox({
         injectInto: null,

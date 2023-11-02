@@ -1449,6 +1449,13 @@ declare namespace Sinon {
          * you might want to do:
          */
         useFakeServer: boolean | SinonFakeServer;
+        /**
+         * The assert options can help limit the amount of output produced by assert.fail
+         */
+        assertOptions: {
+            shouldLimitAssertionLogs: boolean
+            assertionLogLimit: number
+        }
     }
 
     /**
