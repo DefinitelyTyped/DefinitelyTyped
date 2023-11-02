@@ -100,6 +100,16 @@ factory.extend(
     },
 );
 
+factory.extend(
+    "user",
+    "superuser",
+    { superpower: "flight" },
+    {
+        afterBuild: async (model, attrs, options) => {},
+        afterCreate: async (model, attrs, options) => {},
+    },
+);
+
 factory.extend("user", "email-related", () => {
     const score = scoreSequence();
     return {
