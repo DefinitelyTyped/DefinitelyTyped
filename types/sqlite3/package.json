@@ -3,7 +3,7 @@
     "name": "@types/sqlite3",
     "version": "5.1.9999",
     "projects": [
-        "https://github.com/mapbox/node-sqlite3"
+        "https://github.com/TryGhost/node-sqlite3"
     ],
     "dependencies": {
         "@types/node": "*"
