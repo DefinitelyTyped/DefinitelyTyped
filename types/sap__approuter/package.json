@@ -12,6 +12,10 @@
         {
             "name": "Nico Blum",
             "githubUsername": "nbblum"
+        },
+        {
+            "name": "Laurens von Assel",
+            "githubUsername": "biolauri"
         }
     ],
     "dependencies": {
