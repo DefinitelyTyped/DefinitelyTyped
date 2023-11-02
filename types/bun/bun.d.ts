@@ -3132,7 +3132,7 @@ declare module "bun" {
 
     type OnResolveCallback = (
         args: OnResolveArgs
-    ) => OnResolveResult | Promise<OnResolveResult | void | undefined | null> | void | undefined | null;
+    ) => OnResolveResult | Promise<OnResolveResult | undefined | null> | void | undefined | null;
 
     interface PluginBuilder {
         /**

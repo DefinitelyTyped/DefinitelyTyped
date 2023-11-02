@@ -30,13 +30,13 @@ declare module "bun:jsc" {
     function setRandomSeed(value: number): void;
     function isRope(input: string): boolean;
     function callerSourceOrigin(): string;
-    function noFTL(func: Function): Function;
-    function noOSRExitFuzzing(func: Function): Function;
-    function optimizeNextInvocation(func: Function): void;
-    function numberOfDFGCompiles(func: Function): number;
+    function noFTL(func: FunctionLike): FunctionLike;
+    function noOSRExitFuzzing(func: FunctionLike): FunctionLike;
+    function optimizeNextInvocation(func: FunctionLike): void;
+    function numberOfDFGCompiles(func: FunctionLike): number;
     function releaseWeakRefs(): void;
-    function totalCompileTime(func: Function): number;
-    function reoptimizationRetryCount(func: Function): number;
+    function totalCompileTime(func: FunctionLike): number;
+    function reoptimizationRetryCount(func: FunctionLike): number;
     function drainMicrotasks(): void;
 
     /**

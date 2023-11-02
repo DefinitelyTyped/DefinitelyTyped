@@ -8,10 +8,12 @@ import * as tsd from "./utilities.test";
     _plugin;
 }
 {
-    const arg = Bun.plugin({
-        name: "arg",
-        setup() {},
-    });
+    const arg = tsd.expectType<void>(
+        Bun.plugin({
+            name: "arg",
+            setup() {},
+        })
+    );
 
     tsd.expectType<void>(arg);
 }

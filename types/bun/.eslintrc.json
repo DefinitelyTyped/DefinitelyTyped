@@ -4,8 +4,6 @@
         "@definitelytyped/no-single-declare-module": "off",
         "@definitelytyped/no-unnecessary-generics": "off",
         "@definitelytyped/no-self-import": "off",
-        "@definitelytyped/redundant-undefined": "off",
-        "@typescript-eslint/unified-signatures": "off",
-        "@typescript-eslint/ban-types": "off"
+        "@definitelytyped/redundant-undefined": "off"
     }
 }

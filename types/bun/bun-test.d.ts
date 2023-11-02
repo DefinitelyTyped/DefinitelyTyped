@@ -1,3 +1,5 @@
+type FunctionLike = (...args: any) => any;
+
 /**
  *
  * To run tests, run `bun test`
@@ -13,19 +15,17 @@
  * $ bun test <filename>
  * ```
  */
-
 declare module "bun:test" {
-    type AnyFunction = (...args: any) => any;
     /**
      * -- Mocks --
      */
-    export interface Mock<T extends AnyFunction> extends JestMock.MockInstance<T> {
+    export interface Mock<T extends FunctionLike> extends JestMock.MockInstance<T> {
         (...args: Parameters<T>): ReturnType<T>;
     }
-    type _Mock<T extends AnyFunction> = Mock<T>;
+    type _Mock<T extends FunctionLike> = Mock<T>;
 
     export const mock: {
-        <T extends AnyFunction>(Function: T): Mock<T>;
+        <T extends FunctionLike>(Function: T): Mock<T>;
 
         /**
          * Replace the module `id` with the return value of `factory`.
@@ -92,14 +92,14 @@ declare module "bun:test" {
 
     interface Jest {
         restoreAllMocks(): void;
-        fn<T extends AnyFunction>(func?: T): Mock<T>;
+        fn<T extends FunctionLike>(func?: T): Mock<T>;
     }
     export const jest: Jest;
     export namespace jest {
         /**
          * Constructs the type of a mock function, e.g. the return type of `jest.fn()`.
          */
-        type Mock<T extends AnyFunction = AnyFunction> = _Mock<T>;
+        type Mock<T extends FunctionLike = FunctionLike> = _Mock<T>;
         /**
          * Wraps a class, function or object type with Jest mock type definitions.
          */
@@ -111,7 +111,7 @@ declare module "bun:test" {
         /**
          * Wraps a function type with Jest mock type definitions.
          */
-        // type MockedFunction<T extends AnyFunction> = JestMock.MockedFunction<T>;
+        // type MockedFunction<T extends FunctionLike> = JestMock.MockedFunction<T>;
         /**
          * Wraps an object type with Jest mock type definitions.
          */
@@ -123,7 +123,7 @@ declare module "bun:test" {
         /**
          * Constructs the type of a spied class or function.
          */
-        type Spied<T extends JestMock.ClassLike | AnyFunction> = JestMock.Spied<T>;
+        type Spied<T extends JestMock.ClassLike | FunctionLike> = JestMock.Spied<T>;
         /**
          * Constructs the type of a spied class.
          */
@@ -131,7 +131,7 @@ declare module "bun:test" {
         /**
          * Constructs the type of a spied function.
          */
-        type SpiedFunction<T extends AnyFunction> = JestMock.SpiedFunction<T>;
+        type SpiedFunction<T extends FunctionLike> = JestMock.SpiedFunction<T>;
         /**
          * Constructs the type of a spied getter.
          */
@@ -145,7 +145,7 @@ declare module "bun:test" {
     export function spyOn<T extends object, K extends keyof T>(
         obj: T,
         methodOrPropertyValue: K
-    ): Mock<T[K] extends AnyFunction ? T[K] : never>;
+    ): Mock<T[K] extends FunctionLike ? T[K] : never>;
 
     /**
      * Describes a group of related tests.
@@ -815,7 +815,7 @@ declare module "bun:test" {
          * @param propertyMatchers Object containing properties to match against the value.
          * @param hint Hint used to identify the snapshot in the snapshot file.
          */
-        toMatchSnapshot(propertyMatchers?: Object, hint?: string): void;
+        toMatchSnapshot(propertyMatchers?: object, hint?: string): void;
         /**
          * Asserts that an object matches a subset of properties.
          *
@@ -825,7 +825,7 @@ declare module "bun:test" {
          *
          * @param subset Subset of properties to match with.
          */
-        toMatchObject(subset: Object): void;
+        toMatchObject(subset: object): void;
         /**
          * Asserts that a value is empty.
          *
@@ -1238,7 +1238,7 @@ declare namespace JestMock {
 
     export interface MockInstance<T extends FunctionLike = UnknownFunction> {
         _isMockFunction: true;
-        _protoImpl: Function;
+        _protoImpl: FunctionLike;
         getMockImplementation(): T | undefined;
         getMockName(): string;
         mock: MockFunctionState<T>;

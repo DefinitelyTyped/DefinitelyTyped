@@ -123,7 +123,7 @@ declare module "vm" {
         /**
          * An array containing a collection of context extensions (objects wrapping the current scope) to be applied while compiling
          */
-        contextExtensions?: Object[] | undefined;
+        contextExtensions?: object[] | undefined;
     }
     interface CreateContextOptions {
         /**

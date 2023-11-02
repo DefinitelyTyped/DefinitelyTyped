@@ -1174,6 +1174,8 @@ declare module "util/types" {
      * ```
      * @since v10.0.0
      */
+    // disable ban types with tslint next line
+    // tslint:disable-next-line:ban-types
     function isBooleanObject(object: unknown): object is Boolean;
     /**
      * Returns `true` if the value is any boxed primitive object, e.g. created
@@ -1190,6 +1192,7 @@ declare module "util/types" {
      * ```
      * @since v10.11.0
      */
+    // tslint:disable-next-line:ban-types
     function isBoxedPrimitive(object: unknown): object is String | Number | BigInt | Boolean | Symbol;
     /**
      * Returns `true` if the value is a built-in [`DataView`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView) instance.
@@ -1394,6 +1397,7 @@ declare module "util/types" {
      * ```
      * @since v10.0.0
      */
+    // tslint:disable-next-line:ban-types
     function isNumberObject(object: unknown): object is Number;
     /**
      * Returns `true` if the value is a built-in [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
@@ -1472,6 +1476,7 @@ declare module "util/types" {
      * ```
      * @since v10.0.0
      */
+    // tslint:disable-next-line:ban-types
     function isStringObject(object: unknown): object is String;
     /**
      * Returns `true` if the value is a symbol object, created
@@ -1484,6 +1489,7 @@ declare module "util/types" {
      * ```
      * @since v10.0.0
      */
+    // tslint:disable-next-line:ban-types
     function isSymbolObject(object: unknown): object is Symbol;
     /**
      * Returns `true` if the value is a built-in [`TypedArray`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray) instance.

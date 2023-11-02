@@ -376,6 +376,7 @@ declare module "bun:ffi" {
         [FFIType.bool]: boolean;
         [FFIType.ptr]: TypedArray | Pointer | CString | null;
         [FFIType.pointer]: TypedArray | Pointer | CString | null;
+        // tslint:disable-next-line: void-return
         [FFIType.void]: void;
         [FFIType.cstring]: TypedArray | Pointer | CString | null;
         [FFIType.i64_fast]: number | bigint;
@@ -408,6 +409,7 @@ declare module "bun:ffi" {
         [FFIType.bool]: boolean;
         [FFIType.ptr]: Pointer | null;
         [FFIType.pointer]: Pointer | null;
+        // tslint:disable-next-line: void-return
         [FFIType.void]: void;
         [FFIType.cstring]: CString;
         [FFIType.i64_fast]: number | bigint;
@@ -586,7 +588,8 @@ declare module "bun:ffi" {
                 ? []
                 : never
         ) => [unknown] extends [Fns[K]["returns"]]
-            ? void
+            ? // tslint:disable-next-line: void-return
+              void
             : FFITypeToReturnsType[ToFFIType<NonNullable<Fns[K]["returns"]>>];
     };
 

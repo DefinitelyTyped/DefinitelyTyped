@@ -343,10 +343,8 @@ interface ImportMeta {
  */
 declare var require: NodeJS.Require;
 
-/** @deprecated Please use `import.meta.path` instead. */
 declare var __filename: string;
 
-/** @deprecated Please use `import.meta.dir` instead. */
 declare var __dirname: string;
 
 interface StructuredSerializeOptions {
@@ -644,7 +642,7 @@ interface Process {
 
     emitWarning(warning: string | Error /*name?: string, ctor?: Function*/): void;
 
-    readonly config: Object;
+    readonly config: object;
 
     memoryUsage: {
         (delta?: MemoryUsageObject): MemoryUsageObject;
@@ -702,7 +700,7 @@ interface Process {
      * @param eventName The name of the event being listened for
      * @param listener The event handler function
      */
-    listenerCount(eventName: string | symbol, listener?: Function): number;
+    listenerCount(eventName: string | symbol, listener?: FunctionLike): number;
 
     /**
      * Get the constrained memory size for the process.
@@ -3280,7 +3278,7 @@ declare var ResolveError: typeof ResolveMessage;
 // Declare "static" methods in Error
 interface ErrorConstructor {
     /** Create .stack property on a target object */
-    captureStackTrace(targetObject: object, constructorOpt?: Function): void;
+    captureStackTrace(targetObject: object, constructorOpt?: FunctionLike): void;
 
     /**
      * Optional override for formatting stack traces
@@ -3309,7 +3307,7 @@ interface CallSite {
     /**
      * Current function
      */
-    getFunction(): Function | undefined;
+    getFunction(): FunctionLike | undefined;
 
     /**
      * Name of the current function, typically its name property.
@@ -3506,7 +3504,7 @@ declare namespace WebAssembly {
     type ImportExportKind = "function" | "global" | "memory" | "table";
     type TableKind = "anyfunc" | "externref";
     type ValueType = "anyfunc" | "externref" | "f32" | "f64" | "i32" | "i64" | "v128";
-    type ExportValue = Function | Global | Memory | Table;
+    type ExportValue = FunctionLike | Global | Memory | Table;
     type Exports = Record<string, ExportValue>;
     type ImportValue = ExportValue | number;
     type Imports = Record<string, ModuleImports>;

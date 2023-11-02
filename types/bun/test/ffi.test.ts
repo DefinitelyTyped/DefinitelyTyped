@@ -96,6 +96,7 @@ function arg(
         boolean,
         Pointer,
         Pointer,
+        // tslint:disable-next-line: void-return
         void,
         CString,
         number | bigint,

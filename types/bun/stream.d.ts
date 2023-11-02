@@ -841,7 +841,7 @@ declare module "stream" {
                     | AsyncIterable<any>
                     | AsyncGeneratorFunction
                     | Promise<any>
-                    | Object
+                    | object
             ): Duplex;
             fromWeb<T = any>(
                 pair: {
