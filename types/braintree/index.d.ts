@@ -308,6 +308,7 @@ declare namespace braintree {
 
     interface PlanGateway {
         all(): Promise<{ plans: Plan[] }>;
+        create(request: SubscriptionCreateRequest): Promise<ValidatedResponse<Plan>>
     }
 
     interface SettlementBatchSummaryGateway {
@@ -1256,6 +1257,10 @@ declare namespace braintree {
         trialPeriod?: boolean | undefined;
         updatedAt: string;
     }
+
+    export interface PlanRequest {}
+
+    export interface PlanCreateRequest extends PlanRequest {}
 
     /**
      * Settlement Batch Summary
