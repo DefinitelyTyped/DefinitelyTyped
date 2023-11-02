@@ -29,6 +29,7 @@ for (const dirName of fs.readdirSync(home)) {
 function fixTslint(dir) {
     const target = new URL("tslint.json", dir);
     if (!fs.existsSync(target)) return;
+    /** @type {any} */
     const json = JSON.parse(fs.readFileSync(target, "utf-8"));
     json.rules = fixRules(json.rules);
     const text = Object.keys(json).length === 1

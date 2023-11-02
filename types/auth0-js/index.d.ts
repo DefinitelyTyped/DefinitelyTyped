@@ -1019,6 +1019,8 @@ export interface AuthorizeOptions {
     approvalPrompt?: string | undefined;
     appState?: any;
     connection_scope?: string | string[] | undefined;
+    organization?: string | undefined;
+    invitation?: string | undefined;
 }
 
 export type SsoDataResult = SsoSessionFoundResult | SsoSessionNotFoundResult;

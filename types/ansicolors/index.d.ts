@@ -38,4 +38,4 @@ interface Colors {
     colors: this;
 }
 declare const colors: Colors;
-export default colors;
+export = colors;

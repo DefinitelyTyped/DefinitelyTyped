@@ -14,7 +14,9 @@ jobs:
           versionSpec: 16.x
           checkLatest: true
 
-      - script: npm install -g pnpm
+      - script: |
+          npm install -g $(jq -r '.packageManager' < package.json)
+          pnpm --version
         displayName: 'Setup pnpm'
 
       - script: |
@@ -25,7 +27,7 @@ jobs:
           if git diff --diff-filter=DR --name-only HEAD^1 | grep -q 'package.json'; then
             pnpm install
           else
-            pnpm install --filter . --filter '...[HEAD^1]'
+            pnpm install --filter . --filter '...[HEAD^1]...'
           fi
         displayName: 'pnpm install'
 

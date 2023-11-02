@@ -1,7 +1,28 @@
-// @ts-check
-import { flatMap, mapDefined } from "@definitelytyped/utils";
 import { Octokit } from "@octokit/core";
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+
+/** @type {<T, U>(array: readonly T[] | undefined, mapfn: (x: T, i: number) => readonly U[]) => readonly U[]} */
+function flatMap(array, mapfn) {
+    const result = [];
+    if (array) {
+        for (let i = 0; i < array.length; i++) {
+            result.push(...mapfn(array[i], i));
+        }
+    }
+    return result;
+}
+
+/** @type {<T, U>(arr: Iterable<T>, mapper: (t: T) => U | undefined) => U[]} */
+function mapDefined(arr, mapper) {
+    const out = [];
+    for (const a of arr) {
+        const res = mapper(a);
+        if (res !== undefined) {
+            out.push(res);
+        }
+    }
+    return out;
+}
 
 /**
  * @typedef {{ githubUsername?: string }} Owner
