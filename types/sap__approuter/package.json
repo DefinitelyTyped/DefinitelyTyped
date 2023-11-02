@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/sap__approuter",
+    "version": "14.3.9999",
+    "projects": [
+        "https://www.npmjs.com/package/@sap/approuter"
+    ],
+    "devDependencies": {
+        "@types/morgan": "^1.9.9999",
+        "@types/sap__approuter": "workspace:.",
+        "morgan": "^1.10.0"
+    },
+    "owners": [
+        {
+            "name": "Nico Blum",
+            "githubUsername": "nbblum"
+        }
+    ],
+    "dependencies": {
+        "@commander-js/extra-typings": "^11.1.0",
+        "@types/http-server": "^0.12.9999",
+        "@types/node": "^20.8.9999",
+        "@types/verror": "^1.10.9999"
+    }
+}
