@@ -308,7 +308,7 @@ declare namespace braintree {
 
     interface PlanGateway {
         all(): Promise<{ plans: Plan[] }>;
-        create(request: SubscriptionCreateRequest): Promise<ValidatedResponse<Plan>>
+        create(request: PlanCreateRequest): Promise<ValidatedResponse<Plan>>;
     }
 
     interface SettlementBatchSummaryGateway {
@@ -1258,9 +1258,23 @@ declare namespace braintree {
         updatedAt: string;
     }
 
-    export interface PlanRequest {}
+    export interface PlanRequest {
+        addOns?: AddOn[] | undefined;
+        billingDayOfMonth: number;
+        billingFrequency: number;
+        currencyIsoCode: string;
+        description?: string | undefined;
+        discounts?: Discount[] | undefined;
+        name: string;
+        numberOfBillingCycles: number;
+        price: string;
+        trialDuration?: number | undefined;
+        trialDurationUnit?: string | undefined;
+        trialPeriod?: boolean | undefined;
+    }
 
-    export interface PlanCreateRequest extends PlanRequest {}
+    export interface PlanCreateRequest extends PlanRequest {
+    }
 
     /**
      * Settlement Batch Summary
