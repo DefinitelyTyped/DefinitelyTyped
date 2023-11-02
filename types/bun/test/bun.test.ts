@@ -8,17 +8,17 @@ import * as tsd from "./utilities.test";
     _plugin;
 }
 {
-    const arg = tsd.expectType<void>(
-        Bun.plugin({
-            name: "arg",
-            setup() {},
-        }),
-    );
+    // tslint:disable-next-line:no-void-expression
+    const arg = Bun.plugin({
+        name: "arg",
+        setup() {},
+    });
 
     tsd.expectType<void>(arg);
 }
 
 {
+    // tslint:disable-next-line:no-void-expression
     const arg = Bun.plugin({
         name: "arg",
         async setup() {},

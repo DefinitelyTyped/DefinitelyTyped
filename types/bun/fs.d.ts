@@ -118,6 +118,7 @@ declare module "fs" {
      * ```
      * @since v0.0.67
      */
+    // tslint:disable-next-line:no-unnecessary-class
     class Stats {}
     /**
      * A representation of a directory entry, which can be a file or a subdirectory

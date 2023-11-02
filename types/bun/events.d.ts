@@ -50,7 +50,7 @@ declare module "events" {
             listener: (...args: any[]) => void,
             opts?: {
                 once: boolean;
-            },
+            }
         ): any;
     }
     interface StaticEventEmitterOptions {
@@ -375,6 +375,7 @@ declare module "events" {
      *
      * It supports the following option:
      */
+    // tslint:disable-next-line:no-unnecessary-class
     class EventEmitter {
         constructor(options?: EventEmitterOptions);
         /**
@@ -461,7 +462,7 @@ declare module "events" {
         static once(
             emitter: NodeEventTarget,
             eventName: string | symbol,
-            options?: StaticEventEmitterOptions,
+            options?: StaticEventEmitterOptions
         ): Promise<any[]>;
         static once(emitter: DOMEventTarget, eventName: string, options?: StaticEventEmitterOptions): Promise<any[]>;
         /**
@@ -524,7 +525,7 @@ declare module "events" {
         static on(
             emitter: EventEmitter,
             eventName: string,
-            options?: StaticEventEmitterOptions,
+            options?: StaticEventEmitterOptions
         ): AsyncIterableIterator<any>;
         /**
          * A class method that returns the number of listeners for the given `eventName`registered on the given `emitter`.

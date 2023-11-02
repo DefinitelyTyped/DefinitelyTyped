@@ -728,7 +728,7 @@ interface CPUUsageObject {
 declare var process: Process;
 
 declare module "process" {
-    var process: Process;
+    let process: Process;
     export = process;
 }
 declare module "node:process" {
@@ -3378,7 +3378,7 @@ interface SharedArrayBuffer {
 declare namespace WebAssembly {
     interface CompileError extends Error {}
 
-    var CompileError: {
+    let CompileError: {
         prototype: CompileError;
         new (message?: string): CompileError;
         (message?: string): CompileError;
@@ -3389,7 +3389,7 @@ declare namespace WebAssembly {
         valueOf(): any;
     }
 
-    var Global: {
+    let Global: {
         prototype: Global;
         new (descriptor: GlobalDescriptor, v?: any): Global;
     };
@@ -3398,14 +3398,14 @@ declare namespace WebAssembly {
         readonly exports: Exports;
     }
 
-    var Instance: {
+    let Instance: {
         prototype: Instance;
         new (module: Module, importObject?: Imports): Instance;
     };
 
     interface LinkError extends Error {}
 
-    var LinkError: {
+    let LinkError: {
         prototype: LinkError;
         new (message?: string): LinkError;
         (message?: string): LinkError;
@@ -3416,14 +3416,14 @@ declare namespace WebAssembly {
         grow(delta: number): number;
     }
 
-    var Memory: {
+    let Memory: {
         prototype: Memory;
         new (descriptor: MemoryDescriptor): Memory;
     };
 
     interface Module {}
 
-    var Module: {
+    let Module: {
         prototype: Module;
         new (bytes: BufferSource): Module;
         customSections(moduleObject: Module, sectionName: string): ArrayBuffer[];
@@ -3433,7 +3433,7 @@ declare namespace WebAssembly {
 
     interface RuntimeError extends Error {}
 
-    var RuntimeError: {
+    let RuntimeError: {
         prototype: RuntimeError;
         new (message?: string): RuntimeError;
         (message?: string): RuntimeError;
@@ -3446,7 +3446,7 @@ declare namespace WebAssembly {
         set(index: number, value?: any): void;
     }
 
-    var Table: {
+    let Table: {
         prototype: Table;
         new (descriptor: TableDescriptor, value?: any): Table;
     };
@@ -3514,12 +3514,12 @@ declare var exports: any;
 declare var global: typeof globalThis;
 
 declare module "*.txt" {
-    var text: string;
+    let text: string;
     export = text;
 }
 
 declare module "*.toml" {
-    var contents: any;
+    let contents: any;
     export = contents;
 }
 

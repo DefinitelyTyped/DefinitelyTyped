@@ -59,7 +59,7 @@ const lib = dlopen(
             ],
             returns: FFIType.void,
         },
-    },
+    }
 );
 
 tsd.expectType<CString>(lib.symbols.sqlite3_libversion());
@@ -100,7 +100,7 @@ function arg(
         void,
         CString,
         number | bigint,
-        number | bigint,
+        number | bigint
     ]
 ) {
     console.log("asdf");
@@ -158,6 +158,7 @@ const as_const_test = {
 const lib2 = dlopen(path, as_const_test);
 
 tsd.expectType<CString>(lib2.symbols.sqlite3_libversion());
+// tslint:disable-next-line:no-void-expression
 tsd.expectType<void>(lib2.symbols.multi_args(1, 2));
 tsd.expectTypeEquals<ReturnType<(typeof lib2)["symbols"]["no_returns"]>, void>(true);
 tsd.expectTypeEquals<Parameters<(typeof lib2)["symbols"]["no_args"]>, []>(true);
