@@ -2197,6 +2197,7 @@ declare module "bun" {
          * ```
          *  What you pass to `data` is available on the {@link ServerWebSocket.data} property
          */
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         upgrade<T = undefined>(
             request: Request,
             options?: {
