@@ -268,7 +268,7 @@ declare class StatementIterator implements Iterator<Statement>, Iterable<Stateme
      * Get any un-executed portions remaining of the original SQL string
      * @see [https://sql.js.org/documentation/StatementIterator.html#["getRemainingSQL"]](https://sql.js.org/documentation/StatementIterator.html#%5B%22getRemainingSQL%22%5D)
      */
-    getRemainingSql(): string;
+    getRemainingSQL(): string;
 
     /**
      * Prepare the next available SQL statement

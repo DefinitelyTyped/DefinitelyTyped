@@ -102,6 +102,8 @@ initSqlJs().then(SqlJs => {
 
     const it = db2.iterateStatements(selectRecordStatement);
 
+    it.getRemainingSQL()
+
     let x = it.next();
 
     x = it.next();
