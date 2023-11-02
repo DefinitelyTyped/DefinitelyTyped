@@ -47,4 +47,4 @@ const _worker3 = new Worker(new URL("worker.ts", "/path/to/").href, {
     },
 });
 
-export { nodeWorker as worker, _worker2, _worker3 };
+export { _worker2, _worker3, nodeWorker as worker };

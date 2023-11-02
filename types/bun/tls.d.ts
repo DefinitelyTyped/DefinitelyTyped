@@ -489,7 +489,6 @@ declare module "tls" {
          */
         ticketKeys?: Buffer | undefined;
         /**
-         *
          * @param socket
          * @param identity identity parameter sent from the client.
          * @return pre-shared key that must either be
@@ -607,15 +606,19 @@ declare module "tls" {
         addListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
         addListener(
             event: "newSession",
-            listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void
+            listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void,
         ): this;
         addListener(
             event: "OCSPRequest",
-            listener: (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => void
+            listener: (
+                certificate: Buffer,
+                issuer: Buffer,
+                callback: (err: Error | null, resp: Buffer) => void,
+            ) => void,
         ): this;
         addListener(
             event: "resumeSession",
-            listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void
+            listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void,
         ): this;
         addListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
         addListener(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
@@ -626,12 +629,12 @@ declare module "tls" {
             event: "OCSPRequest",
             certificate: Buffer,
             issuer: Buffer,
-            callback: (err: Error | null, resp: Buffer) => void
+            callback: (err: Error | null, resp: Buffer) => void,
         ): boolean;
         emit(
             event: "resumeSession",
             sessionId: Buffer,
-            callback: (err: Error | null, sessionData: Buffer | null) => void
+            callback: (err: Error | null, sessionData: Buffer | null) => void,
         ): boolean;
         emit(event: "secureConnection", tlsSocket: TLSSocket): boolean;
         emit(event: "keylog", line: Buffer, tlsSocket: TLSSocket): boolean;
@@ -640,11 +643,15 @@ declare module "tls" {
         on(event: "newSession", listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void): this;
         on(
             event: "OCSPRequest",
-            listener: (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => void
+            listener: (
+                certificate: Buffer,
+                issuer: Buffer,
+                callback: (err: Error | null, resp: Buffer) => void,
+            ) => void,
         ): this;
         on(
             event: "resumeSession",
-            listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void
+            listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void,
         ): this;
         on(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
         on(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
@@ -652,15 +659,19 @@ declare module "tls" {
         once(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
         once(
             event: "newSession",
-            listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void
+            listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void,
         ): this;
         once(
             event: "OCSPRequest",
-            listener: (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => void
+            listener: (
+                certificate: Buffer,
+                issuer: Buffer,
+                callback: (err: Error | null, resp: Buffer) => void,
+            ) => void,
         ): this;
         once(
             event: "resumeSession",
-            listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void
+            listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void,
         ): this;
         once(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
         once(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
@@ -668,15 +679,19 @@ declare module "tls" {
         prependListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
         prependListener(
             event: "newSession",
-            listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void
+            listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void,
         ): this;
         prependListener(
             event: "OCSPRequest",
-            listener: (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => void
+            listener: (
+                certificate: Buffer,
+                issuer: Buffer,
+                callback: (err: Error | null, resp: Buffer) => void,
+            ) => void,
         ): this;
         prependListener(
             event: "resumeSession",
-            listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void
+            listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void,
         ): this;
         prependListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
         prependListener(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
@@ -684,15 +699,19 @@ declare module "tls" {
         prependOnceListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
         prependOnceListener(
             event: "newSession",
-            listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void
+            listener: (sessionId: Buffer, sessionData: Buffer, callback: () => void) => void,
         ): this;
         prependOnceListener(
             event: "OCSPRequest",
-            listener: (certificate: Buffer, issuer: Buffer, callback: (err: Error | null, resp: Buffer) => void) => void
+            listener: (
+                certificate: Buffer,
+                issuer: Buffer,
+                callback: (err: Error | null, resp: Buffer) => void,
+            ) => void,
         ): this;
         prependOnceListener(
             event: "resumeSession",
-            listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void
+            listener: (sessionId: Buffer, callback: (err: Error | null, sessionData: Buffer | null) => void) => void,
         ): this;
         prependOnceListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
         prependOnceListener(event: "keylog", listener: (line: Buffer, tlsSocket: TLSSocket) => void): this;
@@ -991,7 +1010,7 @@ declare module "tls" {
         port: number,
         host?: string,
         options?: ConnectionOptions,
-        secureConnectListener?: () => void
+        secureConnectListener?: () => void,
     ): TLSSocket;
     function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): TLSSocket;
     /**
@@ -1031,7 +1050,7 @@ declare module "tls" {
         context?: SecureContext,
         isServer?: boolean,
         requestCert?: boolean,
-        rejectUnauthorized?: boolean
+        rejectUnauthorized?: boolean,
     ): SecurePair;
     /**
      * {@link createServer} sets the default value of the `honorCipherOrder` option

@@ -1,10 +1,10 @@
-import { watch, constants } from "node:fs";
+import { constants, watch } from "node:fs";
 
 constants.O_APPEND;
 
-import * as tsd from "./utilities.test";
 import * as fs from "fs";
 import { exists } from "fs/promises";
+import * as tsd from "./utilities.test";
 
 tsd.expectType<Promise<boolean>>(exists("/etc/passwd"));
 tsd.expectType<Promise<boolean>>(fs.promises.exists("/etc/passwd"));

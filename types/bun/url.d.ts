@@ -73,7 +73,7 @@ declare module "url" {
     function parse(
         urlString: string,
         parseQueryString: false | undefined,
-        slashesDenoteHost?: boolean
+        slashesDenoteHost?: boolean,
     ): UrlWithStringQuery;
     function parse(urlString: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
     function parse(urlString: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;

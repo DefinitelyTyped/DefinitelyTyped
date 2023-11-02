@@ -1,5 +1,5 @@
+import { jest, mock } from "bun:test";
 import { expectType } from "./utilities.test";
-import { mock, jest } from "bun:test";
 
 const mock1 = mock((arg: string) => {
     return arg.length;

@@ -61,7 +61,7 @@ interface ArrayConstructor {
     fromAsync<T>(
         asyncItems: AsyncIterable<T> | Iterable<T> | ArrayLike<T>,
         mapfn?: (value: any, index: number) => any,
-        thisArg?: any
+        thisArg?: any,
     ): Promise<Array<T>>;
 }
 
@@ -197,8 +197,8 @@ declare let console: Console & {
      * Creates a new Console with one or two writable stream instances. stdout is a writable stream to print log or info output. stderr is used for warning or error output. If stderr is not provided, stdout is used for stderr.
      */
     Console: {
-        new (options: ConsoleOptions): Console;
-        new (stdout: import("stream").Writable, stderr?: import("stream").Writable, ignoreErrors?: boolean): Console;
+        new(options: ConsoleOptions): Console;
+        new(stdout: import("stream").Writable, stderr?: import("stream").Writable, ignoreErrors?: boolean): Console;
     };
 };
 
@@ -382,22 +382,22 @@ interface AbstractWorker {
     addEventListener<K extends keyof AbstractWorkerEventMap>(
         type: K,
         listener: (this: AbstractWorker, ev: AbstractWorkerEventMap[K]) => any,
-        options?: boolean | AddEventListenerOptions
+        options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(
         type: string,
         listener: EventListenerOrEventListenerObject,
-        options?: boolean | AddEventListenerOptions
+        options?: boolean | AddEventListenerOptions,
     ): void;
     removeEventListener<K extends keyof AbstractWorkerEventMap>(
         type: K,
         listener: (this: AbstractWorker, ev: AbstractWorkerEventMap[K]) => any,
-        options?: boolean | EventListenerOptions
+        options?: boolean | EventListenerOptions,
     ): void;
     removeEventListener(
         type: string,
         listener: EventListenerOrEventListenerObject,
-        options?: boolean | EventListenerOptions
+        options?: boolean | EventListenerOptions,
     ): void;
 }
 
@@ -482,22 +482,22 @@ interface Worker extends EventTarget, AbstractWorker {
     addEventListener<K extends keyof WorkerEventMap>(
         type: K,
         listener: (this: Worker, ev: WorkerEventMap[K]) => any,
-        options?: boolean | AddEventListenerOptions
+        options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(
         type: string,
         listener: EventListenerOrEventListenerObject,
-        options?: boolean | AddEventListenerOptions
+        options?: boolean | AddEventListenerOptions,
     ): void;
     removeEventListener<K extends keyof WorkerEventMap>(
         type: K,
         listener: (this: Worker, ev: WorkerEventMap[K]) => any,
-        options?: boolean | EventListenerOptions
+        options?: boolean | EventListenerOptions,
     ): void;
     removeEventListener(
         type: string,
         listener: EventListenerOrEventListenerObject,
-        options?: boolean | EventListenerOptions
+        options?: boolean | EventListenerOptions,
     ): void;
 
     /**
@@ -525,7 +525,7 @@ interface Worker extends EventTarget, AbstractWorker {
 
 declare var Worker: {
     prototype: Worker;
-    new (scriptURL: string | URL, options?: WorkerOptions): Worker;
+    new(scriptURL: string | URL, options?: WorkerOptions): Worker;
     /**
      * This is the cloned value of the `data` property passed to `new Worker()`
      *
@@ -604,7 +604,6 @@ interface Process {
     stderr: import("tty").WriteStream;
 
     /**
-     *
      * @deprecated This is deprecated; use the "node:assert" module instead.
      */
     assert(value: unknown, message?: string | Error): asserts value;
@@ -814,7 +813,7 @@ interface Headers {
 
 declare var Headers: {
     prototype: Headers;
-    new (init?: HeadersInit): Headers;
+    new(init?: HeadersInit): Headers;
 };
 
 type HeadersInit = Headers | Record<string, string> | Array<[string, string]> | IterableIterator<[string, string]>;
@@ -860,7 +859,7 @@ interface FormData {
 
 declare var FormData: {
     prototype: FormData;
-    new (): FormData;
+    new(): FormData;
 };
 
 interface Blob {
@@ -871,7 +870,6 @@ interface Blob {
      *
      * @param begin The index that sets the beginning of the view.
      * @param end The index that sets the end of the view.
-     *
      */
     slice(begin?: number, end?: number, contentType?: string): Blob;
 
@@ -882,7 +880,6 @@ interface Blob {
      *
      * @param begin The index that sets the beginning of the view.
      * @param end The index that sets the end of the view.
-     *
      */
     slice(begin?: number, contentType?: string): Blob;
 
@@ -893,7 +890,6 @@ interface Blob {
      *
      * @param begin The index that sets the beginning of the view.
      * @param end The index that sets the end of the view.
-     *
      */
     slice(contentType?: string): Blob;
 
@@ -918,7 +914,6 @@ interface Blob {
      * Read the data from the blob as a JSON object.
      *
      * This first decodes the data from UTF-8, then parses it as JSON.
-     *
      */
     json<TJSONReturnType = any>(): Promise<TJSONReturnType>;
 
@@ -947,7 +942,7 @@ declare var Blob: {
      * @param `parts` - An array of strings, numbers, BufferSource, or [Blob](https://developer.mozilla.org/en-US/docs/Web/API/Blob) objects
      * @param `options` - An object containing properties to be added to the [Blob](https://developer.mozilla.org/en-US/docs/Web/API/Blob)
      */
-    new (parts?: BlobPart[], options?: BlobPropertyBag): Blob;
+    new(parts?: BlobPart[], options?: BlobPropertyBag): Blob;
 };
 
 interface File extends Blob {
@@ -965,7 +960,7 @@ declare var File: {
      * @param `name` - The name of the file
      * @param `options` - An object containing properties to be added to the [File](https://developer.mozilla.org/en-US/docs/Web/API/File)
      */
-    new (parts: BlobPart[], name: string, options?: BlobPropertyBag & { lastModified?: Date | number }): File;
+    new(parts: BlobPart[], name: string, options?: BlobPropertyBag & { lastModified?: Date | number }): File;
 };
 
 interface ResponseInit {
@@ -996,7 +991,7 @@ interface ResponseInit {
 declare class Response implements BlobInterface {
     constructor(
         body?: ReadableStream | BlobPart | BlobPart[] | FormData | URLSearchParams | null,
-        options?: ResponseInit
+        options?: ResponseInit,
     );
 
     /**
@@ -1097,7 +1092,6 @@ declare class Response implements BlobInterface {
      * Read the data from the Response as a JSON object.
      *
      * This first decodes the data from UTF-8, then parses it as JSON.
-     *
      */
     json<TJSONReturnType = any>(): Promise<TJSONReturnType>;
 
@@ -1343,14 +1337,11 @@ declare class Request implements BlobInterface {
      *
      * Reading **incoming** HTTP request bodies via `ReadableStream` in `Bun.serve()` is supported
      * as of Bun v0.2.0.
-     *
-     *
      */
     get body(): ReadableStream | null;
 
     /**
      * Consume the [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) body as an ArrayBuffer.
-     *
      */
     arrayBuffer(): Promise<ArrayBuffer>;
 
@@ -1358,7 +1349,6 @@ declare class Request implements BlobInterface {
      * Consume the [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) body as a JSON object.
      *
      * This first decodes the data from UTF-8, then parses it as JSON.
-     *
      */
     json<TJSONReturnType = any>(): Promise<TJSONReturnType>;
 
@@ -1366,7 +1356,6 @@ declare class Request implements BlobInterface {
      * Consume the [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) body as a `Blob`.
      *
      * This allows you to reuse the underlying data.
-     *
      */
     blob(): Promise<Blob>;
 
@@ -1464,7 +1453,7 @@ interface Crypto {
 }
 declare var Crypto: {
     prototype: Crypto;
-    new (): Crypto;
+    new(): Crypto;
 };
 
 declare var crypto: Crypto;
@@ -1491,7 +1480,6 @@ declare function btoa(stringToEncode: string): string;
  * const encoder = new TextEncoder();
  * const uint8array = encoder.encode('this is some data');
  * ```
- *
  */
 declare class TextEncoder {
     /**
@@ -1565,7 +1553,6 @@ declare class TextDecoder {
  * ShadowRealms are a distinct global environment, with its own global object
  * containing its own intrinsics and built-ins (standard objects that are not
  * bound to global variables, like the initial value of Object.prototype).
- *
  *
  * @example
  *
@@ -1652,7 +1639,6 @@ declare var performance: {
      * Bun.js runtime was initialized. The value is represented as a double
      * precision floating point number. The value is monotonically increasing
      * during the lifetime of the runtime.
-     *
      */
     now: () => number;
 
@@ -1691,8 +1677,6 @@ declare function clearImmediate(id?: number | Timer): void;
  * @param init A structured value that contains settings for the fetch() request.
  *
  * @returns A promise that resolves to {@link Response} object.
- *
- *
  */
 // tslint:disable-next-line:unified-signatures
 declare function fetch(request: Request, init?: RequestInit): Promise<Response>;
@@ -1703,8 +1687,6 @@ declare function fetch(request: Request, init?: RequestInit): Promise<Response>;
  * @param init A structured value that contains settings for the fetch() request.
  *
  * @returns A promise that resolves to {@link Response} object.
- *
- *
  */
 declare function fetch(url: string | URL | Request, init?: FetchRequestInit): Promise<Response>;
 
@@ -1743,22 +1725,22 @@ declare function setTimeout(handler: TimerHandler, timeout?: number, ...argument
 declare function addEventListener<K extends keyof EventMap>(
     type: K,
     listener: (this: object, ev: EventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
 ): void;
 declare function addEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
 ): void;
 declare function removeEventListener<K extends keyof EventMap>(
     type: K,
     listener: (this: object, ev: EventMap[K]) => any,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
 ): void;
 declare function removeEventListener(
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | EventListenerOptions
+    options?: boolean | EventListenerOptions,
 ): void;
 
 // -----------------------
@@ -1871,7 +1853,7 @@ interface EventTarget {
     addEventListener(
         type: string,
         callback: EventListenerOrEventListenerObject | null,
-        options?: AddEventListenerOptions | boolean
+        options?: AddEventListenerOptions | boolean,
     ): void;
     /** Dispatches a synthetic event event to target and returns true if either event's cancelable attribute value is false or its preventDefault() method was not invoked, and false otherwise. */
     dispatchEvent(event: Event): boolean;
@@ -1879,13 +1861,13 @@ interface EventTarget {
     removeEventListener(
         type: string,
         callback: EventListenerOrEventListenerObject | null,
-        options?: EventListenerOptions | boolean
+        options?: EventListenerOptions | boolean,
     ): void;
 }
 
 declare var EventTarget: {
     prototype: EventTarget;
-    new (): EventTarget;
+    new(): EventTarget;
 };
 
 /** An event which takes place in the DOM. */
@@ -1989,7 +1971,7 @@ interface Event<T extends EventTarget = EventTarget> {
 
 declare var Event: {
     prototype: Event;
-    new (type: string, eventInitDict?: EventInit): Event;
+    new(type: string, eventInitDict?: EventInit): Event;
     readonly AT_TARGET: number;
     readonly BUBBLING_PHASE: number;
     readonly CAPTURING_PHASE: number;
@@ -2009,7 +1991,7 @@ interface ErrorEvent extends Event {
 
 declare var ErrorEvent: {
     prototype: ErrorEvent;
-    new (type: string, eventInitDict?: ErrorEventInit): ErrorEvent;
+    new(type: string, eventInitDict?: ErrorEventInit): ErrorEvent;
 };
 
 /** A CloseEvent is sent to clients using WebSockets when the connection is closed. This is delivered to the listener indicated by the WebSocket object's onclose attribute. */
@@ -2024,7 +2006,7 @@ interface CloseEvent extends Event {
 
 declare var CloseEvent: {
     prototype: CloseEvent;
-    new (type: string, eventInitDict?: CloseEventInit): CloseEvent;
+    new(type: string, eventInitDict?: CloseEventInit): CloseEvent;
 };
 
 /** A message received by a target object. */
@@ -2046,13 +2028,13 @@ interface MessageEvent<T = any> extends Event {
         data?: any,
         origin?: string,
         lastEventId?: string,
-        source?: null
+        source?: null,
     ): void;
 }
 
 declare var MessageEvent: {
     prototype: MessageEvent;
-    new <T>(type: string, eventInitDict?: MessageEventInit<T>): MessageEvent<T>;
+    new<T>(type: string, eventInitDict?: MessageEventInit<T>): MessageEvent<T>;
 };
 
 interface CustomEventInit<T = any> extends EventInit {
@@ -2068,7 +2050,7 @@ interface CustomEvent<T = any> extends Event {
 
 declare var CustomEvent: {
     prototype: CustomEvent;
-    new <T>(type: string, eventInitDict?: CustomEventInit<T>): CustomEvent<T>;
+    new<T>(type: string, eventInitDict?: CustomEventInit<T>): CustomEvent<T>;
 };
 
 /**
@@ -2248,25 +2230,25 @@ interface WebSocket extends EventTarget {
     addEventListener<T extends keyof WebSocketEventMap>(
         type: T,
         listener: (this: WebSocket, event: WebSocketEventMap[T]) => unknown,
-        options?: boolean | AddEventListenerOptions
+        options?: boolean | AddEventListenerOptions,
     ): void;
 
     addEventListener(
         type: string,
         listener: (this: WebSocket, event: Event) => unknown,
-        options?: boolean | AddEventListenerOptions
+        options?: boolean | AddEventListenerOptions,
     ): void;
 
     removeEventListener<T extends keyof WebSocketEventMap>(
         type: T,
         listener: (this: WebSocket, event: WebSocketEventMap[T]) => unknown,
-        options?: boolean | EventListenerOptions
+        options?: boolean | EventListenerOptions,
     ): void;
 
     removeEventListener(
         type: string,
         listener: (this: WebSocket, event: Event) => unknown,
-        options?: boolean | EventListenerOptions
+        options?: boolean | EventListenerOptions,
     ): void;
 }
 
@@ -2290,9 +2272,9 @@ interface WebSocket extends EventTarget {
 declare var WebSocket: {
     prototype: WebSocket;
 
-    new (url: string | URL, protocols?: string | string[]): WebSocket;
+    new(url: string | URL, protocols?: string | string[]): WebSocket;
 
-    new (
+    new(
         url: string | URL,
         options: {
             /**
@@ -2307,7 +2289,7 @@ declare var WebSocket: {
              * Sets the sub-protocols the client is willing to accept.
              */
             protocols?: string[];
-        }
+        },
     ): WebSocket;
 
     /**
@@ -2379,13 +2361,13 @@ interface URLSearchParams {
 
 declare var URLSearchParams: {
     prototype: URLSearchParams;
-    new (init?: string[][] | Record<string, string> | string | URLSearchParams): URLSearchParams;
+    new(init?: string[][] | Record<string, string> | string | URLSearchParams): URLSearchParams;
     toString(): string;
 };
 
 declare var URL: {
     prototype: URL;
-    new (url: string | URL, base?: string | URL): URL;
+    new(url: string | URL, base?: string | URL): URL;
     /** Not implemented yet */
     createObjectURL(obj: Blob): string;
     /** Not implemented yet */
@@ -2412,7 +2394,7 @@ interface EventListenerObject {
 
 declare var AbortController: {
     prototype: AbortController;
-    new (): AbortController;
+    new(): AbortController;
 };
 
 interface FetchEvent extends Event {
@@ -2456,28 +2438,28 @@ interface AbortSignal extends EventTarget {
     addEventListener<K extends keyof AbortSignalEventMap>(
         type: K,
         listener: (this: AbortSignal, ev: AbortSignalEventMap[K]) => any,
-        options?: boolean | AddEventListenerOptions
+        options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(
         type: string,
         listener: EventListenerOrEventListenerObject,
-        options?: boolean | AddEventListenerOptions
+        options?: boolean | AddEventListenerOptions,
     ): void;
     removeEventListener<K extends keyof AbortSignalEventMap>(
         type: K,
         listener: (this: AbortSignal, ev: AbortSignalEventMap[K]) => any,
-        options?: boolean | EventListenerOptions
+        options?: boolean | EventListenerOptions,
     ): void;
     removeEventListener(
         type: string,
         listener: EventListenerOrEventListenerObject,
-        options?: boolean | EventListenerOptions
+        options?: boolean | EventListenerOptions,
     ): void;
 }
 
 declare var AbortSignal: {
     prototype: AbortSignal;
-    new (): AbortSignal;
+    new(): AbortSignal;
     abort(reason?: any): AbortSignal;
     /**
      * Create an AbortSignal which times out after milliseconds
@@ -2597,7 +2579,6 @@ declare var Loader: {
      * ```
      *
      * @param specifier - module specifier as it appears in transpiled source code
-     *
      */
     dependencyKeysIfEvaluated: (specifier: string) => string[];
     /**
@@ -2628,8 +2609,8 @@ interface ReadableStream<R = any> {
 
 declare var ReadableStream: {
     prototype: ReadableStream;
-    new <R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>;
-    new <R = any>(underlyingSource?: DirectUnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>;
+    new<R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>;
+    new<R = any>(underlyingSource?: DirectUnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>;
 };
 
 interface QueuingStrategy<T = any> {
@@ -2654,7 +2635,7 @@ interface ByteLengthQueuingStrategy extends QueuingStrategy<BufferSource> {
 
 declare var ByteLengthQueuingStrategy: {
     prototype: ByteLengthQueuingStrategy;
-    new (init: QueuingStrategyInit): ByteLengthQueuingStrategy;
+    new(init: QueuingStrategyInit): ByteLengthQueuingStrategy;
 };
 
 interface ReadableStreamDefaultController<R = any> {
@@ -2674,7 +2655,7 @@ interface ReadableStreamDirectController {
 
 declare var ReadableStreamDefaultController: {
     prototype: ReadableStreamDefaultController;
-    new (): ReadableStreamDefaultController;
+    new(): ReadableStreamDefaultController;
 };
 
 interface ReadableStreamDefaultReader<R = any> extends ReadableStreamGenericReader {
@@ -2686,7 +2667,7 @@ interface ReadableStreamDefaultReader<R = any> extends ReadableStreamGenericRead
 
 declare var ReadableStreamDefaultReader: {
     prototype: ReadableStreamDefaultReader;
-    new <R = any>(stream: ReadableStream<R>): ReadableStreamDefaultReader<R>;
+    new<R = any>(stream: ReadableStream<R>): ReadableStreamDefaultReader<R>;
 };
 
 interface ReadableStreamGenericReader {
@@ -2724,7 +2705,7 @@ interface WritableStream<W = any> {
 
 declare var WritableStream: {
     prototype: WritableStream;
-    new <W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>;
+    new<W = any>(underlyingSink?: UnderlyingSink<W>, strategy?: QueuingStrategy<W>): WritableStream<W>;
 };
 
 /** This Streams API interface represents a controller allowing control of a WritableStream's state. When constructing a WritableStream, the underlying sink is given a corresponding WritableStreamDefaultController instance to manipulate. */
@@ -2734,7 +2715,7 @@ interface WritableStreamDefaultController {
 
 declare var WritableStreamDefaultController: {
     prototype: WritableStreamDefaultController;
-    new (): WritableStreamDefaultController;
+    new(): WritableStreamDefaultController;
 };
 
 /** This Streams API interface is the object returned by WritableStream.getWriter() and once created locks the < writer to the WritableStream ensuring that no other streams can write to the underlying sink. */
@@ -2750,7 +2731,7 @@ interface WritableStreamDefaultWriter<W = any> {
 
 declare var WritableStreamDefaultWriter: {
     prototype: WritableStreamDefaultWriter;
-    new <W = any>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>;
+    new<W = any>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>;
 };
 
 interface ReadWriteStream extends ReadableStream, WritableStream {}
@@ -2832,10 +2813,10 @@ interface TransformStream<I = any, O = any> {
 
 declare var TransformStream: {
     prototype: TransformStream;
-    new <I = any, O = any>(
+    new<I = any, O = any>(
         transformer?: Transformer<I, O>,
         writableStrategy?: QueuingStrategy<I>,
-        readableStrategy?: QueuingStrategy<O>
+        readableStrategy?: QueuingStrategy<O>,
     ): TransformStream<I, O>;
 };
 
@@ -2848,7 +2829,7 @@ interface TransformStreamDefaultController<O = any> {
 
 declare var TransformStreamDefaultController: {
     prototype: TransformStreamDefaultController;
-    new (): TransformStreamDefaultController;
+    new(): TransformStreamDefaultController;
 };
 
 interface StreamPipeOptions {
@@ -2883,7 +2864,7 @@ interface CountQueuingStrategy extends QueuingStrategy {
 
 declare var CountQueuingStrategy: {
     prototype: CountQueuingStrategy;
-    new (init: QueuingStrategyInit): CountQueuingStrategy;
+    new(init: QueuingStrategyInit): CountQueuingStrategy;
 };
 
 interface QueuingStrategySize<T = any> {
@@ -2947,7 +2928,7 @@ interface DOMException extends Error {
 }
 declare var DOMException: {
     prototype: DOMException;
-    new (message?: string, name?: string): DOMException;
+    new(message?: string, name?: string): DOMException;
 };
 
 declare function alert(message?: string): void;
@@ -3117,61 +3098,61 @@ interface SubtleCrypto {
     decrypt(
         algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams,
         key: CryptoKey,
-        data: BufferSource
+        data: BufferSource,
     ): Promise<ArrayBuffer>;
     deriveBits(
         algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params,
         baseKey: CryptoKey,
-        length: number
+        length: number,
     ): Promise<ArrayBuffer>;
     deriveKey(
         algorithm: AlgorithmIdentifier | EcdhKeyDeriveParams | HkdfParams | Pbkdf2Params,
         baseKey: CryptoKey,
         derivedKeyType: AlgorithmIdentifier | AesDerivedKeyParams | HmacImportParams | HkdfParams | Pbkdf2Params,
         extractable: boolean,
-        keyUsages: KeyUsage[]
+        keyUsages: KeyUsage[],
     ): Promise<CryptoKey>;
     digest(algorithm: AlgorithmIdentifier, data: BufferSource): Promise<ArrayBuffer>;
     encrypt(
         algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams,
         key: CryptoKey,
-        data: BufferSource
+        data: BufferSource,
     ): Promise<ArrayBuffer>;
     exportKey(format: "jwk", key: CryptoKey): Promise<JsonWebKey>;
     exportKey(format: Exclude<KeyFormat, "jwk">, key: CryptoKey): Promise<ArrayBuffer>;
     generateKey(
         algorithm: RsaHashedKeyGenParams | EcKeyGenParams,
         extractable: boolean,
-        keyUsages: ReadonlyArray<KeyUsage>
+        keyUsages: ReadonlyArray<KeyUsage>,
     ): Promise<CryptoKeyPair>;
     generateKey(
         algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params,
         extractable: boolean,
-        keyUsages: ReadonlyArray<KeyUsage>
+        keyUsages: ReadonlyArray<KeyUsage>,
     ): Promise<CryptoKey>;
     generateKey(
         algorithm: AlgorithmIdentifier,
         extractable: boolean,
-        keyUsages: KeyUsage[]
+        keyUsages: KeyUsage[],
     ): Promise<CryptoKeyPair | CryptoKey>;
     importKey(
         format: "jwk",
         keyData: JsonWebKey,
         algorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | AesKeyAlgorithm,
         extractable: boolean,
-        keyUsages: ReadonlyArray<KeyUsage>
+        keyUsages: ReadonlyArray<KeyUsage>,
     ): Promise<CryptoKey>;
     importKey(
         format: Exclude<KeyFormat, "jwk">,
         keyData: BufferSource,
         algorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams | HmacImportParams | AesKeyAlgorithm,
         extractable: boolean,
-        keyUsages: KeyUsage[]
+        keyUsages: KeyUsage[],
     ): Promise<CryptoKey>;
     sign(
         algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams,
         key: CryptoKey,
-        data: BufferSource
+        data: BufferSource,
     ): Promise<ArrayBuffer>;
     unwrapKey(
         format: KeyFormat,
@@ -3185,25 +3166,25 @@ interface SubtleCrypto {
             | HmacImportParams
             | AesKeyAlgorithm,
         extractable: boolean,
-        keyUsages: KeyUsage[]
+        keyUsages: KeyUsage[],
     ): Promise<CryptoKey>;
     verify(
         algorithm: AlgorithmIdentifier | RsaPssParams | EcdsaParams,
         key: CryptoKey,
         signature: BufferSource,
-        data: BufferSource
+        data: BufferSource,
     ): Promise<boolean>;
     wrapKey(
         format: KeyFormat,
         key: CryptoKey,
         wrappingKey: CryptoKey,
-        wrapAlgorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams
+        wrapAlgorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AesGcmParams,
     ): Promise<ArrayBuffer>;
 }
 
 declare var SubtleCrypto: {
     prototype: SubtleCrypto;
-    new (): SubtleCrypto;
+    new(): SubtleCrypto;
 };
 
 interface RsaPssParams extends Algorithm {
@@ -3222,7 +3203,7 @@ interface CryptoKey {
 
 declare var CryptoKey: {
     prototype: CryptoKey;
-    new (): CryptoKey;
+    new(): CryptoKey;
 };
 
 interface Position {
@@ -3365,7 +3346,7 @@ interface CallSite {
 }
 
 interface ArrayBufferConstructor {
-    new (byteLength: number, options: { maxByteLength?: number }): ArrayBuffer;
+    new(byteLength: number, options: { maxByteLength?: number }): ArrayBuffer;
 }
 
 interface ArrayBuffer {
@@ -3397,7 +3378,7 @@ declare namespace WebAssembly {
 
     var CompileError: {
         prototype: CompileError;
-        new (message?: string): CompileError;
+        new(message?: string): CompileError;
         (message?: string): CompileError;
     };
 
@@ -3408,7 +3389,7 @@ declare namespace WebAssembly {
 
     var Global: {
         prototype: Global;
-        new (descriptor: GlobalDescriptor, v?: any): Global;
+        new(descriptor: GlobalDescriptor, v?: any): Global;
     };
 
     interface Instance {
@@ -3417,14 +3398,14 @@ declare namespace WebAssembly {
 
     var Instance: {
         prototype: Instance;
-        new (module: Module, importObject?: Imports): Instance;
+        new(module: Module, importObject?: Imports): Instance;
     };
 
     interface LinkError extends Error {}
 
     var LinkError: {
         prototype: LinkError;
-        new (message?: string): LinkError;
+        new(message?: string): LinkError;
         (message?: string): LinkError;
     };
 
@@ -3435,14 +3416,14 @@ declare namespace WebAssembly {
 
     var Memory: {
         prototype: Memory;
-        new (descriptor: MemoryDescriptor): Memory;
+        new(descriptor: MemoryDescriptor): Memory;
     };
 
     interface Module {}
 
     var Module: {
         prototype: Module;
-        new (bytes: BufferSource): Module;
+        new(bytes: BufferSource): Module;
         customSections(moduleObject: Module, sectionName: string): ArrayBuffer[];
         exports(moduleObject: Module): ModuleExportDescriptor[];
         imports(moduleObject: Module): ModuleImportDescriptor[];
@@ -3452,7 +3433,7 @@ declare namespace WebAssembly {
 
     var RuntimeError: {
         prototype: RuntimeError;
-        new (message?: string): RuntimeError;
+        new(message?: string): RuntimeError;
         (message?: string): RuntimeError;
     };
 
@@ -3465,7 +3446,7 @@ declare namespace WebAssembly {
 
     var Table: {
         prototype: Table;
-        new (descriptor: TableDescriptor, value?: any): Table;
+        new(descriptor: TableDescriptor, value?: any): Table;
     };
 
     interface GlobalDescriptor {
@@ -3575,32 +3556,32 @@ interface EventSource extends EventTarget {
     addEventListener<K extends keyof EventSourceEventMap>(
         type: K,
         listener: (this: EventSource, ev: EventSourceEventMap[K]) => any,
-        options?: boolean | AddEventListenerOptions
+        options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(
         type: string,
         listener: (this: EventSource, event: MessageEvent) => any,
-        options?: boolean | AddEventListenerOptions
+        options?: boolean | AddEventListenerOptions,
     ): void;
     addEventListener(
         type: string,
         listener: EventListenerOrEventListenerObject,
-        options?: boolean | AddEventListenerOptions
+        options?: boolean | AddEventListenerOptions,
     ): void;
     removeEventListener<K extends keyof EventSourceEventMap>(
         type: K,
         listener: (this: EventSource, ev: EventSourceEventMap[K]) => any,
-        options?: boolean | EventListenerOptions
+        options?: boolean | EventListenerOptions,
     ): void;
     removeEventListener(
         type: string,
         listener: (this: EventSource, event: MessageEvent) => any,
-        options?: boolean | EventListenerOptions
+        options?: boolean | EventListenerOptions,
     ): void;
     removeEventListener(
         type: string,
         listener: EventListenerOrEventListenerObject,
-        options?: boolean | EventListenerOptions
+        options?: boolean | EventListenerOptions,
     ): void;
 
     /**
@@ -3620,7 +3601,7 @@ interface EventSource extends EventTarget {
 
 declare var EventSource: {
     prototype: EventSource;
-    new (url: string | URL, eventSourceInitDict?: EventSourceInit): EventSource;
+    new(url: string | URL, eventSourceInitDict?: EventSourceInit): EventSource;
     readonly CLOSED: number;
     readonly CONNECTING: number;
     readonly OPEN: number;

@@ -141,18 +141,18 @@ declare module "vm" {
         origin?: string | undefined;
         codeGeneration?:
             | {
-                  /**
-                   * If set to false any calls to eval or function constructors (Function, GeneratorFunction, etc)
-                   * will throw an EvalError.
-                   * @default true
-                   */
-                  strings?: boolean | undefined;
-                  /**
-                   * If set to false any attempt to compile a WebAssembly module will throw a WebAssembly.CompileError.
-                   * @default true
-                   */
-                  wasm?: boolean | undefined;
-              }
+                /**
+                 * If set to false any calls to eval or function constructors (Function, GeneratorFunction, etc)
+                 * will throw an EvalError.
+                 * @default true
+                 */
+                strings?: boolean | undefined;
+                /**
+                 * If set to false any attempt to compile a WebAssembly module will throw a WebAssembly.CompileError.
+                 * @default true
+                 */
+                wasm?: boolean | undefined;
+            }
             | undefined;
         /**
          * If set to `afterEvaluate`, microtasks will be run immediately after the script has run.
@@ -422,7 +422,7 @@ declare module "vm" {
     function runInNewContext(
         code: string,
         contextObject?: Context,
-        options?: RunningCodeInNewContextOptions | string
+        options?: RunningCodeInNewContextOptions | string,
     ): any;
     /**
      * `vm.runInThisContext()` compiles `code`, runs it within the context of the

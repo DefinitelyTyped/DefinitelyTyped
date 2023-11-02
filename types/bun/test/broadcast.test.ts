@@ -2,7 +2,7 @@ const channel = new BroadcastChannel("my-channel");
 const message = { hello: "world" };
 
 channel.onmessage = event => {
-  console.log(event.data); // { hello: "world" }
+    console.log(event.data); // { hello: "world" }
 };
 channel.postMessage(message);
 

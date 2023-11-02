@@ -17,13 +17,13 @@
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/stream.js)
  */
 declare module "stream" {
-    import { EventEmitter, Abortable } from "node:events";
+    import { Abortable, EventEmitter } from "node:events";
     class internal extends EventEmitter {
         pipe<T extends WritableStream>(
             destination: T,
             options?: {
                 end?: boolean | undefined;
-            }
+            },
         ): T;
     }
     namespace internal {
@@ -51,7 +51,7 @@ declare module "stream" {
              */
             static fromWeb(
                 readableStream: ReadableStream,
-                options?: Pick<ReadableOptions, "encoding" | "highWaterMark" | "objectMode" | "signal">
+                options?: Pick<ReadableOptions, "encoding" | "highWaterMark" | "objectMode" | "signal">,
             ): Readable;
             /**
              * A utility method for creating a web `ReadableStream` from a `Readable`.
@@ -467,7 +467,7 @@ declare module "stream" {
                 this: Writable,
                 chunk: any,
                 encoding: BufferEncoding,
-                callback: (error?: Error | null) => void
+                callback: (error?: Error | null) => void,
             ): void;
             writev?(
                 this: Writable,
@@ -475,7 +475,7 @@ declare module "stream" {
                     chunk: any;
                     encoding: BufferEncoding;
                 }>,
-                callback: (error?: Error | null) => void
+                callback: (error?: Error | null) => void,
             ): void;
             final?(this: Writable, callback: (error?: Error | null) => void): void;
         }
@@ -487,7 +487,7 @@ declare module "stream" {
              */
             static fromWeb(
                 writableStream: WritableStream,
-                options?: Pick<WritableOptions, "decodeStrings" | "highWaterMark" | "objectMode" | "signal">
+                options?: Pick<WritableOptions, "decodeStrings" | "highWaterMark" | "objectMode" | "signal">,
             ): Writable;
             /**
              * A utility method for creating a web `WritableStream` from a `Writable`.
@@ -781,7 +781,7 @@ declare module "stream" {
                     chunk: any;
                     encoding: BufferEncoding;
                 }>,
-                callback: (error?: Error | null) => void
+                callback: (error?: Error | null) => void,
             ): void;
             final?(this: Duplex, callback: (error?: Error | null) => void): void;
             destroy?(this: Duplex, error: Error | null, callback: (error: Error | null) => void): void;
@@ -795,8 +795,10 @@ declare module "stream" {
          * * `zlib streams`
          * * `crypto streams`
          */
-        type Duplex<R = any> = Readable<R> &
-            Writable<R> & {
+        type Duplex<R = any> =
+            & Readable<R>
+            & Writable<R>
+            & {
                 /**
                  * If `false` then the stream will automatically end the writable side when the
                  * readable side ends. Set initially by the `allowHalfOpen` constructor option,
@@ -809,7 +811,7 @@ declare module "stream" {
                 allowHalfOpen: boolean;
             };
         interface DuplexConstructor {
-            new <T = any>(opts?: DuplexOptions): Duplex<T>;
+            new<T = any>(opts?: DuplexOptions): Duplex<T>;
             /**
              * A utility method for creating duplex streams.
              *
@@ -841,14 +843,14 @@ declare module "stream" {
                     | AsyncIterable<any>
                     | AsyncGeneratorFunction
                     | Promise<any>
-                    | object
+                    | object,
             ): Duplex;
             fromWeb<T = any>(
                 pair: {
                     readable: ReadableStream<T>;
                     writable: WritableStream<T>;
                 },
-                options: DuplexOptions
+                options: DuplexOptions,
             ): Duplex<T>;
             toWeb<T>(stream: Duplex<T>): {
                 readable: ReadableStream<T>;
@@ -864,7 +866,7 @@ declare module "stream" {
                 this: Transform,
                 chunk: any,
                 encoding: BufferEncoding,
-                callback: (error?: Error | null) => void
+                callback: (error?: Error | null) => void,
             ): void;
             writev?(
                 this: Transform,
@@ -872,7 +874,7 @@ declare module "stream" {
                     chunk: any;
                     encoding: BufferEncoding;
                 }>,
-                callback: (error?: Error | null) => void
+                callback: (error?: Error | null) => void,
             ): void;
             final?(this: Transform, callback: (error?: Error | null) => void): void;
             destroy?(this: Transform, error: Error | null, callback: (error: Error | null) => void): void;
@@ -1008,16 +1010,16 @@ declare module "stream" {
         function finished(
             stream: ReadableStream | WritableStream | ReadWriteStream,
             options: FinishedOptions,
-            callback: (err?: ErrnoException | null) => void
+            callback: (err?: ErrnoException | null) => void,
         ): () => void;
         function finished(
             stream: ReadableStream | WritableStream | ReadWriteStream,
-            callback: (err?: ErrnoException | null) => void
+            callback: (err?: ErrnoException | null) => void,
         ): () => void;
         namespace finished {
             function __promisify__(
                 stream: ReadableStream | WritableStream | ReadWriteStream,
-                options?: FinishedOptions
+                options?: FinishedOptions,
             ): Promise<void>;
         }
         type PipelineSourceFunction<T> = () => Iterable<T> | AsyncIterable<T>;
@@ -1025,29 +1027,25 @@ declare module "stream" {
         type PipelineTransform<S extends PipelineTransformSource<any>, U> =
             | ReadWriteStream
             | ((
-                  source: S extends (...args: any[]) => Iterable<infer ST> | AsyncIterable<infer ST>
-                      ? AsyncIterable<ST>
-                      : S
-              ) => AsyncIterable<U>);
+                source: S extends (...args: any[]) => Iterable<infer ST> | AsyncIterable<infer ST> ? AsyncIterable<ST>
+                    : S,
+            ) => AsyncIterable<U>);
         type PipelineTransformSource<T> = PipelineSource<T> | PipelineTransform<any, T>;
         type PipelineDestinationIterableFunction<T> = (source: AsyncIterable<T>) => AsyncIterable<any>;
         type PipelineDestinationPromiseFunction<T, P> = (source: AsyncIterable<T>) => Promise<P>;
         type PipelineDestination<S extends PipelineTransformSource<any>, P> = S extends PipelineTransformSource<
             infer ST
-        >
-            ? WritableStream | PipelineDestinationIterableFunction<ST> | PipelineDestinationPromiseFunction<ST, P>
+        > ? WritableStream | PipelineDestinationIterableFunction<ST> | PipelineDestinationPromiseFunction<ST, P>
             : never;
         type PipelineCallback<S extends PipelineDestination<any, any>> = S extends PipelineDestinationPromiseFunction<
             any,
             infer P
-        >
-            ? (err: ErrnoException | null, value: P) => void
+        > ? (err: ErrnoException | null, value: P) => void
             : (err: ErrnoException | null) => void;
         type PipelinePromise<S extends PipelineDestination<any, any>> = S extends PipelineDestinationPromiseFunction<
             any,
             infer P
-        >
-            ? Promise<P>
+        > ? Promise<P>
             : Promise<void>;
         interface PipelineOptions {
             signal: AbortSignal;
@@ -1203,43 +1201,43 @@ declare module "stream" {
         function pipeline<A extends PipelineSource<any>, B extends PipelineDestination<A, any>>(
             source: A,
             destination: B,
-            callback?: PipelineCallback<B>
+            callback?: PipelineCallback<B>,
         ): B extends WritableStream ? B : WritableStream;
         function pipeline<
             A extends PipelineSource<any>,
             T1 extends PipelineTransform<A, any>,
-            B extends PipelineDestination<T1, any>
+            B extends PipelineDestination<T1, any>,
         >(
             source: A,
             transform1: T1,
             destination: B,
-            callback?: PipelineCallback<B>
+            callback?: PipelineCallback<B>,
         ): B extends WritableStream ? B : WritableStream;
         function pipeline<
             A extends PipelineSource<any>,
             T1 extends PipelineTransform<A, any>,
             T2 extends PipelineTransform<T1, any>,
-            B extends PipelineDestination<T2, any>
+            B extends PipelineDestination<T2, any>,
         >(
             source: A,
             transform1: T1,
             transform2: T2,
             destination: B,
-            callback?: PipelineCallback<B>
+            callback?: PipelineCallback<B>,
         ): B extends WritableStream ? B : WritableStream;
         function pipeline<
             A extends PipelineSource<any>,
             T1 extends PipelineTransform<A, any>,
             T2 extends PipelineTransform<T1, any>,
             T3 extends PipelineTransform<T2, any>,
-            B extends PipelineDestination<T3, any>
+            B extends PipelineDestination<T3, any>,
         >(
             source: A,
             transform1: T1,
             transform2: T2,
             transform3: T3,
             destination: B,
-            callback?: PipelineCallback<B>
+            callback?: PipelineCallback<B>,
         ): B extends WritableStream ? B : WritableStream;
         function pipeline<
             A extends PipelineSource<any>,
@@ -1247,7 +1245,7 @@ declare module "stream" {
             T2 extends PipelineTransform<T1, any>,
             T3 extends PipelineTransform<T2, any>,
             T4 extends PipelineTransform<T3, any>,
-            B extends PipelineDestination<T4, any>
+            B extends PipelineDestination<T4, any>,
         >(
             source: A,
             transform1: T1,
@@ -1255,11 +1253,11 @@ declare module "stream" {
             transform3: T3,
             transform4: T4,
             destination: B,
-            callback?: PipelineCallback<B>
+            callback?: PipelineCallback<B>,
         ): B extends WritableStream ? B : WritableStream;
         function pipeline(
             streams: ReadonlyArray<ReadableStream | WritableStream | ReadWriteStream>,
-            callback?: (err: ErrnoException | null) => void
+            callback?: (err: ErrnoException | null) => void,
         ): WritableStream;
         function pipeline(
             stream1: ReadableStream,
@@ -1270,32 +1268,32 @@ declare module "stream" {
             function __promisify__<A extends PipelineSource<any>, B extends PipelineDestination<A, any>>(
                 source: A,
                 destination: B,
-                options?: PipelineOptions
+                options?: PipelineOptions,
             ): PipelinePromise<B>;
             function __promisify__<
                 A extends PipelineSource<any>,
                 T1 extends PipelineTransform<A, any>,
-                B extends PipelineDestination<T1, any>
+                B extends PipelineDestination<T1, any>,
             >(source: A, transform1: T1, destination: B, options?: PipelineOptions): PipelinePromise<B>;
             function __promisify__<
                 A extends PipelineSource<any>,
                 T1 extends PipelineTransform<A, any>,
                 T2 extends PipelineTransform<T1, any>,
-                B extends PipelineDestination<T2, any>
+                B extends PipelineDestination<T2, any>,
             >(source: A, transform1: T1, transform2: T2, destination: B, options?: PipelineOptions): PipelinePromise<B>;
             function __promisify__<
                 A extends PipelineSource<any>,
                 T1 extends PipelineTransform<A, any>,
                 T2 extends PipelineTransform<T1, any>,
                 T3 extends PipelineTransform<T2, any>,
-                B extends PipelineDestination<T3, any>
+                B extends PipelineDestination<T3, any>,
             >(
                 source: A,
                 transform1: T1,
                 transform2: T2,
                 transform3: T3,
                 destination: B,
-                options?: PipelineOptions
+                options?: PipelineOptions,
             ): PipelinePromise<B>;
             function __promisify__<
                 A extends PipelineSource<any>,
@@ -1303,7 +1301,7 @@ declare module "stream" {
                 T2 extends PipelineTransform<T1, any>,
                 T3 extends PipelineTransform<T2, any>,
                 T4 extends PipelineTransform<T3, any>,
-                B extends PipelineDestination<T4, any>
+                B extends PipelineDestination<T4, any>,
             >(
                 source: A,
                 transform1: T1,
@@ -1311,11 +1309,11 @@ declare module "stream" {
                 transform3: T3,
                 transform4: T4,
                 destination: B,
-                options?: PipelineOptions
+                options?: PipelineOptions,
             ): PipelinePromise<B>;
             function __promisify__(
                 streams: ReadonlyArray<ReadableStream | WritableStream | ReadWriteStream>,
-                options?: PipelineOptions
+                options?: PipelineOptions,
             ): Promise<void>;
             function __promisify__(
                 stream1: ReadableStream,

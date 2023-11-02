@@ -1,1 +1,1 @@
-const c1 = Bun.spawn(["echo", '"hi"']);
+const c1 = Bun.spawn(["echo", "\"hi\""]);

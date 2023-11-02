@@ -540,22 +540,22 @@ declare module "worker_threads" {
         addEventListener<K extends keyof BroadcastChannelEventMap>(
             type: K,
             listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any,
-            options?: boolean | AddEventListenerOptions
+            options?: boolean | AddEventListenerOptions,
         ): void;
         addEventListener(
             type: string,
             listener: EventListenerOrEventListenerObject,
-            options?: boolean | AddEventListenerOptions
+            options?: boolean | AddEventListenerOptions,
         ): void;
         removeEventListener<K extends keyof BroadcastChannelEventMap>(
             type: K,
             listener: (this: BroadcastChannel, ev: BroadcastChannelEventMap[K]) => any,
-            options?: boolean | EventListenerOptions
+            options?: boolean | EventListenerOptions,
         ): void;
         removeEventListener(
             type: string,
             listener: EventListenerOrEventListenerObject,
-            options?: boolean | EventListenerOptions
+            options?: boolean | EventListenerOptions,
         ): void;
 
         /**
@@ -571,7 +571,7 @@ declare module "worker_threads" {
 
     let BroadcastChannel: {
         prototype: BroadcastChannel;
-        new (name: string): BroadcastChannel;
+        new(name: string): BroadcastChannel;
     };
 
     function markAsUntransferable(object: object): void;
@@ -612,8 +612,8 @@ declare module "worker_threads" {
      */
     function receiveMessageOnPort(port: MessagePort):
         | {
-              message: any;
-          }
+            message: any;
+        }
         | undefined;
     type Serializable = string | object | number | boolean | bigint;
     /**
@@ -672,7 +672,7 @@ declare module "worker_threads" {
 
     let MessageChannel: {
         prototype: MessageChannel;
-        new (): MessageChannel;
+        new(): MessageChannel;
     };
 
     interface MessagePortEventMap {

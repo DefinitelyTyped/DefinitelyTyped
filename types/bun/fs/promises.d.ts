@@ -10,24 +10,24 @@
 declare module "fs/promises" {
     import { ArrayBufferView } from "bun";
     import type {
-        Stats,
+        Abortable,
         BigIntStats,
-        StatOptions,
-        MakeDirectoryOptions,
-        Dirent,
-        ObjectEncodingOptions,
-        OpenMode,
-        Mode,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         CopyOptions,
+        Dirent,
         EncodingOption,
-        WriteFileOptions,
-        SimlinkType,
-        Abortable,
-        RmOptions,
+        MakeDirectoryOptions,
+        Mode,
+        ObjectEncodingOptions,
+        OpenMode,
         RmDirOptions,
-        WatchOptions,
+        RmOptions,
+        SimlinkType,
+        StatOptions,
+        Stats,
         WatchEventType,
+        WatchOptions,
+        WriteFileOptions,
     } from "node:fs";
 
     const constants: typeof import("node:fs")["constants"];
@@ -166,7 +166,7 @@ declare module "fs/promises" {
         path: PathLike,
         options: MakeDirectoryOptions & {
             recursive: true;
-        }
+        },
     ): Promise<string | undefined>;
     /**
      * Asynchronous mkdir(2) - create a directory.
@@ -179,9 +179,9 @@ declare module "fs/promises" {
         options?:
             | Mode
             | (MakeDirectoryOptions & {
-                  recursive?: false | undefined;
-              })
-            | null
+                recursive?: false | undefined;
+            })
+            | null,
     ): Promise<void>;
     /**
      * Asynchronous mkdir(2) - create a directory.
@@ -191,7 +191,7 @@ declare module "fs/promises" {
      */
     function mkdir(
         path: PathLike,
-        options?: Mode | MakeDirectoryOptions | null | undefined
+        options?: Mode | MakeDirectoryOptions | null | undefined,
     ): Promise<string | undefined>;
     /**
      * Reads the contents of a directory.
@@ -221,11 +221,11 @@ declare module "fs/promises" {
         path: PathLike,
         options?:
             | (ObjectEncodingOptions & {
-                  withFileTypes?: false | undefined;
-              })
+                withFileTypes?: false | undefined;
+            })
             | BufferEncoding
             | undefined
-            | null
+            | null,
     ): Promise<string[]>;
     /**
      * Asynchronous readdir(3) - read a directory.
@@ -236,10 +236,10 @@ declare module "fs/promises" {
         path: PathLike,
         options:
             | {
-                  encoding: "buffer";
-                  withFileTypes?: false | undefined;
-              }
-            | "buffer"
+                encoding: "buffer";
+                withFileTypes?: false | undefined;
+            }
+            | "buffer",
     ): Promise<Buffer[]>;
     /**
      * Asynchronous readdir(3) - read a directory.
@@ -250,10 +250,10 @@ declare module "fs/promises" {
         path: PathLike,
         options?:
             | (ObjectEncodingOptions & {
-                  withFileTypes?: false | undefined;
-              })
+                withFileTypes?: false | undefined;
+            })
             | BufferEncoding
-            | null
+            | null,
     ): Promise<string[] | Buffer[]>;
     /**
      * Asynchronous readdir(3) - read a directory.
@@ -264,7 +264,7 @@ declare module "fs/promises" {
         path: PathLike,
         options: ObjectEncodingOptions & {
             withFileTypes: true;
-        }
+        },
     ): Promise<Dirent[]>;
     /**
      * Reads the contents of the symbolic link referred to by `path`. See the POSIX [`readlink(2)`](http://man7.org/linux/man-pages/man2/readlink.2.html) documentation for more detail. The promise is
@@ -312,15 +312,15 @@ declare module "fs/promises" {
         path: PathLike,
         options?:
             | (StatOptions & {
-                  bigint?: false | undefined;
-              })
-            | undefined
+                bigint?: false | undefined;
+            })
+            | undefined,
     ): Promise<Stats>;
     function lstat(
         path: PathLike,
         options: StatOptions & {
             bigint: true;
-        }
+        },
     ): Promise<BigIntStats>;
     function lstat(path: PathLike, options?: StatOptions): Promise<Stats | BigIntStats>;
     /**
@@ -331,15 +331,15 @@ declare module "fs/promises" {
         path: PathLike,
         options?:
             | (StatOptions & {
-                  bigint?: false | undefined;
-              })
-            | undefined
+                bigint?: false | undefined;
+            })
+            | undefined,
     ): Promise<Stats>;
     function stat(
         path: PathLike,
         options: StatOptions & {
             bigint: true;
-        }
+        },
     ): Promise<BigIntStats>;
     function stat(path: PathLike, options?: StatOptions): Promise<Stats | BigIntStats>;
     /**
@@ -523,7 +523,7 @@ declare module "fs/promises" {
     function writeFile(
         file: PathOrFileDescriptor,
         data: string | ArrayBufferView | ArrayBufferLike,
-        options?: WriteFileOptions
+        options?: WriteFileOptions,
     ): Promise<void>;
     /**
      * Asynchronously append data to a file, creating the file if it does not yet
@@ -542,7 +542,7 @@ declare module "fs/promises" {
     function appendFile(
         path: PathOrFileDescriptor,
         data: string | Uint8Array,
-        options?: WriteFileOptions
+        options?: WriteFileOptions,
     ): Promise<void>;
     /**
      * Asynchronously reads the entire contents of a file.
@@ -590,10 +590,10 @@ declare module "fs/promises" {
         path: PathOrFileDescriptor,
         options?:
             | ({
-                  encoding?: null | undefined;
-                  flag?: string | undefined;
-              } & Abortable)
-            | null
+                encoding?: null | undefined;
+                flag?: string | undefined;
+            } & Abortable)
+            | null,
     ): Promise<Buffer>;
     /**
      * Asynchronously reads the entire contents of a file.
@@ -606,10 +606,10 @@ declare module "fs/promises" {
         path: PathOrFileDescriptor,
         options:
             | ({
-                  encoding: BufferEncoding;
-                  flag?: OpenMode | undefined;
-              } & Abortable)
-            | BufferEncoding
+                encoding: BufferEncoding;
+                flag?: OpenMode | undefined;
+            } & Abortable)
+            | BufferEncoding,
     ): Promise<string>;
     /**
      * Asynchronously reads the entire contents of a file.
@@ -621,12 +621,15 @@ declare module "fs/promises" {
     function readFile(
         path: PathOrFileDescriptor,
         options?:
-            | (ObjectEncodingOptions &
-                  Abortable & {
-                      flag?: OpenMode | undefined;
-                  })
+            | (
+                & ObjectEncodingOptions
+                & Abortable
+                & {
+                    flag?: OpenMode | undefined;
+                }
+            )
             | BufferEncoding
-            | null
+            | null,
     ): Promise<string | Buffer>;
     /**
      * Asynchronously removes files and directories (modeled on the standard POSIX `rm`utility). No arguments other than a possible exception are given to the
@@ -701,9 +704,9 @@ declare module "fs/promises" {
         filename: PathLike,
         options:
             | (WatchOptions & {
-                  encoding: "buffer";
-              })
-            | "buffer"
+                encoding: "buffer";
+            })
+            | "buffer",
     ): AsyncIterable<FileChangeInfo<Buffer>>;
     /**
      * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
@@ -724,7 +727,7 @@ declare module "fs/promises" {
      */
     function watch(
         filename: PathLike,
-        options: WatchOptions | string
+        options: WatchOptions | string,
     ): AsyncIterable<FileChangeInfo<string>> | AsyncIterable<FileChangeInfo<Buffer>>;
     /**
      * Asynchronously copies the entire directory structure from `source` to `destination`,

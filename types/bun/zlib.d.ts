@@ -128,11 +128,11 @@ declare module "zlib" {
         chunkSize?: number | undefined;
         params?:
             | {
-                  /**
-                   * Each key is a `constants.BROTLI_*` constant.
-                   */
-                  [key: number]: boolean | number;
-              }
+                /**
+                 * Each key is a `constants.BROTLI_*` constant.
+                 */
+                [key: number]: boolean | number;
+            }
             | undefined;
         maxOutputLength?: number | undefined;
     }
@@ -204,8 +204,7 @@ declare module "zlib" {
     function createUnzip(options?: ZlibOptions): Unzip;
     type InputType = string | ArrayBuffer | ArrayBufferView;
     type CompressCallback = (error: Error | null, result: Buffer) => void;
-    /**
-     */
+    /** */
     function brotliCompress(buf: InputType, options: BrotliOptions, callback: CompressCallback): void;
     function brotliCompress(buf: InputType, callback: CompressCallback): void;
     namespace brotliCompress {
@@ -215,8 +214,7 @@ declare module "zlib" {
      * Compress a chunk of data with `BrotliCompress`.
      */
     function brotliCompressSync(buf: InputType, options?: BrotliOptions): Buffer;
-    /**
-     */
+    /** */
     function brotliDecompress(buf: InputType, options: BrotliOptions, callback: CompressCallback): void;
     function brotliDecompress(buf: InputType, callback: CompressCallback): void;
     namespace brotliDecompress {
@@ -226,8 +224,7 @@ declare module "zlib" {
      * Decompress a chunk of data with `BrotliDecompress`.
      */
     function brotliDecompressSync(buf: InputType, options?: BrotliOptions): Buffer;
-    /**
-     */
+    /** */
     function deflate(buf: InputType, callback: CompressCallback): void;
     function deflate(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
     namespace deflate {
@@ -237,8 +234,7 @@ declare module "zlib" {
      * Compress a chunk of data with `Deflate`.
      */
     function deflateSync(buf: InputType, options?: ZlibOptions): Buffer;
-    /**
-     */
+    /** */
     function deflateRaw(buf: InputType, callback: CompressCallback): void;
     function deflateRaw(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
     namespace deflateRaw {
@@ -248,8 +244,7 @@ declare module "zlib" {
      * Compress a chunk of data with `DeflateRaw`.
      */
     function deflateRawSync(buf: InputType, options?: ZlibOptions): Buffer;
-    /**
-     */
+    /** */
     function gzip(buf: InputType, callback: CompressCallback): void;
     function gzip(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
     namespace gzip {
@@ -259,8 +254,7 @@ declare module "zlib" {
      * Compress a chunk of data with `Gzip`.
      */
     function gzipSync(buf: InputType, options?: ZlibOptions): Buffer;
-    /**
-     */
+    /** */
     function gunzip(buf: InputType, callback: CompressCallback): void;
     function gunzip(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
     namespace gunzip {
@@ -270,8 +264,7 @@ declare module "zlib" {
      * Decompress a chunk of data with `Gunzip`.
      */
     function gunzipSync(buf: InputType, options?: ZlibOptions): Buffer;
-    /**
-     */
+    /** */
     function inflate(buf: InputType, callback: CompressCallback): void;
     function inflate(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
     namespace inflate {
@@ -281,8 +274,7 @@ declare module "zlib" {
      * Decompress a chunk of data with `Inflate`.
      */
     function inflateSync(buf: InputType, options?: ZlibOptions): Buffer;
-    /**
-     */
+    /** */
     function inflateRaw(buf: InputType, callback: CompressCallback): void;
     function inflateRaw(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
     namespace inflateRaw {
@@ -292,8 +284,7 @@ declare module "zlib" {
      * Decompress a chunk of data with `InflateRaw`.
      */
     function inflateRawSync(buf: InputType, options?: ZlibOptions): Buffer;
-    /**
-     */
+    /** */
     function unzip(buf: InputType, callback: CompressCallback): void;
     function unzip(buf: InputType, options: ZlibOptions, callback: CompressCallback): void;
     namespace unzip {

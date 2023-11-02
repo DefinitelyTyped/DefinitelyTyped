@@ -12,7 +12,7 @@ import * as tsd from "./utilities.test";
         Bun.plugin({
             name: "arg",
             setup() {},
-        })
+        }),
     );
 
     tsd.expectType<void>(arg);

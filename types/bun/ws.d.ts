@@ -38,12 +38,12 @@ declare module "ws" {
     }) => boolean;
     type VerifyClientCallbackAsync<Request extends IncomingMessage = IncomingMessage> = (
         info: { origin: string; secure: boolean; req: Request },
-        callback: (res: boolean, code?: number, message?: string, headers?: OutgoingHttpHeaders) => void
+        callback: (res: boolean, code?: number, message?: string, headers?: OutgoingHttpHeaders) => void,
     ) => void;
 
     interface WebSocketServerOptions<
         U extends typeof WebSocket = typeof WebSocket,
-        V extends typeof IncomingMessage = typeof IncomingMessage
+        V extends typeof IncomingMessage = typeof IncomingMessage,
     > {
         host?: string | undefined;
         port?: number | undefined;
@@ -75,7 +75,7 @@ declare module "ws" {
     // WebSocket Server
     class WebSocketServer<
         T extends typeof WebSocket = typeof WebSocket,
-        U extends typeof IncomingMessage = typeof IncomingMessage
+        U extends typeof IncomingMessage = typeof IncomingMessage,
     > extends EventEmitter {
         options: WebSocketServerOptions<T, U>;
         path: string;
@@ -89,14 +89,14 @@ declare module "ws" {
             request: InstanceType<U>,
             socket: Duplex,
             upgradeHead: Buffer,
-            callback: (client: InstanceType<T>, request: InstanceType<U>) => void
+            callback: (client: InstanceType<T>, request: InstanceType<U>) => void,
         ): void;
         shouldHandle(request: InstanceType<U>): boolean | Promise<boolean>;
 
         // Events
         on(
             event: "connection",
-            cb: (this: WebSocketServer<T>, socket: InstanceType<T>, request: InstanceType<U>) => void
+            cb: (this: WebSocketServer<T>, socket: InstanceType<T>, request: InstanceType<U>) => void,
         ): this;
         on(event: "error", cb: (this: WebSocketServer<T>, error: Error) => void): this;
         on(event: "headers", cb: (this: WebSocketServer<T>, headers: string[], request: InstanceType<U>) => void): this;
@@ -105,24 +105,24 @@ declare module "ws" {
 
         once(
             event: "connection",
-            cb: (this: WebSocketServer<T>, socket: InstanceType<T>, request: InstanceType<U>) => void
+            cb: (this: WebSocketServer<T>, socket: InstanceType<T>, request: InstanceType<U>) => void,
         ): this;
         once(event: "error", cb: (this: WebSocketServer<T>, error: Error) => void): this;
         once(
             event: "headers",
-            cb: (this: WebSocketServer<T>, headers: string[], request: InstanceType<U>) => void
+            cb: (this: WebSocketServer<T>, headers: string[], request: InstanceType<U>) => void,
         ): this;
         once(event: "close" | "listening", cb: (this: WebSocketServer<T>) => void): this;
         once(event: string | symbol, listener: (this: WebSocketServer<T>, ...args: any[]) => void): this;
 
         off(
             event: "connection",
-            cb: (this: WebSocketServer<T>, socket: InstanceType<T>, request: InstanceType<U>) => void
+            cb: (this: WebSocketServer<T>, socket: InstanceType<T>, request: InstanceType<U>) => void,
         ): this;
         off(event: "error", cb: (this: WebSocketServer<T>, error: Error) => void): this;
         off(
             event: "headers",
-            cb: (this: WebSocketServer<T>, headers: string[], request: InstanceType<U>) => void
+            cb: (this: WebSocketServer<T>, headers: string[], request: InstanceType<U>) => void,
         ): this;
         off(event: "close" | "listening", cb: (this: WebSocketServer<T>) => void): this;
         off(event: string | symbol, listener: (this: WebSocketServer<T>, ...args: any[]) => void): this;

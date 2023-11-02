@@ -1,5 +1,5 @@
 async function* listReleases() {
-    for (let page = 1; ; page++) {
+    for (let page = 1;; page++) {
         const response = await fetch(`https://api.github.com/repos/oven-sh/bun/releases?page=${page}`);
         const releases: { data: string }[] = await response.json();
         if (!releases.length) {

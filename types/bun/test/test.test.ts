@@ -1,4 +1,4 @@
-import { test, expect, describe, beforeAll, afterAll, beforeEach, afterEach, spyOn } from "bun:test";
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, spyOn, test } from "bun:test";
 import { expectType } from "./utilities.test";
 
 const spy = spyOn(console, "log");

@@ -6,20 +6,20 @@
  */
 declare module "dns/promises" {
     import {
-        LookupAddress,
-        LookupOneOptions,
-        LookupAllOptions,
-        LookupOptions,
         AnyRecord,
         CaaRecord,
+        LookupAddress,
+        LookupAllOptions,
+        LookupOneOptions,
+        LookupOptions,
         MxRecord,
         NaptrRecord,
-        SoaRecord,
-        SrvRecord,
-        ResolveWithTtlOptions,
         RecordWithTtl,
         ResolveOptions,
         ResolverOptions,
+        ResolveWithTtlOptions,
+        SoaRecord,
+        SrvRecord,
     } from "node:dns";
     /**
      * Returns an array of IP address strings, formatted according to [RFC 5952](https://tools.ietf.org/html/rfc5952#section-6),
@@ -106,7 +106,7 @@ declare module "dns/promises" {
      */
     function lookupService(
         address: string,
-        port: number
+        port: number,
     ): Promise<{
         hostname: string;
         service: string;
@@ -138,7 +138,7 @@ declare module "dns/promises" {
     function resolve(hostname: string, rrtype: "TXT"): Promise<string[][]>;
     function resolve(
         hostname: string,
-        rrtype: string
+        rrtype: string,
     ): Promise<string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][] | AnyRecord[]>;
 
     /**

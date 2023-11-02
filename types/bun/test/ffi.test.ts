@@ -1,4 +1,4 @@
-import { dlopen, FFIType, suffix, CString, Pointer, read } from "bun:ffi";
+import { CString, dlopen, FFIType, Pointer, read, suffix } from "bun:ffi";
 import * as tsd from "./utilities.test";
 
 // `suffix` is either "dylib", "so", or "dll" depending on the platform
@@ -59,7 +59,7 @@ const lib = dlopen(
             ],
             returns: FFIType.void,
         },
-    }
+    },
 );
 
 tsd.expectType<CString>(lib.symbols.sqlite3_libversion());
@@ -100,7 +100,7 @@ function arg(
         void,
         CString,
         number | bigint,
-        number | bigint
+        number | bigint,
     ]
 ) {
     console.log("asdf");

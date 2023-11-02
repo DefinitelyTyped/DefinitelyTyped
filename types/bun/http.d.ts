@@ -42,7 +42,7 @@
 declare module "http" {
     import * as stream from "node:stream";
 
-    import { Socket, TcpSocketConnectOpts, Server as NetServer } from "node:net";
+    import { Server as NetServer, Socket, TcpSocketConnectOpts } from "node:net";
 
     // incoming headers will never contain number
     interface IncomingHttpHeaders extends Dict<string | string[]> {
@@ -149,7 +149,7 @@ declare module "http" {
 
     interface ServerOptions<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse
+        Response extends typeof ServerResponse = typeof ServerResponse,
     > {
         /**
          * Specifies the `IncomingMessage` class to be used. Useful for extending the original `IncomingMessage`.
@@ -221,7 +221,7 @@ declare module "http" {
     }
     type RequestListener<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse
+        Response extends typeof ServerResponse = typeof ServerResponse,
     > = (req: InstanceType<Request>, res: InstanceType<Response> & { req: InstanceType<Request> }) => void;
     /**
      * @since v0.1.17
@@ -229,16 +229,16 @@ declare module "http" {
     let Server: Server;
     interface Server<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse
+        Response extends typeof ServerResponse = typeof ServerResponse,
     > extends NetServer {
         prototype: Server<Request, Response>;
 
-        new <Req extends typeof IncomingMessage, Res extends typeof ServerResponse>(
-            requestListener?: RequestListener<Req, Res>
+        new<Req extends typeof IncomingMessage, Res extends typeof ServerResponse>(
+            requestListener?: RequestListener<Req, Res>,
         ): Server<Req, Res>;
-        new <Req extends typeof IncomingMessage, Res extends typeof ServerResponse>(
+        new<Req extends typeof IncomingMessage, Res extends typeof ServerResponse>(
             options: ServerOptions<Req, Res>,
-            requestListener?: RequestListener<Req, Res>
+            requestListener?: RequestListener<Req, Res>,
         ): Server<Req, Res>;
         /**
          * Sets the timeout value for sockets, and emits a `'timeout'` event on
@@ -346,12 +346,12 @@ declare module "http" {
         addListener(event: "clientError", listener: (err: Error, socket: stream.Duplex) => void): this;
         addListener(
             event: "connect",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
         addListener(event: "request", listener: RequestListener<Request, Response>): this;
         addListener(
             event: "upgrade",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
         emit(event: string, ...args: any[]): boolean;
         emit(event: "close"): boolean;
@@ -361,19 +361,19 @@ declare module "http" {
         emit(
             event: "checkContinue",
             req: InstanceType<Request>,
-            res: InstanceType<Response> & { req: InstanceType<Request> }
+            res: InstanceType<Response> & { req: InstanceType<Request> },
         ): boolean;
         emit(
             event: "checkExpectation",
             req: InstanceType<Request>,
-            res: InstanceType<Response> & { req: InstanceType<Request> }
+            res: InstanceType<Response> & { req: InstanceType<Request> },
         ): boolean;
         emit(event: "clientError", err: Error, socket: stream.Duplex): boolean;
         emit(event: "connect", req: InstanceType<Request>, socket: stream.Duplex, head: Buffer): boolean;
         emit(
             event: "request",
             req: InstanceType<Request>,
-            res: InstanceType<Response> & { req: InstanceType<Request> }
+            res: InstanceType<Response> & { req: InstanceType<Request> },
         ): boolean;
         emit(event: "upgrade", req: InstanceType<Request>, socket: stream.Duplex, head: Buffer): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
@@ -397,12 +397,12 @@ declare module "http" {
         once(event: "clientError", listener: (err: Error, socket: stream.Duplex) => void): this;
         once(
             event: "connect",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
         once(event: "request", listener: RequestListener<Request, Response>): this;
         once(
             event: "upgrade",
-            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void
+            listener: (req: InstanceType<Request>, socket: stream.Duplex, head: Buffer) => void,
         ): this;
         // prependListener(event: string, listener: (...args: any[]) => void): this;
         // prependListener(event: "close", listener: () => void): this;
@@ -766,7 +766,7 @@ declare module "http" {
         writeHead(
             statusCode: number,
             statusMessage?: string,
-            headers?: OutgoingHttpHeaders | OutgoingHttpHeader[]
+            headers?: OutgoingHttpHeaders | OutgoingHttpHeader[],
         ): this;
         writeHead(statusCode: number, headers?: OutgoingHttpHeaders | OutgoingHttpHeader[]): this;
         /**
@@ -1365,14 +1365,14 @@ declare module "http" {
      */
     function createServer<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse
+        Response extends typeof ServerResponse = typeof ServerResponse,
     >(requestListener?: RequestListener<Request, Response>): Server<Request, Response>;
     function createServer<
         Request extends typeof IncomingMessage = typeof IncomingMessage,
-        Response extends typeof ServerResponse = typeof ServerResponse
+        Response extends typeof ServerResponse = typeof ServerResponse,
     >(
         options: ServerOptions<Request, Response>,
-        requestListener?: RequestListener<Request, Response>
+        requestListener?: RequestListener<Request, Response>,
     ): Server<Request, Response>;
 
     // although RequestOptions are passed as ClientRequestArgs to ClientRequest directly,
@@ -1567,7 +1567,7 @@ declare module "http" {
     function request(
         url: string | URL,
         options: RequestOptions,
-        callback?: (res: IncomingMessage) => void
+        callback?: (res: IncomingMessage) => void,
     ): ClientRequest;
     /**
      * Since most requests are GET requests without bodies, Node.js provides this
