@@ -66,3 +66,5 @@ cron.Monitor.put({
         "response.time < 600ms",
     ],
 });
+
+const state = cron.Monitor.State;
