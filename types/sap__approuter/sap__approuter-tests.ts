@@ -1,9 +1,10 @@
+/// <reference types="node" />
+
 /**
  * These tests are mostly extracted from the README file and `doc/extending.md` (both in @sap/approuter (the source npm
  * package).
  */
 import {StartOptions} from "@sap/approuter";
-import morgan = require('morgan');
 import approuter = require('@sap/approuter');
 
 const ar = approuter();
@@ -36,7 +37,6 @@ ar.start();
 
 /*************** Example 3 ***************/
 ar.beforeRequestHandler
-    .use(morgan('combined'))
     .use('/my-ext', function myMiddleware(req, res, next) {
         res.end('Request handled by my extension!');
     });
