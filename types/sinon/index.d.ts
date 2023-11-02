@@ -1529,6 +1529,24 @@ declare namespace Sinon {
         ): SinonSpy<TArgs, TReturnValue>;
     }
 
+    interface SandboxReplace {
+        /**
+         * Replaces property on object with replacement argument.
+         * Attempts to replace an already replaced value cause an exception.
+         * replacement can be any value, including spies, stubs and fakes.
+         * This method only works on non-accessor properties, for replacing accessors,
+         * use sandbox.replaceGetter() and sandbox.replaceSetter().
+         */
+        <T, TKey extends keyof T, R extends T[TKey] = T[TKey]>(obj: T, prop: TKey, replacement: R): R;
+
+        /**
+         * Assigns a value to a property on object with replacement argument.
+         * replacement can be any value, including spies, stubs and fakes.
+         * This method only works on accessor properties.
+         */
+        usingAccessor<T, TKey extends keyof T, R extends T[TKey] = T[TKey]>(obj: T, prop: TKey, replacement: R): R;
+    }
+
     interface SinonSandbox {
         /**
          * A convenience reference for sinon.assert
@@ -1617,12 +1635,8 @@ declare namespace Sinon {
          */
         verifyAndRestore(): void;
 
-        /**
-         * Replaces property on object with replacement argument. Attempts to replace an already replaced value cause an exception.
-         * replacement can be any value, including spies, stubs and fakes.
-         * This method only works on non-accessor properties, for replacing accessors, use sandbox.replaceGetter() and sandbox.replaceSetter().
-         */
-        replace<T, TKey extends keyof T, R extends T[TKey] = T[TKey]>(obj: T, prop: TKey, replacement: R): R;
+        replace: SandboxReplace
+
         /**
          * Replaces getter for property on object with replacement argument. Attempts to replace an already replaced getter cause an exception.
          * replacement must be a Function, and can be instances of spies, stubs and fakes.
@@ -1631,6 +1645,7 @@ declare namespace Sinon {
          * @param replacement
          */
         replaceGetter<T, TKey extends keyof T>(obj: T, prop: TKey, replacement: () => T[TKey]): () => T[TKey];
+
         /**
          * Replaces setter for property on object with replacement argument. Attempts to replace an already replaced setter cause an exception.
          * replacement must be a Function, and can be instances of spies, stubs and fakes.
