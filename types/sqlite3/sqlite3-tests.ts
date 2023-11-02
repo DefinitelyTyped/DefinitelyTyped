@@ -112,4 +112,6 @@ db.each("select 1", err => {
     db.interrupt();
 });
 
+db.configure('busyTimeout',0);
+
 db.close();
