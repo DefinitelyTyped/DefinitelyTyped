@@ -64,25 +64,25 @@ declare module "bun:sqlite" {
             options?:
                 | number
                 | {
-                      /**
-                       * Open the database as read-only (no write operations, no create).
-                       *
-                       * Equivalent to {@link constants.SQLITE_OPEN_READONLY}
-                       */
-                      readonly?: boolean;
-                      /**
-                       * Allow creating a new database
-                       *
-                       * Equivalent to {@link constants.SQLITE_OPEN_CREATE}
-                       */
-                      create?: boolean;
-                      /**
-                       * Open the database as read-write
-                       *
-                       * Equivalent to {@link constants.SQLITE_OPEN_READWRITE}
-                       */
-                      readwrite?: boolean;
-                  }
+                    /**
+                     * Open the database as read-only (no write operations, no create).
+                     *
+                     * Equivalent to {@link constants.SQLITE_OPEN_READONLY}
+                     */
+                    readonly?: boolean;
+                    /**
+                     * Allow creating a new database
+                     *
+                     * Equivalent to {@link constants.SQLITE_OPEN_CREATE}
+                     */
+                    create?: boolean;
+                    /**
+                     * Open the database as read-write
+                     *
+                     * Equivalent to {@link constants.SQLITE_OPEN_READWRITE}
+                     */
+                    readwrite?: boolean;
+                },
         );
 
         /**
@@ -95,25 +95,25 @@ declare module "bun:sqlite" {
             options?:
                 | number
                 | {
-                      /**
-                       * Open the database as read-only (no write operations, no create).
-                       *
-                       * Equivalent to {@link constants.SQLITE_OPEN_READONLY}
-                       */
-                      readonly?: boolean;
-                      /**
-                       * Allow creating a new database
-                       *
-                       * Equivalent to {@link constants.SQLITE_OPEN_CREATE}
-                       */
-                      create?: boolean;
-                      /**
-                       * Open the database as read-write
-                       *
-                       * Equivalent to {@link constants.SQLITE_OPEN_READWRITE}
-                       */
-                      readwrite?: boolean;
-                  }
+                    /**
+                     * Open the database as read-only (no write operations, no create).
+                     *
+                     * Equivalent to {@link constants.SQLITE_OPEN_READONLY}
+                     */
+                    readonly?: boolean;
+                    /**
+                     * Allow creating a new database
+                     *
+                     * Equivalent to {@link constants.SQLITE_OPEN_CREATE}
+                     */
+                    create?: boolean;
+                    /**
+                     * Open the database as read-write
+                     *
+                     * Equivalent to {@link constants.SQLITE_OPEN_READWRITE}
+                     */
+                    readwrite?: boolean;
+                },
         ): Database;
 
         /**
@@ -196,7 +196,7 @@ declare module "bun:sqlite" {
          * Under the hood, this calls `sqlite3_prepare_v3`.
          */
         query<ReturnType, ParamsType extends SQLQueryBindings | SQLQueryBindings[]>(
-            sqlQuery: string
+            sqlQuery: string,
         ): // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
         Statement<ReturnType, ParamsType extends Array<any> ? ParamsType : [ParamsType]>;
 
@@ -222,7 +222,7 @@ declare module "bun:sqlite" {
          */
         prepare<ReturnType, ParamsType extends SQLQueryBindings | SQLQueryBindings[]>(
             sqlQuery: string,
-            params?: ParamsType
+            params?: ParamsType,
         ): // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
         Statement<ReturnType, ParamsType extends Array<any> ? ParamsType : [ParamsType]>;
 

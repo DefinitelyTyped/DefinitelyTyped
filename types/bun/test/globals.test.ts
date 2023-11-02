@@ -30,7 +30,7 @@ expectType<Uint8Array>(
         memLevel: 8,
         strategy: 0,
         windowBits: 15,
-    })
+    }),
 );
 expectType<Uint8Array>(Bun.gzipSync(new Uint8Array(128), { level: 9, memLevel: 6, windowBits: 27 }));
 expectType<Uint8Array>(Bun.inflateSync(new Uint8Array(64))); // Pretend this is DEFLATE compressed data

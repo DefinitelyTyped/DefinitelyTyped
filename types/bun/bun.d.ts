@@ -160,7 +160,7 @@ declare module "bun" {
         options?: {
             /** If writing to a PathLike, set the permissions of the file. */
             mode?: number;
-        }
+        },
     ): Promise<number>;
 
     /**
@@ -282,7 +282,7 @@ declare module "bun" {
      * @returns A promise that resolves with the concatenated chunks or the concatenated chunks as an `ArrayBuffer`.
      */
     function readableStreamToArrayBuffer(
-        stream: ReadableStream<ArrayBufferView | ArrayBufferLike>
+        stream: ReadableStream<ArrayBufferView | ArrayBufferLike>,
     ): Promise<ArrayBuffer> | ArrayBuffer;
 
     /**
@@ -324,7 +324,7 @@ declare module "bun" {
      */
     function readableStreamToFormData(
         stream: ReadableStream<string | TypedArray | ArrayBufferView>,
-        multipartBoundaryExcludingDashes?: string | TypedArray | ArrayBufferView
+        multipartBoundaryExcludingDashes?: string | TypedArray | ArrayBufferView,
     ): Promise<FormData>;
 
     /**
@@ -534,7 +534,7 @@ declare module "bun" {
                  * `"system"` uses the same API underneath (except non-blocking).
                  */
                 backend?: "libc" | "c-ares" | "system" | "getaddrinfo";
-            }
+            },
         ): Promise<DNSLookup[]>;
     };
 
@@ -734,11 +734,12 @@ declare module "bun" {
      * @param data The data to hash.
      * @param seed The seed to use.
      */
-    const hash: ((
-        data: string | ArrayBufferView | ArrayBuffer | SharedArrayBuffer,
-        seed?: number | bigint
-    ) => number | bigint) &
-        Hash;
+    const hash:
+        & ((
+            data: string | ArrayBufferView | ArrayBuffer | SharedArrayBuffer,
+            seed?: number | bigint,
+        ) => number | bigint)
+        & Hash;
 
     interface Hash {
         wyhash: (data: string | ArrayBufferView | ArrayBuffer | SharedArrayBuffer, seed?: bigint) => bigint;
@@ -762,7 +763,7 @@ declare module "bun" {
         a: any,
         b: any,
         /** @default false */
-        strict?: boolean
+        strict?: boolean,
     ): boolean;
 
     /**
@@ -1007,10 +1008,10 @@ declare module "bun" {
         naming?:
             | string
             | {
-                  chunk?: string;
-                  entry?: string;
-                  asset?: string;
-              }; // | string;
+                chunk?: string;
+                entry?: string;
+                asset?: string;
+            }; // | string;
         root?: string; // project root
         splitting?: boolean; // default true, enable code splitting
         plugins?: BunPlugin[];
@@ -1024,10 +1025,10 @@ declare module "bun" {
         minify?:
             | boolean
             | {
-                  whitespace?: boolean;
-                  syntax?: boolean;
-                  identifiers?: boolean;
-              };
+                whitespace?: boolean;
+                syntax?: boolean;
+                identifiers?: boolean;
+            };
         // treeshaking?: boolean;
 
         // jsx?:
@@ -1133,7 +1134,7 @@ declare module "bun" {
              * If specified and the algorithm does not match the hash, this function
              * throws an error.
              */
-            algorithm?: Password.AlgorithmLabel
+            algorithm?: Password.AlgorithmLabel,
         ): Promise<boolean>;
         /**
          * Asynchronously hash a password using argon2 or bcrypt. The default is argon2.
@@ -1168,7 +1169,7 @@ declare module "bun" {
              *
              * When using bcrypt, passwords exceeding 72 characters will be SHA512'd before
              */
-            algorithm?: Password.AlgorithmLabel | Password.Argon2Algorithm | Password.BCryptAlgorithm
+            algorithm?: Password.AlgorithmLabel | Password.Argon2Algorithm | Password.BCryptAlgorithm,
         ): Promise<string>;
 
         /**
@@ -1207,7 +1208,7 @@ declare module "bun" {
             /**
              * If not specified, the algorithm will be inferred from the hash.
              */
-            algorithm?: Password.AlgorithmLabel
+            algorithm?: Password.AlgorithmLabel,
         ): boolean;
 
         /**
@@ -1253,7 +1254,7 @@ declare module "bun" {
              *
              * When using bcrypt, passwords exceeding 72 characters will be SHA256'd before
              */
-            algorithm?: Password.AlgorithmLabel | Password.Argon2Algorithm | Password.BCryptAlgorithm
+            algorithm?: Password.AlgorithmLabel | Password.Argon2Algorithm | Password.BCryptAlgorithm,
         ): string;
     };
 
@@ -1703,15 +1704,15 @@ declare module "bun" {
         perMessageDeflate?:
             | boolean
             | {
-                  /**
-                   * Sets the compression level.
-                   */
-                  compress?: WebSocketCompressor | boolean;
-                  /**
-                   * Sets the decompression level.
-                   */
-                  decompress?: WebSocketCompressor | boolean;
-              };
+                /**
+                 * Sets the compression level.
+                 */
+                compress?: WebSocketCompressor | boolean;
+                /**
+                 * Sets the decompression level.
+                 */
+                decompress?: WebSocketCompressor | boolean;
+            };
     }
 
     interface GenericServeOptions {
@@ -1751,7 +1752,7 @@ declare module "bun" {
 
         error?: (
             this: Server,
-            request: Errorlike
+            request: Errorlike,
         ) => Response | Promise<Response> | undefined | void | Promise<undefined>;
 
         /**
@@ -1962,14 +1963,14 @@ declare module "bun" {
     }
 
     interface TLSWebSocketServeOptions<WebSocketDataType = undefined>
-        extends WebSocketServeOptions<WebSocketDataType>,
-            TLSOptions {
+        extends WebSocketServeOptions<WebSocketDataType>, TLSOptions
+    {
         unix?: never;
         tls?: TLSOptions;
     }
     interface UnixTLSWebSocketServeOptions<WebSocketDataType = undefined>
-        extends UnixWebSocketServeOptions<WebSocketDataType>,
-            TLSOptions {
+        extends UnixWebSocketServeOptions<WebSocketDataType>, TLSOptions
+    {
         /**
          * If set, the HTTP server will listen on a unix socket instead of a port.
          * (Cannot be used with hostname+port)
@@ -2210,7 +2211,7 @@ declare module "bun" {
                  */
                 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
                 data?: T;
-            }
+            },
         ): boolean;
 
         /**
@@ -2246,7 +2247,7 @@ declare module "bun" {
         publish(
             topic: string,
             data: string | ArrayBufferView | ArrayBuffer | SharedArrayBuffer,
-            compress?: boolean
+            compress?: boolean,
         ): ServerWebSocketSendStatus;
 
         /**
@@ -3096,7 +3097,7 @@ declare module "bun" {
     }
 
     type OnResolveCallback = (
-        args: OnResolveArgs
+        args: OnResolveArgs,
     ) => OnResolveResult | Promise<OnResolveResult | undefined | null> | void | undefined | null;
 
     interface PluginBuilder {
@@ -3201,7 +3202,7 @@ declare module "bun" {
              * }));
              * ```
              */
-            build: PluginBuilder
+            build: PluginBuilder,
         ): void | Promise<void>;
     }
 
@@ -3535,7 +3536,7 @@ declare module "bun" {
         interface OptionsObject<
             In extends Writable = Writable,
             Out extends Readable = Readable,
-            Err extends Readable = Readable
+            Err extends Readable = Readable,
         > {
             /**
              * The current working directory of the process
@@ -3642,7 +3643,7 @@ declare module "bun" {
                 /**
                  * If an error occurred in the call to waitpid2, this will be the error.
                  */
-                error?: Errorlike
+                error?: Errorlike,
             ): void | Promise<void>;
 
             /**
@@ -3660,7 +3661,7 @@ declare module "bun" {
                 /**
                  * The {@link Subprocess} that sent the message
                  */
-                subprocess: Subprocess<In, Out, Err>
+                subprocess: Subprocess<In, Out, Err>,
             ): void;
         }
 
@@ -3668,14 +3669,13 @@ declare module "bun" {
             infer In,
             infer Out,
             infer Err
-        >
-            ? Subprocess<
-                  // "Writable extends In" means "if In === Writable",
-                  // aka if true that means the user didn't specify anything
-                  Writable extends In ? "ignore" : In,
-                  Readable extends Out ? "pipe" : Out,
-                  Readable extends Err ? "inherit" : Err
-              >
+        > ? Subprocess<
+                // "Writable extends In" means "if In === Writable",
+                // aka if true that means the user didn't specify anything
+                Writable extends In ? "ignore" : In,
+                Readable extends Out ? "pipe" : Out,
+                Readable extends Err ? "inherit" : Err
+            >
             : Subprocess<Writable, Readable, Readable>;
 
         type OptionsToSyncSubprocess<Opts extends OptionsObject> = Opts extends OptionsObject<any, infer Out, infer Err>
@@ -3684,20 +3684,16 @@ declare module "bun" {
 
         type ReadableIO = ReadableStream<Uint8Array> | number | undefined;
 
-        type ReadableToIO<X extends Readable> = X extends "pipe" | undefined
-            ? ReadableStream<Uint8Array>
-            : X extends BunFile | ArrayBufferView | number
-            ? number
+        type ReadableToIO<X extends Readable> = X extends "pipe" | undefined ? ReadableStream<Uint8Array>
+            : X extends BunFile | ArrayBufferView | number ? number
             : undefined;
 
         type ReadableToSyncIO<X extends Readable> = X extends "pipe" | undefined ? Buffer : undefined;
 
         type WritableIO = FileSink | number | undefined;
 
-        type WritableToIO<X extends Writable> = X extends "pipe"
-            ? FileSink
-            : X extends BunFile | ArrayBufferView | Blob | Request | Response | number
-            ? number
+        type WritableToIO<X extends Writable> = X extends "pipe" ? FileSink
+            : X extends BunFile | ArrayBufferView | Blob | Request | Response | number ? number
             : undefined;
     }
 
@@ -3713,7 +3709,7 @@ declare module "bun" {
     interface Subprocess<
         In extends SpawnOptions.Writable = SpawnOptions.Writable,
         Out extends SpawnOptions.Readable = SpawnOptions.Readable,
-        Err extends SpawnOptions.Readable = SpawnOptions.Readable
+        Err extends SpawnOptions.Readable = SpawnOptions.Readable,
     > {
         readonly stdin: SpawnOptions.WritableToIO<In>;
         readonly stdout: SpawnOptions.ReadableToIO<Out>;
@@ -3811,7 +3807,7 @@ declare module "bun" {
      */
     interface SyncSubprocess<
         Out extends SpawnOptions.Readable = SpawnOptions.Readable,
-        Err extends SpawnOptions.Readable = SpawnOptions.Readable
+        Err extends SpawnOptions.Readable = SpawnOptions.Readable,
     > {
         stdout: SpawnOptions.ReadableToSyncIO<Out>;
         stderr: SpawnOptions.ReadableToSyncIO<Err>;
@@ -3850,7 +3846,7 @@ declare module "bun" {
              * ```
              */
             cmd: string[]; // to support dynamically constructed commands
-        }
+        },
     ): SpawnOptions.OptionsToSubprocess<Opts>;
 
     /**
@@ -3880,7 +3876,7 @@ declare module "bun" {
          * ```
          */
         cmds: string[],
-        options?: Opts
+        options?: Opts,
     ): SpawnOptions.OptionsToSubprocess<Opts>;
 
     /**
@@ -3912,7 +3908,7 @@ declare module "bun" {
              * ```
              */
             cmd: string[];
-        }
+        },
     ): SpawnOptions.OptionsToSyncSubprocess<Opts>;
 
     /**
@@ -3941,7 +3937,7 @@ declare module "bun" {
          * ```
          */
         cmds: string[],
-        options?: Opts
+        options?: Opts,
     ): SpawnOptions.OptionsToSyncSubprocess<Opts>;
 
     /** Utility type for any process from {@link Bun.spawn()} with both stdout and stderr set to `"pipe"` */
