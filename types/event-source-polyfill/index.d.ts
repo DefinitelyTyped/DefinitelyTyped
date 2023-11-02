@@ -35,9 +35,9 @@ export interface EventSourceEventMap {
     "open": Event;
 }
 
-export interface MessageEvent extends Event {
-    data: any;
-    lastEventId: string;
+export interface MessageEvent<T = any> extends Event {
+    readonly data: T;
+    readonly lastEventId: string;
 }
 
 export class EventSourcePolyfill {
