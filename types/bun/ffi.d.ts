@@ -554,10 +554,13 @@ declare module "bun:ffi" {
         close(): void;
     }
 
-    type ToFFIType<T extends FFITypeOrString> = T extends FFIType ? T
-        : T extends string ? FFITypeStringToType[T]
+    type ToFFIType<T extends FFITypeOrString> = T extends FFIType
+        ? T
+        : T extends string
+        ? FFITypeStringToType[T]
         : never;
 
+    // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
     type _Narrow<T, U> = [U] extends [T] ? U : Extract<T, U>;
     type Narrow<T = unknown> =
         | _Narrow<T, 0 | (number & {})>
@@ -574,11 +577,14 @@ declare module "bun:ffi" {
         [K in keyof Fns]: (
             ...args: Fns[K]["args"] extends infer A extends readonly FFITypeOrString[]
                 ? { [L in keyof A]: FFITypeToArgsType[ToFFIType<A[L]>] }
-                : [unknown] extends [Fns[K]["args"]] ? []
+                : // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+                [unknown] extends [Fns[K]["args"]]
+                ? []
                 : never
-        ) => [unknown] extends [Fns[K]["returns"]]
-            // tslint:disable-next-line: void-return
-            ? void
+        ) => // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+        [unknown] extends [Fns[K]["returns"]]
+            ? // tslint:disable-next-line: void-return
+              void
             : FFITypeToReturnsType[ToFFIType<NonNullable<Fns[K]["returns"]>>];
     };
 

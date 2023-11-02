@@ -1,9 +1,6 @@
 {
     "rules": {
-        "@definitelytyped/no-single-element-tuple-type": "off",
         "@definitelytyped/no-single-declare-module": "off",
-        "@definitelytyped/no-unnecessary-generics": "off",
-        "@definitelytyped/no-self-import": "off",
-        "@definitelytyped/redundant-undefined": "off"
+        "@definitelytyped/no-self-import": "off"
     }
 }

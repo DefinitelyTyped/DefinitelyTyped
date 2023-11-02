@@ -34,11 +34,9 @@ Bun.serve({
     },
 });
 
-type User = {
+Bun.serve<{
     name: string;
-};
-
-Bun.serve<User>({
+}>({
     fetch(req, server) {
         const url = new URL(req.url);
         if (url.pathname === "/chat") {
@@ -66,7 +64,7 @@ Bun.serve<User>({
         },
 
         message(ws, message) {
-            ws.publish("the-group-chat", `${ws.data.name}: ${message}`);
+            ws.publish("the-group-chat", `${ws.data.name}: ${message.toString()}`);
         },
 
         close(ws, code, reason) {
@@ -86,7 +84,7 @@ Bun.serve({
         throw new Error("woops!");
     },
     error(error) {
-        return new Response(`<pre>${error}\n${error.stack}</pre>`, {
+        return new Response(`<pre>${error.toString()}\n${error.stack}</pre>`, {
             headers: {
                 "Content-Type": "text/html",
             },

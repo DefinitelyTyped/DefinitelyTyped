@@ -143,7 +143,7 @@ declare module "bun:test" {
 
     export function spyOn<T extends object, K extends keyof T>(
         obj: T,
-        methodOrPropertyValue: K,
+        methodOrPropertyValue: K
     ): Mock<T[K] extends FunctionLike ? T[K] : never>;
 
     /**
@@ -162,7 +162,7 @@ declare module "bun:test" {
      * @param label the label for the tests
      * @param fn the function that defines the tests
      */
-    export type Describe = {
+    export interface Describe {
         (label: string, fn: () => void): void;
         /**
          * Skips all other tests, except this group of tests.
@@ -206,19 +206,20 @@ declare module "bun:test" {
          */
 
         each<T extends Readonly<[any, ...any[]]>>(
-            table: ReadonlyArray<T>,
+            table: ReadonlyArray<T>
+            // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
         ): (label: string, fn: (...args: [...T]) => void | Promise<unknown>, options?: number | TestOptions) => void;
         each<T extends Array<any>>(
-            table: ReadonlyArray<T>,
+            table: ReadonlyArray<T>
         ): (
             label: string,
             fn: (...args: Readonly<T>) => void | Promise<unknown>,
-            options?: number | TestOptions,
+            options?: number | TestOptions
         ) => void;
         each<T>(
-            table: Array<T>,
+            table: Array<T>
         ): (label: string, fn: (...args: T[]) => void | Promise<unknown>, options?: number | TestOptions) => void;
-    };
+    }
     /**
      * Describes a group of related tests.
      *
@@ -290,7 +291,7 @@ declare module "bun:test" {
      * @param fn the function to run
      */
     export function afterEach(fn: (() => void | Promise<unknown>) | ((done: (err?: unknown) => void) => void)): void;
-    export type TestOptions = {
+    export interface TestOptions {
         /**
          * Sets the timeout for the test in milliseconds.
          *
@@ -314,7 +315,7 @@ declare module "bun:test" {
          * @default 0
          */
         repeats?: number;
-    };
+    }
     /**
      * Runs a test.
      *
@@ -336,7 +337,7 @@ declare module "bun:test" {
      * @param fn the test function
      * @param options the test timeout or options
      */
-    export type Test = {
+    export interface Test {
         (
             label: string,
             fn: (() => void | Promise<unknown>) | ((done: (err?: unknown) => void) => void),
@@ -347,7 +348,7 @@ declare module "bun:test" {
              *   - `retry` sets the number of times to retry the test if it fails.
              *   - `repeats` sets the number of times to repeat the test, regardless of whether it passed or failed.
              */
-            options?: number | TestOptions,
+            options?: number | TestOptions
         ): void;
         /**
          * Skips all other tests, except this test.
@@ -359,7 +360,7 @@ declare module "bun:test" {
         only(
             label: string,
             fn: (() => void | Promise<unknown>) | ((done: (err?: unknown) => void) => void),
-            options?: number | TestOptions,
+            options?: number | TestOptions
         ): void;
         /**
          * Skips this test.
@@ -371,7 +372,7 @@ declare module "bun:test" {
         skip(
             label: string,
             fn: (() => void | Promise<unknown>) | ((done: (err?: unknown) => void) => void),
-            options?: number | TestOptions,
+            options?: number | TestOptions
         ): void;
         /**
          * Marks this test as to be written or to be fixed.
@@ -388,7 +389,7 @@ declare module "bun:test" {
         todo(
             label: string,
             fn?: (() => void | Promise<unknown>) | ((done: (err?: unknown) => void) => void),
-            options?: number | TestOptions,
+            options?: number | TestOptions
         ): void;
         /**
          * Runs this test, if `condition` is true.
@@ -398,11 +399,11 @@ declare module "bun:test" {
          * @param condition if the test should run
          */
         if(
-            condition: boolean,
+            condition: boolean
         ): (
             label: string,
             fn: (() => void | Promise<unknown>) | ((done: (err?: unknown) => void) => void),
-            options?: number | TestOptions,
+            options?: number | TestOptions
         ) => void;
         /**
          * Skips this test, if `condition` is true.
@@ -410,11 +411,11 @@ declare module "bun:test" {
          * @param condition if the test should be skipped
          */
         skipIf(
-            condition: boolean,
+            condition: boolean
         ): (
             label: string,
             fn: (() => void | Promise<unknown>) | ((done: (err?: unknown) => void) => void),
-            options?: number | TestOptions,
+            options?: number | TestOptions
         ) => void;
         /**
          * Returns a function that runs for each item in `table`.
@@ -422,19 +423,20 @@ declare module "bun:test" {
          * @param table Array of Arrays with the arguments that are passed into the test fn for each row.
          */
         each<T extends Readonly<[any, ...any[]]>>(
-            table: ReadonlyArray<T>,
+            table: ReadonlyArray<T>
+            // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
         ): (label: string, fn: (...args: [...T]) => void | Promise<unknown>, options?: number | TestOptions) => void;
         each<T extends Array<any>>(
-            table: ReadonlyArray<T>,
+            table: ReadonlyArray<T>
         ): (
             label: string,
             fn: (...args: Readonly<T>) => void | Promise<unknown>,
-            options?: number | TestOptions,
+            options?: number | TestOptions
         ) => void;
         each<T>(
-            table: Array<T>,
+            table: Array<T>
         ): (label: string, fn: (...args: T[]) => void | Promise<unknown>, options?: number | TestOptions) => void;
-    };
+    }
     /**
      * Runs a test.
      *
@@ -466,7 +468,7 @@ declare module "bun:test" {
      */
     export const expect: {
         <T = unknown>(actual?: T): Expect<T>;
-        any: (constructor: ((..._: any[]) => any) | { new(..._: any[]): any }) => Expect;
+        any: (constructor: ((..._: any[]) => any) | { new (..._: any[]): any }) => Expect;
         anything: () => Expect;
         stringContaining: (str: string) => Expect<string>;
         stringMatching: <T extends RegExp | string>(regex: T) => Expect<T>;
@@ -482,7 +484,7 @@ declare module "bun:test" {
      *
      * @param actual the actual value
      */
-    export type Expect<T = unknown> = {
+    export interface Expect<T = unknown> {
         /**
          * Negates the result of a subsequent assertion.
          *
@@ -893,7 +895,7 @@ declare module "bun:test" {
          * expect([]).not.toBeTypeOf("boolean");
          */
         toBeTypeOf(
-            type: "bigint" | "boolean" | "function" | "number" | "object" | "string" | "symbol" | "undefined",
+            type: "bigint" | "boolean" | "function" | "number" | "object" | "string" | "symbol" | "undefined"
         ): void;
         /**
          * Asserts that a value is `false`.
@@ -1061,7 +1063,7 @@ declare module "bun:test" {
          * Ensure that a mock function is called with specific arguments.
          */
         // toHaveBeenCalledWith(...expected: Array<unknown>): void;
-    };
+    }
 }
 
 declare module "test" {
@@ -1076,8 +1078,9 @@ declare namespace JestMock {
      * This source code is licensed under the MIT license found in the
      * LICENSE file in the root directory of this source tree.
      */
+    // tslint:disable-next-line:interface-over-type-literal
     export type ClassLike = {
-        new(...args: any): any;
+        new (...args: any): any;
     };
 
     export type ConstructorLikeKeys<T> = keyof {
@@ -1180,7 +1183,7 @@ declare namespace JestMock {
         | MockFunctionResultReturn<T>
         | MockFunctionResultThrow;
 
-    type MockFunctionResultIncomplete = {
+    interface MockFunctionResultIncomplete {
         type: "incomplete";
         /**
          * Result of a single call to a mock function that has not yet completed.
@@ -1188,25 +1191,25 @@ declare namespace JestMock {
          * or from within a function that was called by the mock.
          */
         value: undefined;
-    };
+    }
 
-    type MockFunctionResultReturn<T extends FunctionLike = UnknownFunction> = {
+    interface MockFunctionResultReturn<T extends FunctionLike = UnknownFunction> {
         type: "return";
         /**
          * Result of a single call to a mock function that returned.
          */
         value: ReturnType<T>;
-    };
+    }
 
-    type MockFunctionResultThrow = {
+    interface MockFunctionResultThrow {
         type: "throw";
         /**
          * Result of a single call to a mock function that threw.
          */
         value: unknown;
-    };
+    }
 
-    type MockFunctionState<T extends FunctionLike = FunctionLike> = {
+    interface MockFunctionState<T extends FunctionLike = FunctionLike> {
         /**
          * List of the call arguments of all calls that have been made to the mock.
          */
@@ -1233,7 +1236,7 @@ declare namespace JestMock {
          * List of the results of all calls that have been made to the mock.
          */
         results: Array<MockFunctionResult<T>>;
-    };
+    }
 
     export interface MockInstance<T extends FunctionLike = UnknownFunction> {
         _isMockFunction: true;
@@ -1391,19 +1394,21 @@ declare namespace JestMock {
         K_2 extends Exclude<
             keyof T,
             | keyof {
-                [K in keyof T as Required<T>[K] extends ClassLike ? K : never]: T[K];
-            }
+                  [K in keyof T as Required<T>[K] extends ClassLike ? K : never]: T[K];
+              }
             | keyof {
-                [K_1 in keyof T as Required<T>[K_1] extends FunctionLike ? K_1 : never]: T[K_1];
-            }
-        >,
-        V extends T[K_2],
-    >(object: T, propertyKey: K_2, value: V): Replaced<T[K_2]>;
+                  [K_1 in keyof T as Required<T>[K_1] extends FunctionLike ? K_1 : never]: T[K_1];
+              }
+        >
+        // V extends T[K_2],
+    >(object: T, propertyKey: K_2, value: T[K_2]): Replaced<T[K_2]>;
 
     export type ResolveType<T extends FunctionLike> = ReturnType<T> extends PromiseLike<infer U> ? U : never;
 
-    export type Spied<T extends ClassLike | FunctionLike> = T extends ClassLike ? SpiedClass<T>
-        : T extends FunctionLike ? SpiedFunction<T>
+    export type Spied<T extends ClassLike | FunctionLike> = T extends ClassLike
+        ? SpiedClass<T>
+        : T extends FunctionLike
+        ? SpiedFunction<T>
         : never;
 
     export type SpiedClass<T extends ClassLike = UnknownClass> = MockInstance<
@@ -1426,37 +1431,38 @@ declare namespace JestMock {
             K_2 extends Exclude<
                 keyof T,
                 | keyof {
-                    [K in keyof T as Required<T>[K] extends ClassLike ? K : never]: T[K];
-                }
+                      [K in keyof T as Required<T>[K] extends ClassLike ? K : never]: T[K];
+                  }
                 | keyof {
-                    [K_1 in keyof T as Required<T>[K_1] extends FunctionLike ? K_1 : never]: T[K_1];
-                }
+                      [K_1 in keyof T as Required<T>[K_1] extends FunctionLike ? K_1 : never]: T[K_1];
+                  }
             >,
             V extends Required<T>[K_2],
-            A extends "set" | "get",
+            A extends "set" | "get"
         >(
             object: T,
             methodKey: K_2,
-            accessType: A,
+            accessType: A
         ): A extends "get" ? SpiedGetter<V> : A extends "set" ? SpiedSetter<V> : never;
         <
             T_1 extends object,
             K_5 extends
                 | keyof {
-                    [K_3 in keyof T_1 as Required<T_1>[K_3] extends ClassLike ? K_3 : never]: T_1[K_3];
-                }
+                      [K_3 in keyof T_1 as Required<T_1>[K_3] extends ClassLike ? K_3 : never]: T_1[K_3];
+                  }
                 | keyof {
-                    [K_4 in keyof T_1 as Required<T_1>[K_4] extends FunctionLike ? K_4 : never]: T_1[K_4];
-                },
-            V_1 extends Required<T_1>[K_5],
+                      [K_4 in keyof T_1 as Required<T_1>[K_4] extends FunctionLike ? K_4 : never]: T_1[K_4];
+                  },
+            V_1 extends Required<T_1>[K_5]
         >(
             object: T_1,
-            methodKey: K_5,
+            methodKey: K_5
         ): V_1 extends ClassLike | FunctionLike ? Spied<V_1> : never;
     };
 
+    // tslint:disable-next-line:interface-over-type-literal
     export type UnknownClass = {
-        new(...args: Array<unknown>): unknown;
+        new (...args: Array<unknown>): unknown;
     };
 
     export type UnknownFunction = (...args: Array<unknown>) => unknown;

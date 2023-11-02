@@ -1,9 +1,8 @@
 import { EventEmitter } from "events";
 import { expectType } from "./utilities.test";
 
-const e1 = new EventEmitter<{
-    a: [string];
-}>();
+// eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+const e1 = new EventEmitter<{ a: [string] }>();
 
 e1.on("a", (arg) => {
     expectType<string>(arg);

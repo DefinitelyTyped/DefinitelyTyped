@@ -20,10 +20,12 @@ const runResults = query2.run("Shaq", 50); // => {name: string; dob:string}[]
 
 expectType<{ name: string; dob: number }[]>(allResults);
 expectType<{ name: string; dob: number } | null>(getResults);
+// tslint:disable-next-line:invalid-void
 expectType<void>(runResults);
 
 const query3 = db.prepare<
     { name: string; dob: number }, // return type first
+    // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
     [{ $id: string }]
 >("select name, dob from users where id = $id");
 const allResults3 = query3.all({ $id: "asdf" });
