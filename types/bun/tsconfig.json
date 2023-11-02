@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "lib": ["ESNext"],
+        "target": "ESNext",
+        "module": "Node16",
+        "strict": true,
+        "noEmit": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "types": []
+    },
+    "include": ["*.d.ts", "bun-tests.ts"]
+}

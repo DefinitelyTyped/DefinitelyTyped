@@ -1,0 +1,17 @@
+{
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "ban-types": false,
+        "no-empty-interface": false,
+        "no-outside-dependencies": false,
+        "no-unnecessary-class": false,
+        "unified-signatures": false,
+        "void-return": false,
+        "invalid-void": false,
+        "no-void-expression": false,
+        "array-type": false,
+        "no-misused-new": false,
+        "no-var-keyword": false,
+        "interface-over-type-literal": false
+    }
+}
