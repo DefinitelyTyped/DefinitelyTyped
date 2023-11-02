@@ -885,7 +885,7 @@ declare namespace React {
         propsAreEqual?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean,
     ): MemoExoticComponent<T>;
 
-    type LazyExoticComponent<T extends ComponentType<any>> = ExoticComponent<ComponentPropsWithRef<T>> & {
+    type LazyExoticComponent<T extends ComponentType<any>> = ExoticComponent<CustomComponentPropsWithRef<T>> & {
         readonly _result: T;
     };
 
