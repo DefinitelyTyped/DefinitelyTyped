@@ -1318,7 +1318,7 @@ declare namespace browser.browserAction {
     function getTitle(details: Details): Promise<string>;
 
     /** Returns the user-specified settings relating to an extension's action. */
-    function getUserSettings(): Promise<_GetUserSettingsReturnUserSettings>;
+    function getUserSettings(): Promise<browser.action._GetUserSettingsReturnUserSettings>;
 
     /**
      * Sets the icon for the browser action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the **path** or the **imageData** property must be specified.
@@ -8908,7 +8908,7 @@ declare namespace browser.tabs {
     /**
      * Gets the tab that this script call is being made from. May be undefined if called from a non-tab context (for example: a background page or popup view).
      */
-    function getCurrent(): Promise<Tab>;
+    function getCurrent(): Promise<Tab | undefined>;
 
     /**
      * Connects to the content script(s) in the specified tab. The `runtime.onConnect` event is fired in each content script running in the specified tab for the current extension. For more details, see Content Script Messaging.
