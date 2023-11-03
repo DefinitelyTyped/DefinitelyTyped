@@ -1453,9 +1453,9 @@ declare namespace Sinon {
          * The assert options can help limit the amount of output produced by assert.fail
          */
         assertOptions: {
-            shouldLimitAssertionLogs: boolean
-            assertionLogLimit: number
-        }
+            shouldLimitAssertionLogs: boolean;
+            assertionLogLimit: number;
+        };
     }
 
     /**
@@ -1642,7 +1642,7 @@ declare namespace Sinon {
          */
         verifyAndRestore(): void;
 
-        replace: SandboxReplace
+        replace: SandboxReplace;
 
         /**
          * Replaces getter for property on object with replacement argument. Attempts to replace an already replaced getter cause an exception.

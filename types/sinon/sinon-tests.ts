@@ -12,7 +12,7 @@ function testSandbox() {
         assertOptions: {
             shouldLimitAssertionLogs: true,
             assertionLogLimit: 10,
-        }
+        },
     });
     sinon.createSandbox({
         injectInto: null,
@@ -81,7 +81,7 @@ function testSandbox() {
     sb.replaceGetter(replaceMe, "getter", () => 14);
     sb.replaceSetter(replaceMe, "setter", v => {});
 
-    sb.replace.usingAccessor(replaceMe, "getter", 42)
+    sb.replace.usingAccessor(replaceMe, "getter", 42);
 
     const cls = class {
         foo(arg1: string, arg2: number): number {
