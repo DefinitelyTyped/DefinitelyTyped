@@ -20,5 +20,5 @@ type Command =
     | FollowingQuadraticCurveCommand
     | ArcCommand;
 
-declare function contours(path: Command[], scale: number): Command[];
+declare function contours(path: Command[], scale?: number): Command[];
 export = contours;
