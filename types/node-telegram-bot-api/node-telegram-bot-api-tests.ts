@@ -153,6 +153,10 @@ MyTelegramBot.sendVoice(1234, "voice/path", { filename: "filename", contentType:
 MyTelegramBot.sendAnimation(1234, "animation/path", { caption: "Foo", duration: 100, width: 200, height: 300 });
 MyTelegramBot.sendChatAction(1234, "typing");
 MyTelegramBot.banChatMember(1234, 5678);
+MyTelegramBot.banChatMember(1234, 5678, {
+    until_date: Date.now() + 60000,
+    revoke_messages: true,
+});
 MyTelegramBot.unbanChatMember(1234, 5678);
 MyTelegramBot.restrictChatMember(1234, 5678, {
     permissions: { can_add_web_page_previews: true, can_send_polls: false },
@@ -290,6 +294,7 @@ MyTelegramBot.addListener("channel_post", (message: TelegramBot.Message) => {});
 MyTelegramBot.addListener("shipping_query", (query: TelegramBot.ShippingQuery) => {});
 MyTelegramBot.addListener("pre_checkout_query", (query: TelegramBot.PreCheckoutQuery) => {});
 MyTelegramBot.addListener("polling_error", (error: Error) => {});
+MyTelegramBot.on("ready", () => {}); // listening to the custom event
 MyTelegramBot.on("message", (message: TelegramBot.Message, { type }) => {});
 MyTelegramBot.on("callback_query", (query: TelegramBot.CallbackQuery) => {});
 MyTelegramBot.on("inline_query", (query: TelegramBot.InlineQuery) => {});
@@ -368,6 +373,7 @@ MyTelegramBot.removeAllListeners();
 MyTelegramBot.listeners("message");
 MyTelegramBot.rawListeners("message");
 MyTelegramBot.listenerCount("message");
+MyTelegramBot.emit("ready"); // emitting a custom event
 MyTelegramBot.setChatPermissions(1234, {});
 MyTelegramBot.sendDice(1234, { disable_notification: true });
 MyTelegramBot.setChatAdministratorCustomTitle(1234, 5678, "some_custom_title");
