@@ -9,7 +9,7 @@ export function isUndefined(value?: unknown): value is undefined;
 export function isObject(value?: unknown): value is object;
 export function isDate(value?: unknown): value is Date;
 export function isError(value?: unknown): value is Error;
-export function isFunction(value?: unknown): value is Function;
+export function isFunction(value?: unknown): value is (...args: unknown[]) => unknown;
 export function isRegExp(value?: unknown): value is RegExp;
 export function isArray(value?: unknown): value is unknown[];
 export function isSymbol(value?: unknown): value is symbol;
