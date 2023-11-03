@@ -6,7 +6,7 @@ import {Command} from '@commander-js/extra-typings';
 import {ComSapXsappSchema_82} from './xs-app.schema';
 
 
-declare namespace approuter  {
+declare namespace approuter {
     interface AfterRequestHandlerContext {
         /** The request sent from client to application router */
         incomingRequest: IncomingMessage;
@@ -151,6 +151,11 @@ declare namespace approuter  {
          * @param routerConfig - Custom routing configuration to use for given request. This object should be created via {@link Approuter.createRouterConfig}.
          *                       If null or undefined, default configuration will be used.
          */
+
+        /**
+         * returns the session secret to be used by the application router for the signing of the session cookies.
+         */
+        getSessionSecret?: () => string;
     }
 
     interface RouterConfigOptions {
@@ -386,6 +391,14 @@ declare namespace approuter  {
         on(event: 'login', listener: (session: { id: string }) => void): this;
 
         /**
+         * Emitted when a new user session has been updated.
+         *
+         * @param event
+         * @param {Approuter~onLoginLogoutCallback} listener
+         */
+        on(event: 'update', listener: (sessionId: string, timeout: number) => void): this;
+
+        /**
          * Emitted when a user session has expired or a user has requested to log out.
          *
          * @param event
@@ -419,4 +432,5 @@ declare namespace approuter  {
 
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function approuter<CommandParser extends Command | false = Command>(): approuter.Approuter<CommandParser> ;
+
 export = approuter;

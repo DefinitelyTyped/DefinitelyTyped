@@ -56,10 +56,10 @@ ar.start({
 });
 
 /*************** Example 6 ***************/
-const params = ar.cmdParser
-    // add here custom command line options if needed
-    .option('-d, --dummy', 'A dummy option')
-    .parse(process.argv);
+// const params = ar.cmdParser
+//     // add here custom command line options if needed
+//     .option('-d, --dummy', 'A dummy option')
+//     .parse(process.argv);
 
 // console.log('Dummy option:', params.dummy);
 
@@ -114,4 +114,27 @@ ar.on('login', function handler(session) {
 });
 ar.on('logout', function handler(session) {
     console.log(session.id);
+});
+
+
+/*************** Example 10 - sessionManagement ***************/
+//https://github.wdf.sap.corp/xs2/approuter.js/blob/master/doc/sessionManagement.md
+
+ar.start({
+    getSessionSecret: function getSessionSecret() {
+        return 'CUSTOM_PERSISTED_SESSION_SECRET';
+    }
+}, function () {
+    const store = ar.getSessionStore();
+    const defaultTimeout = store.getDefaultSessionTimeout();
+
+    ar.on('login', function (session) {
+        console.log(session)
+    });
+    ar.on('update', function (sessionId, timeout) {
+        console.log(sessionId, timeout, defaultTimeout)
+    });
+    ar.on('logout', function (sessionId) {
+        console.log(sessionId)
+    });
 });
