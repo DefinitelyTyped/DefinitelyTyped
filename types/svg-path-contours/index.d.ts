@@ -1,13 +1,22 @@
-type MoveCommand = ["m" | "M", number, number];
-type LineCommand = ["l" | "L", number, number];
-type HorizontalCommand = ["h" | "H", number];
-type VerticalCommand = ["v" | "V", number];
-type ClosePathCommand = ["z" | "Z"];
-type BezierCurveCommand = ["c" | "C", number, number, number, number, number, number];
-type FollowingBezierCurveCommand = ["s" | "S", number, number, number, number];
-type QuadraticCurveCommand = ["q" | "Q", number, number, number, number];
-type FollowingQuadraticCurveCommand = ["t" | "T", number, number];
-type ArcCommand = ["a" | "A", number, number, number, number, number, number, number];
+type MoveCommand = [code: "m" | "M", x: number, y: number];
+type LineCommand = [code: "l" | "L", x: number, y: number];
+type HorizontalCommand = [code: "h" | "H", x: number];
+type VerticalCommand = [code: "v" | "V", y: number];
+type ClosePathCommand = [code: "z" | "Z"];
+type BezierCurveCommand = [code: "c" | "C", x1: number, y1: number, x2: number, y2: number, x: number, y: number];
+type FollowingBezierCurveCommand = [code: "s" | "S", x2: number, y2: number, x: number, y: number];
+type QuadraticCurveCommand = [code: "q" | "Q", x1: number, y1: number, x: number, y: number];
+type FollowingQuadraticCurveCommand = [code: "t" | "T", x: number, y: number];
+type ArcCommand = [
+    code: "a" | "A",
+    rx: number,
+    ry: number,
+    xRot: number,
+    largeArcFlag: number,
+    sweepFlag: number,
+    x: number,
+    y: number,
+];
 type Command =
     | MoveCommand
     | LineCommand
