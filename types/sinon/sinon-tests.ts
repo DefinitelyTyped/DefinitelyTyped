@@ -15,10 +15,10 @@ function testSandbox() {
         },
     });
     sinon.createSandbox({
-       injectInto: null,
+        injectInto: null,
         assertOptions: {
             shouldLimitAssertionLogs: true,
-        }
+        },
     });
     sinon.createSandbox({
         useFakeTimers: {
