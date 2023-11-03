@@ -1,10 +1,9 @@
-import {ClientRequest, IncomingMessage, ServerResponse} from 'http';
-import {ServerOptions} from 'https';
-import {EventEmitter} from 'events';
-import {Command} from '@commander-js/extra-typings';
+import { Command } from "@commander-js/extra-typings";
+import { EventEmitter } from "events";
+import { ClientRequest, IncomingMessage, ServerResponse } from "http";
+import { ServerOptions } from "https";
 
-import {ComSapXsappSchema_82} from './xs-app.schema';
-
+import { ComSapXsappSchema_82 } from "./xs-app.schema";
 
 declare namespace approuter {
     interface AfterRequestHandlerContext {
@@ -171,7 +170,7 @@ declare namespace approuter {
          *
          * **Note:** Only the typed configurations are taken into account from this property (the rest are taken from the xs-app.json file).
          */
-        xsappConfig: Pick<ComSapXsappSchema_82, 'welcomeFile' | 'logout' | 'routes' | 'websockets' | 'errorPage'>;
+        xsappConfig: Pick<ComSapXsappSchema_82, "welcomeFile" | "logout" | "routes" | "websockets" | "errorPage">;
 
         /**
          * An array containing the configuration of the backend destinations.
@@ -202,7 +201,6 @@ declare namespace approuter {
         use(path: string, handler: MiddlewareHandler): MiddlewareSlot;
     }
 
-
     /**
      * The application router uses a memory store as a session repository to provide the best runtime performance.
      * However, it is not persisted, and it is not shared across multiple instances of the application router.
@@ -216,62 +214,56 @@ declare namespace approuter {
         /**
          * returns the default session timeout in minutes.
          */
-        getDefaultSessionTimeout(): number
+        getDefaultSessionTimeout(): number;
 
         /**
-         *
          * @param sessionId an unsigned session identifier
          * @param callback function(error, session) a function that is called when the session object is retrieved from the internal session storage of the application router.
          * error - an error object in case of an error, otherwise null
          * timeout - time, in minutes, until the session times out
          */
-        getSessionTimeout(sessionId: string, callback: (error: object | null, session: number) => void): void
+        getSessionTimeout(sessionId: string, callback: (error: object | null, session: number) => void): void;
 
         /**
-         *
          * @param sessionId an unsigned session identifier
          * @param callback a function that is called when the session object is retrieved from the internal session storage of the application router.
          * error - an error object in case of an error, otherwise null
          * session - the session object
          * id - session identifier, immutable
          */
-        get(sessionId: string, callback: (error: object | null, session: number) => void): void
+        get(sessionId: string, callback: (error: object | null, session: number) => void): void;
 
         /**
-         *
          * @param sessionId an unsigned session identifier
          * @param sessionString a session object serialized to string
          * @param timeout a timestamp in milliseconds, after which the session should be automatically invalidated
          * @param callback  a function that is called after the session is saved in the internal session storage of the application router
          */
-        set(sessionId: string, sessionString: string, timeout: number, callback: () => void): void
+        set(sessionId: string, sessionString: string, timeout: number, callback: () => void): void;
 
         /**
-         *
          * @param sessionId an unsigned session identifier
          * @param callback  function(currentSession) function, which returns session object. Callback function may modify and return current session object or create and return brand new session object
          * currentSession - current session object
          * @param resetTimeout a boolean that indicates whether to reset the session timeout
          */
-        update(sessionId: string, callback: (currentSession: object) => void, resetTimeout: boolean): void
+        update(sessionId: string, callback: (currentSession: object) => void, resetTimeout: boolean): void;
 
         /**
-         *
          * @param sessionId an unsigned session identifier
          * @param callback a function that is called after the session is destroyed in the internal session storage of the application router
          */
-        destroy(sessionId: string, callback: () => void): void
+        destroy(sessionId: string, callback: () => void): void;
 
         /**
          * Emitted when a user session has been updated.
          *
          * @param event
          */
-        on(event: 'update', listener: (sessionId: string) => void): this;
+        on(event: "update", listener: (sessionId: string) => void): this;
     }
 
-
-    type SessionStore = MemoryStore
+    type SessionStore = MemoryStore;
 
     /**
      * SAP Application Router
@@ -380,7 +372,7 @@ declare namespace approuter {
         /**
          * returns SessionStore instance.
          */
-        getSessionStore(): SessionStore
+        getSessionStore(): SessionStore;
 
         /**
          * Emitted when a new user session is created.
@@ -388,7 +380,7 @@ declare namespace approuter {
          * @param event
          * @param {Approuter~onLoginLogoutCallback} listener
          */
-        on(event: 'login', listener: (session: { id: string }) => void): this;
+        on(event: "login", listener: (session: { id: string }) => void): this;
 
         /**
          * Emitted when a new user session has been updated.
@@ -396,7 +388,7 @@ declare namespace approuter {
          * @param event
          * @param {Approuter~onLoginLogoutCallback} listener
          */
-        on(event: 'update', listener: (sessionId: string, timeout: number) => void): this;
+        on(event: "update", listener: (sessionId: string, timeout: number) => void): this;
 
         /**
          * Emitted when a user session has expired or a user has requested to log out.
@@ -406,7 +398,7 @@ declare namespace approuter {
          */
         // Disabled for better JSDocs
         // tslint:disable-next-line:unified-signatures
-        on(event: 'logout', listener: (session: { id: string }) => void): this;
+        on(event: "logout", listener: (session: { id: string }) => void): this;
 
         /**
          * Callback for {@link createRouterConfig}
@@ -431,6 +423,6 @@ declare namespace approuter {
 }
 
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-declare function approuter<CommandParser extends Command | false = Command>(): approuter.Approuter<CommandParser> ;
+declare function approuter<CommandParser extends Command | false = Command>(): approuter.Approuter<CommandParser>;
 
 export = approuter;

@@ -9,24 +9,24 @@
 export type SourceSchema =
     | string
     | {
-    path: string;
-    matchCase?: boolean;
-};
+        path: string;
+        matchCase?: boolean;
+    };
 export type ScopesSchema =
     | string
     | [string, ...string[]]
     | {
-    GET?: ScopeTemplate;
-    POST?: ScopeTemplate;
-    HEAD?: ScopeTemplate;
-    PUT?: ScopeTemplate;
-    DELETE?: ScopeTemplate;
-    TRACE?: ScopeTemplate;
-    PATCH?: ScopeTemplate;
-    OPTIONS?: ScopeTemplate;
-    CONNECT?: ScopeTemplate;
-    default?: ScopeTemplate;
-};
+        GET?: ScopeTemplate;
+        POST?: ScopeTemplate;
+        HEAD?: ScopeTemplate;
+        PUT?: ScopeTemplate;
+        DELETE?: ScopeTemplate;
+        TRACE?: ScopeTemplate;
+        PATCH?: ScopeTemplate;
+        OPTIONS?: ScopeTemplate;
+        CONNECT?: ScopeTemplate;
+        default?: ScopeTemplate;
+    };
 export type ScopeTemplate = string | [string, ...string[]];
 
 /**
@@ -34,14 +34,14 @@ export type ScopeTemplate = string | [string, ...string[]];
  */
 export interface ComSapXsappSchema_82 {
     welcomeFile?: string;
-    authenticationMethod?: 'none' | 'route';
+    authenticationMethod?: "none" | "route";
     sessionTimeout?: number;
     pluginMetadataEndpoint?: string;
     routes?: Array<{
         source: SourceSchema;
         httpMethods?: [
-                'DELETE' | 'GET' | 'HEAD' | 'OPTIONS' | 'POST' | 'PUT' | 'TRACE' | 'PATCH',
-            ...Array<'DELETE' | 'GET' | 'HEAD' | 'OPTIONS' | 'POST' | 'PUT' | 'TRACE' | 'PATCH'>
+            "DELETE" | "GET" | "HEAD" | "OPTIONS" | "POST" | "PUT" | "TRACE" | "PATCH",
+            ...Array<"DELETE" | "GET" | "HEAD" | "OPTIONS" | "POST" | "PUT" | "TRACE" | "PATCH">,
         ];
         target?: string;
         destination?: string;
@@ -49,7 +49,7 @@ export interface ComSapXsappSchema_82 {
         csrfProtection?: boolean;
         service?: string;
         endpoint?: string;
-        authenticationType?: 'xsuaa' | 'basic' | 'none';
+        authenticationType?: "xsuaa" | "basic" | "none";
         identityProvider?: string;
         scope?: ScopesSchema;
         replace?: {
@@ -64,14 +64,14 @@ export interface ComSapXsappSchema_82 {
     destinations?: {
         [k: string]: {
             logoutPath?: string;
-            logoutMethod?: 'PUT' | 'POST' | 'GET';
+            logoutMethod?: "PUT" | "POST" | "GET";
         };
     };
     services?: {
         [k: string]: {
             endpoint?: string;
             logoutPath?: string;
-            logoutMethod?: 'PUT' | 'POST' | 'GET';
+            logoutMethod?: "PUT" | "POST" | "GET";
         };
     };
     logout?: {
