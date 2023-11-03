@@ -3790,7 +3790,7 @@ declare namespace _ {
     type LodashResult1x1 = <TResult>(object: any) => TResult;
     type LodashResult1x2 = <TResult>(path: lodash.PropertyPath) => TResult;
     type LodashReverse = <TList extends lodash.List<any>>(array: TList) => TList;
-    type LodashRound = (n: number) => number;
+    type LodashRound = (n: number, precision?: number) => number;
     type LodashRunInContext = (context: object) => lodash.LoDashStatic;
     interface LodashSample {
         <T>(collection: readonly [T, ...T[]]): T;
