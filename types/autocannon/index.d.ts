@@ -422,6 +422,9 @@ declare namespace autocannon {
 
         /** How many times the requests pipeline was reset due to setupRequest returning a falsey value. */
         resets: number;
+
+        /** Requests counter per status code */
+        statusCodeStats?: Record<`${number}`, { count?: number }>;
     }
 
     interface Histogram {
