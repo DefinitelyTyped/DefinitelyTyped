@@ -329,6 +329,17 @@ export interface Packet {
     authorities?: Answer[] | undefined;
 }
 
+export interface DecodedPacket extends Packet {
+    flag_aa: boolean
+    flag_ad: boolean
+    flag_cd: boolean
+    flag_qr: boolean
+    flag_ra: boolean
+    flag_rd: boolean
+    flag_tc: boolean
+    flag_z: boolean
+}
+
 export const AUTHORITATIVE_ANSWER: number;
 export const TRUNCATED_RESPONSE: number;
 export const RECURSION_DESIRED: number;
@@ -340,7 +351,7 @@ export function encode(package: Packet, buf?: Buffer, offset?: number): Buffer;
 export namespace encode {
     let bytes: number;
 }
-export function decode(buf: Buffer, offset?: number): Packet;
+export function decode(buf: Buffer, offset?: number): DecodedPacket;
 export namespace decode {
     let bytes: number;
 }
