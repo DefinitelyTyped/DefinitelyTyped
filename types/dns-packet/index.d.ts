@@ -329,15 +329,16 @@ export interface Packet {
     authorities?: Answer[] | undefined;
 }
 
+// https://github.com/mafintosh/dns-packet/blob/7b6662025c49c0e31d2f0c5cbd726e4423805639/index.js#L181-L197
 export interface DecodedPacket extends Packet {
+    flag_qr: boolean
     flag_aa: boolean
+    flag_tc: boolean
+    flag_rd: boolean
+    flag_ra: boolean
+    flag_z: boolean
     flag_ad: boolean
     flag_cd: boolean
-    flag_qr: boolean
-    flag_ra: boolean
-    flag_rd: boolean
-    flag_tc: boolean
-    flag_z: boolean
 }
 
 export const AUTHORITATIVE_ANSWER: number;
