@@ -1,3 +1,3 @@
-declare function isPosixBracket(str: unknown): typeof str extends string ? boolean : false;
+declare function isPosixBracket<T>(str: T): T extends string ? boolean : false;
 
 export = isPosixBracket;
