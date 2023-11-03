@@ -1,4 +1,4 @@
-import util = require('./');
+import util = require("./");
 
 // $ExpectType boolean
 util.isArray([]);
@@ -6,71 +6,71 @@ util.isArray([]);
 util.isArray();
 
 // $ExpectType boolean
-util.isBoolean(false)
+util.isBoolean(false);
 // $ExpectType boolean
-util.isBoolean()
+util.isBoolean();
 
 // $ExpectType boolean
-util.isNull(null)
+util.isNull(null);
 // $ExpectType boolean
-util.isNull()
+util.isNull();
 
 // $ExpectType boolean
-util.isNullOrUndefined(null)
+util.isNullOrUndefined(null);
 // $ExpectType boolean
-util.isNullOrUndefined()
+util.isNullOrUndefined();
 
 // $ExpectType boolean
-util.isNumber(null)
+util.isNumber(null);
 // $ExpectType boolean
-util.isNumber()
+util.isNumber();
 
 // $ExpectType boolean
-util.isString(null)
+util.isString(null);
 // $ExpectType boolean
-util.isString()
+util.isString();
 
 // $ExpectType boolean
-util.isSymbol(null)
+util.isSymbol(null);
 // $ExpectType boolean
-util.isSymbol()
+util.isSymbol();
 
 // $ExpectType boolean
-util.isUndefined(null)
+util.isUndefined(null);
 // $ExpectType boolean
-util.isUndefined()
+util.isUndefined();
 
 // $ExpectType boolean
-util.isRegExp(null)
+util.isRegExp(null);
 // $ExpectType boolean
-util.isRegExp()
+util.isRegExp();
 
 // $ExpectType boolean
-util.isObject({})
+util.isObject({});
 // $ExpectType boolean
-util.isObject()
+util.isObject();
 
 // $ExpectType boolean
-util.isDate(null)
+util.isDate(null);
 // $ExpectType boolean
-util.isDate()
+util.isDate();
 
 // $ExpectType boolean
-util.isError(null)
+util.isError(null);
 // $ExpectType boolean
-util.isError()
+util.isError();
 
 // $ExpectType boolean
-util.isFunction(null)
+util.isFunction(null);
 // $ExpectType boolean
-util.isFunction()
+util.isFunction();
 
 // $ExpectType boolean
-util.isPrimitive(null)
+util.isPrimitive(null);
 // $ExpectType boolean
-util.isPrimitive()
+util.isPrimitive();
 
 // $ExpectType boolean
-util.isBuffer(null)
+util.isBuffer(null);
 // $ExpectType boolean
-util.isBuffer()
+util.isBuffer();
