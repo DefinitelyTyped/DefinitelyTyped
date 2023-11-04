@@ -29,6 +29,7 @@
         "setup-hooks": "husky install"
     },
     "devDependencies": {
+        "@arethetypeswrong/cli": "^0.13.1",
         "@definitelytyped/definitions-parser": "latest",
         "@definitelytyped/dts-critic": "latest",
         "@definitelytyped/dtslint": "latest",
