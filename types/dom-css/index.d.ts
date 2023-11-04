@@ -2,8 +2,7 @@ import "web";
 
 type Style = keyof CSSStyleDeclaration | (string & Record<never, never>);
 
-declare function set(element: HTMLElement, style: string): void;
-declare function set(element: HTMLElement, properties: { [P in Style]?: string | number }): void;
+declare function set(element: HTMLElement, style: string | { [P in Style]?: string | number }): void;
 declare function set(element: HTMLElement, property: Style, value: string | number): void;
 
 export = set;
