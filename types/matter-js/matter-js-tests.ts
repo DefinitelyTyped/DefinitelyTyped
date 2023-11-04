@@ -31,6 +31,22 @@ var engine = Engine.create({
 // $ExpectType Detector
 engine.detector;
 
+// $ExpectType IEngineTimingOptions
+engine.timing;
+// $ExpectType number
+engine.timing.timeScale;
+// $ExpectType number
+engine.timing.lastDelta;
+// $ExpectType number
+engine.timing.lastElapsed;
+// $ExpectType number
+engine.timing.timestamp;
+
+// $ExpectType Engine
+Engine.create({ timing: {} });
+// $ExpectType Engine
+engine = Engine.create({ timing: { timeScale: 2, timestamp: 333, lastDelta: 1, lastElapsed: 4 } });
+
 // Body
 // $ExpectType Body
 const body = Body.create({});

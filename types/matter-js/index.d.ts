@@ -1740,7 +1740,7 @@ declare namespace Matter {
         /**
          * An `Object` containing properties regarding the timing systems of the engine.
          */
-        timing?: IEngineTimingOptions;
+        timing?: Partial<IEngineTimingOptions>;
 
         /**
          * A `Matter.Detector` instance.
