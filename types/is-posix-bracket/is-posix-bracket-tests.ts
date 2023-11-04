@@ -1,4 +1,4 @@
-import isPosixBracket = require("./");
+import isPosixBracket = require("is-posix-bracket");
 
 // $ExpectType boolean
 isPosixBracket("[]");
@@ -6,8 +6,8 @@ isPosixBracket("[]");
 // $ExpectType boolean
 isPosixBracket("other string");
 
-// $ExpectType false
+// @ts-expect-error
 isPosixBracket(Symbol());
 
-// $ExpectType false
+// @ts-expect-error
 isPosixBracket(1);
