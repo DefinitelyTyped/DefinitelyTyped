@@ -1,5 +1,3 @@
-import "web";
-
 type Style = keyof CSSStyleDeclaration | (string & Record<never, never>);
 
 declare function set(element: HTMLElement, style: string | { [P in Style]?: string | number }): void;

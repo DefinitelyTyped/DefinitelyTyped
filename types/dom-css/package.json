@@ -5,9 +5,6 @@
     "projects": [
         "https://github.com/mattdesl/dom-css"
     ],
-    "dependencies": {
-        "@types/web": "*"
-    },
     "devDependencies": {
         "@types/dom-css": "workspace:."
     },
