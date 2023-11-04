@@ -8,7 +8,7 @@ declare function set(element: HTMLElement, property: Style, value: string | numb
 
 export = set;
 
-declare module set {
+declare namespace set {
     export { set };
 
     export function get(element: HTMLElement, property: Style): string;
