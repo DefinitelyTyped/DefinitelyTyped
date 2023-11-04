@@ -216,13 +216,27 @@ declare module '../../../index' {
          *   beginShape(). When endShape() is called, all of
          *   the image data defined since the previous call to
          *   beginShape() is written into the image buffer. The
-         *   constant CLOSE as the value for the mode parameter
+         *   constant CLOSE is the value for the mode parameter
          *   to close the shape (to connect the beginning and
-         *   the end).
+         *   the end). When using instancing with endShape()
+         *   the instancing will not apply to the strokes. When
+         *   the count parameter is used with a value greater
+         *   than 1, it enables instancing for shapes built
+         *   when in WEBGL mode. Instancing is a feature that
+         *   allows the GPU to efficiently draw multiples of
+         *   the same shape. It's often used for particle
+         *   effects or other times when you need a lot of
+         *   repetition. In order to take advantage of
+         *   instancing, you will also need to write your own
+         *   custom shader using the gl_InstanceID keyword. You
+         *   can read more about instancing here or by working
+         *   from the example on this page.
          *   @param [mode] use CLOSE to close the shape
+         *   @param [count] number of times you want to
+         *   draw/instance the shape (for WebGL mode).
          *   @chainable
          */
-        endShape(mode?: END_MODE): p5;
+        endShape(mode?: END_MODE, count?: number): p5;
 
         /**
          *   Specifies vertex coordinates for quadratic Bezier

@@ -6,71 +6,67 @@ declare module '../../index' {
     class Vector {
         /**
          *   A class to describe a two or three-dimensional
-         *   vector, specifically a Euclidean (also known as
-         *   geometric) vector. A vector is an entity that has
-         *   both magnitude and direction. The datatype,
-         *   however, stores the components of the vector (x, y
-         *   for 2D; or x, y, z for 3D). The magnitude and
-         *   direction can be accessed via the methods
-         *   p5.Vector.mag() and heading(). In many of the
-         *   p5.js examples, you will see p5.Vector used to
-         *   describe a position, velocity, or acceleration.
-         *   For example, if you consider a rectangle moving
-         *   across the screen, at any given instant it has a
-         *   position (a vector that points from the origin to
-         *   its location), a velocity (the rate at which the
-         *   object's position changes per time unit, expressed
-         *   as a vector), and acceleration (the rate at which
-         *   the object's velocity changes per time unit,
-         *   expressed as a vector).
+         *   vector. A vector is like an arrow pointing in
+         *   space. Vectors have both magnitude (length) and
+         *   direction. p5.Vector objects are often used to
+         *   program motion because they simplify the math. For
+         *   example, a moving ball has a position and a
+         *   velocity. Position describes where the ball is in
+         *   space. The ball's position vector extends from the
+         *   origin to the ball's center. Velocity describes
+         *   the ball's speed and the direction it's moving. If
+         *   the ball is moving straight up, its velocity
+         *   vector points straight up. Adding the ball's
+         *   velocity vector to its position vector moves it,
+         *   as in pos.add(vel). Vector math relies on methods
+         *   inside the p5.Vector class.
          *
-         *   Since vectors represent groupings of values, we
-         *   cannot simply use traditional
-         *   addition/multiplication/etc. Instead, we'll need
-         *   to do some "vector" math, which is made easy by
-         *   the methods inside the p5.Vector class.
-         *
-         *   @param [x] x component of the vector
-         *   @param [y] y component of the vector
-         *   @param [z] z component of the vector
+         *   @param [x] x component of the vector.
+         *   @param [y] y component of the vector.
+         *   @param [z] z component of the vector.
          */
         constructor(x?: number, y?: number, z?: number);
 
         /**
-         *   Gets a copy of the vector, returns a p5.Vector
-         *   object.
+         *   Returns a copy of the p5.Vector object.
          *   @param v the p5.Vector to create a copy of
          *   @return the copy of the p5.Vector object
          */
         static copy(v: Vector): Vector;
 
         /**
-         *   Adds x, y, and z components to a vector, adds one
-         *   vector to another, or adds two independent vectors
-         *   together. The version of the method that adds two
-         *   vectors together is a static method and returns a
-         *   p5.Vector, the others act directly on the vector.
-         *   Additionally, you may provide arguments to this
-         *   method as an array. See the examples for more
-         *   context.
+         *   Adds to a vector's x, y, and z components using
+         *   separate numbers, another p5.Vector object, or an
+         *   array of numbers. Calling add() with no arguments
+         *   has no effect. The static version of add(), as in
+         *   p5.Vector.add(v2, v1), returns a new p5.Vector
+         *   object and doesn't change the originals.
          *   @param v1 A p5.Vector to add
          *   @param v2 A p5.Vector to add
-         *   @param [target] The vector to receive the result
-         *   @return The resulting p5.Vector
+         *   @param [target] vector to receive the result.
+         *   @return resulting p5.Vector.
          */
         static add(v1: Vector, v2: Vector, target?: Vector): Vector;
 
         /**
-         *   Gives the remainder of a vector when it is divided
-         *   by another vector. See examples for more context.
+         *   Performs modulo (remainder) division with a
+         *   vector's x, y, and z components using separate
+         *   numbers, another p5.Vector object, or an array of
+         *   numbers. The static version of rem() as in
+         *   p5.Vector.rem(v2, v1), returns a new p5.Vector
+         *   object and doesn't change the originals.
          *   @param v1 The dividend p5.Vector
          *   @param v2 The divisor p5.Vector
          */
         static rem(v1: Vector, v2: Vector): void;
 
         /**
-         *   Gives the remainder of a vector when it is divided
-         *   by another vector. See examples for more context.
+         *   Performs modulo (remainder) division with a
+         *   vector's x, y, and z components using separate
+         *   numbers, another p5.Vector object, or an array of
+         *   numbers. The static version of rem() as in
+         *   p5.Vector.rem(v2, v1), returns a new p5.Vector
+         *   object and doesn't change the originals.
          *   @param v1 The dividend p5.Vector
          *   @param v2 The divisor p5.Vector
          *   @return The resulting p5.Vector
@@ -78,238 +74,147 @@ declare module '../../index' {
         static rem(v1: Vector, v2: Vector): Vector;
 
         /**
-         *   Subtracts x, y, and z components from a vector,
-         *   subtracts one vector from another, or subtracts
-         *   two independent vectors. The version of the method
-         *   that subtracts two vectors is a static method and
-         *   returns a p5.Vector, the others act directly on
-         *   the vector. Additionally, you may provide
-         *   arguments to this method as an array. See the
-         *   examples for more context.
+         *   Subtracts from a vector's x, y, and z components
+         *   using separate numbers, another p5.Vector object,
+         *   or an array of numbers. Calling sub() with no
+         *   arguments has no effect. The static version of
+         *   sub(), as in p5.Vector.sub(v2, v1), returns a new
+         *   p5.Vector object and doesn't change the originals.
          *   @param v1 A p5.Vector to subtract from
          *   @param v2 A p5.Vector to subtract
-         *   @param [target] The vector to receive the result
+         *   @param [target] vector to receive the result.
          *   @return The resulting p5.Vector
          */
         static sub(v1: Vector, v2: Vector, target?: Vector): Vector;
 
         /**
-         *   Multiplies the vector by a scalar, multiplies the
-         *   x, y, and z components from a vector, or
-         *   multiplies the x, y, and z components of two
-         *   independent vectors. When multiplying a vector by
-         *   a scalar, the x, y, and z components of the vector
-         *   are all multiplied by the scalar. When multiplying
-         *   a vector by a vector, the x, y, z components of
-         *   both vectors are multiplied by each other (for
-         *   example, with two vectors a and b: a.x * b.x, a.y
-         *   * b.y, a.z * b.z). The static version of this
-         *   method creates a new p5.Vector while the
-         *   non-static version acts on the vector directly.
-         *   Additionally, you may provide arguments to this
-         *   function as an array. See the examples for more
-         *   context.
-         *   @param x The number to multiply with the x
-         *   component of the vector
-         *   @param y The number to multiply with the y
-         *   component of the vector
-         *   @param [z] The number to multiply with the z
-         *   component of the vector
-         *   @return The resulting new p5.Vector
+         *   Multiplies a vector's x, y, and z components by
+         *   the same number, separate numbers, the components
+         *   of another p5.Vector object, or an array of
+         *   numbers. Calling mult() with no arguments has no
+         *   effect. The static version of mult(), as in
+         *   p5.Vector.mult(v, 2), returns a new p5.Vector
+         *   object and doesn't change the originals.
+         *   @param x number to multiply with the x component
+         *   of the vector.
+         *   @param y number to multiply with the y component
+         *   of the vector.
+         *   @param [z] number to multiply with the z component
+         *   of the vector.
+         *   @return resulting new p5.Vector.
          */
         static mult(x: number, y: number, z?: number): Vector;
 
         /**
-         *   Multiplies the vector by a scalar, multiplies the
-         *   x, y, and z components from a vector, or
-         *   multiplies the x, y, and z components of two
-         *   independent vectors. When multiplying a vector by
-         *   a scalar, the x, y, and z components of the vector
-         *   are all multiplied by the scalar. When multiplying
-         *   a vector by a vector, the x, y, z components of
-         *   both vectors are multiplied by each other (for
-         *   example, with two vectors a and b: a.x * b.x, a.y
-         *   * b.y, a.z * b.z). The static version of this
-         *   method creates a new p5.Vector while the
-         *   non-static version acts on the vector directly.
-         *   Additionally, you may provide arguments to this
-         *   function as an array. See the examples for more
-         *   context.
-         *   @param v The vector to multiply with the
-         *   components of the original vector
+         *   Multiplies a vector's x, y, and z components by
+         *   the same number, separate numbers, the components
+         *   of another p5.Vector object, or an array of
+         *   numbers. Calling mult() with no arguments has no
+         *   effect. The static version of mult(), as in
+         *   p5.Vector.mult(v, 2), returns a new p5.Vector
+         *   object and doesn't change the originals.
+         *   @param v vector to multiply with the components of
+         *   the original vector.
          *   @param n The number to multiply with the vector
-         *   @param [target] the vector to receive the result
+         *   @param [target] vector to receive the result.
          */
         static mult(v: Vector, n: number, target?: Vector): void;
 
         /**
-         *   Multiplies the vector by a scalar, multiplies the
-         *   x, y, and z components from a vector, or
-         *   multiplies the x, y, and z components of two
-         *   independent vectors. When multiplying a vector by
-         *   a scalar, the x, y, and z components of the vector
-         *   are all multiplied by the scalar. When multiplying
-         *   a vector by a vector, the x, y, z components of
-         *   both vectors are multiplied by each other (for
-         *   example, with two vectors a and b: a.x * b.x, a.y
-         *   * b.y, a.z * b.z). The static version of this
-         *   method creates a new p5.Vector while the
-         *   non-static version acts on the vector directly.
-         *   Additionally, you may provide arguments to this
-         *   function as an array. See the examples for more
-         *   context.
-         *   @param [target] the vector to receive the result
+         *   Multiplies a vector's x, y, and z components by
+         *   the same number, separate numbers, the components
+         *   of another p5.Vector object, or an array of
+         *   numbers. Calling mult() with no arguments has no
+         *   effect. The static version of mult(), as in
+         *   p5.Vector.mult(v, 2), returns a new p5.Vector
+         *   object and doesn't change the originals.
+         *   @param [target] vector to receive the result.
          */
         static mult(v0: Vector, v1: Vector, target?: Vector): void;
 
         /**
-         *   Multiplies the vector by a scalar, multiplies the
-         *   x, y, and z components from a vector, or
-         *   multiplies the x, y, and z components of two
-         *   independent vectors. When multiplying a vector by
-         *   a scalar, the x, y, and z components of the vector
-         *   are all multiplied by the scalar. When multiplying
-         *   a vector by a vector, the x, y, z components of
-         *   both vectors are multiplied by each other (for
-         *   example, with two vectors a and b: a.x * b.x, a.y
-         *   * b.y, a.z * b.z). The static version of this
-         *   method creates a new p5.Vector while the
-         *   non-static version acts on the vector directly.
-         *   Additionally, you may provide arguments to this
-         *   function as an array. See the examples for more
-         *   context.
-         *   @param arr The array to multiply with the
-         *   components of the vector
-         *   @param [target] the vector to receive the result
+         *   Multiplies a vector's x, y, and z components by
+         *   the same number, separate numbers, the components
+         *   of another p5.Vector object, or an array of
+         *   numbers. Calling mult() with no arguments has no
+         *   effect. The static version of mult(), as in
+         *   p5.Vector.mult(v, 2), returns a new p5.Vector
+         *   object and doesn't change the originals.
+         *   @param arr array to multiply with the components
+         *   of the vector.
+         *   @param [target] vector to receive the result.
          */
         static mult(v0: Vector, arr: number[], target?: Vector): void;
 
         /**
-         *   Divides the vector by a scalar, divides a vector
-         *   by the x, y, and z arguments, or divides the x, y,
-         *   and z components of two vectors against each
-         *   other. When dividing a vector by a scalar, the x,
-         *   y, and z components of the vector are all divided
-         *   by the scalar. When dividing a vector by a vector,
-         *   the x, y, z components of the source vector are
-         *   treated as the dividend, and the x, y, z
-         *   components of the argument is treated as the
-         *   divisor. (For example, with two vectors a and b:
-         *   a.x / b.x, a.y / b.y, a.z / b.z.) If any component
-         *   of the second vector is 0, a division by 0 error
-         *   will be logged, unless both two vectors have 0 in
-         *   their z components, in which case only the x and y
-         *   components will be divided. The static version of
-         *   this method creates a new p5.Vector while the
-         *   non-static version acts on the vector directly.
-         *   Additionally, you may provide arguments to this
-         *   method as an array. See the examples for more
-         *   context.
-         *   @param x The number to divide with the x component
-         *   of the vector
-         *   @param y The number to divide with the y component
-         *   of the vector
-         *   @param [z] The number to divide with the z
-         *   component of the vector
+         *   Divides a vector's x, y, and z components by the
+         *   same number, separate numbers, the components of
+         *   another p5.Vector object, or an array of numbers.
+         *   Calling div() with no arguments has no effect. The
+         *   static version of div(), as in p5.Vector.div(v,
+         *   2), returns a new p5.Vector object and doesn't
+         *   change the originals.
+         *   @param x number to divide with the x component of
+         *   the vector.
+         *   @param y number to divide with the y component of
+         *   the vector.
+         *   @param [z] number to divide with the z component
+         *   of the vector.
          *   @return The resulting new p5.Vector
          */
         static div(x: number, y: number, z?: number): Vector;
 
         /**
-         *   Divides the vector by a scalar, divides a vector
-         *   by the x, y, and z arguments, or divides the x, y,
-         *   and z components of two vectors against each
-         *   other. When dividing a vector by a scalar, the x,
-         *   y, and z components of the vector are all divided
-         *   by the scalar. When dividing a vector by a vector,
-         *   the x, y, z components of the source vector are
-         *   treated as the dividend, and the x, y, z
-         *   components of the argument is treated as the
-         *   divisor. (For example, with two vectors a and b:
-         *   a.x / b.x, a.y / b.y, a.z / b.z.) If any component
-         *   of the second vector is 0, a division by 0 error
-         *   will be logged, unless both two vectors have 0 in
-         *   their z components, in which case only the x and y
-         *   components will be divided. The static version of
-         *   this method creates a new p5.Vector while the
-         *   non-static version acts on the vector directly.
-         *   Additionally, you may provide arguments to this
-         *   method as an array. See the examples for more
-         *   context.
-         *   @param v The vector to divide the components of
-         *   the original vector by
+         *   Divides a vector's x, y, and z components by the
+         *   same number, separate numbers, the components of
+         *   another p5.Vector object, or an array of numbers.
+         *   Calling div() with no arguments has no effect. The
+         *   static version of div(), as in p5.Vector.div(v,
+         *   2), returns a new p5.Vector object and doesn't
+         *   change the originals.
+         *   @param v vector to divide the components of the
+         *   original vector by.
          *   @param n The number to divide the vector by
          *   @param [target] The vector to receive the result
          */
         static div(v: Vector, n: number, target?: Vector): void;
 
         /**
-         *   Divides the vector by a scalar, divides a vector
-         *   by the x, y, and z arguments, or divides the x, y,
-         *   and z components of two vectors against each
-         *   other. When dividing a vector by a scalar, the x,
-         *   y, and z components of the vector are all divided
-         *   by the scalar. When dividing a vector by a vector,
-         *   the x, y, z components of the source vector are
-         *   treated as the dividend, and the x, y, z
-         *   components of the argument is treated as the
-         *   divisor. (For example, with two vectors a and b:
-         *   a.x / b.x, a.y / b.y, a.z / b.z.) If any component
-         *   of the second vector is 0, a division by 0 error
-         *   will be logged, unless both two vectors have 0 in
-         *   their z components, in which case only the x and y
-         *   components will be divided. The static version of
-         *   this method creates a new p5.Vector while the
-         *   non-static version acts on the vector directly.
-         *   Additionally, you may provide arguments to this
-         *   method as an array. See the examples for more
-         *   context.
+         *   Divides a vector's x, y, and z components by the
+         *   same number, separate numbers, the components of
+         *   another p5.Vector object, or an array of numbers.
+         *   Calling div() with no arguments has no effect. The
+         *   static version of div(), as in p5.Vector.div(v,
+         *   2), returns a new p5.Vector object and doesn't
+         *   change the originals.
          *   @param [target] The vector to receive the result
          */
         static div(v0: Vector, v1: Vector, target?: Vector): void;
 
         /**
-         *   Divides the vector by a scalar, divides a vector
-         *   by the x, y, and z arguments, or divides the x, y,
-         *   and z components of two vectors against each
-         *   other. When dividing a vector by a scalar, the x,
-         *   y, and z components of the vector are all divided
-         *   by the scalar. When dividing a vector by a vector,
-         *   the x, y, z components of the source vector are
-         *   treated as the dividend, and the x, y, z
-         *   components of the argument is treated as the
-         *   divisor. (For example, with two vectors a and b:
-         *   a.x / b.x, a.y / b.y, a.z / b.z.) If any component
-         *   of the second vector is 0, a division by 0 error
-         *   will be logged, unless both two vectors have 0 in
-         *   their z components, in which case only the x and y
-         *   components will be divided. The static version of
-         *   this method creates a new p5.Vector while the
-         *   non-static version acts on the vector directly.
-         *   Additionally, you may provide arguments to this
-         *   method as an array. See the examples for more
-         *   context.
-         *   @param arr The array to divide the components of
-         *   the vector by
+         *   Divides a vector's x, y, and z components by the
+         *   same number, separate numbers, the components of
+         *   another p5.Vector object, or an array of numbers.
+         *   Calling div() with no arguments has no effect. The
+         *   static version of div(), as in p5.Vector.div(v,
+         *   2), returns a new p5.Vector object and doesn't
+         *   change the originals.
+         *   @param arr array to divide the components of the
+         *   vector by.
          *   @param [target] The vector to receive the result
          */
         static div(v0: Vector, arr: number[], target?: Vector): void;
 
         /**
-         *   Calculates the magnitude (length) of the vector
-         *   and returns the result as a float. (This is simply
-         *   the equation sqrt(x*x + y*y + z*z).)
+         *   Returns the magnitude (length) of the vector.
          *   @param vecT The vector to return the magnitude of
          *   @return The magnitude of vecT
          */
         static mag(vecT: Vector): number;
 
         /**
-         *   Calculates the squared magnitude of the vector and
-         *   returns the result as a float. (This is simply the
-         *   equation x*x + y*y + z*z.) Faster if the real
-         *   length is not required in the case of comparing
-         *   vectors, etc.
+         *   Returns the magnitude (length) of the vector
+         *   squared.
          *   @param vecT the vector to return the squared
          *   magnitude of
          *   @return the squared magnitude of vecT
@@ -317,32 +222,55 @@ declare module '../../index' {
         static magSq(vecT: Vector): number;
 
         /**
-         *   Calculates the dot product of two vectors. The
-         *   version of the method that computes the dot
-         *   product of two independent vectors is a static
-         *   method. See the examples for more context.
-         *   @param v1 The first p5.Vector
-         *   @param v2 The second p5.Vector
-         *   @return The dot product
+         *   Returns the dot product of two vectors. The dot
+         *   product is a number that describes the overlap
+         *   between two vectors. Visually, the dot product can
+         *   be thought of as the "shadow" one vector casts on
+         *   another. The dot product's magnitude is largest
+         *   when two vectors point in the same or opposite
+         *   directions. Its magnitude is 0 when two vectors
+         *   form a right angle. The version of dot() with one
+         *   parameter interprets it as another p5.Vector
+         *   object.
+         *
+         *   The version of dot() with multiple parameters
+         *   interprets them as the x, y, and z components of
+         *   another vector.
+         *
+         *   The static version of dot(), as in
+         *   p5.Vector.dot(v1, v2), is the same as calling
+         *   v1.dot(v2).
+         *   @param v1 first p5.Vector.
+         *   @param v2 second p5.Vector.
+         *   @return dot product.
          */
         static dot(v1: Vector, v2: Vector): number;
 
         /**
-         *   Calculates and returns a vector composed of the
-         *   cross product between two vectors. Both the static
-         *   and non-static methods return a new p5.Vector. See
-         *   the examples for more context.
-         *   @param v1 The first p5.Vector
-         *   @param v2 The second p5.Vector
-         *   @return The cross product
+         *   Returns the cross product of two vectors. The
+         *   cross product is a vector that points straight out
+         *   of the plane created by two vectors. The cross
+         *   product's magnitude is the area of the
+         *   parallelogram formed by the original two vectors.
+         *   The static version of cross(), as in
+         *   p5.Vector.cross(v1, v2), is the same as calling
+         *   v1.cross(v2).
+         *   @param v1 first p5.Vector.
+         *   @param v2 second p5.Vector.
+         *   @return cross product.
          */
         static cross(v1: Vector, v2: Vector): number;
 
         /**
-         *   Calculates the Euclidean distance between two
-         *   points (considering a point as a vector object).
-         *   If you are looking to calculate distance between 2
-         *   points see dist()
+         *   Returns the distance between two points
+         *   represented by vectors. A point's coordinates can
+         *   be thought of as a vector's components. The static
+         *   version of dist(), as in p5.Vector.dist(v1, v2),
+         *   is the same as calling v1.dist(v2).
+         *
+         *   Use dist() to calculate the distance between
+         *   points using coordinates as in dist(x1, y1, x2,
+         *   y2).
          *   @param v1 The first p5.Vector
          *   @param v2 The second p5.Vector
          *   @return The distance
@@ -350,8 +278,11 @@ declare module '../../index' {
         static dist(v1: Vector, v2: Vector): number;
 
         /**
-         *   Normalize the vector to length 1 (make it a unit
-         *   vector).
+         *   Scales the components of a p5.Vector object so
+         *   that its magnitude is 1. The static version of
+         *   normalize(), as in p5.Vector.normalize(v), returns
+         *   a new p5.Vector object and doesn't change the
+         *   original.
          *   @param v The vector to normalize
          *   @param [target] The vector to receive the result
          *   @return The vector v, normalized to a length of 1
@@ -359,10 +290,12 @@ declare module '../../index' {
         static normalize(v: Vector, target?: Vector): Vector;
 
         /**
-         *   Limit the magnitude of this vector to the value
-         *   used for the max parameter.
+         *   Limits a vector's magnitude to a maximum value.
+         *   The static version of limit(), as in
+         *   p5.Vector.limit(v, 5), returns a new p5.Vector
+         *   object and doesn't change the original.
          *   @param v the vector to limit
-         *   @param max The maximum magnitude for the vector
+         *   @param max maximum magnitude for the vector.
          *   @param [target] the vector to receive the result
          *   (Optional)
          *   @return v with a magnitude limited to max
@@ -370,10 +303,12 @@ declare module '../../index' {
         static limit(v: Vector, max: number, target?: Vector): Vector;
 
         /**
-         *   Set the magnitude of this vector to the value used
-         *   for the len parameter.
+         *   Sets a vector's magnitude to a given value. The
+         *   static version of setMag(), as in
+         *   p5.Vector.setMag(v, 10), returns a new p5.Vector
+         *   object and doesn't change the original.
          *   @param v the vector to set the magnitude of
-         *   @param len The new length for this vector
+         *   @param len new length for this vector.
          *   @param [target] the vector to receive the result
          *   (Optional)
          *   @return v with a magnitude set to len
@@ -381,40 +316,61 @@ declare module '../../index' {
         static setMag(v: Vector, len: number, target?: Vector): Vector;
 
         /**
-         *   Calculate the angle of rotation for this vector
-         *   (only 2D vectors). p5.Vectors created using
-         *   createVector() will take the current angleMode()
-         *   into consideration, and give the angle in radians
-         *   or degrees accordingly.
+         *   Calculates the angle a 2D vector makes with the
+         *   positive x-axis. Angles increase in the clockwise
+         *   direction. If the vector was created with
+         *   createVector(), heading() returns angles in the
+         *   units of the current angleMode().
+         *
+         *   The static version of heading(), as in
+         *   p5.Vector.heading(v), works the same way.
          *   @param v the vector to find the angle of
          *   @return the angle of rotation
          */
         static heading(v: Vector): number;
 
         /**
-         *   Rotate the vector by an angle (only 2D vectors);
-         *   magnitude remains the same.
-         *   @param angle The angle of rotation
+         *   Rotates a 2D vector by an angle without changing
+         *   its magnitude. By convention, the positive x-axis
+         *   has an angle of 0. Angles increase in the
+         *   clockwise direction. If the vector was created
+         *   with createVector(), rotate() uses the units of
+         *   the current angleMode().
+         *
+         *   The static version of rotate(), as in
+         *   p5.Vector.rotate(v, PI), returns a new p5.Vector
+         *   object and doesn't change the original.
+         *   @param angle angle of rotation.
          *   @param [target] The vector to receive the result
          */
         static rotate(v: Vector, angle: number, target?: Vector): void;
 
         /**
-         *   Calculates and returns the angle between two
-         *   vectors. This method will take the current
-         *   angleMode into consideration, and give the angle
-         *   in radians or degrees accordingly.
-         *   @param v1 the first vector
-         *   @param v2 the second vector
-         *   @return the angle between the two vectors
+         *   Returns the angle between two vectors. The angles
+         *   returned are signed, which means that
+         *   v1.angleBetween(v2) === -v2.angleBetween(v1). If
+         *   the vector was created with createVector(),
+         *   angleBetween() returns angles in the units of the
+         *   current angleMode().
+         *   @param v1 the first vector.
+         *   @param v2 the second vector.
+         *   @return angle between the two vectors.
          */
         static angleBetween(v1: Vector, v2: Vector): number;
 
         /**
-         *   Linear interpolate the vector to another vector.
-         *   @param amt The amount of interpolation; some value
-         *   between 0.0 (old vector) and 1.0 (new vector). 0.9
-         *   is very near the new vector. 0.5 is halfway in
+         *   Calculates new x, y, and z components that are
+         *   proportionally the same distance between two
+         *   vectors. The amt parameter is the amount to
+         *   interpolate between the old vector and the new
+         *   vector. 0.0 keeps all components equal to the old
+         *   vector's, 0.5 is halfway between, and 1.0 sets all
+         *   components equal to the new vector's. The static
+         *   version of lerp(), as in p5.Vector.lerp(v0, v1,
+         *   0.5), returns a new p5.Vector object and doesn't
+         *   change the original.
+         *   @param amt amount of interpolation between 0.0
+         *   (old vector) and 1.0 (new vector). 0.5 is halfway
          *   between.
          *   @param [target] The vector to receive the result
          *   @return The lerped value
@@ -422,47 +378,68 @@ declare module '../../index' {
         static lerp(v1: Vector, v2: Vector, amt: number, target?: Vector): Vector;
 
         /**
-         *   Performs spherical linear interpolation with the
-         *   other vector and returns the resulting vector.
-         *   This works in both 3D and 2D. As for 2D, the
-         *   result of slerping between 2D vectors is always a
-         *   2D vector.
-         *   @param v1 old vector
-         *   @param v2 new vectpr
-         *   @param amt The amount of interpolation. some value
-         *   between 0.0 (old vector) and 1.0 (new vector). 0.9
-         *   is very near the new vector. 0.5 is halfway in
+         *   Calculates a new heading and magnitude that are
+         *   between two vectors. The amt parameter is the
+         *   amount to interpolate between the old vector and
+         *   the new vector. 0.0 keeps the heading and
+         *   magnitude equal to the old vector's, 0.5 sets them
+         *   halfway between, and 1.0 sets the heading and
+         *   magnitude equal to the new vector's. slerp()
+         *   differs from lerp() because it interpolates
+         *   magnitude. Calling v0.slerp(v1, 0.5) sets v0's
+         *   magnitude to a value halfway between its original
+         *   magnitude and v1's. Calling v0.lerp(v1, 0.5) makes
+         *   no such guarantee.
+         *
+         *   The static version of slerp(), as in
+         *   p5.Vector.slerp(v0, v1, 0.5), returns a new
+         *   p5.Vector object and doesn't change the original.
+         *   @param v1 old vector.
+         *   @param v2 new vector.
+         *   @param amt amount of interpolation between 0.0
+         *   (old vector) and 1.0 (new vector). 0.5 is halfway
          *   between.
-         *   @param [target] The vector to receive the result
+         *   @param [target] vector to receive the result.
          *   @return slerped vector between v1 and v2
          */
         static slerp(v1: Vector, v2: Vector, amt: number, target?: Vector): Vector;
 
         /**
-         *   Reflect a vector about a normal to a line in 2D,
-         *   or about a normal to a plane in 3D.
-         *   @param incidentVector vector to be reflected
-         *   @param surfaceNormal the p5.Vector to reflect
-         *   about.
-         *   @param [target] the vector to receive the result
-         *   (Optional)
+         *   Reflects a vector about a line in 2D or a plane in
+         *   3D. The orientation of the line or plane is
+         *   described by a normal vector that points away from
+         *   the shape. The static version of reflect(), as in
+         *   p5.Vector.reflect(v, n), returns a new p5.Vector
+         *   object and doesn't change the original.
+         *   @param incidentVector vector to be reflected.
+         *   @param surfaceNormal p5.Vector to reflect about.
+         *   @param [target] vector to receive the result.
          *   @return the reflected vector
          */
         static reflect(incidentVector: Vector, surfaceNormal: Vector, target?: Vector): Vector;
 
         /**
-         *   Return a representation of this vector as a float
-         *   array. This is only for temporary use. If used in
-         *   any other fashion, the contents should be copied
-         *   by using the p5.Vector.copy() method to copy into
-         *   your own vector.
+         *   Returns the vector's components as an array of
+         *   numbers.
          *   @param v the vector to convert to an array
          *   @return an Array with the 3 values
          */
         static array(v: Vector): number[];
 
         /**
-         *   Equality check against a p5.Vector.
+         *   Returns true if the vector's components are all
+         *   the same as another vector's and false if not. The
+         *   version of equals() with one parameter interprets
+         *   it as another p5.Vector object.
+         *
+         *   The version of equals() with multiple parameters
+         *   interprets them as the components of another
+         *   vector. Any missing parameters are assigned the
+         *   value 0.
+         *
+         *   The static version of equals(), as in
+         *   p5.Vector.equals(v0, v1), interprets both
+         *   parameters as p5.Vector objects.
          *   @param v1 the first vector to compare
          *   @param v2 the second vector to compare
          */
@@ -470,549 +447,564 @@ declare module '../../index' {
 
         /**
          *   Make a new 2D vector from an angle.
-         *   @param angle The desired angle, in radians
-         *   (unaffected by angleMode)
-         *   @param [length] The length of the new vector
-         *   (defaults to 1)
-         *   @return The new p5.Vector object
+         *   @param angle desired angle, in radians. Unaffected
+         *   by angleMode().
+         *   @param [length] length of the new vector (defaults
+         *   to 1).
+         *   @return new p5.Vector object.
          */
         static fromAngle(angle: number, length?: number): Vector;
 
         /**
          *   Make a new 3D vector from a pair of ISO spherical
          *   angles.
-         *   @param theta The polar angle, in radians (zero is
-         *   up)
-         *   @param phi The azimuthal angle, in radians (zero
-         *   is out of the screen)
-         *   @param [length] The length of the new vector
-         *   (defaults to 1)
-         *   @return A new p5.Vector object
+         *   @param theta polar angle in radians (zero is up).
+         *   @param phi azimuthal angle in radians (zero is out
+         *   of the screen).
+         *   @param [length] length of the new vector (defaults
+         *   to 1).
+         *   @return new p5.Vector object.
          */
         static fromAngles(theta: number, phi: number, length?: number): Vector;
 
         /**
-         *   Make a new 2D unit vector from a random angle.
-         *   @return A new p5.Vector object
+         *   Make a new 2D unit vector with a random heading.
+         *   @return new p5.Vector object.
          */
         static random2D(): Vector;
 
         /**
-         *   Make a new random 3D unit vector.
-         *   @return A new p5.Vector object
+         *   Make a new 3D unit vector with a random heading.
+         *   @return new p5.Vector object.
          */
         static random3D(): Vector;
 
         /**
-         *   Returns a string representation of a vector v by
-         *   calling String(v) or v.toString(). This method is
-         *   useful for logging vectors in the console.
+         *   Returns a string representation of a vector. This
+         *   method is useful for printing vectors to the
+         *   console while debugging.
+         *   @return string representation of the vector.
          */
         toString(): string;
 
         /**
          *   Sets the x, y, and z components of the vector
-         *   using two or three separate variables, the data
-         *   from a p5.Vector, or the values from a float
-         *   array.
-         *   @param [x] The x component of the vector
-         *   @param [y] The y component of the vector
-         *   @param [z] The z component of the vector
+         *   using separate numbers, a p5.Vector object, or an
+         *   array of numbers. Calling set() with no arguments
+         *   sets the vector's components to 0.
+         *   @param [x] x component of the vector.
+         *   @param [y] y component of the vector.
+         *   @param [z] z component of the vector.
          *   @chainable
          */
         set(x?: number, y?: number, z?: number): Vector;
 
         /**
          *   Sets the x, y, and z components of the vector
-         *   using two or three separate variables, the data
-         *   from a p5.Vector, or the values from a float
-         *   array.
-         *   @param value The vector to set
+         *   using separate numbers, a p5.Vector object, or an
+         *   array of numbers. Calling set() with no arguments
+         *   sets the vector's components to 0.
+         *   @param value vector to set.
          *   @chainable
          */
         set(value: Vector | number[]): Vector;
 
         /**
-         *   Gets a copy of the vector, returns a p5.Vector
-         *   object.
-         *   @return A copy of the p5.Vector object
+         *   Returns a copy of the p5.Vector object.
+         *   @return copy of the p5.Vector object.
          */
         copy(): Vector;
 
         /**
-         *   Adds x, y, and z components to a vector, adds one
-         *   vector to another, or adds two independent vectors
-         *   together. The version of the method that adds two
-         *   vectors together is a static method and returns a
-         *   p5.Vector, the others act directly on the vector.
-         *   Additionally, you may provide arguments to this
-         *   method as an array. See the examples for more
-         *   context.
-         *   @param x The x component of the vector to be added
-         *   @param [y] The y component of the vector to be
-         *   added
-         *   @param [z] The z component of the vector to be
-         *   added
+         *   Adds to a vector's x, y, and z components using
+         *   separate numbers, another p5.Vector object, or an
+         *   array of numbers. Calling add() with no arguments
+         *   has no effect. The static version of add(), as in
+         *   p5.Vector.add(v2, v1), returns a new p5.Vector
+         *   object and doesn't change the originals.
+         *   @param x x component of the vector to be added.
+         *   @param [y] y component of the vector to be added.
+         *   @param [z] z component of the vector to be added.
          *   @chainable
          */
         add(x: number, y?: number, z?: number): Vector;
 
         /**
-         *   Adds x, y, and z components to a vector, adds one
-         *   vector to another, or adds two independent vectors
-         *   together. The version of the method that adds two
-         *   vectors together is a static method and returns a
-         *   p5.Vector, the others act directly on the vector.
-         *   Additionally, you may provide arguments to this
-         *   method as an array. See the examples for more
-         *   context.
+         *   Adds to a vector's x, y, and z components using
+         *   separate numbers, another p5.Vector object, or an
+         *   array of numbers. Calling add() with no arguments
+         *   has no effect. The static version of add(), as in
+         *   p5.Vector.add(v2, v1), returns a new p5.Vector
+         *   object and doesn't change the originals.
          *   @param value The vector to add
          *   @chainable
          */
         add(value: Vector | number[]): Vector;
 
         /**
-         *   Gives the remainder of a vector when it is divided
-         *   by another vector. See examples for more context.
-         *   @param x The x component of divisor vector
-         *   @param y The y component of divisor vector
-         *   @param z The z component of divisor vector
+         *   Performs modulo (remainder) division with a
+         *   vector's x, y, and z components using separate
+         *   numbers, another p5.Vector object, or an array of
+         *   numbers. The static version of rem() as in
+         *   p5.Vector.rem(v2, v1), returns a new p5.Vector
+         *   object and doesn't change the originals.
+         *   @param x x component of divisor vector.
+         *   @param y y component of divisor vector.
+         *   @param z z component of divisor vector.
          *   @chainable
          */
         rem(x: number, y: number, z: number): Vector;
 
         /**
-         *   Gives the remainder of a vector when it is divided
-         *   by another vector. See examples for more context.
-         *   @param value The divisor vector
+         *   Performs modulo (remainder) division with a
+         *   vector's x, y, and z components using separate
+         *   numbers, another p5.Vector object, or an array of
+         *   numbers. The static version of rem() as in
+         *   p5.Vector.rem(v2, v1), returns a new p5.Vector
+         *   object and doesn't change the originals.
+         *   @param value divisor vector.
          *   @chainable
          */
         rem(value: Vector | number[]): Vector;
 
         /**
-         *   Subtracts x, y, and z components from a vector,
-         *   subtracts one vector from another, or subtracts
-         *   two independent vectors. The version of the method
-         *   that subtracts two vectors is a static method and
-         *   returns a p5.Vector, the others act directly on
-         *   the vector. Additionally, you may provide
-         *   arguments to this method as an array. See the
-         *   examples for more context.
-         *   @param x The x component of the vector to subtract
-         *   @param [y] The y component of the vector to
-         *   subtract
-         *   @param [z] The z component of the vector to
-         *   subtract
+         *   Subtracts from a vector's x, y, and z components
+         *   using separate numbers, another p5.Vector object,
+         *   or an array of numbers. Calling sub() with no
+         *   arguments has no effect. The static version of
+         *   sub(), as in p5.Vector.sub(v2, v1), returns a new
+         *   p5.Vector object and doesn't change the originals.
+         *   @param x x component of the vector to subtract.
+         *   @param [y] y component of the vector to subtract.
+         *   @param [z] z component of the vector to subtract.
          *   @chainable
          */
         sub(x: number, y?: number, z?: number): Vector;
 
         /**
-         *   Subtracts x, y, and z components from a vector,
-         *   subtracts one vector from another, or subtracts
-         *   two independent vectors. The version of the method
-         *   that subtracts two vectors is a static method and
-         *   returns a p5.Vector, the others act directly on
-         *   the vector. Additionally, you may provide
-         *   arguments to this method as an array. See the
-         *   examples for more context.
+         *   Subtracts from a vector's x, y, and z components
+         *   using separate numbers, another p5.Vector object,
+         *   or an array of numbers. Calling sub() with no
+         *   arguments has no effect. The static version of
+         *   sub(), as in p5.Vector.sub(v2, v1), returns a new
+         *   p5.Vector object and doesn't change the originals.
          *   @param value the vector to subtract
          *   @chainable
          */
         sub(value: Vector | number[]): Vector;
 
         /**
-         *   Multiplies the vector by a scalar, multiplies the
-         *   x, y, and z components from a vector, or
-         *   multiplies the x, y, and z components of two
-         *   independent vectors. When multiplying a vector by
-         *   a scalar, the x, y, and z components of the vector
-         *   are all multiplied by the scalar. When multiplying
-         *   a vector by a vector, the x, y, z components of
-         *   both vectors are multiplied by each other (for
-         *   example, with two vectors a and b: a.x * b.x, a.y
-         *   * b.y, a.z * b.z). The static version of this
-         *   method creates a new p5.Vector while the
-         *   non-static version acts on the vector directly.
-         *   Additionally, you may provide arguments to this
-         *   function as an array. See the examples for more
-         *   context.
+         *   Multiplies a vector's x, y, and z components by
+         *   the same number, separate numbers, the components
+         *   of another p5.Vector object, or an array of
+         *   numbers. Calling mult() with no arguments has no
+         *   effect. The static version of mult(), as in
+         *   p5.Vector.mult(v, 2), returns a new p5.Vector
+         *   object and doesn't change the originals.
          *   @param n The number to multiply with the vector
          *   @chainable
          */
         mult(n: number): Vector;
 
         /**
-         *   Multiplies the vector by a scalar, multiplies the
-         *   x, y, and z components from a vector, or
-         *   multiplies the x, y, and z components of two
-         *   independent vectors. When multiplying a vector by
-         *   a scalar, the x, y, and z components of the vector
-         *   are all multiplied by the scalar. When multiplying
-         *   a vector by a vector, the x, y, z components of
-         *   both vectors are multiplied by each other (for
-         *   example, with two vectors a and b: a.x * b.x, a.y
-         *   * b.y, a.z * b.z). The static version of this
-         *   method creates a new p5.Vector while the
-         *   non-static version acts on the vector directly.
-         *   Additionally, you may provide arguments to this
-         *   function as an array. See the examples for more
-         *   context.
-         *   @param x The number to multiply with the x
-         *   component of the vector
-         *   @param y The number to multiply with the y
-         *   component of the vector
-         *   @param [z] The number to multiply with the z
-         *   component of the vector
+         *   Multiplies a vector's x, y, and z components by
+         *   the same number, separate numbers, the components
+         *   of another p5.Vector object, or an array of
+         *   numbers. Calling mult() with no arguments has no
+         *   effect. The static version of mult(), as in
+         *   p5.Vector.mult(v, 2), returns a new p5.Vector
+         *   object and doesn't change the originals.
+         *   @param x number to multiply with the x component
+         *   of the vector.
+         *   @param y number to multiply with the y component
+         *   of the vector.
+         *   @param [z] number to multiply with the z component
+         *   of the vector.
          *   @chainable
          */
         mult(x: number, y: number, z?: number): Vector;
 
         /**
-         *   Multiplies the vector by a scalar, multiplies the
-         *   x, y, and z components from a vector, or
-         *   multiplies the x, y, and z components of two
-         *   independent vectors. When multiplying a vector by
-         *   a scalar, the x, y, and z components of the vector
-         *   are all multiplied by the scalar. When multiplying
-         *   a vector by a vector, the x, y, z components of
-         *   both vectors are multiplied by each other (for
-         *   example, with two vectors a and b: a.x * b.x, a.y
-         *   * b.y, a.z * b.z). The static version of this
-         *   method creates a new p5.Vector while the
-         *   non-static version acts on the vector directly.
-         *   Additionally, you may provide arguments to this
-         *   function as an array. See the examples for more
-         *   context.
-         *   @param arr The array to multiply with the
-         *   components of the vector
+         *   Multiplies a vector's x, y, and z components by
+         *   the same number, separate numbers, the components
+         *   of another p5.Vector object, or an array of
+         *   numbers. Calling mult() with no arguments has no
+         *   effect. The static version of mult(), as in
+         *   p5.Vector.mult(v, 2), returns a new p5.Vector
+         *   object and doesn't change the originals.
+         *   @param arr array to multiply with the components
+         *   of the vector.
          *   @chainable
          */
         mult(arr: number[]): Vector;
 
         /**
-         *   Multiplies the vector by a scalar, multiplies the
-         *   x, y, and z components from a vector, or
-         *   multiplies the x, y, and z components of two
-         *   independent vectors. When multiplying a vector by
-         *   a scalar, the x, y, and z components of the vector
-         *   are all multiplied by the scalar. When multiplying
-         *   a vector by a vector, the x, y, z components of
-         *   both vectors are multiplied by each other (for
-         *   example, with two vectors a and b: a.x * b.x, a.y
-         *   * b.y, a.z * b.z). The static version of this
-         *   method creates a new p5.Vector while the
-         *   non-static version acts on the vector directly.
-         *   Additionally, you may provide arguments to this
-         *   function as an array. See the examples for more
-         *   context.
-         *   @param v The vector to multiply with the
-         *   components of the original vector
+         *   Multiplies a vector's x, y, and z components by
+         *   the same number, separate numbers, the components
+         *   of another p5.Vector object, or an array of
+         *   numbers. Calling mult() with no arguments has no
+         *   effect. The static version of mult(), as in
+         *   p5.Vector.mult(v, 2), returns a new p5.Vector
+         *   object and doesn't change the originals.
+         *   @param v vector to multiply with the components of
+         *   the original vector.
          *   @chainable
          */
         mult(v: Vector): Vector;
 
         /**
-         *   Divides the vector by a scalar, divides a vector
-         *   by the x, y, and z arguments, or divides the x, y,
-         *   and z components of two vectors against each
-         *   other. When dividing a vector by a scalar, the x,
-         *   y, and z components of the vector are all divided
-         *   by the scalar. When dividing a vector by a vector,
-         *   the x, y, z components of the source vector are
-         *   treated as the dividend, and the x, y, z
-         *   components of the argument is treated as the
-         *   divisor. (For example, with two vectors a and b:
-         *   a.x / b.x, a.y / b.y, a.z / b.z.) If any component
-         *   of the second vector is 0, a division by 0 error
-         *   will be logged, unless both two vectors have 0 in
-         *   their z components, in which case only the x and y
-         *   components will be divided. The static version of
-         *   this method creates a new p5.Vector while the
-         *   non-static version acts on the vector directly.
-         *   Additionally, you may provide arguments to this
-         *   method as an array. See the examples for more
-         *   context.
+         *   Divides a vector's x, y, and z components by the
+         *   same number, separate numbers, the components of
+         *   another p5.Vector object, or an array of numbers.
+         *   Calling div() with no arguments has no effect. The
+         *   static version of div(), as in p5.Vector.div(v,
+         *   2), returns a new p5.Vector object and doesn't
+         *   change the originals.
          *   @param n The number to divide the vector by
          *   @chainable
          */
         div(n: number): Vector;
 
         /**
-         *   Divides the vector by a scalar, divides a vector
-         *   by the x, y, and z arguments, or divides the x, y,
-         *   and z components of two vectors against each
-         *   other. When dividing a vector by a scalar, the x,
-         *   y, and z components of the vector are all divided
-         *   by the scalar. When dividing a vector by a vector,
-         *   the x, y, z components of the source vector are
-         *   treated as the dividend, and the x, y, z
-         *   components of the argument is treated as the
-         *   divisor. (For example, with two vectors a and b:
-         *   a.x / b.x, a.y / b.y, a.z / b.z.) If any component
-         *   of the second vector is 0, a division by 0 error
-         *   will be logged, unless both two vectors have 0 in
-         *   their z components, in which case only the x and y
-         *   components will be divided. The static version of
-         *   this method creates a new p5.Vector while the
-         *   non-static version acts on the vector directly.
-         *   Additionally, you may provide arguments to this
-         *   method as an array. See the examples for more
-         *   context.
-         *   @param x The number to divide with the x component
-         *   of the vector
-         *   @param y The number to divide with the y component
-         *   of the vector
-         *   @param [z] The number to divide with the z
-         *   component of the vector
+         *   Divides a vector's x, y, and z components by the
+         *   same number, separate numbers, the components of
+         *   another p5.Vector object, or an array of numbers.
+         *   Calling div() with no arguments has no effect. The
+         *   static version of div(), as in p5.Vector.div(v,
+         *   2), returns a new p5.Vector object and doesn't
+         *   change the originals.
+         *   @param x number to divide with the x component of
+         *   the vector.
+         *   @param y number to divide with the y component of
+         *   the vector.
+         *   @param [z] number to divide with the z component
+         *   of the vector.
          *   @chainable
          */
         div(x: number, y: number, z?: number): Vector;
 
         /**
-         *   Divides the vector by a scalar, divides a vector
-         *   by the x, y, and z arguments, or divides the x, y,
-         *   and z components of two vectors against each
-         *   other. When dividing a vector by a scalar, the x,
-         *   y, and z components of the vector are all divided
-         *   by the scalar. When dividing a vector by a vector,
-         *   the x, y, z components of the source vector are
-         *   treated as the dividend, and the x, y, z
-         *   components of the argument is treated as the
-         *   divisor. (For example, with two vectors a and b:
-         *   a.x / b.x, a.y / b.y, a.z / b.z.) If any component
-         *   of the second vector is 0, a division by 0 error
-         *   will be logged, unless both two vectors have 0 in
-         *   their z components, in which case only the x and y
-         *   components will be divided. The static version of
-         *   this method creates a new p5.Vector while the
-         *   non-static version acts on the vector directly.
-         *   Additionally, you may provide arguments to this
-         *   method as an array. See the examples for more
-         *   context.
-         *   @param arr The array to divide the components of
-         *   the vector by
+         *   Divides a vector's x, y, and z components by the
+         *   same number, separate numbers, the components of
+         *   another p5.Vector object, or an array of numbers.
+         *   Calling div() with no arguments has no effect. The
+         *   static version of div(), as in p5.Vector.div(v,
+         *   2), returns a new p5.Vector object and doesn't
+         *   change the originals.
+         *   @param arr array to divide the components of the
+         *   vector by.
          *   @chainable
          */
         div(arr: number[]): Vector;
 
         /**
-         *   Divides the vector by a scalar, divides a vector
-         *   by the x, y, and z arguments, or divides the x, y,
-         *   and z components of two vectors against each
-         *   other. When dividing a vector by a scalar, the x,
-         *   y, and z components of the vector are all divided
-         *   by the scalar. When dividing a vector by a vector,
-         *   the x, y, z components of the source vector are
-         *   treated as the dividend, and the x, y, z
-         *   components of the argument is treated as the
-         *   divisor. (For example, with two vectors a and b:
-         *   a.x / b.x, a.y / b.y, a.z / b.z.) If any component
-         *   of the second vector is 0, a division by 0 error
-         *   will be logged, unless both two vectors have 0 in
-         *   their z components, in which case only the x and y
-         *   components will be divided. The static version of
-         *   this method creates a new p5.Vector while the
-         *   non-static version acts on the vector directly.
-         *   Additionally, you may provide arguments to this
-         *   method as an array. See the examples for more
-         *   context.
-         *   @param v The vector to divide the components of
-         *   the original vector by
+         *   Divides a vector's x, y, and z components by the
+         *   same number, separate numbers, the components of
+         *   another p5.Vector object, or an array of numbers.
+         *   Calling div() with no arguments has no effect. The
+         *   static version of div(), as in p5.Vector.div(v,
+         *   2), returns a new p5.Vector object and doesn't
+         *   change the originals.
+         *   @param v vector to divide the components of the
+         *   original vector by.
          *   @chainable
          */
         div(v: Vector): Vector;
 
         /**
-         *   Calculates the magnitude (length) of the vector
-         *   and returns the result as a float. (This is simply
-         *   the equation sqrt(x*x + y*y + z*z).)
-         *   @return The magnitude of the vector
+         *   Returns the magnitude (length) of the vector.
+         *   @return magnitude of the vector.
          */
         mag(): number;
 
         /**
-         *   Calculates the squared magnitude of the vector and
-         *   returns the result as a float. (This is simply the
-         *   equation x*x + y*y + z*z.) Faster if the real
-         *   length is not required in the case of comparing
-         *   vectors, etc.
-         *   @return The squared magnitude of the vector
+         *   Returns the magnitude (length) of the vector
+         *   squared.
+         *   @return squared magnitude of the vector.
          */
         magSq(): number;
 
         /**
-         *   Calculates the dot product of two vectors. The
-         *   version of the method that computes the dot
-         *   product of two independent vectors is a static
-         *   method. See the examples for more context.
-         *   @param x The x component of the vector
-         *   @param [y] The y component of the vector
-         *   @param [z] The z component of the vector
-         *   @return The dot product
+         *   Returns the dot product of two vectors. The dot
+         *   product is a number that describes the overlap
+         *   between two vectors. Visually, the dot product can
+         *   be thought of as the "shadow" one vector casts on
+         *   another. The dot product's magnitude is largest
+         *   when two vectors point in the same or opposite
+         *   directions. Its magnitude is 0 when two vectors
+         *   form a right angle. The version of dot() with one
+         *   parameter interprets it as another p5.Vector
+         *   object.
+         *
+         *   The version of dot() with multiple parameters
+         *   interprets them as the x, y, and z components of
+         *   another vector.
+         *
+         *   The static version of dot(), as in
+         *   p5.Vector.dot(v1, v2), is the same as calling
+         *   v1.dot(v2).
+         *   @param x x component of the vector.
+         *   @param [y] y component of the vector.
+         *   @param [z] z component of the vector.
+         *   @return dot product.
          */
         dot(x: number, y?: number, z?: number): number;
 
         /**
-         *   Calculates the dot product of two vectors. The
-         *   version of the method that computes the dot
-         *   product of two independent vectors is a static
-         *   method. See the examples for more context.
-         *   @param value value component of the vector or a
-         *   p5.Vector
+         *   Returns the dot product of two vectors. The dot
+         *   product is a number that describes the overlap
+         *   between two vectors. Visually, the dot product can
+         *   be thought of as the "shadow" one vector casts on
+         *   another. The dot product's magnitude is largest
+         *   when two vectors point in the same or opposite
+         *   directions. Its magnitude is 0 when two vectors
+         *   form a right angle. The version of dot() with one
+         *   parameter interprets it as another p5.Vector
+         *   object.
+         *
+         *   The version of dot() with multiple parameters
+         *   interprets them as the x, y, and z components of
+         *   another vector.
+         *
+         *   The static version of dot(), as in
+         *   p5.Vector.dot(v1, v2), is the same as calling
+         *   v1.dot(v2).
+         *   @param v p5.Vector to be dotted.
          */
-        dot(value: Vector): number;
+        dot(v: Vector): number;
 
         /**
-         *   Calculates and returns a vector composed of the
-         *   cross product between two vectors. Both the static
-         *   and non-static methods return a new p5.Vector. See
-         *   the examples for more context.
-         *   @param v p5.Vector to be crossed
-         *   @return p5.Vector composed of cross product
+         *   Returns the cross product of two vectors. The
+         *   cross product is a vector that points straight out
+         *   of the plane created by two vectors. The cross
+         *   product's magnitude is the area of the
+         *   parallelogram formed by the original two vectors.
+         *   The static version of cross(), as in
+         *   p5.Vector.cross(v1, v2), is the same as calling
+         *   v1.cross(v2).
+         *   @param v p5.Vector to be crossed.
+         *   @return cross product as a p5.Vector.
          */
         cross(v: Vector): Vector;
 
         /**
-         *   Calculates the Euclidean distance between two
-         *   points (considering a point as a vector object).
-         *   If you are looking to calculate distance between 2
-         *   points see dist()
-         *   @param v The x, y, and z coordinates of a
-         *   p5.Vector
-         *   @return The distance
+         *   Returns the distance between two points
+         *   represented by vectors. A point's coordinates can
+         *   be thought of as a vector's components. The static
+         *   version of dist(), as in p5.Vector.dist(v1, v2),
+         *   is the same as calling v1.dist(v2).
+         *
+         *   Use dist() to calculate the distance between
+         *   points using coordinates as in dist(x1, y1, x2,
+         *   y2).
+         *   @param v x, y, and z coordinates of a p5.Vector.
+         *   @return distance.
          */
         dist(v: Vector): number;
 
         /**
-         *   Normalize the vector to length 1 (make it a unit
-         *   vector).
-         *   @return The normalized p5.Vector
+         *   Scales the components of a p5.Vector object so
+         *   that its magnitude is 1. The static version of
+         *   normalize(), as in p5.Vector.normalize(v), returns
+         *   a new p5.Vector object and doesn't change the
+         *   original.
+         *   @return normalized p5.Vector.
          */
         normalize(): Vector;
 
         /**
-         *   Limit the magnitude of this vector to the value
-         *   used for the max parameter.
-         *   @param max The maximum magnitude for the vector
+         *   Limits a vector's magnitude to a maximum value.
+         *   The static version of limit(), as in
+         *   p5.Vector.limit(v, 5), returns a new p5.Vector
+         *   object and doesn't change the original.
+         *   @param max maximum magnitude for the vector.
          *   @chainable
          */
         limit(max: number): Vector;
 
         /**
-         *   Set the magnitude of this vector to the value used
-         *   for the len parameter.
-         *   @param len The new length for this vector
+         *   Sets a vector's magnitude to a given value. The
+         *   static version of setMag(), as in
+         *   p5.Vector.setMag(v, 10), returns a new p5.Vector
+         *   object and doesn't change the original.
+         *   @param len new length for this vector.
          *   @chainable
          */
         setMag(len: number): Vector;
 
         /**
-         *   Calculate the angle of rotation for this vector
-         *   (only 2D vectors). p5.Vectors created using
-         *   createVector() will take the current angleMode()
-         *   into consideration, and give the angle in radians
-         *   or degrees accordingly.
-         *   @return The angle of rotation
+         *   Calculates the angle a 2D vector makes with the
+         *   positive x-axis. Angles increase in the clockwise
+         *   direction. If the vector was created with
+         *   createVector(), heading() returns angles in the
+         *   units of the current angleMode().
+         *
+         *   The static version of heading(), as in
+         *   p5.Vector.heading(v), works the same way.
+         *   @return angle of rotation.
          */
         heading(): number;
 
         /**
-         *   Rotate the vector to a specific angle (only 2D
-         *   vectors); magnitude remains the same.
-         *   @param angle The angle of rotation
+         *   Rotates a 2D vector to a specific angle without
+         *   changing its magnitude. By convention, the
+         *   positive x-axis has an angle of 0. Angles increase
+         *   in the clockwise direction. If the vector was
+         *   created with createVector(), setHeading() uses the
+         *   units of the current angleMode().
+         *   @param angle angle of rotation.
          *   @chainable
          */
         setHeading(angle: number): Vector;
 
         /**
-         *   Rotate the vector by an angle (only 2D vectors);
-         *   magnitude remains the same.
-         *   @param angle The angle of rotation
+         *   Rotates a 2D vector by an angle without changing
+         *   its magnitude. By convention, the positive x-axis
+         *   has an angle of 0. Angles increase in the
+         *   clockwise direction. If the vector was created
+         *   with createVector(), rotate() uses the units of
+         *   the current angleMode().
+         *
+         *   The static version of rotate(), as in
+         *   p5.Vector.rotate(v, PI), returns a new p5.Vector
+         *   object and doesn't change the original.
+         *   @param angle angle of rotation.
          *   @chainable
          */
         rotate(angle: number): Vector;
 
         /**
-         *   Calculates and returns the angle between two
-         *   vectors. This method will take the current
-         *   angleMode into consideration, and give the angle
-         *   in radians or degrees accordingly.
-         *   @param value The x, y, and z components of a
-         *   p5.Vector
-         *   @return The angle between
+         *   Returns the angle between two vectors. The angles
+         *   returned are signed, which means that
+         *   v1.angleBetween(v2) === -v2.angleBetween(v1). If
+         *   the vector was created with createVector(),
+         *   angleBetween() returns angles in the units of the
+         *   current angleMode().
+         *   @param value x, y, and z components of a
+         *   p5.Vector.
+         *   @return angle between the vectors.
          */
         angleBetween(value: Vector): number;
 
         /**
-         *   Linear interpolate the vector to another vector.
-         *   @param x The x component
-         *   @param y The y component
-         *   @param z The z component
-         *   @param amt The amount of interpolation; some value
-         *   between 0.0 (old vector) and 1.0 (new vector). 0.9
-         *   is very near the new vector. 0.5 is halfway in
+         *   Calculates new x, y, and z components that are
+         *   proportionally the same distance between two
+         *   vectors. The amt parameter is the amount to
+         *   interpolate between the old vector and the new
+         *   vector. 0.0 keeps all components equal to the old
+         *   vector's, 0.5 is halfway between, and 1.0 sets all
+         *   components equal to the new vector's. The static
+         *   version of lerp(), as in p5.Vector.lerp(v0, v1,
+         *   0.5), returns a new p5.Vector object and doesn't
+         *   change the original.
+         *   @param x x component.
+         *   @param y y component.
+         *   @param z z component.
+         *   @param amt amount of interpolation between 0.0
+         *   (old vector) and 1.0 (new vector). 0.5 is halfway
          *   between.
          *   @chainable
          */
         lerp(x: number, y: number, z: number, amt: number): Vector;
 
         /**
-         *   Linear interpolate the vector to another vector.
-         *   @param v The p5.Vector to lerp to
-         *   @param amt The amount of interpolation; some value
-         *   between 0.0 (old vector) and 1.0 (new vector). 0.9
-         *   is very near the new vector. 0.5 is halfway in
+         *   Calculates new x, y, and z components that are
+         *   proportionally the same distance between two
+         *   vectors. The amt parameter is the amount to
+         *   interpolate between the old vector and the new
+         *   vector. 0.0 keeps all components equal to the old
+         *   vector's, 0.5 is halfway between, and 1.0 sets all
+         *   components equal to the new vector's. The static
+         *   version of lerp(), as in p5.Vector.lerp(v0, v1,
+         *   0.5), returns a new p5.Vector object and doesn't
+         *   change the original.
+         *   @param v p5.Vector to lerp toward.
+         *   @param amt amount of interpolation between 0.0
+         *   (old vector) and 1.0 (new vector). 0.5 is halfway
          *   between.
          *   @chainable
          */
         lerp(v: Vector, amt: number): Vector;
 
         /**
-         *   Performs spherical linear interpolation with the
-         *   other vector and returns the resulting vector.
-         *   This works in both 3D and 2D. As for 2D, the
-         *   result of slerping between 2D vectors is always a
-         *   2D vector.
-         *   @param v the p5.Vector to slerp to
-         *   @param amt The amount of interpolation. some value
-         *   between 0.0 (old vector) and 1.0 (new vector). 0.9
-         *   is very near the new vector. 0.5 is halfway in
+         *   Calculates a new heading and magnitude that are
+         *   between two vectors. The amt parameter is the
+         *   amount to interpolate between the old vector and
+         *   the new vector. 0.0 keeps the heading and
+         *   magnitude equal to the old vector's, 0.5 sets them
+         *   halfway between, and 1.0 sets the heading and
+         *   magnitude equal to the new vector's. slerp()
+         *   differs from lerp() because it interpolates
+         *   magnitude. Calling v0.slerp(v1, 0.5) sets v0's
+         *   magnitude to a value halfway between its original
+         *   magnitude and v1's. Calling v0.lerp(v1, 0.5) makes
+         *   no such guarantee.
+         *
+         *   The static version of slerp(), as in
+         *   p5.Vector.slerp(v0, v1, 0.5), returns a new
+         *   p5.Vector object and doesn't change the original.
+         *   @param v p5.Vector to slerp toward.
+         *   @param amt amount of interpolation between 0.0
+         *   (old vector) and 1.0 (new vector). 0.5 is halfway
          *   between.
          */
         slerp(v: Vector, amt: number): Vector;
 
         /**
-         *   Reflect a vector about a normal to a line in 2D,
-         *   or about a normal to a plane in 3D.
-         *   @param surfaceNormal the p5.Vector to reflect
-         *   about.
+         *   Reflects a vector about a line in 2D or a plane in
+         *   3D. The orientation of the line or plane is
+         *   described by a normal vector that points away from
+         *   the shape. The static version of reflect(), as in
+         *   p5.Vector.reflect(v, n), returns a new p5.Vector
+         *   object and doesn't change the original.
+         *   @param surfaceNormal p5.Vector to reflect about.
          *   @chainable
          */
         reflect(surfaceNormal: Vector): Vector;
 
         /**
-         *   Return a representation of this vector as a float
-         *   array. This is only for temporary use. If used in
-         *   any other fashion, the contents should be copied
-         *   by using the p5.Vector.copy() method to copy into
-         *   your own vector.
-         *   @return An Array with the 3 values
+         *   Returns the vector's components as an array of
+         *   numbers.
+         *   @return array with the vector's components.
          */
         array(): number[];
 
         /**
-         *   Equality check against a p5.Vector.
-         *   @param [x] The x component of the vector
-         *   @param [y] The y component of the vector
-         *   @param [z] The z component of the vector
-         *   @return Whether the vectors are equal
+         *   Returns true if the vector's components are all
+         *   the same as another vector's and false if not. The
+         *   version of equals() with one parameter interprets
+         *   it as another p5.Vector object.
+         *
+         *   The version of equals() with multiple parameters
+         *   interprets them as the components of another
+         *   vector. Any missing parameters are assigned the
+         *   value 0.
+         *
+         *   The static version of equals(), as in
+         *   p5.Vector.equals(v0, v1), interprets both
+         *   parameters as p5.Vector objects.
+         *   @param [x] x component of the vector.
+         *   @param [y] y component of the vector.
+         *   @param [z] z component of the vector.
+         *   @return whether the vectors are equal.
          */
         equals(x?: number, y?: number, z?: number): boolean;
 
         /**
-         *   Equality check against a p5.Vector.
-         *   @param value The vector to compare
+         *   Returns true if the vector's components are all
+         *   the same as another vector's and false if not. The
+         *   version of equals() with one parameter interprets
+         *   it as another p5.Vector object.
+         *
+         *   The version of equals() with multiple parameters
+         *   interprets them as the components of another
+         *   vector. Any missing parameters are assigned the
+         *   value 0.
+         *
+         *   The static version of equals(), as in
+         *   p5.Vector.equals(v0, v1), interprets both
+         *   parameters as p5.Vector objects.
+         *   @param value vector to compare.
          */
         equals(value: Vector | any[]): boolean;
 

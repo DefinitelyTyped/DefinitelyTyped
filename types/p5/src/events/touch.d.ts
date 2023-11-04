@@ -16,7 +16,7 @@ declare module '../../index' {
          *   @param [event] optional TouchEvent callback
          *   argument.
          */
-        touchStarted(event?: object): void;
+        touchStarted(event?: TouchEvent): void;
 
         /**
          *   The touchMoved() function is called every time a
@@ -30,7 +30,7 @@ declare module '../../index' {
          *   @param [event] optional TouchEvent callback
          *   argument.
          */
-        touchMoved(event?: object): void;
+        touchMoved(event?: TouchEvent): void;
 
         /**
          *   The touchEnded() function is called every time a
@@ -44,7 +44,7 @@ declare module '../../index' {
          *   @param [event] optional TouchEvent callback
          *   argument.
          */
-        touchEnded(event?: object): void;
+        touchEnded(event?: TouchEvent): void;
 
         /**
          *   The system variable touches[] contains an array of

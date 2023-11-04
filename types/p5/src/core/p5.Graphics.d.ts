@@ -21,7 +21,7 @@ declare module '../../index' {
          *   @param [pInst] pointer to p5 instance
          *   @param [canvas] existing html canvas element
          */
-        constructor(w: number, h: number, renderer: GRAPHICS_RENDERER, pInst?: p5, canvas?: object);
+        constructor(w: number, h: number, renderer: GRAPHICS_RENDERER, pInst?: p5, canvas?: HTMLCanvasElement);
 
         /**
          *   Resets certain values such as those modified by

@@ -384,6 +384,64 @@ declare global {
     function saturation(color: p5.Color | number[] | string): number;
 
     /**
+     *   Start defining a shape that will mask subsequent
+     *   things drawn to the canvas. Only opaque regions of
+     *   the mask shape will allow content to be drawn. Any
+     *   shapes drawn between this and endClip() will
+     *   contribute to the mask shape. The mask will apply
+     *   to anything drawn after this call. To draw without
+     *   a mask, contain the code to apply the mask and to
+     *   draw the masked content between push() and pop().
+     *
+     *   Alternatively, rather than drawing the mask
+     *   between this and endClip(), draw the mask in a
+     *   callback function passed to clip().
+     *
+     *   Options can include:
+     *
+     *   - invert: A boolean specifying whether or not to
+     *   mask the areas not filled by the mask shape.
+     *   Defaults to false.
+     *   @param [options] An object containing clip
+     *   settings.
+     */
+    function beginClip(options?: object): void;
+
+    /**
+     *   Finishes defining a shape that will mask
+     *   subsequent things drawn to the canvas. Only opaque
+     *   regions of the mask shape will allow content to be
+     *   drawn. Any shapes drawn between beginClip() and
+     *   this will contribute to the mask shape.
+     */
+    function endClip(): void;
+
+    /**
+     *   Use the shape drawn by a callback function to mask
+     *   subsequent things drawn to the canvas. Only opaque
+     *   regions of the mask shape will allow content to be
+     *   drawn. The mask will apply to anything drawn after
+     *   this call. To draw without a mask, contain the
+     *   code to apply the mask and to draw the masked
+     *   content between push() and pop().
+     *
+     *   Alternatively, rather than drawing the mask shape
+     *   in a function, draw the shape between beginClip()
+     *   and endClip().
+     *
+     *   Options can include:
+     *
+     *   - invert: A boolean specifying whether or not to
+     *   mask the areas not filled by the mask shape.
+     *   Defaults to false.
+     *   @param callback A function that draws the mask
+     *   shape.
+     *   @param [options] An object containing clip
+     *   settings.
+     */
+    function clip(callback: (...args: any[]) => any, options?: object): void;
+
+    /**
      *   Sets the color used for the background of the
      *   canvas. By default, the background is transparent.
      *   This function is typically used within draw() to
@@ -2019,13 +2077,27 @@ declare global {
      *   beginShape(). When endShape() is called, all of
      *   the image data defined since the previous call to
      *   beginShape() is written into the image buffer. The
-     *   constant CLOSE as the value for the mode parameter
+     *   constant CLOSE is the value for the mode parameter
      *   to close the shape (to connect the beginning and
-     *   the end).
+     *   the end). When using instancing with endShape()
+     *   the instancing will not apply to the strokes. When
+     *   the count parameter is used with a value greater
+     *   than 1, it enables instancing for shapes built
+     *   when in WEBGL mode. Instancing is a feature that
+     *   allows the GPU to efficiently draw multiples of
+     *   the same shape. It's often used for particle
+     *   effects or other times when you need a lot of
+     *   repetition. In order to take advantage of
+     *   instancing, you will also need to write your own
+     *   custom shader using the gl_InstanceID keyword. You
+     *   can read more about instancing here or by working
+     *   from the example on this page.
      *   @param [mode] use CLOSE to close the shape
+     *   @param [count] number of times you want to
+     *   draw/instance the shape (for WebGL mode).
      *   @chainable
      */
-    function endShape(mode?: p5.END_MODE): p5;
+    function endShape(mode?: p5.END_MODE, count?: number): p5;
 
     /**
      *   Specifies vertex coordinates for quadratic Bezier
@@ -2129,7 +2201,7 @@ declare global {
      *   normal.
      *   @chainable
      */
-    function normal(vector: Vector): p5;
+    function normal(vector: p5.Vector): p5;
 
     /**
      *   Sets the 3d vertex normal to use for subsequent
@@ -2393,7 +2465,7 @@ declare global {
     const UNSIGNED_BYTE: p5.UNSIGNED_BYTE;
     const UNSIGNED_INT: p5.UNSIGNED_INT;
     const FLOAT: p5.FLOAT;
-    const FLOAT: p5.FLOAT;
+    const HALF_FLOAT: p5.HALF_FLOAT;
     const RGBA: p5.RGBA;
 
     /**
@@ -2448,14 +2520,19 @@ declare global {
      *   frames per second (usual for movies) or above will
      *   be enough for smooth animations. This is the same
      *   as setFrameRate(val). Calling frameRate() with no
-     *   arguments returns the current framerate. The draw
+     *   arguments or with arguments that are not of type
+     *   Number or are non-positive returns an
+     *   approximation of the current frame rate. The draw
      *   function must run at least once before it will
-     *   return a value. This is the same as
-     *   getFrameRate().
+     *   return a value.
      *
-     *   Calling frameRate() with arguments that are not of
-     *   the type Number or are non-positive also returns
-     *   current framerate.
+     *   Even if the code in your draw() function
+     *   consistently produces frames in time for them to
+     *   be displayed at the desired frame rate, the value
+     *   frameRate() returns will vary frame to frame
+     *   because it's an inaccurate approximation. To
+     *   accurately test the performance of your sketches,
+     *   use your browser's performance profiling tools.
      *   @param fps number of frames to be displayed every
      *   second
      *   @chainable
@@ -2476,14 +2553,19 @@ declare global {
      *   frames per second (usual for movies) or above will
      *   be enough for smooth animations. This is the same
      *   as setFrameRate(val). Calling frameRate() with no
-     *   arguments returns the current framerate. The draw
+     *   arguments or with arguments that are not of type
+     *   Number or are non-positive returns an
+     *   approximation of the current frame rate. The draw
      *   function must run at least once before it will
-     *   return a value. This is the same as
-     *   getFrameRate().
+     *   return a value.
      *
-     *   Calling frameRate() with arguments that are not of
-     *   the type Number or are non-positive also returns
-     *   current framerate.
+     *   Even if the code in your draw() function
+     *   consistently produces frames in time for them to
+     *   be displayed at the desired frame rate, the value
+     *   frameRate() returns will vary frame to frame
+     *   because it's an inaccurate approximation. To
+     *   accurately test the performance of your sketches,
+     *   use your browser's performance profiling tools.
      *   @return current frameRate
      */
     function frameRate(): number;
@@ -2510,7 +2592,7 @@ declare global {
      *   adjustments to accommodate the new window size.
      *   @param [event] optional Event callback argument.
      */
-    function windowResized(event?: object): void;
+    function windowResized(event?: UIEvent): void;
 
     /**
      *   If argument is given, sets the sketch to
@@ -2716,7 +2798,7 @@ declare global {
      *   @param [canvas] existing html canvas element
      *   @return pointer to p5.Renderer holding canvas
      */
-    function createCanvas(w: number, h: number, renderer?: p5.RENDERER, canvas?: object): p5.Renderer;
+    function createCanvas(w: number, h: number, renderer?: p5.RENDERER, canvas?: HTMLCanvasElement): p5.Renderer;
 
     /**
      *   Creates a canvas element in the document and sets
@@ -2757,7 +2839,7 @@ declare global {
      *   @param [canvas] existing html canvas element
      *   @return pointer to p5.Renderer holding canvas
      */
-    function createCanvas(w: number, h: number, canvas?: object): p5.Renderer;
+    function createCanvas(w: number, h: number, canvas?: HTMLCanvasElement): p5.Renderer;
 
     /**
      *   Resizes the canvas to given width and height. The
@@ -2800,7 +2882,7 @@ declare global {
      *   @param [canvas] existing html canvas element
      *   @return offscreen graphics buffer
      */
-    function createGraphics(w: number, h: number, renderer?: p5.RENDERER, canvas?: object): p5.Graphics;
+    function createGraphics(w: number, h: number, renderer?: p5.RENDERER, canvas?: HTMLCanvasElement): p5.Graphics;
 
     /**
      *   Creates and returns a new p5.Graphics object. Use
@@ -2823,7 +2905,7 @@ declare global {
      *   @param [canvas] existing html canvas element
      *   @return offscreen graphics buffer
      */
-    function createGraphics(w: number, h: number, canvas?: object): p5.Graphics;
+    function createGraphics(w: number, h: number, canvas?: HTMLCanvasElement): p5.Graphics;
 
     /**
      *   Creates and returns a new p5.Framebuffer, a
@@ -2843,6 +2925,11 @@ declare global {
      *   information, either UNSIGNED_INT or FLOAT. The
      *   default is FLOAT if available, or UNSIGNED_INT
      *   otherwise.
+     *   - stencil: A boolean, whether or not to include a
+     *   stencil buffer, which can be used for masking.
+     *   This may only be used if also using a depth
+     *   buffer. Defaults to the value of depth, which is
+     *   true if not provided.
      *   - antialias: Boolean or Number, whether or not to
      *   render with antialiased edges, and if so,
      *   optionally the number of samples to use. Defaults
@@ -4142,7 +4229,7 @@ declare global {
      *   @param [event] optional KeyboardEvent callback
      *   argument.
      */
-    function keyPressed(event?: object): void;
+    function keyPressed(event?: KeyboardEvent): void;
 
     /**
      *   The keyReleased() function is called once every
@@ -4154,7 +4241,7 @@ declare global {
      *   @param [event] optional KeyboardEvent callback
      *   argument.
      */
-    function keyReleased(event?: object): void;
+    function keyReleased(event?: KeyboardEvent): void;
 
     /**
      *   The keyTyped() function is called once every time
@@ -4178,7 +4265,7 @@ declare global {
      *   @param [event] optional KeyboardEvent callback
      *   argument.
      */
-    function keyTyped(event?: object): void;
+    function keyTyped(event?: KeyboardEvent): void;
 
     /**
      *   The keyIsDown() function checks if the key is
@@ -4231,7 +4318,7 @@ declare global {
      *   @param [event] optional MouseEvent callback
      *   argument.
      */
-    function mouseMoved(event?: object): void;
+    function mouseMoved(event?: MouseEvent): void;
 
     /**
      *   The mouseDragged() function is called once every
@@ -4246,7 +4333,7 @@ declare global {
      *   @param [event] optional MouseEvent callback
      *   argument.
      */
-    function mouseDragged(event?: object): void;
+    function mouseDragged(event?: MouseEvent): void;
 
     /**
      *   The mousePressed() function is called once after
@@ -4263,7 +4350,7 @@ declare global {
      *   @param [event] optional MouseEvent callback
      *   argument.
      */
-    function mousePressed(event?: object): void;
+    function mousePressed(event?: MouseEvent): void;
 
     /**
      *   The mouseReleased() function is called every time
@@ -4277,7 +4364,7 @@ declare global {
      *   @param [event] optional MouseEvent callback
      *   argument.
      */
-    function mouseReleased(event?: object): void;
+    function mouseReleased(event?: MouseEvent): void;
 
     /**
      *   The mouseClicked() function is called once after a
@@ -4296,7 +4383,7 @@ declare global {
      *   @param [event] optional MouseEvent callback
      *   argument.
      */
-    function mouseClicked(event?: object): void;
+    function mouseClicked(event?: MouseEvent): void;
 
     /**
      *   The doubleClicked() function is executed every
@@ -4311,7 +4398,7 @@ declare global {
      *   @param [event] optional MouseEvent callback
      *   argument.
      */
-    function doubleClicked(event?: object): void;
+    function doubleClicked(event?: MouseEvent): void;
 
     /**
      *   The function mouseWheel() is executed every time a
@@ -4336,7 +4423,7 @@ declare global {
      *   @param [event] optional WheelEvent callback
      *   argument.
      */
-    function mouseWheel(event?: object): void;
+    function mouseWheel(event?: WheelEvent): void;
 
     /**
      *   The function requestPointerLock() locks the
@@ -4479,7 +4566,7 @@ declare global {
      *   @param [event] optional TouchEvent callback
      *   argument.
      */
-    function touchStarted(event?: object): void;
+    function touchStarted(event?: TouchEvent): void;
 
     /**
      *   The touchMoved() function is called every time a
@@ -4493,7 +4580,7 @@ declare global {
      *   @param [event] optional TouchEvent callback
      *   argument.
      */
-    function touchMoved(event?: object): void;
+    function touchMoved(event?: TouchEvent): void;
 
     /**
      *   The touchEnded() function is called every time a
@@ -4507,7 +4594,7 @@ declare global {
      *   @param [event] optional TouchEvent callback
      *   argument.
      */
-    function touchEnded(event?: object): void;
+    function touchEnded(event?: TouchEvent): void;
 
     /**
      *   The system variable touches[] contains an array of
@@ -4522,86 +4609,88 @@ declare global {
     let touches: object[];
 
     /**
-     *   Creates a new p5.Image (the datatype for storing
-     *   images). This provides a fresh buffer of pixels to
-     *   play with. Set the size of the buffer with the
-     *   width and height parameters. .pixels gives access
-     *   to an array containing the values for all the
-     *   pixels in the display window. These values are
-     *   numbers. This array is the size (including an
-     *   appropriate factor for the pixelDensity) of the
-     *   display window x4, representing the R, G, B, A
-     *   values in order for each pixel, moving from left
-     *   to right across each row, then down each column.
-     *   See .pixels for more info. It may also be simpler
-     *   to use set() or get().
-     *
-     *   Before accessing the pixels of an image, the data
-     *   must loaded with the loadPixels() function. After
-     *   the array data has been modified, the
-     *   updatePixels() function must be run to update the
-     *   changes.
-     *   @param width width in pixels
-     *   @param height height in pixels
-     *   @return the p5.Image object
+     *   Creates a new p5.Image object. The new image is
+     *   transparent by default. createImage() uses the
+     *   width and height paremeters to set the new
+     *   p5.Image object's dimensions in pixels. The new
+     *   p5.Image can be modified by updating its pixels
+     *   array or by calling its get() and set() methods.
+     *   The loadPixels() method must be called before
+     *   reading or modifying pixel values. The
+     *   updatePixels() method must be called for updates
+     *   to take effect.
+     *   @param width width in pixels.
+     *   @param height height in pixels.
+     *   @return new p5.Image object.
      */
     function createImage(width: number, height: number): p5.Image;
 
     /**
-     *   Save the current canvas as an image. The browser
-     *   will either save the file immediately, or prompt
+     *   Saves the current canvas as an image. The browser
+     *   will either save the file immediately or prompt
      *   the user with a dialogue window.
-     *   @param selectedCanvas a variable representing a
-     *   specific html5 canvas (optional)
-     *   @param [extension] 'jpg' or 'png'
+     *   @param selectedCanvas reference to a specific
+     *   HTML5 canvas element.
+     *   @param [filename] file name. Defaults to
+     *   'untitled'.
+     *   @param [extension] file extension, either 'jpg' or
+     *   'png'. Defaults to 'png'.
      */
     function saveCanvas(selectedCanvas: p5.Element | HTMLCanvasElement, filename?: string, extension?: string): void;
 
     /**
-     *   Save the current canvas as an image. The browser
-     *   will either save the file immediately, or prompt
+     *   Saves the current canvas as an image. The browser
+     *   will either save the file immediately or prompt
      *   the user with a dialogue window.
-     *   @param [extension] 'jpg' or 'png'
+     *   @param [filename] file name. Defaults to
+     *   'untitled'.
+     *   @param [extension] file extension, either 'jpg' or
+     *   'png'. Defaults to 'png'.
      */
     function saveCanvas(filename?: string, extension?: string): void;
 
     /**
-     *   Capture a sequence of frames that can be used to
-     *   create a movie. Accepts a callback. For example,
-     *   you may wish to send the frames to a server where
-     *   they can be stored or converted into a movie. If
-     *   no callback is provided, the browser will pop up
-     *   save dialogues in an attempt to download all of
-     *   the images that have just been created. With the
-     *   callback provided the image data isn't saved by
-     *   default but instead passed as an argument to the
-     *   callback function as an array of objects, with the
-     *   size of array equal to the total number of frames.
-     *   The arguments duration and framerate are
-     *   constrained to be less or equal to 15 and 22,
-     *   respectively, which means you can only download a
-     *   maximum of 15 seconds worth of frames at 22 frames
-     *   per second, adding up to 330 frames. This is done
-     *   in order to avoid memory problems since a large
-     *   enough canvas can fill up the memory in your
-     *   computer very easily and crash your program or
-     *   even your browser.
+     *   Captures a sequence of frames from the canvas that
+     *   can be used to create a movie. Frames are
+     *   downloaded as individual image files by default.
+     *   The first parameter, filename, sets the prefix for
+     *   the file names. For example, setting the prefix to
+     *   'frame' would generate the image files frame0.png,
+     *   frame1.png, and so on. The second parameter,
+     *   extension, sets the file type to either 'png' or
+     *   'jpg'.
      *
-     *   To export longer animations, you might look into a
-     *   library like ccapture.js.
-     *   @param extension 'jpg' or 'png'
-     *   @param duration Duration in seconds to save the
-     *   frames for. This parameter will be constrained to
-     *   be less or equal to 15.
-     *   @param framerate Framerate to save the frames in.
+     *   The third parameter, duration, sets the duration
+     *   to record in seconds. The maximum duration is 15
+     *   seconds. The fourth parameter, framerate, sets the
+     *   number of frames to record per second. The maximum
+     *   frame rate value is 22. Limits are placed on
+     *   duration and framerate to avoid using too much
+     *   memory. Recording large canvases can easily crash
+     *   sketches or even web browsers.
+     *
+     *   The fifth parameter, callback, is optional. If a
+     *   function is passed, image files won't be saved by
+     *   default. The callback function can be used to
+     *   process an array containing the data for each
+     *   captured frame. The array of image data contains a
+     *   sequence of objects with three properties for each
+     *   frame: imageData, filename, and extension.
+     *   @param filename prefix of file name.
+     *   @param extension file extension, either 'jpg' or
+     *   'png'.
+     *   @param duration duration in seconds to record.
      *   This parameter will be constrained to be less or
-     *   equal to 22.
-     *   @param [callback] A callback function that will be
+     *   equal to 15.
+     *   @param framerate number of frames to save per
+     *   second. This parameter will be constrained to be
+     *   less or equal to 22.
+     *   @param [callback] callback function that will be
      *   executed to handle the image data. This function
      *   should accept an array as argument. The array will
      *   contain the specified number of frames of objects.
-     *   Each object has three properties: imageData - an
-     *   image/octet-stream, filename and extension.
+     *   Each object has three properties: imageData,
+     *   filename, and extension.
      */
     function saveFrames(
         filename: string,
@@ -4612,30 +4701,38 @@ declare global {
     ): void;
 
     /**
-     *   Loads an image from a path and creates a p5.Image
-     *   from it. The image may not be immediately
-     *   available for rendering. If you want to ensure
-     *   that the image is ready before doing anything with
-     *   it, place the loadImage() call in preload(). You
-     *   may also supply a callback function to handle the
-     *   image when it's ready.
+     *   Loads an image to create a p5.Image object.
+     *   loadImage() interprets the first parameter one of
+     *   three ways. If the path to an image file is
+     *   provided, loadImage() will load it. Paths to local
+     *   files should be relative, such as
+     *   'assets/thundercat.jpg'. URLs such as
+     *   'https://example.com/thundercat.jpg' may be
+     *   blocked due to browser security. Raw image data
+     *   can also be passed as a base64 encoded image in
+     *   the form
+     *   'data:image/png;base64,arandomsequenceofcharacters'.
      *
-     *   The path to the image should be relative to the
-     *   HTML file that links in your sketch. Loading an
-     *   image from a URL or other remote location may be
-     *   blocked due to your browser's built-in security.
+     *   The second parameter is optional. If a function is
+     *   passed, it will be called once the image has
+     *   loaded. The callback function can optionally use
+     *   the new p5.Image object.
      *
-     *   You can also pass in a string of a base64 encoded
-     *   image as an alternative to the file path. Remember
-     *   to add "data:image/png;base64," in front of the
-     *   string.
-     *   @param path Path of the image to be loaded
-     *   @param [successCallback] Function to be called
-     *   once the image is loaded. Will be passed the
-     *   p5.Image.
-     *   @param [failureCallback] called with event error
-     *   if the image fails to load.
-     *   @return the p5.Image object
+     *   The third parameter is also optional. If a
+     *   function is passed, it will be called if the image
+     *   fails to load. The callback function can
+     *   optionally use the event error.
+     *
+     *   Images can take time to load. Calling loadImage()
+     *   in preload() ensures images load before they're
+     *   used in setup() or draw().
+     *   @param path path of the image to be loaded or
+     *   base64 encoded image.
+     *   @param [successCallback] function called with
+     *   p5.Image once it loads.
+     *   @param [failureCallback] function called with
+     *   event error if the image fails to load.
+     *   @return the p5.Image object.
      */
     function loadImage(
         path: string,
@@ -4644,86 +4741,89 @@ declare global {
     ): p5.Image;
 
     /**
-     *   Generates a gif of your current animation and
-     *   downloads it to your computer! The duration
-     *   argument specifies how many seconds you want to
-     *   record from your animation. This value is then
-     *   converted to the necessary number of frames to
-     *   generate it, depending on the value of units. More
-     *   on that on the next paragraph.
+     *   Generates a gif from a sketch and saves it to a
+     *   file. saveGif() may be called in setup() or at any
+     *   point while a sketch is running. The first
+     *   parameter, fileName, sets the gif's file name. The
+     *   second parameter, duration, sets the gif's
+     *   duration in seconds.
      *
-     *   An optional object that can contain two more
-     *   arguments: delay (number) and units (string).
-     *
-     *   delay, specifying how much time we should wait
-     *   before recording
-     *
-     *   units, a string that can be either 'seconds' or
-     *   'frames'. By default it's 'seconds'.
-     *
-     *   units specifies how the duration and delay
-     *   arguments will behave. If 'seconds', these
-     *   arguments will correspond to seconds, meaning that
-     *   3 seconds worth of animation will be created. If
-     *   'frames', the arguments now correspond to the
-     *   number of frames you want your animation to be, if
-     *   you are very sure of this number.
-     *
-     *   This may be called in setup, or, like in the
-     *   example below, inside an event function, like
-     *   keyPressed or mousePressed.
-     *   @param filename File name of your gif
-     *   @param duration Duration in seconds that you wish
-     *   to capture from your sketch
-     *   @param options An optional object that can contain
-     *   five more arguments: delay, specifying how much
-     *   time we should wait before recording; units, a
-     *   string that can be either 'seconds' or 'frames'.
-     *   By default it's 'seconds’; silent, a boolean that
+     *   The third parameter, options, is optional. If an
+     *   object is passed, saveGif() will use its
+     *   properties to customize the gif. saveGif()
+     *   recognizes the properties delay, units, silent,
+     *   notificationDuration, and notificationID.
+     *   @param filename file name of gif.
+     *   @param duration duration in seconds to capture
+     *   from the sketch.
+     *   @param [options] an object that can contain five
+     *   more properties: delay, a Number specifying how
+     *   much time to wait before recording; units, a
+     *   String that can be either 'seconds' or 'frames'.
+     *   By default it's 'seconds’; silent, a Boolean that
      *   defines presence of progress notifications. By
-     *   default it’s false; notificationDuration, a number
+     *   default it’s false; notificationDuration, a Number
      *   that defines how long in seconds the final
-     *   notification will live. 0, the default value,
-     *   means that the notification will never be removed;
-     *   notificationID, a string that specifies the
-     *   notification DOM element id. By default it’s
+     *   notification will live. By default it's 0, meaning
+     *   the notification will never be removed;
+     *   notificationID, a String that specifies the id of
+     *   the notification's DOM element. By default it’s
      *   'progressBar’.
      */
-    function saveGif(filename: string, duration: number, options: object): void;
+    function saveGif(filename: string, duration: number, options?: object): void;
 
     /**
-     *   Draw an image to the p5.js canvas. This function
-     *   can be used with different numbers of parameters.
-     *   The simplest use requires only three parameters:
-     *   img, x, and y—where (x, y) is the position of the
-     *   image. Two more parameters can optionally be added
-     *   to specify the width and height of the image.
+     *   Draws a source image to the canvas. The first
+     *   parameter, img, is the source image to be drawn.
+     *   The second and third parameters, dx and dy, set
+     *   the coordinates of the destination image's top
+     *   left corner. See imageMode() for other ways to
+     *   position images.
      *
-     *   This function can also be used with eight Number
-     *   parameters. To differentiate between all these
-     *   parameters, p5.js uses the language of
-     *   "destination rectangle" (which corresponds to
-     *   "dx", "dy", etc.) and "source image" (which
-     *   corresponds to "sx", "sy", etc.) below. Specifying
-     *   the "source image" dimensions can be useful when
-     *   you want to display a subsection of the source
-     *   image instead of the whole thing. Here's a diagram
-     *   to explain further:
+     *   Here's a diagram that explains how optional
+     *   parameters work in image():
      *
-     *   This function can also be used to draw images
-     *   without distorting the orginal aspect ratio, by
-     *   adding 9th parameter, fit, which can either be
-     *   COVER or CONTAIN. CONTAIN, as the name suggests,
-     *   contains the whole image within the specified
-     *   destination box without distorting the image
-     *   ratio. COVER covers the entire destination box.
-     *   @param img the image to display
-     *   @param x the x-coordinate of the top-left corner
-     *   of the image
-     *   @param y the y-coordinate of the top-left corner
-     *   of the image
-     *   @param [width] the width to draw the image
-     *   @param [height] the height to draw the image
+     *
+     *
+     *   The fourth and fifth parameters, dw and dh, are
+     *   optional. They set the the width and height to
+     *   draw the destination image. By default, image()
+     *   draws the full source image at its original size.
+     *
+     *   The sixth and seventh parameters, sx and sy, are
+     *   also optional. These coordinates define the top
+     *   left corner of a subsection to draw from the
+     *   source image.
+     *
+     *   The eighth and ninth parameters, sw and sh, are
+     *   also optional. They define the width and height of
+     *   a subsection to draw from the source image. By
+     *   default, image() draws the full subsection that
+     *   begins at (sx, sy) and extends to the edges of the
+     *   source image.
+     *
+     *   The ninth parameter, fit, is also optional. It
+     *   enables a subsection of the source image to be
+     *   drawn without affecting its aspect ratio. If
+     *   CONTAIN is passed, the full subsection will appear
+     *   within the destination rectangle. If COVER is
+     *   passed, the subsection will completely cover the
+     *   destination rectangle. This may have the effect of
+     *   zooming into the subsection.
+     *
+     *   The tenth and eleventh paremeters, xAlign and
+     *   yAlign, are also optional. They determine how to
+     *   align the fitted subsection. xAlign can be set to
+     *   either LEFT, RIGHT, or CENTER. yAlign can be set
+     *   to either TOP, BOTTOM, or CENTER. By default, both
+     *   xAlign and yAlign are set to CENTER.
+     *   @param img image to display.
+     *   @param x x-coordinate of the top-left corner of
+     *   the image.
+     *   @param y y-coordinate of the top-left corner of
+     *   the image.
+     *   @param [width] width to draw the image.
+     *   @param [height] height to draw the image.
      */
     function image(
         img: p5.Image | p5.Element | p5.Framebuffer,
@@ -4734,32 +4834,51 @@ declare global {
     ): void;
 
     /**
-     *   Draw an image to the p5.js canvas. This function
-     *   can be used with different numbers of parameters.
-     *   The simplest use requires only three parameters:
-     *   img, x, and y—where (x, y) is the position of the
-     *   image. Two more parameters can optionally be added
-     *   to specify the width and height of the image.
+     *   Draws a source image to the canvas. The first
+     *   parameter, img, is the source image to be drawn.
+     *   The second and third parameters, dx and dy, set
+     *   the coordinates of the destination image's top
+     *   left corner. See imageMode() for other ways to
+     *   position images.
      *
-     *   This function can also be used with eight Number
-     *   parameters. To differentiate between all these
-     *   parameters, p5.js uses the language of
-     *   "destination rectangle" (which corresponds to
-     *   "dx", "dy", etc.) and "source image" (which
-     *   corresponds to "sx", "sy", etc.) below. Specifying
-     *   the "source image" dimensions can be useful when
-     *   you want to display a subsection of the source
-     *   image instead of the whole thing. Here's a diagram
-     *   to explain further:
+     *   Here's a diagram that explains how optional
+     *   parameters work in image():
      *
-     *   This function can also be used to draw images
-     *   without distorting the orginal aspect ratio, by
-     *   adding 9th parameter, fit, which can either be
-     *   COVER or CONTAIN. CONTAIN, as the name suggests,
-     *   contains the whole image within the specified
-     *   destination box without distorting the image
-     *   ratio. COVER covers the entire destination box.
-     *   @param img the image to display
+     *
+     *
+     *   The fourth and fifth parameters, dw and dh, are
+     *   optional. They set the the width and height to
+     *   draw the destination image. By default, image()
+     *   draws the full source image at its original size.
+     *
+     *   The sixth and seventh parameters, sx and sy, are
+     *   also optional. These coordinates define the top
+     *   left corner of a subsection to draw from the
+     *   source image.
+     *
+     *   The eighth and ninth parameters, sw and sh, are
+     *   also optional. They define the width and height of
+     *   a subsection to draw from the source image. By
+     *   default, image() draws the full subsection that
+     *   begins at (sx, sy) and extends to the edges of the
+     *   source image.
+     *
+     *   The ninth parameter, fit, is also optional. It
+     *   enables a subsection of the source image to be
+     *   drawn without affecting its aspect ratio. If
+     *   CONTAIN is passed, the full subsection will appear
+     *   within the destination rectangle. If COVER is
+     *   passed, the subsection will completely cover the
+     *   destination rectangle. This may have the effect of
+     *   zooming into the subsection.
+     *
+     *   The tenth and eleventh paremeters, xAlign and
+     *   yAlign, are also optional. They determine how to
+     *   align the fitted subsection. xAlign can be set to
+     *   either LEFT, RIGHT, or CENTER. yAlign can be set
+     *   to either TOP, BOTTOM, or CENTER. By default, both
+     *   xAlign and yAlign are set to CENTER.
+     *   @param img image to display.
      *   @param dx the x-coordinate of the destination
      *   rectangle in which to draw the source image
      *   @param dy the y-coordinate of the destination
@@ -4802,147 +4921,178 @@ declare global {
     ): void;
 
     /**
-     *   Sets the fill value for displaying images. Images
-     *   can be tinted to specified colors or made
-     *   transparent by including an alpha value. To apply
-     *   transparency to an image without affecting its
-     *   color, use white as the tint color and specify an
-     *   alpha value. For instance, tint(255, 128) will
-     *   make an image 50% transparent (assuming the
-     *   default alpha range of 0-255, which can be changed
-     *   with colorMode()).
+     *   Tints images using a specified color. The version
+     *   of tint() with one parameter interprets it one of
+     *   four ways. If the parameter is a number, it's
+     *   interpreted as a grayscale value. If the parameter
+     *   is a string, it's interpreted as a CSS color
+     *   string. An array of [R, G, B, A] values or a
+     *   p5.Color object can also be used to set the tint
+     *   color.
      *
-     *   The value for the gray parameter must be less than
-     *   or equal to the current maximum value as specified
-     *   by colorMode(). The default maximum value is 255.
-     *   @param v1 red or hue value relative to the current
-     *   color range
-     *   @param v2 green or saturation value relative to
-     *   the current color range
-     *   @param v3 blue or brightness value relative to the
-     *   current color range
+     *   The version of tint() with two parameters uses the
+     *   first one as a grayscale value and the second as
+     *   an alpha value. For example, calling tint(255,
+     *   128) will make an image 50% transparent.
+     *
+     *   The version of tint() with three parameters
+     *   interprets them as RGB or HSB values, depending on
+     *   the current colorMode(). The optional fourth
+     *   parameter sets the alpha value. For example,
+     *   tint(255, 0, 0, 100) will give images a red tint
+     *   and make them transparent.
+     *   @param v1 red or hue value.
+     *   @param v2 green or saturation value.
+     *   @param v3 blue or brightness.
      */
     function tint(v1: number, v2: number, v3: number, alpha?: number): void;
 
     /**
-     *   Sets the fill value for displaying images. Images
-     *   can be tinted to specified colors or made
-     *   transparent by including an alpha value. To apply
-     *   transparency to an image without affecting its
-     *   color, use white as the tint color and specify an
-     *   alpha value. For instance, tint(255, 128) will
-     *   make an image 50% transparent (assuming the
-     *   default alpha range of 0-255, which can be changed
-     *   with colorMode()).
+     *   Tints images using a specified color. The version
+     *   of tint() with one parameter interprets it one of
+     *   four ways. If the parameter is a number, it's
+     *   interpreted as a grayscale value. If the parameter
+     *   is a string, it's interpreted as a CSS color
+     *   string. An array of [R, G, B, A] values or a
+     *   p5.Color object can also be used to set the tint
+     *   color.
      *
-     *   The value for the gray parameter must be less than
-     *   or equal to the current maximum value as specified
-     *   by colorMode(). The default maximum value is 255.
-     *   @param value a color string
+     *   The version of tint() with two parameters uses the
+     *   first one as a grayscale value and the second as
+     *   an alpha value. For example, calling tint(255,
+     *   128) will make an image 50% transparent.
+     *
+     *   The version of tint() with three parameters
+     *   interprets them as RGB or HSB values, depending on
+     *   the current colorMode(). The optional fourth
+     *   parameter sets the alpha value. For example,
+     *   tint(255, 0, 0, 100) will give images a red tint
+     *   and make them transparent.
+     *   @param value CSS color string.
      */
     function tint(value: string): void;
 
     /**
-     *   Sets the fill value for displaying images. Images
-     *   can be tinted to specified colors or made
-     *   transparent by including an alpha value. To apply
-     *   transparency to an image without affecting its
-     *   color, use white as the tint color and specify an
-     *   alpha value. For instance, tint(255, 128) will
-     *   make an image 50% transparent (assuming the
-     *   default alpha range of 0-255, which can be changed
-     *   with colorMode()).
+     *   Tints images using a specified color. The version
+     *   of tint() with one parameter interprets it one of
+     *   four ways. If the parameter is a number, it's
+     *   interpreted as a grayscale value. If the parameter
+     *   is a string, it's interpreted as a CSS color
+     *   string. An array of [R, G, B, A] values or a
+     *   p5.Color object can also be used to set the tint
+     *   color.
      *
-     *   The value for the gray parameter must be less than
-     *   or equal to the current maximum value as specified
-     *   by colorMode(). The default maximum value is 255.
-     *   @param gray a gray value
+     *   The version of tint() with two parameters uses the
+     *   first one as a grayscale value and the second as
+     *   an alpha value. For example, calling tint(255,
+     *   128) will make an image 50% transparent.
+     *
+     *   The version of tint() with three parameters
+     *   interprets them as RGB or HSB values, depending on
+     *   the current colorMode(). The optional fourth
+     *   parameter sets the alpha value. For example,
+     *   tint(255, 0, 0, 100) will give images a red tint
+     *   and make them transparent.
+     *   @param gray grayscale value.
      */
     function tint(gray: number, alpha?: number): void;
 
     /**
-     *   Sets the fill value for displaying images. Images
-     *   can be tinted to specified colors or made
-     *   transparent by including an alpha value. To apply
-     *   transparency to an image without affecting its
-     *   color, use white as the tint color and specify an
-     *   alpha value. For instance, tint(255, 128) will
-     *   make an image 50% transparent (assuming the
-     *   default alpha range of 0-255, which can be changed
-     *   with colorMode()).
+     *   Tints images using a specified color. The version
+     *   of tint() with one parameter interprets it one of
+     *   four ways. If the parameter is a number, it's
+     *   interpreted as a grayscale value. If the parameter
+     *   is a string, it's interpreted as a CSS color
+     *   string. An array of [R, G, B, A] values or a
+     *   p5.Color object can also be used to set the tint
+     *   color.
      *
-     *   The value for the gray parameter must be less than
-     *   or equal to the current maximum value as specified
-     *   by colorMode(). The default maximum value is 255.
-     *   @param values an array containing the
-     *   red,green,blue & and alpha components of the color
+     *   The version of tint() with two parameters uses the
+     *   first one as a grayscale value and the second as
+     *   an alpha value. For example, calling tint(255,
+     *   128) will make an image 50% transparent.
+     *
+     *   The version of tint() with three parameters
+     *   interprets them as RGB or HSB values, depending on
+     *   the current colorMode(). The optional fourth
+     *   parameter sets the alpha value. For example,
+     *   tint(255, 0, 0, 100) will give images a red tint
+     *   and make them transparent.
+     *   @param values array containing the red, green,
+     *   blue & alpha components of the color.
      */
     function tint(values: number[]): void;
 
     /**
-     *   Sets the fill value for displaying images. Images
-     *   can be tinted to specified colors or made
-     *   transparent by including an alpha value. To apply
-     *   transparency to an image without affecting its
-     *   color, use white as the tint color and specify an
-     *   alpha value. For instance, tint(255, 128) will
-     *   make an image 50% transparent (assuming the
-     *   default alpha range of 0-255, which can be changed
-     *   with colorMode()).
+     *   Tints images using a specified color. The version
+     *   of tint() with one parameter interprets it one of
+     *   four ways. If the parameter is a number, it's
+     *   interpreted as a grayscale value. If the parameter
+     *   is a string, it's interpreted as a CSS color
+     *   string. An array of [R, G, B, A] values or a
+     *   p5.Color object can also be used to set the tint
+     *   color.
      *
-     *   The value for the gray parameter must be less than
-     *   or equal to the current maximum value as specified
-     *   by colorMode(). The default maximum value is 255.
+     *   The version of tint() with two parameters uses the
+     *   first one as a grayscale value and the second as
+     *   an alpha value. For example, calling tint(255,
+     *   128) will make an image 50% transparent.
+     *
+     *   The version of tint() with three parameters
+     *   interprets them as RGB or HSB values, depending on
+     *   the current colorMode(). The optional fourth
+     *   parameter sets the alpha value. For example,
+     *   tint(255, 0, 0, 100) will give images a red tint
+     *   and make them transparent.
      *   @param color the tint color
      */
     function tint(color: p5.Color): void;
 
     /**
-     *   Removes the current fill value for displaying
-     *   images and reverts to displaying images with their
-     *   original hues.
+     *   Removes the current tint set by tint() and
+     *   restores images to their original colors.
      */
     function noTint(): void;
 
     /**
-     *   Set image mode. Modifies the location from which
-     *   images are drawn by changing the way in which
-     *   parameters given to image() are interpreted. The
-     *   default mode is imageMode(CORNER), which
-     *   interprets the second and third parameters of
-     *   image() as the upper-left corner of the image. If
-     *   two additional parameters are specified, they are
-     *   used to set the image's width and height.
-     *   imageMode(CORNERS) interprets the second and third
-     *   parameters of image() as the location of one
-     *   corner, and the fourth and fifth parameters as the
-     *   opposite corner.
+     *   Changes the location from which images are drawn
+     *   when image() is called. By default, the first two
+     *   parameters of image() are the x- and y-coordinates
+     *   of the image's upper-left corner. The next
+     *   parameters are its width and height. This is the
+     *   same as calling imageMode(CORNER).
      *
-     *   imageMode(CENTER) interprets the second and third
-     *   parameters of image() as the image's center point.
-     *   If two additional parameters are specified, they
-     *   are used to set the image's width and height.
-     *   @param mode either CORNER, CORNERS, or CENTER
+     *   imageMode(CORNERS) also uses the first two
+     *   parameters of image() as the x- and y-coordinates
+     *   of the image's top-left corner. The third and
+     *   fourth parameters are the coordinates of its
+     *   bottom-right corner.
+     *
+     *   imageMode(CENTER) uses the first two parameters of
+     *   image() as the x- and y-coordinates of the image's
+     *   center. The next parameters are its width and
+     *   height.
+     *   @param mode either CORNER, CORNERS, or CENTER.
      */
     function imageMode(mode: p5.IMAGE_MODE): void;
 
     /**
      *   Copies a region of pixels from one image to
-     *   another, using a specified blend mode to do the
-     *   operation.
-     *   @param srcImage source image
-     *   @param sx X coordinate of the source's upper left
-     *   corner
-     *   @param sy Y coordinate of the source's upper left
-     *   corner
-     *   @param sw source image width
-     *   @param sh source image height
-     *   @param dx X coordinate of the destination's upper
-     *   left corner
-     *   @param dy Y coordinate of the destination's upper
-     *   left corner
-     *   @param dw destination image width
-     *   @param dh destination image height
+     *   another. The blendMode parameter blends the
+     *   images' colors to create different effects.
+     *   @param srcImage source image.
+     *   @param sx x-coordinate of the source's upper-left
+     *   corner.
+     *   @param sy y-coordinate of the source's upper-left
+     *   corner.
+     *   @param sw source image width.
+     *   @param sh source image height.
+     *   @param dx x-coordinate of the destination's
+     *   upper-left corner.
+     *   @param dy y-coordinate of the destination's
+     *   upper-left corner.
+     *   @param dw destination image width.
+     *   @param dh destination image height.
      *   @param blendMode the blend mode. either BLEND,
      *   DARKEST, LIGHTEST, DIFFERENCE, MULTIPLY,
      *   EXCLUSION, SCREEN, REPLACE, OVERLAY, HARD_LIGHT,
@@ -4963,20 +5113,20 @@ declare global {
 
     /**
      *   Copies a region of pixels from one image to
-     *   another, using a specified blend mode to do the
-     *   operation.
-     *   @param sx X coordinate of the source's upper left
-     *   corner
-     *   @param sy Y coordinate of the source's upper left
-     *   corner
-     *   @param sw source image width
-     *   @param sh source image height
-     *   @param dx X coordinate of the destination's upper
-     *   left corner
-     *   @param dy Y coordinate of the destination's upper
-     *   left corner
-     *   @param dw destination image width
-     *   @param dh destination image height
+     *   another. The blendMode parameter blends the
+     *   images' colors to create different effects.
+     *   @param sx x-coordinate of the source's upper-left
+     *   corner.
+     *   @param sy y-coordinate of the source's upper-left
+     *   corner.
+     *   @param sw source image width.
+     *   @param sh source image height.
+     *   @param dx x-coordinate of the destination's
+     *   upper-left corner.
+     *   @param dy y-coordinate of the destination's
+     *   upper-left corner.
+     *   @param dw destination image width.
+     *   @param dh destination image height.
      *   @param blendMode the blend mode. either BLEND,
      *   DARKEST, LIGHTEST, DIFFERENCE, MULTIPLY,
      *   EXCLUSION, SCREEN, REPLACE, OVERLAY, HARD_LIGHT,
@@ -4995,26 +5145,24 @@ declare global {
     ): void;
 
     /**
-     *   Copies a region of the canvas to another region of
-     *   the canvas and copies a region of pixels from an
-     *   image used as the srcImg parameter into the canvas
-     *   srcImage is specified this is used as the source.
-     *   If the source and destination regions aren't the
-     *   same size, it will automatically resize source
-     *   pixels to fit the specified target region.
-     *   @param srcImage source image
-     *   @param sx X coordinate of the source's upper left
-     *   corner
-     *   @param sy Y coordinate of the source's upper left
-     *   corner
-     *   @param sw source image width
-     *   @param sh source image height
-     *   @param dx X coordinate of the destination's upper
-     *   left corner
-     *   @param dy Y coordinate of the destination's upper
-     *   left corner
-     *   @param dw destination image width
-     *   @param dh destination image height
+     *   Copies pixels from a source image to a region of
+     *   the canvas. The source image can be the canvas
+     *   itself or a p5.Image object. copy() will scale
+     *   pixels from the source region if it isn't the same
+     *   size as the destination region.
+     *   @param srcImage source image.
+     *   @param sx x-coordinate of the source's upper-left
+     *   corner.
+     *   @param sy y-coordinate of the source's upper-left
+     *   corner.
+     *   @param sw source image width.
+     *   @param sh source image height.
+     *   @param dx x-coordinate of the destination's
+     *   upper-left corner.
+     *   @param dy y-coordinate of the destination's
+     *   upper-left corner.
+     *   @param dw destination image width.
+     *   @param dh destination image height.
      */
     function copy(
         srcImage: p5.Image | p5.Element,
@@ -5029,57 +5177,55 @@ declare global {
     ): void;
 
     /**
-     *   Copies a region of the canvas to another region of
-     *   the canvas and copies a region of pixels from an
-     *   image used as the srcImg parameter into the canvas
-     *   srcImage is specified this is used as the source.
-     *   If the source and destination regions aren't the
-     *   same size, it will automatically resize source
-     *   pixels to fit the specified target region.
-     *   @param sx X coordinate of the source's upper left
-     *   corner
-     *   @param sy Y coordinate of the source's upper left
-     *   corner
-     *   @param sw source image width
-     *   @param sh source image height
-     *   @param dx X coordinate of the destination's upper
-     *   left corner
-     *   @param dy Y coordinate of the destination's upper
-     *   left corner
-     *   @param dw destination image width
-     *   @param dh destination image height
+     *   Copies pixels from a source image to a region of
+     *   the canvas. The source image can be the canvas
+     *   itself or a p5.Image object. copy() will scale
+     *   pixels from the source region if it isn't the same
+     *   size as the destination region.
+     *   @param sx x-coordinate of the source's upper-left
+     *   corner.
+     *   @param sy y-coordinate of the source's upper-left
+     *   corner.
+     *   @param sw source image width.
+     *   @param sh source image height.
+     *   @param dx x-coordinate of the destination's
+     *   upper-left corner.
+     *   @param dy y-coordinate of the destination's
+     *   upper-left corner.
+     *   @param dw destination image width.
+     *   @param dh destination image height.
      */
     function copy(sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number): void;
 
     /**
-     *   Applies a filter to the canvas. The presets
-     *   options are: THRESHOLD Converts the image to black
-     *   and white pixels depending if they are above or
-     *   below the threshold defined by the level
-     *   parameter. The parameter must be between 0.0
-     *   (black) and 1.0 (white). If no level is specified,
-     *   0.5 is used.
+     *   Applies an image filter to the canvas. The preset
+     *   options are: INVERT Inverts the colors in the
+     *   image. No parameter is used.
      *
-     *   GRAY Converts any colors in the image to grayscale
-     *   equivalents. No parameter is used.
+     *   GRAY Converts the image to grayscale. No parameter
+     *   is used.
+     *
+     *   THRESHOLD Converts the image to black and white.
+     *   Pixels with a grayscale value above a given
+     *   threshold are converted to white. The rest are
+     *   converted to black. The threshold must be between
+     *   0.0 (black) and 1.0 (white). If no value is
+     *   specified, 0.5 is used.
      *
      *   OPAQUE Sets the alpha channel to entirely opaque.
      *   No parameter is used.
      *
-     *   INVERT Sets each pixel to its inverse value. No
-     *   parameter is used.
+     *   POSTERIZE Limits the number of colors in the
+     *   image. Each color channel is limited to the number
+     *   of colors specified. Values between 2 and 255 are
+     *   valid, but results are most noticeable with lower
+     *   values. The default value is 4.
      *
-     *   POSTERIZE Limits each channel of the image to the
-     *   number of colors specified as the parameter. The
-     *   parameter can be set to values between 2 and 255,
-     *   but results are most noticeable in the lower
-     *   ranges.
-     *
-     *   BLUR Executes a Gaussian blur with the level
-     *   parameter specifying the extent of the blurring.
-     *   If no parameter is used, the blur is equivalent to
-     *   Gaussian blur of radius 1. Larger values increase
-     *   the blur.
+     *   BLUR Blurs the image. The level of blurring is
+     *   specified by a blur radius. Larger values increase
+     *   the blur. The default value is 4. A gaussian blur
+     *   is used in P2D mode. A box blur is used in WEBGL
+     *   mode.
      *
      *   ERODE Reduces the light areas. No parameter is
      *   used.
@@ -5087,227 +5233,294 @@ declare global {
      *   DILATE Increases the light areas. No parameter is
      *   used.
      *
-     *   filter() does not work in WEBGL mode. A similar
-     *   effect can be achieved in WEBGL mode using custom
-     *   shaders. Adam Ferriss has written a selection of
-     *   shader examples that contains many of the effects
-     *   present in the filter examples.
+     *   filter() uses WebGL in the background by default
+     *   because it's faster. This can be disabled in P2D
+     *   mode by adding a false argument, as in
+     *   filter(BLUR, false). This may be useful to keep
+     *   computation off the GPU or to work around a lack
+     *   of WebGL support.
+     *
+     *   In WEBGL mode, filter() can also use custom
+     *   shaders. See createFilterShader() for more
+     *   information.
      *   @param filterType either THRESHOLD, GRAY, OPAQUE,
      *   INVERT, POSTERIZE, BLUR, ERODE, DILATE or BLUR.
-     *   See Filters.js for docs on each available filter
-     *   @param [filterParam] an optional parameter unique
-     *   to each filter, see above
+     *   @param [filterParam] parameter unique to each
+     *   filter.
+     *   @param [useWebGL] flag to control whether to use
+     *   fast WebGL filters (GPU) or original image filters
+     *   (CPU); defaults to true.
      */
-    function filter(filterType: p5.FILTER_TYPE, filterParam?: number): void;
+    function filter(filterType: p5.FILTER_TYPE, filterParam?: number, useWebGL?: boolean): void;
 
     /**
-     *   Get a region of pixels, or a single pixel, from
-     *   the canvas. Returns an array of [R,G,B,A] values
-     *   for any pixel or grabs a section of an image. If
-     *   no parameters are specified, the entire image is
-     *   returned. Use the x and y parameters to get the
-     *   value of one pixel. Get a section of the display
-     *   window by specifying additional w and h
-     *   parameters. When getting an image, the x and y
-     *   parameters define the coordinates for the
-     *   upper-left corner of the image, regardless of the
-     *   current imageMode().
+     *   Applies an image filter to the canvas. The preset
+     *   options are: INVERT Inverts the colors in the
+     *   image. No parameter is used.
      *
-     *   Getting the color of a single pixel with get(x, y)
-     *   is easy, but not as fast as grabbing the data
-     *   directly from pixels[]. The equivalent statement
-     *   to get(x, y) using pixels[] with pixel density d
-     *   is
+     *   GRAY Converts the image to grayscale. No parameter
+     *   is used.
      *
-     *   let x, y, d; // set these to the coordinates let
-     *   off = (y * width + x) * d * 4; let components = [
-     *   pixels[off], pixels[off + 1], pixels[off + 2],
-     *   pixels[off + 3] ]; print(components);
+     *   THRESHOLD Converts the image to black and white.
+     *   Pixels with a grayscale value above a given
+     *   threshold are converted to white. The rest are
+     *   converted to black. The threshold must be between
+     *   0.0 (black) and 1.0 (white). If no value is
+     *   specified, 0.5 is used.
      *
-     *   See the reference for pixels[] for more
+     *   OPAQUE Sets the alpha channel to entirely opaque.
+     *   No parameter is used.
+     *
+     *   POSTERIZE Limits the number of colors in the
+     *   image. Each color channel is limited to the number
+     *   of colors specified. Values between 2 and 255 are
+     *   valid, but results are most noticeable with lower
+     *   values. The default value is 4.
+     *
+     *   BLUR Blurs the image. The level of blurring is
+     *   specified by a blur radius. Larger values increase
+     *   the blur. The default value is 4. A gaussian blur
+     *   is used in P2D mode. A box blur is used in WEBGL
+     *   mode.
+     *
+     *   ERODE Reduces the light areas. No parameter is
+     *   used.
+     *
+     *   DILATE Increases the light areas. No parameter is
+     *   used.
+     *
+     *   filter() uses WebGL in the background by default
+     *   because it's faster. This can be disabled in P2D
+     *   mode by adding a false argument, as in
+     *   filter(BLUR, false). This may be useful to keep
+     *   computation off the GPU or to work around a lack
+     *   of WebGL support.
+     *
+     *   In WEBGL mode, filter() can also use custom
+     *   shaders. See createFilterShader() for more
      *   information.
+     *   @param filterType either THRESHOLD, GRAY, OPAQUE,
+     *   INVERT, POSTERIZE, BLUR, ERODE, DILATE or BLUR.
+     *   @param [useWebGL] flag to control whether to use
+     *   fast WebGL filters (GPU) or original image filters
+     *   (CPU); defaults to true.
+     */
+    function filter(filterType: p5.UNKNOWN_P5_CONSTANT, useWebGL?: boolean): void;
+
+    /**
+     *   Applies an image filter to the canvas. The preset
+     *   options are: INVERT Inverts the colors in the
+     *   image. No parameter is used.
      *
-     *   If you want to extract an array of colors or a
-     *   subimage from an p5.Image object, take a look at
-     *   p5.Image.get()
-     *   @param x x-coordinate of the pixel
-     *   @param y y-coordinate of the pixel
-     *   @param w width of the section to be returned
-     *   @param h height of the section to be returned
-     *   @return the rectangle p5.Image
+     *   GRAY Converts the image to grayscale. No parameter
+     *   is used.
+     *
+     *   THRESHOLD Converts the image to black and white.
+     *   Pixels with a grayscale value above a given
+     *   threshold are converted to white. The rest are
+     *   converted to black. The threshold must be between
+     *   0.0 (black) and 1.0 (white). If no value is
+     *   specified, 0.5 is used.
+     *
+     *   OPAQUE Sets the alpha channel to entirely opaque.
+     *   No parameter is used.
+     *
+     *   POSTERIZE Limits the number of colors in the
+     *   image. Each color channel is limited to the number
+     *   of colors specified. Values between 2 and 255 are
+     *   valid, but results are most noticeable with lower
+     *   values. The default value is 4.
+     *
+     *   BLUR Blurs the image. The level of blurring is
+     *   specified by a blur radius. Larger values increase
+     *   the blur. The default value is 4. A gaussian blur
+     *   is used in P2D mode. A box blur is used in WEBGL
+     *   mode.
+     *
+     *   ERODE Reduces the light areas. No parameter is
+     *   used.
+     *
+     *   DILATE Increases the light areas. No parameter is
+     *   used.
+     *
+     *   filter() uses WebGL in the background by default
+     *   because it's faster. This can be disabled in P2D
+     *   mode by adding a false argument, as in
+     *   filter(BLUR, false). This may be useful to keep
+     *   computation off the GPU or to work around a lack
+     *   of WebGL support.
+     *
+     *   In WEBGL mode, filter() can also use custom
+     *   shaders. See createFilterShader() for more
+     *   information.
+     *   @param shaderFilter shader that's been loaded,
+     *   with the frag shader using a tex0 uniform.
+     */
+    function filter(shaderFilter: p5.Shader): void;
+
+    /**
+     *   Gets a pixel or a region of pixels from the
+     *   canvas. get() is easy to use but it's not as fast
+     *   as pixels. Use pixels to read many pixel values.
+     *
+     *   The version of get() with no parameters returns
+     *   the entire canvas.
+     *
+     *   The version of get() with two parameters
+     *   interprets them as coordinates. It returns an
+     *   array with the [R, G, B, A] values of the pixel at
+     *   the given point.
+     *
+     *   The version of get() with four parameters
+     *   interprets them as coordinates and dimensions. It
+     *   returns a subsection of the canvas as a p5.Image
+     *   object. The first two parameters are the
+     *   coordinates for the upper-left corner of the
+     *   subsection. The last two parameters are the width
+     *   and height of the subsection.
+     *
+     *   Use p5.Image.get() to work directly with p5.Image
+     *   objects.
+     *   @param x x-coordinate of the pixel.
+     *   @param y y-coordinate of the pixel.
+     *   @param w width of the subsection to be returned.
+     *   @param h height of the subsection to be returned.
+     *   @return subsection as a p5.Image object.
      */
     function get(x: number, y: number, w: number, h: number): p5.Image;
 
     /**
-     *   Get a region of pixels, or a single pixel, from
-     *   the canvas. Returns an array of [R,G,B,A] values
-     *   for any pixel or grabs a section of an image. If
-     *   no parameters are specified, the entire image is
-     *   returned. Use the x and y parameters to get the
-     *   value of one pixel. Get a section of the display
-     *   window by specifying additional w and h
-     *   parameters. When getting an image, the x and y
-     *   parameters define the coordinates for the
-     *   upper-left corner of the image, regardless of the
-     *   current imageMode().
+     *   Gets a pixel or a region of pixels from the
+     *   canvas. get() is easy to use but it's not as fast
+     *   as pixels. Use pixels to read many pixel values.
      *
-     *   Getting the color of a single pixel with get(x, y)
-     *   is easy, but not as fast as grabbing the data
-     *   directly from pixels[]. The equivalent statement
-     *   to get(x, y) using pixels[] with pixel density d
-     *   is
+     *   The version of get() with no parameters returns
+     *   the entire canvas.
      *
-     *   let x, y, d; // set these to the coordinates let
-     *   off = (y * width + x) * d * 4; let components = [
-     *   pixels[off], pixels[off + 1], pixels[off + 2],
-     *   pixels[off + 3] ]; print(components);
+     *   The version of get() with two parameters
+     *   interprets them as coordinates. It returns an
+     *   array with the [R, G, B, A] values of the pixel at
+     *   the given point.
      *
-     *   See the reference for pixels[] for more
-     *   information.
+     *   The version of get() with four parameters
+     *   interprets them as coordinates and dimensions. It
+     *   returns a subsection of the canvas as a p5.Image
+     *   object. The first two parameters are the
+     *   coordinates for the upper-left corner of the
+     *   subsection. The last two parameters are the width
+     *   and height of the subsection.
      *
-     *   If you want to extract an array of colors or a
-     *   subimage from an p5.Image object, take a look at
-     *   p5.Image.get()
-     *   @return the whole p5.Image
+     *   Use p5.Image.get() to work directly with p5.Image
+     *   objects.
+     *   @return whole canvas as a p5.Image.
      */
     function get(): p5.Image;
 
     /**
-     *   Get a region of pixels, or a single pixel, from
-     *   the canvas. Returns an array of [R,G,B,A] values
-     *   for any pixel or grabs a section of an image. If
-     *   no parameters are specified, the entire image is
-     *   returned. Use the x and y parameters to get the
-     *   value of one pixel. Get a section of the display
-     *   window by specifying additional w and h
-     *   parameters. When getting an image, the x and y
-     *   parameters define the coordinates for the
-     *   upper-left corner of the image, regardless of the
-     *   current imageMode().
+     *   Gets a pixel or a region of pixels from the
+     *   canvas. get() is easy to use but it's not as fast
+     *   as pixels. Use pixels to read many pixel values.
      *
-     *   Getting the color of a single pixel with get(x, y)
-     *   is easy, but not as fast as grabbing the data
-     *   directly from pixels[]. The equivalent statement
-     *   to get(x, y) using pixels[] with pixel density d
-     *   is
+     *   The version of get() with no parameters returns
+     *   the entire canvas.
      *
-     *   let x, y, d; // set these to the coordinates let
-     *   off = (y * width + x) * d * 4; let components = [
-     *   pixels[off], pixels[off + 1], pixels[off + 2],
-     *   pixels[off + 3] ]; print(components);
+     *   The version of get() with two parameters
+     *   interprets them as coordinates. It returns an
+     *   array with the [R, G, B, A] values of the pixel at
+     *   the given point.
      *
-     *   See the reference for pixels[] for more
-     *   information.
+     *   The version of get() with four parameters
+     *   interprets them as coordinates and dimensions. It
+     *   returns a subsection of the canvas as a p5.Image
+     *   object. The first two parameters are the
+     *   coordinates for the upper-left corner of the
+     *   subsection. The last two parameters are the width
+     *   and height of the subsection.
      *
-     *   If you want to extract an array of colors or a
-     *   subimage from an p5.Image object, take a look at
-     *   p5.Image.get()
-     *   @param x x-coordinate of the pixel
-     *   @param y y-coordinate of the pixel
-     *   @return color of pixel at x,y in array format [R,
-     *   G, B, A]
+     *   Use p5.Image.get() to work directly with p5.Image
+     *   objects.
+     *   @param x x-coordinate of the pixel.
+     *   @param y y-coordinate of the pixel.
+     *   @return color of the pixel at (x, y) in array
+     *   format `[R, G, B, A]`.
      */
     function get(x: number, y: number): number[];
 
     /**
-     *   Loads the pixel data for the display window into
-     *   the pixels[] array. This function must always be
-     *   called before reading from or writing to pixels[].
-     *   Note that only changes made with set() or direct
-     *   manipulation of pixels[] will occur.
+     *   Loads the current value of each pixel on the
+     *   canvas into the pixels array. This function must
+     *   be called before reading from or writing to
+     *   pixels.
      */
     function loadPixels(): void;
 
     /**
-     *   Changes the color of any pixel, or writes an image
-     *   directly to the display window. The x and y
-     *   parameters specify the pixel to change and the c
-     *   parameter specifies the color value. This can be a
-     *   p5.Color object, or [R, G, B, A] pixel array. It
-     *   can also be a single grayscale value. When setting
-     *   an image, the x and y parameters define the
-     *   coordinates for the upper-left corner of the
-     *   image, regardless of the current imageMode().
-     *   After using set(), you must call updatePixels()
-     *   for your changes to appear. This should be called
-     *   once all pixels have been set, and must be called
-     *   before calling .get() or drawing the image.
+     *   Sets the color of a pixel or draws an image to the
+     *   canvas. set() is easy to use but it's not as fast
+     *   as pixels. Use pixels to set many pixel values.
      *
-     *   Setting the color of a single pixel with set(x, y)
-     *   is easy, but not as fast as putting the data
-     *   directly into pixels[]. Setting the pixels[]
-     *   values directly may be complicated when working
-     *   with a retina display, but will perform better
-     *   when lots of pixels need to be set directly on
-     *   every loop. See the reference for pixels[] for
-     *   more information.
-     *   @param x x-coordinate of the pixel
-     *   @param y y-coordinate of the pixel
-     *   @param c insert a grayscale value | a pixel array
-     *   | a p5.Color object | a p5.Image to copy
+     *   set() interprets the first two parameters as x-
+     *   and y-coordinates. It interprets the last
+     *   parameter as a grayscale value, a [R, G, B, A]
+     *   pixel array, a p5.Color object, or a p5.Image
+     *   object. If an image is passed, the first two
+     *   parameters set the coordinates for the image's
+     *   upper-left corner, regardless of the current
+     *   imageMode().
+     *
+     *   updatePixels() must be called after using set()
+     *   for changes to appear.
+     *   @param x x-coordinate of the pixel.
+     *   @param y y-coordinate of the pixel.
+     *   @param c grayscale value | pixel array | p5.Color
+     *   object | p5.Image to copy.
      */
     function set(x: number, y: number, c: number | number[] | object): void;
 
     /**
-     *   Updates the display window with the data in the
-     *   pixels[] array. Use in conjunction with
-     *   loadPixels(). If you're only reading pixels from
-     *   the array, there's no need to call updatePixels()
-     *   — updating is only necessary to apply changes.
-     *   updatePixels() should be called anytime the pixels
-     *   array is manipulated or set() is called, and only
-     *   changes made with set() or direct changes to
-     *   pixels[] will occur.
+     *   Updates the canvas with the RGBA values in the
+     *   pixels array. updatePixels() only needs to be
+     *   called after changing values in the pixels array.
+     *   Such changes can be made directly after calling
+     *   loadPixels() or by calling set().
      *   @param [x] x-coordinate of the upper-left corner
-     *   of region to update
+     *   of region to update.
      *   @param [y] y-coordinate of the upper-left corner
-     *   of region to update
-     *   @param [w] width of region to update
-     *   @param [h] height of region to update
+     *   of region to update.
+     *   @param [w] width of region to update.
+     *   @param [h] height of region to update.
      */
     function updatePixels(x?: number, y?: number, w?: number, h?: number): void;
 
     /**
-     *   Uint8ClampedArray containing the values for all
-     *   the pixels in the display window. These values are
-     *   numbers. This array is the size (include an
-     *   appropriate factor for pixelDensity) of the
-     *   display window x4, representing the R, G, B, A
-     *   values in order for each pixel, moving from left
-     *   to right across each row, then down each column.
-     *   Retina and other high density displays will have
-     *   more pixels[] (by a factor of pixelDensity^2). For
-     *   example, if the image is 100×100 pixels, there
-     *   will be 40,000. On a retina display, there will be
-     *   160,000. The first four values (indices 0-3) in
-     *   the array will be the R, G, B, A values of the
-     *   pixel at (0, 0). The second four values (indices
-     *   4-7) will contain the R, G, B, A values of the
-     *   pixel at (1, 0). More generally, to set values for
-     *   a pixel at (x, y):
+     *   An array containing the color of each pixel on the
+     *   canvas. Colors are stored as numbers representing
+     *   red, green, blue, and alpha (RGBA) values. pixels
+     *   is a one-dimensional array for performance
+     *   reasons. Each pixel occupies four elements in the
+     *   pixels array, one for each RGBA value. For
+     *   example, the pixel at coordinates (0, 0) stores
+     *   its RGBA values at pixels[0], pixels[1],
+     *   pixels[2], and pixels[3], respectively. The next
+     *   pixel at coordinates (1, 0) stores its RGBA values
+     *   at pixels[4], pixels[5], pixels[6], and pixels[7].
+     *   And so on. The pixels array for a 100×100 canvas
+     *   has 100 × 100 × 4 = 40,000 elements.
      *
-     *   let d = pixelDensity(); for (let i = 0; i < d;
-     *   i++) { for (let j = 0; j < d; j++) { // loop over
-     *   index = 4 * ((y * d + j) * width * d + (x * d +
-     *   i)); pixels[index] = r; pixels[index+1] = g;
-     *   pixels[index+2] = b; pixels[index+3] = a; } }
+     *   Some displays use several smaller pixels to set
+     *   the color at a single point. The pixelDensity()
+     *   function returns the pixel density of the canvas.
+     *   High density displays often have a pixelDensity()
+     *   of 2. On such a display, the pixels array for a
+     *   100×100 canvas has 200 × 200 × 4 = 160,000
+     *   elements.
      *
-     *   While the above method is complex, it is flexible
-     *   enough to work with any pixelDensity. Note that
-     *   set() will automatically take care of setting all
-     *   the appropriate values in pixels[] for a given (x,
-     *   y) at any pixelDensity, but the performance may
-     *   not be as fast when lots of modifications are made
-     *   to the pixel array.
-     *
-     *   Before accessing this array, the data must loaded
-     *   with the loadPixels() function. After the array
-     *   data has been modified, the updatePixels()
-     *   function must be run to update the changes.
-     *
-     *   Note that this is not a standard javascript array.
-     *   This means that standard javascript functions such
-     *   as slice() or arrayCopy() do not work.
+     *   Accessing the RGBA values for a point on the
+     *   canvas requires a little math as shown below. The
+     *   loadPixels() function must be called before
+     *   accessing the pixels array. The updatePixels()
+     *   function must be called after any changes are
+     *   made.
      */
     let pixels: number[];
 
@@ -5814,138 +6027,156 @@ declare global {
     function saveTable(Table: p5.Table, filename: string, options?: string): void;
 
     /**
-     *   Calculates the absolute value (magnitude) of a
-     *   number. Maps to Math.abs(). The absolute value of
-     *   a number is always positive.
-     *   @param n number to compute
-     *   @return absolute value of given number
+     *   Calculates the absolute value of a number. A
+     *   number's absolute value is its distance from zero
+     *   on the number line. -5 and 5 are both five units
+     *   away from zero, so calling abs(-5) and abs(5) both
+     *   return 5. The absolute value of a number is always
+     *   positive.
+     *   @param n number to compute.
+     *   @return absolute value of given number.
      */
     function abs(n: number): number;
 
     /**
-     *   Calculates the closest int value that is greater
-     *   than or equal to the value of the parameter. Maps
-     *   to Math.ceil(). For example, ceil(9.03) returns
-     *   the value 10.
-     *   @param n number to round up
-     *   @return rounded up number
+     *   Calculates the closest integer value that is
+     *   greater than or equal to the parameter's value.
+     *   For example, calling ceil(9.03) returns the value
+     *   10.
+     *   @param n number to round up.
+     *   @return rounded up number.
      */
     function ceil(n: number): number;
 
     /**
-     *   Constrains a value between a minimum and maximum
+     *   Constrains a number between a minimum and maximum
      *   value.
-     *   @param n number to constrain
-     *   @param low minimum limit
-     *   @param high maximum limit
-     *   @return constrained number
+     *   @param n number to constrain.
+     *   @param low minimum limit.
+     *   @param high maximum limit.
+     *   @return constrained number.
      */
     function constrain(n: number, low: number, high: number): number;
 
     /**
-     *   Calculates the distance between two points, in
-     *   either two or three dimensions. If you looking for
-     *   distance between two vectors see p5.Vector.dist()
-     *   @param x1 x-coordinate of the first point
-     *   @param y1 y-coordinate of the first point
-     *   @param x2 x-coordinate of the second point
-     *   @param y2 y-coordinate of the second point
-     *   @return distance between the two points
+     *   Calculates the distance between two points. The
+     *   version of dist() with four parameters calculates
+     *   distance in two dimensions.
+     *
+     *   The version of dist() with six parameters
+     *   calculates distance in three dimensions.
+     *
+     *   Use p5.Vector.dist() to calculate the distance
+     *   between two p5.Vector objects.
+     *   @param x1 x-coordinate of the first point.
+     *   @param y1 y-coordinate of the first point.
+     *   @param x2 x-coordinate of the second point.
+     *   @param y2 y-coordinate of the second point.
+     *   @return distance between the two points.
      */
     function dist(x1: number, y1: number, x2: number, y2: number): number;
 
     /**
-     *   Calculates the distance between two points, in
-     *   either two or three dimensions. If you looking for
-     *   distance between two vectors see p5.Vector.dist()
-     *   @param x1 x-coordinate of the first point
-     *   @param y1 y-coordinate of the first point
-     *   @param z1 z-coordinate of the first point
-     *   @param x2 x-coordinate of the second point
-     *   @param y2 y-coordinate of the second point
-     *   @param z2 z-coordinate of the second point
-     *   @return distance between the two points
+     *   Calculates the distance between two points. The
+     *   version of dist() with four parameters calculates
+     *   distance in two dimensions.
+     *
+     *   The version of dist() with six parameters
+     *   calculates distance in three dimensions.
+     *
+     *   Use p5.Vector.dist() to calculate the distance
+     *   between two p5.Vector objects.
+     *   @param x1 x-coordinate of the first point.
+     *   @param y1 y-coordinate of the first point.
+     *   @param z1 z-coordinate of the first point.
+     *   @param x2 x-coordinate of the second point.
+     *   @param y2 y-coordinate of the second point.
+     *   @param z2 z-coordinate of the second point.
+     *   @return distance between the two points.
      */
     function dist(x1: number, y1: number, z1: number, x2: number, y2: number, z2: number): number;
 
     /**
      *   Returns Euler's number e (2.71828...) raised to
-     *   the power of the n parameter. Maps to Math.exp().
-     *   @param n exponent to raise
+     *   the power of the n parameter.
+     *   @param n exponent to raise.
      *   @return e^n
      */
     function exp(n: number): number;
 
     /**
-     *   Calculates the closest int value that is less than
-     *   or equal to the value of the parameter. Maps to
-     *   Math.floor().
-     *   @param n number to round down
-     *   @return rounded down number
+     *   Calculates the closest integer value that is less
+     *   than or equal to the value of the n parameter.
+     *   @param n number to round down.
+     *   @return rounded down number.
      */
     function floor(n: number): number;
 
     /**
      *   Calculates a number between two numbers at a
      *   specific increment. The amt parameter is the
-     *   amount to interpolate between the two values where
-     *   0.0 is equal to the first point, 0.1 is very near
-     *   the first point, 0.5 is half-way in between, and
-     *   1.0 is equal to the second point. If the value of
-     *   amt is more than 1.0 or less than 0.0, the number
-     *   will be calculated accordingly in the ratio of the
-     *   two given numbers. The lerp() function is
-     *   convenient for creating motion along a straight
-     *   path and for drawing dotted lines.
-     *   @param start first value
-     *   @param stop second value
-     *   @param amt number
-     *   @return lerped value
+     *   amount to interpolate between the two numbers. 0.0
+     *   is equal to the first number, 0.1 is very near the
+     *   first number, 0.5 is half-way in between, and 1.0
+     *   is equal to the second number. The lerp() function
+     *   is convenient for creating motion along a straight
+     *   path and for drawing dotted lines. If the value of
+     *   amt is less than 0 or more than 1, lerp() will
+     *   return a number outside of the original interval.
+     *   For example, calling lerp(0, 10, 1.5) will return
+     *   15.
+     *   @param start first value.
+     *   @param stop second value.
+     *   @param amt number.
+     *   @return lerped value.
      */
     function lerp(start: number, stop: number, amt: number): number;
 
     /**
      *   Calculates the natural logarithm (the base-e
      *   logarithm) of a number. This function expects the
-     *   n parameter to be a value greater than 0.0. Maps
-     *   to Math.log().
-     *   @param n number greater than 0
-     *   @return natural logarithm of n
+     *   n parameter to be a value greater than 0.0.
+     *   @param n number greater than 0.
+     *   @return natural logarithm of n.
      */
     function log(n: number): number;
 
     /**
-     *   Calculates the magnitude (or length) of a vector.
-     *   A vector is a direction in space commonly used in
-     *   computer graphics and linear algebra. Because it
-     *   has no "start" position, the magnitude of a vector
-     *   can be thought of as the distance from the
-     *   coordinate 0,0 to its x,y value. Therefore, mag()
-     *   is a shortcut for writing dist(0, 0, x, y).
-     *   @param a first value
-     *   @param b second value
-     *   @return magnitude of vector from (0,0) to (a,b)
+     *   Calculates the magnitude, or length, of a vector.
+     *   A vector is like an arrow pointing in space.
+     *   Vectors are commonly used for programming motion.
+     *   Vectors don't have a "start" position because the
+     *   same arrow can be drawn anywhere. A vector's
+     *   magnitude can be thought of as the distance from
+     *   the origin (0, 0) to its tip at (x, y). mag(x, y)
+     *   is a shortcut for calling dist(0, 0, x, y).
+     *   @param x first component.
+     *   @param y second component.
+     *   @return magnitude of vector from (0,0) to (x,y).
      */
-    function mag(a: number, b: number): number;
+    function mag(x: number, y: number): number;
 
     /**
-     *   Re-maps a number from one range to another. In the
-     *   first example above, the number 25 is converted
-     *   from a value in the range of 0 to 100 into a value
-     *   that ranges from the left edge of the window (0)
-     *   to the right edge (width).
-     *   @param value the incoming value to be converted
+     *   Re-maps a number from one range to another. For
+     *   example, calling map(2, 0, 10, 0, 100) returns 20.
+     *   The first three arguments set the original value
+     *   to 2 and the original range from 0 to 10. The last
+     *   two arguments set the target range from 0 to 100.
+     *   20's position in the target range [0, 100] is
+     *   proportional to 2's position in the original range
+     *   [0, 10].
+     *   @param value the incoming value to be converted.
      *   @param start1 lower bound of the value's current
-     *   range
+     *   range.
      *   @param stop1 upper bound of the value's current
-     *   range
+     *   range.
      *   @param start2 lower bound of the value's target
-     *   range
+     *   range.
      *   @param stop2 upper bound of the value's target
-     *   range
+     *   range.
      *   @param [withinBounds] constrain the value to the
-     *   newly mapped range
-     *   @return remapped number
+     *   newly mapped range.
+     *   @return remapped number.
      */
     function map(
         value: number,
@@ -5957,412 +6188,504 @@ declare global {
     ): number;
 
     /**
-     *   Determines the largest value in a sequence of
-     *   numbers, and then returns that value. max()
-     *   accepts any number of Number parameters, or an
-     *   Array of any length.
-     *   @param n0 Number to compare
-     *   @param n1 Number to compare
-     *   @return maximum Number
+     *   Returns the largest value in a sequence of
+     *   numbers. The version of max() with one parameter
+     *   interprets it as an array of numbers and returns
+     *   the largest number.
+     *
+     *   The version of max() with two or more parameters
+     *   interprets them as individual numbers and returns
+     *   the largest number.
+     *   @param n0 first number to compare.
+     *   @param n1 second number to compare.
+     *   @return maximum number.
      */
     function max(n0: number, n1: number): number;
 
     /**
-     *   Determines the largest value in a sequence of
-     *   numbers, and then returns that value. max()
-     *   accepts any number of Number parameters, or an
-     *   Array of any length.
-     *   @param nums Numbers to compare
+     *   Returns the largest value in a sequence of
+     *   numbers. The version of max() with one parameter
+     *   interprets it as an array of numbers and returns
+     *   the largest number.
+     *
+     *   The version of max() with two or more parameters
+     *   interprets them as individual numbers and returns
+     *   the largest number.
+     *   @param nums numbers to compare.
      */
     function max(nums: number[]): number;
 
     /**
-     *   Determines the smallest value in a sequence of
-     *   numbers, and then returns that value. min()
-     *   accepts any number of Number parameters, or an
-     *   Array of any length.
-     *   @param n0 Number to compare
-     *   @param n1 Number to compare
-     *   @return minimum Number
+     *   Returns the smallest value in a sequence of
+     *   numbers. The version of min() with one parameter
+     *   interprets it as an array of numbers and returns
+     *   the smallest number.
+     *
+     *   The version of min() with two or more parameters
+     *   interprets them as individual numbers and returns
+     *   the smallest number.
+     *   @param n0 first number to compare.
+     *   @param n1 second number to compare.
+     *   @return minimum number.
      */
     function min(n0: number, n1: number): number;
 
     /**
-     *   Determines the smallest value in a sequence of
-     *   numbers, and then returns that value. min()
-     *   accepts any number of Number parameters, or an
-     *   Array of any length.
-     *   @param nums Numbers to compare
+     *   Returns the smallest value in a sequence of
+     *   numbers. The version of min() with one parameter
+     *   interprets it as an array of numbers and returns
+     *   the smallest number.
+     *
+     *   The version of min() with two or more parameters
+     *   interprets them as individual numbers and returns
+     *   the smallest number.
+     *   @param nums numbers to compare.
      */
     function min(nums: number[]): number;
 
     /**
-     *   Normalizes a number from another range into a
-     *   value between 0 and 1. Identical to map(value,
-     *   low, high, 0, 1). Numbers outside of the range are
-     *   not clamped to 0 and 1, because out-of-range
-     *   values are often intentional and useful. (See the
-     *   example above.)
-     *   @param value incoming value to be normalized
+     *   Maps a number from one range to a value between 0
+     *   and 1. For example, norm(2, 0, 10) returns 0.2.
+     *   2's position in the original range [0, 10] is
+     *   proportional to 0.2's position in the range [0,
+     *   1]. This is equivalent to calling map(2, 0, 10, 0,
+     *   1).
+     *
+     *   Numbers outside of the original range are not
+     *   constrained between 0 and 1. Out-of-range values
+     *   are often intentional and useful.
+     *   @param value incoming value to be normalized.
      *   @param start lower bound of the value's current
-     *   range
+     *   range.
      *   @param stop upper bound of the value's current
-     *   range
-     *   @return normalized number
+     *   range.
+     *   @return normalized number.
      */
     function norm(value: number, start: number, stop: number): number;
 
     /**
-     *   Facilitates exponential expressions. The pow()
-     *   function is an efficient way of multiplying
-     *   numbers by themselves (or their reciprocals) in
-     *   large quantities. For example, pow(3, 5) is
-     *   equivalent to the expression 3 × 3 × 3 × 3 × 3 and
-     *   pow(3, -5) is equivalent to 1 / 3 × 3 × 3 × 3 × 3.
-     *   Maps to Math.pow().
-     *   @param n base of the exponential expression
-     *   @param e power by which to raise the base
-     *   @return n^e
+     *   Calculates exponential expressions such as 2^3.
+     *   For example, pow(2, 3) is equivalent to the
+     *   expression 2 × 2 × 2. pow(2, -3) is equivalent to
+     *   1 ÷ (2 × 2 × 2).
+     *   @param n base of the exponential expression.
+     *   @param e power by which to raise the base.
+     *   @return n^e.
      */
     function pow(n: number, e: number): number;
 
     /**
      *   Calculates the integer closest to the n parameter.
      *   For example, round(133.8) returns the value 134.
-     *   Maps to Math.round().
-     *   @param n number to round
+     *   @param n number to round.
      *   @param [decimals] number of decimal places to
-     *   round to, default is 0
-     *   @return rounded number
+     *   round to, default is 0.
+     *   @return rounded number.
      */
     function round(n: number, decimals?: number): number;
 
     /**
-     *   Squares a number (multiplies a number by itself).
-     *   The result is always a positive number, as
-     *   multiplying two negative numbers always yields a
-     *   positive result. For example, -1 * -1 = 1.
-     *   @param n number to square
-     *   @return squared number
+     *   Squares a number, which means multiplying the
+     *   number by itself. The value returned is always a
+     *   positive number. For example, sq(3) evaluates 3 ×
+     *   3 which is 9. sq(-3) evaluates -3 × -3 which is
+     *   also 9. Multiplying two negative numbers produces
+     *   a positive number.
+     *   @param n number to square.
+     *   @return squared number.
      */
     function sq(n: number): number;
 
     /**
-     *   Calculates the square root of a number. The square
-     *   root of a number is always positive, even though
-     *   there may be a valid negative root. The square
-     *   root s of number a is such that s*s = a. It is the
-     *   opposite of squaring. Maps to Math.sqrt().
-     *   @param n non-negative number to square root
-     *   @return square root of number
+     *   Calculates the square root of a number. A number's
+     *   square root can be multiplied by itself to produce
+     *   the original number. For example, sqrt(9) returns
+     *   3 because 3 × 3 = 9. sqrt() always returns a
+     *   positive value. sqrt() doesn't work with negative
+     *   arguments such as sqrt(-9).
+     *   @param n non-negative number to square root.
+     *   @return square root of number.
      */
     function sqrt(n: number): number;
 
     /**
-     *   Calculates the fractional part of a number.
-     *   @param num Number whose fractional part needs to
-     *   be found out
-     *   @return fractional part of x, i.e, {x}
+     *   Calculates the fractional part of a number. For
+     *   example, fract(12.34) returns 0.34.
+     *   @param n number whose fractional part will be
+     *   found.
+     *   @return fractional part of n.
      */
-    function fract(num: number): number;
+    function fract(n: number): number;
 
     /**
-     *   Creates a new p5.Vector (the datatype for storing
-     *   vectors). This provides a two or three-dimensional
-     *   vector, specifically a Euclidean (also known as
-     *   geometric) vector. A vector is an entity that has
-     *   both magnitude and direction.
-     *   @param [x] x component of the vector
-     *   @param [y] y component of the vector
-     *   @param [z] z component of the vector
+     *   Creates a new p5.Vector object. A vector is like
+     *   an arrow pointing in space. Vectors have both
+     *   magnitude (length) and direction. Calling
+     *   createVector() without arguments sets the new
+     *   vector's components to 0. p5.Vector objects are
+     *   often used to program motion because they simplify
+     *   the math. For example, a moving ball has a
+     *   position and a velocity. Position describes where
+     *   the ball is in space. The ball's position vector
+     *   extends from the origin to the ball's center.
+     *   Velocity describes the ball's speed and the
+     *   direction it's moving. If the ball is moving
+     *   straight up, its velocity vector points straight
+     *   up. Adding the ball's velocity vector to its
+     *   position vector moves it, as in pos.add(vel).
+     *   Vector math relies on methods inside the
+     *   p5.Vector` class.
+     *   @param [x] x component of the vector.
+     *   @param [y] y component of the vector.
+     *   @param [z] z component of the vector.
+     *   @return new p5.Vector object.
      */
     function createVector(x?: number, y?: number, z?: number): p5.Vector;
 
     /**
-     *   Returns the Perlin noise value at specified
-     *   coordinates. Perlin noise is a random sequence
-     *   generator producing a more naturally ordered,
-     *   harmonic succession of numbers compared to the
-     *   standard random() function. It was invented by Ken
-     *   Perlin in the 1980s and been used since in
-     *   graphical applications to produce procedural
-     *   textures, natural motion, shapes, terrains etc.
-     *   The main difference to the random() function is
-     *   that Perlin noise is defined in an infinite
-     *   n-dimensional space where each pair of coordinates
-     *   corresponds to a fixed semi-random value (fixed
-     *   only for the lifespan of the program; see the
-     *   noiseSeed() function). p5.js can compute 1D, 2D
-     *   and 3D noise, depending on the number of
-     *   coordinates given. The resulting value will always
-     *   be between 0.0 and 1.0. The noise value can be
-     *   animated by moving through the noise space as
-     *   demonstrated in the example above. The 2nd and 3rd
-     *   dimensions can also be interpreted as time.
+     *   Returns random numbers that can be tuned to feel
+     *   more organic. The values returned will always be
+     *   between 0 and 1. Values returned by random() and
+     *   randomGaussian() can change by large amounts
+     *   between function calls. By contrast, values
+     *   returned by noise() can be made "smooth". Calls to
+     *   noise() with similar inputs will produce similar
+     *   outputs. noise() is used to create textures,
+     *   motion, shapes, terrains, and so on. Ken Perlin
+     *   invented noise() while animating the original Tron
+     *   film in the 1980s.
      *
-     *   The actual noise is structured similar to an audio
-     *   signal, in respect to the function's use of
-     *   frequencies. Similar to the concept of harmonics
-     *   in physics, Perlin noise is computed over several
-     *   octaves which are added together for the final
-     *   result.
+     *   noise() returns the same value for a given input
+     *   while a sketch is running. It produces different
+     *   results each time a sketch runs. The noiseSeed()
+     *   function can be used to generate the same sequence
+     *   of Perlin noise values each time a sketch runs.
      *
-     *   Another way to adjust the character of the
-     *   resulting sequence is the scale of the input
-     *   coordinates. As the function works within an
-     *   infinite space the value of the coordinates
-     *   doesn't matter as such, only the distance between
-     *   successive coordinates does (eg. when using
-     *   noise() within a loop). As a general rule the
-     *   smaller the difference between coordinates, the
-     *   smoother the resulting noise sequence will be.
-     *   Steps of 0.005-0.03 work best for most
-     *   applications, but this will differ depending on
-     *   use.
-     *   @param x x-coordinate in noise space
-     *   @param [y] y-coordinate in noise space
-     *   @param [z] z-coordinate in noise space
-     *   @return Perlin noise value (between 0 and 1) at
-     *   specified coordinates
+     *   The character of the noise can be adjusted in two
+     *   ways. The first way is to scale the inputs.
+     *   noise() interprets inputs as coordinates. The
+     *   sequence of noise values will be smoother when the
+     *   input coordinates are closer. The second way is to
+     *   use the noiseDetail() function.
+     *
+     *   The version of noise() with one parameter computes
+     *   noise values in one dimension. This dimension can
+     *   be thought of as space, as in noise(x), or time,
+     *   as in noise(t).
+     *
+     *   The version of noise() with two parameters
+     *   computes noise values in two dimensions. These
+     *   dimensions can be thought of as space, as in
+     *   noise(x, y), or space and time, as in noise(x, t).
+     *
+     *   The version of noise() with three parameters
+     *   computes noise values in three dimensions. These
+     *   dimensions can be thought of as space, as in
+     *   noise(x, y, z), or space and time, as in noise(x,
+     *   y, t).
+     *   @param x x-coordinate in noise space.
+     *   @param [y] y-coordinate in noise space.
+     *   @param [z] z-coordinate in noise space.
+     *   @return Perlin noise value at specified
+     *   coordinates.
      */
     function noise(x: number, y?: number, z?: number): number;
 
     /**
-     *   Adjusts the character and level of detail produced
-     *   by the Perlin noise function. Similar to harmonics
-     *   in physics, noise is computed over several
-     *   octaves. Lower octaves contribute more to the
-     *   output signal and as such define the overall
-     *   intensity of the noise, whereas higher octaves
-     *   create finer-grained details in the noise
-     *   sequence. By default, noise is computed over 4
-     *   octaves with each octave contributing exactly half
-     *   as much as its predecessor, starting at 50%
-     *   strength for the 1st octave. This falloff amount
-     *   can be changed by adding an additional function
-     *   parameter. Eg. a falloff factor of 0.75 means each
-     *   octave will now have 75% impact (25% less) of the
-     *   previous lower octave. Any value between 0.0 and
-     *   1.0 is valid, however, note that values greater
-     *   than 0.5 might result in greater than 1.0 values
-     *   returned by noise(). By changing these parameters,
-     *   the signal created by the noise() function can be
-     *   adapted to fit very specific needs and
-     *   characteristics.
+     *   Adjusts the character of the noise produced by the
+     *   noise() function. Perlin noise values are created
+     *   by adding layers of noise together. The noise
+     *   layers, called octaves, are similar to harmonics
+     *   in music. Lower octaves contribute more to the
+     *   output signal. They define the overall intensity
+     *   of the noise. Higher octaves create finer-grained
+     *   details.
+     *
+     *   By default, noise values are created by combining
+     *   four octaves. Each higher octave contributes half
+     *   as much (50% less) compared to its predecessor.
+     *   noiseDetail() changes the number of octaves and
+     *   the falloff amount. For example, calling
+     *   noiseDetail(6, 0.25) ensures that noise() will use
+     *   six octaves. Each higher octave will contribute
+     *   25% as much (75% less) compared to its
+     *   predecessor. Falloff values between 0 and 1 are
+     *   valid. However, falloff values greater than 0.5
+     *   might result in noise values greater than 1.
      *   @param lod number of octaves to be used by the
-     *   noise
-     *   @param falloff falloff factor for each octave
+     *   noise.
+     *   @param falloff falloff factor for each octave.
      */
     function noiseDetail(lod: number, falloff: number): void;
 
     /**
      *   Sets the seed value for noise(). By default,
-     *   noise() produces different results each time the
-     *   program is run. Set the seed parameter to a
-     *   constant to return the same pseudo-random numbers
-     *   each time the software is run.
-     *   @param seed the seed value
+     *   noise() produces different results each time a
+     *   sketch is run. Calling noiseSeed() with a constant
+     *   argument, such as noiseSeed(99), makes noise()
+     *   produce the same results each time a sketch is
+     *   run.
+     *   @param seed seed value.
      */
     function noiseSeed(seed: number): void;
 
     /**
-     *   Sets the seed value for random(). By default,
-     *   random() produces different results each time the
-     *   program is run. Set the seed parameter to a
-     *   constant to return the same pseudo-random numbers
-     *   each time the software is run.
-     *   @param seed the seed value
+     *   Sets the seed value for random() and
+     *   randomGaussian(). By default, random() and
+     *   randomGaussian() produce different results each
+     *   time a sketch is run. Calling randomSeed() with a
+     *   constant argument, such as randomSeed(99), makes
+     *   these functions produce the same results each time
+     *   a sketch is run.
+     *   @param seed seed value.
      */
     function randomSeed(seed: number): void;
 
     /**
-     *   Return a random floating-point number. Takes
-     *   either 0, 1 or 2 arguments.
+     *   Returns a random number or a random element from
+     *   an array. random() follows uniform distribution,
+     *   which means that all outcomes are equally likely.
+     *   When random() is used to generate numbers, all
+     *   numbers in the output range are equally likely to
+     *   be returned. When random() is used to select
+     *   elements from an array, all elements are equally
+     *   likely to be chosen.
      *
-     *   If no argument is given, returns a random number
-     *   from 0 up to (but not including) 1.
+     *   By default, random() produces different results
+     *   each time a sketch runs. The randomSeed() function
+     *   can be used to generate the same sequence of
+     *   numbers or choices each time a sketch runs.
      *
-     *   If one argument is given and it is a number,
-     *   returns a random number from 0 up to (but not
-     *   including) the number.
+     *   The version of random() with no parameters returns
+     *   a random number from 0 up to but not including 1.
      *
-     *   If one argument is given and it is an array,
-     *   returns a random element from that array.
+     *   The version of random() with one parameter works
+     *   one of two ways. If the argument passed is a
+     *   number, random() returns a random number from 0 up
+     *   to but not including the number. For example,
+     *   calling random(5) returns values between 0 and 5.
+     *   If the argument passed is an array, random()
+     *   returns a random element from that array. For
+     *   example, calling random(['🦁', '🐯', '🐻'])
+     *   returns either a lion, tiger, or bear emoji.
      *
-     *   If two arguments are given, returns a random
-     *   number from the first argument up to (but not
-     *   including) the second argument.
-     *   @param [min] the lower bound (inclusive)
-     *   @param [max] the upper bound (exclusive)
-     *   @return the random number
+     *   The version of random() with two parameters
+     *   returns a random number from a given range. The
+     *   arguments passed set the range's lower and upper
+     *   bounds. For example, calling random(-5, 10.2)
+     *   returns values from -5 up to but not including
+     *   10.2.
+     *   @param [min] lower bound (inclusive).
+     *   @param [max] upper bound (exclusive).
+     *   @return random number.
      */
     function random(min?: number, max?: number): number;
 
     /**
-     *   Return a random floating-point number. Takes
-     *   either 0, 1 or 2 arguments.
+     *   Returns a random number or a random element from
+     *   an array. random() follows uniform distribution,
+     *   which means that all outcomes are equally likely.
+     *   When random() is used to generate numbers, all
+     *   numbers in the output range are equally likely to
+     *   be returned. When random() is used to select
+     *   elements from an array, all elements are equally
+     *   likely to be chosen.
      *
-     *   If no argument is given, returns a random number
-     *   from 0 up to (but not including) 1.
+     *   By default, random() produces different results
+     *   each time a sketch runs. The randomSeed() function
+     *   can be used to generate the same sequence of
+     *   numbers or choices each time a sketch runs.
      *
-     *   If one argument is given and it is a number,
-     *   returns a random number from 0 up to (but not
-     *   including) the number.
+     *   The version of random() with no parameters returns
+     *   a random number from 0 up to but not including 1.
      *
-     *   If one argument is given and it is an array,
-     *   returns a random element from that array.
+     *   The version of random() with one parameter works
+     *   one of two ways. If the argument passed is a
+     *   number, random() returns a random number from 0 up
+     *   to but not including the number. For example,
+     *   calling random(5) returns values between 0 and 5.
+     *   If the argument passed is an array, random()
+     *   returns a random element from that array. For
+     *   example, calling random(['🦁', '🐯', '🐻'])
+     *   returns either a lion, tiger, or bear emoji.
      *
-     *   If two arguments are given, returns a random
-     *   number from the first argument up to (but not
-     *   including) the second argument.
-     *   @param choices the array to choose from
-     *   @return the random element from the array
+     *   The version of random() with two parameters
+     *   returns a random number from a given range. The
+     *   arguments passed set the range's lower and upper
+     *   bounds. For example, calling random(-5, 10.2)
+     *   returns values from -5 up to but not including
+     *   10.2.
+     *   @param choices array to choose from.
+     *   @return random element from the array.
      */
     function random(choices: any[]): any;
 
     /**
      *   Returns a random number fitting a Gaussian, or
-     *   normal, distribution. There is theoretically no
-     *   minimum or maximum value that randomGaussian()
-     *   might return. Rather, there is just a very low
-     *   probability that values far from the mean will be
-     *   returned; and a higher probability that numbers
-     *   near the mean will be returned. Takes either 0, 1
-     *   or 2 arguments. If no args, the mean is 0 and the
+     *   normal, distribution. Normal distributions look
+     *   like bell curves when plotted. Values from a
+     *   normal distribution cluster around a central value
+     *   called the mean. The cluster's standard deviation
+     *   describes its spread. By default, randomGaussian()
+     *   produces different results each time a sketch
+     *   runs. The randomSeed() function can be used to
+     *   generate the same sequence of numbers each time a
+     *   sketch runs.
+     *
+     *   There's no minimum or maximum value that
+     *   randomGaussian() might return. Values far from the
+     *   mean are very unlikely and values near the mean
+     *   are very likely.
+     *
+     *   The version of randomGaussian() with no parameters
+     *   returns values with a mean of 0 and standard
+     *   deviation of 1.
+     *
+     *   The version of randomGaussian() with one parameter
+     *   interprets the argument passed as the mean. The
      *   standard deviation is 1.
      *
-     *   If one arg, that arg is the mean and the standard
-     *   deviation is 1.
-     *
-     *   If two args, the first arg is the mean and the
-     *   second is the standard deviation.
-     *   @param [mean] the mean
-     *   @param [sd] the standard deviation
-     *   @return the random number
+     *   The version of randomGaussian() with two
+     *   parameters interprets the first argument passed as
+     *   the mean and the second as the standard deviation.
+     *   @param [mean] mean.
+     *   @param [sd] standard deviation.
+     *   @return random number.
      */
     function randomGaussian(mean?: number, sd?: number): number;
 
     /**
      *   The inverse of cos(), returns the arc cosine of a
-     *   value. This function expects the values in the
-     *   range of -1 to 1 and values are returned in the
-     *   range 0 to PI (3.1415927) if the angleMode() is
-     *   RADIANS or 0 to 180 if the angleMode() is DEGREES.
-     *   @param value the value whose arc cosine is to be
-     *   returned
-     *   @return the arc cosine of the given value
+     *   value. This function expects arguments in the
+     *   range -1 to 1. By default, acos() returns values
+     *   in the range 0 to π (about 3.14). If the
+     *   angleMode() is DEGREES, then values are returned
+     *   in the range 0 to 180.
+     *   @param value value whose arc cosine is to be
+     *   returned.
+     *   @return arc cosine of the given value.
      */
     function acos(value: number): number;
 
     /**
      *   The inverse of sin(), returns the arc sine of a
-     *   value. This function expects the values in the
-     *   range of -1 to 1 and values are returned in the
-     *   range -PI/2 to PI/2 if the angleMode is RADIANS or
-     *   -90 to 90 if the angle mode is DEGREES.
-     *   @param value the value whose arc sine is to be
-     *   returned
-     *   @return the arc sine of the given value
+     *   value. This function expects input values in the
+     *   range of -1 to 1. By default, asin() returns
+     *   values in the range -π ÷ 2 (about -1.57) to π ÷ 2
+     *   (about 1.57). If the angleMode() is DEGREES then
+     *   values are returned in the range -90 to 90.
+     *   @param value value whose arc sine is to be
+     *   returned.
+     *   @return arc sine of the given value.
      */
     function asin(value: number): number;
 
     /**
      *   The inverse of tan(), returns the arc tangent of a
-     *   value. This function expects the values in the
-     *   range of -Infinity to Infinity (exclusive) and
-     *   values are returned in the range -PI/2 to PI/2 if
-     *   the angleMode is RADIANS or -90 to 90 if the angle
-     *   mode is DEGREES.
-     *   @param value the value whose arc tangent is to be
-     *   returned
-     *   @return the arc tangent of the given value
+     *   value. This function expects input values in the
+     *   range of -Infinity to Infinity. By default, atan()
+     *   returns values in the range -π ÷ 2 (about -1.57)
+     *   to π ÷ 2 (about 1.57). If the angleMode() is
+     *   DEGREES then values are returned in the range -90
+     *   to 90.
+     *   @param value value whose arc tangent is to be
+     *   returned.
+     *   @return arc tangent of the given value.
      */
     function atan(value: number): number;
 
     /**
-     *   Calculates the angle (in radians) from a specified
-     *   point to the coordinate origin as measured from
-     *   the positive x-axis. Values are returned as a
-     *   float in the range from PI to -PI if the
-     *   angleMode() is RADIANS or 180 to -180 if the
-     *   angleMode() is DEGREES. The atan2() function is
-     *   most often used for orienting geometry to the
-     *   position of the cursor. Note: The y-coordinate of
-     *   the point is the first parameter, and the
-     *   x-coordinate is the second parameter, due to the
-     *   structure of calculating the tangent.
-     *   @param y y-coordinate of the point
-     *   @param x x-coordinate of the point
-     *   @return the arc tangent of the given point
+     *   Calculates the angle formed by a specified point,
+     *   the origin, and the positive x-axis. By default,
+     *   atan2() returns values in the range -π (about
+     *   -3.14) to π (3.14). If the angleMode() is DEGREES,
+     *   then values are returned in the range -180 to 180.
+     *   The atan2() function is most often used for
+     *   orienting geometry to the mouse's position. Note:
+     *   The y-coordinate of the point is the first
+     *   parameter and the x-coordinate is the second
+     *   parameter.
+     *   @param y y-coordinate of the point.
+     *   @param x x-coordinate of the point.
+     *   @return arc tangent of the given point.
      */
     function atan2(y: number, x: number): number;
 
     /**
-     *   Calculates the cosine of an angle. This function
-     *   takes into account the current angleMode. Values
-     *   are returned in the range -1 to 1.
-     *   @param angle the angle
-     *   @return the cosine of the angle
+     *   Calculates the cosine of an angle. cos() is useful
+     *   for many geometric tasks in creative coding. The
+     *   values returned oscillate between -1 and 1 as the
+     *   input angle increases. cos() takes into account
+     *   the current angleMode.
+     *   @param angle the angle.
+     *   @return cosine of the angle.
      */
     function cos(angle: number): number;
 
     /**
-     *   Calculates the sine of an angle. This function
-     *   takes into account the current angleMode. Values
-     *   are returned in the range -1 to 1.
-     *   @param angle the angle
-     *   @return the sine of the angle
+     *   Calculates the sine of an angle. sin() is useful
+     *   for many geometric tasks in creative coding. The
+     *   values returned oscillate between -1 and 1 as the
+     *   input angle increases. sin() takes into account
+     *   the current angleMode.
+     *   @param angle the angle.
+     *   @return sine of the angle.
      */
     function sin(angle: number): number;
 
     /**
-     *   Calculates the tangent of an angle. This function
-     *   takes into account the current angleMode. Values
-     *   are returned in the range of all real numbers.
-     *   @param angle the angle
-     *   @return the tangent of the angle
+     *   Calculates the tangent of an angle. tan() is
+     *   useful for many geometric tasks in creative
+     *   coding. The values returned range from -Infinity
+     *   to Infinity and repeat periodically as the input
+     *   angle increases. tan() takes into account the
+     *   current angleMode.
+     *   @param angle the angle.
+     *   @return tangent of the angle.
      */
     function tan(angle: number): number;
 
     /**
-     *   Converts a radian measurement to its corresponding
-     *   value in degrees. Radians and degrees are two ways
-     *   of measuring the same thing. There are 360 degrees
-     *   in a circle and 2*PI radians in a circle. For
-     *   example, 90° = PI/2 = 1.5707964. This function
-     *   does not take into account the current
-     *   angleMode().
-     *   @param radians the radians value to convert to
-     *   degrees
-     *   @return the converted angle
+     *   Converts an angle measurement in radians to its
+     *   corresponding value in degrees. Degrees and
+     *   radians are two ways of measuring the same thing.
+     *   There are 360 degrees in a circle and 2 × π (about
+     *   6.28) radians in a circle. For example, 90° = π ÷
+     *   2 (about 1.57) radians. This function doesn't take
+     *   into account the current angleMode().
+     *   @param radians radians value to convert to
+     *   degrees.
+     *   @return converted angle.
      */
     function degrees(radians: number): number;
 
     /**
-     *   Converts a degree measurement to its corresponding
-     *   value in radians. Radians and degrees are two ways
-     *   of measuring the same thing. There are 360 degrees
-     *   in a circle and 2*PI radians in a circle. For
-     *   example, 90° = PI/2 = 1.5707964. This function
-     *   does not take into account the current angleMode.
-     *   @param degrees the degree value to convert to
-     *   radians
-     *   @return the converted angle
+     *   Converts an angle measurement in degrees to its
+     *   corresponding value in radians. Degrees and
+     *   radians are two ways of measuring the same thing.
+     *   There are 360 degrees in a circle and 2 × π (about
+     *   6.28) radians in a circle. For example, 90° = π ÷
+     *   2 (about 1.57) radians. This function doesn't take
+     *   into account the current angleMode().
+     *   @param degrees degree value to convert to radians.
+     *   @return converted angle.
      */
     function radians(degrees: number): number;
 
     /**
-     *   Sets the current mode of p5 to the given mode.
-     *   Default mode is RADIANS. Calling angleMode() with
-     *   no arguments returns current anglemode.
-     *   @param mode either RADIANS or DEGREES
+     *   Changes the way trigonometric functions interpret
+     *   angle values. By default, the mode is RADIANS.
+     *   Calling angleMode() with no arguments returns
+     *   current angle mode.
+     *   @param mode either RADIANS or DEGREES.
      */
     function angleMode(mode: p5.ANGLE_MODE): void;
 
     /**
-     *   Sets the current mode of p5 to the given mode.
-     *   Default mode is RADIANS. Calling angleMode() with
-     *   no arguments returns current anglemode.
+     *   Changes the way trigonometric functions interpret
+     *   angle values. By default, the mode is RADIANS.
+     *   Calling angleMode() with no arguments returns
+     *   current angle mode.
      *   @return mode either RADIANS or DEGREES
      */
     function angleMode(): p5.UNKNOWN_P5_CONSTANT;
@@ -6463,7 +6786,7 @@ declare global {
 
     /**
      *   Calculates and returns the width of any character
-     *   or text string.
+     *   or the maximum width of any paragrph.
      *   @param theText the String of characters to measure
      *   @return the calculated width
      */
@@ -6512,92 +6835,119 @@ declare global {
     function textWrap(wrapStyle: p5.WRAP_STYLE): string;
 
     /**
-     *   Loads an opentype font file (.otf, .ttf) from a
-     *   file or a URL, and returns a p5.Font object. This
-     *   function is asynchronous, meaning it may not
-     *   finish before the next line in your sketch is
-     *   executed. The path to the font should be relative
-     *   to the HTML file that links in your sketch.
-     *   Loading fonts from a URL or other remote location
-     *   may be blocked due to your browser's built-in
-     *   security.
-     *   @param path name of the file or url to load
-     *   @param [callback] function to be executed after
-     *   loadFont() completes
-     *   @param [onError] function to be executed if an
-     *   error occurs
-     *   @return p5.Font object
+     *   Loads a font and creates a p5.Font object.
+     *   loadFont() can load fonts in either .otf or .ttf
+     *   format. Loaded fonts can be used to style text on
+     *   the canvas and in HTML elements. The first
+     *   parameter, path, is the path to a font file. Paths
+     *   to local files should be relative. For example,
+     *   'assets/inconsolata.otf'. The Inconsolata font
+     *   used in the following examples can be downloaded
+     *   for free here. Paths to remote files should be
+     *   URLs. For example,
+     *   'https://example.com/inconsolata.otf'. URLs may be
+     *   blocked due to browser security.
+     *
+     *   The second parameter, successCallback, is
+     *   optional. If a function is passed, it will be
+     *   called once the font has loaded. The callback
+     *   function may use the new p5.Font object if needed.
+     *
+     *   The third parameter, failureCallback, is also
+     *   optional. If a function is passed, it will be
+     *   called if the font fails to load. The callback
+     *   function may use the error Event object if needed.
+     *
+     *   Fonts can take time to load. Calling loadFont() in
+     *   preload() ensures fonts load before they're used
+     *   in setup() or draw().
+     *   @param path path of the font to be loaded.
+     *   @param [successCallback] function called with the
+     *   p5.Font object after it loads.
+     *   @param [failureCallback] function called with the
+     *   error Event object if the font fails to load.
+     *   @return p5.Font object.
      */
-    function loadFont(path: string, callback?: (...args: any[]) => any, onError?: (...args: any[]) => any): p5.Font;
+    function loadFont(
+        path: string,
+        successCallback?: (...args: any[]) => any,
+        failureCallback?: (...args: any[]) => any
+    ): p5.Font;
 
     /**
-     *   Draws text to the screen. Displays the information
-     *   specified in the first parameter on the screen in
-     *   the position specified by the additional
-     *   parameters. A default font will be used unless a
-     *   font is set with the textFont() function and a
-     *   default size will be used unless a font is set
-     *   with textSize(). Change the color of the text with
-     *   the fill() function. Change the outline of the
-     *   text with the stroke() and strokeWeight()
-     *   functions. The text displays in relation to the
-     *   textAlign() function, which gives the option to
-     *   draw to the left, right, and center of the
-     *   coordinates.
+     *   Draws text to the canvas. The first parameter,
+     *   str, is the text to be drawn. The second and third
+     *   parameters, x and y, set the coordinates of the
+     *   text's bottom-left corner. See textAlign() for
+     *   other ways to align text.
      *
-     *   The x2 and y2 parameters define a rectangular area
-     *   to display within and may only be used with string
-     *   data. When these parameters are specified, they
-     *   are interpreted based on the current rectMode()
-     *   setting. Text that does not fit completely within
-     *   the rectangle specified will not be drawn to the
-     *   screen. If x2 and y2 are not specified, the
-     *   baseline alignment is the default, which means
-     *   that the text will be drawn upwards from x and y.
+     *   The fourth and fifth parameters, maxWidth and
+     *   maxHeight, are optional. They set the dimensions
+     *   of the invisible rectangle containing the text. By
+     *   default, they set its maximum width and height.
+     *   See rectMode() for other ways to define the
+     *   rectangular text box. Text will wrap to fit within
+     *   the text box. Text outside of the box won't be
+     *   drawn.
      *
-     *   WEBGL: Only opentype/truetype fonts are supported.
-     *   You must load a font using the loadFont() method
-     *   (see the example above). stroke() currently has no
-     *   effect in webgl mode. Learn more about working
-     *   with text in webgl mode on the wiki.
-     *   @param str the alphanumeric symbols to be
-     *   displayed
-     *   @param x x-coordinate of text
-     *   @param y y-coordinate of text
-     *   @param [x2] by default, the width of the text box,
-     *   see rectMode() for more info
-     *   @param [y2] by default, the height of the text
-     *   box, see rectMode() for more info
+     *   Text can be styled a few ways. Call the fill()
+     *   function to set the text's fill color. Call
+     *   stroke() and strokeWeight() to set the text's
+     *   outline. Call textSize() and textFont() to set the
+     *   text's size and font, respectively.
+     *
+     *   Note: WEBGL mode only supports fonts loaded with
+     *   loadFont(). Calling stroke() has no effect in
+     *   WEBGL mode.
+     *   @param str text to be displayed.
+     *   @param x x-coordinate of the text box.
+     *   @param y y-coordinate of the text box.
+     *   @param [maxWidth] maximum width of the text box.
+     *   See rectMode() for other options.
+     *   @param [maxHeight] maximum height of the text box.
+     *   See rectMode() for other options.
      *   @chainable
      */
-    function text(str: string | object | any[] | number | boolean, x: number, y: number, x2?: number, y2?: number): p5;
+    function text(
+        str: string | object | any[] | number | boolean,
+        x: number,
+        y: number,
+        maxWidth?: number,
+        maxHeight?: number
+    ): p5;
 
     /**
-     *   Sets the current font that will be drawn with the
-     *   text() function. If textFont() is called without
-     *   any argument, it will return the current font if
-     *   one has been set already. If not, it will return
-     *   the name of the default font as a string. If
-     *   textFont() is called with a font to use, it will
-     *   return the p5 object. WEBGL: Only fonts loaded via
-     *   loadFont() are supported.
-     *   @return the current font / p5 Object
+     *   Sets the font used by the text() function. The
+     *   first parameter, font, sets the font. textFont()
+     *   recognizes either a p5.Font object or a string
+     *   with the name of a system font. For example,
+     *   'Courier New'.
+     *
+     *   The second parameter, size, is optional. It sets
+     *   the font size in pixels. This has the same effect
+     *   as calling textSize().
+     *
+     *   Note: WEBGL mode only supports fonts loaded with
+     *   loadFont().
+     *   @return current font or p5 Object.
      */
     function textFont(): object;
 
     /**
-     *   Sets the current font that will be drawn with the
-     *   text() function. If textFont() is called without
-     *   any argument, it will return the current font if
-     *   one has been set already. If not, it will return
-     *   the name of the default font as a string. If
-     *   textFont() is called with a font to use, it will
-     *   return the p5 object. WEBGL: Only fonts loaded via
-     *   loadFont() are supported.
-     *   @param font a font loaded via loadFont(), or a
-     *   String representing a web safe font (a font that
-     *   is generally available across all systems)
-     *   @param [size] the font size to use
+     *   Sets the font used by the text() function. The
+     *   first parameter, font, sets the font. textFont()
+     *   recognizes either a p5.Font object or a string
+     *   with the name of a system font. For example,
+     *   'Courier New'.
+     *
+     *   The second parameter, size, is optional. It sets
+     *   the font size in pixels. This has the same effect
+     *   as calling textSize().
+     *
+     *   Note: WEBGL mode only supports fonts loaded with
+     *   loadFont().
+     *   @param font font as a p5.Font object or a string.
+     *   @param [size] font size in pixels.
      *   @chainable
      */
     function textFont(font: object | string, size?: number): p5;
@@ -7311,6 +7661,60 @@ declare global {
      *   @return the current year
      */
     function year(): number;
+
+    /**
+     *   Starts creating a new p5.Geometry. Subsequent
+     *   shapes drawn will be added to the geometry and
+     *   then returned when endGeometry() is called. One
+     *   can also use buildGeometry() to pass a function
+     *   that draws shapes. If you need to draw complex
+     *   shapes every frame which don't change over time,
+     *   combining them upfront with beginGeometry() and
+     *   endGeometry() and then drawing that will run
+     *   faster than repeatedly drawing the individual
+     *   pieces.
+     */
+    function beginGeometry(): void;
+
+    /**
+     *   Finishes creating a new p5.Geometry that was
+     *   started using beginGeometry(). One can also use
+     *   buildGeometry() to pass a function that draws
+     *   shapes.
+     *   @return The model that was built.
+     */
+    function endGeometry(): p5.Geometry;
+
+    /**
+     *   Creates a new p5.Geometry that contains all the
+     *   shapes drawn in a provided callback function. The
+     *   returned combined shape can then be drawn all at
+     *   once using model(). If you need to draw complex
+     *   shapes every frame which don't change over time,
+     *   combining them with buildGeometry() once and then
+     *   drawing that will run faster than repeatedly
+     *   drawing the individual pieces.
+     *
+     *   One can also draw shapes directly between
+     *   beginGeometry() and endGeometry() instead of using
+     *   a callback function.
+     *   @param callback A function that draws shapes.
+     *   @return The model that was built from the callback
+     *   function.
+     */
+    function buildGeometry(callback: (...args: any[]) => any): p5.Geometry;
+
+    /**
+     *   Clears the resources of a model to free up browser
+     *   memory. A model whose resources have been cleared
+     *   can still be drawn, but the first time it is drawn
+     *   again, it might take longer. This method works on
+     *   models generated with buildGeometry() as well as
+     *   those loaded from loadModel().
+     *   @param The geometry whose resources should be
+     *   freed
+     */
+    function freeGeometry(The: p5.Geometry): void;
 
     /**
      *   Draw a plane with given a width and height
@@ -8698,6 +9102,34 @@ declare global {
     function createShader(vertSrc: string, fragSrc: string): p5.Shader;
 
     /**
+     *   Creates a new p5.Shader using only a fragment
+     *   shader, as a convenience method for creating image
+     *   effects. It's like createShader() but with a
+     *   default vertex shader included.
+     *   createFilterShader() is intended to be used along
+     *   with filter() for filtering the contents of a
+     *   canvas in WebGL mode. A filter shader will not be
+     *   applied to any geometries.
+     *
+     *   The fragment shader receives some uniforms:
+     *
+     *   - sampler2D tex0, which contains the canvas
+     *   contents as a texture
+     *   - vec2 canvasSize, which is the width and height
+     *   of the canvas
+     *   - vec2 texelSize, which is the size of a pixel
+     *   (1.0/width, 1.0/height)
+     *
+     *   For more info about filters and shaders, see Adam
+     *   Ferriss' repo of shader examples or the
+     *   introduction to shaders page.
+     *   @param fragSrc source code for the fragment shader
+     *   @return a shader object created from the provided
+     *   fragment shader.
+     */
+    function createFilterShader(fragSrc: string): p5.Shader;
+
+    /**
      *   Sets the p5.Shader object to be used to render
      *   subsequent shapes. Custom shaders can be created
      *   using the createShader() and loadShader()
@@ -9166,7 +9598,7 @@ declare global {
      *   Sets the normal to use for subsequent vertices.
      *   @chainable
      */
-    function vertexNormal(x: number, y: number, z: number, v: Vector): p5;
+    function vertexNormal(x: number, y: number, z: number, v: p5.Vector): p5;
 
     /**
      *   Set attributes for the WebGL Drawing context. This
@@ -9423,7 +9855,7 @@ declare global {
         successCallback?: (...args: any[]) => any,
         errorCallback?: (...args: any[]) => any,
         whileLoading?: (...args: any[]) => any
-    ): SoundFile;
+    ): p5.SoundFile;
 
     /**
      *   Create a p5.Convolver. Accepts a path to a

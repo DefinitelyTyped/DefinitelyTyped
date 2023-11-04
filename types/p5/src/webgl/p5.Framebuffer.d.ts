@@ -201,6 +201,6 @@ declare module '../../index' {
          *   to flip vertically, e.g. with
          *   plane(framebuffer.width, -framebuffer.height).
          */
-        depth: any;
+        depth: any | undefined;
     }
 }

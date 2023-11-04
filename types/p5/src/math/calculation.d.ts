@@ -5,138 +5,156 @@ import * as p5 from '../../index';
 declare module '../../index' {
     interface p5InstanceExtensions {
         /**
-         *   Calculates the absolute value (magnitude) of a
-         *   number. Maps to Math.abs(). The absolute value of
-         *   a number is always positive.
-         *   @param n number to compute
-         *   @return absolute value of given number
+         *   Calculates the absolute value of a number. A
+         *   number's absolute value is its distance from zero
+         *   on the number line. -5 and 5 are both five units
+         *   away from zero, so calling abs(-5) and abs(5) both
+         *   return 5. The absolute value of a number is always
+         *   positive.
+         *   @param n number to compute.
+         *   @return absolute value of given number.
          */
         abs(n: number): number;
 
         /**
-         *   Calculates the closest int value that is greater
-         *   than or equal to the value of the parameter. Maps
-         *   to Math.ceil(). For example, ceil(9.03) returns
-         *   the value 10.
-         *   @param n number to round up
-         *   @return rounded up number
+         *   Calculates the closest integer value that is
+         *   greater than or equal to the parameter's value.
+         *   For example, calling ceil(9.03) returns the value
+         *   10.
+         *   @param n number to round up.
+         *   @return rounded up number.
          */
         ceil(n: number): number;
 
         /**
-         *   Constrains a value between a minimum and maximum
+         *   Constrains a number between a minimum and maximum
          *   value.
-         *   @param n number to constrain
-         *   @param low minimum limit
-         *   @param high maximum limit
-         *   @return constrained number
+         *   @param n number to constrain.
+         *   @param low minimum limit.
+         *   @param high maximum limit.
+         *   @return constrained number.
          */
         constrain(n: number, low: number, high: number): number;
 
         /**
-         *   Calculates the distance between two points, in
-         *   either two or three dimensions. If you looking for
-         *   distance between two vectors see p5.Vector.dist()
-         *   @param x1 x-coordinate of the first point
-         *   @param y1 y-coordinate of the first point
-         *   @param x2 x-coordinate of the second point
-         *   @param y2 y-coordinate of the second point
-         *   @return distance between the two points
+         *   Calculates the distance between two points. The
+         *   version of dist() with four parameters calculates
+         *   distance in two dimensions.
+         *
+         *   The version of dist() with six parameters
+         *   calculates distance in three dimensions.
+         *
+         *   Use p5.Vector.dist() to calculate the distance
+         *   between two p5.Vector objects.
+         *   @param x1 x-coordinate of the first point.
+         *   @param y1 y-coordinate of the first point.
+         *   @param x2 x-coordinate of the second point.
+         *   @param y2 y-coordinate of the second point.
+         *   @return distance between the two points.
          */
         dist(x1: number, y1: number, x2: number, y2: number): number;
 
         /**
-         *   Calculates the distance between two points, in
-         *   either two or three dimensions. If you looking for
-         *   distance between two vectors see p5.Vector.dist()
-         *   @param x1 x-coordinate of the first point
-         *   @param y1 y-coordinate of the first point
-         *   @param z1 z-coordinate of the first point
-         *   @param x2 x-coordinate of the second point
-         *   @param y2 y-coordinate of the second point
-         *   @param z2 z-coordinate of the second point
-         *   @return distance between the two points
+         *   Calculates the distance between two points. The
+         *   version of dist() with four parameters calculates
+         *   distance in two dimensions.
+         *
+         *   The version of dist() with six parameters
+         *   calculates distance in three dimensions.
+         *
+         *   Use p5.Vector.dist() to calculate the distance
+         *   between two p5.Vector objects.
+         *   @param x1 x-coordinate of the first point.
+         *   @param y1 y-coordinate of the first point.
+         *   @param z1 z-coordinate of the first point.
+         *   @param x2 x-coordinate of the second point.
+         *   @param y2 y-coordinate of the second point.
+         *   @param z2 z-coordinate of the second point.
+         *   @return distance between the two points.
          */
         dist(x1: number, y1: number, z1: number, x2: number, y2: number, z2: number): number;
 
         /**
          *   Returns Euler's number e (2.71828...) raised to
-         *   the power of the n parameter. Maps to Math.exp().
-         *   @param n exponent to raise
+         *   the power of the n parameter.
+         *   @param n exponent to raise.
          *   @return e^n
          */
         exp(n: number): number;
 
         /**
-         *   Calculates the closest int value that is less than
-         *   or equal to the value of the parameter. Maps to
-         *   Math.floor().
-         *   @param n number to round down
-         *   @return rounded down number
+         *   Calculates the closest integer value that is less
+         *   than or equal to the value of the n parameter.
+         *   @param n number to round down.
+         *   @return rounded down number.
          */
         floor(n: number): number;
 
         /**
          *   Calculates a number between two numbers at a
          *   specific increment. The amt parameter is the
-         *   amount to interpolate between the two values where
-         *   0.0 is equal to the first point, 0.1 is very near
-         *   the first point, 0.5 is half-way in between, and
-         *   1.0 is equal to the second point. If the value of
-         *   amt is more than 1.0 or less than 0.0, the number
-         *   will be calculated accordingly in the ratio of the
-         *   two given numbers. The lerp() function is
-         *   convenient for creating motion along a straight
-         *   path and for drawing dotted lines.
-         *   @param start first value
-         *   @param stop second value
-         *   @param amt number
-         *   @return lerped value
+         *   amount to interpolate between the two numbers. 0.0
+         *   is equal to the first number, 0.1 is very near the
+         *   first number, 0.5 is half-way in between, and 1.0
+         *   is equal to the second number. The lerp() function
+         *   is convenient for creating motion along a straight
+         *   path and for drawing dotted lines. If the value of
+         *   amt is less than 0 or more than 1, lerp() will
+         *   return a number outside of the original interval.
+         *   For example, calling lerp(0, 10, 1.5) will return
+         *   15.
+         *   @param start first value.
+         *   @param stop second value.
+         *   @param amt number.
+         *   @return lerped value.
          */
         lerp(start: number, stop: number, amt: number): number;
 
         /**
          *   Calculates the natural logarithm (the base-e
          *   logarithm) of a number. This function expects the
-         *   n parameter to be a value greater than 0.0. Maps
-         *   to Math.log().
-         *   @param n number greater than 0
-         *   @return natural logarithm of n
+         *   n parameter to be a value greater than 0.0.
+         *   @param n number greater than 0.
+         *   @return natural logarithm of n.
          */
         log(n: number): number;
 
         /**
-         *   Calculates the magnitude (or length) of a vector.
-         *   A vector is a direction in space commonly used in
-         *   computer graphics and linear algebra. Because it
-         *   has no "start" position, the magnitude of a vector
-         *   can be thought of as the distance from the
-         *   coordinate 0,0 to its x,y value. Therefore, mag()
-         *   is a shortcut for writing dist(0, 0, x, y).
-         *   @param a first value
-         *   @param b second value
-         *   @return magnitude of vector from (0,0) to (a,b)
+         *   Calculates the magnitude, or length, of a vector.
+         *   A vector is like an arrow pointing in space.
+         *   Vectors are commonly used for programming motion.
+         *   Vectors don't have a "start" position because the
+         *   same arrow can be drawn anywhere. A vector's
+         *   magnitude can be thought of as the distance from
+         *   the origin (0, 0) to its tip at (x, y). mag(x, y)
+         *   is a shortcut for calling dist(0, 0, x, y).
+         *   @param x first component.
+         *   @param y second component.
+         *   @return magnitude of vector from (0,0) to (x,y).
          */
-        mag(a: number, b: number): number;
+        mag(x: number, y: number): number;
 
         /**
-         *   Re-maps a number from one range to another. In the
-         *   first example above, the number 25 is converted
-         *   from a value in the range of 0 to 100 into a value
-         *   that ranges from the left edge of the window (0)
-         *   to the right edge (width).
-         *   @param value the incoming value to be converted
+         *   Re-maps a number from one range to another. For
+         *   example, calling map(2, 0, 10, 0, 100) returns 20.
+         *   The first three arguments set the original value
+         *   to 2 and the original range from 0 to 10. The last
+         *   two arguments set the target range from 0 to 100.
+         *   20's position in the target range [0, 100] is
+         *   proportional to 2's position in the original range
+         *   [0, 10].
+         *   @param value the incoming value to be converted.
          *   @param start1 lower bound of the value's current
-         *   range
+         *   range.
          *   @param stop1 upper bound of the value's current
-         *   range
+         *   range.
          *   @param start2 lower bound of the value's target
-         *   range
+         *   range.
          *   @param stop2 upper bound of the value's target
-         *   range
+         *   range.
          *   @param [withinBounds] constrain the value to the
-         *   newly mapped range
-         *   @return remapped number
+         *   newly mapped range.
+         *   @return remapped number.
          */
         map(
             value: number,
@@ -148,113 +166,133 @@ declare module '../../index' {
         ): number;
 
         /**
-         *   Determines the largest value in a sequence of
-         *   numbers, and then returns that value. max()
-         *   accepts any number of Number parameters, or an
-         *   Array of any length.
-         *   @param n0 Number to compare
-         *   @param n1 Number to compare
-         *   @return maximum Number
+         *   Returns the largest value in a sequence of
+         *   numbers. The version of max() with one parameter
+         *   interprets it as an array of numbers and returns
+         *   the largest number.
+         *
+         *   The version of max() with two or more parameters
+         *   interprets them as individual numbers and returns
+         *   the largest number.
+         *   @param n0 first number to compare.
+         *   @param n1 second number to compare.
+         *   @return maximum number.
          */
         max(n0: number, n1: number): number;
 
         /**
-         *   Determines the largest value in a sequence of
-         *   numbers, and then returns that value. max()
-         *   accepts any number of Number parameters, or an
-         *   Array of any length.
-         *   @param nums Numbers to compare
+         *   Returns the largest value in a sequence of
+         *   numbers. The version of max() with one parameter
+         *   interprets it as an array of numbers and returns
+         *   the largest number.
+         *
+         *   The version of max() with two or more parameters
+         *   interprets them as individual numbers and returns
+         *   the largest number.
+         *   @param nums numbers to compare.
          */
         max(nums: number[]): number;
 
         /**
-         *   Determines the smallest value in a sequence of
-         *   numbers, and then returns that value. min()
-         *   accepts any number of Number parameters, or an
-         *   Array of any length.
-         *   @param n0 Number to compare
-         *   @param n1 Number to compare
-         *   @return minimum Number
+         *   Returns the smallest value in a sequence of
+         *   numbers. The version of min() with one parameter
+         *   interprets it as an array of numbers and returns
+         *   the smallest number.
+         *
+         *   The version of min() with two or more parameters
+         *   interprets them as individual numbers and returns
+         *   the smallest number.
+         *   @param n0 first number to compare.
+         *   @param n1 second number to compare.
+         *   @return minimum number.
          */
         min(n0: number, n1: number): number;
 
         /**
-         *   Determines the smallest value in a sequence of
-         *   numbers, and then returns that value. min()
-         *   accepts any number of Number parameters, or an
-         *   Array of any length.
-         *   @param nums Numbers to compare
+         *   Returns the smallest value in a sequence of
+         *   numbers. The version of min() with one parameter
+         *   interprets it as an array of numbers and returns
+         *   the smallest number.
+         *
+         *   The version of min() with two or more parameters
+         *   interprets them as individual numbers and returns
+         *   the smallest number.
+         *   @param nums numbers to compare.
          */
         min(nums: number[]): number;
 
         /**
-         *   Normalizes a number from another range into a
-         *   value between 0 and 1. Identical to map(value,
-         *   low, high, 0, 1). Numbers outside of the range are
-         *   not clamped to 0 and 1, because out-of-range
-         *   values are often intentional and useful. (See the
-         *   example above.)
-         *   @param value incoming value to be normalized
+         *   Maps a number from one range to a value between 0
+         *   and 1. For example, norm(2, 0, 10) returns 0.2.
+         *   2's position in the original range [0, 10] is
+         *   proportional to 0.2's position in the range [0,
+         *   1]. This is equivalent to calling map(2, 0, 10, 0,
+         *   1).
+         *
+         *   Numbers outside of the original range are not
+         *   constrained between 0 and 1. Out-of-range values
+         *   are often intentional and useful.
+         *   @param value incoming value to be normalized.
          *   @param start lower bound of the value's current
-         *   range
+         *   range.
          *   @param stop upper bound of the value's current
-         *   range
-         *   @return normalized number
+         *   range.
+         *   @return normalized number.
          */
         norm(value: number, start: number, stop: number): number;
 
         /**
-         *   Facilitates exponential expressions. The pow()
-         *   function is an efficient way of multiplying
-         *   numbers by themselves (or their reciprocals) in
-         *   large quantities. For example, pow(3, 5) is
-         *   equivalent to the expression 3 × 3 × 3 × 3 × 3 and
-         *   pow(3, -5) is equivalent to 1 / 3 × 3 × 3 × 3 × 3.
-         *   Maps to Math.pow().
-         *   @param n base of the exponential expression
-         *   @param e power by which to raise the base
-         *   @return n^e
+         *   Calculates exponential expressions such as 2^3.
+         *   For example, pow(2, 3) is equivalent to the
+         *   expression 2 × 2 × 2. pow(2, -3) is equivalent to
+         *   1 ÷ (2 × 2 × 2).
+         *   @param n base of the exponential expression.
+         *   @param e power by which to raise the base.
+         *   @return n^e.
          */
         pow(n: number, e: number): number;
 
         /**
          *   Calculates the integer closest to the n parameter.
          *   For example, round(133.8) returns the value 134.
-         *   Maps to Math.round().
-         *   @param n number to round
+         *   @param n number to round.
          *   @param [decimals] number of decimal places to
-         *   round to, default is 0
-         *   @return rounded number
+         *   round to, default is 0.
+         *   @return rounded number.
          */
         round(n: number, decimals?: number): number;
 
         /**
-         *   Squares a number (multiplies a number by itself).
-         *   The result is always a positive number, as
-         *   multiplying two negative numbers always yields a
-         *   positive result. For example, -1 * -1 = 1.
-         *   @param n number to square
-         *   @return squared number
+         *   Squares a number, which means multiplying the
+         *   number by itself. The value returned is always a
+         *   positive number. For example, sq(3) evaluates 3 ×
+         *   3 which is 9. sq(-3) evaluates -3 × -3 which is
+         *   also 9. Multiplying two negative numbers produces
+         *   a positive number.
+         *   @param n number to square.
+         *   @return squared number.
          */
         sq(n: number): number;
 
         /**
-         *   Calculates the square root of a number. The square
-         *   root of a number is always positive, even though
-         *   there may be a valid negative root. The square
-         *   root s of number a is such that s*s = a. It is the
-         *   opposite of squaring. Maps to Math.sqrt().
-         *   @param n non-negative number to square root
-         *   @return square root of number
+         *   Calculates the square root of a number. A number's
+         *   square root can be multiplied by itself to produce
+         *   the original number. For example, sqrt(9) returns
+         *   3 because 3 × 3 = 9. sqrt() always returns a
+         *   positive value. sqrt() doesn't work with negative
+         *   arguments such as sqrt(-9).
+         *   @param n non-negative number to square root.
+         *   @return square root of number.
          */
         sqrt(n: number): number;
 
         /**
-         *   Calculates the fractional part of a number.
-         *   @param num Number whose fractional part needs to
-         *   be found out
-         *   @return fractional part of x, i.e, {x}
+         *   Calculates the fractional part of a number. For
+         *   example, fract(12.34) returns 0.34.
+         *   @param n number whose fractional part will be
+         *   found.
+         *   @return fractional part of n.
          */
-        fract(num: number): number;
+        fract(n: number): number;
     }
 }

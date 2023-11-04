@@ -5,6 +5,60 @@ import * as p5 from '../../index';
 declare module '../../index' {
     interface p5InstanceExtensions {
         /**
+         *   Starts creating a new p5.Geometry. Subsequent
+         *   shapes drawn will be added to the geometry and
+         *   then returned when endGeometry() is called. One
+         *   can also use buildGeometry() to pass a function
+         *   that draws shapes. If you need to draw complex
+         *   shapes every frame which don't change over time,
+         *   combining them upfront with beginGeometry() and
+         *   endGeometry() and then drawing that will run
+         *   faster than repeatedly drawing the individual
+         *   pieces.
+         */
+        beginGeometry(): void;
+
+        /**
+         *   Finishes creating a new p5.Geometry that was
+         *   started using beginGeometry(). One can also use
+         *   buildGeometry() to pass a function that draws
+         *   shapes.
+         *   @return The model that was built.
+         */
+        endGeometry(): Geometry;
+
+        /**
+         *   Creates a new p5.Geometry that contains all the
+         *   shapes drawn in a provided callback function. The
+         *   returned combined shape can then be drawn all at
+         *   once using model(). If you need to draw complex
+         *   shapes every frame which don't change over time,
+         *   combining them with buildGeometry() once and then
+         *   drawing that will run faster than repeatedly
+         *   drawing the individual pieces.
+         *
+         *   One can also draw shapes directly between
+         *   beginGeometry() and endGeometry() instead of using
+         *   a callback function.
+         *   @param callback A function that draws shapes.
+         *   @return The model that was built from the callback
+         *   function.
+         */
+        buildGeometry(callback: (...args: any[]) => any): Geometry;
+
+        /**
+         *   Clears the resources of a model to free up browser
+         *   memory. A model whose resources have been cleared
+         *   can still be drawn, but the first time it is drawn
+         *   again, it might take longer. This method works on
+         *   models generated with buildGeometry() as well as
+         *   those loaded from loadModel().
+         *   @param The geometry whose resources should be
+         *   freed
+         */
+        freeGeometry(The: Geometry): void;
+
+        /**
          *   Draw a plane with given a width and height
          *   @param [width] width of the plane
          *   @param [height] height of the plane

@@ -5,56 +5,76 @@ import * as p5 from '../../index';
 declare module '../../index' {
     class Font {
         /**
-         *   Base class for font handling
+         *   A class to describe fonts.
          *
-         *   @param [pInst] pointer to p5 instance
+         *   @param [pInst] pointer to p5 instance.
          */
         constructor(pInst?: p5);
 
         /**
-         *   Returns a tight bounding box for the given text
-         *   string using this font
-         *   @param line a line of text
-         *   @param x x-position
-         *   @param y y-position
-         *   @param [fontSize] font size to use (optional)
-         *   Default is 12.
-         *   @param [options] opentype options (optional)
-         *   opentype fonts contains alignment and baseline
-         *   options. Default is 'LEFT' and 'alphabetic'
-         *   @return a rectangle object with properties: x, y,
-         *   w, h
+         *   Returns the bounding box for a string of text
+         *   written using this p5.Font. The first parameter,
+         *   str, is a string of text. The second and third
+         *   parameters, x and y, are the text's position. By
+         *   default, they set the coordinates of the bounding
+         *   box's bottom-left corner. See textAlign() for more
+         *   ways to align text.
+         *
+         *   The fourth parameter, fontSize, is optional. It
+         *   sets the font size used to determine the bounding
+         *   box. By default, font.textBounds() will use the
+         *   current textSize().
+         *   @param str string of text.
+         *   @param x x-coordinate of the text.
+         *   @param y y-coordinate of the text.
+         *   @param [fontSize] font size. Defaults to the
+         *   current textSize().
+         *   @return object describing the bounding box with
+         *   properties x, y, w, and h.
          */
-        textBounds(line: string, x: number, y: number, fontSize?: number, options?: object): object;
+        textBounds(str: string, x: number, y: number, fontSize?: number): object;
 
         /**
-         *   Computes an array of points following the path for
-         *   specified text
-         *   @param txt a line of text
-         *   @param x x-position
-         *   @param y y-position
-         *   @param fontSize font size to use (optional)
-         *   @param [options] an (optional) object that can
-         *   contain:
+         *   Returns an array of points outlining a string of
+         *   text written using this p5.Font. The first
+         *   parameter, str, is a string of text. The second
+         *   and third parameters, x and y, are the text's
+         *   position. By default, they set the coordinates of
+         *   the bounding box's bottom-left corner. See
+         *   textAlign() for more ways to align text.
          *
+         *   The fourth parameter, fontSize, is optional. It
+         *   sets the text's font size. By default,
+         *   font.textToPoints() will use the current
+         *   textSize().
          *
-         *   sampleFactor - the ratio of path-length to number
-         *   of samples (default=.1); higher values yield more
-         *   points and are therefore more precise
+         *   The fifth parameter, options, is also optional.
+         *   font.textToPoints() expects an object with the
+         *   following properties:
          *
+         *   sampleFactor is the ratio of the text's path
+         *   length to the number of samples. It defaults to
+         *   0.1. Higher values produce more points along the
+         *   path and are more precise.
          *
-         *   simplifyThreshold - if set to a non-zero value,
-         *   collinear points will be be removed from the
-         *   polygon; the value represents the threshold angle
-         *   to use when determining whether two edges are
-         *   collinear
-         *   @return an array of points, each with x, y, alpha
-         *   (the path angle)
+         *   simplifyThreshold removes collinear points if it's
+         *   set to a number other than 0. The value represents
+         *   the threshold angle to use when determining
+         *   whether two edges are collinear.
+         *   @param str string of text.
+         *   @param x x-coordinate of the text.
+         *   @param y y-coordinate of the text.
+         *   @param [fontSize] font size. Defaults to the
+         *   current textSize().
+         *   @param [options] object with sampleFactor and
+         *   simplifyThreshold properties.
+         *   @return array of point objects, each with x, y,
+         *   and alpha (path angle) properties.
          */
-        textToPoints(txt: string, x: number, y: number, fontSize: number, options?: object): any[];
+        textToPoints(str: string, x: number, y: number, fontSize?: number, options?: object): any[];
 
         /**
-         *   Underlying opentype font implementation
+         *   Underlying opentype.js font object.
          */
         font: any;
     }

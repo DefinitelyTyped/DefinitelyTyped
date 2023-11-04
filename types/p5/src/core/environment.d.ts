@@ -56,14 +56,19 @@ declare module '../../index' {
          *   frames per second (usual for movies) or above will
          *   be enough for smooth animations. This is the same
          *   as setFrameRate(val). Calling frameRate() with no
-         *   arguments returns the current framerate. The draw
+         *   arguments or with arguments that are not of type
+         *   Number or are non-positive returns an
+         *   approximation of the current frame rate. The draw
          *   function must run at least once before it will
-         *   return a value. This is the same as
-         *   getFrameRate().
+         *   return a value.
          *
-         *   Calling frameRate() with arguments that are not of
-         *   the type Number or are non-positive also returns
-         *   current framerate.
+         *   Even if the code in your draw() function
+         *   consistently produces frames in time for them to
+         *   be displayed at the desired frame rate, the value
+         *   frameRate() returns will vary frame to frame
+         *   because it's an inaccurate approximation. To
+         *   accurately test the performance of your sketches,
+         *   use your browser's performance profiling tools.
          *   @param fps number of frames to be displayed every
          *   second
          *   @chainable
@@ -84,14 +89,19 @@ declare module '../../index' {
          *   frames per second (usual for movies) or above will
          *   be enough for smooth animations. This is the same
          *   as setFrameRate(val). Calling frameRate() with no
-         *   arguments returns the current framerate. The draw
+         *   arguments or with arguments that are not of type
+         *   Number or are non-positive returns an
+         *   approximation of the current frame rate. The draw
          *   function must run at least once before it will
-         *   return a value. This is the same as
-         *   getFrameRate().
+         *   return a value.
          *
-         *   Calling frameRate() with arguments that are not of
-         *   the type Number or are non-positive also returns
-         *   current framerate.
+         *   Even if the code in your draw() function
+         *   consistently produces frames in time for them to
+         *   be displayed at the desired frame rate, the value
+         *   frameRate() returns will vary frame to frame
+         *   because it's an inaccurate approximation. To
+         *   accurately test the performance of your sketches,
+         *   use your browser's performance profiling tools.
          *   @return current frameRate
          */
         frameRate(): number;
@@ -118,7 +128,7 @@ declare module '../../index' {
          *   adjustments to accommodate the new window size.
          *   @param [event] optional Event callback argument.
          */
-        windowResized(event?: object): void;
+        windowResized(event?: UIEvent): void;
 
         /**
          *   If argument is given, sets the sketch to

@@ -5,144 +5,174 @@ import * as p5 from '../../index';
 declare module '../../index' {
     interface p5InstanceExtensions {
         /**
-         *   Loads an image from a path and creates a p5.Image
-         *   from it. The image may not be immediately
-         *   available for rendering. If you want to ensure
-         *   that the image is ready before doing anything with
-         *   it, place the loadImage() call in preload(). You
-         *   may also supply a callback function to handle the
-         *   image when it's ready.
+         *   Loads an image to create a p5.Image object.
+         *   loadImage() interprets the first parameter one of
+         *   three ways. If the path to an image file is
+         *   provided, loadImage() will load it. Paths to local
+         *   files should be relative, such as
+         *   'assets/thundercat.jpg'. URLs such as
+         *   'https://example.com/thundercat.jpg' may be
+         *   blocked due to browser security. Raw image data
+         *   can also be passed as a base64 encoded image in
+         *   the form
+         *   'data:image/png;base64,arandomsequenceofcharacters'.
          *
-         *   The path to the image should be relative to the
-         *   HTML file that links in your sketch. Loading an
-         *   image from a URL or other remote location may be
-         *   blocked due to your browser's built-in security.
+         *   The second parameter is optional. If a function is
+         *   passed, it will be called once the image has
+         *   loaded. The callback function can optionally use
+         *   the new p5.Image object.
          *
-         *   You can also pass in a string of a base64 encoded
-         *   image as an alternative to the file path. Remember
-         *   to add "data:image/png;base64," in front of the
-         *   string.
-         *   @param path Path of the image to be loaded
-         *   @param [successCallback] Function to be called
-         *   once the image is loaded. Will be passed the
-         *   p5.Image.
-         *   @param [failureCallback] called with event error
-         *   if the image fails to load.
-         *   @return the p5.Image object
+         *   The third parameter is also optional. If a
+         *   function is passed, it will be called if the image
+         *   fails to load. The callback function can
+         *   optionally use the event error.
+         *
+         *   Images can take time to load. Calling loadImage()
+         *   in preload() ensures images load before they're
+         *   used in setup() or draw().
+         *   @param path path of the image to be loaded or
+         *   base64 encoded image.
+         *   @param [successCallback] function called with
+         *   p5.Image once it loads.
+         *   @param [failureCallback] function called with
+         *   event error if the image fails to load.
+         *   @return the p5.Image object.
          */
         loadImage(path: string, successCallback?: (p1: Image) => any, failureCallback?: (p1: Event) => any): Image;
 
         /**
-         *   Generates a gif of your current animation and
-         *   downloads it to your computer! The duration
-         *   argument specifies how many seconds you want to
-         *   record from your animation. This value is then
-         *   converted to the necessary number of frames to
-         *   generate it, depending on the value of units. More
-         *   on that on the next paragraph.
+         *   Generates a gif from a sketch and saves it to a
+         *   file. saveGif() may be called in setup() or at any
+         *   point while a sketch is running. The first
+         *   parameter, fileName, sets the gif's file name. The
+         *   second parameter, duration, sets the gif's
+         *   duration in seconds.
          *
-         *   An optional object that can contain two more
-         *   arguments: delay (number) and units (string).
-         *
-         *   delay, specifying how much time we should wait
-         *   before recording
-         *
-         *   units, a string that can be either 'seconds' or
-         *   'frames'. By default it's 'seconds'.
-         *
-         *   units specifies how the duration and delay
-         *   arguments will behave. If 'seconds', these
-         *   arguments will correspond to seconds, meaning that
-         *   3 seconds worth of animation will be created. If
-         *   'frames', the arguments now correspond to the
-         *   number of frames you want your animation to be, if
-         *   you are very sure of this number.
-         *
-         *   This may be called in setup, or, like in the
-         *   example below, inside an event function, like
-         *   keyPressed or mousePressed.
-         *   @param filename File name of your gif
-         *   @param duration Duration in seconds that you wish
-         *   to capture from your sketch
-         *   @param options An optional object that can contain
-         *   five more arguments: delay, specifying how much
-         *   time we should wait before recording; units, a
-         *   string that can be either 'seconds' or 'frames'.
-         *   By default it's 'seconds’; silent, a boolean that
+         *   The third parameter, options, is optional. If an
+         *   object is passed, saveGif() will use its
+         *   properties to customize the gif. saveGif()
+         *   recognizes the properties delay, units, silent,
+         *   notificationDuration, and notificationID.
+         *   @param filename file name of gif.
+         *   @param duration duration in seconds to capture
+         *   from the sketch.
+         *   @param [options] an object that can contain five
+         *   more properties: delay, a Number specifying how
+         *   much time to wait before recording; units, a
+         *   String that can be either 'seconds' or 'frames'.
+         *   By default it's 'seconds’; silent, a Boolean that
          *   defines presence of progress notifications. By
-         *   default it’s false; notificationDuration, a number
+         *   default it’s false; notificationDuration, a Number
          *   that defines how long in seconds the final
-         *   notification will live. 0, the default value,
-         *   means that the notification will never be removed;
-         *   notificationID, a string that specifies the
-         *   notification DOM element id. By default it’s
+         *   notification will live. By default it's 0, meaning
+         *   the notification will never be removed;
+         *   notificationID, a String that specifies the id of
+         *   the notification's DOM element. By default it’s
          *   'progressBar’.
          */
-        saveGif(filename: string, duration: number, options: object): void;
+        saveGif(filename: string, duration: number, options?: object): void;
 
         /**
-         *   Draw an image to the p5.js canvas. This function
-         *   can be used with different numbers of parameters.
-         *   The simplest use requires only three parameters:
-         *   img, x, and y—where (x, y) is the position of the
-         *   image. Two more parameters can optionally be added
-         *   to specify the width and height of the image.
+         *   Draws a source image to the canvas. The first
+         *   parameter, img, is the source image to be drawn.
+         *   The second and third parameters, dx and dy, set
+         *   the coordinates of the destination image's top
+         *   left corner. See imageMode() for other ways to
+         *   position images.
          *
-         *   This function can also be used with eight Number
-         *   parameters. To differentiate between all these
-         *   parameters, p5.js uses the language of
-         *   "destination rectangle" (which corresponds to
-         *   "dx", "dy", etc.) and "source image" (which
-         *   corresponds to "sx", "sy", etc.) below. Specifying
-         *   the "source image" dimensions can be useful when
-         *   you want to display a subsection of the source
-         *   image instead of the whole thing. Here's a diagram
-         *   to explain further:
+         *   Here's a diagram that explains how optional
+         *   parameters work in image():
          *
-         *   This function can also be used to draw images
-         *   without distorting the orginal aspect ratio, by
-         *   adding 9th parameter, fit, which can either be
-         *   COVER or CONTAIN. CONTAIN, as the name suggests,
-         *   contains the whole image within the specified
-         *   destination box without distorting the image
-         *   ratio. COVER covers the entire destination box.
-         *   @param img the image to display
-         *   @param x the x-coordinate of the top-left corner
-         *   of the image
-         *   @param y the y-coordinate of the top-left corner
-         *   of the image
-         *   @param [width] the width to draw the image
-         *   @param [height] the height to draw the image
+         *
+         *
+         *   The fourth and fifth parameters, dw and dh, are
+         *   optional. They set the the width and height to
+         *   draw the destination image. By default, image()
+         *   draws the full source image at its original size.
+         *
+         *   The sixth and seventh parameters, sx and sy, are
+         *   also optional. These coordinates define the top
+         *   left corner of a subsection to draw from the
+         *   source image.
+         *
+         *   The eighth and ninth parameters, sw and sh, are
+         *   also optional. They define the width and height of
+         *   a subsection to draw from the source image. By
+         *   default, image() draws the full subsection that
+         *   begins at (sx, sy) and extends to the edges of the
+         *   source image.
+         *
+         *   The ninth parameter, fit, is also optional. It
+         *   enables a subsection of the source image to be
+         *   drawn without affecting its aspect ratio. If
+         *   CONTAIN is passed, the full subsection will appear
+         *   within the destination rectangle. If COVER is
+         *   passed, the subsection will completely cover the
+         *   destination rectangle. This may have the effect of
+         *   zooming into the subsection.
+         *
+         *   The tenth and eleventh paremeters, xAlign and
+         *   yAlign, are also optional. They determine how to
+         *   align the fitted subsection. xAlign can be set to
+         *   either LEFT, RIGHT, or CENTER. yAlign can be set
+         *   to either TOP, BOTTOM, or CENTER. By default, both
+         *   xAlign and yAlign are set to CENTER.
+         *   @param img image to display.
+         *   @param x x-coordinate of the top-left corner of
+         *   the image.
+         *   @param y y-coordinate of the top-left corner of
+         *   the image.
+         *   @param [width] width to draw the image.
+         *   @param [height] height to draw the image.
          */
         image(img: Image | Element | Framebuffer, x: number, y: number, width?: number, height?: number): void;
 
         /**
-         *   Draw an image to the p5.js canvas. This function
-         *   can be used with different numbers of parameters.
-         *   The simplest use requires only three parameters:
-         *   img, x, and y—where (x, y) is the position of the
-         *   image. Two more parameters can optionally be added
-         *   to specify the width and height of the image.
+         *   Draws a source image to the canvas. The first
+         *   parameter, img, is the source image to be drawn.
+         *   The second and third parameters, dx and dy, set
+         *   the coordinates of the destination image's top
+         *   left corner. See imageMode() for other ways to
+         *   position images.
          *
-         *   This function can also be used with eight Number
-         *   parameters. To differentiate between all these
-         *   parameters, p5.js uses the language of
-         *   "destination rectangle" (which corresponds to
-         *   "dx", "dy", etc.) and "source image" (which
-         *   corresponds to "sx", "sy", etc.) below. Specifying
-         *   the "source image" dimensions can be useful when
-         *   you want to display a subsection of the source
-         *   image instead of the whole thing. Here's a diagram
-         *   to explain further:
+         *   Here's a diagram that explains how optional
+         *   parameters work in image():
          *
-         *   This function can also be used to draw images
-         *   without distorting the orginal aspect ratio, by
-         *   adding 9th parameter, fit, which can either be
-         *   COVER or CONTAIN. CONTAIN, as the name suggests,
-         *   contains the whole image within the specified
-         *   destination box without distorting the image
-         *   ratio. COVER covers the entire destination box.
-         *   @param img the image to display
+         *
+         *
+         *   The fourth and fifth parameters, dw and dh, are
+         *   optional. They set the the width and height to
+         *   draw the destination image. By default, image()
+         *   draws the full source image at its original size.
+         *
+         *   The sixth and seventh parameters, sx and sy, are
+         *   also optional. These coordinates define the top
+         *   left corner of a subsection to draw from the
+         *   source image.
+         *
+         *   The eighth and ninth parameters, sw and sh, are
+         *   also optional. They define the width and height of
+         *   a subsection to draw from the source image. By
+         *   default, image() draws the full subsection that
+         *   begins at (sx, sy) and extends to the edges of the
+         *   source image.
+         *
+         *   The ninth parameter, fit, is also optional. It
+         *   enables a subsection of the source image to be
+         *   drawn without affecting its aspect ratio. If
+         *   CONTAIN is passed, the full subsection will appear
+         *   within the destination rectangle. If COVER is
+         *   passed, the subsection will completely cover the
+         *   destination rectangle. This may have the effect of
+         *   zooming into the subsection.
+         *
+         *   The tenth and eleventh paremeters, xAlign and
+         *   yAlign, are also optional. They determine how to
+         *   align the fitted subsection. xAlign can be set to
+         *   either LEFT, RIGHT, or CENTER. yAlign can be set
+         *   to either TOP, BOTTOM, or CENTER. By default, both
+         *   xAlign and yAlign are set to CENTER.
+         *   @param img image to display.
          *   @param dx the x-coordinate of the destination
          *   rectangle in which to draw the source image
          *   @param dy the y-coordinate of the destination
@@ -185,127 +215,158 @@ declare module '../../index' {
         ): void;
 
         /**
-         *   Sets the fill value for displaying images. Images
-         *   can be tinted to specified colors or made
-         *   transparent by including an alpha value. To apply
-         *   transparency to an image without affecting its
-         *   color, use white as the tint color and specify an
-         *   alpha value. For instance, tint(255, 128) will
-         *   make an image 50% transparent (assuming the
-         *   default alpha range of 0-255, which can be changed
-         *   with colorMode()).
+         *   Tints images using a specified color. The version
+         *   of tint() with one parameter interprets it one of
+         *   four ways. If the parameter is a number, it's
+         *   interpreted as a grayscale value. If the parameter
+         *   is a string, it's interpreted as a CSS color
+         *   string. An array of [R, G, B, A] values or a
+         *   p5.Color object can also be used to set the tint
+         *   color.
          *
-         *   The value for the gray parameter must be less than
-         *   or equal to the current maximum value as specified
-         *   by colorMode(). The default maximum value is 255.
-         *   @param v1 red or hue value relative to the current
-         *   color range
-         *   @param v2 green or saturation value relative to
-         *   the current color range
-         *   @param v3 blue or brightness value relative to the
-         *   current color range
+         *   The version of tint() with two parameters uses the
+         *   first one as a grayscale value and the second as
+         *   an alpha value. For example, calling tint(255,
+         *   128) will make an image 50% transparent.
+         *
+         *   The version of tint() with three parameters
+         *   interprets them as RGB or HSB values, depending on
+         *   the current colorMode(). The optional fourth
+         *   parameter sets the alpha value. For example,
+         *   tint(255, 0, 0, 100) will give images a red tint
+         *   and make them transparent.
+         *   @param v1 red or hue value.
+         *   @param v2 green or saturation value.
+         *   @param v3 blue or brightness.
          */
         tint(v1: number, v2: number, v3: number, alpha?: number): void;
 
         /**
-         *   Sets the fill value for displaying images. Images
-         *   can be tinted to specified colors or made
-         *   transparent by including an alpha value. To apply
-         *   transparency to an image without affecting its
-         *   color, use white as the tint color and specify an
-         *   alpha value. For instance, tint(255, 128) will
-         *   make an image 50% transparent (assuming the
-         *   default alpha range of 0-255, which can be changed
-         *   with colorMode()).
+         *   Tints images using a specified color. The version
+         *   of tint() with one parameter interprets it one of
+         *   four ways. If the parameter is a number, it's
+         *   interpreted as a grayscale value. If the parameter
+         *   is a string, it's interpreted as a CSS color
+         *   string. An array of [R, G, B, A] values or a
+         *   p5.Color object can also be used to set the tint
+         *   color.
          *
-         *   The value for the gray parameter must be less than
-         *   or equal to the current maximum value as specified
-         *   by colorMode(). The default maximum value is 255.
-         *   @param value a color string
+         *   The version of tint() with two parameters uses the
+         *   first one as a grayscale value and the second as
+         *   an alpha value. For example, calling tint(255,
+         *   128) will make an image 50% transparent.
+         *
+         *   The version of tint() with three parameters
+         *   interprets them as RGB or HSB values, depending on
+         *   the current colorMode(). The optional fourth
+         *   parameter sets the alpha value. For example,
+         *   tint(255, 0, 0, 100) will give images a red tint
+         *   and make them transparent.
+         *   @param value CSS color string.
          */
         tint(value: string): void;
 
         /**
-         *   Sets the fill value for displaying images. Images
-         *   can be tinted to specified colors or made
-         *   transparent by including an alpha value. To apply
-         *   transparency to an image without affecting its
-         *   color, use white as the tint color and specify an
-         *   alpha value. For instance, tint(255, 128) will
-         *   make an image 50% transparent (assuming the
-         *   default alpha range of 0-255, which can be changed
-         *   with colorMode()).
+         *   Tints images using a specified color. The version
+         *   of tint() with one parameter interprets it one of
+         *   four ways. If the parameter is a number, it's
+         *   interpreted as a grayscale value. If the parameter
+         *   is a string, it's interpreted as a CSS color
+         *   string. An array of [R, G, B, A] values or a
+         *   p5.Color object can also be used to set the tint
+         *   color.
          *
-         *   The value for the gray parameter must be less than
-         *   or equal to the current maximum value as specified
-         *   by colorMode(). The default maximum value is 255.
-         *   @param gray a gray value
+         *   The version of tint() with two parameters uses the
+         *   first one as a grayscale value and the second as
+         *   an alpha value. For example, calling tint(255,
+         *   128) will make an image 50% transparent.
+         *
+         *   The version of tint() with three parameters
+         *   interprets them as RGB or HSB values, depending on
+         *   the current colorMode(). The optional fourth
+         *   parameter sets the alpha value. For example,
+         *   tint(255, 0, 0, 100) will give images a red tint
+         *   and make them transparent.
+         *   @param gray grayscale value.
          */
         tint(gray: number, alpha?: number): void;
 
         /**
-         *   Sets the fill value for displaying images. Images
-         *   can be tinted to specified colors or made
-         *   transparent by including an alpha value. To apply
-         *   transparency to an image without affecting its
-         *   color, use white as the tint color and specify an
-         *   alpha value. For instance, tint(255, 128) will
-         *   make an image 50% transparent (assuming the
-         *   default alpha range of 0-255, which can be changed
-         *   with colorMode()).
+         *   Tints images using a specified color. The version
+         *   of tint() with one parameter interprets it one of
+         *   four ways. If the parameter is a number, it's
+         *   interpreted as a grayscale value. If the parameter
+         *   is a string, it's interpreted as a CSS color
+         *   string. An array of [R, G, B, A] values or a
+         *   p5.Color object can also be used to set the tint
+         *   color.
          *
-         *   The value for the gray parameter must be less than
-         *   or equal to the current maximum value as specified
-         *   by colorMode(). The default maximum value is 255.
-         *   @param values an array containing the
-         *   red,green,blue & and alpha components of the color
+         *   The version of tint() with two parameters uses the
+         *   first one as a grayscale value and the second as
+         *   an alpha value. For example, calling tint(255,
+         *   128) will make an image 50% transparent.
+         *
+         *   The version of tint() with three parameters
+         *   interprets them as RGB or HSB values, depending on
+         *   the current colorMode(). The optional fourth
+         *   parameter sets the alpha value. For example,
+         *   tint(255, 0, 0, 100) will give images a red tint
+         *   and make them transparent.
+         *   @param values array containing the red, green,
+         *   blue & alpha components of the color.
          */
         tint(values: number[]): void;
 
         /**
-         *   Sets the fill value for displaying images. Images
-         *   can be tinted to specified colors or made
-         *   transparent by including an alpha value. To apply
-         *   transparency to an image without affecting its
-         *   color, use white as the tint color and specify an
-         *   alpha value. For instance, tint(255, 128) will
-         *   make an image 50% transparent (assuming the
-         *   default alpha range of 0-255, which can be changed
-         *   with colorMode()).
+         *   Tints images using a specified color. The version
+         *   of tint() with one parameter interprets it one of
+         *   four ways. If the parameter is a number, it's
+         *   interpreted as a grayscale value. If the parameter
+         *   is a string, it's interpreted as a CSS color
+         *   string. An array of [R, G, B, A] values or a
+         *   p5.Color object can also be used to set the tint
+         *   color.
          *
-         *   The value for the gray parameter must be less than
-         *   or equal to the current maximum value as specified
-         *   by colorMode(). The default maximum value is 255.
+         *   The version of tint() with two parameters uses the
+         *   first one as a grayscale value and the second as
+         *   an alpha value. For example, calling tint(255,
+         *   128) will make an image 50% transparent.
+         *
+         *   The version of tint() with three parameters
+         *   interprets them as RGB or HSB values, depending on
+         *   the current colorMode(). The optional fourth
+         *   parameter sets the alpha value. For example,
+         *   tint(255, 0, 0, 100) will give images a red tint
+         *   and make them transparent.
          *   @param color the tint color
          */
         tint(color: Color): void;
 
         /**
-         *   Removes the current fill value for displaying
-         *   images and reverts to displaying images with their
-         *   original hues.
+         *   Removes the current tint set by tint() and
+         *   restores images to their original colors.
          */
         noTint(): void;
 
         /**
-         *   Set image mode. Modifies the location from which
-         *   images are drawn by changing the way in which
-         *   parameters given to image() are interpreted. The
-         *   default mode is imageMode(CORNER), which
-         *   interprets the second and third parameters of
-         *   image() as the upper-left corner of the image. If
-         *   two additional parameters are specified, they are
-         *   used to set the image's width and height.
-         *   imageMode(CORNERS) interprets the second and third
-         *   parameters of image() as the location of one
-         *   corner, and the fourth and fifth parameters as the
-         *   opposite corner.
+         *   Changes the location from which images are drawn
+         *   when image() is called. By default, the first two
+         *   parameters of image() are the x- and y-coordinates
+         *   of the image's upper-left corner. The next
+         *   parameters are its width and height. This is the
+         *   same as calling imageMode(CORNER).
          *
-         *   imageMode(CENTER) interprets the second and third
-         *   parameters of image() as the image's center point.
-         *   If two additional parameters are specified, they
-         *   are used to set the image's width and height.
-         *   @param mode either CORNER, CORNERS, or CENTER
+         *   imageMode(CORNERS) also uses the first two
+         *   parameters of image() as the x- and y-coordinates
+         *   of the image's top-left corner. The third and
+         *   fourth parameters are the coordinates of its
+         *   bottom-right corner.
+         *
+         *   imageMode(CENTER) uses the first two parameters of
+         *   image() as the x- and y-coordinates of the image's
+         *   center. The next parameters are its width and
+         *   height.
+         *   @param mode either CORNER, CORNERS, or CENTER.
          */
         imageMode(mode: IMAGE_MODE): void;
     }

@@ -5,6 +5,64 @@ import * as p5 from '../../index';
 declare module '../../index' {
     interface p5InstanceExtensions {
         /**
+         *   Start defining a shape that will mask subsequent
+         *   things drawn to the canvas. Only opaque regions of
+         *   the mask shape will allow content to be drawn. Any
+         *   shapes drawn between this and endClip() will
+         *   contribute to the mask shape. The mask will apply
+         *   to anything drawn after this call. To draw without
+         *   a mask, contain the code to apply the mask and to
+         *   draw the masked content between push() and pop().
+         *
+         *   Alternatively, rather than drawing the mask
+         *   between this and endClip(), draw the mask in a
+         *   callback function passed to clip().
+         *
+         *   Options can include:
+         *
+         *   - invert: A boolean specifying whether or not to
+         *   mask the areas not filled by the mask shape.
+         *   Defaults to false.
+         *   @param [options] An object containing clip
+         *   settings.
+         */
+        beginClip(options?: object): void;
+
+        /**
+         *   Finishes defining a shape that will mask
+         *   subsequent things drawn to the canvas. Only opaque
+         *   regions of the mask shape will allow content to be
+         *   drawn. Any shapes drawn between beginClip() and
+         *   this will contribute to the mask shape.
+         */
+        endClip(): void;
+
+        /**
+         *   Use the shape drawn by a callback function to mask
+         *   subsequent things drawn to the canvas. Only opaque
+         *   regions of the mask shape will allow content to be
+         *   drawn. The mask will apply to anything drawn after
+         *   this call. To draw without a mask, contain the
+         *   code to apply the mask and to draw the masked
+         *   content between push() and pop().
+         *
+         *   Alternatively, rather than drawing the mask shape
+         *   in a function, draw the shape between beginClip()
+         *   and endClip().
+         *
+         *   Options can include:
+         *
+         *   - invert: A boolean specifying whether or not to
+         *   mask the areas not filled by the mask shape.
+         *   Defaults to false.
+         *   @param callback A function that draws the mask
+         *   shape.
+         *   @param [options] An object containing clip
+         *   settings.
+         */
+        clip(callback: (...args: any[]) => any, options?: object): void;
+
+        /**
          *   Sets the color used for the background of the
          *   canvas. By default, the background is transparent.
          *   This function is typically used within draw() to

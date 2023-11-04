@@ -43,6 +43,34 @@ declare module '../../index' {
         createShader(vertSrc: string, fragSrc: string): Shader;
 
         /**
+         *   Creates a new p5.Shader using only a fragment
+         *   shader, as a convenience method for creating image
+         *   effects. It's like createShader() but with a
+         *   default vertex shader included.
+         *   createFilterShader() is intended to be used along
+         *   with filter() for filtering the contents of a
+         *   canvas in WebGL mode. A filter shader will not be
+         *   applied to any geometries.
+         *
+         *   The fragment shader receives some uniforms:
+         *
+         *   - sampler2D tex0, which contains the canvas
+         *   contents as a texture
+         *   - vec2 canvasSize, which is the width and height
+         *   of the canvas
+         *   - vec2 texelSize, which is the size of a pixel
+         *   (1.0/width, 1.0/height)
+         *
+         *   For more info about filters and shaders, see Adam
+         *   Ferriss' repo of shader examples or the
+         *   introduction to shaders page.
+         *   @param fragSrc source code for the fragment shader
+         *   @return a shader object created from the provided
+         *   fragment shader.
+         */
+        createFilterShader(fragSrc: string): Shader;
+
+        /**
          *   Sets the p5.Shader object to be used to render
          *   subsequent shapes. Custom shaders can be created
          *   using the createShader() and loadShader()

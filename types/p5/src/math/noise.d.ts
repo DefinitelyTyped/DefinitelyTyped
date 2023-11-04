@@ -5,89 +5,89 @@ import * as p5 from '../../index';
 declare module '../../index' {
     interface p5InstanceExtensions {
         /**
-         *   Returns the Perlin noise value at specified
-         *   coordinates. Perlin noise is a random sequence
-         *   generator producing a more naturally ordered,
-         *   harmonic succession of numbers compared to the
-         *   standard random() function. It was invented by Ken
-         *   Perlin in the 1980s and been used since in
-         *   graphical applications to produce procedural
-         *   textures, natural motion, shapes, terrains etc.
-         *   The main difference to the random() function is
-         *   that Perlin noise is defined in an infinite
-         *   n-dimensional space where each pair of coordinates
-         *   corresponds to a fixed semi-random value (fixed
-         *   only for the lifespan of the program; see the
-         *   noiseSeed() function). p5.js can compute 1D, 2D
-         *   and 3D noise, depending on the number of
-         *   coordinates given. The resulting value will always
-         *   be between 0.0 and 1.0. The noise value can be
-         *   animated by moving through the noise space as
-         *   demonstrated in the example above. The 2nd and 3rd
-         *   dimensions can also be interpreted as time.
+         *   Returns random numbers that can be tuned to feel
+         *   more organic. The values returned will always be
+         *   between 0 and 1. Values returned by random() and
+         *   randomGaussian() can change by large amounts
+         *   between function calls. By contrast, values
+         *   returned by noise() can be made "smooth". Calls to
+         *   noise() with similar inputs will produce similar
+         *   outputs. noise() is used to create textures,
+         *   motion, shapes, terrains, and so on. Ken Perlin
+         *   invented noise() while animating the original Tron
+         *   film in the 1980s.
          *
-         *   The actual noise is structured similar to an audio
-         *   signal, in respect to the function's use of
-         *   frequencies. Similar to the concept of harmonics
-         *   in physics, Perlin noise is computed over several
-         *   octaves which are added together for the final
-         *   result.
+         *   noise() returns the same value for a given input
+         *   while a sketch is running. It produces different
+         *   results each time a sketch runs. The noiseSeed()
+         *   function can be used to generate the same sequence
+         *   of Perlin noise values each time a sketch runs.
          *
-         *   Another way to adjust the character of the
-         *   resulting sequence is the scale of the input
-         *   coordinates. As the function works within an
-         *   infinite space the value of the coordinates
-         *   doesn't matter as such, only the distance between
-         *   successive coordinates does (eg. when using
-         *   noise() within a loop). As a general rule the
-         *   smaller the difference between coordinates, the
-         *   smoother the resulting noise sequence will be.
-         *   Steps of 0.005-0.03 work best for most
-         *   applications, but this will differ depending on
-         *   use.
-         *   @param x x-coordinate in noise space
-         *   @param [y] y-coordinate in noise space
-         *   @param [z] z-coordinate in noise space
-         *   @return Perlin noise value (between 0 and 1) at
-         *   specified coordinates
+         *   The character of the noise can be adjusted in two
+         *   ways. The first way is to scale the inputs.
+         *   noise() interprets inputs as coordinates. The
+         *   sequence of noise values will be smoother when the
+         *   input coordinates are closer. The second way is to
+         *   use the noiseDetail() function.
+         *
+         *   The version of noise() with one parameter computes
+         *   noise values in one dimension. This dimension can
+         *   be thought of as space, as in noise(x), or time,
+         *   as in noise(t).
+         *
+         *   The version of noise() with two parameters
+         *   computes noise values in two dimensions. These
+         *   dimensions can be thought of as space, as in
+         *   noise(x, y), or space and time, as in noise(x, t).
+         *
+         *   The version of noise() with three parameters
+         *   computes noise values in three dimensions. These
+         *   dimensions can be thought of as space, as in
+         *   noise(x, y, z), or space and time, as in noise(x,
+         *   y, t).
+         *   @param x x-coordinate in noise space.
+         *   @param [y] y-coordinate in noise space.
+         *   @param [z] z-coordinate in noise space.
+         *   @return Perlin noise value at specified
+         *   coordinates.
          */
         noise(x: number, y?: number, z?: number): number;
 
         /**
-         *   Adjusts the character and level of detail produced
-         *   by the Perlin noise function. Similar to harmonics
-         *   in physics, noise is computed over several
-         *   octaves. Lower octaves contribute more to the
-         *   output signal and as such define the overall
-         *   intensity of the noise, whereas higher octaves
-         *   create finer-grained details in the noise
-         *   sequence. By default, noise is computed over 4
-         *   octaves with each octave contributing exactly half
-         *   as much as its predecessor, starting at 50%
-         *   strength for the 1st octave. This falloff amount
-         *   can be changed by adding an additional function
-         *   parameter. Eg. a falloff factor of 0.75 means each
-         *   octave will now have 75% impact (25% less) of the
-         *   previous lower octave. Any value between 0.0 and
-         *   1.0 is valid, however, note that values greater
-         *   than 0.5 might result in greater than 1.0 values
-         *   returned by noise(). By changing these parameters,
-         *   the signal created by the noise() function can be
-         *   adapted to fit very specific needs and
-         *   characteristics.
+         *   Adjusts the character of the noise produced by the
+         *   noise() function. Perlin noise values are created
+         *   by adding layers of noise together. The noise
+         *   layers, called octaves, are similar to harmonics
+         *   in music. Lower octaves contribute more to the
+         *   output signal. They define the overall intensity
+         *   of the noise. Higher octaves create finer-grained
+         *   details.
+         *
+         *   By default, noise values are created by combining
+         *   four octaves. Each higher octave contributes half
+         *   as much (50% less) compared to its predecessor.
+         *   noiseDetail() changes the number of octaves and
+         *   the falloff amount. For example, calling
+         *   noiseDetail(6, 0.25) ensures that noise() will use
+         *   six octaves. Each higher octave will contribute
+         *   25% as much (75% less) compared to its
+         *   predecessor. Falloff values between 0 and 1 are
+         *   valid. However, falloff values greater than 0.5
+         *   might result in noise values greater than 1.
          *   @param lod number of octaves to be used by the
-         *   noise
-         *   @param falloff falloff factor for each octave
+         *   noise.
+         *   @param falloff falloff factor for each octave.
          */
         noiseDetail(lod: number, falloff: number): void;
 
         /**
          *   Sets the seed value for noise(). By default,
-         *   noise() produces different results each time the
-         *   program is run. Set the seed parameter to a
-         *   constant to return the same pseudo-random numbers
-         *   each time the software is run.
-         *   @param seed the seed value
+         *   noise() produces different results each time a
+         *   sketch is run. Calling noiseSeed() with a constant
+         *   argument, such as noiseSeed(99), makes noise()
+         *   produce the same results each time a sketch is
+         *   run.
+         *   @param seed seed value.
          */
         noiseSeed(seed: number): void;
     }

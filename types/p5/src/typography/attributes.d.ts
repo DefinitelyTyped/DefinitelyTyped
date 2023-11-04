@@ -100,7 +100,7 @@ declare module '../../index' {
 
         /**
          *   Calculates and returns the width of any character
-         *   or text string.
+         *   or the maximum width of any paragrph.
          *   @param theText the String of characters to measure
          *   @return the calculated width
          */

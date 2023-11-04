@@ -44,7 +44,7 @@ declare module '../../index' {
          *   @param [canvas] existing html canvas element
          *   @return pointer to p5.Renderer holding canvas
          */
-        createCanvas(w: number, h: number, renderer?: RENDERER, canvas?: object): Renderer;
+        createCanvas(w: number, h: number, renderer?: RENDERER, canvas?: HTMLCanvasElement): Renderer;
 
         /**
          *   Creates a canvas element in the document and sets
@@ -85,7 +85,7 @@ declare module '../../index' {
          *   @param [canvas] existing html canvas element
          *   @return pointer to p5.Renderer holding canvas
          */
-        createCanvas(w: number, h: number, canvas?: object): Renderer;
+        createCanvas(w: number, h: number, canvas?: HTMLCanvasElement): Renderer;
 
         /**
          *   Resizes the canvas to given width and height. The
@@ -128,7 +128,7 @@ declare module '../../index' {
          *   @param [canvas] existing html canvas element
          *   @return offscreen graphics buffer
          */
-        createGraphics(w: number, h: number, renderer?: RENDERER, canvas?: object): Graphics;
+        createGraphics(w: number, h: number, renderer?: RENDERER, canvas?: HTMLCanvasElement): Graphics;
 
         /**
          *   Creates and returns a new p5.Graphics object. Use
@@ -151,7 +151,7 @@ declare module '../../index' {
          *   @param [canvas] existing html canvas element
          *   @return offscreen graphics buffer
          */
-        createGraphics(w: number, h: number, canvas?: object): Graphics;
+        createGraphics(w: number, h: number, canvas?: HTMLCanvasElement): Graphics;
 
         /**
          *   Creates and returns a new p5.Framebuffer, a
@@ -171,6 +171,11 @@ declare module '../../index' {
          *   information, either UNSIGNED_INT or FLOAT. The
          *   default is FLOAT if available, or UNSIGNED_INT
          *   otherwise.
+         *   - stencil: A boolean, whether or not to include a
+         *   stencil buffer, which can be used for masking.
+         *   This may only be used if also using a depth
+         *   buffer. Defaults to the value of depth, which is
+         *   true if not provided.
          *   - antialias: Boolean or Number, whether or not to
          *   render with antialiased edges, and if so,
          *   optionally the number of samples to use. Defaults

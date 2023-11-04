@@ -5,92 +5,119 @@ import * as p5 from '../../index';
 declare module '../../index' {
     interface p5InstanceExtensions {
         /**
-         *   Loads an opentype font file (.otf, .ttf) from a
-         *   file or a URL, and returns a p5.Font object. This
-         *   function is asynchronous, meaning it may not
-         *   finish before the next line in your sketch is
-         *   executed. The path to the font should be relative
-         *   to the HTML file that links in your sketch.
-         *   Loading fonts from a URL or other remote location
-         *   may be blocked due to your browser's built-in
-         *   security.
-         *   @param path name of the file or url to load
-         *   @param [callback] function to be executed after
-         *   loadFont() completes
-         *   @param [onError] function to be executed if an
-         *   error occurs
-         *   @return p5.Font object
+         *   Loads a font and creates a p5.Font object.
+         *   loadFont() can load fonts in either .otf or .ttf
+         *   format. Loaded fonts can be used to style text on
+         *   the canvas and in HTML elements. The first
+         *   parameter, path, is the path to a font file. Paths
+         *   to local files should be relative. For example,
+         *   'assets/inconsolata.otf'. The Inconsolata font
+         *   used in the following examples can be downloaded
+         *   for free here. Paths to remote files should be
+         *   URLs. For example,
+         *   'https://example.com/inconsolata.otf'. URLs may be
+         *   blocked due to browser security.
+         *
+         *   The second parameter, successCallback, is
+         *   optional. If a function is passed, it will be
+         *   called once the font has loaded. The callback
+         *   function may use the new p5.Font object if needed.
+         *
+         *   The third parameter, failureCallback, is also
+         *   optional. If a function is passed, it will be
+         *   called if the font fails to load. The callback
+         *   function may use the error Event object if needed.
+         *
+         *   Fonts can take time to load. Calling loadFont() in
+         *   preload() ensures fonts load before they're used
+         *   in setup() or draw().
+         *   @param path path of the font to be loaded.
+         *   @param [successCallback] function called with the
+         *   p5.Font object after it loads.
+         *   @param [failureCallback] function called with the
+         *   error Event object if the font fails to load.
+         *   @return p5.Font object.
          */
-        loadFont(path: string, callback?: (...args: any[]) => any, onError?: (...args: any[]) => any): Font;
+        loadFont(
+            path: string,
+            successCallback?: (...args: any[]) => any,
+            failureCallback?: (...args: any[]) => any
+        ): Font;
 
         /**
-         *   Draws text to the screen. Displays the information
-         *   specified in the first parameter on the screen in
-         *   the position specified by the additional
-         *   parameters. A default font will be used unless a
-         *   font is set with the textFont() function and a
-         *   default size will be used unless a font is set
-         *   with textSize(). Change the color of the text with
-         *   the fill() function. Change the outline of the
-         *   text with the stroke() and strokeWeight()
-         *   functions. The text displays in relation to the
-         *   textAlign() function, which gives the option to
-         *   draw to the left, right, and center of the
-         *   coordinates.
+         *   Draws text to the canvas. The first parameter,
+         *   str, is the text to be drawn. The second and third
+         *   parameters, x and y, set the coordinates of the
+         *   text's bottom-left corner. See textAlign() for
+         *   other ways to align text.
          *
-         *   The x2 and y2 parameters define a rectangular area
-         *   to display within and may only be used with string
-         *   data. When these parameters are specified, they
-         *   are interpreted based on the current rectMode()
-         *   setting. Text that does not fit completely within
-         *   the rectangle specified will not be drawn to the
-         *   screen. If x2 and y2 are not specified, the
-         *   baseline alignment is the default, which means
-         *   that the text will be drawn upwards from x and y.
+         *   The fourth and fifth parameters, maxWidth and
+         *   maxHeight, are optional. They set the dimensions
+         *   of the invisible rectangle containing the text. By
+         *   default, they set its maximum width and height.
+         *   See rectMode() for other ways to define the
+         *   rectangular text box. Text will wrap to fit within
+         *   the text box. Text outside of the box won't be
+         *   drawn.
          *
-         *   WEBGL: Only opentype/truetype fonts are supported.
-         *   You must load a font using the loadFont() method
-         *   (see the example above). stroke() currently has no
-         *   effect in webgl mode. Learn more about working
-         *   with text in webgl mode on the wiki.
-         *   @param str the alphanumeric symbols to be
-         *   displayed
-         *   @param x x-coordinate of text
-         *   @param y y-coordinate of text
-         *   @param [x2] by default, the width of the text box,
-         *   see rectMode() for more info
-         *   @param [y2] by default, the height of the text
-         *   box, see rectMode() for more info
+         *   Text can be styled a few ways. Call the fill()
+         *   function to set the text's fill color. Call
+         *   stroke() and strokeWeight() to set the text's
+         *   outline. Call textSize() and textFont() to set the
+         *   text's size and font, respectively.
+         *
+         *   Note: WEBGL mode only supports fonts loaded with
+         *   loadFont(). Calling stroke() has no effect in
+         *   WEBGL mode.
+         *   @param str text to be displayed.
+         *   @param x x-coordinate of the text box.
+         *   @param y y-coordinate of the text box.
+         *   @param [maxWidth] maximum width of the text box.
+         *   See rectMode() for other options.
+         *   @param [maxHeight] maximum height of the text box.
+         *   See rectMode() for other options.
          *   @chainable
          */
-        text(str: string | object | any[] | number | boolean, x: number, y: number, x2?: number, y2?: number): p5;
+        text(
+            str: string | object | any[] | number | boolean,
+            x: number,
+            y: number,
+            maxWidth?: number,
+            maxHeight?: number
+        ): p5;
 
         /**
-         *   Sets the current font that will be drawn with the
-         *   text() function. If textFont() is called without
-         *   any argument, it will return the current font if
-         *   one has been set already. If not, it will return
-         *   the name of the default font as a string. If
-         *   textFont() is called with a font to use, it will
-         *   return the p5 object. WEBGL: Only fonts loaded via
-         *   loadFont() are supported.
-         *   @return the current font / p5 Object
+         *   Sets the font used by the text() function. The
+         *   first parameter, font, sets the font. textFont()
+         *   recognizes either a p5.Font object or a string
+         *   with the name of a system font. For example,
+         *   'Courier New'.
+         *
+         *   The second parameter, size, is optional. It sets
+         *   the font size in pixels. This has the same effect
+         *   as calling textSize().
+         *
+         *   Note: WEBGL mode only supports fonts loaded with
+         *   loadFont().
+         *   @return current font or p5 Object.
          */
         textFont(): object;
 
         /**
-         *   Sets the current font that will be drawn with the
-         *   text() function. If textFont() is called without
-         *   any argument, it will return the current font if
-         *   one has been set already. If not, it will return
-         *   the name of the default font as a string. If
-         *   textFont() is called with a font to use, it will
-         *   return the p5 object. WEBGL: Only fonts loaded via
-         *   loadFont() are supported.
-         *   @param font a font loaded via loadFont(), or a
-         *   String representing a web safe font (a font that
-         *   is generally available across all systems)
-         *   @param [size] the font size to use
+         *   Sets the font used by the text() function. The
+         *   first parameter, font, sets the font. textFont()
+         *   recognizes either a p5.Font object or a string
+         *   with the name of a system font. For example,
+         *   'Courier New'.
+         *
+         *   The second parameter, size, is optional. It sets
+         *   the font size in pixels. This has the same effect
+         *   as calling textSize().
+         *
+         *   Note: WEBGL mode only supports fonts loaded with
+         *   loadFont().
+         *   @param font font as a p5.Font object or a string.
+         *   @param [size] font size in pixels.
          *   @chainable
          */
         textFont(font: object | string, size?: number): p5;
