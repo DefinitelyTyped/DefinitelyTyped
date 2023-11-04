@@ -2129,7 +2129,7 @@ declare global {
      *   normal.
      *   @chainable
      */
-    function normal(vector: Vector): p5;
+    function normal(vector: p5.Vector): p5;
 
     /**
      *   Sets the 3d vertex normal to use for subsequent
@@ -2393,7 +2393,7 @@ declare global {
     const UNSIGNED_BYTE: p5.UNSIGNED_BYTE;
     const UNSIGNED_INT: p5.UNSIGNED_INT;
     const FLOAT: p5.FLOAT;
-    const FLOAT: p5.FLOAT;
+    const HALF_FLOAT: p5.HALF_FLOAT;
     const RGBA: p5.RGBA;
 
     /**
@@ -9166,7 +9166,7 @@ declare global {
      *   Sets the normal to use for subsequent vertices.
      *   @chainable
      */
-    function vertexNormal(x: number, y: number, z: number, v: Vector): p5;
+    function vertexNormal(x: number, y: number, z: number, v: p5.Vector): p5;
 
     /**
      *   Set attributes for the WebGL Drawing context. This
@@ -9423,7 +9423,7 @@ declare global {
         successCallback?: (...args: any[]) => any,
         errorCallback?: (...args: any[]) => any,
         whileLoading?: (...args: any[]) => any
-    ): SoundFile;
+    ): p5.SoundFile;
 
     /**
      *   Create a p5.Convolver. Accepts a path to a
