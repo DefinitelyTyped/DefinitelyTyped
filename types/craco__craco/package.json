@@ -9,11 +9,17 @@
         "@jest/types": "^27.4.2",
         "@types/autoprefixer": "^9.7.2",
         "@types/babel-core": "*",
+        "@types/connect-history-api-fallback": "*",
         "@types/eslint": "*",
         "@types/express": "*",
+        "@types/http-proxy": "*",
+        "@types/istanbul-lib-coverage": "*",
+        "@types/istanbul-reports": "*",
         "@types/node": "*",
+        "@types/serve-static": "*",
         "@types/webpack": "^4",
-        "@types/webpack-dev-server": "^3.11.6"
+        "@types/webpack-dev-server": "^3.11.6",
+        "@types/yargs": "*"
     },
     "devDependencies": {
         "@types/craco__craco": "workspace:."
