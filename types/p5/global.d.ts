@@ -2393,7 +2393,7 @@ declare global {
     const UNSIGNED_BYTE: p5.UNSIGNED_BYTE;
     const UNSIGNED_INT: p5.UNSIGNED_INT;
     const FLOAT: p5.FLOAT;
-    const FLOAT: p5.FLOAT;
+    const HALF_FLOAT: p5.HALF_FLOAT;
     const RGBA: p5.RGBA;
 
     /**
