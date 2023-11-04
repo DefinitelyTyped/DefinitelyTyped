@@ -1,4 +1,4 @@
-import css = require('.');
+import css = require('dom-css');
 
 declare let element: HTMLElement;
 
