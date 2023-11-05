@@ -109,5 +109,4 @@ export function useRefetchableFragmentNode<TQuery extends OperationType, TKey ex
     fragmentNode: ReaderFragment,
     parentFragmentRef: unknown,
     componentDisplayName: string,
-):
-ReturnTypeNode<TQuery, TKey, InternalOptions>;
+): ReturnTypeNode<TQuery, TKey, InternalOptions>;

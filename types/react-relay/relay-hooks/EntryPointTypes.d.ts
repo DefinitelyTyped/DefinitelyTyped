@@ -2,13 +2,13 @@ import { ComponentType } from "react";
 import {
     CacheConfig,
     ConcreteRequest,
-    PreloadableConcreteRequest,
     DisposeFn,
     FetchPolicy,
     GraphQLResponse,
     IEnvironment,
     Observable,
     OperationType,
+    PreloadableConcreteRequest,
     VariablesOf,
 } from "relay-runtime";
 import { GetEntryPointComponentFromEntryPoint, GetEntryPointParamsFromEntryPoint } from "./helpers";

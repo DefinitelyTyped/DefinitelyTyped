@@ -132,9 +132,9 @@ export {
 } from "./lib/util/ReaderNode";
 export {
     ConcreteRequest,
-    PreloadableConcreteRequest,
     ConcreteUpdatableQuery,
     GeneratedNode,
+    PreloadableConcreteRequest,
     RequestParameters,
 } from "./lib/util/RelayConcreteNode";
 export { RelayReplaySubject as ReplaySubject } from "./lib/util/RelayReplaySubject";

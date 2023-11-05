@@ -1,4 +1,4 @@
-import { DisposeFn, GraphQLTaggedNode, OperationType, VariablesOf, PreloadableConcreteRequest } from "relay-runtime";
+import { DisposeFn, GraphQLTaggedNode, OperationType, PreloadableConcreteRequest, VariablesOf } from "relay-runtime";
 import { LoadQueryOptions, PreloadedQuery } from "./EntryPointTypes";
 
 export type useQueryLoaderHookType<TQuery extends OperationType> = [

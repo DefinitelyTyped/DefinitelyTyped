@@ -3,7 +3,6 @@ import {
     CacheConfig,
     commitLocalUpdate,
     ConcreteRequest,
-    PreloadableConcreteRequest,
     ConnectionHandler,
     ConnectionInterface,
     createOperationDescriptor,
@@ -16,6 +15,7 @@ import {
     graphql,
     isPromise,
     Network,
+    PreloadableConcreteRequest,
     QueryResponseCache,
     ReaderFragment,
     ReaderInlineDataFragment,
@@ -286,11 +286,11 @@ commitLocalUpdate(environment, store => {
 
 type FooQuery$variables = Record<PropertyKey, never>;
 type FooQuery$data = {
-  readonly foo: string | null | undefined;
+    readonly foo: string | null | undefined;
 };
 type FooQuery = {
-  response: FooQuery$data;
-  variables: FooQuery$variables;
+    response: FooQuery$data;
+    variables: FooQuery$variables;
 };
 
 const preloadableNode: PreloadableConcreteRequest<FooQuery> = {
@@ -302,7 +302,7 @@ const preloadableNode: PreloadableConcreteRequest<FooQuery> = {
         cacheID: "2e5967148a8303de3c58059c0eaa87c6",
         text: "query FooQuery {\n  foo\n}\n",
         metadata: {},
-    }
+    },
 };
 
 // ~~~~~~~~~~~~~~~~~~~~~
