@@ -148,9 +148,6 @@ var collisions = Query.ray([box1, box2, circle1], { x: 1, y: 2 }, { x: 3, y: 4 }
 // $ExpectType Collision[]
 collisions = Query.collides(box1, [box2, circle1]);
 
-// events
-Events.on(engine, "beforeTick", (e: Matter.IEventTimestamped<Matter.Engine>) => {});
-
 Engine.run(engine);
 
 // Renderer
@@ -189,8 +186,6 @@ const mouseConstraint = MouseConstraint.create(engine, { mouse });
 
 render.mouse = mouse;
 
-Events.on(mouseConstraint, "mousemove", (e: Matter.IMouseEvent<Matter.MouseConstraint>) => {});
-
 // Composite
 // $ExpectType Composite
 var composite1 = Composite.create();
@@ -221,6 +216,59 @@ Composite.add(composite1, mouseConstraint);
 Composite.add(composite3, [box1, composite2, constraint1, mouseConstraint]);
 // $ExpectType Composite
 Composite.remove(composite3, [box1, composite2, constraint1, mouseConstraint]);
+
+
+// Events
+// $ExpectType (e: IEvent<Body>) => void
+Events.on(body, "sleepStart", (e) => {});
+// $ExpectType (e: IEvent<Body>) => void
+Events.on(body, "sleepEnd", (e) => {});
+
+// $ExpectType (e: IEventComposite<Composite>) => void
+Events.on(composite1, "beforeAdd", (e) => {});
+// $ExpectType (e: IEventComposite<Composite>) => void
+Events.on(composite1, "afterAdd", (e) => {});
+// $ExpectType (e: IEventComposite<Composite>) => void
+Events.on(composite1, "beforeRemove", (e) => {});
+// $ExpectType (e: IEventComposite<Composite>) => void
+Events.on(composite1, "afterRemove", (e) => {});
+
+// $ExpectType (e: IEventTimestamped<Engine>) => void
+Events.on(engine, "beforeUpdate", (e) => {});
+// $ExpectType (e: IEventTimestamped<Engine>) => void
+Events.on(engine, "afterUpdate", (e) => {});
+// $ExpectType (e: IEventCollision<Engine>) => void
+Events.on(engine, "collisionStart", (e) => {});
+// $ExpectType (e: IEventCollision<Engine>) => void
+Events.on(engine, "collisionActive", (e) => {});
+// $ExpectType (e: IEventCollision<Engine>) => void
+Events.on(engine, "collisionEnd", (e) => {});
+
+// $ExpectType (e: IMouseEvent<MouseConstraint>) => void
+Events.on(mouseConstraint, "mousemove", (e) => {});
+// $ExpectType (e: IMouseEvent<MouseConstraint>) => void
+Events.on(mouseConstraint, "mouseup", (e) => {});
+// $ExpectType (e: IMouseEvent<MouseConstraint>) => void
+Events.on(mouseConstraint, "mousedown", (e) => {});
+
+// $ExpectType (e: IEventTimestamped<Render>) => void
+Events.on(render, "beforeRender", (e) => {});
+// $ExpectType (e: IEventTimestamped<Render>) => void
+Events.on(render, "afterRender", (e) => {});
+//
+// $ExpectType (e: IEventTimestamped<Runner>) => void
+Events.on(runner1, "beforeTick", (e) => {});
+// $ExpectType (e: IEventTimestamped<Runner>) => void
+Events.on(runner1, "tick", (e) => {});
+// $ExpectType (e: IEventTimestamped<Runner>) => void
+Events.on(runner1, "afterTick", (e) => {});
+
+// $ExpectType (e: IEvent<Engine>) => void
+Events.on(engine, "newMadeUpEvent", (e) => {});
+
+// $ExpectType void
+Events.off(engine, "newMadeUpEvent", (e) => {});
+
 
 // Pairs
 // $ExpectType Pairs
