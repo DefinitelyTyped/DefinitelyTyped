@@ -19,7 +19,8 @@ var Engine = Matter.Engine,
     Contact = Matter.Contact,
     Vertices = Matter.Vertices,
     Detector = Matter.Detector,
-    Resolver = Matter.Resolver;
+    Resolver = Matter.Resolver,
+    Common = Matter.Common;
 
 Matter.use("matter-attractors");
 Plugin.use(Matter, ["matter-wrap"]);
@@ -298,3 +299,66 @@ Resolver.preSolveVelocity([pair]);
 Resolver.solvePosition([pair], 1);
 // $ExpectType void
 Resolver.solveVelocity([pair], 2);
+
+// Common
+// $ExpectType void
+Common.log("foo", 2, { bar: "baz" });
+// $ExpectType void
+Common.info("foo", 2, { bar: "baz" });
+// $ExpectType void
+Common.warn("foo", 2, { bar: "baz" });
+// $ExpectType void
+Common.warnOnce("foo", 2, { bar: "baz" });
+
+// $ExpectType void
+Common.deprecated({ foo: "bar" }, "foo", "The 'bar' method is deprecated!");
+// $ExpectType void
+Common.deprecated(new Matter.Vector(), "x", "The 'x' method is deprecated!");
+// $ExpectType void
+Common.deprecated(Matter.Vector, "create", "The 'create' method is deprecated!");
+
+// $ExpectType number
+Common.indexOf([1, 2, 3, 4], 2);
+// $ExpectType number
+Common.indexOf(["a", "b", "c", "d"], "a");
+
+// $ExpectType string[]
+Common.map([1, 2, 3, 4], (value) => value.toString());
+// $ExpectType (string | number)[]
+Common.map(["a", "bc", "def", "ghij"], (value) => value.length > 1 ? value.length : value);
+// $ExpectType (number | boolean)[]
+Common.map(["a", 1, "bcd", 2], (value) => typeof value === "string" ? value.length : value < 2);
+
+// $ExpectType number
+Common.choose([1, 2, 3, 4]);
+// $ExpectType string
+Common.choose(["a", "b", "c", "d"]);
+
+// $ExpectType number[]
+Common.shuffle([1, 2, 3, 4]);
+// $ExpectType string[]
+Common.shuffle(["a", "b", "c", "d"]);
+
+// $ExpectType true
+Common.isArray(["foo"]);
+// $ExpectType false
+Common.isArray("foo");
+
+// $ExpectType true
+Common.isElement(new HTMLElement());
+// $ExpectType true
+Common.isElement(new HTMLFormElement());
+// $ExpectType false
+Common.isElement("foo");
+
+// $ExpectType true
+Common.isFunction(() => {});
+// $ExpectType true
+Common.isFunction((x: string, y: number) => [x, y]);
+// $ExpectType false
+Common.isFunction("foo");
+
+// $ExpectType true
+Common.isString("foo");
+// $ExpectType false
+Common.isString(1);

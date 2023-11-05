@@ -3310,7 +3310,7 @@ declare namespace Matter {
          * @param {array} array
          * @returns {array} array shuffled randomly
          */
-        static shuffle(array: Array<any>): Array<any>;
+        static shuffle<T>(array: Array<T>): Array<T>;
 
         /**
          * Randomly chooses a value from a list with equal probability.
@@ -3319,7 +3319,7 @@ declare namespace Matter {
          * @param {array} choices
          * @returns {any} A random choice object from the array
          */
-        static choose(choices: Array<any>): any;
+        static choose<T>(choices: readonly T[]): T;
 
         /**
          * Returns true if the object is a HTMLElement, otherwise false.
@@ -3327,7 +3327,7 @@ declare namespace Matter {
          * @param {any} obj
          * @returns {boolean} True if the object is a HTMLElement, otherwise false
          */
-        static isElement(obj: any): boolean;
+        static isElement<T>(obj: T): T extends HTMLElement ? true : false;
 
         /**
          * Returns true if the object is an array.
@@ -3335,7 +3335,7 @@ declare namespace Matter {
          * @param {any} obj
          * @returns {boolean} True if the object is an array, otherwise false
          */
-        static isArray(obj: any): boolean;
+        static isArray<T>(obj: T): T extends Array<any> ? true : false;
 
         /**
          * Returns true if the object is a function.
@@ -3343,7 +3343,7 @@ declare namespace Matter {
          * @param {any} obj
          * @returns {boolean} True if the object is a function, otherwise false
          */
-        static isFunction(obj: any): boolean;
+        static isFunction<T>(obj: T): T extends Function ? true : false;
 
         /**
          * Returns true if the object is a plain object.
@@ -3359,7 +3359,7 @@ declare namespace Matter {
          * @param {any} obj
          * @returns {boolean} True if the object is a string, otherwise false
          */
-        static isString(obj: any): boolean;
+        static isString<T>(obj: T): T extends string ? true : false;
 
         /**
          * Returns the given value clamped between a minimum and maximum value.
@@ -3411,7 +3411,7 @@ declare namespace Matter {
          * @method log
          * @param ...objs {} The objects to log.
          */
-        static log(): any;
+        static log(...objs: any[]): void;
 
         /**
          * Shows a `console.info` message only if the current `Common.logLevel` allows it.
@@ -3419,7 +3419,7 @@ declare namespace Matter {
          * @method info
          * @param ...objs {} The objects to log.
          */
-        static info(): any;
+        static info(...objs: any[]): void;
 
         /**
          * Shows a `console.warn` message only if the current `Common.logLevel` allows it.
@@ -3427,7 +3427,7 @@ declare namespace Matter {
          * @method warn
          * @param ...objs {} The objects to log.
          */
-        static warn(): any;
+        static warn(...objs: any[]): void;
 
         /**
          * Returns the next unique sequential ID.
@@ -3443,7 +3443,7 @@ declare namespace Matter {
          * @param {any} needle
          * @returns {number} The position of needle in haystack, otherwise -1.
          */
-        static indexOf(haystack: Array<any>, needle: any): number;
+        static indexOf<T>(haystack: Array<T>, needle: T): number;
 
         /**
          * A cross browser compatible array map implementation.
@@ -3452,7 +3452,7 @@ declare namespace Matter {
          * @param {function} func
          * @returns {array} Values from list transformed by func.
          */
-        static map(list: Array<any>, funct: Function): Array<any>;
+        static map<T, U>(list: Array<T>, func: (element: T) => U): Array<U>;
 
         /**
          * Takes a directed graph and returns the partially ordered set of vertices in topological order.
@@ -3514,7 +3514,7 @@ declare namespace Matter {
          * @method warnOnce
          * @param ...objs {} The objects to log.
          */
-        static warnOnce(...objs: Record<string, any>[]): void;
+        static warnOnce(...objs: any[]): void;
 
         /**
          * Shows a deprecated console warning when the function on the given object is called.
@@ -3525,7 +3525,7 @@ declare namespace Matter {
          * @param {string} name The property name of the function on obj
          * @param {string} warning The one-time message to show if the function is called
          */
-        static deprecated(obj: Record<string, any>, prop: string, warning: string): void;
+        static deprecated<T>(obj: T, name: keyof T, warning: string): void;
 
         /**
          * Provide the [poly-decomp](https://github.com/schteppe/poly-decomp.js) library module to enable
