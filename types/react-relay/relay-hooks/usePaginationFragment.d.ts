@@ -18,14 +18,16 @@ export interface usePaginationFragmentHookType<
     refetch: RefetchFnDynamic<TQuery, TKey>;
 }
 
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function usePaginationFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     parentFragmentRef: TKey,
-): // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+):
 usePaginationFragmentHookType<TQuery, TKey, KeyTypeData<TKey>>;
 
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function usePaginationFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     parentFragmentRef: TKey | null | undefined,
-): // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+):
 usePaginationFragmentHookType<TQuery, TKey | null, KeyTypeData<TKey> | null | undefined>;
