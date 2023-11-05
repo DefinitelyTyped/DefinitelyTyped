@@ -17,7 +17,6 @@ export interface ConcreteRequest {
 
 // Note: the phantom type parameter here helps ensures that the
 // $Parameters.js value matches the type param provided to preloadQuery.
-// tslint:disable-next-line interface-over-type-literal
 export interface PreloadableConcreteRequest<TQuery extends OperationType> {
     kind: "PreloadableConcreteRequest";
     params: RequestParameters;

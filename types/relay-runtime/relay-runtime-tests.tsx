@@ -1,3 +1,5 @@
+// tslint:disable:interface-over-type-literal
+
 import {
     __internal,
     CacheConfig,
