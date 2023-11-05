@@ -6,7 +6,7 @@
         "https://github.com/pugjs/is-expression#readme"
     ],
     "dependencies": {
-        "acorn": "7.1"
+        "acorn": "7.1.1"
     },
     "devDependencies": {
         "@types/is-expression": "workspace:."
