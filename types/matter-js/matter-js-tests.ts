@@ -217,7 +217,6 @@ Composite.add(composite3, [box1, composite2, constraint1, mouseConstraint]);
 // $ExpectType Composite
 Composite.remove(composite3, [box1, composite2, constraint1, mouseConstraint]);
 
-
 // Events
 // $ExpectType (e: IEvent<Body>) => void
 Events.on(body, "sleepStart", (e) => {});
@@ -268,7 +267,6 @@ Events.on(engine, "newMadeUpEvent", (e) => {});
 
 // $ExpectType void
 Events.off(engine, "newMadeUpEvent", (e) => {});
-
 
 // Pairs
 // $ExpectType Pairs
