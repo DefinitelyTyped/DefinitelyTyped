@@ -19,7 +19,8 @@ var Engine = Matter.Engine,
     Contact = Matter.Contact,
     Vertices = Matter.Vertices,
     Detector = Matter.Detector,
-    Resolver = Matter.Resolver;
+    Resolver = Matter.Resolver,
+    Common = Matter.Common;
 
 Matter.use("matter-attractors");
 Plugin.use(Matter, ["matter-wrap"]);
@@ -30,6 +31,22 @@ var engine = Engine.create({
 });
 // $ExpectType Detector
 engine.detector;
+
+// $ExpectType IEngineTimingOptions
+engine.timing;
+// $ExpectType number
+engine.timing.timeScale;
+// $ExpectType number
+engine.timing.lastDelta;
+// $ExpectType number
+engine.timing.lastElapsed;
+// $ExpectType number
+engine.timing.timestamp;
+
+// $ExpectType Engine
+Engine.create({ timing: {} });
+// $ExpectType Engine
+engine = Engine.create({ timing: { timeScale: 2, timestamp: 333, lastDelta: 1, lastElapsed: 4 } });
 
 // Body
 // $ExpectType Body
@@ -131,9 +148,6 @@ var collisions = Query.ray([box1, box2, circle1], { x: 1, y: 2 }, { x: 3, y: 4 }
 // $ExpectType Collision[]
 collisions = Query.collides(box1, [box2, circle1]);
 
-// events
-Events.on(engine, "beforeTick", (e: Matter.IEventTimestamped<Matter.Engine>) => {});
-
 Engine.run(engine);
 
 // Renderer
@@ -172,8 +186,6 @@ const mouseConstraint = MouseConstraint.create(engine, { mouse });
 
 render.mouse = mouse;
 
-Events.on(mouseConstraint, "mousemove", (e: Matter.IMouseEvent<Matter.MouseConstraint>) => {});
-
 // Composite
 // $ExpectType Composite
 var composite1 = Composite.create();
@@ -204,6 +216,57 @@ Composite.add(composite1, mouseConstraint);
 Composite.add(composite3, [box1, composite2, constraint1, mouseConstraint]);
 // $ExpectType Composite
 Composite.remove(composite3, [box1, composite2, constraint1, mouseConstraint]);
+
+// Events
+// $ExpectType (e: IEvent<Body>) => void
+Events.on(body, "sleepStart", (e) => {});
+// $ExpectType (e: IEvent<Body>) => void
+Events.on(body, "sleepEnd", (e) => {});
+
+// $ExpectType (e: IEventComposite<Composite>) => void
+Events.on(composite1, "beforeAdd", (e) => {});
+// $ExpectType (e: IEventComposite<Composite>) => void
+Events.on(composite1, "afterAdd", (e) => {});
+// $ExpectType (e: IEventComposite<Composite>) => void
+Events.on(composite1, "beforeRemove", (e) => {});
+// $ExpectType (e: IEventComposite<Composite>) => void
+Events.on(composite1, "afterRemove", (e) => {});
+
+// $ExpectType (e: IEventTimestamped<Engine>) => void
+Events.on(engine, "beforeUpdate", (e) => {});
+// $ExpectType (e: IEventTimestamped<Engine>) => void
+Events.on(engine, "afterUpdate", (e) => {});
+// $ExpectType (e: IEventCollision<Engine>) => void
+Events.on(engine, "collisionStart", (e) => {});
+// $ExpectType (e: IEventCollision<Engine>) => void
+Events.on(engine, "collisionActive", (e) => {});
+// $ExpectType (e: IEventCollision<Engine>) => void
+Events.on(engine, "collisionEnd", (e) => {});
+
+// $ExpectType (e: IMouseEvent<MouseConstraint>) => void
+Events.on(mouseConstraint, "mousemove", (e) => {});
+// $ExpectType (e: IMouseEvent<MouseConstraint>) => void
+Events.on(mouseConstraint, "mouseup", (e) => {});
+// $ExpectType (e: IMouseEvent<MouseConstraint>) => void
+Events.on(mouseConstraint, "mousedown", (e) => {});
+
+// $ExpectType (e: IEventTimestamped<Render>) => void
+Events.on(render, "beforeRender", (e) => {});
+// $ExpectType (e: IEventTimestamped<Render>) => void
+Events.on(render, "afterRender", (e) => {});
+//
+// $ExpectType (e: IEventTimestamped<Runner>) => void
+Events.on(runner1, "beforeTick", (e) => {});
+// $ExpectType (e: IEventTimestamped<Runner>) => void
+Events.on(runner1, "tick", (e) => {});
+// $ExpectType (e: IEventTimestamped<Runner>) => void
+Events.on(runner1, "afterTick", (e) => {});
+
+// $ExpectType (e: IEvent<Engine>) => void
+Events.on(engine, "newMadeUpEvent", (e) => {});
+
+// $ExpectType void
+Events.off(engine, "newMadeUpEvent", (e) => {});
 
 // Pairs
 // $ExpectType Pairs
@@ -282,3 +345,66 @@ Resolver.preSolveVelocity([pair]);
 Resolver.solvePosition([pair], 1);
 // $ExpectType void
 Resolver.solveVelocity([pair], 2);
+
+// Common
+// $ExpectType void
+Common.log("foo", 2, { bar: "baz" });
+// $ExpectType void
+Common.info("foo", 2, { bar: "baz" });
+// $ExpectType void
+Common.warn("foo", 2, { bar: "baz" });
+// $ExpectType void
+Common.warnOnce("foo", 2, { bar: "baz" });
+
+// $ExpectType void
+Common.deprecated({ foo: "bar" }, "foo", "The 'bar' method is deprecated!");
+// $ExpectType void
+Common.deprecated(new Matter.Vector(), "x", "The 'x' method is deprecated!");
+// $ExpectType void
+Common.deprecated(Matter.Vector, "create", "The 'create' method is deprecated!");
+
+// $ExpectType number
+Common.indexOf([1, 2, 3, 4], 2);
+// $ExpectType number
+Common.indexOf(["a", "b", "c", "d"], "a");
+
+// $ExpectType string[]
+Common.map([1, 2, 3, 4], (value) => value.toString());
+// $ExpectType (string | number)[]
+Common.map(["a", "bc", "def", "ghij"], (value) => value.length > 1 ? value.length : value);
+// $ExpectType (number | boolean)[]
+Common.map(["a", 1, "bcd", 2], (value) => typeof value === "string" ? value.length : value < 2);
+
+// $ExpectType number
+Common.choose([1, 2, 3, 4]);
+// $ExpectType string
+Common.choose(["a", "b", "c", "d"]);
+
+// $ExpectType number[]
+Common.shuffle([1, 2, 3, 4]);
+// $ExpectType string[]
+Common.shuffle(["a", "b", "c", "d"]);
+
+// $ExpectType true
+Common.isArray(["foo"]);
+// $ExpectType false
+Common.isArray("foo");
+
+// $ExpectType true
+Common.isElement(new HTMLElement());
+// $ExpectType true
+Common.isElement(new HTMLFormElement());
+// $ExpectType false
+Common.isElement("foo");
+
+// $ExpectType true
+Common.isFunction(() => {});
+// $ExpectType true
+Common.isFunction((x: string, y: number) => [x, y]);
+// $ExpectType false
+Common.isFunction("foo");
+
+// $ExpectType true
+Common.isString("foo");
+// $ExpectType false
+Common.isString(1);
