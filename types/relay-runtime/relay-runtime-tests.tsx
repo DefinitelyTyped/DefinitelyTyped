@@ -3,6 +3,7 @@ import {
     CacheConfig,
     commitLocalUpdate,
     ConcreteRequest,
+    PreloadableConcreteRequest,
     ConnectionHandler,
     ConnectionInterface,
     createOperationDescriptor,
@@ -278,6 +279,31 @@ commitLocalUpdate(environment, store => {
     const root = store.get(ROOT_ID);
     root!.setValue("foo", "localKey");
 });
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~
+// PreloadableConcreteRequest
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+type FooQuery$variables = Record<PropertyKey, never>;
+type FooQuery$data = {
+  readonly foo: string | null | undefined;
+};
+type FooQuery = {
+  response: FooQuery$data;
+  variables: FooQuery$variables;
+};
+
+const preloadableNode: PreloadableConcreteRequest<FooQuery> = {
+    kind: "PreloadableConcreteRequest",
+    params: {
+        operationKind: "query",
+        name: "FooQuery",
+        id: null,
+        cacheID: "2e5967148a8303de3c58059c0eaa87c6",
+        text: "query FooQuery {\n  foo\n}\n",
+        metadata: {},
+    }
+};
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // ConcreteRequest
