@@ -154,6 +154,9 @@ function formTest() {
             1,
         )[0];
 
+        // $ExpectType number
+        useFormState(async (prevState) => prevState + 1, Promise.resolve(0))[0];
+
         return (
             <button
                 onClick={() => {
