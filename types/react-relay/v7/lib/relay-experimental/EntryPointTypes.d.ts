@@ -2,12 +2,12 @@ import { ComponentType } from "react";
 import {
     CacheConfig,
     ConcreteRequest,
+    PreloadableConcreteRequest,
     DisposeFn,
     GraphQLResponse,
     IEnvironment,
     Observable,
     OperationType,
-    RequestParameters,
     VariablesOf,
 } from "relay-runtime";
 import { GetEntryPointComponentFromEntryPoint, GetEntryPointParamsFromEntryPoint } from "./helpers";
@@ -35,14 +35,6 @@ export type LoadQueryOptions = Readonly<{
     networkCacheConfig?: CacheConfig | null | undefined;
     onQueryAstLoadTimeout?: (() => void) | null | undefined;
 }>;
-
-// Note: the phantom type parameter here helps ensures that the
-// $Parameters.js value matches the type param provided to preloadQuery.
-// tslint:disable-next-line interface-over-type-literal
-export type PreloadableConcreteRequest<TQuery extends OperationType> = {
-    kind: "PreloadableConcreteRequest";
-    params: RequestParameters;
-};
 
 export type EnvironmentProviderOptions<T extends Record<string, unknown> = Record<string, unknown>> = T;
 

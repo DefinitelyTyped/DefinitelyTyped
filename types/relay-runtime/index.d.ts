@@ -132,6 +132,7 @@ export {
 } from "./lib/util/ReaderNode";
 export {
     ConcreteRequest,
+    PreloadableConcreteRequest,
     ConcreteUpdatableQuery,
     GeneratedNode,
     RequestParameters,
