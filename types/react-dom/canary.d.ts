@@ -129,9 +129,9 @@ declare module "." {
 
     function useFormState<State>(
         action: (state: Awaited<State>) => State | Promise<State>,
-        initialState: State,
+        initialState: Awaited<State>,
         permalink?: string,
-    ): [state: State, dispatch: () => void];
+    ): [state: Awaited<State>, dispatch: () => void];
     function useFormState<State, Payload>(
         action: (state: Awaited<State>, payload: Payload) => State | Promise<State>,
         initialState: State,
