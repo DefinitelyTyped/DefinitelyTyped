@@ -1,5 +1,5 @@
-import YAML = require('json-to-pretty-yaml');
-import { stringify } from 'json-to-pretty-yaml';
+import YAML = require("json-to-pretty-yaml");
+import { stringify } from "json-to-pretty-yaml";
 
 // $ExpectType string
 YAML.stringify({ test: 1 });
