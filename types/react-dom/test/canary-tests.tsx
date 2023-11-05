@@ -155,7 +155,13 @@ function formTest() {
         )[0];
 
         // $ExpectType number
-        useFormState(async (prevState) => prevState + 1, Promise.resolve(0))[0];
+        useFormState(async (prevState) => prevState + 1, 0)[0];
+        // $ExpectType number
+        useFormState(
+            async (prevState) => prevState + 1,
+            // @ts-expect-error
+            Promise.resolve(0),
+        )[0];
 
         return (
             <button

@@ -134,9 +134,9 @@ declare module "." {
     ): [state: Awaited<State>, dispatch: () => void];
     function useFormState<State, Payload>(
         action: (state: Awaited<State>, payload: Payload) => State | Promise<State>,
-        initialState: State,
+        initialState: Awaited<State>,
         permalink?: string,
-    ): [state: State, dispatch: (payload: Payload) => void];
+    ): [state: Awaited<State>, dispatch: (payload: Payload) => void];
 }
 
 declare module "./client" {
