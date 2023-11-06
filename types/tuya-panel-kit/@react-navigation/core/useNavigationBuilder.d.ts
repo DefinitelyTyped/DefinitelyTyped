@@ -172,8 +172,7 @@ export default function useNavigationBuilder<
                         {}
                     >
                     | undefined,
-            >
-            (): T;
+            >(): T;
             dangerouslyGetState(): Readonly<{
                 key: string;
                 index: number;
@@ -280,8 +279,7 @@ export default function useNavigationBuilder<
                         {}
                     >
                     | undefined,
-            >
-            (): T_1;
+            >(): T_1;
             dangerouslyGetState(): any;
         }
         & {

@@ -265,7 +265,6 @@ export interface ScaleLinear<Range, Output, Unknown = never> extends ScaleContin
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function scaleLinear<Range = number, Output = Range, Unknown = never>(
     range?: Iterable<Range>,
-   
 ): ScaleLinear<Range, Output, Unknown>;
 /**
  * Constructs a new continuous scale with the specified domain and range, the default interpolator and clamping disabled.

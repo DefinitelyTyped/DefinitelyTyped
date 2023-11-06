@@ -17,11 +17,9 @@ export interface ReturnType<TQuery extends OperationType, TKey extends KeyType |
 export function usePaginationFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     parentFragmentRef: TKey,
-):
-ReturnType<TQuery, TKey, KeyTypeData<TKey>>;
+): ReturnType<TQuery, TKey, KeyTypeData<TKey>>;
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function usePaginationFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     parentFragmentRef: TKey | null,
-):
-ReturnType<TQuery, TKey | null, KeyTypeData<TKey> | null>;
+): ReturnType<TQuery, TKey | null, KeyTypeData<TKey> | null>;

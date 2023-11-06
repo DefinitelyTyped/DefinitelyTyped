@@ -37,8 +37,7 @@ export interface UseLoadMoreFunctionArgs {
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function useLoadMoreFunction<TQuery extends OperationType>(
     args: UseLoadMoreFunctionArgs,
-):
-[LoadMoreFn<TQuery>, boolean, DisposeFn];
+): [LoadMoreFn<TQuery>, boolean, DisposeFn];
 
 export function getConnectionState(
     direction: Direction,

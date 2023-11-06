@@ -28,8 +28,7 @@ declare function bent<T extends bent.Json = any>(
     baseUrl: string,
     type: "json",
     ...args: bent.Options[]
-):
-bent.RequestFunction<T>;
+): bent.RequestFunction<T>;
 declare function bent(baseUrl: string, ...args: bent.Options[]): bent.RequestFunction<bent.ValidResponse>;
 
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
