@@ -1,5 +1,6 @@
 import { Component, ReactNode } from "react";
 
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
 declare function ReactReconciler<
     Type,
     Props,
@@ -14,9 +15,8 @@ declare function ReactReconciler<
     ChildSet,
     TimeoutHandle,
     NoTimeout,
->(
+>( /* eslint-enable @definitelytyped/no-unnecessary-generics */
     config: ReactReconciler.HostConfig<
-        /* eslint-disable @definitelytyped/no-unnecessary-generics */
         Type,
         Props,
         Container,
@@ -30,7 +30,7 @@ declare function ReactReconciler<
         ChildSet,
         TimeoutHandle,
         NoTimeout
-    >, /* eslint-enable @definitelytyped/no-unnecessary-generics */
+    >,
 ): ReactReconciler.Reconciler<Container, Instance, TextInstance, SuspenseInstance, PublicInstance>;
 
 declare namespace ReactReconciler {

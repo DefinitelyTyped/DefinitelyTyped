@@ -114,8 +114,8 @@ export interface LowLevelStyleFunctionArguments<N, S> {
     properties?: string[] | undefined;
 }
 
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function style<N = string | number, S = Scale>(
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     args: LowLevelStyleFunctionArguments<N, S>,
 ): styleFn;
 
@@ -183,11 +183,13 @@ export interface VariantArgs<
 }
 
 export function variant<
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     TStyle = object,
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     K extends string = string,
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     TPropName = string,
 >(
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     props: VariantArgs<TStyle, K, TPropName>,
 ): (...args: any[]) => any;
 /**

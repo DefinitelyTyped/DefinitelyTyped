@@ -362,9 +362,9 @@ export interface Alpine {
     bound: (el: ElementWithXAttributes, name: string, fallback?: unknown) => unknown;
     $data: (node: ElementWithXAttributes) => {};
     walk: (el: ElementWithXAttributes, callback: WalkerCallback) => any;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     data: <T_12 extends Record<string | symbol, unknown>>(
         name: string,
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         callback: (...args: unknown[]) => AlpineComponent<T_12>, // Needed generic to properly autotype objects
     ) => void;
     bind: (name: string | ElementWithXAttributes, bindings: Bindings | ((...args: unknown[]) => Bindings)) => void;
