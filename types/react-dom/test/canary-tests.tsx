@@ -73,7 +73,7 @@ function preloadTest() {
         ReactDOM.prefetchDNS("foo");
         ReactDOM.prefetchDNS(
             "bar", // @ts-expect-error prefetchDNS does not accept any options at the moment
-            {},
+            {}
         );
 
         // @ts-expect-error
@@ -135,32 +135,35 @@ function formTest() {
         ] = useFormState(action, 1);
 
         function actionExpectingPromiseState(state: Promise<number>) {
-            return state.then(s => s + 1);
+            return state.then((s) => s + 1);
         }
 
         useFormState(
             // @ts-expect-error
             actionExpectingPromiseState,
-            Promise.resolve(1),
+            Promise.resolve(1)
         );
         useFormState(
             action,
             // @ts-expect-error
-            Promise.resolve(1),
+            Promise.resolve(1)
         );
         // $ExpectType number
-        useFormState<Promise<number>>(
-            action,
-            1,
-        )[0];
+        useFormState<Promise<number>>(action, 1)[0];
 
-        // $ExpectType number
-        useFormState(async (prevState) => prevState + 1, 0)[0];
+        useFormState(
+            async (
+                prevState: // only needed in TypeScript 4.9
+                // 5.0 infers `number` whereas 4.9 infers `0`
+                number
+            ) => prevState + 1,
+            0
+        )[0];
         // $ExpectType number
         useFormState(
             async (prevState) => prevState + 1,
             // @ts-expect-error
-            Promise.resolve(0),
+            Promise.resolve(0)
         )[0];
 
         return (
