@@ -15,11 +15,15 @@ export interface ConcreteRequest {
     readonly params: RequestParameters;
 }
 
+/**
+ * Represents the minimal information necessary to identify and execute
+ * a particular GraphQL request.
+ */
 // Note: the phantom type parameter here helps ensures that the
 // $Parameters.js value matches the type param provided to preloadQuery.
 export interface PreloadableConcreteRequest<TQuery extends OperationType> {
-    kind: "PreloadableConcreteRequest";
-    params: RequestParameters;
+    readonly kind: string; // 'PreloadableConcreteRequest';
+    readonly params: RequestParameters;
 }
 
 export interface ConcreteUpdatableQuery {
