@@ -168,21 +168,21 @@ const batchHandlerWithDefinedSourceTypes: AppSyncBatchResolverHandler<TestArgume
 
 interface AuthorizorTestArguments {
     authorizationToken: string;
-    requestContext: any
+    requestContext: any;
 }
 
-const authorizerHandler: AppSyncAuthorizerHandler<AuthorizorTestArguments> = async(event) =>{
+const authorizerHandler: AppSyncAuthorizerHandler<AuthorizorTestArguments> = async(event) => {
 
-    str = event.authorizationToken
-    anyObj = event.requestContext
-    str = event.requestContext.accountId
-    str = event.requestContext.apiId
-    str = event.requestContext.queryString
-    str = event.requestContext.requestId
-    anyObj = event.requestContext.variables
-    strOrUndefined = event.requestContext.operationName ? event.requestContext.operationName : undefined
+    str = event.authorizationToken;
+    anyObj = event.requestContext;
+    str = event.requestContext.accountId;
+    str = event.requestContext.apiId;
+    str = event.requestContext.queryString;
+    str = event.requestContext.requestId;
+    anyObj = event.requestContext.variables;
+    strOrUndefined = event.requestContext.operationName ? event.requestContext.operationName : undefined;
 
     return {
-        isAuthorized: true
-    }
-}
+        isAuthorized: true,
+    };
+};
