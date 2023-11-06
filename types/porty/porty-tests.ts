@@ -14,7 +14,6 @@ Porty.find({}); // $ExpectType Promise<number>
 // $ExpectType Promise<number>
 Porty.find({
     avoids: [12345],
-    host: "0.0.0.0",
     min: 12345,
     max: 54321,
     port: 12345,
@@ -26,7 +25,6 @@ Porty.get({}); // $ExpectType Promise<number>
 // $ExpectType Promise<number>
 Porty.get({
     avoids: [12345],
-    host: "0.0.0.0",
     min: 12345,
     max: 54321,
     port: 12345,

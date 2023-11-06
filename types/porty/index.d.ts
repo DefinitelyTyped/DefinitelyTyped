@@ -18,11 +18,6 @@ export interface FindOptions {
     /** Ports to avoid */
     avoids?: readonly number[] | undefined;
     /**
-     * The host to run on.
-     * Defaults to {@link HOST}
-     */
-    host?: string | undefined;
-    /**
      * Minimum port.
      * Defaults to {@link MIN}
      */
@@ -33,9 +28,11 @@ export interface FindOptions {
      */
     max?: number | undefined;
     /**
+     * @internal
      * The current port to check.
      * This parameter is incremented while {@link find} is run,
-     * and starts at {@link min} if unspecified
+     * and starts at {@link min} if unspecified.
+     * This should probably not be modified manually
      */
     port?: number | undefined;
 }
