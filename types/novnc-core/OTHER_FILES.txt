@@ -1,2 +1,0 @@
-lib/util/events.d.ts
-lib/util/logging.d.ts
