@@ -30,9 +30,9 @@ export interface FindOptions {
     /**
      * @internal
      * The current port to check.
-     * This parameter is incremented while {@link find} is run,
-     * and starts at {@link min} if unspecified.
-     * This should probably not be modified manually
+     * This is an internal value, initialized and incremented
+     * while {@link find} is run, and starts at {@link min} if unspecified.
+     * It is unlikely that this needs to be set manually
      */
     port?: number | undefined;
 }
