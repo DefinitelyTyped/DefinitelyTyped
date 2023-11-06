@@ -165,14 +165,12 @@ const batchHandlerWithDefinedSourceTypes: AppSyncBatchResolverHandler<TestArgume
     ];
 };
 
-
 interface AuthorizorTestArguments {
     authorizationToken: string;
     requestContext: any;
 }
 
-const authorizerHandler: AppSyncAuthorizerHandler<AuthorizorTestArguments> = async(event) => {
-
+const authorizerHandler: AppSyncAuthorizerHandler<AuthorizorTestArguments> = async (event) => {
     str = event.authorizationToken;
     anyObj = event.requestContext;
     str = event.requestContext.accountId;
