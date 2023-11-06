@@ -15,7 +15,8 @@ declare function ReactReconciler<
     ChildSet,
     TimeoutHandle,
     NoTimeout,
->( /* eslint-enable @definitelytyped/no-unnecessary-generics */
+>(
+    /* eslint-enable @definitelytyped/no-unnecessary-generics */
     config: ReactReconciler.HostConfig<
         Type,
         Props,

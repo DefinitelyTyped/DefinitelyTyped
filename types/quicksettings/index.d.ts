@@ -193,7 +193,7 @@ interface QuickSettings {
      * @param       parent      title of panel (default "QuickSettings")
      * @returns                 New QuickSettings Panel
      */
-    create<M = AnyModel, S = string>(  // eslint-disable-line @definitelytyped/no-unnecessary-generics
+    create<M = AnyModel, S = string>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
         x?: number,
         y?: number,
         panelTitle?: string,

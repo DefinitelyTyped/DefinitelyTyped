@@ -12,11 +12,9 @@ export type useRefetchableFragmentHookType<
 export function useRefetchableFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     fragmentRef: TKey,
-): 
-useRefetchableFragmentHookType<TQuery, TKey, KeyTypeData<TKey>>;
+): useRefetchableFragmentHookType<TQuery, TKey, KeyTypeData<TKey>>;
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function useRefetchableFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     fragmentRef: TKey | null | undefined,
-): 
-useRefetchableFragmentHookType<TQuery, TKey, KeyTypeData<TKey> | null | undefined>;
+): useRefetchableFragmentHookType<TQuery, TKey, KeyTypeData<TKey> | null | undefined>;

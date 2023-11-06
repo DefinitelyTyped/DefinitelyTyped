@@ -203,7 +203,7 @@ import Alpine, {
     // Alpine.setEvaluator
     // inspired by
     // https://github.com/alpinejs/alpine/blob/b46c41fa240cd8af2dcaa29fb60fb1db0389c95a/packages/alpinejs/src/index.js
-        const justExpressionEvaluator = <T>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
+    const justExpressionEvaluator = <T>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
         el: ElementWithXAttributes,
         expression?: string | (() => T),
     ) =>

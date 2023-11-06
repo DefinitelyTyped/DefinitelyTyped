@@ -16,12 +16,10 @@ export function useBlockingPaginationFragment<TQuery extends OperationType, TKey
     fragmentInput: GraphQLTaggedNode,
     parentFragmentRef: TKey,
     componentDisplayName?: string,
-):
-ReturnTypeNode<TQuery, TKey, KeyTypeData<TKey>>;
+): ReturnTypeNode<TQuery, TKey, KeyTypeData<TKey>>;
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function useBlockingPaginationFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     parentFragmentRef: TKey | null,
     componentDisplayName?: string,
-):
-ReturnTypeNode<TQuery, TKey, KeyTypeData<TKey> | null>;
+): ReturnTypeNode<TQuery, TKey, KeyTypeData<TKey> | null>;

@@ -50,7 +50,7 @@ declare namespace AMap {
             N extends keyof HTMLElementTagNameMap,
             E extends keyof HTMLElementEventMap,
             C = HTMLElementTagNameMap[N],
-            >(
+        >(
             instance: HTMLElementTagNameMap[N],
             eventName: E,
             handler: (this: C, event: HTMLElementEventMap[E]) => void,
