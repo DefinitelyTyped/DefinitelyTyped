@@ -1183,7 +1183,7 @@ declare namespace React {
      * The first is a boolean, React’s way of informing us whether we’re waiting for the transition to finish.
      * The second is a function that takes a callback. We can use it to tell React which state we want to defer.
      *
-     * **If some state update causes a component to suspend, that state update should be wrapped in a transition.**`
+     * **If some state update causes a component to suspend, that state update should be wrapped in a transition.**
      *
      * @see https://react.dev/reference/react/useTransition
      */
