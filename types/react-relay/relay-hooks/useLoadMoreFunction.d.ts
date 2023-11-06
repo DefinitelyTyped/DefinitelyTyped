@@ -34,10 +34,10 @@ export interface UseLoadMoreFunctionArgs {
     observer: Observer<GraphQLResponse>;
     onReset: () => void;
 }
-
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function useLoadMoreFunction<TQuery extends OperationType>(
     args: UseLoadMoreFunctionArgs,
-): // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+):
 [LoadMoreFn<TQuery>, boolean, DisposeFn];
 
 export function getConnectionState(

@@ -23,11 +23,12 @@ declare function bent(
     type: "buffer",
     ...args: bent.Options[]
 ): bent.RequestFunction<Buffer | ArrayBuffer>;
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function bent<T extends bent.Json = any>(
     baseUrl: string,
     type: "json",
     ...args: bent.Options[]
-): // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+):
 bent.RequestFunction<T>;
 declare function bent(baseUrl: string, ...args: bent.Options[]): bent.RequestFunction<bent.ValidResponse>;
 

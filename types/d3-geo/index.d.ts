@@ -927,10 +927,10 @@ export function geoPath(projection?: GeoProjection | GeoStreamWrapper | null, co
  * @param context An (optional) rendering context to be used. If a context is provided, it must at least implement the interface described by GeoContext, a subset of the CanvasRenderingContext2D API.
  * Setting the context to "null" means that the path generator will return an SVG path string representing the to be rendered object. The default is "null".
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function geoPath<DatumObject extends GeoPermissibleObjects>(
     projection?: GeoProjection | GeoStreamWrapper | null,
     context?: GeoContext | null,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): GeoPath<any, DatumObject>;
 /**
  * Creates a new geographic path generator with the default settings.
@@ -952,10 +952,10 @@ export function geoPath<DatumObject extends GeoPermissibleObjects>(
  * @param context An (optional) rendering context to be used. If a context is provided, it must at least implement the interface described by GeoContext, a subset of the CanvasRenderingContext2D API.
  * Setting the context to "null" means that the path generator will return an SVG path string representing the to be rendered object. The default is "null".
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function geoPath<This, DatumObject extends GeoPermissibleObjects>(
     projection?: GeoProjection | GeoStreamWrapper | null,
     context?: GeoContext | null,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): GeoPath<This, DatumObject>;
 
 // geoProjection ==========================================================

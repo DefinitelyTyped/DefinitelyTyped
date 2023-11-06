@@ -133,9 +133,11 @@ declare namespace morgan {
      * notation.
      */
     function format<
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         Request extends http.IncomingMessage = http.IncomingMessage,
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         Response extends http.ServerResponse = http.ServerResponse,
-    > // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    >
     (name: string, fmt: string): Morgan<Request, Response>;
 
     /**
@@ -153,9 +155,11 @@ declare namespace morgan {
      * Compile a format string in token notation into a format function.
      */
     function compile<
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         Request extends http.IncomingMessage = http.IncomingMessage,
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         Response extends http.ServerResponse = http.ServerResponse,
-    > // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    >
     (format: string): FormatFn<Request, Response>;
 
     interface StreamOptions {

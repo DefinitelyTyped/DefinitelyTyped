@@ -4,11 +4,11 @@ import SASLFactory = require("saslmechanisms");
 
 export = sasl;
 
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function sasl<TEntity extends Entity>(
     {
         streamFeatures,
     }: {
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         streamFeatures: streamFeatures.StreamFeatures<TEntity>;
     },
     credentials: sasl.Credentials,
