@@ -323,6 +323,21 @@ numOrUndefined = d3Array.median(mixedObjectArray, accessorMixedObjectToNum);
 numOrUndefined = d3Array.median(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
 numOrUndefined = d3Array.median(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
 
+// medianIndex() --------------------------------------------------------------------
+
+numOrUndefined = d3Array.medianIndex(numbersArray);
+numOrUndefined = d3Array.medianIndex(numericArray);
+numOrUndefined = d3Array.medianIndex(numbersOrUndefinedArray);
+
+numOrUndefined = d3Array.medianIndex(typedArray);
+numOrUndefined = d3Array.medianIndex(readonlyNumbersArray);
+numOrUndefined = d3Array.medianIndex(readonlyNumericArray);
+numOrUndefined = d3Array.medianIndex(readonlyNumbersOrUndefinedArray);
+
+numOrUndefined = d3Array.medianIndex(mixedObjectArray, accessorMixedObjectToNum);
+numOrUndefined = d3Array.medianIndex(mixedObjectOrUndefinedArray, accessorMixedObjectToNumOrUndefined);
+numOrUndefined = d3Array.medianIndex(readonlyMixedObjectOrUndefinedArray, accessorReadOnlyMixedObjectToNumOrUndefined);
+
 // cumsum() --------------------------------------------------------------------
 
 let float64Array: Float64Array;
@@ -353,6 +368,25 @@ numOrUndefined = d3Array.quantile(readonlyNumbersOrUndefinedArray, 0.5);
 numOrUndefined = d3Array.quantile(mixedObjectArray, 0.5, accessorMixedObjectToNum);
 numOrUndefined = d3Array.quantile(mixedObjectOrUndefinedArray, 0.5, accessorMixedObjectToNumOrUndefined);
 numOrUndefined = d3Array.quantile(
+    readonlyMixedObjectOrUndefinedArray,
+    0.5,
+    accessorReadOnlyMixedObjectToNumOrUndefined,
+);
+
+// quantileIndex() ------------------------------------------------------------------
+
+numOrUndefined = d3Array.quantileIndex(numbersArray, 0.5);
+numOrUndefined = d3Array.quantileIndex(numericArray, 0.5);
+numOrUndefined = d3Array.quantileIndex(numbersOrUndefinedArray, 0.5);
+
+numOrUndefined = d3Array.quantileIndex(typedArray, 0.5);
+numOrUndefined = d3Array.quantileIndex(readonlyNumbersArray, 0.5);
+numOrUndefined = d3Array.quantileIndex(readonlyNumericArray, 0.5);
+numOrUndefined = d3Array.quantileIndex(readonlyNumbersOrUndefinedArray, 0.5);
+
+numOrUndefined = d3Array.quantileIndex(mixedObjectArray, 0.5, accessorMixedObjectToNum);
+numOrUndefined = d3Array.quantileIndex(mixedObjectOrUndefinedArray, 0.5, accessorMixedObjectToNumOrUndefined);
+numOrUndefined = d3Array.quantileIndex(
     readonlyMixedObjectOrUndefinedArray,
     0.5,
     accessorReadOnlyMixedObjectToNumOrUndefined,
@@ -2634,6 +2668,38 @@ testArrays = d3Array.transpose([readonlyTestArray1, readonlyTestArray2] as Reado
 
 testArrays = d3Array.zip(testArray1, testArray2);
 testArrays = d3Array.zip(readonlyTestArray1, readonlyTestArray2);
+
+// -----------------------------------------------------------------------------
+// Test Blur
+// -----------------------------------------------------------------------------
+const randomWalk = d3Array.cumsum(numbersArray, () => Math.random() - 0.5);
+let blurredWalk: ArrayLike<number>;
+blurredWalk = d3Array.blur(randomWalk, 3);
+
+const matrix: d3Array.Matrix = {
+    width: 4,
+    height: 3,
+    data: [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+    ],
+};
+let blurredMatrix: d3Array.Matrix;
+blurredMatrix = d3Array.blur2(matrix, 3, 5);
+
+const imageData: ImageData = new ImageData(100, 100);
+let blurredImageData: ImageData;
+blurredImageData = d3Array.blurImage(imageData, 5);
 
 // -----------------------------------------------------------------------------
 // Test Iterables
