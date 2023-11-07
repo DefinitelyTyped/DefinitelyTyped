@@ -11,6 +11,7 @@ type _RequestInit = typeof globalThis extends { onmessage: any } ? {}
     : import("undici-types").RequestInit;
 type _ResponseInit = typeof globalThis extends { onmessage: any } ? {}
     : import("undici-types").ResponseInit;
+type _File = typeof globalThis extends { onmessage: any } ? {} : import("node:buffer").File;
 // #endregion Fetch and friends
 
 declare global {
@@ -374,4 +375,11 @@ declare global {
         Headers: infer T;
     } ? T
         : typeof import("undici-types").Headers;
+
+    interface File extends _File{}
+    var File: typeof globalThis extends {
+        onmessage: any;
+        File: infer T;
+    } ? T
+        : typeof import("node:buffer").File;
 }
