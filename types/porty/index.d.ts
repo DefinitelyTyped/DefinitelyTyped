@@ -1,30 +1,14 @@
-/**
- * The host to run on
- * @default "0.0.0.0"
- */
-export let HOST: string;
-/**
- * Minimum port
- * @default 8000
- */
-export let MIN: number;
-/**
- * Maximum port
- * @default 10000
- */
-export let MAX: number;
-
 export interface FindOptions {
     /** Ports to avoid */
     avoids?: readonly number[] | undefined;
     /**
      * Minimum port.
-     * Defaults to {@link MIN}
+     * @default 8000
      */
     min?: number | undefined;
     /**
      * Maximum port.
-     * Defaults to {@link MAX}
+     * @default 10000
      */
     max?: number | undefined;
     /**
@@ -51,8 +35,8 @@ export function test(port: number): Promise<boolean>;
 export function find(options?: FindOptions): Promise<number>;
 /**
  * Find an available port on the system in a range
- * @param min The minimum port
- * @param max The maximum port
+ * @param min The minimum port. Defaults to 8000
+ * @param max The maximum port. Defaults to 10000
  * @param avoids Ports to avoid
  */
 export function find(min?: number, max?: number, avoids?: readonly number[]): Promise<number>;

@@ -1,9 +1,5 @@
 import Porty = require("porty");
 
-Porty.HOST = "0.0.0.0";
-Porty.MIN = 12345;
-Porty.MAX = 54321;
-
 // @ts-expect-error
 Porty.test();
 // $ExpectType Promise<boolean>
