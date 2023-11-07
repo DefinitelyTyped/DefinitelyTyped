@@ -1,19 +1,18 @@
 import {
-  createPwThread,
-  getInputNodes,
-  getInputNodesName,
-  getLinks,
-  getNodes,
-  getOutputNodes,
-  getOutputNodesName,
-  getPorts,
-  linkNodesNameToId,
-  linkPorts,
-  unlinkNodesNameToId,
-  unlinkPorts,
-  waitForNewNode
+    createPwThread,
+    getInputNodes,
+    getInputNodesName,
+    getLinks,
+    getNodes,
+    getOutputNodes,
+    getOutputNodesName,
+    getPorts,
+    linkNodesNameToId,
+    linkPorts,
+    unlinkNodesNameToId,
+    unlinkPorts,
+    waitForNewNode,
 } from "node-pipewire";
-
 
 createPwThread();
 
