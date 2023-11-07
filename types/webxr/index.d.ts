@@ -293,6 +293,8 @@ declare abstract class XRInputSourceArray implements XRInputSourceArray {}
  */
 interface XRPose {
     readonly transform: XRRigidTransform;
+    readonly linearVelocity?: DOMPointReadOnly | undefined;
+    readonly angularVelocity?: DOMPointReadOnly | undefined;
     readonly emulatedPosition: boolean;
 }
 

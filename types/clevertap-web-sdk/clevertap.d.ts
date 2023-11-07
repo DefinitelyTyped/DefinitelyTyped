@@ -112,16 +112,20 @@ declare class CleverTap {
     pageChanged(): void;
     spa: boolean;
     enablePersonalization: boolean;
+    dismissSpamControl: boolean;
+    getAccountID: () => string | null;
+    setMultiValuesForKey: (key: any, value: Array<string | number>) => void;
     addMultiValueForKey: (key: any, value: string | number) => void;
-    addMultiValuesForKey: (key: any, value: [string | number]) => void;
+    addMultiValuesForKey: (key: any, value: Array<string | number>) => void;
+    removeMultiValueForKey: (key: any, value: string | number) => void;
+    removeMultiValuesForKey: (key: any, value: Array<string | number>) => void;
+    removeValueForKey: (key: any) => void;
     handleDecrementValue: (key: any, value: number) => void;
     handleIncrementValue: (key: any, value: number) => void;
     setOffline: (arg: boolean) => void;
     renderNotificationViewed: (detail: CustomNotificationEvent) => void;
     renderNotificationClicked: (detail: CustomNotificationEvent) => void;
     notificationCallback: (arg: notificationCallbackData) => any;
-    removeMultiValueForKey: (key: any, value: string | number) => void;
-    removeMultiValuesForKey: (key: any, value: [string | number]) => void;
     raiseNotificationClicked: () => void;
     markReadAllInboxMessage: () => void;
     markReadInboxMessage: (messageId: string) => void;
@@ -131,6 +135,7 @@ declare class CleverTap {
     getAllInboxMessages: () => any;
     getInboxMessageUnreadCount: () => number | undefined;
     getInboxMessageCount: () => number | undefined;
+    getLocation: (lat: number, lng: number) => void;
 }
 
 export default CleverTap;

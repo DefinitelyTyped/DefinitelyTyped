@@ -1,6 +1,19 @@
 import { Agent } from "http";
-import fetch, { Blob, FetchError, Headers, Request, RequestInit, Response } from "node-fetch";
+import fetch, { AbortError, Blob, FetchError, Headers, Request, RequestInit, Response } from "node-fetch";
 import { URL } from "url";
+
+function test_AbortError() {
+    const e = new AbortError("message");
+
+    // $ExpectType "aborted"
+    e.type;
+
+    // $ExpectType "AbortError"
+    e.name;
+
+    // $ExpectType string
+    e.message;
+}
 
 function test_fetchUrlWithOptions() {
     const headers = new Headers();

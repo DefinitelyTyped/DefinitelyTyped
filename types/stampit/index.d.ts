@@ -383,12 +383,12 @@ declare namespace stampit {
      * @template Obj The type of the object instance being produced by the `Stamp`. or the type of the `Stamp` being created.
      * @param functions Initializer functions used to create private data and privileged methods
      */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function initializers<Obj = any, S̤t̤a̤m̤p̤ extends StampSignature = StampType<Obj>>(
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         ...functions: Array<Initializer<StampObjectType<Obj>, S̤t̤a̤m̤p̤>>
     ): S̤t̤a̤m̤p̤;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function initializers<Obj = any, S̤t̤a̤m̤p̤ extends StampSignature = StampType<Obj>>(
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         functions: Array<Initializer<StampObjectType<Obj>, S̤t̤a̤m̤p̤>>,
     ): S̤t̤a̤m̤p̤;
 
@@ -399,12 +399,12 @@ declare namespace stampit {
      * @template Obj The type of the object instance being produced by the `Stamp`. or the type of the `Stamp` being created.
      * @param functions Initializer functions used to create private data and privileged methods
      */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function init<Obj = any, S̤t̤a̤m̤p̤ extends StampSignature = StampType<Obj>>(
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         ...functions: Array<Initializer<StampObjectType<Obj>, S̤t̤a̤m̤p̤>>
     ): S̤t̤a̤m̤p̤;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     function init<Obj = any, S̤t̤a̤m̤p̤ extends StampSignature = StampType<Obj>>(
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         functions: Array<Initializer<StampObjectType<Obj>, S̤t̤a̤m̤p̤>>,
     ): S̤t̤a̤m̤p̤;
 

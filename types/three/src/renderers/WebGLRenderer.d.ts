@@ -370,9 +370,19 @@ export class WebGLRenderer implements Renderer {
     animate(callback: () => void): void;
 
     /**
-     * Compiles all materials in the scene with the camera. This is useful to precompile shaders before the first rendering.
+     * Compiles all materials in the scene with the camera. This is useful to precompile shaders before the first
+     * rendering. If you want to add a 3D object to an existing scene, use the third optional parameter for applying the
+     * target scene.
+     * Note that the (target) scene's lighting should be configured before calling this method.
      */
-    compile(scene: Object3D, camera: Camera): void;
+    compile: (scene: Object3D, camera: Camera, targetScene?: Scene | null) => Set<Material>;
+
+    /**
+     * Asynchronous version of {@link compile}(). The method returns a Promise that resolves when the given scene can be
+     * rendered without unnecessary stalling due to shader compilation.
+     * This method makes use of the KHR_parallel_shader_compile WebGL extension.
+     */
+    compileAsync: (scene: Object3D, camera: Camera, targetScene?: Scene | null) => Promise<Object3D>;
 
     /**
      * Render a scene or an object using a camera.

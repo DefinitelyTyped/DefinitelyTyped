@@ -1398,7 +1398,7 @@ declare namespace cytoscape {
         edges: EdgeDefinition[];
     }
 
-    type EventHandler = (event: EventObject, extraParams?: any) => void;
+    type EventHandler = (event: EventObject, ...extraParams: any) => void;
 
     /**
      * The output is a collection of node and edge elements OR single element.

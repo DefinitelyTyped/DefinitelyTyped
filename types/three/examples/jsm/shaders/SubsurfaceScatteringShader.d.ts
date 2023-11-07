@@ -1,6 +1,7 @@
 import { IUniform } from '../../../src/Three.js';
 
 export const SubsurfaceScatteringShader: {
+    name: string;
     uniforms: {
         alphaMap: IUniform;
         ambientLightColor: IUniform;

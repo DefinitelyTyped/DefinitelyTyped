@@ -26,7 +26,7 @@ export interface ColorManagement {
      * @default LinearSRGBColorSpace
      */
     get workingColorSpace(): WorkingColorSpace;
-    set workingSpaceColor(colorSpace: WorkingColorSpace);
+    set workingColorSpace(colorSpace: WorkingColorSpace);
 
     convert: (color: Color, sourceColorSpace: DefinedColorSpace, targetColorSpace: DefinedColorSpace) => Color;
 

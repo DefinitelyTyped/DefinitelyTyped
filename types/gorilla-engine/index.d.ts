@@ -98,15 +98,15 @@ declare namespace GorillaEngine {
     }
 
     interface ccState {
-        cc: number,
-        path: string
+        cc: number;
+        path: string;
     }
 
-    interface midiData{
-        status: string, 
-        data0: string, 
-        data1: string, 
-        tickAbsolute: string
+    interface midiData {
+        status: string;
+        data0: string;
+        data1: string;
+        tickAbsolute: string;
     }
 
     /**
@@ -306,33 +306,48 @@ declare namespace GorillaEngine {
          */
         valueToStringAtPath(path: string, value: number): boolean | string;
 
+        getMIDICCstate(): ccState[];
 
-        getMIDICCstate(): ccState[]
+        setMIDICCstate(ccMidiSatate: ccState[]): void;
 
-        setMIDICCstate(ccMidiSatate: ccState[]): void
+        renderAudioFile(
+            renderFilePath: string,
+            key: number,
+            velocity: number,
+            renderUntilSilence: boolean,
+            minFileLength: number,
+        ): void;
 
-        renderAudioFile(renderFilePath: string, key: number, velocity: number, renderUntilSilence: boolean, minFileLength: number ): void
+        renderAudioFileFromMidi(
+            renderFilePath: string,
+            midiData: midiData[],
+            renderUntilSilence: boolean,
+            minFileLength: number,
+        ): void;
 
-        renderAudioFileFromMidi(renderFilePath: string, midiData: midiData[], renderUntilSilence: boolean, minFileLength: number): void
+        setNormalizedDoubleAtPath(path: string, value: number): void;
 
-        setNormalizedDoubleAtPath(path: string, value: number): void
+        getNormalizedDoubleAtPath(path: string): number;
 
-        getNormalizedDoubleAtPath(path: string): number 
-        
-        getLoadingStatus() : boolean
+        getLoadingStatus(): boolean;
 
-        getLoadingProgressPercent(): number
+        getLoadingProgressPercent(): number;
 
-        startRecallingParameterState(): void
+        startRecallingParameterState(): void;
 
-        endRecallingParameterState(): boolean
+        endRecallingParameterState(): boolean;
 
-        addParameter(persistence: number): InstrumentProperty
+        addParameter(persistence: number): InstrumentProperty;
 
-        getWaveformOverview(numPoints: number, zoneID: number, start: number, end: number, vertZoom: number ) : Uint8Array
+        getWaveformOverview(
+            numPoints: number,
+            zoneID: number,
+            start: number,
+            end: number,
+            vertZoom: number,
+        ): Uint8Array;
 
-        getStringAtPath(path: string) : string
-
+        getStringAtPath(path: string): string;
     }
 
     interface Blob {
@@ -388,7 +403,7 @@ declare namespace GorillaEngine {
     function getPluginMM(v: boolean): void;
     function getPluginAE(v: boolean): void;
     function getPreviewPlayer(): PreviewPlayer;
-    function getSampleMetadata(filePath: string, overviewSize: number ): string
+    function getSampleMetadata(filePath: string, overviewSize: number): string;
     function openFileChooser(config: {
         allowMultiple?: boolean;
         browseDirectory?: boolean;

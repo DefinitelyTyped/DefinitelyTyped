@@ -172,6 +172,10 @@
             "libraryName": "applicationinsights",
             "asOfVersion": "0.20.0"
         },
+        "arcgis-js-api": {
+            "libraryName": "arcgis-js-api",
+            "asOfVersion": "4.28.0"
+        },
         "argon2": {
             "libraryName": "argon2",
             "asOfVersion": "0.15.0"
@@ -503,6 +507,10 @@
         "canvaskit-wasm": {
             "libraryName": "canvaskit-wasm",
             "asOfVersion": "0.18.1"
+        },
+        "carbon__icons-react": {
+            "libraryName": "@carbon/icons-react",
+            "asOfVersion": "11.29.0"
         },
         "card-validator": {
             "libraryName": "card-validator",
@@ -5375,6 +5383,10 @@
             "libraryName": "sdbm",
             "asOfVersion": "1.1.0"
         },
+        "seatsio": {
+            "libraryName": "@seatsio/seatsio-types",
+            "asOfVersion": "2.0.0"
+        },
         "semver-diff": {
             "libraryName": "semver-diff",
             "asOfVersion": "3.0.0"
@@ -6526,6 +6538,10 @@
         "wouter": {
             "libraryName": "wouter",
             "asOfVersion": "2.2.0"
+        },
+        "wrap-ansi": {
+            "libraryName": "wrap-ansi",
+            "asOfVersion": "8.1.0"
         },
         "write-json-file": {
             "libraryName": "write-json-file",

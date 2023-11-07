@@ -229,6 +229,12 @@ declare namespace Tampermonkey {
         text?: string;
         /** The title of the notification. If not specified the script name is used. */
         title?: string;
+        /**
+         * This tag will be used to identify this notification. This way you can update existing notifications
+         * by calling `GM_notification` again and using the same tag. If you don't provide a tag,
+         * a new notification will be created every time.
+         */
+        tag?: string;
         /** The URL of an image to display in the notification. */
         image?: string;
         /** Flag whether to highlight the tab that sends the notification. */
@@ -240,6 +246,11 @@ declare namespace Tampermonkey {
          * should automatically close. `0` = disabled.
          */
         timeout?: number;
+        /**
+         * A URL to load when the user clicks on the notification. You can prevent loading the URL
+         * by calling `event.preventDefault()` in the `onclick` event handler.
+         */
+        url?: string;
         /**
          * Called when the notification is closed (no matter if this was
          * triggered by a timeout or a click) or the tab was highlighted.
@@ -739,6 +750,12 @@ declare function GM_registerMenuCommand(
     ) => void,
     optionsOrAccessKey?: string | {
         /**
+         * An optional number that was returned by a previous `GM_registerMenuCommand` call.
+         * If specified, the according menu item will be updated with the new options.
+         * If not specified or the menu item can't be found, a new menu item will be created.
+         */
+        id?: number;
+        /**
          * An optional access key for the menu item. This can be used to create a shortcut for the menu item.
          * For example, if the access key is "s", the user can select the menu item by pressing "s"
          * when Tampermonkey's popup-menu is open. Please note that there are browser-wide shortcuts
@@ -776,8 +793,8 @@ declare function GM_unregisterMenuCommand(menuCommandId: number): void;
  * @param details An object containing the details of the request to be sent
  *                and the callback functions to be called when the response is received.
  */
-declare function GM_xmlhttpRequest<TContext = any>(
-    details: Tampermonkey.Request<TContext>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+declare function GM_xmlhttpRequest<TContext = any>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
+    details: Tampermonkey.Request<TContext>,
 ): Tampermonkey.AbortHandle<void>;
 
 /**
@@ -872,6 +889,9 @@ declare function GM_openInTab(
 /**
  * Shows an HTML5 Desktop notification and/or highlight the current tab
  * using a provided message and other optional parameters.
+ *
+ * Since v5.0, if no `url` and no `tag` is provided in `details` argument, the notification will close
+ * when the userscript unloads (e.g. when the page is reloaded or the tab is closed).
  * @url https://www.tampermonkey.net/documentation.php#api:GM_notification
  * @param details Notification parameters.
  * @param ondone A callback function that will be called when the notification is closed
