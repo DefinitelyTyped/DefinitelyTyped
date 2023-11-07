@@ -11,14 +11,14 @@ new Tooltip(element, {
     placement: () => "auto",
 });
 // $ExpectType Tooltip
-new Tooltip(element, { 
+new Tooltip(element, {
     popperConfig: {
-        placement: "top"
-    }
+        placement: "top",
+    },
 });
 // $ExpectType Tooltip
-new Tooltip(element, { 
-    popperConfig: defaultBsPopperConfig => defaultBsPopperConfig
+new Tooltip(element, {
+    popperConfig: defaultBsPopperConfig => defaultBsPopperConfig,
 });
 
 // $ExpectType Tooltip | null

@@ -7,14 +7,14 @@ const element = new Element();
 new Dropdown(element, { flip: true });
 new Dropdown(element, { offset: [0, 2] }); // $ExpectType Dropdown
 // $ExpectType Dropdown
-new Dropdown(element, { 
+new Dropdown(element, {
     popperConfig: {
-        placement: "top"
-    }
+        placement: "top",
+    },
 });
 // $ExpectType Dropdown
-new Dropdown(element, { 
-    popperConfig: defaultBsPopperConfig => defaultBsPopperConfig
+new Dropdown(element, {
+    popperConfig: defaultBsPopperConfig => defaultBsPopperConfig,
 });
 
 // $ExpectType Dropdown | null
