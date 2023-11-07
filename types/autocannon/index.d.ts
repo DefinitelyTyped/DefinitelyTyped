@@ -221,7 +221,7 @@ declare namespace autocannon {
          * A Boolean which allows you to print connection errors to stderr.
          * @default false
          */
-        debug?: boolean
+        debug?: boolean;
     }
 
     interface Request {

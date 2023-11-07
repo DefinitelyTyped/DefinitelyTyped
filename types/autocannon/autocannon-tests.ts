@@ -14,6 +14,7 @@ autocannon({
     body: "ok",
     headers: { "accept-language": "en-US" },
     workers: 4,
+    debug: true,
     setupClient: client => {
         client.setHeaders({ "content-type": "application/json" });
         client.setBody(Buffer.from("ok"));
@@ -40,7 +41,6 @@ autocannon({
             console.log(statusCode.toFixed(), resBytes.toFixed(), responseTime.toFixed());
         });
     },
-    debug: true
 }).then(result => {
     console.log(result.start, result.finish);
     console.log(result.latency.mean);
