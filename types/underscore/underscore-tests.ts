@@ -563,7 +563,7 @@ _(explicitNumberDictionary).each((value, key, collection) => {
     _(null).get(["b"], numberValue);
 
     // oop style without default value
-    // $ExpectType number | undefined
+    // $ExpectType undefined
     _({ a: numberValue }).get(["b"]);
 
     // oop style with default value
