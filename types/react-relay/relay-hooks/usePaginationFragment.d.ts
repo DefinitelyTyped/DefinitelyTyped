@@ -17,13 +17,11 @@ export interface usePaginationFragmentHookType<
     isLoadingPrevious: boolean;
     refetch: RefetchFnDynamic<TQuery, TKey>;
 }
-
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function usePaginationFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     parentFragmentRef: TKey,
 ): usePaginationFragmentHookType<TQuery, TKey, KeyTypeData<TKey>>;
-
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function usePaginationFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,

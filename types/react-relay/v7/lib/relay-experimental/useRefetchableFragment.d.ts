@@ -7,13 +7,11 @@ export type ReturnTypeNode<TQuery extends OperationType, TKey extends KeyType | 
     TFragmentData,
     RefetchFnDynamic<TQuery, TKey>,
 ];
-
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function useRefetchableFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     fragmentRef: TKey,
 ): ReturnTypeNode<TQuery, TKey, KeyTypeData<TKey>>;
-
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function useRefetchableFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,

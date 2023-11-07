@@ -1,2 +1,0 @@
-serializers/embedded-records-mixin.d.ts
-transform.d.ts

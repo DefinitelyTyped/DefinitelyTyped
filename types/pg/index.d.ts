@@ -80,7 +80,7 @@ export interface FieldDef {
 
 export interface QueryResultBase {
     command: string;
-    rowCount: number;
+    rowCount: number | null;
     oid: number;
     fields: FieldDef[];
 }

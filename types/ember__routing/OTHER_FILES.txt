@@ -1,4 +1,0 @@
-auto-location.d.ts
-hash-location.d.ts
-history-location.d.ts
-none-location.d.ts

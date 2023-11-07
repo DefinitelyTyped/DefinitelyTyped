@@ -99,7 +99,6 @@ export interface DebugIDandTypename {
     id: string;
     typename: string;
 }
-
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function useRefetchableFragmentNode<TQuery extends OperationType, TKey extends KeyType | null>(
     fragmentNode: ReaderFragment,

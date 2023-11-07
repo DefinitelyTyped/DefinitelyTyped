@@ -11,14 +11,12 @@ export interface ReturnTypeNode<TQuery extends OperationType, TKey extends KeyTy
     hasPrevious: boolean;
     refetch: RefetchFnDynamic<TQuery, TKey>;
 }
-
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function useBlockingPaginationFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
     parentFragmentRef: TKey,
     componentDisplayName?: string,
 ): ReturnTypeNode<TQuery, TKey, KeyTypeData<TKey>>;
-
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function useBlockingPaginationFragment<TQuery extends OperationType, TKey extends KeyType>(
     fragmentInput: GraphQLTaggedNode,
