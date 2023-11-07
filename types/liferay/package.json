@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/liferay",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/liferay/liferay-portal"
+    ],
+    "devDependencies": {
+        "@types/liferay": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jonas Wanner",
+            "githubUsername": "jwanner83"
+        }
+    ]
+}
