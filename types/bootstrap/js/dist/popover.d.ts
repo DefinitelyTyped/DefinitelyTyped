@@ -1,3 +1,4 @@
+import * as Popper from "@popperjs/core";
 import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from "./base-component";
 import Tooltip from "./tooltip";
 
@@ -122,7 +123,7 @@ declare namespace Popover {
         inserted = "inserted.bs.popover",
     }
 
-    type PopperConfigFunction = (defaultBsPopperConfig: Options) => Partial<Options>;
+    type PopperConfigFunction = (defaultBsPopperConfig: Popper.Options) => Partial<Popper.Options>;
 
     interface Options extends Omit<Tooltip.Options, "popperConfig"> {
         /**
@@ -147,7 +148,7 @@ declare namespace Popover {
          * @see {@link https://popper.js.org/docs/v2}
          * @default null
          */
-        popperConfig: Partial<Options> | PopperConfigFunction | null;
+        popperConfig: Partial<Popper.Options> | PopperConfigFunction | null;
     }
 
     type jQueryInterface = (

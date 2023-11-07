@@ -78,7 +78,7 @@ declare namespace Dropdown {
 
     type OffsetFunction = () => Offset;
 
-    type PopperConfigFunction = () => Partial<Popper.Options>;
+    type PopperConfigFunction = (defaultBsPopperConfig: Partial<Popper.Options>) => Partial<Popper.Options>;
 
     interface Options {
         /**
