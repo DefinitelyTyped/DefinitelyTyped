@@ -6,7 +6,7 @@ import {
     APIGatewayProxyResultV2,
     APIGatewayProxyStructuredResultV2,
     LambdaFunctionURLHandler,
-    LambdaFunctionURLHandlerWithIAMAuthorizer
+    LambdaFunctionURLHandlerWithIAMAuthorizer,
 } from "aws-lambda";
 
 const lambdaFnHandler: LambdaFunctionURLHandler = async (event, context, callback) => {
@@ -93,7 +93,6 @@ const proxyHandlerv2WithIAMAuthorizer: LambdaFunctionURLHandlerWithIAMAuthorizer
     return result;
 };
 
-
 const proxyHandlerV2ForStringResult: LambdaFunctionURLHandler = async (event, context, callback) => {
     const result = "hello";
 
@@ -102,8 +101,11 @@ const proxyHandlerV2ForStringResult: LambdaFunctionURLHandler = async (event, co
     return result;
 };
 
-
-const proxyHandlerV2ForObjectResult: LambdaFunctionURLHandler<{ message: string; }> = async (event, context, callback) => {
+const proxyHandlerV2ForObjectResult: LambdaFunctionURLHandler<{ message: string }> = async (
+    event,
+    context,
+    callback,
+) => {
     const result = { message: "hello" };
 
     callback(new Error());
