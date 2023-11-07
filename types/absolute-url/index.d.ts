@@ -6,6 +6,6 @@ declare module "express-serve-static-core" {
     }
 }
 
-export default function (req: Request): string;
+export default function(req: Request): string;
 
 export function middleware(): RequestHandler;
