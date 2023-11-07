@@ -476,8 +476,7 @@ export function dsvFormat(delimiter: string): DSV;
  *
  * @param object An object (or array) representing a parsed row
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function autoType<ParsedRow extends object | undefined | null, Columns extends string>(
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     object: DSVRowString<Columns> | readonly string[],
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 ): ParsedRow;

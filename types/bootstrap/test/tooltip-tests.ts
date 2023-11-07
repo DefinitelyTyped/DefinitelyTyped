@@ -10,6 +10,16 @@ new Tooltip(element, {
     customClass: () => "custom-class",
     placement: () => "auto",
 });
+// $ExpectType Tooltip
+new Tooltip(element, {
+    popperConfig: {
+        placement: "top",
+    },
+});
+// $ExpectType Tooltip
+new Tooltip(element, {
+    popperConfig: defaultBsPopperConfig => defaultBsPopperConfig,
+});
 
 // $ExpectType Tooltip | null
 Tooltip.getInstance(element);

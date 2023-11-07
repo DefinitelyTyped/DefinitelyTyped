@@ -108,6 +108,7 @@ export type RouteParameters<Route extends string> = string extends Route ? Param
             & (Rest extends `${GetRouteParameter<Rest>}${infer Next}` ? RouteParameters<Next> : unknown)
     : {};
 
+/* eslint-disable @definitelytyped/no-unnecessary-generics */
 export interface IRouterMatcher<
     T,
     Method extends "all" | "get" | "post" | "put" | "delete" | "patch" | "options" | "head" = any,
@@ -121,10 +122,8 @@ export interface IRouterMatcher<
         LocalsObj extends Record<string, any> = Record<string, any>,
     >(
         // (it's used as the default type parameter for P)
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         path: Route,
         // (This generic is meant to be passed explicitly.)
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     <
@@ -136,10 +135,8 @@ export interface IRouterMatcher<
         LocalsObj extends Record<string, any> = Record<string, any>,
     >(
         // (it's used as the default type parameter for P)
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         path: Path,
         // (This generic is meant to be passed explicitly.)
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     <
@@ -151,7 +148,6 @@ export interface IRouterMatcher<
     >(
         path: PathParams,
         // (This generic is meant to be passed explicitly.)
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         ...handlers: Array<RequestHandler<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     <
@@ -163,7 +159,6 @@ export interface IRouterMatcher<
     >(
         path: PathParams,
         // (This generic is meant to be passed explicitly.)
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
     (path: PathParams, subApplication: Application): T;
@@ -217,6 +212,7 @@ export interface IRouterHandler<T, Route extends string = string> {
         ...handlers: Array<RequestHandlerParams<P, ResBody, ReqBody, ReqQuery, LocalsObj>>
     ): T;
 }
+/* eslint-enable @definitelytyped/no-unnecessary-generics */
 
 export interface IRouter extends RequestHandler {
     /**

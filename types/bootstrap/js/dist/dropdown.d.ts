@@ -1,5 +1,6 @@
 import * as Popper from "@popperjs/core";
 import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from "./base-component";
+import Tooltip from "./tooltip";
 
 declare class Dropdown extends BaseComponent {
     /**
@@ -78,9 +79,7 @@ declare namespace Dropdown {
 
     type OffsetFunction = () => Offset;
 
-    type PopperConfigFunction = () => Partial<Popper.Options>;
-
-    interface Options {
+    interface Options extends Pick<Tooltip.Options, "popperConfig"> {
         /**
          * Offset of the dropdown relative to its target. You can pass a string
          * in data attributes with comma separated values like:
@@ -127,21 +126,6 @@ declare namespace Dropdown {
          * @default "dynamic"
          */
         display: "dynamic" | "static";
-
-        /**
-         * To change Bootstrap's default Popper.js config, see Popper.js's
-         * configuration
-         *
-         * When a function is used to create the Popper configuration, it's
-         * called with an object that contains the Bootstrap's default Popper
-         * configuration. It helps you use and merge the default with your own
-         * configuration. The function must return a configuration object for
-         * Popper.
-         *
-         * @see {@link https://popper.js.org/docs/v2}
-         * @default null
-         */
-        popperConfig: Partial<Popper.Options> | PopperConfigFunction | null;
 
         /**
          * Configure the auto close behavior of the dropdown

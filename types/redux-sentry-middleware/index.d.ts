@@ -14,9 +14,9 @@ declare namespace createSentryMiddleware {
     }
 }
 
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function createSentryMiddleware<T>(
     sentry: typeof Sentry,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     options?: createSentryMiddleware.Options<T>,
 ): Middleware;
 export = createSentryMiddleware;
