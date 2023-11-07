@@ -93,7 +93,7 @@ declare namespace approuter {
 
     type RouterConfig = unknown;
 
-    class StartOptions {
+    interface StartOptions {
         /** A TCP port the application router will listen to */
         port?: string;
 
@@ -135,21 +135,6 @@ declare namespace approuter {
             request: AppRouterIncomingMessage,
             callback: (error: Error | undefined | null, routerConfig: RouterConfig | null | undefined) => void,
         ) => void;
-
-        /**
-         * Callback for {@link getToken}
-         *
-         * @param error - Error object in case of error
-         * @param token - Access token to use in request to backend
-         */
-
-        /**
-         * Callback for {@link getRouterConfig}
-         *
-         * @param error - Error object in case of error
-         * @param routerConfig - Custom routing configuration to use for given request. This object should be created via {@link Approuter.createRouterConfig}.
-         *                       If null or undefined, default configuration will be used.
-         */
 
         /**
          * returns the session secret to be used by the application router for the signing of the session cookies.
@@ -275,10 +260,6 @@ declare namespace approuter {
      * in @sap/approuter (the source npm package). If some types are incorrect or missing, please open up an issue at
      * {@link https://github.com/DefinitelyTyped/DefinitelyTyped}, or, even better, add them by yourself via a Pull Request.
      *
-     * ## Session Management
-     * Session Management, as explained in `doc/sessionManagement.md` in @sap/approuter (the source npm package), is
-     * currently not typed. Feel free to help out with a Pull Request, if you want to or need these types.
-     *
      * ## Command Parser
      * The {@link cmdParser} property is set to a {@link Command} instance when instantiating an Approuter. It is possible
      * to disable this feature by setting {@link cmdParser} to false. To do this typesafe, you have to use
@@ -287,7 +268,7 @@ declare namespace approuter {
      *   const ar = new Approuter<false>();
      *   ar.cmdParser = false;
      */
-    class Approuter<CommandParser extends Command | false = Command> extends EventEmitter {
+    interface Approuter<CommandParser extends Command | false = Command> extends EventEmitter {
         /**
          * A {@link MiddlewareSlot} before the first application router middleware
          */
@@ -324,8 +305,6 @@ declare namespace approuter {
          *   console.log('Dummy option:', params.dummy);
          */
         cmdParser: CommandParser;
-
-        constructor();
 
         /**
          * Starts the application router with the given options.
@@ -399,26 +378,6 @@ declare namespace approuter {
         // Disabled for better JSDocs
         // tslint:disable-next-line:unified-signatures
         on(event: "logout", listener: (session: { id: string }) => void): this;
-
-        /**
-         * Callback for {@link createRouterConfig}
-         *
-         * @param error - Error object in case of error
-         * @param routerConfig - Routing configuration to be passed to the callback of {@link StartOptions.getRouterConfig}. Approuter extensions should not access the content of this object.
-         */
-
-        /**
-         * Callback for {@link resolveUaaConfig}
-         *
-         * @param error - Error object in case of error
-         * @param tenantUaaOptions - new UAA configuration with tenant-specific properties
-         */
-
-        /**
-         * Callback for {@link on}
-         *
-         * @param session - Session object with session id as a string
-         */
     }
 }
 

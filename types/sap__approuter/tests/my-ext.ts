@@ -1,3 +1,6 @@
+/**
+ * extension example for testing purposes
+ */
 module.exports = {
     insertMiddleware: {
         first: [

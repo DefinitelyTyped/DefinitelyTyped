@@ -4,7 +4,7 @@
  * These tests are mostly extracted from the README file and `doc/extending.md` (both in @sap/approuter (the source npm
  * package).
  */
-import { StartOptions } from "@sap/approuter";
+import { Approuter, StartOptions } from "@sap/approuter";
 import approuter = require("@sap/approuter");
 
 const ar = approuter();
