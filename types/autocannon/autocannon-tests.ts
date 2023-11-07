@@ -40,6 +40,7 @@ autocannon({
             console.log(statusCode.toFixed(), resBytes.toFixed(), responseTime.toFixed());
         });
     },
+    debug: true
 }).then(result => {
     console.log(result.start, result.finish);
     console.log(result.latency.mean);
