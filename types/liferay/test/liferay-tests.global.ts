@@ -1,7 +1,7 @@
 Liferay.authToken; // $ExpectType string
 
 Liferay.Language.available; // $ExpectType string[]
-Liferay.Language.get('key'); // $ExpectType string
+Liferay.Language.get("key"); // $ExpectType string
 
 Liferay.ThemeDisplay.isImpersonated(); // $ExpectType boolean
 Liferay.ThemeDisplay.getDoAsUserIdEncoded(); // $ExpectType string
@@ -13,8 +13,8 @@ Liferay.ThemeDisplay.getLayoutRelativeURL(); // $ExpectType string
 
 // $ExpectType void
 Liferay.Util.openToast({
-    title: 'title',
-    message: 'message',
-    type: 'success',
-    autoClose: 5000
-})
+    title: "title",
+    message: "message",
+    type: "success",
+    autoClose: 5000,
+});
