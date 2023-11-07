@@ -24,9 +24,9 @@ export let ntpReplyTimeout: number;
  * the current time that was retrieved from the NTP server
  */
 export function getNetworkTime(
-  server: string | null | undefined,
-  port: number | null | undefined,
-  callback: (err: Error | string | null, date: Date | null) => void
+    server: string | null | undefined,
+    port: number | null | undefined,
+    callback: (err: Error | string | null, date: Date | null) => void,
 ): void;
 
 /**

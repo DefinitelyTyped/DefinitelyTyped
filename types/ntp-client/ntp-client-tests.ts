@@ -18,21 +18,21 @@ ntp.ntpReplyTimeout;
 
 // ntp.getNetworkTime should accept params
 ntp.getNetworkTime("pool.ntp.org", 123, (err, date) => {
-  if (err != null) {
-    date;
-  }
+    if (err != null) {
+        date;
+    }
 });
 
 // ntp.getNetworkTime should accept null for params
 ntp.getNetworkTime(null, null, (err, date) => {
-  if (err != null) {
-    date;
-  }
+    if (err != null) {
+        date;
+    }
 });
 
 // ntp.getNetworkTime should accept undefined for params
 ntp.getNetworkTime(undefined, undefined, (err, date) => {
-  if (err != null) {
-    date;
-  }
+    if (err != null) {
+        date;
+    }
 });
