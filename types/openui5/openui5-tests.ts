@@ -33,6 +33,7 @@ import Mobile from "sap/ui/util/Mobile";
 import Input from "sap/m/Input";
 import { DynamicDateRangeGroups, ITableItem } from "sap/m/library";
 import ColumnListItem from "sap/m/ColumnListItem";
+import Filter from "sap/ui/model/Filter";
 
 /*
  * REMARK: the type definition files are automatically generated and this generation is tested,
@@ -220,3 +221,6 @@ const ddrg: DynamicDateRangeGroups = DynamicDateRangeGroups.SingleDates;
 
 // 1.119
 const iti: ITableItem = new ColumnListItem();
+
+// 1.120
+const noneFilter = Filter.NONE;
