@@ -5507,6 +5507,10 @@
             "libraryName": "slate-react",
             "asOfVersion": "0.50.0"
         },
+        "slice-ansi": {
+            "libraryName": "slice-ansi",
+            "asOfVersion": "7.1.0"
+        },
         "smooth-scrollbar": {
             "libraryName": "smooth-scrollbar",
             "asOfVersion": "8.2.5"
