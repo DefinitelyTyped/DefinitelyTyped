@@ -6312,7 +6312,7 @@ declare namespace _ {
             path: string,
             defaultValue?: U,
         ): _Chain<TypeOfCollection<V> | U, T | U>;
-        get<P extends (string | number)[], W = DeepTypeOfCollection<V, P>, U = undefined>(
+        get<P extends (string | number)[], W = DeepTypeOfCollection<Exclude<V, undefined>, P>, U = undefined>(
             // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
             path: [...P],
             defaultValue?: U,

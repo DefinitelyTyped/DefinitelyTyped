@@ -601,6 +601,9 @@ _(explicitNumberDictionary).each((value, key, collection) => {
     // chained with default value
     // $ExpectType _Chain<string | number, string | { b: number; }>
     _.chain({ a: [{ b: numberValue }] }).get(["a", 0], stringValue);
+
+    // $ExpectType _Chain<undefined, number | undefined>
+    _.chain({ a: [{ b: numberValue }] }).get(["a", 0]).get(["b"]);
 }
 
 // map, collect
