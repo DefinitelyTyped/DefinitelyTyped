@@ -544,11 +544,11 @@ _(explicitNumberDictionary).each((value, key, collection) => {
 
     // trying to get the property two level deep
     // $ExpectType number
-    _.get({ a: { b: numberValue }, c: "a" }, ['a', 'b'], numberValue);
+    _.get({ a: { b: numberValue }, c: "a" }, ["a", "b"], numberValue);
 
     // trying to get the property on the [string, number, string] path
     // $ExpectType number | undefined
-    _.get({a: [{b: 2}]}, ['a', 0, 'b']);
+    _.get({ a: [{ b: 2 }] }, ["a", 0, "b"]);
 
     // default value if not found of the 'same type'
     // $ExpectType number
@@ -572,11 +572,11 @@ _(explicitNumberDictionary).each((value, key, collection) => {
 
     // oop style without default value
     // $ExpectType { b: number; } | undefined
-    _({a: [{b: numberValue}]}).get(["a", 0]);
+    _({ a: [{ b: numberValue }] }).get(["a", 0]);
 
     // oop style with default value
     // $ExpectType string | { b: number; }
-    _({a: [{b: numberValue}]}).get(["a", 0], stringValue);
+    _({ a: [{ b: numberValue }] }).get(["a", 0], stringValue);
 
     // chained with null as object
     // $ExpectType _Chain<undefined, undefined>
@@ -596,11 +596,11 @@ _(explicitNumberDictionary).each((value, key, collection) => {
 
     // chained without default value
     // $ExpectType _Chain<number | undefined, { b: number; } | undefined>
-    _.chain({a: [{b: numberValue}]}).get(["a", 0]);
+    _.chain({ a: [{ b: numberValue }] }).get(["a", 0]);
 
     // chained with default value
     // $ExpectType _Chain<string | number, string | { b: number; }>
-    _.chain({a: [{b: numberValue}]}).get(["a", 0], stringValue);
+    _.chain({ a: [{ b: numberValue }] }).get(["a", 0], stringValue);
 }
 
 // map, collect

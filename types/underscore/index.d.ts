@@ -129,8 +129,8 @@ declare namespace _ {
     type TypeOfCollection<V, TObjectDefault = never> = V extends List<any> ? TypeOfList<V>
         : TypeOfDictionary<V, TObjectDefault>;
 
-    type DeepTypeOfCollection<V, P> =
-        P extends [infer H, ...infer R] ? H extends keyof V ? DeepTypeOfCollection<V[H], R>
+    type DeepTypeOfCollection<V, P> = P extends [infer H, ...infer R]
+        ? H extends keyof V ? DeepTypeOfCollection<V[H], R>
         : never
         : V;
 
