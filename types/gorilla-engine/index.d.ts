@@ -349,7 +349,7 @@ declare namespace GorillaEngine {
 
         getStringAtPath(path: string): string;
 
-        getSampleMetadata(filePath: string, overviewSize: number): {metadata: string, overview: Uint8Array};
+        getSampleMetadata(filePath: string, overviewSize: number): { metadata: string; overview: Uint8Array };
     }
 
     interface Blob {
@@ -413,7 +413,7 @@ declare namespace GorillaEngine {
         hint?: string;
         allowedExtensions?: string;
         defaultLocation?: string;
-    }): Promise<any>;
+    }): Promise<string[]>;
     /**
      * Method to convert mp3 files to wave files
      * @param mp3Filepath The path of the mp3 file to convert
@@ -432,5 +432,6 @@ declare namespace GorillaEngine {
     namespace UI {
         function loadUIfromYAML(ymlPath: string): void;
         function getControlById(id: string): Component;
+        function createWindow(window: GorillaEngine.UI.Window): void;
     }
 }

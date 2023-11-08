@@ -70,7 +70,7 @@ declare namespace GorillaEngine.UI {
         enforceValueOnConstraintViolation?: boolean;
         valueOffsetOnConstraintViolation?: number;
         styles?: {
-            normal:SliceStyle;
+            normal: SliceStyle;
             hover: SliceStyle;
             selected: SliceStyle;
         };
