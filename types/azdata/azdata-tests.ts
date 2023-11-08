@@ -1,6 +1,10 @@
 import * as azdata from "azdata";
 import * as vscode from "vscode";
 
+class StubDisposable {
+    public dispose(): void { }
+}
+
 azdata.dataprotocol.registerConnectionProvider({
     providerId: "MyProvider",
     connect(connectionUri: string, connectionInfo: azdata.ConnectionInfo): Thenable<boolean> {
@@ -27,17 +31,23 @@ azdata.dataprotocol.registerConnectionProvider({
     buildConnectionInfo(connectionString: string): Thenable<azdata.ConnectionInfo> {
         return Promise.resolve({ options: {} });
     },
-    registerOnConnectionComplete(handler: (connSummary: azdata.ConnectionInfoSummary) => any): void {},
-    registerOnIntelliSenseCacheComplete(handler: (connectionUri: string) => any): void {},
-    registerOnConnectionChanged(handler: (changedConnInfo: azdata.ChangedConnectionInfo) => any): void {},
+    registerOnConnectionComplete(handler: (connSummary: azdata.ConnectionInfoSummary) => any): vscode.Disposable {
+        return new StubDisposable();
+    },
+    registerOnIntelliSenseCacheComplete(handler: (connectionUri: string) => any): vscode.Disposable {
+        return new StubDisposable();
+    },
+    registerOnConnectionChanged(handler: (changedConnInfo: azdata.ChangedConnectionInfo) => any): vscode.Disposable {
+        return new StubDisposable();
+    },
 });
 
-class StubDisposable {
-    public dispose(): void {}
-}
+const connectionProvider = azdata.dataprotocol.getProvider<azdata.ConnectionProvider>('MyProvider', azdata.DataProviderType.ConnectionProvider);
+const onConnectionChangedDisposable = connectionProvider.registerOnConnectionChanged(params => { });
+onConnectionChangedDisposable.dispose();
 
 const testComponentBuilder: azdata.ComponentBuilder<azdata.InputBoxComponent, azdata.InputBoxProperties> = {
-    component: () => <any> {},
+    component: () => <any>{},
     withProperties: (
         properties: azdata.InputBoxProperties,
     ): azdata.ComponentBuilder<azdata.InputBoxComponent, azdata.InputBoxProperties> => {
@@ -53,7 +63,7 @@ const testComponentBuilder: azdata.ComponentBuilder<azdata.InputBoxComponent, az
 testComponentBuilder.component();
 
 const testContainerBuilder: azdata.ContainerBuilder<azdata.DivContainer, any, any, azdata.DivContainerProperties> = {
-    component: () => <any> {},
+    component: () => <any>{},
     withItems: (component: azdata.Component[]) => {
         throw new Error("Not implemented");
     },
@@ -75,12 +85,12 @@ testContainerBuilder.component();
 const testButtonComponent: azdata.ButtonComponent = {
     id: "my-loading-component",
     onDidClick: (listener: (e: any) => any) => new StubDisposable(),
-    updateProperty: async (key: string, value: any) => {},
-    updateCssStyles: async (cssStyles) => {},
-    updateProperties: async (properties: { [key: string]: any }) => {},
+    updateProperty: async (key: string, value: any) => { },
+    updateCssStyles: async (cssStyles) => { },
+    updateProperties: async (properties: { [key: string]: any }) => { },
     valid: false,
     validate: async () => false,
-    focus: async () => {},
+    focus: async () => { },
     onValidityChanged: (listener: (e: boolean) => any) => new StubDisposable(),
 };
 testButtonComponent.validate();
@@ -89,12 +99,12 @@ const testLoadingComponent: azdata.LoadingComponent = {
     loading: false,
     component: testContainerBuilder.component(),
     id: "my-loading-component",
-    updateProperty: async (key: string, value: any) => {},
-    updateCssStyles: async (cssStyles) => {},
-    updateProperties: async (properties: { [key: string]: any }) => {},
+    updateProperty: async (key: string, value: any) => { },
+    updateCssStyles: async (cssStyles) => { },
+    updateProperties: async (properties: { [key: string]: any }) => { },
     valid: false,
     validate: async () => false,
-    focus: async () => {},
+    focus: async () => { },
     onValidityChanged: (listener: (e: boolean) => any) => new StubDisposable(),
 };
 testLoadingComponent.validate();
@@ -185,7 +195,7 @@ const connectionProfile: azdata.connection.ConnectionProfile = {
     options: {},
 };
 
-azdata.nb.showNotebookDocument(<any> {}, {
+azdata.nb.showNotebookDocument(<any>{}, {
     defaultKernel: { name: "MSSQL" },
 });
 
