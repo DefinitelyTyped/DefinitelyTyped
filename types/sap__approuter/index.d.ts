@@ -1,4 +1,3 @@
-import { Command } from "@commander-js/extra-typings";
 import { EventEmitter } from "events";
 import { ClientRequest, IncomingMessage, ServerResponse } from "http";
 import { ServerOptions } from "https";
@@ -268,7 +267,7 @@ declare namespace approuter {
      *   const ar = new Approuter<false>();
      *   ar.cmdParser = false;
      */
-    interface Approuter<CommandParser extends Command | false = Command> extends EventEmitter {
+    interface Approuter extends EventEmitter {
         /**
          * A {@link MiddlewareSlot} before the first application router middleware
          */
@@ -285,6 +284,8 @@ declare namespace approuter {
         beforeErrorHandler: MiddlewareSlot;
 
         /**
+         * **Note**: the cmdParser is currently not typed, feel free to create a pr and add the missing types
+         *
          * By default the application router handles its command line parameters, but you can customize that too.
          *
          * An _approuter_ instance provides the property `cmdParser` that is a [commander](https://github.com/tj/commander.js/) instance.
@@ -304,7 +305,7 @@ declare namespace approuter {
          *
          *   console.log('Dummy option:', params.dummy);
          */
-        cmdParser: CommandParser;
+        cmdParser: never;
 
         /**
          * Starts the application router with the given options.
@@ -381,7 +382,6 @@ declare namespace approuter {
     }
 }
 
-// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-declare function approuter<CommandParser extends Command | false = Command>(): approuter.Approuter<CommandParser>;
+declare function approuter(): approuter.Approuter;
 
 export = approuter;

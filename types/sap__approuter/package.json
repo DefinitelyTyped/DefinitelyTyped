@@ -19,7 +19,6 @@
         }
     ],
     "dependencies": {
-        "@commander-js/extra-typings": "^11.1.0",
         "@types/http-server": "*",
         "@types/node": "*",
         "@types/verror": "*"

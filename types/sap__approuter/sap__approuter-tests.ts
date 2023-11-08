@@ -8,7 +8,6 @@ import { Approuter, StartOptions } from "@sap/approuter";
 import approuter = require("@sap/approuter");
 
 const ar = approuter();
-const arWoCmd = approuter<false>();
 
 /*************** Example 1 ***************/
 ar.beforeRequestHandler.use("/my-ext", function myMiddleware(req, res, next) {
@@ -55,6 +54,7 @@ ar.start({
 });
 
 /*************** Example 6 ***************/
+// **Note**: the cmdParser is currently not typed, feel free to create a pr and add the missing types
 // const params = ar.cmdParser
 //     // add here custom command line options if needed
 //     .option('-d, --dummy', 'A dummy option')
@@ -63,7 +63,8 @@ ar.start({
 // console.log('Dummy option:', params.dummy);
 
 /*************** Example 7 ***************/
-arWoCmd.cmdParser = false;
+// **Note**: the cmdParser is currently not typed, feel free to create a pr and add the missing types
+// arWoCmd.cmdParser = false;
 
 /*************** Example 8 ***************/
 let getRouterConfig: StartOptions["getRouterConfig"];
