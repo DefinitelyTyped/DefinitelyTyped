@@ -402,6 +402,18 @@ braintree.client.create(
             // { total: { }, countryCode: 'US', currencyCode: 'USD', merchantCapabilities: [ ], supportedNetworks: [ ] }
         });
 
+        // Check that apple pay createPaymentRequest total field allows "pending" type
+        braintree.applePay.create({ client: clientInstance }, (createErr, applePayInstance) => {
+            const total: braintree.ApplePayLineItem = { label: "Your Label", amount: "10.00", type: "pending" };
+            const request = {
+                total,
+            };
+
+            const paymentRequest = applePayInstance.createPaymentRequest(request);
+            console.log(paymentRequest);
+            // { total: { }, countryCode: 'US', currencyCode: 'USD', merchantCapabilities: [ ], supportedNetworks: [ ] }
+        });
+
         braintree.applePay.create({ client: clientInstance }, (createErr, applePayInstance) => {
             const request = {
                 countryCode: "US",

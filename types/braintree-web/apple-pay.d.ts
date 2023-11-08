@@ -24,8 +24,7 @@ export interface ApplePayLineItem {
     automaticReloadPaymentThresholdAmount?: string;
 }
 
-// more info https://developer.apple.com/reference/applepayjs/1916082-applepay_js_data_types/paymentrequest
-
+// more info https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentrequest
 //  billingContact
 //  Billing contact information for the user.
 //    countryCode
@@ -43,18 +42,15 @@ export interface ApplePayLineItem {
 //    shippingContact
 //  Shipping contact information for the user.
 //    shippingMethods
-// A set of available shipping methods.Totals for all shipping methods must be non- negative to pass validation.
+// A set of available shipping methods.Totals for all shipping methods must be non-negative to pass validation.
 //    shippingType
 //  How the items are to be shipped.This property is optional.If specified, it must be one or more of shipping, delivery, storePickup, or servicePickup.The default value is shipping.
 //    supportedNetworks
 //  Required.The payment networks supported by the merchant.The value must be one or more of amex, discover, interac, masterCard, privateLabel, or visa.
 //    total
-//  Required.The total amount for the payment.The total must be greater than zero and have a label to pass validation.
+//  Required.The total amount for the payment.A line item that represents the total for the payment.See https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentrequest/1916119-total
 export interface ApplePayPaymentRequest {
-    total: {
-        label: string;
-        amount: string;
-    };
+    total: ApplePayLineItem;
     countryCode: string;
     currencyCode: string;
     supportedNetworks: string[];
