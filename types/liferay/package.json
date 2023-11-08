@@ -1,6 +1,6 @@
 {
     "private": true,
-    "name": "@types/liferay-browser",
+    "name": "@types/liferay",
     "version": "1.0.9999",
     "nonNpm": true,
     "nonNpmDescription": "Liferay's Global JavaScript Object",
@@ -9,7 +9,7 @@
         "https://www.liferay.com/developers"
     ],
     "devDependencies": {
-        "@types/liferay-browser": "workspace:."
+        "@types/liferay": "workspace:."
     },
     "owners": [
         {
