@@ -189,6 +189,7 @@ Your package should have this structure:
 | [`tslint.json`](#linter-tslintjson)   | Enables linting. |
 | [`.eslintrc.json`](#linter-eslintrcjson)   | (Rarely) Needed only to disable lint rules written for eslint. |
 | [`package.json`](#packagejson) | Contains metadata for the package, including its name, version and dependencies. |
+| [`.npmignore`](#npmignore) | Specifies which files are intended to be included in the package. |
 
 Generate these by running `npx dts-gen --dt --name <my-package> --template module`.
 See all options at [dts-gen](https://github.com/Microsoft/dts-gen).
@@ -372,10 +373,34 @@ If the implementation package uses ESM and specifies `"type": "module"`, then yo
 
 This also applies if the implementation package has `exports` in its package.json.
 
-#### `OTHER_FILES.txt`
+#### `.npmignore`
 
-If a file is neither tested nor referenced in `index.d.ts`, add it to a file named `OTHER_FILES.txt`. This file is a list of other files that need to be included in the typings package, one file per line.
-This file must also be inspected by a maintainer to make sure that malicious files don't ship in `@types` packages.
+This file defines which files are to be included in each `@types` package. It must take a specific form. For packages with only one version in the repo:
+
+```ignore
+*
+!**/*.d.ts
+!**/*.d.cts
+!**/*.d.mts
+!**/*.d.*.ts
+```
+
+Which is to say "ignore all files, but don't ignore any declaration files". For packages that have more than one version in the repo, the "latest" version (at the top level) should contain something like:
+
+```ignore
+*
+!**/*.d.ts
+!**/*.d.cts
+!**/*.d.mts
+!**/*.d.*.ts
+/v15/
+/v16/
+/v17/
+```
+
+Which is the same as the previous `.npmignore` but ignoring each of the versioned child directories.
+
+CI will fail if this file contains the wrong contents and provide the intended value. No matter what this file contains, the publisher will only publish declaration files.
 
 #### Common mistakes
 

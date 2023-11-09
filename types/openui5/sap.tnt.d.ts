@@ -1,4 +1,4 @@
-// For Library Version: 1.119.0
+// For Library Version: 1.120.0
 
 declare module "sap/tnt/library" {
   /**
@@ -1386,7 +1386,7 @@ declare module "sap/tnt/SideNavigation" {
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
-  import { ID } from "sap/ui/core/library";
+  import { ID, CSSSize } from "sap/ui/core/library";
 
   import NavigationListItem from "sap/tnt/NavigationListItem";
 
@@ -1627,6 +1627,19 @@ declare module "sap/tnt/SideNavigation" {
      */
     getSelectedKey(): string;
     /**
+     * @since 1.120
+     *
+     * Gets current value of property {@link #getWidth width}.
+     *
+     * Specifies the width of the control.
+     *
+     *  Depending on the theme, there is a minimum width set (16rem for Horizon theme). This property
+     * can be used to set a bigger width.
+     *
+     * @returns Value of property `width`
+     */
+    getWidth(): CSSSize;
+    /**
      * @since 1.98
      *
      * Sets a new value for property {@link #getAriaLabel ariaLabel}.
@@ -1710,6 +1723,26 @@ declare module "sap/tnt/SideNavigation" {
       selectedKey: string
     ): this;
     /**
+     * @since 1.120
+     *
+     * Sets a new value for property {@link #getWidth width}.
+     *
+     * Specifies the width of the control.
+     *
+     *  Depending on the theme, there is a minimum width set (16rem for Horizon theme). This property
+     * can be used to set a bigger width.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setWidth(
+      /**
+       * New value for property `width`
+       */
+      sWidth: CSSSize
+    ): this;
+    /**
      * Unbinds aggregation {@link #getItem item} from model data.
      *
      * @returns Reference to `this` in order to allow method chaining
@@ -1718,6 +1751,16 @@ declare module "sap/tnt/SideNavigation" {
   }
 
   export interface $SideNavigationSettings extends $ControlSettings {
+    /**
+     * @since 1.120
+     *
+     * Specifies the width of the control.
+     *
+     *  Depending on the theme, there is a minimum width set (16rem for Horizon theme). This property
+     * can be used to set a bigger width.
+     */
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
     /**
      * Specifies if the control is expanded.
      */

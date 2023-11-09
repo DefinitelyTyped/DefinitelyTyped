@@ -203,10 +203,9 @@ import Alpine, {
     // Alpine.setEvaluator
     // inspired by
     // https://github.com/alpinejs/alpine/blob/b46c41fa240cd8af2dcaa29fb60fb1db0389c95a/packages/alpinejs/src/index.js
-
-    const justExpressionEvaluator = <T>(
+    const justExpressionEvaluator = <T>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
         el: ElementWithXAttributes,
-        expression?: string | (() => T), // eslint-disable-line @definitelytyped/no-unnecessary-generics
+        expression?: string | (() => T),
     ) =>
     (resultCallback: (result: T) => void) =>
         resultCallback(typeof expression === "function" ? expression() : Alpine.evaluate<T>(el, expression ?? ""));

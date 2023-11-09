@@ -128,15 +128,15 @@ declare module "." {
     function useFormStatus(): FormStatus;
 
     function useFormState<State>(
-        action: (state: State) => Promise<State>,
-        initialState: State,
+        action: (state: Awaited<State>) => State | Promise<State>,
+        initialState: Awaited<State>,
         permalink?: string,
-    ): [state: State, dispatch: () => void];
+    ): [state: Awaited<State>, dispatch: () => void];
     function useFormState<State, Payload>(
-        action: (state: State, payload: Payload) => Promise<State>,
-        initialState: State,
+        action: (state: Awaited<State>, payload: Payload) => State | Promise<State>,
+        initialState: Awaited<State>,
         permalink?: string,
-    ): [state: State, dispatch: (payload: Payload) => void];
+    ): [state: Awaited<State>, dispatch: (payload: Payload) => void];
 }
 
 declare module "./client" {
