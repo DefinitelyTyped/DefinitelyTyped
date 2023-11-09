@@ -42,7 +42,7 @@ export interface OnConnectCallback {
     (connection: IdToken, request: Request, response: Response, next: NextFunction): Response | void;
 }
 
-export interface OnRequestCallback {
+export interface UnregisteredPlatformCallback {
     (request: Request, response: Response): Response | void;
 }
 
@@ -74,7 +74,7 @@ declare class Provider {
 
     onDeepLinking(_connectCallback: OnConnectCallback, options?: OnConnectOptions): true;
 
-    onUnregisteredPlatform(_requestCallback: OnRequestCallback): true;
+    onUnregisteredPlatform(_unregisteredPlatformCallback: UnregisteredPlatformCallback): true;
 
     loginUrl(): string;
 
