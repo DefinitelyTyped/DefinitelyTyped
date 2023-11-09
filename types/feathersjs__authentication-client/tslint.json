@@ -1,18 +1,4 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "npm-naming": [
-            true,
-            {
-                "errors": [
-                    [
-                        "NeedsExportEquals",
-                        false
-                    ]
-                ],
-                "mode": "code"
-            }
-        ]
-    },
-    "strict-export-declare-modifiers": false
+  "extends": "@definitelytyped/dtslint/dt.json",
+  "strict-export-declare-modifiers": false
 }

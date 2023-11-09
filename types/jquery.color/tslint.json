@@ -3,7 +3,6 @@
     "rules": {
         "no-var-keyword": false,
         "no-void-expression": false,
-        "npm-naming": false,
         "unified-signatures": false
     }
 }

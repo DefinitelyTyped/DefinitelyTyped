@@ -1,17 +1,10 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "no-unnecessary-qualifier": false,
-        "no-var-keyword": false,
-        "npm-naming": [
-            true,
-            {
-                "errors": [["NeedsExportEquals", false]],
-                "mode": "code"
-            }
-        ],
-        "one-variable-per-declaration": false,
-        "only-arrow-functions": false,
-        "prefer-const": false
-    }
+  "extends": "@definitelytyped/dtslint/dt.json",
+  "rules": {
+    "no-unnecessary-qualifier": false,
+    "no-var-keyword": false,
+    "one-variable-per-declaration": false,
+    "only-arrow-functions": false,
+    "prefer-const": false
+  }
 }

@@ -8,7 +8,6 @@
         "no-empty-interface": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
-        "npm-naming": false,
         "object-literal-shorthand": false,
         "one-variable-per-declaration": false,
         "only-arrow-functions": false,
