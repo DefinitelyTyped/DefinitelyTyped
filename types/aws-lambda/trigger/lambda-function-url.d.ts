@@ -31,30 +31,8 @@ export type LambdaFunctionURLCallback = APIGatewayProxyCallbackV2;
  */
 export type LambdaFunctionURLHandler<T = never> = Handler<LambdaFunctionURLEvent, LambdaFunctionURLResult<T>>;
 
-/**
- * IAM Authorizer Payload
- */
-export interface LambdaFunctionURLEventRequestContextIAMAuthorizer extends APIGatewayEventRequestContextIAMAuthorizer {}
-
-/**
- * Lambda Function URL Event with adaptable requestContext for different authorizer scenarios
- */
-export interface LambdaFunctionURLEventWithRequestContext<TRequestContext>
-    extends
-        APIGatewayProxyEventV2WithRequestContext<
-            TRequestContext
-        >
-{}
-
-/**
- * Event type when invoking Lambda function URLs with IAM authorizer
- */
-export interface LambdaFunctionURLEventRequestContextWithAuthorizer<TAuthorizer>
-    extends APIGatewayEventRequestContextV2WithAuthorizer<TAuthorizer>
-{}
-
-export type LambdaFunctionURLEventWithIAMAuthorizer = LambdaFunctionURLEventWithRequestContext<
-    LambdaFunctionURLEventRequestContextWithAuthorizer<LambdaFunctionURLEventRequestContextIAMAuthorizer>
+export type LambdaFunctionURLEventWithIAMAuthorizer = APIGatewayProxyEventV2WithRequestContext<
+    APIGatewayEventRequestContextV2WithAuthorizer<APIGatewayEventRequestContextIAMAuthorizer>
 >;
 
 /**
