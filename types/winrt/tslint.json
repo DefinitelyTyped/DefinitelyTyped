@@ -11,6 +11,7 @@
         "no-mergeable-namespace": false,
         "no-unnecessary-class": false,
         "no-unnecessary-qualifier": false,
+        "npm-naming": false,
         "unified-signatures": false
     }
 }

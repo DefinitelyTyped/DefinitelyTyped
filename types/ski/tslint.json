@@ -3,6 +3,7 @@
     "rules": {
         "no-duplicate-variable": false,
         "no-var-keyword": false,
+        "npm-naming": false,
         "prefer-const": false
     }
 }

@@ -1,7 +1,14 @@
 {
-  "extends": "@definitelytyped/dtslint/dt.json",
-  "rules": {
-    "interface-name": false,
-    "no-var-keyword": false
-  }
+    "extends": "@definitelytyped/dtslint/dt.json",
+    "rules": {
+        "interface-name": false,
+        "no-var-keyword": false,
+        "npm-naming": [
+            true,
+            {
+                "errors": [["NeedsExportEquals", false]],
+                "mode": "code"
+            }
+        ]
+    }
 }

@@ -7,6 +7,7 @@
         "interface-over-type-literal": false,
         "no-unnecessary-class": false,
         "no-var-keyword": false,
+        "npm-naming": false,
         "unified-signatures": false
     }
 }

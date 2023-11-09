@@ -8,6 +8,7 @@
         "no-unnecessary-class": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
+        "npm-naming": false,
         "unified-signatures": false
     }
 }

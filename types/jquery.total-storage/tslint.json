@@ -3,6 +3,7 @@
     "rules": {
         "jsdoc-format": false,
         "no-empty-interface": false,
-        "no-var-keyword": false
+        "no-var-keyword": false,
+        "npm-naming": false
     }
 }

@@ -11,6 +11,7 @@
         "no-redundant-jsdoc-2": false,
         "no-string-throw": false,
         "no-var-keyword": false,
+        "npm-naming": false,
         "object-literal-shorthand": false,
         "one-variable-per-declaration": false,
         "only-arrow-functions": false,

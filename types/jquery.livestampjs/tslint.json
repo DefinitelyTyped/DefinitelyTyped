@@ -3,6 +3,7 @@
     "rules": {
         "no-reference-import": false,
         "no-var-keyword": false,
+        "npm-naming": false,
         "prefer-const": false,
         "unified-signatures": false
     }

@@ -4,6 +4,7 @@
         "interface-name": false,
         "member-access": false,
         "no-object-literal-type-assertion": false,
-        "no-redundant-jsdoc-2": false
+        "no-redundant-jsdoc-2": false,
+        "npm-naming": false
     }
 }

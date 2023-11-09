@@ -5,6 +5,7 @@
         "interface-name": false,
         "jsdoc-format": false,
         "member-access": false,
+        "npm-naming": false,
         "object-literal-shorthand": false
     }
 }

@@ -2,6 +2,7 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "no-redundant-jsdoc-2": false,
-        "no-var-keyword": false
+        "no-var-keyword": false,
+        "npm-naming": false
     }
 }

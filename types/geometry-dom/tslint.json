@@ -4,6 +4,7 @@
         "array-type": false,
         "no-duplicate-variable": false,
         "no-var-keyword": false,
+        "npm-naming": false,
         "unified-signatures": false
     }
 }

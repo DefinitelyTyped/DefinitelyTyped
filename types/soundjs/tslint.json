@@ -4,6 +4,7 @@
         "ban-types": false,
         "no-unnecessary-class": false,
         "no-var-keyword": false,
+        "npm-naming": false,
         "prefer-const": false,
         "unified-signatures": false
     }

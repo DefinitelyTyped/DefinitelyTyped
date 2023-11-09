@@ -4,6 +4,7 @@
         "jsdoc-format": false,
         "no-object-literal-type-assertion": false,
         "no-var-keyword": false,
+        "npm-naming": false,
         "prefer-const": false
     }
 }

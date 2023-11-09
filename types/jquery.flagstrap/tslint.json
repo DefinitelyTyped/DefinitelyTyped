@@ -5,6 +5,7 @@
         "jsdoc-format": false,
         "no-internal-module": false,
         "no-var-keyword": false,
+        "npm-naming": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-template": false,

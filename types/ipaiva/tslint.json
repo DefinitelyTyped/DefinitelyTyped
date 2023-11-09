@@ -8,6 +8,7 @@
         "no-irregular-whitespace": false,
         "no-redundant-undefined": false,
         "no-unnecessary-class": false,
+        "npm-naming": false,
         "unified-signatures": false,
         "void-return": false
     }

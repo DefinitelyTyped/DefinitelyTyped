@@ -3,6 +3,7 @@
     "rules": {
         "ban-types": false,
         "interface-name": false,
-        "no-var-keyword": false
+        "no-var-keyword": false,
+        "npm-naming": false
     }
 }

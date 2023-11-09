@@ -4,6 +4,7 @@
         "ban-types": false,
         "member-access": false,
         "no-var-keyword": false,
+        "npm-naming": false,
         "only-arrow-functions": false
     }
 }

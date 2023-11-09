@@ -543,5 +543,5 @@ export const staticDeepProperties: typeof stampit.staticDeepProperties;
 export const staticProperties: typeof stampit.staticProperties;
 export const staticPropertyDescriptors: typeof stampit.staticPropertyDescriptors;
 export const version: typeof stampit.version;
-// eslint-disable-next-line @definitelytyped/npm-naming
+// tslint:disable-next-line: npm-naming
 export default stampit;

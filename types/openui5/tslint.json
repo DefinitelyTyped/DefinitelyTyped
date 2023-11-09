@@ -1,6 +1,7 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
+        "npm-naming": false,
         "no-unnecessary-class": false,
         "ban-types": false,
         "no-empty-interface": false,

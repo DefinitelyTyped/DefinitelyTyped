@@ -4,6 +4,7 @@
         "adjacent-overload-signatures": false,
         "ban-types": false,
         "no-redundant-jsdoc-2": false,
+        "npm-naming": false,
         "unified-signatures": false
     }
 }

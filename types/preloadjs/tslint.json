@@ -3,6 +3,7 @@
     "rules": {
         "ban-types": false,
         "no-internal-module": false,
-        "no-unnecessary-class": false
+        "no-unnecessary-class": false,
+        "npm-naming": false
     }
 }
