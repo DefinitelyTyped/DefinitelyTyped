@@ -2121,13 +2121,25 @@ function testSidePanelAPI() {
     };
 
     chrome.sidePanel.getOptions(getPanelOptions, (options: chrome.sidePanel.PanelOptions) => {
+        console.log("Using callback:");
+        console.log(options.enabled);
+        console.log(options.path);
+        console.log(options.tabId);
+    });
+
+    chrome.sidePanel.getOptions(getPanelOptions).then((options: chrome.sidePanel.PanelOptions) => {
+        console.log("Using promise:");
         console.log(options.enabled);
         console.log(options.path);
         console.log(options.tabId);
     });
 
     chrome.sidePanel.getPanelBehavior((behavior: chrome.sidePanel.PanelBehavior) => {
-        console.log(behavior.openPanelOnActionClick);
+        console.log("Using callback:", behavior.openPanelOnActionClick);
+    });
+
+    chrome.sidePanel.getPanelBehavior().then((behavior) => {
+        console.log("Using promise:", behavior.openPanelOnActionClick);
     });
 
     let openOptionsTab: chrome.sidePanel.OpenOptions = {
@@ -2144,15 +2156,27 @@ function testSidePanelAPI() {
     };
 
     chrome.sidePanel.open(openOptionsTab, () => {
-        console.log("Side panel opened in tab");
+        console.log("Side panel opened in tab using callback");
+    });
+
+    chrome.sidePanel.open(openOptionsTab).then(() => {
+        console.log("Side panel opened in tab using promise");
     });
 
     chrome.sidePanel.open(openOptionsWindow, () => {
-        console.log("Side panel opened in window");
+        console.log("Side panel opened in window using callback");
+    });
+
+    chrome.sidePanel.open(openOptionsWindow).then(() => {
+        console.log("Side panel opened in window using promise");
     });
 
     chrome.sidePanel.open(openOptionsTabAndWindow, () => {
-        console.log("Side panel opened in tab in window");
+        console.log("Side panel opened in tab in window using callback");
+    });
+
+    chrome.sidePanel.open(openOptionsTabAndWindow).then(() => {
+        console.log("Side panel opened in tab in window using promise");
     });
 
     let setPanelOptions: chrome.sidePanel.PanelOptions = {
@@ -2162,7 +2186,11 @@ function testSidePanelAPI() {
     };
 
     chrome.sidePanel.setOptions(setPanelOptions, () => {
-        console.log("Options set successfully.");
+        console.log("Options set successfully using callback.");
+    });
+
+    chrome.sidePanel.setOptions(setPanelOptions).then(() => {
+        console.log("Options set successfully using promise.");
     });
 
     let setPanelBehavior: chrome.sidePanel.PanelBehavior = {
@@ -2170,6 +2198,10 @@ function testSidePanelAPI() {
     };
 
     chrome.sidePanel.setPanelBehavior(setPanelBehavior, () => {
-        console.log("Behavior set successfully.");
+        console.log("Behavior set successfully using callback.");
+    });
+
+    chrome.sidePanel.setPanelBehavior(setPanelBehavior).then(() => {
+        console.log("Behavior set successfully using promise.");
     });
 }

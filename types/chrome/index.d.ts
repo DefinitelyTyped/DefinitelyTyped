@@ -12629,8 +12629,12 @@ declare namespace chrome.sidePanel {
     export function getOptions(
         /** Specifies the context to return the configuration for. */
         options: GetPanelOptions,
-        /** The `callback` parameter looks like: ```(options: PanelOptions) => void``` */
-        callback?: (options: PanelOptions) => void,
+        callback: (options: PanelOptions) => void,
+    ): void;
+
+    export function getOptions(
+        /** Specifies the context to return the configuration for. */
+        options: GetPanelOptions,
     ): Promise<PanelOptions>;
 
     /**
@@ -12640,9 +12644,10 @@ declare namespace chrome.sidePanel {
      * The promise resolves with the same type that is passed to the callback.
      */
     export function getPanelBehavior(
-        /** The `callback` parameter looks like: `(behavior: PanelBehavior) => void` */
-        callback?: (behavior: PanelBehavior) => void,
-    ): Promise<PanelBehavior>;
+        callback: (behavior: PanelBehavior) => void,
+    ): void;
+
+    export function getPanelBehavior(): Promise<PanelBehavior>;
 
     /**
      * @since Chrome 116
@@ -12654,8 +12659,12 @@ declare namespace chrome.sidePanel {
     export function open(
         /** Specifies the context in which to open the side panel. */
         options: OpenOptions,
-        /** The `callback` parameter looks like: `() => void` */
-        callback?: () => void,
+        callback: () => void,
+    ): void;
+
+    export function open(
+        /** Specifies the context in which to open the side panel. */
+        options: OpenOptions,
     ): Promise<void>;
 
     /**
@@ -12667,8 +12676,12 @@ declare namespace chrome.sidePanel {
     export function setOptions(
         /** The configuration options to apply to the panel. */
         options: PanelOptions,
-        /** The `callback` parameter looks like: `() => void` */
-        callback?: () => void,
+        callback: () => void,
+    ): void;
+
+    export function setOptions(
+        /** The configuration options to apply to the panel. */
+        options: PanelOptions,
     ): Promise<void>;
 
     /**
@@ -12680,7 +12693,11 @@ declare namespace chrome.sidePanel {
     export function setPanelBehavior(
         /** The new behavior to be set. */
         behavior: PanelBehavior,
-        /** The `callback` parameter looks like: `() => void` */
-        callback?: () => void,
+        callback: () => void,
+    ): void;
+
+    export function setPanelBehavior(
+        /** The new behavior to be set. */
+        behavior: PanelBehavior,
     ): Promise<void>;
 }
