@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import { marked } from "marked";
-import * as TerminalRenderer from "marked-terminal";
+import TerminalRenderer from "marked-terminal";
+import "./marked-terminal-tests.cjs";
 
 marked.setOptions({
     // Define custom renderer

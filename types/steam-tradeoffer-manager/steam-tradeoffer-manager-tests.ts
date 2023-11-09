@@ -13,6 +13,35 @@ const steam = new Steam.SteamClient();
 const offer = manager.createOffer("123");
 const item = new CEconItem("a", "b", "c");
 
+// ----- Enums -----
+
+// $ExpectType 2
+TradeOfferManager.ETradeOfferState.Active;
+
+// $ExpectType "Active"
+TradeOfferManager.ETradeOfferState[2];
+
+// $ExpectType 2
+TradeOfferManager.EConfirmationMethod.MobileApp;
+
+// $ExpectType "MobileApp"
+TradeOfferManager.EConfirmationMethod[2];
+
+// $ExpectType 3
+TradeOfferManager.EOfferFilter.All;
+
+// $ExpectType 1
+TradeOfferManager.EResult.OK;
+
+// $ExpectType "OK"
+TradeOfferManager.EResult[1];
+
+// $ExpectType 3
+TradeOfferManager.ETradeStatus.Complete;
+
+// $ExpectType "Complete"
+TradeOfferManager.ETradeStatus[3];
+
 // ----- TradeOfferManager -----
 
 manager = new TradeOfferManager({
@@ -143,24 +172,44 @@ offer.getUserDetails((err, me, them) => {
 });
 
 offer.send((err, status) => {
+    // $ExpectType EResult | undefined
+    err?.eresult;
+    // $ExpectType "TradeBan" | "NewDevice" | "TargetCannotTrade" | "OfferLimitExceeded" | "ItemServerUnavailable" | undefined
+    err?.cause;
 });
 
 offer.send();
 
 offer.cancel(err => {
+    // $ExpectType EResultError | null
+    err;
+    // $ExpectType EResult | undefined
+    err?.eresult;
 });
 
 offer.cancel();
 
 offer.decline(err => {
+    // $ExpectType EResultError | null
+    err;
+    // $ExpectType EResult | undefined
+    err?.eresult;
 });
 
 offer.decline();
 
 offer.accept(true, (err, status) => {
+    // $ExpectType EResult | undefined
+    err?.eresult;
+    // $ExpectType "TradeBan" | "NewDevice" | "TargetCannotTrade" | undefined
+    err?.cause;
 });
 
 offer.accept((err, status) => {
+    // $ExpectType EResult | undefined
+    err?.eresult;
+    // $ExpectType "TradeBan" | "NewDevice" | "TargetCannotTrade" | undefined
+    err?.cause;
 });
 
 offer.accept();
@@ -172,16 +221,28 @@ offer.duplicate();
 offer.counter();
 
 offer.update(err => {
+    // $ExpectType EResultError | null
+    err;
+    // $ExpectType EResult | undefined
+    err?.eresult;
 });
 
 offer.getReceivedItems(true, (err, items) => {
+    // $ExpectType Error | null
+    err;
 });
 
 offer.getReceivedItems((err, items) => {
+    // $ExpectType Error | null
+    err;
 });
 
 offer.getExchangeDetails(false, (err, status, tradeInitTime, receivedItems, sentItems) => {
+    // $ExpectType Error | null
+    err;
 });
 
 offer.getExchangeDetails((err, status, tradeInitTime, receivedItems, sentItems) => {
+    // $ExpectType Error | null
+    err;
 });

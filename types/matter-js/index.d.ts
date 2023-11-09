@@ -1740,7 +1740,7 @@ declare namespace Matter {
         /**
          * An `Object` containing properties regarding the timing systems of the engine.
          */
-        timing?: IEngineTimingOptions;
+        timing?: Partial<IEngineTimingOptions>;
 
         /**
          * A `Matter.Detector` instance.
@@ -3310,7 +3310,7 @@ declare namespace Matter {
          * @param {array} array
          * @returns {array} array shuffled randomly
          */
-        static shuffle(array: Array<any>): Array<any>;
+        static shuffle<T>(array: Array<T>): Array<T>;
 
         /**
          * Randomly chooses a value from a list with equal probability.
@@ -3319,7 +3319,7 @@ declare namespace Matter {
          * @param {array} choices
          * @returns {any} A random choice object from the array
          */
-        static choose(choices: Array<any>): any;
+        static choose<T>(choices: readonly T[]): T;
 
         /**
          * Returns true if the object is a HTMLElement, otherwise false.
@@ -3327,7 +3327,7 @@ declare namespace Matter {
          * @param {any} obj
          * @returns {boolean} True if the object is a HTMLElement, otherwise false
          */
-        static isElement(obj: any): boolean;
+        static isElement<T>(obj: T): T extends HTMLElement ? true : false;
 
         /**
          * Returns true if the object is an array.
@@ -3335,7 +3335,7 @@ declare namespace Matter {
          * @param {any} obj
          * @returns {boolean} True if the object is an array, otherwise false
          */
-        static isArray(obj: any): boolean;
+        static isArray<T>(obj: T): T extends Array<any> ? true : false;
 
         /**
          * Returns true if the object is a function.
@@ -3343,7 +3343,7 @@ declare namespace Matter {
          * @param {any} obj
          * @returns {boolean} True if the object is a function, otherwise false
          */
-        static isFunction(obj: any): boolean;
+        static isFunction<T>(obj: T): T extends Function ? true : false;
 
         /**
          * Returns true if the object is a plain object.
@@ -3359,7 +3359,7 @@ declare namespace Matter {
          * @param {any} obj
          * @returns {boolean} True if the object is a string, otherwise false
          */
-        static isString(obj: any): boolean;
+        static isString<T>(obj: T): T extends string ? true : false;
 
         /**
          * Returns the given value clamped between a minimum and maximum value.
@@ -3411,7 +3411,7 @@ declare namespace Matter {
          * @method log
          * @param ...objs {} The objects to log.
          */
-        static log(): any;
+        static log(...objs: any[]): void;
 
         /**
          * Shows a `console.info` message only if the current `Common.logLevel` allows it.
@@ -3419,7 +3419,7 @@ declare namespace Matter {
          * @method info
          * @param ...objs {} The objects to log.
          */
-        static info(): any;
+        static info(...objs: any[]): void;
 
         /**
          * Shows a `console.warn` message only if the current `Common.logLevel` allows it.
@@ -3427,7 +3427,7 @@ declare namespace Matter {
          * @method warn
          * @param ...objs {} The objects to log.
          */
-        static warn(): any;
+        static warn(...objs: any[]): void;
 
         /**
          * Returns the next unique sequential ID.
@@ -3443,7 +3443,7 @@ declare namespace Matter {
          * @param {any} needle
          * @returns {number} The position of needle in haystack, otherwise -1.
          */
-        static indexOf(haystack: Array<any>, needle: any): number;
+        static indexOf<T>(haystack: Array<T>, needle: T): number;
 
         /**
          * A cross browser compatible array map implementation.
@@ -3452,7 +3452,7 @@ declare namespace Matter {
          * @param {function} func
          * @returns {array} Values from list transformed by func.
          */
-        static map(list: Array<any>, funct: Function): Array<any>;
+        static map<T, U>(list: Array<T>, func: (element: T) => U): Array<U>;
 
         /**
          * Takes a directed graph and returns the partially ordered set of vertices in topological order.
@@ -3514,7 +3514,7 @@ declare namespace Matter {
          * @method warnOnce
          * @param ...objs {} The objects to log.
          */
-        static warnOnce(...objs: Record<string, any>[]): void;
+        static warnOnce(...objs: any[]): void;
 
         /**
          * Shows a deprecated console warning when the function on the given object is called.
@@ -3525,7 +3525,7 @@ declare namespace Matter {
          * @param {string} name The property name of the function on obj
          * @param {string} warning The one-time message to show if the function is called
          */
-        static deprecated(obj: Record<string, any>, prop: string, warning: string): void;
+        static deprecated<T>(obj: T, name: keyof T, warning: string): void;
 
         /**
          * Provide the [poly-decomp](https://github.com/schteppe/poly-decomp.js) library module to enable
@@ -3556,6 +3556,7 @@ declare namespace Matter {
     }
 
     export interface IEventComposite<T> extends IEvent<T> {
+        name: "beforeAdd" | "afterAdd" | "beforeRemove" | "afterRemove";
         /**
          * EventObjects (may be a single body, constraint, composite or a mixed array of these)
          */
@@ -3570,6 +3571,7 @@ declare namespace Matter {
     }
 
     export interface IEventCollision<T> extends IEventTimestamped<T> {
+        name: "collisionStart" | "collisionActive" | "collisionEnd";
         /**
          * The collision pair
          */
@@ -3577,8 +3579,23 @@ declare namespace Matter {
     }
 
     export interface IMouseEvent<T> extends IEvent<T> {
+        mouse: Mouse;
         name: "mousedown" | "mousemove" | "mouseup";
     }
+
+    type ICallback<T> = (e: IEvent<T>) => void;
+
+    type ICollisionCallback = (e: IEventCollision<Engine>) => void;
+
+    type ICompositeCallback = (e: IEventComposite<Composite>) => void;
+
+    type IEngineCallback = (e: IEventTimestamped<Engine>) => void;
+
+    type IMouseCallback = (e: IMouseEvent<MouseConstraint>) => void;
+
+    type IRenderCallback = (e: IEventTimestamped<Render>) => void;
+
+    type IRunnerCallback = (e: IEventTimestamped<Runner>) => void;
 
     export class Events {
         /**
@@ -3590,7 +3607,8 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Body, name: "sleepStart", callback: (e: IEvent<Body>) => void): void;
+        static on<C extends ICallback<Body>>(obj: Body, name: "sleepStart", callback: C): C;
+
         /**
          * Fired when a body ends sleeping (where `this` is the body).
          *
@@ -3600,7 +3618,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Body, name: "sleepEnd", callback: (e: IEvent<Body>) => void): void;
+        static on<C extends ICallback<Body>>(obj: Body, name: "sleepEnd", callback: C): C;
 
         /**
          * Fired when a call to `Composite.add` is made, before objects have been added.
@@ -3611,7 +3629,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: "beforeAdd", callback: (e: IEventComposite<Composite>) => void): void;
+        static on<C extends ICompositeCallback>(obj: Composite, name: "beforeAdd", callback: C): C;
 
         /**
          * Fired when a call to `Composite.add` is made, after objects have been added.
@@ -3622,7 +3640,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: "afterAdd", callback: (e: IEventComposite<Composite>) => void): void;
+        static on<C extends ICompositeCallback>(obj: Composite, name: "afterAdd", callback: C): C;
 
         /**
          * Fired when a call to `Composite.remove` is made, before objects have been removed.
@@ -3633,7 +3651,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: "beforeRemove", callback: (e: IEventComposite<Composite>) => void): void;
+        static on<C extends ICompositeCallback>(obj: Composite, name: "beforeRemove", callback: C): C;
 
         /**
          * Fired when a call to `Composite.remove` is made, after objects have been removed.
@@ -3644,7 +3662,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: "afterRemove", callback: (e: IEventComposite<Composite>) => void): void;
+        static on<C extends ICompositeCallback>(obj: Composite, name: "afterRemove", callback: C): C;
 
         /**
          * Fired after engine update and all collision events
@@ -3655,7 +3673,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: "afterUpdate", callback: (e: IEventTimestamped<Engine>) => void): void;
+        static on<C extends IEngineCallback>(obj: Engine, name: "afterUpdate", callback: C): C;
 
         /**
          * Fired before rendering
@@ -3666,7 +3684,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: "beforeRender", callback: (e: IEventTimestamped<Render>) => void): void;
+        static on<C extends IRenderCallback>(obj: Render, name: "beforeRender", callback: C): C;
         /**
          * Fired after rendering
          *
@@ -3676,7 +3694,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: "afterRender", callback: (e: IEventTimestamped<Render>) => void): void;
+        static on<C extends IRenderCallback>(obj: Render, name: "afterRender", callback: C): C;
 
         /**
          * Fired just before an update
@@ -3687,7 +3705,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: "beforeUpdate", callback: (e: IEventTimestamped<Engine>) => void): void;
+        static on<C extends IEngineCallback>(obj: Engine, name: "beforeUpdate", callback: C): C;
 
         /**
          * Fired after engine update, provides a list of all pairs that are colliding in the current tick (if any)
@@ -3699,7 +3717,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: "collisionActive", callback: (e: IEventCollision<Engine>) => void): void;
+        static on<C extends ICollisionCallback>(obj: Engine, name: "collisionActive", callback: C): C;
 
         /**
          * Fired after engine update, provides a list of all pairs that have ended collision in the current tick (if any)
@@ -3711,7 +3729,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: "collisionEnd", callback: (e: IEventCollision<Engine>) => void): void;
+        static on<C extends ICollisionCallback>(obj: Engine, name: "collisionEnd", callback: C): C;
 
         /**
          * Fired after engine update, provides a list of all pairs that have started to collide in the current tick (if any)
@@ -3723,7 +3741,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: "collisionStart", callback: (e: IEventCollision<Engine>) => void): void;
+        static on<C extends ICollisionCallback>(obj: Engine, name: "collisionStart", callback: C): C;
 
         /**
          * Fired at the start of a tick, before any updates to the engine or timing
@@ -3734,7 +3752,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: "beforeTick", callback: (e: IEventTimestamped<Runner>) => void): void;
+        static on<C extends IRunnerCallback>(obj: Runner, name: "beforeTick", callback: C): C;
 
         /**
          * Fired after engine timing updated, but just before update
@@ -3745,7 +3763,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: "tick", callback: (e: IEventTimestamped<Runner>) => void): void;
+        static on<C extends IRunnerCallback>(obj: Runner, name: "tick", callback: C): C;
 
         /**
          * Fired at the end of a tick, after engine update and after rendering
@@ -3756,7 +3774,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: "afterTick", callback: (e: IEventTimestamped<Runner>) => void): void;
+        static on<C extends IRunnerCallback>(obj: Runner, name: "afterTick", callback: C): C;
 
         /**
          * Fired before rendering
@@ -3767,7 +3785,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: "beforeRender", callback: (e: IEventTimestamped<Runner>) => void): void;
+        static on<C extends IRenderCallback>(obj: Render, name: "beforeRender", callback: C): C;
 
         /**
          * Fired after rendering
@@ -3778,7 +3796,7 @@ declare namespace Matter {
          * @param {} event.source The source object of the event
          * @param {} event.name The name of the event
          */
-        static on(obj: Engine, name: "afterRender", callback: (e: IEventTimestamped<Runner>) => void): void;
+        static on<C extends IRenderCallback>(obj: Render, name: "afterRender", callback: C): C;
 
         /**
          * Fired when the mouse is down (or a touch has started) during the last step
@@ -3786,7 +3804,7 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: "mousedown", callback: (e: IMouseEvent<MouseConstraint>) => void): void;
+        static on<C extends IMouseCallback>(obj: MouseConstraint, name: "mousedown", callback: C): C;
 
         /**
          * Fired when the mouse has moved (or a touch moves) during the last step
@@ -3794,7 +3812,7 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: "mousemove", callback: (e: IMouseEvent<MouseConstraint>) => void): void;
+        static on<C extends IMouseCallback>(obj: MouseConstraint, name: "mousemove", callback: C): C;
 
         /**
          * Fired when the mouse is up (or a touch has ended) during the last step
@@ -3802,9 +3820,9 @@ declare namespace Matter {
          * @param name
          * @param callback
          */
-        static on(obj: MouseConstraint, name: "mouseup", callback: (e: IMouseEvent<MouseConstraint>) => void): void;
+        static on<C extends IMouseCallback>(obj: MouseConstraint, name: "mouseup", callback: C): C;
 
-        static on(obj: any, name: string, callback: (e: any) => void): void;
+        static on<T, C extends (e: IEvent<T>) => void>(obj: T, name: string, callback: C): C;
 
         /**
          * Removes the given event callback. If no callback, clears all callbacks in eventNames. If no eventNames, clears all events.

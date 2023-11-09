@@ -10,6 +10,8 @@ function runTests(BN: typeof BN_esm) {
     bn = bn.add(bn);
     bn.isZero();
     bn.byteLength;
+    bn.setn(0, 1);
+    bn.setn(0, false);
 
     const endian: Endianness = "le";
     bn.toArrayLike(Buffer, endian, 2);

@@ -1536,7 +1536,7 @@ declare namespace naver.maps {
 
         interface DrawingOptions {
             map?: Map;
-            drawingControl?: DrawingMode[];
+            drawingControl?: DrawingMode[] | null;
             drawingControlOptions?: DrawingControlOptions;
             drawingMode?: DrawingMode;
             controlPointOptions?: ControlPointOptions;

@@ -1,8 +1,8 @@
-import * as stringify from "json-stable-stringify";
+import stringify from "json-stable-stringify";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { Configuration as Config, Linter } from "tslint";
-import { isExternalDependency } from "./dependencies";
+import { isExternalDependency } from "./dependencies.js";
 
 /**
  * Represents a package from the linter's perspective.

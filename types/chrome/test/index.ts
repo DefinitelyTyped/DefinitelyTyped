@@ -2077,6 +2077,14 @@ function testFileSystemProvider() {
             errorCallback: (error: string) => void,
         ) => {},
     );
+
+    chrome.fileSystemProvider.onCreateDirectoryRequested.addListener(
+        (
+            options: chrome.fileSystemProvider.CreateDirectoryRequestedEventOptions,
+            successCallback: Function,
+            errorCallback: (error: string) => void,
+        ) => {},
+    );
 }
 
 // https://developer.chrome.com/docs/extensions/reference/sessions/

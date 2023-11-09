@@ -79,15 +79,16 @@ declare namespace OO {
 
         emitThrow<K extends keyof RegistryEventMap>(event: K, ...args: RegistryEventMap[K]): boolean;
         emitThrow<K extends string>(event: K extends keyof RegistryEventMap ? never : K, ...args: any[]): boolean;
-
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         connect<T extends Partial<Record<keyof RegistryEventMap, any>>, C>(
             context: C,
-            methods: EventConnectionMap<T, C, RegistryEventMap>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+            methods: EventConnectionMap<T, C, RegistryEventMap>,
         ): this;
 
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         disconnect<T extends Partial<Record<keyof RegistryEventMap, any>>, C>(
             context: C,
-            methods?: EventConnectionMap<T, C, RegistryEventMap>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+            methods?: EventConnectionMap<T, C, RegistryEventMap>,
         ): this;
         // #endregion
     }
