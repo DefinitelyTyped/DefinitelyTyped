@@ -432,6 +432,6 @@ declare namespace GorillaEngine {
     namespace UI {
         function loadUIfromYAML(ymlPath: string): void;
         function getControlById(id: string): Component;
-        function createWindow(window: GorillaEngine.UI.Window): void;
+        function createWindow(window: Window): void;
     }
 }
