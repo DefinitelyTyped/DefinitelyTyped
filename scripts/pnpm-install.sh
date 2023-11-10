@@ -9,17 +9,14 @@ fi
 # After installing everything the first time, reread the graph and see if anything was missing..
 # If something was missing, we install that again and repeat until nothing is missing.
 
-FILTERS=("--filter" "." "--filter" "...[HEAD^1]...")
+echo pnpm install --filter . --filter ...[HEAD^1]...
+pnpm install --filter . --filter ...[HEAD^1]...
+
+FILTERS=('--filter' '...@types/**[HEAD^1]...')
 PASS=0
 
 while [ ${#FILTERS[@]} -gt 0 ]; do
-    if [ $PASS -gt 0 ]; then
-        echo "Pass $PASS"
-    fi
     PASS=$((PASS + 1))
-
-    echo pnpm install "${FILTERS[@]}"
-    pnpm install "${FILTERS[@]}"
 
     OLD_FILTERS=("${FILTERS[@]}")
     FILTERS=()
@@ -28,11 +25,15 @@ while [ ${#FILTERS[@]} -gt 0 ]; do
         i=${i#*$PWD/}
 
         if [ ! -d "$i/node_modules" ]; then
+            echo "$i has node_modules"
             continue
         fi
 
         echo "$i is a transitive dep that resolves to the workspace and must be manually installed"
         FILTERS+=("--filter")
-        FILTERS+=("...{./$i}...")
+        FILTERS+=("{./$i}...")
     done
+
+    echo PASS $PASS: pnpm install "${FILTERS[@]}"
+    pnpm install "${FILTERS[@]}"
 done
