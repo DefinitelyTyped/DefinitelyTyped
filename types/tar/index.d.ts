@@ -3,6 +3,7 @@
 import stream = require("stream");
 import zlib = require("zlib");
 import MiniPass = require("minipass");
+import fs = require("fs");
 
 // #region Interfaces
 
@@ -229,7 +230,7 @@ export interface PackOptions {
      *
      * @default process.cwd()
      */
-    cwd?: string[];
+    cwd?: string;
     /**
      * A path portion to prefix onto the entries in the archive.
      */
@@ -243,7 +244,7 @@ export interface PackOptions {
      * A function that gets called with (path, stat) for each entry being added.
      * Return true to add the entry to the archive, or false to omit it.
      */
-    filter?(path: string, stat: FileStat): boolean;
+    filter?(path: string, stat: fs.Stats): boolean;
     /**
      * Omit metadata that is system-specific: ctime, atime, uid, gid, uname,
      * gname, dev, ino, and nlink. Note that mtime is still included, because
@@ -425,7 +426,7 @@ export interface CreateOptions {
      * A function that gets called with (path, stat) for each entry being
      * added. Return true to add the entry to the archive, or false to omit it.
      */
-    filter?(path: string, stat: FileStat): boolean;
+    filter?(path: string, stat: fs.Stats): boolean;
 
     /**
      * Omit metadata that is system-specific: ctime, atime, uid, gid, uname,
@@ -739,7 +740,7 @@ export interface ReplaceOptions {
      * A function that gets called with (path, stat) for each entry being
      * added. Return true to emit the entry from the archive, or false to skip it.
      */
-    filter?(path: string, stat: FileStat): boolean;
+    filter?(path: string, stat: fs.Stats): boolean;
 
     /**
      * Allow absolute paths. By default, / is stripped from absolute paths.
