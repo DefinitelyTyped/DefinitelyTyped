@@ -690,37 +690,37 @@ export class Cell extends React.Component<CellProps> {
 }
 
 export namespace Plugins {
-    interface ResizeCellProps extends React.HTMLAttributes<ResizeCell> {  
+    interface ResizeCellProps extends React.HTMLAttributes<ResizeCell> {
         /**
          * Optional prop that if specified on the `Column` will be passed to the
          * cell. It can be used to uniquely identify which column is the cell is in.
          */
-        columnKey?: string | number,
+        columnKey?: string | number;
 
         /**
          * The minimum width of the column.
          */
-        minWidth?: number,
+        minWidth?: number;
 
         /**
          * The maximum width of the column.
          */
-        maxWidth?: number,
+        maxWidth?: number;
 
         /**
          * Outer width of the cell.
          */
-        width?: number,
+        width?: number;
 
         /**
          * Whether touch is enabled or not.
          */
-        touchEnabled?: boolean,
+        touchEnabled?: boolean;
 
         /**
          * True if FDT has right to left orientation
          */
-        isRTL?: boolean,
+        isRTL?: boolean;
 
         /**
          * Callback function which is called when reordering ends
@@ -729,14 +729,14 @@ export namespace Plugins {
          * function(newWidth: number, columnKey: string)
          * ```
          */
-        onColumnResizeEnd: (newWidth: number, columnKey: string) => void,
+        onColumnResizeEnd: (newWidth: number, columnKey: string) => void;
 
         /**
          * Outer height of the cell.
          */
-        height?: number,
+        height?: number;
     }
-    
+
     class ResizeCell extends React.Component<ResizeCellProps> {
     }
 
@@ -744,18 +744,18 @@ export namespace Plugins {
         /**
          * Outer height of the cell.
          */
-        height?: number,
+        height?: number;
 
         /**
          * Outer width of the cell.
          */
-        width?: number,
+        width?: number;
 
         /**
          * Optional prop that if specified on the `Column` will be passed to the
          * cell. It can be used to uniquely identify which column is the cell is in.
          */
-        columnKey?: string| number,
+        columnKey?: string | number;
 
         /**
          * Optional prop that represents the rows index in the table.
@@ -765,28 +765,28 @@ export namespace Plugins {
          * Below that entry point the user is welcome to consume or
          * pass the prop through at their discretion.
          */
-        rowIndex?: number,
+        rowIndex?: number;
 
         /**
          * The left offset in pixels of the cell.
          * Space between cell's left edge and left edge of table
          */
-        left?: number,
+        left?: number;
 
         /**
          * Whether touch is enabled or not.
          */
-        touchEnabled?: boolean,
+        touchEnabled?: boolean;
 
         /**
          * The minimum width of the column.
          */
-        minWidth?: number,
+        minWidth?: number;
 
         /**
          * The maximum width of the column.
          */
-        maxWidth?: number,
+        maxWidth?: number;
 
         /**
          * Callback function which is called when reordering starts
@@ -794,7 +794,7 @@ export namespace Plugins {
          * function(columnKey: string)
          * ```
          */
-        onColumnReorderStart?: (columnKey: string) => void,
+        onColumnReorderStart?: (columnKey: string) => void;
 
         /**
          * Callback function which is called when reordering ends
@@ -802,9 +802,9 @@ export namespace Plugins {
          * function({columnBefore: string, columnAfter: string, reorderColumn: string})
          * ```
          */
-        onColumnReorderEnd: (event: {columnBefore: string, columnAfter: string, reorderColumn: string}) => void
+        onColumnReorderEnd: (event: { columnBefore: string; columnAfter: string; reorderColumn: string }) => void;
     }
-    
+
     class ReorderCell extends React.Component<ReorderCellProps> {
     }
 }
