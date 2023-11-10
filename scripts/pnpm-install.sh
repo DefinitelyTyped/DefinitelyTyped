@@ -12,7 +12,7 @@ fi
 FILTERS=("--filter" "." "--filter" "...[HEAD^1]...")
 PASS=0
 
-while [ ${#TO_INSTALL[@]} -gt 0 ]; do
+while [ ${#FILTERS[@]} -gt 0 ]; do
     if [ $PASS -gt 0 ]; then
         echo "Pass $PASS"
     fi
