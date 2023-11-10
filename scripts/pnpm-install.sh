@@ -24,8 +24,7 @@ while [ ${#FILTERS[@]} -gt 0 ]; do
     for i in $(pnpm ls --depth Infinity --parseable "${OLD_FILTERS[@]}" | grep -v node_modules | awk NF | sort -u); do
         i=${i#*$PWD/}
 
-        if [ ! -d "$i/node_modules" ]; then
-            echo "$i has node_modules"
+        if [ -d "$i/node_modules" ]; then
             continue
         fi
 
