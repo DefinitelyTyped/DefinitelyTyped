@@ -35,5 +35,11 @@ declare namespace seedrandom {
 
 declare var seedrandom: seedrandom.seedrandom_prng;
 
+declare global {
+    interface Math {
+        seedrandom: seedrandom.prng;
+    }
+}
+
 export = seedrandom;
 export as namespace seedrandom;
