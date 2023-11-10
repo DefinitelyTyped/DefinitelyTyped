@@ -60,6 +60,11 @@ export interface EditorProps {
         editorState: EditorState,
         eventTimeStamp: number,
     ): Draft.DraftHandleValue;
+    handleBeforeInput?(
+        chars: string,
+        editorState: EditorState,
+        eventTimeStamp: number
+    ): Draft.DraftHandleValue;
     handlePastedText?(
         text: string,
         html: string,
