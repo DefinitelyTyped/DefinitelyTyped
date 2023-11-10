@@ -229,7 +229,7 @@ export interface PackOptions {
      *
      * @default process.cwd()
      */
-    cwd?: string[];
+    cwd?: string;
     /**
      * A path portion to prefix onto the entries in the archive.
      */

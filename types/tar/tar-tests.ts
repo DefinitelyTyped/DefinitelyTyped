@@ -24,12 +24,8 @@ readStream.pipe(extract);
 extract.on("entry", (entry: any) => undefined);
 
 {
-    const fixtures = path.resolve(__dirname, "fixtures");
-    const tars = path.resolve(fixtures, "tars");
-    const files = fs.readdirSync(tars);
-
     const options: tar.PackOptions = {
-        cwd: files,
+        cwd: __dirname,
         portable: true,
         // gzip: true,
         gzip: { flush: 1 },
