@@ -86,5 +86,5 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
     resinit.status; // $ExpectType number | undefined
 
     const f: File = {} as any;
-    f.name; // $ExpectType string    
+    f.name; // $ExpectType string
 }
