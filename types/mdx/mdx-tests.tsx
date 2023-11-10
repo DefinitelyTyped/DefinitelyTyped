@@ -79,6 +79,14 @@ declare global {
 
 // Test setup — User code
 
+declare function Planet(): JSX.Element;
+
+declare module "mdx/types.js" {
+    interface CustomComponents {
+        Planet: typeof Planet;
+    }
+}
+
 class CustomImageComponent {
     constructor(props: ImgProps) {}
 
@@ -124,6 +132,7 @@ const Div = customComponents.div!;
     universe={() => "and"}
     everything={42}
     components={{
+        Planet,
         a(props) {
             // $ExpectType AnchorProps
             props;
@@ -188,6 +197,7 @@ const Div = customComponents.div!;
     universe={() => "and"}
     everything={42}
     components={{
+        Planet,
         a(props) {
             // $ExpectType AnchorProps
             props;
@@ -252,6 +262,7 @@ const Div = customComponents.div!;
     universe={() => "and"}
     everything={42}
     components={{
+        Planet,
         a(props) {
             // $ExpectType AnchorProps
             props;
@@ -316,6 +327,7 @@ const Div = customComponents.div!;
     universe={() => "and"}
     everything={42}
     components={{
+        Planet,
         a(props) {
             // $ExpectType AnchorProps
             props;
@@ -380,6 +392,7 @@ const Div = customComponents.div!;
     universe={() => "and"}
     everything={42}
     components={{
+        Planet,
         a(props) {
             // $ExpectType AnchorProps
             props;
@@ -444,6 +457,7 @@ const Div = customComponents.div!;
     universe={() => "and"}
     everything={42}
     components={{
+        Planet,
         a(props) {
             // $ExpectType AnchorProps
             props;
@@ -508,6 +522,7 @@ const Div = customComponents.div!;
     universe={() => "and"}
     everything={42}
     components={{
+        Planet,
         a(props) {
             // $ExpectType AnchorProps
             props;
@@ -572,6 +587,7 @@ const Div = customComponents.div!;
     universe={() => "and"}
     everything={42}
     components={{
+        Planet,
         a(props) {
             // $ExpectType AnchorProps
             props;

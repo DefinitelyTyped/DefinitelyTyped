@@ -58,12 +58,42 @@ interface NestedMDXComponents {
 // Public MDX helper types
 
 /**
+ * You can augment this interface to define custom [components](https://mdxjs.com/guides/injecting-components/).
+ *
+ * This provides type safety when using the `components` prop or a components provider.
+ *
+ * @example
+ * ```ts
+ * import * as React from 'react'
+ *
+ * function Button(props: React.ComponentPropsWithoutRef<'button'>) {
+ *   return <button {...props} />
+ * }
+ *
+ * function Input(props: React.ComponentPropsWithoutRef<'input'>) {
+ *   return <input {...props} />
+ * }
+ *
+ * declare module 'mdx/types.js' {
+ *   interface CustomComponents {
+ *     Button: typeof Button
+ *     Namespace: {
+ *       Input: typeof Input
+ *     }
+ *   }
+ * }
+ * ```
+ */
+export interface CustomComponents {}
+
+/**
  * MDX components may be passed as the `components`.
  *
  * The key is the name of the element to override. The value is the component to render instead.
  */
 export type MDXComponents =
     & NestedMDXComponents
+    & CustomComponents
     & {
         [Key in StringComponent]?: Component<JSX.IntrinsicElements[Key]>;
     }

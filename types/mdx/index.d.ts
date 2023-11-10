@@ -65,7 +65,7 @@ declare module "*.mdx" {
 }
 
 // Support markdown extensions from
-// https://github.com/sindresorhus/markdown-extensions/blob/v1.1.1/markdown-extensions.json
+// https://github.com/sindresorhus/markdown-extensions/blob/v2.0.0/markdown-extensions.json
 
 /**
  * A markdown file which exports a JSX component.
