@@ -6,14 +6,14 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
         "strictFunctionTypes": true,
+        "strictNullChecks": true,
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "slice-ansi-tests.ts"
+        "math-toolbox-tests.ts"
     ]
 }
