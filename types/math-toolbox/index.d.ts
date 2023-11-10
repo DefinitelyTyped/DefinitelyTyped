@@ -7,7 +7,7 @@
  * @return The value to constrain.
  * @see {@link https://www.opengl.org/sdk/docs/man/html/clamp.xhtml}
  */
-declare function clamp(min: number, max: number, v: number): number;
+export function clamp(min: number, max: number, v: number): number;
 
 /**
  * Clamps a value between 0 and 1 and returns value
@@ -15,7 +15,7 @@ declare function clamp(min: number, max: number, v: number): number;
  * @param  v - Value to clamp
  * @return The clamped value
  */
-declare function clamp01(v: number): number;
+export function clamp01(v: number): number;
 
 /**
  * Generate a step function by comparing two values.
@@ -25,7 +25,7 @@ declare function clamp01(v: number): number;
  * @return Step value.
  * @see {@link https://www.opengl.org/sdk/docs/man/html/step.xhtml}
  */
-declare function step(edge: number, v: number): number;
+export function step(edge: number, v: number): number;
 
 /**
  * Re-maps a number from one range to another (Also known as scale)
@@ -37,7 +37,7 @@ declare function step(edge: number, v: number): number;
  * @param  stop2  - Upper bound of the value's target range
  * @return Remapped number
  */
-declare function map(value: number, start1: number, stop1: number, start2: number, stop2: number): number;
+export function map(value: number, start1: number, stop1: number, start2: number, stop2: number): number;
 
 /**
  * Return diagonal of a rectangle.
@@ -46,7 +46,7 @@ declare function map(value: number, start1: number, stop1: number, start2: numbe
  * @param  h - Height.
  * @return Diagonal length.
  */
-declare function diagonal(w: number, h: number): number;
+export function diagonal(w: number, h: number): number;
 
 /**
  * Returns the euclidian distance between the two given set of coordinates
@@ -57,7 +57,7 @@ declare function diagonal(w: number, h: number): number;
  * @param  y2 - Y coord of the second point.
  * @return The computed distance.
  */
-declare function distance(x1: number, y1: number, x2: number, y2: number): number;
+export function distance(x1: number, y1: number, x2: number, y2: number): number;
 
 /**
  * Smooth a value.
@@ -67,7 +67,7 @@ declare function distance(x1: number, y1: number, x2: number, y2: number): numbe
  * @param  v   - Value.
  * @return Smoothed value.
  */
-declare function smoothStep(min: number, max: number, v: number): number;
+export function smoothStep(min: number, max: number, v: number): number;
 
 /**
  * Normalize a value between two bounds.
@@ -77,7 +77,7 @@ declare function smoothStep(min: number, max: number, v: number): number;
  * @param  x   - Value to normalize.
  * @return Normalized value.
  */
-declare function normalize(min: number, max: number, x: number): number;
+export function normalize(min: number, max: number, x: number): number;
 
 /**
  * Generate a random float.
@@ -87,7 +87,7 @@ declare function normalize(min: number, max: number, x: number): number;
  * @param  precision     - Precision. (default: 2)
  * @return Generated float.
  */
-declare function randomFloat(minValue: number, maxValue: number, precision?: number): number;
+export function randomFloat(minValue: number, maxValue: number, precision?: number): number;
 
 /**
  * Generate a random integer
@@ -96,14 +96,14 @@ declare function randomFloat(minValue: number, maxValue: number, precision?: num
  * @param  max - Maximum boundary.
  * @return Generated integer.
  */
-declare function randomInt(min: number, max: number): number;
+export function randomInt(min: number, max: number): number;
 
 /**
  * Generate random sign (1 or -1).
  *
  * @return Either 1 or -1.
  */
-declare function randomSign(): number;
+export function randomSign(): number;
 
 /**
  * Ensures that the value always stays between min and max, by wrapping the value around.
@@ -114,7 +114,7 @@ declare function randomSign(): number;
  * @param  max   - The maximum the value is allowed to be, should be larger than 'min'.
  * @return Wrapped value.
  */
-declare function wrap(value: number, min: number, max: number): number;
+export function wrap(value: number, min: number, max: number): number;
 
 /**
  * Calculates a fuzzy floor to the given value.
@@ -123,7 +123,7 @@ declare function wrap(value: number, min: number, max: number): number;
  * @param  epsilon - The epsilon (a small value used in the calculation).
  * @return floor(value+epsilon).
  */
-declare function fuzzyFloor(value: number, epsilon?: number): number;
+export function fuzzyFloor(value: number, epsilon?: number): number;
 
 /**
  * Calculates a fuzzy ceil to the given value.
@@ -132,7 +132,7 @@ declare function fuzzyFloor(value: number, epsilon?: number): number;
  * @param  epsilon - The epsilon (a small value used in the calculation).
  * @return ceiling(value+epsilon).
  */
-declare function fuzzyCeil(value: number, epsilon?: number): number;
+export function fuzzyCeil(value: number, epsilon?: number): number;
 
 /**
  * Two numbers are fuzzyEqual if their difference is less than epsilon.
@@ -142,7 +142,7 @@ declare function fuzzyCeil(value: number, epsilon?: number): number;
  * @param  epsilon - The epsilon (a small value used in the calculation).
  * @return True if |a-b|<epsilona otherwise false.
  */
-declare function fuzzyEqual(a: number, b: number, epsilon?: number): boolean;
+export function fuzzyEqual(a: number, b: number, epsilon?: number): boolean;
 
 /**
  * A is fuzzyGreaterThan B if it is more than B - epsilon.
@@ -152,7 +152,7 @@ declare function fuzzyEqual(a: number, b: number, epsilon?: number): boolean;
  * @param  epsilon - The epsilon (a small value used in the calculation).
  * @return True if a>b-epsilon.
  */
-declare function fuzzyGreaterThan(a: number, b: number, epsilon?: number): boolean;
+export function fuzzyGreaterThan(a: number, b: number, epsilon?: number): boolean;
 
 /**
  * A is fuzzyLessThan B if it is less than B + epsilon.
@@ -162,7 +162,7 @@ declare function fuzzyGreaterThan(a: number, b: number, epsilon?: number): boole
  * @param  epsilon - The epsilon (a small value used in the calculation).
  * @return True if a<b+epsilon.
  */
-declare function fuzzyLessThan(a: number, b: number, epsilon?: number): boolean;
+export function fuzzyLessThan(a: number, b: number, epsilon?: number): boolean;
 
 /**
  * Adds the given amount to the value, but never lets the value go over the specified maximum.
@@ -172,7 +172,7 @@ declare function fuzzyLessThan(a: number, b: number, epsilon?: number): boolean;
  * @param max    - The maximum the value is allowed to be.
  * @return The new value.
  */
-declare function maxAdd(value: number, amount: number, max: number): number;
+export function maxAdd(value: number, amount: number, max: number): number;
 
 /**
  * Subtracts the given amount from the value, but never lets the value go below the specified minimum.
@@ -182,7 +182,7 @@ declare function maxAdd(value: number, amount: number, max: number): number;
  * @param min    - The minimum the value is allowed to be.
  * @return The new value.
  */
-declare function minSub(value: number, amount: number, min: number): number;
+export function minSub(value: number, amount: number, min: number): number;
 
 /**
  * Returns true if the number given is odd.
@@ -190,7 +190,7 @@ declare function minSub(value: number, amount: number, min: number): number;
  * @param  number - The number to check.
  * @return True if the given number is odd. False if the given number is even.
  */
-declare function isOdd(number: number): boolean;
+export function isOdd(number: number): boolean;
 
 /**
  * Returns true if the number given is even.
@@ -198,7 +198,7 @@ declare function isOdd(number: number): boolean;
  * @param  number - The number to check.
  * @return True if the given number is even. False if the given number is false.
  */
-declare function isEven(number: number): boolean;
+export function isEven(number: number): boolean;
 
 /**
  * Checks if a number is a power of two.
@@ -206,7 +206,7 @@ declare function isEven(number: number): boolean;
  * @param   value Number to test.
  * @returns returns true if the value is power of two.
  */
-declare function isPowerOfTwo(value: number): boolean;
+export function isPowerOfTwo(value: number): boolean;
 
 /**
  * Returns the closest power of two value.
@@ -214,7 +214,7 @@ declare function isPowerOfTwo(value: number): boolean;
  * @param  value - Value.
  * @return The nearest power of 2i.
  */
-declare function closestPowerOfTwo(value: number): number;
+export function closestPowerOfTwo(value: number): number;
 
 /**
  * Returns the next power of two value.
@@ -222,7 +222,7 @@ declare function closestPowerOfTwo(value: number): number;
  * @param  v - Value.
  * @return The next power of two.
  */
-declare function nextPowerOfTwo(v: number): number;
+export function nextPowerOfTwo(v: number): number;
 
 /**
  * Work out what percentage value `a` is of value `b` using the given base.
@@ -233,7 +233,7 @@ declare function nextPowerOfTwo(v: number): number;
  * @param  base - The base value.
  * @return The percentage a is of b, clamped between 0 and 1.
  */
-declare function percent01(a: number, b: number, base?: number): number;
+export function percent01(a: number, b: number, base?: number): number;
 
 /**
  * Return the avarage of all values passed to the function.
@@ -241,7 +241,7 @@ declare function percent01(a: number, b: number, base?: number): number;
  * @param  numbers - The numbers to average.
  * @return The average of all given values.
  */
-declare function average(...numbers: number[]): number;
+export function average(...numbers: number[]): number;
 
 /**
  * The absolute difference between two values.
@@ -250,7 +250,7 @@ declare function average(...numbers: number[]): number;
  * @param  b - The second value to check.
  * @return The absolute difference between the two values.
  */
-declare function difference(a: number, b: number): number;
+export function difference(a: number, b: number): number;
 
 /**
  * Checks if two values are within the given tolerance of each other.
@@ -260,7 +260,7 @@ declare function difference(a: number, b: number): number;
  * @param  tolerance - The tolerance. Anything equal to or less than this is considered within the range.
  * @return True if a is <= tolerance of b.
  */
-declare function within(a: number, b: number, tolerance: number): boolean;
+export function within(a: number, b: number, tolerance: number): boolean;
 
 /**
  * Calculates the shortest difference between two given angles given in radians.
@@ -270,7 +270,7 @@ declare function within(a: number, b: number, tolerance: number): boolean;
  * @return The distance.
  * @see {@link https://docs.unity3d.com/ScriptReference/Mathf.DeltaAngle.html}
  */
-declare function deltaAngleRad(a: number, b: number): number;
+export function deltaAngleRad(a: number, b: number): number;
 
 /**
  * Compute the fractional part of the argument.
@@ -279,7 +279,7 @@ declare function deltaAngleRad(a: number, b: number): number;
  * @return Returns the fractional part of x.
  * @see {@link https://www.opengl.org/sdk/docs/man/html/fract.xhtml}
  */
-declare function fract(v: number): number;
+export function fract(v: number): number;
 
 /**
  * Compute value of one parameter modulo another.
@@ -289,7 +289,7 @@ declare function fract(v: number): number;
  * @return Returns the value of x modulo n.
  * @see {@link https://www.opengl.org/sdk/docs/man4/html/mod.xhtml}
  */
-declare function mod(a: number, n: number): number;
+export function mod(a: number, n: number): number;
 
 /**
  * Same as Lerp but makes sure the values interpolate correctly when they wrap around 2 radians.
@@ -299,7 +299,7 @@ declare function mod(a: number, n: number): number;
  * @param  t - Value to inerpolate.
  * @return The interpolated value.
  */
-declare function lerpAngleRad(a: number, b: number, t: number): number;
+export function lerpAngleRad(a: number, b: number, t: number): number;
 
 /**
  * Converts the given value from gamma (sRGB) to linear color space.
@@ -308,7 +308,7 @@ declare function lerpAngleRad(a: number, b: number, t: number): number;
  * @return Value in linear color space.
  * @see {@link https://docs.unity3d.com/ScriptReference/Mathf.GammaToLinearSpace.html}
  */
-declare function gammaToLinearSpace(v: number): number;
+export function gammaToLinearSpace(v: number): number;
 
 /**
  * Converts the given value from linear to gamma (sRGB) color space.
@@ -317,7 +317,7 @@ declare function gammaToLinearSpace(v: number): number;
  * @return Value in gamma.
  * @see {@link https://docs.unity3d.com/ScriptReference/Mathf.LinearToGammaSpace.html}
  */
-declare function linearToGammaSpace(v: number): number;
+export function linearToGammaSpace(v: number): number;
 
 /**
  * Almost Identity.
@@ -328,7 +328,7 @@ declare function linearToGammaSpace(v: number): number;
  * @return Smoothed value.
  * @see {@link http://www.iquilezles.org/www/articles/functions/functions.htm}
  */
-declare function almostIdentity(x: number, m: number, n: number): number;
+export function almostIdentity(x: number, m: number, n: number): number;
 
 /**
  * Impulse.
@@ -338,7 +338,7 @@ declare function almostIdentity(x: number, m: number, n: number): number;
  * @return Impulse.
  * @see {@link http://www.iquilezles.org/www/articles/functions/functions.htm}
  */
-declare function impulse(k: number, x: number): number;
+export function impulse(k: number, x: number): number;
 
 /**
  * Cubic Pulse.
@@ -349,7 +349,7 @@ declare function impulse(k: number, x: number): number;
  * @return Cubic pulse.
  * @see {@link http://www.iquilezles.org/www/articles/functions/functions.htm}
  */
-declare function cubicPulse(c: number, w: number, x: number): number;
+export function cubicPulse(c: number, w: number, x: number): number;
 
 /**
  * ExpStep.
@@ -360,7 +360,7 @@ declare function cubicPulse(c: number, w: number, x: number): number;
  * @return Exponential step.
  * @see {@link http://www.iquilezles.org/www/articles/functions/functions.htm}
  */
-declare function expStep(x: number, k: number, n: number): number;
+export function expStep(x: number, k: number, n: number): number;
 
 /**
  * Remap the 0..1 interval into 0..1 parabola, such that the corners are remaped to 0 and the center to 1.
@@ -371,7 +371,7 @@ declare function expStep(x: number, k: number, n: number): number;
  * @return Mapped value.
  * @see {@link http://www.iquilezles.org/www/articles/functions/functions.htm}
  */
-declare function parabola(x: number, k: number): number;
+export function parabola(x: number, k: number): number;
 
 /**
  * Power Curve.
@@ -382,7 +382,7 @@ declare function parabola(x: number, k: number): number;
  * @return Value.
  * @see {@link http://www.iquilezles.org/www/articles/functions/functions.htm}
  */
-declare function powerCurve(x: number, a: number, b: number): number;
+export function powerCurve(x: number, a: number, b: number): number;
 
 /**
  * Smooth Min.
@@ -393,7 +393,7 @@ declare function powerCurve(x: number, a: number, b: number): number;
  * @return Smooth min output.
  * @see {@link http://iquilezles.org/www/articles/smin/smin.htm}
  */
-declare function smoothMin(a: number, b: number, k: number): number;
+export function smoothMin(a: number, b: number, k: number): number;
 
 /**
  * Smooth Max.
@@ -404,7 +404,7 @@ declare function smoothMin(a: number, b: number, k: number): number;
  * @return Smooth min output.
  * @see {@link http://iquilezles.org/www/articles/smin/smin.htm}
  */
-declare function smoothMax(a: number, b: number, k: number): number;
+export function smoothMax(a: number, b: number, k: number): number;
 
 /**
  * Return delta time
@@ -413,7 +413,7 @@ declare function smoothMax(a: number, b: number, k: number): number;
  * @param  newTime - Time current frame in milliseconds
  * @return Time difference in milliseconds
  */
-declare function deltaTime(oldTime: number, newTime?: number): number;
+export function deltaTime(oldTime: number, newTime?: number): number;
 
 /**
  * Compute the greatest common divisor using Euclid's algorithm.
@@ -423,7 +423,7 @@ declare function deltaTime(oldTime: number, newTime?: number): number;
  * @return Greatest common divisor.
  * @see {@link https://en.wikipedia.org/wiki/Greatest_common_divisor#Using_Euclid.27s_algorithm}
  */
-declare function gcd(a: number, b: number): number;
+export function gcd(a: number, b: number): number;
 
 /**
  * Compute the dot product of any pair of 2D vectors.
@@ -438,7 +438,7 @@ declare function gcd(a: number, b: number): number;
  * @param  y3 - Second y end position.
  * @return Dot product.
  */
-declare function dotProduct(
+export function dotProduct(
     x0: number,
     y0: number,
     x1: number,
@@ -458,7 +458,7 @@ declare function dotProduct(
  * @return Lerped value
  * @see {@link https://www.opengl.org/sdk/docs/man/html/mix.xhtml}
  */
-declare function lerp(x: number, y: number, r: number): number;
+export function lerp(x: number, y: number, r: number): number;
 
 /**
  * Convert degrees to radians.
@@ -466,7 +466,7 @@ declare function lerp(x: number, y: number, r: number): number;
  * @param  degrees - Degrees.
  * @return Angel in radians.
  */
-declare function degToRad(degrees: number): number;
+export function degToRad(degrees: number): number;
 
 /**
  * Convert radians to degrees.
@@ -474,7 +474,7 @@ declare function degToRad(degrees: number): number;
  * @param  radians - Radians.
  * @return Angel in degrees.
  */
-declare function radToDeg(radians: number): number;
+export function radToDeg(radians: number): number;
 
 /**
  * Calculates the linear parameter t that produces the interpolant value within the range [a, b].
@@ -485,7 +485,7 @@ declare function radToDeg(radians: number): number;
  * @return The result of the reverse interpolation.
  * @see {@link https://docs.unity3d.com/ScriptReference/Mathf.InverseLerp.html}
  */
-declare function inverseLerp(a: number, b: number, v: number): number;
+export function inverseLerp(a: number, b: number, v: number): number;
 
 /**
  * Linearly interpolates between x and y by a with no limit to a.
@@ -496,7 +496,7 @@ declare function inverseLerp(a: number, b: number, v: number): number;
  * @return The float value as a result from the linear interpolation.
  * @see {@link https://docs.unity3d.com/ScriptReference/Mathf.LerpUnclamped.html}
  */
-declare function lerpUnclamped(x: number, y: number, a: number): number;
+export function lerpUnclamped(x: number, y: number, a: number): number;
 
 /**
  * Calculates the shortest difference between two given angles given in degrees.
@@ -506,7 +506,7 @@ declare function lerpUnclamped(x: number, y: number, a: number): number;
  * @return The distance.
  * @see {@link https://docs.unity3d.com/ScriptReference/Mathf.DeltaAngle.html}
  */
-declare function deltaAngleDeg(a: number, b: number): number;
+export function deltaAngleDeg(a: number, b: number): number;
 
 /**
  * Same as Lerp but makes sure the values interpolate correctly when they wrap around 360 degrees.
@@ -517,66 +517,14 @@ declare function deltaAngleDeg(a: number, b: number): number;
  * @return The interpolated value.
  * @see {@link https://docs.unity3d.com/ScriptReference/Mathf.LerpAngle.html}
  */
-declare function lerpAngleDeg(a: number, b: number, t: number): number;
+export function lerpAngleDeg(a: number, b: number, t: number): number;
 
 export {
-    almostIdentity,
-    average,
-    clamp,
-    clamp01,
-    closestPowerOfTwo,
-    cubicPulse,
-    degToRad,
     degToRad as toRadians,
-    deltaAngleDeg,
     deltaAngleDeg as deltaAngle,
-    deltaAngleRad,
-    deltaTime,
-    diagonal,
-    difference,
-    distance,
-    dotProduct,
-    expStep,
-    fract,
-    fuzzyCeil,
-    fuzzyEqual,
-    fuzzyFloor,
-    fuzzyGreaterThan,
-    fuzzyLessThan,
-    gammaToLinearSpace,
-    gcd,
-    impulse,
-    inverseLerp,
     inverseLerp as inverseMix,
-    isEven,
-    isOdd,
-    isPowerOfTwo,
-    lerp,
     lerp as mix,
-    lerpAngleDeg,
     lerpAngleDeg as lerpAngle,
-    lerpAngleRad,
-    lerpUnclamped,
     lerpUnclamped as mixUnclamped,
-    linearToGammaSpace,
-    map,
-    maxAdd,
-    minSub,
-    mod,
-    nextPowerOfTwo,
-    normalize,
-    parabola,
-    percent01,
-    powerCurve,
-    radToDeg,
     radToDeg as toDegrees,
-    randomFloat,
-    randomInt,
-    randomSign,
-    smoothMax,
-    smoothMin,
-    smoothStep,
-    step,
-    within,
-    wrap,
 };
