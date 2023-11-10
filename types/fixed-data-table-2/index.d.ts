@@ -689,8 +689,8 @@ export interface CellProps extends React.HTMLAttributes<Cell> {
 export class Cell extends React.Component<CellProps> {
 }
 
-export declare namespace Plugins {
-    export interface ResizeCellProps extends React.HTMLAttributes<ResizeCell> {  
+export namespace Plugins {
+    interface ResizeCellProps extends React.HTMLAttributes<ResizeCell> {  
         /**
          * Optional prop that if specified on the `Column` will be passed to the
          * cell. It can be used to uniquely identify which column is the cell is in.
@@ -737,10 +737,10 @@ export declare namespace Plugins {
         height?: number,
     }
     
-    export class ResizeCell extends React.Component<ResizeCellProps> {
+    class ResizeCell extends React.Component<ResizeCellProps> {
     }
 
-    export interface ReorderCellProps extends React.HTMLAttributes<ReorderCell> {
+    interface ReorderCellProps extends React.HTMLAttributes<ReorderCell> {
         /**
          * Outer height of the cell.
          */
@@ -805,6 +805,6 @@ export declare namespace Plugins {
         onColumnReorderEnd: (event: {columnBefore: string, columnAfter: string, reorderColumn: string}) => void
     }
     
-    export class ReorderCell extends React.Component<ReorderCellProps> {
+    class ReorderCell extends React.Component<ReorderCellProps> {
     }
 }
