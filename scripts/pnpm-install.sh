@@ -13,11 +13,8 @@ echo pnpm install --filter . --filter ...[HEAD^1]...
 pnpm install --filter . --filter ...[HEAD^1]...
 
 FILTERS=('--filter' '...@types/**[HEAD^1]...')
-PASS=0
 
-while [ ${#FILTERS[@]} -gt 0 ]; do
-    PASS=$((PASS + 1))
-
+while true; do
     OLD_FILTERS=("${FILTERS[@]}")
     FILTERS=()
 
@@ -33,6 +30,10 @@ while [ ${#FILTERS[@]} -gt 0 ]; do
         FILTERS+=("{./$i}...")
     done
 
-    echo PASS $PASS: pnpm install "${FILTERS[@]}"
+    if [ ${#FILTERS[@]} -eq 0 ]; then
+        break
+    fi
+
+    echo pnpm install "${FILTERS[@]}"
     pnpm install "${FILTERS[@]}"
 done
