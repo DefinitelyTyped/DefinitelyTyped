@@ -41,9 +41,7 @@ export interface Dictionary<T> {
     [key: string]: T;
 }
 
-export interface ParamsDictionary {
-    [key: string]: string;
-}
+export type ParamsDictionary = Dictionary<string>;
 export type ParamsArray = string[];
 export type Params = ParamsDictionary | ParamsArray;
 
@@ -85,7 +83,7 @@ export type RequestHandlerParams<
     ReqBody = any,
     ReqQuery = ParsedQs,
     LocalsObj extends Record<string, any> = Record<string, any>,
-> =
+    > =
     | RequestHandler<P, ResBody, ReqBody, ReqQuery, LocalsObj>
     | ErrorRequestHandler<P, ResBody, ReqBody, ReqQuery, LocalsObj>
     | Array<RequestHandler<P> | ErrorRequestHandler<P>>;
@@ -108,10 +106,7 @@ export type RouteParameters<Route extends string> = string extends Route ? Param
             & (Rest extends `${GetRouteParameter<Rest>}${infer Next}` ? RouteParameters<Next> : unknown)
     : {};
 
-export interface IRouterMatcher<
-    T,
-    Method extends "all" | "get" | "post" | "put" | "delete" | "patch" | "options" | "head" = any,
-> {
+export interface IRouterMatcher<T> {
     <
         Route extends string,
         P = RouteParameters<Route>,
@@ -258,14 +253,14 @@ export interface IRouter extends RequestHandler {
      * Special-cased "all" method, applying the given route `path`,
      * middleware, and callback to _every_ HTTP method.
      */
-    all: IRouterMatcher<this, "all">;
-    get: IRouterMatcher<this, "get">;
-    post: IRouterMatcher<this, "post">;
-    put: IRouterMatcher<this, "put">;
-    delete: IRouterMatcher<this, "delete">;
-    patch: IRouterMatcher<this, "patch">;
-    options: IRouterMatcher<this, "options">;
-    head: IRouterMatcher<this, "head">;
+    all: IRouterMatcher<this>;
+    get: IRouterMatcher<this>;
+    post: IRouterMatcher<this>;
+    put: IRouterMatcher<this>;
+    delete: IRouterMatcher<this>;
+    patch: IRouterMatcher<this>;
+    options: IRouterMatcher<this>;
+    head: IRouterMatcher<this>;
 
     checkout: IRouterMatcher<this>;
     connect: IRouterMatcher<this>;
