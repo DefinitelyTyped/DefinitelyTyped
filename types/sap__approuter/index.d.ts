@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { EventEmitter } from "events";
 import { ClientRequest, IncomingMessage, ServerResponse } from "http";
 import { ServerOptions } from "https";
