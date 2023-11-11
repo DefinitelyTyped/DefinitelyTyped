@@ -114,7 +114,7 @@ declare namespace browserSync {
          * @since 2.23.0
          */
         cwd?: string;
-         /**
+        /**
          * Register callbacks via a regular option - this can be used
          * to get access the Browsersync instance in situations where you
          * cannot provide a callback via the normal API (for example, in a Gruntfile)
@@ -122,7 +122,7 @@ declare namespace browserSync {
          * **Note**: Only the `ready` callback is currently supported here.
          */
         callbacks?: CallbacksOptions;
-       /**
+        /**
          * Clicks, Scrolls & Form inputs on any device will be mirrored to all others.
          * clicks - Default: true
          * scroll - Default: true
