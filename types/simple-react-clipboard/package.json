@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/simple-react-clipboard",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/donfour/simple-react-clipboard#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-dom": "*",
+        "@types/simple-react-clipboard": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Huy Tran",
+            "githubUsername": "huytranvn"
+        }
+    ]
+}
