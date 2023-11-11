@@ -1,6 +1,6 @@
 import * as React from "react";
 import { render } from "react-dom";
-import Clipboard from 'simple-react-clipboard';
+import Clipboard from "simple-react-clipboard";
 
 const text = "Hello World";
 const children: React.ReactNode = <button>Copy</button>;
@@ -17,4 +17,4 @@ render(
         onError={onError}
     />,
     document.getElementById("root"),
-)
+);
