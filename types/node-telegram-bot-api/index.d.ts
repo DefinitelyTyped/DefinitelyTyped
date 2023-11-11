@@ -195,6 +195,7 @@ declare namespace TelegramBot {
         duration?: number | undefined;
         performer?: string | undefined;
         title?: string | undefined;
+        thumb?: string| Stream | Buffer;
     }
 
     interface SendAnimationOptions extends SendBasicOptions {
