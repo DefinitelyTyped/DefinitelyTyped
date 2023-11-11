@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 interface ClipboardProps {
     render: () => ReactNode;
     text: string;
-    props: object;
+    props?: object | undefined;
     onSuccess?: () => void | undefined;
     onError?: () => void | undefined;
 }
