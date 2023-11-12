@@ -705,7 +705,7 @@ geoPathMeasure = geoPathCanvas.measure(sampleExtendedNullableFeatureCollection);
 
 // digits(...) ------------------------------------------------------
 
-let digits: number = geoPathCanvas.digits();
+const digits: number = geoPathCanvas.digits();
 geoPathCanvas = geoPathCanvas.digits(3);
 
 // render path to context of get path string----------------------------
