@@ -26,13 +26,13 @@ encoded = ini.encode(decoded, { whitespace: true });
 encoded = ini.encode(decoded, { section: "Section" });
 encoded = ini.encode(decoded, { whitespace: true, section: "Section" });
 encoded = ini.encode(decoded, {
-  align: true,
-  sort: true,
-  whitespace: true,
-  section: "Section",
-  newline: true,
-  platform: "linux",
-  bracketedArray: true,
+    align: true,
+    sort: true,
+    whitespace: true,
+    section: "Section",
+    newline: true,
+    platform: "linux",
+    bracketedArray: true,
 });
 
 // @ts-expect-error
@@ -46,13 +46,13 @@ encoded = ini.stringify(decoded, { whitespace: true });
 encoded = ini.stringify(decoded, { section: "Section" });
 encoded = ini.stringify(decoded, { whitespace: true, section: "Section" });
 encoded = ini.stringify(decoded, {
-  align: true,
-  sort: true,
-  whitespace: true,
-  section: "Section",
-  newline: true,
-  platform: "linux",
-  bracketedArray: true,
+    align: true,
+    sort: true,
+    whitespace: true,
+    section: "Section",
+    newline: true,
+    platform: "linux",
+    bracketedArray: true,
 });
 
 // @ts-expect-error
