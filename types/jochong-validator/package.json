@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jochong-validator",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jochongs/jochong-validator"
+    ],
+    "devDependencies": {
+        "@types/jochong-validator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jochongs",
+            "githubUsername": "jochongs"
+        }
+    ]
+}
