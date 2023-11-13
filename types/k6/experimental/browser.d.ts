@@ -20,6 +20,17 @@ export type Unboxed<Arg> = Arg extends [infer A0, infer A1] ? [Unboxed<A0>, Unbo
     : Arg extends object ? { [Key in keyof Arg]: Unboxed<Arg[Key]> }
     : Arg;
 
+/*
+ * CPUProfile is the mandatory input to be passed into {@link Page}'s
+ * `throttleCPU` method.
+ */
+export interface CPUProfile {
+    /*
+     * rate as a slowdown factor (1 is no throttle, 2 is 2x slowdown, etc).
+     */
+    rate: number;
+}
+
 export interface SelectOptionsObject {
     /**
      * Matches by `option.value`.
@@ -3018,6 +3029,19 @@ export interface Page {
             timeout?: number;
         },
     ): string;
+
+    /**
+     * Throttles the CPU in Chrome/Chromium to slow it down by the specified
+     * `rate` in {@link CPUProfile}. {@link CPUProfile} is a mandatory
+     * input argument. The default `rate` is `1`.
+     *
+     * **Usage**
+     *
+     * ```js
+     * page.throttleCPU({ rate: 4 });
+     * ```
+     */
+    throttleCPU(profile: CPUProfile): void
 
     /**
      * Returns the page's title.

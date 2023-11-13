@@ -668,6 +668,11 @@ page.tap(selector, { timeout: 10000 });
 page.tap(selector, { trial: true });
 
 // @ts-expect-error
+page.throttleCPU();
+// $ExpectType void
+page.throttleCPU({ rate: 2 });
+
+// @ts-expect-error
 page.textContent();
 // $ExpectType string
 page.textContent(selector);
