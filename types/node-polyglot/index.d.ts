@@ -24,6 +24,13 @@ declare namespace Polyglot {
         warn?: ((message: string) => void) | undefined;
         interpolation?: InterpolationTokenOptions | undefined;
         pluralRules?: PluralRules | undefined;
+        replace?:
+            | ((
+                this: string,
+                interpolationRegex: RegExp,
+                replacer: (substring: string, ...args: any[]) => string,
+            ) => string | string[])
+            | undefined;
     }
 
     function transformPhrase(phrase: string, options?: number | Polyglot.InterpolationOptions, locale?: string): string;
