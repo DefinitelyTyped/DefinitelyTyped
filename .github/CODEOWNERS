@@ -12,7 +12,7 @@
 /types/abs-svg-path/                                      @LiamMartens
 /types/absinthe__socket/                                  @maartenvanvliet
 /types/absolute/                                          @AyaMorisawa
-/types/absolute-url/                                      @tpluscode
+/types/absolute-url/                                      @tpluscode @ludovicm67
 /types/abstract-leveldown/                                @MeirionHughes @danwbyrne @istherepie
 /types/abstract-things/                                   @Shaquu
 /types/acc-wizard/                                        @cyrilschumacher
@@ -408,7 +408,7 @@
 /types/axios-cancel/                                      @TheDSCPL
 /types/axios-curlirize/                                   @stevenhankin
 /types/axios-token-interceptor/                           @innovation-team @mgdodge
-/types/azdata/                                            @Charles-Gagnon @alanrenmsft @kburtram @kenvanhyning
+/types/azdata/                                            @Charles-Gagnon @alanrenmsft @cheenamalhotra @kburtram @kenvanhyning
 /types/azure-function-log-intercept/                      @peterblazejewicz
 /types/azure-mobile-services-client/                      @dmorosinotto
 /types/azure-sb/                                          @Azure
@@ -2019,6 +2019,7 @@
 /types/fail-on-errors-webpack-plugin/                     @inglec-arista
 /types/fake-diff/                                         @mondeja
 /types/fake-lodash-pure-js/                               @gxless
+/types/fake-useragent/                                    @hotsoycandy
 /types/falafel/                                           @delprzemo @leumasme
 /types/falcor/                                            @Quramy @lukerielley
 /types/falcor-express/                                    @Quramy @lukerielley
@@ -3418,6 +3419,7 @@
 /types/ip/                                                @codeanimal @BendingBender
 /types/ip-packet/                                         @BendingBender
 /types/ip-subnet-calculator/                              @dahool
+/types/ip-to-int/                                         @yutak23
 /types/ip1sms__is-disposable-phone-number/                @ziishaned
 /types/ip6addr/                                           @slaweet
 /types/ipcheck/                                           @bengry
@@ -3450,6 +3452,7 @@
 /types/is-dotdir/                                         @BendingBender
 /types/is-dotfile/                                        @BendingBender
 /types/is-electron-renderer/                              @BendingBender
+/types/is-email/                                          @stephenwade
 /types/is-empty/                                          @termosa
 /types/is-empty-object/                                   @Richienb
 /types/is-even/                                           @shawnkoon
@@ -4758,6 +4761,7 @@
 /types/math-expression-evaluator/                         @azerella
 /types/math-random/                                       @Richienb
 /types/math-sign/                                         @djcsdy
+/types/math-toolbox/                                      @devloop01
 /types/math-trunc/                                        @djcsdy
 /types/math3d/                                            @laszlojakab @jimsmart
 /types/mathjax/                                           @rolandzwaga
@@ -5365,6 +5369,7 @@
 /types/nsqjs/                                             @cezaryrk
 /types/nssm/                                              @hongaar
 /types/ntlm-client/                                       @borrajo
+/types/ntp-client/                                        @troeggla
 /types/ntqdm/                                             @LinqLover
 /types/nuclear-js/                                        @patlillis
 /types/nuclear-js-react-addons-chefsplate/                @patlillis
@@ -5810,6 +5815,7 @@
 /types/popup-window/                                      @aramwram
 /types/port-numbers/                                      @abradley
 /types/portscanner/                                       @douglasduteil
+/types/porty/                                             @MysteryBlokHed
 /types/posix/                                             @UNIDY2002
 /types/post-message-stream/                               @douglasduteil
 /types/post-robot/                                        @NinoScript @Cijin
@@ -7360,6 +7366,7 @@
 /types/simple-oauth2/v4/                                  @mad-mike @troy-lamerton @netux @LinusU @namdien177
 /types/simple-peer/                                       @tlaziuk @xWiiLLz
 /types/simple-query-string/                               @inglec-arista
+/types/simple-react-clipboard/                            @huytranvn
 /types/simple-react-lightbox/                             @guilhermefront
 /types/simple-sha1/                                       @forivall
 /types/simple-swizzle/                                    @BendingBender
@@ -7409,7 +7416,6 @@
 /types/slate-html-serializer/                             @YangusKhan
 /types/slate-plain-serializer/                            @YangusKhan @mkiefel
 /types/sleep/                                             @rajarz
-/types/slice-ansi/                                        @dwieeb @peterblazejewicz
 /types/slice-source/                                      @bjornharrtell
 /types/slick-carousel/                                    @Gouigouix @Kocal
 /types/slickgrid/                                         @jbaldwin
@@ -8269,7 +8275,7 @@
 /types/vex-js/                                            @gdcohan
 /types/vexflow/                                           @rquiring @sebastianhaas @bohoffi @sschmidTU @bneumann
 /types/vextab/                                            @WeMakeMachines
-/types/vhost/                                             @XVincentX @indentedspace
+/types/vhost/                                             @XVincentX @indentedspace @cssinate
 /types/vhtml/                                             @pastelmind
 /types/video-react/                                       @fabio-nettis
 /types/video.js/                                          @vbortone @scleriot @SWBennett06 @IgelCampus @giofreitas @gjanblaszczyk @meikidd @joeflateau @ckybonist @peterblazejewicz @princefishthrower
