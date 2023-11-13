@@ -673,6 +673,11 @@ page.throttleCPU();
 page.throttleCPU({ rate: 2 });
 
 // @ts-expect-error
+page.throttleNetwork();
+// $ExpectType void
+page.throttleNetwork({ latency: 500, download: 200, upload: 100 });
+
+// @ts-expect-error
 page.textContent();
 // $ExpectType string
 page.textContent(selector);

@@ -31,6 +31,29 @@ export interface CPUProfile {
     rate: number;
 }
 
+/*
+ * NetworkProfile is the mandatory input to be passed into {@link Page}'s
+ * `throttleNetwork` method.
+ */
+export interface NetworkProfile {
+    /*
+     * Minimum latency from request sent to response headers received (ms).
+     */
+    latency: number;
+    
+    /*
+     * Maximal aggregated download throughput (bytes/sec). -1 disables download
+     * throttling.
+     */
+    download: number;
+    
+    /*
+     * Maximal aggregated upload throughput (bytes/sec). -1 disables upload
+     * throttling.
+     */
+    upload: number;
+}
+
 export interface SelectOptionsObject {
     /**
      * Matches by `option.value`.
@@ -3042,6 +3065,42 @@ export interface Page {
      * ```
      */
     throttleCPU(profile: CPUProfile): void
+
+    /**
+     * Throttles the network in Chrome/Chromium to slow it down by the specified
+     * fields in {@link NetworkProfile}. {@link NetworkProfile} is a mandatory
+     * input argument.
+     *
+     * **Usage**
+     *
+     * ```js
+     * page.throttleNetwork({
+     *   latency: 750,
+     *   download: 250,
+     *   upload: 250,
+     * });
+     * ```
+     * 
+     * To work with the most commonly tested network profiles, import `networkProfiles`
+     * from the browser module. There are three profiles available:
+     * - `'No Throttling'` (default)
+     * - `'Fast 3G'`
+     * - `'Slow 3G'`
+     * 
+     * **Usage**
+     *
+     * ```js
+     * import { browser, networkProfiles } from 'k6/experimental/browser';
+     * ... // redacted
+     *   const context = browser.newContext();
+     *   const page = context.newPage();
+     *
+     *   try {
+     *     page.throttleNetwork(networkProfiles['Slow 3G']);
+     * ... // redacted
+     * ```
+     */
+    throttleNetwork(profile: NetworkProfile): void
 
     /**
      * Returns the page's title.
