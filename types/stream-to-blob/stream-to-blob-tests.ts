@@ -1,4 +1,4 @@
-/// <reference types = "node"/> 
+/// <reference types = "node"/>
 
 import { Stream } from "stream";
 import streamToBlob from "stream-to-blob";

@@ -1,20 +1,20 @@
 {
     "compilerOptions": {
-      "module": "commonjs",
-      "lib": [
-        "ES6"
-      ],
-      "esModuleInterop": true,
-      "types": [],
-      "noImplicitAny": true,
-      "noImplicitThis":true,
-      "strictFunctionTypes": true,
-      "strictNullChecks": true,
-      "noEmit": true,
-      "forceConsistentCasingInFileNames": true
+        "module": "commonjs",
+        "lib": [
+            "ES6"
+        ],
+        "esModuleInterop": true,
+        "types": [],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "./index.d.ts",
         "./stream-to-blob-tests.ts"
     ]
-  }
+}
