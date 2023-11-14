@@ -627,6 +627,22 @@ import { promisify } from "node:util";
             type: "pkcs8",
         },
     });
+
+    const ecExplicit: {
+        publicKey: string;
+        privateKey: string;
+    } = crypto.generateKeyPairSync("ec", {
+        namedCurve: "curve",
+        paramEncoding: "explicit",
+        publicKeyEncoding: {
+            format: "pem",
+            type: "pkcs1",
+        },
+        privateKeyEncoding: {
+            format: "pem",
+            type: "pkcs8",
+        },
+    });
 }
 
 {
@@ -689,6 +705,25 @@ import { promisify } from "node:util";
         "ec",
         {
             namedCurve: "curve",
+            publicKeyEncoding: {
+                format: "pem",
+                type: "pkcs1",
+            },
+            privateKeyEncoding: {
+                cipher: "some-cipher",
+                format: "pem",
+                passphrase: "secret",
+                type: "pkcs8",
+            },
+        },
+        (err: NodeJS.ErrnoException | null, publicKey: string, privateKey: string) => {},
+    );
+
+    crypto.generateKeyPair(
+        "ec",
+        {
+            namedCurve: "curve",
+            paramEncoding: "explicit",
             publicKeyEncoding: {
                 format: "pem",
                 type: "pkcs1",
