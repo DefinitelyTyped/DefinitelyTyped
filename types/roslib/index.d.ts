@@ -376,7 +376,7 @@ declare namespace ROSLIB {
          * Cancels an action goal
          *
          * @param {string} goal - The ID of the action goal to cancel.
-         */            
+         */
         cancelGoal(
             id: string,
         ): void;
