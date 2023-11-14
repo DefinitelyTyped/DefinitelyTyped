@@ -892,6 +892,16 @@ export interface GeoPath<This = any, DatumObject extends GeoPermissibleObjects =
      * alternatively, you could d3.symbol and a projection for greater flexibility.
      */
     pointRadius(value: number | ((this: This, object: DatumObject, ...args: any[]) => number)): this;
+
+    /**
+     * Returns the current number of digits, which defaults to 3.
+     */
+    digits(): number;
+    /**
+     * Sets the number of fractional digits for coordinates generated in SVG path strings.
+     * @param digits New amount of digits
+     */
+    digits(digits: number): this;
 }
 
 /**
