@@ -367,9 +367,9 @@ declare namespace ROSLIB {
          */
         sendGoal(
             goal: TActionGoal,
-            resultCallback: (response: TActionResult) => void,
-            feedbackCallback?: (feedback: TActionFeedback) => void,
-            failedCallback?: (error: string) => void,
+            resultCallback: (id: string, response: TActionResult) => void,
+            feedbackCallback?: (id: string, feedback: TActionFeedback) => void,
+            failedCallback?: (id: string) => void,
         ): void;
 
         /**
@@ -389,13 +389,45 @@ declare namespace ROSLIB {
          * @param {TActionGoal} callback.goal - The action goal.
          *     It should return true if the action has finished successfully,
          *     i.e., without any fatal errors.
+         * @param {string} id - The action goal ID.
          */
-        advertise(callback: (goal: TActionGoal) => void): void;
+        advertise(callback: (goal: TActionGoal, id: string) => void): void;
 
         /**
          * Unadvertise a previously advertised action.
          */
         unadvertise(): void;
+
+        /**
+         * Helper function to send action feedback inside an action handler.
+         *
+         * @param {string} id - The action goal ID.
+         * @param {TActionFeedback} feedback - The feedback to send.
+         */
+        sendFeedback(
+            id: string,
+            feedback: TActionFeedback,
+        ): void;
+
+        /**
+         * Helper function to set an action as succeeded.
+         *
+         * @param {string} id - The action goal ID.
+         * @param {TActionResult} result - The result to set.
+         */
+        setSucceeded(
+            id: string,
+            result: TActionResult,
+        ): void;
+
+        /**
+         * Helper function to set an action as failed.
+         *
+         * @param {string} id - The action goal ID.
+         */
+        setFailed(
+            id: string,
+        ): void;
     }
 
     export class ActionFeedback {
