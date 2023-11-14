@@ -1,4 +1,4 @@
-// These examples are adapted from Woosmap Map JS Developers Documentation
+// Tests for Woosmap Map JS API v1.4
 // https://developers.woosmap.com/products/map-api/get-started/
 
 /**
