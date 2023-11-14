@@ -2493,6 +2493,10 @@ declare module "crypto" {
          * Name of the curve to use
          */
         namedCurve: string;
+        /**
+         * Must be `'named'` or `'explicit'` (EC). Default: `'named'`.
+         */
+        paramEncoding?: "explicit" | "named";
     }
     interface RSAKeyPairKeyObjectOptions {
         /**
@@ -2603,11 +2607,7 @@ declare module "crypto" {
             type: "pkcs8";
         };
     }
-    interface ECKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> {
-        /**
-         * Name of the curve to use.
-         */
-        namedCurve: string;
+    interface ECKeyPairOptions<PubF extends KeyFormat, PrivF extends KeyFormat> extends ECKeyPairKeyObjectOptions {
         publicKeyEncoding: {
             type: "pkcs1" | "spki";
             format: PubF;
