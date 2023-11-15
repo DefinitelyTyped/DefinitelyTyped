@@ -215,6 +215,10 @@ export interface ParseConfig<T = any, TInput = undefined> {
      */
     skipEmptyLines?: boolean | "greedy" | undefined;
     /**
+     * The number of lines that will be skipped, from the beginning.
+     */
+    skipFirstNLines?: number | undefined;
+    /**
      * Fast mode speeds up parsing significantly for large inputs.
      * However, it only works when the input has no quoted fields.
      * Fast mode will automatically be enabled if no " characters appear in the input.

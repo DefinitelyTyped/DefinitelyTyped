@@ -169,6 +169,11 @@ Papa.parse("/resources/files/normal.csv", {
     },
 });
 
+// $ExpectType ParseResult<unknown>
+Papa.parse("4,4,4", {
+    skipFirstNLines: 1,
+});
+
 // Callback must provided for async parser
 // @ts-expect-error
 Papa.parse("/resources/files/normal.csv", {
