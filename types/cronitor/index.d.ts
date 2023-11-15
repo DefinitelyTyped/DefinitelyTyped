@@ -91,13 +91,13 @@ declare class Monitor {
         FAIL: "fail";
         OK: "ok";
     };
-    static put(data: MonitorAttributes | MonitorAttributes[], rollback?: boolean): Promise<Monitor | Monitor[]>;
+    static put(data: Cronitor.MonitorAttributes | Cronitor.MonitorAttributes[], rollback?: boolean): Promise<Monitor | Monitor[]>;
     data(): Promise<any>;
     pause(hours: number): Promise<boolean>;
     unpause(): Promise<boolean>;
-    ok(params?: TelemetryEvent): Promise<boolean>;
+    ok(params?: Cronitor.TelemetryEvent): Promise<boolean>;
     delete(): Promise<boolean>;
-    ping(params?: TelemetryEvent): Promise<boolean>;
+    ping(params?: Cronitor.TelemetryEvent): Promise<boolean>;
 }
 
 declare class Event {
