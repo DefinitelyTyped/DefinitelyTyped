@@ -2,7 +2,7 @@
  * The tests are based on tests from types/fixed-data-table
  */
 
-import { Cell, CellProps, Column, ColumnGroup, Table } from "fixed-data-table-2";
+import { Cell, CellProps, Column, ColumnGroup, Plugins, Table } from "fixed-data-table-2";
 import * as React from "react";
 
 // create your Table
@@ -267,6 +267,62 @@ class MyTable6 extends React.Component<{}, MyTable4State> {
                         width={200}
                     />
                 </ColumnGroup>
+            </Table>
+        );
+    }
+}
+
+// ResizeColumn and ReoderColumns
+class MyTable7 extends React.Component {
+    render() {
+        return (
+            <Table
+                rowsCount={100}
+                rowHeight={50}
+                headerHeight={50}
+                width={1000}
+                height={500}
+            >
+                <Column
+                    cell={<Cell>Cell content 1</Cell>}
+                    width={200}
+                    cellClassName="extra-cell-class"
+                    header={
+                        <Plugins.ReorderCell
+                            onColumnReorderEnd={(
+                                event: { columnBefore: string; columnAfter: string; reorderColumn: string },
+                            ) => {}}
+                            touchEnabled={true}
+                        >
+                            <Plugins.ResizeCell
+                                onColumnResizeEnd={(newWidth: number, columnKey: string) => {}}
+                                touchEnabled={true}
+                            >
+                                Cell title 2
+                            </Plugins.ResizeCell>
+                        </Plugins.ReorderCell>
+                    }
+                />
+                <Column
+                    cell={<Cell>Cell content 2</Cell>}
+                    width={200}
+                    cellClassName="extra-cell-class"
+                    header={
+                        <Plugins.ReorderCell
+                            onColumnReorderEnd={(
+                                event: { columnBefore: string; columnAfter: string; reorderColumn: string },
+                            ) => {}}
+                            touchEnabled={true}
+                        >
+                            <Plugins.ResizeCell
+                                onColumnResizeEnd={(newWidth: number, columnKey: string) => {}}
+                                touchEnabled={true}
+                            >
+                                Cell title 2
+                            </Plugins.ResizeCell>
+                        </Plugins.ReorderCell>
+                    }
+                />
             </Table>
         );
     }

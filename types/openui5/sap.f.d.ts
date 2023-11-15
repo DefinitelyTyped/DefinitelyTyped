@@ -1,4 +1,4 @@
-// For Library Version: 1.119.0
+// For Library Version: 1.120.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -9731,7 +9731,7 @@ declare module "sap/f/FlexibleColumnLayoutSemanticHelper" {
   };
 
   /**
-   * Configures the target layouts of the navigation acion buttons in a column.
+   * Configures the target layouts of the navigation action buttons in a column.
    */
   export type NavigationActionsTargets = {
     /**

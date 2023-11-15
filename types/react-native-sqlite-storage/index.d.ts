@@ -4,7 +4,7 @@ export function enablePromise(enablePromise: boolean): void;
 export function openDatabase(params: DatabaseParams): Promise<SQLiteDatabase>;
 export function openDatabase(
     params: DatabaseParams,
-    success?: () => void,
+    success?: (db: SQLiteDatabase) => void,
     error?: (e: SQLError) => void,
 ): SQLiteDatabase;
 export function deleteDatabase(params: DatabaseParams): Promise<void>;

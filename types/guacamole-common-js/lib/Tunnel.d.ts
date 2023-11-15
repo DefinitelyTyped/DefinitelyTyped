@@ -55,6 +55,15 @@ export abstract class Tunnel {
     uuid: string | null;
 
     /**
+     * Fired when the UUID that uniquely identifies this tunnel is known.
+     *
+     * @event
+     * @param uuid
+     *     The UUID uniquely identifying this tunnel.
+     */
+    onuuid: null | ((uuid: string) => void);
+
+    /**
      * The amount of time to wait for data to be received before considering
      * the connection to be unstable, in milliseconds. If data is not received
      * within this amount of time, the tunnel status is updated to warn that

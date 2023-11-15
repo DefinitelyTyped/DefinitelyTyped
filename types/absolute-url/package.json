@@ -1,9 +1,10 @@
 {
     "private": true,
     "name": "@types/absolute-url",
-    "version": "1.2.9999",
+    "version": "2.0.9999",
+    "type": "module",
     "projects": [
-        "https://github.com/zazukoians/absolute-url"
+        "https://github.com/bergos/absolute-url"
     ],
     "dependencies": {
         "@types/express": "*",
@@ -16,6 +17,10 @@
         {
             "name": "tpluscode",
             "githubUsername": "tpluscode"
+        },
+        {
+            "name": "ludovicm67",
+            "githubUsername": "ludovicm67"
         }
     ]
 }
