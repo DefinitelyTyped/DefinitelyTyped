@@ -35,6 +35,7 @@
         "test/unit/examples/jsm/helpers/ViewHelper.ts",
         "test/unit/examples/jsm/libs/lil-gui.ts",
         "test/unit/examples/jsm/libs/tween.ts",
+        "test/unit/examples/jsm/lines/LineMaterial.ts",
         "test/unit/examples/jsm/nodes/core/FunctionNode.ts",
         "test/unit/examples/jsm/nodes/display/ColorAdjustmentNode.ts",
         "test/unit/examples/jsm/nodes/materials/lib/mx_noise.ts",

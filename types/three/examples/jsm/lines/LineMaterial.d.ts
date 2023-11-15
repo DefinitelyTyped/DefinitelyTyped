@@ -2,7 +2,7 @@ import { Color, MaterialParameters, ShaderMaterial, Vector2 } from '../../../src
 
 export interface LineMaterialParameters extends MaterialParameters {
     alphaToCoverage?: boolean | undefined;
-    color?: number | undefined;
+    color?: Color | undefined;
     dashed?: boolean | undefined;
     dashScale?: number | undefined;
     dashSize?: number | undefined;
