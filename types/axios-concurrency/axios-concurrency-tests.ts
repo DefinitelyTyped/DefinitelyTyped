@@ -1,5 +1,5 @@
-import axios from 'axios';
-import {ConcurrencyManager, ConcurrencyManagerInstance} from 'axios-concurrency';
+import axios from "axios";
+import { ConcurrencyManager, ConcurrencyManagerInstance } from "axios-concurrency";
 
 const axiosInstance = axios.create({});
 
@@ -10,7 +10,7 @@ ConcurrencyManager(null, 1);
 ConcurrencyManager(1, 1);
 
 // @ts-expect-error
-ConcurrencyManager('one', 1);
+ConcurrencyManager("one", 1);
 
 // @ts-expect-error
 ConcurrencyManager(true, 1);
@@ -19,7 +19,7 @@ ConcurrencyManager(true, 1);
 ConcurrencyManager(axiosInstance, null);
 
 // @ts-expect-error
-ConcurrencyManager(axiosInstance, '1');
+ConcurrencyManager(axiosInstance, "1");
 
 const manager: ConcurrencyManagerInstance = ConcurrencyManager(axiosInstance, 1);
 

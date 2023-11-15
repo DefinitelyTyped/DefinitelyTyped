@@ -1,9 +1,12 @@
-import {AxiosInstance, AxiosRequestConfig, AxiosResponse} from "axios";
+import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
 type RequestHandler = (req: AxiosRequestConfig) => Promise<void>;
 type ResponseHandler = (res: AxiosResponse) => AxiosResponse;
 type ResponseErrorHandler = (res: AxiosResponse) => Promise<AxiosResponse>;
-interface Task { request: AxiosRequestConfig; resolver: (value: AxiosRequestConfig) => void }
+interface Task {
+    request: AxiosRequestConfig;
+    resolver: (value: AxiosRequestConfig) => void;
+}
 
 interface ConcurrencyManagerInstance {
     queue: Task[];
@@ -23,10 +26,4 @@ interface ConcurrencyManagerInstance {
 
 declare function ConcurrencyManager(axios: AxiosInstance, MAX_CONCURRENT?: number): ConcurrencyManagerInstance;
 
-export {
-    ConcurrencyManager,
-    RequestHandler,
-    ResponseHandler,
-    ResponseErrorHandler,
-    ConcurrencyManagerInstance,
-}
+export { ConcurrencyManager, ConcurrencyManagerInstance, RequestHandler, ResponseErrorHandler, ResponseHandler };
