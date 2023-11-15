@@ -6,22 +6,48 @@
  */
 
 /**
- * `Client` is a Redis client to interact with a Redis server or cluster.
+ * `Client` is a Redis client for interacting with a Redis server or cluster.
  *
- * It exposes a promise-based API, allowing users to interact with Redis in an asynchronous manner.
+ * This client provides a promise-based API, enabling asynchronous operations with the Redis server.
+ * It supports a wide range of configurations, including single-node connections, cluster mode, and connections through Redis Sentinel.
  *
+ * The client can be configured either by passing a `RedisClientOptions` object for fine-grained configuration,
+ * or by using a `RedisConnectionURL` string for simpler setups.
+ *
+ * For more information on the k6 Redis module, visit:
  * https://k6.io/docs/javascript-api/k6-experimental/redis/client
  */
 export class Client {
     protected __brand: never;
 
     /**
-     * Instantiate a new Redis client.
+     * Creates a new instance of the Redis client.
      *
-     * @param options - Options.
-     * @returns instantiated Client
+     * The client can be configured in two ways:
+     * 1. By providing an object of `RedisClientOptions`, allowing detailed configuration including
+     *    authentication, connection settings, client behaviors, and cluster or sentinel setups.
+     * 2. By providing a `RedisConnectionURL` string, suitable for straightforward configurations.
+     *    The URL should follow the format: redis[s]://[[username][:password]@][host][:port][/db-number]
+     * 
+     * Example usage:
+     * ```
+     * // Using RedisClientOptions
+     * const client = new Client({
+     *   socket: {
+     *     host: 'localhost',
+     *     port: 6379
+     *   },
+     *   password: 'yourpassword'
+     * });
+     * 
+     * // Using RedisConnectionURL
+     * const client = new Client('redis://user:password@localhost:6379/0');
+     * ```
+     * 
+     * @param options - The configuration options for the client, either as a `RedisClientOptions` object or a `RedisConnectionURL` string.
+     * @returns The instantiated Redis client.
      */
-    constructor(options: Options);
+    constructor(options: RedisClientOptions | RedisConnectionURL);
 
     /**
      * Sets the value of a key, with a time to live (ttl) value equal to
@@ -495,114 +521,297 @@ export class Client {
 }
 
 /**
- * Options for configuring the redis Client.
- *
- * https://k6.io/docs/javascript-api/k6-experimental/redis/options
+ * Represents a Redis connection URL.
+ * The URL follows the format: redis[s]://[[username][:password]@][host][:port][/db-number]
+ * 
+ * - `RedisProtocol` indicates the protocol used ('redis' for standard connections, 'rediss' for secure TLS connections).
+ * - `RedisUserInfo` optionally includes the username and password for authentication.
+ * - The `host` is the IP address or hostname of the Redis server.
+ * - `RedisPort` is the port on which the Redis server is listening (optional, defaults to 6379 if not specified).
+ * - `RedisDbNumber` specifies a particular database number to connect to (optional).
  */
-export interface Options {
+export type RedisConnectionURL = `${RedisProtocol}://${RedisUserInfo}${string}${RedisPort}${RedisDbNumber}`
+
+/**
+ * Represents the protocol part of a Redis URL.
+ * - `redis`: Standard, non-encrypted connections.
+ * - `rediss`: Secure connections using TLS.
+ */
+export type RedisProtocol = "redis" | "rediss";
+
+/**
+ * Represents the user authentication information part of a Redis URL.
+ * Formats:
+ * - `username:password@`: Both username and password are provided for authentication.
+ * - `username@`: Only username is provided, no password.
+ * - `"": No authentication information is included.
+ */
+export type RedisUserInfo = `${string}:${string}@` | `${string}@` | "";
+
+export type RedisHost = string;
+
+/**
+ * Represents the port part of a Redis URL.
+ * - `:number`: The port number on which the Redis server is listening.
+ * - `"": No port is specified, implying the default port (usually 6379).
+ */
+export type RedisPort = `:${number}` | "";
+
+/**
+ * Represents the database number part of a Redis URL.
+ * - `/${number}`: Specifies the database number to connect to.
+ * - `"": No database number is specified, implying the default database (usually 0).
+ */
+export type RedisDbNumber = `/${number}` | "";
+
+
+/**
+ * Represents the configuration options for a Redis client.
+ * 
+ * These options define how the client connects to and interacts with a Redis server or cluster,
+ * including authentication, connection settings, and specific Redis features.
+ */
+export interface RedisClientOptions {
     /**
-     * Array of addresses in the 'host:port' defining which connect Redis to connect to.
-     * Supplying a single entry would connect the client to a single Redis instance.
-     * Supplying multiple entries would connect the client to a cluster/sentinel nodes.
+     * Socket connection options for the Redis client.
+     * 
+     * This includes the host, port, and other socket-level settings such as timeouts and TLS configuration.
      */
-    addrs: string[];
+    socket: SocketOptions;
 
     /**
-     * The id of the database to be selected after connecting to the server.
-     * Only used when connecting to a single-node use.
+     * Optional username for client authentication.
+     * 
+     * This is used when the Redis server is configured with ACLs (Access Control Lists),
+     * requiring a username for authentication in addition to a password.
      */
-    db?: number;
+    username?: string;
 
     /**
-     * Username to authenticate the client connection with.
+     * Optional password for client authentication.
+     * 
+     * If the Redis server is secured with a password, this must be provided to establish a connection.
      */
-    username?: number;
+    password?: string;
 
     /**
-     * Password to authenticate the client connection with.
+     * Optional name to assign to the client connection.
+     * 
+     * This can be used for identifying and tracking connections on the Redis server.
+     * It's useful for debugging and monitoring purposes.
      */
-    password?: number;
+    clientName?: string;
 
     /**
-     * Username to authenticate the client connection with when connecting to a sentinel.
+     * The ID of the database to be selected after connecting to the Redis server.
+     * 
+     * Redis supports multiple databases (numbered from 0), allowing separate datasets on the same server instance.
+     * This option is typically used when connecting to a single-node setup.
      */
-    sentinelUsername?: number;
+    database?: number;
 
     /**
-     * Password to authenticate the client connection with when connecting to a sentinel.
+     * The name of the master instance to connect to when using Redis Sentinel.
+     * 
+     * Sentinel manages failover in a Redis deployment, and specifying a master name allows the client to connect to the current master.
+     * This option is required when connecting through Redis Sentinel.
      */
-    sentinelPassword?: number;
+    masterName?: string;
 
     /**
-     * The name of the master to connect to when connecting to a Redis cluster.
+     * Optional username for client authentication with Redis Sentinel.
+     * 
+     * If the Sentinel servers are secured with ACLs, this username is used for authentication.
      */
-    masterName?: number;
+    sentinelUsername?: string;
 
     /**
-     * The maximum number of retries to attempt when connecting to a Redis server before giving up.
+     * Optional password for client authentication with Redis Sentinel.
+     * 
+     * If the Sentinel servers are secured with a password, it must be provided to connect successfully.
      */
-    maxRetries?: number;
+    sentinelPassword?: string;
 
     /**
-     * The minimum amount of time to wait between retries when connecting to a Redis server.
+     * Optional configuration for connecting to a Redis Cluster.
+     * 
+     * If the client is connecting to a Redis Cluster, this option provides cluster-specific settings such as node addresses and routing options.
      */
-    minRetryBackoff?: number;
+    cluster?: ClusterOptions;
+}
+
+/**
+ * Represents the configuration options for a socket connection to a Redis server.
+ * 
+ * These options allow fine-tuning of the connection properties, timeouts, and TLS settings.
+ */
+export interface SocketOptions {
+    /**
+     * The IP address or hostname of the Redis server.
+     * This should be a valid, resolvable address or hostname used to establish the connection.
+     */
+    host: string;
 
     /**
-     * The maximum amount of time to wait between retries when connecting to a Redis server.
+     * The port number on which the Redis server is listening.
+     * 
+     * If omitted, a default port (typically 6379 for Redis) will be used.
      */
-    maxRetryBackoff?: number;
+    port?: number;
 
     /**
-     * The maximum amount of time to wait for a connection to a Redis server to be established.
+     * Optional configuration for TLS (Transport Layer Security).
+     * 
+     * This is used to establish a secure, encrypted connection to the Redis server.
+     * If provided, the connection will use TLS; otherwise, it will be a regular, non-encrypted connection.
+     */
+    tls?: TLSOptions;
+
+    /**
+     * The maximum amount of time, in milliseconds, to wait for a connection attempt to the Redis server to succeed.
+     * 
+     * If the connection is not established within this time frame, the attempt will be aborted.
+     * This helps in avoiding long waits if the server is not reachable.
      */
     dialTimeout?: number;
 
     /**
-     * The maximum amount of time to wait for socket reads to succeed.
-     * Use `-1` for no timeout.
+     * The maximum amount of time, in milliseconds, the client will wait for a read operation to complete.
+     * 
+     * A value of `-1` indicates no timeout, meaning the client will wait indefinitely.
+     * Setting a read timeout can prevent indefinitely blocking operations if the server becomes unresponsive.
      */
     readTimeout?: number;
 
     /**
-     * The maximum amount of time to wait for a socket write to succeed.
-     * Use `-1` for no timeout.
+     * The maximum amount of time, in milliseconds, the client will wait for a write operation to complete.
+     * 
+     * A value of `-1` indicates no timeout, allowing the client to wait indefinitely.
+     * Similar to readTimeout, this can prevent blocking in case of server issues.
      */
     writeTimeout?: number;
 
     /**
-     * The maximum number of socket connections to keep open in the connection pool.
+     * The maximum number of socket connections that can be kept open in the pool.
+     * A larger pool size can handle more concurrent connections, but also uses more resources.
      */
     poolSize?: number;
 
     /**
-     * The minimum number of idle connections to keep open in the connection pool.
+     * The minimum number of idle connections that the pool maintains for faster access.
+     * 
+     * Keeping some connections idle can improve performance by avoiding the need to establish new connections.
      */
     minIdleConns?: number;
 
     /**
-     * The maximum number of idle connections to keep open in the connection pool.
-     */
-    maxIdleConns?: number;
-
-    /**
-     * The maximum amount of time a connection can be idle in the connection pool before being closed.
+     * The maximum amount of time, in milliseconds, a connection can stay idle in the pool before being closed.
+     * 
+     * This can help in cycling connections and preventing stale connections.
      */
     maxConnAge?: number;
 
     /**
-     * The maximum amount of time to wait for a connection to the Redis server to be returned from the pool.
+     * The maximum amount of time, in milliseconds, to wait for a connection from the pool.
+     * 
+     * If no connections are available within this time frame, the request for a connection will fail.
+     * This prevents indefinite blocking when all connections are in use.
      */
     poolTimeout?: number;
 
     /**
-     * The maximum amount of time the client waits for a connection to become active before timing out.
+     * The maximum amount of time, in milliseconds, a connection can be idle in the pool before being considered for closure.
+     * 
+     * This helps in keeping the pool fresh and closing unused connections.
      */
     idleTimeout?: number;
 
     /**
-     * The frequency at which the client checks for idle connections in the connection pool.
-     * Use `-1` to disable the checks.
+     * The frequency, in milliseconds, at which the client checks for idle connections in the pool.
+     * 
+     * A value of `-1` disables these checks. Regularly checking for idle connections helps in maintaining a healthy connection pool.
      */
     idleCheckFrequency?: number;
+}
+
+/**
+ * Represents the options for configuring TLS (Transport Layer Security) for a Redis connection.
+ * This configuration is essential for establishing a secure connection using SSL/TLS,
+ * which ensures data is encrypted during transmission.
+ */
+export interface TLSOptions {
+    /**
+     * Specifies one or multiple Certificate Authority (CA) certificates to use for validating the server certificate.
+     * 
+     * The CA certificates are essential for ensuring that the server's certificate is issued by a trusted authority.
+     * This is an array of ArrayBuffer, where each ArrayBuffer represents a CA certificate in a binary format.
+     */
+    ca: ArrayBuffer[];
+
+    /**
+     * An optional client certificate used for mutual TLS authentication.
+     * 
+     * Providing a client certificate is part of mutual TLS (mTLS), where both the client and the server authenticate each other.
+     * This property should be an ArrayBuffer representing the client's certificate in a binary format.
+     * If this property is omitted, the client will not use a certificate for authentication.
+     */
+    cert?: ArrayBuffer;
+
+    /**
+     * An optional private key associated with the client certificate.
+     * 
+     * This key is required if a client certificate is provided (via the `cert` property).
+     * The private key must correspond to the public key in the client certificate and should be in a binary format represented by an ArrayBuffer.
+     * If this property is omitted but a client certificate is provided, the connection attempt will fail due to the lack of a corresponding private key.
+     */
+    key?: ArrayBuffer;
+}
+
+/**
+ * Represents the configuration options for a Redis Cluster client.
+ * 
+ * These options define the behavior of the client when connecting to and interacting with a Redis Cluster.
+ */
+export interface ClusterOptions {
+    /**
+     * The maximum number of redirects the client will follow when a command is redirected.
+     * 
+     * In a Redis Cluster, certain commands may be redirected to other nodes. This option limits the number of such redirections.
+     * If this value is not set, a default value (typically defined by the client library) will be used.
+     */
+    maxRedirects?: number;
+
+    /**
+     * Determines if the client operates in read-only mode.
+     * 
+     * When set to true, the client sends read commands to replica nodes, potentially improving read scalability.
+     * This is useful in a cluster setup where you want to distribute read operations across multiple replicas.
+     */
+    readOnly?: boolean;
+
+    /**
+     * Enables routing read commands by latency.
+     * 
+     * when true, the client attempts to route read commands to the node with the lowest latency.
+     * This can optimize read performance by utilizing the fastest available node.
+     */
+    routeByLatency?: boolean;
+
+    /**
+     * Enables random routing for read commands.
+     * 
+     * When true, read commands are sent to random nodes in the cluster, potentially distributing the load more evenly.
+     * This can be beneficial in scenarios where distributing read operations evenly is more important than routing based on latency.
+     */
+    routeRandomly?: boolean;
+
+    /**
+     * A list of nodes in the Redis Cluster.
+     * 
+     * This can either be a list of connection URLs or a list of socket options for each node.
+     * The client uses this list to initially connect to the cluster and discover other nodes.
+     * 
+     * Each node can be specified as a `RedisConnectionURL` string (e.g., 'redis://host:port') or as a `SocketOptions` object defining host and port.
+     */
+    nodes: RedisConnectionURL[] | SocketOptions[];
 }
