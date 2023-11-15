@@ -33,7 +33,7 @@ run({
 // TestsStream should be a NodeJS.ReadableStream
 run().pipe(process.stdout);
 
-test("foo", t => {
+test("foo", (t) => {
     // $ExpectType TestContext
     t;
 });
@@ -81,7 +81,7 @@ test((t, cb) => {
 });
 
 // Test the context's methods
-test(undefined, undefined, t => {
+test(undefined, undefined, (t) => {
     // $ExpectType void
     t.diagnostic("tap diagnostic");
     // $ExpectType void
@@ -105,10 +105,10 @@ test(undefined, undefined, t => {
 });
 
 // Test the subtest approach.
-test(t => {
+test((t) => {
     // $ExpectType TestContext
     t;
-    const sub = t.test("sub", {}, t => {
+    const sub = t.test("sub", {}, (t) => {
         // $ExpectType TestContext
         t;
     });
@@ -291,7 +291,7 @@ it.only("only shorthand", {
 });
 
 // Test with suite context
-describe(s => {
+describe((s) => {
     // $ExpectType SuiteContext
     s;
     // $ExpectType string
@@ -377,6 +377,28 @@ test("mocks a counting function", (t) => {
     fn();
 });
 
+test("mockImplementation takes the same function signature", (t) => {
+    function add(a: number, b: number) {
+        return a + b;
+    }
+
+    const fn = t.mock.fn(add);
+    fn.mock.mockImplementation((a, b) => {
+        // $ExpectType number
+        a;
+        // $ExpectType number
+        b;
+        return 0;
+    });
+    fn.mock.mockImplementationOnce((a, b) => {
+        // $ExpectType number
+        a;
+        // $ExpectType number
+        b;
+        return 0;
+    });
+});
+
 test("spies on an object method", (t) => {
     const number = {
         value: 5,
@@ -453,7 +475,10 @@ test("spies on a constructor", (t) => {
     class Clazz extends ParentClazz {
         #privateValue;
 
-        constructor(public a: number, b: number) {
+        constructor(
+            public a: number,
+            b: number,
+        ) {
             super(a + b);
             this.a = a;
             this.#privateValue = b;
