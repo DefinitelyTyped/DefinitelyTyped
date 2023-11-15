@@ -1,4 +1,4 @@
-import { PluginCreator, Node } from "postcss";
+import { Node, PluginCreator } from "postcss";
 
 declare namespace advancedVariables {
     type Features = "@content" | "@each" | "@else" | "@if" | "@include" | "@import" | "@for" | "@mixin";
