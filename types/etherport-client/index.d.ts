@@ -1,3 +1,7 @@
+/// <reference types="node"/>
+
+import type {EventEmitter} from "events"
+
 export interface EtherPortClientConstructorArgs {
     host: string;
     port: number;
@@ -5,7 +9,7 @@ export interface EtherPortClientConstructorArgs {
 }
 
 // tslint:disable-next-line:no-unnecessary-class
-export class EtherPortClient {
+export class EtherPortClient extends EventEmitter {
     path: string;
     name: string;
     host: string;
@@ -13,3 +17,5 @@ export class EtherPortClient {
 
     constructor(options: EtherPortClientConstructorArgs);
 }
+
+export function chainSerialPorts(clientPort: any, serverPort: any): void

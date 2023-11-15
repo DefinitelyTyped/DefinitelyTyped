@@ -13,5 +13,8 @@
             "name": "Andréas HANSS",
             "githubUsername": "ScreamZ"
         }
-    ]
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    }
 }
