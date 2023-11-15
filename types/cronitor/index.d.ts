@@ -67,31 +67,6 @@ declare namespace Cronitor {
         }; // required by type: check
     }
 
-    class Monitor {
-        constructor(key: string);
-        static get State(): {
-            RUN: "run";
-            COMPLETE: "complete";
-            FAIL: "fail";
-            OK: "ok";
-        };
-        static put(data: MonitorAttributes | MonitorAttributes[], rollback?: boolean): Promise<Monitor | Monitor[]>;
-        data(): Promise<any>;
-        pause(hours: number): Promise<boolean>;
-        unpause(): Promise<boolean>;
-        ok(params?: TelemetryEvent): Promise<boolean>;
-        delete(): Promise<boolean>;
-        ping(params?: TelemetryEvent): Promise<boolean>;
-    }
-
-    class Event {
-        constructor(key: string, options?: { intervalSeconds?: number });
-        tick(count?: number): void;
-        error(count?: number): void;
-        stop(): Promise<void>;
-        fail(message?: string | null): Promise<void>;
-    }
-
     class Cronitor {
         constructor(apiKey: string, config?: CronitorConfig);
         generateConfig(): Promise<void>;
@@ -106,6 +81,31 @@ declare namespace Cronitor {
         Monitor: typeof Monitor;
         Event: typeof Event;
     }
+}
+
+declare class Monitor {
+    constructor(key: string);
+    static get State(): {
+        RUN: "run";
+        COMPLETE: "complete";
+        FAIL: "fail";
+        OK: "ok";
+    };
+    static put(data: MonitorAttributes | MonitorAttributes[], rollback?: boolean): Promise<Monitor | Monitor[]>;
+    data(): Promise<any>;
+    pause(hours: number): Promise<boolean>;
+    unpause(): Promise<boolean>;
+    ok(params?: TelemetryEvent): Promise<boolean>;
+    delete(): Promise<boolean>;
+    ping(params?: TelemetryEvent): Promise<boolean>;
+}
+
+declare class Event {
+    constructor(key: string, options?: { intervalSeconds?: number });
+    tick(count?: number): void;
+    error(count?: number): void;
+    stop(): Promise<void>;
+    fail(message?: string | null): Promise<void>;
 }
 
 declare function Cronitor(apiKey: string, config?: Cronitor.CronitorConfig): Cronitor.Cronitor;
