@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {ConcurrencyManager} from 'axios-concurrency';
+import {ConcurrencyManager, ConcurrencyManagerInstance} from 'axios-concurrency';
 
 const axiosInstance = axios.create({});
 
@@ -21,7 +21,7 @@ ConcurrencyManager(axiosInstance, null);
 // @ts-expect-error
 ConcurrencyManager(axiosInstance, '1');
 
-const manager = ConcurrencyManager(axiosInstance, 1);
+const manager: ConcurrencyManagerInstance = ConcurrencyManager(axiosInstance, 1);
 
 // $ExpectType void
 manager.detach();
