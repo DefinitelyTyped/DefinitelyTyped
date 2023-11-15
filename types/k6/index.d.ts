@@ -29,6 +29,7 @@ import "./http";
 import "./metrics";
 import "./options";
 import "./experimental/browser";
+import "./experimental/fs";
 import "./experimental/redis";
 import "./experimental/timers";
 import "./experimental/tracing";
