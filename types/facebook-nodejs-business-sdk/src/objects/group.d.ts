@@ -7,7 +7,6 @@ import Photo from './photo';
 import AdVideo from './ad-video';
 /**
  * Group
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class Group extends AbstractCrudObject {

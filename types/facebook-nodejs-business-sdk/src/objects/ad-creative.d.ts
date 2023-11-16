@@ -3,7 +3,6 @@ import AbstractObject from './../abstract-object';
 import Cursor from './../cursor';
 /**
  * AdCreative
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdCreative extends AbstractCrudObject {

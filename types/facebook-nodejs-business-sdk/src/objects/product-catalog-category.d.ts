@@ -1,7 +1,6 @@
 import { AbstractCrudObject } from './../abstract-crud-object';
 /**
  * ProductCatalogCategory
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class ProductCatalogCategory extends AbstractCrudObject {

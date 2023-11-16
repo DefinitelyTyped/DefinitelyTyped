@@ -5,7 +5,6 @@ import HighDemandPeriod from './high-demand-period';
 import AdReportRun from './ad-report-run';
 /**
  * Campaign
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class Campaign extends AbstractCrudObject {

@@ -4,7 +4,6 @@ import Cursor from './../cursor';
 import Comment from './comment';
 /**
  * PagePost
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class PagePost extends AbstractCrudObject {

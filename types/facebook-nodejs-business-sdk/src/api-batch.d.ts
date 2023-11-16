@@ -39,7 +39,7 @@ declare class FacebookAdsApiBatch {
         attachedFiles: undefined | string;
         body: undefined | string;
         method: string;
-        name: undefined | any;
+        name: any;
         relative_url: string;
     };
     /**
@@ -55,7 +55,7 @@ declare class FacebookAdsApiBatch {
         attachedFiles: undefined | string;
         body: undefined | string;
         method: string;
-        name: undefined | any;
+        name: any;
         relative_url: string;
     };
     /**

@@ -3,7 +3,6 @@ import AbstractObject from './../abstract-object';
 import Cursor from './../cursor';
 /**
  * InstagramComment
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class InstagramComment extends AbstractCrudObject {

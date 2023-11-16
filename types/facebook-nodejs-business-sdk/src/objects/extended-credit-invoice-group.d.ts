@@ -4,7 +4,6 @@ import Cursor from './../cursor';
 import AdAccount from './ad-account';
 /**
  * ExtendedCreditInvoiceGroup
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class ExtendedCreditInvoiceGroup extends AbstractCrudObject {

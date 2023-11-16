@@ -5,7 +5,6 @@ import IGMedia from './ig-media';
 import IGShoppingProductAppeal from './ig-shopping-product-appeal';
 /**
  * IGUser
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class IGUser extends AbstractCrudObject {

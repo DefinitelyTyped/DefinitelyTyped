@@ -1,7 +1,6 @@
 import { AbstractCrudObject } from './../abstract-crud-object';
 /**
  * CustomAudienceDataSource
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class CustomAudienceDataSource extends AbstractCrudObject {

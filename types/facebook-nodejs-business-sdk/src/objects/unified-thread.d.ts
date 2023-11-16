@@ -2,7 +2,6 @@ import { AbstractCrudObject } from './../abstract-crud-object';
 import Cursor from './../cursor';
 /**
  * UnifiedThread
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class UnifiedThread extends AbstractCrudObject {

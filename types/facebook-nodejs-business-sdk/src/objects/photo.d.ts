@@ -4,7 +4,6 @@ import Cursor from './../cursor';
 import Comment from './comment';
 /**
  * Photo
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class Photo extends AbstractCrudObject {

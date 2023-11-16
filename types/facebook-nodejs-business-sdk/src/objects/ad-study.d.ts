@@ -4,7 +4,6 @@ import Cursor from './../cursor';
 import PrivateLiftStudyInstance from './private-lift-study-instance';
 /**
  * AdStudy
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdStudy extends AbstractCrudObject {

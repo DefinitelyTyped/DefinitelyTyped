@@ -2,7 +2,6 @@ import { AbstractCrudObject } from './../abstract-crud-object';
 import Cursor from './../cursor';
 /**
  * OfflineConversionDataSetUpload
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class OfflineConversionDataSetUpload extends AbstractCrudObject {

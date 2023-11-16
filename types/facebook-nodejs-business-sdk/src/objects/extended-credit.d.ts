@@ -5,7 +5,6 @@ import ExtendedCreditInvoiceGroup from './extended-credit-invoice-group';
 import ExtendedCreditAllocationConfig from './extended-credit-allocation-config';
 /**
  * ExtendedCredit
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class ExtendedCredit extends AbstractCrudObject {

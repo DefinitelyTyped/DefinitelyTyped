@@ -4,7 +4,6 @@ import Cursor from './../cursor';
 import ProductCatalog from './product-catalog';
 /**
  * WhatsAppBusinessAccount
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class WhatsAppBusinessAccount extends AbstractCrudObject {

@@ -3,7 +3,6 @@ import Cursor from './../cursor';
 import Lead from './lead';
 /**
  * LeadgenForm
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class LeadgenForm extends AbstractCrudObject {

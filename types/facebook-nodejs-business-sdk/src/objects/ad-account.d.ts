@@ -22,7 +22,6 @@ import ReachFrequencyPrediction from './reach-frequency-prediction';
 import AdAccountSubscribedApps from './ad-account-subscribed-apps';
 /**
  * AdAccount
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdAccount extends AbstractCrudObject {

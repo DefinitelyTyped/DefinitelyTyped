@@ -4,7 +4,6 @@ import Cursor from './../cursor';
 import AdReportRun from './ad-report-run';
 /**
  * Ad
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class Ad extends AbstractCrudObject {

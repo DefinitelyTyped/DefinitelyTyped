@@ -2,7 +2,6 @@ import { AbstractCrudObject } from './../abstract-crud-object';
 import AbstractObject from './../abstract-object';
 /**
  * HighDemandPeriod
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class HighDemandPeriod extends AbstractCrudObject {

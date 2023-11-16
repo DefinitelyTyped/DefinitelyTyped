@@ -1,7 +1,7 @@
 import FacebookAdsApi from './api';
 import AbstractObject from './abstract-object';
 import Cursor from './cursor';
-export declare class AbstractCrudObject extends AbstractObject {
+export class AbstractCrudObject extends AbstractObject {
     _parentId: string | null | undefined;
     _changes: Record<any, any>;
     _api: FacebookAdsApi;
@@ -11,7 +11,7 @@ export declare class AbstractCrudObject extends AbstractObject {
      * @param  {String} parentId
      * @param  {FacebookAdApi} [api]
      */
-    constructor(id?: number | string | null | undefined, data?: Record<any, any>, parentId?: string | null, api?: FacebookAdsApi | null);
+    constructor(id?: number | string | null, data?: Record<any, any>, parentId?: string | null, api?: FacebookAdsApi | null);
     /**
      * Define data getter and setter recording changes
      * @param {String} field

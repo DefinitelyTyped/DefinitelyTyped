@@ -5,7 +5,6 @@ import LiveVideoInputStream from './live-video-input-stream';
 import VideoPoll from './video-poll';
 /**
  * LiveVideo
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class LiveVideo extends AbstractCrudObject {

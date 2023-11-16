@@ -4,7 +4,6 @@ import Cursor from './../cursor';
 import ProductItem from './product-item';
 /**
  * ProductGroup
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class ProductGroup extends AbstractCrudObject {

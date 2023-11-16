@@ -3,7 +3,6 @@ import Cursor from './../cursor';
 import LiveVideo from './live-video';
 /**
  * Event
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class Event extends AbstractCrudObject {

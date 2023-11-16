@@ -4,7 +4,6 @@ import Comment from './comment';
 import Photo from './photo';
 /**
  * Album
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class Album extends AbstractCrudObject {

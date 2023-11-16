@@ -3,7 +3,6 @@ import Cursor from './../cursor';
 import FacebookAdsApi from './../api';
 /**
  * AdReportRun
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdReportRun extends AbstractCrudObject {
@@ -24,5 +23,5 @@ export default class AdReportRun extends AbstractCrudObject {
     }>;
     getInsights(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
     get(fields: Array<string>, params?: Record<any, any>): AdReportRun;
-    constructor(id?: number | string | null | undefined, data?: Record<any, any>, parentId?: string | null, api?: FacebookAdsApi | null);
+    constructor(id?: number | string | null, data?: Record<any, any>, parentId?: string | null, api?: FacebookAdsApi | null);
 }

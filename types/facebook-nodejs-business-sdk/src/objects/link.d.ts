@@ -3,7 +3,6 @@ import Cursor from './../cursor';
 import Comment from './comment';
 /**
  * Link
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class Link extends AbstractCrudObject {

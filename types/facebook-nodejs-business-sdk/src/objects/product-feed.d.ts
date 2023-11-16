@@ -5,7 +5,6 @@ import ProductFeedRule from './product-feed-rule';
 import ProductFeedUpload from './product-feed-upload';
 /**
  * ProductFeed
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class ProductFeed extends AbstractCrudObject {

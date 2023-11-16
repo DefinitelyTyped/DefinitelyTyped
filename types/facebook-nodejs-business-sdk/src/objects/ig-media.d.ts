@@ -4,7 +4,6 @@ import IGComment from './ig-comment';
 import ShadowIGMediaProductTags from './shadow-ig-media-product-tags';
 /**
  * IGMedia
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class IGMedia extends AbstractCrudObject {

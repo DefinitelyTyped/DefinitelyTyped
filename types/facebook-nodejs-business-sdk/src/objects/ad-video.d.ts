@@ -4,7 +4,6 @@ import FacebookAdsBatchApi from '../api-batch';
 import type { SlideshowSpec } from "../video-uploader";
 /**
  * AdVideo
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class AdVideo extends AbstractCrudObject {

@@ -18,7 +18,6 @@ import VideoCopyrightRule from './video-copyright-rule';
 import VideoCopyright from './video-copyright';
 /**
  * Page
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class Page extends AbstractCrudObject {

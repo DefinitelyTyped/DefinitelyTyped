@@ -2,7 +2,6 @@ import { AbstractCrudObject } from './../abstract-crud-object';
 import AbstractObject from './../abstract-object';
 /**
  * PageUserMessageThreadLabel
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class PageUserMessageThreadLabel extends AbstractCrudObject {

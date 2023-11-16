@@ -3,7 +3,6 @@ import AbstractObject from './../abstract-object';
 import Cursor from './../cursor';
 /**
  * WhatsAppBusinessPreVerifiedPhoneNumber
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class WhatsAppBusinessPreVerifiedPhoneNumber extends AbstractCrudObject {

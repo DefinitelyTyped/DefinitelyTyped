@@ -11,7 +11,6 @@ import Photo from './photo';
 import AdVideo from './ad-video';
 /**
  * User
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class User extends AbstractCrudObject {

@@ -12,7 +12,6 @@ import ProductItem from './product-item';
 import Vehicle from './vehicle';
 /**
  * ProductCatalog
- * @extends AbstractCrudObject
  * @see {@link https://developers.facebook.com/docs/marketing-api/}
  */
 export default class ProductCatalog extends AbstractCrudObject {
