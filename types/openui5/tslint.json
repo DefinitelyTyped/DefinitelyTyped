@@ -3,11 +3,7 @@
     "rules": {
         "npm-naming": false,
         "no-unnecessary-class": false,
-        "ban-types": false,
-        "no-empty-interface": false,
         "unified-signatures": false,
-        "interface-name": false,
-        "interface-over-type-literal": false,
         "no-mergeable-namespace": false
     }
 }

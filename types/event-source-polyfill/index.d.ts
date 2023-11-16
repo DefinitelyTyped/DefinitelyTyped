@@ -1,8 +1,8 @@
 declare global {
     // Declare empty stub interfaces for environments where "dom" lib is not included
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface EventSource {}
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface EventSourceInit {}
 }
 
@@ -75,7 +75,7 @@ export class EventSourcePolyfill {
 }
 
 // defined as `type` to be compatible with typescript's lib.dom.d.ts
-// tslint:disable-next-line:interface-over-type-literal
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type EventSourceConstructor = {
     prototype: any;
     new(url: string, eventSourceInitDict?: EventSourceInit): EventSource;

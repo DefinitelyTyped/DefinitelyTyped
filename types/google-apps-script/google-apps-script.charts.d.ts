@@ -296,7 +296,7 @@ declare namespace GoogleAppsScript {
          * Sheets or specified data-table URLs, or can be filled in by hand. This class intentionally has no
          * methods: a DataTable can be passed around, but not manipulated directly.
          */
-        // tslint:disable-next-line: no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface DataTable {
         }
         /**
@@ -342,7 +342,7 @@ declare namespace GoogleAppsScript {
          * consideration when drawing the chart. See DataViewDefinitionBuilder for an example on how
          * to define and use a DataViewDefinition.
          */
-        // tslint:disable-next-line: no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface DataViewDefinition {
         }
         /**

@@ -609,7 +609,7 @@ declare namespace jest {
     }
 
     interface Describe {
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/ban-types
         (name: number | string | Function | FunctionLike, fn: EmptyFunction): void;
         /** Only runs the tests inside this `describe` for the current file */
         only: Describe;

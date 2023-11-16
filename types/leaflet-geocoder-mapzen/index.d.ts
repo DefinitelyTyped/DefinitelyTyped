@@ -9,7 +9,7 @@ declare module "leaflet" {
             new(options?: GeocoderOptions): Geocoder;
         }
 
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface Geocoder extends Control {}
 
         interface GeocoderOptions {

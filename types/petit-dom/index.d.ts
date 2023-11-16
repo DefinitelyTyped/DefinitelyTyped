@@ -165,15 +165,15 @@ export namespace PetitDom {
 
 declare global {
     namespace JSX {
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface Element extends PetitDom.VNode {}
 
         interface ElementClass extends PetitDom.Component<PetitDom.ComponentProps> {}
 
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface IntrinsicClassAttributes<T> extends PetitDom.Props {}
 
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface IntrinsicAttributes extends PetitDom.IntrinsicProps {}
 
         interface ElementAttributesProperty {

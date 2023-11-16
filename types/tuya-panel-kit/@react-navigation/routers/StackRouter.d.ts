@@ -5,7 +5,7 @@ export declare type StackActionType = {
     type: "REPLACE";
     payload: {
         name: string;
-        // tslint:disable-next-line interface-over-type-literal no-redundant-undefined
+        // eslint-disable-next-line @typescript-eslint/consistent-type-definitions no-redundant-undefined
         key?: string | undefined;
         params?: object | undefined;
     };

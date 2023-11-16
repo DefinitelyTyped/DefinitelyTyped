@@ -794,12 +794,12 @@ export namespace ojChart {
         }>
     {
     }
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type AxisTitleContext = {
         axis: "xAxis" | "yAxis" | "y2Axis";
         subId: string;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type DataLabelContext = {
         id: any;
         series: string;
@@ -822,46 +822,46 @@ export namespace ojChart {
         groupData: object | null;
         componentElement: Element;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type GroupContext = {
         indexPath: any[];
         subId: string;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ItemContext = {
         seriesIndex: number;
         itemIndex: number;
         subId: string;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type LegendItemContext = {
         sectionIndexPath: any[];
         itemIndex: number;
         subId: string;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type PieCenterContext = {
         outerBounds: object;
         innerBounds: object;
         label: string;
         componentElement: Element;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type PieCenterLabelContext = {
         subId: string;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ReferenceObject = {
         axis: "xAxis" | "yAxis" | "y2Axis";
         index: number;
         subId: string;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type SeriesContext = {
         itemIndex: number;
         subId: string;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type TooltipContext = {
         parentElement: Element;
         id: any;
@@ -2349,7 +2349,7 @@ export interface ojSparkChartSettablePropertiesLenient<K, D> extends Partial<ojS
     [key: string]: any;
 }
 export namespace ojSparkChart {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Item = {
         borderColor: string;
         color: string;
@@ -2373,7 +2373,7 @@ export namespace ojSparkChart {
         svgStyle: object;
         value: number;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ItemContext = {
         borderColor: string;
         color: string;
@@ -2382,7 +2382,7 @@ export namespace ojSparkChart {
         low: number;
         value: number;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ReferenceObject = {
         color?: string | undefined;
         high?: number | undefined;
@@ -2395,7 +2395,7 @@ export namespace ojSparkChart {
         type: "area" | "line";
         value?: number | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type TooltipContext = {
         color: string;
         componentElement: Element;

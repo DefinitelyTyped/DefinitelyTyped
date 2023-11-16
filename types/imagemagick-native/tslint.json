@@ -1,8 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "interface-name": false,
-        "no-internal-module": false,
         "no-var-keyword": false,
         "prefer-const": false
     }

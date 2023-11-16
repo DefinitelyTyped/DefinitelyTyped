@@ -64,7 +64,7 @@ declare namespace GoogleAppsScript {
          *       .build();
          *     checkboxGridItem.setValidation(checkboxGridValidation);
          */
-        // tslint:disable-next-line: no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface CheckboxGridValidation {
         }
         /**
@@ -523,7 +523,7 @@ declare namespace GoogleAppsScript {
          *       .build();
          *     gridItem.setValidation(gridValidation);
          */
-        // tslint:disable-next-line: no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface GridValidation {
         }
         /**
@@ -860,7 +860,7 @@ declare namespace GoogleAppsScript {
          *       .requireTextLengthGreatherThan(100);
          *     paragraphTextItem.setValidation(paragraphtextValidation);
          */
-        // tslint:disable-next-line: no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface ParagraphTextValidation {
         }
         /**
@@ -1016,7 +1016,7 @@ declare namespace GoogleAppsScript {
          *       .build();
          *     textItem.setValidation(textValidation);
          */
-        // tslint:disable-next-line: no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface TextValidation {
         }
         /**

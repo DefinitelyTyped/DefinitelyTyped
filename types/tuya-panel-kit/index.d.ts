@@ -1802,7 +1802,7 @@ export interface DialogCancelProps {
      */
     onCancel?: (() => void) | undefined;
 }
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DialogAlertProps extends DialogProps {}
 export interface DialogCheckbox extends TYFlatListData {
     value?: string | number | undefined;
@@ -10668,7 +10668,7 @@ export let Utils: {
 };
 
 export let defaultTheme: GlobalTheme;
-// tslint:disable-next-line interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface I18NLanMap {
     en: Record<string, string>;
     zh: Record<string, string>;

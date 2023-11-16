@@ -826,7 +826,7 @@ declare namespace MSXML2 {
     }
 
     /** IMXNamespacePrefixes interface */
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IMXNamespacePrefixes {
         item(index: number): string;
         readonly length: number;
@@ -869,7 +869,7 @@ declare namespace MSXML2 {
     }
 
     /** XML Schema Item Collection */
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface ISchemaItemCollection {
         item(index: number): ISchemaItem;
         itemByName(name: string): ISchemaItem;
@@ -879,7 +879,7 @@ declare namespace MSXML2 {
     }
 
     /** XML Schema String Collection */
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface ISchemaStringCollection {
         item(index: number): string;
         readonly length: number;
@@ -1986,7 +1986,7 @@ declare namespace MSXML2 {
         hasFeature(feature: string, version: string): boolean;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IXMLDOMNamedNodeMap {
         /** lookup item by name */
         getNamedItem(name: string): IXMLDOMNode;
@@ -2117,7 +2117,7 @@ declare namespace MSXML2 {
         readonly xml: string;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IXMLDOMNodeList {
         /** collection of nodes */
         item(index: number): IXMLDOMNode;
@@ -2266,7 +2266,7 @@ declare namespace MSXML2 {
     }
 
     /** XML Schemas Collection */
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IXMLDOMSchemaCollection {
         /** add a new schema */
         add(namespaceURI: string, var_1: any): void;

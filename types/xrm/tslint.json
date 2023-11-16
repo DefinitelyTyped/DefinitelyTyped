@@ -4,7 +4,6 @@
         "class-name": true,
         "jsdoc-format": false,
         "no-const-enum": false,
-        "no-empty-interface": false,
         "no-unnecessary-type-assertion": false,
         "unified-signatures": false
     }

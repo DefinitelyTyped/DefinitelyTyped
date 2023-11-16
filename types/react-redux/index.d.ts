@@ -18,7 +18,7 @@ import hoistNonReactStatics = require("hoist-non-react-statics");
  * Use module augmentation to append your own type definition in a your_custom_type.d.ts file.
  * https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
  */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DefaultRootState {}
 
 export type AnyIfEmpty<T extends object> = keyof T extends never ? any : T;

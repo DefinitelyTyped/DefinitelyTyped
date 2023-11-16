@@ -291,7 +291,7 @@ declare namespace CKEDITOR {
                 setValue(checked: boolean, noChangeEvent: boolean): undefined;
             }
 
-            // tslint:disable-next-line:no-empty-interface
+            // eslint-disable-next-line @typescript-eslint/no-empty-interface
             interface fieldset extends uiElement {}
 
             interface file extends labeledElement {
@@ -306,7 +306,7 @@ declare namespace CKEDITOR {
                 submit(): file;
             }
 
-            // tslint:disable-next-line:no-empty-interface
+            // eslint-disable-next-line @typescript-eslint/no-empty-interface
             interface fileButton extends button {}
 
             interface hbox extends uiElement {
@@ -314,10 +314,10 @@ declare namespace CKEDITOR {
                 getChild(indices: number[]): uiElement[];
             }
 
-            // tslint:disable-next-line:no-empty-interface
+            // eslint-disable-next-line @typescript-eslint/no-empty-interface
             interface html extends uiElement {}
 
-            // tslint:disable-next-line:no-empty-interface
+            // eslint-disable-next-line @typescript-eslint/no-empty-interface
             interface iframeElement extends uiElement {}
 
             interface labeledElement extends uiElement {
@@ -342,7 +342,7 @@ declare namespace CKEDITOR {
                 remove(index: number): select;
             }
 
-            // tslint:disable-next-line:no-empty-interface
+            // eslint-disable-next-line @typescript-eslint/no-empty-interface
             interface textarea extends labeledElement {}
 
             interface textInput extends labeledElement {
@@ -398,7 +398,7 @@ declare namespace CKEDITOR {
                 setValue(value: unknown, noChangeEvent: boolean): uiElement | undefined;
             }
 
-            // tslint:disable-next-line:no-empty-interface
+            // eslint-disable-next-line @typescript-eslint/no-empty-interface
             interface vbox extends hbox {}
         }
     }

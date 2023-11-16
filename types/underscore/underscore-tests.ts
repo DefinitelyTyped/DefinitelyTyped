@@ -20,7 +20,7 @@ interface AugmentedList extends _.List<StringRecord> {
     notAListProperty: boolean;
 }
 
-// tslint:disable-next-line:interface-over-type-literal
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type AugmentedListLiteral = {
     [index: number]: StringRecord;
     length: number;
@@ -33,7 +33,7 @@ interface ExplicitDictionary extends _.Dictionary<StringRecord> {
     c: StringRecord;
 }
 
-// tslint:disable-next-line:interface-over-type-literal
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type ExplicitDictionaryLiteral = {
     a: StringRecord;
     b: StringRecord;

@@ -3,7 +3,7 @@
 
 type _Omit<T, K extends keyof any | undefined> = Pick<T, Exclude<keyof T, K>>;
 type FunctionPropertyNames<T> = {
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     [K in keyof T]: T[K] extends Function ? K : never;
 }[keyof T];
 type Dictionary<T> = Partial<_Omit<T, FunctionPropertyNames<Ti.Proxy>>>;
@@ -59658,7 +59658,7 @@ declare namespace Titanium {
     /**
      * IOStream is the interface that all stream types implement.
      */
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     class IOStream extends Titanium.Proxy {
         /**
          * Adds the specified callback as an event listener for the named event.

@@ -217,10 +217,10 @@ export class Exception {
     name: string;
     path?: string | undefined;
 
-    // tslint:disable-next-line ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     constructor(code: number, name: string, path: string, ctor: Function);
 
-    // tslint:disable-next-line ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     constructor(code: number, name: string, ctor: Function);
 
     toString(): string;

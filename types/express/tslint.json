@@ -1,10 +1,7 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "interface-name": false,
-        "no-empty-interface": false,
         "no-namespace": false,
-        "no-reference-import": false,
         "no-var-keyword": false
     }
 }

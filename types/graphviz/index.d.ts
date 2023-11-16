@@ -19,7 +19,7 @@ export interface Node extends HasAttributes {
     readonly id: string;
 }
 
-/* tslint:disable-next-line:no-empty-interface */
+/* eslint-disable-next-line @typescript-eslint/no-empty-interface */
 export interface Edge extends HasAttributes {}
 
 export interface OutputCallback {

@@ -38,7 +38,7 @@ declare module "meteor/mongo" {
                 remove?: ((userId: string, doc: Full<T> & T) => boolean) | undefined;
                 fetch?: string[] | undefined;
                 // ditto
-                // tslint:disable-next-line ban-types
+                // eslint-disable-next-line @typescript-eslint/ban-types
                 transform?: Function | null | undefined;
             }): boolean;
             deny(options: {
@@ -49,7 +49,7 @@ declare module "meteor/mongo" {
                 remove?: ((userId: string, doc: Full<T> & T) => boolean) | undefined;
                 fetch?: string[] | undefined;
                 // ditto
-                // tslint:disable-next-line ban-types
+                // eslint-disable-next-line @typescript-eslint/ban-types
                 transform?: Function | null | undefined;
             }): boolean;
             findOne(
@@ -60,12 +60,12 @@ declare module "meteor/mongo" {
                     fields?: FieldSpecifier | undefined;
                     reactive?: boolean | undefined;
                     // ditto
-                    // tslint:disable-next-line ban-types
+                    // eslint-disable-next-line @typescript-eslint/ban-types
                     transform?: Function | null | undefined;
                 },
             ): (Full<T> & T) | undefined;
             // ditto
-            // tslint:disable-next-line ban-types
+            // eslint-disable-next-line @typescript-eslint/ban-types
             insert(doc: OptionalId<Data<T>>, callback?: Function): string;
             update(
                 selector: Selector<T> | ObjectID | string,
@@ -76,7 +76,7 @@ declare module "meteor/mongo" {
                     arrayFilters?: Array<{ [identifier: string]: any }> | undefined;
                 },
                 // ditto
-                // tslint:disable-next-line ban-types
+                // eslint-disable-next-line @typescript-eslint/ban-types
                 callback?: Function,
             ): number;
             upsert(
@@ -86,7 +86,7 @@ declare module "meteor/mongo" {
                     multi?: boolean | undefined;
                 },
                 // ditto
-                // tslint:disable-next-line ban-types
+                // eslint-disable-next-line @typescript-eslint/ban-types
                 callback?: Function,
             ): {
                 numberAffected?: number | undefined;

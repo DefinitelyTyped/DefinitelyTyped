@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "no-boolean-literal-compare": false,
-        "no-internal-module": false,
         "no-namespace": false,
         "no-var-keyword": false,
         "only-arrow-functions": false,

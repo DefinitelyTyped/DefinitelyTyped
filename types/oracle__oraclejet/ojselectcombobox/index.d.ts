@@ -45,19 +45,19 @@ export namespace ojCombobox {
         }>
     {
     }
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Optgroup = {
         disabled?: boolean | undefined;
         label: string;
         children: Array<(Option | Optgroup)>;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Option = {
         disabled?: boolean | undefined;
         label?: string | undefined;
         value: any;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type OptionContext = {
         component: Element;
         parent: Element;
@@ -67,7 +67,7 @@ export namespace ojCombobox {
         data: object;
         parentElement: Element;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type OptionsKeys = {
         label?: string | undefined;
         value?: string | undefined;
@@ -462,19 +462,19 @@ export namespace ojSelect {
         }>
     {
     }
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Optgroup = {
         disabled?: boolean | undefined;
         label: string;
         children: Array<(Option | Optgroup)>;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Option = {
         disabled?: boolean | undefined;
         label?: string | undefined;
         value: any;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type OptionContext = {
         component: Element;
         parent: Element;
@@ -484,7 +484,7 @@ export namespace ojSelect {
         data: object;
         parentElement: Element;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type OptionsKeys = {
         label?: string | undefined;
         value?: string | undefined;

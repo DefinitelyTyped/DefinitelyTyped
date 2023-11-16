@@ -1,9 +1,7 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "no-empty-interface": false,
         "no-mergeable-namespace": false,
-        "no-misused-new": false,
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-class": false,
         "npm-naming": false

@@ -13,7 +13,7 @@ declare class Sentiment {
 
 declare namespace Sentiment {
     // No options supported currently
-    // tslint:disable-next-line no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface SentimentOptions {}
 
     interface LanguageModule {

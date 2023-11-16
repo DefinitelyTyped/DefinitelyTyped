@@ -45,7 +45,7 @@ export type CategoryName =
     | "flags"
     | "custom";
 
-// tslint:disable-next-line interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface I18n {
     search: string;
     categories: Record<CategoryName, string>;

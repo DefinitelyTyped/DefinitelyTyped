@@ -3,7 +3,6 @@
     "rules": {
         "no-unnecessary-qualifier": false,
         "use-default-type-parameter": false,
-        "no-mergeable-namespace": false,
-        "ban-types": false
+        "no-mergeable-namespace": false
     }
 }

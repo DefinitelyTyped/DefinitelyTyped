@@ -8,7 +8,7 @@ declare type Props = StackNavigationConfig & {
     descriptors: StackDescriptorMap;
 };
 /* eslint-disable @definitelytyped/strict-export-declare-modifiers */
-// tslint:disable-next-line interface-over-type-literal
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 declare type State = {
     // tslint:disable-next-line array-type
     routes: Route<string>[];

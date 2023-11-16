@@ -19,7 +19,7 @@ import ComputedProperty from "@ember/object/computed";
  * see the documentation for each of these.
  */
 export default class EmberObject extends CoreObject {}
-// tslint:disable-next-line:no-empty-interface -- used for declaration merge
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- used for declaration merge
 export default interface EmberObject extends Observable {}
 
 /**

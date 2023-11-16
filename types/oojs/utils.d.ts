@@ -21,7 +21,7 @@ declare namespace OO {
         | bigint
         | null
         | undefined
-        // tslint:disable-next-line:ban-types
+        // eslint-disable-next-line @typescript-eslint/ban-types
         | Function
         | NodeLike
         | Cloneable;

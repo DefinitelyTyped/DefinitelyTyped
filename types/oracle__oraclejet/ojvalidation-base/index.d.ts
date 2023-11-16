@@ -12,7 +12,7 @@ export class ColorConverter implements Converter<Color> {
     resolvedOptions(): ColorConverter.ConverterOptions;
 }
 export namespace ColorConverter {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ConverterOptions = {
         format?: "rgb" | "hsl" | "hsv" | "hex" | "hex3" | undefined;
     };
@@ -56,7 +56,7 @@ export class LengthValidator implements Validator<number | string> {
     validate(value: string | number): void;
 }
 export namespace LengthValidator {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ValidatorOptions = {
         countBy?: "codeUnit" | "codePoint" | undefined;
         min?: number | undefined;
@@ -86,7 +86,7 @@ export class RegExpValidator implements Validator<string | number> {
     validate(value: string | number): void;
 }
 export namespace RegExpValidator {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ValidatorOptions = {
         pattern?: string | undefined;
         hint?: string | undefined;
@@ -103,7 +103,7 @@ export class RequiredValidator implements Validator<object | string | number> {
     validate(value: object | string | number): void;
 }
 export namespace RequiredValidator {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ValidatorOptions = {
         hint?: string | undefined;
         messageSummary?: string | undefined;
@@ -122,12 +122,12 @@ export namespace Validation {
         type: "required" | "regexp" | "numberRange" | "length" | "dateTimeRange" | "dateRestriction" | string,
         instance?: VF,
     ): VF | null;
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type RegisteredConverter = {
         type: string;
         options?: object | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type RegisteredValidator = {
         type: string;
         options?: object | undefined;

@@ -11863,7 +11863,7 @@ export namespace olx {
             defaultDataProjection: ol.ProjectionLike;
         }
 
-        /* tslint:disable-next-line:interface-name */
+        /* eslint-disable-next-line @typescript-eslint/naming-convention */
         interface IGCOptions {
             altitudeMode?: ol.format.IGCZ | undefined;
         }

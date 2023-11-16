@@ -3,7 +3,6 @@
     "rules": {
         "no-irregular-whitespace": false,
         "no-redundant-jsdoc-2": false,
-        "no-reference-import": false,
         "unified-signatures": false
     }
 }

@@ -1,8 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "ban-types": false,
-        "interface-over-type-literal": false,
         "no-mergeable-namespace": false,
         "no-redundant-undefined": false,
         "no-var-keyword": false,

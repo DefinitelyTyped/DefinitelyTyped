@@ -1,8 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "ban-types": false,
-        "interface-name": false,
         "only-arrow-functions": false,
         "prefer-const": false,
         "triple-equals": false

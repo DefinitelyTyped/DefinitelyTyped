@@ -470,7 +470,7 @@ export namespace ojDiagram {
         }>
     {
     }
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type RendererContext<K1, D1> = {
         parentElement: Element;
         componentElement: Element;
@@ -501,7 +501,7 @@ export namespace ojDiagram {
         renderDefaultHover: () => void;
         renderDefaultSelection: () => void;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type TooltipContext<K1, K2, D1, D2> = {
         parentElement: Element;
         componentElement: Element;

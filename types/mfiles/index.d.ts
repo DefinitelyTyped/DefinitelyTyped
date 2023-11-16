@@ -524,7 +524,7 @@ interface IEventHandlers {
 }
 
 interface IEvents {
-    // tslint:disable-next-line ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     Register(eventToListen: MFiles.Event, eventSink: Function): number;
     Unregister(sinkHandle: number): void;
 }

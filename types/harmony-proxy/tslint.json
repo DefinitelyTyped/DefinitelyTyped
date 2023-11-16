@@ -1,8 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "interface-name": false,
-        "member-access": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
         "prefer-const": false

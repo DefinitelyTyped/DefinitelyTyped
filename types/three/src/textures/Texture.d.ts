@@ -17,7 +17,7 @@ import {
 } from '../constants.js';
 
 /** Shim for OffscreenCanvas. */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface OffscreenCanvas extends EventTarget {}
 
 /**

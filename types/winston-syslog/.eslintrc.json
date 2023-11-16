@@ -1,0 +1,5 @@
+{
+    "rules": {
+        "@typescript-eslint/no-misused-new": "off"
+    }
+}

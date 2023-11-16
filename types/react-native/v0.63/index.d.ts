@@ -8957,7 +8957,7 @@ export namespace Animated {
     > {}
 }
 
-// tslint:disable-next-line:interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface I18nManagerStatic {
     getConstants: () => {
         isRTL: boolean;

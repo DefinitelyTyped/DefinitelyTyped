@@ -1673,7 +1673,7 @@ declare class Templates {
     GetFullViewPrefix(): string;
 }
 
-// tslint:disable-next-line interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 interface IConstants {
     LOADER_STEPS_ENABLE_AUTOCLEAR: boolean;
     LOADER_STEPS_ENABLE_FETCHCONFIGCONTEXT: boolean;

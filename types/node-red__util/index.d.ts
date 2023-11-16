@@ -91,12 +91,12 @@ declare namespace util {
         file: string;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface I18nTFunction {
         (id: string, tplStrs?: Record<string, string | number>): string;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface I18n {
         /**
          * Perform a message catalog lookup.

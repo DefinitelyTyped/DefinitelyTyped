@@ -1,8 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "array-type": false,
-        "no-duplicate-imports": false,
-        "no-empty-interface": false
+        "array-type": false
     }
 }

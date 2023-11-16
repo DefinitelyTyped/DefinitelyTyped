@@ -696,7 +696,7 @@ declare namespace Chart {
         suggestedMax?: number | undefined;
     }
 
-    // tslint:disable-next-line no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface LogarithmicTickOptions extends TickOptions {
     }
 
@@ -819,7 +819,7 @@ declare namespace Chart {
         distribution?: "linear" | "series" | undefined;
     }
 
-    // tslint:disable-next-line no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ChartYAxe extends CommonAxe {
     }
 

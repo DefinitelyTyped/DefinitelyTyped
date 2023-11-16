@@ -2,6 +2,7 @@
     "rules": {
         "@definitelytyped/prefer-declare-function": "off",
         "@definitelytyped/no-single-element-tuple-type": "off",
-        "@definitelytyped/strict-export-declare-modifiers": "off"
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/ban-types": "off"
     }
 }

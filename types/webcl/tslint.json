@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "jsdoc-format": false,
-        "member-access": false,
         "no-const-enum": false,
         "no-inferrable-types": false,
         "no-string-throw": false,

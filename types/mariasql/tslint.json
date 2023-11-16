@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "ban-types": false,
         "no-duplicate-variable": false,
         "no-inferrable-types": false,
         "no-var-keyword": false,

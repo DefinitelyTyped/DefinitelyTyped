@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "arrow-return-shorthand": false,
-        "no-empty-interface": false
+        "arrow-return-shorthand": false
     }
 }

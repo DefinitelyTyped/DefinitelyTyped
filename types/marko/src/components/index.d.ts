@@ -4,5 +4,5 @@ export function writeInitComponentsCode(fromOut: any, targetOut: any, shouldIncl
 
 export function getRenderedComponents(out: any): any;
 
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Component extends _Component {}

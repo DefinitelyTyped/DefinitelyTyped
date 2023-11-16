@@ -36,7 +36,7 @@ export type NamedTypeLike = Type | NamedType;
  * }
  * ```
  */
-export interface UnderlyingTypeOverrideRegistry { // tslint:disable-line no-empty-interface
+export interface UnderlyingTypeOverrideRegistry { // eslint-disable-line @typescript-eslint/no-empty-interface
 }
 
 /**
@@ -409,7 +409,7 @@ export declare function _writeObject(buffer: Buffer, offset: number, object: Obj
  * }
  * ```
  */
-export interface TypesOverrideRegistry { // tslint:disable-line no-empty-interface
+export interface TypesOverrideRegistry { // eslint-disable-line @typescript-eslint/no-empty-interface
 }
 
 /**

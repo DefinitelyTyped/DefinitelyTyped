@@ -4,7 +4,7 @@ declare namespace CKEDITOR {
     }
     interface skin {
         icons: { [name: string]: { path: string } };
-        // tslint:disable-next-line:no-duplicate-variable
+        // eslint-disable-next-line no-redeclareiable
         name: string;
         ua: { [name: string]: unknown };
         ua_dialog: string;

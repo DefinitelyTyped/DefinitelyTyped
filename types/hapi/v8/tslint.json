@@ -2,10 +2,7 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "ban-types": false,
-        "interface-name": false,
         "jsdoc-format": false,
-        "no-empty-interface": false,
         "no-inferrable-types": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,

@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "member-access": false,
         "no-var-keyword": false,
         "only-arrow-functions": false,
         "prefer-const": false,

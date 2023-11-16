@@ -2741,22 +2741,22 @@ declare var xspecify: Mocha.PendingTestFunction;
 // Forward declaration for `HTMLLIElement` from lib.dom.d.ts.
 // Required by Mocha.reporters.HTML.
 // NOTE: Mocha *must not* have a direct dependency on DOM types.
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface HTMLLIElement {}
 
 // Augments the DOM `Window` object when lib.dom.d.ts is loaded.
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Window extends Mocha.MochaGlobals {}
 
 declare namespace NodeJS {
     // Forward declaration for `NodeJS.EventEmitter` from node.d.ts.
     // Required by Mocha.Runnable, Mocha.Runner, and Mocha.Suite.
     // NOTE: Mocha *must not* have a direct dependency on @types/node.
-    // tslint:disable-next-line no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface EventEmitter {}
 
     // Augments NodeJS's `global` object when node.d.ts is loaded
-    // tslint:disable-next-line no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Global extends Mocha.MochaGlobals {}
 }
 

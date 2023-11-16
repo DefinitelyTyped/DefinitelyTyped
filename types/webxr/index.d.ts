@@ -149,7 +149,7 @@ declare abstract class XRViewport implements XRViewport {}
  *
  * ref: https://immersive-web.github.io/webxr/#xrspace-interface
  */
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface XRSpace extends EventTarget {}
 
 declare abstract class XRSpace implements XRSpace {}
@@ -771,7 +771,7 @@ interface XRFrame {
  * The base class for XRWebGLLayer and other layer types introduced by future extensions.
  * ref: https://immersive-web.github.io/webxr/#xrlayer-interface
  */
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface XRLayer extends EventTarget {}
 
 declare abstract class XRLayer implements XRLayer {}

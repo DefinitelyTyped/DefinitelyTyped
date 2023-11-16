@@ -45,7 +45,7 @@ interface RocksDB extends AbstractLevelDOWN<RocksDB.Bytes, RocksDB.Bytes> {
 declare namespace RocksDB {
     type Bytes = string | Buffer;
     type ErrorSizeCallback = (err: Error | undefined, size: number) => void;
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface OpenOptions extends AbstractOpenOptions {}
 
     interface GetOptions extends AbstractGetOptions {

@@ -1,10 +1,10 @@
 // forward declarations
 declare global {
     namespace NodeJS {
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface ReadableStream {}
     }
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ShadowRoot {}
 }
 
@@ -329,7 +329,7 @@ export function useTheme(): DefaultTheme;
  */
 // Unfortunately, there is no way to write tests for this
 // as any augmentation will break the tests for the default case (not augmented).
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DefaultTheme {}
 
 export interface ThemeProviderProps<T extends object, U extends object = T> {

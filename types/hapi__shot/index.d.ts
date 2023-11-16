@@ -29,14 +29,14 @@ export type Listener = (req: SimulatedRequestObject, res: SimulatedResponseObjec
  * a simulated request object. Inherits from Stream.Readable.
  * @see {@link https://github.com/hapijs/shot/blob/master/API.md#shotinjectdispatchfunc-options-callback}
  */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SimulatedRequestObject extends Readable {}
 
 /**
  * a simulated response object. Inherits from node's Http.ServerResponse.
  * @see {@link https://github.com/hapijs/shot/blob/master/API.md#shotinjectdispatchfunc-options-callback}
  */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SimulatedResponseObject extends ServerResponse {}
 
 /**

@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "jsdoc-format": false,
-        "no-reference-import": false
+        "jsdoc-format": false
     }
 }

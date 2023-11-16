@@ -3,12 +3,7 @@
     "rules": {
         "array-type": false,
         "arrow-return-shorthand": false,
-        "ban-types": false,
-        "interface-name": false,
         "jsdoc-format": false,
-        "member-access": false,
-        "no-empty-interface": false,
-        "no-internal-module": false,
         "no-irregular-whitespace": false,
         "no-mergeable-namespace": false,
         "no-unnecessary-class": false,

@@ -1,23 +1,23 @@
 // forward declarations
 declare global {
     namespace NodeJS {
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface ReadableStream {}
 
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface WritableStream {}
     }
 
     /**
      * Stub for https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal
      */
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface AbortSignal {}
 
     /**
      * Stub for https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream
      */
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ReadableStream {}
 }
 
