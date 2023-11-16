@@ -10,9 +10,12 @@ declare class StringDecoder {
 
 type Is<T extends U, U> = T;
 declare var NoAsyncDispose: {
-    new(...arguments: any[]): typeof globalThis.Symbol extends { readonly asyncDispose: Is<infer S, symbol> }
-        ? symbol extends S ? {} : { [P in S]: never } : {}
-}
+    new(
+        ...arguments: any[]
+    ): typeof globalThis.Symbol extends { readonly asyncDispose: Is<infer S, symbol> }
+        ? symbol extends S ? {} : { [P in S]: never }
+        : {};
+};
 
 type ComposeFnParam = (source: any) => void;
 
