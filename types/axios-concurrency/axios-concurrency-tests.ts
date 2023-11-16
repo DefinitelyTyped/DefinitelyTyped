@@ -3,6 +3,11 @@ import { ConcurrencyManager, ConcurrencyManagerInstance } from "axios-concurrenc
 
 const axiosInstance = axios.create({});
 
+const manager: ConcurrencyManagerInstance = ConcurrencyManager(axiosInstance, 1);
+
+// $ExpectType void
+manager.detach();
+
 // @ts-expect-error
 ConcurrencyManager(null, 1);
 
@@ -20,8 +25,3 @@ ConcurrencyManager(axiosInstance, null);
 
 // @ts-expect-error
 ConcurrencyManager(axiosInstance, "1");
-
-const manager: ConcurrencyManagerInstance = ConcurrencyManager(axiosInstance, 1);
-
-// $ExpectType void
-manager.detach();
