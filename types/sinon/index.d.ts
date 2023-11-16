@@ -1692,9 +1692,9 @@ declare namespace Sinon {
          * @param key
          * @param value
          */
-        define<T, TKey extends keyof T>(
+        define<T>(
             obj: T,
-            key: TKey | PropertyKey,
+            key: keyof T | PropertyKey,
             value: unknown,
         ): void;
     }
