@@ -37,10 +37,10 @@ declare namespace React {
     // React Elements
     // ----------------------------------------------------------------------
 
-    type ElementType<P = any> =
+    type ElementType<P = any, T extends keyof JSX.IntrinsicElements = keyof JSX.IntrinsicElements> =
         | {
-            [K in keyof JSX.IntrinsicElements]: P extends JSX.IntrinsicElements[K] ? K : never;
-        }[keyof JSX.IntrinsicElements]
+            [K in T]: P extends JSX.IntrinsicElements[K] ? K : never;
+        }[T]
         | ComponentType<P>;
     type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
 
