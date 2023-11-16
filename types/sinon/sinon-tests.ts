@@ -149,8 +149,8 @@ function testSandbox() {
     // Test .define
 
     class DefinableConfig {
-        public Value1: string;
-        public Value2: string;
+        Value1: string;
+        Value2: string;
     }
     
     const objToDefine = {};
