@@ -2,7 +2,7 @@
 // https://issuetracker.google.com/savedsearches/558438
 
 // g3-format-clang
-// Google Maps JS API Version: 3.54
+// Google Maps JS API Version: 3.55
 // tslint:disable:enforce-name-casing
 // tslint:disable:no-any
 // tslint:disable:interface-over-type-literal
