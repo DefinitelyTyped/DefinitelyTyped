@@ -1685,12 +1685,16 @@ declare namespace Sinon {
         ): SinonStubbedInstance<TType>;
 
         /**
-         * Defines a property on the given object which will be torn down when
-         * the sandbox is restored
+         * Defines a property on the given object which will be torn down when the sandbox is restored.
+         * Attempts to define an already existing property will cause an exception.
+         * Attempts to pass undefined value will cause an exception.
+         * @param obj
+         * @param key
+         * @param value
          */
-        define(
-            obj: object,
-            key: PropertyKey,
+        define<T, TKey extends keyof T>(
+            obj: T,
+            key: TKey | PropertyKey,
             value: unknown,
         ): void;
     }

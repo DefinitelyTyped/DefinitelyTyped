@@ -145,11 +145,25 @@ function testSandbox() {
     // $ExpectType number
     objWithPrivateMembers.pubVar;
 
+
+    // Test .define
+
+    class DefinableConfig {
+        public Value1: string;
+        public Value2: string;
+    }
+    
     const objToDefine = {};
+    const objToDefineWithClass = new DefinableConfig();
 
     sb.define(objToDefine, "someKey", 123);
     sb.define(objToDefine, 100, 200);
     sb.define(objToDefine, Symbol("abc"), 200);
+
+    sb.define(objToDefineWithClass, "Value1", 100);
+    sb.define(objToDefineWithClass, Symbol("Value2"), 200);
+    sb.define(objToDefineWithClass, "Value3", 300);
+    sb.define(objToDefineWithClass, Symbol("Value4"), 200);
 
     // @ts-expect-error
     sb.define(objToDefine, {}, 123);
