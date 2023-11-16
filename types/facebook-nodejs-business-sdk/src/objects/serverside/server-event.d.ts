@@ -15,7 +15,7 @@ export default class ServerEvent {
     _user_data: UserData;
     _custom_data: CustomData;
     _app_data: AppData;
-    _data_processing_options: Array<string>;
+    _data_processing_options: string[];
     _data_processing_options_state: number;
     _data_processing_options_country: number;
     _advanced_measurement_table: string;
@@ -29,13 +29,13 @@ export default class ServerEvent {
      * @param {Boolean} opt_out A flag that indicates we should not use this event for ads delivery optimization.
      * @param {UserData} user_data A map that contains user data. See UserData Class for options.
      * @param {CustomData} custom_data A map that contains user data. See CustomData Class for options.
-     * @param {Array<string>} data_processing_options Processing options you would like to enable for a specific event.
+     * @param {string[]} data_processing_options Processing options you would like to enable for a specific event.
      * @param {Number} data_processing_options_country A country that you want to associate to this data processing option.
      * @param {Number} data_processing_options_state A state that you want to associate with this data processing option.
      * @param {String} advanced_measurement_table Name of Advanced Measurement table. Only used for the Advanced Measurement API in the Advanced Analytics product.
      * @param {Boolean} advertiser_tracking_enabled A boolean that indicates whether the user has opted into/out of advertiser tracker on apps.
      */
-    constructor(event_name: string, event_time: number, event_source_url: string, user_data: UserData, custom_data: CustomData, app_data: AppData, event_id: string, opt_out: boolean, action_source: string, data_processing_options: Array<string>, data_processing_options_country: number, data_processing_options_state: number, advanced_measurement_table: string, advertiser_tracking_enabled: boolean);
+    constructor(event_name: string, event_time: number, event_source_url: string, user_data: UserData, custom_data: CustomData, app_data: AppData, event_id: string, opt_out: boolean, action_source: string, data_processing_options: string[], data_processing_options_country: number, data_processing_options_state: number, advanced_measurement_table: string, advertiser_tracking_enabled: boolean);
     /**
      * Gets the Event Name for the current Event.
      */
@@ -174,19 +174,19 @@ export default class ServerEvent {
      * Gets the data_processing_options for the current event.
      * Processing options you would like to enable for a specific event.
      */
-    get data_processing_options(): Array<string>;
+    get data_processing_options(): string[];
     /**
      * Sets the data_processing_options for the current event.
-     * @param {Array<string>} data_processing_options represents Data processing options you would like to enable for a specific event, e.g. [] or ['LDU']
+     * @param {string[]} data_processing_options represents Data processing options you would like to enable for a specific event, e.g. [] or ['LDU']
      * @see {@link https://developers.facebook.com/docs/marketing-apis/data-processing-options}
      */
-    set data_processing_options(data_processing_options: Array<string>);
+    set data_processing_options(data_processing_options: string[]);
     /**
      * Sets the data_processing_options for the current event.
-     * @param {Array<string>} data_processing_options represents Data processing options you would like to enable for a specific event, e.g. [] or ['LDU']
+     * @param {string[]} data_processing_options represents Data processing options you would like to enable for a specific event, e.g. [] or ['LDU']
      * @see {@link https://developers.facebook.com/docs/marketing-apis/data-processing-options}
      */
-    setDataProcessingOptions(data_processing_options: Array<string>): ServerEvent;
+    setDataProcessingOptions(data_processing_options: string[]): ServerEvent;
     /**
      * Gets the data_processing_options_country for the current event.
      * A country that you want to associate to this data processing option.

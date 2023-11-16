@@ -13,9 +13,9 @@ export default class ProductGroup extends AbstractCrudObject {
         retailer_id: "retailer_id";
         variants: "variants";
     }>;
-    getProducts(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createProduct(fields: Array<string>, params?: Record<any, any>, pathOverride?: string | null): Promise<ProductItem>;
-    delete(fields: Array<string>, params?: Record<any, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<any, any>): ProductGroup;
-    update(fields: Array<string>, params?: Record<any, any>): ProductGroup;
+    getProducts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createProduct(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<ProductItem>;
+    delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<any, any>): ProductGroup;
+    update(fields: string[], params?: Record<any, any>): Promise<ProductGroup>;
 }

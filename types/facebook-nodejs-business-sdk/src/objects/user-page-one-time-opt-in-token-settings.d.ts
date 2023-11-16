@@ -17,5 +17,5 @@ export default class UserPageOneTimeOptInTokenSettings extends AbstractCrudObjec
         user_token_status: "user_token_status";
         id: "id";
     }>;
-    get(fields: Array<string>, params?: Record<any, any>): UserPageOneTimeOptInTokenSettings;
+    get(fields: string[], params?: Record<any, any>): UserPageOneTimeOptInTokenSettings;
 }

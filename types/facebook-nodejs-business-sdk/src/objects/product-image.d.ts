@@ -10,5 +10,5 @@ export default class ProductImage extends AbstractCrudObject {
         image_url: "image_url";
         width: "width";
     }>;
-    get(fields: Array<string>, params?: Record<any, any>): ProductImage;
+    get(fields: string[], params?: Record<any, any>): ProductImage;
 }

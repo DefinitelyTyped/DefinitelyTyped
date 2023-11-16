@@ -18,9 +18,9 @@ export default class InstagramUser extends AbstractCrudObject {
         profile_pic: "profile_pic";
         username: "username";
     }>;
-    getAgencies(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getArEffects(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getAuthorizedAdAccounts(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createAuthorizedAdAccount(fields: Array<string>, params?: Record<any, any>, pathOverride?: string | null): Promise<InstagramUser>;
-    get(fields: Array<string>, params?: Record<any, any>): InstagramUser;
+    getAgencies(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getArEffects(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getAuthorizedAdAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createAuthorizedAdAccount(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<InstagramUser>;
+    get(fields: string[], params?: Record<any, any>): InstagramUser;
 }

@@ -102,9 +102,9 @@ export default class Content {
      */
     set description(description: string);
     /**
-  * Sets the Product Description of the Item.
-  * @param description is a string representing the description for the product.
-  */
+     * Sets the Product Description of the Item.
+     * @param description is a string representing the description for the product.
+     */
     setDescription(description: string): Content;
     /**
      * Gets the Brand of the listed Item.

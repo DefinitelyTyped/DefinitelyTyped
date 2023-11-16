@@ -18,16 +18,16 @@ export default class ProductSet extends AbstractCrudObject {
         product_count: "product_count";
         retailer_id: "retailer_id";
     }>;
-    getAutomotiveModels(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getDestinations(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getFlights(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getHomeListings(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getHotels(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getMediaTitles(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getProducts(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getVehicleOffers(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getVehicles(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    delete(fields: Array<string>, params?: Record<any, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<any, any>): ProductSet;
-    update(fields: Array<string>, params?: Record<any, any>): ProductSet;
+    getAutomotiveModels(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getDestinations(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getFlights(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getHomeListings(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getHotels(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getMediaTitles(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getProducts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getVehicleOffers(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getVehicles(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<any, any>): ProductSet;
+    update(fields: string[], params?: Record<any, any>): Promise<ProductSet>;
 }

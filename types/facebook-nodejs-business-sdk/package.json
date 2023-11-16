@@ -8,5 +8,6 @@
     "devDependencies": {
         "@types/facebook-nodejs-business-sdk": "workspace:."
     },
-    "owners": []
+    "owners": [],
+    "minimumTypeScriptVersion": "5.1"
 }

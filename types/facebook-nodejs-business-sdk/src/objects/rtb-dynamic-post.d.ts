@@ -18,7 +18,7 @@ export default class RTBDynamicPost extends AbstractCrudObject {
         product_id: "product_id";
         title: "title";
     }>;
-    getComments(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getLikes(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<any, any>): RTBDynamicPost;
+    getComments(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getLikes(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    get(fields: string[], params?: Record<any, any>): RTBDynamicPost;
 }

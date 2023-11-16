@@ -147,9 +147,9 @@ export default class Vehicle extends AbstractCrudObject {
         rv_camper: "RV_CAMPER";
         trailer: "TRAILER";
     }>;
-    getAugmentedRealitiesMetadata(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getChannelsToIntegrityStatus(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getVideosMetadata(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<any, any>): Vehicle;
-    update(fields: Array<string>, params?: Record<any, any>): Vehicle;
+    getAugmentedRealitiesMetadata(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getChannelsToIntegrityStatus(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getVideosMetadata(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    get(fields: string[], params?: Record<any, any>): Vehicle;
+    update(fields: string[], params?: Record<any, any>): Promise<Vehicle>;
 }

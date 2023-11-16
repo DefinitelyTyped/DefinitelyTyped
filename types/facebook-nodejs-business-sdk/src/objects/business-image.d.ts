@@ -41,5 +41,5 @@ export default class BusinessImage extends AbstractCrudObject {
         right_column_standard: "RIGHT_COLUMN_STANDARD";
         suggested_video_mobile: "SUGGESTED_VIDEO_MOBILE";
     }>;
-    get(fields: Array<string>, params?: Record<any, any>): BusinessImage;
+    get(fields: string[], params?: Record<any, any>): BusinessImage;
 }

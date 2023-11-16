@@ -10,7 +10,7 @@ export default class PageUserMessageThreadLabel extends AbstractCrudObject {
         page_label_name: "page_label_name";
     }>;
     deleteLabel(params?: Record<any, any>): Promise<any>;
-    createLabel(fields: Array<string>, params?: Record<any, any>, pathOverride?: string | null): Promise<PageUserMessageThreadLabel>;
-    delete(fields: Array<string>, params?: Record<any, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<any, any>): PageUserMessageThreadLabel;
+    createLabel(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<PageUserMessageThreadLabel>;
+    delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<any, any>): PageUserMessageThreadLabel;
 }

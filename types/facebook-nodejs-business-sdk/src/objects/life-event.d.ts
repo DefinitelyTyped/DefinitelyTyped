@@ -15,6 +15,6 @@ export default class LifeEvent extends AbstractCrudObject {
         title: "title";
         updated_time: "updated_time";
     }>;
-    getLikes(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<any, any>): LifeEvent;
+    getLikes(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    get(fields: string[], params?: Record<any, any>): LifeEvent;
 }

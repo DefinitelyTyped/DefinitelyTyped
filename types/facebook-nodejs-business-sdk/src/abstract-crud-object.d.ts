@@ -64,7 +64,7 @@ export class AbstractCrudObject extends AbstractObject {
      * @param   {Object}  [params]
      * @return  {Promise}
      */
-    read(fields: Array<string>, params?: Record<any, any>): Promise<any>;
+    read(fields: string[], params?: Record<any, any>): Promise<any>;
     /**
      * Update object
      * @param   {Object}  [params]
@@ -86,7 +86,7 @@ export class AbstractCrudObject extends AbstractObject {
      * @param  {String}  [endpoint]
      * @return {Cursor}
      */
-    getEdge(targetClass: Record<any, any>, fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean, endpoint?: string | null): Cursor | Promise<any>;
+    getEdge(targetClass: Record<any, any>, fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean, endpoint?: string | null): Cursor | Promise<any>;
     /**
      * Create edge object
      * @param   {String}  [endpoint]
@@ -95,7 +95,7 @@ export class AbstractCrudObject extends AbstractObject {
      * @param   {Function} [targetClassConstructor]
      * @return  {Promise}
      */
-    createEdge(endpoint: string, fields: Array<string>, params?: Record<any, any>, targetClassConstructor?: any, pathOverride?: string | null): Promise<any>;
+    createEdge(endpoint: string, fields: string[], params?: Record<any, any>, targetClassConstructor?: any, pathOverride?: string | null): Promise<any>;
     /**
      * Delete edge object
      * @param   {String}  [endpoint]
@@ -111,6 +111,6 @@ export class AbstractCrudObject extends AbstractObject {
      * @param  {FacebookAdsApi} [api]
      * @return {Promise}
      */
-    static getByIds(ids: Array<number>, fields: Array<string>, params: Record<any, any> | null | undefined, api: FacebookAdsApi): Promise<any>;
+    static getByIds(ids: number[], fields: string[], params: Record<any, any> | null | undefined, api: FacebookAdsApi): Promise<any>;
 }
 export default AbstractCrudObject;

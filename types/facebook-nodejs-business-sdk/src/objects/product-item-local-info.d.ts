@@ -15,5 +15,5 @@ export default class ProductItemLocalInfo extends AbstractCrudObject {
         inferred_circle_origin: "inferred_circle_origin";
         inferred_circle_radius: "inferred_circle_radius";
     }>;
-    get(fields: Array<string>, params?: Record<any, any>): ProductItemLocalInfo;
+    get(fields: string[], params?: Record<any, any>): ProductItemLocalInfo;
 }

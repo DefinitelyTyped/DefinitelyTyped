@@ -17,7 +17,7 @@ export default class AdVideo extends AbstractCrudObject {
     /**
      * Uploads filepath and creates the AdVideo object from it.
      * It requires 'filepath' property to be defined.
-     **/
+     */
     create(batch: FacebookAdsBatchApi, failureHandler: any, successHandler: any): any;
     waitUntilEncodingReady(interval?: number, timeout?: number): void;
     /**

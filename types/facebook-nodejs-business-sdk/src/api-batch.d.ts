@@ -7,9 +7,9 @@ declare class FacebookAdsApiBatch {
     _api: FacebookAdsApi;
     _files: Array<Record<any, any>>;
     _batch: Array<Record<any, any>>;
-    _successCallbacks: Array<any>;
-    _failureCallbacks: Array<any>;
-    _requests: Array<APIRequest>;
+    _successCallbacks: any[];
+    _failureCallbacks: any[];
+    _requests: APIRequest[];
     /**
      * @param {FacebookAdsApi} api
      * @param {Function} successCallback
@@ -35,7 +35,7 @@ declare class FacebookAdsApiBatch {
      * @param {APIRequest} [request] The APIRequest object
      * @return {Object} An object describing the call
      */
-    add(method: string, relativePath: Array<string> | string, params?: Record<any, any>, files?: Record<any, any>, successCallback?: any, failureCallback?: any, request?: APIRequest): {
+    add(method: string, relativePath: string[] | string, params?: Record<any, any>, files?: Record<any, any>, successCallback?: any, failureCallback?: any, request?: APIRequest): {
         attachedFiles: undefined | string;
         body: undefined | string;
         method: string;

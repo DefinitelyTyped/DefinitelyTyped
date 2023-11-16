@@ -14,5 +14,5 @@ export default class LiveVideoInputStream extends AbstractCrudObject {
         stream_id: "stream_id";
         stream_url: "stream_url";
     }>;
-    get(fields: Array<string>, params?: Record<any, any>): LiveVideoInputStream;
+    get(fields: string[], params?: Record<any, any>): LiveVideoInputStream;
 }

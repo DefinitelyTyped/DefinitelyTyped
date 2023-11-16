@@ -275,6 +275,6 @@ export default class ImageCopyright extends AbstractCrudObject {
         zm: "ZM";
         zw: "ZW";
     }>;
-    get(fields: Array<string>, params?: Record<any, any>): ImageCopyright;
-    update(fields: Array<string>, params?: Record<any, any>): ImageCopyright;
+    get(fields: string[], params?: Record<any, any>): ImageCopyright;
+    update(fields: string[], params?: Record<any, any>): Promise<ImageCopyright>;
 }

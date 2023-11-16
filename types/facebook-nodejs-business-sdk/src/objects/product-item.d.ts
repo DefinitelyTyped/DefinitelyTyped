@@ -721,10 +721,10 @@ export default class ProductItem extends AbstractCrudObject {
         country_origin_exempt: "COUNTRY_ORIGIN_EXEMPT";
         default: "DEFAULT";
     }>;
-    getChannelsToIntegrityStatus(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getProductSets(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getVideosMetadata(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    delete(fields: Array<string>, params?: Record<any, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<any, any>): ProductItem;
-    update(fields: Array<string>, params?: Record<any, any>): ProductItem;
+    getChannelsToIntegrityStatus(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getProductSets(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getVideosMetadata(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<any, any>): ProductItem;
+    update(fields: string[], params?: Record<any, any>): Promise<ProductItem>;
 }

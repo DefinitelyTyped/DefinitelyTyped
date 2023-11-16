@@ -19,9 +19,9 @@ export default class WhatsAppBusinessPreVerifiedPhoneNumber extends AbstractCrud
         not_verified: "NOT_VERIFIED";
         verified: "VERIFIED";
     }>;
-    getPartners(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createRequestCode(fields: Array<string>, params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
-    createVerifyCode(fields: Array<string>, params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
-    delete(fields: Array<string>, params?: Record<any, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<any, any>): WhatsAppBusinessPreVerifiedPhoneNumber;
+    getPartners(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createRequestCode(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    createVerifyCode(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<any, any>): WhatsAppBusinessPreVerifiedPhoneNumber;
 }

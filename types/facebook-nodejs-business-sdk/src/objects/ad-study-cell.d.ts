@@ -32,9 +32,9 @@ export default class AdStudyCell extends AbstractCrudObject {
         tv_facebook: "TV_FACEBOOK";
         video_view_optimization: "VIDEO_VIEW_OPTIMIZATION";
     }>;
-    getAdAccounts(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getAdSets(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getCampaigns(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<any, any>): AdStudyCell;
-    update(fields: Array<string>, params?: Record<any, any>): AdStudyCell;
+    getAdAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getAdSets(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getCampaigns(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    get(fields: string[], params?: Record<any, any>): AdStudyCell;
+    update(fields: string[], params?: Record<any, any>): Promise<AdStudyCell>;
 }

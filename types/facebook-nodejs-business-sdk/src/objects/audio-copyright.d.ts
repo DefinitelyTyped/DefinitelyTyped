@@ -20,6 +20,6 @@ export default class AudioCopyright extends AbstractCrudObject {
         whitelisted_fb_users: "whitelisted_fb_users";
         whitelisted_ig_users: "whitelisted_ig_users";
     }>;
-    getUpdateRecords(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<any, any>): AudioCopyright;
+    getUpdateRecords(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    get(fields: string[], params?: Record<any, any>): AudioCopyright;
 }

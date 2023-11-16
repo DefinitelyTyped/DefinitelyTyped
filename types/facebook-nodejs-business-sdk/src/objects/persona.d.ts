@@ -10,6 +10,6 @@ export default class Persona extends AbstractCrudObject {
         name: "name";
         profile_picture_url: "profile_picture_url";
     }>;
-    delete(fields: Array<string>, params?: Record<any, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<any, any>): Persona;
+    delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<any, any>): Persona;
 }

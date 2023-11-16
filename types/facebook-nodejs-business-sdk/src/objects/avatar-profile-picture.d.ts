@@ -8,5 +8,5 @@ export default class AvatarProfilePicture extends AbstractCrudObject {
         id: "id";
         url: "url";
     }>;
-    get(fields: Array<string>, params?: Record<any, any>): AvatarProfilePicture;
+    get(fields: string[], params?: Record<any, any>): AvatarProfilePicture;
 }

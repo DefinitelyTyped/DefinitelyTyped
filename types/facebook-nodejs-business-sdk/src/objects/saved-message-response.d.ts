@@ -12,5 +12,5 @@ export default class SavedMessageResponse extends AbstractCrudObject {
         message: "message";
         title: "title";
     }>;
-    get(fields: Array<string>, params?: Record<any, any>): SavedMessageResponse;
+    get(fields: string[], params?: Record<any, any>): SavedMessageResponse;
 }

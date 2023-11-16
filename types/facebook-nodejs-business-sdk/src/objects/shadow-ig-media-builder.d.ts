@@ -10,5 +10,5 @@ export default class ShadowIGMediaBuilder extends AbstractCrudObject {
         status: "status";
         status_code: "status_code";
     }>;
-    get(fields: Array<string>, params?: Record<any, any>): ShadowIGMediaBuilder;
+    get(fields: string[], params?: Record<any, any>): ShadowIGMediaBuilder;
 }

@@ -12,5 +12,5 @@ export default class Shop extends AbstractCrudObject {
         shop_status: "shop_status";
         workspace: "workspace";
     }>;
-    get(fields: Array<string>, params?: Record<any, any>): Shop;
+    get(fields: string[], params?: Record<any, any>): Shop;
 }

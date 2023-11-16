@@ -8,7 +8,7 @@ import ServerEvent from './server-event';
 export default class EventRequest {
     _access_token: string;
     _pixel_id: string;
-    _events: Array<ServerEvent>;
+    _events: ServerEvent[];
     _partner_agent: string | null | undefined;
     _test_event_code: string | null | undefined;
     _namespace_id: string | null | undefined;
@@ -21,7 +21,7 @@ export default class EventRequest {
     /**
      * @param {String} access_token Access Token for the user calling Graph API
      * @param {String} pixel_id Pixel Id to which you are sending the events
-     * @param {Array<ServerEvent>} events Data for the request Payload for a Conversions API Event
+     * @param {ServerEvent[]} events Data for the request Payload for a Conversions API Event
      * @param {?String} partner_agent Platform from which the event is sent e.g. wordpress
      * @param {?String} test_event_code Test Event Code used to verify that your server events are received correctly by Facebook.
      * @param {?String} namespace_id Scope used to resolve extern_id or Third-party ID. Can be another data set or data partner ID.
@@ -31,23 +31,23 @@ export default class EventRequest {
      * @param {Boolean} debug_mode_flag Set to true if you want to enable more logging in SDK
      * @param {?HttpServiceInterface} http_service Override the default http request method by setting an object that implements HttpServiceInterface
      */
-    constructor(access_token: string, pixel_id: string, events?: Array<ServerEvent>, partner_agent?: string | null, test_event_code?: string | null, namespace_id?: string | null, upload_id?: string | null, upload_tag?: string | null, upload_source?: string | null, debug_mode_flag?: boolean, http_service?: HttpServiceInterface | null);
+    constructor(access_token: string, pixel_id: string, events?: ServerEvent[], partner_agent?: string | null, test_event_code?: string | null, namespace_id?: string | null, upload_id?: string | null, upload_tag?: string | null, upload_source?: string | null, debug_mode_flag?: boolean, http_service?: HttpServiceInterface | null);
     /**
      * Gets the data for the request Payload for a Conversions API Event. events is represented by a list/array of ServerEvent objects.
      */
-    get events(): Array<ServerEvent>;
+    get events(): ServerEvent[];
     /**
      * Sets the events for the request Payload for a Conversions API Event.
      * events is represented by a list/array of ServerEvent objects.
      * @param events for the current server event
      */
-    set events(events: Array<ServerEvent>);
+    set events(events: ServerEvent[]);
     /**
      * Sets the events for the request Payload for a Conversions API Event.
      * events is represented by a list/array of ServerEvent objects.
      * @param events for the current server event
      */
-    setEvents(events: Array<ServerEvent>): EventRequest;
+    setEvents(events: ServerEvent[]): EventRequest;
     /**
      * Gets the partner_agent for the request
      * Allows you to specify the platform from which the event is sent e.g. wordpress

@@ -8,8 +8,8 @@ export default class CustomData {
     _currency: string;
     _content_name: string;
     _content_category: string;
-    _content_ids: Array<string>;
-    _contents: Array<Content>;
+    _content_ids: string[];
+    _contents: Content[];
     _content_type: string;
     _order_id: string;
     _predicted_ltv: number;
@@ -24,8 +24,8 @@ export default class CustomData {
      * @param {String} currency currency involved in the transaction Eg: usd
      * @param {String} content_name name of the Content Eg: lettuce
      * @param {String} content_category category of the content Eg: grocery
-     * @param {Array<String>} content_ids list of content unique ids involved in the event
-     * @param {Array<Content>} contents Array of Content Objects. Use {Content} class to define a content.
+     * @param {string[]} content_ids list of content unique ids involved in the event
+     * @param {Content[]} contents Array of Content Objects. Use {Content} class to define a content.
      * @param {String} content_type Type of the Content group or Product SKU
      * @param {String} order_id Unique id representing the order
      * @param {Number} predicted_ltv Predicted LifeTime Value for the customer involved in the event
@@ -36,7 +36,7 @@ export default class CustomData {
      * @param {String} delivery_category The type of delivery for a purchase event
      * @param {Object} custom_properties Custom Properties to be added to the Custom Data
      */
-    constructor(value: number, currency: string, content_name: string, content_category: string, content_ids: Array<string>, contents: Array<Content>, content_type: string, order_id: string, predicted_ltv: number, num_items: number, search_string: string, status: string, item_number: string, delivery_category: string, custom_properties: Record<any, any>);
+    constructor(value: number, currency: string, content_name: string, content_category: string, content_ids: string[], contents: Content[], content_type: string, order_id: string, predicted_ltv: number, num_items: number, search_string: string, status: string, item_number: string, delivery_category: string, custom_properties: Record<any, any>);
     /**
      * Gets the value of the custom data.
      * A numeric value associated with this event. This could be a monetary value or a value in some other metric.
@@ -115,39 +115,39 @@ export default class CustomData {
      * If content_type is a product, then your content IDs must be an array with a single string value. Otherwise, this array can contain any number of string values.
      * Example: ['ABC123', 'XYZ789']
      */
-    get content_ids(): Array<string>;
+    get content_ids(): string[];
     /**
      * Sets the content_ids for the custom data.
      * @param content_ids The content IDs associated with the event, such as product SKUs for items in an AddToCart, represented as Array of string.
      * If content_type is a product, then your content IDs must be an array with a single string value. Otherwise, this array can contain any number of string values.
      * Example: ['ABC123', 'XYZ789']
      */
-    set content_ids(content_ids: Array<string>);
+    set content_ids(content_ids: string[]);
     /**
      * Sets the content_ids for the custom data.
      * @param {Array} content_ids The content IDs associated with the event, such as product SKUs for items in an AddToCart, represented as Array of string.
      * If content_type is a product, then your content IDs must be an array with a single string value. Otherwise, this array can contain any number of string values.
      * Example: ['ABC123', 'XYZ789']
      */
-    setContentIds(content_ids: Array<string>): CustomData;
+    setContentIds(content_ids: string[]): CustomData;
     /**
      * Gets the contents for the custom data.
      * An array of Content objects that contain the product IDs associated with the event plus information about the products. id, quantity, and item_price are available fields.
      * Example: [{'id':'ABC123','quantity' :2,'item_price':5.99}, {'id':'XYZ789','quantity':2, 'item_price':9.99}]
      */
-    get contents(): Array<Content>;
+    get contents(): Content[];
     /**
      * Sets the contents for the custom data.
      * @param contents An array of Content objects that contain the product IDs associated with the event plus information about the products. id, quantity, and item_price are available fields.
      * Example: [{'id':'ABC123','quantity' :2,'item_price':5.99}, {'id':'XYZ789','quantity':2, 'item_price':9.99}]
      */
-    set contents(contents: Array<Content>);
+    set contents(contents: Content[]);
     /**
      * Sets the contents for the custom data.
-     * @param {Array<Content>} contents An array of Content objects that contain the product IDs associated with the event plus information about the products. id, quantity, and item_price are available fields.
+     * @param {Content[]} contents An array of Content objects that contain the product IDs associated with the event plus information about the products. id, quantity, and item_price are available fields.
      * Example: [{'id':'ABC123','quantity' :2,'item_price':5.99}, {'id':'XYZ789','quantity':2, 'item_price':9.99}]
      */
-    setContents(contents: Array<Content>): CustomData;
+    setContents(contents: Content[]): CustomData;
     /**
      * Gets the content type for the custom data.
      * A String equal to either product or product_group. Set to product if the keys you send content_ids or contents represent products.

@@ -2,7 +2,7 @@ import AdVideo from './objects/ad-video';
 import FacebookAdsApi from './api';
 /**
  * Video uploader that can upload videos to adaccount
- **/
+ */
 declare class VideoUploader {
     _session: VideoUploadSession | null | undefined;
     constructor();
@@ -11,14 +11,14 @@ declare class VideoUploader {
      * @param {AdVideo} video The AdVideo object that will be uploaded
      * @param {Boolean} [waitForEncoding] Whether to wait until encoding
      *   is finished
-     **/
+     */
     upload(video: AdVideo, waitForEncoding: boolean): Record<any, any>;
 }
-type SlideshowSpec = {
-    images_urls: Array<string>;
+interface SlideshowSpec {
+    images_urls: string[];
     duration_ms: number;
     transition_ms: number;
-};
+}
 declare class VideoUploadSession {
     _accountId: string;
     _api: FacebookAdsApi;
@@ -40,7 +40,7 @@ declare class VideoUploadSession {
 }
 /**
  * Abstract class for request managers
- **/
+ */
 declare class VideoUploadRequestManager {
     _api: FacebookAdsApi;
     constructor(api: FacebookAdsApi);
@@ -50,7 +50,7 @@ declare class VideoUploadRequestManager {
 declare class VideoUploadStartRequestManager extends VideoUploadRequestManager {
     /**
      * Send start request with the given context
-     **/
+     */
     sendRequest(context: VideoUploadRequestContext): Promise<Record<any, any>>;
     getParamsFromContext(context: VideoUploadRequestContext): Record<any, any>;
 }
@@ -59,19 +59,19 @@ declare class VideoUploadTransferRequestManager extends VideoUploadRequestManage
     _endOffset: number;
     /**
      * Send transfer request with the given context
-     **/
+     */
     sendRequest(context: VideoUploadRequestContext): Promise<Record<any, any>>;
 }
 declare class VideoUploadFinishRequestManager extends VideoUploadRequestManager {
     /**
      * Send transfer request with the given context
-     **/
+     */
     sendRequest(context: VideoUploadRequestContext): Promise<Record<any, any>>;
     getParamsFromContext(context: VideoUploadRequestContext): Record<any, any>;
 }
 /**
  * Upload request context that contains the param data
- **/
+ */
 declare class VideoUploadRequestContext {
     _accountId: string;
     _fileName: string;
@@ -84,25 +84,25 @@ declare class VideoUploadRequestContext {
     _slideshowSpec: SlideshowSpec;
     _videoFileChunk: string;
     get accountId(): string;
-    set accountId(accountId: string): void;
+    set accountId(accountId: string);
     get fileName(): string;
-    set fileName(fileName: string): void;
+    set fileName(fileName: string);
     get filePath(): string;
-    set filePath(filePath: string): void;
+    set filePath(filePath: string);
     get fileSize(): number;
-    set fileSize(fileSize: number): void;
+    set fileSize(fileSize: number);
     get name(): string;
-    set name(name: string): void;
+    set name(name: string);
     get sessionId(): string;
-    set sessionId(sessionId: string): void;
+    set sessionId(sessionId: string);
     get startOffset(): number;
-    set startOffset(startOffset: number): void;
+    set startOffset(startOffset: number);
     get endOffset(): number;
-    set endOffset(endOffset: number): void;
+    set endOffset(endOffset: number);
     get slideshowSpec(): SlideshowSpec;
-    set slideshowSpec(slideshowSpec: SlideshowSpec): void;
+    set slideshowSpec(slideshowSpec: SlideshowSpec);
     get videoFileChunk(): string;
-    set videoFileChunk(videoFileChunk: string): void;
+    set videoFileChunk(videoFileChunk: string);
 }
 declare class VideoUploadRequest {
     _params: Record<any, any>;
@@ -111,13 +111,13 @@ declare class VideoUploadRequest {
     constructor(api: FacebookAdsApi);
     /**
      * Send the current request
-     **/
-    send(path: string | Array<string>): Record<any, any>;
+     */
+    send(path: string | string[]): Record<any, any>;
     setParams(params: Record<any, any>, files?: Record<any, any>): void;
 }
-declare class VideoEncodingStatusChecker {
-    static waitUntilReady(api: FacebookAdsApi, videoId: number, interval: number, timeout: number): Promise<void>;
-    static getStatus(api: FacebookAdsApi, videoId: number): any;
+declare namespace VideoEncodingStatusChecker {
+    function waitUntilReady(api: FacebookAdsApi, videoId: number, interval: number, timeout: number): Promise<void>;
+    function getStatus(api: FacebookAdsApi, videoId: number): any;
 }
 export { VideoUploader, VideoUploadRequest, VideoEncodingStatusChecker };
 export type { SlideshowSpec };

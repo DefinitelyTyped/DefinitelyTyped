@@ -31,7 +31,7 @@ export default class PaymentEnginePayment extends AbstractCrudObject {
         denied_refund: "DENIED_REFUND";
         granted_replacement_item: "GRANTED_REPLACEMENT_ITEM";
     }>;
-    createDispute(fields: Array<string>, params?: Record<any, any>, pathOverride?: string | null): Promise<PaymentEnginePayment>;
-    createRefund(fields: Array<string>, params?: Record<any, any>, pathOverride?: string | null): Promise<PaymentEnginePayment>;
-    get(fields: Array<string>, params?: Record<any, any>): PaymentEnginePayment;
+    createDispute(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<PaymentEnginePayment>;
+    createRefund(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<PaymentEnginePayment>;
+    get(fields: string[], params?: Record<any, any>): PaymentEnginePayment;
 }

@@ -12,5 +12,5 @@ export default class PageUpcomingChange extends AbstractCrudObject {
         proposal: "proposal";
         timer_status: "timer_status";
     }>;
-    get(fields: Array<string>, params?: Record<any, any>): PageUpcomingChange;
+    get(fields: string[], params?: Record<any, any>): PageUpcomingChange;
 }

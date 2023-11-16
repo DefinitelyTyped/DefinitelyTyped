@@ -12,8 +12,8 @@ export default class EventSourceGroup extends AbstractCrudObject {
         name: "name";
         owner_business: "owner_business";
     }>;
-    getSharedAccounts(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createSharedAccount(fields: Array<string>, params?: Record<any, any>, pathOverride?: string | null): Promise<EventSourceGroup>;
-    get(fields: Array<string>, params?: Record<any, any>): EventSourceGroup;
-    update(fields: Array<string>, params?: Record<any, any>): EventSourceGroup;
+    getSharedAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createSharedAccount(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<EventSourceGroup>;
+    get(fields: string[], params?: Record<any, any>): EventSourceGroup;
+    update(fields: string[], params?: Record<any, any>): Promise<EventSourceGroup>;
 }

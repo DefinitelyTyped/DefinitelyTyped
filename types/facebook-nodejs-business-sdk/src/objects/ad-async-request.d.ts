@@ -31,6 +31,6 @@ export default class AdAsyncRequest extends AbstractCrudObject {
         user_canceled: "USER_CANCELED";
         user_canceled_dependency: "USER_CANCELED_DEPENDENCY";
     }>;
-    delete(fields: Array<string>, params?: Record<any, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<any, any>): AdAsyncRequest;
+    delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<any, any>): AdAsyncRequest;
 }

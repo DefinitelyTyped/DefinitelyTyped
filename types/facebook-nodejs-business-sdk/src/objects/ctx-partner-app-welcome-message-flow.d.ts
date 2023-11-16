@@ -13,5 +13,5 @@ export default class CTXPartnerAppWelcomeMessageFlow extends AbstractCrudObject 
         name: "name";
         welcome_message_flow: "welcome_message_flow";
     }>;
-    get(fields: Array<string>, params?: Record<any, any>): CTXPartnerAppWelcomeMessageFlow;
+    get(fields: string[], params?: Record<any, any>): CTXPartnerAppWelcomeMessageFlow;
 }

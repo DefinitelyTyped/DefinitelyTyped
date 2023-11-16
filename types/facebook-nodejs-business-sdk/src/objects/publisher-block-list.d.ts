@@ -18,9 +18,9 @@ export default class PublisherBlockList extends AbstractCrudObject {
         owner_ad_account_id: "owner_ad_account_id";
         web_publishers: "web_publishers";
     }>;
-    createAppEndPublisherUrl(fields: Array<string>, params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
-    getPagedWebPublishers(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    delete(fields: Array<string>, params?: Record<any, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<any, any>): PublisherBlockList;
-    update(fields: Array<string>, params?: Record<any, any>): PublisherBlockList;
+    createAppEndPublisherUrl(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    getPagedWebPublishers(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<any, any>): PublisherBlockList;
+    update(fields: string[], params?: Record<any, any>): Promise<PublisherBlockList>;
 }

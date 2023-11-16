@@ -32,12 +32,12 @@ export default class Album extends AbstractCrudObject {
         updated_time: "updated_time";
         video_count: "video_count";
     }>;
-    getComments(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createComment(fields: Array<string>, params?: Record<any, any>, pathOverride?: string | null): Promise<Comment>;
-    getLikes(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createLike(fields: Array<string>, params?: Record<any, any>, pathOverride?: string | null): Promise<Album>;
-    getPhotos(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createPhoto(fields: Array<string>, params?: Record<any, any>, pathOverride?: string | null): Promise<Photo>;
-    getPicture(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<any, any>): Album;
+    getComments(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createComment(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Comment>;
+    getLikes(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createLike(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Album>;
+    getPhotos(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createPhoto(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Photo>;
+    getPicture(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    get(fields: string[], params?: Record<any, any>): Album;
 }

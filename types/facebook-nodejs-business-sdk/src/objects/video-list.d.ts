@@ -16,6 +16,6 @@ export default class VideoList extends AbstractCrudObject {
         title: "title";
         videos_count: "videos_count";
     }>;
-    getVideos(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<any, any>): VideoList;
+    getVideos(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    get(fields: string[], params?: Record<any, any>): VideoList;
 }

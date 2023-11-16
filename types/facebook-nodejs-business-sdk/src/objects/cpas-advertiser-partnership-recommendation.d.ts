@@ -15,5 +15,5 @@ export default class CPASAdvertiserPartnershipRecommendation extends AbstractCru
         status: "status";
         status_reason: "status_reason";
     }>;
-    get(fields: Array<string>, params?: Record<any, any>): CPASAdvertiserPartnershipRecommendation;
+    get(fields: string[], params?: Record<any, any>): CPASAdvertiserPartnershipRecommendation;
 }

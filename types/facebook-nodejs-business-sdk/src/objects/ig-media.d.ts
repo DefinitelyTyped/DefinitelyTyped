@@ -26,14 +26,14 @@ export default class IGMedia extends AbstractCrudObject {
         timestamp: "timestamp";
         username: "username";
     }>;
-    getChildren(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getCollaborators(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getComments(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createComment(fields: Array<string>, params?: Record<any, any>, pathOverride?: string | null): Promise<IGComment>;
-    getInsights(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getChildren(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getCollaborators(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getComments(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createComment(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<IGComment>;
+    getInsights(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
     deleteProductTags(params?: Record<any, any>): Promise<any>;
-    getProductTags(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createProductTag(fields: Array<string>, params?: Record<any, any>, pathOverride?: string | null): Promise<ShadowIGMediaProductTags>;
-    get(fields: Array<string>, params?: Record<any, any>): IGMedia;
-    update(fields: Array<string>, params?: Record<any, any>): IGMedia;
+    getProductTags(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createProductTag(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<ShadowIGMediaProductTags>;
+    get(fields: string[], params?: Record<any, any>): IGMedia;
+    update(fields: string[], params?: Record<any, any>): Promise<IGMedia>;
 }

@@ -21,6 +21,6 @@ export default class BusinessAssetSharingAgreement extends AbstractCrudObject {
         pending_email_verification: "PENDING_EMAIL_VERIFICATION";
         pending_integrity_review: "PENDING_INTEGRITY_REVIEW";
     }>;
-    get(fields: Array<string>, params?: Record<any, any>): BusinessAssetSharingAgreement;
-    update(fields: Array<string>, params?: Record<any, any>): BusinessAssetSharingAgreement;
+    get(fields: string[], params?: Record<any, any>): BusinessAssetSharingAgreement;
+    update(fields: string[], params?: Record<any, any>): Promise<BusinessAssetSharingAgreement>;
 }

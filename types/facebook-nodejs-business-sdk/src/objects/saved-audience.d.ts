@@ -22,5 +22,5 @@ export default class SavedAudience extends AbstractCrudObject {
         time_created: "time_created";
         time_updated: "time_updated";
     }>;
-    get(fields: Array<string>, params?: Record<any, any>): SavedAudience;
+    get(fields: string[], params?: Record<any, any>): SavedAudience;
 }

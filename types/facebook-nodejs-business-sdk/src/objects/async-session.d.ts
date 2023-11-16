@@ -21,5 +21,5 @@ export default class AsyncSession extends AbstractCrudObject {
         uri: "uri";
         user: "user";
     }>;
-    get(fields: Array<string>, params?: Record<any, any>): AsyncSession;
+    get(fields: string[], params?: Record<any, any>): AsyncSession;
 }

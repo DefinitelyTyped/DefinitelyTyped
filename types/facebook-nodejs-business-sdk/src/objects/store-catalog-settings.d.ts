@@ -9,6 +9,6 @@ export default class StoreCatalogSettings extends AbstractCrudObject {
         id: "id";
         page: "page";
     }>;
-    delete(fields: Array<string>, params?: Record<any, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<any, any>): StoreCatalogSettings;
+    delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<any, any>): StoreCatalogSettings;
 }

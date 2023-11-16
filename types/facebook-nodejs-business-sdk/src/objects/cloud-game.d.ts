@@ -15,5 +15,5 @@ export default class CloudGame extends AbstractCrudObject {
         playable_ad_status: "playable_ad_status";
         playable_ad_upload_time: "playable_ad_upload_time";
     }>;
-    get(fields: Array<string>, params?: Record<any, any>): CloudGame;
+    get(fields: string[], params?: Record<any, any>): CloudGame;
 }

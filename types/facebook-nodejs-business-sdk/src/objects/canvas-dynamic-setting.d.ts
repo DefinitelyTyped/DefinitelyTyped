@@ -9,5 +9,5 @@ export default class CanvasDynamicSetting extends AbstractCrudObject {
         product_set_id: "product_set_id";
         id: "id";
     }>;
-    get(fields: Array<string>, params?: Record<any, any>): CanvasDynamicSetting;
+    get(fields: string[], params?: Record<any, any>): CanvasDynamicSetting;
 }

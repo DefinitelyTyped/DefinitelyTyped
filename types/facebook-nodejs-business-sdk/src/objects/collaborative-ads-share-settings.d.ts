@@ -12,5 +12,5 @@ export default class CollaborativeAdsShareSettings extends AbstractCrudObject {
         utm_medium: "utm_medium";
         utm_source: "utm_source";
     }>;
-    get(fields: Array<string>, params?: Record<any, any>): CollaborativeAdsShareSettings;
+    get(fields: string[], params?: Record<any, any>): CollaborativeAdsShareSettings;
 }

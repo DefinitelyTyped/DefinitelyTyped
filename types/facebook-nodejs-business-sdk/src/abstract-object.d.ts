@@ -1,6 +1,6 @@
 export default class AbstractObject {
     _data: any;
-    _fields: Array<string>;
+    _fields: string[];
     $key: string;
     $value: unknown;
     static get Fields(): Record<any, any>;

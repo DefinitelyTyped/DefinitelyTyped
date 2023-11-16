@@ -23,7 +23,7 @@ export default class InstagramMedia extends AbstractCrudObject {
         taken_at: "taken_at";
         video_url: "video_url";
     }>;
-    getComments(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createComment(fields: Array<string>, params?: Record<any, any>, pathOverride?: string | null): Promise<InstagramComment>;
-    get(fields: Array<string>, params?: Record<any, any>): InstagramMedia;
+    getComments(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createComment(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<InstagramComment>;
+    get(fields: string[], params?: Record<any, any>): InstagramMedia;
 }

@@ -39,11 +39,11 @@ export default class BusinessUser extends AbstractCrudObject {
         partner_center_marketing: "PARTNER_CENTER_MARKETING";
         partner_center_operations: "PARTNER_CENTER_OPERATIONS";
     }>;
-    getAssignedAdAccounts(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getAssignedBusinessAssetGroups(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getAssignedPages(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getAssignedProductCatalogs(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    delete(fields: Array<string>, params?: Record<any, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<any, any>): BusinessUser;
-    update(fields: Array<string>, params?: Record<any, any>): BusinessUser;
+    getAssignedAdAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getAssignedBusinessAssetGroups(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getAssignedPages(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getAssignedProductCatalogs(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<any, any>): BusinessUser;
+    update(fields: string[], params?: Record<any, any>): Promise<BusinessUser>;
 }

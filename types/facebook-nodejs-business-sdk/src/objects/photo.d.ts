@@ -58,12 +58,12 @@ export default class Photo extends AbstractCrudObject {
         tagged: "tagged";
         uploaded: "uploaded";
     }>;
-    getComments(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createComment(fields: Array<string>, params?: Record<any, any>, pathOverride?: string | null): Promise<Comment>;
-    getInsights(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getLikes(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createLike(fields: Array<string>, params?: Record<any, any>, pathOverride?: string | null): Promise<Photo>;
-    getSponsorTags(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    delete(fields: Array<string>, params?: Record<any, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<any, any>): Photo;
+    getComments(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createComment(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Comment>;
+    getInsights(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getLikes(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createLike(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Photo>;
+    getSponsorTags(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<any, any>): Photo;
 }

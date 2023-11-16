@@ -20,5 +20,5 @@ export default class CRMAddress extends AbstractCrudObject {
         validation_status: "validation_status";
         vat_tax_id: "vat_tax_id";
     }>;
-    get(fields: Array<string>, params?: Record<any, any>): CRMAddress;
+    get(fields: string[], params?: Record<any, any>): CRMAddress;
 }

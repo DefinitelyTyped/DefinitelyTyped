@@ -18,5 +18,5 @@ export default class VideoCopyrightRule extends AbstractCrudObject {
         rules_selector: "RULES_SELECTOR";
         rules_tab: "RULES_TAB";
     }>;
-    get(fields: Array<string>, params?: Record<any, any>): VideoCopyrightRule;
+    get(fields: string[], params?: Record<any, any>): VideoCopyrightRule;
 }

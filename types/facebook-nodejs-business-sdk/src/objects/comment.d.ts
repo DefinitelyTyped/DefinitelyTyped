@@ -56,13 +56,13 @@ export default class Comment extends AbstractCrudObject {
         chronological: "chronological";
         reverse_chronological: "reverse_chronological";
     }>;
-    getComments(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createComment(fields: Array<string>, params?: Record<any, any>, pathOverride?: string | null): Promise<Comment>;
+    getComments(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createComment(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Comment>;
     deleteLikes(params?: Record<any, any>): Promise<any>;
-    getLikes(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createLike(fields: Array<string>, params?: Record<any, any>, pathOverride?: string | null): Promise<Comment>;
-    getReactions(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    delete(fields: Array<string>, params?: Record<any, any>): AbstractObject;
-    get(fields: Array<string>, params?: Record<any, any>): Comment;
-    update(fields: Array<string>, params?: Record<any, any>): Comment;
+    getLikes(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createLike(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Comment>;
+    getReactions(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<any, any>): Comment;
+    update(fields: string[], params?: Record<any, any>): Promise<Comment>;
 }

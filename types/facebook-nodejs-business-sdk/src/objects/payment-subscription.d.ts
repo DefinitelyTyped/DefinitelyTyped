@@ -30,5 +30,5 @@ export default class PaymentSubscription extends AbstractCrudObject {
         updated_time: "updated_time";
         user: "user";
     }>;
-    get(fields: Array<string>, params?: Record<any, any>): PaymentSubscription;
+    get(fields: string[], params?: Record<any, any>): PaymentSubscription;
 }

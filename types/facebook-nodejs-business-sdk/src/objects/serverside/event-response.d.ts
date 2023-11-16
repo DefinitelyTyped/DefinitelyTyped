@@ -4,18 +4,18 @@
  */
 export default class EventResponse {
     _events_received: number;
-    _messages: Array<string>;
+    _messages: string[];
     _fbtrace_id: string;
     _id: string;
     _num_processed_entries: number;
     /**
      * @param {Number} events_received
-     * @param {Array<string>} messages
+     * @param {string[]} messages
      * @param {String} fbtrace_id
      * @param {String} id
      * @param {Number} num_processed_entries
      */
-    constructor(events_received: number, messages: Array<string>, fbtrace_id: string, id: string, num_processed_entries: number);
+    constructor(events_received: number, messages: string[], fbtrace_id: string, id: string, num_processed_entries: number);
     /**
      * Sets the events received for the response received from Graph API.
      * events_received is represented by integer.
@@ -38,17 +38,17 @@ export default class EventResponse {
      * Sets the messages as array for the response received from Graph API.
      * @return messages in the event Response
      */
-    get messages(): Array<string>;
+    get messages(): string[];
     /**
      * Sets the messages as array for the response received from Graph API.
      * @param messages in the event Response
      */
-    set messages(messages: Array<string>);
+    set messages(messages: string[]);
     /**
      * Sets the messages as array for the response received from Graph API.
      * @param {Array} messages in the event Response
      */
-    setMessages(messages: Array<string>): EventResponse;
+    setMessages(messages: string[]): EventResponse;
     /**
      * Gets the fbtrace_id for the response received from Graph API.
      * @return fbtrace_id in the event Response that can used for debugging purposes

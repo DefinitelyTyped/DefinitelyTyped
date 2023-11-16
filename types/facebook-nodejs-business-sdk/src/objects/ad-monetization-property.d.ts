@@ -9,8 +9,8 @@ export default class AdMonetizationProperty extends AbstractCrudObject {
         owner_business: "owner_business";
         id: "id";
     }>;
-    getAdNetworkAnalytics(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    createAdNetworkAnalytic(fields: Array<string>, params?: Record<any, any>, pathOverride?: string | null): Promise<AdMonetizationProperty>;
-    getAdNetworkAnalyticsResults(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    get(fields: Array<string>, params?: Record<any, any>): AdMonetizationProperty;
+    getAdNetworkAnalytics(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createAdNetworkAnalytic(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AdMonetizationProperty>;
+    getAdNetworkAnalyticsResults(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    get(fields: string[], params?: Record<any, any>): AdMonetizationProperty;
 }
