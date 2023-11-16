@@ -1,6 +1,7 @@
 /// <reference types="node"/>
 
-import type {EventEmitter} from "events"
+import type { EventEmitter } from "node:events";
+import type { Duplex } from "node:stream";
 
 export interface EtherPortClientConstructorArgs {
     host: string;
@@ -18,4 +19,4 @@ export class EtherPortClient extends EventEmitter {
     constructor(options: EtherPortClientConstructorArgs);
 }
 
-export function chainSerialPorts(clientPort: any, serverPort: any): void
+export function chainSerialPorts(clientPort: EtherPortClient, serverPort: Duplex): void;
