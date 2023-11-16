@@ -439,6 +439,6 @@ export default class AdAccount extends AbstractCrudObject {
     getValueAdjustmentRules(fields: string[], params?: Record<any, any>): Promise<Cursor>;
     getValueAdjustmentRules(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getValueAdjustmentRules(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): AdAccount;
+    get(fields: string[], params?: Record<any, any>): Promise<AdAccount>;
     update(fields: string[], params?: Record<any, any>): Promise<AdAccount>;
 }

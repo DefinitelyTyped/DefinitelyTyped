@@ -19,5 +19,5 @@ export default class VideoList extends AbstractCrudObject {
     getVideos(fields: string[], params?: Record<any, any>): Promise<Cursor>;
     getVideos(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getVideos(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): VideoList;
+    get(fields: string[], params?: Record<any, any>): Promise<VideoList>;
 }

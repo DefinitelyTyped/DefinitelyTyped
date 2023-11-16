@@ -27,5 +27,5 @@ export default class BrandRequest extends AbstractCrudObject {
         submit_date: "submit_date";
         total_budget: "total_budget";
     }>;
-    get(fields: string[], params?: Record<any, any>): BrandRequest;
+    get(fields: string[], params?: Record<any, any>): Promise<BrandRequest>;
 }

@@ -25,5 +25,5 @@ export default class WhatsAppBusinessPreVerifiedPhoneNumber extends AbstractCrud
     createRequestCode(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
     createVerifyCode(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): WhatsAppBusinessPreVerifiedPhoneNumber;
+    get(fields: string[], params?: Record<any, any>): Promise<WhatsAppBusinessPreVerifiedPhoneNumber>;
 }

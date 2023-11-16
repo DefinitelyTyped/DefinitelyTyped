@@ -8,5 +8,5 @@ export default class DestinationCatalogSettings extends AbstractCrudObject {
         generate_items_from_pages: "generate_items_from_pages";
         id: "id";
     }>;
-    get(fields: string[], params?: Record<any, any>): DestinationCatalogSettings;
+    get(fields: string[], params?: Record<any, any>): Promise<DestinationCatalogSettings>;
 }

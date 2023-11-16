@@ -69,6 +69,6 @@ export default class Comment extends AbstractCrudObject {
     getReactions(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getReactions(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): Comment;
+    get(fields: string[], params?: Record<any, any>): Promise<Comment>;
     update(fields: string[], params?: Record<any, any>): Promise<Comment>;
 }

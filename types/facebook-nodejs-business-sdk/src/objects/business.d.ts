@@ -553,6 +553,6 @@ export default class Business extends AbstractCrudObject {
     getThirdPartyMeasurementReportDataset(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getThirdPartyMeasurementReportDataset(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createVideo(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AdVideo>;
-    get(fields: string[], params?: Record<any, any>): Business;
+    get(fields: string[], params?: Record<any, any>): Promise<Business>;
     update(fields: string[], params?: Record<any, any>): Promise<Business>;
 }

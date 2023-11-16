@@ -100,6 +100,6 @@ export default class WhatsAppBusinessAccount extends AbstractCrudObject {
     getTemplatePerformanceMetrics(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getTemplatePerformanceMetrics(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createUpsertMessageTemplate(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<WhatsAppBusinessAccount>;
-    get(fields: string[], params?: Record<any, any>): WhatsAppBusinessAccount;
+    get(fields: string[], params?: Record<any, any>): Promise<WhatsAppBusinessAccount>;
     update(fields: string[], params?: Record<any, any>): Promise<WhatsAppBusinessAccount>;
 }

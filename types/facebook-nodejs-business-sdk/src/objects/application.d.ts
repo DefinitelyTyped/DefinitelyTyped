@@ -294,6 +294,6 @@ export default class Application extends AbstractCrudObject {
     deleteSubscriptions(params?: Record<any, any>): Promise<any>;
     createSubscription(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
     createUpload(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): Application;
+    get(fields: string[], params?: Record<any, any>): Promise<Application>;
     update(fields: string[], params?: Record<any, any>): Promise<Application>;
 }

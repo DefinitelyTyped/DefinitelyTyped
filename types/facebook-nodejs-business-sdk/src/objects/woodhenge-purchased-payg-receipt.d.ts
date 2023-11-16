@@ -10,5 +10,5 @@ export default class WoodhengePurchasedPAYGReceipt extends AbstractCrudObject {
         purchase_time: "purchase_time";
         user: "user";
     }>;
-    get(fields: string[], params?: Record<any, any>): WoodhengePurchasedPAYGReceipt;
+    get(fields: string[], params?: Record<any, any>): Promise<WoodhengePurchasedPAYGReceipt>;
 }

@@ -14,5 +14,5 @@ export default class AdRuleEvaluationSpec extends AbstractCrudObject {
         schedule: "SCHEDULE";
         trigger: "TRIGGER";
     }>;
-    get(fields: string[], params?: Record<any, any>): AdRuleEvaluationSpec;
+    get(fields: string[], params?: Record<any, any>): Promise<AdRuleEvaluationSpec>;
 }

@@ -33,5 +33,5 @@ export default class PaymentEnginePayment extends AbstractCrudObject {
     }>;
     createDispute(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<PaymentEnginePayment>;
     createRefund(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<PaymentEnginePayment>;
-    get(fields: string[], params?: Record<any, any>): PaymentEnginePayment;
+    get(fields: string[], params?: Record<any, any>): Promise<PaymentEnginePayment>;
 }

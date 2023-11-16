@@ -19,6 +19,6 @@ export default class ProductFeedRule extends AbstractCrudObject {
         value_mapping_rule: "value_mapping_rule";
     }>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): ProductFeedRule;
+    get(fields: string[], params?: Record<any, any>): Promise<ProductFeedRule>;
     update(fields: string[], params?: Record<any, any>): Promise<ProductFeedRule>;
 }

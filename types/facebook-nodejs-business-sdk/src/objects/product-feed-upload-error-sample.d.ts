@@ -9,5 +9,5 @@ export default class ProductFeedUploadErrorSample extends AbstractCrudObject {
         retailer_id: "retailer_id";
         row_number: "row_number";
     }>;
-    get(fields: string[], params?: Record<any, any>): ProductFeedUploadErrorSample;
+    get(fields: string[], params?: Record<any, any>): Promise<ProductFeedUploadErrorSample>;
 }

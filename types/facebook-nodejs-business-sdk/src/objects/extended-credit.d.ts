@@ -38,5 +38,5 @@ export default class ExtendedCredit extends AbstractCrudObject {
     getOwningCreditAllocationConfigs(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createOwningCreditAllocationConfig(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<ExtendedCreditAllocationConfig>;
     createWhatsappCreditSharingAndAttach(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): ExtendedCredit;
+    get(fields: string[], params?: Record<any, any>): Promise<ExtendedCredit>;
 }

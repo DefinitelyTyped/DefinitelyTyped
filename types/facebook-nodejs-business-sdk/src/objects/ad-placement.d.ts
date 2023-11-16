@@ -15,5 +15,5 @@ export default class AdPlacement extends AbstractCrudObject {
         platform: "platform";
         status: "status";
     }>;
-    get(fields: string[], params?: Record<any, any>): AdPlacement;
+    get(fields: string[], params?: Record<any, any>): Promise<AdPlacement>;
 }

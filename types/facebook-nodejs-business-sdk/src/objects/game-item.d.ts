@@ -19,5 +19,5 @@ export default class GameItem extends AbstractCrudObject {
         drop: "DROP";
         mark: "MARK";
     }>;
-    get(fields: string[], params?: Record<any, any>): GameItem;
+    get(fields: string[], params?: Record<any, any>): Promise<GameItem>;
 }

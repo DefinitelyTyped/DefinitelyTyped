@@ -14,5 +14,5 @@ export default class MailingAddress extends AbstractCrudObject {
         street1: "street1";
         street2: "street2";
     }>;
-    get(fields: string[], params?: Record<any, any>): MailingAddress;
+    get(fields: string[], params?: Record<any, any>): Promise<MailingAddress>;
 }

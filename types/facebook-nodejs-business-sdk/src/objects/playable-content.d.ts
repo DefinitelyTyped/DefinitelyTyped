@@ -9,5 +9,5 @@ export default class PlayableContent extends AbstractCrudObject {
         name: "name";
         owner: "owner";
     }>;
-    get(fields: string[], params?: Record<any, any>): PlayableContent;
+    get(fields: string[], params?: Record<any, any>): Promise<PlayableContent>;
 }

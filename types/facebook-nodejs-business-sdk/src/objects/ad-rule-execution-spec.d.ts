@@ -28,5 +28,5 @@ export default class AdRuleExecutionSpec extends AbstractCrudObject {
         update_lax_budget: "UPDATE_LAX_BUDGET";
         update_lax_duration: "UPDATE_LAX_DURATION";
     }>;
-    get(fields: string[], params?: Record<any, any>): AdRuleExecutionSpec;
+    get(fields: string[], params?: Record<any, any>): Promise<AdRuleExecutionSpec>;
 }

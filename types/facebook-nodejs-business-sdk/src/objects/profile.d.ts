@@ -42,5 +42,5 @@ export default class Profile extends AbstractCrudObject {
     getPicture(fields: string[], params?: Record<any, any>): Promise<Cursor>;
     getPicture(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getPicture(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): Profile;
+    get(fields: string[], params?: Record<any, any>): Promise<Profile>;
 }

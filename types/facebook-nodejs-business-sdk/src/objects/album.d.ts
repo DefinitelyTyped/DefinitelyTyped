@@ -47,5 +47,5 @@ export default class Album extends AbstractCrudObject {
     getPicture(fields: string[], params?: Record<any, any>): Promise<Cursor>;
     getPicture(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getPicture(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): Album;
+    get(fields: string[], params?: Record<any, any>): Promise<Album>;
 }

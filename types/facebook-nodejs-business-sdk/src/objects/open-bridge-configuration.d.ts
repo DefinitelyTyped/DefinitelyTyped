@@ -17,6 +17,6 @@ export default class OpenBridgeConfiguration extends AbstractCrudObject {
         pixel_id: "pixel_id";
     }>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): OpenBridgeConfiguration;
+    get(fields: string[], params?: Record<any, any>): Promise<OpenBridgeConfiguration>;
     update(fields: string[], params?: Record<any, any>): Promise<OpenBridgeConfiguration>;
 }

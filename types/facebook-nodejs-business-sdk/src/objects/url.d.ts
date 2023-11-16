@@ -15,6 +15,6 @@ export default class URL extends AbstractCrudObject {
         news_tab: "NEWS_TAB";
         news_tab_dev_env: "NEWS_TAB_DEV_ENV";
     }>;
-    get(fields: string[], params?: Record<any, any>): URL;
+    get(fields: string[], params?: Record<any, any>): Promise<URL>;
     update(fields: string[], params?: Record<any, any>): Promise<URL>;
 }

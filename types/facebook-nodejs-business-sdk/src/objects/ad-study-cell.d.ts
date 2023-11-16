@@ -41,6 +41,6 @@ export default class AdStudyCell extends AbstractCrudObject {
     getCampaigns(fields: string[], params?: Record<any, any>): Promise<Cursor>;
     getCampaigns(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getCampaigns(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): AdStudyCell;
+    get(fields: string[], params?: Record<any, any>): Promise<AdStudyCell>;
     update(fields: string[], params?: Record<any, any>): Promise<AdStudyCell>;
 }

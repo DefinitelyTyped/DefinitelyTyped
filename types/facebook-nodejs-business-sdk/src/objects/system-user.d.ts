@@ -42,5 +42,5 @@ export default class SystemUser extends AbstractCrudObject {
     getAssignedProductCatalogs(fields: string[], params?: Record<any, any>): Promise<Cursor>;
     getAssignedProductCatalogs(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getAssignedProductCatalogs(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): SystemUser;
+    get(fields: string[], params?: Record<any, any>): Promise<SystemUser>;
 }

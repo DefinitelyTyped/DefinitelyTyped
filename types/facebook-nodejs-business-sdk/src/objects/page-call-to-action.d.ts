@@ -106,6 +106,6 @@ export default class PageCallToAction extends AbstractCrudObject {
         website: "WEBSITE";
     }>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): PageCallToAction;
+    get(fields: string[], params?: Record<any, any>): Promise<PageCallToAction>;
     update(fields: string[], params?: Record<any, any>): Promise<PageCallToAction>;
 }

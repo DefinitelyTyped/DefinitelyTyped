@@ -148,6 +148,6 @@ export default class Post extends AbstractCrudObject {
     getTo(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getTo(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): Post;
+    get(fields: string[], params?: Record<any, any>): Promise<Post>;
     update(fields: string[], params?: Record<any, any>): Promise<Post>;
 }

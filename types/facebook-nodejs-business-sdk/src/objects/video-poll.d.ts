@@ -29,6 +29,6 @@ export default class VideoPoll extends AbstractCrudObject {
     getPollOptions(fields: string[], params?: Record<any, any>): Promise<Cursor>;
     getPollOptions(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getPollOptions(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): VideoPoll;
+    get(fields: string[], params?: Record<any, any>): Promise<VideoPoll>;
     update(fields: string[], params?: Record<any, any>): Promise<VideoPoll>;
 }

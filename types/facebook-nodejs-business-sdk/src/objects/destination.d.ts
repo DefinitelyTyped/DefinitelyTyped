@@ -45,5 +45,5 @@ export default class Destination extends AbstractCrudObject {
     getVideosMetadata(fields: string[], params?: Record<any, any>): Promise<Cursor>;
     getVideosMetadata(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getVideosMetadata(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): Destination;
+    get(fields: string[], params?: Record<any, any>): Promise<Destination>;
 }

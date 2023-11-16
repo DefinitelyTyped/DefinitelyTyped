@@ -34,5 +34,5 @@ export default class ProductFeedUploadError extends AbstractCrudObject {
     getSuggestedRules(fields: string[], params?: Record<any, any>): Promise<Cursor>;
     getSuggestedRules(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getSuggestedRules(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): ProductFeedUploadError;
+    get(fields: string[], params?: Record<any, any>): Promise<ProductFeedUploadError>;
 }

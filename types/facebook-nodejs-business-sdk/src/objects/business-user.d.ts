@@ -52,6 +52,6 @@ export default class BusinessUser extends AbstractCrudObject {
     getAssignedProductCatalogs(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getAssignedProductCatalogs(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): BusinessUser;
+    get(fields: string[], params?: Record<any, any>): Promise<BusinessUser>;
     update(fields: string[], params?: Record<any, any>): Promise<BusinessUser>;
 }

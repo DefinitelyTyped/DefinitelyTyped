@@ -11,5 +11,5 @@ export default class LiveVideoError extends AbstractCrudObject {
         error_type: "error_type";
         id: "id";
     }>;
-    get(fields: string[], params?: Record<any, any>): LiveVideoError;
+    get(fields: string[], params?: Record<any, any>): Promise<LiveVideoError>;
 }

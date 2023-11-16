@@ -203,6 +203,6 @@ export default class User extends AbstractCrudObject {
     getVideos(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createVideo(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AdVideo>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): User;
+    get(fields: string[], params?: Record<any, any>): Promise<User>;
     update(fields: string[], params?: Record<any, any>): Promise<User>;
 }

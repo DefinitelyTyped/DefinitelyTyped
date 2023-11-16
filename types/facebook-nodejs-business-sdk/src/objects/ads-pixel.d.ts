@@ -110,6 +110,6 @@ export default class AdsPixel extends AbstractCrudObject {
     getStats(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getStats(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createTelemetry(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): AdsPixel;
+    get(fields: string[], params?: Record<any, any>): Promise<AdsPixel>;
     update(fields: string[], params?: Record<any, any>): Promise<AdsPixel>;
 }

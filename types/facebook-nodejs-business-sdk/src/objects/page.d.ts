@@ -766,6 +766,6 @@ export default class Page extends AbstractCrudObject {
     getWelcomeMessageFlows(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getWelcomeMessageFlows(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createWelcomeMessageFlow(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): Page;
+    get(fields: string[], params?: Record<any, any>): Promise<Page>;
     update(fields: string[], params?: Record<any, any>): Promise<Page>;
 }

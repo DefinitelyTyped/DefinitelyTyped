@@ -66,5 +66,5 @@ export default class IGUser extends AbstractCrudObject {
     getTags(fields: string[], params?: Record<any, any>): Promise<Cursor>;
     getTags(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getTags(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): IGUser;
+    get(fields: string[], params?: Record<any, any>): Promise<IGUser>;
 }

@@ -247,6 +247,6 @@ export default class AdSet extends AbstractCrudObject {
     getTargetingSentenceLines(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getTargetingSentenceLines(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): AdSet;
+    get(fields: string[], params?: Record<any, any>): Promise<AdSet>;
     update(fields: string[], params?: Record<any, any>): Promise<AdSet>;
 }

@@ -14,5 +14,5 @@ export default class BusinessCreativeFolder extends AbstractCrudObject {
         name: "name";
         owner_business: "owner_business";
     }>;
-    get(fields: string[], params?: Record<any, any>): BusinessCreativeFolder;
+    get(fields: string[], params?: Record<any, any>): Promise<BusinessCreativeFolder>;
 }

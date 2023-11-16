@@ -24,6 +24,6 @@ export default class AdReportRun extends AbstractCrudObject {
     getInsights(fields: string[], params?: Record<any, any>): Promise<Cursor>;
     getInsights(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getInsights(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): AdReportRun;
+    get(fields: string[], params?: Record<any, any>): Promise<AdReportRun>;
     constructor(id?: number | string | null, data?: Record<any, any>, parentId?: string | null, api?: FacebookAdsApi | null);
 }

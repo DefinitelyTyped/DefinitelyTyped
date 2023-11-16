@@ -31,5 +31,5 @@ export default class ProductFeedUpload extends AbstractCrudObject {
     getErrors(fields: string[], params?: Record<any, any>): Promise<Cursor>;
     getErrors(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getErrors(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): ProductFeedUpload;
+    get(fields: string[], params?: Record<any, any>): Promise<ProductFeedUpload>;
 }

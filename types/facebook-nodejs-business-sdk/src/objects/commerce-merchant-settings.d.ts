@@ -73,5 +73,5 @@ export default class CommerceMerchantSettings extends AbstractCrudObject {
     getTaxSettings(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getTaxSettings(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createWhatsappChannel(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): CommerceMerchantSettings;
+    get(fields: string[], params?: Record<any, any>): Promise<CommerceMerchantSettings>;
 }

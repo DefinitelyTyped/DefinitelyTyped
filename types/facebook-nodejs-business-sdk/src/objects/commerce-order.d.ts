@@ -78,5 +78,5 @@ export default class CommerceOrder extends AbstractCrudObject {
     getShipments(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createShipment(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<CommerceOrder>;
     createUpdateShipment(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<CommerceOrder>;
-    get(fields: string[], params?: Record<any, any>): CommerceOrder;
+    get(fields: string[], params?: Record<any, any>): Promise<CommerceOrder>;
 }

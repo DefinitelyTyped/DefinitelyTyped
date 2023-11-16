@@ -10,5 +10,5 @@ export default class DynamicPriceConfigByDate extends AbstractCrudObject {
         prices_pretty: "prices_pretty";
         id: "id";
     }>;
-    get(fields: string[], params?: Record<any, any>): DynamicPriceConfigByDate;
+    get(fields: string[], params?: Record<any, any>): Promise<DynamicPriceConfigByDate>;
 }

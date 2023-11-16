@@ -40,5 +40,5 @@ export default class OfflineConversionDataSetUpload extends AbstractCrudObject {
     getPullSessions(fields: string[], params?: Record<any, any>): Promise<Cursor>;
     getPullSessions(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getPullSessions(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): OfflineConversionDataSetUpload;
+    get(fields: string[], params?: Record<any, any>): Promise<OfflineConversionDataSetUpload>;
 }

@@ -103,6 +103,6 @@ export default class BusinessAssetGroup extends AbstractCrudObject {
     getContainedProductCatalogs(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getContainedProductCatalogs(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createContainedProductCatalog(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<BusinessAssetGroup>;
-    get(fields: string[], params?: Record<any, any>): BusinessAssetGroup;
+    get(fields: string[], params?: Record<any, any>): Promise<BusinessAssetGroup>;
     update(fields: string[], params?: Record<any, any>): Promise<BusinessAssetGroup>;
 }

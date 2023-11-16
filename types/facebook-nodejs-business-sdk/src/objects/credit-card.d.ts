@@ -27,5 +27,5 @@ export default class CreditCard extends AbstractCrudObject {
         time_created_ts: "time_created_ts";
         type: "type";
     }>;
-    get(fields: string[], params?: Record<any, any>): CreditCard;
+    get(fields: string[], params?: Record<any, any>): Promise<CreditCard>;
 }

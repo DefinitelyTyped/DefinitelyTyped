@@ -15,5 +15,5 @@ export default class ShadowIGHashtag extends AbstractCrudObject {
     getTopMedia(fields: string[], params?: Record<any, any>): Promise<Cursor>;
     getTopMedia(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getTopMedia(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): ShadowIGHashtag;
+    get(fields: string[], params?: Record<any, any>): Promise<ShadowIGHashtag>;
 }

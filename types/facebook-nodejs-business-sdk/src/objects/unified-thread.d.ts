@@ -31,5 +31,5 @@ export default class UnifiedThread extends AbstractCrudObject {
     getMessages(fields: string[], params?: Record<any, any>): Promise<Cursor>;
     getMessages(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getMessages(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): UnifiedThread;
+    get(fields: string[], params?: Record<any, any>): Promise<UnifiedThread>;
 }

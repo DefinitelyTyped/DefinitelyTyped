@@ -44,6 +44,6 @@ export default class IGMedia extends AbstractCrudObject {
     getProductTags(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getProductTags(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createProductTag(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<ShadowIGMediaProductTags>;
-    get(fields: string[], params?: Record<any, any>): IGMedia;
+    get(fields: string[], params?: Record<any, any>): Promise<IGMedia>;
     update(fields: string[], params?: Record<any, any>): Promise<IGMedia>;
 }

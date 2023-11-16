@@ -26,6 +26,6 @@ export default class AdLabel extends AbstractCrudObject {
     getCampaigns(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getCampaigns(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): AdLabel;
+    get(fields: string[], params?: Record<any, any>): Promise<AdLabel>;
     update(fields: string[], params?: Record<any, any>): Promise<AdLabel>;
 }

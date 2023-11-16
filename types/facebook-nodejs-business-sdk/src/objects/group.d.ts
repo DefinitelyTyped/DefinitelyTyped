@@ -141,6 +141,6 @@ export default class Group extends AbstractCrudObject {
     getVideos(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getVideos(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createVideo(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AdVideo>;
-    get(fields: string[], params?: Record<any, any>): Group;
+    get(fields: string[], params?: Record<any, any>): Promise<Group>;
     update(fields: string[], params?: Record<any, any>): Promise<Group>;
 }

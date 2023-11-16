@@ -209,6 +209,6 @@ export default class AdCreative extends AbstractCrudObject {
     getPreviews(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getPreviews(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): AdCreative;
+    get(fields: string[], params?: Record<any, any>): Promise<AdCreative>;
     update(fields: string[], params?: Record<any, any>): Promise<AdCreative>;
 }

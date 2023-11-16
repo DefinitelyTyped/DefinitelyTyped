@@ -10,5 +10,5 @@ export default class DynamicVideoMetadata extends AbstractCrudObject {
         url: "url";
         video: "video";
     }>;
-    get(fields: string[], params?: Record<any, any>): DynamicVideoMetadata;
+    get(fields: string[], params?: Record<any, any>): Promise<DynamicVideoMetadata>;
 }

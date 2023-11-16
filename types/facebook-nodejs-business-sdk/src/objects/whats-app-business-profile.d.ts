@@ -9,6 +9,6 @@ export default class WhatsAppBusinessProfile extends AbstractCrudObject {
         name_verification: "name_verification";
         whatsapp_business_api_data: "whatsapp_business_api_data";
     }>;
-    get(fields: string[], params?: Record<any, any>): WhatsAppBusinessProfile;
+    get(fields: string[], params?: Record<any, any>): Promise<WhatsAppBusinessProfile>;
     update(fields: string[], params?: Record<any, any>): Promise<WhatsAppBusinessProfile>;
 }

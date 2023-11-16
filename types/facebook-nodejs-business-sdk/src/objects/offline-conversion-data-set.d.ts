@@ -85,6 +85,6 @@ export default class OfflineConversionDataSet extends AbstractCrudObject {
     createUpload(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<OfflineConversionDataSetUpload>;
     createValidate(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<OfflineConversionDataSet>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): OfflineConversionDataSet;
+    get(fields: string[], params?: Record<any, any>): Promise<OfflineConversionDataSet>;
     update(fields: string[], params?: Record<any, any>): Promise<OfflineConversionDataSet>;
 }

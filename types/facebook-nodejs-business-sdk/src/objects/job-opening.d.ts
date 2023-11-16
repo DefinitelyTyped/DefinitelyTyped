@@ -59,5 +59,5 @@ export default class JobOpening extends AbstractCrudObject {
         part_time: "PART_TIME";
         volunteer: "VOLUNTEER";
     }>;
-    get(fields: string[], params?: Record<any, any>): JobOpening;
+    get(fields: string[], params?: Record<any, any>): Promise<JobOpening>;
 }

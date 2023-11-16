@@ -18,6 +18,6 @@ export default class ProductGroup extends AbstractCrudObject {
     getProducts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createProduct(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<ProductItem>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): ProductGroup;
+    get(fields: string[], params?: Record<any, any>): Promise<ProductGroup>;
     update(fields: string[], params?: Record<any, any>): Promise<ProductGroup>;
 }

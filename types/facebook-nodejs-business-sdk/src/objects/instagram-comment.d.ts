@@ -21,6 +21,6 @@ export default class InstagramComment extends AbstractCrudObject {
     getReplies(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createReply(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<InstagramComment>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): InstagramComment;
+    get(fields: string[], params?: Record<any, any>): Promise<InstagramComment>;
     update(fields: string[], params?: Record<any, any>): Promise<InstagramComment>;
 }

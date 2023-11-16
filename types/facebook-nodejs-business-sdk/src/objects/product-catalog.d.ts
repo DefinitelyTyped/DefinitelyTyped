@@ -196,6 +196,6 @@ export default class ProductCatalog extends AbstractCrudObject {
     getVehicles(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createVehicle(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Vehicle>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): ProductCatalog;
+    get(fields: string[], params?: Record<any, any>): Promise<ProductCatalog>;
     update(fields: string[], params?: Record<any, any>): Promise<ProductCatalog>;
 }

@@ -11,5 +11,5 @@ export default class BusinessVideo extends AbstractCrudObject {
         name: "name";
         video: "video";
     }>;
-    get(fields: string[], params?: Record<any, any>): BusinessVideo;
+    get(fields: string[], params?: Record<any, any>): Promise<BusinessVideo>;
 }

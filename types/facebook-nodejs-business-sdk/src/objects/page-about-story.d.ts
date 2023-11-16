@@ -13,5 +13,5 @@ export default class PageAboutStory extends AbstractCrudObject {
         page_id: "page_id";
         title: "title";
     }>;
-    get(fields: string[], params?: Record<any, any>): PageAboutStory;
+    get(fields: string[], params?: Record<any, any>): Promise<PageAboutStory>;
 }

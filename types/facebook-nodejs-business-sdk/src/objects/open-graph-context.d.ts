@@ -7,5 +7,5 @@ export default class OpenGraphContext extends AbstractCrudObject {
     static get Fields(): Readonly<{
         id: "id";
     }>;
-    get(fields: string[], params?: Record<any, any>): OpenGraphContext;
+    get(fields: string[], params?: Record<any, any>): Promise<OpenGraphContext>;
 }

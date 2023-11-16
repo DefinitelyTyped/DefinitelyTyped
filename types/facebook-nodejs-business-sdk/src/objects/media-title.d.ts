@@ -56,6 +56,6 @@ export default class MediaTitle extends AbstractCrudObject {
     getVideosMetadata(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getVideosMetadata(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): MediaTitle;
+    get(fields: string[], params?: Record<any, any>): Promise<MediaTitle>;
     update(fields: string[], params?: Record<any, any>): Promise<MediaTitle>;
 }

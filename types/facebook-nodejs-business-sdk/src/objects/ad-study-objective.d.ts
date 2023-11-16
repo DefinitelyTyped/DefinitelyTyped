@@ -47,6 +47,6 @@ export default class AdStudyObjective extends AbstractCrudObject {
     getPartnerStudies(fields: string[], params?: Record<any, any>): Promise<Cursor>;
     getPartnerStudies(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getPartnerStudies(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): AdStudyObjective;
+    get(fields: string[], params?: Record<any, any>): Promise<AdStudyObjective>;
     update(fields: string[], params?: Record<any, any>): Promise<AdStudyObjective>;
 }

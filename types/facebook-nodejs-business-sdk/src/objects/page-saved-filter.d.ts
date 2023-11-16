@@ -13,5 +13,5 @@ export default class PageSavedFilter extends AbstractCrudObject {
         time_created: "time_created";
         time_updated: "time_updated";
     }>;
-    get(fields: string[], params?: Record<any, any>): PageSavedFilter;
+    get(fields: string[], params?: Record<any, any>): Promise<PageSavedFilter>;
 }

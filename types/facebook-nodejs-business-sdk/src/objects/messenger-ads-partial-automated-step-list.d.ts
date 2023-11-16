@@ -17,5 +17,5 @@ export default class MessengerAdsPartialAutomatedStepList extends AbstractCrudOb
     getSteps(fields: string[], params?: Record<any, any>): Promise<Cursor>;
     getSteps(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getSteps(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): MessengerAdsPartialAutomatedStepList;
+    get(fields: string[], params?: Record<any, any>): Promise<MessengerAdsPartialAutomatedStepList>;
 }

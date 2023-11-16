@@ -11,5 +11,5 @@ export default class Avatar extends AbstractCrudObject {
     getModels(fields: string[], params?: Record<any, any>): Promise<Cursor>;
     getModels(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getModels(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): Avatar;
+    get(fields: string[], params?: Record<any, any>): Promise<Avatar>;
 }

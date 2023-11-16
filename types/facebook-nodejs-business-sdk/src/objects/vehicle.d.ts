@@ -156,6 +156,6 @@ export default class Vehicle extends AbstractCrudObject {
     getVideosMetadata(fields: string[], params?: Record<any, any>): Promise<Cursor>;
     getVideosMetadata(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getVideosMetadata(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): Vehicle;
+    get(fields: string[], params?: Record<any, any>): Promise<Vehicle>;
     update(fields: string[], params?: Record<any, any>): Promise<Vehicle>;
 }

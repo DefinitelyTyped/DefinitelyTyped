@@ -76,6 +76,6 @@ export default class HomeListing extends AbstractCrudObject {
     getVideosMetadata(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getVideosMetadata(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
-    get(fields: string[], params?: Record<any, any>): HomeListing;
+    get(fields: string[], params?: Record<any, any>): Promise<HomeListing>;
     update(fields: string[], params?: Record<any, any>): Promise<HomeListing>;
 }

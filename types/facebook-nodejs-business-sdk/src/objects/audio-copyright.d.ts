@@ -23,5 +23,5 @@ export default class AudioCopyright extends AbstractCrudObject {
     getUpdateRecords(fields: string[], params?: Record<any, any>): Promise<Cursor>;
     getUpdateRecords(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
     getUpdateRecords(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<any, any>): AudioCopyright;
+    get(fields: string[], params?: Record<any, any>): Promise<AudioCopyright>;
 }
