@@ -1,6 +1,7 @@
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 
+// g3-format-clang
 // Google Maps JS API Version: 3.54
 // tslint:disable:enforce-name-casing
 // tslint:disable:no-any
@@ -3849,23 +3850,13 @@ declare namespace google.maps {
      */
     noClear?: boolean|null;
     /**
-     * The enabled/disabled state of the Pan control. <p> Note: The Pan control
-     * is not available in the new set of controls introduced in v3.22 of the
-     * Google Maps JavaScript API. While using v3.22 and v3.23, you can choose
-     * to use the earlier set of controls rather than the new controls, thus
-     * making the Pan control available as part of the old control set. See <a
-     * href="https://developers.google.com/maps/articles/v322-controls-diff">What&#39;s
-     * New in the v3.22 Map Controls</a>.
+     * The enabled/disabled state of the Pan control. <p>
+     * @deprecated The Pan control is deprecated as of September 2015.
      */
     panControl?: boolean|null;
     /**
-     * The display options for the Pan control. <p> Note: The Pan control is not
-     * available in the new set of controls introduced in v3.22 of the Google
-     * Maps JavaScript API. While using v3.22 and v3.23, you can choose to use
-     * the earlier set of controls rather than the new controls, thus making the
-     * Pan control available as part of the old control set. See <a
-     * href="https://developers.google.com/maps/articles/v322-controls-diff">What&#39;s
-     * New in the v3.22 Map Controls</a>.
+     * The display options for the Pan control. <p>
+     * @deprecated The Pan control is deprecated as of September 2015.
      */
     panControlOptions?: google.maps.PanControlOptions|null;
     /**
@@ -4222,6 +4213,7 @@ declare namespace google.maps {
     TrafficLayer: typeof google.maps.TrafficLayer;
     TransitLayer: typeof google.maps.TransitLayer;
     WebGLOverlayView: typeof google.maps.WebGLOverlayView;
+    ZoomChangeEvent: typeof google.maps.ZoomChangeEvent;
   }
   /**
    * Base class for managing network errors in Maps.
@@ -7069,6 +7061,27 @@ declare namespace google.maps {
      * The WebGLRenderingContext on which to render this WebGLOverlayView.
      */
     gl: WebGLRenderingContext;
+  }
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
+   * This event is created from monitoring zoom change.
+   *
+   * Access by calling `const {ZoomChangeEvent} = await
+   * google.maps.importLibrary("maps")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class ZoomChangeEvent extends Event {
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     *
+     * This event is created from monitoring zoom change.
+     *
+     * Access by calling `const {ZoomChangeEvent} = await
+     * google.maps.importLibrary("maps")`. See
+     * https://developers.google.com/maps/documentation/javascript/libraries.
+     */
+    constructor();
   }
   /**
    * Options for the rendering of the zoom control.
@@ -12164,6 +12177,13 @@ declare namespace google.maps.places {
     static findPlaceFromQuery(
         this: any, request: google.maps.places.FindPlaceFromQueryRequest):
         Promise<{places: google.maps.places.Place[]}>;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * Text query based place search.
+     */
+    static searchByText(
+        this: any, request: google.maps.places.SearchByTextRequest):
+        Promise<{places: google.maps.places.Place[]}>;
   }
   /**
    * Defines information about an aspect of the place that users have reviewed.
@@ -12185,34 +12205,38 @@ declare namespace google.maps.places {
   /**
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
    *
-   * Implementation of AutocompleteView for Places API
+   * <ul>
+   * <li>PlaceAutocompleteElement is an <code>HTMLElement</code> subclass which
+   * provides a UI component for the Places Autocomplete API. After loading the
+   * <code>places</code> library, an input with autocomplete functionality can
+   * be created in HTML. For example: <pre><code>&lt;gmp-placeautocomplete
+   * &gt;&lt;/gmp-placeautocomplete&gt;</code></pre></li>
+   * </ul>
    *
    * Access by calling `const {PlaceAutocompleteElement} = await
    * google.maps.importLibrary("places")`. See
    * https://developers.google.com/maps/documentation/javascript/libraries.
    */
-  export class PlaceAutocompleteElement implements
+  export class PlaceAutocompleteElement extends HTMLElement implements
       google.maps.places.PlaceAutocompleteElementOptions {
     /**
      * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
      *
-     * Implementation of AutocompleteView for Places API
+     * <ul>
+     * <li>PlaceAutocompleteElement is an <code>HTMLElement</code> subclass
+     * which provides a UI component for the Places Autocomplete API. After
+     * loading the <code>places</code> library, an input with autocomplete
+     * functionality can be created in HTML. For example:
+     * <pre><code>&lt;gmp-placeautocomplete
+     * &gt;&lt;/gmp-placeautocomplete&gt;</code></pre></li>
+     * </ul>
      *
      * Access by calling `const {PlaceAutocompleteElement} = await
      * google.maps.importLibrary("places")`. See
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
     constructor(options: google.maps.places.PlaceAutocompleteElementOptions);
-    /**
-     * Adds the given listener function to the given event name.
-     */
-    addListener(eventName: string, handler: Function):
-        google.maps.MapsEventListener;
     componentRestrictions?: google.maps.places.ComponentRestrictions|null;
-    /**
-     * This Field is read-only. The DOM Element backing the view.
-     */
-    element?: HTMLElement|SVGElement|null;
     /**
      * The input element to show autocompletions for.
      */
@@ -12238,10 +12262,6 @@ declare namespace google.maps.places {
      * country.
      */
     componentRestrictions?: google.maps.places.ComponentRestrictions|null;
-    /**
-     * This Field is read-only. The DOM Element backing the view.
-     */
-    element?: HTMLElement|SVGElement|null;
     /**
      * The input element to show autocompletions for.
      */
@@ -12285,6 +12305,52 @@ declare namespace google.maps.places {
      * returned.
      */
     types?: string[]|null;
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   *
+   * This event is created after the user selects a place with the Place
+   * Autocomplete Element. Access the selection with <code>event.place</code>.
+   *
+   * Access by calling `const {PlaceAutocompletePlaceSelectEvent} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class PlaceAutocompletePlaceSelectEvent extends Event {
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     *
+     * This event is created after the user selects a place with the Place
+     * Autocomplete Element. Access the selection with <code>event.place</code>.
+     *
+     * Access by calling `const {PlaceAutocompletePlaceSelectEvent} = await
+     * google.maps.importLibrary("places")`. See
+     * https://developers.google.com/maps/documentation/javascript/libraries.
+     */
+    constructor();
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   *
+   * This event is emitted by the PlaceAutocompleteElement when there is an
+   * issue with the network request.
+   *
+   * Access by calling `const {PlaceAutocompleteRequestErrorEvent} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class PlaceAutocompleteRequestErrorEvent extends Event {
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     *
+     * This event is emitted by the PlaceAutocompleteElement when there is an
+     * issue with the network request.
+     *
+     * Access by calling `const {PlaceAutocompleteRequestErrorEvent} = await
+     * google.maps.importLibrary("places")`. See
+     * https://developers.google.com/maps/documentation/javascript/libraries.
+     */
+    constructor();
   }
   /**
    * A Place details query to be sent to the <code>PlacesService</code>.
@@ -13216,6 +13282,124 @@ declare namespace google.maps.places {
      * towards, but not restricted to, queries targeting these bounds.
      */
     bounds?: google.maps.LatLngBounds|null|google.maps.LatLngBoundsLiteral;
+  }
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
+   * RankBy enum for SearchByTextRequest.
+   *
+   * Access by calling `const {SearchByTextRankBy} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum SearchByTextRankBy {
+    /**
+     * Ranks results by distance.
+     */
+    DISTANCE = 'DISTANCE',
+    /**
+     * Ranks results by relevance.
+     */
+    RELEVANCE = 'RELEVANCE',
+  }
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
+   * Request interface for {@link google.maps.places.Place.searchByText}.
+   */
+  export interface SearchByTextRequest {
+    /**
+     * Fields to be included in the response, <a
+     * href="https://developers.google.com/maps/billing/understanding-cost-of-use#places-product">which
+     * will be billed for</a>. If <code>[&#39;ALL&#39;]</code> is passed in, all
+     * available fields will be returned and billed for (this is not recommended
+     * for production deployments). For a list of fields see {@link
+     * google.maps.places.PlaceResult}. Nested fields can be specified with
+     * dot-paths (for example, <code>"geometry.location"</code>).
+     */
+    fields: string[];
+    /**
+     * The requested place type. Full list of types supported: <a
+     * href="https://developers.google.com/maps/documentation/places/web-service/place-types">https://developers.google.com/maps/documentation/places/web-service/place-types</a>.
+     * Only one included type is supported. See {@link
+     * google.maps.places.SearchByTextRequest.useStrictTypeFiltering}
+     */
+    includedType?: string;
+    /**
+     * Used to restrict the search to places that are currently open.
+     * @defaultValue <code>false</code>
+     */
+    isOpenNow?: boolean;
+    /**
+     * Place details will be displayed with the preferred language if available.
+     * Will default to the browser&#39;s language preference. Current list of
+     * supported languages: <a
+     * href="https://developers.google.com/maps/faq#languagesupport">https://developers.google.com/maps/faq#languagesupport</a>.
+     */
+    language?: string;
+    /**
+     * The region to search. This location serves as a bias which means results
+     * around given location might be returned. Cannot be set along with
+     * locationRestriction.
+     */
+    locationBias?: google.maps.LatLng|google.maps.LatLngLiteral|
+        google.maps.LatLngBounds|google.maps.LatLngBoundsLiteral|
+        google.maps.CircleLiteral|google.maps.Circle;
+    /**
+     * The region to search. This location serves as a restriction which means
+     * results outside given location will not be returned. Cannot be set along
+     * with locationBias.
+     */
+    locationRestriction?: google.maps.LatLngBounds|
+        google.maps.LatLngBoundsLiteral;
+    /**
+     * Maximum number of results to return. It must be between 1 and 20,
+     * inclusively.
+     */
+    maxResultCount?: number;
+    /**
+     * Filter out results whose average user rating is strictly less than this
+     * limit. A valid value must be an float between 0 and 5 (inclusively) at a
+     * 0.5 cadence i.e. [0, 0.5, 1.0, ... , 5.0] inclusively. The input rating
+     * will be rounded up to the nearest 0.5(ceiling). For instance, a rating of
+     * 0.6 will eliminate all results with a less than 1.0 rating.
+     */
+    minRating?: number;
+    /**
+     * Used to restrict the search to places that are marked as certain price
+     * levels. Any combinations of price levels can be chosen. Defaults to all
+     * price levels.
+     */
+    priceLevels?: google.maps.places.PriceLevel[];
+    /**
+     * @deprecated Please use textQuery instead
+     */
+    query?: string;
+    /**
+     * How results will be ranked in the response.
+     * @defaultValue <code>SearchByTextRankBy.DISTANCE</code>
+     */
+    rankBy?: google.maps.places.SearchByTextRankBy;
+    /**
+     * The Unicode country/region code (CLDR) of the location where the request
+     * is coming from. This parameter is used to display the place details, like
+     * region-specific place name, if available. The parameter can affect
+     * results based on applicable law. For more information, see <a
+     * href="https://www.unicode.org/cldr/charts/latest/supplemental/territory_language_information.html">https://www.unicode.org/cldr/charts/latest/supplemental/territory_language_information.html</a>.
+     * Note that 3-digit region codes are not currently supported.
+     */
+    region?: string;
+    /**
+     * Required. The text query for textual search.
+     */
+    textQuery?: string;
+    /**
+     * Used to set strict type filtering for {@link
+     * google.maps.places.SearchByTextRequest.includedType}. If set to true,
+     * only results of the same type will be returned.
+     * @defaultValue <code>false</code>
+     */
+    useStrictTypeFiltering?: boolean;
   }
   /**
    * Contains structured information about the place&#39;s description, divided
