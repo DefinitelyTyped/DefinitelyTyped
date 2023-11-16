@@ -96,8 +96,8 @@ declare namespace request {
         forbidden: boolean;
         get(header: string): string;
         get(header: "Set-Cookie"): string[];
-        header: any;
-        headers: any;
+        header: { [index: string]: string };
+        headers: { [index: string]: string };
         info: boolean;
         links: Record<string, string>;
         noContent: boolean;
