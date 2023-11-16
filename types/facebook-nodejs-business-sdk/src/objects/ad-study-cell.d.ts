@@ -32,9 +32,15 @@ export default class AdStudyCell extends AbstractCrudObject {
         tv_facebook: "TV_FACEBOOK";
         video_view_optimization: "VIDEO_VIEW_OPTIMIZATION";
     }>;
-    getAdAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getAdSets(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getCampaigns(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getAdAccounts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getAdAccounts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getAdAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getAdSets(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getAdSets(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getAdSets(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getCampaigns(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getCampaigns(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getCampaigns(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<any, any>): AdStudyCell;
     update(fields: string[], params?: Record<any, any>): Promise<AdStudyCell>;
 }

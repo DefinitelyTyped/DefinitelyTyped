@@ -28,7 +28,9 @@ export default class AdAsyncRequestSet extends AbstractCrudObject {
         off: "OFF";
         on_complete: "ON_COMPLETE";
     }>;
-    getRequests(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getRequests(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getRequests(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getRequests(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<any, any>): AdAsyncRequestSet;
     update(fields: string[], params?: Record<any, any>): Promise<AdAsyncRequestSet>;

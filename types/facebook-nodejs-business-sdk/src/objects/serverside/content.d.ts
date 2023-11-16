@@ -21,7 +21,7 @@ export default class Content {
      * @param {String} category Category of the Item.
      * @param {String} delivery_category The type of delivery for a purchase event
      */
-    constructor(id: string, quantity: number, item_price: number, title: string, description: string, brand: string, category: string, delivery_category: string);
+    constructor(id?: string, quantity?: number, item_price?: number, title?: string, description?: string, brand?: string, category?: string, delivery_category?: string);
     /**
      * Gets the Product Id of the Item.
      * A string representing the unique Id for the product.

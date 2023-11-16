@@ -36,7 +36,7 @@ export default class CustomData {
      * @param {String} delivery_category The type of delivery for a purchase event
      * @param {Object} custom_properties Custom Properties to be added to the Custom Data
      */
-    constructor(value: number, currency: string, content_name: string, content_category: string, content_ids: string[], contents: Content[], content_type: string, order_id: string, predicted_ltv: number, num_items: number, search_string: string, status: string, item_number: string, delivery_category: string, custom_properties: Record<any, any>);
+    constructor(value?: number, currency?: string, content_name?: string, content_category?: string, content_ids?: string[], contents?: Content[], content_type?: string, order_id?: string, predicted_ltv?: number, num_items?: number, search_string?: string, status?: string, item_number?: string, delivery_category?: string, custom_properties?: Record<any, any>);
     /**
      * Gets the value of the custom data.
      * A numeric value associated with this event. This could be a monetary value or a value in some other metric.

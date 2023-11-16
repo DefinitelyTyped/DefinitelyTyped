@@ -33,7 +33,9 @@ export default class VideoCopyright extends AbstractCrudObject {
         video_and_audio: "VIDEO_AND_AUDIO";
         video_only: "VIDEO_ONLY";
     }>;
-    getUpdateRecords(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getUpdateRecords(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getUpdateRecords(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getUpdateRecords(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<any, any>): VideoCopyright;
     update(fields: string[], params?: Record<any, any>): Promise<VideoCopyright>;
 }

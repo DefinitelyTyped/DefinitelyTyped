@@ -57,7 +57,7 @@ export default class UserData {
      * @param {String} anon_id
      * @param {String} app_user_id
      */
-    constructor(email: string, phone: string, gender: string, first_name: string, last_name: string, date_of_birth: string, city: string, state: string, zip: string, country: string, external_id: string, client_ip_address: string, client_user_agent: string, fbp: string, fbc: string, subscription_id: string, fb_login_id: string, lead_id: string, dobd: string, dobm: string, doby: string, madid: string, anon_id: string, app_user_id: string);
+    constructor(email?: string, phone?: string, gender?: string, first_name?: string, last_name?: string, date_of_birth?: string, city?: string, state?: string, zip?: string, country?: string, external_id?: string, client_ip_address?: string, client_user_agent?: string, fbp?: string, fbc?: string, subscription_id?: string, fb_login_id?: string, lead_id?: string, dobd?: string, dobm?: string, doby?: string, madid?: string, anon_id?: string, app_user_id?: string);
     static get Gender(): Record<any, any>;
     /**
      * Gets the email address for the user data field.

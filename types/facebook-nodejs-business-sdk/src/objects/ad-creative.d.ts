@@ -202,8 +202,12 @@ export default class AdCreative extends AbstractCrudObject {
         any: "ANY";
     }>;
     createAdLabel(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AdCreative>;
-    getCreativeInsights(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getPreviews(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getCreativeInsights(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getCreativeInsights(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getCreativeInsights(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getPreviews(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getPreviews(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getPreviews(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<any, any>): AdCreative;
     update(fields: string[], params?: Record<any, any>): Promise<AdCreative>;

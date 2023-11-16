@@ -56,7 +56,9 @@ export default class AdRule extends AbstractCrudObject {
         rule_templates_dialog: "RULE_TEMPLATES_DIALOG";
     }>;
     createExecute(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
-    getHistory(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getHistory(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getHistory(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getHistory(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createPreview(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AdRule>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<any, any>): AdRule;

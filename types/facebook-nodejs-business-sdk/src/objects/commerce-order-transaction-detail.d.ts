@@ -16,6 +16,10 @@ export default class CommerceOrderTransactionDetail extends AbstractCrudObject {
         transfer_id: "transfer_id";
         id: "id";
     }>;
-    getItems(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getTaxDetails(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getItems(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getItems(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getItems(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getTaxDetails(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getTaxDetails(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getTaxDetails(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
 }

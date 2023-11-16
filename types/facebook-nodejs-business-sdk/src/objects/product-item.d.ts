@@ -721,9 +721,15 @@ export default class ProductItem extends AbstractCrudObject {
         country_origin_exempt: "COUNTRY_ORIGIN_EXEMPT";
         default: "DEFAULT";
     }>;
-    getChannelsToIntegrityStatus(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getProductSets(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getVideosMetadata(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getChannelsToIntegrityStatus(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getChannelsToIntegrityStatus(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getChannelsToIntegrityStatus(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getProductSets(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getProductSets(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getProductSets(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getVideosMetadata(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getVideosMetadata(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getVideosMetadata(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<any, any>): ProductItem;
     update(fields: string[], params?: Record<any, any>): Promise<ProductItem>;

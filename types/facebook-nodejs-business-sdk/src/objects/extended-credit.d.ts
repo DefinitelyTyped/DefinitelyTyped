@@ -29,9 +29,13 @@ export default class ExtendedCredit extends AbstractCrudObject {
         send_bill_to_biz_name: "send_bill_to_biz_name";
         sold_to_address: "sold_to_address";
     }>;
-    getExtendedCreditInvoiceGroups(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getExtendedCreditInvoiceGroups(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getExtendedCreditInvoiceGroups(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getExtendedCreditInvoiceGroups(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createExtendedCreditInvoiceGroup(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<ExtendedCreditInvoiceGroup>;
-    getOwningCreditAllocationConfigs(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getOwningCreditAllocationConfigs(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getOwningCreditAllocationConfigs(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getOwningCreditAllocationConfigs(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createOwningCreditAllocationConfig(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<ExtendedCreditAllocationConfig>;
     createWhatsappCreditSharingAndAttach(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
     get(fields: string[], params?: Record<any, any>): ExtendedCredit;

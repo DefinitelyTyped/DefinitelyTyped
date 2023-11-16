@@ -38,7 +38,9 @@ export default class PagePostExperiment extends AbstractCrudObject {
         shares: "SHARES";
         video_views_60s: "VIDEO_VIEWS_60S";
     }>;
-    getVideoInsights(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getVideoInsights(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getVideoInsights(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getVideoInsights(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<any, any>): PagePostExperiment;
 }

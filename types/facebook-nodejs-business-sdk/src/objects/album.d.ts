@@ -32,12 +32,20 @@ export default class Album extends AbstractCrudObject {
         updated_time: "updated_time";
         video_count: "video_count";
     }>;
-    getComments(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getComments(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getComments(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getComments(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createComment(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Comment>;
-    getLikes(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getLikes(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getLikes(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getLikes(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createLike(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Album>;
-    getPhotos(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getPhotos(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getPhotos(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getPhotos(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createPhoto(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Photo>;
-    getPicture(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getPicture(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getPicture(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getPicture(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<any, any>): Album;
 }

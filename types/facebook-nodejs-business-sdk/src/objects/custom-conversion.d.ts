@@ -49,7 +49,9 @@ export default class CustomConversion extends AbstractCrudObject {
         submit_application: "SUBMIT_APPLICATION";
         subscribe: "SUBSCRIBE";
     }>;
-    getStats(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getStats(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getStats(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getStats(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<any, any>): CustomConversion;
     update(fields: string[], params?: Record<any, any>): Promise<CustomConversion>;

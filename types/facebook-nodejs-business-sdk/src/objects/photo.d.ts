@@ -58,12 +58,20 @@ export default class Photo extends AbstractCrudObject {
         tagged: "tagged";
         uploaded: "uploaded";
     }>;
-    getComments(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getComments(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getComments(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getComments(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createComment(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Comment>;
-    getInsights(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getLikes(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getInsights(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getInsights(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getInsights(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getLikes(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getLikes(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getLikes(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createLike(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Photo>;
-    getSponsorTags(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getSponsorTags(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getSponsorTags(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getSponsorTags(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<any, any>): Photo;
 }

@@ -30,9 +30,17 @@ export default class SystemUser extends AbstractCrudObject {
         partner_center_marketing: "PARTNER_CENTER_MARKETING";
         partner_center_operations: "PARTNER_CENTER_OPERATIONS";
     }>;
-    getAssignedAdAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getAssignedBusinessAssetGroups(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getAssignedPages(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
-    getAssignedProductCatalogs(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getAssignedAdAccounts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getAssignedAdAccounts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getAssignedAdAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getAssignedBusinessAssetGroups(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getAssignedBusinessAssetGroups(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getAssignedBusinessAssetGroups(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getAssignedPages(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getAssignedPages(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getAssignedPages(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getAssignedProductCatalogs(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getAssignedProductCatalogs(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getAssignedProductCatalogs(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     get(fields: string[], params?: Record<any, any>): SystemUser;
 }

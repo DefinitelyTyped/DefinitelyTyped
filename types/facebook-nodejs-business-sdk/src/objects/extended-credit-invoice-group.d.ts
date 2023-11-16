@@ -19,7 +19,9 @@ export default class ExtendedCreditInvoiceGroup extends AbstractCrudObject {
         sold_to_address: "sold_to_address";
     }>;
     deleteAdAccounts(params?: Record<any, any>): Promise<any>;
-    getAdAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    getAdAccounts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getAdAccounts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getAdAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
     createAdAccount(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AdAccount>;
     delete(fields: string[], params?: Record<any, any>): Promise<AbstractObject>;
     get(fields: string[], params?: Record<any, any>): ExtendedCreditInvoiceGroup;
