@@ -43,6 +43,7 @@ const clientTest: ComponentFramework.Client = {
     getFormFactor: () => 1,
     getClient: () => "",
     isOffline: () => false,
+    isNetworkAvailable: () => false,
 };
 
 const tmpFile: ComponentFramework.FileObject = { fileContent: "", fileName: "", fileSize: 0, mimeType: "" };
