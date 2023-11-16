@@ -1,4 +1,4 @@
-import { Zone } from "./zone";
+import { Zone, ZoneMaybeValid } from "./zone";
 
 /**
  * `Settings` contains static getters and setters that control Luxon's overall behavior.
@@ -24,7 +24,7 @@ export class Settings {
      * The default time zone object currently used to create DateTimes. Does not affect existing instances.
      * The default value is the system's time zone (the one set on the machine that runs this code).
      */
-    static get defaultZone(): Zone;
+    static get defaultZone(): ZoneMaybeValid;
     static set defaultZone(zone: Zone | string);
 
     /**

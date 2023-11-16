@@ -1,4 +1,4 @@
-import { DefaultValidity, IfValid } from "./_util";
+import { CanBeInvalid, DefaultValidity, IfValid } from "./_util";
 import { ConversionAccuracy } from "./datetime";
 import { NumberingSystem } from "./misc";
 
@@ -76,6 +76,8 @@ export type DurationInput = Duration | number | DurationLikeObject;
  */
 export type DurationLike = Duration | DurationLikeObject | number;
 
+export type DurationMaybeValid = CanBeInvalid extends true ? (Duration<true> | Duration<false>) : Duration;
+
 /**
  * A Duration object represents a period of time, like "2 months" or "1 day, 1 hour".
  * Conceptually, it is just a map of units to their quantities, accompanied by some additional configuration and methods for creating, parsing, interrogating, transforming, and formatting them.
@@ -151,7 +153,7 @@ export class Duration<IsValid extends boolean = DefaultValidity> {
      * @example
      * Duration.fromISO('P5Y3M').toObject() //=> { years: 5, months: 3 }
      */
-    static fromISO(text: string, opts?: DurationOptions): Duration;
+    static fromISO(text: string, opts?: DurationOptions): DurationMaybeValid;
 
     /**
      * Create a Duration from an ISO 8601 time string.
@@ -174,7 +176,7 @@ export class Duration<IsValid extends boolean = DefaultValidity> {
      * @example
      * Duration.fromISOTime('T1100').toObject() //=> { hours: 11, minutes: 0, seconds: 0 }
      */
-    static fromISOTime(text: string, opts?: DurationOptions): Duration;
+    static fromISOTime(text: string, opts?: DurationOptions): DurationMaybeValid;
 
     /**
      * Create an invalid Duration.
@@ -189,7 +191,7 @@ export class Duration<IsValid extends boolean = DefaultValidity> {
      *
      * @param o
      */
-    static isDuration(o: unknown): o is Duration;
+    static isDuration(o: unknown): o is DurationMaybeValid;
 
     private constructor(config: unknown);
 

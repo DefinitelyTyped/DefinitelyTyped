@@ -23,10 +23,10 @@ DateTime.DATE_MED; // $ExpectType DateTimeFormatOptions
 DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
 
 DateTime.local({ zone: "Atlantic/Azores" }); // $ExpectType DateTime<true>
-DateTime.local(2021, 8, 28, { zone: "Atlantic/Azores" }); // $ExpectType DateTime<undefined>
+DateTime.local(2021, 8, 28, { zone: "Atlantic/Azores" }); // $ExpectType DateTime<true> | DateTime<false>
 DateTime.utc(); // $ExpectType DateTime<true>
 DateTime.utc({ locale: "en-US" }); // $ExpectType DateTime<true>
-DateTime.utc(2018, 5, 31, 23, { numberingSystem: "arabext" }); // $ExpectType DateTime<undefined>
+DateTime.utc(2018, 5, 31, 23, { numberingSystem: "arabext" }); // $ExpectType DateTime<true> | DateTime<false>
 // @ts-expect-error
 DateTime.utc(2019, { locale: "en-GB" }, 5);
 DateTime.isDateTime(0 as unknown); // $ExpectType boolean
@@ -140,7 +140,7 @@ dt.valueOf(); // $ExpectType number
 dt.toObject(); // $ExpectType Record<_ToObjectUnit, number> | Partial<Record<_ToObjectUnit, number>>
 // @ts-expect-error
 dt.toObject().locale;
-dt.toObject({ includeConfig: true }); // $ExpectType Partial<_ToObjectOutput<true>>
+dt.toObject({ includeConfig: true }); // $ExpectType _ToObjectOutput<true> | Partial<_ToObjectOutput<true>>
 dt.toObject({ includeConfig: true }).locale; // $ExpectType string | undefined
 dt.toUnixInteger(); // $ExpectType number
 
@@ -217,18 +217,18 @@ dt.setLocale("en-US").toLocaleString(f);
 
 DateTime.local().setZone("America/Los_Angeles");
 
-DateTime.utc(2017, 5, 15); // $ExpectType DateTime<undefined>
+DateTime.utc(2017, 5, 15); // $ExpectType DateTime<true> | DateTime<false>
 DateTime.utc(); // $ExpectType DateTime<true>
 DateTime.local().toUTC(); // $ExpectType DateTime<true>
 DateTime.utc().toLocal(); // $ExpectType DateTime<true>
 
-DateTime.max(dt, now); // $ExpectType DateTime<true | undefined>
-DateTime.min(dt, now); // $ExpectType DateTime<true | undefined>
+DateTime.max(dt, now); // $ExpectType DateTime<true> | DateTime<false>
+DateTime.min(dt, now); // $ExpectType DateTime<true> | DateTime<false>
 DateTime.min(now, now); // $ExpectType DateTime<true>
 
 const anything: unknown = 0;
 if (DateTime.isDateTime(anything)) {
-    anything; // $ExpectType DateTime<undefined>
+    anything; // $ExpectType DateTime<true> | DateTime<false>
 }
 
 const { input, result, zone } = DateTime.fromFormatExplain("Aug 6 1982", "MMMM d yyyy");
@@ -248,8 +248,8 @@ Duration.fromDurationLike(dur); // $ExpectType Duration<true>
 Duration.fromDurationLike("");
 // @ts-expect-error
 new Duration({ hour: 2, minute: 7 });
-dt.plus(dur); // $ExpectType DateTime<undefined>
-dt.plus({ quarters: 2, months: 1 }); // $ExpectType DateTime<undefined>
+dt.plus(dur); // $ExpectType DateTime<true> | DateTime<false>
+dt.plus({ quarters: 2, months: 1 }); // $ExpectType DateTime<true> | DateTime<false>
 dur.hours; // $ExpectType number
 dur.minutes; // $ExpectType number
 dur.seconds; // $ExpectType number
@@ -266,7 +266,7 @@ dur.toMillis(); // $ExpectType number
 dur.mapUnits((x, u) => (u === "hours" ? x * 2 : x)); // $ExpectType Duration<true>
 
 if (Duration.isDuration(anything)) {
-    anything; // $ExpectType Duration<undefined>
+    anything; // $ExpectType Duration<true> | Duration<false>
 }
 // @ts-expect-error
 Duration.invalid();
@@ -279,9 +279,9 @@ const i = Interval.fromDateTimes(now, later);
 i.length(); // $ExpectType number
 i.length("years"); // $ExpectType number
 i.contains(DateTime.local(2019)); // $ExpectType boolean
-i.set({ end: DateTime.local(2020) }); // $ExpectType Interval<undefined>
-i.mapEndpoints(d => d); // $ExpectType Interval<undefined>
-i.intersection(i); // $ExpectType Interval<undefined> | null
+i.set({ end: DateTime.local(2020) }); // $ExpectType Interval<true> | Interval<false>
+i.mapEndpoints(d => d); // $ExpectType Interval<true> | Interval<false>
+i.intersection(i); // $ExpectType Interval<boolean> | null
 
 i.invalidReason; // $ExpectType string | null
 i.invalidExplanation; // $ExpectType string | null
@@ -291,14 +291,14 @@ i.toISODate(); // $ExpectType string
 i.toISOTime(); // $ExpectType string
 i.toString(); // $ExpectType string
 i.toLocaleString(); // $ExpectType string
-i.toDuration("months"); // $ExpectType Duration<undefined>
-i.toDuration(); // $ExpectType Duration<undefined>
+i.toDuration("months"); // $ExpectType Duration<true> | Duration<false>
+i.toDuration(); // $ExpectType Duration<true> | Duration<false>
 // @ts-expect-error
 i.divideEqually();
 i.divideEqually(5);
 
 if (Interval.isInterval(anything)) {
-    anything; // $ExpectType Interval<undefined>
+    anything; // $ExpectType Interval<true> | Interval<false>
 }
 // @ts-expect-error
 new Interval(now, later);
@@ -333,7 +333,7 @@ Settings.resetCaches();
 Settings.defaultZone = ianaZone;
 Settings.defaultZone = "America/Los_Angeles";
 Settings.defaultZone = Settings.defaultZone;
-Settings.defaultZone; // $ExpectType Zone<undefined>
+Settings.defaultZone; // $ExpectType Zone<true> | Zone<false>
 
 Settings.twoDigitCutoffYear;
 Settings.twoDigitCutoffYear = 42;
@@ -382,15 +382,15 @@ bogus.invalidExplanation; // $ExpectType string | null
 const local = DateTime.local(2017, 5, 15, 9, 10, 23);
 local.zoneName; // $ExpectType string | null
 local.toString(); // $ExpectType string
-local.setZone("America/Los_Angeles"); // $ExpectType DateTime<undefined>
-local.setZone("America/Los_Angeles", { keepLocalTime: true }); // $ExpectType DateTime<undefined>
+local.setZone("America/Los_Angeles"); // $ExpectType DateTime<true> | DateTime<false>
+local.setZone("America/Los_Angeles", { keepLocalTime: true }); // $ExpectType DateTime<true> | DateTime<false>
 
 const iso = DateTime.fromISO("2017-05-15T09:10:23");
 iso.zoneName; // $ExpectType string | null
 iso.toString(); // $ExpectType string
 
-DateTime.fromISO("2017-05-15T09:10:23", { zone: "Europe/Paris", setZone: true }); // $ExpectType DateTime<undefined>
-DateTime.fromFormat("2017-05-15T09:10:23 Europe/Paris", "yyyy-MM-dd'T'HH:mm:ss z"); // $ExpectType DateTime<undefined>
+DateTime.fromISO("2017-05-15T09:10:23", { zone: "Europe/Paris", setZone: true }); // $ExpectType DateTime<true> | DateTime<false>
+DateTime.fromFormat("2017-05-15T09:10:23 Europe/Paris", "yyyy-MM-dd'T'HH:mm:ss z"); // $ExpectType DateTime<true> | DateTime<false>
 
 /* Calendars */
 // prettier-ignore
@@ -410,32 +410,32 @@ DateTime.fromISO("2014-08-06T13:07:04.054").toFormat("yyyy LLL dd"); // $ExpectT
 /* Parsing */
 // @ts-expect-error
 DateTime.fromObject();
-DateTime.fromObject({}, { zone: "America/Los_Angeles" }); // $ExpectType DateTime<undefined>
+DateTime.fromObject({}, { zone: "America/Los_Angeles" }); // $ExpectType DateTime<true> | DateTime<false>
 // @ts-expect-error
 DateTime.fromISO();
-DateTime.fromISO("2016-05-25"); // $ExpectType DateTime<undefined>
+DateTime.fromISO("2016-05-25"); // $ExpectType DateTime<true> | DateTime<false>
 // @ts-expect-error
 DateTime.fromJSDate();
-DateTime.fromJSDate(new Date()); // $ExpectType DateTime<undefined>
+DateTime.fromJSDate(new Date()); // $ExpectType DateTime<true> | DateTime<false>
 // @ts-expect-error
 DateTime.fromRFC2822();
-DateTime.fromRFC2822("Tue, 01 Nov 2016 13:23:12 +0630"); // $ExpectType DateTime<undefined>
+DateTime.fromRFC2822("Tue, 01 Nov 2016 13:23:12 +0630"); // $ExpectType DateTime<true> | DateTime<false>
 // @ts-expect-error
 DateTime.fromHTTP();
-DateTime.fromHTTP("Sunday, 06-Nov-94 08:49:37 GMT"); // $ExpectType DateTime<undefined>
+DateTime.fromHTTP("Sunday, 06-Nov-94 08:49:37 GMT"); // $ExpectType DateTime<true> | DateTime<false>
 // @ts-expect-error
 DateTime.fromSQL();
-DateTime.fromSQL("2017-05-15 09:24:15"); // $ExpectType DateTime<undefined>
+DateTime.fromSQL("2017-05-15 09:24:15"); // $ExpectType DateTime<true> | DateTime<false>
 // @ts-expect-error
 DateTime.fromMillis();
-DateTime.fromMillis(1542674993410); // $ExpectType DateTime<undefined>
+DateTime.fromMillis(1542674993410); // $ExpectType DateTime<true> | DateTime<false>
 // @ts-expect-error
 DateTime.fromSeconds();
 DateTime.fromSeconds(1542674993); // $ExpectType DateTime<true>
 // @ts-expect-error
 DateTime.fromFormat();
-DateTime.fromFormat("May 25 1982", "LLLL dd yyyy"); // $ExpectType DateTime<undefined>
-DateTime.fromFormat("mai 25 1982", "LLLL dd yyyy", { locale: "fr" }); // $ExpectType DateTime<undefined>
+DateTime.fromFormat("May 25 1982", "LLLL dd yyyy"); // $ExpectType DateTime<true> | DateTime<false>
+DateTime.fromFormat("mai 25 1982", "LLLL dd yyyy", { locale: "fr" }); // $ExpectType DateTime<true> | DateTime<false>
 
 DateTime.fromFormatExplain("Aug 6 1982", "MMMM d yyyy").regex;
 DateTime.invalid("Timestamp out of range");
@@ -477,16 +477,16 @@ dur.shiftTo("days").toObject().days; // $ExpectType number | undefined
 dur.shiftTo("weeks", "hours").toObject().weeks; // $ExpectType number | undefined
 DateTime.local().plus(dur.shiftTo("milliseconds")).year; // $ExpectType number
 
-Duration.fromISO("PY23", { conversionAccuracy: "longterm" }); // $ExpectType Duration<undefined>
-Duration.fromISOTime("21:37.000"); // $ExpectType Duration<undefined>
-Duration.fromISOTime("21:37.000", { conversionAccuracy: "longterm" }); // $ExpectType Duration<undefined>
+Duration.fromISO("PY23", { conversionAccuracy: "longterm" }); // $ExpectType Duration<true> | Duration<false>
+Duration.fromISOTime("21:37.000"); // $ExpectType Duration<true> | Duration<false>
+Duration.fromISOTime("21:37.000", { conversionAccuracy: "longterm" }); // $ExpectType Duration<true> | Duration<false>
 
-end.diff(start, "hours", { conversionAccuracy: "longterm" }); // $ExpectType Duration<undefined>
-end.diff(start, ["months", "days", "hours"]); // $ExpectType Duration<undefined>
+end.diff(start, "hours", { conversionAccuracy: "longterm" }); // $ExpectType Duration<true> | Duration<false>
+end.diff(start, ["months", "days", "hours"]); // $ExpectType Duration<true> | Duration<false>
 dur.reconfigure({ conversionAccuracy: "longterm" }); // $ExpectType Duration<true>
 
-start.until(end); // $ExpectType Interval<undefined>
-i.toDuration(["years", "months", "days"]); // $ExpectType Duration<undefined>
+start.until(end); // $ExpectType Interval<true> | DateTime<false> || DateTime<false> | Interval<true>
+i.toDuration(["years", "months", "days"]); // $ExpectType Duration<true> | Duration<false>
 
 dur.invalidReason; // $ExpectType string
 dur.invalidExplanation; // $ExpectType string | null

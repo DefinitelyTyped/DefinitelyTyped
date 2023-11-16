@@ -1,4 +1,4 @@
-import { DefaultValidity, IfValid } from "./_util";
+import { CanBeInvalid, DefaultValidity, IfValid } from "./_util";
 
 export interface ZoneOffsetOptions {
     /**
@@ -16,6 +16,8 @@ export interface ZoneOffsetOptions {
  * Returning '+6', '+06:00', or '+0600' respectively
  */
 export type ZoneOffsetFormat = "narrow" | "short" | "techie";
+
+export type ZoneMaybeValid = CanBeInvalid extends true ? Zone<true> | Zone<false> : Zone;
 
 export abstract class Zone<IsValid extends boolean = DefaultValidity> {
     /**
@@ -79,7 +81,7 @@ export class IANAZone<IsValid extends boolean = DefaultValidity> extends Zone<Is
     /**
      * Same as constructor but has caching.
      */
-    static create(name: string): IANAZone;
+    static create(name: string): CanBeInvalid extends true ? (IANAZone<true> | IANAZone<false>) : IANAZone;
 
     /**
      * Reset local caches. Should only be necessary in testing scenarios.
