@@ -145,14 +145,13 @@ function testSandbox() {
     // $ExpectType number
     objWithPrivateMembers.pubVar;
 
-
     // Test .define
 
     class DefinableConfig {
         Value1: string;
         Value2: string;
     }
-    
+
     const objToDefine = {};
     const objToDefineWithClass = new DefinableConfig();
 
