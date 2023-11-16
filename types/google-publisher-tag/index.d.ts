@@ -275,6 +275,11 @@ declare namespace googletag {
     function setAdIframeTitle(title: string): void;
 
     /**
+     * Sets general configuration options for the page.
+     */
+    function setConfig(config: config.PageSettingsConfig): void;
+
+    /**
      * The command array accepts a sequence of functions and invokes them in
      * order. It is intended to replace a standard array that is used to enqueue
      * functions to be invoked once GPT is loaded.
@@ -1714,6 +1719,224 @@ declare namespace googletag {
     }
 
     /**
+     * Main configuration interface for page-level settings.
+     */
+    namespace config {
+        /**
+         * Main configuration interface for page-level settings.
+         *
+         * Allows setting multiple features with a single API call.
+         *
+         * All properties listed below are examples and do not reflect actual features
+         * that utilize setConfig.  For the set of features, see fields within the
+         * PageSettingsConfig type below.
+         *
+         * Examples:
+         * - Only features specified in the {@link googletag.setConfig} call are
+         *   modified.
+         *   ```
+         *   // Configure feature alpha.
+         *   googletag.setConfig({
+         *       alpha: {...}
+         *   });
+         *
+         *   // Configure feature bravo. Feature alpha is unchanged.
+         *   googletag.setConfig({
+         *      bravo: {...}
+         *   });
+         *   ```
+         * - All settings for a given feature are updated with each call to
+         *   {@link googletag.setConfig}.
+         *   ```
+         *   // Configure feature charlie to echo = 1, foxtrot = true.
+         *   googletag.setConfig({
+         *       charlie: {
+         *           echo: 1,
+         *           foxtrot: true,
+         *       }
+         *   });
+         *
+         *   // Update feature charlie to echo = 2. Since foxtrot was not specified,
+         *   // the value is cleared.
+         *   googletag.setConfig({
+         *       charlie: {
+         *           echo: 2
+         *       }
+         *   });
+         *   ```
+         * - All settings for a feature can be cleared by passing `null`.
+         *   ```
+         *   // Configure features delta, golf, and hotel.
+         *   googletag.setConfig({
+         *       delta: {...},
+         *       golf: {...},
+         *       hotel: {...},
+         *   });
+         *
+         *   // Feature delta and hotel are cleared, but feature golf remains set.
+         *   googletag.setConfig({
+         *       delta: null,
+         *       hotel: null,
+         *   });
+         *   ```
+         */
+        interface PageSettingsConfig {
+            /**
+             * Settings to control publisher privacy treatments.
+             */
+            privacyTreatments?: PrivacyTreatmentsConfig | null;
+        }
+
+        /**
+         * Settings to control publisher privacy treatments.
+         */
+        interface PrivacyTreatmentsConfig {
+            /**
+             * An array of publisher privacy treatments to enable.
+             *
+             * @example
+             *   // Disable personalization across the entire page.
+             *   googletag.setConfig({
+             *     privacyTreatments: {treatments: ['disablePersonalization']}
+             *   });
+             */
+            treatments: PrivacyTreatment[];
+        }
+
+        /**
+         * Supported publisher privacy treatments.
+         */
+        type PrivacyTreatment = "disablePersonalization";
+
+        interface SlotSettingsConfig {
+            /**
+             * An array of component auctions to be included in an on-device ad auction.
+             */
+            componentAuction?: ComponentAuctionConfig[];
+
+            /**
+             * Settings that control interstitial ad slot behavior.
+             */
+            interstitial?: InterstitialConfig;
+        }
+
+        /**
+         * An object representing a single component auction in a on-device ad auction.
+         *
+         * @see [Protected Audience API Seller guide: run ad auctions](https://developer.chrome.com/docs/privacy-sandbox/fledge-api/ad-auction/)
+         */
+        interface ComponentAuctionConfig {
+            /**
+             * The configuration key associated with this component auction.
+             *
+             * This value must be non-empty and should be unique. If two
+             * `ComponentAuctionConfig` objects share the same configKey value,
+             * the last to be set will overwrite prior configurations.
+             */
+            configKey: string;
+
+            /**
+             * An auction configuration object for this component auction.
+             *
+             * If this value is set to `null`, any existing configuration for
+             * the specified `configKey` will be deleted.
+             *
+             * @example
+             *
+             * const componentAuctionConfig = {
+             *   // Seller URL should be https and the same as decisionLogicUrl's origin
+             *   seller: 'https://testSeller.com',
+             *   decisionLogicUrl: 'https://testSeller.com/ssp/decision-logic.js',
+             *   interestGroupBuyers: [
+             *     'https://example-buyer.com',
+             *   ],
+             *   auctionSignals: {auction_signals: 'auction_signals'},
+             *   sellerSignals: {seller_signals: 'seller_signals'},
+             *   perBuyerSignals: {
+             *     // listed on interestGroupBuyers
+             *     'https://example-buyer.com': {
+             *       per_buyer_signals: 'per_buyer_signals',
+             *     },
+             *   },
+             * };
+             *
+             * const auctionSlot = googletag.defineSlot('/1234567/example', [160, 600])!;
+             *
+             * // To add configKey to the component auction:
+             * auctionSlot.setConfig({
+             *   componentAuction: [{
+             *      configKey: 'https://testSeller.com',
+             *      auctionConfig: componentAuctionConfig
+             *   }]
+             * });
+             *
+             * // To remove configKey from the component auction:
+             * auctionSlot.setConfig({
+             *   componentAuction: [{
+             *      configKey: 'https://testSeller.com',
+             *      auctionConfig: null
+             *   }]
+             * });
+             *
+             * @see [Protected Audience API: Initiating an On-Device Auction](https://github.com/WICG/turtledove/blob/main/FLEDGE.md#21-initiating-an-on-device-auction)
+             */
+            auctionConfig: {
+                seller: string;
+                decisionLogicUrl: string;
+                trustedScoringSignalsUrl?: string;
+                interestGroupBuyers?: string[];
+                auctionSignals?: unknown;
+                sellerSignals?: unknown;
+                sellerTimeout?: number;
+                sellerExperimentGroupId?: number;
+                perBuyerSignals?: { [buyer: string]: unknown };
+                perBuyerTimeouts?: { [buyer: string]: number };
+                perBuyerGroupLimits?: { [buyer: string]: number };
+                perBuyerExperimentGroupIds?: { [buyer: string]: number };
+            } | null;
+        }
+
+        /**
+         * An object which defines the behavior of a single interstitial ad slot.
+         */
+        interface InterstitialConfig {
+            /**
+             * The interstitial trigger configuration for this interstitial ad.
+             *
+             * Setting the value of an interstitial trigger to `true` will enable it and
+             * `false` will disable it. This will override the default values [configured
+             * in Google Ad Manager](https://support.google.com/admanager/answer/9840201).
+             *
+             * @example
+             *  // Define a GPT managed web interstitial ad slot.
+             *  const interstitialSlot = googletag.defineOutOfPageSlot(
+             *      "/1234567/sports",
+             *      googletag.enums.OutOfPageFormat.INTERSTITIAL)!;
+             *
+             *  // Enable optional interstitial triggers.
+             *  // Change this value to false to disable.
+             *  const enableTriggers = true;
+             *
+             *  interstitialSlot.setConfig({
+             *    interstitial: {
+             *      triggers: {
+             *        unhideWindow: enableTriggers
+             *      }
+             *    }
+             *  });
+             *
+             * @see [Display a web interstitial ad](https://developers.google.com/publisher-tag/samples/display-web-interstitial-ad)
+             */
+            triggers?: Partial<Record<InterstitialTrigger, boolean>>;
+        }
+
+        /**
+         * Supported interstitial ad triggers.
+         */
+        type InterstitialTrigger = "unhideWindow";
+    }
+
+    /**
      * This is the namespace that GPT uses for managing secure signals.
      */
     namespace secureSignals {
@@ -2248,137 +2471,5 @@ declare namespace googletag {
              */
             rewardedSlotReady: RewardedSlotReadyEvent;
         }
-    }
-
-    /**
-     * Main configuration interface for slot-level settings.
-     */
-    namespace config {
-        interface SlotSettingsConfig {
-            /**
-             * An array of component auctions to be included in an on-device ad auction.
-             */
-            componentAuction?: ComponentAuctionConfig[];
-
-            /**
-             * Settings that control interstitial ad slot behavior.
-             */
-            interstitial?: InterstitialConfig;
-        }
-
-        /**
-         * An object representing a single component auction in a on-device ad auction.
-         *
-         * @see [Protected Audience API Seller guide: run ad auctions](https://developer.chrome.com/docs/privacy-sandbox/fledge-api/ad-auction/)
-         */
-        interface ComponentAuctionConfig {
-            /**
-             * The configuration key associated with this component auction.
-             *
-             * This value must be non-empty and should be unique. If two
-             * `ComponentAuctionConfig` objects share the same configKey value,
-             * the last to be set will overwrite prior configurations.
-             */
-            configKey: string;
-
-            /**
-             * An auction configuration object for this component auction.
-             *
-             * If this value is set to `null`, any existing configuration for
-             * the specified `configKey` will be deleted.
-             *
-             * @example
-             *
-             * const componentAuctionConfig = {
-             *   // Seller URL should be https and the same as decisionLogicUrl's origin
-             *   seller: 'https://testSeller.com',
-             *   decisionLogicUrl: 'https://testSeller.com/ssp/decision-logic.js',
-             *   interestGroupBuyers: [
-             *     'https://example-buyer.com',
-             *   ],
-             *   auctionSignals: {auction_signals: 'auction_signals'},
-             *   sellerSignals: {seller_signals: 'seller_signals'},
-             *   perBuyerSignals: {
-             *     // listed on interestGroupBuyers
-             *     'https://example-buyer.com': {
-             *       per_buyer_signals: 'per_buyer_signals',
-             *     },
-             *   },
-             * };
-             *
-             * const auctionSlot = googletag.defineSlot('/1234567/example', [160, 600])!;
-             *
-             * // To add configKey to the component auction:
-             * auctionSlot.setConfig({
-             *   componentAuction: [{
-             *      configKey: 'https://testSeller.com',
-             *      auctionConfig: componentAuctionConfig
-             *   }]
-             * });
-             *
-             * // To remove configKey from the component auction:
-             * auctionSlot.setConfig({
-             *   componentAuction: [{
-             *      configKey: 'https://testSeller.com',
-             *      auctionConfig: null
-             *   }]
-             * });
-             *
-             * @see [Protected Audience API: Initiating an On-Device Auction](https://github.com/WICG/turtledove/blob/main/FLEDGE.md#21-initiating-an-on-device-auction)
-             */
-            auctionConfig: {
-                seller: string;
-                decisionLogicUrl: string;
-                trustedScoringSignalsUrl?: string;
-                interestGroupBuyers?: string[];
-                auctionSignals?: unknown;
-                sellerSignals?: unknown;
-                sellerTimeout?: number;
-                sellerExperimentGroupId?: number;
-                perBuyerSignals?: { [buyer: string]: unknown };
-                perBuyerTimeouts?: { [buyer: string]: number };
-                perBuyerGroupLimits?: { [buyer: string]: number };
-                perBuyerExperimentGroupIds?: { [buyer: string]: number };
-            } | null;
-        }
-
-        /**
-         * An object which defines the behavior of a single interstitial ad slot.
-         */
-        interface InterstitialConfig {
-            /**
-             * The interstitial trigger configuration for this interstitial ad.
-             *
-             * Setting the value of an interstitial trigger to `true` will enable it and
-             * `false` will disable it. This will override the default values [configured
-             * in Google Ad Manager](https://support.google.com/admanager/answer/9840201).
-             *
-             * @example
-             *  // Define a GPT managed web interstitial ad slot.
-             *  const interstitialSlot = googletag.defineOutOfPageSlot(
-             *      "/1234567/sports",
-             *      googletag.enums.OutOfPageFormat.INTERSTITIAL)!;
-             *
-             *  // Enable optional interstitial triggers.
-             *  // Change this value to false to disable.
-             *  const enableTriggers = true;
-             *
-             *  interstitialSlot.setConfig({
-             *    interstitial: {
-             *      triggers: {
-             *        unhideWindow: enableTriggers
-             *      }
-             *    }
-             *  });
-             *
-             * @see [Display a web interstitial ad](https://developers.google.com/publisher-tag/samples/display-web-interstitial-ad)
-             */
-            triggers?: Partial<Record<InterstitialTrigger, boolean>>;
-        }
-
-        /**
-         * Supported interstitial ad triggers.
-         */
-        type InterstitialTrigger = "unhideWindow";
     }
 }
