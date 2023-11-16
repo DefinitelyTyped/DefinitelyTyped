@@ -1,5 +1,14 @@
 import { AbstractCrudObject } from './../abstract-crud-object';
+/**
+ * ProductFeedUploadErrorSample
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
 export default class ProductFeedUploadErrorSample extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
-    get(fields: string[], params?: Record<string, any>): Promise<ProductFeedUploadErrorSample>;
+    static get Fields(): Readonly<{
+        id: "id";
+        retailer_id: "retailer_id";
+        row_number: "row_number";
+    }>;
+    get(fields: Array<string>, params?: Record<any, any>): ProductFeedUploadErrorSample;
 }

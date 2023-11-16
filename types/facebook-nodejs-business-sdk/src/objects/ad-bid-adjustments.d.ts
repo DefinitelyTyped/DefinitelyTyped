@@ -1,4 +1,13 @@
-import { AbstractCrudObject } from "./../abstract-crud-object";
+import { AbstractCrudObject } from './../abstract-crud-object';
+/**
+ * AdBidAdjustments
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
 export default class AdBidAdjustments extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
+    static get Fields(): Readonly<{
+        age_range: "age_range";
+        page_types: "page_types";
+        user_groups: "user_groups";
+    }>;
 }

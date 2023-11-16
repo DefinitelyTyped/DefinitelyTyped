@@ -1,4 +1,13 @@
-import { AbstractCrudObject } from "./../abstract-crud-object";
+import { AbstractCrudObject } from './../abstract-crud-object';
+/**
+ * ProductVariant
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
 export default class ProductVariant extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
+    static get Fields(): Readonly<{
+        label: "label";
+        options: "options";
+        product_field: "product_field";
+    }>;
 }

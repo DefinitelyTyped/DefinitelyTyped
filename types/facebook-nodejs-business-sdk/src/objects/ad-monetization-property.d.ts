@@ -1,17 +1,17 @@
 import { AbstractCrudObject } from './../abstract-crud-object';
 import Cursor from './../cursor';
+/**
+ * AdMonetizationProperty
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
 export default class AdMonetizationProperty extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
-    getAdNetworkAnalytics(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getAdNetworkAnalytics(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getAdNetworkAnalytics(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createAdNetworkAnalytic(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<AdMonetizationProperty>;
-    getAdNetworkAnalyticsResults(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getAdNetworkAnalyticsResults(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getAdNetworkAnalyticsResults(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<string, any>): Promise<AdMonetizationProperty>;
+    static get Fields(): Readonly<{
+        owner_business: "owner_business";
+        id: "id";
+    }>;
+    getAdNetworkAnalytics(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    createAdNetworkAnalytic(fields: Array<string>, params?: Record<any, any>, pathOverride?: string | null): Promise<AdMonetizationProperty>;
+    getAdNetworkAnalyticsResults(fields: Array<string>, params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<any>;
+    get(fields: Array<string>, params?: Record<any, any>): AdMonetizationProperty;
 }

@@ -1,4 +1,12 @@
-import { AbstractCrudObject } from "./../abstract-crud-object";
+import { AbstractCrudObject } from './../abstract-crud-object';
+/**
+ * UserIDForApp
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
 export default class UserIDForApp extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
+    static get Fields(): Readonly<{
+        app: "app";
+        id: "id";
+    }>;
 }

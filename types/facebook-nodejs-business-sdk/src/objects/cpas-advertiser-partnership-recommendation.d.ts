@@ -1,5 +1,20 @@
 import { AbstractCrudObject } from './../abstract-crud-object';
+/**
+ * CPASAdvertiserPartnershipRecommendation
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
 export default class CPASAdvertiserPartnershipRecommendation extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
-    get(fields: string[], params?: Record<string, any>): Promise<CPASAdvertiserPartnershipRecommendation>;
+    static get Fields(): Readonly<{
+        advertiser_business_id: "advertiser_business_id";
+        brand_business_id: "brand_business_id";
+        brands: "brands";
+        countries: "countries";
+        id: "id";
+        merchant_business_id: "merchant_business_id";
+        merchant_categories: "merchant_categories";
+        status: "status";
+        status_reason: "status_reason";
+    }>;
+    get(fields: Array<string>, params?: Record<any, any>): CPASAdvertiserPartnershipRecommendation;
 }

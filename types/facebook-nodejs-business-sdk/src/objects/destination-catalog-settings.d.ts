@@ -1,5 +1,13 @@
 import { AbstractCrudObject } from './../abstract-crud-object';
+/**
+ * DestinationCatalogSettings
+ * @extends AbstractCrudObject
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
 export default class DestinationCatalogSettings extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
-    get(fields: string[], params?: Record<string, any>): Promise<DestinationCatalogSettings>;
+    static get Fields(): Readonly<{
+        generate_items_from_pages: "generate_items_from_pages";
+        id: "id";
+    }>;
+    get(fields: Array<string>, params?: Record<any, any>): DestinationCatalogSettings;
 }
