@@ -8,6 +8,12 @@ declare class StringDecoder {
     end(buffer?: Buffer): string;
 }
 
+type Is<T extends U, U> = T;
+declare var NoAsyncDispose: {
+    new(...arguments: any[]): typeof globalThis.Symbol extends { readonly asyncDispose: Is<infer S, symbol> }
+        ? symbol extends S ? {} : { [P in S]: never } : {}
+}
+
 type ComposeFnParam = (source: any) => void;
 
 interface _IEventEmitter {
@@ -85,7 +91,7 @@ interface _IReadable extends _IEventEmitter {
     destroy(error?: Error): this;
 }
 
-declare class _Readable implements _IReadable {
+declare class _Readable extends NoAsyncDispose implements _IReadable {
     readable: boolean;
     readonly readableFlowing: boolean | null;
     readonly readableHighWaterMark: number;
@@ -207,7 +213,6 @@ declare class _Readable implements _IReadable {
 
     iterator(options?: { destroyOnReturn?: boolean }): AsyncIterableIterator<any>;
     [Symbol.asyncIterator](): AsyncIterableIterator<any>;
-    [Symbol.asyncDispose](): never;
 
     // static ReadableState: _Readable.ReadableState;
     _readableState: _Readable.ReadableState;
@@ -342,7 +347,6 @@ declare namespace _Readable {
         _undestroy(): void;
         iterator(options?: { destroyOnReturn?: boolean }): AsyncIterableIterator<any>;
         [Symbol.asyncIterator](): AsyncIterableIterator<any>;
-        [Symbol.asyncDispose](): never;
         // end-Readable
 
         constructor(options?: DuplexOptions);
