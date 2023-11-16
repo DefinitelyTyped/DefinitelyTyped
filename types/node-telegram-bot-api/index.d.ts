@@ -195,6 +195,7 @@ declare namespace TelegramBot {
         duration?: number | undefined;
         performer?: string | undefined;
         title?: string | undefined;
+        thumbnail?: string | Stream | Buffer;
     }
 
     interface SendAnimationOptions extends SendBasicOptions {
@@ -204,11 +205,13 @@ declare namespace TelegramBot {
         duration?: number | undefined;
         width?: number | undefined;
         height?: number | undefined;
+        thumbnail?: string | Stream | Buffer;
     }
 
     interface SendDocumentOptions extends SendBasicOptions {
         parse_mode?: ParseMode | undefined;
         caption?: string | undefined;
+        thumbnail?: string | Stream | Buffer;
     }
 
     interface SendMediaGroupOptions {
@@ -241,6 +244,7 @@ declare namespace TelegramBot {
         width?: number | undefined;
         height?: number | undefined;
         caption?: string | undefined;
+        thumbnail?: string | Stream | Buffer;
     }
 
     interface SendVoiceOptions extends SendBasicOptions {
@@ -252,6 +256,7 @@ declare namespace TelegramBot {
     interface SendVideoNoteOptions extends SendBasicOptions {
         duration?: number | undefined;
         length?: number | undefined;
+        thumbnail?: string | Stream | Buffer;
     }
 
     interface SendLocationOptions extends SendBasicOptions {
