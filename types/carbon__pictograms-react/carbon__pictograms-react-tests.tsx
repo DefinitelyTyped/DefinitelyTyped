@@ -31,6 +31,7 @@ import {
     Video_01,
     Visibility,
     WatsonLogo,
+    Spss
 } from "@carbon/pictograms-react";
 import * as React from "react";
 
@@ -67,3 +68,4 @@ import * as React from "react";
 <MovingDolly />; // $ExpectType Element
 <AdvocateMask />; // $ExpectType Element
 <UserMask />; // $ExpectType Element
+<Spss />; // $ExpectType Element
