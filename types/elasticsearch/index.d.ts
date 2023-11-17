@@ -74,8 +74,11 @@ export class Client {
     renderSearchTemplate(params: RenderSearchTemplateParams): Promise<any>;
     scroll<T>(params: ScrollParams, callback: (error: any, response: SearchResponse<T>) => void): void;
     scroll<T>(params: ScrollParams): Promise<SearchResponse<T>>;
-    search<T>(params: SearchParams, callback: (error: any, response: SearchResponse<T>) => void): void;
-    search<T>(params: SearchParams): Promise<SearchResponse<T>>;
+    search<T, TTotalHits = number>(
+        params: SearchParams,
+        callback: (error: any, response: SearchResponse<T, TTotalHits>) => void,
+    ): void;
+    search<T, TTotalHits = number>(params: SearchParams): Promise<SearchResponse<T, TTotalHits>>;
     searchShards(params: SearchShardsParams, callback: (error: any, response: SearchShardsResponse) => void): void;
     searchShards(params: SearchShardsParams): Promise<SearchShardsResponse>;
     searchTemplate(params: SearchTemplateParams, callback: (error: any, response: any) => void): void;
@@ -599,13 +602,16 @@ export interface SearchParams extends GenericParams {
     type?: NameList | undefined;
 }
 
-export interface SearchResponse<T> {
+// For Elasticsearch 7.0 use SearchResponseV7.  This interface is for
+// Elasticsearch 6 or before, or for Elasticsearch 7 with "restTotalHitsAsInt:
+// true".
+export interface SearchResponse<T, TTotalHits = number> {
     took: number;
     timed_out: boolean;
     _scroll_id?: string | undefined;
     _shards: ShardsResponse;
     hits: {
-        total: number;
+        total?: TTotalHits;
         max_score: number;
         hits: Array<{
             _index: string;
@@ -624,6 +630,13 @@ export interface SearchResponse<T> {
     };
     aggregations?: any;
 }
+
+export interface TotalHits {
+    value: number;
+    relation: "eq" | "gte";
+}
+
+export type SearchResponseV7<T> = SearchResponse<T, TotalHits>;
 
 export interface SearchShardsParams extends GenericParams {
     preference?: string | undefined;
