@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/node-telegram-bot-api",
-    "version": "0.63.9999",
+    "version": "0.64.9999",
     "projects": [
         "https://github.com/yagop/node-telegram-bot-api"
     ],
