@@ -77,18 +77,17 @@ ajax.onload = () => {
 };
 ajax.send();
 
-
 new Awesomplete(input, {
-  list: ['Ada', 'Java', 'JavaScript', 'LOLCODE', 'Node.js', 'Ruby on Rails'],
-  item: (text: string, inputText: string, itemId: number) => {
-    const innerHTML = inputText.trim() === ''
-        ? text
-        : text.replace(RegExp(Awesomplete.$.regExpEscape(inputText.trim()), 'gi'), '<mark>$&</mark>');
+    list: ["Ada", "Java", "JavaScript", "LOLCODE", "Node.js", "Ruby on Rails"],
+    item: (text: string, inputText: string, itemId: number) => {
+        const innerHTML = inputText.trim() === ""
+            ? text
+            : text.replace(RegExp(Awesomplete.$.regExpEscape(inputText.trim()), "gi"), "<mark>$&</mark>");
 
-    return Awesomplete.$.create('li', {
-      innerHTML,
-      'aria-selected': 'false',
-      id: `awesomplete_list_item_${itemId}`
-    });
-  }
+        return Awesomplete.$.create("li", {
+            innerHTML,
+            "aria-selected": "false",
+            id: `awesomplete_list_item_${itemId}`,
+        });
+    },
 });
