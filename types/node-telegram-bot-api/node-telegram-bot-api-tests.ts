@@ -1,4 +1,4 @@
-import TelegramBot = require("./index");
+import TelegramBot = require("node-telegram-bot-api");
 
 const MyTelegramBot = new TelegramBot("token", { webHook: { host: "myhost" } });
 
