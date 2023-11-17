@@ -41,7 +41,7 @@ binarySearch(
 binarySearch(
     ["G", "KG", "KG", "MG"],
     "KG",
-    (a: string, b: string, i: number, arr: ReadonlyArray<string>) => a.localeCompare(b),
+    (a: string, b: string, i: number, arr: readonly string[]) => a.localeCompare(b),
     null,
     1,
     4,

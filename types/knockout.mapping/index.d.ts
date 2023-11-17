@@ -15,7 +15,7 @@ declare global {
     type KnockoutObservableType<T> = {
         [P in keyof T]: T[P] extends Primitives ? KnockoutObservable<T[P]>
             : T[P] extends any[] ? KnockoutObservableArrayType<T[P][number]>
-            : T[P] extends ReadonlyArray<any> ? KnockoutReadonlyObservableArrayType<T[P][number]>
+            : T[P] extends readonly any[] ? KnockoutReadonlyObservableArrayType<T[P][number]>
             : MappedType<T[P]>;
     };
 
@@ -91,8 +91,8 @@ declare global {
          * @param target View model object previosly mapped to be updated.
          */
         fromJS<T>(
-            source: ReadonlyArray<T>,
-            options?: KnockoutMappingOptions<ReadonlyArray<T>>,
+            source: readonly T[],
+            options?: KnockoutMappingOptions<readonly T[]>,
             target?: KnockoutReadonlyObservableArrayType<T>,
         ): KnockoutReadonlyObservableArrayType<T>;
         /**
@@ -101,7 +101,7 @@ declare global {
          * @param target View model object previosly mapped to be updated.
          */
         fromJS<T>(
-            source: ReadonlyArray<T>,
+            source: readonly T[],
             target: KnockoutReadonlyObservableArrayType<T>,
         ): KnockoutReadonlyObservableArrayType<T>;
         /**

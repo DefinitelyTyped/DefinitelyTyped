@@ -24,7 +24,7 @@ export interface DataHolderBrandSummary {
     /**
      * The industries the Data Holder Brand belongs to
      */
-    industries: ("banking" | "energy" | "telco")[];
+    industries: Array<"banking" | "energy" | "telco">;
     /**
      * Interim id of the Data Holder Brand issued by the CDR Register. This is to be used to uniquely identify the record when dataHolderBrandId is not populated and is not to be reused
      */
@@ -49,7 +49,7 @@ export interface DataHoldersStatusList {
     /**
      * Response data for the query
      */
-    data: {
+    data: Array<{
         /**
          * Unique id of the Data Holder Legal Entity issued by the CDR Register.
          */
@@ -59,7 +59,7 @@ export interface DataHoldersStatusList {
          */
         status: "ACTIVE" | "REMOVED";
         [k: string]: unknown;
-    }[];
+    }>;
     links: {
         /**
          * Fully qualified link to this API call
@@ -104,7 +104,7 @@ export interface DataRecipientBrandMetaData {
      */
     logoUri: string;
     softwareProducts?:
-        | {
+        | Array<{
             /**
              * Software product logo URI
              */
@@ -126,7 +126,7 @@ export interface DataRecipientBrandMetaData {
              */
             status: "ACTIVE" | "INACTIVE" | "REMOVED";
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     /**
      * Data Recipient Brand status in the CDR Register
@@ -140,7 +140,7 @@ export interface DataRecipientsStatusList {
     /**
      * Response data for the query
      */
-    data: {
+    data: Array<{
         /**
          * Unique id of the Data Recipient Legal Entity issued by the CDR Register
          */
@@ -150,7 +150,7 @@ export interface DataRecipientsStatusList {
          */
         status: "ACTIVE" | "SUSPENDED" | "REVOKED" | "SURRENDERED";
         [k: string]: unknown;
-    }[];
+    }>;
     links: {
         /**
          * Fully qualified link to this API call
@@ -344,7 +344,7 @@ export interface RegisterDataHolderAuth {
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
 export interface RegisterDataHolderBrand {
-    authDetails: {
+    authDetails: Array<{
         /**
          * JWKS endpoint used for authentication by the Data Holder with the Data Recipient
          */
@@ -354,7 +354,7 @@ export interface RegisterDataHolderBrand {
          */
         registerUType: "SIGNED-JWT";
         [k: string]: unknown;
-    }[];
+    }>;
     /**
      * The name of Data Holder Brand
      */
@@ -396,7 +396,7 @@ export interface RegisterDataHolderBrand {
     /**
      * The industries the Data Holder Brand belongs to
      */
-    industries: ("banking" | "energy" | "telco")[];
+    industries: Array<"banking" | "energy" | "telco">;
     /**
      * The date/time that the Data Holder Brand data was last updated in the Register
      */
@@ -503,7 +503,7 @@ export interface RegisterDataRecipient {
      */
     accreditationNumber: string;
     dataRecipientBrands?:
-        | {
+        | Array<{
             /**
              * Data Recipient Brand name
              */
@@ -517,7 +517,7 @@ export interface RegisterDataRecipient {
              */
             logoUri: string;
             softwareProducts?:
-                | {
+                | Array<{
                     /**
                      * Software product logo URI
                      */
@@ -539,14 +539,14 @@ export interface RegisterDataRecipient {
                      */
                     status: "ACTIVE" | "INACTIVE" | "REMOVED";
                     [k: string]: unknown;
-                }[]
+                }>
                 | null;
             /**
              * Data Recipient Brand status in the CDR Register
              */
             status: "ACTIVE" | "INACTIVE" | "REMOVED";
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     /**
      * The date/time that the Legal Entity was last updated in the CDR Register
@@ -576,7 +576,7 @@ export interface ResponseDataHoldersBrandSummaryList {
     /**
      * Response data for the query
      */
-    data: {
+    data: Array<{
         /**
          * Australian Business Number for the organisation
          */
@@ -600,7 +600,7 @@ export interface ResponseDataHoldersBrandSummaryList {
         /**
          * The industries the Data Holder Brand belongs to
          */
-        industries: ("banking" | "energy" | "telco")[];
+        industries: Array<"banking" | "energy" | "telco">;
         /**
          * Interim id of the Data Holder Brand issued by the CDR Register. This is to be used to uniquely identify the record when dataHolderBrandId is not populated and is not to be reused
          */
@@ -618,7 +618,7 @@ export interface ResponseDataHoldersBrandSummaryList {
          */
         publicBaseUri: string;
         [k: string]: unknown;
-    }[];
+    }>;
     links: {
         /**
          * Fully qualified link to this API call
@@ -634,7 +634,7 @@ export interface ResponseDataHoldersBrandSummaryList {
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
 
 export interface ResponseErrorListV2 {
-    errors: {
+    errors: Array<{
         /**
          * The code of the error encountered. Where the error is specific to the respondent, an application-specific error code, expressed as a string value. If the error is application-specific, the URN code that the specific error extends must be provided in the meta object. Otherwise, the value is the error code URN.
          */
@@ -658,7 +658,7 @@ export interface ResponseErrorListV2 {
          */
         title: string;
         [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
@@ -697,7 +697,7 @@ export interface ResponseJWKS {
     /**
      * The value of the "keys" parameter is an array of JWK values
      */
-    keys: {
+    keys: Array<{
         /**
          * The "alg" (algorithm) parameter identifies the algorithm intended for use with the key
          */
@@ -723,7 +723,7 @@ export interface ResponseJWKS {
          */
         n: string;
         [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the register api. */
@@ -795,8 +795,8 @@ export interface ResponseRegisterDataHolderBrandList {
     /**
      * Response data for the query
      */
-    data: {
-        authDetails: {
+    data: Array<{
+        authDetails: Array<{
             /**
              * JWKS endpoint used for authentication by the Data Holder with the Data Recipient
              */
@@ -806,7 +806,7 @@ export interface ResponseRegisterDataHolderBrandList {
              */
             registerUType: "SIGNED-JWT";
             [k: string]: unknown;
-        }[];
+        }>;
         /**
          * The name of Data Holder Brand
          */
@@ -848,7 +848,7 @@ export interface ResponseRegisterDataHolderBrandList {
         /**
          * The industries the Data Holder Brand belongs to
          */
-        industries: ("banking" | "energy" | "telco")[];
+        industries: Array<"banking" | "energy" | "telco">;
         /**
          * The date/time that the Data Holder Brand data was last updated in the Register
          */
@@ -912,7 +912,7 @@ export interface ResponseRegisterDataHolderBrandList {
         logoUri: string;
         status: "ACTIVE" | "INACTIVE" | "REMOVED";
         [k: string]: unknown;
-    }[];
+    }>;
     links: {
         /**
          * URI to the first page of this set. Mandatory if this response is not the first page
@@ -958,7 +958,7 @@ export interface ResponseRegisterDataRecipientList {
     /**
      * Response data for the query
      */
-    data: {
+    data: Array<{
         /**
          * Accreditation level of the Data Recipient in the CDR Register
          */
@@ -968,7 +968,7 @@ export interface ResponseRegisterDataRecipientList {
          */
         accreditationNumber: string;
         dataRecipientBrands?:
-            | {
+            | Array<{
                 /**
                  * Data Recipient Brand name
                  */
@@ -982,7 +982,7 @@ export interface ResponseRegisterDataRecipientList {
                  */
                 logoUri: string;
                 softwareProducts?:
-                    | {
+                    | Array<{
                         /**
                          * Software product logo URI
                          */
@@ -1004,14 +1004,14 @@ export interface ResponseRegisterDataRecipientList {
                          */
                         status: "ACTIVE" | "INACTIVE" | "REMOVED";
                         [k: string]: unknown;
-                    }[]
+                    }>
                     | null;
                 /**
                  * Data Recipient Brand status in the CDR Register
                  */
                 status: "ACTIVE" | "INACTIVE" | "REMOVED";
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         /**
          * The date/time that the Legal Entity was last updated in the CDR Register
@@ -1034,7 +1034,7 @@ export interface ResponseRegisterDataRecipientList {
          */
         status: "ACTIVE" | "SUSPENDED" | "REVOKED" | "SURRENDERED";
         [k: string]: unknown;
-    }[];
+    }>;
     links: {
         /**
          * Fully qualified link to this API call
@@ -1081,7 +1081,7 @@ export interface SoftwareProductsStatusList {
     /**
      * Response data for the query
      */
-    data: {
+    data: Array<{
         /**
          * Unique id of the software product issued by the CDR Register
          */
@@ -1091,7 +1091,7 @@ export interface SoftwareProductsStatusList {
          */
         status: "ACTIVE" | "INACTIVE" | "REMOVED";
         [k: string]: unknown;
-    }[];
+    }>;
     links: {
         /**
          * Fully qualified link to this API call

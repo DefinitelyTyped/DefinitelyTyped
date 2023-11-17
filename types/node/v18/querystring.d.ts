@@ -25,9 +25,9 @@ declare module "querystring" {
             | string
             | number
             | boolean
-            | ReadonlyArray<string>
-            | ReadonlyArray<number>
-            | ReadonlyArray<boolean>
+            | readonly string[]
+            | readonly number[]
+            | readonly boolean[]
             | null
         >
     {}

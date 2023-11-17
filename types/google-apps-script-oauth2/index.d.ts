@@ -195,7 +195,7 @@ declare namespace GoogleAppsScriptOAuth2 {
          * If the scope value is an array it will be joined using the separator before being sent to the server,
          * which is is a space character by default.
          */
-        setScope(scope: string | ReadonlyArray<string>, separator?: string): OAuth2Service;
+        setScope(scope: string | readonly string[], separator?: string): OAuth2Service;
         /**
          * Sets the subject (sub) value to use for Service Account authorization.
          */

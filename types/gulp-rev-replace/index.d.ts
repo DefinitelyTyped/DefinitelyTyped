@@ -3,7 +3,7 @@
 declare namespace revReplace {
     interface Options {
         canonicalUris?: boolean | undefined;
-        replaceInExtensions?: Array<string> | undefined;
+        replaceInExtensions?: string[] | undefined;
         prefix?: string | undefined;
         manifest?: NodeJS.ReadWriteStream | undefined;
         modifyUnreved?: Function | undefined;

@@ -22,7 +22,7 @@ interface ISubscriptionDefinition<T> {
     // after and before lack documentation
 
     constraint(predicateFn: (data: T, envelope: IEnvelope<T>) => boolean): ISubscriptionDefinition<T>;
-    constraints(predicateFns: ((data: T, envelope: IEnvelope<T>) => boolean)[]): ISubscriptionDefinition<T>;
+    constraints(predicateFns: Array<(data: T, envelope: IEnvelope<T>) => boolean>): ISubscriptionDefinition<T>;
     context(theContext: any): ISubscriptionDefinition<T>;
     debounce(interval: number): ISubscriptionDefinition<T>;
     defer(): ISubscriptionDefinition<T>;
@@ -57,17 +57,17 @@ interface IChannelDefinition<T> {
 
 interface IPostal {
     subscriptions: {};
-    wireTaps: ICallback<any>[];
+    wireTaps: Array<ICallback<any>>;
 
     addWireTap(callback: ICallback<any>): () => void;
 
     channel<T>(name?: string): IChannelDefinition<T>;
 
-    getSubscribersFor(): ISubscriptionDefinition<any>[];
+    getSubscribersFor(): Array<ISubscriptionDefinition<any>>;
     getSubscribersFor(
         options: { channel?: string | undefined; topic?: string | undefined; context?: any },
-    ): ISubscriptionDefinition<any>[];
-    getSubscribersFor(predicateFn: (sub: ISubscriptionDefinition<any>) => boolean): ISubscriptionDefinition<any>[];
+    ): Array<ISubscriptionDefinition<any>>;
+    getSubscribersFor(predicateFn: (sub: ISubscriptionDefinition<any>) => boolean): Array<ISubscriptionDefinition<any>>;
 
     publish(envelope: IEnvelope<any>): void;
 

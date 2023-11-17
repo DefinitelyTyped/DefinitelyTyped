@@ -34,7 +34,7 @@ declare module "angular" {
              * @param  key  The key to get
              * @param         def  The default value if it does not exist
              */
-            get(key: string | Array<string>, defaultValue?: any): any;
+            get(key: string | string[], defaultValue?: any): any;
             /**
              * Determine whether the item exists in storage
              *
@@ -44,7 +44,7 @@ declare module "angular" {
             /**
              * Get the storage keys as an array
              */
-            keys(): Array<string>;
+            keys(): string[];
             /**
              * Add a new item to storage (even if it already exists)
              *
@@ -83,14 +83,14 @@ declare module "angular" {
              *
              * @param  keys  The array of keys to remove
              */
-            forget(keys: Array<string>): ILockerService;
+            forget(keys: string[]): ILockerService;
             /**
              * Retrieve the specified item from storage and then remove it
              *
              * @param  key  The key to pull from storage
              * @param   def  The default value if it does not exist
              */
-            pull(key: string | Array<string>, defaultValue?: any): any;
+            pull(key: string | string[], defaultValue?: any): any;
             /**
              * Bind a storage key to a $scope property
              *

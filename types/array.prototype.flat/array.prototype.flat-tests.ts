@@ -55,7 +55,7 @@ flatImpl([[[[["foo"]]]]], 0); // $ExpectType string[][][][][]
 [[[[["foo"]]]]].flat(0); // $ExpectType string[][][][][]
 
 // Supports `ReadonlyArray` up to a depth of 4.
-const readOnly: ReadonlyArray<ReadonlyArray<ReadonlyArray<ReadonlyArray<ReadonlyArray<string>>>>> = [[[[["foo"]]]]];
+const readOnly: ReadonlyArray<ReadonlyArray<ReadonlyArray<ReadonlyArray<readonly string[]>>>> = [[[[["foo"]]]]];
 flat(readOnly, 4); // $ExpectType string[]
 
 // Supports `Array` up to a depth of 7.

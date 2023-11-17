@@ -764,7 +764,7 @@ declare module "url" {
             init?:
                 | URLSearchParams
                 | string
-                | Record<string, string | ReadonlyArray<string>>
+                | Record<string, string | readonly string[]>
                 | Iterable<[string, string]>
                 | ReadonlyArray<[string, string]>,
         );

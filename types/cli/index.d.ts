@@ -16,7 +16,7 @@ interface CLI {
     no_color: boolean;
     enable(...plugins: string[]): CLI;
     disable(...plugins: string[]): CLI;
-    setArgv(argv: string | Array<any>, keepArg0?: boolean): void;
+    setArgv(argv: string | any[], keepArg0?: boolean): void;
     next(): string;
     parse(
         opts?: { [long: string]: { 0: string | boolean; 1: string; 2?: string | undefined; 3?: any } },

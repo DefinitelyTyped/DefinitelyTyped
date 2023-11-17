@@ -92,14 +92,14 @@ declare namespace _ {
         | CollectionIterator<T, R, V>
         | string
         | number
-        | (string | number)[]
+        | Array<string | number>
         | Partial<T>
         | null
         | undefined;
 
     type IterateeResult<I, T> = I extends (...args: any[]) => infer R ? R
         : I extends keyof T ? T[I]
-        : I extends string | number | (string | number)[] ? any
+        : I extends string | number | Array<string | number> ? any
         : I extends object ? boolean
         : I extends null | undefined ? T
         : never;
@@ -230,7 +230,7 @@ declare namespace _ {
             collection: V,
             iteratee: I,
             context?: any,
-        ): IterateeResult<I, TypeOfCollection<V>>[];
+        ): Array<IterateeResult<I, TypeOfCollection<V>>>;
 
         /**
          * @see map
@@ -339,7 +339,7 @@ declare namespace _ {
             collection: V,
             iteratee?: Iteratee<V, boolean>,
             context?: any,
-        ): TypeOfCollection<V>[];
+        ): Array<TypeOfCollection<V>>;
 
         /**
          * @see filter
@@ -358,7 +358,7 @@ declare namespace _ {
         where<V extends Collection<any>>(
             collection: V,
             properties: Partial<TypeOfCollection<V>>,
-        ): TypeOfCollection<V>[];
+        ): Array<TypeOfCollection<V>>;
 
         /**
          * Looks through `collection` and returns the first value that matches
@@ -389,7 +389,7 @@ declare namespace _ {
             collection: V,
             iteratee?: Iteratee<V, boolean>,
             context?: any,
-        ): TypeOfCollection<V>[];
+        ): Array<TypeOfCollection<V>>;
 
         /**
          * Returns true if all of the values in `collection` pass the
@@ -488,7 +488,7 @@ declare namespace _ {
         pluck<V extends Collection<any>, K extends string | number>(
             collection: V,
             propertyName: K,
-        ): PropertyTypeOrAny<TypeOfCollection<V>, K>[];
+        ): Array<PropertyTypeOrAny<TypeOfCollection<V>, K>>;
 
         /**
          * Returns the maximum value in `collection`. If an `iteratee` is
@@ -541,7 +541,7 @@ declare namespace _ {
             collection: V,
             iteratee?: Iteratee<V, any>,
             context?: any,
-        ): TypeOfCollection<V>[];
+        ): Array<TypeOfCollection<V>>;
 
         /**
          * Splits `collection` into sets that are grouped by the result of
@@ -558,7 +558,7 @@ declare namespace _ {
             collection: V,
             iteratee?: Iteratee<V, string | number>,
             context?: any,
-        ): Dictionary<TypeOfCollection<V>[]>;
+        ): Dictionary<Array<TypeOfCollection<V>>>;
 
         /**
          * Given a `collection` and an `iteratee` function that returns a key
@@ -605,7 +605,7 @@ declare namespace _ {
          */
         shuffle<V extends Collection<any>>(
             collection: V,
-        ): TypeOfCollection<V>[];
+        ): Array<TypeOfCollection<V>>;
 
         /**
          * Produce a random sample from `collection`. Pass a number to return
@@ -619,7 +619,7 @@ declare namespace _ {
         sample<V extends Collection<any>>(
             collection: V,
             n: number,
-        ): TypeOfCollection<V>[];
+        ): Array<TypeOfCollection<V>>;
         sample<V extends Collection<any>>(
             collection: V,
         ): TypeOfCollection<V> | undefined;
@@ -632,7 +632,7 @@ declare namespace _ {
          */
         toArray<V extends Collection<any>>(
             collection: V,
-        ): TypeOfCollection<V>[];
+        ): Array<TypeOfCollection<V>>;
 
         /**
          * Determines the number of values in `collection`.
@@ -657,7 +657,7 @@ declare namespace _ {
             list: V,
             iteratee?: Iteratee<V, boolean>,
             context?: any,
-        ): [TypeOfCollection<V>[], TypeOfCollection<V>[]];
+        ): [Array<TypeOfCollection<V>>, Array<TypeOfCollection<V>>];
 
         /**********
          * Arrays *
@@ -677,7 +677,7 @@ declare namespace _ {
         first<V extends List<any>>(
             list: V,
             n: number,
-        ): TypeOfList<V>[];
+        ): Array<TypeOfList<V>>;
 
         /**
          * @see first
@@ -701,7 +701,7 @@ declare namespace _ {
         initial<V extends List<any>>(
             list: V,
             n?: number,
-        ): TypeOfList<V>[];
+        ): Array<TypeOfList<V>>;
 
         /**
          * Returns the last element of `list`. Passing `n` will return the last
@@ -717,7 +717,7 @@ declare namespace _ {
         last<V extends List<any>>(
             list: V,
             n: number,
-        ): TypeOfList<V>[];
+        ): Array<TypeOfList<V>>;
 
         /**
          * Returns the rest of the elements in `list`. Pass an `index` to
@@ -730,7 +730,7 @@ declare namespace _ {
         rest<V extends List<any>>(
             list: V,
             index?: number,
-        ): TypeOfList<V>[];
+        ): Array<TypeOfList<V>>;
 
         /**
          * @see rest
@@ -751,7 +751,7 @@ declare namespace _ {
          */
         compact<V extends List<any> | null | undefined>(
             list: V,
-        ): Truthy<TypeOfList<V>>[];
+        ): Array<Truthy<TypeOfList<V>>>;
 
         /**
          * Flattens a nested `list` (the nesting can be to any depth). If you
@@ -768,11 +768,11 @@ declare namespace _ {
         flatten<V extends List<any>>(
             list: V,
             depth: 1 | true,
-        ): ListItemOrSelf<TypeOfList<V>>[];
+        ): Array<ListItemOrSelf<TypeOfList<V>>>;
         flatten<V extends List<any>>(
             list: V,
             depth?: number | false,
-        ): DeepestListItemOrSelf<TypeOfList<V>>[];
+        ): Array<DeepestListItemOrSelf<TypeOfList<V>>>;
 
         /**
          * Returns a copy of `list` with all instances of `values` removed.
@@ -783,8 +783,8 @@ declare namespace _ {
          */
         without<V extends List<any>>(
             list: V,
-            ...values: TypeOfList<V>[]
-        ): TypeOfList<V>[];
+            ...values: Array<TypeOfList<V>>
+        ): Array<TypeOfList<V>>;
 
         /**
          * Computes the union of the passed-in `lists`: the list of unique
@@ -793,7 +793,7 @@ declare namespace _ {
          * @param lists The lists to compute the union of.
          * @returns The union of elements within `lists`.
          */
-        union<T>(...lists: List<T>[]): T[];
+        union<T>(...lists: Array<List<T>>): T[];
 
         /**
          * Computes the list of values that are the intersection of the
@@ -802,7 +802,7 @@ declare namespace _ {
          * @param lists The lists to compute the intersection of.
          * @returns The intersection of elements within the `lists`.
          */
-        intersection<T>(...lists: List<T>[]): T[];
+        intersection<T>(...lists: Array<List<T>>): T[];
 
         /**
          * Similar to without, but returns the values from `list` that are not
@@ -813,7 +813,7 @@ declare namespace _ {
          */
         difference<T>(
             list: List<T>,
-            ...others: List<T>[]
+            ...others: Array<List<T>>
         ): T[];
 
         /**
@@ -835,12 +835,12 @@ declare namespace _ {
             isSorted?: boolean,
             iteratee?: Iteratee<V, any>,
             context?: any,
-        ): TypeOfList<V>[];
+        ): Array<TypeOfList<V>>;
         uniq<V extends List<any>>(
             list: V,
             iteratee?: Iteratee<V, any>,
             context?: any,
-        ): TypeOfList<V>[];
+        ): Array<TypeOfList<V>>;
 
         /**
          * @see uniq
@@ -855,11 +855,11 @@ declare namespace _ {
          * @returns The zipped version of `lists`.
          */
         zip(): [];
-        zip<T, U, V>(...lists: [List<T>, List<U>, List<V>]): [T, U, V][];
-        zip<T, U>(...lists: [List<T>, List<U>]): [T, U][];
-        zip<T>(...lists: [List<T>]): [T][]; // eslint-disable-line @definitelytyped/no-single-element-tuple-type
-        zip<T>(...lists: List<T>[]): T[][];
-        zip(...lists: List<any>[]): any[][];
+        zip<T, U, V>(...lists: [List<T>, List<U>, List<V>]): Array<[T, U, V]>;
+        zip<T, U>(...lists: [List<T>, List<U>]): Array<[T, U]>;
+        zip<T>(...lists: [List<T>]): Array<[T]>; // eslint-disable-line @definitelytyped/no-single-element-tuple-type
+        zip<T>(...lists: Array<List<T>>): T[][];
+        zip(...lists: Array<List<any>>): any[][];
 
         /**
          * The opposite of zip. Given a list of lists, returns a series of new
@@ -1021,7 +1021,7 @@ declare namespace _ {
          * @returns The contents of `list` in chunks no greater than `length`
          * in size.
          */
-        chunk<V extends List<any>>(list: V, length: number): TypeOfList<V>[][];
+        chunk<V extends List<any>>(list: V, length: number): Array<Array<TypeOfList<V>>>;
 
         /*************
          * Functions *
@@ -3553,7 +3553,7 @@ declare namespace _ {
          */
         pairs<V extends object>(
             object: V,
-        ): [Extract<keyof V, string>, TypeOfCollection<V, any>][];
+        ): Array<[Extract<keyof V, string>, TypeOfCollection<V, any>]>;
 
         /**
          * Returns a copy of the object where the keys have become the values and the values the keys.
@@ -3629,7 +3629,7 @@ declare namespace _ {
          */
         pick<V, K extends string>(
             object: V,
-            ...keys: (K | K[])[]
+            ...keys: Array<K | K[]>
         ): _Pick<V, K>;
 
         /**
@@ -3655,7 +3655,7 @@ declare namespace _ {
          */
         omit<V, K extends string>(
             object: V,
-            ...keys: (K | K[])[]
+            ...keys: Array<K | K[]>
         ): _Omit<V, K>;
 
         /**
@@ -3762,7 +3762,7 @@ declare namespace _ {
             path: string,
             defaultValue?: U,
         ): TypeOfCollection<V> | U;
-        get<V extends Collection<any>, P extends (string | number)[], U = undefined>(
+        get<V extends Collection<any>, P extends Array<string | number>, U = undefined>(
             object: V,
             // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
             path: readonly [...P],
@@ -4138,7 +4138,7 @@ declare namespace _ {
         map<I extends Iteratee<V, any>>(
             iteratee: I,
             context?: any,
-        ): IterateeResult<I, T>[];
+        ): Array<IterateeResult<I, T>>;
 
         /**
          * @see map
@@ -4344,7 +4344,7 @@ declare namespace _ {
          */
         pluck<K extends string | number>(
             propertyName: K,
-        ): PropertyTypeOrAny<T, K>[];
+        ): Array<PropertyTypeOrAny<T, K>>;
 
         /**
          * Returns the maximum value in the wrapped collection. If an
@@ -4548,7 +4548,7 @@ declare namespace _ {
          * @returns An array containing the elements of the wrapped list without
          * falsy values.
          */
-        compact(): Truthy<T>[];
+        compact(): Array<Truthy<T>>;
 
         /**
          * Flattens a nested list (the nesting can be to any depth). If you
@@ -4558,8 +4558,8 @@ declare namespace _ {
          * default = false.
          * @returns The flattened list.
          */
-        flatten(depth: 1 | true): ListItemOrSelf<T>[];
-        flatten(depth?: number | false): DeepestListItemOrSelf<T>[];
+        flatten(depth: 1 | true): Array<ListItemOrSelf<T>>;
+        flatten(depth?: number | false): Array<DeepestListItemOrSelf<T>>;
 
         /**
          * Returns a copy of the wrapped list with all instances of `values`
@@ -4578,7 +4578,7 @@ declare namespace _ {
          * the union of.
          * @returns The union of elements within the wrapped list and `lists`.
          */
-        union(...lists: List<T>[]): T[];
+        union(...lists: Array<List<T>>): T[];
 
         /**
          * Computes the list of values that are the intersection of the wrapped
@@ -4589,7 +4589,7 @@ declare namespace _ {
          * @returns The intersection of elements within the the wrapped list
          * and `lists`.
          */
-        intersection(...lists: List<T>[]): T[];
+        intersection(...lists: Array<List<T>>): T[];
 
         /**
          * Similar to without, but returns the values from the wrapped list
@@ -4599,7 +4599,7 @@ declare namespace _ {
          * @returns The contents of the wrapped list without the values in
          * `others`.
          */
-        difference(...others: List<T>[]): T[];
+        difference(...others: Array<List<T>>): T[];
 
         /**
          * Produces a duplicate-free version of the wrapped list, using === to
@@ -4637,11 +4637,11 @@ declare namespace _ {
          * matching list indexes.
          * @returns The zipped version of the wrapped list and `lists`.
          */
-        zip(): V extends List<infer A> ? [A][] : []; // eslint-disable-line @definitelytyped/no-single-element-tuple-type
-        zip<A, B>(...lists: [List<A>, List<B>]): [T, A, B][];
-        zip<A>(list: List<A>): [T, A][];
-        zip(...lists: List<T>[]): T[][];
-        zip(...lists: List<any>[]): any[][];
+        zip(): V extends List<infer A> ? Array<[A]> : []; // eslint-disable-line @definitelytyped/no-single-element-tuple-type
+        zip<A, B>(...lists: [List<A>, List<B>]): Array<[T, A, B]>;
+        zip<A>(list: List<A>): Array<[T, A]>;
+        zip(...lists: Array<List<T>>): T[][];
+        zip(...lists: Array<List<any>>): any[][];
 
         /**
          * The opposite of zip. Given the wrapped list of lists, returns a
@@ -4921,7 +4921,7 @@ declare namespace _ {
          * opposite of the single-argument signature of `_.object`.
          * @returns The list of [key, value] pairs from the wrapped object.
          */
-        pairs(): [Extract<keyof V, string>, TypeOfCollection<V, any>][];
+        pairs(): Array<[Extract<keyof V, string>, TypeOfCollection<V, any>]>;
 
         /**
          * Wrapped type `object`.
@@ -4966,7 +4966,7 @@ declare namespace _ {
          * @returns A copy of the wrapped object with only the `keys`
          * properties.
          */
-        pick<K extends string>(...keys: (K | K[])[]): _Pick<V, K>;
+        pick<K extends string>(...keys: Array<K | K[]>): _Pick<V, K>;
 
         /**
          * Return a copy of the wrapped object that is filtered to only have
@@ -4986,7 +4986,7 @@ declare namespace _ {
          * @param keys The keys to omit from the wrapped object.
          * @returns A copy of the wrapped object without the `keys` properties.
          */
-        omit<K extends string>(...keys: (K | K[])[]): _Omit<V, K>;
+        omit<K extends string>(...keys: Array<K | K[]>): _Omit<V, K>;
 
         /**
          * Return a copy of the wrapped object that is filtered to not have
@@ -5053,7 +5053,7 @@ declare namespace _ {
             path: string,
             defaultValue?: U,
         ): TypeOfCollection<V> | U;
-        get<P extends (string | number)[], U = undefined>(
+        get<P extends Array<string | number>, U = undefined>(
             // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
             path: [...P],
             defaultValue?: U,
@@ -5830,7 +5830,7 @@ declare namespace _ {
          * @returns A chain wrapper around the union of elements within the
          * wrapped list and `lists`.
          */
-        union(...lists: List<T>[]): _Chain<T>;
+        union(...lists: Array<List<T>>): _Chain<T>;
 
         /**
          * Computes the list of values that are the intersection of the wrapped
@@ -5841,7 +5841,7 @@ declare namespace _ {
          * @returns A chain wrapper around the intersection of elements within
          * the the wrapped list and `lists`.
          */
-        intersection(...lists: List<T>[]): _Chain<T>;
+        intersection(...lists: Array<List<T>>): _Chain<T>;
 
         /**
          * Similar to without, but returns the values from the wrapped list
@@ -5851,7 +5851,7 @@ declare namespace _ {
          * @returns A chain wrapper around the contents of the wrapped list
          * without the values in `others`.
          */
-        difference(...others: List<T>[]): _Chain<T>;
+        difference(...others: Array<List<T>>): _Chain<T>;
 
         /**
          * Produces a duplicate-free version of the wrapped list, using === to
@@ -5894,8 +5894,8 @@ declare namespace _ {
         zip(): V extends List<infer A> ? _Chain<[A]> : _Chain<never, []>; // eslint-disable-line @definitelytyped/no-single-element-tuple-type
         zip<A, B>(...arrays: [List<A>, List<B>]): _Chain<[T, A, B]>;
         zip<A>(array: List<A>): _Chain<[T, A]>;
-        zip(...arrays: List<T>[]): _Chain<T[]>;
-        zip(...arrays: List<any>[]): _Chain<any[]>;
+        zip(...arrays: Array<List<T>>): _Chain<T[]>;
+        zip(...arrays: Array<List<any>>): _Chain<any[]>;
 
         /**
          * The opposite of zip. Given the wrapped list of lists, returns a
@@ -6224,7 +6224,7 @@ declare namespace _ {
          * @returns A chain wrapper around a copy of the wrapped object with
          * only the `keys` properties.
          */
-        pick<K extends string>(...keys: (K | K[])[]): _ChainSingle<_Pick<V, K>>;
+        pick<K extends string>(...keys: Array<K | K[]>): _ChainSingle<_Pick<V, K>>;
 
         /**
          * Return a copy of the wrapped object that is filtered to only have
@@ -6245,7 +6245,7 @@ declare namespace _ {
          * @returns A chain wrapper around a copy of the wrapped object without
          * the `keys` properties.
          */
-        omit<K extends string>(...keys: (K | K[])[]): _ChainSingle<_Omit<V, K>>;
+        omit<K extends string>(...keys: Array<K | K[]>): _ChainSingle<_Omit<V, K>>;
 
         /**
          * Return a copy of the wrapped object that is filtered to not have
@@ -6312,7 +6312,7 @@ declare namespace _ {
             path: string,
             defaultValue?: U,
         ): _Chain<TypeOfCollection<V> | U, T | U>;
-        get<P extends (string | number)[], W = DeepTypeOfCollection<Exclude<V, undefined>, P>, U = undefined>(
+        get<P extends Array<string | number>, W = DeepTypeOfCollection<Exclude<V, undefined>, P>, U = undefined>(
             // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
             path: [...P],
             defaultValue?: U,
@@ -6589,7 +6589,7 @@ declare namespace _ {
          * @param arr Arrays and/or values to concatenate into a new array. See the discussion below for details.
          * @return A new array comprised of the array on which it is called
          */
-        concat(...arr: Array<T[]>): _Chain<T>;
+        concat(...arr: T[][]): _Chain<T>;
 
         /**
          * Join all elements of an array into a string.
@@ -6609,7 +6609,7 @@ declare namespace _ {
          * @param item The elements to add to the end of the array.
          * @return The array with the element added to the end.
          */
-        push(...item: Array<T>): _Chain<T>;
+        push(...item: T[]): _Chain<T>;
 
         /**
          * Reverses an array in place. The first array element becomes the last and the last becomes the first.
@@ -6645,7 +6645,7 @@ declare namespace _ {
          * @param items The element to add to the array. If you don't specify any elements, splice will only remove elements from the array.
          * @return An array containing the deleted elements. If only one element is removed, an array of one element is returned. If no elements are removed, an empty array is returned.
          */
-        splice(index: number, quantity: number, ...items: Array<T>): _Chain<T>;
+        splice(index: number, quantity: number, ...items: T[]): _Chain<T>;
 
         /**
          * A string representing the specified array and its elements.
@@ -6658,7 +6658,7 @@ declare namespace _ {
          * @param items The elements to add to the front of the array.
          * @return The array with the element added to the beginning.
          */
-        unshift(...items: Array<T>): _Chain<T>;
+        unshift(...items: T[]): _Chain<T>;
 
         /************
          * Chaining *

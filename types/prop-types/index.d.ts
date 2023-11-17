@@ -67,7 +67,7 @@ export const element: Requireable<ReactElementLike>;
 export const symbol: Requireable<symbol>;
 export const elementType: Requireable<ReactComponentLike>;
 export function instanceOf<T>(expectedClass: new(...args: any[]) => T): Requireable<T>;
-export function oneOf<T>(types: ReadonlyArray<T>): Requireable<T>;
+export function oneOf<T>(types: readonly T[]): Requireable<T>;
 export function oneOfType<T extends Validator<any>>(types: T[]): Requireable<NonNullable<InferType<T>>>;
 export function arrayOf<T>(type: Validator<T>): Requireable<T[]>;
 export function objectOf<T>(type: Validator<T>): Requireable<{ [K in keyof any]: T }>;

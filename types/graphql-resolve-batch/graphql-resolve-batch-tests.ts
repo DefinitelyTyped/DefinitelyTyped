@@ -16,7 +16,7 @@ interface SomeTestResult {
     someTestResultProp: string;
 }
 
-const batchFunction = (sources: ReadonlyArray<SomeTestSource>) => {
+const batchFunction = (sources: readonly SomeTestSource[]) => {
     const someTestResult: SomeTestResult = {
         someTestResultProp: "Hello",
     };
@@ -24,7 +24,7 @@ const batchFunction = (sources: ReadonlyArray<SomeTestSource>) => {
     return sources.map(source => someTestResult);
 };
 
-const asyncBatchFunction = async (sources: ReadonlyArray<SomeTestSource>) => {
+const asyncBatchFunction = async (sources: readonly SomeTestSource[]) => {
     return new Promise<SomeTestResult[]>(resolve => {
         const res = [
             {
@@ -36,7 +36,7 @@ const asyncBatchFunction = async (sources: ReadonlyArray<SomeTestSource>) => {
 };
 
 const asyncBatchFunctionWhenTReturnIsArray = async (
-    sources: ReadonlyArray<SomeTestSource>,
+    sources: readonly SomeTestSource[],
 ) => {
     const sourceBatches = sources.map(() => {
         return new Promise<SomeTestResult[]>(resolve => {

@@ -59,7 +59,7 @@ interface CustomValidationContext {
      * return the error type string. If you do use this to add an error for the
      * current key, return false from your custom validation function.
      */
-    addValidationErrors(errors: ReadonlyArray<SimpleSchemaValidationError>): any;
+    addValidationErrors(errors: readonly SimpleSchemaValidationError[]): any;
 }
 
 interface FieldInfo {
@@ -205,7 +205,7 @@ export class SimpleSchema {
     static validate(obj: any, schema: SimpleSchema, options?: ValidationOption): void;
     validator(options?: ValidatorOption): (obj: any) => boolean;
     extend(otherSchema: SimpleSchema | SimpleSchemaDefinition): SimpleSchema;
-    static extendOptions(options: ReadonlyArray<string>): void;
+    static extendOptions(options: readonly string[]): void;
     static RegEx: {
         Email: RegExp;
         EmailWithTLD: RegExp;
@@ -273,10 +273,10 @@ interface MongoObjectStatic {
     getPositionsForGenericKey(key: string): string[];
     getValueForKey(key: string): any;
     addKey(key: string, val: any, op: string): any;
-    removeGenericKeys(keys: ReadonlyArray<string>): void;
+    removeGenericKeys(keys: readonly string[]): void;
     removeGenericKey(key: string): void;
     removeKey(key: string): void;
-    removeKeys(keys: ReadonlyArray<string>): void;
+    removeKeys(keys: readonly string[]): void;
     filterGenericKeys(test: () => boolean): void;
     setValueForKey(key: string, val: any): void;
     setValueForGenericKey(key: string, val: any): void;

@@ -350,7 +350,7 @@ declare global {
             values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>],
         ): Promise<[T1, T2, T3]>;
         all<T1, T2>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>]): Promise<[T1, T2]>;
-        all<T>(values: (T | PromiseLike<T>)[]): Promise<T[]>;
+        all<T>(values: Array<T | PromiseLike<T>>): Promise<T[]>;
         race<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
             values: [
                 T1 | PromiseLike<T1>,
@@ -427,7 +427,7 @@ declare global {
             values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>, T3 | PromiseLike<T3>],
         ): Promise<T1 | T2 | T3>;
         race<T1, T2>(values: [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>]): Promise<T1 | T2>;
-        race<T>(values: (T | PromiseLike<T>)[]): Promise<T>;
+        race<T>(values: Array<T | PromiseLike<T>>): Promise<T>;
         reject(reason: any): Promise<never>;
         reject<T>(reason: any): Promise<T>;
         resolve<T>(value: T | PromiseLike<T>): Promise<T>;

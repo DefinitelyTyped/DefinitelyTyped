@@ -33,17 +33,17 @@ interface IQueryAPI {
      */
     filter(
         predicate: (document: Object) => boolean,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): IQueryResponse;
     filter(
         predicate: (document: Object) => boolean,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): IQueryResponse;
     filter<T>(
         predicate: (document: Object) => boolean,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
     ): IQueryResponse;
     /**
      * Produce a new set of documents by mapping/projecting the properties of the documents in the input document stream through the given mapping predicate.
@@ -54,17 +54,17 @@ interface IQueryAPI {
      */
     map(
         predicate: (document: Object) => Object,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): IQueryResponse;
     map(
         predicate: (document: Object) => Object,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): IQueryResponse;
     map<T>(
         predicate: (document: Object) => Object,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
     ): IQueryResponse;
     /**
      * Produce a new set of documents by extracting a single property from each document in the input document stream. This is equivalent to a map call that projects only propertyName.
@@ -75,17 +75,17 @@ interface IQueryAPI {
      */
     pluck(
         propertyName: string,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): IQueryResponse;
     pluck(
         propertyName: string,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): IQueryResponse;
     pluck<T>(
         propertyName: string,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
     ): IQueryResponse;
     /**
      * Flatten nested arrays from each document in the input document stream.
@@ -96,17 +96,17 @@ interface IQueryAPI {
      */
     flatten(
         isShallow?: boolean,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): IQueryResponse;
     flatten(
         isShallow?: boolean,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): IQueryResponse;
     flatten<T>(
         isShallow?: boolean,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
     ): IQueryResponse;
     /**
      * Produce a new set of documents by sorting the documents in the input document stream in ascending order using the given predicate.
@@ -117,17 +117,17 @@ interface IQueryAPI {
      */
     sortBy(
         predicate: (document: Object) => string | number,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): IQueryResponse;
     sortBy(
         predicate: (document: Object) => string | number,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): IQueryResponse;
     sortBy<T>(
         predicate: (document: Object) => string | number,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
     ): IQueryResponse;
     /**
      * Produce a new set of documents by sorting the documents in the input document stream in descending order using the given predicate.
@@ -138,17 +138,17 @@ interface IQueryAPI {
      */
     sortByDescending(
         predicate: (document: Object) => string | number,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): IQueryResponse;
     sortByDescending(
         predicate: (document: Object) => string | number,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): IQueryResponse;
     sortByDescending<T>(
         predicate: (document: Object) => string | number,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
     ): IQueryResponse;
     /**
      * Terminating call for a chained query. Should be used in conjunction with the opening chain call to perform chained queries.
@@ -157,15 +157,15 @@ interface IQueryAPI {
      * @param callback Optional callback for the operation. If no callback is provided, any error in the operation will be thrown and the result document set will be written to the Response body.
      */
     value(
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): IQueryResponse;
     value(
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): IQueryResponse;
     value<T>(
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
     ): IQueryResponse;
 }
 
@@ -265,13 +265,13 @@ interface ICollection extends IQueryAPI {
     queryAttachments(
         documentLink: string,
         query: string | IParameterizedQuery,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): boolean;
     queryAttachments(
         documentLink: string,
         query: string | IParameterizedQuery,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): boolean;
 
     /**
@@ -284,46 +284,46 @@ interface ICollection extends IQueryAPI {
     queryDocuments(
         collectionLink: string,
         filterQuery: string,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): boolean;
     queryDocuments<T>(
         collectionLink: string,
         filterQuery: string,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
     ): boolean;
     queryDocuments(
         collectionLink: string,
         filterQuery: string,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): boolean;
     queryDocuments<T>(
         collectionLink: string,
         filterQuery: string,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
     ): boolean;
     queryDocuments(
         collectionLink: string,
         filterQuery: IParameterizedQuery,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): boolean;
     queryDocuments<T>(
         collectionLink: string,
         filterQuery: IParameterizedQuery,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
     ): boolean;
     queryDocuments(
         collectionLink: string,
         filterQuery: IParameterizedQuery,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): boolean;
     queryDocuments<T>(
         collectionLink: string,
         filterQuery: IParameterizedQuery,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
     ): boolean;
 
     /**
@@ -350,12 +350,12 @@ interface ICollection extends IQueryAPI {
      */
     readAttachments(
         documentLink: string,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): boolean;
     readAttachments(
         documentLink: string,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): boolean;
 
     /**
@@ -387,17 +387,17 @@ interface ICollection extends IQueryAPI {
      */
     readDocuments(
         collectionLink: string,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): boolean;
     readDocuments(
         collectionLink: string,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<Object>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: Object[], options: IFeedCallbackOptions) => void,
     ): boolean;
     readDocuments<T>(
         collectionLink: string,
         options?: IFeedOptions,
-        callback?: (error: IFeedCallbackError, resources: Array<T>, options: IFeedCallbackOptions) => void,
+        callback?: (error: IFeedCallbackError, resources: T[], options: IFeedCallbackOptions) => void,
     ): boolean;
 
     /**
@@ -679,7 +679,7 @@ interface IParameterizedQuery {
     /** SQL query string. */
     query: string;
     /** Parameters */
-    parameters: Array<IQueryParam>;
+    parameters: IQueryParam[];
 }
 
 /** Parameter interface for parameterized queries */

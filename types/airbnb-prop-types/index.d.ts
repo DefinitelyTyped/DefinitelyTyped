@@ -77,7 +77,7 @@ export function childrenSequenceOf<T = PropTypes.ReactNodeLike>(
 
 export function componentWithName<T = PropTypes.ReactNodeLike>(
     name: string | RegExp,
-    options?: { stripHOCs: ReadonlyArray<string> },
+    options?: { stripHOCs: readonly string[] },
 ): PropTypes.Requireable<T>;
 
 export function disallowedIf<T>(

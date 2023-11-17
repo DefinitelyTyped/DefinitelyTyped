@@ -8,14 +8,14 @@
  * @returns {object} An array of clustered points.
  */
 export function clusterPoints(options: {
-    data: {}[];
+    data: Array<{}>;
     pointKey: string;
     valueFunction?: ((row: any) => number) | undefined;
     radiusFunction: (row: any) => number;
     aggregateFunction?: ((srcRow: any, cmpRow: any, aggRow: any) => void) | undefined;
     mapUnitsPerPixel: number;
     marginPixels?: number | undefined;
-}): {}[];
+}): Array<{}>;
 
 /**
  * An immutable envelope
@@ -1658,11 +1658,11 @@ export namespace tile {
          * Gets the additional
          * @returns {object[]}
          */
-        getKeyVals(): {}[];
+        getKeyVals(): Array<{}>;
 
         /** Set any key/value pairs that are attached to the ajax call (such as username and password)
          */
-        setKeyVals(options: {}[]): void;
+        setKeyVals(options: Array<{}>): void;
 
         /**
          * Gets maximum available zoom level content that can be retrieved
@@ -2141,21 +2141,21 @@ export namespace tile {
             dataFormat?: string | undefined;
             timeoutMs?: number | undefined;
             maxAvailableZoomLevel?: number | undefined;
-            data: {}[];
+            data: Array<{}>;
         });
 
         /**
          * Gets the unparsed source data.
          * @returns {object} Array of source data objects.
          */
-        getSource(): {}[];
+        getSource(): Array<{}>;
 
         /**
          * Sets source data.
          * @param {object} data An array of JavaScript objects to use as
          * the requestor source data.
          */
-        setSource(data: {}[]): void;
+        setSource(data: Array<{}>): void;
 
         /**
          * Returns your source data parsed into theformat { Shapes: [],

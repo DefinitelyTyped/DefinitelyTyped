@@ -455,7 +455,7 @@ const copyOptions: grunt.file.IFileWriteStringOption = {
              * @see FileModule.expand method documentation for an explanation of how the patterns
              *      and options arguments may be specified.
              */
-            expandMapping(patterns: string[], dest: string, options: IExpandedFilesConfig): Array<IFileMap>;
+            expandMapping(patterns: string[], dest: string, options: IExpandedFilesConfig): IFileMap[];
 
             /**
              * Match one or more globbing patterns against one or more file paths.
@@ -840,7 +840,7 @@ const copyOptions: grunt.file.IFileWriteStringOption = {
              * Normalizes a task target configuration object into an array of src-dest file mappings.
              * This method is used internally by the multi task system this.files / grunt.task.current.files property.
              */
-            normalizeMultiTaskFiles(data: grunt.config.IProjectConfig, targetname?: string): Array<grunt.file.IFileMap>;
+            normalizeMultiTaskFiles(data: grunt.config.IProjectConfig, targetname?: string): grunt.file.IFileMap[];
 
             /**
              * The currently running task or multitask.

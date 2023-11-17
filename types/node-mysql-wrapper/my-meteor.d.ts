@@ -57,9 +57,9 @@ declare namespace Mongo {
     }
     interface Cursor<T> {
         count(): number;
-        fetch(): Array<T>;
+        fetch(): T[];
         forEach(callback: <T>(doc: T, index: number, cursor: Mongo.Cursor<T>) => void, thisArg?: any): void;
-        map<U>(callback: (doc: T, index: number, cursor: Mongo.Cursor<T>) => U, thisArg?: any): Array<U>;
+        map<U>(callback: (doc: T, index: number, cursor: Mongo.Cursor<T>) => U, thisArg?: any): U[];
         observe(callbacks: Object): any;
         observeChanges(callbacks: Object): any;
     }

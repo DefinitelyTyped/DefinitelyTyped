@@ -272,7 +272,7 @@ export interface ProgressProps {
 export type RangePickerProps =
     | BaseProps
     | {
-        value: undefined | null | Array<null> | string[];
+        value: undefined | null | null[] | string[];
     };
 
 export interface TableEditorRef {

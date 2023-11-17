@@ -77,7 +77,7 @@ export interface FileSoundOptions extends SoundOptions {
      * When given a list of paths, Pizzicato uses the first path that
      * loads successfully.
      */
-    path: string | ReadonlyArray<string>;
+    path: string | readonly string[];
     /** Whether or not to loop the sound */
     loop?: boolean;
 }
@@ -113,7 +113,7 @@ export class Sound<D extends SoundDescription = SoundDescription> implements Eve
      */
     readonly detached: boolean;
     /** The effects attached to the sound */
-    effects: ReadonlyArray<Effect>;
+    effects: readonly Effect[];
     readonly playing: boolean;
     readonly loop: boolean;
     volume: number;
@@ -168,14 +168,14 @@ export type GroupEvent = "play" | "pause" | "stop";
 
 /** A collection of sounds */
 export class Group implements Events<GroupEvent> {
-    constructor(sounds?: ReadonlyArray<Sound>);
+    constructor(sounds?: readonly Sound[]);
 
     /** The master volume of the group */
     volume: number;
     /** The Sounds in the group */
-    readonly sounds: ReadonlyArray<Sound>;
+    readonly sounds: readonly Sound[];
     /** The effects attached to the group */
-    readonly effects: ReadonlyArray<Effect>;
+    readonly effects: readonly Effect[];
 
     /** Play all the sounds in the group */
     play(): void;

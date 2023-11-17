@@ -126,7 +126,7 @@ export interface HooksNode {
     hookSource?: HookSource | undefined;
 }
 export interface EncodedHookMap {
-    names: ReadonlyArray<string>;
+    names: readonly string[];
     mappings: string;
 }
 export type ReactSourceMetadata = [EncodedHookMap | null | undefined];
@@ -654,7 +654,7 @@ export class Store extends EventEmitter<{
 
     get hasOwnerMetadata(): boolean;
 
-    get nativeStyleEditorValidAttributes(): ReadonlyArray<string> | null;
+    get nativeStyleEditorValidAttributes(): readonly string[] | null;
 
     get numElements(): number;
 
@@ -668,7 +668,7 @@ export class Store extends EventEmitter<{
 
     get rootIDToRendererID(): Map<number, number>;
 
-    get roots(): ReadonlyArray<number>;
+    get roots(): readonly number[];
 
     /**
      * At least one of the currently mounted roots support the Legacy profiler.
@@ -732,7 +732,7 @@ export class Store extends EventEmitter<{
         validAttributes,
     }: {
         isSupported: boolean;
-        validAttributes: ReadonlyArray<string> | null | undefined;
+        validAttributes: readonly string[] | null | undefined;
     }) => void;
 
     onBridgeOperations: (operations: number[]) => void;
@@ -882,7 +882,7 @@ export interface BackendEvents extends Record<string, unknown[]> {
     isNativeStyleEditorSupported: [
         {
             isSupported: boolean;
-            validAttributes: ReadonlyArray<string> | null | undefined;
+            validAttributes: readonly string[] | null | undefined;
         },
     ];
     NativeStyleEditor_styleAndLayout: [StyleAndLayout];
@@ -1281,7 +1281,7 @@ export interface DevToolsHook {
      * Used by react-native-web and Flipper/Inspector
      */
     resolveRNStyle?: ResolveNativeStyle | undefined;
-    nativeStyleEditorValidAttributes?: ReadonlyArray<string> | undefined;
+    nativeStyleEditorValidAttributes?: readonly string[] | undefined;
     /** React uses these methods. */
     checkDCE: (fn: AnyFn) => void;
     onCommitFiberUnmount: (rendererID: RendererID, fiber: Record<string, unknown>) => void;

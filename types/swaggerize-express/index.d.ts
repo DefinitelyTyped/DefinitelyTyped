@@ -171,7 +171,7 @@ declare namespace swaggerize {
             [index: string]: ParameterObject;
         }
 
-        type Parameters = (ParameterObject | ReferenceObject)[];
+        type Parameters = Array<ParameterObject | ReferenceObject>;
 
         export interface ParameterObject {
             name: string;

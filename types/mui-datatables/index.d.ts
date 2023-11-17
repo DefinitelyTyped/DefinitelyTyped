@@ -778,7 +778,7 @@ export type MUIDataTableOptions = Partial<{
      *
      * [Example](https://github.com/gregnb/mui-datatables/blob/master/examples/customize-filter/index.js)
      */
-    setFilterChipProps: (colIndex: number, colName: string, data: ReadonlyArray<any[]>) => MUIDataTableChip;
+    setFilterChipProps: (colIndex: number, colName: string, data: readonly any[][]) => MUIDataTableChip;
     /**
      * Is called for each row and allows you to return custom props for this row based on its data.
      *

@@ -8,7 +8,7 @@ declare namespace SVGInjector {
          * @param done Callback that receives the injected element count as parameter.
          */
         (
-            elements: Node | NodeList | Array<Node>,
+            elements: Node | NodeList | Node[],
             options?: SVGInjectorOptions,
             done?: (elementCount: number) => void,
         ): void;

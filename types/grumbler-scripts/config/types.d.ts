@@ -1,6 +1,6 @@
 export interface WebpackConfigOptions {
     context?: string | undefined;
-    entry?: string | ReadonlyArray<string> | undefined;
+    entry?: string | readonly string[] | undefined;
     filename?: string | undefined;
     modulename?: string | undefined;
     minify?: boolean | undefined;

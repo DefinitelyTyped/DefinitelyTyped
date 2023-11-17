@@ -66,7 +66,7 @@ class OrderLine {
 }
 
 class Order {
-    lines: Array<OrderLine> = [];
+    lines: OrderLine[] = [];
 
     constructor() {
         ko.track(this, ["lines"]);

@@ -380,7 +380,7 @@ const handleCalendarAction = (e: GoogleAppsScript.Addons.EventObject) => {
     const ev = cal.getEventById(recurringEventId);
 
     // $ExpectType string[]
-    const attends: (typeof attendees)[number]["displayName"][] = ev.getGuestList().map((guest) => guest.getName());
+    const attends: Array<(typeof attendees)[number]["displayName"]> = ev.getGuestList().map((guest) => guest.getName());
 
     console.log({ attends });
 

@@ -127,7 +127,7 @@ export type ResolveThunks<TDispatchProps> = TDispatchProps extends { [key: strin
 
 // the conditional type is to support TypeScript 3.0, which does not support mapping over tuples and arrays;
 // once the typings are updated to at least TypeScript 3.1, a simple mapped type can replace this mess
-export type ResolveArrayThunks<TDispatchProps extends ReadonlyArray<any>> = TDispatchProps extends
+export type ResolveArrayThunks<TDispatchProps extends readonly any[]> = TDispatchProps extends
     [infer A1, infer A2, infer A3, infer A4, infer A5, infer A6, infer A7, infer A8, infer A9] ? [
         HandleThunkActionCreator<A1>,
         HandleThunkActionCreator<A2>,

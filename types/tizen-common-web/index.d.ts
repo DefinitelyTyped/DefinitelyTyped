@@ -1070,7 +1070,7 @@ export interface AccountProvider {
      * *   http://tizen.org/account/capability/contact - Used when the account is related to contacts
      * *   http://tizen.org/account/capability/calendar - Used when the account is related to calendar
      */
-    readonly capabilities: ReadonlyArray<string>;
+    readonly capabilities: readonly string[];
     /**
      * Logical (translatable) display name.
      */
@@ -1123,7 +1123,7 @@ export class AlarmAbsolute extends Alarm {
      * By default, this attribute is set to an empty array.
      * The _period_ and _daysOfTheWeek_ attributes are mutually exclusive.
      */
-    readonly daysOfTheWeek: ReadonlyArray<ByDayValue>;
+    readonly daysOfTheWeek: readonly ByDayValue[];
     /**
      * An attribute to store the duration in seconds between each trigger of the alarm.
      *
@@ -1194,7 +1194,7 @@ export interface AlarmManager {
      *
      * @throws WebAPIException with error type UnknownError, if the method cannot be completed because of an unknown error.
      */
-    getAll(): ReadonlyArray<Alarm>;
+    getAll(): readonly Alarm[];
     /**
      * Removes an alarm from the storage.
      *
@@ -1464,7 +1464,7 @@ export class ApplicationControl {
     /**
      * An array of attributes to store the data needed for an application control.
      */
-    data: ReadonlyArray<ApplicationControlData>;
+    data: readonly ApplicationControlData[];
     /**
      * An attribute to specify launch mode. Default application launch mode is _SINGLE_.
      *
@@ -1511,7 +1511,7 @@ export class ApplicationControlData {
     /**
      * An attribute to store the value associated with a key.
      */
-    value: ReadonlyArray<string>;
+    value: readonly string[];
 }
 export interface ApplicationControlDataConstructor {
     prototype: ApplicationControlData;
@@ -1526,7 +1526,7 @@ export interface ApplicationInformation {
      *
      * @since 2.0
      */
-    readonly categories: ReadonlyArray<string>;
+    readonly categories: readonly string[];
     /**
      * An attribute to store the icon path of an application.
      */
@@ -2317,7 +2317,7 @@ export interface AudioContent extends Content {
     /**
      * The list of artists who created the audio.
      */
-    readonly artists: ReadonlyArray<string> | null;
+    readonly artists: readonly string[] | null;
     /**
      * The audio bitrate in bits per second. By default, this value is 0.
      */
@@ -2325,7 +2325,7 @@ export interface AudioContent extends Content {
     /**
      * The list of composers for the music.
      */
-    readonly composers: ReadonlyArray<string> | null;
+    readonly composers: readonly string[] | null;
     /**
      * The copyright information.
      */
@@ -2337,7 +2337,7 @@ export interface AudioContent extends Content {
     /**
      * The list of genres to which the audio belongs.
      */
-    readonly genres: ReadonlyArray<string> | null;
+    readonly genres: readonly string[] | null;
     /**
      * The lyrics of a song in an audio file.
      *
@@ -2358,13 +2358,13 @@ export interface AudioContentLyrics {
      *
      * If the lyrics are not synchronized, the array has only one member with full lyrics.
      */
-    readonly texts: ReadonlyArray<string>;
+    readonly texts: readonly string[];
     /**
      * The array of timestamps in milliseconds for lyrics.
      *
      * If the lyrics are not synchronized (if there is no time information for the lyrics) the array is undefined.
      */
-    readonly timestamps: ReadonlyArray<number>;
+    readonly timestamps: readonly number[];
     /**
      * The type of lyrics, that is, whether they are synchronized with the music.
      */
@@ -2740,7 +2740,7 @@ export class CompositeFilter extends AbstractFilter {
     /**
      * The list of filters in the composite filter.
      */
-    readonly filters: ReadonlyArray<AbstractFilter>;
+    readonly filters: readonly AbstractFilter[];
     /**
      * The composite filter type.
      */
@@ -2767,7 +2767,7 @@ export interface Content {
     /**
      * The list of attributes that are editable to the local backend using the update() or updateBatch() method.
      */
-    readonly editableAttributes: ReadonlyArray<string>;
+    readonly editableAttributes: readonly string[];
     /**
      * The opaque content identifier.
      */
@@ -2811,7 +2811,7 @@ export interface Content {
     /**
      * The array of content thumbnail URIs.
      */
-    readonly thumbnailURIs: ReadonlyArray<string> | null;
+    readonly thumbnailURIs: readonly string[] | null;
     /**
      * The content title.
      */
@@ -3644,7 +3644,7 @@ export class ExifInformation {
      *
      * Example values: 80, 100, 200, 400, 800, 1600, 3200 ..
      */
-    isoSpeedRatings: ReadonlyArray<number> | null;
+    isoSpeedRatings: readonly number[] | null;
     /**
      * Orientation of the image when displayed.
      *
@@ -7687,7 +7687,7 @@ export interface PackageInformation {
     /**
      * An attribute to store the application ID list of a package.
      */
-    readonly appIds: ReadonlyArray<ApplicationId>;
+    readonly appIds: readonly ApplicationId[];
     /**
      * An attribute to store the author of a package.
      */
@@ -8409,15 +8409,15 @@ export class RemoteResource {
      *
      * @remark Options can have up to 2 IotconOption.
      */
-    options: ReadonlyArray<IotconOption> | null;
+    options: readonly IotconOption[] | null;
     /**
      * A list of interfaces in the resource.
      */
-    readonly resourceInterfaces: ReadonlyArray<ResourceInterface>;
+    readonly resourceInterfaces: readonly ResourceInterface[];
     /**
      * A list of types in this resource
      */
-    readonly resourceTypes: ReadonlyArray<ResourceType>;
+    readonly resourceTypes: readonly ResourceType[];
     /**
      * The time interval in seconds for monitoring state (registered with setResourceStateChangeListener() ) and caching (registered with startCaching() ). Provided value must be in range from 1 to 3600 inclusive. The default value is 10 seconds.
      */
@@ -8616,7 +8616,7 @@ export interface RemoteResponse {
     /**
      * The options indicates the vendor specific options of COAP packet.
      */
-    readonly options: ReadonlyArray<IotconOption> | null;
+    readonly options: readonly IotconOption[] | null;
     /**
      * The representation indicates the information of the resource.
      */
@@ -8638,15 +8638,15 @@ export class Representation {
     /**
      * Representations belonging to this representation.
      */
-    children: ReadonlyArray<Representation> | null;
+    children: readonly Representation[] | null;
     /**
      * A list of interfaces in the resource.
      */
-    resourceInterfaces: ReadonlyArray<ResourceInterface>;
+    resourceInterfaces: readonly ResourceInterface[];
     /**
      * A list of types in this resource
      */
-    resourceTypes: ReadonlyArray<ResourceType>;
+    resourceTypes: readonly ResourceType[];
     /**
      * The resource URI.
      */
@@ -8673,7 +8673,7 @@ export interface Request {
      *
      * @remark Options can have up to 2 IotconOption.
      */
-    readonly options: ReadonlyArray<IotconOption>;
+    readonly options: readonly IotconOption[];
     /**
      * The query parameters from the request.
      */
@@ -8778,19 +8778,19 @@ export interface Resource {
     /**
      * A list of observation IDs of this resource.
      */
-    readonly observerIds: ReadonlyArray<number>;
+    readonly observerIds: readonly number[];
     /**
      * A list of interfaces in the resource.
      */
-    readonly resourceInterfaces: ReadonlyArray<ResourceInterface>;
+    readonly resourceInterfaces: readonly ResourceInterface[];
     /**
      * A list of types in this resource.
      */
-    readonly resourceTypes: ReadonlyArray<ResourceType>;
+    readonly resourceTypes: readonly ResourceType[];
     /**
      * A list of children of this resource.
      */
-    readonly resources: ReadonlyArray<Resource>;
+    readonly resources: readonly Resource[];
     /**
      * The resource URI.
      */
@@ -8890,7 +8890,7 @@ export class Response {
      *
      * @remark Options can have up to 2 IotconOption.
      */
-    options: ReadonlyArray<IotconOption> | null;
+    options: readonly IotconOption[] | null;
     /**
      * The representation indicates the information of the resource.
      */
@@ -10404,7 +10404,7 @@ export interface SystemInfoStorage extends SystemInfoProperty {
     /**
      * The array of storage units connected to this device.
      */
-    readonly units: ReadonlyArray<SystemInfoStorageUnit>;
+    readonly units: readonly SystemInfoStorageUnit[];
 }
 /**
  * This property exposes a single storage device connected to this system.
@@ -10455,11 +10455,11 @@ export interface SystemInfoVideoSource extends SystemInfoProperty {
     /**
      * Represents a list of video sources that a device is connected with.
      */
-    readonly connected: ReadonlyArray<SystemInfoVideoSourceInfo>;
+    readonly connected: readonly SystemInfoVideoSourceInfo[];
     /**
      * Represents a list of video sources that a device is not connected with.
      */
-    readonly disconnected: ReadonlyArray<SystemInfoVideoSourceInfo>;
+    readonly disconnected: readonly SystemInfoVideoSourceInfo[];
 }
 /**
  * This property reflects each input source the current device has.
@@ -12187,7 +12187,7 @@ export interface VideoContent extends Content {
     /**
      * The list of artists who created the video.
      */
-    readonly artists: ReadonlyArray<string> | null;
+    readonly artists: readonly string[] | null;
     /**
      * The video duration in milliseconds.
      */

@@ -26,12 +26,12 @@ type BufferLike =
     | Uint8Array
     | ArrayBuffer
     | SharedArrayBuffer
-    | ReadonlyArray<any>
-    | ReadonlyArray<number>
+    | readonly any[]
+    | readonly number[]
     | { valueOf(): ArrayBuffer }
     | { valueOf(): SharedArrayBuffer }
     | { valueOf(): Uint8Array }
-    | { valueOf(): ReadonlyArray<number> }
+    | { valueOf(): readonly number[] }
     | { valueOf(): string }
     | { [Symbol.toPrimitive](hint: string): string };
 

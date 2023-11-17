@@ -72,7 +72,7 @@ type FormDataPart = {
 
 declare class FormData {
     append(name: string, value: any): void;
-    getParts(): Array<FormDataPart>;
+    getParts(): FormDataPart[];
 }
 
 declare interface Body {

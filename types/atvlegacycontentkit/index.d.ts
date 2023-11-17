@@ -2838,7 +2838,7 @@ declare interface Console {
      * @since v10.0.0
      * @param properties Alternate properties for constructing the table.
      */
-    table(tabularData: any, properties?: ReadonlyArray<string>): void;
+    table(tabularData: any, properties?: readonly string[]): void;
 
     /**
      * Starts a timer that can be used to compute the duration of an operation. Timers

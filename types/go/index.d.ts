@@ -14,7 +14,7 @@ declare namespace go {
     type PropertyAccessor = string | ((data: any, newval: any) => any);
 
     /** A constructor */
-    type Constructor = new(...args: Array<any>) => Object;
+    type Constructor = new(...args: any[]) => Object;
 
     /**
      * An adornment is a special kind of Part that is associated with another Part,
@@ -823,7 +823,7 @@ declare namespace go {
          * that match those specified by the given example data.
          * @param {...Object} examples
          */
-        findLinksByExample(...examples: Array<Object>): Iterator<Link>;
+        findLinksByExample(...examples: Object[]): Iterator<Link>;
 
         /**
          * Look for a Node or Group corresponding to a model's node data object.
@@ -842,7 +842,7 @@ declare namespace go {
          * that match those specified by the given example data.
          * @param {...Object} examples
          */
-        findNodesByExample(...examples: Array<Object>): Iterator<Node>;
+        findNodesByExample(...examples: Object[]): Iterator<Node>;
 
         /**
          * Find the front-most GraphObject at the given point in document coordinates.
@@ -993,7 +993,7 @@ declare namespace go {
          * Highlight all of the Parts supplied in the given collection, and clear all other highlighted Parts.
          * @param {Iterable<Part>|Array<Part>} coll an Iterable of Parts
          */
-        highlightCollection(coll: Iterable<Part> | Array<Part>): void;
+        highlightCollection(coll: Iterable<Part> | Part[]): void;
 
         /**
          * This static function declares that a class (constructor function) derives from another class -- but please note that most classes do not support inheritance.
@@ -1115,7 +1115,7 @@ declare namespace go {
          * @param {Iterable<Part>|Array<Part>} coll A List or Set or Iterator of Parts.
          * @param {boolean} check Whether to check Part.canDelete on each part.
          */
-        removeParts(coll: Iterable<Part> | Array<Part>, check: boolean): void;
+        removeParts(coll: Iterable<Part> | Part[], check: boolean): void;
 
         /**
          * Requests that in the near-future the diagram makes sure all GraphObjects are arranged,
@@ -1161,7 +1161,7 @@ declare namespace go {
          * Select all of the Parts supplied in the given collection.
          * @param {Iterable<Part>|Array<Part>} coll a List or Set of Parts to be selected.
          */
-        selectCollection(coll: Iterable<Part> | Array<Part>): void;
+        selectCollection(coll: Iterable<Part> | Part[]): void;
 
         /**
          * This method sets a collection of properties according to the property/value pairs that have been set on the given Object,
@@ -1529,7 +1529,7 @@ declare namespace go {
          * @param {string} name a capitalized name; must not be "" or "None"
          * @param {function(Array<*>):Object} func
          */
-        static defineBuilder(name: string, func: (args: Array<any>) => Object): void;
+        static defineBuilder(name: string, func: (args: any[]) => Object): void;
 
         /**
          * This static function returns the first argument from the arguments array passed
@@ -1542,7 +1542,7 @@ declare namespace go {
          *        the default predicate checks whether the argument is a string
          * @return {*}
          */
-        static takeBuilderArgument(args: Array<any>, defval?: any, pred?: (arg: any) => boolean): any;
+        static takeBuilderArgument(args: any[], defval?: any, pred?: (arg: any) => boolean): any;
 
         /**
          * Returns the effective angle that the object is drawn at, in document coordinates.
@@ -1600,7 +1600,7 @@ declare namespace go {
          * is recognized to take that value,
          * or a string that is used as the value of a commonly set property.
          */
-        static make(type: Constructor | string, ...initializers: Array<any>): any;
+        static make(type: Constructor | string, ...initializers: any[]): any;
 
         /**GraphObjects with this as the value of GraphObject.stretch are stretched depending on the context they are used.*/
         static Default: EnumValue;
@@ -1625,7 +1625,7 @@ declare namespace go {
 
         spanAllocation: (obj: GraphObject, r: RowColumnDefinition, n: number) => number; // undocumented
         protected cloneProtected(copy: GraphObject): void; // undocumented
-        static getBuilders(): Map<string, (args: Array<any>) => Object>; // undocumented
+        static getBuilders(): Map<string, (args: any[]) => Object>; // undocumented
     }
 
     /**
@@ -2390,7 +2390,7 @@ declare namespace go {
         protected computeCorner(): number; // undocumented
         protected computeShortLength(from: boolean): number; // undocumented
         findMidLabel(): GraphObject; // undocumented
-        protected arrangeBundledLinks(links: Array<Link>, reroute: boolean): void; // undocumented
+        protected arrangeBundledLinks(links: Link[], reroute: boolean): void; // undocumented
         protected setPointAt(i: number, x: number, y: number): void; // undocumented
         protected insertPointAt(i: number, x: number, y: number): void; // undocumented
         protected addPointAt(x: number, y: number): void; // undocumented
@@ -2667,7 +2667,7 @@ declare namespace go {
         defaultAlignment: Spot;
 
         /**Gets or sets the default dash array for a particular column's separator.*/
-        defaultColumnSeparatorDashArray: Array<number>;
+        defaultColumnSeparatorDashArray: number[];
 
         /**Gets or sets the default Brush stroke (or CSS color string) for columns in a Table Panel provided a given column has a nonzero RowColumnDefinition.separatorStrokeWidth.*/
         defaultColumnSeparatorStroke: BrushLike;
@@ -2676,7 +2676,7 @@ declare namespace go {
         defaultColumnSeparatorStrokeWidth: number;
 
         /**Gets or sets the default dash array for a particular row's separator.*/
-        defaultRowSeparatorDashArray: Array<number>;
+        defaultRowSeparatorDashArray: number[];
 
         /**Gets or sets the default Brush stroke (or CSS color string) for rows in a Table Panel provided a given row has a nonzero RowColumnDefinition.separatorStrokeWidth.*/
         defaultRowSeparatorStroke: BrushLike;
@@ -2700,7 +2700,7 @@ declare namespace go {
         gridOrigin: Point;
 
         /**Gets or sets a JavaScript Array of values or objects, each of which will be represented by a Panel as elements in this Panel.*/
-        itemArray: Array<any>;
+        itemArray: any[];
 
         /**Gets or sets the name of the item data property that returns a string describing that data's category, or a function that takes an item data object and returns that string; the default value is the name 'category'.*/
         itemCategoryProperty: PropertyAccessor;
@@ -3313,7 +3313,7 @@ declare namespace go {
         position: number;
 
         /**Gets or sets the dash array for dashing the spacing provided this row or column has a nonzero RowColumnDefinition.separatorStrokeWidth and non-null RowColumnDefinition.separatorStroke.*/
-        separatorDashArray: Array<number>;
+        separatorDashArray: number[];
 
         /**Gets or sets the additional padding for a particular row or column, a Margin (or number for a uniform Margin).*/
         separatorPadding: MarginLike;
@@ -3413,7 +3413,7 @@ declare namespace go {
         strokeCap: string;
 
         /**Gets or sets the dash array for creating dashed lines.*/
-        strokeDashArray: Array<number>;
+        strokeDashArray: number[];
 
         /**Gets or sets the offset for dashed lines, used in the phase pattern.*/
         strokeDashOffset: number;
@@ -5129,7 +5129,7 @@ declare namespace go {
          * @param {Array<Object>=} nodedataarray an optional Array containing JavaScript objects to be represented by Nodes.
          * @param {Array<Object>=} linkdataarray an optional Array containing JavaScript objects to be represented by Links.
          */
-        constructor(nodedataarray?: Array<Object>, linkdataarray?: Array<Object>);
+        constructor(nodedataarray?: Object[], linkdataarray?: Object[]);
 
         /**
          * Gets or sets a data object that will be copied and added to the model as a new node data each time there
@@ -5161,7 +5161,7 @@ declare namespace go {
         linkCategoryProperty: PropertyAccessor;
 
         /**Gets or sets the array of link data objects that correspond to Links in the Diagram; the initial value is an empty Array.*/
-        linkDataArray: Array<Object>;
+        linkDataArray: Object[];
 
         /**
          * Gets or sets the name of the data property that returns
@@ -5263,7 +5263,7 @@ declare namespace go {
          * Add to this model all of the link data held in an Array or in an Iterable of link data objects.
          * @param {Iterable<Object>|Array<Object>} coll a collection of link data objects to add to the .linkDataArray
          */
-        addLinkDataCollection(coll: Iterable<Object> | Array<Object>): void;
+        addLinkDataCollection(coll: Iterable<Object> | Object[]): void;
 
         /**
          * Decide if a given link data is in this model.
@@ -5335,7 +5335,7 @@ declare namespace go {
          * This method only works if .linkLabelKeysProperty has been set to something other than an empty string.
          * @param {Object} linkdata a JavaScript object representing a link.
          */
-        getLabelKeysForLinkData(linkdata: Object): Array<Key>;
+        getLabelKeysForLinkData(linkdata: Object): Key[];
 
         /**
          * From a link data retrieve a value uniquely identifying the node data
@@ -5399,7 +5399,7 @@ declare namespace go {
          * Remove from this model all of the link data held in an Array or in an Iterable of link data objects.
          * @param {Iterable<Object>|Array<Object>} coll a collection of link data objects to remove from the .linkDataArray
          */
-        removeLinkDataCollection(coll: Iterable<Object> | Array<Object>): void;
+        removeLinkDataCollection(coll: Iterable<Object> | Object[]): void;
 
         /**
          * Change the category of a given link data, a string naming the link template
@@ -5456,7 +5456,7 @@ declare namespace go {
          * @param {Object} linkdata a JavaScript object representing a link.
          * @param arr an Array of node keys; an empty Array if the property was not present.
          */
-        setLabelKeysForLinkData(linkdata: Object, arr: Array<Key>): void;
+        setLabelKeysForLinkData(linkdata: Object, arr: Key[]): void;
 
         /**
          * Change the node key that the given link data references as the
@@ -5487,7 +5487,7 @@ declare namespace go {
          * You probably don't want to call this constructor, because this class does not support links (relationships between nodes) or groups (nodes and links and subgraphs as nodes): instead, create instances of a subclass such as GraphLinksModel or TreeModel.
          * @param {Array<Object>=} nodedataarray an optional Array containing JavaScript objects to be represented by Parts.
          */
-        constructor(nodedataarray?: Array<Object>);
+        constructor(nodedataarray?: Object[]);
 
         /**Gets or sets whether the default behavior for copyNodeData makes copies of property values that are Arrays.*/
         copiesArrays: boolean;
@@ -5517,7 +5517,7 @@ declare namespace go {
         nodeCategoryProperty: PropertyAccessor;
 
         /**Gets or sets the array of node data objects that correspond to Nodes, Groups, or non-Link Parts in the Diagram; the initial value is an empty Array.*/
-        nodeDataArray: Array<Object>;
+        nodeDataArray: Object[];
 
         /**Gets or sets the name of the data property that returns a unique id number or string for each node data object, or a function taking a node data object and returning the key value; the default value is the name 'key'.*/
         nodeKeyProperty: PropertyAccessor;
@@ -5536,7 +5536,7 @@ declare namespace go {
          * @param {Array<*>} arr an Array that is the value of some Panel's Panel.itemArray.
          * @param {*} val the new value to be pushed onto the array.
          */
-        addArrayItem(arr: Array<any>, val: any): void;
+        addArrayItem(arr: any[], val: any): void;
 
         /**
          * Register an event handler that is called when there is a ChangedEvent for a modification of the Diagram, a Layer, or a GraphObject.
@@ -5560,7 +5560,7 @@ declare namespace go {
          * Add to this model all of the node data held in an Array or in an Iterable of node data objects.
          * @param {Iterable<Object>|Array<Object>} coll a collection of node data objects to add to the .nodeDataArray
          */
-        addNodeDataCollection(coll: Iterable<Object> | Array<Object>): void;
+        addNodeDataCollection(coll: Iterable<Object> | Object[]): void;
 
         /**
          * Modify this model by applying the changes given in an "incremental" model change in JSON format
@@ -5663,7 +5663,7 @@ declare namespace go {
          * @param {number} idx the zero-based array index where the new value will be inserted; use -1 to push the new value on the end of the array.
          * @param {*} val the new value to be inserted into the array.
          */
-        insertArrayItem(arr: Array<any>, idx: number, val: any): void;
+        insertArrayItem(arr: any[], idx: number, val: any): void;
 
         /**
          * This method is called when a node data object is added to the model to make sure that
@@ -5734,7 +5734,7 @@ declare namespace go {
          * @param {number=} idx the zero-based array index of the data item to be removed from the array;
          *   if not supplied it will remove the last item of the array.
          */
-        removeArrayItem(arr: Array<any>, idx?: number): void;
+        removeArrayItem(arr: any[], idx?: number): void;
 
         /**
          * Unregister an event handler listener.
@@ -5762,7 +5762,7 @@ declare namespace go {
          * Remove from this model all of the node data held in an Array or in an Iterable of node data objects.
          * @param {Iterable<Object>|Array<Object>} coll a collection of node data objects to remove from the .nodeDataArray
          */
-        removeNodeDataCollection(coll: Iterable<Object> | Array<Object>): void;
+        removeNodeDataCollection(coll: Iterable<Object> | Object[]): void;
 
         /**
          * Rollback the current transaction, undoing any recorded changes.
@@ -5921,7 +5921,7 @@ declare namespace go {
          * This constructs an empty TreeModel unless one provides arguments as the initial data array values for the Model.nodeDataArray property.
          * @param {Array<Object>=} nodedataarray an optional Array containing JavaScript objects to be represented by Nodes.
          */
-        constructor(nodedataarray?: Array<Object>);
+        constructor(nodedataarray?: Object[]);
 
         /**
          * Gets or sets the name of the property on node data that specifies
@@ -6606,7 +6606,7 @@ declare namespace go {
          * @param Array<*> layerRects an Array of Rects with the bounds of each of the "layers"
          * @param {Point} offset the position of the top-left corner of the banded area relative to the coordinates given by the layerRects
          */
-        commitLayers(layerRects: Array<Rect>, offset: Point): void;
+        commitLayers(layerRects: Rect[], offset: Point): void;
 
         /**
          * Updates the physical location of "real" nodes and links to reflect the layout.
@@ -7273,7 +7273,7 @@ declare namespace go {
          * @param Array<*> layerRects an Array of Rects with the bounds of each of the "layers"
          * @param {Point} offset the position of the top-left corner of the banded area relative to the coordinates given by the layerRects
          */
-        commitLayers(layerRects: Array<Rect>, offset: Point): void;
+        commitLayers(layerRects: Rect[], offset: Point): void;
 
         /**
          * Set the fromSpot and toSpot for each Vertex, position each Node according to the Vertex position, and then position the Links.
@@ -7424,7 +7424,7 @@ declare namespace go {
         childPortSpot: Spot;
 
         /**Gets or sets the logical children for this node.*/
-        children: Array<TreeVertex>;
+        children: TreeVertex[];
 
         /**This read-only property returns the number of immediate children this node has.*/
         childrenCount: number;
@@ -7433,7 +7433,7 @@ declare namespace go {
         commentMargin: number;
 
         /**Gets or sets an array of Nodes that will be positioned near this node.*/
-        comments: Array<Node>;
+        comments: Node[];
 
         /**Gets or sets the space to leave between consecutive comments.*/
         commentSpacing: number;
@@ -9101,7 +9101,7 @@ declare namespace go {
          * Adds all of the values of a collection (either an Iterable or an Array) to the end of this List.
          * @param {Iterable<T>|Array<T>} coll
          */
-        addAll(coll: Iterable<T> | Array<T>): List<T>;
+        addAll(coll: Iterable<T> | T[]): List<T>;
 
         /**
          * This is true if all invocations of the given predicate on items in the collection are true.
@@ -9262,7 +9262,7 @@ declare namespace go {
         /**
          * Produces a JavaScript Array from the contents of this List.
          */
-        toArray(): Array<T>;
+        toArray(): T[];
 
         /**
          * Converts the List to a Set.
@@ -9480,7 +9480,7 @@ declare namespace go {
          * Adds all of the values of a collection (either an Iterable or an Array) to this Set.
          * @param {Iterable<T>|Array<T>} coll
          */
-        addAll(coll: Iterable<T> | Array<T>): Set<T>;
+        addAll(coll: Iterable<T> | T[]): Set<T>;
 
         /**
          * This is true if all invocations of the given predicate on items in the collection are true.
@@ -9582,7 +9582,7 @@ declare namespace go {
          * Removes all of the values of a collection from this Set.
          * @param {Array<T>} coll
          */
-        removeAll(coll: Array<T>): Set<T>;
+        removeAll(coll: T[]): Set<T>;
 
         /**
          * Removes from this Set all items that are not in the given collection.
@@ -9593,7 +9593,7 @@ declare namespace go {
         /**
          * Produces a JavaScript Array from the contents of this Set.
          */
-        toArray(): Array<T>;
+        toArray(): T[];
 
         /**
          * Converts the Set to a List.

@@ -4207,7 +4207,7 @@ declare module "crypto" {
                     | HkdfParams
                     | Pbkdf2Params,
                 extractable: boolean,
-                keyUsages: ReadonlyArray<KeyUsage>,
+                keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
             /**
              * Using the method identified by `algorithm`, `subtle.digest()` attempts to generate a digest of `data`.
@@ -4287,12 +4287,12 @@ declare module "crypto" {
             generateKey(
                 algorithm: RsaHashedKeyGenParams | EcKeyGenParams,
                 extractable: boolean,
-                keyUsages: ReadonlyArray<KeyUsage>,
+                keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKeyPair>;
             generateKey(
                 algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params,
                 extractable: boolean,
-                keyUsages: ReadonlyArray<KeyUsage>,
+                keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
             generateKey(
                 algorithm: AlgorithmIdentifier,
@@ -4319,7 +4319,7 @@ declare module "crypto" {
                     | HmacImportParams
                     | AesKeyAlgorithm,
                 extractable: boolean,
-                keyUsages: ReadonlyArray<KeyUsage>,
+                keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
             importKey(
                 format: Exclude<KeyFormat, "jwk">,

@@ -1,7 +1,7 @@
 /// <reference types="jquery" />
 
 declare namespace ImagesLoaded {
-    type ElementSelector = Element | NodeList | Array<Element> | string;
+    type ElementSelector = Element | NodeList | Element[] | string;
 
     /** interface for an image currently loading or completed */
     interface LoadingImage {
@@ -20,7 +20,7 @@ declare namespace ImagesLoaded {
     interface ImagesLoaded {
         new(elem: ElementSelector, callback: ImagesLoadedCallback): ImagesLoaded;
 
-        images: Array<LoadingImage>;
+        images: LoadingImage[];
 
         // event listeners
         on(event: string, listener: ImagesLoadedListener): void;

@@ -1,7 +1,7 @@
 // Tests for Dropbox Chooser DefinitelyTyped TS definitions
 
 const options: Dropbox.ChooserOptions = {
-    success: (files: ReadonlyArray<Dropbox.ChooserFile>) => {
+    success: (files: readonly Dropbox.ChooserFile[]) => {
         console.log("Success, selected files were:", files);
     },
 };

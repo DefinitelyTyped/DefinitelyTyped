@@ -43,7 +43,7 @@ interface OptionsBase {
      *  '[uri]': enables remote inlining from the specified uri;
      *  '![url]': disables remote inlining from the specified uri;
      */
-    inline?: ReadonlyArray<string> | false | undefined;
+    inline?: readonly string[] | false | undefined;
 
     /**
      * Controls extra options for inlining remote @import rules
@@ -233,12 +233,12 @@ declare namespace CleanCSS {
             /**
              * Controls a whitelist of mergeable pseudo classes; defaults to `[':active', ...]`
              */
-            mergeablePseudoClasses?: ReadonlyArray<string> | undefined;
+            mergeablePseudoClasses?: readonly string[] | undefined;
 
             /**
              * Controls a whitelist of mergeable pseudo elements; defaults to `['::after', ...]`
              */
-            mergeablePseudoElements: ReadonlyArray<string>;
+            mergeablePseudoElements: readonly string[];
 
             /**
              * Controls maximum number of selectors in a single rule (since 4.1.0); defaults to `8191`
@@ -595,7 +595,7 @@ declare namespace CleanCSS {
             /**
              * Controls which properties won't be optimized, defaults to `[]` which means all will be optimized (since 4.1.0)
              */
-            skipProperties?: ReadonlyArray<string> | undefined;
+            skipProperties?: readonly string[] | undefined;
         } | undefined;
     }
 
@@ -628,7 +628,7 @@ declare namespace CleanCSS {
     /**
      * Union of all types acceptable as input for the minify function
      */
-    type Sources = string | ReadonlyArray<string> | Source | ReadonlyArray<Source> | Buffer;
+    type Sources = string | readonly string[] | Source | readonly Source[] | Buffer;
 
     /**
      * Union type for both types of minifier functions

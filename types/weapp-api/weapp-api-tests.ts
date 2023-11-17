@@ -2,7 +2,7 @@ import { App, clearInterval, clearTimeout, getApp, Page, setInterval, setTimeout
 App({
     onLaunch: function() {
         // 调用API从本地缓存中获取数据
-        let logs = wx.getStorageSync("logs") as Array<any> || [];
+        let logs = wx.getStorageSync("logs") as any[] || [];
         logs.unshift(Date.now());
         wx.setStorageSync("logs", logs);
     },
@@ -108,7 +108,7 @@ wx.onSocketError(function(res: any) {
 });
 
 var socketOpen = false;
-var socketMsgQueue: Array<string> = [];
+var socketMsgQueue: string[] = [];
 wx.connectSocket({
     url: "test.php",
 });

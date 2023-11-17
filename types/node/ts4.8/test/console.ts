@@ -58,7 +58,7 @@ import { createWriteStream } from "node:fs";
         console.log("message", "foo", "bar");
         console.table({ foo: "bar" });
         console.table([{ foo: "bar" }]);
-        console.table([{ foo: "bar" }], ["foo"] as ReadonlyArray<string>);
+        console.table([{ foo: "bar" }], ["foo"] as readonly string[]);
         console.time();
         console.time("label");
         console.timeEnd();

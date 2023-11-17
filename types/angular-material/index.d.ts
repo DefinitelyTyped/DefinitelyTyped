@@ -136,7 +136,7 @@ declare module "angular" {
         interface IDialogProvider {
             addPreset(
                 presetName: string,
-                presetOptions: { methods?: ReadonlyArray<string> | undefined; options: () => IDialogOptions },
+                presetOptions: { methods?: readonly string[] | undefined; options: () => IDialogOptions },
             ): IDialogProvider;
         }
 

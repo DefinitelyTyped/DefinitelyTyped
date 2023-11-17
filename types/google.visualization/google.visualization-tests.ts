@@ -1047,7 +1047,7 @@ function test_Sankey() {
 function test_dataNamespace() {
     const month: number = google.visualization.data.month(new Date());
 
-    const exampleNumbers: ReadonlyArray<number> = [1, month];
+    const exampleNumbers: readonly number[] = [1, month];
     let result: number;
 
     result = google.visualization.data.sum(exampleNumbers);

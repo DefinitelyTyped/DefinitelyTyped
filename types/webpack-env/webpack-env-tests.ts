@@ -80,9 +80,9 @@ if (module.hot) {
     module.hot.addDisposeHandler(disposeHandler);
     module.hot.removeDisposeHandler(disposeHandler);
 
-    module.hot.check(true).then((outdatedModules: null | (string | number)[]) => {});
+    module.hot.check(true).then((outdatedModules: null | Array<string | number>) => {});
 
-    module.hot.apply({ ignoreUnaccepted: true }).then((outdatedModules: (string | number)[]) => {});
+    module.hot.apply({ ignoreUnaccepted: true }).then((outdatedModules: Array<string | number>) => {});
 
     let status: string = module.hot.status();
     let statusHandler: (status: string) => void = status => {
@@ -131,9 +131,9 @@ if (importMeta.webpack >= 5 && importMeta.webpackHot) {
     importMeta.webpackHot.addDisposeHandler(disposeHandler);
     importMeta.webpackHot.removeDisposeHandler(disposeHandler);
 
-    importMeta.webpackHot.check(true).then((outdatedModules: null | (string | number)[]) => {});
+    importMeta.webpackHot.check(true).then((outdatedModules: null | Array<string | number>) => {});
 
-    importMeta.webpackHot.apply({ ignoreUnaccepted: true }).then((outdatedModules: (string | number)[]) => {});
+    importMeta.webpackHot.apply({ ignoreUnaccepted: true }).then((outdatedModules: Array<string | number>) => {});
 
     let status: string = importMeta.webpackHot.status();
     let statusHandler: (status: string) => void = status => {

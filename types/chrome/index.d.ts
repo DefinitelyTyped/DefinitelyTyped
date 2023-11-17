@@ -2166,7 +2166,7 @@ declare namespace chrome.declarativeContent {
         /** Optional. Matches if the scheme of the URL is equal to any of the schemes specified in the array.  */
         schemes?: string[] | undefined;
         /** Optional. Matches if the port of the URL is contained in any of the specified port lists. For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200.  */
-        ports?: (number | number[])[] | undefined;
+        ports?: Array<number | number[]> | undefined;
     }
 
     export class PageStateMatcherProperties {
@@ -3411,7 +3411,7 @@ declare namespace chrome.events {
         /** Optional. Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number.  */
         urlSuffix?: string | undefined;
         /** Optional. Matches if the port of the URL is contained in any of the specified port lists. For example [80, 443, [1000, 1200]] matches all requests on port 80, 443 and in the range 1000-1200.  */
-        ports?: (number | number[])[] | undefined;
+        ports?: Array<number | number[]> | undefined;
         /**
          * Optional.
          * Since Chrome 28.
@@ -7270,7 +7270,7 @@ declare namespace chrome.runtime {
             matches?: string[] | undefined;
             permissions?: string[] | undefined;
         } | undefined;
-        content_scripts?: {
+        content_scripts?: Array<{
             matches?: string[] | undefined;
             exclude_matches?: string[] | undefined;
             css?: string[] | undefined;
@@ -7280,27 +7280,27 @@ declare namespace chrome.runtime {
             match_about_blank?: boolean | undefined;
             include_globs?: string[] | undefined;
             exclude_globs?: string[] | undefined;
-        }[] | undefined;
+        }> | undefined;
         converted_from_user_script?: boolean | undefined;
         current_locale?: string | undefined;
         devtools_page?: string | undefined;
-        event_rules?: {
+        event_rules?: Array<{
             event?: string | undefined;
-            actions?: {
+            actions?: Array<{
                 type: string;
-            }[] | undefined;
+            }> | undefined;
             conditions?: chrome.declarativeContent.PageStateMatcherProperties[] | undefined;
-        }[] | undefined;
+        }> | undefined;
         externally_connectable?: {
             ids?: string[] | undefined;
             matches?: string[] | undefined;
             accepts_tls_channel_id?: boolean | undefined;
         } | undefined;
-        file_browser_handlers?: {
+        file_browser_handlers?: Array<{
             id?: string | undefined;
             default_title?: string | undefined;
             file_filters?: string[] | undefined;
-        }[] | undefined;
+        }> | undefined;
         file_system_provider_capabilities?: {
             configurable?: boolean | undefined;
             watchable?: boolean | undefined;
@@ -7308,15 +7308,15 @@ declare namespace chrome.runtime {
             source?: string | undefined;
         } | undefined;
         homepage_url?: string | undefined;
-        import?: {
+        import?: Array<{
             id: string;
             minimum_version?: string | undefined;
-        }[] | undefined;
+        }> | undefined;
         export?: {
             whitelist?: string[] | undefined;
         } | undefined;
         incognito?: string | undefined;
-        input_components?: {
+        input_components?: Array<{
             name?: string | undefined;
             type?: string | undefined;
             id?: string | undefined;
@@ -7324,13 +7324,13 @@ declare namespace chrome.runtime {
             language?: string[] | string | undefined;
             layouts?: string[] | undefined;
             indicator?: string | undefined;
-        }[] | undefined;
+        }> | undefined;
         key?: string | undefined;
         minimum_chrome_version?: string | undefined;
-        nacl_modules?: {
+        nacl_modules?: Array<{
             path: string;
             mime_type: string;
-        }[] | undefined;
+        }> | undefined;
         oauth2?: {
             client_id: string;
             scopes?: string[] | undefined;
@@ -7345,13 +7345,13 @@ declare namespace chrome.runtime {
             chrome_style?: boolean | undefined;
             open_in_tab?: boolean | undefined;
         } | undefined;
-        platforms?: {
+        platforms?: Array<{
             nacl_arch?: string | undefined;
             sub_package_path: string;
-        }[] | undefined;
-        plugins?: {
+        }> | undefined;
+        plugins?: Array<{
             path: string;
-        }[] | undefined;
+        }> | undefined;
         requirements?: {
             "3D"?: {
                 features?: string[] | undefined;
@@ -7375,12 +7375,12 @@ declare namespace chrome.runtime {
             managed_schema: string;
         } | undefined;
         tts_engine?: {
-            voices: {
+            voices: Array<{
                 voice_name: string;
                 lang?: string | undefined;
                 gender?: string | undefined;
                 event_types?: string[] | undefined;
-            }[];
+            }>;
         } | undefined;
         update_url?: string | undefined;
         version_name?: string | undefined;
@@ -7421,7 +7421,7 @@ declare namespace chrome.runtime {
                 type?: "module"; // If the service worker uses ES modules
             }
             | undefined;
-        content_scripts?: {
+        content_scripts?: Array<{
             matches?: string[] | undefined;
             exclude_matches?: string[] | undefined;
             css?: string[] | undefined;
@@ -7432,7 +7432,7 @@ declare namespace chrome.runtime {
             include_globs?: string[] | undefined;
             exclude_globs?: string[] | undefined;
             world?: "ISOLATED" | "MAIN" | undefined;
-        }[] | undefined;
+        }> | undefined;
         content_security_policy?: {
             extension_pages?: string;
             sandbox?: string;
@@ -7440,7 +7440,7 @@ declare namespace chrome.runtime {
         host_permissions?: string[] | undefined;
         optional_permissions?: ManifestPermissions[] | undefined;
         permissions?: ManifestPermissions[] | undefined;
-        web_accessible_resources?: { resources: string[]; matches: string[] }[] | undefined;
+        web_accessible_resources?: Array<{ resources: string[]; matches: string[] }> | undefined;
     }
 
     export type Manifest = ManifestV2 | ManifestV3;
@@ -7781,7 +7781,7 @@ declare namespace chrome.scripting {
      */
     export function executeScript<Args extends any[], Result>(
         injection: ScriptInjection<Args, Result>,
-    ): Promise<InjectionResult<Awaited<Result>>[]>;
+    ): Promise<Array<InjectionResult<Awaited<Result>>>>;
 
     /**
      * Injects a script into a target context. The script will be run at document_end.
@@ -7792,7 +7792,7 @@ declare namespace chrome.scripting {
      */
     export function executeScript<Args extends any[], Result>(
         injection: ScriptInjection<Args, Result>,
-        callback: (results: InjectionResult<Awaited<Result>>[]) => void,
+        callback: (results: Array<InjectionResult<Awaited<Result>>>) => void,
     ): void;
 
     /**

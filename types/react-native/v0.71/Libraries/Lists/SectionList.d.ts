@@ -14,7 +14,7 @@ type DefaultSectionT = {
 };
 
 export interface SectionBase<ItemT, SectionT = DefaultSectionT> {
-    data: ReadonlyArray<ItemT>;
+    data: readonly ItemT[];
 
     key?: string | undefined;
 
@@ -117,7 +117,7 @@ export interface SectionListProps<ItemT, SectionT = DefaultSectionT>
      */
     getItemLayout?:
         | ((
-            data: SectionListData<ItemT, SectionT>[] | null,
+            data: Array<SectionListData<ItemT, SectionT>> | null,
             index: number,
         ) => { length: number; offset: number; index: number })
         | undefined;

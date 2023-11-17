@@ -104,7 +104,7 @@ declare class AbortablePromise<T> extends Promise<T> {
 
     static all<T>(values: ReadonlyArray<T | PromiseLike<T>>): AbortablePromise<T[]>;
 
-    static race<T>(values: ReadonlyArray<T>): AbortablePromise<T extends PromiseLike<infer U> ? U : T>;
+    static race<T>(values: readonly T[]): AbortablePromise<T extends PromiseLike<infer U> ? U : T>;
 }
 
 export = AbortablePromise;

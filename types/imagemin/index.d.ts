@@ -3,7 +3,7 @@
 /**
  * @async
  */
-declare function imagemin(input: ReadonlyArray<string>, options?: Options): Promise<Result[]>;
+declare function imagemin(input: readonly string[], options?: Options): Promise<Result[]>;
 
 declare namespace imagemin {
     /**
@@ -16,7 +16,7 @@ export type Plugin = (input: Buffer) => Promise<Buffer>;
 
 export interface Options {
     destination?: string | undefined;
-    plugins: ReadonlyArray<Plugin>;
+    plugins: readonly Plugin[];
     glob?: boolean | undefined;
 }
 
@@ -27,7 +27,7 @@ export interface Result {
 }
 
 export interface BufferOptions {
-    plugins: ReadonlyArray<Plugin>;
+    plugins: readonly Plugin[];
 }
 
 export default imagemin;

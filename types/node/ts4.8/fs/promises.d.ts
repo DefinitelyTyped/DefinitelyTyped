@@ -442,14 +442,14 @@ declare module "fs/promises" {
          * @param [position='null'] The offset from the beginning of the file where the data from `buffers` should be written. If `position` is not a `number`, the data will be written at the current
          * position.
          */
-        writev(buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): Promise<WriteVResult>;
+        writev(buffers: readonly NodeJS.ArrayBufferView[], position?: number): Promise<WriteVResult>;
         /**
          * Read from a file and write to an array of [ArrayBufferView](https://developer.mozilla.org/en-US/docs/Web/API/ArrayBufferView) s
          * @since v13.13.0, v12.17.0
          * @param [position='null'] The offset from the beginning of the file where the data should be read from. If `position` is not a `number`, the data will be read from the current position.
          * @return Fulfills upon success an object containing two properties:
          */
-        readv(buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): Promise<ReadVResult>;
+        readv(buffers: readonly NodeJS.ArrayBufferView[], position?: number): Promise<ReadVResult>;
         /**
          * Closes the file handle after waiting for any pending operation on the handle to
          * complete.

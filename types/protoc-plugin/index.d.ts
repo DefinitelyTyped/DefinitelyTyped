@@ -10,7 +10,7 @@ import Location = SourceCodeInfo.Location;
 
 type OutputFiles = pb_CodeGeneratorResponse.File.AsObject[];
 type SimplePluginCallback = (
-    filesToGenerate: ReadonlyArray<FileDescriptorProto.AsObject>,
+    filesToGenerate: readonly FileDescriptorProto.AsObject[],
 ) => OutputFiles | Promise<OutputFiles>;
 
 declare function simplePlugin(cb: SimplePluginCallback): Promise<void>;

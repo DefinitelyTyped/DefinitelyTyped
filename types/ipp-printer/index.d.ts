@@ -39,7 +39,7 @@ declare namespace Printer {
         uri: string;
         userName: string;
 
-        attributes(filter?: ReadonlyArray<string>): Attribute[];
+        attributes(filter?: readonly string[]): Attribute[];
         pause(): this;
         resume(): this;
         setEncoding(encoding: BufferEncoding): this;

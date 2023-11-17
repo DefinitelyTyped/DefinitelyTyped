@@ -140,7 +140,7 @@ export interface UIManagerStatic {
     dispatchViewManagerCommand: (
         reactTag: number | null,
         commandID: number | string,
-        commandArgs?: Array<any>,
+        commandArgs?: any[],
     ) => void;
 }
 

@@ -87,7 +87,7 @@ export type Interpolation<P> = InterpolationValue | InterpolationFunction<P> | F
 export type FlattenInterpolation<P> = ReadonlyArray<Interpolation<P>>;
 export type InterpolationValue = string | number | FalseyValue | Keyframes | StyledComponentInterpolation | CSSObject;
 export type SimpleInterpolation = InterpolationValue | FlattenSimpleInterpolation;
-export type FlattenSimpleInterpolation = ReadonlyArray<SimpleInterpolation>;
+export type FlattenSimpleInterpolation = readonly SimpleInterpolation[];
 
 export type InterpolationFunction<P> = (props: P) => Interpolation<P>;
 

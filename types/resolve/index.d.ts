@@ -98,19 +98,19 @@ declare namespace resolve {
         /** set to false to exclude node core modules (e.g. fs) from the search */
         includeCoreModules?: boolean | undefined;
         /** array of file extensions to search in order (defaults to ['.js']) */
-        extensions?: string | ReadonlyArray<string> | undefined;
+        extensions?: string | readonly string[] | undefined;
         /** transform the parsed package.json contents before looking at the "main" field */
         packageFilter?: ((pkg: PackageJSON, pkgFile: string, dir: string) => PackageJSON) | undefined;
         /** transform a path within a package */
         pathFilter?: ((pkg: PackageJSON, path: string, relativePath: string) => string) | undefined;
         /** require.paths array to use if nothing is found on the normal node_modules recursive walk (probably don't use this) */
-        paths?: string | ReadonlyArray<string> | undefined;
+        paths?: string | readonly string[] | undefined;
         /** return the list of candidate paths where the packages sources may be found (probably don't use this) */
         packageIterator?:
             | ((request: string, start: string, getPackageCandidates: () => string[], opts: Opts) => string[])
             | undefined;
         /** directory (or directories) in which to recursively look for modules. (default to 'node_modules') */
-        moduleDirectory?: string | ReadonlyArray<string> | undefined;
+        moduleDirectory?: string | readonly string[] | undefined;
         /**
          * if true, doesn't resolve `basedir` to real path before resolving.
          * This is the way Node resolves dependencies when executed with the --preserve-symlinks flag.

@@ -8,7 +8,7 @@ declare namespace esprima {
     const version: string;
 
     function parse(code: string, options?: Options, delegate?: (node: ESTree.Node, meta: any) => void): ESTree.Program;
-    function tokenize(code: string, options?: Options): Array<Token>;
+    function tokenize(code: string, options?: Options): Token[];
 
     interface Token {
         type: string;

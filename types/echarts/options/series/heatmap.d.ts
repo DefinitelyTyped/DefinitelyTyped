@@ -1862,8 +1862,8 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-heatmap.data
              */
             data?:
-                | (void | number | string | SeriesHeatmap.DataObject)[]
-                | (void | number | string | SeriesHeatmap.DataObject)[][]
+                | Array<void | number | string | SeriesHeatmap.DataObject>
+                | Array<Array<void | number | string | SeriesHeatmap.DataObject>>
                 | undefined;
 
             /**

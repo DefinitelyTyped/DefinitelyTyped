@@ -29,7 +29,7 @@ declare module "angular" {
             /**
              * Holds the array that is specified by the `ng-model` attribute of the [`droptarget`](#droptarget) ui-sortable element.
              */
-            droptargetModel: Array<T>;
+            droptargetModel: T[];
 
             /**
              * Holds the original index of the item dragged.
@@ -60,7 +60,7 @@ declare module "angular" {
             /**
              * Holds the array that is specified by the `ng-model` of the [`source`](#source) ui-sortable element.
              */
-            sourceModel: Array<T>;
+            sourceModel: T[];
 
             /**
              * Can be called inside the `update` callback, in order to prevent/revert a sorting.

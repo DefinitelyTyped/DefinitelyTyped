@@ -5,7 +5,7 @@ declare namespace copyfiles {
         /** throw error if nothing is copied */
         error?: boolean | undefined;
         /** pattern or glob to exclude */
-        exclude?: string | ReadonlyArray<string> | undefined;
+        exclude?: string | readonly string[] | undefined;
         /** flatten the output */
         flat?: boolean | undefined;
         /**

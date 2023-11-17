@@ -3687,10 +3687,10 @@ declare namespace ymaps {
         state: IDataManager;
 
         getAddressLine(): string;
-        getAdministrativeAreas(): ReadonlyArray<string>;
+        getAdministrativeAreas(): readonly string[];
         getCountry(): string | null;
         getCountryCode(): string | null;
-        getLocalities(): ReadonlyArray<string>;
+        getLocalities(): readonly string[];
         getMap(): Map;
         getOverlay(): Promise<IOverlay | null>;
         getOverlaySync(): IOverlay | null;
@@ -4099,13 +4099,13 @@ declare namespace ymaps {
      * @param request The address for which coordinates need to be obtained (forward geocoding), or the coordinates for which the address needs to be determined (reverse geocoding).
      * @param options Options.
      */
-    function geocode(request: string | ReadonlyArray<number>, options?: IGeocodeOptions): Promise<IGeocodeResult>;
+    function geocode(request: string | readonly number[], options?: IGeocodeOptions): Promise<IGeocodeResult>;
 
     interface IGeocodeOptions {
         /**
          * A rectangular area on the map, where the object being searched for is presumably located.
          */
-        boundedBy?: ReadonlyArray<ReadonlyArray<number>>;
+        boundedBy?: ReadonlyArray<readonly number[]>;
 
         /**
          * If true, JSON is passed to the handler function. Otherwise, the handler function is passed an object containing the geoObjects field with the geocoding results as GeoObjectCollection.

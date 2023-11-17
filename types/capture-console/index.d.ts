@@ -15,7 +15,7 @@ export interface CaptureOptions {
  * on the provided streams.
  */
 export function capture(
-    streams: ReadonlyArray<NodeJS.WritableStream> | NodeJS.WritableStream,
+    streams: readonly NodeJS.WritableStream[] | NodeJS.WritableStream,
     exec: () => void,
 ): string[];
 
@@ -25,7 +25,7 @@ export function capture(
  * the output going to the console.
  */
 export function capture(
-    streams: ReadonlyArray<NodeJS.WritableStream> | NodeJS.WritableStream,
+    streams: readonly NodeJS.WritableStream[] | NodeJS.WritableStream,
     opts: CaptureOptions,
     exec: () => void,
 ): string[];

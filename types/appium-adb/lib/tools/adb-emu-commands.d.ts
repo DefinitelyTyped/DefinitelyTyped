@@ -216,7 +216,7 @@ interface AdbEmuCommands {
      * @throws If there was an error while connecting to the Telnet console
      * or if the given command returned non-OK response
      */
-    execEmuConsoleCommand(cmd: string | ReadonlyArray<string>, opts?: ExecTelnetOptions): Promise<string>;
+    execEmuConsoleCommand(cmd: string | readonly string[], opts?: ExecTelnetOptions): Promise<string>;
 
     /**
      * Retrieves emulator version from the file system

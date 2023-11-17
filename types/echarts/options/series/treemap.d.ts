@@ -377,7 +377,7 @@ declare namespace echarts {
              * []
              * @see https://echarts.apache.org/en/option.html#series-treemap.levels
              */
-            levels?: {
+            levels?: Array<{
                 /**
                  * `treemap` is able to map any dimensions of data to visual.
                  *
@@ -3881,7 +3881,7 @@ declare namespace echarts {
                         color?: string | undefined;
                     } | undefined;
                 } | undefined;
-            }[] | undefined;
+            }> | undefined;
 
             /**
              * Whether to ignore mouse events.

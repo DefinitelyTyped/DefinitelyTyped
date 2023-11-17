@@ -13,7 +13,7 @@ declare class SemVer {
     minor: number;
     patch: number;
     version: string;
-    build: ReadonlyArray<string>;
+    build: readonly string[];
     prerelease: ReadonlyArray<string | number>;
 
     /**

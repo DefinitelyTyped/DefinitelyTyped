@@ -28,10 +28,10 @@ export declare type TabNavigationState<ParamList extends ParamListBase> =
          * List of previously visited route keys.
          */
         // tslint:disable-next-line array-type
-        history: {
+        history: Array<{
             type: "route";
             key: string;
-        }[];
+        }>;
     };
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type TabActionHelpers<ParamList extends ParamListBase> = {
@@ -93,8 +93,7 @@ export default function TabRouter(
                 // tslint:disable-next-line no-redundant-undefined array-type
                 history?: unknown[] | undefined;
                 // tslint:disable-next-line array-type
-                routes: (
-                    & Readonly<{
+                routes: Array<& Readonly<{
                         key: string;
                         name: string;
                     }>
@@ -105,8 +104,7 @@ export default function TabRouter(
                     & {
                         // tslint:disable-next-line no-redundant-undefined
                         state?: Readonly<any> | PartialState<Readonly<any>> | undefined;
-                    }
-                )[];
+                    }>;
                 type: string;
                 stale: false;
             }>
@@ -118,8 +116,7 @@ export default function TabRouter(
                     // tslint:disable-next-line no-redundant-undefined
                     history?: unknown[] | undefined;
                     // tslint:disable-next-line array-type
-                    routes: (
-                        & Readonly<{
+                    routes: Array<& Readonly<{
                             key: string;
                             name: string;
                         }>
@@ -130,8 +127,7 @@ export default function TabRouter(
                         & {
                             // tslint:disable-next-line no-redundant-undefined
                             state?: Readonly<any> | PartialState<Readonly<any>> | undefined;
-                        }
-                    )[];
+                        }>;
                     type: string;
                     stale: false;
                 }>
@@ -145,8 +141,7 @@ export default function TabRouter(
                         // tslint:disable-next-line no-redundant-undefined
                         history?: unknown[] | undefined;
                         // tslint:disable-next-line array-type
-                        routes: (
-                            & Readonly<{
+                        routes: Array<& Readonly<{
                                 key: string;
                                 name: string;
                             }>
@@ -157,8 +152,7 @@ export default function TabRouter(
                             & {
                                 // tslint:disable-next-line no-redundant-undefined
                                 state?: Readonly<any> | PartialState<Readonly<any>> | undefined;
-                            }
-                        )[];
+                            }>;
                         type: string;
                         stale: false;
                     }>,
@@ -166,7 +160,7 @@ export default function TabRouter(
                 >
                 & {
                     // tslint:disable-next-line no-redundant-undefined array-type use-default-type-parameter
-                    routes: Pick<Route<string, object | undefined>, "name" | "params">[];
+                    routes: Array<Pick<Route<string, object | undefined>, "name" | "params">>;
                 }
             )
             | undefined;

@@ -39,7 +39,7 @@ export interface WorkerStatus {
     payload: {
         class: string;
         queue: string;
-        args: ReadonlyArray<any>;
+        args: readonly any[];
     };
     worker: string;
 }
@@ -49,16 +49,16 @@ export class Queue extends EventEmitter {
 
     connect(): Promise<void>;
     end(): Promise<void>;
-    encode(queue: string, jobName: string, args?: ReadonlyArray<any>): string;
-    enqueue(queue: string, jobName: string, args?: ReadonlyArray<any>): Promise<void>;
-    enqueueAt(timestamp: number, queue: string, jobName: string, args?: ReadonlyArray<any>): Promise<void>;
-    enqueueIn(milliseconds: number, queue: string, jobName: string, args?: ReadonlyArray<any>): Promise<void>;
+    encode(queue: string, jobName: string, args?: readonly any[]): string;
+    enqueue(queue: string, jobName: string, args?: readonly any[]): Promise<void>;
+    enqueueAt(timestamp: number, queue: string, jobName: string, args?: readonly any[]): Promise<void>;
+    enqueueIn(milliseconds: number, queue: string, jobName: string, args?: readonly any[]): Promise<void>;
     queues(): Promise<string[]>;
     delQueue(queue: string): Promise<void>;
     length(queue: string): Promise<number>;
-    del(queue: string, jobName: string, args?: ReadonlyArray<any>, count?: number): Promise<number>;
-    delDelayed(queue: string, jobName: string, args?: ReadonlyArray<any>, count?: number): Promise<number[]>;
-    scheduledAt(queue: string, jobName: string, args?: ReadonlyArray<any>): Promise<number[]>;
+    del(queue: string, jobName: string, args?: readonly any[], count?: number): Promise<number>;
+    delDelayed(queue: string, jobName: string, args?: readonly any[], count?: number): Promise<number[]>;
+    scheduledAt(queue: string, jobName: string, args?: readonly any[]): Promise<number[]>;
     timestamps(): Promise<number[]>;
     delayedAt(timestamp: number): Promise<{ tasks: Array<Job<any>>; rTimestamp: number }>;
     queued(queue: string, start: number, stop: number): Promise<Array<Job<any>>>;

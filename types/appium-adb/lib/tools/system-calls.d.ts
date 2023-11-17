@@ -52,7 +52,7 @@ export interface AvdLaunchOptions {
     /**
      * Additional emulator command line arguments
      */
-    args?: string | ReadonlyArray<string>;
+    args?: string | readonly string[];
     /**
      * Additional emulator environment variables
      */
@@ -245,7 +245,7 @@ interface SystemCalls {
      *
      * @param cmd - The array of rest command line parameters.
      */
-    adbExecEmu(cmd: ReadonlyArray<string>): Promise<void>;
+    adbExecEmu(cmd: readonly string[]): Promise<void>;
 
     /**
      * Execute the given adb command.
@@ -258,8 +258,8 @@ interface SystemCalls {
      * @return - Command's stdout.
      * @throws If the command returned non-zero exit code.
      */
-    adbExec(cmd: ReadonlyArray<string>, opts?: AdbExecOptions & { outputFormat: "full" }): Promise<ExecResult>;
-    adbExec(cmd: ReadonlyArray<string>, opts?: AdbExecOptions): Promise<string>;
+    adbExec(cmd: readonly string[], opts?: AdbExecOptions & { outputFormat: "full" }): Promise<ExecResult>;
+    adbExec(cmd: readonly string[], opts?: AdbExecOptions): Promise<string>;
 
     /**
      * Execute the given command using _adb shell_ prefix.
@@ -270,9 +270,9 @@ interface SystemCalls {
      * @return - Command's stdout.
      * @throws If the command returned non-zero exit code.
      */
-    shell(cmd: string | ReadonlyArray<string>, opts?: ShellExecOptions): Promise<string>;
+    shell(cmd: string | readonly string[], opts?: ShellExecOptions): Promise<string>;
 
-    createSubProcess(args?: ReadonlyArray<string>): SubProcess;
+    createSubProcess(args?: readonly string[]): SubProcess;
 
     /**
      * Retrieve the current adb port.
@@ -450,7 +450,7 @@ interface SystemCalls {
      *                          An empty array is returned of the given _remotePath_
      *                          does not exist.
      */
-    ls(remotePath: string, opts?: ReadonlyArray<string>): Promise<string[]>;
+    ls(remotePath: string, opts?: readonly string[]): Promise<string[]>;
 
     /**
      * Get the size of the particular file located on the device under test.

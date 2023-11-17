@@ -30,7 +30,7 @@ declare namespace shuffleArray {
          * arr - The given array.
          * options - Optional configuration options.
          */
-        pick<T>(arr: ReadonlyArray<T>, options?: PickOptions): T | T[];
+        pick<T>(arr: readonly T[], options?: PickOptions): T | T[];
     }
 }
 declare var shuffleArray: shuffleArray.ShuffleArray;

@@ -5,7 +5,7 @@ declare var angular: angular.IAngularStatic;
 // Support for painless dependency injection
 declare global {
     interface Function {
-        $inject?: ReadonlyArray<string> | undefined;
+        $inject?: readonly string[] | undefined;
     }
 }
 

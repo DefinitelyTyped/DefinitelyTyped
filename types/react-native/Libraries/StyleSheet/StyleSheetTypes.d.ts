@@ -185,8 +185,7 @@ interface MatrixTransform {
 
 export interface TransformsStyle {
     transform?:
-        | (
-            | PerpectiveTransform
+        | Array<| PerpectiveTransform
             | RotateTransform
             | RotateXTransform
             | RotateYTransform
@@ -198,13 +197,12 @@ export interface TransformsStyle {
             | TranslateYTransform
             | SkewXTransform
             | SkewYTransform
-            | MatrixTransform
-        )[]
+            | MatrixTransform>
         | undefined;
     /**
      * @deprecated Use matrix in transform prop instead.
      */
-    transformMatrix?: Array<number> | undefined;
+    transformMatrix?: number[] | undefined;
     /**
      * @deprecated Use rotate in transform prop instead.
      */

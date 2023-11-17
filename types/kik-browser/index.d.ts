@@ -101,7 +101,7 @@ interface KikMessage {
 interface KikPickUsersOptions {
     minResults?: number | undefined;
     maxResults?: number | undefined;
-    preselected?: { username: string }[] | undefined;
+    preselected?: Array<{ username: string }> | undefined;
     filtered?: string[] | undefined;
     filterSelf?: boolean | undefined;
 }

@@ -215,7 +215,7 @@ declare namespace Autosuggest {
         /**
          * These are the suggestions that will be displayed. Items can take an arbitrary shape.
          */
-        suggestions: ReadonlyArray<TSuggestion>;
+        suggestions: readonly TSuggestion[];
     }
 
     interface AutosuggestPropsMultiSection<TSuggestion, TSection> extends AutosuggestPropsBase<TSuggestion> {
@@ -226,7 +226,7 @@ declare namespace Autosuggest {
         /**
          * These are the suggestions that will be displayed. Items can take an arbitrary shape.
          */
-        suggestions: ReadonlyArray<TSection>;
+        suggestions: readonly TSection[];
         /**
          * Implement it to teach Autosuggest where to find the suggestions for every section.
          */

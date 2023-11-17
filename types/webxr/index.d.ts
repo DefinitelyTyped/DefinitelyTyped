@@ -506,7 +506,7 @@ declare abstract class XRSession implements XRSession {}
  * ref: https://immersive-web.github.io/webxr/#xrviewerpose-interface
  */
 interface XRViewerPose extends XRPose {
-    readonly views: ReadonlyArray<XRView>;
+    readonly views: readonly XRView[];
 }
 
 declare abstract class XRViewerPose implements XRViewerPose {}
@@ -547,8 +547,8 @@ declare abstract class XRView implements XRView {}
  * ref: https://immersive-web.github.io/webxr/#xrinputsourceschangeevent-interface
  */
 interface XRInputSourceChangeEvent extends XRSessionEvent {
-    readonly removed: ReadonlyArray<XRInputSource>;
-    readonly added: ReadonlyArray<XRInputSource>;
+    readonly removed: readonly XRInputSource[];
+    readonly added: readonly XRInputSource[];
 }
 
 interface XRInputSourceChangeEventHandler {
@@ -585,7 +585,7 @@ type XRHitTestTrackableType = "point" | "plane" | "mesh";
 
 interface XRTransientInputHitTestResult {
     readonly inputSource: XRInputSource;
-    readonly results: ReadonlyArray<XRHitTestResult>;
+    readonly results: readonly XRHitTestResult[];
 }
 
 declare class XRTransientInputHitTestResult {

@@ -19,7 +19,7 @@ export interface TableBatchActionsProps
 }
 
 interface TableBatchActionsFC extends React.FC<TableBatchActionsProps> {
-    readonly translationKeys: ReadonlyArray<TableBatchActionsTranslationKey>;
+    readonly translationKeys: readonly TableBatchActionsTranslationKey[];
 }
 
 declare const TableBatchActions: TableBatchActionsFC;

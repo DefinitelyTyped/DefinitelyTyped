@@ -615,10 +615,10 @@ export declare class Layer {
      * @param undefinedArea The treatment of areas left blank by the distortion.
      * @async
      */
-    applyShear(curve: {
+    applyShear(curve: Array<{
         x: number;
         y: number;
-    }[], undefinedArea: Constants.UndefinedAreas): Promise<void>;
+    }>, undefinedArea: Constants.UndefinedAreas): Promise<void>;
     /**
      * Applies the Smart Blur filter.
      *

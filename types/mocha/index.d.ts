@@ -129,7 +129,7 @@ declare class Mocha {
      *
      * @see https://mochajs.org/api/mocha#globals
      */
-    globals(globals: string | ReadonlyArray<string>): this;
+    globals(globals: string | readonly string[]): this;
 
     /**
      * Set the timeout in milliseconds.
@@ -1268,7 +1268,7 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Runnable.html#globals
          */
-        globals(globals: ReadonlyArray<string>): void;
+        globals(globals: readonly string[]): void;
 
         /**
          * Run the test and invoke `fn(err)`.
@@ -1466,7 +1466,7 @@ declare namespace Mocha {
          *
          * @see https://mochajs.org/api/Mocha.Runner.html#.Runner#globals
          */
-        globals(arr: ReadonlyArray<string>): this;
+        globals(arr: readonly string[]): this;
 
         /**
          * Run the root suite and invoke `fn(failures)` on completion.

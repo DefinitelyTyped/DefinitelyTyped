@@ -1,5 +1,5 @@
 declare function polygonLine(
-    points: ReadonlyArray<number>,
+    points: readonly number[],
     x1: number,
     y1: number,
     x2: number,

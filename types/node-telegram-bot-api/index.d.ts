@@ -1552,7 +1552,7 @@ declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEv
 
     answerInlineQuery(
         inlineQueryId: string,
-        results: ReadonlyArray<TelegramBot.InlineQueryResult>,
+        results: readonly TelegramBot.InlineQueryResult[],
         options?: TelegramBot.AnswerInlineQueryOptions,
     ): Promise<boolean>;
 
@@ -1601,14 +1601,14 @@ declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEv
 
     sendMediaGroup(
         chatId: TelegramBot.ChatId,
-        media: ReadonlyArray<TelegramBot.InputMedia>,
+        media: readonly TelegramBot.InputMedia[],
         options?: TelegramBot.SendMediaGroupOptions,
     ): Promise<TelegramBot.Message>;
 
     sendPoll(
         chatId: TelegramBot.ChatId,
         question: string,
-        pollOptions: ReadonlyArray<string>,
+        pollOptions: readonly string[],
         options?: TelegramBot.SendPollOptions,
     ): Promise<TelegramBot.Message>;
 
@@ -1933,7 +1933,7 @@ declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEv
         payload: string,
         providerToken: string,
         currency: string,
-        prices: ReadonlyArray<TelegramBot.LabeledPrice>,
+        prices: readonly TelegramBot.LabeledPrice[],
         options?: TelegramBot.SendInvoiceOptions,
     ): Promise<TelegramBot.Message>;
 

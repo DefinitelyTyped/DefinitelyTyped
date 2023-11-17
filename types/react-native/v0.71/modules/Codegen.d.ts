@@ -1,6 +1,6 @@
 declare module "react-native/Libraries/Utilities/codegenNativeCommands" {
     export interface Options<T extends string> {
-        readonly supportedCommands: ReadonlyArray<T>;
+        readonly supportedCommands: readonly T[];
     }
 
     function codegenNativeCommands<T extends object>(
@@ -51,7 +51,7 @@ declare module "react-native/Libraries/Types/CodegenTypes" {
     export type Int32 = number;
     export type UnsafeObject = object;
 
-    type DefaultTypes = number | boolean | string | ReadonlyArray<string>;
+    type DefaultTypes = number | boolean | string | readonly string[];
     // Default handling, ignore the unused value
     // we're only using it for type checking
     //

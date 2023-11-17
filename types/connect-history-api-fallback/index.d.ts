@@ -11,10 +11,10 @@ declare function historyApiFallback(options?: historyApiFallback.Options): core.
 declare namespace historyApiFallback {
     interface Options {
         readonly disableDotRule?: true | undefined;
-        readonly htmlAcceptHeaders?: ReadonlyArray<string> | undefined;
+        readonly htmlAcceptHeaders?: readonly string[] | undefined;
         readonly index?: string | undefined;
         readonly logger?: typeof console.log | undefined;
-        readonly rewrites?: ReadonlyArray<Rewrite> | undefined;
+        readonly rewrites?: readonly Rewrite[] | undefined;
         readonly verbose?: boolean | undefined;
     }
 

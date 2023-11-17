@@ -3842,7 +3842,7 @@ declare namespace echarts {
              * []
              * @see https://echarts.apache.org/en/option.html#series-sunburst.levels
              */
-            levels?: {
+            levels?: Array<{
                 /**
                  * `label` sets the text style for every sectors.
                  *
@@ -7528,7 +7528,7 @@ declare namespace echarts {
                         opacity?: number | undefined;
                     } | undefined;
                 } | undefined;
-            }[] | undefined;
+            }> | undefined;
 
             /**
              * Whether to enable animation.

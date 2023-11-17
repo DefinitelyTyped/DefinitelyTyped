@@ -67,7 +67,7 @@ declare namespace observejs {
         /**
          * an array of values representing the sequence of removed elements
          */
-        removed: Array<any>;
+        removed: any[];
 
         /**
          * the number of element which were inserted
@@ -80,7 +80,7 @@ declare namespace observejs {
          * Constructor
          * @param receiver the target for observation
          */
-        new(receiver: Array<any>): ArrayObserver_instance;
+        new(receiver: any[]): ArrayObserver_instance;
 
         /**
          * transforms a copy of an old state of an array into a copy of its current state.
@@ -88,11 +88,11 @@ declare namespace observejs {
          * @param current array of current state
          * @param splices  splices to apply
          */
-        applySplices(previous: Array<any>, current: Array<any>, splices: Array<splice>): void;
+        applySplices(previous: any[], current: any[], splices: splice[]): void;
     }
 
     interface ArrayObserver_instance extends Observable {
-        open(onChange: (splices: Array<splice>, oldSplices: Array<splice>) => any): void;
+        open(onChange: (splices: splice[], oldSplices: splice[]) => any): void;
     }
 
     /**
@@ -144,7 +144,7 @@ declare namespace observejs {
     }
 
     interface CompoundObserver_instance extends Observable {
-        open(onChange: (newValues: Array<any>, oldValue: Array<any>) => any): void;
+        open(onChange: (newValues: any[], oldValue: any[]) => any): void;
 
         /**
          * Adds the receivers property at the specified path to the list of observables.
@@ -186,7 +186,7 @@ declare namespace observejs {
          * @param observer the observer to transform
          * @param valueFn function that gets invoked with all observed values. May return a single new value.
          */
-        new(observer: Observable, valueFn: (values: Array<any>) => any): ObserverTransform_instance;
+        new(observer: Observable, valueFn: (values: any[]) => any): ObserverTransform_instance;
     }
 
     interface ObserverTransform_instance extends Observable {

@@ -26,7 +26,7 @@ new HardSourceWebpackPlugin.SerializerJsonPlugin();
 
 new HardSourceWebpackPlugin.ParallelModulePlugin({
     fork: ((
-        forkFn: (modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions) => ChildProcess,
+        forkFn: (modulePath: string, args?: readonly string[], options?: ForkOptions) => ChildProcess,
         compiler: webpack.Compiler,
         webpackBin: string,
     ) => {

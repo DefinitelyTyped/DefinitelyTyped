@@ -661,7 +661,7 @@ declare module "dns" {
      * @since v0.11.3
      * @param servers array of `RFC 5952` formatted addresses
      */
-    export function setServers(servers: ReadonlyArray<string>): void;
+    export function setServers(servers: readonly string[]): void;
     /**
      * Returns an array of IP address strings, formatted according to [RFC 5952](https://tools.ietf.org/html/rfc5952#section-6),
      * that are currently configured for DNS resolution. A string will include a port

@@ -39,7 +39,7 @@ declare class PoiCore {
     getCacheConfig(
         dir: string,
         keys: { [k: string]: string },
-        files: ReadonlyArray<string>,
+        files: readonly string[],
     ): {
         cacheDirectory: string;
         cacheIdentifier: string;
@@ -207,14 +207,14 @@ declare namespace PoiCore {
 
     interface ConfigLoader {
         resolve(
-            files?: ReadonlyArray<string>,
+            files?: readonly string[],
             cwd?: string,
             stopDir?: string,
         ): string | null;
         resolve(options?: ConfigLoader.Options): string | null;
 
         load(
-            files?: ReadonlyArray<string>,
+            files?: readonly string[],
             cwd?: string,
             stopDir?: string,
         ): any;

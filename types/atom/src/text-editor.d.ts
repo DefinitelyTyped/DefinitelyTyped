@@ -737,7 +737,7 @@ export class TextEditor {
      *  they are replaced by new selections with the given ranges.
      */
     setSelectedBufferRanges(
-        bufferRanges: ReadonlyArray<RangeCompatible>,
+        bufferRanges: readonly RangeCompatible[],
         options?: { reversed?: boolean | undefined; preserveFolds?: boolean | undefined },
     ): void;
 
@@ -761,7 +761,7 @@ export class TextEditor {
      *  they are replaced by new selections with the given ranges.
      */
     setSelectedScreenRanges(
-        screenRanges: ReadonlyArray<RangeCompatible>,
+        screenRanges: readonly RangeCompatible[],
         options?: { reversed?: boolean | undefined },
     ): void;
 

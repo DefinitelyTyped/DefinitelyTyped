@@ -3799,12 +3799,12 @@ declare module "fs" {
      */
     export function writev(
         fd: number,
-        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
+        buffers: readonly NodeJS.ArrayBufferView[],
         cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
     export function writev(
         fd: number,
-        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
+        buffers: readonly NodeJS.ArrayBufferView[],
         position: number,
         cb: (err: NodeJS.ErrnoException | null, bytesWritten: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
@@ -3815,7 +3815,7 @@ declare module "fs" {
     export namespace writev {
         function __promisify__(
             fd: number,
-            buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
+            buffers: readonly NodeJS.ArrayBufferView[],
             position?: number,
         ): Promise<WriteVResult>;
     }
@@ -3825,7 +3825,7 @@ declare module "fs" {
      * @since v12.9.0
      * @return The number of bytes written.
      */
-    export function writevSync(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): number;
+    export function writevSync(fd: number, buffers: readonly NodeJS.ArrayBufferView[], position?: number): number;
     /**
      * Read from a file specified by `fd` and write to an array of `ArrayBufferView`s
      * using `readv()`.
@@ -3842,12 +3842,12 @@ declare module "fs" {
      */
     export function readv(
         fd: number,
-        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
+        buffers: readonly NodeJS.ArrayBufferView[],
         cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
     export function readv(
         fd: number,
-        buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
+        buffers: readonly NodeJS.ArrayBufferView[],
         position: number,
         cb: (err: NodeJS.ErrnoException | null, bytesRead: number, buffers: NodeJS.ArrayBufferView[]) => void,
     ): void;
@@ -3858,7 +3858,7 @@ declare module "fs" {
     export namespace readv {
         function __promisify__(
             fd: number,
-            buffers: ReadonlyArray<NodeJS.ArrayBufferView>,
+            buffers: readonly NodeJS.ArrayBufferView[],
             position?: number,
         ): Promise<ReadVResult>;
     }
@@ -3868,7 +3868,7 @@ declare module "fs" {
      * @since v13.13.0, v12.17.0
      * @return The number of bytes read.
      */
-    export function readvSync(fd: number, buffers: ReadonlyArray<NodeJS.ArrayBufferView>, position?: number): number;
+    export function readvSync(fd: number, buffers: readonly NodeJS.ArrayBufferView[], position?: number): number;
     export interface OpenDirOptions {
         encoding?: BufferEncoding | undefined;
         /**

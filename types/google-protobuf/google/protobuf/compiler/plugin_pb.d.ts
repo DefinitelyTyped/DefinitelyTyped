@@ -46,8 +46,8 @@ export namespace Version {
 
 export class CodeGeneratorRequest extends jspb.Message {
     clearFileToGenerateList(): CodeGeneratorRequest;
-    getFileToGenerateList(): Array<string>;
-    setFileToGenerateList(value: Array<string>): CodeGeneratorRequest;
+    getFileToGenerateList(): string[];
+    setFileToGenerateList(value: string[]): CodeGeneratorRequest;
     addFileToGenerate(value: string, index?: number): string;
 
     hasParameter(): boolean;
@@ -56,8 +56,8 @@ export class CodeGeneratorRequest extends jspb.Message {
     setParameter(value: string): CodeGeneratorRequest;
 
     clearProtoFileList(): CodeGeneratorRequest;
-    getProtoFileList(): Array<google_protobuf_descriptor_pb.FileDescriptorProto>;
-    setProtoFileList(value: Array<google_protobuf_descriptor_pb.FileDescriptorProto>): CodeGeneratorRequest;
+    getProtoFileList(): google_protobuf_descriptor_pb.FileDescriptorProto[];
+    setProtoFileList(value: google_protobuf_descriptor_pb.FileDescriptorProto[]): CodeGeneratorRequest;
     addProtoFile(
         value?: google_protobuf_descriptor_pb.FileDescriptorProto,
         index?: number,
@@ -80,9 +80,9 @@ export class CodeGeneratorRequest extends jspb.Message {
 
 export namespace CodeGeneratorRequest {
     export type AsObject = {
-        fileToGenerateList: Array<string>;
+        fileToGenerateList: string[];
         parameter?: string | undefined;
-        protoFileList: Array<google_protobuf_descriptor_pb.FileDescriptorProto.AsObject>;
+        protoFileList: google_protobuf_descriptor_pb.FileDescriptorProto.AsObject[];
         compilerVersion?: Version.AsObject | undefined;
     };
 }
@@ -99,8 +99,8 @@ export class CodeGeneratorResponse extends jspb.Message {
     setSupportedFeatures(value: number): CodeGeneratorResponse;
 
     clearFileList(): CodeGeneratorResponse;
-    getFileList(): Array<CodeGeneratorResponse.File>;
-    setFileList(value: Array<CodeGeneratorResponse.File>): CodeGeneratorResponse;
+    getFileList(): CodeGeneratorResponse.File[];
+    setFileList(value: CodeGeneratorResponse.File[]): CodeGeneratorResponse;
     addFile(value?: CodeGeneratorResponse.File, index?: number): CodeGeneratorResponse.File;
 
     serializeBinary(): Uint8Array;
@@ -120,7 +120,7 @@ export namespace CodeGeneratorResponse {
     export type AsObject = {
         error?: string | undefined;
         supportedFeatures?: number | undefined;
-        fileList: Array<File.AsObject>;
+        fileList: File.AsObject[];
     };
 
     export enum Feature {

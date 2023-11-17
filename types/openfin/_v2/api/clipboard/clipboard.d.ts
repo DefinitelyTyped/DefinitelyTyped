@@ -60,5 +60,5 @@ export default class Clipboard extends Base {
      * @return {Promise.Array.<string>}
      * @tutorial Clipboard.getAvailableFormats
      */
-    getAvailableFormats(type?: string): Promise<Array<string>>;
+    getAvailableFormats(type?: string): Promise<string[]>;
 }

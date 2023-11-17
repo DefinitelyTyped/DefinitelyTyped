@@ -1,9 +1,9 @@
-declare function accSum(numbers: ReadonlyArray<number>): number;
+declare function accSum(numbers: readonly number[]): number;
 
 export = accSum;
 
 declare namespace accSum {
-    function dumbSum(numbers: ReadonlyArray<number>): number;
+    function dumbSum(numbers: readonly number[]): number;
     function fastTwoSum(a: number, b: number): [number, number, null];
 
     /**

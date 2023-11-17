@@ -295,8 +295,8 @@ const t1 = (
 const t2 = (
     <DataTable<Row1, Header1>
         filterRows={data => {
-            const headers: ReadonlyArray<Header1> = data.headers;
-            const rowIds: ReadonlyArray<string> = data.rowIds;
+            const headers: readonly Header1[] = data.headers;
+            const rowIds: readonly string[] = data.rowIds;
             return [headers[0].key];
         }}
         headers={[{ key: "h1", header: <div />, headerProp: 2 }]}

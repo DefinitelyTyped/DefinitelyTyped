@@ -308,7 +308,7 @@ import { URL } from "node:url";
         response.removeHeader(":method");
         response.setHeader(":method", "GET");
         response.setHeader(":status", 200);
-        response.setHeader("some-list", ["", ""] as ReadonlyArray<string>);
+        response.setHeader("some-list", ["", ""] as readonly string[]);
         const headersSent: boolean = response.headersSent;
 
         response.setTimeout(0, () => {});

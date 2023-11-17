@@ -342,18 +342,18 @@ declare module "dgram" {
          * @param callback Called when the message has been sent.
          */
         send(
-            msg: string | Uint8Array | ReadonlyArray<any>,
+            msg: string | Uint8Array | readonly any[],
             port?: number,
             address?: string,
             callback?: (error: Error | null, bytes: number) => void,
         ): void;
         send(
-            msg: string | Uint8Array | ReadonlyArray<any>,
+            msg: string | Uint8Array | readonly any[],
             port?: number,
             callback?: (error: Error | null, bytes: number) => void,
         ): void;
         send(
-            msg: string | Uint8Array | ReadonlyArray<any>,
+            msg: string | Uint8Array | readonly any[],
             callback?: (error: Error | null, bytes: number) => void,
         ): void;
         send(

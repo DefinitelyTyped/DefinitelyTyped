@@ -62,11 +62,11 @@ const mailJetResponse: Promise<Email.PostResponse> = mailJetRequest.request(para
 mailJetResponse
     .then((res: Email.PostResponse) => {
         const body: Email.PostResponseData = res.body;
-        const messages: ReadonlyArray<Email.PostResponseDataMessage> = body.Messages;
+        const messages: readonly Email.PostResponseDataMessage[] = body.Messages;
         const message: Email.PostResponseDataMessage = messages[0];
-        const to: ReadonlyArray<Email.PostResponseDataTo> = message.To;
-        const cc: ReadonlyArray<Email.PostResponseDataTo> = message.Cc;
-        const bcc: ReadonlyArray<Email.PostResponseDataTo> = message.Bcc;
+        const to: readonly Email.PostResponseDataTo[] = message.To;
+        const cc: readonly Email.PostResponseDataTo[] = message.Cc;
+        const bcc: readonly Email.PostResponseDataTo[] = message.Bcc;
         const email: string = to[0].Email;
         const messageHref: string = to[0].MessageHref;
         const messageId: number = to[0].MessageID;
@@ -122,7 +122,7 @@ mailJetResponseMessages
     .then((res: Email.GetResponse) => {
         const responseBody: Email.GetResponseData = res.body;
         const count: number = responseBody.Count;
-        const data: ReadonlyArray<object> = responseBody.Data;
+        const data: readonly object[] = responseBody.Data;
         const total: number = responseBody.Total;
     })
     .catch((err: Error) => {
@@ -148,7 +148,7 @@ mailJetPutResponse
     .then((res: Email.PutResponse) => {
         const responseBody: Email.PutResponseData = res.body;
         const count: number = res.body.Count;
-        const data: ReadonlyArray<object> = res.body.Data;
+        const data: readonly object[] = res.body.Data;
         const total: number = res.body.Total;
     })
     .catch((err: Error) => {
@@ -239,7 +239,7 @@ const smsGetResponsePromise: Promise<SMS.GetResponse> = smsGetResource.request(g
 smsGetResponsePromise
     .then((res: SMS.GetResponse) => {
         const body: SMS.GetResponseData = res.body;
-        const data: ReadonlyArray<SMS.GetResponseDataData> = body.Data;
+        const data: readonly SMS.GetResponseDataData[] = body.Data;
         const from: string = data[0].From;
         const to: string = data[0].To;
         const messageId: string = data[0].MessageId;

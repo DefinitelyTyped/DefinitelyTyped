@@ -29,7 +29,7 @@ export interface GetPolyfillsResponse {
     [name: string]: PolyfillSpec;
 }
 
-export function listAllPolyfills(): Promise<ReadonlyArray<string>>;
+export function listAllPolyfills(): Promise<readonly string[]>;
 
 export function getPolyfillString(options: GetPolyfillStringOptions): Promise<string>;
 

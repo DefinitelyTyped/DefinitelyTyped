@@ -460,7 +460,7 @@ declare module "perf_hooks" {
         observe(
             options:
                 | {
-                    entryTypes: ReadonlyArray<EntryType>;
+                    entryTypes: readonly EntryType[];
                     buffered?: boolean | undefined;
                 }
                 | {

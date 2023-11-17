@@ -25,7 +25,7 @@ declare namespace bindings {
         /* @default exports.getRoot(exports.getFileName()) */
         module_root?: string | undefined;
         /* @default (build/|out/)?(Debug|Release|default) and others */
-        try?: ReadonlyArray<ReadonlyArray<string>> | undefined;
+        try?: ReadonlyArray<readonly string[]> | undefined;
     }
 
     /**

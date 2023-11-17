@@ -5,7 +5,7 @@ interface Options {
     base?: string | undefined;
     noAssets?: boolean | undefined;
     noconcat?: boolean | undefined;
-    additionalStreams?: Array<NodeJS.ReadWriteStream> | undefined;
+    additionalStreams?: NodeJS.ReadWriteStream[] | undefined;
     transformPath?: ((filePath: string) => void) | undefined;
 }
 

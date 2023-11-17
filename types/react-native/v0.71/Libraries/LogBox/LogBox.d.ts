@@ -2,7 +2,7 @@ export interface LogBoxStatic {
     /**
      * Silence any logs that match the given strings or regexes.
      */
-    ignoreLogs(patterns: (string | RegExp)[]): void;
+    ignoreLogs(patterns: Array<string | RegExp>): void;
 
     /**
      * Toggle error and warning notifications

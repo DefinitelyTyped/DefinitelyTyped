@@ -17,7 +17,7 @@ declare module "tspromise" {
         static resolve<T>(value?: T): Thenable<T>;
         static resolve<T>(promise: Thenable<T>): Thenable<T>;
         static reject<T>(error: Error): Thenable<T>;
-        static all(promises: Thenable<any>[]): Thenable<any[]>;
+        static all(promises: Array<Thenable<any>>): Thenable<any[]>;
         static async<TR>(callback: () => TR): () => Thenable<TR>;
         static async<T1, TR>(callback: (p1: T1) => TR): (p1: T1) => Thenable<TR>;
         static async<T1, T2, TR>(callback: (p1: T1, p2: T2) => TR): (p1: T1, p2: T2) => Thenable<TR>;

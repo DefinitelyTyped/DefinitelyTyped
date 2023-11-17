@@ -11,7 +11,7 @@ declare namespace Sha512 {
     function ready(cb: () => void): void;
 
     interface Sha512 {
-        update(input: Uint8Array | ReadonlyArray<number>): this;
+        update(input: Uint8Array | readonly number[]): this;
         update(input: string, encoding?: string): this;
         digest<TBuf extends Uint8Array = Uint8Array>(enc?: TBuf, offset?: number): TBuf;
         digest(enc: string): string;
@@ -23,7 +23,7 @@ declare namespace Sha512 {
     }
 
     interface HMAC {
-        update(input: Uint8Array | ReadonlyArray<number>): this;
+        update(input: Uint8Array | readonly number[]): this;
         update(input: string, encoding?: string): this;
         digest<TBuf extends Uint8Array = Uint8Array>(enc?: TBuf, offset?: number): TBuf;
         digest(enc: string): string;

@@ -8,7 +8,7 @@ export const DEFAULT_ADB_PORT: number;
 
 export interface AdbExecutable {
     path: string;
-    defaultArgs: ReadonlyArray<string>;
+    defaultArgs: readonly string[];
 }
 
 export interface CreateAdbOptions {

@@ -418,7 +418,7 @@ export namespace Animated {
      * following animations will be started.
      */
     export function sequence(
-        animations: Array<CompositeAnimation>,
+        animations: CompositeAnimation[],
     ): CompositeAnimation;
 
     /**
@@ -428,7 +428,7 @@ export namespace Animated {
 
     export function stagger(
         time: number,
-        animations: Array<CompositeAnimation>,
+        animations: CompositeAnimation[],
     ): CompositeAnimation;
 
     /**
@@ -462,7 +462,7 @@ export namespace Animated {
      * this with the `stopTogether` flag.
      */
     export function parallel(
-        animations: Array<CompositeAnimation>,
+        animations: CompositeAnimation[],
         config?: ParallelConfig,
     ): CompositeAnimation;
 

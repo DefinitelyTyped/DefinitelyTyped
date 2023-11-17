@@ -113,7 +113,7 @@ declare const container: HTMLElement;
 // -- Heatmap#setData --
 
 {
-    const validData: ReadonlyArray<h337.DataPoint> = [{ x: 1, y: 2, value: 1 }];
+    const validData: readonly h337.DataPoint[] = [{ x: 1, y: 2, value: 1 }];
 
     const heatmap = h337.create({ container });
     // @ts-expect-error

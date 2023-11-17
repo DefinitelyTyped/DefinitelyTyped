@@ -55,7 +55,7 @@ declare module "angular" {
             /**
              * Actions of the Event
              */
-            actions?: Array<IEventAction> | undefined;
+            actions?: IEventAction[] | undefined;
             /**
              * If edit-event-html is set and this field is explicitly set to false then dont make it editable.
              */

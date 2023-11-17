@@ -58,7 +58,7 @@ export function execFile(
 ): ChildProcess;
 export function execFile(
     file: string,
-    args: ReadonlyArray<string> | null | undefined,
+    args: readonly string[] | null | undefined,
     callback: (error: Error | null, stdout: string, stderr: string) => void,
 ): ChildProcess;
 
@@ -70,7 +70,7 @@ export function execFile(
 ): ChildProcess;
 export function execFile(
     file: string,
-    args: ReadonlyArray<string> | null | undefined,
+    args: readonly string[] | null | undefined,
     options: ExecFileOptionsWithBufferEncoding,
     callback: (error: Error | null, stdout: Buffer, stderr: Buffer) => void,
 ): ChildProcess;
@@ -85,7 +85,7 @@ export function execFile(
 ): ChildProcess;
 export function execFile(
     file: string,
-    args: ReadonlyArray<string> | null | undefined,
+    args: readonly string[] | null | undefined,
     options: ExecFileOptions | ExecFileOptionsWithStringEncoding,
     callback: (error: Error | null, stdout: string, stderr: string) => void,
 ): ChildProcess;
@@ -99,7 +99,7 @@ export function execFile(
 ): ChildProcess;
 export function execFile(
     file: string,
-    args: ReadonlyArray<string> | null | undefined,
+    args: readonly string[] | null | undefined,
     options: ExecFileOptionsWithOtherEncoding | null | undefined,
     callback: (error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => void,
 ): ChildProcess;

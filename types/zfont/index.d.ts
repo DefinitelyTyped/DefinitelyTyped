@@ -6,7 +6,7 @@ export function init(x: typeof zdog): typeof zdog;
 
 declare module "zdog" {
     /** @see {@link https://github.com/jaames/zfont#multiline-text Zfont API} */
-    type MultilineText = string | ReadonlyArray<string>;
+    type MultilineText = string | readonly string[];
 
     /**
      * Horizontal text alignment (equivalent to the CSS `text-align` property).

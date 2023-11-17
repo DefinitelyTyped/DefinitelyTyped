@@ -34,8 +34,8 @@ b4a.byteLength(dv, "utf16le"); // $ExpectType number
 
 b4a.compare(buf, buf); // $ExpectType 0 | 1 | -1
 
-u8a = b4a.concat([buf, buf] as ReadonlyArray<Uint8Array>);
-u8a = b4a.concat([buf, buf] as ReadonlyArray<Uint8Array>, 9999999);
+u8a = b4a.concat([buf, buf] as readonly Uint8Array[]);
+u8a = b4a.concat([buf, buf] as readonly Uint8Array[], 9999999);
 
 b4a.copy(buf, buf); // $ExpectType number
 b4a.copy(buf, buf, 1); // $ExpectType number
@@ -55,7 +55,7 @@ u8a = b4a.from(sb);
 u8a = b4a.from(buf);
 u8a = b4a.from("this is a tést");
 u8a = b4a.from(buf, 1, 2);
-u8a = b4a.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72] as ReadonlyArray<number>);
+u8a = b4a.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72] as readonly number[]);
 // @ts-expect-error
 b4a.from({});
 

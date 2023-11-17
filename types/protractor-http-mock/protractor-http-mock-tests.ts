@@ -187,7 +187,7 @@ function TestTeardown() {
 }
 
 function TestRequestsMade() {
-    let values: Array<mock.ReceivedRequest>;
+    let values: mock.ReceivedRequest[];
     mock.requestsMade().then(v => values = v);
 }
 

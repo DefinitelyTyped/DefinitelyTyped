@@ -30,7 +30,7 @@ function filter() {
         function(doc: any) {
             return doc.id === 1;
         },
-        function(err: IFeedCallbackError, feed: Array<any>, options: IFeedCallbackOptions) {
+        function(err: IFeedCallbackError, feed: any[], options: IFeedCallbackOptions) {
             if (err) throw err;
             if (!__.deleteDocument(feed[0].getSelfLink())) throw new Error("deleteDocument was not accepted");
         },
@@ -130,7 +130,7 @@ function value() {
             .pluck("age")
             .value(
                 { continuation: continuationToken },
-                function(err: IFeedCallbackError, feed: Array<any>, options: IFeedCallbackOptions) {
+                function(err: IFeedCallbackError, feed: any[], options: IFeedCallbackOptions) {
                     if (err) throw err;
                     __.response.setBody({
                         result: feed,
@@ -149,7 +149,7 @@ function value() {
  * by the client until total number of docs desired by the client is imported.
  * @param  {Object[]} docs - Array of documents to import.
  */
-function bulkImport(docs: Array<Object>) {
+function bulkImport(docs: Object[]) {
     var collection: ICollection = getContext().getCollection();
     var collectionLink: string = collection.getSelfLink();
 
@@ -247,7 +247,7 @@ function count(filterQuery: string, continuationToken: string) {
     }
 
     // This is callback is called from collection.queryDocuments/readDocuments.
-    function onReadDocuments(err: IFeedCallbackError, docFeed: Array<any>, responseOptions: IFeedCallbackOptions) {
+    function onReadDocuments(err: IFeedCallbackError, docFeed: any[], responseOptions: IFeedCallbackOptions) {
         if (err) {
             throw "Error while reading document: " + err;
         }
@@ -285,7 +285,7 @@ function simple(prefix: string) {
     var isAccepted: boolean = collection.queryDocuments(
         collection.getSelfLink(),
         "SELECT * FROM root r",
-        function(err: IFeedCallbackError, feed: Array<any>, options: IFeedCallbackOptions) {
+        function(err: IFeedCallbackError, feed: any[], options: IFeedCallbackOptions) {
             if (err) throw err;
 
             // Check the feed and if it's empty, set the body to 'no docs found',
@@ -334,7 +334,7 @@ function bulkDeleteSproc(query: string) {
             collectionLink,
             query,
             requestOptions,
-            function(err: IFeedCallbackError, retrievedDocs: Array<any>, responseOptions: IFeedCallbackOptions) {
+            function(err: IFeedCallbackError, retrievedDocs: any[], responseOptions: IFeedCallbackOptions) {
                 if (err) throw err;
 
                 if (retrievedDocs.length > 0) {
@@ -361,7 +361,7 @@ function bulkDeleteSproc(query: string) {
 
     // Recursively deletes documents passed in as an array argument.
     // Attempts to query for more on empty array.
-    function tryDelete(documents: Array<IDocumentMeta>) {
+    function tryDelete(documents: IDocumentMeta[]) {
         if (documents.length > 0) {
             // Delete the first document in the array.
             var isAccepted: boolean = collection.deleteDocument(documents[0]._self, {}, function(err, responseOptions) {
@@ -446,7 +446,7 @@ function updateSproc(id: string, update: Object) {
             collectionLink,
             query,
             requestOptions,
-            function(err: IFeedCallbackError, documents: Array<any>, responseOptions: IFeedCallbackOptions) {
+            function(err: IFeedCallbackError, documents: any[], responseOptions: IFeedCallbackOptions) {
                 if (err) throw err;
 
                 if (documents.length > 0) {
@@ -511,7 +511,7 @@ function updateSproc(id: string, update: Object) {
     // Operator implementations.
     // The $inc operator increments the value of a field by a specified amount.
     function inc(document: any, update: any) {
-        var fields: Array<string>, i: number;
+        var fields: string[], i: number;
 
         if (update.$inc) {
             fields = Object.keys(update.$inc);
@@ -532,7 +532,7 @@ function updateSproc(id: string, update: Object) {
 
     // The $mul operator multiplies the value of the field by the specified amount.
     function mul(document: any, update: any) {
-        var fields: Array<string>, i: number;
+        var fields: string[], i: number;
 
         if (update.$mul) {
             fields = Object.keys(update.$mul);
@@ -553,7 +553,7 @@ function updateSproc(id: string, update: Object) {
 
     // The $rename operator renames a field.
     function rename(document: any, update: any) {
-        var fields: Array<string>, i: number, existingFieldName: string, newFieldName: string;
+        var fields: string[], i: number, existingFieldName: string, newFieldName: string;
 
         if (update.$rename) {
             fields = Object.keys(update.$rename);
@@ -578,7 +578,7 @@ function updateSproc(id: string, update: Object) {
 
     // The $set operator sets the value of a field.
     function set(document: any, update: any) {
-        var fields: Array<string>, i: number;
+        var fields: string[], i: number;
 
         if (update.$set) {
             fields = Object.keys(update.$set);
@@ -590,7 +590,7 @@ function updateSproc(id: string, update: Object) {
 
     // The $unset operator removes the specified field.
     function unset(document: any, update: any) {
-        var fields: Array<string>, i: number;
+        var fields: string[], i: number;
 
         if (update.$unset) {
             fields = Object.keys(update.$unset);
@@ -602,7 +602,7 @@ function updateSproc(id: string, update: Object) {
 
     // The $min operator only updates the field if the specified value is less than the existing field value.
     function min(document: any, update: any) {
-        var fields: Array<string>, i: number;
+        var fields: string[], i: number;
 
         if (update.$min) {
             fields = Object.keys(update.$min);
@@ -616,7 +616,7 @@ function updateSproc(id: string, update: Object) {
 
     // The $max operator only updates the field if the specified value is greater than the existing field value.
     function max(document: any, update: any) {
-        var fields: Array<string>, i: number;
+        var fields: string[], i: number;
 
         if (update.$max) {
             fields = Object.keys(update.$max);
@@ -631,7 +631,7 @@ function updateSproc(id: string, update: Object) {
     // The $currentDate operator sets the value of a field to current date as a POSIX epoch.
     function currentDate(document: any, update: any) {
         var currentDate: Date = new Date();
-        var fields: Array<string>, i: number;
+        var fields: string[], i: number;
 
         if (update.$currentDate) {
             fields = Object.keys(update.$currentDate);
@@ -644,7 +644,7 @@ function updateSproc(id: string, update: Object) {
 
     // The $addToSet operator adds elements to an array only if they do not already exist in the set.
     function addToSet(document: any, update: any) {
-        var fields: Array<string>, i: number;
+        var fields: string[], i: number;
 
         if (update.$addToSet) {
             fields = Object.keys(update.$addToSet);
@@ -664,7 +664,7 @@ function updateSproc(id: string, update: Object) {
     // The $pop operator removes the first or last item of an array.
     // Pass $pop a value of -1 to remove the first element of an array and 1 to remove the last element in an array.
     function pop(document: any, update: any) {
-        var fields: Array<string>, i: number;
+        var fields: string[], i: number;
 
         if (update.$pop) {
             fields = Object.keys(update.$pop);
@@ -686,7 +686,7 @@ function updateSproc(id: string, update: Object) {
 
     // The $push operator adds an item to an array.
     function push(document: any, update: any) {
-        var fields: Array<string>, i: number;
+        var fields: string[], i: number;
 
         if (update.$push) {
             fields = Object.keys(update.$push);
@@ -727,7 +727,7 @@ function validateClass() {
         if (!day || !day.length || day.length < 3) throw new Error("Bad input: " + day);
 
         // Try to see if we can canonicalize the day.
-        var days: Array<string> = ["Monday", "Tuesday", "Wednesday", "Friday", "Saturday", "Sunday"];
+        var days: string[] = ["Monday", "Tuesday", "Wednesday", "Friday", "Saturday", "Sunday"];
         var fullDay: string;
         days.forEach(function(x: string) {
             if (day.substring(0, 3).toLowerCase() == x.substring(0, 3).toLowerCase()) fullDay = x;
@@ -765,7 +765,7 @@ function updateMetadata() {
         var isAccepted: boolean = collection.queryDocuments(
             collectionLink,
             "SELECT * FROM root r WHERE r.isMetadata = true",
-            function(err: IFeedCallbackError, feed: Array<any>, options: IFeedCallbackOptions) {
+            function(err: IFeedCallbackError, feed: any[], options: IFeedCallbackOptions) {
                 if (err) throw err;
                 if (!feed || !feed.length) throw new Error("Failed to find the metadata document.");
 

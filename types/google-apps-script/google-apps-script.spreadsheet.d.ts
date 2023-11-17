@@ -1705,7 +1705,7 @@ declare namespace GoogleAppsScript {
             getDataTable(): Charts.DataTable;
             getDataTable(firstRowIsHeader: boolean): Charts.DataTable;
             getDataValidation(): DataValidation | null;
-            getDataValidations(): (DataValidation | null)[][];
+            getDataValidations(): Array<Array<DataValidation | null>>;
             getDeveloperMetadata(): DeveloperMetadata[];
             getDisplayValue(): string;
             getDisplayValues(): string[][];
@@ -1725,7 +1725,7 @@ declare namespace GoogleAppsScript {
             getFormula(): string;
             getFormulaR1C1(): string | null;
             getFormulas(): string[][];
-            getFormulasR1C1(): (string | null)[][];
+            getFormulasR1C1(): Array<Array<string | null>>;
             getGridId(): Integer;
             getHeight(): Integer;
             getHorizontalAlignment(): string;
@@ -1741,12 +1741,12 @@ declare namespace GoogleAppsScript {
             getNumberFormat(): string;
             getNumberFormats(): string[][];
             getRichTextValue(): RichTextValue | null;
-            getRichTextValues(): (RichTextValue | null)[][];
+            getRichTextValues(): Array<Array<RichTextValue | null>>;
             getRow(): Integer;
             getRowIndex(): Integer;
             getSheet(): Sheet;
             getTextDirection(): TextDirection | null;
-            getTextDirections(): (TextDirection | null)[][];
+            getTextDirections(): Array<Array<TextDirection | null>>;
             getTextRotation(): TextRotation;
             getTextRotations(): TextRotation[][];
             getTextStyle(): TextStyle;
@@ -1785,7 +1785,7 @@ declare namespace GoogleAppsScript {
             removeDuplicates(columnsToCompare: Integer[]): Range;
             setBackground(color: string | null): Range;
             setBackgroundRGB(red: Integer, green: Integer, blue: Integer): Range;
-            setBackgrounds(color: (string | null)[][]): Range;
+            setBackgrounds(color: Array<Array<string | null>>): Range;
             setBorder(
                 top: boolean | null,
                 left: boolean | null,
@@ -1805,36 +1805,36 @@ declare namespace GoogleAppsScript {
                 style: BorderStyle | null,
             ): Range;
             setDataValidation(rule: DataValidation | null): Range;
-            setDataValidations(rules: (DataValidation | null)[][]): Range;
+            setDataValidations(rules: Array<Array<DataValidation | null>>): Range;
             setFontColor(color: string | null): Range;
             setFontColorObject(color: Color | null): Range;
-            setFontColorObjects(colors: (Color | null)[][]): Range;
+            setFontColorObjects(colors: Array<Array<Color | null>>): Range;
             setFontColors(colors: any[][]): Range;
-            setFontFamilies(fontFamilies: (string | null)[][]): Range;
+            setFontFamilies(fontFamilies: Array<Array<string | null>>): Range;
             setFontFamily(fontFamily: string | null): Range;
             setFontLine(fontLine: FontLine | null): Range;
-            setFontLines(fontLines: (FontLine | null)[][]): Range;
+            setFontLines(fontLines: Array<Array<FontLine | null>>): Range;
             setFontSize(size: Integer): Range;
             setFontSizes(sizes: Integer[][]): Range;
             setFontStyle(fontStyle: FontStyle | null): Range;
-            setFontStyles(fontStyles: (FontStyle | null)[][]): Range;
+            setFontStyles(fontStyles: Array<Array<FontStyle | null>>): Range;
             setFontWeight(fontWeight: FontWeight | null): Range;
-            setFontWeights(fontWeights: (FontWeight | null)[][]): Range;
+            setFontWeights(fontWeights: Array<Array<FontWeight | null>>): Range;
             setFormula(formula: string): Range;
             setFormulaR1C1(formula: string): Range;
             setFormulas(formulas: string[][]): Range;
             setFormulasR1C1(formulas: string[][]): Range;
             setHorizontalAlignment(alignment: "left" | "center" | "normal" | "right" | null): Range;
-            setHorizontalAlignments(alignments: ("left" | "center" | "normal" | "right" | null)[][]): Range;
+            setHorizontalAlignments(alignments: Array<Array<"left" | "center" | "normal" | "right" | null>>): Range;
             setNote(note: string | null): Range;
-            setNotes(notes: (string | null)[][]): Range;
+            setNotes(notes: Array<Array<string | null>>): Range;
             setNumberFormat(numberFormat: string): Range;
             setNumberFormats(numberFormats: string[][]): Range;
             setRichTextValue(value: RichTextValue): Range;
             setRichTextValues(values: RichTextValue[][]): Range;
             setShowHyperlink(showHyperlink: boolean): Range;
             setTextDirection(direction: TextDirection | null): Range;
-            setTextDirections(directions: (TextDirection | null)[][]): Range;
+            setTextDirections(directions: Array<Array<TextDirection | null>>): Range;
             setTextRotation(degrees: Integer): Range;
             setTextRotation(rotation: TextRotation): Range;
             setTextRotations(rotations: TextRotation[][]): Range;
@@ -1843,7 +1843,7 @@ declare namespace GoogleAppsScript {
             setValue(value: any): Range;
             setValues(values: any[][]): Range;
             setVerticalAlignment(alignment: "top" | "middle" | "bottom" | null): Range;
-            setVerticalAlignments(alignments: ("top" | "middle" | "bottom" | null)[][]): Range;
+            setVerticalAlignments(alignments: Array<Array<"top" | "middle" | "bottom" | null>>): Range;
             setVerticalText(isVertical: boolean): Range;
             setWrap(isWrapEnabled: boolean): Range;
             setWrapStrategies(strategies: WrapStrategy[][]): Range;
@@ -2211,7 +2211,7 @@ declare namespace GoogleAppsScript {
             addEditor(emailAddress: string): Spreadsheet;
             addEditor(user: Base.User): Spreadsheet;
             addEditors(emailAddresses: string[]): Spreadsheet;
-            addMenu(name: string, subMenus: ({ name: string; functionName: string } | null)[]): void;
+            addMenu(name: string, subMenus: Array<{ name: string; functionName: string } | null>): void;
             addViewer(emailAddress: string): Spreadsheet;
             addViewer(user: Base.User): Spreadsheet;
             addViewers(emailAddresses: string[]): Spreadsheet;
@@ -2342,7 +2342,7 @@ declare namespace GoogleAppsScript {
             toast(msg: string, title: string, timeoutSeconds: number | null): void;
             unhideColumn(column: Range): void;
             unhideRow(row: Range): void;
-            updateMenu(name: string, subMenus: { name: string; functionName: string }[]): void;
+            updateMenu(name: string, subMenus: Array<{ name: string; functionName: string }>): void;
             /** @deprecated DO NOT USE */ getSheetProtection(): PageProtection;
             /** @deprecated DO NOT USE */ isAnonymousView(): boolean;
             /** @deprecated DO NOT USE */ isAnonymousWrite(): boolean;

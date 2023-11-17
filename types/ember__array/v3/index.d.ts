@@ -21,7 +21,7 @@ interface Array<T> extends Enumerable<T> {
      * This returns the objects at the specified indexes, using `objectAt`.
      */
     // tslint:disable-next-line:array-type
-    objectsAt(indexes: number[]): Array<T>;
+    objectsAt(indexes: number[]): T[];
     /**
      * Returns a new array that is a slice of the receiver. This implementation
      * uses the observable array methods to retrieve the objects for the new
@@ -82,7 +82,7 @@ interface Array<T> extends Enumerable<T> {
 }
 // Ember.Array rather than Array because the `array-type` lint rule doesn't realize the global is shadowed
 // tslint:disable-next-line:array-type
-declare const Array: Mixin<Array<any>>;
+declare const Array: Mixin<any[]>;
 export default Array;
 
 /**

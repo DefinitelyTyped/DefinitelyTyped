@@ -38,7 +38,7 @@ export type StyletronGetInitialStyle = () => StyleObject;
 export type StyletronWrapper = (fc: React.FC<any>) => React.ComponentType<any>;
 
 export interface Styletron {
-    reducers: ReadonlyArray<ReducerContainer>;
+    reducers: readonly ReducerContainer[];
     base: StyletronBase;
     driver: StyletronDriver;
     wrapper: StyletronWrapper;
@@ -199,6 +199,6 @@ export function createDeepMergeReducer(style: StyleObject): AssignmentCommutativ
 // Utility functions
 export function resolveStyle(
     getInitialStyle: () => StyleObject,
-    reducers: ReadonlyArray<ReducerContainer>,
+    reducers: readonly ReducerContainer[],
     props: object,
 ): StyleObject;

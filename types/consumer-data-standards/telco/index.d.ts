@@ -342,7 +342,7 @@ export interface MetaPaginated {
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
 export interface ResponseErrorListV2 {
-    errors: {
+    errors: Array<{
         /**
          * The code of the error encountered. Where the error is specific to the respondent, an application-specific error code, expressed as a string value. If the error is application-specific, the URN code that the specific error extends must be provided in the meta object. Otherwise, the value is the error code URN.
          */
@@ -366,7 +366,7 @@ export interface ResponseErrorListV2 {
          */
         title: string;
         [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
@@ -378,7 +378,7 @@ export interface TelcoAccount {
     /**
      * The array of plans containing service and associated plan details
      */
-    plans: {
+    plans: Array<{
         /**
          * The billing type of then plan
          */
@@ -414,7 +414,7 @@ export interface TelcoAccount {
          */
         type: "MOBILE" | "BROADBAND";
         [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
@@ -459,7 +459,7 @@ export interface TelcoAccountDetail {
     /**
      * The array of plans containing services and associated plan details
      */
-    plans: ({
+    plans: Array<{
         /**
          * The billing type of then plan
          */
@@ -500,7 +500,7 @@ export interface TelcoAccountDetail {
             /**
              * Charges for metering included in the plan
              */
-            charges: {
+            charges: Array<{
                 /**
                  * Description of the charge
                  */
@@ -522,11 +522,11 @@ export interface TelcoAccountDetail {
                  */
                 period?: string | null;
                 [k: string]: unknown;
-            }[];
+            }>;
             [k: string]: unknown;
         };
         [k: string]: unknown;
-    })[];
+    }>;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
@@ -591,7 +591,7 @@ export interface TelcoAccountDetailResponse {
         /**
          * The array of plans containing service and associated plan details
          */
-        plans: {
+        plans: Array<{
             /**
              * The billing type of then plan
              */
@@ -627,13 +627,13 @@ export interface TelcoAccountDetailResponse {
              */
             type: "MOBILE" | "BROADBAND";
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     } & {
         /**
          * The array of plans containing services and associated plan details
          */
-        plans: ({
+        plans: Array<{
             /**
              * The billing type of then plan
              */
@@ -674,7 +674,7 @@ export interface TelcoAccountDetailResponse {
                 /**
                  * Charges for metering included in the plan
                  */
-                charges: {
+                charges: Array<{
                     /**
                      * Description of the charge
                      */
@@ -696,11 +696,11 @@ export interface TelcoAccountDetailResponse {
                      */
                     period?: string | null;
                     [k: string]: unknown;
-                }[];
+                }>;
                 [k: string]: unknown;
             };
             [k: string]: unknown;
-        })[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -751,7 +751,7 @@ export type TelcoAccountDetailResponseData = {
     /**
      * The array of plans containing service and associated plan details
      */
-    plans: {
+    plans: Array<{
         /**
          * The billing type of then plan
          */
@@ -787,13 +787,13 @@ export type TelcoAccountDetailResponseData = {
          */
         type: "MOBILE" | "BROADBAND";
         [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
 } & {
     /**
      * The array of plans containing services and associated plan details
      */
-    plans: ({
+    plans: Array<{
         /**
          * The billing type of then plan
          */
@@ -834,7 +834,7 @@ export type TelcoAccountDetailResponseData = {
             /**
              * Charges for metering included in the plan
              */
-            charges: {
+            charges: Array<{
                 /**
                  * Description of the charge
                  */
@@ -856,11 +856,11 @@ export type TelcoAccountDetailResponseData = {
                  */
                 period?: string | null;
                 [k: string]: unknown;
-            }[];
+            }>;
             [k: string]: unknown;
         };
         [k: string]: unknown;
-    })[];
+    }>;
     [k: string]: unknown;
 };
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
@@ -870,7 +870,7 @@ export interface TelcoAccountListResponse {
         /**
          * Array of accounts
          */
-        accounts: ({
+        accounts: Array<{
             /**
              * The ID of the account. To be created in accordance with [CDR ID permanence](#id-permanence) requirements
              */
@@ -904,7 +904,7 @@ export interface TelcoAccountListResponse {
             /**
              * The array of plans containing service and associated plan details
              */
-            plans: {
+            plans: Array<{
                 /**
                  * The billing type of then plan
                  */
@@ -940,9 +940,9 @@ export interface TelcoAccountListResponse {
                  */
                 type: "MOBILE" | "BROADBAND";
                 [k: string]: unknown;
-            }[];
+            }>;
             [k: string]: unknown;
-        })[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -987,7 +987,7 @@ export interface TelcoAccountListResponseData {
     /**
      * Array of accounts
      */
-    accounts: ({
+    accounts: Array<{
         /**
          * The ID of the account. To be created in accordance with [CDR ID permanence](#id-permanence) requirements
          */
@@ -1021,7 +1021,7 @@ export interface TelcoAccountListResponseData {
         /**
          * The array of plans containing service and associated plan details
          */
-        plans: {
+        plans: Array<{
             /**
              * The billing type of then plan
              */
@@ -1057,9 +1057,9 @@ export interface TelcoAccountListResponseData {
              */
             type: "MOBILE" | "BROADBAND";
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
-    })[];
+    }>;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
@@ -1111,7 +1111,7 @@ export interface TelcoAccountPlanDetail {
         /**
          * Charges for metering included in the plan
          */
-        charges: {
+        charges: Array<{
             /**
              * Description of the charge
              */
@@ -1133,7 +1133,7 @@ export interface TelcoAccountPlanDetail {
              */
             period?: string | null;
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     [k: string]: unknown;
@@ -1194,7 +1194,7 @@ export type TelcoAccountResponseData = {
     /**
      * The array of plans containing service and associated plan details
      */
-    plans: {
+    plans: Array<{
         /**
          * The billing type of then plan
          */
@@ -1230,7 +1230,7 @@ export type TelcoAccountResponseData = {
          */
         type: "MOBILE" | "BROADBAND";
         [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
 };
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
@@ -1243,7 +1243,7 @@ export interface TelcoAccountUsage {
     /**
      * List of services that are part of the account
      */
-    services: {
+    services: Array<{
         service: {
             /**
              * Optional description of the service used for display purposes
@@ -1420,7 +1420,7 @@ export interface TelcoAccountUsage {
             [k: string]: unknown;
         };
         [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
@@ -1640,7 +1640,7 @@ export interface TelcoBalance {
     /**
      * Summary of balances
      */
-    services: {
+    services: Array<{
         /**
          * A summary of Service balances
          */
@@ -1850,7 +1850,7 @@ export interface TelcoBalance {
          */
         startDate?: string | null;
         [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
@@ -1860,7 +1860,7 @@ export interface TelcoBalanceListResponse {
         /**
          * Array of account balances
          */
-        balances: {
+        balances: Array<{
             /**
              * The ID of the account. In accordance with [CDR ID permanence](#id-permanence) requirements
              */
@@ -1872,7 +1872,7 @@ export interface TelcoBalanceListResponse {
                 /**
                  * Summary of balances
                  */
-                services: {
+                services: Array<{
                     /**
                      * A summary of Service balances
                      */
@@ -2082,11 +2082,11 @@ export interface TelcoBalanceListResponse {
                      */
                     startDate?: string | null;
                     [k: string]: unknown;
-                }[];
+                }>;
                 [k: string]: unknown;
             };
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -2131,7 +2131,7 @@ export interface TelcoBalanceListResponseData {
     /**
      * Array of account balances
      */
-    balances: {
+    balances: Array<{
         /**
          * The ID of the account. In accordance with [CDR ID permanence](#id-permanence) requirements
          */
@@ -2143,7 +2143,7 @@ export interface TelcoBalanceListResponseData {
             /**
              * Summary of balances
              */
-            services: {
+            services: Array<{
                 /**
                  * A summary of Service balances
                  */
@@ -2353,11 +2353,11 @@ export interface TelcoBalanceListResponseData {
                  */
                 startDate?: string | null;
                 [k: string]: unknown;
-            }[];
+            }>;
             [k: string]: unknown;
         };
         [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
@@ -2370,7 +2370,7 @@ export interface TelcoBalanceResponse {
         /**
          * Summary of balances
          */
-        services: {
+        services: Array<{
             /**
              * A summary of Service balances
              */
@@ -2580,7 +2580,7 @@ export interface TelcoBalanceResponse {
              */
             startDate?: string | null;
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -2609,7 +2609,7 @@ export interface TelcoBalanceResponseData {
         /**
          * Summary of balances
          */
-        services: {
+        services: Array<{
             /**
              * A summary of Service balances
              */
@@ -2819,7 +2819,7 @@ export interface TelcoBalanceResponseData {
              */
             startDate?: string | null;
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     [k: string]: unknown;
@@ -2831,7 +2831,7 @@ export interface TelcoBillingAccountTransaction {
      * Optional array of adjustments arising for this transaction
      */
     adjustments?:
-        | {
+        | Array<{
             /**
              * The amount of the adjustment
              */
@@ -2841,7 +2841,7 @@ export interface TelcoBillingAccountTransaction {
              */
             description: string;
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     /**
      * The amount charged or credited for this transaction prior to any adjustments being applied.  A negative value indicates a credit
@@ -2910,7 +2910,7 @@ export interface TelcoBillingOtherTransaction {
      * Optional array of adjustments arising for this transaction
      */
     adjustments?:
-        | {
+        | Array<{
             /**
              * The amount of the adjustment
              */
@@ -2920,7 +2920,7 @@ export interface TelcoBillingOtherTransaction {
              */
             description: string;
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     /**
      * The amount of the charge
@@ -2973,7 +2973,7 @@ export interface TelcoBillingTransaction {
          * Optional array of adjustments arising for this transaction
          */
         adjustments?:
-            | {
+            | Array<{
                 /**
                  * The amount of the adjustment
                  */
@@ -2983,7 +2983,7 @@ export interface TelcoBillingTransaction {
                  */
                 description: string;
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         /**
          * The amount charged or credited for this transaction prior to any adjustments being applied.  A negative value indicates a credit
@@ -3047,7 +3047,7 @@ export interface TelcoBillingTransaction {
          * Optional array of adjustments arising for this transaction
          */
         adjustments?:
-            | {
+            | Array<{
                 /**
                  * The amount of the adjustment
                  */
@@ -3057,7 +3057,7 @@ export interface TelcoBillingTransaction {
                  */
                 description: string;
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         /**
          * The amount of the charge
@@ -3124,7 +3124,7 @@ export interface TelcoConcession {
     /**
      * Array of ENUM's to specify what the concession applies to. Multiple ENUM values can be provided. If absent, USAGE is assumed
      */
-    appliedTo?: ("INVOICE" | "USAGE")[] | null;
+    appliedTo?: Array<"INVOICE" | "USAGE"> | null;
     /**
      * Conditional attribute for frequency at which a concession is applied. Required if type is FIXED_AMOUNT or FIXED_PERCENTAGE. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
      */
@@ -3158,7 +3158,7 @@ export interface TelcoConcessionsResponse {
         /**
          * Array may be empty if no concessions exist
          */
-        concessions: {
+        concessions: Array<{
             /**
              * Display text providing more information on the concession
              */
@@ -3174,7 +3174,7 @@ export interface TelcoConcessionsResponse {
             /**
              * Array of ENUM's to specify what the concession applies to. Multiple ENUM values can be provided. If absent, USAGE is assumed
              */
-            appliedTo?: ("INVOICE" | "USAGE")[] | null;
+            appliedTo?: Array<"INVOICE" | "USAGE"> | null;
             /**
              * Conditional attribute for frequency at which a concession is applied. Required if type is FIXED_AMOUNT or FIXED_PERCENTAGE. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
              */
@@ -3200,7 +3200,7 @@ export interface TelcoConcessionsResponse {
              */
             type: "CONCESSION" | "REBATE" | "GRANT";
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -3245,7 +3245,7 @@ export interface TelcoConcessionsResponseData {
     /**
      * Array may be empty if no concessions exist
      */
-    concessions: {
+    concessions: Array<{
         /**
          * Display text providing more information on the concession
          */
@@ -3261,7 +3261,7 @@ export interface TelcoConcessionsResponseData {
         /**
          * Array of ENUM's to specify what the concession applies to. Multiple ENUM values can be provided. If absent, USAGE is assumed
          */
-        appliedTo?: ("INVOICE" | "USAGE")[] | null;
+        appliedTo?: Array<"INVOICE" | "USAGE"> | null;
         /**
          * Conditional attribute for frequency at which a concession is applied. Required if type is FIXED_AMOUNT or FIXED_PERCENTAGE. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
          */
@@ -3287,7 +3287,7 @@ export interface TelcoConcessionsResponseData {
          */
         type: "CONCESSION" | "REBATE" | "GRANT";
         [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
@@ -3684,7 +3684,7 @@ export interface TelcoInvoiceListResponse {
         /**
          * Array of invoices sorted by issue date in descending order
          */
-        invoices: {
+        invoices: Array<{
             /**
              * Object contain charges and credits related to usage
              */
@@ -3958,7 +3958,7 @@ export interface TelcoInvoiceListResponse {
              */
             services: string[];
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -4003,7 +4003,7 @@ export interface TelcoInvoiceListResponseData {
     /**
      * Array of invoices sorted by issue date in descending order
      */
-    invoices: {
+    invoices: Array<{
         /**
          * Object contain charges and credits related to usage
          */
@@ -4277,7 +4277,7 @@ export interface TelcoInvoiceListResponseData {
          */
         services: string[];
         [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
@@ -4323,7 +4323,7 @@ export interface TelcoInvoiceResponse {
         /**
          * Array of invoices sorted by issue date in descending order
          */
-        invoices: {
+        invoices: Array<{
             /**
              * Object contain charges and credits related to usage
              */
@@ -4597,7 +4597,7 @@ export interface TelcoInvoiceResponse {
              */
             services: string[];
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -4808,7 +4808,7 @@ export interface TelcoPaymentScheduleResponse {
         /**
          * Array may be empty if no payment schedule exist
          */
-        paymentSchedules: {
+        paymentSchedules: Array<{
             /**
              * Optional payment amount indicating that a constant payment amount is scheduled to be paid (used in bill smooting scenarios)
              */
@@ -4902,7 +4902,7 @@ export interface TelcoPaymentScheduleResponse {
              */
             paymentScheduleUType: "cardDebit" | "directDebit" | "manualPayment" | "digitalWallet";
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -4947,7 +4947,7 @@ export interface TelcoPaymentScheduleResponseData {
     /**
      * Array may be empty if no payment schedule exist
      */
-    paymentSchedules: {
+    paymentSchedules: Array<{
         /**
          * Optional payment amount indicating that a constant payment amount is scheduled to be paid (used in bill smooting scenarios)
          */
@@ -5041,7 +5041,7 @@ export interface TelcoPaymentScheduleResponseData {
          */
         paymentScheduleUType: "cardDebit" | "directDebit" | "manualPayment" | "digitalWallet";
         [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
@@ -5144,7 +5144,7 @@ export interface TelcoProduct {
     /**
      * List of pricing details for the product plan
      */
-    pricing: {
+    pricing: Array<{
         /**
          * The amount charged for the duration period
          */
@@ -5162,7 +5162,7 @@ export interface TelcoProduct {
          */
         period?: string | null;
         [k: string]: unknown;
-    }[];
+    }>;
     /**
      * The ID of the specific product
      */
@@ -5192,7 +5192,7 @@ export interface TelcoProductDetail {
      * Bundles the product can be part of
      */
     bundles?:
-        | {
+        | Array<{
             /**
              * The URI of the product bundle
              */
@@ -5209,7 +5209,7 @@ export interface TelcoProductDetail {
              * Optional list of features of the bundle
              */
             features?:
-                | {
+                | Array<{
                     /**
                      * The type of the feature
                      */
@@ -5236,16 +5236,16 @@ export interface TelcoProductDetail {
                      */
                     displayName: string;
                     [k: string]: unknown;
-                }[]
+                }>
                 | null;
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     /**
      * Discounts associated to the product
      */
     discounts?:
-        | {
+        | Array<{
             /**
              * The description name of the product plan
              */
@@ -5262,7 +5262,7 @@ export interface TelcoProductDetail {
              * Optional list of features of the discount
              */
             features?:
-                | {
+                | Array<{
                     /**
                      * The description of the discount feature
                      */
@@ -5272,16 +5272,16 @@ export interface TelcoProductDetail {
                      */
                     displayName: string;
                     [k: string]: unknown;
-                }[]
+                }>
                 | null;
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     /**
      * Incentives associated to the product
      */
     incentives?:
-        | {
+        | Array<{
             /**
              * The description of the incentive
              */
@@ -5294,7 +5294,7 @@ export interface TelcoProductDetail {
              * Optional list of features of the incentive
              */
             features?:
-                | {
+                | Array<{
                     /**
                      * The description of the incentive feature
                      */
@@ -5304,20 +5304,20 @@ export interface TelcoProductDetail {
                      */
                     displayName: string;
                     [k: string]: unknown;
-                }[]
+                }>
                 | null;
             /**
              * The URI of the incentive
              */
             incentiveUri?: string | null;
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     /**
      * Charges for metering included in the plan
      */
     meteringCharges?:
-        | {
+        | Array<{
             /**
              * Description of the charge
              */
@@ -5339,13 +5339,13 @@ export interface TelcoProductDetail {
              */
             period?: string | null;
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     /**
      * Plans associated to the product
      */
     plans?:
-        | {
+        | Array<{
             /**
              * The display name of the product plan
              */
@@ -5358,7 +5358,7 @@ export interface TelcoProductDetail {
              * Optional list of features of the plan
              */
             features?:
-                | {
+                | Array<{
                     /**
                      * The description of the feature
                      */
@@ -5368,14 +5368,14 @@ export interface TelcoProductDetail {
                      */
                     displayName: string;
                     [k: string]: unknown;
-                }[]
+                }>
                 | null;
             /**
              * The URI of the product plan
              */
             planUri?: string | null;
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     [k: string]: unknown;
 }
@@ -5398,7 +5398,7 @@ export interface TelcoProductDetailBundles {
      * Optional list of features of the bundle
      */
     features?:
-        | {
+        | Array<{
             /**
              * The type of the feature
              */
@@ -5425,7 +5425,7 @@ export interface TelcoProductDetailBundles {
              */
             displayName: string;
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     [k: string]: unknown;
 }
@@ -5461,7 +5461,7 @@ export interface TelcoProductDetailDiscounts {
      * Optional list of features of the discount
      */
     features?:
-        | {
+        | Array<{
             /**
              * The description of the discount feature
              */
@@ -5471,7 +5471,7 @@ export interface TelcoProductDetailDiscounts {
              */
             displayName: string;
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     [k: string]: unknown;
 }
@@ -5533,7 +5533,7 @@ export interface TelcoProductDetailIncentives {
      * Optional list of features of the incentive
      */
     features?:
-        | {
+        | Array<{
             /**
              * The description of the incentive feature
              */
@@ -5543,7 +5543,7 @@ export interface TelcoProductDetailIncentives {
              */
             displayName: string;
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     /**
      * The URI of the incentive
@@ -5591,7 +5591,7 @@ export interface TelcoProductDetailPlan {
      * Optional list of features of the plan
      */
     features?:
-        | {
+        | Array<{
             /**
              * The description of the feature
              */
@@ -5601,7 +5601,7 @@ export interface TelcoProductDetailPlan {
              */
             displayName: string;
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     /**
      * The URI of the product plan
@@ -5629,7 +5629,7 @@ export interface TelcoProductListResponse {
         /**
          * Array of Products
          */
-        plans: {
+        plans: Array<{
             /**
              * Object that contains links to additional information on specific topics
              */
@@ -5721,7 +5721,7 @@ export interface TelcoProductListResponse {
             /**
              * List of pricing details for the product plan
              */
-            pricing: {
+            pricing: Array<{
                 /**
                  * The amount charged for the duration period
                  */
@@ -5739,7 +5739,7 @@ export interface TelcoProductListResponse {
                  */
                 period?: string | null;
                 [k: string]: unknown;
-            }[];
+            }>;
             /**
              * The ID of the specific product
              */
@@ -5761,7 +5761,7 @@ export interface TelcoProductListResponse {
              */
             type: "MOBILE" | "BROADBAND";
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -5806,7 +5806,7 @@ export interface TelcoProductListResponseData {
     /**
      * Array of Products
      */
-    plans: {
+    plans: Array<{
         /**
          * Object that contains links to additional information on specific topics
          */
@@ -5898,7 +5898,7 @@ export interface TelcoProductListResponseData {
         /**
          * List of pricing details for the product plan
          */
-        pricing: {
+        pricing: Array<{
             /**
              * The amount charged for the duration period
              */
@@ -5916,7 +5916,7 @@ export interface TelcoProductListResponseData {
              */
             period?: string | null;
             [k: string]: unknown;
-        }[];
+        }>;
         /**
          * The ID of the specific product
          */
@@ -5938,7 +5938,7 @@ export interface TelcoProductListResponseData {
          */
         type: "MOBILE" | "BROADBAND";
         [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
@@ -6057,7 +6057,7 @@ export interface TelcoProductResponse {
         /**
          * List of pricing details for the product plan
          */
-        pricing: {
+        pricing: Array<{
             /**
              * The amount charged for the duration period
              */
@@ -6075,7 +6075,7 @@ export interface TelcoProductResponse {
              */
             period?: string | null;
             [k: string]: unknown;
-        }[];
+        }>;
         /**
          * The ID of the specific product
          */
@@ -6102,7 +6102,7 @@ export interface TelcoProductResponse {
          * Bundles the product can be part of
          */
         bundles?:
-            | {
+            | Array<{
                 /**
                  * The URI of the product bundle
                  */
@@ -6119,7 +6119,7 @@ export interface TelcoProductResponse {
                  * Optional list of features of the bundle
                  */
                 features?:
-                    | {
+                    | Array<{
                         /**
                          * The type of the feature
                          */
@@ -6146,16 +6146,16 @@ export interface TelcoProductResponse {
                          */
                         displayName: string;
                         [k: string]: unknown;
-                    }[]
+                    }>
                     | null;
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         /**
          * Discounts associated to the product
          */
         discounts?:
-            | {
+            | Array<{
                 /**
                  * The description name of the product plan
                  */
@@ -6172,7 +6172,7 @@ export interface TelcoProductResponse {
                  * Optional list of features of the discount
                  */
                 features?:
-                    | {
+                    | Array<{
                         /**
                          * The description of the discount feature
                          */
@@ -6182,16 +6182,16 @@ export interface TelcoProductResponse {
                          */
                         displayName: string;
                         [k: string]: unknown;
-                    }[]
+                    }>
                     | null;
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         /**
          * Incentives associated to the product
          */
         incentives?:
-            | {
+            | Array<{
                 /**
                  * The description of the incentive
                  */
@@ -6204,7 +6204,7 @@ export interface TelcoProductResponse {
                  * Optional list of features of the incentive
                  */
                 features?:
-                    | {
+                    | Array<{
                         /**
                          * The description of the incentive feature
                          */
@@ -6214,20 +6214,20 @@ export interface TelcoProductResponse {
                          */
                         displayName: string;
                         [k: string]: unknown;
-                    }[]
+                    }>
                     | null;
                 /**
                  * The URI of the incentive
                  */
                 incentiveUri?: string | null;
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         /**
          * Charges for metering included in the plan
          */
         meteringCharges?:
-            | {
+            | Array<{
                 /**
                  * Description of the charge
                  */
@@ -6249,13 +6249,13 @@ export interface TelcoProductResponse {
                  */
                 period?: string | null;
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         /**
          * Plans associated to the product
          */
         plans?:
-            | {
+            | Array<{
                 /**
                  * The display name of the product plan
                  */
@@ -6268,7 +6268,7 @@ export interface TelcoProductResponse {
                  * Optional list of features of the plan
                  */
                 features?:
-                    | {
+                    | Array<{
                         /**
                          * The description of the feature
                          */
@@ -6278,14 +6278,14 @@ export interface TelcoProductResponse {
                          */
                         displayName: string;
                         [k: string]: unknown;
-                    }[]
+                    }>
                     | null;
                 /**
                  * The URI of the product plan
                  */
                 planUri?: string | null;
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         [k: string]: unknown;
     };
@@ -7232,7 +7232,7 @@ export interface TelcoServiceUsage {
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
 
 export interface TelcoServiceUsageListResponse {
-    data: {
+    data: Array<{
         /**
          * Optional description of the service used for display purposes
          */
@@ -7406,7 +7406,7 @@ export interface TelcoServiceUsageListResponse {
             [k: string]: unknown;
         };
         [k: string]: unknown;
-    }[];
+    }>;
     links: {
         /**
          * URI to the first page of this set. Mandatory if this response is not the first page
@@ -7640,13 +7640,13 @@ export interface TelcoTransactionListResponse {
         /**
          * Array of transactions sorted by date and time in descending order
          */
-        transactions: {
+        transactions: Array<{
             account?: {
                 /**
                  * Optional array of adjustments arising for this transaction
                  */
                 adjustments?:
-                    | {
+                    | Array<{
                         /**
                          * The amount of the adjustment
                          */
@@ -7656,7 +7656,7 @@ export interface TelcoTransactionListResponse {
                          */
                         description: string;
                         [k: string]: unknown;
-                    }[]
+                    }>
                     | null;
                 /**
                  * The amount charged or credited for this transaction prior to any adjustments being applied.  A negative value indicates a credit
@@ -7720,7 +7720,7 @@ export interface TelcoTransactionListResponse {
                  * Optional array of adjustments arising for this transaction
                  */
                 adjustments?:
-                    | {
+                    | Array<{
                         /**
                          * The amount of the adjustment
                          */
@@ -7730,7 +7730,7 @@ export interface TelcoTransactionListResponse {
                          */
                         description: string;
                         [k: string]: unknown;
-                    }[]
+                    }>
                     | null;
                 /**
                  * The amount of the charge
@@ -7778,7 +7778,7 @@ export interface TelcoTransactionListResponse {
              */
             transactionUType: "account" | "onceOff" | "otherCharges" | "payment";
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -7823,13 +7823,13 @@ export interface TelcoTransactionListResponseData {
     /**
      * Array of transactions sorted by date and time in descending order
      */
-    transactions: {
+    transactions: Array<{
         account?: {
             /**
              * Optional array of adjustments arising for this transaction
              */
             adjustments?:
-                | {
+                | Array<{
                     /**
                      * The amount of the adjustment
                      */
@@ -7839,7 +7839,7 @@ export interface TelcoTransactionListResponseData {
                      */
                     description: string;
                     [k: string]: unknown;
-                }[]
+                }>
                 | null;
             /**
              * The amount charged or credited for this transaction prior to any adjustments being applied.  A negative value indicates a credit
@@ -7903,7 +7903,7 @@ export interface TelcoTransactionListResponseData {
              * Optional array of adjustments arising for this transaction
              */
             adjustments?:
-                | {
+                | Array<{
                     /**
                      * The amount of the adjustment
                      */
@@ -7913,7 +7913,7 @@ export interface TelcoTransactionListResponseData {
                      */
                     description: string;
                     [k: string]: unknown;
-                }[]
+                }>
                 | null;
             /**
              * The amount of the charge
@@ -7961,7 +7961,7 @@ export interface TelcoTransactionListResponseData {
          */
         transactionUType: "account" | "onceOff" | "otherCharges" | "payment";
         [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
@@ -8179,7 +8179,7 @@ export interface TelcoUsageListResponse {
         /**
          * Array of usage on accounts
          */
-        accounts: {
+        accounts: Array<{
             /**
              * Tokenised ID of the account. In accordance with [CDR ID permanence](#id-permanence) requirements
              */
@@ -8187,7 +8187,7 @@ export interface TelcoUsageListResponse {
             /**
              * List of services that are part of the account
              */
-            services: {
+            services: Array<{
                 service: {
                     /**
                      * Optional description of the service used for display purposes
@@ -8364,9 +8364,9 @@ export interface TelcoUsageListResponse {
                     [k: string]: unknown;
                 };
                 [k: string]: unknown;
-            }[];
+            }>;
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -8387,7 +8387,7 @@ export interface TelcoUsageListResponseData {
     /**
      * Array of usage on accounts
      */
-    accounts: {
+    accounts: Array<{
         /**
          * Tokenised ID of the account. In accordance with [CDR ID permanence](#id-permanence) requirements
          */
@@ -8395,7 +8395,7 @@ export interface TelcoUsageListResponseData {
         /**
          * List of services that are part of the account
          */
-        services: {
+        services: Array<{
             service: {
                 /**
                  * Optional description of the service used for display purposes
@@ -8572,9 +8572,9 @@ export interface TelcoUsageListResponseData {
                 [k: string]: unknown;
             };
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
@@ -8688,7 +8688,7 @@ export interface TelcoUsageResponse {
         /**
          * List of services that are part of the account
          */
-        services: {
+        services: Array<{
             service: {
                 /**
                  * Optional description of the service used for display purposes
@@ -8865,7 +8865,7 @@ export interface TelcoUsageResponse {
                 [k: string]: unknown;
             };
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {

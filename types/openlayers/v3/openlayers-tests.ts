@@ -4,7 +4,7 @@ let voidValue: void;
 let numberValue: number;
 let booleanValue: boolean;
 let stringValue: string;
-let stringArray: Array<string>;
+let stringArray: string[];
 let jsonValue: JSON;
 let voidOrBooleanValue: void | boolean;
 let domEventTarget: EventTarget;
@@ -22,25 +22,25 @@ let drawGeometryFunction: ol.DrawGeometryFunctionType;
 
 // Type variables for OpenLayers
 let attribution: ol.Attribution;
-let boundingCoordinates: Array<ol.Coordinate>;
+let boundingCoordinates: ol.Coordinate[];
 let circle: ol.geom.Circle;
 let color: ol.Color;
 let coordinate: ol.Coordinate;
-let coordinatesArray: Array<ol.Coordinate>;
-let coordinatesArrayDim2: Array<Array<ol.Coordinate>>;
+let coordinatesArray: ol.Coordinate[];
+let coordinatesArrayDim2: ol.Coordinate[][];
 let extent: ol.Extent;
 let olEvent: ol.events.Event;
 let eventKey: ol.EventsKey;
-let eventKeyArray: Array<ol.EventsKey>;
-let eventKeyMixed: ol.EventsKey | Array<ol.EventsKey>;
+let eventKeyArray: ol.EventsKey[];
+let eventKeyMixed: ol.EventsKey | ol.EventsKey[];
 let eventTarget: ol.events.EventTarget;
 let feature: ol.Feature;
-let featureArray: Array<ol.Feature>;
+let featureArray: ol.Feature[];
 let featureCollection: ol.Collection<ol.Feature>;
 let featureFormat: ol.format.Feature;
 let featureUrlFunction: ol.FeatureUrlFunction;
 let graticule: ol.Graticule;
-let geometriesArray: Array<ol.geom.Geometry>;
+let geometriesArray: ol.geom.Geometry[];
 let geometry: ol.geom.Geometry;
 let geometryCollection: ol.geom.GeometryCollection;
 let geometryLayout: ol.geom.GeometryLayout;
@@ -60,7 +60,7 @@ let projectionLike: ol.ProjectionLike;
 let simpleGeometry: ol.geom.SimpleGeometry;
 let size: ol.Size;
 let style: ol.style.Style;
-let styleArray: Array<ol.style.Style>;
+let styleArray: ol.style.Style[];
 let styleFunction: ol.StyleFunction;
 let tilegrid: ol.tilegrid.TileGrid;
 let transformFn: ol.TransformFunction;
@@ -201,7 +201,7 @@ voidValue = lineString.setCoordinates(coordinatesArray, geometryLayout);
 //
 // ol.geom.MultiLineString
 //
-let lineStringsArray: Array<ol.geom.LineString>;
+let lineStringsArray: ol.geom.LineString[];
 
 multiLineString = new ol.geom.MultiLineString(coordinatesArrayDim2);
 multiLineString = new ol.geom.MultiLineString(coordinatesArrayDim2, geometryLayout);
@@ -222,7 +222,7 @@ voidValue = multiLineString.setCoordinates(coordinatesArrayDim2, geometryLayout)
 //
 // ol.geom.MultiPoint
 //
-let pointsArray: Array<ol.geom.Point>;
+let pointsArray: ol.geom.Point[];
 
 multiPoint = new ol.geom.MultiPoint(coordinatesArray);
 multiPoint = new ol.geom.MultiPoint(coordinatesArray, geometryLayout);
@@ -240,8 +240,8 @@ voidValue = multiPoint.setCoordinates(coordinatesArray, geometryLayout);
 //
 // ol.geom.MultiPolygon
 //
-let coordinatesArrayDim3: Array<Array<Array<ol.Coordinate>>>;
-let polygonsArray: Array<ol.geom.Polygon>;
+let coordinatesArrayDim3: ol.Coordinate[][][];
+let polygonsArray: ol.geom.Polygon[];
 
 multiPolygon = new ol.geom.MultiPolygon(coordinatesArrayDim3);
 multiPolygon = new ol.geom.MultiPolygon(coordinatesArrayDim3, geometryLayout);
@@ -276,7 +276,7 @@ voidValue = point.setCoordinates(coordinate, geometryLayout);
 // ol.geom.Polygon
 //
 let localSphere: ol.Sphere;
-let linearRingsArray: Array<ol.geom.LinearRing>;
+let linearRingsArray: ol.geom.LinearRing[];
 
 polygon = new ol.geom.Polygon(coordinatesArrayDim2);
 polygon = new ol.geom.Polygon(coordinatesArrayDim2, geometryLayout);
@@ -366,7 +366,7 @@ feature = feature.clone();
 geometry = feature.getGeometry();
 stringValue = feature.getGeometryName();
 let featureGetId: string | number = feature.getId();
-let featureGetStyle: ol.style.Style | Array<ol.style.Style> | ol.FeatureStyleFunction = feature.getStyle();
+let featureGetStyle: ol.style.Style | ol.style.Style[] | ol.FeatureStyleFunction = feature.getStyle();
 featureStyleFunction = feature.getStyleFunction();
 voidValue = feature.setGeometry(geometry);
 voidValue = feature.setGeometryName(stringValue);
@@ -595,8 +595,8 @@ graticule = new ol.Graticule({
     map: map,
 });
 let graticuleMap: ol.Map = graticule.getMap();
-let graticuleMeridians: Array<ol.geom.LineString> = graticule.getMeridians();
-let graticuleParallels: Array<ol.geom.LineString> = graticule.getParallels();
+let graticuleMeridians: ol.geom.LineString[] = graticule.getMeridians();
+let graticuleParallels: ol.geom.LineString[] = graticule.getParallels();
 voidValue = graticule.setMap(graticuleMap);
 
 //
@@ -618,7 +618,7 @@ let popup: ol.Overlay = new ol.Overlay({
 voidValue = map.addOverlay(popup);
 let popupElement: Element = popup.getElement();
 let popupMap: ol.Map = popup.getMap();
-let popupOffset: Array<number> = popup.getOffset();
+let popupOffset: number[] = popup.getOffset();
 coordinate = popup.getPosition();
 let popupPositioning: ol.OverlayPositioning = popup.getPositioning();
 voidValue = popup.setElement(popupElement);

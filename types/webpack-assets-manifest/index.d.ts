@@ -70,7 +70,7 @@ declare class WebpackAssetsManifest implements WebpackPluginInstance {
 
     /** Process compilation assets */
     processAssetsByChunkName(
-        assets: Record<string, string | ReadonlyArray<string>>,
+        assets: Record<string, string | readonly string[]>,
         hmrFiles?: Set<string>,
     ): this["assetNames"];
 
@@ -94,7 +94,7 @@ declare class WebpackAssetsManifest implements WebpackPluginInstance {
      * get called and so the asset names are not recorded. To work around this, lets
      * loops over the stats.assets and record the asset names.
      */
-    processStatsAssets(assets: ReadonlyArray<Asset>): void;
+    processStatsAssets(assets: readonly Asset[]): void;
 
     /** Get assets and hot module replacement files from a compilation object */
     getCompilationAssets(compilation: Compilation): { assets: Asset[]; hmrFiles: Set<string> };
@@ -226,7 +226,7 @@ declare namespace WebpackAssetsManifest {
         integrity?: boolean | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#integrityhashes */
-        integrityHashes?: ReadonlyArray<string> | undefined;
+        integrityHashes?: readonly string[] | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#integritypropertyname */
         integrityPropertyName?: string | undefined;

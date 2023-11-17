@@ -379,7 +379,7 @@ declare namespace echarts {
              * Currently includes both a full selection and an inverse selection.
              * The selector button doesn't display by default, the user can manually configure it.
              */
-            selector?: boolean | string[] | { type: string; title: string }[] | undefined;
+            selector?: boolean | string[] | Array<{ type: string; title: string }> | undefined;
             /**
              * The text label style of the selector button, which is displayed by default.
              */

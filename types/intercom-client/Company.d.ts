@@ -24,6 +24,6 @@ export interface Company {
 export interface List {
     "type": "company.list";
     "total_count": number;
-    "companies": (Company & CompanyIdentifier)[];
+    "companies": Array<Company & CompanyIdentifier>;
     "pages": { "next"?: string | undefined; "page": number; "per_page": number; "total_pages": number };
 }

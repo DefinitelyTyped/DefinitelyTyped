@@ -579,7 +579,7 @@ class MultiSortAndFiltering extends React.Component {
         this.idRef.cleanFiltered();
     };
 
-    afterColumnFilter = (filterConds: ReadonlyArray<FilterData>, result: ReadonlyArray<Product>) => {
+    afterColumnFilter = (filterConds: readonly FilterData[], result: readonly Product[]) => {
         console.log("Filter Conditions: ");
         filterConds.forEach((filterCond: FilterData) => {
             Object.keys(filterCond).forEach((fieldName: string) =>
@@ -600,7 +600,7 @@ class MultiSortAndFiltering extends React.Component {
         this.setState({ data: products.filter((product) => product.name = searchText) });
     };
 
-    afterSearch = (searchText: string, result: ReadonlyArray<Product>) => {
+    afterSearch = (searchText: string, result: readonly Product[]) => {
         console.log(`Your search text is ${searchText}`);
         console.log("Result is:");
         for (const resultItem of result) {
@@ -1167,7 +1167,7 @@ class CustomButtonGroup extends React.Component {
         );
     };
 
-    customConfirm = (next: () => void, dropRowKeys: ReadonlyArray<number>) => {
+    customConfirm = (next: () => void, dropRowKeys: readonly number[]) => {
         const dropRowKeysStr = dropRowKeys.join(",");
         if (confirm(`(It's a custom confirm)Are you sure you want to delete ${dropRowKeysStr}?`)) {
             next();
@@ -1677,7 +1677,7 @@ class TrClassFunctionTable extends React.Component {
     columnClassNameFormat = (fieldValue: string | number, row: Product, rowIdx: number, colIdx: number) =>
         rowIdx % 2 === 0 ? "td-column-function-even-example" : "td-column-function-odd-example";
 
-    trClassFormat = (rowData: ReadonlyArray<Product>, rIndex: number) => rIndex % 3 === 0 ? "tr-function-example" : "";
+    trClassFormat = (rowData: readonly Product[], rIndex: number) => rIndex % 3 === 0 ? "tr-function-example" : "";
 
     trStyle = (row: Product, rowIndex: number) => ({ backgroundColor: "#FFFAFA" });
 

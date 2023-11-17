@@ -8,7 +8,7 @@ declare namespace saxStream {
          * Name of the tag to select objects from XML file, an Array of tag names can be used -
          * when multiple tags are specified stream pushes `{ tag, record }` tuples.
          */
-        tag: string | ReadonlyArray<string>;
+        tag: string | readonly string[];
         /**
          * Size of internal transform stream buffer - defaults to 350 objects.
          */

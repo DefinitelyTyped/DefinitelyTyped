@@ -28,7 +28,7 @@ declare namespace Snap {
     export function select(query: string): Snap.Element;
     export function selectAll(query: string): any;
     export function set(...els: Snap.Element[]): Snap.Set;
-    export function snapTo(values: Array<number> | number, value: number, tolerance?: number): number;
+    export function snapTo(values: number[] | number, value: number, tolerance?: number): number;
 
     export function animate(
         from: number | number[],
@@ -70,10 +70,10 @@ declare namespace Snap {
     export function len2(x1: number, y1: number, x2: number, y2: number): number;
 
     export function parse(svg: string): Fragment;
-    export function parsePathString(pathString: string): Array<any>;
-    export function parsePathString(pathString: Array<string>): Array<any>;
-    export function parseTransformString(TString: string): Array<any>;
-    export function parseTransformString(TString: Array<string>): Array<any>;
+    export function parsePathString(pathString: string): any[];
+    export function parsePathString(pathString: string[]): any[];
+    export function parseTransformString(TString: string): any[];
+    export function parseTransformString(TString: string[]): any[];
 
     export function closest(x: number, y: number, X: number, Y: number): boolean;
 
@@ -173,13 +173,13 @@ declare namespace Snap {
         getSubpath(from: number, to: number): string;
         getTotalLength(): number;
         hasClass(value: string): boolean;
-        inAnim(): {
+        inAnim(): Array<{
             anim: Animation;
             mina: mina.AnimationDescriptor;
             curStatus: number;
             status: (n?: number) => number;
             stop: () => void;
-        }[];
+        }>;
         innerSVG(): string;
         insertAfter(el: Snap.Element): Snap.Element;
         insertBefore(el: Snap.Element): Snap.Element;
@@ -343,7 +343,7 @@ declare namespace Snap {
         ellipse(x: number, y: number, rx: number, ry: number): Snap.Element;
         image(src: string, x: number, y: number, width: number, height: number): Snap.Element;
         line(x1: number, y1: number, x2: number, y2: number): Snap.Element;
-        path(pathSpec: string | (string | number)[][]): Snap.Element;
+        path(pathSpec: string | Array<Array<string | number>>): Snap.Element;
         polygon(varargs: any[]): Snap.Element;
         polygon(...varargs: any[]): Snap.Element;
         polyline(varargs: any[]): Snap.Element;
@@ -362,12 +362,12 @@ declare namespace Snap {
             callback?: () => void,
         ): Snap.Set;
         animate(
-            ...attrs: [
+            ...attrs: Array<[
                 { [attr: string]: string | number | boolean | any },
                 number?,
                 ((num: number) => number)?,
                 (() => void)?,
-            ][]
+            ]>
         ): Snap.Element;
         attr(params: { [attr: string]: string | number | boolean | BBox | any }): Snap.Set;
         attr(param: "viewBox"): Snap.Set;
@@ -403,7 +403,7 @@ declare namespace Snap {
 
     interface Path {
         bezierBBox(...args: number[]): BBox;
-        bezierBBox(bez: Array<number>): BBox;
+        bezierBBox(bez: number[]): BBox;
         findDotsAtSegment(
             p1x: number,
             p1y: number,
@@ -419,16 +419,16 @@ declare namespace Snap {
         getPointAtLength(path: string, length: number): Object;
         getSubpath(path: string, from: number, to: number): string;
         getTotalLength(path: string): number;
-        intersection(path1: string, path2: string): Array<IntersectionDot>;
+        intersection(path1: string, path2: string): IntersectionDot[];
         isBBoxIntersect(bbox1: BBox, bbox2: BBox): boolean;
         isPointInside(path: string, x: number, y: number): boolean;
         isPointInsideBBox(bbox: BBox, x: number, y: number): boolean;
         map(path: string, matrix: Snap.Matrix): string;
         map(path: string, matrix: Object): string;
-        toAbsolute(path: string): Array<any>;
-        toCubic(pathString: string): Array<any>;
-        toCubic(pathString: Array<string>): Array<any>;
-        toRelative(path: string): Array<any>;
+        toAbsolute(path: string): any[];
+        toCubic(pathString: string): any[];
+        toCubic(pathString: string[]): any[];
+        toRelative(path: string): any[];
     }
 
     interface IntersectionDot {
@@ -438,7 +438,7 @@ declare namespace Snap {
         t2: number;
         segment1: number;
         segment2: number;
-        bez1: Array<number>;
-        bez2: Array<number>;
+        bez1: number[];
+        bez2: number[];
     }
 }
