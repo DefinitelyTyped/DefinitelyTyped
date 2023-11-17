@@ -42,6 +42,10 @@ export interface OnConnectCallback {
     (connection: IdToken, request: Request, response: Response, next: NextFunction): Response | void;
 }
 
+export interface UnregisteredPlatformCallback {
+    (request: Request, response: Response): Response | void;
+}
+
 export interface OnConnectOptions {
     sessionTimeout?: ((request: Request, response: Response) => Response) | undefined;
     invalidToken?: ((request: Request, response: Response) => Response) | undefined;
@@ -70,6 +74,8 @@ declare class Provider {
 
     onDeepLinking(_connectCallback: OnConnectCallback, options?: OnConnectOptions): true;
 
+    onUnregisteredPlatform(_unregisteredPlatformCallback: UnregisteredPlatformCallback): true;
+
     loginUrl(): string;
 
     appUrl(): string;
@@ -86,7 +92,7 @@ declare class Provider {
 
     getPlatform(url: string): Promise<Platform | false>;
 
-    deletePlatform(url: string): Promise<boolean>;
+    deletePlatform(url: string, clientId: string): Promise<boolean>;
 
     getAllPlatforms(): Promise<Platform[] | false>;
 
