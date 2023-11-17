@@ -773,82 +773,112 @@ declare module "node:test" {
          * @return The mocked method. The mocked method contains a special `mock` property, which is an instance of {@link MockFunctionContext}, and can be used for inspecting and changing the
          * behavior of the mocked method.
          */
-        method<
-            MockedObject extends object,
-            MethodName extends FunctionPropertyNames<MockedObject>,
-        >(
+        method<MockedObject extends object, MethodName extends FunctionPropertyNames<MockedObject>>(
             object: MockedObject,
             methodName: MethodName,
             options?: MockFunctionOptions,
-        ): MockedObject[MethodName] extends Function ? Mock<MockedObject[MethodName]>
-            : never;
+        ): MockedObject[MethodName] extends Function ? Mock<MockedObject[MethodName]> : never;
         method<
             MockedObject extends object,
             MethodName extends FunctionPropertyNames<MockedObject>,
-            Implementation extends Function,
+            Implementation extends MockedObject[MethodName],
         >(
             object: MockedObject,
             methodName: MethodName,
             implementation: Implementation,
             options?: MockFunctionOptions,
-        ): MockedObject[MethodName] extends Function ? Mock<MockedObject[MethodName] | Implementation>
-            : never;
-        method<MockedObject extends object>(
+        ): MockedObject[MethodName] extends Function ? Mock<MockedObject[MethodName]> : never;
+        // m = mock.method(obj, 'attribute', { getter: true })
+        method<
+            MockedObject extends object,
+            AttributeName extends keyof MockedObject,
+            Implementation extends () => MockedObject[AttributeName],
+        >(
             object: MockedObject,
-            methodName: keyof MockedObject,
-            options: MockMethodOptions,
-        ): Mock<Function>;
-        method<MockedObject extends object>(
+            attributeName: AttributeName,
+            options: { getter: true } & MockMethodOptions,
+        ): Mock<Implementation>;
+        // mock.method(obj, 'attribute', function() {}, { getter: true })
+        method<
+            MockedObject extends object,
+            AttributeName extends keyof MockedObject,
+            Implementation extends () => MockedObject[AttributeName],
+        >(
             object: MockedObject,
-            methodName: keyof MockedObject,
-            implementation: Function,
+            attributeName: AttributeName,
+            implementation: Implementation,
+            options: { getter: true } & MockMethodOptions,
+        ): Mock<Implementation>;
+        // mock.method(obj, 'attribute', { setter: true })
+        method<
+            MockedObject extends object,
+            AttributeName extends keyof MockedObject,
+            Implementation extends (value: MockedObject[AttributeName]) => void,
+        >(
+            object: MockedObject,
+            attributeName: AttributeName,
+            options: { setter: true } & MockMethodOptions,
+        ): Mock<Implementation>;
+        // mock.method(obj, 'attribute', function() {}, { setter: true })
+        method<
+            MockedObject extends object,
+            AttributeName extends keyof MockedObject,
+            Implementation extends (value: MockedObject[AttributeName]) => void,
+        >(
+            object: MockedObject,
+            attributeName: AttributeName,
+            implementation: Implementation,
+            options: { setter: true } & MockMethodOptions,
+        ): Mock<Implementation>;
+        method<
+            MockedObject extends object,
+            MethodName extends keyof MockedObject,
+            Implementation extends MockedObject[MethodName],
+        >(
+            object: MockedObject,
+            methodName: MethodName,
+            implementation: Implementation,
             options: MockMethodOptions,
-        ): Mock<Function>;
+        ): Implementation extends Function ? Mock<Implementation> : never;
 
         /**
          * This function is syntax sugar for `MockTracker.method` with `options.getter`set to `true`.
          * @since v19.3.0, v18.13.0
          */
-        getter<
-            MockedObject extends object,
-            MethodName extends keyof MockedObject,
-        >(
+        getter<MockedObject extends object, AttributeName extends keyof MockedObject>(
             object: MockedObject,
-            methodName: MethodName,
+            methodName: AttributeName,
             options?: MockFunctionOptions,
-        ): Mock<() => MockedObject[MethodName]>;
+        ): Mock<() => MockedObject[AttributeName]>;
         getter<
             MockedObject extends object,
-            MethodName extends keyof MockedObject,
-            Implementation extends Function,
+            AttributeName extends keyof MockedObject,
+            Implementation extends () => MockedObject[AttributeName],
         >(
             object: MockedObject,
-            methodName: MethodName,
+            methodName: AttributeName,
             implementation?: Implementation,
             options?: MockFunctionOptions,
-        ): Mock<(() => MockedObject[MethodName]) | Implementation>;
+        ): Mock<(() => MockedObject[AttributeName]) | Implementation>;
         /**
          * This function is syntax sugar for `MockTracker.method` with `options.setter`set to `true`.
          * @since v19.3.0, v18.13.0
          */
-        setter<
-            MockedObject extends object,
-            MethodName extends keyof MockedObject,
-        >(
+        setter<MockedObject extends object, AttributeName extends keyof MockedObject>(
             object: MockedObject,
-            methodName: MethodName,
+            methodName: AttributeName,
             options?: MockFunctionOptions,
-        ): Mock<(value: MockedObject[MethodName]) => void>;
+        ): Mock<(value: MockedObject[AttributeName]) => void>;
         setter<
             MockedObject extends object,
-            MethodName extends keyof MockedObject,
-            Implementation extends Function,
+            AttributeName extends keyof MockedObject,
+            Implementation extends (value: MockedObject[AttributeName]) => void,
         >(
             object: MockedObject,
-            methodName: MethodName,
+            methodName: AttributeName,
             implementation?: Implementation,
             options?: MockFunctionOptions,
-        ): Mock<((value: MockedObject[MethodName]) => void) | Implementation>;
+        ): Mock<(value: MockedObject[AttributeName]) => void>;
         /**
          * This function restores the default behavior of all mocks that were previously
          * created by this `MockTracker` and disassociates the mocks from the`MockTracker` instance. Once disassociated, the mocks can still be used, but the`MockTracker` instance can no longer be

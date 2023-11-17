@@ -433,15 +433,15 @@ test("mocks an object method", (t) => {
         },
     };
 
-    function mockMethod(this: typeof obj, a: number) {
-        return a + this.prop;
+    function mockMethod(this: typeof obj, a: number, b: number) {
+        return a + b - this.prop;
     }
 
     const mocked = t.mock.method(obj, "method", mockMethod);
     obj.method(1, 3);
     const call = mocked.mock.calls[0];
 
-    // $ExpectType [a: number, b: number] | [a: number]
+    // $ExpectType [a: number, b: number]
     call.arguments;
     // $ExpectType number | undefined
     call.result;
@@ -521,9 +521,9 @@ test("spies on a getter", (t) => {
         console.log(obj.method);
         const call = getter.mock.calls[0];
 
-        // $ExpectType unknown[]
+        // $ExpectType []
         call.arguments;
-        // $ExpectType unknown
+        // $ExpectType number | undefined
         call.result;
         // $ExpectType undefined
         call.target;
@@ -563,9 +563,9 @@ test("mocks a getter", (t) => {
         console.log(obj.method);
         const call = getter.mock.calls[0];
 
-        // $ExpectType unknown[]
+        // $ExpectType []
         call.arguments;
-        // $ExpectType unknown
+        // $ExpectType number | undefined
         call.result;
         // $ExpectType undefined
         call.target;
@@ -601,9 +601,9 @@ test("spies on a setter", (t) => {
         obj.method = 77;
         const call = setter.mock.calls[0];
 
-        // $ExpectType unknown[]
+        // $ExpectType [value: number]
         call.arguments;
-        // $ExpectType unknown
+        // $ExpectType void | undefined
         call.result;
         // $ExpectType undefined
         call.target;
@@ -643,9 +643,9 @@ test("mocks a setter", (t) => {
         obj.method = 77;
         const call = setter.mock.calls[0];
 
-        // $ExpectType unknown[]
+        // $ExpectType [value: number]
         call.arguments;
-        // $ExpectType unknown
+        // $ExpectType void | undefined
         call.result;
         // $ExpectType undefined
         call.target;
@@ -657,7 +657,7 @@ test("mocks a setter", (t) => {
         obj.method = 77;
         const call = setter.mock.calls[0];
 
-        // $ExpectType [value: number] | [value: number]
+        // $ExpectType [value: number]
         call.arguments;
         // $ExpectType void | undefined
         call.result;
