@@ -100,7 +100,7 @@ declare namespace OpenDSSengine {
 
     /** ActiveClass Object */
     class ActiveClass {
-        private 'OpenDSSengine.ActiveClass_typekey': ActiveClass;
+        private "OpenDSSengine.ActiveClass_typekey": ActiveClass;
         private constructor();
 
         /** Returns name of active class. */
@@ -136,7 +136,7 @@ declare namespace OpenDSSengine {
 
     /** Bus Object */
     class Bus {
-        private 'OpenDSSengine.Bus_typekey': Bus;
+        private "OpenDSSengine.Bus_typekey": Bus;
         private constructor();
 
         /** Returns an array with the names of all PCE connected to the active bus */
@@ -261,7 +261,7 @@ declare namespace OpenDSSengine {
     }
 
     class Capacitors {
-        private 'OpenDSSengine.Capacitors_typekey': Capacitors;
+        private "OpenDSSengine.Capacitors_typekey": Capacitors;
         private constructor();
 
         /** Adds one step of the capacitor if available. If successful returns TRUE. */
@@ -311,7 +311,7 @@ declare namespace OpenDSSengine {
     }
 
     class CapControls {
-        private 'OpenDSSengine.CapControls_typekey': CapControls;
+        private "OpenDSSengine.CapControls_typekey": CapControls;
         private constructor();
 
         /** Variant array of strings with all CapControl names. */
@@ -375,7 +375,7 @@ declare namespace OpenDSSengine {
 
     /** Circuit Object */
     class Circuit {
-        private 'OpenDSSengine.Circuit_typekey': Circuit;
+        private "OpenDSSengine.Circuit_typekey": Circuit;
         private constructor();
 
         /** Return an interface to the active bus. */
@@ -613,7 +613,7 @@ declare namespace OpenDSSengine {
 
     /** CktElementObject */
     class CktElement {
-        private 'OpenDSSengine.CktElement_typekey': CktElement;
+        private "OpenDSSengine.CktElement_typekey": CktElement;
         private constructor();
 
         /** Variant array containing all property names of the active device. */
@@ -769,7 +769,7 @@ declare namespace OpenDSSengine {
 
     /** CmathLib Object */
     class CmathLib {
-        private 'OpenDSSengine.CmathLib_typekey': CmathLib;
+        private "OpenDSSengine.CmathLib_typekey": CmathLib;
         private constructor();
 
         /** Return abs value of complex number given in real and imag doubles */
@@ -796,7 +796,7 @@ declare namespace OpenDSSengine {
 
     /** CtrlQueue */
     class CtrlQueue {
-        private 'OpenDSSengine.CtrlQueue_typekey': CtrlQueue;
+        private "OpenDSSengine.CtrlQueue_typekey": CtrlQueue;
         private constructor();
 
         /** Set the active action by index */
@@ -841,7 +841,7 @@ declare namespace OpenDSSengine {
 
     /** DSS Main Object */
     class DSS {
-        private 'OpenDSSengine.DSS_typekey': DSS;
+        private "OpenDSSengine.DSS_typekey": DSS;
         private constructor();
 
         /** Returns interface to the active circuit. */
@@ -923,7 +923,7 @@ declare namespace OpenDSSengine {
 
     /** DSS_Executive Object */
     class DSS_Executive {
-        private 'OpenDSSengine.DSS_Executive_typekey': DSS_Executive;
+        private "OpenDSSengine.DSS_Executive_typekey": DSS_Executive;
         private constructor();
 
         /** Get i-th command */
@@ -950,7 +950,7 @@ declare namespace OpenDSSengine {
 
     /** DSSElement Object */
     class DSSElement {
-        private 'OpenDSSengine.DSSElement_typekey': DSSElement;
+        private "OpenDSSengine.DSSElement_typekey": DSSElement;
         private constructor();
 
         /** Variant array of strings containing the names of all properties for the active DSS object. */
@@ -968,13 +968,13 @@ declare namespace OpenDSSengine {
 
     /** DSSEvents Object */
     class DSSEvents {
-        private 'OpenDSSengine.DSSEvents_typekey': DSSEvents;
+        private "OpenDSSengine.DSSEvents_typekey": DSSEvents;
         private constructor();
     }
 
     /** DSSimComs Object */
     class DSSimComs {
-        private 'OpenDSSengine.DSSimComs_typekey': DSSimComs;
+        private "OpenDSSengine.DSSimComs_typekey": DSSimComs;
         private constructor();
 
         /** This method delivers the voltage (complex) of the specified bus, this specification must be with a number (index) */
@@ -986,7 +986,7 @@ declare namespace OpenDSSengine {
 
     /** DSSProgress Object */
     class DSSProgress {
-        private 'OpenDSSengine.DSSProgress_typekey': DSSProgress;
+        private "OpenDSSengine.DSSProgress_typekey": DSSProgress;
         private constructor();
 
         /** Caption to appear on the bottom of the DSS Progress form. */
@@ -1004,7 +1004,7 @@ declare namespace OpenDSSengine {
 
     /** DSSProperty Object */
     class DSSProperty {
-        private 'OpenDSSengine.DSSProperty_typekey': DSSProperty;
+        private "OpenDSSengine.DSSProperty_typekey": DSSProperty;
         private constructor();
 
         /** Description of the property. */
@@ -1017,7 +1017,7 @@ declare namespace OpenDSSengine {
 
     /** Error Object */
     class Error {
-        private 'OpenDSSengine.Error_typekey': Error;
+        private "OpenDSSengine.Error_typekey": Error;
         private constructor();
 
         /** Description of error for last operation */
@@ -1029,7 +1029,7 @@ declare namespace OpenDSSengine {
 
     /** Fuses Object */
     class Fuses {
-        private 'OpenDSSengine.Fuses_typekey': Fuses;
+        private "OpenDSSengine.Fuses_typekey": Fuses;
         private constructor();
 
         /** Variant array of strings containing names of all Fuses in the circuit */
@@ -1095,7 +1095,7 @@ declare namespace OpenDSSengine {
 
     /** Generators Object */
     class Generators {
-        private 'OpenDSSengine.Generators_typekey': Generators;
+        private "OpenDSSengine.Generators_typekey": Generators;
         private constructor();
 
         /** Array of names of all Generator objects. */
@@ -1155,7 +1155,7 @@ declare namespace OpenDSSengine {
 
     /** GICSources Object */
     class GICSources {
-        private 'OpenDSSengine.GICSources_typekey': GICSources;
+        private "OpenDSSengine.GICSources_typekey": GICSources;
         private constructor();
 
         /** All GICSourceNames */
@@ -1200,7 +1200,7 @@ declare namespace OpenDSSengine {
 
     /** ISource Object */
     class ISources {
-        private 'OpenDSSengine.ISources_typekey': ISources;
+        private "OpenDSSengine.ISources_typekey": ISources;
         private constructor();
 
         /** Variant array of strings containing names of all ISOURCE elements. */
@@ -1230,7 +1230,7 @@ declare namespace OpenDSSengine {
 
     /** LineCodes Object */
     class LineCodes {
-        private 'OpenDSSengine.LineCodes_typekey': LineCodes;
+        private "OpenDSSengine.LineCodes_typekey": LineCodes;
         private constructor();
 
         /** Variant array of strings with names of all devices */
@@ -1287,7 +1287,7 @@ declare namespace OpenDSSengine {
 
     /** Lines Object */
     class Lines {
-        private 'OpenDSSengine.Lines_typekey': Lines;
+        private "OpenDSSengine.Lines_typekey": Lines;
         private constructor();
 
         /** Names of all Line Objects */
@@ -1386,7 +1386,7 @@ declare namespace OpenDSSengine {
 
     /** Loads Object */
     class Loads {
-        private 'OpenDSSengine.Loads_typekey': Loads;
+        private "OpenDSSengine.Loads_typekey": Loads;
         private constructor();
 
         /** Variant array of strings containing all Load names */
@@ -1513,7 +1513,7 @@ declare namespace OpenDSSengine {
 
     /** LoadShapes Object */
     class LoadShapes {
-        private 'OpenDSSengine.LoadShapes_typekey': LoadShapes;
+        private "OpenDSSengine.LoadShapes_typekey": LoadShapes;
         private constructor();
 
         /** Variant array of strings containing names of all Loadshape objects currently defined. */
@@ -1570,7 +1570,7 @@ declare namespace OpenDSSengine {
 
     /** Meters Object */
     class Meters {
-        private 'OpenDSSengine.Meters_typekey': Meters;
+        private "OpenDSSengine.Meters_typekey": Meters;
         private constructor();
 
         /** Wide string list of all branches in zone of the active energymeter object. */
@@ -1714,7 +1714,7 @@ declare namespace OpenDSSengine {
 
     /** Monitors Object */
     class Monitors {
-        private 'OpenDSSengine.Monitors_typekey': Monitors;
+        private "OpenDSSengine.Monitors_typekey": Monitors;
         private constructor();
 
         /** Array of all Monitor Names */
@@ -1809,7 +1809,7 @@ declare namespace OpenDSSengine {
     }
 
     class Parallel {
-        private 'OpenDSSengine.Parallel_typekey': Parallel;
+        private "OpenDSSengine.Parallel_typekey": Parallel;
         private constructor();
 
         /** Gets the ID of the Active Actor */
@@ -1848,7 +1848,7 @@ declare namespace OpenDSSengine {
 
     /** Parser Object */
     class Parser {
-        private 'OpenDSSengine.Parser_typekey': Parser;
+        private "OpenDSSengine.Parser_typekey": Parser;
         private constructor();
 
         /**
@@ -1905,7 +1905,7 @@ declare namespace OpenDSSengine {
 
     /** PDElements Object */
     class PDElements {
-        private 'OpenDSSengine.PDElements_typekey': PDElements;
+        private "OpenDSSengine.PDElements_typekey": PDElements;
         private constructor();
 
         /** accummulated failure rate for this branch on downline */
@@ -1962,7 +1962,7 @@ declare namespace OpenDSSengine {
 
     /** PVSystems Object */
     class PVSystems {
-        private 'OpenDSSengine.PVSystems_typekey': PVSystems;
+        private "OpenDSSengine.PVSystems_typekey": PVSystems;
         private constructor();
 
         /** Vairant array of strings with all PVSystem names */
@@ -2016,7 +2016,7 @@ declare namespace OpenDSSengine {
 
     /** Reclosers Object */
     class Reclosers {
-        private 'OpenDSSengine.Reclosers_typekey': Reclosers;
+        private "OpenDSSengine.Reclosers_typekey": Reclosers;
         private constructor();
 
         /** Variant array of strings with names of all Reclosers in Active Circuit */
@@ -2091,7 +2091,7 @@ declare namespace OpenDSSengine {
 
     /** Reduce Object */
     class ReduceCkt {
-        private 'OpenDSSengine.ReduceCkt_typekey': ReduceCkt;
+        private "OpenDSSengine.ReduceCkt_typekey": ReduceCkt;
         private constructor();
 
         /** Eliminate all 1-phase laterals in the circuit */
@@ -2130,7 +2130,7 @@ declare namespace OpenDSSengine {
     }
 
     class RegControls {
-        private 'OpenDSSengine.RegControls_typekey': RegControls;
+        private "OpenDSSengine.RegControls_typekey": RegControls;
         private constructor();
 
         /** Variant array of strings containing all RegControl names */
@@ -2215,7 +2215,7 @@ declare namespace OpenDSSengine {
 
     /** Relays Object */
     class Relays {
-        private 'OpenDSSengine.Relays_typekey': Relays;
+        private "OpenDSSengine.Relays_typekey": Relays;
         private constructor();
 
         /** Variant array of strings containing names of all Relay elements */
@@ -2267,7 +2267,7 @@ declare namespace OpenDSSengine {
 
     /** Sensors Object */
     class Sensors {
-        private 'OpenDSSengine.Sensors_typekey': Sensors;
+        private "OpenDSSengine.Sensors_typekey": Sensors;
         private constructor();
 
         /** Variant array of Sensor names. */
@@ -2330,7 +2330,7 @@ declare namespace OpenDSSengine {
 
     /** Settings Object */
     class Settings {
-        private 'OpenDSSengine.Settings_typekey': Settings;
+        private "OpenDSSengine.Settings_typekey": Settings;
         private constructor();
 
         /** Sets all load allocation factors for all loads defined by XFKVA property to this value. */
@@ -2390,7 +2390,7 @@ declare namespace OpenDSSengine {
 
     /** Solution Object */
     class Solution {
-        private 'OpenDSSengine.Solution_typekey': Solution;
+        private "OpenDSSengine.Solution_typekey": Solution;
         private constructor();
 
         /** Type of device to add in AutoAdd Mode: {dssGen (Default) | dssCap} */
@@ -2572,7 +2572,7 @@ declare namespace OpenDSSengine {
 
     /** Storages Object */
     class Storages {
-        private 'OpenDSSengine.Storages_typekey': Storages;
+        private "OpenDSSengine.Storages_typekey": Storages;
         private constructor();
 
         /** Vairant array of strings with all Storage element names */
@@ -2607,7 +2607,7 @@ declare namespace OpenDSSengine {
     }
 
     class SwtControls {
-        private 'OpenDSSengine.SwtControls_typekey': SwtControls;
+        private "OpenDSSengine.SwtControls_typekey": SwtControls;
         private constructor();
 
         /** Open or Close the switch. No effect if switch is locked.  However, Reset removes any lock and then closes the switch (shelf state). */
@@ -2650,7 +2650,7 @@ declare namespace OpenDSSengine {
 
     /** Text Object */
     class Text {
-        private 'OpenDSSengine.Text_typekey': Text;
+        private "OpenDSSengine.Text_typekey": Text;
         private constructor();
 
         /** Input command string for the DSS. */
@@ -2662,7 +2662,7 @@ declare namespace OpenDSSengine {
 
     /** Topology Object */
     class Topology {
-        private 'OpenDSSengine.Topology_typekey': Topology;
+        private "OpenDSSengine.Topology_typekey": Topology;
         private constructor();
 
         /** Returns index of the active branch */
@@ -2719,7 +2719,7 @@ declare namespace OpenDSSengine {
     }
 
     class Transformers {
-        private 'OpenDSSengine.Transformers_typekey': Transformers;
+        private "OpenDSSengine.Transformers_typekey": Transformers;
         private constructor();
 
         /** Variant array of strings with all Transformer names in the active circuit. */
@@ -2799,7 +2799,7 @@ declare namespace OpenDSSengine {
 
     /** Vsources Object */
     class Vsources {
-        private 'OpenDSSengine.Vsources_typekey': Vsources;
+        private "OpenDSSengine.Vsources_typekey": Vsources;
         private constructor();
 
         /** Names of all Vsource objects in the circuit */
@@ -2835,7 +2835,7 @@ declare namespace OpenDSSengine {
 
     /** XYCurves Object */
     class XYCurves {
-        private 'OpenDSSengine.XYCurves_typekey': XYCurves;
+        private "OpenDSSengine.XYCurves_typekey": XYCurves;
         private constructor();
 
         /** Number of XYCurve Objects */
@@ -2880,11 +2880,25 @@ declare namespace OpenDSSengine {
 }
 
 interface ActiveXObject {
-    on(obj: OpenDSSengine.DSSEvents, event: 'CheckControls' | 'InitControls' | 'StepControls', handler: (this: OpenDSSengine.DSSEvents, parameter: {}) => void): void;
-    set(obj: OpenDSSengine.CktElement, propertyName: 'VariableByIndex', parameterTypes: [number, number], newValue: number): void;
-    set(obj: OpenDSSengine.CktElement, propertyName: 'VariableByName', parameterTypes: [string, number], newValue: number): void;
+    on(
+        obj: OpenDSSengine.DSSEvents,
+        event: "CheckControls" | "InitControls" | "StepControls",
+        handler: (this: OpenDSSengine.DSSEvents, parameter: {}) => void,
+    ): void;
+    set(
+        obj: OpenDSSengine.CktElement,
+        propertyName: "VariableByIndex",
+        parameterTypes: [number, number],
+        newValue: number,
+    ): void;
+    set(
+        obj: OpenDSSengine.CktElement,
+        propertyName: "VariableByName",
+        parameterTypes: [string, number],
+        newValue: number,
+    ): void;
 }
 
 interface ActiveXObjectNameMap {
-    'OpenDSSengine.DSS': OpenDSSengine.DSS;
+    "OpenDSSengine.DSS": OpenDSSengine.DSS;
 }
