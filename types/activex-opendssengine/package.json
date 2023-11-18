@@ -1,14 +1,13 @@
 {
     "private": true,
     "name": "@types/activex-opendssengine",
-    "version": "1.0.0",
+    "version": "4.0.9999",
     "nonNpm": true,
     "nonNpmDescription": "OpenDSS - Electric Power Distribution System Simulator",
     "projects": [
         "https://sourceforge.net/p/electricdss/wiki/Home/",
         "https://github.com/durs/node-activex"
     ],
-    "types": "./index.d.ts",
     "dependencies": {
         "activex-helpers": "*"
     },
