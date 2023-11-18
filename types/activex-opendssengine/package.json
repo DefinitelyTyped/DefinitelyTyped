@@ -9,7 +9,8 @@
         "https://github.com/durs/node-activex"
     ],
     "dependencies": {
-        "activex-helpers": "*"
+        "activex-helpers": "*",
+        "@types/activex-interop": "*",
     },
     "devDependencies": {
         "@types/activex-opendssengine": "workspace:."
