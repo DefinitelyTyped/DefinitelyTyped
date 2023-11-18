@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/vue3-barcode-qrcode-reader",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/tomimandalap/vue3-barcode-qrcode-reader"
+    ],
+    "dependencies": {
+        "@babel/types": "^7.21.2",
+        "vue": "^3.3.4"
+    },
+    "devDependencies": {
+        "@types/vue3-barcode-qrcode-reader": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tomi Mandala Putra",
+            "githubUsername": "tomimandalap"
+        }
+    ]
+}
