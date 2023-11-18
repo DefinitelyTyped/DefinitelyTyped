@@ -1,11 +1,7 @@
-// Type definitions for OpenDSS Engine - OpenDSSengine 1.0
-// Definitions by: Michael Poulgrain <https://github.com/Michaelp1994>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="activex-interop" />
 
 declare namespace OpenDSSengine {
-    const enum ActionCodes {
+    enum ActionCodes {
         dssActionClose = 2,
         dssActionLock = 4,
         dssActionNone = 0,
@@ -16,7 +12,7 @@ declare namespace OpenDSSengine {
         dssActionUnlock = 5,
     }
 
-    const enum CapControlModes {
+    enum CapControlModes {
         dssCapControlCurrent = 0,
         dssCapControlKVAR = 2,
         dssCapControlPF = 4,
@@ -24,7 +20,7 @@ declare namespace OpenDSSengine {
         dssCapControlVoltage = 1,
     }
 
-    const enum LineUnits {
+    enum LineUnits {
         dssLineUnitscm = 7,
         dssLineUnitsft = 5,
         dssLineUnitsinch = 6,
@@ -37,7 +33,7 @@ declare namespace OpenDSSengine {
         dssLineUnitsNone = 0,
     }
 
-    const enum LoadModels {
+    enum LoadModels {
         dssLoadConstI = 5,
         dssLoadConstPFixedQ = 6,
         dssLoadConstPFixedX = 7,
@@ -48,14 +44,14 @@ declare namespace OpenDSSengine {
         dssLoadZIPV = 8,
     }
 
-    const enum LoadStatus {
+    enum LoadStatus {
         dssLoadExempt = 2,
         dssLoadFixed = 1,
         dssLoadVariable = 0,
     }
 
     /** Modes for Monitors */
-    const enum MonitorModes {
+    enum MonitorModes {
         dssMagnitude = 32,
         dssPosOnly = 64,
         dssPower = 1,
@@ -65,7 +61,7 @@ declare namespace OpenDSSengine {
         dssVI = 0,
     }
 
-    const enum Options {
+    enum Options {
         dssAddCap = 2,
         dssAddGen = 1,
         dssAdmittance = 2,
@@ -83,7 +79,7 @@ declare namespace OpenDSSengine {
         dssUniform = 2,
     }
 
-    const enum SolveModes {
+    enum SolveModes {
         dssAutoAdd = 13,
         dssDaily = 1,
         dssDirect = 7,
