@@ -849,7 +849,7 @@ declare module "http2" {
         ): this;
         addListener(
             event: "goaway",
-            listener: (errorCode: number, lastStreamID: number, opaqueData: Buffer) => void,
+            listener: (errorCode: number, lastStreamID: number, opaqueData?: Buffer) => void,
         ): this;
         addListener(event: "localSettings", listener: (settings: Settings) => void): this;
         addListener(event: "ping", listener: () => void): this;
@@ -859,7 +859,7 @@ declare module "http2" {
         emit(event: "close"): boolean;
         emit(event: "error", err: Error): boolean;
         emit(event: "frameError", frameType: number, errorCode: number, streamID: number): boolean;
-        emit(event: "goaway", errorCode: number, lastStreamID: number, opaqueData: Buffer): boolean;
+        emit(event: "goaway", errorCode: number, lastStreamID: number, opaqueData?: Buffer): boolean;
         emit(event: "localSettings", settings: Settings): boolean;
         emit(event: "ping"): boolean;
         emit(event: "remoteSettings", settings: Settings): boolean;
@@ -868,7 +868,7 @@ declare module "http2" {
         on(event: "close", listener: () => void): this;
         on(event: "error", listener: (err: Error) => void): this;
         on(event: "frameError", listener: (frameType: number, errorCode: number, streamID: number) => void): this;
-        on(event: "goaway", listener: (errorCode: number, lastStreamID: number, opaqueData: Buffer) => void): this;
+        on(event: "goaway", listener: (errorCode: number, lastStreamID: number, opaqueData?: Buffer) => void): this;
         on(event: "localSettings", listener: (settings: Settings) => void): this;
         on(event: "ping", listener: () => void): this;
         on(event: "remoteSettings", listener: (settings: Settings) => void): this;
@@ -877,7 +877,7 @@ declare module "http2" {
         once(event: "close", listener: () => void): this;
         once(event: "error", listener: (err: Error) => void): this;
         once(event: "frameError", listener: (frameType: number, errorCode: number, streamID: number) => void): this;
-        once(event: "goaway", listener: (errorCode: number, lastStreamID: number, opaqueData: Buffer) => void): this;
+        once(event: "goaway", listener: (errorCode: number, lastStreamID: number, opaqueData?: Buffer) => void): this;
         once(event: "localSettings", listener: (settings: Settings) => void): this;
         once(event: "ping", listener: () => void): this;
         once(event: "remoteSettings", listener: (settings: Settings) => void): this;
@@ -891,7 +891,7 @@ declare module "http2" {
         ): this;
         prependListener(
             event: "goaway",
-            listener: (errorCode: number, lastStreamID: number, opaqueData: Buffer) => void,
+            listener: (errorCode: number, lastStreamID: number, opaqueData?: Buffer) => void,
         ): this;
         prependListener(event: "localSettings", listener: (settings: Settings) => void): this;
         prependListener(event: "ping", listener: () => void): this;
@@ -906,7 +906,7 @@ declare module "http2" {
         ): this;
         prependOnceListener(
             event: "goaway",
-            listener: (errorCode: number, lastStreamID: number, opaqueData: Buffer) => void,
+            listener: (errorCode: number, lastStreamID: number, opaqueData?: Buffer) => void,
         ): this;
         prependOnceListener(event: "localSettings", listener: (settings: Settings) => void): this;
         prependOnceListener(event: "ping", listener: () => void): this;
