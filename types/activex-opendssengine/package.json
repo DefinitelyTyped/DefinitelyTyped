@@ -10,7 +10,7 @@
     ],
     "dependencies": {
         "activex-helpers": "*",
-        "@types/activex-interop": "*",
+        "@types/activex-interop": "*"
     },
     "devDependencies": {
         "@types/activex-opendssengine": "workspace:."
