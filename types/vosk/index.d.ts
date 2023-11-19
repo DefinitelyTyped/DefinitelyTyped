@@ -1,4 +1,4 @@
-declare module 'vosk' {
+declare module "vosk" {
     export function setLogLevel(level: number): void;
 
     export class Model {
@@ -43,8 +43,7 @@ declare module 'vosk' {
         speakerModel: SpeakerModel;
     };
 
-    export type Result<T> = T extends SpeakerRecognizerParam
-        ? SpeakerResults & RecognitionResults
+    export type Result<T> = T extends SpeakerRecognizerParam ? SpeakerResults & RecognitionResults
         : RecognitionResults;
 
     export type PartialResults = {
