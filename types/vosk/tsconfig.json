@@ -1,1 +1,12 @@
-{"compilerOptions":{"target":"es2016","lib":["es6"],"module":"commonjs","types":[],"noEmit":true,"esModuleInterop":true,"forceConsistentCasingInFileNames":true,"strict":true}}
+{
+    "compilerOptions": {
+        "target": "es2016",
+        "lib": ["es6"],
+        "module": "commonjs",
+        "types": [],
+        "noEmit": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true
+    }
+}

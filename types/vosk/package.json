@@ -1,21 +1,21 @@
 {
-  "name": "@types/vosk",
-  "version": "0.3.9999",
-  "private": true,
-  "dependencies": {
-    "@types/node": "^20.9.2"
-  },
-  "devDependencies": {
-    "typescript": "^5.2.2",
-    "@types/vosk": "workspace:."
-  },
-  "projects": [
-    "https://alphacephei.com/vosk/"
-  ],
-  "owners": [
-    {
-      "name": "alphacephei",
-      "githubUsername": "alphacep"
-    }
-  ]
+    "name": "@types/vosk",
+    "version": "0.3.9999",
+    "private": true,
+    "dependencies": {
+        "@types/node": "^20.9.2"
+    },
+    "devDependencies": {
+        "typescript": "^5.2.2",
+        "@types/vosk": "workspace:."
+    },
+    "projects": [
+        "https://alphacephei.com/vosk/"
+    ],
+    "owners": [
+        {
+            "name": "alphacephei",
+            "githubUsername": "alphacep"
+        }
+    ]
 }
