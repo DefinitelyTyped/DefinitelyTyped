@@ -314,7 +314,7 @@ declare module "dns/promises" {
      * * `verbatim`: for `verbatim` defaulting to `true`.
      * @since v20.1.0
      */
-    export function getDefaultResultOrder(): "ipv4first" | "verbatim";
+    function getDefaultResultOrder(): "ipv4first" | "verbatim";
     /**
      * Sets the IP address and port of servers to be used when performing DNS
      * resolution. The `servers` argument is an array of [RFC 5952](https://tools.ietf.org/html/rfc5952#section-6) formatted
