@@ -1,25 +1,21 @@
 {
   "name": "@types/vosk",
-  "version": "0.3.39",
-  "description": "TypeScript definitions for Vosk",
-  "author": {
-    "name": "Tejas Kumar",
-    "email": "tejas@tejas.qa"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
-  },
-  "types": "index",
-  "keywords": ["vosk", "typescript", "types"],
-  "peerDependencies": {
+  "version": "0.3.9999",
+  "private": true,
+  "dependencies": {
     "@types/node": "^20.9.2"
   },
   "devDependencies": {
-    "typescript": "^5.2.2"
-  }
+    "typescript": "^5.2.2",
+    "@types/vosk": "workspace:."
+  },
+  "projects": [
+    "https://alphacephei.com/vosk/"
+  ],
+  "owners": [
+    {
+      "name": "alphacephei",
+      "githubUsername": "alphacep"
+    }
+  ]
 }
