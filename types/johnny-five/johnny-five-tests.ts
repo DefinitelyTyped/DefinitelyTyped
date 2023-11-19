@@ -186,7 +186,7 @@ board
                 [null, 1 / 2],
             ],
             tempo: 100,
-        });
+        }).stop();
 
         // Options object with pin property
 
