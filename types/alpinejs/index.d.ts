@@ -104,11 +104,11 @@ export interface InterceptorObject<T> {
 
 type InferInterceptor<T> = T extends InterceptorObject<infer U>
     ? U
-    : T extends Record<string | number | symbol, unknown>
-    ? {
+    : keyof T extends never
+    ? T
+    : {
           [K in keyof T]: InferInterceptor<T[K]>;
-      }
-    : T;
+      };
 
 export type InferInterceptors<T> = {
     [K in keyof T]: InferInterceptor<T[K]>;
@@ -266,7 +266,7 @@ export interface Alpine {
     addRootSelector: (selectorCallback: () => string) => void;
     addInitSelector: (selectorCallback: () => string) => void;
     addScopeToNode: (
-        node: ElementWithXAttributes,
+        node: Element,
         data: Record<string, unknown>,
         referenceNode?: ElementWithXAttributes,
     ) => () => void;
@@ -277,8 +277,12 @@ export interface Alpine {
             value: string | (() => unknown);
         },
     ) => void;
+    /**
+     * Provides a function that can be called to evaluate an expression
+     * in the context of the specified element
+     */
     evaluateLater: <T_1>(
-        el: ElementWithXAttributes,
+        el: Element,
         expression?: string | (() => T_1),
     ) => (
         callback?: (value: T_1) => void,
@@ -300,6 +304,11 @@ export interface Alpine {
             },
         ) => void,
     ) => void;
+    /**
+     * "Flattens" an array of objects into a single Proxy object
+     * @param {Array} objects
+     * @returns flattened object
+     */
     mergeProxies: (objects: Array<Record<string, unknown>>) => Record<string, unknown>;
     extractProp: <T_3 extends string | boolean>(
         el: ElementWithXAttributes,
@@ -307,10 +316,13 @@ export interface Alpine {
         fallback: T_3 | (() => T_3),
         extract?: boolean,
     ) => unknown;
-    findClosest: (
-        el: ElementWithXAttributes,
-        callback: (el: ElementWithXAttributes) => boolean,
-    ) => ElementWithXAttributes;
+    /**
+     * Finds closest Node that satisfies the provided test function
+     * @param {Node} el
+     * @param callback
+     * @returns {Node}
+     */
+    findClosest: (el: Element, callback: (el: ElementWithXAttributes) => boolean) => Element;
     closestRoot: (el: ElementWithXAttributes, includeInitSelectors?: boolean) => ElementWithXAttributes | undefined;
     destroyTree: (root: ElementWithXAttributes) => void;
     interceptor: interceptor;
@@ -339,13 +351,30 @@ export interface Alpine {
         after?: () => void,
     ) => void;
     setStyles: (el: ElementWithXAttributes, value: string | Partial<CSSStyleDeclaration>) => () => void;
+    /**
+     * Runs an operation without having Alpine react to changes in the DOM caused by the function
+     * Useful for making a set of changes to the DOM and manually handling initialization
+     * @param {function} callback
+     */
     mutateDom: <T_5>(callback: () => T_5) => T_5;
+    /**
+     * Registers a new directive that can be used in markup (ex. `x-directive`)
+     * @param {string} name
+     * @param {function} callback
+     */
     directive: (
         name: string,
         callback: DirectiveCallback,
     ) => {
         before(directive: string): void;
     };
+    /**
+     * Entangles two objects
+     * Creates a reactive effect that bidirectionally bings the getters and setters on each object
+     *
+     * @param outer
+     * @param inner
+     */
     entangle: <T_6>(
         {
             get: outerGet,
@@ -362,33 +391,89 @@ export interface Alpine {
             set: (value: T_6) => void;
         },
     ) => () => void;
+    /**
+     * Provides a throttled version of the passed in function
+     * Can be called multiple times and only executes once per specified time
+     *
+     * @param {function} func
+     * @param {number} wait time to throttle
+     * @returns {function} throttled function
+     */
     throttle: <T_7 extends (...args: Parameters<T_7>) => void>(
         func: T_7,
         limit?: number,
     ) => (...args: Parameters<T_7>) => void;
+    /**
+     * Provides a debounced version of the passed in function
+     * Can be called multiple times and only executes after specified delay
+     * since last call
+     *
+     * @param {function} func
+     * @param {number} wait time to debounce
+     * @returns {function} debounced function
+     */
     debounce: <T_8 extends (...args: Parameters<T_8>) => void>(func: T_8, wait?: number) => T_8;
-    evaluate: <T_9>(el: ElementWithXAttributes, expression: string | (() => T_9), extras?: {}) => T_9;
+    /**
+     * Evaluates a string expression within the Alpine context of a particular Node
+     *
+     * @param {Node} el element in Alpine Context
+     * @param {string} expression function or string expression
+     * @param {object} extras additional values to expose to the expression
+     * @returns whatever the expression returns
+     */
+    evaluate: <T_9>(el: Node, expression: string | (() => T_9), extras?: {}) => T_9;
     initTree: (
         el: ElementWithXAttributes,
         walker?: (el: ElementWithXAttributes, callback: WalkerCallback) => any,
         intercept?: WalkerCallback,
     ) => void;
+    /**
+     * Waits until after a frame is painted to continue execution
+     * @param callback
+     * @returns Promise that resolves on the next frame
+     */
     nextTick: (callback?: () => void) => Promise<unknown>;
     prefixed: (subject?: string) => string;
     prefix: (newPrefix: string) => void;
+    /**
+     * Registers Plugins onto Alpine
+     */
     plugin: (callbacks: PluginCallback | PluginCallback[]) => void;
+    /**
+     * Registers a magic accessible at $name in Alpine contexts
+     * @param name name of Magic
+     * @param callback Method that builds the magic's value
+     */
     magic: (name: string, callback: (el: ElementWithXAttributes, options: MagicUtilities) => unknown) => void;
+    /**
+     * Registers a global reactive store to a name
+     * or accesses a global reactive store by name
+     */
     store: {
         <T extends keyof Stores>(name: T): Stores[T];
         <T extends keyof Stores>(name: T, value: Stores[T]): void;
     };
+    /**
+     * Starts Alpine on the current document
+     */
     start: () => void;
     clone: (oldEl: ElementWithXAttributes, newEl: ElementWithXAttributes) => void;
     bound: (el: ElementWithXAttributes, name: string, fallback?: unknown) => unknown;
+    /**
+     * Gets the data context of a particular Node
+     * This is a "flattened" object of all the components that element is within
+     * @param node Element inside an Alpine Component
+     * @returns Object
+     */
     $data: (node: ElementWithXAttributes) => {};
     walk: (el: ElementWithXAttributes, callback: WalkerCallback) => any;
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    data: <T_12 extends Record<string | symbol, unknown>>(
+    /**
+     * Registers a component constructor a name referenceable inside `x-data` expressions
+     *
+     * @param name Component name
+     * @param callback Data context constructor function
+     */
+    data: <T_12 extends { [key in keyof T_12]: T_12[key] }>(
         name: string,
         callback: (...args: unknown[]) => AlpineComponent<T_12>, // Needed generic to properly autotype objects
     ) => void;
