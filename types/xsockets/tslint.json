@@ -3,7 +3,6 @@
     "rules": {
         "no-internal-module": false,
         "no-var-keyword": false,
-        "npm-naming": false,
         "only-arrow-functions": false
     }
 }

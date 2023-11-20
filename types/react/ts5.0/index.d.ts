@@ -1953,7 +1953,7 @@ declare namespace React {
         accessKey?: string | undefined;
         autoFocus?: boolean | undefined;
         className?: string | undefined;
-        contentEditable?: Booleanish | "inherit" | undefined;
+        contentEditable?: Booleanish | "inherit" | "plaintext-only" | undefined;
         contextMenu?: string | undefined;
         dir?: string | undefined;
         draggable?: Booleanish | undefined;

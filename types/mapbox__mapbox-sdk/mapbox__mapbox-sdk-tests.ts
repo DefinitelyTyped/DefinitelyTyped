@@ -55,6 +55,31 @@ mapiRequestGeoJSON.send().then((response: MapiResponse) => {
     const coordinates = routes[0].geometry.coordinates;
 });
 
+const drivingDirectionsRequest: MapiRequest = directionsService.getDirections({
+    profile: "driving",
+    waypoints: [],
+    arriveBy: "2023-10-24T10:43",
+    departAt: "2023-10-23T5:00",
+    maxHeight: 4.5,
+    maxWeight: 40,
+    maxWidth: 10,
+});
+
+drivingDirectionsRequest.send().then((response: MapiResponse) => {
+});
+
+const drivingTrafficDirectionsRequest: MapiRequest = directionsService.getDirections({
+    profile: "driving-traffic",
+    waypoints: [],
+    departAt: "2023-10-23T5:00",
+    maxHeight: 4.5,
+    maxWeight: 40,
+    maxWidth: 10,
+});
+
+drivingTrafficDirectionsRequest.send().then((response: MapiResponse) => {
+});
+
 const mapMatchingService: MapMatchingService = MapMatching(client);
 
 const mapMatchingRequest: MapiRequest = mapMatchingService.getMatch({

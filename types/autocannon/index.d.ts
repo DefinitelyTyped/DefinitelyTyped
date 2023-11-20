@@ -216,6 +216,12 @@ declare namespace autocannon {
          * A Boolean which allows you to disable the aggregate result phase of an instance run.
          */
         skipAggregateResult?: boolean;
+
+        /**
+         * A Boolean which allows you to print connection errors to stderr.
+         * @default false
+         */
+        debug?: boolean;
     }
 
     interface Request {
@@ -422,6 +428,9 @@ declare namespace autocannon {
 
         /** How many times the requests pipeline was reset due to setupRequest returning a falsey value. */
         resets: number;
+
+        /** Requests counter per status code */
+        statusCodeStats?: Record<`${number}`, { count?: number }>;
     }
 
     interface Histogram {

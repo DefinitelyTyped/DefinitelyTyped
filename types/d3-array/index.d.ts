@@ -1,4 +1,4 @@
-// Last module patch version validated against: 3.1.6
+// Last module patch version validated against: 3.2.4
 
 // --------------------------------------------------------------------------
 // Shared Types and Interfaces
@@ -14,6 +14,16 @@ export type Primitive = number | string | boolean | Date;
  */
 export interface Numeric {
     valueOf(): number;
+}
+
+/**
+ * Administrivia: a matrix of numeric values.
+ * If height is not specified, it is inferred from the given width and data.length.
+ */
+export interface Matrix {
+    data: ArrayLike<number>;
+    width: number;
+    height?: number;
 }
 
 /**
@@ -197,6 +207,18 @@ export function median<T>(
 ): number | undefined;
 
 /**
+ * Like median, but returns the index of the element to the left of the median.
+ */
+export function medianIndex(iterable: Iterable<Numeric | undefined | null>): number;
+/**
+ * Like median, but returns the index of the element to the left of the median.
+ */
+export function medianIndex<T>(
+    iterable: Iterable<T>,
+    accessor: (element: T, i: number, array: Iterable<T>) => number | undefined | null,
+): number;
+
+/**
  * Returns the cumulative sum of the given iterable of numbers, as a Float64Array of the same length.
  * If the iterable contains no numbers, returns zeros.
  * An optional accessor function may be specified, which is equivalent to calling Array.from before computing the cumulative sum.
@@ -230,6 +252,19 @@ export function quantile<T>(
     p: number,
     accessor: (element: T, i: number, array: Iterable<T>) => number | undefined | null,
 ): number | undefined;
+
+/**
+ * Similar to quantile, but returns the index to the left of p.
+ */
+export function quantileIndex(iterable: Iterable<Numeric | undefined | null>, p: number): number;
+/**
+ * Similar to quantile, but returns the index to the left of p.
+ */
+export function quantileIndex<T>(
+    iterable: Iterable<T>,
+    p: number,
+    accessor: (element: T, i: number, array: Iterable<T>) => number | undefined | null,
+): number;
 
 /**
  * Similar to quantile, but expects the input to be a sorted array of values.
@@ -762,6 +797,33 @@ export function transpose<T>(matrix: ArrayLike<ArrayLike<T>>): T[][];
  * contains one-element arrays. With no arguments, the returned array is empty.
  */
 export function zip<T>(...arrays: Array<ArrayLike<T>>): T[][];
+
+// --------------------------------------------------------------------------------------
+// Blur
+// --------------------------------------------------------------------------------------
+
+/**
+ * Blurs an array of data in-place by applying three iterations of a moving average transform (box filter)
+ * for a fast approximation of a Gaussian kernel of the given radius, a non-negative number.
+ * Returns the given data.
+ */
+export function blur(data: ArrayLike<number>, radius: number): ArrayLike<number>;
+
+/**
+ * Blurs a matrix of the given width and height in-place by applying a horizontal blur of radius rx
+ * and a vertical blur of radius ry (which defaults to rx).
+ * The matrix values data are stored in a flat (one-dimensional) array.
+ * If height is not specified, it is inferred from the given width and data.length.
+ * Returns the blurred matrix {data, width, height}.
+ */
+export function blur2(data: Matrix, rx: number, ry?: number): Matrix;
+
+/**
+ * Blurs the given ImageData in-place, blurring each of the RGBA layers independently by applying an horizontal blur of radius rx
+ * and a vertical blur of radius ry (which defaults to rx).
+ * Returns the blurred ImageData.
+ */
+export function blurImage(imageData: ImageData, rx: number, ry?: number): ImageData;
 
 // --------------------------------------------------------------------------------------
 // Iterables
