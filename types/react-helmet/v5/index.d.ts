@@ -13,12 +13,12 @@ type LinkProps = JSX.IntrinsicElements["link"];
 type MetaProps = JSX.IntrinsicElements["meta"];
 
 export interface HelmetTags {
-    baseTag: Array<any>;
-    linkTags: Array<HTMLLinkElement>;
-    metaTags: Array<HTMLMetaElement>;
-    noscriptTags: Array<any>;
-    scriptTags: Array<HTMLScriptElement>;
-    styleTags: Array<HTMLStyleElement>;
+    baseTag: any[];
+    linkTags: HTMLLinkElement[];
+    metaTags: HTMLMetaElement[];
+    noscriptTags: any[];
+    scriptTags: HTMLScriptElement[];
+    styleTags: HTMLStyleElement[];
 }
 
 export interface HelmetProps {
@@ -33,9 +33,9 @@ export interface HelmetProps {
     onChangeClientState?: ((newState: any, addedTags: HelmetTags, removedTags: HelmetTags) => void) | undefined;
     link?: LinkProps[] | undefined;
     meta?: MetaProps[] | undefined;
-    noscript?: Array<any> | undefined;
-    script?: Array<any> | undefined;
-    style?: Array<any> | undefined;
+    noscript?: any[] | undefined;
+    script?: any[] | undefined;
+    style?: any[] | undefined;
     title?: string | undefined;
     titleAttributes?: Object | undefined;
     titleTemplate?: string | undefined;

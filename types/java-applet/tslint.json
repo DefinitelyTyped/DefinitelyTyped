@@ -1,10 +1,8 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "ban-types": false,
         "no-var-keyword": false,
         "npm-naming": false,
-        "prefer-const": false,
-        "no-empty-interface": false
+        "prefer-const": false
     }
 }

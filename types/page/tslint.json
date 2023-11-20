@@ -1,12 +1,16 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "no-misused-new": false,
         "no-redundant-jsdoc-2": false,
         "npm-naming": [
             true,
             {
-                "errors": [["NeedsExportEquals", false]],
+                "errors": [
+                    [
+                        "NeedsExportEquals",
+                        false
+                    ]
+                ],
                 "mode": "code"
             }
         ],

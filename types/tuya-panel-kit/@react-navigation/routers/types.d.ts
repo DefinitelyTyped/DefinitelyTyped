@@ -22,7 +22,7 @@ export declare type NavigationState<ParamList extends ParamListBase = ParamListB
      * List of valid route names as defined in the screen components.
      */
     // tslint:disable-next-line array-type
-    routeNames: Extract<keyof ParamList, string>[];
+    routeNames: Array<Extract<keyof ParamList, string>>;
     /**
      * Alternative entries for history.
      */
@@ -31,7 +31,7 @@ export declare type NavigationState<ParamList extends ParamListBase = ParamListB
      * List of rendered routes.
      */
     // tslint:disable-next-line array-type
-    routes: NavigationRoute<ParamList, keyof ParamList>[];
+    routes: Array<NavigationRoute<ParamList, keyof ParamList>>;
     /**
      * Custom type for the state, whether it's for tab, stack, drawer etc.
      * During rehydration, the state will be discarded if type doesn't match with router type.
@@ -47,9 +47,9 @@ export declare type NavigationState<ParamList extends ParamListBase = ParamListB
 export declare type InitialState = Readonly<
     Partial<Omit<NavigationState, "stale" | "routes">> & {
         // tslint:disable-next-line array-type
-        routes: (Omit<Route<string>, "key"> & {
+        routes: Array<Omit<Route<string>, "key"> & {
             state?: InitialState | undefined;
-        })[];
+        }>;
     }
 >;
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
@@ -63,7 +63,7 @@ export declare type PartialState<State extends NavigationState> =
     & Readonly<{
         stale?: true | undefined;
         // tslint:disable-next-line array-type
-        routes: PartialRoute<Route<State["routeNames"][number]>>[];
+        routes: Array<PartialRoute<Route<State["routeNames"][number]>>>;
     }>;
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type Route<RouteName extends string, Params extends object | undefined = object | undefined> =

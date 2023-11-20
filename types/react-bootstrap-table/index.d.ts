@@ -608,7 +608,7 @@ export interface Options<TRow extends object = any> {
      */
     onSortChange?:
         | ((sortName: keyof TRow, sortOrder: SortOrder) => void)
-        | ((sortName: ReadonlyArray<keyof TRow>, sortOrder: ReadonlyArray<SortOrder>) => void)
+        | ((sortName: ReadonlyArray<keyof TRow>, sortOrder: readonly SortOrder[]) => void)
         | undefined;
     /**
      * Change the text displayed on the table if data is empty.
@@ -650,7 +650,7 @@ export interface Options<TRow extends object = any> {
      *   `search`: The search text from the user.
      *   `result`: The results after searching (array of rows that matched the search).
      */
-    afterSearch?(search: string, result: ReadonlyArray<TRow>): void;
+    afterSearch?(search: string, result: readonly TRow[]): void;
     /**
      * Default is false, if true means you want to ignore any editable columns when creating the insert form.
      */
@@ -665,7 +665,7 @@ export interface Options<TRow extends object = any> {
      *   `rowKeys`: which means the row keys for the deleted rows
      *   `rows`: the array of row data that was deleted.
      */
-    afterDeleteRow?(rowKeys: ReadonlyArray<number | string>, rows: ReadonlyArray<TRow>): void;
+    afterDeleteRow?(rowKeys: ReadonlyArray<number | string>, rows: readonly TRow[]): void;
     /**
      * Assign a callback function which will be called after inserting a row.
      * This function takes one argument: row, which means the whole row data you added.
@@ -680,7 +680,7 @@ export interface Options<TRow extends object = any> {
      * This function only work when you enable columnFilter on <BootstrapTable> or define
      * a filter on <TableHeaderColumn>.
      */
-    afterColumnFilter?(filterConds: ReadonlyArray<FilterData>, result: ReadonlyArray<TRow>): void;
+    afterColumnFilter?(filterConds: readonly FilterData[], result: readonly TRow[]): void;
     /**
      * Assign a callback function which will be called when a row is added. This function
      * takes three arguments:
@@ -712,7 +712,7 @@ export interface Options<TRow extends object = any> {
      *   `rowKeys`: keys for the rows to be deleted.
      *   `rows`: row data for the rows to be deleted.
      */
-    onDeleteRow?(rowKeys: ReadonlyArray<number | string>, rows: ReadonlyArray<TRow>): void;
+    onDeleteRow?(rowKeys: ReadonlyArray<number | string>, rows: readonly TRow[]): void;
     /**
      * Assign a callback function which will be called after a row click.
      * This function takes four arguments:

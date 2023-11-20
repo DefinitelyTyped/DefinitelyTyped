@@ -1,6 +1,6 @@
 declare function inside(
-    point: ReadonlyArray<number>,
-    polygon: ReadonlyArray<ReadonlyArray<number>> | ReadonlyArray<number>,
+    point: readonly number[],
+    polygon: ReadonlyArray<readonly number[]> | readonly number[],
     start?: number,
     end?: number,
 ): boolean;

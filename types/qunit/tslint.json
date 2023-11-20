@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "array-type": false,
-        "interface-over-type-literal": false,
         "jsdoc-format": false,
         "no-redundant-jsdoc-2": false,
         "no-string-throw": false,

@@ -11,5 +11,5 @@ interface SortItemsOptions<ItemType> extends SharedOptions, DownshiftTypedProps<
 
 export interface MultiSelectSortingProps<ItemType extends ListBoxBaseItemType = string> {
     compareItems?(item1: ItemType, item2: ItemType, options: SharedOptions): number; // required but has default value
-    sortItems?(items: ReadonlyArray<ItemType>, options: SortItemsOptions<ItemType>): ItemType[]; // required but has default value
+    sortItems?(items: readonly ItemType[], options: SortItemsOptions<ItemType>): ItemType[]; // required but has default value
 }

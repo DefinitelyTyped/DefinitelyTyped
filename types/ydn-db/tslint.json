@@ -1,9 +1,7 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "adjacent-overload-signatures": false,
         "array-type": false,
-        "ban-types": false,
         "no-mergeable-namespace": false,
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-class": false,

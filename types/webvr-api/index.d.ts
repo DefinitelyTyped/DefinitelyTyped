@@ -208,7 +208,7 @@ interface VRStageParameters {
 
 interface Navigator {
     getVRDisplays(): Promise<VRDisplay[]>;
-    readonly activeVRDisplays: ReadonlyArray<VRDisplay>;
+    readonly activeVRDisplays: readonly VRDisplay[];
 }
 
 interface VRDisplayEventInit extends EventInit {

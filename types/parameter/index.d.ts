@@ -102,7 +102,7 @@ declare namespace Parameter {
         | "object?"
         | "array"
         | "array?"
-        | ReadonlyArray<any>
+        | readonly any[]
         | RegExp;
 
     interface ParameterRuleBase {
@@ -197,7 +197,7 @@ declare namespace Parameter {
 
     interface ParameterRuleEnum extends ParameterRuleBase {
         type: "enum" | "enum?";
-        values: ReadonlyArray<any>;
+        values: readonly any[];
     }
 
     interface ParameterRuleObject extends ParameterRuleBase {

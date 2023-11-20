@@ -209,7 +209,7 @@ export type ExpandedTermDefinition =
  * Not for export.
  * @see https://www.w3.org/TR/json-ld/#keywords
  */
-// tslint:disable-next-line:interface-over-type-literal
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type Keyword = {
     "@base": string | null;
     "@container":

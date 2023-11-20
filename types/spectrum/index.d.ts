@@ -470,7 +470,7 @@ declare namespace Spectrum {
          * ]]
          * ```
          */
-        palette?: ReadonlyArray<ReadonlyArray<string>> | undefined;
+        palette?: ReadonlyArray<readonly string[]> | undefined;
 
         /**
          * Spectrum can show a palette below the color picker to make it
@@ -796,7 +796,7 @@ declare namespace Spectrum {
          * });
          * ```
          */
-        selectionPalette?: ReadonlyArray<string> | undefined;
+        selectionPalette?: readonly string[] | undefined;
 
         /**
          * Additional offset to apply as a CSS unit to the container.

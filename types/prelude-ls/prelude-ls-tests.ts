@@ -10,47 +10,47 @@ prelude.isType("String", "hi"); // => true
 prelude.isType("Object", {}); // => true
 prelude.isType("Array", []); // => true
 
-var numberArray: Array<number> = prelude.replicate(4, 3); // => [3, 3, 3, 3]
-var strArray: Array<string> = prelude.replicate(4, "a"); // => ["a", "a", "a", "a"]
+var numberArray: number[] = prelude.replicate(4, 3); // => [3, 3, 3, 3]
+var strArray: string[] = prelude.replicate(4, "a"); // => ["a", "a", "a", "a"]
 prelude.replicate(0, "a"); // => []
 
 // List
 
-var eachRes: Array<Array<string>> = prelude.each(x => x.push("boom"), [["a"], ["b"], ["c"]]);
+var eachRes: string[][] = prelude.each(x => x.push("boom"), [["a"], ["b"], ["c"]]);
 // => [["a", "boom"], ["b", "boom"], ["c", "boom"]]
 
-var mapRes: Array<string> = prelude.map(x => x.toString(), [1, 2, 3, 4, 5]); // => ["1", "2", "3", "4", "5"]
+var mapRes: string[] = prelude.map(x => x.toString(), [1, 2, 3, 4, 5]); // => ["1", "2", "3", "4", "5"]
 
 prelude.map(x => x.toUpperCase(), ["ha", "ma"]); // => ["HA", "MA"]
 prelude.map(x => x.num, [{ num: 3 }, { num: 1 }]); // => [3, 1]
 
-var compactRes: Array<any> = prelude.compact([0, 1, false, true, "", "ha"]); // => [1, true, "ha"]
+var compactRes: any[] = prelude.compact([0, 1, false, true, "", "ha"]); // => [1, true, "ha"]
 
-var filterRes: Array<number> = prelude.filter(x => x < 3, [1, 2, 3, 4, 5]); // => [1, 2]
+var filterRes: number[] = prelude.filter(x => x < 3, [1, 2, 3, 4, 5]); // => [1, 2]
 prelude.filter(prelude.even, [3, 4, 0]); // => [4, 0]
 
-var rejectRes: Array<number> = prelude.reject(prelude.odd, [1, 2, 3, 4, 5]); // => [2, 4]
+var rejectRes: number[] = prelude.reject(prelude.odd, [1, 2, 3, 4, 5]); // => [2, 4]
 
-var partitionRes: Array<Array<number>> = prelude.partition(x => x > 60, [49, 58, 76, 43, 88, 77, 90]);
+var partitionRes: number[][] = prelude.partition(x => x > 60, [49, 58, 76, 43, 88, 77, 90]);
 // => [[76, 88, 77, 90], [49, 58, 43]]
 
 var findRes: number = prelude.find(prelude.odd, [2, 4, 6, 7, 8, 9, 10]); // => 7
 
 var headRes: number = prelude.head([1, 2, 3, 4, 5]); // => 1
 
-var tailRes: Array<number> = prelude.tail([1, 2, 3, 4, 5]); // => [2, 3, 4, 5]
+var tailRes: number[] = prelude.tail([1, 2, 3, 4, 5]); // => [2, 3, 4, 5]
 
 var lastRes: number = prelude.last([1, 2, 3, 4, 5]); // => 5
 
-var initialRes: Array<number> = prelude.initial([1, 2, 3, 4, 5]); // => [1, 2, 3, 4]
+var initialRes: number[] = prelude.initial([1, 2, 3, 4, 5]); // => [1, 2, 3, 4]
 
 var emptyRes: boolean = prelude.empty([]); // => true
 
-var reverseRes: Array<number> = prelude.reverse([1, 2, 3]); // => [3, 2, 1]
+var reverseRes: number[] = prelude.reverse([1, 2, 3]); // => [3, 2, 1]
 
-var uniqueRes: Array<number> = prelude.unique([1, 1, 1, 3, 3, 6, 7, 8]); // => [1, 3, 6, 7, 8]
+var uniqueRes: number[] = prelude.unique([1, 1, 1, 3, 3, 6, 7, 8]); // => [1, 3, 6, 7, 8]
 
-var uniqueByRes: Array<string> = prelude.uniqueBy(x => x.length, ["and", "here", "are", "some", "words"]); // => ["and", "here", "words"]
+var uniqueByRes: string[] = prelude.uniqueBy(x => x.length, ["and", "here", "are", "some", "words"]); // => ["and", "here", "words"]
 
 var foldRes: number = prelude.fold(x => y => x + y, 0, [1, 2, 3, 4, 5]); // => 15
 
@@ -62,25 +62,25 @@ var foldrStrRes: string = prelude.foldr(x => y => x + y, "e", ["a", "b", "c", "d
 
 var foldr1Res: number = prelude.foldr1(x => y => x - y, [1, 2, 3, 4, 9]); // => 7
 
-var unfoldrRes: Array<number> = prelude.unfoldr(x => x === 0 ? null : [x, x - 1], 10);
+var unfoldrRes: number[] = prelude.unfoldr(x => x === 0 ? null : [x, x - 1], 10);
 // => [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 
-var concatRes: Array<number> = prelude.concat([[1], [2, 3], [4]]); // => [1, 2, 3, 4]
+var concatRes: number[] = prelude.concat([[1], [2, 3], [4]]); // => [1, 2, 3, 4]
 
-var concatMapRes: Array<any> = prelude.concatMap(x => ["hoge", x, x + 2], [1, 2, 3]);
+var concatMapRes: any[] = prelude.concatMap(x => ["hoge", x, x + 2], [1, 2, 3]);
 // => ["hoge", 1, 3, "hoge", 2, 4, "hoge", 3, 5]
 
-var flattenRes: Array<number> = prelude.flatten([1, [[2], 3], [4, [[5]]]]); // => [1, 2, 3, 4, 5]
+var flattenRes: number[] = prelude.flatten([1, [[2], 3], [4, [[5]]]]); // => [1, 2, 3, 4, 5]
 
-var differenceRes: Array<number> = prelude.difference([1, 2, 3], [1]); // => [2, 3]
+var differenceRes: number[] = prelude.difference([1, 2, 3], [1]); // => [2, 3]
 prelude.difference([1, 2, 3, 4, 5], [5, 2, 10], [9]); // => [1, 3, 4]
 
 prelude.intersection([2, 3], [9, 8], [12, 1], [99]); // => []
-var intersectionRes: Array<number> = prelude.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1], [-1, 0, 1, 2]);
+var intersectionRes: number[] = prelude.intersection([1, 2, 3], [101, 2, 1, 10], [2, 1], [-1, 0, 1, 2]);
 // => [1, 2]
 prelude.intersection([1, 2, 3], [2, 1, 3], [3, 1, 2]); // => [1, 2, 3]
 
-var unionRes: Array<number> = prelude.union([1, 5, 7], [3, 5], []); // => [1, 5, 7, 3]
+var unionRes: number[] = prelude.union([1, 5, 7], [3, 5], []); // => [1, 5, 7, 3]
 
 var countByRes: Object = prelude.countBy(prelude.floor, [4.2, 6.1, 6.4]);
 // => {4: 1, 6: 2}
@@ -105,7 +105,7 @@ var allRes: boolean = prelude.all(prelude.isType("String"), ["ha", "ma", "la"]);
 // => true
 prelude.all(prelude.isType("String"), []); // => true
 
-var sortRes: Array<number> = prelude.sort([3, 1, 5, 2, 4, 6]);
+var sortRes: number[] = prelude.sort([3, 1, 5, 2, 4, 6]);
 // => [1, 2, 3, 4, 5, 6]
 
 var f = (x: string) => (y: string) =>
@@ -115,10 +115,10 @@ var f = (x: string) => (y: string) =>
         ? -1
         : 0;
 
-var sortWithRes: Array<string> = prelude.sortWith(f, ["three", "one", "two"]);
+var sortWithRes: string[] = prelude.sortWith(f, ["three", "one", "two"]);
 // => ["one", "two", "three"]
 
-var sortByRes: Array<string> = prelude.sortBy(x => x.length, ["there", "hey", "a", "ha"]);
+var sortByRes: string[] = prelude.sortBy(x => x.length, ["there", "hey", "a", "ha"]);
 // => ["a", "ha", "hey", "there"]
 
 var table: Array<{
@@ -154,60 +154,60 @@ var minimumRes: string = prelude.minimum(["c", "e", "a", "d", "b"]); // => "a"
 var maximumByRes: string = prelude.maximumBy(x => x.length, ["hi", "there", "I", "am", "looooong"]);
 // => "looooong"
 
-var scanRes: Array<number> = prelude.scan(x => y => x + y, 0, [1, 2, 3]);
+var scanRes: number[] = prelude.scan(x => y => x + y, 0, [1, 2, 3]);
 // => [0, 1, 3, 6]
 
-var scan1Res: Array<number> = prelude.scan1(x => y => x + y, [1, 2, 3]);
+var scan1Res: number[] = prelude.scan1(x => y => x + y, [1, 2, 3]);
 // => [1, 3, 6]
 
-var scanrRes: Array<number> = prelude.scanr(x => y => x + y, 0, [1, 2, 3]);
+var scanrRes: number[] = prelude.scanr(x => y => x + y, 0, [1, 2, 3]);
 // => [6, 5, 3, 0]
 
-var scanr1Res: Array<number> = prelude.scanr1(x => y => x + y, [1, 2, 3]);
+var scanr1Res: number[] = prelude.scanr1(x => y => x + y, [1, 2, 3]);
 // => [6, 5, 3]
 
-var sliceRes: Array<number> = prelude.slice(2, 4, [1, 2, 3, 4, 5]); // => [3, 4]
+var sliceRes: number[] = prelude.slice(2, 4, [1, 2, 3, 4, 5]); // => [3, 4]
 
-var takeRes: Array<number> = prelude.take(2, [1, 2, 3, 4, 5]); // => [1, 2]
+var takeRes: number[] = prelude.take(2, [1, 2, 3, 4, 5]); // => [1, 2]
 
-var dropRes: Array<number> = prelude.drop(2, [1, 2, 3, 4, 5]); // => [3, 4, 5]
+var dropRes: number[] = prelude.drop(2, [1, 2, 3, 4, 5]); // => [3, 4, 5]
 
-var splitAtRes: Array<Array<number>> = prelude.splitAt(2, [1, 2, 3, 4, 5]); // => [[1, 2], [3, 4, 5]]
+var splitAtRes: number[][] = prelude.splitAt(2, [1, 2, 3, 4, 5]); // => [[1, 2], [3, 4, 5]]
 
-var takeWhileRes: Array<number> = prelude.takeWhile(prelude.odd, [1, 3, 5, 4, 8, 7, 9]); // => [1, 3, 5]
+var takeWhileRes: number[] = prelude.takeWhile(prelude.odd, [1, 3, 5, 4, 8, 7, 9]); // => [1, 3, 5]
 
-var dropWhileRes: Array<number> = prelude.dropWhile(prelude.even, [2, 4, 5, 6]); // => [5, 6]
+var dropWhileRes: number[] = prelude.dropWhile(prelude.even, [2, 4, 5, 6]); // => [5, 6]
 
-var spanRes: Array<Array<number>> = prelude.span(prelude.even, [2, 4, 5, 6]); // => [[2, 4], [5, 6]]
+var spanRes: number[][] = prelude.span(prelude.even, [2, 4, 5, 6]); // => [[2, 4], [5, 6]]
 
-var breakListRes: Array<Array<number>> = prelude.breakList(x => x == 3, [1, 2, 3, 4, 5]); // => [[1, 2], [3, 4, 5]]
+var breakListRes: number[][] = prelude.breakList(x => x == 3, [1, 2, 3, 4, 5]); // => [[1, 2], [3, 4, 5]]
 
-var zipRes: Array<Array<number>> = prelude.zip([1, 2, 3], [4, 5, 6]);
+var zipRes: number[][] = prelude.zip([1, 2, 3], [4, 5, 6]);
 // => [[1, 4], [2, 5], [3, 6]]
 
-var zipWithRes: Array<number> = prelude.zipWith(x => y => x + y, [1, 2, 3], [4, 5, 6]); // => [5, 7, 9]
+var zipWithRes: number[] = prelude.zipWith(x => y => x + y, [1, 2, 3], [4, 5, 6]); // => [5, 7, 9]
 
-var zipAllRes: Array<Array<number>> = prelude.zipAll([1, 2, 3], [4, 5, 6], [7, 8, 9]); // => [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
+var zipAllRes: number[][] = prelude.zipAll([1, 2, 3], [4, 5, 6], [7, 8, 9]); // => [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
 
-var zipAllWithRes: Array<number> = prelude.zipAllWith((a, b, c) => a + b + c, [1, 2, 3], [3, 2, 1], [1, 1, 1]); // => [5, 5, 5]
+var zipAllWithRes: number[] = prelude.zipAllWith((a, b, c) => a + b + c, [1, 2, 3], [3, 2, 1], [1, 1, 1]); // => [5, 5, 5]
 
 var atRes: number = prelude.at(2, [1, 2, 3, 4]); // => 3
 prelude.at(-3, [1, 2, 3, 4]); // => 2
 
 var elemIndexRes: number = prelude.elemIndex("a", ["c", "a", "b", "a"]); // => 1
 
-var elemIndicesRes: Array<number> = prelude.elemIndices("a", ["c", "a", "b", "a"]); // => [1, 3]
+var elemIndicesRes: number[] = prelude.elemIndices("a", ["c", "a", "b", "a"]); // => [1, 3]
 
 var findIndexRes: number = prelude.findIndex(prelude.even, [1, 2, 3, 4]); // => 1
 
-var findIndicesRes: Array<number> = prelude.findIndices(prelude.even, [1, 2, 3, 4]); // => [1, 3]
+var findIndicesRes: number[] = prelude.findIndices(prelude.even, [1, 2, 3, 4]); // => [1, 3]
 
 // Obj
 
-var keysRes: Array<string> = prelude.keys({ a: 2, b: 3, c: 9 });
+var keysRes: string[] = prelude.keys({ a: 2, b: 3, c: 9 });
 // => ["a", "b", "c"]
 
-var valuesRes: Array<number> = prelude.values({ a: 2, b: 3, c: 9 });
+var valuesRes: number[] = prelude.values({ a: 2, b: 3, c: 9 });
 // => [2, 3, 9]
 
 var pairsToObjRes: Object = prelude.pairsToObj<string | number>([["a", "b"], ["c", "d"], ["e", 1]]); // => {a: "b", c: "d", e: 1}

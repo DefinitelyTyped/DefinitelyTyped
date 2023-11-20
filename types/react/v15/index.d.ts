@@ -68,7 +68,7 @@ declare namespace React {
     type Key = string | number;
     type Ref<T> = string | { bivarianceHack(instance: T | null): any }["bivarianceHack"];
 
-    // tslint:disable-next-line:interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ComponentState = {};
 
     interface Attributes {

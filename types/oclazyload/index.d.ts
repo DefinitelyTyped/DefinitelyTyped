@@ -15,6 +15,6 @@ declare module "angular" {
          * @param requires The names of modules this module depends on, and/or ocLazyLoad module configurations. If specified then new module is being created. If unspecified then the module is being retrieved for further configuration.
          * @param configFn Optional configuration function for the module.
          */
-        module(name: string, requires?: (string | oc.IModuleConfig)[], configFn?: Function): IModule;
+        module(name: string, requires?: Array<string | oc.IModuleConfig>, configFn?: Function): IModule;
     }
 }

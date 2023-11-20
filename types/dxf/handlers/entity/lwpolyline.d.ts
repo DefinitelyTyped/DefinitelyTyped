@@ -4,7 +4,7 @@ import { CommonEntityData } from "./common";
 
 export const TYPE: string;
 
-// tslint:disable-next-line: interface-over-type-literal
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type LWPolylineEntityData = {
     closed?: boolean;
     vertices?: Point2D[];

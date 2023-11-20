@@ -721,7 +721,7 @@ describe("Chartlet", function() {
         update: d3kit.ChartletEventFunction,
         exit: d3kit.ChartletEventFunction,
         chartlet: d3kit.Chartlet;
-    var customEvents: Array<string> = ["fooEvent"];
+    var customEvents: string[] = ["fooEvent"];
     var ChildChartlet: () => d3kit.Chartlet;
     var ParentChartlet: (configureFunction: ConfigureFunction) => d3kit.Chartlet;
 

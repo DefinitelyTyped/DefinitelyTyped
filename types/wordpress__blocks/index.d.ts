@@ -145,7 +145,7 @@ type BlockExampleInnerBlock =
     & Partial<Block>
     & Pick<Block, "name" | "attributes">
     & {
-        innerBlocks?: ReadonlyArray<BlockExampleInnerBlock>;
+        innerBlocks?: readonly BlockExampleInnerBlock[];
     };
 
 export interface Block<T extends Record<string, any> = {}> {
@@ -197,7 +197,7 @@ export interface Block<T extends Record<string, any> = {}> {
      *
      * @see {@link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#example}
      */
-    readonly example?: Readonly<Partial<Block> & { innerBlocks?: ReadonlyArray<BlockExampleInnerBlock> }>;
+    readonly example?: Readonly<Partial<Block> & { innerBlocks?: readonly BlockExampleInnerBlock[] }>;
     /**
      * Icon for the block.
      */

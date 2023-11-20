@@ -186,7 +186,7 @@ declare namespace CKEDITOR {
         updateElement(): void;
     }
 
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface CKEditorPluginsEditorInstance {}
 
     interface eventObject {

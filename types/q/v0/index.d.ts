@@ -193,7 +193,7 @@ declare namespace Q {
         /**
          * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
          */
-        all<T>(this: Promise<IWhenable<T>[]>): Promise<T[]>;
+        all<T>(this: Promise<Array<IWhenable<T>>>): Promise<T[]>;
     }
 
     interface PromiseState<T> {
@@ -273,26 +273,26 @@ declare namespace Q {
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<T>(promises: IWhenable<IWhenable<T>[]>): Promise<T[]>;
+    export function all<T>(promises: IWhenable<Array<IWhenable<T>>>): Promise<T[]>;
 
     /**
      * Returns a promise for the first of an array of promises to become settled.
      */
-    export function race<T>(promises: IWhenable<T>[]): Promise<T>;
+    export function race<T>(promises: Array<IWhenable<T>>): Promise<T>;
 
     /**
      * Returns a promise that is fulfilled with an array of promise state snapshots, but only after all the original promises have settled, i.e. become either fulfilled or rejected.
      */
-    export function allSettled<T>(promises: IWhenable<IWhenable<T>[]>): Promise<PromiseState<T>[]>;
+    export function allSettled<T>(promises: IWhenable<Array<IWhenable<T>>>): Promise<Array<PromiseState<T>>>;
 
-    export function allResolved<T>(promises: IWhenable<IWhenable<T>[]>): Promise<Promise<T>[]>;
+    export function allResolved<T>(promises: IWhenable<Array<IWhenable<T>>>): Promise<Array<Promise<T>>>;
 
     /**
      * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason.
      * This is especially useful in conjunction with all.
      */
     export function spread<T, U>(
-        promises: IWhenable<T>[],
+        promises: Array<IWhenable<T>>,
         onFulfilled: (...args: T[]) => IWhenable<U>,
         onRejected?: (reason: any) => IWhenable<U>,
     ): Promise<U>;

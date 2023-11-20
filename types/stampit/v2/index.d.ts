@@ -54,12 +54,12 @@ interface Options {
     /**
      * A hash containing methods (functions) of any future created instance.
      */
-    methods?: {} | {}[] | undefined;
+    methods?: {} | Array<{}> | undefined;
 
     /**
      * A hash containing references to the object. This hash will be shallow mixed into any future created instance.
      */
-    refs?: {} | {}[] | undefined;
+    refs?: {} | Array<{}> | undefined;
 
     /**
      * Initialization function which will be called per each newly created instance.
@@ -69,12 +69,12 @@ interface Options {
     /**
      * Properties which will be deeply (but safely, no data override) merged into any future created instance.
      */
-    props?: {} | {}[] | undefined;
+    props?: {} | Array<{}> | undefined;
 
     /**
      * Properties which will be mixed to the new and any other stamp which this stamp will be composed with.
      */
-    static?: {} | {}[] | undefined;
+    static?: {} | Array<{}> | undefined;
 }
 
 /**
@@ -116,14 +116,14 @@ interface Stamp {
      * @param methods Object(s) containing map of method names and bodies for delegation.
      * @return A new Stamp.
      */
-    methods(...methods: {}[]): Stamp;
+    methods(...methods: Array<{}>): Stamp;
 
     /**
      * Take n objects and add them to the state prototype. Creates and returns new Stamp. Chainable.
      * @param states Object(s) containing map of property names and values to clone for each new object.
      * @return A new Stamp.
      */
-    refs(...states: {}[]): Stamp;
+    refs(...states: Array<{}>): Stamp;
 
     /**
      * Take n objects and merge them (but safely, no data override) to the of any future created instance.
@@ -131,12 +131,12 @@ interface Stamp {
      * @param objects Object(s) to merge for each new object.
      * @return A new Stamp.
      */
-    props(...objects: {}[]): Stamp;
+    props(...objects: Array<{}>): Stamp;
 
     /**
      * @deprecated Use .refs() instead.
      */
-    state(...states: {}[]): Stamp;
+    state(...states: Array<{}>): Stamp;
 
     /**
      * @deprecated Use .init() instead.
@@ -146,7 +146,7 @@ interface Stamp {
     /**
      * @deprecated Use .init() instead.
      */
-    enclose(...functions: {}[]): Stamp;
+    enclose(...functions: Array<{}>): Stamp;
 
     /**
      * Take n functions, an array of functions, or n objects and add the functions to the enclose prototype.
@@ -166,7 +166,7 @@ interface Stamp {
      * @param functions Function properties of these objects will be treated as closure functions.
      * @return A new Stamp.
      */
-    init(...functions: {}[]): Stamp;
+    init(...functions: Array<{}>): Stamp;
 
     /**
      * Take n objects and add them to a new stamp and any future stamp it composes with.
@@ -174,7 +174,7 @@ interface Stamp {
      * @param statics Object(s) containing map of property names and values to mixin into each new stamp.
      * @return A new Stamp.
      */
-    static(...statics: {}[]): Stamp;
+    static(...statics: Array<{}>): Stamp;
 
     /**
      * Take one or more Stamps and
@@ -205,21 +205,21 @@ declare namespace stampit {
      * @param methods Object(s) containing map of method names and bodies for delegation.
      * @return A new Stamp.
      */
-    export function methods(...methods: {}[]): Stamp;
+    export function methods(...methods: Array<{}>): Stamp;
 
     /**
      * A shortcut methods for stampit().refs()
      * @param states Object(s) containing map of property names and values to clone for each new object.
      * @return A new Stamp.
      */
-    export function refs(...states: {}[]): Stamp;
+    export function refs(...states: Array<{}>): Stamp;
 
     /**
      * A shortcut methods for stampit().props()
      * @param states Object(s) to merge for each new object.
      * @return A new Stamp.
      */
-    export function props(...states: {}[]): Stamp;
+    export function props(...states: Array<{}>): Stamp;
 
     /**
      * A shortcut methods for stampit().init()
@@ -233,7 +233,7 @@ declare namespace stampit {
      * @param statics Object(s) containing map of property names and values to mixin into each new stamp (NOT OBJECT).
      * @return A new Stamp.
      */
-    export function static(...statics: {}[]): Stamp;
+    export function static(...statics: Array<{}>): Stamp;
 
     /**
      * Take two or more Stamps and combine them to produce a new Stamp.

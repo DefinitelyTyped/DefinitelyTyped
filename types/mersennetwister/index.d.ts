@@ -2,7 +2,7 @@ export = MersenneTwister;
 
 declare class MersenneTwister {
     /** Creates a new instance seeded by an unsined 32-bit integer or or array of unsigned 32-bit integers */
-    constructor(seed?: number | ReadonlyArray<number>);
+    constructor(seed?: number | readonly number[]);
     /** Returns a random 32-bit unsigned integer */
     int(): number;
     /** Returns a random 31-bit unsigned integer */
@@ -23,5 +23,5 @@ declare class MersenneTwister {
     /** Reseed the generator with the specified 32-bit unsigned integer */
     seed(seed: number): void;
     /** Reseed the generator's state vector with an array of 32-bit unsigned integers */
-    seedArray(seeds: ReadonlyArray<number>): void;
+    seedArray(seeds: readonly number[]): void;
 }

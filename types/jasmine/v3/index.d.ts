@@ -215,7 +215,7 @@ declare namespace jasmine {
         | {
             [K in keyof T]: ExpectedRecursive<T[K]>;
         };
-    type SpyObjMethodNames<T = undefined> = T extends undefined ? ReadonlyArray<string> | { [methodName: string]: any }
+    type SpyObjMethodNames<T = undefined> = T extends undefined ? readonly string[] | { [methodName: string]: any }
         : (
             | ReadonlyArray<keyof T>
             | {
@@ -226,7 +226,7 @@ declare namespace jasmine {
         );
 
     type SpyObjPropertyNames<T = undefined> = T extends undefined
-        ? ReadonlyArray<string> | { [propertyName: string]: any }
+        ? readonly string[] | { [propertyName: string]: any }
         : ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] };
 
     /**
@@ -404,7 +404,7 @@ declare namespace jasmine {
         /**
          * customTesters are deprecated and will be replaced with matcherUtils in the future.
          */
-        asymmetricMatch(other: TValue, matchersUtil?: MatchersUtil | ReadonlyArray<CustomEqualityTester>): boolean;
+        asymmetricMatch(other: TValue, matchersUtil?: MatchersUtil | readonly CustomEqualityTester[]): boolean;
         jasmineToString?(prettyPrint: typeof pp): string;
     }
 
@@ -454,12 +454,12 @@ declare namespace jasmine {
 
     type CustomMatcherFactory = (
         util: MatchersUtil,
-        customEqualityTesters: ReadonlyArray<CustomEqualityTester>,
+        customEqualityTesters: readonly CustomEqualityTester[],
     ) => CustomMatcher;
 
     type CustomAsyncMatcherFactory = (
         util: MatchersUtil,
-        customEqualityTesters: ReadonlyArray<CustomEqualityTester>,
+        customEqualityTesters: readonly CustomEqualityTester[],
     ) => CustomAsyncMatcher;
 
     interface CustomMatcherFactories {
@@ -483,12 +483,12 @@ declare namespace jasmine {
     }
 
     interface MatchersUtil {
-        equals(a: any, b: any, customTesters?: ReadonlyArray<CustomEqualityTester>, diffBuilder?: DiffBuilder): boolean;
+        equals(a: any, b: any, customTesters?: readonly CustomEqualityTester[], diffBuilder?: DiffBuilder): boolean;
         equals(a: any, b: any, diffBuilder?: DiffBuilder): boolean;
         contains<T>(
             haystack: ArrayLike<T> | string,
             needle: any,
-            customTesters?: ReadonlyArray<CustomEqualityTester>,
+            customTesters?: readonly CustomEqualityTester[],
         ): boolean;
         buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: any[]): string;
 

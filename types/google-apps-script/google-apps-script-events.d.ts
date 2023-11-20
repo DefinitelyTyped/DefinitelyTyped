@@ -90,7 +90,7 @@ declare namespace GoogleAppsScript {
             authMode: Script.AuthMode;
         }
 
-        // tslint:disable-next-line: no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface DoGet extends AppsScriptHttpRequestEvent {
         }
 

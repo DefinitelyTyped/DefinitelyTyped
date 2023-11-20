@@ -577,13 +577,13 @@ export class Hygrometer {
     on(event: "data", cb: (data: unknown) => void): this;
 }
 
-// tslint:disable-next-line:interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IMUGeneralOption {
     controller?: string | undefined;
     freq?: number | undefined;
 }
 
-// tslint:disable-next-line:interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IMUMPU6050Option extends IMUGeneralOption {
     address: number;
 }

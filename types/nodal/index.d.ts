@@ -546,7 +546,7 @@ export class Model {
      *   Pass in a function with named parameters corresponding the relationships you'd like to retrieve.
      *   The first parameter is always an error callback.
      */
-    include(callback: (err: Error, ...models: (Model | ModelArray<this>)[]) => void): void;
+    include(callback: (err: Error, ...models: Array<Model | ModelArray<this>>) => void): void;
     /**
      * Creates a plain object from the Model, with properties matching an optional interface
      * @param {Array} arrInterface Interface to use for object creation
@@ -870,7 +870,7 @@ export class ModelFactory {
      * @param {Object} objModelData Keys are model names, values are arrays of model data you wish to create
      * @param {Function} callback What to execute upon completion
      */
-    static createFromModels(Models: (typeof Model)[], objModelData: IModelData, callback: Function): void;
+    static createFromModels(Models: Array<typeof Model>, objModelData: IModelData, callback: Function): void;
     /**
      * Populates a large amount of model data from an Object.
      * @param {Array} Models Array of Model constructors
@@ -891,8 +891,8 @@ export interface IOptions {
 }
 export class RelationshipPath {
     private ["constructor"];
-    path: (RelationshipEdge | RelationshipNode)[];
-    constructor(path: (RelationshipEdge | RelationshipNode)[]);
+    path: Array<RelationshipEdge | RelationshipNode>;
+    constructor(path: Array<RelationshipEdge | RelationshipNode>);
     toString(): string;
     joinName(reverse?: boolean): string;
     add(node: RelationshipNode, edge: RelationshipEdge): RelationshipPath;

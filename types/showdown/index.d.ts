@@ -45,7 +45,7 @@ declare namespace Showdown {
         gListLevel?: number | undefined;
         gTitles?: { [key: string]: string } | undefined;
         gUrls?: { [key: string]: string } | undefined;
-        ghCodeBlocks?: { codeblock?: string | undefined; text?: string | undefined }[] | undefined;
+        ghCodeBlocks?: Array<{ codeblock?: string | undefined; text?: string | undefined }> | undefined;
         hashLinkCounts?: { [key: string]: number } | undefined;
         langExtensions?: ShowdownExtension[] | undefined;
         metadata?: {
@@ -867,7 +867,7 @@ declare namespace Showdown {
          * Add extensions to the new converter can be showdown extensions or "global" extensions name.
          */
         extensions?:
-            | ((() => ShowdownExtension[] | ShowdownExtension) | ShowdownExtension[] | ShowdownExtension | string)[]
+            | Array<(() => ShowdownExtension[] | ShowdownExtension) | ShowdownExtension[] | ShowdownExtension | string>
             | undefined;
     }
 

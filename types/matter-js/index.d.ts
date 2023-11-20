@@ -10,7 +10,7 @@ declare namespace Matter {
      * @method use
      * @param ...plugin {Function} The plugin(s) to install on `base` (multi-argument).
      */
-    export function use(...plugins: (Plugin | string)[]): void;
+    export function use(...plugins: Array<Plugin | string>): void;
 
     /**
      * The `Matter.Axes` module contains methods for creating and manipulating sets of axes.
@@ -22,18 +22,18 @@ declare namespace Matter {
          * @param {Vertices} vertices
          * @returns {axes} A new axes from the given vertices
          */
-        static fromVertices(vertices: Array<Vector>): Array<Vector>;
+        static fromVertices(vertices: Vector[]): Vector[];
         /**
          * Rotates a set of axes by the given angle.
          * @method rotate
          * @param {axes} axes
          * @param {number} angle
          */
-        static rotate(axes: Array<Vector>, angle: number): void;
+        static rotate(axes: Vector[], angle: number): void;
     }
 
     interface IChamfer {
-        radius?: number | Array<number> | undefined;
+        radius?: number | number[] | undefined;
         quality?: number | undefined;
         qualityMin?: number | undefined;
         qualityMax?: number | undefined;
@@ -143,7 +143,7 @@ declare namespace Matter {
         static fromVertices(
             x: number,
             y: number,
-            vertexSets: Array<Array<Vector>>,
+            vertexSets: Vector[][],
             options?: IBodyDefinition,
             flagInternal?: boolean,
             removeCollinear?: number,
@@ -185,7 +185,7 @@ declare namespace Matter {
          * These are automatically calculated from the given convex hull (`vertices` array) in `Body.create`.
          * They are constantly updated by `Body.update` during the simulation.
          */
-        axes?: Array<Vector> | undefined;
+        axes?: Vector[] | undefined;
         /**
          * A `Bounds` object that defines the AABB region for the body.
          * It is automatically calculated from the given convex hull (`vertices` array) in `Body.create` and constantly updated by `Body.update` during simulation.
@@ -373,7 +373,7 @@ declare namespace Matter {
          * Other properties such as `inertia` and `bounds` are automatically calculated from the passed vertices (unless provided via `options`).
          * Concave hulls are not currently supported. The module `Matter.Vertices` contains useful methods for working with vertices.
          */
-        vertices?: Array<Vector> | undefined;
+        vertices?: Vector[] | undefined;
         /**
          * An array of bodies that make up this body.
          * The first body in the array must always be a self reference to the current body instance.
@@ -382,7 +382,7 @@ declare namespace Matter {
          * Parts themselves should never be added to a `World`, only the parent body should be.
          * Use `Body.setParts` when setting parts to ensure correct updates of all properties.
          */
-        parts?: Array<Body> | undefined;
+        parts?: Body[] | undefined;
         /**
          * A self reference if the body is _not_ a part of another body.
          * Otherwise this is a reference to the body that this is a part of.
@@ -573,7 +573,7 @@ declare namespace Matter {
          * @param {Body} body
          * @param {Vector[]} vertices
          */
-        static setVertices(body: Body, vertices: Array<Vector>): void;
+        static setVertices(body: Body, vertices: Vector[]): void;
         /**
          * Sets the parts of the `body` and updates mass, inertia and centroid.
          * Each part will have its parent set to `body`.
@@ -746,7 +746,7 @@ declare namespace Matter {
          * These are automatically calculated from the given convex hull (`vertices` array) in `Body.create`.
          * They are constantly updated by `Body.update` during the simulation.
          */
-        axes: Array<Vector>;
+        axes: Vector[];
         /**
          * A `Bounds` object that defines the AABB region for the body.
          * It is automatically calculated from the given convex hull (`vertices` array) in `Body.create` and constantly updated by `Body.update` during simulation.
@@ -937,7 +937,7 @@ declare namespace Matter {
          * Other properties such as `inertia` and `bounds` are automatically calculated from the passed vertices (unless provided via `options`).
          * Concave hulls are not currently supported. The module `Matter.Vertices` contains useful methods for working with vertices.
          */
-        vertices: Array<Vector>;
+        vertices: Vector[];
         /**
          * An array of bodies that make up this body.
          * The first body in the array must always be a self reference to the current body instance.
@@ -946,7 +946,7 @@ declare namespace Matter {
          * Parts themselves should never be added to a `World`, only the parent body should be.
          * Use `Body.setParts` when setting parts to ensure correct updates of all properties.
          */
-        parts: Array<Body>;
+        parts: Body[];
         /**
          * A self reference if the body is _not_ a part of another body.
          * Otherwise this is a reference to the body that this is a part of.
@@ -1053,7 +1053,7 @@ declare namespace Matter {
          *
          * @default []
          */
-        bodies?: Array<Body> | undefined;
+        bodies?: Body[] | undefined;
 
         /**
          * An array of `Composite` that are _direct_ children of this composite.
@@ -1062,7 +1062,7 @@ declare namespace Matter {
          *
          * @default []
          */
-        composites?: Array<Composite> | undefined;
+        composites?: Composite[] | undefined;
 
         /**
          * An array of `Constraint` that are _direct_ children of this composite.
@@ -1071,7 +1071,7 @@ declare namespace Matter {
          *
          * @default []
          */
-        constraints?: Array<Constraint> | undefined;
+        constraints?: Constraint[] | undefined;
 
         /**
          * An integer `Number` uniquely identifying number generated in `Composite.create` by `Common.nextId`.
@@ -1142,7 +1142,7 @@ declare namespace Matter {
          * @param {Composite} composite
          * @returns {Body[]} All the bodies
          */
-        static allBodies(composite: Composite): Array<Body>;
+        static allBodies(composite: Composite): Body[];
 
         /**
          * Returns all composites in the given composite, including all composites in its children, recursively.
@@ -1150,7 +1150,7 @@ declare namespace Matter {
          * @param {Composite} composite
          * @returns {Composite[]} All the composites
          */
-        static allComposites(composite: Composite): Array<Composite>;
+        static allComposites(composite: Composite): Composite[];
 
         /**
          * Returns all constraints in the given composite, including all constraints in its children, recursively.
@@ -1158,7 +1158,7 @@ declare namespace Matter {
          * @param {Composite} composite
          * @returns {Constraint[]} All the constraints
          */
-        static allConstraints(composite: Composite): Array<Constraint>;
+        static allConstraints(composite: Composite): Constraint[];
 
         /**
          * Removes all bodies, constraints and composites from the given composite.
@@ -1303,7 +1303,7 @@ declare namespace Matter {
          *
          * @default []
          */
-        bodies: Array<Body>;
+        bodies: Body[];
 
         /**
          * An array of `Constraint` that are _direct_ children of this composite.
@@ -1312,7 +1312,7 @@ declare namespace Matter {
          *
          * @default []
          */
-        constraints: Array<Constraint>;
+        constraints: Constraint[];
 
         /**
          * An array of `Composite` that are _direct_ children of this composite.
@@ -1321,7 +1321,7 @@ declare namespace Matter {
          *
          * @default []
          */
-        composites: Array<Composite>;
+        composites: Composite[];
 
         /**
          * An object reserved for storing plugin-specific properties.
@@ -1995,7 +1995,7 @@ declare namespace Matter {
          * @param {engine} engine
          * @param {boolean} forceUpdate
          */
-        static update(grid: Grid, bodies: Array<Body>, engine: Engine, forceUpdate: boolean): void;
+        static update(grid: Grid, bodies: Body[], engine: Engine, forceUpdate: boolean): void;
 
         /**
          * Clears the grid.
@@ -2134,7 +2134,7 @@ declare namespace Matter {
          * @param {Collision[]} collisions
          * @param {number} timestamp
          */
-        static update(pairs: Pairs, collisions: Array<Collision>, timestamp: number): void;
+        static update(pairs: Pairs, collisions: Collision[], timestamp: number): void;
     }
 
     export interface Vertex extends Vector {
@@ -2238,7 +2238,7 @@ declare namespace Matter {
          * @param {Body[]} bodies
          * @returns {Collision[]} Collisions
          */
-        static collides(body: Body, bodies: Array<Body>): Array<Collision>;
+        static collides(body: Body, bodies: Body[]): Collision[];
 
         /**
          * Casts a ray segment against a set of bodies and returns all collisions, ray width is optional. Intersection points are not provided.
@@ -2249,7 +2249,7 @@ declare namespace Matter {
          * @param {number} [rayWidth]
          * @returns {Collision[]} Collisions
          */
-        static ray(bodies: Array<Body>, startPoint: Vector, endPoint: Vector, rayWidth?: number): Array<Collision>;
+        static ray(bodies: Body[], startPoint: Vector, endPoint: Vector, rayWidth?: number): Collision[];
 
         /**
          * Returns all bodies whose bounds are inside (or outside if set) the given set of bounds, from the given set of bodies.
@@ -2259,7 +2259,7 @@ declare namespace Matter {
          * @param {boolean} [outside=false]
          * @returns {Body[]} The bodies matching the query
          */
-        static region(bodies: Array<Body>, bounds: Bounds, outside?: boolean): Array<Body>;
+        static region(bodies: Body[], bounds: Bounds, outside?: boolean): Body[];
 
         /**
          * Returns all bodies whose vertices contain the given point, from the given set of bodies.
@@ -2268,7 +2268,7 @@ declare namespace Matter {
          * @param {Vector} point
          * @returns {Body[]} The bodies matching the query
          */
-        static point(bodies: Array<Body>, point: Vector): Array<Body>;
+        static point(bodies: Body[], point: Vector): Body[];
     }
 
     export interface IRenderDefinition {
@@ -2624,21 +2624,21 @@ declare namespace Matter {
          * @method postSolvePosition
          * @param {Body[]} bodies
          */
-        static postSolvePosition(bodies: Array<Body>): void;
+        static postSolvePosition(bodies: Body[]): void;
 
         /**
          * Prepare pairs for position solving.
          * @method preSolvePosition
          * @param {Pair[]} pairs
          */
-        static preSolvePosition(pairs: Array<Pair>): void;
+        static preSolvePosition(pairs: Pair[]): void;
 
         /**
          * Prepare pairs for velocity solving.
          * @method preSolveVelocity
          * @param {Pair[]} pairs
          */
-        static preSolveVelocity(pairs: Array<Pair>): void;
+        static preSolveVelocity(pairs: Pair[]): void;
 
         /**
          * Find a solution for pair positions.
@@ -2646,7 +2646,7 @@ declare namespace Matter {
          * @param {Pair[]} pairs
          * @param {number} timeScale
          */
-        static solvePosition(pairs: Array<Pair>, timeScale: number): void;
+        static solvePosition(pairs: Pair[], timeScale: number): void;
 
         /**
          * Find a solution for pair velocities.
@@ -2654,7 +2654,7 @@ declare namespace Matter {
          * @param {Pair[]} pairs
          * @param {number} timeScale
          */
-        static solveVelocity(pairs: Array<Pair>, timeScale: number): void;
+        static solveVelocity(pairs: Pair[], timeScale: number): void;
     }
 
     export interface IRunnerOptions {
@@ -2787,7 +2787,7 @@ declare namespace Matter {
          * @param {Number} [sampleLength=15]
          * @returns {Vector[]} points
          */
-        static pathToVertices(path: SVGPathElement, sampleLength: number): Array<Vector>;
+        static pathToVertices(path: SVGPathElement, sampleLength: number): Vector[];
     }
 
     /**
@@ -2969,7 +2969,7 @@ declare namespace Matter {
          * @param {Vertices} vertices
          * @returns {Vector} The average point
          */
-        static mean(vertices: Array<Vector>): Vector;
+        static mean(vertices: Vector[]): Vector;
 
         /**
          * Sorts the input vertices into clockwise order in place.
@@ -2977,7 +2977,7 @@ declare namespace Matter {
          * @param {Vertices} vertices
          * @returns {Vertices} vertices
          */
-        static clockwiseSort(vertices: Array<Vector>): Array<Vector>;
+        static clockwiseSort(vertices: Vector[]): Vector[];
 
         /**
          * Returns true if the vertices form a convex shape (vertices must be in clockwise order).
@@ -2985,7 +2985,7 @@ declare namespace Matter {
          * @param {Vertices} vertices
          * @returns {boolean} `true` if the `vertices` are convex, `false` if not (or `null` if not computable).
          */
-        static isConvex(vertices: Array<Vector>): boolean;
+        static isConvex(vertices: Vector[]): boolean;
 
         /**
          * Returns the convex hull of the input vertices as a new array of points.
@@ -2993,7 +2993,7 @@ declare namespace Matter {
          * @param {Vertices} vertices
          * @returns {Array<Vertex>} vertices
          */
-        static hull(vertices: Array<Vertex>): Array<Vertex>;
+        static hull(vertices: Vertex[]): Vertex[];
 
         /**
          * Returns the area of the set of vertices.
@@ -3002,7 +3002,7 @@ declare namespace Matter {
          * @param {boolean} signed
          * @returns {number} The area
          */
-        static area(vertices: Array<Vector>, signed: boolean): number;
+        static area(vertices: Vector[], signed: boolean): number;
 
         /**
          * Returns the centre (centroid) of the set of vertices.
@@ -3010,7 +3010,7 @@ declare namespace Matter {
          * @param {Vertices} vertices
          * @returns {Vector} The centre point
          */
-        static centre(vertices: Array<Vector>): Vector;
+        static centre(vertices: Vector[]): Vector;
 
         /**
          * Chamfers a set of vertices by giving them rounded corners, returns a new set of vertices.
@@ -3024,12 +3024,12 @@ declare namespace Matter {
          * @returns {Vertices} vertices
          */
         static chamfer(
-            vertices: Array<Vector>,
-            radius: number | Array<number>,
+            vertices: Vector[],
+            radius: number | number[],
             quality: number,
             qualityMin: number,
             qualityMax: number,
-        ): Array<Vector>;
+        ): Vector[];
 
         /**
          * Returns `true` if the `point` is inside the set of `vertices`.
@@ -3038,7 +3038,7 @@ declare namespace Matter {
          * @param {Vector} point
          * @returns {boolean} True if the vertices contains point, otherwise false
          */
-        static contains(vertices: Array<Vector>, point: Vector): boolean;
+        static contains(vertices: Vector[], point: Vector): boolean;
 
         /**
          * Creates a new set of `Matter.Body` compatible vertices.
@@ -3056,7 +3056,7 @@ declare namespace Matter {
          * @param {Body} body
          * @returns {Vertices} vertices
          */
-        static create(points: Array<Vector>, body: Body): Array<Vector>;
+        static create(points: Vector[], body: Body): Vector[];
 
         /**
          * Parses a string containing ordered x y pairs separated by spaces (and optionally commas),
@@ -3067,7 +3067,7 @@ declare namespace Matter {
          * @param {Body} body
          * @returns {Vertices} vertices
          */
-        static fromPath(path: string, body: Body): Array<Vector>;
+        static fromPath(path: string, body: Body): Vector[];
 
         /**
          * Returns the moment of inertia (second moment of area) of the set of vertices given the total mass.
@@ -3076,7 +3076,7 @@ declare namespace Matter {
          * @param {number} mass
          * @returns {number} The polygon's moment of inertia
          */
-        static inertia(vertices: Array<Vector>, mass: number): number;
+        static inertia(vertices: Vector[], mass: number): number;
 
         /**
          * Rotates the set of vertices in-place.
@@ -3086,7 +3086,7 @@ declare namespace Matter {
          * @param {Vector} point
          * @returns {Vertices} vertices
          */
-        static rotate(vertices: Array<Vector>, angle: number, point: Vector): Array<Vector>;
+        static rotate(vertices: Vector[], angle: number, point: Vector): Vector[];
 
         /**
          * Scales the vertices from a point (default is centre) in-place.
@@ -3097,7 +3097,7 @@ declare namespace Matter {
          * @param {Vector} point
          * @returns {Vertices} vertices
          */
-        static scale(vertices: Array<Vector>, scaleX: number, scaleY: number, point: Vector): Array<Vector>;
+        static scale(vertices: Vector[], scaleX: number, scaleY: number, point: Vector): Vector[];
 
         /**
          * Translates the set of vertices in-place.
@@ -3107,7 +3107,7 @@ declare namespace Matter {
          * @param {number} scalar
          * @returns {Vertices} vertices
          */
-        static translate(vertices: Array<Vector>, vector: Vector, scalar: number): Array<Vector>;
+        static translate(vertices: Vector[], vector: Vector, scalar: number): Vector[];
     }
 
     interface IWorldDefinition extends ICompositeDefinition {
@@ -3270,7 +3270,7 @@ declare namespace Matter {
          * @param {any} obj
          * @returns {string[]} keys
          */
-        static keys(obj: any): Array<string>;
+        static keys(obj: any): string[];
 
         /**
          * Returns the list of values for the given object.
@@ -3278,7 +3278,7 @@ declare namespace Matter {
          * @param {any} obj
          * @returns {array} Array of the objects property values
          */
-        static values(obj: any): Array<any>;
+        static values(obj: any): any[];
 
         /**
          * Gets a value from `base` relative to the `path` string.
@@ -3310,7 +3310,7 @@ declare namespace Matter {
          * @param {array} array
          * @returns {array} array shuffled randomly
          */
-        static shuffle<T>(array: Array<T>): Array<T>;
+        static shuffle<T>(array: T[]): T[];
 
         /**
          * Randomly chooses a value from a list with equal probability.
@@ -3335,7 +3335,7 @@ declare namespace Matter {
          * @param {any} obj
          * @returns {boolean} True if the object is an array, otherwise false
          */
-        static isArray<T>(obj: T): T extends Array<any> ? true : false;
+        static isArray<T>(obj: T): T extends any[] ? true : false;
 
         /**
          * Returns true if the object is a function.
@@ -3443,7 +3443,7 @@ declare namespace Matter {
          * @param {any} needle
          * @returns {number} The position of needle in haystack, otherwise -1.
          */
-        static indexOf<T>(haystack: Array<T>, needle: T): number;
+        static indexOf<T>(haystack: T[], needle: T): number;
 
         /**
          * A cross browser compatible array map implementation.
@@ -3452,7 +3452,7 @@ declare namespace Matter {
          * @param {function} func
          * @returns {array} Values from list transformed by func.
          */
-        static map<T, U>(list: Array<T>, func: (element: T) => U): Array<U>;
+        static map<T, U>(list: T[], func: (element: T) => U): U[];
 
         /**
          * Takes a directed graph and returns the partially ordered set of vertices in topological order.
@@ -3461,7 +3461,7 @@ declare namespace Matter {
          * @param {any} graph
          * @returns {array} Partially ordered set of vertices in topological order.
          */
-        static topologicalSort(graph: any): Array<any>;
+        static topologicalSort(graph: any): any[];
 
         /**
          * Takes _n_ functions as arguments and returns a new function that calls them in order.
@@ -3575,7 +3575,7 @@ declare namespace Matter {
         /**
          * The collision pair
          */
-        pairs: Array<Pair>;
+        pairs: Pair[];
     }
 
     export interface IMouseEvent<T> extends IEvent<T> {
@@ -3916,8 +3916,8 @@ declare namespace Matter {
          * @param [plugins=module.uses] {} The plugins to install on module (optional, defaults to `module.uses`).
          */
         static use(
-            module: { uses?: (Plugin | string)[] | undefined; [_: string]: any },
-            plugins: (Plugin | string)[],
+            module: { uses?: Array<Plugin | string> | undefined; [_: string]: any },
+            plugins: Array<Plugin | string>,
         ): void;
 
         /**
@@ -4074,7 +4074,7 @@ declare namespace Matter {
          *
          * @default []
          */
-        supports: Array<Vector>;
+        supports: Vector[];
     }
 
     interface IDetectorOptions {
@@ -4084,7 +4084,7 @@ declare namespace Matter {
          * _Note:_ The order of bodies in this array _is not fixed_ and will be continually managed by the detector.
          * @default []
          */
-        bodies?: Array<Body>;
+        bodies?: Body[];
 
         /**
          * Optional. A `Matter.Pairs` object from which previous collision objects may be reused. Intended for internal `Matter.Engine` usage.
@@ -4132,7 +4132,7 @@ declare namespace Matter {
          * @param {Detector} detector
          * @returns {Collision[]} collisions
          */
-        static collisions(detector: Detector): Array<Collision>;
+        static collisions(detector: Detector): Collision[];
 
         /**
          * Sets the list of bodies in the detector.
@@ -4148,7 +4148,7 @@ declare namespace Matter {
          * _Note:_ The order of bodies in this array _is not fixed_ and will be continually managed by the detector.
          * @default []
          */
-        bodies: Array<Body>;
+        bodies: Body[];
 
         /**
          * Optional. A `Matter.Pairs` object from which previous collision objects may be reused. Intended for internal `Matter.Engine` usage.

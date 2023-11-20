@@ -86,7 +86,7 @@ export interface CommonOrganisationDetailV2 extends CommonOrganisation {
     /**
      * Array is mandatory but may be empty if no valid addresses are held. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail
      */
-    physicalAddresses: ({
+    physicalAddresses: Array<{
         /**
          * The type of address object present
          */
@@ -227,7 +227,7 @@ export interface CommonOrganisationDetailV2 extends CommonOrganisation {
          */
         purpose: "MAIL" | "OTHER" | "PHYSICAL" | "REGISTERED" | "WORK";
         [k: string]: unknown;
-    })[];
+    }>;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
@@ -376,7 +376,7 @@ export interface CommonPersonDetailV2 extends CommonPerson {
     /**
      * Array is mandatory but may be empty if no phone numbers are held
      */
-    phoneNumbers: {
+    phoneNumbers: Array<{
         /**
          * Required for non Mobile Phones, if field is present and refers to Australian code - the leading 0 should be omitted.
          */
@@ -406,11 +406,11 @@ export interface CommonPersonDetailV2 extends CommonPerson {
          */
         purpose: "HOME" | "INTERNATIONAL" | "MOBILE" | "OTHER" | "UNSPECIFIED" | "WORK";
         [k: string]: unknown;
-    }[];
+    }>;
     /**
      * May be empty
      */
-    emailAddresses: {
+    emailAddresses: Array<{
         /**
          * A correctly formatted email address, as defined by the addr-spec format in **[[RFC5322]](#nref-RFC5322)**
          */
@@ -424,11 +424,11 @@ export interface CommonPersonDetailV2 extends CommonPerson {
          */
         purpose: "HOME" | "OTHER" | "UNSPECIFIED" | "WORK";
         [k: string]: unknown;
-    }[];
+    }>;
     /**
      * Array is mandatory but may be empty if no valid addresses are held. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail
      */
-    physicalAddresses: ({
+    physicalAddresses: Array<{
         /**
          * The type of address object present
          */
@@ -569,7 +569,7 @@ export interface CommonPersonDetailV2 extends CommonPerson {
          */
         purpose: "MAIL" | "OTHER" | "PHYSICAL" | "REGISTERED" | "WORK";
         [k: string]: unknown;
-    })[];
+    }>;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
@@ -1037,7 +1037,7 @@ export interface ResponseCommonCustomerDetailV2 {
             /**
              * Array is mandatory but may be empty if no valid addresses are held. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail
              */
-            physicalAddresses: ({
+            physicalAddresses: Array<{
                 /**
                  * The type of address object present
                  */
@@ -1178,7 +1178,7 @@ export interface ResponseCommonCustomerDetailV2 {
                  */
                 purpose: "MAIL" | "OTHER" | "PHYSICAL" | "REGISTERED" | "WORK";
                 [k: string]: unknown;
-            })[];
+            }>;
             [k: string]: unknown;
         };
         person?: {
@@ -1226,7 +1226,7 @@ export interface ResponseCommonCustomerDetailV2 {
             /**
              * Array is mandatory but may be empty if no phone numbers are held
              */
-            phoneNumbers: {
+            phoneNumbers: Array<{
                 /**
                  * Required for non Mobile Phones, if field is present and refers to Australian code - the leading 0 should be omitted.
                  */
@@ -1256,11 +1256,11 @@ export interface ResponseCommonCustomerDetailV2 {
                  */
                 purpose: "HOME" | "INTERNATIONAL" | "MOBILE" | "OTHER" | "UNSPECIFIED" | "WORK";
                 [k: string]: unknown;
-            }[];
+            }>;
             /**
              * May be empty
              */
-            emailAddresses: {
+            emailAddresses: Array<{
                 /**
                  * A correctly formatted email address, as defined by the addr-spec format in **[[RFC5322]](#nref-RFC5322)**
                  */
@@ -1274,11 +1274,11 @@ export interface ResponseCommonCustomerDetailV2 {
                  */
                 purpose: "HOME" | "OTHER" | "UNSPECIFIED" | "WORK";
                 [k: string]: unknown;
-            }[];
+            }>;
             /**
              * Array is mandatory but may be empty if no valid addresses are held. One and only one address may have the purpose of REGISTERED. Zero or one, and no more than one, record may have the purpose of MAIL. If zero then the REGISTERED address is to be used for mail
              */
-            physicalAddresses: ({
+            physicalAddresses: Array<{
                 /**
                  * The type of address object present
                  */
@@ -1419,7 +1419,7 @@ export interface ResponseCommonCustomerDetailV2 {
                  */
                 purpose: "MAIL" | "OTHER" | "PHYSICAL" | "REGISTERED" | "WORK";
                 [k: string]: unknown;
-            })[];
+            }>;
             [k: string]: unknown;
         };
         [k: string]: unknown;
@@ -1481,7 +1481,7 @@ export interface ResponseDiscoveryOutagesList {
         /**
          * List of scheduled outages. Property is mandatory but may contain and empty list if no outages are scheduled
          */
-        outages: {
+        outages: Array<{
             /**
              * Planned duration of the outage. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
              */
@@ -1499,7 +1499,7 @@ export interface ResponseDiscoveryOutagesList {
              */
             outageTime: string;
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -1517,7 +1517,7 @@ export interface ResponseDiscoveryOutagesList {
 /* These are the schema definitions stipulated by the Data Standards Body for the common api. */
 
 export interface ResponseErrorListV2 {
-    errors: {
+    errors: Array<{
         /**
          * The code of the error encountered. Where the error is specific to the respondent, an application-specific error code, expressed as a string value. If the error is application-specific, the URN code that the specific error extends must be provided in the meta object. Otherwise, the value is the error code URN.
          */
@@ -1541,6 +1541,6 @@ export interface ResponseErrorListV2 {
          */
         title: string;
         [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
 }

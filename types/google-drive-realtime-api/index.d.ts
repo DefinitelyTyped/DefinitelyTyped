@@ -134,7 +134,7 @@ declare namespace gapi.drive.realtime {
         // Returns an array containing a copy of the items in this map. Modifications to the returned array do
         // not modify this collaborative map.
         // @return non-null Array of Arrays, where the inner arrays are tupples [string, V]
-        items(): [string, V][];
+        items(): Array<[string, V]>;
 
         // Returns an array containing a copy of the keys in this map. Modifications to the returned array
         // do not modify this collaborative map.
@@ -302,7 +302,7 @@ declare namespace gapi.drive.realtime {
         create(ref: string | Function, ...var_args: any[]): any;
 
         // Creates a collaborative list.
-        createList<T>(opt_initialValue?: Array<T>): CollaborativeList<T>;
+        createList<T>(opt_initialValue?: T[]): CollaborativeList<T>;
 
         // Creates a collaborative map.
         createMap<T>(opt_initialValue?: Array<[string, T]>): CollaborativeMap<T>;

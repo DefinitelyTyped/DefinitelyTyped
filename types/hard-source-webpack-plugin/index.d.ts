@@ -73,7 +73,7 @@ declare namespace hard_source_webpack_plugin {
         // NOTE: not using `Parameters` and `ReturnType` on purpose to compatibility. better of code this below.
         //     type forkFn = (...args: Parameters<typeof fork>) => ReturnType<typeof fork>
         // this code working on supported versions of `infer` keyword (version 2.8 higher.
-        type forkFn = (modulePath: string, args?: ReadonlyArray<string>, options?: ForkOptions) => ChildProcess;
+        type forkFn = (modulePath: string, args?: readonly string[], options?: ForkOptions) => ChildProcess;
         interface Options {
             fork?: ((fork: forkFn, compiler: webpack.Compiler, webpackBin: string) => void) | undefined;
             numWorkers?: number | (() => number) | undefined;

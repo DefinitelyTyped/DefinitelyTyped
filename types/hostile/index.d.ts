@@ -65,4 +65,4 @@ export function remove(ip: string, host: string, cb?: Callback): void;
  * @param lines - Lines to write to the file.
  * @param cb - Called when finished or failed (passing error).
  */
-export function writeFile(lines: ReadonlyArray<Line>, preserveFormatting: boolean, cb?: Callback): void;
+export function writeFile(lines: readonly Line[], preserveFormatting: boolean, cb?: Callback): void;

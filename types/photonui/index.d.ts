@@ -230,10 +230,10 @@ declare namespace photonui {
 
     class ColorPalette extends Widget {
         color: Color;
-        palette: Array<string[]>;
+        palette: string[][];
         value: string;
 
-        static palette: Array<string[]>;
+        static palette: string[][];
     }
 
     class ColorPicker extends Widget {

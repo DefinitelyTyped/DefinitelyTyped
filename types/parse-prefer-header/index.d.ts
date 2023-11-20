@@ -1,5 +1,5 @@
 declare function parsePreferHeader(
-    preferHeader: string | ReadonlyArray<string> | null | undefined,
+    preferHeader: string | readonly string[] | null | undefined,
 ): { [key: string]: string | true };
 
 export = parsePreferHeader;

@@ -272,7 +272,7 @@ declare namespace Meteor {
 declare namespace Meteor {
     /** Login **/
     interface LoginWithExternalServiceOptions {
-        requestPermissions?: ReadonlyArray<string> | undefined;
+        requestPermissions?: readonly string[] | undefined;
         requestOfflineToken?: Boolean | undefined;
         forceApprovalPrompt?: Boolean | undefined;
         redirectUrl?: string | undefined;
@@ -326,7 +326,7 @@ declare namespace Meteor {
 
     function loginWith<ExternalService>(
         options?: {
-            requestPermissions?: ReadonlyArray<string> | undefined;
+            requestPermissions?: readonly string[] | undefined;
             requestOfflineToken?: boolean | undefined;
             loginUrlParameters?: Object | undefined;
             userEmail?: string | undefined;
@@ -425,7 +425,7 @@ declare namespace Meteor {
      */
     function publish(
         name: string | null,
-        func: (this: Subscription, ...args: any[]) => void | Mongo.Cursor<any> | Mongo.Cursor<any>[] | Promise<void | Mongo.Cursor<any> | Mongo.Cursor<any>[]>,
+        func: (this: Subscription, ...args: any[]) => void | Mongo.Cursor<any> | Array<Mongo.Cursor<any>> | Promise<void | Mongo.Cursor<any> | Array<Mongo.Cursor<any>>>,
         options?: { is_auto: boolean },
     ): void;
 

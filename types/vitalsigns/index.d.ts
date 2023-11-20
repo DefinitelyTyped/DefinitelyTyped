@@ -142,7 +142,7 @@ declare module "vitalsigns" {
          * Retrieves an array of human-readable messages that define the specific health constraints that failed when running the last health check.
          * @returns {Array<string>} An array of failure messages.
          */
-        getFailed(): Array<string>;
+        getFailed(): string[];
 
         /**
          * Gets a report of all monitors, their fields, and the values of those fields, compiled into Javascript object form.  Additionally, a 'healthy' field is

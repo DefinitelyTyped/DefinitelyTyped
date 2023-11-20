@@ -38,7 +38,7 @@ class MyTable2 extends React.Component {
 
 // provide Custom Data
 interface MyTable3State {
-    myTableData: { name: string }[];
+    myTableData: Array<{ name: string }>;
 }
 
 class MyTable3 extends React.Component<{}, MyTable3State> {

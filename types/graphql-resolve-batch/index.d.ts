@@ -40,7 +40,7 @@ export type ResolverFunction<TSource, TArgs, TContext, TReturn> = (
  * A batch function to resolve all fields for the given sources in a single batch.
  */
 export type BatchResolveFunction<TSource, TArgs, TContext, TReturn> = (
-    sources: ReadonlyArray<TSource>,
+    sources: readonly TSource[],
     args: TArgs,
     context: TContext,
     info: GraphQLResolveInfo,

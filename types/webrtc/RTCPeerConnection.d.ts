@@ -343,7 +343,7 @@ interface RTCDataChannel extends EventTarget {
 interface RTCTrackEvent extends Event {
     readonly receiver: RTCRtpReceiver;
     readonly track: MediaStreamTrack;
-    readonly streams: ReadonlyArray<MediaStream>;
+    readonly streams: readonly MediaStream[];
     readonly transceiver: RTCRtpTransceiver;
 }
 

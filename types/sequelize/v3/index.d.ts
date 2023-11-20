@@ -1748,7 +1748,7 @@ declare namespace sequelize {
          * Accepts subtype any of the DataTypes
          * Array of required attributes that are available on the model
          */
-        new(subtype: DataTypeAbstract, requireAttributes?: Array<string>): DataTypeVirtual;
+        new(subtype: DataTypeAbstract, requireAttributes?: string[]): DataTypeVirtual;
     }
 
     interface DataTypeEnum extends DataTypeAbstract {
@@ -2769,7 +2769,7 @@ declare namespace sequelize {
         /**
          * Check if this is eqaul to one of `others` by calling equals
          */
-        equalsOneOf(others: Instance<any>[]): boolean;
+        equalsOneOf(others: Array<Instance<any>>): boolean;
 
         /**
          * Convert the instance to a JSON representation. Proxies to calling `get` with no keys. This means get all
@@ -3054,7 +3054,7 @@ declare namespace sequelize {
          */
         attributes?: FindOptionsAttributesArray | {
             include?: FindOptionsAttributesArray | undefined;
-            exclude?: Array<string> | undefined;
+            exclude?: string[] | undefined;
         } | undefined;
 
         /**
@@ -5020,13 +5020,13 @@ declare namespace sequelize {
      * @see Options
      */
     interface ReplicationOptions {
-        read?: {
+        read?: Array<{
             host?: string | undefined;
             port?: string | number | undefined;
             username?: string | undefined;
             password?: string | undefined;
             database?: string | undefined;
-        }[] | undefined;
+        }> | undefined;
 
         write?: {
             host?: string | undefined;

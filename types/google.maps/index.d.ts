@@ -1352,8 +1352,8 @@ declare namespace google.maps {
      * or <code>Place</code> objects, to which to calculate distance and time.
      * Required.
      */
-    destinations: (string|google.maps.LatLng|google.maps.LatLngLiteral|
-                   google.maps.Place)[];
+    destinations: Array<string|google.maps.LatLng|google.maps.LatLngLiteral|
+                   google.maps.Place>;
     /**
      * Settings that apply only to requests where <code>travelMode</code> is
      * <code>DRIVING</code>. This object will have no effect for other travel
@@ -1372,8 +1372,8 @@ declare namespace google.maps {
      * <code>Place</code> objects, from which to calculate distance and time.
      * Required.
      */
-    origins: (string|google.maps.LatLng|google.maps.LatLngLiteral|
-              google.maps.Place)[];
+    origins: Array<string|google.maps.LatLng|google.maps.LatLngLiteral|
+              google.maps.Place>;
     /**
      * Region code used as a bias for geocoding requests. The region code
      * accepts a <a
@@ -3151,7 +3151,7 @@ declare namespace google.maps {
     /**
      * The discrete locations for which to retrieve elevations.
      */
-    locations?: (google.maps.LatLng|google.maps.LatLngLiteral)[]|null;
+    locations?: Array<google.maps.LatLng|google.maps.LatLngLiteral>|null;
   }
   /**
    * An elevation response returned by the {@link google.maps.ElevationService}
@@ -3294,7 +3294,7 @@ declare namespace google.maps {
      * <code>MVCArray</code> corresponding to the <code>ControlPosition</code>
      * where it should be rendered.
      */
-    controls: google.maps.MVCArray<HTMLElement>[];
+    controls: Array<google.maps.MVCArray<HTMLElement>>;
     /**
      * An instance of <code>Data</code>, bound to the map. Add features to this
      * <code>Data</code> object to conveniently display them on this map.
@@ -4920,7 +4920,7 @@ declare namespace google.maps {
     /**
      * The path along which to collect elevation values.
      */
-    path?: (google.maps.LatLng|google.maps.LatLngLiteral)[]|null;
+    path?: Array<google.maps.LatLng|google.maps.LatLngLiteral>|null;
     /**
      * Required. The number of equidistant points along the given path for which
      * to retrieve elevation data, including the endpoints. The number of
@@ -5159,7 +5159,7 @@ declare namespace google.maps {
      * href="#PolygonOptions">PolygonOptions</a></code></em> for more details.
      */
     setPath(path: google.maps.MVCArray<google.maps.LatLng>|
-            (google.maps.LatLng|google.maps.LatLngLiteral)[]): void;
+            Array<google.maps.LatLng|google.maps.LatLngLiteral>): void;
     /**
      * Sets the path for this polygon.
      */
@@ -5311,7 +5311,7 @@ declare namespace google.maps {
      * href="#PolylineOptions">PolylineOptions</a></code></em> for more details.
      */
     setPath(path: google.maps.MVCArray<google.maps.LatLng>|
-            (google.maps.LatLng|google.maps.LatLngLiteral)[]): void;
+            Array<google.maps.LatLng|google.maps.LatLngLiteral>): void;
     /**
      * Hides this poly if set to <code>false</code>.
      */
@@ -5365,7 +5365,7 @@ declare namespace google.maps {
      * update the polyline on the map.
      */
     path?: google.maps.MVCArray<google.maps.LatLng>|
-        (google.maps.LatLng|google.maps.LatLngLiteral)[]|null;
+        Array<google.maps.LatLng|google.maps.LatLngLiteral>|null;
     /**
      * The stroke color. All CSS3 colors are supported except for extended named
      * colors.
@@ -5838,7 +5838,7 @@ declare namespace google.maps {
      * <code>MVCArray</code> corresponding to the {@link
      * google.maps.ControlPosition} where it should be rendered.
      */
-    controls: google.maps.MVCArray<HTMLElement>[];
+    controls: Array<google.maps.MVCArray<HTMLElement>>;
     /**
      * Sets focus on this <code>StreetViewPanorama</code>. You may wish to
      * consider using this method along with a <code>visible_changed</code>
@@ -5850,7 +5850,7 @@ declare namespace google.maps {
     /**
      * Returns the set of navigation links for the Street View panorama.
      */
-    getLinks(): (google.maps.StreetViewLink|null)[]|null;
+    getLinks(): Array<google.maps.StreetViewLink|null>|null;
     /**
      * Returns the StreetViewLocation of the current panorama.
      */
@@ -5908,7 +5908,7 @@ declare namespace google.maps {
     /**
      * Sets the set of navigation links for the Street View panorama.
      */
-    setLinks(links: (google.maps.StreetViewLink|null)[]|null): void;
+    setLinks(links: Array<google.maps.StreetViewLink|null>|null): void;
     /**
      * Sets the state of motion tracker. If <code>true</code> when the user
      * physically moves the device and the browser supports it, the Street View
@@ -6304,7 +6304,7 @@ declare namespace google.maps {
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
     constructor(
-        styles: (google.maps.MapTypeStyle|null)[]|null,
+        styles: Array<google.maps.MapTypeStyle|null>|null,
         options?: google.maps.StyledMapTypeOptions|null);
     alt: string;
     /**
@@ -6653,7 +6653,7 @@ declare namespace google.maps {
     /**
      * The transit agency that operates this transit line.
      */
-    agencies: (google.maps.TransitAgency|null)[]|null;
+    agencies: Array<google.maps.TransitAgency|null>|null;
     /**
      * The color commonly used in signage for this transit line, represented as
      * a hex string.
@@ -7374,8 +7374,8 @@ declare namespace google.maps.Data {
      * google.maps.importLibrary("maps")`. See
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
-    constructor(elements: (google.maps.Data.Geometry|google.maps.LatLng|
-                           google.maps.LatLngLiteral)[]);
+    constructor(elements: Array<google.maps.Data.Geometry|google.maps.LatLng|
+                           google.maps.LatLngLiteral>);
     forEachLatLng(callback: (a: google.maps.LatLng) => void): void;
     /**
      * Returns an array of the contained geometry objects. A new array is
@@ -7409,7 +7409,7 @@ declare namespace google.maps.Data {
      * google.maps.importLibrary("maps")`. See
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
-    constructor(elements: (google.maps.LatLng|google.maps.LatLngLiteral)[]);
+    constructor(elements: Array<google.maps.LatLng|google.maps.LatLngLiteral>);
     forEachLatLng(callback: (a: google.maps.LatLng) => void): void;
     /**
      * Returns an array of the contained <code>LatLngs</code>. A new array is
@@ -7449,7 +7449,7 @@ declare namespace google.maps.Data {
      * google.maps.importLibrary("maps")`. See
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
-    constructor(elements: (google.maps.LatLng|google.maps.LatLngLiteral)[]);
+    constructor(elements: Array<google.maps.LatLng|google.maps.LatLngLiteral>);
     forEachLatLng(callback: (a: google.maps.LatLng) => void): void;
     /**
      * Returns an array of the contained <code>LatLng</code>s. A new array is
@@ -7493,8 +7493,8 @@ declare namespace google.maps.Data {
      * google.maps.importLibrary("maps")`. See
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
-    constructor(elements: (google.maps.Data.LineString|
-                           (google.maps.LatLng|google.maps.LatLngLiteral)[])[]);
+    constructor(elements: Array<google.maps.Data.LineString|
+                           Array<google.maps.LatLng|google.maps.LatLngLiteral>>);
     forEachLatLng(callback: (a: google.maps.LatLng) => void): void;
     /**
      * Returns an array of the contained <code>Data.LineString</code>s. A new
@@ -7528,7 +7528,7 @@ declare namespace google.maps.Data {
      * google.maps.importLibrary("maps")`. See
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
-    constructor(elements: (google.maps.LatLng|google.maps.LatLngLiteral)[]);
+    constructor(elements: Array<google.maps.LatLng|google.maps.LatLngLiteral>);
     forEachLatLng(callback: (a: google.maps.LatLng) => void): void;
     /**
      * Returns an array of the contained <code>LatLng</code>s. A new array is
@@ -7563,9 +7563,9 @@ declare namespace google.maps.Data {
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
     constructor(elements:
-                    (google.maps.Data.Polygon|
-                     (google.maps.Data.LinearRing|
-                      (google.maps.LatLng|google.maps.LatLngLiteral)[])[])[]);
+                    Array<google.maps.Data.Polygon|
+                     Array<google.maps.Data.LinearRing|
+                      Array<google.maps.LatLng|google.maps.LatLngLiteral>>>);
     forEachLatLng(callback: (a: google.maps.LatLng) => void): void;
     /**
      * Returns an array of the contained <code>Data.Polygon</code>s. A new array
@@ -7633,8 +7633,8 @@ declare namespace google.maps.Data {
      * google.maps.importLibrary("maps")`. See
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
-    constructor(elements: (google.maps.Data.LinearRing|
-                           (google.maps.LatLng|google.maps.LatLngLiteral)[])[]);
+    constructor(elements: Array<google.maps.Data.LinearRing|
+                           Array<google.maps.LatLng|google.maps.LatLngLiteral>>);
     forEachLatLng(callback: (a: google.maps.LatLng) => void): void;
     /**
      * Returns an array of the contained <code>Data.LinearRing</code>s. A new
@@ -8023,7 +8023,7 @@ declare namespace google.maps.geometry.encoding {
    * Encodes a sequence of LatLngs into an encoded path string.
    */
   export function encodePath(
-      path: (google.maps.LatLng|google.maps.LatLngLiteral)[]|
+      path: Array<google.maps.LatLng|google.maps.LatLngLiteral>|
       google.maps.MVCArray<google.maps.LatLng|google.maps.LatLngLiteral>):
       string;
 }
@@ -8058,7 +8058,7 @@ declare namespace google.maps.geometry.spherical {
    * more north than the northern LatLng.
    */
   export function computeArea(
-      path: (google.maps.LatLng|google.maps.LatLngLiteral)[]|
+      path: Array<google.maps.LatLng|google.maps.LatLngLiteral>|
       google.maps.MVCArray<google.maps.LatLng|google.maps.LatLngLiteral>|
       google.maps.Circle|google.maps.CircleLiteral|
       google.maps.LatLngBounds|google.maps.LatLngBoundsLiteral,
@@ -8082,7 +8082,7 @@ declare namespace google.maps.geometry.spherical {
    * Returns the length of the given path.
    */
   export function computeLength(
-      path: (google.maps.LatLng|google.maps.LatLngLiteral)[]|
+      path: Array<google.maps.LatLng|google.maps.LatLngLiteral>|
       google.maps.MVCArray<google.maps.LatLng|google.maps.LatLngLiteral>,
       radius?: number): number;
   /**
@@ -8117,7 +8117,7 @@ declare namespace google.maps.geometry.spherical {
    * spans 180 degrees.
    */
   export function computeSignedArea(
-      loop: (google.maps.LatLng|google.maps.LatLngLiteral)[]|
+      loop: Array<google.maps.LatLng|google.maps.LatLngLiteral>|
       google.maps.MVCArray<google.maps.LatLng|google.maps.LatLngLiteral>,
       radius?: number): number;
   /**
@@ -13514,7 +13514,7 @@ declare namespace google.maps.visualization {
      */
     setData(data: google.maps.MVCArray<
             google.maps.LatLng|google.maps.visualization.WeightedLocation>|
-            (google.maps.LatLng|google.maps.visualization.WeightedLocation)[]):
+            Array<google.maps.LatLng|google.maps.visualization.WeightedLocation>):
         void;
     /**
      * Renders the heatmap on the specified map. If map is set to
@@ -13534,7 +13534,7 @@ declare namespace google.maps.visualization {
      */
     data?: google.maps.MVCArray<google.maps.LatLng|
                                 google.maps.visualization.WeightedLocation>|
-        null|(google.maps.LatLng|google.maps.visualization.WeightedLocation)[];
+        null|Array<google.maps.LatLng|google.maps.visualization.WeightedLocation>;
     /**
      * Specifies whether heatmaps dissipate on zoom. By default, the radius of
      * influence of a data point is specified by the radius option only. When

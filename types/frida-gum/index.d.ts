@@ -1736,7 +1736,7 @@ type GetValue<Map, Value, Type, T extends Type> = Type[] extends T ? Value
     : T extends keyof Map ? Map[T]
     : { [P in keyof T]: T[P] extends Type ? GetValue<Map, Value, Type, T[P]> : never };
 
-// tslint:disable-next-line:interface-over-type-literal
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type BaseNativeTypeMap = {
     int: number;
     uint: number;

@@ -210,7 +210,7 @@ describe("missing tests", function() {
     });
 
     it("tests all mising Mocks functionality", function() {
-        type FruitsGetter = () => Array<string>;
+        type FruitsGetter = () => string[];
         let mock: jest.Mock<FruitsGetter> = jest.fn<FruitsGetter>();
         mock.mockImplementationOnce(() => ["Orange", "Apple", "Plum"]);
         jest.setMock("./../tesks/getFruits", mock);

@@ -51,8 +51,8 @@ declare module "@google-cloud/datastore" {
         save(entities: OneOrMany<object>, callback: CommitCallback): void;
         save(entities: OneOrMany<object>): Promise<CommitResult>;
 
-        delete(keyOrKeys: DatastoreKey | ReadonlyArray<DatastoreKey>, callback: CommitCallback): void;
-        delete(keyOrKeys: DatastoreKey | ReadonlyArray<DatastoreKey>): Promise<CommitResult>;
+        delete(keyOrKeys: DatastoreKey | readonly DatastoreKey[], callback: CommitCallback): void;
+        delete(keyOrKeys: DatastoreKey | readonly DatastoreKey[]): Promise<CommitResult>;
 
         transaction(): DatastoreTransaction;
 
@@ -161,9 +161,9 @@ declare module "@google-cloud/datastore/query" {
 
         order(property: string, options?: OrderOptions): this;
 
-        groupBy(properties: string | ReadonlyArray<string>): this;
+        groupBy(properties: string | readonly string[]): this;
 
-        select(properties: string | ReadonlyArray<string>): this;
+        select(properties: string | readonly string[]): this;
 
         start(cursorToken: string): this;
 
@@ -213,20 +213,20 @@ declare module "@google-cloud/datastore/request" {
         allocateIds(incompleteKey: DatastoreKey, n: number): Promise<AllocateIdsResult>;
 
         createReadStream(
-            keys: DatastoreKey | ReadonlyArray<DatastoreKey>,
+            keys: DatastoreKey | readonly DatastoreKey[],
             options: QueryOptions,
         ): NodeJS.ReadableStream;
 
-        delete(keyOrKeys: DatastoreKey | ReadonlyArray<DatastoreKey>, callback: CommitCallback): void;
-        delete(keyOrKeys: DatastoreKey | ReadonlyArray<DatastoreKey>): Promise<CommitResult> | void;
+        delete(keyOrKeys: DatastoreKey | readonly DatastoreKey[], callback: CommitCallback): void;
+        delete(keyOrKeys: DatastoreKey | readonly DatastoreKey[]): Promise<CommitResult> | void;
 
         get(key: DatastoreKey, options: QueryOptions, callback: GetCallback<object>): void;
-        get(keys: ReadonlyArray<DatastoreKey>, options: QueryOptions, callback: GetCallback<object[]>): void;
+        get(keys: readonly DatastoreKey[], options: QueryOptions, callback: GetCallback<object[]>): void;
         get(key: DatastoreKey, callback: GetCallback<object>): void;
-        get(keys: ReadonlyArray<DatastoreKey>, callback: GetCallback<object[]>): void;
+        get(keys: readonly DatastoreKey[], callback: GetCallback<object[]>): void;
 
         get(key: DatastoreKey, options?: QueryOptions): Promise<[object | undefined]>;
-        get(keys: ReadonlyArray<DatastoreKey>, options?: QueryOptions): Promise<[object[]]>;
+        get(keys: readonly DatastoreKey[], options?: QueryOptions): Promise<[object[]]>;
 
         runQuery(query: Query, options: QueryOptions, callback: QueryCallback): void;
         runQuery(query: Query, callback: QueryCallback): void;
@@ -282,7 +282,7 @@ declare module "@google-cloud/datastore/transaction" {
 
         save(entities: OneOrMany<object>): void;
 
-        delete(keyOrKeys: DatastoreKey | ReadonlyArray<DatastoreKey>): void;
+        delete(keyOrKeys: DatastoreKey | readonly DatastoreKey[]): void;
 
         commit(): Promise<CommitResult>;
         commit(callback: CommitCallback): void;

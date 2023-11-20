@@ -108,7 +108,7 @@ declare namespace cheerio {
 
         // Form
         serialize(): string;
-        serializeArray(): { name: string; value: string }[];
+        serializeArray(): Array<{ name: string; value: string }>;
 
         // Traversing
 
