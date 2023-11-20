@@ -428,6 +428,8 @@ export interface ParseError {
     message: string;
     /** Row index of parsed data where error is */
     row?: number | undefined;
+    /** Index within the row where error is */
+    index?: number | undefined;
 }
 
 export interface ParseMeta {
