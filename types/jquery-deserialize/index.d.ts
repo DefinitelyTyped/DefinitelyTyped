@@ -8,7 +8,7 @@ declare namespace JQueryDeserialize {
         // but the type declaration intended does not work
         // https://github.com/microsoft/TypeScript/issues/29732
         //filter? : Parameters<JQuery['filter']>[0];
-        filter? : any;
+        filter? : unknown;
     }
 }
 
