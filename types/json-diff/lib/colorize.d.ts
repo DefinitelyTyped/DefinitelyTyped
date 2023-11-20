@@ -1,6 +1,6 @@
 export type DiffObject = object | string;
 
-export type ColorizeOptions = {
+export interface ColorizeOptions {
   theme?: Theme,
   color?: boolean,
 }
