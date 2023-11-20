@@ -68,9 +68,9 @@ Papa.parse<[string, string, string]>("4;4;4", {
 
 const { errors } = Papa.parse("");
 // $ExpectType number | undefined
-errors[0].row
+errors[0].row;
 // $ExpectType number | undefined
-errors[0].index
+errors[0].index;
 
 const file = new File(["foo"], "foo.txt", {
     type: "text/plain",
