@@ -638,6 +638,12 @@ declare module "crypto" {
         export(options?: KeyExportOptions<"der">): Buffer;
         export(options?: JwkKeyExportOptions): JsonWebKey;
         /**
+         * Returns `true` or `false` depending on whether the keys have exactly the same type, value, and parameters.
+         * This method is not [constant time](https://en.wikipedia.org/wiki/Timing_attack).
+         * @since v16.15.0
+         */
+        equals(otherKeyObject: KeyObject): boolean;
+        /**
          * For secret keys, this property represents the size of the key in bytes. This
          * property is `undefined` for asymmetric keys.
          * @since v11.6.0
