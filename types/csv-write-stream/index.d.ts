@@ -1,11 +1,6 @@
-// Type definitions for csv-write-stream 2.0
-// Project: https://github.com/maxogden/csv-write-stream
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Transform } from 'node:stream';
+import { Transform } from "node:stream";
 
 export = makeCsvWriteStream;
 

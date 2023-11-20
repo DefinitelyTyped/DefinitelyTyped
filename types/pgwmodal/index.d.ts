@@ -1,8 +1,3 @@
-// Type definitions for PgwModal 2.0
-// Project: http://pgwjs.com/pgwmodal/
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface PgwModalOption {
     content?: string | undefined;
     target?: string | undefined;
@@ -36,7 +31,6 @@ interface PgwModalMethod {
 interface ZeptoStatic {
     pgwModal: PgwModalMethod;
 }
-
 
 interface JQueryStatic {
     pgwModal: PgwModalMethod;

@@ -1,8 +1,3 @@
-// Type definitions for canvas-txt 3.0
-// Project: https://canvas-txt.geongeorge.com
-// Definitions by: Niels Kersic <https://github.com/nielskersic>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Draws text on a 2D canvas context
  * @param ctx 2D canvas context
@@ -13,12 +8,12 @@
  * @param height Height of area to draw in
  */
 export function drawText(
-  ctx: CanvasRenderingContext2D,
-  text: string,
-  x: number,
-  y: number,
-  width: number,
-  height: number
+    ctx: CanvasRenderingContext2D,
+    text: string,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
 ): any;
 
 /**
@@ -31,13 +26,13 @@ export let debug: boolean;
  * Horizontal text alignment
  * @default 'center'
  */
-export let align: 'center' | 'left' | 'right';
+export let align: "center" | "left" | "right";
 
 /**
  * Vertical text alignment
  * @default 'middle'
  */
-export let vAlign: 'middle' | 'top' | 'bottom';
+export let vAlign: "middle" | "top" | "bottom";
 
 /**
  * Font size of the text in pixels

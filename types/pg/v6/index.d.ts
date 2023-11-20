@@ -1,16 +1,17 @@
-// Type definitions for pg 6.1
-// Project: https://github.com/brianc/node-postgres
-// Definitions by: Phips Peter <https://github.com/pspeter3>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import events = require("events");
 import stream = require("stream");
 import pgTypes = require("pg-types");
 
-export declare function connect(connection: string, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
-export declare function connect(config: ClientConfig, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
+export declare function connect(
+    connection: string,
+    callback: (err: Error, client: Client, done: (err?: any) => void) => void,
+): void;
+export declare function connect(
+    config: ClientConfig,
+    callback: (err: Error, client: Client, done: (err?: any) => void) => void,
+): void;
 export declare function end(): void;
 
 export interface ConnectionConfig {

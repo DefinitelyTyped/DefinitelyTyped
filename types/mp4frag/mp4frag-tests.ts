@@ -1,4 +1,4 @@
-import Mp4Frag = require('mp4frag');
+import Mp4Frag = require("mp4frag");
 
 // $ExpectType Mp4Frag
 const m4f = new Mp4Frag({});
@@ -8,7 +8,7 @@ new Mp4Frag();
 
 // $ExpectType Mp4Frag
 new Mp4Frag({
-    hlsPlaylistBase: 'test',
+    hlsPlaylistBase: "test",
     hlsPlaylistInit: true,
     hlsPlaylistExtra: 1,
     hlsPlaylistSize: 1,
@@ -63,7 +63,7 @@ m4f.segmentObjects;
 // $ExpectType SegmentObject | null
 m4f.getSegmentObject(1);
 // $ExpectType SegmentObject | null
-m4f.getSegmentObject('1');
+m4f.getSegmentObject("1");
 // @ts-expect-error
 m4f.getSegmentObject(null);
 
@@ -81,7 +81,7 @@ const segmentObject = {
 
 // $ExpectType Mp4FragOptions
 const mp4FragOptions = {
-    hlsPlaylistBase: 'abc',
+    hlsPlaylistBase: "abc",
     hlsPlaylistSize: 1,
     hlsPlaylistExtra: 1,
     hlsPlaylistInit: true,

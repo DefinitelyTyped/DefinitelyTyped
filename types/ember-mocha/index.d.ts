@@ -1,15 +1,6 @@
-// Type definitions for ember-mocha 0.16
-// Project: https://github.com/emberjs/ember-mocha#readme
-// Definitions by: Simon Ihmig <https://github.com/simonihmig>
-//                 Dan Freeman <https://github.com/dfreeman>
-//                 Chris Krycho <https://github.com/chriskrycho>
-//                 James C. Davis <https://github.com/jamescdavis>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
-import { ModuleCallbacks, TestContext } from 'ember-test-helpers';
-import { it as mochaIt, Suite } from 'mocha';
-import Ember from 'ember';
+import Ember from "ember";
+import { ModuleCallbacks, TestContext } from "ember-test-helpers";
+import { it as mochaIt, Suite } from "mocha";
 
 // these globals are re-exported as named exports by ember-mocha
 type mochaBefore = typeof before;
@@ -21,7 +12,7 @@ type mochaTeardown = typeof teardown;
 type mochaSuiteSetup = typeof suiteSetup;
 type mochaSuiteTeardown = typeof suiteTeardown;
 
-declare module 'ember-mocha' {
+declare module "ember-mocha" {
     interface ContextDefinitionFunction {
         (name: string, description: string, callbacks: ModuleCallbacks, tests: (this: Suite) => void): void;
         (name: string, description: string, tests: (this: Suite) => void): void;
@@ -75,7 +66,7 @@ declare module 'ember-mocha' {
     export function setResolver(resolver: Ember.Resolver): void;
 }
 
-declare module 'mocha' {
+declare module "mocha" {
     // augment test callback context
     interface Context extends TestContext {}
 }

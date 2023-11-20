@@ -1,9 +1,3 @@
-// Type definitions for atom-keymap 8.x
-// Project: https://github.com/atom/atom-keymap
-// Definitions by: GlenCFL <https://github.com/GlenCFL>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { Disposable } from "event-kit";
 
 declare global {
@@ -155,16 +149,13 @@ declare global {
              *  Invoke the given callback when one or more keystrokes completely match a
              *  key binding.
              */
-            onDidMatchBinding(callback: (event: Events.FullKeybindingMatch) => void):
-                Disposable;
+            onDidMatchBinding(callback: (event: Events.FullKeybindingMatch) => void): Disposable;
 
             /** Invoke the given callback when one or more keystrokes partially match a binding. */
-            onDidPartiallyMatchBindings(callback: (event: Events.PartialKeybindingMatch) =>
-                void): Disposable;
+            onDidPartiallyMatchBindings(callback: (event: Events.PartialKeybindingMatch) => void): Disposable;
 
             /** Invoke the given callback when one or more keystrokes fail to match any bindings. */
-            onDidFailToMatchBinding(callback: (event: Events.FailedKeybindingMatch) =>
-                void): Disposable;
+            onDidFailToMatchBinding(callback: (event: Events.FailedKeybindingMatch) => void): Disposable;
 
             /** Invoke the given callback when a keymap file is reloaded. */
             onDidReloadKeymap(callback: (event: Events.KeymapLoaded) => void): Disposable;
@@ -173,17 +164,18 @@ declare global {
             onDidUnloadKeymap(callback: (event: Events.KeymapLoaded) => void): Disposable;
 
             /** Invoke the given callback when a keymap file not able to be loaded. */
-            onDidFailToReadFile(callback: (error: Events.FailedKeymapFileRead) => void):
-                Disposable;
+            onDidFailToReadFile(callback: (error: Events.FailedKeymapFileRead) => void): Disposable;
 
             // Adding and Removing Bindings
             /** Construct KeyBindings from an object grouping them by CSS selector. */
-            build(source: string, bindings: { [key: string]: { [key: string]: string }},
-                priority?: number): KeyBinding[];
+            build(
+                source: string,
+                bindings: { [key: string]: { [key: string]: string } },
+                priority?: number,
+            ): KeyBinding[];
 
             /** Add sets of key bindings grouped by CSS selector. */
-            add(source: string, bindings: { [key: string]: { [key: string]: string }},
-                priority?: number): Disposable;
+            add(source: string, bindings: { [key: string]: { [key: string]: string } }, priority?: number): Disposable;
 
             // Accessing Bindings
             /** Get all current key bindings. */
@@ -191,16 +183,16 @@ declare global {
 
             /** Get the key bindings for a given command and optional target. */
             findKeyBindings(params?: {
-                keystrokes?: string | undefined, // e.g. 'ctrl-x ctrl-s'
-                command?: string | undefined, // e.g. 'editor:backspace'
-                target?: Element | undefined,
+                keystrokes?: string | undefined; // e.g. 'ctrl-x ctrl-s'
+                command?: string | undefined; // e.g. 'editor:backspace'
+                target?: Element | undefined;
             }): KeyBinding[];
 
             // Managing Keymap Files
             /** Load the key bindings from the given path. */
             loadKeymap(
                 bindingsPath: string,
-                options?: { watch?: boolean | undefined, priority?: number | undefined }
+                options?: { watch?: boolean | undefined; priority?: number | undefined },
             ): void;
 
             /**
@@ -220,8 +212,7 @@ declare global {
             keystrokeForKeyboardEvent(event: KeyboardEvent): string;
 
             /** Customize translation of raw keyboard events to keystroke strings. */
-            addKeystrokeResolver(resolver: (event: Events.AddedKeystrokeResolver) => string):
-                Disposable;
+            addKeystrokeResolver(resolver: (event: Events.AddedKeystrokeResolver) => string): Disposable;
 
             /**
              *  Get the number of milliseconds allowed before pending states caused by
@@ -239,7 +230,7 @@ declare global {
             buildKeyupEvent(key: string, options?: Options.BuildKeyEvent): void;
 
             /** Create a new KeymapManager. */
-            new (options?: { defaultTarget?: HTMLElement | undefined }): KeymapManager;
+            new(options?: { defaultTarget?: HTMLElement | undefined }): KeymapManager;
         }
     }
 }

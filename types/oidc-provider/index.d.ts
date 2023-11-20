@@ -1,8 +1,3 @@
-// Type definitions for oidc-provider 8.2
-// Project: https://github.com/panva/node-oidc-provider
-// Definitions by: Filip Skokan <https://github.com/panva>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import * as crypto from "node:crypto";
 import * as dns from "node:dns";
 import * as events from "node:events";
@@ -1093,7 +1088,6 @@ export interface Configuration {
             dPoP?:
                 | {
                     enabled?: boolean | undefined;
-                    ack?: string | undefined;
                     nonceSecret?: Buffer | undefined;
                     requireNonce?: (ctx: KoaContextWithOIDC) => boolean;
                 }
@@ -1365,6 +1359,7 @@ export interface HttpOptions {
     signal?: AbortSignal | undefined;
     agent?: http.Agent | https.Agent | undefined;
     dnsLookup?: typeof dns.lookup | undefined;
+    "user-agent"?: string | undefined;
 }
 export type AsymmetricSigningAlgorithm =
     | "PS256"

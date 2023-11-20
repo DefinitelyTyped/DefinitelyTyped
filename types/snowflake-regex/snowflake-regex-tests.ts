@@ -1,4 +1,4 @@
-import regex = require('snowflake-regex');
+import regex = require("snowflake-regex");
 const generate = regex.generate;
 
 // RegExp & { generate(options?: GenerateOptions): RegExp }

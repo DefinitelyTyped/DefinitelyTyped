@@ -6,7 +6,6 @@
         "interface-over-type-literal": false,
         "member-access": false,
         "no-duplicate-variable": false,
-        "no-single-declare-module": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,

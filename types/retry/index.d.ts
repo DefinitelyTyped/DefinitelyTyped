@@ -1,10 +1,3 @@
-// Type definitions for retry 0.12
-// Project: https://github.com/tim-kos/node-retry
-// Definitions by: Stan Goldmann <https://github.com/krenor>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export interface RetryOperation {
     /**
      * Returns an array of all errors that have been passed to `retryOperation.retry()` so far.
@@ -76,7 +69,6 @@ export interface AttemptTimeoutOptions {
  * @param [options.randomize=false] Randomizes the timeouts by multiplying a factor between 1-2.
  * @param [options.forever=false] Wether to retry forever.
  * @param [options.unref=false] Wether to unref the setTimeout's.
- *
  */
 export function operation(options?: OperationOptions): RetryOperation;
 
@@ -147,7 +139,6 @@ export interface CreateTimeoutOptions {
  *
  * @param object The object to be wrapped
  * @param methods Methods which need to be wrapped
- *
  */
 export function wrap(object: object, methods?: string[]): void;
 export function wrap(object: object, options?: WrapOptions, methods?: string[]): void;

@@ -1,5 +1,11 @@
-const mylabel = new GorillaEngine.UI.Label({ text: 'rr' });
+const mylabel = new GorillaEngine.UI.Label({ text: "rr" });
 
-const combo = new GorillaEngine.UI.ComboBox({});
+const combo = new GorillaEngine.UI.ComboBox({ id: "myCombo", x: 0 });
 
-const toggle = new GorillaEngine.UI.Toggle({ id: 'myToggle' });
+const toggle = new GorillaEngine.UI.Toggle({ id: "myToggle" });
+
+const pad = new GorillaEngine.UI.XYPad({ id: "myXYPad" });
+
+const scrollView = new GorillaEngine.UI.ScrollView({ id: "myScrollView" });
+
+const knob = new GorillaEngine.UI.Knob({ id: "myknob" });

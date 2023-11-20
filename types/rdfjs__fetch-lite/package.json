@@ -1,7 +1,28 @@
 {
     "private": true,
+    "name": "@types/rdfjs__fetch-lite",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/rdfjs-base/fetch-lite"
+    ],
     "type": "module",
     "dependencies": {
-        "@rdfjs/types": "*"
-    }
+        "@rdfjs/types": "*",
+        "@types/node": "*",
+        "@types/rdfjs__formats-common": "*"
+    },
+    "devDependencies": {
+        "@types/rdfjs__environment": "*",
+        "@types/rdfjs__fetch-lite": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "tpluscode",
+            "githubUsername": "tpluscode"
+        },
+        {
+            "name": "Jesse Wright",
+            "githubUsername": "jeswr"
+        }
+    ]
 }

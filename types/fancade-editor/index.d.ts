@@ -1,8 +1,3 @@
-// Type definitions for non-npm package Fancade Editor Script 1.13
-// Project: https://www.fancade.com/wiki/fancade-web#editor-scripting
-// Definitions by: Bricked <https://github.com/brckd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Find block by name.
  * @param blockName The name of the block to find
@@ -184,7 +179,7 @@ declare function getVersion(): number;
  */
 interface Events {
     // Callback function called when a block is placed at (x, y, z)
-    'block-placed': [x: number, y: number, z: number];
+    "block-placed": [x: number, y: number, z: number];
     // Callback function called each frame (also in play mode)
     update: [];
     // Callback function called when a key is pressed

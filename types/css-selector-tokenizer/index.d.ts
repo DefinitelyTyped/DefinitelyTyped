@@ -1,8 +1,3 @@
-// Type definitions for css-selector-tokenizer 0.7
-// Project: https://github.com/css-modules/css-selector-tokenizer
-// Definitions by: Avi Vahl <https://github.com/AviVahl>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface BaseNode {
     name?: string | undefined;
     before?: string | undefined;
@@ -13,12 +8,12 @@ export interface BaseNode {
 export type AnySelectorNode = SelectorsNode | SelectorNode | SelectorNodeType;
 
 export interface SelectorsNode extends BaseNode {
-    type: 'selectors';
+    type: "selectors";
     nodes: SelectorNode[];
 }
 
 export interface SelectorNode extends BaseNode {
-    type: 'selector';
+    type: "selector";
     nodes: SelectorNodeType[];
 }
 
@@ -38,65 +33,65 @@ export type SelectorNodeType =
     | PseudoElementNode;
 
 export interface ElementNode extends BaseNode {
-    type: 'element';
+    type: "element";
     name: string;
     namespace?: string | undefined;
 }
 
 export interface PseudoElementNode extends BaseNode {
-    type: 'pseudo-element';
+    type: "pseudo-element";
     name: string;
 }
 
 export interface ClassNode extends BaseNode {
-    type: 'class';
+    type: "class";
     name: string;
 }
 
 export interface PseudoClassNode extends BaseNode {
-    type: 'pseudo-class';
+    type: "pseudo-class";
     name: string;
     content?: string | undefined;
 }
 
 export interface AttributeNode extends BaseNode {
-    type: 'attribute';
+    type: "attribute";
     content: string;
 }
 
 export interface CommentNode extends BaseNode {
-    type: 'comment';
+    type: "comment";
     content: string;
 }
 
 export interface NestedPseudoClassNode extends BaseNode {
-    type: 'nested-pseudo-class';
+    type: "nested-pseudo-class";
     name: string;
     nodes: SelectorNode[];
 }
 
 export interface IdNode extends BaseNode {
-    type: 'id';
+    type: "id";
     name: string;
 }
 
 export interface SpacingNode extends BaseNode {
-    type: 'spacing';
+    type: "spacing";
     value: string;
 }
 
 export interface UniversalNode extends BaseNode {
-    type: 'universal';
+    type: "universal";
     namespace?: string | undefined;
 }
 
 export interface OperatorNode extends BaseNode {
-    type: 'operator';
+    type: "operator";
     operator: string;
 }
 
 export interface InvalidNode extends BaseNode {
-    type: 'invalid';
+    type: "invalid";
     value: string;
 }
 
@@ -104,12 +99,12 @@ export interface InvalidNode extends BaseNode {
 export type AnyValueNode = ValuesNode | ValueNode | ValueNodeType;
 
 export interface ValuesNode extends BaseNode {
-    type: 'values';
+    type: "values";
     nodes: ValueNode[];
 }
 
 export interface ValueNode extends BaseNode {
-    type: 'value';
+    type: "value";
     nodes: ValueNodeType[];
 }
 
@@ -117,18 +112,18 @@ export interface ValueNode extends BaseNode {
 export type ValueNodeType = ItemNode | NestedItemNode | StringNode | CommentNode | UrlNode | InvalidNode;
 
 export interface ItemNode extends BaseNode {
-    type: 'item';
+    type: "item";
     name: string;
 }
 
 export interface NestedItemNode extends BaseNode {
-    type: 'nested-item';
+    type: "nested-item";
     name: string;
     nodes: ValueNode[];
 }
 
 export interface UrlNode extends BaseNode {
-    type: 'url';
+    type: "url";
     url: string;
     stringType?: string | undefined;
     innerSpacingBefore?: string | undefined;
@@ -136,7 +131,7 @@ export interface UrlNode extends BaseNode {
 }
 
 export interface StringNode extends BaseNode {
-    type: 'string';
+    type: "string";
     value: string;
     stringType: string;
 }

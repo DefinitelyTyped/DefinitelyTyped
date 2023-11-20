@@ -13,16 +13,11 @@ export type EvaluationArgument = object;
 
 export type PageFunction<Arg, R> = string | ((arg: Unboxed<Arg>) => R);
 
-export type Unboxed<Arg> = Arg extends [infer A0, infer A1]
-    ? [Unboxed<A0>, Unboxed<A1>]
-    : Arg extends [infer A0, infer A1, infer A2]
-    ? [Unboxed<A0>, Unboxed<A1>, Unboxed<A2>]
-    : Arg extends [infer A0, infer A1, infer A2, infer A3]
-    ? [Unboxed<A0>, Unboxed<A1>, Unboxed<A2>, Unboxed<A3>]
-    : Arg extends Array<infer T>
-    ? Array<Unboxed<T>>
-    : Arg extends object
-    ? { [Key in keyof Arg]: Unboxed<Arg[Key]> }
+export type Unboxed<Arg> = Arg extends [infer A0, infer A1] ? [Unboxed<A0>, Unboxed<A1>]
+    : Arg extends [infer A0, infer A1, infer A2] ? [Unboxed<A0>, Unboxed<A1>, Unboxed<A2>]
+    : Arg extends [infer A0, infer A1, infer A2, infer A3] ? [Unboxed<A0>, Unboxed<A1>, Unboxed<A2>, Unboxed<A3>]
+    : Arg extends Array<infer T> ? Array<Unboxed<T>>
+    : Arg extends object ? { [Key in keyof Arg]: Unboxed<Arg[Key]> }
     : Arg;
 
 export interface SelectOptionsObject {
@@ -43,24 +38,24 @@ export interface SelectOptionsObject {
 }
 
 export type ResourceType =
-    | 'document'
-    | 'stylesheet'
-    | 'image'
-    | 'media'
-    | 'font'
-    | 'script'
-    | 'texttrack'
-    | 'xhr'
-    | 'fetch'
-    | 'eventsource'
-    | 'websocket'
-    | 'manifest'
-    | 'other';
-export type MouseButton = 'left' | 'right' | 'middle';
-export type KeyboardModifier = 'Alt' | 'Control' | 'Meta' | 'Shift';
-export type ElementState = 'attached' | 'detached' | 'visible' | 'hidden';
-export type InputElementState = ElementState | 'enabled' | 'disabled' | 'editable';
-export type LifecycleEvent = 'load' | 'domcontentloaded' | 'networkidle';
+    | "document"
+    | "stylesheet"
+    | "image"
+    | "media"
+    | "font"
+    | "script"
+    | "texttrack"
+    | "xhr"
+    | "fetch"
+    | "eventsource"
+    | "websocket"
+    | "manifest"
+    | "other";
+export type MouseButton = "left" | "right" | "middle";
+export type KeyboardModifier = "Alt" | "Control" | "Meta" | "Shift";
+export type ElementState = "attached" | "detached" | "visible" | "hidden";
+export type InputElementState = ElementState | "enabled" | "disabled" | "editable";
+export type LifecycleEvent = "load" | "domcontentloaded" | "networkidle";
 
 export interface TimeoutOptions {
     /**
@@ -125,14 +120,16 @@ export interface KeyboardModifierOptions {
     modifiers?: KeyboardModifier[];
 }
 
-export type KeyboardPressOptions = {
-    /**
-     * If set to `true` and a navigation occurs from performing this action, it
-     * will not wait for it to complete. Defaults to `false`.
-     */
-    noWaitAfter?: boolean;
-} & EventSequenceOptions &
-    TimeoutOptions;
+export type KeyboardPressOptions =
+    & {
+        /**
+         * If set to `true` and a navigation occurs from performing this action, it
+         * will not wait for it to complete. Defaults to `false`.
+         */
+        noWaitAfter?: boolean;
+    }
+    & EventSequenceOptions
+    & TimeoutOptions;
 
 export type MouseMoveOptions = ElementClickOptions & KeyboardModifierOptions;
 
@@ -309,7 +306,7 @@ export interface Rect {
     height: number;
 }
 
-export type ImageFormat = 'jpeg' | 'png';
+export type ImageFormat = "jpeg" | "png";
 
 export interface ScreenshotOptions {
     /**
@@ -343,14 +340,14 @@ export interface ScreenshotOptions {
  * - `mutation` - use a mutation observer
  * - `interval` - use a polling interval
  */
-export type PollingMethod = 'raf' | 'mutation' | 'interval';
+export type PollingMethod = "raf" | "mutation" | "interval";
 
 export interface PollingOptions {
     /**
      * Polling method to use.
      * @default 'raf'
      */
-    polling?: 'raf' | 'mutation' | 'interval';
+    polling?: "raf" | "mutation" | "interval";
 
     /**
      * Polling interval in milliseconds if `polling` is set to `interval`.
@@ -370,13 +367,22 @@ export interface ElementStateFilter {
  * BrowserPermissions defines all the possible permissions that can be granted
  * to the browser application.
  */
-export type BrowserPermissions = 'geolocation' | 'midi' | 'midi-sysex' |
-                                  'notifications' | 'camera' |
-                                  'microphone' | 'background-sync' |
-                                  'ambient-light-sensor' | 'accelerometer' |
-                                  'gyroscope' | 'magnetometer' |
-                                  'accessibility-events' | 'clipboard-read' |
-                                  'clipboard-write' | 'payment-handler';
+export type BrowserPermissions =
+    | "geolocation"
+    | "midi"
+    | "midi-sysex"
+    | "notifications"
+    | "camera"
+    | "microphone"
+    | "background-sync"
+    | "ambient-light-sensor"
+    | "accelerometer"
+    | "gyroscope"
+    | "magnetometer"
+    | "accessibility-events"
+    | "clipboard-read"
+    | "clipboard-write"
+    | "payment-handler";
 
 export interface NewBrowserContextOptions {
     /**
@@ -390,7 +396,7 @@ export interface NewBrowserContextOptions {
      * are `'light'`, `'dark'`, and `'no-preference'`. Default to
      * `'light'`.
      */
-    colorScheme?: 'light' | 'dark' | 'no-preference';
+    colorScheme?: "light" | "dark" | "no-preference";
 
     /**
      * Sets the resolution ratio in physical pixels to the resolution in
@@ -480,7 +486,7 @@ export interface NewBrowserContextOptions {
      * 'prefers-reduced-motion' media feature. Defaults to
      * `'no-preference'`.
      */
-    reducedMotion?: 'reduce' | 'no-preference';
+    reducedMotion?: "reduce" | "no-preference";
 
     /**
      * Sets a window screen size for all pages in the context. It can
@@ -597,44 +603,51 @@ export interface BrowserContext {
     browser(): Browser;
 
     /**
-     * Adds cookies into the `BrowserContext`.
+     * Adds {@link Cookie | cookies} into this {@link BrowserContext}.
+     *
+     * @param cookies The {@link Cookie | cookies} to add to this {@link BrowserContext}.
+     * @example
+     * ```js
+     * context.addCookies([
+     *   { name: 'foo', value: 'foovalue', sameSite: 'Lax', url: 'https://k6.io' },
+     *   { name: 'bar', value: 'barvalue', sameSite: 'Strict', domain: 'test.k6.io', path: '/bar' },
+     * ]);
+     * ```
      */
-    addCookies(cookies: Array<{
-        name: string,
-
-        value: string,
-
-        /**
-         * either url or domain / path are required.
-         */
-        url?: string,
-
-        /**
-         * either url or domain / path are required.
-         */
-        domain?: string,
-
-        /**
-         * either url or domain / path are required.
-         */
-        path?: string,
-
-        /**
-         * Unix time in seconds.
-         */
-        expires?: number,
-
-        httpOnly?: boolean,
-
-        secure?: boolean,
-
-        sameSite?: 'Strict' | 'Lax' | 'None',
-    }>): void;
+    addCookies(cookies: Cookie[]): void;
 
     /**
-     * Clear the `BrowserContext`'s cookies.
+     * Clears the {@link Cookie | cookies} in this {@link BrowserContext}.
+     *
+     * @example
+     * ```js
+     * context.addCookies([{ name: 'foo', value: 'bar', url: 'https://k6.io' }]);
+     * context.cookies().length; // 1
+     * context.clearCookies();
+     * context.cookies().length; // 0
+     * ```
      */
     clearCookies(): void;
+
+    /**
+     * Retrieves the {@link Cookie | cookies} in this {@link BrowserContext} filtered by provided URLs,
+     * or all {@link Cookie | cookies} if no URLs are provided.
+     *
+     * @param urls URLs to filter {@link Cookie | cookies} by.
+     * @returns An array of {@link Cookie | cookies}.
+     * @example
+     * ```js
+     * // Get all cookies in the browser context
+     * const cookies = context.cookies();
+     *
+     * // Get all cookies for the specified URLs
+     * const cookies = context.cookies('https://k6.io', 'https://test.k6.io');
+     *
+     * // Get all cookies for the specified URLs and filter by name
+     * const cookies = context.cookies('https://k6.io', 'https://test.k6.io').filter(c => c.name === 'foo');
+     * ```
+     */
+    cookies(...urls: string[]): Cookie[];
 
     /**
      * Clears all permission overrides for the `BrowserContext`.
@@ -658,7 +671,7 @@ export interface BrowserContext {
             /**
              * The origin to grant permissions to, e.g. 'https://test.k6.com'.
              */
-            origin: string,
+            origin: string;
         },
     ): void;
 
@@ -738,7 +751,6 @@ export interface BrowserContext {
          * always wait for 'close' or 'page' events.
          */
         event: string,
-
         /**
          * The `Page` or null event data will be passed to it and it must
          * return true to continue.
@@ -754,16 +766,155 @@ export interface BrowserContext {
              * If null is passed to predicate, this signals that the page is
              * closing.
              */
-            predicate: (page: Page | null) => boolean,
+            predicate: (page: Page | null) => boolean;
 
             /**
              * Maximum time to wait in milliseconds. Pass 0 to disable timeout.
              * Defaults to 30000 milliseconds.
              */
-            timeout?: number,
+            timeout?: number;
         },
     ): Page | null;
 }
+
+/**
+ * {@link ConsoleMessage} objects are dispatched by page via the
+ * `page.on('console')` event. For each console message logged in the page,
+ * k6 browser delivers it to the registered handlers.
+ *
+ * ```js
+ * // Listen for all console log messages in the browser page and output them
+ * // in the test logs
+ * page.on('console', msg => console.log(msg.text()));
+ *
+ * // Listen for all console events and handle errors
+ * page.on('console', msg => {
+ *   if (msg.type() === 'error')
+ *     console.log(`Error text: "${msg.text()}"`);
+ * });
+ *
+ * // Deconstruct console log arguments
+ * await msg.args()[0].jsonValue(); // hello
+ * await msg.args()[1].jsonValue(); // 42
+ * ```
+ */
+export interface ConsoleMessage {
+    /**
+     * List of arguments passed to a `console` function call. See also
+     * `page.on('console')`.
+     */
+    args(): JSHandle[];
+
+    /**
+     * The page that produced this console message, if any.
+     */
+    page(): null | Page;
+
+    /**
+     * The text of the console message.
+     */
+    text(): string;
+
+    /**
+     * One of the following values: `'log'`, `'debug'`, `'info'`, `'error'`,
+     * `'warning'`, `'dir'`, `'dirxml'`, `'table'`, `'trace'`, `'clear'`,
+     * `'startGroup'`, `'startGroupCollapsed'`, `'endGroup'`, `'assert'`,
+     * `'profile'`, `'profileEnd'`, `'count'`, `'timeEnd'`.
+     */
+    type(): string;
+}
+
+/**
+ * {@link Cookie} represents a cookie in a {@link BrowserContext}.
+ *
+ * @see
+ * {@link BrowserContext} has methods to {@link BrowserContext.addCookies | add}, {@link BrowserContext.cookies | query} and {@link BrowserContext.clearCookies | clear} cookies.
+ */
+export interface Cookie {
+    /**
+     * The {@link Cookie | cookie}'s name.
+     *
+     * @defaultValue
+     * The default is `''`.
+     */
+    name: string;
+
+    /**
+     * The {@link Cookie | cookie}'s value.
+     *
+     * @defaultValue
+     * The default is `''`.
+     */
+    value: string;
+
+    /**
+     * The {@link Cookie | cookie}'s URL.
+     *
+     * Required unless one of {@link Cookie.domain | domain} or {@link Cookie.path | path} are specified.
+     */
+    url?: string;
+
+    /**
+     * The {@link Cookie | cookie}'s domain.
+     *
+     * Required unless one of {@link Cookie.url | url} or {@link Cookie.path | path} are specified.
+     */
+    domain?: string;
+
+    /**
+     * The {@link Cookie | cookie}'s path.
+     *
+     * Required unless one of {@link Cookie.url | url} or {@link Cookie.domain | domain} are specified.
+     *
+     * @defaultValue
+     * The default is `'/'`.
+     */
+    path?: string;
+
+    /**
+     * The {@link Cookie | cookie}'s expiration date as the number of seconds since the UNIX epoch.
+     *
+     * If omitted, the {@link Cookie | cookie} becomes a session cookie.
+     *
+     * @defaultValue
+     * The default is `-1`, meaning a session cookie.
+     */
+    expires?: number;
+
+    /**
+     * Whether the {@link Cookie | cookie} is http-only.
+     *
+     * @defaultValue
+     * The default is `false`.
+     */
+    httpOnly?: boolean;
+
+    /**
+     * Whether the {@link Cookie | cookie} is secure.
+     *
+     * @defaultValue
+     * The default is `false`.
+     */
+    secure?: boolean;
+
+    /**
+     * The {@link Cookie | cookie}'s same-site status.
+     *
+     * It can be one of `'Strict'`, `'Lax'`, or `'None'`.
+     *
+     * @defaultValue
+     * The default is `'Lax'`.
+     */
+    sameSite?: CookieSameSite;
+}
+
+/**
+ * CookieSameSite represents the same-site status of a {@link Cookie | cookie}.
+ *
+ * @defaultValue
+ * The default is `'Lax'`.
+ */
+export type CookieSameSite = "Strict" | "Lax" | "None";
 
 /**
  * ElementHandle represents an in-page DOM element.
@@ -1908,19 +2059,19 @@ export interface Page {
          * Emulates `'prefers-colors-scheme'` media feature, supported values are
          * `'light'`, `'dark'`, and `'no-preference'`.
          */
-        colorScheme?: 'light' | 'dark' | 'no-preference';
+        colorScheme?: "light" | "dark" | "no-preference";
 
         /**
          * Changes the CSS media type of the page. The only allowed values are
          * `'screen'`, and `'print'`.
          */
-        media?: 'screen' | 'print';
+        media?: "screen" | "print";
 
         /**
          * Emulates `'prefers-reduced-motion'` media feature, supported values are
          * `'reduce'`, `'no-preference'`.
          */
-        reducedMotion?: 'reduce' | 'no-preference';
+        reducedMotion?: "reduce" | "no-preference";
     }): void;
 
     /**
@@ -1936,7 +2087,7 @@ export interface Page {
      * @param type
      */
     emulateVisionDeficiency(
-        type: 'none' | 'blurredVision' | 'deuteranopia' | 'protanopia' | 'tritanopia' | 'achromatopsia',
+        type: "none" | "blurredVision" | "deuteranopia" | "protanopia" | "tritanopia" | "achromatopsia",
     ): void;
 
     /**
@@ -2455,6 +2606,28 @@ export interface Page {
     mouse: Mouse;
 
     /**
+     * Emitted when JavaScript within the page calls one of console API methods
+     * , e.g. `console.log` or `console.dir`. Also emitted if the page throws
+     * an error or a warning.
+     *
+     * The arguments passed into `console.log` are available on the
+     * {@link ConsoleMessage} event handler argument.
+     *
+     * **Usage**
+     *
+     * ```js
+     * page.on('console', msg => {
+     *   const values = [];
+     *   for (const arg of msg.args())
+     *     values.push(arg.jsonValue());
+     *   console.log(...values);
+     * });
+     * page.evaluate(() => console.log('hello', 5, { foo: 'bar' }));
+     * ```
+     */
+    on(event: "console", listener: (consoleMessage: ConsoleMessage) => void): void;
+
+    /**
      * Returns the page that opened the current page. The first page that is
      * navigated to will have a null opener.
      */
@@ -2535,7 +2708,6 @@ export interface Page {
          * page.setDefaultTimeout(timeout) methods.
          *
          * Setting the value to `0` will disable the timeout.
-         *
          */
         timeout?: number;
 
@@ -2551,7 +2723,7 @@ export interface Page {
          * this method for testing especially with chatty websites where the event
          * may never fire, rely on web assertions to assess readiness instead.
          */
-        waitUntil?: 'load' | 'domcontentloaded' | 'networkidle';
+        waitUntil?: "load" | "domcontentloaded" | "networkidle";
     }): null | Response;
 
     /**
@@ -2660,7 +2832,6 @@ export interface Page {
              * page.setDefaultTimeout(timeout) methods.
              *
              * Setting the value to `0` will disable the timeout.
-             *
              */
             timeout?: number;
 
@@ -2676,7 +2847,7 @@ export interface Page {
              * this method for testing especially with chatty websites where the event
              * may never fire, rely on web assertions to assess readiness instead.
              */
-            waitUntil?: 'load' | 'domcontentloaded' | 'networkidle';
+            waitUntil?: "load" | "domcontentloaded" | "networkidle";
         },
     ): void;
 
@@ -2970,7 +3141,7 @@ export interface Page {
              * treated as an interval in milliseconds at which the function would be
              * executed. Defaults to `raf`.
              */
-            polling?: number | 'raf';
+            polling?: number | "raf";
 
             /**
              * Maximum time in milliseconds. Defaults to `30` seconds. Default is
@@ -3000,7 +3171,7 @@ export interface Page {
      * @param options
      */
     waitForLoadState(
-        state?: 'load' | 'domcontentloaded' | 'networkidle',
+        state?: "load" | "domcontentloaded" | "networkidle",
         options?: {
             /**
              * Maximum operation time in milliseconds. Defaults to `30` seconds. The
@@ -3011,7 +3182,6 @@ export interface Page {
              * page.setDefaultTimeout(timeout) methods.
              *
              * Setting the value to `0` will disable the timeout.
-             *
              */
             timeout?: number;
         },
@@ -3033,7 +3203,6 @@ export interface Page {
          * page.setDefaultTimeout(timeout) methods.
          *
          * Setting the value to `0` will disable the timeout.
-         *
          */
         timeout?: number;
 
@@ -3049,7 +3218,7 @@ export interface Page {
          * this method for testing especially with chatty websites where the event
          * may never fire, rely on web assertions to assess readiness instead.
          */
-        waitUntil?: 'load' | 'domcontentloaded' | 'networkidle';
+        waitUntil?: "load" | "domcontentloaded" | "networkidle";
     }): Promise<null | Response>;
 
     /**
@@ -3073,7 +3242,7 @@ export interface Page {
              * - `'hidden'` - wait for element to be either detached from DOM, or have
              * an empty bounding box or `visibility:hidden`.
              */
-            state?: 'attached' | 'detached' | 'visible' | 'hidden';
+            state?: "attached" | "detached" | "visible" | "hidden";
 
             /**
              * When `true`, the call requires selector to resolve to a single element.

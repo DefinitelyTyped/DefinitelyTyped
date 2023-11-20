@@ -1,14 +1,6 @@
-// Type definitions for node-red 0.20
-// Project: http://nodered.org
-// Definitions by: Anders E. Andersen <https://github.com/andersea>
-//                 Thomas B. Mørch <https://github.com/tbowmo>
-//                 Bernardo Belchior <https://github.com/bernardobelchior>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 /**
  * Node-RED node creation api.
@@ -132,9 +124,9 @@ export type NodeId = string;
 export type NodeType = string;
 
 /** Node status icon color choices. */
-export type StatusFill = 'red' | 'green' | 'yellow' | 'blue' | 'grey';
+export type StatusFill = "red" | "green" | "yellow" | "blue" | "grey";
 /** Node status icon shape choices. */
-export type StatusShape = 'ring' | 'dot';
+export type StatusShape = "ring" | "dot";
 
 /**
  * Object used to set the nodes status flag.

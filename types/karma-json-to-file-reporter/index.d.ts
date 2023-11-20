@@ -1,12 +1,6 @@
-// Type definitions for karma-json-to-file-reporter 1.0
-// Project: https://github.com/HarryBurns/karma-json-to-file-reporter#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+import "karma";
 
-import 'karma';
-
-declare module 'karma' {
+declare module "karma" {
     interface ConfigOptions {
         /**
          * see {@link https://www.npmjs.com/package/karma-json-to-file-reporter#config}

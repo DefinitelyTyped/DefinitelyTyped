@@ -1,15 +1,9 @@
-// Type definitions for @craco/craco 6.4
-// Project: https://github.com/gsoft-inc/craco
-// Definitions by: Chuck Fan <https://github.com/fanck0605>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.2
-
-import type { Config as JestConfig } from '@jest/types';
-import type { Options as AutoprefixerOptions } from 'autoprefixer';
-import type { TransformOptions } from 'babel-core';
-import type { Linter } from 'eslint';
-import type { Configuration as WebpackConfig, Plugin as WebpackPlugin, RuleSetRule, RuleSetUseItem } from 'webpack';
-import type { Configuration as DevServerConfig, ProxyConfigArray } from 'webpack-dev-server';
+import type { Config as JestConfig } from "@jest/types";
+import type { Options as AutoprefixerOptions } from "autoprefixer";
+import type { TransformOptions } from "babel-core";
+import type { Linter } from "eslint";
+import type { Configuration as WebpackConfig, Plugin as WebpackPlugin, RuleSetRule, RuleSetUseItem } from "webpack";
+import type { Configuration as DevServerConfig, ProxyConfigArray } from "webpack-dev-server";
 
 export type Configure<Config, Context> = Config | ((config: Config, context: Context) => Config);
 
@@ -66,7 +60,7 @@ export interface WebpackOptions {
     alias?: { [alias: string]: string };
     plugins?: {
         // Specify if plugin should be appended or prepended.
-        add?: Array<WebpackPlugin | [WebpackPlugin, 'append' | 'prepend']>;
+        add?: Array<WebpackPlugin | [WebpackPlugin, "append" | "prepend"]>;
         // An array of plugin constructor's names (i.e. "StyleLintPlugin", "ESLintWebpackPlugin")
         remove?: string[];
     };
@@ -312,9 +306,9 @@ export function throwUnexpectedConfigError(props: {
 
 export function gitHubIssueUrl(repo: string, query?: string): string;
 
-export const ESLINT_MODES: { extends: 'extends'; file: 'file' };
+export const ESLINT_MODES: { extends: "extends"; file: "file" };
 
-export const POSTCSS_MODES: { extends: 'extends'; file: 'file' };
+export const POSTCSS_MODES: { extends: "extends"; file: "file" };
 
 export function createJestConfig(
     cracoConfig: CracoConfig,

@@ -1,8 +1,3 @@
-// Type definitions for node-tlv 1.5
-// Project: https://github.com/coolbong/node-tlv#readme
-// Definitions by: David-Tennant <https://github.com/David-Tennant>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare class TL {
@@ -46,7 +41,7 @@ interface DOLConstructed {
 }
 
 interface DOL {
-    new (dolData: string | number | Buffer): DOLConstructed;
+    new(dolData: string | number | Buffer): DOLConstructed;
     parse(dolData: string): DOLConstructed;
 }
 
@@ -121,8 +116,8 @@ declare class TLV {
      */
     size: number;
     info: {
-        clazz?: 'universal' | 'application' | 'context specific' | 'private' | undefined;
-        encoding: 'primitive' | 'constructed';
+        clazz?: "universal" | "application" | "context specific" | "private" | undefined;
+        encoding: "primitive" | "constructed";
     };
     child: TLV[];
     isConstructed: boolean;
@@ -133,18 +128,18 @@ declare class TLV {
      *
      * @param encoding return type ('number' / 'hex' / 'buffer'). 'hex' is default
      */
-    getTag(encoding?: 'hex'): string;
-    getTag(encoding: 'number'): number;
-    getTag(encoding: 'buffer'): Buffer;
+    getTag(encoding?: "hex"): string;
+    getTag(encoding: "number"): number;
+    getTag(encoding: "buffer"): Buffer;
 
     /**
      * Return the value of the length field of the TLV.
      *
      * @param encoding return type ('number' / 'hex' / 'buffer'). 'number' is default
      */
-    getLength(encoding?: 'number'): number;
-    getLength(encoding: 'hex'): string;
-    getLength(encoding: 'buffer'): Buffer;
+    getLength(encoding?: "number"): number;
+    getLength(encoding: "hex"): string;
+    getLength(encoding: "buffer"): Buffer;
 
     /**
      * Return the length of the TLV (tag + length + value)
@@ -154,8 +149,8 @@ declare class TLV {
     /**
      * Return the value of the value field of the TLV.
      */
-    getValue(encoding?: 'hex' | 'ascii'): string;
-    getValue(encoding: 'buffer'): Buffer;
+    getValue(encoding?: "hex" | "ascii"): string;
+    getValue(encoding: "buffer"): Buffer;
 
     /**
      * Return the name of the TLV.

@@ -1,8 +1,3 @@
-// Type definitions for int53 1.0
-// Project: https://github.com/dannycoates/int53#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**

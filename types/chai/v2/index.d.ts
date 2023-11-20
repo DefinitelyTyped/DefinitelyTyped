@@ -1,11 +1,4 @@
-// Type definitions for chai 2.0.0
-// Project: http://chaijs.com/
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-//                 Andrew Brown <https://github.com/AGBrown>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Chai {
-
     interface ChaiStatic {
         expect: ExpectStatic;
         should(): Should;
@@ -41,8 +34,8 @@ declare namespace Chai {
 
     interface ShouldThrow {
         (actual: Function): void;
-        (actual: Function, expected: string|RegExp, message?: string): void;
-        (actual: Function, constructor: Error|Function, expected?: string|RegExp, message?: string): void;
+        (actual: Function, expected: string | RegExp, message?: string): void;
+        (actual: Function, constructor: Error | Function, expected?: string | RegExp, message?: string): void;
     }
 
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
@@ -71,7 +64,7 @@ declare namespace Chai {
         haveOwnProperty: OwnProperty;
         length: Length;
         lengthOf: Length;
-        match(regexp: RegExp|string, message?: string): Assertion;
+        match(regexp: RegExp | string, message?: string): Assertion;
         string(string: string, message?: string): Assertion;
         keys: Keys;
         key(string: string): Assertion;
@@ -253,7 +246,7 @@ declare namespace Chai {
         deepPropertyNotVal(obj: Object, prop: string, val: any, msg?: string): void;
 
         lengthOf(exp: any, len: number, msg?: string): void;
-        //alias frenzy
+        // alias frenzy
         throw(fn: Function, msg?: string): void;
         throw(fn: Function, regExp: RegExp): void;
         throw(fn: Function, errType: Function, msg?: string): void;

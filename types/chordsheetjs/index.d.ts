@@ -1,9 +1,3 @@
-// Type definitions for chordsheetjs 2.8
-// Project: https://github.com/martijnversluis/ChordSheetJS
-// Definitions by: Adam Bloom <https://github.com/adamsbloom>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /**
  * Represents a chord with the corresponding (partial) lyrics
  */
@@ -93,7 +87,7 @@ export class Line {
      * The line type, This is set by the ChordProParser when it read tags like {start_of_chorus} or {start_of_verse}
      * Values can be 'verse', 'chorus' or 'none'
      */
-    type: 'verse' | 'chorus' | 'none';
+    type: "verse" | "chorus" | "none";
 
     /**
      * Indicates whether the line contains any items
@@ -134,7 +128,7 @@ export class Line {
 
     addChordLyricsPair(
         chords: ChordLyricsPair | string,
-        lyrics: string
+        lyrics: string,
     ): ChordLyricsPair;
     ensureChordLyricsPair(): void;
     chords(chr: string): void;
@@ -210,7 +204,7 @@ export class Song {
     optimizedMetaData: object;
     getOptimizedMetaData(): object;
     optimizeMetaDataValue(
-        valueSet: string[] | undefined
+        valueSet: string[] | undefined,
     ): string | string[] | null;
     getMetaData(name: string): string | null;
 }
@@ -322,7 +316,7 @@ export class TextFormatter {
     formatLineBottom(line: Line): string;
     formatLineWithFormatter(
         line: Line,
-        formatter: (x: string) => string
+        formatter: (x: string) => string,
     ): string;
     formatItemBottom(item: Tag | ChordLyricsPair | Line): string;
 }

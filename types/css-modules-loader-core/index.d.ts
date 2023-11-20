@@ -1,22 +1,16 @@
-// Type definitions for css-modules-loader-core 1.1
-// Project: https://github.com/css-modules/css-modules-loader-core
-// Definitions by: Spencer Miskoviak <https://github.com/skovy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import { Plugin } from "postcss";
 
 declare namespace Core {
     type Source =
         | string
         | {
-              toString(): string;
-          };
+            toString(): string;
+        };
 
     type PathFetcher = (
         file: string,
         relativeTo: string,
-        depTrace: string
+        depTrace: string,
     ) => void;
 
     interface ExportTokens {
@@ -42,7 +36,7 @@ declare class Core {
         source: Core.Source,
         sourcePath?: string,
         trace?: string,
-        pathFetcher?: Core.PathFetcher
+        pathFetcher?: Core.PathFetcher,
     ): Promise<Core.Result>;
 }
 

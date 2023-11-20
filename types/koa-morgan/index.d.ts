@@ -1,12 +1,6 @@
-// Type definitions for koa-morgan 1.0
-// Project: https://github.com/koa-modules/morgan
-// Definitions by: Vesa Poikajärvi <https://github.com/vesse>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { IncomingMessage, ServerResponse } from 'http';
-import * as Koa from 'koa';
-import * as originalMorgan from 'morgan';
+import { IncomingMessage, ServerResponse } from "http";
+import * as Koa from "koa";
+import * as originalMorgan from "morgan";
 
 declare namespace morgan {
     interface FormatFn {
@@ -34,32 +28,32 @@ declare namespace morgan {
          * Standard Apache combined log output.
          * :remote-addr - :remote-user [:date] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"
          */
-        (format: 'combined', options?: Options): Koa.Middleware;
+        (format: "combined", options?: Options): Koa.Middleware;
 
         /**
          * Standard Apache common log output.
          * :remote-addr - :remote-user [:date] ":method :url HTTP/:http-version" :status :res[content-length]
          */
-        (format: 'common', options?: Options): Koa.Middleware;
+        (format: "common", options?: Options): Koa.Middleware;
 
         /**
          * Concise output colored by response status for development use. The :status token will be colored red for
          * server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
          * :method :url :status :response-time ms - :res[content-length]
          */
-        (format: 'dev', options?: Options): Koa.Middleware;
+        (format: "dev", options?: Options): Koa.Middleware;
 
         /**
          * Shorter than default, also including response time.
          * :remote-addr :remote-user :method :url HTTP/:http-version :status :res[content-length] - :response-time ms
          */
-        (format: 'short', options?: Options): Koa.Middleware;
+        (format: "short", options?: Options): Koa.Middleware;
 
         /**
          * The minimal output.
          * :method :url :status :res[content-length] - :response-time ms
          */
-        (format: 'tiny', options?: Options): Koa.Middleware;
+        (format: "tiny", options?: Options): Koa.Middleware;
 
         /**
          * Create a new morgan logger middleware function using the given format and options. The format argument may be a
@@ -147,32 +141,32 @@ declare function morgan(format: string, options?: morgan.Options): Koa.Middlewar
  * Standard Apache combined log output.
  * :remote-addr - :remote-user [:date] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"
  */
-declare function morgan(format: 'combined', options?: morgan.Options): Koa.Middleware;
+declare function morgan(format: "combined", options?: morgan.Options): Koa.Middleware;
 
 /**
  * Standard Apache common log output.
  * :remote-addr - :remote-user [:date] ":method :url HTTP/:http-version" :status :res[content-length]
  */
-declare function morgan(format: 'common', options?: morgan.Options): Koa.Middleware;
+declare function morgan(format: "common", options?: morgan.Options): Koa.Middleware;
 
 /**
  * Concise output colored by response status for development use. The :status token will be colored red for server error codes,
  * yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
  * :method :url :status :response-time ms - :res[content-length]
  */
-declare function morgan(format: 'dev', options?: morgan.Options): Koa.Middleware;
+declare function morgan(format: "dev", options?: morgan.Options): Koa.Middleware;
 
 /**
  * Shorter than default, also including response time.
  * :remote-addr :remote-user :method :url HTTP/:http-version :status :res[content-length] - :response-time ms
  */
-declare function morgan(format: 'short', options?: morgan.Options): Koa.Middleware;
+declare function morgan(format: "short", options?: morgan.Options): Koa.Middleware;
 
 /**
  * The minimal output.
  * :method :url :status :res[content-length] - :response-time ms
  */
-declare function morgan(format: 'tiny', options?: morgan.Options): Koa.Middleware;
+declare function morgan(format: "tiny", options?: morgan.Options): Koa.Middleware;
 
 /**
  * Create a new morgan logger middleware function using the given format and options. The format argument may be a

@@ -1,8 +1,3 @@
-// Type definitions for blake2b 2.1
-// Project: https://github.com/emilbayes/blake2b
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = blake2b;
 
 /**
@@ -77,8 +72,8 @@ declare namespace blake2b {
          * Optionally you can pass `hex` to get the hash as a hex string or no arguments
          * to have the hash return a new Uint8Array with the hash.
          */
-        digest(out?: 'binary'): Uint8Array;
+        digest(out?: "binary"): Uint8Array;
         digest<TBuffer extends Uint8Array>(out: TBuffer): TBuffer;
-        digest(out: 'hex'): string;
+        digest(out: "hex"): string;
     }
 }

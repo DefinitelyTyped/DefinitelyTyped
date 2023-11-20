@@ -1,8 +1,3 @@
-// Type definitions for @pkgjs/parseargs 0.10
-// Project: https://github.com/pkgjs/parseargs
-// Definitions by: Remco Haszing <https://github.com/remcohaszing>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Provides a high-level API for command-line argument parsing. Takes a
  * specification for the expected arguments and returns a structured object
@@ -39,12 +34,11 @@
  *     or boolean values.
  *   - `positionals` Positional arguments.
  *   - `tokens` Detailed parse information (only if `tokens` was specified).
- *
  */
 export function parseArgs<T extends ParseArgsConfig>(config: T): ParsedResults<T>;
 
 interface ParseArgsOptionConfig {
-    type: 'string' | 'boolean';
+    type: "string" | "boolean";
     short?: string;
     multiple?: boolean;
 }
@@ -76,72 +70,69 @@ type IfDefaultsTrue<T, IfTrue, IfFalse> = T extends true ? IfTrue : T extends fa
 type IfDefaultsFalse<T, IfTrue, IfFalse> = T extends false ? IfFalse : T extends true ? IfTrue : IfFalse;
 
 type ExtractOptionValue<T extends ParseArgsConfig, O extends ParseArgsOptionConfig> = IfDefaultsTrue<
-    T['strict'],
-    O['type'] extends 'string' ? string : O['type'] extends 'boolean' ? boolean : string | boolean,
+    T["strict"],
+    O["type"] extends "string" ? string : O["type"] extends "boolean" ? boolean : string | boolean,
     string | boolean
 >;
 
-type ParsedValues<T extends ParseArgsConfig> = IfDefaultsTrue<
-    T['strict'],
-    unknown,
-    { [longOption: string]: undefined | string | boolean }
-> &
-    (T['options'] extends ParseArgsOptionsConfig
-        ? {
-              -readonly [LongOption in keyof T['options']]: IfDefaultsFalse<
-                  T['options'][LongOption]['multiple'],
-                  undefined | Array<ExtractOptionValue<T, T['options'][LongOption]>>,
-                  undefined | ExtractOptionValue<T, T['options'][LongOption]>
-              >;
-          }
+type ParsedValues<T extends ParseArgsConfig> =
+    & IfDefaultsTrue<
+        T["strict"],
+        unknown,
+        { [longOption: string]: undefined | string | boolean }
+    >
+    & (T["options"] extends ParseArgsOptionsConfig ? {
+            -readonly [LongOption in keyof T["options"]]: IfDefaultsFalse<
+                T["options"][LongOption]["multiple"],
+                undefined | Array<ExtractOptionValue<T, T["options"][LongOption]>>,
+                undefined | ExtractOptionValue<T, T["options"][LongOption]>
+            >;
+        }
         : {});
 
 type ParsedPositionals<T extends ParseArgsConfig> = IfDefaultsTrue<
-    T['strict'],
-    IfDefaultsFalse<T['allowPositionals'], string[], []>,
-    IfDefaultsTrue<T['allowPositionals'], string[], []>
+    T["strict"],
+    IfDefaultsFalse<T["allowPositionals"], string[], []>,
+    IfDefaultsTrue<T["allowPositionals"], string[], []>
 >;
 
-type PreciseTokenForOptions<K extends string, O extends ParseArgsOptionConfig> = O['type'] extends 'string'
-    ? {
-          kind: 'option';
-          index: number;
-          name: K;
-          rawName: string;
-          value: string;
-          inlineValue: boolean;
-      }
-    : O['type'] extends 'boolean'
-    ? {
-          kind: 'option';
-          index: number;
-          name: K;
-          rawName: string;
-          value: undefined;
-          inlineValue: undefined;
-      }
+type PreciseTokenForOptions<K extends string, O extends ParseArgsOptionConfig> = O["type"] extends "string" ? {
+        kind: "option";
+        index: number;
+        name: K;
+        rawName: string;
+        value: string;
+        inlineValue: boolean;
+    }
+    : O["type"] extends "boolean" ? {
+            kind: "option";
+            index: number;
+            name: K;
+            rawName: string;
+            value: undefined;
+            inlineValue: undefined;
+        }
     : OptionToken & { name: K };
 
-type TokenForOptions<T extends ParseArgsConfig, K extends keyof T['options'] = keyof T['options']> = K extends unknown
-    ? T['options'] extends ParseArgsOptionsConfig
-        ? PreciseTokenForOptions<K & string, T['options'][K]>
-        : OptionToken
+type TokenForOptions<T extends ParseArgsConfig, K extends keyof T["options"] = keyof T["options"]> = K extends unknown
+    ? T["options"] extends ParseArgsOptionsConfig ? PreciseTokenForOptions<K & string, T["options"][K]>
+    : OptionToken
     : never;
 
-type ParsedOptionToken<T extends ParseArgsConfig> = IfDefaultsTrue<T['strict'], TokenForOptions<T>, OptionToken>;
+type ParsedOptionToken<T extends ParseArgsConfig> = IfDefaultsTrue<T["strict"], TokenForOptions<T>, OptionToken>;
 
 type ParsedPositionalToken<T extends ParseArgsConfig> = IfDefaultsTrue<
-    T['strict'],
-    IfDefaultsFalse<T['allowPositionals'], { kind: 'positional'; index: number; value: string }, never>,
-    IfDefaultsTrue<T['allowPositionals'], { kind: 'positional'; index: number; value: string }, never>
+    T["strict"],
+    IfDefaultsFalse<T["allowPositionals"], { kind: "positional"; index: number; value: string }, never>,
+    IfDefaultsTrue<T["allowPositionals"], { kind: "positional"; index: number; value: string }, never>
 >;
 
 type ParsedTokens<T extends ParseArgsConfig> = Array<
-    ParsedOptionToken<T> | ParsedPositionalToken<T> | { kind: 'option-terminator'; index: number }
+    ParsedOptionToken<T> | ParsedPositionalToken<T> | { kind: "option-terminator"; index: number }
 >;
 
 type PreciseParsedResults<T extends ParseArgsConfig> = IfDefaultsFalse<
-    T['tokens'],
+    T["tokens"],
     {
         values: ParsedValues<T>;
         positionals: ParsedPositionals<T>;
@@ -154,29 +145,28 @@ type PreciseParsedResults<T extends ParseArgsConfig> = IfDefaultsFalse<
 >;
 
 type OptionToken =
-    | { kind: 'option'; index: number; name: string; rawName: string; value: string; inlineValue: boolean }
+    | { kind: "option"; index: number; name: string; rawName: string; value: string; inlineValue: boolean }
     | {
-          kind: 'option';
-          index: number;
-          name: string;
-          rawName: string;
-          value: undefined;
-          inlineValue: undefined;
-      };
+        kind: "option";
+        index: number;
+        name: string;
+        rawName: string;
+        value: undefined;
+        inlineValue: undefined;
+    };
 
 type Token =
     | OptionToken
-    | { kind: 'positional'; index: number; value: string }
-    | { kind: 'option-terminator'; index: number };
+    | { kind: "positional"; index: number; value: string }
+    | { kind: "option-terminator"; index: number };
 
 // If ParseArgsConfig extends T, then the user passed config constructed elsewhere.
 // So we can't rely on the `"not definitely present" implies "definitely not present"` assumption mentioned above.
-type ParsedResults<T extends ParseArgsConfig> = ParseArgsConfig extends T
-    ? {
-          values: { [longOption: string]: undefined | string | boolean | Array<string | boolean> };
-          positionals: string[];
-          tokens?: Token[];
-      }
+type ParsedResults<T extends ParseArgsConfig> = ParseArgsConfig extends T ? {
+        values: { [longOption: string]: undefined | string | boolean | Array<string | boolean> };
+        positionals: string[];
+        tokens?: Token[];
+    }
     : PreciseParsedResults<T>;
 
 export {};

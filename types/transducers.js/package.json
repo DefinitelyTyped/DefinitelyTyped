@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/transducers.js",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/jlongster/transducers.js"
+    ],
+    "devDependencies": {
+        "@types/transducers.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "David Philipson",
+            "githubUsername": "dphilipson"
+        }
+    ]
+}

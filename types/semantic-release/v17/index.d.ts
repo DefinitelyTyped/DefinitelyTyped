@@ -1,10 +1,3 @@
-// Type definitions for semantic-release 17.2
-// Project: https://github.com/semantic-release/semantic-release#readme
-// Definitions by: Leonardo Gatica <https://github.com/lgaticaq>
-//                 Daniel Cassidy <https://github.com/djcsdy>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare namespace SemanticRelease {
@@ -12,7 +5,7 @@ declare namespace SemanticRelease {
      * A semver release type.
      * See https://github.com/semantic-release/commit-analyzer/blob/master/lib/default-release-types.js
      */
-    type ReleaseType = 'prerelease' | 'prepatch' | 'patch' | 'preminor' | 'minor' | 'premajor' | 'major';
+    type ReleaseType = "prerelease" | "prepatch" | "patch" | "preminor" | "minor" | "premajor" | "major";
 
     type LoggerFunction = (...message: any[]) => void;
 
@@ -611,26 +604,26 @@ declare namespace SemanticRelease {
     type Result =
         | false
         | {
-              /**
-               * Information related to the last release found.
-               */
-              lastRelease: LastRelease;
+            /**
+             * Information related to the last release found.
+             */
+            lastRelease: LastRelease;
 
-              /**
-               * The list of commits included in the new release.
-               */
-              commits: Commit[];
+            /**
+             * The list of commits included in the new release.
+             */
+            commits: Commit[];
 
-              /**
-               * Information related to the newly published release.
-               */
-              nextRelease: NextRelease;
+            /**
+             * Information related to the newly published release.
+             */
+            nextRelease: NextRelease;
 
-              /**
-               * The list of releases published, one release per publish plugin.
-               */
-              releases: Release[];
-          };
+            /**
+             * The list of releases published, one release per publish plugin.
+             */
+            releases: Release[];
+        };
 }
 
 /**

@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/dom-navigation-preload",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "dom-navigation-preload-browser",
+    "projects": [
+        "https://w3c.github.io/ServiceWorker/#service-worker-registration-navigationpreload"
+    ],
+    "devDependencies": {
+        "@types/dom-navigation-preload": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jan Kuehle",
+            "githubUsername": "frigus02"
+        },
+        {
+            "name": "Martin Probst",
+            "githubUsername": "mprobst"
+        }
+    ]
+}

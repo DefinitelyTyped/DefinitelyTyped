@@ -1,8 +1,3 @@
-// Type definitions for Chroma.js 2.4
-// Project: https://github.com/gka/chroma.js
-// Definitions by: Sebastian Brückner <https://github.com/invliD>, Marcin Pacholec <https://github.com/mpacholec>, Charlie Zhuo <https://github.com/CharlieZhuo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Chroma.js is a tiny library for all kinds of color conversions and color scales.
  */
@@ -22,7 +17,7 @@ declare namespace chroma {
         gl: [number, number, number, number];
     }
 
-    type InterpolationMode = 'rgb' | 'hsl' | 'hsv' | 'hsi' | 'lab' | 'oklab' | 'lch' | 'oklch' | 'hcl' | 'lrgb';
+    type InterpolationMode = "rgb" | "hsl" | "hsv" | "hsi" | "lab" | "oklab" | "lch" | "oklch" | "hcl" | "lrgb";
 
     interface ChromaStatic {
         /**
@@ -122,7 +117,7 @@ declare namespace chroma {
         blend(
             color1: string | Color,
             color2: string | Color,
-            blendMode: 'multiply' | 'darken' | 'lighten' | 'screen' | 'overlay' | 'burn' | 'dodge',
+            blendMode: "multiply" | "darken" | "lighten" | "screen" | "overlay" | "burn" | "dodge",
         ): Color;
 
         /**
@@ -205,7 +200,7 @@ declare namespace chroma {
          *  [k-means clustering algorithm]{@link https://en.wikipedia.org/wiki/K-means_clustering} to find (roughly) n
          *  groups of "similar" values. Note that this k-means implementation does not guarantee to find exactly n groups.
          */
-        limits(data: number[], mode: 'e' | 'q' | 'l' | 'k', c: number): number[];
+        limits(data: number[], mode: "e" | "q" | "l" | "k", c: number): number[];
 
         /**
          * Returns a function that
@@ -291,7 +286,7 @@ declare namespace chroma {
          * chroma('orange').alpha(0.5).hex() === '#ffa50080'
          * chroma('orange').alpha(0.5).hex('rgb') === '#ffa500'
          */
-        hex(mode?: 'auto' | 'rgb' | 'rgba'): string;
+        hex(mode?: "auto" | "rgb" | "rgba"): string;
 
         /**
          * Returns the named color. Falls back to hexadecimal RGB string, if the color isn't present.
@@ -302,7 +297,7 @@ declare namespace chroma {
          * Returns a RGB() or HSL() string representation that can be used as CSS-color definition.
          * mode defaults to <code>'rgb'</code>
          */
-        css(mode?: 'hsl'): string;
+        css(mode?: "hsl"): string;
 
         /**
          * Estimate the temperature in Kelvin of any given color, though this makes the only sense for colors from the
@@ -332,7 +327,7 @@ declare namespace chroma {
          * chroma('orange').darken().rgb() === [198,118,0]
          * chroma('orange').darken().rgb(false) === [198.05,118.11,0]
          */
-        rgb: (round?: boolean) => ColorSpaces['rgb'];
+        rgb: (round?: boolean) => ColorSpaces["rgb"];
 
         /**
          * Just like color.rgb but adds the alpha channel to the returned array.
@@ -341,7 +336,7 @@ declare namespace chroma {
          * chroma('orange').rgba() === [255,165,0,1]
          * chroma('hsla(20, 100%, 40%, 0.5)').rgba() === [204,68,0,0.5]
          */
-        rgba: (round?: boolean) => ColorSpaces['rgba'];
+        rgba: (round?: boolean) => ColorSpaces["rgba"];
 
         /**
          * Returns an array with the `hue`, `saturation`, and `lightness`
@@ -353,7 +348,7 @@ declare namespace chroma {
          * chroma('orange').hsl() === [38.82,1,0.5,1]
          * chroma('white').hsl() === [NaN,0,1,1]
          */
-        hsl: () => ColorSpaces['hsl'];
+        hsl: () => ColorSpaces["hsl"];
 
         /**
          * Returns an array with the `hue`, `saturation`, and `value`
@@ -365,7 +360,7 @@ declare namespace chroma {
          * chroma('orange').hsv() === [38.82,1,1]
          * chroma('white').hsv() === [NaN,0,1]
          */
-        hsv: () => ColorSpaces['hsv'];
+        hsv: () => ColorSpaces["hsv"];
 
         /**
          * Returns an array with the `hue`, `saturation`, and `intensity`
@@ -376,7 +371,7 @@ declare namespace chroma {
          * chroma('orange').hsi() === [39.64,1,0.55]
          * chroma('white').hsi() === [NaN,0,1]
          */
-        hsi: () => ColorSpaces['hsi'];
+        hsi: () => ColorSpaces["hsi"];
 
         /**
          * Returns an array with the **L**, **a**, and **b** components.
@@ -384,7 +379,7 @@ declare namespace chroma {
          * @example
          * chroma('orange').lab() === [74.94,23.93,78.95]
          */
-        lab: () => ColorSpaces['lab'];
+        lab: () => ColorSpaces["lab"];
 
         /**
          * Returns an array with the **L**, **a**, and **b** components.
@@ -392,7 +387,7 @@ declare namespace chroma {
          * @example
          * chroma('orange').oklab() === [0.7927,0.0566,0.1614]
          */
-        oklab: () => ColorSpaces['oklab'];
+        oklab: () => ColorSpaces["oklab"];
 
         /**
          * Returns an array with the **Lightness**, **chroma**, and **hue**
@@ -401,7 +396,7 @@ declare namespace chroma {
          * @example
          * chroma('skyblue').lch() === [79.21,25.94,235.11]
          */
-        lch: () => ColorSpaces['lch'];
+        lch: () => ColorSpaces["lch"];
 
         /**
          * Returns an array with the **Lightness**, **chroma**, and **hue**
@@ -410,7 +405,7 @@ declare namespace chroma {
          * @example
          * chroma('skyblue').oklch() === [0.8148,0.0819,225.8]
          */
-        oklch: () => ColorSpaces['oklch'];
+        oklch: () => ColorSpaces["oklch"];
 
         /**
          * Alias of [lch](#color-lch), but with the components in reverse
@@ -419,7 +414,7 @@ declare namespace chroma {
          * @example
          * chroma('skyblue').hcl() === [235.11,25.94,79.21]
          */
-        hcl: () => ColorSpaces['hcl'];
+        hcl: () => ColorSpaces["hcl"];
 
         /**
          * Just like color.rgb but adds the alpha channel to the returned
@@ -429,7 +424,7 @@ declare namespace chroma {
          * chroma('orange').rgba() === [255,165,0,1]
          * chroma('hsla(20, 100%, 40%, 0.5)').rgba() === [204,68,0,0.5]
          */
-        cmyk: () => ColorSpaces['cmyk'];
+        cmyk: () => ColorSpaces["cmyk"];
 
         /**
          * Returns an array with the cyan, magenta, yellow, and key (black)
@@ -438,7 +433,7 @@ declare namespace chroma {
          * @example
          * chroma('33cc00').gl() === [0.2,0.8,0,1]
          */
-        gl: () => ColorSpaces['gl'];
+        gl: () => ColorSpaces["gl"];
 
         /**
          * Test if a color has been clipped or not.
@@ -458,7 +453,7 @@ declare namespace chroma {
          * @example
          * chroma.hcl(50, 40, 100)._rgb._unclipped === [322.65,235.24,196.7,1]
          */
-        _rgb: { _unclipped: ColorSpaces['rgba'] };
+        _rgb: { _unclipped: ColorSpaces["rgba"] };
     }
 
     interface Scale<OutType = Color> {
@@ -484,11 +479,11 @@ declare namespace chroma {
          */
         colors(
             c: number | undefined,
-            format: undefined | null | 'alpha' | 'darken' | 'brighten' | 'saturate' | 'desaturate',
+            format: undefined | null | "alpha" | "darken" | "brighten" | "saturate" | "desaturate",
         ): Color[];
-        colors(c: number | undefined, format: 'luminance' | 'temperature'): number[];
+        colors(c: number | undefined, format: "luminance" | "temperature"): number[];
         colors<K extends keyof ColorSpaces>(c: number | undefined, format: K): Array<ColorSpaces[K]>;
-        colors(c: number | undefined, format?: 'hex' | 'name'): string[];
+        colors(c: number | undefined, format?: "hex" | "name"): string[];
 
         /**
          * If you want the scale function to return a distinct set of colors instead of a continuous gradient, you can
@@ -502,7 +497,7 @@ declare namespace chroma {
          */
         out(format: null): Scale;
         out<K extends keyof ColorSpaces>(format: K): Scale<ColorSpaces[K]>;
-        out(format: 'hex'): Scale<string>;
+        out(format: "hex"): Scale<string>;
     }
 
     interface Cubehelix {

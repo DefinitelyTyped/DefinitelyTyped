@@ -1,36 +1,24 @@
-// Type definitions for YouTube
-// Project: https://developers.google.com/youtube/
-// Definitions by: Ian Obermiller <http://ianobermiller.com>,
-//                 Eliot Fallon <https://github.com/eliotfallon213>
-//                 Terry Mun <https://github.com/terrymun>
-//                 Paul Hobbel <https://github.com/paulhobbel>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /**
  * @see https://developers.google.com/youtube/iframe_api_reference
  * @see https://developers.google.com/youtube/player_parameters
  */
-declare namespace YT
-{
+declare namespace YT {
     /**
      * State of a video player.
      */
-    export enum PlayerState
-    {
+    export enum PlayerState {
         UNSTARTED = -1,
         ENDED = 0,
         PLAYING = 1,
         PAUSED = 2,
         BUFFERING = 3,
-        CUED = 5
+        CUED = 5,
     }
 
     /**
      * Known causes for player errors.
      */
-    export enum PlayerError
-    {
+    export enum PlayerError {
         /**
          * The request contained an invalid parameter value.
          */
@@ -54,14 +42,13 @@ declare namespace YT
         /**
          * This error is the same as 101. It's just a 101 error in disguise!
          */
-        EmbeddingNotAllowed2 = 150
+        EmbeddingNotAllowed2 = 150,
     }
 
     /**
      * Whether to auto-hide video controls.
      */
-    export enum AutoHide
-    {
+    export enum AutoHide {
         /**
          * Controls are visible throughout the video
          */
@@ -75,14 +62,13 @@ declare namespace YT
         /**
          * Progress bar fades out while the player controls remain visible.
          */
-        HideProgressBar = 2
+        HideProgressBar = 2,
     }
 
     /**
      * Whether to autoplay the video.
      */
-    export enum AutoPlay
-    {
+    export enum AutoPlay {
         /**
          * Video does not autoplay.
          */
@@ -91,14 +77,13 @@ declare namespace YT
         /**
          * Video will autoplay when loaded.
          */
-        AutoPlay = 1
+        AutoPlay = 1,
     }
 
     /**
      * Whether to use user-preferred or forced caption loading.
      */
-    export enum ClosedCaptionsLoadPolicy
-    {
+    export enum ClosedCaptionsLoadPolicy {
         /**
          * Defaults to the user's preferences.
          */
@@ -107,7 +92,7 @@ declare namespace YT
         /**
          * For closed captions to be shown.
          */
-        ForceOn = 1
+        ForceOn = 1,
     }
 
     /**
@@ -118,8 +103,7 @@ declare namespace YT
     /**
      * How video controls are shown.
      */
-    export enum Controls
-    {
+    export enum Controls {
         /**
          * Player controls do not display.
          */
@@ -133,14 +117,13 @@ declare namespace YT
         /**
          * Player controls display after a delay.
          */
-        ShowDelayLoadPlayer = 2
+        ShowDelayLoadPlayer = 2,
     }
 
     /**
      * Whether to allow keyboard controls.
      */
-    export enum KeyboardControls
-    {
+    export enum KeyboardControls {
         /**
          * Keyboard controls are enabled.
          */
@@ -149,14 +132,13 @@ declare namespace YT
         /**
          * Keyboard controls are disabled.
          */
-        Disable = 1
+        Disable = 1,
     }
 
     /**
      * Whether the JavaScript API should be enabled.
      */
-    export enum JsApi
-    {
+    export enum JsApi {
         /**
          * JavaScript API will be disabled.
          */
@@ -165,14 +147,13 @@ declare namespace YT
         /**
          * JavaScript API will be enabled.
          */
-        Enable = 1
+        Enable = 1,
     }
 
     /**
      * Whether to display the full-screen button.
      */
-    export enum FullscreenButton
-    {
+    export enum FullscreenButton {
         /**
          * The full screen button is hidden.
          */
@@ -181,14 +162,13 @@ declare namespace YT
         /**
          * The full screen button is visible.
          */
-        Show = 1
+        Show = 1,
     }
 
     /**
      * Whether to show video annotations.
      */
-    export enum IvLoadPolicy
-    {
+    export enum IvLoadPolicy {
         /**
          * Video annotations will be shown.
          */
@@ -197,7 +177,7 @@ declare namespace YT
         /**
          * Video annotations will not be shown.
          */
-        Hide = 3
+        Hide = 3,
     }
 
     /**
@@ -224,8 +204,7 @@ declare namespace YT
     /**
      * Whether a single video should be looped.
      */
-    export enum Loop
-    {
+    export enum Loop {
         /**
          * Video or playlist will be played only once.
          */
@@ -234,14 +213,13 @@ declare namespace YT
         /**
          * Video or playlist will be played over and over again.
          */
-        Loop = 1
+        Loop = 1,
     }
 
     /**
      * Comma separated list of video IDs to play after the URL path's video.
      */
-    export enum ModestBranding
-    {
+    export enum ModestBranding {
         /**
          * Player will contain full YouTube branding.
          */
@@ -250,14 +228,13 @@ declare namespace YT
         /**
          * YouTube logo will not display in the control bar.
          */
-        Modest = 1
+        Modest = 1,
     }
 
     /**
      * Whether or not to start the video muted. Some browsers require this set to 1 for autoplay to work (e.g. Chrome).
      */
-    export enum Mute
-    {
+    export enum Mute {
         /**
          * Player will start not muted, with sound
          */
@@ -266,14 +243,13 @@ declare namespace YT
         /**
          * Player will start muted
          */
-        Muted = 1
+        Muted = 1,
     }
 
     /**
      * Whether to playback video inline or full-screen in an HTML5 player on iOS
      */
-    export enum PlaysInline
-    {
+    export enum PlaysInline {
         /**
          * Playback in fullscreen.
          */
@@ -282,14 +258,13 @@ declare namespace YT
         /**
          * Playback inline
          */
-        Inline = 1
+        Inline = 1,
     }
 
     /**
      * Whether to show related videos after the video finishes.
      */
-    export enum RelatedVideos
-    {
+    export enum RelatedVideos {
         /**
          * Hide related videos after playback is complete.
          */
@@ -298,14 +273,13 @@ declare namespace YT
         /**
          * Show related videos after playback is complete.
          */
-        Show = 1
+        Show = 1,
     }
 
     /**
      * Whether to show video information before playing.
      */
-    export enum ShowInfo
-    {
+    export enum ShowInfo {
         /**
          * Hide video title and uploader before video starts playing.
          */
@@ -314,14 +288,13 @@ declare namespace YT
         /**
          * Show video title and uploader before video starts playing.
          */
-        Show = 1
+        Show = 1,
     }
 
     /**
      * Base interface for events triggered by a player.
      */
-    export interface PlayerEvent
-    {
+    export interface PlayerEvent {
         /**
          * Video player corresponding to the event.
          */
@@ -331,8 +304,7 @@ declare namespace YT
     /**
      * Event for player state change.
      */
-    export interface OnStateChangeEvent extends PlayerEvent
-    {
+    export interface OnStateChangeEvent extends PlayerEvent {
         /**
          * New player state.
          */
@@ -342,8 +314,7 @@ declare namespace YT
     /**
      * Event for playback quality change.
      */
-    export interface OnPlaybackQualityChangeEvent extends PlayerEvent
-    {
+    export interface OnPlaybackQualityChangeEvent extends PlayerEvent {
         /**
          * New playback quality.
          */
@@ -353,8 +324,7 @@ declare namespace YT
     /**
      * Event for playback rate change.
      */
-    export interface OnPlaybackRateChangeEvent extends PlayerEvent
-    {
+    export interface OnPlaybackRateChangeEvent extends PlayerEvent {
         /**
          * New playback rate.
          */
@@ -364,8 +334,7 @@ declare namespace YT
     /**
      * Event for a player error.
      */
-    export interface OnErrorEvent extends PlayerEvent
-    {
+    export interface OnErrorEvent extends PlayerEvent {
         /**
          * Which type of error occurred.
          */
@@ -377,16 +346,14 @@ declare namespace YT
      *
      * @param event   The triggering event.
      */
-    export interface PlayerEventHandler<TEvent extends PlayerEvent>
-    {
+    export interface PlayerEventHandler<TEvent extends PlayerEvent> {
         (event: TEvent): void;
     }
 
     /**
      * YouTube player options.
      */
-    export interface PlayerOptions
-    {
+    export interface PlayerOptions {
         /**
          * Player width.
          */
@@ -421,14 +388,14 @@ declare namespace YT
     /**
      * Allowed suggested player video qualities.
      */
-    export type SuggestedVideoQuality = (
-        VideoQualityDefault
+    export type SuggestedVideoQuality =
+        | VideoQualityDefault
         | VideoQualitySmall
         | VideoQualityMedium
         | VideoQualityLarge
         | VideoQualityHD720
         | VideoQualityHD1080
-        | VideoQualityHighRes);
+        | VideoQualityHighRes;
 
     /**
      * Default video quality chosen by YouTube.
@@ -443,33 +410,32 @@ declare namespace YT
     /**
      * Player height is 360px, and player dimensions are 640px by 360px (for 16:9 aspect ratio) or 480px by 360px (for 4:3 aspect ratio).
      */
-     export type VideoQualityMedium = "medium";
+    export type VideoQualityMedium = "medium";
 
     /**
      * Player height is 480px, and player dimensions are 853px by 480px (for 16:9 aspect ratio) or 640px by 480px (for 4:3 aspect ratio).
      */
-     export type VideoQualityLarge = "large";
+    export type VideoQualityLarge = "large";
 
     /**
      * Player height is 720px, and player dimensions are 1280px by 720px (for 16:9 aspect ratio) or 960px by 720px (for 4:3 aspect ratio).
      */
-     export type VideoQualityHD720 = "hd720";
+    export type VideoQualityHD720 = "hd720";
 
     /**
      * Player height is 1080px, and player dimensions are 1920px by 1080px (for 16:9 aspect ratio) or 1440px by 1080px (for 4:3 aspect ratio).
      */
-     export type VideoQualityHD1080 = "hd1080";
+    export type VideoQualityHD1080 = "hd1080";
 
     /**
      * Player height is greater than 1080px, which means that the player's aspect ratio is greater than 1920px by 1080px.
      */
-     export type VideoQualityHighRes = "highres";
+    export type VideoQualityHighRes = "highres";
 
     /**
      * Player parameters.
      */
-    export interface PlayerVars
-    {
+    export interface PlayerVars {
         /**
          * Whether to autohide video controls (by default, HideProgressBar).
          */
@@ -591,8 +557,7 @@ declare namespace YT
     /**
      * Handlers for events fired by the player.
      */
-    export interface Events
-    {
+    export interface Events {
         /**
          * Event fired when a player has finished loading and is ready to begin receiving API calls.
          */
@@ -642,7 +607,7 @@ declare namespace YT
         /**
          * Suggested video player quality.
          */
-        suggestedQuality?: SuggestedVideoQuality | undefined
+        suggestedQuality?: SuggestedVideoQuality | undefined;
     }
 
     /**
@@ -690,18 +655,17 @@ declare namespace YT
      * viewport headings and zoom level.
      */
     export interface SphericalProperties {
-      enableOrientationSensor?: boolean | undefined;
-      fov?: number | undefined;
-      pitch?: number | undefined;
-      roll?: number | undefined;
-      yaw?: number | undefined;
+        enableOrientationSensor?: boolean | undefined;
+        fov?: number | undefined;
+        pitch?: number | undefined;
+        roll?: number | undefined;
+        yaw?: number | undefined;
     }
 
     /**
      * Creates and controls a YouTube player in an <iframe>.
      */
-    export class Player
-    {
+    export class Player {
         /**
          * Initializes a new instance of the Player class.
          *
@@ -780,7 +744,14 @@ declare namespace YT
          *
          * @param args   Settings to play the video.
          */
-        loadVideoByUrl(args: { mediaContentUrl: string; startSeconds?: number | undefined; endSeconds?: number | undefined; suggestedQuality?: SuggestedVideoQuality | undefined }): void;
+        loadVideoByUrl(
+            args: {
+                mediaContentUrl: string;
+                startSeconds?: number | undefined;
+                endSeconds?: number | undefined;
+                suggestedQuality?: SuggestedVideoQuality | undefined;
+            },
+        ): void;
 
         /**
          * Queues a playlist of videos.
@@ -790,7 +761,12 @@ declare namespace YT
          * @param startSeconds   Time from which the video should start playing.
          * @param suggestedQuality   Suggested video player quality.
          */
-        cuePlaylist(playlist: string | string[], index?: number, startSeconds?: number, suggestedQuality?: SuggestedVideoQuality): void;
+        cuePlaylist(
+            playlist: string | string[],
+            index?: number,
+            startSeconds?: number,
+            suggestedQuality?: SuggestedVideoQuality,
+        ): void;
 
         /**
          * Queues a playlist of videos.
@@ -807,7 +783,12 @@ declare namespace YT
          * @param startSeconds   Time from which the video should start playing.
          * @param suggestedQuality   Suggested video player quality.
          */
-        loadPlaylist(playlist: string | string[], index?: number, startSeconds?: number, suggestedQuality?: SuggestedVideoQuality): void;
+        loadPlaylist(
+            playlist: string | string[],
+            index?: number,
+            startSeconds?: number,
+            suggestedQuality?: SuggestedVideoQuality,
+        ): void;
 
         /**
          * Loads a playlist of videos.
@@ -1006,7 +987,10 @@ declare namespace YT
          * @param eventName   Name of the event.
          * @param listener   Handler for the event.
          */
-        removeEventListener<TEvent extends PlayerEvent>(eventName: keyof Events, listener: (event: TEvent) => void): void;
+        removeEventListener<TEvent extends PlayerEvent>(
+            eventName: keyof Events,
+            listener: (event: TEvent) => void,
+        ): void;
 
         /**
          * @returns The DOM node for the embedded <iframe>.

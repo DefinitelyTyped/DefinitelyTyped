@@ -1,18 +1,3 @@
-// Type definitions for Underscore 1.11
-// Project: https://underscorejs.org/
-// Definitions by: Boris Yankov <https://github.com/borisyankov>,
-//                 Josh Baldwin <https://github.com/jbaldwin>,
-//                 Christopher Currens <https://github.com/ccurrens>,
-//                 Ard Timmerman <https://github.com/confususs>,
-//                 Julian Gonggrijp <https://github.com/jgonggrijp>,
-//                 Florian Imdahl <https://github.com/ffflorian>
-//                 Regev Brody <https://github.com/regevbr>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Michael Ness <https://github.com/reubenrybnik>
-//                 Luke Tsekouras <https://github.com/LukeGT>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 declare var _: _.UnderscoreStatic;
 export = _;
 export as namespace _;
@@ -143,6 +128,11 @@ declare namespace _ {
 
     type TypeOfCollection<V, TObjectDefault = never> = V extends List<any> ? TypeOfList<V>
         : TypeOfDictionary<V, TObjectDefault>;
+
+    type DeepTypeOfCollection<V, P> = P extends [infer H, ...infer R]
+        ? H extends keyof V ? DeepTypeOfCollection<V[H], R>
+        : never
+        : V;
 
     type ListItemOrSelf<T> = T extends List<infer TItem> ? TItem : T;
 
@@ -3765,13 +3755,19 @@ declare namespace _ {
         ): U;
         get<V extends Collection<any>>(
             object: V,
-            path: string | string[],
+            path: string,
         ): TypeOfCollection<V> | undefined;
         get<V extends Collection<any>, U>(
             object: V,
-            path: string | string[],
+            path: string,
             defaultValue?: U,
         ): TypeOfCollection<V> | U;
+        get<V extends Collection<any>, P extends (string | number)[], U = undefined>(
+            object: V,
+            // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+            path: readonly [...P],
+            defaultValue?: U,
+        ): DeepTypeOfCollection<V, P> | U;
 
         /**
          * Returns a function that will itself return the key property of any passed-in object.
@@ -5051,12 +5047,17 @@ declare namespace _ {
          * @see _.get
          */
         get(
-            path: string | string[],
+            path: string,
         ): TypeOfCollection<V> | undefined;
         get<U>(
-            path: string | string[],
+            path: string,
             defaultValue?: U,
         ): TypeOfCollection<V> | U;
+        get<P extends (string | number)[], U = undefined>(
+            // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+            path: [...P],
+            defaultValue?: U,
+        ): DeepTypeOfCollection<V, P> | U;
 
         /**
          * Wrapped type `string`.
@@ -6305,12 +6306,17 @@ declare namespace _ {
          * @see _.get
          */
         get(
-            path: string | string[],
+            path: string,
         ): _Chain<TypeOfCollection<V> | undefined, T | undefined>;
         get<U>(
-            path: string | string[],
+            path: string,
             defaultValue?: U,
         ): _Chain<TypeOfCollection<V> | U, T | U>;
+        get<P extends (string | number)[], W = DeepTypeOfCollection<Exclude<V, undefined>, P>, U = undefined>(
+            // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+            path: [...P],
+            defaultValue?: U,
+        ): _Chain<TypeOfCollection<W> | U, W | U>;
 
         /**
          * Wrapped type `string`.

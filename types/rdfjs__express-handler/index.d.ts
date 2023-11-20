@@ -1,14 +1,9 @@
-// Type definitions for @rdfjs/express-handler 1.1
-// Project: https://github.com/rdfjs-base/express-handler
-// Definitions by: tpluscode <https://github.com/tpluscode>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import { SinkMap } from "@rdfjs/sink-map";
+import { EventEmitter } from "events";
+import { Request, RequestHandler, Response } from "express";
+import { DatasetCore, DatasetCoreFactory, Stream } from "rdf-js";
 
-import { Stream, DatasetCore, DatasetCoreFactory } from 'rdf-js';
-import { Request, Response, RequestHandler } from 'express';
-import { SinkMap } from '@rdfjs/sink-map';
-import { EventEmitter } from 'events';
-
-declare module 'express-serve-static-core' {
+declare module "express-serve-static-core" {
     interface Request {
         dataset?(parserOptions?: any): Promise<DatasetCore>;
         quadStream?(parserOptions?: any): Stream;
@@ -40,6 +35,6 @@ interface RdfHandler {
     attach(req: Request, res: Response, options?: RdfHandlerOptions): Promise<void>;
 }
 
-declare const middleware: RdfHandler;
+declare const init: RdfHandler;
 
-export = middleware;
+export default init;

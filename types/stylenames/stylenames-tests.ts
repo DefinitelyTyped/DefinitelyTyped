@@ -1,10 +1,10 @@
-import styleNames from 'stylenames';
+import styleNames from "stylenames";
 
 // @ts-expect-error
 styleNames();
 
 // @ts-expect-error
-styleNames({ foo: 'block' });
+styleNames({ foo: "block" });
 
 // @ts-expect-error
 styleNames({ background: 1 });
@@ -13,15 +13,15 @@ styleNames({ background: 1 });
 styleNames({ backgroundColor: { blue: 1 } });
 
 styleNames({
-    height: '120px',
+    height: "120px",
     width: {
-        '200px': false,
+        "200px": false,
     },
 });
 
 styleNames({
-    height: '120px',
+    height: "120px",
     width: {
-        '200px': true,
+        "200px": true,
     },
 });

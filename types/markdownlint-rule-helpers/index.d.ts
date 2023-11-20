@@ -1,12 +1,7 @@
-// Type definitions for markdownlint-rule-helpers 0.21
-// Project: https://github.com/DavidAnson/markdownlint
-// Definitions by: Josh Goldberg <https://github.com/JoshuaKGoldberg>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import * as MarkdownIt from 'markdown-it';
-import * as markdownlint from 'markdownlint';
+import * as MarkdownIt from "markdown-it";
+import * as markdownlint from "markdownlint";
 
 export const newLineRe: RegExp;
 
@@ -72,7 +67,7 @@ export function isString(obj: unknown): obj is string;
 /**
  * @returns Whether obj is a string.
  */
-export function isEmptyString(str: string): str is '';
+export function isEmptyString(str: string): str is "";
 
 /**
  * @returns Whether obj is an Object.
@@ -165,7 +160,7 @@ export type FilterTokensHandler = (token: MarkdownIt.Token) => void;
 export function filterTokens(params: markdownlint.RuleParams, type: string, handler: FilterTokensHandler): void;
 
 export type LineMetadata = [
-    line: number,
+    line: string,
     lineIndex: number,
     inCode: boolean,
     onFence: boolean,
@@ -324,7 +319,7 @@ export function getReferenceLinkImageData(params: markdownlint.RuleParams): Refe
  * @param os Node.js "os" module.
  * @returns Preferred line ending.
  */
-export function getPreferredLineEnding(input: string, os?: typeof import('node:os')): string;
+export function getPreferredLineEnding(input: string, os?: typeof import("node:os")): string;
 
 /**
  * Normalizes the fields of a RuleOnErrorFixInfo instance.
@@ -364,4 +359,4 @@ export function applyFixes(input: string, errors: markdownlint.RuleOnErrorInfo[]
  * @param os Node.js "os" module.
  * @returns Absolute path (or original path).
  */
-export function expandTildePath(file: string, os: typeof import('node:os')): string;
+export function expandTildePath(file: string, os: typeof import("node:os")): string;

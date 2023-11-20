@@ -1,25 +1,20 @@
-// Type definitions for barco-eventmaster 8.0
-// Project: https://github.com/willosof/node-barco-eventmaster
-// Definitions by: Kyle Hensel <https://github.com/k-yle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace EventMaster {
     type Callback<T = unknown> = (err: true | null, data: T) => void;
 
-    type UserType = 'operator' | 'super_user';
+    type UserType = "operator" | "super_user";
 
     type NotificationType =
-        | 'ScreenDestChanged'
-        | 'AUXDestChanged'
-        | 'FrameChanged'
-        | 'NativeRateChanged'
-        | 'InputCfgChanged'
-        | 'SourceChanged'
-        | 'BGSourceChanged'
-        | 'PresetChanged'
-        | 'StillChanged'
-        | 'OutputCfgChanged'
-        | 'CueChanged';
+        | "ScreenDestChanged"
+        | "AUXDestChanged"
+        | "FrameChanged"
+        | "NativeRateChanged"
+        | "InputCfgChanged"
+        | "SourceChanged"
+        | "BGSourceChanged"
+        | "PresetChanged"
+        | "StillChanged"
+        | "OutputCfgChanged"
+        | "CueChanged";
 }
 declare class EventMaster {
     constructor(ip: string);
@@ -172,7 +167,7 @@ declare class EventMaster {
     changeAuxContentTestPattern(id: number, testPattern: number, cb?: EventMaster.Callback): void;
     changeContentTestPattern(id: number, testPattern: number, cb?: EventMaster.Callback): void;
     listDestGroups(cb?: EventMaster.Callback): void;
-    listDestGroupsPerType(type: 'destGroupId' | 'destGroupSno' | 'destGroupName', cb?: EventMaster.Callback): void;
+    listDestGroupsPerType(type: "destGroupId" | "destGroupSno" | "destGroupName", cb?: EventMaster.Callback): void;
 }
 
 export = EventMaster;

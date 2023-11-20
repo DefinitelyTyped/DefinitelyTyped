@@ -1,9 +1,4 @@
-// Type definitions for portscanner 2.1
-// Project: https://github.com/baalexander/node-portscanner
-// Definitions by: Douglas Duteil <https://github.com/douglasduteil>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-export type Status = 'open' | 'closed';
+export type Status = "open" | "closed";
 
 export type PortCallback = (error: Error | null, port: number) => void;
 export type StatusCallback = (error: Error | null, port: Status) => void;
@@ -37,7 +32,12 @@ export function findAPortNotInUse(startPort: number, endPort: number): Promise<n
 export function findAPortNotInUse(startPort: number, endPort: number, host: string): Promise<number>;
 export function findAPortNotInUse(startPort: number, endPort: number, findPortCallback: PortCallback): void;
 
-export function findAPortNotInUse(startPort: number, endPort: number, host: string, findPortCallback: PortCallback): void;
+export function findAPortNotInUse(
+    startPort: number,
+    endPort: number,
+    host: string,
+    findPortCallback: PortCallback,
+): void;
 
 export function findAPortInUse(portList: number[]): Promise<number>;
 export function findAPortInUse(startPort: number): Promise<number>;

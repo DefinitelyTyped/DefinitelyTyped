@@ -1,41 +1,26 @@
-// Type definitions for Selenium WebDriverJS 4.1
-// Project: https://github.com/SeleniumHQ/selenium
-// Definitions by: Bill Armstrong <https://github.com/BillArmstrong>,
-//   Yuki Kokubun <https://github.com/Kuniwak>,
-//   Craig Nishina <https://github.com/cnishina>,
-//   Simon Gellis <https://github.com/SupernaviX>,
-//   Ben Dixon <https://github.com/bendxn>,
-//   Ziyu <https://github.com/oddui>
-//   Johann Wolf <https://github.com/beta-vulgaris>
-//   Aleksey Chemakin <https://github.com/Dzenly>
-//   David Burns <https://github.com/AutomatedTester>
-//   Pirasis Leelatanon <https://github.com/1pete>
-//   Harmandeep Singh <https://github.com/SinghHrmn>
-//   Shubh Sheth <https://github.com/shubhsheth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+import { WebSocket } from "ws";
+import LogInspector = require("./bidi/logInspector");
+import * as chrome from "./chrome";
+import { HttpResponse } from "./devtools/networkinterceptor";
+import * as edge from "./edge";
+import * as firefox from "./firefox";
+import * as http from "./http";
+import * as ie from "./ie";
+import { By, ByHash, RelativeBy } from "./lib/by";
+import { Browser, Capabilities, ITimeouts } from "./lib/capabilities";
+import * as command from "./lib/command";
+import { Actions, Key } from "./lib/input";
+import * as logging from "./lib/logging";
+import { promise } from "./lib/promise";
+import * as until from "./lib/until";
+import { ShadowRootPromise } from "./lib/webdriver";
+import * as safari from "./safari";
 
-import { WebSocket } from 'ws';
-import * as chrome from './chrome';
-import { HttpResponse } from './devtools/networkinterceptor';
-import * as edge from './edge';
-import * as firefox from './firefox';
-import * as http from './http';
-import * as ie from './ie';
-import { By, ByHash, RelativeBy } from './lib/by';
-import { Browser, Capabilities, Capability, ITimeouts } from './lib/capabilities';
-import * as command from './lib/command';
-import { Actions, Button, Key, Origin } from './lib/input';
-import * as logging from './lib/logging';
-import { promise } from './lib/promise';
-import * as until from './lib/until';
-import { ShadowRootPromise } from './lib/webdriver';
-import * as safari from './safari';
-
-export * from './lib/by';
-export { Browser, Capabilities, Capability, ITimeouts } from './lib/capabilities';
-export { Actions, Button, Key, Origin } from './lib/input';
-export { promise } from './lib/promise';
+export * from "./lib/by";
+export { Browser, Capabilities, Capability, ITimeouts } from "./lib/capabilities";
+export { Actions, Button, Key, Origin } from "./lib/input";
+export { promise } from "./lib/promise";
+export { LogInspector };
 export { until };
 export { logging };
 
@@ -2164,7 +2149,7 @@ export class ChromiumWebDriver extends WebDriver {
      * @see <https://w3c.github.io/permissions/#permission-registry> for valid
      *     names
      */
-    setPermission(name: string, state: 'granted' | 'denied' | 'prompt'): Promise<Object>;
+    setPermission(name: string, state: "granted" | "denied" | "prompt"): Promise<Object>;
 
     /**
      * Sends a DevTools command to change the browser's download directory.

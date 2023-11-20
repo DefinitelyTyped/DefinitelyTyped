@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/find-down",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/sholladay/find-down"
+    ],
+    "devDependencies": {
+        "@types/find-down": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Keller",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

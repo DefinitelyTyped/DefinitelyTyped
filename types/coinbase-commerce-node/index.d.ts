@@ -1,24 +1,18 @@
-// Type definitions for coinbase-commerce-node 1.0
-// Project: https://github.com/coinbase/coinbase-commerce-node
-// Definitions by: Jørgen Vatle <https://github.com/JorgenVatle>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /**
  * Client request options.
  */
 interface Options {
     url: string;
     body: string;
-    method: 'GET' | 'POST' | 'DELETE' | 'PUT';
+    method: "GET" | "POST" | "DELETE" | "PUT";
     timeout: number;
     headers: {
         [key: string]: any;
-        'Content-Type': 'application/json';
-        'Accept': 'application/json';
-        'User-Agent': string;
-        'X-CC-Api-Key': string;
-        'X-CC-Version': string;
+        "Content-Type": "application/json";
+        "Accept": "application/json";
+        "User-Agent": string;
+        "X-CC-Api-Key": string;
+        "X-CC-Version": string;
     };
 }
 
@@ -40,22 +34,22 @@ type PaginationCallback<T> = (error: any, response: T[], pagination: Pagination)
 /**
  * Fiat currency.
  */
-type FiatCurrency = 'USD' | 'GBP' | 'EUR' | string;
+type FiatCurrency = "USD" | "GBP" | "EUR" | string;
 
 /**
  * Crypto currency.
  */
-type CryptoCurrency = 'BTC' | 'ETH' | 'BCH' | 'LTC' | 'USDC';
+type CryptoCurrency = "BTC" | "ETH" | "BCH" | "LTC" | "USDC";
 
 /**
  * Full crypto currency name.
  */
-type CryptoName = 'bitcoin' | 'ethereum' | 'bitcoincash' | 'litecoin' | 'usdc';
+type CryptoName = "bitcoin" | "ethereum" | "bitcoincash" | "litecoin" | "usdc";
 
 /**
  * Pricing type.
  */
-type PricingType = 'no_price' | 'fixed_price';
+type PricingType = "no_price" | "fixed_price";
 
 /**
  * Timestamp string.
@@ -66,7 +60,7 @@ type Timestamp = string;
 /**
  * Payment status.
  */
-type PaymentStatus = 'NEW' | 'PENDING' | 'COMPLETED' | 'UNRESOLVED' | 'RESOLVED' | 'EXPIRED' | 'CANCELED';
+type PaymentStatus = "NEW" | "PENDING" | "COMPLETED" | "UNRESOLVED" | "RESOLVED" | "EXPIRED" | "CANCELED";
 
 /**
  * Crypto pricing object.
@@ -108,7 +102,7 @@ interface PaginationRequest {
      *
      * default: desc
      */
-    order?: 'asc' | 'desc' | undefined;
+    order?: "asc" | "desc" | undefined;
 
     /**
      * Number of results per call.
@@ -136,7 +130,7 @@ interface PaginationRequest {
  *
  * @link https://commerce.coinbase.com/docs/api/#pagination
  */
-interface Pagination extends Pick<PaginationRequest, 'order' | 'starting_after' | 'ending_before' | 'limit'> {
+interface Pagination extends Pick<PaginationRequest, "order" | "starting_after" | "ending_before" | "limit"> {
     total: number;
     yielded: number;
     previous_uri: null | string;
@@ -151,7 +145,7 @@ interface NoPrice {
     /**
      * Pricing type.
      */
-    pricing_type: 'no_price';
+    pricing_type: "no_price";
 }
 
 /**
@@ -161,7 +155,7 @@ interface FixedPrice {
     /**
      * Pricing type
      */
-    pricing_type: 'fixed_price';
+    pricing_type: "fixed_price";
 
     /**
      * Local price in fiat currency.
@@ -227,7 +221,7 @@ interface ChargeResource extends BaseCharge {
     /**
      * Resource name.
      */
-    resource: 'charge';
+    resource: "charge";
 
     /**
      * User fiendly primary key.
@@ -283,7 +277,7 @@ interface ChargeResource extends BaseCharge {
         /**
          * Timeline entry context.
          */
-        context?: 'UNDERPAID' | 'OVERPAID' | 'DELAYED' | 'MULTIPLE' | 'MANUAL' | 'OTHER' | undefined;
+        context?: "UNDERPAID" | "OVERPAID" | "DELAYED" | "MULTIPLE" | "MANUAL" | "OTHER" | undefined;
     }>;
 
     /**
@@ -312,7 +306,7 @@ interface ChargeResource extends BaseCharge {
             hash: string;
             confirmations_accumulated: number;
             confirmations_required: number;
-        }
+        };
     }>;
 
     /**
@@ -345,7 +339,7 @@ interface BaseCheckout {
     /**
      * Information to collect from the customer.
      */
-    requested_info?: Array<'email' | 'name'> | undefined;
+    requested_info?: Array<"email" | "name"> | undefined;
 }
 
 /**
@@ -360,7 +354,7 @@ type CreateCheckout = BaseCheckout & (FixedPrice | NoPrice);
  *
  * @link https://commerce.coinbase.com/docs/api/#update-a-checkout
  */
-type UpdateCheckout = Omit<CreateCheckout, 'pricing_type'>;
+type UpdateCheckout = Omit<CreateCheckout, "pricing_type">;
 
 /**
  * Checkout Resource.
@@ -376,7 +370,7 @@ interface CheckoutResource extends BaseCheckout {
     /**
      * Resource name.
      */
-    resource: 'checkout';
+    resource: "checkout";
 
     /**
      * Checkout image URL.
@@ -403,12 +397,18 @@ interface EventResource<T = ChargeResource | CheckoutResource> {
     /**
      * Resource name.
      */
-    resource: 'event';
+    resource: "event";
 
     /**
      * Event type.
      */
-    type: 'charge:created' | 'charge:confirmed' | 'charge:failed' | 'charge:delayed' | 'charge:pending' | 'charge:resolved';
+    type:
+        | "charge:created"
+        | "charge:confirmed"
+        | "charge:failed"
+        | "charge:delayed"
+        | "charge:pending"
+        | "charge:resolved";
 
     /**
      * Event creation time.
@@ -493,7 +493,10 @@ export namespace resources {
         /**
          * List charges.
          */
-        static list(paginationOptions: PaginationRequest, callback?: PaginationCallback<Charge>): Promise<[Charge[], Pagination]>;
+        static list(
+            paginationOptions: PaginationRequest,
+            callback?: PaginationCallback<Charge>,
+        ): Promise<[Charge[], Pagination]>;
 
         /**
          * Fetch all charges.
@@ -503,7 +506,7 @@ export namespace resources {
         /**
          * Retrieve a charge by ID.
          */
-        static retrieve(chargeId: ChargeResource['id'], callback?: Callback<Charge>): Promise<Charge>;
+        static retrieve(chargeId: ChargeResource["id"], callback?: Callback<Charge>): Promise<Charge>;
     }
 
     /**
@@ -525,7 +528,10 @@ export namespace resources {
         /**
          * List checkouts.
          */
-        static list(paginationOptions: PaginationRequest, callback?: PaginationCallback<Checkout>): Promise<[Checkout[], Pagination]>;
+        static list(
+            paginationOptions: PaginationRequest,
+            callback?: PaginationCallback<Checkout>,
+        ): Promise<[Checkout[], Pagination]>;
 
         /**
          * Fetch all checkouts.
@@ -535,17 +541,21 @@ export namespace resources {
         /**
          * Retrieve a checkout by ID.
          */
-        static retrieve(checkoutId: CheckoutResource['id'], callback?: Callback<Checkout>): Promise<Checkout>;
+        static retrieve(checkoutId: CheckoutResource["id"], callback?: Callback<Checkout>): Promise<Checkout>;
 
         /**
          * Update a checkout by ID.
          */
-        static updateById(checkoutId: CheckoutResource['id'], update: UpdateCheckout, callback?: Callback<Checkout>): Promise<Checkout>;
+        static updateById(
+            checkoutId: CheckoutResource["id"],
+            update: UpdateCheckout,
+            callback?: Callback<Checkout>,
+        ): Promise<Checkout>;
 
         /**
          * Delete a checkout by ID.
          */
-        static deleteById(checkoutId: CheckoutResource['id'], callback?: Callback<Checkout>): Promise<Checkout>;
+        static deleteById(checkoutId: CheckoutResource["id"], callback?: Callback<Checkout>): Promise<Checkout>;
     }
 
     /**
@@ -562,12 +572,15 @@ export namespace resources {
         /**
          * Retrieve a event by ID.
          */
-        static retrieve(eventId: EventResource['id'], callback?: Callback<Event>): Promise<Event>;
+        static retrieve(eventId: EventResource["id"], callback?: Callback<Event>): Promise<Event>;
 
         /**
          * List events.
          */
-        static list(paginationOptions: PaginationRequest, callback?: PaginationCallback<Event>): Promise<[Event[], Pagination]>;
+        static list(
+            paginationOptions: PaginationRequest,
+            callback?: PaginationCallback<Event>,
+        ): Promise<[Event[], Pagination]>;
 
         /**
          * Fetch all events.
@@ -575,11 +588,7 @@ export namespace resources {
         static all(paginationOptions: PaginationRequest, callback?: Callback<Event[]>): Promise<Event[]>;
     }
 
-    export {
-        Event,
-        Charge,
-        Checkout,
-    };
+    export { Charge, Checkout, Event };
 }
 
 /**
@@ -603,12 +612,4 @@ declare namespace Webhook {
     function verifyEventBody(rawBody: string, signature: string, sharedSecret: string): resources.Event;
 }
 
-export {
-    Webhook,
-    Pagination,
-    ChargeResource,
-    CheckoutResource,
-    CreateCheckout,
-    EventResource,
-    CreateCharge,
-};
+export { ChargeResource, CheckoutResource, CreateCharge, CreateCheckout, EventResource, Pagination, Webhook };

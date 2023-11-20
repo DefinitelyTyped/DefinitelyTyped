@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/sass-graph",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/xzyfer/sass-graph"
+    ],
+    "devDependencies": {
+        "@types/sass-graph": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marvin Hagemeister",
+            "githubUsername": "marvinhagemeister"
+        }
+    ]
+}

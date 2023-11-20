@@ -1,9 +1,3 @@
-// Type definitions for Minecraft Bedrock Edition script APIs (experimental) 0.1
-// Project: https://docs.microsoft.com/minecraft/creator/
-// Definitions by: Jake Shirley <https://github.com/JakeShirley>
-//                 Mike Ammerlaan <https://github.com/mammerla>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /* *****************************************************************************
    Copyright (c) Microsoft Corporation.
    ***************************************************************************** */
@@ -47,9 +41,8 @@
  *   "version": [ 0, 1, 0 ]
  * }
  * ```
- *
  */
-import * as mojangminecraft from 'mojang-minecraft';
+import * as mojangminecraft from "mojang-minecraft";
 /**
  * Builds a simple player form with buttons that let the player
  * take action.
@@ -95,11 +88,11 @@ export class ActionFormResponse extends FormResponse {
      * If true, the form was canceled by the player (e.g., they
      * selected the pop-up X close button).
      */
-    readonly 'isCanceled': boolean;
+    readonly "isCanceled": boolean;
     /**
      * Returns the index of the button that was pushed.
      */
-    readonly 'selection': number;
+    readonly "selection": number;
     protected constructor();
 }
 /**
@@ -110,7 +103,7 @@ export class FormResponse {
      * If true, the form was canceled by the player (e.g., they
      * selected the pop-up X close button).
      */
-    readonly 'isCanceled': boolean;
+    readonly "isCanceled": boolean;
     protected constructor();
 }
 /**
@@ -163,11 +156,11 @@ export class MessageFormResponse extends FormResponse {
      * If true, the form was canceled by the player (e.g., they
      * selected the pop-up X close button).
      */
-    readonly 'isCanceled': boolean;
+    readonly "isCanceled": boolean;
     /**
      * Returns the index of the button that was pushed.
      */
-    readonly 'selection': number;
+    readonly "selection": number;
     protected constructor();
 }
 /**
@@ -246,11 +239,11 @@ export class ModalFormResponse extends FormResponse {
      * An ordered set of values based on the order of controls
      * specified by ModalFormData.
      */
-    readonly 'formValues': any[];
+    readonly "formValues": any[];
     /**
      * If true, the form was canceled by the player (e.g., they
      * selected the pop-up X close button).
      */
-    readonly 'isCanceled': boolean;
+    readonly "isCanceled": boolean;
     protected constructor();
 }

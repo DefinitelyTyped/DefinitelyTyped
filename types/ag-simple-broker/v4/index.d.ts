@@ -1,29 +1,23 @@
-// Type definitions for ag-simple-broker 4.0
-// Project: https://github.com/SocketCluster/ag-simple-broker
-// Definitions by: Daniel Rose <https://github.com/DanielRose>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.7
-
-import AsyncStreamEmitter = require('async-stream-emitter');
-import AGServer = require('socketcluster-server/server');
-import ConsumableStream = require('consumable-stream');
-import AGChannel = require('ag-channel');
-import Consumer = require('writable-consumable-stream/consumer');
+import AsyncStreamEmitter = require("async-stream-emitter");
+import AGServer = require("socketcluster-server/server");
+import ConsumableStream = require("consumable-stream");
+import AGChannel = require("ag-channel");
+import Consumer = require("writable-consumable-stream/consumer");
 
 declare class AGSimpleBroker extends AsyncStreamEmitter<any> {
     isReady: boolean;
 
-    emit(eventName: 'ready', data: {}): void;
-    emit(eventName: 'subscribe', data: AGSimpleBroker.SubscribeData): void;
-    emit(eventName: 'unsubscribe', data: AGSimpleBroker.UnsubscribeData): void;
-    emit(eventName: 'error', data: AGSimpleBroker.ErrorData): void;
-    emit(eventName: 'publish', data: AGSimpleBroker.PublishData): void;
+    emit(eventName: "ready", data: {}): void;
+    emit(eventName: "subscribe", data: AGSimpleBroker.SubscribeData): void;
+    emit(eventName: "unsubscribe", data: AGSimpleBroker.UnsubscribeData): void;
+    emit(eventName: "error", data: AGSimpleBroker.ErrorData): void;
+    emit(eventName: "publish", data: AGSimpleBroker.PublishData): void;
 
-    listener(eventName: 'ready'): ConsumableStream<{}>;
-    listener(eventName: 'subscribe'): ConsumableStream<AGSimpleBroker.SubscribeData>;
-    listener(eventName: 'unsubscribe'): ConsumableStream<AGSimpleBroker.UnsubscribeData>;
-    listener(eventName: 'error'): ConsumableStream<AGSimpleBroker.ErrorData>;
-    listener(eventName: 'publish'): ConsumableStream<AGSimpleBroker.PublishData>;
+    listener(eventName: "ready"): ConsumableStream<{}>;
+    listener(eventName: "subscribe"): ConsumableStream<AGSimpleBroker.SubscribeData>;
+    listener(eventName: "unsubscribe"): ConsumableStream<AGSimpleBroker.UnsubscribeData>;
+    listener(eventName: "error"): ConsumableStream<AGSimpleBroker.ErrorData>;
+    listener(eventName: "publish"): ConsumableStream<AGSimpleBroker.PublishData>;
 
     exchange(): AGSimpleBroker.SimpleExchange;
 
@@ -50,11 +44,11 @@ declare namespace AGSimpleBroker {
 
         constructor(broker: AGSimpleBroker);
 
-        emit(eventName: 'subscribe', data: SubscribeData): void;
-        emit(eventName: 'unsubscribe', data: UnsubscribeData): void;
+        emit(eventName: "subscribe", data: SubscribeData): void;
+        emit(eventName: "unsubscribe", data: UnsubscribeData): void;
 
-        listener(eventName: 'subscribe'): ConsumableStream<SubscribeData>;
-        listener(eventName: 'unsubscribe'): ConsumableStream<UnsubscribeData>;
+        listener(eventName: "subscribe"): ConsumableStream<SubscribeData>;
+        listener(eventName: "unsubscribe"): ConsumableStream<UnsubscribeData>;
 
         /* AGChannel.Client start */
 

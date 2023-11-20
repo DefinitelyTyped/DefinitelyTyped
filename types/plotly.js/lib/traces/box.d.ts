@@ -1,14 +1,14 @@
-import { PlotData, Color, MarkerSymbol } from '../../index';
-import { ScatterSelectedMarker } from './scatter';
+import { Color, MarkerSymbol, PlotData } from "../../index";
+import { ScatterSelectedMarker } from "./scatter";
 
 // See https://github.com/plotly/plotly.js/blob/master/src/traces/box/attributes.js
 export interface BoxPlotData extends PlotData {
-    type: 'box';
+    type: "box";
     x0: any;
     y0: any;
     width: number;
-    quartilemethod: 'linear' | 'exclusive' | 'inclusive';
-    boxpoints: 'all' | 'outliers' | 'suspectedoutliers' | false;
+    quartilemethod: "linear" | "exclusive" | "inclusive";
+    boxpoints: "all" | "outliers" | "suspectedoutliers" | false;
     jitter: number;
     pointpos: number;
     marker: Partial<BoxPlotMarker>;

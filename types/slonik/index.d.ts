@@ -1,14 +1,7 @@
-// Type definitions for slonik 22.1
-// Project: https://github.com/gajus/slonik#readme
-// Definitions by: Sebastian Sebald <https://github.com/sebald>
-//                 Misha Kaletsky <https://github.com/mmkal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
 /// <reference types="node" />
 
-import { Readable } from 'stream';
-import * as SlonikSymbol from './symbols';
+import { Readable } from "stream";
+import * as SlonikSymbol from "./symbols";
 
 //
 // HELPER
@@ -19,24 +12,24 @@ export type MaybePromiseType<T> = T | Promise<T>;
 
 export type StreamHandlerType = (stream: Readable) => void;
 
-export type ComparisonOperatorType = '<' | '>' | '<=' | '>=' | '=' | '<>' | '!=';
-export type LogicalBooleanOperatorType = 'AND' | 'OR';
+export type ComparisonOperatorType = "<" | ">" | "<=" | ">=" | "=" | "<>" | "!=";
+export type LogicalBooleanOperatorType = "AND" | "OR";
 
 //
 // EXPRESSIONS AND TOKENS
 // ----------------------------------------------------------------------
 
 export type TypeNameIdentifierType =
-    | 'bool'
-    | 'bytea'
-    | 'float4'
-    | 'float8'
-    | 'int2'
-    | 'int4'
-    | 'json'
-    | 'text'
-    | 'timestamptz'
-    | 'uuid';
+    | "bool"
+    | "bytea"
+    | "float4"
+    | "float8"
+    | "int2"
+    | "int4"
+    | "json"
+    | "text"
+    | "timestamptz"
+    | "uuid";
 
 export type SerializableValueType =
     | string
@@ -141,7 +134,7 @@ export type DatabasePoolType = CommonQueryMethodsType & {
     transaction: <T>(handler: TransactionFunctionType<T>) => Promise<T>;
 };
 
-export type ConnectionTypeType = 'EXPLICIT' | 'IMPLICIT_QUERY' | 'IMPLICIT_TRANSACTION';
+export type ConnectionTypeType = "EXPLICIT" | "IMPLICIT_QUERY" | "IMPLICIT_TRANSACTION";
 
 export interface ConnectionContextType {
     /**
@@ -187,7 +180,7 @@ export interface NoticeType {
 }
 
 export interface QueryResultType<T> {
-    command: 'DELETE' | 'INSERT' | 'SELECT' | 'UPDATE';
+    command: "DELETE" | "INSERT" | "SELECT" | "UPDATE";
     fields: ReadonlyArray<FieldType>;
     notices: ReadonlyArray<NoticeType>;
     oid: number | null;
@@ -345,44 +338,60 @@ export type TransactionFunctionType<T> = (connection: DatabaseTransactionConnect
 // INTERCEPTOR
 // ----------------------------------------------------------------------
 export interface InterceptorType {
-    afterPoolConnection?: ((
-        connectionContext: ConnectionContextType,
-        connection: DatabasePoolConnectionType,
-    ) => MaybePromiseType<null>) | undefined;
-    afterQueryExecution?: ((
-        queryContext: QueryContextType,
-        query: QueryType,
-        result: QueryResultType<QueryResultRowType>,
-    ) => MaybePromiseType<null>) | undefined;
-    beforePoolConnection?: ((
-        connectionContext: PoolContextType,
-    ) => MaybePromiseType<DatabasePoolType | null | undefined>) | undefined;
-    beforePoolConnectionRelease?: ((
-        connectionContext: ConnectionContextType,
-        connection: DatabasePoolConnectionType,
-    ) => MaybePromiseType<null>) | undefined;
-    beforeQueryExecution?: ((
-        queryContext: QueryContextType,
-        query: QueryType,
-    ) => MaybePromiseType<QueryResultType<QueryResultRowType> | null>) | undefined;
-    beforeQueryResult?: ((
-        queryContext: QueryContextType,
-        query: QueryType,
-        result: QueryResultType<QueryResultRowType>,
-    ) => MaybePromiseType<null>) | undefined;
+    afterPoolConnection?:
+        | ((
+            connectionContext: ConnectionContextType,
+            connection: DatabasePoolConnectionType,
+        ) => MaybePromiseType<null>)
+        | undefined;
+    afterQueryExecution?:
+        | ((
+            queryContext: QueryContextType,
+            query: QueryType,
+            result: QueryResultType<QueryResultRowType>,
+        ) => MaybePromiseType<null>)
+        | undefined;
+    beforePoolConnection?:
+        | ((
+            connectionContext: PoolContextType,
+        ) => MaybePromiseType<DatabasePoolType | null | undefined>)
+        | undefined;
+    beforePoolConnectionRelease?:
+        | ((
+            connectionContext: ConnectionContextType,
+            connection: DatabasePoolConnectionType,
+        ) => MaybePromiseType<null>)
+        | undefined;
+    beforeQueryExecution?:
+        | ((
+            queryContext: QueryContextType,
+            query: QueryType,
+        ) => MaybePromiseType<QueryResultType<QueryResultRowType> | null>)
+        | undefined;
+    beforeQueryResult?:
+        | ((
+            queryContext: QueryContextType,
+            query: QueryType,
+            result: QueryResultType<QueryResultRowType>,
+        ) => MaybePromiseType<null>)
+        | undefined;
     beforeTransformQuery?: ((queryContext: QueryContextType, query: QueryType) => MaybePromiseType<null>) | undefined;
-    queryExecutionError?: ((
-        queryContext: QueryContextType,
-        query: QueryType,
-        error: SlonikError,
-    ) => MaybePromiseType<null>) | undefined;
+    queryExecutionError?:
+        | ((
+            queryContext: QueryContextType,
+            query: QueryType,
+            error: SlonikError,
+        ) => MaybePromiseType<null>)
+        | undefined;
     transformQuery?: ((queryContext: QueryContextType, query: QueryType) => QueryType) | undefined;
-    transformRow?: ((
-        queryContext: QueryContextType,
-        query: QueryType,
-        row: QueryResultRowType,
-        fields: FieldType[],
-    ) => QueryResultRowType) | undefined;
+    transformRow?:
+        | ((
+            queryContext: QueryContextType,
+            query: QueryType,
+            row: QueryResultRowType,
+            fields: FieldType[],
+        ) => QueryResultRowType)
+        | undefined;
 }
 
 /**
@@ -398,7 +407,9 @@ export function createFieldNameTransformationInterceptor(configuration: {
     format: string;
     test?: ((field: FieldType) => boolean) | undefined;
 }): InterceptorType;
-export function createQueryNormalizationInterceptor(configuration?: { stripComments?: boolean | undefined }): InterceptorType;
+export function createQueryNormalizationInterceptor(
+    configuration?: { stripComments?: boolean | undefined },
+): InterceptorType;
 export function createBenchmarkingInterceptor(): InterceptorType;
 
 //
@@ -437,10 +448,10 @@ export interface ClientConfigurationType {
     connectionRetryLimit?: number | undefined;
 
     /** connectionTimeout Timeout (in milliseconds) after which an error is raised if connection cannot cannot be established. (Default: 5000) */
-    connectionTimeout?: number | 'DISABLE_TIMEOUT' | undefined;
+    connectionTimeout?: number | "DISABLE_TIMEOUT" | undefined;
 
     /** idleInTransactionSessionTimeout Timeout (in milliseconds) after which idle clients are closed. Use 'DISABLE_TIMEOUT' constant to disable the timeout. (Default: 60000) */
-    idleInTransactionSessionTimeout?: number | 'DISABLE_TIMEOUT' | undefined;
+    idleInTransactionSessionTimeout?: number | "DISABLE_TIMEOUT" | undefined;
 
     /** Timeout (in milliseconds) after which idle clients are closed. (Default: 5000) */
     idleTimeout?: number | undefined;
@@ -452,7 +463,7 @@ export interface ClientConfigurationType {
     preferNativeBindings?: boolean | undefined;
 
     /** Timeout (in milliseconds) after which database is instructed to abort the query. Use 'DISABLE_TIMEOUT' constant to disable the timeout. (Default: 60000) */
-    statementTimeout?: number | 'DISABLE_TIMEOUT' | undefined;
+    statementTimeout?: number | "DISABLE_TIMEOUT" | undefined;
 
     /**
      * An array of [Slonik interceptors](https://github.com/gajus/slonik#slonik-interceptors)

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/leaflet.polylinemeasure",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ppete2/Leaflet.PolylineMeasure#readme"
+    ],
+    "dependencies": {
+        "@types/leaflet": "*"
+    },
+    "devDependencies": {
+        "@types/leaflet.polylinemeasure": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rinat Sultanov",
+            "githubUsername": "RiON69"
+        }
+    ]
+}

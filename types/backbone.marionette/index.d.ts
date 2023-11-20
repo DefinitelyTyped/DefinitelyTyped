@@ -1,19 +1,7 @@
-// Type definitions for Marionette 3.3
-// Project: https://github.com/marionettejs/, https://marionettejs.com
-// Definitions by: Zeeshan Hamid <https://github.com/zhamid>,
-//                 Natan Vivo <https://github.com/nvivo>,
-//                 Sven Tschui <https://github.com/sventschui>,
-//                 Volker Nauruhn <https://github.com/razorness>,
-//                 Ard Timmerman <https://github.com/confususs>,
-//                 J. Joe Koullas <https://github.com/jjoekoullas>
-//                 Julian Gonggrijp <https://github.com/jgonggrijp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as Backbone from 'backbone';
-import * as JQuery from 'jquery';
-import * as Radio from 'backbone.radio';
-import * as _ from 'underscore';
+import * as Backbone from "backbone";
+import * as Radio from "backbone.radio";
+import * as JQuery from "jquery";
+import * as _ from "underscore";
 
 export as namespace Marionette;
 
@@ -1257,10 +1245,13 @@ export class View<TModel extends Backbone.Model> extends Backbone.View<TModel> i
     /**
      * Behavior objects to assign to this View.
      */
-    behaviors: Behavior[] | { [index: string]: typeof Behavior; } | Array<{
-        behaviorClass: typeof Behavior;
-        [index: string]: any;
-    }>;
+    behaviors:
+        | Behavior[]
+        | { [index: string]: typeof Behavior }
+        | Array<{
+            behaviorClass: typeof Behavior;
+            [index: string]: any;
+        }>;
 
     /**
      * Bind to events that occur on attached models.
@@ -1287,8 +1278,8 @@ export class View<TModel extends Backbone.Model> extends Backbone.View<TModel> i
 
 export interface CollectionViewOptions<
     TModel extends Backbone.Model,
-    TCollection extends Backbone.Collection<TModel> = Backbone.Collection<TModel>
-    > extends Backbone.ViewOptions<TModel>, ViewMixinOptions {
+    TCollection extends Backbone.Collection<TModel> = Backbone.Collection<TModel>,
+> extends Backbone.ViewOptions<TModel>, ViewMixinOptions {
     /**
      * Specify a child view to use.
      */
@@ -1314,7 +1305,11 @@ export interface CollectionViewOptions<
     /**
      * Prevent some of the underlying children from being attached to the DOM.
      */
-    viewFilter?: ((view?: typeof Backbone.View, index?: number, children?: Backbone.View[]) => boolean) | Backbone.ObjectHash | string | undefined;
+    viewFilter?:
+        | ((view?: typeof Backbone.View, index?: number, children?: Backbone.View[]) => boolean)
+        | Backbone.ObjectHash
+        | string
+        | undefined;
 
     /**
      * Specify a view to use if the collection has no children.
@@ -1342,7 +1337,11 @@ export interface CollectionViewOptions<
      * Render your collection view's children with a different sort order
      * than the underlying Backbone collection.
      */
-    viewComparator?: string | ((element: TModel) => number | string) | ((compare: TModel, to?: TModel) => number) | undefined; // Mirrors Backbone.Collection.comparator
+    viewComparator?:
+        | string
+        | ((element: TModel) => number | string)
+        | ((compare: TModel, to?: TModel) => number)
+        | undefined; // Mirrors Backbone.Collection.comparator
 }
 
 /**
@@ -1353,7 +1352,11 @@ export interface CollectionViewOptions<
  * DOM. This behavior can be disabled by specifying {sort: false} on
  * initialize.
  */
-export class CollectionView<TModel extends Backbone.Model, TView extends View<TModel>, TCollection extends Backbone.Collection<TModel> = Backbone.Collection<TModel>> extends View<TModel> {
+export class CollectionView<
+    TModel extends Backbone.Model,
+    TView extends View<TModel>,
+    TCollection extends Backbone.Collection<TModel> = Backbone.Collection<TModel>,
+> extends View<TModel> {
     constructor(options?: CollectionViewOptions<TModel, TCollection>);
 
     /**
@@ -1377,7 +1380,10 @@ export class CollectionView<TModel extends Backbone.Model, TView extends View<TM
      * ChildViews in a efficient way, instead of rendering the whole DOM
      * structure again.
      */
-    setFilter: (filter: (child?: TModel, index?: number, collection?: TCollection) => boolean, options: { preventRender: boolean }) => void;
+    setFilter: (
+        filter: (child?: TModel, index?: number, collection?: TCollection) => boolean,
+        options: { preventRender: boolean },
+    ) => void;
 
     /**
      * Remove a filter from the CollectionView.
@@ -1483,15 +1489,21 @@ export class CollectionView<TModel extends Backbone.Model, TView extends View<TM
     /**
      * Override this method to determine which viewComparator to use.
      */
-    getViewComparator: () => (string | ((element: TModel) => number | string) | ((compare: TModel, to?: TModel) => number)); // Mirrors Backbone.Collection.comparator
+    getViewComparator: () =>
+        | string
+        | ((element: TModel) => number | string)
+        | ((compare: TModel, to?: TModel) => number); // Mirrors Backbone.Collection.comparator
 
     /**
      * Behavior objects to assign to this View.
      */
-    behaviors: Behavior[] | { [index: string]: typeof Behavior; } | Array<{
-        behaviorClass: typeof Behavior;
-        [index: string]: any;
-    }>;
+    behaviors:
+        | Behavior[]
+        | { [index: string]: typeof Behavior }
+        | Array<{
+            behaviorClass: typeof Behavior;
+            [index: string]: any;
+        }>;
 
     /**
      * Name parts of your template to be used throughout the view with the
@@ -1511,7 +1523,11 @@ export class CollectionView<TModel extends Backbone.Model, TView extends View<TM
      * The buildChildView is responsible for taking the ChildView class and
      * instantiating it with the appropriate data.
      */
-    buildChildView(child: TModel, childViewClass: { new(...args: any[]): TView }, childViewOptions: ViewOptions<TModel>): void;
+    buildChildView(
+        child: TModel,
+        childViewClass: { new(...args: any[]): TView },
+        childViewOptions: ViewOptions<TModel>,
+    ): void;
 
     /**
      * The addChildView method can be used to add a view that is independent
@@ -1730,10 +1746,13 @@ export class Behavior extends Object {
      * The behaviors key allows a behavior to group multiple behaviors
      * together.
      */
-    behaviors: Behavior[] | { [index: string]: typeof Behavior; } | Array<{
-        behaviorClass: typeof Behavior;
-        [index: string]: any;
-    }>;
+    behaviors:
+        | Behavior[]
+        | { [index: string]: typeof Behavior }
+        | Array<{
+            behaviorClass: typeof Behavior;
+            [index: string]: any;
+        }>;
 
     /**
      * defaults can be a hash or function to define the default options for

@@ -1,9 +1,3 @@
-// Type definitions for pnpapi 0.0
-// Project: https://yarnpkg.github.io/berry/advanced/pnpapi
-// Definitions by: Maël Nison <https://github.com/arcanis>
-//                 ExE Boss <https://github.com/ExE-Boss>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface PhysicalPackageLocator {
     name: string;
     reference: string;
@@ -23,19 +17,23 @@ export interface PackageInformation {
     packageDependencies: Map<string, string | [string, string]>;
 }
 
-export const VERSIONS: {std: number, [key: string]: number};
+export const VERSIONS: { std: number; [key: string]: number };
 
-export const topLevel: {name: null, reference: null};
+export const topLevel: { name: null; reference: null };
 
 export function getPackageInformation(locator: PackageLocator): PackageInformation;
 export function findPackageLocator(location: string): PackageLocator | null;
 
-export function resolveToUnqualified(request: string, issuer: string | null, opts?: {considerBuiltins?: boolean | undefined}): string | null;
+export function resolveToUnqualified(
+    request: string,
+    issuer: string | null,
+    opts?: { considerBuiltins?: boolean | undefined },
+): string | null;
 export function resolveUnqualified(unqualified: string, opts?: { extensions?: string[] | undefined }): string;
 export function resolveRequest(
     request: string,
     issuer: string | null,
-    opts?: { considerBuiltins?: boolean | undefined; extensions?: string[] | undefined }
+    opts?: { considerBuiltins?: boolean | undefined; extensions?: string[] | undefined },
 ): string | null;
 
 export function setup(): void;

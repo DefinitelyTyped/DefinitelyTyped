@@ -1,10 +1,3 @@
-// Type definitions for validatorjs v3.15.0
-// Project: https://github.com/skaterdav85/validatorjs
-// Definitions by: Karol Janyst <https://github.com/LKay>
-//                 Dan Manastireanu <https://github.com/danmana>
-//                 Matías Olivera <https://github.com/MatiasOlivera>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Validator {
     interface TypeCheckingRule {
         [attribute: string]: Array<any>;
@@ -40,21 +33,21 @@ declare namespace Validator {
     type RegisterCallback = (
         value: string | number | boolean,
         args: string,
-        attribute: string
+        attribute: string,
     ) => boolean;
 
     type RegisterAsyncCallback = (
         value: string | number | boolean,
         args: string,
         attribute: string,
-        passes: (success?: boolean, message?: string) => void
+        passes: (success?: boolean, message?: string) => void,
     ) => void;
 
     interface ValidatorStatic {
-        new <A>(
+        new<A>(
             data: A,
             rules: Rules,
-            customMessages?: ErrorMessages
+            customMessages?: ErrorMessages,
         ): Validator<A>;
         setMessages(lang: string, messages: ErrorMessages): any;
         getMessages(lang: string): ErrorMessages;
@@ -66,7 +59,7 @@ declare namespace Validator {
         registerAsync(
             name: string,
             fn: RegisterAsyncCallback,
-            message: string
+            message: string,
         ): void;
     }
 

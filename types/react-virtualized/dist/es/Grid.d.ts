@@ -1,8 +1,8 @@
-import { Validator, Requireable, PureComponent, Component } from 'react';
-import { List } from './List';
-import { Table } from './Table';
-import { CellMeasurerCache, CellMeasurerCacheInterface, MeasuredCellParent } from './CellMeasurer';
-import { Index, Map, Alignment, OverscanIndexRange } from '../../index';
+import { Component, PureComponent, Requireable, Validator } from "react";
+import { Alignment, Index, Map, OverscanIndexRange } from "../../index";
+import { CellMeasurerCache, CellMeasurerCacheInterface, MeasuredCellParent } from "./CellMeasurer";
+import { List } from "./List";
+import { Table } from "./Table";
 
 export type RenderedSection = {
     columnOverscanStartIndex: number;
@@ -60,13 +60,15 @@ export type ScrollbarPresenceParams = {
     vertical: boolean;
 };
 export type SectionRenderedParams = RenderedSection;
-export type SCROLL_DIRECTION_HORIZONTAL = 'horizontal';
-export type SCROLL_DIRECTION_VERTICAL = 'vertical';
+export type SCROLL_DIRECTION_HORIZONTAL = "horizontal";
+export type SCROLL_DIRECTION_VERTICAL = "vertical";
+export type SCROLL_DIRECTION_BACKWARD = -1;
+export type SCROLL_DIRECTION_FORWARD = 1;
 export type OverscanIndicesGetterParams = {
     direction?: SCROLL_DIRECTION_HORIZONTAL | SCROLL_DIRECTION_VERTICAL | undefined;
     cellCount: number;
     overscanCellsCount: number;
-    scrollDirection: SCROLL_DIRECTION_HORIZONTAL | SCROLL_DIRECTION_VERTICAL;
+    scrollDirection: SCROLL_DIRECTION_BACKWARD | SCROLL_DIRECTION_FORWARD;
     startIndex: number;
     stopIndex: number;
 };
@@ -149,8 +151,8 @@ export type GridCellRangeProps = {
 export type GridCellRangeRenderer = (params: GridCellRangeProps) => React.ReactNode[];
 
 export type GridCoreProps = {
-    'aria-label'?: string | undefined;
-    'aria-readonly'?: boolean | undefined;
+    "aria-label"?: string | undefined;
+    "aria-readonly"?: boolean | undefined;
     /**
      * Set the width of the inner scrollable container to 'auto'.
      * This is useful for single-column Grids to ensure that the column doesn't extend below a vertical scrollbar.
@@ -335,7 +337,7 @@ export type GridProps = GridCoreProps & {
     columnWidth: number | ((params: Index) => number);
 };
 
-export type ScrollDirection = 'horizontal' | 'vertical';
+export type ScrollDirection = "horizontal" | "vertical";
 
 export type GridState = {
     isScrolling: boolean;
@@ -357,13 +359,13 @@ export const DEFAULT_SCROLLING_RESET_TIME_INTERVAL = 150;
  */
 export class Grid extends PureComponent<GridProps, GridState> {
     static defaultProps: {
-        'aria-label': 'grid';
-        'aria-readonly': true;
+        "aria-label": "grid";
+        "aria-readonly": true;
         autoContainerWidth: false;
         autoHeight: false;
         autoWidth: false;
         cellRangeRenderer: GridCellRangeRenderer;
-        containerRole: 'rowgroup';
+        containerRole: "rowgroup";
         containerStyle: {};
         estimatedColumnSize: 100;
         estimatedRowSize: 30;
@@ -375,9 +377,9 @@ export class Grid extends PureComponent<GridProps, GridState> {
         overscanColumnCount: 0;
         overscanIndicesGetter: OverscanIndicesGetter;
         overscanRowCount: 10;
-        role: 'grid';
+        role: "grid";
         scrollingResetTimeInterval: typeof DEFAULT_SCROLLING_RESET_TIME_INTERVAL;
-        scrollToAlignment: 'auto';
+        scrollToAlignment: "auto";
         scrollToColumn: -1;
         scrollToRow: -1;
         style: {};
@@ -387,7 +389,9 @@ export class Grid extends PureComponent<GridProps, GridState> {
     /**
      * Gets offsets for a given cell and alignment.
      */
-    getOffsetForCell(params?: { alignment?: Alignment | undefined; columnIndex?: number | undefined; rowIndex?: number | undefined }): ScrollOffset;
+    getOffsetForCell(
+        params?: { alignment?: Alignment | undefined; columnIndex?: number | undefined; rowIndex?: number | undefined },
+    ): ScrollOffset;
 
     /**
      * This method handles a scroll event originating from an external scroll control.

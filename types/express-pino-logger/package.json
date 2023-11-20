@@ -1,6 +1,26 @@
 {
     "private": true,
+    "name": "@types/express-pino-logger",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/pinojs/express-pino-logger#readme"
+    ],
     "dependencies": {
-        "@types/pino": "6.3"
-    }
+        "@types/pino": "6.3",
+        "@types/pino-http": "*"
+    },
+    "devDependencies": {
+        "@types/express": "*",
+        "@types/express-pino-logger": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Oleg Repin",
+            "githubUsername": "iamolegga"
+        },
+        {
+            "name": "Griffin Yourick",
+            "githubUsername": "tough-griff"
+        }
+    ]
 }

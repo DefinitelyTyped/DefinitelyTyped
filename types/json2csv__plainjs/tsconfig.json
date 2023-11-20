@@ -2,17 +2,21 @@
     "compilerOptions": {
         "target": "es5",
         "module": "commonjs",
-        "lib": ["dom", "es6", "ES2016.Array.Include"],
+        "lib": [
+            "dom",
+            "es6",
+            "ES2016.Array.Include"
+        ],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
         "types": [],
-        "paths": { "@json2csv/*": ["json2csv__*"] },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": ["index.d.ts", "json2csv__plainjs-tests.ts"]
+    "files": [
+        "index.d.ts",
+        "json2csv__plainjs-tests.ts"
+    ]
 }

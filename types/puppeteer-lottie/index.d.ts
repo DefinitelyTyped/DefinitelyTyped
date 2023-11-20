@@ -1,9 +1,5 @@
-// Type definitions for puppeteer-lottie 1.1
-// Project: https://github.com/transitive-bullshit/puppeteer-lottie
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { Browser, LaunchOptions } from 'puppeteer';
-import { SVGRendererConfig, CanvasRendererConfig, HTMLRendererConfig } from 'lottie-web';
+import { CanvasRendererConfig, HTMLRendererConfig, SVGRendererConfig } from "lottie-web";
+import { Browser, LaunchOptions } from "puppeteer";
 
 /**
  * Renders the given Lottie animation via Puppeteer.
@@ -64,7 +60,7 @@ declare namespace renderLottie {
          * Which lottie-web renderer to use
          * @default 'svg'
          */
-        renderer?: 'svg' | 'canvas' | 'html' | undefined;
+        renderer?: "svg" | "canvas" | "html" | undefined;
 
         /**
          * Optional lottie renderer settings
@@ -148,18 +144,19 @@ declare namespace renderLottie {
      */
     interface FFmpegOptions {
         crf?: number | undefined;
-        profileVideo?: 'baseline' | 'main' | 'high' | 'high10' | 'high422' | 'high444' | undefined;
+        profileVideo?: "baseline" | "main" | "high" | "high10" | "high422" | "high444" | undefined;
         preset?:
-            | 'ultrafast'
-            | 'superfast'
-            | 'veryfast'
-            | 'faster'
-            | 'fast'
-            | 'medium'
-            | 'slow'
-            | 'slower'
-            | 'veryslow'
-            | 'placebo' | undefined;
+            | "ultrafast"
+            | "superfast"
+            | "veryfast"
+            | "faster"
+            | "fast"
+            | "medium"
+            | "slow"
+            | "slower"
+            | "veryslow"
+            | "placebo"
+            | undefined;
     }
 }
 

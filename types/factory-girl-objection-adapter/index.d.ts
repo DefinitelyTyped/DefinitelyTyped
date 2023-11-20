@@ -1,8 +1,3 @@
-// Type definitions for factory-girl 5.0
-// Project: https://github.com/smooth-code/factory-girl-objection-adapter
-// Definitions by: Mike Wu <https://github.com/mkwu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = ObjectionAdapter;
 
 interface ObjectionModelConstructor<T extends { id: unknown }> {
@@ -12,7 +7,7 @@ interface ObjectionModelConstructor<T extends { id: unknown }> {
 
 interface ObjectionQueryBuilder<T extends { id: unknown }> {
     insert(model: T): PromiseLike<T>;
-    deleteById(id: T['id']): PromiseLike<number>;
+    deleteById(id: T["id"]): PromiseLike<number>;
 }
 
 declare class ObjectionAdapter {

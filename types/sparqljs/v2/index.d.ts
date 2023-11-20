@@ -1,18 +1,12 @@
-// Type definitions for sparqljs 2.1
-// Project: https://github.com/RubenVerborgh/SPARQL.js
-// Definitions by: Alexey Morozov <https://github.com/AlexeyMz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 export const Parser: {
-    new (
+    new(
         prefixes?: { [prefix: string]: string },
         baseIRI?: string,
     ): SparqlParser;
 };
 
 export const Generator: {
-    new (options?: GeneratorOptions): SparqlGenerator;
+    new(options?: GeneratorOptions): SparqlGenerator;
 };
 
 export interface GeneratorOptions {
@@ -32,16 +26,16 @@ export type SparqlQuery = Query | Update;
 export type Query = SelectQuery | ConstructQuery | AskQuery | DescribeQuery;
 
 export interface BaseQuery {
-    type: 'query';
+    type: "query";
     base?: string | undefined;
-    prefixes: { [prefix: string]: string; };
+    prefixes: { [prefix: string]: string };
     where?: Pattern[] | undefined;
     values?: ValuePatternRow[] | undefined;
 }
 
 export interface SelectQuery extends BaseQuery {
-    queryType: 'SELECT';
-    variables: Variable[] | ['*'];
+    queryType: "SELECT";
+    variables: Variable[] | ["*"];
     distinct?: boolean | undefined;
     from?: {
         default: string[];
@@ -65,29 +59,29 @@ export interface Ordering {
 }
 
 export interface ConstructQuery extends BaseQuery {
-    queryType: 'CONSTRUCT';
+    queryType: "CONSTRUCT";
     template?: Triple[] | undefined;
 }
 
 export interface AskQuery extends BaseQuery {
-    queryType: 'ASK';
+    queryType: "ASK";
 }
 
 export interface DescribeQuery extends BaseQuery {
-    queryType: 'DESCRIBE';
-    variables: Variable[] | ['*'];
+    queryType: "DESCRIBE";
+    variables: Variable[] | ["*"];
 }
 
 export interface Update {
-    type: 'update';
-    prefixes: { [prefix: string]: string; };
+    type: "update";
+    prefixes: { [prefix: string]: string };
     updates: UpdateOperation[];
 }
 
 export type UpdateOperation = InsertDeleteOperation | ManagementOperation;
 
 export interface InsertDeleteOperation {
-    updateType: 'insert' | 'delete' | 'deletewhere' | 'insertdelete';
+    updateType: "insert" | "delete" | "deletewhere" | "insertdelete";
     graph?: string | undefined;
     insert?: Quads[] | undefined;
     delete?: Quads[] | undefined;
@@ -103,33 +97,33 @@ export type ManagementOperation =
     | ClearDropOperation;
 
 export interface CopyMoveAddOperation {
-    type: 'copy' | 'move' | 'add';
+    type: "copy" | "move" | "add";
     silent: boolean;
     source: GraphOrDefault;
     destination: GraphOrDefault;
 }
 
 export interface LoadOperation {
-    type: 'load';
+    type: "load";
     silent: boolean;
     source: string;
     destination: string | false;
 }
 
 export interface CreateOperation {
-    type: 'create';
+    type: "create";
     silent: boolean;
     graph: string;
 }
 
 export interface ClearDropOperation {
-    type: 'clear' | 'drop';
+    type: "clear" | "drop";
     silent: boolean;
     graph: GraphReference;
 }
 
 export interface GraphOrDefault {
-    type: 'graph';
+    type: "graph";
     name?: string | undefined;
     default?: boolean | undefined;
 }
@@ -164,49 +158,49 @@ export type Pattern =
  * Basic Graph Pattern
  */
 export interface BgpPattern {
-    type: 'bgp';
+    type: "bgp";
     triples: Triple[];
 }
 
 export interface GraphQuads {
-    type: 'graph';
+    type: "graph";
     name: Term;
     triples: Triple[];
 }
 
 export interface BlockPattern {
-    type: 'optional' | 'union' | 'group' | 'minus' | 'graph' | 'service';
+    type: "optional" | "union" | "group" | "minus" | "graph" | "service";
     patterns: Pattern[];
 }
 
 export interface GroupPattern extends BlockPattern {
-    type: 'group';
+    type: "group";
 }
 
 export interface GraphPattern extends BlockPattern {
-    type: 'graph';
+    type: "graph";
     name: Term;
 }
 
 export interface ServicePattern extends BlockPattern {
-    type: 'service';
+    type: "service";
     name: Term;
     silent: boolean;
 }
 
 export interface FilterPattern {
-    type: 'filter';
+    type: "filter";
     expression: Expression;
 }
 
 export interface BindPattern {
-    type: 'bind';
+    type: "bind";
     expression: Expression;
     variable: Term;
 }
 
 export interface ValuesPattern {
-    type: 'values';
+    type: "values";
     values: ValuePatternRow[];
 }
 
@@ -220,7 +214,7 @@ export interface ValuePatternRow {
  *
  * Term is a nominal type based on string.
  */
-export type Term = string & { __termBrand: string; };
+export type Term = string & { __termBrand: string };
 
 export interface Triple {
     subject: Term;
@@ -229,8 +223,8 @@ export interface Triple {
 }
 
 export interface PropertyPath {
-    type: 'path';
-    pathType: '|' | '/' | '^' | '+' | '*' | '!';
+    type: "path";
+    pathType: "|" | "/" | "^" | "+" | "*" | "!";
     items: Array<PropertyPath | Term>;
 }
 
@@ -252,19 +246,19 @@ export interface BaseExpression {
 }
 
 export interface OperationExpression extends BaseExpression {
-    type: 'operation';
+    type: "operation";
     operator: string;
     args: Expression[];
 }
 
 export interface FunctionCallExpression extends BaseExpression {
-    type: 'functionCall';
+    type: "functionCall";
     function: string;
     args: Expression[];
 }
 
 export interface AggregateExpression extends BaseExpression {
-    type: 'aggregate';
+    type: "aggregate";
     expression: Expression;
     aggregation: string;
     separator?: string | undefined;

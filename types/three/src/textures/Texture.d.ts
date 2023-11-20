@@ -1,7 +1,7 @@
-import { Vector2 } from './../math/Vector2.js';
-import { Matrix3 } from './../math/Matrix3.js';
+import { Vector2 } from '../math/Vector2.js';
+import { Matrix3 } from '../math/Matrix3.js';
 import { Source } from './Source.js';
-import { EventDispatcher } from './../core/EventDispatcher.js';
+import { EventDispatcher } from '../core/EventDispatcher.js';
 import {
     Mapping,
     Wrapping,
@@ -38,7 +38,7 @@ export interface OffscreenCanvas extends EventTarget {}
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/Texture | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/Textures/Texture.js | Source}
  */
-export class Texture extends EventDispatcher {
+export class Texture extends EventDispatcher<{ dispose: {} }> {
     /**
      * This creates a new {@link THREE.Texture | Texture} object.
      * @param image See {@link Texture.image | .image}. Default {@link THREE.Texture.DEFAULT_IMAGE}
@@ -201,8 +201,8 @@ export class Texture extends EventDispatcher {
 
     /**
      * These define how elements of a 2D texture, or texels, are read by shaders.
-     * @remarks All {@link Texture} types except {@link THREE.DeepTexture} and {@link THREE.CompressedPixelFormat} expect the _values_ be {@link THREE.PixelFormat}
-     * @remarks {@link DeepTexture} expect the _values_ be {@link THREE.CubeTextureMapping}
+     * @remarks All {@link Texture} types except {@link THREE.DepthTexture} and {@link THREE.CompressedPixelFormat} expect the _values_ be {@link THREE.PixelFormat}
+     * @remarks {@link DepthTexture} expect the _values_ be {@link THREE.CubeTextureMapping}
      * @remarks {@link CompressedPixelFormat} expect the _values_ be {@link THREE.CubeTextureMapping}
      * @see {@link https://threejs.org/docs/index.html#api/en/constants/Textures | Texture Constants}
      * @see {@link THREE.PixelFormat}

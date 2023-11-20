@@ -1,18 +1,7 @@
-// Type definitions for passport-oauth2 1.4
-// Project: https://github.com/jaredhanson/passport-oauth2#readme
-// Definitions by: Pasi Eronen <https://github.com/pasieronen>
-//                 Wang Zishi <https://github.com/WangZishi>
-//                 Eduardo AC <https://github.com/EduardoAC>
-//                 Ivan Fernandes <https://github.com/ivan94>
-//                 Daphne Smit <https://github.com/daphnesmit>
-//                 Joel Klint <https://github.com/JoelKlint>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import { Request } from 'express';
-import { Strategy } from 'passport';
-import { OAuth2 } from 'oauth';
-import { OutgoingHttpHeaders } from 'http';
+import { Request } from "express";
+import { OutgoingHttpHeaders } from "http";
+import { OAuth2 } from "oauth";
+import { Strategy } from "passport";
 
 declare class OAuth2Strategy extends Strategy {
     name: string;
@@ -58,28 +47,28 @@ declare namespace OAuth2Strategy {
     type VerifyFunction<TProfile = any, TResults = any> =
         | ((accessToken: string, refreshToken: string, profile: TProfile, verified: VerifyCallback) => void)
         | ((
-              accessToken: string,
-              refreshToken: string,
-              results: TResults,
-              profile: TProfile,
-              verified: VerifyCallback,
-          ) => void);
+            accessToken: string,
+            refreshToken: string,
+            results: TResults,
+            profile: TProfile,
+            verified: VerifyCallback,
+        ) => void);
     type VerifyFunctionWithRequest<TProfile = any, TResults = any> =
         | ((
-              req: Request,
-              accessToken: string,
-              refreshToken: string,
-              profile: TProfile,
-              verified: VerifyCallback,
-          ) => void)
+            req: Request,
+            accessToken: string,
+            refreshToken: string,
+            profile: TProfile,
+            verified: VerifyCallback,
+        ) => void)
         | ((
-              req: Request,
-              accessToken: string,
-              refreshToken: string,
-              results: TResults,
-              profile: TProfile,
-              verified: VerifyCallback,
-          ) => void);
+            req: Request,
+            accessToken: string,
+            refreshToken: string,
+            results: TResults,
+            profile: TProfile,
+            verified: VerifyCallback,
+        ) => void);
 
     interface _StrategyOptionsBase {
         authorizationURL: string;

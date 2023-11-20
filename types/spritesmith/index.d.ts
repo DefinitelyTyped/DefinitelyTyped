@@ -1,16 +1,13 @@
-// Type definitions for spritesmith 3.4
-// Project: https://github.com/twolfson/spritesmith
-// Definitions by: Zenoo <https://github.com/Zenoo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Transform } from 'stream';
-import { BufferFile } from 'vinyl';
+import { Transform } from "stream";
+import { BufferFile } from "vinyl";
 
 declare class Spritesmith {
     constructor(params?: Spritesmith.SpritesmithParams);
     static run(
-        params: Spritesmith.SpritesmithParams &
-            Spritesmith.SpritesmithProcessImagesOptions & {
+        params:
+            & Spritesmith.SpritesmithParams
+            & Spritesmith.SpritesmithProcessImagesOptions
+            & {
                 src: Spritesmith.SpritesmithCreateImagesSrc;
             },
         callback: (err: Error | null, result: Spritesmith.SpritesmithResult) => void,
@@ -41,12 +38,12 @@ declare namespace Spritesmith {
     interface SpritesmithProcessImagesOptions {
         padding?: number;
         exportOpts?: {
-            format?: 'png' | 'jpg' | 'jpeg' | 'webp';
+            format?: "png" | "jpg" | "jpeg" | "webp";
             quality?: number;
             background?: string;
             [key: string]: unknown;
         };
-        algorithm?: 'top-down' | 'left-right' | 'diagonal' | 'alt-diagonal' | 'binary-tree';
+        algorithm?: "top-down" | "left-right" | "diagonal" | "alt-diagonal" | "binary-tree";
         algorithmOpts?: {
             sort?: boolean;
         };

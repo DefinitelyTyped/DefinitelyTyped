@@ -27,12 +27,14 @@ export interface BokehShaderUniforms {
 }
 
 export const BokehShader: {
+    name: string;
     uniforms: BokehShaderUniforms;
     vertexShader: string;
     fragmentShader: string;
 };
 
 export const BokehDepthShader: {
+    name: string;
     uniforms: {
         mNear: IUniform;
         mFar: IUniform;

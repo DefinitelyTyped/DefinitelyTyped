@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/ember-cli-fastboot",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/ember-fastboot/ember-cli-fastboot"
+    ],
+    "dependencies": {
+        "@types/ember__service": "*"
+    },
+    "devDependencies": {
+        "@types/ember-cli-fastboot": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Henry Majoros",
+            "githubUsername": "hmajoros"
+        },
+        {
+            "name": "Dan Freeman",
+            "githubUsername": "dfreeman"
+        },
+        {
+            "name": "Chris Krycho",
+            "githubUsername": "chriskrycho"
+        },
+        {
+            "name": "James C. Davis",
+            "githubUsername": "jamescdavis"
+        }
+    ]
+}

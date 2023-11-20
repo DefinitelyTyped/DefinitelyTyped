@@ -1,26 +1,21 @@
-// Type definitions for @wordpress/rich-text 6.4
-// Project: https://github.com/WordPress/gutenberg/tree/master/packages/rich-text/README.md
-// Definitions by: Derek Sifford <https://github.com/dsifford>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.6
-
-import { create, Format, Value } from './create';
-import { ComponentType } from 'react';
-import { dispatch, select, StoreDescriptor } from '@wordpress/data';
+import { dispatch, select, StoreDescriptor } from "@wordpress/data";
+import { ComponentType } from "react";
+import { create, Format, Value } from "./create";
 
 export { create, Format, Value };
-export * from './component';
+export * from "./component";
 
-declare module '@wordpress/data' {
-    function dispatch(key: 'core/rich-text'): typeof import('./store/actions');
-    function select(key: 'core/rich-text'): typeof import('./store/selectors');
+declare module "@wordpress/data" {
+    function dispatch(key: "core/rich-text"): typeof import("./store/actions");
+    function select(key: "core/rich-text"): typeof import("./store/selectors");
 }
 
 export interface RichTextStoreDescriptor extends StoreDescriptor {
-    name: 'core/rich-text';
+    name: "core/rich-text";
 }
 
-declare module '@wordpress/rich-text' {
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
+declare module "@wordpress/rich-text" {
     const store: RichTextStoreDescriptor;
 }
 
@@ -231,7 +226,7 @@ export function removeFormat(value: Value, formatType: string, startIndex?: numb
 export function replace(
     value: Value,
     pattern: string | RegExp,
-    replacement: ((match: string, ...args: any[]) => string) | string
+    replacement: ((match: string, ...args: any[]) => string) | string,
 ): Value;
 
 /**

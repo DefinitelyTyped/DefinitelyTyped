@@ -1,8 +1,3 @@
-// Type definitions for node-openload 2.2
-// Project: https://github.com/saschazar21/node-openload#readme
-// Definitions by: Sascha Zarhuber <https://github.com/saschazar21>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * The model for the base config object needed for the Openload constructor
  */

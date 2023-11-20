@@ -1,20 +1,13 @@
-// Type definitions for imapflow 1.0
-// Project: https://imapflow.com/
-// Definitions by: Jeffrey Ratton <https://github.com/jeffreyratton98>
-//                 Martin Badin <https://github.com/martin-badin>
-//                 Northern Star <https://github.com/grayson-code>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { EventEmitter } from 'stream';
+import { EventEmitter } from "stream";
 
-export type Readable = import('stream').Readable;
+export type Readable = import("stream").Readable;
 
 export class ImapFlow extends EventEmitter {
     constructor(options: ImapFlowOptions);
     authenticated: string | boolean;
-    capabilities: Map<string, (boolean|number)>;
+    capabilities: Map<string, (boolean | number)>;
     emitLogs: boolean;
     enabled: Set<string>;
     id: string;
@@ -37,7 +30,7 @@ export class ImapFlow extends EventEmitter {
     download(
         range: SequenceString,
         part?: string,
-        options?: { uid?: boolean; maxBytes?: number, chunkSize?: number },
+        options?: { uid?: boolean; maxBytes?: number; chunkSize?: number },
     ): Promise<DownloadObject>;
 
     getMailboxLock(path: string, options?: null | { readonly?: boolean }): Promise<MailboxLockObject>;
@@ -50,8 +43,8 @@ export class ImapFlow extends EventEmitter {
      * @see {@link https://imapflow.com/module-imapflow-ImapFlow.html#list}
      */
     list(options?: {
-        statusQuery?: StatusQuery,
-        specialUseHints?: SpecialUseHints,
+        statusQuery?: StatusQuery;
+        specialUseHints?: SpecialUseHints;
     }): Promise<ListResponse[]>;
 
     listTree(): Promise<ListTreeResponse>;
@@ -309,7 +302,7 @@ export interface IdInfoObject {
     version?: string;
     os?: string;
     vendor?: string;
-    ' support-url '?: string;
+    " support-url "?: string;
     date?: Date;
 }
 

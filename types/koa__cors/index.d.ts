@@ -1,11 +1,4 @@
-// Type definitions for @koa/cors 4.0
-// Project: https://github.com/koajs/cors
-// Definitions by: Xavier Stouder <https://github.com/Xstoudi>
-//                 Steven McDowall <https://github.com/sjmcdowall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import * as Koa from 'koa';
+import * as Koa from "koa";
 
 export = cors;
 

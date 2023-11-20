@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/gulp-sass",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/dlmanning/gulp-sass"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/node-sass": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-sass": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Asana",
+            "url": "https://asana.com"
+        },
+        {
+            "name": "Yuma Hashimoto",
+            "githubUsername": "yuma84"
+        }
+    ]
+}

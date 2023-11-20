@@ -1,16 +1,7 @@
-// Type definitions for passport-github2 1.2
-// Project: https://github.com/cfsghost/passport-github
-// Definitions by: Yasunori Ohoka <https://github.com/yasupeke>
-//                 Maarten Mulders <https://github.com/mthmulders>
-//                 Christoph Werner <https://github.com/codepunkt>
-//                 Ivan Fernandes <https://github.com/ivan94>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import passport = require('passport');
-import oauth2 = require('passport-oauth2');
-import express = require('express');
-import { OutgoingHttpHeaders } from 'http';
+import passport = require("passport");
+import oauth2 = require("passport-oauth2");
+import express = require("express");
+import { OutgoingHttpHeaders } from "http";
 
 export interface Profile extends passport.Profile {
     profileUrl: string;
@@ -30,11 +21,12 @@ export interface StrategyOption extends passport.AuthenticateOptions {
     customHeaders?: OutgoingHttpHeaders | undefined;
     userProfileURL?: string | undefined;
     userEmailURL?: string | undefined;
+    allRawEmails?: boolean | undefined;
 }
 
 export type OAuth2StrategyOptionsWithoutRequiredURLs = Pick<
     oauth2._StrategyOptionsBase,
-    Exclude<keyof oauth2._StrategyOptionsBase , 'authorizationURL' | 'tokenURL'>
+    Exclude<keyof oauth2._StrategyOptionsBase, "authorizationURL" | "tokenURL">
 >;
 
 export interface _StrategyOptionsBase extends OAuth2StrategyOptionsWithoutRequiredURLs {
@@ -52,6 +44,7 @@ export interface _StrategyOptionsBase extends OAuth2StrategyOptionsWithoutRequir
     customHeaders?: OutgoingHttpHeaders | undefined;
     userProfileURL?: string | undefined;
     userEmailURL?: string | undefined;
+    allRawEmails?: boolean | undefined;
 }
 
 export interface StrategyOptions extends _StrategyOptionsBase {

@@ -1,5 +1,5 @@
-import { VectorTile, VectorTileFeature, VectorTileLayer } from '@mapbox/vector-tile';
-import Pbf = require('pbf');
+import { VectorTile, VectorTileFeature, VectorTileLayer } from "@mapbox/vector-tile";
+import Pbf = require("pbf");
 
 const pbf = new Pbf(new ArrayBuffer(8));
 
@@ -13,7 +13,7 @@ const vtf = new VectorTileFeature();
 // $ExpectType number
 vtf.extent;
 
-// $ExpectType 1 | 2 | 3 || 2 | 1 | 3
+// $ExpectType 0 | 1 | 2 | 3 || 0 | 2 | 1 | 3
 vtf.type;
 
 // $ExpectType number

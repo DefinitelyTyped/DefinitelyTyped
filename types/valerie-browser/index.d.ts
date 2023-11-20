@@ -1,17 +1,9 @@
-// Type definitions for non-npm package valerie
-// Project: https://github.com/smagreen/valerie
-// Definitions by: Howard Richards <https://github.com/conficient>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="knockout" />
 
 /**
- *
  * Extensions to KO functions to provide validation
  *
  * Version 1.2 - added more static methods to valerie object
- *
  */
 interface KnockoutObservable<T> {
     // starts validation for observable
@@ -24,7 +16,9 @@ interface KnockoutComputed<T> {
 }
 
 interface KnockoutObservableArray<T> {
-    validate(validationOptions?: Valerie.ValidationOptions): Valerie.PropertyValidationState<KnockoutObservableArray<T>>;
+    validate(
+        validationOptions?: Valerie.ValidationOptions,
+    ): Valerie.PropertyValidationState<KnockoutObservableArray<T>>;
 }
 
 interface KnockoutObservableArrayFunctions<T> {
@@ -42,8 +36,8 @@ interface KnockoutObservableArrayFunctions<T> {
 }
 
 /**
-* Valerie BindingHandlers
-*/
+ * Valerie BindingHandlers
+ */
 interface KnockoutBindingHandlers {
     /**
      * Validates entries that can be checked, i.e. check boxes and radio buttons.
@@ -134,7 +128,7 @@ interface KnockoutBindingHandlers {
      * </ul>
      * @name ko.bindingHandlers.validationCss
      */
-    validationCss: KnockoutBindingHandler
+    validationCss: KnockoutBindingHandler;
 
     /**
      * Makes the element behave like a validation message for the chosen property or model:
@@ -229,9 +223,11 @@ declare namespace Valerie {
          * model property is unwrapped, the result of which determines if the property is included in the destination model
          * @return {*} the destination model
          */
-        mapModel(sourceModel: any,
+        mapModel(
+            sourceModel: any,
             includeWrappedFunction?: IncludePropertyCallback,
-            includeUnwrappedFunction?: IncludePropertyCallback): any;
+            includeUnwrappedFunction?: IncludePropertyCallback,
+        ): any;
 
         /**
          * Makes the passed-in model validatable. After invocation the model will have a validation state.
@@ -266,11 +262,9 @@ declare namespace Valerie {
         utils: UtilsStatic;
 
         validationState: ValidationState;
-
     }
 
     interface ValidationResultStatic {
-
         passedInstance: ValidationResult;
 
         // static method to create validatio failed message
@@ -279,15 +273,12 @@ declare namespace Valerie {
 
     // Contains converters, always singletons.
     interface ConvertersStatic {
-
-        //TODO: other converters to be added
+        // TODO: other converters to be added
 
         passThrough: Valerie.IConverter;
     }
 
-
     interface UtilsStatic {
-
         // Creates a function that returns the given value as an array of one item, or simply returns the given value if it is already an array.
         asArray<T>(value: any): any[];
 
@@ -313,12 +304,11 @@ declare namespace Valerie {
         // Tests whether the give value is a string.
         isString(value: any): boolean;
 
-        //Merges the given default options with the given options.
+        // Merges the given default options with the given options.
         //  - either parameter can be omitted and a clone of the other parameter will be returned
         //  - the merge is shallow
         //  - array properties are shallow cloned
-        mergeOptions(defaultOptions: ValidationOptions, options:any): ValidationOptions;
-
+        mergeOptions(defaultOptions: ValidationOptions, options: any): ValidationOptions;
     }
 
     // callback interface (see mapModel above)
@@ -332,11 +322,11 @@ declare namespace Valerie {
         new: (model: any, options?: ModelValidationStateOptions) => ModelValidationState;
 
         model: any;
-        options?: ModelValidationStateOptions | undefined
+        options?: ModelValidationStateOptions | undefined;
 
         // methods
 
-         /**
+        /**
          * Adds validation states to this validation state.<br/>
          * <i>[fluent]</i>
          * @name valerie.ModelValidationState#addValidationStates
@@ -403,13 +393,12 @@ declare namespace Valerie {
 
         result(): ValidationResult;
 
-        summary(): summaryItem[]
+        summary(): summaryItem[];
 
         /***
          * Gets or sets whether the model has been 'touched' by user action
          */
         touched(value: boolean): boolean;
-
 
         validationStates(): IValidationState[];
 
@@ -454,20 +443,20 @@ declare namespace Valerie {
         stopValidatingSubModel(validatableSubModel: any): ModelValidationState;
 
         /**
-        * Updates the static summary of validation states that are in a failure state.<br/>
-        * <i>[fluent]</i>
-        * @fluent
-        * @param {boolean} [updateSubModelSummaries = false] whether to update the static summaries for sub-models
-        * @return {valerie.ModelValidationState}
-        */
+         * Updates the static summary of validation states that are in a failure state.<br/>
+         * <i>[fluent]</i>
+         * @fluent
+         * @param {boolean} [updateSubModelSummaries = false] whether to update the static summaries for sub-models
+         * @return {valerie.ModelValidationState}
+         */
         updateSummary(updateSubModelSummaries: boolean): ModelValidationState;
 
         /**
-        * Adds the validation states for all the descendant properties and sub-models that belong to the model.<br/>
-        * <i>[fluent]</i>
-        * @fluent
-        * @return {valerie.ModelValidationState}
-        */
+         * Adds the validation states for all the descendant properties and sub-models that belong to the model.<br/>
+         * <i>[fluent]</i>
+         * @fluent
+         * @return {valerie.ModelValidationState}
+         */
         validateAll(): ModelValidationState;
 
         /**
@@ -493,7 +482,6 @@ declare namespace Valerie {
          * @return {valerie.ModelValidationState}
          */
         validateChildPropertiesAndSubModels(): ModelValidationState;
-
 
         /**
          * Ends a chain of fluent method calls on this model validation state.
@@ -556,7 +544,11 @@ declare namespace Valerie {
         lengthBetween(shortest: number, longest: number, options?: ValidationOptions): PropertyValidationState<T>;
         lengthBetween(shortest: number, longest: () => number, options?: ValidationOptions): PropertyValidationState<T>;
         lengthBetween(shortest: () => number, longest: number, options?: ValidationOptions): PropertyValidationState<T>;
-        lengthBetween(shortest: () => number, longest: () => number, options?: ValidationOptions): PropertyValidationState<T>;
+        lengthBetween(
+            shortest: () => number,
+            longest: () => number,
+            options?: ValidationOptions,
+        ): PropertyValidationState<T>;
         matches(permitted: any, options?: ValidationOptions): PropertyValidationState<T>;
         matches(permitted: () => any, options?: ValidationOptions): PropertyValidationState<T>;
 
@@ -580,11 +572,19 @@ declare namespace Valerie {
 
         not(forbiddenValueOrFunction: any, options?: ValidationOptions): PropertyValidationState<T>;
         number(): PropertyValidationState<T>;
-        numberOfItems(minimumValueOrFunction: any, maximumValueOrFunction: any, options?: ValidationOptions): PropertyValidationState<T>;
+        numberOfItems(
+            minimumValueOrFunction: any,
+            maximumValueOrFunction: any,
+            options?: ValidationOptions,
+        ): PropertyValidationState<T>;
         oneOf(permittedValues: any[], options?: ValidationOptions): PropertyValidationState<T>;
         oneOf(permittedValues: () => any[], options?: ValidationOptions): PropertyValidationState<T>;
         postcode(): PropertyValidationState<T>;
-        range(minimumValueOrFunction: any, maximumValueOrFunction: any, options?: ValidationOptions): PropertyValidationState<T>;
+        range(
+            minimumValueOrFunction: any,
+            maximumValueOrFunction: any,
+            options?: ValidationOptions,
+        ): PropertyValidationState<T>;
         required(valueOrFunction?: any): PropertyValidationState<T>;
         rule(testFunction: () => any): PropertyValidationState<T>;
         ruleMessage(failureMessageFormat: string): PropertyValidationState<T>;
@@ -606,17 +606,17 @@ declare namespace Valerie {
         passed(): boolean;
         pending(): boolean;
         showMessage(): boolean;
-        touched(): boolean;               // get touched state
+        touched(): boolean; // get touched state
         touched(value: boolean): boolean; // set touched state
         result(): ValidationResult;
     }
 
     interface ValidationResult {
         state: any; // the result state
-        failed: boolean;    //true if the activity failed validation
-        passed: boolean;    //true if the activity passed validation
-        pending: boolean;    //true if the activity hasn't yet completed
-        message: string;    //a message from the activity
+        failed: boolean; // true if the activity failed validation
+        passed: boolean; // true if the activity passed validation
+        pending: boolean; // true if the activity hasn't yet completed
+        message: string; // a message from the activity
         new: (state: any, message?: string) => ValidationResult;
     }
 
@@ -645,22 +645,22 @@ declare namespace Valerie {
     }
 
     interface ValidationOptions {
-        applicable? (): any;  // the function used to determine if the property is applicable
-        converter?: IConverter | undefined;  // the converter used to parse user entries and format display of the property's value
-        entryFormat?: string | undefined;  // the string used to format the property's value for display in a user entry
-        excludeFromSummary?: boolean | undefined;  // whether any validation failures for this property are excluded from a summary
-        invalidFailureMessage?: string | undefined;  // the message shown when the user has entered an invalid value
-        missingFailureMessage?: string | undefined;  // the message shown when a value is required but is missing
-        name?: (() => any) | undefined;  // the function used to determine the name of the property; used in failure messages
-        required?: (() => any) | undefined;  // the function used to determine if a value is required
-        rules?: any; //Valerie.array.<IRule>;  // the chain of rules used to validate the property's value
-        valueFormat?: string | undefined;  // the string use to format the property's value for display in a message
+        applicable?(): any; // the function used to determine if the property is applicable
+        converter?: IConverter | undefined; // the converter used to parse user entries and format display of the property's value
+        entryFormat?: string | undefined; // the string used to format the property's value for display in a user entry
+        excludeFromSummary?: boolean | undefined; // whether any validation failures for this property are excluded from a summary
+        invalidFailureMessage?: string | undefined; // the message shown when the user has entered an invalid value
+        missingFailureMessage?: string | undefined; // the message shown when a value is required but is missing
+        name?: (() => any) | undefined; // the function used to determine the name of the property; used in failure messages
+        required?: (() => any) | undefined; // the function used to determine if a value is required
+        rules?: any; // Valerie.array.<IRule>;  // the chain of rules used to validate the property's value
+        valueFormat?: string | undefined; // the string use to format the property's value for display in a message
     }
 
     // The interface for a converter, a pair of functions: format and parse, which work in tandem on a single type of value.
     interface IConverter {
         format: (value: any, format?: string) => string; // Formats the given value as a string.
-        parse: (value: string) => any; //Parses the given string as a particular value type.
+        parse: (value: string) => any; // Parses the given string as a particular value type.
     }
 
     // A helper for parsing and formatting numeric values.
@@ -672,10 +672,12 @@ declare namespace Valerie {
         format(value: number, format: string): string;
 
         // Initialises the helper
-        init(decimalSeparator: string,
+        init(
+            decimalSeparator: string,
             thousandsSeparator: string,
             currencySign: string,
-            currencyMinorUnitPlaces: number): NumericHelper;
+            currencyMinorUnitPlaces: number,
+        ): NumericHelper;
 
         // Informs whether the given numeric string represents a currency value with major units only.
         isCurrencyMajor(numericString: string): boolean;
@@ -698,10 +700,12 @@ declare namespace Valerie {
 
     interface ValidationState {
         // Finds and returns the validation states
-        findIn(model: any,
+        findIn(
+            model: any,
             includeSubModels?: boolean,
             recurse?: boolean,
-            validationStates?: IValidationState[]): IValidationState[];
+            validationStates?: IValidationState[],
+        ): IValidationState[];
 
         // Gets the validation state for the given model, observable or computed.
         getFor(modelOrObservableOrComputed: any): IValidationState;

@@ -1,11 +1,3 @@
-// Type definitions for non-npm package Tampermonkey 4.20
-// Project: https://tampermonkey.net
-// Definitions by: Steven Wang <https://github.com/silverwzw>
-//                 Nikolay Borzov <https://github.com/nikolay-borzov>
-//                 taozhiyu <https://github.com/taozhiyu>
-//                 double-beep <https://github.com/double-beep>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // This definition is based on the API reference of Tampermonkey
 // https://tampermonkey.net/documentation.php
 // TypeScript Version: 3.3
@@ -73,7 +65,7 @@ declare namespace Tampermonkey {
     type RequestEventListener<TResponse> = (this: TResponse, response: TResponse) => void;
 
     interface Request<TContext = object> {
-        method?: 'GET' | 'HEAD' | 'POST';
+        method?: "GET" | "HEAD" | "POST";
         /** The destination URL */
         url: string;
         /**
@@ -84,7 +76,7 @@ declare namespace Tampermonkey {
         /** String to send via a POST request */
         data?: string;
         /** Controls what to happen when a redirect is detected (build 6180+, enforces fetch mode). */
-        redirect?: 'follow' | 'error' | 'manual';
+        redirect?: "follow" | "error" | "manual";
         /** A cookie to be patched into the sent cookie set */
         cookie?: string;
         /** Send the data string in binary mode */
@@ -97,7 +89,7 @@ declare namespace Tampermonkey {
         timeout?: number;
         /** Property which will be added to the response object */
         context?: TContext;
-        responseType?: 'arraybuffer' | 'blob' | 'json' | 'stream';
+        responseType?: "arraybuffer" | "blob" | "json" | "stream";
         /** MIME type for the request */
         overrideMimeType?: string;
         /** Don't send cookies with the requests (enforces `fetch` mode) */
@@ -150,7 +142,7 @@ declare namespace Tampermonkey {
          * - `not_succeeded` - the download wasn't started or failed, the
          * details attribute may provide more information
          */
-        error: 'not_enabled' | 'not_whitelisted' | 'not_permitted' | 'not_supported' | 'not_succeeded';
+        error: "not_enabled" | "not_whitelisted" | "not_permitted" | "not_supported" | "not_succeeded";
         /** Detail about that error */
         details?: string;
     }
@@ -187,7 +179,7 @@ declare namespace Tampermonkey {
          * [this link](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/downloads/FilenameConflictAction)
          * for more details.
          */
-        conflictAction?: 'uniquify' | 'overwrite' | 'prompt';
+        conflictAction?: "uniquify" | "overwrite" | "prompt";
         /** A function to call if the download fails or is cancelled. */
         onerror?: RequestEventListener<DownloadErrorResponse>;
         /** A callback to be executed if this download failed due to a timeout. */
@@ -237,6 +229,12 @@ declare namespace Tampermonkey {
         text?: string;
         /** The title of the notification. If not specified the script name is used. */
         title?: string;
+        /**
+         * This tag will be used to identify this notification. This way you can update existing notifications
+         * by calling `GM_notification` again and using the same tag. If you don't provide a tag,
+         * a new notification will be created every time.
+         */
+        tag?: string;
         /** The URL of an image to display in the notification. */
         image?: string;
         /** Flag whether to highlight the tab that sends the notification. */
@@ -248,6 +246,11 @@ declare namespace Tampermonkey {
          * should automatically close. `0` = disabled.
          */
         timeout?: number;
+        /**
+         * A URL to load when the user clicks on the notification. You can prevent loading the URL
+         * by calling `event.preventDefault()` in the `onclick` event handler.
+         */
+        url?: string;
         /**
          * Called when the notification is closed (no matter if this was
          * triggered by a timeout or a click) or the tab was highlighted.
@@ -331,12 +334,12 @@ declare namespace Tampermonkey {
 
     interface WebRequestRule {
         selector: {
-            include?: string | string[],
-            match?: string | string[],
-            exclude?: string | string[]
+            include?: string | string[];
+            match?: string | string[];
+            exclude?: string | string[];
         } | string;
         action: string | {
-            cancel?: boolean,
+            cancel?: boolean;
             redirect?: {
                 url: string;
                 from?: string;
@@ -383,7 +386,7 @@ declare namespace Tampermonkey {
         /**
          * Never null, defaults to document-idle
          */
-        'run-at': string;
+        "run-at": string;
 
         supportURL: string | null;
         sync?: {
@@ -398,11 +401,11 @@ declare namespace Tampermonkey {
     }
 
     interface ScriptInfo {
-        downloadMode: 'native' | 'browser' | 'disabled';
+        downloadMode: "native" | "browser" | "disabled";
         isFirstPartyIsolation?: boolean;
         isIncognito: boolean;
         script: ScriptMetadata;
-        sandboxMode: 'js' | 'raw' | 'dom';
+        sandboxMode: "js" | "raw" | "dom";
 
         /**
          * In tampermonkey it's "Tampermonkey"
@@ -440,7 +443,7 @@ declare namespace Tampermonkey {
          * Specifies to do with the request.
          * String value `cancel` is shortening for `{ cancel: true }`.
          */
-        action: 'cancel' | {
+        action: "cancel" | {
             /** Whether to cancel the request. */
             cancel?: boolean;
             /**
@@ -459,8 +462,8 @@ declare namespace Tampermonkey {
 
     type WebRequestListener = (
         /** The type of the action. */
-        info: 'cancel' | 'redirect',
-        message: 'ok' | 'error',
+        info: "cancel" | "redirect",
+        message: "ok" | "error",
         /** Info about the request and rule. */
         details: {
             /** The triggered rule */
@@ -471,7 +474,7 @@ declare namespace Tampermonkey {
             redirect_url?: string;
             /** Error description. */
             description?: string;
-        }
+        },
     ) => void;
 
     // GM_cookie.*
@@ -556,36 +559,36 @@ declare namespace Tampermonkey {
  * The unsafeWindow object provides full access to the pages JavaScript
  * functions and variables
  */
-declare var unsafeWindow: Window &
-    Omit<
+declare var unsafeWindow:
+    & Window
+    & Omit<
         typeof globalThis,
-        | 'GM_addElement'
-        | 'GM_addStyle'
-        | 'GM_addValueChangeListener'
-        | 'GM_deleteValue'
-        | 'GM_download'
-        | 'GM_getResourceText'
-        | 'GM_getResourceURL'
-        | 'GM_getTab'
-        | 'GM_getTabs'
-        | 'GM_getValue'
-        | 'GM_info'
-        | 'GM_listValues'
-        | 'GM_log'
-        | 'GM_notification'
-        | 'GM_openInTab'
-        | 'GM_registerMenuCommand'
-        | 'GM_removeValueChangeListener'
-        | 'GM_saveTab'
-        | 'GM_setClipboard'
-        | 'GM_setValue'
-        | 'GM_unregisterMenuCommand'
-        | 'GM_xmlhttpRequest'
-        | 'GM'
+        | "GM_addElement"
+        | "GM_addStyle"
+        | "GM_addValueChangeListener"
+        | "GM_deleteValue"
+        | "GM_download"
+        | "GM_getResourceText"
+        | "GM_getResourceURL"
+        | "GM_getTab"
+        | "GM_getTabs"
+        | "GM_getValue"
+        | "GM_info"
+        | "GM_listValues"
+        | "GM_log"
+        | "GM_notification"
+        | "GM_openInTab"
+        | "GM_registerMenuCommand"
+        | "GM_removeValueChangeListener"
+        | "GM_saveTab"
+        | "GM_setClipboard"
+        | "GM_setValue"
+        | "GM_unregisterMenuCommand"
+        | "GM_xmlhttpRequest"
+        | "GM"
     >;
 
 /**
- *
  * Patched onurlchange attribute based on document {@link https://www.tampermonkey.net/documentation.php#meta:grant}
  * @url https://www.tampermonkey.net/documentation.php#meta:grant
  */
@@ -645,7 +648,7 @@ declare function GM_addElement(tagName: string, attributes: object): HTMLElement
 declare function GM_addElement(
     parentNode: Element,
     tagName: string,
-    attributes: object
+    attributes: object,
 ): HTMLElement;
 
 // Styles
@@ -743,9 +746,15 @@ declare function GM_getResourceURL(name: string): string;
 declare function GM_registerMenuCommand(
     name: string,
     onClick: (
-        event: MouseEvent | KeyboardEvent
+        event: MouseEvent | KeyboardEvent,
     ) => void,
     optionsOrAccessKey?: string | {
+        /**
+         * An optional number that was returned by a previous `GM_registerMenuCommand` call.
+         * If specified, the according menu item will be updated with the new options.
+         * If not specified or the menu item can't be found, a new menu item will be created.
+         */
+        id?: number;
         /**
          * An optional access key for the menu item. This can be used to create a shortcut for the menu item.
          * For example, if the access key is "s", the user can select the menu item by pressing "s"
@@ -764,7 +773,7 @@ declare function GM_registerMenuCommand(
          * as a tooltip when the user hovers the mouse over the menu item.
          */
         title?: string;
-    }
+    },
 ): number;
 
 /**
@@ -784,8 +793,8 @@ declare function GM_unregisterMenuCommand(menuCommandId: number): void;
  * @param details An object containing the details of the request to be sent
  *                and the callback functions to be called when the response is received.
  */
-declare function GM_xmlhttpRequest<TContext = any>(
-    details: Tampermonkey.Request<TContext>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+declare function GM_xmlhttpRequest<TContext = any>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
+    details: Tampermonkey.Request<TContext>,
 ): Tampermonkey.AbortHandle<void>;
 
 /**
@@ -835,8 +844,8 @@ declare function GM_getTabs(
          * The `tabsMap` object that is passed to the callback function contains objects,
          * with each object representing the saved tab information stored by `GM_saveTab`.
          */
-        tabsMap: { [tabId: number]: any }
-    ) => void
+        tabsMap: { [tabId: number]: any },
+    ) => void,
 ): void;
 
 // Utils
@@ -874,12 +883,15 @@ declare function GM_log(...message: any[]): void;
  */
 declare function GM_openInTab(
     url: string,
-    options?: Tampermonkey.OpenTabOptions | boolean
+    options?: Tampermonkey.OpenTabOptions | boolean,
 ): Tampermonkey.OpenTabObject;
 
 /**
  * Shows an HTML5 Desktop notification and/or highlight the current tab
  * using a provided message and other optional parameters.
+ *
+ * Since v5.0, if no `url` and no `tag` is provided in `details` argument, the notification will close
+ * when the userscript unloads (e.g. when the page is reloaded or the tab is closed).
  * @url https://www.tampermonkey.net/documentation.php#api:GM_notification
  * @param details Notification parameters.
  * @param ondone A callback function that will be called when the notification is closed
@@ -932,7 +944,7 @@ declare function GM_setClipboard(data: string, info?: Tampermonkey.ContentType):
  */
 declare function GM_webRequest(
     rules: Tampermonkey.WebRequestRuleParam[],
-    listener?: Tampermonkey.WebRequestListener
+    listener?: Tampermonkey.WebRequestListener,
 ): Tampermonkey.AbortHandle<void>;
 
 // GM_cookie.*
@@ -955,7 +967,7 @@ declare var GM_cookie: {
      */
     list(
         details?: Tampermonkey.ListCookiesDetails,
-        callback?: Tampermonkey.ListCookiesCallback
+        callback?: Tampermonkey.ListCookiesCallback,
     ): void;
 
     /**
@@ -975,8 +987,8 @@ declare var GM_cookie: {
              * If there was an error setting the cookie, this contains
              * an error message. Otherwise, it is `undefined`.
              */
-            error?: string
-        ) => void
+            error?: string,
+        ) => void,
     ): void;
 
     /**
@@ -992,8 +1004,8 @@ declare var GM_cookie: {
         details: AtLeastOneOf<Tampermonkey.DeleteCookiesDetails>,
         callback?: (
             /** An error message, or `undefined` if the cookie was deleted successfully. */
-            error?: string
-        ) => void
+            error?: string,
+        ) => void,
     ): void;
 };
 

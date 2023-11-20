@@ -1,8 +1,3 @@
-// Type definitions for multiselect 0.9
-// Project: https://github.com/lou/multi-select
-// Definitions by: nagamejun <https://github.com/nagamejun>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="jquery" />
 
 type Options = Partial<{
@@ -27,10 +22,10 @@ interface AddOption {
     nested?: string | undefined;
 }
 
-type Method = 'select_all' | 'deselect_all' | 'refresh';
+type Method = "select_all" | "deselect_all" | "refresh";
 
 interface JQuery {
     multiSelect(methodOrOptions?: Method | Options): JQuery;
-    multiSelect(method: 'addOption', addOption: AddOption): JQuery;
-    multiSelect(method: 'select' | 'deselect', options?: string | any[]): JQuery;
+    multiSelect(method: "addOption", addOption: AddOption): JQuery;
+    multiSelect(method: "select" | "deselect", options?: string | any[]): JQuery;
 }

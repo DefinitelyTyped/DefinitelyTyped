@@ -1,11 +1,6 @@
-// Type definitions for nsqjs 0.12
-// Project: https://github.com/dudleycarr/nsqjs
-// Definitions by: Robert Kania <https://github.com/cezaryrk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import * as events from 'events';
+import * as events from "events";
 
 export class Message extends events.EventEmitter {
     static BACKOFF: string;
@@ -50,9 +45,18 @@ export class Writer extends events.EventEmitter {
 
     connect(): void;
 
-    publish(topic: string, msgs: string|Buffer|object|string[]|Buffer[]|object[], callback?: (err?: Error) => void): void;
+    publish(
+        topic: string,
+        msgs: string | Buffer | object | string[] | Buffer[] | object[],
+        callback?: (err?: Error) => void,
+    ): void;
 
-    deferPublish(topic: string, msgs: string|Buffer|object|string[]|Buffer[]|object[], timeMs: number, callback?: (err?: Error) => void): void;
+    deferPublish(
+        topic: string,
+        msgs: string | Buffer | object | string[] | Buffer[] | object[],
+        timeMs: number,
+        callback?: (err?: Error) => void,
+    ): void;
 
     close(): void;
 

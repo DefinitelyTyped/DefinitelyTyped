@@ -1,9 +1,3 @@
-// Type definitions for clean-css v3.4.9
-// Project: https://github.com/jakubpawlowicz/clean-css
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
 declare namespace CleanCSS {
     interface Options {
         // Set to false to disable advanced optimizations - selector & property merging, reduction, etc.
@@ -102,7 +96,10 @@ declare namespace CleanCSS {
 
 declare class CleanCSS {
     constructor(options?: CleanCSS.Options);
-    minify(sources: string | Array<string> | Object, callback?: (error: any, minified: CleanCSS.Output) => void): CleanCSS.Output;
+    minify(
+        sources: string | Array<string> | Object,
+        callback?: (error: any, minified: CleanCSS.Output) => void,
+    ): CleanCSS.Output;
 }
 
 export = CleanCSS;

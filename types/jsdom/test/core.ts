@@ -1,13 +1,13 @@
 import {
-    JSDOM,
-    VirtualConsole,
-    CookieJar,
     BaseOptions,
-    FileOptions,
-    DOMWindow,
-    ResourceLoader,
-    FetchOptions,
     ConstructorOptions,
+    CookieJar,
+    DOMWindow,
+    FetchOptions,
+    FileOptions,
+    JSDOM,
+    ResourceLoader,
+    VirtualConsole,
 } from "jsdom";
 import { CookieJar as ToughCookieJar, MemoryCookieStore } from "tough-cookie";
 import { Script } from "vm";
@@ -211,32 +211,32 @@ function test_resource_loader_return_type(resourceLoader: ResourceLoader) {
 }
 
 function test_createElementDirectTypes() {
-    const dom = new JSDOM('');
+    const dom = new JSDOM("");
 
     const document = dom.window.document;
 
-    document.createElement('hr'); // $ExpectType HTMLHRElement
-    document.createElement('br'); // $ExpectType HTMLBRElement
-    document.createElement('body'); // $ExpectType HTMLBodyElement
-    document.createElement('head'); // $ExpectType HTMLHeadElement
-    document.createElement('meta'); // $ExpectType HTMLMetaElement
-    document.createElement('html'); // $ExpectType HTMLHtmlElement
-    document.createElement('ul'); // $ExpectType HTMLUListElement
-    document.createElement('ol'); // $ExpectType HTMLOListElement
-    document.createElement('li'); // $ExpectType HTMLLIElement
-    document.createElement('h1'); // $ExpectType HTMLHeadingElement
-    document.createElement('div'); // $ExpectType HTMLDivElement
-    document.createElement('p'); // $ExpectType HTMLParagraphElement
-    document.createElement('pre'); // $ExpectType HTMLPreElement
-    document.createElement('somethingcustom'); // $ExpectType HTMLElement
+    document.createElement("hr"); // $ExpectType HTMLHRElement
+    document.createElement("br"); // $ExpectType HTMLBRElement
+    document.createElement("body"); // $ExpectType HTMLBodyElement
+    document.createElement("head"); // $ExpectType HTMLHeadElement
+    document.createElement("meta"); // $ExpectType HTMLMetaElement
+    document.createElement("html"); // $ExpectType HTMLHtmlElement
+    document.createElement("ul"); // $ExpectType HTMLUListElement
+    document.createElement("ol"); // $ExpectType HTMLOListElement
+    document.createElement("li"); // $ExpectType HTMLLIElement
+    document.createElement("h1"); // $ExpectType HTMLHeadingElement
+    document.createElement("div"); // $ExpectType HTMLDivElement
+    document.createElement("p"); // $ExpectType HTMLParagraphElement
+    document.createElement("pre"); // $ExpectType HTMLPreElement
+    document.createElement("somethingcustom"); // $ExpectType HTMLElement
 }
 
 function test_supported_contenttypes() {
-    new JSDOM('', { contentType: 'application/xhtml+xml' });
-    new JSDOM('', { contentType: 'application/xml' });
-    new JSDOM('', { contentType: 'text/xml' });
-    new JSDOM('', { contentType: 'text/html' });
-    new JSDOM('', { contentType: 'image/svg+xml' });
+    new JSDOM("", { contentType: "application/xhtml+xml" });
+    new JSDOM("", { contentType: "application/xml" });
+    new JSDOM("", { contentType: "text/xml" });
+    new JSDOM("", { contentType: "text/html" });
+    new JSDOM("", { contentType: "image/svg+xml" });
     // @ts-expect-error Only the supported types are possible
-    new JSDOM('', { contentType: 'somethingelse' });
+    new JSDOM("", { contentType: "somethingelse" });
 }

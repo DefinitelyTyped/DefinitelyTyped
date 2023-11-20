@@ -1,15 +1,3 @@
-// Type definitions for koa-router 7.4
-// Project: https://github.com/alexmingoia/koa-router#readme
-// Definitions by: Jerry Chin <https://github.com/hellopao>
-//                 Pavel Ivanov <https://github.com/schfkt>
-//                 JounQin <https://github.com/JounQin>
-//                 Romain Faust <https://github.com/romain-faust>
-//                 Guillaume Mayer <https://github.com/Guillaume-Mayer>
-//                 Andrea Gueugnaut <https://github.com/falinor>
-//                 Yves Kaufmann <https://github.com/yveskaufmann>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /* =================== USAGE ===================
 
     import * as Router from "koa-router";
@@ -519,7 +507,6 @@ declare class Router<StateT = any, CustomT = {}> {
      *
      * router.url('user', { id: 3 }, { query: "limit=1" });
      * // => "/users/3?limit=1"
-     *
      */
     url(name: string, params: any, options?: Router.IUrlOptionsQuery): string;
     url(name: string, params: any, options?: Router.IUrlOptionsQuery): Error;

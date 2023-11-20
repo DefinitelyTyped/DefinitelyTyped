@@ -10,8 +10,8 @@ var options = {
         addPath: "/locales/{{lng}}/{{ns}}.missing.json",
 
         // jsonIndent to use when storing json files
-        jsonIndent: 2
-    }
+        jsonIndent: 2,
+    },
 };
 
 i18next.use(Backend).init(options);
@@ -31,7 +31,7 @@ var parseOptions = {
         parse: (data: any) => {
             return data;
         },
-    }
+    },
 };
 
 i18next.use(Backend).init({ backend: parseOptions });

@@ -1,12 +1,7 @@
-// Type definitions for react-google-picker 0.1
-// Project: https://github.com/sdoomz/react-google-picker
-// Definitions by: Evan Broder <https://github.com/ebroder>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="gapi" />
 /// <reference types="google.picker" />
 
-import * as React from 'react';
+import * as React from "react";
 
 export interface GooglePickerProps {
     clientId: string;

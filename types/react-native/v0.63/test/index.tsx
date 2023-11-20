@@ -11,17 +11,17 @@ The content of index.io.js could be something like
 For a list of complete Typescript examples: check https://github.com/bgrieder/RNTSExplorer
 */
 
-import * as PropTypes from 'prop-types';
-import * as React from 'react';
+import * as PropTypes from "prop-types";
+import * as React from "react";
 import {
-    ART,
     AccessibilityInfo,
     ActionSheetIOS,
-    AsyncStorage,
     Alert,
+    Appearance,
     AppState,
     AppStateStatus,
-    Appearance,
+    ART,
+    AsyncStorage,
     BackHandler,
     Button,
     CheckBox,
@@ -29,13 +29,14 @@ import {
     ColorValue,
     DataSourceAssetCallback,
     DatePickerAndroid,
-    DevSettings,
     DeviceEventEmitter,
     DeviceEventEmitterStatic,
+    DevSettings,
     Dimensions,
     DrawerLayoutAndroid,
     DrawerSlideEvent,
     DynamicColorIOS,
+    findNodeHandle,
     FlatList,
     FlatListProps,
     GestureResponderEvent,
@@ -76,10 +77,12 @@ import {
     PushNotificationIOS,
     RefreshControl,
     RegisteredStyle,
+    requireNativeComponent,
     ScaledSize,
     ScrollView,
     ScrollViewProps,
     SectionList,
+    SectionListData,
     SectionListProps,
     SectionListRenderItemInfo,
     Share,
@@ -89,8 +92,8 @@ import {
     StyleProp,
     StyleSheet,
     Switch,
-    SwitchIOS,
     SwitchChangeEvent,
+    SwitchIOS,
     Systrace,
     TabBarIOS,
     Text,
@@ -107,24 +110,21 @@ import {
     TextProps,
     TextStyle,
     TimePickerAndroid,
+    ToastAndroid,
+    Touchable,
     TouchableNativeFeedback,
     UIManager,
+    useColorScheme,
+    useWindowDimensions,
     View,
     ViewPagerAndroid,
     ViewPropTypes,
     ViewStyle,
     VirtualizedList,
     YellowBox,
-    findNodeHandle,
-    requireNativeComponent,
-    useColorScheme,
-    useWindowDimensions,
-    SectionListData,
-    ToastAndroid,
-    Touchable,
-} from 'react-native';
+} from "react-native";
 
-declare module 'react-native' {
+declare module "react-native" {
     interface NativeTypedModule {
         someFunction(): void;
         someProperty: string;
@@ -137,28 +137,28 @@ declare module 'react-native' {
 NativeModules.NativeUntypedModule;
 
 NativeModules.NativeTypedModule.someFunction();
-NativeModules.NativeTypedModule.someProperty = '';
+NativeModules.NativeTypedModule.someProperty = "";
 
 function dimensionsListener(dimensions: { window: ScaledSize; screen: ScaledSize }) {
-    console.log('window dimensions: ', dimensions.window);
-    console.log('screen dimensions: ', dimensions.screen);
+    console.log("window dimensions: ", dimensions.window);
+    console.log("screen dimensions: ", dimensions.screen);
 }
 
 function testDimensions() {
-    const { width, height, scale, fontScale } = Dimensions.get(1 === 1 ? 'window' : 'screen');
+    const { width, height, scale, fontScale } = Dimensions.get(1 === 1 ? "window" : "screen");
 
-    Dimensions.addEventListener('change', dimensionsListener);
-    Dimensions.removeEventListener('change', dimensionsListener);
+    Dimensions.addEventListener("change", dimensionsListener);
+    Dimensions.removeEventListener("change", dimensionsListener);
 }
 
 function TextUseWindowDimensions() {
     const { width, height, scale, fontScale } = useWindowDimensions();
 }
 
-BackHandler.addEventListener('hardwareBackPress', () => true).remove();
-BackHandler.addEventListener('hardwareBackPress', () => false).remove();
-BackHandler.addEventListener('hardwareBackPress', () => undefined).remove();
-BackHandler.addEventListener('hardwareBackPress', () => null).remove();
+BackHandler.addEventListener("hardwareBackPress", () => true).remove();
+BackHandler.addEventListener("hardwareBackPress", () => false).remove();
+BackHandler.addEventListener("hardwareBackPress", () => undefined).remove();
+BackHandler.addEventListener("hardwareBackPress", () => null).remove();
 
 interface LocalStyles {
     container: ViewStyle;
@@ -169,57 +169,57 @@ interface LocalStyles {
 const styles = StyleSheet.create<LocalStyles>({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#F5FCFF",
     },
     welcome: {
         fontSize: 20,
-        textAlign: 'center',
+        textAlign: "center",
         margin: 10,
     },
     instructions: {
-        textAlign: 'center',
-        color: '#333333',
+        textAlign: "center",
+        color: "#333333",
         marginBottom: 5,
     },
 });
 
-//alternative declaration of styles (inline typings)
+// alternative declaration of styles (inline typings)
 const stylesAlt = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#F5FCFF",
     },
     welcome: {
         fontSize: 20,
-        textAlign: 'center',
+        textAlign: "center",
         margin: 10,
     },
     instructions: {
-        textAlign: 'center',
-        color: '#333333',
+        textAlign: "center",
+        color: "#333333",
         marginBottom: 5,
     },
 });
 
-StyleSheet.setStyleAttributePreprocessor('fontFamily', (family: string) => family);
+StyleSheet.setStyleAttributePreprocessor("fontFamily", (family: string) => family);
 
 const welcomeFontSize = StyleSheet.flatten(styles.welcome).fontSize;
 
 const viewStyle: StyleProp<ViewStyle> = {
-    backgroundColor: '#F5FCFF',
+    backgroundColor: "#F5FCFF",
 };
 const textStyle: StyleProp<TextStyle> = {
     fontSize: 20,
 };
 const imageStyle: StyleProp<ImageStyle> = {
-    resizeMode: 'contain',
+    resizeMode: "contain",
 };
 const fontVariantStyle: StyleProp<TextStyle> = {
-    fontVariant: ['tabular-nums'],
+    fontVariant: ["tabular-nums"],
 };
 
 const viewProperty = StyleSheet.flatten(viewStyle).backgroundColor;
@@ -234,7 +234,7 @@ const { top } = flattenStyle;
 
 const s = StyleSheet.create({
     shouldWork: {
-        fontWeight: '900', // if we comment this line, errors gone
+        fontWeight: "900", // if we comment this line, errors gone
         marginTop: 5, // if this line commented, errors also gone
     },
 });
@@ -243,12 +243,12 @@ const f1: TextStyle = s.shouldWork;
 // StyleSheet.compose
 // It creates a new style object by composing two existing styles
 const composeTextStyle: StyleProp<TextStyle> = {
-    color: '#000000',
+    color: "#000000",
     fontSize: 20,
 };
 
 const composeImageStyle: StyleProp<ImageStyle> = {
-    resizeMode: 'contain',
+    resizeMode: "contain",
 };
 
 // The following use of the compose method is valid
@@ -358,7 +358,7 @@ class Welcome extends React.Component<ElementProps<View> & { color: string }> {
                 <Text style={styles.welcome}>Welcome to React Native</Text>
                 <Text style={styles.instructions}>To get started, edit index.ios.js</Text>
                 <Text style={styles.instructions}>
-                    Press Cmd+R to reload,{'\n'}
+                    Press Cmd+R to reload,{"\n"}
                     Cmd+D or shake for dev menu
                 </Text>
                 <CustomView ref="customView" />
@@ -374,7 +374,7 @@ function TouchableTest() {
     function basicUsage() {
         if (Touchable.TOUCH_TARGET_DEBUG) {
             return Touchable.renderDebugView({
-                color: 'mediumspringgreen',
+                color: "mediumspringgreen",
                 hitSlop: { bottom: 5, top: 5 },
             });
         }
@@ -382,7 +382,7 @@ function TouchableTest() {
 
     function defaultHitSlop() {
         return Touchable.renderDebugView({
-            color: 'red',
+            color: "red",
         });
     }
 }
@@ -399,37 +399,37 @@ export class TouchableNativeFeedbackTest extends React.Component {
         return (
             <>
                 <TouchableNativeFeedback onPress={this.onPressButton}>
-                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                    <View style={{ width: 150, height: 100, backgroundColor: "red" }}>
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>
                 </TouchableNativeFeedback>
-                <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('red', true)}>
-                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple("red", true)}>
+                    <View style={{ width: 150, height: 100, backgroundColor: "red" }}>
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>
                 </TouchableNativeFeedback>
-                <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple('red', true, 30)}>
-                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple("red", true, 30)}>
+                    <View style={{ width: 150, height: 100, backgroundColor: "red" }}>
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>
                 </TouchableNativeFeedback>
                 <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground()}>
-                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                    <View style={{ width: 150, height: 100, backgroundColor: "red" }}>
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>
                 </TouchableNativeFeedback>
                 <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground(30)}>
-                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                    <View style={{ width: 150, height: 100, backgroundColor: "red" }}>
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>
                 </TouchableNativeFeedback>
                 <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackgroundBorderless()}>
-                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                    <View style={{ width: 150, height: 100, backgroundColor: "red" }}>
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>
                 </TouchableNativeFeedback>
                 <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackgroundBorderless(30)}>
-                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                    <View style={{ width: 150, height: 100, backgroundColor: "red" }}>
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>
                 </TouchableNativeFeedback>
@@ -451,8 +451,8 @@ export class PressableTest extends React.Component<{}> {
     render() {
         return (
             <>
-                <Pressable ref={this.myRef} onPress={this.onPressButton} style={{ backgroundColor: 'blue' }}>
-                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                <Pressable ref={this.myRef} onPress={this.onPressButton} style={{ backgroundColor: "blue" }}>
+                    <View style={{ width: 150, height: 100, backgroundColor: "red" }}>
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>
                 </Pressable>
@@ -460,10 +460,10 @@ export class PressableTest extends React.Component<{}> {
                 <Pressable
                     onPress={this.onPressButton}
                     style={state => ({
-                        backgroundColor: state.pressed ? 'red' : 'blue',
+                        backgroundColor: state.pressed ? "red" : "blue",
                     })}
                 >
-                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                    <View style={{ width: 150, height: 100, backgroundColor: "red" }}>
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>
                 </Pressable>
@@ -471,32 +471,33 @@ export class PressableTest extends React.Component<{}> {
                 <Pressable
                     onPress={this.onPressButton}
                     style={state => ({
-                        backgroundColor: state.pressed ? 'red' : 'blue',
+                        backgroundColor: state.pressed ? "red" : "blue",
                     })}
                 >
                     {state =>
-                        state.pressed ? (
-                            <View>
-                                <Text>Pressed</Text>
-                            </View>
-                        ) : (
-                            <View>
-                                <Text>Not Pressed</Text>
-                            </View>
-                        )
-                    }
+                        state.pressed
+                            ? (
+                                <View>
+                                    <Text>Pressed</Text>
+                                </View>
+                            )
+                            : (
+                                <View>
+                                    <Text>Not Pressed</Text>
+                                </View>
+                            )}
                 </Pressable>
                 {/* Android Ripple */}
                 <Pressable
                     android_ripple={{
                         borderless: true,
-                        color: 'green',
+                        color: "green",
                         radius: 20,
                     }}
                     onPress={this.onPressButton}
-                    style={{ backgroundColor: 'blue' }}
+                    style={{ backgroundColor: "blue" }}
                 >
-                    <View style={{ width: 150, height: 100, backgroundColor: 'red' }}>
+                    <View style={{ width: 150, height: 100, backgroundColor: "red" }}>
                         <Text style={{ margin: 30 }}>Button</Text>
                     </View>
                 </Pressable>
@@ -507,21 +508,21 @@ export class PressableTest extends React.Component<{}> {
 
 // App State
 function appStateListener(state: string) {
-    console.log('New state: ' + state);
+    console.log("New state: " + state);
 }
 
 function appStateTest() {
-    console.log('Current state: ' + AppState.currentState);
-    AppState.addEventListener('change', appStateListener);
-    AppState.addEventListener('blur', appStateListener);
-    AppState.addEventListener('focus', appStateListener);
+    console.log("Current state: " + AppState.currentState);
+    AppState.addEventListener("change", appStateListener);
+    AppState.addEventListener("blur", appStateListener);
+    AppState.addEventListener("focus", appStateListener);
 }
 
-let appState: AppStateStatus = 'active';
-appState = 'background';
-appState = 'inactive';
-appState = 'unknown';
-appState = 'extension';
+let appState: AppStateStatus = "active";
+appState = "background";
+appState = "inactive";
+appState = "unknown";
+appState = "extension";
 
 // ViewPagerAndroid
 export class ViewPagerAndroidTest {
@@ -530,7 +531,7 @@ export class ViewPagerAndroidTest {
             <ViewPagerAndroid
                 style={{ height: 56 }}
                 initialPage={0}
-                keyboardDismissMode={'on-drag'}
+                keyboardDismissMode={"on-drag"}
                 onPageScroll={e => {
                     console.log(`position: ${e.nativeEvent.position}`);
                     console.log(`offset: ${e.nativeEvent.offset}`);
@@ -543,12 +544,12 @@ export class ViewPagerAndroidTest {
     }
 }
 
-const profiledJSONParse = Systrace.measure('JSON', 'parse', JSON.parse);
-profiledJSONParse('[]');
+const profiledJSONParse = Systrace.measure("JSON", "parse", JSON.parse);
+profiledJSONParse("[]");
 
 InteractionManager.runAfterInteractions(() => {
     // ...
-}).then(() => 'done');
+}).then(() => "done");
 
 export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
     list: FlatList<any> | null = null;
@@ -562,7 +563,7 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
     _renderItem = (rowData: any) => {
         return (
             <View>
-                <Text> {rowData.item} </Text>
+                <Text>{rowData.item}</Text>
             </View>
         );
     };
@@ -570,7 +571,7 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
         return <View>{children}</View>;
     };
 
-    _renderSeparator = () => <View style={{ height: 1, width: '100%', backgroundColor: 'gray' }} />;
+    _renderSeparator = () => <View style={{ height: 1, width: "100%", backgroundColor: "gray" }} />;
 
     render() {
         return (
@@ -580,9 +581,9 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
                 renderItem={this._renderItem}
                 ItemSeparatorComponent={this._renderSeparator}
                 ListFooterComponent={null}
-                ListFooterComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
+                ListFooterComponentStyle={[{ padding: 8 }, [{ backgroundColor: "transparent" }]]}
                 ListHeaderComponent={null}
-                ListHeaderComponentStyle={[{ padding: 8 }, [{ backgroundColor: 'transparent' }]]}
+                ListHeaderComponentStyle={[{ padding: 8 }, [{ backgroundColor: "transparent" }]]}
                 CellRendererComponent={this._cellRenderer}
                 fadingEdgeLength={200}
             />
@@ -605,12 +606,12 @@ export class SectionListTest extends React.Component<SectionListProps<string>, {
     render() {
         const sections = [
             {
-                title: 'Section 1',
-                data: ['A', 'B', 'C', 'D', 'E'],
+                title: "Section 1",
+                data: ["A", "B", "C", "D", "E"],
             },
             {
-                title: 'Section 2',
-                data: ['A2', 'B2', 'C2', 'D2', 'E2'],
+                title: "Section 2",
+                data: ["A2", "B2", "C2", "D2", "E2"],
                 renderItem: (info: { item: string }) => (
                     <View>
                         <Text>{info.item}</Text>
@@ -666,12 +667,12 @@ export class SectionListTypedSectionTest extends React.Component<SectionListProp
         const sections: SectionListData<string, SectionT>[] = [
             {
                 displayTitle: false,
-                data: ['A', 'B', 'C', 'D', 'E'],
+                data: ["A", "B", "C", "D", "E"],
             },
             {
                 displayTitle: true,
-                title: 'Section 2',
-                data: ['A2', 'B2', 'C2', 'D2', 'E2'],
+                title: "Section 2",
+                data: ["A2", "B2", "C2", "D2", "E2"],
                 renderItem: (info: { item: string }) => (
                     <View>
                         <Text>{info.item}</Text>
@@ -694,11 +695,13 @@ export class SectionListTypedSectionTest extends React.Component<SectionListProp
                     renderSectionHeader={({ section }) => {
                         section; // $ExpectType SectionListData<string, SectionT>
 
-                        return section.displayTitle ? (
-                            <View>
-                                <Text>{section.title}</Text>
-                            </View>
-                        ) : null;
+                        return section.displayTitle
+                            ? (
+                                <View>
+                                    <Text>{section.title}</Text>
+                                </View>
+                            )
+                            : null;
                     }}
                     renderItem={info => {
                         info; // $ExpectType SectionListRenderItemInfo<string, SectionT>
@@ -722,7 +725,7 @@ export class SectionListTypedSectionTest extends React.Component<SectionListProp
 
 export class CapsLockComponent extends React.Component<TextProps> {
     render() {
-        const content = (this.props.children || '') as string;
+        const content = (this.props.children || "") as string;
         return <Text {...this.props}>{content.toUpperCase()}</Text>;
     }
 }
@@ -730,13 +733,13 @@ export class CapsLockComponent extends React.Component<TextProps> {
 const getInitialUrlTest = () =>
     Linking.getInitialURL().then(val => {
         if (val !== null) {
-            val.indexOf('val is now a string');
+            val.indexOf("val is now a string");
         }
     });
 
 LogBox.ignoreAllLogs();
 LogBox.ignoreAllLogs(true);
-LogBox.ignoreLogs(['someString', /^aRegex/]);
+LogBox.ignoreLogs(["someString", /^aRegex/]);
 LogBox.install();
 LogBox.uninstall();
 
@@ -765,7 +768,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
     render() {
         const scrollViewStyle1 = StyleSheet.create({
             scrollView: {
-                backgroundColor: 'red',
+                backgroundColor: "red",
             },
         });
         const scrollViewStyle2 = {
@@ -776,7 +779,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                 dataSource={this.state.dataSource}
                 renderScrollComponent={props => {
                     if (props.scrollEnabled) {
-                        throw new Error('Expected scroll to be enabled.');
+                        throw new Error("Expected scroll to be enabled.");
                     }
 
                     return (
@@ -840,12 +843,12 @@ class TabBarTest extends React.Component {
 class AlertTest extends React.Component {
     showAlert() {
         Alert.alert(
-            'Title',
-            'Message',
+            "Title",
+            "Message",
             [
-                { text: 'First button', onPress: () => {} },
-                { text: 'Second button', onPress: () => {} },
-                { text: 'Third button', onPress: () => {} },
+                { text: "First button", onPress: () => {} },
+                { text: "Second button", onPress: () => {} },
+                { text: "Third button", onPress: () => {} },
             ],
             {
                 cancelable: false,
@@ -860,29 +863,29 @@ class AlertTest extends React.Component {
 }
 
 Alert.prompt(
-    'Enter password',
-    'Enter your password to claim your $1.5B in lottery winnings',
+    "Enter password",
+    "Enter your password to claim your $1.5B in lottery winnings",
     text => {
         console.log(text);
     },
-    'secure-text',
+    "secure-text",
 );
 
 Alert.prompt(
-    'Enter password',
-    'Enter your password to claim your $1.5B in lottery winnings',
+    "Enter password",
+    "Enter your password to claim your $1.5B in lottery winnings",
     [
         {
-            text: 'Cancel',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel',
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel",
         },
         {
-            text: 'OK',
-            onPress: password => console.log('OK Pressed, password: ' + password),
+            text: "OK",
+            onPress: password => console.log("OK Pressed, password: " + password),
         },
     ],
-    'secure-text',
+    "secure-text",
 );
 
 class MaskedViewTest extends React.Component {
@@ -911,7 +914,7 @@ const CheckboxTest = () => (
 
 class InputAccessoryViewTest extends React.Component {
     render() {
-        const uniqueID = 'foobar';
+        const uniqueID = "foobar";
         return (
             <InputAccessoryView nativeID={uniqueID}>
                 <TextInput inputAccessoryViewID={uniqueID} />
@@ -932,14 +935,14 @@ const dataSourceAssetCallback2: DataSourceAssetCallback = {};
 
 // DeviceEventEmitterStatic
 const deviceEventEmitterStatic: DeviceEventEmitterStatic = DeviceEventEmitter;
-deviceEventEmitterStatic.addListener('keyboardWillShow', data => true);
-deviceEventEmitterStatic.addListener('keyboardWillShow', data => true, {});
+deviceEventEmitterStatic.addListener("keyboardWillShow", data => true);
+deviceEventEmitterStatic.addListener("keyboardWillShow", data => true, {});
 
 // NativeEventEmitter - Android
 const androidEventEmitter = new NativeEventEmitter();
-const sub1 = androidEventEmitter.addListener('event', (event: object) => event);
-const sub2 = androidEventEmitter.addListener('event', (event: object) => event, {});
-androidEventEmitter.removeAllListeners('event');
+const sub1 = androidEventEmitter.addListener("event", (event: object) => event);
+const sub2 = androidEventEmitter.addListener("event", (event: object) => event, {});
+androidEventEmitter.removeAllListeners("event");
 androidEventEmitter.removeSubscription(sub1);
 
 // NativeEventEmitter - IOS
@@ -948,15 +951,15 @@ const nativeModule: NativeModule = {
     removeListeners(count: number) {},
 };
 const iosEventEmitter = new NativeEventEmitter(nativeModule);
-const sub3 = androidEventEmitter.addListener('event', (event: object) => event);
-const sub4 = androidEventEmitter.addListener('event', (event: object) => event, {});
-androidEventEmitter.removeAllListeners('event');
+const sub3 = androidEventEmitter.addListener("event", (event: object) => event);
+const sub4 = androidEventEmitter.addListener("event", (event: object) => event, {});
+androidEventEmitter.removeAllListeners("event");
 androidEventEmitter.removeSubscription(sub3);
 
 class CustomEventEmitter extends NativeEventEmitter {}
 
 const customEventEmitter = new CustomEventEmitter();
-customEventEmitter.addListener('event', () => {});
+customEventEmitter.addListener("event", () => {});
 
 class TextInputTest extends React.Component<{}, { username: string }> {
     username: TextInput | null = null;
@@ -1100,9 +1103,9 @@ class TextTest extends React.Component {
 
 class StatusBarTest extends React.Component {
     render() {
-        StatusBar.setBarStyle('dark-content', true);
+        StatusBar.setBarStyle("dark-content", true);
 
-        console.log('height:', StatusBar.currentHeight);
+        console.log("height:", StatusBar.currentHeight);
 
         return <StatusBar backgroundColor="blue" barStyle="light-content" translucent />;
     }
@@ -1110,15 +1113,15 @@ class StatusBarTest extends React.Component {
 
 export class ImageTest extends React.Component {
     componentDidMount(): void {
-        const uri = 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png';
-        const headers = { Authorization: 'Bearer test' };
+        const uri = "https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png";
+        const headers = { Authorization: "Bearer test" };
         const image: ImageResolvedAssetSource = Image.resolveAssetSource({ uri });
         console.log(image.width, image.height, image.scale, image.uri);
 
-        Image.queryCache &&
-            Image.queryCache([uri]).then(({ [uri]: status }) => {
+        Image.queryCache
+            && Image.queryCache([uri]).then(({ [uri]: status }) => {
                 if (status === undefined) {
-                    console.log('Image is not in cache');
+                    console.log("Image is not in cache");
                 } else {
                     console.log(`Image is in ${status} cache`);
                 }
@@ -1142,29 +1145,29 @@ export class ImageTest extends React.Component {
 
     handleOnLoad = (e: NativeSyntheticEvent<ImageLoadEventData>) => {
         testNativeSyntheticEvent(e);
-        console.log('height:', e.nativeEvent.source.height);
-        console.log('width:', e.nativeEvent.source.width);
-        console.log('url:', e.nativeEvent.source.url);
+        console.log("height:", e.nativeEvent.source.height);
+        console.log("width:", e.nativeEvent.source.width);
+        console.log("url:", e.nativeEvent.source.url);
     };
 
     handleOnError = (e: NativeSyntheticEvent<ImageErrorEventData>) => {
         testNativeSyntheticEvent(e);
-        console.log('error:', e.nativeEvent.error);
+        console.log("error:", e.nativeEvent.error);
     };
 
     render() {
-        const resizeMode: ImageResizeMode = 'contain';
+        const resizeMode: ImageResizeMode = "contain";
 
         return (
             <View>
                 <Image
-                    source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+                    source={{ uri: "https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png" }}
                     onLoad={this.handleOnLoad}
                     onError={this.handleOnError}
                 />
 
                 <Image
-                    source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+                    source={{ uri: "https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png" }}
                     resizeMode={resizeMode}
                 />
             </View>
@@ -1183,7 +1186,7 @@ export class ImageBackgroundProps extends React.Component {
         return (
             <View>
                 <ImageBackground
-                    source={{ uri: 'https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png' }}
+                    source={{ uri: "https://seeklogo.com/images/T/typescript-logo-B29A3F462D-seeklogo.com.png" }}
                     imageRef={this.setImageRef}
                 />
             </View>
@@ -1198,7 +1201,7 @@ class AccessibilityTest extends React.Component {
         return (
             <View
                 accessibilityElementsHidden={true}
-                importantForAccessibility={'no-hide-descendants'}
+                importantForAccessibility={"no-hide-descendants"}
                 onAccessibilityTap={() => {}}
                 accessibilityRole="header"
                 accessibilityState={{ checked: true }}
@@ -1219,44 +1222,51 @@ const AccessibilityInfoFetchTest = AccessibilityInfo.fetch().then(isEnabled => {
 });
 
 AccessibilityInfo.isBoldTextEnabled().then(isEnabled =>
-    console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`),
+    console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`)
 );
 AccessibilityInfo.isGrayscaleEnabled().then(isEnabled =>
-    console.log(`AccessibilityInfo.isGrayscaleEnabled => ${isEnabled}`),
+    console.log(`AccessibilityInfo.isGrayscaleEnabled => ${isEnabled}`)
 );
 AccessibilityInfo.isInvertColorsEnabled().then(isEnabled =>
-    console.log(`AccessibilityInfo.isInvertColorsEnabled => ${isEnabled}`),
+    console.log(`AccessibilityInfo.isInvertColorsEnabled => ${isEnabled}`)
 );
 AccessibilityInfo.isReduceMotionEnabled().then(isEnabled =>
-    console.log(`AccessibilityInfo.isReduceMotionEnabled => ${isEnabled}`),
+    console.log(`AccessibilityInfo.isReduceMotionEnabled => ${isEnabled}`)
 );
 AccessibilityInfo.isReduceTransparencyEnabled().then(isEnabled =>
-    console.log(`AccessibilityInfo.isReduceTransparencyEnabled => ${isEnabled}`),
+    console.log(`AccessibilityInfo.isReduceTransparencyEnabled => ${isEnabled}`)
 );
 AccessibilityInfo.isScreenReaderEnabled().then(isEnabled =>
-    console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`),
+    console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`)
 );
 
-AccessibilityInfo.addEventListener('announcementFinished', ({ announcement, success }) =>
-    console.log(`A11y Event: announcementFinished: ${announcement}, ${success}`),
+AccessibilityInfo.addEventListener(
+    "announcementFinished",
+    ({ announcement, success }) => console.log(`A11y Event: announcementFinished: ${announcement}, ${success}`),
 );
-AccessibilityInfo.addEventListener('boldTextChanged', isEnabled =>
-    console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`),
+AccessibilityInfo.addEventListener(
+    "boldTextChanged",
+    isEnabled => console.log(`AccessibilityInfo.isBoldTextEnabled => ${isEnabled}`),
 );
-AccessibilityInfo.addEventListener('grayscaleChanged', isEnabled =>
-    console.log(`AccessibilityInfo.isGrayscaleEnabled => ${isEnabled}`),
+AccessibilityInfo.addEventListener(
+    "grayscaleChanged",
+    isEnabled => console.log(`AccessibilityInfo.isGrayscaleEnabled => ${isEnabled}`),
 );
-AccessibilityInfo.addEventListener('invertColorsChanged', isEnabled =>
-    console.log(`AccessibilityInfo.isInvertColorsEnabled => ${isEnabled}`),
+AccessibilityInfo.addEventListener(
+    "invertColorsChanged",
+    isEnabled => console.log(`AccessibilityInfo.isInvertColorsEnabled => ${isEnabled}`),
 );
-AccessibilityInfo.addEventListener('reduceMotionChanged', isEnabled =>
-    console.log(`AccessibilityInfo.isReduceMotionEnabled => ${isEnabled}`),
+AccessibilityInfo.addEventListener(
+    "reduceMotionChanged",
+    isEnabled => console.log(`AccessibilityInfo.isReduceMotionEnabled => ${isEnabled}`),
 );
-AccessibilityInfo.addEventListener('reduceTransparencyChanged', isEnabled =>
-    console.log(`AccessibilityInfo.isReduceTransparencyEnabled => ${isEnabled}`),
+AccessibilityInfo.addEventListener(
+    "reduceTransparencyChanged",
+    isEnabled => console.log(`AccessibilityInfo.isReduceTransparencyEnabled => ${isEnabled}`),
 );
-AccessibilityInfo.addEventListener('screenReaderChanged', isEnabled =>
-    console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`),
+AccessibilityInfo.addEventListener(
+    "screenReaderChanged",
+    isEnabled => console.log(`AccessibilityInfo.isScreenReaderEnabled => ${isEnabled}`),
 );
 
 const KeyboardAvoidingViewTest = () => <KeyboardAvoidingView enabled />;
@@ -1269,10 +1279,10 @@ const TimePickerAndroidTest = () => {
         hour: 8,
         minute: 15,
         is24Hour: true,
-        mode: 'spinner',
+        mode: "spinner",
     }).then(result => {
         if (result.action === TimePickerAndroid.timeSetAction) {
-            console.log('Time', result.hour, result.minute);
+            console.log("Time", result.hour, result.minute);
         }
     });
 };
@@ -1280,10 +1290,10 @@ const TimePickerAndroidTest = () => {
 const DatePickerAndroidTest = () => {
     DatePickerAndroid.open({
         date: new Date(),
-        mode: 'calendar',
+        mode: "calendar",
     }).then(result => {
         if (result.action === DatePickerAndroid.dateSetAction) {
-            console.log('Date', result.year, result.month, result.day);
+            console.log("Date", result.year, result.month, result.day);
         }
     });
 };
@@ -1295,7 +1305,7 @@ const PickerTest = () => (
     </Picker>
 );
 
-const NativeBridgedComponent = requireNativeComponent<{ nativeProp: string }>('NativeBridgedComponent'); // $ExpectType HostComponent<{ nativeProp: string; }>
+const NativeBridgedComponent = requireNativeComponent<{ nativeProp: string }>("NativeBridgedComponent"); // $ExpectType HostComponent<{ nativeProp: string; }>
 
 class BridgedComponentTest extends React.Component {
     static propTypes = {
@@ -1306,7 +1316,7 @@ class BridgedComponentTest extends React.Component {
     nativeComponentRef: React.ElementRef<typeof NativeBridgedComponent> | null;
 
     callNativeMethod = () => {
-        UIManager.dispatchViewManagerCommand(findNodeHandle(this.nativeComponentRef), 'someNativeMethod', []);
+        UIManager.dispatchViewManagerCommand(findNodeHandle(this.nativeComponentRef), "someNativeMethod", []);
     };
 
     measureNativeComponent() {
@@ -1319,38 +1329,50 @@ class BridgedComponentTest extends React.Component {
 
     render() {
         return (
-            <NativeBridgedComponent {...this.props} nativeProp="test" ref={ref => (this.nativeComponentRef = ref)} />
+            <NativeBridgedComponent
+                {...this.props}
+                nativeProp="test"
+                ref={ref => (this.nativeComponentRef = ref)}
+            />
         );
     }
 }
 
-const SwitchColorTest = () => <Switch trackColor={{ true: 'pink', false: 'red' }} />;
-const SwitchColorOptionalTrueTest = () => <Switch trackColor={{ false: 'red' }} />;
-const SwitchColorOptionalFalseTest = () => <Switch trackColor={{ true: 'pink' }} />;
-const SwitchColorNullTest = () => <Switch trackColor={{ true: 'pink', false: null }} />;
+const SwitchColorTest = () => <Switch trackColor={{ true: "pink", false: "red" }} />;
+const SwitchColorOptionalTrueTest = () => <Switch trackColor={{ false: "red" }} />;
+const SwitchColorOptionalFalseTest = () => <Switch trackColor={{ true: "pink" }} />;
+const SwitchColorNullTest = () => <Switch trackColor={{ true: "pink", false: null }} />;
 
-const SwitchThumbColorTest = () => <Switch thumbColor={'red'} />;
+const SwitchThumbColorTest = () => <Switch thumbColor={"red"} />;
 
-const SwitchOnChangeWithoutParamsTest = () => <Switch onChange={() => console.log('test')} />;
+const SwitchOnChangeWithoutParamsTest = () => <Switch onChange={() => console.log("test")} />;
 const SwitchOnChangeUndefinedTest = () => <Switch onChange={undefined} />;
 const SwitchOnChangeNullTest = () => <Switch onChange={null} />;
-const SwitchOnChangePromiseTest = () => <Switch onChange={(event) => {
-    const e: SwitchChangeEvent = event;
-    return new Promise(() => e.nativeEvent.value);
-}} />;
+const SwitchOnChangePromiseTest = () => (
+    <Switch
+        onChange={(event) => {
+            const e: SwitchChangeEvent = event;
+            return new Promise(() => e.nativeEvent.value);
+        }}
+    />
+);
 
-const SwitchOnValueChangeWithoutParamsTest = () => <Switch onValueChange={() => console.log('test')} />;
+const SwitchOnValueChangeWithoutParamsTest = () => <Switch onValueChange={() => console.log("test")} />;
 const SwitchOnValueChangeUndefinedTest = () => <Switch onValueChange={undefined} />;
 const SwitchOnValueChangeNullTest = () => <Switch onValueChange={null} />;
-const SwitchOnValueChangePromiseTest = () => <Switch onValueChange={(value) => {
-    const v: boolean = value;
-    return new Promise(() => v)
-}} />;
+const SwitchOnValueChangePromiseTest = () => (
+    <Switch
+        onValueChange={(value) => {
+            const v: boolean = value;
+            return new Promise(() => v);
+        }}
+    />
+);
 
 const NativeIDTest = () => (
-    <ScrollView nativeID={'nativeID'}>
-        <View nativeID={'nativeID'} />
-        <Text nativeID={'nativeID'}>Text</Text>
+    <ScrollView nativeID={"nativeID"}>
+        <View nativeID={"nativeID"} />
+        <Text nativeID={"nativeID"}>Text</Text>
     </ScrollView>
 );
 
@@ -1362,11 +1384,11 @@ const MaxFontSizeMultiplierTest = () => <Text maxFontSizeMultiplier={0}>Text</Te
 
 const ShareTest = () => {
     Share.share(
-        { title: 'title', message: 'message' },
-        { dialogTitle: 'dialogTitle', excludedActivityTypes: ['activity'], tintColor: 'red', subject: 'Email subject' },
+        { title: "title", message: "message" },
+        { dialogTitle: "dialogTitle", excludedActivityTypes: ["activity"], tintColor: "red", subject: "Email subject" },
     );
-    Share.share({ title: 'title', url: 'url' });
-    Share.share({ message: 'message' }).then(result => {
+    Share.share({ title: "title", url: "url" });
+    Share.share({ message: "message" }).then(result => {
         if (result.action === Share.sharedAction) {
             const activity = result.activityType;
         } else if (result.action === Share.dismissedAction) {
@@ -1375,7 +1397,7 @@ const ShareTest = () => {
 };
 
 const KeyboardTest = () => {
-    const subscriber = Keyboard.addListener('keyboardDidHide', event => {
+    const subscriber = Keyboard.addListener("keyboardDidHide", event => {
         event;
     });
     subscriber.remove();
@@ -1385,14 +1407,14 @@ const KeyboardTest = () => {
     // Android Keyboard Event
     Keyboard.scheduleLayoutAnimation({
         duration: 0,
-        easing: 'keyboard',
+        easing: "keyboard",
         endCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 },
     });
 
     // IOS Keyboard Event
     Keyboard.scheduleLayoutAnimation({
         duration: 0,
-        easing: 'easeInEaseOut',
+        easing: "easeInEaseOut",
         endCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 },
         startCoordinates: { screenX: 0, screenY: 0, width: 0, height: 0 },
         isEventFromThisApp: true,
@@ -1400,33 +1422,33 @@ const KeyboardTest = () => {
 };
 
 const PermissionsAndroidTest = () => {
-    PermissionsAndroid.request('android.permission.CAMERA').then(result => {
+    PermissionsAndroid.request("android.permission.CAMERA").then(result => {
         switch (result) {
-            case 'granted':
+            case "granted":
                 break;
-            case 'denied':
+            case "denied":
                 break;
-            case 'never_ask_again':
+            case "never_ask_again":
                 break;
         }
     });
 
-    PermissionsAndroid.requestMultiple(['android.permission.CAMERA', 'android.permission.ACCESS_FINE_LOCATION']).then(
+    PermissionsAndroid.requestMultiple(["android.permission.CAMERA", "android.permission.ACCESS_FINE_LOCATION"]).then(
         results => {
-            switch (results['android.permission.CAMERA']) {
-                case 'granted':
+            switch (results["android.permission.CAMERA"]) {
+                case "granted":
                     break;
-                case 'denied':
+                case "denied":
                     break;
-                case 'never_ask_again':
+                case "never_ask_again":
                     break;
             }
-            switch (results['android.permission.ACCESS_FINE_LOCATION']) {
-                case 'granted':
+            switch (results["android.permission.ACCESS_FINE_LOCATION"]) {
+                case "granted":
                     break;
-                case 'denied':
+                case "denied":
                     break;
-                case 'never_ask_again':
+                case "never_ask_again":
                     break;
             }
         },
@@ -1436,15 +1458,15 @@ const PermissionsAndroidTest = () => {
 // Platform
 const PlatformTest = () => {
     switch (Platform.OS) {
-        case 'ios':
+        case "ios":
             if (!Platform.isPad) {
                 return 32;
             } else {
                 return 44;
             }
-        case 'android':
-        case 'macos':
-        case 'windows':
+        case "android":
+        case "macos":
+        case "windows":
             return Platform.isTV ? 64 : 56;
         default:
             return Platform.isTV ? 40 : 44;
@@ -1453,9 +1475,9 @@ const PlatformTest = () => {
 
 const PlatformConstantsTest = () => {
     const testing: boolean = Platform.constants.isTesting;
-    if (Platform.OS === 'ios') {
+    if (Platform.OS === "ios") {
         const hasForceTouch: boolean = Platform.constants.forceTouchAvailable;
-    } else if (Platform.OS === 'android') {
+    } else if (Platform.OS === "android") {
         const { major, prerelease } = Platform.constants.reactNativeVersion;
         const v = Platform.constants.Version;
         const host: string | undefined = Platform.constants.ServerHost;
@@ -1468,17 +1490,17 @@ Platform.select({ android: 1, ios: 2, default: 0 }); // $ExpectType number
 Platform.select({ android: 1, ios: 2, macos: 3, web: 4, windows: 5 }); // $ExpectType number | undefined
 Platform.select({ android: 1, ios: 2, macos: 3, web: 4, windows: 5, default: 0 }); // $ExpectType number
 
-PlatformColor('?attr/colorControlNormal');
-PlatformColor('?attr/colorControlNormal', '?attr/colorAccent', 'another');
+PlatformColor("?attr/colorControlNormal");
+PlatformColor("?attr/colorControlNormal", "?attr/colorAccent", "another");
 
 DynamicColorIOS({
-    dark: 'lightskyblue',
-    light: 'midnightblue',
+    dark: "lightskyblue",
+    light: "midnightblue",
 });
 
 DynamicColorIOS({
-    dark: 'lightskyblue',
-    light: PlatformColor('labelColor'),
+    dark: "lightskyblue",
+    light: PlatformColor("labelColor"),
 });
 
 // Test you cannot set internals of ColorValue directly
@@ -1487,7 +1509,7 @@ const OpaqueTest1 = () => (
         // @ts-expect-error
         style={{
             backgroundColor: {
-                resource_paths: ['?attr/colorControlNormal'],
+                resource_paths: ["?attr/colorControlNormal"],
             },
         }}
     />
@@ -1498,10 +1520,10 @@ const OpaqueTest2 = () => (
         // @ts-expect-error
         style={{
             backgroundColor: {
-                semantic: 'string',
+                semantic: "string",
                 dynamic: {
-                    light: 'light',
-                    dark: 'dark',
+                    light: "light",
+                    dark: "dark",
                 },
             },
         }}
@@ -1510,21 +1532,21 @@ const OpaqueTest2 = () => (
 
 // Test you cannot amend opaque type
 // @ts-expect-error
-PlatformColor('?attr/colorControlNormal').resource_paths.push('foo');
+PlatformColor("?attr/colorControlNormal").resource_paths.push("foo");
 
-const someColorProp: ColorValue = PlatformColor('test');
+const someColorProp: ColorValue = PlatformColor("test");
 
 // Test PlatformColor inside Platform select with stylesheet
 StyleSheet.create({
     labelCell: {
         flex: 1,
-        alignItems: 'stretch',
+        alignItems: "stretch",
         ...Platform.select({
-            ios: { color: DynamicColorIOS({ dark: 'lightskyblue', light: PlatformColor('labelColor') }) },
+            ios: { color: DynamicColorIOS({ dark: "lightskyblue", light: PlatformColor("labelColor") }) },
             android: {
-                color: PlatformColor('?attr/colorControlNormal'),
+                color: PlatformColor("?attr/colorControlNormal"),
             },
-            default: { color: PlatformColor('?attr/colorControlNormal') },
+            default: { color: PlatformColor("?attr/colorControlNormal") },
         }),
     },
 });
@@ -1533,30 +1555,30 @@ StyleSheet.create({
 StyleSheet.create({
     labelCell: {
         flex: 1,
-        alignItems: 'stretch',
-        color: PlatformColor('test'),
-        backgroundColor: PlatformColor('test'),
-        borderBottomColor: PlatformColor('test'),
-        borderColor: PlatformColor('test'),
-        borderEndColor: PlatformColor('test'),
-        borderLeftColor: PlatformColor('test'),
-        borderRightColor: PlatformColor('test'),
-        borderStartColor: PlatformColor('test'),
-        borderTopColor: PlatformColor('test'),
-        overlayColor: PlatformColor('test'),
-        shadowColor: PlatformColor('test'),
-        textDecorationColor: PlatformColor('test'),
-        textShadowColor: PlatformColor('test'),
-        tintColor: PlatformColor('test'),
+        alignItems: "stretch",
+        color: PlatformColor("test"),
+        backgroundColor: PlatformColor("test"),
+        borderBottomColor: PlatformColor("test"),
+        borderColor: PlatformColor("test"),
+        borderEndColor: PlatformColor("test"),
+        borderLeftColor: PlatformColor("test"),
+        borderRightColor: PlatformColor("test"),
+        borderStartColor: PlatformColor("test"),
+        borderTopColor: PlatformColor("test"),
+        overlayColor: PlatformColor("test"),
+        shadowColor: PlatformColor("test"),
+        textDecorationColor: PlatformColor("test"),
+        textShadowColor: PlatformColor("test"),
+        tintColor: PlatformColor("test"),
     },
 });
 
 function someColorString(): ColorValue {
-    return '#000000';
+    return "#000000";
 }
 
 function somePlatformColor(): ColorValue {
-    return PlatformColor('test');
+    return PlatformColor("test");
 }
 
 const colors = {
@@ -1587,21 +1609,21 @@ const ProgressBarAndroidTest = () => {
 // Push notification
 const PushNotificationTest = () => {
     PushNotificationIOS.presentLocalNotification({
-        alertBody: 'notificatus',
-        userInfo: 'informius',
-        alertTitle: 'Titulus',
-        alertAction: 'view',
+        alertBody: "notificatus",
+        userInfo: "informius",
+        alertTitle: "Titulus",
+        alertAction: "view",
     });
 
     PushNotificationIOS.scheduleLocalNotification({
-        alertAction: 'view',
-        alertBody: 'Look at me!',
-        alertTitle: 'Hello!',
+        alertAction: "view",
+        alertBody: "Look at me!",
+        alertTitle: "Hello!",
         applicationIconBadgeNumber: 999,
-        category: 'engagement',
+        category: "engagement",
         fireDate: new Date().toISOString(),
         isSilent: false,
-        repeatInterval: 'minute',
+        repeatInterval: "minute",
         userInfo: {
             abc: 123,
         },
@@ -1614,7 +1636,7 @@ const YellowBoxTest = () => <YellowBox />;
 // Appearance
 const DarkMode = () => {
     const color = useColorScheme();
-    const isDarkMode = Appearance.getColorScheme() === 'dark';
+    const isDarkMode = Appearance.getColorScheme() === "dark";
 
     Appearance.addChangeListener(({ colorScheme }) => {
         console.log(colorScheme);
@@ -1625,7 +1647,7 @@ const DarkMode = () => {
     });
 
     React.useEffect(() => {
-        console.log('-color', color);
+        console.log("-color", color);
     }, [color]);
 
     return <Text>Is dark mode enabled? {isDarkMode}</Text>;
@@ -1656,11 +1678,11 @@ const VirtualizedListTest = () => {
 };
 
 // DevSettings
-DevSettings.addMenuItem('alert', () => {
-    Alert.alert('alert');
+DevSettings.addMenuItem("alert", () => {
+    Alert.alert("alert");
 });
 DevSettings.reload();
-DevSettings.reload('reload with reason');
+DevSettings.reload("reload with reason");
 
 // Accessibility custom actions
 const AccessibilityCustomActionsTest = () => {
@@ -1669,20 +1691,20 @@ const AccessibilityCustomActionsTest = () => {
             accessible={true}
             accessibilityActions={[
                 // should support custom defined actions
-                { name: 'cut', label: 'cut' },
-                { name: 'copy', label: 'copy' },
-                { name: 'paste', label: 'paste' },
+                { name: "cut", label: "cut" },
+                { name: "copy", label: "copy" },
+                { name: "paste", label: "paste" },
             ]}
             onAccessibilityAction={event => {
                 switch (event.nativeEvent.actionName) {
-                    case 'cut':
-                        Alert.alert('Alert', 'cut action success');
+                    case "cut":
+                        Alert.alert("Alert", "cut action success");
                         break;
-                    case 'copy':
-                        Alert.alert('Alert', 'copy action success');
+                    case "copy":
+                        Alert.alert("Alert", "copy action success");
                         break;
-                    case 'paste':
-                        Alert.alert('Alert', 'paste action success');
+                    case "paste":
+                        Alert.alert("Alert", "paste action success");
                         break;
                 }
             }}
@@ -1697,16 +1719,16 @@ export class DrawerLayoutAndroidTest extends React.Component {
     readonly styles = StyleSheet.create({
         container: {
             flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
+            alignItems: "center",
+            justifyContent: "center",
             paddingTop: 50,
-            backgroundColor: '#ecf0f1',
+            backgroundColor: "#ecf0f1",
             padding: 8,
         },
         navigationContainer: {
             flex: 1,
             paddingTop: 50,
-            backgroundColor: '#fff',
+            backgroundColor: "#fff",
             padding: 8,
         },
     });
@@ -1718,19 +1740,19 @@ export class DrawerLayoutAndroidTest extends React.Component {
     );
 
     handleDrawerClose = () => {
-        console.log('handleDrawerClose');
+        console.log("handleDrawerClose");
     };
 
     handleDrawerOpen = () => {
-        console.log('handleDrawerOpen');
+        console.log("handleDrawerOpen");
     };
 
     handleDrawerSlide = (event: DrawerSlideEvent) => {
-        console.log('handleDrawerSlide', event);
+        console.log("handleDrawerSlide", event);
     };
 
-    handleDrawerStateChanged = (event: 'Idle' | 'Dragging' | 'Settling') => {
-        console.log('handleDrawerStateChanged', event);
+    handleDrawerStateChanged = (event: "Idle" | "Dragging" | "Settling") => {
+        console.log("handleDrawerStateChanged", event);
     };
 
     render() {
@@ -1761,18 +1783,18 @@ export class DrawerLayoutAndroidTest extends React.Component {
 const DataDetectorTypeTest = () => {
     return (
         <>
-            <Text dataDetectorType={'all'}>http://test.com test@test.com +33123456789</Text>
-            <Text dataDetectorType={'email'}>test@test.com</Text>
-            <Text dataDetectorType={'link'}>http://test.com</Text>
-            <Text dataDetectorType={'none'}>Hi there !</Text>
-            <Text dataDetectorType={'phoneNumber'}>+33123456789</Text>
+            <Text dataDetectorType={"all"}>http://test.com test@test.com +33123456789</Text>
+            <Text dataDetectorType={"email"}>test@test.com</Text>
+            <Text dataDetectorType={"link"}>http://test.com</Text>
+            <Text dataDetectorType={"none"}>Hi there !</Text>
+            <Text dataDetectorType={"phoneNumber"}>+33123456789</Text>
             <Text dataDetectorType={null}>Must allow null value</Text>
         </>
     );
 };
 
 const ToastAndroidTest = () => {
-    ToastAndroid.showWithGravityAndOffset('My Toast', ToastAndroid.SHORT, ToastAndroid.BOTTOM, 0, 50);
+    ToastAndroid.showWithGravityAndOffset("My Toast", ToastAndroid.SHORT, ToastAndroid.BOTTOM, 0, 50);
 };
 
 const I18nManagerTest = () => {
@@ -1790,25 +1812,25 @@ const I18nManagerTest = () => {
 const ActionSheetIOSTest = () => {
     // test destructiveButtonIndex undefined
     ActionSheetIOS.showActionSheetWithOptions({
-        options: ['foo'],
+        options: ["foo"],
         destructiveButtonIndex: undefined,
     }, () => undefined);
 
     // test destructiveButtonIndex null
     ActionSheetIOS.showActionSheetWithOptions({
-        options: ['foo'],
+        options: ["foo"],
         destructiveButtonIndex: null,
     }, () => undefined);
 
     // test destructiveButtonIndex single number
     ActionSheetIOS.showActionSheetWithOptions({
-        options: ['foo'],
+        options: ["foo"],
         destructiveButtonIndex: 0,
     }, () => undefined);
 
     // test destructiveButtonIndex number array
     ActionSheetIOS.showActionSheetWithOptions({
-        options: ['foo', 'bar'],
+        options: ["foo", "bar"],
         destructiveButtonIndex: [0, 1],
     }, () => undefined);
-}
+};

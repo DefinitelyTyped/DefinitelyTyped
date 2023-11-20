@@ -1,9 +1,3 @@
-// Type definitions for enigma.js 2.2
-// Project: https://github.com/qlik-oss/enigma.js/
-// Definitions by: Konrad Mattheis <https://github.com/konne>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 declare module "enigma.js" {
     const e: IEnigmaClass;
     export = e;
@@ -23,7 +17,7 @@ interface IEnigmaClass {
 }
 
 declare namespace enigmaJS {
-    type MixinType = "Doc"| "GenericObject"| "GenericBookmark" | string;
+    type MixinType = "Doc" | "GenericObject" | "GenericBookmark" | string;
 
     interface IMixin {
         /**
@@ -33,7 +27,7 @@ declare namespace enigmaJS {
          */
         types: MixinType[];
 
-        init(args: {config: any, api: IGeneratedAPI}): void;
+        init(args: { config: any; api: IGeneratedAPI }): void;
 
         /**
          * mixin.extend is an object containing methods to extend the generated API with. These method names cannot already exist or enigma.js will throw an error.

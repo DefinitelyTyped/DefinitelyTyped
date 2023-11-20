@@ -1,16 +1,4 @@
-// Type definitions for React Google Recaptcha 2.1
-// Project: https://github.com/dozoisch/react-google-recaptcha
-// Definitions by: Koala Human <https://github.com/KoalaHuman>
-//                 Tom Sturge <https://github.com/tomsturge>
-//                 Max Bo <https://github.com/MaxwellBo>
-//                 Meir Keller <https://github.com/meirkl>
-//                 Florian Roher <https://github.com/RohrerF>
-//                 Timotei Mocan <https://github.com/mocantimoteidavid>
-//                 Michael Szmadzinski <https://github.com/smujmaiku>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 export default ReCAPTCHA;
 export { ReCAPTCHA };
@@ -53,7 +41,9 @@ type Type = "image" | "audio";
 type Size = "compact" | "normal" | "invisible";
 type Badge = "bottomright" | "bottomleft" | "inline";
 
-export interface ReCAPTCHAProps extends Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, 'onChange' | 'ref'> {
+export interface ReCAPTCHAProps
+    extends Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "onChange" | "ref">
+{
     /**
      * The API client key
      */

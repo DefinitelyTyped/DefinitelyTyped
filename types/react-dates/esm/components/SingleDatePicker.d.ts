@@ -1,3 +1,3 @@
-import { SingleDatePicker } from '../../index';
+import { SingleDatePicker } from "../../index";
 
 export default SingleDatePicker;

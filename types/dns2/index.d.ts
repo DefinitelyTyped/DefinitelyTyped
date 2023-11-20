@@ -1,13 +1,8 @@
-// Type definitions for dns2 2.0
-// Project: https://github.com/song940/node-dns#readme
-// Definitions by: Tim Perry <https://github.com/pimterry>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import * as net from 'net';
-import * as udp from 'dgram';
-import { EventEmitter } from 'events';
+import * as udp from "dgram";
+import { EventEmitter } from "events";
+import * as net from "net";
 
 declare class Packet {
     static TYPE: {
@@ -57,7 +52,7 @@ declare namespace DNS {
         retries: number;
         timeout: number;
         recursive: boolean;
-        resolverProtocol: 'UDP' | 'TCP';
+        resolverProtocol: "UDP" | "TCP";
         nameServers: string[];
         rootServers: string[];
     }
@@ -85,6 +80,10 @@ declare namespace DNS {
         data?: string;
     }
 
+    interface UdpDnsServerOptions {
+        type: "udp4" | "udp6";
+    }
+
     type DnsHandler = (
         request: DnsRequest,
         sendResponse: (response: DnsResponse) => void,
@@ -108,8 +107,8 @@ declare class DnsServer extends EventEmitter {
 }
 
 declare class UdpDnsServer extends udp.Socket {
-    constructor(callback?: DNS.DnsHandler);
-    listen(port: number, address: string): Promise<void>;
+    constructor(arg?: DNS.UdpDnsServerOptions | DNS.DnsHandler);
+    listen(port: number, address?: string): Promise<void>;
 }
 
 declare class TcpDnsServer extends net.Server {
@@ -119,7 +118,12 @@ declare class TcpDnsServer extends net.Server {
 declare class DNS {
     constructor(options?: Partial<DNS.DnsClientOptions>);
 
-    static createServer(options: { udp?: boolean; tcp?: boolean; doh?: boolean; handle: DNS.DnsHandler }): DnsServer;
+    static createServer(options: {
+        udp?: boolean | DNS.UdpDnsServerOptions;
+        tcp?: boolean;
+        doh?: boolean;
+        handle: DNS.DnsHandler;
+    }): DnsServer;
 
     static Packet: typeof Packet;
 
@@ -130,7 +134,12 @@ declare class DNS {
     static TCPServer: typeof TcpDnsServer;
 
     query(name: string, type: DNS.PacketQuestion, cls?: DNS.PacketClass, clientIp?: string): Promise<DNS.DnsResponse>;
-    resolve(domain: string, type?: DNS.PacketQuestion, cls?: DNS.PacketClass, clientIp?: string): Promise<DNS.DnsResponse>;
+    resolve(
+        domain: string,
+        type?: DNS.PacketQuestion,
+        cls?: DNS.PacketClass,
+        clientIp?: string,
+    ): Promise<DNS.DnsResponse>;
     resolveA(domain: string, clientIp?: string): Promise<DNS.DnsResponse>;
     resolveAAAA(domain: string): Promise<DNS.DnsResponse>;
     resolveMX(domain: string): Promise<DNS.DnsResponse>;

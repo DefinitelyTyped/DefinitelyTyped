@@ -35,4 +35,4 @@ export namespace Vector {
     const __cache: Vector;
     const pool: ObjectPool;
 }
-import { ObjectPool } from '../utils/ObjectPool';
+import { ObjectPool } from "../utils/ObjectPool";

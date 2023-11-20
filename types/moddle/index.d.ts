@@ -1,9 +1,3 @@
-// Type definitions for moddle 5.0
-// Project: https://github.com/bpmn-io/moddle#readme
-// Definitions by: Mikhail Demin <https://github.com/MikhailTSE>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.3
-
 export as namespace Moddle;
 
 export {};
@@ -49,7 +43,7 @@ export class Moddle {
      *
      * May be applied to this, if element is omitted.
      */
-     hasType(element: Moddle.Element, type?: string): boolean;
+    hasType(element: Moddle.Element, type?: string): boolean;
 
     /**
      * Create an instance of the specified type.
@@ -116,7 +110,7 @@ export class ModdleBase {
 
 export class AnyElement extends ModdleBase {
     $descriptor: GenericDescriptor;
-    $instanceOf: ((element: Element | string, type?: string) => boolean);
+    $instanceOf: (element: Element | string, type?: string) => boolean;
     $type: string;
 }
 
@@ -126,7 +120,7 @@ export class Element extends ModdleBase {
 
     $attrs: Record<string, any>;
     $type: string;
-    $instanceOf: ((element: Element | string, type?: string) => boolean);
+    $instanceOf: (element: Element | string, type?: string) => boolean;
     $parent: Element;
     hasType?: (element: Element, type?: string) => boolean;
     $descriptor: Descriptor;
@@ -322,7 +316,7 @@ export interface GenericDescriptor {
     };
 }
 
-export interface Descriptor extends Omit<GenericDescriptor, 'isGeneric' | 'ns'> {
+export interface Descriptor extends Omit<GenericDescriptor, "isGeneric" | "ns"> {
     allTypes: TypeDefinition[];
     allTypesByName: Record<string, TypeDefinition>;
     bodyProperty?: PropertyDefinition;
@@ -342,25 +336,25 @@ export function parseNameNs(name: string, defaultPrefix?: string): Ns;
  * Built-in moddle types
  */
 export type BuiltInTypes =
-    | 'String'
-    | 'Boolean'
-    | 'Integer'
-    | 'Real'
-    | 'Element';
+    | "String"
+    | "Boolean"
+    | "Integer"
+    | "Real"
+    | "Element";
 
 interface ModdleTypesMap {
-    'String': string;
-    'Boolean': boolean;
-    'Integer': number;
-    'Real': number;
+    "String": string;
+    "Boolean": boolean;
+    "Integer": number;
+    "Real": number;
 }
 
 /**
  * Convert a type to its real representation
  */
 export function coerceType<
-T extends BuiltInTypes | string,
-V,
+    T extends BuiltInTypes | string,
+    V,
 >(type: T, value: V): ModdleTypesMap extends Record<T, infer E> ? E : V;
 
 /**

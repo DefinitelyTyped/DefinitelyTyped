@@ -1,10 +1,4 @@
-// Type definitions for fs-mock 1.1.3
-// Project: https://github.com/sakren/node-fs-mock
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-
 
 import stream = require("stream");
 import events = require("events");
@@ -19,7 +13,7 @@ declare namespace FS {
 }
 
 declare class FS {
-    constructor(content: any, opts?: FS.Opts)
+    constructor(content: any, opts?: FS.Opts);
 
     rename(oldPath: string, newPath: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
     renameSync(oldPath: string, newPath: string): void;
@@ -60,7 +54,11 @@ declare class FS {
     readlink(path: string, callback?: (err: NodeJS.ErrnoException, linkString: string) => any): void;
     readlinkSync(path: string): string;
     realpath(path: string, callback?: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
-    realpath(path: string, cache: { [path: string]: string }, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
+    realpath(
+        path: string,
+        cache: { [path: string]: string },
+        callback: (err: NodeJS.ErrnoException, resolvedPath: string) => any,
+    ): void;
     realpathSync(path: string, cache?: { [path: string]: string }): string;
     unlink(path: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
     unlinkSync(path: string): void;
@@ -90,32 +88,98 @@ declare class FS {
     futimesSync(fd: number, atime: Date, mtime: Date): void;
     fsync(fd: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
     fsyncSync(fd: number): void;
-    write(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void): void;
+    write(
+        fd: number,
+        buffer: Buffer,
+        offset: number,
+        length: number,
+        position: number,
+        callback?: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void,
+    ): void;
     writeSync(fd: number, buffer: Buffer, offset: number, length: number, position: number): number;
-    read(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void): void;
+    read(
+        fd: number,
+        buffer: Buffer,
+        offset: number,
+        length: number,
+        position: number,
+        callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void,
+    ): void;
     readSync(fd: number, buffer: Buffer, offset: number, length: number, position: number): number;
     readFile(filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
-    readFile(filename: string, options: { encoding: string; flag?: string | undefined; }, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
-    readFile(filename: string, options: { flag?: string | undefined; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+    readFile(
+        filename: string,
+        options: { encoding: string; flag?: string | undefined },
+        callback: (err: NodeJS.ErrnoException, data: string) => void,
+    ): void;
+    readFile(
+        filename: string,
+        options: { flag?: string | undefined },
+        callback: (err: NodeJS.ErrnoException, data: Buffer) => void,
+    ): void;
     readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
     readFileSync(filename: string, encoding: string): string;
-    readFileSync(filename: string, options: { encoding: string; flag?: string | undefined; }): string;
-    readFileSync(filename: string, options?: { flag?: string | undefined; }): Buffer;
+    readFileSync(filename: string, options: { encoding: string; flag?: string | undefined }): string;
+    readFileSync(filename: string, options?: { flag?: string | undefined }): Buffer;
     writeFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
-    writeFile(filename: string, data: any, options: { encoding?: string | undefined; mode?: number | undefined; flag?: string | undefined; }, callback?: (err: NodeJS.ErrnoException) => void): void;
-    writeFile(filename: string, data: any, options: { encoding?: string | undefined; mode?: string | undefined; flag?: string | undefined; }, callback?: (err: NodeJS.ErrnoException) => void): void;
-    writeFileSync(filename: string, data: any, options?: { encoding?: string | undefined; mode?: number | undefined; flag?: string | undefined; }): void;
-    writeFileSync(filename: string, data: any, options?: { encoding?: string | undefined; mode?: string | undefined; flag?: string | undefined; }): void;
-    appendFile(filename: string, data: any, options: { encoding?: string | undefined; mode?: number | undefined; flag?: string | undefined; }, callback?: (err: NodeJS.ErrnoException) => void): void;
-    appendFile(filename: string, data: any, options: { encoding?: string | undefined; mode?: string | undefined; flag?: string | undefined; }, callback?: (err: NodeJS.ErrnoException) => void): void;
+    writeFile(
+        filename: string,
+        data: any,
+        options: { encoding?: string | undefined; mode?: number | undefined; flag?: string | undefined },
+        callback?: (err: NodeJS.ErrnoException) => void,
+    ): void;
+    writeFile(
+        filename: string,
+        data: any,
+        options: { encoding?: string | undefined; mode?: string | undefined; flag?: string | undefined },
+        callback?: (err: NodeJS.ErrnoException) => void,
+    ): void;
+    writeFileSync(
+        filename: string,
+        data: any,
+        options?: { encoding?: string | undefined; mode?: number | undefined; flag?: string | undefined },
+    ): void;
+    writeFileSync(
+        filename: string,
+        data: any,
+        options?: { encoding?: string | undefined; mode?: string | undefined; flag?: string | undefined },
+    ): void;
+    appendFile(
+        filename: string,
+        data: any,
+        options: { encoding?: string | undefined; mode?: number | undefined; flag?: string | undefined },
+        callback?: (err: NodeJS.ErrnoException) => void,
+    ): void;
+    appendFile(
+        filename: string,
+        data: any,
+        options: { encoding?: string | undefined; mode?: string | undefined; flag?: string | undefined },
+        callback?: (err: NodeJS.ErrnoException) => void,
+    ): void;
     appendFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
-    appendFileSync(filename: string, data: any, options?: { encoding?: string | undefined; mode?: number | undefined; flag?: string | undefined; }): void;
-    appendFileSync(filename: string, data: any, options?: { encoding?: string | undefined; mode?: string | undefined; flag?: string | undefined; }): void;
+    appendFileSync(
+        filename: string,
+        data: any,
+        options?: { encoding?: string | undefined; mode?: number | undefined; flag?: string | undefined },
+    ): void;
+    appendFileSync(
+        filename: string,
+        data: any,
+        options?: { encoding?: string | undefined; mode?: string | undefined; flag?: string | undefined },
+    ): void;
     watchFile(filename: string, listener: (curr: fs.Stats, prev: fs.Stats) => void): void;
-    watchFile(filename: string, options: { persistent?: boolean | undefined; interval?: number | undefined; }, listener: (curr: fs.Stats, prev: fs.Stats) => void): void;
+    watchFile(
+        filename: string,
+        options: { persistent?: boolean | undefined; interval?: number | undefined },
+        listener: (curr: fs.Stats, prev: fs.Stats) => void,
+    ): void;
     unwatchFile(filename: string, listener?: (curr: fs.Stats, prev: fs.Stats) => void): void;
     watch(filename: string, listener?: (event: string, filename: string) => any): fs.FSWatcher;
-    watch(filename: string, options: { persistent?: boolean | undefined; }, listener?: (event: string, filename: string) => any): fs.FSWatcher;
+    watch(
+        filename: string,
+        options: { persistent?: boolean | undefined },
+        listener?: (event: string, filename: string) => any,
+    ): fs.FSWatcher;
     exists(path: string, callback?: (exists: boolean) => void): void;
     existsSync(path: string): boolean;
     createReadStream(path: string, options?: {

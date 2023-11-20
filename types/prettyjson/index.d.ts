@@ -1,8 +1,3 @@
-// Type definitions for prettyjson
-// Project: https://github.com/rafeca/prettyjson
-// Definitions by: Wael BEN ZID EL GUEBSI <https://github.com/benzid-wael/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Defines prettyjson version
  */
@@ -34,7 +29,7 @@ export interface RendererOptions {
     /**
      * Define behavior for Array objects
      */
-    emptyArrayMsg?: string | undefined;  // default: (empty)
+    emptyArrayMsg?: string | undefined; // default: (empty)
     inlineArrays?: boolean | undefined;
     noAlign?: boolean | undefined;
 

@@ -1,11 +1,6 @@
-// Type definitions for twitter-autohook 1.7
-// Project: https://github.com/twitterdev/autohook#readme
-// Definitions by: David Jiménez <https://github.com/dubisdev>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import EventEmitter = require('events');
+import EventEmitter = require("events");
 
 export class Autohook extends EventEmitter {
     constructor(configuration?: {

@@ -1,10 +1,4 @@
-// Type definitions for geojson-vt 3.2
-// Project: https://github.com/mapbox/geojson-vt
-// Definitions by: Cody Duong <https://github.com/codyduong>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.1
-
-import * as GJ from 'geojson';
+import * as GJ from "geojson";
 
 declare namespace geojsonvt {
     interface Options {
@@ -31,9 +25,9 @@ declare namespace geojsonvt {
     }
     enum FeatureTypes {
         Unknown = 0,
-        Point,
-        Linestring,
-        Polygon,
+        Point = 1,
+        Linestring = 2,
+        Polygon = 3,
     }
     type Geometry = [number, number];
     /**
@@ -65,7 +59,7 @@ declare namespace geojsonvt {
         minX: number;
         minY: number;
         tags?: Record<string, any>;
-        type?: Exclude<GJ.GeoJsonGeometryTypes, 'GeometryCollection'>; // Converts all collections to single types
+        type?: Exclude<GJ.GeoJsonGeometryTypes, "GeometryCollection">; // Converts all collections to single types
     }
     /**
      * Resulting tiles conform to the JSON equivalent of the vector tile specification.

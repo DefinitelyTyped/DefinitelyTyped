@@ -1,16 +1,3 @@
-// Type definitions for Leaflet.js 1.9
-// Project: https://github.com/Leaflet/Leaflet
-// Definitions by: Alejandro Sánchez <https://github.com/alejo90>
-//                 Arne Schubert <https://github.com/atd-schubert>
-//                 Michael Auer <https://github.com/mcauer>
-//                 Roni Karilkar <https://github.com/ronikar>
-//                 Vladimir Dashukevich <https://github.com/life777>
-//                 Henry Thasler <https://github.com/henrythasler>
-//                 Colin Doig <https://github.com/captain-igloo>
-//                 Hugo Sales <https://github.com/someonewithpc>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export as namespace L;
 
 import * as geojson from "geojson";
@@ -171,9 +158,10 @@ export class LatLng {
 export interface LatLngLiteral {
     lat: number;
     lng: number;
+    alt?: number;
 }
 
-export type LatLngTuple = [number, number];
+export type LatLngTuple = [number, number, number?];
 
 export type LatLngExpression = LatLng | LatLngLiteral | LatLngTuple;
 
@@ -390,7 +378,7 @@ export interface LeafletEventHandlerFnMap {
  * with an object (e.g. the user clicks on the map, causing the map to fire
  * 'click' event).
  */
-// tslint:disable:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 declare class Events {
     /**
      * Adds a listener function (fn) to a particular event type of the object.
@@ -1015,7 +1003,7 @@ declare class Events {
     hasEventListeners(type: string): boolean;
 }
 
-// tslint:disable:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 declare class MixinType {
     Events: Events;
 }

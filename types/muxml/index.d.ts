@@ -1,12 +1,7 @@
-// Type definitions for muxml 2.0
-// Project: https://github.com/t1st3/muxml
-// Definitions by: Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Transform } from 'stream';
-import * as sax from 'sax';
+import * as sax from "sax";
+import { Transform } from "stream";
 
 declare namespace muxml {
     interface Options {
@@ -27,7 +22,7 @@ declare namespace muxml {
          *
          * @default 'spaces'
          */
-        indentStyle?: 'spaces' | 'tabs' | undefined;
+        indentStyle?: "spaces" | "tabs" | undefined;
 
         /**
          * When pretty is set to true and indentStyle is set to spaces, then indent with this number of spaces.

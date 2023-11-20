@@ -1,9 +1,3 @@
-// Type definitions for com.wikitude.phonegap.wikitudeplugin 7.2
-// Project: https://github.com/Wikitude/wikitude-cordova-plugin, https://github.com/wikitude/wikitude-phonegap
-// Definitions by: zbarbuto <https://github.com/zbarbuto>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 // The following types are taken directly (unmodified) from the wikitude-ionic-3-starter-app
 // https://github.com/pbreuss/wikitude-ionic-3-starter-app
 // Latest commit at time of writing was 647cd546f6d1805765c4cee725566e246ca6259d
@@ -16,7 +10,7 @@ interface WikitudePlugin {
     isDeviceSupported(
         successCallback: (success: string) => void,
         errorCallback: (message: string) => void,
-        requiredFeatures: [string]
+        requiredFeatures: [string],
     ): void;
 
     loadARchitectWorld(
@@ -24,7 +18,7 @@ interface WikitudePlugin {
         errorCallback: (message: string) => void,
         architectWorldPath: string,
         requiredFeatures: [string],
-        startupConfiguration: JSON | object
+        startupConfiguration: JSON | object,
     ): void;
 
     close(): void;
@@ -44,17 +38,17 @@ interface WikitudePlugin {
         successCallback: (success: string) => void,
         errorCallback: (message: string) => void,
         includeWebView: boolean,
-        imagePathInBundleOrNullForPhotoLibrary: string | null
+        imagePathInBundleOrNullForPhotoLibrary: string | null,
     ): void;
 
     setErrorHandler(errorHandler: (message: string) => void): void;
 
     setDeviceSensorsNeedCalibrationHandler(
-        startCalibrationHandler: (message: string) => void
+        startCalibrationHandler: (message: string) => void,
     ): void;
 
     setDeviceSensorsFinishedCalibrationHandler(
-        finishedCalibrationHandler: (message: string) => void
+        finishedCalibrationHandler: (message: string) => void,
     ): void;
 
     setBackButtonCallback(onBackButtonCallback: (message: string) => void): void;

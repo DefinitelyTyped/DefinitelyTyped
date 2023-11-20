@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/recordrtc",
+    "version": "5.6.9999",
+    "projects": [
+        "http://RecordRTC.org/"
+    ],
+    "devDependencies": {
+        "@types/recordrtc": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kyle Hensel",
+            "githubUsername": "k-yle"
+        },
+        {
+            "name": "moonrailgun",
+            "githubUsername": "moonrailgun"
+        }
+    ]
+}

@@ -1,10 +1,3 @@
-// Type definitions for ftp 0.3.9
-// Project: https://github.com/mscdex/node-ftp
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-//                 Nathan Rajlich <https://github.com/TooTallNate>
-//                 Marvin Witt <https://github.com/NurMarvin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 import tls = require("tls");
 import events = require("events");
@@ -116,12 +109,12 @@ declare namespace Client {
 }
 
 declare interface Client {
-  on(event: 'error', listener: (error: Error) => void): this;
-  on(event: 'greeting', listener: (msg: string) => void): this;
-  on(event: 'ready', listener: () => void): this;
-  on(event: 'end', listener: () => void): this;
-  on(event: 'close', listener: (hadErr: boolean) => void): this;
-  on(event: string, listener: () => void): this;
+    on(event: "error", listener: (error: Error) => void): this;
+    on(event: "greeting", listener: (msg: string) => void): this;
+    on(event: "ready", listener: () => void): this;
+    on(event: "end", listener: () => void): this;
+    on(event: "close", listener: (hadErr: boolean) => void): this;
+    on(event: string, listener: () => void): this;
 }
 
 /**
@@ -161,7 +154,11 @@ declare class Client extends events.EventEmitter {
      * @param path defaults to the current working directory.
      * @param useCompression defaults to false.
      */
-    list(path: string, useCompression: boolean, callback: (error: Error, listing: Client.ListingElement[]) => void): void;
+    list(
+        path: string,
+        useCompression: boolean,
+        callback: (error: Error, listing: Client.ListingElement[]) => void,
+    ): void;
     list(path: string, callback: (error: Error, listing: Client.ListingElement[]) => void): void;
     list(useCompression: boolean, callback: (error: Error, listing: Client.ListingElement[]) => void): void;
     list(callback: (error: Error, listing: Client.ListingElement[]) => void): void;
@@ -178,7 +175,12 @@ declare class Client extends events.EventEmitter {
      * @param destPath
      * @param useCompression defaults to false.
      */
-    put(input: NodeJS.ReadableStream | Buffer | string, destPath: string, useCompression: boolean, callback: (error: Error) => void): void;
+    put(
+        input: NodeJS.ReadableStream | Buffer | string,
+        destPath: string,
+        useCompression: boolean,
+        callback: (error: Error) => void,
+    ): void;
     put(input: NodeJS.ReadableStream | Buffer | string, destPath: string, callback: (error: Error) => void): void;
 
     /**
@@ -187,7 +189,12 @@ declare class Client extends events.EventEmitter {
      * @param destPath
      * @param useCompression defaults to false.
      */
-    append(input: NodeJS.ReadableStream | Buffer | string, destPath: string, useCompression: boolean, callback: (error: Error) => void): void;
+    append(
+        input: NodeJS.ReadableStream | Buffer | string,
+        destPath: string,
+        useCompression: boolean,
+        callback: (error: Error) => void,
+    ): void;
     append(input: NodeJS.ReadableStream | Buffer | string, destPath: string, callback: (error: Error) => void): void;
 
     /**
@@ -275,7 +282,11 @@ declare class Client extends events.EventEmitter {
      * This is useful for servers that do not handle characters like spaces and quotes in directory names well for the LIST command.
      * This function is "optional" because it relies on pwd() being available.
      */
-    listSafe(path: string, useCompression: boolean, callback: (error: Error, listing: Client.ListingElement[]) => void): void;
+    listSafe(
+        path: string,
+        useCompression: boolean,
+        callback: (error: Error, listing: Client.ListingElement[]) => void,
+    ): void;
     listSafe(path: string, callback: (error: Error, listing: Client.ListingElement[]) => void): void;
     listSafe(useCompression: boolean, callback: (error: Error, listing: Client.ListingElement[]) => void): void;
     listSafe(callback: (error: Error, listing: Client.ListingElement[]) => void): void;

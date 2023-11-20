@@ -1,20 +1,15 @@
-// Type definitions for react-bootstrap-confirmation 1.0
-// Project: https://github.com/react-bootstrap-confirmation
-// Definitions by: Julián Bovone <https://github.com/jbovone>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export {};
 
 type BootstrapStyleFlags =
-    | 'primary'
-    | 'secondary'
-    | 'success'
-    | 'danger'
-    | 'warning'
-    | 'info'
-    | 'light'
-    | 'dark'
-    | 'link';
+    | "primary"
+    | "secondary"
+    | "success"
+    | "danger"
+    | "warning"
+    | "info"
+    | "light"
+    | "dark"
+    | "link";
 
 interface AlertOptions {
     /**

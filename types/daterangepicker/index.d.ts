@@ -1,21 +1,15 @@
-// Type definitions for Date Range Picker 3.1
-// Project: http://www.daterangepicker.com/, https://github.com/dangrossman/daterangepicker
-// Definitions by: SirMartin <https://github.com/SirMartin>
-//                 Steven Masala <https://github.com/smasala>
-//                 Grant Hutchins <https://github.com/nertzy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
-import moment = require('moment');
+import moment = require("moment");
 
 declare global {
     interface JQuery {
-        daterangepicker: ((
-            options?: daterangepicker.Options,
-            callback?: daterangepicker.DataRangePickerCallback,
-        ) => JQuery) & { defaultOptions?: daterangepicker.Options | undefined };
-        data(key: 'daterangepicker'): daterangepicker | undefined;
+        daterangepicker:
+            & ((
+                options?: daterangepicker.Options,
+                callback?: daterangepicker.DataRangePickerCallback,
+            ) => JQuery)
+            & { defaultOptions?: daterangepicker.Options | undefined };
+        data(key: "daterangepicker"): daterangepicker | undefined;
 
         on(
             events: daterangepicker.DatepickerEvents,
@@ -46,12 +40,12 @@ declare namespace daterangepicker {
     type DateOrString = string | moment.Moment | Date;
 
     type DatepickerEvents =
-        | 'show.daterangepicker'
-        | 'hide.daterangepicker'
-        | 'showCalendar.daterangepicker'
-        | 'hideCalendar.daterangepicker'
-        | 'apply.daterangepicker'
-        | 'cancel.daterangepicker';
+        | "show.daterangepicker"
+        | "hide.daterangepicker"
+        | "showCalendar.daterangepicker"
+        | "hideCalendar.daterangepicker"
+        | "apply.daterangepicker"
+        | "cancel.daterangepicker";
 
     interface DatepickerEventObject extends JQueryEventObject {
         date: Date;
@@ -86,8 +80,8 @@ declare namespace daterangepicker {
         ranges: { [name: string]: [DateOrString, DateOrString] };
         showCustomRangeLabel: boolean;
         alwaysShowCalendars: boolean;
-        opens: 'left' | 'right' | 'center';
-        drops: 'down' | 'up';
+        opens: "left" | "right" | "center";
+        drops: "down" | "up";
         buttonClasses: string[];
         applyButtonClasses: string;
         cancelButtonClasses: string;
@@ -184,11 +178,11 @@ declare namespace daterangepicker {
         /**
          * Whether the picker appears aligned to the left, to the right, or centered under the HTML element it's attached to
          */
-        opens?: 'left' | 'right' | 'center' | undefined;
+        opens?: "left" | "right" | "center" | undefined;
         /**
          * Whether the picker appears below (default) or above the HTML element it's attached to
          */
-        drops?: 'down' | 'up' | 'auto' | undefined;
+        drops?: "down" | "up" | "auto" | undefined;
         /**
          * CSS class names that will be added to all buttons in the picker
          */

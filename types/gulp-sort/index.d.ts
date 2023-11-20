@@ -1,13 +1,8 @@
-// Type definitions for gulp-sort 2.0
-// Project: https://github.com/pgilad/gulp-sort
-// Definitions by: Joe Skeen <https://github.com/joeskeen>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /** Sort files in stream by path or any custom sort comparator */
 
-import gulpUtil = require('gulp-util');
+import gulpUtil = require("gulp-util");
 
 interface IOptions {
     /**

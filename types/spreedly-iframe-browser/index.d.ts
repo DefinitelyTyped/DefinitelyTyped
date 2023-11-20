@@ -1,40 +1,46 @@
-// Type definitions for non-npm package spreedly-iframe-browser 1.0
-// Project: http://docs.spreedly.com/reference/iframe/v1/
-// Definitions by: Philippe Vezina <https://github.com/philippevezina>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace spreedly {
-    type SpreedlyField = 'number' | 'cvv';
-    type SpreedlyFieldType = 'number' | 'text' | 'tel';
-    type SpreedlyNumberFormat = 'prettyFormat' | 'maskedFormat' | 'toggleMask';
-    type SpreedlyCardType = 'alelo' |
-                            'alia' |
-                            'american_express' |
-                            'cabal' |
-                            'carnet' |
-                            'dankort' |
-                            'diners_club' |
-                            'discover' |
-                            'elo' |
-                            'jcb' |
-                            'maestro' |
-                            'master' |
-                            'naranja' |
-                            'olimpica' |
-                            'sodexo' |
-                            'visa' |
-                            'vr';
-    type SpreedlyErrorKey = 'errors.account_inactive' |
-                            'errors.environment_key_parameter_required' |
-                            'errors.invalid_environment_key_parameter' |
-                            'errors.blank' |
-                            'errors.invalid' |
-                            'errors.blank_card_type' |
-                            'errors.expired' |
-                            'errors.unknown_referrer' |
-                            'errors.invalid_referrer' |
-                            'errors.configuration';
-    type SpreedlyFieldEventType = 'focus' | 'blur' | 'mouseover' | 'mouseout' | 'input' | 'enter' | 'escape' | 'tab' | 'shiftTab';
+    type SpreedlyField = "number" | "cvv";
+    type SpreedlyFieldType = "number" | "text" | "tel";
+    type SpreedlyNumberFormat = "prettyFormat" | "maskedFormat" | "toggleMask";
+    type SpreedlyCardType =
+        | "alelo"
+        | "alia"
+        | "american_express"
+        | "cabal"
+        | "carnet"
+        | "dankort"
+        | "diners_club"
+        | "discover"
+        | "elo"
+        | "jcb"
+        | "maestro"
+        | "master"
+        | "naranja"
+        | "olimpica"
+        | "sodexo"
+        | "visa"
+        | "vr";
+    type SpreedlyErrorKey =
+        | "errors.account_inactive"
+        | "errors.environment_key_parameter_required"
+        | "errors.invalid_environment_key_parameter"
+        | "errors.blank"
+        | "errors.invalid"
+        | "errors.blank_card_type"
+        | "errors.expired"
+        | "errors.unknown_referrer"
+        | "errors.invalid_referrer"
+        | "errors.configuration";
+    type SpreedlyFieldEventType =
+        | "focus"
+        | "blur"
+        | "mouseover"
+        | "mouseout"
+        | "input"
+        | "enter"
+        | "escape"
+        | "tab"
+        | "shiftTab";
     interface InitOptions {
         numberEl: string;
         cvvEl: string;
@@ -105,7 +111,7 @@ declare namespace spreedly {
         updated_at: string;
         email: string | null;
         data: null;
-        storage_state: 'cached' | 'retained' | 'redacted';
+        storage_state: "cached" | "retained" | "redacted";
         test: boolean;
         metadata: { [key: string]: string };
         callback_url: string | null;
@@ -133,7 +139,7 @@ declare namespace spreedly {
         shipping_zip: string | null;
         shipping_country: string | null;
         shipping_phone_number: string | null;
-        payment_method_type: 'credit_card' | 'bank_account' | 'apple_pay' | 'google_pay' | 'third_party_token';
+        payment_method_type: "credit_card" | "bank_account" | "apple_pay" | "google_pay" | "third_party_token";
         errors: any[];
         fingerprint: string | null;
         verification_value: string | null;
@@ -175,7 +181,11 @@ declare class SpreedlyPaymentFrame {
      *
      * @param additionalFields - Map of additional payment method fields to store alongside tokenized card.
      */
-    tokenizeCreditCard(additionalFields: spreedly.TokenizeCreditCardAdditionalFieldsFullName | spreedly.TokenizeCreditCardAdditionalFieldsFirstLastNames): void;
+    tokenizeCreditCard(
+        additionalFields:
+            | spreedly.TokenizeCreditCardAdditionalFieldsFullName
+            | spreedly.TokenizeCreditCardAdditionalFieldsFirstLastNames,
+    ): void;
 
     /**
      * Request iFrame fields to report their validation status.
@@ -260,7 +270,7 @@ declare class SpreedlyPaymentFrame {
      * @param event - Event to listen on.
      * @param callback - Event callback.
      */
-    on(event: 'consoleError', callback: (error: spreedly.SpreedlyConsoleError) => void): void;
+    on(event: "consoleError", callback: (error: spreedly.SpreedlyConsoleError) => void): void;
 
     /**
      * Triggered when a payment method is not successfully tokenized or recached.
@@ -269,7 +279,7 @@ declare class SpreedlyPaymentFrame {
      * @param event - Event to listen on.
      * @param callback - Event callback.
      */
-    on(event: 'errors', callback: (errors: spreedly.SpreedlyError[]) => void): void;
+    on(event: "errors", callback: (errors: spreedly.SpreedlyError[]) => void): void;
 
     /**
      * Triggered when an input event occurs in either iFrame field.
@@ -279,8 +289,13 @@ declare class SpreedlyPaymentFrame {
      * @param callback - Event callback.
      */
     on(
-        event: 'fieldEvent',
-        callback: (name: spreedly.SpreedlyField, type: spreedly.SpreedlyFieldEventType, activeEl: spreedly.SpreedlyField, inputProperties: spreedly.SpreedlyFieldEventInputProperties) => void
+        event: "fieldEvent",
+        callback: (
+            name: spreedly.SpreedlyField,
+            type: spreedly.SpreedlyFieldEventType,
+            activeEl: spreedly.SpreedlyField,
+            inputProperties: spreedly.SpreedlyFieldEventInputProperties,
+        ) => void,
     ): void;
 
     /**
@@ -290,7 +305,10 @@ declare class SpreedlyPaymentFrame {
      * @param event - Event to listen on.
      * @param callback - Event callback.
      */
-    on(event: 'paymentMethod' | 'recache', callback: (token: string, paymentMethod: spreedly.SpreedlyPaymentMethod) => void): void;
+    on(
+        event: "paymentMethod" | "recache",
+        callback: (token: string, paymentMethod: spreedly.SpreedlyPaymentMethod) => void,
+    ): void;
 
     /**
      * Triggered when the iFrame is initialized and ready for configuration or is properly configured for recache.
@@ -299,7 +317,7 @@ declare class SpreedlyPaymentFrame {
      * @param event - Event to listen on.
      * @param callback - Event callback.
      */
-    on(event: 'ready' | 'recacheReady', callback: () => void): void;
+    on(event: "ready" | "recacheReady", callback: () => void): void;
 
     /**
      * Triggered when validation of the iFrame is requested.
@@ -308,7 +326,7 @@ declare class SpreedlyPaymentFrame {
      * @param event - Event to listen on.
      * @param callback - Event callback.
      */
-    on(event: 'validation', callback: (inputProperties: spreedly.SpreedlyFieldEventInputProperties) => void): void;
+    on(event: "validation", callback: (inputProperties: spreedly.SpreedlyFieldEventInputProperties) => void): void;
 }
 
 declare var Spreedly: SpreedlyPaymentFrame;

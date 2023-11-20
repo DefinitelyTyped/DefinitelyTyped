@@ -1,14 +1,8 @@
-// Type definitions for non-npm package iab-vpaid 2.0
-// Project: https://www.iab.com/guidelines/digital-video-player-ad-interface-definition-vpaid-2-0/
-// Definitions by: Angelo Di Pilla <https://github.com/dippi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 // Type definitions for IAB VPAID 2.0
 
 declare namespace iab.vpaid {
     /** The vpaid view mode set on init or on resize */
-    type ViewMode = 'normal' | 'thumbnail' | 'fullscreen';
+    type ViewMode = "normal" | "thumbnail" | "fullscreen";
 
     /**
      * JavaScript specific VPAID init config
@@ -26,28 +20,28 @@ declare namespace iab.vpaid {
     }
 
     type SimpleEvents =
-        | 'AdLoaded'
-        | 'AdStarted'
-        | 'AdStopped'
-        | 'AdSkipped'
-        | 'AdPaused'
-        | 'AdSizeChange'
-        | 'AdPlaying'
-        | 'AdExpandedChange'
-        | 'AdSkippableStateChange'
-        | 'AdLinearChange'
-        | 'AdVolumeChange'
-        | 'AdVideoStart'
-        | 'AdVideoFirstQuartile'
-        | 'AdVideoMidpoint'
-        | 'AdVideoThirdQuartile'
-        | 'AdVideoComplete'
-        | 'AdUserAcceptInvitation'
-        | 'AdUserClose'
-        | 'AdUserMinimize'
-        | 'AdDurationChange'
-        | 'AdRemainingTimeChange'
-        | 'AdImpression';
+        | "AdLoaded"
+        | "AdStarted"
+        | "AdStopped"
+        | "AdSkipped"
+        | "AdPaused"
+        | "AdSizeChange"
+        | "AdPlaying"
+        | "AdExpandedChange"
+        | "AdSkippableStateChange"
+        | "AdLinearChange"
+        | "AdVolumeChange"
+        | "AdVideoStart"
+        | "AdVideoFirstQuartile"
+        | "AdVideoMidpoint"
+        | "AdVideoThirdQuartile"
+        | "AdVideoComplete"
+        | "AdUserAcceptInvitation"
+        | "AdUserClose"
+        | "AdUserMinimize"
+        | "AdDurationChange"
+        | "AdRemainingTimeChange"
+        | "AdImpression";
 
     type SimpleEventsMap = { [K in SimpleEvents]: () => void };
 

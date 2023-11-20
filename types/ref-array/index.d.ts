@@ -1,9 +1,4 @@
-// Type definitions for ref-array
-// Project: https://github.com/TooTallNate/ref-array
-// Definitions by: Paul Loyd <https://github.com/loyd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import ref = require('ref');
+import ref = require("ref");
 
 interface ArrayType<T> extends ref.Type {
     BYTES_PER_ELEMENT: number;
@@ -17,33 +12,68 @@ interface ArrayType<T> extends ref.Type {
      * through the buffer's contents until an aligned NULL pointer is encountered.
      */
     untilZeros(buffer: Buffer): {
-        [i: number]: T; length: number; toArray(): T[];
-        toJSON(): T[]; inspect(): string; buffer: Buffer; ref(): Buffer;
+        [i: number]: T;
+        length: number;
+        toArray(): T[];
+        toJSON(): T[];
+        inspect(): string;
+        buffer: Buffer;
+        ref(): Buffer;
     };
 
-    new (length?: number): {
-        [i: number]: T; length: number; toArray(): T[];
-        toJSON(): T[]; inspect(): string; buffer: Buffer; ref(): Buffer;
+    new(length?: number): {
+        [i: number]: T;
+        length: number;
+        toArray(): T[];
+        toJSON(): T[];
+        inspect(): string;
+        buffer: Buffer;
+        ref(): Buffer;
     };
-    new (data: number[], length?: number): {
-        [i: number]: T; length: number; toArray(): T[];
-        toJSON(): T[]; inspect(): string; buffer: Buffer; ref(): Buffer;
+    new(data: number[], length?: number): {
+        [i: number]: T;
+        length: number;
+        toArray(): T[];
+        toJSON(): T[];
+        inspect(): string;
+        buffer: Buffer;
+        ref(): Buffer;
     };
-    new (data: Buffer, length?: number): {
-        [i: number]: T; length: number; toArray(): T[];
-        toJSON(): T[]; inspect(): string; buffer: Buffer; ref(): Buffer;
+    new(data: Buffer, length?: number): {
+        [i: number]: T;
+        length: number;
+        toArray(): T[];
+        toJSON(): T[];
+        inspect(): string;
+        buffer: Buffer;
+        ref(): Buffer;
     };
     (length?: number): {
-        [i: number]: T; length: number; toArray(): T[];
-        toJSON(): T[]; inspect(): string; buffer: Buffer; ref(): Buffer;
+        [i: number]: T;
+        length: number;
+        toArray(): T[];
+        toJSON(): T[];
+        inspect(): string;
+        buffer: Buffer;
+        ref(): Buffer;
     };
     (data: number[], length?: number): {
-        [i: number]: T; length: number; toArray(): T[];
-        toJSON(): T[]; inspect(): string; buffer: Buffer; ref(): Buffer;
+        [i: number]: T;
+        length: number;
+        toArray(): T[];
+        toJSON(): T[];
+        inspect(): string;
+        buffer: Buffer;
+        ref(): Buffer;
     };
     (data: Buffer, length?: number): {
-        [i: number]: T; length: number; toArray(): T[];
-        toJSON(): T[]; inspect(): string; buffer: Buffer; ref(): Buffer;
+        [i: number]: T;
+        length: number;
+        toArray(): T[];
+        toJSON(): T[];
+        inspect(): string;
+        buffer: Buffer;
+        ref(): Buffer;
     };
 }
 
@@ -53,8 +83,8 @@ interface ArrayType<T> extends ref.Type {
  * TypedArray API.
  */
 declare var ArrayType: {
-    new <T>(type: ref.Type, length?: number): ArrayType<T>;
-    new <T>(type: string, length?: number): ArrayType<T>;
+    new<T>(type: ref.Type, length?: number): ArrayType<T>;
+    new<T>(type: string, length?: number): ArrayType<T>;
     <T>(type: ref.Type, length?: number): ArrayType<T>;
     <T>(type: string, length?: number): ArrayType<T>;
 };

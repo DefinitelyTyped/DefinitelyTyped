@@ -8,13 +8,6 @@
         "noImplicitThis": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "paths": {
-            "@svg-maps/*": ["svg-maps__*"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

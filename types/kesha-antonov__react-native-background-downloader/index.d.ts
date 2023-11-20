@@ -1,10 +1,3 @@
-// Type definitions for @kesha-antonov/react-native-background-downloader 2.6
-// Project: https://github.com/kesha-antonov/react-native-background-downloader
-// Definitions by: Philip Su <https://github.com/fivecar>,
-//                 Adam Hunter <https://github.com/adamrhunter>,
-//                 Junseong Park <https://github.com/Kweiza>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface DownloadHeaders {
     [key: string]: string | null;
 }
@@ -28,7 +21,7 @@ export type BeginHandler = ({ expectedBytes, headers }: BeginHandlerObject) => a
 export type ProgressHandler = (percent: number, bytesWritten: number, totalBytes: number) => any;
 export type DoneHandler = () => any;
 export type ErrorHandler = (error: any, errorCode: any) => any;
-export type DownloadTaskState = 'DOWNLOADING' | 'PAUSED' | 'DONE' | 'FAILED' | 'STOPPED';
+export type DownloadTaskState = "DOWNLOADING" | "PAUSED" | "DONE" | "FAILED" | "STOPPED";
 
 export interface DownloadTask {
     constructor: (taskInfo: TaskInfo) => DownloadTask;

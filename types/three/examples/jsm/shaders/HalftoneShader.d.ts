@@ -1,6 +1,7 @@
 import { IUniform } from '../../../src/Three.js';
 
 export const HalftoneShader: {
+    name: string;
     uniforms: {
         tDiffuse: IUniform;
         shape: IUniform;

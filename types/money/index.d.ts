@@ -1,8 +1,3 @@
-// Type definitions for money 0.2
-// Project: https://github.com/openexchangerates/money.js
-// Definitions by: Ivan Ergunov <https://github.com/hozblok>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace fx {
     type Currency = string;
 
@@ -30,7 +25,7 @@ declare namespace fx {
          * If fx(val) is called as a function, it returns a wrapped object that can be used OO-style
          */
         <T_VAL extends Value>(val: T_VAL): Wrapper<T_VAL>;
-        new <T_VAL extends Value>(val: T_VAL): Wrapper<T_VAL>;
+        new<T_VAL extends Value>(val: T_VAL): Wrapper<T_VAL>;
 
         /**
          * Current version

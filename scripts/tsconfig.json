@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "target": "es2019",
+        "module": "nodenext",
+        "strict": true,
+        "allowJs": true,
+        "checkJs": true,
+        "noEmit": true
+    },
+    "include": ["**/*.js"]
+}

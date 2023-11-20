@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-dom",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/npm-dom/is-dom#readme"
+    ],
+    "devDependencies": {
+        "@types/is-dom": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

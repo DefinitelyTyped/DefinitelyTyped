@@ -1,6 +1,6 @@
 import { Component, CSSProperties } from "react";
-import { CustomPickerProps } from "../../..";
 import { Classes } from "reactcss";
+import { CustomPickerProps } from "../../..";
 
 export interface MaterialPickerStylesProps {
     material: CSSProperties;
@@ -19,4 +19,4 @@ export interface MaterialPickerProps extends CustomPickerProps {
     styles?: Partial<Classes<MaterialPickerStylesProps>> | undefined;
 }
 
-export default class MaterialPicker extends Component<MaterialPickerProps> { }
+export default class MaterialPicker extends Component<MaterialPickerProps> {}

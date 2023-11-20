@@ -1,9 +1,3 @@
-// Type definitions for ngStomp 0.2
-// Project: https://github.com/beevelop/ng-stomp
-// Definitions by: Lukasz Potapczuk <https://github.com/lpotapczuk>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
 interface ngStomp {
@@ -18,7 +12,12 @@ interface ngStomp {
 
     disconnect(callback: () => void): angular.IHttpPromise<any>;
 
-    subscribe(destination: string, callback: (payload: string, headers: ngStomp.Headers, res: Function) => void, headers?: ngStomp.Headers, scope?: any): any;
+    subscribe(
+        destination: string,
+        callback: (payload: string, headers: ngStomp.Headers, res: Function) => void,
+        headers?: ngStomp.Headers,
+        scope?: any,
+    ): any;
 
     unsubscribe(): any;
 

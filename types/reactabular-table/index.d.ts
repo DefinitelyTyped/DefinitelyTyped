@@ -1,9 +1,3 @@
-// Type definitions for reactabular-table 8.14
-// Project: http://reactabular.js.org/
-// Definitions by: Marcos Junior <https://github.com/junalmeida>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import * as React from "react";
 
 export interface Column {
@@ -28,7 +22,11 @@ export interface Renderers {
     header?: {
         wrapper?: string | ((props: any) => JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
         row?: string | ((props: any) => JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
-        cell?: string | ((props: any, column: Column) => JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
+        cell?:
+            | string
+            | ((props: any, column: Column) => JSX.Element)
+            | ((props: any) => React.ReactInstance)
+            | undefined;
     } | undefined;
     body?: {
         wrapper?: string | ((props: any) => JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
@@ -38,30 +36,30 @@ export interface Renderers {
 }
 
 export type ColumnTransform = (label: string | JSX.Element | React.ReactInstance, props: {
-    column: Column,
-    columnIndex: number,
-    property: string
+    column: Column;
+    columnIndex: number;
+    property: string;
 }) => any;
 
 export type CellTransform = (value: any, props: {
-    column: Column,
-    columnIndex: number,
-    rowData: any,
-    rowIndex: number,
-    property: string
+    column: Column;
+    columnIndex: number;
+    rowData: any;
+    rowIndex: number;
+    property: string;
 }) => any;
 
 export type ColumnFormatter = (label: string | JSX.Element, props: {
-    rowData: any,
-    column: Column,
-    columnIndex: number,
+    rowData: any;
+    column: Column;
+    columnIndex: number;
 }) => string | JSX.Element;
 
 export type CellFormatter = (value: any, props: {
-    column: Column,
-    columnIndex: number,
-    rowData: any,
-    rowIndex: number,
+    column: Column;
+    columnIndex: number;
+    rowData: any;
+    rowIndex: number;
 }) => string | JSX.Element;
 
 export interface ProviderProps {

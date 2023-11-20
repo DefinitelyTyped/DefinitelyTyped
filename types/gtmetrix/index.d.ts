@@ -1,8 +1,3 @@
-// Type definitions for gtmetrix 1.3
-// Project: https://github.com/fvdm/nodejs-gtmetrix#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Node.js module for the GTmetrix API to run and access tests.
  *
@@ -177,18 +172,18 @@ declare namespace gtmetrix {
     /**
      * https://github.com/fvdm/nodejs-gtmetrix#resources
      */
-    type NonBinaryResourceType = 'har' | 'pagespeed' | 'yslow';
+    type NonBinaryResourceType = "har" | "pagespeed" | "yslow";
 
     /**
      * https://github.com/fvdm/nodejs-gtmetrix#resources
      */
     type BinaryResourceType =
-        | 'filmstrip'
-        | 'pagespeed-files'
-        | 'report-pdf'
-        | 'report-pdf-full'
-        | 'screenshot'
-        | 'video';
+        | "filmstrip"
+        | "pagespeed-files"
+        | "report-pdf"
+        | "report-pdf-full"
+        | "screenshot"
+        | "video";
 }
 
 export = gtmetrix;

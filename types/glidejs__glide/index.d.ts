@@ -1,21 +1,19 @@
-// Type definitions for @glidejs/glide 3.6
-// Project: https://glidejs.com/
-// Definitions by: Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import TransformerFunction from './mutator/transformers';
-import ComponentFunction from './components';
-import EventsBus from './core/event/events-bus';
+// eslint-disable-next-line @definitelytyped/no-import-default-of-export-equals
+import ComponentFunction from "./components";
+// eslint-disable-next-line @definitelytyped/no-import-default-of-export-equals
+import EventsBus from "./core/event/events-bus";
+// eslint-disable-next-line @definitelytyped/no-import-default-of-export-equals
+import TransformerFunction from "./mutator/transformers";
 
 declare namespace Glide {
-    export { TransformerFunction, ComponentFunction, EventsBus, Options };
+    export { ComponentFunction, EventsBus, Options, TransformerFunction };
 }
 
 interface Options {
     /**
      * Type of the movement.
      */
-    type: 'slider' | 'carousel';
+    type: "slider" | "carousel";
 
     /**
      * Start at specific slide number defined with zero-based index.
@@ -73,7 +71,7 @@ interface Options {
     /**
      * A number of slides moved on single swipe.
      */
-    perSwipe: '' | '|';
+    perSwipe: "" | "|";
 
     /**
      * Moving distance ratio of the slides on a swiping and dragging.
@@ -118,7 +116,7 @@ interface Options {
     /**
      * Moving direction mode.
      */
-    direction: 'ltr' | 'rtl';
+    direction: "ltr" | "rtl";
 
     /**
      * The distance value of the next and previous viewports which
@@ -126,7 +124,7 @@ interface Options {
      * pixels as a string. Left and right peeking can be
      * set up separately with a directions object.
      */
-    peek: number | string | Record<'before' | 'after', number>;
+    peek: number | string | Record<"before" | "after", number>;
 
     /**
      * Defines how many clones of current viewport will be generated.
@@ -144,11 +142,11 @@ interface Options {
     classes: {
         swipeable: string;
         dragging: string;
-        direction: Record<Options['direction'], string>;
-        type: Record<Options['type'], string>;
-        slide: Record<'clone' | 'active', string>;
-        arrow: Record<'disabled', string>;
-        nav: Record<'active', string>;
+        direction: Record<Options["direction"], string>;
+        type: Record<Options["type"], string>;
+        slide: Record<"clone" | "active", string>;
+        arrow: Record<"disabled", string>;
+        nav: Record<"active", string>;
     };
 }
 
@@ -187,7 +185,7 @@ declare class Glide {
      * `|>` - Move one viewport forward
      * `|<` - Move one viewport backward
      */
-    go(pattern: '>' | '<' | '>>' | '<<' | '|>' | '|<' | string): Glide;
+    go(pattern: ">" | "<" | ">>" | "<<" | "|>" | "|<" | string): Glide;
 
     /**
      * Move track by specified distance.

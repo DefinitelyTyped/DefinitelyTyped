@@ -1,18 +1,8 @@
-// Type definitions for non-npm package maxmsp 1.0
-// Project: https://docs.cycling74.com/max8/vignettes/javascript_usage_topic
-// Definitions by: TomW <https://github.com/twhiston>
-//                 FrancescElies <https://github.com/FrancescElies>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Definitions originally created by: ErnstHot <https://github.com/ErnstHot>
-// Documentation is property of Cycling '74 and published with permission.
-// These are type definitions for max msp's [js]/[jsui] API 1.0.0
-// API Reference: http://max-javascript-reference.tim-schenk.de/
-// For npm use @types/max-api instead
-
 /*
  * Max globals
  * https://docs.cycling74.com/max7/vignettes/jsglobal
  */
+declare var inspector: number;
 declare var inlets: number;
 declare var outlets: number;
 declare var autowatch: number;
@@ -25,16 +15,16 @@ declare var max: Max;
 declare var maxclass: string;
 declare var messagename: string;
 declare var patcher: Patcher;
-declare function error(message: any): void;
-declare function cpost(message?: any): void;
-declare function post(message?: any): void;
+declare function error(...messages: any[]): void;
+declare function cpost(...message: any[]): void;
+declare function post(...message: any[]): void;
 /**
  * Sends a message to the named Max object.
  * A named Max object is an object associated with a global symbol (not an object with a patcher-specific name).
  * For example, Max receive objects are bound to global symbols.
  * The following code would send the message bang to the named object flower.
  */
-declare function messnamed(object_name: string, message_name: string, message_arguments?: string | number): void;
+declare function messnamed(object_name: string, message_name: string, ...message_arguments: any[]): void;
 declare function arrayfromargs(arguments: IArguments): any[];
 declare function assist(arguments: any): void;
 declare function declareattribute(
@@ -56,80 +46,80 @@ type Position = [number, number];
 type Size = [number, number];
 
 type MaxMessage =
-    | 'buildcollective'
-    | 'checkpreempt'
-    | 'clean'
-    | 'clearmaxwindow'
-    | 'closefile'
-    | 'crash'
-    | 'db.exportmetadata'
-    | 'db.importmetadata'
-    | 'db.reset'
-    | 'debug'
-    | 'disablevirtualmididestinations'
-    | 'disablevirtualmidisources'
-    | 'enablepathcache'
-    | 'externaleditor'
-    | 'externs'
-    | 'fileformat'
-    | 'fixwidthratio'
-    | 'getarch'
-    | 'getdefaultpatcherheight'
-    | 'getdefaultpatcherwidth'
-    | 'getenablepathcache'
-    | 'geteventinterval'
-    | 'getfixwidthratio'
-    | 'getpollthrottle'
-    | 'getqueuethrottle'
-    | 'getrefreshrate'
-    | 'getruntime'
-    | 'getslop'
-    | 'getsysqelemthrottle'
-    | 'getsystem'
-    | 'getversion'
-    | 'hidecursor'
-    | 'hidemenubar'
-    | 'htmlref'
-    | 'interval'
-    | 'launchbrowser'
-    | 'maxcharheightforsubpixelantialiasing'
-    | 'maxinwmenu'
-    | 'maxwindow'
-    | 'midilist'
-    | 'nativetextrendering'
-    | 'notypeinfo'
-    | 'objectfile'
-    | 'openfile'
-    | 'paths'
-    | 'preempt'
-    | 'pupdate'
-    | 'purgemididevices'
-    | 'quit'
-    | 'refresh'
-    | 'refreshrate'
-    | 'relaunchmax'
-    | 'runtime'
-    | 'sendinterval'
-    | 'sendapppath'
-    | 'setdefaultpatcherheight'
-    | 'setdefaultpatcherwidth'
-    | 'seteventinterval'
-    | 'setmixergbitmode'
-    | 'setmixerlatency'
-    | 'setmixerparallel'
-    | 'setmixerramptime'
-    | 'setmirrortoconsole'
-    | 'setsleep'
-    | 'setpollthrottle'
-    | 'setqueuethrottle'
-    | 'setslop'
-    | 'setsysqelemthrottle'
-    | 'showcursor'
-    | 'showmenubar'
-    | 'size'
-    | 'system'
-    | 'useexternaleditor'
-    | 'useslowbutcompletesearching'
+    | "buildcollective"
+    | "checkpreempt"
+    | "clean"
+    | "clearmaxwindow"
+    | "closefile"
+    | "crash"
+    | "db.exportmetadata"
+    | "db.importmetadata"
+    | "db.reset"
+    | "debug"
+    | "disablevirtualmididestinations"
+    | "disablevirtualmidisources"
+    | "enablepathcache"
+    | "externaleditor"
+    | "externs"
+    | "fileformat"
+    | "fixwidthratio"
+    | "getarch"
+    | "getdefaultpatcherheight"
+    | "getdefaultpatcherwidth"
+    | "getenablepathcache"
+    | "geteventinterval"
+    | "getfixwidthratio"
+    | "getpollthrottle"
+    | "getqueuethrottle"
+    | "getrefreshrate"
+    | "getruntime"
+    | "getslop"
+    | "getsysqelemthrottle"
+    | "getsystem"
+    | "getversion"
+    | "hidecursor"
+    | "hidemenubar"
+    | "htmlref"
+    | "interval"
+    | "launchbrowser"
+    | "maxcharheightforsubpixelantialiasing"
+    | "maxinwmenu"
+    | "maxwindow"
+    | "midilist"
+    | "nativetextrendering"
+    | "notypeinfo"
+    | "objectfile"
+    | "openfile"
+    | "paths"
+    | "preempt"
+    | "pupdate"
+    | "purgemididevices"
+    | "quit"
+    | "refresh"
+    | "refreshrate"
+    | "relaunchmax"
+    | "runtime"
+    | "sendinterval"
+    | "sendapppath"
+    | "setdefaultpatcherheight"
+    | "setdefaultpatcherwidth"
+    | "seteventinterval"
+    | "setmixergbitmode"
+    | "setmixerlatency"
+    | "setmixerparallel"
+    | "setmixerramptime"
+    | "setmirrortoconsole"
+    | "setsleep"
+    | "setpollthrottle"
+    | "setqueuethrottle"
+    | "setslop"
+    | "setsysqelemthrottle"
+    | "showcursor"
+    | "showmenubar"
+    | "size"
+    | "system"
+    | "useexternaleditor"
+    | "useslowbutcompletesearching"
     | string;
 
 /**
@@ -187,7 +177,7 @@ declare class Dict {
      * If no name is provided as an argument then a unique name will be generated for the dictionary.
      * The following properties mirror the attributes of the same name from the Max dict object. See the dict reference for more details.
      */
-    constructor(name: string);
+    constructor(name?: string);
 
     /**
      * Access or set the name of a dict object as a property of the dict object
@@ -220,6 +210,13 @@ declare class Dict {
     contains(key: string): number;
 
     /**
+     * Frees the dictionary data from the native c peer, which is not considered by the JavaScript garbage collector,
+     * and may consume lots of memory until the garbage collector decides to run based on JS allocated memory.
+     * Once called, the dict object is not available for any other use.
+     */
+    freepeer(): void;
+
+    /**
      * Return the value associated with a key.
      */
     get(key: string): any;
@@ -227,7 +224,7 @@ declare class Dict {
     /**
      * Return a list of all the keys in a dictionary.
      */
-    getkeys(): any[];
+    getkeys(): string[];
 
     /**
      * Return a list of all the dictionaries that currently exist.
@@ -237,7 +234,7 @@ declare class Dict {
     /**
      * Return the number of values associated with a key.
      */
-    getsize(): number;
+    getsize(key: string): number;
 
     /**
      * Return the type of the values associated with a key.
@@ -245,9 +242,9 @@ declare class Dict {
     gettype(): string;
 
     /**
-     * Replace the content of a dictionary.
+     * Replace the content of a dictionary with a JSON string.
      */
-    parse(key: string, value: string): void;
+    parse(value: string): void;
 
     /**
      * Pull the content of a named coll object into the dictionary.
@@ -270,19 +267,28 @@ declare class Dict {
     remove(key: string): void;
 
     /**
-     * Set the value for a key to a specified value, creating heirarchy.
+     * Set the value for a key to a specified value creating hierarchy if needed.
+     * Hierarchy is specified using double-colons
+     *
+     * d.replace("salami", "6.99");
+     * d.replace("drink::hot::coffee::type", "espresso");
      */
-    replace(key: string, value: any[]): void;
+    replace(key: string, ...values: any[]): void;
 
     /**
-     * Set the value for a key to a specified value.
+     * Set the value for a key to a specified value creating a hierarchy if needed.
+     * Hierarchy is specified using double-colons
+     *
+     * d.set("salami", "7.99");
+     * d.set("bologna", 1.99);
+     * d.set("drink::hot::coffee::sizes", "small", "medium", "large");
      */
-    set(key: string, value: any[]): void;
+    set(key: string, ...values: any[]): void;
 
     /**
-     * Set the value for a key to dictionary content defined using JSON.
+     * Set the value for a key to dictionary content defined using JSON as a string.
      */
-    setparse(key: string, value: any[]): void;
+    setparse(key: string, value: string): void;
 
     /**
      * Open a save dialog to write the dictionary contents to a file.
@@ -326,7 +332,7 @@ declare class File {
      * which is located at /Library/Application Support/Cycling ’74 on Macintosh and C:\Program Files\Common Files\Cycling ’74 on Windows. By default, typelist is empty.
      * If able to, the File constructor opens the file specified by filename, provided it is one of the types in typelist.
      */
-    constructor(filename: string, access?: 'read' | 'write' | 'readwrite', typelist?: string);
+    constructor(filename: string, access?: "read" | "write" | "readwrite", typelist?: string);
 
     /**
      * File access permissions: "read", "write", or "readwrite". By default, this value is "read".
@@ -579,6 +585,14 @@ declare class Global {
      * TODO: Can have any property assigned to it
      */
     sendnamed(receive_name: string, property_name: string): void;
+
+    /*
+     * Global is used to set user defined properties that can't be known beforehand, casting
+     * a Globals instance as any to work with it defeats the whole purpose of using TS.
+     * This indexed access type will make sure you put the right checks in place before
+     * things go sideways, one can always cast to any if this becomes too annoying.
+     */
+    [index: string | number | symbol]: unknown;
 }
 
 /**
@@ -1123,7 +1137,7 @@ declare class Max {
     /**
      * The word system, followed by the name of an Operating System (windows or macintosh) and a message, will execute the message if Max is running on the named OS.
      */
-    system(os: 'windows' | 'macintosh', message: string): void;
+    system(os: "windows" | "macintosh", message: string): void;
 
     /**
      * The word useslowbutcompletesearching, followed by a one (on) or zero (off), toggles complete file searching. When enabled, it causes files not found in Max's cache of the search path to be
@@ -1212,6 +1226,15 @@ declare class Maxobj {
     js: any;
 
     /**
+     * Whether patchcords are connected to the object's inlets and outlets and, if so,
+     * the connected objects. Returns a generic object with two arrays,
+     * 'inputs' and 'outputs', of MaxobjConnection objects.
+     * These have the properties 'srcobject', 'dstobject', 'srcoutlet' and 'dstinlet'
+     * which can be used to walk the graph from JS.
+     */
+    patchcords: { inputs: MaxobjConnection[]; outputs: MaxobjConnection[] };
+
+    /**
      * Returns whether the Maxobj refers to a valid Max object
      */
     valid: boolean;
@@ -1269,7 +1292,7 @@ declare class Maxobj {
     /**
      * Sets the value of the object's box attribute specified by box_attribute_name.
      */
-    setboxattr(box_attribute_name: string, anything: unknown): void;
+    setboxattr(box_attribute_name: string, ...anything: unknown[]): void;
 }
 
 /**
@@ -1278,7 +1301,7 @@ declare class Maxobj {
  * When a change occurs, a user-specified function will be called.
  * The object also provides methods for getting and setting the value of the observed value or attribute.
  */
-declare class MaxobjListener  {
+declare class MaxobjListener {
     constructor(object: Maxobj, attribute_name: string, callback: (data: MaxobjListenerData<any>) => void);
 
     /**
@@ -1315,7 +1338,7 @@ declare class MaxobjListener  {
 /**
  * The MaxobjListenerData object is the argument to your MaxobjListener's function
  */
-declare class MaxobjListenerData<Tvalue>  {
+declare class MaxobjListenerData<Tvalue> {
     /**
      * The MaxobjListener which called the function.
      */
@@ -1411,6 +1434,11 @@ declare class Patcher {
      * A Javascript representation of the window associated with the patcher. For more information, see the Wind Object.
      */
     wind: Wind;
+
+    /**
+     * Returns the value of the attribute specified by attribute_name. Lists are returned as JS Array objects.
+     */
+    getattr(attribute_name: string): unknown;
 
     /**
      * Sends message to the patcher followed by any additional arguments (..anything) provided.
@@ -2146,22 +2174,22 @@ declare class MGraphics {
     /**
      * Set the appearance of the end-point of a drawn line. The options are butt, round, or square.
      */
-    set_line_cap(line_cap: 'butt' | 'round' | 'square'): void;
+    set_line_cap(line_cap: "butt" | "round" | "square"): void;
 
     /**
      * Retrieve the appearance attribute of the current line_cap setting. The returned value is the same as the values used by set_line_cap.
      */
-    get_line_cap(): 'butt' | 'round' | 'square';
+    get_line_cap(): "butt" | "round" | "square";
 
     /**
      * Set the appearance of the connection point between lines. The options are miter, round, or bevel.
      */
-    set_line_join(line_join: 'miter' | 'round' | 'bevel'): void;
+    set_line_join(line_join: "miter" | "round" | "bevel"): void;
 
     /**
      * Retrieve the appearance attribute of the current line_join setting. The returned value is the same as the values used by set_line_join.
      */
-    get_line_join(): 'miter' | 'round' | 'bevel';
+    get_line_join(): "miter" | "round" | "bevel";
 
     /**
      * Set the width of path lines drawn using the stroke() function. The width value is dependent on the coordinate system in use.
@@ -2595,7 +2623,7 @@ declare class Sketch {
     /**
      * Begin definition of a stroked path of the style specified by the stroke_style argument. Currently supported stroke styles are "basic2d" and "line".
      */
-    beginstroke(stroke_style: 'basic2d' | 'line'): void;
+    beginstroke(stroke_style: "basic2d" | "line"): void;
 
     /**
      * End definition of a stroked path, and render the path.
@@ -2737,7 +2765,7 @@ declare class Image {
      * Adjusts all channel values in the image channel specified by the channel argument, by multiplying the channel value by the value specified by the scale argument and then adding the value
      * specified by the bias argument. The resulting channel is clipped to the range 0.-1. Acceptable values for the channel argument are the strings: "red", "green", "blue", or "alpha".
      */
-    adjustchannel(channel: 'red' | 'green' | 'blue' | 'alpha', scale: number, bias: number): void;
+    adjustchannel(channel: "red" | "green" | "blue" | "alpha", scale: number, bias: number): void;
 
     /**
      * Generates an alpha channel based on the chromatic distance from the specified RGB target color. If no tolerance, fade or minkey arguments are specified they are assumed to be 0. If no maxkey
@@ -2761,8 +2789,8 @@ declare class Image {
     blendchannel(
         source_object: any,
         alpha: number,
-        source_channel: 'red' | 'green' | 'blue' | 'alpha',
-        destination_channel: 'red' | 'green' | 'blue' | 'alpha',
+        source_channel: "red" | "green" | "blue" | "alpha",
+        destination_channel: "red" | "green" | "blue" | "alpha",
     ): void;
 
     /**
@@ -2794,7 +2822,7 @@ declare class Image {
      * Sets all channel values in the image channel specified by the channel argument to be the value specified by the value argument. If no value argument is specified, it is assumed to be 0.
      * Acceptable values for the channel argument are the strings: "red", "green", "blue", or "alpha".
      */
-    clearchannel(channel: 'red' | 'green' | 'blue' | 'alpha', value: number): void;
+    clearchannel(channel: "red" | "green" | "blue" | "alpha", value: number): void;
 
     /**
      * Copies the channel values from the source object's channel specified by the source_channel argument to the destination object's channel specified by the destination_channel argument. The source
@@ -2803,8 +2831,8 @@ declare class Image {
      */
     copychannel(
         source_object: string,
-        source_channel: 'red' | 'green' | 'blue' | 'alpha',
-        destination_channel: 'red' | 'green' | 'blue' | 'alpha',
+        source_channel: "red" | "green" | "blue" | "alpha",
+        destination_channel: "red" | "green" | "blue" | "alpha",
     ): void;
 
     /**
@@ -2902,7 +2930,7 @@ declare class MaxCanvas {
     //      return;
     // }
     constructor(jsui: object);
-    getContext(type: 'max-2d'): CanvasRenderingContext2D;
+    getContext(type: "max-2d"): CanvasRenderingContext2D;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2920,7 +2948,7 @@ declare class CanvasRenderingContext2D {
     setTransform(m11: number, m12: number, m21: number, m22: number, dx: number, dy: number): void;
     createLinearGradient(x0: number, y0: number, x1: number, y1: number): CanvasGradient;
     createRadialGradient(x0: number, y0: number, r0: number, x1: number, y1: number, r1: number): CanvasGradient;
-    createPattern(image: Image, repetition: 'repeat' | 'repeat-x' | 'repeat-y' | 'no-repeat'): CanvasPattern;
+    createPattern(image: Image, repetition: "repeat" | "repeat-x" | "repeat-y" | "no-repeat"): CanvasPattern;
     clearRect(x: number, y: number, w: number, h: number): void;
     fillRect(x: number, y: number, w: number, h: number): void;
     strokeRect(x: number, y: number, w: number, h: number): void;

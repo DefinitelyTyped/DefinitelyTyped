@@ -1,8 +1,3 @@
-// Type definitions for sax-stream 1.3
-// Project: https://github.com/melitele/sax-stream
-// Definitions by: Michael de Wit <https://github.com/mjwwit>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import stream = require("stream");

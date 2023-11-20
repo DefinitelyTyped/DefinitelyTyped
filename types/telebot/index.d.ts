@@ -1,9 +1,3 @@
-// Type definitions for telebot 1.2
-// Project: https://github.com/mullwar/telebot
-// Definitions by: Simone Mariotti <https://github.com/mariotsi>
-//                 Martin Badin <https://github.com/martin-badin>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 export = telebot;
 declare namespace telebot {
@@ -84,7 +78,7 @@ declare class telebot {
         offset: number,
         limit: number,
         timeout: number,
-        allowed_updates: string | string[]
+        allowed_updates: string | string[],
     ): void;
 
     receiveUpdates(updateList: any[]): Promise<any>;
@@ -100,13 +94,13 @@ declare class telebot {
     on(
         types: string | string[] | RegExp,
         fn: telebot.genericCb,
-        opt?: any
+        opt?: any,
     ): boolean;
 
     event(
         types: string | string[],
         data: any,
-        self?: any
+        self?: any,
     ): Promise<any>;
 
     cleanEvent(type: string): boolean;
@@ -146,19 +140,19 @@ declare class telebot {
             replyMarkup?: any;
             notification?: boolean | undefined;
             webPreview?: boolean | undefined;
-        }
+        },
     ): Promise<any>;
 
     forwardMessage(
         chat_id: number | string,
         from_chat_id: number | string,
         message_id: number,
-        opt?: { notification?: boolean | undefined }
+        opt?: { notification?: boolean | undefined },
     ): Promise<any>;
 
     deleteMessage(
         chat_id: number | string,
-        from_message_id: number
+        from_message_id: number,
     ): Promise<boolean>;
 
     sendPhoto(
@@ -171,7 +165,7 @@ declare class telebot {
             replyToMessage?: number | undefined;
             replyMarkup?: any;
             notification?: boolean | undefined;
-        }
+        },
     ): Promise<any>;
 
     sendAudio(
@@ -187,7 +181,7 @@ declare class telebot {
             replyToMessage?: number | undefined;
             replyMarkup?: any;
             notification?: boolean | undefined;
-        }
+        },
     ): Promise<any>;
 
     sendDocument(
@@ -200,7 +194,7 @@ declare class telebot {
             replyToMessage?: number | undefined;
             replyMarkup?: any;
             notification?: boolean | undefined;
-        }
+        },
     ): Promise<any>;
 
     sendSticker(
@@ -212,7 +206,7 @@ declare class telebot {
             replyToMessage?: number | undefined;
             replyMarkup?: any;
             notification?: boolean | undefined;
-        }
+        },
     ): Promise<any>;
 
     sendVideo(
@@ -228,7 +222,7 @@ declare class telebot {
             replyToMessage?: number | undefined;
             replyMarkup?: any;
             notification?: boolean | undefined;
-        }
+        },
     ): Promise<any>;
 
     sendVideoNote(
@@ -241,7 +235,7 @@ declare class telebot {
             replyToMessage?: number | undefined;
             replyMarkup?: any;
             notification?: boolean | undefined;
-        }
+        },
     ): Promise<any>;
 
     sendVoice(
@@ -255,13 +249,13 @@ declare class telebot {
             replyToMessage?: number | undefined;
             replyMarkup?: any;
             notification?: boolean | undefined;
-        }
+        },
     ): Promise<any>;
 
     sendLocation(
         chat_id: number | string,
         coords: [number, number],
-        opt?: { replyToMessage?: number | undefined; replyMarkup?: any; notification?: boolean | undefined }
+        opt?: { replyToMessage?: number | undefined; replyMarkup?: any; notification?: boolean | undefined },
     ): Promise<any>;
 
     sendVenue(
@@ -274,7 +268,7 @@ declare class telebot {
             replyToMessage?: number | undefined;
             replyMarkup?: any;
             notification?: boolean | undefined;
-        }
+        },
     ): Promise<any>;
 
     sendContact(
@@ -282,7 +276,7 @@ declare class telebot {
         number: string,
         firstName: string,
         lastName?: string,
-        opt?: { replyToMessage?: number | undefined; replyMarkup?: any; notification?: boolean | undefined }
+        opt?: { replyToMessage?: number | undefined; replyMarkup?: any; notification?: boolean | undefined },
     ): Promise<any>;
 
     sendAction(chat_id: number | string, action: string): Promise<boolean>;
@@ -290,7 +284,7 @@ declare class telebot {
     sendGame(
         chat_id: number | string,
         game_short_name: string,
-        opt?: { replyToMessage?: number | undefined; replyMarkup?: any; notification?: boolean | undefined }
+        opt?: { replyToMessage?: number | undefined; replyMarkup?: any; notification?: boolean | undefined },
     ): Promise<any>;
 
     setGameScore(
@@ -302,17 +296,17 @@ declare class telebot {
             chatId?: number | undefined;
             messageId?: number | undefined;
             inlineMessageId?: string | undefined;
-        }
+        },
     ): Promise<boolean | Error | any>;
 
     getGameHighScores(
         user_id: number,
-        opt?: { chatId?: number | undefined; messageId?: number | undefined; inlineMessageId?: string | undefined }
+        opt?: { chatId?: number | undefined; messageId?: number | undefined; inlineMessageId?: string | undefined },
     ): Promise<any[]>;
 
     getUserProfilePhotos(
         user_id: number,
-        opt?: { offset?: number | undefined; limit?: number | undefined }
+        opt?: { offset?: number | undefined; limit?: number | undefined },
     ): Promise<any>;
 
     getFile(file_id: string): Promise<any>;
@@ -338,7 +332,7 @@ declare class telebot {
             notification?: boolean | undefined;
             replyToMessage?: number | undefined;
             replyMarkup?: any;
-        }
+        },
     ): Promise<any>;
 
     getChat(chat_id: number | string): Promise<any>;
@@ -360,7 +354,7 @@ declare class telebot {
             chatId: number | string;
             messageId: number;
             inlineMsgId?: number | undefined;
-        }|{
+        } | {
             chatId?: number | string | undefined;
             messageId?: number | undefined;
             inlineMsgId: number;
@@ -368,7 +362,7 @@ declare class telebot {
         text: string,
         opt?: {
             parseMode?: string | undefined;
-        }
+        },
     ): Promise<any | boolean>;
 
     editMessageCaption(
@@ -376,12 +370,12 @@ declare class telebot {
             chatId: number | string;
             messageId: number;
             inlineMsgId?: number | undefined;
-        }|{
+        } | {
             chatId?: number | string | undefined;
             messageId?: number | undefined;
             inlineMsgId: number;
         },
-        caption: string
+        caption: string,
     ): Promise<any | boolean>;
 
     editMessageReplyMarkup(
@@ -389,12 +383,12 @@ declare class telebot {
             chatId: number | string;
             messageId: number;
             inlineMsgId?: number | undefined;
-        }|{
+        } | {
             chatId?: number | string | undefined;
             messageId?: number | undefined;
             inlineMsgId: number;
         },
-        replyMarkup: any
+        replyMarkup: any,
     ): Promise<any | boolean>;
 
     answerCallbackQuery(
@@ -404,26 +398,26 @@ declare class telebot {
             url?: string | undefined;
             showAlert?: boolean | undefined;
             cacheTime?: number | undefined;
-        }
+        },
     ): Promise<boolean>;
 
     answerShippingQuery(
         shipping_query_id: string,
         ok: boolean,
-        opt?: { shippingOptions?: any[] | undefined; errorMessage?: string | undefined }
+        opt?: { shippingOptions?: any[] | undefined; errorMessage?: string | undefined },
     ): Promise<boolean>;
 
     answerPreCheckoutQuery(
         pre_checkout_query_id: string,
         ok: boolean,
-        opt?: { errorMessage?: string | undefined }
+        opt?: { errorMessage?: string | undefined },
     ): Promise<boolean>;
 
     setWebhook(
         url: string,
         certificate?: any,
         allowed_updates?: string[],
-        max_connections?: number
+        max_connections?: number,
     ): Promise<boolean>;
 
     getWebhookInfo(): Promise<any>;

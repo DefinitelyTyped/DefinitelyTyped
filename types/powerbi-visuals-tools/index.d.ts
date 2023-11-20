@@ -1,9 +1,3 @@
-// Type definitions for Powerbi-visuals-tools 1.11
-// Project: https://github.com/Microsoft/PowerBI-visuals-tools
-// Definitions by:  Ilfat Galiev <https://github.com/zBritva>
-//                  Microsoft <https://github.com/Microsoft>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace powerbi {
     enum VisualDataRoleKind {
         /** Indicates that the role should be bound to something that evaluates to a grouping of values. */
@@ -209,13 +203,15 @@ declare namespace powerbi {
          */
         then<TSuccessResult, TErrorResult>(
             successCallback: (promiseValue: TSuccess) => TSuccessResult | IPromise2<TSuccessResult, TErrorResult>,
-            errorCallback?: (reason: TError) => TErrorResult):
-        IPromise2<TSuccessResult, TErrorResult>;
+            errorCallback?: (reason: TError) => TErrorResult,
+        ): IPromise2<TSuccessResult, TErrorResult>;
 
         /**
          * Shorthand for promise.then(null, errorCallback).
          */
-        catch<TErrorResult>(onRejected: (reason: any) => IPromise2<TSuccess, TErrorResult>): IPromise2<TSuccess, TErrorResult>;
+        catch<TErrorResult>(
+            onRejected: (reason: any) => IPromise2<TSuccess, TErrorResult>,
+        ): IPromise2<TSuccess, TErrorResult>;
 
         /**
          * Shorthand for promise.then(null, errorCallback).
@@ -271,7 +267,10 @@ declare namespace powerbi.visuals {
 
     interface ISelectionIdBuilder {
         withCategory(categoryColumn: DataViewCategoryColumn, index: number): this;
-        withSeries(seriesColumn: DataViewValueColumns, valueColumn: DataViewValueColumn | DataViewValueColumnGroup): this;
+        withSeries(
+            seriesColumn: DataViewValueColumns,
+            valueColumn: DataViewValueColumn | DataViewValueColumnGroup,
+        ): this;
         withMeasure(measureId: string): this;
         createSelectionId(): ISelectionId;
     }
@@ -730,10 +729,10 @@ declare namespace powerbi.data {
     }
 
     type DataRepetitionSelector =
-        DataViewScopeIdentity |
-        DataViewScopeWildcard |
-        DataViewRoleWildcard |
-        DataViewScopeTotal;
+        | DataViewScopeIdentity
+        | DataViewScopeWildcard
+        | DataViewRoleWildcard
+        | DataViewScopeTotal;
 
     interface SelectorsByColumn {
         key?: string | undefined;
@@ -944,14 +943,14 @@ declare namespace powerbi {
 
     /** Defines instances of structural types. */
     type StructuralObjectValue =
-        Fill |
-        FillRule |
-        SemanticFilter |
-        DefaultValueDefinition |
-        ImageValue |
-        Paragraphs |
-        GeoJson |
-        DataBars;
+        | Fill
+        | FillRule
+        | SemanticFilter
+        | DefaultValueDefinition
+        | ImageValue
+        | Paragraphs
+        | GeoJson
+        | DataBars;
 
     /** Describes a structural type in the client type system. Leaf properties should use ValueType. */
     interface StructuralTypeDescriptor {
@@ -1208,7 +1207,10 @@ declare namespace powerbi {
 
 declare namespace powerbi.extensibility {
     interface ISelectionManager {
-        select(selectionId: visuals.ISelectionId | visuals.ISelectionId[], multiSelect?: boolean): IPromise<visuals.ISelectionId[]>;
+        select(
+            selectionId: visuals.ISelectionId | visuals.ISelectionId[],
+            multiSelect?: boolean,
+        ): IPromise<visuals.ISelectionId[]>;
         hasSelection(): boolean;
         clear(): IPromise<{}>;
         getSelectionIds(): visuals.ISelectionId[];
@@ -1220,7 +1222,10 @@ declare namespace powerbi.extensibility {
 declare namespace powerbi.extensibility {
     interface ISelectionIdBuilder {
         withCategory(categoryColumn: DataViewCategoryColumn, index: number): this;
-        withSeries(seriesColumn: DataViewValueColumns, valueColumn: DataViewValueColumn | DataViewValueColumnGroup): this;
+        withSeries(
+            seriesColumn: DataViewValueColumns,
+            valueColumn: DataViewValueColumn | DataViewValueColumnGroup,
+        ): this;
         withMeasure(measureId: string): this;
         createSelectionId(): visuals.ISelectionId;
     }

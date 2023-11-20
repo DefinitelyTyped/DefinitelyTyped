@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/winbox",
+    "version": "0.2.9999",
+    "projects": [
+        "https://nextapps-de.github.io/winbox/"
+    ],
+    "devDependencies": {
+        "@types/winbox": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

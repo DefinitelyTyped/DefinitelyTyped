@@ -1,14 +1,8 @@
-// Type definitions for infinite-scroll 4.0
-// Project: https://github.com/metafizzy/infinite-scroll
-// Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.1
-
 /// <reference types="jquery" />
 
-import Isotope = require('isotope-layout');
-import Masonry = require('masonry-layout');
-import { Packery } from 'packery';
+import Isotope = require("isotope-layout");
+import Masonry = require("masonry-layout");
+import { Packery } from "packery";
 
 export as namespace InfiniteScroll;
 
@@ -99,7 +93,7 @@ declare namespace InfiniteScroll {
          *
          * @default 'replace'
          */
-        history?: 'push' | 'replace' | false | undefined;
+        history?: "push" | "replace" | false | undefined;
         /**
          * Updates the window title. Requires history enabled
          * @default true
@@ -144,7 +138,7 @@ declare namespace InfiniteScroll {
         button?: string | Element | undefined;
     }
 
-    type Methods = 'loadNextPage' | 'appendItems' | 'getPath' | 'getAbsolutePath' | 'option' | 'destroy';
+    type Methods = "loadNextPage" | "appendItems" | "getPath" | "getAbsolutePath" | "option" | "destroy";
 
     interface EventsMap {
         scrollThreshold(): void;
@@ -197,7 +191,7 @@ declare class InfiniteScroll {
     destroy(): void;
 
     on<E extends keyof InfiniteScroll.EventsMap & string>(event: E, handler: InfiniteScroll.EventsMap[E]): void;
-    once: this['on'];
+    once: this["on"];
 
     /**
      * Get the Infinite Scroll instance via its element.
@@ -222,7 +216,7 @@ declare global {
          * Get the Infinite Scroll instance from a jQuery object.
          * Infinite Scroll instances are useful to access Infinite Scroll properties
          */
-        data(key: 'infiniteScroll'): InfiniteScroll;
+        data(key: "infiniteScroll"): InfiniteScroll;
 
         on<E extends keyof InfiniteScroll.EventsMap & string>(
             event: `${E}.infiniteScroll`,

@@ -1,16 +1,4 @@
-// Type definitions for @babel/traverse 7.20
-// Project: https://github.com/babel/babel/tree/main/packages/babel-traverse, https://babeljs.io
-// Definitions by: Troy Gerwien <https://github.com/yortus>
-//                 Marvin Hagemeister <https://github.com/marvinhagemeister>
-//                 Ryan Petrich <https://github.com/rpetrich>
-//                 Melvin Groenhoff <https://github.com/mgroenhoff>
-//                 Dean L. <https://github.com/dlgrit>
-//                 Ifiok Jr. <https://github.com/ifiokjr>
-//                 ExE Boss <https://github.com/ExE-Boss>
-//                 Daniel Tschinder <https://github.com/danez>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as t from '@babel/types';
+import * as t from "@babel/types";
 export import Node = t.Node;
 export import RemovePropertiesOptions = t.RemovePropertiesOptions;
 
@@ -33,7 +21,7 @@ declare const traverse: {
     ) => void;
     clearNode: (node: Node, opts?: RemovePropertiesOptions) => void;
     removeProperties: (tree: Node, opts?: RemovePropertiesOptions) => Node;
-    hasType: (tree: Node, type: Node['type'], denylistTypes?: string[]) => boolean;
+    hasType: (tree: Node, type: Node["type"], denylistTypes?: string[]) => boolean;
 
     cache: typeof cache;
 };
@@ -56,7 +44,7 @@ export namespace visitors {
     function explode<S = unknown>(
         visitor: Visitor<S>,
     ): {
-        [Type in Exclude<Node, t.DeprecatedAliases>['type']]?: VisitNodeObject<S, Extract<Node, { type: Type }>>;
+        [Type in Exclude<Node, t.DeprecatedAliases>["type"]]?: VisitNodeObject<S, Extract<Node, { type: Type }>>;
     };
     function verify(visitor: Visitor): void;
     function merge<State>(visitors: Array<Visitor<State>>): Visitor<State>;
@@ -203,7 +191,7 @@ export class Scope {
         init?: t.Expression;
         unique?: boolean;
         _blockHoist?: number | undefined;
-        kind?: 'var' | 'let' | 'const';
+        kind?: "var" | "let" | "const";
     }): void;
 
     /** Walk up to the top of the scope tree and get the `Program`. */
@@ -248,9 +236,9 @@ export class Scope {
         optsOrNoGlobals?:
             | boolean
             | {
-                  noGlobals?: boolean;
-                  noUids?: boolean;
-              },
+                noGlobals?: boolean;
+                noUids?: boolean;
+            },
     ): boolean;
 
     parentHasBinding(
@@ -269,7 +257,7 @@ export class Scope {
     removeBinding(name: string): void;
 }
 
-export type BindingKind = 'var' | 'let' | 'const' | 'module' | 'hoisted' | 'param' | 'local' | 'unknown';
+export type BindingKind = "var" | "let" | "const" | "module" | "hoisted" | "param" | "local" | "unknown";
 
 /**
  * This class is responsible for a binding inside of a scope.
@@ -308,24 +296,29 @@ export class Binding {
     dereference(): void;
 }
 
-export type Visitor<S = unknown> = VisitNodeObject<S, Node> & {
-    [Type in Node['type']]?: VisitNode<S, Extract<Node, { type: Type }>>;
-} & {
-    [K in keyof t.Aliases]?: VisitNode<S, t.Aliases[K]>;
-} & {
-    [K in keyof VirtualTypeAliases]?: VisitNode<S, VirtualTypeAliases[K]>;
-} & {
-    // Babel supports `NodeTypesWithoutComment | NodeTypesWithoutComment | ... ` but it is
-    // too complex for TS. So we type it as a general visitor only if the key contains `|`
-    // this is good enough for non-visitor traverse options e.g. `noScope`
-    [k: `${string}|${string}`]: VisitNode<S, Node>;
-};
+export type Visitor<S = unknown> =
+    & VisitNodeObject<S, Node>
+    & {
+        [Type in Node["type"]]?: VisitNode<S, Extract<Node, { type: Type }>>;
+    }
+    & {
+        [K in keyof t.Aliases]?: VisitNode<S, t.Aliases[K]>;
+    }
+    & {
+        [K in keyof VirtualTypeAliases]?: VisitNode<S, VirtualTypeAliases[K]>;
+    }
+    & {
+        // Babel supports `NodeTypesWithoutComment | NodeTypesWithoutComment | ... ` but it is
+        // too complex for TS. So we type it as a general visitor only if the key contains `|`
+        // this is good enough for non-visitor traverse options e.g. `noScope`
+        [k: `${string}|${string}`]: VisitNode<S, Node>;
+    };
 
 export type VisitNode<S, P extends Node> = VisitNodeFunction<S, P> | VisitNodeObject<S, P>;
 
 export type VisitNodeFunction<S, P extends Node> = (this: S, path: NodePath<P>, state: S) => void;
 
-type NodeType = Node['type'] | keyof t.Aliases;
+type NodeType = Node["type"] | keyof t.Aliases;
 
 export interface VisitNodeObject<S, P extends Node> {
     enter?: VisitNodeFunction<S, P>;
@@ -342,8 +335,7 @@ export type NodeKeyOfNodes<T extends Node> = {
 
 export type NodePaths<T extends Node | readonly Node[]> = T extends readonly Node[]
     ? { -readonly [K in keyof T]: NodePath<Extract<T[K], Node>> }
-    : T extends Node
-    ? [NodePath<T>]
+    : T extends Node ? [NodePath<T>]
     : never;
 
 type NodeListType<N, K extends keyof N> = N[K] extends Array<infer P> ? (P extends Node ? P : never) : never;
@@ -366,7 +358,7 @@ export class NodePath<T = Node> {
     listKey: string | null;
     key: string | number | null;
     node: T;
-    type: T extends Node ? T['type'] : T extends null | undefined ? undefined : Node['type'] | undefined;
+    type: T extends Node ? T["type"] : T extends null | undefined ? undefined : Node["type"] | undefined;
     shouldSkip: boolean;
     shouldStop: boolean;
     removed: boolean;
@@ -410,7 +402,7 @@ export class NodePath<T = Node> {
     // Example: https://github.com/babel/babel/blob/63204ae51e020d84a5b246312f5eeb4d981ab952/packages/babel-traverse/src/path/modification.js#L83
     debug(buildMessage: () => string): void;
 
-    //#region ------------------------- ancestry -------------------------
+    // #region ------------------------- ancestry -------------------------
     /**
      * Starting at the parent path of the current `NodePath` and going up the
      * tree, return the first `NodePath` that causes the provided `callback`
@@ -465,9 +457,9 @@ export class NodePath<T = Node> {
     isDescendant(maybeAncestor: NodePath): boolean;
 
     inType(...candidateTypes: string[]): boolean;
-    //#endregion
+    // #endregion
 
-    //#region ------------------------- inference -------------------------
+    // #region ------------------------- inference -------------------------
     /** Infer the type of the current `NodePath`. */
     getTypeAnnotation(): t.FlowType | t.TSType;
 
@@ -478,9 +470,9 @@ export class NodePath<T = Node> {
     baseTypeStrictlyMatches(rightArg: NodePath): boolean;
 
     isGenericType(genericName: string): boolean;
-    //#endregion
+    // #endregion
 
-    //#region ------------------------- replacement -------------------------
+    // #region ------------------------- replacement -------------------------
     /**
      * Replace a node with an array of multiple. This method performs the following steps:
      *
@@ -511,9 +503,9 @@ export class NodePath<T = Node> {
     replaceExpressionWithStatements(nodes: t.Statement[]): NodePaths<t.Expression | t.Statement>;
 
     replaceInline<Nodes extends Node | readonly Node[] | [Node, ...Node[]]>(nodes: Nodes): NodePaths<Nodes>;
-    //#endregion
+    // #endregion
 
-    //#region ------------------------- evaluation -------------------------
+    // #region ------------------------- evaluation -------------------------
     /**
      * Walk the input `node` and statically evaluate if it's truthy.
      *
@@ -537,16 +529,15 @@ export class NodePath<T = Node> {
      *   t.evaluate(parse("5 + 5")) // { confident: true, value: 10 }
      *   t.evaluate(parse("!true")) // { confident: true, value: false }
      *   t.evaluate(parse("foo + foo")) // { confident: false, value: undefined, deopt: NodePath }
-     *
      */
     evaluate(): {
         confident: boolean;
         value: any;
         deopt?: NodePath;
     };
-    //#endregion
+    // #endregion
 
-    //#region ------------------------- introspection -------------------------
+    // #region ------------------------- introspection -------------------------
     /**
      * Match the current node if it matches the provided `pattern`.
      *
@@ -625,9 +616,9 @@ export class NodePath<T = Node> {
     isConstantExpression(): boolean;
 
     isInStrictMode(): boolean;
-    //#endregion
+    // #endregion
 
-    //#region ------------------------- context -------------------------
+    // #region ------------------------- context -------------------------
     call(key: string): boolean;
 
     isDenylisted(): boolean;
@@ -659,13 +650,13 @@ export class NodePath<T = Node> {
     pushContext(context: TraversalContext): void;
 
     requeue(pathToQueue?: NodePath): void;
-    //#endregion
+    // #endregion
 
-    //#region ------------------------- removal -------------------------
+    // #region ------------------------- removal -------------------------
     remove(): void;
-    //#endregion
+    // #endregion
 
-    //#region ------------------------- conversion -------------------------
+    // #region ------------------------- conversion -------------------------
     toComputedKey(): t.PrivateName | t.Expression;
 
     /** @deprecated Use `arrowFunctionToExpression` */
@@ -702,9 +693,9 @@ export class NodePath<T = Node> {
             body: t.BlockStatement;
         }
     >;
-    //#endregion
+    // #endregion
 
-    //#region ------------------------- modification -------------------------
+    // #region ------------------------- modification -------------------------
     /** Insert the provided nodes before the current one. */
     insertBefore<Nodes extends NodesInsertionParam<Node>>(nodes: Nodes): NodePaths<Nodes>;
 
@@ -741,9 +732,9 @@ export class NodePath<T = Node> {
 
     /** Hoist the current node to the highest scope possible and return a UID referencing it. */
     hoist(scope: Scope): void;
-    //#endregion
+    // #endregion
 
-    //#region ------------------------- family -------------------------
+    // #region ------------------------- family -------------------------
     getOpposite(): NodePath | null;
 
     getCompletionRecords(): NodePath[];
@@ -778,9 +769,9 @@ export class NodePath<T = Node> {
         duplicates?: boolean,
         outerOnly?: boolean,
     ): Record<string, NodePath<t.Identifier> | Array<NodePath<t.Identifier>>>;
-    //#endregion
+    // #endregion
 
-    //#region ------------------------- comments -------------------------
+    // #region ------------------------- comments -------------------------
     /** Share comments amongst siblings. */
     shareCommentsWithSiblings(): void;
 
@@ -788,9 +779,9 @@ export class NodePath<T = Node> {
 
     /** Give node `comments` of the specified `type`. */
     addComments(type: t.CommentTypeShorthand, comments: t.Comment[]): void;
-    //#endregion
+    // #endregion
 
-    //#region ------------------------- isXXX -------------------------
+    // #region ------------------------- isXXX -------------------------
     isAccessor(opts?: object): this is NodePath<t.Accessor>;
     isAnyTypeAnnotation(opts?: object): this is NodePath<t.AnyTypeAnnotation>;
     isArgumentPlaceholder(opts?: object): this is NodePath<t.ArgumentPlaceholder>;
@@ -1102,26 +1093,26 @@ export class NodePath<T = Node> {
     isWithStatement(opts?: object): this is NodePath<t.WithStatement>;
     isYieldExpression(opts?: object): this is NodePath<t.YieldExpression>;
 
-    isBindingIdentifier(opts?: object): this is NodePath<VirtualTypeAliases['BindingIdentifier']>;
+    isBindingIdentifier(opts?: object): this is NodePath<VirtualTypeAliases["BindingIdentifier"]>;
     isBlockScoped(opts?: object): this is NodePath<t.FunctionDeclaration | t.ClassDeclaration | t.VariableDeclaration>;
 
     /** @deprecated */
-    isExistentialTypeParam(opts?: object): this is NodePath<VirtualTypeAliases['ExistentialTypeParam']>;
-    isForAwaitStatement(opts?: object): this is NodePath<VirtualTypeAliases['ForAwaitStatement']>;
+    isExistentialTypeParam(opts?: object): this is NodePath<VirtualTypeAliases["ExistentialTypeParam"]>;
+    isForAwaitStatement(opts?: object): this is NodePath<VirtualTypeAliases["ForAwaitStatement"]>;
     isGenerated(opts?: object): boolean;
 
     /** @deprecated */
     isNumericLiteralTypeAnnotation(opts?: object): void;
     isPure(opts?: object): boolean;
     isReferenced(opts?: object): boolean;
-    isReferencedIdentifier(opts?: object): this is NodePath<VirtualTypeAliases['ReferencedIdentifier']>;
-    isReferencedMemberExpression(opts?: object): this is NodePath<VirtualTypeAliases['ReferencedMemberExpression']>;
-    isScope(opts?: object): this is NodePath<VirtualTypeAliases['Scope']>;
+    isReferencedIdentifier(opts?: object): this is NodePath<VirtualTypeAliases["ReferencedIdentifier"]>;
+    isReferencedMemberExpression(opts?: object): this is NodePath<VirtualTypeAliases["ReferencedMemberExpression"]>;
+    isScope(opts?: object): this is NodePath<VirtualTypeAliases["Scope"]>;
     isUser(opts?: object): boolean;
-    isVar(opts?: object): this is NodePath<VirtualTypeAliases['Var']>;
-    //#endregion
+    isVar(opts?: object): this is NodePath<VirtualTypeAliases["Var"]>;
+    // #endregion
 
-    //#region ------------------------- assertXXX -------------------------
+    // #region ------------------------- assertXXX -------------------------
     assertAccessor(opts?: object): asserts this is NodePath<t.Accessor>;
     assertAnyTypeAnnotation(opts?: object): asserts this is NodePath<t.AnyTypeAnnotation>;
     assertArgumentPlaceholder(opts?: object): asserts this is NodePath<t.ArgumentPlaceholder>;
@@ -1432,7 +1423,7 @@ export class NodePath<T = Node> {
     assertWhileStatement(opts?: object): asserts this is NodePath<t.WhileStatement>;
     assertWithStatement(opts?: object): asserts this is NodePath<t.WithStatement>;
     assertYieldExpression(opts?: object): asserts this is NodePath<t.YieldExpression>;
-    //#endregion
+    // #endregion
 }
 
 export interface HubInterface {

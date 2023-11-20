@@ -1,16 +1,7 @@
-// Type definitions for jest-image-snapshot 6.2
-// Project: https://github.com/americanexpress/jest-image-snapshot#readme
-// Definitions by: Janeene Beeforth <https://github.com/dawnmist>
-//                 erbridge <https://github.com/erbridge>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Ayc0 <https://github.com/Ayc0>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.3
-
 /// <reference types="jest" />
 
-import { PixelmatchOptions } from 'pixelmatch';
-import { Options as SSIMOptions } from 'ssim.js';
+import { PixelmatchOptions } from "pixelmatch";
+import { Options as SSIMOptions } from "ssim.js";
 
 export interface MatchImageSnapshotOptions {
     /**
@@ -27,7 +18,7 @@ export interface MatchImageSnapshotOptions {
      * `pixelmatch` does a pixel by pixel comparison, whereas `ssim` does a structural similarity comparison.
      * @default 'pixelmatch'
      */
-    comparisonMethod?: 'pixelmatch' | 'ssim' | undefined;
+    comparisonMethod?: "pixelmatch" | "ssim" | undefined;
     /**
      * Custom snapshots directory.
      * Absolute path of a directory to keep the snapshot in.
@@ -59,18 +50,18 @@ export interface MatchImageSnapshotOptions {
      */
     customSnapshotIdentifier?:
         | ((parameters: {
-              testPath: string;
-              currentTestName: string;
-              counter: number;
-              defaultIdentifier: string;
-          }) => string)
+            testPath: string;
+            currentTestName: string;
+            counter: number;
+            defaultIdentifier: string;
+        }) => string)
         | string
         | undefined;
     /**
      * Changes diff image layout direction.
      * @default 'horizontal'
      */
-    diffDirection?: 'horizontal' | 'vertical' | undefined;
+    diffDirection?: "horizontal" | "vertical" | undefined;
     /**
      * Either only include the difference between the baseline and the received image in the diff image, or include
      * the 3 images (following the direction set by `diffDirection`).
@@ -105,7 +96,7 @@ export interface MatchImageSnapshotOptions {
      * Sets the type of threshold that would trigger a failure.
      * @default 'pixel'.
      */
-    failureThresholdType?: 'pixel' | 'percent' | undefined;
+    failureThresholdType?: "pixel" | "percent" | undefined;
     /**
      * Updates a snapshot even if it passed the threshold against the existing one.
      * @default false.

@@ -1,55 +1,50 @@
-// Type definitions for check-types 7.3
-// Project: https://gitlab.com/philbooth/check-types.js
-// Definitions by: idchlife <https://github.com/idchlife>
-//                 shov <https://github.com/shov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.0
-
 type NegationFunction = (val: any) => boolean;
 
 type MaybeFunction = <T>(val: T) => boolean | T;
 
 type CheckTypePredicates = Pick<
     CheckType,
-    | 'equal'
-    | 'undefined'
-    | 'null'
-    | 'assigned'
-    | 'primitive'
-    | 'zero'
-    | 'infinity'
-    | 'number'
-    | 'integer'
-    | 'even'
-    | 'odd'
-    | 'greater'
-    | 'less'
-    | 'between'
-    | 'greaterOrEqual'
-    | 'lessOrEqual'
-    | 'inRange'
-    | 'positive'
-    | 'negative'
-    | 'string'
-    | 'emptyString'
-    | 'nonEmptyString'
-    | 'contains'
-    | 'match'
-    | 'boolean'
-    | 'object'
-    | 'emptyObject'
-    | 'nonEmptyObject'
-    | 'instanceStrict'
-    | 'instance'
-    | 'like'
-    | 'array'
-    | 'emptyArray'
-    | 'nonEmptyArray'
-    | 'arrayLike'
-    | 'iterable'
-    | 'date'
-    | 'function'
-    | 'hasLength'
+    | "equal"
+    | "undefined"
+    | "null"
+    | "assigned"
+    | "primitive"
+    | "zero"
+    | "infinity"
+    | "number"
+    | "integer"
+    | "even"
+    | "odd"
+    | "greater"
+    | "less"
+    | "between"
+    | "greaterOrEqual"
+    | "lessOrEqual"
+    | "inRange"
+    | "positive"
+    | "negative"
+    | "string"
+    | "emptyString"
+    | "nonEmptyString"
+    | "contains"
+    | "match"
+    | "boolean"
+    | "object"
+    | "emptyObject"
+    | "nonEmptyObject"
+    | "instanceStrict"
+    | "instance"
+    | "like"
+    | "array"
+    | "emptyArray"
+    | "nonEmptyArray"
+    | "arrayLike"
+    | "iterable"
+    | "date"
+    | "function"
+    | "hasLength"
+    | "containsKey"
+    | "in"
 >;
 
 interface ArrayFunction {
@@ -79,12 +74,11 @@ interface ObjectFunction {
 type AssertExtended<T extends any[], R> = (...args: [...T, string?]) => R;
 
 type ExtendWithAssert<T> = {
-    [K in keyof T]: T[K] extends (...a: infer U) => infer R
-        ? AssertExtended<U, R> & ExtendWithAssert<T[K]>
+    [K in keyof T]: T[K] extends (...a: infer U) => infer R ? AssertExtended<U, R> & ExtendWithAssert<T[K]>
         : ExtendWithAssert<T[K]>;
 };
 interface AssertFunction {
-    <T>(possibleFalsy: T, message?: string, errorType?: { new (...args: any[]): any }): T;
+    <T>(possibleFalsy: T, message?: string, errorType?: { new(...args: any[]): any }): T;
 }
 
 interface CheckType {
@@ -102,7 +96,6 @@ interface CheckType {
     string(a: any): a is string;
     emptyString(a: any): boolean;
     nonEmptyString(a: any): boolean;
-    contains(a: string, substring: string): boolean;
     match(a: string, b: RegExp): boolean;
 
     /* Number predicates */
@@ -170,7 +163,7 @@ interface CheckType {
     /* Modifiers (some of them in their respected sections) */
     not: CheckTypePredicates & NegationFunction;
     maybe: CheckTypePredicates & MaybeFunction;
-    assert: ExtendWithAssert<CheckTypePredicates> & ExtendWithAssert<Pick<CheckType, 'not' | 'maybe'>> & AssertFunction;
+    assert: ExtendWithAssert<CheckTypePredicates> & ExtendWithAssert<Pick<CheckType, "not" | "maybe">> & AssertFunction;
 
     /* Batch operations */
 
@@ -191,6 +184,23 @@ interface CheckType {
     all(arr: boolean[] | { [k: string]: boolean }): boolean;
 
     any(arr: boolean[] | { [k: string]: boolean }): boolean;
+
+    /* Searching keys and values */
+    in(substring: string, a: string): boolean;
+    in(value: any, a: object): boolean;
+    in<T = any>(value: T, a: T[] | Set<T> | Map<any, T> | Iterable<T>): boolean;
+
+    contains(a: string, substring: string): boolean;
+    contains(a: object, value: any): boolean;
+    contains<T = any>(a: T[] | Set<T> | Map<any, T> | Iterable<T>, value: T): boolean;
+
+    keyIn(key: number | string, a: string | any[]): boolean;
+    keyIn(key: number | string | symbol, a: object): boolean;
+    keyIn<K = any>(key: K, a: Map<K, any>): boolean;
+
+    containsKey(a: string | any[], key: number | string): boolean;
+    containsKey(a: object, key: number | string | symbol): boolean;
+    containsKey<K = any>(a: Map<K, any>, key: K): boolean;
 }
 
 declare const check: CheckType;

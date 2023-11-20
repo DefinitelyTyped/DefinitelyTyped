@@ -1,8 +1,3 @@
-// Type definitions for non-npm package @recurly/recurly-js 4.25
-// Project: https://github.com/recurly/recurly-js
-// Definitions by: Christopher Rogers <https://github.com/chrissrogers>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
 import { Recurly } from './lib/recurly';
 
 declare global {

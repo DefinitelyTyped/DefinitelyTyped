@@ -1,30 +1,24 @@
-// Type definitions for cloudflare 2.7
-// Project: https://github.com/cloudflare/node-cloudflare
-// Definitions by: Samuel Corsi-House <https://github.com/Xenfo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.3
-
 declare namespace Cloudflare {
     type RecordTypes =
-        | 'A'
-        | 'AAAA'
-        | 'CNAME'
-        | 'HTTPS'
-        | 'TXT'
-        | 'SRV'
-        | 'LOC'
-        | 'MX'
-        | 'NS'
-        | 'SPF'
-        | 'CERT'
-        | 'DNSKEY'
-        | 'DS'
-        | 'NAPTR'
-        | 'SMIMEA'
-        | 'SSHFP'
-        | 'SVCB'
-        | 'TLSA'
-        | 'URI';
+        | "A"
+        | "AAAA"
+        | "CNAME"
+        | "HTTPS"
+        | "TXT"
+        | "SRV"
+        | "LOC"
+        | "MX"
+        | "NS"
+        | "SPF"
+        | "CERT"
+        | "DNSKEY"
+        | "DS"
+        | "NAPTR"
+        | "SMIMEA"
+        | "SSHFP"
+        | "SVCB"
+        | "TLSA"
+        | "URI";
 
     type ResponseObjectPromise = Promise<object>;
 
@@ -35,7 +29,7 @@ declare namespace Cloudflare {
     }
 
     interface DnsRecordWithoutPriority {
-        type: Exclude<RecordTypes, 'MX' | 'SRV' | 'URI'>;
+        type: Exclude<RecordTypes, "MX" | "SRV" | "URI">;
         name: string;
         content: string;
         ttl: number;
@@ -43,7 +37,7 @@ declare namespace Cloudflare {
     }
 
     interface DnsRecordWithPriority {
-        type: Extract<RecordTypes, 'MX' | 'URI'>;
+        type: Extract<RecordTypes, "MX" | "URI">;
         name: string;
         content: string;
         ttl: number;
@@ -52,7 +46,7 @@ declare namespace Cloudflare {
     }
 
     interface SrvDnsRecord {
-        type: 'SRV';
+        type: "SRV";
         data: {
             name: string;
             service: string;
@@ -67,12 +61,9 @@ declare namespace Cloudflare {
     }
 
     type DnsRecord = DnsRecordWithPriority | DnsRecordWithoutPriority | SrvDnsRecord;
-    type DnsRecordByType<RecordType extends RecordTypes> = RecordType extends 'MX' | 'URI'
-        ? DnsRecordWithPriority
-        : RecordType extends 'SRV'
-        ? SrvDnsRecord
-        : RecordType extends Exclude<RecordTypes, 'MX' | 'SRV' | 'URI'>
-        ? DnsRecordWithoutPriority
+    type DnsRecordByType<RecordType extends RecordTypes> = RecordType extends "MX" | "URI" ? DnsRecordWithPriority
+        : RecordType extends "SRV" ? SrvDnsRecord
+        : RecordType extends Exclude<RecordTypes, "MX" | "SRV" | "URI"> ? DnsRecordWithoutPriority
         : DnsRecord;
 
     interface DNSRecords {
@@ -93,11 +84,11 @@ declare namespace Cloudflare {
         name?: string;
         content?: string;
         type?: RecordType;
-        order?: 'type' | 'name' | 'content' | 'ttl' | 'proxied';
-        direction?: 'asc' | 'desc';
-        match?: 'any' | 'all';
+        order?: "type" | "name" | "content" | "ttl" | "proxied";
+        direction?: "asc" | "desc";
+        match?: "any" | "all";
         tag?: string;
-        tag_match?: 'any' | 'all';
+        tag_match?: "any" | "all";
         search?: string;
         comment?: string;
         // TODO: support nested filters (for example tag.absent)
@@ -221,7 +212,7 @@ declare namespace Cloudflare {
             name: string;
             action: { id: string };
             jump_start?: boolean | undefined;
-            type?: 'full' | 'partial' | undefined;
+            type?: "full" | "partial" | undefined;
         }): ResponseObjectPromise;
         edit(
             id: string,
@@ -229,7 +220,7 @@ declare namespace Cloudflare {
                 name: string;
                 action: { id: string };
                 jump_start?: boolean | undefined;
-                type?: 'full' | 'partial' | undefined;
+                type?: "full" | "partial" | undefined;
             },
         ): ResponseObjectPromise;
         read(id: string): ResponseObjectPromise;
@@ -238,7 +229,7 @@ declare namespace Cloudflare {
             params: {
                 files?:
                     | string[]
-                    | { url: string; headers: { Origin: string; 'CF-IPCountry': string; 'CF-Device-Type': string } }
+                    | { url: string; headers: { Origin: string; "CF-IPCountry": string; "CF-Device-Type": string } }
                     | undefined;
                 tags?: string[] | undefined;
                 hosts?: string[] | undefined;

@@ -1,15 +1,7 @@
-// Type definitions for snowflake-sdk 1.6
-// Project: https://github.com/snowflakedb/snowflake-connector-nodejs#readme
-// Definitions by: Hunter Tunnicliff <https://github.com/htunnicliff>
-//                 Mauricio Rojas <https://github.com/orellabac>
-//                 Ron Jones <https://github.com/boatilus>
-//                 Brian Gottfried <https://github.com/briangottfried>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Pool, Options as PoolOptions } from 'generic-pool';
-import { Readable } from 'stream';
+import { Options as PoolOptions, Pool } from "generic-pool";
+import { Readable } from "stream";
 
 /**
  * ### Related Docs
@@ -166,7 +158,7 @@ export interface SnowflakeError extends SnowflakeErrorExternal {
 export interface StreamOptions {
     start?: number;
     end?: number;
-    fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON' | 'Buffer'> | undefined;
+    fetchAsString?: Array<"String" | "Boolean" | "Number" | "Date" | "JSON" | "Buffer"> | undefined;
 }
 
 /**
@@ -296,6 +288,12 @@ export interface ConnectionOptions {
      * For details, see {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#label-nodejs-key-pair-authentication Using Key Pair Authentication & Key Pair Rotation}.
      */
     privateKeyPass?: string;
+
+    /**
+     * Specifies a fully-qualified endpoint for connecting to Snowflake.
+     * For details, see {@link https://docs.snowflake.com/en/developer-guide/node-js/nodejs-driver-options#additional-connection-options Additional connection options}.
+     */
+    accessUrl?: string;
 }
 
 export interface Column {
@@ -396,8 +394,8 @@ export interface Column {
 }
 
 export enum StatementStatus {
-    Fetching = 'fetching',
-    Complete = 'complete',
+    Fetching = "fetching",
+    Complete = "complete",
 }
 
 export interface Statement {
@@ -570,7 +568,7 @@ export type Connection = NodeJS.EventEmitter & {
          * ### Related Docs
          * - {@link https://docs.snowflake.com/en/user-guide/nodejs-driver-use.html#fetching-data-types-as-strings Fetching Data Types As Strings}
          */
-        fetchAsString?: Array<'String' | 'Boolean' | 'Number' | 'Date' | 'JSON' | 'Buffer'> | undefined;
+        fetchAsString?: Array<"String" | "Boolean" | "Number" | "Date" | "JSON" | "Buffer"> | undefined;
         complete?: (err: SnowflakeError | undefined, stmt: Statement, rows: any[] | undefined) => void;
     }): Statement;
 
@@ -591,20 +589,20 @@ export type Connection = NodeJS.EventEmitter & {
     serialize(): string;
 };
 
-export const STRING = 'STRING';
-export const BOOLEAN = 'BOOLEAN';
-export const NUMBER = 'NUMBER';
-export const DATE = 'DATE';
-export const JSON = 'JSON';
+export const STRING = "STRING";
+export const BOOLEAN = "BOOLEAN";
+export const NUMBER = "NUMBER";
+export const DATE = "DATE";
+export const JSON = "JSON";
 
 export enum ocspModes {
-    FAIL_CLOSED = 'FAIL_CLOSED',
-    FAIL_OPEN = 'FAIL_OPEN',
-    INSECURE = 'INSECURE',
+    FAIL_CLOSED = "FAIL_CLOSED",
+    FAIL_OPEN = "FAIL_OPEN",
+    INSECURE = "INSECURE",
 }
 
 export interface ConfigureOptions {
-    logLevel?: 'ERROR' | 'WARN' | 'INFO' | 'DEBUG' | 'TRACE' | undefined;
+    logLevel?: "ERROR" | "WARN" | "INFO" | "DEBUG" | "TRACE" | undefined;
     insecureConnect?: boolean | undefined;
 
     /**

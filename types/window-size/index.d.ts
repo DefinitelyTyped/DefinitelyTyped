@@ -1,12 +1,7 @@
-// Type definitions for window-size 1.1.1
-// Project: https://github.com/jonschlinkert/window-size
-// Definitions by: Juer Whang <https://github.com/juergenie>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-declare module 'window-size' {
-    import { WriteStream } from 'fs';
+declare module "window-size" {
+    import { WriteStream } from "fs";
 
     const windowSize: windowSize.Size & {
         /** Get terminal window's size with available channels. */

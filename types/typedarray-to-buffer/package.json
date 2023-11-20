@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/typedarray-to-buffer",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/feross/typedarray-to-buffer"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/typedarray-to-buffer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leon Si",
+            "githubUsername": "leonzalion"
+        }
+    ]
+}

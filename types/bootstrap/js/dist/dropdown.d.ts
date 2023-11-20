@@ -1,5 +1,6 @@
-import * as Popper from '@popperjs/core';
-import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from './base-component';
+import * as Popper from "@popperjs/core";
+import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from "./base-component";
+import Tooltip from "./tooltip";
 
 declare class Dropdown extends BaseComponent {
     /**
@@ -54,33 +55,31 @@ declare namespace Dropdown {
         /**
          * Fires immediately when the show instance method is called.
          */
-        show = 'show.bs.dropdown',
+        show = "show.bs.dropdown",
 
         /**
          * Fired when the dropdown has been made visible to the user and CSS
          * transitions have completed.
          */
-        shown = 'shown.bs.dropdown',
+        shown = "shown.bs.dropdown",
 
         /**
          * Fires immediately when the hide instance method has been called.
          */
-        hide = 'hide.bs.dropdown',
+        hide = "hide.bs.dropdown",
 
         /**
          * Fired when the dropdown has finished being hidden from the user and
          * CSS transitions have completed.
          */
-        hidden = 'hidden.bs.dropdown',
+        hidden = "hidden.bs.dropdown",
     }
 
     type Offset = [number, number];
 
     type OffsetFunction = () => Offset;
 
-    type PopperConfigFunction = () => Partial<Popper.Options>;
-
-    interface Options {
+    interface Options extends Pick<Tooltip.Options, "popperConfig"> {
         /**
          * Offset of the dropdown relative to its target. You can pass a string
          * in data attributes with comma separated values like:
@@ -118,7 +117,7 @@ declare namespace Dropdown {
          * @see {@link https://popper.js.org/docs/v2/constructors/#createpopper}
          * @default "toggle"
          */
-        reference: 'toggle' | 'parent' | Element | Popper.Rect;
+        reference: "toggle" | "parent" | Element | Popper.Rect;
 
         /**
          * By default, we use Popper.js for dynamic positioning. Disable this
@@ -126,32 +125,17 @@ declare namespace Dropdown {
          *
          * @default "dynamic"
          */
-        display: 'dynamic' | 'static';
-
-        /**
-         * To change Bootstrap's default Popper.js config, see Popper.js's
-         * configuration
-         *
-         * When a function is used to create the Popper configuration, it's
-         * called with an object that contains the Bootstrap's default Popper
-         * configuration. It helps you use and merge the default with your own
-         * configuration. The function must return a configuration object for
-         * Popper.
-         *
-         * @see {@link https://popper.js.org/docs/v2}
-         * @default null
-         */
-        popperConfig: Partial<Popper.Options> | PopperConfigFunction | null;
+        display: "dynamic" | "static";
 
         /**
          * Configure the auto close behavior of the dropdown
          *
          * @default true
          */
-        autoClose: boolean | 'inside' | 'outside';
+        autoClose: boolean | "inside" | "outside";
     }
 
-    type jQueryInterface = (config?: Partial<Options> | 'toggle' | 'show' | 'hide' | 'update' | 'dispose') => JQuery;
+    type jQueryInterface = (config?: Partial<Options> | "toggle" | "show" | "hide" | "update" | "dispose") => JQuery;
 }
 
 export default Dropdown;

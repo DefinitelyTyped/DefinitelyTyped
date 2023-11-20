@@ -1,9 +1,3 @@
-// Type definitions for trtc-js-sdk 4.9
-// Project: https://github.com/tencentyun/TRTCSDK#readme
-// Definitions by: yokots <https://github.com/yokots>
-//                 Wang KaiLing <https://github.com/wkl007>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace TRTC;
 
 // utils types
@@ -229,7 +223,7 @@ export interface Client {
     off<K extends keyof ClientEventMap>(event: K, handler: Callback<ClientEventMap[K]>): void;
 
     /** 取消所有事件绑定 */
-    off(event: '*'): void;
+    off(event: "*"): void;
 
     /** 获取当前房间内远端用户音视频 mute 状态列表。 */
     getRemoteMutedState(): RemoteMutedState[];
@@ -269,7 +263,7 @@ export interface ClientConfig {
      * - `rtc` 实时通话模式
      * - `live` 互动直播模式
      */
-    mode: 'rtc' | 'live';
+    mode: "rtc" | "live";
     /** 是否使用 String 类型的 roomId，支持 v4.3.0+ 版本。 */
     useStringRoomId?: boolean | undefined;
     /** 绑定腾讯云直播 CDN 流 ID，设置之后，您就可以在腾讯云直播 CDN 上通过标准直播方案（FLV|HLS）播放该用户的音视频流。 */
@@ -292,38 +286,38 @@ export interface ClientConfig {
 /** 客户端事件 */
 export interface ClientEventMap {
     /** 远端流添加事件，当远端用户发布流后会收到该通知。 */
-    'stream-added': RemoteStreamInfo;
+    "stream-added": RemoteStreamInfo;
     /** 远端流移除事件，当远端用户取消发布流后会收到该通知。  */
-    'stream-removed': RemoteStreamInfo;
+    "stream-removed": RemoteStreamInfo;
     /** 远端流更新事件，当远端用户添加、移除或更换音视频轨道后会收到该通知。 */
-    'stream-updated': RemoteStreamInfo;
+    "stream-updated": RemoteStreamInfo;
     /** 远端流订阅成功事件，调用 subscribe() 成功后会触发该事件。 */
-    'stream-subscribed': RemoteStreamInfo;
+    "stream-subscribed": RemoteStreamInfo;
     /** 信令通道连接状态变化事件 */
-    'connection-state-changed': {
+    "connection-state-changed": {
         prevState: ConnectionState;
         state: ConnectionState;
     };
     /** 远端用户进房通知，只有主动推流的远端用户进房才会收到该通知。 */
-    'peer-join': RemoteUserInfo;
+    "peer-join": RemoteUserInfo;
     /** 远端用户退房通知，只有主动推流的远端用户退房才会收到该通知。 */
-    'peer-leave': RemoteUserInfo;
+    "peer-leave": RemoteUserInfo;
     /** 远端用户禁用音频通知。 */
-    'mute-audio': RemoteUserInfo;
+    "mute-audio": RemoteUserInfo;
     /** 远端用户禁用视频通知。 */
-    'mute-video': RemoteUserInfo;
+    "mute-video": RemoteUserInfo;
     /** 远端用户启用音频通知。 */
-    'unmute-audio': RemoteUserInfo;
+    "unmute-audio": RemoteUserInfo;
     /** 远端用户启用视频通知。 */
-    'unmute-video': RemoteUserInfo;
+    "unmute-video": RemoteUserInfo;
     /**
      * 用户被踢出房间通知，被踢原因有：
      *  - 同名用户登录，注意：同名用户同时登陆是不允许的行为，可能会导致双方音视频通话异常，此乃应用业务逻辑错误！
      *  - 被账户管理员主动踢出房间
      */
-    'client-banned': RtcError;
+    "client-banned": RtcError;
     /** 网络质量统计数据事件，进房后开始统计，每两秒触发一次，包括上行（uplinkNetworkQuality）和下行（downlinkNetworkQuality）的质量统计数据。 */
-    'network-quality': NetworkQuality;
+    "network-quality": NetworkQuality;
     /** 客户端错误事件 */
     error: RtcError;
 }
@@ -339,7 +333,7 @@ export interface Stream {
      * @param elementId HTML <div> 标签ID，该方法内部自动创建的音视频标签将被添加到该容器中。
      * @param options 播放选项
      */
-    play(elementId: HTMLDivElement['id'] | HTMLDivElement, options?: PlayOptions): Promise<void>;
+    play(elementId: HTMLDivElement["id"] | HTMLDivElement, options?: PlayOptions): Promise<void>;
 
     /** 停止播放音视频流,该方法还会将由 `play()` 创建的音视频标签从 HTML 页面中删除。 */
     stop(): void;
@@ -459,7 +453,7 @@ export interface LocalStream extends Stream {
      * - `standard` 采样率：48000，声道：单声道，码率：40kbps
      * - `high` 采样率：48000，声道：单声道，码率：128kbps
      */
-    setAudioProfile(profile: 'standard' | 'high'): void;
+    setAudioProfile(profile: "standard" | "high"): void;
 
     /**
      * 设置视频 Profile,该方法需要在调用 `initialize()` 之前调用。
@@ -495,7 +489,7 @@ export interface LocalStream extends Stream {
      * - `detail`：本地视频内容为 ppt、带有文本内容、绘画或艺术线条的网页。一般屏幕分享默认使用这个提示。
      * - `text`：本地视频内容主要是含有文本的 ppt 或网页等。
      */
-    setVideoContentHint(hint: 'motion' | 'detail' | 'text'): void;
+    setVideoContentHint(hint: "motion" | "detail" | "text"): void;
 
     /**
      * 切换本地流的媒体输入设备,该方法仅适用于从摄像头和麦克风采集音视频的本地流。
@@ -508,7 +502,7 @@ export interface LocalStream extends Stream {
      * - 摄像头设备标识通过 getCameras() 获取。在移动设备上，可以通过设置 deviceId 为 'user' 和 'environment' 来切换前置和后置摄像头。
      * - 麦克风设备标识通过 getMicrophones() 获取。
      */
-    switchDevice(type: 'audio' | 'video', deviceId: string): Promise<void>;
+    switchDevice(type: "audio" | "video", deviceId: string): Promise<void>;
 
     /**
      * 添加音频或视频轨道
@@ -593,7 +587,7 @@ export interface RemoteStream extends Stream {
      * - `main` 主音视频流
      * - `auxiliary` 辅助视频流，通常是一个屏幕分享流
      */
-    getType(): 'main' | 'auxiliary';
+    getType(): "main" | "auxiliary";
 }
 
 export interface StreamConfig {
@@ -618,7 +612,7 @@ export interface StreamConfig {
      *
      * **注意** 请勿同时使用 cameraId 和 facingMode 参数。
      */
-    facingMode?: 'user' | 'environment' | undefined;
+    facingMode?: "user" | "environment" | undefined;
     /** 是否采集屏幕分享流 */
     screen?: boolean | undefined;
     /**
@@ -634,16 +628,16 @@ export interface StreamConfig {
 
 export interface StreamEventMap {
     /** Audio/Video Player 状态变化事件 App 可根据状态变化来更新 UI，比如，通过监听 video player 状态变化来关闭或打开遮板。 */
-    'player-state-changed': {
+    "player-state-changed": {
         type: string;
-        state: 'PLAYING' | 'PAUSED' | 'STOPPED';
-        reason: 'playing' | 'mute' | 'unmute' | 'ended';
+        state: "PLAYING" | "PAUSED" | "STOPPED";
+        reason: "playing" | "mute" | "unmute" | "ended";
     };
     /** 本地屏幕分享停止事件通知，仅对本地屏幕分享流有效。 */
-    'screen-sharing-stopped': undefined;
+    "screen-sharing-stopped": undefined;
 }
 
-export interface TurnServerConfig extends Omit<RTCIceServer, 'urls'> {
+export interface TurnServerConfig extends Omit<RTCIceServer, "urls"> {
     /** TURN 服务器 url */
     url: string;
 }
@@ -655,7 +649,7 @@ export interface TurnServerConfig extends Omit<RTCIceServer, 'urls'> {
  *
  * **注意** 互动直播 live 模式下的观众角色没有发布本地流的权限，只有收看远端流的权限。如果观众想要连麦跟主播互动， 请先通过 switchRole() 切换角色到主播 anchor 后再发布本地流。
  */
-export type Role = 'anchor' | 'audience';
+export type Role = "anchor" | "audience";
 
 export interface JoinOptions {
     /** 房间号 */
@@ -768,12 +762,12 @@ export interface RemoteUserInfo {
  * - `RECONNECTING`: 自动重连中
  * - `CONNECTED`: 已连接
  */
-export type ConnectionState = 'DISCONNECTED' | 'CONNECTING' | 'RECONNECTING' | 'CONNECTED';
+export type ConnectionState = "DISCONNECTED" | "CONNECTING" | "RECONNECTING" | "CONNECTED";
 
 /** 播放选项 */
 export interface PlayOptions {
     /** 视频画面显示模式，参考 [CSS object-fit 属性](https://developer.mozilla.org/zh-CN/docs/Web/CSS/object-fit) */
-    objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down' | undefined;
+    objectFit?: "contain" | "cover" | "fill" | "none" | "scale-down" | undefined;
     /** 是否需要 mute 声音，对于本地流通常需要 mute 声音以防止播放从麦克风采集回来的声音。 */
     muted?: boolean | undefined;
 }
@@ -789,9 +783,9 @@ export interface Profile {
     bitrate: number;
 }
 
-export type VideoProfileString = '120p' | '180p' | '240p' | '360p' | '480p' | '720p' | '1080p' | '1440p' | '4K';
+export type VideoProfileString = "120p" | "180p" | "240p" | "360p" | "480p" | "720p" | "1080p" | "1440p" | "4K";
 
-export type ScreenProfileString = '480p' | '480p_2' | '720p' | '720p_2' | '1080p' | '1080p_2';
+export type ScreenProfileString = "480p" | "480p_2" | "720p" | "720p_2" | "1080p" | "1080p_2";
 
 export interface CheckResult {
     /** 检测结果 */

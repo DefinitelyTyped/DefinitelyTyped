@@ -1,9 +1,3 @@
-// Type definitions for xml 1.0
-// Project: https://github.com/dylang/node-xml
-// Definitions by: Jianrong Yu <https://github.com/YuJianrong>
-//                 Semyon Fomin <https://github.com/semyonf>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare namespace xml {

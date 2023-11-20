@@ -1,13 +1,7 @@
-// Type definitions for node-7z 2.1
-// Project: https://github.com/quentinrossetti/node-7z
-// Definitions by: Erik Rothoff Andersson <https://github.com/erkie>
-//                 Colin Berry <https://github.com/colin969>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import * as StreamNS from 'stream';
-import { ChildProcess } from 'child_process';
+import { ChildProcess } from "child_process";
+import * as StreamNS from "stream";
 
 interface Data {
     file: string;
@@ -54,67 +48,67 @@ declare class ZipStream extends StreamNS.Stream implements NodeJS.ReadableStream
     destroy(error?: Error): this;
 
     // tslint:disable:unified-signatures
-    addListener(event: 'end', listener: () => void): this;
-    addListener(event: 'data', listener: (data: Data) => void): this;
-    addListener(event: 'progress', listener: (progress: Progress) => void): this;
-    addListener(event: 'error', listener: (err: Error) => void): this;
-    addListener(event: 'pause', listener: () => void): this;
-    addListener(event: 'readable', listener: () => void): this;
-    addListener(event: 'resume', listener: () => void): this;
+    addListener(event: "end", listener: () => void): this;
+    addListener(event: "data", listener: (data: Data) => void): this;
+    addListener(event: "progress", listener: (progress: Progress) => void): this;
+    addListener(event: "error", listener: (err: Error) => void): this;
+    addListener(event: "pause", listener: () => void): this;
+    addListener(event: "readable", listener: () => void): this;
+    addListener(event: "resume", listener: () => void): this;
     addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    emit(event: 'end'): boolean;
-    emit(event: 'data', data: Data): boolean;
-    emit(event: 'progress', progress: Progress): boolean;
-    emit(event: 'error', err: Error): this;
-    emit(event: 'pause'): boolean;
-    emit(event: 'readable'): boolean;
-    emit(event: 'resume'): boolean;
+    emit(event: "end"): boolean;
+    emit(event: "data", data: Data): boolean;
+    emit(event: "progress", progress: Progress): boolean;
+    emit(event: "error", err: Error): this;
+    emit(event: "pause"): boolean;
+    emit(event: "readable"): boolean;
+    emit(event: "resume"): boolean;
     emit(event: string | symbol, ...args: any[]): boolean;
 
-    on(event: 'end', listener: () => void): this;
-    on(event: 'data', listener: (data: Data) => void): this;
-    on(event: 'progress', listener: (progress: Progress) => void): this;
-    on(event: 'error', listener: (err: Error) => void): this;
-    on(event: 'pause', listener: () => void): this;
-    on(event: 'readable', listener: () => void): this;
-    on(event: 'resume', listener: () => void): this;
+    on(event: "end", listener: () => void): this;
+    on(event: "data", listener: (data: Data) => void): this;
+    on(event: "progress", listener: (progress: Progress) => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: "pause", listener: () => void): this;
+    on(event: "readable", listener: () => void): this;
+    on(event: "resume", listener: () => void): this;
     on(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    once(event: 'end', listener: () => void): this;
-    once(event: 'data', listener: (data: Data) => void): this;
-    once(event: 'progress', listener: (progress: Progress) => void): this;
-    once(event: 'error', listener: (err: Error) => void): this;
-    once(event: 'pause', listener: () => void): this;
-    once(event: 'readable', listener: () => void): this;
-    once(event: 'resume', listener: () => void): this;
+    once(event: "end", listener: () => void): this;
+    once(event: "data", listener: (data: Data) => void): this;
+    once(event: "progress", listener: (progress: Progress) => void): this;
+    once(event: "error", listener: (err: Error) => void): this;
+    once(event: "pause", listener: () => void): this;
+    once(event: "readable", listener: () => void): this;
+    once(event: "resume", listener: () => void): this;
     once(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    prependListener(event: 'end', listener: () => void): this;
-    prependListener(event: 'data', listener: (data: Data) => void): this;
-    prependListener(event: 'progress', listener: (progress: Progress) => void): this;
-    prependListener(event: 'error', listener: (err: Error) => void): this;
-    prependListener(event: 'pause', listener: () => void): this;
-    prependListener(event: 'readable', listener: () => void): this;
-    prependListener(event: 'resume', listener: () => void): this;
+    prependListener(event: "end", listener: () => void): this;
+    prependListener(event: "data", listener: (data: Data) => void): this;
+    prependListener(event: "progress", listener: (progress: Progress) => void): this;
+    prependListener(event: "error", listener: (err: Error) => void): this;
+    prependListener(event: "pause", listener: () => void): this;
+    prependListener(event: "readable", listener: () => void): this;
+    prependListener(event: "resume", listener: () => void): this;
     prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    prependOnceListener(event: 'end', listener: () => void): this;
-    prependOnceListener(event: 'data', listener: (data: Data) => void): this;
-    prependOnceListener(event: 'progress', listener: (progress: Progress) => void): this;
-    prependOnceListener(event: 'error', listener: (err: Error) => void): this;
-    prependOnceListener(event: 'pause', listener: () => void): this;
-    prependOnceListener(event: 'readable', listener: () => void): this;
-    prependOnceListener(event: 'resume', listener: () => void): this;
+    prependOnceListener(event: "end", listener: () => void): this;
+    prependOnceListener(event: "data", listener: (data: Data) => void): this;
+    prependOnceListener(event: "progress", listener: (progress: Progress) => void): this;
+    prependOnceListener(event: "error", listener: (err: Error) => void): this;
+    prependOnceListener(event: "pause", listener: () => void): this;
+    prependOnceListener(event: "readable", listener: () => void): this;
+    prependOnceListener(event: "resume", listener: () => void): this;
     prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-    removeListener(event: 'end', listener: () => void): this;
-    removeListener(event: 'data', listener: (data: Data) => void): this;
-    removeListener(event: 'progress', listener: (progress: Progress) => void): this;
-    removeListener(event: 'error', listener: (error: Error) => void): this;
-    removeListener(event: 'pause', listener: () => void): this;
-    removeListener(event: 'readable', listener: () => void): this;
-    removeListener(event: 'resume', listener: () => void): this;
+    removeListener(event: "end", listener: () => void): this;
+    removeListener(event: "data", listener: (data: Data) => void): this;
+    removeListener(event: "progress", listener: (progress: Progress) => void): this;
+    removeListener(event: "error", listener: (error: Error) => void): this;
+    removeListener(event: "pause", listener: () => void): this;
+    removeListener(event: "readable", listener: () => void): this;
+    removeListener(event: "resume", listener: () => void): this;
     removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
     // tslint:enable:unified-signatures
 
@@ -303,4 +297,21 @@ declare function update(archive: string, files: string | string[], options?: Sev
  */
 declare function listen(stream: ZipStream): ZipStream;
 
-export { add, extract, extractFull, _delete as delete, hash, list, rename, test, update, listen, SevenZipOptions, Node7zOptions, CommandLineSwitches, ZipStream, Progress, Data };
+export {
+    _delete as delete,
+    add,
+    CommandLineSwitches,
+    Data,
+    extract,
+    extractFull,
+    hash,
+    list,
+    listen,
+    Node7zOptions,
+    Progress,
+    rename,
+    SevenZipOptions,
+    test,
+    update,
+    ZipStream,
+};

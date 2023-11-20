@@ -1,9 +1,3 @@
-// Type definitions for passport-steam 1.0
-// Project: https://github.com/liamcurry/passport-steam
-// Definitions by: Gonthier Renaud <https://github.com/kzay>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export = passport_steam;
 
 declare function passport_steam(options: any, validate: any): any;
@@ -30,38 +24,31 @@ declare namespace passport_steam {
         function saveDiscoveredInformation(fn: any): any;
 
         namespace authenticate {
-            const prototype: {
-            };
+            const prototype: {};
         }
 
         namespace loadAssociation {
-            const prototype: {
-            };
+            const prototype: {};
         }
 
         namespace loadDiscoveredInfo {
-            const prototype: {
-            };
+            const prototype: {};
         }
 
         namespace loadDiscoveredInformation {
-            const prototype: {
-            };
+            const prototype: {};
         }
 
         namespace saveAssociation {
-            const prototype: {
-            };
+            const prototype: {};
         }
 
         namespace saveDiscoveredInfo {
-            const prototype: {
-            };
+            const prototype: {};
         }
 
         namespace saveDiscoveredInformation {
-            const prototype: {
-            };
+            const prototype: {};
         }
     }
 }

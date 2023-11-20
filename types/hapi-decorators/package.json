@@ -1,6 +1,22 @@
 {
     "private": true,
+    "name": "@types/hapi-decorators",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/knownasilya/hapi-decorators"
+    ],
+    "minimumTypeScriptVersion": "4.9",
     "dependencies": {
+        "@types/hapi": "^16",
         "joi": "^17.3.0"
-    }
+    },
+    "devDependencies": {
+        "@types/hapi-decorators": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ken Howard",
+            "githubUsername": "kenhowardpdx"
+        }
+    ]
 }

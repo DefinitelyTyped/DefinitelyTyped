@@ -1,8 +1,3 @@
-// Type definitions for cashaddrjs 0.3
-// Project: https://github.com/bitcoincashjs/cashaddrjs#readme
-// Definitions by: Emilio Almansi <https://github.com/ealmansi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace cashaddr;
 
 /**
@@ -21,11 +16,13 @@ export function encode(prefix: string, type: string, hash: Uint8Array): string;
  * @param address Address to decode. E.g.: 'bitcoincash:qpm2qsznhks23z7629mms6s4cwef74vcwvy22gdx6a'.
  * @throws {ValidationError}
  */
-export function decode(address: string): { prefix: string, type: string, hash: Uint8Array };
+export function decode(address: string): { prefix: string; type: string; hash: Uint8Array };
 
 /**
  * Error thrown when encoding or decoding fail due to invalid input.
  *
  * @param message Error description.
  */
-export class ValidationError extends Error { constructor(message: string); }
+export class ValidationError extends Error {
+    constructor(message: string);
+}

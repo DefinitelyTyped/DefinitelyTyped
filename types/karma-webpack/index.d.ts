@@ -1,14 +1,8 @@
-// Type definitions for karma-webpack 2.0
-// Project: https://github.com/webpack-contrib/karma-webpack
-// Definitions by: Matt Traynham <https://github.com/mtraynham>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
+import "karma";
+import * as Webpack from "webpack";
+import { Logger, Reporter } from "webpack-dev-middleware";
 
-import 'karma';
-import * as Webpack from 'webpack';
-import { Reporter, Logger } from 'webpack-dev-middleware';
-
-declare module 'karma' {
+declare module "karma" {
     type Logger = (message?: any, ...optionalParams: any[]) => void;
 
     // Note: karma-webpack will set publicPath for us, so it is optional here.

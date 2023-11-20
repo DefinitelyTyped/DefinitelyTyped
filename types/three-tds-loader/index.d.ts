@@ -1,11 +1,4 @@
-// Type definitions for three-tds-loader 1.1
-// Project: https://github.com/codetheorist/three-tds-loader
-// Definitions by: Konstantin Lukaschenko <https://github.com/KonstantinLukaschenko>
-//                 Stefan Schönsee <https://github.com/sschoensee>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.4
-
-import * as THREE from 'three';
+import * as THREE from "three";
 
 export = TDSLoader;
 
@@ -20,7 +13,12 @@ declare class TDSLoader {
      * @param onProgress onProgress callback.
      * @param onError onError callback.
      */
-    load: (url: string, onLoad: (object3D: THREE.Object3D) => void, onProgress?: (progress: ProgressEvent) => void, onError?: (event: ErrorEvent) => void) => void;
+    load: (
+        url: string,
+        onLoad: (object3D: THREE.Object3D) => void,
+        onProgress?: (progress: ProgressEvent) => void,
+        onError?: (event: ErrorEvent) => void,
+    ) => void;
 
     /**
      * Parse arraybuffer data and load 3ds file.

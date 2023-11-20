@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/cordova",
+    "version": "11.0.9999",
+    "projects": [
+        "http://cordova.apache.org"
+    ],
+    "devDependencies": {
+        "@types/cordova": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Microsoft Open Technologies Inc",
+            "url": "http://msopentech.com"
+        }
+    ]
+}

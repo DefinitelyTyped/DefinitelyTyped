@@ -1,4 +1,4 @@
-import Mixin from '@ember/object/mixin';
+import Mixin from "@ember/object/mixin";
 
 /**
  * Implements some standard methods for copying an object. Add this mixin to

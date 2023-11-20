@@ -1,8 +1,3 @@
-// Type definitions for scroll-lock 2.1
-// Project: https://github.com/FL3NKEY/scroll-lock#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Cross-browser JavaScript library to disable scrolling page
  */
@@ -18,7 +13,7 @@ export type ScrollableSelector = string | string[];
 export type LockableSelector = string | string[];
 export type FillGapSelector = string | string[];
 
-export type FillGapMethod = 'padding' | 'margin' | 'width' | 'max-width' | 'none';
+export type FillGapMethod = "padding" | "margin" | "width" | "max-width" | "none";
 
 /**
  * Fills the gap with elements with this selector

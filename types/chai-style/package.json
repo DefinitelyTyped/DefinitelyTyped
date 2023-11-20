@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/chai-style",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/darlanmendonca/chai-style"
+    ],
+    "dependencies": {
+        "@types/chai": "*"
+    },
+    "devDependencies": {
+        "@types/chai-style": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Avi Vahl",
+            "githubUsername": "AviVahl"
+        }
+    ]
+}

@@ -1,9 +1,4 @@
-// Type definitions for gulp-angular-protractor 2.0
-// Project: https://github.com/rochejul/gulp-angular-protractor
-// Definitions by: Adam Kwiatek <https://github.com/akwiatek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import through = require('through');
+import through = require("through");
 
 declare function gulpProtractorAngular(options: gulpProtractorAngular.Options): through.ThroughStream;
 

@@ -1,8 +1,3 @@
-// Type definitions for Kramed 0.5
-// Project: https://github.com/GitbookIO/kramed
-// Definitions by: Matthew Wilkes <https://github.com/tonicblue>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface KramedStatic {
     /**
      * Compiles kramdown to HTML.
@@ -81,8 +76,8 @@ export interface KramedRenderer {
     table(header: string, body: string): string;
     tablerow(content: string): string;
     tablecell(content: string, flags: {
-        header: boolean,
-        align: string
+        header: boolean;
+        align: string;
     }): string;
     strong(text: string): string;
     em(text: string): string;

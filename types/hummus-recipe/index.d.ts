@@ -1,61 +1,54 @@
-// Type definitions for hummus-recipe 1.8
-// Project: https://github.com/chunyenHuang/hummusRecipe
-// Definitions by: Erik Berreßem <https://github.com/she11sh0cked>
-//                 Sebastian Martinez <https://github.com/sebastinez>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /// <reference types="node" />
 
 declare namespace Recipe {
     type CommentOptionsFlag =
-        | 'invisible'
-        | 'hidden'
-        | 'print'
-        | 'nozoom'
-        | 'norotate'
-        | 'noview'
-        | 'readonly'
-        | 'locked'
-        | 'togglenoview';
+        | "invisible"
+        | "hidden"
+        | "print"
+        | "nozoom"
+        | "norotate"
+        | "noview"
+        | "readonly"
+        | "locked"
+        | "togglenoview";
 
     type AnnotSubtype =
-        | 'Text'
-        | 'FreeText'
-        | 'Line'
-        | 'Square'
-        | 'Circle'
-        | 'Polygon'
-        | 'PolyLine'
-        | 'Highlight'
-        | 'Underline'
-        | 'Squiggly'
-        | 'StrikeOut'
-        | 'Stamp'
-        | 'Caret'
-        | 'Ink'
-        | 'FileAttachment'
-        | 'Sound';
+        | "Text"
+        | "FreeText"
+        | "Line"
+        | "Square"
+        | "Circle"
+        | "Polygon"
+        | "PolyLine"
+        | "Highlight"
+        | "Underline"
+        | "Squiggly"
+        | "StrikeOut"
+        | "Stamp"
+        | "Caret"
+        | "Ink"
+        | "FileAttachment"
+        | "Sound";
 
     type AnnotOptionsFlag =
-        | 'invisible'
-        | 'hidden'
-        | 'print'
-        | 'nozoom'
-        | 'norotate'
-        | 'noview'
-        | 'readonly'
-        | 'locked'
-        | 'togglenoview';
+        | "invisible"
+        | "hidden"
+        | "print"
+        | "nozoom"
+        | "norotate"
+        | "noview"
+        | "readonly"
+        | "locked"
+        | "togglenoview";
 
-    type AnnotOptionsIcon = 'Comment' | 'Key' | 'Note' | 'Help' | 'NewParagraph' | 'Paragraph' | 'Insert';
+    type AnnotOptionsIcon = "Comment" | "Key" | "Note" | "Help" | "NewParagraph" | "Paragraph" | "Insert";
 
     interface RecipeOptions {
         version?: number | undefined;
         author?: string | undefined;
         title?: string | undefined;
         subject?: string | undefined;
-        colorspace?: 'rgb' | 'cmyk' | 'grey' | undefined;
+        colorspace?: "rgb" | "cmyk" | "grey" | undefined;
         keywords?: string[] | undefined;
         password?: string | undefined;
         userPassword?: string | undefined;

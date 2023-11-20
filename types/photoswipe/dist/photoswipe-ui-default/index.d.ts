@@ -1,4 +1,4 @@
-import * as PhotoSwipe from '../../index';
+import * as PhotoSwipe from "../../index";
 
 /**
  * Default UI class for PhotoSwipe. This class is largely undocumented and doesn't seem to have a public facing API.
@@ -68,7 +68,6 @@ declare namespace PhotoSwipeUI_Default {
          *     captionEl.children[0].innerHTML = item.title;
          *     return true;
          * }
-         *
          */
         addCaptionHTMLFn?: ((item: Item, captionEl: HTMLElement, isFake: boolean) => boolean) | undefined;
 
@@ -178,7 +177,6 @@ declare namespace PhotoSwipeUI_Default {
          *     {id:'pinterest', label:'Pin it', url:'http://www.pinterest.com/pin/create/button/?url=&media=&description='},
          *     {id:'download', label:'Download image', url:'', download:true}
          * ]
-         *
          */
         shareButtons?: ShareButtonData[] | undefined;
 
@@ -196,7 +194,6 @@ declare namespace PhotoSwipeUI_Default {
          *     //
          *     return pswp.currItem.src || '';
          * }
-         *
          */
         getImageURLForShare?: ((shareButtonData: ShareButtonData) => string) | undefined;
 
@@ -210,7 +207,6 @@ declare namespace PhotoSwipeUI_Default {
          * function( shareButtonData ) {
          *     return window.location.href;
          * }
-         *
          */
         getPageURLForShare?: ((shareButtonData: ShareButtonData) => string) | undefined;
 
@@ -223,7 +219,6 @@ declare namespace PhotoSwipeUI_Default {
          * function( shareButtonData ) {
          *     return pswp.currItem.title || '';
          * }
-         *
          */
         getTextForShare?: ((shareButtonData: ShareButtonData) => string) | undefined;
 
@@ -236,7 +231,6 @@ declare namespace PhotoSwipeUI_Default {
          * function(shareButtonData, shareButtonOut) {
          *     return shareButtonOut;
          * }
-         *
          */
         parseShareButtonOut?: ((shareButtonData: ShareButtonData, shareButtonOut: string) => string) | undefined;
     }

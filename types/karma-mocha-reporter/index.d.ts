@@ -1,12 +1,6 @@
-// Type definitions for karma-mocha-reporter 2.2
-// Project: https://github.com/litixsoft/karma-mocha-reporter#readme
-// Definitions by: Piotr Błażejewicz (Peter Blazejewicz) <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.2
+import "karma";
 
-import 'karma';
-
-declare module 'karma' {
+declare module "karma" {
     interface ConfigOptions {
         /**
          * {@link https://github.com/litixsoft/karma-mocha-reporter#options}
@@ -14,7 +8,7 @@ declare module 'karma' {
         mochaReporter?: MochaReporterOptions | undefined;
     }
 
-    type ReporterColor = 'success' | 'info' | 'warning' | 'error';
+    type ReporterColor = "success" | "info" | "warning" | "error";
 
     type ColorOptions = {
         [K in ReporterColor]?: string;
@@ -26,21 +20,21 @@ declare module 'karma' {
 
     type OutputOptions =
         // all output is printed to the console
-        | 'full'
+        | "full"
         // first run will have the full output and the next runs just output the summary and errors in mocha style
-        | 'autowatch'
+        | "autowatch"
         // only the summary and errors are printed to the console in mocha style
-        | 'minimal'
+        | "minimal"
         // the failure details are not logged
-        | 'noFailures';
+        | "noFailures";
 
     type ShowDiffOptions =
         // prints each diff in its own line, same as 'unified'
         | true
         // prints each diff in its own line
-        | 'unified'
+        | "unified"
         // /prints diffs inline
-        | 'inline';
+        | "inline";
 
     /**
      * Reporter options

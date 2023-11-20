@@ -1,9 +1,4 @@
-// Type definitions for postcss-flexbugs-fixes 5.0
-// Project: https://github.com/luisrudge/postcss-flexbugs-fixes#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { PluginCreator } from 'postcss';
+import { PluginCreator } from "postcss";
 
 declare namespace postcssFlexbugsFixes {
     type PostcssFlexbugsFixesPlugin = PluginCreator<Options>;

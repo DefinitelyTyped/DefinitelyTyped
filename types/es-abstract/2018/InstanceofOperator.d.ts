@@ -1,2 +1,2 @@
-import InstanceofOperator = require('../2017/InstanceofOperator');
+import InstanceofOperator = require("../2017/InstanceofOperator");
 export = InstanceofOperator;

@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 declare global {
     // tslint:disable-next-line:no-empty-interface
@@ -6,31 +6,31 @@ declare global {
 }
 
 // @ts-expect-error
-''.dasherize('foo');
-''.dasherize(); // $ExpectType string
+"".dasherize("foo");
+"".dasherize(); // $ExpectType string
 
-''.camelize(); // $ExpectType string
+"".camelize(); // $ExpectType string
 // @ts-expect-error
-''.camelize('blue man group');
+"".camelize("blue man group");
 
-''.decamelize(); // $ExpectType string
+"".decamelize(); // $ExpectType string
 // @ts-expect-error
-''.decamelize('blue man group');
+"".decamelize("blue man group");
 
-''.underscore(); // $ExpectType string
+"".underscore(); // $ExpectType string
 // @ts-expect-error
-''.underscore('blue man group');
+"".underscore("blue man group");
 
-''.w(); // $ExpectType string[]
+"".w(); // $ExpectType string[]
 
-''.classify(); // $ExpectType string
+"".classify(); // $ExpectType string
 // @ts-expect-error
-''.classify('blue man group');
+"".classify("blue man group");
 
-''.capitalize(); // $ExpectType string
+"".capitalize(); // $ExpectType string
 // @ts-expect-error
-''.capitalize('blue man group');
+"".capitalize("blue man group");
 
-''.loc(); // $ExpectType string
+"".loc(); // $ExpectType string
 // @ts-expect-error
-''.loc('_Hello World');
+"".loc("_Hello World");

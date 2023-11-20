@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/segment-api",
+    "version": "4.13.9999",
+    "projects": [
+        "https://github.com/padcom/segment-api"
+    ],
+    "devDependencies": {
+        "@types/segment-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matthias Hryniszak",
+            "githubUsername": "padcom"
+        }
+    ]
+}

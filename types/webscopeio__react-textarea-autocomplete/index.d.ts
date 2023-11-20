@@ -1,9 +1,3 @@
-// Type definitions for @webscopeio/react-textarea-autocomplete 4.7
-// Project: https://github.com/webscopeio/react-textarea-autocomplete
-// Definitions by: Michal Zochowski <https://github.com/michauzo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 export default ReactTextareaAutocomplete;
 export as namespace ReactTextareaAutocomplete;
 
@@ -74,7 +68,7 @@ export interface TriggerType<TItem> {
 
 export type TextareaProps<
     TItem,
-    CustomTextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement>
+    CustomTextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement>,
 > = CustomTextAreaProps & {
     /**
      * Define triggers and their corresponding behavior.
@@ -123,7 +117,10 @@ export type TextareaProps<
     /**
      * What component use for as textarea. Default is textarea. (You can combine this with react-autosize-textarea for instance)
      */
-    textAreaComponent?: Component<CustomTextAreaProps> | { component: Component<CustomTextAreaProps>; ref: string } | undefined;
+    textAreaComponent?:
+        | Component<CustomTextAreaProps>
+        | { component: Component<CustomTextAreaProps>; ref: string }
+        | undefined;
 
     /**
      * When set to true the autocomplete will be rendered at the end of the <body>
@@ -217,7 +214,9 @@ export interface TextareaState<TItem> {
 
 declare class ReactTextareaAutocomplete<
     TItem extends string | object,
-    CustomTextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> = React.TextareaHTMLAttributes<HTMLTextAreaElement>
+    CustomTextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> = React.TextareaHTMLAttributes<
+        HTMLTextAreaElement
+    >,
 > extends React.Component<TextareaProps<TItem, CustomTextAreaProps>, TextareaState<TItem>> {
     /**
      * Gets the current caret position in the textarea.

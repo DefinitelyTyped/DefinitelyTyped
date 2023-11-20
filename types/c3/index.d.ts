@@ -1,15 +1,4 @@
-// Type definitions for c3 0.7
-// Project: http://c3js.org/, https://github.com/c3js/c3
-// Definitions by: Marc Climent <https://github.com/mcliment>
-//                 Gerin Jacob <https://github.com/gerinjacob>
-//                 Bernd Hacker <https://github.com/denyo>
-//                 Dzmitry Shyndzin <https://github.com/dmitryshindin>
-//                 Tim Niemueller <https://github.com/timn>
-//                 Ian Sanders <https://github.com/iansan5653>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
-import * as d3 from 'd3';
+import * as d3 from "d3";
 
 export as namespace c3;
 
@@ -33,12 +22,24 @@ export type Domain = [number, number];
  * @param j The sub index of the data point where the label is shown.
  * @returns The formatted data label.
  */
-export type FormatFunction = (v: number | {valueOf(): number}, id: string, i: number, j: number) => string;
+export type FormatFunction = (v: number | { valueOf(): number }, id: string, i: number, j: number) => string;
 
 export type XAxisName = "x";
 export type YAxisName = "y" | "y2";
 export type AxisName = XAxisName | YAxisName;
-export type ChartType = "line" | "spline" | "step" | "area" | "area-spline" | "area-step" | "bar" | "scatter" | "stanford" | "pie" | "donut" | "gauge";
+export type ChartType =
+    | "line"
+    | "spline"
+    | "step"
+    | "area"
+    | "area-spline"
+    | "area-step"
+    | "bar"
+    | "scatter"
+    | "stanford"
+    | "pie"
+    | "donut"
+    | "gauge";
 export type XAxisType = "timeseries" | "category" | "indexed";
 export type YAxisType = "linear" | "time" | "timeseries" | "log";
 
@@ -196,16 +197,17 @@ export interface ChartConfiguration {
         width?:
             | number
             | {
-                  /**
-                   * Set the width of each bar by ratio
-                   * Defaults to `0.6`.
-                   */
-                  ratio: number;
-                  /**
-                   * Set max width of each bar
-                   */
-                  max?: number | undefined;
-              } | undefined;
+                /**
+                 * Set the width of each bar by ratio
+                 * Defaults to `0.6`.
+                 */
+                ratio: number;
+                /**
+                 * Set max width of each bar
+                 */
+                max?: number | undefined;
+            }
+            | undefined;
         /**
          * Set if min or max value will be 0 on bar chart.
          */
@@ -252,7 +254,7 @@ export interface ChartConfiguration {
         label?: LabelOptions | undefined;
         labelLine?: {
             show?: boolean | undefined;
-        } | undefined
+        } | undefined;
         /**
          * Enable or disable expanding gauge.
          */
@@ -287,7 +289,7 @@ export interface ChartConfiguration {
              * Defaults to `5`.
              */
             minWidth?: number | undefined;
-        } | undefined
+        } | undefined;
     } | undefined;
 
     spline?: {
@@ -295,45 +297,63 @@ export interface ChartConfiguration {
             /**
              * Set custom spline interpolation
              */
-            type?: 'linear' | 'linear-closed' | 'basis' | 'basis-open' | 'basis-closed' |
-                   'bundle' | 'cardinal' | 'cardinal-open' | 'cardinal-closed' | 'monotone' |
-                   'step' | 'step-before' | 'step-after' | undefined;
+            type?:
+                | "linear"
+                | "linear-closed"
+                | "basis"
+                | "basis-open"
+                | "basis-closed"
+                | "bundle"
+                | "cardinal"
+                | "cardinal-open"
+                | "cardinal-closed"
+                | "monotone"
+                | "step"
+                | "step-before"
+                | "step-after"
+                | undefined;
         } | undefined;
     } | undefined;
 
     stanford?: {
         /** Show lines anywhere in the chart. */
-        lines?: Array<{
-            value_x1?: number | undefined;
-            value_y1?: number | undefined;
-            value_x2?: number | undefined;
-            value_y2?: number | undefined;
-            /** Class to apply to the line. */
-            class?: string | undefined;
-        }> | undefined;
+        lines?:
+            | Array<{
+                value_x1?: number | undefined;
+                value_y1?: number | undefined;
+                value_x2?: number | undefined;
+                value_y2?: number | undefined;
+                /** Class to apply to the line. */
+                class?: string | undefined;
+            }>
+            | undefined;
         /** Add regions to the chart. */
-        regions?: Array<{
-            /** Points should be added in counter-clockwise direction  to close the polygon. */
-            points: Array<{
-                x: number;
-                y: number;
-            }>;
-            text?: ((value: number, percentage: number) => string) | undefined;
-            opacity?: number | undefined;
-            /** Class to apply to the region. */
-            class?: string | undefined;
-        }> | undefined;
+        regions?:
+            | Array<{
+                /** Points should be added in counter-clockwise direction  to close the polygon. */
+                points: Array<{
+                    x: number;
+                    y: number;
+                }>;
+                text?: ((value: number, percentage: number) => string) | undefined;
+                opacity?: number | undefined;
+                /** Class to apply to the region. */
+                class?: string | undefined;
+            }>
+            | undefined;
         /** Show text anywhere inside the chart. */
-        texts?: Array<{
-            /** x-position. */
-            x?: number | undefined;
-            /** y-position. */
-            y?: number | undefined;
-            /** Text content to show. */
-            content?: string | undefined;
-            /** Class to apply to the text. */
-            class?: string | undefined;
-        }> | undefined;
+        texts?:
+            | Array<{
+                /** x-position. */
+                x?: number | undefined;
+                /** y-position. */
+                y?: number | undefined;
+                /** Text content to show. */
+                content?: string | undefined;
+                /** Class to apply to the text. */
+                class?: string | undefined;
+            }>
+            | undefined;
         /** Change the minimum value of the stanford color scale. */
         scaleMin?: number | undefined;
         /** Change the maximum value of the stanford color scale. */
@@ -348,7 +368,7 @@ export interface ChartConfiguration {
          * This option accepts the string 'pow10', a d3.format object and any function you define.
          * Defauls to `d3.format("d")`.
          */
-        scaleFormat?: 'pow10' | ((arg0: number) => string) | undefined;
+        scaleFormat?: "pow10" | ((arg0: number) => string) | undefined;
         /**
          * Set the values for stanford color scale axis tick text. This option accepts a function that returns an array of numbers.
          */
@@ -501,7 +521,8 @@ export interface Data {
     labels?:
         | boolean
         | { format: FormatFunction }
-        | { format: { [key: string]: boolean | FormatFunction } } | undefined;
+        | { format: { [key: string]: boolean | FormatFunction } }
+        | undefined;
     /**
      * Define the order of the data.
      * This option changes the order of stacking the data and pieces of pie/donut. If null specified, it will be the order the data loaded. If function specified, it will be used to sort the data
@@ -590,7 +611,7 @@ export interface Data {
          *
          * **Note**: For stacking, the `data.groups` option should be set and have positive values. The yAxis will be set in percentage value (0 ~ 100%).
          */
-        normalize?: boolean | undefined
+        normalize?: boolean | undefined;
     } | undefined;
     /**
      * Set a callback for click event on each data point.
@@ -699,17 +720,18 @@ export interface XAxisConfiguration extends AxisConfiguration {
     label?:
         | string
         | {
-              /** The label text to show. */
-              text: string;
-              /** The position of the label. */
-              position:
-                  | 'inner-right'
-                  | 'inner-center'
-                  | 'inner-left'
-                  | 'outer-right'
-                  | 'outer-center'
-                  | 'outer-left';
-          } | undefined;
+            /** The label text to show. */
+            text: string;
+            /** The position of the label. */
+            position:
+                | "inner-right"
+                | "inner-center"
+                | "inner-left"
+                | "outer-right"
+                | "outer-center"
+                | "outer-left";
+        }
+        | undefined;
 
     /**
      * Set height of x axis.
@@ -744,17 +766,18 @@ export interface YAxisConfiguration extends AxisConfiguration {
     label?:
         | string
         | {
-              /** The label text to show. */
-              text: string;
-              /** The position of the label. */
-              position:
-                  | 'inner-top'
-                  | 'inner-middle'
-                  | 'inner-bottom'
-                  | 'outer-top'
-                  | 'outer-middle'
-                  | 'outer-bottom';
-          } | undefined;
+            /** The label text to show. */
+            text: string;
+            /** The position of the label. */
+            position:
+                | "inner-top"
+                | "inner-middle"
+                | "inner-bottom"
+                | "outer-top"
+                | "outer-middle"
+                | "outer-bottom";
+        }
+        | undefined;
 
     /**
      * Set default range of y axis. This option set the default value for y axis when there is no data on init.
@@ -808,13 +831,14 @@ export interface XTickConfiguration extends TickConfiguration {
      * This option does not hide the tick lines. If `false` is set, all of ticks will be shown.
      */
     culling?:
-      | boolean
-      | {
-          /**
-           * The number of tick texts will be adjusted to less than this value.
-           */
-          max: number;
-        } | undefined;
+        | boolean
+        | {
+            /**
+             * The number of tick texts will be adjusted to less than this value.
+             */
+            max: number;
+        }
+        | undefined;
     /**
      * Fit x axis ticks.
      * If `true` set, the ticks will be positioned nicely. If `false` set, the ticks will be positioned
@@ -1098,7 +1122,7 @@ export interface SubchartOptions {
     axis?: {
         x?: {
             show: boolean;
-        } | undefined
+        } | undefined;
     } | undefined;
     /**
      * Set callback for brush event.
@@ -1115,7 +1139,7 @@ export interface ZoomOptions {
     /**
      * Set interaction type for zooming
      */
-    type?: 'scroll' | 'drag' | undefined;
+    type?: "scroll" | "drag" | undefined;
     /**
      * Enable to rescale after zooming. If true set, y domain will be updated according to the zoomed region.
      */
@@ -1303,11 +1327,13 @@ export interface ChartAPI {
      * @param args If given, will unload the data with the ids that match the string, the array of strings, or the `ids` argument of the object. If not given, will unload all data.
      * NOTE: If you call load API soon after/before unload, unload param of load should be used. Otherwise chart will not be rendered properly because of cancel of animation.
      */
-    unload(args?: ArrayOrString | {
-        ids?: ArrayOrString | undefined;
-        /** Called after data is loaded, but not after rendering. This is because rendering will finish after some transition and there is some time lag between loading and rendering. */
-        done?: (() => void) | undefined;
-    }): void;
+    unload(
+        args?: ArrayOrString | {
+            ids?: ArrayOrString | undefined;
+            /** Called after data is loaded, but not after rendering. This is because rendering will finish after some transition and there is some time lag between loading and rendering. */
+            done?: (() => void) | undefined;
+        },
+    ): void;
     /**
      * Flow data to the chart. By this API, you can append new data points to the chart.
      * If data that has the same target id is given, the chart will be appended. Otherwise, new target will be added.
@@ -1466,9 +1492,11 @@ export interface ChartAPI {
      * @param x If given, x values of every target will be updated.
      * @returns A map of data IDs to their x IDs after running this function.
      */
-    x(x?: PrimitiveArray | {
-        [key: string]: PrimitiveArray;
-    }): { [key: string]: PrimitiveArray };
+    x(
+        x?: PrimitiveArray | {
+            [key: string]: PrimitiveArray;
+        },
+    ): { [key: string]: PrimitiveArray };
 
     /**
      * Get and set x values for the chart. Same as `x` method.
@@ -1510,8 +1538,8 @@ export interface ChartAPI {
          * @returns If `range` is *not* given, returns the current min and max values for each axis.
          */
         range(): {
-            min: { [key in AxisName]: number; };
-            max: { [key in AxisName]: number; };
+            min: { [key in AxisName]: number };
+            max: { [key in AxisName]: number };
         };
         range(range: {
             min?: number | { [key in AxisName]?: number } | undefined;
@@ -1570,7 +1598,6 @@ export interface ChartAPI {
          * Set or get the maximum x value of the chart for zooming.
          * @param max The new maximum zoom value.
          * @returns If `max` is _not_ given, will return the existing zoom value.
-         *
          */
         max(): number;
         max(max: number): void;
@@ -1579,7 +1606,6 @@ export interface ChartAPI {
          * Set or get the minimum x value of the chart for zooming.
          * @param min The new minimum zoom value.
          * @returns If `min` is _not_ given, will return the existing zoom value.
-         *
          */
         min(): number;
         min(min: number): void;
@@ -1592,7 +1618,7 @@ export interface ChartAPI {
         range(): {
             max: number;
             min: number;
-        }
+        };
         range(range: {
             max?: number | undefined;
             min?: number | undefined;

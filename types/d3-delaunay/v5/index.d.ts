@@ -1,9 +1,3 @@
-// Type definitions for d3-delaunay 5.3
-// Project: https://github.com/d3/d3-delaunay
-// Definitions by: Bradley Odell <https://github.com/BTOdell>
-//                 Nathan Bierema <https://github.com/Methuselah96>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Delaunay triangulation
  */
@@ -16,17 +10,19 @@ export class Delaunay<P> {
     /**
      * Returns the Delaunay triangulation for the given array or iterable of points where each point is an array in the form: [x, y].
      */
-    static from(points: ArrayLike<Delaunay.Point>|Iterable<Delaunay.Point>): Delaunay<Delaunay.Point>;
+    static from(points: ArrayLike<Delaunay.Point> | Iterable<Delaunay.Point>): Delaunay<Delaunay.Point>;
     /**
      * Returns the Delaunay triangulation for the given array or iterable of points.
      * Otherwise, the getX and getY functions are invoked for each point in order, and must return the respective x- and y-coordinate for each point.
      * If that is specified, the functions getX and getY are invoked with that as this.
      * (See Array.from for reference.)
      */
-    static from<P>(points: ArrayLike<P>|Iterable<P>,
-                   getX: Delaunay.GetCoordinate<P, ArrayLike<P>|Iterable<P>>,
-                   getY: Delaunay.GetCoordinate<P, ArrayLike<P>|Iterable<P>>,
-                   that?: any): Delaunay<P>;
+    static from<P>(
+        points: ArrayLike<P> | Iterable<P>,
+        getX: Delaunay.GetCoordinate<P, ArrayLike<P> | Iterable<P>>,
+        getY: Delaunay.GetCoordinate<P, ArrayLike<P> | Iterable<P>>,
+        that?: any,
+    ): Delaunay<P>;
 
     /**
      * The coordinates of the points as an array [x0, y0, x1, y1, ...].
@@ -208,9 +204,14 @@ export namespace Delaunay {
         /**
          * arc() method of the CanvasPathMethods API.
          */
-        arc(x: number, y: number, radius: number,
-            startAngle: number, endAngle: number,
-            counterclockwise?: boolean): void;
+        arc(
+            x: number,
+            y: number,
+            radius: number,
+            startAngle: number,
+            endAngle: number,
+            counterclockwise?: boolean,
+        ): void;
     }
 
     /**

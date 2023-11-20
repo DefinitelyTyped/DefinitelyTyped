@@ -1,8 +1,3 @@
-// Type definitions for b4a 1.6
-// Project: https://github.com/holepunchto/b4a#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 /**
@@ -91,7 +86,7 @@ export function from(data: WithImplicitCoercion<Uint8Array | ReadonlyArray<numbe
  * See https://nodejs.org/api/buffer.html#static-method-bufferfromstring-encoding
  */
 export function from(
-    str: WithImplicitCoercion<string> | { [Symbol.toPrimitive](hint: 'string'): string },
+    str: WithImplicitCoercion<string> | { [Symbol.toPrimitive](hint: "string"): string },
     encoding?: BufferEncoding,
 ): Buffer | Uint8Array;
 /**

@@ -1,9 +1,3 @@
-// Type definitions for text-buffer 13.x
-// Project: https://github.com/atom/text-buffer
-// Definitions by: GlenCFL <https://github.com/GlenCFL>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import { Disposable } from "event-kit";
 import { File } from "pathwatcher";
 
@@ -276,7 +270,7 @@ declare global {
                 reversed?: boolean | undefined;
 
                 /** Determines the rules by which changes to the buffer invalidate the marker. */
-                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch" | undefined;
+                invalidate?: "never" | "surround" | "overlap" | "inside" | "touch" | undefined;
 
                 /**
                  *  Indicates whether insertions at the start or end of the marked range should
@@ -407,8 +401,10 @@ declare global {
              *  Sets the range of the marker.
              *  Returns a boolean indicating whether or not the marker was updated.
              */
-            setRange(range: RangeCompatible, params?: { reversed?: boolean | undefined, exclusive?:
-                boolean | undefined }): boolean;
+            setRange(
+                range: RangeCompatible,
+                params?: { reversed?: boolean | undefined; exclusive?: boolean | undefined },
+            ): boolean;
 
             /**
              *  Sets the head position of the marker.
@@ -467,7 +463,7 @@ declare global {
 
             // Querying
             /** Get an existing marker by its id. */
-            getMarker(id: number): Marker|undefined;
+            getMarker(id: number): Marker | undefined;
 
             /** Get all existing markers on the marker layer. */
             getMarkers(): Marker[];
@@ -481,15 +477,15 @@ declare global {
             // Marker Creation
             /** Create a marker with the given range. */
             markRange(range: RangeCompatible, options?: {
-                reversed?: boolean | undefined,
-                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch" | undefined,
-                exclusive?: boolean | undefined,
+                reversed?: boolean | undefined;
+                invalidate?: "never" | "surround" | "overlap" | "inside" | "touch" | undefined;
+                exclusive?: boolean | undefined;
             }): Marker;
 
             /** Create a marker at with its head at the given position with no tail. */
             markPosition(position: PointCompatible, options?: {
-                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch" | undefined,
-                exclusive?: boolean | undefined,
+                invalidate?: "never" | "surround" | "overlap" | "inside" | "touch" | undefined;
+                exclusive?: boolean | undefined;
             }): Marker;
 
             // Event Subscription
@@ -528,8 +524,7 @@ declare global {
 
             // Event Subscription
             /** Invoke the given callback when the state of the marker changes. */
-            onDidChange(callback: (event: Events.DisplayMarkerChanged) => void):
-                Disposable;
+            onDidChange(callback: (event: Events.DisplayMarkerChanged) => void): Disposable;
 
             /** Invoke the given callback when the marker is destroyed. */
             onDidDestroy(callback: () => void): Disposable;
@@ -590,26 +585,28 @@ declare global {
             getScreenRange(): Range;
 
             /** Modifies the buffer range of this marker. */
-            setBufferRange(bufferRange: RangeCompatible, properties?: { reversed: boolean }):
-                void;
+            setBufferRange(bufferRange: RangeCompatible, properties?: { reversed: boolean }): void;
 
             /** Modifies the screen range of this marker. */
-            setScreenRange(screenRange: RangeCompatible, options?: { reversed?: boolean | undefined,
-                clipDirection?: "backward"|"forward"|"closest" | undefined }): void;
+            setScreenRange(
+                screenRange: RangeCompatible,
+                options?: {
+                    reversed?: boolean | undefined;
+                    clipDirection?: "backward" | "forward" | "closest" | undefined;
+                },
+            ): void;
 
             /**
              *  Retrieves the screen position of the marker's start. This will always be
              *  less than or equal to the result of DisplayMarker::getEndScreenPosition.
              */
-            getStartScreenPosition(options?: { clipDirection: "backward"|"forward"|"closest" }):
-                Point;
+            getStartScreenPosition(options?: { clipDirection: "backward" | "forward" | "closest" }): Point;
 
             /**
              *  Retrieves the screen position of the marker's end. This will always be
              *  greater than or equal to the result of DisplayMarker::getStartScreenPosition.
              */
-            getEndScreenPosition(options?: { clipDirection: "backward"|"forward"|"closest" }):
-                Point;
+            getEndScreenPosition(options?: { clipDirection: "backward" | "forward" | "closest" }): Point;
 
             /** Retrieves the buffer position of the marker's head. */
             getHeadBufferPosition(): Point;
@@ -618,12 +615,13 @@ declare global {
             setHeadBufferPosition(bufferPosition: PointCompatible): void;
 
             /** Retrieves the screen position of the marker's head. */
-            getHeadScreenPosition(options?: { clipDirection: "backward"|"forward"|"closest" }):
-                Point;
+            getHeadScreenPosition(options?: { clipDirection: "backward" | "forward" | "closest" }): Point;
 
             /** Sets the screen position of the marker's head. */
-            setHeadScreenPosition(screenPosition: PointCompatible,
-                options?: { clipDirection: "backward"|"forward"|"closest" }): void;
+            setHeadScreenPosition(
+                screenPosition: PointCompatible,
+                options?: { clipDirection: "backward" | "forward" | "closest" },
+            ): void;
 
             /** Retrieves the buffer position of the marker's tail. */
             getTailBufferPosition(): Point;
@@ -632,12 +630,13 @@ declare global {
             setTailBufferPosition(bufferPosition: PointCompatible): void;
 
             /** Retrieves the screen position of the marker's tail. */
-            getTailScreenPosition(options?: { clipDirection: "backward"|"forward"|"closest" }):
-                Point;
+            getTailScreenPosition(options?: { clipDirection: "backward" | "forward" | "closest" }): Point;
 
             /** Sets the screen position of the marker's tail. */
-            setTailScreenPosition(screenPosition: PointCompatible,
-                options?: { clipDirection: "backward"|"forward"|"closest" }): void;
+            setTailScreenPosition(
+                screenPosition: PointCompatible,
+                options?: { clipDirection: "backward" | "forward" | "closest" },
+            ): void;
 
             /**
              *  Retrieves the buffer position of the marker's start. This will always be less
@@ -701,15 +700,15 @@ declare global {
              *  layer. Avoid this method for optimal performance when interacting with layers
              *  that could contain large numbers of markers.
              */
-            onDidCreateMarker(callback: (marker: DisplayMarker|Marker) => void): Disposable;
+            onDidCreateMarker(callback: (marker: DisplayMarker | Marker) => void): Disposable;
 
             // Marker creation
             /** Create a marker with the given screen range. */
             markScreenRange(range: RangeCompatible, options?: {
-                reversed?: boolean | undefined,
-                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch" | undefined,
-                exclusive?: boolean | undefined,
-                clipDirection?: "backward"|"forward"|"closest" | undefined
+                reversed?: boolean | undefined;
+                invalidate?: "never" | "surround" | "overlap" | "inside" | "touch" | undefined;
+                exclusive?: boolean | undefined;
+                clipDirection?: "backward" | "forward" | "closest" | undefined;
             }): DisplayMarker;
 
             /**
@@ -717,16 +716,16 @@ declare global {
              *  and no tail.
              */
             markScreenPosition(screenPosition: PointCompatible, options?: {
-                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch" | undefined,
-                exclusive?: boolean | undefined,
-                clipDirection?: "backward"|"forward"|"closest" | undefined
+                invalidate?: "never" | "surround" | "overlap" | "inside" | "touch" | undefined;
+                exclusive?: boolean | undefined;
+                clipDirection?: "backward" | "forward" | "closest" | undefined;
             }): DisplayMarker;
 
             /** Create a marker with the given buffer range. */
             markBufferRange(range: RangeCompatible, options?: {
-                reversed?: boolean | undefined,
-                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch" | undefined,
-                exclusive?: boolean | undefined
+                reversed?: boolean | undefined;
+                invalidate?: "never" | "surround" | "overlap" | "inside" | "touch" | undefined;
+                exclusive?: boolean | undefined;
             }): DisplayMarker;
 
             /**
@@ -734,8 +733,8 @@ declare global {
              *  and no tail.
              */
             markBufferPosition(bufferPosition: PointCompatible, options?: {
-                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch" | undefined,
-                exclusive?: boolean | undefined
+                invalidate?: "never" | "surround" | "overlap" | "inside" | "touch" | undefined;
+                exclusive?: boolean | undefined;
             }): DisplayMarker;
 
             // Querying
@@ -843,14 +842,14 @@ declare global {
             fromObject(object: PointCompatible, copy?: boolean): Point;
 
             /** Construct a Point object */
-            new (row?: number, column?: number): Point;
+            new(row?: number, column?: number): Point;
 
             /** Returns the given Point that is earlier in the buffer. */
             min(point1: PointCompatible, point2: PointCompatible): Point;
         }
 
         /** The types usable when constructing a point via the Point::fromObject method. */
-        type PointCompatible = PointLike|[number, number];
+        type PointCompatible = PointLike | [number, number];
 
         /** The interface that should be implemented for all "point-compatible" objects. */
         interface PointLike {
@@ -975,7 +974,7 @@ declare global {
             fromObject(object: RangeCompatible, copy?: boolean): Range;
 
             /** Construct a Range object. */
-            new (pointA?: PointCompatible, pointB?: PointCompatible): Range;
+            new(pointA?: PointCompatible, pointB?: PointCompatible): Range;
 
             /** Call this with the result of Range::serialize to construct a new Range. */
             deserialize(array: object): Range;
@@ -1056,15 +1055,13 @@ declare global {
              *  Invoke the given callback synchronously when a transaction finishes with
              *  a list of all the changes in the transaction.
              */
-            onDidChangeText(callback: (event: Events.BufferStoppedChanging) => void):
-                Disposable;
+            onDidChangeText(callback: (event: Events.BufferStoppedChanging) => void): Disposable;
 
             /**
              *  Invoke the given callback asynchronously following one or more changes after
              *  ::getStoppedChangingDelay milliseconds elapse without an additional change.
              */
-            onDidStopChanging(callback: (event: Events.BufferStoppedChanging) => void):
-                Disposable;
+            onDidStopChanging(callback: (event: Events.BufferStoppedChanging) => void): Disposable;
 
             /**
              *  Invoke the given callback when the in-memory contents of the buffer become
@@ -1094,7 +1091,7 @@ declare global {
              *  given callback returns a promise, then the buffer will not be saved until
              *  the promise resolves.
              */
-            onWillSave(callback: () => Promise<void>|void): Disposable;
+            onWillSave(callback: () => Promise<void> | void): Disposable;
 
             /** Invoke the given callback after the buffer is saved to disk. */
             onDidSave(callback: (event: Events.FileSaved) => void): Disposable;
@@ -1118,8 +1115,7 @@ declare global {
             onDidDestroy(callback: () => void): Disposable;
 
             /** Invoke the given callback when there is an error in watching the file. */
-            onWillThrowWatchError(callback: (errorObject: Events.BufferWatchError) =>
-                void): Disposable;
+            onWillThrowWatchError(callback: (errorObject: Events.BufferWatchError) => void): Disposable;
 
             /**
              *  Get the number of milliseconds that will elapse without a change before
@@ -1145,7 +1141,7 @@ declare global {
             isInConflict(): boolean;
 
             /** Get the path of the associated file. */
-            getPath(): string|undefined;
+            getPath(): string | undefined;
 
             /** Set the path for the buffer's associated file. */
             setPath(filePath: string): void;
@@ -1179,10 +1175,10 @@ declare global {
             getLastLine(): string;
 
             /** Get the text of the line at the given row, without its line ending. */
-            lineForRow(row: number): string|undefined;
+            lineForRow(row: number): string | undefined;
 
             /** Get the line ending for the given 0-indexed row. */
-            lineEndingForRow(row: number): string|undefined;
+            lineEndingForRow(row: number): string | undefined;
 
             /**
              *  Get the length of the line for the given 0-indexed row, without its line
@@ -1197,13 +1193,13 @@ declare global {
              *  Given a row, find the first preceding row that's not blank.
              *  Returns a number or null if there's no preceding non-blank row.
              */
-            previousNonBlankRow(startRow: number): number|null;
+            previousNonBlankRow(startRow: number): number | null;
 
             /**
              *  Given a row, find the next row that's not blank.
              *  Returns a number or null if there's no next non-blank row.
              */
-            nextNonBlankRow(startRow: number): number|null;
+            nextNonBlankRow(startRow: number): number | null;
 
             // Mutating Text
             /** Replace the entire contents of the buffer with the given text. */
@@ -1216,16 +1212,24 @@ declare global {
             setTextViaDiff(text: string): void;
 
             /** Set the text in the given range. */
-            setTextInRange(range: RangeCompatible, text: string, options?:
-                { normalizeLineEndings?: boolean | undefined, undo?: "skip" | undefined }): Range;
+            setTextInRange(
+                range: RangeCompatible,
+                text: string,
+                options?: { normalizeLineEndings?: boolean | undefined; undo?: "skip" | undefined },
+            ): Range;
 
             /** Insert text at the given position. */
-            insert(position: PointCompatible, text: string, options?:
-                { normalizeLineEndings?: boolean | undefined, undo?: "skip" | undefined }): Range;
+            insert(
+                position: PointCompatible,
+                text: string,
+                options?: { normalizeLineEndings?: boolean | undefined; undo?: "skip" | undefined },
+            ): Range;
 
             /** Append text to the end of the buffer. */
-            append(text: string, options?: { normalizeLineEndings?: boolean | undefined, undo?:
-                "skip" | undefined }): Range;
+            append(
+                text: string,
+                options?: { normalizeLineEndings?: boolean | undefined; undo?: "skip" | undefined },
+            ): Range;
 
             /** Delete the text in the given range. */
             delete(range: RangeCompatible): Range;
@@ -1239,27 +1243,37 @@ declare global {
             // Markers
             /** Create a layer to contain a set of related markers. */
             addMarkerLayer(options?: {
-                maintainHistory?: boolean | undefined,
-                persistent?: boolean | undefined
+                maintainHistory?: boolean | undefined;
+                persistent?: boolean | undefined;
             }): MarkerLayer;
 
             /**
              *  Get a MarkerLayer by id.
              *  Returns a MarkerLayer or `` if no layer exists with the given id.
              */
-            getMarkerLayer(id: string): MarkerLayer|undefined;
+            getMarkerLayer(id: string): MarkerLayer | undefined;
 
             /** Get the default MarkerLayer. */
             getDefaultMarkerLayer(): MarkerLayer;
 
             /** Create a marker with the given range in the default marker layer. */
-            markRange(range: RangeCompatible, properties?: { reversed?: boolean | undefined,
-                invalidate?: "never"|"surround"|"overlap"|"inside"|"touch" | undefined,
-                exclusive?: boolean | undefined }): Marker;
+            markRange(
+                range: RangeCompatible,
+                properties?: {
+                    reversed?: boolean | undefined;
+                    invalidate?: "never" | "surround" | "overlap" | "inside" | "touch" | undefined;
+                    exclusive?: boolean | undefined;
+                },
+            ): Marker;
 
             /** Create a marker at the given position with no tail in the default marker layer. */
-            markPosition(position: PointCompatible, options?: { invalidate?: "never"|"surround"
-                |"overlap"|"inside"|"touch" | undefined, exclusive?: boolean | undefined }): Marker;
+            markPosition(
+                position: PointCompatible,
+                options?: {
+                    invalidate?: "never" | "surround" | "overlap" | "inside" | "touch" | undefined;
+                    exclusive?: boolean | undefined;
+                },
+            ): Marker;
 
             /** Get all existing markers on the default marker layer. */
             getMarkers(): Marker[];
@@ -1323,16 +1337,16 @@ declare global {
              */
             getChangesSinceCheckpoint(checkpoint: number): Array<{
                 /** A Point representing where the change started. */
-                start: Point,
+                start: Point;
 
                 /** A Point representing the replaced extent. */
-                oldExtent: Point,
+                oldExtent: Point;
 
                 /** A Point representing the replacement extent. */
-                newExtent: Point,
+                newExtent: Point;
 
                 /** A String representing the replacement text. */
-                newText: string
+                newText: string;
             }>;
 
             // Search and Replace
@@ -1345,48 +1359,66 @@ declare global {
              *  Scan regular expression matches in the entire buffer, calling the given
              *  iterator function on each match.
              */
-            scan(regex: RegExp, options: Options.ScanContext, iterator: (params:
-                Structures.ContextualBufferScanResult) => void): void;
+            scan(
+                regex: RegExp,
+                options: Options.ScanContext,
+                iterator: (params: Structures.ContextualBufferScanResult) => void,
+            ): void;
 
             /**
              *  Scan regular expression matches in the entire buffer in reverse order,
              *  calling the given iterator function on each match.
              */
-            backwardsScan(regex: RegExp, iterator: (params: Structures.BufferScanResult) => void):
-                void;
+            backwardsScan(regex: RegExp, iterator: (params: Structures.BufferScanResult) => void): void;
             /**
              *  Scan regular expression matches in the entire buffer in reverse order,
              *  calling the given iterator function on each match.
              */
-            backwardsScan(regex: RegExp, options: Options.ScanContext, iterator: (params:
-                Structures.ContextualBufferScanResult) => void): void;
+            backwardsScan(
+                regex: RegExp,
+                options: Options.ScanContext,
+                iterator: (params: Structures.ContextualBufferScanResult) => void,
+            ): void;
 
             /**
              *  Scan regular expression matches in a given range , calling the given
              *  iterator function on each match.
              */
-            scanInRange(regex: RegExp, range: RangeCompatible, iterator:
-                (params: Structures.BufferScanResult) => void): void;
+            scanInRange(
+                regex: RegExp,
+                range: RangeCompatible,
+                iterator: (params: Structures.BufferScanResult) => void,
+            ): void;
             /**
              *  Scan regular expression matches in a given range , calling the given
              *  iterator function on each match.
              */
-            scanInRange(regex: RegExp, range: RangeCompatible, options: Options.ScanContext,
-                iterator: (params: Structures.ContextualBufferScanResult) => void): void;
+            scanInRange(
+                regex: RegExp,
+                range: RangeCompatible,
+                options: Options.ScanContext,
+                iterator: (params: Structures.ContextualBufferScanResult) => void,
+            ): void;
 
             /**
              *  Scan regular expression matches in a given range in reverse order,
              *  calling the given iterator function on each match.
              */
-            backwardsScanInRange(regex: RegExp, range: RangeCompatible, iterator:
-                (params: Structures.BufferScanResult) => void): void;
+            backwardsScanInRange(
+                regex: RegExp,
+                range: RangeCompatible,
+                iterator: (params: Structures.BufferScanResult) => void,
+            ): void;
             /**
              *  Scan regular expression matches in a given range in reverse order,
              *  calling the given iterator function on each match.
              */
-            backwardsScanInRange(regex: RegExp, range: RangeCompatible, options:
-                Options.ScanContext, iterator:
-                (params: Structures.ContextualBufferScanResult) => void): void;
+            backwardsScanInRange(
+                regex: RegExp,
+                range: RangeCompatible,
+                options: Options.ScanContext,
+                iterator: (params: Structures.ContextualBufferScanResult) => void,
+            ): void;
 
             /** Replace all regular expression matches in the entire buffer. */
             replace(regex: RegExp, replacementText: string): number;
@@ -1417,7 +1449,7 @@ declare global {
              *  Convert a position in the buffer in row/column coordinates to an absolute
              *  character offset, inclusive of line ending characters.
              */
-            characterIndexForPosition(position: Point|[number, number]): number;
+            characterIndexForPosition(position: Point | [number, number]): number;
 
             /**
              *  Convert an absolute character offset, inclusive of newlines, to a position
@@ -1463,16 +1495,16 @@ declare global {
             deserialize(params: object): Promise<TextBuffer>;
 
             /** Create a new buffer with the given starting text. */
-            new (text: string): TextBuffer;
+            new(text: string): TextBuffer;
             /** Create a new buffer with the given params. */
-            new (params?: {
+            new(params?: {
                 /** The initial string text of the buffer. */
-                text?: string | undefined
+                text?: string | undefined;
                 /**
                  *  A function that returns a Boolean indicating whether the buffer should
                  *  be destroyed if its file is deleted.
                  */
-                shouldDestroyOnFileDelete?(): boolean
+                shouldDestroyOnFileDelete?(): boolean;
             }): TextBuffer;
         }
     }

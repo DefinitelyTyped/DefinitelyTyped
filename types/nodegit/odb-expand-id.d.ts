@@ -1,5 +1,5 @@
-import { Oid } from './oid';
-import { Object } from './object';
+import { Object } from "./object";
+import { Oid } from "./oid";
 
 export class OdbExpandId {
     id: Oid;

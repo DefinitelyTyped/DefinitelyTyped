@@ -1,13 +1,8 @@
-// Type definitions for mailparser-mit 1.0
-// Project: https://github.com/mazira/mailparser-mit#readme
-// Definitions by: atlowChemi <https://github.com/atlowChemi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Stream } from 'node:stream';
+import { Stream } from "node:stream";
 
-export type Priority = 'normal' | 'low' | 'high';
+export type Priority = "normal" | "low" | "high";
 
 export interface MailParserOptions {
     /** if set to true print all incoming lines to decodeq */
@@ -45,7 +40,7 @@ export interface Attachment {
     transferEncoding: string;
     fileName?: string;
 }
-export interface StreamAttachment extends Omit<Attachment, 'content'> {
+export interface StreamAttachment extends Omit<Attachment, "content"> {
     stream: Stream;
 }
 export interface MimeTreeNode {
@@ -78,7 +73,7 @@ export interface Headers {
 export interface ParsedEmail {
     html?: string;
     text?: string;
-    alternatives?: Array<MailData['calendar'][number]['content']>;
+    alternatives?: Array<MailData["calendar"][number]["content"]>;
     headers: Headers;
     subject?: string;
     references?: string[];
@@ -110,7 +105,7 @@ export class MailParser extends Stream implements NodeJS.WritableStream {
     mailData: MailData;
 
     on(event: string, callback: (any: any) => void): this;
-    on(event: 'end', listener: (email: ParsedEmail) => void): this;
-    on(event: 'headers', listener: (headers: Headers) => void): this;
-    on(event: 'attachment', listener: (attachment: StreamAttachment, rootNode: MimeTreeNode) => void): this;
+    on(event: "end", listener: (email: ParsedEmail) => void): this;
+    on(event: "headers", listener: (headers: Headers) => void): this;
+    on(event: "attachment", listener: (attachment: StreamAttachment, rootNode: MimeTreeNode) => void): this;
 }

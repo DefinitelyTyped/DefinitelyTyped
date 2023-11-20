@@ -1,8 +1,4 @@
-// Type definitions for react-otp-input 2.0
-// Project: https://github.com/devfolioco/react-otp-input
-// Definitions by: Anup Bhatkhande <https://github.com/anupbui>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import * as React from 'react';
+import * as React from "react";
 
 export interface OTPInputProps {
     value: number | string;
@@ -20,4 +16,4 @@ export interface OTPInputProps {
     errorStyle?: string | React.CSSProperties | undefined;
 }
 
-export default class extends React.Component<OTPInputProps> { }
+export default class extends React.Component<OTPInputProps> {}

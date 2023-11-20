@@ -1,17 +1,11 @@
-// Type definitions for make-fetch-happen 10.0
-// Project: https://github.com/npm/make-fetch-happen
-// Definitions by: Jesse Rosenberger <https://github.com/abernix>
-//                 Trevor Scheer <https://github.com/trevor-scheer>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
 /// <reference lib="dom" />
-import { ClientRequestArgs, AgentOptions } from 'http';
-import { SecureContextOptions } from 'tls';
-import { URL as NodeURL } from 'url';
+import { AgentOptions, ClientRequestArgs } from "http";
+import { SecureContextOptions } from "tls";
+import { URL as NodeURL } from "url";
 
-import { RequestInit, Response } from 'node-fetch';
-import { Integrity } from 'ssri';
-import { TimeoutsOptions } from 'retry';
+import { RequestInit, Response } from "node-fetch";
+import { TimeoutsOptions } from "retry";
+import { Integrity } from "ssri";
 
 export = fetch;
 
@@ -22,10 +16,10 @@ declare const fetch: fetch.FetchInterface;
 declare namespace fetch {
     type NodeFetchOptions = Pick<
         RequestInit,
-        'method' | 'body' | 'redirect' | 'follow' | 'timeout' | 'compress' | 'size' | 'headers' | 'agent'
+        "method" | "body" | "redirect" | "follow" | "timeout" | "compress" | "size" | "headers" | "agent"
     >;
 
-    type TlsOptions = Pick<SecureContextOptions, 'ca' | 'cert' | 'key'> & {
+    type TlsOptions = Pick<SecureContextOptions, "ca" | "cert" | "key"> & {
         strictSSL?: boolean | undefined;
     };
 
@@ -52,13 +46,13 @@ declare namespace fetch {
          * Passed directly to `http` and `https` request calls. Determines the
          * local address to bind to.
          */
-        localAddress?: ClientRequestArgs['localAddress'] | undefined;
+        localAddress?: ClientRequestArgs["localAddress"] | undefined;
 
         /**
          * Maximum number of active concurrent sockets to use for the underlying
          * Http/Https/Proxy agents. This setting applies once per spawned agent.
          */
-        maxSockets?: AgentOptions['maxSockets'] | undefined;
+        maxSockets?: AgentOptions["maxSockets"] | undefined;
 
         /**
          * An object that can be used to tune request retry settings. Retries
@@ -123,6 +117,6 @@ declare namespace fetch {
         (opts: FetchOptions): Promise<Response>;
         defaults(uri: string, opts?: FetchOptions): FetchInterface;
         defaults(opts?: FetchOptions): FetchInterface;
-        delete(uri: string, opts?: FetchOptions): ReturnType<Cache['delete']>;
+        delete(uri: string, opts?: FetchOptions): ReturnType<Cache["delete"]>;
     }
 }

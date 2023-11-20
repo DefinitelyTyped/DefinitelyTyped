@@ -1,10 +1,5 @@
-// Type definitions for dmx 0.2
-// Project: https://github.com/node-dmx/dmx#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-import { EventEmitter } from 'stream';
+import { EventEmitter } from "stream";
 
 export = DMX;
 
@@ -47,35 +42,35 @@ declare class DMX<TDevices extends { [key in string]?: DMX.Device } = DMX.Device
      *
      * @param options Driver specific options.
      */
-    addUniverse(name: string, driver: 'null', deviceId?: undefined, options?: DMX.NullDriverOptions): DMX.Universe;
+    addUniverse(name: string, driver: "null", deviceId?: undefined, options?: DMX.NullDriverOptions): DMX.Universe;
     addUniverse(
         name: string,
-        driver: 'socketio',
+        driver: "socketio",
         deviceId?: undefined,
         options?: DMX.SocketioDriverOptions,
     ): DMX.Universe;
-    addUniverse(name: string, driver: 'dmx4all', deviceId: string, options?: DMX.DMX4ALLDriverOptions): DMX.Universe;
+    addUniverse(name: string, driver: "dmx4all", deviceId: string, options?: DMX.DMX4ALLDriverOptions): DMX.Universe;
     addUniverse(
         name: string,
-        driver: 'enttec-usb-dmx-pro',
+        driver: "enttec-usb-dmx-pro",
         deviceId: string,
         options?: DMX.EnttecUSBDMXPRODriverOptions,
     ): DMX.Universe;
     addUniverse(
         name: string,
-        driver: 'enttec-open-usb-dmx',
+        driver: "enttec-open-usb-dmx",
         deviceId: string,
         options?: DMX.EnttecOpenUsbDMXDriverOptions,
     ): DMX.Universe;
     addUniverse(
         name: string,
-        driver: 'dmxking-ultra-dmx-pro',
+        driver: "dmxking-ultra-dmx-pro",
         deviceId: string,
         options?: DMX.DMXKingUltraDMXProDriverOptions,
     ): DMX.Universe;
-    addUniverse(name: string, driver: 'artnet', deviceId?: string, options?: DMX.ArtnetDriverOptions): DMX.Universe;
-    addUniverse(name: string, driver: 'bbdmx', deviceId?: string, options?: DMX.BBDMXDriverOptions): DMX.Universe;
-    addUniverse(name: string, driver: 'sacn', deviceId?: undefined, options?: DMX.SACNDriverOptions): DMX.Universe;
+    addUniverse(name: string, driver: "artnet", deviceId?: string, options?: DMX.ArtnetDriverOptions): DMX.Universe;
+    addUniverse(name: string, driver: "bbdmx", deviceId?: string, options?: DMX.BBDMXDriverOptions): DMX.Universe;
+    addUniverse(name: string, driver: "sacn", deviceId?: undefined, options?: DMX.SACNDriverOptions): DMX.Universe;
     addUniverse(name: string, driver: string, deviceId: unknown, options?: object): DMX.Universe;
     /**
      * Update one or multiple channels of a universe. Also emits an `update` event with the same information.
@@ -89,49 +84,49 @@ declare class DMX<TDevices extends { [key in string]?: DMX.Device } = DMX.Device
     universeToObject(universe: string): { [key: number]: number };
 
     addListener(
-        eventName: 'update',
+        eventName: "update",
         listener: (universe: string, channels: DMX.ChannelMap, extraData?: DMX.UpdateEventExtraData) => void,
     ): this;
-    addListener(eventName: 'updateAll', listener: (universe: string, value: number) => void): this;
+    addListener(eventName: "updateAll", listener: (universe: string, value: number) => void): this;
     addListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
     on(
-        eventName: 'update',
+        eventName: "update",
         listener: (universe: string, channels: DMX.ChannelMap, extraData?: DMX.UpdateEventExtraData) => void,
     ): this;
-    on(eventName: 'updateAll', listener: (universe: string, value: number) => void): this;
+    on(eventName: "updateAll", listener: (universe: string, value: number) => void): this;
     on(eventName: string | symbol, listener: (...args: any[]) => void): this;
     once(
-        eventName: 'update',
+        eventName: "update",
         listener: (universe: string, channels: DMX.ChannelMap, extraData?: DMX.UpdateEventExtraData) => void,
     ): this;
-    once(eventName: 'updateAll', listener: (universe: string, value: number) => void): this;
+    once(eventName: "updateAll", listener: (universe: string, value: number) => void): this;
     once(eventName: string | symbol, listener: (...args: any[]) => void): this;
     removeListener(
-        eventName: 'update',
+        eventName: "update",
         listener: (universe: string, channels: DMX.ChannelMap, extraData?: DMX.UpdateEventExtraData) => void,
     ): this;
-    removeListener(eventName: 'updateAll', listener: (universe: string, value: number) => void): this;
+    removeListener(eventName: "updateAll", listener: (universe: string, value: number) => void): this;
     removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
     off(
-        eventName: 'update',
+        eventName: "update",
         listener: (universe: string, channels: DMX.ChannelMap, extraData?: DMX.UpdateEventExtraData) => void,
     ): this;
-    off(eventName: 'updateAll', listener: (universe: string, value: number) => void): this;
+    off(eventName: "updateAll", listener: (universe: string, value: number) => void): this;
     off(eventName: string | symbol, listener: (...args: any[]) => void): this;
-    emit(eventName: 'update', universe: string, channels: DMX.ChannelMap, extraData?: DMX.UpdateEventExtraData): this;
-    emit(eventName: 'updateAll', universe: string, value: number): this;
+    emit(eventName: "update", universe: string, channels: DMX.ChannelMap, extraData?: DMX.UpdateEventExtraData): this;
+    emit(eventName: "updateAll", universe: string, value: number): this;
     emit(eventName: string | symbol, ...args: any[]): boolean;
     prependListener(
-        eventName: 'update',
+        eventName: "update",
         listener: (universe: string, channels: DMX.ChannelMap, extraData?: DMX.UpdateEventExtraData) => void,
     ): this;
-    prependListener(eventName: 'updateAll', listener: (universe: string, value: number) => void): this;
+    prependListener(eventName: "updateAll", listener: (universe: string, value: number) => void): this;
     prependListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
     prependOnceListener(
-        eventName: 'update',
+        eventName: "update",
         listener: (universe: string, channels: DMX.ChannelMap, extraData?: DMX.UpdateEventExtraData) => void,
     ): this;
-    prependOnceListener(eventName: 'updateAll', listener: (universe: string, value: number) => void): this;
+    prependOnceListener(eventName: "updateAll", listener: (universe: string, value: number) => void): this;
     prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
 }
 
@@ -146,7 +141,7 @@ declare namespace DMX {
     }
 
     interface UniverseStatic {
-        new (deviceId: any, options: {}): Universe;
+        new(deviceId: any, options: {}): Universe;
     }
 
     interface Universe extends EventEmitter {
@@ -169,41 +164,43 @@ declare namespace DMX {
      */
     type Devices = {
         generic: Device;
-        'generic-rgb': Device;
-        'showtec-multidim2': Device;
-        'eurolite-led-bar': Device;
-        'stairville-led-par-56': Device;
-        'ultra-pro-24ch-rdm': Device;
-        'ultra-pro-6rgbch-rdm': Device;
-        'oppsk-cob-uv-par': Device;
-        'lixda-par12-led': Device;
-        'eurolite-led-tha-120PC': Device;
-        'briteq-bt-theatre-60FC': Device;
-        'lalucenatz-led-4ch': Device;
-        'fungeneration-led-pot-12x1w-qcl-rgbww-4ch': Device;
-        'fungeneration-led-pot-12x1w-qcl-rgbww-6ch': Device;
-        'fungeneration-led-pot-12x1w-qcl-rgbww-8ch': Device;
-        'eurolite-led-bar-[6,12]-qcl-rgba-2ch': Device;
-        'eurolite-led-bar-[6,12]-qcl-rgba-4ch': Device;
-        'eurolite-led-bar-[6,12]-qcl-rgba-5ch': Device;
-        'eurolite-led-bar-[6,12]-qcl-rgba-6ch': Device;
-        'eurolite-led-bar-[6,12]-qcl-rgba-9ch': Device;
+        "generic-rgb": Device;
+        "showtec-multidim2": Device;
+        "eurolite-led-bar": Device;
+        "stairville-led-par-56": Device;
+        "ultra-pro-24ch-rdm": Device;
+        "ultra-pro-6rgbch-rdm": Device;
+        "oppsk-cob-uv-par": Device;
+        "lixda-par12-led": Device;
+        "eurolite-led-tha-120PC": Device;
+        "briteq-bt-theatre-60FC": Device;
+        "lalucenatz-led-4ch": Device;
+        "fungeneration-led-pot-12x1w-qcl-rgbww-4ch": Device;
+        "fungeneration-led-pot-12x1w-qcl-rgbww-6ch": Device;
+        "fungeneration-led-pot-12x1w-qcl-rgbww-8ch": Device;
+        "eurolite-led-bar-[6,12]-qcl-rgba-2ch": Device;
+        "eurolite-led-bar-[6,12]-qcl-rgba-4ch": Device;
+        "eurolite-led-bar-[6,12]-qcl-rgba-5ch": Device;
+        "eurolite-led-bar-[6,12]-qcl-rgba-6ch": Device;
+        "eurolite-led-bar-[6,12]-qcl-rgba-9ch": Device;
     } & { [deviceName in string]?: Device };
 
     interface Device {
         channels: readonly string[];
-        ranges?: {
-            ctrl?: OptionRange | undefined;
-            dimmer?: SliderRange | undefined;
-            'static-color'?: OptionRange | undefined;
-            'programme-selection'?: OptionRange | undefined;
-            'colour-macros-programme-01'?: OptionRange | undefined;
-            strobe?: OptionRange | undefined;
-            'color-pretsets'?: OptionRange | undefined;
-            temperature?: OptionRange | undefined;
-        } & {
-            [key in string]?: Range | undefined;
-        };
+        ranges?:
+            & {
+                ctrl?: OptionRange | undefined;
+                dimmer?: SliderRange | undefined;
+                "static-color"?: OptionRange | undefined;
+                "programme-selection"?: OptionRange | undefined;
+                "colour-macros-programme-01"?: OptionRange | undefined;
+                strobe?: OptionRange | undefined;
+                "color-pretsets"?: OptionRange | undefined;
+                temperature?: OptionRange | undefined;
+            }
+            & {
+                [key in string]?: Range | undefined;
+            };
         channelgroups?: readonly string[];
         [name: string]: unknown;
     }
@@ -211,12 +208,12 @@ declare namespace DMX {
     type Range = OptionRange | SliderRange;
 
     interface OptionRange {
-        type: 'option';
+        type: "option";
         options: ReadonlyArray<{ value: number; label: string }>;
     }
 
     interface SliderRange {
-        type: 'slider';
+        type: "slider";
         min: number;
         max: number;
     }
@@ -225,7 +222,7 @@ declare namespace DMX {
         /**
          * Create a new DMX Animation instance. This can be chained similar to jQuery.
          */
-        new (options?: AnimationOptions): Animation;
+        new(options?: AnimationOptions): Animation;
     }
 
     interface Animation {
@@ -302,37 +299,37 @@ declare namespace DMX {
     }
 
     type EasingType =
-        | 'linear'
-        | 'inQuad'
-        | 'outQuad'
-        | 'inOutQuad'
-        | 'inCubic'
-        | 'outCubic'
-        | 'inOutCubic'
-        | 'inQuart'
-        | 'outQuart'
-        | 'inOutQuart'
-        | 'inQuint'
-        | 'outQuint'
-        | 'inOutQuint'
-        | 'inSine'
-        | 'outSine'
-        | 'inOutSine'
-        | 'inExpo'
-        | 'outExpo'
-        | 'inOutExpo'
-        | 'inCirc'
-        | 'outCirc'
-        | 'inOutCirc'
-        | 'inElastic'
-        | 'outElastic'
-        | 'inOutElastic'
-        | 'inBack'
-        | 'outBack'
-        | 'inOutBack'
-        | 'inBounce'
-        | 'outBounce'
-        | 'inOutBounce';
+        | "linear"
+        | "inQuad"
+        | "outQuad"
+        | "inOutQuad"
+        | "inCubic"
+        | "outCubic"
+        | "inOutCubic"
+        | "inQuart"
+        | "outQuart"
+        | "inOutQuart"
+        | "inQuint"
+        | "outQuint"
+        | "inOutQuint"
+        | "inSine"
+        | "outSine"
+        | "inOutSine"
+        | "inExpo"
+        | "outExpo"
+        | "inOutExpo"
+        | "inCirc"
+        | "outCirc"
+        | "inOutCirc"
+        | "inElastic"
+        | "outElastic"
+        | "inOutElastic"
+        | "inBack"
+        | "outBack"
+        | "inOutBack"
+        | "inBounce"
+        | "outBounce"
+        | "inOutBounce";
 
     interface ChannelMap {
         [channel: number]: number;
@@ -369,7 +366,7 @@ declare namespace DMX {
         /** @default 40 */
         dmx_speed?: number | undefined;
         /** @default undefined */
-        port?: 'A' | 'B' | undefined;
+        port?: "A" | "B" | undefined;
     }
 
     interface ArtnetDriverOptions {

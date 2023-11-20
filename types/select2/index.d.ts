@@ -1,10 +1,3 @@
-// Type definitions for Select2 4.0
-// Project: http://ivaynberg.github.com/select2/, https://select2.org
-// Definitions by: Boris Yankov <https://github.com/borisyankov>
-//                 denisname <https://github.com/denisname>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.6
-
 /// <reference types="jquery"/>
 
 export as namespace Select2;
@@ -13,20 +6,17 @@ export as namespace Select2;
 // For jQuery v1 and v2 backward compatibility
 // --------------------------------------------------------------------------
 
-export type Sub<O extends string, D extends string> =
-    {[K in O]: (Record<D, never> & Record<string, K>)[K]}[O];
+export type Sub<O extends string, D extends string> = { [K in O]: (Record<D, never> & Record<string, K>)[K] }[O];
 
 /**
  * Same as jQuery v3 `JQuery.AjaxSettingsBase`.
  */
-export type JQueryAjaxSettingsBase =
-    Pick<JQueryAjaxSettings, Sub<keyof JQueryAjaxSettings, "url">>;
+export type JQueryAjaxSettingsBase = Pick<JQueryAjaxSettings, Sub<keyof JQueryAjaxSettings, "url">>;
 
 /**
  * Same as jQuery v3 `JQuery.EventHandlerBase`.
  */
-export type JQueryEventHandlerBase<TContext, T> =
-    (this: TContext, t: T, ...args: any[]) => void | false;
+export type JQueryEventHandlerBase<TContext, T> = (this: TContext, t: T, ...args: any[]) => void | false;
 
 /**
  * Same as jQuery v3 `JQuery.PlainObject`.
@@ -76,7 +66,7 @@ export interface GroupedDataFormat {
 
 export interface ProcessedResult<Result = DataFormat | GroupedDataFormat> {
     results: Result[];
-    pagination?: {more: boolean} | undefined;
+    pagination?: { more: boolean } | undefined;
 }
 
 export interface LoadingData {
@@ -159,11 +149,15 @@ export interface Trigger {
 // Ajax Option
 // --------------------------------------------------------------------------
 
-export interface AjaxOptions<Result = DataFormat | GroupedDataFormat, RemoteResult = any> extends JQueryAjaxSettingsBase {
+export interface AjaxOptions<Result = DataFormat | GroupedDataFormat, RemoteResult = any>
+    extends JQueryAjaxSettingsBase
+{
     delay?: number | undefined;
     url?: string | ((params: QueryOptions) => string) | undefined;
     data?: ((params: QueryOptions) => PlainObject | string) | undefined;
-    transport?: ((settings: JQueryAjaxSettings, success: (data: RemoteResult) => undefined, failure: () => undefined) => void) | undefined;
+    transport?:
+        | ((settings: JQueryAjaxSettings, success: (data: RemoteResult) => undefined, failure: () => undefined) => void)
+        | undefined;
     processResults?: ((data: RemoteResult, params: QueryOptions) => ProcessedResult<Result>) | undefined;
 }
 
@@ -185,7 +179,7 @@ export interface Select2RequireConfig {
             [id: string]: string;
         };
     } | undefined;
-    config?: { [id: string]: {}; } | undefined;
+    config?: { [id: string]: {} } | undefined;
     deps?: string[] | undefined;
     callback?: ((...modules: any[]) => void) | undefined;
 }
@@ -215,7 +209,9 @@ export interface Options<Result = DataFormat | GroupedDataFormat, RemoteResult =
     escapeMarkup?: ((markup: string) => string) | undefined;
     initSelection?: ((element: JQuery, callback: (data: any) => void) => void) | undefined;
     language?: string | Translation | undefined;
-    matcher?: ((params: SearchOptions, data: OptGroupData | OptionData) => OptGroupData | OptionData | null) | undefined;
+    matcher?:
+        | ((params: SearchOptions, data: OptGroupData | OptionData) => OptGroupData | OptionData | null)
+        | undefined;
     maximumInputLength?: number | undefined;
     maximumSelectionLength?: number | undefined;
     minimumInputLength?: number | undefined;
@@ -225,10 +221,14 @@ export interface Options<Result = DataFormat | GroupedDataFormat, RemoteResult =
     resultsAdapter?: any;
     selectionAdapter?: any;
     selectOnClose?: boolean | undefined;
-    sorter?: ((data: Array<OptGroupData | OptionData | IdTextPair>) => Array<OptGroupData | OptionData | IdTextPair>) | undefined;
+    sorter?:
+        | ((data: Array<OptGroupData | OptionData | IdTextPair>) => Array<OptGroupData | OptionData | IdTextPair>)
+        | undefined;
     tags?: boolean | undefined;
     templateResult?: ((result: LoadingData | Result) => string | JQuery | null) | undefined;
-    templateSelection?: ((selection: IdTextPair | LoadingData | Result, container: JQuery) => string | JQuery) | undefined;
+    templateSelection?:
+        | ((selection: IdTextPair | LoadingData | Result, container: JQuery) => string | JQuery)
+        | undefined;
     theme?: string | undefined;
     tokenizer?: ((input: string, selection: any[], selectCallback: () => void, options: Options) => string) | undefined;
     tokenSeparators?: string[] | undefined;
@@ -243,8 +243,8 @@ export interface Options<Result = DataFormat | GroupedDataFormat, RemoteResult =
 // jQuery And Select2 Plugin
 // --------------------------------------------------------------------------
 
-export interface Select2Plugin<TElement = HTMLElement>  {
-    amd: { require: Select2Require; };
+export interface Select2Plugin<TElement = HTMLElement> {
+    amd: { require: Select2Require };
 
     defaults: {
         set: (key: string, value: any) => void;
@@ -253,7 +253,9 @@ export interface Select2Plugin<TElement = HTMLElement>  {
 
     (): JQuery<TElement>;
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    <Result = DataFormat | GroupedDataFormat, RemoteResult = any>(options: Options<Result, RemoteResult>): JQuery<TElement>;
+    <Result = DataFormat | GroupedDataFormat, RemoteResult = any>(
+        options: Options<Result, RemoteResult>,
+    ): JQuery<TElement>;
 
     /**
      * Get the data object of the current selection

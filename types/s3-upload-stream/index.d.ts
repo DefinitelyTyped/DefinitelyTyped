@@ -1,12 +1,7 @@
-// Type definitions for s3-upload-stream 1.0
-// Project: https://github.com/nathanpeck/s3-upload-stream
-// Definitions by: Joshua DeVinney <https://github.com/geoffreak>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import * as stream from 'stream';
-import * as AWS from 'aws-sdk2-types';
+import * as AWS from "aws-sdk2-types";
+import * as stream from "stream";
 
 declare namespace s3Stream {
     interface S3StreamUploader {

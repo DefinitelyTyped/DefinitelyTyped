@@ -1,11 +1,6 @@
-// Type definitions for kill-port 2.0
-// Project: https://github.com/tiaanduplessis/kill-port
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import type { SuccessfulExec } from 'shell-exec';
+import type { SuccessfulExec } from "shell-exec";
 
 export = killPort;
 
@@ -40,5 +35,5 @@ export = killPort;
 declare function killPort(
     port: number,
     /** @default 'tcp' */
-    protocol?: 'tcp' | 'udp',
+    protocol?: "tcp" | "udp",
 ): Promise<SuccessfulExec>;

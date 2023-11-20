@@ -29,9 +29,9 @@
  * ```
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/perf_hooks.js)
  */
-declare module 'perf_hooks' {
-    import { AsyncResource } from 'node:async_hooks';
-    type EntryType = 'node' | 'mark' | 'measure' | 'gc' | 'function' | 'http2' | 'http' | 'dns';
+declare module "perf_hooks" {
+    import { AsyncResource } from "node:async_hooks";
+    type EntryType = "node" | "mark" | "measure" | "gc" | "function" | "http2" | "http" | "dns" | "net";
     interface NodeGCPerformanceDetail {
         /**
          * When `performanceEntry.entryType` is equal to 'gc', `the performance.kind` property identifies
@@ -95,7 +95,7 @@ declare module 'perf_hooks' {
      */
     class PerformanceMark extends PerformanceEntry {
         readonly duration: 0;
-        readonly entryType: 'mark';
+        readonly entryType: "mark";
     }
     /**
      * Exposes measures created via the `Performance.measure()` method.
@@ -104,7 +104,7 @@ declare module 'perf_hooks' {
      * @since v18.2.0, v16.17.0
      */
     class PerformanceMeasure extends PerformanceEntry {
-        readonly entryType: 'measure';
+        readonly entryType: "measure";
     }
     /**
      * _This property is an extension by Node.js. It is not available in Web browsers._
@@ -166,7 +166,10 @@ declare module 'perf_hooks' {
      * @param util1 The result of a previous call to eventLoopUtilization()
      * @param util2 The result of a previous call to eventLoopUtilization() prior to util1
      */
-    type EventLoopUtilityFunction = (util1?: EventLoopUtilization, util2?: EventLoopUtilization) => EventLoopUtilization;
+    type EventLoopUtilityFunction = (
+        util1?: EventLoopUtilization,
+        util2?: EventLoopUtilization,
+    ) => EventLoopUtilization;
     interface MarkOptions {
         /**
          * Additional optional detail to include with the mark.
@@ -321,7 +324,6 @@ declare module 'perf_hooks' {
          *    *   }
          *    * ]
          *
-         *
          *   performance.clearMarks();
          *   performance.clearMeasures();
          *   observer.disconnect();
@@ -458,13 +460,13 @@ declare module 'perf_hooks' {
         observe(
             options:
                 | {
-                      entryTypes: ReadonlyArray<EntryType>;
-                      buffered?: boolean | undefined;
-                  }
+                    entryTypes: ReadonlyArray<EntryType>;
+                    buffered?: boolean | undefined;
+                }
                 | {
-                      type: EntryType;
-                      buffered?: boolean | undefined;
-                  }
+                    type: EntryType;
+                    buffered?: boolean | undefined;
+                },
         ): void;
     }
     namespace constants {
@@ -618,7 +620,7 @@ declare module 'perf_hooks' {
      * @since v15.9.0, v14.18.0
      */
     function createHistogram(options?: CreateHistogramOptions): RecordableHistogram;
-    import { performance as _performance } from 'perf_hooks';
+    import { performance as _performance } from "perf_hooks";
     global {
         /**
          * `performance` is a global reference for `require('perf_hooks').performance`
@@ -628,11 +630,10 @@ declare module 'perf_hooks' {
         var performance: typeof globalThis extends {
             onmessage: any;
             performance: infer T;
-        }
-            ? T
+        } ? T
             : typeof _performance;
     }
 }
-declare module 'node:perf_hooks' {
-    export * from 'perf_hooks';
+declare module "node:perf_hooks" {
+    export * from "perf_hooks";
 }

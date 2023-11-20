@@ -1,12 +1,7 @@
-// Type definitions for dog-statsy 1.3
-// Project: https://github.com/segmentio/dog-statsy#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import * as EventEmitter from 'node:events';
-import * as dgram from 'node:dgram';
+import * as dgram from "node:dgram";
+import * as EventEmitter from "node:events";
 
 export = Client;
 
@@ -81,29 +76,29 @@ declare class Client extends EventEmitter {
      */
     flush(): void;
 
-    addListener(event: 'close' | 'connect', listener: () => void): this;
-    addListener(event: 'error', listener: (err: Error) => void): this;
-    addListener(event: 'message', listener: (msg: Buffer, rinfo: dgram.RemoteInfo) => void): this;
+    addListener(event: "close" | "connect", listener: () => void): this;
+    addListener(event: "error", listener: (err: Error) => void): this;
+    addListener(event: "message", listener: (msg: Buffer, rinfo: dgram.RemoteInfo) => void): this;
     addListener(event: string | symbol, listener: (...args: any[]) => void): this;
-    emit(event: 'close' | 'connect'): boolean;
-    emit(event: 'error', err: Error): boolean;
-    emit(event: 'message', msg: Buffer, rinfo: dgram.RemoteInfo): boolean;
+    emit(event: "close" | "connect"): boolean;
+    emit(event: "error", err: Error): boolean;
+    emit(event: "message", msg: Buffer, rinfo: dgram.RemoteInfo): boolean;
     emit(event: string | symbol, ...args: any[]): boolean;
-    on(event: 'close' | 'connect', listener: () => void): this;
-    on(event: 'error', listener: (err: Error) => void): this;
-    on(event: 'message', listener: (msg: Buffer, rinfo: dgram.RemoteInfo) => void): this;
+    on(event: "close" | "connect", listener: () => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    on(event: "message", listener: (msg: Buffer, rinfo: dgram.RemoteInfo) => void): this;
     on(event: string | symbol, listener: (...args: any[]) => void): this;
-    once(event: 'close' | 'connect', listener: () => void): this;
-    once(event: 'error', listener: (err: Error) => void): this;
-    once(event: 'message', listener: (msg: Buffer, rinfo: dgram.RemoteInfo) => void): this;
+    once(event: "close" | "connect", listener: () => void): this;
+    once(event: "error", listener: (err: Error) => void): this;
+    once(event: "message", listener: (msg: Buffer, rinfo: dgram.RemoteInfo) => void): this;
     once(event: string | symbol, listener: (...args: any[]) => void): this;
-    prependListener(event: 'close' | 'connect', listener: () => void): this;
-    prependListener(event: 'error', listener: (err: Error) => void): this;
-    prependListener(event: 'message', listener: (msg: Buffer, rinfo: dgram.RemoteInfo) => void): this;
+    prependListener(event: "close" | "connect", listener: () => void): this;
+    prependListener(event: "error", listener: (err: Error) => void): this;
+    prependListener(event: "message", listener: (msg: Buffer, rinfo: dgram.RemoteInfo) => void): this;
     prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
-    prependOnceListener(event: 'close' | 'connect', listener: () => void): this;
-    prependOnceListener(event: 'error', listener: (err: Error) => void): this;
-    prependOnceListener(event: 'message', listener: (msg: Buffer, rinfo: dgram.RemoteInfo) => void): this;
+    prependOnceListener(event: "close" | "connect", listener: () => void): this;
+    prependOnceListener(event: "error", listener: (err: Error) => void): this;
+    prependOnceListener(event: "message", listener: (msg: Buffer, rinfo: dgram.RemoteInfo) => void): this;
     prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 

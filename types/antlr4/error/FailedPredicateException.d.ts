@@ -1,5 +1,5 @@
-import Parser from '../Parser';
-import RecognitionException from './RecognitionException';
+import Parser from "../Parser";
+import RecognitionException from "./RecognitionException";
 
 /**
  * A semantic predicate failed during validation. Validation of predicates

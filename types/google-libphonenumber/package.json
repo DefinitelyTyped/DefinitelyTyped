@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/google-libphonenumber",
+    "version": "7.4.9999",
+    "projects": [
+        "https://github.com/googlei18n/libphonenumber",
+        "https://github.com/seegno/google-libphonenumber"
+    ],
+    "devDependencies": {
+        "@types/google-libphonenumber": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leon Yu",
+            "githubUsername": "leonyu"
+        },
+        {
+            "name": "Roman Jurkov",
+            "githubUsername": "winfinit"
+        }
+    ]
+}

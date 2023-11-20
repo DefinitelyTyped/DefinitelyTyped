@@ -1,15 +1,7 @@
-// Type definitions for archiver 5.3
-// Project: https://github.com/archiverjs/node-archiver
-// Definitions by:  Esri
-//                  Dolan Miu <https://github.com/dolanmiu>
-//                  Crevil <https://github.com/crevil>
-//                  Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as fs from 'fs';
-import * as stream from 'stream';
-import * as ReaddirGlob from 'readdir-glob';
-import { ZlibOptions } from 'zlib';
+import * as fs from "fs";
+import * as ReaddirGlob from "readdir-glob";
+import * as stream from "stream";
+import { ZlibOptions } from "zlib";
 
 type Partial<T> = {
     [P in keyof T]?: T[P];
@@ -19,12 +11,12 @@ type Partial<T> = {
 type GlobOptions = ReaddirGlob.Options & { cwd?: string };
 
 // tslint:disable-next-line:ban-types support for ConstructorFn function and classes
-type ConstructorFn<T> = Function | (new (...params: any[]) => T);
+type ConstructorFn<T> = Function | (new(...params: any[]) => T);
 
 declare function archiver(format: archiver.Format, options?: archiver.ArchiverOptions): archiver.Archiver;
 
 declare namespace archiver {
-    type Format = 'zip' | 'tar';
+    type Format = "zip" | "tar";
 
     function create(format: string, options?: ArchiverOptions): Archiver;
 
@@ -101,12 +93,12 @@ declare namespace archiver {
 
         symlink(filepath: string, target: string, mode?: number): this;
 
-        on(event: 'error' | 'warning', listener: (error: ArchiverError) => void): this;
-        on(event: 'data', listener: (data: Buffer) => void): this;
-        on(event: 'progress', listener: (progress: ProgressData) => void): this;
-        on(event: 'close' | 'drain' | 'finish', listener: () => void): this;
-        on(event: 'pipe' | 'unpipe', listener: (src: stream.Readable) => void): this;
-        on(event: 'entry', listener: (entry: EntryData) => void): this;
+        on(event: "error" | "warning", listener: (error: ArchiverError) => void): this;
+        on(event: "data", listener: (data: Buffer) => void): this;
+        on(event: "progress", listener: (progress: ProgressData) => void): this;
+        on(event: "close" | "drain" | "finish", listener: () => void): this;
+        on(event: "pipe" | "unpipe", listener: (src: stream.Readable) => void): this;
+        on(event: "entry", listener: (entry: EntryData) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
     }
 

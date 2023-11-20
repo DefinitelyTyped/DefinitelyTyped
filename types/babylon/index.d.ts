@@ -1,11 +1,4 @@
-// Type definitions for babylon 6.16
-// Project: https://github.com/babel/babylon, https://babeljs.io
-// Definitions by: Troy Gerwien <https://github.com/yortus>
-//                 Marvin Hagemeister <https://github.com/marvinhagemeister>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import { File, Expression } from 'babel-types';
+import { Expression, File } from "babel-types";
 
 export function parse(code: string, opts?: BabylonOptions): File;
 
@@ -28,7 +21,7 @@ export interface BabylonOptions {
     /**
      * Indicate the mode the code should be parsed in. Can be either "script" or "module".
      */
-    sourceType?: 'script' | 'module' | undefined;
+    sourceType?: "script" | "module" | undefined;
 
     /**
      * Correlate output AST nodes with their source filename. Useful when
@@ -43,17 +36,17 @@ export interface BabylonOptions {
 }
 
 export type PluginName =
-    'estree' |
-    'jsx' |
-    'flow' |
-    'typescript' |
-    'classConstructorCall' |
-    'doExpressions' |
-    'objectRestSpread' |
-    'decorators' |
-    'classProperties' |
-    'exportExtensions' |
-    'asyncGenerators' |
-    'functionBind' |
-    'functionSent' |
-    'dynamicImport';
+    | "estree"
+    | "jsx"
+    | "flow"
+    | "typescript"
+    | "classConstructorCall"
+    | "doExpressions"
+    | "objectRestSpread"
+    | "decorators"
+    | "classProperties"
+    | "exportExtensions"
+    | "asyncGenerators"
+    | "functionBind"
+    | "functionSent"
+    | "dynamicImport";

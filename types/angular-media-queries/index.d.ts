@@ -1,18 +1,10 @@
-// Type definitions for Angular matchMedia (angular.matchMedia module) 0.6
-// Project: https://github.com/jacopotarantino/angular-match-media
-// Definitions by: Joao Monteiro <https://github.com/jpmnteiro>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="angular" />
 
-import * as angular from 'angular';
+import * as angular from "angular";
 
-declare module 'angular' {
+declare module "angular" {
     export namespace matchmedia {
-
         interface IScreenSize {
-
             // Returns a value indicating if the current device has a retina screen
             isRetina: boolean;
 

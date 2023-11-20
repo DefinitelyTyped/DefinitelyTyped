@@ -1,12 +1,7 @@
-// Type definitions for clean-css 4.2
-// Project: https://github.com/clean-css/clean-css
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-//                 Andrew Potter <https://github.com/GolaWaya>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="node" />
 
-import { RequestOptions as HttpsRequestOptions } from "https";
 import { RequestOptions as HttpRequestOptions } from "http";
+import { RequestOptions as HttpsRequestOptions } from "https";
 
 import { RawSourceMap, SourceMapGenerator } from "source-map";
 
@@ -23,7 +18,14 @@ interface OptionsBase {
     /**
      * Controls a function for handling remote requests; Defaults to the build in `loadRemoteResource` function
      */
-    fetch?: ((uri: string, inlineRequest: HttpRequestOptions | HttpsRequestOptions, inlineTimeout: number, done: (message: string | number, body: string) => void) => void) | undefined;
+    fetch?:
+        | ((
+            uri: string,
+            inlineRequest: HttpRequestOptions | HttpsRequestOptions,
+            inlineTimeout: number,
+            done: (message: string | number, body: string) => void,
+        ) => void)
+        | undefined;
 
     /**
      * Controls output CSS formatting; defaults to `false`.
@@ -167,7 +169,7 @@ declare namespace CleanCSS {
             /**
              * controls color optimizations; defaults to `true`
              */
-            colors?: boolean | undefined,
+            colors?: boolean | undefined;
 
             /**
              * Controls keeping IE bang hack; defaults to `false`
@@ -638,7 +640,11 @@ declare namespace CleanCSS {
      */
     interface MinifierOutput {
         minify(sources: Sources, callback?: (error: any, output: Output) => void): Output;
-        minify(sources: Sources, sourceMap: RawSourceMap | string, callback?: (error: any, output: Output) => void): Output;
+        minify(
+            sources: Sources,
+            sourceMap: RawSourceMap | string,
+            callback?: (error: any, output: Output) => void,
+        ): Output;
     }
     /**
      * Interface exposed when a new CleanCSS object is created with returnPromise set to true
@@ -654,7 +660,7 @@ declare namespace CleanCSS {
         /**
          * If you prefer clean-css to return a Promise object then you need to explicitly ask for it; defaults to `false`
          */
-        returnPromise: true
+        returnPromise: true;
     };
 
     /**
@@ -664,7 +670,7 @@ declare namespace CleanCSS {
         /**
          * If you prefer clean-css to return a Promise object then you need to explicitly ask for it; defaults to `false`
          */
-        returnPromise?: false | undefined
+        returnPromise?: false | undefined;
     };
 
     /**

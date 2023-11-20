@@ -1,8 +1,3 @@
-// Type definitions for tablestore 5.1
-// Project: https://github.com/aliyun/aliyun-tablestore-nodejs-sdk
-// Definitions by: craigwu <https://github.com/waynecraig>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 // helper
@@ -12,15 +7,15 @@ export {};
 
 // ---------- metadata ----------
 export const Direction: {
-    FORWARD: 'FORWARD';
-    BACKWARD: 'BACKWARD';
+    FORWARD: "FORWARD";
+    BACKWARD: "BACKWARD";
 };
 
 export const UpdateType: {
-    PUT: 'PUT';
-    DELETE: 'DELETE';
-    DELETE_ALL: 'DELETE_ALL';
-    INCREMENT: 'INCREMENT';
+    PUT: "PUT";
+    DELETE: "DELETE";
+    DELETE_ALL: "DELETE_ALL";
+    INCREMENT: "INCREMENT";
 };
 
 export const BatchWriteType: {
@@ -227,8 +222,10 @@ export type DescribeTableParams = JustTableName;
 
 export type DeleteTableParams = JustTableName;
 
-export type GetRowParams = FilterParams &
-    WithTransactionId & {
+export type GetRowParams =
+    & FilterParams
+    & WithTransactionId
+    & {
         tableName: string;
         primaryKey: PrimaryKeyInput;
     };
@@ -256,8 +253,10 @@ export type DeleteRowParams = WithTransactionId & {
     primaryKey: PrimaryKeyInput;
     condition: Condition;
 };
-export type GetRangeParams = FilterParams &
-    WithTransactionId & {
+export type GetRangeParams =
+    & FilterParams
+    & WithTransactionId
+    & {
         tableName: string;
         direction: EnumValues<typeof Direction>;
         inclusiveStartPrimaryKey: PrimaryKeyInput;
@@ -272,28 +271,28 @@ export type BatchWriteRowParams = WithTransactionId & {
         tableName: string;
         rows: Array<
             | {
-                  type: 'UPDATE';
-                  condition: Condition;
-                  primaryKey: PrimaryKeyInput;
-                  attributeColumns: Array<{
-                      PUT?: AttributesInput;
-                      DELETE?: Array<{ [name: string]: int64 }>;
-                      DELETE_ALL?: string[];
-                  }>;
-                  returnContent?: ReturnContent;
-              }
+                type: "UPDATE";
+                condition: Condition;
+                primaryKey: PrimaryKeyInput;
+                attributeColumns: Array<{
+                    PUT?: AttributesInput;
+                    DELETE?: Array<{ [name: string]: int64 }>;
+                    DELETE_ALL?: string[];
+                }>;
+                returnContent?: ReturnContent;
+            }
             | {
-                  type: 'PUT';
-                  condition: Condition;
-                  primaryKey: PrimaryKeyInput;
-                  attributeColumns?: AttributesInput;
-                  returnContent?: ReturnContent;
-              }
+                type: "PUT";
+                condition: Condition;
+                primaryKey: PrimaryKeyInput;
+                attributeColumns?: AttributesInput;
+                returnContent?: ReturnContent;
+            }
             | {
-                  type: 'DELETE';
-                  condition: Condition;
-                  primaryKey: PrimaryKeyInput;
-              }
+                type: "DELETE";
+                condition: Condition;
+                primaryKey: PrimaryKeyInput;
+            }
         >;
     }>;
 };

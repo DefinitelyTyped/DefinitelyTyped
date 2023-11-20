@@ -1,9 +1,4 @@
-// Type definitions for apicalypse 0.1
-// Project: https://github.com/igdb/node-apicalypse
-// Definitions by: Susam <https://github.com/susam-projects>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 
 export interface Apicalypse {
     request(url: string): Promise<AxiosResponse>;
@@ -25,7 +20,7 @@ export interface RequestAllConfig {
     delay?: number | undefined;
 }
 
-export type SortDirection = 'asc' | 'desc';
+export type SortDirection = "asc" | "desc";
 
 declare function apicalypseFactory(options?: ApicalypseConfig): Apicalypse;
 declare function apicalypseFactory(rawQueryString: string, options?: ApicalypseConfig): Apicalypse;
@@ -34,6 +29,6 @@ export interface ApicalypseConfig extends AxiosRequestConfig {
     queryMethod?: QueryMethod | undefined;
 }
 
-export type QueryMethod = 'body' | 'url';
+export type QueryMethod = "body" | "url";
 
 export default apicalypseFactory;

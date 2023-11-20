@@ -1,14 +1,7 @@
-// Type definitions for @fusebit/add-on-sdk 3.1
-// Project: http://fusebit.io/
-// Definitions by: Andrew Miller <https://github.com/andrewrmiller>
-//                 Trent Hashimoto <https://github.com/hashiphoto>
-//                 Andy Dam <https://github.com/andydam>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Method of invocation for the call coming into Fusebit.
  */
-export type Method = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'CRON';
+export type Method = "GET" | "POST" | "PUT" | "DELETE" | "CRON";
 
 /**
  * Identifying information for an item in Fusebit storage.
@@ -55,13 +48,13 @@ export interface StorageClient {
     delete(
         storageSubId: string,
         recursive?: boolean,
-        forceRecursive?: boolean
+        forceRecursive?: boolean,
     ): Promise<void>;
 
     // https://fusebit.io/docs/reference/fusebit-http-api/#operation/getStorageList
     list(
         storageSubId: string,
-        options?: ListStorageOptions
+        options?: ListStorageOptions,
     ): Promise<ListStorageResult>;
 }
 
@@ -79,8 +72,8 @@ export interface FusebitContext {
     headers?: { [key: string]: string };
     body?: any;
     fusebit: {
-            functionAccessToken: string;
-            caller: {
+        functionAccessToken: string;
+        caller: {
             permissions: string[];
             accessToken: string;
         };
@@ -91,7 +84,7 @@ export interface FusebitContext {
 export function createStorageClient(
     ctx: FusebitContext,
     accessToken: string,
-    storageIdPrefix: string
+    storageIdPrefix: string,
 ): Promise<StorageClient>;
 
 export function debug(message: string, ...params: any[]): void;
@@ -100,5 +93,5 @@ export function getFunctionUrl(
     ctx: FusebitContext,
     accessToken: string,
     boundaryId: string,
-    functionId: string
+    functionId: string,
 ): Promise<string>;

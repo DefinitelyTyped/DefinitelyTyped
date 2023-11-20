@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/type-is",
+    "version": "1.6.9999",
+    "projects": [
+        "https://github.com/jshttp/type-is#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/express": "*",
+        "@types/type-is": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

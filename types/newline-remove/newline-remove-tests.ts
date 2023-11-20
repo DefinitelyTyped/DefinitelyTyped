@@ -1,4 +1,4 @@
-import removeNewline = require('newline-remove');
+import removeNewline = require("newline-remove");
 
-removeNewline('foo\n bar\n');
+removeNewline("foo\n bar\n");
 // => 'foo bar'

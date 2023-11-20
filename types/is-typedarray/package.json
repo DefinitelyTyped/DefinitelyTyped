@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/is-typedarray",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/hughsk/is-typedarray"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/is-typedarray": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

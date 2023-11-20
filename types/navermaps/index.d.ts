@@ -1,14 +1,4 @@
-// Type definitions for non-npm package NAVER Maps JavaScript API 3.6
-// Project: https://navermaps.github.io/maps.js.ncp/
-// Definitions by: Ckboyjiy <https://github.com/ckboyjiy>
-//                 DongKyuuuu <https://github.com/DongKyuuuu>
-//                 Minchul Joh <https://github.com/fclemonschool>
-//                 Suhwan Cha <https://github.com/suhwancha>
-//                 Yellowinq <https://github.com/hig4342>
-//                 kkokko Jeong <https://github.com/kkokkojeong>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-// NAVER Maps JavaScript API Version: 3.6
+// NAVER Maps JavaScript API Version: 3.7
 
 /// <reference types="geojson" />
 
@@ -16,7 +6,7 @@ declare namespace naver.maps {
     /***** static members *****/
     let VERSION: string;
     let jsContentLoaded: boolean;
-    function onJsContentLoaded(...args: any): void;
+    function onJSContentLoaded(...args: any): void;
 
     // --------------------------------------------------------------------------
     //  Types
@@ -48,19 +38,19 @@ declare namespace naver.maps {
     type ArrayOfCoordsLiteral = PointLiteral[] | LatLngLiteral[];
     type padding = Margin;
     type StrokeStyleType =
-        | 'solid'
-        | 'shortdash'
-        | 'shortdot'
-        | 'shortdashdot'
-        | 'shortdashdotdot'
-        | 'dot'
-        | 'dash'
-        | 'longdash'
-        | 'dashdot'
-        | 'longdashdot'
-        | 'longdashdotdot';
-    type StrokeLineCapType = 'butt' | 'round' | 'square';
-    type StrokeLineJoinType = 'miter' | 'round' | 'bevel';
+        | "solid"
+        | "shortdash"
+        | "shortdot"
+        | "shortdashdot"
+        | "shortdashdotdot"
+        | "dot"
+        | "dash"
+        | "longdash"
+        | "dashdot"
+        | "longdashdot"
+        | "longdashdotdot";
+    type StrokeLineCapType = "butt" | "round" | "square";
+    type StrokeLineJoinType = "miter" | "round" | "bevel";
 
     // --------------------------------------------------------------------------
     //  Interfaces
@@ -356,8 +346,8 @@ declare namespace naver.maps {
         vendor?: string;
         provider?: MapDataProvider[];
         uid?: string;
-        darktheme?: boolean ;
-        getTileData?: (() => any);
+        darktheme?: boolean;
+        getTileData?: () => any;
     }
 
     /**
@@ -457,7 +447,7 @@ declare namespace naver.maps {
     /**
      * MarkerShape
      */
-     interface MarkerShape {
+    interface MarkerShape {
         coords: any[];
         type: string;
     }
@@ -465,13 +455,13 @@ declare namespace naver.maps {
     /**
      * CircleOptions
      */
-     interface CircleOptions {
+    interface CircleOptions {
         map?: Map;
         center: Coord | CoordLiteral;
         radius?: number;
         strokeWeight?: number;
         strokeOpacity?: number;
-        strokeColor?: string ;
+        strokeColor?: string;
         strokeStyle?: StrokeStyleType;
         strokeLineCap?: StrokeLineCapType;
         strokeLineJoin?: StrokeLineJoinType;
@@ -543,7 +533,7 @@ declare namespace naver.maps {
 
     interface DOMEventListener {
         eventName: string;
-        listener: () => any;
+        listener: (event: any) => any;
         target: HTMLElement;
     }
 
@@ -594,10 +584,10 @@ declare namespace naver.maps {
      * MapTypeId
      */
     enum MapTypeId {
-        NORMAL = 'normal',
-        TERRAIN = 'terrain',
-        SATELLITE = 'satellite',
-        HYBRID = 'hybrid',
+        NORMAL = "normal",
+        TERRAIN = "terrain",
+        SATELLITE = "satellite",
+        HYBRID = "hybrid",
     }
 
     /**
@@ -644,9 +634,9 @@ declare namespace naver.maps {
      * SymbolStyle
      */
     enum SymbolStyle {
-        CIRCLE = 'circle',
-        PATH = 'path',
-        CLOSED_PATH = 'closedPath'
+        CIRCLE = "circle",
+        PATH = "path",
+        CLOSED_PATH = "closedPath",
     }
 
     /**
@@ -660,8 +650,8 @@ declare namespace naver.maps {
         unbind(key: string): void;
         unbindAll(): void;
         setValues(properties: { [key: string]: any }): void;
-        addListener(eventName: string, listener: () => any): MapEventListener;
-        addListenerOnce(eventName: string, listener: () => any): MapEventListener;
+        addListener(eventName: string, listener: (event: any) => any): MapEventListener;
+        addListenerOnce(eventName: string, listener: (event: any) => any): MapEventListener;
         hasListener(eventName: string): boolean;
         removeListener(listeners: MapEventListener | MapEventListener[]): void;
         clearListeners(eventName: string): void;
@@ -814,7 +804,10 @@ declare namespace naver.maps {
         addPane(name: string, elementOrIndex: HTMLElement | number): void;
         autoResize(): void;
         destroy(): void;
-        fitBounds(bounds: Bounds | BoundsLiteral | ArrayOfCoords | ArrayOfCoordsLiteral, fitBoundsOptions?: FitBoundsOptions): void;
+        fitBounds(
+            bounds: Bounds | BoundsLiteral | ArrayOfCoords | ArrayOfCoordsLiteral,
+            fitBoundsOptions?: FitBoundsOptions,
+        ): void;
         getBounds(): Bounds;
         getCenter(): Coord;
         getCenterPoint(): Coord;
@@ -1278,7 +1271,7 @@ declare namespace naver.maps {
         getPaths(): ArrayOfCoords[] | KVOArray<KVOArrayOfCoords>;
         getOptions<K extends keyof PolygonOptions>(key: K): PolygonOptions[K];
         getOptions(): PolygonOptions;
-        setOptions<K extends keyof PolygonOptions>(key: K , value: PolygonOptions[K]): void;
+        setOptions<K extends keyof PolygonOptions>(key: K, value: PolygonOptions[K]): void;
         setOptions(options: PolygonOptions): void;
         setPath(path: ArrayOfCoords | KVOArrayOfCoords | ArrayOfCoordsLiteral): void;
         setPaths(paths: ArrayOfCoords[] | KVOArray<KVOArrayOfCoords> | ArrayOfCoordsLiteral[]): void;
@@ -1534,16 +1527,16 @@ declare namespace naver.maps {
         }
 
         enum DrawingEvents {
-            ADD = 'drawing_added',
-            REMOVE = 'drawing_removed',
-            SELECT = 'drawing_selected',
-            CANCLE = 'drawing_cancled',
-            START = 'drawing_start'
+            ADD = "drawing_added",
+            REMOVE = "drawing_removed",
+            SELECT = "drawing_selected",
+            CANCLE = "drawing_cancled",
+            START = "drawing_start",
         }
 
         interface DrawingOptions {
             map?: Map;
-            drawingControl?: DrawingMode[];
+            drawingControl?: DrawingMode[] | null;
             drawingControlOptions?: DrawingControlOptions;
             drawingMode?: DrawingMode;
             controlPointOptions?: ControlPointOptions;
@@ -1579,7 +1572,7 @@ declare namespace naver.maps {
             setMap(map: Map | null): void;
             toGeoJson(): GeoJSON;
             getOptions<K extends keyof DrawingOptions>(key: K): DrawingOptions[K];
-            setOptions<K extends keyof DrawingOptions>(key: K , value: DrawingOptions[K]): void;
+            setOptions<K extends keyof DrawingOptions>(key: K, value: DrawingOptions[K]): void;
             setOptions(options: DrawingOptions): void;
         }
     }
@@ -1590,17 +1583,17 @@ declare namespace naver.maps {
      */
     namespace visualization {
         enum SpectrumStyle {
-            JET = 'jet',
-            HSV = 'hsv',
-            HOT = 'hot',
-            COOL = 'cool',
-            GREYS = 'greys',
-            YIGnBu = 'YIGnBu',
-            YIOrRd = 'YIOrRd',
-            RdBu = 'RdBu',
-            RAINBOW = 'rainbow',
-            PORTLAND = 'portland',
-            OXYGEN = 'oxygen',
+            JET = "jet",
+            HSV = "hsv",
+            HOT = "hot",
+            COOL = "cool",
+            GREYS = "greys",
+            YIGnBu = "YIGnBu",
+            YIOrRd = "YIOrRd",
+            RdBu = "RdBu",
+            RAINBOW = "rainbow",
+            PORTLAND = "portland",
+            OXYGEN = "oxygen",
         }
 
         interface DotMapOptions {
@@ -1667,37 +1660,37 @@ declare namespace naver.maps {
      */
     namespace Service {
         enum CoordinatesType {
-            LATLNG = 'epsg:4326',
-            UTMK = 'nhn:2048',
-            TM128 = 'nhn:128',
-            EPSG3857 = 'epsg:3857',
+            LATLNG = "epsg:4326",
+            UTMK = "nhn:2048",
+            TM128 = "nhn:128",
+            EPSG3857 = "epsg:3857",
         }
 
         enum OrderType {
-            LEGAL_CODE = 'legalcode',
-            ADDR = 'addr',
-            ROAD_ADDR = 'roadaddr',
-            ADM_CODE = 'admcode',
+            LEGAL_CODE = "legalcode",
+            ADDR = "addr",
+            ROAD_ADDR = "roadaddr",
+            ADM_CODE = "admcode",
         }
 
         enum ReverseGeocodeStatusName {
-            OK = 'ok',
-            NO_RESULTS = 'no results',
-            INVALID_REQUEST = 'invalid request',
-            UNKNOWN_ERROR_IO_ERROR = 'unknown error / io error',
+            OK = "ok",
+            NO_RESULTS = "no results",
+            INVALID_REQUEST = "invalid request",
+            UNKNOWN_ERROR_IO_ERROR = "unknown error / io error",
         }
 
         enum ReverseGeocodeStatusCode {
-            CODE_0 = '0',
-            CODE_3 = '3',
-            CODE_100 = '100',
-            CODE_900 = '900',
+            CODE_0 = "0",
+            CODE_3 = "3",
+            CODE_100 = "100",
+            CODE_900 = "900",
         }
 
         enum GeocodeStatus {
-            OK = 'OK',
-            INVALID_REQUEST = 'INVALID_REQUEST',
-            SYSTEM_ERROR = 'SYSTEM_ERROR',
+            OK = "OK",
+            INVALID_REQUEST = "INVALID_REQUEST",
+            SYSTEM_ERROR = "SYSTEM_ERROR",
         }
 
         enum Status {
@@ -1744,14 +1737,14 @@ declare namespace naver.maps {
                 longName: string;
                 shortName: string;
                 types:
-                | 'SIDO'
-                | 'SIGUGUN'
-                | 'RI'
-                | 'ROAD_NAME'
-                | 'BUILDING_NUMBER'
-                | 'BUILDING_NAME'
-                | 'LAND_NUMBER'
-                | 'POSTAL_CODE';
+                    | "SIDO"
+                    | "SIGUGUN"
+                    | "RI"
+                    | "ROAD_NAME"
+                    | "BUILDING_NUMBER"
+                    | "BUILDING_NAME"
+                    | "LAND_NUMBER"
+                    | "POSTAL_CODE";
             }>;
             x: string;
             y: string;
@@ -1833,7 +1826,7 @@ declare namespace naver.maps {
             name: string;
             code: {
                 id: string;
-                type: 'L' | 'A' | 'S' | string;
+                type: "L" | "A" | "S" | string;
                 mappingId: string;
             };
             region: Region;
@@ -1853,8 +1846,14 @@ declare namespace naver.maps {
             };
         }
 
-        function fromAddrToCoord(options: GeocodeServiceOptions, callback?: (status: Status, response: GeocodeResponse) => void): void;
-        function fromCoordToAddr(options: ReverseServiceOptions, callback?: (status: Status, response: ReverseGeocodeResponse) => void): void;
+        function fromAddrToCoord(
+            options: GeocodeServiceOptions,
+            callback?: (status: Status, response: GeocodeResponse) => void,
+        ): void;
+        function fromCoordToAddr(
+            options: ReverseServiceOptions,
+            callback?: (status: Status, response: ReverseGeocodeResponse) => void,
+        ): void;
         function geocode(
             options: GeocodeServiceOptions,
             callback?: (status: Status, response: GeocodeResponse) => void,

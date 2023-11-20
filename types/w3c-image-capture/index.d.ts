@@ -1,9 +1,3 @@
-// Type definitions for non-npm package W3C Image Capture 1.0
-// Project: https://www.w3.org/TR/image-capture/
-// Definitions by: Cosium <https://github.com/cosium>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.9
-
 /// <reference types="webrtc" />
 
 declare class ImageCapture {
@@ -40,8 +34,8 @@ interface MediaSettingsRange {
     readonly step: number;
 }
 
-type RedEyeReduction = 'never' | 'always' | 'controllable';
-type FillLightMode = 'auto' | 'off' | 'flash';
+type RedEyeReduction = "never" | "always" | "controllable";
+type FillLightMode = "auto" | "off" | "flash";
 
 interface MediaTrackCapabilities {
     whiteBalanceMode: MeteringMode[];
@@ -137,7 +131,7 @@ interface ConstrainPoint2DParameters {
     ideal: Point2D[];
 }
 
-type MeteringMode = 'none' | 'manual' | 'single-shot' | 'continuous';
+type MeteringMode = "none" | "manual" | "single-shot" | "continuous";
 
 interface Point2D {
     x: number;

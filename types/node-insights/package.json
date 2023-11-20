@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/node-insights",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/flightstats/node-insights#readme"
+    ],
+    "devDependencies": {
+        "@types/node-insights": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Walter Rumsby",
+            "githubUsername": "wrumsby"
+        }
+    ]
+}

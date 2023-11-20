@@ -1,9 +1,3 @@
-// Type definitions for WebCL 1.0
-// Project: https://www.khronos.org/registry/webcl/specs/1.0.0/
-// Definitions by: Ralph Brown <https://github.com/NCARalph>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // Version 1.3 - Changed enums to static enums for TS 1.5
 // Version 1.2 - Fixed some more bugs, added WebCLEvent
 // Version 1.1 - Minor fixes to get more enums in place and fix some argument interface types
@@ -13,7 +7,7 @@ interface Window {
     webcl: WEBCL.WebCL;
 }
 
-declare var WebCLEvent: { new (): WEBCL.WebCLEvent; };
+declare var WebCLEvent: { new(): WEBCL.WebCLEvent };
 
 declare namespace WEBCL {
     // 3.6.1
@@ -21,13 +15,13 @@ declare namespace WEBCL {
         createSubBuffer(memFlags: MemFlagsBits, origin: number, sizeInBytes: number): WebCLBuffer;
     }
 
-    //2.5
-    interface WebCLCallback { (event: WebCLEvent): void }
-
+    // 2.5
+    interface WebCLCallback {
+        (event: WebCLEvent): void;
+    }
 
     // 3.5
     interface WebCLCommandQueue {
-
         ////////////////////////////////////////////////////////////////////////////
         //
         // Copying: Buffer <-> Buffer, Image <-> Image, Buffer <-> Image
@@ -40,7 +34,8 @@ declare namespace WEBCL {
             dstOffset: number,
             numBytes: number,
             eventWaitList?: WebCLEvent[],
-            event?: WebCLEvent): void;
+            event?: WebCLEvent,
+        ): void;
 
         enqueueCopyBufferRect(
             srcBuffer: WebCLBuffer,
@@ -53,7 +48,8 @@ declare namespace WEBCL {
             dstRowPitch: number,
             dstSlicePitch: number,
             eventWaitList?: WebCLEvent[],
-            event?: WebCLEvent): void;
+            event?: WebCLEvent,
+        ): void;
 
         enqueueCopyImage(
             srcImage: WebCLImage,
@@ -62,7 +58,8 @@ declare namespace WEBCL {
             dstOrigin: number[],
             region: number[],
             eventWaitList?: WebCLEvent[],
-            event?: WebCLEvent): void;
+            event?: WebCLEvent,
+        ): void;
 
         enqueueCopyImageToBuffer(
             srcImage: WebCLImage,
@@ -71,7 +68,8 @@ declare namespace WEBCL {
             srcRegion: number[],
             dstOffset: number,
             eventWaitList?: WebCLEvent[],
-            event?: WebCLEvent): void;
+            event?: WebCLEvent,
+        ): void;
 
         enqueueCopyBufferToImage(
             srcBuffer: WebCLBuffer,
@@ -80,7 +78,8 @@ declare namespace WEBCL {
             dstOrigin: number[],
             dstRegion: number[],
             eventWaitList?: WebCLEvent[],
-            event?: WebCLEvent): void;
+            event?: WebCLEvent,
+        ): void;
 
         ////////////////////////////////////////////////////////////////////////////
         //
@@ -94,7 +93,8 @@ declare namespace WEBCL {
             numBytes: number,
             hostPtr: ArrayBufferView,
             eventWaitList?: WebCLEvent[],
-            event?: WebCLEvent): void;
+            event?: WebCLEvent,
+        ): void;
 
         enqueueReadBufferRect(
             buffer: WebCLBuffer,
@@ -108,7 +108,8 @@ declare namespace WEBCL {
             hostSlicePitch: number,
             hostPtr: ArrayBufferView,
             eventWaitList?: WebCLEvent[],
-            event?: WebCLEvent): void;
+            event?: WebCLEvent,
+        ): void;
 
         enqueueReadImage(
             image: WebCLImage,
@@ -118,7 +119,8 @@ declare namespace WEBCL {
             hostRowPitch: number,
             hostPtr: ArrayBufferView,
             eventWaitList?: WebCLEvent[],
-            event?: WebCLEvent): void;
+            event?: WebCLEvent,
+        ): void;
 
         ////////////////////////////////////////////////////////////////////////////
         //
@@ -132,7 +134,8 @@ declare namespace WEBCL {
             numBytes: number,
             hostPtr: ArrayBufferView,
             eventWaitList?: WebCLEvent[],
-            event?: WebCLEvent): void;
+            event?: WebCLEvent,
+        ): void;
 
         enqueueWriteBufferRect(
             buffer: WebCLBuffer,
@@ -146,7 +149,8 @@ declare namespace WEBCL {
             hostSlicePitch: number,
             hostPtr: ArrayBufferView,
             eventWaitList?: WebCLEvent[],
-            event?: WebCLEvent): void;
+            event?: WebCLEvent,
+        ): void;
 
         enqueueWriteImage(
             image: WebCLImage,
@@ -156,7 +160,8 @@ declare namespace WEBCL {
             hostRowPitch: number,
             hostPtr: ArrayBufferView,
             eventWaitList?: WebCLEvent[],
-            event?: WebCLEvent): void;
+            event?: WebCLEvent,
+        ): void;
 
         ////////////////////////////////////////////////////////////////////////////
         //
@@ -170,7 +175,8 @@ declare namespace WEBCL {
             globalWorkSize: number[],
             localWorkSize?: number[],
             eventWaitList?: WebCLEvent[],
-            event?: WebCLEvent): void;
+            event?: WebCLEvent,
+        ): void;
 
         ////////////////////////////////////////////////////////////////////////////
         //
@@ -197,22 +203,17 @@ declare namespace WEBCL {
         release(): void;
     }
 
-    //3.4
+    // 3.4
     interface WebCLContext {
-
         createBuffer(memFlags: MemFlagsBits, sizeInBytes: number, hostPtr?: ArrayBufferView): WebCLBuffer;
 
         createCommandQueue(device: WebCLDevice, properties?: CommandQueueProperties): WebCLCommandQueue;
 
-        createImage(memFlags: MemFlagsBits,
-            descriptor: WebCLImageDescriptor,
-            hostPtr?: ArrayBufferView): WebCLImage;
+        createImage(memFlags: MemFlagsBits, descriptor: WebCLImageDescriptor, hostPtr?: ArrayBufferView): WebCLImage;
 
         createProgram(source: string): WebCLProgram;
 
-        createSampler(normalizedCoords: number,
-            addressingMode: AddressingMode,
-            filterMode: FilterMode): WebCLSampler;
+        createSampler(normalizedCoords: number, addressingMode: AddressingMode, filterMode: FilterMode): WebCLSampler;
 
         createUserEvent(): WebCLUserEvent;
 
@@ -241,8 +242,8 @@ declare namespace WEBCL {
     }
 
     interface WebCLException extends DOMException {
-        name: string;              // A string representation of the numeric error code, e.g. "INVALID_VALUE"
-        message: string;         // An implementation-specific description of what caused the exception
+        name: string; // A string representation of the numeric error code, e.g. "INVALID_VALUE"
+        message: string; // An implementation-specific description of what caused the exception
     }
 
     // 3.6.2
@@ -274,9 +275,9 @@ declare namespace WEBCL {
     // 3.9.1
     interface WebCLKernelArgInfo {
         name: string;
-        typeName: string;         // 'char', 'float', 'uint4', 'image2d_t', 'sampler_t', etc.
+        typeName: string; // 'char', 'float', 'uint4', 'image2d_t', 'sampler_t', etc.
         addressQualifier: string; // 'global', 'local', 'constant', or 'private'
-        accessQualifier: string;  // 'read_only', 'write_only', or 'none'
+        accessQualifier: string; // 'read_only', 'write_only', or 'none'
     }
 
     // 3.6
@@ -293,15 +294,13 @@ declare namespace WEBCL {
         enableExtension(extensionName: string): boolean;
     }
 
-    //3.8
+    // 3.8
     interface WebCLProgram {
         getInfo(name: ProgramInfo): any;
 
         getBuildInfo(device: WebCLDevice, name: ProgramBuildInfo): any;
 
-        build(devices?: WebCLDevice[],
-            options?: string,
-            whenFinished?: WebCLCallback): void;
+        build(devices?: WebCLDevice[], options?: string, whenFinished?: WebCLCallback): void;
 
         createKernel(kernelName: string): WebCLKernel;
 
@@ -368,9 +367,9 @@ declare namespace WEBCL {
         INVALID_EVENT_WAIT_LIST = -57,
         INVALID_EVENT = -58,
         INVALID_OPERATION = -59,
-        //INVALID_GL_OBJECT                         = -60, // moved to extension
+        // INVALID_GL_OBJECT                         = -60, // moved to extension
         INVALID_BUFFER_SIZE = -61,
-        //INVALID_MIP_LEVEL                         = -62, // moved to extension
+        // INVALID_MIP_LEVEL                         = -62, // moved to extension
         INVALID_GLOBAL_WORK_SIZE = -63,
         INVALID_PROPERTY = -64,
     }
@@ -410,7 +409,7 @@ declare namespace WEBCL {
         DEVICE_PREFERRED_VECTOR_WIDTH_INT = 0x1008,
         DEVICE_PREFERRED_VECTOR_WIDTH_LONG = 0x1009,
         DEVICE_PREFERRED_VECTOR_WIDTH_FLOAT = 0x100A,
-        //DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE      = 0x100B, // moved to extension
+        // DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE      = 0x100B, // moved to extension
         DEVICE_MAX_CLOCK_FREQUENCY = 0x100C,
         DEVICE_ADDRESS_BITS = 0x100D,
         DEVICE_MAX_READ_IMAGE_ARGS = 0x100E,
@@ -425,7 +424,7 @@ declare namespace WEBCL {
         DEVICE_MAX_PARAMETER_SIZE = 0x1017,
         DEVICE_MAX_SAMPLERS = 0x1018,
         DEVICE_MEM_BASE_ADDR_ALIGN = 0x1019,
-        //DEVICE_MIN_DATA_TYPE_ALIGN_SIZE           = 0x101A, // removed, deprecated in Open1.2
+        // DEVICE_MIN_DATA_TYPE_ALIGN_SIZE           = 0x101A, // removed, deprecated in Open1.2
         DEVICE_SINGLE_FP_CONFIG = 0x101B,
         DEVICE_GLOBAL_MEM_CACHE_TYPE = 0x101C,
         DEVICE_GLOBAL_MEM_CACHELINE_SIZE = 0x101D,
@@ -449,17 +448,17 @@ declare namespace WEBCL {
         DEVICE_VERSION = 0x102F,
         DEVICE_EXTENSIONS = 0x1030,
         DEVICE_PLATFORM = 0x1031,
-        //DEVICE_DOUBLE_FP_CONFIG                   = 0x1032, // moved to extension
-        //DEVICE_HALF_FP_CONFIG                     = 0x1033, // moved to extension
-        //DEVICE_PREFERRED_VECTOR_WIDTH_HALF        = 0x1034, // moved to extension
+        // DEVICE_DOUBLE_FP_CONFIG                   = 0x1032, // moved to extension
+        // DEVICE_HALF_FP_CONFIG                     = 0x1033, // moved to extension
+        // DEVICE_PREFERRED_VECTOR_WIDTH_HALF        = 0x1034, // moved to extension
         DEVICE_HOST_UNIFIED_MEMORY = 0x1035,
         DEVICE_NATIVE_VECTOR_WIDTH_CHAR = 0x1036,
         DEVICE_NATIVE_VECTOR_WIDTH_SHORT = 0x1037,
         DEVICE_NATIVE_VECTOR_WIDTH_INT = 0x1038,
         DEVICE_NATIVE_VECTOR_WIDTH_LONG = 0x1039,
         DEVICE_NATIVE_VECTOR_WIDTH_FLOAT = 0x103A,
-        //DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE         = 0x103B, // moved to extension
-        //DEVICE_NATIVE_VECTOR_WIDTH_HALF           = 0x103C, // moved to extension
+        // DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE         = 0x103B, // moved to extension
+        // DEVICE_NATIVE_VECTOR_WIDTH_HALF           = 0x103C, // moved to extension
         DEVICE_OPENCL_C_VERSION = 0x103D,
     }
     /* cl_device_fp_config - bitfield */
@@ -486,7 +485,7 @@ declare namespace WEBCL {
     /* cl_device_exec_capabilities - bitfield */
     const enum DeviceExecCapabilitiesBits {
         EXEC_KERNEL = 0x1,
-        //EXEC_NATIVE_KERNEL                        = 0x2, // disallowed
+        // EXEC_NATIVE_KERNEL                        = 0x2, // disallowed
     }
     /* cl_command_queue_properties - bitfield */
     const enum CommandQueueProperties {
@@ -495,16 +494,16 @@ declare namespace WEBCL {
     }
     /* cl_context_info  */
     const enum ContextInfo {
-        //CONTEXT_REFERENCE_COUNT                   = 0x1080, // disallowed
+        // CONTEXT_REFERENCE_COUNT                   = 0x1080, // disallowed
         CONTEXT_DEVICES = 0x1081,
-        //CONTEXT_PROPERTIES                        = 0x1082, // disallowed, no context properties in WebCONTEXT_NUM_DEVICES = 0x1083,
+        // CONTEXT_PROPERTIES                        = 0x1082, // disallowed, no context properties in WebCONTEXT_NUM_DEVICES = 0x1083,
     }
     /* cl_context_properties */
     const enum ContextProperties {
-        //CONTEXT_PLATFORM                          = 0x1084, // disallowed, no context properties in Web /* cl_command_queue_info */
+        // CONTEXT_PLATFORM                          = 0x1084, // disallowed, no context properties in Web /* cl_command_queue_info */
         QUEUE_CONTEXT = 0x1090,
         QUEUE_DEVICE = 0x1091,
-        //QUEUE_REFERENCE_COUNT                     = 0x1092, // disallowed
+        // QUEUE_REFERENCE_COUNT                     = 0x1092, // disallowed
         QUEUE_PROPERTIES = 0x1093,
     }
     /* cl_mem_flags - bitfield */
@@ -558,9 +557,9 @@ declare namespace WEBCL {
         MEM_TYPE = 0x1100,
         MEM_FLAGS = 0x1101,
         MEM_SIZE = 0x1102,
-        //MEM_HOST_PTR                              = 0x1103, // disallowed
-        //MEM_MAP_COUNT                             = 0x1104, // disallowed
-        //MEM_REFERENCE_COUNT                       = 0x1105, // disallowed
+        // MEM_HOST_PTR                              = 0x1103, // disallowed
+        // MEM_MAP_COUNT                             = 0x1104, // disallowed
+        // MEM_REFERENCE_COUNT                       = 0x1105, // disallowed
         MEM_CONTEXT = 0x1106,
         MEM_ASSOCIATED_MEMOBJECT = 0x1107,
         MEM_OFFSET = 0x1108,
@@ -575,7 +574,7 @@ declare namespace WEBCL {
     }
     /* cl_addressing_mode */
     const enum AddressingMode {
-        //ADDRESS_NONE                              = 0x1130, // disallowed
+        // ADDRESS_NONE                              = 0x1130, // disallowed
         ADDRESS_CLAMP_TO_EDGE = 0x1131,
         ADDRESS_CLAMP = 0x1132,
         ADDRESS_REPEAT = 0x1133,
@@ -588,25 +587,25 @@ declare namespace WEBCL {
     }
     /* cl_sampler_info */
     const enum SamplerInfo {
-        //SAMPLER_REFERENCE_COUNT                   = 0x1150, // disallowed
+        // SAMPLER_REFERENCE_COUNT                   = 0x1150, // disallowed
         SAMPLER_CONTEXT = 0x1151,
         SAMPLER_NORMALIZED_COORDS = 0x1152,
         SAMPLER_ADDRESSING_MODE = 0x1153,
         SAMPLER_FILTER_MODE = 0x1154,
     }
     /* cl_map_flags - bitfield */
-    //MAP_READ                                  = 0x1, // disallowed
-    //MAP_WRITE                                 = 0x2, // disallowed
+    // MAP_READ                                  = 0x1, // disallowed
+    // MAP_WRITE                                 = 0x2, // disallowed
 
     /* cl_prograinfo */
     const enum ProgramInfo {
-        //PROGRAM_REFERENCE_COUNT                   = 0x1160, // disallowed
+        // PROGRAM_REFERENCE_COUNT                   = 0x1160, // disallowed
         PROGRAM_CONTEXT = 0x1161,
         PROGRAM_NUM_DEVICES = 0x1162,
         PROGRAM_DEVICES = 0x1163,
         PROGRAM_SOURCE = 0x1164,
-        //PROGRAM_BINARY_SIZES                      = 0x1165, // disallowed
-        //PROGRAM_BINARIES                          = 0x1166, // disallowed
+        // PROGRAM_BINARY_SIZES                      = 0x1165, // disallowed
+        // PROGRAM_BINARIES                          = 0x1166, // disallowed
     }
     /* cl_program_build_info */
     const enum ProgramBuildInfo {
@@ -625,7 +624,7 @@ declare namespace WEBCL {
     const enum KernelInfo {
         KERNEL_FUNCTION_NAME = 0x1190,
         KERNEL_NUM_RGS = 0x1191,
-        //KERNEL_REFERENCE_COUNT                    = 0x1192, // disallowed
+        // KERNEL_REFERENCE_COUNT                    = 0x1192, // disallowed
         KERNEL_CONTEXT = 0x1193,
         KERNEL_PROGRAM = 0x1194,
     }
@@ -641,7 +640,7 @@ declare namespace WEBCL {
     const enum EventInfo {
         EVENT_COMMAND_QUEUE = 0x11D0,
         EVENT_COMMAND_TYPE = 0x11D1,
-        //EVENT_REFERENCE_COUNT                     = 0x11D2, // disallowed
+        // EVENT_REFERENCE_COUNT                     = 0x11D2, // disallowed
         EVENT_COMMAND_EXECUTION_STATUS = 0x11D3,
         EVENT_CONTEXT = 0x11D4,
     }
@@ -649,7 +648,7 @@ declare namespace WEBCL {
     const enum CommandType {
         COMMAND_NDRANGE_KERNEL = 0x11F0,
         COMMAND_TASK = 0x11F1,
-        //COMMAND_NATIVE_KERNEL                     = 0x11F2, // disallowed
+        // COMMAND_NATIVE_KERNEL                     = 0x11F2, // disallowed
         COMMAND_READ_BUFFER = 0x11F3,
         COMMAND_WRITE_BUFFER = 0x11F4,
         COMMAND_COPY_BUFFER = 0x11F5,
@@ -658,12 +657,12 @@ declare namespace WEBCL {
         COMMAND_COPY_IMAGE = 0x11F8,
         COMMAND_COPY_IMAGE_TO_BUFFER = 0x11F9,
         COMMAND_COPY_BUFFER_TO_IMAGE = 0x11FA,
-        //COMMAND_MAP_BUFFER                        = 0x11FB, // disallowed
-        //COMMAND_MAP_IMAGE                         = 0x11FC, // disallowed
-        //COMMAND_UNMAP_MEM_OBJECT                  = 0x11FD, // disallowed
+        // COMMAND_MAP_BUFFER                        = 0x11FB, // disallowed
+        // COMMAND_MAP_IMAGE                         = 0x11FC, // disallowed
+        // COMMAND_UNMAP_MEM_OBJECT                  = 0x11FD, // disallowed
         COMMAND_MARKER = 0x11FE,
-        //COMMAND_ACQUIRE_GL_OBJECTS                = 0x11FF, // moved to extension
-        //COMMAND_RELEASE_GL_OBJECTS                = 0x1200, // moved to extension
+        // COMMAND_ACQUIRE_GL_OBJECTS                = 0x11FF, // moved to extension
+        // COMMAND_RELEASE_GL_OBJECTS                = 0x1200, // moved to extension
         COMMAND_READ_BUFFER_RECT = 0x1201,
         COMMAND_WRITE_BUFFER_RECT = 0x1202,
         COMMAND_COPY_BUFFER_RECT = 0x1203,
@@ -699,8 +698,7 @@ declare namespace WEBCL {
 
         enableExtension(extensionName: string): boolean;
 
-        waitForEvents(eventWaitList: WebCLEvent[],
-            whenFinished?: WebCLCallback): void;
+        waitForEvents(eventWaitList: WebCLEvent[], whenFinished?: WebCLCallback): void;
 
         releaseAll(): void;
     }

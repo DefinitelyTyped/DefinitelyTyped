@@ -8,10 +8,6 @@
         ],
         "module": "commonjs",
         "noEmit": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "forceConsistentCasingInFileNames": true,
         "noImplicitAny": true,

@@ -1,7 +1,7 @@
 /// <reference types="react" />
-import * as React from 'react';
-import { SwitchSizes, SwitchInputTypes } from '../enums';
-import { GeneralPropTypes, FlexboxPropTypes } from '../utils';
+import * as React from "react";
+import { SwitchInputTypes, SwitchSizes } from "../enums";
+import { FlexboxPropTypes, GeneralPropTypes } from "../utils";
 /**
  * Switch component.
  * http://foundation.zurb.com/sites/docs/switch.html

@@ -7,7 +7,6 @@
         "no-redundant-jsdoc-2": false,
         "no-var-keyword": false,
         "only-arrow-functions": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
 }

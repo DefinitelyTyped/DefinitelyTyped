@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fitvids",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/rosszurowski/vanilla-fitvids#readme"
+    ],
+    "devDependencies": {
+        "@types/fitvids": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,10 +1,3 @@
-// Type definitions for Libxmljs 0.18
-// Project: https://github.com/libxmljs/libxmljs
-// Definitions by: François de Campredon <https://github.com/fdecampredon>
-//                 ComFreek <https://github.com/ComFreek>
-//                 Roeland <https://github.com/r03>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node"/>
 import { EventEmitter } from "events";
 
@@ -12,12 +5,12 @@ export const version: string;
 export const libxml_version: string;
 export const libxml_parser_version: string;
 
-// tslint:disable-next-line:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 interface StringMap {
     [key: string]: string;
 }
 
-// tslint:disable-next-line:strict-export-declare-modifiers
+// eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 interface ParserOptions {
     recover?: boolean | undefined;
     noent?: boolean | undefined;

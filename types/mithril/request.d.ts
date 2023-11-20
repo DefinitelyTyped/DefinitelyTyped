@@ -1,4 +1,4 @@
-import { request, jsonp } from '.';
+import { jsonp, request } from ".";
 
 declare namespace RequestService {
     interface Static {

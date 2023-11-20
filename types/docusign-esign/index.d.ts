@@ -1,9 +1,3 @@
-// Type definitions for docusign-esign 5.19
-// Project: https://github.com/docusign/docusign-node-client#readme
-// Definitions by: Edwin Quimbo <https://github.com/equimbo/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
-
 /// <reference types="node" />
 
 export class ApiClient {
@@ -20364,13 +20358,13 @@ export interface Envelope {
      * The status of the item.
      */
     status?:
-        | 'completed'
-        | 'created'
-        | 'declined'
-        | 'delivered'
-        | 'sent'
-        | 'voided'
-        | 'signed'
+        | "completed"
+        | "created"
+        | "declined"
+        | "delivered"
+        | "sent"
+        | "voided"
+        | "signed"
         | undefined;
     /**
      * The data and time that the status changed.

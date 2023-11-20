@@ -1,10 +1,10 @@
 import { get, post, put } from "barnard59-graph-store";
+import { DefaultGraph, NamedNode, Stream } from "rdf-js";
 import { Writable } from "readable-stream";
-import { DefaultGraph, NamedNode, Stream } from 'rdf-js';
 
-const endpoint = 'foo';
-const user = 'user';
-const password = 'password';
+const endpoint = "foo";
+const user = "user";
+const password = "password";
 
 function testGet() {
     const anonDefaultGraph: Stream = get({
@@ -14,12 +14,12 @@ function testGet() {
     const defaultGraph: DefaultGraph = <any> {};
     const anonDefaultGraph2: Stream = get({
         endpoint,
-        graph: defaultGraph
+        graph: defaultGraph,
     });
 
     const auth: Stream = get({
         endpoint,
-        graph: 'graph',
+        graph: "graph",
         user,
         password,
     });
@@ -35,7 +35,7 @@ function testGet() {
 
 function testPost() {
     const anon: Writable = post({
-        endpoint
+        endpoint,
     });
 
     const auth: Writable = post({
@@ -52,7 +52,7 @@ function testPost() {
 
 function testPut() {
     const anon: Writable = put({
-        endpoint
+        endpoint,
     });
 
     const auth: Writable = put({

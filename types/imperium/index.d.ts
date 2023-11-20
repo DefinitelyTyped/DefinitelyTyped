@@ -1,16 +1,10 @@
-// Type definitions for imperium 2.0
-// Project: https://github.com/terrajs/imperium
-// Definitions by: Gaetan SENN <https://github.com/gaetansenn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="node" />
 
-import express = require('express');
+import express = require("express");
 
 export type GetAcl = (req: express.Request) => Promise<boolean> | Promise<object>;
 export type Actions = string[] | string;
-export type Context = Array<'params' | 'query' | 'headers' | 'body'>;
+export type Context = Array<"params" | "query" | "headers" | "body">;
 // Can contain when key that is evaluated during route action
 export interface RoleParams {
     [key: string]: string;
@@ -34,10 +28,13 @@ export function evaluateRouteAction(req: express.Request, expr: string, key: str
 
 export function evaluateUserActions(req: express.Request, roles: Role[]): Promise<Action[]>;
 
-export function evaluateUserAction(action: RoleParams, context: { [key: string]: string[] }): { [key: string]: string[] };
+export function evaluateUserAction(
+    action: RoleParams,
+    context: { [key: string]: string[] },
+): { [key: string]: string[] };
 
 export class Imperium {
-    constructor()
+    constructor();
 
     context: string[];
     roles: Roles;
@@ -77,7 +74,7 @@ export interface Action {
 }
 
 export class Role {
-    constructor(imperium: Imperium, roleName: string)
+    constructor(imperium: Imperium, roleName: string);
 
     // Imperium instance to retreive child role
     imperium: Imperium;
@@ -94,5 +91,5 @@ export class Role {
 }
 
 export class UnauthorizedError extends Error {
-    constructor(message: string, status: number, context: any)
+    constructor(message: string, status: number, context: any);
 }

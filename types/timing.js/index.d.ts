@@ -1,8 +1,3 @@
-// Type definitions for timing.js 1.2
-// Project: https://github.com/addyosmani/timing.js
-// Definitions by: rhysd <https://github.com/rhysd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Timings {
     appcacheTime: number;
     connectEnd: number;

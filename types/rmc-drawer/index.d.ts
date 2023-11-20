@@ -1,11 +1,5 @@
-// Type definitions for rmc-drawer 0.4
-// Project: https://github.com/react-component/m-drawer
-// Definitions by: Frithjof Winkelmann <https://github.com/Hoff97>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as moment from "moment";
-import * as React from 'react';
+import * as React from "react";
 
 interface DrawerProps {
     className?: string | undefined;
@@ -19,7 +13,7 @@ interface DrawerProps {
     sidebar?: React.ReactNode | undefined;
     onOpenChange?: ((open: boolean, overlay?: { overlayClicked: boolean }) => void) | undefined;
     open?: boolean | undefined;
-    position?: 'left' | 'right' | 'top' | 'bottom' | undefined;
+    position?: "left" | "right" | "top" | "bottom" | undefined;
     docked?: boolean | undefined;
     transitions?: boolean | undefined;
     touch?: boolean | undefined;

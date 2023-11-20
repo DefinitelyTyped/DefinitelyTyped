@@ -1,11 +1,4 @@
-// Type definitions for node-int64 v0.4.0
-// Project: https://github.com/broofa/node-int64
-// Definitions by: Benno Dreissig <https://github.com/x3cion>
-//                 Kevin Greene <https://github.com/kevin-greene-ck>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-
 
 declare class Int64 {
     static MAX_INT: number;
@@ -19,7 +12,6 @@ declare class Int64 {
     constructor(str: string);
     constructor(num: number);
     constructor(hi: number, lo: number);
-
 
     _2scomp(): void;
 

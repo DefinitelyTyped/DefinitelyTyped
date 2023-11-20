@@ -1,16 +1,11 @@
-// Type definitions for react-curved-text 2.0
-// Project: https://obss.github.io/react-curved-text
-// Definitions by: Sam Gaus <https://github.com/gausie>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as React from 'react';
+import * as React from "react";
 
 export default class ReactCurvedText extends React.Component<
     ReactCurvedTextProps,
     any
-  > {}
+> {}
 
-  export interface ReactCurvedTextProps {
+export interface ReactCurvedTextProps {
     /**
      * Text to be displayed
      */
@@ -80,4 +75,4 @@ export default class ReactCurvedText extends React.Component<
      * Props to be passed to the svg element
      */
     svgProps?: React.SVGProps<SVGSVGElement>;
-  }
+}

@@ -1,11 +1,6 @@
-// Type definitions for combined-stream 1.0
-// Project: https://github.com/felixge/node-combined-stream
-// Definitions by: Felix Geisendörfer <https://github.com/felixge>, Tomek Łaziuk <https://github.com/tlaziuk>, Kon Pik <https://github.com/konpikwastaken>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Stream } from 'stream';
+import { Stream } from "stream";
 
 type Appendable = NodeJS.ReadableStream | NodeJS.WritableStream | Buffer | string | NextFunction;
 type NextFunction = (next: (stream: Appendable) => any) => any;
@@ -42,12 +37,12 @@ declare class CombinedStream extends Stream implements Options {
     _emitError(error: Error): void;
 
     // events
-    on(event: 'close' | 'end' | 'resume' | 'pause', cb: () => void): this;
-    on(event: 'error', cb: (err: Error) => void): this;
-    on(event: 'data', cb: (data: any) => void): this;
-    once(event: 'close' | 'end' | 'resume' | 'pause', cb: () => void): this;
-    once(event: 'error', cb: (err: Error) => void): this;
-    once(event: 'data', cb: (data: any) => void): this;
+    on(event: "close" | "end" | "resume" | "pause", cb: () => void): this;
+    on(event: "error", cb: (err: Error) => void): this;
+    on(event: "data", cb: (data: any) => void): this;
+    once(event: "close" | "end" | "resume" | "pause", cb: () => void): this;
+    once(event: "error", cb: (err: Error) => void): this;
+    once(event: "data", cb: (data: any) => void): this;
 
     static create(options?: Options): CombinedStream;
     static isStreamLike(stream: any): stream is Stream;

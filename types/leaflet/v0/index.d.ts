@@ -1,9 +1,3 @@
-// Type definitions for Leaflet.js 0.7.x
-// Project: https://github.com/Leaflet/Leaflet
-// Definitions by: Vladimir Zotov <https://github.com/rgripper>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="geojson" />
 
 declare namespace L {
@@ -4229,6 +4223,7 @@ declare var L_NO_TOUCH: boolean;
  */
 declare var L_DISABLE_3D: boolean;
 
+// eslint-disable-next-line @definitelytyped/no-declare-current-package
 declare module "leaflet" {
     export = L;
 }

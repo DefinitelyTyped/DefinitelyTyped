@@ -1,10 +1,5 @@
-// Type definitions for formulon 6.25
-// Project: https://github.com/leifg/formulon#readme
-// Definitions by: Tom Sellek <https://github.com/tomsellek>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface TypeInfoNumber {
-    dataType: 'number';
+    dataType: "number";
     options: {
         length: number;
         scale: number;
@@ -12,35 +7,35 @@ export interface TypeInfoNumber {
 }
 
 export interface TypeInfoText {
-    dataType: 'text';
+    dataType: "text";
     options: {
         length: number;
     };
 }
 
 export interface TypeInfoOther {
-    dataType: 'checkbox' | 'date' | 'time' | 'datetime' | 'geolocation' | 'null';
+    dataType: "checkbox" | "date" | "time" | "datetime" | "geolocation" | "null";
     options?: {};
 }
 
 export interface ParseError {
-    type: 'error';
+    type: "error";
     errorType: string;
     message: string;
 }
 
 export type Literal = {
-    type: 'literal';
+    type: "literal";
     value: string | number | boolean;
 } & (TypeInfoNumber | TypeInfoText | TypeInfoOther);
 
 export interface Identifier {
-    type: 'identifier';
+    type: "identifier";
     name: string;
 }
 
 export interface CallExpression {
-    type: 'callExpression';
+    type: "callExpression";
     id: string;
     arguments: Array<CallExpression | Identifier | Literal>;
 }

@@ -1,12 +1,7 @@
-// Type definitions for non-npm package Google Maps JavaScript API 3.54
-// Project: https://developers.google.com/maps/
-// Definitions by: Alex Muramoto <https://github.com/amuramoto>
-//                 Angela Yu <https://github.com/wangela>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 
+// g3-format-clang
 // Google Maps JS API Version: 3.54
 // tslint:disable:enforce-name-casing
 // tslint:disable:no-any
@@ -270,21 +265,39 @@ declare namespace google.maps {
    * Identifiers used to specify the placement of controls on the map. Controls
    * are positioned relative to other controls in the same layout position.
    * Controls that are added first are positioned closer to the edge of the map.
-   * <code> <br>&nbsp;&nbsp;+----------------+
-   * <br>&nbsp;&nbsp;+&nbsp;TL&nbsp;&nbsp;&nbsp;&nbsp;TC&nbsp;&nbsp;&nbsp;&nbsp;TR
-   * +
-   * <br>&nbsp;&nbsp;+&nbsp;LT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RT
-   * +
-   * <br>&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+
-   * <br>&nbsp;&nbsp;+&nbsp;LC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RC
-   * +
-   * <br>&nbsp;&nbsp;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+
-   * <br>&nbsp;&nbsp;+&nbsp;LB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RB
-   * +
-   * <br>&nbsp;&nbsp;+&nbsp;BL&nbsp;&nbsp;&nbsp;&nbsp;BC&nbsp;&nbsp;&nbsp;&nbsp;BR
-   * + <br>&nbsp;&nbsp;+----------------+ <br></code> Elements in the top or
-   * bottom row flow towards the middle of the row. Elements in the left or
-   * right column flow towards the middle of the column.
+   * Usage of &quot;logical values&quot; (see <a
+   * href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_logical_properties_and_values">https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_logical_properties_and_values</a>)
+   * is recommended in order to be able to automatically support both
+   * left-to-right (LTR) and right-to-left (RTL) layout contexts.<br>
+   * <br>Logical values in LTR: <br> <pre>+----------------+
+   * <br>|&nbsp;BSIS&nbsp;BSIC&nbsp;BSIE |
+   * <br>|&nbsp;ISBS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IEBS |
+   * <br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+   * <br>|&nbsp;ISBC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IEBC |
+   * <br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+   * <br>|&nbsp;ISBE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IEBE |
+   * <br>|&nbsp;BEIS&nbsp;BEIC&nbsp;BEIE | <br>+----------------+</pre><br>
+   * Logical values in RTL:<br> <pre>+----------------+
+   * <br>|&nbsp;BSIE&nbsp;BSIC&nbsp;BSIS |
+   * <br>|&nbsp;IEBS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ISBS |
+   * <br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+   * <br>|&nbsp;IEBC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ISBC |
+   * <br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+   * <br>|&nbsp;IEBE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ISBE |
+   * <br>|&nbsp;BEIE&nbsp;BEIC&nbsp;BEIS | <br>+----------------+</pre><br>
+   * Legacy values:<br> <pre>+----------------+
+   * <br>|&nbsp;TL&nbsp;&nbsp;&nbsp;&nbsp;TC&nbsp;&nbsp;&nbsp;&nbsp;TR |
+   * <br>|&nbsp;LT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RT
+   * |
+   * <br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+   * <br>|&nbsp;LC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RC
+   * |
+   * <br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|
+   * <br>|&nbsp;LB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RB
+   * | <br>|&nbsp;BL&nbsp;&nbsp;&nbsp;&nbsp;BC&nbsp;&nbsp;&nbsp;&nbsp;BR |
+   * <br>+----------------+</pre><br> Elements in the top or bottom row flow
+   * towards the middle of the row. Elements in the left or right column flow
+   * towards the middle of the column.
    *
    * Access by calling `const {ControlPosition} = await
    * google.maps.importLibrary("core")`. See
@@ -292,59 +305,115 @@ declare namespace google.maps {
    */
   export enum ControlPosition {
     /**
-     * Elements are positioned in the center of the bottom row.
+     * Equivalent to BOTTOM_CENTER in both LTR and RTL.
      */
-    BOTTOM_CENTER = 0.0,
+    BLOCK_END_INLINE_CENTER = 0.0,
+    /**
+     * Equivalent to BOTTOM_RIGHT in LTR, or BOTTOM_LEFT in RTL.
+     */
+    BLOCK_END_INLINE_END = 1.0,
+    /**
+     * Equivalent to BOTTOM_LEFT in LTR, or BOTTOM_RIGHT in RTL.
+     */
+    BLOCK_END_INLINE_START = 2.0,
+    /**
+     * Equivalent to TOP_CENTER in both LTR and RTL.
+     */
+    BLOCK_START_INLINE_CENTER = 3.0,
+    /**
+     * Equivalent to TOP_RIGHT in LTR, or TOP_LEFT in RTL.
+     */
+    BLOCK_START_INLINE_END = 4.0,
+    /**
+     * Equivalent to TOP_LEFT in LTR, or TOP_RIGHT in RTL.
+     */
+    BLOCK_START_INLINE_START = 5.0,
+    /**
+     * Elements are positioned in the center of the bottom row. Consider using
+     * BLOCK_END_INLINE_CENTER instead.
+     */
+    BOTTOM_CENTER = 6.0,
     /**
      * Elements are positioned in the bottom left and flow towards the middle.
-     * Elements are positioned to the right of the Google logo.
+     * Elements are positioned to the right of the Google logo. Consider using
+     * BLOCK_END_INLINE_START instead.
      */
-    BOTTOM_LEFT = 1.0,
+    BOTTOM_LEFT = 7.0,
     /**
      * Elements are positioned in the bottom right and flow towards the middle.
-     * Elements are positioned to the left of the copyrights.
+     * Elements are positioned to the left of the copyrights. Consider using
+     * BLOCK_END_INLINE_END instead.
      */
-    BOTTOM_RIGHT = 2.0,
+    BOTTOM_RIGHT = 8.0,
+    /**
+     * Equivalent to RIGHT_CENTER in LTR, or LEFT_CENTER in RTL.
+     */
+    INLINE_END_BLOCK_CENTER = 9.0,
+    /**
+     * Equivalent to RIGHT_BOTTOM in LTR, or LEFT_BOTTOM in RTL.
+     */
+    INLINE_END_BLOCK_END = 10.0,
+    /**
+     * Equivalent to RIGHT_TOP in LTR, or LEFT_TOP in RTL.
+     */
+    INLINE_END_BLOCK_START = 11.0,
+    /**
+     * Equivalent to LEFT_CENTER in LTR, or RIGHT_CENTER in RTL.
+     */
+    INLINE_START_BLOCK_CENTER = 12.0,
+    /**
+     * Equivalent to LEFT_BOTTOM in LTR, or RIGHT_BOTTOM in RTL.
+     */
+    INLINE_START_BLOCK_END = 13.0,
+    /**
+     * Equivalent to LEFT_TOP in LTR, or RIGHT_TOP in RTL.
+     */
+    INLINE_START_BLOCK_START = 14.0,
     /**
      * Elements are positioned on the left, above bottom-left elements, and flow
-     * upwards.
+     * upwards. Consider using INLINE_START_BLOCK_END instead.
      */
-    LEFT_BOTTOM = 3.0,
+    LEFT_BOTTOM = 15.0,
     /**
-     * Elements are positioned in the center of the left side.
+     * Elements are positioned in the center of the left side. Consider using
+     * INLINE_START_BLOCK_CENTER instead.
      */
-    LEFT_CENTER = 4.0,
+    LEFT_CENTER = 16.0,
     /**
      * Elements are positioned on the left, below top-left elements, and flow
-     * downwards.
+     * downwards. Consider using INLINE_START_BLOCK_START instead.
      */
-    LEFT_TOP = 5.0,
+    LEFT_TOP = 17.0,
     /**
      * Elements are positioned on the right, above bottom-right elements, and
-     * flow upwards.
+     * flow upwards. Consider using INLINE_END_BLOCK_END instead.
      */
-    RIGHT_BOTTOM = 6.0,
+    RIGHT_BOTTOM = 18.0,
     /**
-     * Elements are positioned in the center of the right side.
+     * Elements are positioned in the center of the right side. Consider using
+     * INLINE_END_BLOCK_CENTER instead.
      */
-    RIGHT_CENTER = 7.0,
+    RIGHT_CENTER = 19.0,
     /**
      * Elements are positioned on the right, below top-right elements, and flow
-     * downwards.
+     * downwards. Consider using INLINE_END_BLOCK_START instead.
      */
-    RIGHT_TOP = 8.0,
+    RIGHT_TOP = 20.0,
     /**
-     * Elements are positioned in the center of the top row.
+     * Elements are positioned in the center of the top row. Consider using
+     * BLOCK_START_INLINE_CENTER instead.
      */
-    TOP_CENTER = 9.0,
+    TOP_CENTER = 21.0,
     /**
      * Elements are positioned in the top left and flow towards the middle.
+     * Consider using BLOCK_START_INLINE_START instead.
      */
-    TOP_LEFT = 10.0,
+    TOP_LEFT = 22.0,
     /**
      * Elements are positioned in the top right and flow towards the middle.
+     * Consider using BLOCK_START_INLINE_END instead.
      */
-    TOP_RIGHT = 11.0,
+    TOP_RIGHT = 23.0,
   }
   /**
    * This interface provides convenience methods for generating matrices to use
@@ -353,6 +422,13 @@ declare namespace google.maps {
    * the encapsulating {@link google.maps.WebGLOverlayView.onDraw} call.
    */
   export interface CoordinateTransformer {
+    /**
+     * @param latLngAltitude Latitude, longitude, and altitude.
+     * @param rotations An array that contains an Euler rotation angle in
+     *     degrees, in the XYZ convention.
+     * @param scale Array that contains an XYZ scalar array to apply to the
+     *     cardinal axis.
+     */
     fromLatLngAltitude(
         latLngAltitude: google.maps.LatLngAltitude|
         google.maps.LatLngAltitudeLiteral,
@@ -940,6 +1016,10 @@ declare namespace google.maps {
      */
     geocoded_waypoints?: google.maps.DirectionsGeocodedWaypoint[];
     /**
+     * The DirectionsRequest that yielded this result.
+     */
+    request: google.maps.DirectionsRequest;
+    /**
      * An array of <code>DirectionsRoute</code>s, each of which contains
      * information about the legs and steps of which it is composed. There will
      * only be one route unless the <code>DirectionsRequest</code> was made with
@@ -1176,7 +1256,15 @@ declare namespace google.maps {
      */
     travel_mode: google.maps.TravelMode;
   }
+  /**
+   * @deprecated Deprecated as of 2011. Use {@link google.maps.TravelMode}
+   *     instead.
+   */
   export enum DirectionsTravelMode {}
+  /**
+   * @deprecated Deprecated as of 2011. Use {@link google.maps.UnitSystem}
+   *     instead.
+   */
   export enum DirectionsUnitSystem {}
   /**
    * A <code>DirectionsWaypoint</code> represents a location between origin and
@@ -1722,14 +1810,18 @@ declare namespace google.maps {
      * country.
      */
     POSTAL_CODE = 'POSTAL_CODE',
+    /**
+     * Indicates a school district.
+     */
+    SCHOOL_DISTRICT = 'SCHOOL_DISTRICT',
   }
   /**
    * Options for the rendering of the fullscreen control.
    */
   export interface FullscreenControlOptions {
     /**
-     * Position id. Used to specify the position of the control on the map. The
-     * default position is <code>RIGHT_TOP</code>.
+     * Position id. Used to specify the position of the control on the map.
+     * @defaultValue {@link google.maps.ControlPosition.INLINE_END_BLOCK_START}
      */
     position?: google.maps.ControlPosition|null;
   }
@@ -2210,6 +2302,11 @@ declare namespace google.maps {
      * <code>1.0</code>) of the <code>ImageMapType</code> tiles.
      */
     getOpacity(): number;
+    /**
+     * @param tileCoord Tile coordinates.
+     * @param zoom Tile zoom.
+     * @param ownerDocument The document which owns this tile.
+     */
     getTile(
         tileCoord: google.maps.Point|null, zoom: number,
         ownerDocument: Document|null): Element|null;
@@ -2218,6 +2315,9 @@ declare namespace google.maps {
     name: string|null;
     projection: google.maps.Projection|null;
     radius: number;
+    /**
+     * @param tileDiv Tile to release.
+     */
     releaseTile(tileDiv: Element|null): void;
     /**
      * Sets the opacity level (<code>0</code> (transparent) to <code>1.0</code>)
@@ -2320,10 +2420,21 @@ declare namespace google.maps {
         google.maps.StreetViewPanorama,
         anchor?: google.maps.MVCObject|null|
         google.maps.marker.AdvancedMarkerElement): void;
+    /**
+     * @param content The content to be displayed by this InfoWindow.
+     */
     setContent(content?: string|Element|null|Text): void;
     setOptions(options?: google.maps.InfoWindowOptions|null): void;
+    /**
+     * @param position The LatLng position at which to display this InfoWindow.
+     */
     setPosition(position?: google.maps.LatLng|null|
                 google.maps.LatLngLiteral): void;
+    /**
+     * @param zIndex The z-index for this InfoWindow. An InfoWindow with a
+     *     greater z-index will be displayed in front of all other InfoWindows
+     *     with a lower z-index.
+     */
     setZIndex(zIndex: number): void;
   }
   /**
@@ -3149,7 +3260,7 @@ declare namespace google.maps {
     /**
      * Sets a value.
      */
-    set(key: string, value: any): void;
+    set(key: string, value: unknown): void;
     /**
      * Sets a collection of key-value pairs.
      */
@@ -3482,10 +3593,12 @@ declare namespace google.maps {
    *
    * MapElement is an <code>HTMLElement</code> subclass for rendering maps.
    * After loading the <code>maps</code> library, a map can be created in HTML.
-   * For example:<br> <code>&lt;gmp-map
+   * For example: <pre><code>&lt;gmp-map
    * center=&quot;37.4220656,-122.0840897&quot; zoom=&quot;10&quot;
-   * map-id=&quot;DEMO_MAP_ID&quot;&gt;&lt;/gmp-map&gt;</code><br> <br>
-   * Internally, it uses {@link google.maps.Map}, which can be accessed with the
+   * map-id=&quot;DEMO_MAP_ID&quot;&gt;<br>&nbsp;&nbsp;&lt;button
+   * slot=&quot;control-block-start-inline-end&quot;&gt;Custom
+   * Control&lt;/button&gt;<br>&lt;/gmp-map&gt;</code></pre> <br> Internally, it
+   * uses {@link google.maps.Map}, which can be accessed with the
    * <code>innerMap</code> property.
    *
    * Access by calling `const {MapElement} = await
@@ -3499,24 +3612,37 @@ declare namespace google.maps {
      *
      * MapElement is an <code>HTMLElement</code> subclass for rendering maps.
      * After loading the <code>maps</code> library, a map can be created in
-     * HTML. For example:<br> <code>&lt;gmp-map
+     * HTML. For example: <pre><code>&lt;gmp-map
      * center=&quot;37.4220656,-122.0840897&quot; zoom=&quot;10&quot;
-     * map-id=&quot;DEMO_MAP_ID&quot;&gt;&lt;/gmp-map&gt;</code><br> <br>
-     * Internally, it uses {@link google.maps.Map}, which can be accessed with
-     * the <code>innerMap</code> property.
+     * map-id=&quot;DEMO_MAP_ID&quot;&gt;<br>&nbsp;&nbsp;&lt;button
+     * slot=&quot;control-block-start-inline-end&quot;&gt;Custom
+     * Control&lt;/button&gt;<br>&lt;/gmp-map&gt;</code></pre> <br> Internally,
+     * it uses {@link google.maps.Map}, which can be accessed with the
+     * <code>innerMap</code> property.
      *
      * Access by calling `const {MapElement} = await
      * google.maps.importLibrary("maps")`. See
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
     constructor();
+    /**
+     * The center latitude/longitude of the map.
+     */
     center: google.maps.LatLng|google.maps.LatLngLiteral|null;
     /**
      * A reference to the {@link google.maps.Map} that the MapElement uses
      * internally.
      */
     innerMap: google.maps.Map;
+    /**
+     * The Map ID of the map. See the <a
+     * href="https://developers.google.com/maps/documentation/get-map-id">Map ID
+     * documentation</a> for more information.
+     */
     mapId: string|null;
+    /**
+     * The zoom level of the map.
+     */
     zoom: number|null;
   }
   /**
@@ -3724,23 +3850,13 @@ declare namespace google.maps {
      */
     noClear?: boolean|null;
     /**
-     * The enabled/disabled state of the Pan control. <p> Note: The Pan control
-     * is not available in the new set of controls introduced in v3.22 of the
-     * Google Maps JavaScript API. While using v3.22 and v3.23, you can choose
-     * to use the earlier set of controls rather than the new controls, thus
-     * making the Pan control available as part of the old control set. See <a
-     * href="https://developers.google.com/maps/articles/v322-controls-diff">What&#39;s
-     * New in the v3.22 Map Controls</a>.
+     * The enabled/disabled state of the Pan control. <p>
+     * @deprecated The Pan control is deprecated as of September 2015.
      */
     panControl?: boolean|null;
     /**
-     * The display options for the Pan control. <p> Note: The Pan control is not
-     * available in the new set of controls introduced in v3.22 of the Google
-     * Maps JavaScript API. While using v3.22 and v3.23, you can choose to use
-     * the earlier set of controls rather than the new controls, thus making the
-     * Pan control available as part of the old control set. See <a
-     * href="https://developers.google.com/maps/articles/v322-controls-diff">What&#39;s
-     * New in the v3.22 Map Controls</a>.
+     * The display options for the Pan control. <p>
+     * @deprecated The Pan control is deprecated as of September 2015.
      */
     panControlOptions?: google.maps.PanControlOptions|null;
     /**
@@ -3946,7 +4062,8 @@ declare namespace google.maps {
     mapTypeIds?: (string)[]|null;
     /**
      * Position id. Used to specify the position of the control on the map.
-     * @defaultValue {@link google.maps.ControlPosition.TOP_RIGHT}
+     * @defaultValue {@link
+     * google.maps.ControlPosition.BLOCK_START_INLINE_START}
      */
     position?: google.maps.ControlPosition|null;
     /**
@@ -4020,7 +4137,7 @@ declare namespace google.maps {
      * @param id Identifier of the MapType to add to the registry.
      * @param mapType MapType object to add to the registry.
      */
-    set(id: string, mapType: any): void;
+    set(id: string, mapType: unknown): void;
   }
   /**
    * The <code>MapTypeStyle</code> is a collection of selectors and stylers that
@@ -4096,6 +4213,7 @@ declare namespace google.maps {
     TrafficLayer: typeof google.maps.TrafficLayer;
     TransitLayer: typeof google.maps.TransitLayer;
     WebGLOverlayView: typeof google.maps.WebGLOverlayView;
+    ZoomChangeEvent: typeof google.maps.ZoomChangeEvent;
   }
   /**
    * Base class for managing network errors in Maps.
@@ -4671,7 +4789,8 @@ declare namespace google.maps {
   export interface MotionTrackingControlOptions {
     /**
      * Position id. This is used to specify the position of this control on the
-     * panorama. The default position is <code>RIGHT_BOTTOM</code>.
+     * panorama.
+     * @defaultValue {@link google.maps.ControlPosition.INLINE_END_BLOCK_END}
      */
     position?: google.maps.ControlPosition|null;
   }
@@ -4774,7 +4893,7 @@ declare namespace google.maps {
   export interface PanControlOptions {
     /**
      * Position id. Used to specify the position of the control on the map.
-     * @defaultValue {@link google.maps.ControlPosition.TOP_LEFT}
+     * @defaultValue {@link google.maps.ControlPosition.INLINE_END_BLOCK_END}
      */
     position?: google.maps.ControlPosition|null;
   }
@@ -4862,8 +4981,10 @@ declare namespace google.maps {
    * An interface representing a feature with a place ID which includes features
    * of type {@link google.maps.FeatureType.ADMINISTRATIVE_AREA_LEVEL_1}, {@link
    * google.maps.FeatureType.ADMINISTRATIVE_AREA_LEVEL_2}, {@link
-   * google.maps.FeatureType.COUNTRY}, {@link google.maps.FeatureType.LOCALITY},
-   * and {@link google.maps.FeatureType.POSTAL_CODE}.
+   * google.maps.FeatureType.COUNTRY}, {@link
+   * google.maps.FeatureType.LOCALITY}, {@link
+   * google.maps.FeatureType.POSTAL_CODE}, and {@link
+   * google.maps.FeatureType.SCHOOL_DISTRICT}.
    */
   export interface PlaceFeature extends google.maps.Feature {
     /**
@@ -5446,8 +5567,8 @@ declare namespace google.maps {
    */
   export interface RotateControlOptions {
     /**
-     * Position id. Used to specify the position of the control on the map. The
-     * default position is <code>TOP_LEFT</code>.
+     * Position id. Used to specify the position of the control on the map.
+     * @defaultValue {@link google.maps.ControlPosition.INLINE_START_BLOCK_END}
      */
     position?: google.maps.ControlPosition|null;
   }
@@ -5563,6 +5684,15 @@ declare namespace google.maps {
      * Otherwise, it will be displayed separately.
      */
     position?: google.maps.ControlPosition|null;
+    /**
+     * Specifies the sources of panoramas to search. This allows a restriction
+     * to search for just official Google panoramas for example. Setting
+     * multiple sources will be evaluated as the intersection of those sources.
+     * Note: the {@link google.maps.StreetViewSource.OUTDOOR} source is not
+     * supported at this time.
+     * @defaultValue [{@link google.maps.StreetViewSource.DEFAULT}]
+     */
+    sources?: Iterable<google.maps.StreetViewSource>|null;
   }
   /**
    * A layer that illustrates the locations where Street View is available.
@@ -5657,8 +5787,16 @@ declare namespace google.maps {
      * Specifies the source of panoramas to search. This allows a restriction to
      * search for just outdoor panoramas for example.
      * @defaultValue {@link google.maps.StreetViewSource.DEFAULT}
+     * @deprecated Use <code>sources</code> instead.
      */
     source?: google.maps.StreetViewSource|null;
+    /**
+     * Specifies the sources of panoramas to search. This allows a restriction
+     * to search for just outdoor panoramas for example. Setting multiple
+     * sources will be evaluated as the intersection of those sources.
+     * @defaultValue [{@link google.maps.StreetViewSource.DEFAULT}]
+     */
+    sources?: Iterable<google.maps.StreetViewSource>|null;
   }
   /**
    * A <code>StreetViewPanoRequest</code> is used with the
@@ -6061,6 +6199,10 @@ declare namespace google.maps {
      */
     DEFAULT = 'default',
     /**
+     * Limits Street View searches to official Google collections.
+     */
+    GOOGLE = 'google',
+    /**
      * Limits Street View searches to outdoor collections. Indoor collections
      * are not included in search results. Note also that the search only
      * returns panoramas where it&#39;s possible to determine whether
@@ -6165,6 +6307,11 @@ declare namespace google.maps {
         styles: (google.maps.MapTypeStyle|null)[]|null,
         options?: google.maps.StyledMapTypeOptions|null);
     alt: string;
+    /**
+     * @param tileCoord Tile coordinates.
+     * @param zoom Tile zoom.
+     * @param ownerDocument The document which owns this tile.
+     */
     getTile(
         tileCoord: google.maps.Point|null, zoom: number,
         ownerDocument: Document|null): Element|null;
@@ -6173,6 +6320,9 @@ declare namespace google.maps {
     name: string;
     projection: google.maps.Projection|null;
     radius: number;
+    /**
+     * @param tile Tile to release.
+     */
     releaseTile(tile: Element|null): void;
     tileSize: google.maps.Size|null;
   }
@@ -6913,12 +7063,33 @@ declare namespace google.maps {
     gl: WebGLRenderingContext;
   }
   /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
+   * This event is created from monitoring zoom change.
+   *
+   * Access by calling `const {ZoomChangeEvent} = await
+   * google.maps.importLibrary("maps")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class ZoomChangeEvent extends Event {
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     *
+     * This event is created from monitoring zoom change.
+     *
+     * Access by calling `const {ZoomChangeEvent} = await
+     * google.maps.importLibrary("maps")`. See
+     * https://developers.google.com/maps/documentation/javascript/libraries.
+     */
+    constructor();
+  }
+  /**
    * Options for the rendering of the zoom control.
    */
   export interface ZoomControlOptions {
     /**
-     * Position id. Used to specify the position of the control on the map. The
-     * default position is <code>TOP_LEFT</code>.
+     * Position id. Used to specify the position of the control on the map.
+     * @defaultValue {@link google.maps.ControlPosition.INLINE_START_BLOCK_END}
      */
     position?: google.maps.ControlPosition|null;
   }
@@ -7098,7 +7269,7 @@ declare namespace google.maps.Data {
      * on each invocation. The order of iteration through the properties is
      * undefined.
      */
-    forEachProperty(callback: (a: any, b: string) => void): void;
+    forEachProperty(callback: (a: unknown, b: string) => void): void;
     /**
      * Returns the feature&#39;s geometry.
      */
@@ -7111,7 +7282,7 @@ declare namespace google.maps.Data {
      * Returns the value of the requested property, or <code>undefined</code> if
      * the property does not exist.
      */
-    getProperty(name: string): any;
+    getProperty(name: string): unknown;
     /**
      * Removes the property with the given name.
      */
@@ -7126,7 +7297,7 @@ declare namespace google.maps.Data {
      * <code>undefined</code> this is equivalent to calling
      * <code>removeProperty</code>.
      */
-    setProperty(name: string, newValue: any): void;
+    setProperty(name: string, newValue: unknown): void;
     /**
      * Exports the feature to a GeoJSON object.
      */
@@ -7507,7 +7678,7 @@ declare namespace google.maps.Data {
     /**
      * The previous value.
      */
-    oldValue: any;
+    oldValue: unknown;
   }
   /**
    * The properties of a <code>setgeometry</code> event.
@@ -7541,12 +7712,12 @@ declare namespace google.maps.Data {
     /**
      * The new value.
      */
-    newValue: any;
+    newValue: unknown;
     /**
      * The previous value. Will be <code>undefined</code> if the property was
      * added.
      */
-    oldValue: any;
+    oldValue: unknown;
   }
   /**
    * These options specify the way a Feature should appear when displayed on a
@@ -9106,6 +9277,13 @@ declare namespace google.maps.journeySharing {
     constructor(options:
                     google.maps.journeySharing.JourneySharingMapViewOptions);
     /**
+     * Adds a location provider to the map view. If the location provider is
+     * already added, no action is performed.
+     * @param locationProvider the location provider to add.
+     */
+    addLocationProvider(locationProvider:
+                            google.maps.journeySharing.LocationProvider): void;
+    /**
      * Configures options for an anticipated route polyline. Invoked whenever a
      * new anticipated route polyline is rendered. <br><br>If specifying a
      * function, the function can and should modify the input&#39;s
@@ -9172,8 +9350,20 @@ declare namespace google.maps.journeySharing {
     /**
      * This Field is read-only. A source of tracked locations to be shown in the
      * tracking map view.
+     * @deprecated Use {@link
+     *     google.maps.journeySharing.JourneySharingMapView.locationProviders}
+     *     instead.
      */
-    locationProvider: google.maps.journeySharing.LocationProvider;
+    locationProvider: google.maps.journeySharing.LocationProvider|null;
+    /**
+     * This field is read-only. Sources of tracked locations to be shown in the
+     * tracking map view. To add or remove location providers, use the {@link
+     * google.maps.journeySharing.JourneySharingMapView.addLocationProvider}
+     * and {@link
+     * google.maps.journeySharing.JourneySharingMapView.removeLocationProvider}
+     * methods.
+     */
+    locationProviders: google.maps.journeySharing.LocationProvider[]|null;
     /**
      * This Field is read-only. The map object contained in the map view.
      */
@@ -9233,6 +9423,13 @@ declare namespace google.maps.journeySharing {
     pingMarkerSetup: google.maps.journeySharing.MarkerSetupOptions|
         ((a: google.maps.journeySharing.DefaultMarkerSetupOptions) =>
              google.maps.journeySharing.MarkerSetupOptions);
+    /**
+     * Removes a location provider from the map view. If the location provider
+     * is not already added to the map view, no action is performed.
+     * @param locationProvider the location provider to remove.
+     */
+    removeLocationProvider(
+        locationProvider: google.maps.journeySharing.LocationProvider): void;
     /**
      * Configures options for a successful task location marker. Invoked
      * whenever a new successful task marker is rendered. <br><br>If specifying
@@ -9459,9 +9656,17 @@ declare namespace google.maps.journeySharing {
     element: Element;
     /**
      * A source of tracked locations to be shown in the tracking map view.
-     * Required.
+     * Optional.
+     * @deprecated Use {@link
+     *     google.maps.journeySharing.JourneySharingMapViewOptions.locationProviders}
+     *     instead.
      */
-    locationProvider: google.maps.journeySharing.LocationProvider;
+    locationProvider: google.maps.journeySharing.LocationProvider|null;
+    /**
+     * Sources of tracked locations to be shown in the tracking map view.
+     * Optional.
+     */
+    locationProviders: google.maps.journeySharing.LocationProvider[]|null;
     /**
      * Map options passed into the google.maps.Map constructor.
      */
@@ -9667,6 +9872,11 @@ declare namespace google.maps.journeySharing {
      */
     marker: google.maps.Marker;
   }
+  /**
+   * @deprecated Marker setup is deprecated. Use the
+   *     <code>MarkerCustomizationFunction</code> methods for your location
+   *     provider instead.
+   */
   export type MarkerSetup = google.maps.journeySharing.MarkerSetupOptions|(
       (a: google.maps.journeySharing.DefaultMarkerSetupOptions) =>
           google.maps.journeySharing.MarkerSetupOptions);
@@ -9770,7 +9980,7 @@ declare namespace google.maps.journeySharing {
     /**
      * Attributes assigned to the task.
      */
-    attributes: {[key: string]: any};
+    attributes: {[key: string]: unknown};
     /**
      * The timestamp of the estimated completion time of the task.
      */
@@ -9875,7 +10085,7 @@ declare namespace google.maps.journeySharing {
     /**
      * Attributes assigned to the task.
      */
-    attributes: {[key: string]: any};
+    attributes: {[key: string]: unknown};
     /**
      * The estimated arrival time to the stop location.
      */
@@ -10117,7 +10327,7 @@ declare namespace google.maps.journeySharing {
     /**
      * Custom vehicle attributes.
      */
-    attributes: {[key: string]: any};
+    attributes: {[key: string]: unknown};
     /**
      * The waypoint where current route segment ends.
      */
@@ -11967,6 +12177,13 @@ declare namespace google.maps.places {
     static findPlaceFromQuery(
         this: any, request: google.maps.places.FindPlaceFromQueryRequest):
         Promise<{places: google.maps.places.Place[]}>;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * Text query based place search.
+     */
+    static searchByText(
+        this: any, request: google.maps.places.SearchByTextRequest):
+        Promise<{places: google.maps.places.Place[]}>;
   }
   /**
    * Defines information about an aspect of the place that users have reviewed.
@@ -11988,34 +12205,38 @@ declare namespace google.maps.places {
   /**
    * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
    *
-   * Implementation of AutocompleteView for Places API
+   * <ul>
+   * <li>PlaceAutocompleteElement is an <code>HTMLElement</code> subclass which
+   * provides a UI component for the Places Autocomplete API. After loading the
+   * <code>places</code> library, an input with autocomplete functionality can
+   * be created in HTML. For example: <pre><code>&lt;gmp-placeautocomplete
+   * &gt;&lt;/gmp-placeautocomplete&gt;</code></pre></li>
+   * </ul>
    *
    * Access by calling `const {PlaceAutocompleteElement} = await
    * google.maps.importLibrary("places")`. See
    * https://developers.google.com/maps/documentation/javascript/libraries.
    */
-  export class PlaceAutocompleteElement implements
+  export class PlaceAutocompleteElement extends HTMLElement implements
       google.maps.places.PlaceAutocompleteElementOptions {
     /**
      * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
      *
-     * Implementation of AutocompleteView for Places API
+     * <ul>
+     * <li>PlaceAutocompleteElement is an <code>HTMLElement</code> subclass
+     * which provides a UI component for the Places Autocomplete API. After
+     * loading the <code>places</code> library, an input with autocomplete
+     * functionality can be created in HTML. For example:
+     * <pre><code>&lt;gmp-placeautocomplete
+     * &gt;&lt;/gmp-placeautocomplete&gt;</code></pre></li>
+     * </ul>
      *
      * Access by calling `const {PlaceAutocompleteElement} = await
      * google.maps.importLibrary("places")`. See
      * https://developers.google.com/maps/documentation/javascript/libraries.
      */
     constructor(options: google.maps.places.PlaceAutocompleteElementOptions);
-    /**
-     * Adds the given listener function to the given event name.
-     */
-    addListener(eventName: string, handler: Function):
-        google.maps.MapsEventListener;
     componentRestrictions?: google.maps.places.ComponentRestrictions|null;
-    /**
-     * This Field is read-only. The DOM Element backing the view.
-     */
-    element?: HTMLElement|SVGElement|null;
     /**
      * The input element to show autocompletions for.
      */
@@ -12041,10 +12262,6 @@ declare namespace google.maps.places {
      * country.
      */
     componentRestrictions?: google.maps.places.ComponentRestrictions|null;
-    /**
-     * This Field is read-only. The DOM Element backing the view.
-     */
-    element?: HTMLElement|SVGElement|null;
     /**
      * The input element to show autocompletions for.
      */
@@ -12088,6 +12305,52 @@ declare namespace google.maps.places {
      * returned.
      */
     types?: string[]|null;
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   *
+   * This event is created after the user selects a place with the Place
+   * Autocomplete Element. Access the selection with <code>event.place</code>.
+   *
+   * Access by calling `const {PlaceAutocompletePlaceSelectEvent} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class PlaceAutocompletePlaceSelectEvent extends Event {
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     *
+     * This event is created after the user selects a place with the Place
+     * Autocomplete Element. Access the selection with <code>event.place</code>.
+     *
+     * Access by calling `const {PlaceAutocompletePlaceSelectEvent} = await
+     * google.maps.importLibrary("places")`. See
+     * https://developers.google.com/maps/documentation/javascript/libraries.
+     */
+    constructor();
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   *
+   * This event is emitted by the PlaceAutocompleteElement when there is an
+   * issue with the network request.
+   *
+   * Access by calling `const {PlaceAutocompleteRequestErrorEvent} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class PlaceAutocompleteRequestErrorEvent extends Event {
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     *
+     * This event is emitted by the PlaceAutocompleteElement when there is an
+     * issue with the network request.
+     *
+     * Access by calling `const {PlaceAutocompleteRequestErrorEvent} = await
+     * google.maps.importLibrary("places")`. See
+     * https://developers.google.com/maps/documentation/javascript/libraries.
+     */
+    constructor();
   }
   /**
    * A Place details query to be sent to the <code>PlacesService</code>.
@@ -13019,6 +13282,124 @@ declare namespace google.maps.places {
      * towards, but not restricted to, queries targeting these bounds.
      */
     bounds?: google.maps.LatLngBounds|null|google.maps.LatLngBoundsLiteral;
+  }
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
+   * RankBy enum for SearchByTextRequest.
+   *
+   * Access by calling `const {SearchByTextRankBy} = await
+   * google.maps.importLibrary("places")`. See
+   * https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum SearchByTextRankBy {
+    /**
+     * Ranks results by distance.
+     */
+    DISTANCE = 'DISTANCE',
+    /**
+     * Ranks results by relevance.
+     */
+    RELEVANCE = 'RELEVANCE',
+  }
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   *
+   * Request interface for {@link google.maps.places.Place.searchByText}.
+   */
+  export interface SearchByTextRequest {
+    /**
+     * Fields to be included in the response, <a
+     * href="https://developers.google.com/maps/billing/understanding-cost-of-use#places-product">which
+     * will be billed for</a>. If <code>[&#39;ALL&#39;]</code> is passed in, all
+     * available fields will be returned and billed for (this is not recommended
+     * for production deployments). For a list of fields see {@link
+     * google.maps.places.PlaceResult}. Nested fields can be specified with
+     * dot-paths (for example, <code>"geometry.location"</code>).
+     */
+    fields: string[];
+    /**
+     * The requested place type. Full list of types supported: <a
+     * href="https://developers.google.com/maps/documentation/places/web-service/place-types">https://developers.google.com/maps/documentation/places/web-service/place-types</a>.
+     * Only one included type is supported. See {@link
+     * google.maps.places.SearchByTextRequest.useStrictTypeFiltering}
+     */
+    includedType?: string;
+    /**
+     * Used to restrict the search to places that are currently open.
+     * @defaultValue <code>false</code>
+     */
+    isOpenNow?: boolean;
+    /**
+     * Place details will be displayed with the preferred language if available.
+     * Will default to the browser&#39;s language preference. Current list of
+     * supported languages: <a
+     * href="https://developers.google.com/maps/faq#languagesupport">https://developers.google.com/maps/faq#languagesupport</a>.
+     */
+    language?: string;
+    /**
+     * The region to search. This location serves as a bias which means results
+     * around given location might be returned. Cannot be set along with
+     * locationRestriction.
+     */
+    locationBias?: google.maps.LatLng|google.maps.LatLngLiteral|
+        google.maps.LatLngBounds|google.maps.LatLngBoundsLiteral|
+        google.maps.CircleLiteral|google.maps.Circle;
+    /**
+     * The region to search. This location serves as a restriction which means
+     * results outside given location will not be returned. Cannot be set along
+     * with locationBias.
+     */
+    locationRestriction?: google.maps.LatLngBounds|
+        google.maps.LatLngBoundsLiteral;
+    /**
+     * Maximum number of results to return. It must be between 1 and 20,
+     * inclusively.
+     */
+    maxResultCount?: number;
+    /**
+     * Filter out results whose average user rating is strictly less than this
+     * limit. A valid value must be an float between 0 and 5 (inclusively) at a
+     * 0.5 cadence i.e. [0, 0.5, 1.0, ... , 5.0] inclusively. The input rating
+     * will be rounded up to the nearest 0.5(ceiling). For instance, a rating of
+     * 0.6 will eliminate all results with a less than 1.0 rating.
+     */
+    minRating?: number;
+    /**
+     * Used to restrict the search to places that are marked as certain price
+     * levels. Any combinations of price levels can be chosen. Defaults to all
+     * price levels.
+     */
+    priceLevels?: google.maps.places.PriceLevel[];
+    /**
+     * @deprecated Please use textQuery instead
+     */
+    query?: string;
+    /**
+     * How results will be ranked in the response.
+     * @defaultValue <code>SearchByTextRankBy.DISTANCE</code>
+     */
+    rankBy?: google.maps.places.SearchByTextRankBy;
+    /**
+     * The Unicode country/region code (CLDR) of the location where the request
+     * is coming from. This parameter is used to display the place details, like
+     * region-specific place name, if available. The parameter can affect
+     * results based on applicable law. For more information, see <a
+     * href="https://www.unicode.org/cldr/charts/latest/supplemental/territory_language_information.html">https://www.unicode.org/cldr/charts/latest/supplemental/territory_language_information.html</a>.
+     * Note that 3-digit region codes are not currently supported.
+     */
+    region?: string;
+    /**
+     * Required. The text query for textual search.
+     */
+    textQuery?: string;
+    /**
+     * Used to set strict type filtering for {@link
+     * google.maps.places.SearchByTextRequest.includedType}. If set to true,
+     * only results of the same type will be returned.
+     * @defaultValue <code>false</code>
+     */
+    useStrictTypeFiltering?: boolean;
   }
   /**
    * Contains structured information about the place&#39;s description, divided

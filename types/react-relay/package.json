@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/react-relay",
+    "version": "16.0.9999",
+    "projects": [
+        "https://github.com/facebook/relay",
+        "https://relay.dev"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/relay-runtime": "*"
+    },
+    "devDependencies": {
+        "@types/react-relay": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eloy Durán",
+            "githubUsername": "alloy"
+        },
+        {
+            "name": "Marais Rossouw",
+            "githubUsername": "maraisr"
+        },
+        {
+            "name": "Edvin Erikson",
+            "githubUsername": "edvinerikson"
+        },
+        {
+            "name": "Levi Buzolic",
+            "githubUsername": "levibuzolic"
+        }
+    ]
+}

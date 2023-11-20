@@ -1,8 +1,3 @@
-// Type definitions for rr-notifications 1.1
-// Project: https://thegrinder.github.io/rr-notifications
-// Definitions by: Robbie Moore <https://github.com/RobbieGM>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="react" />
 
 export interface NotificationsContextType {
@@ -37,5 +32,5 @@ export const NotificationsProvider: React.FC<{
      * Horizontal direction which notification appears from. If not provided, the notification will
      * appear from top or bottom, depending on position prop
      */
-    slideFromSide?: 'right' | 'left' | undefined;
+    slideFromSide?: "right" | "left" | undefined;
 }>;

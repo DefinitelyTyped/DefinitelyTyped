@@ -1,12 +1,6 @@
-// Type definitions for node-getopt 0.2.3
-// Project: https://github.com/jiangmiao/node-getopt
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Type Script Declaration for node-getopt
  */
-
 
 interface OptionMap {
     [index: string]: string | string[] | boolean;
@@ -69,7 +63,6 @@ declare class Getopt {
      * parse argv
      *
      * Returns: {argv: '...', options: {...}}
-     *
      */
     public parse(argv: string[]): ParsedOption;
 

@@ -1,8 +1,3 @@
-// Type definitions for sha512-universal 1.2
-// Project: https://github.com/chm-diederichs/sha512-universal#readme
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Sha512;
 
 declare function Sha512(): Sha512.Sha512;
@@ -24,7 +19,7 @@ declare namespace Sha512 {
 
     interface HMACCtor {
         (key: Uint8Array): HMAC;
-        new (key: Uint8Array): HMAC;
+        new(key: Uint8Array): HMAC;
     }
 
     interface HMAC {

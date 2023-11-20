@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/sdp-transform",
+    "version": "2.4.9999",
+    "projects": [
+        "https://github.com/clux/sdp-transform#readme"
+    ],
+    "devDependencies": {
+        "@types/sdp-transform": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "@loc",
+            "githubUsername": "loc"
+        },
+        {
+            "name": "@muenchow",
+            "githubUsername": "muenchow"
+        }
+    ]
+}

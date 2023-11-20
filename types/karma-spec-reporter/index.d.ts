@@ -1,11 +1,6 @@
-// Type definitions for karma-spec-reporter 0.0
-// Project: https://github.com/mlex/karma-spec-reporter#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+import "karma";
 
-import 'karma';
-
-declare module 'karma' {
+declare module "karma" {
     interface ConfigOptions {
         /**
          * {@link https://github.com/mlex/karma-spec-reporter#configuration}
@@ -33,10 +28,10 @@ declare module 'karma' {
         /** custom prefixes to use when reporting passed/failed/skipped prefixes */
         prefixes?:
             | {
-                  success?: string | undefined;
-                  failure?: string | undefined;
-                  skipped?: string | undefined;
-              }
+                success?: string | undefined;
+                failure?: string | undefined;
+                skipped?: string | undefined;
+            }
             | undefined;
     }
 }

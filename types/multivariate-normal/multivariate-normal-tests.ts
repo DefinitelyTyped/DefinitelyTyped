@@ -1,4 +1,4 @@
-import MultivariateNormal from 'multivariate-normal';
+import MultivariateNormal from "multivariate-normal";
 
 // Test constructing using mutable and literal arrays
 const mutArray: number[] = [1, 2, 3];

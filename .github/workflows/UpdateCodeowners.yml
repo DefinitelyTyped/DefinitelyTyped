@@ -7,7 +7,7 @@ name: Update CODEOWNERs
 on:
   schedule:
     # https://crontab.guru/#5_8_*_*_1
-    - cron: "5 8 * * 1"
+    - cron: '5 8 * * 1'
   workflow_dispatch:
 
 permissions:
@@ -16,22 +16,29 @@ permissions:
 jobs:
   update:
     permissions:
-      contents: write  # for Git to git push
+      contents: write # for Git to git push
     runs-on: ubuntu-latest
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
 
     steps:
       - uses: actions/checkout@v3
         with:
-            fetch-depth: 0
+          fetch-depth: 0
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          run_install: |
+            - args: [--filter, ., --filter, '{./scripts}...']
 
       - run: git config --global user.email "typescriptbot@microsoft.com"
       - run: git config --global user.name "TypeScript Bot"
 
-      - run: npm install
-      - run: npm run update-codeowners
-        env:
-            GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      - run: pnpm run update-codeowners
 
+      - uses: stefanzweifel/git-auto-commit-action@v5.0.0
+        with:
+          commit_author: 'TypeScript Bot <typescriptbot@microsoft.com>'
+          commit_message: '🤖 Update CODEOWNERS'
+          commit_user_email: 'typescriptbot@microsoft.com'
+          commit_user_name: 'TypeScript Bot'

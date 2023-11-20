@@ -1,6 +1,33 @@
 {
     "private": true,
+    "name": "@types/babel__generator",
+    "version": "7.6.9999",
+    "projects": [
+        "https://github.com/babel/babel/tree/master/packages/babel-generator",
+        "https://babeljs.io"
+    ],
     "dependencies": {
         "@babel/types": "^7.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/babel__generator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Troy Gerwien",
+            "githubUsername": "yortus"
+        },
+        {
+            "name": "Melvin Groenhoff",
+            "githubUsername": "mgroenhoff"
+        },
+        {
+            "name": "Cameron Yan",
+            "githubUsername": "khell"
+        },
+        {
+            "name": "Lyanbin",
+            "githubUsername": "Lyanbin"
+        }
+    ]
 }

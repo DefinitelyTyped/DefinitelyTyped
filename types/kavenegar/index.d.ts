@@ -1,8 +1,3 @@
-// Type definitions for kavenegar 1.1
-// Project: https://github.com/kavenegar/kavenegar-node
-// Definitions by: Nima Ebrazeh <https://github.com/nimaebra>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export namespace kavenegar {
     interface Options {
         apikey: string;
@@ -13,25 +8,25 @@ export namespace kavenegar {
     type ResponseK<T, Y> = (data: T, callback: (entries: Y, status: number, message: string) => void) => void;
 
     type Methods =
-        | 'send'
-        | 'sendarray'
-        | 'status'
-        | 'statuslocalmessageid'
-        | 'select'
-        | 'selectoutbox'
-        | 'latestoutbox'
-        | 'countoutbox'
-        | 'cancel'
-        | 'receive'
-        | 'countinbox'
-        | 'countpostalcode'
-        | 'sendbypostalcode'
-        | 'lookup'
-        | 'info'
-        | 'config'
-        | 'maketts';
+        | "send"
+        | "sendarray"
+        | "status"
+        | "statuslocalmessageid"
+        | "select"
+        | "selectoutbox"
+        | "latestoutbox"
+        | "countoutbox"
+        | "cancel"
+        | "receive"
+        | "countinbox"
+        | "countpostalcode"
+        | "sendbypostalcode"
+        | "lookup"
+        | "info"
+        | "config"
+        | "maketts";
 
-    type Actions = 'sms' | 'verify' | 'account' | 'call';
+    type Actions = "sms" | "verify" | "account" | "call";
 
     interface KavenegarInstance {
         request: (action: Actions, method: Methods, params: object, callback: any) => void;

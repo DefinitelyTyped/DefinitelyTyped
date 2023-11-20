@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/iso8601-localizer",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/avielfedida/ISO8601-Localizer"
+    ],
+    "devDependencies": {
+        "@types/iso8601-localizer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aviel Fedida",
+            "githubUsername": "avielfedida"
+        }
+    ]
+}

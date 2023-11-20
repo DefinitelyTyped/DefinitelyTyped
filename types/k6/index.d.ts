@@ -1,17 +1,3 @@
-// Type definitions for k6 0.46
-// Project: https://k6.io/docs/
-// Definitions by: Mihail Stoykov <https://github.com/MStoykov>
-//                 Ivan <https://github.com/codebien>
-//                 Théo Crevon <https://github.com/oleiade>
-//                 Oleg Bespalov <https://github.com/olegbespalov>
-//                 Pepe Cano <https://github.com/ppcano>
-//                 Nicole van der Hoeven <https://github.com/nicolevanderhoeven>
-//                 Ankur Agarwal <https://github.com/ankur22>
-//                 İnanç Gümüş <https://github.com/inancgumus>
-//                 Daniel Jiménez <https://github.com/ka3de>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.9
-
 /**
  * k6 JavaScript API.
  * https://k6.io/docs/
@@ -31,26 +17,26 @@
  * @packageDocumentation
  */
 
-import './global'; // Type global environment
+import "./global"; // Type global environment
 
 // Expose everything to autoimport
-import './crypto';
-import './data';
-import './encoding';
-import './execution';
-import './html';
-import './http';
-import './metrics';
-import './options';
-import './experimental/browser';
-import './experimental/redis';
-import './experimental/timers';
-import './experimental/tracing';
-import './experimental/webcrypto';
-import './experimental/websockets';
-import './experimental/grpc';
-import './ws';
-import './net/grpc';
+import "./crypto";
+import "./data";
+import "./encoding";
+import "./execution";
+import "./html";
+import "./http";
+import "./metrics";
+import "./options";
+import "./experimental/browser";
+import "./experimental/redis";
+import "./experimental/timers";
+import "./experimental/tracing";
+import "./experimental/webcrypto";
+import "./experimental/websockets";
+import "./experimental/grpc";
+import "./ws";
+import "./net/grpc";
 
 // === Main ===
 // ------------
@@ -101,7 +87,7 @@ export function group<RT>(name: string, fn: () => RT): RT;
  * @example
  * randomSeed(123456789);
  */
-export function randomseed(int: number): void;
+export function randomSeed(int: number): void;
 
 /**
  * Suspend VU execution for the specified duration.

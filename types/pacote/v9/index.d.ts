@@ -1,19 +1,13 @@
-// Type definitions for pacote 9.5
-// Project: https://github.com/npm/pacote#readme
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 /// <reference types="node" />
 
-import { Readable } from 'stream';
-import npmFetch = require('npm-registry-fetch');
+import { Readable } from "stream";
+import npmFetch = require("npm-registry-fetch");
 
-import extract = require('./extract');
-import manifest = require('./manifest');
-import packument = require('./packument');
-import prefetch = require('./prefetch');
-import tarball = require('./tarball');
+import extract = require("./extract");
+import manifest = require("./manifest");
+import packument = require("./packument");
+import prefetch = require("./prefetch");
+import tarball = require("./tarball");
 
 export { extract, manifest, packument, prefetch, tarball };
 
@@ -97,7 +91,7 @@ export interface PackageVersion {
 
 export interface Packument {
     name: string;
-    'dist-tags': { latest: string; } & Record<string, string>;
+    "dist-tags": { latest: string } & Record<string, string>;
     versions: Record<string, PackageVersion>;
 
     [key: string]: unknown;
@@ -117,7 +111,7 @@ export interface PacoteOptions {
      * **registry dependencies** such that versions published **after**
      * `opts.enjoy-by` are not considered -- as if they'd never been published.
      */
-    'enjoy-by'?: Date | string | number | undefined;
+    "enjoy-by"?: Date | string | number | undefined;
     /** Alias for `enjoy-by` */
     enjoyBy?: Date | string | number | undefined;
     /** Alias for `enjoy-by` */
@@ -127,7 +121,7 @@ export interface PacoteOptions {
      * registry range specifiers. If true, deprecations do not affect version
      * selection.
      */
-    'include-deprecated'?: boolean | undefined;
+    "include-deprecated"?: boolean | undefined;
     /** Alias for 'include-deprecated' */
     includeDeprecated?: boolean | undefined;
     /**
@@ -135,7 +129,7 @@ export interface PacoteOptions {
      * requests. By default, pacote only fetches the summarized packuments, also
      * called "corgis".
      */
-    'full-metadata'?: boolean | undefined;
+    "full-metadata"?: boolean | undefined;
     /**
      * Package version resolution tag. When processing registry spec ranges,
      * this option is used to determine what dist-tag to treat as "latest". For

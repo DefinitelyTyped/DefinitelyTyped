@@ -1,14 +1,7 @@
-// Type definitions for jQuery File Upload Plugin 9.22.0
-// Project: https://github.com/blueimp/jQuery-File-Upload
-// Definitions by: Rob Alarcon <https://github.com/rob-alarcon/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
 // Interface options for the plugin
 interface JQueryFileInputOptions {
-
     /**
      * The type of data that is expected back from the server.
      */
@@ -107,7 +100,7 @@ interface JQueryFileInputOptions {
     redirectParamName?: string | undefined;
 
     // The HTTP request method must be "POST" or "PUT"
-    type?: string | undefined,
+    type?: string | undefined;
 
     /**
      * Set the following option to the location of a postMessage window,
@@ -199,7 +192,7 @@ interface JQueryFileInputOptions {
      * handlers using jQuery's Deferred callbacks:
      * data.submit().done(func).fail(func).always(func);
      */
-    add?:  ((e: JQueryEventObject, data: JqueryFileUploadAddObject) => void) | undefined;
+    add?: ((e: JQueryEventObject, data: JqueryFileUploadAddObject) => void) | undefined;
 
     // The plugin options are used as settings object for the ajax calls.
     // The following are jQuery ajax settings required for the file uploads:
@@ -249,24 +242,23 @@ interface JQueryFileInputOptions {
 
     // Cross-site XMLHttpRequest file uploads
     xhrFields?: any;
-
 }
 
-interface JQueryFileUpload extends JQuery  {
-    contentType:string;
+interface JQueryFileUpload extends JQuery {
+    contentType: string;
 }
 
 interface JQuery {
     // Interface to the main method of jQuery File Upload
     fileupload(settings: JQueryFileInputOptions | string): JQueryFileUpload;
-    fileupload(action:string,  settings: JQueryFileInputOptions | string): JQueryFileUpload;
-    fileupload(action: string, message:string, settings: JQueryFileInputOptions | string): JQueryFileUpload;
+    fileupload(action: string, settings: JQueryFileInputOptions | string): JQueryFileUpload;
+    fileupload(action: string, message: string, settings: JQueryFileInputOptions | string): JQueryFileUpload;
 }
 
-interface JqueryFileUploadEnhancedPromise<T> extends JQueryPromise<T>{
-    success: JQueryPromise<T>['done'],
-    error: JQueryPromise<T>['fail'],
-    complete: JQueryPromise<T>['always'],
+interface JqueryFileUploadEnhancedPromise<T> extends JQueryPromise<T> {
+    success: JQueryPromise<T>["done"];
+    error: JQueryPromise<T>["fail"];
+    complete: JQueryPromise<T>["always"];
 }
 
 interface JQuerySupport {
@@ -287,7 +279,7 @@ interface JqueryFileUploadConvenienceObject {
     processing: () => JqueryFileUploadEnhancedPromise<any>;
     progress: () => JqueryFileUploadEnhancedPromise<any>;
     response: () => JqueryFileUploadEnhancedPromise<any>;
-    submit<T>():  JqueryFileUploadEnhancedPromise<T>;
+    submit<T>(): JqueryFileUploadEnhancedPromise<T>;
     state: () => JqueryFileUploadEnhancedPromise<any>;
 }
 
@@ -306,7 +298,7 @@ interface JQueryFileUploadXhr {
     result: any;
     textStatus: string;
     errorThrown: any;
-    headers: {[key: string]: any};
+    headers: { [key: string]: any };
 }
 
 interface JQueryFileUploadFilesObject {

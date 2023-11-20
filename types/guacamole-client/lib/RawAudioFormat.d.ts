@@ -1,4 +1,4 @@
-import { Mimetype } from './GuacCommon.d';
+import { Mimetype } from "./GuacCommon.d";
 
 /**
  * A description of the format of raw PCM audio, such as that used by
@@ -34,7 +34,6 @@ export class RawAudioFormat {
 
     /**
      * The number of audio channels (ie: 1 for mono, 2 for stereo).
-     *
      */
     channels: number;
 

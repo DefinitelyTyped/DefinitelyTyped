@@ -9,22 +9,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
-        "paths": {
-            "d3-array": [
-                "d3-array/v2"
-            ],
-            "d3-scale": [
-                "d3-scale/v3"
-            ],
-            "d3-time": [
-                "d3-time/v2"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

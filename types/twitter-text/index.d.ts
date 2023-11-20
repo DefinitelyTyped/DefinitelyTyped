@@ -1,8 +1,3 @@
-// Type definitions for twitter-text 3.1
-// Project: https://github.com/twitter/twitter-text
-// Definitions by: rhysd <https://github.com/rhysd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface HashtagWithIndices {
     hashtag: string;
     indices: [number, number];
@@ -174,10 +169,10 @@ export interface ParseTweetOptions {
     transformedURLLength?: number | undefined;
     ranges?:
         | Array<{
-              start: number;
-              end: number;
-              weight: number;
-          }>
+            start: number;
+            end: number;
+            weight: number;
+        }>
         | undefined;
     emojiParsingEnabled?: boolean | undefined;
 }

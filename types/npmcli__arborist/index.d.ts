@@ -1,13 +1,7 @@
-// Type definitions for @npmcli/arborist 5.6
-// Project: https://github.com/npm/cli/tree/latest/workspaces/arborist#readme
-// Definitions by: Emily M Klassen <https://github.com/forivall>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.3
-
-import { EventEmitter } from 'events';
-import { Options as PacoteOptions, Packument } from 'pacote';
-import { PackageJson } from '@npmcli/package-json';
-import { PackageLock as _PackageLock, LockDependency } from '@npm/types';
+import { LockDependency, PackageLock as _PackageLock } from "@npm/types";
+import { PackageJson } from "@npmcli/package-json";
+import { EventEmitter } from "events";
+import { Options as PacoteOptions, Packument } from "pacote";
 
 declare class Arborist extends EventEmitter {
     constructor(options?: Arborist.Options);
@@ -31,7 +25,7 @@ declare class Arborist extends EventEmitter {
     audit(options?: Arborist.BuildIdealTreeOptions & { fix?: false }): Promise<Arborist.AuditReport>;
     audit(options: Arborist.BuildIdealTreeOptions & { fix?: boolean }): Promise<Arborist.Node | Arborist.AuditReport>;
     buildIdealTree(options?: Arborist.BuildIdealTreeOptions): Promise<Arborist.Node>;
-    dedupe(options?: Omit<Arborist.ReifyOptions, 'preferDedupe' | 'names'>): Promise<Arborist.Node>;
+    dedupe(options?: Omit<Arborist.ReifyOptions, "preferDedupe" | "names">): Promise<Arborist.Node>;
     loadActual(options?: Arborist.Options): Promise<Arborist.Node>;
     loadVirtual(options?: Arborist.Options): Promise<Arborist.Node>;
     reify(options?: Arborist.ReifyOptions): Promise<Arborist.Node>;
@@ -39,7 +33,7 @@ declare class Arborist extends EventEmitter {
 
 declare namespace Arborist {
     const Arborist: Arborist;
-    interface Options extends PacoteOptions, Partial<Pick<import('cacache').get.Options, 'memoize'>> {
+    interface Options extends PacoteOptions, Partial<Pick<import("cacache").get.Options, "memoize">> {
         path?: string;
         nodeVersion?: string;
         lockfileVersion?: number | null;
@@ -82,16 +76,16 @@ declare namespace Arborist {
         formatPackageLock?: boolean;
     }
     interface NormalizedOptions extends Options {
-        nodeVersion: NonNullable<Options['nodeVersion']>;
-        registry: NonNullable<Options['registry']>;
-        path: NonNullable<Options['path']>;
-        cache: NonNullable<Options['cache']>;
-        packumentCache: NonNullable<Options['packumentCache']>;
-        workspacesEnabled: NonNullable<Options['workspacesEnabled']>;
-        replaceRegistryHost: NonNullable<Options['replaceRegistryHost']>;
+        nodeVersion: NonNullable<Options["nodeVersion"]>;
+        registry: NonNullable<Options["registry"]>;
+        path: NonNullable<Options["path"]>;
+        cache: NonNullable<Options["cache"]>;
+        packumentCache: NonNullable<Options["packumentCache"]>;
+        workspacesEnabled: NonNullable<Options["workspacesEnabled"]>;
+        replaceRegistryHost: NonNullable<Options["replaceRegistryHost"]>;
         lockfileVersion: number | null;
     }
-    type SaveType = 'dev' | 'optional' | 'prod' | 'peerOptional' | 'peer';
+    type SaveType = "dev" | "optional" | "prod" | "peerOptional" | "peer";
     interface BuildIdealTreeOptions {
         rm?: string[];
         add?: string[];
@@ -251,11 +245,11 @@ declare namespace Arborist {
          * Creates a new edge with the specified fields.  After instantiation,
          * none of the fields can be changed directly.
          */
-        constructor(fields: Pick<Edge, 'from' | 'type' | 'name' | 'spec'>);
+        constructor(fields: Pick<Edge, "from" | "type" | "name" | "spec">);
         /** The node that has the dependency. */
         from: Node;
         /** The type of dependency. */
-        type: Exclude<SaveType, 'peerOptional'>;
+        type: Exclude<SaveType, "peerOptional">;
         /** The name of the dependency.  Ie, the key in the relevant `package.json` dependencies object. */
         name: string;
         /**
@@ -282,7 +276,7 @@ declare namespace Arborist {
          *   means that the dependency is not a peer.
          * * `INVALID` Indicates that the dependency does not satisfy `edge.spec`.
          */
-        error: 'DETACHED' | 'MISSING' | 'PEER LOCAL' | 'INVALID' | null;
+        error: "DETACHED" | "MISSING" | "PEER LOCAL" | "INVALID" | null;
         reload(hard?: boolean): void;
     }
 
@@ -346,7 +340,7 @@ declare namespace Arborist {
         name: string;
         id: string;
         dependency: string;
-        type: 'advisory' | 'metavuln';
+        type: "advisory" | "metavuln";
         url: string;
         title: string;
         severity: string;
@@ -367,18 +361,18 @@ declare namespace Arborist {
     }
     interface PackageLockV1 extends PackageLockBase {
         lockfileVersion: 1;
-        dependencies: NonNullable<PackageLockBase['dependencies']>;
+        dependencies: NonNullable<PackageLockBase["dependencies"]>;
         packages?: never;
     }
     interface PackageLockV2 extends PackageLockBase {
         lockfileVersion: 2;
-        dependencies: NonNullable<PackageLockBase['dependencies']>;
-        packages: NonNullable<PackageLockBase['packages']>;
+        dependencies: NonNullable<PackageLockBase["dependencies"]>;
+        packages: NonNullable<PackageLockBase["packages"]>;
     }
     interface PackageLockV3 extends PackageLockBase {
         lockfileVersion: 3;
         dependencies?: never;
-        packages: NonNullable<PackageLockBase['packages']>;
+        packages: NonNullable<PackageLockBase["packages"]>;
     }
     type PackageLock = PackageLockV1 | PackageLockV2 | PackageLockV3;
 
@@ -398,9 +392,9 @@ declare namespace Arborist {
     interface ExplicitRequest {
         from: Node;
         name: string;
-        action?: 'DELETE';
+        action?: "DELETE";
     }
-    interface Inventory extends Omit<Map<string, Node>, 'delete' | 'set' | 'has'> {
+    interface Inventory extends Omit<Map<string, Node>, "delete" | "set" | "has"> {
         get primaryKey(): string;
         get indexes(): string[];
         filter(fn: (node: Node) => boolean): Generator<Node, void>;
@@ -417,9 +411,9 @@ declare namespace Arborist {
         children: Diff[];
         actual: Node;
         ideal: Node;
-        resolved: Node['resolved'];
-        integrity: Node['integrity'];
-        action: 'REMOVE' | 'ADD' | 'CHANGE' | null;
+        resolved: Node["resolved"];
+        integrity: Node["integrity"];
+        action: "REMOVE" | "ADD" | "CHANGE" | null;
         parent: Diff | null;
         leaves: Node[];
         unchanged: Node[];
@@ -427,7 +421,7 @@ declare namespace Arborist {
     }
     interface ScriptRun {
         pkg: PackageJson;
-        path: Node['path'];
+        path: Node["path"];
         event: string;
         cmd: string;
         env: NodeJS.ProcessEnv;

@@ -1,9 +1,3 @@
-// Type definitions for aos 3.0
-// Project: https://github.com/michalsnik/aos, https://michalsnik.github.io/aos
-// Definitions by: Rostislav Shermenyov <https://github.com/shermendev>, Matheus Grieger <https://github.com/matheusgrieger>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare namespace Aos {
     type easingOptions =
         | "linear"
@@ -141,7 +135,7 @@ declare global {
         addEventListener(
             type: Aos.AosEventType,
             listener: (event: Aos.AosEvent) => void,
-            options?: boolean | AddEventListenerOptions
+            options?: boolean | AddEventListenerOptions,
         ): void;
     }
 }

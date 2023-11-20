@@ -4,7 +4,6 @@
         "interface-name": false,
         "interface-over-type-literal": false,
         "no-redundant-jsdoc-2": false,
-        "strict-export-declare-modifiers": false,
         "unified-signatures": false
     }
 }

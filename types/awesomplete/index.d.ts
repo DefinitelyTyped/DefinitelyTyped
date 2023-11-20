@@ -1,18 +1,10 @@
-// Type definitions for Awesomplete 1.1
-// Project: https://leaverou.github.io/awesomplete/
-// Definitions by: webbiesdk <https://github.com/webbiesdk>
-//                 Ben Dixon <https://github.com/bmdixon>
-//                 Trevor Bekolay <https://github.com/tbekolay>
-//                 Chris LoPresto <https://github.com/chrislopresto>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class Awesomplete {
     constructor(input: Element | HTMLElement | string, o?: Awesomplete.Options);
     static all: any[];
     static $$(expr: string | ParentNode, con?: any): NodeList;
     static ITEM: (text: string, input: string) => HTMLElement;
     static $: {
-        (expr: string|Element, con?: ParentNode): string | Element;
+        (expr: string | Element, con?: ParentNode): string | Element;
         regExpEscape(s: { replace(arg0: RegExp, arg1: string): void }): any;
         create(tag: string, o: any): HTMLElement;
         fire(target: EventTarget, type: string, properties: any): any;
@@ -42,18 +34,18 @@ declare class Awesomplete {
 }
 
 declare namespace Awesomplete {
-    type Suggestion = string | { label: string | any, value: string | any } | [string, string];
+    type Suggestion = string | { label: string | any; value: string | any } | [string, string];
     type SortFunction = (left: number | any[], right: number | any[]) => number;
 
     interface Options {
-        list?: string | string[] | Element | Array<{ label: string, value: any }> | Array<[string, string]> | undefined;
+        list?: string | string[] | Element | Array<{ label: string; value: any }> | Array<[string, string]> | undefined;
         minChars?: number | undefined;
         maxItems?: number | undefined;
         autoFirst?: boolean | undefined;
         data?(item: Suggestion, input: string): string;
         filter?(text: string, input: string): boolean;
         sort?: boolean | SortFunction | undefined;
-        item?(text: string, input: string): HTMLElement;
+        item?(text: string, input: string, item_id: number): HTMLElement;
         replace?(suggestion: string | Suggestion): void;
     }
 }

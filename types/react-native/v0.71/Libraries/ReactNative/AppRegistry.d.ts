@@ -1,4 +1,4 @@
-import type * as React from 'react';
+import type * as React from "react";
 
 type Task = (taskData: any) => Promise<void>;
 type TaskProvider = () => Task;
@@ -8,9 +8,9 @@ export type ComponentProvider = () => React.ComponentType<any>;
 export type Runnable = (appParameters: any) => void;
 
 export type AppConfig = {
-  appKey: string;
-  component?: ComponentProvider | undefined;
-  run?: Runnable | undefined;
+    appKey: string;
+    component?: ComponentProvider | undefined;
+    run?: Runnable | undefined;
 };
 
 /**
@@ -29,31 +29,31 @@ export type AppConfig = {
  * `require`d.
  */
 export namespace AppRegistry {
-  export function registerConfig(config: AppConfig[]): void;
+    export function registerConfig(config: AppConfig[]): void;
 
-  export function registerComponent(
-    appKey: string,
-    getComponentFunc: ComponentProvider,
-  ): string;
+    export function registerComponent(
+        appKey: string,
+        getComponentFunc: ComponentProvider,
+    ): string;
 
-  export function registerRunnable(appKey: string, func: Runnable): string;
+    export function registerRunnable(appKey: string, func: Runnable): string;
 
-  export function getAppKeys(): string[];
+    export function getAppKeys(): string[];
 
-  export function unmountApplicationComponentAtRootTag(rootTag: number): void;
+    export function unmountApplicationComponentAtRootTag(rootTag: number): void;
 
-  export function runApplication(appKey: string, appParameters: any): void;
+    export function runApplication(appKey: string, appParameters: any): void;
 
-  export function setSurfaceProps(
-    appKey: string,
-    appParameters: any,
-    displayMode?: number,
-  ): void;
+    export function setSurfaceProps(
+        appKey: string,
+        appParameters: any,
+        displayMode?: number,
+    ): void;
 
-  export function registerHeadlessTask(
-    appKey: string,
-    task: TaskProvider,
-  ): void;
+    export function registerHeadlessTask(
+        appKey: string,
+        task: TaskProvider,
+    ): void;
 
-  export function getRunnable(appKey: string): Runnable | undefined;
+    export function getRunnable(appKey: string): Runnable | undefined;
 }

@@ -1,9 +1,3 @@
-// Type definitions for gl-vec3 1.1
-// Project: https://github.com/stackgl/gl-vec3
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.3
-
 /**
  * Adds two number's.
  */
@@ -72,7 +66,14 @@ export function floor(out: number[], a: number[]): number[];
 /**
  * Perform some operation over an array of numbers.
  */
-export function forEach(a: number[], stride: number, offset: number, count: number, fn: (a: number[], b: number[], arg: object) => number[], arg: object): number[];
+export function forEach(
+    a: number[],
+    stride: number,
+    offset: number,
+    count: number,
+    fn: (a: number[], b: number[], arg: object) => number[],
+    arg: object,
+): number[];
 
 /**
  * Creates a new number initialized with the given values.

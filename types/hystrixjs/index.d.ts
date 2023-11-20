@@ -1,9 +1,3 @@
-// Type definitions for hystrixjs 0.2
-// Project: https://bitbucket.org/igor_sechyn/hystrixjs
-// Definitions by: Igor Sechyn <https://github.com/igorsechyn>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import * as RX from "rx";
 
 export as namespace hystrixjs;
@@ -95,7 +89,7 @@ export interface CommandBuilder {
     circuitBreakerErrorThresholdPercentage(value: number): CommandBuilder;
     context(value: any): CommandBuilder;
     run(value: (...args: any[]) => PromiseLike<any>): CommandBuilder;
-    fallbackTo(value: (error: Error, args ?: any[]) => PromiseLike<any>): CommandBuilder;
+    fallbackTo(value: (error: Error, args?: any[]) => PromiseLike<any>): CommandBuilder;
     build(): Command;
 }
 
@@ -228,7 +222,9 @@ export interface CommandBuilderA6<R, T, U, V, W, X, Y> {
     circuitBreakerErrorThresholdPercentage(value: number): CommandBuilderA6<R, T, U, V, W, X, Y>;
     context(value: any): CommandBuilderA6<R, T, U, V, W, X, Y>;
     run(value: (t: T, u: U, v: V, w: W, x: X, y: Y) => PromiseLike<R>): CommandBuilderA6<R, T, U, V, W, X, Y>;
-    fallbackTo(value: (error: Error, args: [T, U, V, W, X, Y]) => PromiseLike<R>): CommandBuilderA6<R, T, U, V, W, X, Y>;
+    fallbackTo(
+        value: (error: Error, args: [T, U, V, W, X, Y]) => PromiseLike<R>,
+    ): CommandBuilderA6<R, T, U, V, W, X, Y>;
     build(): CommandA6<R, T, U, V, W, X, Y>;
 }
 
@@ -247,7 +243,9 @@ export interface CommandBuilderA7<R, T, U, V, W, X, Y, Z> {
     circuitBreakerErrorThresholdPercentage(value: number): CommandBuilderA7<R, T, U, V, W, X, Y, Z>;
     context(value: any): CommandBuilderA7<R, T, U, V, W, X, Y, Z>;
     run(value: (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z) => PromiseLike<R>): CommandBuilderA7<R, T, U, V, W, X, Y, Z>;
-    fallbackTo(value: (error: Error, args: [T, U, V, W, X, Y, Z]) => PromiseLike<R>): CommandBuilderA7<R, T, U, V, W, X, Y, Z>;
+    fallbackTo(
+        value: (error: Error, args: [T, U, V, W, X, Y, Z]) => PromiseLike<R>,
+    ): CommandBuilderA7<R, T, U, V, W, X, Y, Z>;
     build(): CommandA7<R, T, U, V, W, X, Y, Z>;
 }
 
@@ -260,7 +258,10 @@ export interface CommandFactory {
     getOrCreate<R, T, U, V, W>(commandKey: string, commandGroup?: string): CommandBuilderA4<R, T, U, V, W>;
     getOrCreate<R, T, U, V, W, X>(commandKey: string, commandGroup?: string): CommandBuilderA5<R, T, U, V, W, X>;
     getOrCreate<R, T, U, V, W, X, Y>(commandKey: string, commandGroup?: string): CommandBuilderA6<R, T, U, V, W, X, Y>;
-    getOrCreate<R, T, U, V, W, X, Y, Z>(commandKey: string, commandGroup?: string): CommandBuilderA7<R, T, U, V, W, X, Y, Z>;
+    getOrCreate<R, T, U, V, W, X, Y, Z>(
+        commandKey: string,
+        commandGroup?: string,
+    ): CommandBuilderA7<R, T, U, V, W, X, Y, Z>;
     resetCache(): void;
 }
 

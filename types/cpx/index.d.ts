@@ -1,12 +1,7 @@
-// Type definitions for cpx 1.5
-// Project: https://github.com/mysticatea/cpx
-// Definitions by: Alan Agius <https://github.com/alan-agius4>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
+import { EventEmitter } from "events";
 import * as stream from "stream";
-import { EventEmitter } from 'events';
 
 export interface SyncOptions {
     /** remove files that copied on past before copy. */
@@ -37,7 +32,12 @@ export class Watcher extends EventEmitter {
     close(): void;
 }
 
-export function copy(source: string, dest: string, options?: AsyncOptions, callback?: (error: Error | null) => void): void;
+export function copy(
+    source: string,
+    dest: string,
+    options?: AsyncOptions,
+    callback?: (error: Error | null) => void,
+): void;
 export function copy(source: string, dest: string, callback?: (error: Error | null) => void): void;
 
 export function copySync(source: string, dest: string, options?: SyncOptions): void;

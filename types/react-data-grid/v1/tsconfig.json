@@ -9,22 +9,10 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../../",
         "jsx": "react",
-        "typeRoots": [
-            "../../"
-        ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "react-data-grid": [
-                "react-data-grid/v1"
-                ],
-            "react-data-grid/*": [
-                "react-data-grid/v1/*"
-                ]
-        }
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",

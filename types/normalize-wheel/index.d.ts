@@ -1,8 +1,3 @@
-// Type definitions for normalize-wheel 1.0
-// Project: https://github.com/basilfx/normalize-wheel
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Mouse wheel (and 2-finger trackpad) support on the web sucks.  It is
  * complicated, thus this doc is long and (hopefully) detailed enough to answer
@@ -101,12 +96,11 @@
  *                IE9/Win7  |       -120       |   undefined
  *         Firefox v4/OS X  |     undefined    |       1
  *         Firefox v4/Win7  |     undefined    |       3
- *
  */
 declare function normalizeWheel(event: any): { spinX: number; spinY: number; pixelX: number; pixelY: number };
 
 declare namespace normalizeWheel {
-    function getEventType(): 'wheel' | 'mousewheel' | 'DOMMouseScroll';
+    function getEventType(): "wheel" | "mousewheel" | "DOMMouseScroll";
 }
 
 export = normalizeWheel;

@@ -1,17 +1,8 @@
-// Type definitions for @feathersjs/feathers 3.1
-// Project: http://feathersjs.com/
-// Definitions by:  Jan Lohage <https://github.com/j2L4e>
-//                  Abraao Alves <https://github.com/AbraaoAlves>
-//                  Tim Mensch <https://github.com/TimMensch>
-//                  Jordan Tucker <https://github.com/jordanbtucker>
-//                  Desmond Koh <https://github.com/deskoh>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TypeScript Version: 2.8
 
 /// <reference types="node" />
 
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 declare const feathers: Feathers;
 export = feathers;
@@ -37,12 +28,12 @@ declare namespace feathers {
         max: number;
     }
 
-    type ClientSideParams = Pick<Params, 'query' | 'paginate'>;
+    type ClientSideParams = Pick<Params, "query" | "paginate">;
     type ServerSideParams = Params;
 
     interface Params {
         query?: Query | undefined;
-        paginate?: false | Pick<PaginationOptions, 'max'> | undefined;
+        paginate?: false | Pick<PaginationOptions, "max"> | undefined;
 
         [key: string]: any; // (JL) not sure if we want this
     }
@@ -55,9 +46,9 @@ declare namespace feathers {
     }
 
     // tslint:disable-next-line void-return
-    type Hook = (hook: HookContext) => (Promise<HookContext | SkipSymbol | void> | HookContext | SkipSymbol | void);
+    type Hook = (hook: HookContext) => Promise<HookContext | SkipSymbol | void> | HookContext | SkipSymbol | void;
 
-    type SkipSymbol = symbol | '__feathersSkipHooks';
+    type SkipSymbol = symbol | "__feathersSkipHooks";
 
     interface HookContext<T = any> {
         /**

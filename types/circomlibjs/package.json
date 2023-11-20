@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/circomlibjs",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/iden3/circomlibjs"
+    ],
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": {
+                "import": "./index.d.ts",
+                "require": "./index.d.cts"
+            }
+        }
+    },
+    "devDependencies": {
+        "@types/circomlibjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "cedoor",
+            "githubUsername": "cedoor"
+        },
+        {
+            "name": "vplasencia",
+            "githubUsername": "vplasencia"
+        }
+    ]
+}

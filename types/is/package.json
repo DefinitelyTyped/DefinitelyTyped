@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/is",
+    "version": "0.0.9999",
+    "projects": [
+        "http://arasatasaygin.github.io/is.js/"
+    ],
+    "devDependencies": {
+        "@types/is": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rodrigo Cabral",
+            "githubUsername": "cabralRodrigo"
+        },
+        {
+            "name": "Mitchell Grice",
+            "githubUsername": "gricey432"
+        }
+    ]
+}

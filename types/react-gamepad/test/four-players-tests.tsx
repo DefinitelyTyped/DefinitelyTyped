@@ -1,7 +1,7 @@
 // https://github.com/SBRK/react-gamepad/blob/master/examples/FourPlayers.js
 
-import * as React from 'react';
-import Gamepad, { Axis } from 'react-gamepad';
+import * as React from "react";
+import Gamepad, { Axis } from "react-gamepad";
 
 export interface Props {
     x: number;
@@ -62,7 +62,7 @@ class PlayerCube extends React.Component<Props, State> {
         const previousFrameTime = this.previousFrameTime;
         this.previousFrameTime = datetime;
 
-        if (typeof previousFrameTime === 'undefined') return;
+        if (typeof previousFrameTime === "undefined") return;
 
         const frameTime = datetime - previousFrameTime;
 
@@ -78,11 +78,11 @@ class PlayerCube extends React.Component<Props, State> {
     }
 
     axisChangeHandler(axisName: Axis, value: number, previousValue: number): void {
-        if (axisName === 'LeftStickX') {
+        if (axisName === "LeftStickX") {
             this.setState({
                 speedX: value,
             });
-        } else if (axisName === 'LeftStickY') {
+        } else if (axisName === "LeftStickY") {
             this.setState({
                 speedY: value,
             });
@@ -91,20 +91,20 @@ class PlayerCube extends React.Component<Props, State> {
 
     getPlayerStyle(): React.CSSProperties {
         return {
-            height: '50px',
-            width: '50px',
+            height: "50px",
+            width: "50px",
 
             background: this.props.color,
-            color: 'white',
+            color: "white",
 
-            fontSize: '20px',
-            textAlign: 'center',
-            lineHeight: '50px',
+            fontSize: "20px",
+            textAlign: "center",
+            lineHeight: "50px",
 
-            position: 'fixed',
+            position: "fixed",
 
-            top: Math.round(this.state.y) + 'px',
-            left: Math.round(this.state.x) + 'px',
+            top: Math.round(this.state.y) + "px",
+            left: Math.round(this.state.x) + "px",
         };
     }
 
@@ -116,7 +116,11 @@ class PlayerCube extends React.Component<Props, State> {
                 onDisconnect={this.disconnectHandler.bind(this)}
                 onAxisChange={this.axisChangeHandler.bind(this)}
             >
-                <div hidden={!this.state.connected} id={`player${this.props.playerIndex}`} style={this.getPlayerStyle()}>
+                <div
+                    hidden={!this.state.connected}
+                    id={`player${this.props.playerIndex}`}
+                    style={this.getPlayerStyle()}
+                >
                     {this.props.playerIndex}
                 </div>
             </Gamepad>

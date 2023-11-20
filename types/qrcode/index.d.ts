@@ -1,11 +1,3 @@
-// Type definitions for qrcode 1.5
-// Project: https://github.com/soldair/node-qrcode
-// Definitions by: York Yao <https://github.com/plantain-00>
-//                 Michael Nahkies <https://github.com/mnahkies>
-//                 Rémi Sormain <https://github.com/Marchelune>
-//                 BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as stream from "stream";

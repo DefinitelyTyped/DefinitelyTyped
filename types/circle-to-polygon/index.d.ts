@@ -1,9 +1,4 @@
-// Type definitions for circle-to-polygon 2.2
-// Project: https://github.com/gabzim/circle-to-polygon
-// Definitions by: Jan Zak <https://github.com/zakjan>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as GeoJSON from 'geojson';
+import * as GeoJSON from "geojson";
 
 interface PolygonConfig {
     earthRadius?: number;

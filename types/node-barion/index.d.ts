@@ -1,8 +1,3 @@
-// Type definitions for node-barion 3.1
-// Project: https://github.com/aron123/node-barion
-// Definitions by: Áron Kiss <https://github.com/aron123>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = Barion;
 
 interface BankAccount {
@@ -11,7 +6,7 @@ interface BankAccount {
     BankAddress?: string;
     BankName?: string;
     Country: string;
-    Format: 'Unknown' | 'Giro' | 'IBAN' | 'Czech' | 'Other';
+    Format: "Unknown" | "Giro" | "IBAN" | "Czech" | "Other";
     SwiftCode?: string;
 }
 
@@ -19,7 +14,7 @@ interface BankTransferRequest {
     Amount: number;
     BankAccount: BankAccount;
     Comment?: string;
-    Currency: 'CZK' | 'EUR' | 'HUF' | 'USD';
+    Currency: "CZK" | "EUR" | "HUF" | "USD";
     Password: string;
     RecipientName: string;
     UserName: string;
@@ -82,11 +77,11 @@ interface GiftCardPurchase {
 }
 
 interface InitialOptions {
-    Currency?: 'CZK' | 'EUR' | 'HUF' | 'USD';
-    Environment?: 'test' | 'prod';
-    FundingSources?: Array<'All' | 'Balance' | 'BankCard' | 'GooglePay' | 'ApplePay' | 'BankTransfer'>;
+    Currency?: "CZK" | "EUR" | "HUF" | "USD";
+    Environment?: "test" | "prod";
+    FundingSources?: Array<"All" | "Balance" | "BankCard" | "GooglePay" | "ApplePay" | "BankTransfer">;
     GuestCheckOut?: boolean;
-    Locale?: 'cs-CZ' | 'de-DE' | 'en-US' | 'es-ES' | 'fr-FR' | 'hu-HU' | 'sk-SK' | 'sl-SI';
+    Locale?: "cs-CZ" | "de-DE" | "en-US" | "es-ES" | "fr-FR" | "hu-HU" | "sk-SK" | "sl-SI";
     POSKey: string;
     Secure?: boolean;
 }
@@ -103,7 +98,7 @@ interface Item {
 }
 
 interface Money {
-    Currency: 'CZK' | 'EUR' | 'HUF' | 'USD';
+    Currency: "CZK" | "EUR" | "HUF" | "USD";
     Value: number;
 }
 
@@ -115,19 +110,33 @@ interface PayeeTransaction {
 }
 
 interface PayerAccountInformation {
-    AccountChangeIndicator?: 'ChangedDuringThisTransaction' | 'LessThan30Days' | 'Between30And60Days' | 'MoreThan60Days';
+    AccountChangeIndicator?:
+        | "ChangedDuringThisTransaction"
+        | "LessThan30Days"
+        | "Between30And60Days"
+        | "MoreThan60Days";
     AccountCreated?: Date;
-    AccountCreationIndicator?: 'NoAccount' | 'CreatedDuringThisTransaction' | 'LessThan30Days' | 'Between30And60Days' | 'MoreThan60Days';
+    AccountCreationIndicator?:
+        | "NoAccount"
+        | "CreatedDuringThisTransaction"
+        | "LessThan30Days"
+        | "Between30And60Days"
+        | "MoreThan60Days";
     AccountId?: string;
     AccountLastChanged?: Date;
-    PasswordChangeIndicator?: 'NoChange' | 'ChangedDuringThisTransaction' | 'LessThan30Days' | 'Between30And60Days' | 'MoreThan60Days';
+    PasswordChangeIndicator?:
+        | "NoChange"
+        | "ChangedDuringThisTransaction"
+        | "LessThan30Days"
+        | "Between30And60Days"
+        | "MoreThan60Days";
     PasswordLastChanged?: Date;
     PaymentMethodAdded?: Date;
     ProvisionAttempts?: number;
     PurchasesInTheLast6Months?: number;
     ShippingAddressAdded?: Date;
-    ShippingAddressUsageIndicator?: 'ThisTransaction' | 'LessThan30Days' | 'Between30And60Days' | 'MoreThan60Days';
-    SuspiciousActivityIndicator?: 'NoSuspiciousActivityObserved' | 'SuspiciousActivityObserved';
+    ShippingAddressUsageIndicator?: "ThisTransaction" | "LessThan30Days" | "Between30And60Days" | "MoreThan60Days";
+    SuspiciousActivityIndicator?: "NoSuspiciousActivityObserved" | "SuspiciousActivityObserved";
     TransactionalActivityPerDay?: number;
     TransactionalActivityPerYear?: number;
 }
@@ -148,17 +157,29 @@ interface PaymentTransaction {
 }
 
 interface PurchaseInformation {
-    AvailabilityIndicator?: 'MerchandiseAvailable' | 'FutureAvailability';
+    AvailabilityIndicator?: "MerchandiseAvailable" | "FutureAvailability";
     DeliveryEmailAddress?: string;
-    DeliveryTimeframe?: 'ElectronicDelivery' | 'SameDayShipping' | 'OvernightShipping' | 'TwoDayOrMoreShipping';
+    DeliveryTimeframe?: "ElectronicDelivery" | "SameDayShipping" | "OvernightShipping" | "TwoDayOrMoreShipping";
     GiftCardPurchase?: GiftCardPurchase;
     PreOrderDate?: Date;
     PurchaseDate?: Date;
-    PurchaseType?: 'GoodsAndServicePurchase' | 'CheckAcceptance' | 'AccountFunding' | 'QuasiCashTransaction' | 'PrePaidVacationAndLoan';
-    ReOrderIndicator?: 'FirstTimeOrdered' | 'Reordered';
+    PurchaseType?:
+        | "GoodsAndServicePurchase"
+        | "CheckAcceptance"
+        | "AccountFunding"
+        | "QuasiCashTransaction"
+        | "PrePaidVacationAndLoan";
+    ReOrderIndicator?: "FirstTimeOrdered" | "Reordered";
     RecurringExpiry?: Date;
     RecurringFrequency?: number;
-    ShippingAddressIndicator?: 'ShipToCardholdersBillingAddress' | 'ShipToAnotherVerifiedAddress' | 'ShipToDifferentAddress' | 'ShipToStore' | 'DigitalGoods' | 'TravelAndEventTickets' | 'Other';
+    ShippingAddressIndicator?:
+        | "ShipToCardholdersBillingAddress"
+        | "ShipToAnotherVerifiedAddress"
+        | "ShipToDifferentAddress"
+        | "ShipToStore"
+        | "DigitalGoods"
+        | "TravelAndEventTickets"
+        | "Other";
 }
 
 interface ShippingAddress {
@@ -176,13 +197,13 @@ interface StartPaymentRequest {
     BillingAddress?: BillingAddress;
     CallbackUrl: string;
     CardHolderNameHint?: string;
-    ChallengePreference?: 'NoPreference' | 'ChallengeRequired' | 'NoChallengeNeeded';
-    Currency: 'CZK' | 'EUR' | 'HUF' | 'USD';
+    ChallengePreference?: "NoPreference" | "ChallengeRequired" | "NoChallengeNeeded";
+    Currency: "CZK" | "EUR" | "HUF" | "USD";
     DelayedCapturePeriod?: string;
-    FundingSources: Array<'All' | 'Balance' | 'BankCard' | 'GooglePay' | 'ApplePay' | 'BankTransfer'>;
+    FundingSources: Array<"All" | "Balance" | "BankCard" | "GooglePay" | "ApplePay" | "BankTransfer">;
     GuestCheckOut: boolean;
     InitiateRecurrence?: boolean;
-    Locale: 'cs-CZ' | 'de-DE' | 'en-US' | 'es-ES' | 'fr-FR' | 'hu-HU' | 'sk-SK' | 'sl-SI';
+    Locale: "cs-CZ" | "de-DE" | "en-US" | "es-ES" | "fr-FR" | "hu-HU" | "sk-SK" | "sl-SI";
     OrderNumber?: string;
     POSKey: string;
     PayerAccount?: PayerAccountInformation;
@@ -191,11 +212,11 @@ interface StartPaymentRequest {
     PayerPhoneNumber?: string;
     PayerWorkPhoneNumber?: string;
     PaymentRequestId: string;
-    PaymentType: 'Immediate' | 'Reservation' | 'DelayedCapture';
+    PaymentType: "Immediate" | "Reservation" | "DelayedCapture";
     PaymentWindow?: string;
     PurchaseInformation?: PurchaseInformation;
     RecurrenceId?: string;
-    RecurrenceType?: 'OneClickPayment' | 'MerchantInitiatedPayment' | 'RecurringPayment';
+    RecurrenceType?: "OneClickPayment" | "MerchantInitiatedPayment" | "RecurringPayment";
     RedirectUrl: string;
     ReservationPeriod?: string;
     ShippingAddress?: ShippingAddress;
@@ -204,7 +225,7 @@ interface StartPaymentRequest {
 }
 
 interface StatementDownloadRequest {
-    Currency: 'CZK' | 'EUR' | 'HUF' | 'USD';
+    Currency: "CZK" | "EUR" | "HUF" | "USD";
     Day?: number;
     Month: number;
     Password: string;
@@ -233,7 +254,10 @@ declare class Barion {
     bankTransfer(options: Partial<BankTransferRequest>, callback: (err: Error, data: any) => void): void;
     bankTransfer(options: Partial<BankTransferRequest>): Promise<any>;
 
-    cancelAuthorizedPayment(options: Partial<CancelAuthorizationRequest>, callback: (err: Error, data: any) => void): void;
+    cancelAuthorizedPayment(
+        options: Partial<CancelAuthorizationRequest>,
+        callback: (err: Error, data: any) => void,
+    ): void;
     cancelAuthorizedPayment(options: Partial<CancelAuthorizationRequest>): Promise<any>;
 
     captureAuthorizedPayment(options: Partial<CapturePaymentRequest>, callback: (err: Error, data: any) => void): void;

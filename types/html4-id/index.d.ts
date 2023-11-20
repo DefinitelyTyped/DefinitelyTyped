@@ -1,8 +1,3 @@
-// Type definitions for html4-id 1.0
-// Project: https://www.npmjs.com/package/html4-id
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Create a valid HTML4 ID from an input value.
  */

@@ -1,5 +1,5 @@
-import { Globals } from 'webidl-conversions';
-import { implementation as URLSearchParamsImpl } from './URLSearchParams-impl';
+import { Globals } from "webidl-conversions";
+import { implementation as URLSearchParamsImpl } from "./URLSearchParams-impl";
 
 declare class URLImpl {
     constructor(globalObject: Globals, constructorArgs: readonly [url: string, base?: string]);

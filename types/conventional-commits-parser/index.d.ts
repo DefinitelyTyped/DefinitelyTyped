@@ -1,8 +1,3 @@
-// Type definitions for conventional-commits-parser 3.0
-// Project: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#readme
-// Definitions by: Jason Kwok <https://github.com/JasonHK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import * as Stream from "stream";
@@ -24,7 +19,9 @@ declare namespace conventionalCommitsParser {
      */
     function sync(commit: string, options?: Options): Commit;
 
-    type Commit<Fields extends string | number | symbol = string | number | symbol> = CommitBase & { [Field in Exclude<Fields, keyof CommitBase>]?: Commit.Field };
+    type Commit<Fields extends string | number | symbol = string | number | symbol> =
+        & CommitBase
+        & { [Field in Exclude<Fields, keyof CommitBase>]?: Commit.Field };
 
     namespace Commit {
         type Field = string | null;
@@ -294,11 +291,7 @@ declare namespace conventionalCommitsParser {
         type Prefixes = string[] | string | null;
     }
 
-    export {
-        Commit,
-        Options,
-        sync,
-    };
+    export { Commit, Options, sync };
 }
 
 export = conventionalCommitsParser;

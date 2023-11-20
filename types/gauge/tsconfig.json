@@ -1,16 +1,19 @@
 {
-  "files": ["index.d.ts", "gauge-tests.ts"],
-  "compilerOptions": {
-    "module": "commonjs",
-    "lib": ["es6"],
-    "types": [],
-    "baseUrl": "../",
-    "typeRoots": ["../"],
-    "noEmit": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "forceConsistentCasingInFileNames": true
-  }
+    "files": [
+        "index.d.ts",
+        "gauge-tests.ts"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "types": [],
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "forceConsistentCasingInFileNames": true
+    }
 }

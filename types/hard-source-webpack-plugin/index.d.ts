@@ -1,11 +1,5 @@
-// Type definitions for hard-source-webpack-plugin 1.0
-// Project: https://github.com/mzgoddard/hard-source-webpack-plugin#readme
-// Definitions by: Yama-Tomo <https://github.com/Yama-Tomo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
-import * as webpack from 'webpack';
-import { ForkOptions, ChildProcess } from 'child_process';
+import { ChildProcess, ForkOptions } from "child_process";
+import * as webpack from "webpack";
 
 declare class hard_source_webpack_plugin {
     constructor(options?: Options);
@@ -21,8 +15,8 @@ interface Options {
         files: string[];
     } | undefined;
     info?: {
-        mode: 'none' | 'test';
-        level: 'debug' | 'log' | 'info' | 'warn' | 'error';
+        mode: "none" | "test";
+        level: "debug" | "log" | "info" | "warn" | "error";
     } | undefined;
     cachePrune?: {
         maxAge: number;
@@ -32,7 +26,7 @@ interface Options {
 
 declare namespace hard_source_webpack_plugin {
     class ExcludeModulePlugin {
-        constructor(options: ExcludeModulePlugin.Option | ExcludeModulePlugin.Option[])
+        constructor(options: ExcludeModulePlugin.Option | ExcludeModulePlugin.Option[]);
         apply(compiler: webpack.Compiler): void;
     }
 
@@ -71,7 +65,7 @@ declare namespace hard_source_webpack_plugin {
     }
 
     class ParallelModulePlugin {
-        constructor(options: ParallelModulePlugin.Options)
+        constructor(options: ParallelModulePlugin.Options);
         apply(compiler: webpack.Compiler): void;
     }
 

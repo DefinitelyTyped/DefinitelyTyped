@@ -6,9 +6,7 @@
         "no-reference-import": false,
         "no-var-keyword": false,
         "no-void-expression": false,
-        "npm-naming": false,
         "prefer-const": false,
-        "strict-export-declare-modifiers": false,
         "triple-equals": false
     }
 }

@@ -1,24 +1,18 @@
-// Type definitions for css-mediaquery 0.1
-// Project: https://github.com/ericf/css-mediaquery
-// Definitions by: Sebastian Silbermann <https://github.com/eps1lon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 export type MediaValues = Record<
-    | 'orientation'
-    | 'scan'
-    | 'width'
-    | 'height'
-    | 'device-width'
-    | 'device-height'
-    | 'resolution'
-    | 'aspect-ratio'
-    | 'device-aspect-ratio'
-    | 'grid'
-    | 'color'
-    | 'color-index'
-    | 'monochrome'
-    | 'prefers-color-scheme',
+    | "orientation"
+    | "scan"
+    | "width"
+    | "height"
+    | "device-width"
+    | "device-height"
+    | "resolution"
+    | "aspect-ratio"
+    | "device-aspect-ratio"
+    | "grid"
+    | "color"
+    | "color-index"
+    | "monochrome"
+    | "prefers-color-scheme",
     unknown
 >;
 

@@ -1,26 +1,52 @@
-import { Mimetype } from './GuacCommon';
-import { Tunnel } from './Tunnel';
-import { OutputStream } from './OutputStream';
-import { InputStream } from './InputStream';
-import { Status } from './Status';
-import { Display } from './Display';
-import { AudioPlayer } from './AudioPlayer';
-import { VideoPlayer } from './VideoPlayer';
-import { VisibleLayer } from './VisibleLayer';
-import { Mouse } from './Mouse';
-import * as Guacamole from './Object';
+import { AudioPlayer } from "./AudioPlayer";
+import { Display } from "./Display";
+import { Mimetype } from "./GuacCommon";
+import { InputStream } from "./InputStream";
+import { Mouse } from "./Mouse";
+import * as Guacamole from "./Object";
+import { OutputStream } from "./OutputStream";
+import { Status } from "./Status";
+import { Touch } from "./Touch";
+import { Tunnel } from "./Tunnel";
+import { VideoPlayer } from "./VideoPlayer";
+import { VisibleLayer } from "./VisibleLayer";
 
 export {};
 
 export namespace Client {
     export {};
-    export type State =
-        | 0 // IDLE
-        | 1 // CONNECTING
-        | 2 // WAITING
-        | 3 // CONNECTED
-        | 4 //  DISCONNECTING
-        | 5; // DISCONNECTED
+
+    type ClientState = Readonly<{
+        /**
+         * The client is idle, with no active connection.
+         */
+        IDLE: 0;
+        /**
+         * The client is in the process of establishing a connection.
+         */
+        CONNECTING: 1;
+        /**
+         * The client is waiting on further information or a remote server to
+         * establish the connection.
+         */
+        WAITING: 2;
+        /**
+         * The client is actively connected to a remote server.
+         */
+        CONNECTED: 3;
+        /**
+         * The client is in the process of disconnecting from the remote server.
+         */
+        DISCONNECTING: 4;
+        /**
+         * The client has completed the connection and is no longer connected.
+         */
+        DISCONNECTED: 5;
+    }>;
+
+    export type State = ClientState[keyof ClientState];
+
+    export const State: ClientState;
 
     interface ExportLayerBase {
         height: number;
@@ -31,13 +57,13 @@ export namespace Client {
     type ExportLayer =
         | ExportLayerBase
         | (ExportLayerBase & {
-              x: number;
-              y: number;
-              z: number;
-              alpha: number;
-              matrix: unknown;
-              parent: unknown;
-          });
+            x: number;
+            y: number;
+            z: number;
+            alpha: number;
+            matrix: unknown;
+            parent: unknown;
+        });
 
     export interface ExportedState {
         currentState: State;
@@ -69,7 +95,7 @@ export class Client {
      *
      * @param data Arbitrary connection data to be sent to the underlying
      *             tunnel during the connection process.
-     * @throws {Guacamole.Status} If an error occurs during connection.
+     * @throws {Status} If an error occurs during connection.
      */
     connect(data?: any): void;
 
@@ -99,9 +125,8 @@ export class Client {
      * instruction necessary to create this stream will automatically be sent.
      *
      * @param mimetype The mimetype of the data being sent.
-     * @param name The name of the pipe.
      */
-    createClipboardStream(mimetype: Mimetype, name: string): OutputStream;
+    createClipboardStream(mimetype: Mimetype): OutputStream;
 
     /**
      * Opens a new file for writing, having the given index, mimetype and
@@ -216,7 +241,7 @@ export class Client {
      * @param index The index of the file to write to.
      * @param data Base64-encoded data to write to the file.
      */
-    sendBlob(index: number, data64: string): void;
+    sendBlob(index: number, data: string): void;
 
     /**
      * Sends a key event having the given properties as if the user
@@ -231,8 +256,22 @@ export class Client {
      * Sends a mouse event having the properties provided by the given mouse state.
      *
      * @param mouseState The state of the mouse to send in the mouse event.
+     * @param [applyDisplayScale=false] Whether the provided mouse state uses local
+     * display units, rather than remote display units, and should be scaled to match
+     * the {@link Display}.
      */
-    sendMouseState(state: Mouse.State): void;
+    sendMouseState(mouseState: Mouse.State, applyDisplayScale?: boolean): void;
+
+    /**
+     * Sends a touch event having the properties provided by the given touch
+     * state.
+     *
+     * @param touchState The state of the touch contact to send in the touch event.
+     *
+     * @param [applyDisplayScale=false] Whether the provided touch state uses local display
+     * units, rather than remote display units, and should be scaled to match the {@link Display}.
+     */
+    sendTouchState(touchState: Touch.State, applyDisplayScale?: boolean): void;
 
     /**
      * Sends the current size of the screen.
@@ -354,6 +393,17 @@ export class Client {
     onpipe: null | ((pipeStream: InputStream, mimetype: Mimetype, name: string) => void);
 
     /**
+     * Fired when a "required" instruction is received. A required instruction
+     * indicates that additional parameters are required for the connection to
+     * continue, such as user credentials.
+     *
+     * @event
+     * @param parameters The names of the connection parameters that are required to be
+     * provided for the connection to continue.
+     */
+    onrequired: null | ((parameters: string[]) => void);
+
+    /**
      * Fired whenever a sync instruction is received from the server, indicating
      * that the server is finished processing any input from the client and
      * has sent any results.
@@ -362,4 +412,50 @@ export class Client {
      * @param timestamp The timestamp associated with the sync instruction.
      */
     onsync: null | ((timestramp: number) => void);
+
+    /**
+     * Fired when a user joins a shared connection.
+     *
+     * @event
+     * @param userID A unique value representing this specific user's connection to the
+     * shared connection. This value is generated by the server and is
+     * guaranteed to be unique relative to other users of the connection.
+     *
+     * @param name A human-readable name representing the user that joined, such as
+     * their username. This value is provided by the web application during
+     * the connection handshake and is not necessarily unique relative to
+     * other users of the connection.
+     */
+    onjoin: null | ((userID: string, name: string) => void);
+
+    /**
+     * Fired when a user leaves a shared connection.
+     *
+     * @event
+     * @param userID
+     *     A unique value representing this specific user's connection to the
+     *     shared connection. This value is generated by the server and is
+     *     guaranteed to be unique relative to other users of the connection.
+     *
+     * @param name
+     *     A human-readable name representing the user that left, such as their
+     *     username. This value is provided by the web application during the
+     *     connection handshake and is not necessarily unique relative to other
+     *     users of the connection.
+     */
+    onleave: null | ((userID: string, name: string) => void);
+
+    /**
+     * Fired when the remote client is explicitly declaring the level of
+     * multi-touch support provided by a particular display layer.
+     *
+     * @event
+     * @param layer
+     *     The layer whose multi-touch support level is being declared.
+     *
+     * @param touches
+     *     The maximum number of simultaneous touches supported by the given
+     *     layer, where 0 indicates that touch events are not supported at all.
+     */
+    onmultitouch: null | ((layer: Display.VisibleLayer, touches: number) => void);
 }

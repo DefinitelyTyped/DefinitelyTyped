@@ -1,9 +1,3 @@
-// Type definitions for react-spinkit 1.1.4
-// Project: https://github.com/KyleAMathews/react-spinkit
-// Definitions by: Qubo <https://github.com/tkqubo>, Mleko <https://github.com/mleko>, Tom Crockett <https://github.com/pelotom>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="react" />
 
 declare namespace spinner {
@@ -11,7 +5,19 @@ declare namespace spinner {
         /**
          * Specify spinner to use.
          */
-        spinnerName?: 'three-bounce' | 'double-bounce' | 'rotating-plane' | 'folding-cube' | 'wave' | 'wandering-cubes' | 'pulse' | 'chasing-dots' | 'circle' | 'cube-grid' | 'wordpress' | undefined;
+        spinnerName?:
+            | "three-bounce"
+            | "double-bounce"
+            | "rotating-plane"
+            | "folding-cube"
+            | "wave"
+            | "wandering-cubes"
+            | "pulse"
+            | "chasing-dots"
+            | "circle"
+            | "cube-grid"
+            | "wordpress"
+            | undefined;
         /**
          * Disable the initial fade-in of the spinner.
          */

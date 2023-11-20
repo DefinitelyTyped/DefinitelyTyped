@@ -1,8 +1,3 @@
-// Type definitions for non-npm package duo_web_sdk-browser 2.7
-// Project: https://github.com/duosecurity/duo_web_sdk
-// Definitions by: Low Heok Hong <https://github.com/lhhong>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace Duo;
 
 export interface InitOptions {

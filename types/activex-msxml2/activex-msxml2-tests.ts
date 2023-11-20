@@ -2,23 +2,23 @@
 
 // https://msdn.microsoft.com/en-us/library/ms764708(v=vs.85).aspx
 {
-    const dom = new ActiveXObject('Msxml2.DOMDocument.6.0');
+    const dom = new ActiveXObject("Msxml2.DOMDocument.6.0");
     dom.async = false;
     dom.resolveExternals = false;
-    dom.loadXML('<a>A</a>');
+    dom.loadXML("<a>A</a>");
     WScript.Echo(`dom: ${dom.xml}`);
 }
 
 // https://msdn.microsoft.com/en-us/library/ms766390(v=vs.85).aspx
 {
-    const doc = new ActiveXObject('Msxml2.DOMDocument.6.0');
-    doc.load('test.xml');
+    const doc = new ActiveXObject("Msxml2.DOMDocument.6.0");
+    doc.load("test.xml");
     WScript.Echo(`doc: ${doc.xml}`);
 }
 
 const MakeDOM = () => {
     try {
-        const dom = new ActiveXObject('Msxml2.DOMDocument.6.0');
+        const dom = new ActiveXObject("Msxml2.DOMDocument.6.0");
         dom.async = false;
         dom.validateOnParse = false;
         dom.resolveExternals = false;
@@ -40,7 +40,7 @@ const LoadDOM = (file: string) => {
 
 // https://msdn.microsoft.com/en-us/library/ms759105(v=vs.85).aspx
 {
-    const doc = new ActiveXObject('Msxml2.DOMDocument.6.0');
+    const doc = new ActiveXObject("Msxml2.DOMDocument.6.0");
     doc.async = false;
     doc.resolveExternals = false;
     doc.validateOnParse = false;
@@ -61,20 +61,20 @@ const LoadDOM = (file: string) => {
 </doc>
 `;
     doc.loadXML(xml);
-    doc.save('saved.xml');
+    doc.save("saved.xml");
 }
 
 // https://msdn.microsoft.com/en-us/library/ms764656(v=vs.85).aspx
 {
-    const doc = LoadDOM('test.xml')!;
-    const xsl = (LoadDOM('test.xsl')! as any) as MSXML2.IXMLDOMNode;
+    const doc = LoadDOM("test.xml")!;
+    const xsl = (LoadDOM("test.xsl")! as any) as MSXML2.IXMLDOMNode;
 
     const str = doc.transformNode(xsl);
-    WScript.Echo('\ndoc.transformNode:\n' + str);
+    WScript.Echo("\ndoc.transformNode:\n" + str);
 
     const out = MakeDOM()!;
     doc.transformNodeToObject(xsl, out);
-    WScript.Echo('\ndoc.transformNodeToObject:\n' + out.xml);
+    WScript.Echo("\ndoc.transformNodeToObject:\n" + out.xml);
 }
 
 // https://msdn.microsoft.com/en-us/library/ms763685(v=vs.85).aspx
@@ -168,7 +168,7 @@ const LoadDOM = (file: string) => {
 
         for (let i = 0; i < oNodes.length; i++) {
             const nextNode = oNodes.nextNode;
-            if (nextNode == null) { continue; }
+            if (nextNode == null) continue;
             WScript.Echo(`Node (${i}), <${oNode.nodeName} + ">:\n\t${oNode.xml}`);
         }
     } catch (e) {
@@ -224,15 +224,16 @@ ${x.xml}
 
 // https://msdn.microsoft.com/en-us/library/ms767542(v=vs.85).aspx
 {
-    const validateFile = (filename: string) => xmlValidation(x => {
-        // Configure DOM properties for namespace selection.
-        x.setProperty("SelectionLanguage", "XPath");
-        const ns = "xmlns:x='urn:book'";
-        x.setProperty("SelectionNamespaces", ns);
+    const validateFile = (filename: string) =>
+        xmlValidation(x => {
+            // Configure DOM properties for namespace selection.
+            x.setProperty("SelectionLanguage", "XPath");
+            const ns = "xmlns:x='urn:book'";
+            x.setProperty("SelectionNamespaces", ns);
 
-        // Load and validate the specified file into the DOM.
-        x.load(filename);
-    });
+            // Load and validate the specified file into the DOM.
+            x.load(filename);
+        });
 
     let sOutput = validateFile("sl-valid.xml");
     sOutput = sOutput + validateFile("sl-notValid.xml");
@@ -241,16 +242,17 @@ ${x.xml}
 
 // https://msdn.microsoft.com/en-us/library/ms766439(v=vs.85).aspx
 {
-    const validateFile = (filename: string) => xmlValidation(xd => {
-        // Create a schema cache and add books.xsd to it.
-        const xs = new ActiveXObject('Msxml2.XMLSchemaCache');
-        xs.add("urn:books", "sc.xsd");
+    const validateFile = (filename: string) =>
+        xmlValidation(xd => {
+            // Create a schema cache and add books.xsd to it.
+            const xs = new ActiveXObject("Msxml2.XMLSchemaCache");
+            xs.add("urn:books", "sc.xsd");
 
-        // Assign the schema cache to the DOMDocument's schemas collection.
-        xd.schemas = xs;
+            // Assign the schema cache to the DOMDocument's schemas collection.
+            xd.schemas = xs;
 
-        xd.load(filename);
-    });
+            xd.load(filename);
+        });
 
     let sOutput = validateFile("sc-valid.xml");
     sOutput = sOutput + validateFile("sc-notValid.xml");
@@ -259,10 +261,11 @@ ${x.xml}
 
 // https://msdn.microsoft.com/en-us/library/ms767636(v=vs.85).aspx
 {
-    const validateFile = (filename: string) => xmlValidation(x => {
-        x.setProperty("UseInlineSchema", true);
-        x.load(filename);
-    });
+    const validateFile = (filename: string) =>
+        xmlValidation(x => {
+            x.setProperty("UseInlineSchema", true);
+            x.load(filename);
+        });
 
     let sOutput = validateFile("valid.xml");
     sOutput = sOutput + validateFile("notValid.xml");
@@ -316,7 +319,7 @@ ${oError.reason}`;
 
     // validate all children of all book node, //book/*, node by node
     oNodes = oXMLDoc.selectNodes("//book/*");
-    WScript.Echo('Validating all children of all book nodes, "//book/*, one by one...');
+    WScript.Echo("Validating all children of all book nodes, \"//book/*, one by one...");
     for (let i = 0; i < oNodes.length; i++) {
         const oNode = oNodes.item(i);
         oError = oXMLDoc.validateNode(oNode);

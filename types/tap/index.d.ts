@@ -1,8 +1,3 @@
-// Type definitions for tap 15.0
-// Project: https://github.com/tapjs/node-tap
-// Definitions by: zkldi <https://github.com/zkldi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // TODO: can be removed as soon as https://github.com/tapjs/node-tap/pull/607 is merged
 
 /// <reference types="node" />
@@ -342,7 +337,7 @@ declare namespace Assertions {
     ) => boolean;
     type Type = (
         found: any,
-        type: string | (new (...args: any[]) => object),
+        type: string | (new(...args: any[]) => object),
         message?: string,
         extra?: Options.Assert,
     ) => boolean;
@@ -508,7 +503,13 @@ declare global {
              *
              * @see {@link https://node-tap.org/docs/api/advanced/#tspawncommand-arguments-options-name}
              */
-            spawn(cmd: string, args: string, options?: Options.Bag, name?: string, extra?: Options.Spawn): Promise<void>;
+            spawn(
+                cmd: string,
+                args: string,
+                options?: Options.Bag,
+                name?: string,
+                extra?: Options.Spawn,
+            ): Promise<void>;
 
             done(): void;
 

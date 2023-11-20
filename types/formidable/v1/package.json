@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/formidable",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/node-formidable/formidable"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/formidable": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Wim Looman",
+            "githubUsername": "Nemo157"
+        },
+        {
+            "name": "Martin Badin",
+            "githubUsername": "martin-badin"
+        }
+    ]
+}

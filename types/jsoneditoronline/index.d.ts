@@ -1,8 +1,3 @@
-// Type definitions for JSONEditorOnline
-// Project: https://github.com/josdejong/jsoneditoronline
-// Definitions by: Vincent Bortone <https://github.com/vbortone>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 // JSON Editor Online is a tool to easily edit and format JSON online. JSON is displayed in a clear, editable treeview and in formatted plain text.
 
 interface JSONEditorOptions {
@@ -154,11 +149,20 @@ declare class JSONEditor {
     static getInnerText(element: HTMLElement, buffer: JSONEditorBuffer): string;
     static getInternetExplorerVersion(): number;
     Events: {
-        addEventListener(element: HTMLElement, action: string, listener:(event?: Event) => void, useCapture:boolean): (event?: Event) => void;
-        removeEventListener(element: HTMLElement, action: string, listener:(event?: Event) => void, useCapture:boolean): void;
+        addEventListener(
+            element: HTMLElement,
+            action: string,
+            listener: (event?: Event) => void,
+            useCapture: boolean,
+        ): (event?: Event) => void;
+        removeEventListener(
+            element: HTMLElement,
+            action: string,
+            listener: (event?: Event) => void,
+            useCapture: boolean,
+        ): void;
         stopPropagation(event: Event): void;
-        preventDefault(event:Event): void;
-
+        preventDefault(event: Event): void;
     };
     static parse(jsonString: string): Object;
     static validate(jsonString: string): string;

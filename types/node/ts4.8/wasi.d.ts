@@ -64,7 +64,7 @@
  * @experimental
  * @see [source](https://github.com/nodejs/node/blob/v20.2.0/lib/wasi.js)
  */
-declare module 'wasi' {
+declare module "wasi" {
     interface WASIOptions {
         /**
          * An array of strings that the WebAssembly application will
@@ -107,6 +107,12 @@ declare module 'wasi' {
          * @default 2
          */
         stderr?: number | undefined;
+        /**
+         * The version of WASI requested.
+         * Currently the only supported versions are `'unstable'` and `'preview1'`.
+         * @since v20.0.0
+         */
+        version: string;
     }
     /**
      * The `WASI` class provides the WASI system call API and additional convenience
@@ -147,6 +153,6 @@ declare module 'wasi' {
         readonly wasiImport: NodeJS.Dict<any>; // TODO: Narrow to DOM types
     }
 }
-declare module 'node:wasi' {
-    export * from 'wasi';
+declare module "node:wasi" {
+    export * from "wasi";
 }

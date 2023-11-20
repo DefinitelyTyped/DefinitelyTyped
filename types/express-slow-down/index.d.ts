@@ -1,11 +1,4 @@
-// Type definitions for express-slow-down 1.3
-// Project: https://github.com/nfriedly/express-slow-down
-// Definitions by: Jeremy Forsythe <https://github.com/jdforsythe>
-//                 Josh Henderson <https://github.com/joshhendo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import express = require('express');
+import express = require("express");
 
 declare namespace SlowDown {
     type StoreIncrementCallback = (err?: {}, hits?: number) => void;
@@ -94,7 +87,7 @@ declare namespace SlowDown {
          * Add `X-SlowDown-Limit`, `X-SlowDown-Remaining`, and if the store supports it,
          * `X-SlowDown-Reset` headers to all responses.
          */
-         headers?: boolean;
+        headers?: boolean;
 
         /**
          * Function used to generate keys. By default user IP address (`req.ip`) is used.

@@ -1,9 +1,3 @@
-// Type definitions for treeverse 3.0
-// Project: https://github.com/npm/treeverse#readme
-// Definitions by: Mendes Hugo <https://github.com/HugoMendes98>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.7
-
 // Note for Typescript < 4.7: Does not work because it can not infer `Value`.
 
 // Notes:
@@ -48,7 +42,8 @@ export interface BreadthOptions<Node, Value, Children extends Node[] | Promise<N
 }
 
 export interface DepthOptions<Node, Value, Children extends Node[] | Promise<Node[]>>
-    extends BreadthOptions<Node, Value, Children> {
+    extends BreadthOptions<Node, Value, Children>
+{
     /**
      * Called as we ascend back to the root of the tree.
      *

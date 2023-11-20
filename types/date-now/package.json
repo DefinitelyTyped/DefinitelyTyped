@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/date-now",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Raynos/date-now"
+    ],
+    "devDependencies": {
+        "@types/date-now": "workspace:."
+    },
+    "owners": []
+}

@@ -1,14 +1,6 @@
-// Type definitions for jQuery.jsignature 2.0
-// Project: https://github.com/willowsystems/jSignature
-// Definitions by: Patrick Magee <https://github.com/pjmagee>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-// Project by: Willow Systems Corp
-
 /// <reference types="jquery"/>
 
 interface JQuery {
-
     /**
      * inits the jSignature widget
      */
@@ -25,7 +17,6 @@ interface JQuery {
      *
      * @param command the command used to perform an action on the jSignature canvas
      * @see http://willowsystems.github.io/jSignature/#/about/
-     *
      */
     jSignature(command: string): any;
 
@@ -41,7 +32,6 @@ interface JQuery {
      * @param command the command used to perform an action on the jSignature canvas
      * @param arg the argument used with the specified command
      * @see http://willowsystems.github.io/jSignature/#/about/
-     *
      */
     jSignature(command: string, ...arg: string[]): any;
 }

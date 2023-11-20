@@ -1,0 +1,36 @@
+{
+    "private": true,
+    "name": "@types/azdata",
+    "version": "1.46.9999",
+    "projects": [
+        "https://github.com/microsoft/azuredatastudio"
+    ],
+    "dependencies": {
+        "@types/vscode": "*"
+    },
+    "devDependencies": {
+        "@types/azdata": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Charles Gagnon",
+            "githubUsername": "Charles-Gagnon"
+        },
+        {
+            "name": "Alan Ren:",
+            "githubUsername": "alanrenmsft"
+        },
+        {
+            "name": "Cheena Malhotra",
+            "githubUsername": "cheenamalhotra"
+        },
+        {
+            "name": "Karl Burtram:",
+            "githubUsername": "kburtram"
+        },
+        {
+            "name": "Ken Van Hyning:",
+            "githubUsername": "kenvanhyning"
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/hdkey",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/cryptocoinjs/hdkey"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/hdkey": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leonid Logvinov",
+            "githubUsername": "LogvinovLeon"
+        },
+        {
+            "name": "Tvrtko Majstorovic",
+            "githubUsername": "TvrtkoM"
+        },
+        {
+            "name": "Alberto Torre",
+            "githubUsername": "JAlbertoGonzalez"
+        }
+    ]
+}

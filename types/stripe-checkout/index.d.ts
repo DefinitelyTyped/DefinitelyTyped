@@ -1,8 +1,3 @@
-// Type definitions for Stripe Checkout 1.0
-// Project: https://stripe.com/checkout, https://github.com/matthewmueller/stripe-checkout
-// Definitions by: Chris Wrench <https://github.com/cgwrench>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="stripe-v3"/>
 
 interface StripeCheckoutStatic {
@@ -32,7 +27,7 @@ interface StripeCheckoutOptions {
     label?: string | undefined;
     allowRememberMe?: boolean | undefined;
     bitcoin?: boolean | undefined;
-    alipay?: boolean | 'auto' | undefined;
+    alipay?: boolean | "auto" | undefined;
     alipayReusable?: boolean | undefined;
     opened?(): void;
     closed?(): void;

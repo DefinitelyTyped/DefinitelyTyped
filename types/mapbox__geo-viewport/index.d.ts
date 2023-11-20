@@ -1,8 +1,3 @@
-// Type definitions for @mapbox/geo-viewport 0.5
-// Project: https://github.com/mapbox/geo-viewport
-// Definitions by: Fabio Berta <https://github.com/fnberta>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface GeoViewport {
     center: [number, number];
     zoom: number;
@@ -20,4 +15,9 @@ export function viewport(
     allowAntiMeridian?: boolean,
 ): GeoViewport;
 
-export function bounds(viewport: { lon: number; lat: number } | [number, number], zoom: number, dimensions: [number, number], tileSize?: number): BoundingBox;
+export function bounds(
+    viewport: { lon: number; lat: number } | [number, number],
+    zoom: number,
+    dimensions: [number, number],
+    tileSize?: number,
+): BoundingBox;

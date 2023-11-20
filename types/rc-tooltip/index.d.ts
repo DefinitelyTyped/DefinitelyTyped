@@ -1,20 +1,22 @@
-// Type definitions for rc-tooltip 3.7
-// Project: https://github.com/react-component/tooltip
-// Definitions by: rhysd <https://github.com/rhysd>
-//                 ahstro <https://github.com/ahstro>
-//                 vsaarinen <https://github.com/vsaarinen>
-//                 aigoncharov <https://github.com/aigoncharov>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import * as React from 'react';
+import * as React from "react";
 
 export as namespace RCTooltip;
 
 declare namespace RCTooltip {
     export type Trigger = "hover" | "click" | "focus";
-    export type Placement = 'left' | 'right' | 'top' | 'bottom' | 'topLeft' | 'topRight' |
-     'bottomLeft' | 'bottomRight' | 'rightTop' | 'rightBottom' | 'leftTop'| 'leftBottom';
+    export type Placement =
+        | "left"
+        | "right"
+        | "top"
+        | "bottom"
+        | "topLeft"
+        | "topRight"
+        | "bottomLeft"
+        | "bottomRight"
+        | "rightTop"
+        | "rightBottom"
+        | "leftTop"
+        | "leftBottom";
 
     export interface Props {
         children?: React.ReactNode;

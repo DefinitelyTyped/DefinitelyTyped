@@ -1,12 +1,11 @@
-import express = require('express');
-import absoluteUrl = require('absolute-url');
+import express = require("express");
+import * as absoluteUrl from "absolute-url";
 
 const app = express();
 
-app.use(absoluteUrl());
+app.use(absoluteUrl.middleware());
 
-app.get('/', (req) => {
-    absoluteUrl.attach(req);
-
+app.get("/", (req) => {
+    const direct = absoluteUrl.default(req);
     const url: string = req.absoluteUrl();
 });

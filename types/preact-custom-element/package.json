@@ -1,6 +1,21 @@
 {
     "private": true,
+    "name": "@types/preact-custom-element",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/preactjs/preact-custom-element#readme"
+    ],
     "dependencies": {
         "preact": "^10.0.0"
-    }
+    },
+    "devDependencies": {
+        "@types/preact-custom-element": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nicolai Kasper",
+            "githubUsername": "paull39"
+        }
+    ],
+    "minimumTypeScriptVersion": "4.9"
 }

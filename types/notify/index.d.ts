@@ -1,9 +1,3 @@
-// Type definitions for Notify.js
-// Project: https://github.com/jpillora/notifyjs
-// Definitions by: Xiaohan Zhang <https://github.com/hellochar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 declare namespace Notify {
@@ -95,7 +89,6 @@ declare namespace Notify {
     }
 
     interface StyleDefinition {
-
         /**
          * Defines the HTML wrapping the notification.
          *
@@ -115,9 +108,9 @@ declare namespace Notify {
          * notification with this style.
          */
         classes?: {
-                     [className: string]: ClassCSS;
-                     base?: ClassCSS | undefined;
-                 } | undefined;
+            [className: string]: ClassCSS;
+            base?: ClassCSS | undefined;
+        } | undefined;
 
         /**
          * All notifications will have this CSS applied to it.
@@ -152,8 +145,6 @@ declare namespace Notify {
          */
         defaults(options: Options): void;
     }
-
-
 }
 
 interface JQueryStatic {
@@ -169,4 +160,3 @@ interface JQuery {
     notify(data: any, className?: string): void;
     notify(data: any, options?: Notify.Options): void;
 }
-

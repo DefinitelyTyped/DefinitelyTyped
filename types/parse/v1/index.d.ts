@@ -1,14 +1,3 @@
-// Type definitions for parse 1.11
-// Project: https://parseplatform.org/
-// Definitions by:  Ullisen Media Group <http://ullisenmedia.com>
-//                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
-//                  Cedric Kemp <https://github.com/jaeggerr>
-//                  Flavio Negrão <https://github.com/flavionegrao>
-//                  Wes Grimes <https://github.com/wesleygrimes>
-//                  Otherwise SAS <https://github.com/owsas>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="node" />
 /// <reference types="jquery" />
 /// <reference types="underscore" />
@@ -281,7 +270,7 @@ declare namespace Parse {
 
         constructor(parent?: S, key?: string);
 
-        //Adds a Parse.Object or an array of Parse.Objects to the relation.
+        // Adds a Parse.Object or an array of Parse.Objects to the relation.
         add(object: T | Array<T>): void;
 
         // Returns a Parse.Query that is limited to objects in this relation.
@@ -313,7 +302,6 @@ declare namespace Parse {
      *     object.  The only option currently supported is "collection".
      * @see Parse.Object.extend
      *
-     *
      * <p>The fundamental unit of Parse data, which implements the Backbone Model
      * interface.</p>
      */
@@ -336,7 +324,7 @@ declare namespace Parse {
         static fetchAllIfNeeded<T extends Object>(list: T[], options: Object.FetchAllOptions): Promise<T[]>;
         static destroyAll<T>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
         static saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
-        static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
+        static registerSubclass<T extends Object>(className: string, clazz: new(options?: any) => T): void;
         static createWithoutData<T extends Object>(id: string): T;
 
         initialize(): void;
@@ -429,7 +417,6 @@ declare namespace Parse {
      *
      * @see Parse.Collection.extend
      *
-     *
      * <p>Provides a standard collection class for our sets of models, ordered
      * or unordered.  For more information, see the
      * <a href="http://documentcloud.github.com/backbone/#Collection">Backbone
@@ -486,7 +473,6 @@ declare namespace Parse {
     }
 
     /**
-     *
      * <p>Parse.Events is a fork of Backbone's Events module, provided for your
      * convenience.</p>
      *
@@ -580,7 +566,7 @@ declare namespace Parse {
         className: string;
 
         constructor(objectClass: string);
-        constructor(objectClass: new (...args: any[]) => T);
+        constructor(objectClass: new(...args: any[]) => T);
 
         static or<U extends Object>(...var_args: Query<U>[]): Query<U>;
 
@@ -654,10 +640,10 @@ declare namespace Parse {
             // Unwind documentation: https://www.mongodb.com/docs/v3.2/reference/operator/aggregation/unwind/#pipe._S_unwind
             unwind?:
                 | {
-                      path: string;
-                      includeArrayIndex?: string;
-                      preserveNullAndEmptyArrays?: boolean;
-                  }
+                    path: string;
+                    includeArrayIndex?: string;
+                    preserveNullAndEmptyArrays?: boolean;
+                }
                 | string
                 | undefined;
         }
@@ -744,7 +730,6 @@ declare namespace Parse {
     }
 
     /**
-     *
      * <p>A Parse.User object is a local representation of a user persisted to the
      * Parse cloud. This class is a subclass of a Parse.Object, and retains the
      * same functionality of a Parse.Object, but also extends it with various
@@ -923,11 +908,11 @@ declare namespace Parse {
 
         // Read preference describes how MongoDB driver route read operations to the members of a replica set.
         enum ReadPreferenceOption {
-            Primary = 'PRIMARY',
-            PrimaryPreferred = 'PRIMARY_PREFERRED',
-            Secondary = 'SECONDARY',
-            SecondaryPreferred = 'SECONDARY_PREFERRED',
-            Nearest = 'NEAREST',
+            Primary = "PRIMARY",
+            PrimaryPreferred = "PRIMARY_PREFERRED",
+            Secondary = "SECONDARY",
+            SecondaryPreferred = "SECONDARY_PREFERRED",
+            Nearest = "NEAREST",
         }
 
         interface BeforeFindRequest extends TriggerRequest {
@@ -967,7 +952,7 @@ declare namespace Parse {
          *
          *     import Buffer = require("buffer").Buffer;
          */
-        let HTTPOptions: new () => HTTPOptions;
+        let HTTPOptions: new() => HTTPOptions;
         interface HTTPOptions {
             /**
              * The body of the request.
@@ -985,11 +970,11 @@ declare namespace Parse {
              */
             headers?:
                 | {
-                      [headerName: string]: string | number | boolean;
-                  }
+                    [headerName: string]: string | number | boolean;
+                }
                 | undefined;
             /**
-             *The method of the request (i.e GET, POST, etc).
+             * The method of the request (i.e GET, POST, etc).
              */
             method?: string | undefined;
             /**
@@ -1154,20 +1139,20 @@ declare namespace Parse {
 }
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
-declare module 'parse/node' {
+declare module "parse/node" {
     export = Parse;
 }
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
-declare module 'parse' {
+declare module "parse" {
     // eslint-disable-next-line @definitelytyped/no-self-import
-    import * as parse from 'parse/node';
+    import * as parse from "parse/node";
     export = parse;
 }
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
-declare module 'parse/react-native' {
+declare module "parse/react-native" {
     // eslint-disable-next-line @definitelytyped/no-self-import
-    import * as parse from 'parse/node';
+    import * as parse from "parse/node";
     export = parse;
 }

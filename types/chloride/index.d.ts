@@ -1,9 +1,3 @@
-// Type definitions for chloride 2.4
-// Project: https://github.com/ssb-js/chloride
-// Definitions by: Zhiyuan Man <https://github.com/zman2013>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.4
-
 /// <reference types="node" />
 
 export interface KeyPair {

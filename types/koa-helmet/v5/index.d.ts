@@ -1,22 +1,16 @@
-// Type definitions for koa-helmet 5.2
-// Project: https://github.com/venables/koa-helmet#readme
-// Definitions by: Nick Simmons <https://github.com/me>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 import {
     IHelmetConfiguration,
-    IHelmetFrameguardConfiguration,
-    IHelmetHstsConfiguration,
-    IHelmetXssFilterConfiguration,
     IHelmetDnsPrefetchControlConfiguration,
-    IHelmetHpkpConfiguration,
-    IHelmetReferrerPolicyConfiguration,
-    IHelmetHidePoweredByConfiguration,
-    IHelmetPermittedCrossDomainPoliciesConfiguration,
     IHelmetExpectCtConfiguration,
-} from 'helmet';
-import { Middleware, Context } from 'koa';
+    IHelmetFrameguardConfiguration,
+    IHelmetHidePoweredByConfiguration,
+    IHelmetHpkpConfiguration,
+    IHelmetHstsConfiguration,
+    IHelmetPermittedCrossDomainPoliciesConfiguration,
+    IHelmetReferrerPolicyConfiguration,
+    IHelmetXssFilterConfiguration,
+} from "helmet";
+import { Context, Middleware } from "koa";
 
 declare namespace koaHelmet {
     type KoaHelmetContentSecurityPolicyDirectiveFunction = (ctx: Context) => string;

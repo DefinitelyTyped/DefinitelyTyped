@@ -1,5 +1,5 @@
 export interface StreamingEventStream<Events> extends NodeJS.ReadableStream {
-    on(event: 'data', listener: (event: Events) => void): this;
+    on(event: "data", listener: (event: Events) => void): this;
     on(event: string, listener: Function): this;
 }
 

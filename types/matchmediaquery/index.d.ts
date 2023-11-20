@@ -1,23 +1,18 @@
-// Type definitions for matchmediaquery 0.3
-// Project: https://github.com/ncochard/matchmediaquery#readme
-// Definitions by: Nick Whitlock <https://github.com/eezstreet>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type MediaValues = Record<
-    | 'aspect-ratio'
-    | 'color-index'
-    | 'color'
-    | 'device-aspect-ratio'
-    | 'device-height'
-    | 'device-width'
-    | 'grid'
-    | 'height'
-    | 'monochrome'
-    | 'orientation'
-    | 'resolution'
-    | 'scan'
-    | 'type'
-    | 'width',
+    | "aspect-ratio"
+    | "color-index"
+    | "color"
+    | "device-aspect-ratio"
+    | "device-height"
+    | "device-width"
+    | "grid"
+    | "height"
+    | "monochrome"
+    | "orientation"
+    | "resolution"
+    | "scan"
+    | "type"
+    | "width",
     unknown
 >;
 

@@ -1,8 +1,3 @@
-// Type definitions for eccrypto 1.1
-// Project: https://github.com/bitchan/eccrypto
-// Definitions by: Random Nerd <https://github.com/randomnerd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
 /// <reference types="node" />
 export as namespace eccrypto;
 
@@ -33,7 +28,11 @@ export interface Ecies {
 }
 
 // Encrypt message for given recepient's public key.
-export function encrypt(publicKeyTo: Buffer, msg: Buffer, opts?: { iv?: Buffer | undefined, ephemPrivateKey?: Buffer | undefined }): Promise<Ecies>;
+export function encrypt(
+    publicKeyTo: Buffer,
+    msg: Buffer,
+    opts?: { iv?: Buffer | undefined; ephemPrivateKey?: Buffer | undefined },
+): Promise<Ecies>;
 
 // Decrypt message using given private key.
 export function decrypt(privateKey: Buffer, opts: Ecies): Promise<Buffer>;

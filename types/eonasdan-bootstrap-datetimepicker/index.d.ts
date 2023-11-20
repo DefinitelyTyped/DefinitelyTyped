@@ -1,12 +1,6 @@
-// Type definitions for Bootstrap v3 Datepicker v4.17.37
-// Project: http://eonasdan.github.io/bootstrap-datetimepicker
-// Definitions by: Markus Peloso <https://github.com/ToastHawaii>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery"/>
 
-import * as moment from 'moment';
+import * as moment from "moment";
 
 export as namespace EonasdanBootstrapDatetimepicker;
 
@@ -68,7 +62,7 @@ export declare const enum DayOfWeek {
     Wednesday = 3,
     Thursday = 4,
     Friday = 5,
-    Saturday = 6
+    Saturday = 6,
 }
 
 export type ViewMode = "days" | "months" | "years" | "decades";
@@ -514,9 +508,9 @@ export interface OptionsBase {
     disabledTimeIntervals?: boolean | FromTo[] | undefined;
 
     /**
-    * If true, the picker will show on textbox focus and icon click when used in a button group
-    * Default: false
-    */
+     * If true, the picker will show on textbox focus and icon click when used in a button group
+     * Default: false
+     */
     allowInputToggle?: boolean | undefined;
 
     /**
@@ -700,8 +694,8 @@ export interface Datetimepicker {
     date(date: DateComparable): Datetimepicker;
 
     /**
-    * Clears the datepicker by setting the value to null.
-    */
+     * Clears the datepicker by setting the value to null.
+     */
     clear(): Datetimepicker;
 
     /**
@@ -713,11 +707,11 @@ export interface Datetimepicker {
      * Returns the components current options object.
      * Note that the changing the values of the returned object does not change the components actual configuration.
      */
-    options(): GetOptions
+    options(): GetOptions;
     /**
      * Takes an object variable with option key:value properties and configures the component. Use this to update multiple options on the component.
      */
-    options(options: SetOptions): Datetimepicker
+    options(options: SetOptions): Datetimepicker;
 
     //////////////////////////////////////////////////////////////////////////////////////
     //// Below are the getters/setters for the properties of the 'options(): Options' ////
@@ -991,11 +985,11 @@ export interface Datetimepicker {
     toolbarPlacement(): ToolbarPlacement;
 
     /**
-    * Changes the placement of the toolbar where the today, clear, component switch icon are located.
-    * See valid values at DatetimepickerOptions.toolbarplacement
-    * Throws:
-    * - TypeError if the parameter is not a valid value
-    */
+     * Changes the placement of the toolbar where the today, clear, component switch icon are located.
+     * See valid values at DatetimepickerOptions.toolbarplacement
+     * Throws:
+     * - TypeError if the parameter is not a valid value
+     */
     toolbarPlacement(toolbarPlacement: ToolbarPlacement): Datetimepicker;
 
     /**
@@ -1129,7 +1123,7 @@ export interface Datetimepicker {
      * For example:
      * disabledHours: [0, 1, 2, 3, 4, 5, 6, 7, 8, 18, 19, 20, 21, 22, 23, 24]
      * enabledHours: [9, 10, 11, 12, 13, 14, 15, 16]
-    */
+     */
     enabledHours(enabledHours: number[] | boolean): Datetimepicker;
 
     /**

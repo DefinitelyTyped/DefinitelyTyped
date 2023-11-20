@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/moo",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/tjvr/moo#readme"
+    ],
+    "devDependencies": {
+        "@types/moo": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nikita Litvin",
+            "githubUsername": "deltaidea"
+        },
+        {
+            "name": "Jörg Vehlow",
+            "githubUsername": "MofX"
+        },
+        {
+            "name": "Martien Oranje",
+            "githubUsername": "moranje"
+        }
+    ]
+}

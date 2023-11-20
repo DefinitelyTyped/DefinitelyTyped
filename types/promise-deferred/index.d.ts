@@ -1,8 +1,3 @@
-// Type definitions for promise-deferred 2.0
-// Project: https://github.com/ljharb/promise-deferred
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = DeferredCtor;
 
 /**
@@ -23,7 +18,7 @@ declare const DeferredCtor: {
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     <T>(): DeferredCtor.Deferred<T>;
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    new <T>(): DeferredCtor.Deferred<T>;
+    new<T>(): DeferredCtor.Deferred<T>;
 
     Promise: typeof Promise;
 };

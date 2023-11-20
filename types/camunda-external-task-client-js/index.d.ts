@@ -1,10 +1,3 @@
-// Type definitions for camunda-external-task-client-js 1.3
-// Project: https://github.com/camunda/camunda-external-task-client-js#readme
-// Definitions by: MacRusher <https://github.com/MacRusher>
-//                 DoYoung Ha <https://github.com/hados99>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 export class Client {
     constructor(config: ClientConfig);
     start(): void;
@@ -104,7 +97,7 @@ export interface BasicAuthInterceptorConfig {
 
 export class BasicAuthInterceptor {
     constructor(options: BasicAuthInterceptorConfig);
-    getHeader({ username, password }: { username: string, password: string }): { Authorization: string };
+    getHeader({ username, password }: { username: string; password: string }): { Authorization: string };
     interceptor(config: any): any;
 }
 
@@ -144,7 +137,12 @@ export type Logger = Middleware & {
 export type TopicEvent = "subscribe" | "unsubscribe";
 export type PollEvent = "poll:start" | "poll:stop";
 export type SuccessWithTasksEvent = "poll:success";
-export type SuccessWithTaskEvent = "complete:success" | "handleFailure:success" | "handleBpmnError:success" | "extendLock:success" | "unlock:success";
+export type SuccessWithTaskEvent =
+    | "complete:success"
+    | "handleFailure:success"
+    | "handleBpmnError:success"
+    | "extendLock:success"
+    | "unlock:success";
 export type ErrorWithTaskEvent = "handleFailure:error" | "handleBpmnError:error" | "extendLock:error" | "unlock:error";
 export type ErrorEvent = "poll:error" | "complete:error";
 

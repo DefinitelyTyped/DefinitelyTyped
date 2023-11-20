@@ -1,8 +1,3 @@
-// Type definitions for jade
-// Project: https://github.com/jadejs/jade
-// Definitions by: Panu Horsmalahti <https://github.com/panuhorsmalahti>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export type JadeCustomFilterFunction = (text: string, options: {
     [key: string]: boolean;
 }) => string;
@@ -13,7 +8,7 @@ export interface JadeOptions {
     doctype?: string | undefined;
     pretty?: boolean | string | undefined;
     filters?: {
-        [key: string]: JadeCustomFilterFunction
+        [key: string]: JadeCustomFilterFunction;
     } | undefined;
     self?: boolean | undefined;
     debug?: boolean | undefined;

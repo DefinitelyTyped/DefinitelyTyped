@@ -1,11 +1,5 @@
-// Type definitions for empower 1.2
-// Project: https://github.com/power-assert-js/empower
-// Definitions by: vvakame <https://github.com/vvakame>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
-import { Options as CoreOptions } from 'empower-core';
-import { Formatter } from 'power-assert-formatter';
+import { Options as CoreOptions } from "empower-core";
+import { Formatter } from "power-assert-formatter";
 
 /**
  * Enhances Power Assert feature to assert function/object.
@@ -19,7 +13,7 @@ declare function empower<T>(originalAssert: T, formatter: Formatter, options?: e
 
 declare namespace empower {
     // The omitted options can be provided, but they will be always overridden.
-    type Options = Omit<CoreOptions, 'modifyMessageBeforeAssert' | 'onError'> & {
+    type Options = Omit<CoreOptions, "modifyMessageBeforeAssert" | "onError"> & {
         /**
          * If truthy, modify message property of `AssertionError` on rethrow.
          *

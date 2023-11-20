@@ -1,20 +1,14 @@
-// Type definitions for non-npm package amap-js-api-autocomplete 1.4
-// Project: https://lbs.amap.com/api/javascript-api/reference/search#m_AMap.Autocomplete
-// Definitions by: breeze9527 <https://github.com/breeze9527>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 /// <reference types="amap-js-api" />
 
 declare namespace AMap {
     namespace Autocomplete {
         interface EventMap {
-            complete: Event<'complete', SearchResult | { info: string }>;
-            error: Event<'error', { info: string }>;
-            select: Event<'select', { tip: Tip }>;
-            choose: Event<'choose', { tip: Tip }>;
+            complete: Event<"complete", SearchResult | { info: string }>;
+            error: Event<"error", { info: string }>;
+            select: Event<"select", { tip: Tip }>;
+            choose: Event<"choose", { tip: Tip }>;
         }
-        type DataType = 'all' | 'bus' | 'poi' | 'busline';
+        type DataType = "all" | "bus" | "poi" | "busline";
         interface Options {
             /**
              * 输入提示时限定POI类型，多个类型用“|”分隔
@@ -97,7 +91,7 @@ declare namespace AMap {
              */
             tips: Tip[];
         }
-        type SearchStatus = 'complete' | 'error' | 'no_data';
+        type SearchStatus = "complete" | "error" | "no_data";
     }
     class Autocomplete extends EventEmitter {
         /**
@@ -112,7 +106,7 @@ declare namespace AMap {
          */
         search(
             keyword: string,
-            callback: (status: Autocomplete.SearchStatus, result: Autocomplete.SearchResult | string) => void
+            callback: (status: Autocomplete.SearchStatus, result: Autocomplete.SearchResult | string) => void,
         ): void;
         /**
          * 设置提示Poi类型，多个类型用“|”分隔

@@ -1,12 +1,8 @@
-// Type definitions for yeoman-assert 3.1
-// Project: https://github.com/yeoman/yeoman-assert, http://yeoman.io
-// Definitions by: Toilal <https://github.com/Toilal>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+/// <reference types="node" />
 
-import assert = require('assert');
+import assert = require("assert");
 
-declare module 'assert' {
+declare module "assert" {
     /**
      * Assert that a file exists or that each files in the array exists
      * @param path path to a file or an array of paths to files

@@ -1,10 +1,10 @@
-import { Term, NamedNode, Dataset, Literal, DatasetCore, BlankNode, Quad_Graph, Variable } from 'rdf-js';
-import clownface, { AnyPointer, MultiPointer, GraphPointer, AnyContext } from 'clownface';
-import Context from 'clownface/lib/Context.js';
-import filters from 'clownface/filter.js';
-import Environment from '@rdfjs/environment/Environment.js';
-import ClownfaceFactory from 'clownface/Factory.js';
-import DatasetFactory from '@rdfjs/dataset/Factory.js';
+import DatasetFactory from "@rdfjs/dataset/Factory.js";
+import Environment from "@rdfjs/environment/Environment.js";
+import clownface, { AnyContext, AnyPointer, GraphPointer, MultiPointer } from "clownface";
+import ClownfaceFactory from "clownface/Factory.js";
+import filters from "clownface/filter.js";
+import Context from "clownface/lib/Context.js";
+import { BlankNode, Dataset, DatasetCore, Literal, NamedNode, Quad_Graph, Term, Variable } from "rdf-js";
 
 const node: NamedNode = <any> {};
 const blankNode: BlankNode = <any> {};
@@ -63,9 +63,9 @@ function testAddIn() {
     let cf: AnyPointer<BlankNode> = <any> {};
     cf = cf.addIn(node);
     cf = cf.addIn(node);
-    cf = cf.addIn([ node, node ], node);
-    cf = cf.addIn(node, [ node, node ]);
-    cf = cf.addIn([ node, node ], [ node, blankNode ], child => {
+    cf = cf.addIn([node, node], node);
+    cf = cf.addIn(node, [node, node]);
+    cf = cf.addIn([node, node], [node, blankNode], child => {
         const values: Array<NamedNode | BlankNode> = child.terms;
     });
     cf = cf.addIn(node, child => {
@@ -96,9 +96,9 @@ function testAddOut() {
     let cf: AnyPointer<BlankNode> = <any> {};
     cf = cf.addOut(node);
     cf = cf.addOut(node);
-    cf = cf.addOut([ node, node ], node);
-    cf = cf.addOut(node, [ node, node ]);
-    cf = cf.addOut([ node, node ], [ node, blankNode ], child => {
+    cf = cf.addOut([node, node], node);
+    cf = cf.addOut(node, [node, node]);
+    cf = cf.addOut([node, node], [node, blankNode], child => {
         const values: Array<NamedNode | BlankNode> = child.terms;
     });
     cf = cf.addOut(node, child => {
@@ -122,8 +122,8 @@ function testAddOutBlankNode() {
 function testBlankNode() {
     const cf: AnyPointer<Term[], Dataset> = <any> {};
     let singleBlank: AnyPointer<BlankNode, Dataset> = cf.blankNode();
-    singleBlank = cf.blankNode('label');
-    const multiBlankContext: AnyPointer<BlankNode[], Dataset> = cf.blankNode([ 'b1', 'b2' ]);
+    singleBlank = cf.blankNode("label");
+    const multiBlankContext: AnyPointer<BlankNode[], Dataset> = cf.blankNode(["b1", "b2"]);
     const set: Set<BlankNode> = <any> {};
 
     const fromOther: AnyPointer<BlankNode, Dataset> = cf.blankNode(singleBlank);
@@ -163,11 +163,11 @@ function testFactory() {
     const defaultContext: AnyPointer<Term | Term[] | undefined, Dataset> = clownface({ dataset });
 
     const namedGraph: AnyPointer<NamedNode, Dataset> = clownface({ dataset, graph, term: node });
-    const singleFromValue: AnyPointer<Literal, Dataset> = clownface({ dataset, value: 'foo' });
+    const singleFromValue: AnyPointer<Literal, Dataset> = clownface({ dataset, value: "foo" });
 
     const termContext: AnyPointer<Term, Dataset> = clownface({
         dataset,
-        term
+        term,
     });
 
     const namedContext: AnyPointer<NamedNode, Dataset> = clownface({
@@ -182,7 +182,7 @@ function testFactory() {
 
     const mutlipleValues: AnyPointer<Literal[], Dataset> = clownface({
         dataset,
-        value: ['foo', 'bar'],
+        value: ["foo", "bar"],
     });
 
     const maybeNamed: BlankNode | NamedNode = <any> {};
@@ -228,11 +228,15 @@ function testFilter() {
         return true;
     }
 
-    const multipleTypeGuarded: AnyPointer<NamedNode | BlankNode, Dataset> = anyPointer.filter<NamedNode | BlankNode>(onlyNamedOrBlank);
+    const multipleTypeGuarded: AnyPointer<NamedNode | BlankNode, Dataset> = anyPointer.filter<NamedNode | BlankNode>(
+        onlyNamedOrBlank,
+    );
 
-    const fullSignature = mutliple.filter((ptr: GraphPointer<NamedNode>, index: number, pointers: Array<GraphPointer<NamedNode>>) => {
-        return true;
-    });
+    const fullSignature = mutliple.filter(
+        (ptr: GraphPointer<NamedNode>, index: number, pointers: Array<GraphPointer<NamedNode>>) => {
+            return true;
+        },
+    );
 }
 
 function testForEach() {
@@ -257,8 +261,8 @@ function testForEach() {
 
 function testHas() {
     const cf: AnyPointer<Term, Dataset> = <any> {};
-    let has: AnyPointer<Array<NamedNode | BlankNode>, Dataset> = cf.has(predicate, 'Stuart');
-    has = cf.has([predicate, predicate], 'Stuart');
+    let has: AnyPointer<Array<NamedNode | BlankNode>, Dataset> = cf.has(predicate, "Stuart");
+    has = cf.has([predicate, predicate], "Stuart");
     has = cf.has(predicate, [literal, literal]);
 }
 
@@ -297,10 +301,10 @@ function testIsList() {
 
 function testLiteral() {
     const cf: AnyPointer<undefined, Dataset> = <any> {};
-    let cfOneLit: AnyPointer<Literal, Dataset> = cf.literal('foo');
-    const cfLiterals: AnyPointer<Literal[], Dataset> = cf.literal(['foo', 'bar']);
-    cfOneLit = cf.literal('foo', node);
-    cfOneLit = cf.literal('foo', 'en');
+    let cfOneLit: AnyPointer<Literal, Dataset> = cf.literal("foo");
+    const cfLiterals: AnyPointer<Literal[], Dataset> = cf.literal(["foo", "bar"]);
+    cfOneLit = cf.literal("foo", node);
+    cfOneLit = cf.literal("foo", "en");
 
     const fromOther: AnyPointer<Literal, Dataset> = cf.literal(cfOneLit);
     const fromMultipleOther: MultiPointer<Literal, Dataset> = cf.literal(cfLiterals);
@@ -325,8 +329,8 @@ function testMap() {
 function testNamedNode() {
     const cf: AnyPointer<undefined, Dataset> = <any> {};
     let cfSingleNamed: AnyPointer<NamedNode, Dataset> = cf.namedNode(node);
-    cfSingleNamed = cf.namedNode('http://example.com/');
-    const cfNamedMany: AnyPointer<NamedNode[], Dataset> = cf.namedNode(['http://example.com/', 'http://example.org/']);
+    cfSingleNamed = cf.namedNode("http://example.com/");
+    const cfNamedMany: AnyPointer<NamedNode[], Dataset> = cf.namedNode(["http://example.com/", "http://example.org/"]);
     const set: Set<NamedNode> = <any> {};
 
     const fromOther: AnyPointer<NamedNode, Dataset> = cf.namedNode(cfSingleNamed);
@@ -336,20 +340,20 @@ function testNamedNode() {
     const pointers: Array<GraphPointer<NamedNode, Dataset>> = <any> {};
     const fromArray: MultiPointer<NamedNode, Dataset> = cf.namedNode(pointers);
 
-    const foo: NamedNode<'foo'> = <any> {};
-    const preservedTypeArg: GraphPointer<NamedNode<'foo'>, Dataset> = cf.namedNode(foo);
+    const foo: NamedNode<"foo"> = <any> {};
+    const preservedTypeArg: GraphPointer<NamedNode<"foo">, Dataset> = cf.namedNode(foo);
 }
 
 function testNode() {
     const cf: AnyPointer<undefined, Dataset> = <any> {};
     let singleTerm: AnyPointer<Term, Dataset> = cf.node(node);
-    let cfLit: AnyPointer<Literal, Dataset> = cf.node('foo');
+    let cfLit: AnyPointer<Literal, Dataset> = cf.node("foo");
     cfLit = cf.node(123);
-    const cfLitMany: AnyPointer<Literal[], Dataset> = cf.node(['foo', 'bar']);
-    singleTerm = cf.node('http://example.org/', { type: 'NamedNode' });
-    const cfBlank: AnyPointer<BlankNode, Dataset> = cf.node(null, { type: 'BlankNode' });
-    cfLit = cf.node('example', { datatype: node.value });
-    cfLit = cf.node('example', { datatype: node });
+    const cfLitMany: AnyPointer<Literal[], Dataset> = cf.node(["foo", "bar"]);
+    singleTerm = cf.node("http://example.org/", { type: "NamedNode" });
+    const cfBlank: AnyPointer<BlankNode, Dataset> = cf.node(null, { type: "BlankNode" });
+    cfLit = cf.node("example", { datatype: node.value });
+    cfLit = cf.node("example", { datatype: node });
 
     const fromOtherNode: MultiPointer<Term, Dataset> = cf.node(singleTerm);
     const literalFromOther: MultiPointer<Literal, Dataset> = cf.node(cfLit);
@@ -377,13 +381,13 @@ function testOut() {
 
 function testOutWithLanguage() {
     const cf: AnyPointer<undefined, Dataset> = <any> {};
-    let cfTerms: Literal[] = cf.out(undefined, { language: 'en' }).terms;
+    let cfTerms: Literal[] = cf.out(undefined, { language: "en" }).terms;
     cfTerms = cf.out(node).terms;
     cfTerms = cf.out([node, node]).terms;
     cfTerms = cf.out(cf.node([node, node])).terms;
 
-    let outTerms: Literal[] = cf.blankNode().out(node, { language: 'en' }).terms;
-    outTerms = cf.blankNode().out(node, { language: ['en', 'de'] }).terms;
+    let outTerms: Literal[] = cf.blankNode().out(node, { language: "en" }).terms;
+    outTerms = cf.blankNode().out(node, { language: ["en", "de"] }).terms;
 }
 
 function testToArray() {
@@ -399,31 +403,34 @@ function testMultipleContext() {
 
     let singleBlank: AnyPointer<BlankNode, Dataset> = safeCf.blankNode();
     singleBlank = clownface({ dataset }).blankNode();
-    singleBlank = safeCf.blankNode('blank');
+    singleBlank = safeCf.blankNode("blank");
     singleBlank = clownface({ dataset }).node(null);
 
-    let singleNamed: AnyPointer<NamedNode, Dataset> = clownface({ dataset }).namedNode('urn:foo:bar');
-    singleNamed = safeCf.namedNode('http://example.com/a');
+    let singleNamed: AnyPointer<NamedNode, Dataset> = clownface({ dataset }).namedNode("urn:foo:bar");
+    singleNamed = safeCf.namedNode("http://example.com/a");
     singleNamed = clownface({ dataset }).node(node);
 
-    let singleLiteral: AnyPointer<Literal, Dataset> = clownface({ dataset }).literal('foo');
-    singleLiteral = safeCf.literal('a');
-    singleLiteral = clownface({ dataset }).node('b');
+    let singleLiteral: AnyPointer<Literal, Dataset> = clownface({ dataset }).literal("foo");
+    singleLiteral = safeCf.literal("a");
+    singleLiteral = clownface({ dataset }).node("b");
 
-    const fromSingleArrayBLank: AnyPointer<BlankNode, Dataset> = safeCf.blankNode([ 'b1' ]);
-    const fromSingleArrayNamed: AnyPointer<NamedNode, Dataset> = safeCf.namedNode([ 'http://example.com/a' ]);
-    const fromSingleArrayLiteral: AnyPointer<Literal, Dataset> = safeCf.literal([ 'a' ]);
+    const fromSingleArrayBLank: AnyPointer<BlankNode, Dataset> = safeCf.blankNode(["b1"]);
+    const fromSingleArrayNamed: AnyPointer<NamedNode, Dataset> = safeCf.namedNode(["http://example.com/a"]);
+    const fromSingleArrayLiteral: AnyPointer<Literal, Dataset> = safeCf.literal(["a"]);
 
-    let multipleBlanks: AnyPointer<BlankNode[], Dataset> = safeCf.blankNode([ 'b1', 'b2' ]);
-    multipleBlanks = clownface({ dataset }).node([ null, null ]);
+    let multipleBlanks: AnyPointer<BlankNode[], Dataset> = safeCf.blankNode(["b1", "b2"]);
+    multipleBlanks = clownface({ dataset }).node([null, null]);
 
-    let multipleNamed: AnyPointer<NamedNode[], Dataset> = safeCf.namedNode([ 'http://example.com/a', 'http://example.com/b' ]);
-    multipleNamed = clownface({ dataset }).node([ node, node ]);
+    let multipleNamed: AnyPointer<NamedNode[], Dataset> = safeCf.namedNode([
+        "http://example.com/a",
+        "http://example.com/b",
+    ]);
+    multipleNamed = clownface({ dataset }).node([node, node]);
 
-    let multipleLiterals: AnyPointer<Literal[], Dataset> = safeCf.literal([ 'a', 'b' ]);
-    multipleLiterals = clownface({ dataset }).node([ 'a', 10, false ]);
+    let multipleLiterals: AnyPointer<Literal[], Dataset> = safeCf.literal(["a", "b"]);
+    multipleLiterals = clownface({ dataset }).node(["a", 10, false]);
 
-    const multipleMixedTerms: AnyPointer<Term[], Dataset> = clownface({ dataset }).node([ 'a', node, null ]);
+    const multipleMixedTerms: AnyPointer<Term[], Dataset> = clownface({ dataset }).node(["a", node, null]);
 }
 
 function testContext() {
@@ -436,19 +443,27 @@ function testContext() {
 function addInAddOutRetainsType() {
     const singleNamed: AnyPointer<NamedNode, Dataset> = <any> {};
 
-    const addOutSingle: AnyPointer<NamedNode, Dataset> = singleNamed.addOut(predicate, 'foo');
-    const addOutSingleObjectArray: AnyPointer<NamedNode, Dataset> = singleNamed.addOut(predicate, ['foo', 'bar']);
+    const addOutSingle: AnyPointer<NamedNode, Dataset> = singleNamed.addOut(predicate, "foo");
+    const addOutSingleObjectArray: AnyPointer<NamedNode, Dataset> = singleNamed.addOut(predicate, ["foo", "bar"]);
     const addOutSinglePredicateArray: AnyPointer<NamedNode, Dataset> = singleNamed.addOut([predicate, predicate]);
     const addOutSingleNoObject: AnyPointer<NamedNode, Dataset> = singleNamed.addOut(predicate);
     const addOutSingleWithCallback: AnyPointer<NamedNode, Dataset> = singleNamed.addOut(predicate, () => {});
-    const addOutSingleWithObjectAndCallback: AnyPointer<NamedNode, Dataset> = singleNamed.addOut(predicate, 'foo', () => {});
+    const addOutSingleWithObjectAndCallback: AnyPointer<NamedNode, Dataset> = singleNamed.addOut(
+        predicate,
+        "foo",
+        () => {},
+    );
 
-    const addInSingle: AnyPointer<NamedNode, Dataset> = singleNamed.addIn(predicate, 'foo');
-    const addInSingleObjectArray: AnyPointer<NamedNode, Dataset> = singleNamed.addIn(predicate, ['foo', 'bar']);
+    const addInSingle: AnyPointer<NamedNode, Dataset> = singleNamed.addIn(predicate, "foo");
+    const addInSingleObjectArray: AnyPointer<NamedNode, Dataset> = singleNamed.addIn(predicate, ["foo", "bar"]);
     const addInSinglePredicateArray: AnyPointer<NamedNode, Dataset> = singleNamed.addIn([predicate, predicate]);
     const addInSingleNoObject: AnyPointer<NamedNode, Dataset> = singleNamed.addIn(predicate);
     const addInSingleWithCallback: AnyPointer<NamedNode, Dataset> = singleNamed.addIn(predicate, () => {});
-    const addInSingleWithObjectAndCallback: AnyPointer<NamedNode, Dataset> = singleNamed.addIn(predicate, 'foo', () => {});
+    const addInSingleWithObjectAndCallback: AnyPointer<NamedNode, Dataset> = singleNamed.addIn(
+        predicate,
+        "foo",
+        () => {},
+    );
 }
 
 function testAny() {
@@ -466,8 +481,8 @@ function testFilterModule() {
 
     const pointer: MultiPointer<Term, Dataset> = <any> {};
 
-    let literals: MultiPointer<Literal, Dataset> = pointer.filter(taggedLiteral('de'));
-    literals = pointer.filter(taggedLiteral(['en-US', 'en']));
+    let literals: MultiPointer<Literal, Dataset> = pointer.filter(taggedLiteral("de"));
+    literals = pointer.filter(taggedLiteral(["en-US", "en"]));
 }
 
 function testEnvironmentUsage() {

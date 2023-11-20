@@ -1,7 +1,3 @@
-// Type definitions for splitting 1.0
-// Project: https://github.com/shshaw/splitting
-// Definitions by: Adam Thompson-Sharpe <https://github.com/MysteryBlokHed>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export = Splitting;
 
 export as namespace Splitting;
@@ -115,6 +111,6 @@ declare namespace Splitting {
 }
 
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
-declare module 'splitting/dist/splitting.css';
+declare module "splitting/dist/splitting.css";
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
-declare module 'splitting/dist/splitting-cells.css';
+declare module "splitting/dist/splitting-cells.css";

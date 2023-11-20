@@ -1,9 +1,3 @@
-// Type definitions for d3-require 1.2
-// Project: https://github.com/d3/d3-require
-// Definitions by: Kindy Lin <https://github.com/kindy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 // Last module version validated against: 1.2.4
 
 export interface require {
@@ -13,7 +7,7 @@ export interface require {
      * Returns a `require` with the specified *aliases*.
      * `require.alias({"react": React, "react-dom": ReactDOM})`
      */
-    alias(aliases: {[k: string]: any}): require;
+    alias(aliases: { [k: string]: any }): require;
 
     /**
      * The resolver passed to `requireFrom`

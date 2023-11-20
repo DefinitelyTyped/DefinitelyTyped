@@ -1,8 +1,3 @@
-// Type definitions for non-npm package webscreens multi screen window placement 0.1
-// Project: https://webscreens.github.io/window-placement/
-// Definitions by: Colin Richardson <https://github.com/WORMSS>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference lib="dom" />
 
 interface ScreenDetailsEventHandlersEventMap {
@@ -107,8 +102,8 @@ interface ScreenDetailed extends Screen /*, ScreenDetailsEventHandlers*/ {
 type PermissionDescriptorWithWindowPlacement =
     | PermissionDescriptor
     | {
-          name: 'window-placement';
-      };
+        name: "window-placement";
+    };
 interface Permissions {
     query(permissionDesc: PermissionDescriptorWithWindowPlacement): Promise<PermissionStatus>;
 }

@@ -1,5 +1,5 @@
 function tryKeepScreenAlive(minutes: number) {
-    navigator.wakeLock.request('screen').then(lock => {
+    navigator.wakeLock.request("screen").then(lock => {
         setTimeout(() => lock.release(), minutes * 60 * 1000);
     });
 }
@@ -7,11 +7,11 @@ function tryKeepScreenAlive(minutes: number) {
 tryKeepScreenAlive(10);
 
 const lockingCheckbox = async () => {
-    const checkbox = document.createElement('input');
-    checkbox.setAttribute('type', 'checkbox');
+    const checkbox = document.createElement("input");
+    checkbox.setAttribute("type", "checkbox");
     document.body.appendChild(checkbox);
 
-    const sentinel = await navigator.wakeLock.request('screen');
+    const sentinel = await navigator.wakeLock.request("screen");
     checkbox.checked = !sentinel.released;
     sentinel.onrelease = () => (checkbox.checked = !sentinel.released);
 };

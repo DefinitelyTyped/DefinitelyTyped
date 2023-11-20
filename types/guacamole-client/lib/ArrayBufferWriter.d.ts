@@ -1,6 +1,6 @@
-import { TypedArray } from './GuacCommon.d';
-import { OutputStream } from './OutputStream';
-import { Status } from './Status';
+import { TypedArray } from "./GuacCommon.d";
+import { OutputStream } from "./OutputStream";
+import { Status } from "./Status";
 
 /**
  * A writer which automatically writes to the given output stream with arbitrary
@@ -25,7 +25,6 @@ export class ArrayBufferWriter {
      * limits the maximum size of any instruction or instruction element to
      * 8192 bytes, and the contents of blobs will be base64-encoded, this value
      * should only be increased with extreme caution.
-     *
      */
     blobLength: number;
 

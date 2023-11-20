@@ -1,11 +1,3 @@
-// Type definitions for typography 0.16
-// Project: https://github.com/KyleAMathews/typography.js
-// Definitions by: Boye <https://github.com/boyeborg>
-//                 Krzysztof Żuraw <https://github.com/krzysztofzuraw>
-//                 Dominic Fallows <https://github.com/dominicfallows>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export interface BaseLine {
     fontSize: string;
     lineHeight: string;
@@ -39,16 +31,20 @@ export interface TypographyOptions {
     boldWeight?: number | string | undefined;
     blockMarginBottom?: number | undefined;
     includeNormalize?: boolean | undefined;
-    overrideStyles?: ((
-        VerticalRhythm: VerticalRhythm,
-        options: TypographyOptions,
-        styles: any
-    ) => object) | undefined;
-    overrideThemeStyles?: ((
-        VerticalRhythm: VerticalRhythm,
-        options: TypographyOptions,
-        styles: any
-    ) => object) | undefined;
+    overrideStyles?:
+        | ((
+            VerticalRhythm: VerticalRhythm,
+            options: TypographyOptions,
+            styles: any,
+        ) => object)
+        | undefined;
+    overrideThemeStyles?:
+        | ((
+            VerticalRhythm: VerticalRhythm,
+            options: TypographyOptions,
+            styles: any,
+        ) => object)
+        | undefined;
     plugins?: any[] | undefined;
 }
 

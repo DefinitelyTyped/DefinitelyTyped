@@ -1,8 +1,3 @@
-// Type definitions for tiny-async-pool 1.0
-// Project: https://github.com/rxaviers/async-pool#readme
-// Definitions by: Karl-Philipp Wulfert <https://github.com/krlwlfrt>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * This declaration specifies that the function is the exported object from the file
  */
@@ -25,5 +20,5 @@ export = asyncPool;
 declare function asyncPool<IN, OUT>(
     poolLimit: number,
     array: ReadonlyArray<IN>,
-    iteratorFn: (generator: IN) => Promise<OUT>
+    iteratorFn: (generator: IN) => Promise<OUT>,
 ): Promise<OUT[]>;

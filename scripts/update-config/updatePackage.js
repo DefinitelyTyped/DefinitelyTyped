@@ -2,9 +2,9 @@ import * as cp from "node:child_process";
 import * as fs from "node:fs";
 import * as path from "node:path";
 
-import { ignoredRules } from "./ignoredRules";
-import { LintPackage } from "./LintPackage";
-import { npmNamingDisabler } from "./npmNamingDisabler";
+import { ignoredRules } from "./ignoredRules.js";
+import { LintPackage } from "./LintPackage.js";
+import { npmNamingDisabler } from "./npmNamingDisabler.js";
 
 /**
  * @param {string} pkgPath
@@ -80,7 +80,8 @@ function installDependencies(pkgPath) {
             {
                 encoding: "utf8",
                 cwd: pkgPath,
-            });
+            },
+        );
     }
 }
 
@@ -117,7 +118,7 @@ function disableRules(allFailures) {
         Object.entries(ruleToFailures).map(([rule, failures]) => [
             rule,
             (rule === "npm-naming" ? npmNamingDisabler : defaultDisabler)(failures),
-        ])
+        ]),
     );
 }
 

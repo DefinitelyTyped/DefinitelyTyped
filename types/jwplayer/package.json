@@ -1,0 +1,53 @@
+{
+    "private": true,
+    "name": "@types/jwplayer",
+    "version": "8.28.9999",
+    "projects": [
+        "https://github.com/jwplayer/jwplayer"
+    ],
+    "devDependencies": {
+        "@types/jwplayer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martin Duparc",
+            "githubUsername": "martinduparc"
+        },
+        {
+            "name": "Tomer Kruvi",
+            "githubUsername": "kutomer"
+        },
+        {
+            "name": "Philipp Gürtler",
+            "githubUsername": "philippguertler"
+        },
+        {
+            "name": "Daniel McGraw",
+            "githubUsername": "danielmcgraw"
+        },
+        {
+            "name": "Be Birchall",
+            "githubUsername": "bebebebebe"
+        },
+        {
+            "name": "Daniel Cassidy",
+            "githubUsername": "djcsdy"
+        },
+        {
+            "name": "Drew Wyatt",
+            "githubUsername": "drewwyatt"
+        },
+        {
+            "name": "Zack Haigh",
+            "githubUsername": "zetagame"
+        },
+        {
+            "name": "Ethan Setnik",
+            "githubUsername": "esetnik"
+        },
+        {
+            "name": "Nils Ramirez Hiorth",
+            "githubUsername": "nlhiorth"
+        }
+    ]
+}

@@ -1,13 +1,6 @@
-// Type definitions for gulp-sass 5.0.0
-// Project: https://github.com/dlmanning/gulp-sass
-// Definitions by: Asana <https://asana.com>
-//                 Yuma Hashimoto <https://github.com/yuma84>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
-
 /// <reference types="node"/>
 
-import { Options } from 'node-sass';
+import { Options } from "node-sass";
 
 interface SassResults {
     css: string;
@@ -18,7 +11,7 @@ interface SassResults {
         end: Date;
         duration: number;
         includedFiles: string[];
-    }
+    };
 }
 
 interface SassOptions extends Options {
@@ -43,7 +36,7 @@ interface GulpSass {
 type Compiler = any;
 
 interface GulpSassFactory {
-    (compiler: Compiler): GulpSass
+    (compiler: Compiler): GulpSass;
 }
 
 declare var _tmp: GulpSassFactory;

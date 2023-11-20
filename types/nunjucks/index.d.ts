@@ -1,9 +1,3 @@
-// Type definitions for nunjucks 3.2
-// Project: http://mozilla.github.io/nunjucks/, https://github.com/mozilla/nunjucks
-// Definitions by: Matthew Burstein <https://github.com/MatthewBurstein>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 export type TemplateCallback<T> = (err: lib.TemplateError | null, res: T | null) => void;
 export type Callback<E, T> = (err: E | null, res: T | null) => void;
 
@@ -47,20 +41,20 @@ export interface ConfigureOptions {
     dev?: boolean | undefined;
     web?:
         | {
-              useCache?: boolean | undefined;
-              async?: boolean | undefined;
-          }
+            useCache?: boolean | undefined;
+            async?: boolean | undefined;
+        }
         | undefined;
     express?: object | undefined;
     tags?:
         | {
-              blockStart?: string | undefined;
-              blockEnd?: string | undefined;
-              variableStart?: string | undefined;
-              variableEnd?: string | undefined;
-              commentStart?: string | undefined;
-              commentEnd?: string | undefined;
-          }
+            blockStart?: string | undefined;
+            blockEnd?: string | undefined;
+            variableStart?: string | undefined;
+            variableEnd?: string | undefined;
+            commentStart?: string | undefined;
+            commentEnd?: string | undefined;
+        }
         | undefined;
 }
 
@@ -93,7 +87,7 @@ export class Environment {
     express(app: object): void;
 
     on(
-        event: 'load',
+        event: "load",
         fn: (name: string, source: { src: string; path: string; noCache: boolean }, loader: Loader) => void,
     ): void;
 }

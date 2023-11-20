@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es2022",
+        "target": "es2021",
         "lib": [
-            "es2022"
+            "es2021"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -11,10 +11,6 @@
         "strictFunctionTypes": true,
         "types": [],
         "forceConsistentCasingInFileNames": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "noEmit": true
     },
     "files": [

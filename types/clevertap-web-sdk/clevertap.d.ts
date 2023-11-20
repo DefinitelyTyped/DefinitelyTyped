@@ -1,4 +1,4 @@
-type Region = 'sg1' | 'in1' | 'us1' | 'aps3' | 'mec1';
+type Region = "sg1" | "in1" | "us1" | "aps3" | "mec1";
 
 interface PrivacyData {
     optOut?: boolean;
@@ -23,10 +23,10 @@ interface EventHandler extends Array<any> {
 interface SiteData {
     Name?: string;
     Identity?: string | number;
-    Gender?: 'M' | 'F';
-    Employed?: 'Y' | 'N';
-    Married?: 'Y' | 'N';
-    Education?: 'School' | 'College' | 'Graduate';
+    Gender?: "M" | "F";
+    Employed?: "Y" | "N";
+    Married?: "Y" | "N";
+    Education?: "School" | "College" | "Graduate";
     Age?: string | number;
     DOB?: string | number | Date;
     Phone?: string | number;
@@ -35,7 +35,7 @@ interface SiteData {
 interface ProfileData {
     Site?: SiteData;
     Facebook?: object;
-    'Google Plus'?: object;
+    "Google Plus"?: object;
 }
 interface ProfileHandler extends Array<any> {
     push(...profileData: ProfileData[]): 0;
@@ -112,16 +112,20 @@ declare class CleverTap {
     pageChanged(): void;
     spa: boolean;
     enablePersonalization: boolean;
+    dismissSpamControl: boolean;
+    getAccountID: () => string | null;
+    setMultiValuesForKey: (key: any, value: Array<string | number>) => void;
     addMultiValueForKey: (key: any, value: string | number) => void;
-    addMultiValuesForKey: (key: any, value: [string | number]) => void;
+    addMultiValuesForKey: (key: any, value: Array<string | number>) => void;
+    removeMultiValueForKey: (key: any, value: string | number) => void;
+    removeMultiValuesForKey: (key: any, value: Array<string | number>) => void;
+    removeValueForKey: (key: any) => void;
     handleDecrementValue: (key: any, value: number) => void;
     handleIncrementValue: (key: any, value: number) => void;
     setOffline: (arg: boolean) => void;
     renderNotificationViewed: (detail: CustomNotificationEvent) => void;
     renderNotificationClicked: (detail: CustomNotificationEvent) => void;
     notificationCallback: (arg: notificationCallbackData) => any;
-    removeMultiValueForKey: (key: any, value: string | number) => void;
-    removeMultiValuesForKey: (key: any, value: [string | number]) => void;
     raiseNotificationClicked: () => void;
     markReadAllInboxMessage: () => void;
     markReadInboxMessage: (messageId: string) => void;
@@ -131,6 +135,7 @@ declare class CleverTap {
     getAllInboxMessages: () => any;
     getInboxMessageUnreadCount: () => number | undefined;
     getInboxMessageCount: () => number | undefined;
+    getLocation: (lat: number, lng: number) => void;
 }
 
 export default CleverTap;

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/temp-fs",
+    "version": "0.9.9999",
+    "projects": [
+        "https://github.com/jakwings/node-temp-fs"
+    ],
+    "devDependencies": {
+        "@types/temp-fs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "MEDIA CHECK s.r.o.",
+            "url": "http://www.mediacheck.cz/"
+        }
+    ]
+}

@@ -1,8 +1,3 @@
-// Type definitions for non-npm package Daum Postcode 2.0
-// Project: https://postcode.map.daum.net/guide
-// Definitions by: doinki <https://github.com/doinki>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /** @see [Daum Postcode](https://postcode.map.daum.net/guide) */
 declare namespace daum {
     /**
@@ -236,10 +231,10 @@ declare namespace daum {
         addressEnglish: string;
 
         /** 검색된 기본 주소 타입 */
-        addressType: 'J' | 'R';
+        addressType: "J" | "R";
 
         /** 공동주택 여부 */
-        apartment: 'N' | 'Y';
+        apartment: "N" | "Y";
 
         /**
          * 도로명주소에 매핑된 지번주소가 여러 개인 경우, 사용자가 선택안함 또는 도로명주소를 클릭했을 때 연관된 지번주소 중 임의로 첫 번째 매핑 주소를 넣어서 반환합니다.
@@ -331,16 +326,16 @@ declare namespace daum {
         jibunAddressEnglish: string;
 
         /** 연관 주소에서 선택안함 부분을 선택했을 때를 구분할 수 있는 상태 변수 */
-        noSelected: 'N' | 'Y';
+        noSelected: "N" | "Y";
 
         /** @deprecated 구 우편번호 */
-        postcode: '';
+        postcode: "";
         /** @deprecated 구 우편번호 앞 3자리 */
-        postcode1: '';
+        postcode1: "";
         /** @deprecated 구 우편번호 뒤 3자리 */
-        postcode2: '';
+        postcode2: "";
         /** @deprecated 구 우편번호 일련번호 */
-        postcodeSeq: '';
+        postcodeSeq: "";
 
         /**
          * 사용자가 입력한 검색어
@@ -409,10 +404,10 @@ declare namespace daum {
         sigunguEnglish: string;
 
         /** 검색 결과에서 사용자가 선택한 주소의 언어 타입 */
-        userLanguageType: 'E' | 'K';
+        userLanguageType: "E" | "K";
 
         /** 검색 결과에서 사용자가 선택한 주소의 타입 */
-        userSelectedType: 'J' | 'R';
+        userSelectedType: "J" | "R";
 
         /**
          * 국가기초구역번호. 2015년 8월 1일부터 시행된 새 우편번호.
@@ -421,7 +416,7 @@ declare namespace daum {
         zonecode: string;
     }
 
-    type PostcodeState = 'COMPLETE_CLOSE' | 'FORCE_CLOSE';
+    type PostcodeState = "COMPLETE_CLOSE" | "FORCE_CLOSE";
 
     interface PostcodeSize {
         /**

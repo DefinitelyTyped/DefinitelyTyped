@@ -1,9 +1,3 @@
-// Type definitions for string-replace-webpack-plugin 0.1
-// Project: https://github.com/jamesandersen/string-replace-webpack-plugin
-// Definitions by: Rongjian Zhang <https://github.com/pd4d10>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.7
-
 import { Plugin, RuleSetUse } from "webpack";
 
 export = StringReplacePlugin;
@@ -14,7 +8,7 @@ declare class StringReplacePlugin extends Plugin {
         /**
          * loaders to follow the replacement
          */
-        nextLoaders?: string
+        nextLoaders?: string,
     ): RuleSetUse;
     static replace(
         /**
@@ -25,7 +19,7 @@ declare class StringReplacePlugin extends Plugin {
         /**
          * loaders to follow the replacement
          */
-        nextLoaders?: string
+        nextLoaders?: string,
     ): RuleSetUse;
 }
 

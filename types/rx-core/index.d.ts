@@ -1,8 +1,3 @@
-// Type definitions for rx-core 4.0
-// Project: https://github.com/Reactive-Extensions/RxJS
-// Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>, Igor Oleinikov <https://github.com/Igorbek>, Mizunashi Mana <https://github.com/mizunashi-mana>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare namespace Rx {
     /**
      * Promise A+
@@ -48,22 +43,35 @@ declare namespace Rx {
         defaultIfEmpty(defaultValue?: T): Observable<T>;
         distinct(skipParameter: boolean, valueSerializer: (value: T) => string): Observable<T>;
         distinct<TKey>(keySelector?: (value: T) => TKey, keySerializer?: (key: TKey) => string): Observable<T>;
-        groupBy<TKey, TElement>(keySelector: (value: T) => TKey, skipElementSelector?: boolean, keySerializer?: (key: TKey) => string): Observable<GroupedObservable<TKey, T>>;
-        groupBy<TKey, TElement>(keySelector: (value: T) => TKey, elementSelector: (value: T) => TElement, keySerializer?: (key: TKey) => string): Observable<GroupedObservable<TKey, TElement>>;
+        groupBy<TKey, TElement>(
+            keySelector: (value: T) => TKey,
+            skipElementSelector?: boolean,
+            keySerializer?: (key: TKey) => string,
+        ): Observable<GroupedObservable<TKey, T>>;
+        groupBy<TKey, TElement>(
+            keySelector: (value: T) => TKey,
+            elementSelector: (value: T) => TElement,
+            keySerializer?: (key: TKey) => string,
+        ): Observable<GroupedObservable<TKey, TElement>>;
         groupByUntil<TKey, TDuration>(
             keySelector: (value: T) => TKey,
             skipElementSelector: boolean,
             durationSelector: (group: GroupedObservable<TKey, T>) => Observable<TDuration>,
-            keySerializer?: (key: TKey) => string): Observable<GroupedObservable<TKey, T>>;
+            keySerializer?: (key: TKey) => string,
+        ): Observable<GroupedObservable<TKey, T>>;
         groupByUntil<TKey, TElement, TDuration>(
             keySelector: (value: T) => TKey,
             elementSelector: (value: T) => TElement,
             durationSelector: (group: GroupedObservable<TKey, TElement>) => Observable<TDuration>,
-            keySerializer?: (key: TKey) => string): Observable<GroupedObservable<TKey, TElement>>;
+            keySerializer?: (key: TKey) => string,
+        ): Observable<GroupedObservable<TKey, TElement>>;
     }
 
     interface ObservableStatic {
-        using<TSource, TResource extends IDisposable>(resourceFactory: () => TResource, observableFactory: (resource: TResource) => Observable<TSource>): Observable<TSource>;
+        using<TSource, TResource extends IDisposable>(
+            resourceFactory: () => TResource,
+            observableFactory: (resource: TResource) => Observable<TSource>,
+        ): Observable<TSource>;
         amb<T>(...sources: Array<IPromise<T>>): Observable<T>;
         amb<T>(...sources: Array<Observable<T>>): Observable<T>;
         amb<T>(sources: Array<IPromise<T>> | Array<Observable<T>>): Observable<T>;

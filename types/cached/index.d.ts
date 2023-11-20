@@ -1,10 +1,4 @@
-// Type definitions for cached 6.0
-// Project: https://github.com/groupon/node-cached
-// Definitions by: Juraj Mäsiar <https://github.com/Juraj-Masiar>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.0
-
-import Memcached = require('memcached');
+import Memcached = require("memcached");
 
 export = cached;
 
@@ -39,7 +33,7 @@ interface CacheDefaults {
 }
 
 interface BackendOptions {
-    type: 'memcached' | 'memory' | 'noop';
+    type: "memcached" | "memory" | "noop";
     client?: Memcached;
     hosts?: string;
     poolSize?: number;

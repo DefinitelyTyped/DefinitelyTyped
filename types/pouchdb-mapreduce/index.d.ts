@@ -1,13 +1,7 @@
-// Type definitions for pouchdb-mapreduce 6.1
-// Project: https://pouchdb.com/, https://github.com/pouchdb/pouchdb
-// Definitions by: Simon Paulger <https://github.com/spaulg>, Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="pouchdb-core" />
 
 declare namespace PouchDB {
-    type BuiltInReducers = '_sum' | '_count' | '_stats';
+    type BuiltInReducers = "_sum" | "_count" | "_stats";
     /**
      * CouchDB-style Map function
      *
@@ -20,7 +14,11 @@ declare namespace PouchDB {
      * @param keys From CouchDB documentation: Array of pairs of docid-key for related map function results;
      *             PouchDB may pass a simple array and also supports complex keys.
      */
-    type Reducer<Content extends {}, Reduction> = (keys: any | null, values: Content[] | Reduction[], rereduce: boolean) => Reduction[] | Reduction;
+    type Reducer<Content extends {}, Reduction> = (
+        keys: any | null,
+        values: Content[] | Reduction[],
+        rereduce: boolean,
+    ) => Reduction[] | Reduction;
 
     interface Filter<Content extends {}, Reduction> {
         // Assume that Content | Reduction is enough leverage in most cases to handle intermediate map emits
@@ -68,7 +66,7 @@ declare namespace PouchDB {
              * 'ok': Returns results immediately, even if they’re out-of-date.
              * 'update_after': Returns results immediately, but kicks off a build afterwards.
              */
-            stale?: 'ok' | 'update_after' | undefined;
+            stale?: "ok" | "update_after" | undefined;
             /**
              * Include an update_seq value indicating which sequence id
              * of the underlying database the view reflects.
@@ -114,22 +112,32 @@ declare namespace PouchDB {
          */
         query<
             Result extends {},
-            Model extends {} = Content
-        >(fun: string | Map<Model, Result> | Filter<Model, Result>, opts: Query.Options<Model, Result>, callback: Core.Callback<Query.Response<Result>>): void;
+            Model extends {} = Content,
+        >(
+            fun: string | Map<Model, Result> | Filter<Model, Result>,
+            opts: Query.Options<Model, Result>,
+            callback: Core.Callback<Query.Response<Result>>,
+        ): void;
         /**
          * Invoke a map/reduce function, which allows you to perform more complex queries
          * on PouchDB than what you get with allDocs().
          */
-        query<Result extends {}, Model extends {} = Content>(fun: string | Map<Model, Result> | Filter<Model, Result>, callback: Core.Callback<Query.Response<Result>>): void;
+        query<Result extends {}, Model extends {} = Content>(
+            fun: string | Map<Model, Result> | Filter<Model, Result>,
+            callback: Core.Callback<Query.Response<Result>>,
+        ): void;
         /**
          * Invoke a map/reduce function, which allows you to perform more complex queries
          * on PouchDB than what you get with allDocs().
          */
-        query<Result extends {}, Model extends {} = Content>(fun: string | Map<Model, Result> | Filter<Model, Result>, opts?: Query.Options<Model, Result>): Promise<Query.Response<Result>>;
+        query<Result extends {}, Model extends {} = Content>(
+            fun: string | Map<Model, Result> | Filter<Model, Result>,
+            opts?: Query.Options<Model, Result>,
+        ): Promise<Query.Response<Result>>;
     }
 }
 
-declare module 'pouchdb-mapreduce' {
+declare module "pouchdb-mapreduce" {
     const plugin: PouchDB.Plugin;
     export = plugin;
 }

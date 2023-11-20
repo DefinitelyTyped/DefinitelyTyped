@@ -1,11 +1,6 @@
-// Type definitions for svgicons2svgfont 10.0
-// Project: https://github.com/nfroidure/svgicons2svgfont
-// Definitions by: Kaspar Vollenweider <https://github.com/casaper>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import { Stream } from 'stream';
+import { Stream } from "stream";
 
 declare class SVGIcons2SVGFontStream extends Stream.Transform {
     constructor(options?: SVGIcons2SVGFontStream.SvgIcons2FontOptions);
@@ -107,8 +102,8 @@ declare namespace SVGIcons2SVGFontStream {
     interface MetadataOptions {
         prependUnicode?: boolean | undefined;
         startUnicode?: number | undefined;
-        log?: typeof console['log'] | undefined;
-        err?: typeof console['error'] | undefined;
+        log?: typeof console["log"] | undefined;
+        err?: typeof console["error"] | undefined;
     }
 
     interface MetadataProvider {

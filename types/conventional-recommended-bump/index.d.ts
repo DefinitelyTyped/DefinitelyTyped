@@ -1,37 +1,21 @@
-// Type definitions for conventional-recommended-bump 6.1
-// Project: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-recommended-bump#readme
-// Definitions by: Jason Kwok <https://github.com/JasonHK>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.9
-
 import { Options as CoreOptions } from "conventional-changelog-core";
-import { Commit, Options as ParserOptions } from "conventional-commits-parser";
 import { Context as WriterContext } from "conventional-changelog-writer";
+import { Commit, Options as ParserOptions } from "conventional-commits-parser";
 
 /**
  * @param options  `options` is an object with the following properties:
- *
  *                 * `ignoreReverted`
  *                 * `preset`
  *                 * `config`
  *                 * `whatBump`
- * @param callback
- */
-declare function conventionalRecommendedBump(options: Options, callback: Callback): void;
-
-/**
- *
- * @param options    `options` is an object with the following properties:
- *
- *                   * `ignoreReverted`
- *                   * `preset`
- *                   * `config`
- *                   * `whatBump`
- * @param parserOpts See the [conventional-commits-parser](https://github.com/conventional-changelog/conventional-commits-parser)
+ *                 * `tagPrefix`
+ *                 * `skipUnstable`
+ *                 * `lernaPackage`
+ *                 * `path`
+ * @param parserOpts See the [conventional-commits-parser](https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser)
  *                   documentation for available options.
- * @param callback
  */
-declare function conventionalRecommendedBump(options: Options, parserOpts: ParserOptions, callback: Callback): void;
+declare function conventionalRecommendedBump(options: Options, parserOpts?: ParserOptions): Promise<Recommendation>;
 
 declare namespace conventionalRecommendedBump {
     /**
@@ -41,35 +25,17 @@ declare namespace conventionalRecommendedBump {
      * or `undefined` if `whatBump` does not return a valid `level` property, or
      * the `level` property is not set by `whatBump`.
      */
-    interface Callback {
+    interface Recommendation extends Options.WhatBump.Result {
         /**
-         * @param error
-         * @param recommendation `recommendation` is an `object` with a single property,
-         *                       `releaseType`.
-         */
-        (error: any, recommendation: Callback.Recommendation): void;
-    }
-
-    namespace Callback {
-        /**
-         * `recommendation` is an `object` with a single property, `releaseType`.
-         *
          * `releaseType` is a `string`: Possible values: `major`, `minor` and `patch`,
          * or `undefined` if `whatBump` does not return a valid `level` property, or
          * the `level` property is not set by `whatBump`.
          */
-        interface Recommendation extends Options.WhatBump.Result {
-            /**
-             * `releaseType` is a `string`: Possible values: `major`, `minor` and `patch`,
-             * or `undefined` if `whatBump` does not return a valid `level` property, or
-             * the `level` property is not set by `whatBump`.
-             */
-            releaseType?: Recommendation.ReleaseType | undefined;
-        }
+        releaseType?: Recommendation.ReleaseType | undefined;
+    }
 
-        namespace Recommendation {
-            type ReleaseType = "major" | "minor" | "patch";
-        }
+    namespace Recommendation {
+        type ReleaseType = "major" | "minor" | "patch";
     }
 
     /**
@@ -78,6 +44,10 @@ declare namespace conventionalRecommendedBump {
      * * `preset`
      * * `config`
      * * `whatBump`
+     * * `tagPrefix`
+     * * `skipUnstable`
+     * * `lernaPackage`
+     * * `path`
      */
     interface Options {
         /**
@@ -157,7 +127,7 @@ declare namespace conventionalRecommendedBump {
          * repository, path should be use along with lernaPackage for each of the package.
          */
         path?: string | undefined;
-     }
+    }
 
     namespace Options {
         type WhatBump = (commits: Commit[]) => WhatBump.Result;
@@ -171,7 +141,7 @@ declare namespace conventionalRecommendedBump {
     }
 }
 
-type Callback = conventionalRecommendedBump.Callback;
+type Recommendation = conventionalRecommendedBump.Recommendation;
 type Options = conventionalRecommendedBump.Options;
 
 export = conventionalRecommendedBump;

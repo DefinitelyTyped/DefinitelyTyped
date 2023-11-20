@@ -1,15 +1,4 @@
-// Type definitions for react-phone-number-input 3.0
-// Project: https://github.com/AdrienEtienne/react-phone-number-input
-// Definitions by: Peter Yang <https://github.com/PeterYangIO>
-//                 Adrien Etienne <https://github.com/AdrienEtienne>
-//                 Jonathan Fleckenstein <https://github.com/fleck>
-//                 James Lismore <https://github.com/jlismore>
-//                 Dragoș Străinu <https://github.com/strdr4605>
-//                 Cédric Lisima <https://github.com/opii972>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.5
-
-import * as React from 'react';
+import * as React from "react";
 
 /**
  * Formats value as a "local" phone number
@@ -116,7 +105,7 @@ export interface CountrySelectComponentProps {
     labels?: { [key: string]: string } | undefined;
 }
 
-export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
     // Required props
     onChange: (value: string) => void;
     /**
@@ -222,7 +211,7 @@ export interface PhoneInputProps extends Omit<React.InputHTMLAttributes<HTMLInpu
      * If an initial value is passed, and initialValueFormat property is not set, then the initial value
      * is formatted in international format.
      */
-    initialValueFormat?: 'national';
+    initialValueFormat?: "national";
 
     /**
      * If `country` property is passed along with `international={true}` property

@@ -1,9 +1,15 @@
-// Type definitions for CanvasJS 1.9
-// Project: http://canvasjs.com/, https://github.com/tsur/canvasjs
-// Definitions by: ShuYin Zhang  <https://github.com/brutalimp>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-type DashType = "solid" | "shortDash" | "shortDot" | "shortDashDot" | "shortDashDotDot" | "dot" | "dash" | "dashDot" | "longDash" | "longDashDot" | "longDashDotDot";
+type DashType =
+    | "solid"
+    | "shortDash"
+    | "shortDot"
+    | "shortDashDot"
+    | "shortDashDotDot"
+    | "dot"
+    | "dash"
+    | "dashDot"
+    | "longDash"
+    | "longDashDot"
+    | "longDashDotDot";
 
 declare namespace CanvasJS {
     class Chart {
@@ -68,12 +74,19 @@ declare namespace CanvasJS {
          * @param index Index of the array where the new element is to be added. Defaults to the length (end) of array.
          * @param updateChart When true, Updates the chart automatically after setting the value. Defaults to true.
          */
-        addTo(propertyName: string, options: ChartAxisXOptions | ChartAxisYOptions | ChartDataSeriesOptions, index?: number, updateChart?: boolean): void;
+        addTo(
+            propertyName: string,
+            options: ChartAxisXOptions | ChartAxisYOptions | ChartDataSeriesOptions,
+            index?: number,
+            updateChart?: boolean,
+        ): void;
         /**
          * Export the chart as image (jpg / png).
          * @param options Setting when export
          */
-        exportChart(options: { format: "jpg" | "png", toDataURL?: boolean | undefined, fileName?: string | undefined }): void;
+        exportChart(
+            options: { format: "jpg" | "png"; toDataURL?: boolean | undefined; fileName?: string | undefined },
+        ): void;
         /**
          * Prints the Chart.
          * Chart should be rendered before you can use this method.
@@ -498,10 +511,10 @@ declare namespace CanvasJS {
          * Can be accessed via get method or dot notation.
          */
         readonly bounds: {
-            x1: number,
-            x2: number,
-            y1: number,
-            y2: number,
+            x1: number;
+            x2: number;
+            y1: number;
+            y2: number;
         };
         /**
          * Returns the specified property of title.
@@ -646,7 +659,14 @@ declare namespace CanvasJS {
         /**
          * A custom formatter function that returns text to be displayed inside individual legend items.
          */
-        itemTextFormatter?(e?: { chart: Chart, legend: ChartLegendOptions, dataSeries: ChartDataSeriesOptions, dataPoint: ChartDataPoint }): string;
+        itemTextFormatter?(
+            e?: {
+                chart: Chart;
+                legend: ChartLegendOptions;
+                dataSeries: ChartDataSeriesOptions;
+                dataPoint: ChartDataPoint;
+            },
+        ): string;
         /**
          * When dockInsidePlotArea is set to true, legend renders inside the plot area there by giving more space to plot area.
          * Default: false
@@ -907,7 +927,7 @@ declare namespace CanvasJS {
         /**
          * A custom formatter function that returns stripLine’s label.
          */
-        labelFormatter?(e?: { chart: Chart, axis: ChartAxisYOptions, stripline: ChartStripLinesOptions }): string;
+        labelFormatter?(e?: { chart: Chart; axis: ChartAxisYOptions; stripline: ChartStripLinesOptions }): string;
     }
 
     interface ChartStrip extends ChartStripLinesOptions {
@@ -1105,7 +1125,7 @@ declare namespace CanvasJS {
          * 1.labelFormatter function should return a string.
          * 2.You can use formatNumber and formatDate functions to format number/date values inside the formatter function.
          */
-        labelFormatter?(e: { chart: Chart, axis: ChartAxisYOptions, value: number, label: string }): string;
+        labelFormatter?(e: { chart: Chart; axis: ChartAxisYOptions; value: number; label: string }): string;
         /**
          * Strip Lines / Trend Lines are vertical or horizontal lines used to highlight/mark a certain region on the plot area.
          * You can choose whether to draw a line at a specific position or shade a region on the plot area. Strip Lines are also referred to as Trend Lines.
@@ -1281,7 +1301,13 @@ declare namespace CanvasJS {
         /**
          * A custom formatter function that returns the content (text/html) to be displayed inside the toolTip.
          */
-        contentFormatter?(e: { chart: Chart, toolTip: ChartToolTipOptions, entries: Array<{ dataPoint: ChartDataPoint, dataSeries: ChartDataSeriesOptions }> }): string;
+        contentFormatter?(
+            e: {
+                chart: Chart;
+                toolTip: ChartToolTipOptions;
+                entries: Array<{ dataPoint: ChartDataPoint; dataSeries: ChartDataSeriesOptions }>;
+            },
+        ): string;
         /**
          * Sets the background color of toolTip. Values can be “HTML Color Name” or “hex” code.
          * Default: white
@@ -1345,12 +1371,12 @@ declare namespace CanvasJS {
          * @param e event object
          */
         indexLabelFormatter?(e: {
-            chart: Chart,
-            dataSeries: ChartDataSeriesOptions,
-            dataPoint: ChartDataPoint,
-            index?: number | undefined,
-            total?: number | undefined,
-            pencent?: number | undefined
+            chart: Chart;
+            dataSeries: ChartDataSeriesOptions;
+            dataPoint: ChartDataPoint;
+            index?: number | undefined;
+            total?: number | undefined;
+            pencent?: number | undefined;
         }): string;
         /**
          * Using this property you can define whether to render indexLabel "inside" or "outside" the dataPoint.

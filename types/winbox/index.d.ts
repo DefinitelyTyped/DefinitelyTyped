@@ -1,8 +1,3 @@
-// Type definitions for winbox 0.2
-// Project: https://nextapps-de.github.io/winbox/
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export as namespace WinBox;
 
 interface WinBox {
@@ -47,8 +42,8 @@ declare namespace WinBox {
     interface WinBoxConstructor {
         (title: string, params?: Params): WinBox;
         (params: Params): WinBox;
-        new (title: string, params?: Params): WinBox;
-        new (params: Params): WinBox;
+        new(title: string, params?: Params): WinBox;
+        new(params: Params): WinBox;
     }
 
     interface Params {

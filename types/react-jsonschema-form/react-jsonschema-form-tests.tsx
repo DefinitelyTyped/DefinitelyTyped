@@ -1,58 +1,58 @@
-import * as React from 'react';
+import { JSONSchema6 } from "json-schema";
+import * as React from "react";
 import Form, {
-    UiSchema,
-    ErrorListProps,
-    FieldProps,
-    WidgetProps,
-    ErrorSchema,
-    withTheme,
-    FieldTemplateProps,
     ArrayFieldTemplateProps,
-    ObjectFieldTemplateProps,
+    ErrorListProps,
+    ErrorSchema,
+    FieldProps,
+    FieldTemplateProps,
     IdSchema,
+    ObjectFieldTemplateProps,
     PathSchema,
-} from 'react-jsonschema-form';
-import SchemaField, { SchemaFieldProps } from 'react-jsonschema-form/lib/components/fields/SchemaField';
-import { JSONSchema6 } from 'json-schema';
+    UiSchema,
+    WidgetProps,
+    withTheme,
+} from "react-jsonschema-form";
+import SchemaField, { SchemaFieldProps } from "react-jsonschema-form/lib/components/fields/SchemaField";
 
 import {
     ADDITIONAL_PROPERTY_FLAG,
     allowAdditionalItems,
-    isFixedItems,
-    stubExistingAdditionalProperties,
-    retrieveSchema,
-    hasWidget,
     getWidget,
-} from 'react-jsonschema-form/lib/utils';
-import validateFormData from 'react-jsonschema-form/lib/validate';
+    hasWidget,
+    isFixedItems,
+    retrieveSchema,
+    stubExistingAdditionalProperties,
+} from "react-jsonschema-form/lib/utils";
+import validateFormData from "react-jsonschema-form/lib/validate";
 
 // example taken from the react-jsonschema-form playground:
 // https://github.com/mozilla-services/react-jsonschema-form/blob/fedd830294417969d88e38fb9f6b3a85e6ad105e/playground/samples/simple.js
 
 const schema: JSONSchema6 = {
-    title: 'A registration form',
-    type: 'object',
-    required: ['firstName', 'lastName'],
+    title: "A registration form",
+    type: "object",
+    required: ["firstName", "lastName"],
     properties: {
         firstName: {
-            type: 'string',
-            title: 'First name',
+            type: "string",
+            title: "First name",
         },
         lastName: {
-            type: 'string',
-            title: 'Last name',
+            type: "string",
+            title: "Last name",
         },
         age: {
-            type: 'integer',
-            title: 'Age',
+            type: "integer",
+            title: "Age",
         },
         bio: {
-            type: 'string',
-            title: 'Bio',
+            type: "string",
+            title: "Bio",
         },
         password: {
-            type: 'string',
-            title: 'Password',
+            type: "string",
+            title: "Password",
             minLength: 3,
         },
     },
@@ -62,9 +62,7 @@ const ExampleFieldTemplate = (_props: FieldTemplateProps) => null;
 
 const ExampleArrayFieldTemplate = ({ items }: ArrayFieldTemplateProps) => (
     <div>
-        {items.map(element => (
-            <div key={element.key}>{element.children}</div>
-        ))}
+        {items.map(element => <div key={element.key}>{element.children}</div>)}
     </div>
 );
 
@@ -72,21 +70,21 @@ const ExampleObjectFieldTemplate = (_props: ObjectFieldTemplateProps) => null;
 
 const uiSchema: UiSchema = {
     age: {
-        'ui:widget': 'updown',
+        "ui:widget": "updown",
     },
     bio: {
-        'ui:widget': 'textarea',
+        "ui:widget": "textarea",
     },
     password: {
-        'ui:widget': 'password',
-        'ui:help': 'Hint: Make it strong!',
+        "ui:widget": "password",
+        "ui:help": "Hint: Make it strong!",
     },
     date: {
-        'ui:widget': 'alt-datetime',
+        "ui:widget": "alt-datetime",
     },
-    'ui:FieldTemplate': ExampleFieldTemplate,
-    'ui:ArrayFieldTemplate': ExampleArrayFieldTemplate,
-    'ui:ObjectFieldTemplate': ExampleObjectFieldTemplate,
+    "ui:FieldTemplate": ExampleFieldTemplate,
+    "ui:ArrayFieldTemplate": ExampleArrayFieldTemplate,
+    "ui:ObjectFieldTemplate": ExampleObjectFieldTemplate,
 };
 
 interface IExampleState {
@@ -116,11 +114,11 @@ export default function ErrorListExample(props: ErrorListProps) {
 export class Example extends React.Component<any, IExampleState> {
     public state: IExampleState = {
         formData: {
-            firstName: 'Chuck',
-            lastName: 'Norris',
+            firstName: "Chuck",
+            lastName: "Norris",
             age: 75,
-            bio: 'Roundhouse kicking asses since 1940',
-            password: 'noneed',
+            bio: "Roundhouse kicking asses since 1940",
+            password: "noneed",
         },
     };
 
@@ -142,7 +140,7 @@ export class Example extends React.Component<any, IExampleState> {
                         ErrorList={ErrorListExample}
                         onChange={formData => this.setState({ formData })}
                         customFormats={{
-                            'phone-us': /\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{4}$/,
+                            "phone-us": /\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{4}$/,
                         }}
                     />
                 }
@@ -187,19 +185,31 @@ export const FuncExample = (props: FuncExampleProps) => {
 };
 
 export const BooleanCustomWidget: React.FC<WidgetProps> = props => (
-    <input onFocus={() => props.onFocus('id', true)} onBlur={() => props.onFocus('id', true)} />
+    <input
+        onFocus={() => props.onFocus("id", true)}
+        onBlur={() => props.onFocus("id", true)}
+    />
 );
 
 export const NumberCustomWidget: React.FC<WidgetProps> = props => (
-    <input onFocus={() => props.onFocus('id', 0)} onBlur={() => props.onFocus('id', 0)} />
+    <input
+        onFocus={() => props.onFocus("id", 0)}
+        onBlur={() => props.onFocus("id", 0)}
+    />
 );
 
 export const StringCustomWidget: React.FC<WidgetProps> = props => (
-    <input onFocus={() => props.onFocus('id', 'value')} onBlur={() => props.onFocus('id', 'value')} />
+    <input
+        onFocus={() => props.onFocus("id", "value")}
+        onBlur={() => props.onFocus("id", "value")}
+    />
 );
 
 export const NullCustomWidget: React.FC<WidgetProps> = props => (
-    <input onFocus={() => props.onFocus('id', null)} onBlur={() => props.onFocus('id', null)} />
+    <input
+        onFocus={() => props.onFocus("id", null)}
+        onBlur={() => props.onFocus("id", null)}
+    />
 );
 
 export const withThemeExample = () => {
@@ -251,7 +261,7 @@ export const getValidationDataExample = (formData: any, schema: JSONSchema6) => 
 };
 
 export const customFieldExample = (props: FieldProps) => {
-    const customProps: Pick<FieldProps, 'onChange' | 'onBlur'> = {
+    const customProps: Pick<FieldProps, "onChange" | "onBlur"> = {
         onBlur: (id, value) => {
             return props.onBlur(id, value);
         },
@@ -270,7 +280,7 @@ export const customTagName = (schema: JSONSchema6) => {
     return <Form schema={schema} tagName="div" />;
 };
 
-const TestForm = (props: React.ComponentProps<'form'>) => <form {...props} />;
+const TestForm = (props: React.ComponentProps<"form">) => <form {...props} />;
 export const customTagNameUsingComponent = (schema: JSONSchema6) => {
     return <Form schema={schema} tagName={TestForm} />;
 };
@@ -280,7 +290,7 @@ export const hasWidgetDefaultExample = (schema: JSONSchema6) => {
 };
 
 export const hasWidgetStringExample = (schema: JSONSchema6) => {
-    return hasWidget(schema, 'select');
+    return hasWidget(schema, "select");
 };
 
 export const getWidgetDefaultExample = (schema: JSONSchema6) => {
@@ -288,26 +298,26 @@ export const getWidgetDefaultExample = (schema: JSONSchema6) => {
 };
 
 export const getWidgetRegisteredWidgetsExample = (schema: JSONSchema6) => {
-    return getWidget(schema, 'checkbox', { checkbox: BooleanCustomWidget });
+    return getWidget(schema, "checkbox", { checkbox: BooleanCustomWidget });
 };
 
 export const getWidgetStringExample = (schema: JSONSchema6) => {
-    return getWidget(schema, 'select');
+    return getWidget(schema, "select");
 };
 
 const idSchema: IdSchema<{ test: {} }> = {
-    $id: 'test',
+    $id: "test",
     test: {
-        $id: 'test',
+        $id: "test",
     },
 };
 void idSchema.$id;
 void idSchema.test.$id;
 
 const pathSchema: PathSchema<{ test: {} }> = {
-    $name: 'test',
+    $name: "test",
     test: {
-        $name: 'test',
+        $name: "test",
     },
 };
 void pathSchema.$name;

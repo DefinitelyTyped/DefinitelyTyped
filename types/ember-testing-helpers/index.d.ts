@@ -1,21 +1,12 @@
-// Type definitions for ember-testing/lib/helpers
-// Project: https://github.com/emberjs/ember.js/tree/master/packages/ember-testing/lib/helpers
-// Definitions by: Chris Krycho <https://github.com/chriskrycho>
-//                 James C. Davis <https://github.com/jamescdavis>
-//                 Dan Freeman <https://github.com/dfreeman>
-//                 Mike North <https://github.com/mike-north>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 // Note that these are distributed separately because they represent a discrete
 // set of functionality, and as globally-injected items (as of Ember 2.13), are
 // not easily or straightforwardly exported from the Ember type definitions.
 
 /// <reference types="jquery" />
 
-import RSVP from 'rsvp';
+import RSVP from "rsvp";
 
-type KeyEventType = 'keydown' | 'keyup' | 'keypress';
+type KeyEventType = "keydown" | "keyup" | "keypress";
 type WaitResult<T> = RSVP.Promise<T>;
 
 declare global {
@@ -56,7 +47,7 @@ declare global {
         selector: string,
         context: Object,
         type: string,
-        options: Object
+        options: Object,
     ): WaitResult<void>;
     function triggerEvent(selector: string, context: Object, type: string): WaitResult<void>;
     function triggerEvent(selector: string, type: string, options: Object): WaitResult<void>;

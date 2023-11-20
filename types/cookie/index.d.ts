@@ -1,9 +1,3 @@
-// Type definitions for cookie 0.5
-// Project: https://github.com/jshttp/cookie
-// Definitions by: Pine Mizune <https://github.com/pine>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * Basic HTTP cookie parser and serializer for HTTP servers.
  */
@@ -80,7 +74,7 @@ export interface CookieSerializeOptions {
      * **note** This is an attribute that has not yet been fully standardized, and may change in the future.
      * This also means many clients may ignore this attribute until they understand it.
      */
-    priority?: 'low' | 'medium' | 'high' | undefined;
+    priority?: "low" | "medium" | "high" | undefined;
     /**
      * Specifies the boolean or string to be the value for the {@link https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-03#section-4.1.2.7|`SameSite` `Set-Cookie` attribute}.
      *
@@ -98,7 +92,7 @@ export interface CookieSerializeOptions {
      *
      * *note* This is an attribute that has not yet been fully standardized, and may change in the future. This also means many clients may ignore this attribute until they understand it.
      */
-    sameSite?: true | false | 'lax' | 'strict' | 'none' | undefined;
+    sameSite?: true | false | "lax" | "strict" | "none" | undefined;
     /**
      * Specifies the boolean value for the {@link https://tools.ietf.org/html/rfc6265#section-5.2.5|`Secure` `Set-Cookie` attribute}. When truthy, the
      * `Secure` attribute is set, otherwise it is not. By default, the `Secure` attribute is not set.

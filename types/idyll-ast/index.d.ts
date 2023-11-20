@@ -1,17 +1,4 @@
-// Type definitions for idyll-ast 1.3
-// Project: https://github.com/idyll-lang/idyll/tree/master/packages/idyll-ast
-// Definitions by: Thanh Ngo <https://github.com/iocat>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-import {
-    AST,
-    Node,
-    TreeNode,
-    PropValue,
-    Property,
-    PropType
-} from "idyll-compiler";
+import { AST, Node, Property, PropType, PropValue, TreeNode } from "idyll-compiler";
 
 /**
  * appends a single node to the AST
@@ -27,7 +14,7 @@ export function appendNodes(ast: AST, nodes: AST): AST;
 export function createNode(
     name: string,
     props: Record<string, PropValue | PropValue[1]>,
-    children: Node[]
+    children: Node[],
 ): TreeNode;
 /**
  * gets all children of the node if there is any
@@ -57,7 +44,7 @@ export function getNodesByName(ast: AST, name: string): Node[];
  */
 export function filterChildren(
     node: Node,
-    filter: (child: Node) => boolean
+    filter: (child: Node) => boolean,
 ): Node;
 
 /**
@@ -75,7 +62,7 @@ export function filterNodes(ast: AST, filter: (node: Node) => boolean): AST;
 export function modifyNodesByName(
     ast: AST,
     name: string,
-    modifier: (node: Node) => void
+    modifier: (node: Node) => void,
 ): AST;
 
 /**
@@ -113,12 +100,11 @@ export function removeNodesByName(ast: AST, name: string): AST;
  * if value is an array, the property's  type is assumed to be included in it
  * otherwise, "value" will be the property's type, and parameter value
  * is the property's value
- *
  */
 export function setProperty(
     node: Node,
     key: string,
-    value: PropValue | PropValue[1]
+    value: PropValue | PropValue[1],
 ): Node;
 
 /**
@@ -128,7 +114,7 @@ export function setProperty(
  */
 export function setProperties(
     node: Node,
-    properties: Record<string, PropValue | PropValue[1]>
+    properties: Record<string, PropValue | PropValue[1]>,
 ): Node;
 
 /**

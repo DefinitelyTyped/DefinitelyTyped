@@ -1,11 +1,4 @@
-// Type definitions for Wiredep v3.0.x
-// Project: https://github.com/taptapship/wiredep
-// Definitions by: Abraão Alves <http://abraaoalves.github.io>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-
-
 
 interface PathFiles {
     [type: string]: string[];
@@ -31,7 +24,6 @@ declare namespace Wiredep {
     export function stream(config: WiredepParams): NodeJS.ReadWriteStream;
 }
 
-
 interface WiredepParams {
     src?: string | string[] | undefined;
     /**
@@ -44,7 +36,6 @@ interface WiredepParams {
      * Default: require('./bower.json')
      */
     bowerJson?: string | undefined;
-
 
     // ----- Advanced Configuration -----
     // All of the below settings are for advanced configuration, to
@@ -128,7 +119,7 @@ interface FileObject {
     /**
      * path to file that was injected
      */
-    path: string
+    path: string;
 }
 
 interface FileTypes {
@@ -153,7 +144,7 @@ interface FileTypes {
              *   return '<script class="random-' + Math.random() + '" src="' + filePath + '"></script>'
              */
             anotherTypeOfBowerFile: (filePath: string) => string;
-        }
+        };
     };
 
     // defaults:
@@ -221,7 +212,7 @@ interface FileTypes {
              *  'link(rel=\'stylesheet\', href=\'{{filePath}}\')'
              */
             css: string;
-        }
+        };
     };
 
     less: {
@@ -240,7 +231,7 @@ interface FileTypes {
              * @example
              *  /@import\s['"](.+less)['"]/gi
              */
-            less: RegExp
+            less: RegExp;
         };
 
         replace: {
@@ -279,7 +270,7 @@ interface FileTypes {
              *  /@import\s['"](.+scss)['"]/gi
              */
             scss: RegExp;
-        },
+        };
         replace: {
             /**
              * @example
@@ -296,7 +287,7 @@ interface FileTypes {
              *  '@import "{{filePath}}";'
              */
             scss: string;
-        }
+        };
     };
 
     styl: {
@@ -366,6 +357,5 @@ interface FileTypes {
         };
     };
 }
-
 
 export = Wiredep;

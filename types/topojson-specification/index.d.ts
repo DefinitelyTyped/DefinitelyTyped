@@ -1,9 +1,3 @@
-// Type definitions for non-npm package topojson-specification 1.0
-// Project: https://github.com/topojson/topojson-specification
-// Definitions by: denisname <https://github.com/denisname>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 // Last revision validated against: commit 90ed973 (2017-08-02)
 
 import * as GeoJSON from "geojson";
@@ -60,11 +54,14 @@ export interface GeometryObjectA<P extends Properties = {}> extends TopoJSON {
 }
 
 export type GeometryObject<P extends Properties = {}> =
-    Point<P> | MultiPoint<P> |
-    LineString<P> | MultiLineString<P> |
-    Polygon<P> | MultiPolygon<P> |
-    GeometryCollection<P> |
-    NullObject;
+    | Point<P>
+    | MultiPoint<P>
+    | LineString<P>
+    | MultiLineString<P>
+    | Polygon<P>
+    | MultiPolygon<P>
+    | GeometryCollection<P>
+    | NullObject;
 
 // 2.2.1. Point
 export interface Point<P extends Properties = {}> extends GeometryObjectA<P> {

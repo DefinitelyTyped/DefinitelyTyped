@@ -1,12 +1,6 @@
-// Type definitions for html-minifier 4.0
-// Project: https://github.com/kangax/html-minifier, https://kangax.github.io/html-minifier
-// Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import * as UglifyJS from 'uglify-js';
-import * as CleanCSS from 'clean-css';
-import * as RelateUrl from 'relateurl';
+import * as CleanCSS from "clean-css";
+import * as RelateUrl from "relateurl";
+import * as UglifyJS from "uglify-js";
 
 export function minify(text: string, options?: Options): string;
 

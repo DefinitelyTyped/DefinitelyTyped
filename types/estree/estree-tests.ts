@@ -1,4 +1,4 @@
-import * as ESTree from 'estree';
+import * as ESTree from "estree";
 
 declare var node: ESTree.Node;
 declare var program: ESTree.Program;
@@ -88,6 +88,8 @@ declare var importDefaultSpecifier: ESTree.ImportDefaultSpecifier;
 declare var importNamespaceSpecifier: ESTree.ImportNamespaceSpecifier;
 declare var exportNamedDeclaration: ESTree.ExportNamedDeclaration;
 declare var exportSpecifier: ESTree.ExportSpecifier;
+declare var maybeNamedClassDeclaration: ESTree.MaybeNamedClassDeclaration;
+declare var maybeNamedFunctionDeclaration: ESTree.MaybeNamedFunctionDeclaration;
 declare var exportDefaultDeclaration: ESTree.ExportDefaultDeclaration;
 declare var exportAllDeclaration: ESTree.ExportAllDeclaration;
 declare var awaitExpression: ESTree.AwaitExpression;
@@ -193,7 +195,7 @@ var objectExpression: ESTree.ObjectExpression;
 var propertyOrSpread: ESTree.Property | ESTree.SpreadElement = objectExpression.properties[0];
 
 string = property.type;
-if (property.type === 'Property') {
+if (property.type === "Property") {
     privateIdentifierOrExpression = property.key;
     expressionOrPattern = property.value;
     string = property.kind;
@@ -249,7 +251,7 @@ boolean = memberExpression.computed;
 var chainExpression: ESTree.ChainExpression;
 var memberExpressionOrCallExpression = chainExpression.expression;
 boolean = memberExpressionOrCallExpression.optional;
-if (memberExpressionOrCallExpression.type === 'MemberExpression') {
+if (memberExpressionOrCallExpression.type === "MemberExpression") {
     expressionOrSuper = memberExpressionOrCallExpression.object;
     privateIdentifierOrExpression = memberExpressionOrCallExpression.property;
     boolean = memberExpressionOrCallExpression.computed;
@@ -261,6 +263,7 @@ if (memberExpressionOrCallExpression.type === 'MemberExpression') {
 // Declarations
 var functionDeclaration: ESTree.FunctionDeclaration;
 var identifierOrNull: ESTree.Identifier | null = functionDeclaration.id;
+// @ts-expect-error Use MaybeNamedFunctionDeclaration for default exports
 functionDeclaration.id = null;
 var params: ESTree.Pattern[] = functionDeclaration.params;
 blockStatement = functionDeclaration.body;
@@ -277,6 +280,7 @@ expressionMaybe = variableDeclarator.init;
 
 var classDeclaration: ESTree.ClassDeclaration;
 identifierOrNull = classDeclaration.id;
+// @ts-expect-error Use MaybeNamedClassDeclaration for default exports
 classDeclaration.id = null;
 
 // Clauses
@@ -306,235 +310,235 @@ expression = awaitExpression.argument;
 // Test narrowing
 
 switch (node.type) {
-    case 'Identifier':
+    case "Identifier":
         identifier = node;
         break;
-    case 'PrivateIdentifier':
+    case "PrivateIdentifier":
         privateIdentifier = node;
         break;
-    case 'Literal':
+    case "Literal":
         literal = node;
         break;
-    case 'Program':
+    case "Program":
         program = node;
         break;
-    case 'FunctionExpression':
+    case "FunctionExpression":
         functionExpression = node;
         break;
-    case 'SwitchCase':
+    case "SwitchCase":
         switchCase = node;
         break;
-    case 'CatchClause':
+    case "CatchClause":
         catchClause = node;
         break;
-    case 'VariableDeclarator':
+    case "VariableDeclarator":
         variableDeclarator = node;
         break;
     // Narrowing of Statement
-    case 'ExpressionStatement':
+    case "ExpressionStatement":
         expressionStatement = node;
         break;
-    case 'BlockStatement':
+    case "BlockStatement":
         blockStatement = node;
         break;
-    case 'EmptyStatement':
+    case "EmptyStatement":
         emptyStatement = node;
         break;
-    case 'DebuggerStatement':
+    case "DebuggerStatement":
         debuggerStatement = node;
         break;
-    case 'WithStatement':
+    case "WithStatement":
         withStatement = node;
         break;
-    case 'ReturnStatement':
+    case "ReturnStatement":
         returnStatement = node;
         break;
-    case 'LabeledStatement':
+    case "LabeledStatement":
         labeledStatement = node;
         break;
-    case 'BreakStatement':
+    case "BreakStatement":
         breakStatement = node;
         break;
-    case 'ContinueStatement':
+    case "ContinueStatement":
         continueStatement = node;
         break;
-    case 'IfStatement':
+    case "IfStatement":
         ifStatement = node;
         break;
-    case 'SwitchStatement':
+    case "SwitchStatement":
         switchStatement = node;
         break;
-    case 'ThrowStatement':
+    case "ThrowStatement":
         throwStatement = node;
         break;
-    case 'TryStatement':
+    case "TryStatement":
         tryStatement = node;
         break;
-    case 'WhileStatement':
+    case "WhileStatement":
         whileStatement = node;
         break;
-    case 'DoWhileStatement':
+    case "DoWhileStatement":
         doWhileStatement = node;
         break;
-    case 'ForStatement':
+    case "ForStatement":
         forStatement = node;
         break;
-    case 'ForInStatement':
+    case "ForInStatement":
         forInStatement = node;
         break;
-    case 'ForOfStatement':
+    case "ForOfStatement":
         forOfStatement = node;
         break;
     // end narrowing of Statement
 
     // narrowing of Declaration
-    case 'FunctionDeclaration':
+    case "FunctionDeclaration":
         functionDeclaration = node;
         break;
-    case 'VariableDeclaration':
+    case "VariableDeclaration":
         variableDeclaration = node;
         break;
-    case 'ClassDeclaration':
+    case "ClassDeclaration":
         classDeclaration = node;
         break;
     // end narrowing of Declaration
 
     // narrowing of Expression
-    case 'ThisExpression':
+    case "ThisExpression":
         thisExpression = node;
         break;
-    case 'ArrayExpression':
+    case "ArrayExpression":
         arrayExpression = node;
         break;
-    case 'ObjectExpression':
+    case "ObjectExpression":
         objectExpression = node;
         break;
-    case 'ArrowFunctionExpression':
+    case "ArrowFunctionExpression":
         arrowFunctionExpression = node;
         break;
-    case 'YieldExpression':
+    case "YieldExpression":
         yieldExpression = node;
         break;
-    case 'UnaryExpression':
+    case "UnaryExpression":
         unaryExpression = node;
         break;
-    case 'UpdateExpression':
+    case "UpdateExpression":
         updateExpression = node;
         break;
-    case 'BinaryExpression':
+    case "BinaryExpression":
         binaryExpression = node;
         break;
-    case 'AssignmentExpression':
+    case "AssignmentExpression":
         assignmentExpression = node;
         break;
-    case 'LogicalExpression':
+    case "LogicalExpression":
         logicalExpression = node;
         break;
-    case 'MemberExpression':
+    case "MemberExpression":
         memberExpression = node;
         break;
-    case 'ChainExpression':
+    case "ChainExpression":
         chainExpression = node;
         break;
-    case 'ConditionalExpression':
+    case "ConditionalExpression":
         conditionalExpression = node;
         break;
-    case 'CallExpression':
+    case "CallExpression":
         callExpression = node;
         break;
-    case 'NewExpression':
+    case "NewExpression":
         newExpression = node;
         break;
-    case 'SequenceExpression':
+    case "SequenceExpression":
         sequenceExpression = node;
         break;
-    case 'TemplateLiteral':
+    case "TemplateLiteral":
         templateLiteral = node;
         break;
-    case 'TaggedTemplateExpression':
+    case "TaggedTemplateExpression":
         taggedTemplateExpression = node;
         break;
-    case 'ClassExpression':
+    case "ClassExpression":
         classExpression = node;
         break;
-    case 'MetaProperty':
+    case "MetaProperty":
         metaProperty = node;
         break;
-    case 'AwaitExpression':
+    case "AwaitExpression":
         awaitExpression = node;
         break;
-    case 'ImportExpression':
+    case "ImportExpression":
         importExpression = node;
         break;
     // end narrowing of Expression
 
-    case 'Property':
+    case "Property":
         property = node;
         break;
-    case 'Super':
+    case "Super":
         superAst = node;
         break;
-    case 'TemplateElement':
+    case "TemplateElement":
         templateElement = node;
         break;
-    case 'SpreadElement':
+    case "SpreadElement":
         spreadElement = node;
         break;
 
     // narrowing of Pattern
-    case 'ObjectPattern':
+    case "ObjectPattern":
         objectPattern = node;
         break;
-    case 'ArrayPattern':
+    case "ArrayPattern":
         arrayPattern = node;
         break;
-    case 'RestElement':
+    case "RestElement":
         restElement = node;
         break;
-    case 'AssignmentPattern':
+    case "AssignmentPattern":
         assignmentPattern = node;
         break;
     // end narrowing of Pattern
 
-    case 'ClassBody':
+    case "ClassBody":
         classBody = node;
         break;
-    case 'MethodDefinition':
+    case "MethodDefinition":
         methodDefinition = node;
         break;
-    case 'PropertyDefinition':
+    case "PropertyDefinition":
         propertyDefinition = node;
         break;
-    case 'StaticBlock':
+    case "StaticBlock":
         staticBlock = node;
         break;
 
     // narrowing of ModuleDeclaration
-    case 'ImportDeclaration':
+    case "ImportDeclaration":
         importDeclaration = node;
         break;
-    case 'ExportNamedDeclaration':
+    case "ExportNamedDeclaration":
         exportNamedDeclaration = node;
         break;
-    case 'ExportDefaultDeclaration':
+    case "ExportDefaultDeclaration":
         exportDefaultDeclaration = node;
         break;
-    case 'ExportAllDeclaration':
+    case "ExportAllDeclaration":
         exportAllDeclaration = node;
         break;
     // end narrowing of ModuleDeclaration
 
     // narrowing of ModuleSpecifier
-    case 'ImportSpecifier':
+    case "ImportSpecifier":
         importSpecifier = node;
         break;
-    case 'ImportDefaultSpecifier':
+    case "ImportDefaultSpecifier":
         importDefaultSpecifier = node;
         break;
-    case 'ImportNamespaceSpecifier':
+    case "ImportNamespaceSpecifier":
         importNamespaceSpecifier = node;
         break;
-    case 'ExportSpecifier':
+    case "ExportSpecifier":
         exportSpecifier = node;
         break;
     // end narrowing of ModuleSpecifier
@@ -544,71 +548,71 @@ switch (node.type) {
 }
 
 switch (statement.type) {
-    case 'ExpressionStatement':
+    case "ExpressionStatement":
         expressionStatement = statement;
         break;
-    case 'BlockStatement':
+    case "BlockStatement":
         blockStatement = statement;
         break;
-    case 'StaticBlock':
+    case "StaticBlock":
         staticBlock = statement;
         break;
-    case 'EmptyStatement':
+    case "EmptyStatement":
         emptyStatement = statement;
         break;
-    case 'DebuggerStatement':
+    case "DebuggerStatement":
         debuggerStatement = statement;
         break;
-    case 'WithStatement':
+    case "WithStatement":
         withStatement = statement;
         break;
-    case 'ReturnStatement':
+    case "ReturnStatement":
         returnStatement = statement;
         break;
-    case 'LabeledStatement':
+    case "LabeledStatement":
         labeledStatement = statement;
         break;
-    case 'BreakStatement':
+    case "BreakStatement":
         breakStatement = statement;
         break;
-    case 'ContinueStatement':
+    case "ContinueStatement":
         continueStatement = statement;
         break;
-    case 'IfStatement':
+    case "IfStatement":
         ifStatement = statement;
         break;
-    case 'SwitchStatement':
+    case "SwitchStatement":
         switchStatement = statement;
         break;
-    case 'ThrowStatement':
+    case "ThrowStatement":
         throwStatement = statement;
         break;
-    case 'TryStatement':
+    case "TryStatement":
         tryStatement = statement;
         break;
-    case 'WhileStatement':
+    case "WhileStatement":
         whileStatement = statement;
         break;
-    case 'DoWhileStatement':
+    case "DoWhileStatement":
         doWhileStatement = statement;
         break;
-    case 'ForStatement':
+    case "ForStatement":
         forStatement = statement;
         break;
-    case 'ForInStatement':
+    case "ForInStatement":
         forInStatement = statement;
         break;
-    case 'ForOfStatement':
+    case "ForOfStatement":
         forOfStatement = statement;
         break;
     // narrowing of Declaration
-    case 'FunctionDeclaration':
+    case "FunctionDeclaration":
         functionDeclaration = statement;
         break;
-    case 'VariableDeclaration':
+    case "VariableDeclaration":
         variableDeclaration = statement;
         break;
-    case 'ClassDeclaration':
+    case "ClassDeclaration":
         classDeclaration = statement;
         break;
     // end narrowing of Declaration
@@ -617,79 +621,79 @@ switch (statement.type) {
 }
 
 switch (expression.type) {
-    case 'ThisExpression':
+    case "ThisExpression":
         thisExpression = expression;
         break;
-    case 'ArrayExpression':
+    case "ArrayExpression":
         arrayExpression = expression;
         break;
-    case 'ObjectExpression':
+    case "ObjectExpression":
         objectExpression = expression;
         break;
-    case 'FunctionExpression':
+    case "FunctionExpression":
         functionExpression = expression;
         break;
-    case 'ArrowFunctionExpression':
+    case "ArrowFunctionExpression":
         arrowFunctionExpression = expression;
         break;
-    case 'YieldExpression':
+    case "YieldExpression":
         yieldExpression = expression;
         break;
-    case 'Literal':
+    case "Literal":
         literal = expression;
         break;
-    case 'UnaryExpression':
+    case "UnaryExpression":
         unaryExpression = expression;
         break;
-    case 'UpdateExpression':
+    case "UpdateExpression":
         updateExpression = expression;
         break;
-    case 'BinaryExpression':
+    case "BinaryExpression":
         binaryExpression = expression;
         break;
-    case 'AssignmentExpression':
+    case "AssignmentExpression":
         assignmentExpression = expression;
         break;
-    case 'LogicalExpression':
+    case "LogicalExpression":
         logicalExpression = expression;
         break;
-    case 'MemberExpression':
+    case "MemberExpression":
         memberExpression = expression;
         break;
-    case 'ChainExpression':
+    case "ChainExpression":
         chainExpression = expression;
         break;
-    case 'ConditionalExpression':
+    case "ConditionalExpression":
         conditionalExpression = expression;
         break;
-    case 'CallExpression':
+    case "CallExpression":
         callExpression = expression;
         break;
-    case 'NewExpression':
+    case "NewExpression":
         newExpression = expression;
         break;
-    case 'SequenceExpression':
+    case "SequenceExpression":
         sequenceExpression = expression;
         break;
-    case 'TemplateLiteral':
+    case "TemplateLiteral":
         templateLiteral = expression;
         break;
-    case 'TaggedTemplateExpression':
+    case "TaggedTemplateExpression":
         taggedTemplateExpression = expression;
         break;
-    case 'ClassExpression':
+    case "ClassExpression":
         classExpression = expression;
         break;
-    case 'MetaProperty':
+    case "MetaProperty":
         metaProperty = expression;
         break;
-    case 'Identifier':
+    case "Identifier":
         identifier = expression;
         break;
-    case 'AwaitExpression':
+    case "AwaitExpression":
         awaitExpression = expression;
         break;
-    case 'ImportExpression':
+    case "ImportExpression":
         importExpression = expression;
         break;
     default:
@@ -697,13 +701,13 @@ switch (expression.type) {
 }
 
 switch (declaration.type) {
-    case 'FunctionDeclaration':
+    case "FunctionDeclaration":
         functionDeclaration = declaration;
         break;
-    case 'VariableDeclaration':
+    case "VariableDeclaration":
         variableDeclaration = declaration;
         break;
-    case 'ClassDeclaration':
+    case "ClassDeclaration":
         classDeclaration = declaration;
         break;
     default:
@@ -711,22 +715,22 @@ switch (declaration.type) {
 }
 
 switch (pattern.type) {
-    case 'Identifier':
+    case "Identifier":
         identifier = pattern;
         break;
-    case 'ObjectPattern':
+    case "ObjectPattern":
         objectPattern = pattern;
         break;
-    case 'ArrayPattern':
+    case "ArrayPattern":
         arrayPattern = pattern;
         break;
-    case 'RestElement':
+    case "RestElement":
         restElement = pattern;
         break;
-    case 'AssignmentPattern':
+    case "AssignmentPattern":
         assignmentPattern = pattern;
         break;
-    case 'MemberExpression':
+    case "MemberExpression":
         memberExpression = pattern;
         break;
     default:
@@ -734,16 +738,16 @@ switch (pattern.type) {
 }
 
 switch (moduleDeclaration.type) {
-    case 'ImportDeclaration':
+    case "ImportDeclaration":
         importDeclaration = moduleDeclaration;
         break;
-    case 'ExportNamedDeclaration':
+    case "ExportNamedDeclaration":
         exportNamedDeclaration = moduleDeclaration;
         break;
-    case 'ExportDefaultDeclaration':
+    case "ExportDefaultDeclaration":
         exportDefaultDeclaration = moduleDeclaration;
         break;
-    case 'ExportAllDeclaration':
+    case "ExportAllDeclaration":
         exportAllDeclaration = moduleDeclaration;
         break;
     default:
@@ -751,16 +755,16 @@ switch (moduleDeclaration.type) {
 }
 
 switch (moduleSpecifier.type) {
-    case 'ImportSpecifier':
+    case "ImportSpecifier":
         importSpecifier = moduleSpecifier;
         break;
-    case 'ImportDefaultSpecifier':
+    case "ImportDefaultSpecifier":
         importDefaultSpecifier = moduleSpecifier;
         break;
-    case 'ImportNamespaceSpecifier':
+    case "ImportNamespaceSpecifier":
         importNamespaceSpecifier = moduleSpecifier;
         break;
-    case 'ExportSpecifier':
+    case "ExportSpecifier":
         exportSpecifier = moduleSpecifier;
         break;
     default:
@@ -768,31 +772,124 @@ switch (moduleSpecifier.type) {
 }
 
 switch (forInStatement.left.type) {
-    case 'Identifier':
+    case "Identifier":
         identifier = forInStatement.left;
         break;
-    case 'ObjectPattern':
+    case "ObjectPattern":
         objectPattern = forInStatement.left;
         break;
-    case 'ArrayPattern':
+    case "ArrayPattern":
         arrayPattern = forInStatement.left;
         break;
-    case 'MemberExpression':
+    case "MemberExpression":
         memberExpression = forInStatement.left;
         break;
 }
 
 switch (forOfStatement.left.type) {
-    case 'Identifier':
+    case "Identifier":
         identifier = forOfStatement.left;
         break;
-    case 'ObjectPattern':
+    case "ObjectPattern":
         objectPattern = forOfStatement.left;
         break;
-    case 'ArrayPattern':
+    case "ArrayPattern":
         arrayPattern = forOfStatement.left;
         break;
-    case 'MemberExpression':
+    case "MemberExpression":
         memberExpression = forOfStatement.left;
         break;
+}
+
+switch (exportDefaultDeclaration.declaration.type) {
+    case "Identifier":
+        identifier = exportDefaultDeclaration.declaration;
+        break;
+    case "Literal":
+        literal = exportDefaultDeclaration.declaration;
+        break;
+    case "FunctionExpression":
+        functionExpression = exportDefaultDeclaration.declaration;
+        break;
+
+    // narrowing of Declaration
+    case "FunctionDeclaration":
+        maybeNamedFunctionDeclaration = exportDefaultDeclaration.declaration;
+        break;
+    case "ClassDeclaration":
+        maybeNamedClassDeclaration = exportDefaultDeclaration.declaration;
+        break;
+    // end narrowing of Declaration
+
+    // narrowing of Expression
+    case "ThisExpression":
+        thisExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "ArrayExpression":
+        arrayExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "ObjectExpression":
+        objectExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "ArrowFunctionExpression":
+        arrowFunctionExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "YieldExpression":
+        yieldExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "UnaryExpression":
+        unaryExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "UpdateExpression":
+        updateExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "BinaryExpression":
+        binaryExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "AssignmentExpression":
+        assignmentExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "LogicalExpression":
+        logicalExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "MemberExpression":
+        memberExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "ChainExpression":
+        chainExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "ConditionalExpression":
+        conditionalExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "CallExpression":
+        callExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "NewExpression":
+        newExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "SequenceExpression":
+        sequenceExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "TemplateLiteral":
+        templateLiteral = exportDefaultDeclaration.declaration;
+        break;
+    case "TaggedTemplateExpression":
+        taggedTemplateExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "ClassExpression":
+        classExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "MetaProperty":
+        metaProperty = exportDefaultDeclaration.declaration;
+        break;
+    case "AwaitExpression":
+        awaitExpression = exportDefaultDeclaration.declaration;
+        break;
+    case "ImportExpression":
+        importExpression = exportDefaultDeclaration.declaration;
+        break;
+    // end narrowing of Expression
+
+    default:
+        never = exportDefaultDeclaration.declaration;
 }

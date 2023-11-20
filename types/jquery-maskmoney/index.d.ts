@@ -1,9 +1,3 @@
-// Type definitions for jQuery maskMoney 3.0
-// Project: https://github.com/plentz/jquery-maskmoney
-// Definitions by: Anderson Friaça <https://github.com/AndersonFriaca>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /// <reference types="jquery" />
 
 declare namespace jQueryMaskMoney {
@@ -53,16 +47,16 @@ interface JQuery {
     /**
      * Apply mask to input, can be pass default value to it
      */
-    maskMoney(methodName: 'mask', defaultValue?: number): JQuery;
+    maskMoney(methodName: "mask", defaultValue?: number): JQuery;
 
     /**
      * Returns a float value from input field masked
      */
-    maskMoney(method?: 'unmasked'): number[];
+    maskMoney(method?: "unmasked"): number[];
 
     /**
      * Apply mask to input when the argument are options
      * Remove maskMoney from an element when the argument is "destroy"
      */
-    maskMoney(methodOrOption?: 'destroy' | jQueryMaskMoney.Options): JQuery;
+    maskMoney(methodOrOption?: "destroy" | jQueryMaskMoney.Options): JQuery;
 }

@@ -1,9 +1,3 @@
-// Type definitions for combine-reducers 1.0
-// Project: https://github.com/wesleytodd/combine-reducers#readme
-// Definitions by: Paul Marbach <https://github.com/fastfrwrd>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 /**
  * these types are from the main redux type definitions:
  * https://github.com/reduxjs/redux/blob/master/index.d.ts
@@ -97,4 +91,6 @@ export type ReducersMapObject<S = any, A extends Action = Action> = {
  *   object, and builds a state object with the same shape.
  */
 export default function combineReducers<S>(reducers: ReducersMapObject<S, any>): Reducer<S>;
-export default function combineReducers<S, A extends Action = AnyAction>(reducers: ReducersMapObject<S, A>): Reducer<S, A>;
+export default function combineReducers<S, A extends Action = AnyAction>(
+    reducers: ReducersMapObject<S, A>,
+): Reducer<S, A>;

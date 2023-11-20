@@ -1,8 +1,3 @@
-// Type definitions for react_ujs 2.6
-// Project: https://github.com/reactjs/react-rails#readme
-// Definitions by: Timothy Gu <https://github.com/TimothyGu>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="jquery" />
 /// <reference types="react" />
 

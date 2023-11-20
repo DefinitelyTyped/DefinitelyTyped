@@ -1,17 +1,10 @@
-// Type definitions for angular-hotkeys 1.7
-// Project: https://github.com/chieffancypants/angular-hotkeys, https://chieffancypants.github.io/angular-hotkeys
-// Definitions by: Stefan Steinhart <https://github.com/reppners>
-//                 Cyril Gandon <https://github.com/cyrilgandon>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import * as ng from 'angular';
+import * as ng from "angular";
 
 export type HotkeysProvider = ng.hotkeys.HotkeysProvider;
 export type HotkeysProviderChained = ng.hotkeys.HotkeysProviderChained;
 export type Hotkey = ng.hotkeys.Hotkey;
 
-declare module 'angular' {
+declare module "angular" {
     namespace hotkeys {
         interface HotkeysProvider {
             /**
@@ -57,7 +50,14 @@ declare module 'angular' {
             /**
              * Creates a new Hotkey and creates the Mousetrap binding.
              */
-            add(combo: string | string[], description?: string, callback?: (event: Event, hotkey: Hotkey) => void, action?: string, allowIn?: string[], persistent?: boolean): Hotkey;
+            add(
+                combo: string | string[],
+                description?: string,
+                callback?: (event: Event, hotkey: Hotkey) => void,
+                action?: string,
+                allowIn?: string[],
+                persistent?: boolean,
+            ): Hotkey;
 
             /**
              * Creates a new Hotkey and creates the Mousetrap binding.
@@ -97,7 +97,11 @@ declare module 'angular' {
         }
 
         interface HotkeysProviderChained {
-            add(combo: string | string[], description: string, callback: (event: Event, hotkeys: Hotkey) => void): HotkeysProviderChained;
+            add(
+                combo: string | string[],
+                description: string,
+                callback: (event: Event, hotkeys: Hotkey) => void,
+            ): HotkeysProviderChained;
 
             add(hotkeyObj: Hotkey): HotkeysProviderChained;
         }
@@ -125,7 +129,7 @@ declare module 'angular' {
             /**
              * An array of tag names to allow this combo in ('INPUT', 'SELECT', and/or 'TEXTAREA')
              */
-            allowIn?: Array<'INPUT' | 'SELECT' | 'TEXTAREA'> | undefined;
+            allowIn?: Array<"INPUT" | "SELECT" | "TEXTAREA"> | undefined;
             /**
              * Whether the hotkey persists navigation events
              */

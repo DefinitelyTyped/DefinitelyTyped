@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/box2d",
+    "version": "0.0.9999",
+    "projects": [
+        "http://code.google.com/p/box2dweb/"
+    ],
+    "devDependencies": {
+        "@types/box2d": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jbaldwin",
+            "githubUsername": "jbaldwin"
+        }
+    ]
+}

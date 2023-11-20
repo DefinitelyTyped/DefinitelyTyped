@@ -1,8 +1,3 @@
-// Type definitions for aqbjs 2.1
-// Project: https://github.com/arangodb/aqbjs
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 interface AqlError extends Error {
     new(message: string): Error;
     name: string;
@@ -126,7 +121,14 @@ interface LetExpression extends PartialStatement {
     _dfns: Definitions;
 }
 interface CollectExpression extends PartialStatement {
-    new(prev: PartialStatement, dfns: any[], varname: any, intoExpr: any, keepNames: any[], options: any): PartialStatement;
+    new(
+        prev: PartialStatement,
+        dfns: any[],
+        varname: any,
+        intoExpr: any,
+        keepNames: any[],
+        options: any,
+    ): PartialStatement;
     toAQL(): string;
     into(...newVarname: any[]): CollectExpression;
     keep(...x: any[]): any;
@@ -163,7 +165,15 @@ interface RemoveExpression extends PartialStatement {
     options(newOpts: any): RemoveExpression;
 }
 interface UpsertExpression extends PartialStatement {
-    new(prev: PartialStatement, upsertExpr: any, insertExpr: any, replace: boolean, updateOrReplaceExpr: any, collection: any, options: any): PartialStatement;
+    new(
+        prev: PartialStatement,
+        upsertExpr: any,
+        insertExpr: any,
+        replace: boolean,
+        updateOrReplaceExpr: any,
+        collection: any,
+        options: any,
+    ): PartialStatement;
     returnNew(x: any): ReturnExpression;
     returnOld(x: any): ReturnExpression;
     toAQL(): string;
@@ -205,8 +215,6 @@ interface Expression extends PartialStatement {
      * Examples
      *
      * qb.ref('x').eq('y'): (x == y)
-     *
-     *
      */
     eq(x: any, y?: any): BinaryOperation;
     /**
@@ -223,7 +231,6 @@ interface Expression extends PartialStatement {
      * Examples
      *
      * qb.ref('x').neq('y'): (x != y)
-     *
      */
     neq(x: any, y?: any): BinaryOperation;
     /**
@@ -240,8 +247,6 @@ interface Expression extends PartialStatement {
      * Examples
      *
      *  qb.ref('x').gt('y'): (x > y)
-     *
-     *
      */
     gt(x: any, y?: any): BinaryOperation;
     /**
@@ -258,8 +263,6 @@ interface Expression extends PartialStatement {
      * Examples
      *
      * qb.ref('x').gte('y'): (x >= y)
-     *
-     *
      */
     gte(x: any, y?: any): BinaryOperation;
     /**
@@ -276,7 +279,6 @@ interface Expression extends PartialStatement {
      * Examples
      *
      * qb.ref('x').lt('y'): (x < y)
-     *
      */
     lt(x: any, y?: any): BinaryOperation;
     /**
@@ -293,7 +295,6 @@ interface Expression extends PartialStatement {
      * Examples
      *
      * qb.ref('x').lte('y'): (x <= y)
-     *
      */
     lte(x: any, y?: any): BinaryOperation;
     /**
@@ -499,7 +500,6 @@ interface Expression extends PartialStatement {
      * Examples
      *
      * qb(2).to(5): 2..5
-     *
      */
     range(...value: number[]): RangeExpression;
     /**
@@ -515,7 +515,6 @@ interface Expression extends PartialStatement {
      *
      * Examples
      * qb.ref('x').get('y'): x[y]`
-     *
      */
     get(value: any): PropertyAccess;
     /**
@@ -533,7 +532,6 @@ interface Expression extends PartialStatement {
      *
      * Examples
      * qb.ref('x').then('y').else('z'): (x ? y: z)
-     *
      */
     then(value: any): ThenRet;
 }
@@ -566,7 +564,6 @@ interface PartialStatement {
      * Examples
      *
      * _.for('doc').in('my_collection'): FOR doc IN my_collection
-     *
      */
     for(varname: any): ForRet;
     /**
@@ -577,7 +574,6 @@ interface PartialStatement {
      * Examples
      *
      * _.filter(qb.eq('a', 'b')): FILTER a == b
-     *
      */
     filter(varname: any): FilterExpression;
     /**
@@ -592,7 +588,6 @@ interface PartialStatement {
      * LET var1 = expr1, var2 = expr2, …, varn = exprn
      *
      * PartialStatement::let(definitions): PartialStatement
-     *
      */
     let(varname: {}, expr: any): LetExpression;
     /**
@@ -625,7 +620,6 @@ interface PartialStatement {
      * CollectExpression::options(options): CollectExpression
      *
      * _.options('opts'): OPTIONS opts
-     *
      */
     collect(varname: any, expr: any): CollectExpression;
     /**
@@ -658,7 +652,6 @@ interface PartialStatement {
      * CollectExpression::options(options): CollectExpression
      *
      * _.options('opts'): OPTIONS opts
-     *
      */
     collectWithCountInto(varname: any): CollectWithCountIntoExpression;
     /**
@@ -669,7 +662,6 @@ interface PartialStatement {
      * Examples
      *
      * _.sort('x', 'DESC', 'y', 'ASC'): SORT x DESC, y ASC
-     *
      */
     sort(...args: any[]): SortExpression;
     /**
@@ -682,7 +674,6 @@ interface PartialStatement {
      * _.limit(20): LIMIT 20
      *
      * _.limit(20, 20): LIMIT 20, 20
-     *
      */
     limit(offset: any, count?: any): LimitExpression;
     /**
@@ -694,7 +685,6 @@ interface PartialStatement {
      *
      * _.return('x'): RETURN x
      * _.return({x: 'x'}): RETURN {x: x}
-     *
      */
     return(x: any): ReturnExpression;
     /**
@@ -705,7 +695,6 @@ interface PartialStatement {
      * Examples
      *
      * _.returnDistinct('x'): RETURN DISTINCT x
-     *
      */
     returnDistinct(x: any): ReturnExpression;
     /**
@@ -725,7 +714,6 @@ interface PartialStatement {
      * RemoveExpression::options(options): RemoveExpression
      *
      * _.options('opts'): OPTIONS opts
-     *
      */
     remove(expr: any): RemoveRet;
     /**
@@ -749,7 +737,6 @@ interface PartialStatement {
      * UpsertExpression::options(options): UpsertExpression
      *
      * _.options('opts'): OPTIONS opts
-     *
      */
     upsert(expr: any): UpsertRet;
     /**
@@ -769,7 +756,6 @@ interface PartialStatement {
      * InsertExpression::returnNew(varname): ReturnExpression
      *
      * _.returnNew('z'): LET z = NEW RETURN z
-     *
      */
     insert(expr: any): InsertRet;
     /**
@@ -799,7 +785,6 @@ interface PartialStatement {
      * UpdateExpression::returnOld(varname): ReturnExpression
      *
      * _.returnOld('z'): LET z = OLD RETURN z
-     *
      */
     update(expr: any): UpdateRetWithRet;
     /**
@@ -827,7 +812,6 @@ interface PartialStatement {
      * ReplaceExpression::returnNew(varname): ReturnExpression
      *
      * _.returnOld('z'): LET z = OLD RETURN z
-     *
      */
     replace(expr: any): ReplaceRetWithRet;
 }
@@ -903,7 +887,9 @@ declare function wrapAQL(expr: Keyword): string;
 declare function isValidNumber(number: number): boolean;
 declare function castNumber(number: any): NumberLiteral;
 declare function castBoolean(bool: any): BooleanLiteral;
-declare function castString(str: any): SimpleReference | Identifier | RangeExpression | StringLiteral | Expression | PartialStatement | NullLiteral;
+declare function castString(
+    str: any,
+): SimpleReference | Identifier | RangeExpression | StringLiteral | Expression | PartialStatement | NullLiteral;
 declare function castObject(obj: any): ObjectLiteral | ListLiteral | Identifier;
 declare function autoCastToken(token: any): Expression | PartialStatement | NullLiteral;
 /**
@@ -923,7 +909,6 @@ interface AQLfunctions extends Expression {
      *
      * If the value is truthy, it will be converted to the  Boolean true, otherwise it will be converted to the  Boolean false.
      * If the value is already an  Boolean, its own value will be wrapped instead.
-     *
      */
     bool(value: any): BooleanLiteral;
     /**
@@ -936,7 +921,6 @@ interface AQLfunctions extends Expression {
      * If the value is not a JavaScript Number, it will be converted first.
      * If the value does not represent a finite number, an Error will be thrown.
      * If the value is already an  Number or  Integer, its own value will be wrapped instead.
-     *
      */
     num(value: any): NumberLiteral;
     /**
@@ -949,7 +933,6 @@ interface AQLfunctions extends Expression {
      * If the value is not a JavaScript Number, it will be converted first.
      * If the value does not represent a finite integer, an Error will be thrown.
      * If the value is already an  Number or  Integer, its own value will be wrapped instead.
-     *
      */
     int(value: any): IntegerLiteral;
     /**
@@ -970,7 +953,6 @@ interface AQLfunctions extends Expression {
      * "some string" => "some string"
      *
      * '"some string"' => "\"some string\""
-     *
      */
     str(value: any): StringLiteral;
     /**
@@ -983,7 +965,6 @@ interface AQLfunctions extends Expression {
      * If the value is not a JavaScript Array, an Error will be thrown.
      * If the value is already an  List, its own value will be wrapped instead.
      * Any list elements that are not already  values will be converted automatically.
-     *
      */
     list(value: any[]): ListLiteral;
     /**
@@ -1012,7 +993,6 @@ interface AQLfunctions extends Expression {
      * qb.obj({':dynamic': 'props'}): {[dynamic]: props}
      *
      * qb.obj({': invalid': 'key'}): throws an error(invalid is not a well-formed reference)
-     *
      */
     obj(obj: object): ObjectLiteral;
     /**
@@ -1055,7 +1035,6 @@ interface AQLfunctions extends Expression {
      * foo bar
      *
      * foo[bar]
-     *
      */
     ref(value: string): SimpleReference;
     expr(value: any): RawExpression;
@@ -1074,7 +1053,6 @@ interface AQLfunctions extends Expression {
      *
      * Examples
      * qb.ref('x').then('y').else('z'): (x ? y: z)
-     *
      */
     if(cond: any, then: any, otherwise: any): Expression | number;
     /**
@@ -1096,7 +1074,6 @@ interface AQLfunctions extends Expression {
      * qb.RANDOM(): RANDOM()
      *
      * qb.FLOOR(qb.div(5, 2)): FLOOR((5 / 2))
-     *
      */
     fn(functionName: string): (...arity: any[]) => FunctionCall;
 }

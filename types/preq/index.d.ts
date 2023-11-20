@@ -1,12 +1,7 @@
-// Type definitions for preq 0.5
-// Project: https://github.com/wikimedia/preq
-// Definitions by: diskdance <https://github.com/diskdance>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export = preq;
 
-import request = require('request');
-import BlueBird = require('bluebird');
+import request = require("request");
+import BlueBird = require("bluebird");
 
 declare function preq(url: string, options?: preq.Options): BlueBird<request.Response>;
 declare function preq(options: preq.Options & preq.UrlOptions): BlueBird<request.Response>;

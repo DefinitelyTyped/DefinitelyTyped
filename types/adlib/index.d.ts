@@ -1,10 +1,3 @@
-// Type definitions for adlib 3.0
-// Project: https://github.com/Esri/adlib, https://arcgis.github.io/ember-arcgis-adlib-service
-// Definitions by: Esri <https://github.com/Esri>
-//                 Mike Tschudi <https://github.com/MikeTschudi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
 /*
  | Copyright 2018 Esri
  |
@@ -37,7 +30,7 @@ export interface TransformFunction {
         key: string,
         value: any,
         settings: any,
-        param?: any
+        param?: any,
     ): any;
 }
 
@@ -45,7 +38,7 @@ export interface TransformFunction {
  * Set of transformation functions keyed by the transform function's name.
  */
 export interface TransformsList {
-    [ transformFnName: string ]: TransformFunction;
+    [transformFnName: string]: TransformFunction;
 }
 
 /**
@@ -60,7 +53,7 @@ export interface TransformsList {
 export function adlib(
     template: any,
     settings: any,
-    transforms?: TransformsList
+    transforms?: TransformsList,
 ): any;
 
 /**
@@ -71,5 +64,5 @@ export function adlib(
  * @return List of unique property values in template
  */
 export function listDependencies(
-    template: any
-): string [];
+    template: any,
+): string[];

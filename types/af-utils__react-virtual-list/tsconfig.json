@@ -14,15 +14,8 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@af-utils/*": ["af-utils__*"]
-        }
+        "forceConsistentCasingInFileNames": true
     }
 }

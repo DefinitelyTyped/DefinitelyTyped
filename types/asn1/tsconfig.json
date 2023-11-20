@@ -4,17 +4,12 @@
         "lib": [
             "es6"
         ],
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
         "types": [],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "noUnusedParameters": true,
-
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

@@ -1,11 +1,5 @@
-// Type definitions for react-native-canvas 0.1
-// Project: https://github.com/iddan/react-native-canvas#readme
-// Definitions by: hmajid2301 <https://github.com/hmajid2301>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.1
-
-import * as React from 'react';
-import { StyleProp, ViewStyle } from 'react-native';
+import * as React from "react";
+import { StyleProp, ViewStyle } from "react-native";
 
 export interface CanvasProps {
     baseUrl?: string | undefined;
@@ -165,13 +159,13 @@ export class Path2D {
         },
     ) => void;
 
-    closePath: CanvasRenderingContext2D['closePath'];
-    moveTo: CanvasRenderingContext2D['moveTo'];
-    lineTo: CanvasRenderingContext2D['lineTo'];
-    bezierCurveTo: CanvasRenderingContext2D['bezierCurveTo'];
-    quadraticCurveTo: CanvasRenderingContext2D['quadraticCurveTo'];
-    arc: CanvasRenderingContext2D['arc'];
-    arcTo: CanvasRenderingContext2D['arcTo'];
-    ellipse: CanvasRenderingContext2D['ellipse'];
-    rect: CanvasRenderingContext2D['rect'];
+    closePath: CanvasRenderingContext2D["closePath"];
+    moveTo: CanvasRenderingContext2D["moveTo"];
+    lineTo: CanvasRenderingContext2D["lineTo"];
+    bezierCurveTo: CanvasRenderingContext2D["bezierCurveTo"];
+    quadraticCurveTo: CanvasRenderingContext2D["quadraticCurveTo"];
+    arc: CanvasRenderingContext2D["arc"];
+    arcTo: CanvasRenderingContext2D["arcTo"];
+    ellipse: CanvasRenderingContext2D["ellipse"];
+    rect: CanvasRenderingContext2D["rect"];
 }

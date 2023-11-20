@@ -1,9 +1,3 @@
-// Type definitions for formol 2.7
-// Project: https://github.com/Kozea/formol
-// Definitions by: today- <https://github.com/today->
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
 import * as React from "react";
 
 export const ConditionalContext: {
@@ -30,7 +24,7 @@ interface FormolProps<V = any> {
     extra?: React.ReactNode | undefined;
     classes?: any;
     onSubmit?: ((e: Event) => void) | undefined;
-    validator?: ((v: V) => {[K in keyof V]?: string | null}) | undefined;
+    validator?: ((v: V) => { [K in keyof V]?: string | null }) | undefined;
 }
 
 declare const Formol: React.ComponentType<FormolProps>;
@@ -56,7 +50,7 @@ export const FieldSet: React.ComponentType<FieldSetProps>;
 
 interface SwitchButtonProps {
     type?: string | undefined;
-    i18n?: { yes: React.ReactNode, no: React.ReactNode } & { [k: string]: any } | undefined;
+    i18n?: { yes: React.ReactNode; no: React.ReactNode } & { [k: string]: any } | undefined;
     leftLabel?: React.ReactNode | undefined;
     rightLabel?: React.ReactNode | undefined;
     className?: string | undefined;

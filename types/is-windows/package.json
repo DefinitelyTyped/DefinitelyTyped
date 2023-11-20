@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/is-windows",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/is-windows"
+    ],
+    "devDependencies": {
+        "@types/is-windows": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mizunashi Mana",
+            "githubUsername": "mizunashi-mana"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

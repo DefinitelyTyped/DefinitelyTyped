@@ -1,8 +1,3 @@
-// Type definitions for node-apple-receipt-verify 1.7
-// Project: https://github.com/ladeiko/node-apple-receipt-verify
-// Definitions by: serinuntius <https://github.com/serinuntius>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export enum ERROR_CODES {
     /** The receipt validated successfully. */
     SUCCESS = 0,
@@ -38,7 +33,7 @@ export enum ERROR_CODES {
     PROD_RECEIPT = 21008,
 
     /** This receipt could not be authorized. Treat this the same as if a purchase was never made. */
-    COULD_NOT_AUTHORIZE = 21010
+    COULD_NOT_AUTHORIZE = 21010,
 }
 
 export interface ConfigOptions {

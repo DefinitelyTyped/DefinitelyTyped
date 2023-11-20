@@ -1,9 +1,4 @@
-// Type definitions for chartmogul-node 2.0
-// Project: https://github.com/chartmogul/chartmogul-node
-// Definitions by: ChartMogul <https://github.com/chartmogul>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { Map, Cursor, CursorParams, Strings, Entries, EntriesSummary } from './common';
+import { Cursor, CursorParams, Entries, EntriesSummary, Map, Strings } from "./common";
 
 export class Config {
     VERSION: string;
@@ -51,7 +46,7 @@ export namespace Customer {
         name?: string | undefined;
         email?: string | undefined;
         status?: string | undefined;
-        ['customer-since']?: string | undefined;
+        ["customer-since"]?: string | undefined;
         attributes?: Attributes | undefined;
         address?: {
             address_zip?: string | undefined;
@@ -61,11 +56,11 @@ export namespace Customer {
         } | undefined;
         mrr?: number | undefined;
         arr?: number | undefined;
-        ['billing-system-url']?: string | undefined;
-        ['chartmogul-url']?: string | undefined;
-        ['billing-system-type']?: string | undefined;
+        ["billing-system-url"]?: string | undefined;
+        ["chartmogul-url"]?: string | undefined;
+        ["billing-system-type"]?: string | undefined;
         currency?: string | undefined;
-        ['currency-sign']?: string | undefined;
+        ["currency-sign"]?: string | undefined;
         company?: string | undefined;
         country?: string | undefined;
         state?: string | undefined;
@@ -208,7 +203,7 @@ export namespace Invoice {
         result?: string | undefined;
         type?: string | undefined;
     }
-    interface ListInvoicesParams  extends CursorParams {
+    interface ListInvoicesParams extends CursorParams {
         data_source_uuid?: string | undefined;
         customer_uuid?: string | undefined;
         external_id?: string | undefined;
@@ -219,7 +214,7 @@ export namespace Invoice {
     }
 
     function create(config: Config, uuid: string, data: {
-        invoices: Invoice[]
+        invoices: Invoice[];
     }): Promise<Invoice>;
     function retrieve(config: Config, uuid: string): Promise<Invoice>;
     function destroy(config: Config, uuid: string): Promise<{}>;
@@ -298,16 +293,16 @@ export namespace Metrics {
         interval?: string | undefined;
     }
     interface ParamsNoInterval {
-        ['start-date']: string;
-        ['end-date']: string;
+        ["start-date"]: string;
+        ["end-date"]: string;
         geo?: string | undefined;
         plans?: string | undefined;
     }
     interface All {
         entries: {
             date: string;
-            ['customer-churn-rate']: number;
-            ['mrr-churn-rate']: number;
+            ["customer-churn-rate"]: number;
+            ["mrr-churn-rate"]: number;
             ltv: number;
             customers: number;
             asp: number;
@@ -320,11 +315,11 @@ export namespace Metrics {
     interface MRR {
         date: string;
         mrr: number;
-        ['mrr-new-business']: number;
-        ['mrr-expansion']: number;
-        ['mrr-contraction']: number;
-        ['mrr-churn']: number;
-        ['mrr-reactivation']: number;
+        ["mrr-new-business"]: number;
+        ["mrr-expansion"]: number;
+        ["mrr-contraction"]: number;
+        ["mrr-churn"]: number;
+        ["mrr-reactivation"]: number;
     }
     interface ARR {
         date: string;
@@ -344,11 +339,11 @@ export namespace Metrics {
     }
     interface CustomerChurnRate {
         date: string;
-        ['customer-churn-rate']: number;
+        ["customer-churn-rate"]: number;
     }
     interface MRRChurnRate {
         date: string;
-        ['mrr-churn-rate']: number;
+        ["mrr-churn-rate"]: number;
     }
     interface LTV {
         date: string;
@@ -374,26 +369,30 @@ export namespace Metrics {
             mrr: number;
             arr: number;
             status: string;
-            ['billing-cycle']: string;
-            ['billing-cycle-count']: number;
-            ['start-date']: string;
-            ['end-date']: string;
+            ["billing-cycle"]: string;
+            ["billing-cycle-count"]: number;
+            ["start-date"]: string;
+            ["end-date"]: string;
             currency: string;
-            ['currency-sign']: string;
+            ["currency-sign"]: string;
         }
         interface MetricsActivity {
             id: number;
             date: string;
-            ['activity-arr']: number;
-            ['activity-mrr']: number;
-            ['activity-mrr-movement']: number;
+            ["activity-arr"]: number;
+            ["activity-mrr"]: number;
+            ["activity-mrr-movement"]: number;
             currency: string;
-            ['currency-sign']: string;
+            ["currency-sign"]: string;
             description: string;
             type: string;
         }
 
-        function subscriptions(config: Config, uuid: string, params?: CursorParams): Promise<Entries<MetricsSubscription>>;
+        function subscriptions(
+            config: Config,
+            uuid: string,
+            params?: CursorParams,
+        ): Promise<Entries<MetricsSubscription>>;
         function activities(config: Config, uuid: string, params?: CursorParams): Promise<Entries<MetricsActivity>>;
     }
 }

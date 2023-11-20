@@ -1,10 +1,10 @@
-import { Logger } from 'winston';
-import { GraphPointer } from 'clownface';
-import { LoaderRegistry } from 'rdf-loaders-registry';
+import { GraphPointer } from "clownface";
+import { LoaderRegistry } from "rdf-loaders-registry";
+import { Logger } from "winston";
+import { VariableMap } from "../..";
 import Pipeline from "../Pipeline";
-import { VariableMap } from '../..';
 
-interface CreatePipeline {
+export interface CreatePipelineArgs {
     basePath: string;
     context?: unknown;
     loaderRegistry?: LoaderRegistry;
@@ -12,5 +12,5 @@ interface CreatePipeline {
     variables?: VariableMap;
 }
 
-export default function createPipeline(ptr: GraphPointer, arg?: CreatePipeline): Pipeline;
+export default function createPipeline(ptr: GraphPointer, arg?: CreatePipelineArgs): Pipeline;
 export {};

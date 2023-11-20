@@ -1,13 +1,7 @@
-// Type definitions for imap-simple v4.2.0
-// Project: https://github.com/chadxz/imap-simple
-// Definitions by: Jeffery Grajkowski <https://github.com/pushplay>
-//                 Ilari Aarnio <https://github.com/iaarnio>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 import Imap = require("imap");
-import { EventEmitter } from 'events';
+import { EventEmitter } from "events";
 
 export interface ImapSimpleOptions {
     /** Options to pass to node-imap constructor. */
@@ -60,7 +54,11 @@ export class ImapSimple extends EventEmitter {
     getBoxes(): Promise<Imap.MailBoxes>;
 
     /** Search for and retrieve mail in the currently open mailbox. */
-    search(searchCriteria: any[], fetchOptions: Imap.FetchOptions, callback: (err: Error, messages: Message[]) => void): void;
+    search(
+        searchCriteria: any[],
+        fetchOptions: Imap.FetchOptions,
+        callback: (err: Error, messages: Message[]) => void,
+    ): void;
     search(searchCriteria: any[], fetchOptions: Imap.FetchOptions): Promise<Message[]>;
 
     /** Close the connection to the imap server. */

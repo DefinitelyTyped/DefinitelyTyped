@@ -1,8 +1,3 @@
-// Type definitions for @bitcoin-computer/lib 0.15
-// Project: https://github.com/bitcoin-computer/monorepo
-// Definitions by: jonty007 <https://github.com/jonty007>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 type JUndefined = undefined;
 type JNull = null;
 type JBoolean = boolean;
@@ -22,8 +17,8 @@ interface SJObject {
     _root: string;
 }
 type SJson = JBasic | SJObject | SJArray;
-type Chain = 'LTC' | 'BTC';
-type Network = 'livenet' | 'testnet' | 'mainnet' | 'regtest';
+type Chain = "LTC" | "BTC";
+type Network = "livenet" | "testnet" | "mainnet" | "regtest";
 type SelectUtxos = Partial<{
     include: string[];
     exclude: string[];
@@ -77,13 +72,13 @@ type Transition = Encrypted & {
     root: string;
 };
 type Data = ProgramMetaData & Transition & JObject;
-type Class = new (...args: any) => any;
+type Class = new(...args: any) => any;
 type Query = Partial<{
     mod: string;
     publicKey: string;
     limit: number;
     offset: number;
-    order: 'ASC' | 'DESC';
+    order: "ASC" | "DESC";
     ids: string[];
     classHash: string;
 }>;
@@ -92,7 +87,7 @@ type UserQuery<T extends Class> = Partial<{
     publicKey: string;
     limit: number;
     offset: number;
-    order: 'ASC' | 'DESC';
+    order: "ASC" | "DESC";
     ids: string[];
     contract: {
         class: T;

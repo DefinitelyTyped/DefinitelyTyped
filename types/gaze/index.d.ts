@@ -1,10 +1,4 @@
-// Type definitions for gaze 1.1
-// Project: https://github.com/shama/gaze
-// Definitions by: DefinitelyTyped <https://github.com/DefinitelyTyped>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 3.1
-
-type Mode = 'auto' | 'watch' | 'poll';
+type Mode = "auto" | "watch" | "poll";
 
 interface Options {
     /**
@@ -31,7 +25,7 @@ declare namespace gaze {
         constructor(
             patterns: string | string[],
             options?: Options | null,
-            callback?: (error: Error | null, watcher: Gaze) => void
+            callback?: (error: Error | null, watcher: Gaze) => void,
         );
 
         /**
@@ -69,7 +63,7 @@ declare namespace gaze {
 declare function gaze(
     patterns: string | string[],
     options?: Options | null,
-    callback?: (error: Error | null, watcher: gaze.Gaze) => void
+    callback?: (error: Error | null, watcher: gaze.Gaze) => void,
 ): void;
 
 export = gaze;

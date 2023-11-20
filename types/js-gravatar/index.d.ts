@@ -1,8 +1,3 @@
-// Type definitions for js-gravatar 1.1
-// Project: https://github.com/chukwumaijem/js-gravatar#readme
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * JS Gravatar
  * {@link https://github.com/chukwumaijem/js-gravatar#js-gravatar}
@@ -18,7 +13,16 @@ declare namespace jsGravatar {
         /**
          *  What image should be used if email does not have a gravatar
          */
-        defaultImage?: '404' | 'mp' | 'identicon' | 'monsterid' | 'wavatar' | 'retro' | 'robohash' | 'blank' | undefined;
+        defaultImage?:
+            | "404"
+            | "mp"
+            | "identicon"
+            | "monsterid"
+            | "wavatar"
+            | "retro"
+            | "robohash"
+            | "blank"
+            | undefined;
         /**
          * Email address of the user to generate gravatar for
          */

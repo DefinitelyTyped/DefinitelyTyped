@@ -1,6 +1,6 @@
 import * as THREE from "three";
-import GeometryLayer, { GeometryLayerOptions } from "./GeometryLayer";
 import Style from "../Core/Style";
+import GeometryLayer, { GeometryLayerOptions } from "./GeometryLayer";
 
 export interface FeatureGeometryLayerOptions extends GeometryLayerOptions {
     batchId?: any; // TODO: function

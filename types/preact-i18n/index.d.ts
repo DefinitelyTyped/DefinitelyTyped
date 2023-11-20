@@ -1,11 +1,4 @@
-// Type definitions for preact-i18n 2.3
-// Project: https://github.com/synacor/preact-i18n
-// Definitions by:  Lukas Tetzlaff <https://github.com/ltetzlaff>
-//                  Sascha Zarhuber <https://github.com/saschazar21>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.5
-
-import { h, Component, Context, VNode, ComponentChild, JSX } from 'preact';
+import { Component, ComponentChild, Context, h, JSX, VNode } from "preact";
 
 interface IntlContext {
     intl: {
@@ -59,7 +52,7 @@ export function useText(
 export function withText<Props, Context = IntlContext>(mapping: {}): (
     Child: ComponentChild,
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-) => new (props?: Props, context?: Context) => any;
+) => new(props?: Props, context?: Context) => any;
 
 export function intl(Child: Component, options?: { scope?: string | undefined; definition?: {} | undefined }): VNode;
 

@@ -1,9 +1,3 @@
-// Type definitions for imurmurhash 0.1
-// Project: https://github.com/jensyt/imurmurhash-js
-// Definitions by: Jiayu Liu <https://github.com/Jimexist>
-//                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /**
  * An incremental implementation of MurmurHash3 for JavaScript
  */
@@ -43,7 +37,7 @@ declare var MurmurHash3: {
      * This is safe to use as long as the object is only used from a single thread and no other hashes are created while operating on this one.
      * If this constraint cannot be met, you can use new to create a new state object
      */
-    new (text?: string, seed?: number): MurmurHash3;
+    new(text?: string, seed?: number): MurmurHash3;
 };
 
 export as namespace MurmurHash3;

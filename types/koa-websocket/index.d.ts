@@ -1,19 +1,8 @@
-// Type definitions for koa-websocket 5.0
-// Project: https://github.com/kudos/koa-websocket
-// Definitions by: Maël Lavault <https://github.com/moimael>
-//                 Jaco Greeff <https://github.com/jacogr>
-//                 Martin Ždila <https://github.com/zdila>
-//                 Eunchong Yu <https://github.com/Kroisse>
-//                 Christopher N. Katoyi-Kaba <https://github.com/Christopher2K>
-//                 Zuo Jiazi <https://github.com/Aoiujz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-import Koa = require('koa');
-import compose = require('koa-compose');
-import * as ws from 'ws';
-import * as http from 'http';
-import * as https from 'https';
+import Koa = require("koa");
+import compose = require("koa-compose");
+import * as http from "http";
+import * as https from "https";
+import * as ws from "ws";
 
 declare module "koa" {
     interface Context {
@@ -23,7 +12,9 @@ declare module "koa" {
 }
 
 declare namespace KoaWebsocket {
-    type Middleware<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> = compose.Middleware<MiddlewareContext<StateT> & ContextT>;
+    type Middleware<StateT = Koa.DefaultState, ContextT = Koa.DefaultContext> = compose.Middleware<
+        MiddlewareContext<StateT> & ContextT
+    >;
 
     interface MiddlewareContext<StateT> extends Koa.Context {
         // Limitation: Declaration merging cannot overwrap existing properties.
@@ -50,12 +41,12 @@ declare namespace KoaWebsocket {
 }
 
 declare function KoaWebsocket<
-  StateT = Koa.DefaultState,
-  ContextT = Koa.DefaultContext
+    StateT = Koa.DefaultState,
+    ContextT = Koa.DefaultContext,
 >(
-  app: Koa<StateT, ContextT>,
-  wsOptions?: ws.ServerOptions,
-  httpsOptions?: https.ServerOptions
+    app: Koa<StateT, ContextT>,
+    wsOptions?: ws.ServerOptions,
+    httpsOptions?: https.ServerOptions,
 ): KoaWebsocket.App<StateT, ContextT>;
 
 export = KoaWebsocket;

@@ -1,9 +1,3 @@
-// Type definitions for jStorage 0.3.0
-// Project: http://www.jstorage.info/
-// Definitions by: Danil Flores <https://github.com/dflor003>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 interface JStorageOptions {
     TTL: number;
 }
@@ -13,7 +7,6 @@ interface JStorageReadonlyStore {
 }
 
 interface JStorageStatic {
-
     /**
      * Sets a key's value.
      *
@@ -34,7 +27,7 @@ interface JStorageStatic {
      * @param defaultIfNotFound - Default value to return, if key didn't exist.
      * @return the key value, default value or null
      */
-    get <TValue>(key: string, defaultIfNotFound?: TValue): TValue;
+    get<TValue>(key: string, defaultIfNotFound?: TValue): TValue;
 
     /**
      * Deletes a key from cache.
@@ -73,7 +66,7 @@ interface JStorageStatic {
      *
      * @return Read-only copy of _storage
      */
-    storageObj(): JStorageReadonlyStore
+    storageObj(): JStorageReadonlyStore;
 
     /**
      * Returns an index of all used keys as an array
@@ -111,7 +104,7 @@ interface JStorageStatic {
      * @param key Key name
      * @param callback Function to run when the key changes
      */
-    listenKeyChange(key: string, callback: (key: string, value: any) => void ): void;
+    listenKeyChange(key: string, callback: (key: string, value: any) => void): void;
 
     /**
      * Register change listeners
@@ -119,7 +112,7 @@ interface JStorageStatic {
      * @param key Key name
      * @param callback Function to run when the key changes
      */
-    listenKeyChange<TValue>(key: string, callback: (key: string, value: TValue) => void ): void;
+    listenKeyChange<TValue>(key: string, callback: (key: string, value: TValue) => void): void;
 
     /**
      * Remove change listeners
@@ -135,7 +128,7 @@ interface JStorageStatic {
      * @param channel Channel name
      * @param callback Function to run when the something is published to the channel
      */
-    subscribe(channel: string, callback: (channel: string, value: any) => void ): void;
+    subscribe(channel: string, callback: (channel: string, value: any) => void): void;
 
     /**
      * Subscribe to a Publish/Subscribe event stream
@@ -143,7 +136,7 @@ interface JStorageStatic {
      * @param channel Channel name
      * @param callback Function to run when the something is published to the channel
      */
-    subscribe<TValue>(channel: string, callback: (channel: string, value: TValue) => void ): void;
+    subscribe<TValue>(channel: string, callback: (channel: string, value: TValue) => void): void;
 
     /**
      * Publish data to an event stream

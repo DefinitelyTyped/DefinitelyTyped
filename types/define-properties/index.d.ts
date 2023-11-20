@@ -1,10 +1,3 @@
-// Type definitions for define-properties 1.1
-// Project: https://github.com/ljharb/define-properties#readme
-// Definitions by: ExE Boss <https://github.com/ExE-Boss>
-//                 Jordan Harband <https://github.com/ljharb>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
 declare namespace defineProperties {
     /**
      * Whether the current environment correctly supports property descriptors.

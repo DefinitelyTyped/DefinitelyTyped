@@ -1,9 +1,3 @@
-// Type definitions for country-list 2.1
-// Project: https://github.com/fannarsh/country-list
-// Definitions by: Kyle Roach <https://github.com/iRoachie>
-//                 Adam Binford <https://github.com/Kimahriman>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 export interface Country {
     code: string;
     name: string;
@@ -37,12 +31,12 @@ export function getCodes(): string[];
 /**
  * Returns a key-value object of all countries using the name as key.
  */
-export function getNameList(): {[name: string]: string};
+export function getNameList(): { [name: string]: string };
 
 /**
  * Returns a key-value object of all countries using the code as key.
  */
-export function getCodeList(): {[code: string]: string};
+export function getCodeList(): { [code: string]: string };
 
 /**
  * Returns an array of all country information, in the same format as it gets imported.

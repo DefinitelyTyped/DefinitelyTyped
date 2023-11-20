@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/emscripten",
+    "version": "1.39.9999",
+    "projects": [
+        "https://emscripten.org"
+    ],
+    "devDependencies": {
+        "@types/emscripten": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kensuke Matsuzaki",
+            "githubUsername": "zakki"
+        },
+        {
+            "name": "Periklis Tsirakidis",
+            "githubUsername": "periklis"
+        },
+        {
+            "name": "Bumsik Kim",
+            "githubUsername": "kbumsik"
+        },
+        {
+            "name": "Louis DeScioli",
+            "githubUsername": "lourd"
+        }
+    ]
+}

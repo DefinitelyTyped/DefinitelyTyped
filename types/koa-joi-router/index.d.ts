@@ -1,23 +1,13 @@
-// Type definitions for koa-joi-router 8.0
-// Project: https://github.com/koajs/joi-router
-// Definitions by: Matthew Bull <https://github.com/wingsbob>
-//                 Dave Welsh <https://github.com/move-zig>
-//                 Hiroshi Ioka <https://github.com/hirochachacha>
-//                 Tiger Oakes <https://github.com/NotWoods>
-//                 Jeremy Hull <https://github.com/sourrust>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
 /// <reference types="node" />
 
-import * as Koa from 'koa';
-import * as Joi from 'joi';
-import * as KoaRouter from 'koa-router';
-import * as CoBody from 'co-body';
-import { BusboyConfig } from 'busboy';
-import * as http from 'http';
+import { BusboyConfig } from "busboy";
+import * as CoBody from "co-body";
+import * as http from "http";
+import * as Joi from "joi";
+import * as Koa from "koa";
+import * as KoaRouter from "koa-router";
 
-declare module 'koa' {
+declare module "koa" {
     interface Request {
         body?: any;
         params: { [key: string]: string };
@@ -42,20 +32,20 @@ declare namespace createRouter {
         pre?: Handler | undefined;
         validate?:
             | {
-                  header?: Joi.SchemaLike | undefined;
-                  query?: Joi.SchemaLike | undefined;
-                  params?: Joi.SchemaLike | undefined;
-                  body?: Joi.SchemaLike | undefined;
-                  maxBody?: number | string | undefined;
-                  failure?: number | undefined;
-                  type?: 'form' | 'json' | 'multipart' | undefined;
-                  formOptions?: CoBody.Options | undefined;
-                  jsonOptions?: CoBody.Options | undefined;
-                  multipartOptions?: BusboyConfig | undefined;
-                  output?: { [status: string]: OutputValidation } | undefined;
-                  continueOnError?: boolean | undefined;
-                  validateOptions?: Joi.ValidationOptions | undefined;
-              }
+                header?: Joi.SchemaLike | undefined;
+                query?: Joi.SchemaLike | undefined;
+                params?: Joi.SchemaLike | undefined;
+                body?: Joi.SchemaLike | undefined;
+                maxBody?: number | string | undefined;
+                failure?: number | undefined;
+                type?: "form" | "json" | "multipart" | undefined;
+                formOptions?: CoBody.Options | undefined;
+                jsonOptions?: CoBody.Options | undefined;
+                multipartOptions?: BusboyConfig | undefined;
+                output?: { [status: string]: OutputValidation } | undefined;
+                continueOnError?: boolean | undefined;
+                validateOptions?: Joi.ValidationOptions | undefined;
+            }
             | undefined;
         meta?: any;
     }
@@ -72,9 +62,9 @@ declare namespace createRouter {
         router: KoaRouter;
         middleware(): Koa.Middleware;
 
-        prefix: KoaRouter['prefix'];
-        use: KoaRouter['use'];
-        param: KoaRouter['param'];
+        prefix: KoaRouter["prefix"];
+        use: KoaRouter["use"];
+        param: KoaRouter["param"];
 
         head: Method;
         options: Method;

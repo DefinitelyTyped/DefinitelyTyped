@@ -1,12 +1,6 @@
-// Type definitions for svg-sprite
-// Project: https://github.com/jkphl/svg-sprite
-// Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
 /// <reference types="node" />
-import File = require('vinyl');
-import { Logger } from 'winston';
+import File = require("vinyl");
+import { Logger } from "winston";
 
 declare namespace sprite {
     interface SVGSpriterConstructor extends NodeJS.EventEmitter {
@@ -14,7 +8,7 @@ declare namespace sprite {
          * The spriter's constructor (always the entry point)
          * @param config Main configuration for the spriting process
          */
-        new (config: Config): SVGSpriter;
+        new(config: Config): SVGSpriter;
     }
 
     interface SVGSpriter {
@@ -45,7 +39,7 @@ declare namespace sprite {
          * Simple Promise wrapper on `SVGSpriter.compile`.
          * @param config Configuration object (same as in `SVGSpriter.compile`).
          */
-        compileAsync(config?: Config): Promise<{ result: any, data: any }>;
+        compileAsync(config?: Config): Promise<{ result: any; data: any }>;
         /**
          * Accessing the intermediate SVG resources
          * @param dest Base directory for the SVG files in case the will be written to disk.
@@ -165,7 +159,7 @@ declare namespace sprite {
     interface CustomConfigurationTransform {
         [transformationName: string]: {
             plugins?: { [transformationName: string]: boolean }[] | undefined;
-        }
+        };
     }
 
     /**
@@ -180,7 +174,7 @@ declare namespace sprite {
              * @param callback Callback
              */
             (shape: any, sprite: SVGSpriter, callback: Function): any;
-        }
+        };
     }
 
     interface Svg {

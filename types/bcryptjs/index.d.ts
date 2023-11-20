@@ -1,12 +1,3 @@
-// Type definitions for bcryptjs v2.4.0
-// Project: https://github.com/dcodeIO/bcrypt.js
-// Definitions by: Joshua Filby <https://github.com/Joshua-F/>
-//                 Rafael Kraut <https://github.com/RafaelKr>
-//                 Branislav Holý <https://github.com/branoholy>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
-
 /**
  * Sets the pseudo random number generator to use as a fallback if neither node's crypto module nor the Web Crypto API is available.
  * Please note: It is highly important that the PRNG used is cryptographically secure and that it is seeded properly!
@@ -65,7 +56,12 @@ export declare function hash(s: string, salt: number | string): Promise<string>;
  * @param callback         Callback receiving the error, if any, and the resulting hash
  * @param progressCallback Callback successively called with the percentage of rounds completed (0.0 - 1.0), maximally once per MAX_EXECUTION_TIME = 100 ms.
  */
-export declare function hash(s: string, salt: number | string, callback?: (err: Error | null, hash: string) => void, progressCallback?: (percent: number) => void): void;
+export declare function hash(
+    s: string,
+    salt: number | string,
+    callback?: (err: Error | null, hash: string) => void,
+    progressCallback?: (percent: number) => void,
+): void;
 
 /**
  * Synchronously tests a string against a hash.
@@ -90,7 +86,12 @@ export declare function compare(s: string, hash: string): Promise<boolean>;
  * @param  callback         Callback receiving the error, if any, otherwise the result
  * @param  progressCallback Callback successively called with the percentage of rounds completed (0.0 - 1.0), maximally once per MAX_EXECUTION_TIME = 100 ms.
  */
-export declare function compare(s: string, hash: string, callback?: (err: Error | null, success: boolean) => void, progressCallback?: (percent: number) => void): void;
+export declare function compare(
+    s: string,
+    hash: string,
+    callback?: (err: Error | null, success: boolean) => void,
+    progressCallback?: (percent: number) => void,
+): void;
 
 /**
  * Gets the number of rounds used to encrypt the specified hash.

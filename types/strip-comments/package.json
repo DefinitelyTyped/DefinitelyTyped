@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/strip-comments",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/strip-comments"
+    ],
+    "devDependencies": {
+        "@types/strip-comments": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

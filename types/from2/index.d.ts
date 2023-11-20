@@ -1,10 +1,5 @@
-// Type definitions for from2 2.3
-// Project: https://github.com/hughsk/from2
-// Definitions by: BendingBender <https://github.com/BendingBender>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
-import * as stream from 'stream';
+import * as stream from "stream";
 
 export = from2;
 
@@ -26,7 +21,7 @@ declare namespace from2 {
     type ObjectModeOptions = { objectMode: true } & stream.ReadableOptions;
     type Options = { objectMode?: false | undefined } & stream.ReadableOptions;
 
-    type From2Ctor<R extends ReadInput | ReadObjectInput> = new (read: R) => Stream;
+    type From2Ctor<R extends ReadInput | ReadObjectInput> = new(read: R) => Stream;
 
     type ReadObjectInput = ReadCallback<NextObjectCallback> | any[];
     type ReadInput = ReadCallback<NextCallback> | Chunk[];

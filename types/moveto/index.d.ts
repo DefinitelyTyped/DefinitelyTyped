@@ -1,9 +1,3 @@
-// Type definitions for moveto 1.8
-// Project: https://github.com/hsnaydd/moveTo
-// Definitions by: Rostislav Shermenyov <https://github.com/shermendev>
-//                 pea3nut <https://github.com/pea3nut>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 declare class MoveTo {
     /**
      * MoveTo Constructor
@@ -12,7 +6,7 @@ declare class MoveTo {
      */
     constructor(
         options?: MoveTo.MoveToOptions,
-        easeFunctions?: MoveTo.MoveToEaseFunctionsObject
+        easeFunctions?: MoveTo.MoveToEaseFunctionsObject,
     );
     /**
      * Options
@@ -36,7 +30,7 @@ declare class MoveTo {
      */
     registerTrigger(
         dom: HTMLElement,
-        callback?: MoveTo.callbackType
+        callback?: MoveTo.callbackType,
     ): MoveTo.unregisterTriggerType;
     /**
      * Adds custom ease function
@@ -93,7 +87,7 @@ declare namespace MoveTo {
         t: number,
         b: number,
         c: number,
-        d: number
+        d: number,
     ) => number;
 }
 

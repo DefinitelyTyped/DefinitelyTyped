@@ -1,9 +1,3 @@
-// Type definitions for simple-cw-node
-// Project: https://github.com/astronaughts/simple-cw-node
-// Definitions by: vvakame <https://github.com/vvakame>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 3.0
-
 import superagent = require("superagent");
 // TODO 1. update superagent with generics
 // TODO 2. create underscore.deffered .d.ts file

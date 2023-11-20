@@ -1,8 +1,3 @@
-// Type definitions for leaflet-freedraw 2.13
-// Project: https://github.com/Wildhoney/Leaflet.FreeDraw
-// Definitions by: Jean-Baptiste Zeller <https://github.com/Esurnir>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 import { FeatureGroup, LatLng, LeafletEvent, Polygon } from "leaflet";
 
 export as namespace LeafletFreeDraw;

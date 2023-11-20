@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/envinfo",
+    "version": "7.8.9999",
+    "projects": [
+        "https://github.com/tabrindle/envinfo#readme"
+    ],
+    "devDependencies": {
+        "@types/envinfo": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "nashaofu",
+            "githubUsername": "nashaofu"
+        }
+    ]
+}

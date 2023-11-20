@@ -1,21 +1,16 @@
-// Type definitions for exaroton 1.8
-// Project: https://github.com/exaroton/node-exaroton-api
-// Definitions by: Maximilian Hofmann <https://github.com/hofmmaxi>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-import { EventEmitter } from 'events';
-import { WebSocket } from 'ws';
-import FormData = require('form-data');
-import { ReadableStream, WritableStream } from 'node:stream/web';
+import { EventEmitter } from "events";
+import { WebSocket } from "ws";
+import FormData = require("form-data");
+import { ReadableStream, WritableStream } from "node:stream/web";
 
 // Exported types
 export { Client, Request, Response, Server, Software };
 declare class Client {
-    protocol: string | 'https';
+    protocol: string | "https";
 
-    host: string | 'api.exaroton.com';
+    host: string | "api.exaroton.com";
 
-    basePath: string | '/v1';
+    basePath: string | "/v1";
 
     /**
      * API base URL used for all requests
@@ -33,7 +28,6 @@ declare class Client {
     private userAgent: string;
 
     /**
-     *
      * @param apiToken string API token, create one here: https://exaroton.com/account/
      */
     constructor(apiToken: string);
@@ -159,7 +153,6 @@ declare class Request {
     setParameter(key: string, value: string): void;
 
     /**
-     *
      * @param key
      * @param value
      */
@@ -649,7 +642,7 @@ declare class Software {
 declare enum ResponseType {
     Text = "text",
     JSON = "json",
-    Buffer = "buffer"
+    Buffer = "buffer",
 }
 
 declare class Account {
@@ -719,7 +712,7 @@ declare class RequestStatusError extends RequestError {
     constructor(error: RequestError);
 }
 
-type Method = 'GET' | 'POST' | 'PUT' | 'DELETE';
+type Method = "GET" | "POST" | "PUT" | "DELETE";
 
 declare class FileRequest extends ServerRequest {
     /**
@@ -773,7 +766,7 @@ declare class ServerRequest extends Request {
 
 declare class ExecuteServerCommandRequest extends ServerRequest {
     readonly endpoint: string;
-    readonly method: 'POST';
+    readonly method: "POST";
 
     /**
      * Server request constructor
@@ -816,7 +809,7 @@ declare class RestartServerRequest extends ServerRequest {
 }
 
 declare class SetServerOptionRequest extends GetServerOptionRequest {
-    readonly method: 'POST';
+    readonly method: "POST";
 
     /**
      * SetServerOptionRequest constructor
@@ -825,7 +818,7 @@ declare class SetServerOptionRequest extends GetServerOptionRequest {
      * @param option
      * @param value
      */
-    constructor(id: string, option: 'ram' | 'motd', value: string);
+    constructor(id: string, option: "ram" | "motd", value: string);
 }
 
 declare class ShareServerLogsRequest extends ServerRequest {
@@ -846,11 +839,11 @@ declare class PlayerListRequest extends ServerRequest {
 }
 
 declare class DeletePlayerListEntriesRequest extends PlayerListRequest {
-    readonly method: 'DELETE';
+    readonly method: "DELETE";
     constructor(id: string, name: string, entries: string);
 }
 
-declare class GetPlayerListEntriesRequest extends PlayerListRequest { }
+declare class GetPlayerListEntriesRequest extends PlayerListRequest {}
 
 declare class GetPlayerListRequest extends ServerRequest {
     readonly endpoint: string;
@@ -858,7 +851,7 @@ declare class GetPlayerListRequest extends ServerRequest {
 }
 
 declare class PutPlayerListEntriesRequest extends PlayerListRequest {
-    readonly method: 'PUT';
+    readonly method: "PUT";
     constructor(id: string, name: string, entries: string);
 }
 
@@ -894,7 +887,7 @@ declare class ServersResponse extends Response {
     getData(): Server[];
 }
 
-type PlayerListTypes = 'whitelist' | 'ops' | 'banned-ips' | 'banned-players';
+type PlayerListTypes = "whitelist" | "ops" | "banned-ips" | "banned-players";
 
 declare class PlayerList {
     /**
@@ -984,7 +977,7 @@ declare class Players {
     constructor(playersObject: Players);
 }
 
-type Message = 'started' | 'stopped';
+type Message = "started" | "stopped";
 
 type StreamStatus = 1 | 2 | 3 | 4;
 
@@ -992,7 +985,7 @@ type StreamStatus = 1 | 2 | 3 | 4;
  * @classdesc Websocket client to connect to the websocket for this server
  */
 declare class WebsocketClient extends EventEmitter {
-    readonly protocol: 'wss' | 'ws';
+    readonly protocol: "wss" | "ws";
     private client: Client;
     private server: Server;
     private websocket: WebSocket;
@@ -1144,28 +1137,28 @@ declare class Stream extends EventEmitter {
     isStarted(): boolean;
 }
 
-type SubscriptionType = 'tick' | 'heap' | 'stats' | 'console';
+type SubscriptionType = "tick" | "heap" | "stats" | "console";
 
-type TickDataType = 'start' | 'stop' | 'started' | 'tick';
+type TickDataType = "start" | "stop" | "started" | "tick";
 declare class TickStream extends Stream {
     readonly name: string;
     startStatuses: [1];
     onDataMessage(type: TickDataType, message: string): void;
 }
 
-type StatsDataType = 'start' | 'stop' | 'started' | 'stats';
+type StatsDataType = "start" | "stop" | "started" | "stats";
 declare class StatsStream extends Stream {
     readonly name: string;
     startStatuses: [1];
 }
 
-type HeapDataType = 'start' | 'stop' | 'started' | 'heap';
+type HeapDataType = "start" | "stop" | "started" | "heap";
 declare class HeapStream extends Stream {
     readonly name: string;
     startStatuses: [1];
 }
 
-type ConsoleDataType = 'start' | 'stop' | 'command' | 'started' | 'line';
+type ConsoleDataType = "start" | "stop" | "command" | "started" | "line";
 declare class ConsoleStream extends Stream {
     private ansiRegex: RegExpConstructor;
     readonly name: string;

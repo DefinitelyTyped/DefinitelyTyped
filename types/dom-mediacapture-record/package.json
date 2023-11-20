@@ -1,12 +1,36 @@
 {
     "private": true,
+    "name": "@types/dom-mediacapture-record",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "w3c MediaStream Recording",
+    "projects": [
+        "https://w3c.github.io/mediacapture-record"
+    ],
     "types": "index",
     "typesVersions": {
         "<=4.8": {
-            "*": ["ts4.8/*"]
+            "*": [
+                "ts4.8/*"
+            ]
         },
         "<=5.0": {
-            "*": ["ts5.0/*"]
+            "*": [
+                "ts5.0/*"
+            ]
         }
-    }
+    },
+    "devDependencies": {
+        "@types/dom-mediacapture-record": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Elias Meire",
+            "githubUsername": "elsmr"
+        },
+        {
+            "name": "AppLover69",
+            "githubUsername": "AppLover69"
+        }
+    ]
 }

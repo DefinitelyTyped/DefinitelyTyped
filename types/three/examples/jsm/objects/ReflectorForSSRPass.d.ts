@@ -12,6 +12,7 @@ import {
 } from '../../../src/Three.js';
 
 export interface ReflectorShader {
+    name: string;
     defines: {
         DISTANCE_ATTENUATION: boolean;
         FRESNEL: boolean;

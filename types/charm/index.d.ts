@@ -1,15 +1,10 @@
-// Type definitions for Charm 1.0
-// Project: https://github.com/substack/node-charm/
-// Definitions by: Jad Sarout <https://github.com/Xananax>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 declare namespace charm {
     type CharmColorName = "red" | "yellow" | "green" | "blue" | "cyan" | "magenta" | "black" | "white";
     type CharmColorHex = number;
     type CharmColor = CharmColorName | CharmColorHex;
-    type CharmAnyStream = NodeJS.WritableStream|NodeJS.ReadableStream|NodeJS.Process;
+    type CharmAnyStream = NodeJS.WritableStream | NodeJS.ReadableStream | NodeJS.Process;
 
     interface CharmInstance extends NodeJS.WritableStream {
         /** Reset the entire screen, like the /usr/bin/reset command. */
@@ -70,7 +65,7 @@ declare namespace charm {
          *  - up - erase everything above the current line
          *  - screen - erase the entire screen
          */
-        erase(s: "end"|"start"|"line"|"down"|"up"|"screen"): this;
+        erase(s: "end" | "start" | "line" | "down" | "up" | "screen"): this;
 
         /**
          * Delete `'line'` or `'char'`s. delete differs from erase because it does not write over
@@ -81,7 +76,7 @@ declare namespace charm {
          *
          * The cursor position is not updated.
          */
-        delete(mode: "line"|"char", n?: number): this;
+        delete(mode: "line" | "char", n?: number): this;
 
         /**
          * Insert space into the terminal. `insert` is the opposite of `delete`,
@@ -89,7 +84,7 @@ declare namespace charm {
          * mode can be `'line'` or `'char'`. `n` is the number of items to be deleted.
          * `n` must be a positive integer.
          */
-        insert(mode: "line"|"char", n: number): this;
+        insert(mode: "line" | "char", n: number): this;
         /**
          * Set the display mode with the string `attr.`
          *

@@ -1,14 +1,9 @@
-// Type definitions for karma-image-snapshot 0.0
-// Project: https://github.com/maksimr/karma-image-snapshot
-// Definitions by: Piotr Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
-import 'karma';
-import 'jasmine';
-import { PixelmatchOptions } from 'pixelmatch';
-import { Options as SSIMOptions } from 'ssim.js';
+import "karma";
+import "jasmine";
+import { PixelmatchOptions } from "pixelmatch";
+import { Options as SSIMOptions } from "ssim.js";
 
 export interface MatchImageSnapshotOptions {
     /**
@@ -25,7 +20,7 @@ export interface MatchImageSnapshotOptions {
      * `pixelmatch` does a pixel by pixel comparison, whereas `ssim` does a structural similarity comparison.
      * @default 'pixelmatch'
      */
-    comparisonMethod?: 'pixelmatch' | 'ssim' | undefined;
+    comparisonMethod?: "pixelmatch" | "ssim" | undefined;
     /**
      * Custom snapshots directory.
      * Absolute path of a directory to keep the snapshot in.
@@ -42,18 +37,18 @@ export interface MatchImageSnapshotOptions {
      */
     customSnapshotIdentifier?:
         | ((parameters: {
-              testPath: string;
-              currentTestName: string;
-              counter: number;
-              defaultIdentifier: string;
-          }) => string)
+            testPath: string;
+            currentTestName: string;
+            counter: number;
+            defaultIdentifier: string;
+        }) => string)
         | string
         | undefined;
     /**
      * Changes diff image layout direction.
      * @default 'horizontal'
      */
-    diffDirection?: 'horizontal' | 'vertical' | undefined;
+    diffDirection?: "horizontal" | "vertical" | undefined;
     /**
      * Will output base64 string of a diff image to console in case of failed tests (in addition to creating a diff image).
      * This string can be copy-pasted to a browser address string to preview the diff for a failed test.
@@ -82,7 +77,7 @@ export interface MatchImageSnapshotOptions {
      * Sets the type of threshold that would trigger a failure.
      * @default 'pixel'.
      */
-    failureThresholdType?: 'pixel' | 'percent' | undefined;
+    failureThresholdType?: "pixel" | "percent" | undefined;
     /**
      * Updates a snapshot even if it passed the threshold against the existing one.
      * @default false.
@@ -117,9 +112,9 @@ declare global {
     }
 }
 
-declare module 'karma' {
+declare module "karma" {
     interface ConfigOptions {
-        reporters?: Array<'outdated-snapshot' | string> | undefined;
+        reporters?: Array<"outdated-snapshot" | string> | undefined;
 
         /**
          * @default undefined

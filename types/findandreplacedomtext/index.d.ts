@@ -1,8 +1,3 @@
-// Type definitions for findandreplacedomtext 0.4
-// Project: https://github.com/padolsey/findAndReplaceDOMText
-// Definitions by: BART! <https://github.com/bartholomej>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 interface Options {
     /**
      * Something to search for. A string will perform a global search by default (looking for all matches), but a RegExp will only do so if you include the global (/.../g) flag.
@@ -38,7 +33,7 @@ interface Options {
      *
      * Most of the time you'll want the default.
      */
-    portionMode?: 'retain' | 'first' | undefined;
+    portionMode?: "retain" | "first" | undefined;
     /**
      * A function to be called on every element encountered by findAndReplaceDOMText.
      * If the function returns false the element will be altogether ignored.
@@ -52,7 +47,7 @@ interface Options {
     /**
      * Currently there's only one preset: prose. https://github.com/padolsey/findAndReplaceDOMText#presetprose
      */
-    preset?: 'prose' | string | undefined;
+    preset?: "prose" | string | undefined;
 }
 
 interface Portion {

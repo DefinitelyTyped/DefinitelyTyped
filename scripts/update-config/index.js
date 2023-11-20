@@ -10,13 +10,13 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { Configuration as Config } from "tslint";
-import * as yargs from "yargs";
-import { normalizePath } from "./dependencies";
-import { ignoredRules } from "./ignoredRules";
-import { updatePackage } from "./updatePackage";
+import yargs from "yargs";
+import { normalizePath } from "./dependencies.js";
+import { ignoredRules } from "./ignoredRules.js";
+import { updatePackage } from "./updatePackage.js";
 
 async function main() {
-    const args = await yargs
+    const args = await yargs(process.argv.slice(2))
         .usage(`\`$0 --dt=path-to-dt\` or \`$0 --package=path-to-dt-package\`
 'dt.json' is used as the base tslint config for running the linter.`)
         .option("package", {
@@ -39,7 +39,6 @@ async function main() {
             if (!arg.package && !arg.dt) {
                 throw new Error("You must provide either argument 'package' or 'dt'.");
             }
-            // @ts-expect-error
             const unsupportedRules = arg.rules.filter(rule => ignoredRules.has(rule));
             if (unsupportedRules.length > 0) {
                 throw new Error(`Rules ${unsupportedRules.join(", ")} are not supported at the moment.`);
@@ -64,7 +63,7 @@ function dtConfig(updatedRules) {
     const dtConfigPath = normalizePath(
         path.join(
             resolvedDtslint.slice(0, resolvedDtslint.lastIndexOf("dtslint")),
-            "dtslint/dt.json"
+            "dtslint/dt.json",
         ),
     );
     const config = Config.findConfiguration(dtConfigPath).results;
@@ -93,6 +92,6 @@ function updateAll(dtPath, config) {
 }
 
 main().catch((error) => {
-    console.error(`Error in update-config: ${error}`)
+    console.error(`Error in update-config: ${error}`);
     process.exitCode = 1;
 });

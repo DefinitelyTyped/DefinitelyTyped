@@ -1,27 +1,21 @@
-// Type definitions for avue 3.0
-// Project: https://github.com/nmxiaowei/avue
-// Definitions by: Lyoko <https://github.com/SoulLyoko>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Minimum TypeScript Version: 4.4
-
 /// <reference lib="dom" />
 /// <reference path="./async-validator.d.ts" />
 /// <reference path="./element-plus.d.ts" />
 /// <reference path="./common.d.ts" />
 
-import { AvueCrud, AvueForm, AvueTree } from '.';
+import { AvueCrud, AvueForm, AvueTree } from ".";
 
-export * from './crud';
-export * from './dic';
-export * from './form';
-export * from './select';
-export * from './tree';
+export * from "./crud";
+export * from "./dic";
+export * from "./form";
+export * from "./select";
+export * from "./tree";
 export default Avue;
 
 interface AvueConfig {
     size?: Size;
     menuType?: MenuType;
-    theme?: 'dark';
+    theme?: "dark";
     axios?: any;
 }
 interface AvueInstall {
@@ -29,7 +23,7 @@ interface AvueInstall {
 }
 declare const Avue: AvueInstall;
 
-declare module 'vue' {
+declare module "vue" {
     interface GlobalComponents {
         AvueCrud: typeof AvueCrud;
         AvueForm: typeof AvueForm;
