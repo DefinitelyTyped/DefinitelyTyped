@@ -18,6 +18,7 @@ export interface PublishOptions {
     beforeAdd?: ((git: Git) => Promise<Git | undefined>) | null | undefined;
     add?: boolean | undefined;
     branch?: string | undefined;
+    cname?: string | undefined;
     dest?: string | undefined;
     dotfiles?: boolean | undefined;
     git?: string | undefined;
@@ -27,6 +28,8 @@ export interface PublishOptions {
      */
     history?: boolean | undefined;
     message?: string | undefined;
+    /** @default false */
+    nojekyll?: boolean | undefined;
     only?: string | undefined;
     push?: boolean | undefined;
     remote?: string | undefined;
