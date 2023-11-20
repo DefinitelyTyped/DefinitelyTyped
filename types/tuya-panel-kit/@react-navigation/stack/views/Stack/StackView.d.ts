@@ -33,7 +33,8 @@ export default class StackView extends React.Component<Props, State> {
         replacingRouteKeys?: undefined;
     } | {
         // tslint:disable-next-line array-type
-        routes: Array<& Readonly<{
+        routes: Array<
+            & Readonly<{
                 key: string;
                 name: string;
             }>
@@ -50,7 +51,8 @@ export default class StackView extends React.Component<Props, State> {
                         // tslint:disable-next-line no-redundant-undefined
                         history?: unknown[] | undefined;
                         // tslint:disable-next-line array-type
-                        routes: Array<& Readonly<{
+                        routes: Array<
+                            & Readonly<{
                                 key: string;
                                 name: string;
                             }>
@@ -58,7 +60,8 @@ export default class StackView extends React.Component<Props, State> {
                                 // tslint:disable-next-line no-redundant-undefined
                                 params?: object | undefined;
                             }>
-                            & any>;
+                            & any
+                        >;
                         type: string;
                         stale: false;
                     }>
@@ -70,7 +73,8 @@ export default class StackView extends React.Component<Props, State> {
                             // tslint:disable-next-line no-redundant-undefined
                             history?: unknown[] | undefined;
                             // tslint:disable-next-line array-type
-                            routes: Array<& Readonly<{
+                            routes: Array<
+                                & Readonly<{
                                     key: string;
                                     name: string;
                                 }>
@@ -78,16 +82,19 @@ export default class StackView extends React.Component<Props, State> {
                                     // tslint:disable-next-line no-redundant-undefined
                                     params?: object | undefined;
                                 }>
-                                & any>;
+                                & any
+                            >;
                             type: string;
                             stale: false;
                             // tslint:disable-next-line no-redundant-undefined
                         }>
                     >
                     | undefined;
-            }>;
+            }
+        >;
         // tslint:disable-next-line array-type
-        previousRoutes: Array<& Readonly<{
+        previousRoutes: Array<
+            & Readonly<{
                 key: string;
                 name: string;
             }>
@@ -104,7 +111,8 @@ export default class StackView extends React.Component<Props, State> {
                         // tslint:disable-next-line no-redundant-undefined
                         history?: unknown[] | undefined;
                         // tslint:disable-next-line array-type
-                        routes: Array<& Readonly<{
+                        routes: Array<
+                            & Readonly<{
                                 key: string;
                                 name: string;
                             }>
@@ -112,7 +120,8 @@ export default class StackView extends React.Component<Props, State> {
                                 // tslint:disable-next-line no-redundant-undefined
                                 params?: object | undefined;
                             }>
-                            & any>;
+                            & any
+                        >;
                         type: string;
                         stale: false;
                     }>
@@ -124,7 +133,8 @@ export default class StackView extends React.Component<Props, State> {
                             // tslint:disable-next-line no-redundant-undefined
                             history?: unknown[] | undefined;
                             // tslint:disable-next-line array-type
-                            routes: Array<& Readonly<{
+                            routes: Array<
+                                & Readonly<{
                                     key: string;
                                     name: string;
                                 }>
@@ -132,14 +142,16 @@ export default class StackView extends React.Component<Props, State> {
                                     // tslint:disable-next-line no-redundant-undefined
                                     params?: object | undefined;
                                 }>
-                                & any>;
+                                & any
+                            >;
                             type: string;
                             stale: false;
                             // tslint:disable-next-line no-redundant-undefined
                         }>
                     >
                     | undefined;
-            }>;
+            }
+        >;
         previousDescriptors: StackDescriptorMap;
         openingRouteKeys: string[];
         closingRouteKeys: string[];

@@ -1348,7 +1348,9 @@ export interface Route {
  * TODO follow up on "server methods" in "special short-hand notation for registered server methods" at https://hapijs.com/api/16.1.1#servermethodname-method-options
  * TODO follow up on "request object" in "each argument is a property of the request object" at https://hapijs.com/api/16.1.1#request-object
  */
-export type RoutePrerequisitesArray = RoutePrerequisitesPart[] | Array<RoutePrerequisitesPart[] | RoutePrerequisitesPart>;
+export type RoutePrerequisitesArray =
+    | RoutePrerequisitesPart[]
+    | Array<RoutePrerequisitesPart[] | RoutePrerequisitesPart>;
 export type RoutePrerequisitesPart = RoutePrerequisiteObjects | RoutePrerequisiteRequestHandler | string;
 
 /**

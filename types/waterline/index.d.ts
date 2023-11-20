@@ -52,8 +52,14 @@ declare namespace Waterline {
 
     // used this comment https://github.com/balderdashy/waterline/issues/1154#issuecomment-167262575
     export type LifecycleCallbacks = {
-        beforeValidate?: Array<{ (vaues: any, next: Function): void }> | { (vaues: any, next: Function): void } | undefined;
-        beforeCreate?: Array<{ (values: any, next: Function): void }> | { (vaues: any, next: Function): void } | undefined;
+        beforeValidate?:
+            | Array<{ (vaues: any, next: Function): void }>
+            | { (vaues: any, next: Function): void }
+            | undefined;
+        beforeCreate?:
+            | Array<{ (values: any, next: Function): void }>
+            | { (vaues: any, next: Function): void }
+            | undefined;
         afterCreate?:
             | Array<{ (newlyCreatedRecord: any, next: Function): void }>
             | { (newlyCreatedRecord: any, next: Function): void }
@@ -257,7 +263,9 @@ declare namespace Waterline {
         where(condition: any): QueryBuilder<T>;
         limit(lim: number): QueryBuilder<T>;
         skip(num: number): QueryBuilder<T>;
-        sort(criteria: string | { [attribute: string]: string } | Array<{ [attribute: string]: string }>): QueryBuilder<T>;
+        sort(
+            criteria: string | { [attribute: string]: string } | Array<{ [attribute: string]: string }>,
+        ): QueryBuilder<T>;
         paginate(pagination?: { page: number; limit: number }): QueryBuilder<T>;
         populate(association: string): QueryBuilder<T>;
         populate(association: string, filter: any): QueryBuilder<T>;

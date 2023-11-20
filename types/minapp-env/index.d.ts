@@ -7534,13 +7534,15 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
          * - 'camcorder': 同 mic，适用于录制音视频内容，仅限 Android;
          * - 'voice_communication': 同 mic，适用于实时沟通，仅限 Android;
          * - 'voice_recognition': 同 mic，适用于语音识别，仅限 Android; */
-        audioSources: Array<| "auto"
+        audioSources: Array<
+            | "auto"
             | "buildInMic"
             | "headsetMic"
             | "mic"
             | "camcorder"
             | "voice_communication"
-            | "voice_recognition">;
+            | "voice_recognition"
+        >;
     }
     interface GetBLEDeviceCharacteristicsOption {
         /** 蓝牙设备 id */

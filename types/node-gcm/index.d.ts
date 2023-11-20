@@ -94,9 +94,11 @@ export interface IResponseBody {
     failure: number;
     canonical_ids: number;
     multicast_id?: number | undefined;
-    results?: Array<{
-        message_id?: string | undefined;
-        registration_id?: string | undefined;
-        error?: string | undefined;
-    }> | undefined;
+    results?:
+        | Array<{
+            message_id?: string | undefined;
+            registration_id?: string | undefined;
+            error?: string | undefined;
+        }>
+        | undefined;
 }

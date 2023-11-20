@@ -16,7 +16,9 @@ declare namespace jquery.flot {
 
     interface hooks {
         processOptions?: Array<{ (plot: plot, options: plotOptions): void }> | undefined;
-        processRawData?: Array<{ (plot: plot, series: dataSeries, data: any[], datapoints: datapoints): void }> | undefined;
+        processRawData?:
+            | Array<{ (plot: plot, series: dataSeries, data: any[], datapoints: datapoints): void }>
+            | undefined;
         processDatapoints?: Array<{ (plot: plot, series: dataSeries, datapoints: datapoints): void }> | undefined;
         processOffset?: Array<{ (plot: plot, offset: canvasPoint): void }> | undefined;
         drawBackground?: Array<{ (plot: plot, context: CanvasRenderingContext2D): void }> | undefined;

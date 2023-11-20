@@ -488,11 +488,13 @@ declare namespace Microsoft.Live {
         /**
          * An array that contains the contact's work info.
          */
-        work?: Array<{
-            employer: {
-                name: string;
-            };
-        }> | undefined;
+        work?:
+            | Array<{
+                employer: {
+                    name: string;
+                };
+            }>
+            | undefined;
         /**
          * The contact's email addresses.
          */

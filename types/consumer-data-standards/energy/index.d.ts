@@ -4776,56 +4776,58 @@ export interface EnergyAccountListResponse {
         /**
          * Array of accounts
          */
-        accounts: Array<{
-            /**
-             * The ID of the account.  To be created in accordance with CDR ID permanence requirements
-             */
-            accountId: string;
-            /**
-             * Optional identifier of the account as defined by the data holder.  This must be the value presented on physical statements (if it exists) and must not be used for the value of accountId
-             */
-            accountNumber?: string | null;
-            /**
-             * The date that the account was created or opened
-             */
-            creationDate: string;
-            /**
-             * An optional display name for the account if one exists or can be derived.  The content of this field is at the discretion of the data holder
-             */
-            displayName?: string | null;
-            [k: string]: unknown;
-        } & {
-            /**
-             * The array of plans containing service points and associated plan details
-             */
-            plans: Array<{
+        accounts: Array<
+            {
                 /**
-                 * Optional display name for the plan provided by the customer to help differentiate multiple plans
+                 * The ID of the account.  To be created in accordance with CDR ID permanence requirements
                  */
-                nickname?: string;
+                accountId: string;
                 /**
-                 * An array of servicePointIds, representing NMIs, that this plan is linked to.  If there are no service points allocated to this plan then an empty array would be expected
+                 * Optional identifier of the account as defined by the data holder.  This must be the value presented on physical statements (if it exists) and must not be used for the value of accountId
                  */
-                servicePointIds: string[];
-                planOverview: {
-                    /**
-                     * The name of the plan if one exists
-                     */
-                    displayName?: string;
-                    /**
-                     * The start date of the applicability of this plan
-                     */
-                    startDate: string;
-                    /**
-                     * The end date of the applicability of this plan
-                     */
-                    endDate?: string;
-                    [k: string]: unknown;
-                };
+                accountNumber?: string | null;
+                /**
+                 * The date that the account was created or opened
+                 */
+                creationDate: string;
+                /**
+                 * An optional display name for the account if one exists or can be derived.  The content of this field is at the discretion of the data holder
+                 */
+                displayName?: string | null;
                 [k: string]: unknown;
-            }>;
-            [k: string]: unknown;
-        }>;
+            } & {
+                /**
+                 * The array of plans containing service points and associated plan details
+                 */
+                plans: Array<{
+                    /**
+                     * Optional display name for the plan provided by the customer to help differentiate multiple plans
+                     */
+                    nickname?: string;
+                    /**
+                     * An array of servicePointIds, representing NMIs, that this plan is linked to.  If there are no service points allocated to this plan then an empty array would be expected
+                     */
+                    servicePointIds: string[];
+                    planOverview: {
+                        /**
+                         * The name of the plan if one exists
+                         */
+                        displayName?: string;
+                        /**
+                         * The start date of the applicability of this plan
+                         */
+                        startDate: string;
+                        /**
+                         * The end date of the applicability of this plan
+                         */
+                        endDate?: string;
+                        [k: string]: unknown;
+                    };
+                    [k: string]: unknown;
+                }>;
+                [k: string]: unknown;
+            }
+        >;
         [k: string]: unknown;
     };
     links: {
@@ -8265,21 +8267,23 @@ export interface EnergyUsageRead {
         /**
          *  Specifies quality of reads that are not ACTUAL.  For read indices that are not specified, quality is assumed to be ACTUAL. If not present, all quality of all reads are assumed to be actual. Required when interval-reads query parameter equals FULL or MIN_30
          */
-        readQualities?: Array<{
-            /**
-             * End interval for read quality flag
-             */
-            endInterval: number;
-            /**
-             * The quality of the read taken
-             */
-            quality: "SUBSTITUTE" | "FINAL_SUBSTITUTE";
-            /**
-             * Start interval for read quality flag. First read begins at 1
-             */
-            startInterval: number;
-            [k: string]: unknown;
-        }> | null;
+        readQualities?:
+            | Array<{
+                /**
+                 * End interval for read quality flag
+                 */
+                endInterval: number;
+                /**
+                 * The quality of the read taken
+                 */
+                quality: "SUBSTITUTE" | "FINAL_SUBSTITUTE";
+                /**
+                 * Start interval for read quality flag. First read begins at 1
+                 */
+                startInterval: number;
+                [k: string]: unknown;
+            }>
+            | null;
         [k: string]: unknown;
     } | null;
     /**

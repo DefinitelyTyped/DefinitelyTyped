@@ -306,11 +306,13 @@ declare namespace apostrophe {
         scene?: "user" | undefined;
         addFields?: Field[] | undefined;
         removeFields?: Field[] | undefined;
-        arrangeFields?: Array<{
-            name: string;
-            label: string;
-            fields: string[];
-        }> | undefined;
+        arrangeFields?:
+            | Array<{
+                name: string;
+                label: string;
+                fields: string[];
+            }>
+            | undefined;
         beforeConstruct?: ((self: any, options: any) => any) | undefined;
         defer?: boolean | undefined;
         filters?: {

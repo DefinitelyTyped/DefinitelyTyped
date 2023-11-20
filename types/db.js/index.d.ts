@@ -176,7 +176,9 @@ declare namespace DbJs {
         update(entity: T): Promise<T>;
         update(...entities: T[]): Promise<T[]>;
         update<TKey, TValue>(entity: KeyValuePair<TKey, TValue>): Promise<KeyValuePair<TKey, TValue>>;
-        update<TKey, TValue>(...entities: Array<KeyValuePair<TKey, TValue>>): Promise<Array<KeyValuePair<TKey, TValue>>>;
+        update<TKey, TValue>(
+            ...entities: Array<KeyValuePair<TKey, TValue>>
+        ): Promise<Array<KeyValuePair<TKey, TValue>>>;
         remove<TKey>(key: TKey): Promise<TKey>;
         remove<TKey>(...keys: TKey[]): Promise<TKey[]>;
         clear(): Promise<void>;

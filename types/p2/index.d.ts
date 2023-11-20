@@ -13,7 +13,12 @@ declare namespace p2 {
         lowerBound: [number, number];
         upperBound: [number, number];
 
-        setFromPoints(points: Array<[number, number]>, position: [number, number], angle?: number, skinSize?: number): void;
+        setFromPoints(
+            points: Array<[number, number]>,
+            position: [number, number],
+            angle?: number,
+            skinSize?: number,
+        ): void;
         copy(aabb: AABB): void;
         extend(aabb: AABB): void;
         overlaps(aabb: AABB): boolean;

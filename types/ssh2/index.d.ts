@@ -972,7 +972,11 @@ export interface KeyboardAuthContext extends AuthContextBase {
      * @param title The title for the prompt.
      * @param callback A callback to call with the responses from the client.
      */
-    prompt(prompts: string | Prompt | Array<string | Prompt>, title: string, callback: KeyboardInteractiveCallback): void;
+    prompt(
+        prompts: string | Prompt | Array<string | Prompt>,
+        title: string,
+        callback: KeyboardInteractiveCallback,
+    ): void;
 
     /**
      * Send prompts to the client.
@@ -1766,8 +1770,10 @@ export interface PublicKeyEntry {
         };
 }
 
-export type KnownPublicKeys<T extends string | Buffer | ParsedKey = string | Buffer | ParsedKey> = Array<| T
-    | PublicKeyEntry>;
+export type KnownPublicKeys<T extends string | Buffer | ParsedKey = string | Buffer | ParsedKey> = Array<
+    | T
+    | PublicKeyEntry
+>;
 
 export type PrivateKeys = Array<Buffer | ParsedKey | EncryptedPrivateKey | string>;
 

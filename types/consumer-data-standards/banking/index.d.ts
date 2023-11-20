@@ -388,60 +388,62 @@ export interface BankingAccountDetailV2 extends BankingAccount {
     /**
      * Array of features of the account based on the equivalent structure in Product Reference with the following additional field
      */
-    features?: Array<{
-        /**
-         * Display text providing more information on the feature. Mandatory if the [feature type](#tocSproductfeaturetypedoc) is set to OTHER
-         */
-        additionalInfo?: string | null;
-        /**
-         * Link to a web page with more information on this feature
-         */
-        additionalInfoUri?: string | null;
-        /**
-         * Generic field containing additional information relevant to the [featureType](#tocSproductfeaturetypedoc) specified. Whether mandatory or not is dependent on the value of the [featureType.](#tocSproductfeaturetypedoc)
-         */
-        additionalValue?: string | null;
-        /**
-         * The type of feature described
-         */
-        featureType:
-            | "ADDITIONAL_CARDS"
-            | "BALANCE_TRANSFERS"
-            | "BILL_PAYMENT"
-            | "BONUS_REWARDS"
-            | "CARD_ACCESS"
-            | "CASHBACK_OFFER"
-            | "COMPLEMENTARY_PRODUCT_DISCOUNTS"
-            | "DIGITAL_BANKING"
-            | "DIGITAL_WALLET"
-            | "DONATE_INTEREST"
-            | "EXTRA_REPAYMENTS"
-            | "FRAUD_PROTECTION"
-            | "FREE_TXNS"
-            | "FREE_TXNS_ALLOWANCE"
-            | "GUARANTOR"
-            | "INSURANCE"
-            | "INSTALMENT_PLAN"
-            | "INTEREST_FREE"
-            | "INTEREST_FREE_TRANSFERS"
-            | "LOYALTY_PROGRAM"
-            | "NOTIFICATIONS"
-            | "NPP_ENABLED"
-            | "NPP_PAYID"
-            | "OFFSET"
-            | "OTHER"
-            | "OVERDRAFT"
-            | "REDRAW"
-            | "RELATIONSHIP_MANAGEMENT"
-            | "UNLIMITED_TXNS";
-        [k: string]: unknown;
-    } & {
-        /**
-         * True if the feature is already activated and false if the feature is available for activation. Defaults to true if absent. (note this is an additional field appended to the feature object defined in the Product Reference payload)
-         */
-        isActivated?: boolean;
-        [k: string]: unknown;
-    }>;
+    features?: Array<
+        {
+            /**
+             * Display text providing more information on the feature. Mandatory if the [feature type](#tocSproductfeaturetypedoc) is set to OTHER
+             */
+            additionalInfo?: string | null;
+            /**
+             * Link to a web page with more information on this feature
+             */
+            additionalInfoUri?: string | null;
+            /**
+             * Generic field containing additional information relevant to the [featureType](#tocSproductfeaturetypedoc) specified. Whether mandatory or not is dependent on the value of the [featureType.](#tocSproductfeaturetypedoc)
+             */
+            additionalValue?: string | null;
+            /**
+             * The type of feature described
+             */
+            featureType:
+                | "ADDITIONAL_CARDS"
+                | "BALANCE_TRANSFERS"
+                | "BILL_PAYMENT"
+                | "BONUS_REWARDS"
+                | "CARD_ACCESS"
+                | "CASHBACK_OFFER"
+                | "COMPLEMENTARY_PRODUCT_DISCOUNTS"
+                | "DIGITAL_BANKING"
+                | "DIGITAL_WALLET"
+                | "DONATE_INTEREST"
+                | "EXTRA_REPAYMENTS"
+                | "FRAUD_PROTECTION"
+                | "FREE_TXNS"
+                | "FREE_TXNS_ALLOWANCE"
+                | "GUARANTOR"
+                | "INSURANCE"
+                | "INSTALMENT_PLAN"
+                | "INTEREST_FREE"
+                | "INTEREST_FREE_TRANSFERS"
+                | "LOYALTY_PROGRAM"
+                | "NOTIFICATIONS"
+                | "NPP_ENABLED"
+                | "NPP_PAYID"
+                | "OFFSET"
+                | "OTHER"
+                | "OVERDRAFT"
+                | "REDRAW"
+                | "RELATIONSHIP_MANAGEMENT"
+                | "UNLIMITED_TXNS";
+            [k: string]: unknown;
+        } & {
+            /**
+             * True if the feature is already activated and false if the feature is available for activation. Defaults to true if absent. (note this is an additional field appended to the feature object defined in the Product Reference payload)
+             */
+            isActivated?: boolean;
+            [k: string]: unknown;
+        }
+    >;
     /**
      * Fees and charges applicable to the account based on the equivalent structure in Product Reference
      */
@@ -5244,60 +5246,62 @@ export interface ResponseBankingAccountByIdV2 {
         /**
          * Array of features of the account based on the equivalent structure in Product Reference with the following additional field
          */
-        features?: Array<{
-            /**
-             * Display text providing more information on the feature. Mandatory if the [feature type](#tocSproductfeaturetypedoc) is set to OTHER
-             */
-            additionalInfo?: string | null;
-            /**
-             * Link to a web page with more information on this feature
-             */
-            additionalInfoUri?: string | null;
-            /**
-             * Generic field containing additional information relevant to the [featureType](#tocSproductfeaturetypedoc) specified. Whether mandatory or not is dependent on the value of the [featureType.](#tocSproductfeaturetypedoc)
-             */
-            additionalValue?: string | null;
-            /**
-             * The type of feature described
-             */
-            featureType:
-                | "ADDITIONAL_CARDS"
-                | "BALANCE_TRANSFERS"
-                | "BILL_PAYMENT"
-                | "BONUS_REWARDS"
-                | "CARD_ACCESS"
-                | "CASHBACK_OFFER"
-                | "COMPLEMENTARY_PRODUCT_DISCOUNTS"
-                | "DIGITAL_BANKING"
-                | "DIGITAL_WALLET"
-                | "DONATE_INTEREST"
-                | "EXTRA_REPAYMENTS"
-                | "FRAUD_PROTECTION"
-                | "FREE_TXNS"
-                | "FREE_TXNS_ALLOWANCE"
-                | "GUARANTOR"
-                | "INSURANCE"
-                | "INSTALMENT_PLAN"
-                | "INTEREST_FREE"
-                | "INTEREST_FREE_TRANSFERS"
-                | "LOYALTY_PROGRAM"
-                | "NOTIFICATIONS"
-                | "NPP_ENABLED"
-                | "NPP_PAYID"
-                | "OFFSET"
-                | "OTHER"
-                | "OVERDRAFT"
-                | "REDRAW"
-                | "RELATIONSHIP_MANAGEMENT"
-                | "UNLIMITED_TXNS";
-            [k: string]: unknown;
-        } & {
-            /**
-             * True if the feature is already activated and false if the feature is available for activation. Defaults to true if absent. (note this is an additional field appended to the feature object defined in the Product Reference payload)
-             */
-            isActivated?: boolean;
-            [k: string]: unknown;
-        }>;
+        features?: Array<
+            {
+                /**
+                 * Display text providing more information on the feature. Mandatory if the [feature type](#tocSproductfeaturetypedoc) is set to OTHER
+                 */
+                additionalInfo?: string | null;
+                /**
+                 * Link to a web page with more information on this feature
+                 */
+                additionalInfoUri?: string | null;
+                /**
+                 * Generic field containing additional information relevant to the [featureType](#tocSproductfeaturetypedoc) specified. Whether mandatory or not is dependent on the value of the [featureType.](#tocSproductfeaturetypedoc)
+                 */
+                additionalValue?: string | null;
+                /**
+                 * The type of feature described
+                 */
+                featureType:
+                    | "ADDITIONAL_CARDS"
+                    | "BALANCE_TRANSFERS"
+                    | "BILL_PAYMENT"
+                    | "BONUS_REWARDS"
+                    | "CARD_ACCESS"
+                    | "CASHBACK_OFFER"
+                    | "COMPLEMENTARY_PRODUCT_DISCOUNTS"
+                    | "DIGITAL_BANKING"
+                    | "DIGITAL_WALLET"
+                    | "DONATE_INTEREST"
+                    | "EXTRA_REPAYMENTS"
+                    | "FRAUD_PROTECTION"
+                    | "FREE_TXNS"
+                    | "FREE_TXNS_ALLOWANCE"
+                    | "GUARANTOR"
+                    | "INSURANCE"
+                    | "INSTALMENT_PLAN"
+                    | "INTEREST_FREE"
+                    | "INTEREST_FREE_TRANSFERS"
+                    | "LOYALTY_PROGRAM"
+                    | "NOTIFICATIONS"
+                    | "NPP_ENABLED"
+                    | "NPP_PAYID"
+                    | "OFFSET"
+                    | "OTHER"
+                    | "OVERDRAFT"
+                    | "REDRAW"
+                    | "RELATIONSHIP_MANAGEMENT"
+                    | "UNLIMITED_TXNS";
+                [k: string]: unknown;
+            } & {
+                /**
+                 * True if the feature is already activated and false if the feature is available for activation. Defaults to true if absent. (note this is an additional field appended to the feature object defined in the Product Reference payload)
+                 */
+                isActivated?: boolean;
+                [k: string]: unknown;
+            }
+        >;
         /**
          * Fees and charges applicable to the account based on the equivalent structure in Product Reference
          */

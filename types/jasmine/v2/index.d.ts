@@ -124,8 +124,7 @@ declare function waits(timeout?: number): void;
 
 declare namespace jasmine {
     type Expected<T> = T | ObjectContaining<T> | Any | Spy;
-    type SpyObjMethodNames<T = undefined> = T extends undefined
-        ? (readonly string[] | { [methodName: string]: any })
+    type SpyObjMethodNames<T = undefined> = T extends undefined ? (readonly string[] | { [methodName: string]: any })
         : (ReadonlyArray<keyof T> | { [P in keyof T]?: ReturnType<T[P] extends (...args: any[]) => any ? T[P] : any> });
 
     var clock: () => Clock;
