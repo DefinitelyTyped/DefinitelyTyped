@@ -7433,7 +7433,7 @@ export interface IdentityUserFlowAttribute extends Entity {
      */
     userFlowAttributeType?: IdentityUserFlowAttributeType;
 }
-// eslint-disable-next-line @typescript-eslint/naming-convention no-empty-interface
+// eslint-disable-next-line @typescript-eslint/naming-convention -- no-empty-interface
 export interface IdentityBuiltInUserFlowAttribute extends IdentityUserFlowAttribute {}
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IdentityContainer extends Entity {
@@ -7447,7 +7447,7 @@ export interface IdentityContainer extends Entity {
     // the entry point for the Conditional Access (CA) object model.
     conditionalAccess?: NullableOption<ConditionalAccessRoot>;
 }
-// eslint-disable-next-line @typescript-eslint/naming-convention no-empty-interface
+// eslint-disable-next-line @typescript-eslint/naming-convention -- no-empty-interface
 export interface IdentityCustomUserFlowAttribute extends IdentityUserFlowAttribute {}
 export interface SocialIdentityProvider extends IdentityProviderBase {
     /**
@@ -14293,7 +14293,7 @@ export interface ManagedEBookAssignment extends Entity {
     // The assignment target for eBook.
     target?: NullableOption<DeviceAndAppManagementAssignmentTarget>;
 }
-// eslint-disable-next-line @typescript-eslint/naming-convention no-empty-interface
+// eslint-disable-next-line @typescript-eslint/naming-convention -- no-empty-interface
 export interface IosVppEBookAssignment extends ManagedEBookAssignment {}
 export interface UserInstallStateSummary extends Entity {
     // Failed Device Count.
@@ -14884,7 +14884,7 @@ export interface EditionUpgradeConfiguration extends DeviceConfiguration {
      */
     targetEdition?: Windows10EditionType;
 }
-// eslint-disable-next-line @typescript-eslint/naming-convention no-empty-interface
+// eslint-disable-next-line @typescript-eslint/naming-convention -- no-empty-interface
 export interface IosCertificateProfile extends DeviceConfiguration {}
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosCompliancePolicy extends DeviceCompliancePolicy {
@@ -17098,7 +17098,7 @@ export interface ManagedAppPolicyDeploymentSummary extends Entity {
 }
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AndroidManagedAppRegistration extends ManagedAppRegistration {}
-// eslint-disable-next-line @typescript-eslint/naming-convention no-empty-interface
+// eslint-disable-next-line @typescript-eslint/naming-convention -- no-empty-interface
 export interface IosManagedAppRegistration extends ManagedAppRegistration {}
 export interface ManagedAppOperation extends Entity {
     // The operation name.
@@ -23327,7 +23327,7 @@ export interface SignInFrequencySessionControl extends ConditionalAccessSessionC
     // The number of days or hours.
     value?: NullableOption<number>;
 }
-// eslint-disable-next-line @typescript-eslint/naming-convention no-empty-interface
+// eslint-disable-next-line @typescript-eslint/naming-convention -- no-empty-interface
 export interface IpRange {}
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IPv4CidrRange extends IpRange {
@@ -23563,7 +23563,7 @@ export interface GroupMembers extends SubjectSet {
     // The ID of the group in Azure AD.
     groupId?: NullableOption<string>;
 }
-// eslint-disable-next-line @typescript-eslint/naming-convention no-empty-interface
+// eslint-disable-next-line @typescript-eslint/naming-convention -- no-empty-interface
 export interface InternalSponsors extends SubjectSet {}
 export interface RequestorManager extends SubjectSet {
     /**
@@ -23591,7 +23591,7 @@ export interface TargetManager extends SubjectSet {
     // Manager level, between 1 and 4. The direct manager is 1.
     managerLevel?: NullableOption<number>;
 }
-// eslint-disable-next-line @typescript-eslint/naming-convention no-empty-interface
+// eslint-disable-next-line @typescript-eslint/naming-convention -- no-empty-interface
 export interface IdentitySource {}
 export interface AzureActiveDirectoryTenant extends IdentitySource {
     // The name of the Azure Active Directory tenant. Read only.
@@ -26733,7 +26733,7 @@ export interface CommsNotifications {
     // The notification of a change in the resource.
     value?: NullableOption<CommsNotification[]>;
 }
-// eslint-disable-next-line @typescript-eslint/naming-convention no-empty-interface
+// eslint-disable-next-line @typescript-eslint/naming-convention -- no-empty-interface
 export interface IncomingCallOptions extends CallOptions {}
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IncomingContext {

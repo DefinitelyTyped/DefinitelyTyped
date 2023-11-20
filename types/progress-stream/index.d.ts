@@ -59,14 +59,14 @@ declare namespace progress_stream {
 
         // stream.Writable events
 
-        /* eslint-disable-next-line @typescript-eslint/adjacent-overload-signatures unified-signatures */
+        /* eslint-disable-next-line @typescript-eslint/adjacent-overload-signatures -- unified-signatures */
         on(event: "drain", listener: () => void): this;
         /* tslint:disable-next-line unified-signatures */
         on(event: "finish", listener: () => void): this;
         on(event: "pipe", listener: (src: stream.Readable) => void): this;
         /* tslint:disable-next-line unified-signatures */
         on(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        /* eslint-disable-next-line @typescript-eslint/adjacent-overload-signatures unified-signatures */
+        /* eslint-disable-next-line @typescript-eslint/adjacent-overload-signatures -- unified-signatures */
         once(event: "drain", listener: () => void): this;
         /* tslint:disable-next-line unified-signatures */
         once(event: "finish", listener: () => void): this;

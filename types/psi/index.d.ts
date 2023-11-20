@@ -131,7 +131,7 @@ declare namespace psi {
         labDataTitle: string;
     }
 
-    // eslint-disable-next-line @typescript-eslint/naming-convention I18N is established convention
+    // eslint-disable-next-line @typescript-eslint/naming-convention -- I18N is established convention
     interface I18N {
         rendererFormattedStrings: RendererFormattedStrings;
     }

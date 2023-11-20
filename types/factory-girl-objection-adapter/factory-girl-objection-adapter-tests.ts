@@ -1,5 +1,5 @@
 import * as factory from "factory-girl";
-// eslint-disable-next-line @definitelytyped/no-duplicate-imports
+// eslint-disable-next-line no-duplicate-imports
 import { factory as namedImportedFactory } from "factory-girl";
 import ObjectionAdapter = require("factory-girl-objection-adapter");
 

@@ -915,7 +915,7 @@ declare namespace TelegramBot {
         icon_custom_emoji_id: string;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface Currently holds no information (https://core.telegram.org/bots/api#forumtopicclosed)
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface -- Currently holds no information (https://core.telegram.org/bots/api#forumtopicclosed)
     interface ForumTopicClosed {}
 
     interface ForumTopicEdited {
@@ -923,13 +923,13 @@ declare namespace TelegramBot {
         icon_custom_emoji_id: string;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface Currently holds no information (https://core.telegram.org/bots/api#forumtopicreopened)
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface -- Currently holds no information (https://core.telegram.org/bots/api#forumtopicreopened)
     interface ForumTopicReopened {}
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface Currently holds no information (https://core.telegram.org/bots/api#generalforumtopichidden)
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface -- Currently holds no information (https://core.telegram.org/bots/api#generalforumtopichidden)
     interface GeneralForumTopicHidden {}
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface Currently holds no information (https://core.telegram.org/bots/api#generalforumtopicunhidden)
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface -- Currently holds no information (https://core.telegram.org/bots/api#generalforumtopicunhidden)
     interface GeneralForumTopicUnhidden {}
 
     interface UserShared {

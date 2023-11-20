@@ -1,5 +1,5 @@
 import * as MongoNpmModule from 'mongodb';
-// eslint-disable-next-line @definitelytyped/no-duplicate-imports
+// eslint-disable-next-line no-duplicate-imports
 import { Collection as MongoCollection, CreateIndexesOptions, Db as MongoDb, Hint, IndexSpecification, MongoClient } from 'mongodb';
 import { Meteor } from 'meteor/meteor';
 import { DDP } from 'meteor/ddp';
