@@ -1,10 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "array-type": [
-            true,
-            "array"
-        ],
         "no-invalid-template-strings": false,
         "no-irregular-whitespace": false,
         "npm-naming": false
