@@ -18,7 +18,18 @@ while true; do
     OLD_FILTERS=("${FILTERS[@]}")
     FILTERS=()
 
-    for i in $(pnpm ls --depth Infinity --parseable "${OLD_FILTERS[@]}" | grep -v node_modules | awk NF | sort -u); do
+    set +e
+    OUTPUT=$(pnpm ls --depth Infinity --parseable "${OLD_FILTERS[@]}")
+    CODE=$?
+    set -e
+
+    if [ $CODE -ne 0 ]; then
+        echo "pnpm ls failed while looking for missing deps; giving up and installing everything"
+        echo "$OUTPUT"
+        exec pnpm install
+    fi
+
+    for i in $(echo "$OUTPUT" | grep -v node_modules | awk NF | sort -u); do
         i=${i#*$PWD/}
 
         if [ -d "$i/node_modules" ]; then
