@@ -66,7 +66,7 @@ Papa.parse<[string, string, string]>("4;4;4", {
     },
 });
 
-let { errors } = Papa.parse("");
+const { errors } = Papa.parse("");
 // $ExpectType number | undefined
 errors[0].row
 
