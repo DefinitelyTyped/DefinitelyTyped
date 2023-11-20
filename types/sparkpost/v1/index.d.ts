@@ -393,12 +393,14 @@ declare class SparkPost {
          */
         getBatchStatus(
             options: { id: string; limit?: number | undefined },
-            callback: SparkPost.ResultsCallback<Array<{
-                batch_id: string;
-                ts: string;
-                attempts: number;
-                response_code: number;
-            }>>,
+            callback: SparkPost.ResultsCallback<
+                Array<{
+                    batch_id: string;
+                    ts: string;
+                    attempts: number;
+                    response_code: number;
+                }>
+            >,
         ): void;
         /**
          * Lists descriptions of the events, event types, and event fields that could be included in a Webhooks post to your target URL.

@@ -225,8 +225,7 @@ declare namespace jasmine {
             }
         );
 
-    type SpyObjPropertyNames<T = undefined> = T extends undefined
-        ? readonly string[] | { [propertyName: string]: any }
+    type SpyObjPropertyNames<T = undefined> = T extends undefined ? readonly string[] | { [propertyName: string]: any }
         : ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] };
 
     /**

@@ -2671,10 +2671,12 @@ declare namespace Windows {
                     hasCurrent: boolean;
                     moveNext(): boolean;
                     getMany(): {
-                        items: Array<Windows.Foundation.Collections.IKeyValuePair<
-                            string,
-                            Windows.ApplicationModel.Resources.Core.NamedResource
-                        >>;
+                        items: Array<
+                            Windows.Foundation.Collections.IKeyValuePair<
+                                string,
+                                Windows.ApplicationModel.Resources.Core.NamedResource
+                            >
+                        >;
                         returnValue: number;
                     };
                 }
@@ -2725,10 +2727,12 @@ declare namespace Windows {
                     hasCurrent: boolean;
                     moveNext(): boolean;
                     getMany(): {
-                        items: Array<Windows.Foundation.Collections.IKeyValuePair<
-                            string,
-                            Windows.ApplicationModel.Resources.Core.ResourceMap
-                        >>;
+                        items: Array<
+                            Windows.Foundation.Collections.IKeyValuePair<
+                                string,
+                                Windows.ApplicationModel.Resources.Core.ResourceMap
+                            >
+                        >;
                         returnValue: number;
                     };
                 }

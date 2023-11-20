@@ -881,10 +881,12 @@ declare namespace Draft {
                 static createEmpty(key: string): SelectionState;
 
                 merge(
-                    ...iterables: Array<Immutable.Iterable<
-                        keyof SelectionStateProperties,
-                        SelectionStateProperties[keyof SelectionStateProperties]
-                    >>
+                    ...iterables: Array<
+                        Immutable.Iterable<
+                            keyof SelectionStateProperties,
+                            SelectionStateProperties[keyof SelectionStateProperties]
+                        >
+                    >
                 ): SelectionState;
                 merge(...iterables: Array<Partial<SelectionStateProperties>>): SelectionState;
 

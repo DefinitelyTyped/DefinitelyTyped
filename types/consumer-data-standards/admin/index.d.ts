@@ -591,16 +591,18 @@ export interface ErrorMetricsV2 {
         /**
          * Error counts, by HTTP error code, for previous days. The first element indicates yesterday and so on. A maximum of seven entries is required if available
          */
-        previousDays?: Array<{
-            /**
-             * Number of errors for HTTP error code 500.  Note that this field is an example of a single entry due to the lack of OAS support JSON Schema `patternProperties` syntax.  See the `additionalProperties` field in this schema for the generic property structure for error code counts
-             */
-            "500"?: number;
-            /**
-             * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
-             */
-            [k: string]: unknown;
-        }> | null;
+        previousDays?:
+            | Array<{
+                /**
+                 * Number of errors for HTTP error code 500.  Note that this field is an example of a single entry due to the lack of OAS support JSON Schema `patternProperties` syntax.  See the `additionalProperties` field in this schema for the generic property structure for error code counts
+                 */
+                "500"?: number;
+                /**
+                 * Number of errors for a specific HTTP error code.  Note that the property name must be 3 digits represent the HTTP error code the error is for
+                 */
+                [k: string]: unknown;
+            }>
+            | null;
         [k: string]: unknown;
     };
     /**

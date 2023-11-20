@@ -47,9 +47,11 @@ export declare type NavigationState<ParamList extends ParamListBase = ParamListB
 export declare type InitialState = Readonly<
     Partial<Omit<NavigationState, "stale" | "routes">> & {
         // tslint:disable-next-line array-type
-        routes: Array<Omit<Route<string>, "key"> & {
-            state?: InitialState | undefined;
-        }>;
+        routes: Array<
+            Omit<Route<string>, "key"> & {
+                state?: InitialState | undefined;
+            }
+        >;
     }
 >;
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers

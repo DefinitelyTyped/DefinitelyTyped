@@ -12,7 +12,8 @@ declare const BaseRouter: {
             // tslint:disable-next-line no-redundant-undefined
             history?: unknown[] | undefined;
             // tslint:disable-next-line array-type
-            routes: Array<& Readonly<{
+            routes: Array<
+                & Readonly<{
                     key: string;
                     name: string;
                 }>
@@ -23,7 +24,8 @@ declare const BaseRouter: {
                 & {
                     // tslint:disable-next-line no-redundant-undefined
                     state?: Readonly<any> | PartialState<Readonly<any>> | undefined;
-                }>;
+                }
+            >;
             type: string;
             stale: false;
         }>,

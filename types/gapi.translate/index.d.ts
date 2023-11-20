@@ -90,9 +90,11 @@ interface GoogleApiTranslateLanguageListResponse {
 
 interface GoogleApiTranslateDetectionListResponse {
     data: {
-        detections: Array<Array<{
-            language: string;
-            confidence: number;
-        }>>;
+        detections: Array<
+            Array<{
+                language: string;
+                confidence: number;
+            }>
+        >;
     };
 }

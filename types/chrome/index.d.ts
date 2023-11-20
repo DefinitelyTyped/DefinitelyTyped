@@ -7270,37 +7270,45 @@ declare namespace chrome.runtime {
             matches?: string[] | undefined;
             permissions?: string[] | undefined;
         } | undefined;
-        content_scripts?: Array<{
-            matches?: string[] | undefined;
-            exclude_matches?: string[] | undefined;
-            css?: string[] | undefined;
-            js?: string[] | undefined;
-            run_at?: string | undefined;
-            all_frames?: boolean | undefined;
-            match_about_blank?: boolean | undefined;
-            include_globs?: string[] | undefined;
-            exclude_globs?: string[] | undefined;
-        }> | undefined;
+        content_scripts?:
+            | Array<{
+                matches?: string[] | undefined;
+                exclude_matches?: string[] | undefined;
+                css?: string[] | undefined;
+                js?: string[] | undefined;
+                run_at?: string | undefined;
+                all_frames?: boolean | undefined;
+                match_about_blank?: boolean | undefined;
+                include_globs?: string[] | undefined;
+                exclude_globs?: string[] | undefined;
+            }>
+            | undefined;
         converted_from_user_script?: boolean | undefined;
         current_locale?: string | undefined;
         devtools_page?: string | undefined;
-        event_rules?: Array<{
-            event?: string | undefined;
-            actions?: Array<{
-                type: string;
-            }> | undefined;
-            conditions?: chrome.declarativeContent.PageStateMatcherProperties[] | undefined;
-        }> | undefined;
+        event_rules?:
+            | Array<{
+                event?: string | undefined;
+                actions?:
+                    | Array<{
+                        type: string;
+                    }>
+                    | undefined;
+                conditions?: chrome.declarativeContent.PageStateMatcherProperties[] | undefined;
+            }>
+            | undefined;
         externally_connectable?: {
             ids?: string[] | undefined;
             matches?: string[] | undefined;
             accepts_tls_channel_id?: boolean | undefined;
         } | undefined;
-        file_browser_handlers?: Array<{
-            id?: string | undefined;
-            default_title?: string | undefined;
-            file_filters?: string[] | undefined;
-        }> | undefined;
+        file_browser_handlers?:
+            | Array<{
+                id?: string | undefined;
+                default_title?: string | undefined;
+                file_filters?: string[] | undefined;
+            }>
+            | undefined;
         file_system_provider_capabilities?: {
             configurable?: boolean | undefined;
             watchable?: boolean | undefined;
@@ -7308,29 +7316,35 @@ declare namespace chrome.runtime {
             source?: string | undefined;
         } | undefined;
         homepage_url?: string | undefined;
-        import?: Array<{
-            id: string;
-            minimum_version?: string | undefined;
-        }> | undefined;
+        import?:
+            | Array<{
+                id: string;
+                minimum_version?: string | undefined;
+            }>
+            | undefined;
         export?: {
             whitelist?: string[] | undefined;
         } | undefined;
         incognito?: string | undefined;
-        input_components?: Array<{
-            name?: string | undefined;
-            type?: string | undefined;
-            id?: string | undefined;
-            description?: string | undefined;
-            language?: string[] | string | undefined;
-            layouts?: string[] | undefined;
-            indicator?: string | undefined;
-        }> | undefined;
+        input_components?:
+            | Array<{
+                name?: string | undefined;
+                type?: string | undefined;
+                id?: string | undefined;
+                description?: string | undefined;
+                language?: string[] | string | undefined;
+                layouts?: string[] | undefined;
+                indicator?: string | undefined;
+            }>
+            | undefined;
         key?: string | undefined;
         minimum_chrome_version?: string | undefined;
-        nacl_modules?: Array<{
-            path: string;
-            mime_type: string;
-        }> | undefined;
+        nacl_modules?:
+            | Array<{
+                path: string;
+                mime_type: string;
+            }>
+            | undefined;
         oauth2?: {
             client_id: string;
             scopes?: string[] | undefined;
@@ -7345,13 +7359,17 @@ declare namespace chrome.runtime {
             chrome_style?: boolean | undefined;
             open_in_tab?: boolean | undefined;
         } | undefined;
-        platforms?: Array<{
-            nacl_arch?: string | undefined;
-            sub_package_path: string;
-        }> | undefined;
-        plugins?: Array<{
-            path: string;
-        }> | undefined;
+        platforms?:
+            | Array<{
+                nacl_arch?: string | undefined;
+                sub_package_path: string;
+            }>
+            | undefined;
+        plugins?:
+            | Array<{
+                path: string;
+            }>
+            | undefined;
         requirements?: {
             "3D"?: {
                 features?: string[] | undefined;
@@ -7421,18 +7439,20 @@ declare namespace chrome.runtime {
                 type?: "module"; // If the service worker uses ES modules
             }
             | undefined;
-        content_scripts?: Array<{
-            matches?: string[] | undefined;
-            exclude_matches?: string[] | undefined;
-            css?: string[] | undefined;
-            js?: string[] | undefined;
-            run_at?: string | undefined;
-            all_frames?: boolean | undefined;
-            match_about_blank?: boolean | undefined;
-            include_globs?: string[] | undefined;
-            exclude_globs?: string[] | undefined;
-            world?: "ISOLATED" | "MAIN" | undefined;
-        }> | undefined;
+        content_scripts?:
+            | Array<{
+                matches?: string[] | undefined;
+                exclude_matches?: string[] | undefined;
+                css?: string[] | undefined;
+                js?: string[] | undefined;
+                run_at?: string | undefined;
+                all_frames?: boolean | undefined;
+                match_about_blank?: boolean | undefined;
+                include_globs?: string[] | undefined;
+                exclude_globs?: string[] | undefined;
+                world?: "ISOLATED" | "MAIN" | undefined;
+            }>
+            | undefined;
         content_security_policy?: {
             extension_pages?: string;
             sandbox?: string;

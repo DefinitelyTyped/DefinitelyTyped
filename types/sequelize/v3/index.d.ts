@@ -5020,13 +5020,15 @@ declare namespace sequelize {
      * @see Options
      */
     interface ReplicationOptions {
-        read?: Array<{
-            host?: string | undefined;
-            port?: string | number | undefined;
-            username?: string | undefined;
-            password?: string | undefined;
-            database?: string | undefined;
-        }> | undefined;
+        read?:
+            | Array<{
+                host?: string | undefined;
+                port?: string | number | undefined;
+                username?: string | undefined;
+                password?: string | undefined;
+                database?: string | undefined;
+            }>
+            | undefined;
 
         write?: {
             host?: string | undefined;

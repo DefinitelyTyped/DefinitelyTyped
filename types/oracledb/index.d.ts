@@ -1291,10 +1291,12 @@ declare namespace OracleDB {
          */
         queueName?: string | undefined;
         /** Array of objects specifying the queries which were affected by the Query Change notification. */
-        queries?: Array<{
-            /** Array of objects specifying the tables which were affected by the notification. */
-            tables?: SubscriptionTable[];
-        }> | undefined;
+        queries?:
+            | Array<{
+                /** Array of objects specifying the tables which were affected by the notification. */
+                tables?: SubscriptionTable[];
+            }>
+            | undefined;
         /** Indicates whether the subscription is registered with the database. */
         registered: boolean;
 
@@ -1319,12 +1321,14 @@ declare namespace OracleDB {
          * quality of service used when creating the subscription indicated the desire for ROWIDs and no
          * summary grouping took place.
          */
-        rows?: Array<{
-            /** One of the CQN_OPCODE_* constants. */
-            operation: number;
-            /** ROWID of the row that was affected. */
-            rowid: string;
-        }> | undefined;
+        rows?:
+            | Array<{
+                /** One of the CQN_OPCODE_* constants. */
+                operation: number;
+                /** ROWID of the row that was affected. */
+                rowid: string;
+            }>
+            | undefined;
     }
 
     /**
@@ -2358,7 +2362,10 @@ declare namespace OracleDB {
          * @param maxMessages Maximum number of messages to dequeue.
          */
         deqMany(maxMessages: number): Promise<Array<AdvancedQueueMessage<T>>>;
-        deqMany(maxMessages: number, callback: (error: DBError, messages: Array<AdvancedQueueMessage<T>>) => void): void;
+        deqMany(
+            maxMessages: number,
+            callback: (error: DBError, messages: Array<AdvancedQueueMessage<T>>) => void,
+        ): void;
 
         /**
          * Dequeues a single message. Depending on the dequeue options, the message may also be returned as undefined if no message is available.

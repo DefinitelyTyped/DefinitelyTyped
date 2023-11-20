@@ -459,74 +459,76 @@ export interface TelcoAccountDetail {
     /**
      * The array of plans containing services and associated plan details
      */
-    plans: Array<{
-        /**
-         * The billing type of then plan
-         */
-        billingType: "PRE_PAID" | "POST_PAID" | "UPFRONT_PAID" | "OTHER";
-        /**
-         * Optional display name for the plan provided by the customer to help differentiate multiple plans
-         */
-        nickname?: string | null;
-        /**
-         * Mandatory if openStatus is OPEN
-         */
-        planOverview: {
+    plans: Array<
+        {
             /**
-             * The name of the plan if one exists
+             * The billing type of then plan
              */
-            displayName?: string | null;
+            billingType: "PRE_PAID" | "POST_PAID" | "UPFRONT_PAID" | "OTHER";
             /**
-             * The end date of the applicability of this plan
+             * Optional display name for the plan provided by the customer to help differentiate multiple plans
              */
-            endDate?: string | null;
+            nickname?: string | null;
             /**
-             * The start date of the applicability of this plan
+             * Mandatory if openStatus is OPEN
              */
-            startDate: string;
-            [k: string]: unknown;
-        };
-        /**
-         * The serviceId representing a unique service identifier such as a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirement
-         */
-        serviceIds: string[];
-        /**
-         * The type of the plan. The type of plan. A [MOBILE](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or BROADBAND fixed internet service
-         */
-        type: "MOBILE" | "BROADBAND";
-        [k: string]: unknown;
-    } & {
-        planDetail: {
-            /**
-             * Charges for metering included in the plan
-             */
-            charges: Array<{
+            planOverview: {
                 /**
-                 * Description of the charge
+                 * The name of the plan if one exists
                  */
-                description?: string | null;
+                displayName?: string | null;
                 /**
-                 * Display name of the charge
+                 * The end date of the applicability of this plan
                  */
-                displayName: string;
+                endDate?: string | null;
                 /**
-                 * The upper limit of the charge if the charge could occur in a range
+                 * The start date of the applicability of this plan
                  */
-                maximumValue?: string | null;
-                /**
-                 * Minimum value of the charge if the charge is a range or the absolute value of the charge if no range is specified
-                 */
-                minimumValue: string;
-                /**
-                 * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
-                 */
-                period?: string | null;
+                startDate: string;
                 [k: string]: unknown;
-            }>;
+            };
+            /**
+             * The serviceId representing a unique service identifier such as a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirement
+             */
+            serviceIds: string[];
+            /**
+             * The type of the plan. The type of plan. A [MOBILE](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or BROADBAND fixed internet service
+             */
+            type: "MOBILE" | "BROADBAND";
             [k: string]: unknown;
-        };
-        [k: string]: unknown;
-    }>;
+        } & {
+            planDetail: {
+                /**
+                 * Charges for metering included in the plan
+                 */
+                charges: Array<{
+                    /**
+                     * Description of the charge
+                     */
+                    description?: string | null;
+                    /**
+                     * Display name of the charge
+                     */
+                    displayName: string;
+                    /**
+                     * The upper limit of the charge if the charge could occur in a range
+                     */
+                    maximumValue?: string | null;
+                    /**
+                     * Minimum value of the charge if the charge is a range or the absolute value of the charge if no range is specified
+                     */
+                    minimumValue: string;
+                    /**
+                     * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+                     */
+                    period?: string | null;
+                    [k: string]: unknown;
+                }>;
+                [k: string]: unknown;
+            };
+            [k: string]: unknown;
+        }
+    >;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
@@ -633,74 +635,76 @@ export interface TelcoAccountDetailResponse {
         /**
          * The array of plans containing services and associated plan details
          */
-        plans: Array<{
-            /**
-             * The billing type of then plan
-             */
-            billingType: "PRE_PAID" | "POST_PAID" | "UPFRONT_PAID" | "OTHER";
-            /**
-             * Optional display name for the plan provided by the customer to help differentiate multiple plans
-             */
-            nickname?: string | null;
-            /**
-             * Mandatory if openStatus is OPEN
-             */
-            planOverview: {
+        plans: Array<
+            {
                 /**
-                 * The name of the plan if one exists
+                 * The billing type of then plan
                  */
-                displayName?: string | null;
+                billingType: "PRE_PAID" | "POST_PAID" | "UPFRONT_PAID" | "OTHER";
                 /**
-                 * The end date of the applicability of this plan
+                 * Optional display name for the plan provided by the customer to help differentiate multiple plans
                  */
-                endDate?: string | null;
+                nickname?: string | null;
                 /**
-                 * The start date of the applicability of this plan
+                 * Mandatory if openStatus is OPEN
                  */
-                startDate: string;
-                [k: string]: unknown;
-            };
-            /**
-             * The serviceId representing a unique service identifier such as a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirement
-             */
-            serviceIds: string[];
-            /**
-             * The type of the plan. The type of plan. A [MOBILE](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or BROADBAND fixed internet service
-             */
-            type: "MOBILE" | "BROADBAND";
-            [k: string]: unknown;
-        } & {
-            planDetail: {
-                /**
-                 * Charges for metering included in the plan
-                 */
-                charges: Array<{
+                planOverview: {
                     /**
-                     * Description of the charge
+                     * The name of the plan if one exists
                      */
-                    description?: string | null;
+                    displayName?: string | null;
                     /**
-                     * Display name of the charge
+                     * The end date of the applicability of this plan
                      */
-                    displayName: string;
+                    endDate?: string | null;
                     /**
-                     * The upper limit of the charge if the charge could occur in a range
+                     * The start date of the applicability of this plan
                      */
-                    maximumValue?: string | null;
-                    /**
-                     * Minimum value of the charge if the charge is a range or the absolute value of the charge if no range is specified
-                     */
-                    minimumValue: string;
-                    /**
-                     * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
-                     */
-                    period?: string | null;
+                    startDate: string;
                     [k: string]: unknown;
-                }>;
+                };
+                /**
+                 * The serviceId representing a unique service identifier such as a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirement
+                 */
+                serviceIds: string[];
+                /**
+                 * The type of the plan. The type of plan. A [MOBILE](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or BROADBAND fixed internet service
+                 */
+                type: "MOBILE" | "BROADBAND";
                 [k: string]: unknown;
-            };
-            [k: string]: unknown;
-        }>;
+            } & {
+                planDetail: {
+                    /**
+                     * Charges for metering included in the plan
+                     */
+                    charges: Array<{
+                        /**
+                         * Description of the charge
+                         */
+                        description?: string | null;
+                        /**
+                         * Display name of the charge
+                         */
+                        displayName: string;
+                        /**
+                         * The upper limit of the charge if the charge could occur in a range
+                         */
+                        maximumValue?: string | null;
+                        /**
+                         * Minimum value of the charge if the charge is a range or the absolute value of the charge if no range is specified
+                         */
+                        minimumValue: string;
+                        /**
+                         * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+                         */
+                        period?: string | null;
+                        [k: string]: unknown;
+                    }>;
+                    [k: string]: unknown;
+                };
+                [k: string]: unknown;
+            }
+        >;
         [k: string]: unknown;
     };
     links: {
@@ -793,74 +797,76 @@ export type TelcoAccountDetailResponseData = {
     /**
      * The array of plans containing services and associated plan details
      */
-    plans: Array<{
-        /**
-         * The billing type of then plan
-         */
-        billingType: "PRE_PAID" | "POST_PAID" | "UPFRONT_PAID" | "OTHER";
-        /**
-         * Optional display name for the plan provided by the customer to help differentiate multiple plans
-         */
-        nickname?: string | null;
-        /**
-         * Mandatory if openStatus is OPEN
-         */
-        planOverview: {
+    plans: Array<
+        {
             /**
-             * The name of the plan if one exists
+             * The billing type of then plan
              */
-            displayName?: string | null;
+            billingType: "PRE_PAID" | "POST_PAID" | "UPFRONT_PAID" | "OTHER";
             /**
-             * The end date of the applicability of this plan
+             * Optional display name for the plan provided by the customer to help differentiate multiple plans
              */
-            endDate?: string | null;
+            nickname?: string | null;
             /**
-             * The start date of the applicability of this plan
+             * Mandatory if openStatus is OPEN
              */
-            startDate: string;
-            [k: string]: unknown;
-        };
-        /**
-         * The serviceId representing a unique service identifier such as a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirement
-         */
-        serviceIds: string[];
-        /**
-         * The type of the plan. The type of plan. A [MOBILE](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or BROADBAND fixed internet service
-         */
-        type: "MOBILE" | "BROADBAND";
-        [k: string]: unknown;
-    } & {
-        planDetail: {
-            /**
-             * Charges for metering included in the plan
-             */
-            charges: Array<{
+            planOverview: {
                 /**
-                 * Description of the charge
+                 * The name of the plan if one exists
                  */
-                description?: string | null;
+                displayName?: string | null;
                 /**
-                 * Display name of the charge
+                 * The end date of the applicability of this plan
                  */
-                displayName: string;
+                endDate?: string | null;
                 /**
-                 * The upper limit of the charge if the charge could occur in a range
+                 * The start date of the applicability of this plan
                  */
-                maximumValue?: string | null;
-                /**
-                 * Minimum value of the charge if the charge is a range or the absolute value of the charge if no range is specified
-                 */
-                minimumValue: string;
-                /**
-                 * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
-                 */
-                period?: string | null;
+                startDate: string;
                 [k: string]: unknown;
-            }>;
+            };
+            /**
+             * The serviceId representing a unique service identifier such as a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirement
+             */
+            serviceIds: string[];
+            /**
+             * The type of the plan. The type of plan. A [MOBILE](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or BROADBAND fixed internet service
+             */
+            type: "MOBILE" | "BROADBAND";
             [k: string]: unknown;
-        };
-        [k: string]: unknown;
-    }>;
+        } & {
+            planDetail: {
+                /**
+                 * Charges for metering included in the plan
+                 */
+                charges: Array<{
+                    /**
+                     * Description of the charge
+                     */
+                    description?: string | null;
+                    /**
+                     * Display name of the charge
+                     */
+                    displayName: string;
+                    /**
+                     * The upper limit of the charge if the charge could occur in a range
+                     */
+                    maximumValue?: string | null;
+                    /**
+                     * Minimum value of the charge if the charge is a range or the absolute value of the charge if no range is specified
+                     */
+                    minimumValue: string;
+                    /**
+                     * The charges that occur on a schedule indicates the frequency. Formatted according to [ISO 8601 Durations](https://en.wikipedia.org/wiki/ISO_8601#Durations) (excludes recurrence syntax)
+                     */
+                    period?: string | null;
+                    [k: string]: unknown;
+                }>;
+                [k: string]: unknown;
+            };
+            [k: string]: unknown;
+        }
+    >;
     [k: string]: unknown;
 };
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
@@ -870,7 +876,127 @@ export interface TelcoAccountListResponse {
         /**
          * Array of accounts
          */
-        accounts: Array<{
+        accounts: Array<
+            {
+                /**
+                 * The ID of the account. To be created in accordance with [CDR ID permanence](#id-permanence) requirements
+                 */
+                accountId?: string | null;
+                /**
+                 * Masked identifier of the account as defined by the data holder. This must be the value presented on physical statements (required if it exists) and must not be used for the value of the accountId
+                 */
+                accountNumber?: string | null;
+                /**
+                 * The retail name of the brand
+                 */
+                brand?: string | null;
+                /**
+                 * The date that the account was created or opened. Mandatory if openStatus is OPEN
+                 */
+                creationDate?: string | null;
+                /**
+                 * An optional display name for the account if one exists or can be derived. The content of this field is at the discretion of the data holder
+                 */
+                displayName?: string | null;
+                /**
+                 * The date and time which the account was last updated
+                 */
+                lastUpdated?: string | null;
+                /**
+                 * Open or closed status for the account. If not present then OPEN is assumed
+                 */
+                openStatus?: ("CLOSED" | "OPEN") | null;
+                [k: string]: unknown;
+            } & {
+                /**
+                 * The array of plans containing service and associated plan details
+                 */
+                plans: Array<{
+                    /**
+                     * The billing type of then plan
+                     */
+                    billingType: "PRE_PAID" | "POST_PAID" | "UPFRONT_PAID" | "OTHER";
+                    /**
+                     * Optional display name for the plan provided by the customer to help differentiate multiple plans
+                     */
+                    nickname?: string | null;
+                    /**
+                     * Mandatory if openStatus is OPEN
+                     */
+                    planOverview: {
+                        /**
+                         * The name of the plan if one exists
+                         */
+                        displayName?: string | null;
+                        /**
+                         * The end date of the applicability of this plan
+                         */
+                        endDate?: string | null;
+                        /**
+                         * The start date of the applicability of this plan
+                         */
+                        startDate: string;
+                        [k: string]: unknown;
+                    };
+                    /**
+                     * The serviceId representing a unique service identifier such as a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirement
+                     */
+                    serviceIds: string[];
+                    /**
+                     * The type of the plan. The type of plan. A [MOBILE](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or BROADBAND fixed internet service
+                     */
+                    type: "MOBILE" | "BROADBAND";
+                    [k: string]: unknown;
+                }>;
+                [k: string]: unknown;
+            }
+        >;
+        [k: string]: unknown;
+    };
+    links: {
+        /**
+         * URI to the first page of this set. Mandatory if this response is not the first page
+         */
+        first?: string | null;
+        /**
+         * URI to the last page of this set. Mandatory if this response is not the last page
+         */
+        last?: string | null;
+        /**
+         * URI to the next page of this set. Mandatory if this response is not the last page
+         */
+        next?: string | null;
+        /**
+         * URI to the previous page of this set. Mandatory if this response is not the first page
+         */
+        prev?: string | null;
+        /**
+         * Fully qualified link that generated the current response document
+         */
+        self: string;
+        [k: string]: unknown;
+    };
+    meta: {
+        /**
+         * The total number of pages in the full set. See [pagination](#pagination).
+         */
+        totalPages: number;
+        /**
+         * The total number of records in the full set. See [pagination](#pagination).
+         */
+        totalRecords: number;
+        [k: string]: unknown;
+    };
+    [k: string]: unknown;
+}
+/* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
+
+export interface TelcoAccountListResponseData {
+    /**
+     * Array of accounts
+     */
+    accounts: Array<
+        {
             /**
              * The ID of the account. To be created in accordance with [CDR ID permanence](#id-permanence) requirements
              */
@@ -942,124 +1068,8 @@ export interface TelcoAccountListResponse {
                 [k: string]: unknown;
             }>;
             [k: string]: unknown;
-        }>;
-        [k: string]: unknown;
-    };
-    links: {
-        /**
-         * URI to the first page of this set. Mandatory if this response is not the first page
-         */
-        first?: string | null;
-        /**
-         * URI to the last page of this set. Mandatory if this response is not the last page
-         */
-        last?: string | null;
-        /**
-         * URI to the next page of this set. Mandatory if this response is not the last page
-         */
-        next?: string | null;
-        /**
-         * URI to the previous page of this set. Mandatory if this response is not the first page
-         */
-        prev?: string | null;
-        /**
-         * Fully qualified link that generated the current response document
-         */
-        self: string;
-        [k: string]: unknown;
-    };
-    meta: {
-        /**
-         * The total number of pages in the full set. See [pagination](#pagination).
-         */
-        totalPages: number;
-        /**
-         * The total number of records in the full set. See [pagination](#pagination).
-         */
-        totalRecords: number;
-        [k: string]: unknown;
-    };
-    [k: string]: unknown;
-}
-/* These are the schema definitions stipulated by the Data Standards Body for the telco api. */
-
-export interface TelcoAccountListResponseData {
-    /**
-     * Array of accounts
-     */
-    accounts: Array<{
-        /**
-         * The ID of the account. To be created in accordance with [CDR ID permanence](#id-permanence) requirements
-         */
-        accountId?: string | null;
-        /**
-         * Masked identifier of the account as defined by the data holder. This must be the value presented on physical statements (required if it exists) and must not be used for the value of the accountId
-         */
-        accountNumber?: string | null;
-        /**
-         * The retail name of the brand
-         */
-        brand?: string | null;
-        /**
-         * The date that the account was created or opened. Mandatory if openStatus is OPEN
-         */
-        creationDate?: string | null;
-        /**
-         * An optional display name for the account if one exists or can be derived. The content of this field is at the discretion of the data holder
-         */
-        displayName?: string | null;
-        /**
-         * The date and time which the account was last updated
-         */
-        lastUpdated?: string | null;
-        /**
-         * Open or closed status for the account. If not present then OPEN is assumed
-         */
-        openStatus?: ("CLOSED" | "OPEN") | null;
-        [k: string]: unknown;
-    } & {
-        /**
-         * The array of plans containing service and associated plan details
-         */
-        plans: Array<{
-            /**
-             * The billing type of then plan
-             */
-            billingType: "PRE_PAID" | "POST_PAID" | "UPFRONT_PAID" | "OTHER";
-            /**
-             * Optional display name for the plan provided by the customer to help differentiate multiple plans
-             */
-            nickname?: string | null;
-            /**
-             * Mandatory if openStatus is OPEN
-             */
-            planOverview: {
-                /**
-                 * The name of the plan if one exists
-                 */
-                displayName?: string | null;
-                /**
-                 * The end date of the applicability of this plan
-                 */
-                endDate?: string | null;
-                /**
-                 * The start date of the applicability of this plan
-                 */
-                startDate: string;
-                [k: string]: unknown;
-            };
-            /**
-             * The serviceId representing a unique service identifier such as a mobile [MSISDN](https://www.etsi.org/deliver/etsi_gts/03/0303/05.00.00_60/gsmts_0303v050000p.pdf), [FNN](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf) or internet service e.g [NBN AVC Service ID](https://www.nbnco.com.au/content/dam/nbnco2/documents/sfaa-wba2-dictionary_FTTN-launch.pdf). In accordance with [CDR ID permanence](#id-permanence) requirement
-             */
-            serviceIds: string[];
-            /**
-             * The type of the plan. The type of plan. A [MOBILE](https://www.legislation.gov.au/Details/C2022C00170/Html/Volume_1#_Toc95898745) service or BROADBAND fixed internet service
-             */
-            type: "MOBILE" | "BROADBAND";
-            [k: string]: unknown;
-        }>;
-        [k: string]: unknown;
-    }>;
+        }
+    >;
     [k: string]: unknown;
 }
 /* These are the schema definitions stipulated by the Data Standards Body for the telco api. */

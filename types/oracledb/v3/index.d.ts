@@ -745,7 +745,11 @@ declare namespace OracleDB {
          *
          * @since 2.2
          */
-        executeMany(sql: string, binds: Array<Record<string, any> | any[]>, options: ExecuteManyOptions): Promise<Results>;
+        executeMany(
+            sql: string,
+            binds: Array<Record<string, any> | any[]>,
+            options: ExecuteManyOptions,
+        ): Promise<Results>;
         executeMany(
             sql: string,
             binds: Array<Record<string, any> | any[]>,
@@ -982,10 +986,12 @@ declare namespace OracleDB {
         /** Name of the database which sent the notification. */
         dbName?: string | undefined;
         /** Array of objects specifying the queries which were affected by the Query Change notification. */
-        queries?: Array<{
-            /** Array of objects specifying the queries which were affected by the Query Change notification. */
-            tables: SubscriptionTables;
-        }> | undefined;
+        queries?:
+            | Array<{
+                /** Array of objects specifying the queries which were affected by the Query Change notification. */
+                tables: SubscriptionTables;
+            }>
+            | undefined;
         /** Indicates whether the subscription is registerd with the database. */
         registered?: boolean | undefined;
         /** Array of objects specifying the tables which were affected by the notification. */
@@ -1011,12 +1017,14 @@ declare namespace OracleDB {
          * quality of service used when creating the subscription indicated the desire for ROWIDs and no
          * summary grouping took place.
          */
-        rows?: Array<{
-            /** One of the CQN_OPCODE_* constants. */
-            operation: number;
-            /** ROWID of the row that was affected. */
-            rowid: string;
-        }> | undefined;
+        rows?:
+            | Array<{
+                /** One of the CQN_OPCODE_* constants. */
+                operation: number;
+                /** ROWID of the row that was affected. */
+                rowid: string;
+            }>
+            | undefined;
     }
 
     /**
