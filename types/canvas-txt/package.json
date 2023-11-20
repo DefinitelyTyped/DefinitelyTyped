@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/canvas-txt": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Niels Kersic",
-            "githubUsername": "nielskersic"
-        }
-    ]
+    "owners": []
 }
