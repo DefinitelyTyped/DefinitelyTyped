@@ -312,7 +312,7 @@ declare module "dns/promises" {
      *
      * * `ipv4first`: for `verbatim` defaulting to `false`.
      * * `verbatim`: for `verbatim` defaulting to `true`.
-     * @since v20.1.0
+     * @since v18.17.0
      */
     function getDefaultResultOrder(): "ipv4first" | "verbatim";
     /**
