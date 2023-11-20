@@ -49,6 +49,7 @@ export interface ReactDatePickerProps<
     autoFocus?: boolean | undefined;
     calendarClassName?: string | undefined;
     calendarContainer?(props: CalendarContainerProps): React.ReactNode;
+    calendarIconClassname?: string | undefined;
     calendarStartDay?: number | undefined;
     children?: React.ReactNode | undefined;
     chooseDayAriaLabelPrefix?: string | undefined;

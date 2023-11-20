@@ -6,11 +6,6 @@ declare module "express-serve-static-core" {
     }
 }
 
-interface AbsoluteUrl {
-    (): RequestHandler;
-    attach(req: Request): void;
-}
+export default function(req: Request): string;
 
-declare const middleware: AbsoluteUrl;
-
-export = middleware;
+export function middleware(): RequestHandler;

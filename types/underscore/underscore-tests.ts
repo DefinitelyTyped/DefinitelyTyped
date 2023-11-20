@@ -542,9 +542,13 @@ _(explicitNumberDictionary).each((value, key, collection) => {
     // $ExpectType number | { b: number; }
     _.get({ a: { b: numberValue } }, ["a"], numberValue);
 
-    // trying to get the property one level deep
-    // $ExpectType string | number | { b: number; }
+    // trying to get the property two level deep
+    // $ExpectType number
     _.get({ a: { b: numberValue }, c: "a" }, ["a", "b"], numberValue);
+
+    // trying to get the property on the [string, number, string] path
+    // $ExpectType number | undefined
+    _.get({ a: [{ b: 2 }] }, ["a", 0, "b"]);
 
     // default value if not found of the 'same type'
     // $ExpectType number
@@ -559,12 +563,20 @@ _(explicitNumberDictionary).each((value, key, collection) => {
     _(null).get(["b"], numberValue);
 
     // oop style without default value
-    // $ExpectType number | undefined
+    // $ExpectType undefined
     _({ a: numberValue }).get(["b"]);
 
     // oop style with default value
     // $ExpectType string | number
     _({ a: numberValue }).get(["a"], stringValue);
+
+    // oop style without default value
+    // $ExpectType { b: number; } | undefined
+    _({ a: [{ b: numberValue }] }).get(["a", 0]);
+
+    // oop style with default value
+    // $ExpectType string | { b: number; }
+    _({ a: [{ b: numberValue }] }).get(["a", 0], stringValue);
 
     // chained with null as object
     // $ExpectType _Chain<undefined, undefined>
@@ -575,12 +587,23 @@ _(explicitNumberDictionary).each((value, key, collection) => {
     _.chain(null).get(["a"], numberValue);
 
     // chained without default value
-    // $ExpectType _Chain<string | number | undefined, string | number | undefined>
+    // $ExpectType _Chain<undefined, number | undefined>
     _.chain({ a: numberValue, b: stringValue }).get(["a"]);
 
     // chained with default value
-    // $ExpectType _Chain<string | number, string | number>
+    // $ExpectType _Chain<string, string | number>
     _.chain({ a: numberValue }).get(["a"], stringValue);
+
+    // chained without default value
+    // $ExpectType _Chain<number | undefined, { b: number; } | undefined>
+    _.chain({ a: [{ b: numberValue }] }).get(["a", 0]);
+
+    // chained with default value
+    // $ExpectType _Chain<string | number, string | { b: number; }>
+    _.chain({ a: [{ b: numberValue }] }).get(["a", 0], stringValue);
+
+    // $ExpectType _Chain<undefined, number | undefined>
+    _.chain({ a: [{ b: numberValue }] }).get(["a", 0]).get(["b"]);
 }
 
 // map, collect

@@ -8,7 +8,7 @@
     "type": "module",
     "dependencies": {
         "@types/configstore": "*",
-        "boxen": "^7.0.0"
+        "boxen": "^7.1.1"
     },
     "devDependencies": {
         "@types/update-notifier": "workspace:."

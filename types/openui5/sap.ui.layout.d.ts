@@ -1,4 +1,4 @@
-// For Library Version: 1.119.0
+// For Library Version: 1.120.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -468,6 +468,9 @@ declare module "sap/ui/layout/library" {
     type EmptyCells = int;
 
     /**
+     * @deprecated (since 1.67.0) - as `sap.ui.commons` library is deprecated and the `GridLayout` must not
+     * be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
+     *
      * A string that defines the number of used cells in a `GridLayout`. This can be a number from 1 to 16,
      * "auto" or "full". If set to "auto" the size is determined by the number of fields and the available cells.
      * For labels the auto size is 3 cells. If set to "full" only one field is allowed within the `FormElement`.
@@ -5764,38 +5767,46 @@ declare module "sap/ui/layout/form/ColumnLayout" {
   /**
    * @since 1.56.0
    *
-   * The `ColumnLayout` control renders a `Form` control in a column-based responsive way. Depending on its
-   * size, the `Form` control is divided into one or more columns. (XL - max. 4 columns, L - max. 3 columns,
-   * M - max. 2 columns and S - 1 column.)
+   * The `ColumnLayout` control renders a {@link sap.ui.layout.form.Form Form} control in a column-based responsive
+   * way. Depending on its size, the {@link sap.ui.layout.form.Form Form} control is divided into one or more
+   * columns. (XL - max. 4 columns, L - max. 3 columns, M - max. 2 columns and S - 1 column.)
    *
-   * The `FormContainer` elements are spread out to the columns depending on the number of `FormContainer`
-   * elements and their size. For example, if there are 4 columns and 2 `FormContainer` elements, each `FormContainer`
-   * element will use 2 columns. If there are 3 columns and 2 `FormContainer` elements, the larger one will
-   * use 2 columns, the smaller one 1 column. The size of a `FormContainer` element will be determined based
-   * on the number of visible `FormElement` elements assigned to it. If there are more `FormContainer` elements
-   * than columns, every `FormContainer` element uses only one column. So the last row of the `Form` control
-   * will not be fully used.
+   * The {@link sap.ui.layout.form.FormContainer FormContainer} elements are spread out to the columns depending
+   * on the number of {@link sap.ui.layout.form.FormContainer FormContainer} elements and their size. For
+   * example, if there are 4 columns and 2 {@link sap.ui.layout.form.FormContainer FormContainer} elements,
+   * each {@link sap.ui.layout.form.FormContainer FormContainer} element will use 2 columns. If there are
+   * 3 columns and 2 {@link sap.ui.layout.form.FormContainer FormContainer} elements, the larger one will
+   * use 2 columns, the smaller one 1 column. The size of a {@link sap.ui.layout.form.FormContainer FormContainer }
+   * element will be determined based on the number of visible {@link sap.ui.layout.form.FormElement FormElement }
+   * elements assigned to it. If there are more {@link sap.ui.layout.form.FormContainer FormContainer} elements
+   * than columns, every {@link sap.ui.layout.form.FormContainer FormContainer} element uses only one column.
+   * So the last row of the {@link sap.ui.layout.form.Form Form} control will not be fully used.
    *
-   * The default size of the `FormContainer` element can be overwritten by using `ColumnContainerData` as
-   * `LayoutData`. If one `FormContainer` element has `ColumnContainerData` set, the size calculation of the
-   * other `FormContainer` elements might not lead to the expected result. In this case, use `ColumnContainerData`
-   * also for the other `FormContainer` elements.
+   * The default size of the {@link sap.ui.layout.form.FormContainer FormContainer} element can be overwritten
+   * by using {@link sap.ui.layout.form.ColumnContainerData ColumnContainerData} as `LayoutData`. If one {@link sap.ui.layout.form.FormContainer FormContainer }
+   * element has {@link sap.ui.layout.form.ColumnContainerData ColumnContainerData} set, the size calculation
+   * of the other {@link sap.ui.layout.form.FormContainer FormContainer} elements might not lead to the expected
+   * result. In this case, use {@link sap.ui.layout.form.ColumnContainerData ColumnContainerData} also for
+   * the other {@link sap.ui.layout.form.FormContainer FormContainer} elements.
    *
-   * The `FormElement` elements are spread out to the columns of a `FormContainer` element arranged in a newspaper-like
-   * order. The position of the labels and fields depends on the size of the used column. If there is enough
-   * space, the labels are beside the fields, otherwise above the fields.
+   * The {@link sap.ui.layout.form.FormElement FormElement} elements are spread out to the columns of a {@link sap.ui.layout.form.FormContainer FormContainer }
+   * element arranged in a newspaper-like order. The position of the labels and fields depends on the size
+   * of the used column. If there is enough space, the labels are beside the fields, otherwise above the fields.
    *
-   * The default size of a content control of a `FormElement` element can be overwritten using `ColumnElementData`
-   * as `LayoutData`. If one control assigned to a `FormElement` element has `ColumnElementData` set, the
-   * size calculation of the other controls assigned to the `FormElement` element might not lead to the expected
-   * result. In this case, use `ColumnElementData` for the other controls, assigned to the `FormElement` element,
-   * too.
+   * The default size of a content control of a {@link sap.ui.layout.form.FormElement FormElement} element
+   * can be overwritten using {@link sap.ui.layout.form.ColumnElementData ColumnElementData} as `LayoutData`.
+   * If one control assigned to a {@link sap.ui.layout.form.FormElement FormElement} element has {@link sap.ui.layout.form.ColumnElementData ColumnElementData }
+   * set, the size calculation of the other controls assigned to the {@link sap.ui.layout.form.FormElement FormElement }
+   * element might not lead to the expected result. In this case, use {@link sap.ui.layout.form.ColumnElementData ColumnElementData }
+   * for the other controls, assigned to the {@link sap.ui.layout.form.FormElement FormElement} element, too.
    *
-   * The placement of the `FormElement` elements is made by the browser `column-count` logic. So this can
-   * be different in different browsers and lead in some cases to other results than might be expected.
+   * The placement of the {@link sap.ui.layout.form.FormElement FormElement} elements is made by the browser
+   * `column-count` logic. So this can be different in different browsers and lead in some cases to other
+   * results than might be expected.
    *
-   * **Note:** This control cannot be used stand-alone, it just renders a `Form` control, so it must be assigned
-   * to a `Form` control using the `layout` aggregation.
+   * **Note:** This control cannot be used stand-alone, it just renders a {@link sap.ui.layout.form.Form Form }
+   * control, so it must be assigned to a {@link sap.ui.layout.form.Form Form} control using the `layout`
+   * aggregation.
    */
   export default class ColumnLayout extends FormLayout {
     /**
@@ -7382,6 +7393,8 @@ declare module "sap/ui/layout/form/GridContainerData" {
 
   /**
    * @since 1.16.0
+   * @deprecated (since 1.67.0) - as `sap.ui.commons` library is deprecated and the `GridLayout` must not
+   * be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
    *
    * The `GridLayout`-specific layout data for `FormContainers`.
    */
@@ -7503,6 +7516,8 @@ declare module "sap/ui/layout/form/GridElementData" {
 
   /**
    * @since 1.16.0
+   * @deprecated (since 1.67.0) - as `sap.ui.commons` library is deprecated and the `GridLayout` must not
+   * be used in responsive applications. Please use `ResponsiveGridLayout` or `ColumnLayout` instead.
    *
    * The `GridLayout`-specific layout data for `FormElement` fields.
    */
@@ -7817,21 +7832,24 @@ declare module "sap/ui/layout/form/ResponsiveGridLayout" {
   /**
    * @since 1.16.0
    *
-   * The `ResponsiveGridLayout` control renders a `Form` using a responsive grid. Internally the `Grid` control
-   * is used for rendering. Using this layout, the `Form` is rendered in a responsive way. Depending on the
-   * available space, the `FormContainers` are rendered in one or different columns and the labels are rendered
-   * in the same row as the fields or above the fields. This behavior can be influenced by the properties
-   * of this layout control.
+   * The `ResponsiveGridLayout` control renders a {@link sap.ui.layout.form.Form Form} using a responsive
+   * grid. Internally the {@link sap.ui.layout.Grid Grid} control is used for rendering. Using this layout,
+   * the {@link sap.ui.layout.form.Form Form} is rendered in a responsive way. Depending on the available
+   * space, the {@link sap.ui.layout.form.FormContainer FormContainers} are rendered in one or different columns
+   * and the labels are rendered in the same row as the fields or above the fields. This behavior can be influenced
+   * by the properties of this layout control.
    *
-   * On the `FormContainers`, labels and content fields, `GridData` can be used to change the default rendering.
-   * `GridData` is not supported for `FormElements`.
+   * On the {@link sap.ui.layout.form.FormContainer FormContainers}, labels and content fields, {@link sap.ui.layout.GridGata GridData }
+   * can be used to change the default rendering. {@link sap.ui.layout.GridGata GridData} is not supported
+   * for {@link sap.ui.layout.form.FormElement FormElements}.
    *
-   * **Note:** If `GridData` is used, this may result in a much more complex layout than the default one.
-   * This means that in some cases, the calculation for the other content may not bring the expected result.
-   * In such cases, `GridData` should be used for all content controls to disable the default behavior.
+   * **Note:** If {@link sap.ui.layout.GridGata GridData} is used, this may result in a much more complex
+   * layout than the default one. This means that in some cases, the calculation for the other content may
+   * not bring the expected result. In such cases, {@link sap.ui.layout.GridGata GridData} should be used
+   * for all content controls to disable the default behavior.
    *
-   * This control cannot be used stand-alone, it just renders a `Form`, so it must be assigned to a `Form`
-   * using the `layout` aggregation.
+   * This control cannot be used stand-alone, it just renders a {@link sap.ui.layout.form.Form Form}, so it
+   * must be assigned to a {@link sap.ui.layout.form.Form Form} using the `layout` aggregation.
    */
   export default class ResponsiveGridLayout extends FormLayout {
     /**
@@ -7899,14 +7917,15 @@ declare module "sap/ui/layout/form/ResponsiveGridLayout" {
      *
      * Gets current value of property {@link #getAdjustLabelSpan adjustLabelSpan}.
      *
-     * If set, the usage of `labelSpanL` and `labelSpanM` are dependent on the number of `FormContainers` in
-     * one row. If only one `FormContainer` is displayed in one row, `labelSpanM` is used to define the size
-     * of the label. This is the same for medium and large `Forms`. This is done to align the labels on forms
-     * where full-size `FormContainers` and multiple-column rows are used in the same `Form` (because every
-     * `FormContainer` has its own `Grid` inside).
+     * If set, the usage of `labelSpanL` and `labelSpanM` are dependent on the number of {@link sap.ui.layout.form.FormContainer FormContainers }
+     * in one row. If only one {@link sap.ui.layout.form.FormContainer FormContainer} is displayed in one row,
+     * `labelSpanM` is used to define the size of the label. This is the same for medium and large `Forms`.
+     * This is done to align the labels on forms where full-size {@link sap.ui.layout.form.FormContainer FormContainers }
+     * and multiple-column rows are used in the same {@link sap.ui.layout.form.Form Form} (because every {@link sap.ui.layout.form.FormContainer FormContainer }
+     * has its own {@link sap.ui.layout.Grid Grid} inside).
      *
-     * If not set, the usage of `labelSpanL` and `labelSpanM` are dependent on the `Form` size. The number of
-     * `FormContainers` doesn't matter in this case.
+     * If not set, the usage of `labelSpanL` and `labelSpanM` are dependent on the {@link sap.ui.layout.form.Form Form }
+     * size. The number of {@link sap.ui.layout.form.FormContainer FormContainers} doesn't matter in this case.
      *
      * Default value is `true`.
      *
@@ -8049,8 +8068,9 @@ declare module "sap/ui/layout/form/ResponsiveGridLayout" {
      *
      * Default span for labels in large size.
      *
-     * **Note:** If `adjustLabelSpan` is set, this property is only used if more than 1 `FormContainer` is in
-     * one line. If only 1 `FormContainer` is in the line, then the `labelSpanM` value is used.
+     * **Note:** If `adjustLabelSpan` is set, this property is only used if more than 1 {@link sap.ui.layout.form.FormContainer FormContainer }
+     * is in one line. If only 1 {@link sap.ui.layout.form.FormContainer FormContainer} is in the line, then
+     * the `labelSpanM` value is used.
      *
      * Default value is `4`.
      *
@@ -8064,8 +8084,9 @@ declare module "sap/ui/layout/form/ResponsiveGridLayout" {
      *
      * Default span for labels in medium size.
      *
-     * **Note:** If `adjustLabelSpan` is set this property is used for full-size `FormContainers`. If more than
-     * one `FormContainer` is in one line, `labelSpanL` is used.
+     * **Note:** If `adjustLabelSpan` is set this property is used for full-size {@link sap.ui.layout.form.FormContainer FormContainers}.
+     * If more than one {@link sap.ui.layout.form.FormContainer FormContainer} is in one line, `labelSpanL`
+     * is used.
      *
      * Default value is `2`.
      *
@@ -8104,11 +8125,13 @@ declare module "sap/ui/layout/form/ResponsiveGridLayout" {
      *
      * Gets current value of property {@link #getSingleContainerFullSize singleContainerFullSize}.
      *
-     * If the `Form` contains only one single `FormContainer` and this property is set, the `FormContainer`
-     * is displayed using the full size of the `Form`. In this case the properties `columnsXL`, `columnsL` and
-     * `columnsM` are ignored.
+     * If the {@link sap.ui.layout.form.Form Form} contains only one single {@link sap.ui.layout.form.FormContainer FormContainer }
+     * and this property is set, the {@link sap.ui.layout.form.FormContainer FormContainer} is displayed using
+     * the full size of the {@link sap.ui.layout.form.Form Form}. In this case the properties `columnsXL`, `columnsL`
+     * and `columnsM` are ignored.
      *
-     * In all other cases the `FormContainer` is displayed in the size of one column.
+     * In all other cases the {@link sap.ui.layout.form.FormContainer FormContainer} is displayed in the size
+     * of one column.
      *
      * Default value is `true`.
      *
@@ -8120,14 +8143,15 @@ declare module "sap/ui/layout/form/ResponsiveGridLayout" {
      *
      * Sets a new value for property {@link #getAdjustLabelSpan adjustLabelSpan}.
      *
-     * If set, the usage of `labelSpanL` and `labelSpanM` are dependent on the number of `FormContainers` in
-     * one row. If only one `FormContainer` is displayed in one row, `labelSpanM` is used to define the size
-     * of the label. This is the same for medium and large `Forms`. This is done to align the labels on forms
-     * where full-size `FormContainers` and multiple-column rows are used in the same `Form` (because every
-     * `FormContainer` has its own `Grid` inside).
+     * If set, the usage of `labelSpanL` and `labelSpanM` are dependent on the number of {@link sap.ui.layout.form.FormContainer FormContainers }
+     * in one row. If only one {@link sap.ui.layout.form.FormContainer FormContainer} is displayed in one row,
+     * `labelSpanM` is used to define the size of the label. This is the same for medium and large `Forms`.
+     * This is done to align the labels on forms where full-size {@link sap.ui.layout.form.FormContainer FormContainers }
+     * and multiple-column rows are used in the same {@link sap.ui.layout.form.Form Form} (because every {@link sap.ui.layout.form.FormContainer FormContainer }
+     * has its own {@link sap.ui.layout.Grid Grid} inside).
      *
-     * If not set, the usage of `labelSpanL` and `labelSpanM` are dependent on the `Form` size. The number of
-     * `FormContainers` doesn't matter in this case.
+     * If not set, the usage of `labelSpanL` and `labelSpanM` are dependent on the {@link sap.ui.layout.form.Form Form }
+     * size. The number of {@link sap.ui.layout.form.FormContainer FormContainers} doesn't matter in this case.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -8347,8 +8371,9 @@ declare module "sap/ui/layout/form/ResponsiveGridLayout" {
      *
      * Default span for labels in large size.
      *
-     * **Note:** If `adjustLabelSpan` is set, this property is only used if more than 1 `FormContainer` is in
-     * one line. If only 1 `FormContainer` is in the line, then the `labelSpanM` value is used.
+     * **Note:** If `adjustLabelSpan` is set, this property is only used if more than 1 {@link sap.ui.layout.form.FormContainer FormContainer }
+     * is in one line. If only 1 {@link sap.ui.layout.form.FormContainer FormContainer} is in the line, then
+     * the `labelSpanM` value is used.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -8369,8 +8394,9 @@ declare module "sap/ui/layout/form/ResponsiveGridLayout" {
      *
      * Default span for labels in medium size.
      *
-     * **Note:** If `adjustLabelSpan` is set this property is used for full-size `FormContainers`. If more than
-     * one `FormContainer` is in one line, `labelSpanL` is used.
+     * **Note:** If `adjustLabelSpan` is set this property is used for full-size {@link sap.ui.layout.form.FormContainer FormContainers}.
+     * If more than one {@link sap.ui.layout.form.FormContainer FormContainer} is in one line, `labelSpanL`
+     * is used.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -8430,11 +8456,13 @@ declare module "sap/ui/layout/form/ResponsiveGridLayout" {
      *
      * Sets a new value for property {@link #getSingleContainerFullSize singleContainerFullSize}.
      *
-     * If the `Form` contains only one single `FormContainer` and this property is set, the `FormContainer`
-     * is displayed using the full size of the `Form`. In this case the properties `columnsXL`, `columnsL` and
-     * `columnsM` are ignored.
+     * If the {@link sap.ui.layout.form.Form Form} contains only one single {@link sap.ui.layout.form.FormContainer FormContainer }
+     * and this property is set, the {@link sap.ui.layout.form.FormContainer FormContainer} is displayed using
+     * the full size of the {@link sap.ui.layout.form.Form Form}. In this case the properties `columnsXL`, `columnsL`
+     * and `columnsM` are ignored.
      *
-     * In all other cases the `FormContainer` is displayed in the size of one column.
+     * In all other cases the {@link sap.ui.layout.form.FormContainer FormContainer} is displayed in the size
+     * of one column.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -8466,8 +8494,9 @@ declare module "sap/ui/layout/form/ResponsiveGridLayout" {
      *
      * Default span for labels in large size.
      *
-     * **Note:** If `adjustLabelSpan` is set, this property is only used if more than 1 `FormContainer` is in
-     * one line. If only 1 `FormContainer` is in the line, then the `labelSpanM` value is used.
+     * **Note:** If `adjustLabelSpan` is set, this property is only used if more than 1 {@link sap.ui.layout.form.FormContainer FormContainer }
+     * is in one line. If only 1 {@link sap.ui.layout.form.FormContainer FormContainer} is in the line, then
+     * the `labelSpanM` value is used.
      */
     labelSpanL?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -8476,8 +8505,9 @@ declare module "sap/ui/layout/form/ResponsiveGridLayout" {
      *
      * Default span for labels in medium size.
      *
-     * **Note:** If `adjustLabelSpan` is set this property is used for full-size `FormContainers`. If more than
-     * one `FormContainer` is in one line, `labelSpanL` is used.
+     * **Note:** If `adjustLabelSpan` is set this property is used for full-size {@link sap.ui.layout.form.FormContainer FormContainers}.
+     * If more than one {@link sap.ui.layout.form.FormContainer FormContainer} is in one line, `labelSpanL`
+     * is used.
      */
     labelSpanM?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -8491,14 +8521,15 @@ declare module "sap/ui/layout/form/ResponsiveGridLayout" {
     /**
      * @since 1.34.0
      *
-     * If set, the usage of `labelSpanL` and `labelSpanM` are dependent on the number of `FormContainers` in
-     * one row. If only one `FormContainer` is displayed in one row, `labelSpanM` is used to define the size
-     * of the label. This is the same for medium and large `Forms`. This is done to align the labels on forms
-     * where full-size `FormContainers` and multiple-column rows are used in the same `Form` (because every
-     * `FormContainer` has its own `Grid` inside).
+     * If set, the usage of `labelSpanL` and `labelSpanM` are dependent on the number of {@link sap.ui.layout.form.FormContainer FormContainers }
+     * in one row. If only one {@link sap.ui.layout.form.FormContainer FormContainer} is displayed in one row,
+     * `labelSpanM` is used to define the size of the label. This is the same for medium and large `Forms`.
+     * This is done to align the labels on forms where full-size {@link sap.ui.layout.form.FormContainer FormContainers }
+     * and multiple-column rows are used in the same {@link sap.ui.layout.form.Form Form} (because every {@link sap.ui.layout.form.FormContainer FormContainer }
+     * has its own {@link sap.ui.layout.Grid Grid} inside).
      *
-     * If not set, the usage of `labelSpanL` and `labelSpanM` are dependent on the `Form` size. The number of
-     * `FormContainers` doesn't matter in this case.
+     * If not set, the usage of `labelSpanL` and `labelSpanM` are dependent on the {@link sap.ui.layout.form.Form Form }
+     * size. The number of {@link sap.ui.layout.form.FormContainer FormContainers} doesn't matter in this case.
      */
     adjustLabelSpan?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -8563,11 +8594,13 @@ declare module "sap/ui/layout/form/ResponsiveGridLayout" {
     /**
      * @since 1.34.0
      *
-     * If the `Form` contains only one single `FormContainer` and this property is set, the `FormContainer`
-     * is displayed using the full size of the `Form`. In this case the properties `columnsXL`, `columnsL` and
-     * `columnsM` are ignored.
+     * If the {@link sap.ui.layout.form.Form Form} contains only one single {@link sap.ui.layout.form.FormContainer FormContainer }
+     * and this property is set, the {@link sap.ui.layout.form.FormContainer FormContainer} is displayed using
+     * the full size of the {@link sap.ui.layout.form.Form Form}. In this case the properties `columnsXL`, `columnsL`
+     * and `columnsM` are ignored.
      *
-     * In all other cases the `FormContainer` is displayed in the size of one column.
+     * In all other cases the {@link sap.ui.layout.form.FormContainer FormContainer} is displayed in the size
+     * of one column.
      */
     singleContainerFullSize?: boolean | PropertyBindingInfo | `{${string}}`;
 
@@ -13971,9 +14004,8 @@ declare module "sap/ui/layout/SplitterLayoutData" {
    * @since 1.22.0
    * @experimental (since 1.22.0) - API is not yet finished and might change completely
    *
-   * Holds layout data for the splitter contents. Allowed size values are numeric values ending in "px" and
-   * "%" and the special case "auto". (The CSS value "auto" is used internally to recalculate the size of
-   * the content dynamically and is not directly set as style property.)
+   * Holds layout data for the splitter contents. Allowed size values are numeric values ending in "px", "rem",
+   * "%" and "auto".
    */
   export default class SplitterLayoutData extends LayoutData {
     /**
@@ -14061,9 +14093,6 @@ declare module "sap/ui/layout/SplitterLayoutData" {
      *
      * The size of the splitter content. This property is updated when the area is resized by the user.
      *
-     * **Note:** Resizing areas in the sap.ui.layout.Splitter sets this property to "px" values, while resizing
-     * areas in the sap.ui.layout.ResponsiveSplitter sets it to % values.
-     *
      * Default value is `'auto'`.
      *
      * @returns Value of property `size`
@@ -14108,9 +14137,6 @@ declare module "sap/ui/layout/SplitterLayoutData" {
      *
      * The size of the splitter content. This property is updated when the area is resized by the user.
      *
-     * **Note:** Resizing areas in the sap.ui.layout.Splitter sets this property to "px" values, while resizing
-     * areas in the sap.ui.layout.ResponsiveSplitter sets it to % values.
-     *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `'auto'`.
@@ -14133,9 +14159,6 @@ declare module "sap/ui/layout/SplitterLayoutData" {
 
     /**
      * The size of the splitter content. This property is updated when the area is resized by the user.
-     *
-     * **Note:** Resizing areas in the sap.ui.layout.Splitter sets this property to "px" values, while resizing
-     * areas in the sap.ui.layout.ResponsiveSplitter sets it to % values.
      */
     size?: CSSSize | PropertyBindingInfo | `{${string}}`;
 
