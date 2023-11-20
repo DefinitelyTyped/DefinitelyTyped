@@ -427,7 +427,7 @@ export interface ParseError {
     /** Human-readable details */
     message: string;
     /** Row index of parsed data where error is */
-    row: number;
+    row?: number | undefined;
 }
 
 export interface ParseMeta {
