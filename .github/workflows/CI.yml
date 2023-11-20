@@ -44,6 +44,8 @@ jobs:
       - run: ./scripts/pnpm-install.sh
         name: pnpm install
 
+      - run: pnpm ls
+
       # Run tests
       - run: pnpm run test-all
 
