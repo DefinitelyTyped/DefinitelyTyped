@@ -5,6 +5,7 @@
         "@definitelytyped/no-declare-current-package": "off",
         "@definitelytyped/no-single-declare-module": "off",
         "@typescript-eslint/ban-types": "off",
-        "@typescript-eslint/naming-convention": "off"
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/no-empty-interface": "off"
     }
 }

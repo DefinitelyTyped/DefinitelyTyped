@@ -7,6 +7,7 @@
         "@typescript-eslint/adjacent-overload-signatures": "off",
         "@typescript-eslint/ban-types": "off",
         "@typescript-eslint/no-empty-interface": "off",
-        "@typescript-eslint/naming-convention": "off"
+        "@typescript-eslint/naming-convention": "off",
+        "no-duplicate-imports": "off"
     }
 }

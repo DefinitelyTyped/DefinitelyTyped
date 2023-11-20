@@ -6,6 +6,7 @@
         "@typescript-eslint/ban-types": "off",
         "@definitelytyped/no-duplicate-imports": "off",
         "@typescript-eslint/naming-convention": "off",
-        "@typescript-eslint/consistent-type-definitions": "off"
+        "@typescript-eslint/consistent-type-definitions": "off",
+        "no-duplicate-imports": "off"
     }
 }
