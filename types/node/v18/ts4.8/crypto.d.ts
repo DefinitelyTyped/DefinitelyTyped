@@ -2500,7 +2500,7 @@ declare module "crypto" {
          */
         namedCurve: string;
         /**
-         * Must be `'named'` or `'explicit'` (EC). Default: `'named'`.
+         * Must be `'named'` or `'explicit'`. Default: `'named'`.
          */
         paramEncoding?: "explicit" | "named";
     }
