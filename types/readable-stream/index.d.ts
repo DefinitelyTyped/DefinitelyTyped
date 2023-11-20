@@ -1,6 +1,7 @@
 /// <reference types="node" />
 
 import * as SafeBuffer from "safe-buffer";
+import type * as NodeStream from "stream";
 
 declare class StringDecoder {
     constructor(encoding?: BufferEncoding | string);
@@ -658,6 +659,9 @@ declare namespace _Readable {
             options?: { signal: AbortSignal },
         ): T;
     }
+
+    const finished: typeof NodeStream.finished;
+    const pipeline: typeof NodeStream.pipeline;
 }
 
 export = _Readable;
