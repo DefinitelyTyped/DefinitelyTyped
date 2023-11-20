@@ -908,6 +908,14 @@ import { promisify } from "node:util";
 }
 
 {
+    const { privateKey, publicKey } = crypto.generateKeyPairSync("ed25519");
+    privateKey; // $ExpectType KeyObject
+    publicKey; // $ExpectType KeyObject
+    privateKey.equals(publicKey); // $ExpectType boolean
+    publicKey.equals(privateKey); // $ExpectType boolean
+}
+
+{
     const { privateKey, publicKey } = crypto.generateKeyPairSync("ec", {
         namedCurve: "sect239k1",
     });
