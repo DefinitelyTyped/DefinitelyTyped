@@ -11,7 +11,7 @@ interface SizzleStatic {
         results: TArrayLike,
     ): TArrayLike;
     (selector: string, context?: Element | Document | DocumentFragment): Element[];
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     compile(selector: string): Function;
     matchesSelector(element: Element, selector: string): boolean;
     matches(selector: string, elements: Element[]): Element[];

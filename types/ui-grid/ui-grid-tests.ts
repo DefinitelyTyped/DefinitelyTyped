@@ -173,8 +173,8 @@ anotherGridInstance.getRowsByKey(true, 123, {});
 anotherGridInstance.findRowByKey(true, 10, "42");
 anotherGridInstance.findRowByKey(true, "test", true);
 
-var selectedRowEntities: Array<IMyEntity> = gridApi.selection.getSelectedRows();
-var selectedGridRows: Array<uiGrid.IGridRow> = gridApi.selection.getSelectedGridRows();
+var selectedRowEntities: IMyEntity[] = gridApi.selection.getSelectedRows();
+var selectedGridRows: uiGrid.IGridRow[] = gridApi.selection.getSelectedGridRows();
 var row: IMyEntity = selectedRowEntities[0];
 var gridRow: uiGrid.IGridRow = selectedGridRows[0];
 

@@ -7,7 +7,7 @@ declare function depd(namespace: string): depd.Deprecate;
 declare namespace depd {
     interface Deprecate {
         (message: string): void;
-        // tslint:disable-next-line ban-types
+        // eslint-disable-next-line @typescript-eslint/ban-types
         function<T extends Function>(fn: T, message?: string): T;
         property<T extends object>(obj: T, prop: keyof T, message: string): void;
     }

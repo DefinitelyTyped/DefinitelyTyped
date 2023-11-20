@@ -15,7 +15,7 @@ export interface CountriesListItem {
     iso2: string;
     dialCode: string;
     priority: number;
-    areaCodes: ReadonlyArray<string> | null;
+    areaCodes: readonly string[] | null;
 }
 
 export interface PickerData {
@@ -106,7 +106,7 @@ export interface ReactNativePhoneInputProps<TextComponentType extends React.Comp
     /**
      * Custom countries list
      */
-    countriesList?: ReadonlyArray<CountriesListItem> | undefined;
+    countriesList?: readonly CountriesListItem[] | undefined;
     /**
      * Function to be invoked when cancelling country picker selection
      */

@@ -10,8 +10,8 @@ declare class CanCan {
 
     allow<T>(
         model: any,
-        actions: string | ReadonlyArray<string>,
-        targets: T | ReadonlyArray<T> | string | ReadonlyArray<string>,
+        actions: string | readonly string[],
+        targets: T | readonly T[] | string | readonly string[],
         condition?: object | ((performer: any, target: any, options?: any) => boolean),
     ): void;
 

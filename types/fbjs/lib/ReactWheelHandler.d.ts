@@ -6,13 +6,13 @@ declare class ReactWheelHandler {
      * this order
      */
     constructor(
-        // tslint:disable-next-line:ban-types
+        // eslint-disable-next-line @typescript-eslint/ban-types
         onWheel: Function,
-        // tslint:disable-next-line:ban-types
+        // eslint-disable-next-line @typescript-eslint/ban-types
         handleScrollX: boolean | Function,
-        // tslint:disable-next-line:ban-types
+        // eslint-disable-next-line @typescript-eslint/ban-types
         handleScrollY: boolean | Function,
-        // tslint:disable-next-line:ban-types
+        // eslint-disable-next-line @typescript-eslint/ban-types
         stopPropagation?: boolean | Function,
     );
 

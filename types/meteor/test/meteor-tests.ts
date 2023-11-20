@@ -492,7 +492,7 @@ namespace MeteorTests {
     interface CommentsDAO {
         text: string;
         authorId: string;
-        inlineLinks: { objectType: InlineObjectType; objectId: string; objectUrl: string }[];
+        inlineLinks: Array<{ objectType: InlineObjectType; objectId: string; objectUrl: string }>;
         tags: string[];
         viewNumber: number;
         private: boolean;

@@ -1,10 +1,10 @@
 // forward declarations
 declare global {
     namespace NodeJS {
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface ReadableStream {}
     }
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ShadowRoot {}
 }
 
@@ -87,7 +87,7 @@ export type Interpolation<P> = InterpolationValue | InterpolationFunction<P> | F
 export type FlattenInterpolation<P> = ReadonlyArray<Interpolation<P>>;
 export type InterpolationValue = string | number | FalseyValue | Keyframes | StyledComponentInterpolation | CSSObject;
 export type SimpleInterpolation = InterpolationValue | FlattenSimpleInterpolation;
-export type FlattenSimpleInterpolation = ReadonlyArray<SimpleInterpolation>;
+export type FlattenSimpleInterpolation = readonly SimpleInterpolation[];
 
 export type InterpolationFunction<P> = (props: P) => Interpolation<P>;
 
@@ -329,7 +329,7 @@ export function useTheme(): DefaultTheme;
  */
 // Unfortunately, there is no way to write tests for this
 // as any augmentation will break the tests for the default case (not augmented).
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DefaultTheme {}
 
 export interface ThemeProviderProps<T extends object, U extends object = T> {

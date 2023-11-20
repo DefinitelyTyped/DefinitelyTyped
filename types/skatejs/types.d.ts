@@ -104,5 +104,5 @@ export interface EventOptions extends CustomEventInit {
 }
 export interface ComposedCustomEvent extends CustomEvent {
     composed: boolean;
-    composedPath: () => Array<Node>;
+    composedPath: () => Node[];
 }

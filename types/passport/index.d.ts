@@ -2,9 +2,9 @@ import { IncomingMessage } from "http";
 
 declare global {
     namespace Express {
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface AuthInfo {}
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface User {}
 
         interface Request {

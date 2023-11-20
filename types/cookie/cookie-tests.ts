@@ -1,5 +1,5 @@
 import * as cookie from "cookie";
-// tslint:disable-next-line:no-duplicate-imports
+// eslint-disable-next-line no-duplicate-imports
 import { CookieParseOptions, CookieSerializeOptions, parse, serialize } from "cookie";
 
 function test_serialize(): void {

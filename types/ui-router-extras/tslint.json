@@ -1,7 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "interface-name": false,
-        "no-empty-interface": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

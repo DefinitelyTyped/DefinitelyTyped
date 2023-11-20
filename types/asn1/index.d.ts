@@ -43,7 +43,7 @@ export class BerWriter {
     writeNull(): void;
     writeOID(s: string, tag: number): void;
     writeString(s: string, tag?: number): void;
-    writeStringArray(strings: ReadonlyArray<string>): void;
+    writeStringArray(strings: readonly string[]): void;
     _ensure(length: number): void;
 }
 

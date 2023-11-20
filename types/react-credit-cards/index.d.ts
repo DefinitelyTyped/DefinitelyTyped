@@ -8,7 +8,7 @@ export interface CallbackArgument {
 export type Focused = "name" | "number" | "expiry" | "cvc";
 
 export interface ReactCreditCardProps {
-    acceptedCards?: ReadonlyArray<string> | undefined;
+    acceptedCards?: readonly string[] | undefined;
     callback?: ((type: CallbackArgument, isValid: boolean) => void) | undefined;
     cvc: string | number;
     expiry: string | number;

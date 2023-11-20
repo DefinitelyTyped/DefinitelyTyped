@@ -44,7 +44,7 @@ export interface DatetimepickerOptions {
     useStrict?: boolean | undefined;
     direction?: string | undefined;
     sideBySide?: boolean | undefined;
-    daysOfWeekDisabled?: Array<number> | undefined;
+    daysOfWeekDisabled?: number[] | undefined;
     calendarWeeks?: boolean | undefined;
     format?: string | boolean | undefined;
     locale?: string | undefined;

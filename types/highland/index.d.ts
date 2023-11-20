@@ -12,7 +12,7 @@ type Flattened<R> = {
     value: R;
     stream: R extends Highland.Stream<infer U> ? Flattened<U> : never;
     array: R extends Array<infer U> ? Flattened<U> : never;
-}[R extends Array<any> ? "array" : R extends Highland.Stream<any> ? "stream" : "value"];
+}[R extends any[] ? "array" : R extends Highland.Stream<any> ? "stream" : "value"];
 
 // Describes a constructor for a particular promise library
 interface PConstructor<T, P extends PromiseLike<T>> {

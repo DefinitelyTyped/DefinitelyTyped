@@ -23,7 +23,7 @@ export interface TableHeaderProps
 }
 
 interface TableHeaderFC extends ForwardRefReturn<HTMLTableHeaderCellElement, TableHeaderProps> {
-    readonly translationKeys: ReadonlyArray<TableHeaderTranslationKey>;
+    readonly translationKeys: readonly TableHeaderTranslationKey[];
 }
 
 declare const TableHeader: TableHeaderFC;

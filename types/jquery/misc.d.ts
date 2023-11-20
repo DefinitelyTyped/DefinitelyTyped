@@ -758,12 +758,12 @@ declare namespace JQuery {
          * @since 1.7
          */
         /* eslint-disable @definitelytyped/no-unnecessary-generics */
-        // tslint:disable-next-line:ban-types
+        // eslint-disable-next-line @typescript-eslint/ban-types
         <T extends Function>(flags?: string): Callbacks<T>;
         /* eslint-enable @definitelytyped/no-unnecessary-generics */
     }
 
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     interface Callbacks<T extends Function = Function> {
         /**
          * Add a callback or a collection of callbacks to a callback list.
@@ -7341,7 +7341,7 @@ type _FocusEvent = FocusEvent;
 // #region ES5 compatibility
 
 // Forward declaration of `Iterable<T>`.
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Iterable<T> {}
 
 interface SymbolConstructor {

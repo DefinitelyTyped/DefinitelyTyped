@@ -87,6 +87,6 @@ export namespace ManagedUpload {
         /**
          * The tags to apply to the object.
          */
-        tags?: Array<S3.Tag>;
+        tags?: S3.Tag[];
     }
 }

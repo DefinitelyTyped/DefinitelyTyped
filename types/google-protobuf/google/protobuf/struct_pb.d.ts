@@ -95,12 +95,12 @@ export namespace Value {
 
 export class ListValue extends jspb.Message {
     clearValuesList(): ListValue;
-    getValuesList(): Array<Value>;
-    setValuesList(value: Array<Value>): ListValue;
+    getValuesList(): Value[];
+    setValuesList(value: Value[]): ListValue;
     addValues(value?: Value, index?: number): Value;
 
-    toJavaScript(): Array<JavaScriptValue>;
-    static fromJavaScript(value: Array<JavaScriptValue>): ListValue;
+    toJavaScript(): JavaScriptValue[];
+    static fromJavaScript(value: JavaScriptValue[]): ListValue;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ListValue.AsObject;
@@ -114,7 +114,7 @@ export class ListValue extends jspb.Message {
 
 export namespace ListValue {
     export type AsObject = {
-        valuesList: Array<Value.AsObject>;
+        valuesList: Value.AsObject[];
     };
 }
 
@@ -122,4 +122,4 @@ export enum NullValue {
     NULL_VALUE = 0,
 }
 
-export type JavaScriptValue = null | number | string | boolean | Array<any> | {};
+export type JavaScriptValue = null | number | string | boolean | any[] | {};

@@ -1605,7 +1605,7 @@ interface DurandalRouterBase<T> extends DurandalEventSupport<T> {
     /**
      * The route handlers that are registered. Each handler consists of a `routePattern` and a `callback`.
      */
-    handlers: { routePattern: RegExp; callback: (fragment: string) => void }[];
+    handlers: Array<{ routePattern: RegExp; callback: (fragment: string) => void }>;
 
     /**
      * The route configs that are registered.

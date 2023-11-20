@@ -51,7 +51,7 @@ export type NamedParameterValuesType = Record<string, ValueExpressionType>;
 export interface ArraySqlTokenType {
     memberType: TypeNameIdentifierType | SqlTokenType;
     type: typeof SlonikSymbol.ArrayTokenSymbol;
-    values: ReadonlyArray<ValueExpressionType>;
+    values: readonly ValueExpressionType[];
 }
 
 export interface BinarySqlTokenType {
@@ -60,13 +60,13 @@ export interface BinarySqlTokenType {
 }
 
 export interface IdentifierSqlTokenType {
-    names: ReadonlyArray<string>;
+    names: readonly string[];
     type: typeof SlonikSymbol.IdentifierTokenSymbol;
 }
 
 export interface ListSqlTokenType {
     glue: SqlTokenType;
-    members: ReadonlyArray<SqlTokenType>;
+    members: readonly SqlTokenType[];
     type: typeof SlonikSymbol.ListTokenSymbol;
 }
 
@@ -78,8 +78,8 @@ export interface JsonSqlTokenType {
 export type SqlSqlTokenType<T> = TaggedTemplateLiteralInvocationType<T>;
 
 export interface UnnestSqlTokenType {
-    columnTypes: ReadonlyArray<string>;
-    tuples: ReadonlyArray<ReadonlyArray<ValueExpressionType>>;
+    columnTypes: readonly string[];
+    tuples: ReadonlyArray<readonly ValueExpressionType[]>;
     type: typeof SlonikSymbol.UnnestTokenSymbol;
 }
 
@@ -161,7 +161,7 @@ export type QueryIdType = string;
 
 export interface QueryType {
     sql: string;
-    values?: ReadonlyArray<PrimitiveValueExpressionType> | undefined;
+    values?: readonly PrimitiveValueExpressionType[] | undefined;
 }
 
 export type QueryMethodType<RowType, Result> = (
@@ -181,12 +181,12 @@ export interface NoticeType {
 
 export interface QueryResultType<T> {
     command: "DELETE" | "INSERT" | "SELECT" | "UPDATE";
-    fields: ReadonlyArray<FieldType>;
-    notices: ReadonlyArray<NoticeType>;
+    fields: readonly FieldType[];
+    notices: readonly NoticeType[];
     oid: number | null;
     rowAsArray: boolean;
     rowCount: number;
-    rows: ReadonlyArray<T>;
+    rows: readonly T[];
 }
 
 export type QueryResultRowColumnType = string | number;
@@ -254,7 +254,7 @@ export interface QueryContextType {
     /** Object used by interceptors to assign interceptor-specific, query-specific context. */
     sandbox: Record<string, any>;
 
-    stackTrace: ReadonlyArray<CallSiteType> | null;
+    stackTrace: readonly CallSiteType[] | null;
 
     /**
      * Unique transaction ID
@@ -291,13 +291,13 @@ export interface SqlTaggedTemplateType {
     ) => ArraySqlTokenType;
     identifier: (names: string[]) => IdentifierSqlTokenType;
     json: (value: SerializableValueType) => JsonSqlTokenType;
-    join: (members: ReadonlyArray<ValueExpressionType>, glue: SqlTokenType) => ListSqlTokenType;
+    join: (members: readonly ValueExpressionType[], glue: SqlTokenType) => ListSqlTokenType;
     unnest: (
         // Value might be ReadonlyArray<ReadonlyArray<PrimitiveValueExpressionType>>,
         // or it can be infinitely nested array, e.g.
         // https://github.com/gajus/slonik/issues/44
-        tuples: ReadonlyArray<ReadonlyArray<any>>,
-        columnTypes: ReadonlyArray<string>,
+        tuples: ReadonlyArray<readonly any[]>,
+        columnTypes: readonly string[],
     ) => UnnestSqlTokenType;
 }
 
@@ -475,7 +475,7 @@ export interface ClientConfigurationType {
     typeParsers?: TypeParserType[] | undefined;
 }
 
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ClientConfigurationInputType extends ClientConfigurationType {}
 
 //

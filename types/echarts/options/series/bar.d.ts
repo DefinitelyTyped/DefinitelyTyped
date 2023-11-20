@@ -2174,8 +2174,8 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-bar.data
              */
             data?:
-                | (void | string | number | SeriesBar.DataObject)[]
-                | (void | string | number | SeriesBar.DataObject)[][]
+                | Array<void | string | number | SeriesBar.DataObject>
+                | Array<Array<void | string | number | SeriesBar.DataObject>>
                 | undefined;
 
             /**
@@ -4011,7 +4011,7 @@ declare namespace echarts {
                  *
                  * @see https://echarts.apache.org/en/option.html#series-bar.markPoint.data
                  */
-                data?: {
+                data?: Array<{
                     /**
                      * Mark point name.
                      *
@@ -5818,7 +5818,7 @@ declare namespace echarts {
                             } | undefined;
                         } | undefined;
                     } | undefined;
-                }[] | undefined;
+                }> | undefined;
 
                 /**
                  * Whether to enable animation.

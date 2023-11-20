@@ -148,7 +148,7 @@ declare namespace conventionalChangelogCore {
             /**
              * All git semver tags found in the repository. You can't overwrite this value.
              */
-            readonly gitSemverTags?: ReadonlyArray<string> | undefined;
+            readonly gitSemverTags?: readonly string[] | undefined;
 
             /**
              * Your `package.json` data. You can't overwrite this value.

@@ -196,7 +196,7 @@ export default class Component extends ReactComponent<EmailEditorProps> {
     loadDesign(design: Design): void;
     saveDesign(callback: SaveDesignCallback): void;
     exportHtml(callback: ExportHtmlCallback, type?: HtmlOptions): void;
-    setMergeTags(mergeTags: ReadonlyArray<MergeTag>): void;
+    setMergeTags(mergeTags: readonly MergeTag[]): void;
 }
 
 export {};

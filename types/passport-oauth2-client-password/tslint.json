@@ -2,10 +2,7 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "import-spacing": false,
-        "interface-name": false,
-        "member-access": false,
         "new-parens": false,
-        "no-reference-import": false,
         "only-arrow-functions": false,
         "prefer-const": false
     }

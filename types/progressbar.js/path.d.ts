@@ -9,7 +9,7 @@ declare class Path<SElement extends Element = SVGPathElement> {
     readonly path?: SElement | undefined;
     constructor(path: SElement | string | null, options?: AnimationOptions);
 }
-// tslint:disable-next-line no-empty-interface adds members from animation contract
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- adds members from animation contract
 interface Path extends AnimationSupport {}
 
 export = Path;

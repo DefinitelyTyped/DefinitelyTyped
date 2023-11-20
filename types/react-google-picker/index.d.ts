@@ -6,9 +6,9 @@ import * as React from "react";
 export interface GooglePickerProps {
     clientId: string;
     developerKey: string;
-    scope?: ReadonlyArray<string>;
+    scope?: readonly string[];
     viewId?: keyof typeof google.picker.ViewId;
-    mimeTypes?: ReadonlyArray<string>;
+    mimeTypes?: readonly string[];
     query?: string;
     authImmediate?: boolean;
     origin?: string;

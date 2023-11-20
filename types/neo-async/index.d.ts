@@ -65,7 +65,7 @@ export interface DataContainer<T> {
 }
 
 export interface CallbackContainer {
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     callback: Function;
 }
 
@@ -535,15 +535,15 @@ export function doDuring<E = Error>(
     callback: ErrorCallback<E>,
 ): void;
 export function forever<E = Error>(next: (next: ErrorCallback<E>) => void, errBack: ErrorCallback<E>): void;
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function waterfall<T, E = Error>(tasks: Function[], callback?: AsyncResultCallback<T, E>): void; // eslint-disable-line @definitelytyped/no-unnecessary-generics
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function compose(...fns: Function[]): Function;
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function seq(...fns: Function[]): Function;
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function applyEach(fns: Function[], ...argsAndCallback: any[]): void; // applyEach(fns, args..., callback). TS does not support ... for a middle argument. Callback is optional.
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function applyEachSeries(fns: Function[], ...argsAndCallback: any[]): void; // applyEachSeries(fns, args..., callback). TS does not support ... for a middle argument. Callback is optional.
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function queue<T, E = Error>(worker: AsyncWorker<T, E>, concurrency?: number): QueueObject<T>;
@@ -594,9 +594,9 @@ export function retryable<T, E = Error>(
     opts: number | (RetryOptions & { arity?: number }),
     task: AsyncFunction<T, E>,
 ): AsyncFunction<T, E>;
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function apply<E = Error>(fn: Function, ...args: any[]): AsyncFunction<any, E>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function nextTick(callback: Function, ...args: any[]): void;
 export const setImmediate: typeof nextTick;
 
@@ -665,19 +665,19 @@ export function transform<T, R, E = Error>(
 export function race<T, E = Error>(tasks: Array<AsyncFunction<T, E>>, callback: AsyncResultCallback<T, E>): void;
 
 // Utils
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function memoize(fn: Function, hasher?: Function): Function;
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function unmemoize(fn: Function): Function;
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function ensureAsync(fn: (...argsAndCallback: any[]) => void): Function;
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function constant(...values: any[]): AsyncFunction<any>;
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function asyncify(fn: Function): (...args: any[]) => any;
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function wrapSync(fn: Function): Function;
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function log(fn: Function, ...args: any[]): void;
-// tslint:disable-next-line:ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function dir(fn: Function, ...args: any[]): void;

@@ -10,7 +10,7 @@ export interface SelectInputProps<T extends ItemOfSelectInput = ItemOfSelectInpu
     focus?: boolean | undefined;
     indicatorComponent?: Component | undefined;
     itemComponent?: Component | undefined;
-    items?: ReadonlyArray<T> | undefined;
+    items?: readonly T[] | undefined;
     limit?: number | undefined;
     initialIndex?: number | undefined;
     onSelect?: ((item: T) => void) | undefined;

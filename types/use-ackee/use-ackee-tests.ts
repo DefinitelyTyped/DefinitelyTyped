@@ -1,5 +1,5 @@
 import { useAckee as useAckeeNamed } from "use-ackee";
-// tslint:disable-next-line no-duplicate-imports
+// eslint-disable-next-line no-duplicate-imports
 import * as useAckee from "use-ackee";
 
 useAckeeNamed(

@@ -107,7 +107,7 @@ declare namespace multer {
          * @param fields Array of `Field` objects describing multipart form fields to process.
          * @throws `MulterError('LIMIT_UNEXPECTED_FILE')` if more than `maxCount` files are associated with `fieldName` for any field.
          */
-        fields(fields: ReadonlyArray<Field>): RequestHandler;
+        fields(fields: readonly Field[]): RequestHandler;
         /**
          * Returns middleware that processes all files contained in the multipart
          * request.

@@ -3,9 +3,7 @@
     "rules": {
         "arrow-return-shorthand": false,
         "jsdoc-format": false,
-        "no-internal-module": false,
         "no-namespace": false,
-        "no-reference-import": false,
         "no-var-keyword": false,
         "prefer-const": false
     }

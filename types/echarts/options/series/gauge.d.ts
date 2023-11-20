@@ -94,8 +94,8 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-gauge.data
              */
             data?:
-                | (void | string | number | SeriesGauge.DataObject)[]
-                | (void | string | number | SeriesGauge.DataObject)[][]
+                | Array<void | string | number | SeriesGauge.DataObject>
+                | Array<Array<void | string | number | SeriesGauge.DataObject>>
                 | undefined;
 
             /**

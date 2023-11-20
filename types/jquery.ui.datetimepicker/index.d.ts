@@ -78,7 +78,7 @@ interface DateTimePickerOptions extends JQueryUI.DatepickerOptions {
     microsecGrid?: number | undefined; // Default: 0 - When greater than 0 a label grid will be genereated under the slider.This number represents the units (in microseconds) between labels.
 
     // Timezone options
-    timezoneList?: Array<TimezoneOptions> | undefined; // Default: [generated timezones] - An array of timezones used to populate the timezone select.Can be an array of values or an array of objects: { label: "EDT", value: -240 }. The value should be the offset number in minutes.So "-0400" which is the format "-hhmm", would equate to - 240 minutes.
+    timezoneList?: TimezoneOptions[] | undefined; // Default: [generated timezones] - An array of timezones used to populate the timezone select.Can be an array of values or an array of objects: { label: "EDT", value: -240 }. The value should be the offset number in minutes.So "-0400" which is the format "-hhmm", would equate to - 240 minutes.
 }
 
 interface TimezoneOptions {

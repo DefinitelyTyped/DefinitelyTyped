@@ -394,4 +394,4 @@ export function fileInfo(file: any): Promise<{
  * This method is available in the Web world and returns parameters passed into the window.load().
  * This is how Carlo passes initial set of <rpc> handles to Node objects into the web world.
  */
-export function loadParams(): Promise<ReadonlyArray<any>>;
+export function loadParams(): Promise<readonly any[]>;

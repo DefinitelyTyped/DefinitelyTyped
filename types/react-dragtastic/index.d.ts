@@ -2,7 +2,7 @@ import { Component, MouseEventHandler, ReactNode, TouchEventHandler } from "reac
 
 export type Id = string | number;
 export type Type = string | number;
-export type Accepts = string | ReadonlyArray<string>;
+export type Accepts = string | readonly string[];
 
 export interface State {
     /** The user's current horizontal position on the page. */
@@ -48,7 +48,7 @@ export interface DraggableProps {
      * An optional array of strings. For performance reasons you can limit which keys in the dragState your component subscribes to.
      * For example, you may pass ['type', 'data'] to only rerender if these keys change.
      */
-    subscribeTo?: ReadonlyArray<string> | null | undefined;
+    subscribeTo?: readonly string[] | null | undefined;
     /** An optional int representing the distance in pixels the user's pointer must travel to activate the draggable. Defaults to 8 */
     delay?: number | undefined;
 
@@ -94,7 +94,7 @@ export interface DroppableProps {
      * An optional array of strings. For performance reasons you can limit which keys in the dragState your component subscribes to.
      * For example, you may pass ['type', 'data'] to only rerender if these keys change.
      */
-    subscribeTo?: ReadonlyArray<string> | null | undefined;
+    subscribeTo?: readonly string[] | null | undefined;
 
     children: (
         arg: State & {
@@ -131,7 +131,7 @@ export interface DragComponentProps {
      * An optional array of strings. For performance reasons you can limit which keys in the dragState your component subscribes to.
      * For example, you may pass ['type', 'data'] to only rerender if these keys change.
      */
-    subscribeTo?: ReadonlyArray<string> | null | undefined;
+    subscribeTo?: readonly string[] | null | undefined;
 
     children: (
         arg: State & {
@@ -155,7 +155,7 @@ export interface DragStateProps {
      * An optional array of strings. For performance reasons you can limit which keys in the dragState your component subscribes to.
      * For example, you may pass ['type', 'data'] to only rerender if these keys change.
      */
-    subscribeTo?: ReadonlyArray<string> | null | undefined;
+    subscribeTo?: readonly string[] | null | undefined;
 
     children: (arg: State) => ReactNode;
 }

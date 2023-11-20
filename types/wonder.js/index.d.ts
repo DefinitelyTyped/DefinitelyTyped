@@ -323,7 +323,7 @@ declare module "wonder.js/dist/es2015/component/geometry/data/BufferContainer" {
         protected abstract getVertice(type: EBufferDataType): any;
         protected createOnlyOnceAndUpdateArrayBuffer(
             bufferAttriName: string,
-            data: Array<number>,
+            data: number[],
             size: number,
             type?: EBufferType,
             offset?: number,
@@ -331,12 +331,12 @@ declare module "wonder.js/dist/es2015/component/geometry/data/BufferContainer" {
         ): void;
         protected createOnlyOnceAndUpdateElememntBuffer(
             bufferAttriName: string,
-            data: Array<number>,
+            data: number[],
             type?: EBufferType,
             offset?: number,
             usage?: EBufferUsage,
         ): void;
-        protected hasData(data: Array<number> | null): boolean;
+        protected hasData(data: number[] | null): boolean;
     }
 }
 
@@ -356,9 +356,9 @@ declare module "wonder.js/dist/es2015/component/geometry/data/GeometryData" {
     import { Face3 } from "wonder.js/dist/es2015/structure/Face3";
     export abstract class GeometryData {
         constructor(geometry: Geometry);
-        vertices: Array<number>;
-        readonly indices: Array<number>;
-        faces: Array<Face3>;
+        vertices: number[];
+        readonly indices: number[];
+        faces: Face3[];
         protected geometry: Geometry;
         dispose(): void;
         protected onChangeFace(): void;
@@ -389,8 +389,8 @@ declare module "wonder.js/dist/es2015/component/geometry/Geometry" {
         protected createBasicGeometryData(computedData: GeometryDataType): BasicGeometryData;
     }
     export type GeometryDataType = {
-        vertices: Array<number>;
-        faces?: Array<Face3> | undefined;
+        vertices: number[];
+        faces?: Face3[] | undefined;
     };
 }
 
@@ -398,12 +398,12 @@ declare module "wonder.js/dist/es2015/component/geometry/GeometryUtils" {
     import { Face3 } from "wonder.js/dist/es2015/structure/Face3";
     import { Vector3 } from "wonder.js/dist/es2015/math/Vector3";
     export class GeometryUtils {
-        static convertToFaces(indices: Array<number>, normals?: Array<number>): Array<Face3>;
+        static convertToFaces(indices: number[], normals?: number[]): Face3[];
         static hasData(data: any): boolean;
-        static getThreeComponent(sourceData: Array<number>, index: number): Vector3;
-        static iterateThreeComponent(dataArr: Array<number>, iterator: (v: Vector3) => void): void;
-        static setThreeComponent(targetData: Array<number>, sourceData: Vector3, index: number): any;
-        static setThreeComponent(targetData: Array<number>, sourceData: Array<number>, index: number): any;
+        static getThreeComponent(sourceData: number[], index: number): Vector3;
+        static iterateThreeComponent(dataArr: number[], iterator: (v: Vector3) => void): void;
+        static setThreeComponent(targetData: number[], sourceData: Vector3, index: number): any;
+        static setThreeComponent(targetData: number[], sourceData: number[], index: number): any;
     }
 }
 
@@ -699,7 +699,7 @@ declare module "wonder.js/dist/es2015/core/entityObject/manager/EntityObjectMana
         hasChild(child: EntityObject): boolean;
         addChild(child: EntityObject): this;
         addChildren(children: EntityObject): any;
-        addChildren(children: Array<EntityObject>): any;
+        addChildren(children: EntityObject[]): any;
         addChildren(children: Collection<EntityObject>): any;
         forEach(func: (entityObject: EntityObject, index: number) => void): this;
         filter(func: (entityObject: EntityObject) => boolean): Collection<any>;
@@ -785,7 +785,7 @@ declare module "wonder.js/dist/es2015/core/entityObject/scene/SceneDispatcher" {
         dispose(): void;
         hasChild(child: EntityObject): boolean;
         addChildren(children: EntityObject): any;
-        addChildren(children: Array<EntityObject>): any;
+        addChildren(children: EntityObject[]): any;
         addChildren(children: Collection<EntityObject>): any;
         getChildren(): Collection<any>;
         protected createTransform(): any;
@@ -864,8 +864,8 @@ declare module "wonder.js/dist/es2015/definition/typescript/decorator/clone" {
         configData?: CloneAttributeAsCustomTypeConfigData,
     ): (target: any, memberName: string | symbol) => void;
     export class CloneUtils {
-        static clone<T>(sourceInstance: T, cloneData?: any, createDataArr?: Array<any>, target?: any): T;
-        static cloneArray(arr: Array<any> | null, isDeep?: boolean): any;
+        static clone<T>(sourceInstance: T, cloneData?: any, createDataArr?: any[], target?: any): T;
+        static cloneArray(arr: any[] | null, isDeep?: boolean): any;
         static markNotClone(entityObject: EntityObject): void;
         static isNotClone(entityObject: EntityObject): boolean;
     }
@@ -950,8 +950,8 @@ declare module "wonder.js/dist/es2015/device/DeviceManager" {
         contextConfig: ContextConfigData;
         setBlendFunc(blendSrc: EBlendFunc, blendDst: EBlendFunc): void;
         setBlendEquation(blendEquation: EBlendEquation): void;
-        setBlendFuncSeparate(blendFuncSeparate: Array<EBlendFunc>): void;
-        setBlendEquationSeparate(blendEquationSeparate: Array<EBlendEquation>): void;
+        setBlendFuncSeparate(blendFuncSeparate: EBlendFunc[]): void;
+        setBlendEquationSeparate(blendEquationSeparate: EBlendEquation[]): void;
         setColorWrite(writeRed: any, writeGreen: any, writeBlue: any, writeAlpha: any): void;
         clear(options: any): void;
         createGL(canvasId: string, contextConfig: ContextConfigData, useDevicePixelRatio: boolean): void;
@@ -2075,11 +2075,11 @@ declare module "wonder.js/dist/es2015/renderer/buffer/ArrayBuffer" {
     import { EBufferType } from "wonder.js/dist/es2015/renderer/buffer/EBufferType";
     import { EBufferUsage } from "wonder.js/dist/es2015/renderer/buffer/EBufferUsage";
     export class ArrayBuffer extends CommonBuffer {
-        static create(data: Array<number>, size: number, type?: EBufferType, usage?: EBufferUsage): ArrayBuffer;
+        static create(data: number[], size: number, type?: EBufferType, usage?: EBufferUsage): ArrayBuffer;
         size: number;
         data: Float32Array;
-        initWhenCreate(data: Array<number>, size: number, type: EBufferType, usage: EBufferUsage): any;
-        resetData(data: Array<number>, size?: number, type?: EBufferType, offset?: number): this;
+        initWhenCreate(data: number[], size: number, type: EBufferType, usage: EBufferUsage): any;
+        resetData(data: number[], size?: number, type?: EBufferType, offset?: number): this;
     }
 }
 
@@ -2143,11 +2143,11 @@ declare module "wonder.js/dist/es2015/renderer/buffer/ElementBuffer" {
     import { EBufferType } from "wonder.js/dist/es2015/renderer/buffer/EBufferType";
     import { EBufferUsage } from "wonder.js/dist/es2015/renderer/buffer/EBufferUsage";
     export class ElementBuffer extends CommonBuffer {
-        static create(data: Array<number>, type?: EBufferType, usage?: EBufferUsage): ElementBuffer;
+        static create(data: number[], type?: EBufferType, usage?: EBufferUsage): ElementBuffer;
         readonly typeSize: number;
         data: Uint16Array | Uint32Array;
-        initWhenCreate(data: Array<number>, type: EBufferType, usage: EBufferUsage): any;
-        resetData(data: Array<number>, type?: EBufferType, offset?: number): this;
+        initWhenCreate(data: number[], type: EBufferType, usage: EBufferUsage): any;
+        resetData(data: number[], type?: EBufferType, offset?: number): this;
     }
 }
 
@@ -2240,8 +2240,8 @@ declare module "wonder.js/dist/es2015/renderer/program/GLSLDataSender" {
         sendNum1(name: string, data: number): void;
         sendMatrix3(name: string, data: Matrix3): void;
         sendMatrix4(name: string, data: Matrix4): void;
-        sendMatrix4Array(name: string, data: Array<number> | Float32Array): void;
-        sendSampleArray(name: string, data: Array<number>): void;
+        sendMatrix4Array(name: string, data: number[] | Float32Array): void;
+        sendSampleArray(name: string, data: number[]): void;
         getUniformLocation(name: string): any;
         addBufferToToSendList(pos: number, buffer: ArrayBuffer): void;
         sendAllBufferData(): void;
@@ -2444,8 +2444,8 @@ declare module "wonder.js/dist/es2015/renderer/shader/lib/EngineShaderLib" {
         protected getFsChunk(chunk: GLSLChunk): any;
         protected setVsSource(vs: GLSLChunk | string, operator?: string): void;
         protected setFsSource(fs: GLSLChunk | string, operator?: string): void;
-        protected addAttributeVariable(variableArr: Array<string>): void;
-        protected addUniformVariable(variableArr: Array<string>): void;
+        protected addAttributeVariable(variableArr: string[]): void;
+        protected addUniformVariable(variableArr: string[]): void;
     }
 }
 
@@ -2900,8 +2900,8 @@ declare module "wonder.js/dist/es2015/structure/View" {
 declare module "wonder.js/dist/es2015/utils/ArrayUtils" {
     import { ArrayUtils as ArrayUtils$ } from "wonder-commonlib/dist/es2015/utils/ArrayUtils";
     export class ArrayUtils extends ArrayUtils$ {
-        static hasRepeatItems(arr: Array<any>): boolean;
-        static contain(arr: Array<any>, item: any): boolean;
+        static hasRepeatItems(arr: any[]): boolean;
+        static contain(arr: any[], item: any): boolean;
     }
 }
 
@@ -2909,7 +2909,7 @@ declare module "wonder.js/dist/es2015/utils/BufferUtils" {
     import { EVariableType } from "wonder.js/dist/es2015/renderer/shader/variable/EVariableType";
     import { ArrayBuffer } from "wonder.js/dist/es2015/renderer/buffer/ArrayBuffer";
     export class BufferUtils {
-        static convertArrayToArrayBuffer(type: EVariableType, value: Array<any>): ArrayBuffer;
+        static convertArrayToArrayBuffer(type: EVariableType, value: any[]): ArrayBuffer;
     }
 }
 
@@ -2978,15 +2978,15 @@ declare module "wonder.js/dist/es2015/utils/ShaderLibUtils" {
 declare module "wonder.js/dist/es2015/utils/SortUtils" {
     export class SortUtils {
         static insertSort(
-            targetArr: Array<any>,
+            targetArr: any[],
             compareFunc: (a: any, b: any) => boolean,
             isChangeSelf?: boolean,
-        ): Array<any>;
+        ): any[];
         static quickSort(
-            targetArr: Array<any>,
+            targetArr: any[],
             compareFunc: (a: any, b: any) => boolean,
             isChangeSelf?: boolean,
-        ): Array<any>;
+        ): any[];
     }
 }
 
@@ -3065,9 +3065,9 @@ declare module "wonder.js/dist/es2015/event/interface/IEventData" {
         currentTarget: HTMLElement;
     }
     export interface ITouchEventData extends IEventData {
-        touches: Array<ITouchData>;
-        changedTouches: Array<ITouchData>;
-        targetTouches: Array<ITouchData>;
+        touches: ITouchData[];
+        changedTouches: ITouchData[];
+        targetTouches: ITouchData[];
         target: HTMLElement;
         currentTarget: HTMLElement | null;
     }

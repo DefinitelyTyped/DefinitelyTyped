@@ -84,7 +84,7 @@ export interface AnyPointer<T extends AnyContext = AnyContext, D extends Dataset
 
     node(value: null, options?: NodeOptions): AnyPointer<BlankNode, D>;
 
-    node(values: Array<null> | Iterable<BlankNode>, options?: NodeOptions): AnyPointer<BlankNode[], D>;
+    node(values: null[] | Iterable<BlankNode>, options?: NodeOptions): AnyPointer<BlankNode[], D>;
 
     node(
         values: Array<boolean | string | number | Term | null> | Iterable<Term>,

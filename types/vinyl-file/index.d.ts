@@ -49,7 +49,7 @@ export interface VinylFile extends File {
     path: string;
 
     /** Array of file.path values the Vinyl object has had */
-    readonly history: ReadonlyArray<string>;
+    readonly history: readonly string[];
 
     /** Gets the result of path.relative(file.base, file.path) */
     relative: string;

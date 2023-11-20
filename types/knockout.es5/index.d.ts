@@ -1,8 +1,8 @@
 /// <reference types="knockout" />
 
 interface KnockoutStatic {
-    track<T>(obj: T, propertyNames?: Array<string>): T;
-    untrack(obj: any, propertyNames?: Array<string>): void;
+    track<T>(obj: T, propertyNames?: string[]): T;
+    untrack(obj: any, propertyNames?: string[]): void;
     defineProperty<T>(obj: T, propertyName: string, evaluator: Function): T;
     defineProperty<T>(obj: T, propertyName: string, options: KnockoutDefinePropertyOptions): T;
     getObservable(obj: any, propertyName: string): KnockoutObservable<any>;

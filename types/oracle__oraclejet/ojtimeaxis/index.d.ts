@@ -79,7 +79,7 @@ export interface ojTimeAxisSettablePropertiesLenient extends Partial<ojTimeAxisS
     [key: string]: any;
 }
 export namespace ojTimeAxis {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Converters = {
         default?: Converter<string> | undefined;
         seconds?: Converter<string> | undefined;

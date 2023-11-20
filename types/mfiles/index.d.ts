@@ -524,7 +524,7 @@ interface IEventHandlers {
 }
 
 interface IEvents {
-    // tslint:disable-next-line ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     Register(eventToListen: MFiles.Event, eventSink: Function): number;
     Unregister(sinkHandle: number): void;
 }
@@ -1659,7 +1659,7 @@ interface IObjectType {
     readonly GUID: string;
     HasOwnerType: boolean;
     Hierarchical: boolean;
-    Icon: ReadonlyArray<number>;
+    Icon: readonly number[];
     ID: number;
     NamePlural: string;
     NameSingular: string;
@@ -1673,7 +1673,7 @@ interface IObjectType {
     Translatable: boolean;
     CanHaveItemIcons(): boolean;
     Clone(): IObjectType;
-    GetIconAsPNG(Width: number, Height: number): ReadonlyArray<number>;
+    GetIconAsPNG(Width: number, Height: number): readonly number[];
     IsAddingAllowedForUser(SessionInfo: ISessionInfo): boolean;
 }
 
@@ -1834,10 +1834,10 @@ interface IObjID {
     Type: number;
     Clone(): IObjID;
     CloneFrom(ObjID: IObjID): void;
-    Serialize(): ReadonlyArray<number>;
+    Serialize(): readonly number[];
     SetIDs(ObjType: number, ID: number): void;
     ToJSON(): string;
-    Unserialize(Bytes: ReadonlyArray<number>): void;
+    Unserialize(Bytes: readonly number[]): void;
 }
 
 interface IObjIDs {
@@ -1871,11 +1871,11 @@ interface IObjVer {
     Version: number;
     Clone(): IObjVer;
     CloneFrom(ObjVer: IObjVer): void;
-    Serialize(): ReadonlyArray<number>;
+    Serialize(): readonly number[];
     SetIDs(ObjType: number, ID: number, Version: number): void;
     SetObjIDAndVersion(ObjID: IObjID, Version: number): void;
     ToJSON(): string;
-    Unserialize(Bytes: ReadonlyArray<number>): void;
+    Unserialize(Bytes: readonly number[]): void;
 }
 
 interface IObjVers {
@@ -2533,14 +2533,14 @@ interface ISharedLinkPublicOperations {
         DownloadID: number,
         BlockSize: number,
         Offset: number,
-    ): ReadonlyArray<number>;
+    ): readonly number[];
     DownloadSharedFileInBlocks_ReadBlock_32bit(
         VaultGUID: string,
         AccessKey: string,
         DownloadID: number,
         BlockSize: number,
         Offset: number,
-    ): ReadonlyArray<number>;
+    ): readonly number[];
     GetSharedLinkInfo(VaultGUID: string, AccessKey: string, AdditionalData: INamedValues): ISharedFileInfo;
 }
 
@@ -3041,12 +3041,12 @@ interface ITypedValue {
     GetValueAsUnlocalizedText(): string;
     IsNULL(): boolean;
     IsUninitialized(): boolean;
-    Serialize(): ReadonlyArray<number>;
+    Serialize(): readonly number[];
     SetValue(DataType: MFiles.MFDataType, Value: any): void;
     SetValueToLookup(Lookup: ILookup): void;
     SetValueToMultiSelectLookup(MultiSelectLookup: ILookups): void;
     SetValueToNULL(DataType: MFiles.MFDataType): void;
-    Unserialize(Bytes: ReadonlyArray<number>, ReadFromOldSerializingFormat: boolean): void;
+    Unserialize(Bytes: readonly number[], ReadFromOldSerializingFormat: boolean): void;
 }
 
 interface ITypedValues {
@@ -3155,7 +3155,7 @@ interface IValueListItem {
     readonly DisplayIDAvailable: boolean;
     HasOwner: boolean;
     HasParent: boolean;
-    Icon: ReadonlyArray<number>;
+    Icon: readonly number[];
     ID: number;
     readonly ItemGUID: string;
     Name: string;
@@ -3164,7 +3164,7 @@ interface IValueListItem {
     ValueListID: MFiles.MFBuiltInValueList | number;
     Clone(): IValueListItem;
     CloneFrom(ValueListItem: IValueListItem): void;
-    GetIconAsPNG(Width: number, Height: number): ReadonlyArray<number>;
+    GetIconAsPNG(Width: number, Height: number): readonly number[];
 }
 
 interface IValueListItems {
@@ -3476,7 +3476,7 @@ interface IVaultConnection {
     AutoLogin: boolean;
     EncryptedConnection: boolean;
     Endpoint: string;
-    Icon: ReadonlyArray<number>;
+    Icon: readonly number[];
     Name: string;
     NetworkAddress: string;
     ProtocolSequence: string;
@@ -3519,8 +3519,8 @@ interface IVaultCoreEvents extends IEvents {
 }
 
 interface IVaultCustomApplicationManagementOperations {
-    DownloadCustomApplicationBlock(DownloadID: number, BlockSize: number, Offset: number): ReadonlyArray<number>;
-    DownloadCustomApplicationBlock_32bit(DownloadID: number, BlockSize: number, Offset: number): ReadonlyArray<number>;
+    DownloadCustomApplicationBlock(DownloadID: number, BlockSize: number, Offset: number): readonly number[];
+    DownloadCustomApplicationBlock_32bit(DownloadID: number, BlockSize: number, Offset: number): readonly number[];
     DownloadCustomApplicationBlockBegin(ApplicationID: string): IFileDownloadSession;
     DownloadCustomApplicationBlockBegin_32bit(ApplicationID: string): IFileDownloadSession;
     EnableCustomApplication(ApplicationID: string, Enabled: boolean): void;
@@ -3536,7 +3536,7 @@ interface IVaultCustomApplicationManagementOperationsAsync {
         DownloadID: number,
         BlockSize: number,
         Offset: number,
-        successCallback?: (result: ReadonlyArray<number>) => void,
+        successCallback?: (result: readonly number[]) => void,
         errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
         finallyCallback?: () => void,
     ): void;
@@ -3544,7 +3544,7 @@ interface IVaultCustomApplicationManagementOperationsAsync {
         DownloadID: number,
         BlockSize: number,
         Offset: number,
-        successCallback?: (result: ReadonlyArray<number>) => void,
+        successCallback?: (result: readonly number[]) => void,
         errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
         finallyCallback?: () => void,
     ): void;
@@ -4490,8 +4490,8 @@ interface IVaultObjectFileOperations {
         FileVersion: number,
         FileFormat: MFiles.MFFileFormat,
     ): IFileDownloadSession;
-    DownloadFileInBlocks_ReadBlock(DownloadID: number, BlockSize: number, Offset: number): ReadonlyArray<number>;
-    DownloadFileInBlocks_ReadBlock_32bit(DownloadID: number, BlockSize: number, Offset: number): ReadonlyArray<number>;
+    DownloadFileInBlocks_ReadBlock(DownloadID: number, BlockSize: number, Offset: number): readonly number[];
+    DownloadFileInBlocks_ReadBlock_32bit(DownloadID: number, BlockSize: number, Offset: number): readonly number[];
     GetFiles(ObjVer: IObjVer): IObjectFiles;
     GetFilesForModificationInEventHandler(ObjVer: IObjVer): IObjectFiles;
     GetFileSize(FileVer: IFileVer): number;
@@ -4539,12 +4539,12 @@ interface IVaultObjectFileOperations {
     ): IObjectVersion;
     UpdateMetadataInFile(ObjVer: IObjVer, File: number, FailOnUnsupportedFiles: boolean): IObjectVersion;
     UploadFile(File: number, FileVersion: number, FilePath: string): void;
-    UploadFileBlock(UploadID: number, TotalSizeInBytes: number, Offset: number, Block: ReadonlyArray<number>): void;
+    UploadFileBlock(UploadID: number, TotalSizeInBytes: number, Offset: number, Block: readonly number[]): void;
     UploadFileBlock_32bit(
         UploadID: number,
         TotalSizeInBytes: number,
         Offset: number,
-        Block: ReadonlyArray<number>,
+        Block: readonly number[],
     ): void;
     UploadFileBlockBegin(): number;
     UploadFileBlockBegin_32bit(): number;
@@ -4556,13 +4556,13 @@ interface IVaultObjectFileOperations {
         UploadID: number,
         TotalSizeInBytes: number,
         Offset: number,
-        Block: ReadonlyArray<number>,
+        Block: readonly number[],
     ): void;
     UploadTemporaryFileBlock_32bit(
         UploadID: number,
         TotalSizeInBytes: number,
         Offset: number,
-        Block: ReadonlyArray<number>,
+        Block: readonly number[],
     ): void;
     UploadTemporaryFileBlockBegin(FileExtension: string): number;
     UploadTemporaryFileBlockBegin_32bit(FileExtension: string): number;
@@ -4664,7 +4664,7 @@ interface IVaultObjectFileOperationsAsync {
         DownloadID: number,
         BlockSize: number,
         Offset: number,
-        successCallback?: (result: ReadonlyArray<number>) => void,
+        successCallback?: (result: readonly number[]) => void,
         errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
         finallyCallback?: () => void,
     ): void;
@@ -4672,7 +4672,7 @@ interface IVaultObjectFileOperationsAsync {
         DownloadID: number,
         BlockSize: number,
         Offset: number,
-        successCallback?: (result: ReadonlyArray<number>) => void,
+        successCallback?: (result: readonly number[]) => void,
         errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
         finallyCallback?: () => void,
     ): void;
@@ -4793,7 +4793,7 @@ interface IVaultObjectFileOperationsAsync {
         UploadID: number,
         TotalSizeInBytes: number,
         Offset: number,
-        Block: ReadonlyArray<number>,
+        Block: readonly number[],
         successCallback?: () => void,
         errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
         finallyCallback?: () => void,
@@ -4802,7 +4802,7 @@ interface IVaultObjectFileOperationsAsync {
         UploadID: number,
         TotalSizeInBytes: number,
         Offset: number,
-        Block: ReadonlyArray<number>,
+        Block: readonly number[],
         successCallback?: () => void,
         errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
         finallyCallback?: () => void,
@@ -4854,7 +4854,7 @@ interface IVaultObjectFileOperationsAsync {
         UploadID: number,
         TotalSizeInBytes: number,
         Offset: number,
-        Block: ReadonlyArray<number>,
+        Block: readonly number[],
         successCallback?: () => void,
         errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
         finallyCallback?: () => void,
@@ -4863,7 +4863,7 @@ interface IVaultObjectFileOperationsAsync {
         UploadID: number,
         TotalSizeInBytes: number,
         Offset: number,
-        Block: ReadonlyArray<number>,
+        Block: readonly number[],
         successCallback?: () => void,
         errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
         finallyCallback?: () => void,
@@ -5024,7 +5024,7 @@ interface IVaultObjectOperations {
         Width: number,
         Height: number,
         GetFileIconThumbnailIfRealThumbnailNotAvailable: boolean,
-    ): ReadonlyArray<number>;
+    ): readonly number[];
     IsObjectCheckedOut(ObjID: IObjID, UpdateFromServer: boolean): boolean;
     IsObjectCheckedOutToThisUserOnThisComputer(ObjID: IObjID, UpdateFromServer: boolean): boolean;
     IsObjectFollowed(ObjID: IObjID): boolean;
@@ -5398,7 +5398,7 @@ interface IVaultObjectOperationsAsync {
         Width: number,
         Height: number,
         GetFileIconThumbnailIfRealThumbnailNotAvailable: boolean,
-        successCallback?: (result: ReadonlyArray<number>) => void,
+        successCallback?: (result: readonly number[]) => void,
         errorCallback?: (shorterror: string, longerror: string, errorobj: any) => void,
         finallyCallback?: () => void,
     ): void;
@@ -6304,7 +6304,7 @@ interface IVaultProperties {
     FileDataConnectionString: string;
     FileDataStorageType: MFiles.MFFileDataStorage;
     FullTextSearchLanguage: string;
-    Icon: ReadonlyArray<number>;
+    Icon: readonly number[];
     MainDataFolder: string;
     SeparateLocationForFileData: IAdditionalFolders;
     SQLDatabase: ISQLDatabase;

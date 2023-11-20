@@ -39,7 +39,7 @@ export type LoadQueryOptions = Readonly<{
 
 // Note: the phantom type parameter here helps ensures that the
 // $Parameters.js value matches the type param provided to preloadQuery.
-// tslint:disable-next-line interface-over-type-literal
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type PreloadableConcreteRequest<TQuery extends OperationType> = {
     kind: "PreloadableConcreteRequest";
     params: RequestParameters;
@@ -244,7 +244,7 @@ export type EntryPoint<TEntryPointComponent, TEntryPointParams extends {} = {}> 
     TEntryPointComponent extends EntryPointComponent<any, any, any, infer TExtraProps> ? TExtraProps : never
 >;
 
-// tslint:disable-next-line interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IEnvironmentProvider<TOptions> {
     getEnvironment(options: TOptions | null): IEnvironment;
 }

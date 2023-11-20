@@ -30,4 +30,4 @@ export interface SameDomainWindowType {
     };
 }
 
-export type DomainMatcher = string | ReadonlyArray<string> | RegExp;
+export type DomainMatcher = string | readonly string[] | RegExp;

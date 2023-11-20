@@ -323,7 +323,7 @@ declare module "leaflet" {
             simplifyGeometry: boolean;
         }
 
-        // tslint:disable-next-line interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface IRouter {
             route(
                 waypoints: Waypoint[],
@@ -333,7 +333,7 @@ declare module "leaflet" {
             ): void;
         }
 
-        // tslint:disable-next-line interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface IRoute {
             name?: string | undefined;
             summary?: IRouteSummary | undefined;
@@ -342,13 +342,13 @@ declare module "leaflet" {
             instructions?: IInstruction[] | undefined;
         }
 
-        // tslint:disable-next-line interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface IRouteSummary {
             totalTime: number;
             totalDistance: number;
         }
 
-        // tslint:disable-next-line interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface IInstruction {
             distance: number;
             time: number;
@@ -374,14 +374,14 @@ declare module "leaflet" {
             exit?: number | undefined;
         }
 
-        // tslint:disable-next-line interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface IGeocoderElement {
             container: HTMLElement;
             input: HTMLElement;
             closeButton: HTMLElement;
         }
 
-        // tslint:disable-next-line interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface IError {
             status: string | number;
             message: string;

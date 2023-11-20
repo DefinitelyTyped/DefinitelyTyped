@@ -5,7 +5,7 @@ declare type ResetState =
     | NavigationState
     | (Omit<NavigationState, "routes"> & {
         // tslint:disable-next-line array-type
-        routes: Omit<Route<string>, "key">[];
+        routes: Array<Omit<Route<string>, "key">>;
     });
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 export declare type Action = {

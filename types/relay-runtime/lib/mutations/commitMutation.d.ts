@@ -16,7 +16,7 @@ export interface MutationConfig<TOperation extends MutationParameters> {
     mutation: GraphQLTaggedNode;
     onError?: ((error: Error) => void) | null | undefined;
     onCompleted?:
-        | ((response: TOperation["response"], errors: ReadonlyArray<PayloadError> | null | undefined) => void)
+        | ((response: TOperation["response"], errors: readonly PayloadError[] | null | undefined) => void)
         | null
         | undefined;
     onUnsubscribe?: (() => void | null | undefined) | undefined;

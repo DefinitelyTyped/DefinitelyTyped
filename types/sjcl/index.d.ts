@@ -442,7 +442,7 @@ declare namespace sjcl {
         toJac(): SjclPointJacobian;
         mult(k: BigNumber): SjclEllipticalPoint;
         mult2(k: BigNumber, k2: BigNumber, affine2: SjclEllipticalPoint): SjclEllipticalPoint;
-        multiples(): Array<SjclEllipticalPoint>;
+        multiples(): SjclEllipticalPoint[];
         negate(): SjclEllipticalPoint;
         isValid(): boolean;
         toBits(): BitArray;
@@ -469,7 +469,7 @@ declare namespace sjcl {
 
     interface SjclPointJacobianStatic {
         new(curve: SjclEllipticalCurve, x?: BigNumber, y?: BigNumber, z?: BigNumber): SjclPointJacobian;
-        toAffineMultiple(points: Array<SjclPointJacobian>): Array<SjclEllipticalPoint>;
+        toAffineMultiple(points: SjclPointJacobian[]): SjclEllipticalPoint[];
     }
 
     interface SjclEllipticalCurve {

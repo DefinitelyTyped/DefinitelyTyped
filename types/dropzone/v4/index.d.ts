@@ -41,7 +41,7 @@ declare namespace Dropzone {
         maxFiles?: number | undefined;
         params?: {} | undefined;
         headers?: {} | undefined;
-        clickable?: boolean | string | HTMLElement | (string | HTMLElement)[] | undefined;
+        clickable?: boolean | string | HTMLElement | Array<string | HTMLElement> | undefined;
         ignoreHiddenFiles?: boolean | undefined;
         acceptedFiles?: string | undefined;
         renameFilename?(name: string): string;

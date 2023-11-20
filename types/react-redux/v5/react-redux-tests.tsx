@@ -800,7 +800,7 @@ namespace Issue16652 {
     }
 
     interface GeneratedStateProps {
-        comments: ({ id: string } | undefined)[];
+        comments: Array<{ id: string } | undefined>;
     }
 
     class CommentList extends React.Component<PassedProps & GeneratedStateProps & DispatchProp<any>> {}

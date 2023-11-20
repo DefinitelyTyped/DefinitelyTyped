@@ -1914,13 +1914,13 @@ export interface NightwatchAPI
     launch_url: string;
 }
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface NightwatchCustomCommands {}
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface NightwatchCustomAssertions {}
 
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface NightwatchCustomPageObjects {}
 
 export interface NightwatchBrowser

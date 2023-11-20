@@ -96,7 +96,7 @@ function testHocComponent() {
 }
 
 function testHocComponent2<T>() {
-    return withContentRect(["scroll", "margin"] as ReadonlyArray<MeasurementType>)(({ measureRef }) => (
+    return withContentRect(["scroll", "margin"] as readonly MeasurementType[])(({ measureRef }) => (
         <div ref={measureRef}>Some content here</div>
     ));
 }

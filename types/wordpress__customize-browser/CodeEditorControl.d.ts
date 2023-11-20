@@ -6,6 +6,6 @@ export class CodeEditorControl extends Control {
     initSyntaxHighlightingEditor(codeEditorSettings: any): void; // TODO
     onTabNext(): void;
     onTabPrevious(): void;
-    onUpdateErrorNotice(errorAnnotations: ReadonlyArray<any>): void; // TODO
+    onUpdateErrorNotice(errorAnnotations: readonly any[]): void; // TODO
     initPlainTextareaEditor(): void;
 }

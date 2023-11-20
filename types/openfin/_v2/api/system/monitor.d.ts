@@ -2,7 +2,7 @@ import { Point } from "./point";
 export interface MonitorInfo {
     deviceScaleFactor: number;
     dpi: Point;
-    nonPrimaryMonitors: Array<MonitorDetails>;
+    nonPrimaryMonitors: MonitorDetails[];
     primaryMonitor: MonitorDetails;
     reason: string;
     taskBar: TaskBar;

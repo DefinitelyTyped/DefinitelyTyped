@@ -83,8 +83,8 @@ declare namespace Parse {
         static as<U>(resolvedValue: U): Promise<U>;
         static error(error: any): Promise<any>;
         static is(possiblePromise: any): Boolean;
-        static when(promises: IPromise<any>[]): Promise<any>;
-        static when(...promises: IPromise<any>[]): Promise<any>;
+        static when(promises: Array<IPromise<any>>): Promise<any>;
+        static when(...promises: Array<IPromise<any>>): Promise<any>;
 
         always(callback: Function): Promise<T>;
         done(callback: Function): Promise<T>;
@@ -271,13 +271,13 @@ declare namespace Parse {
         constructor(parent?: S, key?: string);
 
         // Adds a Parse.Object or an array of Parse.Objects to the relation.
-        add(object: T | Array<T>): void;
+        add(object: T | T[]): void;
 
         // Returns a Parse.Query that is limited to objects in this relation.
         query(): Query<T>;
 
         // Removes a Parse.Object or an array of Parse.Objects from this relation.
-        remove(object: T | Array<T>): void;
+        remove(object: T | T[]): void;
     }
 
     /**
@@ -568,7 +568,7 @@ declare namespace Parse {
         constructor(objectClass: string);
         constructor(objectClass: new(...args: any[]) => T);
 
-        static or<U extends Object>(...var_args: Query<U>[]): Query<U>;
+        static or<U extends Object>(...var_args: Array<Query<U>>): Query<U>;
 
         aggregate(pipeline: Query.AggregationOptions | Query.AggregationOptions[]): Query<T>;
         addAscending(key: string): Query<T>;

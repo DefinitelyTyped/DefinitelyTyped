@@ -54,7 +54,7 @@ declare global {
 
     interface HTMLInputElement {
         webkitdirectory: boolean;
-        readonly webkitEntries: ReadonlyArray<FileSystemEntry>;
+        readonly webkitEntries: readonly FileSystemEntry[];
     }
 
     interface DataTransferItem {

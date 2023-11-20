@@ -49,9 +49,9 @@ $("#picker").spectrum({
 });
 
 const paletteModMod: string[][] = [["#000"]];
-const paletteUnmodMod: ReadonlyArray<string[]> = [["#000"]];
-const paletteModUnmod: Array<ReadonlyArray<string>> = [["#000"]];
-const paletteUnmodUnmod: ReadonlyArray<ReadonlyArray<string>> = [["#000"]];
+const paletteUnmodMod: readonly string[][] = [["#000"]];
+const paletteModUnmod: Array<readonly string[]> = [["#000"]];
+const paletteUnmodUnmod: ReadonlyArray<readonly string[]> = [["#000"]];
 $("#picker").spectrum({
     palette: paletteModMod,
 });
@@ -85,7 +85,7 @@ $("#picker").spectrum({
 });
 
 const selectionPaletteMod: string[] = ["red", "green", "blue"];
-const selectionPaletteUnmod: ReadonlyArray<string> = ["red", "green", "blue"];
+const selectionPaletteUnmod: readonly string[] = ["red", "green", "blue"];
 $("#picker").spectrum({
     selectionPalette: selectionPaletteMod,
 });

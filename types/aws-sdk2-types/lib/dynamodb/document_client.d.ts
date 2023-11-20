@@ -156,17 +156,17 @@ export namespace DocumentClient {
 
     interface StringSet {
         type: "String";
-        values: Array<string>;
+        values: string[];
     }
 
     interface NumberSet {
         type: "Number";
-        values: Array<number>;
+        values: number[];
     }
 
     interface BinarySet {
         type: "Binary";
-        values: Array<binaryType>;
+        values: binaryType[];
     }
 
     export type DynamoDbSet = StringSet | NumberSet | BinarySet;

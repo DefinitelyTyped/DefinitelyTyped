@@ -16,7 +16,7 @@ export = normalize;
  * normalize([0, 0, .1, .2, 1, 2], 2) // [0, 0, .1, .1, 1, 1]
  * normalize([0, .25, 1, .25], 2, [0, .5, 1, .5]) // [0, .5, 1, .5])
  */
-declare function normalize(array: MutableArrayLike<number>, stride?: number, bounds?: ReadonlyArray<number>): number[];
+declare function normalize(array: MutableArrayLike<number>, stride?: number, bounds?: readonly number[]): number[];
 
 interface MutableArrayLike<T> {
     length: number;

@@ -49,7 +49,7 @@ export declare namespace GeoJSON {
 
 export declare namespace OsmJSON {
     export interface OsmJSONObject {
-        elements: (Node | Way | Relationship)[];
+        elements: Array<Node | Way | Relationship>;
     }
 
     export interface Element {

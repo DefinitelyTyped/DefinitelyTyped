@@ -47,8 +47,8 @@ declare class Bounce {
     translate(options: BounceOptions<Point2D>): Bounce;
     skew(options: BounceOptions<Point2D>): Bounce;
 
-    serialize(): SerailizedComponent<number | Point2D>[];
-    deserialize(serailized: SerailizedComponent<number | Point2D>[]): Bounce;
+    serialize(): Array<SerailizedComponent<number | Point2D>>;
+    deserialize(serailized: Array<SerailizedComponent<number | Point2D>>): Bounce;
 
     applyTo(element: Element, options?: AnimationOptions): void;
     applyTo(elements: Element[], options?: AnimationOptions): void;

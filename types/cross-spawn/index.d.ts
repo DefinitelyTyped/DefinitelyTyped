@@ -23,7 +23,7 @@ declare namespace spawn {
 declare function spawn(command: string, options: child_process.SpawnOptions): child_process.ChildProcess;
 declare function spawn(
     command: string,
-    args?: ReadonlyArray<string>,
+    args?: readonly string[],
     options?: child_process.SpawnOptions,
 ): child_process.ChildProcess;
 

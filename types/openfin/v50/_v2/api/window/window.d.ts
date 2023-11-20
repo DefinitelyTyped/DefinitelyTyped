@@ -61,7 +61,7 @@ export interface CloseEventShape {
 export interface WindowInfo {
     canNavigateBack: boolean;
     canNavigateForward: boolean;
-    preloadScripts: Array<any>;
+    preloadScripts: any[];
     title: string;
     url: string;
 }
@@ -666,7 +666,7 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @return {Promise.<Array<FrameInfo>>}
      * @tutorial Window.getAllFrames
      */
-    getAllFrames(): Promise<Array<FrameInfo>>;
+    getAllFrames(): Promise<FrameInfo[]>;
     /**
      * Gets the current bounds (top, bottom, right, left, width, height) of the window.
      * @return {Promise.<Bounds>}
@@ -726,7 +726,7 @@ export declare class _Window extends WebContents<WindowEvents> {
      * @return {Promise.Array.<View>}
      * @tutorial Window.getCurrentViews
      */
-    getCurrentViews(): Promise<Array<View>>;
+    getCurrentViews(): Promise<View[]>;
     disableFrame(): Promise<void>;
     /**
      * Prevents a user from changing a window's size/position when using the window's frame.

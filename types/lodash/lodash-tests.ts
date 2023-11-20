@@ -5814,7 +5814,7 @@ fp.now(); // $ExpectType number
 {
     const obj1: AbcObject | null | undefined = anything;
     const obj2: AbcObject = anything;
-    const readonlyArray: ReadonlyArray<string> = ["a", "b"];
+    const readonlyArray: readonly string[] = ["a", "b"];
     const literalsArray: Array<"a" | "b"> = ["a", "b"];
     const roLiteralsArray: ReadonlyArray<"a" | "b"> = literalsArray;
 
@@ -6024,7 +6024,7 @@ fp.now(); // $ExpectType number
 // _.transform
 {
     const array: number[] = [];
-    const readonlyArray: ReadonlyArray<number> = [];
+    const readonlyArray: readonly number[] = [];
     const dictionary: _.Dictionary<number> = {};
 
     {
@@ -6334,7 +6334,7 @@ fp.now(); // $ExpectType number
 
 // _.prototype.concat
 {
-    const numberROA: ReadonlyArray<number> = [0];
+    const numberROA: readonly number[] = [0];
 
     _.concat(1); // $ExpectType number[]
     _.concat([1]); // $ExpectType number[]
@@ -6359,7 +6359,7 @@ fp.now(); // $ExpectType number
     _.chain(numberROA).concat(numberROA); // $ExpectType CollectionChain<number>
     _.chain(numberROA).concat(numberROA, numberROA); // $ExpectType CollectionChain<number>
 
-    const objectROA: ReadonlyArray<AbcObject> = [{ a: 1, b: 'foo', c: true }];
+    const objectROA: readonly AbcObject[] = [{ a: 1, b: 'foo', c: true }];
 
     _.concat(abcObject, abcObject); // $ExpectType AbcObject[]
     _.concat(abcObject, [abcObject], objectROA); // $ExpectType AbcObject[]

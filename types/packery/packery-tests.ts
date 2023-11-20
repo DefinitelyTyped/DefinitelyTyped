@@ -15,7 +15,7 @@ var PackeryEvents = {
 
 var packery = new Packery(container);
 
-var PackeryItems: Array<any> = [
+var PackeryItems: any[] = [
     packery.data(item),
     packery.data(item),
     packery.data(item),

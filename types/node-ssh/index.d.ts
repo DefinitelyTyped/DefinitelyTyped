@@ -62,13 +62,13 @@ declare class SSH {
 
     exec(
         command: string,
-        parameters?: ReadonlyArray<string>,
+        parameters?: readonly string[],
         options?: SSH.ExecOptions & { stream?: "stdout" | "stderr" | undefined },
     ): Promise<string>;
 
     exec(
         command: string,
-        parameters?: ReadonlyArray<string>,
+        parameters?: readonly string[],
         options?: SSH.ExecOptions & { stream: "both" },
     ): Promise<SSH.ExecResult>;
 

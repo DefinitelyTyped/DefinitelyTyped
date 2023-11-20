@@ -16,7 +16,7 @@ export interface ParseOptions {
 /**
  * Return a quoted string for the array `args` suitable for using in shell commands.
  */
-export function quote(args: ReadonlyArray<string>): string;
+export function quote(args: readonly string[]): string;
 
 /**
  * Return an array of arguments from the quoted string `cmd`.

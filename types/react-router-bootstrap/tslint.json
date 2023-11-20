@@ -1,8 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "member-access": false,
-        "no-duplicate-imports": false,
         "prefer-const": false
     }
 }

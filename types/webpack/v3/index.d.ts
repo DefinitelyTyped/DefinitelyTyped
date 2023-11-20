@@ -559,7 +559,7 @@ declare namespace webpack {
         type WatchOptions = ICompiler.WatchOptions;
     }
 
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface ICompiler {
         run(handler: ICompiler.Handler): void;
         watch(watchOptions: ICompiler.WatchOptions, handler: ICompiler.Handler): Watching;

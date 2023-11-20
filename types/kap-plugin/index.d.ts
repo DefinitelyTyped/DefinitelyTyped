@@ -102,7 +102,7 @@ export interface KapShareService<T extends Record<string, any> = Record<string, 
     /**
      * The file formats you support.
      */
-    formats: ReadonlyArray<Format>;
+    formats: readonly Format[];
 
     /**
      * A description displayed at the top of the configuration window. You can

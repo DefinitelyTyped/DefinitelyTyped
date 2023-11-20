@@ -34,7 +34,7 @@ declare namespace ngSignalr {
         /**
          * String array of server side methods which the client can call
          */
-        methods?: Array<string> | undefined;
+        methods?: string[] | undefined;
 
         /**
          * Sets the root path for the SignalR web service

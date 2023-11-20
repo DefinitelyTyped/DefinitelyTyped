@@ -279,7 +279,7 @@ export interface CommonSimpleAddress {
 
 export interface EnergyDerDetailResponse {
     data: {
-        acConnections: {
+        acConnections: Array<{
             /**
              * The date that the DER installation is commissioned
              */
@@ -292,7 +292,7 @@ export interface EnergyDerDetailResponse {
              * Number of AC Connections in the group. For the suite of AC Connections to be considered as a group, all of the AC Connections included must have the same attributes
              */
             count: number;
-            derDevices: {
+            derDevices: Array<{
                 /**
                  * Number of devices in the group of DER devices
                  */
@@ -330,7 +330,7 @@ export interface EnergyDerDetailResponse {
                  */
                 type: "FOSSIL" | "HYDRO" | "WIND" | "SOLAR_PV" | "RENEWABLE" | "GEOTHERMAL" | "STORAGE" | "OTHER";
                 [k: string]: unknown;
-            }[];
+            }>;
             /**
              * Indicates whether the DER device is connected via an inverter (and what category of inverter it is) or not (e.g. rotating machine). If absent, assume equipment type to be “OTHER”.
              */
@@ -356,7 +356,7 @@ export interface EnergyDerDetailResponse {
              */
             status: "ACTIVE" | "INACTIVE" | "DECOMMISSIONED";
             [k: string]: unknown;
-        }[];
+        }>;
         /**
          * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA
          */
@@ -468,8 +468,8 @@ export interface EnergyDerListResponse {
         /**
          * Array of meter reads
          */
-        derRecords: {
-            acConnections: {
+        derRecords: Array<{
+            acConnections: Array<{
                 /**
                  * The date that the DER installation is commissioned
                  */
@@ -482,7 +482,7 @@ export interface EnergyDerListResponse {
                  * Number of AC Connections in the group. For the suite of AC Connections to be considered as a group, all of the AC Connections included must have the same attributes
                  */
                 count: number;
-                derDevices: {
+                derDevices: Array<{
                     /**
                      * Number of devices in the group of DER devices
                      */
@@ -520,7 +520,7 @@ export interface EnergyDerListResponse {
                      */
                     type: "FOSSIL" | "HYDRO" | "WIND" | "SOLAR_PV" | "RENEWABLE" | "GEOTHERMAL" | "STORAGE" | "OTHER";
                     [k: string]: unknown;
-                }[];
+                }>;
                 /**
                  * Indicates whether the DER device is connected via an inverter (and what category of inverter it is) or not (e.g. rotating machine). If absent, assume equipment type to be “OTHER”.
                  */
@@ -546,7 +546,7 @@ export interface EnergyDerListResponse {
                  */
                 status: "ACTIVE" | "INACTIVE" | "DECOMMISSIONED";
                 [k: string]: unknown;
-            }[];
+            }>;
             /**
              * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA
              */
@@ -638,7 +638,7 @@ export interface EnergyDerListResponse {
              */
             servicePointId: string;
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -680,7 +680,7 @@ export interface EnergyDerListResponse {
 /* These are the schema definitions stipulated by the Data Standards Body for the energy_sdh api. */
 
 export interface EnergyDerRecord {
-    acConnections: {
+    acConnections: Array<{
         /**
          * The date that the DER installation is commissioned
          */
@@ -693,7 +693,7 @@ export interface EnergyDerRecord {
          * Number of AC Connections in the group. For the suite of AC Connections to be considered as a group, all of the AC Connections included must have the same attributes
          */
         count: number;
-        derDevices: {
+        derDevices: Array<{
             /**
              * Number of devices in the group of DER devices
              */
@@ -731,7 +731,7 @@ export interface EnergyDerRecord {
              */
             type: "FOSSIL" | "HYDRO" | "WIND" | "SOLAR_PV" | "RENEWABLE" | "GEOTHERMAL" | "STORAGE" | "OTHER";
             [k: string]: unknown;
-        }[];
+        }>;
         /**
          * Indicates whether the DER device is connected via an inverter (and what category of inverter it is) or not (e.g. rotating machine). If absent, assume equipment type to be “OTHER”.
          */
@@ -757,7 +757,7 @@ export interface EnergyDerRecord {
          */
         status: "ACTIVE" | "INACTIVE" | "DECOMMISSIONED";
         [k: string]: unknown;
-    }[];
+    }>;
     /**
      * Approved small generating unit capacity as agreed with NSP in the connection agreement, expressed in kVA
      */
@@ -1093,7 +1093,7 @@ export interface EnergyServicePointDetail {
      * The meters associated with the service point. This may be empty where there are no meters physically installed at the service point
      */
     meters?:
-        | {
+        | Array<{
             /**
              * The meter ID uniquely identifies a meter for a given service point.  It is unique in the context of the service point.  It is not globally unique
              */
@@ -1101,7 +1101,7 @@ export interface EnergyServicePointDetail {
             /**
              * Usage data registers available from the meter. This may be empty where there are no meters physically installed at the service point
              */
-            registers?: {
+            registers?: Array<{
                 /**
                  * The energy delivered through a connection point or metering point over an extended period normalised to a 'per day' basis (kWh). This value is calculated annually.
                  */
@@ -1159,7 +1159,7 @@ export interface EnergyServicePointDetail {
                  */
                 unitOfMeasure?: string;
                 [k: string]: unknown;
-            }[];
+            }>;
             /**
              * Technical characteristics of the meter
              */
@@ -1205,13 +1205,13 @@ export interface EnergyServicePointDetail {
                 [k: string]: unknown;
             };
             [k: string]: unknown;
-        }[]
+        }>
         | null;
     /**
      * The independent ID of the service point, known in the industry as the NMI
      */
     nationalMeteringId: string;
-    relatedParticipants: {
+    relatedParticipants: Array<{
         /**
          * The name of the party/organisation related to this service point
          */
@@ -1221,7 +1221,7 @@ export interface EnergyServicePointDetail {
          */
         role: "FRMP" | "LNSP" | "DRSP";
         [k: string]: unknown;
-    }[];
+    }>;
     /**
      * The classification of the service point as defined in MSATS procedures
      */
@@ -1436,7 +1436,7 @@ export interface EnergyServicePointDetailResponse {
          * The meters associated with the service point. This may be empty where there are no meters physically installed at the service point
          */
         meters?:
-            | {
+            | Array<{
                 /**
                  * The meter ID uniquely identifies a meter for a given service point.  It is unique in the context of the service point.  It is not globally unique
                  */
@@ -1444,7 +1444,7 @@ export interface EnergyServicePointDetailResponse {
                 /**
                  * Usage data registers available from the meter. This may be empty where there are no meters physically installed at the service point
                  */
-                registers?: {
+                registers?: Array<{
                     /**
                      * The energy delivered through a connection point or metering point over an extended period normalised to a 'per day' basis (kWh). This value is calculated annually.
                      */
@@ -1502,7 +1502,7 @@ export interface EnergyServicePointDetailResponse {
                      */
                     unitOfMeasure?: string;
                     [k: string]: unknown;
-                }[];
+                }>;
                 /**
                  * Technical characteristics of the meter
                  */
@@ -1548,13 +1548,13 @@ export interface EnergyServicePointDetailResponse {
                     [k: string]: unknown;
                 };
                 [k: string]: unknown;
-            }[]
+            }>
             | null;
         /**
          * The independent ID of the service point, known in the industry as the NMI
          */
         nationalMeteringId: string;
-        relatedParticipants: {
+        relatedParticipants: Array<{
             /**
              * The name of the party/organisation related to this service point
              */
@@ -1564,7 +1564,7 @@ export interface EnergyServicePointDetailResponse {
              */
             role: "FRMP" | "LNSP" | "DRSP";
             [k: string]: unknown;
-        }[];
+        }>;
         /**
          * The classification of the service point as defined in MSATS procedures
          */
@@ -1607,7 +1607,7 @@ export interface EnergyServicePointDetailResponse {
 
 export interface EnergyServicePointListResponse {
     data: {
-        servicePoints: {
+        servicePoints: Array<{
             consumerProfile?: {
                 /**
                  * A code that defines the consumer class as defined in the National Energy Retail Regulations, or in overriding Jurisdictional instruments
@@ -1660,7 +1660,7 @@ export interface EnergyServicePointListResponse {
              */
             validFromDate: string;
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -1706,7 +1706,7 @@ export interface EnergyUsageListResponse {
         /**
          * Array of meter reads sorted by NMI in ascending order followed by readStartDate in descending order
          */
-        reads: {
+        reads: Array<{
             /**
              * Mandatory if readUType is set to basicRead
              */
@@ -1794,7 +1794,7 @@ export interface EnergyUsageListResponse {
              */
             unitOfMeasure?: string | null;
             [k: string]: unknown;
-        }[];
+        }>;
         [k: string]: unknown;
     };
     links: {
@@ -1981,7 +1981,7 @@ export interface MetaPaginated {
 /* These are the schema definitions stipulated by the Data Standards Body for the energy_sdh api. */
 
 export interface ResponseErrorListV2 {
-    errors: {
+    errors: Array<{
         /**
          * The code of the error encountered. Where the error is specific to the respondent, an application-specific error code, expressed as a string value. If the error is application-specific, the URN code that the specific error extends must be provided in the meta object. Otherwise, the value is the error code URN.
          */
@@ -2005,6 +2005,6 @@ export interface ResponseErrorListV2 {
          */
         title: string;
         [k: string]: unknown;
-    }[];
+    }>;
     [k: string]: unknown;
 }

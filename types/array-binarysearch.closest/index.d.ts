@@ -1,17 +1,17 @@
 declare function binarySearch(
-    arr: ReadonlyArray<string>,
+    arr: readonly string[],
     val: string,
 ): number;
 
 declare function binarySearch(
-    arr: ReadonlyArray<number>,
+    arr: readonly number[],
     val: number,
 ): number;
 
 declare function binarySearch<T>(
-    arr: ReadonlyArray<T>,
+    arr: readonly T[],
     val: T,
-    fn?: null | ((itm: T, val: T, m: any, arr: ReadonlyArray<T>) => number),
+    fn?: null | ((itm: T, val: T, m: any, arr: readonly T[]) => number),
     ths?: any,
     bgn?: number,
     end?: number,

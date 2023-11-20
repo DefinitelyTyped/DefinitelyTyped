@@ -3,7 +3,7 @@ import { Token, TOKEN_TYPE } from "./Token";
 export function createToken(type: TOKEN_TYPE, value: string, line?: number, row?: number): Token;
 
 export class Lexer {
-    tokenize(): ReadonlyArray<Token>;
+    tokenize(): readonly Token[];
     isTokenNested(token: Token): boolean;
 }
 
@@ -12,5 +12,5 @@ export function createLexer(buffer: string, options?: {
     openTag?: string;
     closeTag?: string;
     enableEscapeTags?: boolean;
-    contextFreeTags?: ReadonlyArray<string>;
+    contextFreeTags?: readonly string[];
 }): Lexer;

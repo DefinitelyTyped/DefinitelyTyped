@@ -17,11 +17,11 @@ declare namespace ExtraWatchWebpackPlugin {
          * (absolute path or glob pattern), attach extra files to webpack's watch system
          * @default []
          */
-        files?: string | ReadonlyArray<string> | undefined;
+        files?: string | readonly string[] | undefined;
         /**
          * attach extra dirs to webpack's watch system
          * @default []
          */
-        dirs?: string | ReadonlyArray<string> | undefined;
+        dirs?: string | readonly string[] | undefined;
     }
 }

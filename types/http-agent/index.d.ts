@@ -3,7 +3,7 @@ import request = require("request");
 
 export type HttpAgentUrl = string | request.OptionsWithUri;
 
-export type HttpAgentUrls = ReadonlyArray<HttpAgentUrl>;
+export type HttpAgentUrls = readonly HttpAgentUrl[];
 
 export interface HttpAgentOptions extends request.CoreOptions {
     urls?: HttpAgentUrls;

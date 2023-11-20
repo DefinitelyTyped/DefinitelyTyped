@@ -70,7 +70,7 @@ export namespace ojTrain {
         }>
     {
     }
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type Step = {
         id: string;
         label: string;

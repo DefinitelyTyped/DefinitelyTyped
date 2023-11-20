@@ -255,4 +255,4 @@ export namespace dynamicApi {
     function getNumber(nameSpacedFlagName: string, defaultValue: number, context?: unknown): number;
 }
 
-export const flags: ReadonlyArray<Flag>;
+export const flags: readonly Flag[];

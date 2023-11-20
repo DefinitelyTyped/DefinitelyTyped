@@ -819,7 +819,7 @@ export interface EnvFunction {
     /**
      * @returns `true` if the `envName` is `===` any of the given strings
      */
-    (envName: string | ReadonlyArray<string>): boolean;
+    (envName: string | readonly string[]): boolean;
     // the official documentation is misleading for this one...
     // this just passes the callback to `cache.using` but with an additional argument.
     // it returns its result instead of necessarily returning a boolean.

@@ -27,7 +27,7 @@ class UploadController {
         });
     }
 
-    onFileSelect(files: Array<File>) {
+    onFileSelect(files: File[]) {
         this.Upload
             .upload({
                 url: "/api/upload",

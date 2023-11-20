@@ -46,8 +46,8 @@ declare module "angular" {
 
             /* ============ QUERYING RELATED METHODS ============*/
 
-            getAll(): Array<INotification>;
-            getQueue(): Array<INotification>;
+            getAll(): INotification[];
+            getQueue(): INotification[];
 
             /* ============== NOTIFICATION METHODS ==============*/
 

@@ -862,7 +862,7 @@ export namespace DS {
      * A `ManyArray` is a `MutableArray` that represents the contents of a has-many
      * relationship.
      */
-    // tslint:disable-next-line:no-empty-interface -- used for declaration merge
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface -- used for declaration merge
     interface ManyArray<T> extends Ember.MutableArray<T>, Evented {}
     class ManyArray<T> extends Ember.Object {
         /**

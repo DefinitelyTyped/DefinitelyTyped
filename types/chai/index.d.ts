@@ -350,7 +350,7 @@ declare namespace Chai {
     }
 
     interface OneOf {
-        (list: ReadonlyArray<unknown>, message?: string): Assertion;
+        (list: readonly unknown[], message?: string): Assertion;
     }
 
     interface Match {
@@ -359,7 +359,7 @@ declare namespace Chai {
 
     interface Keys {
         (...keys: string[]): Assertion;
-        (keys: ReadonlyArray<any> | Object): Assertion;
+        (keys: readonly any[] | Object): Assertion;
     }
 
     interface Throw {
@@ -376,7 +376,7 @@ declare namespace Chai {
     }
 
     interface Members {
-        (set: ReadonlyArray<any>, message?: string): Assertion;
+        (set: readonly any[], message?: string): Assertion;
     }
 
     interface PropertyChange {
@@ -843,7 +843,7 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         include<T>(
-            haystack: ReadonlyArray<T> | ReadonlySet<T> | ReadonlyMap<any, T>,
+            haystack: readonly T[] | ReadonlySet<T> | ReadonlyMap<any, T>,
             needle: T,
             message?: string,
         ): void;
@@ -886,7 +886,7 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         notInclude<T>(
-            haystack: ReadonlyArray<T> | ReadonlySet<T> | ReadonlyMap<any, T>,
+            haystack: readonly T[] | ReadonlySet<T> | ReadonlyMap<any, T>,
             needle: T,
             message?: string,
         ): void;
@@ -931,7 +931,7 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         deepInclude<T>(
-            haystack: ReadonlyArray<T> | ReadonlySet<T> | ReadonlyMap<any, T>,
+            haystack: readonly T[] | ReadonlySet<T> | ReadonlyMap<any, T>,
             needle: T,
             message?: string,
         ): void;
@@ -966,7 +966,7 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         notDeepInclude<T>(
-            haystack: ReadonlyArray<T> | ReadonlySet<T> | ReadonlyMap<any, T>,
+            haystack: readonly T[] | ReadonlySet<T> | ReadonlyMap<any, T>,
             needle: T,
             message?: string,
         ): void;

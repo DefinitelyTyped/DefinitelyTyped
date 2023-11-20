@@ -5,19 +5,19 @@ export class DateRestrictionValidator implements Validator<string> {
     validate(value: string): void;
 }
 export namespace DateRestrictionValidator {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type DayFormatterInput = {
         fullYear: number;
         month: number;
         date: number;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type DayFormatterOutput = {
         disabled?: boolean | undefined;
         className?: string | undefined;
         tooltip?: string | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ValidatorOptions = {
         dayFormatter?: ((param0: DayFormatterInput) => DayFormatterOutput | null | "all") | undefined;
         messageSummary?: string | undefined;
@@ -52,7 +52,7 @@ export class DateTimeRangeValidator implements Validator<string> {
     validate(value: string): void;
 }
 export namespace DateTimeRangeValidator {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ValidatorOptions = {
         converter: DateTimeConverter;
         min?: string | undefined;
@@ -104,7 +104,7 @@ export class IntlDateTimeConverter extends DateTimeConverter {
     resolvedOptions(): IntlDateTimeConverter.ConverterOptions;
 }
 export namespace IntlDateTimeConverter {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ConverterOptions = {
         year?: "2-digit" | "numeric" | undefined;
         "two-digit-year-start"?: number | undefined;

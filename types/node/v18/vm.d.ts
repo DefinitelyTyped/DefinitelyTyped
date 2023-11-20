@@ -489,7 +489,7 @@ declare module "vm" {
      */
     function compileFunction(
         code: string,
-        params?: ReadonlyArray<string>,
+        params?: readonly string[],
         options?: CompileFunctionOptions,
     ): Function & {
         cachedData?: Script["cachedData"] | undefined;

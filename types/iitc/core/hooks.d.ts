@@ -175,7 +175,7 @@ declare global {
     interface EventMapDataEntityInject {
         callback: (ents: any) => void;
     } // TODO: ents = portalDetailLoaded.ent
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface EventMapDataRefreshEnd {}
     interface EventPortalAdded {
         portal: IITC.Portal;

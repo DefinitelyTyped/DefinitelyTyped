@@ -1,10 +1,8 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "adjacent-overload-signatures": false,
         "array-type": false,
         "arrow-return-shorthand": false,
-        "ban-types": false,
         "no-duplicate-variable": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,

@@ -27,7 +27,7 @@ export interface NotificationManager {
 
     // Getting Notifications
     /** Get all the notifications. */
-    getNotifications(): ReadonlyArray<Notification>;
+    getNotifications(): readonly Notification[];
 
     // Managing Notifications
     /** Clear all the notifications. */

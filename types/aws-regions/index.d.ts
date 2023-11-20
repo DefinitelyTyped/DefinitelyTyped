@@ -3,7 +3,7 @@ interface AwsRegionInfo {
     full_name: string;
     code: string;
     public: boolean;
-    zones: ReadonlyArray<string>;
+    zones: readonly string[];
 }
 
 interface ListOptions {

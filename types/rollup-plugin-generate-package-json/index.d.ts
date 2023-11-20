@@ -3,7 +3,7 @@ import { Plugin } from "rollup";
 interface GeneratePackageJsonOptions {
     inputFolder?: string;
     outputFolder?: string;
-    additionalDependencies?: ReadonlyArray<string> | Record<string, string>;
+    additionalDependencies?: readonly string[] | Record<string, string>;
     baseContents?: PackageJson | ((pkg: PackageJson) => PackageJson);
 }
 

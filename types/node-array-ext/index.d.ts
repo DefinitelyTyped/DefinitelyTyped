@@ -3,7 +3,7 @@
  *  - note that the elements are called in order but are not guaranteed to finish in order.
  */
 export declare function asyncEach<T>(
-    array: Array<T>,
+    array: T[],
     each: (i: number, element: T, done: (err?: Error) => void) => void,
     finish: (err?: Error) => void,
 ): void;
@@ -12,7 +12,7 @@ export declare function asyncEach<T>(
  *  - note that the elements are called in order and are guaranteed to finish in order.
  */
 export declare function awaitEach<T>(
-    array: Array<T>,
+    array: T[],
     each: (i: number, element: T, done: (err?: Error) => void) => void,
     finish: (err?: Error) => void,
 ): void;

@@ -42,10 +42,10 @@ export interface DatePickerProps {
     onChange: (args: { event: React.SyntheticEvent<HTMLInputElement>; value: Date }) => void;
     disabled?: boolean | undefined;
     errorMessage?: string | undefined;
-    excludeDates?: ReadonlyArray<Date> | undefined;
+    excludeDates?: readonly Date[] | undefined;
     helperText?: string | undefined;
     idealDirection?: "up" | "right" | "down" | "left" | undefined;
-    includeDates?: ReadonlyArray<Date> | undefined;
+    includeDates?: readonly Date[] | undefined;
     label?: string | undefined;
     localeData?: Locale | undefined;
     maxDate?: Date | undefined;

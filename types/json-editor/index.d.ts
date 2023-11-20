@@ -161,8 +161,8 @@ declare class JSONEditor<TValue> {
         };
         languages: any;
         language: string;
-        resolvers: ((schema: any) => string)[];
-        custom_validators: (((schema: any, value: string, path: string) => JSONEditorError[]))[];
+        resolvers: Array<(schema: any) => string>;
+        custom_validators: Array<(schema: any, value: string, path: string) => JSONEditorError[]>;
     };
     public static plugins: {
         sceditor: {

@@ -10,18 +10,18 @@ export class Type extends jspb.Message {
     setName(value: string): Type;
 
     clearFieldsList(): Type;
-    getFieldsList(): Array<Field>;
-    setFieldsList(value: Array<Field>): Type;
+    getFieldsList(): Field[];
+    setFieldsList(value: Field[]): Type;
     addFields(value?: Field, index?: number): Field;
 
     clearOneofsList(): Type;
-    getOneofsList(): Array<string>;
-    setOneofsList(value: Array<string>): Type;
+    getOneofsList(): string[];
+    setOneofsList(value: string[]): Type;
     addOneofs(value: string, index?: number): string;
 
     clearOptionsList(): Type;
-    getOptionsList(): Array<Option>;
-    setOptionsList(value: Array<Option>): Type;
+    getOptionsList(): Option[];
+    setOptionsList(value: Option[]): Type;
     addOptions(value?: Option, index?: number): Option;
 
     hasSourceContext(): boolean;
@@ -45,9 +45,9 @@ export class Type extends jspb.Message {
 export namespace Type {
     export type AsObject = {
         name: string;
-        fieldsList: Array<Field.AsObject>;
-        oneofsList: Array<string>;
-        optionsList: Array<Option.AsObject>;
+        fieldsList: Field.AsObject[];
+        oneofsList: string[];
+        optionsList: Option.AsObject[];
         sourceContext?: google_protobuf_source_context_pb.SourceContext.AsObject | undefined;
         syntax: Syntax;
     };
@@ -76,8 +76,8 @@ export class Field extends jspb.Message {
     setPacked(value: boolean): Field;
 
     clearOptionsList(): Field;
-    getOptionsList(): Array<Option>;
-    setOptionsList(value: Array<Option>): Field;
+    getOptionsList(): Option[];
+    setOptionsList(value: Option[]): Field;
     addOptions(value?: Option, index?: number): Option;
 
     getJsonName(): string;
@@ -105,7 +105,7 @@ export namespace Field {
         typeUrl: string;
         oneofIndex: number;
         packed: boolean;
-        optionsList: Array<Option.AsObject>;
+        optionsList: Option.AsObject[];
         jsonName: string;
         defaultValue: string;
     };
@@ -145,13 +145,13 @@ export class Enum extends jspb.Message {
     setName(value: string): Enum;
 
     clearEnumvalueList(): Enum;
-    getEnumvalueList(): Array<EnumValue>;
-    setEnumvalueList(value: Array<EnumValue>): Enum;
+    getEnumvalueList(): EnumValue[];
+    setEnumvalueList(value: EnumValue[]): Enum;
     addEnumvalue(value?: EnumValue, index?: number): EnumValue;
 
     clearOptionsList(): Enum;
-    getOptionsList(): Array<Option>;
-    setOptionsList(value: Array<Option>): Enum;
+    getOptionsList(): Option[];
+    setOptionsList(value: Option[]): Enum;
     addOptions(value?: Option, index?: number): Option;
 
     hasSourceContext(): boolean;
@@ -175,8 +175,8 @@ export class Enum extends jspb.Message {
 export namespace Enum {
     export type AsObject = {
         name: string;
-        enumvalueList: Array<EnumValue.AsObject>;
-        optionsList: Array<Option.AsObject>;
+        enumvalueList: EnumValue.AsObject[];
+        optionsList: Option.AsObject[];
         sourceContext?: google_protobuf_source_context_pb.SourceContext.AsObject | undefined;
         syntax: Syntax;
     };
@@ -190,8 +190,8 @@ export class EnumValue extends jspb.Message {
     setNumber(value: number): EnumValue;
 
     clearOptionsList(): EnumValue;
-    getOptionsList(): Array<Option>;
-    setOptionsList(value: Array<Option>): EnumValue;
+    getOptionsList(): Option[];
+    setOptionsList(value: Option[]): EnumValue;
     addOptions(value?: Option, index?: number): Option;
 
     serializeBinary(): Uint8Array;
@@ -208,7 +208,7 @@ export namespace EnumValue {
     export type AsObject = {
         name: string;
         number: number;
-        optionsList: Array<Option.AsObject>;
+        optionsList: Option.AsObject[];
     };
 }
 

@@ -18,7 +18,7 @@ declare namespace toposort {
      * @throws if there are any cycles in the graph
      */
     function array<T = string>(
-        nodes: ReadonlyArray<T>,
+        nodes: readonly T[],
         edges: ReadonlyArray<[T, T | undefined]>,
     ): T[];
 }

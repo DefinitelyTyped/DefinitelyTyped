@@ -98,7 +98,7 @@ export interface PermissionsAndroidStatic {
      * indicating whether the user allowed or denied the request
      */
     requestMultiple(
-        permissions: Array<Permission>,
+        permissions: Permission[],
     ): Promise<{ [key in Permission]: PermissionStatus }>;
 }
 

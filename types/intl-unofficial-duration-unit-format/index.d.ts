@@ -18,7 +18,7 @@ export interface DurationUnitFormatOptions {
 }
 
 export default class DurationUnitFormat {
-    constructor(locales?: string | ReadonlyArray<string>, options?: DurationUnitFormatOptions);
+    constructor(locales?: string | readonly string[], options?: DurationUnitFormatOptions);
 
     static styles: {
         CUSTOM: "custom";

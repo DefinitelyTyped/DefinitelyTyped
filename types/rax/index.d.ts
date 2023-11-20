@@ -670,7 +670,7 @@ declare namespace Rax {
     type ReducerAction<R extends Reducer<any, any>> = R extends Reducer<any, infer A> ? A : never;
     // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
     // TODO (TypeScript 3.0): ReadonlyArray<unknown>
-    type DependencyList = ReadonlyArray<any>;
+    type DependencyList = readonly any[];
 
     // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
     // The destructor is itself only allowed to return void.

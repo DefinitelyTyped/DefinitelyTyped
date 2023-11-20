@@ -800,7 +800,7 @@ export namespace bunyan {
         stream?: Logger.Stream | undefined;
 
         /** The streams to which to write when dumping captured records. */
-        streams?: ReadonlyArray<Logger.Stream> | undefined;
+        streams?: readonly Logger.Stream[] | undefined;
 
         /**
          * The level at which to trigger dumping captured records. Defaults to

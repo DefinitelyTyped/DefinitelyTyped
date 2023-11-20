@@ -3,13 +3,13 @@
 import npmFetch = require("npm-registry-fetch");
 
 declare function search(
-    query: string | ReadonlyArray<string>,
+    query: string | readonly string[],
     opts: search.Options & { detailed: true },
 ): Promise<search.DetailedResult[]>;
-declare function search(query: string | ReadonlyArray<string>, opts?: search.Options): Promise<search.Result[]>;
+declare function search(query: string | readonly string[], opts?: search.Options): Promise<search.Result[]>;
 
 declare namespace search {
-    function stream(query: string | ReadonlyArray<string>, opts?: Options): NodeJS.ReadWriteStream;
+    function stream(query: string | readonly string[], opts?: Options): NodeJS.ReadWriteStream;
 
     interface Maintainer {
         username: string;

@@ -3153,11 +3153,11 @@ export interface StsPolicy extends PolicyBase {
     isOrganizationDefault?: NullableOption<boolean>;
     appliesTo?: NullableOption<DirectoryObject[]>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface HomeRealmDiscoveryPolicy extends StsPolicy {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TokenIssuancePolicy extends StsPolicy {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TokenLifetimePolicy extends StsPolicy {}
 export interface Synchronization extends Entity {
     // Represents a collection of credentials to access provisioned cloud applications.
@@ -3189,7 +3189,7 @@ export interface DeletedItemContainer extends Entity {
     // Deleted workflows that end up in the deletedItemsContainer.
     workflows?: NullableOption<IdentityGovernanceNamespace.Workflow[]>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IdentityGovernance {
     lifecycleWorkflows?: NullableOption<IdentityGovernanceNamespace.LifecycleWorkflowsContainer>;
     accessReviews?: NullableOption<AccessReviewSet>;
@@ -4076,7 +4076,7 @@ export interface Contact extends OutlookItem {
     // The collection of single-value extended properties defined for the contact. Read-only. Nullable.
     singleValueExtendedProperties?: NullableOption<SingleValueLegacyExtendedProperty[]>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface InferenceClassification extends Entity {
     /**
      * A set of overrides for a user to always classify messages from specific senders in certain ways: focused, or other.
@@ -4300,7 +4300,7 @@ export interface Site extends BaseItem {
     // Calls the OneNote service for notebook related operations.
     onenote?: NullableOption<Onenote>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Extension extends Entity {}
 export interface AgreementAcceptance extends Entity {
     // The identifier of the agreement file accepted by the user.
@@ -5219,9 +5219,9 @@ export interface PrintUsageByUser extends PrintUsage {
     // The UPN of the user represented by these statistics.
     userPrincipalName?: string;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SecurityReportsRoot extends Entity {}
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface Invitation extends Entity {
     // The display name of the user being invited.
     invitedUserDisplayName?: NullableOption<string>;
@@ -5511,7 +5511,7 @@ export interface ApplicationTemplate extends Entity {
      */
     supportedSingleSignOnModes?: NullableOption<string[]>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ClaimsMappingPolicy extends StsPolicy {}
 export interface DelegatedPermissionClassification extends Entity {
     // The classification value being given. Possible value: low. Does not support $filter.
@@ -5824,7 +5824,7 @@ export interface AuthenticationFlowsPolicy extends Entity {
      */
     selfServiceSignUp?: NullableOption<SelfServiceSignUpAuthenticationFlowConfiguration>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ActivityBasedTimeoutPolicy extends StsPolicy {}
 export interface AuthorizationPolicy extends PolicyBase {
     // Indicates whether users can sign up for email based subscriptions.
@@ -5911,7 +5911,7 @@ export interface AdminConsentRequestPolicy extends Entity {
     // Specifies the version of this policy. When the policy is updated, this version is updated. Read-only.
     version?: number;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IdentitySecurityDefaultsEnforcementPolicy extends PolicyBase {
     // If set to true, Azure Active Directory security defaults is enabled for the tenant.
     isEnabled?: boolean;
@@ -6040,7 +6040,7 @@ export interface BitlockerRecoveryKey extends Entity {
      */
     volumeType?: NullableOption<VolumeType>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface InformationProtection {
     bitlocker?: NullableOption<Bitlocker>;
     threatAssessmentRequests?: NullableOption<ThreatAssessmentRequest[]>;
@@ -6193,7 +6193,7 @@ export interface BookingBusiness extends Entity {
     // All the staff members that provide services in this business. Read-only. Nullable.
     staffMembers?: NullableOption<BookingStaffMemberBase[]>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface BookingCustomerBase extends Entity {}
 export interface BookingCustomQuestion extends Entity {
     // The expected answer type. The possible values are: text, radioButton, unknownFutureValue.
@@ -6263,7 +6263,7 @@ export interface BookingService extends Entity {
     // The URL a customer uses to access the service.
     webUrl?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface BookingStaffMemberBase extends Entity {}
 export interface BookingCurrency extends Entity {
     // The currency symbol. For example, the currency symbol for the US dollar and for the Australian dollar is $.
@@ -6762,7 +6762,7 @@ export interface TeamworkTag extends Entity {
     // Users assigned to the tag.
     members?: NullableOption<TeamworkTagMember[]>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TeamsTemplate extends Entity {}
 export interface Schedule extends Entity {
     // Indicates whether the schedule is enabled for the team. Required.
@@ -6803,7 +6803,7 @@ export interface Schedule extends Entity {
     // The instances of times off in the schedule.
     timesOff?: NullableOption<TimeOff[]>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Compliance {}
 export interface ResourceSpecificPermissionGrant extends DirectoryObject {
     // ID of the service principal of the Azure AD app that has been granted access. Read-only.
@@ -7091,7 +7091,7 @@ export interface SecureScore extends Entity {
      */
     vendorInformation?: NullableOption<SecurityVendorInformation>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface ItemAnalytics extends Entity {
     allTime?: NullableOption<ItemActivityStat>;
     itemActivityStats?: NullableOption<ItemActivityStat[]>;
@@ -7300,7 +7300,7 @@ export interface Permission extends Entity {
     // A unique token that can be used to access this shared item via the **shares** API. Read-only.
     shareId?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IdentityApiConnector extends Entity {
     /**
      * The object which describes the authentication configuration details for calling the API. Basic and PKCS 12 client
@@ -7312,7 +7312,7 @@ export interface IdentityApiConnector extends Entity {
     // The URL of the API endpoint to call.
     targetUrl?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IdentityProviderBase extends Entity {
     // The display name of the identity provider.
     displayName?: NullableOption<string>;
@@ -7327,7 +7327,7 @@ export interface AppleManagedIdentityProvider extends IdentityProviderBase {
     // The Apple service identifier. Required.
     serviceId?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IdentityUserFlow extends Entity {
     userFlowType?: UserFlowType;
     userFlowTypeVersion?: number;
@@ -7349,7 +7349,7 @@ export interface B2xIdentityUserFlow extends IdentityUserFlow {
     userAttributeAssignments?: NullableOption<IdentityUserFlowAttributeAssignment[]>;
     userFlowIdentityProviders?: NullableOption<IdentityProviderBase[]>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IdentityProvider extends Entity {
     /**
      * The client ID for the application. This is the client ID obtained when registering the application with the identity
@@ -7385,7 +7385,7 @@ export interface UserFlowLanguageConfiguration extends Entity {
      */
     overridesPages?: NullableOption<UserFlowLanguagePage[]>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IdentityUserFlowAttributeAssignment extends Entity {
     // The display name of the identityUserFlowAttribute within a user flow.
     displayName?: NullableOption<string>;
@@ -7416,7 +7416,7 @@ export interface BuiltInIdentityProvider extends IdentityProviderBase {
     // The identity provider type. For a B2B scenario, possible values: AADSignup, MicrosoftAccount, EmailOTP. Required.
     identityProviderType?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IdentityUserFlowAttribute extends Entity {
     /**
      * The data type of the user flow attribute. This cannot be modified after the custom user flow attribute is created. The
@@ -7433,9 +7433,9 @@ export interface IdentityUserFlowAttribute extends Entity {
      */
     userFlowAttributeType?: IdentityUserFlowAttributeType;
 }
-// tslint:disable-next-line: interface-name no-empty-interface
+// eslint-disable-next-line @typescript-eslint/naming-convention -- no-empty-interface
 export interface IdentityBuiltInUserFlowAttribute extends IdentityUserFlowAttribute {}
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IdentityContainer extends Entity {
     // Represents entry point for API connectors.
     apiConnectors?: NullableOption<IdentityApiConnector[]>;
@@ -7447,7 +7447,7 @@ export interface IdentityContainer extends Entity {
     // the entry point for the Conditional Access (CA) object model.
     conditionalAccess?: NullableOption<ConditionalAccessRoot>;
 }
-// tslint:disable-next-line: interface-name no-empty-interface
+// eslint-disable-next-line @typescript-eslint/naming-convention -- no-empty-interface
 export interface IdentityCustomUserFlowAttribute extends IdentityUserFlowAttribute {}
 export interface SocialIdentityProvider extends IdentityProviderBase {
     /**
@@ -7466,7 +7466,7 @@ export interface SocialIdentityProvider extends IdentityProviderBase {
      */
     identityProviderType?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface UserFlowLanguagePage extends Entity {}
 export interface AdministrativeUnit extends DirectoryObject {
     // An optional description for the administrative unit. Supports $filter (eq, ne, in, startsWith), $search.
@@ -7944,7 +7944,7 @@ export interface SamlOrWsFedProvider extends IdentityProviderBase {
      */
     signingCertificate?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface InternalDomainFederation extends SamlOrWsFedProvider {
     /**
      * URL of the endpoint used by active clients when authenticating with federated domains set up for single sign-on in
@@ -8037,7 +8037,7 @@ export interface DomainDnsUnavailableRecord extends DomainDnsRecord {
     // Provides the reason why the DomainDnsUnavailableRecord entity is returned.
     description?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ExternalDomainName extends Entity {}
 export interface GroupSettingTemplate extends DirectoryObject {
     // Description of the template.
@@ -8214,7 +8214,7 @@ export interface OrganizationalBranding extends OrganizationalBrandingProperties
     // Add different branding based on a locale.
     localizations?: NullableOption<OrganizationalBrandingLocalization[]>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface OrganizationalBrandingLocalization extends OrganizationalBrandingProperties {}
 export interface OrgContact extends DirectoryObject {
     // Postal addresses for this organizational contact. For now a contact can only have one physical address.
@@ -8967,7 +8967,7 @@ export interface BrowserSiteList extends Entity {
     // A collection of sites defined for the site list.
     sites?: NullableOption<BrowserSite[]>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface InternetExplorerMode extends Entity {
     // A collection of site lists to support Internet Explorer mode.
     siteLists?: NullableOption<BrowserSiteList[]>;
@@ -9653,7 +9653,7 @@ export interface WorkbookComment extends Entity {
     contentType?: string;
     replies?: NullableOption<WorkbookCommentReply[]>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface WorkbookFunctions extends Entity {}
 export interface WorkbookNamedItem extends Entity {
     // Represents the comment associated with this name.
@@ -9846,7 +9846,7 @@ export interface WorkbookChartTitle extends Entity {
     // Represents the formatting of a chart title, which includes fill and font formatting. Read-only.
     format?: NullableOption<WorkbookChartTitleFormat>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface WorkbookChartFill extends Entity {}
 export interface WorkbookChartFont extends Entity {
     // Represents the bold status of font.
@@ -10076,7 +10076,7 @@ export interface WorkbookRangeFormat extends Entity {
     // Returns the format protection object for a range. Read-only.
     protection?: NullableOption<WorkbookFormatProtection>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface WorkbookRangeSort extends Entity {}
 export interface WorkbookRangeBorder extends Entity {
     /**
@@ -10374,7 +10374,7 @@ export interface FileAttachment extends Attachment {
     // Do not use this property as it is not supported.
     contentLocation?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface InferenceClassificationOverride extends Entity {
     /**
      * Specifies how incoming messages from a specific sender should always be classified as. The possible values are:
@@ -10384,7 +10384,7 @@ export interface InferenceClassificationOverride extends Entity {
     // The email address information of the sender for whom the override is created.
     senderEmailAddress?: NullableOption<EmailAddress>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface ItemAttachment extends Attachment {
     // The attached message or event. Navigation property.
     item?: NullableOption<OutlookItem>;
@@ -10437,7 +10437,7 @@ export interface OutlookCategory extends Entity {
      */
     displayName?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ReferenceAttachment extends Attachment {}
 export interface SharepointSettings extends Entity {
     // Collection of trusted domain GUIDs for the OneDrive sync app.
@@ -10531,9 +10531,9 @@ export interface DocumentSetVersion extends ListItemVersion {
      */
     shouldCaptureMinorVersion?: NullableOption<boolean>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface FieldValueSet extends Entity {}
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface ItemActivity extends Entity {
     // An item was accessed.
     access?: NullableOption<AccessAction>;
@@ -10544,7 +10544,7 @@ export interface ItemActivity extends Entity {
     // Exposes the driveItem that was the target of this activity.
     driveItem?: NullableOption<DriveItem>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface ItemActivityStat extends Entity {
     // Statistics about the access actions in this interval. Read-only.
     access?: NullableOption<ItemActionStat>;
@@ -11428,7 +11428,7 @@ export interface AgreementFileLocalization extends AgreementFileProperties {
     // Read-only. Customized versions of the terms of use agreement in the Azure AD tenant.
     versions?: NullableOption<AgreementFileVersion[]>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AgreementFileVersion extends AgreementFileProperties {}
 export interface CountryNamedLocation extends NamedLocation {
     // List of countries and/or regions in two-letter format specified by ISO 3166-2. Required.
@@ -11445,7 +11445,7 @@ export interface CountryNamedLocation extends NamedLocation {
      */
     includeUnknownCountriesAndRegions?: boolean;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IdentityProtectionRoot {
     // Risk detection in Azure AD Identity Protection and the associated information about the detection.
     riskDetections?: NullableOption<RiskDetection[]>;
@@ -11695,7 +11695,7 @@ export interface ServicePrincipalRiskDetection extends Entity {
     // Indicates the type of token issuer for the detected sign-in risk. The possible values are: AzureAD.
     tokenIssuerType?: NullableOption<TokenIssuerType>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IpNamedLocation extends NamedLocation {
     /**
      * List of IP address ranges in IPv4 CIDR format (e.g. 1.2.3.4/32) or any allowable IPv6 format from IETF RFC5969.
@@ -12145,7 +12145,7 @@ export interface DefaultManagedAppProtection extends ManagedAppProtection {
     // Navigation property to deployment summary of the configuration.
     deploymentSummary?: NullableOption<ManagedAppPolicyDeploymentSummary>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosManagedAppProtection extends TargetedManagedAppProtection {
     /**
      * Type of encryption which should be used for data in a managed app. Possible values are: useDeviceSettings,
@@ -12276,7 +12276,7 @@ export interface WindowsInformationProtection extends ManagedAppPolicy {
     // Another way to input protected apps through xml files
     protectedAppLockerFiles?: NullableOption<WindowsInformationProtectionAppLockerFile[]>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface MdmWindowsInformationProtectionPolicy extends WindowsInformationProtection {}
 export interface ManagedAppConfiguration extends ManagedAppPolicy {
     /**
@@ -12408,7 +12408,7 @@ export interface EnterpriseCodeSigningCertificate extends Entity {
      */
     uploadDateTime?: string;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosiPadOSWebClip extends MobileApp {
     // Indicates iOS/iPadOS web clip app URL. Example: 'https://www.contoso.com'
     appUrl?: NullableOption<string>;
@@ -12418,7 +12418,7 @@ export interface IosiPadOSWebClip extends MobileApp {
      */
     useManagedBrowser?: boolean;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosLobApp extends MobileLobApp {
     // The iOS architecture for which this app can run on.
     applicableDeviceType?: IosDeviceType;
@@ -12433,19 +12433,19 @@ export interface IosLobApp extends MobileLobApp {
     // The version number of iOS Line of Business (LoB) app.
     versionNumber?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosLobAppProvisioningConfigurationAssignment extends Entity {
     // The target group assignment defined by the admin.
     target?: NullableOption<DeviceAndAppManagementAssignmentTarget>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosMobileAppConfiguration extends ManagedDeviceMobileAppConfiguration {
     // mdm app configuration Base64 binary.
     encodedSettingXml?: NullableOption<string>;
     // app configuration setting items.
     settings?: NullableOption<AppConfigurationSettingItem[]>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosStoreApp extends MobileApp {
     // The iOS architecture for which this app can run on.
     applicableDeviceType?: IosDeviceType;
@@ -12456,7 +12456,7 @@ export interface IosStoreApp extends MobileApp {
     // The value for the minimum applicable operating system.
     minimumSupportedOperatingSystem?: NullableOption<IosMinimumOperatingSystem>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosVppApp extends MobileApp {
     // The applicable iOS Device Type.
     applicableDeviceType?: NullableOption<IosDeviceType>;
@@ -12515,13 +12515,13 @@ export interface MacOSLobApp extends MobileLobApp {
     // The version number of the package. This should match the package CFBundleVersion in the packageinfo file.
     versionNumber?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface MacOSMicrosoftDefenderApp extends MobileApp {}
 export interface MacOSMicrosoftEdgeApp extends MobileApp {
     // The channel to install on target devices. Possible values are: dev, beta, stable, unknownFutureValue.
     channel?: MicrosoftEdgeChannel;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface MacOSOfficeSuiteApp extends MobileApp {}
 export interface ManagedApp extends MobileApp {
     // The Application's availability. Possible values are: global, lineOfBusiness.
@@ -12680,7 +12680,7 @@ export interface MobileAppAssignment extends Entity {
     // The target group assignment defined by the admin.
     target?: NullableOption<DeviceAndAppManagementAssignmentTarget>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface MobileContainedApp extends Entity {}
 export interface MobileAppContentFile extends Entity {
     // The Azure Storage URI.
@@ -13134,7 +13134,7 @@ export interface DeviceConfiguration extends Entity {
     // Device Configuration users status overview
     userStatusOverview?: NullableOption<DeviceConfigurationUserOverview>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosUpdateDeviceStatus extends Entity {
     // The DateTime when device compliance grace period expires
     complianceGracePeriodExpirationDateTime?: string;
@@ -14075,7 +14075,7 @@ export interface WindowsMalwareInformation extends Entity {
     // List of devices affected by current malware with the malware state on each device
     deviceMalwareStates?: NullableOption<MalwareStateForWindowsDevice[]>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface ImportedWindowsAutopilotDeviceIdentity extends Entity {
     // UPN of the user the device will be assigned
     assignedUserPrincipalName?: NullableOption<string>;
@@ -14268,7 +14268,7 @@ export interface EBookInstallSummary extends Entity {
     // Number of Users that did not install this book.
     notInstalledUserCount?: number;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosVppEBook extends ManagedEBook {
     // The Apple ID associated with Vpp token.
     appleId?: NullableOption<string>;
@@ -14293,7 +14293,7 @@ export interface ManagedEBookAssignment extends Entity {
     // The assignment target for eBook.
     target?: NullableOption<DeviceAndAppManagementAssignmentTarget>;
 }
-// tslint:disable-next-line: interface-name no-empty-interface
+// eslint-disable-next-line @typescript-eslint/naming-convention -- no-empty-interface
 export interface IosVppEBookAssignment extends ManagedEBookAssignment {}
 export interface UserInstallStateSummary extends Entity {
     // Failed Device Count.
@@ -14629,7 +14629,7 @@ export interface AndroidWorkProfileGeneralDeviceConfiguration extends DeviceConf
     // Password is required or not for work profile
     workProfileRequirePassword?: boolean;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AppleDeviceFeaturesConfigurationBase extends DeviceConfiguration {}
 export interface DeviceComplianceActionItem extends Entity {
     /**
@@ -14884,9 +14884,9 @@ export interface EditionUpgradeConfiguration extends DeviceConfiguration {
      */
     targetEdition?: Windows10EditionType;
 }
-// tslint:disable-next-line: interface-name no-empty-interface
+// eslint-disable-next-line @typescript-eslint/naming-convention -- no-empty-interface
 export interface IosCertificateProfile extends DeviceConfiguration {}
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosCompliancePolicy extends DeviceCompliancePolicy {
     // Require that devices have enabled device threat protection .
     deviceThreatProtectionEnabled?: boolean;
@@ -14920,7 +14920,7 @@ export interface IosCompliancePolicy extends DeviceCompliancePolicy {
     // Devices must not be jailbroken or rooted.
     securityBlockJailbrokenDevices?: boolean;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosCustomConfiguration extends DeviceConfiguration {
     // Payload. (UTF8 encoded byte array)
     payload?: string;
@@ -14929,7 +14929,7 @@ export interface IosCustomConfiguration extends DeviceConfiguration {
     // Name that is displayed to the user.
     payloadName?: string;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosDeviceFeaturesConfiguration extends AppleDeviceFeaturesConfigurationBase {
     // Asset tag information for the device, displayed on the login window and lock screen.
     assetTagTemplate?: NullableOption<string>;
@@ -14945,7 +14945,7 @@ export interface IosDeviceFeaturesConfiguration extends AppleDeviceFeaturesConfi
      */
     notificationSettings?: NullableOption<IosNotificationSettings[]>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosGeneralDeviceConfiguration extends DeviceConfiguration {
     // Indicates whether or not to allow account modification when the device is in supervised mode.
     accountBlockModification?: boolean;
@@ -15310,7 +15310,7 @@ export interface IosGeneralDeviceConfiguration extends DeviceConfiguration {
      */
     wiFiConnectOnlyToConfiguredNetworks?: boolean;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosUpdateConfiguration extends DeviceConfiguration {
     // Active Hours End (active hours mean the time window when updates install should not happen)
     activeHoursEnd?: string;
@@ -15368,7 +15368,7 @@ export interface MacOSCustomConfiguration extends DeviceConfiguration {
     // Name that is displayed to the user.
     payloadName?: string;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface MacOSDeviceFeaturesConfiguration extends AppleDeviceFeaturesConfigurationBase {}
 export interface MacOSGeneralDeviceConfiguration extends DeviceConfiguration {
     // List that is in the CompliantAppsList. Possible values are: none, appsInListCompliant, appsNotInListCompliant.
@@ -17069,7 +17069,7 @@ export interface WindowsDeviceMalwareState extends Entity {
      */
     threatState?: NullableOption<WindowsMalwareThreatState>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface ImportedWindowsAutopilotDeviceIdentityUpload extends Entity {
     // DateTime when the entity is created.
     createdDateTimeUtc?: string;
@@ -17096,9 +17096,9 @@ export interface ManagedAppPolicyDeploymentSummary extends Entity {
     // Version of the entity.
     version?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AndroidManagedAppRegistration extends ManagedAppRegistration {}
-// tslint:disable-next-line: interface-name no-empty-interface
+// eslint-disable-next-line @typescript-eslint/naming-convention -- no-empty-interface
 export interface IosManagedAppRegistration extends ManagedAppRegistration {}
 export interface ManagedAppOperation extends Entity {
     // The operation name.
@@ -17143,7 +17143,7 @@ export interface LocalizedNotificationMessage extends Entity {
     // The Message Template Subject.
     subject?: string;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DeviceAndAppManagementRoleDefinition extends RoleDefinition {}
 export interface DeviceManagementExportJob extends Entity {
     // Time that the exported report expires
@@ -17293,7 +17293,7 @@ export interface ServiceAnnouncementAttachment extends Entity {
     name?: NullableOption<string>;
     size?: number;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SearchEntity extends Entity {}
 export interface Planner extends Entity {
     // Read-only. Nullable. Returns a collection of the specified buckets
@@ -18074,7 +18074,7 @@ export interface CommsOperation extends Entity {
     // Possible values are: notStarted, running, completed, failed. Read-only.
     status?: OperationStatus;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AddLargeGalleryViewOperation extends CommsOperation {}
 export interface AttendanceRecord extends Entity {
     // List of time periods between joining and leaving a meeting.
@@ -18093,7 +18093,7 @@ export interface AudioRoutingGroup extends Entity {
     routingMode?: RoutingMode;
     sources?: NullableOption<string[]>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ContentSharingSession extends Entity {}
 export interface Participant extends Entity {
     // Information about the participant.
@@ -18111,14 +18111,14 @@ export interface Participant extends Entity {
     // Indicates the reason or reasons media content from this participant is restricted.
     restrictedExperience?: NullableOption<OnlineMeetingRestricted>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface CancelMediaProcessingOperation extends CommsOperation {}
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface InviteParticipantsOperation extends CommsOperation {
     // The participants to invite.
     participants?: InvitationParticipantInfo[];
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface MuteParticipantOperation extends CommsOperation {}
 export interface ParticipantJoiningNotification extends Entity {
     call?: NullableOption<Call>;
@@ -18128,7 +18128,7 @@ export interface ParticipantLeftNotification extends Entity {
     participantId?: string;
     call?: NullableOption<Call>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface PlayPromptOperation extends CommsOperation {}
 export interface RecordOperation extends CommsOperation {
     // The access token required to retrieve the recording.
@@ -18136,17 +18136,17 @@ export interface RecordOperation extends CommsOperation {
     // The location where the recording is located.
     recordingLocation?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface StartHoldMusicOperation extends CommsOperation {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface StopHoldMusicOperation extends CommsOperation {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SubscribeToToneOperation extends CommsOperation {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface UnmuteParticipantOperation extends CommsOperation {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface UpdateRecordingStatusOperation extends CommsOperation {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AuthenticationMethod extends Entity {}
 export interface EmailAuthenticationMethod extends AuthenticationMethod {
     // The email address registered to this user.
@@ -18292,7 +18292,7 @@ export interface TeamInfo extends Entity {
     tenantId?: NullableOption<string>;
     team?: NullableOption<Team>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AssociatedTeamInfo extends TeamInfo {}
 export interface AzureCommunicationServicesUserConversationMember extends ConversationMember {
     // Azure Communication Services ID of the user.
@@ -18419,7 +18419,7 @@ export interface TeamworkHostedContent extends Entity {
     // Write only. Content type. sicj as image/png, image/jpg.
     contentType?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ChatMessageHostedContent extends TeamworkHostedContent {}
 export interface DeletedTeam extends Entity {
     // The channels that are either shared with this deleted team or created in this deleted team.
@@ -18464,7 +18464,7 @@ export interface TeamsAppDefinition extends Entity {
     // The details of the bot specified in the Teams app manifest.
     bot?: NullableOption<TeamworkBot>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TeamworkBot extends Entity {}
 export interface TeamsAppSettings extends Entity {
     allowUserRequestsForAppAccess?: NullableOption<boolean>;
@@ -18887,9 +18887,9 @@ export interface LearningSelfInitiatedCourse extends LearningCourseActivity {
     // The date time value on which the self-initiated course was started by the learner. Optional.
     startedDateTime?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface CustomExtensionAuthenticationConfiguration {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AzureAdPopTokenAuthentication extends CustomExtensionAuthenticationConfiguration {}
 export interface CustomExtensionCallbackConfiguration {
     /**
@@ -18908,7 +18908,7 @@ export interface CustomExtensionCalloutRequest {
     // Describes the type of event related to the callout request.
     type?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface CustomExtensionData {}
 export interface CustomExtensionCalloutResponse {
     // Contains the data the external system provides to the custom extension endpoint.
@@ -18925,7 +18925,7 @@ export interface CustomExtensionClientConfiguration {
      */
     timeoutInMilliseconds?: NullableOption<number>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface CustomExtensionEndpointConfiguration {}
 export interface EmailSettings {
     /**
@@ -18942,7 +18942,7 @@ export interface EmailSettings {
      */
     useCompanyBranding?: boolean;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface Identity {
     /**
      * The display name of the identity. Note that this might not always be available or up to date. For example, if a user
@@ -18972,7 +18972,7 @@ export interface LogicAppTriggerEndpointConfiguration extends CustomExtensionEnd
      */
     url?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SubjectSet {}
 export interface AddIn {
     id?: NullableOption<string>;
@@ -19063,7 +19063,7 @@ export interface Certification {
     // The timestamp when the certification for the application was most recently added or updated.
     lastCertificationDateTime?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface InformationalUrl {
     // CDN URL to the application's logo, Read-only.
     logoUrl?: NullableOption<string>;
@@ -19454,7 +19454,7 @@ export interface UserIdentity extends Identity {
     // The userPrincipalName attribute of the user.
     userPrincipalName?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DetailsInfo {}
 export interface DeviceDetail {
     // Indicates the browser information of the used for signing in.
@@ -19480,7 +19480,7 @@ export interface GeoCoordinates {
     // Optional. The longitude, in decimal, for the item. Read-only.
     longitude?: NullableOption<number>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface Initiator extends Identity {
     // Type of initiator. Possible values are: user, application, system, unknownFutureValue.
     initiatorType?: NullableOption<InitiatorType>;
@@ -19517,7 +19517,7 @@ export interface ProvisioningErrorInfo {
     // Provides the resolution for the corresponding error.
     recommendedAction?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ProvisioningServicePrincipal extends Identity {}
 export interface ProvisioningStatusInfo {
     // If status is not success/ skipped details for the error are contained in this.
@@ -19639,7 +19639,7 @@ export interface EmailAddress {
     // The display name of the person or entity.
     name?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface InvitedUserMessageInfo {
     // Additional recipients the invitation message should be sent to. Currently only 1 additional recipient is supported.
     ccRecipients?: NullableOption<Recipient[]>;
@@ -19871,7 +19871,7 @@ export interface DateTimeTimeZone {
     // Represents a time zone, for example, 'Pacific Standard Time'. See below for more possible values.
     timeZone?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface BookingCustomerInformationBase {}
 export interface BookingCustomerInformation extends BookingCustomerInformationBase {
     /**
@@ -20045,7 +20045,7 @@ export interface DataSubject {
      */
     residency?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IdentitySet {
     // Optional. The application associated with this action.
     application?: NullableOption<Identity>;
@@ -20054,7 +20054,7 @@ export interface IdentitySet {
     // Optional. The user associated with this action.
     user?: NullableOption<Identity>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface ItemBody {
     // The content of the item.
     content?: NullableOption<string>;
@@ -20203,7 +20203,7 @@ export interface AssignedLabel {
 export interface LicenseProcessingState {
     state?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Root {}
 export interface SharepointIds {
     // The unique identifier (guid) for the item's list in SharePoint.
@@ -20229,7 +20229,7 @@ export interface SiteCollection {
     // If present, indicates that this is a root site collection in SharePoint. Read-only.
     root?: NullableOption<Root>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ApiAuthenticationConfigurationBase {}
 export interface AssignmentOrder {
     /**
@@ -20376,7 +20376,7 @@ export interface CertificateAuthority {
     // The subject key identifier of the certificate, calculated from the certificate value. Read-only.
     issuerSki?: string;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ComplexExtensionValue {}
 export interface CrossTenantAccessPolicyB2BSetting {
     // The list of applications targeted with your cross-tenant access policy.
@@ -20459,21 +20459,21 @@ export interface DomainState {
      */
     status?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface ImplicitGrantSettings {
     // Specifies whether this web application can request an access token using the OAuth 2.0 implicit flow.
     enableAccessTokenIssuance?: NullableOption<boolean>;
     // Specifies whether this web application can request an ID token using the OAuth 2.0 implicit flow.
     enableIdTokenIssuance?: NullableOption<boolean>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface InboundOutboundPolicyConfiguration {
     // Defines whether external users coming inbound are allowed.
     inboundAllowed?: NullableOption<boolean>;
     // Defines whether internal users are allowed to go outbound.
     outboundAllowed?: NullableOption<boolean>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface InstanceResourceAccess {
     permissions?: ResourcePermission[];
     resourceAppId?: string;
@@ -20769,9 +20769,9 @@ export interface BrowserSiteHistory {
      */
     targetEnvironment?: NullableOption<BrowserSiteTargetEnvironment>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface EducationAssignmentRecipient {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface EducationAssignmentClassRecipient extends EducationAssignmentRecipient {}
 export interface EducationAssignmentGrade {
     // User who did the grading.
@@ -20783,9 +20783,9 @@ export interface EducationAssignmentGrade {
      */
     gradedDateTime?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface EducationAssignmentGradeType {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface EducationAssignmentGroupRecipient extends EducationAssignmentRecipient {}
 export interface EducationAssignmentIndividualRecipient extends EducationAssignmentRecipient {
     // A collection of IDs of the recipients.
@@ -20856,7 +20856,7 @@ export interface EducationPowerPointResource extends EducationResource {
     // Location of the file on disk.
     fileUrl?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface EducationSubmissionRecipient {}
 export interface EducationSubmissionIndividualRecipient extends EducationSubmissionRecipient {
     // User ID of the user to whom the submission is assigned.
@@ -21077,7 +21077,7 @@ export interface Quota {
     // Total space used, in bytes. Read-only.
     used?: NullableOption<number>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SystemFacet {}
 export interface Audio {
     // The title of the album for this audio file.
@@ -21147,7 +21147,7 @@ export interface Folder {
     // A collection of properties defining the recommended view for the folder.
     view?: NullableOption<FolderView>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface Image {
     // Optional. Height of the image, in pixels. Read-only.
     height?: NullableOption<number>;
@@ -21538,7 +21538,7 @@ export interface FreeBusyError {
     // The response code from querying for the availability of the user, distribution list, or resource.
     responseCode?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface InternetMessageHeader {
     // Represents the key in a key-value pair.
     name?: NullableOption<string>;
@@ -21934,7 +21934,7 @@ export interface Website {
     // The possible values are: other, home, work, blog, profile.
     type?: NullableOption<WebsiteType>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IdleSessionSignOut {
     // Indicates whether the idle session sign-out policy is enabled.
     isEnabled?: NullableOption<boolean>;
@@ -21943,13 +21943,13 @@ export interface IdleSessionSignOut {
     // Number of seconds of inactivity after which a user is notified that they'll be signed out.
     warnAfterInSeconds?: NullableOption<number>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AccessAction {}
 export interface Album {
     // Unique identifier of the [driveItem][] that is the cover of the album.
     coverImageItemId?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface BooleanColumn {}
 export interface CalculatedColumn {
     // For dateTime output types, the format of the value. Possible values are: dateOnly or dateTime.
@@ -21990,7 +21990,7 @@ export interface DisplayNameLocalization {
     // Provides the language culture-code and friendly name of the language that the displayName field has been provided in.
     languageTag?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ContentApprovalStatusColumn {}
 export interface ContentTypeInfo {
     // The ID of the content type.
@@ -22107,33 +22107,33 @@ export interface FolderView {
     // The type of view that should be used to represent the folder.
     viewType?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface GeolocationColumn {}
 export interface HyperlinkOrPictureColumn {
     // Specifies whether the display format used for URL columns is an image or a hyperlink.
     isPicture?: NullableOption<boolean>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IncompleteData {
     // The service does not have source data before the specified time.
     missingDataBeforeDateTime?: NullableOption<string>;
     // Some data was not recorded due to excessive activity.
     wasThrottled?: NullableOption<boolean>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface ItemActionStat {
     // The number of times the action took place. Read-only.
     actionCount?: NullableOption<number>;
     // The number of distinct actors that performed the action. Read-only.
     actorCount?: NullableOption<number>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface ItemPreviewInfo {
     getUrl?: NullableOption<string>;
     postParameters?: NullableOption<string>;
     postUrl?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface ItemReference {
     /**
      * Unique identifier of the drive instance that contains the driveItem. Only returned if the item is located in a
@@ -22283,7 +22283,7 @@ export interface Thumbnail {
     // The width of the thumbnail, in pixels.
     width?: NullableOption<number>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ThumbnailColumn {}
 export interface AudioConferencing {
     // The conference id of the online meeting.
@@ -22860,7 +22860,7 @@ export interface SynchronizationTaskExecution {
      */
     timeEnded?: string;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AccessReviewApplyAction {}
 export interface AccessReviewHistoryScheduleSettings {
     /**
@@ -22877,7 +22877,7 @@ export interface AccessReviewHistoryScheduleSettings {
      */
     reportRange?: string;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AccessReviewScope {}
 export interface AccessReviewQueryScope extends AccessReviewScope {
     // The query representing what will be reviewed in an access review.
@@ -22928,7 +22928,7 @@ export interface AccessReviewNotificationRecipientItem {
      */
     notificationTemplateType?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AccessReviewNotificationRecipientScope {}
 export interface AccessReviewNotificationRecipientQueryScope extends AccessReviewNotificationRecipientScope {
     /**
@@ -22944,7 +22944,7 @@ export interface AccessReviewNotificationRecipientQueryScope extends AccessRevie
     // Indicates the type of query. Allowed value is MicrosoftGraph.
     queryType?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AccessReviewRecommendationInsightSetting {}
 export interface AccessReviewReviewerScope {
     // The query specifying who will be the reviewer.
@@ -23073,9 +23073,9 @@ export interface AppConsentRequestScope {
     // The name of the scope.
     displayName?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DisableAndDeleteUserApplyAction extends AccessReviewApplyAction {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface GroupPeerOutlierRecommendationInsightSettings extends AccessReviewRecommendationInsightSetting {}
 export interface PrincipalResourceMembershipsScope extends AccessReviewScope {
     // Defines the scopes of the principals whose access to resources are reviewed in the access review.
@@ -23083,7 +23083,7 @@ export interface PrincipalResourceMembershipsScope extends AccessReviewScope {
     // Defines the scopes of the resources for which access is reviewed.
     resourceScopes?: NullableOption<AccessReviewScope[]>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface RemoveAccessApplyAction extends AccessReviewApplyAction {}
 export interface ServicePrincipalIdentity extends Identity {
     // The application identifier of the service principal.
@@ -23124,7 +23124,7 @@ export interface ConditionalAccessSessionControl {
     // Specifies whether the session control is enabled.
     isEnabled?: NullableOption<boolean>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ApplicationEnforcedRestrictionsSessionControl extends ConditionalAccessSessionControl {}
 export interface AuthenticationStrengthUsage {
     mfa?: NullableOption<ConditionalAccessPolicy[]>;
@@ -23144,7 +23144,7 @@ export interface ConditionalAccessExternalTenants {
      */
     membershipKind?: NullableOption<ConditionalAccessExternalTenantsMembershipKind>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ConditionalAccessAllExternalTenants extends ConditionalAccessExternalTenants {}
 export interface ConditionalAccessApplications {
     applicationFilter?: NullableOption<ConditionalAccessFilter>;
@@ -23327,14 +23327,14 @@ export interface SignInFrequencySessionControl extends ConditionalAccessSessionC
     // The number of days or hours.
     value?: NullableOption<number>;
 }
-// tslint:disable-next-line: interface-name no-empty-interface
+// eslint-disable-next-line @typescript-eslint/naming-convention -- no-empty-interface
 export interface IpRange {}
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IPv4CidrRange extends IpRange {
     // IPv4 address in CIDR notation. Not nullable.
     cidrAddress?: string;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IPv6CidrRange extends IpRange {
     // IPv6 address in CIDR notation. Not nullable.
     cidrAddress?: string;
@@ -23555,7 +23555,7 @@ export interface ExpirationPattern {
      */
     type?: NullableOption<ExpirationPatternType>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ExternalSponsors extends SubjectSet {}
 export interface GroupMembers extends SubjectSet {
     // The name of the group in Azure AD. Read only.
@@ -23563,7 +23563,7 @@ export interface GroupMembers extends SubjectSet {
     // The ID of the group in Azure AD.
     groupId?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name no-empty-interface
+// eslint-disable-next-line @typescript-eslint/naming-convention -- no-empty-interface
 export interface InternalSponsors extends SubjectSet {}
 export interface RequestorManager extends SubjectSet {
     /**
@@ -23585,13 +23585,13 @@ export interface SingleUser extends SubjectSet {
     // The ID of the user in Azure AD.
     userId?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TargetApplicationOwners extends SubjectSet {}
 export interface TargetManager extends SubjectSet {
     // Manager level, between 1 and 4. The direct manager is 1.
     managerLevel?: NullableOption<number>;
 }
-// tslint:disable-next-line: interface-name no-empty-interface
+// eslint-disable-next-line @typescript-eslint/naming-convention -- no-empty-interface
 export interface IdentitySource {}
 export interface AzureActiveDirectoryTenant extends IdentitySource {
     // The name of the Azure Active Directory tenant. Read only.
@@ -23624,11 +23624,11 @@ export interface ExternalDomainFederation extends IdentitySource {
     // The issuerURI of the incoming federation. Read only.
     issuerUri?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DeviceAndAppManagementAssignmentTarget {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AllDevicesAssignmentTarget extends DeviceAndAppManagementAssignmentTarget {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AllLicensedUsersAssignmentTarget extends DeviceAndAppManagementAssignmentTarget {}
 export interface AndroidMinimumOperatingSystem {
     /**
@@ -23728,7 +23728,7 @@ export interface GroupAssignmentTarget extends DeviceAndAppManagementAssignmentT
     // The group Id that is the target of the assignment.
     groupId?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ExclusionGroupAssignmentTarget extends GroupAssignmentTarget {}
 export interface FileEncryptionInfo {
     // The key used to encrypt the file content.
@@ -23749,16 +23749,16 @@ export interface FileEncryptionInfo {
     // The profile identifier. Maps to the strategy used to encrypt the file. Currently, only ProfileVersion1 is supported.
     profileIdentifier?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosDeviceType {
     // Whether the app should run on iPads.
     iPad?: boolean;
     // Whether the app should run on iPhones and iPods.
     iPhoneAndIPod?: boolean;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface MobileAppAssignmentSettings {}
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosLobAppAssignmentSettings extends MobileAppAssignmentSettings {
     /**
      * When TRUE, indicates that the app can be uninstalled by the user. When FALSE, indicates that the app cannot be
@@ -23774,7 +23774,7 @@ export interface IosLobAppAssignmentSettings extends MobileAppAssignmentSettings
     // This is the unique identifier (Id) of the VPN Configuration to apply to the app.
     vpnConfigurationId?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosMinimumOperatingSystem {
     /**
      * When TRUE, only Version 10.0 or later is supported. Default value is FALSE. Exactly one of the minimum operating system
@@ -23817,7 +23817,7 @@ export interface IosMinimumOperatingSystem {
      */
     v9_0?: boolean;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosStoreAppAssignmentSettings extends MobileAppAssignmentSettings {
     /**
      * When TRUE, indicates that the app can be uninstalled by the user. When FALSE, indicates that the app cannot be
@@ -23833,7 +23833,7 @@ export interface IosStoreAppAssignmentSettings extends MobileAppAssignmentSettin
     // This is the unique identifier (Id) of the VPN Configuration to apply to the app.
     vpnConfigurationId?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosVppAppAssignmentSettings extends MobileAppAssignmentSettings {
     // Whether or not to use device licensing.
     useDeviceLicensing?: boolean;
@@ -24136,7 +24136,7 @@ export interface DeviceManagementSettings {
     // Device should be noncompliant when there is no compliance policy targeted when this is true
     secureByDefault?: boolean;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IntuneBrand {
     // Email address of the person/organization responsible for IT support.
     contactITEmailAddress?: NullableOption<string>;
@@ -24331,7 +24331,7 @@ export interface DeviceConfigurationSettingState {
     // UserPrincipalName.
     userPrincipalName?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface EdgeSearchEngineBase {}
 export interface EdgeSearchEngine extends EdgeSearchEngineBase {
     /**
@@ -24347,17 +24347,17 @@ export interface EdgeSearchEngineCustom extends EdgeSearchEngineBase {
      */
     edgeSearchEngineOpenSearchXmlUrl?: string;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosHomeScreenItem {
     // Name of the app
     displayName?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosHomeScreenApp extends IosHomeScreenItem {
     // BundleID of the app if isWebClip is false or the URL of a web clip if isWebClip is true.
     bundleID?: string;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosHomeScreenFolder extends IosHomeScreenItem {
     /**
      * Pages of Home Screen Layout Icons which must be applications or web clips. This collection can contain a maximum of 500
@@ -24365,7 +24365,7 @@ export interface IosHomeScreenFolder extends IosHomeScreenItem {
      */
     pages?: IosHomeScreenFolderPage[];
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosHomeScreenFolderPage {
     /**
      * A list of apps and web clips to appear on a page within a folder. This collection can contain a maximum of 500
@@ -24375,14 +24375,14 @@ export interface IosHomeScreenFolderPage {
     // Name of the folder page
     displayName?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosHomeScreenPage {
     // Name of the page
     displayName?: NullableOption<string>;
     // A list of apps, folders, and web clips to appear on a page. This collection can contain a maximum of 500 elements.
     icons?: IosHomeScreenItem[];
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosNetworkUsageRule {
     // If set to true, corresponding managed apps will not be allowed to use cellular data at any time.
     cellularDataBlocked?: boolean;
@@ -24394,7 +24394,7 @@ export interface IosNetworkUsageRule {
      */
     managedApps?: NullableOption<AppListItem[]>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosNotificationSettings {
     // Indicates the type of alert for notifications for this app. Possible values are: deviceDefault, banner, modal, none.
     alertType?: IosNotificationAlertType;
@@ -24665,7 +24665,7 @@ export interface WindowsFirewallNetworkProfile {
      */
     unicastResponsesToMulticastBroadcastsBlocked?: boolean;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface WindowsUpdateInstallScheduleType {}
 export interface WindowsUpdateActiveHoursInstall extends WindowsUpdateInstallScheduleType {
     // Active Hours End
@@ -24876,14 +24876,14 @@ export interface DeviceOperatingSystemSummary {
     // Number of Windows mobile device count.
     windowsMobileCount?: number;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface UserExperienceAnalyticsInsightValue {}
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface InsightValueDouble extends UserExperienceAnalyticsInsightValue {
     // The double value of the user experience analytics insight.
     value?: number;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface InsightValueInt extends UserExperienceAnalyticsInsightValue {
     // The int value of the user experience analytics insight.
     value?: number;
@@ -25085,7 +25085,7 @@ export interface WindowsMalwareStateCount {
      */
     state?: WindowsMalwareThreatState;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface ImportedWindowsAutopilotDeviceIdentityState {
     // Device error code reported by Device Directory Service(DDS).
     deviceErrorCode?: number;
@@ -25099,25 +25099,25 @@ export interface ImportedWindowsAutopilotDeviceIdentityState {
     // Device Registration ID for successfully added device reported by Device Directory Service(DDS).
     deviceRegistrationId?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface MobileAppIdentifier {}
 export interface AndroidMobileAppIdentifier extends MobileAppIdentifier {
     // The identifier for an app, as specified in the play store.
     packageId?: string;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IosMobileAppIdentifier extends MobileAppIdentifier {
     // The identifier for an app, as specified in the app store.
     bundleId?: string;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IPv4Range extends IpRange {
     // Lower address.
     lowerAddress?: string;
     // Upper address.
     upperAddress?: string;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IPv6Range extends IpRange {
     // Lower address.
     lowerAddress?: string;
@@ -25192,7 +25192,7 @@ export interface WindowsInformationProtectionResourceCollection {
     // Collection of resources
     resources?: NullableOption<string[]>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface WindowsInformationProtectionStoreApp extends WindowsInformationProtectionApp {}
 export interface ResourceAction {
     // Allowed Actions
@@ -25306,9 +25306,9 @@ export interface ResultTemplate {
     // Name of the result template.
     displayName?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Dictionary {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ResultTemplateDictionary extends Dictionary {}
 export interface ResultTemplateOption {
     /**
@@ -25483,7 +25483,7 @@ export interface SearchResponse {
     // Contains the search terms sent in the initial search query.
     searchTerms?: NullableOption<string[]>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface PlannerAppliedCategories {}
 export interface PlannerAssignment {
     // The identity of the user that performed the assignment of the task, i.e. the assignor.
@@ -25496,7 +25496,7 @@ export interface PlannerAssignment {
     // Hint used to order assignees in a task. The format is defined as outlined here.
     orderHint?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface PlannerAssignments {}
 export interface PlannerCategoryDescriptions {
     // The label associated with Category 1
@@ -25565,7 +25565,7 @@ export interface PlannerChecklistItem {
     // Title of the checklist item
     title?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface PlannerChecklistItems {}
 export interface PlannerExternalReference {
     // A name alias to describe the reference.
@@ -25582,9 +25582,9 @@ export interface PlannerExternalReference {
     // Used to describe the type of the reference. Types include: PowerPoint, Word, Excel, Other.
     type?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface PlannerExternalReferences {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface PlannerOrderHintsByAssignee {}
 export interface PlannerPlanContainer {
     // The identifier of the resource that contains the plan. Optional.
@@ -25598,9 +25598,9 @@ export interface PlannerPlanContainer {
     // The full canonical URL of the container. Optional.
     url?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface PlannerUserIds {}
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface InsightIdentity {
     // The email address of the user who shared the item.
     address?: NullableOption<string>;
@@ -25875,7 +25875,7 @@ export interface ArchivedPrintJob {
     // The print job's final processing state. Read-only.
     processingState?: PrintJobProcessingState;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IntegerRange {
     // The inclusive upper bound of the integer range.
     end?: NullableOption<number>;
@@ -26134,7 +26134,7 @@ export interface PrintTaskStatus {
     // The current processing state of the printTask. Valid values are described in the following table.
     state?: PrintTaskProcessingState;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface ImageInfo {
     /**
      * Optional; parameter used to indicate the server is able to render image dynamically in response to parameterization.
@@ -26436,7 +26436,7 @@ export interface HostSecurityState {
     // Provider-generated/calculated risk score of the host. Recommended value range of 0-1, which equates to a percentage.
     riskScore?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface InvestigationSecurityState {
     name?: NullableOption<string>;
     status?: NullableOption<string>;
@@ -26673,11 +26673,11 @@ export interface VulnerabilityState {
      */
     wasRunning?: NullableOption<boolean>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ParticipantJoiningResponse {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AcceptJoinResponse extends ParticipantJoiningResponse {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface MediaConfig {}
 export interface AppHostedMediaConfig extends MediaConfig {
     // The media configuration blob generated by smart media agent.
@@ -26733,9 +26733,9 @@ export interface CommsNotifications {
     // The notification of a change in the resource.
     value?: NullableOption<CommsNotification[]>;
 }
-// tslint:disable-next-line: interface-name no-empty-interface
+// eslint-disable-next-line @typescript-eslint/naming-convention -- no-empty-interface
 export interface IncomingCallOptions extends CallOptions {}
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IncomingContext {
     // The ID of the participant that is under observation. Read-only.
     observedParticipantId?: NullableOption<string>;
@@ -26746,7 +26746,7 @@ export interface IncomingContext {
     // The identity that transferred the call.
     transferor?: NullableOption<IdentitySet>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface InvitationParticipantInfo {
     // Optional. Whether to hide the participant from the roster.
     hidden?: NullableOption<boolean>;
@@ -26762,12 +26762,12 @@ export interface InvitationParticipantInfo {
      */
     replacesCallId?: NullableOption<string>;
 }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface InviteNewBotResponse extends ParticipantJoiningResponse {
     // URI to receive new incoming call notification.
     inviteUri?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface MeetingInfo {}
 export interface JoinMeetingIdMeetingInfo extends MeetingInfo {
     // The ID used to join the meeting.
@@ -26787,7 +26787,7 @@ export interface MediaInfo {
      */
     uri?: string;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Prompt {}
 export interface MediaPrompt extends Prompt {
     // The media information
@@ -26829,7 +26829,7 @@ export interface OrganizerMeetingInfo extends MeetingInfo {
     // The organizer Azure Active Directory identity.
     organizer?: IdentitySet;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface OutgoingCallOptions extends CallOptions {}
 export interface ParticipantInfo {
     /**
@@ -26918,7 +26918,7 @@ export interface TeleconferenceDeviceMediaQuality {
     // The remote media port.
     remotePort?: NullableOption<number>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TeleconferenceDeviceAudioQuality extends TeleconferenceDeviceMediaQuality {}
 export interface TeleconferenceDeviceQuality {
     /**
@@ -26964,7 +26964,7 @@ export interface TeleconferenceDeviceVideoQuality extends TeleconferenceDeviceMe
     // The average outbound stream video frame rate per second.
     averageOutboundFrameRate?: NullableOption<number>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TeleconferenceDeviceScreenSharingQuality extends TeleconferenceDeviceVideoQuality {}
 export interface TokenMeetingInfo extends MeetingInfo {
     // The token used to join the call.
@@ -27039,7 +27039,7 @@ export interface ChangeNotificationEncryptedContent {
     // Hexadecimal representation of the thumbprint of the certificate used to encrypt the dataKey.
     encryptionCertificateThumbprint?: string;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ResourceData {}
 export interface ChangeNotificationCollection {
     /**
@@ -27059,13 +27059,13 @@ export interface ActionResultPart {
 export interface AadUserConversationMemberResult extends ActionResultPart {
     userId?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TeamworkNotificationRecipient {}
 export interface AadUserNotificationRecipient extends TeamworkNotificationRecipient {
     // Azure AD user identifier. Use the List users method to get this ID.
     userId?: string;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface EventMessageDetail {}
 export interface CallEndedEventMessageDetail extends EventMessageDetail {
     // Duration of the call.
@@ -27207,7 +27207,7 @@ export interface ChatMessageAttachment {
      */
     thumbnailUrl?: NullableOption<string>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ChatMessageFromIdentitySet extends IdentitySet {}
 export interface ChatMessageHistoryItem {
     /**
@@ -27294,7 +27294,7 @@ export interface ChatMessagePolicyViolationPolicyTip {
      */
     matchedConditionDescriptions?: NullableOption<string[]>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ChatMessageReactionIdentitySet extends IdentitySet {}
 export interface ChatRenamedEventMessageDetail extends EventMessageDetail {
     // The updated name of the chat.
@@ -27528,7 +27528,7 @@ export interface TeamworkOnlineMeetingInfo {
     // The organizer of the meeting.
     organizer?: NullableOption<TeamworkUserIdentity>;
 }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TeamworkTagIdentity extends Identity {}
 export interface ScheduleEntity {
     endDateTime?: NullableOption<string>;
@@ -27947,7 +27947,7 @@ export namespace CallRecords {
         // The stage when the failure occurred. Possible values are: unknown, callSetup, midcall, unknownFutureValue.
         stage?: FailureStage;
     }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface FeedbackTokenSet {}
     interface Media {
         // Device information associated with the callee endpoint of this media.
@@ -28253,7 +28253,7 @@ export namespace CallRecords {
          */
         userPrincipalName?: NullableOption<string>;
     }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ServiceEndpoint extends Endpoint {}
     interface ServiceUserAgent extends UserAgent {
         /**
@@ -28361,7 +28361,7 @@ export namespace ExternalConnectors {
         // Represents an identity used to identify who is responsible for the activity.
         performedBy?: NullableOption<Identity>;
     }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
     interface Identity extends microsoftgraph.Entity {
         /**
          * The type of identity. Possible values are: user or group for Azure AD identities and externalgroup for groups in an
@@ -28481,7 +28481,7 @@ export namespace ExternalConnectors {
         // The content for the externalItem. Required.
         value?: NullableOption<string>;
     }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
     interface ItemIdResolver extends UrlToItemResolverBase {
         /**
          * Pattern that specifies how to form the ID of the external item that the URL represents. The named groups from the
@@ -28502,7 +28502,7 @@ export namespace ExternalConnectors {
          */
         urlPattern?: NullableOption<string>;
     }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Properties {}
     interface Property {
         /**
@@ -28916,9 +28916,9 @@ export namespace IdentityGovernanceNamespace {
         taskProcessingresult?: NullableOption<TaskProcessingResult>;
         workflow?: NullableOption<Workflow>;
     }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface WorkflowExecutionConditions {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface OnDemandExecutionOnly extends WorkflowExecutionConditions {}
     interface Parameter {
         // The name of the parameter.
@@ -28959,7 +28959,7 @@ export namespace IdentityGovernanceNamespace {
         // The number of unprocessed tasks in a report.
         unprocessedTasks?: number;
     }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface WorkflowExecutionTrigger {}
     interface TimeBasedAttributeTrigger extends WorkflowExecutionTrigger {
         /**
@@ -29247,7 +29247,7 @@ export namespace SecurityNamespace {
         // Brief identifying string value describing the alert.
         title?: NullableOption<string>;
     }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
     interface Incident extends microsoftgraph.Entity {
         // Owner of the incident, or null if no owner is assigned. Free editable text.
         assignedTo?: NullableOption<string>;
@@ -29493,7 +29493,7 @@ export namespace SecurityNamespace {
         // Returns the parent tag of the specified tag.
         parent?: NullableOption<EdiscoveryReviewTag>;
     }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface EdiscoveryIndexOperation extends CaseOperation {}
     interface SiteSource extends DataSource {
         // The SharePoint site associated with the siteSource.
@@ -29550,13 +29550,13 @@ export namespace SecurityNamespace {
         // The review set query which is used to filter the documents for export.
         reviewSetQuery?: NullableOption<EdiscoveryReviewSetQuery>;
     }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface EdiscoveryReviewSetQuery extends Search {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface EdiscoveryHoldOperation extends CaseOperation {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface EdiscoveryPurgeDataOperation extends CaseOperation {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface EdiscoveryTagOperation extends CaseOperation {}
     interface RetentionEvent extends microsoftgraph.Entity {
         // The user who created the retentionEvent.
@@ -29625,7 +29625,7 @@ export namespace SecurityNamespace {
         // Indicators related to this article.
         indicators?: NullableOption<ArticleIndicator[]>;
     }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
     interface Indicator extends microsoftgraph.Entity {
         /**
          * The source that provides this indicator. The possible values are: microsoftDefenderThreatIntelligence,
@@ -29635,9 +29635,9 @@ export namespace SecurityNamespace {
         // The artifact related to this indicator.
         artifact?: Artifact;
     }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ArticleIndicator extends Indicator {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Artifact extends microsoftgraph.Entity {}
     interface Host extends Artifact {
         /**
@@ -29780,7 +29780,7 @@ export namespace SecurityNamespace {
         // The registrar for this hostname, from WHOIS data.
         registrar?: NullableOption<string>;
     }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
     interface IntelligenceProfile extends microsoftgraph.Entity {
         // A list of commonly-known aliases for the threat intelligence included in the intelligenceProfile.
         aliases?: NullableOption<string[]>;
@@ -29814,7 +29814,7 @@ export namespace SecurityNamespace {
         // Includes an assemblage of high-fidelity network indicators of compromise.
         indicators?: NullableOption<IntelligenceProfileIndicator[]>;
     }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
     interface IntelligenceProfileIndicator extends Indicator {
         /**
          * Designate when an artifact was first used actively in an attack, when a particular sample was compiled, or if neither
@@ -29829,7 +29829,7 @@ export namespace SecurityNamespace {
          */
         lastSeenDateTime?: NullableOption<string>;
     }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
     interface IpAddress extends Host {
         // The details about the autonomous system to which this IP address belongs.
         autonomousSystem?: NullableOption<AutonomousSystem>;
@@ -29928,7 +29928,7 @@ export namespace SecurityNamespace {
          */
         similarityThreshold?: NullableOption<number>;
     }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface StringValueDictionary {}
     interface TopicModelingSettings {
         /**
@@ -30172,9 +30172,9 @@ export namespace SecurityNamespace {
         // Unique identifier of the virtual machine instance.
         vmId?: NullableOption<string>;
     }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Dictionary {}
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface DynamicColumnValue {}
     interface FileDetails {
         // The name of the file.
@@ -30222,7 +30222,7 @@ export namespace SecurityNamespace {
         // The schema for the response.
         schema?: NullableOption<SinglePropertySchema[]>;
     }
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface HuntingRowResult {}
     interface SinglePropertySchema {
         // The name of the property.
@@ -30230,7 +30230,7 @@ export namespace SecurityNamespace {
         // The type of the property.
         type?: NullableOption<string>;
     }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
     interface IpEvidence extends AlertEvidence {
         // The two-letter country code according to ISO 3166 format, for example: US, UK, CA, etc..).
         countryLetterCode?: NullableOption<string>;
@@ -30466,7 +30466,7 @@ export namespace SecurityNamespace {
         // The URL for this hyperlink.
         url?: string;
     }
-// tslint:disable-next-line: interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
     interface IntelligenceProfileCountryOrRegionOfOrigin {
         // A codified representation for this country/region of origin.
         code?: string;

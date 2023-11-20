@@ -2294,7 +2294,7 @@ declare namespace umbraco.services {
          *
          * @param {Array} queryStrings An array of key/value pairs
          */
-        dictionaryToQueryString(queryStrings: KeyValuePair<string>[]): string;
+        dictionaryToQueryString(queryStrings: Array<KeyValuePair<string>>): string;
 
         /**
          * @ngdoc method
@@ -2309,7 +2309,7 @@ declare namespace umbraco.services {
          * @param {string} actionName The webapi action name
          * @param {object} queryStrings Can be either a string or an array containing key/value pairs
          */
-        getApiUrl(apiName: string, actionName: string, queryStrings: string | KeyValuePair<string>[]): string;
+        getApiUrl(apiName: string, actionName: string, queryStrings: string | Array<KeyValuePair<string>>): string;
 
         /**
          * @ngdoc function

@@ -12,7 +12,7 @@ declare module "angular" {
         reason?: any;
     }
 
-    // tslint:disable-next-line interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IQService {
         allSettled<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
             values: [

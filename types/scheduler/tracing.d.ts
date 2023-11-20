@@ -9,7 +9,7 @@ export {};
  * Possible values are `production`, `profiling` and `development`.
  * The default behavior for the types is to use a union of all possible types.
  */
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Build {}
 
 export type EnableSchedulerTracing = Build extends { type: infer BuildType }

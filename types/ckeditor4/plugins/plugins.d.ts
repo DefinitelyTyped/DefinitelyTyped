@@ -20,7 +20,7 @@ declare namespace CKEDITOR {
     }
 
     /** https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_plugins.html */
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface plugins extends resourceManager {}
 
     interface CKEditorPluginsCore {
@@ -72,13 +72,13 @@ declare namespace CKEDITOR {
         widgetselection?: plugins.widgetselection;
     }
 
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface CKEditorPluginsEditor {}
 
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface CKEditorPluginsEditorInternal {}
 
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface CKEditorPluginsEditorInstance {}
 
     namespace plugins {

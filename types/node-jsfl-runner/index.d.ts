@@ -15,7 +15,7 @@ export interface JSFL {
 export function createJSFL(
     jsfl: JSFL,
     fileName: string,
-    initParams: Array<any>,
+    initParams: any[],
     callback: (err: NodeJS.ErrnoException) => void,
 ): void;
 

@@ -280,7 +280,7 @@ declare var CSSMatrixComponent: {
 interface CSSMatrixComponentOptions {
     is2D?: boolean;
 }
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface CSSImageValue extends CSSStyleValue {
 }
 

@@ -19,6 +19,6 @@ export = asyncPool;
  */
 declare function asyncPool<IN, OUT>(
     poolLimit: number,
-    array: ReadonlyArray<IN>,
+    array: readonly IN[],
     iteratorFn: (generator: IN) => Promise<OUT>,
 ): Promise<OUT[]>;

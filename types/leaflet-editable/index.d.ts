@@ -255,7 +255,7 @@ declare module "leaflet" {
     /**
      * Editor for Marker.
      */
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface MarkerEditor extends BaseEditor {}
 
     /**
@@ -341,13 +341,13 @@ declare module "leaflet" {
     /**
      * Editor for Rectangle.
      */
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface RectangleEditor extends PathEditor {}
 
     /**
      * Editor for Circle.
      */
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface CircleEditor extends PathEditor {}
 
     /**

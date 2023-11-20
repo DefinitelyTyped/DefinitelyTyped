@@ -10,14 +10,14 @@ declare namespace core {
     function int(min: number, max: number, n: number): number[];
 
     function choice(): undefined;
-    function choice<T>(values: ReadonlyArray<T>): T;
-    function choice<T>(values: ReadonlyArray<T>, n: number): T[];
+    function choice<T>(values: readonly T[]): T;
+    function choice<T>(values: readonly T[], n: number): T[];
 
     function char(): undefined;
     function char(values: string): string;
     function char(values: string, n: number): string[];
 
-    function shuffle<T>(values: ReadonlyArray<T>): T[];
+    function shuffle<T>(values: readonly T[]): T[];
 
     function coin<T, U>(head: T, tail: U, p?: number): T | U;
     function coin<T, U>(head: T, tail: U, p: number, n: number): Array<T | U>;
@@ -472,7 +472,7 @@ declare namespace la {
     }
 
     class Matrix {
-        constructor(arg?: number | ReadonlyArray<ReadonlyArray<number>> | Matrix);
+        constructor(arg?: number | ReadonlyArray<readonly number[]> | Matrix);
 
         m(): number[][];
 
@@ -519,7 +519,7 @@ declare namespace mc {
     type State = _mc.State;
     type MCMC = _mc.MCMC;
 
-    function gr(samples: ReadonlyArray<ReadonlyArray<ReadonlyArray<number>>>, maxLength?: number): number[][];
+    function gr(samples: ReadonlyArray<ReadonlyArray<readonly number[]>>, maxLength?: number): number[][];
 
     class RWM extends _mc.MCMC {
         constructor(
@@ -534,8 +534,8 @@ declare namespace mc {
 }
 
 declare namespace test {
-    function bartlett(dataSets: ReadonlyArray<ReadonlyArray<number>>, alpha: number): { chi2: number; passed: boolean };
-    function mannWhitney(dataSets: ReadonlyArray<ReadonlyArray<number>>, alpha: number): { U: number; passed: boolean };
+    function bartlett(dataSets: ReadonlyArray<readonly number[]>, alpha: number): { chi2: number; passed: boolean };
+    function mannWhitney(dataSets: ReadonlyArray<readonly number[]>, alpha: number): { U: number; passed: boolean };
 }
 
 declare namespace _ts {

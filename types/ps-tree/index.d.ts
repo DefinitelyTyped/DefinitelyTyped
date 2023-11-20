@@ -11,7 +11,7 @@ declare namespace ps_tree {
 
 declare function ps_tree(
     pid: number,
-    callback: (error: Error | null, children: ReadonlyArray<ps_tree.PS>) => void,
+    callback: (error: Error | null, children: readonly ps_tree.PS[]) => void,
 ): void;
 
 export as namespace ps_tree;

@@ -18,7 +18,7 @@ declare class Victor {
      * Creates vector from array.
      * @param arr array An array that contains the X component in the first element and the Y component in the second
      */
-    static fromArray(arr: Array<number>): Victor;
+    static fromArray(arr: number[]): Victor;
 
     /**
      * Creates vector from object.
@@ -57,7 +57,7 @@ declare class Victor {
     /**
      * Returns an array representation of the X and Y components.
      */
-    toArray(): Array<number>;
+    toArray(): number[];
 
     /**
      * Returns an object representation of tha X and Y components.

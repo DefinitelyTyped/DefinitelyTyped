@@ -1,4 +1,4 @@
-export type Hosts = ReadonlyArray<string>;
+export type Hosts = readonly string[];
 
 export interface PackageMetadata {
     version: string;
@@ -42,12 +42,12 @@ export class ValidateHttps {
 
 export class ValidateScheme {
     constructor(packages: { packages: Packages });
-    validate(schemes: ReadonlyArray<string>): ValidationResult;
+    validate(schemes: readonly string[]): ValidationResult;
 }
 
 export class ValidateUrl {
     constructor(packages: { packages: Packages });
-    validate(allowedUrls: ReadonlyArray<string>, options?: ValidationOptions): ValidationResult;
+    validate(allowedUrls: readonly string[], options?: ValidationOptions): ValidationResult;
     validateSingle(packageName: string, allowedUrls: Hosts): boolean;
 }
 

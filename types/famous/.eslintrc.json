@@ -4,6 +4,9 @@
         "@definitelytyped/no-any-union": "off",
         "@definitelytyped/no-declare-current-package": "off",
         "@definitelytyped/no-self-import": "off",
-        "@definitelytyped/strict-export-declare-modifiers": "off"
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "no-duplicate-imports": "off"
     }
 }

@@ -5,7 +5,7 @@ export interface RenderResponse {
     stdin: {
         write: (data: any) => boolean;
     };
-    frames: ReadonlyArray<string>;
+    frames: readonly string[];
     lastFrame: () => string;
 }
 export function cleanup(): void;

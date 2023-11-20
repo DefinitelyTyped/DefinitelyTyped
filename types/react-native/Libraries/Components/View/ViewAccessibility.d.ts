@@ -13,7 +13,7 @@ export interface AccessibilityProps extends AccessibilityPropsAndroid, Accessibi
     /**
      * Provides an array of custom actions available for accessibility.
      */
-    accessibilityActions?: ReadonlyArray<AccessibilityActionInfo> | undefined;
+    accessibilityActions?: readonly AccessibilityActionInfo[] | undefined;
 
     /**
      * Overrides the text that's read by the screen reader when the user interacts with the element. By default, the

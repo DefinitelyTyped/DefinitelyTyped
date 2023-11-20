@@ -316,8 +316,8 @@ declare namespace mapboxgl {
             options?: {
                 pixelRatio?: number | undefined;
                 sdf?: boolean | undefined;
-                stretchX?: [number, number][] | undefined;
-                stretchY?: [number, number][] | undefined;
+                stretchX?: Array<[number, number]> | undefined;
+                stretchY?: Array<[number, number]> | undefined;
                 content?: [number, number, number, number] | undefined;
             },
         ): void;
@@ -548,7 +548,7 @@ declare namespace mapboxgl {
 
         on<T extends keyof MapLayerEventType>(
             type: T,
-            layer: string | ReadonlyArray<string>,
+            layer: string | readonly string[],
             listener: (ev: MapLayerEventType[T] & EventData) => void,
         ): this;
         on<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
@@ -556,7 +556,7 @@ declare namespace mapboxgl {
 
         once<T extends keyof MapLayerEventType>(
             type: T,
-            layer: string | ReadonlyArray<string>,
+            layer: string | readonly string[],
             listener: (ev: MapLayerEventType[T] & EventData) => void,
         ): this;
         once<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
@@ -565,7 +565,7 @@ declare namespace mapboxgl {
 
         off<T extends keyof MapLayerEventType>(
             type: T,
-            layer: string | ReadonlyArray<string>,
+            layer: string | readonly string[],
             listener: (ev: MapLayerEventType[T] & EventData) => void,
         ): this;
         off<T extends keyof MapEventType>(type: T, listener: (ev: MapEventType[T] & EventData) => void): this;
@@ -1362,7 +1362,7 @@ declare namespace mapboxgl {
          * @param {string[]} tiles An array of one or more tile source URLs, as in the TileJSON spec.
          * @returns {VectorTileSource} this
          */
-        setTiles(tiles: ReadonlyArray<string>): VectorSourceImpl;
+        setTiles(tiles: readonly string[]): VectorSourceImpl;
 
         /**
          * Sets the source `url` property and re-renders the map.
@@ -1406,14 +1406,14 @@ declare namespace mapboxgl {
 
         getClusterChildren(
             clusterId: number,
-            callback: (error: any, features: GeoJSON.Feature<GeoJSON.Geometry>[]) => void,
+            callback: (error: any, features: Array<GeoJSON.Feature<GeoJSON.Geometry>>) => void,
         ): this;
 
         getClusterLeaves(
             cluserId: number,
             limit: number,
             offset: number,
-            callback: (error: any, features: GeoJSON.Feature<GeoJSON.Geometry>[]) => void,
+            callback: (error: any, features: Array<GeoJSON.Feature<GeoJSON.Geometry>>) => void,
         ): this;
     }
 
@@ -1536,7 +1536,7 @@ declare namespace mapboxgl {
         | { type: "exponential"; stops: Array<[number, T]> }
         | { type: "interval"; stops: Array<[number, T]> };
 
-    export type ExpressionSpecification = Array<unknown>;
+    export type ExpressionSpecification = unknown[];
 
     export type PropertyValueSpecification<T> = T | CameraFunctionSpecification<T> | ExpressionSpecification;
 
@@ -2540,7 +2540,7 @@ declare namespace mapboxgl {
         "text-optional"?: boolean | undefined;
         "text-radial-offset"?: number | Expression | undefined;
         "text-variable-anchor"?: Anchor[] | undefined;
-        "text-writing-mode"?: ("horizontal" | "vertical")[] | undefined;
+        "text-writing-mode"?: Array<"horizontal" | "vertical"> | undefined;
         "symbol-sort-key"?: number | Expression | undefined;
     }
 

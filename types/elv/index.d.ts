@@ -10,7 +10,7 @@ declare namespace elv {
     function coalesce(...args: any[]): any;
     function ncoalesce(...args: any[]): any;
     function populated(val: any): boolean;
-    function tryGet(val: ReadonlyArray<any>, index: number, def?: any): any;
+    function tryGet(val: readonly any[], index: number, def?: any): any;
 }
 
 export = elv;

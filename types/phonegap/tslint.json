@@ -1,9 +1,7 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "ban-types": false,
         "no-duplicate-variable": false,
-        "no-misused-new": false,
         "no-object-literal-type-assertion": false,
         "no-var-keyword": false,
         "npm-naming": false,

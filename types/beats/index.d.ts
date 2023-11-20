@@ -1,9 +1,9 @@
 export = beats;
 
 declare function beats(
-    bins: ReadonlyArray<beats.Bin>,
+    bins: readonly beats.Bin[],
     minSeparation?: number,
-): (frequencies: Uint8Array | Float32Array | ReadonlyArray<number>, dt?: number) => Float32Array;
+): (frequencies: Uint8Array | Float32Array | readonly number[], dt?: number) => Float32Array;
 
 declare namespace beats {
     interface Bin {

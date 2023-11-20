@@ -67,7 +67,7 @@ openpgp.message
     });
 
 const promises: [
-    Promise<{ keys: Array<openpgp.key.Key>; err: Array<Error> | null }>,
+    Promise<{ keys: openpgp.key.Key[]; err: Error[] | null }>,
     Promise<openpgp.message.Message>,
 ] = [openpgp.key.readArmored(sprivkey), openpgp.message.readArmored(pgpMessageStr)];
 
@@ -209,7 +209,7 @@ openpgp.initWorker({
 
 var keyoptions: openpgp.KeyOptions;
 var mpi: openpgp.type.mpi.MPI;
-var mpis: Array<openpgp.type.mpi.MPI>;
+var mpis: openpgp.type.mpi.MPI[];
 
 openpgp.encoding.armor.armor(openpgp.enums.armor.message, {}, 0, 1);
 openpgp.encoding.armor.dearmor("");

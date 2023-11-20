@@ -80,12 +80,12 @@ interface TreeViewProps {
     /**
      * An array containing all the paths that should be expanded when the component is initialized, or a string of just one path.
      */
-    expandPaths?: string | ReadonlyArray<string> | undefined;
+    expandPaths?: string | readonly string[] | undefined;
 }
 
 export interface TableInspectorProps extends ThemedComponentProps {
     data?: any;
-    columns?: ReadonlyArray<string> | undefined;
+    columns?: readonly string[] | undefined;
 }
 
 export interface ObjectInspectorProps extends TreeViewProps, ThemedComponentProps {

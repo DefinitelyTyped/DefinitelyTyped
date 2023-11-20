@@ -16,6 +16,6 @@ export as namespace _;
 
 declare const _: _.LoDashStatic;
 declare namespace _ {
-    // tslint:disable-next-line no-empty-interface (This will be augmented)
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface -- (This will be augmented)
     interface LoDashStatic {}
 }

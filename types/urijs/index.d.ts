@@ -5,7 +5,7 @@
 /// <reference path="./dom-monkeypatch.d.ts" />
 
 // Compatability with node.js
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface HTMLElement {}
 
 export = URI;

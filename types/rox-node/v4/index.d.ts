@@ -115,7 +115,7 @@ export class Flag {
  * https://docs.cloudbees.com/docs/cloudbees-feature-flags-api/4.9/api-reference/nodejs-api#_variant
  */
 export class Variant<T extends string = string> {
-    constructor(defaultValue: T, options: ReadonlyArray<T>, name?: string);
+    constructor(defaultValue: T, options: readonly T[], name?: string);
 
     // The name of the Variant
     readonly name: string;
@@ -216,4 +216,4 @@ export namespace dynamicApi {
     function value(nameSpacedFlagName: string, defaultValue: string, context?: unknown): string;
 }
 
-export const flags: ReadonlyArray<Flag>;
+export const flags: readonly Flag[];

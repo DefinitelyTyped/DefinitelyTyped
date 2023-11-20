@@ -9,8 +9,8 @@ declare namespace honeybadger {
         environment?: string | undefined;
         projectRoot?: string | undefined;
         logger?: Console | undefined;
-        developmentEnvironments?: ReadonlyArray<string> | undefined;
-        filters?: ReadonlyArray<string> | undefined;
+        developmentEnvironments?: readonly string[] | undefined;
+        filters?: readonly string[] | undefined;
     }
     interface metadata {
         name?: string | undefined;

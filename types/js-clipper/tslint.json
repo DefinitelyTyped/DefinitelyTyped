@@ -1,8 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "ban-types": false,
-        "member-access": false,
         "new-parens": false,
         "no-unnecessary-class": false,
         "no-var-keyword": false,

@@ -339,7 +339,7 @@ declare module "react-calendar-timeline" {
         endTime: Moment;
     }
     export interface HeaderContext {
-        intervals: { startTime: Moment; endTime: Moment }[];
+        intervals: Array<{ startTime: Moment; endTime: Moment }>;
         unit: string;
     }
     export interface CustomHeaderPropsChildrenFnProps<Data> {

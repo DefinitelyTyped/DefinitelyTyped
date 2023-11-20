@@ -41,11 +41,11 @@ export interface Element {
     setItem(index: number, element: Element): void;
     delItem(index: number): void;
     getSlice(start: number, stop: number): Element[];
-    setSlice(start: number, stop: number, elements: ReadonlyArray<Element>): void;
+    setSlice(start: number, stop: number, elements: readonly Element[]): void;
     delSlice(start: number, stop: number): void;
 
     append(element: Element): void;
-    extend(elements: ReadonlyArray<Element>): void;
+    extend(elements: readonly Element[]): void;
     insert(index: number, element: Element): void;
     remove(element: Element): void;
     getchildren(): Element[];

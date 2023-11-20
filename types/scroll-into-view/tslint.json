@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "no-internal-module": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "object-literal-shorthand": false,

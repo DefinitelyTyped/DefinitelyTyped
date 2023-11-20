@@ -12,7 +12,7 @@ export type CompareResult = -1 | 0 | 1;
 export namespace Name {
     class Component {
         constructor(
-            value?: ReadonlyArray<number> | ArrayBuffer | Uint8Array | string | Blob,
+            value?: readonly number[] | ArrayBuffer | Uint8Array | string | Blob,
             type?: ComponentType,
             otherTypeCode?: number,
         );
@@ -60,7 +60,7 @@ export class Name {
     constructor(name: Name | string);
 
     append(
-        value: ReadonlyArray<number> | ArrayBuffer | Uint8Array | string | Blob,
+        value: readonly number[] | ArrayBuffer | Uint8Array | string | Blob,
         type?: ComponentType,
         otherTypeCode?: number,
     ): Name;

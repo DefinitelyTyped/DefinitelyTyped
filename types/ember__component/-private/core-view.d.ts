@@ -9,5 +9,5 @@ import Evented from "@ember/object/evented";
  * Unless you have specific needs for CoreView, you will use Ember.Component in your applications.
  */
 export default class CoreView extends EmberObject {}
-// tslint:disable-next-line:no-empty-interface -- used for declaration merge
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- used for declaration merge
 export default interface CoreView extends Evented, ActionHandler {}

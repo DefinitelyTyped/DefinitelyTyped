@@ -1,3 +1,3 @@
 export = getFuncName;
 
-declare function getFuncName(fn: Function): string; // tslint:disable-line:ban-types
+declare function getFuncName(fn: Function): string; // eslint-disable-line @typescript-eslint/ban-types

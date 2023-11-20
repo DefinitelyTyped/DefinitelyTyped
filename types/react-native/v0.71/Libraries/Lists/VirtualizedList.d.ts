@@ -45,8 +45,8 @@ export interface ViewabilityConfigCallbackPair {
     viewabilityConfig: ViewabilityConfig;
     onViewableItemsChanged:
         | ((info: {
-            viewableItems: Array<ViewToken>;
-            changed: Array<ViewToken>;
+            viewableItems: ViewToken[];
+            changed: ViewToken[];
         }) => void)
         | null;
 }
@@ -269,8 +269,8 @@ export interface VirtualizedListWithoutRenderItemProps<ItemT> extends ScrollView
      */
     onViewableItemsChanged?:
         | ((info: {
-            viewableItems: Array<ViewToken>;
-            changed: Array<ViewToken>;
+            viewableItems: ViewToken[];
+            changed: ViewToken[];
         }) => void)
         | null
         | undefined;

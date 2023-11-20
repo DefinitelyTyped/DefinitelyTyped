@@ -76,11 +76,11 @@ declare module "d3" {
             canvas(canvasGenerator: () => HTMLCanvasElement): Cloud<T>;
 
             on(type: "word", listener: (word: T) => void): Cloud<T>;
-            on(type: "end", listener: (tags: T[], bounds: { x: number; y: number }[]) => void): Cloud<T>;
+            on(type: "end", listener: (tags: T[], bounds: Array<{ x: number; y: number }>) => void): Cloud<T>;
             on(type: string, listener: (...args: any[]) => void): Cloud<T>;
 
             on(type: "word"): (word: T) => void;
-            on(type: "end"): (tags: T[], bounds: { x: number; y: number }[]) => void;
+            on(type: "end"): (tags: T[], bounds: Array<{ x: number; y: number }>) => void;
             on(type: string): (...args: any[]) => void;
         }
     }

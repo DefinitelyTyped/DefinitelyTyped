@@ -1203,7 +1203,7 @@ declare module "tls" {
      * format) used for verifying peer certificates. This is the default value
      * of the ca option to tls.createSecureContext().
      */
-    const rootCertificates: ReadonlyArray<string>;
+    const rootCertificates: readonly string[];
 }
 declare module "node:tls" {
     export * from "tls";

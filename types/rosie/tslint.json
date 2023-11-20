@@ -2,8 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "arrow-return-shorthand": false,
-        "ban-types": false,
-        "interface-name": false,
         "jsdoc-format": false,
         "no-duplicate-variable": false,
         "no-redundant-jsdoc-2": false,

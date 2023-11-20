@@ -69,9 +69,9 @@ record = ndef.emptyRecord();
 
 record = ndef.androidApplicationRecord("fr.redfroggy.phonegap");
 
-let bytes: Array<number> = ndef.encodeMessage([]);
+let bytes: number[] = ndef.encodeMessage([]);
 
-let records: Array<NdefRecord> = ndef.decodeMessage(bytes);
+let records: NdefRecord[] = ndef.decodeMessage(bytes);
 
 let obj: any = ndef.decodeTnf(bytes[0]);
 

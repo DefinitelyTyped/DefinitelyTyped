@@ -4,7 +4,6 @@
         "array-type": false,
         "jsdoc-format": false,
         "no-conditional-assignment": false,
-        "no-duplicate-imports": false,
         "no-redundant-jsdoc-2": false,
         "no-void-expression": false,
         "unified-signatures": false

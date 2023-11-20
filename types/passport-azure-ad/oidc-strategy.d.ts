@@ -11,7 +11,7 @@ export interface IOIDCStrategyOption extends IBaseStrategyOption {
     thumbprint?: string | undefined;
     privatePEMKey?: string | undefined;
     useCookieInsteadOfSession?: boolean | undefined;
-    cookieEncryptionKeys?: { key: string; iv: string }[] | undefined;
+    cookieEncryptionKeys?: Array<{ key: string; iv: string }> | undefined;
     nonceLifetime?: number | undefined;
     nonceMaxAmount?: number | undefined;
     scope?: string | string[] | undefined;

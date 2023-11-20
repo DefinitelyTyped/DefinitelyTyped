@@ -1,6 +1,6 @@
 import { Object3D, SkinnedMesh, Vector3 } from '../../../src/Three.js';
 
-// tslint:disable-next-line:interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IKS {
     effector: number;
     iteration?: number | undefined;

@@ -228,7 +228,7 @@ const imageProperty = StyleSheet.flatten(imageStyle).resizeMode;
 const fontVariantProperty = StyleSheet.flatten(fontVariantStyle).fontVariant;
 
 // correct use of the StyleSheet.flatten
-const styleArray: StyleProp<ViewStyle>[] = [];
+const styleArray: Array<StyleProp<ViewStyle>> = [];
 const flattenStyle = StyleSheet.flatten(styleArray);
 const { top } = flattenStyle;
 
@@ -786,7 +786,7 @@ export class SectionListTypedSectionTest extends React.Component<
     };
 
     render() {
-        const sections: SectionListData<string, SectionT>[] = [
+        const sections: Array<SectionListData<string, SectionT>> = [
             {
                 displayTitle: false,
                 data: ["A", "B", "C", "D", "E"],

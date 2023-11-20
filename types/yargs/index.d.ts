@@ -34,7 +34,7 @@ declare namespace yargs {
      * `Arguments<T>` to simplify the inferred type signature in client code.
      */
     interface Argv<T = {}> {
-        (args?: ReadonlyArray<string> | string, cwd?: string): Argv<T>;
+        (args?: readonly string[] | string, cwd?: string): Argv<T>;
 
         /**
          * Set key names as equivalent such that updates to a key will propagate to aliases and vice-versa.
@@ -45,14 +45,14 @@ declare namespace yargs {
         // Aliases for previously declared options can inherit the types of those options.
         alias<K1 extends keyof T, K2 extends string>(
             shortName: K1,
-            longName: K2 | ReadonlyArray<K2>,
+            longName: K2 | readonly K2[],
         ): Argv<T & { [key in K2]: T[K1] }>;
         alias<K1 extends keyof T, K2 extends string>(
             shortName: K2,
-            longName: K1 | ReadonlyArray<K1>,
+            longName: K1 | readonly K1[],
         ): Argv<T & { [key in K2]: T[K1] }>;
-        alias(shortName: string | ReadonlyArray<string>, longName: string | ReadonlyArray<string>): Argv<T>;
-        alias(aliases: { [shortName: string]: string | ReadonlyArray<string> }): Argv<T>;
+        alias(shortName: string | readonly string[], longName: string | readonly string[]): Argv<T>;
+        alias(aliases: { [shortName: string]: string | readonly string[] }): Argv<T>;
 
         /**
          * Get the arguments as a plain old object.
@@ -76,9 +76,9 @@ declare namespace yargs {
          *
          * When the option is used with a positional, use `--` to tell `yargs` to stop adding values to the array.
          */
-        array<K extends keyof T>(key: K | ReadonlyArray<K>): Argv<Omit<T, K> & { [key in K]: ToArray<T[key]> }>;
+        array<K extends keyof T>(key: K | readonly K[]): Argv<Omit<T, K> & { [key in K]: ToArray<T[key]> }>;
         array<K extends string>(
-            key: K | ReadonlyArray<K>,
+            key: K | readonly K[],
         ): Argv<T & { [key in K]: Array<string | number> | undefined }>;
 
         /**
@@ -88,8 +88,8 @@ declare namespace yargs {
          *
          * If `key` is an array, interpret all the elements as booleans.
          */
-        boolean<K extends keyof T>(key: K | ReadonlyArray<K>): Argv<Omit<T, K> & { [key in K]: boolean | undefined }>;
-        boolean<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: boolean | undefined }>;
+        boolean<K extends keyof T>(key: K | readonly K[]): Argv<Omit<T, K> & { [key in K]: boolean | undefined }>;
+        boolean<K extends string>(key: K | readonly K[]): Argv<T & { [key in K]: boolean | undefined }>;
 
         /**
          * Check that certain conditions are met in the provided arguments.
@@ -108,15 +108,15 @@ declare namespace yargs {
          *
          * Choices can also be specified as choices in the object given to `option()`.
          */
-        choices<K extends keyof T, C extends ReadonlyArray<any>>(
+        choices<K extends keyof T, C extends readonly any[]>(
             key: K,
             values: C,
         ): Argv<Omit<T, K> & { [key in K]: C[number] | undefined }>;
-        choices<K extends string, C extends ReadonlyArray<any>>(
+        choices<K extends string, C extends readonly any[]>(
             key: K,
             values: C,
         ): Argv<T & { [key in K]: C[number] | undefined }>;
-        choices<C extends { [key: string]: ReadonlyArray<any> }>(
+        choices<C extends { [key: string]: readonly any[] }>(
             choices: C,
         ): Argv<Omit<T, keyof C> & { [key in keyof C]: C[key][number] | undefined }>;
 
@@ -137,11 +137,11 @@ declare namespace yargs {
          * If you are using dot-notion or arrays, .e.g., `user.email` and `user.password`, coercion will be applied to the final object that has been parsed
          */
         coerce<K extends keyof T, V>(
-            key: K | ReadonlyArray<K>,
+            key: K | readonly K[],
             func: (arg: any) => V,
         ): Argv<Omit<T, K> & { [key in K]: V | undefined }>;
         coerce<K extends string, V>(
-            key: K | ReadonlyArray<K>,
+            key: K | readonly K[],
             func: (arg: any) => V,
         ): Argv<T & { [key in K]: V | undefined }>;
         coerce<O extends { [key: string]: (arg: any) => any }>(
@@ -160,7 +160,7 @@ declare namespace yargs {
          * @param [handler] Function, which will be executed with the parsed `argv` object.
          */
         command<U = T>(
-            command: string | ReadonlyArray<string>,
+            command: string | readonly string[],
             description: string,
             builder?: BuilderCallback<T, U>,
             handler?: (args: ArgumentsCamelCase<U>) => void | Promise<void>,
@@ -168,7 +168,7 @@ declare namespace yargs {
             deprecated?: boolean | string,
         ): Argv<T>;
         command<O extends { [key: string]: Options }>(
-            command: string | ReadonlyArray<string>,
+            command: string | readonly string[],
             description: string,
             builder?: O,
             handler?: (args: ArgumentsCamelCase<InferredOptionTypes<O>>) => void | Promise<void>,
@@ -176,12 +176,12 @@ declare namespace yargs {
             deprecated?: boolean | string,
         ): Argv<T>;
         command<U = any>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
-            command: string | ReadonlyArray<string>,
+            command: string | readonly string[],
             description: string,
             module: CommandModule<T, U>,
         ): Argv<T>;
         command<U = T>(
-            command: string | ReadonlyArray<string>,
+            command: string | readonly string[],
             showInHelp: false,
             builder?: BuilderCallback<T, U>,
             handler?: (args: ArgumentsCamelCase<U>) => void | Promise<void>,
@@ -189,13 +189,13 @@ declare namespace yargs {
             deprecated?: boolean | string,
         ): Argv<T>;
         command<O extends { [key: string]: Options }>(
-            command: string | ReadonlyArray<string>,
+            command: string | readonly string[],
             showInHelp: false,
             builder?: O,
             handler?: (args: ArgumentsCamelCase<InferredOptionTypes<O>>) => void | Promise<void>,
         ): Argv<T>;
         command<U = any>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
-            command: string | ReadonlyArray<string>,
+            command: string | readonly string[],
             showInHelp: false,
             module: CommandModule<T, U>,
         ): Argv<T>;
@@ -240,11 +240,11 @@ declare namespace yargs {
          */
         config(): Argv<T>;
         config(
-            key: string | ReadonlyArray<string>,
+            key: string | readonly string[],
             description?: string,
             parseFn?: (configPath: string) => object,
         ): Argv<T>;
-        config(key: string | ReadonlyArray<string>, parseFn: (configPath: string) => object): Argv<T>;
+        config(key: string | readonly string[], parseFn: (configPath: string) => object): Argv<T>;
         config(explicitConfigurationObject: object): Argv<T>;
 
         /**
@@ -252,14 +252,14 @@ declare namespace yargs {
          *
          * Optionally `.conflicts()` can accept an object specifying multiple conflicting keys.
          */
-        conflicts(key: string, value: string | ReadonlyArray<string>): Argv<T>;
-        conflicts(conflicts: { [key: string]: string | ReadonlyArray<string> }): Argv<T>;
+        conflicts(key: string, value: string | readonly string[]): Argv<T>;
+        conflicts(conflicts: { [key: string]: string | readonly string[] }): Argv<T>;
 
         /**
          * Interpret `key` as a boolean flag, but set its parsed value to the number of flag occurrences rather than `true` or `false`. Default value is thus `0`.
          */
-        count<K extends keyof T>(key: K | ReadonlyArray<K>): Argv<Omit<T, K> & { [key in K]: number }>;
-        count<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: number }>;
+        count<K extends keyof T>(key: K | readonly K[]): Argv<Omit<T, K> & { [key in K]: number }>;
+        count<K extends string>(key: K | readonly K[]): Argv<T & { [key in K]: number }>;
 
         /**
          * Set `argv[key]` to `value` if no option was specified in `process.argv`.
@@ -278,9 +278,9 @@ declare namespace yargs {
          * @deprecated since version 6.6.0
          * Use '.demandCommand()' or '.demandOption()' instead
          */
-        demand<K extends keyof T>(key: K | ReadonlyArray<K>, msg?: string | true): Argv<Defined<T, K>>;
-        demand<K extends string>(key: K | ReadonlyArray<K>, msg?: string | true): Argv<T & { [key in K]: unknown }>;
-        demand(key: string | ReadonlyArray<string>, required?: boolean): Argv<T>;
+        demand<K extends keyof T>(key: K | readonly K[], msg?: string | true): Argv<Defined<T, K>>;
+        demand<K extends string>(key: K | readonly K[], msg?: string | true): Argv<T & { [key in K]: unknown }>;
+        demand(key: string | readonly string[], required?: boolean): Argv<T>;
         demand(positionals: number, msg: string): Argv<T>;
         demand(positionals: number, required?: boolean): Argv<T>;
         demand(positionals: number, max: number, msg?: string): Argv<T>;
@@ -291,12 +291,12 @@ declare namespace yargs {
          * @param msg If string is given, it will be printed when the argument is missing, instead of the standard error message.
          * @param demand Controls whether the option is demanded; this is useful when using .options() to specify command line parameters.
          */
-        demandOption<K extends keyof T>(key: K | ReadonlyArray<K>, msg?: string | true): Argv<Defined<T, K>>;
+        demandOption<K extends keyof T>(key: K | readonly K[], msg?: string | true): Argv<Defined<T, K>>;
         demandOption<K extends string>(
-            key: K | ReadonlyArray<K>,
+            key: K | readonly K[],
             msg?: string | true,
         ): Argv<T & { [key in K]: unknown }>;
-        demandOption(key: string | ReadonlyArray<string>, demand?: boolean): Argv<T>;
+        demandOption(key: string | readonly string[], demand?: boolean): Argv<T>;
 
         /**
          * Demand in context of commands.
@@ -316,7 +316,7 @@ declare namespace yargs {
          *
          * Optionally `.describe()` can take an object that maps keys to descriptions.
          */
-        describe(key: string | ReadonlyArray<string>, description: string): Argv<T>;
+        describe(key: string | readonly string[], description: string): Argv<T>;
         describe(descriptions: { [key: string]: string }): Argv<T>;
 
         /** Should yargs attempt to detect the os' locale? Defaults to `true`. */
@@ -375,10 +375,10 @@ declare namespace yargs {
          * @param done The callback to be called with the resulting completions.
          */
         getCompletion(
-            args: ReadonlyArray<string>,
-            done: (err: Error | null, completions: ReadonlyArray<string>) => void,
+            args: readonly string[],
+            done: (err: Error | null, completions: readonly string[]) => void,
         ): Argv<T>;
-        getCompletion(args: ReadonlyArray<string>, done?: never): Promise<ReadonlyArray<string>>;
+        getCompletion(args: readonly string[], done?: never): Promise<readonly string[]>;
 
         /**
          * Returns a promise which resolves to a string containing the help text.
@@ -390,10 +390,10 @@ declare namespace yargs {
          *
          * Options default to being global.
          */
-        global(key: string | ReadonlyArray<string>): Argv<T>;
+        global(key: string | readonly string[]): Argv<T>;
 
         /** Given a key, or an array of keys, places options under an alternative heading when displaying usage instructions */
-        group(key: string | ReadonlyArray<string>, groupName: string): Argv<T>;
+        group(key: string | readonly string[], groupName: string): Argv<T>;
 
         /** Hides a key from the generated usage information. Unless a `--show-hidden` option is also passed with `--help` (see `showHidden()`). */
         hide(key: string): Argv<T>;
@@ -421,8 +421,8 @@ declare namespace yargs {
          *
          * Optionally `.implies()` can accept an object specifying multiple implications.
          */
-        implies(key: string, value: string | ReadonlyArray<string>): Argv<T>;
-        implies(implies: { [key: string]: string | ReadonlyArray<string> }): Argv<T>;
+        implies(key: string, value: string | readonly string[]): Argv<T>;
+        implies(implies: { [key: string]: string | readonly string[] }): Argv<T>;
 
         /**
          * Return the locale that yargs is currently using.
@@ -455,8 +455,8 @@ declare namespace yargs {
         nargs(nargs: { [key: string]: number }): Argv<T>;
 
         /** The key provided represents a path and should have `path.normalize()` applied. */
-        normalize<K extends keyof T>(key: K | ReadonlyArray<K>): Argv<Omit<T, K> & { [key in K]: ToString<T[key]> }>;
-        normalize<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: string | undefined }>;
+        normalize<K extends keyof T>(key: K | readonly K[]): Argv<Omit<T, K> & { [key in K]: ToString<T[key]> }>;
+        normalize<K extends string>(key: K | readonly K[]): Argv<T & { [key in K]: string | undefined }>;
 
         /**
          * Tell the parser to always interpret key as a number.
@@ -469,8 +469,8 @@ declare namespace yargs {
          *
          * Note that decimals, hexadecimals, and scientific notation are all accepted.
          */
-        number<K extends keyof T>(key: K | ReadonlyArray<K>): Argv<Omit<T, K> & { [key in K]: ToNumber<T[key]> }>;
-        number<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: number | undefined }>;
+        number<K extends keyof T>(key: K | readonly K[]): Argv<Omit<T, K> & { [key in K]: ToNumber<T[key]> }>;
+        number<K extends string>(key: K | readonly K[]): Argv<T & { [key in K]: number | undefined }>;
 
         /**
          * Method to execute when a command finishes successfully.
@@ -518,7 +518,7 @@ declare namespace yargs {
             | { [key in keyof Arguments<T> as key | CamelCaseKey<key>]: Arguments<T>[key] }
             | Promise<{ [key in keyof Arguments<T> as key | CamelCaseKey<key>]: Arguments<T>[key] }>;
         parse(
-            arg: string | ReadonlyArray<string>,
+            arg: string | readonly string[],
             context?: object,
             parseCallback?: ParseCallback<T>,
         ):
@@ -526,13 +526,13 @@ declare namespace yargs {
             | Promise<{ [key in keyof Arguments<T> as key | CamelCaseKey<key>]: Arguments<T>[key] }>;
         parseSync(): { [key in keyof Arguments<T> as key | CamelCaseKey<key>]: Arguments<T>[key] };
         parseSync(
-            arg: string | ReadonlyArray<string>,
+            arg: string | readonly string[],
             context?: object,
             parseCallback?: ParseCallback<T>,
         ): { [key in keyof Arguments<T> as key | CamelCaseKey<key>]: Arguments<T>[key] };
         parseAsync(): Promise<{ [key in keyof Arguments<T> as key | CamelCaseKey<key>]: Arguments<T>[key] }>;
         parseAsync(
-            arg: string | ReadonlyArray<string>,
+            arg: string | readonly string[],
             context?: object,
             parseCallback?: ParseCallback<T>,
         ): Promise<{ [key in keyof Arguments<T> as key | CamelCaseKey<key>]: Arguments<T>[key] }>;
@@ -551,7 +551,7 @@ declare namespace yargs {
          * Similar to `config()`, indicates that yargs should interpret the object from the specified key in package.json as a configuration object.
          * @param [cwd] If provided, the package.json will be read from this location
          */
-        pkgConf(key: string | ReadonlyArray<string>, cwd?: string): Argv<T>;
+        pkgConf(key: string | readonly string[], cwd?: string): Argv<T>;
 
         /**
          * Allows you to configure a command's positional arguments with an API similar to `.option()`.
@@ -573,11 +573,11 @@ declare namespace yargs {
          * @deprecated since version 6.6.0
          * Use '.demandCommand()' or '.demandOption()' instead
          */
-        require<K extends keyof T>(key: K | ReadonlyArray<K>, msg?: string | true): Argv<Defined<T, K>>;
+        require<K extends keyof T>(key: K | readonly K[], msg?: string | true): Argv<Defined<T, K>>;
         require(key: string, msg: string): Argv<T>;
         require(key: string, required: boolean): Argv<T>;
-        require(keys: ReadonlyArray<number>, msg: string): Argv<T>;
-        require(keys: ReadonlyArray<number>, required: boolean): Argv<T>;
+        require(keys: readonly number[], msg: string): Argv<T>;
+        require(keys: readonly number[], required: boolean): Argv<T>;
         require(positionals: number, required: boolean): Argv<T>;
         require(positionals: number, msg: string): Argv<T>;
 
@@ -585,15 +585,15 @@ declare namespace yargs {
          * @deprecated since version 6.6.0
          * Use '.demandCommand()' or '.demandOption()' instead
          */
-        required<K extends keyof T>(key: K | ReadonlyArray<K>, msg?: string | true): Argv<Defined<T, K>>;
+        required<K extends keyof T>(key: K | readonly K[], msg?: string | true): Argv<Defined<T, K>>;
         required(key: string, msg: string): Argv<T>;
         required(key: string, required: boolean): Argv<T>;
-        required(keys: ReadonlyArray<number>, msg: string): Argv<T>;
-        required(keys: ReadonlyArray<number>, required: boolean): Argv<T>;
+        required(keys: readonly number[], msg: string): Argv<T>;
+        required(keys: readonly number[], required: boolean): Argv<T>;
         required(positionals: number, required: boolean): Argv<T>;
         required(positionals: number, msg: string): Argv<T>;
 
-        requiresArg(key: string | ReadonlyArray<string>): Argv<T>;
+        requiresArg(key: string | readonly string[]): Argv<T>;
 
         /** Set the name of your script ($0). Default is the base filename executed by node (`process.argv[1]`) */
         scriptName($0: string): Argv<T>;
@@ -640,7 +640,7 @@ declare namespace yargs {
         showVersion(level?: "error" | "log" | ((message: string) => void)): Argv<T>;
 
         /** Specifies either a single option key (string), or an array of options. If any of the options is present, yargs validation is skipped. */
-        skipValidation(key: string | ReadonlyArray<string>): Argv<T>;
+        skipValidation(key: string | readonly string[]): Argv<T>;
 
         /**
          * Any command-line argument given that is not demanded, or does not have a corresponding description, will be reported as an error.
@@ -673,8 +673,8 @@ declare namespace yargs {
          *
          * `.string('_')` will result in non-hyphenated arguments being interpreted as strings, regardless of whether they resemble numbers.
          */
-        string<K extends keyof T>(key: K | ReadonlyArray<K>): Argv<Omit<T, K> & { [key in K]: ToString<T[key]> }>;
-        string<K extends string>(key: K | ReadonlyArray<K>): Argv<T & { [key in K]: string | undefined }>;
+        string<K extends keyof T>(key: K | readonly K[]): Argv<Omit<T, K> & { [key in K]: ToString<T[key]> }>;
+        string<K extends string>(key: K | readonly K[]): Argv<T & { [key in K]: string | undefined }>;
 
         // Intended to be used with '.wrap()'
         terminalWidth(): number;
@@ -698,25 +698,25 @@ declare namespace yargs {
          */
         usage(message: string): Argv<T>;
         usage<U>(
-            command: string | ReadonlyArray<string>,
+            command: string | readonly string[],
             description: string,
             builder?: (args: Argv<T>) => Argv<U>,
             handler?: (args: ArgumentsCamelCase<U>) => void | Promise<void>,
         ): Argv<T>;
         usage<U>(
-            command: string | ReadonlyArray<string>,
+            command: string | readonly string[],
             showInHelp: boolean,
             builder?: (args: Argv<T>) => Argv<U>,
             handler?: (args: ArgumentsCamelCase<U>) => void | Promise<void>,
         ): Argv<T>;
         usage<O extends { [key: string]: Options }>(
-            command: string | ReadonlyArray<string>,
+            command: string | readonly string[],
             description: string,
             builder?: O,
             handler?: (args: ArgumentsCamelCase<InferredOptionTypes<O>>) => void | Promise<void>,
         ): Argv<T>;
         usage<O extends { [key: string]: Options }>(
-            command: string | ReadonlyArray<string>,
+            command: string | readonly string[],
             showInHelp: boolean,
             builder?: O,
             handler?: (args: ArgumentsCamelCase<InferredOptionTypes<O>>) => void | Promise<void>,
@@ -768,7 +768,7 @@ declare namespace yargs {
         /** Look for command modules in all subdirectories and apply them as a flattened (non-hierarchical) list. */
         recurse?: boolean | undefined;
         /** The types of files to look for when requiring command modules. */
-        extensions?: ReadonlyArray<string> | undefined;
+        extensions?: readonly string[] | undefined;
         /**
          * A synchronous function called for each command module encountered.
          * Accepts `commandObject`, `pathToFile`, and `filename` as arguments.
@@ -783,7 +783,7 @@ declare namespace yargs {
 
     interface Options {
         /** string or array of strings, alias(es) for the canonical option key, see `alias()` */
-        alias?: string | ReadonlyArray<string> | undefined;
+        alias?: string | readonly string[] | undefined;
         /** boolean, interpret option as an array, see `array()` */
         array?: boolean | undefined;
         /**  boolean, interpret option as a boolean flag, see `boolean()` */
@@ -797,7 +797,7 @@ declare namespace yargs {
         /** function, provide a custom config parsing function, see `config()` */
         configParser?: ((configPath: string) => object) | undefined;
         /** string or object, require certain keys not to be set, see `conflicts()` */
-        conflicts?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> } | undefined;
+        conflicts?: string | readonly string[] | { [key: string]: string | readonly string[] } | undefined;
         /** boolean, interpret option as a count of boolean flags, see `count()` */
         count?: boolean | undefined;
         /** value, set a default value for the option, see `default()` */
@@ -828,7 +828,7 @@ declare namespace yargs {
         /** don't display option in help output. */
         hidden?: boolean | undefined;
         /**  string or object, require certain keys to be set, see `implies()` */
-        implies?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> } | undefined;
+        implies?: string | readonly string[] | { [key: string]: string | readonly string[] } | undefined;
         /** number, specify how many arguments should be consumed for the option, see `nargs()` */
         nargs?: number | undefined;
         /** boolean, apply path.normalize() to the option, see `normalize()` */
@@ -856,7 +856,7 @@ declare namespace yargs {
 
     interface PositionalOptions {
         /** string or array of strings, see `alias()` */
-        alias?: string | ReadonlyArray<string> | undefined;
+        alias?: string | readonly string[] | undefined;
         /** boolean, interpret option as an array, see `array()` */
         array?: boolean | undefined;
         /** value or array of values, limit valid option arguments to a predefined set, see `choices()` */
@@ -864,7 +864,7 @@ declare namespace yargs {
         /** function, coerce or transform parsed command line values into another value, see `coerce()` */
         coerce?: ((arg: any) => any) | undefined;
         /** string or object, require certain keys not to be set, see `conflicts()` */
-        conflicts?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> } | undefined;
+        conflicts?: string | readonly string[] | { [key: string]: string | readonly string[] } | undefined;
         /** value, set a default value for the option, see `default()` */
         default?: any;
         /** boolean or string, demand the option be given, with optional error message, see `demandOption()` */
@@ -876,7 +876,7 @@ declare namespace yargs {
         /** string, the option description for help content, see `describe()` */
         description?: string | undefined;
         /** string or object, require certain keys to be set, see `implies()` */
-        implies?: string | ReadonlyArray<string> | { [key: string]: string | ReadonlyArray<string> } | undefined;
+        implies?: string | readonly string[] | { [key: string]: string | readonly string[] } | undefined;
         /** boolean, apply path.normalize() to the option, see normalize() */
         normalize?: boolean | undefined;
         type?: PositionalOptionsType | undefined;
@@ -986,11 +986,11 @@ declare namespace yargs {
 
     interface CommandModule<T = {}, U = {}> {
         /** array of strings (or a single string) representing aliases of `exports.command`, positional args defined in an alias are ignored */
-        aliases?: ReadonlyArray<string> | string | undefined;
+        aliases?: readonly string[] | string | undefined;
         /** object declaring the options the command accepts, or a function accepting and returning a yargs instance */
         builder?: CommandBuilder<T, U> | undefined;
         /** string (or array of strings) that executes this command when given on the command line, first string may contain positional args */
-        command?: ReadonlyArray<string> | string | undefined;
+        command?: readonly string[] | string | undefined;
         /** boolean (or string) to show deprecation notice */
         deprecated?: boolean | string | undefined;
         /** string used as the description for the command in help text, use `false` for a hidden command */
@@ -1012,7 +1012,7 @@ declare namespace yargs {
     type AsyncCompletionFunction = (
         current: string,
         argv: any,
-        done: (completion: ReadonlyArray<string>) => void,
+        done: (completion: readonly string[]) => void,
     ) => void;
     type PromiseCompletionFunction = (current: string, argv: any) => Promise<string[]>;
     type FallbackCompletionFunction = (

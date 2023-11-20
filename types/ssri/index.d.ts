@@ -92,13 +92,13 @@ export function fromHex(
     opts?: {
         single?: false | undefined;
         strict?: boolean | undefined;
-        options?: ReadonlyArray<string> | undefined;
+        options?: readonly string[] | undefined;
     },
 ): IntegrityMap;
 export function fromHex(
     hexDigest: string,
     algorithm: string,
-    opts?: { single: true; strict?: boolean | undefined; options?: ReadonlyArray<string> | undefined },
+    opts?: { single: true; strict?: boolean | undefined; options?: readonly string[] | undefined },
 ): Hash;
 export function fromHex(
     hexDigest: string,
@@ -106,7 +106,7 @@ export function fromHex(
     opts?: {
         single?: boolean | undefined;
         strict?: boolean | undefined;
-        options?: ReadonlyArray<string> | undefined;
+        options?: readonly string[] | undefined;
     },
 ): IntegrityMap | Hash;
 
@@ -114,8 +114,8 @@ export function fromData(
     data: string | Buffer | NodeJS.TypedArray | DataView,
     opts?: {
         strict?: boolean | undefined;
-        options?: ReadonlyArray<string> | undefined;
-        algorithms?: ReadonlyArray<string> | undefined;
+        options?: readonly string[] | undefined;
+        algorithms?: readonly string[] | undefined;
     },
 ): IntegrityMap;
 
@@ -123,16 +123,16 @@ export function fromStream(
     stream: Readable,
     opts?: {
         strict?: boolean | undefined;
-        options?: ReadonlyArray<string> | undefined;
-        algorithms?: ReadonlyArray<string> | undefined;
+        options?: readonly string[] | undefined;
+        algorithms?: readonly string[] | undefined;
     },
 ): Promise<IntegrityMap>;
 export function fromStream(
     stream: Readable,
     opts?: {
         strict?: boolean | undefined;
-        options?: ReadonlyArray<string> | undefined;
-        algorithms?: ReadonlyArray<string> | undefined;
+        options?: readonly string[] | undefined;
+        algorithms?: readonly string[] | undefined;
         Promise?: PromiseConstructorLike | undefined;
     },
 ): PromiseLike<IntegrityMap>;
@@ -153,7 +153,7 @@ export function checkStream(
     sri: string | IntegrityLike | HashLike,
     opts?: {
         strict?: boolean | undefined;
-        options?: ReadonlyArray<string> | undefined;
+        options?: readonly string[] | undefined;
         size?: number | undefined;
         pickAlgorithm?: ((algo1: string, algo2: string) => string) | undefined;
     },
@@ -163,7 +163,7 @@ export function checkStream(
     sri: string | IntegrityLike | HashLike,
     opts?: {
         strict?: boolean | undefined;
-        options?: ReadonlyArray<string> | undefined;
+        options?: readonly string[] | undefined;
         size?: number | undefined;
         pickAlgorithm?: ((algo1: string, algo2: string) => string) | undefined;
         Promise?: PromiseConstructorLike | undefined;
@@ -173,8 +173,8 @@ export function checkStream(
 export function integrityStream(opts?: {
     single?: boolean | undefined;
     strict?: boolean | undefined;
-    options?: ReadonlyArray<string> | undefined;
-    algorithms?: ReadonlyArray<string> | undefined;
+    options?: readonly string[] | undefined;
+    algorithms?: readonly string[] | undefined;
     integrity?: string | IntegrityLike | HashLike | undefined;
     size?: number | undefined;
     pickAlgorithm?: ((algo1: string, algo2: string) => string) | undefined;
@@ -182,6 +182,6 @@ export function integrityStream(opts?: {
 
 export function create(opts?: {
     strict?: boolean | undefined;
-    options?: ReadonlyArray<string> | undefined;
-    algorithms?: ReadonlyArray<string> | undefined;
+    options?: readonly string[] | undefined;
+    algorithms?: readonly string[] | undefined;
 }): CryptoHash;

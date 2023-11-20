@@ -587,7 +587,7 @@ declare namespace GoogleAppsScript {
              */
             dateRange: DateRange;
             /** The names of the requested fields. */
-            fields: { name: string }[];
+            fields: Array<{ name: string }>;
             /**
              * A nested array of the user selected filters.
              * The innermost arrays should be ORed together, the outermost arrays should be ANDed together.

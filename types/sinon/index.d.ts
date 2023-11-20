@@ -3,8 +3,8 @@ import * as FakeTimers from "@sinonjs/fake-timers";
 // sinon uses DOM dependencies which are absent in browser-less environment like node.js
 // to avoid compiler errors this monkey patch is used
 // see more details in https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11351
-interface Event {} // tslint:disable-line no-empty-interface
-interface Document {} // tslint:disable-line no-empty-interface
+interface Event {} // eslint-disable-line @typescript-eslint/no-empty-interface
+interface Document {} // eslint-disable-line @typescript-eslint/no-empty-interface
 
 declare namespace Sinon {
     type MatchPartialArguments<T> = {

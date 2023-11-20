@@ -34,9 +34,9 @@ declare class Consumer {
     cqClient: CrimsonQClient;
     consumerId: string;
     events: CrimsonQEventEmitter;
-    init(topics: ReadonlyArray<string>, concurrency: number): Promise<Error | undefined>;
+    init(topics: readonly string[], concurrency: number): Promise<Error | undefined>;
     getTopics(): Promise<CommandResult | typeof Error>;
-    setTopics(topics: ReadonlyArray<string>): Promise<CommandResult | typeof Error>;
+    setTopics(topics: readonly string[]): Promise<CommandResult | typeof Error>;
     messageCountByStatus(): Promise<CommandResult | typeof Error>;
     pull(): Promise<RecievedMessage | string | Error>;
     completeMessage(messageId: string): Promise<CommandResult | typeof Error>;
@@ -70,10 +70,10 @@ interface Command {
     consumer_exists(consumerId: string): Promise<CommandResult | typeof Error>;
     consumer_create(
         consumerId: string,
-        topics: ReadonlyArray<string>,
+        topics: readonly string[],
         concurrency: number,
     ): Promise<CommandResult | typeof Error>;
-    consumer_topics_set(consumerId: string, topics: ReadonlyArray<string>): Promise<CommandResult | typeof Error>;
+    consumer_topics_set(consumerId: string, topics: readonly string[]): Promise<CommandResult | typeof Error>;
     consumer_concurrency_set(consumerId: string, concurrency: number): Promise<CommandResult | typeof Error>;
     consumer_topics_get(consumerId: string): Promise<CommandResult | typeof Error>;
     msg_counts(consumerId: string): Promise<CommandResult | typeof Error>;

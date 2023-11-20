@@ -1,7 +1,7 @@
 export = tableify;
 
 declare function tableify<T extends Record<string, any>>(
-    obj: T | ReadonlyArray<T>,
+    obj: T | readonly T[],
     columns?: ReadonlyArray<keyof T> | false,
     parents?: any[],
 ): string;
@@ -13,7 +13,7 @@ declare namespace tableify {
     }
     function defaults(config: Config): {
         <T extends Record<string, any>>(
-            obj: T | ReadonlyArray<T>,
+            obj: T | readonly T[],
             columns?: ReadonlyArray<keyof T> | false,
             parents?: any[],
         ): string;

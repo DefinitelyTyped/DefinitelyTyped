@@ -1061,7 +1061,7 @@ declare namespace webpack {
             };
             getChildIdsByOrders(): any;
             getChildIdsByOrdersMap(includeDirectChildren?: boolean): any;
-            // tslint:disable-next-line:ban-types
+            // eslint-disable-next-line @typescript-eslint/ban-types
             getChunkModuleMaps(filterFn: Function): { id: any; hash: any };
             hasModuleInGraph(
                 filterFn: (module: Module) => boolean,
@@ -1398,7 +1398,7 @@ declare namespace webpack {
                 request: string,
             ): ChunkGroup;
             addModule(module: CompilationModule, cacheGroup: any): any;
-            // tslint:disable-next-line:ban-types
+            // eslint-disable-next-line @typescript-eslint/ban-types
             addEntry(context: any, entry: any, name: any, callback: Function): void;
 
             getPath(filename: string, data: {
@@ -1473,7 +1473,7 @@ declare namespace webpack {
             watchRun: AsyncSeriesHook<Compiler>;
         }
     }
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface ICompiler {
         run(handler: ICompiler.Handler | ICompiler.MultiHandler): void;
         watch(watchOptions: ICompiler.WatchOptions, handler: ICompiler.Handler | ICompiler.MultiHandler): Watching;
@@ -1592,10 +1592,10 @@ declare namespace webpack {
 
     // Compatibility with webpack@5's own types
     // See https://github.com/webpack/webpack/issues/11630
-    // tslint:disable-next-line no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface WebpackPluginInstance extends Plugin {}
 
-    // tslint:disable-next-line no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface Chunk extends compilation.Chunk {}
 
     abstract class ResolvePlugin implements Tapable.Plugin {

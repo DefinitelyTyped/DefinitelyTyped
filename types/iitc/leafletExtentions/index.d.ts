@@ -9,11 +9,11 @@ declare module "leaflet" {
         getLatLngs(): LatLng[];
     }
 
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     class GeodesicPolygon extends GeodesicPolyline {
     }
 
-    // tslint:disable-next-line:no-empty-interface
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     class GeodesicCircle extends Polyline {
     }
 }

@@ -1382,10 +1382,10 @@ declare namespace runtime {
         saveLibraryEntry(type: string, path: string, meta: Record<string, string>, body: string): Promise<void>;
     }
 
-    interface InternalNodesModule {} // tslint:disable-line:no-empty-interface
-    interface InternalPluginsModule {} // tslint:disable-line:no-empty-interface
-    interface InternalLibraryModule {} // tslint:disable-line:no-empty-interface
-    interface InternalExecModule {} // tslint:disable-line:no-empty-interface
+    interface InternalNodesModule {} // eslint-disable-line @typescript-eslint/no-empty-interface
+    interface InternalPluginsModule {} // eslint-disable-line @typescript-eslint/no-empty-interface
+    interface InternalLibraryModule {} // eslint-disable-line @typescript-eslint/no-empty-interface
+    interface InternalExecModule {} // eslint-disable-line @typescript-eslint/no-empty-interface
 
     interface InternalRuntimeAPI {
         version(): string;

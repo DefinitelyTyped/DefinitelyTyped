@@ -34,15 +34,15 @@ declare namespace WebFont {
     }
     export interface Google {
         api?: string | undefined;
-        families: Array<string>;
+        families: string[];
         text?: string | undefined;
     }
     export interface Typekit {
         id?: string | undefined;
     }
     export interface Custom {
-        families?: Array<string> | undefined;
-        urls?: Array<string> | undefined;
+        families?: string[] | undefined;
+        urls?: string[] | undefined;
         testStrings?: { [fontFamily: string]: string } | undefined;
     }
     export interface Fontdeck {

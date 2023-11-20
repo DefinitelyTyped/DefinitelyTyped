@@ -610,7 +610,7 @@ declare namespace echarts {
              *
              * @see https://echarts.apache.org/en/option.html#series-candlestick.data
              */
-            data?: (number | SeriesCandlestick.DataObject)[][] | undefined;
+            data?: Array<Array<number | SeriesCandlestick.DataObject>> | undefined;
 
             /**
              * Mark point in a chart.

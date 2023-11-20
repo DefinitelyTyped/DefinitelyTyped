@@ -39,7 +39,7 @@ const bufferResult: Promise<{
 });
 
 const props: {
-    args: ReadonlyArray<string>;
+    args: readonly string[];
     opts: SubProcessOptions;
     pid: number | null | undefined;
 } = new SubProcess("ls");

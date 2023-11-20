@@ -1159,7 +1159,7 @@ export interface XELib
      * Finds the first item in the `FormIDs` array on `record` matching `value`.
      * @returns Handle to the element if found, else returns 0.
      */
-    // tslint:disable-next-line adjacent-overload-signatures
+    // eslint-disable-next-line @typescript-eslint/adjacent-overload-signatures
     GetFormID(record: RecordHandle, value: string): Zeroable<ElementHandle>;
     /**
      * Adds an item to the `FormIDs` array on `record`.

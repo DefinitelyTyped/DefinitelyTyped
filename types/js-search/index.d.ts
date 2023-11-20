@@ -1,7 +1,7 @@
 declare module "js-search" {
     class Search {
         constructor(
-            uidFieldName: string | Array<string>,
+            uidFieldName: string | string[],
         );
 
         public indexStrategy: IIndexStrategy;
@@ -10,27 +10,27 @@ declare module "js-search" {
         public tokenizer: ITokenizer;
 
         public addDocument(document: Object): void;
-        public addDocuments(documents: Array<Object>): void;
+        public addDocuments(documents: Object[]): void;
 
-        public addIndex(field: string | Array<string>): void;
+        public addIndex(field: string | string[]): void;
 
-        public search(query: string): Array<Object>;
+        public search(query: string): Object[];
     }
 
     interface IIndexStrategy {
-        expandToken(token: string): Array<string>;
+        expandToken(token: string): string[];
     }
 
     class AllSubstringsIndexStrategy implements IIndexStrategy {
-        expandToken(token: string): Array<string>;
+        expandToken(token: string): string[];
     }
 
     class ExactWordIndexStrategy implements IIndexStrategy {
-        expandToken(token: string): Array<string>;
+        expandToken(token: string): string[];
     }
 
     class PrefixIndexStrategy implements IIndexStrategy {
-        expandToken(token: string): Array<string>;
+        expandToken(token: string): string[];
     }
 
     interface ISanitizer {
@@ -53,9 +53,9 @@ declare module "js-search" {
         ): void;
 
         search(
-            tokens: Array<string>,
-            corpus: Array<Object>,
-        ): Array<Object>;
+            tokens: string[],
+            corpus: Object[],
+        ): Object[];
     }
 
     type ITfIdfTokenMap = {
@@ -78,11 +78,11 @@ declare module "js-search" {
     };
 
     class TfIdfSearchIndex implements ISearchIndex {
-        constructor(uidFieldName: string | Array<string>);
+        constructor(uidFieldName: string | string[]);
 
         indexDocument(token: string, uid: string, doc: Object): void;
 
-        search(tokens: Array<string>, corpus: Array<Object>): Array<Object>;
+        search(tokens: string[], corpus: Object[]): Object[];
     }
 
     class UnorderedSearchIndex implements ISearchIndex {
@@ -90,15 +90,15 @@ declare module "js-search" {
 
         indexDocument(token: string, uid: string, doc: Object): void;
 
-        search(tokens: Array<string>, corpus: Array<Object>): Array<Object>;
+        search(tokens: string[], corpus: Object[]): Object[];
     }
 
     interface ITokenizer {
-        tokenize(text: string): Array<string>;
+        tokenize(text: string): string[];
     }
 
     class SimpleTokenizer implements ITokenizer {
-        tokenize(text: string): Array<string>;
+        tokenize(text: string): string[];
     }
 
     type StemmingFunction = (text: string) => string;
@@ -109,13 +109,13 @@ declare module "js-search" {
             decoratedTokenizer: ITokenizer,
         );
 
-        tokenize(text: string): Array<string>;
+        tokenize(text: string): string[];
     }
 
     class StopWordsTokenizer implements ITokenizer {
         constructor(decoratedTokenizer: ITokenizer);
 
-        tokenize(text: string): Array<string>;
+        tokenize(text: string): string[];
     }
 
     var StopWordsMap: any;
@@ -127,6 +127,6 @@ declare module "js-search" {
             opt_wrapperTagName: string,
         );
 
-        public highlight(text: string, tokens: Array<string>): string;
+        public highlight(text: string, tokens: string[]): string;
     }
 }

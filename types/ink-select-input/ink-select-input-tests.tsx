@@ -5,7 +5,7 @@ import SelectInput, { ItemOfSelectInput } from "ink-select-input";
 // If importing using ES6 default import as above,
 // `allowSyntheticDefaultImports` flag in compiler options needs to be set to `true`
 
-const items: ReadonlyArray<ItemOfSelectInput> = [
+const items: readonly ItemOfSelectInput[] = [
     {
         label: "First",
         value: "first",

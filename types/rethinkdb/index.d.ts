@@ -446,8 +446,8 @@ declare module "rethinkdb" {
 
     type IndexFunction<U> =
         | Expression<U>
-        | Expression<U>[]
-        | ((doc: Expression<any>) => Expression<U> | Expression<U>[]);
+        | Array<Expression<U>>
+        | ((doc: Expression<any>) => Expression<U> | Array<Expression<U>>);
 
     interface ExpressionFunction<U> {
         (doc: Expression<any>): Expression<U>;

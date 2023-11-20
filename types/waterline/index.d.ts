@@ -52,26 +52,26 @@ declare namespace Waterline {
 
     // used this comment https://github.com/balderdashy/waterline/issues/1154#issuecomment-167262575
     export type LifecycleCallbacks = {
-        beforeValidate?: { (vaues: any, next: Function): void }[] | { (vaues: any, next: Function): void } | undefined;
-        beforeCreate?: { (values: any, next: Function): void }[] | { (vaues: any, next: Function): void } | undefined;
+        beforeValidate?: Array<{ (vaues: any, next: Function): void }> | { (vaues: any, next: Function): void } | undefined;
+        beforeCreate?: Array<{ (values: any, next: Function): void }> | { (vaues: any, next: Function): void } | undefined;
         afterCreate?:
-            | { (newlyCreatedRecord: any, next: Function): void }[]
+            | Array<{ (newlyCreatedRecord: any, next: Function): void }>
             | { (newlyCreatedRecord: any, next: Function): void }
             | undefined;
         beforeUpdate?:
-            | { (valuesToUpdate: any, next: Function): void }[]
+            | Array<{ (valuesToUpdate: any, next: Function): void }>
             | { (valuesToUpdate: any, next: Function): void }
             | undefined;
         afterUpdate?:
-            | { (valuesToUpdate: any, next: Function): void }[]
+            | Array<{ (valuesToUpdate: any, next: Function): void }>
             | { (valuesToUpdate: any, next: Function): void }
             | undefined;
         beforeDestroy?:
-            | { (criteria: any, next: Function): void }[]
+            | Array<{ (criteria: any, next: Function): void }>
             | { (valuesToUpdate: any, next: Function): void }
             | undefined;
         afterDestroy?:
-            | { (destroyedInstance: any, next: Function): void }[]
+            | Array<{ (destroyedInstance: any, next: Function): void }>
             | { (destroyedInstance: any, next: Function): void }
             | undefined;
     };
@@ -139,7 +139,7 @@ declare namespace Waterline {
         primaryKey?: boolean | undefined;
         unique?: boolean | undefined;
         required?: boolean | undefined;
-        enum?: Array<T> | undefined;
+        enum?: T[] | undefined;
         size?: number | undefined;
         columnName?: string | undefined;
         index?: boolean | undefined;
@@ -257,7 +257,7 @@ declare namespace Waterline {
         where(condition: any): QueryBuilder<T>;
         limit(lim: number): QueryBuilder<T>;
         skip(num: number): QueryBuilder<T>;
-        sort(criteria: string | { [attribute: string]: string } | { [attribute: string]: string }[]): QueryBuilder<T>;
+        sort(criteria: string | { [attribute: string]: string } | Array<{ [attribute: string]: string }>): QueryBuilder<T>;
         paginate(pagination?: { page: number; limit: number }): QueryBuilder<T>;
         populate(association: string): QueryBuilder<T>;
         populate(association: string, filter: any): QueryBuilder<T>;

@@ -198,7 +198,7 @@ declare module "react-recompose" {
 
     // onlyUpdateForKeys: https://github.com/react-recompose/react-recompose/blob/main/docs/API.md#onlyUpdateForKeys
     export function onlyUpdateForKeys(
-        propKeys: Array<string>,
+        propKeys: string[],
     ): InferableComponentEnhancer<{}>;
     export function onlyUpdateForKeys<T>(
         propKeys: Array<keyof T>,
@@ -388,7 +388,7 @@ declare module "react-recompose" {
 
     // nest: https://github.com/react-recompose/react-recompose/blob/main/docs/API.md#nest
     export function nest(
-        ...Components: (string | Component<any>)[]
+        ...Components: Array<string | Component<any>>
     ): React.ComponentClass<any>; // ???
 
     // hoistStatics: https://github.com/react-recompose/react-recompose/blob/main/docs/API.md#hoistStatics

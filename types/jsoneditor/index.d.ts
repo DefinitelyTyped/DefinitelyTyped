@@ -43,7 +43,7 @@ export interface Node extends BaseNode {
     previousValue: NodeValue;
     visibleChilds: number;
     schema?: object | undefined;
-    enum?: null | ReadonlyArray<string> | undefined;
+    enum?: null | readonly string[] | undefined;
     id?: string | undefined;
     valueFieldHTML?: string | undefined;
     error?: ErrorObject | undefined;
@@ -161,14 +161,14 @@ export type MenuItemNodeType = "single" | "multiple" | "append";
 
 export interface MenuItemNode {
     type: MenuItemNodeType;
-    path: ReadonlyArray<string>;
-    paths: ReadonlyArray<ReadonlyArray<string>>;
+    path: readonly string[];
+    paths: ReadonlyArray<readonly string[]>;
 }
 
 export interface TimestampNode {
     field: string;
     value: string;
-    path: ReadonlyArray<string>;
+    path: readonly string[];
 }
 
 export interface QueryFilter {
@@ -193,19 +193,19 @@ export interface QueryOptions {
 }
 
 export interface OnClassNameParams {
-    path: ReadonlyArray<string>;
+    path: readonly string[];
     field: string;
     value: string;
 }
 
 export interface ExpandOptions {
-    path: ReadonlyArray<string>;
+    path: readonly string[];
     isExpand: boolean;
     recursive: boolean;
 }
 
 export interface OnNodeNameParams {
-    path: ReadonlyArray<string>;
+    path: readonly string[];
     type: NodeType;
     size: number;
     value: any;

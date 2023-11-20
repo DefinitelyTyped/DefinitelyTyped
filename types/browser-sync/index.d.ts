@@ -24,7 +24,7 @@ declare namespace browserSync {
          * patterns.
          * Default: false
          */
-        files?: string | (string | FileCallback | object)[] | undefined;
+        files?: string | Array<string | FileCallback | object> | undefined;
         /**
          * Specify which file events to respond to.
          * Available events: `add`, `change`, `unlink`, `addDir`, `unlinkDir`
@@ -74,7 +74,7 @@ declare namespace browserSync {
         /**
          * Functions or actual plugins used as middleware.
          */
-        middleware?: MiddlewareHandler | PerRouteMiddleware | (MiddlewareHandler | PerRouteMiddleware)[] | undefined;
+        middleware?: MiddlewareHandler | PerRouteMiddleware | Array<MiddlewareHandler | PerRouteMiddleware> | undefined;
         /**
          * Add additional directories from which static files should be served.
          * Should only be used in proxy or snippet mode.
@@ -370,7 +370,7 @@ declare namespace browserSync {
          */
         routes?: Hash<string> | undefined;
         /** configure custom middleware */
-        middleware?: (MiddlewareHandler | PerRouteMiddleware)[] | undefined;
+        middleware?: Array<MiddlewareHandler | PerRouteMiddleware> | undefined;
         serveStaticOptions?: ServeStaticOptions | undefined;
     }
 
@@ -380,7 +380,7 @@ declare namespace browserSync {
         ws?: boolean | undefined;
         reqHeaders?: ((config: object) => Hash<object>) | undefined;
         proxyRes?: ProxyResponseMiddleware | ProxyResponseMiddleware[] | undefined;
-        proxyReq?: ((res: http.IncomingMessage) => void)[] | ((res: http.IncomingMessage) => void) | undefined;
+        proxyReq?: Array<(res: http.IncomingMessage) => void> | ((res: http.IncomingMessage) => void) | undefined;
         error?: ((err: NodeJS.ErrnoException, req: http.IncomingMessage, res: http.ServerResponse) => void) | undefined;
     }
 
@@ -481,7 +481,7 @@ declare namespace browserSync {
          */
         (config?: Options, callback?: (err: Error, bs: BrowserSyncInstance) => any): BrowserSyncInstance;
         /** */
-        instances: Array<BrowserSyncInstance>;
+        instances: BrowserSyncInstance[];
         /**
          * Create a Browsersync instance
          * @param name an identifier that can used for retrieval later

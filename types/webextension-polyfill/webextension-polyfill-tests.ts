@@ -1,5 +1,5 @@
 import * as browser from "webextension-polyfill";
-// tslint:disable-next-line:no-duplicate-imports
+// eslint-disable-next-line no-duplicate-imports
 import { Browser, Tabs } from "webextension-polyfill";
 
 const x: Browser = browser;

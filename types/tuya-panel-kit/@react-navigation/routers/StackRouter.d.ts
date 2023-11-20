@@ -5,7 +5,7 @@ export declare type StackActionType = {
     type: "REPLACE";
     payload: {
         name: string;
-        // tslint:disable-next-line interface-over-type-literal no-redundant-undefined
+        // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
         key?: string | undefined;
         params?: object | undefined;
     };
@@ -125,8 +125,7 @@ export default function StackRouter(
                 // tslint:disable-next-line no-redundant-undefined
                 history?: unknown[] | undefined;
                 // tslint:disable-next-line array-type
-                routes: (
-                    & Readonly<{
+                routes: Array<& Readonly<{
                         key: string;
                         name: string;
                     }>
@@ -137,8 +136,7 @@ export default function StackRouter(
                     & {
                         // tslint:disable-next-line no-redundant-undefined
                         state?: Readonly<any> | import("./types").PartialState<Readonly<any>> | undefined;
-                    }
-                )[];
+                    }>;
                 type: string;
                 stale: false;
             }>
@@ -150,8 +148,7 @@ export default function StackRouter(
                     // tslint:disable-next-line no-redundant-undefined
                     history?: unknown[] | undefined;
                     // tslint:disable-next-line array-type
-                    routes: (
-                        & Readonly<{
+                    routes: Array<& Readonly<{
                             key: string;
                             name: string;
                         }>
@@ -162,8 +159,7 @@ export default function StackRouter(
                         & {
                             // tslint:disable-next-line no-redundant-undefined
                             state?: Readonly<any> | import("./types").PartialState<Readonly<any>> | undefined;
-                        }
-                    )[];
+                        }>;
                     type: string;
                     stale: false;
                 }>
@@ -177,8 +173,7 @@ export default function StackRouter(
                         // tslint:disable-next-line no-redundant-undefined array-type
                         history?: unknown[] | undefined;
                         // tslint:disable-next-line array-type
-                        routes: (
-                            & Readonly<{
+                        routes: Array<& Readonly<{
                                 key: string;
                                 name: string;
                             }>
@@ -189,8 +184,7 @@ export default function StackRouter(
                             & {
                                 // tslint:disable-next-line no-redundant-undefined
                                 state?: Readonly<any> | import("./types").PartialState<Readonly<any>> | undefined;
-                            }
-                        )[];
+                            }>;
                         type: string;
                         stale: false;
                     }>,
@@ -198,7 +192,7 @@ export default function StackRouter(
                 >
                 & {
                     // tslint:disable-next-line array-type use-default-type-parameter
-                    routes: Pick<Route<string, object | undefined>, "name" | "params">[];
+                    routes: Array<Pick<Route<string, object | undefined>, "name" | "params">>;
                 }
             )
             | undefined;
