@@ -9,7 +9,6 @@
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
         "npm-naming": false,
-        "unified-signatures": false,
-        "void-return": false
+        "unified-signatures": false
     }
 }

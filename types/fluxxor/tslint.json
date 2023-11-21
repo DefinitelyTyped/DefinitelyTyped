@@ -3,7 +3,6 @@
     "rules": {
         "no-var-keyword": false,
         "no-void-expression": false,
-        "prefer-const": false,
-        "void-return": false
+        "prefer-const": false
     }
 }

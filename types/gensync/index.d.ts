@@ -27,7 +27,7 @@ declare namespace gensync {
     /**
      * A callback function such that if the result is void, there is no result parameter.
      */
-    // tslint:disable-next-line void-return
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type Callback<R, E = unknown> = [R] extends [void] ? (err: E) => void : (err: E, result: R) => void;
 
     /**

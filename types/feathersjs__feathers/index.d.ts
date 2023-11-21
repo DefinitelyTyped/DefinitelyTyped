@@ -45,7 +45,7 @@ declare namespace feathers {
         data: T[];
     }
 
-    // tslint:disable-next-line void-return
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type Hook = (hook: HookContext) => Promise<HookContext | SkipSymbol | void> | HookContext | SkipSymbol | void;
 
     type SkipSymbol = symbol | "__feathersSkipHooks";

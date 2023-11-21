@@ -2,7 +2,6 @@
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
         "no-var-keyword": false,
-        "unified-signatures": false,
-        "void-return": false
+        "unified-signatures": false
     }
 }

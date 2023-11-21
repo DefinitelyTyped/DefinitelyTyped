@@ -269,7 +269,7 @@ interface URI {
     preventInvalidHostname(val: boolean): URI;
 
     query(): string;
-    // tslint:disable-next-line void-return
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     query(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => URI.QueryDataMap | void)): URI;
     query(v: boolean): URI.QueryDataMap;
 
@@ -285,7 +285,7 @@ interface URI {
     scheme(): string;
     scheme(protocol: string): URI;
     search(): string;
-    // tslint:disable-next-line void-return
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     search(qry: string | URI.QueryDataMap | ((qryObject: URI.QueryDataMap) => URI.QueryDataMap | void)): URI;
     search(v: boolean): URI.QueryDataMap;
     segment(): string[];

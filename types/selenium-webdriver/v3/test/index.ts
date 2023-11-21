@@ -977,7 +977,7 @@ function TestPromiseClass() {
 
     promise = promise.then<string>();
     promise = promise.then((a: string) => "cde");
-    // tslint:disable-next-line void-return (need `--strictNullChecks` to change `void` to `undefined`)
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type -- (need `--strictNullChecks` to change `void` to `undefined`)
     const promiseOrVoid: webdriver.promise.Promise<string | void> = promise.then((a: string) => "cde", (e: any) => {});
     const promiseOrNumber: webdriver.promise.Promise<string | number> = promise.then(
         (a: string) => "cde",
@@ -992,7 +992,7 @@ function TestThenableClass() {
     });
 
     thenable = thenable.then((a: string) => "cde");
-    // tslint:disable-next-line void-return (need `--strictNullChecks` to change `void` to `undefined`)
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type -- (need `--strictNullChecks` to change `void` to `undefined`)
     const thenableOrVoid: webdriver.promise.Promise<string | void> = thenable.then(
         (a: string) => "cde",
         (e: any) => {},

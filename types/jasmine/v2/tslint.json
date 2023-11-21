@@ -17,7 +17,6 @@
         "prefer-conditional-expression": false,
         "prefer-const": false,
         "prefer-template": false,
-        "unified-signatures": false,
-        "void-return": false
+        "unified-signatures": false
     }
 }

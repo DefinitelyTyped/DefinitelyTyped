@@ -1777,7 +1777,7 @@ type GetNativeFunctionArgumentValue<T extends NativeFunctionArgumentType> = GetV
 >;
 
 type NativeFunctionReturnTypeMap = BaseNativeTypeMap & {
-    // tslint:disable-next-line:void-return
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     void: void;
     pointer: NativePointer;
     size_t: UInt64;
@@ -1818,7 +1818,7 @@ type GetNativeCallbackArgumentValue<T extends NativeCallbackArgumentType> = GetV
 >;
 
 type NativeCallbackReturnTypeMap = BaseNativeTypeMap & {
-    // tslint:disable-next-line:void-return
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     void: void;
     pointer: NativePointerValue;
     size_t: number | UInt64;

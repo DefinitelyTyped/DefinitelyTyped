@@ -54,7 +54,7 @@ export interface UnderlyingTypeOverrideRegistry { // eslint-disable-line @typesc
  * ```
  */
 export interface UnderlyingTypeDefaultRegistry {
-    "void": void; // tslint:disable-line void-return
+    "void": void; // eslint-disable-line @typescript-eslint/no-invalid-void-type
     "bool": boolean;
     "int8": number;
     "uint8": number;

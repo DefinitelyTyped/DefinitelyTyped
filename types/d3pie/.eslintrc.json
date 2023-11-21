@@ -2,6 +2,7 @@
     "rules": {
         "@definitelytyped/dt-header": "off",
         "@typescript-eslint/ban-types": "off",
-        "@typescript-eslint/naming-convention": "off"
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/no-invalid-void-type": "off"
     }
 }

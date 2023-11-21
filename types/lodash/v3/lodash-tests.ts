@@ -10410,7 +10410,7 @@ namespace TestNoConflict {
 // _.noop
 namespace TestNoop {
     {
-        let result: void; // tslint:disable-line:void-return
+        let result: void; // eslint-disable-line @typescript-eslint/no-invalid-void-type
 
         result = _.noop();
         result = _.noop(1);

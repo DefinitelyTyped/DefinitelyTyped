@@ -5,7 +5,6 @@
         "unified-signatures": false,
         "array-type": false,
         "no-var-keyword": false,
-        "void-return": false,
         "no-mergeable-namespace": false,
         "jsdoc-format": false,
         "no-irregular-whitespace": false,
