@@ -1,5 +1,5 @@
 /**
- * The k6 File System (fs) module provides an API for handling file operations 
+ * The k6 File System (fs) experimental module provides an API for handling file operations 
  * in your k6 tests. It allows you to read files within your test scripts.
  */
 
