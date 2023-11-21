@@ -1,4 +1,4 @@
-import Commerce = require("@chec/commerce.js");
+import Commerce = require("../");
 import { Asset } from "../types/asset";
 import { Cart as CartType } from "../types/cart";
 import { LineItem } from "../types/line-item";

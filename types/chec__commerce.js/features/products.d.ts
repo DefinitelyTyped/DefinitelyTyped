@@ -1,4 +1,4 @@
-import Commerce = require("@chec/commerce.js");
+import Commerce = require("../");
 import { PaginationMeta } from "../types/pagination";
 import { Product } from "../types/product";
 import { Variant } from "../types/variant";
