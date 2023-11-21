@@ -252,7 +252,7 @@ export interface ParseConfig<T = any, TInput = undefined> {
      * The function receives as an argument the chunk about to be parsed, and it may return a modified chunk to parse.
      * This is useful for stripping header lines (as long as the header fits in a single chunk).
      */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     beforeFirstChunk?(chunk: string): string | void;
 }
 

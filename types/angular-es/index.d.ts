@@ -1,6 +1,6 @@
 declare module "angular-es" {
     interface ClassDecorator {
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         <TFunction extends Function>(target: TFunction): TFunction | void;
     }
 
@@ -9,7 +9,7 @@ declare module "angular-es" {
             target: Object,
             propertyKey: string | symbol,
             descriptor: TypedPropertyDescriptor<T>,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ): TypedPropertyDescriptor<T> | void;
     }
 

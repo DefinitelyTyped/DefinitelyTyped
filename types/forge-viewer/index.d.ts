@@ -2330,7 +2330,7 @@ declare namespace Autodesk {
 
             interface MenuItem {
                 title: string;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 target: () => void | MenuItem[];
             }
 

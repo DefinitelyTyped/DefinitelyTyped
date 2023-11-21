@@ -553,7 +553,7 @@ $( document ).ajaxComplete(function( event, request, settings ) {
             event: JQuery.TriggeredEvent<Document, undefined, Document, Document>,
             jqXHR: JQuery.jqXHR,
             ajaxOptions: JQuery.AjaxSettings,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ) => void | false,
     ): this;
     /**
@@ -575,7 +575,7 @@ $( document ).ajaxError(function( event, request, settings ) {
             jqXHR: JQuery.jqXHR,
             ajaxSettings: JQuery.AjaxSettings,
             thrownError: string,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ) => void | false,
     ): this;
     /**
@@ -596,7 +596,7 @@ $( document ).ajaxSend(function( event, request, settings ) {
             event: JQuery.TriggeredEvent<Document, undefined, Document, Document>,
             jqXHR: JQuery.jqXHR,
             ajaxOptions: JQuery.AjaxSettings,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ) => void | false,
     ): this;
     /**
@@ -611,7 +611,7 @@ $( document ).ajaxStart(function() {
 });
 ```
      */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ajaxStart(handler: (this: Document) => void | false): this;
     /**
      * Register a handler to be called when all Ajax requests have completed. This is an Ajax Event.
@@ -625,7 +625,7 @@ $( document ).ajaxStop(function() {
 });
 ```
      */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ajaxStop(handler: (this: Document) => void | false): this;
     /**
      * Attach a function to be executed whenever an Ajax request completes successfully. This is an Ajax Event.
@@ -646,7 +646,7 @@ $( document ).ajaxSuccess(function( event, request, settings ) {
             jqXHR: JQuery.jqXHR,
             ajaxOptions: JQuery.AjaxSettings,
             data: JQuery.PlainObject,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ) => void | false,
     ): this;
     /**
@@ -1161,7 +1161,7 @@ $( "img" ).attr( "src", function() {
             | string
             | number
             | null
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             | ((this: TElement, index: number, attr: string) => string | number | void | undefined),
     ): this;
     /**
@@ -2357,7 +2357,7 @@ $( "span" ).on( "click", function() {
         value_function:
             | string
             | number
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             | ((this: TElement, index: number, value: string) => string | number | void | undefined),
     ): this;
     /**
@@ -2444,7 +2444,7 @@ $( "div" ).on( "click", function() {
      */
     css(
         properties: JQuery.PlainObject<
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             string | number | ((this: TElement, index: number, value: string) => string | number | void | undefined)
         >,
     ): this;
@@ -3213,7 +3213,7 @@ $( "button" ).click(function() {
 </html>
 ```
      */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     each(funсtion: (this: TElement, index: number, element: TElement) => void | false): this;
     /**
      * Remove all child nodes of the set of matched elements from the DOM.

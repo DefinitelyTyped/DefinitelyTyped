@@ -43,7 +43,7 @@ function testCast() {
 }
 
 function testConfigure() {
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     assertType<void>(RSVP.configure("name", { with: "some value" }));
     assertType<{}>(RSVP.configure("name"));
 }
@@ -53,7 +53,7 @@ function testAsap() {
         console.log(something);
     }, "srsly");
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     assertType<void>(result);
 }
 
@@ -62,7 +62,7 @@ function testAsync() {
         console.log(something);
     }, "rly srsly");
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     assertType<void>(result);
 }
 
@@ -310,7 +310,7 @@ function testRethrow() {
     RSVP.reject(new Error("all the badness"))
         .catch(RSVP.rethrow)
         .then(value => {
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             assertType<void>(value);
         })
         .catch(reason => {

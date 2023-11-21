@@ -113,7 +113,7 @@ interface TransitionProps {
      * Triggers when an element will disappear
      * @param styleThatLeft
      */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     willLeave?: ((styleThatLeft: TransitionStyle) => Style | void) | undefined;
     /**
      * Triggers when an element has disappeared

@@ -1179,7 +1179,7 @@ interface ExceptionMemoryDetails {
 type MemoryOperation = "read" | "write" | "execute";
 
 interface EnumerateCallbacks<T> {
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onMatch: (item: T) => void | EnumerateAction;
     onComplete: () => void;
 }
@@ -1193,7 +1193,7 @@ interface MemoryScanCallbacks {
      * @param address Memory address where a match was found.
      * @param size Size of this match.
      */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onMatch: (address: NativePointer, size: number) => void | EnumerateAction;
 
     /**
@@ -1228,7 +1228,7 @@ interface KernelMemoryScanCallbacks {
      * @param address Memory address where a match was found.
      * @param size Size of this match.
      */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onMatch: (address: UInt64, size: number) => void | EnumerateAction;
 
     /**
@@ -5105,7 +5105,7 @@ declare namespace Java {
          *
          * May return `EnumerateAction.Stop` to stop the enumeration early.
          */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onMatch: (instance: Wrapper<T>) => void | EnumerateAction;
 
         /**

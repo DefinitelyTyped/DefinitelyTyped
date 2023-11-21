@@ -55,7 +55,7 @@ interface RuleItem {
         callback: (error?: string | Error) => void,
         source: Values,
         options: ValidateOption,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ) => SyncValidateResult | void;
 }
 type Rule = RuleItem | RuleItem[];

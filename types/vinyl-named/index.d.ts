@@ -5,7 +5,7 @@ type Callback = (
     this: Through.ThroughStream,
     /** A vinyl file object */
     file: File & { named: string },
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ) => string | null | undefined | void;
 
 /**

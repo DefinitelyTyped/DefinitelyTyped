@@ -48,7 +48,7 @@ declare namespace requireDirectory {
          * @returns transformed module OR nothing (in second case module itself will be added to hash)
          * @default "change nothing"
          */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         visit?(obj: T): U | void;
     }
 

@@ -42,18 +42,18 @@ const testInteropApi = async (dotNetRef: DotNet.DotNetObject) => {
     const fooResults = await DotNet.invokeMethodAsync<string>("MyCoolApp.Core", "Foo", "First", "Second"); // $ExpectType string
     DotNet.invokeMethodAsync<string>("MyCoolApp.Core", "Foo", "First", "Second"); // $ExpectType Promise<string>
     DotNet.invokeMethodAsync<string>("MyCoolApp.Core", "Foo", "First", "Second"); // $ExpectType Promise<string>
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     DotNet.invokeMethodAsync<void>("MyCoolApp.Core", "Foo", ...tokens); // $ExpectType Promise<void>
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     DotNet.invokeMethodAsync<void>("MyCoolApp.Core", "Foo", 5, ...tokens, 20, ...[25]); // $ExpectType Promise<void>
     DotNet.invokeMethodAsync<ColorFlags>("MyCoolApp.Core", "Foo", 1, 2, 3); // $ExpectType Promise<ColorFlags>
     dotNetRef.invokeMethod<string>("MyCoolApp.Core", "Foo", "First", "Second"); // $ExpectType string
     dotNetRef.invokeMethod<number>("MyCoolApp.Core", "Foo", 1, 2); // $ExpectType number
     const fooResults2 = await dotNetRef.invokeMethodAsync<string>("MyCoolApp.Core", "Foo", "First", "Second"); // $ExpectType string
     dotNetRef.invokeMethodAsync<string>("MyCoolApp.Core", "Foo", "First", "Second"); // $ExpectType Promise<string>
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     dotNetRef.invokeMethodAsync<void>("MyCoolApp.Core", "Foo", ...tokens); // $ExpectType Promise<void>
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     dotNetRef.invokeMethodAsync<void>("MyCoolApp.Core", "Foo", 5, ...tokens, 20, ...[25]); // $ExpectType Promise<void>
     dotNetRef.invokeMethodAsync<ColorFlags>("MyCoolApp.Core", "Foo", 1, 2, 3); // $ExpectType Promise<ColorFlags>
     dotNetRef.dispose(); // $ExpectType void

@@ -78,11 +78,11 @@ declare namespace Validator {
         setAttributeNames(attributes: AttributeNames): void;
         setAttributeFormatter(func: AttributeFormatter): void;
         getRule(name: string): Function;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         stopOnError(passes?: Function): boolean | void;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         passes(passes?: Function): boolean | void;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         fails(fails?: Function): boolean | void;
     }
 }

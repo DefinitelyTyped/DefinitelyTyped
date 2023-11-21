@@ -1750,7 +1750,7 @@ interface HippyReactConfig {
     /**
      * The callback after rendering.
      */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     callback?: () => void | undefined | null;
 }
 declare class Hippy {

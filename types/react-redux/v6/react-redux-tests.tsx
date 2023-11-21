@@ -737,7 +737,7 @@ function TestTOwnPropsInference() {
 
     const ConnectedWithoutOwnProps = connect(mapStateToPropsWithoutOwnProps)(OwnPropsComponent);
     const ConnectedWithOwnProps = connect(mapStateToPropsWithOwnProps)(OwnPropsComponent);
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const ConnectedWithTypeHint = connect<StateProps, void, OwnProps>(mapStateToPropsWithoutOwnProps)(
         OwnPropsComponent,
     );
@@ -812,7 +812,7 @@ function TestMergedPropsInference() {
         return { dispatch: "string" };
     }
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const ConnectedWithOwnAndState: React.ComponentClass<OwnProps> = connect<StateProps, void, OwnProps, MergedProps>(
         mapStateToProps,
         undefined,
@@ -822,7 +822,7 @@ function TestMergedPropsInference() {
     )(MergedPropsComponent);
 
     const ConnectedWithOwnAndDispatch: React.ComponentClass<OwnProps> = connect<
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         void,
         DispatchProps,
         OwnProps,
@@ -835,8 +835,8 @@ function TestMergedPropsInference() {
         }),
     )(MergedPropsComponent);
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const ConnectedWithOwn: React.ComponentClass<OwnProps> = connect<void, void, OwnProps, MergedProps>(
         undefined,
         undefined,
@@ -1103,11 +1103,11 @@ function TestWithoutTOwnPropsDecoratedInference() {
     // these decorations should compile, it is perfectly acceptable to receive props and ignore them
     const ConnectedWithOwnPropsClass = connect(mapStateToProps4)(WithoutOwnPropsComponentClass);
     const ConnectedWithOwnPropsStateless = connect(mapStateToProps4)(WithoutOwnPropsComponentStateless);
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const ConnectedWithTypeHintClass = connect<StateProps, void, OwnProps>(mapStateToProps4)(
         WithoutOwnPropsComponentClass,
     );
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const ConnectedWithTypeHintStateless = connect<StateProps, void, OwnProps>(mapStateToProps4)(
         WithoutOwnPropsComponentStateless,
     );
@@ -1337,7 +1337,7 @@ function TestLibraryManagedAttributes() {
     const ConnectedComponent = connect(mapStateToProps)(Component);
     <ConnectedComponent fn={() => {}} />;
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const ConnectedComponent2 = connect<MapStateProps, void, ExternalOwnProps>(mapStateToProps)(Component);
     <ConnectedComponent2 fn={() => {}} />;
 }
@@ -1373,7 +1373,7 @@ function TestPropTypes() {
     const ConnectedComponent = connect(mapStateToProps)(Component);
     <ConnectedComponent fn={() => {}} bar={0} />;
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const ConnectedComponent2 = connect<MapStateProps, void, OwnProps>(mapStateToProps)(Component);
     <ConnectedComponent2 fn={() => {}} bar={0} />;
 }

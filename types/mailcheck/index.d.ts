@@ -78,7 +78,7 @@ declare namespace MailcheckModule {
 
 interface JQuery {
     mailcheck(opts: MailcheckModule.IAsynchronousOptions): void;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     mailcheck(opts: MailcheckModule.ISynchronousOptions): MailcheckModule.ISuggestion | void;
 }
 

@@ -33,7 +33,7 @@ export function render<P>(
     element: ReactElement<P>,
     container: Element | null,
     callback?: (component?: Component<P, ComponentState> | Element) => any,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): Component<P, ComponentState> | Element | void;
 export function render<P>(
     parentComponent: Component<any>,
@@ -66,5 +66,5 @@ export function unstable_renderSubtreeIntoContainer<P>(
     element: ReactElement<P>,
     container: Element,
     callback?: (component?: Component<P, ComponentState> | Element) => any,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): Component<P, ComponentState> | Element | void;

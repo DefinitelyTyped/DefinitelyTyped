@@ -650,7 +650,7 @@ export interface WebTwainIO extends WebTwainUtil {
             errorCode: number,
             errorString: string,
         ) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Load image(s) specified by its absolute path.
@@ -669,7 +669,7 @@ export interface WebTwainIO extends WebTwainUtil {
             errorCode: number,
             errorString: string,
         ) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Load image(s) from a base64 string.
@@ -687,7 +687,7 @@ export interface WebTwainIO extends WebTwainUtil {
             errorCode: number,
             errorString: string,
         ) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Load image(s) from a binary object (Blob | ArrayBuffer).
@@ -718,7 +718,7 @@ export interface WebTwainIO extends WebTwainUtil {
             errorCode: number,
             errorString: string,
         ) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * [Deprecation] Return or set how many threads can be used when you upload files through POST.
@@ -747,7 +747,7 @@ export interface WebTwainIO extends WebTwainUtil {
         index: number,
         successCallback?: () => void,
         failureCallback?: (errorCode: number, errorString: string) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Save the specified image as a JPEG file.
@@ -763,7 +763,7 @@ export interface WebTwainIO extends WebTwainUtil {
         index: number,
         successCallback?: () => void,
         failureCallback?: (errorCode: number, errorString: string) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Save the specified image as a PDF file.
@@ -779,7 +779,7 @@ export interface WebTwainIO extends WebTwainUtil {
         index: number,
         successCallback?: () => void,
         failureCallback?: (errorCode: number, errorString: string) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Save the specified image as a PNG file.
@@ -795,7 +795,7 @@ export interface WebTwainIO extends WebTwainUtil {
         index: number,
         successCallback?: () => void,
         failureCallback?: (errorCode: number, errorString: string) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Save the specified image as a TIFF file.
@@ -811,7 +811,7 @@ export interface WebTwainIO extends WebTwainUtil {
         index: number,
         successCallback?: () => void,
         failureCallback?: (errorCode: number, errorString: string) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Saves all the images in buffer as a multi-page TIFF file.
@@ -825,7 +825,7 @@ export interface WebTwainIO extends WebTwainUtil {
         fileName: string,
         successCallback?: () => void,
         failureCallback?: (errorCode: number, errorString: string) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Saves all the images in buffer as a multi-page PDF file.
@@ -839,7 +839,7 @@ export interface WebTwainIO extends WebTwainUtil {
         fileName: string,
         successCallback?: () => void,
         failureCallback?: (errorCode: number, errorString: string) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Saves all selected images in buffer as a multi-page PDF file.
@@ -853,7 +853,7 @@ export interface WebTwainIO extends WebTwainUtil {
         fileName: string,
         successCallback?: () => void,
         failureCallback?: (errorCode: number, errorString: string) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Saves all selected images in buffer as a multi-page TIFF file.
@@ -870,7 +870,7 @@ export interface WebTwainIO extends WebTwainUtil {
             errorCode: number,
             errorString: string,
         ) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * [Deprecation] Return an index from the selected indices array. Read SelectedImagesIndices instead.

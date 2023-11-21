@@ -40,7 +40,7 @@ import { promisify } from "node:util";
         [promisify.custom](foo: any): Promise<string>;
     }) {
         const setTimeout = promisify(timers.setTimeout);
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         let v: void = await setTimeout(100); // tslint:disable-line no-void-expression void-return
         let s: string = await setTimeout(100, "");
 

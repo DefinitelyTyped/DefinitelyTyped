@@ -122,7 +122,7 @@ export interface Slider<Domain> {
      * @param types An event typename.
      * @param callback A callback.
      */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     on(typenames: string): (val: Domain) => void | undefined;
 
     /**

@@ -31,7 +31,7 @@ export class HttpAgent extends EventEmitter {
     addUrl(url: string): void;
     start(): void;
     stop(): void;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     back(): boolean | void;
     next(url: string): void;
     readonly prevUrls: string[];

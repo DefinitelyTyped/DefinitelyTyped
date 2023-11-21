@@ -21,13 +21,13 @@ export interface FtpServerOptions {
      * Gets the initial working directory for the user. Called after user is authenticated
      * Typical cases where you would want/need the callback involve retrieving configurations from external datasources and suchlike.
      */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     getInitialCwd: (connection: FtpConnection, callback?: (error: Error, path: string) => void) => void | string;
     /**
      * Gets the root directory for the user relative to the CWD. Called after getInitialCwd. The user is not able to escape this directory.
      * Typical cases where you would want/need the callback involve retrieving configurations from external datasources and suchlike.
      */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     getRoot: (connection: FtpConnection, callback?: (error: Error, path: string) => void) => void | string;
     /**
      * If set to true, then files which the client uploads are buffered in memory and then written to disk using writeFile.

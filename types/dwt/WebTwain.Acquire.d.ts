@@ -84,7 +84,7 @@ export interface WebTwainAcquire extends WebTwainEdit {
     SelectSource(
         successCallBack?: () => void,
         failureCallBack?: (errorCode: number, errorString: string) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): boolean | void;
     /**
      * Bring up the Source Selection User Interface (UI) for the user to choose a data source.

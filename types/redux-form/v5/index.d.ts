@@ -232,7 +232,7 @@ export interface ReduxFormProps<T> {
      */
     handleSubmit(event: React.SyntheticEvent<T>): void;
     handleSubmit(event: React.MouseEvent<HTMLButtonElement>): void;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     handleSubmit(submit: (data: FormData, dispatch?: Dispatch<any>) => Promise<any> | void): React.FormEventHandler<T>;
 
     /**

@@ -654,7 +654,7 @@ function TestWebDriver() {
     driver.setFileDetector(fileDetector);
 
     voidPromise = driver.quit();
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     voidPromise = driver.schedule<void>(new webdriver.Command(webdriver.CommandName.CLICK), "ABC");
     voidPromise = driver.sleep(123);
     stringPromise = driver.takeScreenshot();
@@ -863,7 +863,7 @@ function TestPromiseModule() {
 
     voidPromise = webdriver.promise.delayed(123);
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     voidPromise = webdriver.promise.fulfilled<void>();
     stringPromise = webdriver.promise.fulfilled("abc");
 
@@ -946,11 +946,11 @@ function TestControlFlow() {
 
     stringPromise = flow.wait(stringPromise);
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     voidPromise = flow.wait<void>(() => true);
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     voidPromise = flow.wait<void>(() => true, 123);
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     voidPromise = flow.wait<void>(() => stringPromise, 123, "Timeout Message");
 }
 

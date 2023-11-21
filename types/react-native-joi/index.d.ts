@@ -1042,7 +1042,7 @@ export type ExtensionBoundSchema = Schema & {
 export interface Rules<P extends object = any> {
     name: string;
     params?: ObjectSchema | { [key in keyof P]: SchemaLike } | undefined;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     setup?(this: ExtensionBoundSchema, params: P): Schema | void;
     validate?(this: ExtensionBoundSchema, params: P, value: any, state: State, options: ValidationOptions): any;
     description?: string | ((params: P) => string) | undefined;

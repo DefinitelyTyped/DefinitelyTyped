@@ -8,7 +8,7 @@ export type Transducer<TInput, TOutput> = <TResult>(
 ) => Transformer<TResult, TInput>;
 
 export interface CompletingTransformer<TResult, TCompleteResult, TInput> {
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ["@@transducer/init"](): TResult | void;
     ["@@transducer/result"](result: TResult): TCompleteResult;
     ["@@transducer/step"](

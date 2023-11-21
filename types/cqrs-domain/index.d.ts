@@ -264,7 +264,7 @@ declare namespace Domain {
     type preLoadConditionHandler = (
         data: any,
         callback?: (err: string | Error) => string | Error,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ) => void | string | Error;
 
     function definePreLoadCondition(options: DefinePreLoadConditionOptions, handler: preLoadConditionHandler): void;
@@ -312,7 +312,7 @@ declare namespace Domain {
         data: any,
         aggregate: AggregateModel,
         callback?: (err: string | Error) => string | Error,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ) => void | string | Error;
 
     function definePreCondition(options: DefinePreConditionOptions, handler: preConditionHandler): void;
@@ -388,7 +388,7 @@ declare namespace Domain {
         previous: AggregateModel,
         command: any,
         callback?: (err: string | Error) => string | Error,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ) => void | string | Error;
 
     function defineBusinessRule(options: DefineBusinessRuleOptions, handler: businessRuleHandler): void;
@@ -424,7 +424,7 @@ declare namespace Domain {
         cmd: any,
         commandHandler: any,
         callback?: (err: string | Error) => string | Error,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ) => void | string | Error;
 
     function defineCommandHandler(options: DefineCommandHandlerOptions, handler: commandHandlerHandler): void;

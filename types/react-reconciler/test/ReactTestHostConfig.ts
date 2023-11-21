@@ -56,9 +56,9 @@ export type OpaqueIDType =
     | string
     | {
         $$typeof: number | symbol;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         toString: () => string | void;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         valueOf: () => string | void;
     };
 

@@ -118,7 +118,7 @@ export interface WebTwainBuffer extends WebTwainIO {
             errorCode: number,
             errorString: string,
         ) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): number | void;
     /**
      * Return the skew angle of the specified rectangle on the specified image.
@@ -146,7 +146,7 @@ export interface WebTwainBuffer extends WebTwainIO {
             errorCode: number,
             errorString: string,
         ) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): number | void;
     /**
      * Return how many images are held in the buffer

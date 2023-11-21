@@ -144,7 +144,7 @@ declare namespace nwsapi {
         select<S extends string>(
             selector: S,
             context?: ContextNode | null,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             callback?: ((element: ResolveElementType<S>) => boolean | void) | null,
         ): Array<ResolveElementType<S>>;
 

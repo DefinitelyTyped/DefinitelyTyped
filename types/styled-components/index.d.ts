@@ -383,7 +383,7 @@ export type StylisPlugin = (
     line: number,
     column: number,
     length: number,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ) => string | void;
 
 export interface StyleSheetManagerProps {

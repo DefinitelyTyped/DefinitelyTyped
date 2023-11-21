@@ -25,7 +25,7 @@ declare global {
      * This value must be between 6 significant digits and must always be increasing as more work is continuously being done.
      * @returns void | EnoProgressError
      */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     function progress(n?: string | number): void | EnoProgressError;
 }
 

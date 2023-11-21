@@ -21,7 +21,7 @@ export function verifySignature(
     pubkey: string | Uint8Array,
     hexsignature: string | Uint8Array,
     callback?: callback,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): boolean | void;
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function validateSin(sin: string, callback?: callback): boolean | void;

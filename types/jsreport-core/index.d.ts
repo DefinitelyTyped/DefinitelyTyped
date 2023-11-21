@@ -80,7 +80,7 @@ declare namespace JsReport {
     interface ListenerCollection {
         add(
             type: string,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             callback: (req: Request, res: Response, err?: any) => Promise<any> | void,
         ): void;
     }

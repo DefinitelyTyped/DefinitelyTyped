@@ -31,28 +31,28 @@ export interface ProducerCallback {
 export class Produce {
     constructor(options: ProduceOptions | string);
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     alert(options: MessageOptions, callback?: ProducerCallback): string | void;
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     crit(options: MessageOptions, callback?: ProducerCallback): string | void;
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     debug(options: MessageOptions, callback?: ProducerCallback): string | void;
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     emergency(options: MessageOptions, callback?: ProducerCallback): string | void;
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     info(options: MessageOptions, callback?: ProducerCallback): string | void;
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     notice(options: MessageOptions, callback?: ProducerCallback): string | void;
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     produce(options: MessageOptions, callback?: ProducerCallback): string | void;
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     warn(options: MessageOptions, callback?: ProducerCallback): string | void;
 }
 
@@ -73,6 +73,6 @@ export interface SyslogMessage {
 }
 
 export namespace Parse {
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     function parse(rawMessage: string | Buffer, callback?: ParserCallback): SyslogMessage | void;
 }

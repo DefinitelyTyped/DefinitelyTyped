@@ -24,7 +24,7 @@ declare module "draft-convert" {
         E extends RawDraftEntity = RawDraftEntity,
     > {
         // Inline styles:
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         styleToHTML?: ((style: S) => Tag | void) | undefined;
 
         // Block styles:

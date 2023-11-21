@@ -247,12 +247,12 @@ declare namespace SemanticUI {
              * The first parameter includes the filtered response results for that element.
              * The function should return false to prevent default action (closing search results and selecting value).
              */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onSelect(this: JQuery, result: any, response: any): false | void;
             /**
              * Callback after processing element template to add HTML to results. Function should return false to prevent default actions.
              */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onResultsAdd(this: JQuery, html: string): false | void;
             /**
              * Callback on search query

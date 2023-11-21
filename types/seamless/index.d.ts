@@ -149,7 +149,7 @@ declare namespace Seamless {
     }
 
     export interface Callback {
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         (data: any, event: any): any | boolean | void;
     }
 

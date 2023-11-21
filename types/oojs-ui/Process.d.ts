@@ -69,7 +69,7 @@ declare namespace OO.ui {
         type Step<C> =
             | number
             | JQuery.Promise<void>
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             | ((this: C) => boolean | number | JQuery.Promise<void> | Error | [Error] | void);
 
         interface Constructor {

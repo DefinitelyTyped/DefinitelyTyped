@@ -60888,7 +60888,7 @@ declare namespace Titanium {
             sourceStream: Titanium.IOStream,
             buffer?: Titanium.Buffer,
             resultsCallback?: (param0: ReadCallbackArgs) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ): Titanium.Buffer | void;
 
         /**

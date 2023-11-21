@@ -19,7 +19,7 @@ export interface RecordingOptions {
 
 export const AudioRecorder: {
     requestAuthorization(): Promise<boolean>;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     prepareRecordingAtPath(path: string, options: RecordingOptions): void | Promise<string>;
     startRecording(): Promise<string>;
     stopRecording(): Promise<string>;

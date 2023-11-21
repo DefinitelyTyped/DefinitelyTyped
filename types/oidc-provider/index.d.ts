@@ -221,7 +221,7 @@ declare class Session extends BaseModel {
         }
         | undefined;
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     authTime(): string | void;
     past(age: number): boolean;
 
@@ -233,7 +233,7 @@ declare class Session extends BaseModel {
         loginTs?: number | undefined;
         transient?: boolean | undefined;
     }): void;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     authorizationFor(clientId: string): ClientAuthorizationState | void;
     sidFor(clientId: string): string;
     sidFor(clientId: string, value: string): void;
@@ -1306,7 +1306,7 @@ export interface Configuration {
                     key: string,
                     value: unknown,
                     metadata: ClientMetadata,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+                    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 ) => void | undefined)
                 | undefined;
         }

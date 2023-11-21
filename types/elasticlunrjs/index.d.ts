@@ -237,7 +237,7 @@ declare namespace elasticlunr {
 
     type SerialisedPipeline = string[];
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type PipelineFunction = (token: string, tokenIndex: number, tokens: string[]) => string | undefined | null | void;
 
     class Pipeline {

@@ -1054,7 +1054,7 @@ declare namespace Foxx {
         mount: string;
         indexFile: string;
         swaggerRoot: string;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         before: (req: Request, res: Response) => void | false;
     }
 

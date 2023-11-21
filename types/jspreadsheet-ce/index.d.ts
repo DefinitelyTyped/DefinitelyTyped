@@ -401,7 +401,7 @@ declare namespace jspreadsheet {
                 columnIndex: number,
                 rowIndex: number,
                 value: CellValue,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             ) => CellValue | void)
             | undefined;
         /** Before a column is excluded. You can cancel the insert event by returning false. */

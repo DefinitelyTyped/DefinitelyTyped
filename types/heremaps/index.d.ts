@@ -711,7 +711,7 @@ declare namespace H {
              * Returns URL of the current file, which is either in process of fetching/parsing or file that has been already parsed.
              * @returns {(string | undefined)} - url
              */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             getUrl(): string | void;
 
             /**
@@ -1553,7 +1553,7 @@ declare namespace H {
              * @param opt_skipValidation {boolean=} - a boolean flag indicating whether to check validity of the arguments
              * @returns {(H.geo.Rect | undefined)} - returns the minimum rectangular area covering the coordinates
              */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             static coverLatLngAlts(latLngAltArray: number[], opt_skipValidation?: boolean): H.geo.Rect | void;
 
             /**
@@ -1562,7 +1562,7 @@ declare namespace H {
              * @param opt_skipValidation {boolean=} - a boolean flag indicating whether to check validity of the arguments
              * @returns {(H.geo.Rect | undefined)} - returns the minimum rectangular area covering the rectangular areas
              */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             static coverRects(rectArray: H.geo.Rect[], opt_skipValidation?: boolean): H.geo.Rect | void;
 
             /**
@@ -2364,7 +2364,7 @@ declare namespace H {
              * Returns the z-index of this object.
              * @returns {(number | undefined)}
              */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             getZIndex(): number | void;
 
             /**
@@ -2911,7 +2911,7 @@ declare namespace H {
              * inconsistancies!
              * @returns {(H.map.ArrowStyle | undefined)}
              */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             getArrows(): H.map.ArrowStyle | void;
 
             /**
@@ -3350,7 +3350,7 @@ declare namespace H {
                  * @param cacheOnly {boolean} - indicates whether only cached tiles are to be considered
                  * @returns {(H.map.provider.Tile | undefined)} - tile object corresponding to requested coordinates
                  */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 requestTile(x: number, y: number, z: number, cacheOnly: boolean): H.map.provider.Tile | void;
 
                 /**
@@ -3469,7 +3469,7 @@ declare namespace H {
                  * @param cacheOnly {boolean} - indicates whether only cached tiles are to be considered
                  * @returns {(H.map.provider.Tile | undefined)} - tile object corresponding to requested coordinates
                  */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 requestTile(x: number, y: number, z: number, cacheOnly: boolean): H.map.provider.Tile | void;
 
                 /**
@@ -3683,7 +3683,7 @@ declare namespace H {
                  * @param cacheOnly {boolean} - indicates whether only cached tiles are to be considered
                  * @returns {(H.map.provider.Tile | undefined)} - tile object corresponding to requested coordinates
                  */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 requestTile(x: number, y: number, z: number, cacheOnly: boolean): H.map.provider.Tile | void;
 
                 /**
@@ -5314,7 +5314,7 @@ declare namespace H {
              * This method returns the map tile service's meta information. The method will return an object once the map tile service's data has been fetched.
              * @returns {(H.service.MapTileService.Info | undefined)} - meta information for this map tile service
              */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             getInfo(): H.service.MapTileService.Info | void;
 
             /**
@@ -6123,7 +6123,7 @@ declare namespace H {
              * This function returns the path part of this Url object.
              * @returns {(string | undefined)} - the path (for example 'myresources/resource.html')
              */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             getPath(): string | void;
 
             /**
@@ -6157,7 +6157,7 @@ declare namespace H {
              * This function returns the anchor of this Url object.
              * @returns {(string | undefined)} - the anchor
              */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             getAnchor(): string | void;
 
             /**
@@ -6229,7 +6229,7 @@ declare namespace H {
                  * This method returns the meta info tile service's meta information. The method will return an object once the map tile service's data has been fetched.
                  * @returns {(H.service.metaInfo.Service.Info | undefined)} - meta information for this meta info tile service
                  */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 getInfo(): H.service.metaInfo.Service.Info | void;
 
                 /**
@@ -6395,7 +6395,7 @@ declare namespace H {
                  * @param level {number} - floor level within minimum and maximum level boundaries for the building
                  * @returns {(H.service.venues.Floor | undefined)} - The floor object or undefined if floor was not loaded
                  */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 getFloor(level: number): H.service.venues.Floor | void;
             }
 
@@ -6422,7 +6422,7 @@ declare namespace H {
                  * Method returns map geometry that represents floor boundaries.
                  * @returns {(H.service.venues.Space | undefined)}
                  */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 getFloorSpace(): H.service.venues.Space | void;
 
                 /**
@@ -6449,7 +6449,7 @@ declare namespace H {
                  * @param id {string} - The ID of the space.
                  * @returns {(H.service.venues.Space | undefined)} - The requested space or undefined if space not found.
                  */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 getSpace(id: string): H.service.venues.Space | void;
             }
 
@@ -6632,7 +6632,7 @@ declare namespace H {
                  * @param id {string} - the ID of the building
                  * @returns {(H.service.venues.Building | undefined)} - The requested building or undefined if building wasn't loaded
                  */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 getBuilding(id: string): H.service.venues.Building | void;
 
                 /**

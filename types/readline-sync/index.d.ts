@@ -50,9 +50,9 @@ export function promptCL(
 export function promptLoop(inputHandler: (value: string) => boolean, options?: BasicOptions): void;
 export function promptCLLoop(
     commandHandler?:
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         | { [id: string]: (...args: string[]) => boolean | void }
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         | ((command: string, ...args: string[]) => boolean | void),
     options?: BasicOptions,
 ): void;

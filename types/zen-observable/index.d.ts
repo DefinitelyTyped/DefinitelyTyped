@@ -23,7 +23,7 @@ declare global {
             complete?(): void;
         }
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         type Subscriber<T> = (observer: SubscriptionObserver<T>) => void | (() => void) | Subscription;
 
         interface ObservableLike<T> {

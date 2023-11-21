@@ -11,7 +11,7 @@ declare namespace shallowEqual {
         objA: any,
         objB: any,
         indexOrKey?: number | string,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ) => boolean | void;
 }
 

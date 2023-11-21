@@ -8,7 +8,7 @@ Q(8).then((x) => console.log(x.toExponential()));
 Q().then(() => console.log("nothing"));
 
 function delay(delay: number): Q.Promise<void> {
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const d = Q.defer<void>();
     setTimeout(d.resolve, delay);
     return d.promise;

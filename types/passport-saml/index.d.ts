@@ -7,11 +7,11 @@ export interface CacheItem {
 }
 
 export interface CacheProvider {
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     save(key: string | null, value: any, callback: (err: Error | null, cacheItem: CacheItem) => void | null): void;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     get(key: string, callback: (err: Error | null, value: any) => void | null): void;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     remove(key: string, callback: (err: Error | null, key: string) => void | null): void;
 }
 

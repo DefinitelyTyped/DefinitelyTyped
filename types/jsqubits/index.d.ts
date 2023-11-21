@@ -7,7 +7,7 @@ declare namespace jsqubits {
         interface QState {
             numBits(): number;
             amplitude(basisState: string | number): Complex;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             each: (callBack: (stateWithAmplitude: StateWithAmplitude) => false | void) => void;
 
             multiply(amount: number | Complex): QState;

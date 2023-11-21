@@ -80,7 +80,7 @@ interface OptionalFunctionProp {
     requiredFunctionProp(): void;
     singleArg(arg: any): void;
     multipleArg(arg1: number, arg2: string, arg3: boolean): void;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     multipleReturn(): void | number | boolean | undefined | null | string;
     nonFun?: number | undefined;
 }

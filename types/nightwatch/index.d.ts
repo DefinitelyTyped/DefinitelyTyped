@@ -2387,7 +2387,7 @@ interface ExclusiveSuiteFunction {
 }
 
 interface PendingSuiteFunction {
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     (title: string, fn?: (this: DescribeInstance) => void): this | void;
 }
 

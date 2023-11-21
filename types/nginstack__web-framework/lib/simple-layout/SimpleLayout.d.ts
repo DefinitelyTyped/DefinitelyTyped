@@ -130,7 +130,7 @@ declare class SimpleLayout {
         opt_treeNodeId?: number,
         opt_parentTreeNodeId?: number,
         opt_patterns?: string[],
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): boolean | void;
     private start;
     private mailMessage_;

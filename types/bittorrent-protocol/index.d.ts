@@ -67,7 +67,7 @@ declare namespace BittorrentProtocol {
         // TODO: bitfield can be also a bitfield instance
         bitfield(bitfield: Buffer | any): void;
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         request<T extends any>(index: number, offset: number, length: number, cb?: (err: Error) => T): T | void;
 
         piece(index: number, offset: number, buffer: Buffer): void;

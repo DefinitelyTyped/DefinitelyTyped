@@ -11288,12 +11288,12 @@ declare namespace chrome.webRequest {
 
     export interface WebRequestBodyEvent extends
         chrome.events.EventWithRequiredFilterInAddListener<
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             (details: WebRequestBodyDetails) => BlockingResponse | void
         >
     {
         addListener(
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             callback: (details: WebRequestBodyDetails) => BlockingResponse | void,
             filter: RequestFilter,
             opt_extraInfoSpec?: string[],
@@ -11302,12 +11302,12 @@ declare namespace chrome.webRequest {
 
     export interface WebRequestHeadersSynchronousEvent extends
         chrome.events.EventWithRequiredFilterInAddListener<
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             (details: WebRequestHeadersDetails) => BlockingResponse | void
         >
     {
         addListener(
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             callback: (details: WebRequestHeadersDetails) => BlockingResponse | void,
             filter: RequestFilter,
             opt_extraInfoSpec?: string[],
@@ -11332,12 +11332,12 @@ declare namespace chrome.webRequest {
 
     export interface WebResponseHeadersEvent extends
         chrome.events.EventWithRequiredFilterInAddListener<
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             (details: WebResponseHeadersDetails) => BlockingResponse | void
         >
     {
         addListener(
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             callback: (details: WebResponseHeadersDetails) => BlockingResponse | void,
             filter: RequestFilter,
             opt_extraInfoSpec?: string[],

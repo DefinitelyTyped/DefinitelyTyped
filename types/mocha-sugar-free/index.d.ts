@@ -4,7 +4,7 @@ import { Suite, Test } from "mocha";
 type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
 declare namespace Mocha {
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type TestCase = (this: undefined, context: TestContext) => void | PromiseLike<any>;
     type TestCaseWithDone = (this: undefined, context: TestContextWithDone) => void;
     type HookFunc = (this: undefined, context: HookContext) => void;
@@ -404,12 +404,12 @@ declare namespace Mocha {
      * @returns [tdd] `void`
      */
     interface PendingSuiteFunction {
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         (title: string, fn?: SuiteFunc): Suite | void;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         (title: string, options?: Options & { fn?: SuiteFunc | undefined }, fn?: SuiteFunc): Suite | void;
         // tslint:disable-next-line: unified-signatures
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         (options: Options & { title: string; fn?: SuiteFunc | undefined }, fn?: SuiteFunc): Suite | void;
     }
 

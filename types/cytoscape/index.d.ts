@@ -2514,9 +2514,9 @@ declare namespace cytoscape {
          * eles - The collection of elements being iterated.
          * @param thisArg [optional] The value for this within the iterating function.
          */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         each(each: (ele: TIn, i: number, eles: this) => void | boolean, thisArg?: any): this;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         forEach(each: (ele: TIn, i: number, eles: this) => void | boolean, thisArg?: any): this;
 
         /**
@@ -3102,7 +3102,7 @@ declare namespace cytoscape {
         u: NodeSingular | undefined,
         i: number,
         depth: number,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ) => boolean | void;
     interface SearchFirstOptionsBase {
         /**

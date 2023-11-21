@@ -1431,15 +1431,15 @@ function test_stats_collector(runner: LocalMocha.Runner) {
 // the mocha functions and enables them to work as test class decorators.
 declare module "mocha" {
     interface SuiteFunction {
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         <TFunction extends Function>(target: TFunction): TFunction | void;
     }
     interface PendingSuiteFunction {
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         <TFunction extends Function>(target: TFunction): TFunction | void;
     }
     interface ExclusiveSuiteFunction {
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         <TFunction extends Function>(target: TFunction): TFunction | void;
     }
     interface TestFunction {

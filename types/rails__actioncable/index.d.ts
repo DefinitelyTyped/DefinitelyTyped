@@ -70,7 +70,7 @@ export class Connection<C = Consumer> {
 
     reopen(): void;
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     getProtocol(): void | string;
 
     isOpen(): boolean;
@@ -145,7 +145,7 @@ export class Consumer {
 
     disconnect(): any;
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ensureActiveConnection(): void | boolean;
 }
 

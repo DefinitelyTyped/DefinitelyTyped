@@ -4,9 +4,9 @@ interface ClipboardProps {
     render: () => ReactNode;
     text: string;
     props?: object | undefined;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onSuccess?: () => void | undefined;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onError?: () => void | undefined;
 }
 

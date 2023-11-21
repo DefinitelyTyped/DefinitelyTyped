@@ -216,9 +216,9 @@ declare var GM: {
      * const elem = GM_addElement(parentElement, 'a', {href: 'https://....', title: 'Some title', target: '_blank', textContent: 'Some text'});
      * @see {@link https://erosman.github.io/support/content/help.html#addElement}
      */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     addElement(tagName: string, attributes: object): HTMLElement | void;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     addElement(parentNode: string, tagName: string, attributes: object): HTMLElement | void;
 
     /**

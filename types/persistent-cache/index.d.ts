@@ -69,7 +69,7 @@ declare function cache(options?: CacheOptions): {
     /**
      * Remove the provided `key` from the cache.
      */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     deleteSync(name: string): undefined | void;
     /**
      * Finds all available keys in a cache.

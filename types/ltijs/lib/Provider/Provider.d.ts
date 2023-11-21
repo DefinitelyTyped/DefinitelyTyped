@@ -39,12 +39,12 @@ export interface ProviderOptions {
 }
 
 export interface OnConnectCallback {
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     (connection: IdToken, request: Request, response: Response, next: NextFunction): Response | void;
 }
 
 export interface UnregisteredPlatformCallback {
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     (request: Request, response: Response): Response | void;
 }
 

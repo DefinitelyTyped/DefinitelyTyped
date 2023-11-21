@@ -1122,7 +1122,7 @@ declare namespace l {
          * @param {boolean} isStatic Required if fn is a String. Only find a static method with the given name.
          * @return {any} SharedMethod https://apidocs.strongloop.com/strong-remoting/#sharedmethod
          */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         find(fn: () => void | string, isStatic: boolean): any;
 
         /**
@@ -1872,7 +1872,7 @@ declare namespace l {
             options?: any,
             optionsFilter?: any,
             callback?: (err: Error, conflicts: Conflict[], param: any) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ): Promise<{ conflicts: Conflict[]; params: any }> | void;
 
         /**
@@ -2357,7 +2357,7 @@ declare namespace l {
             searchDefaultTokenKeys?: boolean | undefined;
             enableDoublecheck?: boolean | undefined;
             overwriteExistingToken?: boolean | undefined;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             model?(): void | string;
             currentUserLiteral?: string | undefined;
         },
@@ -3244,7 +3244,7 @@ declare namespace l {
                 role: string,
                 ctx: Context,
                 callback?: (err: Error, resolved: boolean) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             ) => Promise<boolean> | void,
         ): void;
     }
@@ -3445,7 +3445,7 @@ declare namespace l {
             credentials: any,
             include?: string[] | string,
             callback?: (err: Error, token: AccessToken) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ): Promise<AccessToken> | void;
 
         /**
@@ -3493,7 +3493,7 @@ declare namespace l {
             ttl: number,
             options?: any,
             callback?: (err: string | Error, token: AccessToken) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ): Promise<AccessToken> | void;
 
         /**
@@ -3503,7 +3503,7 @@ declare namespace l {
          * @param {Error} err Error object
          * @param {boolean} isMatch Returns true if the given `password` matches recor
          */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         hasPassword(password: string, callback?: (err: Error, isMatch: boolean) => void): Promise<boolean> | void;
 
         /**

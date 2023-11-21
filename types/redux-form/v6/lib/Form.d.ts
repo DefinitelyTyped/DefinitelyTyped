@@ -7,7 +7,7 @@ interface FormSubmitHandler {
         values: any,
         dispatch?: Dispatch<any>,
         props?: FormProps<any, any, any> & { [prop: string]: any },
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | FormErrors<any> | Promise<any>;
 }
 

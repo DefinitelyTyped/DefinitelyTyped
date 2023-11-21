@@ -281,7 +281,7 @@ declare global {
         datepicker(
             method: DatePickerMethod,
             ...args: ReadonlyArray<number | boolean | Date | string>
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ): void | string | Date;
     }
 }

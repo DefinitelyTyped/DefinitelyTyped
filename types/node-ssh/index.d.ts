@@ -13,7 +13,7 @@ declare namespace SSH {
         username: string;
         password?: string | undefined;
         privateKey?: string | undefined;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onKeyboardInteractive?: (() => void | boolean) | undefined;
     }
 

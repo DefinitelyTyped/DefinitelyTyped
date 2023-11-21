@@ -49,9 +49,9 @@ interface Kik {
 
     browser: {
         background: boolean;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         back(callback: () => boolean | void): void;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         unbindBack(callback: () => boolean | void): void;
         on(property: string, callback: () => void): void;
         off(property: string, callback: () => void): void;

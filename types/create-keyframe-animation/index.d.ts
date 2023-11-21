@@ -62,7 +62,7 @@ export function runAnimation<T extends ElsType, U>(
     els: T,
     opts: OptsType,
     cb: (err: Error | null, result?: InferParams<T>) => U,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): Promise<U> | void;
 
 /**

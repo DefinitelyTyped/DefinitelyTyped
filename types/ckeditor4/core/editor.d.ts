@@ -90,7 +90,7 @@ declare namespace CKEDITOR {
 
         execCommand(commandName: string, data?: unknown): boolean;
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         extractSelectedHtml(toString?: boolean, removeEmptyBlock?: boolean): dom.documentFragment | string | void;
 
         focus(): void;

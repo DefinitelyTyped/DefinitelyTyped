@@ -632,7 +632,7 @@ export interface TransformRaw<T extends Record<string, any>> {
     selector?: string | undefined;
     schema?: TransformRawSchema | undefined;
     isMatch?(node: Node): boolean;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     transform?(node: Node): BlockInstance<Partial<T>> | void;
 }
 

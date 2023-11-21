@@ -47,11 +47,11 @@ declare namespace d3kit {
         height(value: number | string, doNotDispatch?: boolean): Skeleton;
         dimension(): [number, number];
         dimension(dimension: [number | string, number | string], doNotDispatch?: boolean): Skeleton;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         autoResize(mode?: string | boolean): string | boolean | void;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         autoResizeDetection(method?: string): string | void;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         autoResizeToAspectRatio(ratio?: number | boolean): number | boolean | void;
 
         // Other functions

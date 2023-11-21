@@ -62,7 +62,7 @@ export interface AlertShowOptions {
     /**
      * The function called when message is closed.
      */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onClose?: () => void | undefined;
 }
 

@@ -665,7 +665,7 @@ declare namespace JQueryDynatable {
          *
          * @return Could return an `$.error()` if nothing is found.
          */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         getFromTable(): void | JQuery;
         /** Initializes `settings.table.columns` array and calls `getFromTable()` */
         init(): void;

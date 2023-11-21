@@ -124,7 +124,7 @@ holidayModifier = holidayModifier.undo();
 holidayModifier = holidayModifier.load("string");
 holidayModifier = holidayModifier.load(["string"]);
 holidayModifier = holidayModifier.extendParser(
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     (m: moment.Moment, d: string): moment.Moment | moment.Moment[] | false | void => {
     },
 );

@@ -1871,7 +1871,7 @@ export interface RaphaelSet<
      * @return this set for chaining.
      */
     forEach<ThisContext = Window>(
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         callback: (this: ThisContext, element: RaphaelElement<TTechnology>) => boolean | void,
         thisArg?: ThisContext,
     ): this;
@@ -2142,7 +2142,7 @@ export interface RaphaelPaper<
      * @return this paper for chaining.
      */
     forEach<T = Window>(
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         callback: (this: T, element: RaphaelElement<TTechnology>) => boolean | void,
         thisContext?: T,
     ): this;

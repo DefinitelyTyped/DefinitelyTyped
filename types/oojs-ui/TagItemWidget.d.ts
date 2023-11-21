@@ -90,7 +90,7 @@ declare namespace OO.ui {
              * @param e Key down event
              * @return false to stop the operation
              */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onKeyDown(e: JQuery.Event): boolean | void;
 
             /**

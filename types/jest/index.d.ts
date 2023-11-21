@@ -498,7 +498,7 @@ declare namespace jest {
         fail(error?: string | { message: string }): any;
     }
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type ProvidesCallback = ((cb: DoneCallback) => void | undefined) | (() => PromiseLike<unknown>);
     type ProvidesHookCallback = (() => any) | ProvidesCallback;
 

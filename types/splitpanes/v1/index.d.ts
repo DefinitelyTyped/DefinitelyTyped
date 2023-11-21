@@ -55,7 +55,7 @@ export interface splitPanesMethods {
     onSplitterDblClick: (e: Event, splitterIndex: number) => void;
     getCurrentMouseDrag: (e: Event) => positionTypes;
     getCurrentDragPercentage: (drag: object) => number;
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     calculatePanesSize: (drag: object) => boolean | void;
     doPushOtherPanes: (sums: object, dragPercentage: number) => any;
     sumPrevPanesSize: (splitterIndex: number) => object;

@@ -131,7 +131,7 @@ export default class AWN {
     async<T = unknown>(
         promise: Promise<T>,
         onResolve?: (resp?: T) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onReject?: (error: Error) => void | string,
         message?: string,
         options?: AwnOptions,
@@ -178,7 +178,7 @@ export default class AWN {
     asyncBlock<T = unknown>(
         promise: Promise<T>,
         onResolve?: (resp?: T) => void,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onReject?: (error: Error) => void | string,
         message?: string,
         options?: AwnOptions,
@@ -221,6 +221,6 @@ export default class AWN {
      * @param  options  Instance of `AwnOptions`, which will override globals for this call
      * @return          A new `HTMLElement` instance
      */
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     confirm(message: string, onOk?: () => void, onCancel?: () => void | false, options?: AwnOptions): HTMLElement;
 }

@@ -433,7 +433,7 @@ declare namespace Terminal {
                 previousTokens: readonly string[],
                 term: Terminal,
                 config: HookConfig,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             ) => string | CTerminal | null | void)
             | undefined;
         tokenResetHook?:

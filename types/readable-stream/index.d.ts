@@ -450,7 +450,7 @@ declare namespace _Readable {
 
     class Transform extends Duplex {
         _transformState: {
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             afterTransform: (this: Transform, er: any, data: any) => void | boolean;
             needTransform: boolean;
             transforming: boolean;

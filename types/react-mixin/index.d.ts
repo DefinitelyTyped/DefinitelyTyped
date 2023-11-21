@@ -4,7 +4,7 @@ import * as React from "react";
 
 declare namespace reactMixin {
     export interface ClassDecorator {
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         <TFunction extends Function>(target: TFunction): TFunction | void;
     }
 

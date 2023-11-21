@@ -352,7 +352,7 @@ declare namespace PlugAPI {
 }
 
 declare class PlugAPI {
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     constructor(login: PlugAPI.PlugLogin, callback?: (error: Error, bot: PlugAPI) => void | ((bot: PlugAPI) => void));
     deleteAllChat: boolean;
     multiLine: boolean;

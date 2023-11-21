@@ -2,7 +2,7 @@ export type Handler<TResult = Response | object> = (
     event: Event,
     context: Context,
     callback: Callback<TResult>,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ) => void | TResult | Promise<TResult>;
 
 export type Callback<TResult = Response | object> = (error?: Error | string | null, result?: TResult) => void;

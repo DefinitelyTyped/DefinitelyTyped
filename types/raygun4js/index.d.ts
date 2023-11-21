@@ -278,7 +278,7 @@ interface RaygunStatic {
             payload: RaygunPayload,
             stackTrace: TracekitStackTrace,
             options: any,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ) => string | void,
     ): RaygunStatic;
     onBeforeXHR(callback: (xhr: XMLHttpRequest) => void): RaygunStatic;
@@ -369,7 +369,7 @@ interface RaygunV2 {
             payload: RaygunPayload,
             stackTrace: TracekitStackTrace,
             options: any,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ) => string | void,
     ): void;
     (key: "trackEvent", value: { type: string; path: string } | { type: string; name: string; duration: number }): void;

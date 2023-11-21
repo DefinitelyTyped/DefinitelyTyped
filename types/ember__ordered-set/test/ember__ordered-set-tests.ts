@@ -58,7 +58,7 @@ sansContext.add("foo");
 
 sansContext.forEach(function(entry) {
     assertType<string>(entry);
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     assertType<void>(this);
 });
 

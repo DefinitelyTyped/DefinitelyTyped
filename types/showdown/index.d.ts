@@ -30,7 +30,7 @@ declare namespace Showdown {
             converter: Converter,
             options: ShowdownOptions,
             globals: ConverterGlobals,
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ): void | string;
     }
 
