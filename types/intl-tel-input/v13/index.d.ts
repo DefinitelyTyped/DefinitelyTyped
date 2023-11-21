@@ -135,7 +135,7 @@ declare namespace IntlTelInput {
         /**
          * Don't display the countries you specify.
          */
-        excludeCountries?: Array<string> | undefined;
+        excludeCountries?: string[] | undefined;
         /**
          * Format the input value during initialisation.
          */
@@ -169,7 +169,7 @@ declare namespace IntlTelInput {
         /**
          * Display only the countries you specify.
          */
-        onlyCountries?: Array<string> | undefined;
+        onlyCountries?: string[] | undefined;
         /**
          * Specify one of the keys from the global enum intlTelInputUtils.numberType
          * e.g. "FIXED_LINE" to set the number type to use for the placeholder.
@@ -191,7 +191,7 @@ declare namespace IntlTelInput {
         /**
          * Specify the countries to appear at the top of the list.
          */
-        preferredCountries?: Array<string> | undefined;
+        preferredCountries?: string[] | undefined;
         /**
          * Display the country dial code next to the selected flag so it's not part
          * of the typed number. Note that this will disable nationalMode because

@@ -96,10 +96,10 @@ $( "<div/>", {
   .appendTo( "body" );
 ```
      */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     <TElement extends HTMLElement = HTMLElement>(
         html: JQuery.htmlString,
         ownerDocument_attributes?: Document | JQuery.PlainObject,
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     ): JQuery<TElement>;
     /**
      * Accepts a string containing a CSS selector which is then used to match a set of elements.
@@ -138,10 +138,10 @@ $( "div", xml.responseXML );
 ```
 ​
      */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     <TElement extends Element = HTMLElement>(
         selector: JQuery.Selector,
         context?: Element | Document | JQuery | JQuery.Selector,
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     ): JQuery<TElement>;
     /**
      * Return a collection of matched elements either found in the DOM based on passed argument(s) or created by passing an HTML string.
@@ -2133,7 +2133,7 @@ jQuery.each( objs, function( i ) {
 $.isFunction(function() {});
 ```
      */
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     isFunction(obj: any): obj is Function;
     /**
      * Determines whether its argument represents a JavaScript number.

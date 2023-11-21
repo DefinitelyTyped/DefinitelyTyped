@@ -1,6 +1,6 @@
 type Params =
-    | Array<[string, string | ReadonlyArray<string>]>
-    | { [key: string]: string | ReadonlyArray<string> };
+    | Array<[string, string | readonly string[]]>
+    | { [key: string]: string | readonly string[] };
 export { Params };
 
 export interface TokenOptions {

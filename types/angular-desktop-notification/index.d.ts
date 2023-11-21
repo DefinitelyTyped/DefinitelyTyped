@@ -116,14 +116,14 @@ declare module "angular" {
             onError?: EventListener | undefined;
         }
 
-        // tslint:disable-next-line interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface IDesktopNotificationOptions {
             autoClose?: boolean | undefined;
             duration?: number | undefined;
             showOnPageHidden?: boolean | undefined;
         }
 
-        // tslint:disable-next-line interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface IDesktopNotificationProvider {
             /**
              * Set the default app-wide configuration for desktopNotification
@@ -131,7 +131,7 @@ declare module "angular" {
             config(options: IDesktopNotificationOptions): void;
         }
 
-        // tslint:disable-next-line interface-name
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         interface IDesktopNotificationService {
             permissions: {
                 default: "default";

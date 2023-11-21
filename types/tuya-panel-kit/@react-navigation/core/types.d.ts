@@ -499,8 +499,8 @@ export declare type TypedNavigator<
     /**
      * Component used for specifying route configuration.
      */
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     Screen: <RouteName extends keyof ParamList>(
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         _: RouteConfig<ParamList, RouteName, State, ScreenOptions, EventMap>,
     ) => null;
 };

@@ -1,6 +1,6 @@
 declare namespace Validator {
     interface TypeCheckingRule {
-        [attribute: string]: Array<any>;
+        [attribute: string]: any[];
     }
 
     interface Rules {
@@ -8,7 +8,7 @@ declare namespace Validator {
     }
 
     interface ValidationErrors {
-        [field: string]: Array<string>;
+        [field: string]: string[];
     }
 
     interface ErrorMessages {
@@ -24,7 +24,7 @@ declare namespace Validator {
     interface Errors {
         errors: ValidationErrors;
         add(attribute: string, message: string): void;
-        get(attribute: string): Array<string>;
+        get(attribute: string): string[];
         first(attribute: string): string | false;
         all(): ValidationErrors;
         has(attribute: string): boolean;
@@ -54,7 +54,7 @@ declare namespace Validator {
         useLang(lang: string): void;
         getDefaultLang(): string;
         setAttributeFormatter(func: AttributeFormatter): void;
-        stopOnError(attributes: boolean | Array<string>): void;
+        stopOnError(attributes: boolean | string[]): void;
         register(name: string, fn: RegisterCallback, message?: string): void;
         registerAsync(
             name: string,
@@ -71,7 +71,7 @@ declare namespace Validator {
         errorCount: number;
         hasAsync: boolean;
         rules: Rules;
-        numericRules: Array<string>;
+        numericRules: string[];
         attributeFormatter: AttributeFormatter;
         check(): boolean;
         checkAsync(passes?: Function, fails?: Function): void;

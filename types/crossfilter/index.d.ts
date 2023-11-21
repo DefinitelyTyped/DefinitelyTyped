@@ -70,7 +70,7 @@ declare namespace CrossFilter {
     }
 
     export interface Group<T, TKey, TValue> {
-        top(k: number): Grouping<TKey, TValue>[];
+        top(k: number): Array<Grouping<TKey, TValue>>;
         all(): ReadonlyArray<Grouping<TKey, TValue>>;
         reduce<TGroup>(
             add: (p: TGroup, v: T) => TGroup,

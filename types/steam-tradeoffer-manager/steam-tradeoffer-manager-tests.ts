@@ -13,6 +13,35 @@ const steam = new Steam.SteamClient();
 const offer = manager.createOffer("123");
 const item = new CEconItem("a", "b", "c");
 
+// ----- Enums -----
+
+// $ExpectType 2
+TradeOfferManager.ETradeOfferState.Active;
+
+// $ExpectType "Active"
+TradeOfferManager.ETradeOfferState[2];
+
+// $ExpectType 2
+TradeOfferManager.EConfirmationMethod.MobileApp;
+
+// $ExpectType "MobileApp"
+TradeOfferManager.EConfirmationMethod[2];
+
+// $ExpectType 3
+TradeOfferManager.EOfferFilter.All;
+
+// $ExpectType 1
+TradeOfferManager.EResult.OK;
+
+// $ExpectType "OK"
+TradeOfferManager.EResult[1];
+
+// $ExpectType 3
+TradeOfferManager.ETradeStatus.Complete;
+
+// $ExpectType "Complete"
+TradeOfferManager.ETradeStatus[3];
+
 // ----- TradeOfferManager -----
 
 manager = new TradeOfferManager({

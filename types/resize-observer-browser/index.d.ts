@@ -35,7 +35,7 @@ interface ResizeObserverCallback {
 interface ResizeObserverEntry {
     readonly target: Element;
     readonly contentRect: DOMRectReadOnly;
-    readonly borderBoxSize: ReadonlyArray<ResizeObserverSize>;
-    readonly contentBoxSize: ReadonlyArray<ResizeObserverSize>;
-    readonly devicePixelContentBoxSize: ReadonlyArray<ResizeObserverSize>;
+    readonly borderBoxSize: readonly ResizeObserverSize[];
+    readonly contentBoxSize: readonly ResizeObserverSize[];
+    readonly devicePixelContentBoxSize: readonly ResizeObserverSize[];
 }

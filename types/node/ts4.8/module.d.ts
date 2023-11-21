@@ -267,18 +267,8 @@ declare module "module" {
              * Provides a module-relative resolution function scoped to each module, returning
              * the URL string.
              *
-             * @since v20.6.0
-             *
-             * @param specifier The module specifier to resolve relative to the current module.
-             * @returns The absolute (`file:`) URL string for the resolved module.
-             */
-            resolve(specifier: string): string;
-            /**
-             * This `parent` parameter is only used when the `--experimental-import-meta-resolve`
+             * Second `parent` parameter is only used when the `--experimental-import-meta-resolve`
              * command flag enabled.
-             *
-             * Provides a module-relative resolution function scoped to each module, returning
-             * the URL string.
              *
              * @since v20.6.0
              *
@@ -286,7 +276,7 @@ declare module "module" {
              * @param parent The absolute parent module URL to resolve from.
              * @returns The absolute (`file:`) URL string for the resolved module.
              */
-            resolve(specifier: string, parent: string | URL): string;
+            resolve(specifier: string, parent?: string | URL | undefined): string;
         }
     }
     export = Module;

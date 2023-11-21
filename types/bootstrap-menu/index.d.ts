@@ -30,12 +30,12 @@ declare namespace BootstrapMenu {
         /**
          * Array or object containing the list of actions to be rendered in the context menu.
          */
-        actions: { [key: string]: BootstrapMenuActions } | ReadonlyArray<BootstrapMenuActions>;
+        actions: { [key: string]: BootstrapMenuActions } | readonly BootstrapMenuActions[];
 
         /**
          * Array to group actions to render them next to each other, with a separator between each group.
          */
-        actionsGroups?: ReadonlyArray<ReadonlyArray<string>> | undefined;
+        actionsGroups?: ReadonlyArray<readonly string[]> | undefined;
 
         /**
          * Message to show when there are no actions to show in a menu

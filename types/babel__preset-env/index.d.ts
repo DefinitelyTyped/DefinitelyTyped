@@ -21,12 +21,12 @@ export interface Options {
  */
 export type TargetsOptions =
     | BrowserslistQuery
-    | ReadonlyArray<BrowserslistQuery>
+    | readonly BrowserslistQuery[]
     | { [key in Target]?: string }
     | { esmodules: true }
     | { node: string | "current" | true }
     | { safari: string | "tp" }
-    | { browsers: string | ReadonlyArray<string> };
+    | { browsers: string | readonly string[] };
 
 export type BrowserslistQuery = string;
 
@@ -80,7 +80,7 @@ export type ModuleOption =
     | "auto"
     | false;
 
-export type PluginList = ReadonlyArray<PluginListItem>;
+export type PluginList = readonly PluginListItem[];
 export type PluginListItem = string | RegExp;
 
 export type UseBuiltInsOption =

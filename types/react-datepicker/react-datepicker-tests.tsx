@@ -33,6 +33,7 @@ const topLogger: Modifier<"topLogger"> = {
     autoFocus
     calendarClassName=""
     calendarContainer={props => <div />}
+    calendarIconClassname=""
     calendarStartDay={0}
     className=""
     clearButtonClassName=""

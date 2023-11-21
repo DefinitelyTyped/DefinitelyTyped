@@ -119,7 +119,7 @@ declare namespace KoPlus {
     }
 
     export interface EditableArrayStatic extends KnockoutObservableArrayStatic {
-        <T>(value?: Array<T>): EditableArray<T>;
+        <T>(value?: T[]): EditableArray<T>;
 
         makeEditable(target: any): void; // >
     }

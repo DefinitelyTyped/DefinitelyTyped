@@ -878,7 +878,7 @@ declare namespace React {
     type ReducerStateWithoutAction<R extends ReducerWithoutAction<any>> = R extends ReducerWithoutAction<infer S> ? S
         : never;
     // TODO (TypeScript 3.0): ReadonlyArray<unknown>
-    type DependencyList = ReadonlyArray<any>;
+    type DependencyList = readonly any[];
 
     // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
     // The destructor is itself only allowed to return void.

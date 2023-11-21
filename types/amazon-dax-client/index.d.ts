@@ -9,7 +9,7 @@ declare class AmazonDaxClient {
 interface AmazonDaxClientOptions {
     params?: Map<string, any> | undefined;
     endpoint?: string | undefined;
-    endpoints?: ReadonlyArray<string> | undefined;
+    endpoints?: readonly string[] | undefined;
     accessKeyId?: string | undefined;
     secretAccessKey?: string | undefined;
     sessionToken?: string | undefined;

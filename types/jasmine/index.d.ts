@@ -261,7 +261,7 @@ declare namespace jasmine {
         | {
             [K in keyof T]: ExpectedRecursive<T[K]>;
         };
-    type SpyObjMethodNames<T = undefined> = T extends undefined ? ReadonlyArray<string> | { [methodName: string]: any }
+    type SpyObjMethodNames<T = undefined> = T extends undefined ? readonly string[] | { [methodName: string]: any }
         : (
             | ReadonlyArray<keyof T>
             | {
@@ -271,8 +271,7 @@ declare namespace jasmine {
             }
         );
 
-    type SpyObjPropertyNames<T = undefined> = T extends undefined
-        ? ReadonlyArray<string> | { [propertyName: string]: any }
+    type SpyObjPropertyNames<T = undefined> = T extends undefined ? readonly string[] | { [propertyName: string]: any }
         : ReadonlyArray<keyof T> | { [P in keyof T]?: T[P] };
 
     /**

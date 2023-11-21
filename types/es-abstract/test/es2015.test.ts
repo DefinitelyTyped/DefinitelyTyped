@@ -183,7 +183,7 @@ declare const Baz: {
     readonly prototype?: unknown | undefined;
 };
 
-// tslint:disable-next-line: ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 declare const Biz: { readonly prototype?: null | undefined } & Omit<Function, "prototype">;
 
 ES2015.GetPrototypeFromConstructor(Foo, "%Object.prototype%"); // $ExpectType Foo

@@ -1571,6 +1571,28 @@ export namespace lists {
         _links: Link[];
     }
 
+    interface ListMemberTagsOptions {
+        /** A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation. */
+        fields?: string[];
+        /** A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation. */
+        excludeFields?: string[];
+        /** The number of records to return. */
+        count?: number;
+        /** The number of records from a collection to skip. Iterating over large collections with this parameter can be slow. */
+        offset?: number;
+    }
+
+    interface ListMemberTag extends Tags {
+        /** The date and time the tag was added to the list member in ISO 8601 format. */
+        date_added: string;
+    }
+
+    interface ListMemberTagsResponse {
+        tags: ListMemberTag[];
+        total_items: number;
+        _links: Link[];
+    }
+
     /**
      * Batch subscribe or unsubscribe
      * https://mailchimp.com/developer/marketing/api/lists/batch-subscribe-or-unsubscribe//
@@ -1662,6 +1684,23 @@ export namespace lists {
      * @return A {@link https://www.promisejs.org/|Promise}
      */
     function deleteListMemberPermanent(listId: string, subscriberHash: string): Promise<{} | ErrorResponse>;
+
+    /**
+     * Get the tags on a list member.
+     * @see https://mailchimp.com/developer/marketing/api/list-member-tags/list-member-tags/
+     * @param listId The unique ID for the list.
+     * @param subscriberHash The MD5 hash of the lowercase version of the list member's email address.
+     * @param opts Optional parameters
+     * @param opts.fields A comma-separated list of fields to return. Reference parameters of sub-objects with dot notation.
+     * @param opts.excludeFields A comma-separated list of fields to exclude. Reference parameters of sub-objects with dot notation.
+     * @param opts.count The number of records to return. Default value is 10. Maximum value is 1000 (default to 10)
+     * @param opts.offset Used for [pagination](https://mailchimp.com/developer/marketing/docs/methods-parameters/#pagination),
+     */
+    function getListMemberTags(
+        listId: string,
+        subscriberHash: string,
+        opts?: ListMemberTagsOptions,
+    ): Promise<ListMemberTagsResponse | ErrorResponse>;
 
     /**
      * Add or remove member tags

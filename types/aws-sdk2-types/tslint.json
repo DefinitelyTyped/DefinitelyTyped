@@ -1,15 +1,11 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "ban-types": false,
-        "interface-over-type-literal": false,
-        "no-empty-interface": false,
         "no-unnecessary-class": false,
         "unified-signatures": false,
         "array-type": false,
         "no-var-keyword": false,
         "void-return": false,
-        "no-duplicate-imports": false,
         "no-mergeable-namespace": false,
         "jsdoc-format": false,
         "no-irregular-whitespace": false,

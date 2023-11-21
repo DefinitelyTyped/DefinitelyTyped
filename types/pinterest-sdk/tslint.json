@@ -1,9 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "ban-types": false,
-        "interface-over-type-literal": false,
-        "jsdoc-format": false,
-        "npm-naming": false
+        "jsdoc-format": false
     }
 }

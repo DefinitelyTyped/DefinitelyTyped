@@ -7,7 +7,7 @@ interface ReactCropperProps extends Cropper.Options, Omit<React.HTMLProps<HTMLIm
     ref?: React.LegacyRef<ReactCropper> | undefined;
 }
 
-interface ReactCropper extends Cropper {} // tslint:disable-line no-empty-interface
+interface ReactCropper extends Cropper {} // eslint-disable-line @typescript-eslint/no-empty-interface
 declare class ReactCropper extends React.Component<ReactCropperProps> {
     on(eventname: string, callback: () => void): void;
 }

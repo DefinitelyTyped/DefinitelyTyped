@@ -6,7 +6,7 @@ export interface StyleSheetProperties {
 }
 
 type Falsy = undefined | null | false;
-interface RecursiveArray<T> extends Array<T | ReadonlyArray<T> | RecursiveArray<T>> {}
+interface RecursiveArray<T> extends Array<T | readonly T[] | RecursiveArray<T>> {}
 /** Keep a brand of 'T' so that calls to `StyleSheet.flatten` can take `RegisteredStyle<T>` and return `T`. */
 type RegisteredStyle<T> = number & { __registeredStyleBrand: T };
 export type StyleProp<T> =
@@ -69,7 +69,7 @@ export namespace StyleSheet {
      */
     export function flatten<T>(
         style?: StyleProp<T>,
-    ): T extends (infer U)[] ? U : T;
+    ): T extends Array<infer U> ? U : T;
 
     /**
      * Combines two styles such that style2 will override any styles in style1.

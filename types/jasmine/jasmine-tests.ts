@@ -1495,7 +1495,7 @@ describe("jasmine.arrayContaining", () => {
     });
 
     it("matches read-only array", () => {
-        const bar: ReadonlyArray<number> = [1, 2, 3, 4];
+        const bar: readonly number[] = [1, 2, 3, 4];
 
         expect(bar).toEqual(jasmine.arrayContaining([3, 1]));
         expect(bar).not.toEqual(jasmine.arrayContaining([6]));

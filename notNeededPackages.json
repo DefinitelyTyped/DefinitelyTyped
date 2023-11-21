@@ -2737,6 +2737,26 @@
             "libraryName": "json-to-csv-export",
             "asOfVersion": "2.0.0"
         },
+        "json2csv__formatters": {
+            "libraryName": "@json2csv/formatters",
+            "asOfVersion": "7.0.0"
+        },
+        "json2csv__node": {
+            "libraryName": "@json2csv/node",
+            "asOfVersion": "7.0.0"
+        },
+        "json2csv__plainjs": {
+            "libraryName": "@json2csv/plainjs",
+            "asOfVersion": "7.0.0"
+        },
+        "json2csv__transforms": {
+            "libraryName": "@json2csv/transforms",
+            "asOfVersion": "7.0.0"
+        },
+        "json2csv__whatwg": {
+            "libraryName": "@json2csv/whatwg",
+            "asOfVersion": "7.0.0"
+        },
         "json5": {
             "libraryName": "json5",
             "asOfVersion": "2.2.0"
@@ -5507,6 +5527,10 @@
             "libraryName": "slate-react",
             "asOfVersion": "0.50.0"
         },
+        "slice-ansi": {
+            "libraryName": "slice-ansi",
+            "asOfVersion": "7.1.0"
+        },
         "smooth-scrollbar": {
             "libraryName": "smooth-scrollbar",
             "asOfVersion": "8.2.5"
@@ -6538,6 +6562,10 @@
         "wouter": {
             "libraryName": "wouter",
             "asOfVersion": "2.2.0"
+        },
+        "wrap-ansi": {
+            "libraryName": "wrap-ansi",
+            "asOfVersion": "8.1.0"
         },
         "write-json-file": {
             "libraryName": "write-json-file",

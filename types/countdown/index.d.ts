@@ -23,8 +23,8 @@ declare namespace countdown {
     }
 
     interface Format {
-        singular?: string | Array<string> | undefined;
-        plural?: string | Array<string> | undefined;
+        singular?: string | string[] | undefined;
+        plural?: string | string[] | undefined;
         last?: string | undefined;
         delim?: string | undefined;
         empty?: string | undefined;

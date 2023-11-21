@@ -337,14 +337,14 @@ declare namespace Mithril {
 
 declare global {
     namespace JSX {
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface Element extends Mithril.Vnode {}
 
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface IntrinsicAttributes extends Mithril.Attributes {
             children?: Mithril.Children | HTMLCollection;
         }
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface IntrinsicClassAttributes extends Mithril.Attributes {}
 
         interface IntrinsicElements {

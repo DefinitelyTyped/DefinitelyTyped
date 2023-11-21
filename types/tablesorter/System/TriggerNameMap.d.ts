@@ -45,17 +45,17 @@ export interface TriggerNameMap<TElement = HTMLElement> {
     /**
      * Removes widgets.
      */
-    removeWidget: string | ReadonlyArray<string> | boolean;
+    removeWidget: string | readonly string[] | boolean;
 
     /**
      * Updates the data of the table-body.
      */
-    update: [boolean | ReadonlyArray<SortDefinition>, TriggerCallbackHandler<TElement>?];
+    update: [boolean | readonly SortDefinition[], TriggerCallbackHandler<TElement>?];
 
     /**
      * Updates the data of the table-body.
      */
-    updateRows: [boolean | ReadonlyArray<SortDefinition>, TriggerCallbackHandler<TElement>?];
+    updateRows: [boolean | readonly SortDefinition[], TriggerCallbackHandler<TElement>?];
 
     /**
      * Updates the cache and optionally adds new `tbody`s.
@@ -65,7 +65,7 @@ export interface TriggerNameMap<TElement = HTMLElement> {
     /**
      * Updates the cell of the table.
      */
-    updateCell: [JQuery, (boolean | ReadonlyArray<SortDefinition>)?, TriggerCallbackHandler<TElement>?];
+    updateCell: [JQuery, (boolean | readonly SortDefinition[])?, TriggerCallbackHandler<TElement>?];
 
     /**
      * Updates the table-headers.
@@ -75,12 +75,12 @@ export interface TriggerNameMap<TElement = HTMLElement> {
     /**
      * Updates the data of the whole table.
      */
-    updateAll: [(boolean | ReadonlyArray<SortDefinition>)?, TriggerCallbackHandler<TElement>?];
+    updateAll: [(boolean | readonly SortDefinition[])?, TriggerCallbackHandler<TElement>?];
 
     /**
      * Performs a search.
      */
-    search: [ReadonlyArray<string>?] | boolean;
+    search: [(readonly string[])?] | boolean;
 
     /**
      * Opens the specified page.

@@ -1,6 +1,6 @@
 declare class Graph {
-    grid: Array<Array<GridNode>>;
-    constructor(grid: Array<Array<number>>, options?: { diagonal?: boolean | undefined });
+    grid: GridNode[][];
+    constructor(grid: number[][], options?: { diagonal?: boolean | undefined });
 }
 
 declare class GridNode {
@@ -26,6 +26,6 @@ declare namespace astar {
             closest?: boolean | undefined;
             heuristic?: Heuristic | undefined;
         },
-    ): Array<GridNode>;
+    ): GridNode[];
     var heuristics: Heuristics;
 }

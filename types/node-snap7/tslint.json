@@ -1,7 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "ban-types": false,
         "only-arrow-functions": false,
         "prefer-const": false
     }

@@ -1,13 +1,9 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "file-name-casing": [true, "kebab-case"],
-        "npm-naming": [
+        "file-name-casing": [
             true,
-            {
-                "mode": "code",
-                "errors": [["NeedsExportEquals", false]]
-            }
+            "kebab-case"
         ]
     }
 }

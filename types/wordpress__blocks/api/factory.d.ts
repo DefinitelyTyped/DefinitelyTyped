@@ -51,10 +51,11 @@ export function createBlocksFromInnerBlocksTemplate(
  *
  * @returns Highest-priority transform candidate.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function findTransform<T extends Transform, U extends Record<string, any> = Record<string, any>>(
     transforms: T[],
     predicate: (transform: T) => boolean,
-): Transform<U> | null; // eslint-disable-line @definitelytyped/no-unnecessary-generics
+): Transform<U> | null;
 
 /**
  * Returns normal block transforms for a given transform direction, optionally
@@ -65,10 +66,11 @@ export function findTransform<T extends Transform, U extends Record<string, any>
  * @param direction - Transform direction.
  * @param blockTypeOrName - `BlockInstance` or name.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function getBlockTransforms<T extends Record<string, any> = Record<string, any>>(
     direction: "to" | "from",
     blockTypeOrName?: string | Block,
-): Array<Transform<T> & { blockName: string }>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
+): Array<Transform<T> & { blockName: string }>;
 
 /**
  * Returns an array of block types that the set of blocks received as argument

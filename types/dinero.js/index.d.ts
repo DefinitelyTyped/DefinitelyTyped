@@ -13,9 +13,9 @@ declare namespace DineroFactory {
     let globalRoundingMode: RoundingMode;
     let globalFormatRoundingMode: string;
     let globalExchangeRatesApi: ExchangeRatesApiOptions;
-    function normalizePrecision(objects: ReadonlyArray<Dinero>): Dinero[];
-    function minimum(objects: ReadonlyArray<Dinero>): Dinero;
-    function maximum(objects: ReadonlyArray<Dinero>): Dinero;
+    function normalizePrecision(objects: readonly Dinero[]): Dinero[];
+    function minimum(objects: readonly Dinero[]): Dinero;
+    function maximum(objects: readonly Dinero[]): Dinero;
 
     interface Options {
         amount?: number | undefined;
@@ -35,7 +35,7 @@ declare namespace DineroFactory {
         multiply(multiplier: number, roundingMode?: RoundingMode): Dinero;
         divide(divisor: number, roundingMode?: RoundingMode): Dinero;
         percentage(percentage: number, roundingMode?: RoundingMode): Dinero;
-        allocate(ratios: ReadonlyArray<number>): Dinero[];
+        allocate(ratios: readonly number[]): Dinero[];
         convert(currency: string, options?: ExchangeRatesApiOptions): Promise<Dinero>;
         equalsTo(comparator: Dinero): boolean;
         lessThan(comparator: Dinero): boolean;

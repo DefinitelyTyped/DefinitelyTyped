@@ -78,9 +78,9 @@ export interface SendOfflineMsgOptions {
 
 export function sendOfflineMsg(options: SendOfflineMsgOptions, callback?: (err: Error) => void): void;
 
-export function addTags(tags: ReadonlyArray<string>, callback?: (err: Error) => void): void;
+export function addTags(tags: readonly string[], callback?: (err: Error) => void): void;
 
-export function removeTags(tags: ReadonlyArray<string>, callback?: (err: Error) => void): void;
+export function removeTags(tags: readonly string[], callback?: (err: Error) => void): void;
 
 export function sendTyping(is_typing: boolean): void;
 

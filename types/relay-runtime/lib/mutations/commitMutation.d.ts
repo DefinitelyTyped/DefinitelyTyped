@@ -16,7 +16,7 @@ export interface MutationConfig<TOperation extends MutationParameters> {
     mutation: GraphQLTaggedNode;
     onError?: ((error: Error) => void) | null | undefined;
     onCompleted?:
-        | ((response: TOperation["response"], errors: ReadonlyArray<PayloadError> | null | undefined) => void)
+        | ((response: TOperation["response"], errors: readonly PayloadError[] | null | undefined) => void)
         | null
         | undefined;
     onUnsubscribe?: (() => void | null | undefined) | undefined;
@@ -35,8 +35,8 @@ export interface MutationConfig<TOperation extends MutationParameters> {
  * Higher-level helper function to execute a mutation against a specific
  * environment.
  */
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 export function commitMutation<TOperation extends MutationParameters = MutationParameters>(
     environment: Environment,
-    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     config: MutationConfig<TOperation>,
 ): Disposable;

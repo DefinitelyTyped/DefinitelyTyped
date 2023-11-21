@@ -87,7 +87,7 @@ export function group<RT>(name: string, fn: () => RT): RT;
  * @example
  * randomSeed(123456789);
  */
-export function randomseed(int: number): void;
+export function randomSeed(int: number): void;
 
 /**
  * Suspend VU execution for the specified duration.

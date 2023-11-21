@@ -703,6 +703,11 @@ geoPathMeasure = geoPathCanvas.measure(sampleNullableFeatureCollection);
 geoPathMeasure = geoPathCanvas.measure(sampleExtendedFeatureCollection);
 geoPathMeasure = geoPathCanvas.measure(sampleExtendedNullableFeatureCollection);
 
+// digits(...) ------------------------------------------------------
+
+const digits: number = geoPathCanvas.digits();
+geoPathCanvas = geoPathCanvas.digits(3);
+
 // render path to context of get path string----------------------------
 
 // render to GeoContext/Canvas

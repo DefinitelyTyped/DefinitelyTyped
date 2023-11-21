@@ -72,7 +72,7 @@ type AnyConstructors = Construtors<any, any, any, any>;
 /**
  * Returns all constructors where the first paramter is assignable to given "scope"
  */
-// tslint:disable-next-line:interface-over-type-literal
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type FilterConstructorsByScope<T extends AnyConstructors, S> = {
     a: S extends T['a'][0] ? T['a'] : undefined;
     b: S extends T['b'][0] ? T['b'] : undefined;

@@ -1,4 +1,4 @@
-import Commerce = require("@chec/commerce.js");
+import Commerce = require("../");
 import { Merchant } from "../types/merchant";
 
 export class Merchants {

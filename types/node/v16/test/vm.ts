@@ -60,7 +60,7 @@ import {
 }
 
 {
-    const fn: Function = compileFunction("console.log(\"test\")", [] as ReadonlyArray<string>, {
+    const fn: Function = compileFunction("console.log(\"test\")", [] as readonly string[], {
         parsingContext: createContext(),
         contextExtensions: [{
             a: 1,

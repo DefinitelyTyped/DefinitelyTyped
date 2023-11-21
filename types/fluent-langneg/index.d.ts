@@ -4,7 +4,7 @@ export interface LanguageNegotiationOptions {
 }
 
 export function negotiateLanguages(
-    requestedLocales: ReadonlyArray<string>,
-    availableLocales: ReadonlyArray<string>,
+    requestedLocales: readonly string[],
+    availableLocales: readonly string[],
     options?: LanguageNegotiationOptions,
 ): string[];

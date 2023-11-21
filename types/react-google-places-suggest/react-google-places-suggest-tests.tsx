@@ -38,7 +38,7 @@ const ReactGooglePlacesSuggestWithCustomContainerRenderPropTest: React.FC = () =
     <ReactGooglePlacesSuggest
         {...defaultProps}
         customContainerRender={(
-            predictions: ReadonlyArray<ReactGooglePlacesSuggest.Prediction>,
+            predictions: readonly ReactGooglePlacesSuggest.Prediction[],
         ) => {
             return "123";
         }}

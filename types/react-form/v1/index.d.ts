@@ -165,7 +165,7 @@ export interface SelectAttrs extends React.SelectHTMLAttributes<HTMLSelectElemen
     onBlur?: any;
 }
 export interface SelectProps extends SelectAttrs {
-    options: ReadonlyArray<SelectOption>;
+    options: readonly SelectOption[];
     field?: FormInputProps["field"] | undefined;
     showErrors?: FormInputProps["showErrors"] | undefined;
     errorBefore?: FormInputProps["errorBefore"] | undefined;

@@ -112,7 +112,7 @@ declare module "." {
      */
     export const unstable_SuspenseList: ExoticComponent<SuspenseListProps>;
 
-    // tslint:disable-next-line ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     export function experimental_useEffectEvent<T extends Function>(event: T): T;
 
     type Reference = object;

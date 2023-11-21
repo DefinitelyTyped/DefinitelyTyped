@@ -32,7 +32,7 @@ declare class Lightpick {
      */
     setDateRange(start?: Lightpick.InputDate, end?: Lightpick.InputDate, preventOnSelect?: boolean): void;
 
-    setDisableDates(dates: ReadonlyArray<Lightpick.DisabledDate>): void;
+    setDisableDates(dates: readonly Lightpick.DisabledDate[]): void;
 
     /**
      * Return current start of date range as moment object.
@@ -174,7 +174,7 @@ declare namespace Lightpick {
          */
         maxDate?: InputDate | undefined;
 
-        disableDates?: ReadonlyArray<DisabledDate> | undefined;
+        disableDates?: readonly DisabledDate[] | undefined;
 
         /**
          * Select second date after the first selected date.
