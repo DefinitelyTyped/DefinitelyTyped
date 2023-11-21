@@ -301,10 +301,12 @@ declare namespace TelegramBot {
         caption_entities?: MessageEntity[] | undefined;
     }
 
-    interface RestrictChatMemberOptions extends ChatPermissions {
+    interface RestrictChatMemberOptions {
         until_date?: number | undefined;
         use_independent_chat_permissions?: boolean | undefined;
     }
+
+    type RestrictChatMemberOptionsWithChatPermissions = RestrictChatMemberOptions & ChatPermissions;
 
     interface PromoteChatMemberOptions {
         is_anonymous?: boolean | undefined;
@@ -1717,7 +1719,30 @@ declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEv
     restrictChatMember(
         chatId: TelegramBot.ChatId,
         userId: number,
-        options?: TelegramBot.RestrictChatMemberOptions,
+        options?: TelegramBot.RestrictChatMemberOptionsWithChatPermissions,
+    ): Promise<boolean>;
+
+    restrictChatMember(
+        chatId: TelegramBot.ChatId,
+        userId: number,
+        options?: TelegramBot.RestrictChatMemberOptions & { permissions?: string },
+    ): Promise<boolean>;
+
+    /**
+     * @deprecated
+     */
+    restrictChatMember(
+        chatId: TelegramBot.ChatId,
+        userId: number,
+        options?: TelegramBot.RestrictChatMemberOptions & {
+            permissions?: TelegramBot.ChatPermissions;
+        },
+    ): Promise<boolean>;
+
+    restrictChatMember(
+        chatId: TelegramBot.ChatId,
+        userId: number,
+        options?: TelegramBot.RestrictChatMemberOptions & { permissions?: string | TelegramBot.ChatPermissions },
     ): Promise<boolean>;
 
     promoteChatMember(
