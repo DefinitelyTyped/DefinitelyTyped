@@ -23,6 +23,7 @@ export interface MJMLValidatorOptions {
 export type MJMLValidationRule = (
     element: MJMLJsonObject,
     options: MJMLValidatorOptions,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ) => MJMLParseError | MJMLParseError[] | void | undefined;
 
 export function formatValidationError(message: string, element: MJMLJsonObject): MJMLParseError;

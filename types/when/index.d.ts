@@ -215,6 +215,7 @@ declare namespace When {
     function iterate<U>(
         f: (seed: U) => U | Promise<U>,
         predicate: (value: U) => boolean,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         handler: (value: U) => Promise<any> | void,
         seed: U | Promise<U>,
     ): Promise<U>;
@@ -233,6 +234,7 @@ declare namespace When {
     function unfold<T, U>(
         unspool: (seed: U) => [T | Promise<T>, U | Promise<U>] | Promise<[T | Promise<T>, U | Promise<U>]>,
         predicate: (value: U) => boolean | Promise<boolean>,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         handler: (value: T) => Promise<any> | void,
         seed: U | Promise<U>,
     ): Promise<void>;

@@ -45,6 +45,7 @@ export interface WebTwainEdit extends WebTwainBuffer {
             errorCode: number,
             errorString: string,
         ) => void,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Change the DPI (dots per inch) of the specified image.
@@ -69,6 +70,7 @@ export interface WebTwainEdit extends WebTwainBuffer {
             errorCode: number,
             errorString: string,
         ) => void,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Convert the specified image to black & white.
@@ -85,6 +87,7 @@ export interface WebTwainEdit extends WebTwainBuffer {
             errorCode: number,
             errorString: string,
         ) => void,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Convert the specified image to grayscale.
@@ -101,6 +104,7 @@ export interface WebTwainEdit extends WebTwainBuffer {
             errorCode: number,
             errorString: string,
         ) => void,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Invert the colour of the pixels on the specified image.
@@ -117,6 +121,7 @@ export interface WebTwainEdit extends WebTwainBuffer {
             errorCode: number,
             errorString: string,
         ) => void,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Change the width of the specified image by adding a margin or removing part of the image.
@@ -135,6 +140,7 @@ export interface WebTwainEdit extends WebTwainBuffer {
             errorCode: number,
             errorString: string,
         ) => void,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Flip the specified image.
@@ -151,6 +157,7 @@ export interface WebTwainEdit extends WebTwainBuffer {
             errorCode: number,
             errorString: string,
         ) => void,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Mirror the specified image.
@@ -167,6 +174,7 @@ export interface WebTwainEdit extends WebTwainBuffer {
             errorCode: number,
             errorString: string,
         ) => void,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Rotate the specified image 90 degrees counterclockwise.
@@ -183,6 +191,7 @@ export interface WebTwainEdit extends WebTwainBuffer {
             errorCode: number,
             errorString: string,
         ) => void,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Rotate the specified image 90 degrees clockwise.
@@ -199,6 +208,7 @@ export interface WebTwainEdit extends WebTwainBuffer {
             errorCode: number,
             errorString: string,
         ) => void,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Rotate the specified image by the specified angle.
@@ -219,6 +229,7 @@ export interface WebTwainEdit extends WebTwainBuffer {
             errorCode: number,
             errorString: string,
         ) => void,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Rotate the specified image by the specified angle.
@@ -241,6 +252,7 @@ export interface WebTwainEdit extends WebTwainBuffer {
             errorCode: number,
             errorString: string,
         ) => void,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Crop the specified image using the specified coordinates.
@@ -265,6 +277,7 @@ export interface WebTwainEdit extends WebTwainBuffer {
             errorCode: number,
             errorString: string,
         ) => void,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Erase a rectangular area from the specified image.
@@ -289,6 +302,7 @@ export interface WebTwainEdit extends WebTwainBuffer {
             errorCode: number,
             errorString: string,
         ) => void,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | boolean;
     /**
      * Copy the specified image to the clipboard of the operating system.

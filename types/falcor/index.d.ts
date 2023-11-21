@@ -237,6 +237,7 @@ export class ModelResponse<T> extends Observable<T> {
 export interface Thenable<T> {
     then<U>(
         onFulfilled?: (value: T) => U | Thenable<U>,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onRejected?: (error: any) => U | Thenable<U> | void,
     ): Thenable<U>;
 }

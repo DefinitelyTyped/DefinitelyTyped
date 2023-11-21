@@ -25,6 +25,7 @@ export interface TableSearchProps<T extends object = any> {
     placeholder?: string | undefined;
     onColumnMatch?: ((props: SearchMatchProps<T>) => void) | undefined;
     customMatchFunc?: ((props: SearchMatchProps<T>) => boolean) | undefined;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     afterSearch?: (newResult: T[]) => void | undefined;
 }
 

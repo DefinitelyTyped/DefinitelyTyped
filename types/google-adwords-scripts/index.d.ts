@@ -1009,6 +1009,7 @@ interface Media {
     getSourceUrl(): string;
     getType(): MediaType;
     getUrls(): MediaUrls;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     getYouTubeVideoId(): string | void;
 }
 

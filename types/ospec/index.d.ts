@@ -30,6 +30,7 @@ declare namespace o {
         notThrows(this: Assertion<() => any>, error: string | ObjectConstructor): AssertionDescriber; // See above
     }
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type Definer = (done: (error?: Error | null) => void, timeout: (delay: number) => void) => void | PromiseLike<any>;
 
     interface Result {

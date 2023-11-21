@@ -118,6 +118,7 @@ declare namespace bearcat {
          * @param   context context object
          * @api     public
          */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         module(func: ParamClassFunc, context?: object | null): object | void;
 
         /**

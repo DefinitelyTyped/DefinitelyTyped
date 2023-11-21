@@ -10,6 +10,7 @@ declare namespace Mousetrap {
         stopCallback: (e: ExtendedKeyboardEvent, element: Element, combo: string) => boolean;
         bind(
             keys: string | string[],
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             callback: (e: ExtendedKeyboardEvent, combo: string) => boolean | void,
             action?: string,
         ): MousetrapInstance;

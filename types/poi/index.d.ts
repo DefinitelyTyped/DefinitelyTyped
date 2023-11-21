@@ -179,6 +179,7 @@ declare namespace PoiCore {
 
         type ConfigureWebpack =
             | WebpackConfig
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             | ((config: WebpackConfig, opts: Opts) => void | WebpackConfig);
 
         type PublicFolder = string | boolean;

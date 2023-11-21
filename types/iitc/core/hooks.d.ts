@@ -139,6 +139,7 @@ declare global {
     /** private hook table */
     var _hooks: { [event: string]: HookCallback[] };
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type HookCallback = (data: any) => boolean | void;
 
     interface EventPortalSelected {

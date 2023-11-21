@@ -305,6 +305,7 @@ $.ajax({
             options: JQuery.AjaxSettings,
             originalOptions: JQuery.AjaxSettings,
             jqXHR: JQuery.jqXHR,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ) => string | void,
     ): void;
     /**
@@ -318,6 +319,7 @@ $.ajax({
             options: JQuery.AjaxSettings,
             originalOptions: JQuery.AjaxSettings,
             jqXHR: JQuery.jqXHR,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ) => string | void,
     ): void;
     /**
@@ -349,6 +351,7 @@ $.ajax({ data: myData });
             options: JQuery.AjaxSettings,
             originalOptions: JQuery.AjaxSettings,
             jqXHR: JQuery.jqXHR,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ) => JQuery.Transport | void,
     ): void;
     /**

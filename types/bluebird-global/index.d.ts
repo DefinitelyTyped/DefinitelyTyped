@@ -200,17 +200,20 @@ declare global {
          */
         catch(
             predicate: (error: any) => boolean,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onReject: (error: any) => T | PromiseLike<T> | void | PromiseLike<void>,
         ): Bluebird<T>;
         catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => U | PromiseLike<U>): Bluebird<U | T>;
         catch<E extends Error>(
             ErrorClass: new(...args: any[]) => E,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onReject: (error: E) => T | PromiseLike<T> | void | PromiseLike<void>,
         ): Bluebird<T>;
         catch<E extends Error, U>(
             ErrorClass: new(...args: any[]) => E,
             onReject: (error: E) => U | PromiseLike<U>,
         ): Bluebird<U | T>;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         catch(predicate: Object, onReject: (error: any) => T | PromiseLike<T> | void | PromiseLike<void>): Bluebird<T>;
         catch<U>(predicate: Object, onReject: (error: any) => U | PromiseLike<U>): Bluebird<U | T>;
 

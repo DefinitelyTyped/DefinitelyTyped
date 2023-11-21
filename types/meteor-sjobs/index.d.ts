@@ -133,6 +133,7 @@ declare module "meteor/msavin:sjobs" {
          * At the end, you can pass in a special configuration object. Otherwise, it will be scheduled to run as soon as possible.
          */
         static run: (jobname: string, ...args: any[]) => void;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         static find: (...args: any[]) => false | void;
         /** Allows you to run a job ahead of its due date. It can only work on jobs that have not been resolved. */
         static execute: (docId: string) => void;

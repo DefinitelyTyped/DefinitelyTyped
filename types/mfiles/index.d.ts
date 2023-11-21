@@ -2577,11 +2577,17 @@ interface IShellFrame {
 
 interface IShellFrameEvent extends IEvents {
     OnActiveListingChanged?(oldListing: null | IShellListing, newListing: IShellListing): void;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewBottomPane?(bottomPane: IShellPaneContainer): void | IShellPaneContainerEvents;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewCommands?(commands: ICommands): void | ICommandsEvents;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewRightPane?(rightPane: IShellPaneContainer): void | IShellPaneContainerEvents;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewSearchPane?(searchPane: ISearchPane): void | ISearchPaneEvents;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewShellListing?(shellListing: IShellListing): void | IShellListingEvents;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewTaskPane?(taskPane: ITaskPane): void | ITaskPaneEvents;
     OnShowMainMenu?(): void;
     OnStarted?(): void;
@@ -2590,11 +2596,17 @@ interface IShellFrameEvent extends IEvents {
 
 interface IShellFrameEvents extends IEvents {
     OnActiveListingChanged?(oldListing: null | IShellListing, newListing: IShellListing): void;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewBottomPane?(bottomPane: IShellPaneContainer): void | IShellPaneContainerEvents;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewCommands?(commands: ICommands): void | ICommandsEvents;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewRightPane?(rightPane: IShellPaneContainer): void | IShellPaneContainerEvents;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewSearchPane?(searchPane: ISearchPane): void | ISearchPaneEvents;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewShellListing?(shellListing: IShellListing): void | IShellListingEvents;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewTaskPane?(taskPane: ITaskPane): void | ITaskPaneEvents;
     OnShowMainMenu?(): void;
     OnStarted?(): void;
@@ -2729,9 +2741,13 @@ interface IShellUI {
 }
 
 interface IShellUIEvents extends IEvents {
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewCommonDialogShellFrame?(shellFrame: IShellFrame): void | IShellFrameEvents;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewEmbeddedShellFrame?(shellFrame: IShellFrame): void | IShellFrameEvents;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewNormalShellFrame?(shellFrame: IShellFrame): void | IShellFrameEvents;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewShellFrame?(shellFrame: IShellFrame): void | IShellFrameEvents;
     OnStarted?(): void;
     OnStop?(): void;
@@ -3513,6 +3529,7 @@ interface IVaultCore {
 }
 
 interface IVaultCoreEvents extends IEvents {
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewVaultEntry?(vaultEntry: IVaultEntry): void | IVaultEntryEvents;
     OnStarted?(): void;
     OnStop?(): void;
@@ -6602,6 +6619,7 @@ interface IVaultUI {
 }
 
 interface IVaultUIEvents extends IEvents {
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     OnNewVaultEntry?(vaultEntry: IVaultEntry): void | IVaultEntryEvents;
     OnStarted?(): void;
     OnStop?(): void;

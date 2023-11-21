@@ -472,6 +472,7 @@ declare namespace jasmine {
         withMock(func: () => void): void;
     }
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type CustomEqualityTester = (first: any, second: any) => boolean | void;
 
     type CustomObjectFormatter = (value: unknown) => string | undefined;

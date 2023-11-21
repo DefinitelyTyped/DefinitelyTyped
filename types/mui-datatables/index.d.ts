@@ -642,6 +642,7 @@ export type MUIDataTableOptions = Partial<{
             data: Array<{ index: number; dataIndex: number }>;
         },
         newTableData: any[],
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ) => void | false;
     /** Callback function that triggers when row(s) are selected/deselected. */
     onRowSelectionChange: (currentRowsSelected: any[], allRowsSelected: any[], rowsSelected?: any[]) => void;

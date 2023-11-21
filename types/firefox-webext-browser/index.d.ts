@@ -2974,6 +2974,7 @@ declare namespace browser.extension {
     /**
      * Returns the JavaScript 'window' object for the background page running inside the current extension. Returns null if the extension has no background page.
      */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     function getBackgroundPage(): Window | void;
 
     /**
@@ -4438,6 +4439,7 @@ declare namespace browser.runtime {
      * @returns Return true from the event listener if you wish to call `sendResponse` after the event listener returns.
      */
     const onMessage: WebExtEvent<
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         (message: any, sender: MessageSender, sendResponse: (response?: any) => void) => boolean | Promise<any> | void
     >;
 
@@ -4448,6 +4450,7 @@ declare namespace browser.runtime {
      * @returns Return true from the event listener if you wish to call `sendResponse` after the event listener returns.
      */
     const onMessageExternal: WebExtEvent<
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         (message: any, sender: MessageSender, sendResponse: (response?: any) => void) => boolean | Promise<any> | void
     >;
 
@@ -4481,6 +4484,7 @@ declare namespace browser.scripting {
         /**
          * A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of `files` and `func` must be specified.
          */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         func?: () => void | undefined;
         /** Details specifying the target into which to inject the script. */
         target: InjectionTarget;
@@ -5845,6 +5849,7 @@ declare namespace browser.webRequest {
     }
 
     interface _WebRequestOnBeforeRequestEvent<
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         TCallback = (details: _OnBeforeRequestDetails) => BlockingResponse | Promise<BlockingResponse> | void,
     > {
         addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeRequestOptions[]): void;
@@ -5889,6 +5894,7 @@ declare namespace browser.webRequest {
     }
 
     interface _WebRequestOnBeforeSendHeadersEvent<
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         TCallback = (details: _OnBeforeSendHeadersDetails) => BlockingResponse | Promise<BlockingResponse> | void,
     > {
         addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnBeforeSendHeadersOptions[]): void;
@@ -5981,6 +5987,7 @@ declare namespace browser.webRequest {
     }
 
     interface _WebRequestOnHeadersReceivedEvent<
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         TCallback = (details: _OnHeadersReceivedDetails) => BlockingResponse | Promise<BlockingResponse> | void,
     > {
         addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnHeadersReceivedOptions[]): void;
@@ -6045,6 +6052,7 @@ declare namespace browser.webRequest {
     }
 
     interface _WebRequestOnAuthRequiredEvent<
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         TCallback = (details: _OnAuthRequiredDetails) => BlockingResponse | Promise<BlockingResponse> | void,
     > {
         addListener(cb: TCallback, filter: RequestFilter, extraInfoSpec?: OnAuthRequiredOptions[]): void;
@@ -7245,6 +7253,7 @@ declare namespace browser.contextMenus {
          * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions.
          * Not supported on manifest versions above 2.
          */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onclick?: (info: OnClickData, tab: tabs.Tab) => void | undefined;
         /** The ID of a parent menu item; this makes the item a child of a previously added item. */
         parentId?: number | string | undefined;
@@ -7280,6 +7289,7 @@ declare namespace browser.contextMenus {
          * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions.
          * Not supported on manifest versions above 2.
          */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onclick?: (info: OnClickData, tab: tabs.Tab) => void | undefined;
         /** Note: You cannot change an item to be a child of one of its own descendants. */
         parentId?: number | string | undefined;
@@ -7367,6 +7377,7 @@ declare namespace browser.contextMenus {
      * Retrieve the element that was associated with a recent contextmenu event.
      * @param targetElementId The identifier of the clicked element, available as info.targetElementId in the menus.onShown, onClicked or onclick event.
      */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     function getTargetElement(targetElementId: number): Element | void;
 
     /* contextMenus events */
@@ -7512,6 +7523,7 @@ declare namespace browser.menus {
          * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions.
          * Not supported on manifest versions above 2.
          */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onclick?: (info: OnClickData, tab: tabs.Tab) => void | undefined;
         /** The ID of a parent menu item; this makes the item a child of a previously added item. */
         parentId?: number | string | undefined;
@@ -7547,6 +7559,7 @@ declare namespace browser.menus {
          * @param tab The details of the tab where the click took place. Note: this parameter only present for extensions.
          * Not supported on manifest versions above 2.
          */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onclick?: (info: OnClickData, tab: tabs.Tab) => void | undefined;
         /** Note: You cannot change an item to be a child of one of its own descendants. */
         parentId?: number | string | undefined;
@@ -7637,6 +7650,7 @@ declare namespace browser.menus {
      * Retrieve the element that was associated with a recent contextmenu event.
      * @param targetElementId The identifier of the clicked element, available as info.targetElementId in the menus.onShown, onClicked or onclick event.
      */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     function getTargetElement(targetElementId: number): Element | void;
 
     /* menus events */

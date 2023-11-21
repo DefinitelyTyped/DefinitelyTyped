@@ -22,7 +22,9 @@ declare namespace Listr {
 
     interface ListrTask<Ctx = ListrContext> {
         title: string;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         task: (ctx: Ctx, task: ListrTaskWrapper<Ctx>) => void | ListrTaskResult<Ctx>;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         skip?: ((ctx: Ctx) => void | boolean | string | Promise<undefined | boolean | string>) | undefined;
         enabled?: ((ctx: Ctx) => boolean | Promise<boolean> | Observable<boolean>) | undefined;
     }
@@ -30,7 +32,9 @@ declare namespace Listr {
     interface ListrTaskObject<Ctx> extends Observable<ListrEvent> {
         title: string;
         output?: string | undefined;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         task: (ctx: Ctx, task: ListrTaskWrapper<Ctx>) => void | ListrTaskResult<Ctx>;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         skip: (ctx: Ctx) => void | boolean | string | Promise<undefined | boolean | string>;
         subtasks: ReadonlyArray<ListrTaskWrapper<Ctx>>;
         state: string;

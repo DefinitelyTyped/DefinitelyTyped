@@ -218,6 +218,7 @@ declare module "@google-cloud/datastore/request" {
         ): NodeJS.ReadableStream;
 
         delete(keyOrKeys: DatastoreKey | readonly DatastoreKey[], callback: CommitCallback): void;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         delete(keyOrKeys: DatastoreKey | readonly DatastoreKey[]): Promise<CommitResult> | void;
 
         get(key: DatastoreKey, options: QueryOptions, callback: GetCallback<object>): void;
@@ -235,6 +236,7 @@ declare module "@google-cloud/datastore/request" {
         runQueryStream(query: Query, options?: QueryOptions): NodeJS.ReadableStream;
 
         save(entities: OneOrMany<object>, callback: CommitCallback): void;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         save(entities: OneOrMany<object>): Promise<CommitResult> | void;
 
         insert(entities: OneOrMany<object>, callback: CommitCallback): void;

@@ -10,6 +10,7 @@ interface VaporStoreOptions {
     baseURL?: string | undefined;
     headers?: any;
     options?: any;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     progress?: (value: number) => void | undefined;
 }
 

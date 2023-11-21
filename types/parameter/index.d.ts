@@ -18,6 +18,7 @@ declare class Parameter {
      * @param rule
      * @param value
      */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     validate(rule: Parameter.ParameterRules, value: unknown): Parameter.ValidateError[] | void;
 
     static CONVERT_MAP: Record<string, Parameter.ParameterConvertType | undefined>;
@@ -241,6 +242,7 @@ declare namespace Parameter {
     type ParameterCheckFunction<T extends string> = (
         rule: ParameterRuleCustom & { type: T },
         value: unknown,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ) => string | ValidateError[] | void;
 
     const TYPE_MAP: Record<string, ParameterCheckFunction<string> | undefined>;

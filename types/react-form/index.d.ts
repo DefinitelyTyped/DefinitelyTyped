@@ -46,6 +46,7 @@ export interface UseFormOptions<
     validate?(
         values: UseFormValues<ValueType>,
         instance: UseFormInstance<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType>,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): Promise<ValidateResult> | ValidateResult | void;
 
     validatePristine?: boolean | undefined;
@@ -111,6 +112,7 @@ export interface UseFieldOptions<
     validate?(
         value: ValueType,
         instance: UseFieldInstance<ValueType, ErrorType, EventType, FieldMetaType, FormMetaType, InputPropsType>,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): Promise<ValidateResult> | ValidateResult | void;
 
     filterValue?(

@@ -216,7 +216,9 @@ declare var GM: {
      * const elem = GM_addElement(parentElement, 'a', {href: 'https://....', title: 'Some title', target: '_blank', textContent: 'Some text'});
      * @see {@link https://erosman.github.io/support/content/help.html#addElement}
      */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     addElement(tagName: string, attributes: object): HTMLElement | void;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     addElement(parentNode: string, tagName: string, attributes: object): HTMLElement | void;
 
     /**
@@ -474,12 +476,14 @@ declare function GM_getValue<TValue = GM.Value>(key: string, defaultValue?: TVal
  * Given a defined `@resource`, this method fetches and returns the content of the url
  * @see {@link https://erosman.github.io/support/content/help.html#getResourceText}
  */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 declare function GM_getResourceText(resourceName: string): string | void;
 
 /**
  * Given a defined `@resource`, this method returns it as a URL
  * @see {@link https://erosman.github.io/support/content/help.html#getResourceUrl}
  */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 declare function GM_getResourceUrl(resourceName: string): string | void;
 
 // #endregion

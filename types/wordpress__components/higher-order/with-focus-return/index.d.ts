@@ -1,6 +1,7 @@
 import { ComponentType } from "react";
 
 export interface WFROptions {
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onFocusReturn?(): boolean | void;
 }
 

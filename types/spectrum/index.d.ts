@@ -894,6 +894,7 @@ declare namespace Spectrum {
          * @param color The currently selected color of the color picker.
          * @return `false` to prevent the color picker from showing up.
          */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         beforeShow?: ((color: tinycolor.Instance) => boolean | void) | undefined;
     }
 

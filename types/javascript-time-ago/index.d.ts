@@ -18,6 +18,7 @@ declare class TimeAgo {
     static locale(localeData: Locale): void;
     static getDefaultLocale(): string;
     static intlDateTimeFormatSupported(): boolean;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     static intlDateTimeFormatSupportedLocale(locale: string): string | void;
     static setDefaultLocale(locale: string): void;
 }

@@ -472,6 +472,7 @@ declare namespace Mocha {
      * @returns [tdd] `void`
      */
     interface PendingSuiteFunction {
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         (title: string, fn: (this: Suite) => void): Suite | void;
     }
 

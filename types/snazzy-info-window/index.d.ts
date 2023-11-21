@@ -36,6 +36,7 @@ declare namespace SnazzyInfoWindow {
          * Called before the info window attempts to open.
          * Return false to cancel the open.
          */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         beforeOpen?(): boolean | void;
 
         /**
@@ -43,6 +44,7 @@ declare namespace SnazzyInfoWindow {
          * This occurs at the end of the OverlayView onAdd() implementation.
          * At this point the info window is added to the DOM but is not drawn yet.
          */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         open?(): boolean | void;
 
         /**
@@ -50,12 +52,14 @@ declare namespace SnazzyInfoWindow {
          * This occurs at the end of the OverlayView draw() implementation.
          * At this point the info window is added to the DOM and should be visible.
          */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         afterOpen?(): boolean | void;
 
         /**
          * Called before the info window attempts to close.
          * Return false to cancel the close.
          */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         beforeClose?(): boolean | void;
 
         /**
@@ -63,6 +67,7 @@ declare namespace SnazzyInfoWindow {
          * This occurs at the beginning of the OverlayView onRemove() implementation.
          * At this point the info window is still in the DOM.
          */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         close?(): boolean | void;
 
         /**
@@ -70,6 +75,7 @@ declare namespace SnazzyInfoWindow {
          * This occurs at the end of the OverlayView onRemove() implementation.
          * At this point the info window should be removed from the DOM.
          */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         afterClose?(): boolean | void;
     }
 

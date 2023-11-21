@@ -21,6 +21,7 @@ export function getFile(filePath: string, preserveFormatting: boolean): Lines;
  * @param cb - Called when finished or failed (passing error or lines of file).
  */
 export function getFile(filePath: string, preserveFormatting: boolean, cb: GetCallback): void;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function getFile(filePath: string, preserveFormatting: boolean, cb?: GetCallback): void | Lines;
 
 /**
@@ -37,6 +38,7 @@ export function get(preserveFormatting: boolean): Lines;
  * @param cb - Called when finished or failed (passing error or lines of file).
  */
 export function get(preserveFormatting: boolean, cb: GetCallback): void;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function get(preserveFormatting: boolean, cb?: GetCallback): void | Lines;
 
 /**

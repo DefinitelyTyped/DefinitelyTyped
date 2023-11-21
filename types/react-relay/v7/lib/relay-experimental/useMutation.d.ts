@@ -18,8 +18,11 @@ export interface UseMutationConfig<TMutation extends MutationParameters> {
     optimisticUpdater?: SelectorStoreUpdater<TMutation["response"]> | null | undefined;
     optimisticResponse?: TMutation["rawResponse"] | undefined;
     configs?: DeclarativeMutationConfig[] | undefined;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onError?: ((error: Error) => void | null) | undefined;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onCompleted?: ((response: TMutation["response"], errors: PayloadError[]) => void | null) | undefined;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onUnsubscribe?: (() => void | null) | undefined;
 }
 

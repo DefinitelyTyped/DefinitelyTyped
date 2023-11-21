@@ -1626,6 +1626,7 @@ declare namespace jwplayer {
         getFullscreen(): boolean;
         getHeight(): number;
         getMute(): boolean;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         getPercentViewable(): number | void;
         getPlaybackRate(): number;
         getPlaylist(): PlaylistItem[];
@@ -1683,6 +1684,7 @@ declare namespace jwplayer {
         setPip(state?: boolean): JWPlayer;
         setPlaybackRate(rate?: number): JWPlayer;
         setPlaylistItemCallback(
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             callback: null | ((item: PlaylistItem, index: number) => void | Promise<PlaylistItem>),
         ): void;
         setup(options: SetupConfig): JWPlayer;

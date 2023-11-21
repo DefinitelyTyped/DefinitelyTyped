@@ -97,6 +97,7 @@ export interface TestObject {
      */
     setup?:
         | (() =>
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             | void
             | NonNullable<TestObject["teardown"]>
             | Promise<void>

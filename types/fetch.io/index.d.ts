@@ -17,6 +17,7 @@ export interface Options extends RequestInit {
 
     header?: Header | undefined;
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     beforeRequest?(url: TUrl, body: BodyInit): boolean | void;
 
     afterResponse?(res: Response): void;

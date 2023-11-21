@@ -87,8 +87,11 @@ export interface Paddle {
                     passthrough?: string;
                     referring_domain?: string;
                     success?: string;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                     successCallback?: (data: any) => void | string;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                     closeCallback?: (data: any) => void | string;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                     loadCallback?: (data: any) => void | string;
                     upsell?: number | string;
                     upsellTitle?: string;

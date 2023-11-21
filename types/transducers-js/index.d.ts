@@ -15,6 +15,7 @@ export interface Transducer<TInput, TOutput> {
 }
 
 export interface CompletingTransformer<TResult, TCompleteResult, TInput> {
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ["@@transducer/init"](): TResult | void;
     ["@@transducer/step"](result: TResult, input: TInput): TResult | Reduced<TResult>;
     ["@@transducer/result"](result: TResult): TCompleteResult;

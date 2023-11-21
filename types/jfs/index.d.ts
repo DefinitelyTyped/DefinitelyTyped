@@ -28,6 +28,7 @@ declare namespace JsonFileStore {
 
         delete<K extends keyof T>(id: K, cb?: (err?: Error) => void): void;
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         deleteSync<K extends keyof T>(id: K): Error | void;
 
         all(cb: (err?: Error, all?: T) => void): void;

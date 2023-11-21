@@ -281,6 +281,7 @@ export class request extends events.EventEmitter {
 
     parseExtensions(extensionString: string): string[];
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     parseCookies(str: string): ICookie[] | void;
 
     _handleSocketCloseBeforeAccept(): void;

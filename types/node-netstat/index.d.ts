@@ -36,6 +36,7 @@ declare namespace nodeNetstat {
         port: number | null;
     }
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type LineHandler = (item: ParsedItem) => boolean | void;
     type RecursivePartial<T> = {
         [P in keyof T]?: RecursivePartial<T[P]>;
@@ -81,13 +82,16 @@ declare namespace nodeNetstat {
     }
     type ParserFactory = (options?: ParserFactoryOptions) => Parser;
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type Parser = (line: string, callback: LineHandler) => boolean | void;
 
     const commands: Commands;
     const version: string;
 
     namespace filters {
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         function conditional(callback: LineHandler, conditions: Filter): boolean | void;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         function limit(callback: LineHandler, limit: number): boolean | void;
     }
 

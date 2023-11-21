@@ -212,6 +212,7 @@ export interface TinySliderSettings extends CommonOptions {
      * Callback to be run on initialization.
      * @defaultValue false
      */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onInit?: (() => void | false) | undefined;
 }
 

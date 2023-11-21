@@ -1616,6 +1616,7 @@ declare namespace Highland {
         onDestroy?: Function | undefined;
         continueOnError?: boolean | undefined;
     }
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type OnFinished = (r: NodeJS.ReadableStream, cb: (...args: any[]) => void) => void | Function | CleanupObject;
 }
 

@@ -187,6 +187,7 @@ declare namespace hello {
         jsonp?: ((p: any, query: any) => void) | boolean | undefined;
         form?: ((p: any, query: any) => void) | boolean | undefined;
         login?(p: any): void;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         logout?: ((callback: () => void | string) => void) | string | undefined;
     }
 }

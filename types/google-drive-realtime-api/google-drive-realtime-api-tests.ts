@@ -164,6 +164,7 @@ namespace GRealtime {
     // alternative to RealtimePSDoc.bindString
     function registerLocalStringChangeListener(
         x: CollaborativeString,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         listener_or_callback: (e: Event) => void | EventListener,
     ): void {
         x.addEventListener(gapi.drive.realtime.EventType.TEXT_INSERTED, listener_or_callback);

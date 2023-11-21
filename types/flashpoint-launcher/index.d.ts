@@ -961,6 +961,7 @@ declare module "flashpoint-launcher" {
     class DisposableChildProcess extends ManagedChildProcess implements Disposable {
         toDispose: Disposable[];
         isDisposed: boolean;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onDispose?: () => void | undefined;
     }
 

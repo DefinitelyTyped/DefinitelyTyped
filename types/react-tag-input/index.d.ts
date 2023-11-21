@@ -39,6 +39,7 @@ export interface ReactTagsProps {
     inputProps?: React.InputHTMLAttributes<HTMLInputElement> | undefined;
     allowUnique?: boolean | undefined;
     allowDragDrop?: boolean | undefined;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     renderSuggestion?(tag: Tag, query: string): React.ReactChild | void;
     shouldRenderSuggestions?: ((query: string) => boolean) | undefined;
 

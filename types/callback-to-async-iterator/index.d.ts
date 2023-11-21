@@ -1,4 +1,5 @@
 export interface AsyncifyOptions<T, R> {
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onClose?: ((arg: R) => void | T) | undefined;
     onError?: (() => Error) | undefined;
     buffering?: boolean | undefined;

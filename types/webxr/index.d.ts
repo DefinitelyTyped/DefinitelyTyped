@@ -675,6 +675,7 @@ interface XRSession {
     // Legacy
     updateWorldTrackingState?: (options: {
         planeDetectionState?: { enabled: boolean } | undefined;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     }) => void | undefined;
 }
 

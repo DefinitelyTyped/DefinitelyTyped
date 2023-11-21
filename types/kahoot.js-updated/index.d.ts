@@ -50,6 +50,7 @@ declare namespace Kahoot {
             }
             | undefined;
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         proxy?: ((options: RequestOptions) => void | RequestOptions) | undefined;
         wsproxy?: ((url: string) => WsProxyReturn) | undefined;
     }

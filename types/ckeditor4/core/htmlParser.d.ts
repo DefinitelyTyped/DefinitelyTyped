@@ -97,6 +97,7 @@ declare namespace CKEDITOR {
 
             find(criteria: string | ((el: node) => boolean), recursive?: boolean): node[];
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             forEach(callback: (node: node) => void | false, type?: number, skipRoot?: boolean): void;
 
             getFirst(condition: string | { [key: string]: string } | ((node: node) => boolean)): node;
@@ -182,6 +183,7 @@ declare namespace CKEDITOR {
 
             filterChildren(filter: filter, filterRoot?: boolean): void;
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             forEach(callback: (node: node) => void | false, type?: number, skipRoot?: boolean): void;
 
             writeChildrenHtml(writer: basicWriter, filter?: filter, filterRoot?: boolean): void;

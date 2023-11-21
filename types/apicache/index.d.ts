@@ -85,6 +85,7 @@ export interface Options {
     /** Event callbacks */
     events?: {
         /** Expire callback triggered by redis client is used. Defaults to empty function */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         expire: (err: Error | null, reply: number) => void | undefined;
     } | undefined;
     /**

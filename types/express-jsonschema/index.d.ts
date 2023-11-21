@@ -24,6 +24,7 @@ export class JsonSchemaValidation {
  */
 export function addSchemaProperties(
     newProperties: {
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         [attribute: string]: (instance: any, schema: JSONSchema4, options: any, ctx: any) => void | string;
     },
 ): void;

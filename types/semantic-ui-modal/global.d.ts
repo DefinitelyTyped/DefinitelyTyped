@@ -192,6 +192,7 @@ declare namespace SemanticUI {
             /**
              * Is called after a modal starts to hide. If the function returns false, the modal will not hide.
              */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onHide(this: JQuery, $element: JQuery): false | void;
             /**
              * Is called after a modal has finished hiding animation.
@@ -200,10 +201,12 @@ declare namespace SemanticUI {
             /**
              * Is called after a positive, approve or ok button is pressed. If the function returns false, the modal will not hide.
              */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onApprove(this: JQuery, $element: JQuery): false | void;
             /**
              * Is called after a negative, deny or cancel button is pressed. If the function returns false the modal will not hide.
              */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             onDeny(this: JQuery, $element: JQuery): false | void;
 
             // endregion

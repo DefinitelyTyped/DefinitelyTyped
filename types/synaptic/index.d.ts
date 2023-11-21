@@ -385,6 +385,7 @@ export class Network {
     /**
      * Restores all the values from the optimized network the their respective objects in order to manipulate the network.
      */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     restore(): any | void;
 
     /**
@@ -532,6 +533,7 @@ export namespace Trainer {
 
     interface TrainingScheduleOptions {
         every: number;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         do: (data: TrainingScheduleDoData) => boolean | void;
     }
 

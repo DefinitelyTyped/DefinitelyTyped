@@ -2122,6 +2122,7 @@ s.transaction((): Bluebird<void> => {
     return Bluebird.resolve();
 });
 s.transaction((): Q.Promise<void> => {
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     return Q.Promise<void>((resolve) => {
         resolve(null);
     });

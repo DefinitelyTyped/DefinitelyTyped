@@ -24,6 +24,7 @@ export interface ScanOptions {
      * @param keyCode Detected key code
      * @param event Complete event instance
      */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onKeyDetect?(keyCode: number, event: KeyboardEvent): void | boolean;
     /**
      * Callback after a key event was decoded and found to be part of a

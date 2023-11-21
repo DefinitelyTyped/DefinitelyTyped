@@ -364,6 +364,7 @@ export class Text extends Immutable.Record({}) {
     splitText(index: number): Text[];
     mergeText(other: Text): Text;
     normalize(editor: Editor): () => void | void;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     validate(editor: Editor): Error | void;
 }
 
@@ -566,6 +567,7 @@ declare class BaseNode extends Immutable.Record({}) {
     isLeafInline(): this is Inline;
     isInRange(path: Path, range: RangeTypeProperties | RangeTypeJSON | RangeType): boolean;
     mapChildren(predicate?: (node: Node, index: number, nodes: Immutable.List<Node>) => Node): Node;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     mapDescendants(predicate?: (node: Node, index: number, nodes: Immutable.List<Node>) => Node): Node | void;
     marks(options?: IterableOptions & { onlyTypes: string[] }): Iterable<[Mark, Node, Immutable.List<number>]>;
     mergeNode(path: Path): Node;
@@ -591,6 +593,7 @@ declare class BaseNode extends Immutable.Record({}) {
     siblings(path: Path, options?: IterableOptions): Iterable<[Node, Immutable.List<number>]>;
     splitNode(path: Path, position: number, properties: NodeProperties): Node;
     texts(options: IterableOptions): Iterable<[Text, Immutable.List<number>]>;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     validate(editor: Editor): Error | void;
 
     /**
@@ -1482,11 +1485,13 @@ export type CommandFunc<T extends Controller = Controller> = (editor: T, ...args
 export type QueryFunc<T extends Controller = Controller> = (editor: T, ...args: any[]) => any;
 
 export interface Plugin<T extends Controller = Controller> {
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     normalizeNode?: ((node: Node, editor: T, next: () => void) => ((editor: T) => void) | void) | undefined;
     onChange?: ((editor: T, next: () => void) => void) | undefined;
     onCommand?: ((command: Command, editor: T, next: () => void) => void) | undefined;
     onConstruct?: ((editor: T, next: () => void) => void) | undefined;
     onQuery?: ((query: Query, editor: T, next: () => void) => void) | undefined;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     validateNode?: ((node: Node, editor: T, next: () => void) => SlateError | void) | undefined;
 
     commands?: { [name: string]: CommandFunc<T> } | undefined;

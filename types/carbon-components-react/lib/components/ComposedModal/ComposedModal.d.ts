@@ -8,6 +8,7 @@ type ExcludedAttributes = "onBlur" | "onClick" | "onTransitionEnd" | "ref" | "ro
 export interface ComposedModalProps extends Omit<ReactDivAttr, ExcludedAttributes> {
     containerClassName?: string | undefined;
     danger?: boolean | undefined;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onClose?(): boolean | void;
     open?: boolean | undefined;
     preventCloseOnClickOutside?: boolean | undefined;

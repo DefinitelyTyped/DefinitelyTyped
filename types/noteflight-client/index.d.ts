@@ -197,6 +197,7 @@ interface DocumentMethodPromise<Result> {
      * To wait for a method to complete or to obtain its return value if it has one,
      * call done() on the Promise object returned by the method and pass a callback that will receive the return value of the method (if any).
      */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     done: (callback: (result: Result) => void | Array<(result: Result) => void>) => DocumentMethodPromise<Result>;
     /**
      * Internal function that stores the callback functions as passed through the done() method.

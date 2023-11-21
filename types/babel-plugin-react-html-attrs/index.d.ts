@@ -882,6 +882,8 @@ declare namespace React {
 
     // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
     // The destructor is itself only allowed to return void.
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type EffectCallback = () => void | (() => void | undefined);
 
     interface MutableRefObject<T> {

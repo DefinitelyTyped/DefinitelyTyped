@@ -11,6 +11,7 @@ export interface ColorSchemesOptions {
     fillAlpha?: number | undefined;
     reverse?: boolean | undefined;
     override?: boolean | undefined;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     custom?: ((schemeColors: string[]) => string[] | void) | undefined;
 }
 

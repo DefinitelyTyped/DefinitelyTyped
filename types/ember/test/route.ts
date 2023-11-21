@@ -75,6 +75,7 @@ class RouteUsingClass extends Route.extend({
 }
 
 class WithNonReturningBeforeAndModelHooks extends Route {
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     beforeModel(transition: Transition): void | Promise<unknown> {
         return;
     }
@@ -85,6 +86,7 @@ class WithNonReturningBeforeAndModelHooks extends Route {
 }
 
 class WithBadReturningBeforeAndModelHooks extends Route {
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     beforeModel(transition: Transition): void | Promise<unknown> {
         // @ts-expect-error
         return "returning anything else is nonsensical (if 'legal')";

@@ -58,6 +58,7 @@ declare namespace AceAjax {
             hashId: number,
             keyString: string,
             keyCode: string | number,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ): void | { command: string };
         getStatusText(editor: Editor, data: {}): string;
         platform: string;

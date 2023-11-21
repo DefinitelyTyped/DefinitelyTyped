@@ -238,6 +238,7 @@ declare namespace CodeMirror {
     }
 
     interface KeyMap {
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         [keyName: string]: false | string | ((instance: Editor) => void | typeof Pass);
     }
 

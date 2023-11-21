@@ -170,6 +170,7 @@ export interface Quadtree<T> {
             y0: number,
             x1: number,
             y1: number,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ) => void | boolean,
     ): this;
 

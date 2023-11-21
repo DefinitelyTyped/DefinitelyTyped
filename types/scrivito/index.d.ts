@@ -225,6 +225,7 @@ interface EditingConfig {
     title?: string | undefined;
     thumbnail?: string | undefined;
     description?: string | undefined;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     titleForContent?: ((instance: Obj | Widget) => string | void) | undefined;
     descriptionForContent?: ((instance: Obj | Widget) => string) | undefined;
     attributes?: EditingConfigAttributes | undefined;

@@ -7,12 +7,14 @@ declare namespace Layui {
      * @param [index] 当前层索引参数
      * @param [layero] 当前层的jqDOM
      */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type LayerCallbackYes = (index: number, layero: JQuery) => boolean | void;
     /**
      * 层关闭的回调,如果不想关闭，return false即可
      * @param [index] 当前层索引参数
      * @param [layero] 当前层的DOM对象
      */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type LayerCallbackCancel = (index: number, layero: JQuery) => boolean | void;
     type LayerCallbackEnd = () => void;
     type LayerCallbackFull = (layero: JQuery) => void;

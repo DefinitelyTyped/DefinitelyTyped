@@ -20,6 +20,7 @@ export type Definition = string | ElementProperties | Element | By | RelativeBy;
 export type Awaitable<T, V> = Omit<T, "then"> & PromiseLike<V>;
 
 // tslint:disable-next-line
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type VoidToNull<T> = T extends void ? null : T;
 
 type ExecuteScriptFunction<ArgType extends any[], ReturnValue> = (
@@ -2386,6 +2387,7 @@ interface ExclusiveSuiteFunction {
 }
 
 interface PendingSuiteFunction {
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     (title: string, fn?: (this: DescribeInstance) => void): this | void;
 }
 

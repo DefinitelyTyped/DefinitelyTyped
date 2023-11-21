@@ -6,6 +6,7 @@ let VERSION: string = qualityLevels.VERSION;
 
 function getterSetter(value: boolean): void;
 function getterSetter(): boolean;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 function getterSetter(value?: boolean): boolean | void {
     if (typeof value === "undefined") return true;
 }

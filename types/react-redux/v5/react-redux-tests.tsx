@@ -690,6 +690,7 @@ namespace TestTOwnPropsInference {
 
     const ConnectedWithoutOwnProps = connect(mapStateToPropsWithoutOwnProps)(OwnPropsComponent);
     const ConnectedWithOwnProps = connect(mapStateToPropsWithOwnProps)(OwnPropsComponent);
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const ConnectedWithTypeHint = connect<StateProps, void, OwnProps>(mapStateToPropsWithoutOwnProps)(
         OwnPropsComponent,
     );
@@ -764,6 +765,7 @@ namespace TestMergedPropsInference {
         return { dispatch: "string" };
     }
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const ConnectedWithOwnAndState: React.ComponentClass<OwnProps> = connect<StateProps, void, OwnProps, MergedProps>(
         mapStateToProps,
         undefined,
@@ -773,6 +775,7 @@ namespace TestMergedPropsInference {
     )(MergedPropsComponent);
 
     const ConnectedWithOwnAndDispatch: React.ComponentClass<OwnProps> = connect<
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         void,
         DispatchProps,
         OwnProps,
@@ -785,6 +788,8 @@ namespace TestMergedPropsInference {
         }),
     )(MergedPropsComponent);
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     const ConnectedWithOwn: React.ComponentClass<OwnProps> = connect<void, void, OwnProps, MergedProps>(
         undefined,
         undefined,

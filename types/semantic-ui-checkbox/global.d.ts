@@ -179,18 +179,22 @@ declare namespace SemanticUI {
             /**
              * Callback before a checkbox is checked. Can cancel change by returning false
              */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             beforeChecked(this: HTMLInputElement): void | false;
             /**
              * Callback before a checkbox is set to undeterminate. Can cancel change by returning false
              */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             beforeIndeterminate(this: HTMLInputElement): void | false;
             /**
              * Callback before a checkbox is set to determinate. Can cancel change by returning false
              */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             beforeDeterminate(this: HTMLInputElement): void | false;
             /**
              * Callback before a checkbox is unchecked. Can cancel change by returning false
              */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             beforeUnchecked(this: HTMLInputElement): void | false;
             /**
              * Callback after a checkbox is enabled.

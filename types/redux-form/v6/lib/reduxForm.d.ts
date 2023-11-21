@@ -201,6 +201,7 @@ export interface SubmitHandler<FormData extends DataShape, P, S> {
         values: FormData,
         dispatch: Dispatch<S>,
         props: FormProps<FormData, P, S> & P,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | FormErrors<FormData> | Promise<any>;
 }
 

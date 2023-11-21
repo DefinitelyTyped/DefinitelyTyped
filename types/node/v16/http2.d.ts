@@ -55,6 +55,7 @@ declare module "http2" {
         length: number;
     }
     export interface ServerStreamFileResponseOptions {
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         statCheck?(stats: fs.Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions): void | boolean;
         waitForTrailers?: boolean | undefined;
         offset?: number | undefined;

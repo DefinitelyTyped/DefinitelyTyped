@@ -58,5 +58,6 @@ interface Request {
     await reddit.patch<Response, Request>("link", request);
 
     // $ExpectType void
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     await reddit.post<void, Request>("link", request);
 });

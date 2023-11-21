@@ -130,6 +130,7 @@ declare namespace TestUtils {
     ): T;
     export function renderIntoDocument<P>(
         element: ReactElement<P>,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): Component<P> | Element | void;
 
     export function mockComponent(

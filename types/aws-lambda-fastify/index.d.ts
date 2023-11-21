@@ -12,6 +12,7 @@ type Handler<TEvent = FastifyRequest, TResult = FastifyReply> = (
     event: TEvent,
     context: Context,
     callback?: Callback<TResult>,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ) => void | Promise<TResult>;
 
 declare function awsLambdaFastify(app: FastifyInstance, options?: AwsLambdaFastifyOptions): Handler;

@@ -1297,6 +1297,7 @@ export interface DevToolsHook {
     getInternalModuleRanges: () => Array<[string, string]>;
     registerInternalModuleStart: (moduleStartError: Error) => void;
     registerInternalModuleStop: (moduleStopError: Error) => void;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     dangerous_setTargetConsoleForTesting?: (fakeConsole: Record<string, unknown>) => void | undefined;
 }
 

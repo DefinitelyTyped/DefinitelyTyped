@@ -377,6 +377,7 @@ declare namespace Snap {
         bind(attr: string, element: Snap.Element, eattr: string): Snap.Set;
         clear(): void;
         exclude(el: Snap.Element): boolean;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         forEach(callback: (el: Snap.Element, index?: number) => void | boolean, thisArg?: Object): Snap.Set;
         getBBox(): BBox;
         insertAfter(): Snap.Set;

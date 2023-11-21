@@ -436,6 +436,7 @@ export interface Events {
      * returns a new text value, the origin text will be overriden. This is useful for
      * instance when a plugin is able to extract JavaScript content from an HTML file.
      */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     preParse(text: string, options: object): string | void;
     /** Run right after a file is parsed, and passed the parse tree and the parsed file as arguments. */
     postParse(ast: ESTree.Program, text: string): void;
@@ -449,8 +450,10 @@ export interface Events {
      * or an alternate type to be used instead. This is useful when
      * a plugin can provide a more helpful type than Tern (e.g. within comments).
      */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     typeAt(file: File, end: Position, expr: ESTree.Node, type: Type): Type | void;
     /** Run at the start of a completion query. May return a valid completion result to replace the default completion algorithm. */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     completion(file: File, query: CompletionsQuery): CompletionsQueryResult | void;
 }
 

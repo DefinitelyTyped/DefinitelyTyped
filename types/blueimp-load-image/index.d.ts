@@ -176,6 +176,7 @@ interface LoadImage {
     readFile: unknown;
     isInstanceOf: unknown;
     createObjectURL: (blob: Blob) => string | false;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     revokeObjectURL: (url: string) => void | false;
 }
 

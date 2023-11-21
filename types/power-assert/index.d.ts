@@ -21,6 +21,7 @@ declare namespace assert {
             actual?: unknown;
             expected?: unknown;
             operator?: string | undefined;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             stackStartFunction?: () => void | undefined;
         });
     }
@@ -47,6 +48,7 @@ declare namespace assert {
         (block: () => unknown, message?: string): void;
         (block: () => unknown, error: (new() => object) | RegExp | ((err: any) => boolean), message?: string): void;
     };
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     function ifError(value: unknown): void | undefined;
 
     const strict: typeof assert;

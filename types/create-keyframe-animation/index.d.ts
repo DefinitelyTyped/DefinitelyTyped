@@ -49,6 +49,7 @@ export function hasAnimation(name: string): boolean;
  * @param els This can be a single element, an array of elements or the result of querySelectorAll.
  * @param opts If this is a string it's assumed to be the name of the animation to run. If you pass an object it has to contain the name.
  */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function runAnimation<T extends OptsType>(els: ElsType, opts: T): Promise<T> | void;
 
 /**
@@ -61,6 +62,7 @@ export function runAnimation<T extends ElsType, U>(
     els: T,
     opts: OptsType,
     cb: (err: Error | null, result?: InferParams<T>) => U,
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ): Promise<U> | void;
 
 /**

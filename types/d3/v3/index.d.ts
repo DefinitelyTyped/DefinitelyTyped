@@ -3473,6 +3473,7 @@ declare namespace d3 {
             interface Quadtree<T> extends Node<T> {
                 add(point: T): void;
                 visit(
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                     callback: (node: Node<T>, x1: number, y1: number, x2: number, y2: number) => boolean | void,
                 ): void;
                 find(point: [number, number]): T;

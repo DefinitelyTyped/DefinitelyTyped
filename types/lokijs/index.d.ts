@@ -1653,7 +1653,9 @@ declare class Collection<E extends object> extends LokiEventEmitter {
      */
     public update(doc: E): E;
     public update(doc: E[]): void;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     public update(doc: E | E[]): E | void;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     public update(doc: E | E[]): E | void;
 
     /**
@@ -1685,7 +1687,9 @@ declare class Collection<E extends object> extends LokiEventEmitter {
      */
     public remove(doc: number | E): E | null;
     public remove(doc: number[] | E[]): void;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     public remove(doc: number | E | number[] | E[]): E | null | void;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     public remove(doc: number | E | number[] | E[]): E | null | void;
 
     /*---------------------+

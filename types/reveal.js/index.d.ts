@@ -1548,6 +1548,7 @@ declare namespace Reveal {
      */
     interface Plugin {
         id: string;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         init?(reveal: Api): void | Promise<any>;
         destroy?(): void;
     }
