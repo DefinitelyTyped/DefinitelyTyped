@@ -80,7 +80,7 @@ export interface TriggerNameMap<TElement = HTMLElement> {
     /**
      * Performs a search.
      */
-    search: [readonly string[]?] | boolean;
+    search: [(readonly string[])?] | boolean;
 
     /**
      * Opens the specified page.
