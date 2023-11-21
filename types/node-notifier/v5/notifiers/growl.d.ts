@@ -1,4 +1,4 @@
-import notifier = require("node-notifier");
+import notifier = require("../");
 
 declare class Growl {
     constructor(option?: Growl.Option);

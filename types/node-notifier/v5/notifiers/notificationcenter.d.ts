@@ -1,4 +1,4 @@
-import notifier = require("node-notifier");
+import notifier = require("../");
 
 declare class NotificationCenter {
     constructor(option?: notifier.Option);

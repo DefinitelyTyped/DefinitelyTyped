@@ -1,10 +1,10 @@
 /// <reference types="node" />
 
-import NotificationCenter = require("node-notifier/notifiers/notificationcenter");
-import NotifySend = require("node-notifier/notifiers/notifysend");
-import WindowsToaster = require("node-notifier/notifiers/toaster");
-import WindowsBalloon = require("node-notifier/notifiers/balloon");
-import Growl = require("node-notifier/notifiers/growl");
+import NotificationCenter = require("./notifiers/notificationcenter");
+import NotifySend = require("./notifiers/notifysend");
+import WindowsToaster = require("./notifiers/toaster");
+import WindowsBalloon = require("./notifiers/balloon");
+import Growl = require("./notifiers/growl");
 
 declare namespace nodeNotifier {
     interface NodeNotifier extends NodeJS.EventEmitter {
