@@ -70,8 +70,8 @@ if (defaults.recurse) {
     const recurse: boolean = defaults.recurse;
 }
 if (defaults.rename) {
-    const rename: (path: string) => string = defaults.rename;
+    const rename: (path: string, joined: string, filename: string) => string = defaults.rename;
 }
 if (defaults.visit) {
-    const visit: (obj: any) => any = defaults.visit;
+    const visit: (obj: any, joined: string, filename: string) => any = defaults.visit;
 }

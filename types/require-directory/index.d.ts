@@ -38,17 +38,21 @@ declare namespace requireDirectory {
         /**
          * @description function for renaming modules in resulting hash
          * @param name name of required module
+         * @param joined file path of renamed file
+         * @param filename file name of renamed file
          * @returns transformed name of module
          * @default "change nothing"
          */
-        rename?(name: string): string;
+        rename?(name: string, joined: string, filename: string): string;
         /**
          * @description function that will be called for each required module
          * @param obj required module
+         * @param joined file path of the visited file
+         * @param filename file name of visited file
          * @returns transformed module OR nothing (in second case module itself will be added to hash)
          * @default "change nothing"
          */
-        visit?(obj: T): U | void;
+        visit?(obj: T, joined: string, filename: string): U | void;
     }
 
     /**
