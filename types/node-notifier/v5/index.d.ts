@@ -68,4 +68,3 @@ declare namespace nodeNotifier {
 declare var nodeNotifier: nodeNotifier.NodeNotifier;
 
 export = nodeNotifier;
-
