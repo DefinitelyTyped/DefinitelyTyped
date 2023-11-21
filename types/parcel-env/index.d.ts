@@ -31,7 +31,7 @@ declare namespace __ParcelModuleApi {
         /**
          * Accept code updates and specify which parent modules should also potentially be hot reloaded. The callback is called when dependencies were replaced.
          */
-        accept(callback?: ((getParents: () => Array<DependentModule>) => Array<DependentModule>) | (() => void)): void;
+        accept(callback?: ((getParents: () => DependentModule[]) => DependentModule[]) | (() => void)): void;
         /**
          * Add a one time handler, which is executed when the current module code is replaced.
          * Here you should destroy/remove any persistent resource you have claimed/created.
