@@ -14,7 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "liferay.d.ts",
         "test/liferay-tests.global.ts"
     ]
 }
