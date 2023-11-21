@@ -91,7 +91,10 @@ declare class Monitor {
         FAIL: "fail";
         OK: "ok";
     };
-    static put(data: Cronitor.MonitorAttributes | Cronitor.MonitorAttributes[], rollback?: boolean): Promise<Monitor | Monitor[]>;
+    static put(
+        data: Cronitor.MonitorAttributes | Cronitor.MonitorAttributes[],
+        rollback?: boolean,
+    ): Promise<Monitor | Monitor[]>;
     data(): Promise<any>;
     pause(hours: number): Promise<boolean>;
     unpause(): Promise<boolean>;
