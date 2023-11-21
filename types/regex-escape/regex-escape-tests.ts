@@ -1,4 +1,4 @@
-import RegexEscape = require(".");
+import RegexEscape = require("regex-escape");
 
 // @ts-expect-error No argument
 RegexEscape();
