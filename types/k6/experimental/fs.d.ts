@@ -1,5 +1,5 @@
 /**
- * The k6 File System (fs) experimental module provides an API for handling file operations 
+ * The k6 experimental filesystem module provides an API for handling file operations
  * in your k6 tests. It allows you to read files within your test scripts.
  */
 
@@ -19,7 +19,7 @@
  * @param path - The file path as a string. Relative paths are resolved relative to the k6 script.
  * @returns Promise<File> - A promise that resolves to a `File` instance.
  */
-export function open(path: string): Promise<File>
+export function open(path: string): Promise<File>;
 
 /**
  * Represents a file and provides methods to interact with file data.
@@ -28,7 +28,7 @@ export function open(path: string): Promise<File>
 export class File {
     /**
      * The absolute path of the file.
-     * 
+     *
      * This is resolved relative to the k6 script.
      */
     path: string;
@@ -47,12 +47,12 @@ export class File {
      * @param p - A Uint8Array buffer to read the file into.
      * @returns Promise<number> - Number of bytes read or `null`.
      */
-    read(p: Uint8Array): Promise<number>
+    read(p: Uint8Array): Promise<number>;
 
     /**
      * Moves the file pointer to a new location, based on `offset` and `whence`.
      * Resolves to the new position within the file (in bytes).
-     * 
+     *
      * When using `SeekMode.Start`, the offset must be greater than or equal to zero.
      * When using `SeekMode.Current`, the offset can be positive or negative.
      * When using `SeekMode.End`, the offset must be less than or equal to zero.
@@ -67,7 +67,7 @@ export class File {
      * @param whence - The position from where offset is added (Start, Current, or End).
      * @returns Promise<number> - The new position in the file.
      */
-    seek(offset: number, whence: SeekMode): Promise<number>
+    seek(offset: number, whence: SeekMode): Promise<number>;
 
     /**
      * Retrieves information about the file.
@@ -81,22 +81,22 @@ export class File {
      *
      * @returns Promise<FileInfo> - Information about the file.
      */
-    stat(): Promise<FileInfo>
+    stat(): Promise<FileInfo>;
 }
 
 /**
  * Contains information about a file, including its name and size.
  */
 export interface FileInfo {
-	name: string // The name of the file
-	size: number // The size of the file in bytes
+    name: string; // The name of the file
+    size: number; // The size of the file in bytes
 }
 
 /**
  * Enumeration for file seek modes.
  */
 export enum SeekMode {
-    Start = 0,      // Seek from the start of the file
-    Current = 1,    // Seek from the current file position. 
-    End = 2         // Seek from the end of the file
-} 
+    Start = 0, // Seek from the start of the file
+    Current = 1, // Seek from the current file position.
+    End = 2, // Seek from the end of the file
+}
