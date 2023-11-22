@@ -5,7 +5,10 @@
             "dom",
             "es6"
         ],
-        "strict": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
