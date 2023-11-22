@@ -35,5 +35,5 @@ export namespace decode {
  */
 export function encodingLength(value: ValueToEncode): number;
 
-export type ValueToEncode = ReadonlyArray<ValueToEncode> | Buffer | number | string | null | undefined;
+export type ValueToEncode = readonly ValueToEncode[] | Buffer | number | string | null | undefined;
 export type DecodedValue = Buffer | DecodedValue[];

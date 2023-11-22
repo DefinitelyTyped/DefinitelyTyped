@@ -170,6 +170,7 @@ declare global {
         slider: SliderPlugin<this>;
         bootstrapSlider: SliderPlugin<this>;
 
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         on(event: "slide", handler: (slideEvt: SliderEvent) => false | void): this;
     }
 }

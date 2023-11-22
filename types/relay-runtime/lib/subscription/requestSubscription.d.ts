@@ -5,7 +5,7 @@ import { CacheConfig, Disposable, OperationType } from "../util/RelayRuntimeType
 
 export interface GraphQLSubscriptionConfig<TSubscription extends OperationType> {
     cacheConfig?: CacheConfig | undefined;
-    configs?: ReadonlyArray<DeclarativeMutationConfig> | undefined;
+    configs?: readonly DeclarativeMutationConfig[] | undefined;
     subscription: GraphQLTaggedNode;
     variables: TSubscription["variables"];
     onCompleted?: (() => void) | undefined;

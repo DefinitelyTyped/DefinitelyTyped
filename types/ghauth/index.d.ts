@@ -25,7 +25,7 @@ declare namespace ghauth {
         /**
          * @default []
          */
-        scopes?: ReadonlyArray<string> | undefined;
+        scopes?: readonly string[] | undefined;
 
         /**
          * @default "Node.js command-line app with ghauth"

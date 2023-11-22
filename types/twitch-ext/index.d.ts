@@ -115,7 +115,7 @@ declare namespace Twitch.ext {
          *
          * @param callback The callback is called with an array of feature flags which were updated.
          */
-        function onChanged(callback: (changed: ReadonlyArray<ChangedKey>) => void): void;
+        function onChanged(callback: (changed: readonly ChangedKey[]) => void): void;
     }
 
     /**
@@ -131,7 +131,7 @@ declare namespace Twitch.ext {
          *
          * @see https://dev.twitch.tv/docs/extensions/bits/#getproducts
          */
-        function getProducts(): Promise<ReadonlyArray<BitsProduct>>;
+        function getProducts(): Promise<readonly BitsProduct[]>;
 
         /**
          * This function takes a callback that is fired whenever a transaction is cancelled.

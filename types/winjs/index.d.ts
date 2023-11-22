@@ -1593,7 +1593,7 @@ declare namespace WinJS {
          * @param value An array that contains Promise objects or objects whose property values include Promise objects.
          * @returns A promise that on fulfillment yields the value of the input (complete or error).
          */
-        static any(value: IPromise<any>[]): IPromise<any>;
+        static any(value: Array<IPromise<any>>): IPromise<any>;
         static any(value: any): IPromise<any>;
 
         /**
@@ -3883,7 +3883,7 @@ declare namespace WinJS.UI {
          * Returns an array that contains the items in the selection.
          * @returns A Promise that contains an array of the requested IItem objects.
          */
-        getItems(): Promise<IItem<T>[]>;
+        getItems(): Promise<Array<IItem<T>>>;
 
         /**
          * Gets an array of the index ranges for the selected items.
@@ -8949,27 +8949,27 @@ declare namespace WinJS.UI.XYFocus {
         /**
          * The array of keycodes that cause XYFocus to accept.
          */
-        accept: Array<number>;
+        accept: number[];
         /**
          * The array of keycodes that cause XYFocus to cancel.
          */
-        cancel: Array<number>;
+        cancel: number[];
         /**
          * The array of keycodes that cause XYFocus to navigate down.
          */
-        down: Array<number>;
+        down: number[];
         /**
          * The array of keycodes that cause XYFocus to navigate left.
          */
-        left: Array<number>;
+        left: number[];
         /**
          * The array of keycodes that cause XYFocus to navigate right.
          */
-        right: Array<number>;
+        right: number[];
         /**
          * The array of keycodes that cause XYFocus to navigate up.
          */
-        up: Array<number>;
+        up: number[];
     };
 
     /**

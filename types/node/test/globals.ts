@@ -42,7 +42,7 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
 {
     const mutableArray = ["a"];
     mutableArray.at(-1);
-    const readonlyArray: ReadonlyArray<string> = ["b"];
+    const readonlyArray: readonly string[] = ["b"];
     readonlyArray.at(-1);
 }
 

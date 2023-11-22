@@ -13,7 +13,7 @@ export = structuredClone;
 
 declare namespace structuredClone {
     type SerializedRecordIndex = [number, any] | SerializedRecordIndex[];
-    type SerializedRecord = [SerializedRecordIndex[], ...[number, any][]];
+    type SerializedRecord = [SerializedRecordIndex[], ...Array<[number, any]>];
 
     /**
      * Serialize the input.

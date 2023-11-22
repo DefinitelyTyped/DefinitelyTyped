@@ -17,7 +17,7 @@ declare namespace ReactGooglePlacesSuggest {
         customRender?: ((prediction?: Prediction) => JSX.Element | string) | undefined;
         customContainerRender?:
             | ((
-                predictions: ReadonlyArray<Prediction>,
+                predictions: readonly Prediction[],
             ) => JSX.Element | string)
             | undefined;
         googleMaps: typeof google.maps;

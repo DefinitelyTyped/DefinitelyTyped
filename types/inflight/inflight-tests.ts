@@ -1,4 +1,4 @@
-import inflight = require("./");
+import inflight = require("inflight");
 
 // $ExpectType ((a: string) => Promise<number>) | null
 const fn = inflight("key", async (a: string) => 1);

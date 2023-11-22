@@ -22,15 +22,15 @@ interface TestActionsExplicit {
 class AbstractActions implements AltJS.ActionsClass {
     constructor(alt: AltJS.Alt) {}
     actions: any;
-    dispatch: (...payload: Array<any>) => void;
-    generateActions: (...actions: Array<string>) => void;
+    dispatch: (...payload: any[]) => void;
+    generateActions: (...actions: string[]) => void;
 }
 
 class AbstractStoreModel<S> implements AltJS.StoreModel<S> {
-    bindActions: (...actions: Array<Object>) => void;
-    bindAction: (...args: Array<any>) => void;
+    bindActions: (...actions: Object[]) => void;
+    bindAction: (...args: any[]) => void;
     bindListeners: (obj: any) => void;
-    exportPublicMethods: (config: { [key: string]: (...args: Array<any>) => any }) => any;
+    exportPublicMethods: (config: { [key: string]: (...args: any[]) => any }) => any;
     exportAsync: (source: any) => void;
     waitFor: any;
     exportConfig: any;
@@ -116,7 +116,7 @@ class TestStore extends AbstractStoreModel<AltTestState> implements AltTestState
 
 interface ExtendedTestStore extends AltJS.AltStore<AltTestState> {
     fakeLoad(): string;
-    split(): Array<string>;
+    split(): string[];
 }
 
 var testStore = <ExtendedTestStore> alt.createStore<AltTestState>(new TestStore());
@@ -131,7 +131,7 @@ testStore.unlisten(testCallback);
 
 // State generic passes to derived store
 var name: string = testStore.getState().hello;
-var nameChars: Array<string> = testStore.split();
+var nameChars: string[] = testStore.split();
 
 generatedActions.notifyTest("types");
 explicitActions.doTest("more types");

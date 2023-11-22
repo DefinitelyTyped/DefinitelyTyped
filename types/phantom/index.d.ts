@@ -75,11 +75,11 @@ export interface WebPage {
     on(
         event: "onError",
         runOnPhantom: false,
-        listener: (msg: string, trace: { file: string; line: string; function: string }[]) => void,
+        listener: (msg: string, trace: Array<{ file: string; line: string; function: string }>) => void,
     ): Promise<{ pageId: string }>;
     on(
         event: "onError",
-        listener: (msg: string, trace: { file: string; line: string; function: string }[]) => void,
+        listener: (msg: string, trace: Array<{ file: string; line: string; function: string }>) => void,
     ): Promise<{ pageId: string }>;
     on(event: "onFilePicker", runOnPhantom: false, listener: (oldFile: any) => void): Promise<{ pageId: string }>;
     on(event: "onFilePicker", listener: (oldFile: any) => void): Promise<{ pageId: string }>;
@@ -295,7 +295,7 @@ export interface IResponse {
     id: string;
     url: string;
     time: Date;
-    headers: { name: string; value: string }[];
+    headers: Array<{ name: string; value: string }>;
     bodySize: number;
     contentType: string;
     redirectURL: string;
@@ -309,5 +309,5 @@ export interface IRequestData {
     method: string;
     url: string;
     time: Date;
-    headers: { name: string; value: string }[];
+    headers: Array<{ name: string; value: string }>;
 }

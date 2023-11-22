@@ -435,7 +435,7 @@ declare class Application<
     proxy: boolean;
     proxyIpHeader: string;
     maxIpsCount: number;
-    middleware: Application.Middleware<StateT, ContextT>[];
+    middleware: Array<Application.Middleware<StateT, ContextT>>;
     subdomainOffset: number;
     env: string;
     context: Application.BaseContext & ContextT;

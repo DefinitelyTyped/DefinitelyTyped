@@ -63,7 +63,7 @@ declare module "mongoose" {
         usernameField?: string | undefined;
         usernameUnique?: boolean | undefined;
 
-        usernameQueryFields: Array<string>;
+        usernameQueryFields: string[];
 
         selectFields?: string | undefined;
         populateFields?: string | undefined;

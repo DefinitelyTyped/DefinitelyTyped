@@ -1765,7 +1765,7 @@ it.each<number>([1, 2, 3])("dummy: %d", (num, done) => {
     done();
 });
 
-const casesReadonlyArray = [[1, 2, 3] as ReadonlyArray<number>] as ReadonlyArray<ReadonlyArray<number>>;
+const casesReadonlyArray = [[1, 2, 3] as readonly number[]] as ReadonlyArray<readonly number[]>;
 it.each(casesReadonlyArray)("%d", (a, b, c) => {
     expect(a + b).toBe(c);
 });

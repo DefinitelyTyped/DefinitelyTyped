@@ -10,8 +10,8 @@ const mutArray2: number[] = [4, 5, 6];
 const newDist = dist.setMean(mutArray2).setCov([[0, 0, 1], [0, 1, 0], [1, 0, 0]]);
 
 // Test accessors
-const newMean: ReadonlyArray<number> = newDist.getMean();
-const newCov: ReadonlyArray<ReadonlyArray<number>> = newDist.getCov();
+const newMean: readonly number[] = newDist.getMean();
+const newCov: ReadonlyArray<readonly number[]> = newDist.getCov();
 
 // Mean and covariance are immutable
 

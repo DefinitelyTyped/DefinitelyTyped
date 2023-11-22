@@ -2510,8 +2510,8 @@ declare namespace echarts {
              * @see https://echarts.apache.org/en/option.html#series-line.data
              */
             data?:
-                | (void | string | number | SeriesLine.DataObject)[]
-                | (void | string | number | SeriesLine.DataObject)[][]
+                | Array<void | string | number | SeriesLine.DataObject>
+                | Array<Array<void | string | number | SeriesLine.DataObject>>
                 | undefined;
 
             /**

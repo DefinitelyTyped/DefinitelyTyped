@@ -223,7 +223,7 @@ export interface AreaProps extends AreaBaseProps {
      */
     onMouseMove?:
         | ((event: {
-            buttons: ReadonlyArray<string>;
+            buttons: readonly string[];
             height: number;
             width: number;
             x: number;

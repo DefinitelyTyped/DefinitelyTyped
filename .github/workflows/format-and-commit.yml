@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           # Use the bot token so that CI triggers on pushes; we want to know if formatting broke something.
           token: ${{ secrets.GH_DT_MERGEBOT_TOKEN }}

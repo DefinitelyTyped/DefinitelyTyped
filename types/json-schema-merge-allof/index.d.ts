@@ -86,8 +86,8 @@ declare namespace merger {
             }
             | undefined;
     }
-    type MergeSchemas = <T extends JSONSchema>(schemas: ReadonlyArray<T>) => T;
-    type MergeChildSchemas = <T extends JSONSchema>(schemas: ReadonlyArray<T>, childSchemaName: string) => T;
+    type MergeSchemas = <T extends JSONSchema>(schemas: readonly T[]) => T;
+    type MergeChildSchemas = <T extends JSONSchema>(schemas: readonly T[], childSchemaName: string) => T;
 
     interface Resolvers<Schema extends JSONSchema = JSONSchema> {
         $id(

@@ -2,7 +2,7 @@ import * as raven from "raven";
 
 interface FormattedLog {
     message: string;
-    extra: ReadonlyArray<object>;
+    extra: readonly object[];
     error?: Error | undefined;
 }
 
@@ -15,5 +15,5 @@ export = makeSentryTarget;
 declare function makeSentryTarget(config: SentryConfig): () => void;
 
 declare namespace makeSentryTarget {
-    function formatter(opts: object, severity: string, date: Date, elems: ReadonlyArray<any>): FormattedLog;
+    function formatter(opts: object, severity: string, date: Date, elems: readonly any[]): FormattedLog;
 }

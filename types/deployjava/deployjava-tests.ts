@@ -20,7 +20,7 @@ function testCompareVersions() {
  */
 function testCompareVersionToPattern() {
     var version: string = "1.8";
-    var patternArray: Array<string> = ["1.6", "1.7", "1.8"];
+    var patternArray: string[] = ["1.6", "1.7", "1.8"];
     var familyMatch: boolean = false;
     var minMatch: boolean = true;
 
@@ -59,7 +59,7 @@ function testGetJPIVersionUsingMimeType() {
  * @summary Test for the method: "getJREs".
  */
 function testGetJREs() {
-    var versions: Array<String> = deployJava.getJREs();
+    var versions: String[] = deployJava.getJREs();
 }
 
 /**

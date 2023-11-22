@@ -32,7 +32,7 @@ export interface ChannelConfiguration {
     onReady?: ((channel: MessagingChannel) => void) | undefined;
     reconnect?: boolean | undefined;
     publish?: boolean | undefined;
-    remote?: string | ReadonlyArray<string> | undefined;
+    remote?: string | readonly string[] | undefined;
 }
 
 export interface MessageTransaction {

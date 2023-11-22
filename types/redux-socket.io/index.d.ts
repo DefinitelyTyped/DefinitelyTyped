@@ -11,6 +11,6 @@ export interface MiddlewareOptions {
 
 export default function createSocketIoMiddleware(
     socket: SocketIOClient.Socket,
-    criteria: string | ReadonlyArray<string> | ((type: string, action: Action) => boolean),
+    criteria: string | readonly string[] | ((type: string, action: Action) => boolean),
     options?: MiddlewareOptions,
 ): Middleware;

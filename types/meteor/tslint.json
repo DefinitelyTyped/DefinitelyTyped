@@ -1,18 +1,11 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "adjacent-overload-signatures": false,
         "array-type": false,
-        "ban-types": false,
-        "interface-name": false,
-        "interface-over-type-literal": false,
         "jsdoc-format": false,
         "new-parens": false,
         "no-duplicate-variable": false,
-        "no-empty-interface": false,
-        "no-internal-module": false,
         "no-mergeable-namespace": false,
-        "no-misused-new": false,
         "no-namespace": false,
         "no-object-literal-type-assertion": false,
         "no-redundant-jsdoc-2": false,
@@ -24,7 +17,6 @@
         "prefer-template": false,
         "triple-equals": false,
         "unified-signatures": false,
-        "void-return": false,
         "await-promise": false
     }
 }

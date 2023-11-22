@@ -327,8 +327,8 @@ interface JQueryPromiseCallback<T> {
 
 interface JQueryPromiseOperator<T, U> {
     (
-        callback1: JQueryPromiseCallback<T> | JQueryPromiseCallback<T>[],
-        ...callbacksN: Array<JQueryPromiseCallback<any> | JQueryPromiseCallback<any>[]>
+        callback1: JQueryPromiseCallback<T> | Array<JQueryPromiseCallback<T>>,
+        ...callbacksN: Array<JQueryPromiseCallback<any> | Array<JQueryPromiseCallback<any>>>
     ): JQueryPromise<U>;
 }
 
@@ -350,8 +350,8 @@ interface JQueryPromise<T> extends JQueryGenericPromise<T> {
      * @see {@link https://api.jquery.com/deferred.always/}
      */
     always(
-        alwaysCallback1?: JQueryPromiseCallback<any> | JQueryPromiseCallback<any>[],
-        ...alwaysCallbackN: Array<JQueryPromiseCallback<any> | JQueryPromiseCallback<any>[]>
+        alwaysCallback1?: JQueryPromiseCallback<any> | Array<JQueryPromiseCallback<any>>,
+        ...alwaysCallbackN: Array<JQueryPromiseCallback<any> | Array<JQueryPromiseCallback<any>>>
     ): JQueryPromise<T>;
     /**
      * Add handlers to be called when the Deferred object is resolved.
@@ -361,8 +361,8 @@ interface JQueryPromise<T> extends JQueryGenericPromise<T> {
      * @see {@link https://api.jquery.com/deferred.done/}
      */
     done(
-        doneCallback1?: JQueryPromiseCallback<T> | JQueryPromiseCallback<T>[],
-        ...doneCallbackN: Array<JQueryPromiseCallback<T> | JQueryPromiseCallback<T>[]>
+        doneCallback1?: JQueryPromiseCallback<T> | Array<JQueryPromiseCallback<T>>,
+        ...doneCallbackN: Array<JQueryPromiseCallback<T> | Array<JQueryPromiseCallback<T>>>
     ): JQueryPromise<T>;
     /**
      * Add handlers to be called when the Deferred object is rejected.
@@ -372,8 +372,8 @@ interface JQueryPromise<T> extends JQueryGenericPromise<T> {
      * @see {@link https://api.jquery.com/deferred.fail/}
      */
     fail(
-        failCallback1?: JQueryPromiseCallback<any> | JQueryPromiseCallback<any>[],
-        ...failCallbackN: Array<JQueryPromiseCallback<any> | JQueryPromiseCallback<any>[]>
+        failCallback1?: JQueryPromiseCallback<any> | Array<JQueryPromiseCallback<any>>,
+        ...failCallbackN: Array<JQueryPromiseCallback<any> | Array<JQueryPromiseCallback<any>>>
     ): JQueryPromise<T>;
     /**
      * Add handlers to be called when the Deferred object generates progress notifications.
@@ -383,8 +383,8 @@ interface JQueryPromise<T> extends JQueryGenericPromise<T> {
      * @see {@link https://api.jquery.com/deferred.progress/}
      */
     progress(
-        progressCallback1?: JQueryPromiseCallback<any> | JQueryPromiseCallback<any>[],
-        ...progressCallbackN: Array<JQueryPromiseCallback<any> | JQueryPromiseCallback<any>[]>
+        progressCallback1?: JQueryPromiseCallback<any> | Array<JQueryPromiseCallback<any>>,
+        ...progressCallbackN: Array<JQueryPromiseCallback<any> | Array<JQueryPromiseCallback<any>>>
     ): JQueryPromise<T>;
 
     // Deprecated - given no typings
@@ -421,8 +421,8 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @see {@link https://api.jquery.com/deferred.always/}
      */
     always(
-        alwaysCallback1?: JQueryPromiseCallback<any> | JQueryPromiseCallback<any>[],
-        ...alwaysCallbackN: Array<JQueryPromiseCallback<any> | JQueryPromiseCallback<any>[]>
+        alwaysCallback1?: JQueryPromiseCallback<any> | Array<JQueryPromiseCallback<any>>,
+        ...alwaysCallbackN: Array<JQueryPromiseCallback<any> | Array<JQueryPromiseCallback<any>>>
     ): JQueryDeferred<T>;
     /**
      * Add handlers to be called when the Deferred object is resolved.
@@ -432,8 +432,8 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @see {@link https://api.jquery.com/deferred.done/}
      */
     done(
-        doneCallback1?: JQueryPromiseCallback<T> | JQueryPromiseCallback<T>[],
-        ...doneCallbackN: Array<JQueryPromiseCallback<T> | JQueryPromiseCallback<T>[]>
+        doneCallback1?: JQueryPromiseCallback<T> | Array<JQueryPromiseCallback<T>>,
+        ...doneCallbackN: Array<JQueryPromiseCallback<T> | Array<JQueryPromiseCallback<T>>>
     ): JQueryDeferred<T>;
     /**
      * Add handlers to be called when the Deferred object is rejected.
@@ -443,8 +443,8 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @see {@link https://api.jquery.com/deferred.fail/}
      */
     fail(
-        failCallback1?: JQueryPromiseCallback<any> | JQueryPromiseCallback<any>[],
-        ...failCallbackN: Array<JQueryPromiseCallback<any> | JQueryPromiseCallback<any>[]>
+        failCallback1?: JQueryPromiseCallback<any> | Array<JQueryPromiseCallback<any>>,
+        ...failCallbackN: Array<JQueryPromiseCallback<any> | Array<JQueryPromiseCallback<any>>>
     ): JQueryDeferred<T>;
     /**
      * Add handlers to be called when the Deferred object generates progress notifications.
@@ -454,8 +454,8 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
      * @see {@link https://api.jquery.com/deferred.progress/}
      */
     progress(
-        progressCallback1?: JQueryPromiseCallback<any> | JQueryPromiseCallback<any>[],
-        ...progressCallbackN: Array<JQueryPromiseCallback<any> | JQueryPromiseCallback<any>[]>
+        progressCallback1?: JQueryPromiseCallback<any> | Array<JQueryPromiseCallback<any>>,
+        ...progressCallbackN: Array<JQueryPromiseCallback<any> | Array<JQueryPromiseCallback<any>>>
     ): JQueryDeferred<T>;
 
     /**
@@ -1261,6 +1261,7 @@ interface JQueryStatic {
      */
     each<T>(
         collection: T[],
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         callback: (indexInArray: number, valueOfElement: T) => boolean | void,
     ): T[];
 
@@ -1275,6 +1276,7 @@ interface JQueryStatic {
     each<T extends Object>(
         collection: T,
         // TODO: `(keyInObject: keyof T, valueOfElement: T[keyof T])`, when TypeScript 2.1 allowed in repository
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         callback: (keyInObject: string, valueOfElement: any) => boolean | void,
     ): T;
 
@@ -1332,7 +1334,7 @@ interface JQueryStatic {
      * @param obj Object to test whether or not it is an array.
      * @see {@link https://api.jquery.com/jQuery.isArray/}
      */
-    isArray(obj: any): obj is Array<any>;
+    isArray(obj: any): obj is any[];
     /**
      * Check to see if an object is empty (contains no enumerable properties).
      *
@@ -3437,6 +3439,7 @@ interface JQuery {
      * @param func A function to execute for each matched element. Can stop the loop by returning false.
      * @see {@link https://api.jquery.com/each/}
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     each(func: (index: number, elem: Element) => boolean | void): JQuery;
 
     /**

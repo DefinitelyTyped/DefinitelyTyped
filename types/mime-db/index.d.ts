@@ -9,7 +9,7 @@ declare namespace database {
          */
         readonly source?: MimeSource | undefined;
         /** Known extensions associated with this mime type. */
-        readonly extensions?: ReadonlyArray<string> | undefined;
+        readonly extensions?: readonly string[] | undefined;
         /** Whether a file of this type can be gzipped. */
         readonly compressible?: boolean | undefined;
         /** The default charset associated with this type, if any. */

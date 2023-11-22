@@ -7729,6 +7729,7 @@ declare module "sap/ui/mdc/field/ConditionsType" {
        * The conditions that is validated
        */
       aConditions: ConditionObject[]
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | Promise<any>;
   }
 }
@@ -7951,6 +7952,7 @@ declare module "sap/ui/mdc/field/ConditionType" {
        * The condition that is validated
        */
       oCondition: ConditionObject
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | Promise<any>;
   }
 }

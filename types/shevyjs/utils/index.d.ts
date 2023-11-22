@@ -6,7 +6,7 @@ export function getFontValue(size: string): number;
 
 export function getFontUnit(size: string): string;
 
-export function trimArrayToMaxOf6<T>(array: ReadonlyArray<T>): T[];
+export function trimArrayToMaxOf6<T>(array: readonly T[]): T[];
 
 export function getFontScale(fontScale: Scale | keyof typeof fontScalePresets): number[];
 

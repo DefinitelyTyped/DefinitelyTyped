@@ -5,8 +5,8 @@ import * as jspb from "../../index";
 
 export class FileDescriptorSet extends jspb.Message {
     clearFileList(): FileDescriptorSet;
-    getFileList(): Array<FileDescriptorProto>;
-    setFileList(value: Array<FileDescriptorProto>): FileDescriptorSet;
+    getFileList(): FileDescriptorProto[];
+    setFileList(value: FileDescriptorProto[]): FileDescriptorSet;
     addFile(value?: FileDescriptorProto, index?: number): FileDescriptorProto;
 
     serializeBinary(): Uint8Array;
@@ -21,7 +21,7 @@ export class FileDescriptorSet extends jspb.Message {
 
 export namespace FileDescriptorSet {
     export type AsObject = {
-        fileList: Array<FileDescriptorProto.AsObject>;
+        fileList: FileDescriptorProto.AsObject[];
     };
 }
 
@@ -37,38 +37,38 @@ export class FileDescriptorProto extends jspb.Message {
     setPackage(value: string): FileDescriptorProto;
 
     clearDependencyList(): FileDescriptorProto;
-    getDependencyList(): Array<string>;
-    setDependencyList(value: Array<string>): FileDescriptorProto;
+    getDependencyList(): string[];
+    setDependencyList(value: string[]): FileDescriptorProto;
     addDependency(value: string, index?: number): string;
 
     clearPublicDependencyList(): FileDescriptorProto;
-    getPublicDependencyList(): Array<number>;
-    setPublicDependencyList(value: Array<number>): FileDescriptorProto;
+    getPublicDependencyList(): number[];
+    setPublicDependencyList(value: number[]): FileDescriptorProto;
     addPublicDependency(value: number, index?: number): number;
 
     clearWeakDependencyList(): FileDescriptorProto;
-    getWeakDependencyList(): Array<number>;
-    setWeakDependencyList(value: Array<number>): FileDescriptorProto;
+    getWeakDependencyList(): number[];
+    setWeakDependencyList(value: number[]): FileDescriptorProto;
     addWeakDependency(value: number, index?: number): number;
 
     clearMessageTypeList(): FileDescriptorProto;
-    getMessageTypeList(): Array<DescriptorProto>;
-    setMessageTypeList(value: Array<DescriptorProto>): FileDescriptorProto;
+    getMessageTypeList(): DescriptorProto[];
+    setMessageTypeList(value: DescriptorProto[]): FileDescriptorProto;
     addMessageType(value?: DescriptorProto, index?: number): DescriptorProto;
 
     clearEnumTypeList(): FileDescriptorProto;
-    getEnumTypeList(): Array<EnumDescriptorProto>;
-    setEnumTypeList(value: Array<EnumDescriptorProto>): FileDescriptorProto;
+    getEnumTypeList(): EnumDescriptorProto[];
+    setEnumTypeList(value: EnumDescriptorProto[]): FileDescriptorProto;
     addEnumType(value?: EnumDescriptorProto, index?: number): EnumDescriptorProto;
 
     clearServiceList(): FileDescriptorProto;
-    getServiceList(): Array<ServiceDescriptorProto>;
-    setServiceList(value: Array<ServiceDescriptorProto>): FileDescriptorProto;
+    getServiceList(): ServiceDescriptorProto[];
+    setServiceList(value: ServiceDescriptorProto[]): FileDescriptorProto;
     addService(value?: ServiceDescriptorProto, index?: number): ServiceDescriptorProto;
 
     clearExtensionList(): FileDescriptorProto;
-    getExtensionList(): Array<FieldDescriptorProto>;
-    setExtensionList(value: Array<FieldDescriptorProto>): FileDescriptorProto;
+    getExtensionList(): FieldDescriptorProto[];
+    setExtensionList(value: FieldDescriptorProto[]): FileDescriptorProto;
     addExtension(value?: FieldDescriptorProto, index?: number): FieldDescriptorProto;
 
     hasOptions(): boolean;
@@ -100,13 +100,13 @@ export namespace FileDescriptorProto {
     export type AsObject = {
         name?: string | undefined;
         pb_package?: string | undefined;
-        dependencyList: Array<string>;
-        publicDependencyList: Array<number>;
-        weakDependencyList: Array<number>;
-        messageTypeList: Array<DescriptorProto.AsObject>;
-        enumTypeList: Array<EnumDescriptorProto.AsObject>;
-        serviceList: Array<ServiceDescriptorProto.AsObject>;
-        extensionList: Array<FieldDescriptorProto.AsObject>;
+        dependencyList: string[];
+        publicDependencyList: number[];
+        weakDependencyList: number[];
+        messageTypeList: DescriptorProto.AsObject[];
+        enumTypeList: EnumDescriptorProto.AsObject[];
+        serviceList: ServiceDescriptorProto.AsObject[];
+        extensionList: FieldDescriptorProto.AsObject[];
         options?: FileOptions.AsObject | undefined;
         sourceCodeInfo?: SourceCodeInfo.AsObject | undefined;
         syntax?: string | undefined;
@@ -120,33 +120,33 @@ export class DescriptorProto extends jspb.Message {
     setName(value: string): DescriptorProto;
 
     clearFieldList(): DescriptorProto;
-    getFieldList(): Array<FieldDescriptorProto>;
-    setFieldList(value: Array<FieldDescriptorProto>): DescriptorProto;
+    getFieldList(): FieldDescriptorProto[];
+    setFieldList(value: FieldDescriptorProto[]): DescriptorProto;
     addField(value?: FieldDescriptorProto, index?: number): FieldDescriptorProto;
 
     clearExtensionList(): DescriptorProto;
-    getExtensionList(): Array<FieldDescriptorProto>;
-    setExtensionList(value: Array<FieldDescriptorProto>): DescriptorProto;
+    getExtensionList(): FieldDescriptorProto[];
+    setExtensionList(value: FieldDescriptorProto[]): DescriptorProto;
     addExtension(value?: FieldDescriptorProto, index?: number): FieldDescriptorProto;
 
     clearNestedTypeList(): DescriptorProto;
-    getNestedTypeList(): Array<DescriptorProto>;
-    setNestedTypeList(value: Array<DescriptorProto>): DescriptorProto;
+    getNestedTypeList(): DescriptorProto[];
+    setNestedTypeList(value: DescriptorProto[]): DescriptorProto;
     addNestedType(value?: DescriptorProto, index?: number): DescriptorProto;
 
     clearEnumTypeList(): DescriptorProto;
-    getEnumTypeList(): Array<EnumDescriptorProto>;
-    setEnumTypeList(value: Array<EnumDescriptorProto>): DescriptorProto;
+    getEnumTypeList(): EnumDescriptorProto[];
+    setEnumTypeList(value: EnumDescriptorProto[]): DescriptorProto;
     addEnumType(value?: EnumDescriptorProto, index?: number): EnumDescriptorProto;
 
     clearExtensionRangeList(): DescriptorProto;
-    getExtensionRangeList(): Array<DescriptorProto.ExtensionRange>;
-    setExtensionRangeList(value: Array<DescriptorProto.ExtensionRange>): DescriptorProto;
+    getExtensionRangeList(): DescriptorProto.ExtensionRange[];
+    setExtensionRangeList(value: DescriptorProto.ExtensionRange[]): DescriptorProto;
     addExtensionRange(value?: DescriptorProto.ExtensionRange, index?: number): DescriptorProto.ExtensionRange;
 
     clearOneofDeclList(): DescriptorProto;
-    getOneofDeclList(): Array<OneofDescriptorProto>;
-    setOneofDeclList(value: Array<OneofDescriptorProto>): DescriptorProto;
+    getOneofDeclList(): OneofDescriptorProto[];
+    setOneofDeclList(value: OneofDescriptorProto[]): DescriptorProto;
     addOneofDecl(value?: OneofDescriptorProto, index?: number): OneofDescriptorProto;
 
     hasOptions(): boolean;
@@ -155,13 +155,13 @@ export class DescriptorProto extends jspb.Message {
     setOptions(value?: MessageOptions): DescriptorProto;
 
     clearReservedRangeList(): DescriptorProto;
-    getReservedRangeList(): Array<DescriptorProto.ReservedRange>;
-    setReservedRangeList(value: Array<DescriptorProto.ReservedRange>): DescriptorProto;
+    getReservedRangeList(): DescriptorProto.ReservedRange[];
+    setReservedRangeList(value: DescriptorProto.ReservedRange[]): DescriptorProto;
     addReservedRange(value?: DescriptorProto.ReservedRange, index?: number): DescriptorProto.ReservedRange;
 
     clearReservedNameList(): DescriptorProto;
-    getReservedNameList(): Array<string>;
-    setReservedNameList(value: Array<string>): DescriptorProto;
+    getReservedNameList(): string[];
+    setReservedNameList(value: string[]): DescriptorProto;
     addReservedName(value: string, index?: number): string;
 
     serializeBinary(): Uint8Array;
@@ -177,15 +177,15 @@ export class DescriptorProto extends jspb.Message {
 export namespace DescriptorProto {
     export type AsObject = {
         name?: string | undefined;
-        fieldList: Array<FieldDescriptorProto.AsObject>;
-        extensionList: Array<FieldDescriptorProto.AsObject>;
-        nestedTypeList: Array<AsObject>;
-        enumTypeList: Array<EnumDescriptorProto.AsObject>;
-        extensionRangeList: Array<ExtensionRange.AsObject>;
-        oneofDeclList: Array<OneofDescriptorProto.AsObject>;
+        fieldList: FieldDescriptorProto.AsObject[];
+        extensionList: FieldDescriptorProto.AsObject[];
+        nestedTypeList: AsObject[];
+        enumTypeList: EnumDescriptorProto.AsObject[];
+        extensionRangeList: ExtensionRange.AsObject[];
+        oneofDeclList: OneofDescriptorProto.AsObject[];
         options?: MessageOptions.AsObject | undefined;
-        reservedRangeList: Array<ReservedRange.AsObject>;
-        reservedNameList: Array<string>;
+        reservedRangeList: ReservedRange.AsObject[];
+        reservedNameList: string[];
     };
 
     export class ExtensionRange extends jspb.Message {
@@ -253,8 +253,8 @@ export namespace DescriptorProto {
 
 export class ExtensionRangeOptions extends jspb.Message {
     clearUninterpretedOptionList(): ExtensionRangeOptions;
-    getUninterpretedOptionList(): Array<UninterpretedOption>;
-    setUninterpretedOptionList(value: Array<UninterpretedOption>): ExtensionRangeOptions;
+    getUninterpretedOptionList(): UninterpretedOption[];
+    setUninterpretedOptionList(value: UninterpretedOption[]): ExtensionRangeOptions;
     addUninterpretedOption(value?: UninterpretedOption, index?: number): UninterpretedOption;
 
     serializeBinary(): Uint8Array;
@@ -272,7 +272,7 @@ export class ExtensionRangeOptions extends jspb.Message {
 
 export namespace ExtensionRangeOptions {
     export type AsObject = {
-        uninterpretedOptionList: Array<UninterpretedOption.AsObject>;
+        uninterpretedOptionList: UninterpretedOption.AsObject[];
     };
 }
 
@@ -420,8 +420,8 @@ export class EnumDescriptorProto extends jspb.Message {
     setName(value: string): EnumDescriptorProto;
 
     clearValueList(): EnumDescriptorProto;
-    getValueList(): Array<EnumValueDescriptorProto>;
-    setValueList(value: Array<EnumValueDescriptorProto>): EnumDescriptorProto;
+    getValueList(): EnumValueDescriptorProto[];
+    setValueList(value: EnumValueDescriptorProto[]): EnumDescriptorProto;
     addValue(value?: EnumValueDescriptorProto, index?: number): EnumValueDescriptorProto;
 
     hasOptions(): boolean;
@@ -430,16 +430,16 @@ export class EnumDescriptorProto extends jspb.Message {
     setOptions(value?: EnumOptions): EnumDescriptorProto;
 
     clearReservedRangeList(): EnumDescriptorProto;
-    getReservedRangeList(): Array<EnumDescriptorProto.EnumReservedRange>;
-    setReservedRangeList(value: Array<EnumDescriptorProto.EnumReservedRange>): EnumDescriptorProto;
+    getReservedRangeList(): EnumDescriptorProto.EnumReservedRange[];
+    setReservedRangeList(value: EnumDescriptorProto.EnumReservedRange[]): EnumDescriptorProto;
     addReservedRange(
         value?: EnumDescriptorProto.EnumReservedRange,
         index?: number,
     ): EnumDescriptorProto.EnumReservedRange;
 
     clearReservedNameList(): EnumDescriptorProto;
-    getReservedNameList(): Array<string>;
-    setReservedNameList(value: Array<string>): EnumDescriptorProto;
+    getReservedNameList(): string[];
+    setReservedNameList(value: string[]): EnumDescriptorProto;
     addReservedName(value: string, index?: number): string;
 
     serializeBinary(): Uint8Array;
@@ -455,10 +455,10 @@ export class EnumDescriptorProto extends jspb.Message {
 export namespace EnumDescriptorProto {
     export type AsObject = {
         name?: string | undefined;
-        valueList: Array<EnumValueDescriptorProto.AsObject>;
+        valueList: EnumValueDescriptorProto.AsObject[];
         options?: EnumOptions.AsObject | undefined;
-        reservedRangeList: Array<EnumReservedRange.AsObject>;
-        reservedNameList: Array<string>;
+        reservedRangeList: EnumReservedRange.AsObject[];
+        reservedNameList: string[];
     };
 
     export class EnumReservedRange extends jspb.Message {
@@ -534,8 +534,8 @@ export class ServiceDescriptorProto extends jspb.Message {
     setName(value: string): ServiceDescriptorProto;
 
     clearMethodList(): ServiceDescriptorProto;
-    getMethodList(): Array<MethodDescriptorProto>;
-    setMethodList(value: Array<MethodDescriptorProto>): ServiceDescriptorProto;
+    getMethodList(): MethodDescriptorProto[];
+    setMethodList(value: MethodDescriptorProto[]): ServiceDescriptorProto;
     addMethod(value?: MethodDescriptorProto, index?: number): MethodDescriptorProto;
 
     hasOptions(): boolean;
@@ -559,7 +559,7 @@ export class ServiceDescriptorProto extends jspb.Message {
 export namespace ServiceDescriptorProto {
     export type AsObject = {
         name?: string | undefined;
-        methodList: Array<MethodDescriptorProto.AsObject>;
+        methodList: MethodDescriptorProto.AsObject[];
         options?: ServiceOptions.AsObject | undefined;
     };
 }
@@ -721,8 +721,8 @@ export class FileOptions extends jspb.Message {
     setRubyPackage(value: string): FileOptions;
 
     clearUninterpretedOptionList(): FileOptions;
-    getUninterpretedOptionList(): Array<UninterpretedOption>;
-    setUninterpretedOptionList(value: Array<UninterpretedOption>): FileOptions;
+    getUninterpretedOptionList(): UninterpretedOption[];
+    setUninterpretedOptionList(value: UninterpretedOption[]): FileOptions;
     addUninterpretedOption(value?: UninterpretedOption, index?: number): UninterpretedOption;
 
     serializeBinary(): Uint8Array;
@@ -757,7 +757,7 @@ export namespace FileOptions {
         phpNamespace?: string | undefined;
         phpMetadataNamespace?: string | undefined;
         rubyPackage?: string | undefined;
-        uninterpretedOptionList: Array<UninterpretedOption.AsObject>;
+        uninterpretedOptionList: UninterpretedOption.AsObject[];
     };
 
     export enum OptimizeMode {
@@ -789,8 +789,8 @@ export class MessageOptions extends jspb.Message {
     setMapEntry(value: boolean): MessageOptions;
 
     clearUninterpretedOptionList(): MessageOptions;
-    getUninterpretedOptionList(): Array<UninterpretedOption>;
-    setUninterpretedOptionList(value: Array<UninterpretedOption>): MessageOptions;
+    getUninterpretedOptionList(): UninterpretedOption[];
+    setUninterpretedOptionList(value: UninterpretedOption[]): MessageOptions;
     addUninterpretedOption(value?: UninterpretedOption, index?: number): UninterpretedOption;
 
     serializeBinary(): Uint8Array;
@@ -809,7 +809,7 @@ export namespace MessageOptions {
         noStandardDescriptorAccessor?: boolean | undefined;
         deprecated?: boolean | undefined;
         mapEntry?: boolean | undefined;
-        uninterpretedOptionList: Array<UninterpretedOption.AsObject>;
+        uninterpretedOptionList: UninterpretedOption.AsObject[];
     };
 }
 
@@ -845,8 +845,8 @@ export class FieldOptions extends jspb.Message {
     setWeak(value: boolean): FieldOptions;
 
     clearUninterpretedOptionList(): FieldOptions;
-    getUninterpretedOptionList(): Array<UninterpretedOption>;
-    setUninterpretedOptionList(value: Array<UninterpretedOption>): FieldOptions;
+    getUninterpretedOptionList(): UninterpretedOption[];
+    setUninterpretedOptionList(value: UninterpretedOption[]): FieldOptions;
     addUninterpretedOption(value?: UninterpretedOption, index?: number): UninterpretedOption;
 
     serializeBinary(): Uint8Array;
@@ -867,7 +867,7 @@ export namespace FieldOptions {
         lazy?: boolean | undefined;
         deprecated?: boolean | undefined;
         weak?: boolean | undefined;
-        uninterpretedOptionList: Array<UninterpretedOption.AsObject>;
+        uninterpretedOptionList: UninterpretedOption.AsObject[];
     };
 
     export enum CType {
@@ -885,8 +885,8 @@ export namespace FieldOptions {
 
 export class OneofOptions extends jspb.Message {
     clearUninterpretedOptionList(): OneofOptions;
-    getUninterpretedOptionList(): Array<UninterpretedOption>;
-    setUninterpretedOptionList(value: Array<UninterpretedOption>): OneofOptions;
+    getUninterpretedOptionList(): UninterpretedOption[];
+    setUninterpretedOptionList(value: UninterpretedOption[]): OneofOptions;
     addUninterpretedOption(value?: UninterpretedOption, index?: number): UninterpretedOption;
 
     serializeBinary(): Uint8Array;
@@ -901,7 +901,7 @@ export class OneofOptions extends jspb.Message {
 
 export namespace OneofOptions {
     export type AsObject = {
-        uninterpretedOptionList: Array<UninterpretedOption.AsObject>;
+        uninterpretedOptionList: UninterpretedOption.AsObject[];
     };
 }
 
@@ -917,8 +917,8 @@ export class EnumOptions extends jspb.Message {
     setDeprecated(value: boolean): EnumOptions;
 
     clearUninterpretedOptionList(): EnumOptions;
-    getUninterpretedOptionList(): Array<UninterpretedOption>;
-    setUninterpretedOptionList(value: Array<UninterpretedOption>): EnumOptions;
+    getUninterpretedOptionList(): UninterpretedOption[];
+    setUninterpretedOptionList(value: UninterpretedOption[]): EnumOptions;
     addUninterpretedOption(value?: UninterpretedOption, index?: number): UninterpretedOption;
 
     serializeBinary(): Uint8Array;
@@ -935,7 +935,7 @@ export namespace EnumOptions {
     export type AsObject = {
         allowAlias?: boolean | undefined;
         deprecated?: boolean | undefined;
-        uninterpretedOptionList: Array<UninterpretedOption.AsObject>;
+        uninterpretedOptionList: UninterpretedOption.AsObject[];
     };
 }
 
@@ -946,8 +946,8 @@ export class EnumValueOptions extends jspb.Message {
     setDeprecated(value: boolean): EnumValueOptions;
 
     clearUninterpretedOptionList(): EnumValueOptions;
-    getUninterpretedOptionList(): Array<UninterpretedOption>;
-    setUninterpretedOptionList(value: Array<UninterpretedOption>): EnumValueOptions;
+    getUninterpretedOptionList(): UninterpretedOption[];
+    setUninterpretedOptionList(value: UninterpretedOption[]): EnumValueOptions;
     addUninterpretedOption(value?: UninterpretedOption, index?: number): UninterpretedOption;
 
     serializeBinary(): Uint8Array;
@@ -963,7 +963,7 @@ export class EnumValueOptions extends jspb.Message {
 export namespace EnumValueOptions {
     export type AsObject = {
         deprecated?: boolean | undefined;
-        uninterpretedOptionList: Array<UninterpretedOption.AsObject>;
+        uninterpretedOptionList: UninterpretedOption.AsObject[];
     };
 }
 
@@ -974,8 +974,8 @@ export class ServiceOptions extends jspb.Message {
     setDeprecated(value: boolean): ServiceOptions;
 
     clearUninterpretedOptionList(): ServiceOptions;
-    getUninterpretedOptionList(): Array<UninterpretedOption>;
-    setUninterpretedOptionList(value: Array<UninterpretedOption>): ServiceOptions;
+    getUninterpretedOptionList(): UninterpretedOption[];
+    setUninterpretedOptionList(value: UninterpretedOption[]): ServiceOptions;
     addUninterpretedOption(value?: UninterpretedOption, index?: number): UninterpretedOption;
 
     serializeBinary(): Uint8Array;
@@ -991,7 +991,7 @@ export class ServiceOptions extends jspb.Message {
 export namespace ServiceOptions {
     export type AsObject = {
         deprecated?: boolean | undefined;
-        uninterpretedOptionList: Array<UninterpretedOption.AsObject>;
+        uninterpretedOptionList: UninterpretedOption.AsObject[];
     };
 }
 
@@ -1007,8 +1007,8 @@ export class MethodOptions extends jspb.Message {
     setIdempotencyLevel(value: MethodOptions.IdempotencyLevel): MethodOptions;
 
     clearUninterpretedOptionList(): MethodOptions;
-    getUninterpretedOptionList(): Array<UninterpretedOption>;
-    setUninterpretedOptionList(value: Array<UninterpretedOption>): MethodOptions;
+    getUninterpretedOptionList(): UninterpretedOption[];
+    setUninterpretedOptionList(value: UninterpretedOption[]): MethodOptions;
     addUninterpretedOption(value?: UninterpretedOption, index?: number): UninterpretedOption;
 
     serializeBinary(): Uint8Array;
@@ -1025,7 +1025,7 @@ export namespace MethodOptions {
     export type AsObject = {
         deprecated?: boolean | undefined;
         idempotencyLevel?: IdempotencyLevel | undefined;
-        uninterpretedOptionList: Array<UninterpretedOption.AsObject>;
+        uninterpretedOptionList: UninterpretedOption.AsObject[];
     };
 
     export enum IdempotencyLevel {
@@ -1037,8 +1037,8 @@ export namespace MethodOptions {
 
 export class UninterpretedOption extends jspb.Message {
     clearNameList(): UninterpretedOption;
-    getNameList(): Array<UninterpretedOption.NamePart>;
-    setNameList(value: Array<UninterpretedOption.NamePart>): UninterpretedOption;
+    getNameList(): UninterpretedOption.NamePart[];
+    setNameList(value: UninterpretedOption.NamePart[]): UninterpretedOption;
     addName(value?: UninterpretedOption.NamePart, index?: number): UninterpretedOption.NamePart;
 
     hasIdentifierValue(): boolean;
@@ -1085,7 +1085,7 @@ export class UninterpretedOption extends jspb.Message {
 
 export namespace UninterpretedOption {
     export type AsObject = {
-        nameList: Array<NamePart.AsObject>;
+        nameList: NamePart.AsObject[];
         identifierValue?: string | undefined;
         positiveIntValue?: number | undefined;
         negativeIntValue?: number | undefined;
@@ -1125,8 +1125,8 @@ export namespace UninterpretedOption {
 
 export class SourceCodeInfo extends jspb.Message {
     clearLocationList(): SourceCodeInfo;
-    getLocationList(): Array<SourceCodeInfo.Location>;
-    setLocationList(value: Array<SourceCodeInfo.Location>): SourceCodeInfo;
+    getLocationList(): SourceCodeInfo.Location[];
+    setLocationList(value: SourceCodeInfo.Location[]): SourceCodeInfo;
     addLocation(value?: SourceCodeInfo.Location, index?: number): SourceCodeInfo.Location;
 
     serializeBinary(): Uint8Array;
@@ -1141,18 +1141,18 @@ export class SourceCodeInfo extends jspb.Message {
 
 export namespace SourceCodeInfo {
     export type AsObject = {
-        locationList: Array<Location.AsObject>;
+        locationList: Location.AsObject[];
     };
 
     export class Location extends jspb.Message {
         clearPathList(): Location;
-        getPathList(): Array<number>;
-        setPathList(value: Array<number>): Location;
+        getPathList(): number[];
+        setPathList(value: number[]): Location;
         addPath(value: number, index?: number): number;
 
         clearSpanList(): Location;
-        getSpanList(): Array<number>;
-        setSpanList(value: Array<number>): Location;
+        getSpanList(): number[];
+        setSpanList(value: number[]): Location;
         addSpan(value: number, index?: number): number;
 
         hasLeadingComments(): boolean;
@@ -1166,8 +1166,8 @@ export namespace SourceCodeInfo {
         setTrailingComments(value: string): Location;
 
         clearLeadingDetachedCommentsList(): Location;
-        getLeadingDetachedCommentsList(): Array<string>;
-        setLeadingDetachedCommentsList(value: Array<string>): Location;
+        getLeadingDetachedCommentsList(): string[];
+        setLeadingDetachedCommentsList(value: string[]): Location;
         addLeadingDetachedComments(value: string, index?: number): string;
 
         serializeBinary(): Uint8Array;
@@ -1182,19 +1182,19 @@ export namespace SourceCodeInfo {
 
     export namespace Location {
         export type AsObject = {
-            pathList: Array<number>;
-            spanList: Array<number>;
+            pathList: number[];
+            spanList: number[];
             leadingComments?: string | undefined;
             trailingComments?: string | undefined;
-            leadingDetachedCommentsList: Array<string>;
+            leadingDetachedCommentsList: string[];
         };
     }
 }
 
 export class GeneratedCodeInfo extends jspb.Message {
     clearAnnotationList(): GeneratedCodeInfo;
-    getAnnotationList(): Array<GeneratedCodeInfo.Annotation>;
-    setAnnotationList(value: Array<GeneratedCodeInfo.Annotation>): GeneratedCodeInfo;
+    getAnnotationList(): GeneratedCodeInfo.Annotation[];
+    setAnnotationList(value: GeneratedCodeInfo.Annotation[]): GeneratedCodeInfo;
     addAnnotation(value?: GeneratedCodeInfo.Annotation, index?: number): GeneratedCodeInfo.Annotation;
 
     serializeBinary(): Uint8Array;
@@ -1209,13 +1209,13 @@ export class GeneratedCodeInfo extends jspb.Message {
 
 export namespace GeneratedCodeInfo {
     export type AsObject = {
-        annotationList: Array<Annotation.AsObject>;
+        annotationList: Annotation.AsObject[];
     };
 
     export class Annotation extends jspb.Message {
         clearPathList(): Annotation;
-        getPathList(): Array<number>;
-        setPathList(value: Array<number>): Annotation;
+        getPathList(): number[];
+        setPathList(value: number[]): Annotation;
         addPath(value: number, index?: number): number;
 
         hasSourceFile(): boolean;
@@ -1245,7 +1245,7 @@ export namespace GeneratedCodeInfo {
 
     export namespace Annotation {
         export type AsObject = {
-            pathList: Array<number>;
+            pathList: number[];
             sourceFile?: string | undefined;
             begin?: number | undefined;
             end?: number | undefined;

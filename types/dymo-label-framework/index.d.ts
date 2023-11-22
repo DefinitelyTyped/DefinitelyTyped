@@ -575,7 +575,7 @@ declare namespace dymo.label.framework {
          *
          * @returns An XML string.
          */
-        static toXml(records: {}[]): string;
+        static toXml(records: Array<{}>): string;
 
         /**
          * Adds a new record to the LabelSet. Returns a record object.

@@ -1678,12 +1678,12 @@ declare module 'vscode' {
 		 * @returns Returns a new disposable which, upon dispose, will
 		 * dispose all provided disposables.
 		 */
-		static from(...disposableLikes: {
+		static from(...disposableLikes: Array<{
 			/**
 			 * Function to clean up resources.
 			 */
 			dispose: () => any;
-		}[]): Disposable;
+		}>): Disposable;
 
 		/**
 		 * Creates a new disposable that calls the provided function
@@ -2695,7 +2695,7 @@ declare module 'vscode' {
 		 * We also support returning `Command` for legacy reasons, however all new extensions should return
 		 * `CodeAction` object instead.
 		 */
-		provideCodeActions(document: TextDocument, range: Range | Selection, context: CodeActionContext, token: CancellationToken): ProviderResult<(Command | T)[]>;
+		provideCodeActions(document: TextDocument, range: Range | Selection, context: CodeActionContext, token: CancellationToken): ProviderResult<Array<Command | T>>;
 
 		/**
 		 * Given a code action fill in its {@linkcode CodeAction.edit edit}-property. Changes to
@@ -4055,7 +4055,7 @@ declare module 'vscode' {
 		 *
 		 * @returns A shallow copy of `[Uri, TextEdit[]]`-tuples.
 		 */
-		entries(): [Uri, TextEdit[]][];
+		entries(): Array<[Uri, TextEdit[]]>;
 	}
 
 	/**
@@ -5947,7 +5947,7 @@ declare module 'vscode' {
 		/**
 		 * Tags for this item.
 		 */
-		tags?: ReadonlyArray<SymbolTag>;
+		tags?: readonly SymbolTag[];
 
 		/**
 		 * More detail for this item, e.g. the signature of a function.
@@ -6344,7 +6344,7 @@ declare module 'vscode' {
 			/**
 			 * @deprecated
 			 */
-			autoClosingPairs: {
+			autoClosingPairs: Array<{
 				/**
 				 * @deprecated
 				 */
@@ -6357,7 +6357,7 @@ declare module 'vscode' {
 				 * @deprecated
 				 */
 				notIn?: string[];
-			}[];
+			}>;
 		};
 	}
 
@@ -7704,12 +7704,12 @@ declare module 'vscode' {
 		 *
 		 * *Note* that asynchronous dispose-functions aren't awaited.
 		 */
-		readonly subscriptions: {
+		readonly subscriptions: Array<{
 			/**
 			 * Function to clean up resources.
 			 */
 			dispose(): any;
-		}[];
+		}>;
 
 		/**
 		 * A memento object that stores state in the context
@@ -8325,7 +8325,7 @@ declare module 'vscode' {
 		 * @param args The command arguments.
 		 * @param options Optional options for the started the shell.
 		 */
-		constructor(command: string | ShellQuotedString, args: (string | ShellQuotedString)[], options?: ShellExecutionOptions);
+		constructor(command: string | ShellQuotedString, args: Array<string | ShellQuotedString>, options?: ShellExecutionOptions);
 
 		/**
 		 * The shell command line. Is `undefined` if created with a command and arguments.
@@ -8340,7 +8340,7 @@ declare module 'vscode' {
 		/**
 		 * The shell args. Is `undefined` if created with a full command line.
 		 */
-		args: (string | ShellQuotedString)[];
+		args: Array<string | ShellQuotedString>;
 
 		/**
 		 * The shell options used when the command line is executed in a shell.
@@ -8933,7 +8933,7 @@ declare module 'vscode' {
 		 * @returns An array of name/type-tuples or a thenable that resolves to such.
 		 * @throws {@linkcode FileSystemError.FileNotFound FileNotFound} when `uri` doesn't exist.
 		 */
-		readDirectory(uri: Uri): [string, FileType][] | Thenable<[string, FileType][]>;
+		readDirectory(uri: Uri): Array<[string, FileType]> | Thenable<Array<[string, FileType]>>;
 
 		/**
 		 * Create a new directory (Note, that new files are created via `write`-calls).
@@ -9053,7 +9053,7 @@ declare module 'vscode' {
 		 * @param uri The uri of the folder.
 		 * @returns An array of name/type-tuples or a thenable that resolves to such.
 		 */
-		readDirectory(uri: Uri): Thenable<[string, FileType][]>;
+		readDirectory(uri: Uri): Thenable<Array<[string, FileType]>>;
 
 		/**
 		 * Create a new directory (Note, that new files are created via `write`-calls).
@@ -11683,7 +11683,7 @@ declare module 'vscode' {
 		 * Ranges in the label to highlight. A range is defined as a tuple of two number where the
 		 * first is the inclusive start index and the second the exclusive end index
 		 */
-		highlights?: [number, number][];
+		highlights?: Array<[number, number]>;
 	}
 
 	/**
@@ -13140,7 +13140,7 @@ declare module 'vscode' {
 		 * @returns true if the operation was successfully started and false otherwise if arguments were used that would result
 		 * in invalid workspace folder state (e.g. 2 folders with the same URI).
 		 */
-		export function updateWorkspaceFolders(start: number, deleteCount: number | undefined | null, ...workspaceFoldersToAdd: {
+		export function updateWorkspaceFolders(start: number, deleteCount: number | undefined | null, ...workspaceFoldersToAdd: Array<{
 			/**
 			 * The uri of a workspace folder that's to be added.
 			 */
@@ -13149,7 +13149,7 @@ declare module 'vscode' {
 			 * The name of a workspace folder that's to be added.
 			 */
 			readonly name?: string;
-		}[]): boolean;
+		}>): boolean;
 
 		/**
 		 * Creates a file system watcher that is notified on file events (create, change, delete)
@@ -13805,7 +13805,7 @@ declare module 'vscode' {
 		 *
 		 * @returns An array of uri-diagnostics tuples or an empty array.
 		 */
-		export function getDiagnostics(): [Uri, Diagnostic[]][];
+		export function getDiagnostics(): Array<[Uri, Diagnostic[]]>;
 
 		/**
 		 * Create a diagnostics collection.
@@ -16351,7 +16351,7 @@ declare module 'vscode' {
 		/**
 		 * All extensions currently known to the system.
 		 */
-		export const all: readonly Extension<any>[];
+		export const all: ReadonlyArray<Extension<any>>;
 
 		/**
 		 * An event which fires when `extensions.all` changes. This can happen when extensions are

@@ -21,7 +21,7 @@ declare class Token {
     /**
      * HTML attributes. Format: `[[name1, value1], [name2, value2]]`
      */
-    attrs: [string, string][] | null;
+    attrs: Array<[string, string]> | null;
 
     /**
      * Source map info. Format: `[line_begin, line_end]`

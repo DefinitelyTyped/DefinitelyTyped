@@ -1,6 +1,6 @@
 import extensions = require("node-array-ext");
 
-var array: Array<string> = ["hello", "world", "test"];
+var array: string[] = ["hello", "world", "test"];
 var result: string = "";
 var finish = function(err?: Error) {
     if (err) {

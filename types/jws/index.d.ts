@@ -174,20 +174,20 @@ export interface Header extends CertificateProperties {
     jwk?: JWK | undefined;
     typ?: string | undefined;
     cty?: string | undefined;
-    crit?: ReadonlyArray<string> | undefined;
+    crit?: readonly string[] | undefined;
 }
 
 export interface JWK extends CertificateProperties {
     alg?: Algorithm | undefined;
     kty: string;
     use?: string | undefined;
-    key_ops?: ReadonlyArray<string> | undefined;
+    key_ops?: readonly string[] | undefined;
 }
 
 export interface CertificateProperties extends PrivateProperties {
     kid?: string | undefined;
     x5u?: string | undefined;
-    x5c?: ReadonlyArray<string> | undefined;
+    x5c?: readonly string[] | undefined;
     x5t?: string | undefined;
     "x5t#S256"?: string | undefined;
 }

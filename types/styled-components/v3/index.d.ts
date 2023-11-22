@@ -23,7 +23,7 @@ export type FlattenInterpolation<P> = InterpolationValue | InterpolationFunction
 export type InterpolationValue = string | number | Styles | FalseyValue | StyledComponentClass<any, any>;
 export type SimpleInterpolation =
     | InterpolationValue
-    | ReadonlyArray<InterpolationValue | ReadonlyArray<InterpolationValue>>;
+    | ReadonlyArray<InterpolationValue | readonly InterpolationValue[]>;
 export interface Styles {
     [ruleOrSelector: string]: string | number | Styles;
 }
@@ -79,7 +79,7 @@ export interface ThemedBaseStyledInterface<T> extends ThemedStyledComponentFacto
 
 export type ThemedStyledInterface<T> = ThemedBaseStyledInterface<Extract<keyof T, string> extends never ? any : T>;
 export type StyledInterface = ThemedStyledInterface<DefaultTheme>;
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DefaultTheme {}
 
 export interface ThemeProviderProps<T> {

@@ -21,6 +21,7 @@ export interface Swipe {
     /**
      * Handler for `swipemove` event. Calculates user's tap angle and distance.
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     move(event: Event): boolean | void;
 
     /**

@@ -66,7 +66,7 @@ interface Rsync {
     source(s?: string | string[]): Rsync;
 
     // pattern accessors
-    patterns(patterns: (string | Pattern)[]): Rsync;
+    patterns(patterns: Array<string | Pattern>): Rsync;
 
     exclude(p: string | string[]): Rsync;
 

@@ -13,7 +13,12 @@ declare namespace p2 {
         lowerBound: [number, number];
         upperBound: [number, number];
 
-        setFromPoints(points: [number, number][], position: [number, number], angle?: number, skinSize?: number): void;
+        setFromPoints(
+            points: Array<[number, number]>,
+            position: [number, number],
+            angle?: number,
+            skinSize?: number,
+        ): void;
         copy(aabb: AABB): void;
         extend(aabb: AABB): void;
         overlaps(aabb: AABB): boolean;
@@ -609,7 +614,7 @@ declare namespace p2 {
         vectorToLocalFrame(out: [number, number], worldVector: [number, number]): void;
         vectorToWorldFrame(out: [number, number], localVector: [number, number]): void;
         fromPolygon(
-            path: [number, number][],
+            path: Array<[number, number]>,
             options?: {
                 optimalDecomp?: boolean | undefined;
                 skipSimpleCheck?: boolean | undefined;
@@ -759,8 +764,8 @@ declare namespace p2 {
     }
 
     export interface ConvexOptions extends SharedShapeOptions {
-        vertices?: ([number, number] | ArrayLike<number>)[] | undefined;
-        axes?: ([number, number] | ArrayLike<number>)[] | undefined;
+        vertices?: Array<[number, number] | ArrayLike<number>> | undefined;
+        axes?: Array<[number, number] | ArrayLike<number>> | undefined;
     }
 
     export class Convex extends Shape {
@@ -768,8 +773,8 @@ declare namespace p2 {
 
         constructor(options?: ConvexOptions);
 
-        vertices: [number, number][];
-        axes: [number, number][];
+        vertices: Array<[number, number]>;
+        axes: Array<[number, number]>;
         centerOfMass: [number, number];
         triangles: [[number, number], [number, number], [number, number]];
         boundingRadius: number;
@@ -1019,9 +1024,9 @@ declare namespace p2 {
     }
 
     export class Utils {
-        static appendArray<T>(a: Array<T>, b: Array<T>): Array<T>;
-        static splice<T>(array: Array<T>, index: number, howMany: number): void;
-        static arrayRemove<T>(array: Array<T>, element: number): void;
+        static appendArray<T>(a: T[], b: T[]): T[];
+        static splice<T>(array: T[], index: number, howMany: number): void;
+        static arrayRemove<T>(array: T[], element: number): void;
         static extend(a: any, b: any): void;
         static defaults(options: any, defaults: any): any;
         static shallowClone<T>(obj: T): T;

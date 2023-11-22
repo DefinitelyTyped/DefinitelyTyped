@@ -203,7 +203,7 @@ declare namespace When {
      * @param promisesOrValues array of anything, may contain a mix
      *      of {@link Promise}s and values
      */
-    function settle<T>(promisesOrValues: any[]): Promise<Descriptor<T>[]>;
+    function settle<T>(promisesOrValues: any[]): Promise<Array<Descriptor<T>>>;
 
     /**
      * Generates a potentially infinite stream of promises by repeatedly calling f until predicate becomes true.
@@ -215,6 +215,7 @@ declare namespace When {
     function iterate<U>(
         f: (seed: U) => U | Promise<U>,
         predicate: (value: U) => boolean,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         handler: (value: U) => Promise<any> | void,
         seed: U | Promise<U>,
     ): Promise<U>;
@@ -233,6 +234,7 @@ declare namespace When {
     function unfold<T, U>(
         unspool: (seed: U) => [T | Promise<T>, U | Promise<U>] | Promise<[T | Promise<T>, U | Promise<U>]>,
         predicate: (value: U) => boolean | Promise<boolean>,
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         handler: (value: T) => Promise<any> | void,
         seed: U | Promise<U>,
     ): Promise<void>;
@@ -250,7 +252,7 @@ declare namespace When {
      * @return a promise that will fulfill when *all* the input promises
      * have fulfilled, or will reject when *any one* of the input promises rejects.
      */
-    function join<T>(...promises: Promise<T>[]): Promise<T[]>;
+    function join<T>(...promises: Array<Promise<T>>): Promise<T[]>;
     /**
      * Joins multiple promises into a single returned promise.
      * @return a promise that will fulfill when *all* the input promises

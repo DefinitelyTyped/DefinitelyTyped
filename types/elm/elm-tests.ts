@@ -1,7 +1,7 @@
 declare var Elm: ElmInstance<ShanghaiPorts>;
 
 interface ShanghaiPorts {
-    coordinates: PortToElm<Array<number>>;
+    coordinates: PortToElm<number[]>;
     incomingShip: PortToElm<Ship>;
     outgoingShip: PortToElm<string>;
     totalCapacity: PortFromElm<number>;

@@ -65,7 +65,7 @@ declare module "dcp/compute" {
         for<T>(
             rangeObject: object | Ranges,
             work: object | string | URL | DcpURL | ((input: any, ...data: T[]) => any),
-            arguments?: ReadonlyArray<T>,
+            arguments?: readonly T[],
         ): JobHandle;
 
         /**

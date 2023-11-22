@@ -24,7 +24,7 @@ const LoadingIndicatorStyled = () => (
 
 const LoadIndicatorOnce = () => {
     const [isComplete, setIsComplete] = React.useState(false);
-    const eventListeners = React.useMemo((): ReadonlyArray<EventListener> => [{
+    const eventListeners = React.useMemo((): readonly EventListener[] => [{
         eventName: "complete",
         callback: (): void => setIsComplete(true),
     }], []);

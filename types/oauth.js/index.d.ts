@@ -1,6 +1,6 @@
 declare namespace OAuth {
     /** An Array of name-value pairs [[name, value], [name2, value2]]. */
-    type ParameterList = [string, string][];
+    type ParameterList = Array<[string, string]>;
 
     /** A map {name: value, name2: value2}. */
     type ParameterMap = { [name: string]: string };
