@@ -31,7 +31,9 @@ run({
 });
 
 // TestsStream should be a NodeJS.ReadableStream
-run().pipe(process.stdout);
+run()
+    .compose(spec)
+    .pipe(process.stdout);
 
 test("foo", t => {
     // $ExpectType TestContext

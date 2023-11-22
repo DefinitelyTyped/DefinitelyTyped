@@ -63,7 +63,7 @@ const entry: Module.SourceMapping = smap.findEntry(1, 1);
 {
     const resolve: Module.ResolveHook = async (specifier, context, nextResolve) => {
         const { parentURL = null } = context;
-        console.log(context.importAssertions.type);
+        console.log(context.importAttributes.type);
 
         if (Math.random() > 0.5) {
             return {
