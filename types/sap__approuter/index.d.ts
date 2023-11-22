@@ -75,7 +75,11 @@ declare namespace approuter {
      * @param response - Object for the outgoing Response; can be manipulated to alter the response
      * @param next - Call next to give control back to Application Router Middleware
      */
-    type MiddlewareHandler = (request: AppRouterIncomingMessage, response: ServerResponse, next: () => void) => void;
+    type MiddlewareHandler = (
+        request: AppRouterIncomingMessage,
+        response: ServerResponse,
+        next: (value?: Error | string) => void,
+    ) => void;
 
     interface Extensions {
         /**
