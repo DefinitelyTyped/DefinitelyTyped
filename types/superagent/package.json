@@ -1,13 +1,14 @@
 {
     "private": true,
     "name": "@types/superagent",
-    "version": "4.1.9999",
+    "version": "4.2.9999",
     "projects": [
         "https://github.com/visionmedia/superagent"
     ],
     "dependencies": {
         "@types/cookiejar": "*",
-        "@types/node": "*"
+        "@types/node": "*",
+        "@types/methods": "*"
     },
     "devDependencies": {
         "@types/superagent": "workspace:."
@@ -56,6 +57,10 @@
         {
             "name": "LuckyWind_sck",
             "githubUsername": "LuckyWindsck"
+        },
+        {
+            "name": "David Tanner",
+            "githubUsername": "DavidTanner"
         }
     ]
 }
