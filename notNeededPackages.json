@@ -5835,6 +5835,10 @@
             "libraryName": "superstruct",
             "asOfVersion": "0.8.0"
         },
+        "supertest-as-promised": {
+            "libraryName": "supertest",
+            "asOfVersion": "4.0.3"
+        },
         "survey-knockout": {
             "libraryName": "survey-knockout",
             "asOfVersion": "0.10.0"
