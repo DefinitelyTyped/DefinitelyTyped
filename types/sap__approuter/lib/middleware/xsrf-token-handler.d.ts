@@ -1,4 +1,4 @@
-import {IncomingMessage} from "http";
+import { IncomingMessage } from "http";
 
 export type checkTokenResult = {
     isValid: boolean;
