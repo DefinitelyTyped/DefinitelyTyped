@@ -16,12 +16,12 @@ type CallbackHandler = (err: any, res: ResponseBase) => void;
 
 type MultipartValueSingle = Blob | Buffer | ReadStream | string | boolean | number;
 
-type HttpMethod =
-    | ((url: string, callback?: CallbackHandler) => SARequest)
-    | ((url: string, data?: string | Record<string, any>, callback?: CallbackHandler) => SARequest)
+type HttpMethod<Req extends SARequest> =
+    | ((url: string, callback?: CallbackHandler) => Req)
+    | ((url: string, data?: string | Record<string, any>, callback?: CallbackHandler) => Req)
 ;
-type RequestMethods = {
-    [key in (typeof methods[number]) | 'del']: HttpMethod;
+type RequestMethods<Req extends SARequest> = {
+    [key in (typeof methods[number]) | 'del']: HttpMethod<Req>;
 }
 
 declare class SARequest extends Stream implements RequestBase {
@@ -87,9 +87,11 @@ declare class SARequest extends Stream implements RequestBase {
     trustLocalhost(enabled?: boolean): this;
 }
 declare namespace request {
+    type Request = RequestBase & Stream;
     type Response = ResponseBase;
     type SuperAgentRequest = SARequest;
-    type Plugin = (req: SARequest) => void;
+    type Plugin = <Req extends SuperAgentRequest = SuperAgentRequest>(req: Req) => void;
+
     interface ProgressEvent {
         direction: "download" | "upload";
         loaded: number;
@@ -110,7 +112,11 @@ declare namespace request {
         path: string;
     }
 
-    interface SuperAgentStatic extends RequestMethods {
+    interface SuperAgent<Req extends SARequest = SARequest> extends RequestMethods<Req>, Stream {
+
+    }
+
+    interface SuperAgentStatic<Req extends SARequest = SARequest> extends SuperAgent<Req> {
         (url: string): SARequest;
         (method: string, url: string): SARequest;
 

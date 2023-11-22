@@ -16,10 +16,8 @@ const request: supertest.SuperTest<supertest.Test> = supertest(app);
 const agent = supertest.agent();
 request.post("/login").end((err: any, res: supertest.Response) => {
     if (err) throw err;
-    agent.saveCookies(res);
 
     const req = request.get("/admin") as supertest.Test;
-    agent.attachCookies(req);
     req.expect(200, (err: any, res: supertest.Response) => {
         if (err) throw err;
     });
