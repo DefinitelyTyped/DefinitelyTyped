@@ -398,6 +398,7 @@ interface KnockoutBindingHandler<E extends Node = any, V = any, VM = any> {
             allBindingsAccessor: KnockoutAllBindingsAccessor,
             viewModel: VM,
             bindingContext: KnockoutBindingContext,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         ) => void | { controlsDescendantBindings: boolean })
         | undefined;
     update?:

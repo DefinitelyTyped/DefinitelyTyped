@@ -95,6 +95,7 @@ export interface IndicatorOptions {
     colorTrigger?: string | undefined;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type ScrollTarget = (newScrollPos: number, ...args: any[]) => void | number | ElementOrSelector | object;
 
 export interface ControllerInfo {

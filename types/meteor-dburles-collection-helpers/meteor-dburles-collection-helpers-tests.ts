@@ -229,7 +229,7 @@ interface ComplicatedMembers {
     helperNumber: Helper<number>;
     helperNullableFalse: Helper<false | null>;
     optionalHelperString?: Helper<string> | undefined;
-    // tslint:disable-next-line void-return
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     helperVoidableNumber: Helper<number | void>;
     methodUnion: (() => boolean) | ((arg: number) => boolean);
     helperUnion: Helper<string> | Helper<number>;
@@ -367,7 +367,7 @@ const asComplicatedMembers: ComplicatedMembers = complicatedMembersInstance;
 const falseOrNull2: false | Helper<null> = asComplicatedMembers.helperNullableFalse;
 
 // - using a "voidable" rather than a nullable
-// tslint:disable-next-line void-return
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 const numberOrVoid: number | void = asComplicatedMembers.helperVoidableNumber;
 
 // - or, the recommended solution: using OptionalHelper<T>

@@ -10,7 +10,6 @@
         "only-arrow-functions": false,
         "prefer-const": false,
         "triple-equals": false,
-        "unified-signatures": false,
-        "void-return": false
+        "unified-signatures": false
     }
 }

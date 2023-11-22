@@ -441,6 +441,7 @@ export interface CalendarProps<TEvent extends object = Event, TResource extends 
     onSelectEvent?: ((event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void) | undefined;
     onKeyPressEvent?: ((event: TEvent, e: React.SyntheticEvent<HTMLElement>) => void) | undefined;
     onSelecting?: (range: { start: Date; end: Date }) => boolean | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onRangeChange?: (range: Date[] | { start: Date; end: Date }, view?: View) => void | undefined;
     showAllEvents?: boolean | undefined;
     selected?: any;

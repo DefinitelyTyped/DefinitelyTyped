@@ -12,7 +12,9 @@ interface MuiImageProps {
     height?: React.CSSProperties["height"] | number | undefined;
     iconWrapperClassName?: string | undefined;
     iconWrapperStyle?: React.CSSProperties | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onError?: (...args: any[]) => void | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onLoad?: (...args: any[]) => void | undefined;
     position?: React.CSSProperties["position"] | undefined;
     shift?: "left" | "right" | "top" | "bottom" | false | null | undefined;

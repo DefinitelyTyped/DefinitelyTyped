@@ -1601,6 +1601,7 @@ declare global {
             ): void;
             function beforeFind<T extends Object = Object>(
                 arg1: { new(): T } | string,
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 func?: (request: BeforeFindRequest<T>) => Promise<Query<T>> | Promise<void> | Query<T> | void,
                 validator?: Validator | ((request: FunctionRequest) => any),
             ): void;
@@ -1621,6 +1622,7 @@ declare global {
             ): void;
 
             function beforeSaveFile(
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                 func?: (request: FileTriggerRequest) => PromiseLike<File> | void,
                 validator?: Validator | ((request: FunctionRequest) => any),
             ): void;

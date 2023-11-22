@@ -3,7 +3,6 @@
     "rules": {
         "array-type": false,
         "no-var-keyword": false,
-        "void-return": false,
         "npm-naming": [
             true,
             {

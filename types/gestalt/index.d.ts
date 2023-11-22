@@ -1431,6 +1431,7 @@ export interface PageHeaderProps {
         onClick?: (args: {
             event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>;
             dangerouslyDisableOnNavigation: () => void;
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         }) => void | undefined;
     };
     items?: readonly React.ReactNode[] | undefined;

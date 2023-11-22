@@ -318,7 +318,7 @@ declare namespace util {
     }
 
     // Used `boolean` in PromiseLike instead of `false` because it caused problems with `async` functions
-    type HandlerFunction<T> = (payload: T, callback: (err?: any) => void) => void | false | PromiseLike<void | boolean>; // tslint:disable-line:void-return
+    type HandlerFunction<T> = (payload: T, callback: (err?: any) => void) => void | false | PromiseLike<void | boolean>; // eslint-disable-line @typescript-eslint/no-invalid-void-type
 
     interface Hooks {
         /**

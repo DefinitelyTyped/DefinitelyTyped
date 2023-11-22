@@ -36,6 +36,7 @@ declare namespace Sizzle {
         }
 
         interface FindFunction {
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             (match: RegExpMatchArray, context: Element | Document, isXML: boolean): Element[] | void;
         }
 

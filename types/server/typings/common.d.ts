@@ -40,5 +40,6 @@ export interface Context {
     log: { [key in LogLevel]: LogFn };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type Middleware = (ctx: Context) => Reply | BasicType | void;
 export type Middlewares = Array<Middleware | Middleware[]>;

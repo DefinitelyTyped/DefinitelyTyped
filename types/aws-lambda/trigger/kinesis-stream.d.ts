@@ -1,11 +1,11 @@
 import { Handler } from "../handler";
 
-// tslint:disable-next-line:void-return
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type KinesisStreamHandler = Handler<KinesisStreamEvent, KinesisStreamBatchResponse | void>;
 
 export type KinesisStreamTumblingWindowHandler = Handler<
     KinesisStreamTumblingWindowEvent,
-    // tslint:disable-next-line:void-return
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     KinesisStreamStateResponse | void
 >;
 

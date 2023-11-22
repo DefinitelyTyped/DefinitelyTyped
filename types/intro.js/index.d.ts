@@ -77,6 +77,7 @@ declare namespace introJs {
         setOptions(options: Options): IntroJs;
 
         onexit(callback: Function): IntroJs;
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         onbeforeexit(callback: () => boolean | void): IntroJs;
         onbeforechange(callback: (element: HTMLElement) => any): IntroJs;
         onafterchange(callback: (element: HTMLElement) => any): IntroJs;

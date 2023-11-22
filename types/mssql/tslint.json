@@ -7,7 +7,6 @@
         "no-var-keyword": false,
         "only-arrow-functions": false,
         "prefer-const": false,
-        "unified-signatures": false,
-        "void-return": false
+        "unified-signatures": false
     }
 }

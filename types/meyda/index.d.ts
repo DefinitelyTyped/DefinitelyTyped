@@ -90,6 +90,7 @@ export const bufferSize: number;
 export const sampleRate: number;
 export const melBands: number;
 export const chromaBands: number;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export function callback(features: Partial<MeydaFeaturesObject>): void | null;
 export const windowingFunction: MeydaWindowingFunction;
 export const featureExtractors: any;

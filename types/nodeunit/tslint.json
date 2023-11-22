@@ -5,7 +5,6 @@
         "no-void-expression": false,
         "object-literal-shorthand": false,
         "only-arrow-functions": false,
-        "prefer-const": false,
-        "void-return": false
+        "prefer-const": false
     }
 }

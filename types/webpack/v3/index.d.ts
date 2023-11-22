@@ -1102,6 +1102,7 @@ declare namespace webpack {
                 this: LoaderContext,
                 source: string | Buffer,
                 sourceMap?: RawSourceMap,
+                // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             ): string | Buffer | void | undefined;
 
             /**

@@ -5,7 +5,6 @@
         "jsdoc-format": false,
         "no-const-enum": false,
         "no-redundant-jsdoc-2": false,
-        "no-var-keyword": false,
-        "void-return": false
+        "no-var-keyword": false
     }
 }
