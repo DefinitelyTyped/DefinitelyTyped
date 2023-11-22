@@ -12,16 +12,15 @@ import { LookupFunction } from "net";
 import RequestBase = require("../request-base");
 import ResponseBase = require('./response');
 
-
 type CallbackHandler = (err: any, res: ResponseBase) => void;
 
 type MultipartValueSingle = Blob | Buffer | ReadStream | string | boolean | number;
 
-declare type HttpMethod =
+type HttpMethod =
     | ((url: string, callback?: CallbackHandler) => SARequest)
     | ((url: string, data?: string | Record<string, any>, callback?: CallbackHandler) => SARequest)
 ;
-declare type RequestMethods = {
+type RequestMethods = {
     [key in (typeof methods[number]) | 'del']: HttpMethod;
 }
 
@@ -35,8 +34,8 @@ declare class SARequest extends Stream implements RequestBase {
     parse(parser: ((str: string) => any) | ((res: ResponseBase, callback: (err: Error | null, body: any) => void) => void)): this;
     responseType(type: string): this;
     serialize(serializer: (obj: any) => string): this;
-    timeout(ms: number | { deadline?: number | undefined; response?: number | undefined; }): this;
-    retry(count?: number | undefined, callback?: ((err: any, res: ResponseBase) => void) | undefined): this;
+    timeout(ms: number | { deadline?: number; response?: number; }): this;
+    retry(count?: number, callback?: ((err: any, res: ResponseBase) => void)): this;
     use(fn: (req: this) => void): this;
     ok(callback: (res: ResponseBase) => boolean): this;
     get(header: string): string;
@@ -45,17 +44,17 @@ declare class SARequest extends Stream implements RequestBase {
     set(field: string, val: string): this;
     set(field: 'Cookie', val: string[]): this;
     unset(field: string): this;
-    field(name: string, val: (string | number | boolean | Blob | Buffer | ReadStream) | (string | number | boolean | Blob | Buffer | ReadStream)[]): this;
-    field(fields: { [fieldName: string]: (string | number | boolean | Blob | Buffer | ReadStream) | (string | number | boolean | Blob | Buffer | ReadStream)[]; }): this;
-    withCredentials(on?: boolean | undefined): this;
+    field(name: string, val: (string | number | boolean | Blob | Buffer | ReadStream) | Array<string | number | boolean | Blob | Buffer | ReadStream>): this;
+    field(fields: { [fieldName: string]: (string | number | boolean | Blob | Buffer | ReadStream) | Array<string | number | boolean | Blob | Buffer | ReadStream>; }): this;
+    withCredentials(on?: boolean): this;
     redirects(n: number): this;
     maxResponseSize(n: number): this;
-    send(data?: string | object | undefined): this;
-    sortQuery(sort?: boolean | ((a: string, b: string) => number) | undefined): this;
-    toJSON(): { method: string; url: string; data?: string | object | undefined; headers: (string | string[])[]; };
-    then<TResult1 = ResponseBase, TResult2 = never>(onfulfilled?: ((value: ResponseBase) => TResult1 | PromiseLike<TResult1>) | null | undefined, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined): Promise<TResult1 | TResult2>;
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null | undefined): Promise<ResponseBase | TResult>;
-    finally(onfinally?: (() => void) | null | undefined): Promise<ResponseBase>;
+    send(data?: string | object): this;
+    sortQuery(sort?: boolean | ((a: string, b: string) => number)): this;
+    toJSON(): { method: string; url: string; data?: string | object; headers: Array<string | string[]>; };
+    then<TResult1 = ResponseBase, TResult2 = never>(onfulfilled?: ((value: ResponseBase) => TResult1 | PromiseLike<TResult1>) | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null): Promise<TResult1 | TResult2>;
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null): Promise<ResponseBase | TResult>;
+    finally(onfinally?: (() => void) | null): Promise<ResponseBase>;
 
     method: string;
     url: string;
@@ -88,30 +87,30 @@ declare class SARequest extends Stream implements RequestBase {
     trustLocalhost(enabled?: boolean): this;
 }
 declare namespace request {
-    export type Response = ResponseBase;
-    export type SuperAgentRequest = SARequest;
-    export type Plugin = (req: SARequest) => void;
-    export interface ProgressEvent {
+    type Response = ResponseBase;
+    type SuperAgentRequest = SARequest;
+    type Plugin = (req: SARequest) => void;
+    interface ProgressEvent {
         direction: "download" | "upload";
         loaded: number;
         percent?: number | undefined;
         total?: number | undefined;
     }
 
-    export interface ResponseError extends Error {
+    interface ResponseError extends Error {
         status?: number | undefined;
         response?: Response | undefined;
         timeout?: boolean | undefined;
     }
 
-    export interface HTTPError extends Error {
+    interface HTTPError extends Error {
         status: number;
         text: string;
         method: string;
         path: string;
     }
 
-    export interface SuperAgentStatic extends RequestMethods {
+    interface SuperAgentStatic extends RequestMethods {
         (url: string): SARequest;
         (method: string, url: string): SARequest;
 

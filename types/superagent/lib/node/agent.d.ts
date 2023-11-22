@@ -2,30 +2,30 @@ import AgentBase = require('../agent-base');
 import request = require('../..');
 import Response = require('./response');
 import methods = require('methods');
-import * as cookiejar from "../../../cookiejar";
+import { CookieJar } from 'cookiejar';
 
 type CallbackHandler = (err: any, res: Response) => void;
 
-declare interface Options {
-    ca?: any | undefined;
-    key?: any | undefined;
-    pfx?: any | undefined;
-    cert?: any | undefined;
-    rejectUnauthorized?: boolean | undefined;
+interface Options {
+    ca?: any;
+    key?: any;
+    pfx?: any;
+    cert?: any;
+    rejectUnauthorized?: boolean;
 }
 
-declare type Request = typeof request.Request;
+type Request = typeof request.Request;
 
-declare type HttpMethod = (url: string, callback?: CallbackHandler) => Request;
+type HttpMethod = (url: string, callback?: CallbackHandler) => Request;
 
-declare type AgentMethods = {
+type AgentMethods = {
     [key in typeof methods[number]]: HttpMethod
 }
 
-declare interface Agent extends AgentBase, AgentMethods {
-    new (options?: Options): Agent;
+declare class Agent extends AgentBase implements AgentMethods {
+    constructor(options?: Options);
 
-    jar: cookiejar.CookieJar;
+    jar: CookieJar;
 
     "M-SEARCH"(url: string, callback?: CallbackHandler): Request;
 

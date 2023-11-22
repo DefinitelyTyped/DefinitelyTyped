@@ -42,7 +42,7 @@ declare class RequestBase extends Promise<Response> {
         method: string;
         url: string;
         data?: string | object;
-        headers: (string | string[])[];
+        headers: Array<string | string[]>;
     }
 }
 

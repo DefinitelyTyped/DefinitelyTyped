@@ -3,7 +3,7 @@
 import { Stream } from 'stream';
 import { IncomingMessage } from 'http';
 
-declare interface HTTPError extends Error {
+interface HTTPError extends Error {
     status: number;
     text: string;
     method: string;
