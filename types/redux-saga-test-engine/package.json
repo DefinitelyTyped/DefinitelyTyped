@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/redux-saga-test-engine",
+    "version": "3.0.0.9999",
+    "projects": [
+        "https://github.com/DNAinfo/redux-saga-test-engine#readme"
+    ],
+    "devDependencies": {
+        "@types/redux-saga-test-engine": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt Wade",
+            "githubUsername": "romellem"
+        }
+    ]
+}
