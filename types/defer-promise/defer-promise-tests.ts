@@ -10,8 +10,7 @@ a.resolve("foo");
 a.resolve();
 
 // $ExpectType Deferred<void>
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-const b = defer<void>();
+const b = defer<void>(); // eslint-disable-line @typescript-eslint/no-invalid-void-type
 // $ExpectType void
 b.resolve();
 // @ts-expect-error
