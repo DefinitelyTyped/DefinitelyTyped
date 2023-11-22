@@ -5,7 +5,6 @@
         "jsdoc-format": false,
         "no-irregular-whitespace": false,
         "no-redundant-jsdoc-2": false,
-        "no-unnecessary-qualifier": false,
-        "void-return": false
+        "no-unnecessary-qualifier": false
     }
 }

@@ -46,8 +46,11 @@ export interface ModalDropdownProps<T = any> extends ViewProps {
     renderButtonComponent?: React.ComponentClass | React.FC | undefined;
     renderRightComponent?: React.ComponentClass | React.FC | undefined;
     renderButtonProps?: any;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onDropdownWillShow?: (() => void | boolean) | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onDropdownWillHide?: (() => void | boolean) | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onSelect?: ((index: string, option: T) => void | boolean) | undefined;
     numberOfLines?: number | undefined;
 }

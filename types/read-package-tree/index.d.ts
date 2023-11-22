@@ -1,6 +1,7 @@
 declare function rpt(root: string, cb: (er: Error | null, data: rpt.Node) => void): void;
 declare function rpt(
     root: string,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     filterWith: (node: rpt.Node, kidName: string) => void | undefined | boolean,
     cb: (er: Error | null, data: rpt.Node) => void,
 ): void;

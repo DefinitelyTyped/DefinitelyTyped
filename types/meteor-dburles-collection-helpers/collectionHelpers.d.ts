@@ -110,7 +110,7 @@ declare module "meteor/dburles:collection-helpers" {
     // void when stripping helper brands, and Helpers<TInterface>.helperVoidProperty can be assigned undefined!
     // This is one way to make a helper with an optional value that can be read off a raw TInterface (although
     // Helper<T | false> would work almost as well).
-    // tslint:disable-next-line void-return
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     type RemoveHelperFlavorForVoid<T> = T extends void & HelperFlavor ? void : T;
 
     // however, we can do better

@@ -12,6 +12,7 @@ const Person = Ember.Object.extend({
 assertType<Person>(Person.reopen());
 
 assertType<string>(Person.create().name);
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 assertType<void>(Person.create().sayHello());
 
 const Person2 = Person.reopenClass({
@@ -23,6 +24,7 @@ const Person2 = Person.reopenClass({
 });
 
 assertType<string>(Person2.create().name);
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 assertType<void>(Person2.create().sayHello());
 assertType<string>(Person2.species);
 

@@ -81,6 +81,7 @@ ES2015.IteratorNext(any as AsyncGenerator<number, void>); // $ExpectType Promise
 
 // $ExpectType IteratorYieldResult<number> | IteratorReturnResult<void> | Promise<IteratorResult<number, void>> || IteratorResult<number, void> | Promise<IteratorResult<number, void>>
 expectType<IteratorResult<number, void> | Promise<IteratorResult<number, void>>>(
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ES2015.IteratorNext<number, void>(any as Generator<number, void> | AsyncGenerator<number, void>),
 );
 

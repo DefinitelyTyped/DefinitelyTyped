@@ -4,7 +4,6 @@
         "array-type": false,
         "no-var-keyword": false,
         "only-arrow-functions": false,
-        "prefer-const": false,
-        "void-return": false
+        "prefer-const": false
     }
 }

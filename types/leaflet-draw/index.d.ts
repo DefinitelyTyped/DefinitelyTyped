@@ -48,6 +48,7 @@ declare module "leaflet" {
     class Toolbar extends Class {
         constructor(options?: ToolbarOptions);
 
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         addToolbar(map: DrawMap): HTMLElement | void;
 
         removeToolbar(): void;

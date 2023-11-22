@@ -9,7 +9,6 @@
         "variable-name": [
             true,
             "check-format"
-        ],
-        "void-return": false
+        ]
     }
 }

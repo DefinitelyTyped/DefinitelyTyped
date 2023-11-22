@@ -8,6 +8,7 @@ export interface PollingConfig {
 }
 export interface BaseProps {
     children?: React.ReactNode;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onChange?: (online: boolean) => void | undefined;
     wrapperType?: string;
     polling?: boolean | PollingConfig;

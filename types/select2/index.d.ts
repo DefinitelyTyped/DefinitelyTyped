@@ -16,6 +16,7 @@ export type JQueryAjaxSettingsBase = Pick<JQueryAjaxSettings, Sub<keyof JQueryAj
 /**
  * Same as jQuery v3 `JQuery.EventHandlerBase`.
  */
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type JQueryEventHandlerBase<TContext, T> = (this: TContext, t: T, ...args: any[]) => void | false;
 
 /**

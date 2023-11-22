@@ -1261,6 +1261,7 @@ interface JQueryStatic {
      */
     each<T>(
         collection: T[],
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         callback: (indexInArray: number, valueOfElement: T) => boolean | void,
     ): T[];
 
@@ -1275,6 +1276,7 @@ interface JQueryStatic {
     each<T extends Object>(
         collection: T,
         // TODO: `(keyInObject: keyof T, valueOfElement: T[keyof T])`, when TypeScript 2.1 allowed in repository
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         callback: (keyInObject: string, valueOfElement: any) => boolean | void,
     ): T;
 
@@ -3437,6 +3439,7 @@ interface JQuery {
      * @param func A function to execute for each matched element. Can stop the loop by returning false.
      * @see {@link https://api.jquery.com/each/}
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     each(func: (index: number, elem: Element) => boolean | void): JQuery;
 
     /**
