@@ -19,15 +19,15 @@ declare namespace npmlog {
          * Creates a log message
          * @param level
          * @param prefix
-         * @param message message of the lopg which will be formatted using utils.format()
-         * @param args additional arguments
+         * @param message message of the log which will be formatted using utils.format()
+         * @param args additional arguments appended to the log message also formatted using utils.format()
          */
         log(level: LogLevels | string, prefix: string, message: any, ...args: any[]): void;
 
         /**
          * @param prefix
          * @param message message of the log which will be formatted using utils.format()
-         * @param args additional arguments
+         * @param args additional arguments appended to the log message also formatted using utils.format()
          */
         silly(prefix: string, message: any, ...args: any[]): void;
         verbose(prefix: string, message: any, ...args: any[]): void;
