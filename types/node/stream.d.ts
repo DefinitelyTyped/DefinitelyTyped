@@ -33,7 +33,7 @@ declare module "stream" {
             },
         ): T;
         compose<T extends NodeJS.ReadableStream>(
-            stream: T | ComposeFnParam | Iterable<T> | AsyncIterable<T> | typeof internal.Duplex,
+            stream: T | ComposeFnParam | Iterable<T> | AsyncIterable<T>,
             options?: { signal: AbortSignal },
         ): T;
     }
