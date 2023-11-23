@@ -31,5 +31,5 @@ Liferay.Util.openToast({
     autoClose: 5000,
 });
 
-Liferay.Service("/user/get-current-user-id", {}, () => {}); // $ExpectType Promise<unknown>
-Liferay.Loader.require("some-module", (someModule) => {}, (error) => {}); // $ExpectType void
+Liferay.Service("/user/get-current-user-id"); // $ExpectType Promise<unknown>
+Liferay.Loader.require("some-module"); // $ExpectType void
