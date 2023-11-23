@@ -2,11 +2,17 @@ declare const Liferay: {
     Language: LiferayLanguage;
     Util: LiferayUtil;
     ThemeDisplay: LiferayThemeDisplay;
+    Loader: LiferayLoader;
 
     /**
      * Get the authentication token
      */
     authToken: string;
+
+    /**
+     * Call a Liferay service
+     */
+    Service: (service: string, params?: unknown, callback?: (obj: unknown) => void) => Promise<unknown>;
 };
 
 interface LiferayLanguage {
@@ -47,6 +53,11 @@ interface LiferayThemeDisplay {
     getLanguageId: () => string;
 
     /**
+     * Get the default language id
+     */
+    getDefaultLanguageId: () => string;
+
+    /**
      * Get the current plid
      */
     getPlid: () => string;
@@ -60,6 +71,66 @@ interface LiferayThemeDisplay {
      * Get the relative url of the current layout
      */
     getLayoutRelativeURL: () => string;
+
+    /**
+     * Get the current company group id
+     */
+    getCompanyGroupId: () => string;
+
+    /**
+     * Get the current site group id
+     */
+    getSiteGroupId: () => string;
+
+    /**
+     * Get the current company id
+     */
+    getCompanyId: () => string;
+
+    /**
+     * Get the current layout id
+     */
+    getLayoutId: () => string;
+
+    /**
+     * Get the parent layout id of the current layout
+     */
+    getParentLayoutId: () => string;
+
+    /**
+     * Get the current user id
+     */
+    getUserId: () => string;
+
+    /**
+     * Get the current user email address
+     */
+    getUserEmailAddress: () => string;
+
+    /**
+     * Get the current username
+     */
+    getUserName: () => string;
+
+    /**
+     * Get the current user uuid
+     */
+    getPathThemeRoot: () => string;
+
+    /**
+     * Get the path to the theme images
+     */
+    getPathThemeImages: () => string;
+
+    /**
+     * Get the base url of the CDN
+     */
+    getCDNBaseURL: () => string;
+
+    /**
+     * Get the base url of the portal
+     */
+    getPortalURL: () => string;
 }
 
 interface LiferayUtil {
@@ -97,4 +168,15 @@ interface ToastParams {
      * Set false to disable auto close (default: true)
      */
     autoClose?: number | boolean;
+}
+
+interface LiferayLoader {
+    /**
+     * Load a Liferay module
+     *
+     * @param module the module to load
+     * @param callback the callback function
+     * @param error the error function
+     */
+    require: (module: string, callback?: (module: unknown) => void, error?: (error: unknown) => void) => void;
 }
