@@ -19,6 +19,6 @@ import { WASI } from "node:wasi";
         // const instance = await WebAssembly.instantiate(wasm, importObject);
         const instance = {};
 
-        wasi.start(instance);
+        const exitCode: number = wasi.start(instance);
     })();
 }
