@@ -13,17 +13,17 @@ https://github.com/DefinitelyTyped/DefinitelyTyped, or, even better, add them by
 
 ### Command Parser
 
-Adding custom commands with command parser is currently not supported.
-The latest version of CommandParser is typed but approuter is using and older version.
+Adding custom commands with commander.js is currently not supported.
+The latest version of commander.js is typed but approuter is using an older version.
 
 
 ### Middlewares
 
-There is set of basic middlewares in the `lib/middleware` folder. The middlewares are currently not completely typed.
+There is a set of basic middlewares in the `lib/middleware` folder. The middlewares are currently not completely typed.
 Feel free to provide the types if you need them.
 
 
 ### Express
 
-Approuter uses express internally. The types (e.g. request, respose) are currently based on the http package.
-If there are features which requires express types this could be changed in the future.
+Approuter uses express internally. The types (e.g. request, response) are currently based on the http package.
+If there are features which requires express types, this could be changed in the future.
