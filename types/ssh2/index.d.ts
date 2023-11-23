@@ -1085,60 +1085,60 @@ export interface Session extends ServerChannel {
     /**
      * Emitted when the client requested allocation of a pseudo-TTY for this session.
      */
-    on(event: "pty", listener: (accept: SessionAccept, reject: RejectConnection, info: PseudoTtyInfo) => void): this;
+    on(event: "pty", listener: (accept: SessionAccept | undefined, reject: RejectConnection | undefined, info: PseudoTtyInfo) => void): this;
 
     /**
      * Emitted when the client reported a change in window dimensions during this session.
      */
     on(
         event: "window-change",
-        listener: (accept: SessionAccept, reject: RejectConnection, info: WindowChangeInfo) => void,
+        listener: (accept: SessionAccept | undefined, reject: RejectConnection | undefined, info: WindowChangeInfo) => void,
     ): this;
 
     /**
      * Emitted when the client requested X11 forwarding.
      */
-    on(event: "x11", listener: (accept: SessionAccept, reject: RejectConnection, info: X11Info) => void): this;
+    on(event: "x11", listener: (accept: SessionAccept | undefined, reject: RejectConnection | undefined, info: X11Info) => void): this;
 
     /**
      * Emitted when the client requested an environment variable to be set for this session.
      */
-    on(event: "env", listener: (accept: SessionAccept, reject: RejectConnection, info: SetEnvInfo) => void): this;
+    on(event: "env", listener: (accept: SessionAccept | undefined, reject: RejectConnection | undefined, info: SetEnvInfo) => void): this;
 
     /**
      * Emitted when the client has sent a POSIX signal.
      */
-    on(event: "signal", listener: (accept: SessionAccept, reject: RejectConnection, info: SignalInfo) => void): this;
+    on(event: "signal", listener: (accept: SessionAccept | undefined, reject: RejectConnection | undefined, info: SignalInfo) => void): this;
 
     /**
      * Emitted when the client has requested incoming ssh-agent requests be forwarded to them.
      */
-    on(event: "auth-agent", listener: (accept: SessionAccept, reject: RejectConnection) => void): this;
+    on(event: "auth-agent", listener: (accept: SessionAccept | undefined, reject: RejectConnection | undefined) => void): this;
 
     /**
      * Emitted when the client has requested an interactive shell.
      */
-    on(event: "shell", listener: (accept: AcceptConnection<ServerChannel>, reject: RejectConnection) => void): this;
+    on(event: "shell", listener: (accept: AcceptConnection<ServerChannel> | undefined, reject: RejectConnection | undefined) => void): this;
 
     /**
      * Emitted when the client has requested execution of a command string.
      */
     on(
         event: "exec",
-        listener: (accept: AcceptConnection<ServerChannel>, reject: RejectConnection, info: ExecInfo) => void,
+        listener: (accept: AcceptConnection<ServerChannel> | undefined, reject: RejectConnection | undefined, info: ExecInfo) => void,
     ): this;
 
     /**
      * Emitted when the client has requested the SFTP subsystem.
      */
-    on(event: "sftp", listener: (accept: AcceptSftpConnection, reject: RejectConnection) => void): this;
+    on(event: "sftp", listener: (accept: AcceptSftpConnection | undefined, reject: RejectConnection | undefined) => void): this;
 
     /**
      * Emitted when the client has requested an arbitrary subsystem.
      */
     on(
         event: "subsystem",
-        listener: (accept: AcceptConnection<ServerChannel>, reject: RejectConnection, info: SubsystemInfo) => void,
+        listener: (accept: AcceptConnection<ServerChannel> | undefined, reject: RejectConnection | undefined, info: SubsystemInfo) => void,
     ): this;
 
     on(event: string | symbol, listener: Function): this;
