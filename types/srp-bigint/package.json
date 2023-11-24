@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/srp-bigint",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/hellomouse/node-srp-bigint"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/srp-bigint": "workspace:."
+    },
+    "owners": []
+}
