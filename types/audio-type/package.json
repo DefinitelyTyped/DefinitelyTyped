@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/audio-type",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/audiojs/audio-type#readme"
+    ],
+    "devDependencies": {
+        "@types/audio-type": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christopher Toth",
+            "githubUsername": "ctoth"
+        }
+    ]
+}
