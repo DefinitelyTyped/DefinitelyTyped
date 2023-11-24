@@ -24715,18 +24715,16 @@ export interface SignInFrequencySessionControl extends ConditionalAccessSessionC
 }
 // tslint:disable-next-line: interface-name no-empty-interface
 export interface IpRange {}
-// tslint:disable
-// eslint-disable
+// tslint:disable-next-line: interface-name @typescript-eslint/naming-convention
 export interface IPv4CidrRange extends IpRange {
     // IPv4 address in CIDR notation. Not nullable.
     cidrAddress?: string;
 }
+// tslint:disable-next-line: interface-name @typescript-eslint/naming-convention
 export interface IPv6CidrRange extends IpRange {
     // IPv6 address in CIDR notation. Not nullable.
     cidrAddress?: string;
 }
-// tslint:enable
-// eslint-enable
 export interface RiskServicePrincipalActivity {
     /**
      * Details of the detected risk. Note: Details for this property are only available for Workload Identities Premium
@@ -26527,22 +26525,20 @@ export interface IosMobileAppIdentifier extends MobileAppIdentifier {
     // The identifier for an app, as specified in the app store.
     bundleId?: string;
 }
-// tslint:disable
-// eslint-disable
+// tslint:disable-next-line: interface-name @typescript-eslint/naming-convention
 export interface IPv4Range extends IpRange {
     // Lower address.
     lowerAddress?: string;
     // Upper address.
     upperAddress?: string;
 }
+// tslint:disable-next-line: interface-name @typescript-eslint/naming-convention
 export interface IPv6Range extends IpRange {
     // Lower address.
     lowerAddress?: string;
     // Upper address.
     upperAddress?: string;
 }
-// tslint:enable
-// eslint-enable
 export interface ManagedAppDiagnosticStatus {
     // Instruction on how to mitigate a failed validation
     mitigationInstruction?: NullableOption<string>;
