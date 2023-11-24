@@ -2861,6 +2861,7 @@ declare module "fs" {
             & {
                 mode?: Mode | undefined;
                 flag?: string | undefined;
+                flush?: boolean | undefined;
             }
         )
         | BufferEncoding
@@ -3813,6 +3814,7 @@ declare module "fs" {
     }
     interface WriteStreamOptions extends StreamOptions {
         fs?: CreateWriteStreamFSImplementation | null | undefined;
+        flush?: boolean | undefined;
     }
     /**
      * Unlike the 16 KiB default `highWaterMark` for a `stream.Readable`, the stream
