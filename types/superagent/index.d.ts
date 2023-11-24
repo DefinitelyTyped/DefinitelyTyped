@@ -1,3 +1,3 @@
-import * as request from './lib/node/index';
+import request = require('./lib/node/index');
 
 export = request;

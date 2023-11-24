@@ -14,7 +14,7 @@ declare namespace supertest {
 
     const agent: typeof stAgent;
 
-    type Test = typeof STest;
+    type Test = STest;
 
     interface Options {
         http2?: boolean;

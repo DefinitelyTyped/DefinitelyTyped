@@ -13,12 +13,12 @@ import RequestBase = require("../request-base");
 import ResponseBase = require('./response');
 import { AgentOptions as SAgentOptions, CBHandler } from "../../types";
 
-type HttpMethod<Req extends SARequest> =
+type HttpMethod<Req extends request.Request> =
     | ((url: string, callback?: CBHandler) => Req)
     | ((url: string, data?: string | Record<string, any>, callback?: CBHandler) => Req)
     ;
 
-type RequestMethods<Req extends SARequest> = {
+type RequestMethods<Req extends request.Request> = {
     [key in (typeof methods[number]) | 'del']: HttpMethod<Req>;
 }
 
@@ -85,16 +85,18 @@ declare class SARequest extends Stream implements RequestBase {
 }
 
 declare namespace request {
-    type Response = ResponseBase;
-    type SuperAgentRequest = SARequest;
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface Request extends SARequest {}
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface Response extends ResponseBase {}
+    type SuperAgentRequest = Request;
     type Agent = SAgent;
-    type Plugin = (req: SARequest) => void;
+    type Plugin = (req: Request) => void;
     type AgentOptions = SAgentOptions;
 
     type CallbackHandler = CBHandler;
 
     type MultipartValueSingle = Blob | Buffer | ReadStream | string | boolean | number;
-
 
     interface ProgressEvent {
         direction: "download" | "upload";
@@ -116,11 +118,11 @@ declare namespace request {
         path: string;
     }
 
-    type SuperAgent<Req extends SARequest = SARequest> = RequestMethods<Req> & Stream;
+    type SuperAgent<Req extends Request = Request> = RequestMethods<Req> & Stream;
 
-    interface SuperAgentStatic<Req extends SARequest = SARequest> extends SuperAgent<Req> {
-        (url: string): SARequest;
-        (method: string, url: string): SARequest;
+    interface SuperAgentStatic<Req extends Request = Request> extends SuperAgent<Req> {
+        (url: string): Request;
+        (method: string, url: string): Request;
 
         Request: typeof SARequest;
         Response: typeof ResponseBase;
