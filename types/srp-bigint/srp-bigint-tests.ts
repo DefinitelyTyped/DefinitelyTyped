@@ -2,8 +2,8 @@ var srp = require("srp-bigint");
 
 // Test the `params` variable.
 var params = srp.params["1024"];
-var N: BigInt = params.N;
-var g: BigInt = params.g;
+var N: bigint = params.N;
+var g: bigint = params.g;
 
 // Test the `genKey` function.
 srp.genKey(function(err: Error, buf: Buffer): void {});
@@ -25,7 +25,7 @@ var secret2 = new Buffer(32);
 var server = new srp.Server(params, verifier, secret2);
 
 // Test the bigint <> buffer conversions.
-var secretBigInt: BigInt = srp.bufferToBigInt(secret1);
+var secretBigInt: bigint = srp.bufferToBigInt(secret1);
 var secretBuffer: Buffer = srp.bigIntToBuffer(secretBigInt);
 
 // Test handshake protocol.
