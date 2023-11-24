@@ -5,6 +5,10 @@
     "projects": [
         "https://github.com/DNAinfo/redux-saga-test-engine#readme"
     ],
+    "dependencies": {
+        "redux-saga": "^1.0.0",
+        "@redux-saga/types": "^1.0.0"
+    },
     "devDependencies": {
         "@types/redux-saga-test-engine": "workspace:."
     },
