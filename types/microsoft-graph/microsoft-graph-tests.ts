@@ -1,7 +1,7 @@
 // Microsoft Graph tests
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 
-import * as MicrosoftGraph from "microsoft-graph";
+import * as MicrosoftGraph from "./index.d";
 
 const user: MicrosoftGraph.User = {
     officeLocation: "Bengaluru",
@@ -474,3 +474,237 @@ const kubernetesServiceAccountEvidence: MicrosoftGraph.SecurityNamespace.Kuberne
 const kubernetesSecretEvidence: MicrosoftGraph.SecurityNamespace.KubernetesSecretEvidence = {};
 const kubernetesServiceEvidence: MicrosoftGraph.SecurityNamespace.KubernetesServiceEvidence = {};
 const kubernetesServicePort: MicrosoftGraph.SecurityNamespace.KubernetesServicePort = {};
+
+const assignmentScheduleFilterByCurrentUserOptions: MicrosoftGraph.AssignmentScheduleFilterByCurrentUserOptions = "principal";
+
+const assignmentScheduleInstanceFilterByCurrentUserOptions: MicrosoftGraph.AssignmentScheduleInstanceFilterByCurrentUserOptions = "principal";
+
+const assignmentScheduleRequestFilterByCurrentUserOptions: MicrosoftGraph.AssignmentScheduleRequestFilterByCurrentUserOptions = "unknownFutureValue";
+
+const eligibilityScheduleFilterByCurrentUserOptions: MicrosoftGraph.EligibilityScheduleFilterByCurrentUserOptions = "principal";
+
+const eligibilityScheduleInstanceFilterByCurrentUserOptions: MicrosoftGraph.EligibilityScheduleInstanceFilterByCurrentUserOptions = "principal";
+
+const eligibilityScheduleRequestFilterByCurrentUserOptions: MicrosoftGraph.EligibilityScheduleRequestFilterByCurrentUserOptions = "unknownFutureValue";
+
+const privilegedAccessGroupAssignmentType: MicrosoftGraph.PrivilegedAccessGroupAssignmentType = "assigned";
+
+const privilegedAccessGroupMemberType: MicrosoftGraph.PrivilegedAccessGroupMemberType = "direct";
+
+const privilegedAccessGroupRelationships: MicrosoftGraph.PrivilegedAccessGroupRelationships = "owner";
+
+const scheduleRequestActions: MicrosoftGraph.ScheduleRequestActions = "selfRenew";
+
+const accountTargetContentType: MicrosoftGraph.AccountTargetContentType = "includeAll" ;
+
+const attackSimulationOperationType: MicrosoftGraph.AttackSimulationOperationType = "createSimualation";
+
+const coachmarkLocationType: MicrosoftGraph.CoachmarkLocationType = "unknownFutureValue";
+
+const endUserNotificationPreference: MicrosoftGraph.EndUserNotificationPreference = "unknown";
+
+const endUserNotificationSettingType: MicrosoftGraph.EndUserNotificationSettingType = "unknown";
+
+const endUserNotificationType: MicrosoftGraph.EndUserNotificationType = "unknown";
+
+const notificationDeliveryFrequency: MicrosoftGraph.NotificationDeliveryFrequency = "weekly";
+
+const notificationDeliveryPreference: MicrosoftGraph.NotificationDeliveryPreference = "unknown";
+
+const oAuthAppScope: MicrosoftGraph.OAuthAppScope = "sendMail";
+
+const payloadBrand: MicrosoftGraph.PayloadBrand = "unknownFutureValue";
+
+const payloadComplexity: MicrosoftGraph.PayloadComplexity = "unknown";
+
+const payloadIndustry: MicrosoftGraph.PayloadIndustry = "banking";
+
+const payloadTheme: MicrosoftGraph.PayloadTheme = "unknownFutureValue";
+
+const simulationContentSource: MicrosoftGraph.SimulationContentSource = "unknown";
+
+const simulationContentStatus: MicrosoftGraph.SimulationContentStatus = "unknown";
+
+const targettedUserType: MicrosoftGraph.TargettedUserType = "unknown";
+
+const trainingAssignedTo: MicrosoftGraph.TrainingAssignedTo = "none";
+
+const trainingAvailabilityStatus: MicrosoftGraph.TrainingAvailabilityStatus = "unknown";
+
+const trainingCompletionDuration: MicrosoftGraph.TrainingCompletionDuration = "week";
+
+const trainingSettingType: MicrosoftGraph.TrainingSettingType = "custom";
+
+const trainingType: MicrosoftGraph.TrainingType = "unknown";
+
+const MeetingAudience: MicrosoftGraph.MeetingAudience = "everyone";
+
+const VirtualEventAttendeeRegistrationStatus: MicrosoftGraph.VirtualEventAttendeeRegistrationStatus = "unknownFutureValue";
+
+const meetingChatHistoryDefaultMode: MicrosoftGraph.MeetingChatHistoryDefaultMode = "none";
+
+const virtualEventStatus: MicrosoftGraph.VirtualEventStatus = "draft";
+
+const privilegedAccessRoot: MicrosoftGraph.PrivilegedAccessRoot = {};
+
+const onlineMeeting: MicrosoftGraph.OnlineMeeting = {};
+
+const onlineMeetingBase: MicrosoftGraph.OnlineMeetingBase = {};
+
+const security: MicrosoftGraph.Security = {};
+
+const attackSimulationRoot: MicrosoftGraph.AttackSimulationRoot = {};
+
+const secureScoreControlProfile: MicrosoftGraph.SecureScoreControlProfile = {};
+
+const secureScore: MicrosoftGraph.SecureScore = {};
+
+const resourceSpecificPermissionGrant: MicrosoftGraph.ResourceSpecificPermissionGrant = {};
+
+const itemAnalytics: MicrosoftGraph.ItemAnalytics = {};
+
+const columnDefinition: MicrosoftGraph.ColumnDefinition = {};
+
+const attributeSet: MicrosoftGraph.AttributeSet = {};
+
+const onPremisesDirectorySynchronization: MicrosoftGraph.OnPremisesDirectorySynchronization = {};
+
+const appScope: MicrosoftGraph.AppScope = {};
+
+const targetDeviceGroup: MicrosoftGraph.TargetDeviceGroup = {};
+
+const itemRetentionLabel: MicrosoftGraph.ItemRetentionLabel = {};
+
+const callRecording: MicrosoftGraph.CallRecording = {};
+
+const callTranscript: MicrosoftGraph.CallTranscript = {};
+
+const connectedOrganization: MicrosoftGraph.ConnectedOrganization = {};
+
+const accessPackageResourceEnvironment: MicrosoftGraph.AccessPackageResourceEnvironment = {};
+
+const accessPackageResourceRequest: MicrosoftGraph.AccessPackageResourceRequest = {};
+
+const entitlementManagementSettings: MicrosoftGraph.EntitlementManagementSettings = {};
+
+const privilegedAccessScheduleInstance: MicrosoftGraph.PrivilegedAccessScheduleInstance = {};
+
+const privilegedAccessGroupAssignmentScheduleInstance: MicrosoftGraph.PrivilegedAccessGroupAssignmentScheduleInstance = {};
+
+const privilegedAccessScheduleRequest: MicrosoftGraph.PrivilegedAccessScheduleRequest = {};
+
+const privilegedAccessGroupAssignmentScheduleRequest: MicrosoftGraph.PrivilegedAccessGroupAssignmentScheduleRequest = {};
+
+const privilegedAccessSchedule: MicrosoftGraph.PrivilegedAccessSchedule = {};
+
+const privilegedAccessGroupAssignmentSchedule: MicrosoftGraph.PrivilegedAccessGroupAssignmentSchedule = {};
+
+const privilegedAccessGroupEligibilityScheduleInstance: MicrosoftGraph.PrivilegedAccessGroupEligibilityScheduleInstance = {};
+
+const privilegedAccessGroupEligibilityScheduleRequest: MicrosoftGraph.PrivilegedAccessGroupEligibilityScheduleRequest = {};
+
+const privilegedAccessGroupEligibilitySchedule: MicrosoftGraph.PrivilegedAccessGroupEligibilitySchedule = {};
+
+const macOSDmgApp: MicrosoftGraph.MacOSDmgApp = {};
+
+const userExperienceAnalyticsDeviceStartupProcessPerformance: MicrosoftGraph.UserExperienceAnalyticsDeviceStartupProcessPerformance = {};
+
+const dataPolicyOperation: MicrosoftGraph.DataPolicyOperation = {};
+
+const endUserNotification: MicrosoftGraph.EndUserNotification = {};
+
+const training: MicrosoftGraph.Training = {};
+
+const attackSimulationOperation: MicrosoftGraph.AttackSimulationOperation = {};
+
+const landingPage: MicrosoftGraph.LandingPage = {};
+
+const loginPage: MicrosoftGraph.LoginPage = {};
+
+const payload: MicrosoftGraph.Payload = {};
+
+const endUserNotificationDetail: MicrosoftGraph.EndUserNotificationDetail = {};
+
+const landingPageDetail: MicrosoftGraph.LandingPageDetail = {};
+
+const virtualEvent: MicrosoftGraph.VirtualEvent = {};
+
+const virtualEventSession: MicrosoftGraph.VirtualEventSession = {};
+
+const virtualEventWebinar: MicrosoftGraph.VirtualEventWebinar = {};
+
+const virtualEventRegistration: MicrosoftGraph.VirtualEventRegistration = {};
+
+const servicePrincipalLockConfiguration: MicrosoftGraph.ServicePrincipalLockConfiguration = {};
+
+const subjectRightsRequestEnumeratedMailboxLocation: MicrosoftGraph.SubjectRightsRequestEnumeratedMailboxLocation = {};
+
+const subjectRightsRequestAllSiteLocation: MicrosoftGraph.SubjectRightsRequestAllSiteLocation = {};
+
+const subjectRightsRequestAllMailboxLocation: MicrosoftGraph.SubjectRightsRequestAllMailboxLocation = {};
+
+const deviceLocalCredential: MicrosoftGraph.DeviceLocalCredential = {};
+
+const deleteAction: MicrosoftGraph.DeleteAction = {};
+
+const mentionAction: MicrosoftGraph.MentionAction = {};
+
+const moveAction: MicrosoftGraph.MoveAction = {};
+
+const renameAction: MicrosoftGraph.RenameAction = {};
+
+const retentionLabelSettings: MicrosoftGraph.RetentionLabelSettings = {};
+
+const baseEndUserNotification: MicrosoftGraph.BaseEndUserNotification = {};
+
+const coachmarkLocation: MicrosoftGraph.CoachmarkLocation = {};
+
+const trainingSetting: MicrosoftGraph.TrainingSetting = {};
+
+const customTrainingSetting: MicrosoftGraph.CustomTrainingSetting = {};
+
+const payloadDetail: MicrosoftGraph.PayloadDetail = {};
+
+const emailPayloadDetail: MicrosoftGraph.EmailPayloadDetail = {};
+
+const endUserNotificationSetting: MicrosoftGraph.EndUserNotificationSetting = {};
+
+const restoreAction: MicrosoftGraph.RestoreAction = {};
+
+const positiveReinforcementNotification: MicrosoftGraph.PositiveReinforcementNotification = {};
+
+const includeAllAccountTargetContent: MicrosoftGraph.IncludeAllAccountTargetContent = {};
+
+const microsoftCustomTrainingSetting: MicrosoftGraph.MicrosoftCustomTrainingSetting = {};
+
+const microsoftTrainingAssignmentMapping: MicrosoftGraph.MicrosoftTrainingAssignmentMapping = {};
+
+const microsoftManagedTrainingSetting: MicrosoftGraph.MicrosoftManagedTrainingSetting = {};
+
+const noTrainingNotificationSetting: MicrosoftGraph.NoTrainingNotificationSetting = {};
+
+const simulationNotification: MicrosoftGraph.SimulationNotification = {};
+
+const noTrainingSetting: MicrosoftGraph.NoTrainingSetting = {};
+
+const oAuthConsentAppDetail: MicrosoftGraph.OAuthConsentAppDetail = {};
+
+const payloadCoachmark: MicrosoftGraph.PayloadCoachmark = {};
+
+const trainingNotificationSetting: MicrosoftGraph.TrainingNotificationSetting = {};
+
+const trainingReminderNotification: MicrosoftGraph.TrainingReminderNotification = {};
+
+const communicationsApplicationInstanceIdentity: MicrosoftGraph.CommunicationsApplicationInstanceIdentity = {};
+
+const azureCommunicationServicesUserIdentity: MicrosoftGraph.AzureCommunicationServicesUserIdentity = {};
+
+const communicationsApplicationIdentity: MicrosoftGraph.CommunicationsApplicationIdentity = {};
+
+const communicationsEncryptedIdentity: MicrosoftGraph.CommunicationsEncryptedIdentity = {};
+
+const communicationsGuestIdentity: MicrosoftGraph.CommunicationsGuestIdentity = {};
+
+const communicationsIdentitySet: MicrosoftGraph.CommunicationsIdentitySet = {};
+
+const virtualEventRegistrationQuestionAnswer: MicrosoftGraph.VirtualEventRegistrationQuestionAnswer = {};
