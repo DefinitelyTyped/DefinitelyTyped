@@ -9,8 +9,8 @@ declare class TuskMastodonInstance {
 
     request(method: ValidHTTPMethod, path: string, params: GeneralObject): Promise<GeneralObject>;
 
-    getAuth(): { "access_token": string; };
-    setAuth(auth: { "access_token": string; }): void;
+    getAuth(): { "access_token": string };
+    setAuth(auth: { "access_token": string }): void;
 
     formEncodeParams(params: GeneralObject): string;
 }

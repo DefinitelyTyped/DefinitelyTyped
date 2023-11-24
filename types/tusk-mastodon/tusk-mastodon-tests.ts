@@ -15,6 +15,6 @@ T.delete("test", {}).then().catch();
 T.request("GET", "test", {}).then().catch();
 
 T.getAuth().access_token;
-T.setAuth({"access_token": "string"});
+T.setAuth({ "access_token": "string" });
 
 const _testFormEncodeParams: string = T.formEncodeParams({});
