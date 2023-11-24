@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 export = SRP;
 
 declare namespace SRP {
