@@ -24,7 +24,7 @@ request
         }
     });
 
-const agent = request.agent();
+const agent = new request.agent();
 agent
     .post("/api/pet")
     .send({ name: "Manny", species: "cat" })
@@ -349,7 +349,7 @@ request.get("/echo").use(echoPlugin).end();
 
 async function testDefaultOptions() {
     // Default options for multiple requests
-    const agentWithDefaultOptions = request
+    const agentWithDefaultOptions = new request
         .agent()
         .use(() => null)
         .auth("digest", "secret", { type: "auto" });

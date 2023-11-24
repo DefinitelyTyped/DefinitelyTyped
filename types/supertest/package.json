@@ -6,6 +6,8 @@
         "https://github.com/visionmedia/supertest"
     ],
     "dependencies": {
+        "@types/cookiejar": "*",
+        "@types/methods": "*",
         "@types/superagent": "*"
     },
     "devDependencies": {

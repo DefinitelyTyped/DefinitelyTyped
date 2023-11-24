@@ -13,7 +13,7 @@ declare namespace supertestAsPromised {
     }
 
     type CallbackHandler = (err: any, res: Response) => void;
-    interface Test extends supertest.Test, superagent.Request {
+    interface Test extends supertest.Test, Omit<superagent.Request<any>, 'end'> {
         toPromise(): PromiseBluebird<Response>;
         timeout(): Promise<Response> & this;
         end(callback?: CallbackHandler): this;
