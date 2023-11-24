@@ -108,7 +108,10 @@ declare module "fs/promises" {
          */
         appendFile(
             data: string | Uint8Array,
-            options?: (ObjectEncodingOptions & FlagAndOpenMode & { flush?: boolean | undefined }) | BufferEncoding | null,
+            options?:
+                | (ObjectEncodingOptions & FlagAndOpenMode & { flush?: boolean | undefined })
+                | BufferEncoding
+                | null,
         ): Promise<void>;
         /**
          * Changes the ownership of the file. A wrapper for [`chown(2)`](http://man7.org/linux/man-pages/man2/chown.2.html).
@@ -391,7 +394,10 @@ declare module "fs/promises" {
          */
         writeFile(
             data: string | Uint8Array,
-            options?: (ObjectEncodingOptions & FlagAndOpenMode & Abortable & { flush?: boolean | undefined }) | BufferEncoding | null,
+            options?:
+                | (ObjectEncodingOptions & FlagAndOpenMode & Abortable & { flush?: boolean | undefined })
+                | BufferEncoding
+                | null,
         ): Promise<void>;
         /**
          * Write `buffer` to the file.
