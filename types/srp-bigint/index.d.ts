@@ -1,8 +1,10 @@
-declare module 'srp-bigint' {
+export = SRP;
+
+declare namespace SRP {
     export interface Params {
         N_length_bits: number;
-        N: BigInt;
-        g: BigInt;
+        N: bigint;
+        g: bigint;
         hash: string;
     }
 
@@ -61,7 +63,7 @@ declare module 'srp-bigint' {
         computeK(): Buffer;
     }
 
-    export function bufferToBigInt(buff: Buffer): BigInt;
+    export function bufferToBigInt(buff: Buffer): bigint;
 
-    export function bigIntToBuffer(n: BingInt): Buffer;
+    export function bigIntToBuffer(n: bigint): Buffer;
 }
