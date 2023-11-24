@@ -1,26 +1,25 @@
-import * as http from 'http';
-import * as https from 'https';
-import * as http2 from 'http2';
+import * as http from "http";
+import * as http2 from "http2";
+import * as https from "https";
 import { Stream } from "stream";
 import { UrlObject } from "url";
-import methods = require('methods');
+import methods = require("methods");
 
-import SAgent = require('./agent');
+import SAgent = require("./agent");
 import { Blob } from "buffer";
 import { ReadStream } from "fs";
 import { LookupFunction } from "net";
 import RequestBase = require("../request-base");
-import ResponseBase = require('./response');
+import ResponseBase = require("./response");
 import { AgentOptions as SAgentOptions, CBHandler } from "../../types";
 
 type HttpMethod<Req extends request.Request> =
     | ((url: string, callback?: CBHandler) => Req)
-    | ((url: string, data?: string | Record<string, any>, callback?: CBHandler) => Req)
-    ;
+    | ((url: string, data?: string | Record<string, any>, callback?: CBHandler) => Req);
 
 type RequestMethods<Req extends request.Request> = {
-    [key in (typeof methods[number]) | 'del']: HttpMethod<Req>;
-}
+    [key in (typeof methods[number]) | "del"]: HttpMethod<Req>;
+};
 
 declare class SARequest extends Stream implements RequestBase {
     constructor(method: string, url: string | URL | UrlObject);
@@ -44,14 +43,27 @@ declare class SARequest extends Stream implements RequestBase {
     auth(user: string, pass: string, options?: { type: "basic" | "auto" }): this;
     buffer(val?: boolean): this;
     ca(cert: string | string[] | Buffer | Buffer[]): this;
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null): Promise<ResponseBase | TResult>;
+    catch<TResult = never>(
+        onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | null,
+    ): Promise<ResponseBase | TResult>;
     cert(cert: string | string[] | Buffer | Buffer[]): this;
     clearTimeout(): this;
     connect(override: string | { [hostname: string]: false | string | { host: string; port: number } }): this;
     disableTLSCerts(): this;
     end(callback?: CBHandler): void;
-    field(fields: { [fieldName: string]: (string | number | boolean | Blob | Buffer | ReadStream) | Array<string | number | boolean | Blob | Buffer | ReadStream>; }): this;
-    field(name: string, val: (string | number | boolean | Blob | Buffer | ReadStream) | Array<string | number | boolean | Blob | Buffer | ReadStream>): this;
+    field(
+        fields: {
+            [fieldName: string]:
+                | (string | number | boolean | Blob | Buffer | ReadStream)
+                | Array<string | number | boolean | Blob | Buffer | ReadStream>;
+        },
+    ): this;
+    field(
+        name: string,
+        val:
+            | (string | number | boolean | Blob | Buffer | ReadStream)
+            | Array<string | number | boolean | Blob | Buffer | ReadStream>,
+    ): this;
     finally(onfinally?: (() => void) | null): Promise<ResponseBase>;
     get(header: string): string;
     getHeader(header: string): string;
@@ -61,7 +73,11 @@ declare class SARequest extends Stream implements RequestBase {
     lookup(lookup: LookupFunction): this;
     maxResponseSize(n: number): this;
     ok(callback: (res: ResponseBase) => boolean): this;
-    parse(parser: ((str: string) => any) | ((res: ResponseBase, callback: (err: Error | null, body: any) => void) => void)): this;
+    parse(
+        parser:
+            | ((str: string) => any)
+            | ((res: ResponseBase, callback: (err: Error | null, body: any) => void) => void),
+    ): this;
     pfx(cert: string | string[] | Buffer | Buffer[] | { pfx: string | Buffer; passphrase: string }): this;
     query(val: Record<string, any> | string): this;
     redirects(n: number): this;
@@ -69,13 +85,16 @@ declare class SARequest extends Stream implements RequestBase {
     retry(count?: number, callback?: CBHandler): this;
     send(data?: string | object): this;
     serialize(serializer: (obj: any) => string): this;
-    set(field: 'Cookie', val: string[]): this;
+    set(field: "Cookie", val: string[]): this;
     set(field: Record<string, string>): this;
     set(field: string, val: string): this;
     sortQuery(sort?: boolean | ((a: string, b: string) => number)): this;
-    then<TResult1 = ResponseBase, TResult2 = never>(onfulfilled?: ((value: ResponseBase) => TResult1 | PromiseLike<TResult1>) | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null): Promise<TResult1 | TResult2>;
-    timeout(ms: number | { deadline?: number; response?: number; }): this;
-    toJSON(): { method: string; url: string; data?: string | object; headers: Array<string | string[]>; };
+    then<TResult1 = ResponseBase, TResult2 = never>(
+        onfulfilled?: ((value: ResponseBase) => TResult1 | PromiseLike<TResult1>) | null,
+        onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null,
+    ): Promise<TResult1 | TResult2>;
+    timeout(ms: number | { deadline?: number; response?: number }): this;
+    toJSON(): { method: string; url: string; data?: string | object; headers: Array<string | string[]> };
     trustLocalhost(enabled?: boolean): this;
     type(val: string): this;
     unset(field: string): this;
@@ -128,12 +147,12 @@ declare namespace request {
         Response: typeof ResponseBase;
         agent: typeof SAgent;
         protocols: {
-            'http:': typeof http;
-            'https:': typeof https;
-            'http2:': typeof http2;
-        }
+            "http:": typeof http;
+            "https:": typeof https;
+            "http2:": typeof http2;
+        };
         serialize: Record<string, (...args: any[]) => string>;
-        parse: Record<string, (res: Response, cb: ((err: any, res: Response) => void)) => void>;
+        parse: Record<string, (res: Response, cb: (err: any, res: Response) => void) => void>;
         buffer: Record<string, boolean>;
     }
 }

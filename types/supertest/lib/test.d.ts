@@ -1,5 +1,5 @@
-import { CallbackHandler, Request, Response } from 'superagent';
-import { Server } from 'tls';
+import { CallbackHandler, Request, Response } from "superagent";
+import { Server } from "tls";
 
 declare class Test extends Request {
     constructor(app: Server, method: string, path: string);

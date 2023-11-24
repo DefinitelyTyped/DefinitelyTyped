@@ -1,6 +1,6 @@
 import * as PromiseBluebird from "bluebird";
 import supertest = require("supertest");
-import { Server } from 'tls';
+import { Server } from "tls";
 
 declare function supertestAsPromised(app: any): supertestAsPromised.SuperTest;
 

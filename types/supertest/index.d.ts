@@ -1,9 +1,9 @@
-import superagent = require('superagent');
-import stAgent = require('./lib/agent');
-import STest = require('./lib/test');
-import { App, AgentOptions as STAgentOptions } from "./types";
+import superagent = require("superagent");
+import stAgent = require("./lib/agent");
+import STest = require("./lib/test");
+import { AgentOptions as STAgentOptions, App } from "./types";
 
-declare function supertest(app: App, options?: STAgentOptions): stAgent;
+declare const supertest: supertest.SuperTestStatic;
 
 declare namespace supertest {
     type Response = superagent.Response;
@@ -12,9 +12,11 @@ declare namespace supertest {
 
     type CallbackHandler = superagent.CallbackHandler;
 
-    const agent: typeof stAgent;
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface Test extends STest {}
 
-    type Test = STest;
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface Agent extends stAgent {}
 
     interface Options {
         http2?: boolean;
@@ -22,9 +24,15 @@ declare namespace supertest {
 
     type AgentOptions = STAgentOptions;
 
-    type SuperTest<Req extends STest = STest> = superagent.SuperAgent<Req>;
+    type SuperTest<Req extends Test = Test> = superagent.SuperAgent<Req>;
 
-    type SuperAgentTest = SuperTest<STest>;
+    type SuperAgentTest = SuperTest<Test>;
+
+    interface SuperTestStatic {
+        (app: App, options?: STAgentOptions): stAgent;
+        Test: typeof STest;
+        agent: typeof stAgent;
+    }
 }
 
 export = supertest;

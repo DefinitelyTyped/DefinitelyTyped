@@ -1,4 +1,4 @@
-import Response = require('./lib/node/response');
+import Response = require("./lib/node/response");
 
 export interface AgentOptions {
     ca?: any;

@@ -1,6 +1,6 @@
 import { Blob } from "buffer";
 import { ReadStream } from "fs";
-import Response = require('./node/response');
+import Response = require("./node/response");
 import { CBHandler } from "../types";
 
 type BrowserParser = (str: string) => any;
@@ -39,7 +39,7 @@ declare class RequestBase extends Promise<Response> {
         url: string;
         data?: string | object;
         headers: Array<string | string[]>;
-    }
+    };
     unset(field: string): this;
     use(fn: (req: this) => void): this;
     withCredentials(on?: boolean): this;

@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import { Stream } from 'stream';
-import { IncomingMessage } from 'http';
+import { IncomingMessage } from "http";
+import { Stream } from "stream";
 
 interface HTTPError extends Error {
     status: number;
@@ -9,7 +9,7 @@ interface HTTPError extends Error {
     method: string;
     path: string;
 }
-declare class Response extends Stream implements Pick<IncomingMessage, 'setEncoding'>{
+declare class Response extends Stream implements Pick<IncomingMessage, "setEncoding"> {
     constructor(request: Request);
 
     accepted: boolean;

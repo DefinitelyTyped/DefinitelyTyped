@@ -1,12 +1,12 @@
-import supertest = require('supertest');
-import express = require('express');
+import supertest = require("supertest");
+import express = require("express");
 
 const app = express();
 const request = supertest(app);
 
-request.get('/user')
-    .expect('Content-Type', /json/)
-    .expect('Content-Length', '20')
+request.get("/user")
+    .expect("Content-Type", /json/)
+    .expect("Content-Length", "20")
     .expect(201)
     .end((err, res) => {
         if (err) throw err;
@@ -14,12 +14,12 @@ request.get('/user')
 
 // cookie scenario
 const agent = new supertest.agent();
-request.post('/login')
-    .send('hello world')
+request.post("/login")
+    .send("hello world")
     .end((err: any, res: supertest.Response) => {
         if (err) throw err;
 
-        const req = request.get('/admin');
+        const req = request.get("/admin");
         req.expect(200, (err: any, res: supertest.Response) => {
             if (err) throw err;
         });
@@ -27,10 +27,10 @@ request.post('/login')
 
 // cookie scenario, new version
 const client = new supertest.agent(app);
-client.post('/login').end((err: any, res: supertest.Response) => {
+client.post("/login").end((err: any, res: supertest.Response) => {
     if (err) throw err;
 
-    client.get('/admin').expect(200, (err: any, res: supertest.Response) => {
+    client.get("/admin").expect(200, (err: any, res: supertest.Response) => {
         if (err) throw err;
     });
 });
@@ -47,40 +47,40 @@ new supertest.agent(app, {
 
 // allow passing trusted CA as option to TestAgent
 new supertest.agent(app, {
-    ca: 'test ca',
+    ca: "test ca",
 });
 
 // agent has request methods
-new supertest.agent(app).set({ host: 'google.com' });
+new supertest.agent(app).set({ host: "google.com" });
 
 // agent has host methods
-new supertest.agent(app).host('something.test').get('/'); // $ExpectType Test
+new supertest.agent(app).host("something.test").get("/"); // $ExpectType Test
 
 // functional expect
-request.get('/')
+request.get("/")
     .expect(hasPreviousAndNextKeys)
     .end((err: any, res: supertest.Response) => {
         if (err) throw err;
     });
 
 function hasPreviousAndNextKeys(res: supertest.Response) {
-    if (!('next' in res.body)) return 'missing next key';
-    if (!('prev' in res.body)) throw new Error('missing prev key');
+    if (!("next" in res.body)) return "missing next key";
+    if (!("prev" in res.body)) throw new Error("missing prev key");
 }
 
 // functional expect without response type
-request.get('/')
+request.get("/")
     .expect(res => {
-        if (!('next' in res.body)) return 'missing next key';
-        if (!('prev' in res.body)) throw new Error('missing prev key');
+        if (!("next" in res.body)) return "missing next key";
+        if (!("prev" in res.body)) throw new Error("missing prev key");
     })
     .end((err: any, res: supertest.Response) => {
         if (err) throw err;
     });
 
 // object expect
-request.get('/')
-    .expect(200, { foo: 'bar' })
+request.get("/")
+    .expect(200, { foo: "bar" })
     .end((err: any, res: supertest.Response) => {
         if (err) throw err;
     });

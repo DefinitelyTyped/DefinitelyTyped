@@ -1,7 +1,7 @@
-import { CookieJar } from 'cookiejar';
-import methods = require('methods');
-import AgentBase = require('../agent-base');
-import request = require('../..');
+import { CookieJar } from "cookiejar";
+import methods = require("methods");
+import AgentBase = require("../agent-base");
+import request = require("../..");
 import { AgentOptions, CBHandler } from "../../types";
 
 type Request = InstanceType<typeof request.Request>;
@@ -9,8 +9,8 @@ type Request = InstanceType<typeof request.Request>;
 type HttpMethod = (url: string, callback?: CBHandler) => Request;
 
 type AgentMethods = {
-    [key in typeof methods[number]]: HttpMethod
-}
+    [key in typeof methods[number]]: HttpMethod;
+};
 
 declare class Agent<Req extends Request = Request> extends AgentBase implements AgentMethods {
     constructor(options?: AgentOptions);

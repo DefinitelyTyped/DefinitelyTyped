@@ -1,4 +1,3 @@
-import Agent = require('./lib/agent-base');
+import Agent = require("./lib/agent-base");
 
 const asAgent = new Agent();
-
