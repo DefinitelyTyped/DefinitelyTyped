@@ -13,7 +13,7 @@ declare class Test extends Request {
     expect(checker: (res: Response) => any, callback?: CallbackHandler): this;
     expect(body: string, callback?: CallbackHandler): this;
     expect(body: RegExp, callback?: CallbackHandler): this;
-    expect(body: Object, callback?: CallbackHandler): this;
+    expect(body: object, callback?: CallbackHandler): this;
     expect(field: string, val: string, callback?: CallbackHandler): this;
     expect(field: string, val: RegExp, callback?: CallbackHandler): this;
     end(callback?: CallbackHandler): this;

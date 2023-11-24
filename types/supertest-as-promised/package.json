@@ -7,10 +7,11 @@
     ],
     "dependencies": {
         "@types/bluebird": "*",
-        "@types/superagent": "1.4.27",
-        "@types/supertest": "1.1.32"
+        "@types/superagent": "*",
+        "@types/supertest": "*"
     },
     "devDependencies": {
+        "@types/express": "*",
         "@types/supertest-as-promised": "workspace:."
     },
     "owners": [
