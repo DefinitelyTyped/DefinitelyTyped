@@ -1,7 +1,7 @@
 // Microsoft Graph tests
 // Project: https://github.com/microsoftgraph/msgraph-typescript-typings
 
-import * as MicrosoftGraph from "./index.d";
+import * as MicrosoftGraph from "microsoft-graph";
 
 const user: MicrosoftGraph.User = {
     officeLocation: "Bengaluru",
