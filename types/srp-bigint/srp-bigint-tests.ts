@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 var srp = require("srp-bigint");
 
 // Test the `params` variable.
