@@ -2,8 +2,9 @@
  * These tests are mostly extracted from the README file and `doc/extending.md` (both in @sap/approuter (the source npm
  * package).
  */
-import { Approuter, StartOptions } from "@sap/approuter";
+import { MiddlewareHandler, StartOptions } from "@sap/approuter";
 import approuter = require("@sap/approuter");
+import xsrfHandler = require("@sap/approuter/lib/middleware/xsrf-token-handler");
 
 const ar = approuter();
 
@@ -115,7 +116,6 @@ ar.on("logout", function handler(session) {
 });
 
 /*************** Example 10 - sessionManagement ***************/
-// https://github.wdf.sap.corp/xs2/approuter.js/blob/master/doc/sessionManagement.md
 
 ar.start({
     getSessionSecret: function getSessionSecret() {
@@ -135,3 +135,23 @@ ar.start({
         console.log(sessionId);
     });
 });
+
+/*************** Example 11 - xsrf token middleware ***************/
+function customMiddlewareHandler(): MiddlewareHandler {
+    return function angularCsrfCookieHandler(
+        request,
+        response,
+        next,
+    ): void {
+        xsrfHandler.getToken(request, (error, token) => {
+            if (error !== null) {
+                next(error);
+                return;
+            }
+            response.setHeader("set-cookie", [`X-CSRF-Token=${token}; secure; samesite=strict; path=/`]);
+            next();
+        });
+    };
+}
+
+ar.beforeRequestHandler.use("/my-ext", customMiddlewareHandler);

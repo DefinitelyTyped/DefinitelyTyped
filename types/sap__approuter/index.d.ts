@@ -75,7 +75,11 @@ declare namespace approuter {
      * @param response - Object for the outgoing Response; can be manipulated to alter the response
      * @param next - Call next to give control back to Application Router Middleware
      */
-    type MiddlewareHandler = (request: AppRouterIncomingMessage, response: ServerResponse, next: () => void) => void;
+    type MiddlewareHandler = (
+        request: AppRouterIncomingMessage,
+        response: ServerResponse,
+        next: (value?: Error | string) => void,
+    ) => void;
 
     interface Extensions {
         /**
@@ -253,21 +257,6 @@ declare namespace approuter {
 
     /**
      * SAP Application Router
-     *
-     * For full help, please consult the README file in @sap/approuter (the source npm package) or
-     * https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/LATEST/en-US/050d87a61faa4fb88f687abd7bdf16ce.html
-     *
-     * These types (and their tests) are mostly extracted from the above mentioned README file and `doc/extending.md`
-     * in @sap/approuter (the source npm package). If some types are incorrect or missing, please open up an issue at
-     * {@link https://github.com/DefinitelyTyped/DefinitelyTyped}, or, even better, add them by yourself via a Pull Request.
-     *
-     * ## Command Parser
-     * The {@link cmdParser} property is set to a {@link Command} instance when instantiating an Approuter. It is possible
-     * to disable this feature by setting {@link cmdParser} to false. To do this typesafe, you have to use
-     * `Approuter<false>` as a type when creating the Approuter instance.
-     * @example
-     *   const ar = new Approuter<false>();
-     *   ar.cmdParser = false;
      */
     interface Approuter extends EventEmitter {
         /**

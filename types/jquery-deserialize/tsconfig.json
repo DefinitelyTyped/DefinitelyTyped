@@ -2,6 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
+            "dom",
             "es6"
         ],
         "noImplicitAny": true,
@@ -14,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "liferay-tests.global.ts"
+        "jquery-deserialize-tests.ts"
     ]
 }
