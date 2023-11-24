@@ -1,4 +1,4 @@
-import Tusk from "tusk-mastodon";
+import Tusk = require("tusk-mastodon");
 
 const T = new Tusk({
     "access_token": "string",
