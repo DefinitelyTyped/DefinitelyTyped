@@ -1,5 +1,5 @@
 import passport = require("passport");
-import SteamStrategy from "passport-steam";
+import SteamStrategy = require("passport-steam");
 
 const strategy = new SteamStrategy({
     returnURL: "http://localhost:3100",

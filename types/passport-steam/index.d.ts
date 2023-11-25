@@ -5,22 +5,22 @@ declare class SteamStrategy<T extends SteamStrategyOptions> extends Strategy {
     constructor(options: T, validate: ValidateFn<T>);
 }
 
-export interface SteamStrategyOptions {
+interface SteamStrategyOptions {
     returnURL: string;
     realm: string;
     apiKey: string;
     passReqToCallback?: boolean;
 }
 
-export type ValidateFn<T extends SteamStrategyOptions> = T["passReqToCallback"] extends true
+type ValidateFn<T extends SteamStrategyOptions> = T["passReqToCallback"] extends true
     ? (req: Request, identifier: SteamIdentifier, profile: SteamProfile, done: DoneFn) => void
     : (identifier: SteamIdentifier, profile: SteamProfile, done: DoneFn) => void;
 
-export type DoneFn = (err: unknown, user?: Express.User | false | null) => void;
+type DoneFn = (err: unknown, user?: Express.User | false | null) => void;
 
-export type SteamIdentifier = string;
+type SteamIdentifier = string;
 
-export interface SteamProfile {
+interface SteamProfile {
     provider: "steam";
     _json: {
         steamid: string;
@@ -47,4 +47,4 @@ export interface SteamProfile {
     photos: Array<{ value: string }>;
 }
 
-export default SteamStrategy;
+export = SteamStrategy;
