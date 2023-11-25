@@ -1,8 +1,13 @@
 import { Request } from "express";
-import { Strategy } from "passport";
+import * as Passport from "passport";
 
-declare class SteamStrategy<T extends SteamStrategyOptions> extends Strategy {
+declare class SteamStrategy<T extends SteamStrategyOptions> extends Passport.Strategy {
     constructor(options: T, validate: ValidateFn<T>);
+}
+
+declare namespace SteamStrategy {
+    const Strategy: typeof SteamStrategy;
+    const version: string;
 }
 
 interface SteamStrategyOptions {
