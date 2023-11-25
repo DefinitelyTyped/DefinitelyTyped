@@ -34,7 +34,7 @@ declare namespace confetti {
         matrix: DOMMatrix;
     }
 
-    type Shape = PathShape | BitmapShape;
+    type Shape = PathShape | BitmapShape | 'square' | 'circle' | 'star';
 
     interface Options {
         /**
@@ -86,7 +86,7 @@ declare namespace confetti {
          * The possible values are square, circle, and star. The default is to use both squares and circles in an even mix.
          * @default ['square','circle']
          */
-        shapes?: string[] | undefined;
+        shapes?: Shape[] | undefined;
         /**
          * How far off center the confetti can go, in degrees. 45 means the confetti will launch at the defined angle plus or minus 22.5
          * degrees.
