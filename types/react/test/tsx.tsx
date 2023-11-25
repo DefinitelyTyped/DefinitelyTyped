@@ -560,6 +560,12 @@ const CustomElement2: React.ElementType = "my-declared-element-deprecated";
 const CustomElement3: React.ElementType = "my-declared-element";
 <my-declared-element />;
 
+const CustomBuiltins1: React.ElementType<{ className?: string | undefined }, "a" | "button"> = "a";
+const CustomBuiltins2: React.ElementType<{ className?: string | undefined }, "a" | "button"> = "button";
+// @ts-expect-error
+const CustomBuiltins3: React.ElementType<{ className?: string | undefined }, "a" | "button"> = "div";
+const CustomBuiltins4: React.ElementType<{ className?: string | undefined }, "a" | "button"> = (props: { className?: string | undefined }) => <div {...props} />;
+
 interface TestPropTypesProps {
     foo: string;
 }
