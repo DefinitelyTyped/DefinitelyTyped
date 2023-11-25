@@ -1,54 +1,50 @@
-export = passport_steam;
+import { Request, User } from "express";
+import { Strategy } from "passport";
 
-declare function passport_steam(options: any, validate: any): any;
-
-declare namespace passport_steam {
-    // Circular reference from passport_steam
-    const Strategy: any;
-
-    const version: string;
-
-    namespace prototype {
-        function authenticate(req: any): any;
-
-        function loadAssociation(fn: any): any;
-
-        function loadDiscoveredInfo(fn: any): any;
-
-        function loadDiscoveredInformation(fn: any): any;
-
-        function saveAssociation(fn: any): any;
-
-        function saveDiscoveredInfo(fn: any): any;
-
-        function saveDiscoveredInformation(fn: any): any;
-
-        namespace authenticate {
-            const prototype: {};
-        }
-
-        namespace loadAssociation {
-            const prototype: {};
-        }
-
-        namespace loadDiscoveredInfo {
-            const prototype: {};
-        }
-
-        namespace loadDiscoveredInformation {
-            const prototype: {};
-        }
-
-        namespace saveAssociation {
-            const prototype: {};
-        }
-
-        namespace saveDiscoveredInfo {
-            const prototype: {};
-        }
-
-        namespace saveDiscoveredInformation {
-            const prototype: {};
-        }
-    }
+declare class SteamStrategy<T extends SteamStrategyOptions> extends Strategy {
+    constructor(options: T, validate: ValidateFn<T>)
 }
+
+export interface SteamStrategyOptions {
+    returnURL: string,
+    realm: string,
+    apiKey: string,
+    passReqToCallback?: boolean,
+}
+
+export type ValidateFn<T extends SteamStrategyOptions> = T["passReqToCallback"] extends true
+    ? (req: Request, identifier: SteamIdentifier, profile: SteamProfile, done: DoneFn) => void
+    : (identifier: SteamIdentifier, profile: SteamProfile, done: DoneFn) => void
+
+export type DoneFn = (err: unknown, user?: User | false | null) => void
+
+export type SteamIdentifier = string
+
+export interface SteamProfile {
+    provider: "steam",
+    _json: {
+        steamid: string,
+        communityvisibilitystate: number,
+        profilestate: number,
+        personaname: string,
+        commentpermission: number,
+        profileurl: string,
+        avatar: string,
+        avatarmedium: string,
+        avatarfull: string,
+        avatarhash: string,
+        lastlogoff: number,
+        personastate: number,
+        realname: string,
+        primaryclanid: string,
+        timecreated: number,
+        personastateflags: number,
+        loccountrycode: string,
+        locstatecode: string
+    },
+    id: string,
+    displayName: string,
+    photos: Array<{ value: string }>,
+}
+
+export default SteamStrategy
