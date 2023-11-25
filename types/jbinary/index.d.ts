@@ -123,7 +123,7 @@ declare class jBinary {
      * @param data The binary data as a numeric array.
      * @param typeSet Typeset object with all the defined types.
      */
-    constructor(data: Array<number>, typeSet?: jBinary.TypeSet);
+    constructor(data: number[], typeSet?: jBinary.TypeSet);
 
     /**
      * Creates a new jBinary instance with a jDataView object as data.

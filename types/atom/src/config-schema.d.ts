@@ -7,7 +7,7 @@ import { FileEncoding, Invisibles } from "../index";
  *  pairings merged into this interface will result in configuration values under
  *  the value of each key being templated by the type of the associated value.
  */
-// tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ConfigValues {
     // NOTE: this is intentionally left empty, extended via ambient declarations
 }

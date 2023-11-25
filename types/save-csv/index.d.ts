@@ -8,5 +8,5 @@ interface SaveCsvProps {
     formatter?: ((value: string | JSON) => void) | undefined;
 }
 
-declare function saveCsv(array: ReadonlyArray<any>, options?: SaveCsvProps): void;
+declare function saveCsv(array: readonly any[], options?: SaveCsvProps): void;
 export = saveCsv;

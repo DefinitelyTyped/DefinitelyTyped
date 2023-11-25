@@ -254,7 +254,7 @@ declare namespace AdmZip {
      * data and creates the headers required to write in the zip file.
      */
     // disable warning about the I-prefix in interface name to prevent breaking stuff for users without a major bump
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IZipEntry {
         /**
          * Represents the full name and path of the file

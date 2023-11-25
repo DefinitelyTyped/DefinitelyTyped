@@ -80,7 +80,7 @@ export function unparse<T>(data: T[] | UnparseObject<T>, config?: UnparseConfig)
  */
 
 /** An array of characters that are not allowed as delimiters. `\r`, `\n`, `"`, `\ufeff` */
-export const BAD_DELIMITERS: ReadonlyArray<string>;
+export const BAD_DELIMITERS: readonly string[];
 
 /** The true delimiter. Invisible. ASCII code 30. Should be doing the job we strangely rely upon commas and tabs for. */
 export const RECORD_SEP: "\x1E";
@@ -252,6 +252,7 @@ export interface ParseConfig<T = any, TInput = undefined> {
      * The function receives as an argument the chunk about to be parsed, and it may return a modified chunk to parse.
      * This is useful for stripping header lines (as long as the header fits in a single chunk).
      */
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     beforeFirstChunk?(chunk: string): string | void;
 }
 

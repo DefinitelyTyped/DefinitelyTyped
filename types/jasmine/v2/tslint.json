@@ -3,10 +3,11 @@
     "rules": {
         "array-type": false,
         "arrow-return-shorthand": false,
-        "ban-types": false,
-        "file-name-casing": [true, "kebab-case"],
+        "file-name-casing": [
+            true,
+            "kebab-case"
+        ],
         "jsdoc-format": false,
-        "no-empty-interface": false,
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-qualifier": false,
         "no-var-keyword": false,
@@ -16,7 +17,6 @@
         "prefer-conditional-expression": false,
         "prefer-const": false,
         "prefer-template": false,
-        "unified-signatures": false,
-        "void-return": false
+        "unified-signatures": false
     }
 }

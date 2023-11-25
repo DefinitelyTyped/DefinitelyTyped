@@ -7,28 +7,28 @@ import http = require("http");
  * Parses set-cookie headers into objects
  */
 declare function parse(
-    input: string | ReadonlyArray<string> | IncomingMessage,
+    input: string | readonly string[] | IncomingMessage,
     options: parse.Options & { map: true },
 ): parse.CookieMap;
 declare function parse(
-    input: string | ReadonlyArray<string> | IncomingMessage,
+    input: string | readonly string[] | IncomingMessage,
     options?: parse.Options & { map?: false | undefined },
 ): parse.Cookie[];
 declare function parse(
-    input: string | ReadonlyArray<string> | IncomingMessage,
+    input: string | readonly string[] | IncomingMessage,
     options?: parse.Options,
 ): parse.Cookie[] | parse.CookieMap;
 
 declare namespace parse {
     function parse(
-        input: string | ReadonlyArray<string> | IncomingMessage,
+        input: string | readonly string[] | IncomingMessage,
         options: Options & { map: true },
     ): CookieMap;
     function parse(
-        input: string | ReadonlyArray<string> | IncomingMessage,
+        input: string | readonly string[] | IncomingMessage,
         options?: Options & { map?: false | undefined },
     ): Cookie[];
-    function parse(input: string | ReadonlyArray<string> | IncomingMessage, options?: Options): Cookie[] | CookieMap;
+    function parse(input: string | readonly string[] | IncomingMessage, options?: Options): Cookie[] | CookieMap;
 
     /**
      * Set-Cookie header field-values are sometimes comma joined in one string. This splits them without choking on commas
@@ -39,7 +39,7 @@ declare namespace parse {
      * Based on: https://github.com/google/j2objc/commit/16820fdbc8f76ca0c33472810ce0cb03d20efe25
      * Credits to: https://github.com/tomball for original and https://github.com/chrusart for JavaScript implementation
      */
-    function splitCookiesString(input: string | ReadonlyArray<string> | undefined): string[];
+    function splitCookiesString(input: string | readonly string[] | undefined): string[];
 
     /**
      * Parses a single set-cookie header value string.

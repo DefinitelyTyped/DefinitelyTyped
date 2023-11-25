@@ -4917,7 +4917,7 @@ declare namespace Office {
     }
 
     /** For Macintosh only */
-    // tslint:disable-next-line:interface-name
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     interface IFoundFiles {
         readonly Count: number;
         Item(Index: number): string;

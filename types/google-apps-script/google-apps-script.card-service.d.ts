@@ -958,7 +958,7 @@ declare namespace GoogleAppsScript {
         /**
          * A horizontal divider.
          */
-        // tslint:disable-next-line:no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface Divider {
         }
 
@@ -1183,7 +1183,7 @@ declare namespace GoogleAppsScript {
         /**
          * Base class for all widgets that can be added to a Card.
          */
-        // tslint:disable-next-line: no-empty-interface
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface Widget {
         }
     }

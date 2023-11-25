@@ -280,9 +280,9 @@ declare namespace wx {
         /** 最多可以选择的图片张数，默认9 */
         count?: number | undefined;
         /** original 原图，compressed 压缩图，默认二者都有 */
-        sizeType?: Array<ImageSizeType> | undefined;
+        sizeType?: ImageSizeType[] | undefined;
         /** album 从相册选图，camera 使用相机，默认二者都有 */
-        sourceType?: Array<ImageSourceType> | undefined;
+        sourceType?: ImageSourceType[] | undefined;
         /** 成功则返回图片的本地文件路径列表 tempFilePaths */
         success: (res: TempFilesData) => void;
         /** 接口调用失败的回调函数 */
@@ -299,7 +299,7 @@ declare namespace wx {
         /** 当前显示图片的链接，不填则默认为 urls 的第一张 */
         current?: string | undefined;
         /** 需要预览的图片链接列表 */
-        urls: Array<string>;
+        urls: string[];
         /** 接口调用成功的回调函数 */
         success?: ResponseCallback | undefined;
         /** 接口调用失败的回调函数 */
@@ -467,11 +467,11 @@ declare namespace wx {
     }
     interface ChooseVideoOptions {
         /** album 从相册选视频，camera 使用相机拍摄，默认为：['album', 'camera'] */
-        sourceType?: Array<VideoSourceType> | undefined;
+        sourceType?: VideoSourceType[] | undefined;
         /** 拍摄视频最长拍摄时间，单位秒。最长支持60秒 */
         maxDuration?: number | undefined;
         /** 前置或者后置摄像头，默认为前后都有，即：['front', 'back'] */
-        camera?: Array<CameraDevice> | undefined;
+        camera?: CameraDevice[] | undefined;
         /** 接口调用成功，返回视频文件的临时文件路径，详见返回参数说明 */
         success?: ((res: VideoData) => void) | undefined;
         /** 接口调用失败的回调函数 */
@@ -487,7 +487,7 @@ declare namespace wx {
     // 数据缓存
     interface StorageInfo {
         //  当前 storage 中所有的 key
-        keys: Array<string>;
+        keys: string[];
         //  当前占用的空间大小, 单位 KB
         currentSize: number;
         //  限制的空间大小，单位 KB
@@ -592,9 +592,9 @@ declare namespace wx {
     }
     interface zoomPointsOptions extends CommonCallbackOptions {
         //  要显示在可视区域内的坐标点列表
-        points: Array<LocationBaseOptions>;
+        points: LocationBaseOptions[];
         //  坐标点形成的矩形边缘到地图边缘的距离，单位像素。格式为[上,右,下,左]，安卓上只能识别数组第一项，上下左右的padding一致。开发者工具暂不支持padding参数。
-        padding?: Array<number> | undefined;
+        padding?: number[] | undefined;
     }
     interface GetReginSuccessCallbackOptions {
         //  西南角经纬度
@@ -820,7 +820,7 @@ declare namespace wx {
 
     interface ActionSheetOptions {
         // 必填，按钮的文字数组，数组长度最大为 6
-        itemList: Array<string>;
+        itemList: string[];
         // 按钮的文字颜色
         itemColor?: string | undefined;
         success?: ActionSheetSuccessCallback | undefined;
@@ -1131,10 +1131,10 @@ declare namespace wx {
     }
 
     interface Animator {
-        actions: Array<AnimationAction>;
+        actions: AnimationAction[];
     }
     interface AnimationAction {
-        animates: Array<Animate>;
+        animates: Animate[];
         option: AnimationActionOption;
     }
     interface AnimationActionOption {
@@ -1148,7 +1148,7 @@ declare namespace wx {
     }
     interface Animate {
         type: string;
-        args: Array<any>;
+        args: any[];
     }
 
     /**
@@ -1277,7 +1277,7 @@ declare namespace wx {
 
     interface CanvasAction {
         method: string;
-        data: Array<CanvasAction> | Array<number | string>;
+        data: CanvasAction[] | Array<number | string>;
     }
     type LineCapType = "butt" | "round" | "square";
     type LineJoinType = "bevel" | "round" | "miter";
@@ -1286,7 +1286,7 @@ declare namespace wx {
      */
     interface CanvasContext {
         /** 获取当前context上存储的绘图动作 */
-        getActions(): Array<CanvasAction>;
+        getActions(): CanvasAction[];
         /** 清空当前的存储绘图动作 */
         clearActions(): void;
         /**
@@ -1490,7 +1490,7 @@ declare namespace wx {
          * 绘图动作数组，由 wx.createContext 创建的 context，
          * 调用 getActions 方法导出绘图动作数组。
          */
-        actions: Array<CanvasAction>;
+        actions: CanvasAction[];
     }
     /**
      * 绘制画布

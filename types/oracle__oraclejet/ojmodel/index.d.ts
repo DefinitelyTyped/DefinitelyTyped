@@ -179,7 +179,7 @@ export class Collection {
     without(...var_args: Model[]): Model[];
 }
 export namespace Collection {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type CustomPagingOptionsReturn = {
         totalResults?: number | undefined;
         limit?: number | undefined;
@@ -187,7 +187,7 @@ export namespace Collection {
         offset?: number | undefined;
         hasMore?: boolean | undefined;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type SetRangeLocalPromise = {
         start: number;
         count: number;

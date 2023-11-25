@@ -61,7 +61,7 @@ export interface JetElementCustomEvent<V> extends
 {
 }
 // This interfaces is empty but required to keep the component chain intact. Avoid lint-rule
-// tslint:disable-next-line no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface JetSettableProperties {
 }
 export type JetSetPropertyType<K, U extends JetSettableProperties> = K extends keyof U ? U[K] : any;

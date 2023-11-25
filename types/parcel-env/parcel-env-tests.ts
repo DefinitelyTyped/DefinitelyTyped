@@ -52,11 +52,11 @@ if (module.hot) {
     module.hot.addDisposeHandler(disposeHandler);
     module.hot.removeDisposeHandler(disposeHandler);
 
-    module.hot.check(true, (err: Error, outdatedModules: (string | number)[]) => {
+    module.hot.check(true, (err: Error, outdatedModules: Array<string | number>) => {
         // ...
     });
 
-    module.hot.apply({ ignoreUnaccepted: true }, (err: Error, outdatedModules: (string | number)[]) => {
+    module.hot.apply({ ignoreUnaccepted: true }, (err: Error, outdatedModules: Array<string | number>) => {
         // ...
     });
 

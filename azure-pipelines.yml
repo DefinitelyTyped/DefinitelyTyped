@@ -22,6 +22,9 @@ jobs:
       - script: ./scripts/pnpm-install.sh
         displayName: 'pnpm install'
 
+      - script: pnpm ls
+        displayName: 'pnpm ls'
+
       - script: |
           if [[ $BUILD_REASON == "Schedule" ]]; then git config --global user.email "types@microsoft.com" && git config --global user.name "TypeScript Bot" && pnpm run update-codeowners; fi
           git checkout -- .

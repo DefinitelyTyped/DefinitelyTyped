@@ -91,6 +91,7 @@ export type GooglePayOptions = {
    */
   callbacks?: {
     onPaymentDataChanged?: (intermediatePaymentData: GooglePayIntermediatePaymentData) => Promise<GooglePayPaymentDataRequestUpdate>;
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     onPaymentAuthorized?: (paymentData: GooglePayPaymentData) => Promise<GooglePayPaymentAuthorizationResult> | void;
   },
 };

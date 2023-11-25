@@ -20,12 +20,12 @@ declare namespace CADES_Common {
         : T extends CAdESCOM.CPAuthenticatedAttributes2 ? CAdESCOM.CPAuthenticatedAttributes2Async
         : T;
 
-    type PromisifiedFunction<T extends Function> = // tslint:disable-line ban-types
+    type PromisifiedFunction<T extends Function> = // eslint-disable-line @typescript-eslint/ban-types
         T extends (...args: infer A) => infer U ? (...args: { [K in keyof A]: Unpacked<A[K]> }) => Promise<Unpacked<U>>
             : T;
 
     type Async<T> = {
-        readonly [K in keyof T]: T[K] extends Function ? PromisifiedFunction<T[K]> // tslint:disable-line ban-types
+        readonly [K in keyof T]: T[K] extends Function ? PromisifiedFunction<T[K]> // eslint-disable-line @typescript-eslint/ban-types
             : Promise<Unpacked<T[K]>>;
     };
 }

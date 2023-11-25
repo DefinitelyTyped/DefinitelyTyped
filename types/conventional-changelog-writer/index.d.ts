@@ -349,7 +349,7 @@ declare namespace conventionalChangelogWriter {
             export { FunctionType as Function };
         }
 
-        type Sort<T = any> = Sort.Function<T> | string | ReadonlyArray<string> | false;
+        type Sort<T = any> = Sort.Function<T> | string | readonly string[] | false;
 
         namespace Sort {
             type FunctionType<T = any> = (a: T, b: T) => number;

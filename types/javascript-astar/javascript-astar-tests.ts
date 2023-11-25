@@ -12,17 +12,17 @@ function test_get_node() {
 }
 
 function test_search_returns_nodes() {
-    let nodes: Array<GridNode> = astar.search(new Graph([]), { x: 1, y: 1 }, { x: 2, y: 2 });
+    let nodes: GridNode[] = astar.search(new Graph([]), { x: 1, y: 1 }, { x: 2, y: 2 });
 }
 
 function test_search_alternative_heuristic() {
-    let nodes: Array<GridNode> = astar.search(new Graph([]), { x: 1, y: 1 }, { x: 2, y: 2 }, {
+    let nodes: GridNode[] = astar.search(new Graph([]), { x: 1, y: 1 }, { x: 2, y: 2 }, {
         heuristic: astar.heuristics.manhattan,
     });
 }
 
 function test_search_or_closest() {
-    let nodes: Array<GridNode> = astar.search(new Graph([], { diagonal: true }), { x: 1, y: 1 }, { x: 2, y: 2 }, {
+    let nodes: GridNode[] = astar.search(new Graph([], { diagonal: true }), { x: 1, y: 1 }, { x: 2, y: 2 }, {
         closest: true,
     });
 }

@@ -20,7 +20,7 @@ export declare class EmitterBase<EventTypes extends BaseEventMap> extends Base {
     private emitterAccessor;
     protected identity: Identity;
     constructor(wire: Transport, emitterAccessor: EmitterAccessor);
-    eventNames: () => (string | symbol)[];
+    eventNames: () => Array<string | symbol>;
     emit: <E extends string | symbol | Extract<keyof EventTypes, string>>(
         eventName: E,
         payload: E extends Extract<keyof EventTypes, string> ? EventTypes[E] : any,

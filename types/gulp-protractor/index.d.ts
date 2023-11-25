@@ -4,7 +4,7 @@ import gulp = require("gulp");
 
 interface IOptions {
     configFile?: string | undefined;
-    args?: Array<string> | undefined;
+    args?: string[] | undefined;
     debug?: boolean | undefined;
 }
 

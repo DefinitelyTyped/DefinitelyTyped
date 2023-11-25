@@ -17,6 +17,7 @@ export interface PluginOptions {
     match: typeof match;
     data: any;
 }
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type Plugin = (tree: Tree, options: PluginOptions) => Tree | void;
 
 export interface ProcessOptions {

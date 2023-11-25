@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/firefox-webext-browser",
-    "version": "111.0.9999",
+    "version": "120.0.9999",
     "nonNpm": true,
     "nonNpmDescription": "WebExtension Development in FireFox",
     "projects": [

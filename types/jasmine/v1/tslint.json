@@ -1,14 +1,14 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "ban-types": false,
-        "file-name-casing": [true, "kebab-case"],
-        "no-empty-interface": false,
+        "file-name-casing": [
+            true,
+            "kebab-case"
+        ],
         "no-unnecessary-type-assertion": false,
         "no-var-keyword": false,
         "one-variable-per-declaration": false,
         "prefer-const": false,
-        "unified-signatures": false,
-        "void-return": false
+        "unified-signatures": false
     }
 }

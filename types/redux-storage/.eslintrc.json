@@ -4,6 +4,9 @@
         "@definitelytyped/no-unnecessary-generics": "off",
         "@definitelytyped/no-declare-current-package": "off",
         "@definitelytyped/no-self-import": "off",
-        "@definitelytyped/strict-export-declare-modifiers": "off"
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/triple-slash-reference": "off",
+        "no-duplicate-imports": "off"
     }
 }

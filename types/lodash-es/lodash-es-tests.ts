@@ -561,6 +561,7 @@ import {
     templateSettings as templateSettings1,
     throttle as throttle1,
     ThrottleSettings as ThrottleSettings1,
+    thru as thru1,
     times as times1,
     toArray as toArray1,
     toFinite as toFinite1,

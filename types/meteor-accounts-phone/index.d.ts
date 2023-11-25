@@ -31,8 +31,8 @@ declare namespace Accounts {
         verificationWaitTime?: number | undefined;
         sendPhoneVerificationCodeOnCreation?: boolean | undefined;
         forbidClientAccountCreation?: boolean | undefined;
-        phoneVerificationMasterCode?: Array<string> | undefined;
-        adminPhoneNumbers?: Array<string> | undefined;
+        phoneVerificationMasterCode?: string[] | undefined;
+        adminPhoneNumbers?: string[] | undefined;
     };
 
     function createUserWithPhone(options: Object, callback?: Function): void;
@@ -51,8 +51,8 @@ declare module "meteor/accounts-base" {
             verificationWaitTime?: number | undefined;
             sendPhoneVerificationCodeOnCreation?: boolean | undefined;
             forbidClientAccountCreation?: boolean | undefined;
-            phoneVerificationMasterCode?: Array<string> | undefined;
-            adminPhoneNumbers?: Array<string> | undefined;
+            phoneVerificationMasterCode?: string[] | undefined;
+            adminPhoneNumbers?: string[] | undefined;
         };
 
         function createUserWithPhone(options: Object, callback?: Function): void;

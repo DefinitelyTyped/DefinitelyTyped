@@ -6,7 +6,7 @@ declare function youtubedl(url: string, arg: string[], opt: { [key: string]: str
 declare namespace youtubedl {
     interface Youtubedl extends Readable {
         on(event: "info" | "complete", listener: (info: Info) => void): this;
-        on(event: "next", listener: (data: Info | ReadonlyArray<Info>) => void): this;
+        on(event: "next", listener: (data: Info | readonly Info[]) => void): this;
         on(event: "error", listener: (err: any) => void): this;
         on(event: string | symbol, listener: (...args: any[]) => void): this;
     }

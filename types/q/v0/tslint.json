@@ -1,10 +1,7 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "adjacent-overload-signatures": false,
         "array-type": false,
-        "ban-types": false,
-        "interface-name": false,
         "jsdoc-format": false,
         "no-namespace": false,
         "no-redundant-jsdoc-2": false,
@@ -13,7 +10,6 @@
         "only-arrow-functions": false,
         "prefer-const": false,
         "triple-equals": false,
-        "unified-signatures": false,
-        "void-return": false
+        "unified-signatures": false
     }
 }

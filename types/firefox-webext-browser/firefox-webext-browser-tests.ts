@@ -121,3 +121,6 @@ filter.write(new Uint8Array(32));
 filter.close();
 filter.disconnect();
 console.log(filter.status);
+
+browser.storage.session.get("sessionObject");
+browser.storage.session.set({ "sessionObject": "value" });

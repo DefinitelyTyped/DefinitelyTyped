@@ -9,7 +9,7 @@ export type TiffTag = string[] | number[];
  * You can get the the dimension (and other properties, "metadata") of the image without decompressing pixel data.
  * For more information on what each tag means, refer https://github.com/photopea/UTIF.js/blob/master/UTIF.js#L742 or TIFF 6 specification.
  */
-// tslint:disable-next-line:interface-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface IFD {
     [property: string]: TiffTag | number | Uint8Array;
     data: Uint8Array;

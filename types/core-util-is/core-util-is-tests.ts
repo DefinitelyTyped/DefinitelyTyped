@@ -1,4 +1,4 @@
-import util = require("./");
+import util = require("core-util-is");
 
 // $ExpectType boolean
 util.isArray([]);
