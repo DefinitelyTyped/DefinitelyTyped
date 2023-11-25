@@ -453,7 +453,7 @@ declare namespace React {
      */
     type ProfilerOnRenderCallback = (
         id: string,
-        phase: "mount" | "update",
+        phase: "mount" | "update" | "nested-update",
         actualDuration: number,
         baseDuration: number,
         startTime: number,
