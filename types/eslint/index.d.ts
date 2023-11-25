@@ -874,53 +874,199 @@ export class Linter {
 }
 
 export namespace Linter {
+    /**
+     * The numeric severity level for a rule.
+     *
+     * - `0` means off.
+     * - `1` means warn.
+     * - `2` means error.
+     *
+     * @see [Rule Severities](https://eslint.org/docs/latest/use/configure/rules#rule-severities)
+     */
     type Severity = 0 | 1 | 2;
+
+    /**
+     * The human readable severity level for a rule.
+     *
+     * @see [Rule Severities](https://eslint.org/docs/latest/use/configure/rules#rule-severities)
+     */
     type StringSeverity = "off" | "warn" | "error";
 
+    /**
+     * The numeric or human readable severity level for a rule.
+     *
+     * @see [Rule Severities](https://eslint.org/docs/latest/use/configure/rules#rule-severities)
+     */
     type RuleLevel = Severity | StringSeverity;
+
+    /**
+     * An array containing the rule severity level, followed by the rule options.
+     *
+     * @see [Rules](https://eslint.org/docs/user-guide/configuring/rules)
+     */
     type RuleLevelAndOptions<Options extends any[] = any[]> = Prepend<Partial<Options>, RuleLevel>;
 
+    /**
+     * The severity level for the rule or an array containing the rule severity level, followed by the rule options.
+     *
+     * @see [Rules](https://eslint.org/docs/user-guide/configuring/rules)
+     */
     type RuleEntry<Options extends any[] = any[]> = RuleLevel | RuleLevelAndOptions<Options>;
 
+    /**
+     * The rules config object is a key/value map of rule names and their severity and options.
+     */
     interface RulesRecord {
         [rule: string]: RuleEntry;
     }
 
+    /**
+     * A configuration object that may have a rules config block.
+     */
     interface HasRules<Rules extends RulesRecord = RulesRecord> {
         rules?: Partial<Rules> | undefined;
     }
 
+    /**
+     * ESLint Configuration.
+     *
+     * @see [ESLint Configuration](https://eslint.org/docs/latest/user-guide/configuring/)
+     */
     interface BaseConfig<Rules extends RulesRecord = RulesRecord, OverrideRules extends RulesRecord = Rules>
         extends HasRules<Rules>
     {
         $schema?: string | undefined;
+
+        /**
+         * An environment provides predefined global variables.
+         *
+         * @see [Environments](https://eslint.org/docs/latest/user-guide/configuring/language-options#specifying-environments)
+         */
         env?: { [name: string]: boolean } | undefined;
+
+        /**
+         * Extending Configuration Files.
+         *
+         * @see [Extends](https://eslint.org/docs/latest/user-guide/configuring/configuration-files#extending-configuration-files)
+         */
         extends?: string | string[] | undefined;
+
+        /**
+         * Specifying Globals.
+         *
+         * @see [Globals](https://eslint.org/docs/latest/user-guide/configuring/language-options#specifying-globals)
+         */
         globals?: { [name: string]: boolean | "off" | "readonly" | "readable" | "writable" | "writeable" } | undefined;
+
+        /**
+         * Disabling Inline Comments.
+         *
+         * @see [Disabling Inline Comments](https://eslint.org/docs/latest/user-guide/configuring/rules#disabling-inline-comments)
+         */
         noInlineConfig?: boolean | undefined;
+
+        /**
+         * Overrides can be used to use a differing configuration for matching sub-directories and files.
+         *
+         * @see [How do overrides work](https://eslint.org/docs/latest/user-guide/configuring/configuration-files#how-do-overrides-work)
+         */
         overrides?: Array<ConfigOverride<OverrideRules>> | undefined;
+
+        /**
+         * Parser.
+         *
+         * @see [Working with Custom Parsers](https://eslint.org/docs/latest/developer-guide/working-with-custom-parsers)
+         * @see [Specifying Parser](https://eslint.org/docs/latest/user-guide/configuring/plugins#configure-a-parser)
+         */
         parser?: string | undefined;
+
+        /**
+         * Parser Options.
+         *
+         * @see [Working with Custom Parsers](https://eslint.org/docs/latest/developer-guide/working-with-custom-parsers)
+         * @see [Specifying Parser Options](https://eslint.org/docs/latest/user-guide/configuring/language-options#specifying-parser-options)
+         */
         parserOptions?: ParserOptions | undefined;
+
+        /**
+         * Which third-party plugins define additional rules, environments, configs, etc. for ESLint to use.
+         *
+         * @see [Configuring Plugins](https://eslint.org/docs/latest/user-guide/configuring/plugins#configure-plugins)
+         */
         plugins?: string[] | undefined;
+
+        /**
+         * Specifying Processor.
+         *
+         * @see [processor](https://eslint.org/docs/latest/user-guide/configuring/plugins#specify-a-processor)
+         */
         processor?: string | undefined;
+
+        /**
+         * Report unused `ESLint-disable` comments as warning.
+         *
+         * @see [Report unused `ESLint-disable` comments](https://eslint.org/docs/latest/user-guide/configuring/rules#report-unused-eslint-disable-comments)
+         */
         reportUnusedDisableDirectives?: boolean | undefined;
+
+        /**
+         * Settings.
+         *
+         * @see [Settings](https://eslint.org/docs/latest/user-guide/configuring/configuration-files#adding-shared-settings)
+         */
         settings?: { [name: string]: any } | undefined;
     }
 
+    /**
+     * The overwrites that apply more differing configuration to specific files or directories.
+     */
     interface ConfigOverride<Rules extends RulesRecord = RulesRecord> extends BaseConfig<Rules> {
         excludedFiles?: string | string[] | undefined;
         files: string | string[];
     }
 
+    /**
+     * ESLint Configuration.
+     *
+     * @see [ESLint Configuration](https://eslint.org/docs/latest/user-guide/configuring/)
+     */
     // https://github.com/eslint/eslint/blob/v6.8.0/conf/config-schema.js
     interface Config<Rules extends RulesRecord = RulesRecord, OverrideRules extends RulesRecord = Rules>
         extends BaseConfig<Rules, OverrideRules>
     {
+        /**
+         * Tell ESLint to ignore specific files and directories.
+         *
+         * @see [Ignore Patterns](https://eslint.org/docs/latest/user-guide/configuring/ignoring-code)
+         */
         ignorePatterns?: string | string[] | undefined;
+        /**
+         * @see [Using Configuration Files](https://eslint.org/docs/latest/user-guide/configuring/configuration-files#using-configuration-files)
+         */
         root?: boolean | undefined;
     }
 
+    /**
+     * Parser options.
+     *
+     * @see [Specifying Parser Options](https://eslint.org/docs/user-guide/configuring/language-options#specifying-parser-options)
+     */
     interface ParserOptions {
+        /**
+         * Accepts any valid ECMAScript version number or `'latest'`:
+         *
+         * - A version: es3, es5, es6, es7, es8, es9, es10, es11, es12, es13, es14, ..., or
+         * - A year: es2015, es2016, es2017, es2018, es2019, es2020, es2021, es2022, es2023, ..., or
+         * - `'latest'`
+         *
+         * When it's a version or a year, the value must be a number - so do not include the `es` prefix.
+         *
+         * Specifies the version of ECMAScript syntax you want to use. This is used by the parser to determine how to perform scope analysis, and it affects the default
+         *
+         * @default 2018
+         *
+         * @see https://typescript-eslint.io/architecture/parser/#ecmaversion
+         */
         ecmaVersion?:
             | 3
             | 5
@@ -946,7 +1092,21 @@ export namespace Linter {
             | 2024
             | "latest"
             | undefined;
+
+        /**
+         * Set to "script" (default) or "module" if your code is in ECMAScript modules.
+         *
+         * @default 'script'
+         *
+         * @see https://eslint.org/docs/latest/user-guide/configuring/language-options#specifying-parser-options
+         */
         sourceType?: "script" | "module" | undefined;
+        /**
+         * An object indicating which additional language features you'd like to use.
+         *
+         * @see https://eslint.org/docs/latest/user-guide/configuring/language-options#specifying-parser-options
+         * @see https://typescript-eslint.io/architecture/parser#ecmafeatures
+         */
         ecmaFeatures?: {
             globalReturn?: boolean | undefined;
             impliedStrict?: boolean | undefined;
