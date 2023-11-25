@@ -34,7 +34,7 @@ declare namespace confetti {
         matrix: DOMMatrix;
     }
 
-    type Shape = PathShape | BitmapShape | 'square' | 'circle' | 'star';
+    type Shape = PathShape | BitmapShape | "square" | "circle" | "star";
 
     interface Options {
         /**
