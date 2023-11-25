@@ -1,19 +1,17 @@
-import passport = require("passport")
-import SteamStrategy from "passport-steam"
+import passport = require("passport");
+import SteamStrategy from "passport-steam";
 
-// $ExpectType passport.PassportStatic
 const strategy = new SteamStrategy({
     returnURL: "http://localhost:3100",
     realm: "http://localhost:3100/login/steam/callback",
     apiKey: "12345",
-    passReqToCallback: true
+    passReqToCallback: true,
 }, async (req, identifier, profile, done) => {
-    
-    const steamId = profile.id
+    const steamId = profile.id;
 
-    const user = { id: steamId }
+    const user = { id: steamId };
 
-    return done(null, user)
-})
+    return done(null, user);
+});
 
-passport.use(strategy)
+passport.use(strategy);
