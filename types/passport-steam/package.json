@@ -5,9 +5,11 @@
     "projects": [
         "https://github.com/liamcurry/passport-steam"
     ],
-    "devDependencies": {
+    "dependencies": {
         "@types/express": "*",
-        "@types/passport": "*",
+        "@types/passport": "*"
+    },
+    "devDependencies": {
         "@types/passport-steam": "workspace:."
     },
     "owners": [
