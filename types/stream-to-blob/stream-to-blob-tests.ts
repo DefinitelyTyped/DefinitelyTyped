@@ -1,7 +1,7 @@
 /// <reference types = "node"/>
 
 import { Stream } from "stream";
-import streamToBlob from "stream-to-blob";
+import streamToBlob = require("stream-to-blob");
 
 streamToBlob(new Stream.Readable(), "application/pdf"); // $ExpectType Promise<Blob>
 streamToBlob(new Stream.Readable(), null); // $ExpectType Promise<Blob>
