@@ -24,6 +24,7 @@ function test_options(): void {
         path: "/",
         expires: new Date(),
         maxAge: 200,
+        partitioned: true,
         domain: "example.com",
         secure: false,
         httpOnly: false,
