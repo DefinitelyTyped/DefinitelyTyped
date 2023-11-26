@@ -921,14 +921,14 @@ export namespace Linter {
     }
 
     /**
-     * A configuration object that may have a rules config block.
+     * A configuration object that may have a `rules` block.
      */
     interface HasRules<Rules extends RulesRecord = RulesRecord> {
         rules?: Partial<Rules> | undefined;
     }
 
     /**
-     * ESLint Configuration.
+     * ESLint configuration.
      *
      * @see [ESLint Configuration](https://eslint.org/docs/latest/user-guide/configuring/)
      */
@@ -945,21 +945,21 @@ export namespace Linter {
         env?: { [name: string]: boolean } | undefined;
 
         /**
-         * Extending Configuration Files.
+         * Extending configuration files.
          *
          * @see [Extends](https://eslint.org/docs/latest/user-guide/configuring/configuration-files#extending-configuration-files)
          */
         extends?: string | string[] | undefined;
 
         /**
-         * Specifying Globals.
+         * Specifying globals.
          *
          * @see [Globals](https://eslint.org/docs/latest/user-guide/configuring/language-options#specifying-globals)
          */
         globals?: { [name: string]: boolean | "off" | "readonly" | "readable" | "writable" | "writeable" } | undefined;
 
         /**
-         * Disabling Inline Comments.
+         * Disable processing of inline comments.
          *
          * @see [Disabling Inline Comments](https://eslint.org/docs/latest/user-guide/configuring/rules#disabling-inline-comments)
          */
@@ -981,7 +981,7 @@ export namespace Linter {
         parser?: string | undefined;
 
         /**
-         * Parser Options.
+         * Parser options.
          *
          * @see [Working with Custom Parsers](https://eslint.org/docs/latest/developer-guide/working-with-custom-parsers)
          * @see [Specifying Parser Options](https://eslint.org/docs/latest/user-guide/configuring/language-options#specifying-parser-options)
@@ -996,7 +996,7 @@ export namespace Linter {
         plugins?: string[] | undefined;
 
         /**
-         * Specifying Processor.
+         * Specifying processor.
          *
          * @see [processor](https://eslint.org/docs/latest/user-guide/configuring/plugins#specify-a-processor)
          */
@@ -1021,12 +1021,19 @@ export namespace Linter {
      * The overwrites that apply more differing configuration to specific files or directories.
      */
     interface ConfigOverride<Rules extends RulesRecord = RulesRecord> extends BaseConfig<Rules> {
+        /**
+         * The glob patterns for excluded files.
+         */
         excludedFiles?: string | string[] | undefined;
+
+        /**
+         * The glob patterns for target files.
+         */
         files: string | string[];
     }
 
     /**
-     * ESLint Configuration.
+     * ESLint configuration.
      *
      * @see [ESLint Configuration](https://eslint.org/docs/latest/user-guide/configuring/)
      */
@@ -1040,6 +1047,7 @@ export namespace Linter {
          * @see [Ignore Patterns](https://eslint.org/docs/latest/user-guide/configuring/ignoring-code)
          */
         ignorePatterns?: string | string[] | undefined;
+
         /**
          * @see [Using Configuration Files](https://eslint.org/docs/latest/user-guide/configuring/configuration-files#using-configuration-files)
          */
@@ -1101,6 +1109,7 @@ export namespace Linter {
          * @see https://eslint.org/docs/latest/user-guide/configuring/language-options#specifying-parser-options
          */
         sourceType?: "script" | "module" | undefined;
+
         /**
          * An object indicating which additional language features you'd like to use.
          *
@@ -1204,12 +1213,14 @@ export namespace Linter {
          * to all files
          */
         files?: Array<FlatConfigFileSpec | FlatConfigFileSpec[]>;
+
         /**
          * An array of glob patterns indicating the files that the configuration
          * object should not apply to. If not specified, the configuration object
          * applies to all files matched by files
          */
         ignores?: FlatConfigFileSpec[];
+
         /**
          * An object containing settings related to how JavaScript is configured for
          * linting.
@@ -1221,6 +1232,7 @@ export namespace Linter {
              * @default "latest"
              */
             ecmaVersion?: ParserOptions["ecmaVersion"];
+
             /**
              * The type of JavaScript source code. Possible values are "script" for
              * traditional script files, "module" for ECMAScript modules (ESM), and
@@ -1228,52 +1240,61 @@ export namespace Linter {
              * files; "commonjs" for .cjs files)
              */
             sourceType?: "script" | "module" | "commonjs";
+
             /**
              * An object specifying additional objects that should be added to the
              * global scope during linting.
              */
             globals?: ESLint.Environment["globals"];
+
             /**
              * An object containing a parse() or parseForESLint() method.
              * If not configured, the default ESLint parser (Espree) will be used.
              */
             parser?: ParserModule;
+
             /**
              * An object specifying additional options that are passed directly to the
              * parser() method on the parser. The available options are parser-dependent
              */
             parserOptions?: ESLint.Environment["parserOptions"];
         };
+
         /**
          * An object containing settings related to the linting process
          */
         linterOptions?: {
             /**
-             * A Boolean value indicating if inline configuration is allowed.
+             * A boolean value indicating if inline configuration is allowed.
              */
             noInlineConfig?: boolean;
+
             /**
-             * A Boolean value indicating if unused disable directives should be
+             * A boolean value indicating if unused disable directives should be
              * tracked and reported.
              */
             reportUnusedDisableDirectives?: boolean;
         };
+
         /**
          * Either an object containing preprocess() and postprocess() methods or a
          * string indicating the name of a processor inside of a plugin
          * (i.e., "pluginName/processorName").
          */
         processor?: string | Processor;
+
         /**
          * An object containing a name-value mapping of plugin names to plugin objects.
          * When files is specified, these plugins are only available to the matching files.
          */
         plugins?: Record<string, ESLint.Plugin>;
+
         /**
          * An object containing the configured rules. When files or ignores are specified,
          * these rule configurations are only available to the matching files.
          */
         rules?: RulesRecord;
+
         /**
          * An object containing name-value pairs of information that should be
          * available to all rules.
