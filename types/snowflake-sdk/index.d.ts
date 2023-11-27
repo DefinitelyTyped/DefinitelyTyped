@@ -505,6 +505,17 @@ export type Binds = Bind[] | InsertBinds;
  */
 export type InsertBinds = Bind[][];
 
+export interface ExecutionParameters {
+    JS_DRIVER_DISABLE_OCSP_FOR_NON_SF_ENDPOINTS?: boolean;
+    SERVICE_NAME?: string;
+    CLIENT_SESSION_KEEP_ALIVE?: boolean;
+    CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY?: number;
+    JS_TREAT_INTEGER_AS_BIGINT?: boolean;
+    CLIENT_STAGE_ARRAY_BINDING_THRESHOLD?: number;
+    MULTI_STATEMENT_COUNT?: number;
+    QUERY_CONTEXT_CACHE_SIZE?: number;
+}
+
 export type Connection = NodeJS.EventEmitter & {
     /**
      * Make session tokens available for testing
@@ -570,6 +581,7 @@ export type Connection = NodeJS.EventEmitter & {
          */
         fetchAsString?: Array<"String" | "Boolean" | "Number" | "Date" | "JSON" | "Buffer"> | undefined;
         complete?: (err: SnowflakeError | undefined, stmt: Statement, rows: any[] | undefined) => void;
+        parameters?: ExecutionParameters;
     }): Statement;
 
     /**
