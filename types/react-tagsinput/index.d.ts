@@ -30,7 +30,7 @@ declare namespace TagsInput {
     interface RenderTagProps<Tag = any> extends TagProps {
         readonly disabled: boolean;
         readonly getTagDisplayValue: (tag: Tag) => string;
-        readonly onRemove: (tagIndex: number) => void;
+        readonly onRemove: (tagIndex: string | number) => void;
         readonly tag: Tag;
         readonly key: string | number;
     }
