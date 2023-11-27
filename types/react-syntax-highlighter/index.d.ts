@@ -114,6 +114,11 @@ declare module "react-syntax-highlighter/dist/esm/create-element" {
     import * as React from "react";
     import { createElementProps } from "react-syntax-highlighter";
     function createElement(props: createElementProps): React.ReactNode;
+    export function createStyleObject(
+        className: string; 
+        elementStyle: Record<string, React.CSSProperties>, 
+        styleSheet: Record<string, React.CSSProperties>,
+    ): Record<string, React.CSSProperties>;
     export default createElement;
 }
 
