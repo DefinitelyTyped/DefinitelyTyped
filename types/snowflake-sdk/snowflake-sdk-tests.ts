@@ -82,14 +82,14 @@ const connectCallback = (err: snowflake.SnowflakeError | undefined, conn: snowfl
         },
         parameters: {
             JS_DRIVER_DISABLE_OCSP_FOR_NON_SF_ENDPOINTS: false,
-            SERVICE_NAME: '',
+            SERVICE_NAME: "",
             CLIENT_SESSION_KEEP_ALIVE: false,
             CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY: 3600,
             JS_TREAT_INTEGER_AS_BIGINT: false,
             CLIENT_STAGE_ARRAY_BINDING_THRESHOLD: 100000,
             MULTI_STATEMENT_COUNT: 1,
             QUERY_CONTEXT_CACHE_SIZE: 5,
-        }
+        },
     });
 
     // $ExpectType Statement
