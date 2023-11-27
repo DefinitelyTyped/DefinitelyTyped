@@ -9,7 +9,7 @@ type EffectTypes = keyof typeof effectTypes;
 type ThrowErrorKey = typeof throwErrorKey;
 type EffectTypesWithErrorKey = EffectTypes | ThrowErrorKey | END["type"];
 
-declare function throwError<TMessage extends string>(message: TMessage): Effect<ThrowErrorKey, TMessage>;
+declare function throwError<TMessage>(message?: TMessage): Effect<ThrowErrorKey, TMessage>;
 declare function stub<TArgs extends any[], TReturn>(
     genFunc: (...args: TArgs) => Generator<TReturn, any, any> | TReturn,
     ...args: TArgs
@@ -25,22 +25,22 @@ type Options<TLookup, TEffects> =
 declare function createSagaTestEngine<const TEffectConstraint extends EffectTypes>(
     effects?: Readonly<TEffectConstraint[]>
 ): (
-    genFunc: (...genArgs: any[]) => Iterator<unknown>,
+    genFunc: (...genArgs: any[]) => Iterator<unknown, any, unknown>,
     opts: Options<Effect<EffectTypesWithErrorKey>, TEffectConstraint>,
     ...initialArgs: any[]
 ) => Array<Effect<TEffectConstraint, any> | Array<Effect<TEffectConstraint, any>>>;
 declare function collectPuts(
-    genFunc: (...genArgs: any[]) => Iterator<unknown>,
+    genFunc: (...genArgs: any[]) => Iterator<unknown, any, unknown>,
     opts: Options<Effect<EffectTypesWithErrorKey, any>, "PUT">,
     ...initialArgs: any[]
 ): Array<Effect<"PUT", any> | Array<Effect<"PUT", any>>>;
 declare function collectCalls(
-    genFunc: (...genArgs: any[]) => Iterator<unknown>,
+    genFunc: (...genArgs: any[]) => Iterator<unknown, any, unknown>,
     opts: Options<Effect<EffectTypesWithErrorKey, any>, "CALL">,
     ...initialArgs: any[]
 ): Array<Effect<"CALL", any> | Array<Effect<"CALL", any>>>;
 declare function collectCallsAndPuts(
-    genFunc: (...genArgs: any[]) => Iterator<unknown>,
+    genFunc: (...genArgs: any[]) => Iterator<unknown, any, unknown>,
     opts: Options<Effect<EffectTypesWithErrorKey, any>, "PUT" | "CALL">,
     ...initialArgs: any[]
 ): Array<Effect<"PUT" | "CALL", any> | Array<Effect<"PUT" | "CALL", any>>>;
