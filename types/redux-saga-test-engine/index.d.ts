@@ -1,5 +1,5 @@
-import { type Effect, type effectTypes } from "redux-saga/effects";
 import { type END } from "@redux-saga/types";
+import { type Effect, type effectTypes } from "redux-saga/effects";
 
 declare const throwErrorKey: "@@redux-saga-test-engine/ERROR";
 
@@ -16,14 +16,14 @@ declare function stub<TArgs extends any[], TReturn>(
 ): () => TReturn;
 type Options<TLookup, TEffects> =
     | {
-          mapping: KeyValuePairs<TLookup, any>;
-          collected?: Array<Effect<TEffects> | Array<Effect<TEffects>>>;
-          maxSteps?: number;
-      }
+        mapping: KeyValuePairs<TLookup, any>;
+        collected?: Array<Effect<TEffects> | Array<Effect<TEffects>>>;
+        maxSteps?: number;
+    }
     | KeyValuePairs<TLookup, any>
     | any[][]; // This is loose, but covers `sagaEnv = [...]` then `collectPuts(fn, sagaEnv)` case. Other inference only works inline
 declare function createSagaTestEngine<const TEffectConstraint extends EffectTypes>(
-    effects?: Readonly<TEffectConstraint[]>
+    effects?: Readonly<TEffectConstraint[]>,
 ): (
     genFunc: (...genArgs: any[]) => Iterator<unknown, any, unknown>,
     opts: Options<Effect<EffectTypesWithErrorKey>, TEffectConstraint>,
