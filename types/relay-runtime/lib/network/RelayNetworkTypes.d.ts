@@ -111,7 +111,7 @@ export type SubscribeFunction = (
 
 export type Uploadable = File | Blob;
 export interface UploadableMap {
-    [key: string]: Uploadable;
+    [key: string]: Uploadable | Uploadable[];
 }
 
 /**
