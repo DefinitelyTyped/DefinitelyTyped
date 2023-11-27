@@ -22,7 +22,7 @@ declare namespace request {
     type MultipartValueSingle = Blob | Buffer | fs.ReadStream | string | boolean | number;
 
     type MultipartValue = MultipartValueSingle | MultipartValueSingle[];
-    
+
     interface SuperAgentRequest extends Request {
         agent(agent?: http.Agent): this;
 
@@ -30,7 +30,7 @@ declare namespace request {
         method: string;
         url: string;
     }
-    
+
     interface SuperAgentStatic extends SuperAgent<SuperAgentRequest> {
         (url: string): SuperAgentRequest;
         // tslint:disable-next-line:unified-signatures
