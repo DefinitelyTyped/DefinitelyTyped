@@ -6,7 +6,7 @@ import {
     stub,
     throwError,
 } from "redux-saga-test-engine";
-import { call, put } from "redux-saga/effects";
+import { call, put, type Effect } from "redux-saga/effects";
 
 const errorEffect = throwError("Test Error");
 // $ExpectType Effect<"@@redux-saga-test-engine/ERROR", string>
