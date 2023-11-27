@@ -26,6 +26,8 @@ import {
     ROOT_ID,
     ROOT_TYPE,
     Store,
+    Uploadable,
+    UploadableMap,
     Variables,
 } from "relay-runtime";
 
@@ -749,3 +751,55 @@ ConnectionInterface.inject({
     PAGE_INFO_TYPE: "PageInfo",
     START_CURSOR: "startCursor",
 });
+
+// ~~~~~~~~~~~~~~~~~~~~~
+// UploadableMap
+// ~~~~~~~~~~~~~~~~~~~~~
+
+// Sample function that uses UploadableMap, simulating a real use-case
+function createUploadables(uploadables: UploadableMap) {
+    // This function would do something meaningful with UploadableMap
+    // For testing purposes, there's no implementation required
+}
+
+// Create instances of File and Blob to use as uploadables
+const file: Uploadable = new File([""], "filename.txt");
+const blob: Uploadable = new Blob([""], { type: "text/plain" });
+
+// Test the UploadableMap with a single File instance
+const singleFileUploadableMap: UploadableMap = {
+    "singleFile": file,
+};
+
+createUploadables(singleFileUploadableMap);
+
+// Test the UploadableMap with a single Blob instance
+const singleBlobUploadableMap: UploadableMap = {
+    "singleBlob": blob,
+};
+
+createUploadables(singleBlobUploadableMap);
+
+// Test the UploadableMap with multiple File instances
+const multipleFilesUploadableMap: UploadableMap = {
+    "multipleFiles": [file, file], // Multiple Files
+};
+
+createUploadables(multipleFilesUploadableMap);
+
+// Test the UploadableMap with multiple Blob instances
+const multipleBlobsUploadableMap: UploadableMap = {
+    "multipleBlobs": [blob, blob], // Multiple Blobs
+};
+
+createUploadables(multipleBlobsUploadableMap);
+
+// Test the UploadableMap with mixed single and multiple uploadable instances
+const mixedUploadableMap: UploadableMap = {
+    "singleFile": file,
+    "multipleFiles": [file, file],
+    "singleBlob": blob,
+    "multipleBlobs": [blob, blob],
+};
+
+createUploadables(mixedUploadableMap);
