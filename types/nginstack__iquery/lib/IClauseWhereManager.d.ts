@@ -10,7 +10,7 @@ declare class IClauseWhereManager {
     makeClauseWhere(iQuery: IQuery, literalClause: any, join?: boolean): IClauseWhere;
 }
 declare namespace IClauseWhereManager {
-    export { IClauseWhere, IQuery };
+    export { IQuery, IClauseWhere };
 }
-type IQuery = import("./IQuery");
-type IClauseWhere = import("./IClauseWhere");
+type IQuery = import('./IQuery');
+type IClauseWhere = import('./IClauseWhere');
