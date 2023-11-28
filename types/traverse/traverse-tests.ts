@@ -75,3 +75,25 @@ function testPropsAndFuncs() {
 
     console.dir(obj);
 }
+
+function testLifecycleFns() {
+    var obj = [5, 6, -3, [7, 8, -2, 1], { f: 10, g: -13 }];
+    traverse(obj).map(function (x) {
+        this.before(function (node) {
+            console.log(node);
+        });
+
+        this.pre(function(node, key) {
+            console.log(node);
+            console.log(key);
+        });
+
+        this.post(function(node) {
+            console.log(node);
+        });
+
+        this.after(function(node) {
+            console.log(node);
+        });
+    })
+}

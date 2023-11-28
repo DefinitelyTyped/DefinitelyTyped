@@ -20,6 +20,10 @@
         {
             "name": "Guten Ye",
             "url": "https://guten.me"
+        },
+        {
+            "name": "Josh Mock",
+            "githubUsername": "joshmock"
         }
     ]
 }
