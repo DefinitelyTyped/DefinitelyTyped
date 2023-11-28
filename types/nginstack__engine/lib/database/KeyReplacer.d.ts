@@ -25,7 +25,7 @@ declare class KeyReplacer {
     ): number;
 }
 declare namespace KeyReplacer {
-    const partitionDateFields_: Record<string, string>;
+    let partitionDateFields_: Record<string, string>;
     function registerPartitionDateField(tableName: string, dateFieldName: string): void;
 }
 import DataSet = require('../dataset/DataSet.js');
