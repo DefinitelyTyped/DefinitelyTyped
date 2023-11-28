@@ -8,12 +8,12 @@ export type DataSetFieldType =
     | 'datetime'
     | 'boolean';
 export type exports = string;
-declare const STRING: string;
-declare const MEMO: string;
-declare const INT32: string;
-declare const INT64: string;
-declare const NUMBER: string;
-declare const DATE: string;
-declare const DATETIME: string;
-declare const BOOLEAN: string;
+declare let STRING: string;
+declare let MEMO: string;
+declare let INT32: string;
+declare let INT64: string;
+declare let NUMBER: string;
+declare let DATE: string;
+declare let DATETIME: string;
+declare let BOOLEAN: string;
 export {};

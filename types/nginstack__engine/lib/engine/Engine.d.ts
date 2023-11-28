@@ -8,6 +8,7 @@ declare class Engine {
     keyCacheRange: number;
     version: string;
     versionInfo: VersionInfo;
+    java: JavaInfo;
     platform: string;
     arch: string;
     applicationPath: string;
@@ -31,7 +32,7 @@ declare class Engine {
     discardEndpointInfoCache(): void;
 }
 declare namespace Engine {
-    export { ProgressMonitor, SessionManager, VersionInfo };
+    export { ProgressMonitor, SessionManager, VersionInfo, JavaInfo };
 }
 type ProgressMonitor = import('../progress/ProgressMonitor');
 type SessionManager = import('../session/SessionManager');
@@ -39,4 +40,9 @@ interface VersionInfo {
     fileVersion: string;
     legalCopyright: string;
     companyName: string;
+}
+interface JavaInfo {
+    version: string;
+    home: string;
+    vendor: string;
 }

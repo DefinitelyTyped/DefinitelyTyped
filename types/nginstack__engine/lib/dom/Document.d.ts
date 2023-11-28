@@ -32,11 +32,11 @@ declare namespace Document {
 }
 type DocumentType = import('./DocumentType');
 type Element = import('./Element');
+type Attr = import('./Attr');
+type NodeList = import('./NodeList');
 type DocumentFragment = import('./DocumentFragment');
 type Text = import('./Text');
 type Comment = import('./Comment');
 type CDATASection = import('./CDATASection');
 type ProcessingInstruction = import('./ProcessingInstruction');
-type Attr = import('./Attr');
 type EntityReference = import('./EntityReference');
-type NodeList = import('./NodeList');

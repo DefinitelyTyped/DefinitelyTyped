@@ -1,6 +1,6 @@
 export type exports = string;
-declare const MODEL: string;
-declare const VIEW: string;
-declare const CONFIG: string;
-declare const NON_STRICT_MODEL: string;
+declare let MODEL: string;
+declare let VIEW: string;
+declare let CONFIG: string;
+declare let NON_STRICT_MODEL: string;
 export {};
