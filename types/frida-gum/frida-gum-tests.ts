@@ -169,6 +169,9 @@ Memory.scan(ptr("0x1234"), Process.pageSize, new MatchPattern("13 37"), {
 // $ExpectType Module
 Process.mainModule;
 
+// $ExpectType ApiResolver
+const resolver = new ApiResolver("swift");
+
 // $ExpectType number
 File.SEEK_SET;
 // $ExpectType number
