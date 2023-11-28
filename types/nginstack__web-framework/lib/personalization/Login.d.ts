@@ -12,10 +12,9 @@ declare class Login {
     cssFileKey: DBKey;
 }
 declare namespace Login {
-    function getInstance(userAgent: number | DBKey): Login;
+    function getInstance(userAgent: any): Login;
     function getDirectories(): Array<{
         name: string;
         value: number;
     }>;
 }
-import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");

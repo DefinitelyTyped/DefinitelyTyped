@@ -2,7 +2,7 @@ export = HighchartsVisualization;
 declare function HighchartsVisualization(definition: any): void;
 declare class HighchartsVisualization {
     constructor(definition: any);
-    onGetOptions: Event;
+    onGetOptions: any;
     private canExport_;
     setCanExport(): never;
     private chart_;
@@ -13,4 +13,4 @@ declare class HighchartsVisualization {
 declare namespace HighchartsVisualization {
     export { Event };
 }
-type Event = import("@nginstack/engine/lib/event/Event");
+type Event = any;

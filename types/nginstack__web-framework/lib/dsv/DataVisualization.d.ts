@@ -4,7 +4,7 @@ declare class DataVisualization {
     constructor(definition: any);
     dataSourceQuery: DataSourceQuery;
     private dataSource_;
-    help: string;
+    help: any;
     protected dataSourceOptions_(): any;
     hasData(): boolean;
     protected createMap_(array: any[]): {
@@ -20,5 +20,4 @@ declare class DataVisualization {
     protected initFilters_(): void;
     filters: VisualizationFilters;
 }
-import DataSourceQuery = require("@nginstack/datasource/lib/DataSourceQuery.js");
-import VisualizationFilters = require("./VisualizationFilters.js");
+import VisualizationFilters = require('./VisualizationFilters.js');

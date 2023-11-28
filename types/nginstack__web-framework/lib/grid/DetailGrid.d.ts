@@ -8,19 +8,19 @@ declare class DetailGrid {
     private lastMasterBookmarkSynchronized;
     maxRecordCount: any;
     masterDeleteAction: number;
-    onCreateDataSet: Event;
-    onMasterInsert: Event;
-    onMasterScroll: Event;
-    onMasterPost: Event;
-    onMasterCancel: Event;
-    onMasterDelete: Event;
+    onCreateDataSet: any;
+    onMasterInsert: any;
+    onMasterScroll: any;
+    onMasterPost: any;
+    onMasterCancel: any;
+    onMasterDelete: any;
     private prepare;
     protected sync_(...args: any[]): void;
     config(): void;
     title: any;
     readOnly: boolean;
     classKey: any;
-    defaultMasterDetailCreateDataSet(sender: any): DataSet;
+    defaultMasterDetailCreateDataSet(sender: any): any;
     defaultMasterDetailBeforeInsert(sender: any): void;
     defaultMasterDetailAfterInsert(sender: any): void;
     defaultMasterDetailScroll(detailGrid: any): void;
@@ -46,5 +46,4 @@ declare class DetailGrid {
 declare namespace DetailGrid {
     export { Event };
 }
-type Event = import("@nginstack/engine/lib/event/Event");
-import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
+type Event = any;

@@ -4,24 +4,23 @@ declare class TreeView {
     constructor(field: any);
     field: any;
     readOnly: boolean;
-    nodes: StringList;
+    nodes: any;
 }
 declare namespace TreeView {
     export { AbstractTree as AbstractTree_ };
     export { TreeChild as TreeChild_ };
 }
-import StringList = require("@nginstack/engine/lib/string/StringList.js");
 declare function AbstractTree(treeView: any, parent: any): void;
 declare class AbstractTree {
     private constructor();
     treeView: any;
     parent: any;
     children: any[];
-    onAddition: LegacyEvent;
-    onDeletion: LegacyEvent;
-    onExpand: LegacyEvent;
-    onCollapse: LegacyEvent;
-    onGetTreeIcon: LegacyEvent;
+    onAddition: any;
+    onDeletion: any;
+    onExpand: any;
+    onCollapse: any;
+    onGetTreeIcon: any;
     autoExpand: boolean;
     expanded: boolean;
     nId: number;
@@ -40,9 +39,8 @@ declare class TreeChild {
     constructor(treeView: any, parent: any, css: any);
     nId: any;
     css: any;
-    fHtml: any;
-    getHtml(): any;
+    fHtml: string;
+    getHtml(): string;
     getIsLast(): boolean;
     getIsFirst(): boolean;
 }
-import LegacyEvent = require("@nginstack/engine/lib/event/LegacyEvent.js");

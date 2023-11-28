@@ -1,13 +1,12 @@
 export = warnIfDataSetChangeState;
 declare function warnIfDataSetChangeState(
-    ds: DataSet,
+    ds: any,
     message: string,
     func: (arg0: DataSet) => any,
-    thisObj?: any,
+    thisObj?: any
 ): any;
 declare namespace warnIfDataSetChangeState {
-    export { DataSet, logger_ };
+    export { logger_, DataSet };
 }
-type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
-declare var logger_: Logger;
-import Logger = require("@nginstack/engine/lib/log/Logger.js");
+type DataSet = any;
+declare let logger_: any;

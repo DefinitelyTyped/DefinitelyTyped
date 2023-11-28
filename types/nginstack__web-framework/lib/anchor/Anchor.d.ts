@@ -3,18 +3,18 @@ declare function Anchor(
     name: any,
     nextInteractionNameOrFunction: any,
     nextProcessKey: any,
-    createNewTab: any,
+    createNewTab: any
 ): void;
 declare class Anchor {
     constructor(
         name: any,
         nextInteractionNameOrFunction: any,
         nextProcessKey: any,
-        createNewTab: any,
+        createNewTab: any
     );
     private _changedProperties;
     name: string;
-    onClick: LegacyEvent;
+    onClick: any;
     private parameters_;
     params: {};
     private logger_;
@@ -58,6 +58,5 @@ declare class Anchor {
 declare namespace Anchor {
     export { createProcess, Process };
 }
-import LegacyEvent = require("@nginstack/engine/lib/event/LegacyEvent.js");
-type Process = import("../process/Process");
-declare var createProcess: any;
+type Process = import('../process/Process');
+declare let createProcess: any;

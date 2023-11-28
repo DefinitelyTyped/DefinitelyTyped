@@ -8,14 +8,13 @@ declare class UploadedFile {
         options?: {
             name?: string;
             key?: number;
-        },
+        }
     ): number;
     uploadToLobStorage(
         classKey: number | DBKey,
         options?: {
             name?: string;
             key?: number;
-        },
+        }
     ): number;
 }
-import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");

@@ -31,7 +31,7 @@ declare class GridField {
     fieldIndexesToTreeSync: any[];
     dsOriginalTree: any;
     dsTreeIndexSuffix: string;
-    dsTreeStructure: DataSet;
+    dsTreeStructure: any;
     private getNextFieldAtView;
     private getPriorFieldAtView;
     private getNextEditableFieldAtView;
@@ -39,7 +39,7 @@ declare class GridField {
     private visibleAtView;
     private _checkInformedFields;
     private validateClassFieldChange_;
-    validateInput: (value: any) => any;
+    validateInput: any;
     protected _checkSaveInputAsDefault(context: {
         processKey: number;
         interactionName: string;
@@ -79,8 +79,7 @@ declare class GridField {
     private _tableViewWidth;
 }
 declare namespace GridField {
-    export { DetailGrid, LookupMultipleInsertEvent };
+    export { LookupMultipleInsertEvent, DetailGrid };
 }
-type DetailGrid = import("./DetailGrid");
-import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
-type LookupMultipleInsertEvent = import("../classdef/LookupMultipleInsertEvent");
+type DetailGrid = import('./DetailGrid');
+type LookupMultipleInsertEvent = import('../classdef/LookupMultipleInsertEvent');

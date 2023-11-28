@@ -2,7 +2,7 @@ export = EChartsVisualization;
 declare function EChartsVisualization(definition: any): void;
 declare class EChartsVisualization {
     constructor(definition: any);
-    onGetOptions: Event;
+    onGetOptions: any;
     private chart_;
     render(outputObj: any): void;
     queryData(filterValues: Record<string, any>): void;
@@ -11,4 +11,4 @@ declare class EChartsVisualization {
 declare namespace EChartsVisualization {
     export { Event };
 }
-type Event = import("@nginstack/engine/lib/event/Event");
+type Event = any;

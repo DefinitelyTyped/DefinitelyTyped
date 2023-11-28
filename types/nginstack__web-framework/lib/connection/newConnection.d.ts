@@ -1,5 +1,2 @@
-declare function _exports(
-    key: any,
-    dbName: any,
-): import("@nginstack/engine/lib/connection/Connection");
+declare function _exports(key: any, dbName: any): any;
 export = _exports;

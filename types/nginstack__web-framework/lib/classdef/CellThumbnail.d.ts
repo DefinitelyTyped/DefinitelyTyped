@@ -13,4 +13,3 @@ declare class CellThumbnail {
     clone(): CellThumbnail;
     getImages(key: number | null): string[];
 }
-import LegacyEvent = require("@nginstack/engine/lib/event/LegacyEvent.js");

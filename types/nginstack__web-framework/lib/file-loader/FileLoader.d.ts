@@ -19,7 +19,7 @@ declare class FileLoader {
     private saveManifest_;
     private createUID_;
     authorizeUpload(options: UploadOptions | Record<any, any>): string;
-    handleUploadRequest(uploadId: string, request: Request): FileInfoUpload[];
+    handleUploadRequest(uploadId: string, request: any): FileInfoUpload[];
     deleteUploadedFile(uploadId: string, fileId: string): boolean;
     getUploadedFiles(uploadId: string): UploadedFile[];
     private getFileInfoFromVfs_;
@@ -30,16 +30,19 @@ declare class FileLoader {
     private getFileInfo_;
     authorizeDownload(
         files: string | number | DBKey | Array<string | number | DBKey>,
-        options: DownloadOptions | Record<any, any>,
+        options: DownloadOptions | Record<any, any>
     ): string;
     tryGetDownloadFile(downloadId: string): DownloadFile;
     purgeExpiredFiles(): void;
 }
 declare namespace FileLoader {
-    export { FileInfo, FileInfoUpload, Request };
+    export { Request, FileInfoUpload, FileInfo };
 }
-import UploadOptions = require("./UploadOptions.js");
-type Request = import("@nginstack/engine/lib/http/Request");
+import UploadOptions = require('./UploadOptions.js');
+import UploadedFile = require('./UploadedFile.js');
+import DownloadOptions = require('./DownloadOptions.js');
+import DownloadFile = require('./DownloadFile.js');
+type Request = any;
 interface FileInfoUpload {
     fileId: string;
     name: string;
@@ -47,10 +50,6 @@ interface FileInfoUpload {
     lastModified: number;
     contentType: string;
 }
-import UploadedFile = require("./UploadedFile.js");
-import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
-import DownloadOptions = require("./DownloadOptions.js");
-import DownloadFile = require("./DownloadFile.js");
 interface FileInfo {
     name: string;
     filePath: string;

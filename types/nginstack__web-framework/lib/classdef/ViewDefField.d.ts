@@ -32,10 +32,10 @@ declare class ViewDefField {
     width: number;
     enterKeyAction:
         | {
-            IGNORE: string;
-            NEWLINE: string;
-            DONE: string;
-        }
+              IGNORE: string;
+              NEWLINE: string;
+              DONE: string;
+          }
         | string;
     private tableViewLabel;
     controlType: string;
@@ -82,13 +82,13 @@ declare class ViewDefField {
     detailDescendingIndexFieldNames: string;
     masterDetailMaxRecordCount: number;
     private _createEvent;
-    onOpenKey: Event;
-    onCalculate: Event;
-    onGetTreeIcon: Event;
-    onFocus: Event;
-    onBlur: Event;
-    onLookupMultipleInsert: Event;
-    onDefineGrid: Event;
+    onOpenKey: any;
+    onCalculate: any;
+    onGetTreeIcon: any;
+    onFocus: any;
+    onBlur: any;
+    onLookupMultipleInsert: any;
+    onDefineGrid: any;
     links: AnchorCollection;
     private getIsDataSetField;
     private _getClassDef;
@@ -117,14 +117,14 @@ declare class ViewDefField {
     isMasterDetail(): boolean;
 }
 declare namespace ViewDefField {
-    export { Event, FieldAggregator, Grid, Link, ViewDef, VM_LIST, VM_THUMBNAIL };
+    export { VM_THUMBNAIL, VM_LIST, FieldAggregator, Event, ViewDef, Grid, Link };
 }
-type Grid = import("../grid/Grid");
-type ViewDef = import("./ViewDef");
-type Event = import("@nginstack/engine/lib/event/Event");
-import AnchorCollection = require("../anchor/AnchorCollection.js");
-import CellThumbnail = require("./CellThumbnail.js");
-type Link = import("../anchor/Link");
-type FieldAggregator = import("../field-aggregator/FieldAggregator");
-declare var VM_THUMBNAIL: number;
-declare var VM_LIST: number;
+type Grid = import('../grid/Grid');
+type ViewDef = import('./ViewDef');
+import AnchorCollection = require('../anchor/AnchorCollection.js');
+import CellThumbnail = require('./CellThumbnail.js');
+type Link = import('../anchor/Link');
+type FieldAggregator = import('../field-aggregator/FieldAggregator');
+declare let VM_THUMBNAIL: number;
+declare let VM_LIST: number;
+type Event = any;
