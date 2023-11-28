@@ -6,4 +6,4 @@ declare class ServerComponent {
     private pairName_;
     dispose(): void;
 }
-import Component = require('./Component.js');
+import Component = require("./Component.js");

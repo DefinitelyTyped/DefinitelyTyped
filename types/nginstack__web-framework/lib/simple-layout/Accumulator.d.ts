@@ -13,4 +13,4 @@ declare class Accumulator {
 declare namespace Accumulator {
     export { SimpleLayout };
 }
-type SimpleLayout = import('./SimpleLayout');
+type SimpleLayout = import("./SimpleLayout");

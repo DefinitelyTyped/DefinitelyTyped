@@ -20,7 +20,7 @@ declare class VisualizationDef {
 declare namespace VisualizationDef {
     export { Visualization, VisualizationFilterDef };
 }
-type VisualizationFilterDef = import('./VisualizationFilterDef');
-import VisualizationHeaderDef = require('./VisualizationHeaderDef.js');
-import VisualizationFooterDef = require('./VisualizationFooterDef.js');
-type Visualization = import('./Visualization');
+type VisualizationFilterDef = import("./VisualizationFilterDef");
+import VisualizationHeaderDef = require("./VisualizationHeaderDef.js");
+import VisualizationFooterDef = require("./VisualizationFooterDef.js");
+type Visualization = import("./Visualization");

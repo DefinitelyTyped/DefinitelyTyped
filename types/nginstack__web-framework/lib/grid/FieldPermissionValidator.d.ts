@@ -3,14 +3,14 @@ declare function FieldPermissionValidator(
     manager: FieldPermissionValidatorManager,
     permField: string,
     classKey: number,
-    userKey: number
+    userKey: number,
 ): void;
 declare class FieldPermissionValidator {
     constructor(
         manager: FieldPermissionValidatorManager,
         permField: string,
         classKey: number,
-        userKey: number
+        userKey: number,
     );
     private handlerFunc_;
     private makeDeprecatedHandler_;

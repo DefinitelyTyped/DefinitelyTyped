@@ -17,9 +17,9 @@ declare class AutofillStore {
     private findEntry_;
 }
 declare namespace AutofillStore {
-    export { getInstance, AutofillRecordKey, AutofillRecord };
+    export { AutofillRecord, AutofillRecordKey, getInstance };
 }
-import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
+import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
 declare function getInstance(): AutofillStore;
 interface AutofillRecordKey {
     processKey: number;
