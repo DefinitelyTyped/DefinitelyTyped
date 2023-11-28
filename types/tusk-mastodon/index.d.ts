@@ -1,13 +1,13 @@
 declare class TuskMastodonInstance {
     constructor(options: TuskMastodonOptions);
 
-    put(path: string, params: GeneralObject): Promise<GeneralObject>;
-    get(path: string, params: GeneralObject): Promise<GeneralObject>;
-    post(path: string, params: GeneralObject): Promise<GeneralObject>;
-    patch(path: string, params: GeneralObject): Promise<GeneralObject>;
-    delete(path: string, params: GeneralObject): Promise<GeneralObject>;
+    put(path: string, params?: GeneralObject): Promise<GeneralObject>;
+    get(path: string, params?: GeneralObject): Promise<GeneralObject>;
+    post(path: string, params?: GeneralObject): Promise<GeneralObject>;
+    patch(path: string, params?: GeneralObject): Promise<GeneralObject>;
+    delete(path: string, params?: GeneralObject): Promise<GeneralObject>;
 
-    request(method: ValidHTTPMethod, path: string, params: GeneralObject): Promise<GeneralObject>;
+    request(method: ValidHTTPMethod, path: string, params?: GeneralObject): Promise<GeneralObject>;
 
     getAuth(): { "access_token": string };
     setAuth(auth: { "access_token": string }): void;
