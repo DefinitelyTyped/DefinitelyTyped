@@ -25,13 +25,13 @@ import {
     MovingDolly,
     RedHatApplications,
     SolarField,
+    Spss,
     SystemsDevopsAnalyze,
     Upload_01,
     UserMask,
     Video_01,
     Visibility,
     WatsonLogo,
-    Spss
 } from "@carbon/pictograms-react";
 import * as React from "react";
 
