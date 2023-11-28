@@ -3566,29 +3566,32 @@ interface ApiResolverMatch {
 
 type ApiResolverType =
     /**
-     * Resolves exported and imported functions of shared libraries
-     * currently loaded.
+     * Resolves module exports, imports, and sections.
      *
      * Always available.
      *
-     * Example query: `"exports:*!open*"`
-     * Which may resolve to: `"/usr/lib/libSystem.B.dylib!opendir$INODE64"`
+     * Example queries:
+     * - `"exports:*!open*"`
+     * - `"imports:*!open*"`
+     * - `"sections:*!*text*"`
+     *
      * Suffix with `/i` to perform case-insensitive matching.
      */
     | "module"
     /**
-     * Resolves Swift methods of classes currently loaded.
+     * Resolves Swift functions.
      *
      * Available in processes that have a Swift runtime loaded. Use
      * `Swift.available` to check at runtime, or wrap your
      * `new ApiResolver("swift")` call in a try-catch.
      *
      * Example query: `"functions:*CoreDevice!*RemoteDevice*"`
+     *
      * Suffix with `/i` to perform case-insensitive matching.
      */
     | "swift"
     /**
-     * Resolves Objective-C methods of classes currently loaded.
+     * Resolves Objective-C methods.
      *
      * Available on macOS and iOS in processes that have the Objective-C
      * runtime loaded. Use `ObjC.available` to check at runtime, or wrap
@@ -3596,6 +3599,7 @@ type ApiResolverType =
      *
      * Example query: `"-[NSURL* *HTTP*]"`
      * Which may resolve to: `"-[NSURLRequest valueForHTTPHeaderField:]"`
+     *
      * Suffix with `/i` to perform case-insensitive matching.
      */
     | "objc";
