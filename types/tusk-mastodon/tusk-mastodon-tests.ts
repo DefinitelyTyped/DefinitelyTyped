@@ -6,6 +6,10 @@ const T = new Tusk({
     "timeout_ms": 1,
 });
 
+new Tusk({
+    "access_token": "string",
+});
+
 T.put("test", {}).then().catch();
 T.get("test", {}).then().catch();
 T.post("test", {}).then().catch();
