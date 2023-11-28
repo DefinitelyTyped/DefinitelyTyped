@@ -1,7 +1,7 @@
 export = TestRunner;
 declare function TestRunner(
     opt_rootClasses?: number | string,
-    opt_products?: number | string
+    opt_products?: number | string,
 ): void;
 declare class TestRunner {
     constructor(opt_rootClasses?: number | string, opt_products?: number | string);
@@ -41,10 +41,10 @@ declare class TestRunner {
     getTestIdsByClass(classKey: number): any[];
 }
 declare namespace TestRunner {
-    export { RunModes, run, runOnCluster, Event, TestSuiteInfo, TestResult, RunResult };
+    export { Event, run, RunModes, runOnCluster, RunResult, TestResult, TestSuiteInfo };
 }
-import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
-type Event = import('@nginstack/engine/lib/event/LegacyEvent');
+import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
+type Event = import("@nginstack/engine/lib/event/LegacyEvent");
 declare namespace RunModes {
     let CONTINUE_IF_FAIL: string;
     let BREAK_IF_FAIL: string;

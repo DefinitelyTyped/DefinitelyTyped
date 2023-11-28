@@ -47,8 +47,8 @@ declare class DataSourceField {
         src:
             | DataSourceField
             | {
-                  [x: string]: any;
-              }
+                [x: string]: any;
+            },
     ): void;
     toString(): string;
     clone(): DataSourceField;

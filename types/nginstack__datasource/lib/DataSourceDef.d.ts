@@ -15,10 +15,10 @@ declare class DataSourceDef {
     private autoPurgeUnsolicitedColumns;
 }
 declare namespace DataSourceDef {
-    export { DataSet, DataSource, DataSourceFilters, DataSourceColumns, DataSourceSecurityMode };
+    export { DataSet, DataSource, DataSourceColumns, DataSourceFilters, DataSourceSecurityMode };
 }
 type DataSourceSecurityMode = any;
-type DataSource = import('./DataSource');
-type DataSourceFilters = import('./DataSourceFilters');
-type DataSourceColumns = import('./DataSourceColumns');
-type DataSet = import('@nginstack/engine/lib/dataset/DataSet');
+type DataSource = import("./DataSource");
+type DataSourceFilters = import("./DataSourceFilters");
+type DataSourceColumns = import("./DataSourceColumns");
+type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
