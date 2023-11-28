@@ -11,5 +11,5 @@ declare class EChartsVisualizationDef {
 declare namespace EChartsVisualizationDef {
     export { DataSet, EChartsVisualization };
 }
-type EChartsVisualization = import('./EChartsVisualization');
-type DataSet = import('@nginstack/engine/lib/dataset/DataSet');
+type EChartsVisualization = import("./EChartsVisualization");
+type DataSet = import("@nginstack/engine/lib/dataset/DataSet");

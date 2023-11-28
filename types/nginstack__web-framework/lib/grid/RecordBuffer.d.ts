@@ -16,4 +16,4 @@ declare class RecordBuffer {
     setLength(len: number): void;
     private toString;
 }
-import FieldBuffer = require('./FieldBuffer.js');
+import FieldBuffer = require("./FieldBuffer.js");

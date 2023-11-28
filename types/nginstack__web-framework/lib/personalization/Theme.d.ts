@@ -17,4 +17,4 @@ declare namespace Theme {
     }>;
     function getCurrent(): Theme;
 }
-import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
+import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
