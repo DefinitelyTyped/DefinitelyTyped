@@ -8,5 +8,5 @@ declare class EntitySetOptions {
 declare namespace EntitySetOptions {
     export { Field, ModelDef };
 }
-type Field = import('@nginstack/engine/lib/classdef/Field');
-type ModelDef = import('@nginstack/engine/lib/classdef/ModelDef');
+type Field = import("@nginstack/engine/lib/classdef/Field");
+type ModelDef = import("@nginstack/engine/lib/classdef/ModelDef");

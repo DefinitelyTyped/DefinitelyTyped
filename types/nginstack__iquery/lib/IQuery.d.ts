@@ -24,12 +24,12 @@ declare class IQuery {
     toSql(): string;
 }
 declare namespace IQuery {
-    export { defaultCheckPermission, from, DBKey, IClauseJoin };
+    export { DBKey, defaultCheckPermission, from, IClauseJoin };
 }
-import IClauseSelect = require('./IClauseSelect.js');
-import IJoinManager = require('./IJoinManager.js');
-import IClauseFrom = require('./IClauseFrom.js');
+import IClauseSelect = require("./IClauseSelect.js");
+import IJoinManager = require("./IJoinManager.js");
+import IClauseFrom = require("./IClauseFrom.js");
 declare let defaultCheckPermission: boolean;
 declare let from: any;
-type DBKey = import('@nginstack/engine/lib/dbkey/DBKey');
-type IClauseJoin = import('./IClauseJoin');
+type DBKey = import("@nginstack/engine/lib/dbkey/DBKey");
+type IClauseJoin = import("./IClauseJoin");
