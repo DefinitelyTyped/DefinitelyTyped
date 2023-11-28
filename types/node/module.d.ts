@@ -122,7 +122,9 @@ declare module "module" {
              */
             findOrigin(lineNumber: number, columnNumber: number): SourceOrigin | {};
         }
-        interface ImportAssertions extends NodeJS.Dict<string> {
+        /** @deprecated Use `ImportAttributes` instead */
+        interface ImportAssertions extends ImportAttributes {}
+        interface ImportAttributes extends NodeJS.Dict<string> {
             type?: string | undefined;
         }
         type ModuleFormat = "builtin" | "commonjs" | "json" | "module" | "wasm";
@@ -155,9 +157,13 @@ declare module "module" {
              */
             conditions: string[];
             /**
+             * @deprecated Use `importAttributes` instead
+             */
+            importAssertions: ImportAttributes;
+            /**
              *  An object whose key-value pairs represent the assertions for the module to import
              */
-            importAssertions: ImportAssertions;
+            importAttributes: ImportAttributes;
             /**
              * The module importing this one, or undefined if this is the Node.js entry point
              */
@@ -169,9 +175,13 @@ declare module "module" {
              */
             format?: ModuleFormat | null | undefined;
             /**
-             * The import assertions to use when caching the module (optional; if excluded the input will be used)
+             * @deprecated Use `importAttributes` instead
              */
-            importAssertions?: ImportAssertions | undefined;
+            importAssertions?: ImportAttributes | undefined;
+            /**
+             * The import attributes to use when caching the module (optional; if excluded the input will be used)
+             */
+            importAttributes?: ImportAttributes | undefined;
             /**
              * A signal that this hook intends to terminate the chain of `resolve` hooks.
              * @default false
@@ -209,9 +219,13 @@ declare module "module" {
              */
             format: ModuleFormat;
             /**
+             * @deprecated Use `importAttributes` instead
+             */
+            importAssertions: ImportAttributes;
+            /**
              *  An object whose key-value pairs represent the assertions for the module to import
              */
-            importAssertions: ImportAssertions;
+            importAttributes: ImportAttributes;
         }
         interface LoadFnOutput {
             format: ModuleFormat;
