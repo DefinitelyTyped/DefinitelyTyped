@@ -1,11 +1,26 @@
-import { type END } from "@redux-saga/types";
-import { type Effect, type effectTypes } from "redux-saga/effects";
+import { type Effect, type END } from "@redux-saga/types";
 
 declare const throwErrorKey: "@@redux-saga-test-engine/ERROR";
 
 type KeyValuePairs<K = unknown, V = unknown> = Map<K, V> | Array<[K, V]>;
 
-type EffectTypes = keyof typeof effectTypes;
+// See `effectTypes` const from `redux-saga`, including these inline due to compatibility issues
+type EffectTypes =
+    | "TAKE"
+    | "PUT"
+    | "ALL"
+    | "RACE"
+    | "CALL"
+    | "CPS"
+    | "FORK"
+    | "JOIN"
+    | "CANCEL"
+    | "SELECT"
+    | "ACTION_CHANNEL"
+    | "CANCELLED"
+    | "FLUSH"
+    | "GET_CONTEXT"
+    | "SET_CONTEXT";
 type ThrowErrorKey = typeof throwErrorKey;
 type EffectTypesWithErrorKey = EffectTypes | ThrowErrorKey | END["type"];
 
@@ -21,7 +36,7 @@ type Options<TLookup, TEffects> =
         maxSteps?: number;
     }
     | KeyValuePairs<TLookup, any>
-    | any[][]; // This is loose, but covers `sagaEnv = [...]` then `collectPuts(fn, sagaEnv)` case. Other inference only works inline
+    | any[][]; // This is loose, but covers `const sagaEnv = [...]` then call `collectPuts(fn, sagaEnv)` case. Other inference only works with double nested array passed inline rather than via a predefined variable.
 declare function createSagaTestEngine<const TEffectConstraint extends EffectTypes>(
     effects?: Readonly<TEffectConstraint[]>,
 ): (
