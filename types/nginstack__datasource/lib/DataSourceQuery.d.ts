@@ -14,9 +14,9 @@ declare class DataSourceQuery {
     dataSourceInstance: any;
     createFilters(filters: any[]): any;
     createColumns(columns: any[]): any;
-    execute(filters: any[], columns: any[]): DataSet;
+    execute(filters: any[], columns: any[]): any;
 }
 declare namespace DataSourceQuery {
     export { DataSet };
 }
-type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
+type DataSet = any;

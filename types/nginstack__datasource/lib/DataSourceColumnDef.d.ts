@@ -19,19 +19,19 @@ declare class DataSourceColumnDef {
 }
 declare namespace DataSourceColumnDef {
     namespace AggregateFunctions {
-        const NONE: string;
-        const SUM: string;
-        const COUNT: string;
-        const AVG: string;
-        const MAX: string;
-        const MIN: string;
+        let NONE: string;
+        let SUM: string;
+        let COUNT: string;
+        let AVG: string;
+        let MAX: string;
+        let MIN: string;
     }
     type AggregateFunctions = string;
     namespace Order {
-        const NONE_1: string;
+        let NONE_1: string;
         export { NONE_1 as NONE };
-        export const ASC: string;
-        export const DESC: string;
+        export let ASC: string;
+        export let DESC: string;
     }
     type Order = string;
 }
