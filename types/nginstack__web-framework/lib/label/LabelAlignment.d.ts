@@ -1,6 +1,6 @@
 export type exports = string;
-declare const LEFT: string;
-declare const RIGHT: string;
-declare const CENTER: string;
-declare const JUSTIFY: string;
+declare let LEFT: string;
+declare let RIGHT: string;
+declare let CENTER: string;
+declare let JUSTIFY: string;
 export {};

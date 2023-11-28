@@ -1,3 +1,3 @@
-export const ENVIRONMENT: number;
-export const LOGIN: number;
-export const LOGOUT: number;
+export let ENVIRONMENT: number;
+export let LOGIN: number;
+export let LOGOUT: number;

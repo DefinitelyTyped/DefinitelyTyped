@@ -12,8 +12,8 @@ declare class UploadDialog {
     private act_finish_;
 }
 declare namespace UploadDialog {
-    export { Process, UploadedFile };
+    export { UploadedFile, Process };
 }
-type Process = import("../process/Process");
-import UploadOptions = require("../file-loader/UploadOptions.js");
-type UploadedFile = import("../file-loader/UploadedFile");
+type Process = import('../process/Process');
+import UploadOptions = require('../file-loader/UploadOptions.js');
+type UploadedFile = import('../file-loader/UploadedFile');

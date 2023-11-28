@@ -1,7 +1,7 @@
 export type exports = string;
-declare const SUM: string;
-declare const MIN: string;
-declare const MAX: string;
-declare const AVG: string;
-declare const COUNT: string;
+declare let SUM: string;
+declare let MIN: string;
+declare let MAX: string;
+declare let AVG: string;
+declare let COUNT: string;
 export {};
