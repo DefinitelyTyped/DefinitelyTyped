@@ -22,10 +22,8 @@ declare class UpdateScript {
     copyChildrenViewPermissions(directoryKey: number): number;
 }
 declare namespace UpdateScript {
-    export { EndPointConfig, execute, ExecutionParams, ExecutionResult };
+    export { execute, EndPointConfig, ExecutionParams, ExecutionResult };
 }
-import Connection = require("@nginstack/engine/lib/connection/Connection.js");
-import Database = require("@nginstack/engine/lib/database/Database.js");
 declare function execute(params: ExecutionParams): ExecutionResult;
 interface EndPointConfig {
     host: string;
