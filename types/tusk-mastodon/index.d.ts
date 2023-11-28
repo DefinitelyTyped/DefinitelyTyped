@@ -21,7 +21,7 @@ interface TuskMastodonOptions {
      * The base URL of the Mastodon instance to connect to. Defaults to `https://mastodon.social/api/v1/`.
      */
     "api_url"?: string;
-    "timeout_ms": number;
+    "timeout_ms"?: number;
 }
 
 interface GeneralObject {
