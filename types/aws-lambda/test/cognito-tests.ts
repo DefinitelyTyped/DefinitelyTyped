@@ -248,6 +248,7 @@ const userMigration: UserMigrationTriggerHandler = async (event, _, callback) =>
     response.finalUserStatus === "RESET_REQUIRED";
     response.finalUserStatus === "FORCE_CHANGE_PASSWORD";
     boolOrUndefined = response.forceAliasCreation;
+    boolOrUndefined = response.enableSMSMFA;
     response.messageAction === "RESEND";
     response.messageAction === "SUPPRESS";
     response.desiredDeliveryMediums[0] === "EMAIL";
