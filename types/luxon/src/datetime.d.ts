@@ -7,7 +7,7 @@ import {
     ToISOTimeDurationOptions,
     ZoneOptions,
 } from "../index";
-import { CanBeInvalid, DefaultValidity, IfValid } from "./_util";
+import { CanBeInvalid, DefaultValidity, IfValid, Invalid, Valid } from "./_util";
 import { Duration, DurationLike, DurationUnits } from "./duration";
 import { Interval } from "./interval";
 import { Zone } from "./zone";
@@ -377,7 +377,7 @@ export interface ExplainedFormat {
     invalidReason?: string | undefined;
 }
 
-export type DateTimeMaybeValid = CanBeInvalid extends true ? (DateTime<true> | DateTime<false>) : DateTime;
+export type DateTimeMaybeValid = CanBeInvalid extends true ? (DateTime<Valid> | DateTime<Invalid>) : DateTime;
 
 /**
  * A DateTime is an immutable data structure representing a specific date and time and accompanying methods.
@@ -414,7 +414,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @example
      * DateTime.now().toISO() //~> now in the ISO format
      */
-    static now(): DateTime<true>;
+    static now(): DateTime<Valid>;
 
     /**
      * Create a local DateTime
@@ -480,7 +480,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
     static local(year: number, month: number, day: number, opts?: DateTimeJSOptions): DateTimeMaybeValid;
     static local(year: number, month: number, opts?: DateTimeJSOptions): DateTimeMaybeValid;
     static local(year: number, opts?: DateTimeJSOptions): DateTimeMaybeValid;
-    static local(opts?: DateTimeJSOptions): DateTime<true>;
+    static local(opts?: DateTimeJSOptions): DateTime<Valid>;
 
     /**
      * Create a DateTime in UTC
@@ -547,7 +547,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
     static utc(year: number, month: number, day: number, options?: LocaleOptions): DateTimeMaybeValid;
     static utc(year: number, month: number, options?: LocaleOptions): DateTimeMaybeValid;
     static utc(year: number, options?: LocaleOptions): DateTimeMaybeValid;
-    static utc(options?: LocaleOptions): DateTime<true>;
+    static utc(options?: LocaleOptions): DateTime<Valid>;
 
     /**
      * Create a DateTime from a JavaScript Date object. Uses the default zone.
@@ -580,7 +580,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @param options.outputCalendar - the output calendar to set on the resulting DateTime instance
      * @param options.numberingSystem - the numbering system to set on the resulting DateTime instance
      */
-    static fromSeconds(seconds: number, options?: DateTimeJSOptions): DateTime<true>;
+    static fromSeconds(seconds: number, options?: DateTimeJSOptions): DateTime<Valid>;
 
     /**
      * Create a DateTime from a JavaScript object with keys like 'year' and 'hour' with reasonable defaults.
@@ -747,7 +747,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @param reason - simple string of why this DateTime is invalid. Should not contain parameters or anything else data-dependent
      * @param explanation - longer explanation, may include parameters and other useful debugging information. Defaults to null.
      */
-    static invalid(reason: string, explanation?: string): DateTime<false>;
+    static invalid(reason: string, explanation?: string): DateTime<Invalid>;
 
     /**
      * Check if an object is a DateTime. Works across context boundaries
@@ -1451,14 +1451,14 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @param opts - options that affect the creation of the Duration
      * @param opts.conversionAccuracy - the conversion system to use. Defaults to 'casual'.
      */
-    diffNow(unit?: DurationUnits, opts?: DiffOptions): Duration<true>;
+    diffNow(unit?: DurationUnits, opts?: DiffOptions): Duration<Valid>;
 
     /**
      * Return an Interval spanning between this DateTime and another DateTime
      *
      * @param otherDateTime - the other end point of the Interval
      */
-    until(otherDateTime: DateTime): IfValid<Interval<true>, DateTime<false>, IsValid>;
+    until(otherDateTime: DateTime): IfValid<Interval<Valid>, DateTime<Invalid>, IsValid>;
 
     /**
      * Return whether this DateTime is in the same unit of time as another DateTime.
@@ -1523,7 +1523,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      */
     static min<AllValid extends boolean>(
         ...dateTimes: Array<DateTime<AllValid>>
-    ): (AllValid extends true ? DateTime<true> : never) | (AllValid extends false ? DateTime<false> : never);
+    ): (AllValid extends true ? DateTime<Valid> : never) | (AllValid extends false ? DateTime<Invalid> : never);
 
     /**
      * Return the max of several date times
@@ -1532,7 +1532,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      */
     static max<AllValid extends boolean>(
         ...dateTimes: Array<DateTime<AllValid>>
-    ): (AllValid extends true ? DateTime<true> : never) | (AllValid extends false ? DateTime<false> : never);
+    ): (AllValid extends true ? DateTime<Valid> : never) | (AllValid extends false ? DateTime<Invalid> : never);
 
     // MISC
 

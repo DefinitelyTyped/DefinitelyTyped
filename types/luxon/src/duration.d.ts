@@ -1,4 +1,4 @@
-import { CanBeInvalid, DefaultValidity, IfValid } from "./_util";
+import { CanBeInvalid, DefaultValidity, IfValid, Invalid, Valid } from "./_util";
 import { ConversionAccuracy } from "./datetime";
 import { NumberingSystem } from "./misc";
 
@@ -76,7 +76,7 @@ export type DurationInput = Duration | number | DurationLikeObject;
  */
 export type DurationLike = Duration | DurationLikeObject | number;
 
-export type DurationMaybeValid = CanBeInvalid extends true ? (Duration<true> | Duration<false>) : Duration;
+export type DurationMaybeValid = CanBeInvalid extends true ? (Duration<Valid> | Duration<Invalid>) : Duration;
 
 /**
  * A Duration object represents a period of time, like "2 months" or "1 day, 1 hour".
@@ -105,7 +105,7 @@ export class Duration<IsValid extends boolean = DefaultValidity> {
      * @param opts.numberingSystem - the numbering system to use
      * @param opts.conversionAccuracy - the conversion system to use
      */
-    static fromMillis(count: number, opts?: DurationOptions): Duration<true>;
+    static fromMillis(count: number, opts?: DurationOptions): Duration<Valid>;
 
     /**
      * Create a Duration from a JavaScript object with keys like 'years' and 'hours'.
@@ -126,7 +126,7 @@ export class Duration<IsValid extends boolean = DefaultValidity> {
      * @param opts.numberingSystem - the numbering system to use
      * @param opts.conversionAccuracy - the conversion system to use. Defaults to 'casual'.
      */
-    static fromObject(obj: DurationLikeObject, opts?: DurationOptions): Duration<true>;
+    static fromObject(obj: DurationLikeObject, opts?: DurationOptions): Duration<Valid>;
 
     /**
      * Create a Duration from DurationLike.
@@ -134,7 +134,7 @@ export class Duration<IsValid extends boolean = DefaultValidity> {
      * @param durationLike
      * Either a Luxon Duration, a number of milliseconds, or the object argument to Duration.fromObject()
      */
-    static fromDurationLike(durationLike: DurationLike): Duration<true>;
+    static fromDurationLike(durationLike: DurationLike): Duration<Valid>;
 
     /**
      * Create a Duration from an ISO 8601 duration string.
@@ -184,7 +184,7 @@ export class Duration<IsValid extends boolean = DefaultValidity> {
      * @param reason - simple string of why this datetime is invalid. Should not contain parameters or anything else data-dependent
      * @param explanation - longer explanation, may include parameters and other useful debugging information. Defaults to null.
      */
-    static invalid(reason: string, explanation?: string): Duration<false>;
+    static invalid(reason: string, explanation?: string): Duration<Invalid>;
 
     /**
      * Check if an object is a Duration. Works across context boundaries

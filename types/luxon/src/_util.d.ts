@@ -9,3 +9,6 @@ export type IfValid<ValidType, InvalidType, ThisIsValid extends boolean | undefi
     : ThisIsValid extends false ? InvalidType
     : CanBeInvalid extends true ? ValidType | InvalidType
     : ValidType;
+
+export type Valid = true;
+export type Invalid = false;

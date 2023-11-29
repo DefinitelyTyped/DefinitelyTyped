@@ -1,4 +1,4 @@
-import { CanBeInvalid, DefaultValidity, IfValid } from "./_util";
+import { CanBeInvalid, DefaultValidity, IfValid, Invalid, Valid } from "./_util";
 import { DateObjectUnits, DateTime, DateTimeOptions, DiffOptions, LocaleOptions, ToISOTimeOptions } from "./datetime";
 import { Duration, DurationLike, DurationMaybeValid, DurationUnit } from "./duration";
 
@@ -9,7 +9,7 @@ export interface IntervalObject {
 
 export type DateInput = DateTime | DateObjectUnits | Date;
 
-export type IntervalMaybeValid = CanBeInvalid extends true ? (Interval<true> | Interval<false>) : Interval;
+export type IntervalMaybeValid = CanBeInvalid extends true ? (Interval<Valid> | Interval<Invalid>) : Interval;
 
 /**
  * An Interval object represents a half-open interval of time, where each endpoint is a {@link DateTime}.
@@ -35,7 +35,7 @@ export class Interval<IsValid extends boolean = DefaultValidity> {
      * @param reason - simple string of why this Interval is invalid. Should not contain parameters or anything else data-dependent
      * @param explanation - longer explanation, may include parameters and other useful debugging information.
      */
-    static invalid(reason: string, explanation?: string): Interval<false>;
+    static invalid(reason: string, explanation?: string): Interval<Invalid>;
 
     /**
      * Create an Interval from a start DateTime and an end DateTime. Inclusive of the start but not the end.
@@ -83,12 +83,12 @@ export class Interval<IsValid extends boolean = DefaultValidity> {
     /**
      * Returns the start of the Interval
      */
-    get start(): IfValid<DateTime<true>, null, IsValid>;
+    get start(): IfValid<DateTime<Valid>, null, IsValid>;
 
     /**
      * Returns the end of the Interval
      */
-    get end(): IfValid<DateTime<true>, null, IsValid>;
+    get end(): IfValid<DateTime<Valid>, null, IsValid>;
 
     /**
      * Returns whether this Interval's end is at least its start, meaning that the Interval isn't 'backwards'.
