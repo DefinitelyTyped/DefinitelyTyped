@@ -76,7 +76,7 @@ declare namespace approuter {
      * this is useful if a middleware adds custom properties to the request object
      *
      * @example
-     *   type RequestWithSession = {
+     *   interface RequestWithSession = {
      *     session?: {}
      *   }
      *   MiddlewareHandler<RequestWithSession>

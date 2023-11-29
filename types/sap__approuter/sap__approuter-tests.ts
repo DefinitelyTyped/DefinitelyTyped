@@ -157,9 +157,9 @@ function customMiddlewareHandler(): MiddlewareHandler {
 ar.beforeRequestHandler.use("/my-ext", customMiddlewareHandler);
 
 /*************** Example 12 - middleware with custom request properties ***************/
-type RequestWithSession = {
+interface RequestWithSession {
     session?: {};
-};
+}
 
 function middlewareHandlerWithCustomProps(): MiddlewareHandler<RequestWithSession> {
     return function angularCsrfCookieHandler(
