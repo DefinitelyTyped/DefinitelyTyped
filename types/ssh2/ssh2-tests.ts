@@ -138,9 +138,9 @@ conn.on("ready", () => {
             if (err) throw err;
             console.dir(list);
             for (const item of list) {
-                console.log(item.attrs.isDirectory())
-                console.log(item.attrs.isFile())
-                console.log(item.attrs.isSymbolicLink())
+                console.log(item.attrs.isDirectory());
+                console.log(item.attrs.isFile());
+                console.log(item.attrs.isSymbolicLink());
             }
             conn.end();
         });
