@@ -12,7 +12,7 @@ export declare class ChannelProvider extends ChannelBase {
     dispatch(to: Identity, action: string, payload?: any): Promise<any>;
     processAction(action: string, payload: any, senderIdentity: ProviderIdentity): Promise<any>;
     processConnection(senderId: Identity, payload: any): Promise<any>;
-    publish(action: string, payload: any): Promise<any>[];
+    publish(action: string, payload: any): Array<Promise<any>>;
     onConnection(listener: ConnectionListener): void;
     onDisconnection(listener: DisconnectionListener): void;
     destroy(): Promise<void>;

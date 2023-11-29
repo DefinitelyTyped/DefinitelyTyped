@@ -88,7 +88,7 @@ export interface AutoLinkOptions {
     htmlEscapeNonEntities?: boolean | undefined;
     targetBlank?: boolean | undefined;
     suppressNoFollow?: boolean | undefined;
-    urlEntities?: ReadonlyArray<UrlEntity> | undefined;
+    urlEntities?: readonly UrlEntity[] | undefined;
     usernameIncludeSymbol?: boolean | undefined;
     linkAttributeBlock?: ((entity: EntityWithIndices, attributes: Attributes) => void) | undefined;
     linkTextBlock?: ((entity: EntityWithIndices, text: string) => void) | undefined;
@@ -104,7 +104,7 @@ export function autoLinkCashtags(text: string, options?: AutoLinkOptions): strin
 export function autoLinkUrlsCustom(text: string, options?: AutoLinkOptions): string;
 export function autoLinkEntities(
     text: string,
-    entities: ReadonlyArray<EntityWithIndices>,
+    entities: readonly EntityWithIndices[],
     options?: AutoLinkOptions,
 ): string;
 export function autoLinkWithJSON(text: string, json: { [key: string]: any }, options?: AutoLinkOptions): string;
@@ -151,13 +151,13 @@ export function getUnicodeTextLength(text: string): number;
 // Note: This function directly modify entities" indices
 export function convertUnicodeIndices(
     text: string,
-    entities: ReadonlyArray<EntityWithIndices>,
+    entities: readonly EntityWithIndices[],
     indicesInUTF16?: boolean,
 ): void;
 
 export function hitHighlight(
     text: string,
-    hits?: ReadonlyArray<ReadonlyArray<number>>,
+    hits?: ReadonlyArray<readonly number[]>,
     options?: { tag: string },
 ): string;
 

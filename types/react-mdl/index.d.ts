@@ -321,7 +321,7 @@ declare namespace __ReactMDL {
     interface UndecoratedTableProps
         extends __MDLClassProps, MDLHTMLAttributes, React.DOMAttributes<UndecoratedTable>, ShadowedComponent
     {
-        rows: Array<any>;
+        rows: any[];
         rowKeyColumn?: string | undefined;
 
         name?: string | undefined;

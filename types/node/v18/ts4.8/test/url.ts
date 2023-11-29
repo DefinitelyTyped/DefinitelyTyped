@@ -132,7 +132,7 @@ import * as url from "node:url";
 {
     const searchParams = new url.URLSearchParams({
         user: "abc",
-        query: ["first", "second"] as ReadonlyArray<string>,
+        query: ["first", "second"] as readonly string[],
     });
 
     assert.equal(searchParams.toString(), "user=abc&query=first%2Csecond");

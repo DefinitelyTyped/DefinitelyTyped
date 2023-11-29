@@ -1,7 +1,3 @@
 {
-    "extends": "@definitelytyped/dtslint/dt.json",
-    "rules": {
-        "ban-types": false,
-        "interface-name": false
-    }
+    "extends": "@definitelytyped/dtslint/dt.json"
 }

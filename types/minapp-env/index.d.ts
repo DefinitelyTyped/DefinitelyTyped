@@ -180,7 +180,7 @@ interface ObjectConstructor {
      * Prevents the modification of existing property attributes and values, and prevents the addition of new properties.
      * @param o Object on which to lock the attributes.
      */
-    freeze<T>(a: T[]): ReadonlyArray<T>;
+    freeze<T>(a: T[]): readonly T[];
 
     /**
      * Prevents the modification of existing property attributes and values, and prevents the addition of new properties.
@@ -496,7 +496,7 @@ interface NumberConstructor {
 declare const Number: NumberConstructor;
 
 interface TemplateStringsArray extends ReadonlyArray<string> {
-    readonly raw: ReadonlyArray<string>;
+    readonly raw: readonly string[];
 }
 
 interface Math {
@@ -972,7 +972,7 @@ interface JSON {
      * @param replacer An array of strings and numbers that acts as a approved list for selecting the object properties that will be stringified.
      * @param space Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.
      */
-    stringify(value: any, replacer?: (number | string)[] | null, space?: string | number): string;
+    stringify(value: any, replacer?: Array<number | string> | null, space?: string | number): string;
 }
 
 /**
@@ -1001,12 +1001,12 @@ interface ReadonlyArray<T> {
      * Combines two or more arrays.
      * @param items Additional items to add to the end of array1.
      */
-    concat(...items: ReadonlyArray<T>[]): T[];
+    concat(...items: Array<readonly T[]>): T[];
     /**
      * Combines two or more arrays.
      * @param items Additional items to add to the end of array1.
      */
-    concat(...items: (T | ReadonlyArray<T>)[]): T[];
+    concat(...items: Array<T | readonly T[]>): T[];
     /**
      * Adds all the elements of an array separated by the specified separator string.
      * @param separator A string used to separate one element of an array from the next in the resulting String. If omitted, the array elements are separated with a comma.
@@ -1035,32 +1035,32 @@ interface ReadonlyArray<T> {
      * @param callbackfn A function that accepts up to three arguments. The every method calls the callbackfn function for each element in array1 until the callbackfn returns false, or until the end of the array.
      * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
      */
-    every(callbackfn: (value: T, index: number, array: ReadonlyArray<T>) => boolean, thisArg?: any): boolean;
+    every(callbackfn: (value: T, index: number, array: readonly T[]) => boolean, thisArg?: any): boolean;
     /**
      * Determines whether the specified callback function returns true for any element of an array.
      * @param callbackfn A function that accepts up to three arguments. The some method calls the callbackfn function for each element in array1 until the callbackfn returns true, or until the end of the array.
      * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
      */
-    some(callbackfn: (value: T, index: number, array: ReadonlyArray<T>) => boolean, thisArg?: any): boolean;
+    some(callbackfn: (value: T, index: number, array: readonly T[]) => boolean, thisArg?: any): boolean;
     /**
      * Performs the specified action for each element in an array.
      * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the array.
      * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
      */
-    forEach(callbackfn: (value: T, index: number, array: ReadonlyArray<T>) => void, thisArg?: any): void;
+    forEach(callbackfn: (value: T, index: number, array: readonly T[]) => void, thisArg?: any): void;
     /**
      * Calls a defined callback function on each element of an array, and returns an array that contains the results.
      * @param callbackfn A function that accepts up to three arguments. The map method calls the callbackfn function one time for each element in the array.
      * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
      */
-    map<U>(callbackfn: (value: T, index: number, array: ReadonlyArray<T>) => U, thisArg?: any): U[];
+    map<U>(callbackfn: (value: T, index: number, array: readonly T[]) => U, thisArg?: any): U[];
     /**
      * Returns the elements of an array that meet the condition specified in a callback function.
      * @param callbackfn A function that accepts up to three arguments. The filter method calls the callbackfn function one time for each element in the array.
      * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
      */
     filter<S extends T>(
-        callbackfn: (value: T, index: number, array: ReadonlyArray<T>) => value is S,
+        callbackfn: (value: T, index: number, array: readonly T[]) => value is S,
         thisArg?: any,
     ): S[];
     /**
@@ -1068,14 +1068,14 @@ interface ReadonlyArray<T> {
      * @param callbackfn A function that accepts up to three arguments. The filter method calls the callbackfn function one time for each element in the array.
      * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
      */
-    filter(callbackfn: (value: T, index: number, array: ReadonlyArray<T>) => any, thisArg?: any): T[];
+    filter(callbackfn: (value: T, index: number, array: readonly T[]) => any, thisArg?: any): T[];
     /**
      * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
      * @param callbackfn A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.
      * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
      */
     reduce(
-        callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: ReadonlyArray<T>) => T,
+        callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: readonly T[]) => T,
         initialValue?: T,
     ): T;
     /**
@@ -1084,7 +1084,7 @@ interface ReadonlyArray<T> {
      * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
      */
     reduce<U>(
-        callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: ReadonlyArray<T>) => U,
+        callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: readonly T[]) => U,
         initialValue: U,
     ): U;
     /**
@@ -1093,7 +1093,7 @@ interface ReadonlyArray<T> {
      * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
      */
     reduceRight(
-        callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: ReadonlyArray<T>) => T,
+        callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: readonly T[]) => T,
         initialValue?: T,
     ): T;
     /**
@@ -1102,7 +1102,7 @@ interface ReadonlyArray<T> {
      * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
      */
     reduceRight<U>(
-        callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: ReadonlyArray<T>) => U,
+        callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: readonly T[]) => U,
         initialValue: U,
     ): U;
 
@@ -1135,12 +1135,12 @@ interface Array<T> {
      * Combines two or more arrays.
      * @param items Additional items to add to the end of array1.
      */
-    concat(...items: ReadonlyArray<T>[]): T[];
+    concat(...items: Array<readonly T[]>): T[];
     /**
      * Combines two or more arrays.
      * @param items Additional items to add to the end of array1.
      */
-    concat(...items: (T | ReadonlyArray<T>)[]): T[];
+    concat(...items: Array<T | readonly T[]>): T[];
     /**
      * Adds all the elements of an array separated by the specified separator string.
      * @param separator A string used to separate one element of an array from the next in the resulting String. If omitted, the array elements are separated with a comma.
@@ -1275,8 +1275,8 @@ interface ArrayConstructor {
     (arrayLength?: number): any[];
     <T>(arrayLength: number): T[];
     <T>(...items: T[]): T[];
-    isArray(arg: any): arg is Array<any>;
-    readonly prototype: Array<any>;
+    isArray(arg: any): arg is any[];
+    readonly prototype: any[];
 }
 
 declare const Array: ArrayConstructor;
@@ -4587,7 +4587,7 @@ interface ReadonlyArray<T> {
      * @param thisArg If provided, it will be used as the this value for each invocation of
      * predicate. If it is not provided, undefined is used instead.
      */
-    find(predicate: (value: T, index: number, obj: ReadonlyArray<T>) => boolean, thisArg?: any): T | undefined;
+    find(predicate: (value: T, index: number, obj: readonly T[]) => boolean, thisArg?: any): T | undefined;
 
     /**
      * Returns the index of the first element in the array where predicate is true, and -1
@@ -4598,7 +4598,7 @@ interface ReadonlyArray<T> {
      * @param thisArg If provided, it will be used as the this value for each invocation of
      * predicate. If it is not provided, undefined is used instead.
      */
-    findIndex(predicate: (value: T, index: number, obj: ReadonlyArray<T>) => boolean, thisArg?: any): number;
+    findIndex(predicate: (value: T, index: number, obj: readonly T[]) => boolean, thisArg?: any): number;
 }
 
 interface RegExp {
@@ -4765,7 +4765,7 @@ interface Map<K, V> {
 
 interface MapConstructor {
     new(): Map<any, any>;
-    new<K, V>(entries?: [K, V][]): Map<K, V>;
+    new<K, V>(entries?: Array<[K, V]>): Map<K, V>;
     readonly prototype: Map<any, any>;
 }
 declare var Map: MapConstructor;
@@ -4786,7 +4786,7 @@ interface WeakMap<K extends object, V> {
 
 interface WeakMapConstructor {
     new(): WeakMap<object, any>;
-    new<K extends object, V>(entries?: [K, V][]): WeakMap<K, V>;
+    new<K extends object, V>(entries?: Array<[K, V]>): WeakMap<K, V>;
     readonly prototype: WeakMap<object, any>;
 }
 declare var WeakMap: WeakMapConstructor;
@@ -5505,7 +5505,7 @@ interface PromiseConstructor {
      * @param values An array of Promises.
      * @returns A new Promise.
      */
-    all<T>(values: (T | PromiseLike<T>)[]): Promise<T[]>;
+    all<T>(values: Array<T | PromiseLike<T>>): Promise<T[]>;
 
     /**
      * Creates a Promise that is resolved or rejected when any of the provided Promises are resolved
@@ -5650,7 +5650,7 @@ interface PromiseConstructor {
      * @param values An array of Promises.
      * @returns A new Promise.
      */
-    race<T>(values: (T | PromiseLike<T>)[]): Promise<T>;
+    race<T>(values: Array<T | PromiseLike<T>>): Promise<T>;
 
     /**
      * Creates a new rejected promise for the provided reason.
@@ -6511,7 +6511,7 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         /** 当前蓝牙设备的广播数据段中的 ManufacturerData 数据段。 */
         advertisData: ArrayBuffer;
         /** 当前蓝牙设备的广播数据段中的 ServiceUUIDs 数据段 */
-        advertisServiceUUIDs: Array<string>;
+        advertisServiceUUIDs: string[];
         /** 用于区分设备的 id */
         deviceId: string;
         /** 当前蓝牙设备的广播数据段中的 LocalName 数据段 */
@@ -6710,7 +6710,7 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
          * - 'fingerPrint': 指纹识别;
          * - 'facial': 人脸识别（暂未支持）;
          * - 'speech': 声纹识别（暂未支持）; */
-        checkAuthMode: ("fingerPrint" | "facial" | "speech")[];
+        checkAuthMode: Array<"fingerPrint" | "facial" | "speech">;
 
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
@@ -6750,7 +6750,7 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
          * - 'fingerPrint': 指纹识别;
          * - 'facial': 人脸识别（暂未支持）;
          * - 'speech': 声纹识别（暂未支持）; */
-        supportMode: ("fingerPrint" | "facial" | "speech")[];
+        supportMode: Array<"fingerPrint" | "facial" | "speech">;
     }
     interface CheckSessionOption {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
@@ -6813,13 +6813,13 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
          * 可选值：
          * - 'original': 原图;
          * - 'compressed': 压缩图; */
-        sizeType?: ("original" | "compressed")[];
+        sizeType?: Array<"original" | "compressed">;
         /** 选择图片的来源
          *
          * 可选值：
          * - 'album': 从相册选图;
          * - 'camera': 使用相机; */
-        sourceType?: ("album" | "camera")[];
+        sourceType?: Array<"album" | "camera">;
 
         /** 接口调用成功的回调函数 */
 
@@ -6827,11 +6827,11 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     }
     interface ChooseImageSuccessCallbackResult {
         /** 图片的本地临时文件路径列表 */
-        tempFilePaths: Array<string>;
+        tempFilePaths: string[];
         /** 图片的本地临时文件列表
          *
          * 最低基础库： `1.2.0` */
-        tempFiles: Array<ImageFile>;
+        tempFiles: ImageFile[];
     }
     interface ChooseInvoiceOption {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
@@ -6934,7 +6934,7 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
          * 可选值：
          * - 'album': 从相册选择视频;
          * - 'camera': 使用相机拍摄视频; */
-        sourceType?: ("album" | "camera")[];
+        sourceType?: Array<"album" | "camera">;
 
         /** 接口调用成功的回调函数 */
 
@@ -7216,7 +7216,7 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         /** 子协议数组
          *
          * 最低基础库： `1.4.0` */
-        protocols?: Array<string>;
+        protocols?: string[];
 
         /** 接口调用成功的回调函数 */
 
@@ -7320,7 +7320,7 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
          * 最低基础库： `2.0.0` */
         observeAll?: boolean;
         /** 一个数值数组，包含所有阈值。 */
-        thresholds?: Array<number>;
+        thresholds?: number[];
     }
     /** 弹幕内容 */
     interface Danmu {
@@ -7413,7 +7413,7 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         /** 指定样式名列表，返回节点对应样式名的当前值
          *
          * 最低基础库： `2.1.0` */
-        computedStyle?: Array<string>;
+        computedStyle?: string[];
         /** 是否返回节点对应的 Context 对象
          *
          * 最低基础库： `2.4.2` */
@@ -7423,7 +7423,7 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         /** 是否返回节点 id */
         id?: boolean;
         /** 指定属性名列表，返回节点对应属性名的当前属性值（只能获得组件文档中标注的常规属性值，id class style 和事件绑定的属性值不可获取） */
-        properties?: Array<string>;
+        properties?: string[];
         /** 是否返回节点布局位置（`left` `right` `top` `bottom`） */
         rect?: boolean;
         /** 否 是否返回节点的 `scrollLeft` `scrollTop`，节点必须是 `scroll-view` 或者 `viewport` */
@@ -7534,7 +7534,7 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
          * - 'camcorder': 同 mic，适用于录制音视频内容，仅限 Android;
          * - 'voice_communication': 同 mic，适用于实时沟通，仅限 Android;
          * - 'voice_recognition': 同 mic，适用于语音识别，仅限 Android; */
-        audioSources: (
+        audioSources: Array<
             | "auto"
             | "buildInMic"
             | "headsetMic"
@@ -7542,7 +7542,7 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
             | "camcorder"
             | "voice_communication"
             | "voice_recognition"
-        )[];
+        >;
     }
     interface GetBLEDeviceCharacteristicsOption {
         /** 蓝牙设备 id */
@@ -7655,7 +7655,7 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     }
     interface GetBeaconsSuccessCallbackResult {
         /** iBeacon 设备列表 */
-        beacons: Array<IBeaconInfo>;
+        beacons: IBeaconInfo[];
     }
     interface GetBluetoothAdapterStateOption {
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
@@ -7700,7 +7700,7 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         /** 当前蓝牙设备的广播数据段中的 ManufacturerData 数据段。 */
         advertisData: ArrayBuffer;
         /** 当前蓝牙设备的广播数据段中的 ServiceUUIDs 数据段 */
-        advertisServiceUUIDs: Array<string>;
+        advertisServiceUUIDs: string[];
         /** 用于区分设备的 id */
         deviceId: string;
         /** 当前蓝牙设备的广播数据段中的 LocalName 数据段 */
@@ -7748,7 +7748,7 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
     }
     interface GetConnectedBluetoothDevicesOption {
         /** 蓝牙设备主 service 的 uuid 列表 */
-        services: Array<string>;
+        services: string[];
 
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
@@ -8069,7 +8069,7 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         /** 当前占用的空间大小, 单位 KB */
         currentSize: number;
         /** 当前 storage 中所有的 key */
-        keys: Array<string>;
+        keys: string[];
         /** 限制的空间大小，单位 KB */
         limitSize: number;
     }
@@ -8077,7 +8077,7 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         /** 当前占用的空间大小, 单位 KB */
         currentSize: number;
         /** 当前 storage 中所有的 key */
-        keys: Array<string>;
+        keys: string[];
         /** 限制的空间大小，单位 KB */
         limitSize: number;
     }
@@ -8368,7 +8368,7 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         /** 接口调用失败的回调函数 */
         fail?: IncludePointsFailCallback;
         /** 坐标点形成的矩形边缘到地图边缘的距离，单位像素。格式为[上,右,下,左]，安卓上只能识别数组第一项，上下左右的padding一致。开发者工具暂不支持padding参数。 */
-        padding?: Array<number>;
+        padding?: number[];
         /** 接口调用成功的回调函数 */
         success?: IncludePointsSuccessCallback;
     }
@@ -8816,7 +8816,7 @@ innerAudioContext.onError((res) => {
     }
     interface OnBeaconUpdateCallbackResult {
         /** 当前搜寻到的所有 iBeacon 设备列表 */
-        beacons: Array<IBeaconInfo>;
+        beacons: IBeaconInfo[];
     }
     interface OnBluetoothAdapterStateChangeCallbackResult {
         /** 蓝牙适配器是否可用 */
@@ -8856,7 +8856,7 @@ innerAudioContext.onError((res) => {
     }
     interface OnGetWifiListCallbackResult {
         /** Wi-Fi 列表数据 */
-        wifiList: Array<WifiInfo>;
+        wifiList: WifiInfo[];
     }
     interface OnGyroscopeChangeCallbackResult {
         res: Result;
@@ -9183,7 +9183,7 @@ innerAudioContext.onError((res) => {
     }
     interface PreviewImageOption {
         /** 需要预览的图片链接列表。{% version('2.2.3') %} 起支持云文件ID。 */
-        urls: Array<string>;
+        urls: string[];
 
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
@@ -9305,7 +9305,7 @@ innerAudioContext.onError((res) => {
     }
     interface ReaddirSuccessCallbackResult {
         /** 指定目录下的文件名数组。 */
-        files: Array<string>;
+        files: string[];
     }
     interface RecorderManagerOnErrorCallbackResult {
         /** 错误信息 */
@@ -9718,7 +9718,7 @@ innerAudioContext.onError((res) => {
          * - 'pdf417': PDF417 条码;
          *
          * 最低基础库： `1.7.0` */
-        scanType?: ("barCode" | "qrCode" | "datamatrix" | "pdf417")[];
+        scanType?: Array<"barCode" | "qrCode" | "datamatrix" | "pdf417">;
         /** 接口调用成功的回调函数 */
 
         success?: ScanCodeSuccessCallback;
@@ -10119,7 +10119,7 @@ innerAudioContext.onError((res) => {
     }
     interface ShowActionSheetOption {
         /** 按钮的文字数组，数组长度最大为 6 */
-        itemList: Array<string>;
+        itemList: string[];
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
         complete?: ShowActionSheetCompleteCallback;
 
@@ -10330,7 +10330,7 @@ innerAudioContext.onError((res) => {
     }
     interface StartBeaconDiscoveryOption {
         /** iBeacon 设备广播的 uuid 列表 */
-        uuids: Array<string>;
+        uuids: string[];
 
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
@@ -10361,7 +10361,7 @@ innerAudioContext.onError((res) => {
         /** 上报设备的间隔。0 表示找到新设备立即上报，其他数值根据传入的间隔上报。 */
         interval?: number;
         /** 要搜索但蓝牙设备主 service 的 uuid 列表。某些蓝牙设备会广播自己的主 service 的 uuid。如果设置此参数，则只搜索广播包有对应 uuid 的主服务的蓝牙设备。建议主要通过该参数过滤掉周边不需要处理的其他蓝牙设备。 */
-        services?: Array<string>;
+        services?: string[];
 
         /** 接口调用成功的回调函数 */
 
@@ -10422,7 +10422,7 @@ innerAudioContext.onError((res) => {
     }
     interface StartHCEOption {
         /** 需要注册到系统的 AID 列表 */
-        aid_list: Array<string>;
+        aid_list: string[];
 
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
 
@@ -10488,7 +10488,7 @@ innerAudioContext.onError((res) => {
          * - 'fingerPrint': 指纹识别;
          * - 'facial': 人脸识别（暂未支持）;
          * - 'speech': 声纹识别（暂未支持）; */
-        requestAuthModes: ("fingerPrint" | "facial" | "speech")[];
+        requestAuthModes: Array<"fingerPrint" | "facial" | "speech">;
         /** 验证描述，即识别过程中显示在界面上的对话框提示内容 */
         authContent?: string;
         /** 接口调用结束的回调函数（调用成功、失败都会执行） */
@@ -11207,7 +11207,7 @@ innerAudioContext.onError((res) => {
         /** [Array.<Object> Animation.export()](Animation.export.md)
          *
          * 导出动画队列。**export 方法每次调用后会清掉之前的动画操作。** */
-        export(): Array<Object>;
+        export(): Object[];
         /** [[Animation](https://developers.weixin.qq.com/miniprogram/dev/api/ui/animation/Animation.html) Animation.backgroundColor(string value)](Animation.backgroundColor.md)
          *
          * 设置背景色 */
@@ -12460,7 +12460,7 @@ ctx.draw()
 * 最低基础库： `1.6.0` */
         setLineDash(
             /** 一组描述交替绘制线段和间距（坐标空间单位）长度的数字 */
-            pattern: Array<number>,
+            pattern: number[],
             /** 虚线偏移量 */
             offset: number,
         ): void;
@@ -13082,7 +13082,7 @@ ctx.draw()
         readdirSync(
             /** 要读取的目录路径 */
             dirPath: string,
-        ): Array<string>;
+        ): string[];
         /** [FileSystemManager.access(Object object)](FileSystemManager.access.md)
          *
          * 判断文件/目录是否存在 */
@@ -20106,7 +20106,7 @@ declare namespace Page {
     }
 
     interface GetCurrentPages {
-        <D extends IAnyObject = {}, T extends IAnyObject = {}>(): (PageInstance<D, T> & T)[];
+        <D extends IAnyObject = {}, T extends IAnyObject = {}>(): Array<PageInstance<D, T> & T>;
     }
 }
 
@@ -20521,8 +20521,8 @@ declare namespace DB {
         in(val: any[]): DatabaseQueryCommand;
         nin(val: any[]): DatabaseQueryCommand;
 
-        and(...expressions: (DatabaseLogicCommand | IQueryCondition)[]): DatabaseLogicCommand;
-        or(...expressions: (DatabaseLogicCommand | IQueryCondition)[]): DatabaseLogicCommand;
+        and(...expressions: Array<DatabaseLogicCommand | IQueryCondition>): DatabaseLogicCommand;
+        or(...expressions: Array<DatabaseLogicCommand | IQueryCondition>): DatabaseLogicCommand;
 
         set(val: any): DatabaseUpdateCommand;
         remove(): DatabaseUpdateCommand;
@@ -20549,8 +20549,8 @@ declare namespace DB {
 
         _setFieldName(fieldName: string): DatabaseLogicCommand;
 
-        and(...expressions: (DatabaseLogicCommand | IQueryCondition)[]): DatabaseLogicCommand;
-        or(...expressions: (DatabaseLogicCommand | IQueryCondition)[]): DatabaseLogicCommand;
+        and(...expressions: Array<DatabaseLogicCommand | IQueryCondition>): DatabaseLogicCommand;
+        or(...expressions: Array<DatabaseLogicCommand | IQueryCondition>): DatabaseLogicCommand;
     }
 
     export enum QUERY_COMMANDS_LITERAL {

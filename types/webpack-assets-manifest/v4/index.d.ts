@@ -69,7 +69,7 @@ declare class WebpackAssetsManifest extends Plugin {
 
     /** Process compilation assets */
     processAssetsByChunkName(
-        assets: Record<string, string | ReadonlyArray<string>>,
+        assets: Record<string, string | readonly string[]>,
         hmrFiles?: Set<string>,
     ): this["assetNames"];
 
@@ -221,7 +221,7 @@ declare namespace WebpackAssetsManifest {
         integrity?: boolean | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#integrityhashes */
-        integrityHashes?: ReadonlyArray<string> | undefined;
+        integrityHashes?: readonly string[] | undefined;
 
         /** https://github.com/webdeveric/webpack-assets-manifest#integritypropertyname */
         integrityPropertyName?: string | undefined;

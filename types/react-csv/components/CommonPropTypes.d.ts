@@ -1,6 +1,7 @@
 import { MouseEventHandler } from "react";
 import { Data, Headers } from "../lib/core";
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 export type SyncClickHandler = (event: MouseEventHandler<HTMLAnchorElement>) => boolean | void;
 export type AsyncClickHandler = (
     event: MouseEventHandler<HTMLAnchorElement>,

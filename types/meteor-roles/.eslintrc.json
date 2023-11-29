@@ -1,6 +1,7 @@
 {
     "rules": {
         "@definitelytyped/dt-header": "off",
-        "@definitelytyped/no-single-declare-module": "off"
+        "@definitelytyped/no-single-declare-module": "off",
+        "@typescript-eslint/ban-types": "off"
     }
 }

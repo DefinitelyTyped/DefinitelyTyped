@@ -158,7 +158,7 @@ declare namespace createjs {
         ): void;
         calculatePosition(rawPosition: number): void;
         getLabels(): string[];
-        setLabels(labels: { [labelName: string]: number }[]): void;
+        setLabels(labels: Array<{ [labelName: string]: number }>): void;
         addLabel(label: string, position: number): void;
         gotoAndPlay(positionOrLabel: string | number): void;
         gotoAndStop(positionOrLabel: string | number): void;

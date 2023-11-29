@@ -83,8 +83,8 @@ declare namespace Mailgun {
             text?: string | undefined;
             html?: string | undefined;
             "amp-html"?: string | undefined;
-            attachment?: AttachmentData | ReadonlyArray<AttachmentData> | undefined;
-            inline?: AttachmentData | ReadonlyArray<AttachmentData> | undefined;
+            attachment?: AttachmentData | readonly AttachmentData[] | undefined;
+            inline?: AttachmentData | readonly AttachmentData[] | undefined;
 
             // Mailgun options
             "o:testmode"?: "yes" | "no" | "true" | "false" | "True" | "False" | undefined;

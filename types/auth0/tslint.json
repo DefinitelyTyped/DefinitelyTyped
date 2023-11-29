@@ -1,9 +1,7 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "adjacent-overload-signatures": false,
         "array-type": false,
-        "no-empty-interface": false,
         "no-unnecessary-class": false,
         "unified-signatures": false
     }

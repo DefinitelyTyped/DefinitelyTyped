@@ -100,7 +100,7 @@ let diff: semver.ReleaseType | null;
 const op: semver.Operator = "";
 // declare const arr: any[];
 // declare const exp: RegExp;
-let strArr: ReadonlyArray<string> | null;
+let strArr: readonly string[] | null;
 let prereleaseIdAttr: ReadonlyArray<string | number> | null;
 let strNumArr: ReadonlyArray<string | number>;
 declare const numArr: string[];
@@ -343,9 +343,9 @@ bool = range.intersects(new semver.Range(""));
 bool = range.intersects(new semver.Range(""), bool);
 bool = range.intersects(new semver.Range("", { includePrerelease: true }));
 
-const sets: ReadonlyArray<ReadonlyArray<semver.Comparator>> = range.set;
+const sets: ReadonlyArray<readonly semver.Comparator[]> = range.set;
 
-const lims: ReadonlyArray<semver.Comparator> = range.parseRange(str);
+const lims: readonly semver.Comparator[] = range.parseRange(str);
 
 function isRelativeVersionKeyword(val: string): val is semver.ReleaseType {
     return semver.RELEASE_TYPES.indexOf(val as semver.ReleaseType) > -1;

@@ -1,3 +1,3 @@
-declare function common(strings: ReadonlyArray<string>): string;
+declare function common(strings: readonly string[]): string;
 
 export = common;

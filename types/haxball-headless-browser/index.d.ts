@@ -23,7 +23,7 @@ declare class RoomObject {
     setCustomStadium(stadiumFileContents: string): void;
     setDefaultStadium(stadiumName: string): void;
     setTeamsLock(locked: boolean): void;
-    setTeamColors(team: TeamID, angle: number, textColor: number, colors: ReadonlyArray<number>): void;
+    setTeamColors(team: TeamID, angle: number, textColor: number, colors: readonly number[]): void;
     startGame(): void;
     stopGame(): void;
     pauseGame(pauseState: boolean): void;
@@ -35,7 +35,7 @@ declare class RoomObject {
     stopRecording(): Uint8Array;
     setPassword(pass: string): void;
     setRequireCaptcha(required: boolean): void;
-    reorderPlayers(playerIdList: ReadonlyArray<number>, moveToTop: boolean): void;
+    reorderPlayers(playerIdList: readonly number[], moveToTop: boolean): void;
     sendAnnouncement(msg: string, targetId?: number, color?: number, style?: string, sound?: number): void;
     setKickRateLimit(min: number, rate: number, burst: number): void;
     setPlayerAvatar(playerId: number, avatar: string): void;

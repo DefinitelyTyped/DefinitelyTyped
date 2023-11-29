@@ -4896,6 +4896,7 @@ declare module "sap/ui/dom/includeScript" {
      * callback function to get notified once the script loading failed
      */
     fnErrorCallback?: (p1: Event) => void
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
   ): void | Promise<Event>;
 }
 
@@ -4948,6 +4949,7 @@ declare module "sap/ui/dom/includeStylesheet" {
      * callback function to get notified once the stylesheet loading failed.
      */
     fnErrorCallback?: (p1: Event) => void
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
   ): void | Promise<Event>;
 }
 
@@ -72933,6 +72935,7 @@ declare module "sap/ui/model/SimpleType" {
        * The value to be validated
        */
       vValue: any
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | Promise<undefined>;
   }
 }
@@ -81304,6 +81307,7 @@ declare namespace sap {
        * Decides whether the controller gets loaded asynchronously or not
        */
       bAsync?: boolean
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     ): void | import("sap/ui/core/mvc/Controller").default | Promise<any>;
     /**
      * @since 1.27.0

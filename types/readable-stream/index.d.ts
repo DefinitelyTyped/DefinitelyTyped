@@ -1,6 +1,7 @@
 /// <reference types="node" />
 
 import * as SafeBuffer from "safe-buffer";
+import type * as NodeStream from "stream";
 
 declare class StringDecoder {
     constructor(encoding?: BufferEncoding | string);
@@ -32,9 +33,9 @@ interface _IEventEmitter {
     off(eventName: string | symbol, listener: (...args: any[]) => void): this;
     setMaxListeners(n: number): this;
     getMaxListeners(): number;
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     listeners(eventName: string | symbol): Function[];
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     rawListeners(eventName: string | symbol): Function[];
     listenerCount(eventName: string | symbol): number;
     eventNames(): Array<string | symbol>;
@@ -207,9 +208,9 @@ declare class _Readable extends NoAsyncDispose implements _IReadable {
     off(eventName: string | symbol, listener: (...args: any[]) => void): this;
     setMaxListeners(n: number): this;
     getMaxListeners(): number;
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     listeners(eventName: string | symbol): Function[];
-    // tslint:disable-next-line:ban-types
+    // eslint-disable-next-line @typescript-eslint/ban-types
     rawListeners(eventName: string | symbol): Function[];
     listenerCount(eventName: string | symbol): number;
     eventNames(): Array<string | symbol>;
@@ -449,6 +450,7 @@ declare namespace _Readable {
 
     class Transform extends Duplex {
         _transformState: {
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             afterTransform: (this: Transform, er: any, data: any) => void | boolean;
             needTransform: boolean;
             transforming: boolean;
@@ -658,6 +660,9 @@ declare namespace _Readable {
             options?: { signal: AbortSignal },
         ): T;
     }
+
+    const finished: typeof NodeStream.finished;
+    const pipeline: typeof NodeStream.pipeline;
 }
 
 export = _Readable;

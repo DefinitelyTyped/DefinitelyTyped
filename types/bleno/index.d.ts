@@ -6,10 +6,10 @@ type Property = "read" | "write" | "indicate" | "notify" | "writeWithoutResponse
 
 interface CharacteristicOptions {
     uuid: string;
-    properties?: ReadonlyArray<Property> | null | undefined;
-    secure?: ReadonlyArray<Property> | null | undefined;
+    properties?: readonly Property[] | null | undefined;
+    secure?: readonly Property[] | null | undefined;
     value?: Buffer | null | undefined;
-    descriptors?: ReadonlyArray<Descriptor> | null | undefined;
+    descriptors?: readonly Descriptor[] | null | undefined;
     onIndicate?: (() => void) | null | undefined;
     onNotify?: (() => void) | null | undefined;
     onReadRequest?:
@@ -34,10 +34,10 @@ interface CharacteristicOptions {
 
 declare class Characteristic {
     uuid: string;
-    properties: ReadonlyArray<Property>;
-    secure: ReadonlyArray<Property>;
+    properties: readonly Property[];
+    secure: readonly Property[];
     value: Buffer | null;
-    descriptors: ReadonlyArray<Descriptor>;
+    descriptors: readonly Descriptor[];
 
     constructor(options: CharacteristicOptions);
 
@@ -92,12 +92,12 @@ declare class Descriptor {
 
 interface PrimaryServiceOptions {
     uuid: string;
-    characteristics?: ReadonlyArray<Characteristic> | null | undefined;
+    characteristics?: readonly Characteristic[] | null | undefined;
 }
 
 declare class PrimaryService {
     uuid: string;
-    characteristics: ReadonlyArray<Characteristic>;
+    characteristics: readonly Characteristic[];
 
     constructor(options: PrimaryServiceOptions);
 
@@ -121,11 +121,11 @@ interface Bleno extends NodeJS.EventEmitter {
 
     disconnect(): void;
 
-    setServices(services: ReadonlyArray<PrimaryService>, callback?: (arg: Error | undefined | null) => void): void;
+    setServices(services: readonly PrimaryService[], callback?: (arg: Error | undefined | null) => void): void;
 
     startAdvertising(
         name: string,
-        serviceUuids?: ReadonlyArray<string>,
+        serviceUuids?: readonly string[],
         callback?: (arg: Error | undefined | null) => void,
     ): void;
 

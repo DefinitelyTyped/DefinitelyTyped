@@ -4,7 +4,6 @@
         "array-type": false,
         "jsdoc-format": false,
         "no-duplicate-variable": false,
-        "no-empty-interface": false,
         "no-inferrable-types": false,
         "no-var-keyword": false,
         "no-void-expression": false,

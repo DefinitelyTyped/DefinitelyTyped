@@ -5,7 +5,7 @@ export function toASCII(input: string): string;
 
 export namespace ucs2 {
     function decode(string: string): number[];
-    function encode(array: ReadonlyArray<number>): string;
+    function encode(array: readonly number[]): string;
 }
 
 export const version: string;

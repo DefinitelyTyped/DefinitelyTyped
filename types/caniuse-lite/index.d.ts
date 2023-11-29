@@ -193,6 +193,11 @@ export interface Feature {
      * Agent support matrix for this feature.
      */
     stats: StatsByAgentID;
+
+    /**
+     * Whether the feature appears on caniuse.com.
+     */
+    shown: boolean;
 }
 
 /**

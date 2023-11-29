@@ -1,10 +1,6 @@
 {
     "extends": "@definitelytyped/dtslint/dt.json",
     "rules": {
-        "ban-types": false,
-        "interface-name": false,
-        "interface-over-type-literal": false,
-        "no-duplicate-imports": false,
         "no-redundant-jsdoc-2": false,
         "no-unnecessary-class": false,
         "no-var-keyword": false,

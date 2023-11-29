@@ -18,7 +18,7 @@ const groups1: TimelineGroupBase[] = [
     { id: "two", title: "group 2" },
 ];
 
-const items1: TimelineItemBase<Moment>[] = [
+const items1: Array<TimelineItemBase<Moment>> = [
     { id: 1, group: 1, title: "item 1", start_time: moment(), end_time: moment().add(1, "hour") },
     {
         id: 2,
@@ -141,7 +141,7 @@ const groups: TimelineGroupBase[] = [
     { id: 2, title: "group 2" },
 ];
 
-const items: TimelineItemBase<number>[] = [
+const items: Array<TimelineItemBase<number>> = [
     { id: 1, group: 1, title: "item 1", start_time: 1, end_time: 1 },
     { id: 2, group: 2, title: "item 2", start_time: 1, end_time: 1 },
     { id: 3, group: 1, title: "item 3", start_time: 1, end_time: 1 },

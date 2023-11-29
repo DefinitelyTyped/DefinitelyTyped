@@ -146,7 +146,7 @@ export interface ojTagCloudSettablePropertiesLenient<K, D> extends Partial<ojTag
     [key: string]: any;
 }
 export namespace ojTagCloud {
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type ItemContext = {
         color: string;
         label: string;
@@ -154,12 +154,12 @@ export namespace ojTagCloud {
         tooltip: string;
         value: number;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type NodeContext = {
         subId: string;
         index: number;
     };
-    // tslint:disable-next-line interface-over-type-literal
+    // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     type TooltipContext<K> = {
         color: string;
         componentElement: Element;

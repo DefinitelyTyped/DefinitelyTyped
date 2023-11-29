@@ -6,7 +6,7 @@ import { Context, Suite, SuiteFunction, Test, TestFunction } from "mocha";
  * Mocha.
  */
 declare function forEach(
-    parameters: ReadonlyArray<any>,
+    parameters: readonly any[],
     dIt?: TestFunction,
     dDescribe?: SuiteFunction,
 ): { it: ForEachTestFunction; describe: ForEachDescribeDefinition };

@@ -22,12 +22,12 @@ export class ThemesSection extends Section {
     updateCountDebounced: ((count: number) => void) | null;
     initialize(id?: string, options?: Section_Params): void;
     loadThemes(): void;
-    loadControls(themes: ReadonlyArray<Theme>, page: number): void;
+    loadControls(themes: readonly Theme[], page: number): void;
     loadMore(): void;
     filterSearch(term: string): void;
     checkTerm(section: ThemesSection): void;
     filtersChecked(): void;
-    initializeNewQuery(newTerm: string, newTags: ReadonlyArray<string>): void;
+    initializeNewQuery(newTerm: string, newTags: readonly string[]): void;
     renderScreenshots(): void;
     getVisibleCount(): number;
     updateCount(count: number): void;

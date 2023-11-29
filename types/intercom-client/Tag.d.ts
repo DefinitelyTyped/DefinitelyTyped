@@ -24,7 +24,7 @@ interface TagUsers {
 
 interface TagCompanies {
     name: string;
-    users: { id: string }[];
+    users: Array<{ id: string }>;
 }
 
 type TagOper = TagCompanies | TagUsers;

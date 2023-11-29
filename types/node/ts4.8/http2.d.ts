@@ -55,6 +55,7 @@ declare module "http2" {
         length: number;
     }
     export interface ServerStreamFileResponseOptions {
+        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
         statCheck?(stats: fs.Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions): void | boolean;
         waitForTrailers?: boolean | undefined;
         offset?: number | undefined;
@@ -977,7 +978,7 @@ declare module "http2" {
         ): this;
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
         emit(event: "altsvc", alt: string, origin: string, stream: number): boolean;
-        emit(event: "origin", origins: ReadonlyArray<string>): boolean;
+        emit(event: "origin", origins: readonly string[]): boolean;
         emit(event: "connect", session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket): boolean;
         emit(
             event: "stream",
@@ -1415,7 +1416,7 @@ declare module "http2" {
             stream: ServerHttp2Stream,
             headers: IncomingHttpHeaders,
             options: stream.ReadableOptions,
-            rawHeaders: ReadonlyArray<string>,
+            rawHeaders: readonly string[],
         );
         /**
          * The `request.aborted` property will be `true` if the request has
@@ -1856,7 +1857,7 @@ declare module "http2" {
          * ```
          * @since v8.4.0
          */
-        setHeader(name: string, value: number | string | ReadonlyArray<string>): void;
+        setHeader(name: string, value: number | string | readonly string[]): void;
         /**
          * Sets the `Http2Stream`'s timeout value to `msecs`. If a callback is
          * provided, then it is added as a listener on the `'timeout'` event on

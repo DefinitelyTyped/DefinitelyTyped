@@ -126,5 +126,5 @@ import AnchorCollection = require("../anchor/AnchorCollection.js");
 import CellThumbnail = require("./CellThumbnail.js");
 type Link = import("../anchor/Link");
 type FieldAggregator = import("../field-aggregator/FieldAggregator");
-declare var VM_THUMBNAIL: number;
-declare var VM_LIST: number;
+declare let VM_THUMBNAIL: number;
+declare let VM_LIST: number;

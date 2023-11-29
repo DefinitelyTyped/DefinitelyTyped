@@ -1,7 +1,7 @@
 import arrayForEach = require("array-foreach");
 
-const array: Array<number> = [1, 2, 3, 4];
-const result: Array<number> = [];
+const array: number[] = [1, 2, 3, 4];
+const result: number[] = [];
 
 arrayForEach(array, (i: number) => {
     result.push(i);
@@ -11,7 +11,7 @@ arrayForEach(array, (i: number, index: number) => {
     result.push(i + index);
 });
 
-arrayForEach(array, (i: number, index: number, array: Array<number>) => {
+arrayForEach(array, (i: number, index: number, array: number[]) => {
     result.push(array[i]);
 });
 

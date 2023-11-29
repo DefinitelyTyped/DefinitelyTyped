@@ -327,7 +327,7 @@ export interface HeatmapData<T> {
     /**
      * An array of data points
      */
-    data: ReadonlyArray<T>;
+    data: readonly T[];
 
     /**
      * Max value of the valueField

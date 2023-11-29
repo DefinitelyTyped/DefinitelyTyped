@@ -133,6 +133,6 @@ export interface ConnectionConfig<Props = object> {
 }
 
 interface ConnectionData {
-    edges?: ReadonlyArray<any> | null | undefined;
+    edges?: readonly any[] | null | undefined;
     pageInfo?: Partial<PageInfo> | null | undefined;
 }

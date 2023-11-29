@@ -69,7 +69,7 @@ export interface Cache {
     // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void, callback: (error: any, result: T) => void): void
     // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void, options: CachingConfig): void
     // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void): Promise<any>;
-    wrap<T>(...args: WrapArgsType<T>[]): Promise<T>;
+    wrap<T>(...args: Array<WrapArgsType<T>>): Promise<T>;
 
     get<T>(key: string, callback: (error: any, result: T | undefined) => void): void;
     get<T>(key: string): Promise<T | undefined>;
@@ -97,7 +97,7 @@ export interface MultiCache {
     // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void, callback: (error: any, result: T) => void): void
     // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void, options: CachingConfig): void
     // wrap<T>(...keys: string[], work: (callback: (error: any, result: T) => void) => void): Promise<any>;
-    wrap<T>(...args: WrapArgsType<T>[]): Promise<T>;
+    wrap<T>(...args: Array<WrapArgsType<T>>): Promise<T>;
 
     get<T>(key: string, callback: (error: any, result: T | undefined) => void): void;
     get<T>(key: string): Promise<T | undefined>;

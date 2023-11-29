@@ -6,7 +6,7 @@ import { EventEmitter } from "events";
 
 type ProbableAsSrc = string[] | string | Buffer;
 
-// tslint:disable-next-line ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types
 type FontminPlugin = Function | stream.Transform;
 
 interface PluginCloneOption {

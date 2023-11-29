@@ -398,7 +398,7 @@ declare namespace d3 {
              * @param selector the function to find matching descendents
              */
             selectAll(
-                selector: (datum: Datum, index: number, outerIndex: number) => Array<EventTarget> | NodeList,
+                selector: (datum: Datum, index: number, outerIndex: number) => EventTarget[] | NodeList,
             ): Update<any>;
 
             /**
@@ -841,7 +841,7 @@ declare namespace d3 {
          * @param selector the function to find matching descendents
          */
         selectAll(
-            selector: (datum: Datum, index: number, outerIndex: number) => Array<EventTarget> | NodeList,
+            selector: (datum: Datum, index: number, outerIndex: number) => EventTarget[] | NodeList,
         ): Selection<any>;
 
         /**
@@ -851,7 +851,7 @@ declare namespace d3 {
          * @param selector the function to find matching descendents
          */
         selectAll<T>(
-            selector: (datum: Datum, index: number, outerIndex: number) => Array<EventTarget> | NodeList,
+            selector: (datum: Datum, index: number, outerIndex: number) => EventTarget[] | NodeList,
         ): Selection<T>;
 
         /**
@@ -1255,17 +1255,17 @@ declare namespace d3 {
     /**
      * Returns an array of key-value pairs containing the property values of the specified object.
      */
-    export function entries<T>(object: { [key: string]: T }): { key: string; value: T }[];
+    export function entries<T>(object: { [key: string]: T }): Array<{ key: string; value: T }>;
 
     /**
      * Returns an array of key-value pairs containing the property values of the specified object.
      */
-    export function entries<T>(object: { [key: number]: T }): { key: string; value: T }[];
+    export function entries<T>(object: { [key: number]: T }): Array<{ key: string; value: T }>;
 
     /**
      * Returns an array of key-value pairs containing the property values of the specified object.
      */
-    export function entries(object: Object): { key: string; value: any }[];
+    export function entries(object: Object): Array<{ key: string; value: any }>;
 
     /**
      * A shim for ES6 maps. The implementation uses a JavaScript object internally, and thus keys are limited to strings.
@@ -1304,7 +1304,7 @@ declare namespace d3 {
         /**
          * Returns an array of key-value objects in arbitrary order.
          */
-        entries(): { key: string; value: T }[];
+        entries(): Array<{ key: string; value: T }>;
 
         /**
          * Calls the function for each key and value pair in the map. The 'this' context is the map itself.
@@ -1445,7 +1445,7 @@ declare namespace d3 {
         rollup<U>(func: (values: T[]) => U): Nest<T>;
         map(array: T[]): { [key: string]: any };
         map(array: T[], mapType: typeof d3.map): Map<any>;
-        entries(array: T[]): { key: string; values: any }[];
+        entries(array: T[]): Array<{ key: string; values: any }>;
     }
 
     export function nest<T>(): Nest<T>;
@@ -2809,10 +2809,10 @@ declare namespace d3 {
     export function dsv(delimiter: string, mimeType: string): Dsv;
 
     interface Dsv {
-        (url: string, callback: (rows: { [key: string]: string }[]) => void): DsvXhr<{ [key: string]: string }>;
+        (url: string, callback: (rows: Array<{ [key: string]: string }>) => void): DsvXhr<{ [key: string]: string }>;
         (
             url: string,
-            callback: (error: any, rows: { [key: string]: string }[]) => void,
+            callback: (error: any, rows: Array<{ [key: string]: string }>) => void,
         ): DsvXhr<{ [key: string]: string }>;
         (url: string): DsvXhr<{ [key: string]: string }>;
         <T>(url: string, accessor: (row: { [key: string]: string }) => T, callback: (rows: T[]) => void): DsvXhr<T>;
@@ -2823,7 +2823,7 @@ declare namespace d3 {
         ): DsvXhr<T>;
         <T>(url: string, accessor: (row: { [key: string]: string }) => T): DsvXhr<T>;
 
-        parse(string: string): { [key: string]: string }[];
+        parse(string: string): Array<{ [key: string]: string }>;
         parse<T>(string: string, accessor: (row: { [key: string]: string }, index: number) => T): T[];
 
         parseRows(string: string): string[][];
@@ -2914,7 +2914,7 @@ declare namespace d3 {
         }
 
         interface Bundle<T extends bundle.Node> {
-            (links: bundle.Link<T>[]): T[][];
+            (links: Array<bundle.Link<T>>): T[][];
         }
 
         export function chord(): Chord;
@@ -2984,7 +2984,7 @@ declare namespace d3 {
 
             nodes(root: T): T[];
 
-            links(nodes: T[]): cluster.Link<T>[];
+            links(nodes: T[]): Array<cluster.Link<T>>;
 
             children(): (node: T) => T[];
             children(accessor: (node: T) => T[]): Cluster<T>;
@@ -3065,7 +3065,7 @@ declare namespace d3 {
             nodes(nodes: Node[]): Force<Link, Node>;
 
             links(): Link[];
-            links(links: { source: number; target: number }[]): Force<Link, Node>;
+            links(links: Array<{ source: number; target: number }>): Force<Link, Node>;
             links(links: Link[]): Force<Link, Node>;
 
             start(): Force<Link, Node>;
@@ -3125,7 +3125,7 @@ declare namespace d3 {
         }
 
         interface Histogram<T> {
-            (values: T[], index?: number): histogram.Bin<T>[];
+            (values: T[], index?: number): Array<histogram.Bin<T>>;
 
             value(): (datum: T, index: number) => number;
             value(value: (datum: T, index: number) => number): Histogram<T>;
@@ -3168,7 +3168,7 @@ declare namespace d3 {
 
             nodes(root: T): T[];
 
-            links(nodes: T[]): pack.Link<T>[];
+            links(nodes: T[]): Array<pack.Link<T>>;
 
             children(): (node: T, depth: number) => T[];
             children(children: (node: T, depth: number) => T[]): Pack<T>;
@@ -3216,7 +3216,7 @@ declare namespace d3 {
 
             nodes(root: T): T[];
 
-            links(nodes: T[]): partition.Link<T>[];
+            links(nodes: T[]): Array<partition.Link<T>>;
 
             children(): (node: T, depth: number) => T[];
             children(children: (node: T, depth: number) => T[]): Partition<T>;
@@ -3245,7 +3245,7 @@ declare namespace d3 {
         }
 
         interface Pie<T> {
-            (data: T[], index?: number): pie.Arc<T>[];
+            (data: T[], index?: number): Array<pie.Arc<T>>;
 
             value(): (datum: T, index: number) => number;
             value(accessor: (datum: T, index: number) => number): Pie<T>;
@@ -3332,7 +3332,7 @@ declare namespace d3 {
 
             nodes(root: T, index?: number): T[];
 
-            links(nodes: T[]): tree.Link<T>[];
+            links(nodes: T[]): Array<tree.Link<T>>;
 
             children(): (datum: T, index: number) => T[];
             children(children: (datum: T, index: number) => T[]): Tree<T>;
@@ -3381,7 +3381,7 @@ declare namespace d3 {
 
             nodes(root: T, index?: number): T[];
 
-            links(nodes: T[]): treemap.Link<T>[];
+            links(nodes: T[]): Array<treemap.Link<T>>;
 
             children(): (node: T, depth: number) => T[];
             children(children: (node: T, depth: number) => T[]): Treemap<T>;
@@ -3440,7 +3440,7 @@ declare namespace d3 {
             clipExtent(): [[number, number], [number, number]];
             clipExtent(extent: [[number, number], [number, number]]): Voronoi<T>;
 
-            links(data: T[]): voronoi.Link<T>[];
+            links(data: T[]): Array<voronoi.Link<T>>;
 
             triangles(data: T[]): Array<[T, T, T]>;
         }
@@ -3473,6 +3473,7 @@ declare namespace d3 {
             interface Quadtree<T> extends Node<T> {
                 add(point: T): void;
                 visit(
+                    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
                     callback: (node: Node<T>, x1: number, y1: number, x2: number, y2: number) => boolean | void,
                 ): void;
                 find(point: [number, number]): T;

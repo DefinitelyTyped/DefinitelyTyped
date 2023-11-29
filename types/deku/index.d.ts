@@ -107,7 +107,7 @@ declare namespace deku {
         /**
          * Create a node path, eg. (23,5,2,4) => '23.5.2.4'
          */
-        function createPath(...paths: (number | string)[]): string;
+        function createPath(...paths: Array<number | string>): string;
     }
 }
 

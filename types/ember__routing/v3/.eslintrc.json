@@ -1,5 +1,6 @@
 {
     "rules": {
-        "@definitelytyped/no-self-import": "off"
+        "@definitelytyped/no-self-import": "off",
+        "@typescript-eslint/no-empty-interface": "off"
     }
 }

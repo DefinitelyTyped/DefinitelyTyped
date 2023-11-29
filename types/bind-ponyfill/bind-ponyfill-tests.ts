@@ -6,14 +6,14 @@ boundFn = ponyBind(() => {
     console.log(this);
 }, "Hello world!");
 boundFn = ponyBind(
-    (...args: Array<string>) => {
+    (...args: string[]) => {
         console.log(this, ...args);
     },
     "Hello world!",
     "arg1",
 );
 boundFn = ponyBind(
-    (...args: Array<string>) => {
+    (...args: string[]) => {
         console.log(this, ...args);
     },
     "Hello world!",

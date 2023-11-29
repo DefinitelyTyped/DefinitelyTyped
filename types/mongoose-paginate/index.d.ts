@@ -5,8 +5,8 @@ declare module "mongoose" {
         select?: Object | string | undefined;
         sort?: Object | string | undefined;
         populate?:
-            | Array<Object>
-            | Array<string>
+            | Object[]
+            | string[]
             | Object
             | string
             | QueryPopulateOptions
@@ -34,7 +34,7 @@ declare module "mongoose" {
     }
 
     export interface PaginateResult<T> {
-        docs: Array<T>;
+        docs: T[];
         total: number;
         limit: number;
         page?: number | undefined;

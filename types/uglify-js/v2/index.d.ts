@@ -93,7 +93,7 @@ declare namespace UglifyJS {
         map: string;
     }
 
-    function minify(files: string | Array<string>, options?: MinifyOptions): MinifyOutput;
+    function minify(files: string | string[], options?: MinifyOptions): MinifyOutput;
 
     interface ParseOptions {
         // Default is false

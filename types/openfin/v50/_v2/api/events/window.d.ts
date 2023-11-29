@@ -68,13 +68,13 @@ export interface PreloadScriptInfo {
         "succeeded";
 }
 export interface WindowPreloadScriptsStateChangeEvent<Topic, Type> extends WindowEvent<Topic, Type> {
-    preloadScripts: (PreloadScriptInfoRunning & any)[];
+    preloadScripts: Array<PreloadScriptInfoRunning & any>;
 }
 export interface WindowPreloadScriptsStateChangedEvent<Topic, Type> extends WindowEvent<Topic, Type> {
-    preloadScripts: (PreloadScriptInfoRunning & any)[];
+    preloadScripts: Array<PreloadScriptInfoRunning & any>;
 }
 export interface WindowPreloadScriptsStateChangedEvent<Topic, Type> extends WindowEvent<Topic, Type> {
-    preloadScripts: (PreloadScriptInfo & any)[];
+    preloadScripts: Array<PreloadScriptInfo & any>;
 }
 export interface WindowBeginBoundsChangingEvent<Topic, Type> extends WindowEvent<Topic, Type> {
     height: number;
@@ -108,16 +108,16 @@ export interface WillMoveOrResize<Topic, Type> extends WindowEvent<Topic, Type> 
 export interface WindowGroupChanged<Topic, Type> extends WindowEvent<Topic, Type> {
     memberOf: "source" | "target" | "nothing";
     reason: "leave" | "join" | "merge" | "disband";
-    sourceGroup: {
+    sourceGroup: Array<{
         appUuid: string;
         windowName: string;
-    }[];
+    }>;
     sourceWindowAppUuid: string;
     sourceWindowName: string;
-    targetGroup: {
+    targetGroup: Array<{
         appUuid: string;
         windowName: string;
-    }[];
+    }>;
     targetWindowAppUuid: string;
     targetWindowName: string;
 }

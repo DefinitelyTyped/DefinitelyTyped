@@ -3,10 +3,7 @@
     "rules": {
         "array-type": false,
         "arrow-return-shorthand": false,
-        "ban-types": false,
         "no-duplicate-variable": false,
-        "no-empty-interface": false,
-        "no-internal-module": false,
         "no-mergeable-namespace": false,
         "no-namespace": false,
         "no-unnecessary-qualifier": false,

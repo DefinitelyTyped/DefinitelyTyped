@@ -58,5 +58,5 @@ interface Request {
     await reddit.patch<Response, Request>("link", request);
 
     // $ExpectType void
-    await reddit.post<void, Request>("link", request);
+    await reddit.post<void, Request>("link", request); // eslint-disable-line @typescript-eslint/no-invalid-void-type
 });
