@@ -1140,7 +1140,7 @@ declare namespace Pubnub {
         extends Omit<v2ObjectData<MembershipCustom>, "id">
     {
         channel: (ChannelMetadataObject<ChannelCustom> & { status?: string }) | { id: string };
-        status?: string | null |undefined;
+        status?: string | null | undefined;
     }
 
     interface UUIDMembersParameters {

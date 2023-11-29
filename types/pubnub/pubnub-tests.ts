@@ -15,7 +15,7 @@ const config: Pubnub.PubnubConfig = {
     subscribeRequestTimeout: 60,
     uuid: "myUUID",
     dedupeOnSubscribe: false,
-    cryptoModule: Pubnub.CryptoModule.aesCbcCryptoModule({cipherKey: 'cipher'}),
+    cryptoModule: Pubnub.CryptoModule.aesCbcCryptoModule({ cipherKey: "cipher" }),
 };
 
 // userId should work
