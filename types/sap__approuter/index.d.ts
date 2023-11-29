@@ -60,23 +60,33 @@ declare namespace approuter {
          */
         backendTimeout?: (req: IncomingMessage, done: () => void) => void;
 
-        /**
-         * Callback for {@link afterRequestHandler}
-         *
-         * @param error - Error object in case of error
-         * @param incomingResponse - Modified incomingResponse
-         */
+        // In order to make middleware easier to write to be agnostic of the route, the req.url will be altered to remove the route part and the original will be available set to this value
+        originalUrl?: string;
+
+        // On each request, the application router executes registered middlewares in a certain order and the session is not available to all of them.
+        sessionID?: string;
+
+        sessionStore?: SessionStore;
     }
 
     /**
      * A handler for requests, called Middleware.
      *
+     * The generic type T can be used to add custom properties to the request object type
+     * this is useful if a middleware adds custom properties to the request object
+     *
+     * @example
+     *   type RequestWithSession = {
+     *     session?: {}
+     *   }
+     *   MiddlewareHandler<RequestWithSession>
+     *
      * @param request - Data of the incoming Request
      * @param response - Object for the outgoing Response; can be manipulated to alter the response
      * @param next - Call next to give control back to Application Router Middleware
      */
-    type MiddlewareHandler = (
-        request: AppRouterIncomingMessage,
+    type MiddlewareHandler<T = {}> = (
+        request: AppRouterIncomingMessage & T,
         response: ServerResponse,
         next: (value?: Error | string) => void,
     ) => void;
