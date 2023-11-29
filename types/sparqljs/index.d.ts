@@ -99,7 +99,7 @@ export interface AskQuery extends BaseQuery {
 
 export interface DescribeQuery extends BaseQuery {
     queryType: "DESCRIBE";
-    variables: (VariableTerm | IriTerm)[] | [Wildcard];
+    variables: Array<VariableTerm | IriTerm> | [Wildcard];
 }
 
 export interface Update {
@@ -111,7 +111,7 @@ export interface Update {
 
 export type UpdateOperation = InsertDeleteOperation | ManagementOperation;
 
-type InsertDeleteOperation =
+export type InsertDeleteOperation =
     | {
         updateType: "insert";
         graph?: GraphOrDefault;
