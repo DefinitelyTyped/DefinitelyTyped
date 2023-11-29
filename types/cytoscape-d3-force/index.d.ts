@@ -5,9 +5,9 @@ export as namespace cytoscapeD3Force;
 
 declare namespace cytoscapeD3Force {
     /**
-     * Options for layout algorithm using d3-force package.
-     * @see <a href='https://github.com/shichuanpo/cytoscape.js-d3-force'>cytoscape-d3-force git</a>
-     * @see <a href='https://d3js.org/d3-force'>d3-force package Documentation</a>
+     * Options for layout algorithm using package.
+     * @see {@link https://github.com/shichuanpo/cytoscape.js-d3-force}
+     * @see {@link https://d3js.org/d3-force}
      */
     interface D3ForceLayoutOptions extends cytoscape.BaseLayoutOptions {
         name: "d3-force";
@@ -43,7 +43,7 @@ declare namespace cytoscapeD3Force {
         fixedAfterDragging?: boolean;
         
         /**
-         * on every layout reposition of nodes; fit the viewport
+         * On every layout reposition of nodes; fit the viewport
          * @default false
          */
         fit?: boolean;
@@ -62,68 +62,160 @@ declare namespace cytoscapeD3Force {
         // D3 Force API Properties
 
         /**
-         * sets the current alpha to the specified number in the range [0;1]
+         * Sets the current alpha to the specified number in the range [0;1]
          * @default 1
-         * @see <a href='https://d3js.org/d3-force/simulation#simulation_alpha'>d3-force simulation.alpha()</a>
+         * @see {@link https://d3js.org/d3-force/simulation#simulation_alpha}
          */
         alpha?: number;
 
         /**
-         * sets the minimum alpha to the specified number in the range [0;1]
+         * Sets the minimum alpha to the specified number in the range [0;1]
          * @default 0.001
-         * @see <a href='https://d3js.org/d3-force/simulation#simulation_alphaMin'>d3-force simulation.alphaMin()</a>
+         * @see {@link https://d3js.org/d3-force/simulation#simulation_alphaMin}
          */
         alphaMin?: number;
 
         /**
-         * sets the alpha decay rate to the specified number in the range [0;1]
+         * Sets the alpha decay rate to the specified number in the range [0;1]
          * @default 0.0228
-         * @see <a href='https://d3js.org/d3-force/simulation#simulation_alphaDecay'>d3-force simulation.alphaDecay()</a>
+         * @see {@link https://d3js.org/d3-force/simulation#simulation_alphaDecay}
          */
         alphaDecay?: number;
 
         /**
-         * sets the target alpha to the specified number in the range [0;1]
+         * Sets the target alpha to the specified number in the range [0;1]
          * @default 0
-         * @see <a href='https://d3js.org/d3-force/simulation#simulation_alphaTarget'>d3-force simulation.alphaTarget()</a>
+         * @see {@link https://d3js.org/d3-force/simulation#simulation_alphaTarget}
          */
         alphaTarget?: number;
 
         /**
-         * sets the velocity decay factor to the specified number in the range [0;1]
+         * Sets the velocity decay factor to the specified number in the range [0;1]
          * @default 0.4
-         * @see <a href='https://d3js.org/d3-force/simulation#simulation_velocityDecay'>d3-force simulation.velocityDecay()</a>
+         * @see {@link https://d3js.org/d3-force/simulation#simulation_velocityDecay}
          */
         velocityDecay?: number;
 
         /**
-         * sets the force strength to the specified number in the range [0;1]
-         * @see <a href='https://d3js.org/d3-force/collide#forceCollide'>d3-force collide.radius()</a>
+         * Sets the radius accessor to the specified number or function
+         * @see {@link https://d3js.org/d3-force/collide#collide_radius}
          */
         collideRadius?: number | ((node: any, i: number, nodes: any[]) => number);
 
         /**
-         * sets the force strength to the specified number in the range [0;1]
-         * @see <a href='https://d3js.org/d3-force/collide#forceCollide'>d3-force collide.strength()</a>
+         * Sets the force strength to the specified number in the range [0;1]
+         * @see {@link https://d3js.org/d3-force/collide#collide_strength}
          */
-        collideStrength?: number; // sets the force strength to the specified number in the range [0;1]
-        collideIterations?: number; // sets the number of iterations per application to the specified number
-        linkId?: (node: any, i: number, nodesData: any[]) => string | number; // sets the node id accessor to the specified function
-        linkDistance?: number | ((link: any, i: number, links: any[]) => number); // sets the distance accessor to the specified number or function
-        linkStrength?: number | ((link: any, i: number, links: any[]) => number); // sets the strength accessor to the specified number or function
-        linkIterations?: number; // sets the number of iterations per application to the specified number
-        manyBodyStrength?: number | ((node: any, i: number, nodes: any[]) => number); // sets the strength accessor to the specified number or function
-        manyBodyTheta?: number ; // sets the Barnes–Hut approximation criterion to the specified number
-        manyBodyDistanceMin?: number; // sets the minimum distance between nodes over which this force is considered
-        manyBodyDistanceMax?: number; // sets the maximum distance between nodes over which this force is considered
-        xStrength?: number | ((node: any, i: number, nodes: any[]) => number); // sets the strength accessor to the specified number or function
-        xX?: number | ((node: any, i: number, nodes: any[]) => number); // sets the x-coordinate accessor to the specified number or function
-        yStrength?:  number | ((node: any, i: number, nodes: any[]) => number); // sets the strength accessor to the specified number or function
-        yY?:  number | ((node: any, i: number, nodes: any[]) => number); // sets the y-coordinate accessor to the specified number or function
-        radialStrength?: number | ((node: any, i: number, nodes: any[]) => number); // sets the strength accessor to the specified number or function
-        radialRadius?:number | ((node: any, i: number, nodes: any[]) => number); // sets the circle radius to the specified number or function
-        radialX?: number | ((node: any, i: number, nodes: any[]) => number); // sets the x-coordinate of the circle center to the specified number
-        radialY?: number | ((node: any, i: number, nodes: any[]) => number); // sets the y-coordinate of the circle center to the specified number
+        collideStrength?: number; 
+
+        /**
+         * Sets the number of iterations per application to the specified number
+         * @see {@link https://d3js.org/d3-force/collide#collide_iterations}
+         * @default 1
+         */
+        collideIterations?: number;
+
+        /**
+         * Sets the node id accessor to the specified function
+         * @see {@link https://d3js.org/d3-force/link#link_id}
+         */
+        linkId?: (node: any, i: number, nodesData: any[]) => string | number;
+
+        /**
+         * Sets the distance accessor to the specified number or function
+         * @default 30
+         * @see {@link https://d3js.org/d3-force/link#link_distance}
+         */
+        linkDistance?: number | ((link: any, i: number, links: any[]) => number);
+
+        /**
+         * Sets the strength accessor to the specified number or function
+         * @see {@link https://d3js.org/d3-force/link#link_strength}
+         */
+        linkStrength?: number | ((link: any, i: number, links: any[]) => number);
+
+        /**
+         * Sets the number of iterations per application to the specified number
+         * @default 1
+         * @see {@link https://d3js.org/d3-force/link#link_iterations}
+         */
+        linkIterations?: number;
+
+
+        /**
+         * Sets the strength accessor to the specified number or function
+         * @see {@link https://d3js.org/d3-force/many-body#manyBody_strength}
+         */
+        manyBodyStrength?: number | ((node: any, i: number, nodes: any[]) => number);
+        
+        /**
+         * Sets the Barnes–Hut approximation criterion to the specified number
+         * @default 0.9
+         * @see {@link https://d3js.org/d3-force/many-body#manyBody_theta}
+         */
+        manyBodyTheta?: number ; 
+        
+        /**
+         * Sets the minimum distance between nodes over which this force is considered
+         * @default 1
+         * @see {@link https://d3js.org/d3-force/many-body#manyBody_distanceMin}
+         */
+        manyBodyDistanceMin?: number;
+
+        /**
+         * Sets the maximum distance between nodes over which this force is considered
+         * @default Infinity
+         * @see {@link https://d3js.org/d3-force/many-body#manyBody_distanceMax}
+         */
+        manyBodyDistanceMax?: number; 
+        
+        /**
+         * Sets the strength accessor to the specified number or function
+         * @see {@link https://d3js.org/d3-force/position#x_strength}
+         */
+        xStrength?: number | ((node: any, i: number, nodes: any[]) => number);
+        
+        /**
+         * Sets the x-coordinate accessor to the specified number or function
+         * @see {@link https://d3js.org/d3-force/position#x_x}
+         */
+        xX?: number | ((node: any, i: number, nodes: any[]) => number);
+        
+        /**
+         * Sets the strength accessor to the specified number or function
+         * @see {@link https://d3js.org/d3-force/position#y_strength}
+         */
+        yStrength?:  number | ((node: any, i: number, nodes: any[]) => number);
+
+        /**
+         * Sets the y-coordinate accessor to the specified number or function
+         * @see {@link https://d3js.org/d3-force/position#y_y}
+         */
+        yY?:  number | ((node: any, i: number, nodes: any[]) => number);
+        
+        /**
+         * Sets the strength accessor to the specified number or function
+         * @see {@link https://d3js.org/d3-force/position#radial_strength}
+         */
+        radialStrength?: number | ((node: any, i: number, nodes: any[]) => number);
+
+        /**
+         * Sets the circle radius to the specified number or function
+         * @see {@link https://d3js.org/d3-force/position#radial_radius}
+         */
+        radialRadius?:number | ((node: any, i: number, nodes: any[]) => number);  
+        
+        /**
+         * Sets the x-coordinate of the circle center to the specified number
+         * @see {@link https://d3js.org/d3-force/position#radial_x}
+         */
+        radialX?: number | ((node: any, i: number, nodes: any[]) => number); 
+        
+        /**
+         * Sets the y-coordinate of the circle center to the specified number
+         * @see {@link https://d3js.org/d3-force/position#radial_y}
+         */
+        radialY?: number | ((node: any, i: number, nodes: any[]) => number); 
         
         /** 
          * Layout Event Callbacks
