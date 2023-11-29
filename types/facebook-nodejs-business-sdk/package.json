@@ -8,6 +8,11 @@
     "devDependencies": {
         "@types/facebook-nodejs-business-sdk": "workspace:."
     },
-    "owners": [],
+    "owners": [
+        {
+            "name": "Aisel Sherfedinova",
+            "githubUsername": "aisel01"
+        }
+    ],
     "minimumTypeScriptVersion": "5.1"
 }
