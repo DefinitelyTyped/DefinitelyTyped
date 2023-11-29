@@ -25,3 +25,9 @@ strArr = new FuzzySearch(["1", "2", "3"]).search("2");
 
 // $ExpectType number
 FuzzySearch.isMatch("1", "1", false);
+
+const haystack1 = [{ foo: "aa", bar: "bb" }]; // mutable by default
+new FuzzySearch(haystack1, ["foo", "bar"]); // doesn't error
+
+const haystack2 = [{ foo: "aa", bar: "bb" }] as const; // readonly
+new FuzzySearch(haystack2, ["foo", "bar"]); // doesn't error

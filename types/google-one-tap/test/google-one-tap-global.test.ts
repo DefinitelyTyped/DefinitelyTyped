@@ -16,6 +16,7 @@ const idConfiguration: google.IdConfiguration = {
     ux_mode: "popup",
     log_level: "debug",
     itp_support: true,
+    use_fedcm_for_prompt: true,
 };
 
 google.accounts.id.initialize(idConfiguration);

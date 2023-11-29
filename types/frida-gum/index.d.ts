@@ -337,6 +337,26 @@ declare namespace Process {
     const codeSigningPolicy: CodeSigningPolicy;
 
     /**
+     * The module representing the main executable of the process.
+     */
+    const mainModule: Module;
+
+    /**
+     * Gets the filesystem path to the current working directory.
+     */
+    function getCurrentDir(): string;
+
+    /**
+     * Gets the filesystem path to the current user's home directory.
+     */
+    function getHomeDir(): string;
+
+    /**
+     * Gets the filesystem path to the directory to use for temporary files.
+     */
+    function getTmpDir(): string;
+
+    /**
      * Determines whether a debugger is currently attached.
      */
     function isDebuggerAttached(): boolean;
@@ -454,11 +474,21 @@ declare class Module {
     enumerateSymbols(): ModuleSymbolDetails[];
 
     /**
-     * Enumerates memory ranges of module with the `name` as seen in `Process#enumerateModules()`.
+     * Enumerates memory ranges of module.
      *
      * @param protection Minimum protection of ranges to include.
      */
     enumerateRanges(protection: PageProtection): RangeDetails[];
+
+    /**
+     * Enumerates sections of module.
+     */
+    enumerateSections(): ModuleSectionDetails[];
+
+    /**
+     * Enumerates dependencies of module.
+     */
+    enumerateDependencies(): ModuleDependencyDetails[];
 
     /**
      * Looks up the absolute address of the export named `exportName`.
@@ -997,6 +1027,41 @@ interface ModuleSymbolDetails {
     size?: number | undefined;
 }
 
+interface ModuleSectionDetails {
+    /**
+     * Section index, segment name (if applicable) and section name – same
+     * format as r2’s section IDs.
+     */
+    id: string;
+
+    /**
+     * Section name.
+     */
+    name: string;
+
+    /**
+     * Absolute address.
+     */
+    address: NativePointer;
+
+    /**
+     * Size in bytes.
+     */
+    size: number;
+}
+
+interface ModuleDependencyDetails {
+    /**
+     * Module name.
+     */
+    name: string;
+
+    /**
+     * Dependency type.
+     */
+    type: ModuleDependencyType;
+}
+
 type ModuleImportType = "function" | "variable";
 
 type ModuleExportType = "function" | "variable";
@@ -1017,9 +1082,16 @@ type ModuleSymbolType =
     | "common"
     | "tls";
 
+type ModuleDependencyType =
+    | "regular"
+    | "weak"
+    | "reexport"
+    | "upward";
+
 interface ModuleSymbolSectionDetails {
     /**
-     * Section index, segment name (if applicable) and section name – same format as r2’s section IDs.
+     * Section index, segment name (if applicable) and section name – same
+     * format as r2’s section IDs.
      */
     id: string;
 
@@ -1866,6 +1938,8 @@ type ExceptionsBehavior = "steal" | "propagate";
 
 type CodeTraps = "default" | "none" | "all";
 
+type MemoryAccess = "open" | "exclusive";
+
 type CpuContext =
     | PortableCpuContext
     | Ia32CpuContext
@@ -2212,6 +2286,52 @@ declare class MatchPattern {
      *                which gets translated into masks behind the scenes.
      */
     constructor(pattern: string);
+}
+
+/**
+ * Worker script with its own JavaScript heap, lock, etc.
+ *
+ * This is useful to move heavy processing to a background thread, allowing
+ * hooks to be handled in a timely manner.
+ */
+declare class Worker {
+    /**
+     * Magic proxy object for calling `rpc.exports` defined by the worker.
+     */
+    exports: WorkerExports;
+
+    /**
+     * Creates a worker script.
+     *
+     * @param url URL of the worker's entrypoint module. Typically retrieved by
+     *            having the module export its `import.meta.url`, and importing
+     *            that from the module that creates the worker.
+     * @param options Options to customize the worker.
+     */
+    constructor(url: string, options?: WorkerOptions);
+
+    /**
+     * Terminates the worker.
+     */
+    terminate(): void;
+
+    /**
+     * Posts a message to the worker.
+     *
+     * Use `recv()` to receive it inside the worker.
+     */
+    post(message: any, data?: ArrayBuffer | number[] | null): void;
+}
+
+interface WorkerOptions {
+    /**
+     * Function to call when the worker emits a message using `send()`.
+     */
+    onMessage?: MessageCallback;
+}
+
+interface WorkerExports {
+    [name: string]: (...args: any[]) => Promise<any>;
 }
 
 /**
@@ -3362,24 +3482,28 @@ type StalkerArm64TransformCallback = (iterator: StalkerArm64Iterator) => void;
 type StalkerNativeTransformCallback = NativePointer;
 
 interface StalkerX86Iterator extends X86Writer {
+    memoryAccess: MemoryAccess;
     next(): X86Instruction | null;
     keep(): void;
     putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
 }
 
 interface StalkerArmIterator extends ArmWriter {
+    memoryAccess: MemoryAccess;
     next(): ArmInstruction | null;
     keep(): void;
     putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
 }
 
 interface StalkerThumbIterator extends ThumbWriter {
+    memoryAccess: MemoryAccess;
     next(): ArmInstruction | null;
     keep(): void;
     putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
 }
 
 interface StalkerArm64Iterator extends Arm64Writer {
+    memoryAccess: MemoryAccess;
     next(): Arm64Instruction | null;
     keep(): void;
     putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
@@ -3425,37 +3549,57 @@ declare class ApiResolver {
 
 interface ApiResolverMatch {
     /**
-     * Canonical name of the function that was found.
+     * Canonical name of the API that was found.
      */
     name: string;
 
     /**
-     * Memory address that the given function is loaded at.
+     * Memory address that the given API is at.
      */
     address: NativePointer;
+
+    /**
+     * Size in bytes, if applicable.
+     */
+    size?: number | undefined;
 }
 
 type ApiResolverType =
     /**
-     * Resolves exported and imported functions of shared libraries
-     * currently loaded.
+     * Resolves module exports, imports, and sections.
      *
      * Always available.
      *
-     * Example query: `"exports:*!open*"`
-     * Which may resolve to: `"/usr/lib/libSystem.B.dylib!opendir$INODE64"`
+     * Example queries:
+     * - `"exports:*!open*"`
+     * - `"imports:*!open*"`
+     * - `"sections:*!*text*"`
+     *
      * Suffix with `/i` to perform case-insensitive matching.
      */
     | "module"
     /**
-     * Resolves Objective-C methods of classes currently loaded.
+     * Resolves Swift functions.
+     *
+     * Available in processes that have a Swift runtime loaded. Use
+     * `Swift.available` to check at runtime, or wrap your
+     * `new ApiResolver("swift")` call in a try-catch.
+     *
+     * Example query: `"functions:*CoreDevice!*RemoteDevice*"`
+     *
+     * Suffix with `/i` to perform case-insensitive matching.
+     */
+    | "swift"
+    /**
+     * Resolves Objective-C methods.
      *
      * Available on macOS and iOS in processes that have the Objective-C
      * runtime loaded. Use `ObjC.available` to check at runtime, or wrap
-     * your `new ApiResolver(ApiResolverType.ObjC)` call in a try-catch.
+     * your `new ApiResolver("objc")` call in a try-catch.
      *
      * Example query: `"-[NSURL* *HTTP*]"`
      * Which may resolve to: `"-[NSURLRequest valueForHTTPHeaderField:]"`
+     *
      * Suffix with `/i` to perform case-insensitive matching.
      */
     | "objc";
@@ -5975,6 +6119,16 @@ declare class X86Writer {
     putMovRegFsU32Ptr(dstReg: X86Register, fsOffset: number): void;
 
     /**
+     * Puts a MOV FS instruction.
+     */
+    putMovFsRegPtrReg(fsOffset: X86Register, srcReg: X86Register): void;
+
+    /**
+     * Puts a MOV FS instruction.
+     */
+    putMovRegFsRegPtr(dstReg: X86Register, fsOffset: X86Register): void;
+
+    /**
      * Puts a MOV GS instruction.
      */
     putMovGsU32PtrReg(fsOffset: number, srcReg: X86Register): void;
@@ -5983,6 +6137,16 @@ declare class X86Writer {
      * Puts a MOV GS instruction.
      */
     putMovRegGsU32Ptr(dstReg: X86Register, fsOffset: number): void;
+
+    /**
+     * Puts a MOV GS instruction.
+     */
+    putMovGsRegPtrReg(gsOffset: X86Register, srcReg: X86Register): void;
+
+    /**
+     * Puts a MOV GS instruction.
+     */
+    putMovRegGsRegPtr(dstReg: X86Register, gsOffset: X86Register): void;
 
     /**
      * Puts a MOVQ XMM0 ESP instruction.
@@ -6558,6 +6722,11 @@ declare class ArmWriter {
      * Puts an LDMIA MASK instruction.
      */
     putLdmiaRegMask(reg: ArmRegister, mask: number): void;
+
+    /**
+     * Puts an LDMIA MASK WB instruction.
+     */
+    putLdmiaRegMaskWb(reg: ArmRegister, mask: number): void;
 
     /**
      * Puts a STR instruction.
@@ -7528,6 +7697,11 @@ declare class Arm64Writer {
     putRet(): void;
 
     /**
+     * Puts a RET instruction.
+     */
+    putRetReg(reg: Arm64Register): void;
+
+    /**
      * Puts a CBZ instruction.
      */
     putCbzRegImm(reg: Arm64Register, target: NativePointerValue): void;
@@ -7757,6 +7931,26 @@ declare class Arm64Writer {
     putAndRegRegImm(dstReg: Arm64Register, leftReg: Arm64Register, rightValue: number | UInt64): void;
 
     /**
+     * Puts an EOR instruction.
+     */
+    putEorRegRegReg(dstReg: Arm64Register, leftReg: Arm64Register, rightReg: Arm64Register): void;
+
+    /**
+     * Puts an UBFM instruction.
+     */
+    putUbfm(dstReg: Arm64Register, srcReg: Arm64Register, imms: number, immr: number): void;
+
+    /**
+     * Puts a LSL instruction.
+     */
+    putLslRegImm(dstReg: Arm64Register, srcReg: Arm64Register, shift: number): void;
+
+    /**
+     * Puts a LSR instruction.
+     */
+    putLsrRegImm(dstReg: Arm64Register, srcReg: Arm64Register, shift: number): void;
+
+    /**
      * Puts a TST instruction.
      */
     putTstRegImm(reg: Arm64Register, immValue: number | UInt64): void;
@@ -7780,6 +7974,11 @@ declare class Arm64Writer {
      * Puts a BRK instruction.
      */
     putBrkImm(imm: number): void;
+
+    /**
+     * Puts a MRS instruction.
+     */
+    putMrs(dstReg: Arm64Register, systemReg: number): void;
 
     /**
      * Puts a raw instruction.

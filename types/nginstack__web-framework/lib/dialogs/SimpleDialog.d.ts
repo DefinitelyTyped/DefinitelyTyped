@@ -5,5 +5,6 @@ declare class SimpleDialog {
     private _process;
     message: string;
     title: string;
+    autoSanitize: boolean;
     show(): void;
 }
