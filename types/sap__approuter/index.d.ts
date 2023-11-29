@@ -63,7 +63,7 @@ declare namespace approuter {
         /** In order to make it easier to write middlewares being agnostic of the route, the `req.url` will be altered to remove the route part and the original URL will be set to this value */
         originalUrl?: string;
 
-        // On each request, the application router executes registered middlewares in a certain order and the session is not available to all of them.
+        /** Note: On each request, the application router executes registered middlewares in a certain order and the session is not available to all of them. */
         sessionID?: string;
 
         sessionStore?: SessionStore;
