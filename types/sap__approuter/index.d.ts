@@ -60,7 +60,7 @@ declare namespace approuter {
          */
         backendTimeout?: (req: IncomingMessage, done: () => void) => void;
 
-        // In order to make middleware easier to write to be agnostic of the route, the req.url will be altered to remove the route part and the original will be available set to this value
+        /** In order to make it easier to write middlewares being agnostic of the route, the `req.url` will be altered to remove the route part and the original URL will be set to this value */
         originalUrl?: string;
 
         // On each request, the application router executes registered middlewares in a certain order and the session is not available to all of them.
