@@ -23,13 +23,13 @@ declare namespace cytoscapeD3Force {
          * @default 0
          */
         maxIterations?: number; // max iterations before the layout will bail out
-        
+
         /**
          * Max length in ms to run the layout
          * @default 0
          */
         maxSimulationTime?: number;
-        
+
         /**
          * Disable drag and drop of nodes during simulation
          * @default false
@@ -41,7 +41,7 @@ declare namespace cytoscapeD3Force {
          * @default false
          */
         fixedAfterDragging?: boolean;
-        
+
         /**
          * On every layout reposition of nodes; fit the viewport
          * @default false
@@ -57,8 +57,8 @@ declare namespace cytoscapeD3Force {
         /**
          * Constrain layout bounds; { x1; y1; x2; y2 } or { x1; y1; w; h }
          */
-        boundingBox?: cytoscape.BoundingBox12 | cytoscape.BoundingBoxWH; 
-        
+        boundingBox?: cytoscape.BoundingBox12 | cytoscape.BoundingBoxWH;
+
         // D3 Force API Properties
 
         /**
@@ -106,7 +106,7 @@ declare namespace cytoscapeD3Force {
          * Sets the force strength to the specified number in the range [0;1]
          * @see {@link https://d3js.org/d3-force/collide#collide_strength}
          */
-        collideStrength?: number; 
+        collideStrength?: number;
 
         /**
          * Sets the number of iterations per application to the specified number
@@ -141,20 +141,19 @@ declare namespace cytoscapeD3Force {
          */
         linkIterations?: number;
 
-
         /**
          * Sets the strength accessor to the specified number or function
          * @see {@link https://d3js.org/d3-force/many-body#manyBody_strength}
          */
         manyBodyStrength?: number | ((node: any, i: number, nodes: any[]) => number);
-        
+
         /**
          * Sets the Barnes–Hut approximation criterion to the specified number
          * @default 0.9
          * @see {@link https://d3js.org/d3-force/many-body#manyBody_theta}
          */
-        manyBodyTheta?: number ; 
-        
+        manyBodyTheta?: number;
+
         /**
          * Sets the minimum distance between nodes over which this force is considered
          * @default 1
@@ -167,32 +166,32 @@ declare namespace cytoscapeD3Force {
          * @default Infinity
          * @see {@link https://d3js.org/d3-force/many-body#manyBody_distanceMax}
          */
-        manyBodyDistanceMax?: number; 
-        
+        manyBodyDistanceMax?: number;
+
         /**
          * Sets the strength accessor to the specified number or function
          * @see {@link https://d3js.org/d3-force/position#x_strength}
          */
         xStrength?: number | ((node: any, i: number, nodes: any[]) => number);
-        
+
         /**
          * Sets the x-coordinate accessor to the specified number or function
          * @see {@link https://d3js.org/d3-force/position#x_x}
          */
         xX?: number | ((node: any, i: number, nodes: any[]) => number);
-        
+
         /**
          * Sets the strength accessor to the specified number or function
          * @see {@link https://d3js.org/d3-force/position#y_strength}
          */
-        yStrength?:  number | ((node: any, i: number, nodes: any[]) => number);
+        yStrength?: number | ((node: any, i: number, nodes: any[]) => number);
 
         /**
          * Sets the y-coordinate accessor to the specified number or function
          * @see {@link https://d3js.org/d3-force/position#y_y}
          */
-        yY?:  number | ((node: any, i: number, nodes: any[]) => number);
-        
+        yY?: number | ((node: any, i: number, nodes: any[]) => number);
+
         /**
          * Sets the strength accessor to the specified number or function
          * @see {@link https://d3js.org/d3-force/position#radial_strength}
@@ -203,40 +202,40 @@ declare namespace cytoscapeD3Force {
          * Sets the circle radius to the specified number or function
          * @see {@link https://d3js.org/d3-force/position#radial_radius}
          */
-        radialRadius?:number | ((node: any, i: number, nodes: any[]) => number);  
-        
+        radialRadius?: number | ((node: any, i: number, nodes: any[]) => number);
+
         /**
          * Sets the x-coordinate of the circle center to the specified number
          * @see {@link https://d3js.org/d3-force/position#radial_x}
          */
-        radialX?: number | ((node: any, i: number, nodes: any[]) => number); 
-        
+        radialX?: number | ((node: any, i: number, nodes: any[]) => number);
+
         /**
          * Sets the y-coordinate of the circle center to the specified number
          * @see {@link https://d3js.org/d3-force/position#radial_y}
          */
-        radialY?: number | ((node: any, i: number, nodes: any[]) => number); 
-        
-        /** 
+        radialY?: number | ((node: any, i: number, nodes: any[]) => number);
+
+        /**
          * Layout Event Callbacks
-         **/ 
+         */
 
         // on layoutready event
         ready?: cytoscape.LayoutHandler;
-        
+
         // on layoutstop event
-        stop?: cytoscape.LayoutHandler; 
-    
+        stop?: cytoscape.LayoutHandler;
+
         // on every iteration
-        tick?: (progress: number)=>void; 
+        tick?: (progress: number) => void;
 
         /**
          * Randomize the initial positions of the nodes (true) or use existing positions (false)
          * @default false
-         *  */ 
+         */
         randomize?: boolean;
 
-        /** 
+        /**
          * Overrides all other options for a forces-all-the-time mode
          * @default false
          */
