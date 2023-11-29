@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/geo-coordinates-parser",
+    "version": "1.6.9999",
+    "projects": [
+        "https://github.com/ianengelbrecht/geo-coordinates-parser#readme"
+    ],
+    "devDependencies": {
+        "@types/geo-coordinates-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jose Angel",
+            "githubUsername": "j8seangel"
+        }
+    ]
+}
