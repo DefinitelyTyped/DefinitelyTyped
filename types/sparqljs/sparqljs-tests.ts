@@ -121,7 +121,7 @@ function basicQueries() {
             var1,
             var2,
             foo,
-            bar
+            bar,
         ],
     };
 }
@@ -144,10 +144,9 @@ function updateQueries() {
         updates: [
             {
                 updateType: "insertdelete",
-                graph:
-                {
+                graph: {
                     type: "graph",
-                    name: DataFactory.namedNode("http://example.com/foo")
+                    name: DataFactory.namedNode("http://example.com/foo"),
                 },
                 insert: [bgp],
                 delete: [bgp],

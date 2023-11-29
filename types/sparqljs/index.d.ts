@@ -57,11 +57,11 @@ export interface BaseQuery {
     base?: string | undefined;
     prefixes: { [prefix: string]: string };
     from?:
-    | {
-        default: IriTerm[];
-        named: IriTerm[];
+        | {
+            default: IriTerm[];
+            named: IriTerm[];
         }
-    | undefined;
+        | undefined;
     where?: Pattern[] | undefined;
     values?: ValuePatternRow[] | undefined;
 }
@@ -128,8 +128,8 @@ export type InsertDeleteOperation =
         insert?: Quads[];
         delete?: Quads[];
         using?: {
-        default: IriTerm[];
-        named: IriTerm[];
+            default: IriTerm[];
+            named: IriTerm[];
         };
         where?: Pattern[];
     }
