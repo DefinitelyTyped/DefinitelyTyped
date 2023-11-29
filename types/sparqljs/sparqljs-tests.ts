@@ -119,14 +119,9 @@ function basicQueries() {
         prefixes,
         variables: [
             var1,
-            {
-                variable: var2,
-                expression: {
-                    type: "operation",
-                    operator: "+",
-                    args: [foo, bar],
-                },
-            },
+            var2,
+            foo,
+            bar
         ],
     };
 }
@@ -149,7 +144,11 @@ function updateQueries() {
         updates: [
             {
                 updateType: "insertdelete",
-                graph: DataFactory.namedNode("http://example.com/foo"),
+                graph:
+                {
+                    type: "graph",
+                    name: DataFactory.namedNode("http://example.com/foo")
+                },
                 insert: [bgp],
                 delete: [bgp],
                 where: [],
