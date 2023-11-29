@@ -69,6 +69,13 @@ export interface MatchImageSnapshotOptions {
      */
     onlyDiff?: boolean | undefined;
     /**
+     * This needs to be set to a existing file, like `require.resolve('./runtimeHooksPath.cjs')`.
+     * This file can expose a few hooks:
+     * - `onBeforeWriteToDisc`: before saving any image to the disc, this function will be called (can be used to write EXIF data to images for instance)
+     * - `onBeforeWriteToDisc: (arguments: { buffer: Buffer; destination: string; testPath: string; currentTestName: string }) => Buffer`
+     */
+    runtimeHooksPath?: string | undefined;
+    /**
      * Will output base64 string of a diff image to console in case of failed tests (in addition to creating a diff image).
      * This string can be copy-pasted to a browser address string to preview the diff for a failed test.
      * @default false
