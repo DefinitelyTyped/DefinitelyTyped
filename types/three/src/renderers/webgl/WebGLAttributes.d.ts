@@ -12,6 +12,7 @@ export class WebGLAttributes {
               type: number;
               bytesPerElement: number;
               version: number;
+              size: number;
           }
         | undefined;
 
