@@ -11,6 +11,10 @@ export interface RouteType {
     group: (prefix: string, callback: any, middleware?: any) => void;
 }
 
+export interface ThinkObj {
+    [key: string]: any;
+}
+
 export interface Context {
     [key: string]: any;
 }
@@ -20,10 +24,10 @@ export interface PoolConnection {
 }
 
 export class Controller {
-    ShowSuccess(data?: any, msg?: string, code?: number, statusCode?: number): Object;
+    ShowSuccess(data?: any, msg?: string, code?: number, statusCode?: number): ThinkObj;
     ApiException(msg?: string, errorCode?: number, statusCode?: number): void;
-    GetParams(ctx: Context, validate?: boolean, url?: string): Object;
-    View(url: string, data?: Object, type?: string): string;
+    GetParams(ctx: Context, validate?: boolean, url?: string): ThinkObj;
+    View(url: string, data?: ThinkObj, type?: string): string;
     Log4j(str: string, level?: LEVELS): void;
     Utils: any;
     M(modelPath: string): any;
@@ -33,10 +37,10 @@ export class Controller {
     MDb(modelName: string, db?: string): any;
 }
 
-export function ShowSuccess(data?: any, msg?: string, code?: number, statusCode?: number): Object;
+export function ShowSuccess(data?: any, msg?: string, code?: number, statusCode?: number): ThinkObj;
 export function ApiException(msg?: string, errorCode?: number, statusCode?: number): void;
-export function GetParams(ctx: Context, validate?: boolean, url?: string): Object;
-export function View(url: string, data?: Object, type?: string): string;
+export function GetParams(ctx: Context, validate?: boolean, url?: string): ThinkObj;
+export function View(url: string, data?: ThinkObj, type?: string): string;
 export function Log4j(str: string, level?: LEVELS): void;
 export function M(modelPath: string): any;
 export function Db(tableName?: string, db?: string): any;
