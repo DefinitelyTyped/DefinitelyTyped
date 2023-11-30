@@ -351,7 +351,7 @@ declare namespace Pubnub {
         listenToBrowserNetworkEvents?: boolean | undefined;
         useRandomIVs?: boolean | undefined;
         dedupeOnSubscribe?: boolean | undefined;
-        enableSubscribeBeta?: boolean | undefined;
+        cryptoModule?: CryptoModule | undefined;
     };
 
     interface MessageEvent {
@@ -1133,12 +1133,14 @@ declare namespace Pubnub {
         extends Omit<v2ObjectData<MembershipCustom>, "id">
     {
         uuid: (UUIDMetadataObject<UUIDCustom> & { status?: string }) | { id: string };
+        status?: string | null | undefined;
     }
 
     interface ChannelMembershipObject<MembershipCustom extends ObjectCustom, ChannelCustom extends ObjectCustom>
         extends Omit<v2ObjectData<MembershipCustom>, "id">
     {
         channel: (ChannelMetadataObject<ChannelCustom> & { status?: string }) | { id: string };
+        status?: string | null | undefined;
     }
 
     interface UUIDMembersParameters {
@@ -1283,6 +1285,72 @@ declare namespace Pubnub {
         fcm: FCMNotificationPayload;
 
         buildPayload(platforms: string[]): object;
+    }
+
+    class CryptoModule {
+        constructor(configuration: CryptoModuleConfiguration);
+
+        static legacyCryptoModule(configuration: CryptorConfiguration): CryptoModule;
+        static aesCbcCryptoModule(configuration: CryptorConfiguration): CryptoModule;
+        static withDefaultCryptor(defaultCryptor: CryptorType): CryptoModule;
+
+        defaultCryptor: CryptorType;
+        cryptors: CryptorType[];
+
+        encrypt(data: ArrayBuffer | string): ArrayBufferLike;
+        decrypt(data: ArrayBuffer | string): ArrayBuffer | string;
+
+        encryptFile(file: PubNubFileType, fd: PubNubFileType): Promise<PubNubFileType>;
+        decryptFile(file: PubNubFileType, fd: PubNubFileType): Promise<PubNubFileType>;
+    }
+
+    interface PubNubFileType {
+        data: File | Blob;
+        name: string;
+        mimeType: string;
+
+        create(config: any): PubNubFileType;
+
+        toArrayBuffer(): ArrayBuffer;
+        toBlob(): Blob;
+        toString(): string;
+        toFile(): File;
+    }
+
+    interface CryptorConfiguration {
+        cipherKey: string;
+        useRandomIVs?: boolean;
+    }
+
+    interface CryptoModuleConfiguration {
+        default: CryptorType;
+        cryptors?: CryptorType[];
+    }
+
+    type CryptorType = Cryptor | LegacyCryptor<PubNubFileType>;
+
+    interface EncryptedDataType {
+        data: ArrayBuffer;
+        metadata: ArrayBuffer | null;
+    }
+
+    interface LegacyCryptor<T> {
+        get identifier(): string;
+
+        encrypt(data: ArrayBuffer | string): EncryptedDataType;
+        decrypt(data: EncryptedDataType): ArrayBuffer | string;
+
+        encryptFile(file: T, File: T): Promise<T>;
+        decryptFile(file: T, File: T): Promise<T>;
+    }
+
+    interface Cryptor {
+        get identifier(): string;
+        encrypt(data: ArrayBuffer | string): EncryptedDataType;
+        decrypt(data: EncryptedDataType): ArrayBuffer;
+
+        encryptFileData(data: ArrayBuffer): Promise<EncryptedDataType>;
+        decryptFileData(data: EncryptedDataType): Promise<ArrayBuffer>;
     }
 
     interface Categories {
