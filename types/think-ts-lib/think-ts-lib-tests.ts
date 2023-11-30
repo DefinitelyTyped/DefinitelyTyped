@@ -1,5 +1,5 @@
 // 引入需要测试的模块声明文件
-import { start } from 'think-ts-lib';
+import { start } from "think-ts-lib";
 
 // 编写测试代码
 function testStart() {

@@ -1,7 +1,7 @@
 export const Utils: any;
 export const appConfig: Record<string, any>;
 
-export type LEVELS = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal';
+export type LEVELS = "trace" | "debug" | "info" | "warn" | "error" | "fatal";
 
 export interface RouteType {
     get: (url: string, str: string, middleware?: any) => void;
@@ -49,4 +49,4 @@ export function RDb(db?: string): any;
 export function MDb(modelName: string, db?: string): any;
 export function ExceptionType(msg?: string, errorCode?: number, statusCode?: number): void;
 export function start(config?: Record<string, any>): void;
-export { };
+export {};
