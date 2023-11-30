@@ -298,7 +298,8 @@ export type Expression =
     | Tuple // used in IN operator
     | IriTerm
     | VariableTerm
-    | LiteralTerm;
+    | LiteralTerm
+    | QuadTerm;
 
 // allow Expression circularly reference itself
 export interface Tuple extends Array<Expression> {}
