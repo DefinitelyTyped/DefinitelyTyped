@@ -46,3 +46,4 @@ export function Db(tableName?: string, db?: string): any;
 export function EDb(db?: string): any;
 export function RDb(db?: string): any;
 export function MDb(modelName: string, db?: string): any;
+export {};
