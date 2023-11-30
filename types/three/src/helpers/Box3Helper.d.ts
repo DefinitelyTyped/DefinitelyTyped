@@ -1,6 +1,6 @@
-import { Box3 } from './../math/Box3.js';
-import { ColorRepresentation } from './../math/Color.js';
-import { LineSegments } from './../objects/LineSegments.js';
+import { Box3 } from '../math/Box3.js';
+import { ColorRepresentation } from '../math/Color.js';
+import { LineSegments } from '../objects/LineSegments.js';
 
 /**
  * Helper object to visualize a {@link THREE.Box3 | Box3}.

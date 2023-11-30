@@ -5,5 +5,6 @@ export default class WebGPURenderer extends Renderer {
         canvas?: HTMLCanvasElement | undefined;
         antialias?: boolean | undefined;
         sampleCount?: number | undefined;
+        logarithmicDepthBuffer?: boolean | undefined;
     });
 }

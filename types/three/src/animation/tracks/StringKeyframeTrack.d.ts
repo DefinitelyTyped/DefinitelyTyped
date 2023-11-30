@@ -1,4 +1,4 @@
-import { KeyframeTrack } from './../KeyframeTrack.js';
+import { KeyframeTrack } from '../KeyframeTrack.js';
 import { InterpolationModes } from '../../constants.js';
 
 export class StringKeyframeTrack extends KeyframeTrack {
