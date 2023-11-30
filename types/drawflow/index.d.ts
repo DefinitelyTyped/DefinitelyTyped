@@ -5,8 +5,8 @@ export default class Drawflow {
     constructor(element: HTMLElement, render?: object, parent?: object);
 
     /**
-    * @default {}
-    */
+     * @default {}
+     */
     events: Record<string, { listeners: Array<(args: any) => void> }>;
 
     container: HTMLElement;
