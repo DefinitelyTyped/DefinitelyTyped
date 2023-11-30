@@ -51,7 +51,7 @@ declare namespace Crawler {
         proxy?: any;
         proxies?: any[] | undefined;
         limiter?: string | undefined;
-        encoding?: string | undefined;
+        encoding?: string | undefined | null;
         priority?: number | undefined;
         jquery?: any;
         jQuery?: any;
@@ -72,7 +72,7 @@ declare namespace Crawler {
         autoWindowClose?: boolean | undefined;
         forceUTF8?: boolean | undefined;
         gzip?: boolean | undefined;
-        incomingEncoding?: string | undefined;
+        incomingEncoding?: string | undefined | null;
         jquery?: any;
         jQuery?: any;
         maxConnections?: number | undefined;
