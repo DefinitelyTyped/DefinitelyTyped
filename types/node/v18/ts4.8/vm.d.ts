@@ -37,7 +37,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v18.0.0/lib/vm.js)
  */
 declare module "vm" {
-    import { ImportAssertions } from "node:module";
+    import { ImportAttributes } from "node:module";
     interface Context extends NodeJS.Dict<any> {}
     interface BaseOptions {
         /**
@@ -68,7 +68,7 @@ declare module "vm" {
          * If this option is not specified, calls to `import()` will reject with `ERR_VM_DYNAMIC_IMPORT_CALLBACK_MISSING`.
          */
         importModuleDynamically?:
-            | ((specifier: string, script: Script, importAssertions: ImportAssertions) => Module)
+            | ((specifier: string, script: Script, importAttributes: ImportAttributes) => Module)
             | undefined;
     }
     interface RunningScriptOptions extends BaseOptions {
@@ -560,7 +560,11 @@ declare module "vm" {
     type ModuleLinker = (
         specifier: string,
         referencingModule: Module,
-        extra: { assert: Object },
+        extra: {
+            /** @deprecated Use `attributes` instead */
+            assert: ImportAttributes;
+            attributes: ImportAttributes;
+        },
     ) => Module | Promise<Module>;
     type ModuleStatus = "unlinked" | "linking" | "linked" | "evaluating" | "evaluated" | "errored";
     class Module {

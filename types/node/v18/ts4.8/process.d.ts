@@ -902,6 +902,12 @@ declare module "process" {
                  */
                 setSourceMapsEnabled(value: boolean): void;
                 /**
+                 * The `process.sourceMapsEnabled` property returns whether the [Source Map v3](https://sourcemaps.info/spec.html) support for stack traces is enabled.
+                 * @since v18.19.0
+                 * @experimental
+                 */
+                readonly sourceMapsEnabled: boolean;
+                /**
                  * The `process.version` property contains the Node.js version string.
                  *
                  * ```js
