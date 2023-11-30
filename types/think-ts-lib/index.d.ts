@@ -30,15 +30,15 @@ declare module 'think-ts-lib' {
         RDb(db?: string): any;
         MDb(modelName: string, db?: string): any;
     }
-    export const ShowSuccess: (data?: any, msg?: string, code?: number, statusCode?: number) => Object;
-    export const ApiException: (msg?: string, errorCode?: number, statusCode?: number) => void;
-    export const GetParams: (ctx: Context, validate?: boolean, url?: string) => Object;
-    export const View: (url: string, data?: Object, type?: string) => string;
-    export const Log4j: (str: string, level?: LEVELS) => void;
+    export function ShowSuccess(data?: any, msg?: string, code?: number, statusCode?: number): Object;
+    export function ApiException(msg?: string, errorCode?: number, statusCode?: number): void;
+    export function GetParams(ctx: Context, validate?: boolean, url?: string): Object;
+    export function View(url: string, data?: Object, type?: string): string;
+    export function Log4j(str: string, level?: LEVELS): void;
     export const Utils: any;
-    export const M: (modelPath: string) => any;
-    export const Db: (tableName?: string, db?: string) => any;
-    export const EDb: (db?: string) => any;
-    export const RDb: (db?: string) => any;
-    export const MDb: (modelName: string, db?: string) => any;
+    export function M(modelPath: string): any;
+    export function Db(tableName?: string, db?: string): any;
+    export function EDb(db?: string): any;
+    export function RDb(db?: string): any;
+    export function MDb(modelName: string, db?: string): any;
 }
