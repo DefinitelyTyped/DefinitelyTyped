@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/think-ts-lib",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/zy598586050/think-ts-lib"
+    ],
+    "devDependencies": {
+        "@types/think-ts-lib": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "zhangyu",
+            "githubUsername": "zy598586050"
+        }
+    ]
+}
