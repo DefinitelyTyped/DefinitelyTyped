@@ -11,8 +11,6 @@ export interface RouteType {
     group: (prefix: string, callback: any, middleware?: any) => void;
 }
 
-export type ExceptionType = (msg?: string, errorCode?: number, statusCode?: number) => void;
-
 export interface Context {
     [key: string]: any;
 }
@@ -46,3 +44,4 @@ export function Db(tableName?: string, db?: string): any;
 export function EDb(db?: string): any;
 export function RDb(db?: string): any;
 export function MDb(modelName: string, db?: string): any;
+export function ExceptionType(msg?: string, errorCode?: number, statusCode?: number): void;
