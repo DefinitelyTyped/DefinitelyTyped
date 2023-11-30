@@ -120,7 +120,9 @@ declare module "module" {
              */
             findOrigin(lineNumber: number, columnNumber: number): SourceOrigin | {};
         }
-        interface ImportAssertions extends NodeJS.Dict<string> {
+        /** @deprecated Use `ImportAttributes` instead */
+        interface ImportAssertions extends ImportAttributes {}
+        interface ImportAttributes extends NodeJS.Dict<string> {
             type?: string | undefined;
         }
         type ModuleFormat = "builtin" | "commonjs" | "json" | "module" | "wasm";
@@ -129,6 +131,9 @@ declare module "module" {
             port: MessagePort;
         }
         /**
+         * @deprecated This hook will be removed in a future version.
+         * Use `initialize` instead. When a loader has an `initialize` export, `globalPreload` will be ignored.
+         *
          * Sometimes it might be necessary to run some code inside of the same global scope that the application runs in.
          * This hook allows the return of a string that is run as a sloppy-mode script on startup.
          *
@@ -136,15 +141,27 @@ declare module "module" {
          * @return Code to run before application startup
          */
         type GlobalPreloadHook = (context: GlobalPreloadContext) => string;
+        /**
+         * The `initialize` hook provides a way to define a custom function that runs in the hooks thread
+         * when the hooks module is initialized. Initialization happens when the hooks module is registered via `register`.
+         *
+         * This hook can receive data from a `register` invocation, including ports and other transferrable objects.
+         * The return value of `initialize` can be a `Promise`, in which case it will be awaited before the main application thread execution resumes.
+         */
+        type InitializeHook<Data = any> = (data: Data) => void | Promise<void>;
         interface ResolveHookContext {
             /**
              * Export conditions of the relevant `package.json`
              */
             conditions: string[];
             /**
+             * @deprecated Use `importAttributes` instead
+             */
+            importAssertions: ImportAttributes;
+            /**
              *  An object whose key-value pairs represent the assertions for the module to import
              */
-            importAssertions: ImportAssertions;
+            importAttributes: ImportAttributes;
             /**
              * The module importing this one, or undefined if this is the Node.js entry point
              */
@@ -156,9 +173,13 @@ declare module "module" {
              */
             format?: ModuleFormat | null | undefined;
             /**
-             * The import assertions to use when caching the module (optional; if excluded the input will be used)
+             * @deprecated Use `importAttributes` instead
              */
-            importAssertions?: ImportAssertions | undefined;
+            importAssertions?: ImportAttributes | undefined;
+            /**
+             * The import attributes to use when caching the module (optional; if excluded the input will be used)
+             */
+            importAttributes?: ImportAttributes | undefined;
             /**
              * A signal that this hook intends to terminate the chain of `resolve` hooks.
              * @default false
@@ -196,9 +217,13 @@ declare module "module" {
              */
             format: ModuleFormat;
             /**
+             * @deprecated Use `importAttributes` instead
+             */
+            importAssertions: ImportAttributes;
+            /**
              *  An object whose key-value pairs represent the assertions for the module to import
              */
-            importAssertions: ImportAssertions;
+            importAttributes: ImportAttributes;
         }
         interface LoadFnOutput {
             format: ModuleFormat;
@@ -226,6 +251,11 @@ declare module "module" {
             nextLoad: (url: string, context?: LoadHookContext) => LoadFnOutput | Promise<LoadFnOutput>,
         ) => LoadFnOutput | Promise<LoadFnOutput>;
     }
+    interface RegisterOptions<Data> {
+        parentURL: string | URL;
+        data?: Data | undefined;
+        transferList?: any[] | undefined;
+    }
     interface Module extends NodeModule {}
     class Module {
         static runMain(): void;
@@ -234,6 +264,12 @@ declare module "module" {
         static builtinModules: string[];
         static isBuiltin(moduleName: string): boolean;
         static Module: typeof Module;
+        static register<Data = any>(
+            specifier: string | URL,
+            parentURL?: string | URL,
+            options?: RegisterOptions<Data>,
+        ): void;
+        static register<Data = any>(specifier: string | URL, options?: RegisterOptions<Data>): void;
         constructor(id: string, parent?: Module);
     }
     global {
