@@ -2,6 +2,7 @@ import {
     __internal,
     CacheConfig,
     commitLocalUpdate,
+    commitMutation,
     ConcreteRequest,
     ConnectionHandler,
     ConnectionInterface,
@@ -181,6 +182,24 @@ interface UserQuery {
     response: UserQuery$data;
     variables: {};
 }
+
+commitMutation<{
+    response: { setUsername?: { name?: string | null } | null };
+    variables: { name: string };
+}>(environment, {
+    mutation: graphql`
+        mutation setUserName($name: String!) {
+            setUsername(name: $name) {
+                name
+            }
+        }
+    `,
+    variables: { name: "" },
+    updater(store, data) {
+        const newName = data?.setUsername?.name;
+        newName && store.get("userid")?.setValue(newName, "name");
+    },
+});
 
 function storeUpdater(store: RecordSourceSelectorProxy, dataRef: UserFragment_updatable$key) {
     store.invalidateStore();

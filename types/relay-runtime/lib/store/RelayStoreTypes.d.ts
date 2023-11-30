@@ -864,9 +864,7 @@ export type StoreUpdater = (store: RecordSourceProxy) => void;
  */
 export type SelectorStoreUpdater<T = object> = (
     store: RecordSourceSelectorProxy<T>,
-    // Actually SelectorData, but mixed is inconvenient to access deeply in
-    // product code.
-    data: T,
+    data: T | null | undefined,
 ) => void;
 
 /**
