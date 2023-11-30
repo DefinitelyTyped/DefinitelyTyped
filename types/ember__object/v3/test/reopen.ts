@@ -2,7 +2,7 @@ import EmberObject from "@ember/object";
 import Mixin from "@ember/object/mixin";
 import { assertType } from "./lib/assert";
 
-type Person = typeof Person.prototype;
+type Person = EmberObject & { name: string, sayHello(): void };
 const Person = EmberObject.extend({
     name: "",
     sayHello() {
@@ -10,7 +10,7 @@ const Person = EmberObject.extend({
     },
 });
 
-assertType<Person>(Person.reopen());
+assertType<Readonly<typeof EmberObject> & { new(properties?: object | undefined): Person}>(Person.reopen());
 
 assertType<string>(Person.create().name);
 // tslint:disable-next-line no-void-expression

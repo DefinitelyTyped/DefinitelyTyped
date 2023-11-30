@@ -139,7 +139,7 @@ const people2 = Ember.A([
     Person3.create({ name: "Yehuda", isHappy: true }),
     Person3.create({ name: "Majd", isHappy: false }),
 ]);
-const isHappy = (person: typeof Person3.prototype): boolean => {
+const isHappy = (person: Ember.Object & { name: string, isHappy: boolean }): boolean => {
     return !!person.get("isHappy");
 };
 people2.every(isHappy);

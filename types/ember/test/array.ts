@@ -1,7 +1,7 @@
 import Ember from "ember";
 import { assertType } from "./lib/assert";
 
-type Person = typeof Person.prototype;
+type Person = Ember.Object & { name: string, isHappy: boolean }
 const Person = Ember.Object.extend({
     name: "",
     isHappy: false,
@@ -13,7 +13,7 @@ const people = Ember.A([
 ]);
 
 assertType<number>(people.get("length"));
-assertType<Person>(people.get("lastObject"));
+assertType<Person | undefined>(people.get("lastObject"));
 assertType<boolean>(people.isAny("isHappy"));
 // @ts-expect-error
 assertType<boolean>(people.isAny("isHappy", "false"));
@@ -22,7 +22,7 @@ assertType<Ember.Enumerable<Person>>(people.filterBy("isHappy"));
 assertType<Ember.Enumerable<Person>>(people.rejectBy("isHappy"));
 assertType<Ember.Enumerable<Person>>(people.filter(person => person.get("name") === "Yehuda"));
 assertType<typeof people>(people.get("[]"));
-assertType<Person>(people.get("[]").get("firstObject"));
+assertType<Person | undefined>(people.get("[]").get("firstObject"));
 
 assertType<Ember.Array<boolean>>(people.mapBy("isHappy"));
 assertType<unknown[]>(people.mapBy("name.length"));
