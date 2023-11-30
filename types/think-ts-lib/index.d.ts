@@ -1,3 +1,8 @@
+/*
+ * @Author: zhangyu
+ * @Date: 2023-11-29 19:18:42
+ * @LastEditTime: 2023-11-30 10:38:42
+ */
 // 声明模块名及其所包含的内容
 declare module 'think-ts-lib' {
     // 导出的函数和变量声明
