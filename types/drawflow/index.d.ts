@@ -1,8 +1,44 @@
+import { mouse } from '../d3/v3/index';
 // Declare the workflow module to be able to used it in typescript
 // this file must be defined in the include in tsconfig.json
 
 export default class Drawflow {
     constructor(element: HTMLElement, render?: object, parent?: object);
+
+    /**
+    * @default {}
+    */
+    events: Record<string, { listeners: Array<(args: any) => void> }>;
+
+    container: HTMLElement;
+
+    /**
+     * @default 1
+     */
+    nodeId: number;
+
+    /**
+     * @default null
+     */
+    ele_selected: HTMLElement | null;
+
+    /**
+     * @default null
+     */
+    node_selected: HTMLElement | null;
+
+    /**
+     * Drag nodes on click inputs
+     * @default false
+     */
+    drag: boolean;
+
+    /**
+     * @param eventName
+     * @param detail
+     */
+    dispatch: (eventName: string, detail: any) => void;
+
     /**
      * Active reroute
      * @default false
@@ -39,11 +75,23 @@ export default class Drawflow {
      */
     reroute_width: number;
 
+    drag_point: boolean;
+
+    editor_selected: boolean;
+
+    connection: boolean;
+
+    connection_ele: HTMLElement | null;
+
+    connection_selected: HTMLElement | null;
+
     /**
      * Width of line
      * @default 5
      */
     line_path: number;
+
+    first_click: HTMLElement | null;
 
     /**
      * Force the first input to drop the connection on top of the node
@@ -103,6 +151,22 @@ export default class Drawflow {
      */
     canvas_y: number;
 
+    pos_x: number;
+
+    pos_x_start: number;
+
+    pos_y: number;
+
+    pos_y_start: number;
+
+    mouse_x: number;
+
+    mouse_y: number;
+
+    evCache: any[];
+
+    prevDiff: number;
+
     /**
      * Graph data object
      */
@@ -118,6 +182,14 @@ export default class Drawflow {
      * The drawflow "canvas" element
      */
     precanvas: HTMLElement;
+
+    parent: object;
+
+    noderegister: object;
+
+    render: object;
+
+    module: string;
 
     start(): void;
 
