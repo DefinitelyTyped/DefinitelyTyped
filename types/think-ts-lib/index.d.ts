@@ -1,7 +1,7 @@
-type LEVELS = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal';
-
-export function start(config?: Record<string, any>): void;
+export const Utils: any;
 export const appConfig: Record<string, any>;
+
+export type LEVELS = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal';
 
 export interface RouteType {
     get: (url: string, str: string, middleware?: any) => void;
@@ -10,8 +10,6 @@ export interface RouteType {
     delete: (url: string, str: string, middleware?: any) => void;
     group: (prefix: string, callback: any, middleware?: any) => void;
 }
-
-export type ExceptionType = (msg?: string, errorCode?: number, statusCode?: number) => void;
 
 export interface Context {
     [key: string]: any;
@@ -40,10 +38,11 @@ export function ApiException(msg?: string, errorCode?: number, statusCode?: numb
 export function GetParams(ctx: Context, validate?: boolean, url?: string): Object;
 export function View(url: string, data?: Object, type?: string): string;
 export function Log4j(str: string, level?: LEVELS): void;
-export const Utils: any;
 export function M(modelPath: string): any;
 export function Db(tableName?: string, db?: string): any;
 export function EDb(db?: string): any;
 export function RDb(db?: string): any;
 export function MDb(modelName: string, db?: string): any;
-export {};
+export function ExceptionType(msg?: string, errorCode?: number, statusCode?: number): void;
+export function start(config?: Record<string, any>): void;
+export { };
