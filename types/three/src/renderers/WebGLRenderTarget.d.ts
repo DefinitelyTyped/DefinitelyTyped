@@ -5,7 +5,7 @@ import { RenderTarget, RenderTargetOptions } from '../core/RenderTarget.js';
 export interface WebGLRenderTargetOptions extends RenderTargetOptions {}
 
 export class WebGLRenderTarget<TTexture extends Texture | Texture[] = Texture> extends RenderTarget<TTexture> {
-    constructor(width?: number, height?: number, options?: RenderTargetOptions);
+    constructor(width?: number, height?: number, options?: WebGLRenderTargetOptions);
 
     readonly isWebGLRenderTarget: true;
 }

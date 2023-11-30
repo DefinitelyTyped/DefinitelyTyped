@@ -165,6 +165,7 @@ export { MathUtils };
 export * from './objects/Sprite.js';
 export * from './objects/LOD.js';
 export * from './objects/InstancedMesh.js';
+export * from './objects/BatchedMesh.js';
 export * from './objects/SkinnedMesh.js';
 export * from './objects/Skeleton.js';
 export * from './objects/Bone.js';
