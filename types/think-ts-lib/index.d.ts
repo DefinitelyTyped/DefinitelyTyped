@@ -1,5 +1,9 @@
+/*
+ * @Author: zhangyu
+ * @Date: 2023-11-29 19:18:42
+ * @LastEditTime: 2023-11-30 21:07:46
+ */
 export const Utils: any;
-export const appConfig: Record<string, any>;
 
 export type LEVELS = "trace" | "debug" | "info" | "warn" | "error" | "fatal";
 
@@ -35,6 +39,7 @@ export class Controller {
     EDb(db?: string): any;
     RDb(db?: string): any;
     MDb(modelName: string, db?: string): any;
+    appConfig(): ThinkObj;
 }
 
 export function ShowSuccess(data?: any, msg?: string, code?: number, statusCode?: number): ThinkObj;
@@ -49,4 +54,5 @@ export function RDb(db?: string): any;
 export function MDb(modelName: string, db?: string): any;
 export function ExceptionType(msg?: string, errorCode?: number, statusCode?: number): void;
 export function start(config?: Record<string, any>): void;
+export function appConfig(): ThinkObj;
 export {};
