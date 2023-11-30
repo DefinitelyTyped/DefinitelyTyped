@@ -294,7 +294,6 @@ export type Expression =
     | OperationExpression
     | FunctionCallExpression
     | AggregateExpression
-    | Pattern // all patterns can be inside an exists.
     | Tuple // used in IN operator
     | IriTerm
     | VariableTerm
@@ -312,7 +311,7 @@ export interface BaseExpression {
 export interface OperationExpression extends BaseExpression {
     type: "operation";
     operator: string;
-    args: Expression[];
+    args: Array<Expression | Pattern>;
 }
 
 export interface FunctionCallExpression extends BaseExpression {
