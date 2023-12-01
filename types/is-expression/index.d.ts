@@ -16,7 +16,7 @@ type Options = acorn.Options & {
      * When `true`, allows line comments in the expression. Defaults to `false` for safety.
      */
     lineComment: boolean;
-}
+};
 
 /**
  * Validates a string as a JavaScript expression.
