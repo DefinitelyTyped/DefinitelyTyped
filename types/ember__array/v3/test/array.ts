@@ -25,7 +25,7 @@ const persons5: Person[] = people.filter(person => person.get("name") === "Yehud
 const persons6: MutableArray<Person> = people.filter(person => person.get("name") === "Yehuda");
 
 assertType<typeof people>(people.get("[]"));
-assertType<Person | undefined>(people.get("[]").get("firstObject")); // $ExpectType any
+assertType<Person | undefined>(people.get("[]").get("firstObject")); // $ExpectType Person | undefined
 
 assertType<boolean[]>(people.mapBy("isHappy")); // $ExpectType boolean[]
 assertType<any[]>(people.mapBy("name.length"));
