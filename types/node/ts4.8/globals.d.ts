@@ -1,4 +1,4 @@
-export {} // Make this a module
+export {}; // Make this a module
 
 // #region Fetch and friends
 // Conditional type aliases, used at the end of this file.
@@ -376,7 +376,7 @@ declare global {
     } ? T
         : typeof import("undici-types").Headers;
 
-    interface File extends _File{}
+    interface File extends _File {}
     var File: typeof globalThis extends {
         onmessage: any;
         File: infer T;

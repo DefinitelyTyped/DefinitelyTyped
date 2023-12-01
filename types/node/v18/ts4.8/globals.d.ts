@@ -1,4 +1,4 @@
-export {} // Make this a module
+export {}; // Make this a module
 
 // #region Fetch and friends
 // Conditional type aliases, used at the end of this file.
