@@ -1,7 +1,7 @@
 import Ember from "ember";
 import { assertType } from "./lib/assert";
 
-type Person = Ember.Object & { name: string, sayHello(): void };
+type Person = Ember.Object & { name: string; sayHello(): void };
 const Person = Ember.Object.extend({
     name: "",
     sayHello() {

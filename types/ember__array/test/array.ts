@@ -3,7 +3,7 @@ import MutableArray from "@ember/array/mutable";
 import EmberObject from "@ember/object";
 import { assertType } from "./lib/assert";
 
-type Person = EmberObject & { name: string, isHappy: boolean };
+type Person = EmberObject & { name: string; isHappy: boolean };
 const Person = EmberObject.extend({
     name: "",
     isHappy: false,
