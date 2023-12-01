@@ -5,7 +5,9 @@ import {
     EventRequest,
     FacebookAdsApi,
     ServerEvent,
-    UserData
+    UserData,
+    IGUser,
+    InstagramInsightsResult
 } from 'facebook-nodejs-business-sdk';
 import { FacebookRequestError } from 'facebook-nodejs-business-sdk/src/exceptions';
 import TEventRequest from "facebook-nodejs-business-sdk/src/objects/serverside/event-request";
@@ -122,3 +124,8 @@ async function testConversionEvent(): Promise<TEventRequest> {
 }
 
 throw new FacebookRequestError({}, 'GET', 'url', 'data');
+
+async function checkStaticFields() {
+    const fields = [IGUser.Fields.biography, IGUser.Fields.follows_count];
+    const metrics = [InstagramInsightsResult.Metric.reach, InstagramInsightsResult.Metric.shares];
+}

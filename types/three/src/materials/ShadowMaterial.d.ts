@@ -1,4 +1,4 @@
-import { Color, ColorRepresentation } from './../math/Color.js';
+import { Color, ColorRepresentation } from '../math/Color.js';
 import { MaterialParameters, Material } from './Material.js';
 
 export interface ShadowMaterialParameters extends MaterialParameters {

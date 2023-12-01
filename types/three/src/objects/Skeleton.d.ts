@@ -1,6 +1,6 @@
 import { Bone } from './Bone.js';
-import { Matrix4 } from './../math/Matrix4.js';
-import { DataTexture } from './../textures/DataTexture.js';
+import { Matrix4 } from '../math/Matrix4.js';
+import { DataTexture } from '../textures/DataTexture.js';
 
 /**
  * Use an array of {@link Bone | bones} to create a {@link Skeleton} that can be used by a {@link THREE.SkinnedMesh | SkinnedMesh}.
@@ -60,12 +60,6 @@ export class Skeleton {
      * The {@link THREE.DataTexture | DataTexture} holding the bone data when using a vertex texture.
      */
     boneTexture: null | DataTexture;
-
-    /**
-     * The size of the {@link boneTexture | .boneTexture}.
-     * @remarks Expects a `Integer`
-     */
-    boneTextureSize: number;
 
     frame: number;
 

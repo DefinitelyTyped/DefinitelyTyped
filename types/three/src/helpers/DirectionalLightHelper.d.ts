@@ -1,7 +1,7 @@
-import { DirectionalLight } from './../lights/DirectionalLight.js';
-import { Line } from './../objects/Line.js';
-import { Matrix4 } from './../math/Matrix4.js';
-import { Object3D } from './../core/Object3D.js';
+import { DirectionalLight } from '../lights/DirectionalLight.js';
+import { Line } from '../objects/Line.js';
+import { Matrix4 } from '../math/Matrix4.js';
+import { Object3D } from '../core/Object3D.js';
 import { ColorRepresentation } from '../math/Color.js';
 
 /**
@@ -11,6 +11,8 @@ import { ColorRepresentation } from '../math/Color.js';
  * @example
  * ```typescript
  * const light = new THREE.DirectionalLight(0xFFFFFF);
+ * scene.add(light);
+ *
  * const helper = new THREE.DirectionalLightHelper(light, 5);
  * scene.add(helper);
  * ```

@@ -60,7 +60,7 @@ export interface MaterialParameters {
     stencilFail?: StencilOp | undefined;
     stencilZFail?: StencilOp | undefined;
     stencilZPass?: StencilOp | undefined;
-    userData?: any;
+    userData?: Record<string, any> | undefined;
 }
 
 /**
@@ -379,7 +379,7 @@ export class Material extends EventDispatcher<{ dispose: {} }> {
      * An object that can be used to store custom data about the Material. It should not hold references to functions as these will not be cloned.
      * @default {}
      */
-    userData: any;
+    userData: Record<string, any>;
 
     /**
      * This starts at 0 and counts how many times .needsUpdate is set to true.

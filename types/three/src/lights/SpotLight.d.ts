@@ -1,5 +1,5 @@
 import { Vector3 } from '../math/Vector3.js';
-import { Object3D } from './../core/Object3D.js';
+import { Object3D } from '../core/Object3D.js';
 import { SpotLightShadow } from './SpotLightShadow.js';
 import { Light } from './Light.js';
 import { ColorRepresentation } from '../math/Color.js';

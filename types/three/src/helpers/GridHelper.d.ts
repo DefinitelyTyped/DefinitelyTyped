@@ -1,5 +1,5 @@
 import { ColorRepresentation } from '../math/Color.js';
-import { LineSegments } from './../objects/LineSegments.js';
+import { LineSegments } from '../objects/LineSegments.js';
 import { BufferGeometry } from '../core/BufferGeometry.js';
 import { LineBasicMaterial } from '../materials/LineBasicMaterial.js';
 

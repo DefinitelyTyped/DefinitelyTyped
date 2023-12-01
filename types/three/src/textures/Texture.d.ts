@@ -366,7 +366,7 @@ export class Texture extends EventDispatcher<{ dispose: {} }> {
      * @remarks It should not hold references to functions as these will not be cloned.
      * @defaultValue `{}`
      */
-    userData: any;
+    userData: Record<string, any>;
 
     /**
      * This starts at `0` and counts how many times {@link needsUpdate | .needsUpdate} is set to `true`.

@@ -54,9 +54,7 @@ export type NodeTypeOption =
 export type SwizzleOption = string;
 
 /** Should be the same type as Object3D.userData */
-export interface NodeUserData {
-    [key: string]: any;
-}
+export type NodeUserData = Record<string, any>;
 
 /** generic key value type,curretly used by nodes  */
 export interface AnyObject {

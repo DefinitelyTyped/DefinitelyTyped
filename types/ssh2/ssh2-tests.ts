@@ -137,6 +137,11 @@ conn.on("ready", () => {
         sftp.readdir("foo", (err: Error | undefined, list: ssh2.FileEntry[]) => {
             if (err) throw err;
             console.dir(list);
+            for (const item of list) {
+                console.log(item.attrs.isDirectory());
+                console.log(item.attrs.isFile());
+                console.log(item.attrs.isSymbolicLink());
+            }
             conn.end();
         });
     });
