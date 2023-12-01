@@ -6,7 +6,6 @@
         "https://github.com/jshttp/basic-auth"
     ],
     "dependencies": {
-        "basic-auth": "*",
         "@types/node": "*"
     },
     "devDependencies": {
