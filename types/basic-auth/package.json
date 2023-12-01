@@ -6,10 +6,12 @@
         "https://github.com/jshttp/basic-auth"
     ],
     "dependencies": {
+        "basic-auth": "*",
         "@types/node": "*"
     },
     "devDependencies": {
-        "@types/basic-auth": "workspace:."
+        "@types/basic-auth": "workspace:.",
+        "@types/koa": "*"
     },
     "owners": [
         {
