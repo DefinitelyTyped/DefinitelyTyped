@@ -3,7 +3,7 @@
     "name": "@types/k6",
     "version": "0.48.9999",
     "projects": [
-        "https://k6.io/docs/"
+        "https://grafana.com/docs/k6/latest/"
     ],
     "devDependencies": {
         "@types/k6": "workspace:."
