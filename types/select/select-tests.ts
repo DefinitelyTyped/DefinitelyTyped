@@ -1,5 +1,3 @@
-import select = require("select");
-
 declare let element: HTMLElement;
 
 // $ExpectType void
