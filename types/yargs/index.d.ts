@@ -175,10 +175,10 @@ declare namespace yargs {
             middlewares?: Array<MiddlewareFunction<O>>,
             deprecated?: boolean | string,
         ): Argv<T>;
-        command<U = any>(
+        command<U = any>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
             command: string | ReadonlyArray<string>,
             description: string,
-            module: CommandModule<T, U>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+            module: CommandModule<T, U>,
         ): Argv<T>;
         command<U = T>(
             command: string | ReadonlyArray<string>,
@@ -194,10 +194,10 @@ declare namespace yargs {
             builder?: O,
             handler?: (args: ArgumentsCamelCase<InferredOptionTypes<O>>) => void | Promise<void>,
         ): Argv<T>;
-        command<U = any>(
+        command<U = any>( // eslint-disable-line @definitelytyped/no-unnecessary-generics
             command: string | ReadonlyArray<string>,
             showInHelp: false,
-            module: CommandModule<T, U>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+            module: CommandModule<T, U>,
         ): Argv<T>;
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         command<U = any>(module: CommandModule<T, U>): Argv<T>;

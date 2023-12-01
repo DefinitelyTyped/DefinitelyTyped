@@ -67,22 +67,14 @@ factory.define<User>(
     },
     {
         afterBuild: (model, attrs, options) => {
-            if (Array.isArray(attrs)) {
-                // for buildMany
-                attrs[0].email;
-            } else {
-                // for build
-                attrs.email;
-            }
+            // for buildMany & build
+            model.email = Array.isArray(attrs) ? attrs[0].email : attrs.email;
+            return model;
         },
         afterCreate: (model, attrs, options) => {
-            if (Array.isArray(attrs)) {
-                // for createMany
-                attrs[0].email;
-            } else {
-                // for create
-                attrs.email;
-            }
+            // for createMany & create
+            model.email = Array.isArray(attrs) ? attrs[0].email : attrs.email;
+            return model;
         },
     },
 );
@@ -97,6 +89,16 @@ factory.extend(
     {
         afterBuild: (model, attrs, options) => {},
         afterCreate: (model, attrs, options) => {},
+    },
+);
+
+factory.extend(
+    "user",
+    "superuser",
+    { superpower: "flight" },
+    {
+        afterBuild: async (model, attrs, options) => {},
+        afterCreate: async (model, attrs, options) => {},
     },
 );
 
