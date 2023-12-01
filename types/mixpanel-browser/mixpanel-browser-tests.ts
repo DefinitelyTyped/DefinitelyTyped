@@ -7,6 +7,25 @@ lib.track("event name");
 lib.init("token", {}, "name"); // $ExpectType Mixpanel
 mixpanel.init("token"); // $ExpectType undefined
 mixpanel.init("token", {}); // $ExpectType undefined
+mixpanel.init("token", {
+    api_routes: {},
+});
+mixpanel.init("token", {
+    api_routes: { track: "" },
+});
+mixpanel.init("token", {
+    api_routes: { engage: "" },
+});
+mixpanel.init("token", {
+    api_routes: { groups: "" },
+});
+mixpanel.init("token", {
+    api_routes: {
+        track: "",
+        engage: "",
+        groups: "",
+    },
+});
 mixpanel.push(["register", { a: "b" }]);
 mixpanel.disable();
 mixpanel.track("Registered", { Gender: "Male", Age: 21 });
@@ -22,7 +41,7 @@ mixpanel.track("Left page", { duration_seconds: 35 }, () => {
 mixpanel.track("Left page", { duration_seconds: 35 }, { transport: "sendBeacon" }, () => {
     /* callback function */
 });
-mixpanel.track("Left page", { duration_seconds: 35 }, response => {
+mixpanel.track("Left page", { duration_seconds: 35 }, (response) => {
     if (response === 1) {
     } else if (response === 0) {
     } else if (response.status === 1 && response.error === null) {
@@ -34,33 +53,45 @@ mixpanel.register({
     Email: "jdoe@example.com",
     "Account Type": "Free",
 });
-mixpanel.register({
-    Email: "jdoe@example.com",
-}, 3);
-mixpanel.register({
-    Email: "jdoe@example.com",
-}, { persistent: false });
+mixpanel.register(
+    {
+        Email: "jdoe@example.com",
+    },
+    3,
+);
+mixpanel.register(
+    {
+        Email: "jdoe@example.com",
+    },
+    { persistent: false },
+);
 mixpanel.register_once({
     "First Login Date": new Date().toISOString(),
 });
-mixpanel.register_once({
-    "First Login Date": new Date().toISOString(),
-}, 3);
-mixpanel.register_once({
-    "First Login Date": new Date().toISOString(),
-}, { persistent: false });
+mixpanel.register_once(
+    {
+        "First Login Date": new Date().toISOString(),
+    },
+    3,
+);
+mixpanel.register_once(
+    {
+        "First Login Date": new Date().toISOString(),
+    },
+    { persistent: false },
+);
 
 mixpanel.unregister("First Login Date");
 mixpanel.unregister("First Login Date", { persistent: false });
 mixpanel.init("YOUR PROJECT TOKEN", {
-    loaded: mixpanel => {
+    loaded: (mixpanel) => {
         const distinct_id = mixpanel.get_distinct_id();
     },
 });
 mixpanel.alias("new_id", "existing_id");
 mixpanel.alias("newer_id", "new_id");
 mixpanel.init("YOUR PROJECT TOKEN", {
-    loaded: mixpanel => {
+    loaded: (mixpanel) => {
         const user_id = mixpanel.get_property("user_id");
     },
 });
@@ -86,7 +117,7 @@ mixpanel.clear_opt_in_out_tracking({
     secure_cookie: true,
 });
 mixpanel.people.set("gender", "m");
-mixpanel.people.set("gender", "m", response => {
+mixpanel.people.set("gender", "m", (response) => {
     if (response === 1) {
     } else if (response === 0) {
     } else if (response.status === 1 && response.error === null) {
@@ -104,7 +135,7 @@ mixpanel.people.set(
         Plan: "Premium",
         "Upgrade date": new Date(),
     },
-    response => {
+    (response) => {
         if (response === 1) {
         } else if (response === 0) {
         } else if (response.status === 1 && response.error === null) {
@@ -114,7 +145,7 @@ mixpanel.people.set(
 );
 
 mixpanel.people.set_once("First Login Date", new Date());
-mixpanel.people.set_once("First Login Date", new Date(), response => {
+mixpanel.people.set_once("First Login Date", new Date(), (response) => {
     if (response === 1) {
     } else if (response === 0) {
     } else if (response.status === 1 && response.error === null) {
@@ -130,7 +161,7 @@ mixpanel.people.set_once(
         "First Login Date": new Date(),
         "Starting Plan": "Premium",
     },
-    response => {
+    (response) => {
         if (response === 1) {
         } else if (response === 0) {
         } else if (response.status === 1 && response.error === null) {
@@ -141,7 +172,7 @@ mixpanel.people.set_once(
 
 mixpanel.people.unset("gender");
 mixpanel.people.unset(["gender", "Company"]);
-mixpanel.people.unset(["gender", "Company"], response => {
+mixpanel.people.unset(["gender", "Company"], (response) => {
     if (response === 1) {
     } else if (response === 0) {
     } else if (response.status === 1 && response.error === null) {
@@ -150,7 +181,7 @@ mixpanel.people.unset(["gender", "Company"], response => {
 });
 
 mixpanel.people.increment("page_views", 1);
-mixpanel.people.increment("page_views", 1, response => {
+mixpanel.people.increment("page_views", 1, (response) => {
     if (response === 1) {
     } else if (response === 0) {
     } else if (response.status === 1 && response.error === null) {
@@ -158,7 +189,7 @@ mixpanel.people.increment("page_views", 1, response => {
     }
 });
 mixpanel.people.increment("page_views");
-mixpanel.people.increment("page_views", response => {
+mixpanel.people.increment("page_views", (response) => {
     if (response === 1) {
     } else if (response === 0) {
     } else if (response.status === 1 && response.error === null) {
@@ -175,7 +206,7 @@ mixpanel.people.increment(
         counter1: 1,
         counter2: 6,
     },
-    response => {
+    (response) => {
         if (response === 1) {
         } else if (response === 0) {
         } else if (response.status === 1 && response.error === null) {
@@ -185,7 +216,7 @@ mixpanel.people.increment(
 );
 
 mixpanel.people.remove("School", "UCB");
-mixpanel.people.remove("School", "UCB", response => {
+mixpanel.people.remove("School", "UCB", (response) => {
     if (response === 1) {
     } else if (response === 0) {
     } else if (response.status === 1 && response.error === null) {
@@ -199,7 +230,7 @@ mixpanel.people.remove(
     {
         School: "UCB",
     },
-    response => {
+    (response) => {
         if (response === 1) {
         } else if (response === 0) {
         } else if (response.status === 1 && response.error === null) {
@@ -209,7 +240,7 @@ mixpanel.people.remove(
 );
 
 mixpanel.people.append("pages_visited", "homepage");
-mixpanel.people.append("pages_visited", "homepage", response => {
+mixpanel.people.append("pages_visited", "homepage", (response) => {
     if (response === 1) {
     } else if (response === 0) {
     } else if (response.status === 1 && response.error === null) {
@@ -225,7 +256,7 @@ mixpanel.people.append(
         list1: "bob",
         list2: 123,
     },
-    response => {
+    (response) => {
         if (response === 1) {
         } else if (response === 0) {
         } else if (response.status === 1 && response.error === null) {
@@ -235,7 +266,7 @@ mixpanel.people.append(
 );
 
 mixpanel.people.union("pages_visited", "homepage");
-mixpanel.people.union("pages_visited", "homepage", response => {
+mixpanel.people.union("pages_visited", "homepage", (response) => {
     if (response === 1) {
     } else if (response === 0) {
     } else if (response.status === 1 && response.error === null) {
@@ -251,7 +282,7 @@ mixpanel.people.union(
         list1: "bob",
         list2: 123,
     },
-    response => {
+    (response) => {
         if (response === 1) {
         } else if (response === 0) {
         } else if (response.status === 1 && response.error === null) {
@@ -264,7 +295,7 @@ mixpanel.people.union({
 });
 
 mixpanel.people.track_charge(50);
-mixpanel.people.track_charge(50, response => {
+mixpanel.people.track_charge(50, (response) => {
     if (response === 1) {
     } else if (response === 0) {
     } else if (response.status === 1 && response.error === null) {
@@ -279,7 +310,7 @@ mixpanel.people.track_charge(
     {
         $time: new Date("jan 1 2012"),
     },
-    response => {
+    (response) => {
         if (response === 1) {
         } else if (response === 0) {
         } else if (response.status === 1 && response.error === null) {
@@ -289,7 +320,7 @@ mixpanel.people.track_charge(
 );
 
 mixpanel.people.clear_charges();
-mixpanel.people.clear_charges(response => {
+mixpanel.people.clear_charges((response) => {
     if (response === 1) {
     } else if (response === 0) {
     } else if (response.status === 1 && response.error === null) {
@@ -303,14 +334,14 @@ mixpanel.init("YOUR PROJECT TOKEN", {
 mixpanel.add_group("test", "id");
 mixpanel.get_group("test", "id");
 mixpanel.remove_group("test", "id");
-mixpanel.set_group("test", ["some-value"], response => {
+mixpanel.set_group("test", ["some-value"], (response) => {
     if (response === 1) {
     } else if (response === 0) {
     } else if (response.status === 1 && response.error === null) {
     } else if (response.status === 0 && response.error.includes("bad")) {
     }
 });
-mixpanel.get_group("test", "id").set("prop", "value", response => {
+mixpanel.get_group("test", "id").set("prop", "value", (response) => {
     if (response === 1) {
     } else if (response === 0) {
     } else if (response.status === 1 && response.error === null) {
@@ -322,7 +353,7 @@ mixpanel.get_group("test", "id").set(
         name: "Name",
     },
     undefined,
-    response => {
+    (response) => {
         if (response === 1) {
         } else if (response === 0) {
         } else if (response.status === 1 && response.error === null) {
@@ -330,21 +361,21 @@ mixpanel.get_group("test", "id").set(
         }
     },
 );
-mixpanel.get_group("test", "id").set_once("prop", "value", response => {
+mixpanel.get_group("test", "id").set_once("prop", "value", (response) => {
     if (response === 1) {
     } else if (response === 0) {
     } else if (response.status === 1 && response.error === null) {
     } else if (response.status === 0 && response.error.includes("bad")) {
     }
 });
-mixpanel.get_group("test", "id").remove("prop", "value", response => {
+mixpanel.get_group("test", "id").remove("prop", "value", (response) => {
     if (response === 1) {
     } else if (response === 0) {
     } else if (response.status === 1 && response.error === null) {
     } else if (response.status === 0 && response.error.includes("bad")) {
     }
 });
-mixpanel.get_group("test", "id").union("prop", ["value"], response => {
+mixpanel.get_group("test", "id").union("prop", ["value"], (response) => {
     if (response === 1) {
     } else if (response === 0) {
     } else if (response.status === 1 && response.error === null) {
@@ -352,7 +383,7 @@ mixpanel.get_group("test", "id").union("prop", ["value"], response => {
     }
 });
 mixpanel.get_group("test", "id").unset("prop");
-mixpanel.track_with_groups("event", { name: "Name" }, { group: ["value"] }, response => {
+mixpanel.track_with_groups("event", { name: "Name" }, { group: ["value"] }, (response) => {
     if (response === 1) {
     } else if (response === 0) {
     } else if (response.status === 1 && response.error === null) {
