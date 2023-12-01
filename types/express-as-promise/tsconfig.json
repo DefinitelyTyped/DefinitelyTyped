@@ -3,7 +3,7 @@
         "module": "commonjs",
         "lib": [
             "es6",
-            "WebWorker"
+            "DOM"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
