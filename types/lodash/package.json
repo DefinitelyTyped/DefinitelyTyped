@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/lodash",
-    "version": "4.14.9999",
+    "version": "4.17.9999",
     "projects": [
         "https://lodash.com"
     ],
