@@ -592,6 +592,11 @@ pubnub.objects.getMemberships({
     uuid: "myUuid",
     include: {
         channelFields: true,
+        statusField: true,
+        customFields: true,
+        customChannelFields: true,
+        channelStatusField: true,
+        channelTypeField: true,
     },
 });
 
@@ -625,6 +630,11 @@ pubnub.objects.getChannelMembers({
     channel: "myChannel",
     include: {
         UUIDFields: true,
+        statusField: true,
+        customUUIDFields: true,
+        customFields: true,
+        UUIDStatusField: true,
+        UUIDTypeField: true,
     },
 });
 
