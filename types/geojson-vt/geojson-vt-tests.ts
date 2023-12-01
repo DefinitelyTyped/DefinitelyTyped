@@ -45,6 +45,9 @@ const GeoJsonVTOptions: geojsonvt.Options = {
     indexMaxPoints: 100000, // max number of points per tile in the index
 };
 
+GeoJsonVTOptions.lineMetrics; // $ExpectType boolean
+GeoJsonVTOptions.generateId; // $ExpectType boolean
+
 const gjv = geojsonvt(GeoJSONData, GeoJsonVTOptions);
 gjv; // $ExpectType GeoJSONVT
 gjv.options; // $ExpectType Options
