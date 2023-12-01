@@ -21,8 +21,8 @@ declare module "meteor/mongo" {
              * If you plan to mostly pass around items that came out of a collection, make them required and use Data<T>
              * when creating new items.
              */
+            // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
             helpers<allowPartial extends (false | AllowPartial) = false>(
-                // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
                 helpers: allowPartial extends AllowPartial ? PartialHelpers<T> : Helpers<T>,
             ): void;
 

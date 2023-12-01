@@ -252,8 +252,8 @@ export interface Select2Plugin<TElement = HTMLElement> {
     };
 
     (): JQuery<TElement>;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
     <Result = DataFormat | GroupedDataFormat, RemoteResult = any>(
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
         options: Options<Result, RemoteResult>,
     ): JQuery<TElement>;
 

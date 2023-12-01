@@ -1,2 +1,0 @@
-data-adapter.d.ts
-container-debug-adapter.d.ts

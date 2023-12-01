@@ -6,6 +6,16 @@ const element = new Element();
 // @ts-expect-error
 new Dropdown(element, { flip: true });
 new Dropdown(element, { offset: [0, 2] }); // $ExpectType Dropdown
+// $ExpectType Dropdown
+new Dropdown(element, {
+    popperConfig: {
+        placement: "top",
+    },
+});
+// $ExpectType Dropdown
+new Dropdown(element, {
+    popperConfig: defaultBsPopperConfig => defaultBsPopperConfig,
+});
 
 // $ExpectType Dropdown | null
 Dropdown.getInstance(element);
