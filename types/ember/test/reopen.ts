@@ -1,7 +1,7 @@
 import Ember from "ember";
 import { assertType } from "./lib/assert";
 
-type Person = typeof Person.prototype;
+type Person = { name: string; sayHello(): void } & Ember.Object;
 const Person = Ember.Object.extend({
     name: "",
     sayHello() {
@@ -9,7 +9,9 @@ const Person = Ember.Object.extend({
     },
 });
 
-assertType<Person>(Person.reopen());
+assertType<
+    Readonly<typeof Ember.Object> & { new(properties?: object | undefined): Person }
+>(Person.reopen());
 
 assertType<string>(Person.create().name);
 Person.create().sayHello(); // $ExpectType void
@@ -29,7 +31,6 @@ assertType<string>(Person2.species);
 const tom = Person2.create({
     name: "Tom Dale",
 });
-
 // @ts-expect-error
 const badTom = Person2.create({ name: 99 });
 
