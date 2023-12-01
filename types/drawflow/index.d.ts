@@ -9,6 +9,9 @@ export default class Drawflow {
      */
     events: Record<string, { listeners: Array<(args: any) => void> }>;
 
+    /**
+     * @required
+     */
     container: HTMLElement;
 
     /**
@@ -74,14 +77,29 @@ export default class Drawflow {
      */
     reroute_width: number;
 
+    /**
+     * flag for drawflow drag point
+     */
     drag_point: boolean;
 
+    /**
+     * flag for drawflow editor canvas selected
+     */
     editor_selected: boolean;
 
+    /**
+     * flag for drawflow connnection line
+     */
     connection: boolean;
 
+    /**
+     * connection element
+     */
     connection_ele: HTMLElement | null;
 
+    /**
+     *  selected connection
+     */
     connection_selected: HTMLElement | null;
 
     /**
@@ -90,6 +108,9 @@ export default class Drawflow {
      */
     line_path: number;
 
+    /**
+     * first clicked element
+     */
     first_click: HTMLElement | null;
 
     /**
@@ -150,20 +171,43 @@ export default class Drawflow {
      */
     canvas_y: number;
 
+    /**
+     * focused x coordinate
+     */
     pos_x: number;
 
+    /**
+     * original x coordinate
+     */
     pos_x_start: number;
 
+    /**
+     * focused x coordinate
+     */
     pos_y: number;
 
+    /**
+     * original x coordinate
+     */
     pos_y_start: number;
 
+    /**
+     * mouse x coordinate
+     */
     mouse_x: number;
-
+    /**
+     * mouse y coordinate
+     */
     mouse_y: number;
 
+    /**
+     * mobile event cache list
+     */
     evCache: any[];
 
+    /**
+     * the diff between previous handlers and current
+     */
     prevDiff: number;
 
     /**
@@ -182,12 +226,24 @@ export default class Drawflow {
      */
     precanvas: HTMLElement;
 
+    /**
+     * The drawflow parent element
+     */
     parent: object;
 
+    /**
+     * registered nodes for reuse.
+     */
     noderegister: object;
 
+    /**
+     * user defined renderer, for example vue
+     */
     render: object;
 
+    /**
+     * module name
+     */
     module: string;
 
     start(): void;
