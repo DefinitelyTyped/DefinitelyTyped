@@ -360,6 +360,7 @@ declare namespace Pubnub {
         timetoken: string;
         message: any;
         publisher: string;
+        error?: string | undefined;
 
         /**
          * deprecated:
@@ -596,6 +597,7 @@ declare namespace Pubnub {
                 timetoken: string | number;
                 messageType?: string | number | undefined;
                 uuid?: string | undefined;
+                error?: string | undefined;
                 meta?: {
                     [key: string]: any;
                 } | undefined;
@@ -1149,6 +1151,9 @@ declare namespace Pubnub {
             customFields?: boolean | undefined;
             UUIDFields?: boolean | undefined;
             customUUIDFields?: boolean | undefined;
+            statusField?: boolean | undefined;
+            UUIDStatusField?: boolean | undefined;
+            UUIDTypeField?: boolean | undefined;
         } | undefined;
         filter?: string | undefined;
         sort?: object | undefined;
@@ -1165,6 +1170,9 @@ declare namespace Pubnub {
             customFields?: boolean | undefined;
             channelFields?: boolean | undefined;
             customChannelFields?: boolean | undefined;
+            statusField?: boolean | undefined;
+            channelStatusField?: boolean | undefined;
+            channelTypeField?: boolean | undefined;
         } | undefined;
         filter?: string | undefined;
         sort?: object | undefined;
