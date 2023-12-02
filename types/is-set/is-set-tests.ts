@@ -18,16 +18,19 @@ isSet(1);
 const x: unknown = new Set();
 
 if (isSet(x)) {
-    // $ExpectType Set<unknown>
+    // $ExpectType Set<any>
     x;
 
     x.add(1);
+} else {
+    // $ExpectType unknown
+    x;
 }
 
-const y = new Set();
+const y = new Set<number>();
 
 if (isSet(y)) {
-    // $ExpectType Set<unknown>
+    // $ExpectType Set<number>
     y;
 
     y.delete(1);
