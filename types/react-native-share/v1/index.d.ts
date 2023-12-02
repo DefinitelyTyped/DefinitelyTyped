@@ -1,4 +1,4 @@
-import { Component, ReactNode } from "react";
+import { Component, ReactNode, JSX } from "react";
 import { StyleProp, ViewProps } from "react-native";
 declare namespace Share {
     function open(options: Options | MultipleOptions): Promise<OpenReturn>;

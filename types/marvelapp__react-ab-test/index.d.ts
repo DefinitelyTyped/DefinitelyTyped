@@ -1,3 +1,4 @@
+import { JSX } from "react";
 /// <reference types="react" />
 
 export type ListenerCallback = (experimentName: string, variantName: string) => void;

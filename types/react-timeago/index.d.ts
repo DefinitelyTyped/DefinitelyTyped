@@ -20,7 +20,7 @@ declare namespace ReactTimeago {
         nextFormatter?: Formatter,
     ) => React.ReactNode;
 
-    interface ReactTimeagoProps<T extends React.ComponentType | keyof JSX.IntrinsicElements = "time"> {
+    interface ReactTimeagoProps<T extends React.ComponentType | keyof React.JSX.IntrinsicElements = "time"> {
         readonly live?: boolean | undefined;
         readonly minPeriod?: number | undefined;
         readonly maxPeriod?: number | undefined;
@@ -33,7 +33,7 @@ declare namespace ReactTimeago {
 }
 
 declare class ReactTimeago<
-    T extends React.ComponentType | keyof JSX.IntrinsicElements,
+    T extends React.ComponentType | keyof React.JSX.IntrinsicElements,
 > extends React.Component<
     ReactTimeago.ReactTimeagoProps<T> & React.ComponentProps<T>
 > {}

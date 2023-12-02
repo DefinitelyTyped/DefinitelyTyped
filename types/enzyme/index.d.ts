@@ -1,9 +1,10 @@
 /// <reference types="cheerio" />
 import {
-    AllHTMLAttributes as ReactHTMLAttributes,
-    Component,
-    ReactElement,
-    SVGAttributes as ReactSVGAttributes,
+ AllHTMLAttributes as ReactHTMLAttributes,
+ Component,
+ ReactElement,
+ SVGAttributes as ReactSVGAttributes,
+ JSX,
 } from "react";
 
 export type HTMLAttributes = ReactHTMLAttributes<{}> & ReactSVGAttributes<{}>;

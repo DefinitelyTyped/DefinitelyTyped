@@ -1,3 +1,4 @@
+import { JSX } from "react";
 /*
 Known Problems & Workarounds
 

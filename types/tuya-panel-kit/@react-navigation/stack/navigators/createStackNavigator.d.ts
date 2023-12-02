@@ -1,6 +1,7 @@
 /// <reference types="react" />
 import { DefaultNavigatorOptions, StackNavigationState, StackRouterOptions } from "../../native";
 import type { StackNavigationConfig, StackNavigationEventMap, StackNavigationOptions } from "../types";
+import { JSX } from "react";
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers
 declare type Props = DefaultNavigatorOptions<StackNavigationOptions> & StackRouterOptions & StackNavigationConfig;
 declare function StackNavigator({ initialRouteName, children, screenOptions, ...rest }: Props): JSX.Element;

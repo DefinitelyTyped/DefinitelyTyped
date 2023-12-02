@@ -1,3 +1,4 @@
+import { JSX } from "react";
 /// <reference types="react" />
 /// <reference types="react-addons-linked-state-mixin" />
 

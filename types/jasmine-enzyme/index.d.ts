@@ -1,3 +1,4 @@
+import { JSX } from "react";
 /// <reference types="jasmine" />
 /// <reference types="react" />
 

@@ -29,7 +29,7 @@ class Pager extends React.Component<{}, PagerState> {
         const perPage = 10;
         const totalPage = Math.floor(length / perPage);
 
-        const list: JSX.Element[] = [];
+        const list: React.JSX.Element[] = [];
         for (let i = pageIndex * perPage; i < (pageIndex * perPage + perPage); i++) {
             list.push(<p key={`${i}`}>{`No.${i}`}</p>);
         }

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, JSX } from "react";
 
 interface ClipboardProps {
     render: (arg0: { copy: () => void }) => React.ReactNode;

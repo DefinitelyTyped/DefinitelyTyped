@@ -1,4 +1,4 @@
-import { Component, ComponentClass, ReactNode } from "react";
+import { Component, ComponentClass, ReactNode, JSX } from "react";
 import { StyleProp, TextInputProps, TextProps, ViewProps, ViewStyle } from "react-native";
 
 // FlipCard

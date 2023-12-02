@@ -2,6 +2,8 @@
 
 import { h, mount, patch, PetitDom, unmount } from "petit-dom";
 
+import { JSX } from "react";
+
 function assertEqual<T>(a: T, b: T) {}
 
 function eventHandler(event: Event): void {}
