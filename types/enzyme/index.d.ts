@@ -89,7 +89,7 @@ export interface CommonWrapper<P = {}, S = {}, C = Component<P, S>> {
     invoke<
         K extends NonNullable<
             {
-                [K in keyof P]: P[K] extends ((...arg: any[]) => void) | undefined ? K : never;
+                [K in keyof P]-?: P[K] extends ((...arg: any[]) => void) | undefined ? K : never;
             }[keyof P]
         >,
     >(
