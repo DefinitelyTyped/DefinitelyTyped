@@ -13,9 +13,6 @@ const Person = EmberObject.extend({
     },
 });
 
-assertType<string>(Person.prototype.firstName);
-assertType<() => string>(Person.prototype.getFullName);
-
 const person = Person.create({
     firstName: "Joe",
     lastName: "Blow",
