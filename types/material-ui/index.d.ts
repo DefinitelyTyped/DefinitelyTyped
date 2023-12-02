@@ -1,4 +1,3 @@
-import { JSX } from "react";
 /// <reference types="react" />
 /// <reference types="react-addons-linked-state-mixin" />
 
@@ -1679,7 +1678,7 @@ declare namespace __MaterialUI {
             bodyStyle?: React.CSSProperties | undefined;
             children?: React.ReactNode;
             className?: string | undefined;
-            message: string | JSX.Element;
+            message: string | React.JSX.Element;
             onActionClick?: React.MouseEventHandler<{}> | undefined;
             /** @deprecated Use the open property to control the component instead */
             onDismiss?(): void; // DEPRECATED

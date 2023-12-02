@@ -1,7 +1,5 @@
 import { Component, ComponentChild, Context, h, JSX, VNode } from "preact";
 
-import { JSX } from "react";
-
 interface IntlContext {
     intl: {
         definition: {};

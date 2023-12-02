@@ -1,7 +1,5 @@
 import * as PDFMake from "pdfmake/interfaces";
 
-import { JSX } from "react";
-
 export function renderPdf(jsx: JSX.Element): PDFMake.TDocumentDefinitions;
 
 export const Fragment: JSX.IntrinsicElements["stack"];

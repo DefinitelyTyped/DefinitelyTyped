@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { DefaultNavigatorOptions, StackNavigationState, StackRouterOptions } from "../../native";
 import type { StackNavigationConfig, StackNavigationEventMap, StackNavigationOptions } from "../types";
 import { JSX } from "react";

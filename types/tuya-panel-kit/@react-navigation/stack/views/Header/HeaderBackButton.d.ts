@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import type { StackHeaderLeftButtonProps } from "../../types";
 import { JSX } from "react";
 // eslint-disable-next-line @definitelytyped/strict-export-declare-modifiers

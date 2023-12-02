@@ -1,5 +1,3 @@
-/// <reference types="react" />
-
 import * as Table from "reactabular-table";
 
 import { JSX } from "react";

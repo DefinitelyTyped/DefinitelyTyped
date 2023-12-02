@@ -1,5 +1,4 @@
 import { JSX } from "react";
-/// <reference types="react" />
 
 export interface PollingConfig {
     url: string;

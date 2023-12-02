@@ -8,8 +8,6 @@
 import * as CSS from "csstype";
 import * as PropTypes from "prop-types";
 
-import { JSX } from "react";
-
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
 type NativeCompositionEvent = CompositionEvent;
