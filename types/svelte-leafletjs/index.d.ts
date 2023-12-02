@@ -218,7 +218,7 @@ export class DivIcon extends SvelteComponentTyped<
     },
     never,
     never
-    > {
+> {
     getDivIcon(): L.DivIcon;
 }
 
