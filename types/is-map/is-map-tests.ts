@@ -12,7 +12,7 @@ isMap(new Set());
 const x: unknown = new Map();
 
 if (isMap(x)) {
-    // $ExpectType Map<unknown, unknown>
+    // $ExpectType Map<any, any>
     x;
 
     x.set(1, 1);
@@ -21,7 +21,7 @@ if (isMap(x)) {
 const y = new Map();
 
 if (isMap(y)) {
-    // $ExpectType Map<unknown, unknown>
+    // $ExpectType Map<any, any>
     y;
 
     y.delete(1);

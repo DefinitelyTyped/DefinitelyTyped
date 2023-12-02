@@ -1,3 +1,3 @@
-declare function isMap(value: unknown): value is Map<unknown, unknown>;
+declare function isMap(value: unknown): value is Map<any, any>;
 
 export = isMap;
