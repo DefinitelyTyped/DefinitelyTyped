@@ -6,6 +6,11 @@ const testCases = [
     <span autoFocus />,
     <span className="klass" />,
     <span contentEditable />,
+    <span
+        contenteditable
+        // @ts-expect-error -- Use data-placeholder instead.
+        placeholder="foo"
+    />,
     <span contextMenu="menuId" />,
     <span dir="rtl" />,
     <span draggable />,
