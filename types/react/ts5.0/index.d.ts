@@ -855,9 +855,21 @@ declare namespace React {
         JSXElementConstructor<infer P> ? P
         : T extends keyof JSX.IntrinsicElements ? JSX.IntrinsicElements[T]
         : {};
+    /**
+     * Get the props of a component that supports the `ref` prop.
+     *
+     * WARNING: Use `CustomComponentPropsWithRef` if you know that `T` is not a host component for better type-checking performance.
+     */
     type ComponentPropsWithRef<T extends ElementType> = T extends (new(props: infer P) => Component<any, any>)
         ? PropsWithoutRef<P> & RefAttributes<InstanceType<T>>
         : PropsWithRef<ComponentProps<T>>;
+    /**
+     * Like `ComponentPropsWithRef` but without support for host components (i.e. just "custom components") to improve type-checking performance.
+     */
+    type CustomComponentPropsWithRef<T extends ComponentType> = T extends (new(props: infer P) => Component<any, any>)
+        ? (PropsWithoutRef<P> & RefAttributes<InstanceType<T>>)
+        : T extends ((props: infer P, legacyContext?: any) => ReactNode) ? PropsWithRef<P>
+        : never;
     type ComponentPropsWithoutRef<T extends ElementType> = PropsWithoutRef<ComponentProps<T>>;
 
     type ComponentRef<T extends ElementType> = T extends NamedExoticComponent<
@@ -868,7 +880,7 @@ declare namespace React {
 
     // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
     // but can be given its own specific name
-    type MemoExoticComponent<T extends ComponentType<any>> = NamedExoticComponent<ComponentPropsWithRef<T>> & {
+    type MemoExoticComponent<T extends ComponentType<any>> = NamedExoticComponent<CustomComponentPropsWithRef<T>> & {
         readonly type: T;
     };
 
@@ -881,7 +893,7 @@ declare namespace React {
         propsAreEqual?: (prevProps: Readonly<ComponentProps<T>>, nextProps: Readonly<ComponentProps<T>>) => boolean,
     ): MemoExoticComponent<T>;
 
-    type LazyExoticComponent<T extends ComponentType<any>> = ExoticComponent<ComponentPropsWithRef<T>> & {
+    type LazyExoticComponent<T extends ComponentType<any>> = ExoticComponent<CustomComponentPropsWithRef<T>> & {
         readonly _result: T;
     };
 
