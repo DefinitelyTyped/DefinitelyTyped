@@ -1,7 +1,7 @@
-import getSymbolDescription = require('get-symbol-description');
+import getSymbolDescription = require("get-symbol-description");
 
 // $ExpectType string | undefined
-getSymbolDescription(Symbol('foo'));
+getSymbolDescription(Symbol("foo"));
 
 // $ExpectType string | undefined
 getSymbolDescription(Symbol());
