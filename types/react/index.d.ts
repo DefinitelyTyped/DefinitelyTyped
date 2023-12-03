@@ -421,10 +421,6 @@ declare namespace React {
     }
 
     /**
-     * @deprecated Use either `ReactNode[]` if you need an array or `Iterable<ReactNode>` if its passed to a host component.
-     */
-    interface ReactNodeArray extends ReadonlyArray<ReactNode> {}
-    /**
      * WARNING: Not related to `React.Fragment`.
      * @deprecated This type is not relevant when using React. Inline the type instead to make the intent clear.
      */
@@ -1885,8 +1881,8 @@ declare namespace React {
      */
     function useReducer<S, A extends AnyActionArg>(
         reducer: (prevState: S, ...args: A) => S,
-        initialState: S
-    ): [S, ActionDispatch<A> ];
+        initialState: S,
+    ): [S, ActionDispatch<A>];
     /**
      * An alternative to `useState`.
      *
@@ -1899,8 +1895,8 @@ declare namespace React {
      */
     function useReducer<S, A extends AnyActionArg>(
         reducer: (prevState: S, ...args: A) => S,
-        initialState: S
-    ): [S, ActionDispatch<A> ];
+        initialState: S,
+    ): [S, ActionDispatch<A>];
     /**
      * An alternative to `useState`.
      *
@@ -1914,7 +1910,7 @@ declare namespace React {
     function useReducer<S, I, A extends AnyActionArg>(
         reducer: (prevState: S, ...args: A) => S,
         initialArg: I,
-        init: (i: I) => S
+        init: (i: I) => S,
     ): [S, ActionDispatch<A>];
     /**
      * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
