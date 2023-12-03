@@ -1044,26 +1044,9 @@ declare namespace React {
          */
         contextTypes?: ValidationMap<any> | undefined;
         /**
-         * Used to define default values for the props accepted by
-         * the component.
-         *
-         * @see {@link https://react.dev/reference/react/Component#static-defaultprops React Docs}
-         *
-         * @example
-         *
-         * ```tsx
-         * type Props = { name?: string }
-         *
-         * const MyComponent: FC<Props> = (props) => {
-         *   return <div>{props.name}</div>
-         * }
-         *
-         * MyComponent.defaultProps = {
-         *   name: 'John Doe'
-         * }
-         * ```
+         * defaultProps are not supported on function components anymore.
          */
-        defaultProps?: Partial<P> | undefined;
+        defaultProps?: never | undefined;
         /**
          * Used in debugging messages. You might want to set it
          * explicitly if you want to display a different name for
@@ -1394,7 +1377,10 @@ declare namespace React {
      * @see {@link ExoticComponent}
      */
     interface ForwardRefExoticComponent<P> extends NamedExoticComponent<P> {
-        defaultProps?: Partial<P> | undefined;
+        /**
+         * defaultProps are not supported on function components anymore.
+         */
+        defaultProps?: never | undefined;
         propTypes?: WeakValidationMap<P> | undefined;
     }
 
