@@ -1,5 +1,5 @@
 /// <reference types="google.maps" />
-import { Component, ReactNode } from "react";
+import { Component, ReactNode, JSX } from "react";
 
 export default ReactGooglePlacesSuggest;
 
