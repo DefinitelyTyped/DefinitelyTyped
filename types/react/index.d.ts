@@ -4189,68 +4189,6 @@ declare namespace React {
 
     // Keep in sync with JSX namespace in ./jsx-runtime.d.ts and ./jsx-dev-runtime.d.ts
     namespace JSX {
-        type ElementType = GlobalJSXElementType;
-        interface Element extends GlobalJSXElement {}
-        interface ElementClass extends GlobalJSXElementClass {}
-        interface ElementAttributesProperty extends GlobalJSXElementAttributesProperty {}
-        interface ElementChildrenAttribute extends GlobalJSXElementChildrenAttribute {}
-
-        type LibraryManagedAttributes<C, P> = GlobalJSXLibraryManagedAttributes<C, P>;
-
-        interface IntrinsicAttributes extends GlobalJSXIntrinsicAttributes {}
-        interface IntrinsicClassAttributes<T> extends GlobalJSXIntrinsicClassAttributes<T> {}
-        interface IntrinsicElements extends GlobalJSXIntrinsicElements {}
-    }
-}
-
-// naked 'any' type in a conditional type will short circuit and union both the then/else branches
-// so boolean is only resolved for T = any
-type IsExactlyAny<T> = boolean extends (T extends never ? true : false) ? true : false;
-
-type ExactlyAnyPropertyKeys<T> = { [K in keyof T]: IsExactlyAny<T[K]> extends true ? K : never }[keyof T];
-type NotExactlyAnyPropertyKeys<T> = Exclude<keyof T, ExactlyAnyPropertyKeys<T>>;
-
-// Try to resolve ill-defined props like for JS users: props can be any, or sometimes objects with properties of type any
-type MergePropTypes<P, T> =
-    // Distribute over P in case it is a union type
-    P extends any
-        // If props is type any, use propTypes definitions
-        ? IsExactlyAny<P> extends true ? T
-            // If declared props have indexed properties, ignore inferred props entirely as keyof gets widened
-        : string extends keyof P ? P
-            // Prefer declared types which are not exactly any
-        :
-            & Pick<P, NotExactlyAnyPropertyKeys<P>>
-            // For props which are exactly any, use the type inferred from propTypes if present
-            & Pick<T, Exclude<keyof T, NotExactlyAnyPropertyKeys<P>>>
-            // Keep leftover props not specified in propTypes
-            & Pick<P, Exclude<keyof P, keyof T>>
-        : never;
-
-type InexactPartial<T> = { [K in keyof T]?: T[K] | undefined };
-
-// Any prop that has a default prop becomes optional, but its type is unchanged
-// Undeclared default props are augmented into the resulting allowable attributes
-// If declared props have indexed properties, ignore default props entirely as keyof gets widened
-// Wrap in an outer-level conditional type to allow distribution over props that are unions
-type Defaultize<P, D> = P extends any ? string extends keyof P ? P
-    :
-        & Pick<P, Exclude<keyof P, keyof D>>
-        & InexactPartial<Pick<P, Extract<keyof P, keyof D>>>
-        & InexactPartial<Pick<D, Exclude<keyof D, keyof P>>>
-    : never;
-
-type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps: infer D }
-    ? Defaultize<MergePropTypes<P, PropTypes.InferProps<T>>, D>
-    : C extends { propTypes: infer T } ? MergePropTypes<P, PropTypes.InferProps<T>>
-    : C extends { defaultProps: infer D } ? Defaultize<P, D>
-    : P;
-
-declare global {
-    /**
-     * @deprecated Use `React.JSX` instead of the global `JSX` namespace.
-     */
-    namespace JSX {
         // We don't just alias React.ElementType because React.ElementType
         // historically does more than we need it to.
         // E.g. it also contains .propTypes and so TS also verifies the declared
@@ -4473,18 +4411,45 @@ declare global {
     }
 }
 
-// React.JSX needs to point to global.JSX to keep global module augmentations intact.
-// But we can't access global.JSX so we need to create these aliases instead.
-// Once the global JSX namespace will be removed we replace React.JSX with the contents of global.JSX
-type GlobalJSXElementType = JSX.ElementType;
-interface GlobalJSXElement extends JSX.Element {}
-interface GlobalJSXElementClass extends JSX.ElementClass {}
-interface GlobalJSXElementAttributesProperty extends JSX.ElementAttributesProperty {}
-interface GlobalJSXElementChildrenAttribute extends JSX.ElementChildrenAttribute {}
+// naked 'any' type in a conditional type will short circuit and union both the then/else branches
+// so boolean is only resolved for T = any
+type IsExactlyAny<T> = boolean extends (T extends never ? true : false) ? true : false;
 
-type GlobalJSXLibraryManagedAttributes<C, P> = JSX.LibraryManagedAttributes<C, P>;
+type ExactlyAnyPropertyKeys<T> = { [K in keyof T]: IsExactlyAny<T[K]> extends true ? K : never }[keyof T];
+type NotExactlyAnyPropertyKeys<T> = Exclude<keyof T, ExactlyAnyPropertyKeys<T>>;
 
-interface GlobalJSXIntrinsicAttributes extends JSX.IntrinsicAttributes {}
-interface GlobalJSXIntrinsicClassAttributes<T> extends JSX.IntrinsicClassAttributes<T> {}
+// Try to resolve ill-defined props like for JS users: props can be any, or sometimes objects with properties of type any
+type MergePropTypes<P, T> =
+    // Distribute over P in case it is a union type
+    P extends any
+        // If props is type any, use propTypes definitions
+        ? IsExactlyAny<P> extends true ? T
+            // If declared props have indexed properties, ignore inferred props entirely as keyof gets widened
+        : string extends keyof P ? P
+            // Prefer declared types which are not exactly any
+        :
+            & Pick<P, NotExactlyAnyPropertyKeys<P>>
+            // For props which are exactly any, use the type inferred from propTypes if present
+            & Pick<T, Exclude<keyof T, NotExactlyAnyPropertyKeys<P>>>
+            // Keep leftover props not specified in propTypes
+            & Pick<P, Exclude<keyof P, keyof T>>
+        : never;
 
-interface GlobalJSXIntrinsicElements extends JSX.IntrinsicElements {}
+type InexactPartial<T> = { [K in keyof T]?: T[K] | undefined };
+
+// Any prop that has a default prop becomes optional, but its type is unchanged
+// Undeclared default props are augmented into the resulting allowable attributes
+// If declared props have indexed properties, ignore default props entirely as keyof gets widened
+// Wrap in an outer-level conditional type to allow distribution over props that are unions
+type Defaultize<P, D> = P extends any ? string extends keyof P ? P
+    :
+        & Pick<P, Exclude<keyof P, keyof D>>
+        & InexactPartial<Pick<P, Extract<keyof P, keyof D>>>
+        & InexactPartial<Pick<D, Exclude<keyof D, keyof P>>>
+    : never;
+
+type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps: infer D }
+    ? Defaultize<MergePropTypes<P, PropTypes.InferProps<T>>, D>
+    : C extends { propTypes: infer T } ? MergePropTypes<P, PropTypes.InferProps<T>>
+    : C extends { defaultProps: infer D } ? Defaultize<P, D>
+    : P;

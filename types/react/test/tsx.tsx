@@ -1,3 +1,4 @@
+import { JSX } from "react";
 import PropTypes = require("prop-types");
 import React = require("react");
 
@@ -572,7 +573,7 @@ const HasHref2: React.ElementType<{ href?: string | undefined }> = "div";
 // @ts-expect-error
 const CustomElement: React.ElementType = "my-undeclared-element";
 
-// custom elements now need to be declared as intrinsic elements
+// custom elements need to be declared as intrinsic elements
 declare module "react" {
     namespace JSX {
         interface IntrinsicElements {
@@ -580,19 +581,6 @@ declare module "react" {
         }
     }
 }
-
-// Augmentations of the global namespace flow into the scoped JSX namespace
-// This is deprecated and will be removed in next next major of `@types/react`
-declare global {
-    namespace JSX {
-        interface IntrinsicElements {
-            "my-declared-element-deprecated": {};
-        }
-    }
-}
-
-const CustomElement2: React.ElementType = "my-declared-element-deprecated";
-<my-declared-element-deprecated />;
 
 const CustomElement3: React.ElementType = "my-declared-element";
 <my-declared-element />;
@@ -637,17 +625,19 @@ function CustomSelect(props: {
     >;
 }): JSX.Element {
     return (
-        <div>
-            <ul>{props.children}</ul>
-            <select>
-                {React.Children.map(props.children, child => (
-                    // key should be mappable from children.
-                    <option key={child.key} value={child.props.value}>
-                        {child.props.children}
-                    </option>
-                ))}
-            </select>
-        </div>
+        (
+            <div>
+                <ul>{props.children}</ul>
+                <select>
+                    {React.Children.map(props.children, child => (
+                        // key should be mappable from children.
+                        <option key={child.key} value={child.props.value}>
+                            {child.props.children}
+                        </option>
+                    ))}
+                </select>
+            </div>
+        )
     );
 }
 function CustomSelectOption(props: {
