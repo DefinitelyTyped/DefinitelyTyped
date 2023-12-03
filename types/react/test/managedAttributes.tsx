@@ -224,32 +224,32 @@ interface WeakComponentProps3 {
 }
 
 // $ExpectType true
-type weakComponentTest1 = JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, any> extends {
+type weakComponentTest1 = React.JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, any> extends {
     foo?: string | null | undefined;
     bar: boolean;
 } ? true
     : false;
 // $ExpectType true
 type weakComponentTest2 =
-    JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakComponentProps1> extends {
+    React.JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakComponentProps1> extends {
         foo?: string | null | undefined;
         bar: number;
     } ? true
         : false;
 // $ExpectType true
 type weakComponentTest3 =
-    JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakComponentProps2> extends {
+    React.JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, WeakComponentProps2> extends {
         foo: string;
         bar: boolean;
     } ? true
         : false;
 
 // @ts-expect-error
-const weakComponentOptionalityTest1: JSX.LibraryManagedAttributes<
+const weakComponentOptionalityTest1: React.JSX.LibraryManagedAttributes<
     { propTypes: typeof weakComponentPropTypes },
     WeakComponentProps3
 > = { foo: "" };
-const weakComponentOptionalityTest2: JSX.LibraryManagedAttributes<
+const weakComponentOptionalityTest2: React.JSX.LibraryManagedAttributes<
     { propTypes: typeof weakComponentPropTypes },
     WeakComponentProps3
 > = { bar: true };
@@ -261,25 +261,25 @@ interface WeakIndexedComponentProps {
     [K: string]: any;
 }
 
-const weakComponentIndexedTest1: JSX.LibraryManagedAttributes<
+const weakComponentIndexedTest1: React.JSX.LibraryManagedAttributes<
     { propTypes: typeof weakComponentPropTypes },
     IndexedComponentProps
 > = {};
-const weakComponentIndexedTest2: JSX.LibraryManagedAttributes<
+const weakComponentIndexedTest2: React.JSX.LibraryManagedAttributes<
     { propTypes: typeof weakComponentPropTypes },
     IndexedComponentProps
 > // @ts-expect-error
  = { foo: "" };
-const weakComponentIndexedTest3: JSX.LibraryManagedAttributes<
+const weakComponentIndexedTest3: React.JSX.LibraryManagedAttributes<
     { propTypes: typeof weakComponentPropTypes },
     WeakIndexedComponentProps
 > = { foo: "" };
-const weakComponentIndexedTest4: JSX.LibraryManagedAttributes<
+const weakComponentIndexedTest4: React.JSX.LibraryManagedAttributes<
     { propTypes: typeof weakComponentPropTypes },
     WeakIndexedComponentProps
 > = { foo: 4 };
 
-const optionalUnionPropTest: JSX.LibraryManagedAttributes<
+const optionalUnionPropTest: React.JSX.LibraryManagedAttributes<
     { propTypes: {} },
     { optional?: string } | { optional?: number }
 > = {};
