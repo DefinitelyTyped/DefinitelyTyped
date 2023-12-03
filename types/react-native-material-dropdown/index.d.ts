@@ -91,9 +91,9 @@ export interface DropDownProps extends TouchableWithoutFeedbackProps {
     onChangeText?(value: string, index: number, data: DropDownData[]): void;
 
     /** Render base component */
-    renderBase?(props: RenderBaseProps): JSX.Element;
+    renderBase?(props: RenderBaseProps): React.JSX.Element;
     /** Render text field accessory */
-    renderAccessory?(): JSX.Element;
+    renderAccessory?(): React.JSX.Element;
 }
 
 /**
