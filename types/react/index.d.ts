@@ -5,7 +5,6 @@
 /// <reference path="global.d.ts" />
 
 import * as CSS from "csstype";
-import * as PropTypes from "prop-types";
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -559,7 +558,6 @@ declare namespace React {
      * @template P The props the component accepts.
      */
     interface ProviderExoticComponent<P> extends ExoticComponent<P> {
-        propTypes?: WeakValidationMap<P> | undefined;
     }
 
     /**
@@ -1002,16 +1000,9 @@ declare namespace React {
     interface FunctionComponent<P = {}> {
         (props: P): ReactNode;
         /**
-         * Used to declare the types of the props accepted by the
-         * component. These types will be checked during rendering
-         * and in development only.
-         *
-         * We recommend using TypeScript instead of checking prop
-         * types at runtime.
-         *
-         * @see {@link https://react.dev/reference/react/Component#static-proptypes React Docs}
+         * propTypes are not supported on function components anymore.
          */
-        propTypes?: WeakValidationMap<P> | undefined;
+        propTypes?: never | undefined;
         /**
          * defaultProps are not supported on function components anymore.
          */
@@ -1096,17 +1087,6 @@ declare namespace React {
      */
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
         new(props: P): Component<P, S>;
-        /**
-         * Used to declare the types of the props accepted by the
-         * component. These types will be checked during rendering
-         * and in development only.
-         *
-         * We recommend using TypeScript instead of checking prop
-         * types at runtime.
-         *
-         * @see {@link https://react.dev/reference/react/Component#static-proptypes React Docs}
-         */
-        propTypes?: WeakValidationMap<P> | undefined;
         contextType?: Context<any> | undefined;
         defaultProps?: Partial<P> | undefined;
         /**
@@ -1329,7 +1309,6 @@ declare namespace React {
          * defaultProps are not supported on function components anymore.
          */
         defaultProps?: never | undefined;
-        propTypes?: WeakValidationMap<P> | undefined;
     }
 
     /**
@@ -3836,56 +3815,6 @@ declare namespace React {
         | "view";
 
     //
-    // React.PropTypes
-    // ----------------------------------------------------------------------
-
-    /**
-     * @deprecated Use `Validator` from the ´prop-types` instead.
-     */
-    type Validator<T> = PropTypes.Validator<T>;
-
-    /**
-     * @deprecated Use `Requireable` from the ´prop-types` instead.
-     */
-    type Requireable<T> = PropTypes.Requireable<T>;
-
-    /**
-     * @deprecated Use `ValidationMap` from the ´prop-types` instead.
-     */
-    type ValidationMap<T> = PropTypes.ValidationMap<T>;
-
-    /**
-     * @deprecated Use `WeakValidationMap` from the ´prop-types` instead.
-     */
-    type WeakValidationMap<T> = {
-        [K in keyof T]?: null extends T[K] ? Validator<T[K] | null | undefined>
-            : undefined extends T[K] ? Validator<T[K] | null | undefined>
-            : Validator<T[K]>;
-    };
-
-    /**
-     * @deprecated Use `PropTypes.*` where `PropTypes` comes from `import * as PropTypes from 'prop-types'` instead.
-     */
-    interface ReactPropTypes {
-        any: typeof PropTypes.any;
-        array: typeof PropTypes.array;
-        bool: typeof PropTypes.bool;
-        func: typeof PropTypes.func;
-        number: typeof PropTypes.number;
-        object: typeof PropTypes.object;
-        string: typeof PropTypes.string;
-        node: typeof PropTypes.node;
-        element: typeof PropTypes.element;
-        instanceOf: typeof PropTypes.instanceOf;
-        oneOf: typeof PropTypes.oneOf;
-        oneOfType: typeof PropTypes.oneOfType;
-        arrayOf: typeof PropTypes.arrayOf;
-        objectOf: typeof PropTypes.objectOf;
-        shape: typeof PropTypes.shape;
-        exact: typeof PropTypes.exact;
-    }
-
-    //
     // Browser Interfaces
     // https://github.com/nikeee/2048-typescript/blob/master/2048/js/touch.d.ts
     // ----------------------------------------------------------------------
@@ -4148,30 +4077,6 @@ declare namespace React {
     }
 }
 
-// naked 'any' type in a conditional type will short circuit and union both the then/else branches
-// so boolean is only resolved for T = any
-type IsExactlyAny<T> = boolean extends (T extends never ? true : false) ? true : false;
-
-type ExactlyAnyPropertyKeys<T> = { [K in keyof T]: IsExactlyAny<T[K]> extends true ? K : never }[keyof T];
-type NotExactlyAnyPropertyKeys<T> = Exclude<keyof T, ExactlyAnyPropertyKeys<T>>;
-
-// Try to resolve ill-defined props like for JS users: props can be any, or sometimes objects with properties of type any
-type MergePropTypes<P, T> =
-    // Distribute over P in case it is a union type
-    P extends any
-        // If props is type any, use propTypes definitions
-        ? IsExactlyAny<P> extends true ? T
-            // If declared props have indexed properties, ignore inferred props entirely as keyof gets widened
-        : string extends keyof P ? P
-            // Prefer declared types which are not exactly any
-        :
-            & Pick<P, NotExactlyAnyPropertyKeys<P>>
-            // For props which are exactly any, use the type inferred from propTypes if present
-            & Pick<T, Exclude<keyof T, NotExactlyAnyPropertyKeys<P>>>
-            // Keep leftover props not specified in propTypes
-            & Pick<P, Exclude<keyof P, keyof T>>
-        : never;
-
 type InexactPartial<T> = { [K in keyof T]?: T[K] | undefined };
 
 // Any prop that has a default prop becomes optional, but its type is unchanged
@@ -4185,8 +4090,5 @@ type Defaultize<P, D> = P extends any ? string extends keyof P ? P
         & InexactPartial<Pick<D, Exclude<keyof D, keyof P>>>
     : never;
 
-type ReactManagedAttributes<C, P> = C extends { propTypes: infer T; defaultProps: infer D }
-    ? Defaultize<MergePropTypes<P, PropTypes.InferProps<T>>, D>
-    : C extends { propTypes: infer T } ? MergePropTypes<P, PropTypes.InferProps<T>>
-    : C extends { defaultProps: infer D } ? Defaultize<P, D>
+type ReactManagedAttributes<C, P> = C extends { defaultProps: infer D } ? Defaultize<P, D>
     : P;

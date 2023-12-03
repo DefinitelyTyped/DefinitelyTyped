@@ -1,5 +1,4 @@
 import { JSX } from "react";
-import PropTypes = require("prop-types");
 import React = require("react");
 
 interface SCProps {
@@ -535,30 +534,6 @@ const CustomTag4: React.ElementType<{ className?: string | undefined }, "a" | "b
     props: { className?: string | undefined },
 ) => <div {...props} />;
 
-interface TestPropTypesProps {
-    foo: string;
-}
-interface TestPropTypesProps1 {
-    foo?: string | undefined;
-}
-interface TestPropTypesProps2 {
-    foo: string | null;
-}
-interface TestPropTypesProps3 {
-    foo?: string | null | undefined;
-}
-const testPropTypes = {
-    foo: PropTypes.string,
-};
-type DeclaredPropTypes<P> = Required<Exclude<React.FunctionComponent<P>["propTypes"], undefined>>;
-// $ExpectType false
-type propTypesTest = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps> ? true : false;
-// $ExpectType true
-type propTypesTest1 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps1> ? true : false;
-// $ExpectType true
-type propTypesTest2 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps2> ? true : false;
-// $ExpectType true
-type propTypesTest3 = typeof testPropTypes extends DeclaredPropTypes<TestPropTypesProps3> ? true : false;
 function CustomSelect(props: {
     children: ReadonlyArray<
         React.ReactElement<
