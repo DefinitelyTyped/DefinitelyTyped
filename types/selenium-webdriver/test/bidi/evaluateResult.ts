@@ -1,0 +1,28 @@
+import { error } from "console";
+import {
+    EvaluateResultSuccess,
+    EvaluateResultException,
+    ExceptionDetails,
+} from "selenium-webdriver/bidi/evaluateResult";
+
+function TestEvaluateResultSuccess() {
+    const evaluateResultSuccess = new EvaluateResultSuccess('asdf', 'string');
+    if (evaluateResultSuccess.result !== 'string') {
+        throw new error("EvaluateResultSuccess failure")
+    }
+}
+
+function TestEvaluateResultException() {
+    const exceptionDetails = new ExceptionDetails({
+        columnNumber: 12
+    })
+    if (exceptionDetails.columnNumber !== 12) {
+        throw new error("ExceptionDetails failure")
+    }
+    const evaluateResultException = new EvaluateResultException('asdf', {
+      columnNumber: 12
+    })
+    if (evaluateResultException.exceptionDetails.columnNumber !== 12) {
+        throw new error("EvaluateResultException failure")
+    }
+}
