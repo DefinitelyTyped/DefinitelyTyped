@@ -587,10 +587,10 @@ const childrenToArray: Array<Exclude<React.ReactNode, boolean | null | undefined
 
 declare const numberChildren: number[];
 declare const nodeChildren: React.ReactNode;
-declare const elementChildren: JSX.Element[];
-declare const mixedChildren: Array<JSX.Element | string>;
-declare const singlePluralChildren: JSX.Element | JSX.Element[];
-declare const renderPropsChildren: () => JSX.Element;
+declare const elementChildren: React.JSX.Element[];
+declare const mixedChildren: Array<React.JSX.Element | string>;
+declare const singlePluralChildren: React.JSX.Element | React.JSX.Element[];
+declare const renderPropsChildren: () => React.JSX.Element;
 
 // $ExpectType null
 const mappedChildrenArray0 = React.Children.map(null, num => num);

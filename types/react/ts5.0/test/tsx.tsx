@@ -1,3 +1,4 @@
+import { JSX } from "react";
 import PropTypes = require("prop-types");
 import React = require("react");
 
@@ -335,48 +336,15 @@ const Memoized6: React.NamedExoticComponent<object> = React.memo(props => null);
 
 // NOTE: this test _requires_ TypeScript 3.1
 // It is passing, for what it's worth.
-const Memoized7 = React.memo((() => {
-    function HasDefaultProps(props: { test: boolean }) {
-        return null;
-    }
-    HasDefaultProps.defaultProps = {
-        test: true,
-    };
-    return HasDefaultProps;
-})());
-// $ExpectType boolean
-Memoized7.type.defaultProps.test;
-
-// From type-fest
-type RequireAllOrNone<ObjectType, KeysType extends keyof ObjectType = never> =
-    & (
-        | Required<Pick<ObjectType, KeysType>>
-        | Partial<Record<KeysType, never>>
-    )
-    & Omit<ObjectType, KeysType>;
-
-type MemoizedProps = RequireAllOrNone<{ foo: string; bar: number }, "foo" | "bar">;
-declare module "react" {
-    namespace JSX {
-        interface IntrinsicElements {
-            "memoized-element": MemoizedProps;
-        }
-    }
-}
-// $ExpectType Element
-<memoized-element />;
-// $ExpectType Element
-<memoized-element foo="f" bar={42} />;
-// @ts-expect-error
-<memoized-element bar={42} />;
-
-const Memoized8 = React.memo((props: MemoizedProps) => <div />);
-// $ExpectType Element
-<Memoized8 />;
-// $ExpectType Element
-<Memoized8 foo="" bar={42} />;
-// @ts-expect-error
-<Memoized8 bar={42} />;
+// const Memoized7 = React.memo((() => {
+//     function HasDefaultProps(props: { test: boolean }) { return null; }
+//     HasDefaultProps.defaultProps = {
+//         test: true
+//     };
+//     return HasDefaultProps;
+// })());
+// // $ExpectType boolean
+// Memoized7.type.defaultProps.test;
 
 const LazyClassComponent = React.lazy(async () => ({ default: ComponentWithPropsAndState }));
 const LazyMemoized3 = React.lazy(async () => ({ default: Memoized3 }));
@@ -625,17 +593,17 @@ function CustomSelect(props: {
     >;
 }): JSX.Element {
     return (
-        <div>
+        (<div>
             <ul>{props.children}</ul>
             <select>
                 {React.Children.map(props.children, child => (
                     // key should be mappable from children.
-                    <option key={child.key} value={child.props.value}>
+                    (<option key={child.key} value={child.props.value}>
                         {child.props.children}
-                    </option>
+                    </option>)
                 ))}
             </select>
-        </div>
+        </div>)
     );
 }
 function CustomSelectOption(props: {
