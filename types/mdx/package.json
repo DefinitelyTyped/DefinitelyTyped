@@ -7,9 +7,6 @@
     "projects": [
         "https://github.com/mdx-js/mdx"
     ],
-    "dependencies": {
-        "@types/react": "*"
-    },
     "devDependencies": {
         "@types/mdx": "workspace:."
     },
