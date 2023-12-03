@@ -1,3 +1,1 @@
-declare function defaultBrowserId(): Promise<string>;
-
-export default defaultBrowserId;
+export default function defaultBrowserId(): Promise<string>;
