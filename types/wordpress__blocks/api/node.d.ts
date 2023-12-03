@@ -1,4 +1,4 @@
-import { ReactChild, ReactElement } from "react";
+import { ReactChild, ReactElement, JSX } from "react";
 
 import children from "./children";
 
