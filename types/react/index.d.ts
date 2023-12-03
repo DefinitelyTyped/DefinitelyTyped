@@ -421,12 +421,6 @@ declare namespace React {
     }
 
     /**
-     * WARNING: Not related to `React.Fragment`.
-     * @deprecated This type is not relevant when using React. Inline the type instead to make the intent clear.
-     */
-    type ReactFragment = Iterable<ReactNode>;
-
-    /**
      * Different release channels declare additional types of ReactNode this particular release channel accepts.
      * App or library types should never augment this interface.
      */
