@@ -217,20 +217,13 @@ interface SCProps {
 function FunctionComponent(props: SCProps) {
     return props.foo ? React.createElement("div", null, props.foo) : null;
 }
-
-// tslint:disable-next-line:no-namespace
-namespace FunctionComponent {
-    export const displayName = "FunctionComponent";
-    export const defaultProps = { foo: 42 };
-}
+FunctionComponent.displayName = 'FunctionComponent'
 
 const FunctionComponent2: React.FunctionComponent<SCProps> =
     // props is contextually typed
     props => React.createElement("div", null, props.foo);
 FunctionComponent2.displayName = "FunctionComponent2";
-FunctionComponent2.defaultProps = {
-    foo: 42,
-};
+
 
 // allows null as props
 const FunctionComponent4: React.FunctionComponent = props => null;

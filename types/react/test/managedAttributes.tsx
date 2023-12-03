@@ -158,10 +158,14 @@ const unannotatedDefaultPropsTests = [
 
 class ComponentWithNoDefaultProps extends React.Component<Props> {}
 
-function FunctionalComponent(props: Props) {
-    return <>{props.reqNode}</>;
+function FunctionalComponent(
+    {
+        fnc = (() => "abc"),
+        reqNode = "text_node",
+    }: Omit<Props, "fnc" | "reqNode"> & Partial<Pick<Props, "fnc" | "reqNode">>,
+) {
+    return <>{reqNode}{fnc()}</>;
 }
-FunctionalComponent.defaultProps = defaultProps;
 
 const functionalComponentTests = [
     // @ts-expect-error
@@ -188,10 +192,12 @@ const memoTests = [
     <LazyMemoAnnotatedDefaultProps str="abc" />,
 ];
 
-const ForwardRef = React.forwardRef((props: Props, ref: React.Ref<ComponentWithNoDefaultProps>) => (
-    <ComponentWithNoDefaultProps ref={ref} {...props} />
-));
-ForwardRef.defaultProps = defaultProps;
+const ForwardRef = React.forwardRef((
+    { fnc = (() => "abc"), reqNode = "text_node", ...props }:
+        & Omit<Props, "fnc" | "reqNode">
+        & Partial<Pick<Props, "fnc" | "reqNode">>,
+    ref: React.Ref<ComponentWithNoDefaultProps>,
+) => <ComponentWithNoDefaultProps ref={ref} fnc={fnc} reqNode={reqNode} {...props} />);
 
 const forwardRefTests = [
     // @ts-expect-error
@@ -201,8 +207,6 @@ const forwardRefTests = [
         reqNode={<span />}
         str=""
     />,
-    // same bug as MemoFunctionalComponent and React.SFC-typed things
-    // @ts-expect-error
     <ForwardRef str="abc" />,
 ];
 
@@ -224,10 +228,11 @@ interface WeakComponentProps3 {
 }
 
 // $ExpectType true
-type weakComponentTest1 = React.JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, any> extends {
-    foo?: string | null | undefined;
-    bar: boolean;
-} ? true
+type weakComponentTest1 = React.JSX.LibraryManagedAttributes<{ propTypes: typeof weakComponentPropTypes }, any> extends
+    {
+        foo?: string | null | undefined;
+        bar: boolean;
+    } ? true
     : false;
 // $ExpectType true
 type weakComponentTest2 =
