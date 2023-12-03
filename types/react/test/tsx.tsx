@@ -18,26 +18,6 @@ FunctionComponent.defaultProps = {
 // @ts-expect-error
 <FunctionComponent>24</FunctionComponent>;
 
-const VoidFunctionComponent: React.VoidFunctionComponent<SCProps> = ({ foo }: SCProps) => {
-    return <div>{foo}</div>;
-};
-VoidFunctionComponent.displayName = "VoidFunctionComponent1";
-VoidFunctionComponent.defaultProps = {
-    foo: 42,
-};
-<VoidFunctionComponent />;
-
-// @ts-expect-error
-const VoidFunctionComponent2: React.VoidFunctionComponent<SCProps> = ({ foo, children }) => {
-    return <div>{foo}{children}</div>;
-};
-VoidFunctionComponent2.displayName = "VoidFunctionComponent2";
-VoidFunctionComponent2.defaultProps = {
-    foo: 42,
-};
-// @ts-expect-error
-<VoidFunctionComponent2>24</VoidFunctionComponent2>;
-
 const ComponentWithChildren1: React.FunctionComponent<React.PropsWithChildren> = ({ children }) => {
     return <div>{children}</div>;
 };
