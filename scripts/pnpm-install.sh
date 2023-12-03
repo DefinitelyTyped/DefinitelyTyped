@@ -9,10 +9,10 @@ fi
 # After installing everything the first time, reread the graph and see if anything was missing..
 # If something was missing, we install that again and repeat until nothing is missing.
 
-echo pnpm install --filter . --filter ...[HEAD^1]...
-pnpm install --filter . --filter ...[HEAD^1]...
+echo pnpm install --filter . --filter ...[origin/master]...
+pnpm install --filter . --filter ...[origin/master]...
 
-FILTERS=('--filter' '...@types/**[HEAD^1]...')
+FILTERS=('--filter' '...@types/**[origin/master]...')
 
 while true; do
     OLD_FILTERS=("${FILTERS[@]}")
