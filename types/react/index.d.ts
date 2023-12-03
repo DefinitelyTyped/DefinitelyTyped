@@ -760,9 +760,6 @@ declare namespace React {
 
     function isValidElement<P>(object: {} | null | undefined): object is ReactElement<P>;
 
-    /**
-     * Maintainer's note: Sync with {@link ReactChildren} until {@link ReactChildren} is removed.
-     */
     const Children: {
         map<T, C>(
             children: C | readonly C[],
@@ -4076,25 +4073,6 @@ declare namespace React {
         objectOf: typeof PropTypes.objectOf;
         shape: typeof PropTypes.shape;
         exact: typeof PropTypes.exact;
-    }
-
-    //
-    // React.Children
-    // ----------------------------------------------------------------------
-
-    /**
-     * @deprecated - Use `typeof React.Children` instead.
-     */
-    // Sync with type of `const Children`.
-    interface ReactChildren {
-        map<T, C>(
-            children: C | readonly C[],
-            fn: (child: C, index: number) => T,
-        ): C extends null | undefined ? C : Array<Exclude<T, boolean | null | undefined>>;
-        forEach<C>(children: C | readonly C[], fn: (child: C, index: number) => void): void;
-        count(children: any): number;
-        only<C>(children: C): C extends any[] ? never : C;
-        toArray(children: ReactNode | ReactNode[]): Array<Exclude<ReactNode, boolean | null | undefined>>;
     }
 
     //
