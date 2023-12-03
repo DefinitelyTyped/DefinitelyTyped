@@ -1150,27 +1150,6 @@ declare namespace React {
     }
 
     /**
-     * @deprecated - Equivalent to {@link React.FunctionComponent}.
-     *
-     * @see {@link React.FunctionComponent}
-     * @alias {@link VoidFunctionComponent}
-     */
-    type VFC<P = {}> = VoidFunctionComponent<P>;
-
-    /**
-     * @deprecated - Equivalent to {@link React.FunctionComponent}.
-     *
-     * @see {@link React.FunctionComponent}
-     */
-    interface VoidFunctionComponent<P = {}> {
-        (props: P, context?: any): ReactNode;
-        propTypes?: WeakValidationMap<P> | undefined;
-        contextTypes?: ValidationMap<any> | undefined;
-        defaultProps?: Partial<P> | undefined;
-        displayName?: string | undefined;
-    }
-
-    /**
      * The type of the ref received by a {@link ForwardRefRenderFunction}.
      *
      * @see {@link ForwardRefRenderFunction}
