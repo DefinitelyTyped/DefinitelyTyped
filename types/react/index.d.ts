@@ -1166,38 +1166,6 @@ declare namespace React {
     }
 
     /**
-     * @deprecated - Equivalent to {@link React.FunctionComponent}.
-     *
-     * @see {@link React.FunctionComponent}
-     * @alias {@link VoidFunctionComponent}
-     */
-    type VFC<P = {}> = VoidFunctionComponent<P>;
-
-    /**
-     * @deprecated - Equivalent to {@link React.FunctionComponent}.
-     *
-     * @see {@link React.FunctionComponent}
-     */
-    interface VoidFunctionComponent<P = {}> {
-        (
-            props: P,
-            /**
-             * @deprecated
-             *
-             * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-lifecycle-methods React Docs}
-             */
-            deprecatedLegacyContext?: any,
-        ): ReactNode;
-        propTypes?: WeakValidationMap<P> | undefined;
-        contextTypes?: ValidationMap<any> | undefined;
-        /**
-         * @deprecated Use {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#default_value|default values for destructuring assignments instead}.
-         */
-        defaultProps?: Partial<P> | undefined;
-        displayName?: string | undefined;
-    }
-
-    /**
      * The type of the ref received by a {@link ForwardRefRenderFunction}.
      *
      * @see {@link ForwardRefRenderFunction}
