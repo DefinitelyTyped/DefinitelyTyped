@@ -93,8 +93,7 @@ declare namespace React {
      * Represents any user-defined component, either as a function or a class.
      *
      * Similar to {@link JSXElementConstructor}, but with extra properties like
-     * {@link FunctionComponent.defaultProps defaultProps } and
-     * {@link ComponentClass.contextTypes contextTypes}.
+     * {@link FunctionComponent.defaultProps defaultProps }.
      *
      * @template P The props the component accepts.
      *
@@ -107,29 +106,16 @@ declare namespace React {
      * Represents any user-defined component, either as a function or a class.
      *
      * Similar to {@link ComponentType}, but without extra properties like
-     * {@link FunctionComponent.defaultProps defaultProps } and
-     * {@link ComponentClass.contextTypes contextTypes}.
+     * {@link FunctionComponent.defaultProps defaultProps }.
      *
      * @template P The props the component accepts.
      */
     type JSXElementConstructor<P> =
         | ((
             props: P,
-            /**
-             * @deprecated
-             *
-             * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-stateless-function-components React Docs}
-             */
-            deprecatedLegacyContext?: any,
         ) => ReactNode)
         | (new(
             props: P,
-            /**
-             * @deprecated
-             *
-             * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-lifecycle-methods React Docs}
-             */
-            deprecatedLegacyContext?: any,
         ) => Component<any, any>);
 
     /**
@@ -220,7 +206,7 @@ declare namespace React {
         C extends
             | ForwardRefExoticComponent<any>
             | { new(props: any): Component<any> }
-            | ((props: any, deprecatedLegacyContext?: any) => ReactNode)
+            | ((props: any) => ReactNode)
             | keyof JSX.IntrinsicElements,
     > =
         // need to check first if `ref` is a valid prop for ts@3.0
@@ -916,11 +902,6 @@ declare namespace React {
         context: unknown;
 
         constructor(props: P);
-        /**
-         * @deprecated
-         * @see {@link https://legacy.reactjs.org/docs/legacy-context.html React Docs}
-         */
-        constructor(props: P, context: any);
 
         // We MUST keep setState() as a unified signature because it allows proper checking of the method return type.
         // See: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18365#issuecomment-351013257
@@ -957,10 +938,6 @@ declare namespace React {
         replaceState(nextState: S, callback?: () => void): void;
         isMounted(): boolean;
         getInitialState?(): S;
-    }
-
-    interface ChildContextProvider<CC> {
-        getChildContext(): CC;
     }
 
     //
@@ -1027,15 +1004,7 @@ declare namespace React {
      * ```
      */
     interface FunctionComponent<P = {}> {
-        (
-            props: P,
-            /**
-             * @deprecated
-             *
-             * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-lifecycle-methods React Docs}
-             */
-            deprecatedLegacyContext?: any,
-        ): ReactNode;
+        (props: P): ReactNode;
         /**
          * Used to declare the types of the props accepted by the
          * component. These types will be checked during rendering
@@ -1047,15 +1016,6 @@ declare namespace React {
          * @see {@link https://react.dev/reference/react/Component#static-proptypes React Docs}
          */
         propTypes?: WeakValidationMap<P> | undefined;
-        /**
-         * @deprecated
-         *
-         * Lets you specify which legacy context is consumed by
-         * this component.
-         *
-         * @see {@link https://legacy.reactjs.org/docs/legacy-context.html Legacy React Docs}
-         */
-        contextTypes?: ValidationMap<any> | undefined;
         /**
          * defaultProps are not supported on function components anymore.
          */
@@ -1139,15 +1099,7 @@ declare namespace React {
      * @template S The internal state of the component.
      */
     interface ComponentClass<P = {}, S = ComponentState> extends StaticLifecycle<P, S> {
-        new(
-            props: P,
-            /**
-             * @deprecated
-             *
-             * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-lifecycle-methods React Docs}
-             */
-            deprecatedLegacyContext?: any,
-        ): Component<P, S>;
+        new(props: P): Component<P, S>;
         /**
          * Used to declare the types of the props accepted by the
          * component. These types will be checked during rendering
@@ -1160,27 +1112,6 @@ declare namespace React {
          */
         propTypes?: WeakValidationMap<P> | undefined;
         contextType?: Context<any> | undefined;
-        /**
-         * @deprecated use {@link ComponentClass.contextType} instead
-         *
-         * Lets you specify which legacy context is consumed by
-         * this component.
-         *
-         * @see {@link https://legacy.reactjs.org/docs/legacy-context.html Legacy React Docs}
-         */
-        contextTypes?: ValidationMap<any> | undefined;
-        /**
-         * @deprecated
-         *
-         * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#how-to-use-context Legacy React Docs}
-         */
-        childContextTypes?: ValidationMap<any> | undefined;
-        /**
-         * Used to define default values for the props accepted by
-         * the component.
-         *
-         * @see {@link https://react.dev/reference/react/Component#static-defaultprops React Docs}
-         */
         defaultProps?: Partial<P> | undefined;
         /**
          * Used in debugging messages. You might want to set it
@@ -1199,7 +1130,7 @@ declare namespace React {
      * @see {@link https://www.npmjs.com/package/create-react-class `create-react-class` on npm}
      */
     interface ClassicComponentClass<P = {}> extends ComponentClass<P> {
-        new(props: P, deprecatedLegacyContext?: any): ClassicComponent<P, ComponentState>;
+        new(props: P): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
     }
 
@@ -1214,7 +1145,7 @@ declare namespace React {
      */
     type ClassType<P, T extends Component<P, ComponentState>, C extends ComponentClass<P>> =
         & C
-        & (new(props: P, deprecatedLegacyContext?: any) => T);
+        & (new(props: P) => T);
 
     //
     // Component Specs and Lifecycle
@@ -1238,7 +1169,7 @@ declare namespace React {
          * If false is returned, {@link Component.render}, `componentWillUpdate`
          * and `componentDidUpdate` will not be called.
          */
-        shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): boolean;
+        shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>): boolean;
         /**
          * Called immediately before a component is destroyed. Perform any necessary cleanup in this method, such as
          * cancelled network requests, or cleaning up any DOM elements created in `componentDidMount`.
@@ -1337,7 +1268,7 @@ declare namespace React {
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
-        componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
+        componentWillReceiveProps?(nextProps: Readonly<P>): void;
         /**
          * Called when the component may be receiving new props.
          * React may call this even if props have not changed, so be sure to compare new and existing
@@ -1355,7 +1286,7 @@ declare namespace React {
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
-        UNSAFE_componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
+        UNSAFE_componentWillReceiveProps?(nextProps: Readonly<P>): void;
         /**
          * Called immediately before rendering when new props or state is received. Not called for the initial render.
          *
@@ -1369,7 +1300,7 @@ declare namespace React {
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#reading-dom-properties-before-an-update}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
-        componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
+        componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>): void;
         /**
          * Called immediately before rendering when new props or state is received. Not called for the initial render.
          *
@@ -1385,7 +1316,7 @@ declare namespace React {
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#reading-dom-properties-before-an-update}
          * @see {@link https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path}
          */
-        UNSAFE_componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
+        UNSAFE_componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>): void;
     }
 
     function createRef<T>(): RefObject<T | null>;
@@ -1535,7 +1466,7 @@ declare namespace React {
      */
     type CustomComponentPropsWithRef<T extends ComponentType> = T extends (new(props: infer P) => Component<any, any>)
         ? (PropsWithoutRef<P> & RefAttributes<InstanceType<T>>)
-        : T extends ((props: infer P, legacyContext?: any) => ReactNode) ? PropsWithRef<P>
+        : T extends ((props: infer P) => ReactNode) ? PropsWithRef<P>
         : never;
 
     /**

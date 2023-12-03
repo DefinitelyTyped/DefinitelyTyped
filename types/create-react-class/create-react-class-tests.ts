@@ -21,7 +21,6 @@ const container: Element = document.createElement("div");
 // --------------------------------------------------------------------------
 
 const ClassicComponent: createReactClass.ClassicComponentClass<Props> = createReactClass<Props, State>({
-    childContextTypes: {},
     componentDidCatch(err, errorInfo) {
         const msg: string = err.message;
         const name: string = err.name;
@@ -42,7 +41,6 @@ const ClassicComponent: createReactClass.ClassicComponentClass<Props> = createRe
         const foo: string = props.foo;
         const bar: number = state.bar;
     },
-    contextTypes: {},
     displayName: "Test",
     getDefaultProps() {
         return { foo: "f" };

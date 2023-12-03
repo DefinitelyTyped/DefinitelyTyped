@@ -29,10 +29,6 @@ interface Context {
     someValue?: string | null | undefined;
 }
 
-interface ChildContext {
-    someOtherValue: string;
-}
-
 interface MyComponent extends React.Component<Props, State> {
     reset(): void;
 }
@@ -134,30 +130,15 @@ declare const container: Element;
     }
 }
 
-class ModernComponent extends React.Component<Props, State, Snapshot>
-    implements MyComponent, React.ChildContextProvider<ChildContext>
-{
+class ModernComponent extends React.Component<Props, State, Snapshot> implements MyComponent {
     static propTypes: React.ValidationMap<Props> = {
         hello: PropTypes.string.isRequired,
         world: PropTypes.string,
         foo: PropTypes.number.isRequired,
     };
 
-    static contextTypes: React.ValidationMap<Context> = {
-        someValue: PropTypes.string,
-    };
-
-    static childContextTypes: React.ValidationMap<ChildContext> = {
-        someOtherValue: PropTypes.string.isRequired,
-    };
-
+    contextType: React.Context<Context>;
     context: Context = {};
-
-    getChildContext() {
-        return {
-            someOtherValue: "foo",
-        };
-    }
 
     state = {
         inputValue: this.context.someValue,
@@ -217,13 +198,12 @@ interface SCProps {
 function FunctionComponent(props: SCProps) {
     return props.foo ? React.createElement("div", null, props.foo) : null;
 }
-FunctionComponent.displayName = 'FunctionComponent'
+FunctionComponent.displayName = "FunctionComponent";
 
 const FunctionComponent2: React.FunctionComponent<SCProps> =
     // props is contextually typed
     props => React.createElement("div", null, props.foo);
 FunctionComponent2.displayName = "FunctionComponent2";
-
 
 // allows null as props
 const FunctionComponent4: React.FunctionComponent = props => null;
@@ -263,7 +243,7 @@ const fragmentElementNullProps: React.ReactElement<{}> = React.createElement(Rea
     React.createElement("div"),
     React.createElement("div"),
 ]);
-// $ExpectType CElement<{}, ComponentWithCustomInstanceMethods>
+// $ExpectType CElement<{} | Readonly<{}>, ComponentWithCustomInstanceMethods>
 const myElement = React.createElement(
     class ComponentWithCustomInstanceMethods extends React.Component {
         customInstanceMethod = () => "Dave";
@@ -289,7 +269,7 @@ const clonedElement: React.CElement<Props, ModernComponent> = React.cloneElement
 
 React.cloneElement(element, {});
 React.cloneElement(element, {}, null);
-// $ExpectType CElement<{}, ComponentWithCustomInstanceMethods>
+// $ExpectType CElement<{} | Readonly<{}>, ComponentWithCustomInstanceMethods>
 React.cloneElement(myElement);
 
 const clonedElement2: React.CElement<Props, ModernComponent> = React.cloneElement(element, {
@@ -834,14 +814,19 @@ const propsWithoutRef: React.PropsWithoutRef<UnionProps> = {
     Wrapper = (props: ExactProps) => null;
     Wrapper = class Wider extends React.Component<WiderProps> {};
     Wrapper = (props: WiderProps) => null;
+    // @ts-expect-error -- legacy context was removed
     Wrapper = (props, legacyContext) => {
         // $ExpectType any
         legacyContext;
         return null;
     };
+    // @ts-expect-error -- legacy context was removed
     Wrapper = (props, legacyContext: { foo: number }) => null;
+
+    // @ts-expect-error -- legacy context was removed
     Wrapper = class Exact extends React.Component<ExactProps> {
         constructor(props: ExactProps, legacyContext: { foo: number }) {
+            // @ts-expect-error -- legacy context was removed
             super(props, legacyContext);
         }
     };

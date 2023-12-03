@@ -392,27 +392,6 @@ const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
 />;
 <React.Suspense fallback={null} name="test" />;
 
-class LegacyContext extends React.Component {
-    static contextTypes = { foo: PropTypes.node.isRequired };
-
-    render() {
-        // $ExpectType unknown
-        this.context;
-        return (this.context as any).foo;
-    }
-}
-
-class LegacyContextAnnotated extends React.Component {
-    static contextTypes = { foo: PropTypes.node.isRequired };
-    context: { foo: React.ReactNode } = { foo: {} as React.ReactNode };
-
-    render() {
-        // $ExpectType ReactNode
-        this.context.foo;
-        return this.context.foo;
-    }
-}
-
 class NewContext extends React.Component {
     static contextType = Context;
     context: React.ContextType<typeof Context> = "";
@@ -749,21 +728,8 @@ function elementTypeTests() {
             </div>
         );
     };
+    // @ts-expect-error -- legacy context was removed
     const FCWithLegacyContext: React.FC<{ foo: string }> = ReturnWithLegacyContext;
-
-    class RenderWithLegacyContext extends React.Component {
-        static contextTypes = { foo: PropTypes.node.isRequired };
-
-        constructor(props: {}, context: {}) {
-            super(props, context);
-        }
-
-        render() {
-            // $ExpectType unknown
-            this.context;
-            return (this.context as any).foo;
-        }
-    }
 
     // Desired behavior.
     // @ts-expect-error
@@ -842,10 +808,14 @@ function elementTypeTests() {
     <FCPromiseReactNode />;
     React.createElement(FCPromiseReactNode);
 
+    // @ts-expect-error -- legacy context was removed
     <ReturnWithLegacyContext foo="one" />;
+    // @ts-expect-error -- legacy context was removed
     React.createElement(ReturnWithLegacyContext, { foo: "one" });
 
+    // @ts-expect-error -- legacy context was removed
     <RenderWithLegacyContext />;
+    // @ts-expect-error -- legacy context was removed
     React.createElement(RenderWithLegacyContext);
 }
 

@@ -10,8 +10,6 @@ declare namespace createReactClass {
 
         displayName?: string | undefined;
         propTypes?: PropTypes.ValidationMap<any> | undefined;
-        contextTypes?: PropTypes.ValidationMap<any> | undefined;
-        childContextTypes?: PropTypes.ValidationMap<any> | undefined;
 
         getDefaultProps?(): P;
         getInitialState?(): S;
