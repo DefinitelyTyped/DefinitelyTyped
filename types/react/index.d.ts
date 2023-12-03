@@ -1831,6 +1831,11 @@ declare namespace React {
      * A {@link Dispatch} function can sometimes be called without any arguments.
      */
     type DispatchWithoutAction = () => void;
+    // Limit the reducer to accept only 0 or 1 action arguments
+    // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+    type AnyActionArg = [] | [any];
+    // Get the dispatch type from the reducer arguments (captures optional action argument correctly)
+    type ActionDispatch<ActionArg extends AnyActionArg> = (...args: ActionArg) => void;
     // Unlike redux, the actions _can_ be anything
     type Reducer<S, A> = (prevState: S, action: A) => S;
     // If useReducer accepts a reducer without action, dispatch may be called without any parameters.
@@ -1838,10 +1843,6 @@ declare namespace React {
     // types used to try and prevent the compiler from reducing S
     // to a supertype common with the second argument to useReducer()
     type ReducerState<R extends Reducer<any, any>> = R extends Reducer<infer S, any> ? S : never;
-    type ReducerAction<R extends Reducer<any, any>> = R extends Reducer<any, infer A> ? A : never;
-    // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
-    type ReducerStateWithoutAction<R extends ReducerWithoutAction<any>> = R extends ReducerWithoutAction<infer S> ? S
-        : never;
     type DependencyList = readonly unknown[];
 
     // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
@@ -1885,12 +1886,10 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useReducer}
      */
-    // overload where dispatch could accept 0 arguments.
-    function useReducer<R extends ReducerWithoutAction<any>, I>(
-        reducer: R,
-        initializerArg: I,
-        initializer: (arg: I) => ReducerStateWithoutAction<R>,
-    ): [ReducerStateWithoutAction<R>, DispatchWithoutAction];
+    function useReducer<S, A extends AnyActionArg>(
+        reducer: (prevState: S, ...args: A) => S,
+        initialState: S
+    ): [S, ActionDispatch<A> ];
     /**
      * An alternative to `useState`.
      *
@@ -1901,12 +1900,10 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useReducer}
      */
-    // overload where dispatch could accept 0 arguments.
-    function useReducer<R extends ReducerWithoutAction<any>>(
-        reducer: R,
-        initializerArg: ReducerStateWithoutAction<R>,
-        initializer?: undefined,
-    ): [ReducerStateWithoutAction<R>, DispatchWithoutAction];
+    function useReducer<S, A extends AnyActionArg>(
+        reducer: (prevState: S, ...args: A) => S,
+        initialState: S
+    ): [S, ActionDispatch<A> ];
     /**
      * An alternative to `useState`.
      *
@@ -1917,55 +1914,11 @@ declare namespace React {
      * @version 16.8.0
      * @see {@link https://react.dev/reference/react/useReducer}
      */
-    // overload where "I" may be a subset of ReducerState<R>; used to provide autocompletion.
-    // If "I" matches ReducerState<R> exactly then the last overload will allow initializer to be omitted.
-    // the last overload effectively behaves as if the identity function (x => x) is the initializer.
-    function useReducer<R extends Reducer<any, any>, I>(
-        reducer: R,
-        initializerArg: I & ReducerState<R>,
-        initializer: (arg: I & ReducerState<R>) => ReducerState<R>,
-    ): [ReducerState<R>, Dispatch<ReducerAction<R>>];
-    /**
-     * An alternative to `useState`.
-     *
-     * `useReducer` is usually preferable to `useState` when you have complex state logic that involves
-     * multiple sub-values. It also lets you optimize performance for components that trigger deep
-     * updates because you can pass `dispatch` down instead of callbacks.
-     *
-     * @version 16.8.0
-     * @see {@link https://react.dev/reference/react/useReducer}
-     */
-    // overload for free "I"; all goes as long as initializer converts it into "ReducerState<R>".
-    function useReducer<R extends Reducer<any, any>, I>(
-        reducer: R,
-        initializerArg: I,
-        initializer: (arg: I) => ReducerState<R>,
-    ): [ReducerState<R>, Dispatch<ReducerAction<R>>];
-    /**
-     * An alternative to `useState`.
-     *
-     * `useReducer` is usually preferable to `useState` when you have complex state logic that involves
-     * multiple sub-values. It also lets you optimize performance for components that trigger deep
-     * updates because you can pass `dispatch` down instead of callbacks.
-     *
-     * @version 16.8.0
-     * @see {@link https://react.dev/reference/react/useReducer}
-     */
-
-    // I'm not sure if I keep this 2-ary or if I make it (2,3)-ary; it's currently (2,3)-ary.
-    // The Flow types do have an overload for 3-ary invocation with undefined initializer.
-
-    // NOTE: without the ReducerState indirection, TypeScript would reduce S to be the most common
-    // supertype between the reducer's return type and the initialState (or the initializer's return type),
-    // which would prevent autocompletion from ever working.
-
-    // TODO: double-check if this weird overload logic is necessary. It is possible it's either a bug
-    // in older versions, or a regression in newer versions of the typescript completion service.
-    function useReducer<R extends Reducer<any, any>>(
-        reducer: R,
-        initialState: ReducerState<R>,
-        initializer?: undefined,
-    ): [ReducerState<R>, Dispatch<ReducerAction<R>>];
+    function useReducer<S, I, A extends AnyActionArg>(
+        reducer: (prevState: S, ...args: A) => S,
+        initialArg: I,
+        init: (i: I) => S
+    ): [S, ActionDispatch<A>];
     /**
      * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
      * (`initialValue`). The returned object will persist for the full lifetime of the component.

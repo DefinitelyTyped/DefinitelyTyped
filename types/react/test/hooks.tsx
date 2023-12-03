@@ -116,6 +116,29 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
 
     const [, simpleDispatch] = React.useReducer(v => v + 1, 0);
 
+    // Infer reducer state type
+    React.useReducer(
+        v => {
+            // $ExpectType { name: string; }
+            const s = v;
+            return s;
+        },
+        { name: 'asdf' }
+    );
+
+    // @ts-expect-error reducer should have at most 2 arguments
+    React.useReducer((v, a: any, b: any) => v, 0);
+
+    // useReducer should handle optional action
+    const reducerWithOptionalAction = (state: boolean, next?: boolean) => {
+        return next !== undefined ? next : !state;
+    };
+    const useToggle = (initialState: boolean) => React.useReducer(reducerWithOptionalAction, initialState);
+
+    const [isTooltipVisible, toggleTooltipVisibility] = useToggle(false);
+    toggleTooltipVisibility();
+    toggleTooltipVisibility(false);
+
     // inline object, to (manually) check if autocomplete works
     React.useReducer(reducer, { age: 42, name: "The Answer" });
 
