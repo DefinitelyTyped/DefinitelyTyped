@@ -16,14 +16,14 @@
 // under the License.
 
 declare type RemoteReferenceType = {
-    HANDLE: 'handle',
-    SHARED_ID: 'shareId',
-}
+    HANDLE: "handle";
+    SHARED_ID: "shareId";
+};
 
 declare type LocalValueJSON = {
     type: string;
     value?: any;
-}
+};
 
 declare class LocalValue<T> {
     constructor(type: string, value: T);
@@ -65,12 +65,10 @@ declare type RemoteValueJSON<T> = {
     internalId?: string;
     value?: T;
     sharedId?: string;
-}
+};
 
-type MappedInternalType<T> = T extends Map<any, any>
-    ? ReferenceValue
-    : T extends RegExp
-    ? RegExpValue
+type MappedInternalType<T> = T extends Map<any, any> ? ReferenceValue
+    : T extends RegExp ? RegExpValue
     : T;
 
 declare class RemoteValue<T> {
@@ -86,7 +84,7 @@ declare class RemoteValue<T> {
 declare type ReferenceValueJSON = {
     handle?: string;
     shareId?: string;
-}
+};
 
 declare class ReferenceValue {
     constructor(handle: string, shareId: string);
@@ -101,10 +99,4 @@ declare class RegExpValue {
     flags: string | null;
 }
 
-export {
-    LocalValue,
-    RemoteValue,
-    ReferenceValue,
-    RemoteReferenceType,
-    RegExpValue,
-}
+export { LocalValue, ReferenceValue, RegExpValue, RemoteReferenceType, RemoteValue };

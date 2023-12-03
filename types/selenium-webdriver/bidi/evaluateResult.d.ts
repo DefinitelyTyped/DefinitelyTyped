@@ -1,11 +1,11 @@
 declare type EvaluateResultType = {
-    SUCCESS: 'success',
-    EXCEPTION: 'exception',
-}
+    SUCCESS: "success";
+    EXCEPTION: "exception";
+};
 
 declare class EvaluateResultSuccess<T> {
     constructor(realmId: string, value: T);
-    resultType: 'success';
+    resultType: "success";
     realmId: string;
     result: string;
 }
@@ -16,7 +16,7 @@ declare type ExceptionShape = {
     lineNumber?: number;
     stackTrace?: string;
     text?: string;
-}
+};
 
 declare class ExceptionDetails {
     constructor(exceptionDetails: ExceptionShape);
@@ -29,15 +29,9 @@ declare class ExceptionDetails {
 
 declare class EvaluateResultException {
     constructor(realmId: string, exceptionDetails: ExceptionShape);
-    resultType: 'exception';
+    resultType: "exception";
     realmId: string;
     exceptionDetails: ExceptionDetails;
 }
 
-
-export {
-    EvaluateResultType,
-    EvaluateResultSuccess,
-    EvaluateResultException,
-    ExceptionDetails,
-};
+export { EvaluateResultException, EvaluateResultSuccess, EvaluateResultType, ExceptionDetails };

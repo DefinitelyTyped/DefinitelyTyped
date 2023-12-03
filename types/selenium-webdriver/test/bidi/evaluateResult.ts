@@ -1,28 +1,28 @@
 import { error } from "console";
 import {
-    EvaluateResultSuccess,
     EvaluateResultException,
+    EvaluateResultSuccess,
     ExceptionDetails,
 } from "selenium-webdriver/bidi/evaluateResult";
 
 function TestEvaluateResultSuccess() {
-    const evaluateResultSuccess = new EvaluateResultSuccess('asdf', 'string');
-    if (evaluateResultSuccess.result !== 'string') {
-        throw new error("EvaluateResultSuccess failure")
+    const evaluateResultSuccess = new EvaluateResultSuccess("asdf", "string");
+    if (evaluateResultSuccess.result !== "string") {
+        throw new error("EvaluateResultSuccess failure");
     }
 }
 
 function TestEvaluateResultException() {
     const exceptionDetails = new ExceptionDetails({
-        columnNumber: 12
-    })
+        columnNumber: 12,
+    });
     if (exceptionDetails.columnNumber !== 12) {
-        throw new error("ExceptionDetails failure")
+        throw new error("ExceptionDetails failure");
     }
-    const evaluateResultException = new EvaluateResultException('asdf', {
-      columnNumber: 12
-    })
+    const evaluateResultException = new EvaluateResultException("asdf", {
+        columnNumber: 12,
+    });
     if (evaluateResultException.exceptionDetails.columnNumber !== 12) {
-        throw new error("EvaluateResultException failure")
+        throw new error("EvaluateResultException failure");
     }
 }

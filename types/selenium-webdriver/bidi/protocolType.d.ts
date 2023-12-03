@@ -1,87 +1,82 @@
 declare type PrimitiveType = {
-    UNDEFINED: 'undefined',
-    NULL: 'null',
-    STRING: 'string',
-    NUMBER: 'number',
-    SPECIAL_NUMBER: 'number',
-    BOOLEAN: 'boolean',
-    BIGINT: 'bigint',
+    UNDEFINED: "undefined";
+    NULL: "null";
+    STRING: "string";
+    NUMBER: "number";
+    SPECIAL_NUMBER: "number";
+    BOOLEAN: "boolean";
+    BIGINT: "bigint";
 
     findByName(name: string):
-        | 'undefined'
-        | 'null'
-        | 'string'
-        | 'number'
-        | 'number'
-        | 'boolean'
-        | 'bigint'
-        | null
-}
+        | "undefined"
+        | "null"
+        | "string"
+        | "number"
+        | "number"
+        | "boolean"
+        | "bigint"
+        | null;
+};
 
 declare type NonPrimitiveType = {
-    ARRAY: 'array',
-    DATE: 'date',
-    MAP: 'map',
-    OBJECT: 'object',
-    REGULAR_EXPRESSION: 'regexp',
-    SET: 'set',
+    ARRAY: "array";
+    DATE: "date";
+    MAP: "map";
+    OBJECT: "object";
+    REGULAR_EXPRESSION: "regexp";
+    SET: "set";
 
     findByName(name):
-        | 'array'
-        | 'date'
-        | 'map'
-        | 'object'
-        | 'regexp'
-        | 'set'
-        | null
-}
+        | "array"
+        | "date"
+        | "map"
+        | "object"
+        | "regexp"
+        | "set"
+        | null;
+};
 
 declare type RemoteType = {
-    SYMBOL: 'symbol',
-    FUNCTION: 'function',
-    WEAK_MAP: 'weakmap',
-    WEAK_SET: 'weakset',
-    ITERATOR: 'iterator',
-    GENERATOR: 'generator',
-    ERROR: 'error',
-    PROXY: 'proxy',
-    PROMISE: 'promise',
-    TYPED_ARRAY: 'typedarray',
-    ARRAY_BUFFER: 'arraybuffer',
-    NODE_LIST: 'nodelist',
-    HTML_COLLECTION: 'htmlcollection',
-    NODE: 'node',
-    WINDOW: 'window',
+    SYMBOL: "symbol";
+    FUNCTION: "function";
+    WEAK_MAP: "weakmap";
+    WEAK_SET: "weakset";
+    ITERATOR: "iterator";
+    GENERATOR: "generator";
+    ERROR: "error";
+    PROXY: "proxy";
+    PROMISE: "promise";
+    TYPED_ARRAY: "typedarray";
+    ARRAY_BUFFER: "arraybuffer";
+    NODE_LIST: "nodelist";
+    HTML_COLLECTION: "htmlcollection";
+    NODE: "node";
+    WINDOW: "window";
 
     findByName(name: string):
-        | 'symbol'
-        | 'function'
-        | 'weakmap'
-        | 'weakset'
-        | 'iterator'
-        | 'generator'
-        | 'error'
-        | 'proxy'
-        | 'promise'
-        | 'typedarray'
-        | 'arraybuffer'
-        | 'nodelist'
-        | 'htmlcollection'
-        | 'node'
-        | 'window'
-        | null
-}
+        | "symbol"
+        | "function"
+        | "weakmap"
+        | "weakset"
+        | "iterator"
+        | "generator"
+        | "error"
+        | "proxy"
+        | "promise"
+        | "typedarray"
+        | "arraybuffer"
+        | "nodelist"
+        | "htmlcollection"
+        | "node"
+        | "window"
+        | null;
+};
 
 declare type SpecialNumberType = {
-    NAN: 'NaN',
-    MINUS_ZERO: '-0',
-    INFINITY: 'Infinity',
-    MINUS_INFINITY: '-Infinity',
-}
+    NAN: "NaN";
+    MINUS_ZERO: "-0";
+    INFINITY: "Infinity";
+    MINUS_INFINITY: "-Infinity";
+};
 
-export {
-    PrimitiveType,
-    NonPrimitiveType,
-    RemoteType,
-    SpecialNumberType,
-}
+export { NonPrimitiveType, PrimitiveType, RemoteType, SpecialNumberType };
