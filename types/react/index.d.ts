@@ -1053,28 +1053,9 @@ declare namespace React {
          */
         contextTypes?: ValidationMap<any> | undefined;
         /**
-         * Used to define default values for the props accepted by
-         * the component.
-         *
-         * @see {@link https://react.dev/reference/react/Component#static-defaultprops React Docs}
-         *
-         * @example
-         *
-         * ```tsx
-         * type Props = { name?: string }
-         *
-         * const MyComponent: FC<Props> = (props) => {
-         *   return <div>{props.name}</div>
-         * }
-         *
-         * MyComponent.defaultProps = {
-         *   name: 'John Doe'
-         * }
-         * ```
-         *
-         * @deprecated Use {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#default_value|default values for destructuring assignments instead}.
+         * defaultProps are not supported on function components anymore.
          */
-        defaultProps?: Partial<P> | undefined;
+        defaultProps?: never | undefined;
         /**
          * Used in debugging messages. You might want to set it
          * explicitly if you want to display a different name for
@@ -1414,9 +1395,9 @@ declare namespace React {
      */
     interface ForwardRefExoticComponent<P> extends NamedExoticComponent<P> {
         /**
-         * @deprecated Use {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#default_value|default values for destructuring assignments instead}.
+         * defaultProps are not supported on function components anymore.
          */
-        defaultProps?: Partial<P> | undefined;
+        defaultProps?: never | undefined;
         propTypes?: WeakValidationMap<P> | undefined;
     }
 

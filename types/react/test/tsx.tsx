@@ -9,9 +9,6 @@ const FunctionComponent: React.FunctionComponent<SCProps> = ({ foo }: SCProps) =
     return <div>{foo}</div>;
 };
 FunctionComponent.displayName = "FunctionComponent3";
-FunctionComponent.defaultProps = {
-    foo: 42,
-};
 <FunctionComponent />;
 <slot name="slot1"></slot>;
 // `FunctionComponent` has no `children`
@@ -328,20 +325,6 @@ const Memoized6: React.NamedExoticComponent<object> = React.memo(props => null);
 <Memoized6 />;
 // @ts-expect-error
 <Memoized6 foo />;
-
-// NOTE: this test _requires_ TypeScript 3.1
-// It is passing, for what it's worth.
-const Memoized7 = React.memo((() => {
-    function HasDefaultProps(props: { test: boolean }) {
-        return null;
-    }
-    HasDefaultProps.defaultProps = {
-        test: true,
-    };
-    return HasDefaultProps;
-})());
-// $ExpectType boolean
-Memoized7.type.defaultProps.test;
 
 // From type-fest
 type RequireAllOrNone<ObjectType, KeysType extends keyof ObjectType = never> =
