@@ -1,4 +1,3 @@
-import type * as PropTypes from "prop-types";
 import * as DOM from "react-dom-factories";
 import createReactClass = require("create-react-class");
 
@@ -49,7 +48,6 @@ const ClassicComponent: createReactClass.ClassicComponentClass<Props> = createRe
         return { bar: 1 };
     },
     mixins: [],
-    propTypes: {},
     shouldComponentUpdate(this: createReactClass.ClassicComponent<Props, State>, nextProps, nextState) {
         const newFoo: string = nextProps.foo;
         const newBar: number = nextState.bar;
@@ -94,7 +92,6 @@ const ClassicComponentNoState: createReactClass.ClassicComponentClass<{ text: st
 
 const displayName: string | undefined = ClassicComponent.displayName;
 const defaultProps: Props = ClassicComponent.getDefaultProps ? ClassicComponent.getDefaultProps() : {} as Props;
-const propTypes: PropTypes.ValidationMap<Props> | undefined = ClassicComponent.propTypes;
 
 //
 // Component API

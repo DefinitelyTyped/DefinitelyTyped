@@ -1,4 +1,3 @@
-import type * as PropTypes from "prop-types";
 import { Component, ComponentClass, ComponentLifecycle, ReactNode } from "react";
 
 declare namespace createReactClass {
@@ -9,7 +8,6 @@ declare namespace createReactClass {
         } | undefined;
 
         displayName?: string | undefined;
-        propTypes?: PropTypes.ValidationMap<any> | undefined;
 
         getDefaultProps?(): P;
         getInitialState?(): S;

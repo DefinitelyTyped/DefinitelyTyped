@@ -1,4 +1,3 @@
-import * as PropTypes from "prop-types";
 import * as React from "react";
 import "trusted-types";
 
@@ -131,12 +130,6 @@ declare const container: Element;
 }
 
 class ModernComponent extends React.Component<Props, State, Snapshot> implements MyComponent {
-    static propTypes: React.ValidationMap<Props> = {
-        hello: PropTypes.string.isRequired,
-        world: PropTypes.string,
-        foo: PropTypes.number.isRequired,
-    };
-
     contextType: React.Context<Context>;
     context: Context = {};
 
@@ -423,16 +416,7 @@ const ForwardRefRenderFunctionWithInferrence3: React.ComponentType<
     ),
 );
 
-const ForwardingRefComponentPropTypes: React.WeakValidationMap<ForwardingRefComponentProps> = {};
-ForwardingRefComponent.propTypes = ForwardingRefComponentPropTypes;
-
 // render function tests
-// need the explicit type declaration for typescript < 3.1
-const ForwardRefRenderFunctionWithPropTypes: { (): null; propTypes?: {} | undefined } = () => null;
-// Warning: forwardRef render functions do not support propTypes or defaultProps
-// @ts-expect-error
-React.forwardRef(ForwardRefRenderFunctionWithPropTypes);
-
 const ForwardRefRenderFunctionWithDefaultProps: { (): null; defaultProps?: {} | undefined } = () => null;
 // Warning: forwardRef render functions do not support propTypes or defaultProps
 // @ts-expect-error
