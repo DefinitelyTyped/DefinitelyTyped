@@ -325,7 +325,7 @@ declare namespace React {
      * ```
      */
     interface ReactElement<
-        P = any,
+        P = unknown,
         T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>,
     > {
         type: T;
