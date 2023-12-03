@@ -424,10 +424,6 @@ declare namespace React {
      * @deprecated - This type is not relevant when using React. Inline the type instead to make the intent clear.
      */
     type ReactText = string | number;
-    /**
-     * @deprecated - This type is not relevant when using React. Inline the type instead to make the intent clear.
-     */
-    type ReactChild = ReactElement | string | number;
 
     /**
      * @deprecated Use either `ReactNode[]` if you need an array or `Iterable<ReactNode>` if its passed to a host component.
