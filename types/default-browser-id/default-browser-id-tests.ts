@@ -8,4 +8,3 @@ defaultBrowserId(1);
 
 // @ts-expect-error
 defaultBrowserId("1");
-
