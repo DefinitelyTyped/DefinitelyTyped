@@ -73,17 +73,17 @@ interface TabNavigatorItemProps {
     /**
      * Returns Item badge
      */
-    renderBadge?(): JSX.Element;
+    renderBadge?(): React.JSX.Element;
 
     /**
      * Returns Item icon
      */
-    renderIcon?(): JSX.Element;
+    renderIcon?(): React.JSX.Element;
 
     /**
      * Returns selected Item icon
      */
-    renderSelectedIcon?(): JSX.Element;
+    renderSelectedIcon?(): React.JSX.Element;
 }
 
 export class TabNavigator extends React.Component<TabNavigatorProps, any> {}
