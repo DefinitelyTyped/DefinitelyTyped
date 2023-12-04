@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/braintree",
-    "version": "3.3.9999",
+    "version": "3.8.0",
     "projects": [
         "https://github.com/braintree/braintree_node"
     ],
