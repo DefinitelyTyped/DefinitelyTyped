@@ -884,6 +884,13 @@ declare module "process" {
                  */
                 hasUncaughtExceptionCaptureCallback(): boolean;
                 /**
+                 * This function enables or disables the Source Map v3 support for stack traces.
+                 * It provides same features as launching Node.js process with commandline options --enable-source-maps.
+                 * @since v16.6.0
+                 * @experimental
+                 */
+                setSourceMapsEnabled(value: boolean): void;
+                /**
                  * The `process.version` property contains the Node.js version string.
                  *
                  * ```js

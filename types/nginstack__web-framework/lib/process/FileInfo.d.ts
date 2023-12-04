@@ -7,6 +7,6 @@ declare class FileInfo {
     expired: boolean;
 }
 declare namespace FileInfo {
-    const FILE: number;
-    const SCRIPT: number;
+    let FILE: number;
+    let SCRIPT: number;
 }

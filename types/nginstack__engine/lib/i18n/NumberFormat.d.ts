@@ -31,11 +31,11 @@ declare class NumberFormat {
 }
 declare namespace NumberFormat {
     namespace Format {
-        const DECIMAL: number;
-        const SCIENTIFIC: number;
-        const PERCENT: number;
-        const CURRENCY: number;
-        const INTEGER: number;
+        let DECIMAL: number;
+        let SCIENTIFIC: number;
+        let PERCENT: number;
+        let CURRENCY: number;
+        let INTEGER: number;
     }
     type Format = number;
 }

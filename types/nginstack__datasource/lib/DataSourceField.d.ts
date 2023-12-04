@@ -55,5 +55,5 @@ declare class DataSourceField {
     unshare(): DataSourceField;
 }
 declare namespace DataSourceField {
-    const PREFIX_SEPARATOR: string;
+    let PREFIX_SEPARATOR: string;
 }

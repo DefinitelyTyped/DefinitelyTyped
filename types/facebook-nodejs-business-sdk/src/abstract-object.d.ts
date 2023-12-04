@@ -3,10 +3,29 @@ export default class AbstractObject {
     _fields: string[];
     $key: string;
     $value: unknown;
-    static get Fields(): {};
+    static get Fields(): Record<any, any>;
     constructor();
+    /**
+     * Define data getter and setter field
+     * @param {String} field
+     */
     _defineProperty(field: string): void;
+    /**
+     * Set data field
+     * @param {String} field
+     * @param {Mixed} value
+     * @return this
+     */
     set(field: string, value: unknown): AbstractObject;
-    setData(data: Record<string, any>): AbstractObject;
-    exportData(): Record<string, any>;
+    /**
+     * Set multiple data fields
+     * @param {Object} data
+     * @return this
+     */
+    setData(data: Record<any, any>): AbstractObject;
+    /**
+     * Export object data
+     * @return {Object}
+     */
+    exportData(): Record<any, any>;
 }

@@ -86,10 +86,10 @@ type DataSet = import('../dataset/DataSet');
 declare const classes: import('../database/Classes.js');
 import ModelDef = require('./ModelDef.js');
 import ConfigDef = require('./ConfigDef.js');
-declare var protectedFieldProperties: string[];
-declare var protectedFieldEvents: string[];
-declare var protectedModelDefProperties: string[];
-declare var protectedModelDefEvents: string[];
+declare let protectedFieldProperties: string[];
+declare let protectedFieldEvents: string[];
+declare let protectedModelDefProperties: string[];
+declare let protectedModelDefEvents: string[];
 declare namespace constructors {
     export { ModelDef as VIEW };
     export { ModelDef as MODEL };

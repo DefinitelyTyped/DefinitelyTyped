@@ -335,6 +335,18 @@ let domNode = ReactDOM.findDOMNode(component);
 domNode = ReactDOM.findDOMNode(domNode as Element);
 const fragmentType: React.ComponentType = React.Fragment;
 
+// React.Profiler
+// @ts-expect-error
+const faultyProfilerRenderCallback: React.ProfilerOnRenderCallback = function(id: string, phase: "mount" | "update") {};
+const correctProfilerRenderCallback: React.ProfilerOnRenderCallback = function(
+    id: string,
+    phase: "mount" | "update" | "nested-update",
+    actualDuration: number,
+    baseDuration: number,
+    startTime: number,
+    commitTime: number,
+) {};
+
 //
 // React Elements
 // --------------------------------------------------------------------------

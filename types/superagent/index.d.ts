@@ -6,23 +6,23 @@ import * as fs from "fs";
 import * as http from "http";
 import * as stream from "stream";
 
-type CallbackHandler = (err: any, res: request.Response) => void;
-
-type Serializer = (obj: any) => string;
-
-type BrowserParser = (str: string) => any;
-
-type NodeParser = (res: request.Response, callback: (err: Error | null, body: any) => void) => void;
-
-type Parser = BrowserParser | NodeParser;
-
-type MultipartValueSingle = Blob | Buffer | fs.ReadStream | string | boolean | number;
-
-type MultipartValue = MultipartValueSingle | MultipartValueSingle[];
-
 declare const request: request.SuperAgentStatic;
 
 declare namespace request {
+    type CallbackHandler = (err: any, res: request.Response) => void;
+
+    type Serializer = (obj: any) => string;
+
+    type BrowserParser = (str: string) => any;
+
+    type NodeParser = (res: request.Response, callback: (err: Error | null, body: any) => void) => void;
+
+    type Parser = BrowserParser | NodeParser;
+
+    type MultipartValueSingle = Blob | Buffer | fs.ReadStream | string | boolean | number;
+
+    type MultipartValue = MultipartValueSingle | MultipartValueSingle[];
+
     interface SuperAgentRequest extends Request {
         agent(agent?: http.Agent): this;
 
@@ -30,6 +30,7 @@ declare namespace request {
         method: string;
         url: string;
     }
+
     interface SuperAgentStatic extends SuperAgent<SuperAgentRequest> {
         (url: string): SuperAgentRequest;
         // tslint:disable-next-line:unified-signatures

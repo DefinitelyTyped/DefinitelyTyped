@@ -1,13 +1,13 @@
 import { AbstractCrudObject } from './../abstract-crud-object';
 import AbstractObject from './../abstract-object';
 import Cursor from './../cursor';
+import PagePostExperiment from './page-post-experiment';
 import CanvasBodyElement from './canvas-body-element';
 import Canvas from './canvas';
 import PageUserMessageThreadLabel from './page-user-message-thread-label';
 import ImageCopyright from './image-copyright';
 import AdVideo from './ad-video';
 import InstagramUser from './instagram-user';
-import InstantArticle from './instant-article';
 import LeadgenForm from './leadgen-form';
 import LiveVideo from './live-video';
 import MediaFingerprint from './media-fingerprint';
@@ -16,384 +16,756 @@ import Photo from './photo';
 import ProfilePictureSource from './profile-picture-source';
 import VideoCopyrightRule from './video-copyright-rule';
 import VideoCopyright from './video-copyright';
+/**
+ * Page
+ * @see {@link https://developers.facebook.com/docs/marketing-api/}
+ */
 export default class Page extends AbstractCrudObject {
-    static get Fields(): Record<string, any>;
-    static get Attire(): Record<string, any>;
-    static get FoodStyles(): Record<string, any>;
-    static get PickupOptions(): Record<string, any>;
-    static get TemporaryStatus(): Record<string, any>;
-    static get PermittedTasks(): Record<string, any>;
-    static get Tasks(): Record<string, any>;
-    static get Alignment(): Record<string, any>;
-    static get EntryPointIcon(): Record<string, any>;
-    static get EntryPointLabel(): Record<string, any>;
-    static get GreetingDialogDisplay(): Record<string, any>;
-    static get GuestChatMode(): Record<string, any>;
-    static get MobileChatDisplay(): Record<string, any>;
-    static get BackdatedTimeGranularity(): Record<string, any>;
-    static get CheckinEntryPoint(): Record<string, any>;
-    static get Formatting(): Record<string, any>;
-    static get PlaceAttachmentSetting(): Record<string, any>;
-    static get PostSurfacesBlacklist(): Record<string, any>;
-    static get PostingToRedspace(): Record<string, any>;
-    static get TargetSurface(): Record<string, any>;
-    static get UnpublishedContentType(): Record<string, any>;
-    static get PublishStatus(): Record<string, any>;
-    static get MessagingType(): Record<string, any>;
-    static get NotificationType(): Record<string, any>;
-    static get SenderAction(): Record<string, any>;
-    static get Platform(): Record<string, any>;
-    static get Model(): Record<string, any>;
-    static get DeveloperAction(): Record<string, any>;
-    static get SubscribedFields(): Record<string, any>;
-    createAcknowledgeOrder(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
-    getAdsPosts(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getAdsPosts(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getAdsPosts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    deleteAgencies(params?: Record<string, any>): Promise<any>;
-    getAgencies(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getAgencies(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getAgencies(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createAgency(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
-    getAlbums(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getAlbums(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getAlbums(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getArExperience(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getArExperience(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getArExperience(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    deleteAssignedUsers(params?: Record<string, any>): Promise<any>;
-    getAssignedUsers(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getAssignedUsers(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getAssignedUsers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createAssignedUser(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
-    deleteBlocked(params?: Record<string, any>): Promise<any>;
-    getBlocked(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getBlocked(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getBlocked(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createBlocked(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<AbstractObject>;
-    createBusinessDatum(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<AbstractObject>;
-    getCallToActions(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getCallToActions(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getCallToActions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getCanvasElements(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getCanvasElements(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getCanvasElements(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createCanvasElement(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<CanvasBodyElement>;
-    getCanvases(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getCanvases(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getCanvases(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createCanvase(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Canvas>;
-    getChatPlugin(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getChatPlugin(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getChatPlugin(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createChatPlugin(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
-    getClaimedUrls(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getClaimedUrls(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getClaimedUrls(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getCommerceEligibility(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getCommerceEligibility(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getCommerceEligibility(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getCommerceMerchantSettings(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getCommerceMerchantSettings(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getCommerceMerchantSettings(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getCommerceOrders(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getCommerceOrders(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getCommerceOrders(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getCommercePayouts(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getCommercePayouts(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getCommercePayouts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getCommerceTransactions(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getCommerceTransactions(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getCommerceTransactions(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getConversations(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getConversations(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getConversations(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createCopyrightManualClaim(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<AbstractObject>;
-    getCopyrightWhitelistedPartners(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getCopyrightWhitelistedPartners(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getCopyrightWhitelistedPartners(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getCrosspostWhitelistedPages(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getCrosspostWhitelistedPages(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getCrosspostWhitelistedPages(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getCustomLabels(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getCustomLabels(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getCustomLabels(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createCustomLabel(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<PageUserMessageThreadLabel>;
-    deleteCustomUserSettings(params?: Record<string, any>): Promise<any>;
-    getCustomUserSettings(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getCustomUserSettings(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getCustomUserSettings(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createCustomUserSetting(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Page>;
-    getEvents(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getEvents(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getEvents(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createExtendThreadControl(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Page>;
-    getFantasyGames(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getFantasyGames(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getFantasyGames(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getFeed(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getFeed(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getFeed(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createFeed(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
-    getGlobalBrandChildren(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getGlobalBrandChildren(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getGlobalBrandChildren(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getGroups(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getGroups(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getGroups(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getImageCopyrights(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getImageCopyrights(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getImageCopyrights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createImageCopyright(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<ImageCopyright>;
-    getIndexedVideos(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getIndexedVideos(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getIndexedVideos(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getInsights(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getInsights(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getInsights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getInstagramAccounts(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getInstagramAccounts(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getInstagramAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getInstantArticles(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getInstantArticles(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getInstantArticles(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createInstantArticle(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<InstantArticle>;
-    getInstantArticlesInsights(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getInstantArticlesInsights(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getInstantArticlesInsights(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createInstantArticlesPublish(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Page>;
-    getInstantArticlesStats(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getInstantArticlesStats(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getInstantArticlesStats(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getInvoiceAccessBankAccount(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getInvoiceAccessBankAccount(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getInvoiceAccessBankAccount(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createInvoiceAccessInvoiceEdit(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<AbstractObject>;
-    getLeadGenForms(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getLeadGenForms(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getLeadGenForms(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createLeadGenForm(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<LeadgenForm>;
-    getLikes(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getLikes(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getLikes(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getLiveVideos(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getLiveVideos(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getLiveVideos(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createLiveVideo(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<LiveVideo>;
-    deleteLocations(params?: Record<string, any>): Promise<any>;
-    getLocations(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getLocations(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getLocations(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createLocation(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
-    getMediaFingerprints(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getMediaFingerprints(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getMediaFingerprints(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createMediaFingerprint(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<MediaFingerprint>;
-    createMessageAttachment(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<AbstractObject>;
-    createMessage(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
-    getMessagingFeatureReview(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getMessagingFeatureReview(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getMessagingFeatureReview(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    deleteMessengerProfile(params?: Record<string, any>): Promise<any>;
-    getMessengerProfile(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getMessengerProfile(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getMessengerProfile(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createMessengerProfile(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
-    createNlpConfig(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
-    getNotificationMessageTokens(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getNotificationMessageTokens(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getNotificationMessageTokens(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createNotificationMessagesDevSupport(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Page>;
-    getPageBackedInstagramAccounts(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getPageBackedInstagramAccounts(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getPageBackedInstagramAccounts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createPageBackedInstagramAccount(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<InstagramUser>;
-    createPageWhatsappNumberVerification(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Page>;
-    createPassThreadControl(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Page>;
-    createPassThreadMetadatum(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Page>;
-    getPersonas(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getPersonas(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getPersonas(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createPersona(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Persona>;
-    getPhotos(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getPhotos(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getPhotos(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createPhoto(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Photo>;
-    getPicture(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getPicture(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getPicture(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createPicture(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<ProfilePictureSource>;
-    getPosts(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getPosts(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getPosts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getProductCatalogs(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getProductCatalogs(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getProductCatalogs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getPublishedPosts(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getPublishedPosts(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getPublishedPosts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getRatings(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getRatings(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getRatings(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createReleaseThreadControl(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Page>;
-    createRequestThreadControl(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Page>;
-    getRoles(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getRoles(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getRoles(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getRtbDynamicPosts(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getRtbDynamicPosts(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getRtbDynamicPosts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getScheduledPosts(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getScheduledPosts(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getScheduledPosts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getSecondaryReceivers(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getSecondaryReceivers(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getSecondaryReceivers(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getSettings(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getSettings(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getSettings(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createSetting(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
-    getShopSetupStatus(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getShopSetupStatus(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getShopSetupStatus(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    deleteSubscribedApps(params?: Record<string, any>): Promise<any>;
-    getSubscribedApps(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getSubscribedApps(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getSubscribedApps(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createSubscribedApp(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
-    getTabs(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getTabs(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getTabs(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getTagged(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getTagged(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getTagged(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createTakeThreadControl(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<Page>;
-    getThreadOwner(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getThreadOwner(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getThreadOwner(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getThreads(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getThreads(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getThreads(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createUnlinkAccount(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<Page>;
-    getVideoCopyrightRules(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getVideoCopyrightRules(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getVideoCopyrightRules(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createVideoCopyrightRule(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<VideoCopyrightRule>;
-    createVideoCopyright(
-        fields: string[],
-        params?: Record<string, any>,
-        pathOverride?: string | null,
-    ): Promise<VideoCopyright>;
-    getVideoLists(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getVideoLists(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getVideoLists(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    getVideoReels(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getVideoReels(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getVideoReels(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createVideoReel(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdVideo>;
-    getVideos(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getVideos(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getVideos(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    createVideo(fields: string[], params?: Record<string, any>, pathOverride?: string | null): Promise<AdVideo>;
-    getVisitorPosts(fields: string[], params?: Record<string, any>): Promise<Cursor>;
-    getVisitorPosts(fields: string[], params: Record<string, any> | undefined, fetchFirstPage: false): Cursor;
-    getVisitorPosts(fields: string[], params?: Record<string, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
-    get(fields: string[], params?: Record<string, any>): Promise<Page>;
-    update(fields: string[], params?: Record<string, any>): Promise<Page>;
+    static get Fields(): Readonly<{
+        about: "about";
+        access_token: "access_token";
+        ad_campaign: "ad_campaign";
+        affiliation: "affiliation";
+        app_id: "app_id";
+        artists_we_like: "artists_we_like";
+        attire: "attire";
+        awards: "awards";
+        band_interests: "band_interests";
+        band_members: "band_members";
+        best_page: "best_page";
+        bio: "bio";
+        birthday: "birthday";
+        booking_agent: "booking_agent";
+        built: "built";
+        business: "business";
+        can_checkin: "can_checkin";
+        can_post: "can_post";
+        category: "category";
+        category_list: "category_list";
+        checkins: "checkins";
+        company_overview: "company_overview";
+        connected_instagram_account: "connected_instagram_account";
+        connected_page_backed_instagram_account: "connected_page_backed_instagram_account";
+        contact_address: "contact_address";
+        copyright_whitelisted_ig_partners: "copyright_whitelisted_ig_partners";
+        country_page_likes: "country_page_likes";
+        cover: "cover";
+        culinary_team: "culinary_team";
+        current_location: "current_location";
+        delivery_and_pickup_option_info: "delivery_and_pickup_option_info";
+        description: "description";
+        description_html: "description_html";
+        differently_open_offerings: "differently_open_offerings";
+        directed_by: "directed_by";
+        display_subtext: "display_subtext";
+        displayed_message_response_time: "displayed_message_response_time";
+        does_viewer_have_page_permission_link_ig: "does_viewer_have_page_permission_link_ig";
+        emails: "emails";
+        engagement: "engagement";
+        fan_count: "fan_count";
+        featured_video: "featured_video";
+        features: "features";
+        followers_count: "followers_count";
+        food_styles: "food_styles";
+        founded: "founded";
+        general_info: "general_info";
+        general_manager: "general_manager";
+        genre: "genre";
+        global_brand_page_name: "global_brand_page_name";
+        global_brand_root_id: "global_brand_root_id";
+        has_added_app: "has_added_app";
+        has_lead_access: "has_lead_access";
+        has_transitioned_to_new_page_experience: "has_transitioned_to_new_page_experience";
+        has_whatsapp_business_number: "has_whatsapp_business_number";
+        has_whatsapp_enterprise_number_using_cloud_api: "has_whatsapp_enterprise_number_using_cloud_api";
+        has_whatsapp_number: "has_whatsapp_number";
+        hometown: "hometown";
+        hours: "hours";
+        id: "id";
+        impressum: "impressum";
+        influences: "influences";
+        instagram_business_account: "instagram_business_account";
+        is_always_open: "is_always_open";
+        is_chain: "is_chain";
+        is_community_page: "is_community_page";
+        is_eligible_for_branded_content: "is_eligible_for_branded_content";
+        is_eligible_for_disable_connect_ig_btn_for_non_page_admin_am_web: "is_eligible_for_disable_connect_ig_btn_for_non_page_admin_am_web";
+        is_messenger_bot_get_started_enabled: "is_messenger_bot_get_started_enabled";
+        is_messenger_platform_bot: "is_messenger_platform_bot";
+        is_owned: "is_owned";
+        is_permanently_closed: "is_permanently_closed";
+        is_published: "is_published";
+        is_unclaimed: "is_unclaimed";
+        is_verified: "is_verified";
+        is_webhooks_subscribed: "is_webhooks_subscribed";
+        keywords: "keywords";
+        leadgen_tos_acceptance_time: "leadgen_tos_acceptance_time";
+        leadgen_tos_accepted: "leadgen_tos_accepted";
+        leadgen_tos_accepting_user: "leadgen_tos_accepting_user";
+        link: "link";
+        location: "location";
+        members: "members";
+        merchant_id: "merchant_id";
+        merchant_review_status: "merchant_review_status";
+        messaging_feature_status: "messaging_feature_status";
+        messenger_ads_default_icebreakers: "messenger_ads_default_icebreakers";
+        messenger_ads_default_quick_replies: "messenger_ads_default_quick_replies";
+        messenger_ads_quick_replies_type: "messenger_ads_quick_replies_type";
+        mini_shop_storefront: "mini_shop_storefront";
+        mission: "mission";
+        mpg: "mpg";
+        name: "name";
+        name_with_location_descriptor: "name_with_location_descriptor";
+        network: "network";
+        new_like_count: "new_like_count";
+        offer_eligible: "offer_eligible";
+        overall_star_rating: "overall_star_rating";
+        owner_business: "owner_business";
+        page_about_story: "page_about_story";
+        page_token: "page_token";
+        parent_page: "parent_page";
+        parking: "parking";
+        payment_options: "payment_options";
+        personal_info: "personal_info";
+        personal_interests: "personal_interests";
+        pharma_safety_info: "pharma_safety_info";
+        phone: "phone";
+        pickup_options: "pickup_options";
+        place_type: "place_type";
+        plot_outline: "plot_outline";
+        preferred_audience: "preferred_audience";
+        press_contact: "press_contact";
+        price_range: "price_range";
+        privacy_info_url: "privacy_info_url";
+        produced_by: "produced_by";
+        products: "products";
+        promotion_eligible: "promotion_eligible";
+        promotion_ineligible_reason: "promotion_ineligible_reason";
+        public_transit: "public_transit";
+        rating_count: "rating_count";
+        recipient: "recipient";
+        record_label: "record_label";
+        release_date: "release_date";
+        restaurant_services: "restaurant_services";
+        restaurant_specialties: "restaurant_specialties";
+        schedule: "schedule";
+        screenplay_by: "screenplay_by";
+        season: "season";
+        single_line_address: "single_line_address";
+        starring: "starring";
+        start_info: "start_info";
+        store_code: "store_code";
+        store_location_descriptor: "store_location_descriptor";
+        store_number: "store_number";
+        studio: "studio";
+        supports_donate_button_in_live_video: "supports_donate_button_in_live_video";
+        talking_about_count: "talking_about_count";
+        temporary_status: "temporary_status";
+        unread_message_count: "unread_message_count";
+        unread_notif_count: "unread_notif_count";
+        unseen_message_count: "unseen_message_count";
+        user_access_expire_time: "user_access_expire_time";
+        username: "username";
+        verification_status: "verification_status";
+        voip_info: "voip_info";
+        website: "website";
+        were_here_count: "were_here_count";
+        whatsapp_number: "whatsapp_number";
+        written_by: "written_by";
+    }>;
+    static get Attire(): Readonly<{
+        casual: "Casual";
+        dressy: "Dressy";
+        unspecified: "Unspecified";
+    }>;
+    static get FoodStyles(): Readonly<{
+        afghani: "Afghani";
+        american_new_: "American (New)";
+        american_traditional_: "American (Traditional)";
+        asian_fusion: "Asian Fusion";
+        barbeque: "Barbeque";
+        brazilian: "Brazilian";
+        breakfast: "Breakfast";
+        british: "British";
+        brunch: "Brunch";
+        buffets: "Buffets";
+        burgers: "Burgers";
+        burmese: "Burmese";
+        cajun_creole: "Cajun/Creole";
+        caribbean: "Caribbean";
+        chinese: "Chinese";
+        creperies: "Creperies";
+        cuban: "Cuban";
+        delis: "Delis";
+        diners: "Diners";
+        ethiopian: "Ethiopian";
+        fast_food: "Fast Food";
+        filipino: "Filipino";
+        fondue: "Fondue";
+        food_stands: "Food Stands";
+        french: "French";
+        german: "German";
+        greek_and_mediterranean: "Greek and Mediterranean";
+        hawaiian: "Hawaiian";
+        himalayan_nepalese: "Himalayan/Nepalese";
+        hot_dogs: "Hot Dogs";
+        indian_pakistani: "Indian/Pakistani";
+        irish: "Irish";
+        italian: "Italian";
+        japanese: "Japanese";
+        korean: "Korean";
+        latin_american: "Latin American";
+        mexican: "Mexican";
+        middle_eastern: "Middle Eastern";
+        moroccan: "Moroccan";
+        pizza: "Pizza";
+        russian: "Russian";
+        sandwiches: "Sandwiches";
+        seafood: "Seafood";
+        singaporean: "Singaporean";
+        soul_food: "Soul Food";
+        southern: "Southern";
+        spanish_basque: "Spanish/Basque";
+        steakhouses: "Steakhouses";
+        sushi_bars: "Sushi Bars";
+        taiwanese: "Taiwanese";
+        tapas_bars: "Tapas Bars";
+        tex_mex: "Tex-Mex";
+        thai: "Thai";
+        turkish: "Turkish";
+        vegan: "Vegan";
+        vegetarian: "Vegetarian";
+        vietnamese: "Vietnamese";
+    }>;
+    static get PickupOptions(): Readonly<{
+        curbside: "CURBSIDE";
+        in_store: "IN_STORE";
+        other: "OTHER";
+    }>;
+    static get TemporaryStatus(): Readonly<{
+        differently_open: "DIFFERENTLY_OPEN";
+        no_data: "NO_DATA";
+        operating_as_usual: "OPERATING_AS_USUAL";
+        temporarily_closed: "TEMPORARILY_CLOSED";
+    }>;
+    static get PermittedTasks(): Readonly<{
+        advertise: "ADVERTISE";
+        analyze: "ANALYZE";
+        cashier_role: "CASHIER_ROLE";
+        create_content: "CREATE_CONTENT";
+        manage: "MANAGE";
+        manage_jobs: "MANAGE_JOBS";
+        manage_leads: "MANAGE_LEADS";
+        messaging: "MESSAGING";
+        moderate: "MODERATE";
+        moderate_community: "MODERATE_COMMUNITY";
+        pages_messaging: "PAGES_MESSAGING";
+        pages_messaging_subscriptions: "PAGES_MESSAGING_SUBSCRIPTIONS";
+        profile_plus_advertise: "PROFILE_PLUS_ADVERTISE";
+        profile_plus_analyze: "PROFILE_PLUS_ANALYZE";
+        profile_plus_create_content: "PROFILE_PLUS_CREATE_CONTENT";
+        profile_plus_facebook_access: "PROFILE_PLUS_FACEBOOK_ACCESS";
+        profile_plus_full_control: "PROFILE_PLUS_FULL_CONTROL";
+        profile_plus_manage: "PROFILE_PLUS_MANAGE";
+        profile_plus_manage_leads: "PROFILE_PLUS_MANAGE_LEADS";
+        profile_plus_messaging: "PROFILE_PLUS_MESSAGING";
+        profile_plus_moderate: "PROFILE_PLUS_MODERATE";
+        profile_plus_moderate_delegate_community: "PROFILE_PLUS_MODERATE_DELEGATE_COMMUNITY";
+        profile_plus_revenue: "PROFILE_PLUS_REVENUE";
+        read_page_mailboxes: "READ_PAGE_MAILBOXES";
+        view_monetization_insights: "VIEW_MONETIZATION_INSIGHTS";
+    }>;
+    static get Tasks(): Readonly<{
+        advertise: "ADVERTISE";
+        analyze: "ANALYZE";
+        cashier_role: "CASHIER_ROLE";
+        create_content: "CREATE_CONTENT";
+        manage: "MANAGE";
+        manage_jobs: "MANAGE_JOBS";
+        manage_leads: "MANAGE_LEADS";
+        messaging: "MESSAGING";
+        moderate: "MODERATE";
+        moderate_community: "MODERATE_COMMUNITY";
+        pages_messaging: "PAGES_MESSAGING";
+        pages_messaging_subscriptions: "PAGES_MESSAGING_SUBSCRIPTIONS";
+        profile_plus_advertise: "PROFILE_PLUS_ADVERTISE";
+        profile_plus_analyze: "PROFILE_PLUS_ANALYZE";
+        profile_plus_create_content: "PROFILE_PLUS_CREATE_CONTENT";
+        profile_plus_facebook_access: "PROFILE_PLUS_FACEBOOK_ACCESS";
+        profile_plus_full_control: "PROFILE_PLUS_FULL_CONTROL";
+        profile_plus_manage: "PROFILE_PLUS_MANAGE";
+        profile_plus_manage_leads: "PROFILE_PLUS_MANAGE_LEADS";
+        profile_plus_messaging: "PROFILE_PLUS_MESSAGING";
+        profile_plus_moderate: "PROFILE_PLUS_MODERATE";
+        profile_plus_moderate_delegate_community: "PROFILE_PLUS_MODERATE_DELEGATE_COMMUNITY";
+        profile_plus_revenue: "PROFILE_PLUS_REVENUE";
+        read_page_mailboxes: "READ_PAGE_MAILBOXES";
+        view_monetization_insights: "VIEW_MONETIZATION_INSIGHTS";
+    }>;
+    static get Alignment(): Readonly<{
+        left: "LEFT";
+        right: "RIGHT";
+    }>;
+    static get EntryPointIcon(): Readonly<{
+        chat_angular_icon: "CHAT_ANGULAR_ICON";
+        chat_round_icon: "CHAT_ROUND_ICON";
+        messenger_icon: "MESSENGER_ICON";
+        none: "NONE";
+    }>;
+    static get EntryPointLabel(): Readonly<{
+        ask_us: "ASK_US";
+        chat: "CHAT";
+        help: "HELP";
+        none: "NONE";
+    }>;
+    static get GreetingDialogDisplay(): Readonly<{
+        hide: "HIDE";
+        show: "SHOW";
+        welcome_message: "WELCOME_MESSAGE";
+    }>;
+    static get GuestChatMode(): Readonly<{
+        disabled: "DISABLED";
+        enabled: "ENABLED";
+    }>;
+    static get MobileChatDisplay(): Readonly<{
+        app_switch: "APP_SWITCH";
+        chat_tab: "CHAT_TAB";
+    }>;
+    static get BackdatedTimeGranularity(): Readonly<{
+        day: "day";
+        hour: "hour";
+        min: "min";
+        month: "month";
+        none: "none";
+        year: "year";
+    }>;
+    static get Formatting(): Readonly<{
+        markdown: "MARKDOWN";
+        plaintext: "PLAINTEXT";
+    }>;
+    static get PlaceAttachmentSetting(): Readonly<{
+        value_1: "1";
+        value_2: "2";
+    }>;
+    static get PostSurfacesBlacklist(): Readonly<{
+        value_1: "1";
+        value_2: "2";
+        value_3: "3";
+        value_4: "4";
+        value_5: "5";
+    }>;
+    static get PostingToRedspace(): Readonly<{
+        disabled: "disabled";
+        enabled: "enabled";
+    }>;
+    static get TargetSurface(): Readonly<{
+        story: "STORY";
+        timeline: "TIMELINE";
+    }>;
+    static get UnpublishedContentType(): Readonly<{
+        ads_post: "ADS_POST";
+        draft: "DRAFT";
+        inline_created: "INLINE_CREATED";
+        published: "PUBLISHED";
+        reviewable_branded_content: "REVIEWABLE_BRANDED_CONTENT";
+        scheduled: "SCHEDULED";
+        scheduled_recurring: "SCHEDULED_RECURRING";
+    }>;
+    static get MessagingType(): Readonly<{
+        message_tag: "MESSAGE_TAG";
+        response: "RESPONSE";
+        update: "UPDATE";
+    }>;
+    static get NotificationType(): Readonly<{
+        no_push: "NO_PUSH";
+        regular: "REGULAR";
+        silent_push: "SILENT_PUSH";
+    }>;
+    static get SenderAction(): Readonly<{
+        mark_seen: "MARK_SEEN";
+        react: "REACT";
+        typing_off: "TYPING_OFF";
+        typing_on: "TYPING_ON";
+        unreact: "UNREACT";
+    }>;
+    static get SuggestionAction(): Readonly<{
+        accept: "ACCEPT";
+        dismiss: "DISMISS";
+        impression: "IMPRESSION";
+    }>;
+    static get Platform(): Readonly<{
+        instagram: "INSTAGRAM";
+        messenger: "MESSENGER";
+    }>;
+    static get Model(): Readonly<{
+        arabic: "ARABIC";
+        chinese: "CHINESE";
+        croatian: "CROATIAN";
+        custom: "CUSTOM";
+        danish: "DANISH";
+        dutch: "DUTCH";
+        english: "ENGLISH";
+        french_standard: "FRENCH_STANDARD";
+        georgian: "GEORGIAN";
+        german_standard: "GERMAN_STANDARD";
+        greek: "GREEK";
+        hebrew: "HEBREW";
+        hungarian: "HUNGARIAN";
+        irish: "IRISH";
+        italian_standard: "ITALIAN_STANDARD";
+        korean: "KOREAN";
+        norwegian_bokmal: "NORWEGIAN_BOKMAL";
+        polish: "POLISH";
+        portuguese: "PORTUGUESE";
+        romanian: "ROMANIAN";
+        spanish: "SPANISH";
+        swedish: "SWEDISH";
+        vietnamese: "VIETNAMESE";
+    }>;
+    static get DeveloperAction(): Readonly<{
+        enable_followup_message: "ENABLE_FOLLOWUP_MESSAGE";
+    }>;
+    static get SubscribedFields(): Readonly<{
+        affiliation: "affiliation";
+        attire: "attire";
+        awards: "awards";
+        bio: "bio";
+        birthday: "birthday";
+        category: "category";
+        checkins: "checkins";
+        company_overview: "company_overview";
+        conversations: "conversations";
+        culinary_team: "culinary_team";
+        current_location: "current_location";
+        description: "description";
+        email: "email";
+        feature_access_list: "feature_access_list";
+        feed: "feed";
+        founded: "founded";
+        general_info: "general_info";
+        general_manager: "general_manager";
+        group_feed: "group_feed";
+        hometown: "hometown";
+        hours: "hours";
+        inbox_labels: "inbox_labels";
+        invalid_topic_placeholder: "invalid_topic_placeholder";
+        invoice_access_bank_slip_events: "invoice_access_bank_slip_events";
+        invoice_access_invoice_change: "invoice_access_invoice_change";
+        invoice_access_invoice_draft_change: "invoice_access_invoice_draft_change";
+        invoice_access_onboarding_status_active: "invoice_access_onboarding_status_active";
+        leadgen: "leadgen";
+        leadgen_fat: "leadgen_fat";
+        live_videos: "live_videos";
+        local_delivery: "local_delivery";
+        location: "location";
+        mcom_invoice_change: "mcom_invoice_change";
+        members: "members";
+        mention: "mention";
+        merchant_review: "merchant_review";
+        message_context: "message_context";
+        message_deliveries: "message_deliveries";
+        message_echoes: "message_echoes";
+        message_mention: "message_mention";
+        message_reactions: "message_reactions";
+        message_reads: "message_reads";
+        messages: "messages";
+        messaging_account_linking: "messaging_account_linking";
+        messaging_appointments: "messaging_appointments";
+        messaging_checkout_updates: "messaging_checkout_updates";
+        messaging_customer_information: "messaging_customer_information";
+        messaging_direct_sends: "messaging_direct_sends";
+        messaging_fblogin_account_linking: "messaging_fblogin_account_linking";
+        messaging_feedback: "messaging_feedback";
+        messaging_game_plays: "messaging_game_plays";
+        messaging_handovers: "messaging_handovers";
+        messaging_in_thread_lead_form_submit: "messaging_in_thread_lead_form_submit";
+        messaging_optins: "messaging_optins";
+        messaging_optouts: "messaging_optouts";
+        messaging_payments: "messaging_payments";
+        messaging_policy_enforcement: "messaging_policy_enforcement";
+        messaging_postbacks: "messaging_postbacks";
+        messaging_pre_checkouts: "messaging_pre_checkouts";
+        messaging_referrals: "messaging_referrals";
+        mission: "mission";
+        name: "name";
+        otp_verification: "otp_verification";
+        page_about_story: "page_about_story";
+        page_change_proposal: "page_change_proposal";
+        page_upcoming_change: "page_upcoming_change";
+        parking: "parking";
+        payment_options: "payment_options";
+        personal_info: "personal_info";
+        personal_interests: "personal_interests";
+        phone: "phone";
+        picture: "picture";
+        price_range: "price_range";
+        product_review: "product_review";
+        products: "products";
+        public_transit: "public_transit";
+        publisher_subscriptions: "publisher_subscriptions";
+        ratings: "ratings";
+        registration: "registration";
+        send_cart: "send_cart";
+        standby: "standby";
+        user_action: "user_action";
+        video_text_question_responses: "video_text_question_responses";
+        videos: "videos";
+        website: "website";
+    }>;
+    getAbTests(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getAbTests(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getAbTests(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createAbTest(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<PagePostExperiment>;
+    createAcknowledgeOrder(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    getAdsPosts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getAdsPosts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getAdsPosts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    deleteAgencies(params?: Record<any, any>): Promise<any>;
+    getAgencies(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getAgencies(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getAgencies(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createAgency(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    getAlbums(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getAlbums(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getAlbums(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getArExperience(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getArExperience(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getArExperience(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    deleteAssignedUsers(params?: Record<any, any>): Promise<any>;
+    getAssignedUsers(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getAssignedUsers(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getAssignedUsers(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createAssignedUser(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    deleteBlocked(params?: Record<any, any>): Promise<any>;
+    getBlocked(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getBlocked(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getBlocked(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createBlocked(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    createBusinessDatum(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    getBusinessProjects(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getBusinessProjects(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getBusinessProjects(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getCallToActions(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getCallToActions(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getCallToActions(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getCanvasElements(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getCanvasElements(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getCanvasElements(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createCanvasElement(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<CanvasBodyElement>;
+    getCanvases(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getCanvases(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getCanvases(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createCanvase(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Canvas>;
+    getChatPlugin(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getChatPlugin(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getChatPlugin(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createChatPlugin(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    getCommerceEligibility(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getCommerceEligibility(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getCommerceEligibility(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getCommerceMerchantSettings(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getCommerceMerchantSettings(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getCommerceMerchantSettings(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getCommerceOrders(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getCommerceOrders(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getCommerceOrders(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getCommercePayouts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getCommercePayouts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getCommercePayouts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getCommerceTransactions(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getCommerceTransactions(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getCommerceTransactions(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getConversations(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getConversations(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getConversations(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createCopyrightManualClaim(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    getCrosspostWhitelistedPages(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getCrosspostWhitelistedPages(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getCrosspostWhitelistedPages(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getCustomLabels(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getCustomLabels(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getCustomLabels(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createCustomLabel(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<PageUserMessageThreadLabel>;
+    deleteCustomUserSettings(params?: Record<any, any>): Promise<any>;
+    getCustomUserSettings(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getCustomUserSettings(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getCustomUserSettings(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createCustomUserSetting(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    getDataset(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getDataset(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getDataset(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getEvents(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getEvents(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getEvents(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createExtendThreadControl(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    getFantasyGames(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getFantasyGames(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getFantasyGames(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getFeed(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getFeed(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getFeed(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createFeed(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    getGlobalBrandChildren(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getGlobalBrandChildren(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getGlobalBrandChildren(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getGroups(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getGroups(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getGroups(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getImageCopyrights(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getImageCopyrights(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getImageCopyrights(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createImageCopyright(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<ImageCopyright>;
+    getIndexedVideos(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getIndexedVideos(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getIndexedVideos(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getInsights(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getInsights(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getInsights(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getInstagramAccounts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getInstagramAccounts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getInstagramAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getInstantArticlesStats(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getInstantArticlesStats(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getInstantArticlesStats(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getLeadGenForms(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getLeadGenForms(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getLeadGenForms(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createLeadGenForm(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<LeadgenForm>;
+    getLikes(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getLikes(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getLikes(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getLiveVideos(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getLiveVideos(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getLiveVideos(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createLiveVideo(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<LiveVideo>;
+    deleteLocations(params?: Record<any, any>): Promise<any>;
+    getLocations(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getLocations(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getLocations(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createLocation(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    getMediaFingerprints(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getMediaFingerprints(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getMediaFingerprints(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createMediaFingerprint(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<MediaFingerprint>;
+    createMessageAttachment(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    createMessage(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    getMessagingFeatureReview(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getMessagingFeatureReview(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getMessagingFeatureReview(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getMessengerLeadForms(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getMessengerLeadForms(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getMessengerLeadForms(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createMessengerLeadForm(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    deleteMessengerProfile(params?: Record<any, any>): Promise<any>;
+    getMessengerProfile(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getMessengerProfile(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getMessengerProfile(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createMessengerProfile(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    createNlpConfig(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    getNotificationMessageTokens(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getNotificationMessageTokens(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getNotificationMessageTokens(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createNotificationMessagesDevSupport(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    getPageBackedInstagramAccounts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getPageBackedInstagramAccounts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getPageBackedInstagramAccounts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createPageBackedInstagramAccount(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<InstagramUser>;
+    createPageWhatsappNumberVerification(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    createPassThreadControl(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    createPassThreadMetadatum(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    getPersonas(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getPersonas(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getPersonas(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createPersona(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Persona>;
+    createPhotoStory(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    getPhotos(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getPhotos(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getPhotos(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createPhoto(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Photo>;
+    getPicture(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getPicture(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getPicture(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createPicture(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<ProfilePictureSource>;
+    getPosts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getPosts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getPosts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getProductCatalogs(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getProductCatalogs(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getProductCatalogs(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getPublishedPosts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getPublishedPosts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getPublishedPosts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getRatings(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getRatings(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getRatings(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createReleaseThreadControl(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    createRequestThreadControl(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    getRoles(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getRoles(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getRoles(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getRtbDynamicPosts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getRtbDynamicPosts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getRtbDynamicPosts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getScheduledPosts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getScheduledPosts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getScheduledPosts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getSecondaryReceivers(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getSecondaryReceivers(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getSecondaryReceivers(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getSettings(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getSettings(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getSettings(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createSetting(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    getShopSetupStatus(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getShopSetupStatus(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getShopSetupStatus(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getStories(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getStories(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getStories(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    deleteSubscribedApps(params?: Record<any, any>): Promise<any>;
+    getSubscribedApps(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getSubscribedApps(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getSubscribedApps(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createSubscribedApp(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    getTabs(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getTabs(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getTabs(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getTagged(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getTagged(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getTagged(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createTakeThreadControl(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    getThreadOwner(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getThreadOwner(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getThreadOwner(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getThreads(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getThreads(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getThreads(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createUnlinkAccount(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<Page>;
+    getVideoCopyrightRules(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getVideoCopyrightRules(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getVideoCopyrightRules(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createVideoCopyrightRule(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<VideoCopyrightRule>;
+    createVideoCopyright(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<VideoCopyright>;
+    getVideoLists(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getVideoLists(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getVideoLists(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    getVideoReels(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getVideoReels(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getVideoReels(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createVideoReel(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AdVideo>;
+    createVideoStory(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    getVideos(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getVideos(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getVideos(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createVideo(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AdVideo>;
+    getVisitorPosts(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getVisitorPosts(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getVisitorPosts(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    deleteWelcomeMessageFlows(params?: Record<any, any>): Promise<any>;
+    getWelcomeMessageFlows(fields: string[], params?: Record<any, any>): Promise<Cursor>;
+    getWelcomeMessageFlows(fields: string[], params: Record<any, any> | undefined, fetchFirstPage: false): Cursor;
+    getWelcomeMessageFlows(fields: string[], params?: Record<any, any>, fetchFirstPage?: boolean): Cursor | Promise<Cursor>;
+    createWelcomeMessageFlow(fields: string[], params?: Record<any, any>, pathOverride?: string | null): Promise<AbstractObject>;
+    get(fields: string[], params?: Record<any, any>): Promise<Page>;
+    update(fields: string[], params?: Record<any, any>): Promise<Page>;
 }

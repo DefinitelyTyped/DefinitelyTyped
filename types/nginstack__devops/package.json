@@ -6,7 +6,9 @@
         "https://dev.azure.com/nginstack/nginstack"
     ],
     "dependencies": {
-        "@types/nginstack__engine": "*"
+        "@types/nginstack__engine": "*",
+        "@types/nginstack__jsunit": "*",
+        "@types/nginstack__web-framework": "*"
     },
     "devDependencies": {
         "@types/nginstack__devops": "workspace:."

@@ -12,5 +12,5 @@ declare class Scheduler {
 declare namespace Scheduler {
     export { getInstance, DataSet };
 }
-type DataSet = import('../dataset/DataSet');
 declare function getInstance(): Scheduler;
+type DataSet = import('../dataset/DataSet');
