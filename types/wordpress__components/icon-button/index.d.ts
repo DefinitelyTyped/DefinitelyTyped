@@ -1,4 +1,4 @@
-import { ComponentType } from "react";
+import { ComponentType, JSX } from "react";
 
 import Button from "../button";
 import Dashicon from "../dashicon";
