@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, JSX } from "react";
 import { ShouldUpdateScroll } from "scroll-behavior";
 import { NextScrollBehaviorContext } from "./scroll-behavior";
 export default ScrollBehaviorProvider;
