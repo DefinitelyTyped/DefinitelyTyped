@@ -2,7 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 
 import { Provider } from "react-redux";
-import { applyMiddleware, combineReducers, createStore, Reducer, ReducersMapObject } from "redux";
+import { applyMiddleware, combineReducers, createStore } from "redux";
 
 import createHistory from "history/createBrowserHistory";
 import { Route } from "react-router";
