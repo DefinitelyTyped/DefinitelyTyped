@@ -1,10 +1,10 @@
 import isExtglob = require("is-extglob");
 
 // $ExpectType boolean
-isExtglob('!(foo)');
+isExtglob("!(foo)");
 
 // $ExpectType boolean
-isExtglob('?(foo)');
+isExtglob("?(foo)");
 
 // @ts-expect-error
 isExtglob(1);
