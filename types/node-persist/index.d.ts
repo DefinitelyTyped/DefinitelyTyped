@@ -13,12 +13,12 @@ declare namespace NodePersist {
         /**
          * @default JSON.stringify
          */
-        stringify?: ((data: any) => string);
+        stringify?: (data: any) => string;
 
         /**
          * @default JSON.parse
          */
-        parse?: ((str: string) => any);
+        parse?: (str: string) => any;
 
         /**
          * @default utf8
@@ -29,7 +29,7 @@ declare namespace NodePersist {
          * Whether or not to enable logging. Can also be custom logging function
          * @default false
          */
-        logging?:  boolean | ((...args: any[]) => void);
+        logging?: boolean | ((...args: any[]) => void);
 
         /**
          * Interval in which the process will clean-up the expired cache (in milliseconds)
@@ -54,19 +54,19 @@ declare namespace NodePersist {
          * Instead of writing to file immediately, each "file" will have its own mini queue to avoid corrupted files. Keep in mind that this would not properly work in multi-process setting.
          * @default true
          */
-        writeQueue?: boolean
+        writeQueue?: boolean;
 
         /**
          * How often to check for pending writes in Milliseconds, don't worry if you feel like 1s is a lot, it actually tries to process every time you setItem as well
          * @default 1000
          */
-        writeQueueIntervalMs?: Milliseconds
+        writeQueueIntervalMs?: Milliseconds;
 
         /**
          * If you setItem() multiple times to the same key, only the last one would be set, BUT the others would still resolve with the results of the last one, if you turn this to false, each one will execute, but might slow down the writing process.
          * @default true
          */
-        writeQueueWriteOnlyLast?: boolean
+        writeQueueWriteOnlyLast?: boolean;
     }
 
     interface DatumOptions {
