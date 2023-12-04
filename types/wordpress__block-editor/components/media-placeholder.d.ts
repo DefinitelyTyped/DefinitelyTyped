@@ -1,6 +1,6 @@
 /* eslint-disable @definitelytyped/no-unnecessary-generics */
 import { Dashicon, DropZone } from "@wordpress/components";
-import { ComponentType, MouseEventHandler } from "react";
+import { ComponentType, MouseEventHandler, JSX } from "react";
 
 declare namespace MediaPlaceholder {
     type MediaPlaceholderMultipleAction = "add";
