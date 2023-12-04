@@ -303,9 +303,10 @@ declare namespace TelegramBot {
 
     interface RestrictChatMemberOptions {
         until_date?: number | undefined;
-        permissions: ChatPermissions;
         use_independent_chat_permissions?: boolean | undefined;
     }
+
+    type RestrictChatMemberOptionsWithChatPermissions = RestrictChatMemberOptions & ChatPermissions;
 
     interface PromoteChatMemberOptions {
         is_anonymous?: boolean | undefined;
@@ -860,23 +861,23 @@ declare namespace TelegramBot {
         invite_link?: ChatInviteLink;
     }
 
-    interface ChatPermissions {
-        can_send_messages?: boolean | undefined;
-        can_send_audios?: boolean | undefined;
-        can_send_documents?: boolean | undefined;
-        can_send_photos?: boolean | undefined;
-        can_send_videos?: boolean | undefined;
-        can_send_video_notes?: boolean | undefined;
-        can_send_voice_notes?: boolean | undefined;
-        can_send_polls?: boolean | undefined;
-        can_send_other_messages?: boolean | undefined;
-        can_add_web_page_previews?: boolean | undefined;
-        can_change_info?: boolean | undefined;
-        can_invite_users?: boolean | undefined;
-        can_pin_messages?: boolean | undefined;
-        can_manage_topics?: boolean | undefined;
-    }
+    type ChatPermissionsNames =
+        | "can_send_messages"
+        | "can_send_audios"
+        | "can_send_documents"
+        | "can_send_photos"
+        | "can_send_videos"
+        | "can_send_video_notes"
+        | "can_send_voice_notes"
+        | "can_send_polls"
+        | "can_send_other_messages"
+        | "can_add_web_page_previews"
+        | "can_change_info"
+        | "can_invite_users"
+        | "can_pin_messages"
+        | "can_manage_topics";
 
+    type ChatPermissions = Partial<Record<ChatPermissionsNames, boolean>>;
     type StickerType = "regular" | "mask" | "custom_emoji";
 
     interface Sticker extends FileBase {
@@ -1718,7 +1719,30 @@ declare class TelegramBot extends TelegramBotEventEmitter<TelegramBot.TelegramEv
     restrictChatMember(
         chatId: TelegramBot.ChatId,
         userId: number,
-        options?: TelegramBot.RestrictChatMemberOptions,
+        options?: TelegramBot.RestrictChatMemberOptionsWithChatPermissions,
+    ): Promise<boolean>;
+
+    restrictChatMember(
+        chatId: TelegramBot.ChatId,
+        userId: number,
+        options?: TelegramBot.RestrictChatMemberOptions & { permissions?: string },
+    ): Promise<boolean>;
+
+    /**
+     * @deprecated
+     */
+    restrictChatMember(
+        chatId: TelegramBot.ChatId,
+        userId: number,
+        options?: TelegramBot.RestrictChatMemberOptions & {
+            permissions?: TelegramBot.ChatPermissions;
+        },
+    ): Promise<boolean>;
+
+    restrictChatMember(
+        chatId: TelegramBot.ChatId,
+        userId: number,
+        options?: TelegramBot.RestrictChatMemberOptions & { permissions?: string | TelegramBot.ChatPermissions },
     ): Promise<boolean>;
 
     promoteChatMember(
