@@ -1,5 +1,5 @@
 import { History, Location } from "history";
-import { Component, ComponentType, ReactNode } from "react";
+import { Component, ComponentType, ReactNode, JSX } from "react";
 
 export interface RouterProps {
     children: NonNullable<ReactNode>;
