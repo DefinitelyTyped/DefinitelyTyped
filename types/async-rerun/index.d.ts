@@ -1,4 +1,3 @@
-
 type CallBackFunction = () => Promise<any>;
 
 /**
@@ -8,6 +7,12 @@ type CallBackFunction = () => Promise<any>;
  * @param alwaysRetry To retry always untill the positive response, If its true then maxRetries will not count.
  * @param showLogs To show logs for all retries.
  */
-declare function runAsync(fn: CallBackFunction, maxRetries: number, delayInMS: number, alwaysRetry?: boolean, showLogs?: boolean): Promise<any>;
+declare function runAsync(
+    fn: CallBackFunction,
+    maxRetries: number,
+    delayInMS: number,
+    alwaysRetry?: boolean,
+    showLogs?: boolean,
+): Promise<any>;
 
 export { runAsync };
