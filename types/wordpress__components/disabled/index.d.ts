@@ -1,4 +1,4 @@
-import { ComponentType, Consumer, ReactNode, JSX } from "react";
+import { ComponentType, Consumer, JSX, ReactNode } from "react";
 
 declare namespace Disabled {
     interface Props {

@@ -1,4 +1,4 @@
-import { MouseEvent, JSX } from "react";
+import { JSX, MouseEvent } from "react";
 
 declare namespace MarkdownNavbar {
     interface MarkdownNavbarProps {
