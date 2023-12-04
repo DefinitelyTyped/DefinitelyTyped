@@ -30,7 +30,11 @@ export interface Renderers {
     } | undefined;
     body?: {
         wrapper?: string | ((props: any) => React.JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
-        row?: string | ((props: any, rowData: any) => React.JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
+        row?:
+            | string
+            | ((props: any, rowData: any) => React.JSX.Element)
+            | ((props: any) => React.ReactInstance)
+            | undefined;
         cell?: string | ((props: any) => React.JSX.Element) | ((props: any) => React.ReactInstance) | undefined;
     } | undefined;
 }
