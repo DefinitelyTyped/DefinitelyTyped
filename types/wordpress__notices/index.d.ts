@@ -1,5 +1,5 @@
 import { StoreDescriptor } from "@wordpress/data";
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, JSX } from "react";
 
 declare module "@wordpress/data" {
     function dispatch(key: "core/notices"): typeof import("./store/actions");
