@@ -112,6 +112,8 @@ function testRecurrenceRule() {
     rule2.hour = 5;
     rule2.minute = new nodeSchedule.Range(4, 6);
     rule2.second = new nodeSchedule.Range(8, 12, 2);
+
+    const valid: boolean = rule3.isValid()
 }
 
 /**
