@@ -1,5 +1,5 @@
 import { Slot } from "@wordpress/components";
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, JSX } from "react";
 
 declare namespace BlockFormatControls {
     interface Props {
