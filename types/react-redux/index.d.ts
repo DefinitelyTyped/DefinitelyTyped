@@ -6,6 +6,7 @@ import {
     JSXElementConstructor,
     NamedExoticComponent,
     ReactNode,
+    JSX,
 } from "react";
 
 import { Action, AnyAction, Dispatch, Store } from "redux";
