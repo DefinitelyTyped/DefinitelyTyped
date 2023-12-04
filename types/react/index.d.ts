@@ -1403,37 +1403,6 @@ declare namespace React {
         UNSAFE_componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
     }
 
-    /**
-     * @deprecated
-     *
-     * @see {@link https://legacy.reactjs.org/blog/2016/07/13/mixins-considered-harmful.html Mixins Considered Harmful}
-     */
-    interface Mixin<P, S> extends ComponentLifecycle<P, S> {
-        mixins?: Array<Mixin<P, S>> | undefined;
-        statics?: {
-            [key: string]: any;
-        } | undefined;
-
-        displayName?: string | undefined;
-        propTypes?: ValidationMap<any> | undefined;
-        contextTypes?: ValidationMap<any> | undefined;
-        childContextTypes?: ValidationMap<any> | undefined;
-
-        getDefaultProps?(): P;
-        getInitialState?(): S;
-    }
-
-    /**
-     * @deprecated
-     *
-     * @see {@link https://legacy.reactjs.org/blog/2016/07/13/mixins-considered-harmful.html Mixins Considered Harmful}
-     */
-    interface ComponentSpec<P, S> extends Mixin<P, S> {
-        render(): ReactNode;
-
-        [propertyName: string]: any;
-    }
-
     function createRef<T>(): RefObject<T | null>;
 
     /**
