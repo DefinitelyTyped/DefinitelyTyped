@@ -1,10 +1,10 @@
-import relationship from 'relationship.js'
+import relationship from "relationship.js";
 
 // $ExpectType string[]
-relationship("爸爸的妈妈")
+relationship("爸爸的妈妈");
 // $ExpectType string[]
-relationship({text: '爸爸'})
+relationship({ text: "爸爸", target: "我" });
 // $ExpectType number
-relationship.dataCount
+relationship.dataCount;
 // $ExpectType void
-relationship.setMode('northern', {'m,f':['姥爷']})
+relationship.setMode("northern", { "m,f": ["姥爷"] });
