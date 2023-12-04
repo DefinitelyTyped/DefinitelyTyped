@@ -234,6 +234,20 @@ declare global {
              * Is this a constructor call?
              */
             isConstructor(): boolean;
+
+            getScriptHash(): string;
+            getScriptNameOrSourceURL(): string;
+
+            getScriptNameOrSourceURL(): string;
+            getEnclosingColumnNumber(): number;
+            getEnclosingLineNumber(): number;
+            getPosition(): number;
+
+            getPromiseIndex(): number;
+            isAsync(): boolean;
+            isPromiseAll(): boolean;
+
+            toString(): string;
         }
 
         interface ErrnoException extends Error {
