@@ -1,5 +1,5 @@
 import { Dashicon, MenuItem } from "@wordpress/components";
-import { ComponentType, ReactNode } from "react";
+import { ComponentType, ReactNode, JSX } from "react";
 
 declare namespace PluginMoreMenuItem {
     interface Props extends Omit<MenuItem.Props, "href"> {

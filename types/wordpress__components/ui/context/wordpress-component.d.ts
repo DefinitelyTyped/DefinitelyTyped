@@ -1,4 +1,4 @@
-import type { ComponentPropsWithRef, ElementType } from "react";
+import type { ComponentPropsWithRef, ElementType, JSX } from "react";
 
 /**
  * This file copied from https://github.com/WordPress/gutenberg/blob/trunk/packages/components/src/ui/context/wordpress-component.ts
