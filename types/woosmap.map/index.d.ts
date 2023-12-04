@@ -1051,7 +1051,7 @@ declare namespace woosmap.map {
         setRouteIndex(routeIndex: number): void;
     }
 }
-declare namespace woosmap.map.distance {
+declare namespace woosmap.map {
     /**
      * A service for computing distances and durations between multiple origins and
      * destinations and retrieving isochrone destinations.
@@ -1080,7 +1080,7 @@ declare namespace woosmap.map.distance {
         ): Promise<woosmap.map.distance.DistanceIsochroneResponse>;
     }
 }
-declare namespace woosmap.map.stores {
+declare namespace woosmap.map {
     /**
      * Contains methods related to retrieving stores and stores' bounds.
      */
@@ -1114,7 +1114,7 @@ declare namespace woosmap.map.stores {
         getBounds(request: woosmap.map.stores.StoresBoundsRequest): Promise<woosmap.map.stores.StoresBoundsResponse>;
     }
 }
-declare namespace woosmap.map.localities {
+declare namespace woosmap.map {
     /**
      * Contains methods related to retrieving autocomplete predictions, geocoding for localities and retrieving details
      */
