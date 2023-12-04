@@ -11,13 +11,12 @@ export interface Options {
 }
 
 export interface User extends Profile {
-    provider: 'qq'
-    id: string
-    nickanme: string
-    _raw: string
-    _json: object
+    provider: "qq";
+    id: string;
+    nickanme: string;
+    _raw: string;
+    _json: object;
 }
-
 
 export type UserProfileCallback = (err: Error | null, user: User) => void;
 
