@@ -207,7 +207,7 @@ export interface TypeaheadProps<T extends TypeaheadModel> {
     multiple?: boolean | undefined;
 
     /* Override default new selection text. */
-    newSelectionPrefix?: JSX.Element | string;
+    newSelectionPrefix?: React.JSX.Element | string;
 
     /* Invoked when the input is blurred. Receives an event. */
     onBlur?: ((e: Event) => void) | undefined;
