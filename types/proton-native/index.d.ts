@@ -457,7 +457,7 @@ export interface GroupProps extends GridChildrenProps, Label, Stretchy {
     /**
      * Group can only have one child. To have more than one child, use boxes.
      */
-    children?: JSX.Element | undefined;
+    children?: React.JSX.Element | undefined;
     /**
      * Whether the Group is enabled.
      */
@@ -887,7 +887,7 @@ export interface WindowProps {
     /**
      * Window can only have one child. To have more than one child, use boxes.
      */
-    children?: JSX.Element | undefined;
+    children?: React.JSX.Element | undefined;
     /**
      * Whether the window is closed. If set to closed, then the window will be closed.
      */
@@ -944,7 +944,7 @@ export class Window extends React.Component<WindowProps> {}
 /**
  * Renders the input component
  */
-export function render(element: JSX.Element): void;
+export function render(element: React.JSX.Element): void;
 
 /**
  * A method to display an alert.
