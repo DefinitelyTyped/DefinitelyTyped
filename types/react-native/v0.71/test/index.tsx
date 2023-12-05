@@ -668,7 +668,7 @@ export class FlatListTest extends React.Component<FlatListProps<number>, {}> {
 
     render() {
         const { ListEmptyComponent } = this.props;
-        const listEmptyComponent: JSX.Element | null | undefined = React.isValidElement(ListEmptyComponent)
+        const listEmptyComponent: React.JSX.Element | null | undefined = React.isValidElement(ListEmptyComponent)
             ? ListEmptyComponent
             : ListEmptyComponent && <ListEmptyComponent />;
 
