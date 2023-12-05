@@ -12357,16 +12357,15 @@ declare namespace chrome.declarativeNetRequest {
         removeRuleIds?: number[] | undefined;
     }
 
-
     export interface UpdateStaticRulesOptions {
-      /** Set of ids corresponding to rules in the Ruleset to disable. */
-      disableRuleIds?: number[];
+        /** Set of ids corresponding to rules in the Ruleset to disable. */
+        disableRuleIds?: number[];
 
-      /** Set of ids corresponding to rules in the Ruleset to enable. */
-      enableRuleIds?: number[];
+        /** Set of ids corresponding to rules in the Ruleset to enable. */
+        enableRuleIds?: number[];
 
-      /** The id corresponding to a static Ruleset. */
-      rulesetId: string;
+        /** The id corresponding to a static Ruleset. */
+        rulesetId: string;
     }
 
     export interface UpdateRulesetOptions {
@@ -12584,7 +12583,6 @@ declare namespace chrome.declarativeNetRequest {
      * This can happen for multiple reasons, such as invalid rule format, duplicate rule ID, rule count limit exceeded, and others.
      */
     export function updateSessionRules(options: UpdateRuleOptions): Promise<void>;
-
 
     /** Disables and enables individual static rules in a Ruleset.
      * Changes to rules belonging to a disabled Ruleset will take effect the next time that it becomes enabled.
