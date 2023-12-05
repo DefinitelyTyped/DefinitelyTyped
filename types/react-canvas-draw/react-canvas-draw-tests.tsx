@@ -1,7 +1,7 @@
 import * as React from "react";
 import CanvasDraw from "react-canvas-draw";
 
-const AllOptions: JSX.Element = (
+const AllOptions: React.JSX.Element = (
     <CanvasDraw
         onChange={canvas => canvas.getSaveData()}
         loadTimeOffset={7}
@@ -33,7 +33,7 @@ const AllOptions: JSX.Element = (
     />
 );
 
-const NoOptions: JSX.Element = <CanvasDraw />;
+const NoOptions: React.JSX.Element = <CanvasDraw />;
 
 function RefTest() {
     const ref = React.useRef<CanvasDraw>(null);

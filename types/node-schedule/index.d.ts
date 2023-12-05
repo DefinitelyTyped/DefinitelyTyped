@@ -119,6 +119,7 @@ export class RecurrenceRule {
     );
 
     nextInvocationDate(base: Date): Date;
+    isValid(): boolean;
 }
 
 /**
