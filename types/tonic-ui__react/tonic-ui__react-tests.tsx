@@ -17,7 +17,7 @@ import * as React from "react";
 
 const customTheme = { ...theme, box: { color: "grey" } };
 
-const Container = (): JSX.Element => {
+const Container = (): React.JSX.Element => {
     const [colorMode, setColorMode] = useColorMode();
     setColorMode("light");
     useColorStyle({ colorMode });
