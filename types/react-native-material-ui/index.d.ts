@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component, JSX } from "react";
 import { Image, StyleProp, TextStyle as TextStyleRaw, ViewStyle as ViewStyleRaw } from "react-native";
 
 export type ViewStyle = StyleProp<ViewStyleRaw>;
