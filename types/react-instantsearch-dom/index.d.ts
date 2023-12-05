@@ -119,9 +119,9 @@ export interface SearchBoxProps extends CommonWidgetProps {
     searchAsYouType?: boolean | undefined;
     showLoadingIndicator?: boolean | undefined;
 
-    submit?: JSX.Element | undefined;
-    reset?: JSX.Element | undefined;
-    loadingIndicator?: JSX.Element | undefined;
+    submit?: React.JSX.Element | undefined;
+    reset?: React.JSX.Element | undefined;
+    loadingIndicator?: React.JSX.Element | undefined;
 
     onSubmit?: ((event: React.SyntheticEvent<HTMLFormElement>) => any) | undefined;
     onReset?: ((event: React.SyntheticEvent<HTMLFormElement>) => any) | undefined;
