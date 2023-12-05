@@ -10,7 +10,7 @@
 // to update this type definitions for redux@4.x from redux@3.x.
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/25321
 
-import { Component, ComponentClass, ComponentType, FunctionComponent, ReactNode } from "react";
+import { Component, ComponentClass, ComponentType, FunctionComponent, JSX, ReactNode } from "react";
 
 import { Action, ActionCreator, AnyAction, Dispatch, Store } from "redux";
 
