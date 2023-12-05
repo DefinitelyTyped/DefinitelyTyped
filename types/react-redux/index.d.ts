@@ -3,6 +3,7 @@ import {
     Component,
     ComponentClass,
     Context,
+    JSX,
     JSXElementConstructor,
     NamedExoticComponent,
     ReactNode,
