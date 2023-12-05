@@ -1,7 +1,7 @@
 import Ember from "ember";
 import { assertType } from "./lib/assert";
 
-type Person = typeof Person.prototype;
+type Person = Ember.Object & { name: string; sayHello(): void };
 const Person = Ember.Object.extend({
     name: "",
     sayHello() {
@@ -9,7 +9,7 @@ const Person = Ember.Object.extend({
     },
 });
 
-assertType<Person>(Person.reopen());
+assertType<Readonly<typeof Ember.Object> & { new(properties?: object | undefined): Person }>(Person.reopen());
 
 assertType<string>(Person.create().name);
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type

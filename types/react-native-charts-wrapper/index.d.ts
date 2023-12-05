@@ -101,7 +101,7 @@ export interface Axis {
     textSize?: number | undefined;
     fontFamily?: string | undefined;
     fontStyle?: string | undefined;
-    fontWeight?: number | undefined;
+    fontWeight?: string | undefined;
     gridColor?: Color | undefined;
     gridLineWidth?: number | undefined;
     axisLineColor?: Color | undefined;
