@@ -794,6 +794,9 @@ declare namespace React {
         UNSAFE_componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
     }
 
+    /**
+     * @deprecated https://legacy.reactjs.org/blog/2016/07/13/mixins-considered-harmful.html
+     */
     interface Mixin<P, S> extends ComponentLifecycle<P, S> {
         mixins?: Array<Mixin<P, S>> | undefined;
         statics?: {
@@ -809,6 +812,9 @@ declare namespace React {
         getInitialState?(): S;
     }
 
+    /**
+     * @deprecated https://legacy.reactjs.org/blog/2016/07/13/mixins-considered-harmful.html
+     */
     interface ComponentSpec<P, S> extends Mixin<P, S> {
         render(): ReactNode;
 
