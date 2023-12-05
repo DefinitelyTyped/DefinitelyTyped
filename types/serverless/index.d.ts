@@ -3,6 +3,7 @@ import PluginManager = require("./classes/PluginManager");
 import Utils = require("./classes/Utils");
 import YamlParser = require("./classes/YamlParser");
 import AwsProvider = require("./plugins/aws/provider/awsProvider");
+import ServerlessError = require("./classes/ServerlessError");
 
 declare namespace Serverless {
     interface Options {
@@ -58,6 +59,10 @@ declare namespace Serverless {
     }
 
     type Event = AwsProvider.Event | object;
+
+    interface Classes {
+        Error: typeof ServerlessError;
+    }
 }
 
 declare class Serverless {
@@ -86,6 +91,7 @@ declare class Serverless {
     yamlParser: YamlParser;
     pluginManager: PluginManager;
 
+    classes: Serverless.Classes;
     config: Serverless.Config;
     configurationFilename: string;
     serverlessDirPath: string;
