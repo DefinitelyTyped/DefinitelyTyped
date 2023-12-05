@@ -1,4 +1,4 @@
-import { ReactChild, JSX } from "react";
+import { JSX, ReactChild } from "react";
 
 import { Block, BlockInstance } from "../";
 
