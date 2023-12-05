@@ -2,6 +2,7 @@
 import {
     AllHTMLAttributes as ReactHTMLAttributes,
     Component,
+    JSX,
     ReactElement,
     SVGAttributes as ReactSVGAttributes,
 } from "react";
