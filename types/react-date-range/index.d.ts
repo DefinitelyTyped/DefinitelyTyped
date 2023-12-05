@@ -199,7 +199,7 @@ export interface CalendarProps {
                 mode?: "set" | "setYear" | "setMonth" | "monthOffset",
             ) => void,
             props: CalendarProps,
-        ) => JSX.Element)
+        ) => React.JSX.Element)
         | undefined;
     /** default: none */
     onChange?: ((date: Date) => void) | undefined;
