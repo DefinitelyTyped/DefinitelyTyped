@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/default-browser-id",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/sindresorhus/default-browser-id#readme"
+    ],
+    "devDependencies": {
+        "@types/default-browser-id": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tristan F.",
+            "githubUsername": "LeoDog896"
+        }
+    ]
+}
