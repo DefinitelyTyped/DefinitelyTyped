@@ -98,12 +98,12 @@ export interface NodeRendererProps<T = {}> {
     canDrag: boolean;
     scaffoldBlockPxWidth: number;
     toggleChildrenVisibility?(data: NodeData<T>): void;
-    buttons?: JSX.Element[] | undefined;
+    buttons?: React.JSX.Element[] | undefined;
     className?: string | undefined;
     style?: React.CSSProperties | undefined;
-    title?: ((data: NodeData<T>) => JSX.Element | JSX.Element) | undefined;
-    subtitle?: ((data: NodeData<T>) => JSX.Element | JSX.Element) | undefined;
-    icons?: JSX.Element[] | undefined;
+    title?: ((data: NodeData<T>) => React.JSX.Element | React.JSX.Element) | undefined;
+    subtitle?: ((data: NodeData<T>) => React.JSX.Element | React.JSX.Element) | undefined;
+    icons?: React.JSX.Element[] | undefined;
     lowerSiblingCounts: number[];
     swapDepth?: number | undefined;
     swapFrom?: number | undefined;
@@ -147,7 +147,7 @@ export interface TreeRendererProps<T = {}> {
     rowDirection?: "ltr" | "rtl" | undefined;
 
     listIndex: number;
-    children: JSX.Element[];
+    children: React.JSX.Element[];
     style?: React.CSSProperties | undefined;
 
     // Drop target
@@ -203,11 +203,11 @@ export interface ReactSortableTreeProps<T = {}> extends ThemeTreeProps<T> {
 }
 
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-declare function SortableTree<T>(props: React.PropsWithChildren<ReactSortableTreeProps<T>>): JSX.Element;
+declare function SortableTree<T>(props: React.PropsWithChildren<ReactSortableTreeProps<T>>): React.JSX.Element;
 // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
 declare function SortableTreeWithoutDndContext<T>(
     props: React.PropsWithChildren<ReactSortableTreeProps<T>>,
-): JSX.Element;
+): React.JSX.Element;
 
 export { SortableTree, SortableTreeWithoutDndContext };
 export default SortableTree;
