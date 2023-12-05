@@ -38,19 +38,19 @@ export interface ReactKeyHandlerProps extends ReactKeyHandlerIntrinsicProps {
     onKeyHandle: (event: React.KeyboardEvent) => void;
 }
 
-export default function KeyHandler(props: ReactKeyHandlerProps): JSX.Element;
+export default function KeyHandler(props: ReactKeyHandlerProps): React.JSX.Element;
 
 export function keyHandleDecorator(
     matcher?: Matcher,
-): (props: ReactKeyHandlerProps) => (Component: JSX.Element) => (...args: any[]) => JSX.Element;
+): (props: ReactKeyHandlerProps) => (Component: React.JSX.Element) => (...args: any[]) => React.JSX.Element;
 
 export function keyToggleHandler(
     props: ReactKeyHandlerIntrinsicProps,
-): (Component: JSX.Element) => (...args: any[]) => JSX.Element;
+): (Component: React.JSX.Element) => (...args: any[]) => React.JSX.Element;
 
 export function keyHandler(
     props: ReactKeyHandlerIntrinsicProps,
-): (Component: JSX.Element) => (...args: any[]) => JSX.Element;
+): (Component: React.JSX.Element) => (...args: any[]) => React.JSX.Element;
 
 export const KEYDOWN: _KEYDOWN;
 
