@@ -67,8 +67,8 @@ export interface TextFieldProps extends TextInputProps {
     titleTextStyle?: StyleProp<TextStyle> | undefined;
     affixTextStyle?: StyleProp<TextStyle> | undefined;
     formatText?(text: string): string;
-    renderLeftAccessory?(): JSX.Element;
-    renderRightAccessory?(): JSX.Element;
+    renderLeftAccessory?(): React.JSX.Element;
+    renderRightAccessory?(): React.JSX.Element;
     onChangeText?(text: string): void;
     onFocus?(event: NativeSyntheticEvent<TextInputFocusEventData>): void;
     onBlur?(event: NativeSyntheticEvent<TextInputChangeEventData>): void;

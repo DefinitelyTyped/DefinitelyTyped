@@ -322,7 +322,10 @@ declare namespace Twitch.ext {
          */
         displayName: string;
 
-        initiator: "CURRENT_USER" | "OTHER";
+        // The documentation says that the type of this field is `"CURRENT_USER" | "OTHER"`,
+        // but in reality it is lowercase.
+        // https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/67555
+        initiator: "current_user" | "other";
 
         /**
          * Full product object from getProducts call
