@@ -4,7 +4,7 @@
  * @param str string to match
  * @param regexp A variable name or string literal containing the regular expression pattern and flags.
  */
-declare function matchAll(str: string, regexp: string | RegExp): IterableIterator<RegExpMatchArray>;
+declare function matchAll(str: string, regexp: string | RegExp): IterableIterator<RegExpExecArray>;
 
 declare namespace matchAll {
     function shim(): void;

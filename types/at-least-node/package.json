@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/at-least-node",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/RyanZim/at-least-node#readme"
+    ],
+    "devDependencies": {
+        "@types/at-least-node": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tristan F.",
+            "githubUsername": "LeoDog896"
+        }
+    ]
+}

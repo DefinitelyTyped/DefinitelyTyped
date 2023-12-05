@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/bundle-id",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/sindresorhus/bundle-id#readme"
+    ],
+    "devDependencies": {
+        "@types/bundle-id": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tristan F.",
+            "githubUsername": "LeoDog896"
+        }
+    ]
+}
