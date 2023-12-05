@@ -1,3 +1,4 @@
+import { JSX } from "react";
 export interface FullscreenProps {
     position?: "topleft" | "topright" | "bottomleft" | "bottomright" | undefined;
     title?: string | undefined;
