@@ -2,7 +2,7 @@ import * as React from "react";
 import SplitterLayout, { SplitterLayoutProps } from "react-splitter-layout";
 
 export class SplitterLayoutTest extends React.PureComponent {
-    render(): JSX.Element {
+    render(): React.JSX.Element {
         const props: SplitterLayoutProps = {
             percentage: true,
             secondaryInitialSize: 40,
