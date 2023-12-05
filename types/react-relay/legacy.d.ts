@@ -91,8 +91,8 @@ export type RelayRefetchContainer<TComponent extends React.ElementType> = React.
     ContainerProps<React.ComponentPropsWithoutRef<TComponent>>
 >;
 
-type PropsWithoutRelay<C extends keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>> =
-    JSX.LibraryManagedAttributes<C, Omit<React.ComponentProps<C>, "relay">>;
+type PropsWithoutRelay<C extends keyof React.JSX.IntrinsicElements | React.JSXElementConstructor<any>> =
+    React.JSX.LibraryManagedAttributes<C, Omit<React.ComponentProps<C>, "relay">>;
 
 export function createFragmentContainer<
     C extends React.ComponentType<React.ComponentProps<C> & { relay?: RelayProp | undefined }>,
