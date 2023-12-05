@@ -1,4 +1,4 @@
-import isNegativeZero = require('is-negative-zero');
+import isNegativeZero = require("is-negative-zero");
 
 // $ExpectType boolean
 isNegativeZero(-0);
@@ -10,4 +10,4 @@ isNegativeZero(0);
 isNegativeZero(Symbol());
 
 // $ExpectType false
-isNegativeZero('0');
+isNegativeZero("0");
