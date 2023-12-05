@@ -9,31 +9,31 @@ const redisClient = new redis.Client();
 
 // Missing required 'socket' property
 // @ts-expect-error
-const clientWithoutSocket = new redis.Client({ username: 'user', password: 'password' });
+const clientWithoutSocket = new redis.Client({ username: "user", password: "password" });
 
 // Invalid socket options
 // @ts-expect-error
-const clientWithInvalidSocket = new redis.Client({ socket: { invalidProp: 'value' } });
+const clientWithInvalidSocket = new redis.Client({ socket: { invalidProp: "value" } });
 // @ts-expect-error
-const clientWithInvalidSocketTLS = new redis.Client({ socket: { tls: { ca: 123 }}});
+const clientWithInvalidSocketTLS = new redis.Client({ socket: { tls: { ca: 123 } } });
 
 // Invalid types for optional properties
 // @ts-expect-error
-const clientWithInvalidUsername = new redis.Client({ socket: { host: 'localhost' }, username: 123 });
+const clientWithInvalidUsername = new redis.Client({ socket: { host: "localhost" }, username: 123 });
 // @ts-expect-error
-const clientWithInvalidPassword = new redis.Client({ socket: { host: 'localhost' }, password: 123 });
+const clientWithInvalidPassword = new redis.Client({ socket: { host: "localhost" }, password: 123 });
 // @ts-expect-error
-const clientWithInvalidClientName = new redis.Client({ socket: { host: 'localhost' }, clientName: true });
+const clientWithInvalidClientName = new redis.Client({ socket: { host: "localhost" }, clientName: true });
 // @ts-expect-error
-const clientWithInvalidDatabase = new redis.Client({ socket: { host: 'localhost' }, database: 'not-a-number' });
+const clientWithInvalidDatabase = new redis.Client({ socket: { host: "localhost" }, database: "not-a-number" });
 // @ts-expect-error
-const clientWithInvalidMasterName = new redis.Client({ socket: { host: 'localhost' }, masterName: 123 });
+const clientWithInvalidMasterName = new redis.Client({ socket: { host: "localhost" }, masterName: 123 });
 // @ts-expect-error
-const clientWithInvalidSentinelUsername = new redis.Client({ socket: { host: 'localhost' }, sentinelUsername: true });
+const clientWithInvalidSentinelUsername = new redis.Client({ socket: { host: "localhost" }, sentinelUsername: true });
 // @ts-expect-error
-const clientWithInvalidSentinelPassword = new redis.Client({ socket: { host: 'localhost' }, sentinelPassword: false });
+const clientWithInvalidSentinelPassword = new redis.Client({ socket: { host: "localhost" }, sentinelPassword: false });
 // @ts-expect-error
-const clientWithInvalidCluster = new redis.Client({ socket: { host: 'localhost' }, cluster: { invalidProp: 'value' } });
+const clientWithInvalidCluster = new redis.Client({ socket: { host: "localhost" }, cluster: { invalidProp: "value" } });
 
 //
 // Client constructor with RedisConnectionURL - Error Cases
@@ -41,7 +41,7 @@ const clientWithInvalidCluster = new redis.Client({ socket: { host: 'localhost' 
 
 // Incorrect format for RedisConnectionURL
 // @ts-expect-error
-const clientWithMalformedURL = new redis.Client('just-a-string');
+const clientWithMalformedURL = new redis.Client("just-a-string");
 
 //
 // Additional tests for RedisConnectionURL type components - Error Cases
@@ -49,21 +49,19 @@ const clientWithMalformedURL = new redis.Client('just-a-string');
 
 // RedisProtocol with invalid value
 // @ts-expect-error
-const invalidProtocol: redis.RedisProtocol = 'not-a-protocol';
+const invalidProtocol: redis.RedisProtocol = "not-a-protocol";
 
 // RedisUserInfo with invalid format
 // @ts-expect-error
-const invalidUserInfo: redis.RedisUserInfo = 'user-password';
+const invalidUserInfo: redis.RedisUserInfo = "user-password";
 
 // RedisPort with non-numeric value
 // @ts-expect-error
-const invalidPort: redis.RedisPort = ':not-a-number';
+const invalidPort: redis.RedisPort = ":not-a-number";
 
 // RedisDbNumber with non-numeric value
 // @ts-expect-error
-const invalidDbNumber: redis.RedisDbNumber = '/not-a-number';
-
-
+const invalidDbNumber: redis.RedisDbNumber = "/not-a-number";
 
 //
 // Client.set

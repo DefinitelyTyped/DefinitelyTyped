@@ -33,9 +33,9 @@ fileHandle.seek();
 // @ts-expect-error
 fileHandle.seek(10);
 // @ts-expect-error
-fileHandle.seek('abc');
+fileHandle.seek("abc");
 // @ts-expect-error
-fileHandle.seek(10, 'abc');
+fileHandle.seek(10, "abc");
 
 //
 // stat function

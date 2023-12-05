@@ -181,7 +181,7 @@ browserContext.waitForEvent("page");
 // $ExpectType Promise<Page>
 browserContext.waitForEvent("page", () => true);
 // $ExpectType Promise<Page>
-browserContext.waitForEvent("page", { predicate: () => true});
+browserContext.waitForEvent("page", { predicate: () => true });
 // $ExpectType Promise<Page>
 browserContext.waitForEvent("page", { predicate: () => true, timeout: 10000 });
 // $ExpectType Promise<Page>

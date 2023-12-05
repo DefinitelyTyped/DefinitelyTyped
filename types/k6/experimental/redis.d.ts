@@ -530,7 +530,7 @@ export class Client {
  * - `RedisPort` is the port on which the Redis server is listening (optional, defaults to 6379 if not specified).
  * - `RedisDbNumber` specifies a particular database number to connect to (optional).
  */
-export type RedisConnectionURL = `${RedisProtocol}://${RedisUserInfo}${string}${RedisPort}${RedisDbNumber}`
+export type RedisConnectionURL = `${RedisProtocol}://${RedisUserInfo}${string}${RedisPort}${RedisDbNumber}`;
 
 /**
  * Represents the protocol part of a Redis URL.
@@ -563,7 +563,6 @@ export type RedisPort = `:${number}` | "";
  * - `"": No database number is specified, implying the default database (usually 0).
  */
 export type RedisDbNumber = `/${number}` | "";
-
 
 /**
  * Represents the configuration options for a Redis client.
