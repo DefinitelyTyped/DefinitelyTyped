@@ -801,12 +801,12 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
     /**
      * Returns an error code if this DateTime is invalid, or null if the DateTime is valid
      */
-    get invalidReason(): IfValid<string, null, IsValid>;
+    get invalidReason(): IfValid<null, string, IsValid>;
 
     /**
      * Returns an explanation of why this DateTime became invalid, or null if the DateTime is valid
      */
-    get invalidExplanation(): IfValid<string | null, null, IsValid>;
+    get invalidExplanation(): IfValid<null, string | null, IsValid>;
 
     /**
      * Get the locale of a DateTime, such as 'en-GB'. The locale is used when formatting the DateTime
