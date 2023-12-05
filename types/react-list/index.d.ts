@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component, JSX } from "react";
 
 type ItemRenderer = (index: number, key: number | string) => JSX.Element;
 type ItemsRenderer = (items: JSX.Element[], ref: string) => JSX.Element;
