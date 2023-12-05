@@ -1068,7 +1068,7 @@ declare namespace React {
      * @version 16.8.0
      * @see https://react.dev/reference/react/useRef
      */
-    function useRef<T>(initialValue: T): RefObject<T | null>;
+    function useRef<T>(initialValue: T): RefObject<T>;
     // convenience overload for refs given as a ref prop as they typically start with a null value
     /**
      * `useRef` returns a mutable ref object whose `.current` property is initialized to the passed argument
@@ -1093,7 +1093,7 @@ declare namespace React {
      * @version 16.8.0
      * @see https://reactjs.org/docs/hooks-reference.html#useref
      */
-    function useRef<T = undefined>(): RefObject<T | undefined | null>;
+    function useRef<T = undefined>(): RefObject<T | undefined>;
     /**
      * The signature is identical to `useEffect`, but it fires synchronously after all DOM mutations.
      * Use this to read layout from the DOM and synchronously re-render. Updates scheduled inside
