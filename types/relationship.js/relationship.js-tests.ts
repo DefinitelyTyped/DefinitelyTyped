@@ -1,4 +1,4 @@
-import relationship from "relationship.js";
+import relationship = require('relationship.js')
 
 // $ExpectType string[]
 relationship("爸爸的妈妈");
