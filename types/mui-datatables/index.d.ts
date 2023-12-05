@@ -430,7 +430,7 @@ export type MUIDataTableOptions = Partial<{
         handleSearch: (text: string) => void,
         hideSearch: () => void,
         options: any,
-    ) => React.Component | JSX.Element;
+    ) => React.Component | React.JSX.Element;
     /**
      * Override default sorting with custom function.
      * If you just need to override the sorting for a particular column, see the sortCompare method in the Column options.
