@@ -223,7 +223,7 @@ export interface RasaWebchatProps {
      * @remarks This can only be used if you call the webchat from a React application
      * as you can't write a component in pure JavaScript.
      */
-    customComponent?: (messageData: any) => JSX.Element; // Assuming React JSX
+    customComponent?: (messageData: any) => React.JSX.Element; // Assuming React JSX
 
     /**
      * Call custom code on a specific widget event.
