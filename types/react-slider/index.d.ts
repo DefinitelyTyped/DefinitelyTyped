@@ -1,4 +1,4 @@
-import { Component, HTMLProps, RefCallback } from "react";
+import { Component, HTMLProps, JSX, RefCallback } from "react";
 
 interface HTMLPropsWithRefCallback<T> extends HTMLProps<T> {
     ref: RefCallback<T>;
