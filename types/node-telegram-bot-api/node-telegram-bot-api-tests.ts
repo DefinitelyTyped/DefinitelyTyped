@@ -159,7 +159,24 @@ MyTelegramBot.banChatMember(1234, 5678, {
 });
 MyTelegramBot.unbanChatMember(1234, 5678);
 MyTelegramBot.restrictChatMember(1234, 5678, {
-    permissions: { can_add_web_page_previews: true, can_send_polls: false },
+    until_date: 12345,
+    use_independent_chat_permissions: true,
+    can_invite_users: true,
+    can_add_web_page_previews: true,
+    can_send_polls: false,
+});
+MyTelegramBot.restrictChatMember(1234, 5678, {
+    until_date: 12345,
+    use_independent_chat_permissions: true,
+    permissions: "asfasdfsdfdasf",
+});
+MyTelegramBot.restrictChatMember(1234, 5678, {
+    until_date: 12345,
+    use_independent_chat_permissions: true,
+
+    permissions: {
+        can_add_web_page_previews: true,
+    },
 });
 MyTelegramBot.promoteChatMember(1234, 5678, { can_change_info: true });
 MyTelegramBot.exportChatInviteLink(1234);
