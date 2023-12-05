@@ -155,45 +155,42 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     }, []));
 
     // test useRef and its convenience overloads
-    // $ExpectType MutableRefObject<number>
+    // $ExpectType RefObject<number>
     React.useRef(0);
 
     // these are not very useful (can't assign anything else to .current)
     // but it's the only safe way to resolve them
-    // $ExpectType MutableRefObject<null>
+    // $ExpectType RefObject<null>
     React.useRef(null);
-    // $ExpectType MutableRefObject<undefined>
+    // $ExpectType RefObject<undefined>
     React.useRef(undefined);
 
     // |null convenience overload
-    // it should _not_ be mutable if the generic argument doesn't include null
-    // $ExpectType RefObject<number>
+    // $ExpectType RefObject<number | null>
     React.useRef<number>(null);
-    // but it should be mutable if it does (i.e. is not the convenience overload)
-    // $ExpectType MutableRefObject<number | null>
+    // $ExpectType RefObject<number | null>
     React.useRef<number | null>(null);
 
     // |undefined convenience overload
     // with no contextual type or generic argument it should default to undefined only (not {} or unknown!)
-    // $ExpectType MutableRefObject<undefined>
+    // $ExpectType RefObject<undefined>
     React.useRef();
-    // $ExpectType MutableRefObject<number | undefined>
+    // $ExpectType RefObject<number | undefined>
     React.useRef<number>();
     // don't just accept a potential undefined if there is a generic argument
     // @ts-expect-error
     React.useRef<number>(undefined);
     // make sure once again there's no |undefined if the initial value doesn't either
-    // $ExpectType MutableRefObject<number>
+    // $ExpectType RefObject<number>
     React.useRef<number>(1);
     // and also that it is not getting erased if the parameter is wider
-    // $ExpectType MutableRefObject<number | undefined>
+    // $ExpectType RefObject<number | undefined>
     React.useRef<number | undefined>(1);
 
     // should be contextually typed
-    const a: React.MutableRefObject<number | undefined> = React.useRef(undefined);
-    const b: React.MutableRefObject<number | undefined> = React.useRef();
-    const c: React.MutableRefObject<number | null> = React.useRef(null);
-    const d: React.RefObject<number> = React.useRef(null);
+    const a: React.RefObject<number | undefined | null> = React.useRef(undefined);
+    const b: React.RefObject<number | undefined | null> = React.useRef();
+    const c: React.RefObject<number | null> = React.useRef(null);
 
     const id = React.useMemo(() => Math.random(), []);
     React.useImperativeHandle(ref, () => ({ id }), [id]);
@@ -202,7 +199,7 @@ function useEveryHook(ref: React.Ref<{ id: number }> | undefined): () => boolean
     React.useImperativeMethods(ref, () => ({}), [id]);
 
     // make sure again this is not going to the |null convenience overload
-    // $ExpectType MutableRefObject<boolean>
+    // $ExpectType RefObject<boolean>
     const didLayout = React.useRef(false);
 
     React.useLayoutEffect(() => {
