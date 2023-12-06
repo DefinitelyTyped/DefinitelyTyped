@@ -17,7 +17,7 @@ function TestEvaluateResultException() {
         columnNumber: 12,
     });
     if (exceptionDetails.columnNumber !== 12) {
-        throw new error("ExceptionDetails failure");
+        throw new Error("ExceptionDetails failure");
     }
     const evaluateResultException = new EvaluateResultException("asdf", {
         columnNumber: 12,
