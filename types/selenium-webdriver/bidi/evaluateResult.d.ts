@@ -1,4 +1,4 @@
-interface IEvaluateResultType = {
+interface IEvaluateResultType {
     SUCCESS: "success";
     EXCEPTION: "exception";
 }
