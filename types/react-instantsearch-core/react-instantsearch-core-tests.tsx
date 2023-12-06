@@ -709,7 +709,7 @@ import { Hits, RefinementList } from "react-instantsearch-dom";
 });
 
 (() => {
-    function getAttribute(component: React.ReactChild): string | undefined {
+    function getAttribute(component: React.ReactElement | number | string): string | undefined {
         if (typeof component !== "object") {
             return undefined;
         }
@@ -735,7 +735,7 @@ import { Hits, RefinementList } from "react-instantsearch-dom";
         const widgets = new Map();
 
         React.Children.forEach(children, child => {
-            const attribute = getAttribute(child as React.ReactChild);
+            const attribute = getAttribute(child as React.ReactElement | number | string);
             if (!attribute) {
                 throw new Error("Could not find \"attribute\" prop");
             }
