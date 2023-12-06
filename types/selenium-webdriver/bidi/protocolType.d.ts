@@ -40,7 +40,7 @@ interface INonPrimitiveType {
 
 const NonPrimitiveType: INonPrimitiveType;
 
-declare type RemoteType = {
+interface IRemoteType {
     SYMBOL: "symbol";
     FUNCTION: "function";
     WEAK_MAP: "weakmap";
@@ -74,7 +74,9 @@ declare type RemoteType = {
         | "node"
         | "window"
         | null;
-};
+}
+
+const RemoteType: IRemoteType;
 
 declare type SpecialNumberType = {
     NAN: "NaN";
