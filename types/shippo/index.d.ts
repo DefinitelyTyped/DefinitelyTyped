@@ -1044,8 +1044,8 @@ interface ShippoStatic {
     DEFAULT_PORT: string;
     DEFAULT_AUTH_SCHEME: string;
     DEFAULT_BASE_PATH: string;
-    DEFAULT_TIMOUT: number;
-    DEFAULT_PACKAGE_VERSION: string;
+    DEFAULT_TIMEOUT: number;
+    PACKAGE_VERSION: string;
     USER_AGENT: string;
 }
 
