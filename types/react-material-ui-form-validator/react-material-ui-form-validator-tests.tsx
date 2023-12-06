@@ -3,7 +3,7 @@ import * as React from "react";
 import { SelectValidator, TextValidator, ValidatorComponent, ValidatorForm } from "react-material-ui-form-validator";
 
 class Test extends React.Component {
-    textValidatorRef: React.RefObject<TextValidator> = React.createRef();
+    textValidatorRef: React.RefObject<TextValidator | null> = React.createRef();
 
     onSubmitted = (event: React.FormEvent) => {
         event.preventDefault(); // Actually preventDefault() is called by ValidatorForm
