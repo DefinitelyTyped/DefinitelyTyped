@@ -9,7 +9,7 @@ declare class EvaluateResultSuccess<T> {
     constructor(realmId: string, value: T);
     resultType: "success";
     realmId: string;
-    result: string;
+    result: T;
 }
 
 declare type ExceptionShape = {
