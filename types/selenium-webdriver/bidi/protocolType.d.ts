@@ -78,11 +78,13 @@ interface IRemoteType {
 
 const RemoteType: IRemoteType;
 
-declare type SpecialNumberType = {
+interface ISpecialNumberType {
     NAN: "NaN";
     MINUS_ZERO: "-0";
     INFINITY: "Infinity";
     MINUS_INFINITY: "-Infinity";
-};
+}
+
+const SpecialNumberType: ISpecialNumberType;
 
 export { NonPrimitiveType, PrimitiveType, RemoteType, SpecialNumberType };
