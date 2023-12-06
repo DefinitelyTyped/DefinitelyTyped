@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import { JSX } from "react";
 
 export interface NotificationsContextType {
     showNotification(payload?: NotificationPayload): void;
