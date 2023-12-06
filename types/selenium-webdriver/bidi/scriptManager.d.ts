@@ -41,9 +41,9 @@ declare class ScriptManager {
         realmId: string,
         functionDeclaration: FUNC,
         awaitPromise: boolean,
-        argumentValueList: ReferenceValue[] | null,
-        thisParameter: any,
-        resultOwnership: any,
+        argumentValueList?: ReferenceValue[] | null,
+        thisParameter?: any,
+        resultOwnership?: any,
     ): Promise<EvaluateResultSuccess<RemoteValue<Awaited<ReturnType<FUNC>>>> | EvaluateResultException>;
 
     callFunctionInBrowsingContext<FUNC extends AnyFunction>(
