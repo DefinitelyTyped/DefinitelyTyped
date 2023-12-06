@@ -8,7 +8,7 @@ import {
 function TestEvaluateResultSuccess() {
     const evaluateResultSuccess = new EvaluateResultSuccess("asdf", "string");
     if (evaluateResultSuccess.result !== "string") {
-        throw new error("EvaluateResultSuccess failure");
+        throw new Error("EvaluateResultSuccess failure");
     }
 }
 
