@@ -50,10 +50,10 @@ declare class ScriptManager {
         browsingContextId: string,
         functionDeclaration: FUNC,
         awaitPromise: boolean,
-        argumentValueList: ReferenceValue[] | null,
-        thisParameter: any,
-        resultOwnership: any,
-        sandbox: boolean | null,
+        argumentValueList?: ReferenceValue[] | null,
+        thisParameter?: any,
+        resultOwnership?: any,
+        sandbox?: boolean | null,
     ): Promise<EvaluateResultSuccess<RemoteValue<Awaited<ReturnType<FUNC>>>> | EvaluateResultException>;
 
     evaluateFunctionInRealm<FUNC extends AnyFunction>(
