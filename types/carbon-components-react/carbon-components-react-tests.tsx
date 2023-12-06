@@ -662,7 +662,7 @@ const uisHeaderContainerCompRenderNotMatchingOptionalProps = <HeaderContainer re
         </HeaderMenu>
     );
 
-    const testRef = React.useRef<HTMLElement | null>();
+    const testRef = React.useRef<HTMLElement>(null);
     const uisHeaderRefT1 = (
         // @ts-expect-error
         <HeaderMenu menuLinkName="test" renderMenuContent={() => <div />} ref={testRef}>
