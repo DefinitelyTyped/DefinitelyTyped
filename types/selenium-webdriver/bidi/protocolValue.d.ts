@@ -1,7 +1,9 @@
-declare type RemoteReferenceType = {
+interface IRemoteReferenceType {
     HANDLE: "handle";
     SHARED_ID: "shareId";
-};
+}
+
+const RemoteReferenceType: IRemoteReferenceType;
 
 declare type LocalValueJSON = {
     type: string;
