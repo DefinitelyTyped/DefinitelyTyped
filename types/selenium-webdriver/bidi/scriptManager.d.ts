@@ -60,7 +60,7 @@ declare class ScriptManager {
         realmId: string,
         expression: string,
         awaitPromise: boolean,
-        resultOwnership: any,
+        resultOwnership?: any,
     ): Promise<EvaluateResultSuccess<RemoteValue<Awaited<ReturnType<FUNC>>>> | EvaluateResultException>;
 
     evaluateFunctionInBrowsingContext<FUNC extends AnyFunction>(
