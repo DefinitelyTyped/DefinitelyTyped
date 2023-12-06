@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component, JSX } from "react";
 import { Action, Reducer } from "redux";
 
 export type iconType = "success" | "info" | "warning" | "error";

@@ -61,12 +61,29 @@ class BadPlugin implements Plugin {
     constructor(badArg: number) {}
 }
 
+// Test a plugin that throws an user error exception
+class ThrowUserErrorPlugin implements Plugin {
+    hooks: Plugin.Hooks;
+    constructor(serverless: Serverless, options: Serverless.Options, logging: Plugin.Logging) {
+        this.hooks = {
+            "command:start": () => {},
+        };
+        // $ExpectType ServerlessError
+        const errorWithoutMessage = new serverless.classes.Error();
+        // $ExpectType ServerlessError
+        const errorWithMessage = new serverless.classes.Error("an error message");
+        throw new serverless.classes.Error("Invalid configuration in X");
+    }
+}
+
 const manager = new PluginManager(serverless);
 manager.addPlugin(CustomPlugin);
 // Test adding a plugin with an incorrect constructor
 // prettier-ignore
 // @ts-expect-error
 manager.addPlugin(BadPlugin);
+// Test adding a plugin that throws an user error exception
+manager.addPlugin(ThrowUserErrorPlugin);
 
 // Test a plugin with bad arguments for a variable resolver
 class BadVariablePlugin1 implements Plugin {

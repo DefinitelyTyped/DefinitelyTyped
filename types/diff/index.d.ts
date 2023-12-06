@@ -141,7 +141,7 @@ export interface Hunk {
 
 export interface BestPath {
     newPos: number;
-    componenets: Change[];
+    components: Change[];
 }
 
 export class Diff {

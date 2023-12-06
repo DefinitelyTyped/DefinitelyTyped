@@ -5,9 +5,11 @@
     "projects": [
         "https://github.com/americanexpress/react-seo"
     ],
-    "devDependencies": {
-        "@types/americanexpress__react-seo": "workspace:.",
+    "dependencies": {
         "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/americanexpress__react-seo": "workspace:."
     },
     "owners": [
         {

@@ -27,7 +27,7 @@ export interface CreateAppObject {
 }
 
 // exporting the createApp function
-export function createApp(createAppObject: CreateAppObject): JSX.Element;
+export function createApp(createAppObject: CreateAppObject): React.JSX.Element;
 
 export class Link extends React.Component<LinkProps> {}
 export class Layout extends React.Component<LayoutProps> {}

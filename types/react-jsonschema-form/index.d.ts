@@ -95,7 +95,7 @@ declare module "react-jsonschema-form" {
          */
         liveOmit?: boolean | undefined;
         /** Used to change the default `form` tag into a different HTML tag */
-        tagName?: keyof JSX.IntrinsicElements | React.ComponentType | undefined;
+        tagName?: keyof React.JSX.IntrinsicElements | React.ComponentType | undefined;
     }
 
     export default class Form<T> extends React.Component<FormProps<T>> {
