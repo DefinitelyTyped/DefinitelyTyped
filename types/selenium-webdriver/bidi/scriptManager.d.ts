@@ -103,7 +103,7 @@ declare class ScriptManager {
         sandbox: boolean | null,
         expression: string,
         awaitPromise: boolean,
-        resultOwnership: any,
+        resultOwnership?: any,
     ): {
         target: {
             context?: string;
