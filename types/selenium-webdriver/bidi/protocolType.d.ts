@@ -20,7 +20,7 @@ interface IPrimitiveType {
 
 const PrimitiveType: IPrimitiveType;
 
-declare type NonPrimitiveType = {
+interface INonPrimitiveType {
     ARRAY: "array";
     DATE: "date";
     MAP: "map";
@@ -36,7 +36,9 @@ declare type NonPrimitiveType = {
         | "regexp"
         | "set"
         | null;
-};
+}
+
+const NonPrimitiveType: INonPrimitiveType;
 
 declare type RemoteType = {
     SYMBOL: "symbol";
