@@ -39,7 +39,9 @@ export type AspectRatioCustomComponentProps<
     : never;
 
 declare function AspectRatio(props: AspectRatioDefaultProps): FCReturn;
-declare function AspectRatio<T extends keyof React.JSX.IntrinsicElements>(props: AspectRatioIntrinsicProps<T>): FCReturn;
+declare function AspectRatio<T extends keyof React.JSX.IntrinsicElements>(
+    props: AspectRatioIntrinsicProps<T>,
+): FCReturn;
 declare function AspectRatio<T extends ReactComponentConstructor<never>>(
     props: AspectRatioCustomComponentProps<T>,
 ): FCReturn;
