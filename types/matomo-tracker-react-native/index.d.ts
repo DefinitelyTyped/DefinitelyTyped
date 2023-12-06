@@ -78,7 +78,7 @@ export interface MatomoProviderProps {
     children: React.ReactElement;
 }
 
-export function MatomoProvider(props: MatomoProviderProps): JSX.Element;
+export function MatomoProvider(props: MatomoProviderProps): React.JSX.Element;
 
 export const MatomoContext: React.Context<{}>;
 export interface InstanceProps {
