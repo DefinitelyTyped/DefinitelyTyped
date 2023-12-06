@@ -13,7 +13,7 @@ declare type LocalValueJSON = {
 declare class LocalValue<T> {
     constructor(type: string, value: T);
     type: string;
-    value: any;
+    value: T;
 
     static createStringValue(value: string): LocalValue<string>;
 
