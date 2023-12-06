@@ -12587,7 +12587,8 @@ declare namespace chrome.declarativeNetRequest {
     /** Disables and enables individual static rules in a Ruleset.
      * Changes to rules belonging to a disabled Ruleset will take effect the next time that it becomes enabled.
      *
-     * @return The `updateStaticRules` method either calls a provided callback if its finished or returnes as a `Promise` (MV3 only).
+     * @return The `updateStaticRules` method either calls a provided callback if its finished or returns as a `Promise` (MV3 only).
+     * @since Chrome 111
      */
     export function updateStaticRules(options: UpdateStaticRulesOptions): Promise<void>;
     export function updateStaticRules(options: UpdateStaticRulesOptions, callback?: () => void): void;
