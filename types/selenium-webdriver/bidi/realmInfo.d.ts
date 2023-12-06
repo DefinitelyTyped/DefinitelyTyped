@@ -1,4 +1,4 @@
-declare type RealmType = {
+interface IRealmType {
     AUDIO_WORKLET: "audio-worklet";
     DEDICATED_WORKER: "dedicated-worker";
     PAINT_WORKLET: "paint-worklet";
@@ -18,7 +18,9 @@ declare type RealmType = {
         | "worker"
         | "worklet"
         | null;
-};
+}
+
+const RealmType: IRealmType;
 
 declare class RealmInfo {
     constructor(realmId: string, origin: string, realmType: RealmType);
