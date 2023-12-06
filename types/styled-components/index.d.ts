@@ -208,10 +208,11 @@ export interface ThemedStyledFunction<
     ) => ThemedStyledFunction<C, T, Props, A>;
 }
 
-export type StyledFunction<C extends keyof React.JSX.IntrinsicElements | React.ComponentType<any>> = ThemedStyledFunction<
-    C,
-    any
->;
+export type StyledFunction<C extends keyof React.JSX.IntrinsicElements | React.ComponentType<any>> =
+    ThemedStyledFunction<
+        C,
+        any
+    >;
 
 type ThemedStyledComponentFactories<T extends object> = {
     [TTag in keyof React.JSX.IntrinsicElements]: ThemedStyledFunction<TTag, T>;
