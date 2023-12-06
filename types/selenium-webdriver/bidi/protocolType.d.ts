@@ -1,4 +1,4 @@
-declare type PrimitiveType = {
+interface IPrimitiveType {
     UNDEFINED: "undefined";
     NULL: "null";
     STRING: "string";
@@ -16,7 +16,9 @@ declare type PrimitiveType = {
         | "boolean"
         | "bigint"
         | null;
-};
+}
+
+const PrimitiveType: IPrimitiveType;
 
 declare type NonPrimitiveType = {
     ARRAY: "array";
