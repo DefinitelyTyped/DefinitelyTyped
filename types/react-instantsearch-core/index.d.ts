@@ -798,7 +798,7 @@ export interface DynamicWidgetsExposed {
      * on the result of facetOrdering. This means that any child needs
      * to have either the “attribute” or “attributes” prop.
      */
-    children?: React.ReactChild;
+    children?: React.ReactElement | number | string;
     /**
      * A function to transform the attributes to render,
      * or using a different source to determine the attributes to render.
