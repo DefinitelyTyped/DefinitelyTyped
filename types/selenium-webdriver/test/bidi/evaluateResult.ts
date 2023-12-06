@@ -23,6 +23,6 @@ function TestEvaluateResultException() {
         columnNumber: 12,
     });
     if (evaluateResultException.exceptionDetails.columnNumber !== 12) {
-        throw new error("EvaluateResultException failure");
+        throw new Error("EvaluateResultException failure");
     }
 }
